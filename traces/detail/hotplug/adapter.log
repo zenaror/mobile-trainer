@@ -1,0 +1,27 @@
+[f1200] HARNESS Mobile Adapter attached to the link port
+[f1368] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1368] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1370] gb.mobile DEBUG: >>> 11 End session
+[f1370] gb.mobile DEBUG: <<< 11 End session
+[f1370] gb.mobile DEBUG: 
+[f1494] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1494] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1496] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f1496] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1496] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1503] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f1503] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f1503] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1503] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1503] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1503] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+[f1507] gb.mobile DEBUG: >>> 11 End session
+[f1507] gb.mobile DEBUG: <<< 11 End session
+[f1507] gb.mobile DEBUG: 

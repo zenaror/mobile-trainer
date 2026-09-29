@@ -1,0 +1,9 @@
+# Scenario 'monkey_3': seeded pseudo-random button mashing (seed 3) on the fully set-up cartridge
+# (state left by 'tutorial_profile', fake Internet + synthetic web). Deterministic: the PRNG is inside the harness and the
+# resolved presses are recorded in monkey_3.txt. Purpose: broad coverage of code the guided scenarios do not reach.
+# Absence of coverage after this proves nothing; presence is evidence of executed code.
+wait 400                     # boot
+waitstable 60 max 600
+shot start
+monkey 24000 3 20        # 24000 frames, a random tap every 4+20 frames
+shot end

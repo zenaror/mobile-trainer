@@ -1,0 +1,200 @@
+# Scenario 'tutorial_profile': boot from the state left by 'register' (adapter registered, SRAM mid first-run).
+# Title screen -> first-run tutorial pages (about 80 A presses; every tutorial page is dismissed with A) ->
+# nickname keyboard ("プロフィール ニックネーム") -> mail menu -> send/receive mail over the fake Internet
+# (dial, PPP, DNS, POP3 STAT, disconnect) -> communication result screen.
+# (Tutorial pages can also be skipped with SELECT="おわる"; this scenario deliberately reads all of them.)
+wait 400                     # power-on logo + adapter check (adapter is registered so no registration flow)
+waitstable 60 max 600
+shot gb_logo_or_title
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+shot title_or_first_page
+tap A
+waitstable 60 max 600
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+tap A
+waitstable 30 max 200
+shot nickname_keyboard
+tap A x3                     # 3 x 'あ'
+wait 30
+shot nickname_typed
+tap START                    # jump to OK
+wait 30
+tap A                        # OK
+waitstable 60 max 300
+shot mail_menu
+tap A                        # "おくる/うけとる" (send/receive)
+waitstable 60 max 300
+shot send_receive_confirm
+tap A                        # "はい"
+waitstable 60 max 300
+shot password_saved
+tap A                        # "0でつうしんをはじめる"
+waitstable 60 max 300
+shot connecting
+waitstable 60 max 900
+shot ending_connection
+waitstable 60 max 900
+shot comm_finished_1
+waitstable 60 max 900
+shot comm_finished_2
+tap A
+waitstable 60 max 900
+shot comm_result
+tap A
+waitstable 60 max 900
+shot mail_server_status

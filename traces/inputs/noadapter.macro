@@ -1,0 +1,28 @@
+# Scenario 'noadapter': the cartridge on a Game Boy with NO Mobile Adapter attached to the link port.
+# Expected: "モバイルアダプタGBがささっていません" (Mobile Adapter GB is not plugged in) screen; the ROM re-tries the adapter
+# check whenever a button is pressed. Buttons are pressed here to exercise that path.
+wait 300                     # boot, adapter check fails
+waitstable 60 max 400
+shot no_adapter_screen
+gap 40
+tap A
+wait 60
+shot after_a
+tap B
+wait 60
+shot after_b
+tap START
+wait 60
+shot after_start
+tap SELECT
+wait 60
+shot after_select
+hold A 300
+wait 60
+shot after_hold_a
+tap UP
+tap DOWN
+tap LEFT
+tap RIGHT
+wait 200
+shot end

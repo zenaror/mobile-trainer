@@ -1,0 +1,82 @@
+# Scenario 'register_neterr': same registration walk as 'register' but the Mobile Adapter has no Internet
+# (sockets refused, --net stub). The ROM writes the registration to the adapter EEPROM, dials #9677, and the
+# DNS/POP3 check fails -> communication error screen 24-000 -> 'initial registration ended with an error'.
+# Leaves an incomplete registration in SRAM (used by 'resume_registration').
+# All screen names are from reading the Japanese screens (screenshots), not from the code.
+wait 400                     # boot: adapter check ("モバイルアダプタGBをチェックしています")
+gap 20
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+shot login_id_keypad
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+shot mail_intro
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+shot password_intro
+tap A
+waitstable 40 max 100
+# password "aZ01": a, Z, 0, 1
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+shot password_confirm
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot password_save_confirm
+tap A                        # "はい" (save password)
+waitstable 60 max 600
+shot register_summary
+tap A                        # "はい"
+waitstable 60 max 600
+shot connect_confirm
+tap A                        # "はい": dial DION (#9677), PPP, DNS, POP3 login check
+wait 600
+waitstable 60 max 900
+shot comm_error_24_000
+tap A                        # "もどる"
+waitstable 60 max 900
+shot registration_failed_1
+tap A
+waitstable 60 max 900
+shot after_failed_1
+tap A
+waitstable 60 max 900
+shot after_failed_2
+tap A
+waitstable 60 max 900
+shot after_failed_3

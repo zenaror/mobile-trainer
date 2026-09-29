@@ -1,0 +1,53 @@
+# recorded by mgba_trace --macro homepage.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2436 shot homepage_tutorial
+2436 SELECT
+2440 -
+3370 shot connect_prompt
+3370 A
+3374 -
+4304 A
+4308 -
+4409 A
+4413 -
+4945 A
+4949 -
+6579 shot page_index
+6579 A
+6583 -
+6913 shot after_follow_1
+7213 DOWN
+7217 -
+7307 shot cursor_down
+7307 A
+7311 -
+7941 shot page_a
+7941 START
+7945 -
+8035 shot browser_menu_start
+8035 B
+8039 -
+8129 SELECT
+8133 -
+8223 shot browser_menu_select
+8223 B
+8227 -
+8317 B
+8321 -
+8651 shot after_back
+8651 B
+8655 -
+8985 B
+8989 -
+9319 shot leaving_browser
+9319 B
+9323 -
+9653 shot end
+# last scripted frame: 9653

@@ -1,0 +1,58 @@
+# recorded by mgba_trace --macro help.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 DOWN
+1732 -
+1792 shot help_hover
+1792 A
+1796 -
+2426 shot help_menu
+2426 A
+2430 -
+2669 A
+2673 -
+3303 A
+3307 -
+3937 shot tutorial_page
+3937 B
+3941 -
+4101 B
+4105 -
+4735 shot help_menu_again
+4735 DOWN
+4739 -
+4809 A
+4813 -
+5443 shot entry_2
+5443 A
+5447 -
+6077 A
+6081 -
+6711 shot entry_2b
+6711 B
+6715 -
+7345 B
+7349 -
+7979 DOWN
+7983 -
+8053 A
+8057 -
+8687 shot entry_3
+8687 B
+8691 -
+9321 DOWN
+9325 -
+9395 A
+9399 -
+10029 shot entry_4
+10029 A
+10033 -
+10663 shot entry_4b
+10663 B
+10667 -
+11297 B
+11301 -
+11931 shot back_to_top
+# last scripted frame: 11931
