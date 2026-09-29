@@ -5,6 +5,8 @@ Evidence vocabulary: **CONFIRMED** = demonstrated by evidence cited here (exact 
 with CPU addresses (bank 00 = 0000-3FFF, banks 01-7F = 4000-7FFF; file offset = bank*0x4000 + (addr & 0x3FFF)).
 Names in this document are *descriptions*, never symbol names: unknown code stays `Function_<bank>_<addr>`.
 
+Sections 0-8 describe the first round (18 scenarios); **section 9 onwards documents the second round (41 scenarios, 72 224 executed ROM instruction starts, hidden inputs, new harness features)**.
+
 Everything below was produced by `tools/trace/run_trace.py` from `baserom.gbc`
 (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); numbers come from `traces/summary.md`,
 `traces/*` and `analysis/coverage_union.tsv`.
@@ -45,6 +47,9 @@ tools/trace/run_trace.py --from-macro       # re-run the readable .macro scripts
 tools/trace/run_trace.py --verify-determinism register_neterr   # run twice (macro, then replay of the recording), diff every output
 tools/trace/run_trace.py --list
 tools/trace/merge_coverage.py               # only the union + validation step
+tools/trace/growth.py                       # traces/growth.md (coverage growth per scenario)
+tools/trace/frontier.py --top 40            # ranked unexecuted-code gates
+tools/apply_coverage.py                     # analysis/coverage_report.md (union vs config/regions; --apply on a copy of config)
 python3 tools/trace/contact_sheet.py out.png .cache/trace/shots/<scenario>/*.png   # look at the screenshots of a run
 ```
 
@@ -243,7 +248,7 @@ Japanese screens, not derived from code):
 | `help` | ヘルプ entries |
 | `monkey_1..3`, `monkey_blank` | seeded random button mashing (24 000-30 000 frames) from the set-up cartridge / from a blank one |
 
-Not reached (be honest about it): anything that needs a *successful* answer to the `daa_gb_*.cgi`/`/cgb/utility` requests, real mail
+Not reached in the first round (the second round, section 9, did reach real SMTP/POP3 exchanges, mailbox/address-book use, bookmarks, error screens and three hidden inputs; the CGI success format is still unknown): anything that needs a *successful* answer to the `daa_gb_*.cgi`/`/cgb/utility` requests, real mail
 delivery/reception (the fake POP3 always reports an empty mailbox; SMTP is only served, the ROM never got to send in these runs),
 Pokemon Crystal-style data exchange with other cartridges, the `mobile_homepage` pages of the original site beyond the synthetic ones,
 audio, and any path that depends on the real clock/RTC. Coverage numbers below therefore only bound what was executed.
@@ -338,7 +343,7 @@ mis-decode as code (this matters for `gen_asm`).
 
 ## 7. Limitations and things that can mislead
 
-* Coverage is evidence of code; **absence proves nothing** (only 18 scripted/monkey scenarios; the fake Internet is minimal; CGI success paths, mail delivery, other-player
+* Coverage is evidence of code; **absence proves nothing** (only 41 scripted/monkey scenarios, see section 9; the fake Internet is minimal; CGI success paths, mail delivery, other-player
   features and timeouts are unexplored).
 * mGBA's hardware model is authoritative but not perfect (e.g. timing of serial/timer interrupts relative to the CPU is emulated at the M-cycle level; libmobile's adapter
   is an *implementation* of the protocol built by the community, not the original firmware; its answers (e.g. the idle byte `D2`, empty EEPROM = "unregistered") define what
@@ -357,3 +362,151 @@ mis-decode as code (this matters for `gen_asm`).
 * ~~Watch writes to `C000-CFFF`/`FF80-FFFF` to find the routine that installs the interrupt thunks and the OAM-DMA code~~ (done statically by the verifier: `00:04A0`, `00:059F`, `48:440A`, see F1/F2); a write-watch is still useful for the other self-modified RAM code (`FFA8` thunk, `CBF4 = jp $0E93` installer).
 * Add scenarios that need a real HTTP/CGI answer once the request/response formats are known (Mobile_Trainer_Web_Pages.7z may help).
 * Feed `dataaccess.tsv`, `callgraph.tsv` (`call`/`jphl` targets) and `coverage_union.tsv` into `config/regions` and `config/symbols` generation.
+
+---------------------------------------------------------------------------------------------------------------
+
+## 9. Second round: raising coverage (scenarios, harness features, findings)
+
+Sections 0-8 describe the first 18 scenarios (43 265 executed ROM instruction starts, 44 banks). The second round adds **23 scenarios** (table
+below) and reaches **72 224 executed ROM instruction starts in 47 banks** (`analysis/coverage_union.tsv`, `traces/growth.md` for every step). Measured
+against the current `config/regions` (221 762 code bytes; the classifiers keep changing that number): executed instruction bytes 84 035 -> 139 091;
+code bytes in regions whose every instruction start ran 89 535 -> 104 911. The first 18 scenarios were re-run with the extended tracer and are
+**byte-identical** to the earlier commit (every `coverage_/mbc_writes_/serial_*.tsv`, `detail/*`, `inputs/*.txt`), and a second full run reproduced
+the union exactly. **Golden rule unchanged: coverage proves code runs; absence proves nothing** (see 9.5 for why part of the
+remainder is probably dead code, PROBABLE).
+
+### 9.0 Independent verification of the second round (adversarial review)
+
+Re-derived, not copied from the round's own prose:
+
+* **Clean re-runs (CONFIRMED).** Two full runs of all 41 scenarios in scratch copies of the repository with an empty `.cache` (libmgba rebuilt): (a) replay of the recorded `traces/inputs/*.txt`, (b) `run_trace.py --from-macro` (macros re-interpreted, `.txt` regenerated). In both, every file under `traces/` (coverage_, mbc_writes_, serial_, `detail/*`, `inputs/*.txt`, `summary.md`, `coverage_validation.txt`), `analysis/coverage_union.tsv` and `analysis/ram_code_dump.bin` is byte-identical to the committed copy. `make_campaigns.py` and `make_fixtures.py` regenerate the committed macros, mails and BMPs byte for byte. The 18 first-round scenarios are identical to git `HEAD`.
+* **Determinism (CONFIRMED).** `--verify-determinism` (macro run vs replay of the recording, chains included) was additionally run for `mail_send`, `mail_receive`, `mail_inbox`, `addressbook_full`, `browser_bookmarks`, `browser_pages`, `mail_server_full`, `monkey_camp_tut`, `monkey_camp_reg`, `monkey_camp_reg2` (2-9 chained scenarios and 52-330 output files each): all identical. The other 13 new scenarios were checked by the round itself with the same option (not repeated here), and all 23 are covered by the two clean re-runs above.
+* **Union (CONFIRMED).** Recomputed from the 41 `coverage_*.tsv`: 72 238 rows (72 224 ROM + 14 RAM), identical counts and scenario counts; the first-round union (43 265 ROM rows) is a subset; the banks added are `0F`, `24`, `50` (44 -> 47). All 72 224 ROM rows re-decoded with `tools/sm83.py`: lengths equal, no executed address inside another instruction, none crossing a bank window. `traces/growth.md` (starts, new, cumulative, banks, executed instruction bytes for each of the 41 rows) was recomputed independently; the code-bytes column was re-checked for the last row against the current `config/regions`.
+* **Screens (CONFIRMED by re-reading the screenshots):** every error number listed in 9.3 item 5, the 9A-111/9A-100/registration results of 9.4, the four-entry versus five-entry settings menu, the two-button versus three-button mail-server menu, and the hidden wizard step. Static checks of the three hidden comparisons (`68:4FC0`, `65:42B3/42D3`, `7C:7D06`) and of the dispatcher entry `7C:7E08 -> 67:4000` agree with the ROM bytes.
+
+Corrections made in this document by the review (each is also marked where it stood): the too-large-page dialog was never displayed (9.3 item 7, retracted); the page sizes were 2 015 and 4 861 bytes as served; the BMP statement is now the static one; the `~760 instructions` figure for the 401 case is not reproducible from the committed traces; 10-000 was seen only for the browser unplug; the "silently repaired" reading of the bank-0 page test was wrong (9.4); the help-entry unlocking is only a hypothesis; the pointer to "gates at the end of D4" was wrong (they come from `frontier.py`); the candidate size of the (C) list is 13 585 bytes.
+
+### 9.1 What was added to the harness (`tools/trace/mgba_trace.c`, `run_trace.py`)
+
+All additions are opt-in: a scenario that does not use them behaves exactly as before.
+
+| feature | syntax | notes |
+|---|---|---|
+| runtime directives (macro and frame script) | `unplug`, `plug`, `reset`, `wipe`, `net KEY=VAL`, `sramfill`/`sram`/`cfg`/`cfgfill` (9.4) | recorded into `inputs/<s>.txt` (`<frame> reset` ...) so a replay reproduces them. `reset` = power cycle (SRAM and adapter EEPROM image kept, libmobile session re-created by `GBSIOReset`); `wipe` = factory reset (SRAM 0xFF, EEPROM image zero, then `reset`); `unplug`/`plug` detach/attach the adapter driver. |
+| fake Internet options | `net KEY=VAL` or scenarios.tsv `net` column `fake:key=val,...` | `latency=N` (server bytes readable N frames after the ROM's send), `pop_fail=`, `smtp_fail=`, `http_status=`, `http_missing=`, `http_trunc=`, `http_nolen=`, `http_redirect=`, `dns=nx/drop`, `tcp=refuse/reset`, `cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY`, `trace_recv=`; full list in the comment above the fake net in `mgba_trace.c`. |
+| POP3 mailbox | `--mail FILE` (scenarios.tsv `mail=a+b` -> `traces/net/mail_a.eml`) | USER/PASS/STAT/LIST/UIDL/TOP/RETR/DELE/QUIT; message numbers fixed for the session (RFC 1939), DELE applies at QUIT. Empty mailbox keeps the legacy answers. |
+| SMTP | port 25 **and 587** | see 9.3 (libmobile rewrites the port). |
+| HTTP | `--web-map`, `--web-hdr`, `--web-status`, scenarios.tsv `web=all` | own-name files of `traces/web/` (`*/a.html`...), BMP images, extra headers/status per path. |
+| monkey profiles | `monkey N SEED GAP [mix|a|nav|kb|menu|combo]` | `mix` is the original pool (old scenarios unchanged). |
+| debugging aids | `--watch ADDR`, `--sram-poke B:ADDR=VV`, `--cfg-poke OFF=VV` | `--watch` logs CPU writes to an address (used to find the SMTP state variable `C709`). |
+| scenarios.tsv 7th column | `lite` or raw harness args | `lite` publishes coverage, mbc_writes and the small detail files only (no serial/callgraph/hwregs/mbc_seq/irq). Used for `boot_combos` and the monkey campaigns. |
+| the macro runaway guard | now `--frames` if given, else 1.2 M frames | the old guard (`frames*100` = 60 000) silently cut long macros. |
+
+Helper tools (all deterministic): `tools/trace/make_fixtures.py` (mails `traces/net/*.eml`, 1 bpp BMPs `traces/web/img_*.bmp`),
+`tools/trace/make_campaigns.py` (macro text of the monkey campaigns), `tools/trace/growth.py` (-> `traces/growth.md`),
+`tools/trace/frontier.py` (ranked "gates": executed branches/calls whose unexecuted side opens the most code), `tools/apply_coverage.py` (section 10).
+
+### 9.2 New scenarios
+
+Macros: `traces/inputs/<name>.macro` (comments explain each step; screen names are my reading of screenshots). "new" = new instruction starts when the
+scenario is added in table order (`traces/growth.md`).
+
+| scenario | from | reaches |
+|---|---|---|
+| `mail_send` | mail_compose | send/receive with the saved mail in the outbox: dial, PPP, DNS, **SMTP** HELO/MAIL/RCPT/DATA/QUIT, then POP3 (empty), result screens |
+| `mail_receive` | mail_send | 5 messages on the POP3 server (Japanese ISO-2022-JP, ASCII, game headers, multipart+base64, 40 lines): TOP for all, RETR+DELE for four |
+| `mail_inbox` | mail_receive | mailbox: read all mails (limit dialog "もじすうのオーバー"), save sender to the address book (SELECT), reply (saved), delete a mail |
+| `addressbook_full` | mail_inbox | address book: view/edit/new (keyboard cursor recipe), address without `@` is accepted, all six slots, delete |
+| `browser_bookmarks` | addressbook_full | browser: full 14-page tutorial, start prompt, page list (empty), connect, save the page twice, go to a bookmark, delete one |
+| `browser_pages` | browser_bookmarks | richer site (`traces/web`): a/b/c/d pages, scrolling, image requests, 14 link kinds (404, `../di/*.htm` and `file://di/*.htm`, bmp URLs, oversized page, other host), 10-minute warning, menu END |
+| `browser_errors` | browser_pages | HTTP 500, truncated, no Content-Length, 302, DNS nx/timeout, TCP refuse/reset, adapter unplugged mid-load and re-plugged |
+| `mail_errors` | mail_inbox | one power cycle per fault: SMTP fail at 6 stages, POP3 fail at 7 commands, DNS, TCP, unplug |
+| `mail_server_full` | mail_inbox | server mail management: check-then-delete (delete/skip/end per mail), delete-all (refused, accepted) |
+| `mail_server_hidden` | mail_inbox | **hidden third button** "かんぜんにけす" (SELECT+LEFT, 9.3) |
+| `mail_timeout` | mail_send | a mail the ROM cannot finish: 5-minute timeout, error 26-000 |
+| `settings_cgi` | tutorial_profile | モバイルせってい against 8 CGI answers (9.3) |
+| `settings_phone` | tutorial_profile | **hidden fifth entry** 電話番号の変更 (B+SELECT+RIGHT, 9.3): auto/manual number, pager number, comment, choose default number |
+| `register_hidden` | - | initial registration with B+SELECT+RIGHT: hidden phone-number-method step |
+| `register_errors` | - | registration under faults (`wipe` per attempt), password mismatch, B on wizard pages |
+| `boot_states` | tutorial_profile | boot with damaged save RAM / adapter image (9.4) |
+| `boot_combos` | tutorial_profile | all 255 button subsets held at power-on: **nothing new** (negative result: no boot-time hidden mode; the hidden inputs need a held combination at a menu, 9.3) |
+| `monkey_camp_reg/tut/rich/blank/hid/reg2` | see `scenarios.tsv` | 24-36 segments each of seeded random input (profiles, gaps, one fault per segment, some with unplug) from six different SRAM/adapter start states |
+
+SRAM start states used (chained through `.cache/trace/state/<s>.sav/.cfg`): factory-fresh (0xFF), registered with pending tutorial (`register`), set-up
+(`tutorial_profile`), outbox mail (`mail_compose`), mailbox with 4-5 mails (`mail_receive`), address book with entries and a saved reply (`mail_inbox`),
+six address entries (`addressbook_full`), bookmarks (`browser_bookmarks`), changed dial numbers (`settings_phone`), registered through the hidden wizard
+(`register_hidden`). `boot_states` (9.4) adds corrupted-SRAM and corrupted-EEPROM starts.
+
+### 9.3 Findings (each is evidence read from the traces of this round; names are descriptions, not symbols)
+
+1. **Hidden inputs = three `hJoyHeld` comparisons (CONFIRMED by execution).** `hJoyHeld` (`FFA4`) uses the rP1 layout (A=$01 B=$02 SELECT=$04 START=$08
+   RIGHT=$10 LEFT=$20 UP=$40 DOWN=$80). A byte scan for `ldh a,[FFA4/A5/A6]` followed by `xor/cp/and imm8` finds exactly three multi-button tests outside the
+   single-key ones:
+   * `68:4FC0` (`and $16 ; cp $16`, B+SELECT+RIGHT held when the menu モバイルせってい starts, i.e. `tap A+B+SELECT+RIGHT` on the title entry): the menu gets a
+     fifth entry **電話番号の変更** (change telephone number; state 5 of the dispatcher `7C:7D5D`, code `67:4000`...: 2 275 new instruction starts, `settings_phone`).
+   * `65:42B3` / `65:42D3` (same mask, wizard page "初期登録開始"): `[C28C]=1`, jump to `65:4455`; visible effect: after the mail address the wizard asks
+     "電話番号入力方法選択" (自動/手動) (`register_hidden`).
+   * `7C:7D06` (`xor $24`: exactly SELECT+LEFT, after the entry メールサーバ of the mail menu was chosen; A must already be released): `22:4000` instead of `23:4000`,
+     and the menu has a third button **かんぜんにけす** (`mail_server_hidden`, 929 new starts).
+   The 255-combination power-on probe (`boot_combos`) reached no instruction that the earlier scenarios had not (0 new starts). Re-checked by the verifier: the byte scan (`ldh a,[FFA4/A5/A6]` or `ld a,[FFxx]` followed within eight instructions by `and/xor/cp/or imm8`) has exactly these three multi-button hits besides the single-key tests, the direction-group masks `$F0`/`$C0`, and `and $FF` at `2E:4518` (any button held). Limits: a joypad byte copied to another variable before it is tested, or a test through a pointer, is not found by this scan; the ROM's polling routine `7D:7B7C-7BCB` contains no reset combination. So "exactly three" holds for direct tests only (PROBABLE that there are no others).
+2. **SMTP.** The ROM connects to port 25; libmobile's SMTP interceptor rewrites it to 587 (`<SMTP> Replacing port 25 to 587!` in `detail/mail_send/adapter.log`). Transcript sent by
+   the ROM: `HELO <login id>`, `MAIL FROM:<id@sub.dion.ne.jp>`, `RCPT TO:<address typed in the mail>` (not validated: `AAAA` is sent), `DATA`, headers `MIME-Version`, `From: addr (=?ISO-2022-JP?B?..?=)`, `To`,
+   `Subject`, `X-Game-title: MOBILE TRAINER`, `X-Game-code: CGB-B9AJ-00`, `Content-Type: text/plain; charset=iso-2022-jp`, blank line, ISO-2022-JP body, `.`, then `QUIT`.
+3. **A server that answers within the same serial transfer hangs the ROM (PROBABLE cause).** With immediate answers the ROM stayed in SMTP state `C709`=$16 and polled forever after the
+   final `250` (write watch on `C709`); with `latency=2` (answer readable two frames after the send, like a real server) the whole exchange completes. The 60-frame `15 Transfer data` polls
+   in the adapter log are the ROM waiting for more data. Old scenarios (no latency) never exercised a two-step SMTP exchange.
+4. **POP3 behaviour.** `USER`, `PASS`, `STAT`, then `TOP n 0` for every message (numbers 1..N fixed until `QUIT`), then per accepted message `RETR n` + `DELE n`, finally `QUIT`.
+   A message with `X-Game-*` headers is only `TOP`ed (no `RETR`) in `mail_receive` (`traces/detail/mail_receive/adapter.log`). A server that renumbers after `DELE` produced error 31-004
+   (a wrong fake, not a ROM property). A message without From/Date leaves the ROM waiting until the 5-minute communication timeout (`mail_timeout`, error 26-000).
+5. **Error screens seen** (number, cause in the harness; the numbers and the cause per attempt were re-read by the verifier from the screenshots of `mail_errors`, `browser_errors`, `settings_cgi`, `register_errors` and `boot_states`): 10-000 adapter removed while a browser page was loading (`browser_errors`; the same unplug during the PPP phase of a mail session, `mail_errors` `unplug_ppp`, shows the normal result screen "つうしんがしゅうりょうしました" instead); 20-000 `WWW-Authenticate` with status 200; 21-000 SMTP greeting refused / SMTP HELO 5xx;
+   24-000 DNS NXDOMAIN, DNS timeout, TCP refused, TCP reset (the ROM does not distinguish them); 26-000 5-minute timeout; 30-550/553/554 SMTP RCPT/MAIL/DATA-or-end refused;
+   31-002 POP3 greeting `-ERR`; 31-003 `-ERR` at USER/PASS; 31-004 `-ERR` at TOP, 31-005 at STAT (RETR/DELE `-ERR`: no error screen, sessions ended normally); 32-401/32-404/32-500/32-302 HTTP status (a 302 is
+   not followed); 33-nnn `Gb-Status: nnn` header (three digits shown); 40-???? a 200 answer to a `.cgi` request without a usable body. Mapping per attempt: screenshots of `mail_errors` (`smtp_*`, `pop_*`), `browser_errors`, `settings_cgi`, `register_errors`.
+6. **HTTP response headers the ROM parses** (`75:72DE-7350`, text bytes): `Gb-Status:`, `Gb-Auth-ID:`, `WWW-Authenticate: GB00 name="`, `Content-Type: application/x-cgb`, `URI-header:`, `Location:`. A 401 with a
+   GB00 challenge ends in 32-401 without a second request (`settings_cgi`, screenshot `auth401_pw_change`; all eight answer variants together add 784 bank-75 starts that no other scenario executes, the share of the 401 case alone was measured during development and is not reproducible from the committed traces); the successful format of `daa_gb_*.cgi` is still unknown (HYPOTHESIS: needs a correct `Gb-Status`/x-cgb body pair).
+   For usage-time and usage-fee the ROM shows the raw response body as text in the browser view (`0000` seen).
+7. **Browser.** Pages: a 2 015-byte page (`b.html` as served, cp932, LF) renders and scrolls, a 4 861-byte page (`big.html`) is shown partly (screenshot `link11`, lines 4-6 of the page visible). Retracted (verifier): the earlier statement that the 4 851-byte page "ends in the too-large dialog" ホームページがおおきすぎて すべてひょうじ できませんでした: that message (`72:52EA`) was never read as data in any scenario (`traces/detail/*/dataaccess.tsv`), so the dialog was not shown; the page-size limit is not known (only that 4 861 bytes did not reach it). `<img>` triggers an automatic `GET` of the image;
+   the BMP header validator `51:70F4-7150` (executed in `browser_pages`) rejects an image whose "colours used" field (header bytes `2E-31`, tested at `51:7146-7150`) is not zero (CONFIRMED by disassembly; a development run with the field set to 2 did not enter the loader `51:7177`, 76 vs 419 new bank-51 starts, not committed), `../di/*.htm` and `file://di/*.htm` links are **requested from the server** (404 -> 32-404): the ROM's
+   built-in dictionary is reached from ヘルプ -> モバイルじてん, not from page links. A 10-minute warning dialog ("通信時間がまもなく 10ぶんに なります このまま つづけますか?") appears after ten minutes of connection, and the ROM ends the
+   session after five minutes without progress. The ページリスト has its own 8-page tutorial and stores the page title and URL.
+8. **Help** entries show "????" in the `help` scenario (screenshots `help_menu_again`, `entry_2`, `entry_3`: cartridge that has not used the mail/browser features yet). That they unlock after the feature has been used is HYPOTHESIS (no scenario opened the help menu after using the features).
+9. **Server-mail management.** Buttons: かくにんしてからけす (TOP each mail, per-mail icon bar delete/next/end), じどうでぜんぶけす, (hidden) かんぜんにけす; result screen counts checked/deleted/remaining.
+
+### 9.4 SRAM / adapter start states (`boot_states`, CONFIRMED by the screenshots of the run)
+
+`boot_states` damages the save RAM / adapter image with the `sram`, `sramfill`, `cfg`, `cfgfill` directives and power-cycles (attempts are cumulative). Observed boot decisions:
+
+| damage | result |
+|---|---|
+| nothing (control), bank 1 `A100` or `B010` or `A9F0`, bank 2 `A010`, bank 3 `A000` | normal title / menu (the change is not noticed or silently repaired) |
+| bank 0 page 0 (`A010/A011`) | title as normal; the damage stays in SRAM (see the correction below) |
+| bank 0 page 1 (`B010`) after page 0 was damaged (cumulative), both pages, bank 1 `A690` | error **9A-111** "カートリッジのセーブデータエラーです。データを初期化します" |
+| adapter image byte 0 (`'M'`->`'X'`) | error **9A-100** "モバイルアダプタの登録情報エラーです。データを初期化します" |
+| adapter image sum bytes BE/BF zeroed, `cfgfill 00`, `cfgfill FF`, `sramfill 00`, `sramfill FF` | initial registration wizard ("初期登録開始") |
+
+(the two error numbers were read from the screenshots; the mapping page/bank -> screen is per attempt as listed above.)
+
+**Correction by the verifier (probe re-run on a scratch copy, not committed):** the attempts of `boot_states` are cumulative, so the row "page 1 -> 9A-111" was really "page 1 damaged while page 0 was still damaged". A probe from the `tutorial_profile` state that damages only `B010/B011` (page 1) reaches the title and the main menu without an error; damaging `A010/A011` (page 0) afterwards, on that same cartridge, then gives 9A-111. Together with the cumulative run this means (CONFIRMED by these screenshots): bank 0 save data is accepted while at least one of the two pages is intact, 9A-111 appears when both are damaged, and a single damaged page is **not** repaired in SRAM by the boot (a repaired page 0 or page 1 would have made the second damage survivable). The earlier reading "silently repaired from page 1 (22:4FA9 repair logic)" is retracted; `docs/research/sram_layout.md` describes `22:4FA9-4FDE` as a repair routine that copies the valid page over the other one, which the observation does not support at boot (that routine may run at another time; not checked). `boot_states` added 69 new instruction starts (banks 22, 48, 4E, 65, 68).
+
+### 9.5 What is still not executed, and what the map says about it (PROBABLE unless stated)
+
+`analysis/coverage_report.md` lists (D4) the largest regions with unexecuted instructions; `tools/trace/frontier.py` ranks the gates. After 41 scenarios about 67 000 instruction bytes of code regions never ran.
+Largest groups and the evidence for their status:
+* **Banks 19 and 1B (3 600 bytes): debug/sound-test screens without any caller.** Strings `＝＝ ＤＥＢＵＧ ＭＯＤＥ ＝＝ ↑↓：えらぶ ←→：カーソル` (19:447C), `【サインアップデバッグフラグ】` (19:4914), `Ａ：エラー Ｂ＋↑↓：しゅるい Ｓｅｌ：ＥＮＤ` (19:4C1F), `Ａ：ＭＵＳＩＣ Ｂ：ＳＯＵＮＤ Ｓｔａ：ＳＴＯＰ` (1B:4314). A byte scan finds **no**
+  `call $06D1` far pointer and no `ld a,$19/$1B ; ... ` bank switch that enters them from any other bank (the only `3E 19/1B` hits inside those banks pass their own bank number to `48:40A9`); PROBABLE: a debug build's entry that the retail ROM never calls.
+* **Bank 7F:51EE-5CB8 and 5CFF-61E8 (3 800 bytes)** next to the strings "サンプルデータですからね～", "任天堂ホームページ", "GAMEFREAK HOME", "sample2" (7F:4DF2-4EE8): sample/dummy-data loaders; not entered by any trace.
+* **Bank 23:58E0-5FA2, 5FD7-669A, 669F-6D61**: three near-identical 1 730-byte routines (46 / 206 / 206 differing bytes between the pairs), seeded only by raw `CD D1 06` sites, in the mail-server code; role unknown (HYPOTHESIS: one variant per something the fake never selects).
+* **0F:4D37-5DAE (2 900 bytes)**: parts of the mail library (multipart/attachment writing and parsing beyond what `mail_send/receive` used).
+* Other large partly executed regions (`analysis/coverage_report.md` D4: `2C:5A25-5E51` never entered, `51:740D-7900` 618 of 822 instructions unexecuted, `24:4BCD-53FE`, `29:5090-5376`) and the ranked gates (`python3 tools/trace/frontier.py --top 40`, printed, not stored; after this round the top gate is `65:44EA`, the manual phone-number branch of the hidden wizard step, 1 025 bytes).
+Not reached at all: anything that needs a real CGI success response, other players/cartridges, audio-only paths, the real clock.
+
+## 10. `tools/apply_coverage.py` (coverage vs the region map)
+
+Reads `analysis/coverage_union.tsv` and `<config>/regions/bank*.tsv` (+ conventions/xrefs of the same dir, so the inline bytes after `call $06D1` are not instruction starts) and writes
+`analysis/coverage_report.md`: (A) per-bank counts, (B) executed starts outside code regions or off instruction boundaries of their region, (C) not-CONFIRMED code regions whose every instruction start ran
+(candidates), (D) informational lists (CONFIRMED regions with unexecuted instructions, ramcode regions, largest never-executed regions), (E) executed WRAM/HRAM rows that no `ramcode` region explains (the far-call thunk `FFA8`, the interrupt
+trampolines `CBF1-CBFA`, `C133`) with their `config/ram` symbol, and rows of any other memory kind. `--apply` rewrites only the status column (-> CONFIRMED) and appends
+` [executed in N scenarios]` (N = fewest scenarios in which any single instruction of the region ran; the scenarios are chained and not independent evidence) of the (C) regions, in the copy given with `--config-dir DIR`; `--in-place` is required for the repository's own
+`config/`. A region is promoted only if it is `code`, not CONFIRMED yet, has no scan trouble, has **every** instruction start executed and no executed address inside it off its instruction boundaries (the last case is listed as withheld).
+Verifier tests (all passed): with one instruction start removed from each of the 309 candidates (first, last or middle start, three runs) no candidate remains; a synthetic executed start in a data region and one inside an instruction are reported in section B; a synthetic off-boundary start inside a candidate withholds it; `--apply` on a copy changes exactly the 309 status/note fields and nothing else, a second `--apply` changes nothing, and refuses the repository config given as a relative path or through a symlink. Dry-run result on the current config: **0 executed starts outside code regions** (the earlier hole 7E:7DB0-7E34 was reclassified by the classifiers meanwhile: it was listed as 62 starts in 5 runs
+inside an UNCLASSIFIED data region in the intermediate union), **309 candidate regions (13 585 bytes)**; applying them to a copy of the config keeps `gen_asm.py verify` at `RESULT: IDENTICAL` and `conventions_check` clean.

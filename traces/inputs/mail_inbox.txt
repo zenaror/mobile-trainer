@@ -1,0 +1,155 @@
+# recorded by mgba_trace --macro mail_inbox.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 DOWN
+2366 -
+2396 DOWN
+2400 -
+2460 A
+2464 -
+3094 shot list
+3094 A
+3098 -
+3188 A
+3192 -
+3303 shot m1_sender
+3303 SELECT
+3307 -
+3441 shot m1_save_place
+3441 A
+3445 -
+3638 shot m1_saved_1
+3638 A
+3642 -
+3771 shot m1_saved_2
+3771 B
+3775 -
+3892 shot m1_saved_3
+3892 A
+3896 -
+4026 shot m1_body
+4026 A
+4030 -
+4660 shot m1_list
+4660 DOWN
+4664 -
+4724 A
+4728 -
+4818 A
+4822 -
+4937 shot m2_sender
+4937 A
+4941 -
+5070 shot m2_body
+5070 A
+5074 -
+5704 shot m2_list
+5704 DOWN
+5708 -
+5768 A
+5772 -
+5862 A
+5866 -
+5977 shot m3_sender
+5977 A
+5981 -
+6110 A
+6114 -
+6744 shot m3_list
+6744 DOWN
+6748 -
+6808 A
+6812 -
+6902 A
+6906 -
+7536 shot m4_limit_dialog
+7536 A
+7540 -
+7656 shot m4_sender
+7656 A
+7660 -
+7793 shot m4_body
+7793 A
+7797 -
+8427 shot m4_list
+8427 UP
+8431 -
+8461 UP
+8465 -
+8525 A
+8529 -
+8619 RIGHT
+8623 -
+8653 RIGHT
+8657 -
+8727 A
+8731 -
+9361 shot del_confirm
+9361 A
+9365 -
+9995 shot del_cancelled
+9995 A
+9999 -
+10629 LEFT
+10633 -
+10703 shot del_yes
+10703 A
+10707 -
+11337 shot del_done
+11337 UP
+11341 -
+11401 A
+11405 -
+11495 RIGHT
+11499 -
+11559 A
+11563 -
+12193 shot reply_address
+12193 START
+12197 -
+12267 A
+12271 -
+12901 shot reply_title
+12901 A
+12905 -
+12935 A
+12939 -
+12969 A
+12973 -
+13003 START
+13007 -
+13077 A
+13081 -
+13711 shot reply_body_intro
+13711 A
+13715 -
+14345 A
+14349 -
+14379 A
+14383 -
+14413 A
+14417 -
+14447 A
+14451 -
+14481 START
+14485 -
+14555 A
+14559 -
+15189 shot reply_save_menu
+15189 A
+15193 -
+15823 shot reply_save_confirm
+15823 A
+15827 -
+16757 shot reply_saved
+16757 A
+16761 -
+17391 shot list_again
+17391 B
+17395 -
+18025 shot mail_menu
+# last scripted frame: 18025

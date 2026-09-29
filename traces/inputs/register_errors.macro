@@ -1,0 +1,762 @@
+# Scenario 'register_errors': initial registration under faults. Every attempt starts with `wipe` (fresh cartridge: save RAM 0xFF, adapter
+# configuration blank, then a power cycle) and walks the wizard of 'register' up to the connection check ("通信開始確認" -> はい), with one fault
+# set through `net` first: DNS NXDOMAIN, DNS timeout, TCP refused, TCP reset, POP3 failing at connect / USER / PASS / STAT, adapter unplugged
+# during the dial. Extra attempts: the second password entry differs from the first (mismatch message, then the correct one), and B (もどる)
+# pressed on the wizard pages and on the confirmation. The last attempt has no fault and finishes the registration (to leave a
+# registered state). Fake Internet with latency 2 frames. Screen names = my reading of the screenshots.
+# --- attempt dns_nx
+wipe
+wait 400
+gap 20
+net dns=nx
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot dns_nx_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot dns_nx_result
+tap A
+waitstable 60 max 900
+shot dns_nx_after
+tap A
+waitstable 60 max 900
+shot dns_nx_after2
+net dns=ok
+# --- attempt dns_drop
+wipe
+wait 400
+gap 20
+net dns=drop
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot dns_drop_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot dns_drop_result
+tap A
+waitstable 60 max 900
+shot dns_drop_after
+tap A
+waitstable 60 max 900
+shot dns_drop_after2
+net dns=ok
+# --- attempt tcp_refuse
+wipe
+wait 400
+gap 20
+net tcp=refuse
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot tcp_refuse_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot tcp_refuse_result
+tap A
+waitstable 60 max 900
+shot tcp_refuse_after
+tap A
+waitstable 60 max 900
+shot tcp_refuse_after2
+net tcp=ok
+# --- attempt tcp_reset
+wipe
+wait 400
+gap 20
+net tcp=reset
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot tcp_reset_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot tcp_reset_result
+tap A
+waitstable 60 max 900
+shot tcp_reset_after
+tap A
+waitstable 60 max 900
+shot tcp_reset_after2
+net tcp=ok
+# --- attempt pop_connect
+wipe
+wait 400
+gap 20
+net pop_fail=connect
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot pop_connect_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot pop_connect_result
+tap A
+waitstable 60 max 900
+shot pop_connect_after
+tap A
+waitstable 60 max 900
+shot pop_connect_after2
+net pop_fail=none
+# --- attempt pop_user
+wipe
+wait 400
+gap 20
+net pop_fail=user
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot pop_user_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot pop_user_result
+tap A
+waitstable 60 max 900
+shot pop_user_after
+tap A
+waitstable 60 max 900
+shot pop_user_after2
+net pop_fail=none
+# --- attempt pop_pass
+wipe
+wait 400
+gap 20
+net pop_fail=pass
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot pop_pass_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot pop_pass_result
+tap A
+waitstable 60 max 900
+shot pop_pass_after
+tap A
+waitstable 60 max 900
+shot pop_pass_after2
+net pop_fail=none
+# --- attempt pop_stat
+wipe
+wait 400
+gap 20
+net pop_fail=stat
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot pop_stat_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot pop_stat_result
+tap A
+waitstable 60 max 900
+shot pop_stat_after
+tap A
+waitstable 60 max 900
+shot pop_stat_after2
+net pop_fail=none
+# --- attempt unplug
+wipe
+wait 400
+gap 20
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot unplug_connect_confirm
+tap A                        # はい: dial
+wait 700
+unplug
+wait 2500
+shot unplug_result
+tap A
+waitstable 60 max 900
+shot unplug_after
+tap A
+waitstable 60 max 900
+shot unplug_after2
+plug
+# --- attempt pw_mismatch: the second entry is 'a' only
+wipe
+wait 400
+gap 20
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+tap RIGHT x5
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot mismatch_message
+tap A
+waitstable 60 max 300
+shot mismatch_after
+# --- attempt cancel: B on the wizard pages and at the first confirmation
+wipe
+wait 400
+gap 20
+tap A
+waitstable 40 max 200
+tap A
+waitstable 40 max 200
+shot notice_1
+tap B
+waitstable 40 max 200
+shot notice_back
+tap A
+waitstable 40 max 200
+tap A
+waitstable 40 max 200
+tap A
+waitstable 40 max 200
+tap A
+waitstable 40 max 200
+shot fee_notice
+tap B
+waitstable 40 max 200
+tap B
+waitstable 40 max 200
+shot back_2
+tap B
+waitstable 40 max 200
+shot back_3
+# --- attempt final_ok
+wipe
+wait 400
+gap 20
+tap A                        # "初期登録開始" (start initial registration)
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+tap A
+waitstable 40 max 100
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+
+tap A                        # はい (save password)
+waitstable 60 max 600
+tap A                        # はい (summary)
+waitstable 60 max 600
+shot final_ok_connect_confirm
+tap A                        # はい: dial
+wait 2500
+shot final_ok_result
+tap A
+waitstable 60 max 900
+shot final_ok_after
+tap A
+waitstable 60 max 900
+shot final_ok_after2

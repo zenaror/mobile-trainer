@@ -1,0 +1,100 @@
+# recorded by mgba_trace --macro mail_server_full.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 DOWN
+2366 -
+2396 DOWN
+2400 -
+2430 DOWN
+2434 -
+2464 DOWN
+2468 -
+2498 DOWN
+2502 -
+2562 A
+2566 -
+3196 shot server_notice
+3196 A
+3200 -
+3290 shot server_menu
+3290 A
+3294 -
+3924 shot check_confirm
+3924 A
+3928 -
+4029 A
+4033 -
+6463 shot check_mail1
+6463 A
+6467 -
+7397 shot check_mail2
+7397 RIGHT
+7401 -
+7461 A
+7465 -
+8395 shot check_mail3
+8395 A
+8399 -
+9329 shot check_mail4
+9329 RIGHT
+9333 -
+9393 A
+9397 -
+10327 shot check_mail5
+10327 RIGHT
+10331 -
+10361 RIGHT
+10365 -
+10425 A
+10429 -
+11359 shot check_end
+12259 A
+12263 -
+12665 shot check_result_1
+12665 A
+12669 -
+12764 shot check_result_2
+12764 A
+12768 -
+13698 shot back_in_mail_menu
+13698 A
+13702 -
+14332 shot server_notice_2
+14332 A
+14336 -
+14427 shot server_menu_2
+14427 DOWN
+14431 -
+14501 shot server_menu_2_down
+14501 A
+14505 -
+15135 shot all_confirm
+15135 A
+15139 -
+15266 shot all_refused
+15266 A
+15270 -
+15900 LEFT
+15904 -
+15974 A
+15978 -
+16608 shot all_confirm_2
+16608 A
+16612 -
+16713 A
+16717 -
+19147 shot all_deleting
+19207 A
+19211 -
+19306 shot all_result_1
+19306 A
+19310 -
+20240 shot all_result_2
+20240 A
+20244 -
+21174 shot end
+# last scripted frame: 21174

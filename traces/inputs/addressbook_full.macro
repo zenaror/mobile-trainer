@@ -1,0 +1,270 @@
+# Scenario 'addressbook_full': アドレスちょう with the entry saved by 'mail_inbox'. Views an entry (2nd icon), edits it (3rd icon: address
+# keyboard, name intro page, name keyboard, save confirmation), adds entries with the keyboards (new entry = 1st icon; address typed
+# a@b.c by cursor moves, name typed in kana), tries an address without '@', deletes one entry (4th icon, confirmation) and fills all six slots.
+# Keyboard cursor: RIGHT x5 from the first key reaches 'a', DOWN x2 / RIGHT x11 reaches '@' (rows 'ABCDE abcde Z01234' / 'FGHIJ fghij z56789'
+# / 'KLMNO klmno .@-_+' / 'PQRST pqrst' / 'UVWXY uvwxy'); START jumps to OK. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x3
+wait 30
+tap A                        # アドレスちょう
+waitstable 60 max 600
+shot list
+# --- view entry 1 (2nd icon)
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot view
+tap B
+waitstable 60 max 600
+# --- edit entry 1 (3rd icon): append 2 characters to the address, then to the name
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot edit_address
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot edit_name_intro
+tap A
+waitstable 60 max 600
+shot edit_name
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot edit_confirm
+tap A
+waitstable 60 max 600
+shot edit_done
+# --- new entry (slot2)
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot slot2_intro
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap DOWN x2
+tap RIGHT x6
+tap A
+tap UP x2
+tap LEFT x5
+tap A
+tap DOWN x2
+tap RIGHT x4
+tap A
+tap UP x2
+tap LEFT x3
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot2_after_addr
+tap A
+waitstable 60 max 600
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot2_confirm
+tap A
+waitstable 60 max 600
+shot slot2_saved
+# --- new entry (slot3_noat)
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot slot3_noat_intro
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap A
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot3_noat_after_addr
+tap A
+waitstable 60 max 600
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot3_confirm
+tap A
+waitstable 60 max 600
+shot slot3_saved
+# --- new entry (slot4)
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot slot4_intro
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap DOWN x2
+tap RIGHT x6
+tap A
+tap UP x2
+tap LEFT x5
+tap A
+tap DOWN x2
+tap RIGHT x4
+tap A
+tap UP x2
+tap LEFT x3
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot4_after_addr
+tap A
+waitstable 60 max 600
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot4_confirm
+tap A
+waitstable 60 max 600
+shot slot4_saved
+# --- new entry (slot5)
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot slot5_intro
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap DOWN x2
+tap RIGHT x6
+tap A
+tap UP x2
+tap LEFT x5
+tap A
+tap DOWN x2
+tap RIGHT x4
+tap A
+tap UP x2
+tap LEFT x3
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot5_after_addr
+tap A
+waitstable 60 max 600
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot5_confirm
+tap A
+waitstable 60 max 600
+shot slot5_saved
+# --- new entry (slot6)
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot slot6_intro
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap DOWN x2
+tap RIGHT x6
+tap A
+tap UP x2
+tap LEFT x5
+tap A
+tap DOWN x2
+tap RIGHT x4
+tap A
+tap UP x2
+tap LEFT x3
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot6_after_addr
+tap A
+waitstable 60 max 600
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot6_confirm
+tap A
+waitstable 60 max 600
+shot slot6_saved
+# --- list full: delete the last entry (4th icon), cancel once, then confirm
+tap A
+wait 60
+tap RIGHT x3
+wait 40
+shot bar_delete
+tap A
+waitstable 60 max 600
+shot del_confirm
+tap A
+waitstable 60 max 600
+shot del_1
+tap A
+waitstable 60 max 600
+shot del_2
+tap RIGHT x3               # the cancel reset the icon bar to its first icon
+wait 40
+tap A                        # confirmation again
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A                        # はい
+waitstable 60 max 600
+shot del_done
+tap B
+waitstable 60 max 600
+shot mail_menu

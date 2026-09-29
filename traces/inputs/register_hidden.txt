@@ -1,0 +1,168 @@
+# recorded by mgba_trace --macro register_hidden.macro (resolved absolute frames)
+400 A+B+SELECT+RIGHT
+430 -
+499 A
+503 -
+611 A
+615 -
+715 A
+719 -
+822 A
+826 -
+914 A
+918 -
+1138 shot login_id_keypad
+1138 A
+1142 -
+1162 A
+1166 -
+1186 A
+1190 -
+1210 A
+1214 -
+1234 A
+1238 -
+1258 A
+1262 -
+1282 A
+1286 -
+1306 A
+1310 -
+1330 A
+1334 -
+1354 A
+1358 -
+1449 shot mail_intro
+1449 A
+1453 -
+1573 A
+1577 -
+1597 A
+1601 -
+1621 A
+1625 -
+1645 A
+1649 -
+1669 A
+1673 -
+1693 A
+1697 -
+1717 A
+1721 -
+1741 A
+1745 -
+1765 A
+1769 -
+1789 A
+1793 -
+1813 A
+1817 -
+1837 A
+1841 -
+1861 A
+1865 -
+2085 shot phone_method
+2085 A
+2089 -
+2180 shot password_intro
+2180 A
+2184 -
+2304 RIGHT
+2308 -
+2328 RIGHT
+2332 -
+2352 RIGHT
+2356 -
+2376 RIGHT
+2380 -
+2400 RIGHT
+2404 -
+2424 A
+2428 -
+2448 RIGHT
+2452 -
+2472 RIGHT
+2476 -
+2496 RIGHT
+2500 -
+2520 RIGHT
+2524 -
+2544 RIGHT
+2548 -
+2568 A
+2572 -
+2592 RIGHT
+2596 -
+2616 A
+2620 -
+2640 RIGHT
+2644 -
+2664 A
+2668 -
+2688 START
+2692 -
+2732 A
+2736 -
+3056 shot password_confirm
+3056 RIGHT
+3060 -
+3080 RIGHT
+3084 -
+3104 RIGHT
+3108 -
+3128 RIGHT
+3132 -
+3152 RIGHT
+3156 -
+3176 A
+3180 -
+3200 RIGHT
+3204 -
+3224 RIGHT
+3228 -
+3248 RIGHT
+3252 -
+3272 RIGHT
+3276 -
+3296 RIGHT
+3300 -
+3320 A
+3324 -
+3344 RIGHT
+3348 -
+3368 A
+3372 -
+3392 RIGHT
+3396 -
+3416 A
+3420 -
+3440 START
+3444 -
+3484 A
+3488 -
+3808 shot password_save_confirm
+3808 A
+3812 -
+4432 shot register_summary
+4432 A
+4436 -
+5056 shot connect_confirm
+5056 A
+5060 -
+5800 shot registration_result
+6100 A
+6104 -
+6221 shot welcome_1
+6221 A
+6225 -
+6345 shot welcome_2
+6345 A
+6349 -
+6456 shot after_welcome_1
+6456 A
+6460 -
+7080 shot after_welcome_2
+7080 A
+7084 -
+7308 shot after_welcome_3
+# last scripted frame: 7308

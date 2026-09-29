@@ -1,0 +1,91 @@
+# Scenario 'mail_server_hidden': the HIDDEN third button of メールサーバ. 7C:7CF6 tests `hJoyHeld xor $24` (exactly SELECT+LEFT held) right
+# after the entry メールサーバ of the mail menu was chosen and calls 22:4000 instead of 23:4000; that screen has a third button "かんぜんにけす"
+# ("もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします"). Flow (fake POP3 server with the five mails):
+# the entry is chosen with A and SELECT+LEFT is held right after the A press (A itself must be released: the test wants exactly $24), the
+# first-use notice is closed, the third button is chosen, "いいえ" (default) refuses once, then LEFT+A ("はい") runs the deletion: dial, POP3
+# session with DELE of everything, result screens. Then the same entry once more with SELECT+LEFT and button 1 (check) to see the modified check.
+# Starts from the state left by 'mail_inbox'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x5
+wait 40
+taplen 2
+gap 0
+tap A                        # メールサーバ
+hold SELECT+LEFT 120         # exactly SELECT+LEFT while the state function runs
+waitstable 60 max 600
+shot notice
+tap A                        # OK
+waitstable 60 max 600
+shot menu
+gap 30
+taplen 4
+tap DOWN x2
+wait 40
+tap A                        # かんぜんにけす
+waitstable 60 max 600
+shot confirm
+tap A                        # いいえ (default)
+waitstable 60 max 600
+shot refused
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A                        # はい
+waitstable 60 max 600
+shot confirm_2
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 1500
+shot deleting
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot result_1
+tap A
+waitstable 60 max 900
+shot result_2
+tap A
+waitstable 60 max 900
+shot back_in_mail_menu
+# --- again with SELECT+LEFT: the second button
+taplen 2
+gap 0
+tap A                        # メールサーバ (cursor already on it after the first entry)
+hold SELECT+LEFT 120         # exactly SELECT+LEFT while the state function runs
+waitstable 60 max 600
+shot notice
+tap A                        # OK
+waitstable 60 max 600
+shot menu
+gap 30
+taplen 4
+tap DOWN
+wait 40
+tap A                        # じどうでぜんぶけす (hidden variant of the menu)
+waitstable 60 max 600
+shot auto_confirm
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 1200
+shot auto_deleting
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot auto_result_1

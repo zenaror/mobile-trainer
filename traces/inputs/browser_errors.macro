@@ -1,0 +1,132 @@
+# Scenario 'browser_errors': browser error paths. Connects to the fake site, then follows the first link of the index page (DOWN, A) once per
+# fault, changing the fake Internet at run time with the `net` directive (deterministic, recorded in inputs/browser_errors.txt):
+# HTTP 500, truncated body (Content-Length larger than the data), body without Content-Length, 302 redirect, DNS NXDOMAIN, DNS timeout (no answer),
+# TCP connect refused, TCP reset during the transfer, adapter unplugged during a page load (then plugged in again). Each fault ends with the error
+# dialog dismissed by A / the page shown. Starts from the state left by 'browser_pages'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ (prompt)
+waitstable 60 max 900
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+# --- http500
+net http_status=500
+tap DOWN
+wait 30
+tap A
+wait 900
+shot http500
+tap A
+wait 500
+shot http500_after
+# --- http_trunc
+net http_status=0
+net http_trunc=100
+tap DOWN
+wait 30
+tap A
+wait 900
+shot http_trunc
+tap A
+wait 500
+shot http_trunc_after
+# --- http_nolen
+net http_trunc=-1
+net http_nolen=1
+tap DOWN
+wait 30
+tap A
+wait 900
+shot http_nolen
+tap B
+wait 500
+shot http_nolen_after
+# --- http_redirect
+net http_nolen=0
+net http_redirect=1
+tap DOWN
+wait 30
+tap A
+wait 900
+shot http_redirect
+tap B
+wait 500
+shot http_redirect_after
+# --- dns_nx
+net http_redirect=0
+net dns=nx
+tap DOWN
+wait 30
+tap A
+wait 900
+shot dns_nx
+tap A
+wait 500
+shot dns_nx_after
+# --- dns_drop
+net dns=drop
+tap DOWN
+wait 30
+tap A
+wait 5000
+shot dns_drop
+tap A
+wait 500
+shot dns_drop_after
+# --- tcp_refuse
+net dns=ok
+net tcp=refuse
+tap DOWN
+wait 30
+tap A
+wait 900
+shot tcp_refuse
+tap A
+wait 500
+shot tcp_refuse_after
+# --- tcp_reset
+net tcp=reset
+tap DOWN
+wait 30
+tap A
+wait 900
+shot tcp_reset
+tap A
+wait 500
+shot tcp_reset_after
+# --- adapter unplugged during a page load, plugged in again afterwards
+net tcp=ok
+tap DOWN
+wait 30
+tap A
+wait 20
+unplug
+wait 3000
+shot unplugged
+tap A
+wait 600
+shot unplugged_after
+plug
+wait 1200
+shot plugged
+tap A
+wait 900
+shot plugged_after
+tap B
+wait 600
+shot end

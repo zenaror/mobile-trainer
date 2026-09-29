@@ -1,0 +1,164 @@
+# recorded by mgba_trace --macro settings_phone.macro (resolved absolute frames)
+0 reset
+460 A
+464 -
+1094 DOWN
+1098 -
+1158 A+B+SELECT+RIGHT
+1188 -
+1818 shot auto_menu
+1818 DOWN
+1822 -
+1852 DOWN
+1856 -
+1886 DOWN
+1890 -
+1920 DOWN
+1924 -
+1984 shot auto_menu_5th
+1984 A
+1988 -
+2618 shot auto_choose
+2618 A
+2622 -
+3252 shot auto_place
+3252 A
+3256 -
+3886 shot auto_method
+3886 A
+3890 -
+4820 shot auto_confirm
+4820 A
+4824 -
+5454 shot auto_register
+5454 A
+5458 -
+6388 shot auto_done
+6388 A
+6392 -
+7022 shot auto_after
+7022 reset
+7482 A
+7486 -
+8116 DOWN
+8120 -
+8180 A+B+SELECT+RIGHT
+8210 -
+8840 shot manual_menu
+8840 DOWN
+8844 -
+8874 DOWN
+8878 -
+8908 DOWN
+8912 -
+8942 DOWN
+8946 -
+9006 shot manual_menu_5th
+9006 A
+9010 -
+9640 shot manual_choose
+9640 A
+9644 -
+10274 RIGHT
+10278 -
+10348 A
+10352 -
+10982 DOWN
+10986 -
+11056 A
+11060 -
+11187 A
+11191 -
+11821 shot manual_keypad_1
+11821 A
+11825 -
+11855 RIGHT
+11859 -
+11889 A
+11893 -
+11923 DOWN
+11927 -
+11957 A
+11961 -
+11991 START
+11995 -
+12065 A
+12069 -
+12699 shot manual_keypad_2
+12699 A
+12703 -
+12733 DOWN
+12737 -
+12767 RIGHT
+12771 -
+12801 A
+12805 -
+12835 START
+12839 -
+12909 A
+12913 -
+13543 shot manual_comment_intro
+13543 A
+13547 -
+14177 shot manual_comment_kb
+14177 A
+14181 -
+14211 A
+14215 -
+14245 START
+14249 -
+14319 A
+14323 -
+14953 shot manual_confirm
+14953 A
+14957 -
+15587 shot manual_register
+15587 A
+15591 -
+16521 shot manual_done
+16521 A
+16525 -
+17155 shot manual_after
+17155 reset
+17615 A
+17619 -
+18249 DOWN
+18253 -
+18313 A+B+SELECT+RIGHT
+18343 -
+18973 shot select_menu
+18973 DOWN
+18977 -
+19007 DOWN
+19011 -
+19041 DOWN
+19045 -
+19075 DOWN
+19079 -
+19139 shot select_menu_5th
+19139 A
+19143 -
+19773 shot select_choose
+19773 DOWN
+19777 -
+19847 A
+19851 -
+20481 shot select_place
+20481 RIGHT
+20485 -
+20555 A
+20559 -
+20670 shot select_confirm
+20670 A
+20674 -
+21304 shot select_2
+21304 A
+21308 -
+21938 shot select_3
+21938 A
+21942 -
+22572 shot select_4
+22572 B
+22576 -
+23206 shot select_back
+# last scripted frame: 23206

@@ -1,0 +1,158 @@
+# Scenario 'settings_phone': the HIDDEN fifth entry of モバイルせってい, 電話番号の変更 (change telephone number). It appears when B+SELECT+RIGHT
+# are held while the entry モバイルせってい is chosen on the title screen (68:4F9E: `ldh a,[hJoyHeld] ; and $16 ; cp $16` right after the joypad
+# poll; hJoyHeld uses the rP1 layout: A=1 B=2 SELECT=4 START=8 RIGHT=$10 LEFT=$20 UP=$40 DOWN=$80). Flows (each after a power cycle, `reset`):
+#   1. 電話番号を変更する, place 1, 自動で入力する (automatic number), confirmations
+#   2. 電話番号を変更する, place 2, 手動で入力する (manual): explanation, Internet number keypad (digits 1 2 5), pager number keypad, comment
+#      keyboard, confirmation, "つづけて登録しますか?"
+#   3. 通常使う電話番号を選択する (choose the number normally used): place choice, confirmations
+# Starts from the state left by 'tutorial_profile'. Screen names = my reading of the screenshots.
+# --- flow auto
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> menu
+waitstable 60 max 600
+tap DOWN
+wait 30
+taplen 30
+tap A+B+SELECT+RIGHT         # モバイルせってい with the hidden combination held
+taplen 4
+waitstable 60 max 600
+shot auto_menu
+tap DOWN x4
+wait 30
+shot auto_menu_5th
+tap A                        # 電話番号の変更
+waitstable 60 max 600
+shot auto_choose
+tap A                        # 電話番号を変更する
+waitstable 60 max 600
+shot auto_place
+tap A                        # place 1
+waitstable 60 max 600
+shot auto_method
+tap A                        # 自動で入力する
+waitstable 60 max 900
+shot auto_confirm
+tap A                        # はい
+waitstable 60 max 600
+shot auto_register
+tap A                        # はい
+waitstable 60 max 900
+shot auto_done
+tap A
+waitstable 60 max 600
+shot auto_after
+# --- flow manual
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> menu
+waitstable 60 max 600
+tap DOWN
+wait 30
+taplen 30
+tap A+B+SELECT+RIGHT         # モバイルせってい with the hidden combination held
+taplen 4
+waitstable 60 max 600
+shot manual_menu
+tap DOWN x4
+wait 30
+shot manual_menu_5th
+tap A                        # 電話番号の変更
+waitstable 60 max 600
+shot manual_choose
+tap A
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # place 2
+waitstable 60 max 600
+tap DOWN
+wait 40
+tap A                        # 手動で入力する
+waitstable 60 max 600
+tap A                        # explanation
+waitstable 60 max 600
+shot manual_keypad_1
+tap A
+tap RIGHT
+tap A
+tap DOWN
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot manual_keypad_2
+tap A
+tap DOWN
+tap RIGHT
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot manual_comment_intro
+tap A
+waitstable 60 max 600
+shot manual_comment_kb
+tap A x2
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot manual_confirm
+tap A
+waitstable 60 max 600
+shot manual_register
+tap A
+waitstable 60 max 900
+shot manual_done
+tap A
+waitstable 60 max 600
+shot manual_after
+# --- flow select
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> menu
+waitstable 60 max 600
+tap DOWN
+wait 30
+taplen 30
+tap A+B+SELECT+RIGHT         # モバイルせってい with the hidden combination held
+taplen 4
+waitstable 60 max 600
+shot select_menu
+tap DOWN x4
+wait 30
+shot select_menu_5th
+tap A                        # 電話番号の変更
+waitstable 60 max 600
+shot select_choose
+tap DOWN
+wait 40
+tap A                        # 通常使う電話番号を選択する
+waitstable 60 max 600
+shot select_place
+tap RIGHT
+wait 40
+tap A                        # place 2
+waitstable 60 max 600
+shot select_confirm
+tap A
+waitstable 60 max 600
+shot select_2
+tap A
+waitstable 60 max 600
+shot select_3
+tap A
+waitstable 60 max 600
+shot select_4
+tap B
+waitstable 60 max 600
+shot select_back

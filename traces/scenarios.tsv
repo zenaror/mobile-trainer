@@ -6,6 +6,10 @@
 #               cartridge (SRAM filled with 0xFF) and a blank adapter
 # web         : 1 = serve traces/web/*.html (Shift-JIS converted) from the fake HTTP server
 # description : one line
+# extra (optional 7th column, space separated): `lite` = publish only coverage/mbc_writes + small detail files (dataaccess, ramcode, serialsum, irqsum,
+#               stats, marks, adapter.log; no serial/callgraph/hwregs/mbc_seq/irq), or raw harness args such as `--sram-fill 00`, `--sram-poke 0:A000=12`, `--cfg-poke 2=00`
+# net accepts `:key=value,...` after the mode (fake-Internet options of mgba_trace.c, e.g. `fake:latency=2,pop_fail=pass`); the key `mail=a+b` selects traces/net/mail_a.eml ... for the POP3 mailbox
+# web accepts `all` = every traces/web file served under its own name
 name	mobile	net	from	web	description
 noadapter	off	stub	-	0	No Mobile Adapter on the link port: "adapter not plugged in" error screen and its retry-on-button path
 hotplug	at:1200	fake	-	0	Adapter plugged in (by the harness) after the error screen was shown; A press retries and detects it
@@ -25,3 +29,26 @@ monkey_1	on	fake	tutorial_profile	1	Seeded random button mashing on the set-up c
 monkey_2	on	fake	tutorial_profile	1	Seeded random button mashing (seed 2)
 monkey_3	on	fake	tutorial_profile	1	Seeded random button mashing (seed 3)
 monkey_blank	on	fake	-	1	Seeded random button mashing from a blank cartridge/adapter (registration wizard paths)
+mail_send	on	fake:latency=2	mail_compose	0	Mail menu -> send/receive with the saved mail in the outbox: dial, PPP, DNS, SMTP submission (fake server, latency 2 frames), POP3 (empty), result screens
+mail_receive	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_send	0	Mail menu -> send/receive with 5 messages on the fake POP3 server (ISO-2022-JP, ASCII, game headers, multipart+base64, 40 lines): TOP/RETR/DELE/QUIT
+mail_inbox	on	fake:latency=2	mail_receive	0	Mailbox with 4 received mails: read all (long-mail dialog), save sender to the address book, delete a mail, reply (saved in the outbox)
+addressbook_full	on	fake:latency=2	mail_inbox	0	Address book from a saved entry: view, edit, add 4 entries (keyboards; also an address without @), fill all six slots, delete one
+browser_bookmarks	on	fake:latency=2	addressbook_full	all	Browser: full first-use tutorial, start prompt, empty page list, connect + index page, page list (save twice, go to page, delete a bookmark)
+browser_pages	on	fake:latency=2	browser_bookmarks	all	Browser on the richer synthetic site: a/b/c/d pages, scrolling, image requests, 14 link kinds (404 help links, bmp URLs, oversized page, other host), browser menu END
+browser_errors	on	fake:latency=2	browser_pages	all	Browser faults injected at run time: HTTP 500, truncated body, no Content-Length, 302, DNS NXDOMAIN/timeout, TCP refused/reset, adapter unplugged and re-plugged during a page load
+mail_errors	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_inbox	0	Send/receive under faults (power cycle per attempt): SMTP fail at connect/HELO/MAIL/RCPT/DATA/end, POP3 fail at connect/USER/PASS/STAT/TOP/RETR/DELE, DNS nx/timeout, TCP refuse/reset, unplug mid-session
+settings_cgi	on	fake:latency=2	tutorial_profile	0	モバイルせってい vs 8 different CGI answers (status/Gb-Status/WWW-Authenticate/Content-Type/body) via cgi= option, power cycle per attempt; usage time and fee flows for two of them
+boot_combos	on	fake:latency=2	tutorial_profile	0	All 255 button subsets held during power-on (power cycle per combination): looks for hidden boot-time modes	lite
+monkey_camp_reg	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register	all	Monkey campaign (28 segments, power cycle each, seeded random taps, faults, unplug) from the freshly registered cartridge	lite
+monkey_camp_tut	on	fake:latency=2,mail=jp+ascii+game+multipart+long	tutorial_profile	all	Monkey campaign (28 segments) from the cartridge after the first-run tutorial	lite
+monkey_camp_rich	on	fake:latency=2,mail=jp+ascii+game+multipart+long	browser_errors	all	Monkey campaign (36 segments) from the cartridge with mails, address book and bookmarks	lite
+monkey_camp_blank	on	fake:latency=2,mail=jp+ascii+game+multipart+long	-	all	Monkey campaign (24 segments) from a blank cartridge and blank adapter (registration wizard)	lite
+mail_server_full	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_inbox	0	Mail server management with 5 messages: check-then-delete (delete/skip/end per mail), delete-all with refused and accepted confirmation
+settings_phone	on	fake:latency=2	tutorial_profile	0	Hidden entry of モバイルせってい (B+SELECT+RIGHT held): change telephone number (auto/manual keypad, pager number, comment) and choose the default number
+register_hidden	on	fake	-	0	Initial registration with B+SELECT+RIGHT held on the first A: hidden phone-number-method step, otherwise as register
+mail_server_hidden	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_inbox	0	Hidden third button of メールサーバ (SELECT+LEFT held: 7C:7CF6 -> 22:4000): かんぜんにけす with refused and accepted confirmation, POP3 DELE of all mails
+mail_timeout	on	fake:latency=2,mail=nohdr	mail_send	0	Receive with a header-poor message the ROM cannot finish: five minutes of communication time, then the timeout error 26-000
+register_errors	on	fake:latency=2	-	0	Initial registration under faults (wipe per attempt): DNS nx/timeout, TCP refuse/reset, POP3 fail at connect/USER/PASS/STAT, unplug, password mismatch, B on the wizard pages, final success
+monkey_camp_hid	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_server_hidden	all	Monkey campaign (32 segments) from the state after the hidden mail-server run	lite
+monkey_camp_reg2	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register_hidden	all	Monkey campaign (28 segments) from the cartridge registered through the hidden wizard variant	lite
+boot_states	on	fake:latency=2	tutorial_profile	0	Boot with damaged save RAM (each checksum area, zero/FF fill) and damaged adapter EEPROM image (magic, sum, zero/FF fill): power cycle per attempt

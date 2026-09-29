@@ -1,0 +1,114 @@
+# recorded by mgba_trace --macro browser_errors.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 A
+2740 -
+3670 A
+3674 -
+3775 A
+3779 -
+4316 A
+4320 -
+6450 shot index
+6450 net http_status=500
+6450 DOWN
+6454 -
+6514 A
+6518 -
+7448 shot http500
+7448 A
+7452 -
+7982 shot http500_after
+7982 net http_status=0
+7982 net http_trunc=100
+7982 DOWN
+7986 -
+8046 A
+8050 -
+8980 shot http_trunc
+8980 A
+8984 -
+9514 shot http_trunc_after
+9514 net http_trunc=-1
+9514 net http_nolen=1
+9514 DOWN
+9518 -
+9578 A
+9582 -
+10512 shot http_nolen
+10512 B
+10516 -
+11046 shot http_nolen_after
+11046 net http_nolen=0
+11046 net http_redirect=1
+11046 DOWN
+11050 -
+11110 A
+11114 -
+12044 shot http_redirect
+12044 B
+12048 -
+12578 shot http_redirect_after
+12578 net http_redirect=0
+12578 net dns=nx
+12578 DOWN
+12582 -
+12642 A
+12646 -
+13576 shot dns_nx
+13576 A
+13580 -
+14110 shot dns_nx_after
+14110 net dns=drop
+14110 DOWN
+14114 -
+14174 A
+14178 -
+19208 shot dns_drop
+19208 A
+19212 -
+19742 shot dns_drop_after
+19742 net dns=ok
+19742 net tcp=refuse
+19742 DOWN
+19746 -
+19806 A
+19810 -
+20740 shot tcp_refuse
+20740 A
+20744 -
+21274 shot tcp_refuse_after
+21274 net tcp=reset
+21274 DOWN
+21278 -
+21338 A
+21342 -
+22272 shot tcp_reset
+22272 A
+22276 -
+22806 shot tcp_reset_after
+22806 net tcp=ok
+22806 DOWN
+22810 -
+22870 A
+22874 -
+22924 unplug
+25924 shot unplugged
+25924 A
+25928 -
+26558 shot unplugged_after
+26558 plug
+27758 shot plugged
+27758 A
+27762 -
+28692 shot plugged_after
+28692 B
+28696 -
+29326 shot end
+# last scripted frame: 29326

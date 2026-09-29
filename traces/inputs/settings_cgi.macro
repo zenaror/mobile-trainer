@@ -1,0 +1,761 @@
+# Scenario 'settings_cgi': モバイルせってい against differently answering DION CGI servers. The ROM's response format for the
+# daa_gb_*.cgi / utility requests is not documented, so this scenario probes it with the fake-Internet option `cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY`
+# (mgba_trace.c): each attempt is a power cycle (`reset`) followed by title -> モバイルせってい -> パスワードの変更 (two password entries, dial
+# 9477, POST daa_gb_pwdchg.cgi) with another answer: 200 x-cgb without body / with a 4-zero body / with ASCII "0000", 401 with a
+# WWW-Authenticate: GB00 challenge, 200 with such a challenge, 200 with Gb-Status 200 / 123, 500. The ROM turns the answer into the error screens
+# 40-????, 32-401, 20-000, 33-nnn, 32-500 (Gb-Status nnn -> 33-nnn). The usage-time and usage-fee flows follow for two of the answers.
+# Starts from the state left by 'tutorial_profile' (password aZ01). Screen names = my reading of the screenshots.
+# --- attempt cgb_empty: cgi=200/-/-/cgb/-
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/-/-/cgb/-
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot cgb_empty_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt cgb_zero: cgi=200/-/-/cgb/00000000
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/-/-/cgb/00000000
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot cgb_zero_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_zero_menu
+# --- attempt cgb_ascii: cgi=200/-/-/cgb/30303030
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/-/-/cgb/30303030
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot cgb_ascii_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_ascii_menu
+# --- 2. usage time
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+wait 900
+shot cgb_ascii_time
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+# --- 3. usage fee
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+wait 900
+shot cgb_ascii_fee
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_ascii_menu2
+# --- attempt auth401: cgi=401/-/fake/-/-
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=401/-/fake/-/-
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot auth401_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot auth401_menu
+# --- 2. usage time
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+wait 900
+shot auth401_time
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+# --- 3. usage fee
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+wait 900
+shot auth401_fee
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot auth401_menu2
+# --- attempt auth200: cgi=200/-/fake/cgb/00000000
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/-/fake/cgb/00000000
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot auth200_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot auth200_menu
+# --- attempt gbstatus200: cgi=200/200/-/cgb/-
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/200/-/cgb/-
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot gbstatus200_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot gbstatus200_menu
+# --- attempt gbstatus123: cgi=200/123/-/cgb/-
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=200/123/-/cgb/-
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot gbstatus123_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot gbstatus123_menu
+# --- attempt http500: cgi=500/-/-/-/-
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=500/-/-/-/-
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot http500_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot http500_menu

@@ -1,0 +1,39 @@
+# Scenario 'mail_send': send the mail that 'mail_compose' saved (outbox) with おくる/うけとる over the fake Internet:
+# dial, PPP, DNS, SMTP (HELO/MAIL FROM/RCPT TO/DATA/QUIT, all answered 250/354), POP3 (empty mailbox), disconnect,
+# communication-result screen. Starts from the state left by 'mail_compose'. Screen names = my reading of the screenshots.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+shot top_menu
+tap A                        # top menu: メール
+waitstable 60 max 600
+shot mail_menu
+tap A                        # おくる/うけとる
+waitstable 60 max 300
+shot send_receive_1
+tap A
+waitstable 60 max 600
+shot send_receive_2
+tap A                        # はい
+waitstable 60 max 600
+shot password_saved
+tap A                        # "0でつうしんをはじめる"
+waitstable 60 max 300
+shot connecting
+waitstable 60 max 900
+shot smtp_sending
+wait 700
+shot no_mail_received
+waitstable 60 max 900
+shot comm_finished
+tap A                        # dismiss
+waitstable 60 max 600
+shot result_1
+tap A
+waitstable 60 max 600
+shot result_2
+tap A                        # back to the mail menu
+waitstable 60 max 600
+shot mail_menu_again

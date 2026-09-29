@@ -1,0 +1,1059 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f3843] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3843] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3845] gb.mobile DEBUG: >>> 11 End session
+[f3845] gb.mobile DEBUG: <<< 11 End session
+[f3845] gb.mobile DEBUG: 
+[f3969] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3969] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3971] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f3971] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3971] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3971] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3971] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3971] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3971] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3971] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3977] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f3977] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f3977] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3977] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3977] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3977] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3977] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3977] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3983] gb.mobile DEBUG: >>> 11 End session
+[f3983] gb.mobile DEBUG: <<< 11 End session
+[f3983] gb.mobile DEBUG: 
+[f4108] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f4108] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f4110] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f4110] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f4110] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f4110] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f4110] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f4110] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f4110] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f4110] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f4116] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f4116] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f4116] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f4116] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f4116] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f4116] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f4116] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f4116] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f4122] gb.mobile DEBUG: >>> 17 Status
+[f4122] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f4124] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f4124] gb.mobile DEBUG: <<< 12 Call
+[f4127] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f4127] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f4131] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f4131] NET sock_open conn=0 UDP bindport=0
+[f4132] NET udp send to 210.196.3.183:53 (42 bytes)
+[f4132] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f4133] NET sock_close conn=0
+[f4133] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f4135] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f4135] NET sock_open conn=0 TCP bindport=0
+[f4136] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f4136] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f4138] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4138] gb.mobile DEBUG: GET 
+[f4138] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f4141] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4141] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f4141] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f4144] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4144] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f4144] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f4144] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f4144] NET tcp:80 rx-line ""
+[f4144] NET http 200 for /01/CGB-B9AJ/index.html (337 bytes)
+[f4144] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f4146] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4146] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f4146] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f4146] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f4146] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f4146] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 33 33 37 0D 0A 0D 
+[f4146] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f4146] gb.mobile DEBUG:     69 74 6C 65 3E 82 C4 82 B7 82 C6 83 7A 81 5B 83 
+[f4146] gb.mobile DEBUG:     80 83 79 81 5B 83 57 3C 2F 74 69 74 6C 65 3E 3C 
+[f4146] gb.mobile DEBUG:     2F 68 65 61 64 3E 0A 3C 62 6F 64 79 3E 0A 3C 63 
+[f4146] gb.mobile DEBUG:     65 6E 74 65 72 3E 3C 62 3E 82 C4 82 B7 82 C6 83 
+[f4146] gb.mobile DEBUG:     7A 81 5B 83 80 83 79 81 5B 83 57 3C 2F 62 3E 3C 
+[f4146] gb.mobile DEBUG:     2F 63 65 6E 74 65 72 3E 0A 3C 75 6C 3E 0A 3C 6C 
+[f4146] gb.mobile DEBUG:     69 3E 3C 61 20 68 72 65 66 3D 22 61 2E 68 74 6D 
+[f4146] gb.mobile DEBUG:     6C 22 3E 83 8A 83 93 83 4E 82 60 3C 2F 61 3E 0A 
+[f4146] gb.mobile DEBUG:     3C 6C 69 3E 3C 61 20 68 72 65 66 3D 22 64 69 72 
+[f4146] gb.mobile DEBUG:     2F 62 2E 68 74 6D 6C 22 3E 83 8A 83 93 83 4E 82 
+[f4146] gb.mobile DEBUG:     61 3C 2F 61 3E 0A 3C 6C 69 3E 3C 61 20 68 
+[f4159] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4159] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f4159] gb.mobile DEBUG:     72 65 66 3D 22 63 2E 68 74 6D 6C 22 3E 83 8A 83 
+[f4159] gb.mobile DEBUG:     93 83 4E 82 62 3C 2F 61 3E 0A 3C 2F 75 6C 3E 0A 
+[f4159] gb.mobile DEBUG:     3C 68 72 3E 0A 3C 62 3E 82 A8 82 B5 82 E7 82 B9 
+[f4159] gb.mobile DEBUG:     3C 2F 62 3E 3C 62 72 3E 0A 82 B1 82 EA 82 CD 81 
+[f4159] gb.mobile DEBUG:     41 82 A0 82 BB 82 D1 82 CC 82 BD 82 DF 82 CC 83 
+[f4159] gb.mobile DEBUG:     79 81 5B 83 57 82 C5 82 B7 81 42 3C 62 72 3E 0A 
+[f4159] gb.mobile DEBUG:     3C 61 20 68 72 65 66 3D 22 64 2E 68 74 6D 6C 22 
+[f4159] gb.mobile DEBUG:     3E 82 C2 82 AC 82 CC 83 79 81 5B 83 57 82 D6 3C 
+[f4159] gb.mobile DEBUG:     2F 61 3E 0A 3C 2F 62 6F 64 79 3E 0A 3C 2F 68 74 
+[f4159] gb.mobile DEBUG:     6D 6C 3E 0A 
+[f4167] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f4167] NET sock_close conn=0
+[f4167] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f4223] gb.mobile DEBUG: >>> 17 Status
+[f4223] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4280] gb.mobile DEBUG: >>> 17 Status
+[f4280] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4337] gb.mobile DEBUG: >>> 17 Status
+[f4337] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4393] gb.mobile DEBUG: >>> 17 Status
+[f4393] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4449] gb.mobile DEBUG: >>> 17 Status
+[f4449] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4505] gb.mobile DEBUG: >>> 17 Status
+[f4505] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4561] gb.mobile DEBUG: >>> 17 Status
+[f4561] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4617] gb.mobile DEBUG: >>> 17 Status
+[f4617] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4673] gb.mobile DEBUG: >>> 17 Status
+[f4673] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4729] gb.mobile DEBUG: >>> 17 Status
+[f4729] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4785] gb.mobile DEBUG: >>> 17 Status
+[f4785] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4841] gb.mobile DEBUG: >>> 17 Status
+[f4841] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4897] gb.mobile DEBUG: >>> 17 Status
+[f4897] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4953] gb.mobile DEBUG: >>> 17 Status
+[f4953] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5009] gb.mobile DEBUG: >>> 17 Status
+[f5009] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5065] gb.mobile DEBUG: >>> 17 Status
+[f5065] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5121] gb.mobile DEBUG: >>> 17 Status
+[f5121] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5177] gb.mobile DEBUG: >>> 17 Status
+[f5177] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5233] gb.mobile DEBUG: >>> 17 Status
+[f5233] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5289] gb.mobile DEBUG: >>> 17 Status
+[f5289] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5345] gb.mobile DEBUG: >>> 17 Status
+[f5345] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5401] gb.mobile DEBUG: >>> 17 Status
+[f5401] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5457] gb.mobile DEBUG: >>> 17 Status
+[f5457] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5513] gb.mobile DEBUG: >>> 17 Status
+[f5513] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5569] gb.mobile DEBUG: >>> 17 Status
+[f5569] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5625] gb.mobile DEBUG: >>> 17 Status
+[f5625] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5681] gb.mobile DEBUG: >>> 17 Status
+[f5681] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5737] gb.mobile DEBUG: >>> 17 Status
+[f5737] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5793] gb.mobile DEBUG: >>> 17 Status
+[f5793] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5849] gb.mobile DEBUG: >>> 17 Status
+[f5849] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5905] gb.mobile DEBUG: >>> 17 Status
+[f5905] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5961] gb.mobile DEBUG: >>> 17 Status
+[f5961] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6017] gb.mobile DEBUG: >>> 17 Status
+[f6017] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6073] gb.mobile DEBUG: >>> 17 Status
+[f6073] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6129] gb.mobile DEBUG: >>> 17 Status
+[f6129] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6185] gb.mobile DEBUG: >>> 17 Status
+[f6185] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6241] gb.mobile DEBUG: >>> 17 Status
+[f6241] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6297] gb.mobile DEBUG: >>> 17 Status
+[f6297] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6353] gb.mobile DEBUG: >>> 17 Status
+[f6353] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6409] gb.mobile DEBUG: >>> 17 Status
+[f6409] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6450] NET option http_status=500
+[f6465] gb.mobile DEBUG: >>> 17 Status
+[f6465] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6521] gb.mobile DEBUG: >>> 17 Status
+[f6521] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6567] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f6567] NET sock_open conn=0 UDP bindport=0
+[f6568] NET udp send to 210.196.3.183:53 (42 bytes)
+[f6568] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f6569] NET sock_close conn=0
+[f6569] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f6571] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f6571] NET sock_open conn=0 TCP bindport=0
+[f6572] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f6572] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f6574] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6574] gb.mobile DEBUG: GET 
+[f6574] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6576] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6576] gb.mobile DEBUG: /01/CGB-B9AJ/a.html
+[f6576] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6579] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6579] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f6579] NET tcp:80 rx-line "GET /01/CGB-B9AJ/a.html HTTP/1.0"
+[f6579] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f6579] NET tcp:80 rx-line ""
+[f6579] NET http 500 (http_status) for /01/CGB-B9AJ/a.html
+[f6579] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6581] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6581] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6581] gb.mobile DEBUG: HTTP/1.0 500 Simulated
+Content-Length: 0
+
+
+[f6585] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6585] NET sock_close conn=0
+[f6585] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f6641] gb.mobile DEBUG: >>> 17 Status
+[f6641] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6697] gb.mobile DEBUG: >>> 17 Status
+[f6697] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6753] gb.mobile DEBUG: >>> 17 Status
+[f6753] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6809] gb.mobile DEBUG: >>> 17 Status
+[f6809] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6865] gb.mobile DEBUG: >>> 17 Status
+[f6865] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6921] gb.mobile DEBUG: >>> 17 Status
+[f6921] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6977] gb.mobile DEBUG: >>> 17 Status
+[f6977] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7033] gb.mobile DEBUG: >>> 17 Status
+[f7033] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7089] gb.mobile DEBUG: >>> 17 Status
+[f7089] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7145] gb.mobile DEBUG: >>> 17 Status
+[f7145] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7201] gb.mobile DEBUG: >>> 17 Status
+[f7201] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7257] gb.mobile DEBUG: >>> 17 Status
+[f7257] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7313] gb.mobile DEBUG: >>> 17 Status
+[f7313] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7369] gb.mobile DEBUG: >>> 17 Status
+[f7369] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7425] gb.mobile DEBUG: >>> 17 Status
+[f7425] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7482] gb.mobile DEBUG: >>> 17 Status
+[f7482] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7540] gb.mobile DEBUG: >>> 17 Status
+[f7540] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7596] gb.mobile DEBUG: >>> 17 Status
+[f7596] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7652] gb.mobile DEBUG: >>> 17 Status
+[f7652] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7708] gb.mobile DEBUG: >>> 17 Status
+[f7708] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7764] gb.mobile DEBUG: >>> 17 Status
+[f7764] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7820] gb.mobile DEBUG: >>> 17 Status
+[f7820] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7876] gb.mobile DEBUG: >>> 17 Status
+[f7876] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7932] gb.mobile DEBUG: >>> 17 Status
+[f7932] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7982] NET option http_status=0
+[f7982] NET option http_trunc=100
+[f7988] gb.mobile DEBUG: >>> 17 Status
+[f7988] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8044] gb.mobile DEBUG: >>> 17 Status
+[f8044] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8099] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f8099] NET sock_open conn=0 UDP bindport=0
+[f8100] NET udp send to 210.196.3.183:53 (42 bytes)
+[f8100] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f8101] NET sock_close conn=0
+[f8101] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f8103] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f8103] NET sock_open conn=0 TCP bindport=0
+[f8104] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f8104] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f8106] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f8106] gb.mobile DEBUG: GET 
+[f8106] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f8108] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f8108] gb.mobile DEBUG: /01/CGB-B9AJ/a.html
+[f8108] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f8111] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f8111] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f8111] NET tcp:80 rx-line "GET /01/CGB-B9AJ/a.html HTTP/1.0"
+[f8111] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f8111] NET tcp:80 rx-line ""
+[f8111] NET http 200 for /01/CGB-B9AJ/a.html (100 of 488 bytes, http_trunc)
+[f8111] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f8113] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f8113] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f8113] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f8113] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f8113] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f8113] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 38 0D 0A 0D 
+[f8113] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f8113] gb.mobile DEBUG:     69 74 6C 65 3E 83 79 81 5B 83 57 82 60 3C 2F 74 
+[f8113] gb.mobile DEBUG:     69 74 6C 65 3E 3C 6D 65 74 61 20 6E 61 6D 65 3D 
+[f8113] gb.mobile DEBUG:     22 78 22 20 63 6F 6E 74 65 6E 74 3D 22 79 22 3E 
+[f8113] gb.mobile DEBUG:     3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 79 3E 0A 3C 
+[f8113] gb.mobile DEBUG:     21 2D 2D 20 63 6F 6D 6D 65 6E 74 20 62 65 66 6F 
+[f8113] gb.mobile DEBUG:     72 65 20 74 68 
+[f8122] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f8122] NET sock_close conn=0
+[f8122] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f8178] gb.mobile DEBUG: >>> 17 Status
+[f8178] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8235] gb.mobile DEBUG: >>> 17 Status
+[f8235] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8292] gb.mobile DEBUG: >>> 17 Status
+[f8292] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8348] gb.mobile DEBUG: >>> 17 Status
+[f8348] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8404] gb.mobile DEBUG: >>> 17 Status
+[f8404] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8460] gb.mobile DEBUG: >>> 17 Status
+[f8460] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8516] gb.mobile DEBUG: >>> 17 Status
+[f8516] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8572] gb.mobile DEBUG: >>> 17 Status
+[f8572] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8628] gb.mobile DEBUG: >>> 17 Status
+[f8628] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8684] gb.mobile DEBUG: >>> 17 Status
+[f8684] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8740] gb.mobile DEBUG: >>> 17 Status
+[f8740] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8796] gb.mobile DEBUG: >>> 17 Status
+[f8796] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8852] gb.mobile DEBUG: >>> 17 Status
+[f8852] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8908] gb.mobile DEBUG: >>> 17 Status
+[f8908] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8964] gb.mobile DEBUG: >>> 17 Status
+[f8964] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9020] gb.mobile DEBUG: >>> 17 Status
+[f9020] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9076] gb.mobile DEBUG: >>> 17 Status
+[f9076] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9132] gb.mobile DEBUG: >>> 17 Status
+[f9132] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9188] gb.mobile DEBUG: >>> 17 Status
+[f9188] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9244] gb.mobile DEBUG: >>> 17 Status
+[f9244] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9300] gb.mobile DEBUG: >>> 17 Status
+[f9300] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9356] gb.mobile DEBUG: >>> 17 Status
+[f9356] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9412] gb.mobile DEBUG: >>> 17 Status
+[f9412] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9468] gb.mobile DEBUG: >>> 17 Status
+[f9468] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9514] NET option http_trunc=-1
+[f9514] NET option http_nolen=1
+[f9524] gb.mobile DEBUG: >>> 17 Status
+[f9524] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9580] gb.mobile DEBUG: >>> 17 Status
+[f9580] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9636] gb.mobile DEBUG: >>> 17 Status
+[f9636] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9692] gb.mobile DEBUG: >>> 17 Status
+[f9692] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9748] gb.mobile DEBUG: >>> 17 Status
+[f9748] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9804] gb.mobile DEBUG: >>> 17 Status
+[f9804] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9860] gb.mobile DEBUG: >>> 17 Status
+[f9860] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9916] gb.mobile DEBUG: >>> 17 Status
+[f9916] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9972] gb.mobile DEBUG: >>> 17 Status
+[f9972] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10028] gb.mobile DEBUG: >>> 17 Status
+[f10028] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10084] gb.mobile DEBUG: >>> 17 Status
+[f10084] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10140] gb.mobile DEBUG: >>> 17 Status
+[f10140] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10196] gb.mobile DEBUG: >>> 17 Status
+[f10196] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10252] gb.mobile DEBUG: >>> 17 Status
+[f10252] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10308] gb.mobile DEBUG: >>> 17 Status
+[f10308] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10364] gb.mobile DEBUG: >>> 17 Status
+[f10364] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10420] gb.mobile DEBUG: >>> 17 Status
+[f10420] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10476] gb.mobile DEBUG: >>> 17 Status
+[f10476] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10532] gb.mobile DEBUG: >>> 17 Status
+[f10532] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10589] gb.mobile DEBUG: >>> 17 Status
+[f10589] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10646] gb.mobile DEBUG: >>> 17 Status
+[f10646] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10702] gb.mobile DEBUG: >>> 17 Status
+[f10702] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10758] gb.mobile DEBUG: >>> 17 Status
+[f10758] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10814] gb.mobile DEBUG: >>> 17 Status
+[f10814] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10870] gb.mobile DEBUG: >>> 17 Status
+[f10870] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10926] gb.mobile DEBUG: >>> 17 Status
+[f10926] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10982] gb.mobile DEBUG: >>> 17 Status
+[f10982] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11038] gb.mobile DEBUG: >>> 17 Status
+[f11038] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11046] NET option http_nolen=0
+[f11046] NET option http_redirect=1
+[f11094] gb.mobile DEBUG: >>> 17 Status
+[f11094] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11153] gb.mobile DEBUG: >>> 17 Status
+[f11153] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11163] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f11163] NET sock_open conn=0 UDP bindport=0
+[f11164] NET udp send to 210.196.3.183:53 (42 bytes)
+[f11164] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f11165] NET sock_close conn=0
+[f11165] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f11167] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f11167] NET sock_open conn=0 TCP bindport=0
+[f11168] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f11168] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f11170] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11170] gb.mobile DEBUG: GET 
+[f11170] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11172] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11172] gb.mobile DEBUG: /01/CGB-B9AJ/a.html
+[f11172] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11175] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11175] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f11175] NET tcp:80 rx-line "GET /01/CGB-B9AJ/a.html HTTP/1.0"
+[f11175] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f11175] NET tcp:80 rx-line ""
+[f11175] NET http 302 for /01/CGB-B9AJ/a.html
+[f11175] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11177] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11177] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11177] gb.mobile DEBUG: HTTP/1.0 302 Found
+Location: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index
+[f11183] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11183] NET sock_close conn=0
+[f11183] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f11186] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f11186] NET sock_open conn=0 UDP bindport=0
+[f11187] NET udp send to 210.196.3.183:53 (42 bytes)
+[f11187] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f11188] NET sock_close conn=0
+[f11188] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f11190] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f11190] NET sock_open conn=0 TCP bindport=0
+[f11191] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f11191] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f11193] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11193] gb.mobile DEBUG: GET 
+[f11193] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11196] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11196] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f11196] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11199] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11199] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f11199] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f11199] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f11199] NET tcp:80 rx-line ""
+[f11199] NET http 302 for /01/CGB-B9AJ/index.html
+[f11199] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11201] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11201] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11201] gb.mobile DEBUG: HTTP/1.0 302 Found
+Location: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index
+[f11207] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11207] NET sock_close conn=0
+[f11207] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f11210] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f11210] NET sock_open conn=0 UDP bindport=0
+[f11211] NET udp send to 210.196.3.183:53 (42 bytes)
+[f11211] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f11212] NET sock_close conn=0
+[f11212] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f11214] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f11214] NET sock_open conn=0 TCP bindport=0
+[f11215] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f11215] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f11217] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11217] gb.mobile DEBUG: GET 
+[f11217] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11220] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11220] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f11220] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11223] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11223] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f11223] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f11223] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f11223] NET tcp:80 rx-line ""
+[f11223] NET http 302 for /01/CGB-B9AJ/index.html
+[f11223] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11225] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11225] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11225] gb.mobile DEBUG: HTTP/1.0 302 Found
+Location: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index
+[f11231] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11231] NET sock_close conn=0
+[f11231] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f11234] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f11234] NET sock_open conn=0 UDP bindport=0
+[f11235] NET udp send to 210.196.3.183:53 (42 bytes)
+[f11235] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f11236] NET sock_close conn=0
+[f11236] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f11238] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f11238] NET sock_open conn=0 TCP bindport=0
+[f11239] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f11239] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f11241] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11241] gb.mobile DEBUG: GET 
+[f11241] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11244] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11244] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f11244] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11247] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11247] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f11247] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f11247] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f11247] NET tcp:80 rx-line ""
+[f11247] NET http 302 for /01/CGB-B9AJ/index.html
+[f11247] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11249] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11249] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11249] gb.mobile DEBUG: HTTP/1.0 302 Found
+Location: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index
+[f11255] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11255] NET sock_close conn=0
+[f11255] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f11311] gb.mobile DEBUG: >>> 17 Status
+[f11311] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11367] gb.mobile DEBUG: >>> 17 Status
+[f11367] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11423] gb.mobile DEBUG: >>> 17 Status
+[f11423] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11479] gb.mobile DEBUG: >>> 17 Status
+[f11479] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11535] gb.mobile DEBUG: >>> 17 Status
+[f11535] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11591] gb.mobile DEBUG: >>> 17 Status
+[f11591] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11647] gb.mobile DEBUG: >>> 17 Status
+[f11647] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11703] gb.mobile DEBUG: >>> 17 Status
+[f11703] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11759] gb.mobile DEBUG: >>> 17 Status
+[f11759] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11815] gb.mobile DEBUG: >>> 17 Status
+[f11815] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11871] gb.mobile DEBUG: >>> 17 Status
+[f11871] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11927] gb.mobile DEBUG: >>> 17 Status
+[f11927] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11983] gb.mobile DEBUG: >>> 17 Status
+[f11983] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12039] gb.mobile DEBUG: >>> 17 Status
+[f12039] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12095] gb.mobile DEBUG: >>> 17 Status
+[f12095] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12151] gb.mobile DEBUG: >>> 17 Status
+[f12151] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12207] gb.mobile DEBUG: >>> 17 Status
+[f12207] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12263] gb.mobile DEBUG: >>> 17 Status
+[f12263] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12319] gb.mobile DEBUG: >>> 17 Status
+[f12319] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12375] gb.mobile DEBUG: >>> 17 Status
+[f12375] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12431] gb.mobile DEBUG: >>> 17 Status
+[f12431] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12487] gb.mobile DEBUG: >>> 17 Status
+[f12487] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12543] gb.mobile DEBUG: >>> 17 Status
+[f12543] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12578] NET option http_redirect=0
+[f12578] NET option dns=nx
+[f12599] gb.mobile DEBUG: >>> 17 Status
+[f12599] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12655] gb.mobile DEBUG: >>> 17 Status
+[f12655] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12712] gb.mobile DEBUG: >>> 17 Status
+[f12712] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12769] gb.mobile DEBUG: >>> 17 Status
+[f12769] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12825] gb.mobile DEBUG: >>> 17 Status
+[f12825] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12881] gb.mobile DEBUG: >>> 17 Status
+[f12881] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12937] gb.mobile DEBUG: >>> 17 Status
+[f12937] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12993] gb.mobile DEBUG: >>> 17 Status
+[f12993] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13049] gb.mobile DEBUG: >>> 17 Status
+[f13049] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13105] gb.mobile DEBUG: >>> 17 Status
+[f13105] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13161] gb.mobile DEBUG: >>> 17 Status
+[f13161] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13217] gb.mobile DEBUG: >>> 17 Status
+[f13217] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13273] gb.mobile DEBUG: >>> 17 Status
+[f13273] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13329] gb.mobile DEBUG: >>> 17 Status
+[f13329] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13385] gb.mobile DEBUG: >>> 17 Status
+[f13385] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13441] gb.mobile DEBUG: >>> 17 Status
+[f13441] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13497] gb.mobile DEBUG: >>> 17 Status
+[f13497] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13553] gb.mobile DEBUG: >>> 17 Status
+[f13553] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13609] gb.mobile DEBUG: >>> 17 Status
+[f13609] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13665] gb.mobile DEBUG: >>> 17 Status
+[f13665] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13721] gb.mobile DEBUG: >>> 17 Status
+[f13721] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13777] gb.mobile DEBUG: >>> 17 Status
+[f13777] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13833] gb.mobile DEBUG: >>> 17 Status
+[f13833] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13889] gb.mobile DEBUG: >>> 17 Status
+[f13889] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13945] gb.mobile DEBUG: >>> 17 Status
+[f13945] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14001] gb.mobile DEBUG: >>> 17 Status
+[f14001] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14057] gb.mobile DEBUG: >>> 17 Status
+[f14057] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14110] NET option dns=drop
+[f14113] gb.mobile DEBUG: >>> 17 Status
+[f14113] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14169] gb.mobile DEBUG: >>> 17 Status
+[f14169] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14227] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f14227] NET sock_open conn=0 UDP bindport=0
+[f14228] NET udp send to 210.196.3.183:53 (42 bytes)
+[f14228] NET dns query "gameboy.datacenter.ne.jp" -> no answer (dns=drop)
+[f14407] NET sock_close conn=0
+[f14407] NET sock_open conn=0 UDP bindport=0
+[f14408] NET udp send to 210.141.112.163:53 (42 bytes)
+[f14408] NET dns query "gameboy.datacenter.ne.jp" -> no answer (dns=drop)
+[f14587] NET sock_close conn=0
+[f14587] gb.mobile DEBUG: <<< 6E Error: 02
+[f14643] gb.mobile DEBUG: >>> 17 Status
+[f14643] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14699] gb.mobile DEBUG: >>> 17 Status
+[f14699] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14755] gb.mobile DEBUG: >>> 17 Status
+[f14755] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14811] gb.mobile DEBUG: >>> 17 Status
+[f14811] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14867] gb.mobile DEBUG: >>> 17 Status
+[f14867] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14923] gb.mobile DEBUG: >>> 17 Status
+[f14923] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14979] gb.mobile DEBUG: >>> 17 Status
+[f14979] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15035] gb.mobile DEBUG: >>> 17 Status
+[f15035] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15091] gb.mobile DEBUG: >>> 17 Status
+[f15091] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15147] gb.mobile DEBUG: >>> 17 Status
+[f15147] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15203] gb.mobile DEBUG: >>> 17 Status
+[f15203] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15259] gb.mobile DEBUG: >>> 17 Status
+[f15259] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15315] gb.mobile DEBUG: >>> 17 Status
+[f15315] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15371] gb.mobile DEBUG: >>> 17 Status
+[f15371] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15427] gb.mobile DEBUG: >>> 17 Status
+[f15427] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15483] gb.mobile DEBUG: >>> 17 Status
+[f15483] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15539] gb.mobile DEBUG: >>> 17 Status
+[f15539] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15595] gb.mobile DEBUG: >>> 17 Status
+[f15595] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15651] gb.mobile DEBUG: >>> 17 Status
+[f15651] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15707] gb.mobile DEBUG: >>> 17 Status
+[f15707] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15763] gb.mobile DEBUG: >>> 17 Status
+[f15763] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15819] gb.mobile DEBUG: >>> 17 Status
+[f15819] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15875] gb.mobile DEBUG: >>> 17 Status
+[f15875] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15931] gb.mobile DEBUG: >>> 17 Status
+[f15931] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15987] gb.mobile DEBUG: >>> 17 Status
+[f15987] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16043] gb.mobile DEBUG: >>> 17 Status
+[f16043] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16099] gb.mobile DEBUG: >>> 17 Status
+[f16099] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16155] gb.mobile DEBUG: >>> 17 Status
+[f16155] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16211] gb.mobile DEBUG: >>> 17 Status
+[f16211] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16267] gb.mobile DEBUG: >>> 17 Status
+[f16267] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16323] gb.mobile DEBUG: >>> 17 Status
+[f16323] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16379] gb.mobile DEBUG: >>> 17 Status
+[f16379] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16435] gb.mobile DEBUG: >>> 17 Status
+[f16435] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16491] gb.mobile DEBUG: >>> 17 Status
+[f16491] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16547] gb.mobile DEBUG: >>> 17 Status
+[f16547] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16603] gb.mobile DEBUG: >>> 17 Status
+[f16603] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16659] gb.mobile DEBUG: >>> 17 Status
+[f16659] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16715] gb.mobile DEBUG: >>> 17 Status
+[f16715] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16771] gb.mobile DEBUG: >>> 17 Status
+[f16771] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16827] gb.mobile DEBUG: >>> 17 Status
+[f16827] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16883] gb.mobile DEBUG: >>> 17 Status
+[f16883] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16939] gb.mobile DEBUG: >>> 17 Status
+[f16939] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16995] gb.mobile DEBUG: >>> 17 Status
+[f16995] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17051] gb.mobile DEBUG: >>> 17 Status
+[f17051] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17107] gb.mobile DEBUG: >>> 17 Status
+[f17107] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17163] gb.mobile DEBUG: >>> 17 Status
+[f17163] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17219] gb.mobile DEBUG: >>> 17 Status
+[f17219] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17275] gb.mobile DEBUG: >>> 17 Status
+[f17275] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17331] gb.mobile DEBUG: >>> 17 Status
+[f17331] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17387] gb.mobile DEBUG: >>> 17 Status
+[f17387] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17443] gb.mobile DEBUG: >>> 17 Status
+[f17443] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17499] gb.mobile DEBUG: >>> 17 Status
+[f17499] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17555] gb.mobile DEBUG: >>> 17 Status
+[f17555] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17611] gb.mobile DEBUG: >>> 17 Status
+[f17611] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17667] gb.mobile DEBUG: >>> 17 Status
+[f17667] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17723] gb.mobile DEBUG: >>> 17 Status
+[f17723] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17779] gb.mobile DEBUG: >>> 17 Status
+[f17779] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17835] gb.mobile DEBUG: >>> 17 Status
+[f17835] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17891] gb.mobile DEBUG: >>> 17 Status
+[f17891] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17947] gb.mobile DEBUG: >>> 17 Status
+[f17947] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18003] gb.mobile DEBUG: >>> 17 Status
+[f18003] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18059] gb.mobile DEBUG: >>> 17 Status
+[f18059] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18115] gb.mobile DEBUG: >>> 17 Status
+[f18115] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18171] gb.mobile DEBUG: >>> 17 Status
+[f18171] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18227] gb.mobile DEBUG: >>> 17 Status
+[f18227] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18283] gb.mobile DEBUG: >>> 17 Status
+[f18283] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18339] gb.mobile DEBUG: >>> 17 Status
+[f18339] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18395] gb.mobile DEBUG: >>> 17 Status
+[f18395] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18451] gb.mobile DEBUG: >>> 17 Status
+[f18451] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18507] gb.mobile DEBUG: >>> 17 Status
+[f18507] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18563] gb.mobile DEBUG: >>> 17 Status
+[f18563] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18619] gb.mobile DEBUG: >>> 17 Status
+[f18619] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18675] gb.mobile DEBUG: >>> 17 Status
+[f18675] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18731] gb.mobile DEBUG: >>> 17 Status
+[f18731] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18787] gb.mobile DEBUG: >>> 17 Status
+[f18787] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18843] gb.mobile DEBUG: >>> 17 Status
+[f18843] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18899] gb.mobile DEBUG: >>> 17 Status
+[f18899] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18955] gb.mobile DEBUG: >>> 17 Status
+[f18955] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19011] gb.mobile DEBUG: >>> 17 Status
+[f19011] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19067] gb.mobile DEBUG: >>> 17 Status
+[f19067] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19123] gb.mobile DEBUG: >>> 17 Status
+[f19123] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19179] gb.mobile DEBUG: >>> 17 Status
+[f19179] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19236] gb.mobile DEBUG: >>> 17 Status
+[f19236] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19294] gb.mobile DEBUG: >>> 17 Status
+[f19294] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19350] gb.mobile DEBUG: >>> 17 Status
+[f19350] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19406] gb.mobile DEBUG: >>> 17 Status
+[f19406] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19462] gb.mobile DEBUG: >>> 17 Status
+[f19462] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19518] gb.mobile DEBUG: >>> 17 Status
+[f19518] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19574] gb.mobile DEBUG: >>> 17 Status
+[f19574] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19630] gb.mobile DEBUG: >>> 17 Status
+[f19630] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19686] gb.mobile DEBUG: >>> 17 Status
+[f19686] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19742] NET option dns=ok
+[f19742] NET option tcp=refuse
+[f19742] gb.mobile DEBUG: >>> 17 Status
+[f19742] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19798] gb.mobile DEBUG: >>> 17 Status
+[f19798] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19857] gb.mobile DEBUG: >>> 17 Status
+[f19857] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19860] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f19860] NET sock_open conn=0 UDP bindport=0
+[f19861] NET udp send to 210.196.3.183:53 (42 bytes)
+[f19861] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f19862] NET sock_close conn=0
+[f19862] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f19864] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f19864] NET sock_open conn=0 TCP bindport=0
+[f19865] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f19865] NET sock_close conn=0
+[f19865] gb.mobile DEBUG: <<< 6E Error: 03
+[f19924] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f19924] NET sock_open conn=0 TCP bindport=0
+[f19925] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f19925] NET sock_close conn=0
+[f19925] gb.mobile DEBUG: <<< 6E Error: 03
+[f19984] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f19984] NET sock_open conn=0 TCP bindport=0
+[f19985] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f19985] NET sock_close conn=0
+[f19985] gb.mobile DEBUG: <<< 6E Error: 03
+[f20044] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f20044] NET sock_open conn=0 TCP bindport=0
+[f20045] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f20045] NET sock_close conn=0
+[f20045] gb.mobile DEBUG: <<< 6E Error: 03
+[f20104] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f20104] NET sock_open conn=0 TCP bindport=0
+[f20105] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f20105] NET sock_close conn=0
+[f20105] gb.mobile DEBUG: <<< 6E Error: 03
+[f20165] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f20165] NET sock_open conn=0 TCP bindport=0
+[f20166] NET sock_connect conn=0 TCP 10.0.123.251:80 -> refused (tcp=refuse)
+[f20166] NET sock_close conn=0
+[f20166] gb.mobile DEBUG: <<< 6E Error: 03
+[f20222] gb.mobile DEBUG: >>> 17 Status
+[f20222] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20278] gb.mobile DEBUG: >>> 17 Status
+[f20278] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20334] gb.mobile DEBUG: >>> 17 Status
+[f20334] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20390] gb.mobile DEBUG: >>> 17 Status
+[f20390] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20446] gb.mobile DEBUG: >>> 17 Status
+[f20446] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20502] gb.mobile DEBUG: >>> 17 Status
+[f20502] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20558] gb.mobile DEBUG: >>> 17 Status
+[f20558] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20614] gb.mobile DEBUG: >>> 17 Status
+[f20614] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20670] gb.mobile DEBUG: >>> 17 Status
+[f20670] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20726] gb.mobile DEBUG: >>> 17 Status
+[f20726] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20783] gb.mobile DEBUG: >>> 17 Status
+[f20783] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20841] gb.mobile DEBUG: >>> 17 Status
+[f20841] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20897] gb.mobile DEBUG: >>> 17 Status
+[f20897] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20953] gb.mobile DEBUG: >>> 17 Status
+[f20953] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21009] gb.mobile DEBUG: >>> 17 Status
+[f21009] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21065] gb.mobile DEBUG: >>> 17 Status
+[f21065] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21121] gb.mobile DEBUG: >>> 17 Status
+[f21121] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21177] gb.mobile DEBUG: >>> 17 Status
+[f21177] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21233] gb.mobile DEBUG: >>> 17 Status
+[f21233] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21274] NET option tcp=reset
+[f21289] gb.mobile DEBUG: >>> 17 Status
+[f21289] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21345] gb.mobile DEBUG: >>> 17 Status
+[f21345] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21391] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f21391] NET sock_open conn=0 UDP bindport=0
+[f21392] NET udp send to 210.196.3.183:53 (42 bytes)
+[f21392] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f21393] NET sock_close conn=0
+[f21393] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f21395] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f21395] NET sock_open conn=0 TCP bindport=0
+[f21396] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f21396] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f21398] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21398] gb.mobile DEBUG: GET 
+[f21398] NET tcp send on conn=0 -> reset (tcp=reset)
+[f21398] gb.mobile DEBUG: <<< 6E Error: 00
+[f21454] gb.mobile DEBUG: >>> 17 Status
+[f21454] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21510] gb.mobile DEBUG: >>> 17 Status
+[f21510] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21566] gb.mobile DEBUG: >>> 17 Status
+[f21566] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21622] gb.mobile DEBUG: >>> 17 Status
+[f21622] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21678] gb.mobile DEBUG: >>> 17 Status
+[f21678] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21734] gb.mobile DEBUG: >>> 17 Status
+[f21734] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21790] gb.mobile DEBUG: >>> 17 Status
+[f21790] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21846] gb.mobile DEBUG: >>> 17 Status
+[f21846] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21902] gb.mobile DEBUG: >>> 17 Status
+[f21902] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21958] gb.mobile DEBUG: >>> 17 Status
+[f21958] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22014] gb.mobile DEBUG: >>> 17 Status
+[f22014] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22070] gb.mobile DEBUG: >>> 17 Status
+[f22070] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22126] gb.mobile DEBUG: >>> 17 Status
+[f22126] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22182] gb.mobile DEBUG: >>> 17 Status
+[f22182] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22238] gb.mobile DEBUG: >>> 17 Status
+[f22238] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22294] gb.mobile DEBUG: >>> 17 Status
+[f22294] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22352] gb.mobile DEBUG: >>> 17 Status
+[f22352] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22408] gb.mobile DEBUG: >>> 17 Status
+[f22408] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22464] gb.mobile DEBUG: >>> 17 Status
+[f22464] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22520] gb.mobile DEBUG: >>> 17 Status
+[f22520] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22576] gb.mobile DEBUG: >>> 17 Status
+[f22576] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22632] gb.mobile DEBUG: >>> 17 Status
+[f22632] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22688] gb.mobile DEBUG: >>> 17 Status
+[f22688] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22744] gb.mobile DEBUG: >>> 17 Status
+[f22744] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22800] gb.mobile DEBUG: >>> 17 Status
+[f22800] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22806] NET option tcp=ok
+[f22856] gb.mobile DEBUG: >>> 17 Status
+[f22856] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22914] gb.mobile DEBUG: >>> 17 Status
+[f22914] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22923] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f22923] NET sock_open conn=1 UDP bindport=0
+[f22924] gb.mobile DEBUG: !!! 11 End session (forced)
+[f22924] gb.mobile DEBUG: 
+[f22924] NET sock_close conn=0
+[f22924] NET sock_close conn=1
+[f22924] HARNESS Mobile Adapter removed from the link port
+[f26558] HARNESS Mobile Adapter plugged in again

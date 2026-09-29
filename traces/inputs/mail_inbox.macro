@@ -1,0 +1,150 @@
+# Scenario 'mail_inbox': メールボックス with the four mails received by 'mail_receive'. Reads mail 1 (sender page, body), registers its
+# sender in the address book (SELECT on the sender page -> "セーブするばしょを えらんでください" -> A), reads the ASCII mail 2, reads the 40-line
+# mail 4 (character-limit dialog "もじすうのオーバー..."), replies to mail 1 (address/title/body keyboards, saved in the outbox), deletes
+# mail 2 with the third icon of the action bar (first "いいえ", then "はい"). List navigation: A on a row opens the icon bar
+# (read / reply / delete), A on the first icon reads. Starts from the state left by 'mail_receive'; leaves an address-book entry and a
+# saved reply. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A                        # メールボックス
+waitstable 60 max 600
+shot list
+# --- mail 1: sender page, save the sender to the address book, body
+tap A
+wait 60
+tap A                        # icon bar: first icon = read
+waitstable 60 max 600
+shot m1_sender
+tap SELECT
+waitstable 60 max 600
+shot m1_save_place
+tap A                        # choose the first free slot
+waitstable 60 max 600
+shot m1_saved_1
+tap A
+waitstable 60 max 600
+shot m1_saved_2
+tap B
+waitstable 60 max 600
+shot m1_saved_3
+tap A
+waitstable 60 max 600
+shot m1_body
+tap A                        # back to the list
+waitstable 60 max 600
+shot m1_list
+# --- mail 2 (ASCII)
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m2_sender
+tap A
+waitstable 60 max 600
+shot m2_body
+tap A
+waitstable 60 max 600
+shot m2_list
+# --- mail 3 (multipart, attachment) and mail 4 (40 lines)
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m3_sender
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot m3_list
+tap DOWN
+wait 30
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot m4_limit_dialog
+tap A                        # OK
+waitstable 60 max 600
+shot m4_sender
+tap A
+waitstable 60 max 600
+shot m4_body
+tap A
+waitstable 60 max 600
+shot m4_list
+# --- delete mail 2 with the third icon: first "いいえ" (default), then "はい"
+tap UP x2
+wait 30
+tap A
+wait 60
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 600
+shot del_confirm
+tap A                        # "いいえ" is the default
+waitstable 60 max 600
+shot del_cancelled
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+shot del_yes
+tap A                        # "はい"
+waitstable 60 max 600
+shot del_done
+# --- reply to mail 1 (second icon)
+tap UP
+wait 30
+tap A
+wait 60
+tap RIGHT
+wait 30
+tap A
+waitstable 60 max 600
+shot reply_address
+tap START
+wait 40
+tap A                        # OK
+waitstable 60 max 600
+shot reply_title
+tap A x3
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot reply_body_intro
+tap A
+waitstable 60 max 600
+tap A x4
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot reply_save_menu
+tap A                        # save
+waitstable 60 max 600
+shot reply_save_confirm
+tap A                        # はい
+waitstable 60 max 900
+shot reply_saved
+# --- back in the mailbox
+tap A
+waitstable 60 max 600
+shot list_again
+tap B
+waitstable 60 max 600
+shot mail_menu

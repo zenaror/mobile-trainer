@@ -1,0 +1,779 @@
+# Scenario 'boot_combos': hidden power-on modes. Every non-empty subset of the 8 buttons (255 combinations, in binary order over
+# A B SELECT START RIGHT LEFT UP DOWN) is held for the first 200 frames after a power cycle (`reset`), released, and the ROM runs for 200 more
+# frames (title screen), then the next combination follows. Nothing is pressed afterwards, so any code that only runs for a held combination
+# (test modes, debug menus) shows up in the coverage. SRAM and adapter configuration are those of the parent scenario; the adapter is present.
+# Starts from the state left by 'tutorial_profile'. Deterministic (no randomness).
+reset
+hold A 200
+wait 200
+shot combo_1
+reset
+hold B 200
+wait 200
+shot combo_2
+reset
+hold A+B 200
+wait 200
+reset
+hold SELECT 200
+wait 200
+shot combo_4
+reset
+hold A+SELECT 200
+wait 200
+reset
+hold B+SELECT 200
+wait 200
+reset
+hold A+B+SELECT 200
+wait 200
+reset
+hold START 200
+wait 200
+shot combo_8
+reset
+hold A+START 200
+wait 200
+reset
+hold B+START 200
+wait 200
+reset
+hold A+B+START 200
+wait 200
+reset
+hold SELECT+START 200
+wait 200
+reset
+hold A+SELECT+START 200
+wait 200
+reset
+hold B+SELECT+START 200
+wait 200
+reset
+hold A+B+SELECT+START 200
+wait 200
+reset
+hold RIGHT 200
+wait 200
+shot combo_16
+reset
+hold A+RIGHT 200
+wait 200
+reset
+hold B+RIGHT 200
+wait 200
+reset
+hold A+B+RIGHT 200
+wait 200
+reset
+hold SELECT+RIGHT 200
+wait 200
+reset
+hold A+SELECT+RIGHT 200
+wait 200
+reset
+hold B+SELECT+RIGHT 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT 200
+wait 200
+reset
+hold START+RIGHT 200
+wait 200
+reset
+hold A+START+RIGHT 200
+wait 200
+reset
+hold B+START+RIGHT 200
+wait 200
+reset
+hold A+B+START+RIGHT 200
+wait 200
+reset
+hold SELECT+START+RIGHT 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT 200
+wait 200
+reset
+hold LEFT 200
+wait 200
+shot combo_32
+reset
+hold A+LEFT 200
+wait 200
+reset
+hold B+LEFT 200
+wait 200
+reset
+hold A+B+LEFT 200
+wait 200
+reset
+hold SELECT+LEFT 200
+wait 200
+reset
+hold A+SELECT+LEFT 200
+wait 200
+reset
+hold B+SELECT+LEFT 200
+wait 200
+reset
+hold A+B+SELECT+LEFT 200
+wait 200
+reset
+hold START+LEFT 200
+wait 200
+reset
+hold A+START+LEFT 200
+wait 200
+reset
+hold B+START+LEFT 200
+wait 200
+reset
+hold A+B+START+LEFT 200
+wait 200
+reset
+hold SELECT+START+LEFT 200
+wait 200
+reset
+hold A+SELECT+START+LEFT 200
+wait 200
+reset
+hold B+SELECT+START+LEFT 200
+wait 200
+reset
+hold A+B+SELECT+START+LEFT 200
+wait 200
+reset
+hold RIGHT+LEFT 200
+wait 200
+reset
+hold A+RIGHT+LEFT 200
+wait 200
+reset
+hold B+RIGHT+LEFT 200
+wait 200
+reset
+hold A+B+RIGHT+LEFT 200
+wait 200
+reset
+hold SELECT+RIGHT+LEFT 200
+wait 200
+reset
+hold A+SELECT+RIGHT+LEFT 200
+wait 200
+reset
+hold B+SELECT+RIGHT+LEFT 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+LEFT 200
+wait 200
+reset
+hold START+RIGHT+LEFT 200
+wait 200
+reset
+hold A+START+RIGHT+LEFT 200
+wait 200
+reset
+hold B+START+RIGHT+LEFT 200
+wait 200
+reset
+hold A+B+START+RIGHT+LEFT 200
+wait 200
+reset
+hold SELECT+START+RIGHT+LEFT 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+LEFT 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+LEFT 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+LEFT 200
+wait 200
+reset
+hold UP 200
+wait 200
+shot combo_64
+reset
+hold A+UP 200
+wait 200
+reset
+hold B+UP 200
+wait 200
+reset
+hold A+B+UP 200
+wait 200
+reset
+hold SELECT+UP 200
+wait 200
+reset
+hold A+SELECT+UP 200
+wait 200
+reset
+hold B+SELECT+UP 200
+wait 200
+reset
+hold A+B+SELECT+UP 200
+wait 200
+reset
+hold START+UP 200
+wait 200
+reset
+hold A+START+UP 200
+wait 200
+reset
+hold B+START+UP 200
+wait 200
+reset
+hold A+B+START+UP 200
+wait 200
+reset
+hold SELECT+START+UP 200
+wait 200
+reset
+hold A+SELECT+START+UP 200
+wait 200
+reset
+hold B+SELECT+START+UP 200
+wait 200
+reset
+hold A+B+SELECT+START+UP 200
+wait 200
+reset
+hold RIGHT+UP 200
+wait 200
+reset
+hold A+RIGHT+UP 200
+wait 200
+reset
+hold B+RIGHT+UP 200
+wait 200
+reset
+hold A+B+RIGHT+UP 200
+wait 200
+reset
+hold SELECT+RIGHT+UP 200
+wait 200
+reset
+hold A+SELECT+RIGHT+UP 200
+wait 200
+reset
+hold B+SELECT+RIGHT+UP 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+UP 200
+wait 200
+reset
+hold START+RIGHT+UP 200
+wait 200
+reset
+hold A+START+RIGHT+UP 200
+wait 200
+reset
+hold B+START+RIGHT+UP 200
+wait 200
+reset
+hold A+B+START+RIGHT+UP 200
+wait 200
+reset
+hold SELECT+START+RIGHT+UP 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+UP 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+UP 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+UP 200
+wait 200
+reset
+hold LEFT+UP 200
+wait 200
+reset
+hold A+LEFT+UP 200
+wait 200
+reset
+hold B+LEFT+UP 200
+wait 200
+reset
+hold A+B+LEFT+UP 200
+wait 200
+reset
+hold SELECT+LEFT+UP 200
+wait 200
+reset
+hold A+SELECT+LEFT+UP 200
+wait 200
+reset
+hold B+SELECT+LEFT+UP 200
+wait 200
+reset
+hold A+B+SELECT+LEFT+UP 200
+wait 200
+reset
+hold START+LEFT+UP 200
+wait 200
+reset
+hold A+START+LEFT+UP 200
+wait 200
+reset
+hold B+START+LEFT+UP 200
+wait 200
+reset
+hold A+B+START+LEFT+UP 200
+wait 200
+reset
+hold SELECT+START+LEFT+UP 200
+wait 200
+reset
+hold A+SELECT+START+LEFT+UP 200
+wait 200
+reset
+hold B+SELECT+START+LEFT+UP 200
+wait 200
+reset
+hold A+B+SELECT+START+LEFT+UP 200
+wait 200
+reset
+hold RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold B+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+B+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold SELECT+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+SELECT+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold B+SELECT+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold B+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+B+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold SELECT+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+LEFT+UP 200
+wait 200
+reset
+hold DOWN 200
+wait 200
+shot combo_128
+reset
+hold A+DOWN 200
+wait 200
+reset
+hold B+DOWN 200
+wait 200
+reset
+hold A+B+DOWN 200
+wait 200
+reset
+hold SELECT+DOWN 200
+wait 200
+reset
+hold A+SELECT+DOWN 200
+wait 200
+reset
+hold B+SELECT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+DOWN 200
+wait 200
+reset
+hold START+DOWN 200
+wait 200
+reset
+hold A+START+DOWN 200
+wait 200
+reset
+hold B+START+DOWN 200
+wait 200
+reset
+hold A+B+START+DOWN 200
+wait 200
+reset
+hold SELECT+START+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+DOWN 200
+wait 200
+reset
+hold RIGHT+DOWN 200
+wait 200
+reset
+hold A+RIGHT+DOWN 200
+wait 200
+reset
+hold B+RIGHT+DOWN 200
+wait 200
+reset
+hold A+B+RIGHT+DOWN 200
+wait 200
+reset
+hold SELECT+RIGHT+DOWN 200
+wait 200
+reset
+hold A+SELECT+RIGHT+DOWN 200
+wait 200
+reset
+hold B+SELECT+RIGHT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+DOWN 200
+wait 200
+reset
+hold START+RIGHT+DOWN 200
+wait 200
+reset
+hold A+START+RIGHT+DOWN 200
+wait 200
+reset
+hold B+START+RIGHT+DOWN 200
+wait 200
+reset
+hold A+B+START+RIGHT+DOWN 200
+wait 200
+reset
+hold SELECT+START+RIGHT+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+DOWN 200
+wait 200
+reset
+hold LEFT+DOWN 200
+wait 200
+reset
+hold A+LEFT+DOWN 200
+wait 200
+reset
+hold B+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+LEFT+DOWN 200
+wait 200
+reset
+hold SELECT+LEFT+DOWN 200
+wait 200
+reset
+hold A+SELECT+LEFT+DOWN 200
+wait 200
+reset
+hold B+SELECT+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+LEFT+DOWN 200
+wait 200
+reset
+hold START+LEFT+DOWN 200
+wait 200
+reset
+hold A+START+LEFT+DOWN 200
+wait 200
+reset
+hold B+START+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+START+LEFT+DOWN 200
+wait 200
+reset
+hold SELECT+START+LEFT+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+LEFT+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+LEFT+DOWN 200
+wait 200
+reset
+hold RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold B+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold SELECT+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+SELECT+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold B+SELECT+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold B+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold SELECT+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+LEFT+DOWN 200
+wait 200
+reset
+hold UP+DOWN 200
+wait 200
+reset
+hold A+UP+DOWN 200
+wait 200
+reset
+hold B+UP+DOWN 200
+wait 200
+reset
+hold A+B+UP+DOWN 200
+wait 200
+reset
+hold SELECT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+UP+DOWN 200
+wait 200
+reset
+hold START+UP+DOWN 200
+wait 200
+reset
+hold A+START+UP+DOWN 200
+wait 200
+reset
+hold B+START+UP+DOWN 200
+wait 200
+reset
+hold A+B+START+UP+DOWN 200
+wait 200
+reset
+hold SELECT+START+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+UP+DOWN 200
+wait 200
+reset
+hold RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold B+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+B+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold B+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+B+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+UP+DOWN 200
+wait 200
+reset
+hold LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+LEFT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+LEFT+UP+DOWN 200
+wait 200
+reset
+hold RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold SELECT+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+SELECT+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold B+SELECT+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+reset
+hold A+B+SELECT+START+RIGHT+LEFT+UP+DOWN 200
+wait 200
+shot combo_255

@@ -1,0 +1,135 @@
+# Scenario 'browser_bookmarks': ホームページ (browser) first-use tutorial read completely (14 pages, A each), the start prompt with its two
+# buttons (ホームページ / ページリスト): the page list (bookmarks) while empty, then connect (dial, PPP, DNS, HTTP GET index.html from
+# the fake server, web=all), START menu -> page list -> save the current page twice (icon 2 of the action bar), go to a saved page
+# (icon 1), delete one (icon 3, confirmation: "いいえ" default, LEFT = "はい"). Starts from the state left by 'addressbook_full'.
+# Latency 2 frames on the fake Internet. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 900
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap DOWN
+wait 40
+tap A
+waitstable 60 max 900
+shot empty_list
+tap A
+wait 60
+shot empty_bar
+tap A
+waitstable 60 max 900
+shot empty_a
+tap B
+waitstable 60 max 900
+shot list_again
+tap B
+waitstable 60 max 900
+shot back_prompt
+tap UP
+wait 40
+tap A
+waitstable 60 max 900
+shot confirm
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap START
+wait 60
+tap A
+waitstable 60 max 900
+shot list_a
+tap A
+wait 60
+tap RIGHT
+wait 60
+tap A
+waitstable 60 max 900
+shot saved_a
+tap A
+wait 60
+shot saved_bar
+tap B
+waitstable 60 max 900
+shot back_to_page
+tap DOWN
+wait 30
+tap A
+wait 1200
+shot a_page
+tap START
+wait 60
+tap A
+waitstable 60 max 900
+tap DOWN
+wait 40
+tap A
+wait 60
+tap RIGHT
+wait 60
+tap A
+waitstable 60 max 900
+shot saved_second
+tap A
+wait 60
+shot bar_first
+tap A
+wait 1200
+shot goto_page
+tap START
+wait 60
+tap A
+waitstable 60 max 900
+tap DOWN
+wait 40
+tap A
+wait 60
+tap RIGHT x2
+wait 60
+tap A
+waitstable 60 max 900
+shot delete_confirm
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 900
+shot deleted

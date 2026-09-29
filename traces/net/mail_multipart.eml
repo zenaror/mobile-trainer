@@ -1,0 +1,22 @@
+Date: Tue, 30 Jan 2001 12:00:00 +0900
+From: sender@example.test
+To: 11111111@1111.dion.ne.jp
+Subject: =?ISO-2022-JP?B?GyRCJFUkISQkJGsbKEIgGyRCJEQkLRsoQg==?=
+MIME-Version: 1.0
+X-Mailer: fixture-mailer 1.0
+Content-Type: multipart/mixed; boundary="----=_Part_0_1234"
+
+------=_Part_0_1234
+Content-Type: text/plain; charset=iso-2022-jp
+
+てんぷ ファイル
+------=_Part_0_1234
+Content-Type: Application/Octet-Stream; name="data.bin"
+Content-Transfer-Encoding:Base64
+
+AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKiss
+LS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZ
+WltcXV5fAAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUm
+JygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJT
+VFVWV1hZWltcXV5f
+------=_Part_0_1234--
