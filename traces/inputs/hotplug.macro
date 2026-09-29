@@ -1,0 +1,17 @@
+# Scenario 'hotplug': no adapter at power-on ("モバイルアダプタGBがささっていません"); the harness plugs the adapter into
+# the link port at frame 1200 (--mobile-at 1200, fake Internet); a later A press makes the ROM re-run the adapter check
+# and continue (adapter is blank so it enters the initial registration screens).
+wait 300                     # boot, adapter check fails
+waitstable 60 max 400
+shot no_adapter_screen
+wait 600
+gap 60
+tap A                        # retry BEFORE the plug-in at frame 1200: still no adapter
+wait 100
+shot retry_without_adapter
+wait 300                     # (frame ~1200: harness attaches the adapter)
+tap A                        # retry with the adapter present
+waitstable 60 max 500
+shot retry_with_adapter
+wait 200
+shot after_retry

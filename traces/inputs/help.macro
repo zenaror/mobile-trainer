@@ -1,0 +1,61 @@
+# Scenario 'help': top menu -> ヘルプ (help): replays the first-use tutorial, then the other help entries.
+# Starts from the state left by 'tutorial_profile'. All screen names are from reading the Japanese screens.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+tap A                        # top menu
+waitstable 60 max 600
+tap DOWN                     # ヘルプ
+wait 30
+shot help_hover
+tap A
+waitstable 60 max 600
+shot help_menu
+tap A                        # first entry: the cartridge tutorial ("モバイルトレーナー")
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot tutorial_page
+tap B
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot help_menu_again
+tap DOWN
+wait 40
+tap A                        # second entry
+waitstable 60 max 600
+shot entry_2
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot entry_2b
+tap B
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+tap DOWN
+wait 40
+tap A                        # third entry
+waitstable 60 max 600
+shot entry_3
+tap B
+waitstable 60 max 600
+tap DOWN
+wait 40
+tap A                        # fourth entry (モバイルせってい)
+waitstable 60 max 600
+shot entry_4
+tap A
+waitstable 60 max 600
+shot entry_4b
+tap B
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot back_to_top

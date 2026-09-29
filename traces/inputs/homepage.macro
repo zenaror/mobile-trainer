@@ -1,0 +1,63 @@
+# Scenario 'homepage': top menu -> ホームページ (mobile web browser).
+# Fake Internet: gameboy.datacenter.ne.jp resolves via the fake DNS; GET /01/CGB-B9AJ/index.html is answered with
+# traces/web/index.html (synthetic page, Shift-JIS), every other *.html gets traces/web/page.html.
+# Walks: first-use tutorial (SELECT skips it), connect confirmation, saved-password screen, page load, follow a link,
+# back, cursor movement, START/SELECT pop-up menu, B out of the browser.
+# Starts from the state left by 'tutorial_profile'. All screen names are from reading the Japanese screens.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+tap A                        # top menu
+waitstable 60 max 600
+tap RIGHT                    # ホームページ
+wait 40
+tap A
+waitstable 60 max 600
+shot homepage_tutorial
+tap SELECT                   # skip tutorial
+waitstable 60 max 900
+shot connect_prompt
+tap A                        # "はい"
+waitstable 60 max 900
+tap A                        # saved password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 700
+shot page_index
+tap A                        # follow the first link
+wait 300
+shot after_follow_1
+wait 300
+tap DOWN
+wait 60
+shot cursor_down
+tap A                        # follow the highlighted link
+wait 300
+wait 300
+shot page_a
+tap START                    # browser menu
+wait 60
+shot browser_menu_start
+tap B
+wait 60
+tap SELECT
+wait 60
+shot browser_menu_select
+tap B
+wait 60
+tap B                        # back
+wait 300
+shot after_back
+tap B
+wait 300
+tap B
+wait 300
+shot leaving_browser
+tap B
+wait 300
+shot end

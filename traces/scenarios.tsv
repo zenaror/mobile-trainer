@@ -1,0 +1,27 @@
+# Scenario table for tools/trace/run_trace.py (TAB separated; '#' starts a comment line).
+# name        : scenario id; input script = traces/inputs/<name>.macro (source) and <name>.txt (resolved frames, replayed by default)
+# mobile      : off | on | at:<frame>  (Mobile Adapter GB emulated by libmobile on the link port; at:N = hot-plug at frame N)
+# net         : stub (adapter sockets refused) | fake (built-in fake Internet: DNS/POP3/SMTP/HTTP) | real (host network; NOT reproducible)
+# from        : scenario whose final SRAM (.sav) and adapter config (.cfg) this one starts from, or '-' for a factory-fresh
+#               cartridge (SRAM filled with 0xFF) and a blank adapter
+# web         : 1 = serve traces/web/*.html (Shift-JIS converted) from the fake HTTP server
+# description : one line
+name	mobile	net	from	web	description
+noadapter	off	stub	-	0	No Mobile Adapter on the link port: "adapter not plugged in" error screen and its retry-on-button path
+hotplug	at:1200	fake	-	0	Adapter plugged in (by the harness) after the error screen was shown; A press retries and detects it
+register_neterr	on	stub	-	0	Blank cartridge + blank adapter, no Internet: full DION initial-registration walk ending in communication error 24-000
+resume_registration	on	fake	register_neterr	0	Resume of the aborted registration ("初期登録再開") with a working fake Internet, then welcome messages
+register	on	fake	-	0	Blank cartridge + blank adapter, fake Internet: full initial registration incl. POP3 check, welcome messages, title screen
+tutorial_profile	on	fake	register	0	First-run tutorial pages, nickname keyboard, mail menu, send/receive over fake POP3, communication result
+title_settings	on	fake	tutorial_profile	0	Title screen -> mobile settings: change password, usage time, usage fee (HTTP CGI 404 paths), delete registration
+mail_compose	on	fake	tutorial_profile	0	Mail menu -> write a mail (address, title, body), save, view
+mail_mailbox	on	fake	tutorial_profile	0	Mail menu -> mailbox (empty)
+mail_addressbook	on	fake	tutorial_profile	0	Mail menu -> address book: list, new-entry screen and its keyboard (nothing is saved)
+mail_profile	on	fake	tutorial_profile	0	Mail menu -> profile (nickname/address) and its nickname keyboard (typed characters are not saved)
+mail_server	on	fake	tutorial_profile	0	Mail menu -> mail server management: connects to the fake POP3 server (STAT) and shows the result
+homepage	on	fake	tutorial_profile	1	Top menu -> homepage (HTTP browser + renderer) with synthetic pages: load, follow links, browser menu
+help	on	fake	tutorial_profile	0	Top menu -> help entries
+monkey_1	on	fake	tutorial_profile	1	Seeded random button mashing on the set-up cartridge (seed 1, 24000 frames)
+monkey_2	on	fake	tutorial_profile	1	Seeded random button mashing (seed 2)
+monkey_3	on	fake	tutorial_profile	1	Seeded random button mashing (seed 3)
+monkey_blank	on	fake	-	1	Seeded random button mashing from a blank cartridge/adapter (registration wizard paths)

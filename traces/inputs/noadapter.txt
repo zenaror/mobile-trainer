@@ -1,0 +1,27 @@
+# recorded by mgba_trace --macro noadapter.macro (resolved absolute frames)
+700 shot no_adapter_screen
+700 A
+704 -
+804 shot after_a
+804 B
+808 -
+908 shot after_b
+908 START
+912 -
+1012 shot after_start
+1012 SELECT
+1016 -
+1116 shot after_select
+1116 A
+1416 -
+1516 shot after_hold_a
+1516 UP
+1520 -
+1560 DOWN
+1564 -
+1604 LEFT
+1608 -
+1648 RIGHT
+1652 -
+1892 shot end
+# last scripted frame: 1892

@@ -1,0 +1,62 @@
+# Scenario 'mail_compose': メールをかく: write a mail (address, title, body), save it, look at it in the mail check screen
+# Starts from the state left by 'tutorial_profile' (adapter registered, nickname set), fake Internet on.
+# Every section shows a first-use tutorial the first time it is entered; SELECT ("おわる") skips it.
+# Keyboards: A types the highlighted key, START jumps to OK, A on OK confirms.
+# All screen names are from reading the Japanese screens (screenshots), not from the code.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+tap A                        # top menu
+waitstable 60 max 600
+tap A                        # enter メール (first-use tutorial page)
+waitstable 60 max 600
+tap SELECT                   # skip tutorial
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+shot compose1
+tap A
+waitstable 60 max 600
+tap A x4
+tap START
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+wait 60
+tap A x3
+wait 30
+shot subj_typed
+tap START
+wait 30
+tap A
+waitstable 60 max 600
+shot body_intro
+tap A
+waitstable 60 max 600
+shot body_kbd
+tap A x5
+wait 30
+shot body_typed
+tap START
+wait 30
+tap A
+waitstable 60 max 600
+shot after_body
+tap A
+waitstable 60 max 600
+shot s1
+tap A
+waitstable 60 max 600
+shot s2
+tap A
+waitstable 60 max 600
+shot s3
+tap A
+waitstable 60 max 600
+shot s4

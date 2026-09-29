@@ -1,0 +1,38 @@
+# recorded by mgba_trace --macro mail_addressbook.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 SELECT
+2366 -
+2996 shot mail_menu
+2996 DOWN
+3000 -
+3030 DOWN
+3034 -
+3064 DOWN
+3068 -
+3128 A
+3132 -
+3281 shot addrbook_1
+3281 SELECT
+3285 -
+3375 shot addrbook_2
+3375 A
+3379 -
+3520 shot addrbook_3
+3520 A
+3524 -
+4154 shot addrbook_4
+4154 DOWN
+4158 -
+4228 shot addrbook_5
+4228 A
+4232 -
+4862 shot addrbook_6
+4862 B
+4866 -
+5496 shot addrbook_7
+# last scripted frame: 5496

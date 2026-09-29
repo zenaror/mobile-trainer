@@ -1,0 +1,74 @@
+# recorded by mgba_trace --macro mail_compose.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 SELECT
+2366 -
+2996 DOWN
+3000 -
+3060 A
+3064 -
+3694 shot compose1
+3694 A
+3698 -
+4328 A
+4332 -
+4362 A
+4366 -
+4396 A
+4400 -
+4430 A
+4434 -
+4464 START
+4468 -
+4528 A
+4532 -
+5162 A
+5166 -
+5856 A
+5860 -
+5890 A
+5894 -
+5924 A
+5928 -
+5988 shot subj_typed
+5988 START
+5992 -
+6052 A
+6056 -
+6686 shot body_intro
+6686 A
+6690 -
+7320 shot body_kbd
+7320 A
+7324 -
+7354 A
+7358 -
+7388 A
+7392 -
+7422 A
+7426 -
+7456 A
+7460 -
+7520 shot body_typed
+7520 START
+7524 -
+7584 A
+7588 -
+8218 shot after_body
+8218 A
+8222 -
+8852 shot s1
+8852 A
+8856 -
+9486 shot s2
+9486 A
+9490 -
+10120 shot s3
+10120 A
+10124 -
+10238 shot s4
+# last scripted frame: 10238

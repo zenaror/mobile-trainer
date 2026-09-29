@@ -1,0 +1,30 @@
+# Scenario 'resume_registration': boot from the state left by 'register_neterr' (registration written to the adapter
+# EEPROM but the connection check failed) with a working fake Internet: the ROM offers to resume the initial
+# registration ("初期登録再開") and completes it.
+wait 400                     # boot + adapter check
+waitstable 60 max 600
+shot resume_prompt           # "初期登録再開: 前回の初期登録が正しく終了していません"
+gap 30
+tap A                        # resume
+waitstable 60 max 600
+shot register_summary
+tap A                        # "はい"
+waitstable 60 max 600
+shot connect_confirm
+tap A                        # "はい": dial, PPP, DNS, POP3 check
+wait 600
+waitstable 60 max 900
+shot registration_result
+wait 300
+tap A
+waitstable 60 max 900
+shot welcome_1
+tap A
+waitstable 60 max 600
+shot welcome_2
+tap A
+waitstable 60 max 600
+shot after_welcome_1
+tap A
+waitstable 60 max 600
+shot after_welcome_2

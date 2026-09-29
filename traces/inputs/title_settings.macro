@@ -1,0 +1,185 @@
+# Scenario 'title_settings': title screen -> モバイルせってい (mobile settings) menu, every entry:
+#   1. パスワードの変更 (change password): explanations, current password, new password twice, dial 9477,
+#      HTTP POST /cgi-bin/mgb/daa_gb_pwdchg.cgi -> the fake server answers 404 -> error 32-404
+#   2. ご利用時間の確認 (usage time): current password, POST /cgi-bin/mgb/daa_gb_jikan.cgi -> 404 -> error 32-404
+#   3. ご利用額の確認 (usage fee):  password, GET /cgb/utility?request=summary -> 404 -> error 32-404
+#   4. 登録情報の削除 (delete registration): two confirmations, then the adapter EEPROM is cleared
+# Starts from the state left by 'tutorial_profile' (password is "aZ01" as typed by 'register'), fake Internet on.
+# All screen names are from reading the Japanese screens (screenshots), not from the code.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title screen: menu スタート / モバイルせってい
+waitstable 60 max 600
+shot title_menu
+tap DOWN
+wait 30
+tap A                        # モバイルせってい
+waitstable 60 max 600
+shot settings_menu
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+shot pw_change_connecting
+wait 300
+waitstable 60 max 900
+shot pw_change_error
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot settings_menu_again
+# --- 2. usage time
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+shot time_explain
+tap A
+waitstable 60 max 600
+shot time_confirm
+tap A
+waitstable 60 max 600
+shot time_password_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+shot time_error
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot menu_after_time
+# --- 3. usage fee
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+shot fee_explain
+tap A
+waitstable 60 max 600
+shot fee_confirm
+tap A
+waitstable 60 max 600
+shot fee_password_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+waitstable 60 max 900
+wait 300
+waitstable 60 max 900
+shot fee_error
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot menu_after_fee
+# --- 4. delete registration
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+shot del_explain_1
+tap A
+waitstable 60 max 600
+shot del_explain_2
+tap A
+waitstable 60 max 600
+shot del_confirm
+tap LEFT
+wait 30
+tap A
+waitstable 60 max 600
+shot del_reconfirm
+tap LEFT
+wait 30
+tap A                        # really delete: the adapter EEPROM is cleared
+waitstable 60 max 900
+shot del_done_1
+tap A
+waitstable 60 max 900
+shot del_done_2
+tap A
+waitstable 60 max 900
+shot del_done_3
+wait 600
+shot end

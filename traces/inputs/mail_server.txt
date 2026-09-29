@@ -1,0 +1,50 @@
+# recorded by mgba_trace --macro mail_server.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 SELECT
+2366 -
+2996 shot mail_menu
+2996 DOWN
+3000 -
+3030 DOWN
+3034 -
+3064 DOWN
+3068 -
+3098 DOWN
+3102 -
+3132 DOWN
+3136 -
+3196 A
+3200 -
+3830 shot mailserver_1
+3830 SELECT
+3834 -
+4464 shot mailserver_2
+4464 A
+4468 -
+4628 shot mailserver_3
+4628 A
+4632 -
+5262 shot mailserver_4
+5262 A
+5266 -
+5367 shot mailserver_5
+5367 A
+5371 -
+5984 shot mailserver_6
+5984 A
+5988 -
+6389 shot mailserver_7
+6449 shot mailserver_8
+6849 shot mailserver_9
+6849 A
+6853 -
+6948 shot mailserver_10
+6948 A
+6952 -
+7882 shot mailserver_11
+# last scripted frame: 7882
