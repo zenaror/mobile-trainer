@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank25", ROMX[$4000], BANK[$25]
 
@@ -27,9 +28,7 @@ Function_25_4000:: ; 25:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	pop de
 	pop hl
 	ld a, [wRam_C264]
@@ -56,13 +55,9 @@ Label_25_4042:: ; 25:4042
 
 Label_25_4043:: ; 25:4043
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	call Function_25_4A90
 	ld a, d
@@ -84,13 +79,9 @@ Label_25_4043:: ; 25:4043
 	pop de
 	pop bc
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	ld a, $FF
 	ret
@@ -159,13 +150,9 @@ Label_25_40DF:: ; 25:40DF
 	pop de
 	pop bc
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	ld a, $FF
 	ret
@@ -185,9 +172,7 @@ Label_25_411E:: ; 25:411E
 	ld de, $7B00
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7020
 	ld hl, $DA10
 	call Function_00_0A65
@@ -195,9 +180,7 @@ Label_25_411E:: ; 25:411E
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7020
 	ld hl, $DA20
 	call Function_00_0A65
@@ -210,13 +193,9 @@ Label_25_411E:: ; 25:411E
 Label_25_415C:: ; 25:415C
 	push bc
 	push de
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop de
 	pop bc
 	ldh a, [hJoyPressed]
@@ -316,9 +295,7 @@ Label_25_420A:: ; 25:420A
 	jp nz, Label_25_446E
 	push bc
 	push de
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
+	farcall Function_7F_624F
 	ld de, $70D0
 	ld hl, $DA10
 	call Function_00_0A65
@@ -355,9 +332,7 @@ Label_25_420A:: ; 25:420A
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -384,9 +359,7 @@ Label_25_420A:: ; 25:420A
 	ld [wSpriteSlots + 193], a
 	ld a, d
 	ld [wSpriteSlots + 64], a
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
+	farcall Function_7F_627C
 	pop af
 	pop de
 	pop bc
@@ -414,9 +387,7 @@ Label_25_420A:: ; 25:420A
 	ld a, b
 	add a, c
 	ld b, a
-	call FarCall
-	dw Function_2D_4133
-	db BANK(Function_2D_4133)
+	farcall Function_2D_4133
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -465,9 +436,7 @@ Label_25_4322:: ; 25:4322
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -553,9 +522,7 @@ Label_25_4386:: ; 25:4386
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -622,13 +589,9 @@ Label_25_444C:: ; 25:444C
 Label_25_4454:: ; 25:4454
 	push bc
 	call Function_25_534C
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	ld a, $FF
 	ret
@@ -661,9 +624,7 @@ Label_25_446E:: ; 25:446E
 	jp Label_25_415C
 
 Label_25_4490:: ; 25:4490
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
+	farcall Function_7F_624F
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -705,9 +666,7 @@ Label_25_4490:: ; 25:4490
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 	ld [wSpriteSlots + 64], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ld de, $0213
 	push af
 	ldh a, [rSVBK]
@@ -723,9 +682,7 @@ Label_25_4490:: ; 25:4490
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -757,9 +714,7 @@ Label_25_4490:: ; 25:4490
 	ld a, $70
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	pop af
 	pop de
 	pop bc
@@ -785,18 +740,12 @@ Label_25_4564:: ; 25:4564
 	pop bc
 	push de
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	push bc
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
+	farcall Function_7F_624F
 	call Function_25_54A7
 	push af
 	push af
@@ -813,9 +762,7 @@ Label_25_4564:: ; 25:4564
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -852,9 +799,7 @@ Label_25_45E8:: ; 25:45E8
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -864,16 +809,12 @@ Label_25_4601:: ; 25:4601
 	ld de, $7B00
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA20
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld d, $01
 	call Function_25_53AA
 	call Function_25_534C
@@ -942,9 +883,7 @@ Label_25_465C:: ; 25:465C
 	push af
 	xor a, a
 	ld [hl], a
-	call FarCall
-	dw Function_22_501D
-	db BANK(Function_22_501D)
+	farcall Function_22_501D
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -964,9 +903,7 @@ Label_25_465C:: ; 25:465C
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 	ld [wSpriteSlots + 64], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	pop af
 	ld de, $021E
 	cp a, $01
@@ -988,9 +925,7 @@ Label_25_46DB:: ; 25:46DB
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1022,9 +957,7 @@ Label_25_46DB:: ; 25:46DB
 	ld a, $70
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	pop af
 
 Label_25_473D:: ; 25:473D
@@ -1041,17 +974,11 @@ Label_25_473D:: ; 25:473D
 	add a, b
 	ld c, a
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
-	call FarCall
-	dw Function_2B_6482
-	db BANK(Function_2B_6482)
+	farcall Function_2B_6482
 	push af
 	push af
 	ldh a, [rSVBK]
@@ -1067,9 +994,7 @@ Label_25_473D:: ; 25:473D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	pop af
 	pop de
 	pop bc
@@ -1126,9 +1051,7 @@ Label_25_47DA:: ; 25:47DA
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -1175,9 +1098,7 @@ Label_25_4815:: ; 25:4815
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7020
 	ld hl, $DA20
 	call Function_00_0A65
@@ -1190,9 +1111,7 @@ Label_25_483A:: ; 25:483A
 	ld de, $7B20
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7048
 	ld hl, $DA20
 	call Function_00_0A65
@@ -1205,9 +1124,7 @@ Label_25_4859:: ; 25:4859
 	ld de, $7B30
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7070
 	ld hl, $DA20
 	call Function_00_0A65
@@ -1294,9 +1211,7 @@ Label_25_48E9:: ; 25:48E9
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -1373,9 +1288,7 @@ Label_25_4969:: ; 25:4969
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -1404,9 +1317,7 @@ Function_25_4987:: ; 25:4987
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6848
 	ld hl, $DA40
 	call Function_00_0A65
@@ -1414,9 +1325,7 @@ Function_25_4987:: ; 25:4987
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -1467,11 +1376,11 @@ Label_25_49F6:: ; 25:49F6
 	ld a, [hl]
 	ret
 
-; ---- data $4A15-$4A2D (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4A15-$4A2D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4687 and 25:4A0B (ld hl,$4A15; add hl,bc; ld a,[hli]; ld h,[hl]; ld l,a)
 
-Data_25_4A15:: ; 25:4A15
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_4A15:: ; 25:4A15
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4A2D-$4A90 (99 bytes) [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code)
 
@@ -1532,12 +1441,8 @@ Label_25_4A75:: ; 25:4A75
 	jr nz, Label_25_4A75
 	call Function_25_4F40
 	call Function_25_534C
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_09B6
+	farcall Function_00_0956
 	pop bc
 	ret
 
@@ -1603,26 +1508,20 @@ Function_25_4A90:: ; 25:4A90
 	inc d
 	ret
 
-; ---- data $4AF5-$4B0D (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4AF5-$4B0D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with no direct ld hl,imm found (identical 12 words to the tables at 25:4A15/4E2B)
 
-Data_25_4AF5:: ; 25:4AF5
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_4AF5:: ; 25:4AF5
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4B0D-$4BD0 (195 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
 Function_25_4B0D:: ; 25:4B0D
 	push de
 	push bc
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
 	ld a, [wRam_C264]
 	inc a
 	jp z, Label_25_4BD0
@@ -1630,70 +1529,54 @@ Function_25_4B0D:: ; 25:4B0D
 	ld de, $D800
 	ld hl, $69B0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $9301
 	ld hl, $5A10
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9701
 	ld hl, $5E10
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $69F0
 	ld a, $25
 	ld b, $94
 	ld c, $30
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8700
 	ld hl, $6A00
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8D00
 	ld hl, $6CF0
 	ld a, $25
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $6410
 	ld a, $25
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 	jp Label_25_4C75
 
@@ -1704,70 +1587,54 @@ Label_25_4BD0:: ; 25:4BD0
 	ld de, $D800
 	ld hl, $69B0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $9301
 	ld hl, $5F10
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9701
 	ld hl, $6310
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $69F0
 	ld a, $25
 	ld b, $94
 	ld c, $30
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8700
 	ld hl, $6A00
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8D00
 	ld hl, $6CF0
 	ld a, $25
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $66E0
 	ld a, $25
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 
 ; ---- code $4C75-$4CED (120 bytes) [CONFIRMED] 68 insn(s); 68 executed (in up to 1/18 scenarios)
@@ -1777,17 +1644,13 @@ Label_25_4C75:: ; 25:4C75
 	ld de, $D800
 	ld hl, $69B0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1848,7 +1711,7 @@ Label_25_4CA2:: ; 25:4CA2
 	cp a, d
 	jr z, Label_25_4CFB
 
-; ---- code $4CED-$4CFB (14 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed)
+; ---- code $4CED-$4CFB (14 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed) | upgraded by classifier 6: all 7 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push de
 	call Function_25_50C2
 	pop de
@@ -1899,9 +1762,7 @@ Label_25_4D33:: ; 25:4D33
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -1916,13 +1777,9 @@ Label_25_4D4D:: ; 25:4D4D
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1937,9 +1794,7 @@ Label_25_4D4D:: ; 25:4D4D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -1974,9 +1829,7 @@ Function_25_4D99:: ; 25:4D99
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6848
 	ld hl, $DA40
 	call Function_00_0A65
@@ -1984,9 +1837,7 @@ Function_25_4D99:: ; 25:4D99
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
@@ -2032,13 +1883,13 @@ Function_25_4DFD:: ; 25:4DFD
 	pop bc
 	ret
 
-; ---- data $4E2B-$4E43 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4E2B-$4E43 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E13
 
-Data_25_4E2B:: ; 25:4E2B
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_4E2B:: ; 25:4E2B
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4E43-$4F28 (229 bytes) [PROBABLE] 125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code)
+; ---- code $4E43-$4F28 (229 bytes) [CONFIRMED] 125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code) | upgraded by classifier 6: all 125 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Function_25_4E43:: ; 25:4E43
 	push bc
@@ -2175,13 +2026,13 @@ Label_25_4EFA:: ; 25:4EFA
 	pop bc
 	ret
 
-; ---- data $4F28-$4F40 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4F28-$4F40 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E67/4EA0/4ED9/4F12
 
-Data_25_4F28:: ; 25:4F28
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_4F28:: ; 25:4F28
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4F40-$50AA (362 bytes) [PROBABLE] 254 insn(s) reached by static flow only; seeds: exec x254; min discovery hops 7; entered by call from 25:48DD (PROBABLE code)
+; ---- code $4F40-$50AA (362 bytes) [CONFIRMED] 254 insn(s) reached by static flow only; seeds: exec x254; min discovery hops 7; entered by call from 25:48DD (PROBABLE code) | upgraded by classifier 6: all 254 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Function_25_4F40:: ; 25:4F40
 	push bc
@@ -2443,11 +2294,11 @@ Label_25_4F7E:: ; 25:4F7E
 	ld [de], a
 	ret
 
-; ---- data $50AA-$50C2 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $50AA-$50C2 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4F48
 
-Data_25_50AA:: ; 25:50AA
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_50AA:: ; 25:50AA
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $50C2-$5228 (358 bytes) [CONFIRMED] 251 insn(s); 251 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
@@ -2706,16 +2557,11 @@ Label_25_50E3:: ; 25:50E3
 	ld [de], a
 	ret
 
-; ---- data $5228-$522A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- words $5228-$5240 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
 
-Data_25_5228:: ; 25:5228
-	db $24, $A1
-
-; ---- data $522A-$5240 (22 bytes) [HYPOTHESIS] UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_25_522A:: ; 25:522A
-	db $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9, $8C, $AA
-	db $B9, $AB, $E6, $AC, $13, $AE
+Table_25_5228:: ; 25:5228
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $5240-$534C (268 bytes) [PROBABLE] 145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
 
@@ -2733,9 +2579,7 @@ Label_25_5243:: ; 25:5243
 	cp a, $00
 	jr z, Label_25_52CA
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_25_52A8
 	ld a, [wRam_C2EE]
@@ -2756,9 +2600,7 @@ Label_25_526B:: ; 25:526B
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -2768,9 +2610,7 @@ Label_25_526B:: ; 25:526B
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -2792,9 +2632,7 @@ Label_25_52A8:: ; 25:52A8
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -2812,9 +2650,7 @@ Label_25_52CA:: ; 25:52CA
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -2833,9 +2669,7 @@ Function_25_52EA:: ; 25:52EA
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -2977,22 +2811,19 @@ Function_25_53AA:: ; 25:53AA
 	ld a, $25
 	ld bc, $DA00
 	ld de, $DB40
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop de
 	pop bc
 	ret
 
-; ---- data $53D0-$53D8 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $53D0-$53DA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 
-Data_25_53D0:: ; 25:53D0
-	db $DA, $53, $03, $54, $2C, $54, $55, $54
-
-; ---- data $53D8-$53DA (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_25_53D8:: ; 25:53D8
-	db $7E, $54
+Table_25_53D0:: ; 25:53D0
+	dw String_25_53DA
+	dw $5403
+	dw $542C
+	dw $5455
+	dw $547E
 
 ; ---- text $53DA-$54A7 (205 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -3099,9 +2930,7 @@ Label_25_5525:: ; 25:5525
 	ld a, $01
 
 Label_25_5527:: ; 25:5527
-	call FarCall
-	dw Function_2D_65B0
-	db BANK(Function_2D_65B0)
+	farcall Function_2D_65B0
 	cp a, $FF
 	jr z, Label_25_555C
 	xor a, a
@@ -3111,14 +2940,10 @@ Label_25_5534:: ; 25:5534
 	ld a, $01
 
 Label_25_5536:: ; 25:5536
-	call FarCall
-	dw Function_2C_4000
-	db BANK(Function_2C_4000)
+	farcall Function_2C_4000
 	cp a, $FF
 	jr z, Label_25_5525
-	call FarCall
-	dw Function_2D_4722
-	db BANK(Function_2D_4722)
+	farcall Function_2D_4722
 	cp a, $FF
 	jr z, Label_25_5534
 	cp a, $00
@@ -3142,13 +2967,13 @@ Label_25_555C:: ; 25:555C
 	ld a, $FF
 	ret
 
-; ---- data $5569-$5581 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $5569-$5581 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:54E2
 
-Data_25_5569:: ; 25:5569
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_5569:: ; 25:5569
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $5581-$5871 (752 bytes) [PROBABLE] 310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code)
+; ---- code $5581-$5871 (752 bytes) [CONFIRMED] 310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code) | upgraded by classifier 6: all 310 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Function_25_5581:: ; 25:5581
 	push de
@@ -3202,9 +3027,7 @@ Label_25_559A:: ; 25:559A
 	ld de, $7B90
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5C08
 	ld hl, $DA80
 	call Function_00_0A65
@@ -3214,9 +3037,7 @@ Label_25_55F3:: ; 25:55F3
 	ld de, $7B80
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5008
 	ld hl, $DA70
 	call Function_00_0A65
@@ -3226,9 +3047,7 @@ Label_25_560C:: ; 25:560C
 	ld de, $7B70
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $4408
 	ld hl, $DA60
 	call Function_00_0A65
@@ -3238,9 +3057,7 @@ Label_25_5625:: ; 25:5625
 	ld de, $7B60
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3808
 	ld hl, $DA50
 	call Function_00_0A65
@@ -3282,9 +3099,7 @@ Function_25_5641:: ; 25:5641
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $03
@@ -3295,9 +3110,7 @@ Function_25_5641:: ; 25:5641
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_56AC:: ; 25:56AC
 	ld de, $5C08
@@ -3311,9 +3124,7 @@ Label_25_56B6:: ; 25:56B6
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $02
@@ -3324,9 +3135,7 @@ Label_25_56B6:: ; 25:56B6
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_56E1:: ; 25:56E1
 	ld de, $5008
@@ -3340,9 +3149,7 @@ Label_25_56EB:: ; 25:56EB
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $01
@@ -3353,9 +3160,7 @@ Label_25_56EB:: ; 25:56EB
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_5716:: ; 25:5716
 	ld de, $4408
@@ -3369,9 +3174,7 @@ Label_25_5720:: ; 25:5720
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $00
@@ -3382,9 +3185,7 @@ Label_25_5720:: ; 25:5720
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_574B:: ; 25:574B
 	ld de, $3808
@@ -3405,9 +3206,7 @@ Label_25_5755:: ; 25:5755
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $03
@@ -3418,9 +3217,7 @@ Label_25_5755:: ; 25:5755
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_5790:: ; 25:5790
 	ld de, $5C08
@@ -3435,9 +3232,7 @@ Label_25_579D:: ; 25:579D
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $02
@@ -3448,9 +3243,7 @@ Label_25_579D:: ; 25:579D
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_57C8:: ; 25:57C8
 	ld de, $5008
@@ -3465,9 +3258,7 @@ Label_25_57D5:: ; 25:57D5
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $01
@@ -3478,9 +3269,7 @@ Label_25_57D5:: ; 25:57D5
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_5800:: ; 25:5800
 	ld de, $4408
@@ -3495,9 +3284,7 @@ Label_25_580D:: ; 25:580D
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop bc
 	push bc
 	ld a, $00
@@ -3508,9 +3295,7 @@ Label_25_580D:: ; 25:580D
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_25_5838:: ; 25:5838
 	ld de, $3808
@@ -3552,13 +3337,13 @@ Label_25_586F:: ; 25:586F
 	xor a, a
 	ret
 
-; ---- data $5871-$5889 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $5871-$5889 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:585C
 
-Data_25_5871:: ; 25:5871
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_25_5871:: ; 25:5871
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $5889-$58E7 (94 bytes) [PROBABLE] 62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3; entered by call from 25:40C5 (PROBABLE code)
+; ---- code $5889-$58E7 (94 bytes) [CONFIRMED] 62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3; entered by call from 25:40C5 (PROBABLE code) | upgraded by classifier 6: all 62 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Function_25_5889:: ; 25:5889
 	push bc
@@ -3634,32 +3419,41 @@ Label_25_58DD:: ; 25:58DD
 	pop bc
 	ret
 
-; ---- data $58E7-$58F0 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $58E7-$58ED (6 bytes) [PROBABLE] 3 pointers to the 48-byte attribute blocks at 25:58ED/591D/594D; read by 25:5891 (sla a; ld c,a; ld hl,$58E7; add hl,bc; ld a,[hli]; ld c,a; ld h,[hl]; ld l,c)
 
-Data_25_58E7:: ; 25:58E7
-	db $ED, $58, $1D, $59, $4D, $59, $29, $29, $29
+Table_25_58E7:: ; 25:58E7
+	dw Data_25_58ED
+	dw $591D
+	dw $594D
 
-; ---- gfx $58F0-$5C40 (848 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.638 vsim2=0.694, 1 blank) parity 0
+; ---- data $58ED-$5A0D (288 bytes) [PROBABLE] 12 rows of 24 bytes (20 used + 4 zero pad): BG attribute bytes ($09/$0B/$0C/$29 = palette+VRAM-bank-1 flags; values as in the attribute half of the rect-copy maps); 25:5889 copies 20 bytes per row to VRAM bank 1 $99C0/$99E0 and WRAM7 $D5C0/$D5E0; blocks 58ED/591D/594D are addressed through Table_25_58E7, 597D..59F5 have no table entry (unreferenced HYPOTHESIS). Replaces the mapper heuristic gfx region 58F0-5C40 (the real tile load starts at 5A10)
 
-Data_25_58F0:: ; 25:58F0
-	db $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09
-	db $09, $00, $00, $00, $00, $29, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B
-	db $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $00, $00, $00, $00, $29, $29, $29
-	db $29, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09
-	db $09, $00, $00, $00, $00, $29, $09, $09, $09, $0C, $0C, $09, $09, $09, $0C, $0C
-	db $09, $09, $09, $0C, $0C, $09, $09, $09, $09, $00, $00, $00, $00, $29, $29, $29
-	db $29, $0C, $0C, $09, $09, $09, $0B, $0B, $09, $09, $09, $0C, $0C, $09, $09, $09
-	db $09, $00, $00, $00, $00, $29, $09, $09, $09, $0C, $0C, $09, $09, $09, $0B, $0B
-	db $09, $09, $09, $0C, $0C, $09, $09, $09, $09, $00, $00, $00, $00, $09, $29, $29
-	db $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09
-	db $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B
-	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $00, $00, $00, $00, $09, $29, $29
-	db $29, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09
-	db $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0C, $0C
-	db $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0B, $00, $00, $00, $00, $09, $29, $29
-	db $29, $0C, $0C, $09, $09, $09, $0B, $0B, $09, $09, $09, $0C, $0C, $09, $09, $09
-	db $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0B, $0B
-	db $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0B, $00, $00, $00, $00, $00, $00, $00
+Data_25_58ED:: ; 25:58ED
+	db $29, $29, $29, $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B
+	db $09, $09, $09, $09, $00, $00, $00, $00, $29, $09, $09, $09, $0B, $0B, $09, $09
+	db $09, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $00, $00, $00, $00
+	db $29, $29, $29, $29, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09, $0C, $0C
+	db $09, $09, $09, $09, $00, $00, $00, $00, $29, $09, $09, $09, $0C, $0C, $09, $09
+	db $09, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09, $09, $00, $00, $00, $00
+	db $29, $29, $29, $29, $0C, $0C, $09, $09, $09, $0B, $0B, $09, $09, $09, $0C, $0C
+	db $09, $09, $09, $09, $00, $00, $00, $00, $29, $09, $09, $09, $0C, $0C, $09, $09
+	db $09, $0B, $0B, $09, $09, $09, $0C, $0C, $09, $09, $09, $09, $00, $00, $00, $00
+	db $09, $29, $29, $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B
+	db $09, $09, $09, $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $00, $00, $00, $00
+	db $09, $29, $29, $29, $0C, $0C, $09, $09, $09, $0C, $0C, $09, $09, $09, $0C, $0C
+	db $09, $09, $09, $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0C, $0C, $0B, $0B
+	db $0B, $0C, $0C, $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0B, $00, $00, $00, $00
+	db $09, $29, $29, $29, $0C, $0C, $09, $09, $09, $0B, $0B, $09, $09, $09, $0C, $0C
+	db $09, $09, $09, $09, $00, $00, $00, $00, $0B, $0B, $0B, $0B, $0C, $0C, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0C, $0C, $0B, $0B, $0B, $0B, $00, $00, $00, $00
+
+; ---- zero $5A0D-$5A10 (3 bytes) [PROBABLE] 3 bytes of zero padding to the 16-byte alignment of the tile block at 25:5A10
+	ds $3, $00
+
+; ---- gfx $5A10-$5E10 (1024 bytes) [CONFIRMED] 64 tiles: executed 00:0749 HDMA load at 25:4B5C (hl=$5A10 a=$25 c=$40 de=$9301 = VRAM bank 1 $9300); loader semantic documented in boot_and_home.md
+
+Tiles_25_5A10:: ; 25:5A10
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00
 	db $80, $00, $7F, $3F, $78, $40, $77, $47, $6F, $48, $5F, $52, $5F, $54, $5F, $54
@@ -3695,10 +3489,6 @@ Data_25_58F0:: ; 25:58F0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00, $FF
 	db $01, $FD, $00, $FE, $00, $FC, $03, $FB, $07, $F4, $04, $F7, $F7, $03, $00, $F8
-
-; ---- data $5C40-$5F10 (720 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5A10-5F10 by higher-priority evidence]
-
-Data_25_5C40:: ; 25:5C40
 	db $F1, $EF, $77, $4F, $E4, $DE, $CC, $BC, $98, $79, $30, $F3, $E7, $C0, $00, $0F
 	db $DF, $E7, $EE, $F1, $10, $3F, $0F, $CF, $00, $F0, $00, $FE, $FE, $00, $00, $FF
 	db $ED, $DB, $ED, $DB, $ED, $DB, $ED, $DB, $EF, $98, $98, $EF, $FF, $7F, $00, $00
@@ -3728,6 +3518,10 @@ Data_25_5C40:: ; 25:5C40
 	db $00, $00, $CF, $E6, $EF, $08, $0F, $08, $0F, $08, $CF, $E8, $EF, $06, $00, $00
 	db $00, $00, $06, $F2, $0C, $E4, $18, $C9, $30, $93, $60, $27, $C0, $4F, $00, $00
 	db $07, $07, $F7, $67, $F7, $17, $F7, $17, $F7, $17, $F7, $17, $F7, $67, $07, $07
+
+; ---- gfx $5E10-$5F10 (256 bytes) [CONFIRMED] 16 tiles: executed 00:0749 HDMA load at 25:4B71 (hl=$5E10 a=$25 c=$10 de=$9701 = VRAM bank 1 $9700)
+
+Tiles_25_5E10:: ; 25:5E10
 	db $FE, $03, $FF, $01, $FF, $FF, $02, $FF, $02, $FF, $FF, $FD, $FF, $00, $FF, $00
 	db $A7, $FC, $E7, $7C, $C7, $FD, $06, $FF, $0E, $FB, $FF, $F1, $FF, $00, $FF, $00
 	db $CF, $7F, $C8, $7F, $88, $FF, $1E, $F7, $3E, $E3, $FF, $C1, $FF, $00, $FF, $00
@@ -3745,9 +3539,9 @@ Data_25_5C40:: ; 25:5C40
 	db $03, $01, $F9, $04, $04, $FA, $02, $FD, $01, $FE, $00, $FF, $00, $FF, $00, $FF
 	db $00, $00, $FF, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 
-; ---- data $5F10-$6410 (1280 bytes) [HYPOTHESIS] UNCLASSIFIED 1280 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5F10-$6310 (1024 bytes) [PROBABLE] 64 tiles: 00:0749 HDMA load at 25:4C04 (hl=$5F10 a=$25 c=$40 de=$9301, VRAM bank 1 $9300); the call site is static-reached code (PROBABLE), same layout as the executed 25:4B5C load; tile art coherence h=0.566 v=0.564 over 64 tiles
 
-Data_25_5F10:: ; 25:5F10
+Tiles_25_5F10:: ; 25:5F10
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00
 	db $80, $00, $7F, $3F, $78, $40, $77, $47, $6F, $48, $5F, $52, $5F, $54, $5F, $54
@@ -3812,6 +3606,10 @@ Data_25_5F10:: ; 25:5F10
 	db $00, $00, $CF, $E6, $EF, $08, $0F, $08, $0F, $08, $CF, $E8, $EF, $06, $00, $00
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $03, $01, $F9, $04, $04, $FA, $02, $FD, $01, $FE, $00, $FF, $00, $FF, $00, $FF
+
+; ---- gfx $6310-$6410 (256 bytes) [PROBABLE] 16 tiles: 00:0749 HDMA load at 25:4C19 (hl=$6310 a=$25 c=$10 de=$9701, VRAM bank 1 $9700); static-reached site; ends exactly where the tilemap load 25:6410 starts
+
+Tiles_25_6310:: ; 25:6310
 	db $FE, $03, $FF, $01, $FF, $FF, $02, $FF, $02, $FF, $FF, $FD, $FF, $00, $FF, $00
 	db $A7, $FC, $E7, $7C, $C7, $FD, $06, $FF, $0E, $FB, $FF, $F1, $FF, $00, $FF, $00
 	db $CF, $7F, $C8, $7F, $88, $FF, $1E, $F7, $3E, $E3, $FF, $C1, $FF, $00, $FF, $00

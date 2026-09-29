@@ -1,41 +1,41 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4064	code	Function_23_4000	CONFIRMED	50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4064	4076	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed)
+4064	4076	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
 4076	40A4	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
-40A4	40AB	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed)
+40A4	40AB	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
 40AB	40AE	code	-	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios)
-40AE	40EA	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed)
+40AE	40EA	code	-	CONFIRMED	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed) [executed in 5 scenarios]
 40EA	40F0	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-40F0	4116	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed)
+40F0	4116	code	-	CONFIRMED	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
 4116	411C	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-411C	413A	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed)
+411C	413A	code	-	CONFIRMED	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed) [executed in 5 scenarios]
 413A	4140	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-4140	415E	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed)
+4140	415E	code	-	CONFIRMED	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
 415E	4161	code	-	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios)
-4161	41DC	code	-	PROBABLE	43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code)
+4161	41DC	code	-	CONFIRMED	43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code) [executed in 5 scenarios]
 41DC	42C2	code	Function_23_41DC	CONFIRMED	80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-42C2	42F4	code	-	PROBABLE	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed)
+42C2	42F4	code	-	CONFIRMED	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
 42F4	433C	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 1/18 scenarios)
-433C	4357	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code)
+433C	4357	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code) [executed in 6 scenarios]
 4357	43C4	text	String_23_4357	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 43C4	43DF	code	Function_23_43C4	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-43DF	4404	data	Data_23_43DF	HYPOTHESIS	UNCLASSIFIED 37 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+43DF	4404	text	String_23_43DF	PROBABLE	18 ideographic spaces (81 40) + NUL: clean NUL-terminated Shift-JIS blank line placed right after a ret (23:43DE)
 4404	4471	text	String_23_4404	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4471	46CC	code	-	PROBABLE	242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code)
+4471	46CC	code	-	CONFIRMED	242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code) [executed in 3 scenarios]
 46CC	46CD	data	Data_23_46CC	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-46CD	470A	code	-	PROBABLE	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code)
+46CD	470A	code	-	CONFIRMED	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code) [executed in 2 scenarios]
 470A	478E	text	String_23_470A	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 478E	47BC	code	Function_23_478E	CONFIRMED	19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-47BC	47ED	data	Data_23_47BC	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47BC	47ED	code	-	HYPOTHESIS	function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 47ED	497B	code	-	PROBABLE	243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-497B	4986	data	Data_23_497B	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+497B	4986	text	String_23_497B	PROBABLE	5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$497B at 23:486C
 4986	4AA4	code	-	PROBABLE	130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 23:4809 (PROBABLE code)
-4AA4	4AA6	data	Data_23_4AA4	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4AA4	4AA6	code	-	HYPOTHESIS	unreachable jr $4B1A (target is an instruction start of the code region 4AA6-4B4A) after the jp at 4AA1; twin of 4BE5-4BE7 (jr $4C5D) in the parallel routine; nothing branches here
 4AA6	4B4A	code	-	PROBABLE	63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 3; entered by jpcc from 23:4A85 (PROBABLE code)
-4B4A	4B51	data	Data_23_4B4A	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4B4A	4B51	data	Data_23_4B4A	PROBABLE	7-byte block copied to $D624 (WRAM1) by the loop at 23:4A2F (ld de,$4B4A ; ld b,$07 ; ld a,[de] ; ld [hli],a ...); the fields are not decoded
 4B51	4BC1	code	Function_23_4B51	CONFIRMED	55 insn(s); 55 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4BC1	4BE5	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 23:4BB7 (executed)
-4BE5	4BE7	data	Data_23_4BE5	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4BC1	4BE5	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 23:4BB7 (executed) [executed in 2 scenarios]
+4BE5	4BE7	code	-	HYPOTHESIS	unreachable jr $4C5D after the jp at 4BE2, twin of 4AA4-4AA6
 4BE7	4C1D	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jpcc from 23:4BC6 (PROBABLE code)
 4C1D	4C46	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios)
 4C46	4C5D	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jpcc from 23:4C2A (executed)
@@ -44,46 +44,109 @@
 4C6B	4C8D	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 1/18 scenarios)
 4C8D	4C94	data	Data_23_4C8D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
 4C94	5028	code	-	PROBABLE	462 insn(s) reached by static flow only; seeds: exec x462; min discovery hops 6; entered by far from 22:4BED (PROBABLE code)
-5028	503F	data	Data_23_5028	HYPOTHESIS	UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5028	503F	code	-	HYPOTHESIS	function body that starts after ret at 5027: push hl; ld a,1; ldh [$8D],a; ldh [$70],a; increments the 16-bit counter at $D629 and falls into the next function (503F) - the CONFIRMED-flow tail; exact twin of 540D-5424 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 503F	540D	code	-	PROBABLE	463 insn(s) reached by static flow only; seeds: exec x455, site x8; min discovery hops 0; entered by jrcc from 23:5000 (PROBABLE code)
-540D	5424	data	Data_23_540D	HYPOTHESIS	UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+540D	5424	code	-	HYPOTHESIS	function body that starts after ret at 540C: increments the 16-bit counter at $D629 and falls into 5424; exact byte twin of 5028-503F [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 5424	581E	code	-	PROBABLE	505 insn(s) reached by static flow only; seeds: exec x497, site x8; min discovery hops 0; entered by jrcc from 23:53E5 (PROBABLE code)
-581E	5829	data	Data_23_581E	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+581E	5829	text	String_23_581E	PROBABLE	5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$581E at 23:56F8; twin of 497B
 5829	58A9	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15; entered by call from 23:56BE (PROBABLE code)
 58A9	58C4	text	String_23_58A9	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 58C4	58C5	code	Function_23_58C4	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-58C5	58E0	data	Data_23_58C5	HYPOTHESIS	UNCLASSIFIED 27 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+58C5	58E0	code	-	HYPOTHESIS	function body starting after ret at 58C4; computes hl += -(word at $D631) (xor $FF / inc bc / add hl,bc) and falls into the far call at 58E0; decode chain lands exactly on the next region [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 58E0	5FA2	code	-	PROBABLE	653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 5FA2	5FA3	code	Function_23_5FA2	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5FA3	5FD7	data	Data_23_5FA3	HYPOTHESIS	UNCLASSIFIED 52 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5FA3	5FD7	code	-	HYPOTHESIS	function starting after the ret pair 5FA1/5FA2; 20 insn (5 x ld de,$D048 ; ld hl,$DAxx ; call $0A65 sprite-slot writes) falling through into the CONFIRMED far call at 5FD7 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 5FD7	669A	code	-	PROBABLE	654 insn(s) reached by static flow only; seeds: exec x1, site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-669A	669F	data	Data_23_669A	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+669A	669F	code	-	HYPOTHESIS	push hl ; push af ; ld de,$2710 prologue after the ret pair 6698/6699, falls into the far call at 669F; twin of the longer 5FA3 function
 669F	6D61	code	-	PROBABLE	653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-6D61	6D8C	data	Data_23_6D61	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6D61	6D8C	code	-	HYPOTHESIS	complete function (28 insn, push af/bc/de/hl ... pop ... ret): fills $D1E0.. with $14 words; starts after the ret at 6D60; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 6D8C	6DA7	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 12; entered by call from 23:4E62 (PROBABLE code)
 6DA7	6DD0	text	String_23_6DA7	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6DD0	6DEB	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 17; entered by call from 23:507A (PROBABLE code)
+6DD0	6DEB	code	-	CONFIRMED	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 17; entered by call from 23:507A (PROBABLE code) [executed in 3 scenarios]
 6DEB	6E14	text	String_23_6DEB	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 6E14	6E2F	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 8; entered by call from 23:5578 (PROBABLE code)
-6E2F	6E68	data	Data_23_6E2F	HYPOTHESIS	UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6E2F	6E58	text	String_23_6E2F	PROBABLE	20 ideographic spaces + NUL, addressed by ld hl,$6E2F at 23:6E21 (code region 6E14-6E2F)
+6E58	6E68	code	-	HYPOTHESIS	first 16 bytes of the twin of the function 6E14-6E2F (push bc ; ld a,2 ; ldh [$B0],a ; ld a,$23 ; ld bc,$D000 ; ld de,$D140 ; ld hl,$6E73 ...) - falls into the CONFIRMED-flow tail at 6E68; its ld hl,$6E73 points at the next text string [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 6E68	6E73	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 6E73	6E9C	text	String_23_6E73	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6E9C	6EB7	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 7; entered by call from 23:4CEA (PROBABLE code)
+6E9C	6EB7	code	-	CONFIRMED	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 7; entered by call from 23:4CEA (PROBABLE code) [executed in 3 scenarios]
 6EB7	6EE0	text	String_23_6EB7	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6EE0	6F22	code	-	PROBABLE	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 7; entered by call from 23:6DA2 (PROBABLE code)
-6F22	6F3C	data	Data_23_6F22	HYPOTHESIS	UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6EE0	6F22	code	-	CONFIRMED	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 7; entered by call from 23:6DA2 (PROBABLE code) [executed in 3 scenarios]
+6F22	6F3C	code	-	HYPOTHESIS	function prologue after the ret at 6F21 (push af/bc/de/hl ; xor a ; ldh [$4F],a ; ... ld a,[$D624]) falling into 6F3C [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 6F3C	6F60	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 8; entered by jrcc from 23:6F1B (PROBABLE code)
-6F60	6F6F	data	Data_23_6F60	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F60	6F6F	code	-	HYPOTHESIS	ld a,[$C2D6] ; add a,$3C ; cp $64 ; jr nc ; ld l,a ; ld h,0 ; ld de,$000A then the far call at 6F6F: decodes exactly to the next region start (7 insn)
 6F6F	6FD7	code	-	PROBABLE	48 insn(s) reached by static flow only; seeds: exec x37, site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-6FD7	6FE0	data	Data_23_6FD7	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6FD7	6FE0	zero	-	PROBABLE	0x00 padding between the last function of the bank and the tile block at $6FE0
 6FE0	73E0	gfx	Data_23_6FE0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 73E0	74E0	gfx	Data_23_73E0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 74E0	7640	gfx	Data_23_74E0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 7640	7910	data	Data_23_7640	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
-7910	7A3F	data	Data_23_7910	PROBABLE	palette-rgb555: heuristic: 232 RGB555 words as 58 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7910-7AE0 by higher-priority evidence]
-7A3F	7A51	ptrtable	Table_23_7A3F	PROBABLE	code-pointer table, 9 entries: 9/9 words hit own-bank code starts (dense run of code pointers); 0/9 targets executed
-7A51	7AE0	data	Data_23_7A51	PROBABLE	palette-rgb555: heuristic: 232 RGB555 words as 58 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7910-7AE0 by higher-priority evidence]
-7AE0	7C01	data	Data_23_7AE0	HYPOTHESIS	UNCLASSIFIED 289 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7C01	7E81	gfx	Data_23_7C01	PROBABLE	tiles-2bpp: heuristic: 39 coherent tiles (hsim2=0.659 vsim2=0.879, 0 blank) parity 1
-7E81	7F30	data	Data_23_7E81	HYPOTHESIS	UNCLASSIFIED 175 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7910	7950	data	Palette_23_7910	PROBABLE	64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site never executed; replaces the mapper palette guess 7910-7A3F which swallowed the object tables
+7950	7990	data	Palette_23_7950	PROBABLE	64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site never executed
+7990	7AE0	words	Table_23_7990	PROBABLE	sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7990 is passed as de with a=$23 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7
+7AE0	7AE2	words	Table_23_7AE0	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7AE2	7AE7	data	Data_23_7AE2	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7AE7	7AEA	data	Data_23_7AE7	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7AEA	7AEC	words	Table_23_7AEA	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7AEC	7AF1	data	Data_23_7AEC	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7AF1	7AF4	data	Data_23_7AF1	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7AF4	7AF6	words	Table_23_7AF4	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7AF6	7AFB	data	Data_23_7AF6	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7AFB	7AFE	data	Data_23_7AFB	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7AFE	7B00	words	Table_23_7AFE	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B00	7B05	data	Data_23_7B00	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B05	7B08	data	Data_23_7B05	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B08	7B0A	words	Table_23_7B08	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B0A	7B0F	data	Data_23_7B0A	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B0F	7B12	data	Data_23_7B0F	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B12	7B14	words	Table_23_7B12	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B14	7B19	data	Data_23_7B14	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B19	7B1C	data	Data_23_7B19	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B1C	7B1E	words	Table_23_7B1C	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B1E	7B23	data	Data_23_7B1E	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B23	7B26	data	Data_23_7B23	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B26	7B28	words	Table_23_7B26	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B28	7B2D	data	Data_23_7B28	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B2D	7B30	data	Data_23_7B2D	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B30	7B32	words	Table_23_7B30	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B32	7B37	data	Data_23_7B32	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B37	7B3A	data	Data_23_7B37	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B3A	7B3C	words	Table_23_7B3A	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B3C	7B41	data	Data_23_7B3C	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B41	7B44	data	Data_23_7B41	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B44	7B46	words	Table_23_7B44	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B46	7B4B	data	Data_23_7B46	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B4B	7B4E	data	Data_23_7B4B	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B4E	7B50	words	Table_23_7B4E	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B50	7B55	data	Data_23_7B50	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B55	7B58	data	Data_23_7B55	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B58	7B5A	words	Table_23_7B58	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B5A	7B5F	data	Data_23_7B5A	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B5F	7B62	data	Data_23_7B5F	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B62	7B64	words	Table_23_7B62	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B64	7B69	data	Data_23_7B64	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B69	7B6C	data	Data_23_7B69	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B6C	7B6E	words	Table_23_7B6C	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B6E	7B73	data	Data_23_7B6E	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B73	7B76	data	Data_23_7B73	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B76	7B78	words	Table_23_7B76	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B78	7B7D	data	Data_23_7B78	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B7D	7B80	data	Data_23_7B7D	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B80	7B82	words	Table_23_7B80	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B82	7B87	data	Data_23_7B82	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B87	7B8A	data	Data_23_7B87	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B8A	7B8C	words	Table_23_7B8A	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B8C	7B91	data	Data_23_7B8C	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B91	7B94	data	Data_23_7B91	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B94	7B96	words	Table_23_7B94	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7B96	7B9B	data	Data_23_7B96	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7B9B	7B9E	data	Data_23_7B9B	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7B9E	7BA0	words	Table_23_7B9E	PROBABLE	sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7BA0	7BA5	data	Data_23_7BA0	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+7BA5	7BA8	data	Data_23_7BA5	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+7BA8	7BAC	words	Table_23_7BA8	PROBABLE	sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+7BAC	7BD5	data	Data_23_7BAC	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
+7BD5	7BFE	data	Data_23_7BD5	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
+7BFE	7C03	data	Data_23_7BFE	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:29
+7C03	7F30	data	Data_23_7C03	HYPOTHESIS	tilemap/attribute-like index data (all bytes < $40, 20-byte rows of runs of $11/$2F/$08/$10 and small ascending index runs 08-0F/18-1F/02-07/12-17); the mapper called 7C01-7E81 "tiles-2bpp" (coherence 0.66/0.88) but repeated-byte runs give that score to tilemaps as well and no loader references these bytes; extent 7E81-7F30 (previously unclassified) continues the same pattern (the $08 fill is an attribute-map pattern) - purpose unknown
 7F30	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

@@ -1,6 +1,6 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4011	code	Function_54_4000	CONFIRMED	10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-4011	403D	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code)
+4011	403D	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code) [executed in 4 scenarios]
 403D	406B	code	Function_54_403D	CONFIRMED	21 insn(s); 21 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 406B	4071	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4062 (executed)
 4071	4083	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 5/18 scenarios)
@@ -12,54 +12,62 @@
 4141	415A	code	Function_54_4141	CONFIRMED	9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 415A	4176	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 54:4158 (executed)
 4176	41B1	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 4/18 scenarios)
-41B1	41B7	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:41A8 (executed)
+41B1	41B7	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:41A8 (executed) [executed in 5 scenarios]
 41B7	41C5	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 3/18 scenarios)
-41C5	41FB	data	Data_54_41C5	HYPOTHESIS	UNCLASSIFIED 54 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+41C5	41FB	code	-	PROBABLE	25 insn(s): start of the function that ends in the FarCall sites at 54:41FB-4274 (writes WRAM $C1D8/$C1D9/$C1DB, tests bits of $C69F, register setup ld de,$C480 ; ld bc,0 ; ld a,$28 for the FarCall at 41FB); contains the branches to 4204/4215/422E classified below; follows the ret at 41C4; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 41FB	4204	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-4204	420C	data	Data_54_4204	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4204	420C	code	-	PROBABLE	3 insn(s) (ld de,$C480 ; ld bc,0 ; ld a,$24) register setup for the FarCall at 420C; entered by jr z from 54:41F1 (this classification)
 420C	4215	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-4215	4225	data	Data_54_4215	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4215	4225	code	-	PROBABLE	10 insn(s) (ld hl,$C1D9 ; inc [hl] ; ld a,[hl] ; dec a ; jr z ... ret) ; entered by jr z from 54:41E1 (this classification)
 4225	422E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-422E	4230	data	Data_54_422E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+422E	4230	code	-	PROBABLE	1 insn (ld a,$36) ; entered by jr z from 54:421E (this classification)
 4230	423C	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 423C	4274	code	Function_54_423C	CONFIRMED	25 insn(s); 25 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 4274	427A	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:426B (executed)
 427A	42F5	code	-	CONFIRMED	61 insn(s); 61 executed (in up to 4/18 scenarios)
 42F5	42FB	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the retcc at 54:42F4 (executed)
 42FB	437C	code	Function_54_42FB	CONFIRMED	60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-437C	4383	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed)
+437C	4383	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed) [executed in 1 scenarios]
 4383	4393	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
 4393	43EE	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code)
 43EE	43F1	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
 43F1	44AC	code	-	PROBABLE	102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed)
 44AC	44BF	code	Function_54_44AC	CONFIRMED	10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-44BF	44C1	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed)
+44BF	44C1	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed) [executed in 1 scenarios]
 44C1	44C3	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
 44C3	475A	code	-	PROBABLE	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed)
-475A	4772	data	Data_54_475A	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+475A	4764	data	Data_54_475A	PROBABLE	10-byte blob copied to WRAM $C240 by CopyBytes 00:050C (FarCall 0C 05 00, bc=$000A) at 54:4593 (ld hl,$475A ; ld de,$C240)
+4764	4770	data	Data_54_4764	HYPOTHESIS	12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
+4770	4772	text	String_54_4770	PROBABLE	NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644
 4772	4856	code	-	PROBABLE	112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code)
-4856	485C	data	Data_54_4856	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4856	485C	text	String_54_4856	PROBABLE	NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F
 485C	4895	code	Function_54_485C	CONFIRMED	19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 4895	489B	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4887 (executed)
 489B	48B2	code	Function_54_489B	CONFIRMED	9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-48B2	48B8	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed)
+48B2	48B8	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
 48B8	48C3	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 2/18 scenarios)
 48C3	48F9	code	-	PROBABLE	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 54:48C1 (executed)
 48F9	4914	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 2/18 scenarios)
 4914	49E0	code	-	PROBABLE	87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code)
 49E0	4A12	text	String_54_49E0	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4A12	4AD0	code	-	PROBABLE	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code)
-4AD0	4AD7	data	Data_54_4AD0	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4AD0	4AD7	text	String_54_4AD0	PROBABLE	NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 4AD7	4AE6	text	String_54_4AD7	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4AE6	4C2A	code	-	PROBABLE	133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code)
-4C2A	4C47	data	Data_54_4C2A	HYPOTHESIS	UNCLASSIFIED 29 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4C2A	4C35	text	String_54_4C2A	PROBABLE	11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
+4C35	4C3D	data	Data_54_4C35	PROBABLE	8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
+4C3D	4C44	data	Data_54_4C3D	PROBABLE	7-byte blob (same bytes as 54:4FCB) read via ld hl,$4C3D at 54:4A44 and 54:4BEF
+4C44	4C47	data	Data_54_4C44	PROBABLE	3-byte blob (03 02 a0) read via ld hl,$4C44 at 54:5124
 4C47	4CAD	code	-	PROBABLE	55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code)
 4CAD	4CB0	data	Data_54_4CAD	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 4CB0	4FC3	code	-	PROBABLE	366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code)
-4FC3	4FD2	data	Data_54_4FC3	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FC3	4FCB	data	Data_54_4FC3	PROBABLE	8-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0008) at 54:4D4F (ld hl,$4FC3 ; ld de,$C240)
+4FCB	4FD2	data	Data_54_4FCB	PROBABLE	7-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0007) at 54:4D73 (ld hl,$4FCB)
 4FD2	511B	code	-	PROBABLE	203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code)
 511B	511D	data	Data_54_511B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 511D	5343	code	-	PROBABLE	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code)
-5343	5386	data	Data_54_5343	HYPOTHESIS	UNCLASSIFIED 67 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5343	5368	text	String_54_5343	PROBABLE	ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
+5368	5374	data	Table_54_5368	PROBABLE	12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
+5374	5386	data	Table_54_5374	PROBABLE	days per month in BCD: 31 28 31 30 31 30 31 31 30, 6 zero bytes, 31 30 31 - indexed by the BCD month number from base $5373 (54:52B1 and 54:5319: ld hl,$5373 ; add hl,de) so BCD 10/11/12 land on the last three entries
 5386	53E9	code	-	PROBABLE	41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code)
 53E9	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

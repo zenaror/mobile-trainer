@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank00", ROM0[$0000]
 
@@ -135,7 +136,7 @@ Header:: ; 00:0104
 	db $4D, $2D, $54, $52, $41, $49, $4E, $45, $52, $00, $00, $42, $39, $41, $4A, $C0
 	db $30, $31, $00, $1B, $06, $03, $00, $33, $00, $DA, $5A, $C8
 
-; ---- code $0150-$018D (61 bytes) [PROBABLE] API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54]
+; ---- code $0150-$018D (61 bytes) [CONFIRMED] API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54] [executed in 41 scenarios]
 
 MobileAPI:: ; 00:0150
 	cp a, $02
@@ -173,7 +174,7 @@ Label_00_016B:: ; 00:016B
 	ld [rROMB1], a
 	jp Label_75_4030
 
-; ---- code $018D-$01B7 (42 bytes) [PROBABLE] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
+; ---- code $018D-$01B7 (42 bytes) [CONFIRMED] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer] [executed in 41 scenarios]
 
 ReturnMobileAPI:: ; 00:018D
 	ld [wRam_C823], a
@@ -298,7 +299,7 @@ Label_00_0242:: ; 00:0242
 	pop af
 	reti
 
-; ---- code $0247-$0278 (49 bytes) [PROBABLE] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F, calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw refs 6]
+; ---- code $0247-$0278 (49 bytes) [CONFIRMED] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F, calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw refs 6] [executed in 9 scenarios]
 
 Function_00_0247:: ; 00:0247
 	ld [wBank4SavedBankHi], a
@@ -329,7 +330,7 @@ Function_00_0247:: ; 00:0247
 	ld a, [wBank4SavedBankHi]
 	ret
 
-; ---- code $0278-$032B (179 bytes) [CONFIRMED] boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever
+; ---- code $0278-$032E (182 bytes) [CONFIRMED] boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever | inline far pointer: FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
 
 Boot:: ; 00:0278
 	nop
@@ -422,21 +423,14 @@ Label_00_02C0:: ; 00:02C0
 	ei
 
 Label_00_0328:: ; 00:0328
-	call FarCall
-
-; ---- data $032B-$032E (3 bytes) [CONFIRMED] inline data of FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
-; inline farptr bytes of the convention call at 00:0328 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_032B:: ; 00:032B
-	dw Function_1C_4000
-	db BANK(Function_1C_4000)
+	farcall Function_1C_4000
 
 ; ---- code $032E-$0331 (3 bytes) [CONFIRMED] continuation
 
 Function_00_032E:: ; 00:032E
 	jp Label_00_0328
 
-; ---- code $0331-$034A (25 bytes) [PROBABLE] writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80 auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links; raw refs 8]
+; ---- code $0331-$034A (25 bytes) [CONFIRMED] writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80 auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links; raw refs 8] [executed in 41 scenarios]
 
 Function_00_0331:: ; 00:0331
 	ld a, $80
@@ -451,7 +445,7 @@ Function_00_0331:: ; 00:0331
 	call Function_00_034A
 	ret
 
-; ---- code $034A-$0352 (8 bytes) [PROBABLE] copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper) [reached via inferred links; raw refs 4]
+; ---- code $034A-$0352 (8 bytes) [CONFIRMED] copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper) [reached via inferred links; raw refs 4] [executed in 41 scenarios]
 
 Function_00_034A:: ; 00:034A
 	ld b, $40
@@ -634,7 +628,7 @@ Label_00_045B:: ; 00:045B
 	pop af
 	ret
 
-; ---- code $0464-$047A (22 bytes) [PROBABLE] wait for VBlank flag only (ei; halt until C2DF!=0; clear C2DF); no frame service. Most referenced helper of the ROM (401 raw call sites) [reached via inferred links; raw refs 404]
+; ---- code $0464-$047A (22 bytes) [CONFIRMED] wait for VBlank flag only (ei; halt until C2DF!=0; clear C2DF); no frame service. Most referenced helper of the ROM (401 raw call sites) [reached via inferred links; raw refs 404] [executed in 32 scenarios]
 
 Function_00_0464:: ; 00:0464
 	push af
@@ -688,7 +682,7 @@ Label_00_0497:: ; 00:0497
 	call Function_00_0392
 	jr Label_00_0481
 
-; ---- code $04A0-$04D8 (56 bytes) [PROBABLE] installs the RAM interrupt stubs: CBF1=jp $03BA, CBF4=reti, CBF7=jp $01ED, CBFA=jp $01B7, CBFD=reti (bytes written one by one; verified on interpreter) [reached via inferred links; raw refs 12]
+; ---- code $04A0-$04D8 (56 bytes) [CONFIRMED] installs the RAM interrupt stubs: CBF1=jp $03BA, CBF4=reti, CBF7=jp $01ED, CBFA=jp $01B7, CBFD=reti (bytes written one by one; verified on interpreter) [reached via inferred links; raw refs 12] [executed in 41 scenarios]
 
 Function_00_04A0:: ; 00:04A0
 	ld a, $C3
@@ -883,7 +877,7 @@ FarJumpTable:: ; 00:0551
 	call BankSwitch_H
 	jp hl
 
-; ---- code $056A-$059F (53 bytes) [PROBABLE] inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26]
+; ---- code $056A-$059F (53 bytes) [CONFIRMED] inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26] [executed in 14 scenarios]
 
 JoypadDispatch:: ; 00:056A
 	ldh a, [hRam_FFA7]
@@ -1115,7 +1109,7 @@ Label_00_0681:: ; 00:0681
 	ldh a, [hROMBankLo]
 	ret
 
-; ---- code $0684-$06B7 (51 bytes) [PROBABLE] initialises HRAM bank state and the far-call trampoline: FFA8..FFAF = `ld a,0 ; ld hl,0 ; jp $06B7`; FF8D=rSVBK=1; FF8C=1,[4000]=1 (SRAM bank 1); FFF5=0,[0000]=0 (SRAM disabled); FFF4=0, rVBK=0 [reached via inferred links; raw refs 4]
+; ---- code $0684-$06B7 (51 bytes) [CONFIRMED] initialises HRAM bank state and the far-call trampoline: FFA8..FFAF = `ld a,0 ; ld hl,0 ; jp $06B7`; FF8D=rSVBK=1; FF8C=1,[4000]=1 (SRAM bank 1); FFF5=0,[0000]=0 (SRAM disabled); FFF4=0, rVBK=0 [reached via inferred links; raw refs 4] [executed in 41 scenarios]
 
 Function_00_0684:: ; 00:0684
 	ld a, $3E
@@ -1351,7 +1345,7 @@ Label_00_07BB:: ; 00:07BB
 	call BankSwitch_H
 	jr Label_00_07A8
 
-; ---- code $07CB-$07FB (48 bytes) [PROBABLE] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; di before the wait, ei + frame service after [reached via inferred links; raw refs 31]
+; ---- code $07CB-$07FB (48 bytes) [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; di before the wait, ei + frame service after [reached via inferred links; raw refs 31] [executed in 37 scenarios]
 
 Function_00_07CB:: ; 00:07CB
 	push af
@@ -1440,7 +1434,7 @@ Function_00_082C:: ; 00:082C
 	call Function_00_0392
 	ret
 
-; ---- code $085B-$0887 (44 bytes) [PROBABLE] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + ret (no frame service) [reached via inferred links; raw refs 7]
+; ---- code $085B-$0887 (44 bytes) [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + ret (no frame service) [reached via inferred links; raw refs 7] [executed in 7 scenarios]
 
 Function_00_085B:: ; 00:085B
 	push af
@@ -1468,7 +1462,7 @@ Function_00_085B:: ; 00:085B
 	ei
 	ret
 
-; ---- code $0887-$08B7 (48 bytes) [PROBABLE] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; no di, ei + frame service after [reached via inferred links; raw refs 1]
+; ---- code $0887-$08B7 (48 bytes) [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; no di, ei + frame service after [reached via inferred links; raw refs 1] [executed in 15 scenarios]
 
 Function_00_0887:: ; 00:0887
 	push af
@@ -1581,7 +1575,7 @@ Function_00_0904:: ; 00:0904
 	jr nz, Function_00_0904
 	ret
 
-; ---- code $091C-$093B (31 bytes) [PROBABLE] rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32 (bank A) [reached via inferred links; raw refs 1]
+; ---- code $091C-$093B (31 bytes) [CONFIRMED] rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32 (bank A) [reached via inferred links; raw refs 1] [executed in 36 scenarios]
 
 Function_00_091C:: ; 00:091C
 	call BankSwitch_H
@@ -1721,7 +1715,7 @@ Function_00_09B6:: ; 00:09B6
 	pop af
 	ret
 
-; ---- code $09E6-$0A09 (35 bytes) [PROBABLE] fill 16 bytes at HL (one sprite slot) with $FF in WRAM bank 7 [reached via inferred links; raw refs 50]
+; ---- code $09E6-$0A09 (35 bytes) [CONFIRMED] fill 16 bytes at HL (one sprite slot) with $FF in WRAM bank 7 [reached via inferred links; raw refs 50] [executed in 31 scenarios]
 
 Function_00_09E6:: ; 00:09E6
 	push af
@@ -1764,7 +1758,7 @@ Label_00_0A12:: ; 00:0A12
 	pop af
 	ret
 
-; ---- code $0A1A-$0A2A (16 bytes) [PROBABLE] adds FFF1 (lo) / FFF0 (hi) to the 16-bit word at [HL] [candidate; raw refs 28]
+; ---- code $0A1A-$0A2A (16 bytes) [CONFIRMED] adds FFF1 (lo) / FFF0 (hi) to the 16-bit word at [HL] [candidate; raw refs 28] [executed in 18 scenarios]
 
 Function_00_0A1A:: ; 00:0A1A
 	push bc
@@ -1803,7 +1797,7 @@ Function_00_0A2A:: ; 00:0A2A
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $0A45-$0A65 (32 bytes) [PROBABLE] stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs 28]
+; ---- code $0A45-$0A65 (32 bytes) [CONFIRMED] stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs 28] [executed in 18 scenarios]
 
 Function_00_0A45:: ; 00:0A45
 	ldh [hRam_FFB0], a
@@ -2015,8 +2009,6 @@ Label_00_0B36:: ; 00:0B36
 	call BankSwitch_D
 	or a, e
 	or a, d
-
-Label_00_0B4A:: ; 00:0B4A
 	jr z, Label_00_0B71
 	pop hl
 	push hl
@@ -2159,7 +2151,7 @@ Function_00_0BDE:: ; 00:0BDE
 	pop af
 	ret
 
-; ---- code $0BE8-$0BFC (20 bytes) [PROBABLE] HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 5]
+; ---- code $0BE8-$0BFC (20 bytes) [CONFIRMED] HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 5] [executed in 21 scenarios]
 
 Multiply16:: ; 00:0BE8
 	ld hl, $0000
@@ -2178,7 +2170,7 @@ Label_00_0BF4:: ; 00:0BF4
 	jr nz, Label_00_0BED
 	ret
 
-; ---- code $0BFC-$0C0E (18 bytes) [PROBABLE] HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 12]
+; ---- code $0BFC-$0C0E (18 bytes) [CONFIRMED] HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 12] [executed in 37 scenarios]
 
 Multiply8x16:: ; 00:0BFC
 	ld hl, $0000
@@ -2298,7 +2290,7 @@ Label_00_0D62:: ; 00:0D62
 	pop af
 	ret
 
-; ---- code $0D67-$0D92 (43 bytes) [PROBABLE] HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12]
+; ---- code $0D67-$0D92 (43 bytes) [CONFIRMED] HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12] [executed in 18 scenarios]
 
 Divide16:: ; 00:0D67
 	ld c, e
@@ -2343,7 +2335,7 @@ Label_00_0D87:: ; 00:0D87
 	ld h, a
 	ret
 
-; ---- code $0D92-$0DB9 (39 bytes) [PROBABLE] BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6]
+; ---- code $0D92-$0DB9 (39 bytes) [CONFIRMED] BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6] [executed in 9 scenarios]
 
 Divide32by15:: ; 00:0D92
 	ld a, $10
@@ -2554,7 +2546,7 @@ Label_00_0E86:: ; 00:0E86
 	ld [$2100], a
 	ret
 
-; ---- code $0E93-$0ED3 (64 bytes) [PROBABLE] alternative STAT interrupt handler (installed into RAM vector CBF4 by 7F:727D): if LY==0: LYC=[D724], SCY=0; else SCY=[C0D3], LYC=0 and, if [D824]!=0, call 0392; saves/restores rSVBK (uses WRAM bank 1) [candidate; raw refs 1]
+; ---- code $0E93-$0ED3 (64 bytes) [CONFIRMED] alternative STAT interrupt handler (installed into RAM vector CBF4 by 7F:727D): if LY==0: LYC=[D724], SCY=0; else SCY=[C0D3], LYC=0 and, if [D824]!=0, call 0392; saves/restores rSVBK (uses WRAM bank 1) [candidate; raw refs 1] [executed in 21 scenarios]
 
 Function_00_0E93:: ; 00:0E93
 	push af
@@ -2598,7 +2590,7 @@ Label_00_0ECC:: ; 00:0ECC
 	pop af
 	reti
 
-; ---- code $0ED3-$0EF0 (29 bytes) [PROBABLE] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw refs 43]
+; ---- code $0ED3-$0EF0 (29 bytes) [CONFIRMED] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw refs 43] [executed in 26 scenarios]
 
 Function_00_0ED3:: ; 00:0ED3
 	ldh [hRam_FFB9], a
@@ -2848,7 +2840,7 @@ Function_00_1018:: ; 00:1018
 	ldh [hTextX + 1], a
 	jp Label_00_0F5A
 
-; ---- code $1028-$1056 (46 bytes) [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50]
+; ---- code $1028-$1059 (49 bytes) [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] | inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F
 
 Function_00_1028:: ; 00:1028
 	ld a, c
@@ -2878,20 +2870,11 @@ Function_00_1044:: ; 00:1044
 	cp a, $90
 	jr nc, Function_00_1079
 	ld de, $C0B8
-
-Label_00_104F:: ; 00:104F
 	ld bc, $C0A0
 	xor a, a
-	call FarCall
+	farcall Function_7F_405F
 
-; ---- data $1056-$1059 (3 bytes) [CONFIRMED] inline data of FarCall at 1053: dw $405F ; db $7F -> 7F:405F
-; inline farptr bytes of the convention call at 00:1053 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_1056:: ; 00:1056
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
-
-; ---- code $1059-$1076 (29 bytes) [CONFIRMED] continuation of Function_00_1028
+; ---- code $1059-$1079 (32 bytes) [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
 
 Function_00_1059:: ; 00:1059
 	ldh a, [hTextX + 1]
@@ -2909,16 +2892,9 @@ Function_00_1059:: ; 00:1059
 	ldh a, [hTextX]
 	ld e, a
 	ld hl, $C0A0
-	call FarCall
+	farcall Function_7F_42C3
 
-; ---- data $1076-$1079 (3 bytes) [CONFIRMED] inline data of FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
-; inline farptr bytes of the convention call at 00:1073 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_1076:: ; 00:1076
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
-
-; ---- code $1079-$10A0 (39 bytes) [CONFIRMED] continuation of Function_00_1028
+; ---- code $1079-$10A3 (42 bytes) [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
 
 Function_00_1079:: ; 00:1079
 	ldh a, [hTextX]
@@ -2941,14 +2917,7 @@ Function_00_1079:: ; 00:1079
 	ldh a, [hRam_FFBB]
 	ld c, a
 	ld hl, $C0B8
-	call FarCall
-
-; ---- data $10A0-$10A3 (3 bytes) [CONFIRMED] inline data of FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
-; inline farptr bytes of the convention call at 00:109D (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_10A0:: ; 00:10A0
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 
 ; ---- code $10A3-$10B1 (14 bytes) [CONFIRMED] continuation
 
@@ -2962,7 +2931,7 @@ Function_00_10A3:: ; 00:10A3
 	ldh [hTextX + 1], a
 	ret
 
-; ---- code $10B1-$10C3 (18 bytes) [CONFIRMED] draw single-byte glyph (far calls into bank 7F: 7F:4007, 7F:42C3)
+; ---- code $10B1-$10C6 (21 bytes) [CONFIRMED] draw single-byte glyph (far calls into bank 7F: 7F:4007, 7F:42C3) | inline far pointer: FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
 
 Function_00_10B1:: ; 00:10B1
 	ld b, c
@@ -2973,16 +2942,9 @@ Function_00_10B1:: ; 00:10B1
 	cp a, $A0
 	jr nc, Function_00_10DB
 	ld de, $C0A0
-	call FarCall
+	farcall Function_7F_4007
 
-; ---- data $10C3-$10C6 (3 bytes) [CONFIRMED] inline data of FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
-; inline farptr bytes of the convention call at 00:10C0 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_10C3:: ; 00:10C3
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
-
-; ---- code $10C6-$10D8 (18 bytes) [CONFIRMED] continuation of Function_00_10B1
+; ---- code $10C6-$10DB (21 bytes) [CONFIRMED] continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
 
 Function_00_10C6:: ; 00:10C6
 	ldh a, [hRam_FFBA]
@@ -2994,14 +2956,7 @@ Function_00_10C6:: ; 00:10C6
 	ldh a, [hTextX]
 	ld e, a
 	ld hl, $C0A0
-	call FarCall
-
-; ---- data $10D8-$10DB (3 bytes) [CONFIRMED] inline data of FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
-; inline farptr bytes of the convention call at 00:10D5 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_10D8:: ; 00:10D8
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 
 ; ---- code $10DB-$10E9 (14 bytes) [CONFIRMED] continuation
 
@@ -3015,7 +2970,7 @@ Function_00_10DB:: ; 00:10DB
 	ldh [hTextX + 1], a
 	ret
 
-; ---- code $10E9-$1119 (48 bytes) [PROBABLE] keyword lookup: BC = table of word pointers to strings (0 terminates); compares [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via inferred links; raw refs 30]
+; ---- code $10E9-$1119 (48 bytes) [CONFIRMED] keyword lookup: BC = table of word pointers to strings (0 terminates); compares [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via inferred links; raw refs 30] [executed in 5 scenarios]
 
 Function_00_10E9:: ; 00:10E9
 	call Function_00_0392
@@ -3426,7 +3381,7 @@ Label_00_1315:: ; 00:1315
 	ld a, [hli]
 	jr Label_00_12ED
 
-; ---- code $131A-$1354 (58 bytes) [PROBABLE] two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via inferred links; raw refs 43]
+; ---- code $131A-$1354 (58 bytes) [CONFIRMED] two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via inferred links; raw refs 43] [executed in 5 scenarios]
 
 Function_00_131A:: ; 00:131A
 	call BankSwitch_H
@@ -3782,7 +3737,7 @@ Label_00_14B4:: ; 00:14B4
 	dec hl
 	ret
 
-; ---- code $14BF-$14C6 (7 bytes) [PROBABLE] copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33]
+; ---- code $14BF-$14C6 (7 bytes) [CONFIRMED] copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33] [executed in 32 scenarios]
 
 CopyString:: ; 00:14BF
 	ld a, [hli]
@@ -3792,7 +3747,7 @@ CopyString:: ; 00:14BF
 	jr nz, CopyString
 	ret
 
-; ---- code $14C6-$14D1 (11 bytes) [PROBABLE] copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6]
+; ---- code $14C6-$14D1 (11 bytes) [CONFIRMED] copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6] [executed in 6 scenarios]
 
 CopyStringMax:: ; 00:14C6
 	ld a, c
@@ -3825,7 +3780,7 @@ Label_00_14DD:: ; 00:14DD
 	ld [hl], a
 	ret
 
-; ---- code $14E0-$14EA (10 bytes) [PROBABLE] copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6]
+; ---- code $14E0-$14EA (10 bytes) [CONFIRMED] copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6] [executed in 8 scenarios]
 
 EncodeXorA5:: ; 00:14E0
 	ld a, [hli]
@@ -3836,7 +3791,7 @@ EncodeXorA5:: ; 00:14E0
 	jr nz, EncodeXorA5
 	ret
 
-; ---- code $14EA-$14F3 (9 bytes) [PROBABLE] copy [HL++] XOR $A5 to [DE++] until the decoded byte is $00 (inverse of EncodeXorA5) [reached via inferred links; raw refs 23]
+; ---- code $14EA-$14F3 (9 bytes) [CONFIRMED] copy [HL++] XOR $A5 to [DE++] until the decoded byte is $00 (inverse of EncodeXorA5) [reached via inferred links; raw refs 23] [executed in 11 scenarios]
 
 DecodeXorA5:: ; 00:14EA
 	ld a, [hli]
@@ -3847,7 +3802,7 @@ DecodeXorA5:: ; 00:14EA
 	jr nz, DecodeXorA5
 	ret
 
-; ---- code $14F3-$1509 (22 bytes) [PROBABLE] string append: finds the first byte equal to A in the string at DE and copies the string at HL there (A=0: strcat) [reached via inferred links; raw refs 19]
+; ---- code $14F3-$1509 (22 bytes) [CONFIRMED] string append: finds the first byte equal to A in the string at DE and copies the string at HL there (A=0: strcat) [reached via inferred links; raw refs 19] [executed in 10 scenarios]
 
 Function_00_14F3:: ; 00:14F3
 	push hl
@@ -3875,7 +3830,7 @@ Label_00_1500:: ; 00:1500
 	jr nz, Label_00_1500
 	ret
 
-; ---- code $1509-$151A (17 bytes) [PROBABLE] strcmp(HL, DE): A = [HL]-[DE] at the first difference (0 only if both strings end together); verified on interpreter [reached via inferred links; raw refs 11]
+; ---- code $1509-$151A (17 bytes) [CONFIRMED] strcmp(HL, DE): A = [HL]-[DE] at the first difference (0 only if both strings end together); verified on interpreter [reached via inferred links; raw refs 11] [executed in 14 scenarios]
 
 CompareString:: ; 00:1509
 	push hl
@@ -3898,7 +3853,7 @@ Label_00_1518:: ; 00:1518
 	sub a, [hl]
 	ret
 
-; ---- code $151A-$1533 (25 bytes) [PROBABLE] like CompareString but compares at most B bytes (A = [HL]-[DE]); verified on interpreter [candidate; raw refs 2]
+; ---- code $151A-$1533 (25 bytes) [CONFIRMED] like CompareString but compares at most B bytes (A = [HL]-[DE]); verified on interpreter [candidate; raw refs 2] [executed in 34 scenarios]
 
 CompareStringN:: ; 00:151A
 	ld a, b
@@ -3928,7 +3883,7 @@ Label_00_152E:: ; 00:152E
 Label_00_1532:: ; 00:1532
 	ret
 
-; ---- code $1533-$153D (10 bytes) [PROBABLE] BC = length of the $00-terminated string at HL [reached via inferred links; raw refs 5]
+; ---- code $1533-$153D (10 bytes) [CONFIRMED] BC = length of the $00-terminated string at HL [reached via inferred links; raw refs 5] [executed in 7 scenarios]
 
 StringLength:: ; 00:1533
 	xor a, a
@@ -3941,7 +3896,7 @@ Label_00_1537:: ; 00:1537
 	jr nz, Label_00_1537
 	ret
 
-; ---- code $153D-$1586 (73 bytes) [PROBABLE] A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5), returns HL=$D000, A=5 [reached via inferred links; raw refs 11]
+; ---- code $153D-$1586 (73 bytes) [CONFIRMED] A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5), returns HL=$D000, A=5 [reached via inferred links; raw refs 11] [executed in 17 scenarios]
 
 Function_00_153D:: ; 00:153D
 	ld b, a
@@ -3960,7 +3915,7 @@ Function_00_153D:: ; 00:153D
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld a, b
-	ld hl, Data_65_567F
+	ld hl, Table_65_567F
 	add a, a
 	add a, l
 	ld l, a
@@ -3986,20 +3941,13 @@ Function_00_153D:: ; 00:153D
 	ld a, $05
 	ret
 
-; ---- code $1586-$158A (4 bytes) [PROBABLE] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred links; raw refs 0]
+; ---- code $1586-$158D (7 bytes) [CONFIRMED] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
 
 Function_00_1586:: ; 00:1586
 	push de
-	call FarCall
+	farcall Function_68_44FC
 
-; ---- data $158A-$158D (3 bytes) [CONFIRMED] inline data of FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
-; inline farptr bytes of the convention call at 00:1587 (config/conventions.tsv, docs/FORMATS.md)
-
-Data_00_158A:: ; 00:158A
-	dw Function_68_44FC
-	db BANK(Function_68_44FC)
-
-; ---- code $158D-$161A (141 bytes) [PROBABLE] continuation [reached via inferred links; raw refs 11]
+; ---- code $158D-$161A (141 bytes) [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 
 Function_00_158D:: ; 00:158D
 	or a, a
@@ -4013,7 +3961,7 @@ Function_00_158D:: ; 00:158D
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld a, [wRam_C271]
-	ld hl, Data_68_67AE
+	ld hl, Table_68_67AE
 	add a, a
 	add a, l
 	ld l, a
@@ -4177,7 +4125,7 @@ Label_00_1691:: ; 00:1691
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $16A2-$16C4 (34 bytes) [PROBABLE] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred links; raw refs 3]
+; ---- code $16A2-$16C4 (34 bytes) [CONFIRMED] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred links; raw refs 3] [executed in 27 scenarios]
 
 Function_00_16A2:: ; 00:16A2
 	call BankSwitch_H
@@ -4200,7 +4148,7 @@ Function_00_16A2:: ; 00:16A2
 	call Function_00_0904
 	ret
 
-; ---- code $16C4-$16D4 (16 bytes) [PROBABLE] alternative STAT handler (installed by 48:4437 into CBF4): if LY==$80 then SCX=[C0EF] [candidate; raw refs 4]
+; ---- code $16C4-$16D4 (16 bytes) [CONFIRMED] alternative STAT handler (installed by 48:4437 into CBF4): if LY==$80 then SCX=[C0EF] [candidate; raw refs 4] [executed in 28 scenarios]
 
 Function_00_16C4:: ; 00:16C4
 	push af
@@ -4216,7 +4164,7 @@ Label_00_16CD:: ; 00:16CD
 	pop af
 	reti
 
-; ---- code $16D4-$16DC (8 bytes) [PROBABLE] alternative VBlank handler prologue (installed by 48:4446 into CBF1): SCX=0 then jp $C133 (copy of the original VBlank stub saved by 48:4425) [candidate; no static referrer]
+; ---- code $16D4-$16DC (8 bytes) [CONFIRMED] alternative VBlank handler prologue (installed by 48:4446 into CBF1): SCX=0 then jp $C133 (copy of the original VBlank stub saved by 48:4425) [candidate; no static referrer] [executed in 28 scenarios]
 
 Function_00_16D4:: ; 00:16D4
 	push af
@@ -4225,7 +4173,7 @@ Function_00_16D4:: ; 00:16D4
 	pop af
 	jp $C133
 
-; ---- code $16DC-$1711 (53 bytes) [PROBABLE] alternative STAT handler (installed by 57:4537 into CBF4): raster effect using WY, C0F6, LYC [candidate; raw refs 1]
+; ---- code $16DC-$1711 (53 bytes) [CONFIRMED] alternative STAT handler (installed by 57:4537 into CBF4): raster effect using WY, C0F6, LYC [candidate; raw refs 1] [executed in 4 scenarios]
 
 Function_00_16DC:: ; 00:16DC
 	push af
@@ -4358,7 +4306,7 @@ Function_00_20AC:: ; 00:20AC
 	call Function_00_2116
 	jp Label_04_41C0
 
-; ---- code $20B2-$20B8 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65]
+; ---- code $20B2-$20B8 (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65] [executed in 34 scenarios]
 
 Function_00_20B2:: ; 00:20B2
 	call Function_00_2116
@@ -4368,7 +4316,7 @@ Function_00_20B2:: ; 00:20B2
 
 Function_00_20B8:: ; 00:20B8
 	call Function_00_2116
-	jp Data_04_42C0
+	jp Label_04_42C0
 
 ; ---- code $20BE-$20C4 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
 
@@ -4392,25 +4340,25 @@ Function_00_20CA:: ; 00:20CA
 
 Function_00_20D0:: ; 00:20D0
 	call Function_00_2116
-	jp Data_04_444B
+	jp Label_04_444B
 
 ; ---- code $20D6-$20DC (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
 
 Function_00_20D6:: ; 00:20D6
 	call Function_00_2116
-	jp Data_04_44B1
+	jp Label_04_44B1
 
 ; ---- code $20DC-$20E2 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
 
 Function_00_20DC:: ; 00:20DC
 	call Function_00_2116
-	jp Data_04_452C
+	jp Label_04_452C
 
 ; ---- code $20E2-$20E8 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 1]
 
 Function_00_20E2:: ; 00:20E2
 	call Function_00_2116
-	jp Data_04_445C
+	jp Label_04_445C
 
 ; ---- code $20E8-$20EE (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
@@ -4443,7 +4391,7 @@ Function_00_2105:: ; 00:2105
 	ld [rROMB1], a
 	ret
 
-; ---- code $210B-$2116 (11 bytes) [PROBABLE] restores the ROM bank saved at D001/D002 [reached via inferred links; raw refs 10]
+; ---- code $210B-$2116 (11 bytes) [CONFIRMED] restores the ROM bank saved at D001/D002 [reached via inferred links; raw refs 10] [executed in 41 scenarios]
 
 Function_00_210B:: ; 00:210B
 	ld a, [wBank4SavedBankHi]
@@ -4508,7 +4456,7 @@ Label_00_214F:: ; 00:214F
 	res 6, [hl]
 	ret
 
-; ---- code $215E-$216F (17 bytes) [PROBABLE] reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit bank number [reached via inferred links; raw refs 7]
+; ---- code $215E-$216F (17 bytes) [CONFIRMED] reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit bank number [reached via inferred links; raw refs 7] [executed in 41 scenarios]
 
 Function_00_215E:: ; 00:215E
 	ld a, [wBank4ReadBank + 1]
@@ -4519,7 +4467,7 @@ Function_00_215E:: ; 00:215E
 	ld c, a
 	jp Bank4_Restore
 
-; ---- code $216F-$2183 (20 bytes) [PROBABLE] like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9]
+; ---- code $216F-$2183 (20 bytes) [CONFIRMED] like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9] [executed in 41 scenarios]
 
 Function_00_216F:: ; 00:216F
 	ld a, [wBank4ReadBank + 1]

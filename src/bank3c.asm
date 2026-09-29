@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank3C", ROMX[$4000], BANK[$3C]
 

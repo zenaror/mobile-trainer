@@ -1,171 +1,210 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4024	data	Data_05_4000	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4024	4047	data	Data_05_4024	HYPOTHESIS	UNCLASSIFIED 35 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4024	4047	data	Data_05_4024	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4047	4090	data	Data_05_4047	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4090	40FF	data	Data_05_4090	HYPOTHESIS	UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4090	40FF	data	Data_05_4090	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 40FF	4139	data	Data_05_40FF	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4139	4167	data	Data_05_4139	HYPOTHESIS	UNCLASSIFIED 46 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4139	4167	data	Data_05_4139	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4167	41D0	data	Data_05_4167	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-41D0	421A	data	Data_05_41D0	HYPOTHESIS	UNCLASSIFIED 74 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-421A	4222	data	Data_05_421A	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4222	4232	data	Data_05_4222	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+41D0	4218	data	Data_05_41D0	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+4218	421A	data	Data_05_4218	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 421A (12 words = NN*(KK+1)); the byte before (4217) is $B1
+421A	4232	words	Table_05_421A	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4218 [v4: bytes 421A-4222 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 4232	42E7	data	Data_05_4232	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-42E7	42E8	data	Data_05_42E7	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+42E7	42E8	data	Data_05_42E7	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 42E8	43AE	data	Data_05_42E8	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-43AE	43AF	data	Data_05_43AE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+43AE	43AF	data	Data_05_43AE	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 43AF	44BF	data	Data_05_43AF	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-44BF	44C0	data	Data_05_44BF	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44BF	44C0	data	Data_05_44BF	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 44C0	4535	data	Data_05_44C0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4535	4542	data	Data_05_4535	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4542	454A	data	Data_05_4542	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-454A	455A	data	Data_05_454A	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4535	4540	data	Data_05_4535	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+4540	4542	data	Data_05_4540	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 4542 (12 words = NN*(KK+1)); the byte before (453F) is $B1
+4542	455A	words	Table_05_4542	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4540 [v4: bytes 4542-454A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 455A	45A4	data	Data_05_455A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-45A4	45A5	data	Data_05_45A4	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+45A4	45A5	data	Data_05_45A4	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 45A5	461A	data	Data_05_45A5	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-461A	461B	data	Data_05_461A	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+461A	461B	data	Data_05_461A	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 461B	466C	data	Data_05_461B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-466C	466D	data	Data_05_466C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+466C	466D	data	Data_05_466C	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 466D	46E5	data	Data_05_466D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-46E5	46E8	data	Data_05_46E5	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-46E8	46F0	data	Data_05_46E8	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-46F0	4700	data	Data_05_46F0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+46E5	46E6	data	Data_05_46E5	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+46E6	46E8	data	Data_05_46E6	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 46E8 (12 words = NN*(KK+1)); the byte before (46E5) is $B1
+46E8	4700	words	Table_05_46E8	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 46E6 [v4: bytes 46E8-46F0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 4700	4766	data	Data_05_4700	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4766	4769	data	Data_05_4766	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4766	4769	data	Data_05_4766	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4769	48D3	data	Data_05_4769	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-48D3	48D4	data	Data_05_48D3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+48D3	48D4	data	Data_05_48D3	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 48D4	4990	data	Data_05_48D4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4990	4991	data	Data_05_4990	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4990	4991	data	Data_05_4990	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4991	4A14	data	Data_05_4991	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4A14	4A17	data	Data_05_4A14	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A17	4A1F	data	Data_05_4A17	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4A1F	4A2F	data	Data_05_4A1F	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4A14	4A15	data	Data_05_4A14	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+4A15	4A17	data	Data_05_4A15	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 4A17 (12 words = NN*(KK+1)); the byte before (4A14) is $B1
+4A17	4A2F	words	Table_05_4A17	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4A15 [v4: bytes 4A17-4A1F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 4A2F	4B30	data	Data_05_4A2F	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4B30	4B31	data	Data_05_4B30	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4B30	4B31	data	Data_05_4B30	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4B31	4B7B	data	Data_05_4B31	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4B7B	4B7C	data	Data_05_4B7B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4B7B	4B7C	data	Data_05_4B7B	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4B7C	4BD9	data	Data_05_4B7C	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4BD9	4BDA	data	Data_05_4BD9	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4BD9	4BDA	data	Data_05_4BD9	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4BDA	4C86	data	Data_05_4BDA	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4C86	4C89	data	Data_05_4C86	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4C89	4C91	data	Data_05_4C89	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4C91	4CA1	data	Data_05_4C91	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4CA1	4D77	data	Data_05_4CA1	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-4D77	4D78	data	Data_05_4D77	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4D78	4E22	data	Data_05_4D78	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-4E22	4E5B	data	Data_05_4E22	HYPOTHESIS	UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4C86	4C87	data	Data_05_4C86	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+4C87	4C89	data	Data_05_4C87	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 4C89 (12 words = NN*(KK+1)); the byte before (4C86) is $B1
+4C89	4CA1	words	Table_05_4C89	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4C87 [v4: bytes 4C89-4C91 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+4CA1	4D76	data	Data_05_4CA1	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+4D76	4D78	data	Data_05_4D76	PROBABLE	header NN=04 KK=00 of the channel-pointer table at 4D78 (4 words = NN*(KK+1)); the byte before (4D75) is $B1 [v4: bytes 4D76-4D77 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+4D78	4D80	words	Table_05_4D78	PROBABLE	4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4D76 [v4: bytes 4D78-4D80 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+4D80	4E22	data	Data_05_4D80	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+4E22	4E5B	data	Data_05_4E22	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4E5B	4F6A	data	Data_05_4E5B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4F6A	4F87	data	Data_05_4F6A	HYPOTHESIS	UNCLASSIFIED 29 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4F6A	4F87	data	Data_05_4F6A	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 4F87	4FD5	data	Data_05_4F87	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4FD5	5004	data	Data_05_4FD5	HYPOTHESIS	UNCLASSIFIED 47 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FD5	5004	data	Data_05_4FD5	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5004	5085	data	Data_05_5004	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5085	50A4	data	Data_05_5085	HYPOTHESIS	UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50A4	50AC	data	Data_05_50A4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-50AC	50BC	data	Data_05_50AC	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50BC	516B	data	Data_05_50BC	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-516B	516C	data	Data_05_516B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-516C	51D9	data	Data_05_516C	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-51D9	51DA	data	Data_05_51D9	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5085	50A2	data	Data_05_5085	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+50A2	50A4	data	Data_05_50A2	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 50A4 (12 words = NN*(KK+1)); the byte before (50A1) is $B1
+50A4	50BC	words	Table_05_50A4	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 50A2 [v4: bytes 50A4-50AC were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+50BC	516A	data	Data_05_50BC	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+516A	516C	data	Data_05_516A	PROBABLE	header NN=04 KK=00 of the channel-pointer table at 516C (4 words = NN*(KK+1)); the byte before (5169) is $B1 [v4: bytes 516A-516B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+516C	5174	words	Table_05_516C	PROBABLE	4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 516A [v4: bytes 516C-5174 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+5174	51D9	data	Data_05_5174	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+51D9	51DA	data	Data_05_51D9	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 51DA	52D7	data	Data_05_51DA	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-52D7	52D9	data	Data_05_52D7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52D7	52D9	data	Data_05_52D7	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 52D9	53D1	data	Data_05_52D9	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-53D1	53D2	data	Data_05_53D1	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+53D1	53D2	data	Data_05_53D1	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 53D2	54C8	data	Data_05_53D2	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-54C8	54CB	data	Data_05_54C8	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-54CB	54D3	data	Data_05_54CB	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-54D3	54E3	data	Data_05_54D3	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+54C8	54C9	data	Data_05_54C8	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+54C9	54CB	data	Data_05_54C9	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 54CB (12 words = NN*(KK+1)); the byte before (54C8) is $B1
+54CB	54E3	words	Table_05_54CB	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 54C9 [v4: bytes 54CB-54D3 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 54E3	5617	data	Data_05_54E3	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-5617	5618	data	Data_05_5617	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5617	5618	data	Data_05_5617	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5618	585A	data	Data_05_5618	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-585A	585B	data	Data_05_585A	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+585A	585B	data	Data_05_585A	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 585B	5997	data	Data_05_585B	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-5997	5998	data	Data_05_5997	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5997	5998	data	Data_05_5997	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5998	5ADB	data	Data_05_5998	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-5ADB	5ADE	data	Data_05_5ADB	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5ADE	5AE6	data	Data_05_5ADE	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-5AE6	5AF6	data	Data_05_5AE6	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5AF6	5B03	data	Data_05_5AF6	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
-5B03	5B04	data	Data_05_5B03	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5B04	5B34	data	Data_05_5B04	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
-5B34	5B6D	data	Data_05_5B34	HYPOTHESIS	UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5ADB	5ADC	data	Data_05_5ADB	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+5ADC	5ADE	data	Data_05_5ADC	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 5ADE (12 words = NN*(KK+1)); the byte before (5ADB) is $B1
+5ADE	5AF6	words	Table_05_5ADE	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5ADC [v4: bytes 5ADE-5AE6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+5AF6	5B02	data	Data_05_5AF6	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
+5B02	5B04	data	Data_05_5B02	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 5B04 (1 words = NN*(KK+1)); the byte before (5B01) is $B1 [v4: bytes 5B02-5B03 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+5B04	5B06	words	Table_05_5B04	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5B02 [v4: bytes 5B04-5B06 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+5B06	5B34	data	Data_05_5B06	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
+5B34	5B6D	data	Data_05_5B34	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5B6D	5BCB	data	Data_05_5B6D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5BCB	5C4C	data	Data_05_5BCB	HYPOTHESIS	UNCLASSIFIED 129 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5BCB	5C4C	data	Data_05_5BCB	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5C4C	5C9E	data	Data_05_5C4C	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5C9E	5D14	data	Data_05_5C9E	HYPOTHESIS	UNCLASSIFIED 118 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5C9E	5D14	data	Data_05_5C9E	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5D14	5D69	data	Data_05_5D14	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5D69	5DB7	data	Data_05_5D69	HYPOTHESIS	UNCLASSIFIED 78 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5DB7	5DBF	data	Data_05_5DB7	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5DBF	5DCF	data	Data_05_5DBF	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5D69	5DB5	data	Data_05_5D69	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+5DB5	5DB7	data	Data_05_5DB5	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 5DB7 (12 words = NN*(KK+1)); the byte before (5DB4) is $B1
+5DB7	5DCF	words	Table_05_5DB7	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 5DB5 [v4: bytes 5DB7-5DBF were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 5DCF	5E23	data	Data_05_5DCF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5E23	5E37	data	Data_05_5E23	HYPOTHESIS	UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5E23	5E37	data	Data_05_5E23	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5E37	5F09	data	Data_05_5E37	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5F09	5F67	data	Data_05_5F09	HYPOTHESIS	UNCLASSIFIED 94 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F09	5F67	data	Data_05_5F09	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 5F67	5FF1	data	Data_05_5F67	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5FF1	602A	data	Data_05_5FF1	HYPOTHESIS	UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5FF1	602A	data	Data_05_5FF1	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
 602A	609A	data	Data_05_602A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-609A	60D1	data	Data_05_609A	HYPOTHESIS	UNCLASSIFIED 55 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-60D1	60D9	data	Data_05_60D1	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-60D9	60E9	data	Data_05_60D9	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-60E9	60F6	data	Data_05_60E9	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-60F6	60F7	data	Data_05_60F6	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-60F7	60F9	data	Data_05_60F7	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-60F9	631A	data	Data_05_60F9	HYPOTHESIS	UNCLASSIFIED 545 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-631A	632B	data	Data_05_631A	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-632B	632C	data	Data_05_632B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-632C	634B	data	Data_05_632C	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-634B	634C	data	Data_05_634B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-634C	636B	data	Data_05_634C	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-636B	636C	data	Data_05_636B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-636C	638E	data	Data_05_636C	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
-638E	638F	data	Data_05_638E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-638F	63B1	data	Data_05_638F	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
-63B1	63B2	data	Data_05_63B1	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-63B2	63FE	data	Data_05_63B2	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-63FE	63FF	data	Data_05_63FE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-63FF	6411	data	Data_05_63FF	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-6411	6412	data	Data_05_6411	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6412	643D	data	Data_05_6412	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-643D	643E	data	Data_05_643D	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-643E	645F	data	Data_05_643E	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-645F	6460	data	Data_05_645F	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6460	64B4	data	Data_05_6460	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-64B4	64B5	data	Data_05_64B4	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-64B5	64BB	data	Data_05_64B5	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-64BB	650E	data	Data_05_64BB	HYPOTHESIS	UNCLASSIFIED 83 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-650E	6545	data	Data_05_650E	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-6545	6546	data	Data_05_6545	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6546	6569	data	Data_05_6546	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-6569	656A	data	Data_05_6569	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-656A	6581	data	Data_05_656A	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-6581	6582	data	Data_05_6581	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6582	6584	data	Data_05_6582	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6584	6599	data	Data_05_6584	HYPOTHESIS	UNCLASSIFIED 21 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6599	65C4	data	Data_05_6599	CONFIRMED	read as data by executed code (in up to 10/18 scenarios); content class unknown
-65C4	65C5	data	Data_05_65C4	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-65C5	65FE	data	Data_05_65C5	CONFIRMED	read as data by executed code (in up to 10/18 scenarios); content class unknown
-65FE	65FF	data	Data_05_65FE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-65FF	6613	data	Data_05_65FF	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-6613	6614	data	Data_05_6613	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6614	6616	data	Data_05_6614	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6616	6661	data	Data_05_6616	HYPOTHESIS	UNCLASSIFIED 75 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6661	66C0	data	Data_05_6661	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-66C0	66C1	data	Data_05_66C0	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-66C1	66F3	data	Data_05_66C1	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-66F3	66F4	data	Data_05_66F3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-66F4	6726	data	Data_05_66F4	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6726	6727	data	Data_05_6726	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6727	673D	data	Data_05_6727	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-673D	673E	data	Data_05_673D	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-673E	6752	data	Data_05_673E	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-6752	6753	data	Data_05_6752	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6753	678A	data	Data_05_6753	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-678A	678B	data	Data_05_678A	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-678B	678D	data	Data_05_678B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-678D	67BB	data	Data_05_678D	HYPOTHESIS	UNCLASSIFIED 46 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-67BB	6823	data	Data_05_67BB	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6823	6824	data	Data_05_6823	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6824	689C	data	Data_05_6824	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-689C	689D	data	Data_05_689C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-689D	68BE	data	Data_05_689D	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
-68BE	68BF	data	Data_05_68BE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-68BF	68C3	data	Data_05_68BF	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
+609A	60CF	data	Data_05_609A	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+60CF	60D1	data	Data_05_60CF	PROBABLE	header NN=04 KK=02 of the channel-pointer table at 60D1 (12 words = NN*(KK+1)); the byte before (60CE) is $B1
+60D1	60E9	words	Table_05_60D1	PROBABLE	12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 60CF [v4: bytes 60D1-60D9 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+60E9	60F5	data	Data_05_60E9	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
+60F5	60F7	data	Data_05_60F5	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 60F7 (1 words = NN*(KK+1)); the byte before (60F4) is $B1 [v4: bytes 60F5-60F6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+60F7	60F9	words	Table_05_60F7	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 60F5 [v4: bytes 60F7-60F9 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+60F9	62BC	data	Data_05_60F9	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+62BC	62BE	data	Data_05_62BC	PROBABLE	header NN=03 KK=02 of the channel-pointer table at 62BE (9 words = NN*(KK+1)); the byte before (62BB) is $B1
+62BE	62D0	words	Table_05_62BE	PROBABLE	9 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 62BC
+62D0	6312	data	Data_05_62D0	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+6312	6314	data	Data_05_6312	PROBABLE	header NN=03 KK=00 of the channel-pointer table at 6314 (3 words = NN*(KK+1)); the byte before (6311) is $B1
+6314	631A	words	Table_05_6314	PROBABLE	3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6312
+631A	632A	data	Data_05_631A	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
+632A	632C	data	Data_05_632A	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 632C (1 words = NN*(KK+1)); the byte before (6329) is $B1 [v4: bytes 632A-632B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+632C	632E	words	Table_05_632C	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 632A [v4: bytes 632C-632E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+632E	634A	data	Data_05_632E	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
+634A	634C	data	Data_05_634A	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 634C (1 words = NN*(KK+1)); the byte before (6349) is $B1 [v4: bytes 634A-634B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+634C	634E	words	Table_05_634C	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 634A [v4: bytes 634C-634E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+634E	636A	data	Data_05_634E	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+636A	636C	data	Data_05_636A	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 636C (1 words = NN*(KK+1)); the byte before (6369) is $B1 [v4: bytes 636A-636B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+636C	636E	words	Table_05_636C	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 636A [v4: bytes 636C-636E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+636E	638D	data	Data_05_636E	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
+638D	638F	data	Data_05_638D	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 638F (1 words = NN*(KK+1)); the byte before (638C) is $B1 [v4: bytes 638D-638E were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+638F	6391	words	Table_05_638F	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 638D [v4: bytes 638F-6391 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6391	63B0	data	Data_05_6391	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
+63B0	63B2	data	Data_05_63B0	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 63B2 (1 words = NN*(KK+1)); the byte before (63AF) is $B1 [v4: bytes 63B0-63B1 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+63B2	63B4	words	Table_05_63B2	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 63B0 [v4: bytes 63B2-63B4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+63B4	63FD	data	Data_05_63B4	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
+63FD	63FF	data	Data_05_63FD	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 63FF (1 words = NN*(KK+1)); the byte before (63FC) is $B1 [v4: bytes 63FD-63FE were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+63FF	6401	words	Table_05_63FF	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 63FD [v4: bytes 63FF-6401 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6401	6410	data	Data_05_6401	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
+6410	6412	data	Data_05_6410	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6412 (1 words = NN*(KK+1)); the byte before (640F) is $B1 [v4: bytes 6410-6411 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6412	6414	words	Table_05_6412	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6410 [v4: bytes 6412-6414 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6414	643C	data	Data_05_6414	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
+643C	643E	data	Data_05_643C	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 643E (2 words = NN*(KK+1)); the byte before (643B) is $B1 [v4: bytes 643C-643D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+643E	6442	words	Table_05_643E	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 643C [v4: bytes 643E-6442 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6442	645E	data	Data_05_6442	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
+645E	6460	data	Data_05_645E	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 6460 (2 words = NN*(KK+1)); the byte before (645D) is $B1 [v4: bytes 645E-645F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6460	6464	words	Table_05_6460	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 645E [v4: bytes 6460-6464 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6464	64B3	data	Data_05_6464	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
+64B3	64B5	data	Data_05_64B3	PROBABLE	header NN=03 KK=00 of the channel-pointer table at 64B5 (3 words = NN*(KK+1)); the byte before (64B2) is $B1 [v4: bytes 64B3-64B4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+64B5	64BB	words	Table_05_64B5	PROBABLE	3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 64B3 [v4: bytes 64B5-64BB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+64BB	6506	data	Data_05_64BB	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+6506	6508	data	Data_05_6506	PROBABLE	header NN=03 KK=00 of the channel-pointer table at 6508 (3 words = NN*(KK+1)); the byte before (6505) is $B1
+6508	650E	words	Table_05_6508	PROBABLE	3 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6506
+650E	6544	data	Data_05_650E	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
+6544	6546	data	Data_05_6544	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 6546 (2 words = NN*(KK+1)); the byte before (6543) is $B1 [v4: bytes 6544-6545 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6546	654A	words	Table_05_6546	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6544 [v4: bytes 6546-654A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+654A	6568	data	Data_05_654A	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
+6568	656A	data	Data_05_6568	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 656A (1 words = NN*(KK+1)); the byte before (6567) is $B1 [v4: bytes 6568-6569 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+656A	656C	words	Table_05_656A	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6568 [v4: bytes 656A-656C were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+656C	6580	data	Data_05_656C	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
+6580	6582	data	Data_05_6580	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6582 (1 words = NN*(KK+1)); the byte before (657F) is $B1 [v4: bytes 6580-6581 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6582	6584	words	Table_05_6582	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6580 [v4: bytes 6582-6584 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6584	6595	data	Data_05_6584	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+6595	6597	data	Data_05_6595	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6597 (1 words = NN*(KK+1)); the byte before (6594) is $B1
+6597	6599	words	Table_05_6597	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6595
+6599	65C3	data	Data_05_6599	CONFIRMED	read as data by executed code (in up to 10/18 scenarios); content class unknown
+65C3	65C5	data	Data_05_65C3	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 65C5 (1 words = NN*(KK+1)); the byte before (65C2) is $B1 [v4: bytes 65C3-65C4 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+65C5	65C7	words	Table_05_65C5	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 65C3 [v4: bytes 65C5-65C7 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+65C7	65FD	data	Data_05_65C7	CONFIRMED	read as data by executed code (in up to 10/18 scenarios); content class unknown
+65FD	65FF	data	Data_05_65FD	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 65FF (1 words = NN*(KK+1)); the byte before (65FC) is $B1 [v4: bytes 65FD-65FE were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+65FF	6601	words	Table_05_65FF	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 65FD [v4: bytes 65FF-6601 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6601	6612	data	Data_05_6601	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
+6612	6614	data	Data_05_6612	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6614 (1 words = NN*(KK+1)); the byte before (6611) is $B1 [v4: bytes 6612-6613 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6614	6616	words	Table_05_6614	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6612 [v4: bytes 6614-6616 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6616	662F	data	Data_05_6616	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+662F	6631	data	Data_05_662F	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6631 (1 words = NN*(KK+1)); the byte before (662E) is $B1
+6631	6633	words	Table_05_6631	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 662F
+6633	665B	data	Data_05_6633	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+665B	665D	data	Data_05_665B	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 665D (2 words = NN*(KK+1)); the byte before (665A) is $B1
+665D	6661	words	Table_05_665D	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 665B
+6661	66BF	data	Data_05_6661	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+66BF	66C1	data	Data_05_66BF	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 66C1 (2 words = NN*(KK+1)); the byte before (66BE) is $B1 [v4: bytes 66BF-66C0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+66C1	66C5	words	Table_05_66C1	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 66BF [v4: bytes 66C1-66C5 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+66C5	66F2	data	Data_05_66C5	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+66F2	66F4	data	Data_05_66F2	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 66F4 (2 words = NN*(KK+1)); the byte before (66F1) is $B1 [v4: bytes 66F2-66F3 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+66F4	66F8	words	Table_05_66F4	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 66F2 [v4: bytes 66F4-66F8 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+66F8	6725	data	Data_05_66F8	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+6725	6727	data	Data_05_6725	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 6727 (2 words = NN*(KK+1)); the byte before (6724) is $B1 [v4: bytes 6725-6726 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6727	672B	words	Table_05_6727	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6725 [v4: bytes 6727-672B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+672B	673C	data	Data_05_672B	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+673C	673E	data	Data_05_673C	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 673E (1 words = NN*(KK+1)); the byte before (673B) is $B1 [v4: bytes 673C-673D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+673E	6740	words	Table_05_673E	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 673C [v4: bytes 673E-6740 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6740	6751	data	Data_05_6740	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+6751	6753	data	Data_05_6751	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 6753 (1 words = NN*(KK+1)); the byte before (6750) is $B1 [v4: bytes 6751-6752 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6753	6755	words	Table_05_6753	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6751 [v4: bytes 6753-6755 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6755	6789	data	Data_05_6755	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+6789	678B	data	Data_05_6789	PROBABLE	header NN=01 KK=00 of the channel-pointer table at 678B (1 words = NN*(KK+1)); the byte before (6788) is $B1 [v4: bytes 6789-678A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+678B	678D	words	Table_05_678B	PROBABLE	1 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6789 [v4: bytes 678B-678D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+678D	67B5	data	Data_05_678D	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+67B5	67B7	data	Data_05_67B5	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 67B7 (2 words = NN*(KK+1)); the byte before (67B4) is $B1
+67B7	67BB	words	Table_05_67B7	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 67B5
+67BB	6822	data	Data_05_67BB	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+6822	6824	data	Data_05_6822	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 6824 (2 words = NN*(KK+1)); the byte before (6821) is $B1 [v4: bytes 6822-6823 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6824	6828	words	Table_05_6824	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 6822 [v4: bytes 6824-6828 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+6828	689B	data	Data_05_6828	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+689B	689D	data	Data_05_689B	PROBABLE	header NN=02 KK=00 of the channel-pointer table at 689D (2 words = NN*(KK+1)); the byte before (689A) is $B1 [v4: bytes 689B-689C were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+689D	68A1	words	Table_05_689D	PROBABLE	2 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 689B [v4: bytes 689D-68A1 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+68A1	68BE	data	Data_05_68A1	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown
+68BE	68BF	data	Data_05_68BE	PROBABLE	unread interior of the song/track byte stream 05:4000-68C3 (track bodies start with bf 7f bd; channel tables are b1 NN KK + words); content of individual commands unknown; see docs/research/classify_g4.md
+68BF	68C3	data	Data_05_68BF	CONFIRMED	read as data by executed code (in up to 17/18 scenarios); content class unknown [v4: this is the 46th channel-pointer table (header b1 02 00 at 68BC, referenced by the song-table entry 04:5740 -> 68BD): 2 words A1 68 B0 68 = track starts 68A1 and 68B0 (both bf 7f bd); kept as data because it is CONFIRMED-read and has no following track]
 68C3	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

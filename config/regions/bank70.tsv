@@ -4,7 +4,7 @@
 401D	4043	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
 4043	406A	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed)
 406A	4071	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-4071	407B	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 70:406F (executed)
+4071	407B	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
 407B	40AD	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 1/18 scenarios)
 40AD	40B3	ptrtable	Table_70_40AD	PROBABLE	little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
 40B3	40C1	ptrtable	Table_70_40B3	CONFIRMED	code-pointer table, 7 entries: 7/7 words hit own-bank code starts (dense run of code pointers); 7/7 targets executed; every byte read as data in a trace
@@ -12,36 +12,139 @@
 40C7	40D3	ptrtable	Table_70_40C7	CONFIRMED	code-pointer table, 6 entries: 6/6 words hit own-bank code starts (dense run of code pointers); 6/6 targets executed; every byte read as data in a trace
 40D3	40E3	ptrtable	Table_70_40D3	PROBABLE	little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
 40E3	417E	code	-	CONFIRMED	64 insn(s); 64 executed (in up to 1/18 scenarios)
-417E	41BB	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:4140 (executed)
+417E	41BB	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
 41BB	4215	code	-	CONFIRMED	39 insn(s); 39 executed (in up to 1/18 scenarios)
 4215	4275	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
 4275	4285	code	Function_70_4275	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4285	428D	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2; entered by call from 70:4258 (PROBABLE code)
+4285	428D	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
 428D	4316	code	-	CONFIRMED	55 insn(s); 55 executed (in up to 1/18 scenarios)
 4316	4353	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed)
 4353	43AD	code	-	CONFIRMED	39 insn(s); 39 executed (in up to 1/18 scenarios)
 43AD	44B0	code	-	PROBABLE	112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
 44B0	46A6	code	Function_70_44B0	CONFIRMED	203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-46A6	477F	data	Data_70_46A6	HYPOTHESIS	UNCLASSIFIED 217 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+46A6	4704	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+4704	472A	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+472A	4740	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+4740	4767	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+4767	477F	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
 477F	47A0	code	Function_70_477F	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-47A0	47BB	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 70:4783 (executed)
+47A0	47BB	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 70:4783 (executed) [executed in 3 scenarios]
 47BB	47E2	code	Function_70_47BB	CONFIRMED	14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-47E2	4803	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jrcc from 70:47BF (executed)
+47E2	4803	code	-	CONFIRMED	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
 4803	4822	code	Function_70_4803	CONFIRMED	16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4822	4832	ptrtable	Table_70_4822	PROBABLE	little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $7090..$74F0; referenced by ld r16,$4822 at 70:4803
-4832	5350	data	Data_70_4832	HYPOTHESIS	UNCLASSIFIED 2846 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5350	53EB	data	Data_70_5350	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-53EB	53EF	data	Data_70_53EB	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-53EF	53F3	data	Data_70_53EF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-53F3	53F7	data	Data_70_53F3	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-53F7	53FB	data	Data_70_53F7	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-53FB	53FF	data	Data_70_53FB	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-53FF	542E	data	Data_70_53FF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-542E	5459	data	Data_70_542E	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5459	5467	data	Data_70_5459	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5467	5475	data	Data_70_5467	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5475	5483	data	Data_70_5475	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5483	5490	data	Data_70_5483	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4822	4832	ptrtable	Table_70_4822	CONFIRMED	8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in Function_70_4803 (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
+4832	4846	ptrtable	Table_70_4832	PROBABLE	animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+4846	4852	ptrtable	Table_70_4846	PROBABLE	list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+4852	4857	data	Data_70_4852	PROBABLE	sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4857	4868	data	Data_70_4857	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4868	4881	data	Data_70_4868	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4881	48B2	data	Data_70_4881	PROBABLE	sprite frame record: count=12 then 12 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+48B2	4903	data	Data_70_48B2	PROBABLE	sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4903	4904	data	Data_70_4903	PROBABLE	sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4904	4911	data	Data_70_4904	PROBABLE	count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+4911	4919	ptrtable	Table_70_4911	PROBABLE	list of 4 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+4919	497E	data	Data_70_4919	PROBABLE	sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+497E	49E3	data	Data_70_497E	PROBABLE	sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+49E3	4A50	data	Data_70_49E3	PROBABLE	sprite frame record: count=27 then 27 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4A50	4AB9	data	Data_70_4A50	PROBABLE	sprite frame record: count=26 then 26 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4AB9	4AC2	data	Data_70_4AB9	PROBABLE	count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+4AC2	4ACE	ptrtable	Table_70_4AC2	PROBABLE	list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+4ACE	4B1F	data	Data_70_4ACE	PROBABLE	sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B1F	4B48	data	Data_70_4B1F	PROBABLE	sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B48	4B61	data	Data_70_4B48	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B61	4B72	data	Data_70_4B61	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B72	4B7B	data	Data_70_4B72	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B7B	4B84	data	Data_70_4B7B	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4B84	4B91	data	Data_70_4B84	PROBABLE	count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+4B91	4B9D	ptrtable	Table_70_4B91	PROBABLE	list of 6 frame pointers (word0 of an entry of Table_70_4832); each target is a count-prefixed OAM record
+4B9D	4BEE	data	Data_70_4B9D	PROBABLE	sprite frame record: count=20 then 20 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4BEE	4C17	data	Data_70_4BEE	PROBABLE	sprite frame record: count=10 then 10 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4C17	4C30	data	Data_70_4C17	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4C30	4C41	data	Data_70_4C30	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4C41	4C4A	data	Data_70_4C41	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4C4A	4C4F	data	Data_70_4C4A	PROBABLE	sprite frame record: count=1 then 1 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4832
+4C4F	4C5C	data	Data_70_4C4F	PROBABLE	count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4832 (read by 00:0AB8 through [slot+8])
+4C5C	4C64	ptrtable	Table_70_4C5C	PROBABLE	animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+4C64	4C80	ptrtable	Table_70_4C64	PROBABLE	list of 14 frame pointers (word0 of an entry of Table_70_4C5C); each target is a count-prefixed OAM record
+4C80	4C99	data	Data_70_4C80	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4C99	4CB2	data	Data_70_4C99	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4CB2	4CCB	data	Data_70_4CB2	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4CCB	4CDC	data	Data_70_4CCB	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4CDC	4CED	data	Data_70_4CDC	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4CED	4CFE	data	Data_70_4CED	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4CFE	4D17	data	Data_70_4CFE	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D17	4D28	data	Data_70_4D17	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D28	4D39	data	Data_70_4D28	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D39	4D52	data	Data_70_4D39	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D52	4D63	data	Data_70_4D52	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D63	4D7C	data	Data_70_4D63	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D7C	4D8D	data	Data_70_4D7C	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D8D	4D9E	data	Data_70_4D8D	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4C5C
+4D9E	4DBB	data	Data_70_4D9E	PROBABLE	count=14 then 14 x 2-byte pairs; word1 of an entry of Table_70_4C5C (read by 00:0AB8 through [slot+8])
+4DBB	4DCF	ptrtable	Table_70_4DBB	PROBABLE	animation table: 5 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+4DCF	4DD7	ptrtable	Table_70_4DCF	PROBABLE	list of 4 frame pointers (word0 of an entry of Table_70_4DBB); each target is a count-prefixed OAM record
+4DD7	4DE8	data	Data_70_4DD7	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4DE8	4DFD	data	Data_70_4DE8	PROBABLE	sprite frame record: count=5 then 5 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4DFD	4E1A	data	Data_70_4DFD	PROBABLE	sprite frame record: count=7 then 7 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4E1A	4E47	data	Data_70_4E1A	PROBABLE	sprite frame record: count=11 then 11 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4E47	4E50	data	Data_70_4E47	PROBABLE	count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+4E50	4E58	ptrtable	Table_70_4E50	PROBABLE	list of 4 frame pointers (word0 of an entry of Table_70_4DBB); each target is a count-prefixed OAM record
+4E58	4EB5	data	Data_70_4E58	PROBABLE	sprite frame record: count=23 then 23 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4EB5	4F16	data	Data_70_4EB5	PROBABLE	sprite frame record: count=24 then 24 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4F16	4F7B	data	Data_70_4F16	PROBABLE	sprite frame record: count=25 then 25 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4F7B	4FE4	data	Data_70_4F7B	PROBABLE	sprite frame record: count=26 then 26 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+4FE4	4FED	data	Data_70_4FE4	PROBABLE	count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+4FED	4FF7	ptrtable	Table_70_4FED	PROBABLE	list of 5 frame pointers (word0 of an entry of Table_70_4DBB); each target is a count-prefixed OAM record
+4FF7	5050	data	Data_70_4FF7	PROBABLE	sprite frame record: count=22 then 22 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+5050	50A9	data	Data_70_5050	PROBABLE	sprite frame record: count=22 then 22 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+50A9	50F6	data	Data_70_50A9	PROBABLE	sprite frame record: count=19 then 19 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+50F6	513B	data	Data_70_50F6	PROBABLE	sprite frame record: count=17 then 17 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+513B	517C	data	Data_70_513B	PROBABLE	sprite frame record: count=16 then 16 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+517C	5187	data	Data_70_517C	PROBABLE	count=5 then 5 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+5187	5193	ptrtable	Table_70_5187	PROBABLE	list of 6 frame pointers (word0 of an entry of Table_70_4DBB); each target is a count-prefixed OAM record
+5193	51B4	data	Data_70_5193	PROBABLE	sprite frame record: count=8 then 8 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+51B4	51CD	data	Data_70_51B4	PROBABLE	sprite frame record: count=6 then 6 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+51CD	51DE	data	Data_70_51CD	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+51DE	5203	data	Data_70_51DE	PROBABLE	sprite frame record: count=9 then 9 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+5203	5240	data	Data_70_5203	PROBABLE	sprite frame record: count=15 then 15 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+5240	5265	data	Data_70_5240	PROBABLE	sprite frame record: count=9 then 9 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_4DBB
+5265	5272	data	Data_70_5265	PROBABLE	count=6 then 6 x 2-byte pairs; word1 of an entry of Table_70_4DBB (read by 00:0AB8 through [slot+8])
+5272	527A	ptrtable	Table_70_5272	PROBABLE	animation table: 2 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. No executed caller found; same format as the CONFIRMED tables 534C/53EB; whole structure tiles exactly (every pointer lands on a record start)
+527A	5280	ptrtable	Table_70_527A	PROBABLE	list of 3 frame pointers (word0 of an entry of Table_70_5272); each target is a count-prefixed OAM record
+5280	52C1	data	Data_70_5280	PROBABLE	sprite frame record: count=16 then 16 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_5272
+52C1	5302	data	Data_70_52C1	PROBABLE	sprite frame record: count=16 then 16 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_5272
+5302	5343	data	Data_70_5302	PROBABLE	sprite frame record: count=16 then 16 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_5272
+5343	534C	data	Data_70_5343	PROBABLE	count=4 then 4 x 2-byte pairs; word1 of an entry of Table_70_5272 (read by 00:0AB8 through [slot+8])
+534C	535C	ptrtable	Table_70_534C	CONFIRMED	animation table: 4 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
+535C	535E	ptrtable	Table_70_535C	PROBABLE	list of 1 frame pointers (word0 of an entry of Table_70_534C); each target is a count-prefixed OAM record
+535E	5397	data	Data_70_535E	PROBABLE	sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
+5397	539A	data	Data_70_5397	PROBABLE	count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+539A	539C	ptrtable	Table_70_539A	PROBABLE	list of 1 frame pointers (word0 of an entry of Table_70_534C); each target is a count-prefixed OAM record
+539C	53D5	data	Data_70_539C	PROBABLE	sprite frame record: count=14 then 14 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
+53D5	53D8	data	Data_70_53D5	PROBABLE	count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+53D8	53DC	ptrtable	Table_70_53D8	PROBABLE	list of 2 frame pointers (word0 of an entry of Table_70_534C); each target is a count-prefixed OAM record
+53DC	53E5	data	Data_70_53DC	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
+53E5	53E6	data	Data_70_53E5	PROBABLE	sprite frame record: count=0 then 0 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_534C
+53E6	53EB	data	Data_70_53E6	PROBABLE	count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_534C (read by 00:0AB8 through [slot+8])
+53EB	5403	ptrtable	Table_70_53EB	CONFIRMED	animation table: 6 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
+5403	5407	ptrtable	Table_70_5403	PROBABLE	list of 2 frame pointers (word0 of an entry of Table_70_53EB); each target is a count-prefixed OAM record
+5407	5418	data	Data_70_5407	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5418	5429	data	Data_70_5418	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5429	542E	data	Data_70_5429	PROBABLE	count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+542E	5432	ptrtable	Table_70_542E	PROBABLE	list of 2 frame pointers (word0 of an entry of Table_70_53EB); each target is a count-prefixed OAM record
+5432	5443	data	Data_70_5432	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5443	5454	data	Data_70_5443	PROBABLE	sprite frame record: count=4 then 4 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5454	5459	data	Data_70_5454	PROBABLE	count=2 then 2 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+5459	545B	ptrtable	Table_70_5459	PROBABLE	list of 1 frame pointers (word0 of an entry of Table_70_53EB); each target is a count-prefixed OAM record
+545B	5464	data	Data_70_545B	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5464	5467	data	Data_70_5464	PROBABLE	count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+5467	5469	ptrtable	Table_70_5467	PROBABLE	list of 1 frame pointers (word0 of an entry of Table_70_53EB); each target is a count-prefixed OAM record
+5469	5472	data	Data_70_5469	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5472	5475	data	Data_70_5472	PROBABLE	count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+5475	5477	ptrtable	Table_70_5475	PROBABLE	list of 1 frame pointers (word0 of an entry of Table_70_53EB); each target is a count-prefixed OAM record
+5477	5480	data	Data_70_5477	PROBABLE	sprite frame record: count=2 then 2 x 4 bytes (y?,x?,tile,attr; field meaning not verified); referenced from a frame list of Table_70_53EB
+5480	5483	data	Data_70_5480	PROBABLE	count=1 then 1 x 2-byte pairs; word1 of an entry of Table_70_53EB (read by 00:0AB8 through [slot+8])
+5483	5490	zero	-	PROBABLE	0x00 padding before the tile block at 5490 (13 bytes after the last pair record)
 5490	5890	gfx	Data_70_5490	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:44E2: hl=$5490 a=$70 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 5890	5C90	gfx	Data_70_5890	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:44F4: hl=$5890 a=$70 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 5C90	6090	gfx	Data_70_5C90	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4506: hl=$5C90 a=$70 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
@@ -49,16 +152,16 @@
 6490	6690	gfx	Data_70_6490	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:452A: hl=$6490 a=$70 c=$20 de=$9000 (dest VRAM $9000, vbank=0)
 6690	6890	gfx	Data_70_6690	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:453C: hl=$6490 a=$70 c=$40 de=$8001 (dest VRAM $8000, vbank=1) [clipped from 6490-6890 by higher-priority evidence]
 6890	6A90	gfx	Data_70_6890	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4560: hl=$6690 a=$70 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 6690-6A90 by higher-priority evidence]
-6A90	6E90	gfx	Data_70_6A90	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 70:4572: hl=$6A90 a=$70 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
-6E90	7090	data	Data_70_6E90	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 70:45A5: hl=$6D10 a=$70 b=14 rows c=32 cols (tiles then attrs) de=$D000 [clipped from 6D10-7090 by higher-priority evidence]
-7090	7310	data	Data_70_7090	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5490-7310 by higher-priority evidence]
-7310	7338	data	Data_70_7310	HYPOTHESIS	UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7338	734C	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-734C	73D8	data	Data_70_734C	HYPOTHESIS	UNCLASSIFIED 140 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73D8	73EC	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-73EC	7478	data	Data_70_73EC	HYPOTHESIS	UNCLASSIFIED 140 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7478	748C	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-748C	7518	data	Data_70_748C	HYPOTHESIS	UNCLASSIFIED 140 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7518	752C	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-752C	7590	data	Data_70_752C	HYPOTHESIS	UNCLASSIFIED 100 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6A90	6C90	gfx	Tiles_70_6A90	CONFIRMED	tiles-vram: hdma_rom_to_vram at 70:4572 hl=$6A90 c=$40 de=$9401 (recovered arguments). NOTE: the HDMA length $400 would run to 6E90, but 6C90-6D10 are palettes (copied by 4F:4000 calls) and 6D10-7090 the tilemap (copy_tilemap_rect_pair), so only the first $200 bytes (32 tiles) are tile data by content; the rest of the DMA window is over-read
+6C90	6CD0	data	Palette_70_6C90	PROBABLE	64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D800, hl=$6C90) in the loader sequence right before the executed copy_tilemap_rect_pair at 70:45A5; RGB555 words
+6CD0	6D10	data	Palette_70_6CD0	PROBABLE	64 bytes = 8 CGB palettes, source of the Function_4F_4000 call (bc=$0040, de=$D840, hl=$6CD0); RGB555 words (00 00 4A 29 B5 56 FF 7F ends the block)
+6D10	7090	data	Tilemap_70_6D10	CONFIRMED	tilemap+attr: copy_tilemap_rect_pair at 70:45A5 hl=$6D10 b=14 rows c=32 cols (tiles $1C0 then attrs $1C0) de=$D000
+7090	7130	data	Tilemap_70_7090	CONFIRMED	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 0 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+7130	71D0	data	Tilemap_70_7130	CONFIRMED	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 1 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+71D0	7270	data	Tilemap_70_71D0	CONFIRMED	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 2 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+7270	7310	data	Tilemap_70_7270	CONFIRMED	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 3 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; bytes read in traces
+7310	73B0	data	Tilemap_70_7310	PROBABLE	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 4 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+73B0	7450	data	Tilemap_70_73B0	PROBABLE	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 5 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+7450	74F0	data	Tilemap_70_7450	PROBABLE	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 6 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
+74F0	7590	data	Tilemap_70_74F0	PROBABLE	tilemap+attr 20x4 (80 tile bytes then 80 attribute bytes), entry 7 of Table_70_4822: Function_70_4803 (executed) indexes that table with A and calls copy_tilemap_rect_pair 00:08EA with bc=$0414 (b=4 rows, c=20 cols), de=$D000, hl=table entry; not read in the 18 traces, same layout
 7590	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

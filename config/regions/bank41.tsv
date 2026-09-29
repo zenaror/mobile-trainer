@@ -1,91 +1,14 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4010	data	Data_41_4000	HYPOTHESIS	run of 16 x $FF (padding?) in unclassified bytes
-4010	4420	data	Data_41_4010	HYPOTHESIS	UNCLASSIFIED 1040 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4420	4430	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-4430	468F	data	Data_41_4430	HYPOTHESIS	UNCLASSIFIED 607 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-468F	4800	zero	-	HYPOTHESIS	padding? run of 369 x $00 in unclassified bytes
-4800	48AC	data	Data_41_4800	HYPOTHESIS	UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-48AC	4900	zero	-	HYPOTHESIS	0x00 run of 84 bytes
-4900	49AE	data	Data_41_4900	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49AE	4A00	zero	-	HYPOTHESIS	0x00 run of 82 bytes
-4A00	4A3C	data	Data_41_4A00	HYPOTHESIS	UNCLASSIFIED 60 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A3C	4A4E	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4A4E	4A50	data	Data_41_4A4E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A50	4A62	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4A62	4A64	data	Data_41_4A62	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A64	4A76	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4A76	4A78	data	Data_41_4A76	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A78	4A8A	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4A8A	4A8C	data	Data_41_4A8A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A8C	4A9E	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4A9E	4AA0	data	Data_41_4A9E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4AA0	4AB2	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4AB2	4AB4	data	Data_41_4AB2	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4AB4	4AC6	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4AC6	4AC8	data	Data_41_4AC6	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4AC8	4ADA	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4ADA	4ADC	data	Data_41_4ADA	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4ADC	4AEE	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4AEE	4AF0	data	Data_41_4AEE	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4AF0	4B02	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4B02	4B04	data	Data_41_4B02	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4B04	4B16	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4B16	4B18	data	Data_41_4B16	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4B18	4B2A	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-4B2A	4CE0	data	Data_41_4B2A	HYPOTHESIS	UNCLASSIFIED 438 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4CE0	4D50	data	Data_41_4CE0	PROBABLE	palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-4D50	4F4B	data	Data_41_4D50	HYPOTHESIS	UNCLASSIFIED 507 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F4B	4F5B	data	Data_41_4F4B	PROBABLE	palette-rgb555: heuristic: 8 RGB555 words as 2 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-4F5B	4FB0	data	Data_41_4F5B	HYPOTHESIS	UNCLASSIFIED 85 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FB0	53F0	gfx	Data_41_4FB0	PROBABLE	tiles-2bpp: heuristic: 62 coherent tiles (hsim2=0.640 vsim2=0.617, 0 blank) parity 0
-53F0	5400	data	Data_41_53F0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5400	5520	zero	-	HYPOTHESIS	0x00 run of 288 bytes
-5520	5600	data	Data_41_5520	HYPOTHESIS	UNCLASSIFIED 224 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5600	5650	zero	-	HYPOTHESIS	0x00 run of 80 bytes
-5650	56FE	data	Data_41_5650	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56FE	5751	zero	-	HYPOTHESIS	0x00 run of 83 bytes
-5751	5A48	data	Data_41_5751	HYPOTHESIS	UNCLASSIFIED 759 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5A48	5AA0	data	Data_41_5A48	PROBABLE	palette-rgb555: heuristic: 44 RGB555 words as 11 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-5AA0	5B7F	data	Data_41_5AA0	HYPOTHESIS	UNCLASSIFIED 223 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5B7F	5B92	zero	-	HYPOTHESIS	padding? run of 19 x $00 in unclassified bytes
-5B92	5C80	data	Data_41_5B92	HYPOTHESIS	UNCLASSIFIED 238 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5C80	5C90	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-5C90	6090	data	Data_41_5C90	HYPOTHESIS	UNCLASSIFIED 1024 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6090	62A0	zero	-	HYPOTHESIS	0x00 run of 533 bytes [clipped from 6090-62A5 by higher-priority proposals]
-62A0	65E0	gfx	Data_41_62A0	PROBABLE	tiles-2bpp: heuristic: 39 coherent tiles (hsim2=0.719 vsim2=0.765, 10 blank) parity 0
-65E0	65EC	ptrtable	Table_41_65E0	PROBABLE	little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $400C..$4A49; regular record stride between targets
-65EC	65F4	data	Data_41_65EC	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-65F4	6600	ptrtable	Table_41_65F4	PROBABLE	little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $501C..$5A59; regular record stride between targets
-6600	6780	data	Data_41_6600	HYPOTHESIS	UNCLASSIFIED 384 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6780	67F0	data	Data_41_6780	PROBABLE	palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-67F0	68F0	data	Data_41_67F0	HYPOTHESIS	UNCLASSIFIED 256 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-68F0	6908	data	Data_41_68F0	HYPOTHESIS	run of 24 x $FF (padding?) in unclassified bytes
-6908	6BB0	data	Data_41_6908	HYPOTHESIS	UNCLASSIFIED 680 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6BB0	7230	gfx	Data_41_6BB0	PROBABLE	tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.673 vsim2=0.735, 71 blank) parity 0
-7230	7395	data	Data_41_7230	HYPOTHESIS	UNCLASSIFIED 357 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7395	73A7	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-73A7	73A9	data	Data_41_73A7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73A9	73BB	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-73BB	73BD	data	Data_41_73BB	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73BD	73CF	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-73CF	73D1	data	Data_41_73CF	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73D1	73E3	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-73E3	73E5	data	Data_41_73E3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73E5	73F7	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-73F7	73F9	data	Data_41_73F7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-73F9	740B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-740B	740D	data	Data_41_740B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-740D	741F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-741F	7421	data	Data_41_741F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7421	7433	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-7433	7435	data	Data_41_7433	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7435	7447	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-7447	7449	data	Data_41_7447	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7449	745B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-745B	745D	data	Data_41_745B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-745D	746F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-746F	7471	data	Data_41_746F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7471	7483	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-7483	74D0	data	Data_41_7483	HYPOTHESIS	UNCLASSIFIED 77 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-74D0	7540	data	Data_41_74D0	PROBABLE	palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+4000	4A00	gfx	Tiles_41_4000	PROBABLE	160 x 2bpp tiles of screen record 0; visually verified as tile art (rendered 2bpp sheet: frames, digits, glyphs); blank ($00) and solid ($FF) tiles are part of the set. bank 41 = 4 identical-layout screen records of $D50 bytes each (4000+4*$D50 = 7540 = start of the zero tail): 160 tiles ($A00) + 20x18 tilemap + 20x18 attribute map ($2D0 total, same shape as the 85 CONFIRMED copy_tilemap_rect_pair blocks elsewhere, e.g. 1A:47B5) + 16 CGB palettes ($80). No code references bank 41 (never executed in the 18 traces), so the kind rests on content and exact tiling
+4A00	4CD0	data	Tilemap_41_4A00	PROBABLE	20x18 tile-index map ($168) followed by the 20x18 attribute map ($168; values actually present: $09-$0C; a CGB BG-attribute-like layout is assumed, not verified since nothing loads this bank) of screen record 0; row stride 20 verified by the repeating column pattern
+4CD0	4D50	data	Palette_41_4CD0	PROBABLE	16 CGB palettes x 4 RGB555 words (bit15 clear, palettes like 0000 294A 56B5 7FFF) of screen record 0
+4D50	5750	gfx	Tiles_41_4D50	PROBABLE	160 x 2bpp tiles of screen record 1; visually verified as tile art (rendered 2bpp sheet: frames, digits, glyphs); blank ($00) and solid ($FF) tiles are part of the set. bank 41 = 4 identical-layout screen records of $D50 bytes each (4000+4*$D50 = 7540 = start of the zero tail): 160 tiles ($A00) + 20x18 tilemap + 20x18 attribute map ($2D0 total, same shape as the 85 CONFIRMED copy_tilemap_rect_pair blocks elsewhere, e.g. 1A:47B5) + 16 CGB palettes ($80). No code references bank 41 (never executed in the 18 traces), so the kind rests on content and exact tiling
+5750	5A20	data	Tilemap_41_5750	PROBABLE	20x18 tile-index map ($168) followed by the 20x18 attribute map ($168; values actually present: $08-$0C; a CGB BG-attribute-like layout is assumed, not verified since nothing loads this bank) of screen record 1; row stride 20 verified by the repeating column pattern
+5A20	5AA0	data	Palette_41_5A20	PROBABLE	16 CGB palettes x 4 RGB555 words (bit15 clear, palettes like 0000 294A 56B5 7FFF) of screen record 1
+5AA0	64A0	gfx	Tiles_41_5AA0	PROBABLE	160 x 2bpp tiles of screen record 2; visually verified as tile art (rendered 2bpp sheet: frames, digits, glyphs); blank ($00) and solid ($FF) tiles are part of the set. bank 41 = 4 identical-layout screen records of $D50 bytes each (4000+4*$D50 = 7540 = start of the zero tail): 160 tiles ($A00) + 20x18 tilemap + 20x18 attribute map ($2D0 total, same shape as the 85 CONFIRMED copy_tilemap_rect_pair blocks elsewhere, e.g. 1A:47B5) + 16 CGB palettes ($80). No code references bank 41 (never executed in the 18 traces), so the kind rests on content and exact tiling
+64A0	6770	data	Tilemap_41_64A0	PROBABLE	20x18 tile-index map ($168) followed by the 20x18 attribute map ($168; values actually present: $09,$0A,$0B,$10; a CGB BG-attribute-like layout is assumed, not verified since nothing loads this bank) of screen record 2; row stride 20 verified by the repeating column pattern
+6770	67F0	data	Palette_41_6770	PROBABLE	16 CGB palettes x 4 RGB555 words (bit15 clear, palettes like 0000 294A 56B5 7FFF) of screen record 2
+67F0	71F0	gfx	Tiles_41_67F0	PROBABLE	160 x 2bpp tiles of screen record 3; visually verified as tile art (rendered 2bpp sheet: frames, digits, glyphs); blank ($00) and solid ($FF) tiles are part of the set. bank 41 = 4 identical-layout screen records of $D50 bytes each (4000+4*$D50 = 7540 = start of the zero tail): 160 tiles ($A00) + 20x18 tilemap + 20x18 attribute map ($2D0 total, same shape as the 85 CONFIRMED copy_tilemap_rect_pair blocks elsewhere, e.g. 1A:47B5) + 16 CGB palettes ($80). No code references bank 41 (never executed in the 18 traces), so the kind rests on content and exact tiling
+71F0	74C0	data	Tilemap_41_71F0	PROBABLE	20x18 tile-index map ($168) followed by the 20x18 attribute map ($168; values actually present: $00,$09,$0A,$0B,$2A; a CGB BG-attribute-like layout is assumed, not verified since nothing loads this bank) of screen record 3; row stride 20 verified by the repeating column pattern
+74C0	7540	data	Palette_41_74C0	PROBABLE	16 CGB palettes x 4 RGB555 words (bit15 clear, palettes like 0000 294A 56B5 7FFF) of screen record 3
 7540	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank [clipped from 753E-8000 by higher-priority proposals]

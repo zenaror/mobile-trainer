@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank7D", ROMX[$4000], BANK[$7D]
 
@@ -1035,7 +1036,7 @@ Label_7D_7BD4:: ; 7D:7BD4
 	dec a
 	jr nz, Label_7D_7BE4
 
-; ---- code $7BE0-$7BE4 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7D:7BDE (executed)
+; ---- code $7BE0-$7BE4 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7D:7BDE (executed) [executed in 1 scenarios]
 	scf
 	ld a, [wRam_C2E2]
 

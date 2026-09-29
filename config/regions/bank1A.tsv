@@ -6,46 +6,56 @@
 4238	4263	code	-	CONFIRMED	23 insn(s); 23 executed (in up to 1/18 scenarios)
 4263	4281	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed)
 4281	4288	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-4288	4289	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1A:4286 (executed)
+4288	4289	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1A:4286 (executed) [executed in 3 scenarios]
 4289	42B0	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 1/18 scenarios)
-42B0	42DE	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 1A:41F4 (PROBABLE code)
+42B0	42DE	code	-	CONFIRMED	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
 42DE	4346	code	Function_1A_42DE	CONFIRMED	49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 4346	4351	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed)
 4351	437B	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios)
-437B	437F	data	Data_1A_437B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-437F	4391	data	Data_1A_437F	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+437B	4391	data	Data_1A_437B	PROBABLE	11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before Function_1A_4391; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
 4391	4439	code	Function_1A_4391	CONFIRMED	83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4439	443D	data	Data_1A_4439	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-443D	444F	data	Data_1A_443D	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4439	444F	ptrtable	Table_1A_4439	PROBABLE	11 pointers to the string-group headers 444F 44C7 44E0 453F 456B 45A8 4608 46F9 4705 471E 4736; every target is a count byte followed by count word pointers whose first target equals the end of the header (all 11 validated); first 4 bytes read by executed code
 444F	4450	data	Data_1A_444F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 444F-445A by higher-priority evidence]
 4450	4462	ptrtable	Table_1A_4450	PROBABLE	little-endian word table, 12 entries, monotone=0.82, 75% of targets on string start/after NUL, targets $4462..$4583; regular record stride between targets [clipped from 4450-4468 by higher-priority proposals]
 4462	449D	text	String_1A_4462	PROBABLE	text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-449D	44A4	data	Data_1A_449D	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+449D	44A4	text	String_1A_449D	PROBABLE	Shift-JIS "ウェブ" NUL-terminated; target of the pointer at 445A (group 444F entry 5)
 44A4	44C7	text	String_1A_44A4	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 44C7	44CC	data	Data_1A_44C7	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 44C7-44E0 by higher-priority evidence]
 44CC	44E0	text	String_1A_44CC	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-44E0	44FF	data	Data_1A_44E0	HYPOTHESIS	UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44E0	44E1	data	Data_1A_44E0	PROBABLE	group count byte = 08 (group header, see Table_1A_4439)
+44E1	44F1	ptrtable	Table_1A_44E1	PROBABLE	8 string pointers 44F1 44F8 44FF 4508 4511 4520 452D 4536 (first = end of header)
+44F1	44FF	text	String_1A_44F1	PROBABLE	2 strings: "サーバ" (83 54 81 5B 83 6F 00) and "サイト" (83 54 83 43 83 67 00) - targets of the pointers 44F1/44F8
 44FF	453F	text	String_1A_44FF	PROBABLE	text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-453F	4546	data	Data_1A_453F	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+453F	4540	data	Data_1A_453F	PROBABLE	group count byte = 03
+4540	4546	ptrtable	Table_1A_4540	PROBABLE	3 string pointers 4546 454F 455C (first = end of header)
 4546	456B	text	String_1A_4546	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-456B	45A8	text	String_1A_456B	PROBABLE	text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4546-45A8 by higher-priority evidence]
-45A8	45B7	data	Data_1A_45A8	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+456B	456C	data	Data_1A_456B	PROBABLE	group count byte = 04 (group header of Table_1A_4439)
+456C	4574	ptrtable	Table_1A_456C	PROBABLE	4 string pointers, first = end of the header (4574); mapper had these header bytes inside the following text run
+4574	45A8	text	String_1A_4574	PROBABLE	text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4546-45A8 by higher-priority evidence]
+45A8	45A9	data	Data_1A_45A8	PROBABLE	group count byte = 07
+45A9	45B7	ptrtable	Table_1A_45A9	PROBABLE	7 string pointers 45B7 45C2 45D1 45DA 45E5 45F2 45FB (first = end of header)
 45B7	4608	text	String_1A_45B7	PROBABLE	text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4608	4609	data	Data_1A_4608	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4608	4609	data	Data_1A_4608	PROBABLE	group count byte = 0E, followed by Table_1A_4609 (14 pointers)
 4609	4625	ptrtable	Table_1A_4609	PROBABLE	little-endian word table, 14 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4625..$46E4
 4625	4637	text	String_1A_4625	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4637	463E	data	Data_1A_4637	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4637	463E	text	String_1A_4637	PROBABLE	Shift-JIS "メール" NUL-terminated; target of a pointer of Table_1A_4609 (463E-.. list, 4637)
 463E	46F9	text	String_1A_463E	PROBABLE	text: 11 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-46F9	4705	text	String_1A_46F9	PROBABLE	text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
-4705	4711	data	Data_1A_4705	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+46F9	46FA	data	Data_1A_46F9	PROBABLE	group count byte = 01 (group header of Table_1A_4439)
+46FA	46FC	ptrtable	Table_1A_46FA	PROBABLE	1 string pointers, first = end of the header (46FC); mapper had these header bytes inside the following text run
+46FC	4705	text	String_1A_46FC	PROBABLE	text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
+4705	4706	data	Data_1A_4705	PROBABLE	group count byte = 02
+4706	470A	ptrtable	Table_1A_4706	PROBABLE	2 string pointers 470A 4711 (first = end of header)
+470A	4711	text	String_1A_470A	PROBABLE	Shift-JIS "リンク" NUL-terminated (target of the pointer 470A)
 4711	471E	text	String_1A_4711	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-471E	4736	text	String_1A_471E	PROBABLE	text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
-4736	4737	data	Data_1A_4736	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+471E	471F	data	Data_1A_471E	PROBABLE	group count byte = 01 (group header of Table_1A_4439)
+471F	4721	ptrtable	Table_1A_471F	PROBABLE	1 string pointers, first = end of the header (4721); mapper had these header bytes inside the following text run
+4721	4736	text	String_1A_4721	PROBABLE	text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
+4736	4737	data	Data_1A_4736	PROBABLE	group count byte = 0A, followed by Table_1A_4737 (10 pointers)
 4737	474B	ptrtable	Table_1A_4737	PROBABLE	little-endian word table, 10 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $474B..$47A4; regular record stride between targets
 474B	475A	text	String_1A_474B	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 475A	4763	text	String_1A_475A	PROBABLE	text block: 3 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 474B-477E by higher-priority evidence]
 4763	477E	text	String_1A_4763	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-477E	47A4	data	Data_1A_477E	HYPOTHESIS	UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+477E	47A4	text	String_1A_477E	PROBABLE	7 NUL-terminated strings "ＩＤＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "※" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
 47A4	47B5	text	String_1A_47A4	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 47B5	4A85	data	Data_1A_47B5	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1A:4083: hl=$47B5 a=$1A b=18 rows c=20 cols (tiles then attrs) de=$D000
 4A85	4A90	gfx	Data_1A_4A85	PROBABLE	tiles-2bpp: heuristic: 69 coherent tiles (hsim2=0.685 vsim2=0.637, 0 blank) parity 1; 1205/1216 bytes also covered by call-site blocks [clipped from 4A81-4F41 by higher-priority evidence]

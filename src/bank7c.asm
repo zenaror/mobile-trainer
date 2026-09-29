@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank7C", ROMX[$4000], BANK[$7C]
 
@@ -392,8 +393,6 @@ Data_7C_4000:: ; 7C:4000
 	db $69, $7A, $F0
 
 ; ---- code $57C3-$57CD (10 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by table from 7C:7D5D (executed)
-
-Label_7C_57C3:: ; 7C:57C3
 	nop
 	ld a, [hl]
 	ldh a, [c]
@@ -983,17 +982,13 @@ Data_7C_57CD:: ; 7C:57CD
 ; ---- code $7B7C-$7B8E (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
 Function_7C_7B7C:: ; 7C:7B7C
-	call FarCall
-	dw Function_48_4A4E
-	db BANK(Function_48_4A4E)
+	farcall Function_48_4A4E
 	xor a, a
 	or a, b
 	ret nz
 
 Label_7C_7B85:: ; 7C:7B85
-	call FarCall
-	dw Function_1F_4000
-	db BANK(Function_1F_4000)
+	farcall Function_1F_4000
 	call JumpTableInline
 
 ; ---- ptrtable $7B8E-$7B96 (8 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 7C:7B8B: 4 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
@@ -1004,10 +999,8 @@ Table_7C_7B8E:: ; 7C:7B8E
 	dw Label_7C_7BA3
 	dw Label_7C_7BAC
 
-; ---- data $7B96-$7B99 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7C_7B96:: ; 7C:7B96
-	db $C3, $85, $7B
+; ---- code $7B96-$7B99 (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7B85 (loop head)
+	jp Label_7C_7B85
 
 ; ---- code $7B99-$7BC9 (48 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 9/18 scenarios)
 
@@ -1015,36 +1008,26 @@ Label_7C_7B99:: ; 7C:7B99
 	ret
 
 Label_7C_7B9A:: ; 7C:7B9A
-	call FarCall
-	dw Function_7C_7BB7
-	db BANK(Function_7C_7BB7)
+	farcall Function_7C_7BB7
 	jp Label_7C_7B85
 
 Label_7C_7BA3:: ; 7C:7BA3
-	call FarCall
-	dw Function_4F_4668
-	db BANK(Function_4F_4668)
+	farcall Function_4F_4668
 	jp Label_7C_7B85
 
 Label_7C_7BAC:: ; 7C:7BAC
 	ld b, $00
-	call FarCall
-	dw Function_6C_5987
-	db BANK(Function_6C_5987)
+	farcall Function_6C_5987
 	jp Label_7C_7B85
 
 Function_7C_7BB7:: ; 7C:7BB7
-	call FarCall
-	dw Function_48_49DB
-	db BANK(Function_48_49DB)
+	farcall Function_48_49DB
 	xor a, a
 	or a, b
 	ret nz
 
 Label_7C_7BC0:: ; 7C:7BC0
-	call FarCall
-	dw Function_1D_4000
-	db BANK(Function_1D_4000)
+	farcall Function_1D_4000
 	call JumpTableInline
 
 ; ---- ptrtable $7BC9-$7BD7 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 7C:7BC6: 7 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
@@ -1058,27 +1041,19 @@ Table_7C_7BC9:: ; 7C:7BC9
 	dw Label_7C_7CE2
 	dw Label_7C_7CF6
 
-; ---- data $7BD7-$7BDA (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7C_7BD7:: ; 7C:7BD7
-	db $C3, $C0, $7B
+; ---- code $7BD7-$7BDA (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7BC0 (loop head)
+	jp Label_7C_7BC0
 
 ; ---- code $7BDA-$7BFA (32 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
 
 Label_7C_7BDA:: ; 7C:7BDA
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
-	call FarCall
-	dw Function_27_41BC
-	db BANK(Function_27_41BC)
+	farcall Function_7D_7C00
+	farcall Function_27_41BC
 	inc a
 	jp nz, Label_7C_7C6A
-	call FarCall
-	dw Function_25_4A90
-	db BANK(Function_25_4A90)
+	farcall Function_25_4A90
 	ld a, d
 	cp a, $0C
 	jp nz, Label_7C_7C6A
@@ -1098,9 +1073,7 @@ Label_7C_7BDA:: ; 7C:7BDA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -1115,46 +1088,32 @@ Label_7C_7BDA:: ; 7C:7BDA
 	ld [wRam_C264], a
 	ld d, $FF
 	ld bc, $0000
-	call FarCall
-	dw Function_25_4B0D
-	db BANK(Function_25_4B0D)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_25_4B0D
+	farcall Function_7F_72B0
+	farcall Function_00_09B6
 	ld de, $021F
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	dec a
 	jp nz, Label_7C_7C73
 	ld a, $FF
 	ld [wRam_C264], a
 	ld bc, $0000
 	ld h, $00
-	call FarCall
-	dw Function_25_4000
-	db BANK(Function_25_4000)
+	farcall Function_25_4000
 	jp Label_7C_7BC0
 
 ; ---- code $7C6A-$7C73 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
 
 Label_7C_7C6A:: ; 7C:7C6A
-	call FarCall
-	dw Function_27_4000
-	db BANK(Function_27_4000)
+	farcall Function_27_4000
 	jp Label_7C_7BC0
 
 ; ---- code $7C73-$7C7C (9 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code)
 
 Label_7C_7C73:: ; 7C:7C73
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	jp Label_7C_7BC0
 
 ; ---- code $7C7C-$7CDF (99 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
@@ -1162,9 +1121,7 @@ Label_7C_7C73:: ; 7C:7C73
 Label_7C_7C7C:: ; 7C:7C7C
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1175,45 +1132,33 @@ Label_7C_7C7C:: ; 7C:7C7C
 	ld a, [hl]
 	cp a, $00
 	jr nz, Label_7C_7CA5
-	call FarCall
-	dw Function_2D_4000
-	db BANK(Function_2D_4000)
+	farcall Function_2D_4000
 	jp Label_7C_7BC0
 
 Label_7C_7CA5:: ; 7C:7CA5
 	ld c, $00
-	call FarCall
-	dw Function_2B_4000
-	db BANK(Function_2B_4000)
+	farcall Function_2B_4000
 	jp Label_7C_7BC0
 
 Label_7C_7CB0:: ; 7C:7CB0
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ld d, $FF
 	ld bc, $0000
 	ld a, $00
 	ld [wRam_C264], a
-	call FarCall
-	dw Function_25_4000
-	db BANK(Function_25_4000)
+	farcall Function_25_4000
 	jp Label_7C_7BC0
 
 Label_7C_7CCD:: ; 7C:7CCD
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ld a, $00
-	call FarCall
-	dw Function_2F_7EBF
-	db BANK(Function_2F_7EBF)
+	farcall Function_2F_7EBF
 
-; ---- code $7CDF-$7CE2 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded
+; ---- code $7CDF-$7CE2 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 2 scenarios]
 	jp Label_7C_7BC0
 
 ; ---- code $7CE2-$7CF3 (17 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
@@ -1221,15 +1166,11 @@ Label_7C_7CCD:: ; 7C:7CCD
 Label_7C_7CE2:: ; 7C:7CE2
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	xor a, a
-	call FarCall
-	dw Function_2A_5495
-	db BANK(Function_2A_5495)
+	farcall Function_2A_5495
 
-; ---- code $7CF3-$7CF6 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded
+; ---- code $7CF3-$7CF6 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 5 scenarios]
 	jp Label_7C_7BC0
 
 ; ---- code $7CF6-$7D0C (22 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -1237,28 +1178,20 @@ Label_7C_7CE2:: ; 7C:7CE2
 Label_7C_7CF6:: ; 7C:7CF6
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7C00
+	farcall Function_7D_7BB7
 	ldh a, [hJoyHeld]
 	xor a, $24
 	jr nz, Label_7C_7D15
 
-; ---- code $7D0C-$7D15 (9 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7C:7D0A (executed)
-	call FarCall
-	dw Function_22_4000
-	db BANK(Function_22_4000)
+; ---- code $7D0C-$7D15 (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7C:7D0A (executed) [executed in 1 scenarios]
+	farcall Function_22_4000
 	jp Label_7C_7BC0
 
 ; ---- code $7D15-$7D60 (75 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
 
 Label_7C_7D15:: ; 7C:7D15
-	call FarCall
-	dw Function_23_4000
-	db BANK(Function_23_4000)
+	farcall Function_23_4000
 	jp Label_7C_7BC0
 
 Label_7C_7D1E:: ; 7C:7D1E
@@ -1295,12 +1228,10 @@ Function_7C_7D1F:: ; 7C:7D1F
 	ld [wRam_C28C], a
 
 Label_7C_7D57:: ; 7C:7D57
-	call FarCall
-	dw Function_68_4F9E
-	db BANK(Function_68_4F9E)
+	farcall Function_68_4F9E
 	call JumpTableInline
 
-; ---- ptrtable $7D60-$7D6E (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 7C:7D5D: 7 entries; end is a heuristic guess (words stay plausible code pointers)
+; ---- ptrtable $7D60-$7D6C (12 bytes) [PROBABLE] inline table of `call $0545` at 7C:7D5D: 6 entries (7D6F 7D70 7D79 7D82 7DFF 7E08); the mapper counted 7 by reading the operand of the following jp (C3 57 7D) as a word 57C3, hence 7D6E was left as a 1-byte hole
 
 Table_7C_7D60:: ; 7C:7D60
 	dw Label_7C_7D6F
@@ -1309,12 +1240,9 @@ Table_7C_7D60:: ; 7C:7D60
 	dw Label_7C_7D82
 	dw Label_7C_7DFF
 	dw Label_7C_7E08
-	dw Label_7C_57C3
 
-; ---- data $7D6E-$7D6F (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7C_7D6E:: ; 7C:7D6E
-	db $7D
+; ---- code $7D6C-$7D6F (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7D57 (loop head); its operand high byte 7D at 7D6E was the 1-byte hole
+	jp Label_7C_7D57
 
 ; ---- code $7D6F-$7D8B (28 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 4/18 scenarios)
 
@@ -1322,38 +1250,26 @@ Label_7C_7D6F:: ; 7C:7D6F
 	ret
 
 Label_7C_7D70:: ; 7C:7D70
-	call FarCall
-	dw Function_67_58CD
-	db BANK(Function_67_58CD)
+	farcall Function_67_58CD
 	jp Label_7C_7D57
 
 Label_7C_7D79:: ; 7C:7D79
-	call FarCall
-	dw Function_67_60BA
-	db BANK(Function_67_60BA)
+	farcall Function_67_60BA
 	jp Label_7C_7D57
 
 Label_7C_7D82:: ; 7C:7D82
-	call FarCall
-	dw Function_67_626F
-	db BANK(Function_67_626F)
+	farcall Function_67_626F
 	jp Label_7C_7D57
 
-; ---- data $7D8B-$7D8D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7C_7D8B:: ; 7C:7D8B
-	db $3E, $00
+; ---- code $7D8B-$7D8D (2 bytes) [HYPOTHESIS] ld a,$00 falling into the raw far-call site at 7D8D (PROBABLE); the previous region ends with jp $7D57 so no path enters here; no reference found
+	ld a, $00
 
 ; ---- code $7D8D-$7DFC (111 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_70_4000
-	db BANK(Function_70_4000)
+	farcall Function_70_4000
 
 Label_7C_7D93:: ; 7C:7D93
 	ld a, $00
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	cp a, $02
 	jr z, Label_7C_7DB0
 	ldh a, [hJoyPressedRepeat]
@@ -1362,23 +1278,17 @@ Label_7C_7D93:: ; 7C:7D93
 
 Label_7C_7DA5:: ; 7C:7DA5
 	ld a, $01
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	or a, a
 	jr nz, Label_7C_7DA5
 
 Label_7C_7DB0:: ; 7C:7DB0
 	ld a, $01
-	call FarCall
-	dw Function_70_4000
-	db BANK(Function_70_4000)
+	farcall Function_70_4000
 
 Label_7C_7DB8:: ; 7C:7DB8
 	ld a, $00
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	cp a, $02
 	jr z, Label_7C_7DD5
 	ldh a, [hJoyPressedRepeat]
@@ -1387,23 +1297,17 @@ Label_7C_7DB8:: ; 7C:7DB8
 
 Label_7C_7DCA:: ; 7C:7DCA
 	ld a, $01
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	or a, a
 	jr nz, Label_7C_7DCA
 
 Label_7C_7DD5:: ; 7C:7DD5
 	ld a, $02
-	call FarCall
-	dw Function_70_4000
-	db BANK(Function_70_4000)
+	farcall Function_70_4000
 
 Label_7C_7DDD:: ; 7C:7DDD
 	ld a, $00
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	cp a, $02
 	jr z, Label_7C_7DFA
 	ldh a, [hJoyPressedRepeat]
@@ -1412,34 +1316,26 @@ Label_7C_7DDD:: ; 7C:7DDD
 
 Label_7C_7DEF:: ; 7C:7DEF
 	ld a, $01
-	call FarCall
-	dw Function_70_4023
-	db BANK(Function_70_4023)
+	farcall Function_70_4023
 	or a, a
 	jr nz, Label_7C_7DEF
 
 Label_7C_7DFA:: ; 7C:7DFA
 	jr Label_7C_7D82
 
-; ---- data $7DFC-$7DFF (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7C_7DFC:: ; 7C:7DFC
-	db $C3, $57, $7D
+; ---- code $7DFC-$7DFF (3 bytes) [HYPOTHESIS] jp $7D57 after an unconditional jr; no reference found
+	jp Label_7C_7D57
 
 ; ---- code $7DFF-$7E08 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 
 Label_7C_7DFF:: ; 7C:7DFF
-	call FarCall
-	dw Function_68_7951
-	db BANK(Function_68_7951)
+	farcall Function_68_7951
 	jp Label_7C_7D57
 
-; ---- code $7E08-$7E11 (9 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 7C:7D5D (executed)
+; ---- code $7E08-$7E11 (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 7C:7D5D (executed) [executed in 2 scenarios]
 
 Label_7C_7E08:: ; 7C:7E08
-	call FarCall
-	dw Function_67_4000
-	db BANK(Function_67_4000)
+	farcall Function_67_4000
 	jp Label_7C_7D57
 
 ; ---- zero $7E11-$8000 (495 bytes) [PROBABLE] trailing 0x00 padding to end of bank

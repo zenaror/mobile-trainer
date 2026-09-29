@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank23", ROMX[$4000], BANK[$23]
 
@@ -24,9 +25,7 @@ Function_23_4000:: ; 23:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_00_0464
 	ld c, $01
 	call Function_23_41DC
@@ -45,9 +44,7 @@ Function_23_4000:: ; 23:4000
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -64,14 +61,10 @@ Function_23_4000:: ; 23:4000
 	dec a
 	jr z, Label_23_4076
 
-; ---- code $4064-$4076 (18 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+; ---- code $4064-$4076 (18 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -79,13 +72,9 @@ Function_23_4000:: ; 23:4000
 
 Label_23_4076:: ; 23:4076
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -105,7 +94,7 @@ Label_23_4076:: ; 23:4076
 	dec c
 	jr z, Label_23_40AB
 
-; ---- code $40A4-$40AB (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed)
+; ---- code $40A4-$40AB (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
 	call Function_23_4A06
 	ld c, $00
 	jr Label_23_40B0
@@ -115,7 +104,7 @@ Label_23_4076:: ; 23:4076
 Label_23_40AB:: ; 23:40AB
 	call Function_23_4B51
 
-; ---- code $40AE-$40EA (60 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed)
+; ---- code $40AE-$40EA (60 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed) [executed in 5 scenarios]
 	ld c, $01
 
 Label_23_40B0:: ; 23:40B0
@@ -134,9 +123,7 @@ Label_23_40B0:: ; 23:40B0
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	push bc
 	ldh a, [hWRAMBank]
 	push af
@@ -158,7 +145,7 @@ Label_23_40EA:: ; 23:40EA
 	and a, $02
 	jr z, Label_23_4116
 
-; ---- code $40F0-$4116 (38 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed)
+; ---- code $40F0-$4116 (38 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -171,13 +158,9 @@ Label_23_40EA:: ; 23:40EA
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -188,7 +171,7 @@ Label_23_4116:: ; 23:4116
 	and a, $40
 	jr z, Label_23_413A
 
-; ---- code $411C-$413A (30 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed)
+; ---- code $411C-$413A (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	di
@@ -216,7 +199,7 @@ Label_23_413A:: ; 23:413A
 	and a, $80
 	jr z, Label_23_415E
 
-; ---- code $4140-$415E (30 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed)
+; ---- code $4140-$415E (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
 	push bc
 	push de
 	di
@@ -242,7 +225,7 @@ Label_23_413A:: ; 23:413A
 Label_23_415E:: ; 23:415E
 	jp Label_23_4076
 
-; ---- code $4161-$41DC (123 bytes) [PROBABLE] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code)
+; ---- code $4161-$41DC (123 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code) [executed in 5 scenarios]
 
 Function_23_4161:: ; 23:4161
 	ld a, c
@@ -253,24 +236,18 @@ Function_23_4161:: ; 23:4161
 	ld de, $D000
 	ld hl, $6860
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_085B
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $FC00
 	ld hl, $DA10
 	call Function_00_0A65
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_23_43C4
 	pop bc
 	ret
@@ -281,24 +258,18 @@ Label_23_41A1:: ; 23:41A1
 	ld de, $D000
 	ld hl, $6B30
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_085B
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $1800
 	ld hl, $DA10
 	call Function_00_0A65
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_23_433C
 	pop bc
 	ret
@@ -307,75 +278,55 @@ Label_23_41A1:: ; 23:41A1
 
 Function_23_41DC:: ; 23:41DC
 	push bc
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6E00
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6E40
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $9301
 	ld hl, $5F20
 	ld a, $28
 	ld b, $95
 	ld c, $23
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld de, $8800
 	ld hl, $6150
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld de, $8C00
 	ld hl, $6550
 	ld a, $28
 	ld b, $94
 	ld c, $29
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $67E0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $6860
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -403,15 +354,13 @@ Label_23_4296:: ; 23:4296
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $FC00
 	ld hl, $DA10
 	call Function_00_0A65
 	jr Label_23_42F4
 
-; ---- code $42C2-$42F4 (50 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed)
+; ---- code $42C2-$42F4 (50 bytes) [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
 
 Label_23_42C2:: ; 23:42C2
 	call Function_23_433C
@@ -419,18 +368,14 @@ Label_23_42C2:: ; 23:42C2
 	ld de, $D000
 	ld hl, $6B30
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $1800
 	ld hl, $DA10
 	call Function_00_0A65
@@ -439,13 +384,9 @@ Label_23_42C2:: ; 23:42C2
 
 Label_23_42F4:: ; 23:42F4
 	call Function_00_0464
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -460,9 +401,7 @@ Label_23_42F4:: ; 23:42F4
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -478,7 +417,7 @@ Label_23_42F4:: ; 23:42F4
 	pop bc
 	ret
 
-; ---- code $433C-$4357 (27 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code)
+; ---- code $433C-$4357 (27 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code) [executed in 6 scenarios]
 
 Function_23_433C:: ; 23:433C
 	ld hl, $4357
@@ -488,9 +427,7 @@ Function_23_433C:: ; 23:433C
 	ld a, $23
 	ld bc, $D000
 	ld de, $D360
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_478E
 	ret
 
@@ -515,15 +452,13 @@ Function_23_43C4:: ; 23:43C4
 	ld a, $23
 	ld bc, $D000
 	ld de, $D360
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_478E
 	ret
 
-; ---- data $43DF-$4404 (37 bytes) [HYPOTHESIS] UNCLASSIFIED 37 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $43DF-$4404 (37 bytes) [PROBABLE] 18 ideographic spaces (81 40) + NUL: clean NUL-terminated Shift-JIS blank line placed right after a ret (23:43DE)
 
-Data_23_43DF:: ; 23:43DF
+String_23_43DF:: ; 23:43DF
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $00
@@ -539,7 +474,7 @@ String_23_4404:: ; 23:4404
 	db $82, $AF, $82, $B7, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC
 	db $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00
 
-; ---- code $4471-$46CC (603 bytes) [PROBABLE] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code)
+; ---- code $4471-$46CC (603 bytes) [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code) [executed in 3 scenarios]
 
 Function_23_4471:: ; 23:4471
 	push af
@@ -556,69 +491,49 @@ Function_23_4471:: ; 23:4471
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
+	farcall Function_7F_7271
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $5EA0
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5EE0
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $9301
 	ld hl, $54B0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld de, $9701
 	ld hl, $58B0
 	ld a, $28
 	ld b, $94
 	ld c, $2A
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $5B50
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5BD0
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -640,9 +555,7 @@ Label_23_4535:: ; 23:4535
 	ld de, $6E80
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6858
 	ld hl, $DA10
 	call Function_00_0A65
@@ -653,9 +566,7 @@ Label_23_4535:: ; 23:4535
 	ld a, $23
 	ld bc, $D000
 	ld de, $D100
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_00_0464
 	ld hl, $472B
 	ld a, $02
@@ -664,9 +575,7 @@ Label_23_4535:: ; 23:4535
 	ld a, $23
 	ld bc, $D200
 	ld de, $D300
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_00_0464
 	ld hl, $474C
 	ld a, $02
@@ -675,9 +584,7 @@ Label_23_4535:: ; 23:4535
 	ld a, $23
 	ld bc, $D400
 	ld de, $D500
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_00_0464
 	ld hl, $476D
 	ld a, $02
@@ -686,9 +593,7 @@ Label_23_4535:: ; 23:4535
 	ld a, $23
 	ld bc, $D600
 	ld de, $D700
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_00_0464
 	call Function_23_478E
 	call Function_00_0464
@@ -704,13 +609,9 @@ Label_23_4535:: ; 23:4535
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -725,20 +626,14 @@ Label_23_4535:: ; 23:4535
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ld c, $01
 
 Label_23_4608:: ; 23:4608
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -757,24 +652,16 @@ Label_23_4608:: ; 23:4608
 	pop bc
 	dec c
 	jr z, Label_23_4647
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
 Label_23_4647:: ; 23:4647
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -794,13 +681,9 @@ Label_23_4659:: ; 23:4659
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -856,7 +739,7 @@ Label_23_46C9:: ; 23:46C9
 Data_23_46CC:: ; 23:46CC
 	db $C9
 
-; ---- code $46CD-$470A (61 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code)
+; ---- code $46CD-$470A (61 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code) [executed in 2 scenarios]
 
 Function_23_46CD:: ; 23:46CD
 	ld a, c
@@ -867,9 +750,7 @@ Function_23_46CD:: ; 23:46CD
 	ld de, $6E80
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6828
 	ld hl, $DA10
 	call Function_00_0A65
@@ -882,9 +763,7 @@ Label_23_46EE:: ; 23:46EE
 	ld de, $6E80
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6858
 	ld hl, $DA10
 	call Function_00_0A65
@@ -917,32 +796,51 @@ Function_23_478E:: ; 23:478E
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call FarCall
-	dw Function_25_538A
-	db BANK(Function_25_538A)
+	farcall Function_25_538A
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call FarCall
-	dw Function_25_538A
-	db BANK(Function_25_538A)
+	farcall Function_25_538A
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-; ---- data $47BC-$47ED (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_47BC:: ; 23:47BC
-	db $F5, $C5, $D5, $E5, $3E, $07, $E0, $8D, $E0, $70, $11, $D7, $C2, $1A, $6F, $13
-	db $1A, $AF, $67, $E5, $CD, $64, $48, $E1, $E5, $CD, $86, $49, $21, $00, $D8, $09
-	db $44, $4D, $3E, $02, $E0, $B0, $3E, $01, $21, $40, $01, $09, $54, $5D, $21, $24
-	db $D5
+; ---- code $47BC-$47ED (49 bytes) [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push af
+	push bc
+	push de
+	push hl
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $C2D7
+	ld a, [de]
+	ld l, a
+	inc de
+	ld a, [de]
+	xor a, a
+	ld h, a
+	push hl
+	call Function_23_4864
+	pop hl
+	push hl
+	call Function_23_4986
+	ld hl, $D800
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld a, $02
+	ldh [hRam_FFB0], a
+	ld a, $01
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, $D524
 
 ; ---- code $47ED-$497B (398 bytes) [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -971,9 +869,7 @@ Data_23_47BC:: ; 23:47BC
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1002,9 +898,7 @@ Data_23_47BC:: ; 23:47BC
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	call Function_23_49E6
 	pop hl
@@ -1034,9 +928,7 @@ Label_23_4872:: ; 23:4872
 	ld bc, $D525
 	ld de, $2710
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1050,9 +942,7 @@ Label_23_4872:: ; 23:4872
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1063,9 +953,7 @@ Label_23_4872:: ; 23:4872
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1076,9 +964,7 @@ Label_23_4872:: ; 23:4872
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1099,9 +985,7 @@ Label_23_48D5:: ; 23:48D5
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1115,9 +999,7 @@ Label_23_48D5:: ; 23:48D5
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1128,9 +1010,7 @@ Label_23_48D5:: ; 23:48D5
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1151,9 +1031,7 @@ Label_23_491B:: ; 23:491B
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1167,9 +1045,7 @@ Label_23_491B:: ; 23:491B
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1190,9 +1066,7 @@ Label_23_494F:: ; 23:494F
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1224,9 +1098,9 @@ Label_23_4979:: ; 23:4979
 	pop bc
 	ret
 
-; ---- data $497B-$4986 (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $497B-$4986 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$497B at 23:486C
 
-Data_23_497B:: ; 23:497B
+String_23_497B:: ; 23:497B
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
 ; ---- code $4986-$4AA4 (286 bytes) [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 23:4809 (PROBABLE code)
@@ -1235,9 +1109,7 @@ Function_23_4986:: ; 23:4986
 	push de
 	push hl
 	ld de, $2710
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_499C
@@ -1248,9 +1120,7 @@ Label_23_499C:: ; 23:499C
 	ld h, d
 	ld l, e
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_49B2
@@ -1261,9 +1131,7 @@ Label_23_49B2:: ; 23:49B2
 	ld h, d
 	ld l, e
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_49C8
@@ -1274,9 +1142,7 @@ Label_23_49C8:: ; 23:49C8
 	ld h, d
 	ld l, e
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_49DE
@@ -1303,9 +1169,7 @@ Function_23_49E6:: ; 23:49E6
 	ld hl, $D800
 	ld de, $8800
 	ld c, $27
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1316,13 +1180,9 @@ Function_23_4A06:: ; 23:4A06
 	ld [wRam_C1D0], a
 	xor a, a
 	ld [wRam_C1D1], a
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 
 Label_23_4A1E:: ; 23:4A1E
 	call Function_23_4471
@@ -1347,9 +1207,7 @@ Label_23_4A34:: ; 23:4A34
 	jr nz, Label_23_4A34
 	ld d, $01
 	ld bc, $D624
-	call FarCall
-	dw Function_57_4000
-	db BANK(Function_57_4000)
+	farcall Function_57_4000
 	inc b
 	jr z, Label_23_4A1E
 	ld a, $01
@@ -1374,14 +1232,10 @@ Label_23_4A34:: ; 23:4A34
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	call FarCall
-	dw Function_51_4245
-	db BANK(Function_51_4245)
+	farcall Function_51_4245
 	ld b, $02
 	ld a, $00
-	call FarCall
-	dw Function_27_41E3
-	db BANK(Function_27_41E3)
+	farcall Function_27_41E3
 	cp a, $FF
 	jr z, Label_23_4A80
 	cp a, $20
@@ -1405,10 +1259,8 @@ Label_23_4A80:: ; 23:4A80
 	jp z, Label_23_4AA6
 	jp Label_23_4AC0
 
-; ---- data $4AA4-$4AA6 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_4AA4:: ; 23:4AA4
-	db $18, $74
+; ---- code $4AA4-$4AA6 (2 bytes) [HYPOTHESIS] unreachable jr $4B1A (target is an instruction start of the code region 4AA6-4B4A) after the jp at 4AA1; twin of 4BE5-4BE7 (jr $4C5D) in the parallel routine; nothing branches here
+	jr Label_23_4B1A
 
 ; ---- code $4AA6-$4B4A (164 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 3; entered by jpcc from 23:4A85 (PROBABLE code)
 
@@ -1417,21 +1269,15 @@ Label_23_4AA6:: ; 23:4AA6
 	bit 4, a
 	jp z, Label_23_4AB8
 	ld b, $00
-	call FarCall
-	dw Function_27_4768
-	db BANK(Function_27_4768)
+	farcall Function_27_4768
 	jr Label_23_4AC0
 
 Label_23_4AB8:: ; 23:4AB8
 	ld b, $00
-	call FarCall
-	dw Function_27_49B0
-	db BANK(Function_27_49B0)
+	farcall Function_27_49B0
 
 Label_23_4AC0:: ; 23:4AC0
-	call FarCall
-	dw Function_51_4239
-	db BANK(Function_51_4239)
+	farcall Function_51_4239
 	or a, a
 	jr nz, Label_23_4ACD
 	ld a, h
@@ -1442,26 +1288,20 @@ Label_23_4ACD:: ; 23:4ACD
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_404A
-	db BANK(Function_51_404A)
+	farcall Function_51_404A
 
 Label_23_4ADB:: ; 23:4ADB
 	ret
 
 Label_23_4ADC:: ; 23:4ADC
-	call FarCall
-	dw Function_23_4C94
-	db BANK(Function_23_4C94)
+	farcall Function_23_4C94
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp z, Label_23_4B03
 	ld a, $00
 	ld a, $01
 	ld b, $02
-	call FarCall
-	dw Function_27_4768
-	db BANK(Function_27_4768)
+	farcall Function_27_4768
 	di
 	xor a, a
 	ldh [rIF], a
@@ -1475,9 +1315,7 @@ Label_23_4B03:: ; 23:4B03
 	ld a, $00
 	ld a, $01
 	ld b, $02
-	call FarCall
-	dw Function_27_49B0
-	db BANK(Function_27_49B0)
+	farcall Function_27_49B0
 	di
 	xor a, a
 	ldh [rIF], a
@@ -1487,9 +1325,7 @@ Label_23_4B03:: ; 23:4B03
 	ei
 
 Label_23_4B1A:: ; 23:4B1A
-	call FarCall
-	dw Function_51_4239
-	db BANK(Function_51_4239)
+	farcall Function_51_4239
 	cp a, $00
 	jr nz, Label_23_4B28
 	ld a, h
@@ -1500,24 +1336,18 @@ Label_23_4B28:: ; 23:4B28
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_404A
-	db BANK(Function_51_404A)
+	farcall Function_51_404A
 
 Label_23_4B36:: ; 23:4B36
 	ld a, $01
 	ld [wRam_C264], a
-	call FarCall
-	dw Function_29_44F6
-	db BANK(Function_29_44F6)
+	farcall Function_29_44F6
 	xor a, a
 	pop af
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ret
 
-; ---- data $4B4A-$4B51 (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4B4A-$4B51 (7 bytes) [PROBABLE] 7-byte block copied to $D624 (WRAM1) by the loop at 23:4A2F (ld de,$4B4A ; ld b,$07 ; ld a,[de] ; ld [hli],a ...); the fields are not decoded
 
 Data_23_4B4A:: ; 23:4B4A
 	db $03, $00, $00, $01, $24, $D5, $00
@@ -1529,13 +1359,9 @@ Function_23_4B51:: ; 23:4B51
 	ld [wRam_C1D0], a
 	xor a, a
 	ld [wRam_C1D1], a
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1551,9 +1377,7 @@ Label_23_4B76:: ; 23:4B76
 	jr nz, Label_23_4B76
 	ld d, $01
 	ld bc, $D624
-	call FarCall
-	dw Function_57_4000
-	db BANK(Function_57_4000)
+	farcall Function_57_4000
 	inc b
 	ret z
 	ld a, $01
@@ -1578,14 +1402,10 @@ Label_23_4B76:: ; 23:4B76
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	call FarCall
-	dw Function_51_4245
-	db BANK(Function_51_4245)
+	farcall Function_51_4245
 	ld b, $02
 	ld a, $00
-	call FarCall
-	dw Function_27_41E3
-	db BANK(Function_27_41E3)
+	farcall Function_27_41E3
 	cp a, $FF
 	jr z, Label_23_4BC1
 	cp a, $20
@@ -1593,7 +1413,7 @@ Label_23_4B76:: ; 23:4B76
 	cp a, $80
 	jr nz, Label_23_4C1D
 
-; ---- code $4BC1-$4BE5 (36 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 23:4BB7 (executed)
+; ---- code $4BC1-$4BE5 (36 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 23:4BB7 (executed) [executed in 2 scenarios]
 
 Label_23_4BC1:: ; 23:4BC1
 	ld a, [wRam_C272]
@@ -1611,10 +1431,8 @@ Label_23_4BC1:: ; 23:4BC1
 	jp z, Label_23_4BE7
 	jp Label_23_4C01
 
-; ---- data $4BE5-$4BE7 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_4BE5:: ; 23:4BE5
-	db $18, $76
+; ---- code $4BE5-$4BE7 (2 bytes) [HYPOTHESIS] unreachable jr $4C5D after the jp at 4BE2, twin of 4AA4-4AA6
+	jr Label_23_4C5D
 
 ; ---- code $4BE7-$4C1D (54 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jpcc from 23:4BC6 (PROBABLE code)
 
@@ -1623,21 +1441,15 @@ Label_23_4BE7:: ; 23:4BE7
 	bit 4, a
 	jp z, Label_23_4BF9
 	ld b, $00
-	call FarCall
-	dw Function_27_4768
-	db BANK(Function_27_4768)
+	farcall Function_27_4768
 	jr Label_23_4C01
 
 Label_23_4BF9:: ; 23:4BF9
 	ld b, $00
-	call FarCall
-	dw Function_27_49B0
-	db BANK(Function_27_49B0)
+	farcall Function_27_49B0
 
 Label_23_4C01:: ; 23:4C01
-	call FarCall
-	dw Function_51_4239
-	db BANK(Function_51_4239)
+	farcall Function_51_4239
 	or a, a
 	jr nz, Label_23_4C0E
 	ld a, h
@@ -1648,9 +1460,7 @@ Label_23_4C0E:: ; 23:4C0E
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_404A
-	db BANK(Function_51_404A)
+	farcall Function_51_404A
 
 Label_23_4C1C:: ; 23:4C1C
 	ret
@@ -1658,9 +1468,7 @@ Label_23_4C1C:: ; 23:4C1C
 ; ---- code $4C1D-$4C46 (41 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 
 Label_23_4C1D:: ; 23:4C1D
-	call FarCall
-	dw Function_2E_4000
-	db BANK(Function_2E_4000)
+	farcall Function_2E_4000
 	cp a, $80
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -1668,9 +1476,7 @@ Label_23_4C1D:: ; 23:4C1D
 	ld a, $00
 	ld a, $01
 	ld b, $02
-	call FarCall
-	dw Function_27_4768
-	db BANK(Function_27_4768)
+	farcall Function_27_4768
 	di
 	xor a, a
 	ldh [rIF], a
@@ -1686,9 +1492,7 @@ Label_23_4C46:: ; 23:4C46
 	ld a, $00
 	ld b, $02
 	ld a, $01
-	call FarCall
-	dw Function_27_49B0
-	db BANK(Function_27_49B0)
+	farcall Function_27_49B0
 	di
 	xor a, a
 	ldh [rIF], a
@@ -1700,9 +1504,7 @@ Label_23_4C46:: ; 23:4C46
 ; ---- code $4C5D-$4C67 (10 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
 Label_23_4C5D:: ; 23:4C5D
-	call FarCall
-	dw Function_51_4239
-	db BANK(Function_51_4239)
+	farcall Function_51_4239
 	cp a, $00
 	jr nz, Label_23_4C6B
 
@@ -1717,21 +1519,15 @@ Label_23_4C6B:: ; 23:4C6B
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_404A
-	db BANK(Function_51_404A)
+	farcall Function_51_404A
 
 Label_23_4C79:: ; 23:4C79
 	ld a, $02
 	ld [wRam_C264], a
-	call FarCall
-	dw Function_29_44F6
-	db BANK(Function_29_44F6)
+	farcall Function_29_44F6
 	xor a, a
 	pop af
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ret
 
 ; ---- data $4C8D-$4C94 (7 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
@@ -1756,9 +1552,7 @@ Function_23_4C94:: ; 23:4C94
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_23_55C3
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1784,44 +1578,30 @@ Function_23_4C94:: ; 23:4C94
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
 	call Function_23_6E9C
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
-	call FarCall
-	dw Function_54_485C
-	db BANK(Function_54_485C)
+	farcall Function_7F_61FF
+	farcall Function_54_485C
 
 Label_23_4CF9:: ; 23:4CF9
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, Label_23_553D
-	call FarCall
-	dw Function_54_489B
-	db BANK(Function_54_489B)
+	farcall Function_54_489B
 	cp a, $01
 	jr z, Label_23_4CF9
 	cp a, $FF
 	jr nz, Label_23_4D2B
-	call FarCall
-	dw Function_26_5067
-	db BANK(Function_26_5067)
+	farcall Function_26_5067
 	ld a, $80
 	ret
 
@@ -1889,13 +1669,9 @@ Label_23_4D82:: ; 23:4D82
 	push de
 	push hl
 	ld c, $00
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld a, $01
-	call FarCall
-	dw Function_54_4914
-	db BANK(Function_54_4914)
+	farcall Function_54_4914
 	pop hl
 	pop de
 	pop bc
@@ -1905,15 +1681,11 @@ Label_23_4DA0:: ; 23:4DA0
 	push de
 	push hl
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
 	call Function_23_6F00
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop hl
 	pop de
 	pop bc
@@ -1928,9 +1700,7 @@ Label_23_4DC4:: ; 23:4DC4
 	push de
 	push hl
 	ld a, $01
-	call FarCall
-	dw Function_54_4969
-	db BANK(Function_54_4969)
+	farcall Function_54_4969
 	cp a, $01
 	jr nz, Label_23_4DD8
 	pop hl
@@ -1944,9 +1714,7 @@ Label_23_4DD8:: ; 23:4DD8
 	pop hl
 	pop de
 	pop bc
-	call FarCall
-	dw Function_26_5067
-	db BANK(Function_26_5067)
+	farcall Function_26_5067
 	pop de
 	ld a, $80
 	ret
@@ -2041,27 +1809,19 @@ Label_23_4DFB:: ; 23:4DFB
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
-
-Label_23_4E7B:: ; 23:4E7B
 	call Function_00_0A65
 	ld a, $78
 
 Label_23_4E80:: ; 23:4E80
 	push af
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -2074,13 +1834,9 @@ Label_23_4E9F:: ; 23:4E9F
 	pop af
 	dec a
 	jr nz, Label_23_4E80
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
@@ -2091,9 +1847,7 @@ Label_23_4EB7:: ; 23:4EB7
 	push bc
 	push hl
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
 	push hl
@@ -2141,9 +1895,7 @@ Label_23_4F0B:: ; 23:4F0B
 	pop hl
 	cp a, $00
 	call nz, Function_23_50CC
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	pop hl
 	pop bc
@@ -2167,25 +1919,17 @@ Label_23_4F0B:: ; 23:4F0B
 	push hl
 	push hl
 	ld c, $00
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld a, $01
-	call FarCall
-	dw Function_54_4914
-	db BANK(Function_54_4914)
+	farcall Function_54_4914
 
 Label_23_4F4B:: ; 23:4F4B
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
 	call Function_23_6F00
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	ldh a, [hJoyHeld]
 	and a, $02
 	jr z, Label_23_4F69
@@ -2195,9 +1939,7 @@ Label_23_4F4B:: ; 23:4F4B
 
 Label_23_4F69:: ; 23:4F69
 	ld a, $01
-	call FarCall
-	dw Function_54_4969
-	db BANK(Function_54_4969)
+	farcall Function_54_4969
 	cp a, $01
 	jr z, Label_23_4F4B
 	cp a, $FF
@@ -2243,26 +1985,18 @@ Label_23_4FA0:: ; 23:4FA0
 	jr nz, Label_23_4FA0
 	pop hl
 	pop bc
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld a, $01
-	call FarCall
-	dw Function_54_5386
-	db BANK(Function_54_5386)
+	farcall Function_54_5386
 	pop hl
 
 Label_23_4FBC:: ; 23:4FBC
 	push hl
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	pop hl
 	ldh a, [hJoyPressed]
@@ -2291,9 +2025,7 @@ Label_23_4FD8:: ; 23:4FD8
 Label_23_4FF0:: ; 23:4FF0
 	push hl
 	ld a, $01
-	call FarCall
-	dw Function_54_53BB
-	db BANK(Function_54_53BB)
+	farcall Function_54_53BB
 	pop hl
 	cp a, $01
 	jr z, Label_23_4FBC
@@ -2325,17 +2057,29 @@ Label_23_5002:: ; 23:5002
 	ld a, d
 	ld [bc], a
 	pop hl
-	call FarCall
-	dw Function_26_5067
-	db BANK(Function_26_5067)
+	farcall Function_26_5067
 	ld a, $80
 	ret
 
-; ---- data $5028-$503F (23 bytes) [HYPOTHESIS] UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_5028:: ; 23:5028
-	db $E5, $3E, $01, $E0, $8D, $E0, $70, $01, $29, $D6, $0A, $5F, $03, $0A, $57, $0B
-	db $13, $7B, $02, $03, $7A, $02, $E1
+; ---- code $5028-$503F (23 bytes) [HYPOTHESIS] function body that starts after ret at 5027: push hl; ld a,1; ldh [$8D],a; ldh [$70],a; increments the 16-bit counter at $D629 and falls into the next function (503F) - the CONFIRMED-flow tail; exact twin of 540D-5424 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push hl
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $D629
+	ld a, [bc]
+	ld e, a
+	inc bc
+	ld a, [bc]
+	ld d, a
+	dec bc
+	inc de
+	ld a, e
+	ld [bc], a
+	inc bc
+	ld a, d
+	ld [bc], a
+	pop hl
 
 ; ---- code $503F-$540D (974 bytes) [PROBABLE] 463 insn(s) reached by static flow only; seeds: exec x455, site x8; min discovery hops 0; entered by jrcc from 23:5000 (PROBABLE code)
 
@@ -2381,17 +2125,13 @@ Label_23_5063:: ; 23:5063
 	ld hl, $0000
 	ld a, $FF
 	call Function_23_5FA2
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_23_6DD0
 	ld hl, $DAB0
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
@@ -2400,14 +2140,10 @@ Label_23_5063:: ; 23:5063
 Label_23_5098:: ; 23:5098
 	push af
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -2420,13 +2156,9 @@ Label_23_50B7:: ; 23:50B7
 	pop af
 	dec a
 	jr nz, Label_23_5098
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
@@ -2435,27 +2167,15 @@ Function_23_50CC:: ; 23:50CC
 	push bc
 	push de
 	push hl
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_624F
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_7F_6218
-	db BANK(Function_7F_6218)
+	farcall Function_4F_4370
+	farcall Function_7F_6218
 	push af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop af
 	inc a
 	jr z, Label_23_512D
@@ -2473,13 +2193,9 @@ Function_23_50CC:: ; 23:50CC
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_23_55C3
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
+	farcall Function_7F_627C
 	pop hl
 	pop de
 	pop bc
@@ -2502,27 +2218,15 @@ Function_23_5137:: ; 23:5137
 	push bc
 	push de
 	push hl
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_624F
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_7F_6218
-	db BANK(Function_7F_6218)
+	farcall Function_4F_4370
+	farcall Function_7F_6218
 	push af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop af
 	inc a
 	jr z, Label_23_519B
@@ -2540,14 +2244,10 @@ Function_23_5137:: ; 23:5137
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_23_55C3
 	call Function_23_6E9C
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
+	farcall Function_7F_627C
 	pop hl
 	pop de
 	pop bc
@@ -2566,20 +2266,12 @@ Label_23_519B:: ; 23:519B
 	ld a, $80
 	ret
 
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld de, $C0A9
-	call FarCall
-	dw Function_7F_6235
-	db BANK(Function_7F_6235)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_6235
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $80
 	ret
 
@@ -2598,9 +2290,7 @@ Function_23_51C7:: ; 23:51C7
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_23_55C3
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2626,44 +2316,30 @@ Function_23_51C7:: ; 23:51C7
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
 	call Function_23_6E9C
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
-	call FarCall
-	dw Function_54_485C
-	db BANK(Function_54_485C)
+	farcall Function_7F_61FF
+	farcall Function_54_485C
 
 Label_23_522C:: ; 23:522C
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, Label_23_553D
-	call FarCall
-	dw Function_54_489B
-	db BANK(Function_54_489B)
+	farcall Function_54_489B
 	cp a, $01
 	jr z, Label_23_522C
 	cp a, $FF
 	jr nz, Label_23_525E
-	call FarCall
-	dw Function_26_5067
-	db BANK(Function_26_5067)
+	farcall Function_26_5067
 	ld a, $80
 	ret
 
@@ -2748,9 +2424,7 @@ Label_23_5268:: ; 23:5268
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
@@ -2759,14 +2433,10 @@ Label_23_5268:: ; 23:5268
 Label_23_52ED:: ; 23:52ED
 	push af
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -2779,13 +2449,9 @@ Label_23_530C:: ; 23:530C
 	pop af
 	dec a
 	jr nz, Label_23_52ED
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
@@ -2796,9 +2462,7 @@ Label_23_5324:: ; 23:5324
 	push bc
 	push hl
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
 	push hl
@@ -2846,9 +2510,7 @@ Label_23_5378:: ; 23:5378
 	pop hl
 	cp a, $00
 	call nz, Function_23_54B1
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	pop hl
 	pop bc
@@ -2857,26 +2519,18 @@ Label_23_5378:: ; 23:5378
 	inc hl
 	call Function_23_56A1
 	push hl
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld a, $01
-	call FarCall
-	dw Function_54_5386
-	db BANK(Function_54_5386)
+	farcall Function_54_5386
 	pop hl
 
 Label_23_53A1:: ; 23:53A1
 	push hl
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	pop hl
 	ldh a, [hJoyPressed]
@@ -2903,9 +2557,7 @@ Label_23_53A1:: ; 23:53A1
 Label_23_53D5:: ; 23:53D5
 	push hl
 	ld a, $01
-	call FarCall
-	dw Function_54_53BB
-	db BANK(Function_54_53BB)
+	farcall Function_54_53BB
 	pop hl
 	cp a, $01
 	jr z, Label_23_53A1
@@ -2935,17 +2587,29 @@ Label_23_53D5:: ; 23:53D5
 	ld a, d
 	ld [bc], a
 	pop hl
-	call FarCall
-	dw Function_26_5067
-	db BANK(Function_26_5067)
+	farcall Function_26_5067
 	ld a, $80
 	ret
 
-; ---- data $540D-$5424 (23 bytes) [HYPOTHESIS] UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_540D:: ; 23:540D
-	db $E5, $3E, $01, $E0, $8D, $E0, $70, $01, $29, $D6, $0A, $5F, $03, $0A, $57, $0B
-	db $13, $7B, $02, $03, $7A, $02, $E1
+; ---- code $540D-$5424 (23 bytes) [HYPOTHESIS] function body that starts after ret at 540C: increments the 16-bit counter at $D629 and falls into 5424; exact byte twin of 5028-503F [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push hl
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $D629
+	ld a, [bc]
+	ld e, a
+	inc bc
+	ld a, [bc]
+	ld d, a
+	dec bc
+	inc de
+	ld a, e
+	ld [bc], a
+	inc bc
+	ld a, d
+	ld [bc], a
+	pop hl
 
 ; ---- code $5424-$581E (1018 bytes) [PROBABLE] 505 insn(s) reached by static flow only; seeds: exec x497, site x8; min discovery hops 0; entered by jrcc from 23:53E5 (PROBABLE code)
 
@@ -2989,17 +2653,13 @@ Label_23_5424:: ; 23:5424
 	ld hl, $0000
 	ld a, $FF
 	call Function_23_5FA2
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_23_6DD0
 	ld hl, $DAB0
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
@@ -3008,14 +2668,10 @@ Label_23_5424:: ; 23:5424
 Label_23_547D:: ; 23:547D
 	push af
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_23_6F00
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -3028,13 +2684,9 @@ Label_23_549C:: ; 23:549C
 	pop af
 	dec a
 	jr nz, Label_23_547D
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
@@ -3043,27 +2695,15 @@ Function_23_54B1:: ; 23:54B1
 	push bc
 	push de
 	push hl
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_624F
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_7F_6218
-	db BANK(Function_7F_6218)
+	farcall Function_4F_4370
+	farcall Function_7F_6218
 	push af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop af
 	inc a
 	jr z, Label_23_5512
@@ -3081,13 +2721,9 @@ Function_23_54B1:: ; 23:54B1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_23_55C3
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
+	farcall Function_7F_627C
 	pop hl
 	pop de
 	pop bc
@@ -3105,20 +2741,12 @@ Label_23_5512:: ; 23:5512
 	ld a, $80
 	ret
 
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld de, $C0A9
-	call FarCall
-	dw Function_7F_6235
-	db BANK(Function_7F_6235)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_6235
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $80
 	ret
 
@@ -3127,12 +2755,8 @@ Label_23_553D:: ; 23:553D
 	push de
 	push hl
 	di
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_09B6
+	farcall Function_00_0956
 	ei
 	pop hl
 	pop de
@@ -3166,21 +2790,15 @@ Label_23_553D:: ; 23:553D
 	ld [bc], a
 	pop hl
 	call Function_23_6E14
-
-Label_23_557B:: ; 23:557B
 	ld hl, $DAB0
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DAB0
 	call Function_00_0A65
-	call FarCall
-	dw Function_7F_61FF
-	db BANK(Function_7F_61FF)
+	farcall Function_7F_61FF
 	ld de, $C0A9
 	ld a, $B4
 	ld a, $01
@@ -3188,40 +2806,24 @@ Label_23_557B:: ; 23:557B
 Label_23_55A1:: ; 23:55A1
 	push af
 	di
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ei
 	call Function_00_0464
 	pop af
 	dec a
 	jr nz, Label_23_55A1
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $80
 	ret
 
 Function_23_55C3:: ; 23:55C3
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw Function_2D_5016
-	db BANK(Function_2D_5016)
-	call FarCall
-	dw LCDOff
-	db BANK(LCDOff)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall Function_2D_5016
+	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
 	ld a, $F0
@@ -3230,60 +2832,42 @@ Function_23_55C3:: ; 23:55C3
 	ld de, $D800
 	ld hl, $7910
 	ld a, $23
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7950
 	ld a, $23
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $9001
 	ld hl, $6FE0
 	ld a, $23
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $73E0
 	ld a, $23
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8000
 	ld hl, $74E0
 	ld a, $23
 	ld b, $96
 	ld c, $16
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7640
 	ld a, $23
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw LCDOn
-	db BANK(LCDOn)
+	farcall LCDOn
 	call Function_23_6F00
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -3298,9 +2882,7 @@ Function_23_55C3:: ; 23:55C3
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -3357,9 +2939,7 @@ Function_23_56A1:: ; 23:56A1
 	ld d, h
 	ld e, l
 	ld hl, $58A9
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	di
 	call Function_23_5889
 	ei
@@ -3390,9 +2970,7 @@ Label_23_56FE:: ; 23:56FE
 	ld bc, $D525
 	ld de, $2710
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -3406,9 +2984,7 @@ Label_23_56FE:: ; 23:56FE
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3419,9 +2995,7 @@ Label_23_56FE:: ; 23:56FE
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3432,9 +3006,7 @@ Label_23_56FE:: ; 23:56FE
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3455,9 +3027,7 @@ Label_23_5761:: ; 23:5761
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -3471,9 +3041,7 @@ Label_23_5761:: ; 23:5761
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3484,9 +3052,7 @@ Label_23_5761:: ; 23:5761
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3507,9 +3073,7 @@ Label_23_57A7:: ; 23:57A7
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -3523,9 +3087,7 @@ Label_23_57A7:: ; 23:57A7
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -3546,9 +3108,7 @@ Label_23_57DB:: ; 23:57DB
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -3587,15 +3147,13 @@ Label_23_5805:: ; 23:5805
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop af
 	ret
 
-; ---- data $581E-$5829 (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $581E-$5829 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$581E at 23:56F8; twin of 497B
 
-Data_23_581E:: ; 23:581E
+String_23_581E:: ; 23:581E
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
 ; ---- code $5829-$58A9 (128 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15; entered by call from 23:56BE (PROBABLE code)
@@ -3604,9 +3162,7 @@ Function_23_5829:: ; 23:5829
 	push de
 	push hl
 	ld de, $2710
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_583F
@@ -3617,9 +3173,7 @@ Label_23_583F:: ; 23:583F
 	ld h, d
 	ld l, e
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_5855
@@ -3630,9 +3184,7 @@ Label_23_5855:: ; 23:5855
 	ld h, d
 	ld l, e
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_586B
@@ -3643,14 +3195,10 @@ Label_23_586B:: ; 23:586B
 	ld h, d
 	ld l, e
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_23_5881
-
-Label_23_587B:: ; 23:587B
 	ld bc, $D030
 	jp Label_23_5886
 
@@ -3674,9 +3222,7 @@ Function_23_5889:: ; 23:5889
 	ld hl, $D000
 	ld de, $9000
 	ld c, $27
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3693,16 +3239,28 @@ String_23_58A9:: ; 23:58A9
 Function_23_58C4:: ; 23:58C4
 	ret
 
-; ---- data $58C5-$58E0 (27 bytes) [HYPOTHESIS] UNCLASSIFIED 27 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_58C5:: ; 23:58C5
-	db $E5, $F5, $C5, $3E, $01, $E0, $8D, $E0, $70, $11, $31, $D6, $1A, $EE, $FF, $4F
-	db $13, $1A, $EE, $FF, $47, $03, $09, $C1, $11, $10, $27
+; ---- code $58C5-$58E0 (27 bytes) [HYPOTHESIS] function body starting after ret at 58C4; computes hl += -(word at $D631) (xor $FF / inc bc / add hl,bc) and falls into the far call at 58E0; decode chain lands exactly on the next region [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push hl
+	push af
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $D631
+	ld a, [de]
+	xor a, $FF
+	ld c, a
+	inc de
+	ld a, [de]
+	xor a, $FF
+	ld b, a
+	inc bc
+	add hl, bc
+	pop bc
+	ld de, $2710
 
 ; ---- code $58E0-$5FA2 (1730 bytes) [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_5925
@@ -3711,25 +3269,19 @@ Data_23_58C5:: ; 23:58C5
 	call Function_23_59DA
 	pop hl
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5B02
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5C2A
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5D52
@@ -3742,9 +3294,7 @@ Label_23_5925:: ; 23:5925
 	ld l, e
 	ld h, d
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_5960
@@ -3753,17 +3303,13 @@ Label_23_5925:: ; 23:5925
 	call Function_23_5B02
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5C2A
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5D52
@@ -3776,9 +3322,7 @@ Label_23_5960:: ; 23:5960
 	ld l, e
 	ld h, d
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_598C
@@ -3787,9 +3331,7 @@ Label_23_5960:: ; 23:5960
 	call Function_23_5C2A
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_5D52
@@ -3802,9 +3344,7 @@ Label_23_598C:: ; 23:598C
 	ld l, e
 	ld h, d
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_59A9
@@ -3851,9 +3391,7 @@ Function_23_59DA:: ; 23:59DA
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3866,9 +3404,7 @@ Label_23_59F8:: ; 23:59F8
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3881,9 +3417,7 @@ Label_23_5A16:: ; 23:5A16
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3896,9 +3430,7 @@ Label_23_5A34:: ; 23:5A34
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3911,9 +3443,7 @@ Label_23_5A52:: ; 23:5A52
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3926,9 +3456,7 @@ Label_23_5A70:: ; 23:5A70
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3941,9 +3469,7 @@ Label_23_5A8E:: ; 23:5A8E
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3956,9 +3482,7 @@ Label_23_5AAC:: ; 23:5AAC
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3971,9 +3495,7 @@ Label_23_5ACA:: ; 23:5ACA
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3984,9 +3506,7 @@ Label_23_5AE8:: ; 23:5AE8
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3999,9 +3519,7 @@ Function_23_5B02:: ; 23:5B02
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4014,9 +3532,7 @@ Label_23_5B20:: ; 23:5B20
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4029,9 +3545,7 @@ Label_23_5B3E:: ; 23:5B3E
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4044,9 +3558,7 @@ Label_23_5B5C:: ; 23:5B5C
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4059,9 +3571,7 @@ Label_23_5B7A:: ; 23:5B7A
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4074,9 +3584,7 @@ Label_23_5B98:: ; 23:5B98
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4089,9 +3597,7 @@ Label_23_5BB6:: ; 23:5BB6
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4104,9 +3610,7 @@ Label_23_5BD4:: ; 23:5BD4
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4119,9 +3623,7 @@ Label_23_5BF2:: ; 23:5BF2
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4132,9 +3634,7 @@ Label_23_5C10:: ; 23:5C10
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -4147,9 +3647,7 @@ Function_23_5C2A:: ; 23:5C2A
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4162,9 +3660,7 @@ Label_23_5C48:: ; 23:5C48
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4177,9 +3673,7 @@ Label_23_5C66:: ; 23:5C66
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4192,9 +3686,7 @@ Label_23_5C84:: ; 23:5C84
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4207,9 +3699,7 @@ Label_23_5CA2:: ; 23:5CA2
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4222,9 +3712,7 @@ Label_23_5CC0:: ; 23:5CC0
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4237,9 +3725,7 @@ Label_23_5CDE:: ; 23:5CDE
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4252,9 +3738,7 @@ Label_23_5CFC:: ; 23:5CFC
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4267,9 +3751,7 @@ Label_23_5D1A:: ; 23:5D1A
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4280,9 +3762,7 @@ Label_23_5D38:: ; 23:5D38
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -4295,9 +3775,7 @@ Function_23_5D52:: ; 23:5D52
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4310,9 +3788,7 @@ Label_23_5D70:: ; 23:5D70
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4325,9 +3801,7 @@ Label_23_5D8E:: ; 23:5D8E
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4340,9 +3814,7 @@ Label_23_5DAC:: ; 23:5DAC
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4355,9 +3827,7 @@ Label_23_5DCA:: ; 23:5DCA
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4370,9 +3840,7 @@ Label_23_5DE8:: ; 23:5DE8
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4385,9 +3853,7 @@ Label_23_5E06:: ; 23:5E06
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4400,9 +3866,7 @@ Label_23_5E24:: ; 23:5E24
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4415,9 +3879,7 @@ Label_23_5E42:: ; 23:5E42
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4428,9 +3890,7 @@ Label_23_5E60:: ; 23:5E60
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -4443,9 +3903,7 @@ Function_23_5E7A:: ; 23:5E7A
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4458,9 +3916,7 @@ Label_23_5E98:: ; 23:5E98
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4473,9 +3929,7 @@ Label_23_5EB6:: ; 23:5EB6
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4488,9 +3942,7 @@ Label_23_5ED4:: ; 23:5ED4
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4503,9 +3955,7 @@ Label_23_5EF2:: ; 23:5EF2
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4518,9 +3968,7 @@ Label_23_5F10:: ; 23:5F10
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4533,9 +3981,7 @@ Label_23_5F2E:: ; 23:5F2E
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4548,9 +3994,7 @@ Label_23_5F4C:: ; 23:5F4C
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4563,9 +4007,7 @@ Label_23_5F6A:: ; 23:5F6A
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4576,9 +4018,7 @@ Label_23_5F88:: ; 23:5F88
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -4589,18 +4029,30 @@ Label_23_5F88:: ; 23:5F88
 Function_23_5FA2:: ; 23:5FA2
 	ret
 
-; ---- data $5FA3-$5FD7 (52 bytes) [HYPOTHESIS] UNCLASSIFIED 52 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_5FA3:: ; 23:5FA3
-	db $E5, $F5, $E5, $11, $48, $D0, $21, $A0, $DA, $CD, $65, $0A, $11, $48, $D0, $21
-	db $90, $DA, $CD, $65, $0A, $11, $48, $D0, $21, $80, $DA, $CD, $65, $0A, $11, $48
-	db $D0, $21, $70, $DA, $CD, $65, $0A, $11, $48, $D0, $21, $60, $DA, $CD, $65, $0A
-	db $E1, $11, $10, $27
+; ---- code $5FA3-$5FD7 (52 bytes) [HYPOTHESIS] function starting after the ret pair 5FA1/5FA2; 20 insn (5 x ld de,$D048 ; ld hl,$DAxx ; call $0A65 sprite-slot writes) falling through into the CONFIRMED far call at 5FD7 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push hl
+	push af
+	push hl
+	ld de, $D048
+	ld hl, $DAA0
+	call Function_00_0A65
+	ld de, $D048
+	ld hl, $DA90
+	call Function_00_0A65
+	ld de, $D048
+	ld hl, $DA80
+	call Function_00_0A65
+	ld de, $D048
+	ld hl, $DA70
+	call Function_00_0A65
+	ld de, $D048
+	ld hl, $DA60
+	call Function_00_0A65
+	pop hl
+	ld de, $2710
 
 ; ---- code $5FD7-$669A (1731 bytes) [PROBABLE] 654 insn(s) reached by static flow only; seeds: exec x1, site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_601C
@@ -4609,25 +4061,19 @@ Data_23_5FA3:: ; 23:5FA3
 	call Function_23_60D1
 	pop hl
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_61F9
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6321
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6449
@@ -4640,9 +4086,7 @@ Label_23_601C:: ; 23:601C
 	ld l, e
 	ld h, d
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_6057
@@ -4651,17 +4095,13 @@ Label_23_601C:: ; 23:601C
 	call Function_23_61F9
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6321
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6449
@@ -4674,9 +4114,7 @@ Label_23_6057:: ; 23:6057
 	ld l, e
 	ld h, d
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_6083
@@ -4685,9 +4123,7 @@ Label_23_6057:: ; 23:6057
 	call Function_23_6321
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6449
@@ -4700,9 +4136,7 @@ Label_23_6083:: ; 23:6083
 	ld l, e
 	ld h, d
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_60A0
@@ -4749,9 +4183,7 @@ Function_23_60D1:: ; 23:60D1
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4764,9 +4196,7 @@ Label_23_60EF:: ; 23:60EF
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4779,9 +4209,7 @@ Label_23_610D:: ; 23:610D
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4794,9 +4222,7 @@ Label_23_612B:: ; 23:612B
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4809,9 +4235,7 @@ Label_23_6149:: ; 23:6149
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4824,9 +4248,7 @@ Label_23_6167:: ; 23:6167
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4839,9 +4261,7 @@ Label_23_6185:: ; 23:6185
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4854,9 +4274,7 @@ Label_23_61A3:: ; 23:61A3
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4869,9 +4287,7 @@ Label_23_61C1:: ; 23:61C1
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4882,9 +4298,7 @@ Label_23_61DF:: ; 23:61DF
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $642F
 	ld hl, $DA60
 	call Function_00_0A65
@@ -4897,9 +4311,7 @@ Function_23_61F9:: ; 23:61F9
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4912,9 +4324,7 @@ Label_23_6217:: ; 23:6217
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4927,9 +4337,7 @@ Label_23_6235:: ; 23:6235
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4942,9 +4350,7 @@ Label_23_6253:: ; 23:6253
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4957,9 +4363,7 @@ Label_23_6271:: ; 23:6271
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4972,9 +4376,7 @@ Label_23_628F:: ; 23:628F
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -4987,9 +4389,7 @@ Label_23_62AD:: ; 23:62AD
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -5002,9 +4402,7 @@ Label_23_62CB:: ; 23:62CB
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -5017,9 +4415,7 @@ Label_23_62E9:: ; 23:62E9
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -5030,9 +4426,7 @@ Label_23_6307:: ; 23:6307
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6435
 	ld hl, $DA70
 	call Function_00_0A65
@@ -5045,9 +4439,7 @@ Function_23_6321:: ; 23:6321
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5060,9 +4452,7 @@ Label_23_633F:: ; 23:633F
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5075,9 +4465,7 @@ Label_23_635D:: ; 23:635D
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5090,9 +4478,7 @@ Label_23_637B:: ; 23:637B
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5105,9 +4491,7 @@ Label_23_6399:: ; 23:6399
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5120,9 +4504,7 @@ Label_23_63B7:: ; 23:63B7
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5135,9 +4517,7 @@ Label_23_63D5:: ; 23:63D5
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5150,9 +4530,7 @@ Label_23_63F3:: ; 23:63F3
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5165,9 +4543,7 @@ Label_23_6411:: ; 23:6411
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5178,9 +4554,7 @@ Label_23_642F:: ; 23:642F
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $643B
 	ld hl, $DA80
 	call Function_00_0A65
@@ -5193,9 +4567,7 @@ Function_23_6449:: ; 23:6449
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5208,9 +4580,7 @@ Label_23_6467:: ; 23:6467
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5223,9 +4593,7 @@ Label_23_6485:: ; 23:6485
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5238,9 +4606,7 @@ Label_23_64A3:: ; 23:64A3
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5253,9 +4619,7 @@ Label_23_64C1:: ; 23:64C1
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5268,9 +4632,7 @@ Label_23_64DF:: ; 23:64DF
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5283,9 +4645,7 @@ Label_23_64FD:: ; 23:64FD
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5298,9 +4658,7 @@ Label_23_651B:: ; 23:651B
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5313,9 +4671,7 @@ Label_23_6539:: ; 23:6539
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5326,9 +4682,7 @@ Label_23_6557:: ; 23:6557
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6441
 	ld hl, $DA90
 	call Function_00_0A65
@@ -5341,9 +4695,7 @@ Function_23_6571:: ; 23:6571
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5356,9 +4708,7 @@ Label_23_658F:: ; 23:658F
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5371,9 +4721,7 @@ Label_23_65AD:: ; 23:65AD
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5386,9 +4734,7 @@ Label_23_65CB:: ; 23:65CB
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5401,9 +4747,7 @@ Label_23_65E9:: ; 23:65E9
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5416,9 +4760,7 @@ Label_23_6607:: ; 23:6607
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5431,9 +4773,7 @@ Label_23_6625:: ; 23:6625
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5446,9 +4786,7 @@ Label_23_6643:: ; 23:6643
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5461,9 +4799,7 @@ Label_23_6661:: ; 23:6661
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5474,9 +4810,7 @@ Label_23_667F:: ; 23:667F
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6447
 	ld hl, $DAA0
 	call Function_00_0A65
@@ -5485,15 +4819,13 @@ Label_23_667F:: ; 23:667F
 Function_23_6699:: ; 23:6699
 	ret
 
-; ---- data $669A-$669F (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_669A:: ; 23:669A
-	db $E5, $F5, $11, $10, $27
+; ---- code $669A-$669F (5 bytes) [HYPOTHESIS] push hl ; push af ; ld de,$2710 prologue after the ret pair 6698/6699, falls into the far call at 669F; twin of the longer 5FA3 function
+	push hl
+	push af
+	ld de, $2710
 
 ; ---- code $669F-$6D61 (1730 bytes) [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_66E4
@@ -5502,25 +4834,19 @@ Data_23_669A:: ; 23:669A
 	call Function_23_6799
 	pop hl
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_68C1
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_69E9
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6B11
@@ -5533,9 +4859,7 @@ Label_23_66E4:: ; 23:66E4
 	ld l, e
 	ld h, d
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_671F
@@ -5544,17 +4868,13 @@ Label_23_66E4:: ; 23:66E4
 	call Function_23_68C1
 	pop hl
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_69E9
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6B11
@@ -5567,9 +4887,7 @@ Label_23_671F:: ; 23:671F
 	ld l, e
 	ld h, d
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_674B
@@ -5578,9 +4896,7 @@ Label_23_671F:: ; 23:671F
 	call Function_23_69E9
 	pop hl
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	push de
 	call Function_23_6B11
@@ -5593,9 +4909,7 @@ Label_23_674B:: ; 23:674B
 	ld l, e
 	ld h, d
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, h
 	or a, l
 	jp z, Label_23_6768
@@ -5642,9 +4956,7 @@ Function_23_6799:: ; 23:6799
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5657,9 +4969,7 @@ Label_23_67B7:: ; 23:67B7
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5672,9 +4982,7 @@ Label_23_67D5:: ; 23:67D5
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5687,9 +4995,7 @@ Label_23_67F3:: ; 23:67F3
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5702,9 +5008,7 @@ Label_23_6811:: ; 23:6811
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5717,9 +5021,7 @@ Label_23_682F:: ; 23:682F
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5732,9 +5034,7 @@ Label_23_684D:: ; 23:684D
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5747,9 +5047,7 @@ Label_23_686B:: ; 23:686B
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5762,9 +5060,7 @@ Label_23_6889:: ; 23:6889
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5775,9 +5071,7 @@ Label_23_68A7:: ; 23:68A7
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A2F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -5790,9 +5084,7 @@ Function_23_68C1:: ; 23:68C1
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5805,9 +5097,7 @@ Label_23_68DF:: ; 23:68DF
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5820,9 +5110,7 @@ Label_23_68FD:: ; 23:68FD
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5835,9 +5123,7 @@ Label_23_691B:: ; 23:691B
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5850,9 +5136,7 @@ Label_23_6939:: ; 23:6939
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5865,9 +5149,7 @@ Label_23_6957:: ; 23:6957
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5880,9 +5162,7 @@ Label_23_6975:: ; 23:6975
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5895,9 +5175,7 @@ Label_23_6993:: ; 23:6993
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5910,9 +5188,7 @@ Label_23_69B1:: ; 23:69B1
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5923,9 +5199,7 @@ Label_23_69CF:: ; 23:69CF
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A35
 	ld hl, $DA20
 	call Function_00_0A65
@@ -5938,9 +5212,7 @@ Function_23_69E9:: ; 23:69E9
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -5953,9 +5225,7 @@ Label_23_6A07:: ; 23:6A07
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -5968,9 +5238,7 @@ Label_23_6A25:: ; 23:6A25
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -5983,9 +5251,7 @@ Label_23_6A43:: ; 23:6A43
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -5998,9 +5264,7 @@ Label_23_6A61:: ; 23:6A61
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6013,9 +5277,7 @@ Label_23_6A7F:: ; 23:6A7F
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6028,9 +5290,7 @@ Label_23_6A9D:: ; 23:6A9D
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6043,9 +5303,7 @@ Label_23_6ABB:: ; 23:6ABB
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6058,9 +5316,7 @@ Label_23_6AD9:: ; 23:6AD9
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6071,9 +5327,7 @@ Label_23_6AF7:: ; 23:6AF7
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A3B
 	ld hl, $DA30
 	call Function_00_0A65
@@ -6086,9 +5340,7 @@ Function_23_6B11:: ; 23:6B11
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6101,9 +5353,7 @@ Label_23_6B2F:: ; 23:6B2F
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6116,9 +5366,7 @@ Label_23_6B4D:: ; 23:6B4D
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6131,9 +5379,7 @@ Label_23_6B6B:: ; 23:6B6B
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6146,9 +5392,7 @@ Label_23_6B89:: ; 23:6B89
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6161,9 +5405,7 @@ Label_23_6BA7:: ; 23:6BA7
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6176,9 +5418,7 @@ Label_23_6BC5:: ; 23:6BC5
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6191,9 +5431,7 @@ Label_23_6BE3:: ; 23:6BE3
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6206,9 +5444,7 @@ Label_23_6C01:: ; 23:6C01
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6219,9 +5455,7 @@ Label_23_6C1F:: ; 23:6C1F
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A41
 	ld hl, $DA40
 	call Function_00_0A65
@@ -6234,9 +5468,7 @@ Function_23_6C39:: ; 23:6C39
 	ld de, $7990
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6249,9 +5481,7 @@ Label_23_6C57:: ; 23:6C57
 	ld de, $79A0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6264,9 +5494,7 @@ Label_23_6C75:: ; 23:6C75
 	ld de, $79B0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6279,9 +5507,7 @@ Label_23_6C93:: ; 23:6C93
 	ld de, $79C0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6294,9 +5520,7 @@ Label_23_6CB1:: ; 23:6CB1
 	ld de, $79D0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6309,9 +5533,7 @@ Label_23_6CCF:: ; 23:6CCF
 	ld de, $79E0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6324,9 +5546,7 @@ Label_23_6CED:: ; 23:6CED
 	ld de, $79F0
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6339,9 +5559,7 @@ Label_23_6D0B:: ; 23:6D0B
 	ld de, $7A00
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6354,9 +5572,7 @@ Label_23_6D29:: ; 23:6D29
 	ld de, $7A10
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
@@ -6367,20 +5583,43 @@ Label_23_6D47:: ; 23:6D47
 	ld de, $7A20
 	ld a, $23
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $5A47
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
 
-; ---- data $6D61-$6D8C (43 bytes) [HYPOTHESIS] UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $6D61-$6D8C (43 bytes) [HYPOTHESIS] complete function (28 insn, push af/bc/de/hl ... pop ... ret): fills $D1E0.. with $14 words; starts after the ret at 6D60; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push af
+	push bc
+	push de
+	push hl
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D1E0
+	ld a, $14
+	ld b, $14
 
-Data_23_6D61:: ; 23:6D61
-	db $F5, $C5, $D5, $E5, $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0
-	db $70, $21, $E0, $D1, $3E, $14, $06, $14, $22, $3C, $05, $20, $FB, $E0, $F2, $F1
-	db $E0, $8D, $E0, $70, $F0, $F2, $E1, $D1, $C1, $F1, $C9
+Label_23_6D79:: ; 23:6D79
+	ld [hli], a
+	inc a
+	dec b
+	jr nz, Label_23_6D79
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
 
 ; ---- code $6D8C-$6DA7 (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 12; entered by call from 23:4E62 (PROBABLE code)
 
@@ -6392,9 +5631,7 @@ Function_23_6D8C:: ; 23:6D8C
 	ld bc, $D000
 	ld de, $D140
 	ld hl, $6DA7
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_6EE0
 	pop bc
 	ret
@@ -6406,7 +5643,7 @@ String_23_6DA7:: ; 23:6DA7
 	db $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
-; ---- code $6DD0-$6DEB (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 17; entered by call from 23:507A (PROBABLE code)
+; ---- code $6DD0-$6DEB (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 17; entered by call from 23:507A (PROBABLE code) [executed in 3 scenarios]
 
 Function_23_6DD0:: ; 23:6DD0
 	push bc
@@ -6416,9 +5653,7 @@ Function_23_6DD0:: ; 23:6DD0
 	ld bc, $D000
 	ld de, $D140
 	ld hl, $6DEB
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_6EE0
 	pop bc
 	ret
@@ -6440,25 +5675,29 @@ Function_23_6E14:: ; 23:6E14
 	ld bc, $D000
 	ld de, $D140
 	ld hl, $6E2F
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_6EE0
 	pop bc
 	ret
 
-; ---- data $6E2F-$6E68 (57 bytes) [HYPOTHESIS] UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $6E2F-$6E58 (41 bytes) [PROBABLE] 20 ideographic spaces + NUL, addressed by ld hl,$6E2F at 23:6E21 (code region 6E14-6E2F)
 
-Data_23_6E2F:: ; 23:6E2F
+String_23_6E2F:: ; 23:6E2F
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $C5, $3E, $02, $E0, $B0, $3E, $23
-	db $01, $00, $D0, $11, $40, $D1, $21, $73, $6E
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+
+; ---- code $6E58-$6E68 (16 bytes) [HYPOTHESIS] first 16 bytes of the twin of the function 6E14-6E2F (push bc ; ld a,2 ; ldh [$B0],a ; ld a,$23 ; ld bc,$D000 ; ld de,$D140 ; ld hl,$6E73 ...) - falls into the CONFIRMED-flow tail at 6E68; its ld hl,$6E73 points at the next text string [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push bc
+	ld a, $02
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D000
+	ld de, $D140
+	ld hl, $6E73
 
 ; ---- code $6E68-$6E73 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_6EE0
 	pop bc
 	ret
@@ -6470,7 +5709,7 @@ String_23_6E73:: ; 23:6E73
 	db $83, $5A, $83, $8B, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
-; ---- code $6E9C-$6EB7 (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 7; entered by call from 23:4CEA (PROBABLE code)
+; ---- code $6E9C-$6EB7 (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 7; entered by call from 23:4CEA (PROBABLE code) [executed in 3 scenarios]
 
 Function_23_6E9C:: ; 23:6E9C
 	push bc
@@ -6480,9 +5719,7 @@ Function_23_6E9C:: ; 23:6E9C
 	ld bc, $D000
 	ld de, $D140
 	ld hl, $6EB7
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_23_6EE0
 	pop bc
 	ret
@@ -6494,7 +5731,7 @@ String_23_6EB7:: ; 23:6EB7
 	db $82, $E6, $82, $DD, $82, $B1, $82, $F1, $82, $C5, $82, $A2, $82, $DC, $82, $B7
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
-; ---- code $6EE0-$6F22 (66 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 7; entered by call from 23:6DA2 (PROBABLE code)
+; ---- code $6EE0-$6F22 (66 bytes) [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 7; entered by call from 23:6DA2 (PROBABLE code) [executed in 3 scenarios]
 
 Function_23_6EE0:: ; 23:6EE0
 	ldh a, [rSVBK]
@@ -6507,9 +5744,7 @@ Function_23_6EE0:: ; 23:6EE0
 	ld hl, $D000
 	ld de, $9000
 	ld c, $27
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6539,11 +5774,22 @@ Function_23_6F00:: ; 23:6F00
 	pop af
 	ret
 
-; ---- data $6F22-$6F3C (26 bytes) [HYPOTHESIS] UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_6F22:: ; 23:6F22
-	db $F5, $C5, $D5, $E5, $AF, $E0, $4F, $3E, $07, $E0, $8D, $E0, $70, $FA, $D5, $C2
-	db $47, $3E, $01, $E0, $8D, $E0, $70, $FA, $24, $D6
+; ---- code $6F22-$6F3C (26 bytes) [HYPOTHESIS] function prologue after the ret at 6F21 (push af/bc/de/hl ; xor a ; ldh [$4F],a ; ... ld a,[$D624]) falling into 6F3C [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	push af
+	push bc
+	push de
+	push hl
+	xor a, a
+	ldh [rVBK], a
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_C2D5]
+	ld b, a
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_D624]
 
 ; ---- code $6F3C-$6F60 (36 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 8; entered by jrcc from 23:6F1B (PROBABLE code)
 
@@ -6553,6 +5799,8 @@ Label_23_6F3C:: ; 23:6F3C
 	ld a, [wRam_C2D6]
 	cp a, $3C
 	jr c, Label_23_6F89
+
+Label_23_6F47:: ; 23:6F47
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6568,15 +5816,17 @@ Label_23_6F3C:: ; 23:6F3C
 	ld [hl], a
 	jp Label_23_6FCB
 
-; ---- data $6F60-$6F6F (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_6F60:: ; 23:6F60
-	db $FA, $D6, $C2, $C6, $3C, $FE, $64, $30, $DE, $6F, $26, $00, $11, $0A, $00
+; ---- code $6F60-$6F6F (15 bytes) [HYPOTHESIS] ld a,[$C2D6] ; add a,$3C ; cp $64 ; jr nc ; ld l,a ; ld h,0 ; ld de,$000A then the far call at 6F6F: decodes exactly to the next region start (7 insn)
+	ld a, [wRam_C2D6]
+	add a, $3C
+	cp a, $64
+	jr nc, Label_23_6F47
+	ld l, a
+	ld h, $00
+	ld de, $000A
 
 ; ---- code $6F6F-$6FD7 (104 bytes) [PROBABLE] 48 insn(s) reached by static flow only; seeds: exec x37, site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6593,9 +5843,7 @@ Label_23_6F89:: ; 23:6F89
 	ld l, a
 	ld h, $00
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6611,9 +5859,7 @@ Label_23_6FAA:: ; 23:6FAA
 	ld l, a
 	ld h, $00
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6635,10 +5881,8 @@ Label_23_6FCB:: ; 23:6FCB
 	pop af
 	ret
 
-; ---- data $6FD7-$6FE0 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_6FD7:: ; 23:6FD7
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $6FD7-$6FE0 (9 bytes) [PROBABLE] 0x00 padding between the last function of the bank and the tile block at $6FE0
+	ds $9, $00
 
 ; ---- gfx $6FE0-$73E0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5616: hl=$6FE0 a=$23 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -6803,136 +6047,425 @@ Data_23_7640:: ; 23:7640
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $7910-$7A3F (303 bytes) [PROBABLE] palette-rgb555: heuristic: 232 RGB555 words as 58 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7910-7AE0 by higher-priority evidence]
+; ---- data $7910-$7950 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site never executed; replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
-Data_23_7910:: ; 23:7910
+Palette_23_7910:: ; 23:7910
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $2C, $21, $00, $00, $5F, $03, $FF, $7F
 	db $00, $00, $61, $1D, $22, $47, $FF, $7F, $00, $00, $A5, $02, $EC, $7E, $FF, $7F
 	db $00, $00, $5F, $02, $F7, $00, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $7950-$7990 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site never executed
+
+Palette_23_7950:: ; 23:7950
 	db $8B, $6F, $00, $00, $B5, $56, $FF, $7F, $8B, $6F, $7F, $02, $B7, $01, $00, $00
 	db $8B, $6F, $40, $02, $FF, $4F, $00, $00, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
 	db $8B, $6F, $4A, $29, $B5, $56, $FF, $7F, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
 	db $8B, $6F, $4A, $29, $B5, $56, $FF, $7F, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
-	db $E0, $7A, $E7, $7A, $E0, $7A, $E7, $7A, $E0, $7A, $E7, $7A, $E0, $7A, $E7, $7A
-	db $EA, $7A, $F1, $7A, $EA, $7A, $F1, $7A, $EA, $7A, $F1, $7A, $EA, $7A, $F1, $7A
-	db $F4, $7A, $FB, $7A, $F4, $7A, $FB, $7A, $F4, $7A, $FB, $7A, $F4, $7A, $FB, $7A
-	db $FE, $7A, $05, $7B, $FE, $7A, $05, $7B, $FE, $7A, $05, $7B, $FE, $7A, $05, $7B
-	db $08, $7B, $0F, $7B, $08, $7B, $0F, $7B, $08, $7B, $0F, $7B, $08, $7B, $0F, $7B
-	db $12, $7B, $19, $7B, $12, $7B, $19, $7B, $12, $7B, $19, $7B, $12, $7B, $19, $7B
-	db $1C, $7B, $23, $7B, $1C, $7B, $23, $7B, $1C, $7B, $23, $7B, $1C, $7B, $23, $7B
-	db $26, $7B, $2D, $7B, $26, $7B, $2D, $7B, $26, $7B, $2D, $7B, $26, $7B, $2D, $7B
-	db $30, $7B, $37, $7B, $30, $7B, $37, $7B, $30, $7B, $37, $7B, $30, $7B, $37, $7B
-	db $3A, $7B, $41, $7B, $3A, $7B, $41, $7B, $3A, $7B, $41, $7B, $3A, $7B, $41, $7B
-	db $44, $7B, $4B, $7B, $44, $7B, $4B, $7B, $44, $7B, $4B, $7B, $44, $7B, $4B
 
-; ---- ptrtable $7A3F-$7A51 (18 bytes) [PROBABLE] code-pointer table, 9 entries: 9/9 words hit own-bank code starts (dense run of code pointers); 0/9 targets executed
+; ---- words $7990-$7AE0 (336 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7990 is passed as de with a=$23 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7
 
-Table_23_7A3F:: ; 23:7A3F
-	dw Label_23_4E7B
-	dw Label_23_557B
-	dw Label_23_4E7B
-	dw Label_23_557B
-	dw Label_23_4E7B
-	dw Label_23_557B
-	dw Label_23_4E7B
-	dw Label_23_557B
-	dw Label_23_587B
+Table_23_7990:: ; 23:7990
+	dw Table_23_7AE0, Data_23_7AE7, Table_23_7AE0, Data_23_7AE7, Table_23_7AE0, Data_23_7AE7, Table_23_7AE0, Data_23_7AE7
+	dw Table_23_7AEA, Data_23_7AF1, Table_23_7AEA, Data_23_7AF1, Table_23_7AEA, Data_23_7AF1, Table_23_7AEA, Data_23_7AF1
+	dw Table_23_7AF4, Data_23_7AFB, Table_23_7AF4, Data_23_7AFB, Table_23_7AF4, Data_23_7AFB, Table_23_7AF4, Data_23_7AFB
+	dw Table_23_7AFE, Data_23_7B05, Table_23_7AFE, Data_23_7B05, Table_23_7AFE, Data_23_7B05, Table_23_7AFE, Data_23_7B05
+	dw Table_23_7B08, Data_23_7B0F, Table_23_7B08, Data_23_7B0F, Table_23_7B08, Data_23_7B0F, Table_23_7B08, Data_23_7B0F
+	dw Table_23_7B12, Data_23_7B19, Table_23_7B12, Data_23_7B19, Table_23_7B12, Data_23_7B19, Table_23_7B12, Data_23_7B19
+	dw Table_23_7B1C, Data_23_7B23, Table_23_7B1C, Data_23_7B23, Table_23_7B1C, Data_23_7B23, Table_23_7B1C, Data_23_7B23
+	dw Table_23_7B26, Data_23_7B2D, Table_23_7B26, Data_23_7B2D, Table_23_7B26, Data_23_7B2D, Table_23_7B26, Data_23_7B2D
+	dw Table_23_7B30, Data_23_7B37, Table_23_7B30, Data_23_7B37, Table_23_7B30, Data_23_7B37, Table_23_7B30, Data_23_7B37
+	dw Table_23_7B3A, Data_23_7B41, Table_23_7B3A, Data_23_7B41, Table_23_7B3A, Data_23_7B41, Table_23_7B3A, Data_23_7B41
+	dw Table_23_7B44, Data_23_7B4B, Table_23_7B44, Data_23_7B4B, Table_23_7B44, Data_23_7B4B, Table_23_7B44, Data_23_7B4B
+	dw Table_23_7B4E, Data_23_7B55, Table_23_7B4E, Data_23_7B55, Table_23_7B4E, Data_23_7B55, Table_23_7B4E, Data_23_7B55
+	dw Table_23_7B58, Data_23_7B5F, Table_23_7B58, Data_23_7B5F, Table_23_7B58, Data_23_7B5F, Table_23_7B58, Data_23_7B5F
+	dw Table_23_7B62, Data_23_7B69, Table_23_7B62, Data_23_7B69, Table_23_7B62, Data_23_7B69, Table_23_7B62, Data_23_7B69
+	dw Table_23_7B6C, Data_23_7B73, Table_23_7B6C, Data_23_7B73, Table_23_7B6C, Data_23_7B73, Table_23_7B6C, Data_23_7B73
+	dw Table_23_7B76, Data_23_7B7D, Table_23_7B76, Data_23_7B7D, Table_23_7B76, Data_23_7B7D, Table_23_7B76, Data_23_7B7D
+	dw Table_23_7B80, Data_23_7B87, Table_23_7B80, Data_23_7B87, Table_23_7B80, Data_23_7B87, Table_23_7B80, Data_23_7B87
+	dw Table_23_7B8A, Data_23_7B91, Table_23_7B8A, Data_23_7B91, Table_23_7B8A, Data_23_7B91, Table_23_7B8A, Data_23_7B91
+	dw Table_23_7B94, Data_23_7B9B, Table_23_7B94, Data_23_7B9B, Table_23_7B94, Data_23_7B9B, Table_23_7B94, Data_23_7B9B
+	dw Table_23_7B9E, Data_23_7BA5, Table_23_7B9E, Data_23_7BA5, Table_23_7B9E, Data_23_7BA5, Table_23_7B9E, Data_23_7BA5
+	dw Table_23_7BA8, Data_23_7BFE, Table_23_7BA8, Data_23_7BFE, Table_23_7BA8, Data_23_7BFE, Table_23_7BA8, Data_23_7BFE
 
-; ---- data $7A51-$7AE0 (143 bytes) [PROBABLE] palette-rgb555: heuristic: 232 RGB555 words as 58 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7910-7AE0 by higher-priority evidence]
+; ---- words $7AE0-$7AE2 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
-Data_23_7A51:: ; 23:7A51
-	db $7B, $5F, $7B, $58, $7B, $5F, $7B, $58, $7B, $5F, $7B, $58, $7B, $5F, $7B, $62
-	db $7B, $69, $7B, $62, $7B, $69, $7B, $62, $7B, $69, $7B, $62, $7B, $69, $7B, $6C
-	db $7B, $73, $7B, $6C, $7B, $73, $7B, $6C, $7B, $73, $7B, $6C, $7B, $73, $7B, $76
-	db $7B, $7D, $7B, $76, $7B, $7D, $7B, $76, $7B, $7D, $7B, $76, $7B, $7D, $7B, $80
-	db $7B, $87, $7B, $80, $7B, $87, $7B, $80, $7B, $87, $7B, $80, $7B, $87, $7B, $8A
-	db $7B, $91, $7B, $8A, $7B, $91, $7B, $8A, $7B, $91, $7B, $8A, $7B, $91, $7B, $94
-	db $7B, $9B, $7B, $94, $7B, $9B, $7B, $94, $7B, $9B, $7B, $94, $7B, $9B, $7B, $9E
-	db $7B, $A5, $7B, $9E, $7B, $A5, $7B, $9E, $7B, $A5, $7B, $9E, $7B, $A5, $7B, $A8
-	db $7B, $FE, $7B, $A8, $7B, $FE, $7B, $A8, $7B, $FE, $7B, $A8, $7B, $FE, $7B
+Table_23_7AE0:: ; 23:7AE0
+	dw Data_23_7AE2
 
-; ---- data $7AE0-$7C01 (289 bytes) [HYPOTHESIS] UNCLASSIFIED 289 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7AE2-$7AE7 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
-Data_23_7AE0:: ; 23:7AE0
-	db $E2, $7A, $01, $FD, $0D, $00, $00, $01, $00, $04, $EC, $7A, $01, $FD, $0D, $01
-	db $00, $01, $00, $04, $F6, $7A, $01, $FD, $0D, $02, $00, $01, $00, $04, $00, $7B
-	db $01, $FD, $0D, $03, $00, $01, $00, $04, $0A, $7B, $01, $FD, $0D, $04, $00, $01
-	db $00, $04, $14, $7B, $01, $FD, $0D, $05, $00, $01, $00, $04, $1E, $7B, $01, $FD
-	db $0D, $06, $00, $01, $00, $04, $28, $7B, $01, $FD, $0D, $07, $00, $01, $00, $04
-	db $32, $7B, $01, $FD, $0D, $08, $00, $01, $00, $04, $3C, $7B, $01, $FD, $0D, $09
-	db $00, $01, $00, $04, $46, $7B, $01, $05, $0D, $00, $00, $01, $00, $04, $50, $7B
-	db $01, $05, $0D, $01, $00, $01, $00, $04, $5A, $7B, $01, $05, $0D, $02, $00, $01
-	db $00, $04, $64, $7B, $01, $05, $0D, $03, $00, $01, $00, $04, $6E, $7B, $01, $05
-	db $0D, $04, $00, $01, $00, $04, $78, $7B, $01, $05, $0D, $05, $00, $01, $00, $04
-	db $82, $7B, $01, $05, $0D, $06, $00, $01, $00, $04, $8C, $7B, $01, $05, $0D, $07
-	db $00, $01, $00, $04, $96, $7B, $01, $05, $0D, $08, $00, $01, $00, $04, $A0, $7B
-	db $01, $05, $0D, $09, $00, $01, $00, $04, $AC, $7B, $D5, $7B, $0A, $32, $48, $0A
-	db $01, $32, $50, $0B, $01, $3A, $48, $0C, $01, $3A, $50, $0D, $01, $42, $48, $0E
-	db $01, $42, $50, $0F, $01, $26, $48, $10, $02, $26, $50, $11, $02, $2E, $48, $12
-	db $02, $2E, $50, $13, $02, $0A, $32, $48, $0A, $01, $32, $50, $0B, $01, $3A, $48
-	db $0C, $01, $3A, $50, $0D, $01, $42, $48, $0E, $01, $42, $50, $0F, $01, $2D, $43
-	db $14, $02, $25, $43, $15, $02, $2D, $54, $14, $22, $25, $54, $15, $22, $02, $00
-	db $14
+Data_23_7AE2:: ; 23:7AE2
+	db $01, $FD, $0D, $00, $00
 
-; ---- gfx $7C01-$7E81 (640 bytes) [PROBABLE] tiles-2bpp: heuristic: 39 coherent tiles (hsim2=0.659 vsim2=0.879, 0 blank) parity 1
+; ---- data $7AE7-$7AEA (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
-Data_23_7C01:: ; 23:7C01
-	db $01, $1D, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $11
+Data_23_7AE7:: ; 23:7AE7
+	db $01, $00, $04
+
+; ---- words $7AEA-$7AEC (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7AEA:: ; 23:7AEA
+	dw Data_23_7AEC
+
+; ---- data $7AEC-$7AF1 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7AEC:: ; 23:7AEC
+	db $01, $FD, $0D, $01, $00
+
+; ---- data $7AF1-$7AF4 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7AF1:: ; 23:7AF1
+	db $01, $00, $04
+
+; ---- words $7AF4-$7AF6 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7AF4:: ; 23:7AF4
+	dw Data_23_7AF6
+
+; ---- data $7AF6-$7AFB (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7AF6:: ; 23:7AF6
+	db $01, $FD, $0D, $02, $00
+
+; ---- data $7AFB-$7AFE (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7AFB:: ; 23:7AFB
+	db $01, $00, $04
+
+; ---- words $7AFE-$7B00 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7AFE:: ; 23:7AFE
+	dw Data_23_7B00
+
+; ---- data $7B00-$7B05 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B00:: ; 23:7B00
+	db $01, $FD, $0D, $03, $00
+
+; ---- data $7B05-$7B08 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B05:: ; 23:7B05
+	db $01, $00, $04
+
+; ---- words $7B08-$7B0A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B08:: ; 23:7B08
+	dw Data_23_7B0A
+
+; ---- data $7B0A-$7B0F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B0A:: ; 23:7B0A
+	db $01, $FD, $0D, $04, $00
+
+; ---- data $7B0F-$7B12 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B0F:: ; 23:7B0F
+	db $01, $00, $04
+
+; ---- words $7B12-$7B14 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B12:: ; 23:7B12
+	dw Data_23_7B14
+
+; ---- data $7B14-$7B19 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B14:: ; 23:7B14
+	db $01, $FD, $0D, $05, $00
+
+; ---- data $7B19-$7B1C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B19:: ; 23:7B19
+	db $01, $00, $04
+
+; ---- words $7B1C-$7B1E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B1C:: ; 23:7B1C
+	dw Data_23_7B1E
+
+; ---- data $7B1E-$7B23 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B1E:: ; 23:7B1E
+	db $01, $FD, $0D, $06, $00
+
+; ---- data $7B23-$7B26 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B23:: ; 23:7B23
+	db $01, $00, $04
+
+; ---- words $7B26-$7B28 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B26:: ; 23:7B26
+	dw Data_23_7B28
+
+; ---- data $7B28-$7B2D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B28:: ; 23:7B28
+	db $01, $FD, $0D, $07, $00
+
+; ---- data $7B2D-$7B30 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B2D:: ; 23:7B2D
+	db $01, $00, $04
+
+; ---- words $7B30-$7B32 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B30:: ; 23:7B30
+	dw Data_23_7B32
+
+; ---- data $7B32-$7B37 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B32:: ; 23:7B32
+	db $01, $FD, $0D, $08, $00
+
+; ---- data $7B37-$7B3A (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B37:: ; 23:7B37
+	db $01, $00, $04
+
+; ---- words $7B3A-$7B3C (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B3A:: ; 23:7B3A
+	dw Data_23_7B3C
+
+; ---- data $7B3C-$7B41 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B3C:: ; 23:7B3C
+	db $01, $FD, $0D, $09, $00
+
+; ---- data $7B41-$7B44 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B41:: ; 23:7B41
+	db $01, $00, $04
+
+; ---- words $7B44-$7B46 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B44:: ; 23:7B44
+	dw Data_23_7B46
+
+; ---- data $7B46-$7B4B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B46:: ; 23:7B46
+	db $01, $05, $0D, $00, $00
+
+; ---- data $7B4B-$7B4E (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B4B:: ; 23:7B4B
+	db $01, $00, $04
+
+; ---- words $7B4E-$7B50 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B4E:: ; 23:7B4E
+	dw Data_23_7B50
+
+; ---- data $7B50-$7B55 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B50:: ; 23:7B50
+	db $01, $05, $0D, $01, $00
+
+; ---- data $7B55-$7B58 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B55:: ; 23:7B55
+	db $01, $00, $04
+
+; ---- words $7B58-$7B5A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B58:: ; 23:7B58
+	dw Data_23_7B5A
+
+; ---- data $7B5A-$7B5F (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B5A:: ; 23:7B5A
+	db $01, $05, $0D, $02, $00
+
+; ---- data $7B5F-$7B62 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B5F:: ; 23:7B5F
+	db $01, $00, $04
+
+; ---- words $7B62-$7B64 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B62:: ; 23:7B62
+	dw Data_23_7B64
+
+; ---- data $7B64-$7B69 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B64:: ; 23:7B64
+	db $01, $05, $0D, $03, $00
+
+; ---- data $7B69-$7B6C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B69:: ; 23:7B69
+	db $01, $00, $04
+
+; ---- words $7B6C-$7B6E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B6C:: ; 23:7B6C
+	dw Data_23_7B6E
+
+; ---- data $7B6E-$7B73 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B6E:: ; 23:7B6E
+	db $01, $05, $0D, $04, $00
+
+; ---- data $7B73-$7B76 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B73:: ; 23:7B73
+	db $01, $00, $04
+
+; ---- words $7B76-$7B78 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B76:: ; 23:7B76
+	dw Data_23_7B78
+
+; ---- data $7B78-$7B7D (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B78:: ; 23:7B78
+	db $01, $05, $0D, $05, $00
+
+; ---- data $7B7D-$7B80 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B7D:: ; 23:7B7D
+	db $01, $00, $04
+
+; ---- words $7B80-$7B82 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B80:: ; 23:7B80
+	dw Data_23_7B82
+
+; ---- data $7B82-$7B87 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B82:: ; 23:7B82
+	db $01, $05, $0D, $06, $00
+
+; ---- data $7B87-$7B8A (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B87:: ; 23:7B87
+	db $01, $00, $04
+
+; ---- words $7B8A-$7B8C (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B8A:: ; 23:7B8A
+	dw Data_23_7B8C
+
+; ---- data $7B8C-$7B91 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B8C:: ; 23:7B8C
+	db $01, $05, $0D, $07, $00
+
+; ---- data $7B91-$7B94 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B91:: ; 23:7B91
+	db $01, $00, $04
+
+; ---- words $7B94-$7B96 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B94:: ; 23:7B94
+	dw Data_23_7B96
+
+; ---- data $7B96-$7B9B (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7B96:: ; 23:7B96
+	db $01, $05, $0D, $08, $00
+
+; ---- data $7B9B-$7B9E (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7B9B:: ; 23:7B9B
+	db $01, $00, $04
+
+; ---- words $7B9E-$7BA0 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7B9E:: ; 23:7B9E
+	dw Data_23_7BA0
+
+; ---- data $7BA0-$7BA5 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7BA0:: ; 23:7BA0
+	db $01, $05, $0D, $09, $00
+
+; ---- data $7BA5-$7BA8 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_23_7BA5:: ; 23:7BA5
+	db $01, $00, $04
+
+; ---- words $7BA8-$7BAC (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_23_7BA8:: ; 23:7BA8
+	dw Data_23_7BAC, Data_23_7BD5
+
+; ---- data $7BAC-$7BD5 (41 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7BAC:: ; 23:7BAC
+	db $0A, $32, $48, $0A, $01, $32, $50, $0B, $01, $3A, $48, $0C, $01, $3A, $50, $0D
+	db $01, $42, $48, $0E, $01, $42, $50, $0F, $01, $26, $48, $10, $02, $26, $50, $11
+	db $02, $2E, $48, $12, $02, $2E, $50, $13, $02
+
+; ---- data $7BD5-$7BFE (41 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 10 piece(s); length tiles exactly against the frame-table pointers
+
+Data_23_7BD5:: ; 23:7BD5
+	db $0A, $32, $48, $0A, $01, $32, $50, $0B, $01, $3A, $48, $0C, $01, $3A, $50, $0D
+	db $01, $42, $48, $0E, $01, $42, $50, $0F, $01, $2D, $43, $14, $02, $25, $43, $15
+	db $02, $2D, $54, $14, $22, $25, $54, $15, $22
+
+; ---- data $7BFE-$7C03 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:29
+
+Data_23_7BFE:: ; 23:7BFE
+	db $02, $00, $14, $01, $1D
+
+; ---- data $7C03-$7F30 (813 bytes) [HYPOTHESIS] tilemap/attribute-like index data (all bytes < $40, 20-byte rows of runs of $11/$2F/$08/$10 and small ascending index runs 08-0F/18-1F/02-07/12-17); the mapper called 7C01-7E81 "tiles-2bpp" (coherence 0.66/0.88) but repeated-byte runs give that score to tilemaps as well and no loader references these bytes; extent 7E81-7F30 (previously unclassified) continues the same pattern (the $08 fill is an attribute-map pattern) - purpose unknown
+
+Data_23_7C03:: ; 23:7C03
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $11, $11, $11
 	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11
-	db $11, $11, $11, $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
-	db $20, $21, $22, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B
-	db $1C, $1D, $1E, $1F, $30, $31, $32, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $02, $03, $04, $05, $06, $07, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $12, $13, $14
-	db $15, $16, $17, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $11, $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $20, $21
+	db $22, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $1C, $1D
+	db $1E, $1F, $30, $31, $32, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $02, $03, $04, $05, $06, $07, $10, $10, $10
+	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $12, $13, $14, $15, $16
+	db $17, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $11, $11, $11, $11, $11, $11, $11, $11, $11
-	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $2F, $2F, $2F, $2F, $2F
-	db $08, $09, $0A, $0B, $0C, $0D, $23, $21, $25, $27, $2F, $2F, $2F, $2F, $2F, $2F
-	db $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $1C, $1D, $24, $31, $26, $28, $2F, $2F
-	db $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $02, $03, $04, $05, $06, $07, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $12, $13, $14, $15, $16, $17, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11
+	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $2F, $2F, $2F, $2F, $2F, $08, $09
+	db $0A, $0B, $0C, $0D, $23, $21, $25, $27, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F
+	db $2F, $2F, $18, $19, $1A, $1B, $1C, $1D, $24, $31, $26, $28, $2F, $2F, $2F, $2F
+	db $2F, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $02
+	db $03, $04, $05, $06, $07, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
+	db $10, $10, $10, $12, $13, $14, $15, $16, $17, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $11
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $11, $11, $11
 	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11
-	db $11, $11, $11, $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $29, $2B, $2D, $0E
-	db $0F, $20, $21, $22, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B
-	db $2A, $2C, $2E, $1E, $1F, $30, $31, $32, $2F, $2F, $2F, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $02, $03, $04, $05, $06, $07, $10
-	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $12, $13, $14
-	db $15, $16, $17, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $11, $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $29, $2B, $2D, $0E, $0F, $20
+	db $21, $22, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $2A, $2C
+	db $2E, $1E, $1F, $30, $31, $32, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $02, $03, $04, $05, $06, $07, $10, $10, $10
+	db $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $12, $13, $14, $15, $16
+	db $17, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $11, $11, $11, $11, $11, $11, $11, $11, $11
-	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $2F, $2F, $2F, $2F, $2F
-
-; ---- data $7E81-$7F30 (175 bytes) [HYPOTHESIS] UNCLASSIFIED 175 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_23_7E81:: ; 23:7E81
-	db $08, $09, $0A, $0B, $29, $2B, $2D, $23, $21, $25, $27, $2F, $2F, $2F, $2F, $2F
-	db $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $2A, $2C, $2E, $24, $31, $26, $28, $2F
-	db $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $02, $03, $04, $05, $06, $07, $10, $10, $10, $10, $10, $10, $10, $10, $10
-	db $10, $10, $10, $10, $10, $12, $13, $14, $15, $16, $17, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11
+	db $11, $11, $11, $11, $11, $11, $11, $11, $11, $2F, $2F, $2F, $2F, $2F, $08, $09
+	db $0A, $0B, $29, $2B, $2D, $23, $21, $25, $27, $2F, $2F, $2F, $2F, $2F, $2F, $2F
+	db $2F, $2F, $18, $19, $1A, $1B, $2A, $2C, $2E, $24, $31, $26, $28, $2F, $2F, $2F
+	db $2F, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $02
+	db $03, $04, $05, $06, $07, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10
+	db $10, $10, $10, $12, $13, $14, $15, $16, $17, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
-	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 
 ; ---- zero $7F30-$8000 (208 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $D0, $00

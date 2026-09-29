@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank3F", ROMX[$4000], BANK[$3F]
 
@@ -36,10 +37,8 @@ Data_3F_4012:: ; 3F:4012
 	db $7F, $46, $3D, $D1, $48, $3D, $E8, $49, $3D, $BE, $4A, $3D, $38, $4C, $3D, $25
 	db $4E, $3D, $9F, $4F, $3D
 
-; ---- data $40B7-$40B9 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_3F_40B7:: ; 3F:40B7
-	db $00, $00
+; ---- zero $40B7-$40B9 (2 bytes) [PROBABLE] 0x00 pad (2 bytes) between the 55-entry (addr,bank) page table 4012-40B7 and the word table at 40B9
+	ds $2, $00
 
 ; ---- data $40B9-$40CF (22 bytes) [PROBABLE] html_topic_starts: 11 ascending words pointing into the byte lists that follow (verified structure, layout from engine code)
 

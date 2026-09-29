@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank69", ROMX[$4000], BANK[$69]
 
@@ -13,7 +14,7 @@ Function_69_4000:: ; 69:4000
 	cp a, $01
 	jp nz, Label_69_4013
 
-; ---- code $4008-$4013 (11 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 69:4005 (executed)
+; ---- code $4008-$4013 (11 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 69:4005 (executed) [executed in 1 scenarios]
 	ld a, $03
 	ld [wRam_C2CE], a
 	xor a, a
@@ -36,9 +37,7 @@ Function_69_401A:: ; 69:401A
 	xor a, a
 	ld [wSpriteSlots + 143], a
 	ld hl, $DA80
-	call FarCall
-	dw Function_69_4034
-	db BANK(Function_69_4034)
+	farcall Function_69_4034
 	jp Function_69_40D1
 
 Function_69_4034:: ; 69:4034
@@ -79,9 +78,7 @@ Label_69_4051:: ; 69:4051
 Label_69_4062:: ; 69:4062
 	ld a, $01
 	ld b, $01
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 Label_69_406D:: ; 69:406D
@@ -92,9 +89,7 @@ Label_69_406D:: ; 69:406D
 ; ---- code $4074-$40D1 (93 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed)
 	ld a, $02
 	ld b, $02
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 Label_69_407F:: ; 69:407F
@@ -105,9 +100,7 @@ Label_69_407F:: ; 69:407F
 Label_69_4086:: ; 69:4086
 	ld a, $02
 	ld b, $06
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 Label_69_4091:: ; 69:4091
@@ -123,9 +116,7 @@ Label_69_4091:: ; 69:4091
 Label_69_40A2:: ; 69:40A2
 	ld a, $04
 	ld b, $04
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 Label_69_40AD:: ; 69:40AD
@@ -134,9 +125,7 @@ Label_69_40AD:: ; 69:40AD
 	jr nz, Label_69_40A2
 	ld a, $05
 	ld b, $05
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 Label_69_40BF:: ; 69:40BF
@@ -147,9 +136,7 @@ Label_69_40BF:: ; 69:40BF
 Label_69_40C6:: ; 69:40C6
 	ld a, $05
 	ld b, $05
-	call FarCall
-	dw Function_4E_604C
-	db BANK(Function_4E_604C)
+	farcall Function_4E_604C
 	ret
 
 ; ---- code $40D1-$40DA (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
@@ -167,7 +154,7 @@ Table_69_40DA:: ; 69:40DA
 	dw Label_69_4118
 	dw Label_69_40E0
 
-; ---- code $40E0-$4118 (56 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by table from 69:40D7 (executed)
+; ---- code $40E0-$4118 (56 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 
 Label_69_40E0:: ; 69:40E0
 	ld de, $8200
@@ -175,24 +162,18 @@ Label_69_40E0:: ; 69:40E0
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8600
 	ld hl, $5CC0
 	ld a, $51
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0020
 	ld de, $D860
 	ld hl, $5EC0
 	ld a, $51
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	jp Label_69_414D
 
 ; ---- code $4118-$4152 (58 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
@@ -203,24 +184,18 @@ Label_69_4118:: ; 69:4118
 	ld a, $69
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8600
 	ld hl, $4560
 	ld a, $69
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0018
 	ld de, $D860
 	ld hl, $4760
 	ld a, $69
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 
 Label_69_414D:: ; 69:414D
 	xor a, a
@@ -336,108 +311,299 @@ Data_69_4560:: ; 69:4560
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $4760-$48B0 (336 bytes) [PROBABLE] palette-rgb555: heuristic: 168 RGB555 words as 42 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $4760-$4778 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (00 00 4A 29 B5 56 FF 7F = grey ramp; bit15 clear). Previous 168-word palette claim for 4760-48B0 was wrong beyond 4778: the bytes from 4778 are the animation table below
 
-Data_69_4760:: ; 69:4760
+Palette_69_4760:: ; 69:4760
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $7C, $B7, $00, $DF, $02, $00, $00
-	db $00, $7C, $E0, $01, $8B, $03, $00, $00, $94, $47, $AC, $48, $94, $47, $AC, $48
-	db $B5, $48, $CD, $49, $DE, $49, $01, $4A, $73, $4A, $9F, $4B, $AB, $4B, $41, $4C
-	db $05, $4A, $6A, $4A, $A4, $47, $C1, $47, $E2, $47, $03, $48, $24, $48, $41, $48
-	db $62, $48, $87, $48, $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31
-	db $05, $09, $10, $32, $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42
-	db $06, $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08
-	db $34, $05, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10
-	db $45, $06, $08, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09
-	db $08, $37, $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11
-	db $10, $48, $06, $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06
-	db $09, $08, $34, $05, $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06
-	db $11, $10, $4B, $06, $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31
-	db $05, $09, $10, $32, $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42
-	db $06, $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10
-	db $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08
-	db $2F, $05, $09, $01, $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09
-	db $00, $36, $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11
-	db $10, $48, $06, $09, $08, $3F, $05, $09, $01, $00, $23, $05, $01, $08, $24, $05
-	db $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35, $05, $11, $00, $43, $06
-	db $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F, $05, $04, $00, $08, $01
+	db $00, $7C, $E0, $01, $8B, $03, $00, $00
 
-; ---- data $48B0-$48B5 (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 48AC-48B5 by higher-priority evidence]
+; ---- ptrtable $4778-$4794 (28 bytes) [PROBABLE] 7 entries x 4 bytes = 2 pointers each, table passed as DE to init_object_from_table (00:0A82) at 4E:6057 (a=$69): entry index B&7F is read by 00:0AB8, word0 -> slot+2/3 (pointer list of frames), word1 -> slot+8/9 (count + 2-byte pairs). Every target lands on a record boundary of the parse below (tiles 4778-4C46 exactly)
 
-Data_69_48B0:: ; 69:48B0
-	db $08, $02, $08, $03, $08
+Table_69_4778:: ; 69:4778
+	dw Table_69_4794
+	dw Data_69_48AC
+	dw Table_69_4794
+	dw Data_69_48AC
+	dw Table_69_48B5
+	dw Data_69_49CD
+	dw Table_69_49DE
+	dw Data_69_4A01
+	dw Table_69_4A73
+	dw Data_69_4B9F
+	dw Table_69_4BAB
+	dw Data_69_4C41
+	dw Table_69_4A05
+	dw Data_69_4A6A
 
-; ---- ptrtable $48B5-$48C5 (16 bytes) [PROBABLE] little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $48C5..$49A8; regular record stride between targets
+; ---- ptrtable $4794-$47A4 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
+
+Table_69_4794:: ; 69:4794
+	dw Data_69_47A4
+	dw Data_69_47C1
+	dw Data_69_47E2
+	dw Data_69_4803
+	dw Data_69_4824
+	dw Data_69_4841
+	dw Data_69_4862
+	dw Data_69_4887
+
+; ---- data $47A4-$47C1 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_47A4:: ; 69:47A4
+	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
+	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+
+; ---- data $47C1-$47E2 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_47C1:: ; 69:47C1
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
+	db $05, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
+	db $06
+
+; ---- data $47E2-$4803 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_47E2:: ; 69:47E2
+	db $08, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09, $08, $37
+	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
+	db $06
+
+; ---- data $4803-$4824 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4803:: ; 69:4803
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
+	db $05, $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06, $11, $10, $4B
+	db $06
+
+; ---- data $4824-$4841 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4824:: ; 69:4824
+	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
+	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+
+; ---- data $4841-$4862 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4841:: ; 69:4841
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35
+	db $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F
+	db $05
+
+; ---- data $4862-$4887 (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4862:: ; 69:4862
+	db $09, $01, $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36
+	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
+	db $06, $09, $08, $3F, $05
+
+; ---- data $4887-$48AC (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4887:: ; 69:4887
+	db $09, $01, $00, $23, $05, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33
+	db $06, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
+	db $06, $09, $08, $2F, $05
+
+; ---- data $48AC-$48B5 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
+
+Data_69_48AC:: ; 69:48AC
+	db $04, $00, $08, $01, $08, $02, $08, $03, $08
+
+; ---- ptrtable $48B5-$48C5 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 Table_69_48B5:: ; 69:48B5
 	dw Data_69_48C5
-	dw $48E2
-	dw $4903
-	dw $4924
-	dw $4945
-	dw $4962
-	dw $4983
-	dw $49A8
+	dw Data_69_48E2
+	dw Data_69_4903
+	dw Data_69_4924
+	dw Data_69_4945
+	dw Data_69_4962
+	dw Data_69_4983
+	dw Data_69_49A8
 
-; ---- data $48C5-$4C46 (897 bytes) [HYPOTHESIS] UNCLASSIFIED 897 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $48C5-$48E2 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 Data_69_48C5:: ; 69:48C5
 	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06, $08, $01, $08
-	db $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34, $05, $09, $10
-	db $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $08, $01
-	db $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09, $08, $37, $05, $09
-	db $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48, $06, $08
-	db $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34, $05
-	db $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06, $11, $10, $4B, $06
+	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+
+; ---- data $48E2-$4903 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_48E2:: ; 69:48E2
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
+	db $05, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
+	db $06
+
+; ---- data $4903-$4924 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4903:: ; 69:4903
+	db $08, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09, $08, $37
+	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
+	db $06
+
+; ---- data $4924-$4945 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4924:: ; 69:4924
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
+	db $05, $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06, $11, $10, $4B
+	db $06
+
+; ---- data $4945-$4962 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4945:: ; 69:4945
 	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06, $08, $01, $08
-	db $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35, $05, $11, $00
-	db $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F, $05, $09, $01
-	db $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09
-	db $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48, $06, $09
-	db $08, $3F, $05, $09, $01, $00, $23, $05, $01, $08, $24, $05, $01, $10, $25, $05
-	db $09, $00, $33, $06, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06
-	db $11, $10, $45, $06, $09, $08, $2F, $05, $08, $00, $08, $01, $08, $02, $08, $03
-	db $08, $00, $08, $05, $08, $06, $08, $07, $08, $E0, $49, $08, $01, $00, $2C, $05
-	db $01, $08, $2D, $05, $09, $00, $3C, $05, $09, $08, $3D, $05, $09, $10, $3E, $05
-	db $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06, $01, $00, $05, $00
-	db $0B, $4A, $2C, $4A, $49, $4A, $08, $01, $00, $2C, $05, $01, $08, $2D, $05, $09
-	db $00, $3C, $05, $09, $08, $3D, $05, $09, $10, $3E, $05, $11, $00, $4C, $06, $11
-	db $08, $4D, $06, $11, $10, $4E, $06, $07, $11, $00, $4C, $06, $11, $08, $4D, $06
-	db $11, $10, $4E, $06, $01, $08, $4F, $05, $09, $00, $55, $05, $09, $08, $56, $05
-	db $09, $10, $57, $05, $08, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E
-	db $06, $01, $00, $50, $05, $01, $08, $51, $05, $09, $00, $58, $05, $09, $08, $59
-	db $05, $09, $10, $5A, $05, $04, $00, $08, $01, $14, $00, $08, $02, $14, $7B, $4A
-	db $C4, $4A, $0D, $4B, $56, $4B, $12, $00, $00, $20, $05, $00, $08, $21, $05, $00
-	db $10, $22, $05, $08, $00, $30, $05, $08, $08, $31, $05, $08, $10, $32, $05, $10
-	db $00, $40, $05, $10, $08, $41, $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00
-	db $08, $2D, $06, $00, $10, $2E, $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08
-	db $10, $3E, $06, $10, $00, $4C, $06, $10, $08, $4D, $06, $10, $10, $4E, $06, $12
-	db $00, $00, $23, $05, $00, $08, $24, $05, $00, $10, $25, $05, $08, $00, $33, $05
-	db $08, $08, $34, $05, $08, $10, $35, $05, $10, $00, $43, $05, $10, $08, $44, $05
-	db $10, $10, $45, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E, $06
-	db $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C, $06
-	db $10, $08, $4D, $06, $10, $10, $4E, $06, $12, $00, $00, $26, $05, $00, $08, $27
-	db $05, $00, $10, $28, $05, $08, $00, $36, $05, $08, $08, $37, $05, $08, $10, $38
-	db $05, $10, $00, $46, $05, $10, $08, $47, $05, $10, $10, $48, $05, $00, $00, $2C
-	db $06, $00, $08, $2D, $06, $00, $10, $2E, $06, $08, $00, $3C, $06, $08, $08, $3D
-	db $06, $08, $10, $3E, $06, $10, $00, $4C, $06, $10, $08, $4D, $06, $10, $10, $4E
-	db $06, $12, $00, $00, $29, $05, $00, $08, $2A, $05, $00, $10, $2B, $05, $08, $00
-	db $39, $05, $08, $08, $3A, $05, $08, $10, $3B, $05, $10, $00, $49, $05, $10, $08
-	db $4A, $05, $10, $10, $4B, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10
-	db $2E, $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00
-	db $4C, $06, $10, $08, $4D, $06, $10, $10, $4E, $06, $04, $00, $0C, $01, $0C, $02
-	db $0C, $03, $0C, $01, $00, $04, $AF, $4B, $F8, $4B, $12, $01, $00, $20, $05, $01
-	db $08, $21, $05, $01, $10, $22, $05, $09, $00, $30, $05, $09, $08, $31, $05, $09
-	db $10, $32, $05, $11, $00, $40, $05, $11, $08, $41, $05, $11, $10, $42, $05, $01
-	db $00, $2C, $06, $01, $08, $2D, $06, $01, $10, $2E, $06, $09, $00, $3C, $06, $09
-	db $08, $3D, $06, $09, $10, $3E, $06, $11, $00, $4C, $06, $11, $08, $4D, $06, $11
-	db $10, $4E, $06, $12, $00, $00, $20, $05, $00, $08, $21, $05, $00, $10, $22, $05
-	db $08, $00, $30, $05, $08, $08, $31, $05, $08, $10, $32, $05, $10, $00, $40, $05
-	db $10, $08, $41, $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00, $08, $2D, $06
-	db $00, $10, $2E, $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06
-	db $10, $00, $4C, $06, $10, $08, $4D, $06, $10, $10, $4E, $06, $02, $00, $14, $01
-	db $14
+	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+
+; ---- data $4962-$4983 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4962:: ; 69:4962
+	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35
+	db $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F
+	db $05
+
+; ---- data $4983-$49A8 (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4983:: ; 69:4983
+	db $09, $01, $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36
+	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
+	db $06, $09, $08, $3F, $05
+
+; ---- data $49A8-$49CD (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_49A8:: ; 69:49A8
+	db $09, $01, $00, $23, $05, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33
+	db $06, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
+	db $06, $09, $08, $2F, $05
+
+; ---- data $49CD-$49DE (17 bytes) [PROBABLE] count=8 then 8 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
+
+Data_69_49CD:: ; 69:49CD
+	db $08, $00, $08, $01, $08, $02, $08, $03, $08, $00, $08, $05, $08, $06, $08, $07
+	db $08
+
+; ---- ptrtable $49DE-$49E0 (2 bytes) [PROBABLE] list of 1 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
+
+Table_69_49DE:: ; 69:49DE
+	dw Data_69_49E0
+
+; ---- data $49E0-$4A01 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_49E0:: ; 69:49E0
+	db $08, $01, $00, $2C, $05, $01, $08, $2D, $05, $09, $00, $3C, $05, $09, $08, $3D
+	db $05, $09, $10, $3E, $05, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42
+	db $06
+
+; ---- data $4A01-$4A05 (4 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..) (+1 unreferenced trailing byte(s) 00 kept with this record)
+
+Data_69_4A01:: ; 69:4A01
+	db $01, $00, $05, $00
+
+; ---- ptrtable $4A05-$4A0B (6 bytes) [PROBABLE] list of 3 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
+
+Table_69_4A05:: ; 69:4A05
+	dw Data_69_4A0B
+	dw Data_69_4A2C
+	dw Data_69_4A49
+
+; ---- data $4A0B-$4A2C (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4A0B:: ; 69:4A0B
+	db $08, $01, $00, $2C, $05, $01, $08, $2D, $05, $09, $00, $3C, $05, $09, $08, $3D
+	db $05, $09, $10, $3E, $05, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E
+	db $06
+
+; ---- data $4A2C-$4A49 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4A2C:: ; 69:4A2C
+	db $07, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E, $06, $01, $08, $4F
+	db $05, $09, $00, $55, $05, $09, $08, $56, $05, $09, $10, $57, $05
+
+; ---- data $4A49-$4A6A (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4A49:: ; 69:4A49
+	db $08, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E, $06, $01, $00, $50
+	db $05, $01, $08, $51, $05, $09, $00, $58, $05, $09, $08, $59, $05, $09, $10, $5A
+	db $05
+
+; ---- data $4A6A-$4A73 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
+
+Data_69_4A6A:: ; 69:4A6A
+	db $04, $00, $08, $01, $14, $00, $08, $02, $14
+
+; ---- ptrtable $4A73-$4A7B (8 bytes) [PROBABLE] list of 4 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
+
+Table_69_4A73:: ; 69:4A73
+	dw Data_69_4A7B
+	dw Data_69_4AC4
+	dw Data_69_4B0D
+	dw Data_69_4B56
+
+; ---- data $4A7B-$4AC4 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4A7B:: ; 69:4A7B
+	db $12, $00, $00, $20, $05, $00, $08, $21, $05, $00, $10, $22, $05, $08, $00, $30
+	db $05, $08, $08, $31, $05, $08, $10, $32, $05, $10, $00, $40, $05, $10, $08, $41
+	db $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
+	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
+	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+
+; ---- data $4AC4-$4B0D (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4AC4:: ; 69:4AC4
+	db $12, $00, $00, $23, $05, $00, $08, $24, $05, $00, $10, $25, $05, $08, $00, $33
+	db $05, $08, $08, $34, $05, $08, $10, $35, $05, $10, $00, $43, $05, $10, $08, $44
+	db $05, $10, $10, $45, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
+	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
+	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+
+; ---- data $4B0D-$4B56 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4B0D:: ; 69:4B0D
+	db $12, $00, $00, $26, $05, $00, $08, $27, $05, $00, $10, $28, $05, $08, $00, $36
+	db $05, $08, $08, $37, $05, $08, $10, $38, $05, $10, $00, $46, $05, $10, $08, $47
+	db $05, $10, $10, $48, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
+	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
+	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+
+; ---- data $4B56-$4B9F (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4B56:: ; 69:4B56
+	db $12, $00, $00, $29, $05, $00, $08, $2A, $05, $00, $10, $2B, $05, $08, $00, $39
+	db $05, $08, $08, $3A, $05, $08, $10, $3B, $05, $10, $00, $49, $05, $10, $08, $4A
+	db $05, $10, $10, $4B, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
+	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
+	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+
+; ---- data $4B9F-$4BAB (12 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..) (+3 unreferenced trailing byte(s) 010004 kept with this record)
+
+Data_69_4B9F:: ; 69:4B9F
+	db $04, $00, $0C, $01, $0C, $02, $0C, $03, $0C, $01, $00, $04
+
+; ---- ptrtable $4BAB-$4BAF (4 bytes) [PROBABLE] list of 2 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
+
+Table_69_4BAB:: ; 69:4BAB
+	dw Data_69_4BAF
+	dw Data_69_4BF8
+
+; ---- data $4BAF-$4BF8 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4BAF:: ; 69:4BAF
+	db $12, $01, $00, $20, $05, $01, $08, $21, $05, $01, $10, $22, $05, $09, $00, $30
+	db $05, $09, $08, $31, $05, $09, $10, $32, $05, $11, $00, $40, $05, $11, $08, $41
+	db $05, $11, $10, $42, $05, $01, $00, $2C, $06, $01, $08, $2D, $06, $01, $10, $2E
+	db $06, $09, $00, $3C, $06, $09, $08, $3D, $06, $09, $10, $3E, $06, $11, $00, $4C
+	db $06, $11, $08, $4D, $06, $11, $10, $4E, $06
+
+; ---- data $4BF8-$4C41 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
+
+Data_69_4BF8:: ; 69:4BF8
+	db $12, $00, $00, $20, $05, $00, $08, $21, $05, $00, $10, $22, $05, $08, $00, $30
+	db $05, $08, $08, $31, $05, $08, $10, $32, $05, $10, $00, $40, $05, $10, $08, $41
+	db $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
+	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
+	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+
+; ---- data $4C41-$4C46 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
+
+Data_69_4C41:: ; 69:4C41
+	db $02, $00, $14, $01, $14
 
 ; ---- zero $4C46-$8000 (13242 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $33BA, $00

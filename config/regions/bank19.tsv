@@ -1,25 +1,26 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	400A	data	Data_19_4000	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	400A	code	-	PROBABLE	start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at 400A; entry unproven (no caller found)
 400A	41B1	code	-	PROBABLE	142 insn(s) reached by static flow only; seeds: site x142; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 41B1	41BB	ptrtable	Table_19_41B1	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 19:41AE: 5 entries; fixed length (5 words) by the routine
 41BB	447C	code	-	PROBABLE	330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0; entered by table from 19:41AE (PROBABLE code)
 447C	452F	text	String_19_447C	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-452F	4532	data	Data_19_452F	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+452F	4532	text	String_19_452F	PROBABLE	2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_19_447C and before code at 4532
 4532	47AE	code	-	PROBABLE	365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4; entered by call from 19:417F (PROBABLE code)
 47AE	47ED	text	String_19_47AE	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 47ED	481D	code	-	PROBABLE	26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2; entered by call from 19:41BB (PROBABLE code)
-481D	482B	data	Data_19_481D	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+481D	4821	words	Table_19_481D	PROBABLE	1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$481D a=$19 at 19:4136 (1 entry); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
+4821	482B	data	Data_19_4821	PROBABLE	1 object record: frame table 4821 (word 4823), frame 4823 = 01 [00 00 00 01] (count 1, one OAM entry), script 4828 = 01 [00 04] (one pair); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 482B	490E	code	-	PROBABLE	121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0; entered by call from 19:4196 (PROBABLE code)
-490E	4914	data	Data_19_490E	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+490E	4914	data	Data_19_490E	PROBABLE	6-byte table (bf b0 00 00 14 49) addressed by `ld hl,$490E ; add a,a ; ... add a,l` at 12 sites in code of this bank (19:41EC, 4211, 4325, 43DB, 45CB, 460F, 4696, 46D8, 48A4, 48C1, 48D9, 48F7); the last word 4914 points at the string that follows; field meaning unknown [v4: entries are 4 bytes (word at +4a, or at +4a+2 in the `add a,a ; inc a ; add a,a` variant); with a=1 the accessed words 4912/4914/4916 would overlap String_19_4914, so the 6-byte extent is only the neighbour boundary and the field layout is HYPOTHESIS; entry 0 = (B0BF, 0000) where B0BF is an SRAM address passed to `ld a,1 ; call $1620`]
 4914	4933	text	String_19_4914	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4933	4940	data	Data_19_4933	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4933	4940	zero	-	PROBABLE	zero padding between String_19_4914 and the palette block at 4940
 4940	4980	data	Data_19_4940	PROBABLE	palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-4980	498A	data	Data_19_4980	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4980	498A	code	-	PROBABLE	function start after a palette block: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same as 19:4000), chain ends exactly at the site-validated far call at 498A; entry unproven
 498A	4AFD	code	-	PROBABLE	123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 4AFD	4B07	ptrtable	Table_19_4AFD	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 19:4AFA: 5 entries; fixed length (5 words) by the routine
 4B07	4C1F	code	-	PROBABLE	119 insn(s) reached by static flow only; seeds: site x119; min discovery hops 0; entered by table from 19:4AFA (PROBABLE code)
 4C1F	4C74	text	String_19_4C1F	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4C74	4D5E	code	-	PROBABLE	147 insn(s) reached by static flow only; seeds: site x147; min discovery hops 4; entered by call from 19:4AD7 (PROBABLE code)
-4D5E	4D7E	data	Data_19_4D5E	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D5E	4D7E	data	Data_19_4D5E	PROBABLE	16 Shift-JIS full-width characters 0-9 A-F (82 4F..82 58, 82 60..82 65), no NUL: hex-digit lookup table indexed by `ld hl,$4D5E ; add a,a ; add a,l` at 6 sites (19:4CA6, 4CB9, 4CD1, 4CE4, 4CFC, 4D0F)
 4D7E	4D99	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 19:4B07 (PROBABLE code)
 4D99	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

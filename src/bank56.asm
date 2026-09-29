@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank56", ROMX[$4000], BANK[$56]
 
@@ -975,69 +976,51 @@ Data_56_75C0:: ; 56:75C0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $77C0-$7820 (96 bytes) [PROBABLE] palette-rgb555: heuristic: 48 RGB555 words as 12 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $77C0-$7880 (192 bytes) [PROBABLE] 24 CGB palettes x 4 RGB555 words, all 96 words have bit15 clear (77C0-7880); 7820-7836 and 798D.. parts read by executed code (copy to palette RAM in up to 6/18 scenarios); the mapper heuristic ended the second block at 7896 but the words at 7880+ are pointers (84 78 8d 78 ..)
 
-Data_56_77C0:: ; 56:77C0
+Palette_56_77C0:: ; 56:77C0
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $FF, $7F, $5F, $07, $31, $05, $00, $00
 	db $FF, $7F, $D7, $01, $2D, $21, $00, $00, $FF, $7F, $5F, $07, $91, $09, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $1C, $21, $8C, $6D, $FF, $7F, $00, $00
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $FF, $7F, $5F, $07, $31, $05, $00, $00
 	db $FF, $7F, $D7, $01, $2D, $21, $00, $00, $FF, $7F, $5F, $07, $91, $09, $00, $00
-
-; ---- data $7820-$7836 (22 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown [clipped from 75C0-7880 by higher-priority evidence]
-
-Data_56_7820:: ; 56:7820
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $5F, $2E, $55, $11, $FF, $7F
+	db $5F, $2E, $55, $11, $FF, $7F, $00, $00, $1C, $21, $8C, $6D, $FF, $7F, $00, $00
+	db $E0, $7F, $FF, $7F, $EF, $57, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- data $7836-$7896 (96 bytes) [PROBABLE] palette-rgb555: heuristic: 48 RGB555 words as 12 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $7880-$79B8 (312 bytes) [PROBABLE] 5 object record(s): 5 frame tables, 15 frames, 5 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 56:7880-79B8 [v4: bytes 798D-79B8 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_56_7836:: ; 56:7836
-	db $00, $00, $1C, $21, $8C, $6D, $FF, $7F, $00, $00, $E0, $7F, $FF, $7F, $EF, $57
-	db $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56
-	db $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56
-	db $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56
-	db $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $84, $78, $8D, $78, $02, $02
-	db $FF, $00, $00, $0A, $FF, $01, $00, $01, $00, $00, $1E, $00, $02, $00, $14, $01
-
-; ---- data $7896-$798D (247 bytes) [HYPOTHESIS] UNCLASSIFIED 247 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_56_7896:: ; 56:7896
-	db $14, $9F, $78, $B0, $78, $C1, $78, $D2, $78, $04, $02, $FE, $09, $00, $02, $06
-	db $0A, $00, $0A, $FE, $0B, $00, $0A, $06, $0C, $00, $04, $02, $FE, $0D, $00, $02
-	db $06, $0E, $00, $0A, $FE, $0F, $00, $0A, $06, $10, $00, $04, $02, $FE, $11, $00
-	db $02, $06, $12, $00, $0A, $FE, $13, $00, $0A, $06, $14, $00, $04, $02, $FE, $0D
-	db $00, $02, $06, $0E, $00, $0A, $FE, $0F, $00, $0A, $06, $10, $00, $04, $00, $0C
-	db $01, $0A, $02, $0F, $03, $0A, $F4, $78, $01, $79, $16, $79, $2B, $79, $03, $0A
-	db $FE, $16, $00, $0A, $06, $17, $00, $02, $06, $15, $00, $05, $01, $06, $18, $00
-	db $09, $FE, $19, $00, $09, $06, $1A, $00, $02, $FD, $07, $00, $0B, $07, $08, $00
-	db $05, $02, $04, $1B, $00, $0A, $FC, $1C, $00, $0A, $04, $02, $00, $01, $FC, $07
-	db $00, $0B, $08, $08, $00, $06, $04, $FB, $03, $00, $04, $03, $04, $00, $0C, $FB
-	db $05, $00, $0C, $03, $06, $00, $00, $FB, $07, $00, $0B, $09, $08, $00, $04, $00
-	db $0A, $01, $0A, $02, $05, $03, $0A, $53, $79, $64, $79, $75, $79, $04, $02, $FE
-	db $09, $00, $02, $06, $0A, $00, $0A, $FE, $0B, $00, $0A, $06, $0C, $00, $04, $FE
-	db $FE, $09, $00, $FE, $06, $0A, $00, $06, $FE, $0B, $00, $06, $06, $0C, $00, $04
+Data_56_7880:: ; 56:7880
+	db $84, $78, $8D, $78, $02, $02, $FF, $00, $00, $0A, $FF, $01, $00, $01, $00, $00
+	db $1E, $00, $02, $00, $14, $01, $14, $9F, $78, $B0, $78, $C1, $78, $D2, $78, $04
 	db $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE, $0B, $00, $0A, $06, $0C, $00
-	db $03, $00, $05, $01, $08, $02, $0A
+	db $04, $02, $FE, $0D, $00, $02, $06, $0E, $00, $0A, $FE, $0F, $00, $0A, $06, $10
+	db $00, $04, $02, $FE, $11, $00, $02, $06, $12, $00, $0A, $FE, $13, $00, $0A, $06
+	db $14, $00, $04, $02, $FE, $0D, $00, $02, $06, $0E, $00, $0A, $FE, $0F, $00, $0A
+	db $06, $10, $00, $04, $00, $0C, $01, $0A, $02, $0F, $03, $0A, $F4, $78, $01, $79
+	db $16, $79, $2B, $79, $03, $0A, $FE, $16, $00, $0A, $06, $17, $00, $02, $06, $15
+	db $00, $05, $01, $06, $18, $00, $09, $FE, $19, $00, $09, $06, $1A, $00, $02, $FD
+	db $07, $00, $0B, $07, $08, $00, $05, $02, $04, $1B, $00, $0A, $FC, $1C, $00, $0A
+	db $04, $02, $00, $01, $FC, $07, $00, $0B, $08, $08, $00, $06, $04, $FB, $03, $00
+	db $04, $03, $04, $00, $0C, $FB, $05, $00, $0C, $03, $06, $00, $00, $FB, $07, $00
+	db $0B, $09, $08, $00, $04, $00, $0A, $01, $0A, $02, $05, $03, $0A, $53, $79, $64
+	db $79, $75, $79, $04, $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE, $0B, $00
+	db $0A, $06, $0C, $00, $04, $FE, $FE, $09, $00, $FE, $06, $0A, $00, $06, $FE, $0B
+	db $00, $06, $06, $0C, $00, $04, $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE
+	db $0B, $00, $0A, $06, $0C, $00, $03, $00, $05, $01, $08, $02, $0A, $91, $79, $A2
+	db $79, $04, $FE, $FE, $1D, $00, $FE, $1A, $1D, $20, $0A, $FE, $1D, $40, $0A, $1A
+	db $1D, $60, $04, $FD, $FD, $1D, $00, $FD, $1B, $1D, $20, $0B, $FD, $1D, $40, $0B
+	db $1B, $1D, $60, $02, $00, $2E, $01, $08
 
-; ---- data $798D-$79B8 (43 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+; ---- words $79B8-$79D0 (24 bytes) [PROBABLE] 6 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$79B8 a=$56 is loaded before init_object_from_table at 57:42BA and 10 more sites; all 6 entries hit frame-table/script starts of the sweep 7880-79B8; object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 79CC-79D0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_56_798D:: ; 56:798D
-	db $91, $79, $A2, $79, $04, $FE, $FE, $1D, $00, $FE, $1A, $1D, $20, $0A, $FE, $1D
-	db $40, $0A, $1A, $1D, $60, $04, $FD, $FD, $1D, $00, $FD, $1B, $1D, $20, $0B, $FD
-	db $1D, $40, $0B, $1B, $1D, $60, $02, $00, $2E, $01, $08
-
-; ---- data $79B8-$79CC (20 bytes) [HYPOTHESIS] UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_56_79B8:: ; 56:79B8
-	db $80, $78, $92, $78, $97, $78, $E3, $78, $EC, $78, $44, $79, $4D, $79, $86, $79
-	db $00, $00, $00, $00
-
-; ---- data $79CC-$79D0 (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
-
-Data_56_79CC:: ; 56:79CC
-	db $8D, $79, $B3, $79
+Table_56_79B8:: ; 56:79B8
+	dw Data_56_7880, $7892, $7897, $78E3, $78EC, $7944, $794D, $7986
+	dw $0000, $0000, $798D, $79B3
 
 ; ---- zero $79D0-$8000 (1584 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $630, $00

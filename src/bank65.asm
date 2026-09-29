@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank65", ROMX[$4000], BANK[$65]
 
@@ -10,15 +11,9 @@ SECTION "Bank65", ROMX[$4000], BANK[$65]
 
 Function_65_4000:: ; 65:4000
 	call Function_00_1711
-	call FarCall
-	dw Function_4E_4658
-	db BANK(Function_4E_4658)
-	call FarCall
-	dw Function_48_4AAB
-	db BANK(Function_48_4AAB)
-	call FarCall
-	dw Function_68_4A0F
-	db BANK(Function_68_4A0F)
+	farcall Function_4E_4658
+	farcall Function_48_4AAB
+	farcall Function_68_4A0F
 	xor a, a
 	ld [wRam_C2D1], a
 	ld hl, $C2D2
@@ -31,9 +26,7 @@ Function_65_4000:: ; 65:4000
 	ld [hl], a
 	xor a, a
 	ld [wRam_C28D], a
-	call FarCall
-	dw Function_67_6401
-	db BANK(Function_67_6401)
+	farcall Function_67_6401
 	add a, a
 	add a, $3C
 	ld l, a
@@ -51,9 +44,7 @@ Data_65_403C:: ; 65:403C
 	db $42, $40, $78, $40, $CF, $40
 
 ; ---- code $4042-$4055 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios)
-	call FarCall
-	dw Function_68_4870
-	db BANK(Function_68_4870)
+	farcall Function_68_4870
 	add a, a
 	add a, $6E
 	ld l, a
@@ -65,37 +56,36 @@ Data_65_403C:: ; 65:403C
 	ld l, a
 	jp hl
 
-; ---- data $4055-$405D (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $4055-$405D (8 bytes) [PROBABLE] code entries 4055 (jp $416C) and 4058 (ld a,$F0 ; ld hl,$0110, falls into the far-call site 405D): both are words of Table_65_406E (word 4055 at 65:4076, 4058 at 65:4070); clean decode
 
-Data_65_4055:: ; 65:4055
-	db $C3, $6C, $41, $3E, $F0, $21, $10, $01
+Label_65_4055:: ; 65:4055
+	jp Label_65_416C
+
+Label_65_4058:: ; 65:4058
+	ld a, $F0
+	ld hl, $0110
 
 ; ---- code $405D-$4063 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: site x1; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 
 ; ---- code $4063-$406E (11 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-	call FarCall
-	dw Function_63_732F
-	db BANK(Function_63_732F)
+
+Label_65_4063:: ; 65:4063
+	farcall Function_63_732F
 	ld a, $11
 	jp Entry
 
-; ---- data $406E-$4070 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- ptrtable $406E-$4078 (10 bytes) [PROBABLE] 5 code pointers (4063 4058 4063 4063 4055), index = A of the dispatcher at 4042-4055 (ends with jp hl; 406E-4070 read by the executed code, 4070-4078 not read in traces); jump table of the dispatcher just above (add a,a ; add a,LOW ; ld l,a ; ld a,HIGH ; adc a,0 ; ld h,a ; ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl); targets all decode cleanly
 
-Data_65_406E:: ; 65:406E
-	db $63, $40
-
-; ---- data $4070-$4078 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4070:: ; 65:4070
-	db $58, $40, $63, $40, $63, $40, $55, $40
+Table_65_406E:: ; 65:406E
+	dw Label_65_4063
+	dw Label_65_4058
+	dw Label_65_4063
+	dw Label_65_4063
+	dw Label_65_4055
 
 ; ---- code $4078-$408E (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 12/18 scenarios)
-	call FarCall
-	dw Function_68_4870
-	db BANK(Function_68_4870)
+	farcall Function_68_4870
 	add a, a
 	add a, $C5
 	ld l, a
@@ -107,39 +97,57 @@ Data_65_4070:: ; 65:4070
 	ld l, a
 	jp hl
 
+Label_65_408B:: ; 65:408B
 	jp Label_65_416C
 
-; ---- data $408E-$4093 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $408E-$4093 (5 bytes) [PROBABLE] code entry 408E = word of Table_65_40C5 (dispatcher 4078-408B, jp hl); ld a,$F0 ; ld hl,$0110 falls into the far-call site 4093
 
-Data_65_408E:: ; 65:408E
-	db $3E, $F0, $21, $10, $01
+Label_65_408E:: ; 65:408E
+	ld a, $F0
+	ld hl, $0110
 
 ; ---- code $4093-$40A6 (19 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 	xor a, a
 	ld [wRam_C277], a
 	ld [wRam_C278], a
 	call Function_65_41DA
 	jp Label_65_41A9
 
-; ---- data $40A6-$40CD (39 bytes) [HYPOTHESIS] UNCLASSIFIED 39 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $40A6-$40B3 (13 bytes) [PROBABLE] entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9
 
-Data_65_40A6:: ; 65:40A6
-	db $AF, $EA, $77, $C2, $EA, $78, $C2, $CD, $DA, $41, $C3, $A9, $41, $CD, $23, $41
-	db $CD, $DA, $41, $C3, $A9, $41, $CD, $23, $41, $CD, $DA, $41, $C3, $A9, $41, $A6
-	db $40, $8E, $40, $B3, $40, $BC, $40
+Label_65_40A6:: ; 65:40A6
+	xor a, a
+	ld [wRam_C277], a
+	ld [wRam_C278], a
+	call Function_65_41DA
+	jp Label_65_41A9
 
-; ---- data $40CD-$40CF (2 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- code $40B3-$40BC (9 bytes) [PROBABLE] entry 40B3 = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
 
-Data_65_40CD:: ; 65:40CD
-	db $8B, $40
+Label_65_40B3:: ; 65:40B3
+	call Function_65_4123
+	call Function_65_41DA
+	jp Label_65_41A9
+
+; ---- code $40BC-$40C5 (9 bytes) [PROBABLE] entry 40BC = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
+
+Label_65_40BC:: ; 65:40BC
+	call Function_65_4123
+	call Function_65_41DA
+	jp Label_65_41A9
+
+; ---- ptrtable $40C5-$40CF (10 bytes) [PROBABLE] 5 code pointers (40A6 408E 40B3 40BC 408B) indexed by the dispatcher 4078-408B (add a,a ; add a,$C5 ; ... jp hl); 40CD-40CF read in traces; all targets decode cleanly
+
+Table_65_40C5:: ; 65:40C5
+	dw Label_65_40A6
+	dw Label_65_408E
+	dw Label_65_40B3
+	dw Label_65_40BC
+	dw Label_65_408B
 
 ; ---- code $40CF-$40E2 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
-	call FarCall
-	dw Function_68_4870
-	db BANK(Function_68_4870)
+	farcall Function_68_4870
 	add a, a
 	add a, $19
 	ld l, a
@@ -151,15 +159,14 @@ Data_65_40CD:: ; 65:40CD
 	ld l, a
 	jp hl
 
-; ---- data $40E2-$40E7 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $40E2-$40E7 (5 bytes) [CONFIRMED] code entry 40E2 = word of Table_65_4119 (dispatcher 40CF-40E2, jp hl); ld a,$F0 ; ld hl,$0100 falls into the far-call site 40E7 [executed in 1 scenarios]
 
-Data_65_40E2:: ; 65:40E2
-	db $3E, $F0, $21, $00, $01
+Label_65_40E2:: ; 65:40E2
+	ld a, $F0
+	ld hl, $0100
 
 ; ---- code $40E7-$40FA (19 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 	xor a, a
 	ld [wRam_C277], a
 	ld [wRam_C278], a
@@ -167,41 +174,36 @@ Data_65_40E2:: ; 65:40E2
 	jp Label_65_41A9
 
 ; ---- code $40FA-$4107 (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
+
+Label_65_40FA:: ; 65:40FA
 	xor a, a
 	ld [wRam_C277], a
 	ld [wRam_C278], a
 	call Function_65_41DA
 	jp Label_65_41A9
 
-; ---- data $4107-$4110 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $4107-$4110 (9 bytes) [PROBABLE] code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9
 
-Data_65_4107:: ; 65:4107
-	db $CD, $23, $41, $CD, $DA, $41, $C3, $A9, $41
-
-; ---- code $4110-$4119 (9 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+Label_65_4107:: ; 65:4107
 	call Function_65_4123
 	call Function_65_41DA
 	jp Label_65_41A9
 
-; ---- data $4119-$411B (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- code $4110-$4119 (9 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
-Data_65_4119:: ; 65:4119
-	db $FA, $40
+Label_65_4110:: ; 65:4110
+	call Function_65_4123
+	call Function_65_41DA
+	jp Label_65_41A9
 
-; ---- data $411B-$411F (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $4119-$4123 (10 bytes) [PROBABLE] 5 code pointers (40FA 40E2 4107 4110 40E2) indexed by the dispatcher 40CF-40E2 (add a,a ; add a,$19 ; ... jp hl); 4119-411B and 411F-4121 read in traces; targets decode cleanly
 
-Data_65_411B:: ; 65:411B
-	db $E2, $40, $07, $41
-
-; ---- data $411F-$4121 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_411F:: ; 65:411F
-	db $10, $41
-
-; ---- data $4121-$4123 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4121:: ; 65:4121
-	db $E2, $40
+Table_65_4119:: ; 65:4119
+	dw Label_65_40FA
+	dw Label_65_40E2
+	dw Label_65_4107
+	dw Label_65_4110
+	dw Label_65_40E2
 
 ; ---- code $4123-$4164 (65 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
@@ -251,40 +253,26 @@ Function_65_4123:: ; 65:4123
 ; ---- code $416C-$418A (30 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 12/18 scenarios)
 
 Label_65_416C:: ; 65:416C
-	call FarCall
-	dw Function_22_4FF6
-	db BANK(Function_22_4FF6)
+	farcall Function_22_4FF6
 	cp a, $FF
 	jr z, Label_65_418A
-	call FarCall
-	dw Function_48_4899
-	db BANK(Function_48_4899)
+	farcall Function_48_4899
 	or a, a
 	jr nz, Label_65_418A
-	call FarCall
-	dw Function_4E_46CF
-	db BANK(Function_4E_46CF)
+	farcall Function_4E_46CF
 	or a, a
 	jr nz, Label_65_418A
 	jr Label_65_41A7
 
-; ---- code $418A-$41A7 (29 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 65:4174 (executed)
+; ---- code $418A-$41A7 (29 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 65:4174 (executed) [executed in 1 scenarios]
 
 Label_65_418A:: ; 65:418A
 	ld a, $F0
 	ld hl, $0111
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
-	call FarCall
-	dw Function_22_4FA9
-	db BANK(Function_22_4FA9)
-	call FarCall
-	dw Function_48_4920
-	db BANK(Function_48_4920)
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_5C_5150
+	farcall Function_22_4FA9
+	farcall Function_48_4920
+	farcall Function_4E_4749
 
 ; ---- code $41A7-$41AA (3 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 14/18 scenarios)
 
@@ -295,34 +283,22 @@ Label_65_41A9:: ; 65:41A9
 	ret
 
 ; ---- code $41AA-$41DA (48 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_22_4FF6
-	db BANK(Function_22_4FF6)
+	farcall Function_22_4FF6
 	cp a, $FF
 	jr nz, Label_65_41BA
-	call FarCall
-	dw Function_22_4FA9
-	db BANK(Function_22_4FA9)
+	farcall Function_22_4FA9
 
 Label_65_41BA:: ; 65:41BA
-	call FarCall
-	dw Function_48_4899
-	db BANK(Function_48_4899)
+	farcall Function_48_4899
 	or a, a
 	jr z, Label_65_41C9
-	call FarCall
-	dw Function_48_4920
-	db BANK(Function_48_4920)
+	farcall Function_48_4920
 
 Label_65_41C9:: ; 65:41C9
-	call FarCall
-	dw Function_4E_46CF
-	db BANK(Function_4E_46CF)
+	farcall Function_4E_46CF
 	or a, a
 	jr z, Label_65_41D8
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_4E_4749
 
 Label_65_41D8:: ; 65:41D8
 	jr Label_65_41A9
@@ -330,44 +306,28 @@ Label_65_41D8:: ; 65:41D8
 ; ---- code $41DA-$4293 (185 bytes) [CONFIRMED] 65 insn(s); 65 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
 Function_65_41DA:: ; 65:41DA
-	call FarCall
-	dw Function_68_4106
-	db BANK(Function_68_4106)
-	call FarCall
-	dw Function_68_4252
-	db BANK(Function_68_4252)
+	farcall Function_68_4106
+	farcall Function_68_4252
 	xor a, a
 	ld [wRam_C28C], a
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
 	ld a, $01
 	ld [wRam_C27A], a
-	call FarCall
-	dw Function_67_4156
-	db BANK(Function_67_4156)
-	call FarCall
-	dw Function_67_418E
-	db BANK(Function_67_418E)
-	call FarCall
-	dw Function_67_41C6
-	db BANK(Function_67_41C6)
+	farcall Function_67_4156
+	farcall Function_67_418E
+	farcall Function_67_41C6
 	ld a, [wRam_C277]
 	cp a, $01
 	jr z, Label_65_421A
 	cp a, $02
 	jr z, Label_65_421A
-	call FarCall
-	dw Function_68_4785
-	db BANK(Function_68_4785)
+	farcall Function_68_4785
 	jr Label_65_4226
 
 Label_65_421A:: ; 65:421A
-	call FarCall
-	dw Function_68_480A
-	db BANK(Function_68_480A)
-	call FarCall
-	dw Function_68_4C69
-	db BANK(Function_68_4C69)
+	farcall Function_68_480A
+	farcall Function_68_4C69
 
 Label_65_4226:: ; 65:4226
 	ld hl, $B0BE
@@ -400,15 +360,9 @@ Label_65_4226:: ; 65:4226
 	ld a, b
 	xor a, $A5
 	ld [wRam_C278], a
-	call FarCall
-	dw Function_22_4FA9
-	db BANK(Function_22_4FA9)
-	call FarCall
-	dw Function_48_4920
-	db BANK(Function_48_4920)
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_22_4FA9
+	farcall Function_48_4920
+	farcall Function_4E_4749
 	ld a, $00
 	ld [wRam_C1D0], a
 	ld a, $01
@@ -417,9 +371,7 @@ Label_65_4226:: ; 65:4226
 	cp a, $02
 	jr nz, Label_65_42A3
 	ld a, $17
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	ld a, [wRam_C28C]
 	or a, a
 	jp z, Label_65_4435
@@ -428,9 +380,7 @@ Label_65_4226:: ; 65:4226
 	ld a, [wRam_C28D]
 	or a, a
 	jp nz, Label_65_462C
-	call FarCall
-	dw Function_67_41FE
-	db BANK(Function_67_41FE)
+	farcall Function_67_41FE
 	jp Label_65_4435
 
 ; ---- code $42A3-$42BB (24 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
@@ -438,12 +388,8 @@ Label_65_4226:: ; 65:4226
 Label_65_42A3:: ; 65:42A3
 	ld a, $00
 	ld b, $00
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_65_487C
+	farcall Function_7D_7BB7
 	ldh a, [hJoyHeld]
 	and a, $16
 	cp a, $16
@@ -457,12 +403,8 @@ Label_65_42A3:: ; 65:42A3
 Label_65_42C3:: ; 65:42C3
 	ld a, $00
 	ld b, $01
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_65_487C
+	farcall Function_7D_7BB7
 	ldh a, [hJoyHeld]
 	and a, $16
 	cp a, $16
@@ -477,37 +419,27 @@ Label_65_42E3:: ; 65:42E3
 	ld hl, $B089
 	ld a, [wRam_C28C]
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
+	farcall Function_68_4B48
 	ld a, $01
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_42C3
 
 Label_65_42FC:: ; 65:42FC
 	ld a, $02
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_42E3
 
 Label_65_4307:: ; 65:4307
 	ld a, $03
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_42FC
 
 Label_65_4312:: ; 65:4312
 	ld a, $07
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_4307
 
@@ -515,60 +447,44 @@ Label_65_431D:: ; 65:431D
 	ld a, [wRam_C28C]
 	or a, a
 	jp nz, Label_65_448F
-	call FarCall
-	dw Function_68_55E1
-	db BANK(Function_68_55E1)
+	farcall Function_68_55E1
 	or a, a
 	jr z, Label_65_4312
 
 Label_65_432D:: ; 65:432D
-	call FarCall
-	dw Function_68_5296
-	db BANK(Function_68_5296)
+	farcall Function_68_5296
 	or a, a
 	jr z, Label_65_431D
 	ld hl, $DEA0
 	ld de, $B066
 	ld b, $01
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_4344:: ; 65:4344
-	call FarCall
-	dw Function_68_5BC4
-	db BANK(Function_68_5BC4)
+	farcall Function_68_5BC4
 	or a, a
 	jr z, Label_65_432D
 
 Label_65_434D:: ; 65:434D
-	call FarCall
-	dw Function_68_571D
-	db BANK(Function_68_571D)
+	farcall Function_68_571D
 	or a, a
 	jr z, Label_65_4344
 	ld hl, $DEAB
 	ld de, $B071
 	ld b, $02
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 	ld hl, $DEB4
 	ld de, $B07A
 	ld b, $02
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_4372:: ; 65:4372
 	ld a, [wRam_C28C]
 	or a, a
 	jr z, Label_65_4384
 
-; ---- code $4378-$4384 (12 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 65:4376 (executed)
-	call FarCall
-	dw Function_68_60BB
-	db BANK(Function_68_60BB)
+; ---- code $4378-$4384 (12 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 65:4376 (executed) [executed in 1 scenarios]
+	farcall Function_68_60BB
 	or a, a
 	jp z, Label_65_44DD
 	jr Label_65_438D
@@ -576,84 +492,58 @@ Label_65_4372:: ; 65:4372
 ; ---- code $4384-$4423 (159 bytes) [CONFIRMED] 52 insn(s); 52 executed (in up to 3/18 scenarios)
 
 Label_65_4384:: ; 65:4384
-	call FarCall
-	dw Function_68_60BB
-	db BANK(Function_68_60BB)
+	farcall Function_68_60BB
 	or a, a
 	jr z, Label_65_434D
 
 Label_65_438D:: ; 65:438D
 	ld hl, $DEB9
 	ld de, $DED4
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	xor a, a
-	call FarCall
-	dw Function_68_5D00
-	db BANK(Function_68_5D00)
+	farcall Function_68_5D00
 	push af
 	call Function_65_4761
 	ld hl, $DED4
 	ld de, $DEB9
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	pop af
 	or a, a
 	jr z, Label_65_4372
 	ld hl, $DECB
 	ld de, $DED4
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	ld a, $01
-	call FarCall
-	dw Function_68_5D00
-	db BANK(Function_68_5D00)
+	farcall Function_68_5D00
 	push af
 	ld hl, $DED4
 	ld de, $DECB
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	pop af
 	or a, a
 	jr z, Label_65_438D
-	call FarCall
-	dw Function_65_473F
-	db BANK(Function_65_473F)
+	farcall Function_65_473F
 	ld a, b
 	or a, a
 	jr z, Label_65_4402
 	ld a, $F0
 	ld hl, $0010
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 	ld hl, $DEB9
-	call FarCall
-	dw Function_68_403B
-	db BANK(Function_68_403B)
+	farcall Function_68_403B
 	ld hl, $DECB
-	call FarCall
-	dw Function_68_403B
-	db BANK(Function_68_403B)
+	farcall Function_68_403B
 	jr Label_65_438D
 
 Label_65_4402:: ; 65:4402
 	ld hl, $DEB9
 	ld de, $B07F
 	ld b, $04
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_4410:: ; 65:4410
 	xor a, a
-	call FarCall
-	dw Function_67_6536
-	db BANK(Function_67_6536)
+	farcall Function_67_6536
 	or a, a
 	jp z, Label_65_438D
 	cp a, $02
@@ -673,14 +563,10 @@ Label_65_4424:: ; 65:4424
 	ld hl, $B088
 	ld a, [wRam_C27A]
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
+	farcall Function_68_4B48
 
 Label_65_4435:: ; 65:4435
-	call FarCall
-	dw Function_68_61F7
-	db BANK(Function_68_61F7)
+	farcall Function_68_61F7
 	or a, a
 	jp z, Label_65_4410
 	cp a, $02
@@ -694,99 +580,71 @@ Label_65_4435:: ; 65:4435
 Label_65_444B:: ; 65:444B
 	ld a, $00
 	ld b, $01
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 
 Label_65_4455:: ; 65:4455
 	ld hl, $B089
 	ld a, [wRam_C28C]
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
+	farcall Function_68_4B48
 	ld a, $01
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_444B
 
 Label_65_446E:: ; 65:446E
 	ld a, $02
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_4455
 
 Label_65_4479:: ; 65:4479
 	ld a, $03
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_446E
 
 Label_65_4484:: ; 65:4484
 	ld a, $07
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_4479
 
 Label_65_448F:: ; 65:448F
-	call FarCall
-	dw Function_68_55E1
-	db BANK(Function_68_55E1)
+	farcall Function_68_55E1
 	or a, a
 	jr z, Label_65_4484
 
 Label_65_4498:: ; 65:4498
-	call FarCall
-	dw Function_68_5296
-	db BANK(Function_68_5296)
+	farcall Function_68_5296
 	or a, a
 	jr z, Label_65_448F
 	ld hl, $DEA0
 	ld de, $B066
 	ld b, $01
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_44AF:: ; 65:44AF
-	call FarCall
-	dw Function_68_5BC4
-	db BANK(Function_68_5BC4)
+	farcall Function_68_5BC4
 	or a, a
 	jr z, Label_65_4498
 
 Label_65_44B8:: ; 65:44B8
-	call FarCall
-	dw Function_68_571D
-	db BANK(Function_68_571D)
+	farcall Function_68_571D
 	or a, a
 	jr z, Label_65_44AF
 	ld hl, $DEAB
 	ld de, $B071
 	ld b, $02
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 	ld hl, $DEB4
 	ld de, $B07A
 	ld b, $02
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_44DD:: ; 65:44DD
 	ld a, $01
-	call FarCall
-	dw Function_67_4631
-	db BANK(Function_67_4631)
+	farcall Function_67_4631
 	or a, a
 	jr z, Label_65_44FC
 	cp a, $01
@@ -794,164 +652,114 @@ Label_65_44DD:: ; 65:44DD
 	ld hl, $B08A
 	ld a, $01
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
+	farcall Function_68_4B48
 	jr Label_65_4526
 
 Label_65_44FC:: ; 65:44FC
 	ld hl, $B08A
 	ld a, $01
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
-	call FarCall
-	dw Function_67_41FE
-	db BANK(Function_67_41FE)
+	farcall Function_68_4B48
+	farcall Function_67_41FE
 	jr Label_65_44B8
 
 Label_65_4511:: ; 65:4511
 	ld hl, $B08A
 	xor a, a
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
-	call FarCall
-	dw Function_67_41FE
-	db BANK(Function_67_41FE)
+	farcall Function_68_4B48
+	farcall Function_67_41FE
 	jp Label_65_4372
 
 Label_65_4526:: ; 65:4526
 	ld a, $0C
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_44DD
 
 Label_65_4531:: ; 65:4531
 	ld a, $00
-	call FarCall
-	dw Function_67_422B
-	db BANK(Function_67_422B)
+	farcall Function_67_422B
 	or a, a
 	jr z, Label_65_4526
 	ld hl, $DEDD
 	ld de, $B08B
 	ld b, $08
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_454A:: ; 65:454A
 	ld a, $01
-	call FarCall
-	dw Function_67_422B
-	db BANK(Function_67_422B)
+	farcall Function_67_422B
 	or a, a
 	jr z, Label_65_4531
 	ld hl, $DEEE
 	ld de, $B09C
 	ld b, $10
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_4563:: ; 65:4563
-	call FarCall
-	dw Function_67_4924
-	db BANK(Function_67_4924)
+	farcall Function_67_4924
 	or a, a
 	jr z, Label_65_454A
 	ld hl, $DEFF
 	ld de, $B0AD
 	ld b, $20
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_457A:: ; 65:457A
 	xor a, a
-	call FarCall
-	dw Function_68_60BB
-	db BANK(Function_68_60BB)
+	farcall Function_68_60BB
 	or a, a
 	jr z, Label_65_4563
 
 Label_65_4584:: ; 65:4584
 	ld hl, $DEB9
 	ld de, $DED4
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	xor a, a
-	call FarCall
-	dw Function_68_5D00
-	db BANK(Function_68_5D00)
+	farcall Function_68_5D00
 	push af
 	call Function_65_4761
 	ld hl, $DED4
 	ld de, $DEB9
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	pop af
 	or a, a
 	jr z, Label_65_457A
 	ld hl, $DECB
 	ld de, $DED4
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	ld a, $01
-	call FarCall
-	dw Function_68_5D00
-	db BANK(Function_68_5D00)
+	farcall Function_68_5D00
 	push af
 	ld hl, $DED4
 	ld de, $DECB
-	call FarCall
-	dw Function_68_4021
-	db BANK(Function_68_4021)
+	farcall Function_68_4021
 	pop af
 	or a, a
 	jr z, Label_65_4584
-	call FarCall
-	dw Function_65_473F
-	db BANK(Function_65_473F)
+	farcall Function_65_473F
 	ld a, b
 	or a, a
 	jr z, Label_65_45F9
 	ld a, $F0
 	ld hl, $0010
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 	ld hl, $DEB9
-	call FarCall
-	dw Function_68_403B
-	db BANK(Function_68_403B)
+	farcall Function_68_403B
 	ld hl, $DECB
-	call FarCall
-	dw Function_68_403B
-	db BANK(Function_68_403B)
+	farcall Function_68_403B
 	jr Label_65_4584
 
 Label_65_45F9:: ; 65:45F9
 	ld hl, $DEB9
 	ld de, $B07F
 	ld b, $04
-	call FarCall
-	dw Function_68_4A4A
-	db BANK(Function_68_4A4A)
+	farcall Function_68_4A4A
 
 Label_65_4607:: ; 65:4607
 	xor a, a
-	call FarCall
-	dw Function_67_6536
-	db BANK(Function_67_6536)
+	farcall Function_67_6536
 	or a, a
 	jp z, Label_65_4584
 	cp a, $02
@@ -967,14 +775,10 @@ Label_65_461B:: ; 65:461B
 	ld hl, $B088
 	ld a, [wRam_C27A]
 	ld b, $00
-	call FarCall
-	dw Function_68_4B48
-	db BANK(Function_68_4B48)
+	farcall Function_68_4B48
 
 Label_65_462C:: ; 65:462C
-	call FarCall
-	dw Function_68_6435
-	db BANK(Function_68_6435)
+	farcall Function_68_6435
 	or a, a
 	jp z, Label_65_4607
 	cp a, $02
@@ -986,124 +790,108 @@ Label_65_462C:: ; 65:462C
 ; ---- code $4642-$46E5 (163 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 3/18 scenarios)
 
 Label_65_4642:: ; 65:4642
-	call FarCall
-	dw Function_68_4C2B
-	db BANK(Function_68_4C2B)
+	farcall Function_68_4C2B
 	ld b, $00
 	ld a, $01
 	ld hl, $A880
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld a, [wRam_C27A]
 	or a, a
 	jr z, Label_65_4661
-	call FarCall
-	dw Function_65_47EA
-	db BANK(Function_65_47EA)
+	farcall Function_65_47EA
 
 Label_65_4661:: ; 65:4661
-	call FarCall
-	dw Function_68_6AE0
-	db BANK(Function_68_6AE0)
+	farcall Function_68_6AE0
 	or a, a
 	jp z, Label_65_46CA
-	call FarCall
-	dw Function_68_49B6
-	db BANK(Function_68_49B6)
+	farcall Function_68_49B6
 	xor a, a
-	call FarCall
-	dw Function_68_6E1A
-	db BANK(Function_68_6E1A)
+	farcall Function_68_6E1A
 	cp a, $01
 	jr nz, Label_65_46CA
-	call FarCall
-	dw Function_68_7019
-	db BANK(Function_68_7019)
+	farcall Function_68_7019
 	or a, a
 	jr z, Label_65_46CA
 	ld b, $00
-	call FarCall
-	dw Function_68_4499
-	db BANK(Function_68_4499)
-	call FarCall
-	dw Function_68_43F4
-	db BANK(Function_68_43F4)
-	call FarCall
-	dw Function_68_4735
-	db BANK(Function_68_4735)
-	call FarCall
-	dw Function_68_43B9
-	db BANK(Function_68_43B9)
+	farcall Function_68_4499
+	farcall Function_68_43F4
+	farcall Function_68_4735
+	farcall Function_68_43B9
 	ld a, [wRam_C28C]
-	call FarCall
-	dw Function_68_453B
-	db BANK(Function_68_453B)
-	call FarCall
-	dw Function_68_49B6
-	db BANK(Function_68_49B6)
+	farcall Function_68_453B
+	farcall Function_68_49B6
 	xor a, a
 	ld b, a
-	call FarCall
-	dw Function_68_766E
-	db BANK(Function_68_766E)
+	farcall Function_68_766E
 
 Label_65_46B6:: ; 65:46B6
 	ld a, $05
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	ld a, $06
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_46B6
 	ret
 
 Label_65_46CA:: ; 65:46CA
-	call FarCall
-	dw Function_68_40F1
-	db BANK(Function_68_40F1)
+	farcall Function_68_40F1
 	or a, a
 	jr z, Label_65_46DD
 	ld a, $04
 	ld b, $01
-	call FarCall
-	dw Function_68_766E
-	db BANK(Function_68_766E)
+	farcall Function_68_766E
 
 Label_65_46DD:: ; 65:46DD
 	ld a, $04
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 
 ; ---- code $46E5-$46FF (26 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
-	call FarCall
-	dw Function_68_4DB4
-	db BANK(Function_68_4DB4)
+	farcall Function_68_4DB4
 
 Label_65_46EB:: ; 65:46EB
 	ld a, $05
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	ld a, $06
-	call FarCall
-	dw Function_65_487C
-	db BANK(Function_65_487C)
+	farcall Function_65_487C
 	or a, a
 	jr z, Label_65_46EB
 	ret
 
-; ---- data $46FF-$473F (64 bytes) [HYPOTHESIS] UNCLASSIFIED 64 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $46FF-$471F (32 bytes) [HYPOTHESIS] sibling of the executed Function_65_473F (same 32-byte shape: save FFF2/FF8D, switch WRAM bank 3, call $14BF with hl=$DECB de=$DEB9, restore); clean decode to ret; no caller or table entry found in the ROM (raw far-call/call/word scan), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DECB
+	ld de, $DEB9
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
 
-Data_65_46FF:: ; 65:46FF
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $21, $CB, $DE
-	db $11, $B9, $DE, $CD, $BF, $14, $E0, $F2, $F1, $E0, $8D, $E0, $70, $F0, $F2, $C9
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $21, $CB, $DE
-	db $11, $C2, $DE, $CD, $BF, $14, $E0, $F2, $F1, $E0, $8D, $E0, $70, $F0, $F2, $C9
+; ---- code $471F-$473F (32 bytes) [HYPOTHESIS] sibling of the executed Function_65_473F (same shape, de=$DEC2); clean decode to ret; no caller or table entry found, entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DECB
+	ld de, $DEC2
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
 
 ; ---- code $473F-$481A (219 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1148,9 +936,7 @@ Function_65_4761:: ; 65:4761
 	or a, a
 	jr z, Label_65_47C7
 	ld hl, $DECB
-	call FarCall
-	dw Function_68_403B
-	db BANK(Function_68_403B)
+	farcall Function_68_403B
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -1224,27 +1010,19 @@ Function_65_47EA:: ; 65:47EA
 	call StringLength
 	ld a, c
 	ld de, $C28F
-	call FarCall
-	dw Function_57_541C
-	db BANK(Function_57_541C)
+	farcall Function_57_541C
 	ret
 
 ; ---- code $481A-$487C (98 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: site x37; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_68_48DE
-	db BANK(Function_68_48DE)
+	farcall Function_68_48DE
 	cp a, $02
 	jr z, Label_65_4852
 	cp a, $03
 	jr z, Label_65_485D
-	call FarCall
-	dw Function_48_4899
-	db BANK(Function_48_4899)
+	farcall Function_48_4899
 	or a, a
 	jr nz, Label_65_4852
-	call FarCall
-	dw Function_4E_46CF
-	db BANK(Function_4E_46CF)
+	farcall Function_4E_46CF
 	or a, a
 	jr nz, Label_65_4852
 	ld a, $0A
@@ -1263,17 +1041,11 @@ Function_65_47EA:: ; 65:47EA
 Label_65_4852:: ; 65:4852
 	ld a, $F0
 	ld hl, $0111
-	call FarCall
-	dw Function_5C_5150
-	db BANK(Function_5C_5150)
+	farcall Function_5C_5150
 
 Label_65_485D:: ; 65:485D
-	call FarCall
-	dw Function_48_4920
-	db BANK(Function_48_4920)
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_48_4920
+	farcall Function_4E_4749
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -1290,9 +1062,7 @@ Function_65_487C:: ; 65:487C
 	ld [wRam_C27C], a
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	call Function_00_044B
 	ldh a, [rLCDC]
 	and a, $9F
@@ -1304,9 +1074,7 @@ Function_65_487C:: ; 65:487C
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	call Function_00_0392
 	ld a, [wRam_C27C]
 	ld b, $00
@@ -1327,16 +1095,12 @@ Function_65_487C:: ; 65:487C
 	ld a, $58
 	ld b, $96
 	ld c, $1D
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0028
 	ld de, $D800
 	ld hl, $7B50
 	ld a, $58
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld a, [wRam_C27E]
 	ld l, a
 	ld a, [wRam_C27F]
@@ -1348,9 +1112,7 @@ Function_65_487C:: ; 65:487C
 	ld de, $D000
 	ld hl, $7B78
 	ld a, $58
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	jr Label_65_4919
 
 Label_65_4908:: ; 65:4908
@@ -1358,9 +1120,7 @@ Label_65_4908:: ; 65:4908
 	ld de, $D000
 	ld hl, $4000
 	ld a, $4B
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 
 Label_65_4919:: ; 65:4919
 	ldh a, [rLCDC]
@@ -1370,9 +1130,7 @@ Label_65_4919:: ; 65:4919
 	call Function_65_49A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	call Function_65_4BA8
 	ld a, [wRam_C280]
 	cp a, $02
@@ -1380,12 +1138,8 @@ Label_65_4919:: ; 65:4919
 
 Label_65_493C:: ; 65:493C
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $494E-$4958 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 65:494B: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
@@ -1411,9 +1165,7 @@ Label_65_495B:: ; 65:495B
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $01
 	ret
 
@@ -1434,9 +1186,7 @@ Label_65_4981:: ; 65:4981
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
@@ -1454,9 +1204,7 @@ Function_65_49A2:: ; 65:49A2
 	ld de, $FFFF
 	ld hl, $0301
 	ld bc, $0C12
-	call FarCall
-	dw Function_4F_4604
-	db BANK(Function_4F_4604)
+	farcall Function_4F_4604
 	ld a, [wRam_C27E]
 	ld l, a
 	ld a, [wRam_C27F]
@@ -1499,27 +1247,19 @@ Function_65_49A2:: ; 65:49A2
 	ld de, $9000
 	ld hl, $0301
 	ld bc, $0712
-	call FarCall
-	dw Function_4F_4572
-	db BANK(Function_4F_4572)
+	farcall Function_4F_4572
 	ld de, $8800
 	ld hl, $0A01
 	ld bc, $0512
-	call FarCall
-	dw Function_4F_4572
-	db BANK(Function_4F_4572)
+	farcall Function_4F_4572
 	ld hl, $D061
 	ld bc, $0712
 	ld de, $0000
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	ld hl, $D141
 	ld bc, $0512
 	ld de, $0080
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	ret
 
 Function_65_4A37:: ; 65:4A37
@@ -1548,9 +1288,7 @@ Function_65_4A37:: ; 65:4A37
 	ld de, $9301
 	ld b, $95
 	ld c, $28
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	pop hl
 	inc hl
 	ld a, [hl]
@@ -1568,67 +1306,18 @@ Function_65_4A37:: ; 65:4A37
 	ld a, $58
 	ld b, $95
 	ld c, $28
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ret
 
-; ---- data $4A81-$4A84 (3 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $4A81-$4AD7 (86 bytes) [PROBABLE] descriptor table read by the executed code (up to 9 scenarios), 86 bytes: repeating groups of a flag byte (D0/50/90/10/40/C0) + 16-bit address (5841 5844 5846 ... = bank-58 tile sources; 4B5B 4B5E 4B60 ... and 7172 7174 = bank-65 / other addresses); exact record layout not decoded; the mapper 1-6 byte holes (4A84 4A90 4A9C 4AB1 4ACF) were unread bytes of this same table
 
 Data_65_4A81:: ; 65:4A81
-	db $D0, $41, $58
-
-; ---- data $4A84-$4A87 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4A84:: ; 65:4A84
-	db $50, $44, $58
-
-; ---- data $4A87-$4A90 (9 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4A87:: ; 65:4A87
-	db $D0, $46, $58, $50, $49, $58, $D0, $4B, $58
-
-; ---- data $4A90-$4A96 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4A90:: ; 65:4A90
-	db $50, $4E, $58, $D0, $50, $58
-
-; ---- data $4A96-$4A9C (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4A96:: ; 65:4A96
-	db $50, $53, $58, $D0, $55, $58
-
-; ---- data $4A9C-$4A9F (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4A9C:: ; 65:4A9C
-	db $50, $58, $58
-
-; ---- data $4A9F-$4AB1 (18 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4A9F:: ; 65:4A9F
-	db $D0, $5A, $58, $50, $5D, $58, $D0, $5F, $58, $50, $62, $58, $D0, $64, $58, $50
-	db $67, $58
-
-; ---- data $4AB1-$4ABD (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4AB1:: ; 65:4AB1
-	db $90, $5B, $4B, $10, $5E, $4B, $90, $60, $4B, $10, $63, $4B
-
-; ---- data $4ABD-$4ACF (18 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown
-
-Data_65_4ABD:: ; 65:4ABD
-	db $90, $65, $4B, $10, $68, $4B, $40, $72, $71, $C0, $74, $71, $D0, $69, $50, $6C
-	db $D0, $6E
-
-; ---- data $4ACF-$4AD3 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4ACF:: ; 65:4ACF
-	db $50, $71, $D0, $73
-
-; ---- data $4AD3-$4AD7 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4AD3:: ; 65:4AD3
-	db $50, $76, $D0, $78
+	db $D0, $41, $58, $50, $44, $58, $D0, $46, $58, $50, $49, $58, $D0, $4B, $58, $50
+	db $4E, $58, $D0, $50, $58, $50, $53, $58, $D0, $55, $58, $50, $58, $58, $D0, $5A
+	db $58, $50, $5D, $58, $D0, $5F, $58, $50, $62, $58, $D0, $64, $58, $50, $67, $58
+	db $90, $5B, $4B, $10, $5E, $4B, $90, $60, $4B, $10, $63, $4B, $90, $65, $4B, $10
+	db $68, $4B, $40, $72, $71, $C0, $74, $71, $D0, $69, $50, $6C, $D0, $6E, $50, $71
+	db $D0, $73, $50, $76, $D0, $78
 
 ; ---- code $4AD7-$4B78 (161 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1680,9 +1369,7 @@ Label_65_4AEF:: ; 65:4AEF
 	ld bc, $0201
 	ld de, $D210
 	ld a, $58
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	pop hl
 	ld a, [hl]
 	push af
@@ -1710,9 +1397,7 @@ Label_65_4AEF:: ; 65:4AEF
 	ld bc, $0201
 	ld de, $D212
 	ld a, $58
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld a, $0A
 	push af
 	ld a, [wRam_C281]
@@ -1739,55 +1424,25 @@ Label_65_4AEF:: ; 65:4AEF
 	ld bc, $0201
 	ld de, $D211
 	ld a, $58
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ret
 
-; ---- data $4B78-$4B7C (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+; ---- words $4B78-$4B7C (4 bytes) [PROBABLE] 2 pointers to the two lists below (4B7C, 4B92), read by the executed function 4AD7
 
-Data_65_4B78:: ; 65:4B78
-	db $7C, $4B, $92, $4B
+Table_65_4B78:: ; 65:4B78
+	dw Table_65_4B7C, Table_65_4B92
 
-; ---- data $4B7C-$4B7E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4B7C-$4B92 (22 bytes) [PROBABLE] 11 words 7E48 7E4C ... 7E70 = addresses of the first 11 four-byte digit-glyph records (top tile, bottom tile, attr, attr) at 58:7E48 (bank 58 table 7E48-7EA0, 22 records); bank-58 addresses, not bank 65
 
-Data_65_4B7C:: ; 65:4B7C
-	db $48, $7E
+Table_65_4B7C:: ; 65:4B7C
+	dw $7E48, $7E4C, $7E50, $7E54, $7E58, $7E5C, $7E60, $7E64
+	dw $7E68, $7E6C, $7E70
 
-; ---- data $4B7E-$4B84 (6 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+; ---- words $4B92-$4BA8 (22 bytes) [PROBABLE] 11 words 7E74 7E78 ... 7E9C = addresses of the other 11 four-byte records (attr 0A variant) at 58:7E74-7E9C; bank-58 addresses, not bank 65
 
-Data_65_4B7E:: ; 65:4B7E
-	db $4C, $7E, $50, $7E, $54, $7E
-
-; ---- data $4B84-$4B90 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4B84:: ; 65:4B84
-	db $58, $7E, $5C, $7E, $60, $7E, $64, $7E, $68, $7E, $6C, $7E
-
-; ---- data $4B90-$4B92 (2 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
-
-Data_65_4B90:: ; 65:4B90
-	db $70, $7E
-
-; ---- data $4B92-$4B94 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4B92:: ; 65:4B92
-	db $74, $7E
-
-; ---- data $4B94-$4B98 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4B94:: ; 65:4B94
-	db $78, $7E, $7C, $7E
-
-; ---- data $4B98-$4BA6 (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4B98:: ; 65:4B98
-	db $80, $7E, $84, $7E, $88, $7E, $8C, $7E, $90, $7E, $94, $7E, $98, $7E
-
-; ---- data $4BA6-$4BA8 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4BA6:: ; 65:4BA6
-	db $9C, $7E
+Table_65_4B92:: ; 65:4B92
+	dw $7E74, $7E78, $7E7C, $7E80, $7E84, $7E88, $7E8C, $7E90
+	dw $7E94, $7E98, $7E9C
 
 ; ---- code $4BA8-$4BC6 (30 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1811,389 +1466,217 @@ Function_65_4BA8:: ; 65:4BA8
 	ldh [rSVBK], a
 	ret
 
-; ---- data $4BC6-$4BD0 (10 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $4BC6-$4BE2 (28 bytes) [PROBABLE] 28 bytes read by the executed function 4BA8 (ld hl,$4BC6 ; indexed by [C27C]): 09 09 09 09 09 19 19 09 09 09 09 13 09 x12 then 00 00 00 00 (attribute-like/byte table); 1-byte unread holes at 4BD0 4BD2 4BD8 4BE1 merged
 
 Data_65_4BC6:: ; 65:4BC6
-	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09
+	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09, $09, $13, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $00, $00, $00, $00
 
-; ---- data $4BD0-$4BD1 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4BD0:: ; 65:4BD0
-	db $09
-
-; ---- data $4BD1-$4BD2 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_4BD1:: ; 65:4BD1
-	db $13
-
-; ---- data $4BD2-$4BD5 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4BD2:: ; 65:4BD2
-	db $09, $09, $09
-
-; ---- data $4BD5-$4BD8 (3 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4BD5:: ; 65:4BD5
-	db $09, $09, $09
-
-; ---- data $4BD8-$4BD9 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4BD8:: ; 65:4BD8
-	db $09
-
-; ---- data $4BD9-$4BE1 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4BD9:: ; 65:4BD9
-	db $09, $09, $09, $09, $09, $00, $00, $00
-
-; ---- data $4BE1-$4BE2 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4BE1:: ; 65:4BE1
-	db $00
-
-; ---- data $4BE2-$4BF9 (23 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- data $4BE2-$4C6C (138 bytes) [PROBABLE] 23 records x 6 bytes: 16-bit pointer to a dialogue string (6E 4C -> 4C6E, FA 4C -> 4CFA, 50 4D -> 4D50 ... every pointer lands exactly on a string start of analysis/strings.tsv) + 4 bytes (id, 0/1/2 flags..., last byte unread in traces); the 1-byte and 6-byte mapper holes are the unread 6th bytes
 
 Data_65_4BE2:: ; 65:4BE2
 	db $6E, $4C, $02, $01, $01, $03, $FA, $4C, $02, $01, $02, $03, $50, $4D, $02, $01
-	db $03, $03, $0D, $4E, $03, $02, $00
+	db $03, $03, $0D, $4E, $03, $02, $00, $00, $88, $4E, $04, $00, $01, $02, $D4, $4E
+	db $04, $05, $02, $02, $3E, $4F, $16, $01, $00, $00, $C1, $4F, $0F, $01, $01, $02
+	db $5A, $50, $15, $01, $02, $02, $EE, $50, $06, $06, $00, $00, $57, $51, $07, $02
+	db $00, $00, $79, $51, $10, $01, $00, $00, $02, $52, $11, $06, $00, $00, $A8, $52
+	db $12, $06, $00, $00, $CE, $52, $08, $01, $00, $00, $EE, $52, $14, $01, $00, $00
+	db $89, $53, $0A, $06, $00, $00, $24, $54, $13, $06, $00, $00, $46, $54, $0B, $01
+	db $00, $00, $BA, $54, $0C, $06, $00, $00, $34, $55, $0D, $01, $00, $00, $58, $55
+	db $0E, $06, $00, $00, $02, $56, $17, $00, $00, $00
 
-; ---- data $4BF9-$4BFA (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4C6C-$4C6E (2 bytes) [PROBABLE] 24 56 = word 5624, the 24th string pointer of Data_65_4BE2 (string at 5624 exists); the mapper included these two bytes in the text run
 
-Data_65_4BF9:: ; 65:4BF9
-	db $00
+Data_65_4C6C:: ; 65:4C6C
+	db $24, $56
 
-; ---- data $4BFA-$4C0B (17 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_65_4BFA:: ; 65:4BFA
-	db $88, $4E, $04, $00, $01, $02, $D4, $4E, $04, $05, $02, $02, $3E, $4F, $16, $01
-	db $00
-
-; ---- data $4C0B-$4C0C (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C0B:: ; 65:4C0B
-	db $00
-
-; ---- data $4C0C-$4C1A (14 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_65_4C0C:: ; 65:4C0C
-	db $C1, $4F, $0F, $01, $01, $02, $5A, $50, $15, $01, $02, $02, $EE, $50
-
-; ---- data $4C1A-$4C20 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C1A:: ; 65:4C1A
-	db $06, $06, $00, $00, $57, $51
-
-; ---- data $4C20-$4C23 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_4C20:: ; 65:4C20
-	db $07, $02, $00
-
-; ---- data $4C23-$4C24 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C23:: ; 65:4C23
-	db $00
-
-; ---- data $4C24-$4C26 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_4C24:: ; 65:4C24
-	db $79, $51
-
-; ---- data $4C26-$4C38 (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C26:: ; 65:4C26
-	db $10, $01, $00, $00, $02, $52, $11, $06, $00, $00, $A8, $52, $12, $06, $00, $00
-	db $CE, $52
-
-; ---- data $4C38-$4C3B (3 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4C38:: ; 65:4C38
-	db $08, $01, $00
-
-; ---- data $4C3B-$4C3C (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C3B:: ; 65:4C3B
-	db $00
-
-; ---- data $4C3C-$4C41 (5 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4C3C:: ; 65:4C3C
-	db $EE, $52, $14, $01, $00
-
-; ---- data $4C41-$4C42 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C41:: ; 65:4C41
-	db $00
-
-; ---- data $4C42-$4C47 (5 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_65_4C42:: ; 65:4C42
-	db $89, $53, $0A, $06, $00
-
-; ---- data $4C47-$4C48 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C47:: ; 65:4C47
-	db $00
-
-; ---- data $4C48-$4C4A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_4C48:: ; 65:4C48
-	db $24, $54
-
-; ---- data $4C4A-$4C50 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C4A:: ; 65:4C4A
-	db $13, $06, $00, $00, $46, $54
-
-; ---- data $4C50-$4C53 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4C50:: ; 65:4C50
-	db $0B, $01, $00
-
-; ---- data $4C53-$4C54 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C53:: ; 65:4C53
-	db $00
-
-; ---- data $4C54-$4C59 (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4C54:: ; 65:4C54
-	db $BA, $54, $0C, $06, $00
-
-; ---- data $4C59-$4C5A (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C59:: ; 65:4C59
-	db $00
-
-; ---- data $4C5A-$4C5F (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4C5A:: ; 65:4C5A
-	db $34, $55, $0D, $01, $00
-
-; ---- data $4C5F-$4C60 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C5F:: ; 65:4C5F
-	db $00
-
-; ---- data $4C60-$4C65 (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_4C60:: ; 65:4C60
-	db $58, $55, $0E, $06, $00
-
-; ---- data $4C65-$4C66 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C65:: ; 65:4C65
-	db $00
-
-; ---- data $4C66-$4C6B (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_65_4C66:: ; 65:4C66
-	db $02, $56, $17, $00, $00
-
-; ---- data $4C6B-$4C6C (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_4C6B:: ; 65:4C6B
-	db $00
-
-; ---- text $4C6C-$567F (2579 bytes) [PROBABLE] text: 24 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-
-String_65_4C6C:: ; 65:4C6C
-	db $24, $56, $82, $63, $82, $68, $82, $6E, $82, $6D, $82, $D6, $82, $CC, $8F, $89
-	db $8A, $FA, $93, $6F, $98, $5E, $0D, $81, $69, $82, $B5, $82, $E5, $82, $AB, $82
-	db $C6, $82, $A4, $82, $EB, $82, $AD, $81, $6A, $82, $F0, $82, $CD, $82, $B6, $0D
-	db $82, $DF, $82, $DC, $82, $B7, $81, $42, $0D, $0D, $82, $A8, $82, $CB, $82, $AA
-	db $82, $A2, $81, $46, $0D, $8F, $AC, $82, $B3, $82, $A2, $82, $A8, $8E, $71, $82
-	db $B3, $82, $DC, $82, $CD, $81, $41, $82, $A9, $82, $C8, $82, $E7, $0D, $82, $B8
-	db $82, $A8, $82, $A4, $82, $BF, $82, $CC, $90, $6C, $82, $C6, $82, $A2, $82, $C1
-	db $82, $B5, $82, $E5, $82, $C9, $0D, $82, $C6, $82, $A4, $82, $EB, $82, $AD, $82
-	db $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $83, $82
-	db $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66
-	db $82, $61, $82, $CC, $94, $A0, $0D, $82, $C9, $93, $FC, $82, $C1, $82, $C4, $82
-	db $A2, $82, $E9, $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $E2, $0D
-	db $93, $6F, $98, $5E, $8F, $91, $82, $F0, $82, $A8, $8E, $E8, $8C, $B3, $82, $C9
-	db $97, $70, $88, $D3, $82, $B5, $82, $C4, $0D, $82, $AD, $82, $BE, $82, $B3, $82
-	db $A2, $81, $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58
-	db $83, $65, $83, $80, $82, $66, $82, $61, $82, $F0, $97, $98, $0D, $97, $70, $82
-	db $B3, $82, $EA, $82, $E9, $82, $BD, $82, $DF, $82, $C9, $82, $CD, $82, $6A, $82
-	db $63, $82, $63, $49, $0D, $81, $75, $91, $8D, $8D, $87, $83, $49, $81, $5B, $83
-	db $76, $83, $93, $92, $CA, $90, $4D, $96, $D4, $83, $54, $81, $5B, $0D, $83, $72
-	db $83, $58, $8C, $5F, $96, $F1, $96, $F1, $8A, $BC, $81, $76, $94, $43, $93, $56
-	db $93, $B0, $81, $75, $83, $82, $0D, $83, $6F, $83, $43, $83, $8B, $83, $56, $83
-	db $58, $83, $65, $83, $80, $82, $66, $82, $61, $82, $B2, $97, $98, $97, $70, $0D
-	db $8B, $4B, $96, $F1, $81, $76, $82, $C9, $93, $AF, $88, $D3, $82, $CC, $8F, $E3
-	db $81, $41, $93, $6F, $98, $5E, $82, $F0, $0D, $8D, $73, $82, $C8, $82, $C1, $82
-	db $C4, $82, $A2, $82, $BD, $82, $BE, $82, $AD, $82, $E6, $82, $A4, $82, $A8, $8A
-	db $E8, $0D, $82, $A2, $82, $A2, $82, $BD, $82, $B5, $82, $DC, $82, $B7, $81, $42
-	db $00, $96, $F1, $8A, $BC, $81, $45, $8B, $4B, $96, $F1, $82, $CD, $81, $41, $82
-	db $63, $82, $68, $82, $6E, $82, $6D, $83, $82, $0D, $83, $6F, $83, $43, $83, $8B
-	db $82, $66, $82, $61, $83, $52, $81, $5B, $83, $58, $93, $6F, $98, $5E, $8F, $91
-	db $81, $45, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83
-	db $76, $83, $5E, $82, $66, $82, $61, $8E, $E6, $88, $B5, $0D, $90, $E0, $96, $BE
-	db $8F, $91, $82, $C9, $8F, $91, $82, $A9, $82, $EA, $82, $C4, $82, $A2, $82, $DC
-	db $82, $B7, $82, $CC, $0D, $82, $C5, $95, $4B, $82, $B8, $82, $A8, $93, $C7, $82
-	db $DD, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $8F, $89, $8A, $FA
-	db $93, $6F, $98, $5E, $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC, $82, $B5
-	db $82, $BD, $81, $42, $0D, $0D, $83, $51, $81, $5B, $83, $80, $83, $7B, $81, $5B
-	db $83, $43, $82, $CC, $93, $64, $8C, $B9, $83, $58, $83, $43, $83, $62, $0D, $83
-	db $60, $82, $F0, $82, $6E, $82, $65, $82, $65, $82, $C9, $82, $B5, $82, $C4, $82
-	db $AD, $82, $BE, $82, $B3, $82, $A2, $00, $83, $82, $83, $6F, $83, $43, $83, $8B
-	db $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82, $61, $82, $D6, $0D, $82
-	db $E6, $82, $A4, $82, $B1, $82, $BB, $81, $49, $0D, $0D, $8D, $A1, $93, $FA, $82
-	db $A9, $82, $E7, $83, $81, $81, $5B, $83, $8B, $82, $E2, $94, $43, $93, $56, $93
-	db $B0, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83, $80
-	db $83, $79, $81, $5B, $83, $57, $82, $C8, $82, $C7, $0D, $82, $AA, $82, $B2, $97
-	db $98, $97, $70, $82, $A2, $82, $BD, $82, $BE, $82, $AF, $82, $DC, $82, $B7, $81
-	db $42, $00, $94, $A0, $82, $C9, $93, $FC, $82, $C1, $82, $C4, $82, $A2, $82, $E9
-	db $81, $75, $93, $6F, $98, $5E, $8F, $91, $81, $76, $0D, $82, $F0, $8B, $4C, $93
-	db $FC, $82, $B5, $82, $C4, $81, $41, $95, $95, $93, $9B, $82, $C9, $93, $FC, $82
-	db $EA, $82, $C4, $0D, $82, $6A, $82, $63, $82, $63, $82, $68, $82, $C9, $97, $58
-	db $91, $97, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $0D, $82, $A2, $81
-	db $42, $0D, $0D, $82, $BB, $82, $EA, $82, $C5, $82, $CD, $83, $82, $83, $6F, $83
-	db $43, $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $0D, $82, $66, $82, $61
-	db $82, $F0, $82, $A8, $8A, $79, $82, $B5, $82, $DD, $82, $AD, $82, $BE, $82, $B3
-	db $82, $A2, $81, $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83
-	db $58, $83, $65, $83, $80, $82, $66, $82, $61, $82, $CC, $0D, $83, $54, $81, $5B
-	db $83, $72, $83, $58, $82, $F0, $97, $98, $97, $70, $82, $B3, $82, $EA, $82, $E9
-	db $8F, $EA, $8D, $87, $0D, $92, $CA, $98, $62, $97, $BF, $88, $C8, $8A, $4F, $82
-	db $C9, $97, $98, $97, $70, $97, $BF, $82, $AA, $82, $A9, $82, $A9, $0D, $82, $E9
-	db $82, $B1, $82, $C6, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42
-	db $0D, $82, $AD, $82, $ED, $82, $B5, $82, $AD, $82, $CD, $83, $82, $83, $6F, $83
-	db $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $0D, $83, $5E, $82, $66, $82, $61
-	db $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $F0, $82, $A8, $93, $C7
-	db $82, $DD, $0D, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $83, $82
-	db $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66
-	db $82, $61, $82, $C6, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83
-	db $8C, $81, $5B, $83, $69, $81, $5B, $82, $C9, $95, $DB, $91, $B6, $0D, $82, $B3
-	db $82, $EA, $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC
-	db $8F, $EE, $95, $F1, $82, $F0, $0D, $8D, $ED, $8F, $9C, $82, $B5, $82, $DC, $82
-	db $B7, $81, $42, $8D, $ED, $8F, $9C, $82, $B7, $82, $E9, $91, $4F, $82, $C9, $0D
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69
-	db $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $0D, $90, $E0, $96, $BE, $8F, $91, $82
-	db $F0, $82, $A8, $93, $C7, $82, $DD, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81
-	db $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76
-	db $83, $5E, $82, $66, $82, $61, $82, $F0, $0D, $91, $BC, $90, $6C, $82, $C9, $82
-	db $E4, $82, $B8, $82, $C1, $82, $BD, $82, $E8, $81, $41, $91, $DD, $82, $B5, $82
-	db $BD, $0D, $82, $E8, $81, $41, $8F, $88, $95, $AA, $82, $B7, $82, $E9, $82, $C6
-	db $82, $AB, $82, $C9, $82, $CD, $81, $41, $95, $4B, $0D, $82, $B8, $93, $6F, $98
-	db $5E, $8F, $EE, $95, $F1, $82, $F0, $8D, $ED, $8F, $9C, $82, $B5, $82, $C4, $82
-	db $AD, $82, $BE, $0D, $82, $B3, $82, $A2, $81, $42, $00, $0D, $0D, $93, $6F, $98
-	db $5E, $8F, $EE, $95, $F1, $82, $CC, $8D, $ED, $8F, $9C, $82, $F0, $92, $86, $8E
-	db $7E, $82, $B5, $82, $DC, $0D, $82, $B5, $82, $BD, $81, $42, $00, $93, $6F, $98
-	db $5E, $8F, $EE, $95, $F1, $82, $F0, $8A, $AE, $91, $53, $82, $C9, $8D, $ED, $8F
-	db $9C, $82, $B5, $82, $DC, $0D, $82, $B5, $82, $BD, $81, $42, $0D, $82, $E0, $82
-	db $A4, $88, $EA, $93, $78, $97, $98, $97, $70, $82, $B3, $82, $EA, $82, $BD, $82
-	db $A2, $8F, $EA, $8D, $87, $0D, $82, $CD, $81, $41, $8F, $89, $8A, $FA, $93, $6F
-	db $98, $5E, $82, $F0, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $0D, $82
-	db $A2, $81, $42, $0D, $83, $51, $81, $5B, $83, $80, $83, $7B, $81, $5B, $83, $43
+; ---- text $4C6E-$567F (2577 bytes) [PROBABLE] text: 24 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+	db $82, $63, $82, $68, $82, $6E, $82, $6D, $82, $D6, $82, $CC, $8F, $89, $8A, $FA
+	db $93, $6F, $98, $5E, $0D, $81, $69, $82, $B5, $82, $E5, $82, $AB, $82, $C6, $82
+	db $A4, $82, $EB, $82, $AD, $81, $6A, $82, $F0, $82, $CD, $82, $B6, $0D, $82, $DF
+	db $82, $DC, $82, $B7, $81, $42, $0D, $0D, $82, $A8, $82, $CB, $82, $AA, $82, $A2
+	db $81, $46, $0D, $8F, $AC, $82, $B3, $82, $A2, $82, $A8, $8E, $71, $82, $B3, $82
+	db $DC, $82, $CD, $81, $41, $82, $A9, $82, $C8, $82, $E7, $0D, $82, $B8, $82, $A8
+	db $82, $A4, $82, $BF, $82, $CC, $90, $6C, $82, $C6, $82, $A2, $82, $C1, $82, $B5
+	db $82, $E5, $82, $C9, $0D, $82, $C6, $82, $A4, $82, $EB, $82, $AD, $82, $B5, $82
+	db $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $83, $82, $83, $6F
+	db $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66, $82, $61
+	db $82, $CC, $94, $A0, $0D, $82, $C9, $93, $FC, $82, $C1, $82, $C4, $82, $A2, $82
+	db $E9, $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $E2, $0D, $93, $6F
+	db $98, $5E, $8F, $91, $82, $F0, $82, $A8, $8E, $E8, $8C, $B3, $82, $C9, $97, $70
+	db $88, $D3, $82, $B5, $82, $C4, $0D, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81
+	db $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83, $65
+	db $83, $80, $82, $66, $82, $61, $82, $F0, $97, $98, $0D, $97, $70, $82, $B3, $82
+	db $EA, $82, $E9, $82, $BD, $82, $DF, $82, $C9, $82, $CD, $82, $6A, $82, $63, $82
+	db $63, $49, $0D, $81, $75, $91, $8D, $8D, $87, $83, $49, $81, $5B, $83, $76, $83
+	db $93, $92, $CA, $90, $4D, $96, $D4, $83, $54, $81, $5B, $0D, $83, $72, $83, $58
+	db $8C, $5F, $96, $F1, $96, $F1, $8A, $BC, $81, $76, $94, $43, $93, $56, $93, $B0
+	db $81, $75, $83, $82, $0D, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83
+	db $65, $83, $80, $82, $66, $82, $61, $82, $B2, $97, $98, $97, $70, $0D, $8B, $4B
+	db $96, $F1, $81, $76, $82, $C9, $93, $AF, $88, $D3, $82, $CC, $8F, $E3, $81, $41
+	db $93, $6F, $98, $5E, $82, $F0, $0D, $8D, $73, $82, $C8, $82, $C1, $82, $C4, $82
+	db $A2, $82, $BD, $82, $BE, $82, $AD, $82, $E6, $82, $A4, $82, $A8, $8A, $E8, $0D
+	db $82, $A2, $82, $A2, $82, $BD, $82, $B5, $82, $DC, $82, $B7, $81, $42, $00, $96
+	db $F1, $8A, $BC, $81, $45, $8B, $4B, $96, $F1, $82, $CD, $81, $41, $82, $63, $82
+	db $68, $82, $6E, $82, $6D, $83, $82, $0D, $83, $6F, $83, $43, $83, $8B, $82, $66
+	db $82, $61, $83, $52, $81, $5B, $83, $58, $93, $6F, $98, $5E, $8F, $91, $81, $45
+	db $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83
+	db $5E, $82, $66, $82, $61, $8E, $E6, $88, $B5, $0D, $90, $E0, $96, $BE, $8F, $91
+	db $82, $C9, $8F, $91, $82, $A9, $82, $EA, $82, $C4, $82, $A2, $82, $DC, $82, $B7
+	db $82, $CC, $0D, $82, $C5, $95, $4B, $82, $B8, $82, $A8, $93, $C7, $82, $DD, $82
+	db $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $8F, $89, $8A, $FA, $93, $6F
+	db $98, $5E, $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC, $82, $B5, $82, $BD
+	db $81, $42, $0D, $0D, $83, $51, $81, $5B, $83, $80, $83, $7B, $81, $5B, $83, $43
 	db $82, $CC, $93, $64, $8C, $B9, $83, $58, $83, $43, $83, $62, $0D, $83, $60, $82
 	db $F0, $82, $6E, $82, $65, $82, $65, $82, $C9, $82, $B5, $82, $C4, $82, $AD, $82
-	db $BE, $82, $B3, $82, $A2, $00, $93, $64, $98, $62, $94, $D4, $8D, $86, $82, $F0
-	db $8E, $E8, $93, $AE, $82, $C5, $93, $FC, $97, $CD, $82, $B5, $82, $DC, $0D, $82
-	db $B7, $81, $42, $0D, $81, $45, $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C
-	db $83, $62, $83, $67, $93, $64, $98, $62, $94, $D4, $8D, $86, $0D, $81, $45, $83
-	db $5A, $83, $8B, $83, $74, $83, $79, $81, $5B, $83, $57, $93, $64, $98, $62, $94
-	db $D4, $8D, $86, $0D, $81, $45, $93, $64, $98, $62, $94, $D4, $8D, $86, $83, $52
-	db $83, $81, $83, $93, $83, $67, $0D, $82, $F0, $93, $FC, $97, $CD, $82, $B5, $82
-	db $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $0D, $93, $64, $98, $62
-	db $94, $D4, $8D, $86, $82, $CD, $8A, $D4, $88, $E1, $82, $A2, $82, $CC, $82, $C8
-	db $82, $A2, $82, $E6, $0D, $82, $A4, $82, $C9, $8A, $6D, $94, $46, $82, $B5, $82
-	db $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $93, $64, $98, $62
-	db $94, $D4, $8D, $86, $82, $CC, $95, $CF, $8D, $58, $82, $CD, $90, $B3, $82, $B5
-	db $82, $AD, $8F, $49, $0D, $97, $B9, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81
-	db $42, $00, $0D, $0D, $93, $64, $98, $62, $94, $D4, $8D, $86, $95, $CF, $8D, $58
-	db $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC, $82, $B5, $0D, $82, $BD, $81
-	db $42, $00, $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $F0, $95, $CF
-	db $8D, $58, $82, $B5, $82, $DC, $82, $B7, $81, $42, $0D, $83, $70, $83, $58, $83
-	db $8F, $81, $5B, $83, $68, $95, $CF, $8D, $58, $82, $F0, $8D, $73, $82, $A4, $91
-	db $4F, $82, $C9, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C
-	db $81, $5B, $83, $69, $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $0D, $90, $E0, $96
-	db $BE, $8F, $91, $82, $F0, $82, $A8, $93, $C7, $82, $DD, $82, $AD, $82, $BE, $82
-	db $B3, $82, $A2, $81, $42, $0D, $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68
-	db $82, $CD, $91, $BC, $82, $CC, $90, $6C, $82, $C9, $92, $6D, $82, $E7, $0D, $82
-	db $EA, $82, $C8, $82, $A2, $82, $E6, $82, $A4, $82, $C9, $82, $B2, $92, $8D, $88
-	db $D3, $82, $AD, $82, $BE, $82, $B3, $0D, $82, $A2, $81, $42, $00, $83, $70, $83
-	db $58, $83, $8F, $81, $5B, $83, $68, $82, $CD, $83, $41, $83, $8B, $83, $74, $83
-	db $40, $83, $78, $83, $62, $0D, $83, $67, $82, $C6, $90, $94, $8E, $9A, $82, $F0
-	db $91, $67, $82, $DD, $8D, $87, $82, $ED, $82, $B9, $82, $C4, $81, $41, $0D, $82
-	db $53, $81, $60, $82, $57, $95, $B6, $8E, $9A, $82, $CC, $8A, $D4, $82, $C5, $93
-	db $FC, $97, $CD, $82, $B5, $82, $C4, $0D, $82, $AD, $82, $BE, $82, $B3, $82, $A2
-	db $81, $42, $0D, $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $C5, $8E
-	db $67, $82, $A4, $83, $41, $83, $8B, $83, $74, $83, $40, $0D, $83, $78, $83, $62
-	db $83, $67, $82, $C9, $82, $CD, $91, $E5, $95, $B6, $8E, $9A, $82, $C6, $8F, $AC
-	db $95, $B6, $8E, $9A, $0D, $82, $CC, $8B, $E6, $95, $CA, $82, $AA, $82, $A0, $82
-	db $E8, $82, $DC, $82, $B7, $81, $42, $00, $0D, $0D, $83, $70, $83, $58, $83, $8F
-	db $81, $5B, $83, $68, $95, $CF, $8D, $58, $82, $F0, $92, $86, $8E, $7E, $82, $B5
-	db $82, $DC, $0D, $82, $B5, $82, $BD, $81, $42, $00, $90, $56, $82, $B5, $82, $A2
-	db $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $CD, $96, $F1, $82, $54
-	db $95, $AA, $0D, $8C, $E3, $82, $E6, $82, $E8, $97, $98, $97, $70, $82, $C5, $82
-	db $AB, $82, $DC, $82, $B7, $81, $42, $0D, $0D, $90, $56, $82, $B5, $82, $A2, $83
-	db $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $CD, $81, $41, $95, $4B, $82
-	db $B8, $0D, $83, $81, $83, $82, $82, $B5, $82, $C4, $82, $A2, $82, $BD, $82, $BE
-	db $82, $AB, $81, $41, $91, $E5, $90, $D8, $82, $C9, $0D, $95, $DB, $8A, $C7, $82
-	db $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $82, $63
-	db $82, $68, $82, $6E, $82, $6D, $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $66
-	db $82, $61, $83, $52, $81, $5B, $0D, $83, $58, $82, $CC, $97, $98, $97, $70, $8E
-	db $9E, $8A, $D4, $82, $F0, $8C, $A9, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $0D
-	db $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $42, $0D, $82, $AD, $82, $ED, $82
-	db $B5, $82, $AD, $82, $CD, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83
-	db $8C, $81, $5B, $0D, $83, $69, $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $90, $E0
-	db $96, $BE, $8F, $91, $82, $F0, $82, $A8, $93, $C7, $82, $DD, $0D, $82, $AD, $82
-	db $BE, $82, $B3, $82, $A2, $81, $42, $00, $0D, $0D, $82, $B2, $97, $98, $97, $70
-	db $8E, $9E, $8A, $D4, $82, $CC, $8A, $6D, $94, $46, $82, $F0, $92, $86, $8E, $7E
-	db $82, $B5, $0D, $82, $DC, $82, $B5, $82, $BD, $81, $42, $00, $83, $82, $83, $6F
-	db $83, $43, $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82, $61
-	db $82, $CC, $0D, $94, $43, $93, $56, $93, $B0, $83, $52, $83, $93, $83, $65, $83
-	db $93, $83, $63, $97, $98, $97, $70, $97, $BF, $82, $CC, $0D, $88, $EA, $83, $96
-	db $8C, $8E, $82, $B2, $82, $C6, $82, $CC, $97, $98, $97, $70, $8A, $7A, $82, $CC
-	db $8D, $87, $8C, $76, $0D, $82, $C6, $81, $41, $82, $BB, $82, $CC, $96, $BE, $8D
-	db $D7, $82, $F0, $8C, $A9, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $0D, $82, $C5
+	db $BE, $82, $B3, $82, $A2, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56
+	db $83, $58, $83, $65, $83, $80, $82, $66, $82, $61, $82, $D6, $0D, $82, $E6, $82
+	db $A4, $82, $B1, $82, $BB, $81, $49, $0D, $0D, $8D, $A1, $93, $FA, $82, $A9, $82
+	db $E7, $83, $81, $81, $5B, $83, $8B, $82, $E2, $94, $43, $93, $56, $93, $B0, $0D
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83, $80, $83, $79
+	db $81, $5B, $83, $57, $82, $C8, $82, $C7, $0D, $82, $AA, $82, $B2, $97, $98, $97
+	db $70, $82, $A2, $82, $BD, $82, $BE, $82, $AF, $82, $DC, $82, $B7, $81, $42, $00
+	db $94, $A0, $82, $C9, $93, $FC, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $81, $75
+	db $93, $6F, $98, $5E, $8F, $91, $81, $76, $0D, $82, $F0, $8B, $4C, $93, $FC, $82
+	db $B5, $82, $C4, $81, $41, $95, $95, $93, $9B, $82, $C9, $93, $FC, $82, $EA, $82
+	db $C4, $0D, $82, $6A, $82, $63, $82, $63, $82, $68, $82, $C9, $97, $58, $91, $97
+	db $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $0D, $82, $A2, $81, $42, $0D
+	db $0D, $82, $BB, $82, $EA, $82, $C5, $82, $CD, $83, $82, $83, $6F, $83, $43, $83
+	db $8B, $83, $56, $83, $58, $83, $65, $83, $80, $0D, $82, $66, $82, $61, $82, $F0
+	db $82, $A8, $8A, $79, $82, $B5, $82, $DD, $82, $AD, $82, $BE, $82, $B3, $82, $A2
+	db $81, $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83
+	db $65, $83, $80, $82, $66, $82, $61, $82, $CC, $0D, $83, $54, $81, $5B, $83, $72
+	db $83, $58, $82, $F0, $97, $98, $97, $70, $82, $B3, $82, $EA, $82, $E9, $8F, $EA
+	db $8D, $87, $0D, $92, $CA, $98, $62, $97, $BF, $88, $C8, $8A, $4F, $82, $C9, $97
+	db $98, $97, $70, $97, $BF, $82, $AA, $82, $A9, $82, $A9, $0D, $82, $E9, $82, $B1
+	db $82, $C6, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42, $0D, $82
+	db $AD, $82, $ED, $82, $B5, $82, $AD, $82, $CD, $83, $82, $83, $6F, $83, $43, $83
+	db $8B, $83, $41, $83, $5F, $83, $76, $0D, $83, $5E, $82, $66, $82, $61, $8E, $E6
+	db $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $F0, $82, $A8, $93, $C7, $82, $DD
+	db $0D, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $83, $82, $83, $6F
+	db $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66, $82, $61
+	db $82, $C6, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81
+	db $5B, $83, $69, $81, $5B, $82, $C9, $95, $DB, $91, $B6, $0D, $82, $B3, $82, $EA
+	db $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $8F, $EE
+	db $95, $F1, $82, $F0, $0D, $8D, $ED, $8F, $9C, $82, $B5, $82, $DC, $82, $B7, $81
+	db $42, $8D, $ED, $8F, $9C, $82, $B7, $82, $E9, $91, $4F, $82, $C9, $0D, $83, $82
+	db $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69, $81, $5B
+	db $82, $CC, $8E, $E6, $88, $B5, $0D, $90, $E0, $96, $BE, $8F, $91, $82, $F0, $82
+	db $A8, $93, $C7, $82, $DD, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00
+	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E
+	db $82, $66, $82, $61, $82, $F0, $0D, $91, $BC, $90, $6C, $82, $C9, $82, $E4, $82
+	db $B8, $82, $C1, $82, $BD, $82, $E8, $81, $41, $91, $DD, $82, $B5, $82, $BD, $0D
+	db $82, $E8, $81, $41, $8F, $88, $95, $AA, $82, $B7, $82, $E9, $82, $C6, $82, $AB
+	db $82, $C9, $82, $CD, $81, $41, $95, $4B, $0D, $82, $B8, $93, $6F, $98, $5E, $8F
+	db $EE, $95, $F1, $82, $F0, $8D, $ED, $8F, $9C, $82, $B5, $82, $C4, $82, $AD, $82
+	db $BE, $0D, $82, $B3, $82, $A2, $81, $42, $00, $0D, $0D, $93, $6F, $98, $5E, $8F
+	db $EE, $95, $F1, $82, $CC, $8D, $ED, $8F, $9C, $82, $F0, $92, $86, $8E, $7E, $82
+	db $B5, $82, $DC, $0D, $82, $B5, $82, $BD, $81, $42, $00, $93, $6F, $98, $5E, $8F
+	db $EE, $95, $F1, $82, $F0, $8A, $AE, $91, $53, $82, $C9, $8D, $ED, $8F, $9C, $82
+	db $B5, $82, $DC, $0D, $82, $B5, $82, $BD, $81, $42, $0D, $82, $E0, $82, $A4, $88
+	db $EA, $93, $78, $97, $98, $97, $70, $82, $B3, $82, $EA, $82, $BD, $82, $A2, $8F
+	db $EA, $8D, $87, $0D, $82, $CD, $81, $41, $8F, $89, $8A, $FA, $93, $6F, $98, $5E
+	db $82, $F0, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $0D, $82, $A2, $81
+	db $42, $0D, $83, $51, $81, $5B, $83, $80, $83, $7B, $81, $5B, $83, $43, $82, $CC
+	db $93, $64, $8C, $B9, $83, $58, $83, $43, $83, $62, $0D, $83, $60, $82, $F0, $82
+	db $6E, $82, $65, $82, $65, $82, $C9, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82
+	db $B3, $82, $A2, $00, $93, $64, $98, $62, $94, $D4, $8D, $86, $82, $F0, $8E, $E8
+	db $93, $AE, $82, $C5, $93, $FC, $97, $CD, $82, $B5, $82, $DC, $0D, $82, $B7, $81
+	db $42, $0D, $81, $45, $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83, $62
+	db $83, $67, $93, $64, $98, $62, $94, $D4, $8D, $86, $0D, $81, $45, $83, $5A, $83
+	db $8B, $83, $74, $83, $79, $81, $5B, $83, $57, $93, $64, $98, $62, $94, $D4, $8D
+	db $86, $0D, $81, $45, $93, $64, $98, $62, $94, $D4, $8D, $86, $83, $52, $83, $81
+	db $83, $93, $83, $67, $0D, $82, $F0, $93, $FC, $97, $CD, $82, $B5, $82, $C4, $82
+	db $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $0D, $93, $64, $98, $62, $94, $D4
+	db $8D, $86, $82, $CD, $8A, $D4, $88, $E1, $82, $A2, $82, $CC, $82, $C8, $82, $A2
+	db $82, $E6, $0D, $82, $A4, $82, $C9, $8A, $6D, $94, $46, $82, $B5, $82, $C4, $82
+	db $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $93, $64, $98, $62, $94, $D4
+	db $8D, $86, $82, $CC, $95, $CF, $8D, $58, $82, $CD, $90, $B3, $82, $B5, $82, $AD
+	db $8F, $49, $0D, $97, $B9, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $42, $00
+	db $0D, $0D, $93, $64, $98, $62, $94, $D4, $8D, $86, $95, $CF, $8D, $58, $82, $F0
+	db $92, $86, $8E, $7E, $82, $B5, $82, $DC, $82, $B5, $0D, $82, $BD, $81, $42, $00
+	db $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $F0, $95, $CF, $8D, $58
+	db $82, $B5, $82, $DC, $82, $B7, $81, $42, $0D, $83, $70, $83, $58, $83, $8F, $81
+	db $5B, $83, $68, $95, $CF, $8D, $58, $82, $F0, $8D, $73, $82, $A4, $91, $4F, $82
+	db $C9, $0D, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B
+	db $83, $69, $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $0D, $90, $E0, $96, $BE, $8F
+	db $91, $82, $F0, $82, $A8, $93, $C7, $82, $DD, $82, $AD, $82, $BE, $82, $B3, $82
+	db $A2, $81, $42, $0D, $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $CD
+	db $91, $BC, $82, $CC, $90, $6C, $82, $C9, $92, $6D, $82, $E7, $0D, $82, $EA, $82
+	db $C8, $82, $A2, $82, $E6, $82, $A4, $82, $C9, $82, $B2, $92, $8D, $88, $D3, $82
+	db $AD, $82, $BE, $82, $B3, $0D, $82, $A2, $81, $42, $00, $83, $70, $83, $58, $83
+	db $8F, $81, $5B, $83, $68, $82, $CD, $83, $41, $83, $8B, $83, $74, $83, $40, $83
+	db $78, $83, $62, $0D, $83, $67, $82, $C6, $90, $94, $8E, $9A, $82, $F0, $91, $67
+	db $82, $DD, $8D, $87, $82, $ED, $82, $B9, $82, $C4, $81, $41, $0D, $82, $53, $81
+	db $60, $82, $57, $95, $B6, $8E, $9A, $82, $CC, $8A, $D4, $82, $C5, $93, $FC, $97
+	db $CD, $82, $B5, $82, $C4, $0D, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42
+	db $0D, $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $C5, $8E, $67, $82
+	db $A4, $83, $41, $83, $8B, $83, $74, $83, $40, $0D, $83, $78, $83, $62, $83, $67
+	db $82, $C9, $82, $CD, $91, $E5, $95, $B6, $8E, $9A, $82, $C6, $8F, $AC, $95, $B6
+	db $8E, $9A, $0D, $82, $CC, $8B, $E6, $95, $CA, $82, $AA, $82, $A0, $82, $E8, $82
+	db $DC, $82, $B7, $81, $42, $00, $0D, $0D, $83, $70, $83, $58, $83, $8F, $81, $5B
+	db $83, $68, $95, $CF, $8D, $58, $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC
+	db $0D, $82, $B5, $82, $BD, $81, $42, $00, $90, $56, $82, $B5, $82, $A2, $83, $70
+	db $83, $58, $83, $8F, $81, $5B, $83, $68, $82, $CD, $96, $F1, $82, $54, $95, $AA
+	db $0D, $8C, $E3, $82, $E6, $82, $E8, $97, $98, $97, $70, $82, $C5, $82, $AB, $82
+	db $DC, $82, $B7, $81, $42, $0D, $0D, $90, $56, $82, $B5, $82, $A2, $83, $70, $83
+	db $58, $83, $8F, $81, $5B, $83, $68, $82, $CD, $81, $41, $95, $4B, $82, $B8, $0D
+	db $83, $81, $83, $82, $82, $B5, $82, $C4, $82, $A2, $82, $BD, $82, $BE, $82, $AB
+	db $81, $41, $91, $E5, $90, $D8, $82, $C9, $0D, $95, $DB, $8A, $C7, $82, $B5, $82
+	db $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00, $82, $63, $82, $68
+	db $82, $6E, $82, $6D, $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $66, $82, $61
+	db $83, $52, $81, $5B, $0D, $83, $58, $82, $CC, $97, $98, $97, $70, $8E, $9E, $8A
+	db $D4, $82, $F0, $8C, $A9, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $0D, $82, $C5
 	db $82, $AB, $82, $DC, $82, $B7, $81, $42, $0D, $82, $AD, $82, $ED, $82, $B5, $82
 	db $AD, $82, $CD, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81
 	db $5B, $0D, $83, $69, $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $90, $E0, $96, $BE
 	db $8F, $91, $82, $F0, $82, $A8, $93, $C7, $82, $DD, $0D, $82, $AD, $82, $BE, $82
-	db $B3, $82, $A2, $81, $42, $00, $0D, $0D, $82, $B2, $97, $98, $97, $70, $8A, $7A
-	db $82, $CC, $8A, $6D, $94, $46, $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC
-	db $0D, $82, $B5, $82, $BD, $81, $42, $00, $91, $4F, $89, $F1, $82, $CC, $8F, $89
-	db $8A, $FA, $93, $6F, $98, $5E, $82, $AA, $90, $B3, $82, $B5, $82, $AD, $8F, $49
-	db $0D, $97, $B9, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $81
-	db $42, $0D, $0D, $82, $60, $83, $7B, $83, $5E, $83, $93, $82, $F0, $89, $9F, $82
-	db $B7, $82, $C6, $81, $41, $91, $4F, $89, $F1, $82, $CC, $0D, $82, $C2, $82, $C3
-	db $82, $AB, $82, $A9, $82, $E7, $8D, $C4, $8A, $4A, $82, $B5, $82, $DC, $82, $B7
-	db $81, $42, $00
+	db $B3, $82, $A2, $81, $42, $00, $0D, $0D, $82, $B2, $97, $98, $97, $70, $8E, $9E
+	db $8A, $D4, $82, $CC, $8A, $6D, $94, $46, $82, $F0, $92, $86, $8E, $7E, $82, $B5
+	db $0D, $82, $DC, $82, $B5, $82, $BD, $81, $42, $00, $83, $82, $83, $6F, $83, $43
+	db $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82, $61, $82, $CC
+	db $0D, $94, $43, $93, $56, $93, $B0, $83, $52, $83, $93, $83, $65, $83, $93, $83
+	db $63, $97, $98, $97, $70, $97, $BF, $82, $CC, $0D, $88, $EA, $83, $96, $8C, $8E
+	db $82, $B2, $82, $C6, $82, $CC, $97, $98, $97, $70, $8A, $7A, $82, $CC, $8D, $87
+	db $8C, $76, $0D, $82, $C6, $81, $41, $82, $BB, $82, $CC, $96, $BE, $8D, $D7, $82
+	db $F0, $8C, $A9, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $0D, $82, $C5, $82, $AB
+	db $82, $DC, $82, $B7, $81, $42, $0D, $82, $AD, $82, $ED, $82, $B5, $82, $AD, $82
+	db $CD, $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $0D
+	db $83, $69, $81, $5B, $82, $CC, $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91
+	db $82, $F0, $82, $A8, $93, $C7, $82, $DD, $0D, $82, $AD, $82, $BE, $82, $B3, $82
+	db $A2, $81, $42, $00, $0D, $0D, $82, $B2, $97, $98, $97, $70, $8A, $7A, $82, $CC
+	db $8A, $6D, $94, $46, $82, $F0, $92, $86, $8E, $7E, $82, $B5, $82, $DC, $0D, $82
+	db $B5, $82, $BD, $81, $42, $00, $91, $4F, $89, $F1, $82, $CC, $8F, $89, $8A, $FA
+	db $93, $6F, $98, $5E, $82, $AA, $90, $B3, $82, $B5, $82, $AD, $8F, $49, $0D, $97
+	db $B9, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $81, $42, $0D
+	db $0D, $82, $60, $83, $7B, $83, $5E, $83, $93, $82, $F0, $89, $9F, $82, $B7, $82
+	db $C6, $81, $41, $91, $4F, $89, $F1, $82, $CC, $0D, $82, $C2, $82, $C3, $82, $AB
+	db $82, $A9, $82, $E7, $8D, $C4, $8A, $4A, $82, $B5, $82, $DC, $82, $B7, $81, $42
+	db $00
 
-; ---- data $567F-$568F (16 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 54BA-568F by higher-priority evidence]
+; ---- ptrtable $567F-$56A7 (40 bytes) [PROBABLE] 20 string pointers (56A7 56FB 5751 57A7 5809 583C 5879 58B6 5906 5920 ...5A49), each landing exactly on a string start of the 20 strings of String_65_56A7; read in traces
 
-Data_65_567F:: ; 65:567F
-	db $A7, $56, $FB, $56, $51, $57, $A7, $57, $09, $58, $3C, $58, $79, $58, $B6, $58
-
-; ---- data $568F-$5695 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_568F:: ; 65:568F
-	db $06, $59, $20, $59, $46, $59
-
-; ---- data $5695-$569B (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_5695:: ; 65:5695
-	db $6C, $59, $85, $59, $98, $59
-
-; ---- data $569B-$56A1 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_569B:: ; 65:569B
-	db $A9, $59, $CF, $59, $F1, $59
-
-; ---- data $56A1-$56A3 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_65_56A1:: ; 65:56A1
-	db $11, $5A
-
-; ---- data $56A3-$56A5 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_65_56A3:: ; 65:56A3
-	db $33, $5A
-
-; ---- data $56A5-$56A7 (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 56A5-5906 by higher-priority evidence]
-
-Data_65_56A5:: ; 65:56A5
-	db $49, $5A
+Table_65_567F:: ; 65:567F
+	dw String_65_56A7
+	dw $56FB
+	dw $5751
+	dw $57A7
+	dw $5809
+	dw $583C
+	dw $5879
+	dw $58B6
+	dw $5906
+	dw $5920
+	dw $5946
+	dw $596C
+	dw $5985
+	dw $5998
+	dw $59A9
+	dw $59CF
+	dw $59F1
+	dw $5A11
+	dw $5A33
+	dw $5A49
 
 ; ---- text $56A7-$5A8D (998 bytes) [PROBABLE] text: 20 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 

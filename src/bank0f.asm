@@ -3,12 +3,13 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank0F", ROMX[$4000], BANK[$0F]
 
-; ---- data $4000-$4004 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4000-$4004 (4 bytes) [PROBABLE] ASCII string "---" + NUL (mail-header/text helper strings of this bank; neighbour of the CONFIRMED-style string table entries)
 
-Data_0F_4000:: ; 0F:4000
+String_0F_4000:: ; 0F:4000
 	db $2D, $2D, $2D, $00
 
 ; ---- text $4004-$4010 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -16,12 +17,34 @@ Data_0F_4000:: ; 0F:4000
 String_0F_4004:: ; 0F:4004
 	db $43, $47, $42, $2D, $41, $41, $41, $41, $2D, $30, $30, $00
 
-; ---- data $4010-$403A (42 bytes) [HYPOTHESIS] UNCLASSIFIED 42 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
+	ds $1, $00
 
-Data_0F_4010:: ; 0F:4010
-	db $00, $33, $40, $3A, $40, $43, $40, $4E, $40, $53, $40, $58, $40, $62, $40, $74
-	db $40, $91, $40, $A3, $40, $BC, $40, $EA, $40, $14, $41, $43, $41, $64, $41, $64
-	db $41, $67, $41, $46, $72, $6F, $6D, $3A, $20, $00
+; ---- ptrtable $4011-$4033 (34 bytes) [PROBABLE] 17 x dw string pointers: 4033 "From: ", 403A "Sender: ", 4043 "Reply-To: ", 404E "To: ", 4053 "Cc: ", 4058 "Subject: ", ... 4164 "--", 4167 "."; every target is a NUL-terminated ASCII string start (mail header field names of the message composer/parser); table starts at an odd address
+
+Table_0F_4011:: ; 0F:4011
+	dw String_0F_4033
+	dw String_0F_403A
+	dw $4043
+	dw String_0F_404E
+	dw $4053
+	dw String_0F_4058
+	dw $4062
+	dw $4074
+	dw $4091
+	dw $40A3
+	dw $40BC
+	dw $40EA
+	dw $4114
+	dw $4143
+	dw String_0F_4164
+	dw String_0F_4164
+	dw String_0F_4167
+
+; ---- text $4033-$403A (7 bytes) [PROBABLE] ASCII string "From: " + NUL, entry 0 of the pointer table 0F:4011
+
+String_0F_4033:: ; 0F:4033
+	db $46, $72, $6F, $6D, $3A, $20, $00
 
 ; ---- text $403A-$404E (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -29,9 +52,9 @@ String_0F_403A:: ; 0F:403A
 	db $53, $65, $6E, $64, $65, $72, $3A, $20, $00, $52, $65, $70, $6C, $79, $2D, $54
 	db $6F, $3A, $20, $00
 
-; ---- data $404E-$4058 (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $404E-$4058 (10 bytes) [PROBABLE] ASCII strings "To: " and "Cc: " (entries 3 and 4 of the pointer table 0F:4011 = 404E, 4053)
 
-Data_0F_404E:: ; 0F:404E
+String_0F_404E:: ; 0F:404E
 	db $54, $6F, $3A, $20, $00, $43, $63, $3A, $20, $00
 
 ; ---- text $4058-$4164 (268 bytes) [PROBABLE] text: 9 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -55,23 +78,52 @@ String_0F_4058:: ; 0F:4058
 	db $6E, $74, $2D, $54, $72, $61, $6E, $73, $66, $65, $72, $2D, $45, $6E, $63, $6F
 	db $64, $69, $6E, $67, $3A, $42, $61, $73, $65, $36, $34, $00
 
-; ---- data $4164-$41AB (71 bytes) [HYPOTHESIS] UNCLASSIFIED 71 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4164-$4167 (3 bytes) [PROBABLE] ASCII string "--" + NUL (entry 14/15 of the pointer table 0F:4011 = 4164)
 
-Data_0F_4164:: ; 0F:4164
-	db $2D, $2D, $00, $2E, $00, $6C, $42, $6D, $42, $40, $43, $BB, $43, $D5, $44, $59
-	db $4B, $C0, $4B, $DD, $4C, $66, $4E, $BC, $52, $D8, $54, $E1, $56, $10, $5A, $9D
-	db $41, $A3, $41, $AB, $41, $B5, $41, $B9, $41, $BD, $41, $C6, $41, $CC, $41, $DA
-	db $41, $E8, $41, $F2, $41, $00, $42, $0D, $42, $46, $52, $4F, $4D, $3A, $00, $53
-	db $45, $4E, $44, $45, $52, $3A, $00
+String_0F_4164:: ; 0F:4164
+	db $2D, $2D, $00
+
+; ---- text $4167-$4169 (2 bytes) [PROBABLE] ASCII string "." + NUL (entry 16 of the pointer table 0F:4011 = 4167)
+
+String_0F_4167:: ; 0F:4167
+	db $2E, $00
+
+; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
+
+Table_0F_4169:: ; 0F:4169
+	dw $426C, $426D, $4340, $43BB, $44D5, $4B59, $4BC0, $4CDD
+	dw $4E66, $52BC, $54D8, $56E1, $5A10
+
+; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
+
+Table_0F_4183:: ; 0F:4183
+	dw String_0F_419D
+	dw $41A3
+	dw String_0F_41AB
+	dw String_0F_41B5
+	dw $41B9
+	dw String_0F_41BD
+	dw String_0F_41C6
+	dw String_0F_41CC
+	dw $41DA
+	dw $41E8
+	dw $41F2
+	dw $4200
+	dw $420D
+
+; ---- text $419D-$41AB (14 bytes) [PROBABLE] ASCII strings "FROM:" and "SENDER:" + NULs (entries 0-1 of the pointer table 0F:4183)
+
+String_0F_419D:: ; 0F:419D
+	db $46, $52, $4F, $4D, $3A, $00, $53, $45, $4E, $44, $45, $52, $3A, $00
 
 ; ---- text $41AB-$41B5 (10 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_0F_41AB:: ; 0F:41AB
 	db $52, $45, $50, $4C, $59, $2D, $54, $4F, $3A, $00
 
-; ---- data $41B5-$41BD (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $41B5-$41BD (8 bytes) [PROBABLE] ASCII strings "TO:" and "CC:" (entries of the pointer table 0F:4183)
 
-Data_0F_41B5:: ; 0F:41B5
+String_0F_41B5:: ; 0F:41B5
 	db $54, $4F, $3A, $00, $43, $43, $3A, $00
 
 ; ---- text $41BD-$41C6 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -79,9 +131,9 @@ Data_0F_41B5:: ; 0F:41B5
 String_0F_41BD:: ; 0F:41BD
 	db $53, $55, $42, $4A, $45, $43, $54, $3A, $00
 
-; ---- data $41C6-$41CC (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $41C6-$41CC (6 bytes) [PROBABLE] ASCII string "DATE:" + NUL (entry 6 of the pointer table 0F:4183)
 
-Data_0F_41C6:: ; 0F:41C6
+String_0F_41C6:: ; 0F:41C6
 	db $44, $41, $54, $45, $3A, $00
 
 ; ---- text $41CC-$421C (80 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -93,9 +145,9 @@ String_0F_41CC:: ; 0F:41CC
 	db $4C, $45, $3A, $00, $58, $2D, $47, $41, $4D, $45, $2D, $43, $4F, $44, $45, $3A
 	db $00, $58, $2D, $47, $42, $4D, $41, $49, $4C, $2D, $54, $59, $50, $45, $3A, $00
 
-; ---- data $421C-$4222 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $421C-$4222 (6 bytes) [PROBABLE] ASCII string "NAME=" + NUL (MIME parameter, referenced by ld hl in the parser)
 
-Data_0F_421C:: ; 0F:421C
+String_0F_421C:: ; 0F:421C
 	db $4E, $41, $4D, $45, $3D, $00
 
 ; ---- text $4222-$4236 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -104,9 +156,9 @@ String_0F_4222:: ; 0F:4222
 	db $4D, $55, $4C, $54, $49, $50, $41, $52, $54, $00, $42, $4F, $55, $4E, $44, $41
 	db $52, $59, $3D, $00
 
-; ---- data $4236-$4247 (17 bytes) [HYPOTHESIS] UNCLASSIFIED 17 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4236-$4247 (17 bytes) [PROBABLE] ASCII string "=?ISO-2022-JP?B?" + NUL (MIME encoded-word prefix), copied by 0F:5104 (ld hl,$4236 ; ld a,[hli] ; and a ; jr z ; ld [de],a)
 
-Data_0F_4236:: ; 0F:4236
+String_0F_4236:: ; 0F:4236
 	db $3D, $3F, $49, $53, $4F, $2D, $32, $30, $32, $32, $2D, $4A, $50, $3F, $42, $3F
 	db $00
 
@@ -1090,11 +1142,17 @@ Label_0F_479D:: ; 0F:479D
 	jr z, Label_0F_473B
 	jr Label_0F_47CF
 
-; ---- data $47A5-$47BB (22 bytes) [HYPOTHESIS] UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_0F_47A5:: ; 0F:47A5
-	db $21, $03, $D0, $2A, $EA, $00, $D0, $E0, $8C, $EA, $00, $40, $CD, $7E, $4A, $A7
-	db $28, $18, $AF, $EA, $16, $D0
+; ---- code $47A5-$47BB (22 bytes) [HYPOTHESIS] 10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid start; it directly follows the unconditional jr $47CF at 47A3, so it must be a branch/jump-table target that was not found; entry unproven
+	ld hl, $D003
+	ld a, [hli]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Function_0F_4A7E
+	and a, a
+	jr z, Label_0F_47CF
+	xor a, a
+	ld [wRam_D016], a
 
 ; ---- code $47BB-$4C59 (1182 bytes) [PROBABLE] 722 insn(s) reached by static flow only; seeds: mobile x722; min discovery hops 0; entered by jpcc from 0F:4738 (PROBABLE code)
 
@@ -1968,10 +2026,12 @@ Label_0F_4C52:: ; 0F:4C52
 	jr z, Label_0F_4C28
 	jr Label_0F_4C1C
 
-; ---- data $4C59-$4C62 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_0F_4C59:: ; 0F:4C59
-	db $C5, $01, $00, $D0, $CD, $95, $5D, $C1, $C9
+; ---- code $4C59-$4C62 (9 bytes) [HYPOTHESIS] complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret) between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no caller/pointer found, entry unproven
+	push bc
+	ld bc, $D000
+	call Function_0F_5D95
+	pop bc
+	ret
 
 ; ---- code $4C62-$4D35 (211 bytes) [PROBABLE] 137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0; entered by call from 0F:4BE4 (PROBABLE code)
 
@@ -2139,10 +2199,8 @@ Label_0F_4D31:: ; 0F:4D31
 	ld b, $83
 	jr Label_0F_4D37
 
-; ---- data $4D35-$4D37 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_0F_4D35:: ; 0F:4D35
-	db $06, $82
+; ---- code $4D35-$4D37 (2 bytes) [HYPOTHESIS] ld b,$82 : third variant of the result setter at 0F:4D31 (ld b,$83 ; jr $4D37) falling into 4D37 (pop hl ; ld a,1 ; jp $4260); the branch that targets 4D35 was not found in the decoded code
+	ld b, $82
 
 ; ---- code $4D37-$5DAE (4215 bytes) [PROBABLE] 2592 insn(s) reached by static flow only; seeds: mobile x2592; min discovery hops 0; entered by jrcc from 0F:4CEC (PROBABLE code)
 

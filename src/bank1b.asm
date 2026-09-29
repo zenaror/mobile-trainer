@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank1B", ROMX[$4000], BANK[$1B]
 
@@ -14,15 +15,14 @@ Data_1B_4000:: ; 1B:4000
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- data $4040-$404A (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_1B_4040:: ; 1B:4040
-	db $AF, $01, $FC, $00, $21, $D4, $C0, $CD, $D8, $04
+; ---- code $4040-$404A (10 bytes) [HYPOTHESIS] function head xor a ; ld bc,$00FC ; ld hl,$C0D4 ; call $04D8 (fill) that falls exactly into the raw far-call site at 404A (PROBABLE code); right after the data block 4000-4040; entry not located, no caller/table word anywhere (downgraded PROBABLE -> HYPOTHESIS by the adversarial verifier, same class as 04:415A and 7C:7D8B: bytes that merely lead into code are not proven code)
+	xor a, a
+	ld bc, $00FC
+	ld hl, $C0D4
+	call FillBytes
 
 ; ---- code $404A-$41C3 (377 bytes) [PROBABLE] 125 insn(s) reached by static flow only; seeds: site x125; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -34,9 +34,7 @@ Data_1B_4040:: ; 1B:4040
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -49,97 +47,73 @@ Data_1B_4040:: ; 1B:4040
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -147,9 +121,7 @@ Data_1B_4040:: ; 1B:4040
 	ld de, $D800
 	ld hl, $4000
 	ld a, $1B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld a, $80
 	ld bc, $0400
 	ld hl, $D000
@@ -158,36 +130,24 @@ Data_1B_4040:: ; 1B:4040
 	ld bc, $1214
 	ld de, $0009
 	xor a, a
-	call FarCall
-	dw Function_00_091C
-	db BANK(Function_00_091C)
+	farcall Function_00_091C
 	ld a, $80
 	ld bc, $0810
 	ld de, $F001
 	ld hl, $D142
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	call Function_1B_42C4
 	call Function_1B_4371
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call LCDOn
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 
 Label_1B_41B1:: ; 1B:41B1
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $41C3-$41CD (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 1B:41C0: 5 entries; fixed length (5 words) by the routine
@@ -259,9 +219,7 @@ Label_1B_4208:: ; 1B:4208
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $01
 	ret
 
@@ -350,9 +308,7 @@ Function_1B_42C4:: ; 1B:42C4
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $1B
-	call FarCall
-	dw Function_48_40A9
-	db BANK(Function_48_40A9)
+	farcall Function_48_40A9
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -365,17 +321,13 @@ Function_1B_42C4:: ; 1B:42C4
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -495,9 +447,7 @@ Function_1B_4371:: ; 1B:4371
 	ld a, $03
 	ldh [hRam_FFB0], a
 	ld a, $02
-	call FarCall
-	dw Function_48_40A9
-	db BANK(Function_48_40A9)
+	farcall Function_48_40A9
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -506,9 +456,7 @@ Function_1B_4371:: ; 1B:4371
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -516,9 +464,9 @@ Function_1B_4371:: ; 1B:4371
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $4430-$4450 (32 bytes) [HYPOTHESIS] UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4430-$4450 (32 bytes) [PROBABLE] 16 fullwidth Shift-JIS characters "０１２３４５６７８９ＡＢＣＤＥＦ" (82 4F..82 58, 82 60..82 65), 2 bytes each, no NUL: hex-digit glyph table loaded by many `ld hl,$4430` (1B:43A2, 43B5, 43CD, 43E0 ...) in the preceding routine
 
-Data_1B_4430:: ; 1B:4430
+String_1B_4430:: ; 1B:4430
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
 	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
 

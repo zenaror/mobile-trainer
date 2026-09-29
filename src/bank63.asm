@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank63", ROMX[$4000], BANK[$63]
 
@@ -104,7 +105,7 @@ Label_63_406D:: ; 63:406D
 	pop af
 	ret
 
-; ---- code $4072-$407A (8 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 63:403F (executed)
+; ---- code $4072-$407A (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 63:403F (executed) [executed in 1 scenarios]
 
 Label_63_4072:: ; 63:4072
 	pop hl
@@ -961,39 +962,31 @@ Data_63_72B8:: ; 63:72B8
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $7310-$7314 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $7310-$7318 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$7310 a=$63 at 63:73F5 (entry 0 unused, entry 1 = 7318/732A); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 7314-7318 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_63_7310:: ; 63:7310
-	db $00, $00, $00, $00
+Table_63_7310:: ; 63:7310
+	dw $0000, $0000, Data_63_7318, $732A
 
-; ---- data $7314-$732F (27 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $7318-$732F (23 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 63:7318-732F [v4: bytes 7318-732F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_63_7314:: ; 63:7314
-	db $18, $73, $2A, $73, $1C, $73, $25, $73, $02, $00, $00, $00, $00, $00, $08, $01
-	db $00, $01, $08, $08, $02, $00, $02, $00, $1E, $01, $1E
+Data_63_7318:: ; 63:7318
+	db $1C, $73, $25, $73, $02, $00, $00, $00, $00, $00, $08, $01, $00, $01, $08, $08
+	db $02, $00, $02, $00, $1E, $01, $1E
 
 ; ---- code $732F-$742F (256 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 Function_63_732F:: ; 63:732F
 	call Function_63_7342
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	call Function_63_7413
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ret
 
 Function_63_7342:: ; 63:7342
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_7D_7C00
+	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -1002,77 +995,57 @@ Function_63_7342:: ; 63:7342
 	ld a, $63
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8801
 	ld hl, $60C0
 	ld a, $63
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C01
 	ld hl, $64C0
 	ld a, $63
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $68C0
 	ld a, $63
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $6CC0
 	ld a, $63
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7290
 	ld a, $63
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $72D0
 	ld a, $63
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $6FC0
 	ld a, $63
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
 	ld de, $7310
 	ld a, $63
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $2040
 	ld hl, $DA00
 	call Function_00_0A65
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
 	xor a, a
 	ldh [rSCX], a
@@ -1080,12 +1053,8 @@ Function_63_7342:: ; 63:7342
 	ret
 
 Function_63_7413:: ; 63:7413
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_7D_7BB7
+	farcall Function_00_0956
 	call Function_00_044B
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a

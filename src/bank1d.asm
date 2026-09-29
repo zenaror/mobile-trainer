@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank1D", ROMX[$4000], BANK[$1D]
 
@@ -14,9 +15,7 @@ Function_1D_4000:: ; 1D:4000
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	call Function_00_044B
 	ld a, $01
 	ld hl, $A8B8
@@ -39,78 +38,58 @@ Label_1D_4023:: ; 1D:4023
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld de, $8000
 	ld hl, $4D20
 	ld a, $1D
 	ld b, $96
 	ld c, $19
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8800
 	ld hl, $4EB0
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $52B0
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9000
 	ld hl, $56B0
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $5A30
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $5E30
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6230
 	ld a, $1D
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $45C1
 	ld a, $1D
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld hl, $DA10
 	ld de, $63B6
 	ld a, $1D
 	ld b, $80
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $431A
 	ld hl, $DA10
 	call Function_00_0A65
@@ -118,16 +97,12 @@ Label_1D_4023:: ; 1D:4023
 	ld de, $D840
 	ld hl, $6270
 	ld a, $1D
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
 	ld hl, $D200
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	call Function_00_044B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -145,9 +120,7 @@ Label_1D_4023:: ; 1D:4023
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -161,12 +134,8 @@ Label_1D_4023:: ; 1D:4023
 	call Function_1D_4325
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_00_0956
+	farcall Function_4F_42B4
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
@@ -174,9 +143,7 @@ Label_1D_4023:: ; 1D:4023
 	ld b, a
 	ld hl, $43FA
 	ld a, $1D
-	call FarCall
-	dw Function_48_42D4
-	db BANK(Function_48_42D4)
+	farcall Function_48_42D4
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -187,16 +154,10 @@ Label_1D_4023:: ; 1D:4023
 	ldh [rSVBK], a
 
 Label_1D_4188:: ; 1D:4188
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $41A0-$41AA (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1D:419D: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
@@ -211,9 +172,7 @@ Table_1D_41A0:: ; 1D:41A0
 ; ---- code $41AA-$423B (145 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios)
 
 Label_1D_41AA:: ; 1D:41AA
-	call FarCall
-	dw Function_48_4223
-	db BANK(Function_48_4223)
+	farcall Function_48_4223
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
 	call nz, Function_1D_4229
@@ -229,19 +188,13 @@ Label_1D_41BD:: ; 1D:41BD
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_48_46C6
-	db BANK(Function_48_46C6)
-	call FarCall
-	dw Function_48_4460
-	db BANK(Function_48_4460)
+	farcall Function_48_46C6
+	farcall Function_48_4460
 	ld a, [wRam_C0E5]
 	ld b, a
 	ld a, $01
 	ld hl, $A8B8
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld a, [wRam_C0E5]
 	ret
 
@@ -254,18 +207,12 @@ Label_1D_41EC:: ; 1D:41EC
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_48_46C6
-	db BANK(Function_48_46C6)
-	call FarCall
-	dw Function_48_4460
-	db BANK(Function_48_4460)
+	farcall Function_48_46C6
+	farcall Function_48_4460
 	ld b, $00
 	ld a, $01
 	ld hl, $A8B8
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	xor a, a
 	ret
 
@@ -295,7 +242,7 @@ Label_1D_4232:: ; 1D:4232
 	dec a
 	jr nz, Label_1D_423D
 
-; ---- code $423B-$423D (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:4239 (executed)
+; ---- code $423B-$423D (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:4239 (executed) [executed in 5 scenarios]
 	ld a, $06
 
 ; ---- code $423D-$4261 (36 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 7/18 scenarios)
@@ -304,9 +251,7 @@ Label_1D_423D:: ; 1D:423D
 	ld [wRam_C0E5], a
 	call Function_1D_42AF
 	call Function_1D_4325
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_1D_439B
@@ -319,7 +264,7 @@ Label_1D_4256:: ; 1D:4256
 	cp a, $07
 	jr nz, Label_1D_4263
 
-; ---- code $4261-$4263 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:425F (executed)
+; ---- code $4261-$4263 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:425F (executed) [executed in 5 scenarios]
 	ld a, $01
 
 ; ---- code $4263-$430D (170 bytes) [CONFIRMED] 89 insn(s); 89 executed (in up to 9/18 scenarios)
@@ -328,9 +273,7 @@ Label_1D_4263:: ; 1D:4263
 	ld [wRam_C0E5], a
 	call Function_1D_42AF
 	call Function_1D_4325
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_1D_439B
@@ -351,9 +294,7 @@ Label_1D_427A:: ; 1D:427A
 	ld b, a
 	ld hl, $43FA
 	ld a, $1D
-	call FarCall
-	dw Function_48_42D4
-	db BANK(Function_48_42D4)
+	farcall Function_48_42D4
 	ret
 
 Function_1D_42A0:: ; 1D:42A0
@@ -427,30 +368,15 @@ Function_1D_42FE:: ; 1D:42FE
 	ld a, $07
 	ret
 
-; ---- data $430D-$4317 (10 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+; ---- words $430D-$431D (16 bytes) [PROBABLE] 8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$430D at 1D:42C1, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
 
-Data_1D_430D:: ; 1D:430D
-	db $09, $00, $69, $00, $A9, $00, $09, $01, $49, $01
+Table_1D_430D:: ; 1D:430D
+	dw $0009, $0069, $00A9, $0109, $0149, $01A9, $0000, $0069
 
-; ---- data $4317-$431B (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $431D-$4325 (8 bytes) [PROBABLE] byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$431D' at 1D:42D6 (executed reads)
 
-Data_1D_4317:: ; 1D:4317
-	db $A9, $01, $00, $00
-
-; ---- data $431B-$4322 (7 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
-
-Data_1D_431B:: ; 1D:431B
-	db $69, $00, $00, $28, $46, $6E, $8C
-
-; ---- data $4322-$4324 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_1D_4322:: ; 1D:4322
-	db $B4, $00
-
-; ---- data $4324-$4325 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_1D_4324:: ; 1D:4324
-	db $D2
+Data_1D_431D:: ; 1D:431D
+	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 ; ---- code $4325-$4383 (94 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
@@ -515,30 +441,15 @@ Function_1D_4374:: ; 1D:4374
 	ld a, $07
 	ret
 
-; ---- data $4383-$438F (12 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+; ---- words $4383-$4393 (16 bytes) [PROBABLE] 8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$4383 at 1D:4337, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
 
-Data_1D_4383:: ; 1D:4383
-	db $09, $00, $69, $00, $A9, $00, $09, $01, $49, $01, $A9, $01
+Table_1D_4383:: ; 1D:4383
+	dw $0009, $0069, $00A9, $0109, $0149, $01A9, $0000, $0069
 
-; ---- data $438F-$4391 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4393-$439B (8 bytes) [PROBABLE] byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$4393' at 1D:434C (executed reads)
 
-Data_1D_438F:: ; 1D:438F
-	db $00, $00
-
-; ---- data $4391-$4399 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
-
-Data_1D_4391:: ; 1D:4391
-	db $69, $00, $00, $28, $46, $6E, $8C, $B4
-
-; ---- data $4399-$439A (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_1D_4399:: ; 1D:4399
-	db $00
-
-; ---- data $439A-$439B (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_1D_439A:: ; 1D:439A
-	db $D2
+Data_1D_4393:: ; 1D:4393
+	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 ; ---- code $439B-$43FA (95 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
@@ -559,12 +470,8 @@ Function_1D_439B:: ; 1D:439B
 	ld de, $D0C1
 	ld hl, $4C51
 	ld a, $1D
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_16A2
+	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
@@ -578,12 +485,8 @@ Label_1D_43D3:: ; 1D:43D3
 	ld de, $D0C1
 	ld hl, $4C81
 	ld a, $1D
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_16A2
+	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
@@ -689,9 +592,9 @@ Data_1D_45C1:: ; 1D:45C1
 	db $02, $01, $01, $00, $01, $01, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $00, $00, $00, $00, $00, $00
 
-; ---- data $4891-$4945 (180 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 43FA-4945 by higher-priority evidence]
+; ---- data $4891-$4981 (240 bytes) [PROBABLE] 10 columns x 24 rows tile-id map (tiles half of a 240+240 byte pair). base $4891 is base loaded by 'ld hl,$4891' at 1D:42E1 (then + index, ld c,$0A); executed reads in mail_*/monkey traces walk it in 10-byte rows (e.g. 4963-49C7). Attribute half follows at 4981. Covers the former unresolved span 4945-4963 (3 map rows).
 
-Data_1D_4891:: ; 1D:4891
+Tilemap_1D_4891:: ; 1D:4891
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $1B, $40, $41, $42, $43, $44
 	db $45, $46, $47, $1B, $1B, $50, $51, $52, $53, $54, $55, $56, $57, $1B, $1B, $35
 	db $36, $36, $36, $36, $36, $36, $35, $1B, $1B, $35, $36, $36, $36, $36, $36, $36
@@ -703,90 +606,90 @@ Data_1D_4891:: ; 1D:4891
 	db $0C, $1B, $1B, $37, $38, $38, $38, $38, $38, $38, $3F, $1B, $1B, $37, $38, $38
 	db $38, $38, $38, $38, $3F, $1B, $1B, $39, $48, $49, $4A, $4B, $4C, $4D, $3A, $1B
 	db $29, $75, $58, $59, $5A, $5B, $5C, $5D, $76, $29, $19, $7D, $7E, $7E, $7E, $7E
-	db $7E, $7E, $7D, $19
+	db $7E, $7E, $7D, $19, $19, $7D, $7E, $7E, $7E, $7E, $7E, $7E, $7D, $19, $19, $1C
+	db $77, $78, $79, $7A, $7B, $7C, $0C, $19, $19, $7F, $00, $00, $00, $00, $00, $00
+	db $7F, $19, $1B, $35, $36, $36, $36, $36, $36, $36, $35, $1B, $1B, $FC, $FD, $FE
+	db $FF, $0C, $0D, $0E, $0F, $1B, $1B, $37, $38, $38, $38, $38, $38, $38, $3F, $1B
 
-; ---- data $4945-$4963 (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4981-$4A71 (240 bytes) [PROBABLE] attribute half (10x24) paired with Tilemap_1D_4891: values 01/02/09/29 (CGB BG attributes: palette 1/2/1, xflip 0x20); executed reads begin exactly at 4981 in mail_/monkey traces
 
-Data_1D_4945:: ; 1D:4945
-	db $19, $7D, $7E, $7E, $7E, $7E, $7E, $7E, $7D, $19, $19, $1C, $77, $78, $79, $7A
-	db $7B, $7C, $0C, $19, $19, $7F, $00, $00, $00, $00, $00, $00, $7F, $19
-
-; ---- data $4963-$4A35 (210 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
-
-Data_1D_4963:: ; 1D:4963
-	db $1B, $35, $36, $36, $36, $36, $36, $36, $35, $1B, $1B, $FC, $FD, $FE, $FF, $0C
-	db $0D, $0E, $0F, $1B, $1B, $37, $38, $38, $38, $38, $38, $38, $3F, $1B, $09, $09
+Attrmap_1D_4981:: ; 1D:4981
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09
+	db $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $29, $09
+	db $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $01, $01, $01, $01, $01, $01
+	db $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $01, $01, $01
+	db $01, $01, $01, $01, $01, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $4A35-$4A53 (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4A71-$4B61 (240 bytes) [PROBABLE] 10x24 tile-id map (frame border 36 37.. 36 in first row); base loaded by 'ld hl,$4A71' at 1D:4357 (+ index, ld c,$0A); executed reads in 10-byte rows from 4A71. the former unresolved span 4A35-4A53 belongs to the preceding attr map, see Attrmap_1D_4981
 
-Data_1D_4A35:: ; 1D:4A35
-	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $01, $01, $01, $01, $01, $01, $29, $09
+Tilemap_1D_4A71:: ; 1D:4A71
+	db $36, $37, $37, $37, $37, $37, $37, $37, $37, $36, $31, $80, $81, $82, $83, $84
+	db $85, $86, $87, $31, $32, $90, $91, $92, $93, $94, $95, $96, $97, $32, $33, $1E
+	db $1D, $1D, $1D, $1D, $1D, $1D, $1E, $33, $0A, $AF, $AA, $AB, $AC, $F2, $AD, $AE
+	db $AF, $0A, $1A, $BF, $BA, $BB, $BC, $02, $BD, $BE, $BF, $1A, $2A, $2B, $2B, $2B
+	db $2B, $2B, $2B, $2B, $2B, $2A, $30, $0E, $0D, $0D, $0D, $0D, $0D, $0D, $0E, $30
+	db $31, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $31, $32, $2E, $2F, $30, $31, $32
+	db $33, $34, $35, $32, $33, $1E, $1D, $1D, $1D, $1D, $1D, $1D, $1E, $33, $0A, $A2
+	db $A3, $A4, $A5, $A6, $A7, $A8, $A9, $0A, $1A, $B2, $B3, $B4, $B5, $B6, $B7, $B8
+	db $B9, $1A, $2A, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2A, $30, $0E, $0D, $0D
+	db $0D, $0D, $0D, $0D, $0E, $30, $31, $C0, $F8, $F9, $FA, $FB, $89, $8A, $C0, $31
+	db $2F, $07, $08, $09, $0A, $0B, $99, $9A, $07, $2F, $2D, $01, $10, $10, $10, $10
+	db $10, $10, $11, $2D, $23, $12, $13, $14, $15, $16, $17, $18, $19, $23, $22, $1A
+	db $1B, $1C, $1D, $1E, $1F, $20, $21, $22, $24, $25, $25, $25, $25, $25, $25, $25
+	db $25, $24, $0A, $AA, $AB, $AC, $F2, $AD, $AE, $F3, $F4, $0A, $1A, $BA, $BB, $BC
+	db $02, $BD, $BE, $03, $04, $1A, $2A, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2A
 
-; ---- data $4A53-$4D11 (702 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+; ---- data $4B61-$4C51 (240 bytes) [PROBABLE] attribute half (10x24) paired with Tilemap_1D_4A71; executed reads begin at 4B61
 
-Data_1D_4A53:: ; 1D:4A53
-	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $01, $01, $01, $01, $01
-	db $01, $01, $01, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $36, $37
-	db $37, $37, $37, $37, $37, $37, $37, $36, $31, $80, $81, $82, $83, $84, $85, $86
-	db $87, $31, $32, $90, $91, $92, $93, $94, $95, $96, $97, $32, $33, $1E, $1D, $1D
-	db $1D, $1D, $1D, $1D, $1E, $33, $0A, $AF, $AA, $AB, $AC, $F2, $AD, $AE, $AF, $0A
-	db $1A, $BF, $BA, $BB, $BC, $02, $BD, $BE, $BF, $1A, $2A, $2B, $2B, $2B, $2B, $2B
-	db $2B, $2B, $2B, $2A, $30, $0E, $0D, $0D, $0D, $0D, $0D, $0D, $0E, $30, $31, $26
-	db $27, $28, $29, $2A, $2B, $2C, $2D, $31, $32, $2E, $2F, $30, $31, $32, $33, $34
-	db $35, $32, $33, $1E, $1D, $1D, $1D, $1D, $1D, $1D, $1E, $33, $0A, $A2, $A3, $A4
-	db $A5, $A6, $A7, $A8, $A9, $0A, $1A, $B2, $B3, $B4, $B5, $B6, $B7, $B8, $B9, $1A
-	db $2A, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2A, $30, $0E, $0D, $0D, $0D, $0D
-	db $0D, $0D, $0E, $30, $31, $C0, $F8, $F9, $FA, $FB, $89, $8A, $C0, $31, $2F, $07
-	db $08, $09, $0A, $0B, $99, $9A, $07, $2F, $2D, $01, $10, $10, $10, $10, $10, $10
-	db $11, $2D, $23, $12, $13, $14, $15, $16, $17, $18, $19, $23, $22, $1A, $1B, $1C
-	db $1D, $1E, $1F, $20, $21, $22, $24, $25, $25, $25, $25, $25, $25, $25, $25, $24
-	db $0A, $AA, $AB, $AC, $F2, $AD, $AE, $F3, $F4, $0A, $1A, $BA, $BB, $BC, $02, $BD
-	db $BE, $03, $04, $1A, $2A, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2B, $2A, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $21, $09, $02, $02, $02, $02, $02, $02, $02
-	db $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29, $09, $09
-	db $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01, $01, $29
-	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $29, $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $02
-	db $02, $02, $02, $02, $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02
-	db $02, $29, $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $01, $01, $01
-	db $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $29, $09, $09, $09, $09
-	db $09, $09, $09, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $02
-	db $02, $02, $02, $02, $02, $02, $02, $29, $09, $01, $01, $01, $01, $01, $01, $01
-	db $01, $29, $01, $01, $01, $01, $01, $01, $01, $01, $01, $21, $01, $02, $02, $02
-	db $02, $02, $02, $02, $02, $21, $01, $01, $01, $01, $01, $01, $01, $01, $01, $21
-	db $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $C1, $1B
-	db $C2, $D5, $D6, $D7, $1B, $1B, $C3, $C4, $C5, $D8, $D9, $DA, $DB, $DC, $C6, $C7
-	db $C8, $DD, $DE, $DF, $DF, $E0, $C9, $CA, $CB, $D2, $D3, $D4, $DF, $E0, $1B, $1B
-	db $F0, $F1, $E8, $E9, $DF, $E0, $1B, $1B, $E7, $E8, $E9, $EC, $EC, $ED, $1B, $1B
-	db $C2, $E1, $E2, $E3, $1B, $1B, $CC, $CD, $CE, $E4, $E5, $E6, $DB, $DC, $CF, $D0
-	db $D1, $DD, $DE, $DF, $DF, $E0, $C9, $CA, $CB, $D2, $D3, $D4, $DF, $E0, $1B, $1B
-	db $F0, $F1, $E8, $E9, $DF, $E0, $1B, $1B, $E7, $E8, $E9, $EC, $EC, $ED, $03, $09
-	db $03, $01, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $01, $01, $03, $03
-	db $03, $01, $01, $01, $01, $01, $03, $03, $03, $03, $03, $03, $01, $01, $09, $09
-	db $03, $03, $03, $03, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $09, $09
-	db $03, $01, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $01, $01, $03, $03
-	db $03, $01, $01, $01, $01, $01, $03, $03, $03, $03, $03, $03, $01, $01, $09, $09
-	db $03, $03, $03, $03, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01
+Attrmap_1D_4B61:: ; 1D:4B61
+	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $21, $09, $02, $02, $02, $02, $02
+	db $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29
+	db $09, $09, $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01
+	db $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $29, $09, $29, $09, $09, $09, $09, $09, $09, $09, $29
+	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $02, $02, $02, $02, $02
+	db $02, $02, $02, $29, $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $01
+	db $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02, $02, $02
+	db $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $29, $09, $09
+	db $09, $09, $09, $09, $09, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29
+	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $01, $01, $01, $01, $01
+	db $01, $01, $01, $29, $01, $01, $01, $01, $01, $01, $01, $01, $01, $21, $01, $02
+	db $02, $02, $02, $02, $02, $02, $02, $21, $01, $01, $01, $01, $01, $01, $01, $01
+	db $01, $21, $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02
+	db $02, $02, $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
 
-; ---- data $4D11-$4D20 (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4C51-$4CB1 (96 bytes) [PROBABLE] tile-id map half of a 96+96 byte pair loaded at 1D:43BC 'ld hl,$4C51' (with 'ld bc,$0608 ; ld de,$D0C1') then Function_00_16A2 (far); executed reads at 4C51-4D11 and second halves 4C81-4CB1 / 4CE1-4D11 (48 bytes each)
 
-Data_1D_4D11:: ; 1D:4D11
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+Tilemap_1D_4C51:: ; 1D:4C51
+	db $C1, $1B, $C2, $D5, $D6, $D7, $1B, $1B, $C3, $C4, $C5, $D8, $D9, $DA, $DB, $DC
+	db $C6, $C7, $C8, $DD, $DE, $DF, $DF, $E0, $C9, $CA, $CB, $D2, $D3, $D4, $DF, $E0
+	db $1B, $1B, $F0, $F1, $E8, $E9, $DF, $E0, $1B, $1B, $E7, $E8, $E9, $EC, $EC, $ED
+	db $1B, $1B, $C2, $E1, $E2, $E3, $1B, $1B, $CC, $CD, $CE, $E4, $E5, $E6, $DB, $DC
+	db $CF, $D0, $D1, $DD, $DE, $DF, $DF, $E0, $C9, $CA, $CB, $D2, $D3, $D4, $DF, $E0
+	db $1B, $1B, $F0, $F1, $E8, $E9, $DF, $E0, $1B, $1B, $E7, $E8, $E9, $EC, $EC, $ED
+
+; ---- data $4CB1-$4D11 (96 bytes) [PROBABLE] attribute half (values 01/03/09) paired with Tilemap_1D_4C51; ends exactly at padding 4D11
+
+Attrmap_1D_4CB1:: ; 1D:4CB1
+	db $03, $09, $03, $01, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $01, $01
+	db $03, $03, $03, $01, $01, $01, $01, $01, $03, $03, $03, $03, $03, $03, $01, $01
+	db $09, $09, $03, $03, $03, $03, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01
+	db $09, $09, $03, $01, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $01, $01
+	db $03, $03, $03, $01, $01, $01, $01, $01, $03, $03, $03, $03, $03, $03, $01, $01
+	db $09, $09, $03, $03, $03, $03, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01
+
+; ---- zero $4D11-$4D20 (15 bytes) [PROBABLE] 15 bytes of $00 padding before the tile block loaded from 4D20
+	ds $F, $00
 
 ; ---- gfx $4D20-$4EB0 (400 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4050: hl=$4D20 a=$1D c=$19 de=$8000 (dest VRAM $8000, vbank=0)
 

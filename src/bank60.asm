@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank60", ROMX[$4000], BANK[$60]
 
@@ -243,7 +244,7 @@ Data_60_4B50:: ; 60:4B50
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F9, $FF, $70, $FF, $70, $FF, $F9, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F3, $FF, $E1, $FF, $E1, $FF, $F3, $FF
 
-; ---- data $4D80-$4DD2 (82 bytes) [HYPOTHESIS] run of 82 x $FF (padding?) in unclassified bytes
+; ---- data $4D80-$4DD0 (80 bytes) [HYPOTHESIS] run of 82 x $FF (padding?) in unclassified bytes
 
 Data_60_4D80:: ; 60:4D80
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -251,85 +252,84 @@ Data_60_4D80:: ; 60:4D80
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF
 
-; ---- data $4DD2-$5270 (1182 bytes) [HYPOTHESIS] UNCLASSIFIED 1182 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $4DD0-$5270 (1184 bytes) [PROBABLE] 74 tiles: 2bpp tile data (pixel coherence hsim=0.674 vsim=0.583); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_4DD2:: ; 60:4DD2
-	db $80, $C0, $BF, $80, $BF, $80, $80, $BF, $80, $80, $80, $BF, $80, $BC, $FF, $FF
-	db $00, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $00, $FF, $00, $00, $FF, $FF
-	db $00, $00, $FC, $01, $FC, $01, $00, $FD, $00, $01, $00, $FE, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $01, $84, $71, $84, $08, $C4, $11, $CC, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $10, $0C, $53, $8C, $10, $4A, $85, $40, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $10, $4F, $09, $02, $88, $40, $40, $23, $00, $00, $FF, $FF
-	db $01, $03, $01, $FD, $01, $3D, $01, $1D, $C1, $1D, $21, $9D, $01, $01, $F8, $F0
-	db $E7, $E7, $D8, $CF, $D0, $9F, $A0, $BF, $A0, $BF, $A0, $BE, $A0, $BC, $00, $00
-	db $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $0C, $A3, $A3, $00, $00
-	db $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $1E, $80, $80, $00, $00
-	db $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $80, $83, $FF, $7F
-	db $3F, $3F, $DF, $9F, $5F, $CF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $83, $BB
-	db $A7, $B7, $A6, $B7, $A7, $B7, $A7, $B7, $9B, $A7, $A5, $83, $87, $97, $FF, $FF
-	db $FF, $FF, $49, $FF, $FF, $FF, $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1, $FC, $FF
-	db $FF, $FF, $24, $FF, $FF, $FF, $FF, $FF, $64, $E6, $FC, $FC, $66, $E6, $00, $FF
-	db $FF, $FF, $92, $FF, $FF, $FF, $FF, $FF, $92, $9A, $F2, $F2, $9A, $9A, $00, $FF
-	db $FF, $FF, $49, $FF, $FF, $FF, $FF, $FF, $2A, $6A, $A2, $AA, $B7, $B7, $00, $FF
-	db $FF, $FF, $24, $FF, $FF, $FF, $FF, $FF, $71, $79, $25, $25, $89, $89, $01, $FD
-	db $FD, $FD, $91, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $A1, $BD
-	db $A0, $BC, $A0, $BE, $A0, $BC, $A1, $BD, $A0, $BC, $A0, $BF, $A0, $BF, $D1, $D1
-	db $AB, $AB, $A0, $A0, $A2, $AA, $63, $69, $00, $0C, $00, $FF, $00, $07, $19, $19
-	db $C0, $C0, $81, $8C, $21, $21, $BD, $9D, $00, $00, $00, $FF, $00, $FE, $D8, $DB
-	db $80, $83, $C0, $83, $48, $4B, $B8, $B3, $00, $07, $00, $FF, $00, $0F, $2F, $EF
-	db $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $A7, $B7
-	db $A7, $B7, $9B, $A7, $A5, $83, $87, $97, $A7, $B7, $A7, $B7, $9B, $A7, $FF, $FF
-	db $FF, $E3, $DD, $C1, $C1, $C1, $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1, $FF, $FF
-	db $62, $E2, $F2, $FA, $72, $F6, $FF, $FF, $6B, $EB, $E1, $E1, $6B, $EB, $FF, $FF
-	db $C4, $C4, $44, $F5, $24, $2E, $FF, $FF, $72, $72, $13, $17, $33, $B3, $FF, $FF
-	db $06, $26, $03, $13, $C2, $E7, $FF, $FF, $2A, $2A, $02, $22, $3A, $BA, $FF, $FF
-	db $3F, $3F, $3F, $BF, $3F, $7F, $FF, $FF, $9F, $BF, $2F, $6F, $8F, $9F, $FD, $FD
-	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $A0, $BF
-	db $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $70, $77
-	db $40, $40, $5F, $4F, $1F, $10, $1F, $D0, $1F, $D0, $1E, $D0, $1D, $D1, $00, $FE
-	db $00, $00, $FF, $FF, $E1, $00, $9E, $10, $7E, $60, $C1, $80, $FB, $00, $E0, $EF
-	db $20, $2F, $A0, $2F, $80, $0F, $A0, $1F, $A0, $1F, $A0, $1F, $A0, $1F, $2F, $EF
-	db $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $27, $EF, $A5, $83
-	db $87, $97, $A7, $B7, $A7, $B7, $9B, $A7, $A5, $83, $87, $97, $A7, $B7, $FF, $FF
-	db $C1, $C9, $88, $B6, $B6, $80, $C9, $B6, $FF, $E3, $DD, $C1, $C1, $C1, $C0, $FF
-	db $40, $FF, $C0, $FF, $40, $FF, $C0, $FF, $62, $E2, $F2, $FA, $77, $F7, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $36, $36, $24, $B4, $AE, $AE, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $48, $48, $00, $AC, $E8, $EA, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $3D, $FD
-	db $3D, $FD, $3D, $FD, $3D, $FD, $3D, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $A0, $BF
-	db $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $1D, $D1
-	db $1B, $D2, $1A, $D0, $19, $D9, $13, $D3, $17, $D7, $10, $10, $5F, $4F, $07, $00
-	db $DF, $00, $3C, $00, $FD, $FD, $FD, $FD, $FC, $FC, $0F, $0F, $FF, $FF, $A0, $1F
-	db $A0, $1F, $A0, $1F, $20, $1F, $A0, $9F, $A0, $9F, $80, $8F, $A0, $2F, $21, $F3
-	db $38, $FC, $3E, $FF, $3F, $FF, $2F, $FF, $22, $E1, $2C, $EE, $2F, $EF, $A7, $B7
-	db $1B, $A7, $25, $03, $8F, $CF, $E3, $F3, $F8, $FC, $5E, $3F, $8B, $87, $FF, $FF
-	db $FF, $E3, $DD, $C1, $C1, $C1, $FF, $FF, $38, $38, $02, $02, $80, $CC, $FF, $FF
-	db $74, $F4, $E0, $E1, $76, $F6, $FF, $FF, $FF, $FF, $00, $F0, $F0, $07, $FF, $FF
-	db $97, $97, $34, $75, $64, $EC, $FF, $FF, $FF, $FF, $00, $3C, $3C, $81, $FF, $FF
-	db $C5, $C5, $04, $2C, $C0, $E1, $FF, $FF, $FF, $FF, $00, $0F, $0F, $E0, $FF, $FF
-	db $8A, $8A, $8A, $DA, $49, $4B, $FF, $FF, $FF, $FF, $00, $81, $81, $3C, $FD, $FD
-	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $05, $FD, $F9, $05, $A0, $BF
-	db $A0, $BF, $A0, $BF, $D0, $9F, $D8, $CF, $E7, $E7, $F8, $F0, $FF, $FF, $40, $40
-	db $77, $70, $00, $07, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF, $00, $00
-	db $FE, $00, $00, $FE, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF, $20, $2F
-	db $E0, $EF, $00, $0F, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF, $2F, $EF
-	db $2F, $EF, $2F, $EF, $5F, $CF, $DF, $9F, $3F, $3F, $FF, $7F, $FF, $FF, $A9, $B0
-	db $AF, $B0, $AF, $B0, $AF, $B0, $80, $80, $80, $80, $80, $C0, $FF, $FF, $6D, $E0
-	db $0D, $00, $9D, $20, $42, $42, $00, $00, $00, $00, $00, $00, $FF, $FF, $F3, $04
-	db $F3, $04, $F3, $04, $F0, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $BC, $01
-	db $BC, $01, $BC, $01, $3C, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $EF, $00
-	db $EF, $00, $EF, $00, $0F, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $9D, $20
-	db $9D, $20, $9D, $20, $81, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $F9, $05
-	db $F9, $05, $F9, $05, $F9, $05, $01, $01, $01, $01, $01, $03, $FF, $FF, $FF, $FF
-	db $80, $C0, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $80, $80, $FF, $FF
-	db $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $FF
-	db $00, $00, $FC, $01, $FC, $01, $FC, $01, $FC, $01, $FC, $01, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $1D, $E2, $05, $E2, $09, $F2, $09, $F2, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $53, $24, $10, $24, $D5, $22, $1A, $24, $00, $00, $FF, $FF
-	db $00, $00, $00, $FF, $B8, $03, $91, $06, $0B, $20, $B6, $00, $00, $00, $FF, $FF
-	db $01, $03, $01, $FD, $C1, $1D, $E1, $0D, $21, $0D, $41, $9D, $01, $01
+Tiles_60_4DD0:: ; 60:4DD0
+	db $FF, $FF, $80, $C0, $BF, $80, $BF, $80, $80, $BF, $80, $80, $80, $BF, $80, $BC
+	db $FF, $FF, $00, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $00, $FF, $00, $00
+	db $FF, $FF, $00, $00, $FC, $01, $FC, $01, $00, $FD, $00, $01, $00, $FE, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $01, $84, $71, $84, $08, $C4, $11, $CC, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $10, $0C, $53, $8C, $10, $4A, $85, $40, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $10, $4F, $09, $02, $88, $40, $40, $23, $00, $00
+	db $FF, $FF, $01, $03, $01, $FD, $01, $3D, $01, $1D, $C1, $1D, $21, $9D, $01, $01
+	db $F8, $F0, $E7, $E7, $D8, $CF, $D0, $9F, $A0, $BF, $A0, $BF, $A0, $BE, $A0, $BC
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $0C, $A3, $A3
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $1E, $80, $80
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $80, $83
+	db $FF, $7F, $3F, $3F, $DF, $9F, $5F, $CF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF
+	db $83, $BB, $A7, $B7, $A6, $B7, $A7, $B7, $A7, $B7, $9B, $A7, $A5, $83, $87, $97
+	db $FF, $FF, $FF, $FF, $49, $FF, $FF, $FF, $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1
+	db $FC, $FF, $FF, $FF, $24, $FF, $FF, $FF, $FF, $FF, $64, $E6, $FC, $FC, $66, $E6
+	db $00, $FF, $FF, $FF, $92, $FF, $FF, $FF, $FF, $FF, $92, $9A, $F2, $F2, $9A, $9A
+	db $00, $FF, $FF, $FF, $49, $FF, $FF, $FF, $FF, $FF, $2A, $6A, $A2, $AA, $B7, $B7
+	db $00, $FF, $FF, $FF, $24, $FF, $FF, $FF, $FF, $FF, $71, $79, $25, $25, $89, $89
+	db $01, $FD, $FD, $FD, $91, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD
+	db $A1, $BD, $A0, $BC, $A0, $BE, $A0, $BC, $A1, $BD, $A0, $BC, $A0, $BF, $A0, $BF
+	db $D1, $D1, $AB, $AB, $A0, $A0, $A2, $AA, $63, $69, $00, $0C, $00, $FF, $00, $07
+	db $19, $19, $C0, $C0, $81, $8C, $21, $21, $BD, $9D, $00, $00, $00, $FF, $00, $FE
+	db $D8, $DB, $80, $83, $C0, $83, $48, $4B, $B8, $B3, $00, $07, $00, $FF, $00, $0F
+	db $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF
+	db $A7, $B7, $A7, $B7, $9B, $A7, $A5, $83, $87, $97, $A7, $B7, $A7, $B7, $9B, $A7
+	db $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1, $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1
+	db $FF, $FF, $62, $E2, $F2, $FA, $72, $F6, $FF, $FF, $6B, $EB, $E1, $E1, $6B, $EB
+	db $FF, $FF, $C4, $C4, $44, $F5, $24, $2E, $FF, $FF, $72, $72, $13, $17, $33, $B3
+	db $FF, $FF, $06, $26, $03, $13, $C2, $E7, $FF, $FF, $2A, $2A, $02, $22, $3A, $BA
+	db $FF, $FF, $3F, $3F, $3F, $BF, $3F, $7F, $FF, $FF, $9F, $BF, $2F, $6F, $8F, $9F
+	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD
+	db $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF
+	db $70, $77, $40, $40, $5F, $4F, $1F, $10, $1F, $D0, $1F, $D0, $1E, $D0, $1D, $D1
+	db $00, $FE, $00, $00, $FF, $FF, $E1, $00, $9E, $10, $7E, $60, $C1, $80, $FB, $00
+	db $E0, $EF, $20, $2F, $A0, $2F, $80, $0F, $A0, $1F, $A0, $1F, $A0, $1F, $A0, $1F
+	db $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $2F, $EF, $27, $EF
+	db $A5, $83, $87, $97, $A7, $B7, $A7, $B7, $9B, $A7, $A5, $83, $87, $97, $A7, $B7
+	db $FF, $FF, $C1, $C9, $88, $B6, $B6, $80, $C9, $B6, $FF, $E3, $DD, $C1, $C1, $C1
+	db $C0, $FF, $40, $FF, $C0, $FF, $40, $FF, $C0, $FF, $62, $E2, $F2, $FA, $77, $F7
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $36, $36, $24, $B4, $AE, $AE
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $48, $48, $00, $AC, $E8, $EA
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $3D, $FD, $3D, $FD, $3D, $FD, $3D, $FD, $3D, $FD, $FD, $FD, $FD, $FD, $FD, $FD
+	db $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF, $A0, $BF
+	db $1D, $D1, $1B, $D2, $1A, $D0, $19, $D9, $13, $D3, $17, $D7, $10, $10, $5F, $4F
+	db $07, $00, $DF, $00, $3C, $00, $FD, $FD, $FD, $FD, $FC, $FC, $0F, $0F, $FF, $FF
+	db $A0, $1F, $A0, $1F, $A0, $1F, $20, $1F, $A0, $9F, $A0, $9F, $80, $8F, $A0, $2F
+	db $21, $F3, $38, $FC, $3E, $FF, $3F, $FF, $2F, $FF, $22, $E1, $2C, $EE, $2F, $EF
+	db $A7, $B7, $1B, $A7, $25, $03, $8F, $CF, $E3, $F3, $F8, $FC, $5E, $3F, $8B, $87
+	db $FF, $FF, $FF, $E3, $DD, $C1, $C1, $C1, $FF, $FF, $38, $38, $02, $02, $80, $CC
+	db $FF, $FF, $74, $F4, $E0, $E1, $76, $F6, $FF, $FF, $FF, $FF, $00, $F0, $F0, $07
+	db $FF, $FF, $97, $97, $34, $75, $64, $EC, $FF, $FF, $FF, $FF, $00, $3C, $3C, $81
+	db $FF, $FF, $C5, $C5, $04, $2C, $C0, $E1, $FF, $FF, $FF, $FF, $00, $0F, $0F, $E0
+	db $FF, $FF, $8A, $8A, $8A, $DA, $49, $4B, $FF, $FF, $FF, $FF, $00, $81, $81, $3C
+	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $05, $FD, $F9, $05
+	db $A0, $BF, $A0, $BF, $A0, $BF, $D0, $9F, $D8, $CF, $E7, $E7, $F8, $F0, $FF, $FF
+	db $40, $40, $77, $70, $00, $07, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
+	db $00, $00, $FE, $00, $00, $FE, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
+	db $20, $2F, $E0, $EF, $00, $0F, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
+	db $2F, $EF, $2F, $EF, $2F, $EF, $5F, $CF, $DF, $9F, $3F, $3F, $FF, $7F, $FF, $FF
+	db $A9, $B0, $AF, $B0, $AF, $B0, $AF, $B0, $80, $80, $80, $80, $80, $C0, $FF, $FF
+	db $6D, $E0, $0D, $00, $9D, $20, $42, $42, $00, $00, $00, $00, $00, $00, $FF, $FF
+	db $F3, $04, $F3, $04, $F3, $04, $F0, $00, $00, $00, $00, $00, $00, $00, $FF, $FF
+	db $BC, $01, $BC, $01, $BC, $01, $3C, $00, $00, $00, $00, $00, $00, $00, $FF, $FF
+	db $EF, $00, $EF, $00, $EF, $00, $0F, $00, $00, $00, $00, $00, $00, $00, $FF, $FF
+	db $9D, $20, $9D, $20, $9D, $20, $81, $00, $00, $00, $00, $00, $00, $00, $FF, $FF
+	db $F9, $05, $F9, $05, $F9, $05, $F9, $05, $01, $01, $01, $01, $01, $03, $FF, $FF
+	db $FF, $FF, $80, $C0, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $BF, $80, $80, $80
+	db $FF, $FF, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00
+	db $FF, $FF, $00, $00, $FC, $01, $FC, $01, $FC, $01, $FC, $01, $FC, $01, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $1D, $E2, $05, $E2, $09, $F2, $09, $F2, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $53, $24, $10, $24, $D5, $22, $1A, $24, $00, $00
+	db $FF, $FF, $00, $00, $00, $FF, $B8, $03, $91, $06, $0B, $20, $B6, $00, $00, $00
+	db $FF, $FF, $01, $03, $01, $FD, $C1, $1D, $E1, $0D, $21, $0D, $41, $9D, $01, $01
 
 ; ---- data $5270-$52C0 (80 bytes) [HYPOTHESIS] run of 80 x $FF (padding?) in unclassified bytes
 
@@ -340,9 +340,9 @@ Data_60_5270:: ; 60:5270
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $52C0-$52D0 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $52C0-$52D0 (16 bytes) [HYPOTHESIS] 1 tiles: 2bpp tile data (pixel coherence hsim=0.357 vsim=0.786); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_52C0:: ; 60:52C0
+Tiles_60_52C0:: ; 60:52C0
 	db $B8, $9F, $B8, $9F, $B8, $8F, $A8, $9F, $BF, $98, $BF, $9B, $BF, $8B, $AF, $98
 
 ; ---- gfx $52D0-$5640 (880 bytes) [PROBABLE] tiles-2bpp: heuristic: 48 coherent tiles (hsim2=0.661 vsim2=0.678, 0 blank) parity 0
@@ -404,9 +404,9 @@ Data_60_52D0:: ; 60:52D0
 	db $3F, $3F, $00, $80, $C9, $11, $C9, $11, $19, $11, $39, $31, $01, $03, $FF, $FF
 	db $FC, $FF, $04, $07, $F4, $F7, $FA, $F3, $FB, $F9, $F8, $FC, $FF, $FE, $FF, $FF
 
-; ---- data $5640-$56F0 (176 bytes) [HYPOTHESIS] UNCLASSIFIED 176 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5640-$56F0 (176 bytes) [PROBABLE] 11 tiles: 2bpp tile data (pixel coherence hsim=0.769 vsim=0.438); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_5640:: ; 60:5640
+Tiles_60_5640:: ; 60:5640
 	db $0C, $E8, $0E, $EE, $00, $E0, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
 	db $00, $00, $FF, $00, $00, $FF, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
 	db $0C, $05, $DC, $1D, $00, $C1, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $FF, $FF
@@ -428,9 +428,9 @@ Data_60_56F0:: ; 60:56F0
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $5740-$57B0 (112 bytes) [HYPOTHESIS] UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5740-$57B0 (112 bytes) [HYPOTHESIS] 7 tiles: 2bpp tile data (pixel coherence hsim=0.658 vsim=0.607); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_5740:: ; 60:5740
+Tiles_60_5740:: ; 60:5740
 	db $BF, $80, $98, $BF, $98, $AF, $8B, $BC, $9B, $BD, $9B, $BD, $9B, $BC, $98, $AF
 	db $FF, $00, $00, $FF, $70, $8F, $FF, $40, $FC, $E3, $F6, $C9, $D4, $2B, $00, $FF
 	db $FF, $00, $00, $FF, $00, $FF, $B8, $47, $88, $77, $90, $6E, $E8, $16, $00, $FF
@@ -448,9 +448,9 @@ Data_60_57B0:: ; 60:57B0
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $5800-$5B00 (768 bytes) [HYPOTHESIS] UNCLASSIFIED 768 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5800-$5B00 (768 bytes) [PROBABLE] 48 tiles: 2bpp tile data (pixel coherence hsim=0.749 vsim=0.741); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_5800:: ; 60:5800
+Tiles_60_5800:: ; 60:5800
 	db $88, $BF, $98, $BE, $98, $BE, $98, $BF, $B0, $A0, $A0, $AF, $90, $8F, $90, $89
 	db $00, $FF, $00, $7B, $00, $A9, $00, $FF, $00, $00, $00, $FF, $00, $FF, $00, $55
 	db $00, $FA, $00, $7A, $00, $2A, $00, $FF, $00, $00, $00, $FF, $00, $FF, $00, $38
@@ -589,9 +589,9 @@ Data_60_5D50:: ; 60:5D50
 	db $00, $FF, $00, $01, $E0, $3E, $E0, $3E, $E0, $3E, $E4, $36, $2C, $3E, $A0, $BE
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FC, $00, $FC, $00, $FE
 
-; ---- data $6010-$6060 (80 bytes) [HYPOTHESIS] UNCLASSIFIED 80 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $6010-$6060 (80 bytes) [HYPOTHESIS] 5 tiles: 2bpp tile data (pixel coherence hsim=0.411 vsim=0.411); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_6010:: ; 60:6010
+Tiles_60_6010:: ; 60:6010
 	db $0D, $E1, $1B, $C3, $37, $87, $6E, $0F, $DD, $1F, $B6, $3F, $2B, $3F, $15, $DF
 	db $B7, $F0, $5B, $F8, $AD, $FC, $D6, $FE, $6B, $FF, $F7, $FF, $DE, $FF, $AD, $FF
 	db $00, $7F, $80, $3F, $C0, $1F, $E0, $0F, $70, $07, $A0, $8B, $C0, $DD, $C0, $DD
@@ -639,9 +639,9 @@ Data_60_6060:: ; 60:6060
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $00, $4F, $80
 	db $CC, $03, $F3, $00, $FC, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 
-; ---- data $62B0-$6470 (448 bytes) [HYPOTHESIS] UNCLASSIFIED 448 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $62B0-$6470 (448 bytes) [PROBABLE] 28 tiles: 2bpp tile data (pixel coherence hsim=0.723 vsim=0.524); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_62B0:: ; 60:62B0
+Tiles_60_62B0:: ; 60:62B0
 	db $FF, $FF, $14, $CB, $C0, $32, $30, $0D, $CC, $03, $F3, $00, $E4, $0C, $E8, $0F
 	db $FF, $FF, $00, $F3, $48, $25, $08, $A1, $60, $13, $00, $FF, $C0, $30, $30, $0F
 	db $FC, $FD, $80, $2D, $40, $0D, $00, $6D, $10, $8D, $02, $FC, $00, $00, $00, $FF
@@ -680,9 +680,9 @@ Data_60_6470:: ; 60:6470
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $64C0-$6530 (112 bytes) [HYPOTHESIS] UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $64C0-$6530 (112 bytes) [HYPOTHESIS] 7 tiles: 2bpp tile data (pixel coherence hsim=0.699 vsim=0.63); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_64C0:: ; 60:64C0
+Tiles_60_64C0:: ; 60:64C0
 	db $BF, $80, $BF, $BF, $88, $B3, $9C, $A1, $89, $A0, $9F, $A0, $9D, $A0, $BF, $80
 	db $FF, $00, $FF, $FF, $91, $26, $A8, $02, $29, $02, $4E, $10, $C9, $10, $FF, $00
 	db $FF, $07, $F3, $FB, $8B, $13, $0B, $13, $CB, $13, $4B, $13, $8B, $13, $FB, $03
@@ -700,9 +700,9 @@ Data_60_6530:: ; 60:6530
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $6580-$6600 (128 bytes) [HYPOTHESIS] UNCLASSIFIED 128 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $6580-$6600 (128 bytes) [PROBABLE] 8 tiles: 2bpp tile data (pixel coherence hsim=0.636 vsim=0.576); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_6580:: ; 60:6580
+Tiles_60_6580:: ; 60:6580
 	db $80, $80, $8F, $B7, $8F, $B7, $8F, $B7, $8F, $B7, $8F, $B7, $8E, $B6, $8C, $B5
 	db $00, $00, $FF, $FF, $FF, $FF, $FB, $FF, $BF, $FF, $F0, $F0, $43, $4C, $BF, $80
 	db $07, $07, $FF, $FF, $FF, $FF, $F4, $F4, $F2, $F1, $FB, $F8, $3C, $3C, $1E, $DE
@@ -720,9 +720,9 @@ Data_60_6600:: ; 60:6600
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $6640-$70A0 (2656 bytes) [HYPOTHESIS] UNCLASSIFIED 2656 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $6640-$70A0 (2656 bytes) [PROBABLE] 166 tiles: 2bpp tile data (pixel coherence hsim=0.676 vsim=0.565); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_6640:: ; 60:6640
+Tiles_60_6640:: ; 60:6640
 	db $8D, $B5, $8E, $B6, $8F, $B7, $8F, $B7, $8F, $B7, $8F, $B7, $8E, $B7, $8F, $B7
 	db $87, $B8, $01, $46, $03, $38, $04, $40, $0F, $70, $B6, $89, $9C, $A3, $C0, $CF
 	db $9F, $5F, $CF, $2F, $CF, $2F, $CF, $2F, $09, $09, $40, $86, $47, $88, $17, $08
@@ -995,9 +995,9 @@ Data_60_70A0:: ; 60:70A0
 	db $FF, $FF, $FF, $FF, $FF, $FF, $08, $08, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00
 	db $FF, $FF, $FF, $FF, $FF, $FF, $A7, $A7, $FF, $FF, $FF, $FF, $FF, $FF, $02, $01
 
-; ---- data $76F0-$7A80 (912 bytes) [HYPOTHESIS] UNCLASSIFIED 912 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $76F0-$7A80 (912 bytes) [PROBABLE] 57 tiles: 2bpp tile data (pixel coherence hsim=0.735 vsim=0.425); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 
-Data_60_76F0:: ; 60:76F0
+Tiles_60_76F0:: ; 60:76F0
 	db $7F, $7F, $00, $7F, $7F, $7F, $00, $7F, $7F, $7F, $C0, $3F, $3F, $BF, $E0, $9F
 	db $FF, $FF, $00, $FF, $FF, $FF, $00, $FF, $FF, $FF, $01, $FF, $FF, $FF, $1D, $FE
 	db $C3, $DB, $01, $D7, $CF, $CF, $03, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $0F, $1F

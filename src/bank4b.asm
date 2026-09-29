@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank4B", ROMX[$4000], BANK[$4B]
 
@@ -481,35 +482,16 @@ Data_4B_5898:: ; 4B:5898
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $5B68-$5B6C (4 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 5370-5B6C by higher-priority evidence]
+; ---- data $5B68-$5B90 (40 bytes) [PROBABLE] 10 x 4-byte entries (tile, tile+$10 pair, attr, attr) = $A7/$B7,$A8/$B8,...,$C0/$C1 with attributes $0A $0A, placed right after the 720-byte tilemap+attr block 5898-5B68 (same shape as the entries at 76C0 after the block 73F0-76C0); entries 5B68, 5B74, 5B7C and following were read by executed code; the use of the entries is not decoded
 
-Data_4B_5B68:: ; 4B:5B68
-	db $A7, $B7, $0A, $0A
+Table_4B_5B68:: ; 4B:5B68
+	db $A7, $B7, $0A, $0A, $A8, $B8, $0A, $0A, $A9, $B9, $0A, $0A, $AA, $BA, $0A, $0A
+	db $AB, $BB, $0A, $0A, $AC, $BC, $0A, $0A, $AD, $BD, $0A, $0A, $AE, $BE, $0A, $0A
+	db $AF, $BF, $0A, $0A, $C0, $C1, $0A, $0A
 
-; ---- data $5B6C-$5B74 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5B90-$6590 (2560 bytes) [PROBABLE] 2bpp tiles by coherence: 160 non-blank tiles, mean adjacent-pixel similarity h=0.62 v=0.57 (random data ~0.25-0.35); renders as Japanese text glyph tiles (電話番号入力説明, 変更終了, 新しいパスワードのご注意 ...) when viewed; no loader call found for this range
 
-Data_4B_5B6C:: ; 4B:5B6C
-	db $A8, $B8, $0A, $0A, $A9, $B9, $0A, $0A
-
-; ---- data $5B74-$5B78 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_4B_5B74:: ; 4B:5B74
-	db $AA, $BA, $0A, $0A
-
-; ---- data $5B78-$5B7C (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4B_5B78:: ; 4B:5B78
-	db $AB, $BB, $0A, $0A
-
-; ---- data $5B7C-$5B80 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_4B_5B7C:: ; 4B:5B7C
-	db $AC, $BC, $0A, $0A
-
-; ---- data $5B80-$6590 (2576 bytes) [HYPOTHESIS] UNCLASSIFIED 2576 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4B_5B80:: ; 4B:5B80
-	db $AD, $BD, $0A, $0A, $AE, $BE, $0A, $0A, $AF, $BF, $0A, $0A, $C0, $C1, $0A, $0A
+Tiles_4B_5B90:: ; 4B:5B90
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $80, $3F, $BF, $3F, $81, $3F, $BF, $33, $A1, $3F, $9F, $1B, $91
 	db $00, $FF, $00, $02, $FA, $F8, $FA, $00, $FA, $F8, $9A, $08, $FA, $F0, $B2, $10
@@ -966,9 +948,9 @@ Data_4B_7490:: ; 4B:7490
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $76C0-$76D0 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $76C0-$76D0 (16 bytes) [PROBABLE] 3 x 4-byte entries ($26/$2F,$27/$30,$28/$31 with attributes $09 $09) + a zero entry, placed right after the tilemap+attr block 73F0-76C0 exactly like the entries at 5B68; use not decoded
 
-Data_4B_76C0:: ; 4B:76C0
+Table_4B_76C0:: ; 4B:76C0
 	db $26, $2F, $09, $09, $27, $30, $09, $09, $28, $31, $09, $09, $00, $00, $00, $00
 
 ; ---- gfx $76D0-$7AD0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:574D: hl=$76D0 a=$4B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]

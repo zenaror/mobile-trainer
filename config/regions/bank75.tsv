@@ -8,7 +8,7 @@
 40F9	411C	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 18/18 scenarios)
 411C	4120	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:411A (executed)
 4120	4154	code	-	CONFIRMED	25 insn(s); 25 executed (in up to 4/18 scenarios)
-4154	4158	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4152 (executed)
+4154	4158	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4152 (executed) [executed in 6 scenarios]
 4158	415D	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 4/18 scenarios)
 415D	416A	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 75:4156 (PROBABLE code)
 416A	418C	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 2/18 scenarios)
@@ -63,14 +63,12 @@
 4EE0	4EE8	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:4EDE (executed)
 4EE8	4F2D	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 2/18 scenarios)
 4F2D	4FB2	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1; entered by jrcc from 75:4F26 (executed)
-4FB2	4FD3	data	Data_75_4FB2	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4FD3	4FDE	data	Data_75_4FD3	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FDE	4FFD	data	Data_75_4FDE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4FFD	5001	data	Data_75_4FFD	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5001	5043	data	Data_75_5001	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5043	5049	data	Data_75_5043	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FB2	4FDE	text	String_75_4FB2	CONFIRMED	"http://gameboy.datacenter.ne.jp/cgb/download" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
+4FDE	5001	text	String_75_4FDE	CONFIRMED	"gameboy.datacenter.ne.jp/cgb/upload" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
+5001	5025	text	String_75_5001	CONFIRMED	"gameboy.datacenter.ne.jp/cgb/utility" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
+5025	5049	text	String_75_5025	CONFIRMED	"gameboy.datacenter.ne.jp/cgb/ranking" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 5049	5118	code	-	PROBABLE	127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 1; entered by jpcc from 75:4DEE (PROBABLE code)
-5118	5149	data	Data_75_5118	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5118	5149	code	-	PROBABLE	22 insn(s): complete routine ending in jp $5F0B (ld hl,$C6C6 ; ld a,[hli] ; ld h,[hl] ; ld l,a ... ld a,$A3 ; ld de,$0010 ; ld hl,$C832 ; jp $5F0B); follows a ret; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 5149	51DC	code	-	PROBABLE	90 insn(s) reached by static flow only; seeds: exec x90; min discovery hops 2; entered by jrcc from 75:5100 (PROBABLE code)
 51DC	5258	code	Function_75_51DC	CONFIRMED	73 insn(s); 73 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 5258	525E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:5256 (executed)
@@ -115,7 +113,7 @@
 57A7	57AD	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
 57AD	57F4	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 1; entered by jpcc from 75:570E (executed)
 57F4	5823	code	-	CONFIRMED	25 insn(s); 25 executed (in up to 17/18 scenarios)
-5823	584C	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:5818 (executed)
+5823	584C	code	-	CONFIRMED	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:5818 (executed) [executed in 1 scenarios]
 584C	5865	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 17/18 scenarios)
 5865	5870	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:5863 (executed)
 5870	58B9	code	-	CONFIRMED	41 insn(s); 41 executed (in up to 17/18 scenarios)
@@ -127,7 +125,7 @@
 5990	599D	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 17/18 scenarios)
 599D	59FC	code	-	PROBABLE	41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 1; entered by jrcc from 75:5976 (executed)
 59FC	5A17	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 18/18 scenarios)
-5A17	5A36	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 75:595C (executed)
+5A17	5A36	code	-	CONFIRMED	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 75:595C (executed) [executed in 3 scenarios]
 5A36	5A57	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 17/18 scenarios)
 5A57	5AC3	code	-	PROBABLE	52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 0; fall-through of the jrcc at 75:5A55 (executed)
 5AC3	5AD5	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 17/18 scenarios)
@@ -161,27 +159,21 @@
 5FD6	5FF2	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 4/18 scenarios)
 5FF2	5FFB	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 75:5FDE (executed)
 5FFB	6063	data	Data_75_5FFB	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
-6063	606D	data	Data_75_6063	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-606D	6073	data	Data_75_606D	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6073	6078	data	Data_75_6073	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6063	606D	data	Data_75_6063	PROBABLE	Mobile Adapter packet template: magic 99 66, command $14, len 0, checksum $0014 (= sum of cmd..payload, verified), device byte $80, $00; passed to 75:5F08 (ld a,$94 ; ld hl,$6063 ; jp $5F08) at 75:63C6 (static-reached, never executed) | verifier: downgraded from CONFIRMED, no trace reads any byte of 6063-606D (the reads stop at 6063 and resume at 606D); the packet structure and checksum are verified by hand but nothing was executed
+606D	6073	data	Data_75_606D	CONFIRMED	read as data by executed code (in 11 of the trace scenarios): first 6 bytes of the packet template that continues at 6073: magic 99 66, command $15, pad 00, length 00 01
+6073	6078	data	Data_75_6073	PROBABLE	tail of the 11-byte Mobile Adapter packet template 606D-6078: payload $FF, checksum $0115 (= sum of cmd..payload, verified by hand), $80 $00; no trace reads these 5 bytes (verifier: split from the CONFIRMED-read head)
 6078	6084	data	Data_75_6078	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6084	6090	data	Data_75_6084	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6090	6093	data	Data_75_6090	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
-6093	609F	data	Data_75_6093	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6084	6099	data	Data_75_6084	PROBABLE	21-byte byte table (7 triples ec 14 c9 / e4 0f 0e / e0 0c 53 / c4 07 94 / b0 05 ee / ec 10 b4 / e4 0c dd); indexed by bc via 75:40E1 (ld hl,$6084 ; add hl,bc ; ld c,[hl] ; inc hl ...); meaning unresolved
+6099	609F	text	String_75_6099	PROBABLE	NUL-terminated ASCII "HELO " (SMTP command) passed in HL to the string sender 75:4007 at 75:4736 (ld hl,$6099)
 609F	60B5	text	String_75_609F	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-60B5	60BC	data	Data_75_60B5	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-60BC	60CE	data	Data_75_60BC	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-60CE	60CF	data	Data_75_60CE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-60CF	60D6	data	Data_75_60CF	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-60D6	610B	data	Data_75_60D6	HYPOTHESIS	UNCLASSIFIED 53 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-610B	611C	data	Data_75_610B	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
+60B5	611C	text	String_75_60B5	CONFIRMED	NUL-terminated ASCII POP3/SMTP/HTTP command strings: "DATA" CRLF, "QUIT" CRLF, "USER ", "PASS ", "STAT" CRLF, "LIST 00000" CRLF, "RETR 00000" CRLF, "DELE 00000" CRLF, "TOP 00000 0" CRLF, "GET ", " HTTP/1.0" CRLF; passed to 75:4007 by 75:4878 (DATA), 75:4A3A/4ACE/4C78/4D11 (LIST/RETR/DELE/TOP) ...
 611C	612D	text	String_75_611C	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 612D	6138	data	Data_75_612D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
 6138	6149	text	String_75_6138	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 6149	6182	code	Function_75_6149	CONFIRMED	32 insn(s); 32 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 6182	6191	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:6158 (executed)
 6191	61A0	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 7/18 scenarios)
-61A0	61A7	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:619E (executed)
+61A0	61A7	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:619E (executed) [executed in 3 scenarios]
 61A7	61F1	ptrtable	Table_75_61A7	PROBABLE	code-pointer table, 37 entries: 37/37 words hit own-bank code starts (dense run of code pointers); 22/37 targets executed
 61F1	6201	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 17/18 scenarios)
 6201	620B	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 75:61FD (executed)
@@ -204,19 +196,19 @@
 6351	6379	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 17/18 scenarios)
 6379	63E7	code	-	PROBABLE	54 insn(s) reached by static flow only; seeds: mobile x54; min discovery hops 0; run starts at SDK/API table entry state0C (analysis/mobile_candidates.json)
 63E7	6404	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 6/18 scenarios)
-6404	640E	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6402 (executed)
+6404	640E	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6402 (executed) | upgraded by classifier 6: all 4 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 640E	645D	code	-	CONFIRMED	35 insn(s); 35 executed (in up to 6/18 scenarios)
 645D	645E	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:645B (executed)
 645E	647C	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 6/18 scenarios)
 647C	6486	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:647A (executed)
 6486	64A3	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 6/18 scenarios)
-64A3	64D4	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 75:64A1 (executed)
+64A3	64D4	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 75:64A1 (executed) [executed in 3 scenarios]
 64D4	64EB	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 6/18 scenarios)
 64EB	653A	code	-	PROBABLE	42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 0; fall-through of the jpcc at 75:64E8 (executed)
 653A	656C	code	Function_75_653A	CONFIRMED	21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 656C	659D	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 75:64EC (PROBABLE code)
 659D	6622	code	-	CONFIRMED	72 insn(s); 72 executed (in up to 2/18 scenarios)
-6622	6654	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jpcc from 75:64E0 (executed)
+6622	6654	code	-	CONFIRMED	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jpcc from 75:64E0 (executed) | upgraded by classifier 6: all 23 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 6654	66D9	code	-	CONFIRMED	61 insn(s); 61 executed (in up to 4/18 scenarios)
 66D9	66DD	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:66D7 (executed)
 66DD	66EA	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 2/18 scenarios)
@@ -228,7 +220,7 @@
 67DB	67E3	code	Function_75_67DB	CONFIRMED	3 insn(s); 3 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 67E3	67F7	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: mobile x11; min discovery hops 2; entered by jrcc from 75:6795 (PROBABLE code)
 67F7	6809	code	Function_75_67F7	CONFIRMED	11 insn(s); 11 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-6809	681D	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: mobile x12; min discovery hops 3; entered by call from 75:4BA0 (PROBABLE code)
+6809	681D	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: mobile x12; min discovery hops 3; entered by call from 75:4BA0 (PROBABLE code) | upgraded by classifier 6: all 12 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 681D	682B	code	Function_75_681D	CONFIRMED	9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 682B	6840	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 0; fall-through of the jrcc at 75:6829 (executed)
 6840	6856	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 4/18 scenarios)
@@ -238,7 +230,7 @@
 6974	6985	code	Function_75_6974	CONFIRMED	13 insn(s); 13 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 6985	6986	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:6983 (executed)
 6986	6992	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 2/18 scenarios)
-6992	699C	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6990 (executed)
+6992	699C	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6990 (executed) | upgraded by classifier 6: all 4 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 699C	69BB	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 4/18 scenarios)
 69BB	69C0	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:69B9 (executed)
 69C0	6A14	code	-	CONFIRMED	36 insn(s); 36 executed (in up to 4/18 scenarios)
@@ -246,13 +238,13 @@
 6A6C	6A6F	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
 6A6F	6A70	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:6A6D (executed)
 6A70	6AAB	code	-	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios)
-6AAB	6AC2	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 75:6A73 (executed)
+6AAB	6AC2	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 75:6A73 (executed) [executed in 1 scenarios]
 6AC2	6B57	code	Function_75_6AC2	CONFIRMED	79 insn(s); 79 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 6B57	6B5F	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:6B55 (executed)
 6B5F	6B85	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 2/18 scenarios)
 6B85	6D49	code	-	PROBABLE	238 insn(s) reached by static flow only; seeds: exec x2, mobile x236; min discovery hops 0; entered by jrcc from 75:6B79 (executed)
 6D49	6D5E	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
-6D5E	6D62	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 75:6D5B (executed)
+6D5E	6D62	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 75:6D5B (executed) [executed in 1 scenarios]
 6D62	6D63	data	Data_75_6D62	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 6D63	6D9D	code	-	PROBABLE	31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1; entered by jrcc from 75:6D54 (executed)
 6D9D	6DFF	code	-	CONFIRMED	44 insn(s); 44 executed (in up to 2/18 scenarios)
@@ -264,9 +256,9 @@
 6E40	6E4E	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 2/18 scenarios)
 6E4E	6E5C	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 75:6DE6 (executed)
 6E5C	6E8A	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 2/18 scenarios)
-6E8A	6E95	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:6E88 (executed)
+6E8A	6E95	code	-	CONFIRMED	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:6E88 (executed) [executed in 1 scenarios]
 6E95	6EA8	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
-6EA8	6EAB	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:6EA6 (executed)
+6EA8	6EAB	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:6EA6 (executed) [executed in 1 scenarios]
 6EAB	6EC6	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 1/18 scenarios)
 6EC6	6ED7	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 75:6EC4 (executed)
 6ED7	6EDC	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -279,14 +271,13 @@
 6FE1	7006	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:6FCD (executed)
 7006	7018	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 2/18 scenarios)
 7018	7039	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 75:7014 (executed)
-7039	703B	data	Data_75_7039	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-703B	7040	data	Data_75_703B	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7039	7040	text	String_75_7039	PROBABLE	NUL-terminated ASCII "date: " (7 bytes incl. NUL); follows the ret at 75:7038
 7040	704B	code	Function_75_7040	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-704B	705E	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7047 (executed)
+704B	705E	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7047 (executed) [executed in 1 scenarios]
 705E	7069	code	Function_75_705E	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 7069	708C	code	-	PROBABLE	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 75:7065 (executed)
 708C	7097	code	Function_75_708C	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-7097	70A3	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:7093 (executed)
+7097	70A3	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:7093 (executed) [executed in 1 scenarios]
 70A3	70B0	code	Function_75_70A3	CONFIRMED	5 insn(s); 5 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 70B0	70C1	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 75:70AD (executed)
 70C1	70EB	code	-	CONFIRMED	23 insn(s); 23 executed (in up to 2/18 scenarios)
@@ -302,17 +293,16 @@
 72A0	72A9	code	Function_75_72A0	CONFIRMED	7 insn(s); 7 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 72A9	72AB	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:72A7 (executed)
 72AB	72DE	code	Function_75_72AB	CONFIRMED	41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-72DE	72DF	data	Data_75_72DE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-72DF	72EA	data	Data_75_72DF	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72DE	72EA	text	String_75_72DE	PROBABLE	NUL-terminated ASCII "Gb-Status: " (HTTP header name)
 72EA	7315	text	String_75_72EA	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-7315	7337	data	Data_75_7315	HYPOTHESIS	UNCLASSIFIED 34 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7315	7337	text	String_75_7315	PROBABLE	NUL-terminated ASCII "Content-Type: application/x-cgb" CRLF; passed in HL to 75:4007 at 75:7362 (ld hl,$7315)
 7337	734F	text	String_75_7337	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 734F	73AA	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by jpcc from 75:6D57 (executed)
-73AA	73BE	data	Data_75_73AA	HYPOTHESIS	UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73AA	73BE	text	String_75_73AA	PROBABLE	NUL-terminated ASCII "Content-Length: 0" CRLF; ld hl,$73AA at 75:73A2 followed by call $4007
 73BE	7436	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 2/18 scenarios)
-7436	7444	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by call from 75:6E92 (PROBABLE code)
+7436	7444	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by call from 75:6E92 (PROBABLE code) [executed in 1 scenarios]
 7444	7463	code	Function_75_7444	CONFIRMED	23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-7463	7465	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:7461 (executed)
+7463	7465	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:7461 (executed) [executed in 2 scenarios]
 7465	748D	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 2/18 scenarios)
 748D	74DB	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: mobile x39; min discovery hops 0; run starts at SDK/API table entry state1E (analysis/mobile_candidates.json)
 74DB	753C	code	-	CONFIRMED	54 insn(s); 54 executed (in up to 8/18 scenarios)
@@ -327,9 +317,13 @@
 7652	7655	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:7650 (executed)
 7655	7683	code	-	CONFIRMED	23 insn(s); 23 executed (in up to 17/18 scenarios)
 7683	7A17	code	-	PROBABLE	507 insn(s) reached by static flow only; seeds: exec x507; min discovery hops 2; entered by call from 75:709D (PROBABLE code)
-7A17	7C50	data	Data_75_7A17	HYPOTHESIS	UNCLASSIFIED 569 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7A17	7A32	text	String_75_7A17	PROBABLE	NUL-terminated ASCII 'Authorization: GB00 name="' (HTTP header); passed in HL to 75:4007 at 75:77D0 (ld hl,$7A17)
+7A32	7B32	data	Table_75_7A32	PROBABLE	256 bytes MD5 per-step parameter table: 4-byte records whose first field cycles the RFC 1321 shift amounts 7,12,17,22 / 5,9,14,20 / 4,11,16,23 / 6,10,15,21 (verified), a round/rotation nibble pair ($06/$04/$02/$00 | $10.. | $20.. | $30..) and a message-word offset; exact record framing (starts at 7A35 after 3 zero bytes) not verified; sits right before the MD5 constants
+7B32	7B40	data	Table_75_7B32	PROBABLE	14 bytes = 7 words (CA84 CA88 CA8C CA90 CA84 CA88 CA8C): rotating pointer list to the MD5 state words in WRAM; 8-byte windows (offset = index & $0F) are copied to $CA94 by 75:78E5 (ld hl,$7B32 ; add hl,de ; ld de,$CA94 ; ld b,8 ; jp $4000)
+7B40	7B50	data	Data_75_7B40	CONFIRMED	MD5 initial state A,B,C,D = 67452301 EFCDAB89 98BADCFE 10325476 stored little-endian (byte-exact RFC 1321 constants); copied (16 bytes) to WRAM $CA84 by 75:76EE (ld de,$CA84 ; ld hl,$7B40 ; ld b,$10 ; call $4000)
+7B50	7C50	data	Table_75_7B50	CONFIRMED	MD5 constant table T[1..64] = floor(2^32 x abs(sin(i))) as 64 little-endian dwords (byte-exact match computed with Python math.sin; first entries D76AA478 E8C7B756 242070DB C1BDCEEE)
 7C50	7E89	code	-	PROBABLE	347 insn(s) reached by static flow only; seeds: exec x289, mobile x58; min discovery hops 0; entered by call from 75:77DC (PROBABLE code)
-7E89	7EB4	data	Data_75_7E89	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7E89	7EB4	code	-	PROBABLE	27 insn(s): complete routine (ld hl,$C6C1 ; ld a,[hl] ; push af ; res 3,[hl] ; res 0,[hl] ... bit 0,a ; ret z ; ld hl,$C6C1 ; set 0,[hl] ; ret) falling into the code at 7EB4; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 7EB4	7EEF	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: mobile x38; min discovery hops 0; run starts at SDK/API table entry state29 (analysis/mobile_candidates.json)
 7EEF	7EF7	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
 7EF7	7F11	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7EF0 (executed)

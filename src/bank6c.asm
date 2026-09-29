@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank6C", ROMX[$4000], BANK[$6C]
 
@@ -38,64 +39,48 @@ Label_6C_401D:: ; 6C:401D
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld de, $8000
 	ld hl, $4E90
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8800
 	ld hl, $5290
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $5690
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9000
 	ld hl, $5A90
 	ld a, $6A
 	ld b, $98
 	ld c, $02
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $5AB0
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $5EB0
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $62B0
 	ld a, $6A
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld a, [wRam_C0D8]
 	cp a, $02
 	jr z, Label_6C_40E6
@@ -105,9 +90,7 @@ Label_6C_401D:: ; 6C:401D
 	ld de, $D000
 	ld hl, $4000
 	ld a, $6A
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld a, $02
 	ld [wRam_C0E6], a
 	call Function_6C_431B
@@ -121,24 +104,20 @@ Label_6C_40E6:: ; 6C:40E6
 	ld de, $D000
 	ld hl, $42D0
 	ld a, $6A
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld a, $02
 	ld [wRam_C0E6], a
 	call Function_6C_431B
 	jr Label_6C_411A
 
-; ---- code $4101-$411A (25 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 6C:40C1 (executed)
+; ---- code $4101-$411A (25 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 
 Label_6C_4101:: ; 6C:4101
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $45A0
 	ld a, $6A
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld a, $02
 	ld [wRam_C0E6], a
 	call Function_6C_431B
@@ -152,9 +131,7 @@ Label_6C_411A:: ; 6C:411A
 	ld de, $64AE
 	ld a, $6A
 	ld b, $80
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $371F
 	ld hl, $DA10
 	call Function_00_0A65
@@ -162,17 +139,13 @@ Label_6C_411A:: ; 6C:411A
 	ld de, $D840
 	ld hl, $62F0
 	ld a, $6A
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_6C_453D
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
 	ld hl, $D200
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -189,9 +162,7 @@ Label_6C_411A:: ; 6C:411A
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -199,12 +170,8 @@ Label_6C_411A:: ; 6C:411A
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_00_0956
+	farcall Function_4F_42B4
 	call Function_6C_4763
 	ldh a, [hWRAMBank]
 	push af
@@ -216,16 +183,10 @@ Label_6C_411A:: ; 6C:411A
 	ldh [rSVBK], a
 
 Label_6C_41B3:: ; 6C:41B3
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $41CB-$41D5 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 6C:41C8: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
@@ -240,9 +201,7 @@ Table_6C_41CB:: ; 6C:41CB
 ; ---- code $41D5-$422E (89 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
 
 Label_6C_41D5:: ; 6C:41D5
-	call FarCall
-	dw Function_48_4223
-	db BANK(Function_48_4223)
+	farcall Function_48_4223
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
 	call nz, Function_6C_429F
@@ -261,12 +220,8 @@ Label_6C_41E5:: ; 6C:41E5
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_48_46C6
-	db BANK(Function_48_46C6)
-	call FarCall
-	dw Function_48_4460
-	db BANK(Function_48_4460)
+	farcall Function_48_46C6
+	farcall Function_48_4460
 	ld a, [wRam_C0D8]
 	cp a, $02
 	jr z, Label_6C_423B
@@ -286,7 +241,7 @@ Label_6C_4222:: ; 6C:4222
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $422E-$423B (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:421F (executed)
+; ---- code $422E-$423B (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
 
 Label_6C_422E:: ; 6C:422E
 	ld a, $03
@@ -302,7 +257,7 @@ Label_6C_423B:: ; 6C:423B
 	add a, $08
 	ret
 
-; ---- code $4241-$4247 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 6C:4214 (executed)
+; ---- code $4241-$4247 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 6C:4214 (executed) [executed in 2 scenarios]
 
 Label_6C_4241:: ; 6C:4241
 	ld a, [wRam_C0E5]
@@ -331,12 +286,8 @@ Label_6C_425A:: ; 6C:425A
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_48_46C6
-	db BANK(Function_48_46C6)
-	call FarCall
-	dw Function_48_4460
-	db BANK(Function_48_4460)
+	farcall Function_48_46C6
+	farcall Function_48_4460
 	ld a, [wRam_C0D8]
 	cp a, $02
 	jr z, Label_6C_4283
@@ -352,7 +303,7 @@ Label_6C_4283:: ; 6C:4283
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $428F-$429C (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed)
+; ---- code $428F-$429C (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
 
 Label_6C_428F:: ; 6C:428F
 	ld a, $01
@@ -466,14 +417,10 @@ Function_6C_431B:: ; 6C:431B
 	ld de, $D0A9
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 ; ---- code $436C-$4498 (300 bytes) [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
@@ -500,14 +447,10 @@ Label_6C_436C:: ; 6C:436C
 	ld de, $D0E9
 	ld bc, $040A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_43AF:: ; 6C:43AF
@@ -560,14 +503,10 @@ Label_6C_43AF:: ; 6C:43AF
 	pop hl
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_440B:: ; 6C:440B
@@ -588,14 +527,10 @@ Label_6C_440B:: ; 6C:440B
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_4446:: ; 6C:4446
@@ -640,14 +575,10 @@ Label_6C_4446:: ; 6C:4446
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 ; ---- code $4498-$4525 (141 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed)
@@ -670,14 +601,10 @@ Label_6C_4498:: ; 6C:4498
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_44D3:: ; 6C:44D3
@@ -722,55 +649,17 @@ Label_6C_44D3:: ; 6C:44D3
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
-; ---- data $4525-$4529 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $4525-$453D (24 bytes) [PROBABLE] 24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before Function_6C_453D; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 Data_6C_4525:: ; 6C:4525
-	db $49, $00, $A9, $00
-
-; ---- data $4529-$452B (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4529:: ; 6C:4529
-	db $E9, $00
-
-; ---- data $452B-$4531 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_6C_452B:: ; 6C:452B
-	db $49, $01, $89, $00, $09, $01
-
-; ---- data $4531-$4535 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4531:: ; 6C:4531
-	db $89, $00, $09, $01
-
-; ---- data $4535-$4537 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6C_4535:: ; 6C:4535
-	db $00, $28
-
-; ---- data $4537-$4538 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4537:: ; 6C:4537
-	db $46
-
-; ---- data $4538-$453B (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_6C_4538:: ; 6C:4538
-	db $6E, $00, $1E
-
-; ---- data $453B-$453D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_453B:: ; 6C:453B
-	db $00, $1E
+	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
+	db $00, $28, $46, $6E, $00, $1E, $00, $1E
 
 ; ---- code $453D-$4566 (41 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
@@ -803,14 +692,10 @@ Function_6C_453D:: ; 6C:453D
 	ld de, $D0A9
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 ; ---- code $458E-$46BA (300 bytes) [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
@@ -837,14 +722,10 @@ Label_6C_458E:: ; 6C:458E
 	ld de, $D0E9
 	ld bc, $040A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_45D1:: ; 6C:45D1
@@ -897,14 +778,10 @@ Label_6C_45D1:: ; 6C:45D1
 	pop hl
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_462D:: ; 6C:462D
@@ -925,14 +802,10 @@ Label_6C_462D:: ; 6C:462D
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_4668:: ; 6C:4668
@@ -977,14 +850,10 @@ Label_6C_4668:: ; 6C:4668
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 ; ---- code $46BA-$4747 (141 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed)
@@ -1007,14 +876,10 @@ Label_6C_46BA:: ; 6C:46BA
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Label_6C_46F5:: ; 6C:46F5
@@ -1059,55 +924,17 @@ Label_6C_46F5:: ; 6C:46F5
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	call FarCall
-	dw Function_00_16A2
-	db BANK(Function_00_16A2)
+	farcall Function_00_16A2
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
-; ---- data $4747-$474B (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $4747-$4763 (28 bytes) [PROBABLE] same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before Function_6C_4763; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 Data_6C_4747:: ; 6C:4747
-	db $49, $00, $A9, $00
-
-; ---- data $474B-$474D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_474B:: ; 6C:474B
-	db $E9, $00
-
-; ---- data $474D-$4753 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_6C_474D:: ; 6C:474D
-	db $49, $01, $89, $00, $09, $01
-
-; ---- data $4753-$4757 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4753:: ; 6C:4753
-	db $89, $00, $09, $01
-
-; ---- data $4757-$4759 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6C_4757:: ; 6C:4757
-	db $00, $28
-
-; ---- data $4759-$475A (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4759:: ; 6C:4759
-	db $46
-
-; ---- data $475A-$475D (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_6C_475A:: ; 6C:475A
-	db $6E, $00, $1E
-
-; ---- data $475D-$4763 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_475D:: ; 6C:475D
-	db $00, $1E, $8C, $AA, $3C, $3C
+	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
+	db $00, $28, $46, $6E, $00, $1E, $00, $1E, $8C, $AA, $3C, $3C
 
 ; ---- code $4763-$4776 (19 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1124,7 +951,7 @@ Label_6C_4772:: ; 6C:4772
 	ld b, $04
 	jr Label_6C_4778
 
-; ---- code $4776-$4778 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed)
+; ---- code $4776-$4778 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed) [executed in 2 scenarios]
 
 Label_6C_4776:: ; 6C:4776
 	ld b, $06
@@ -1147,9 +974,7 @@ Label_6C_4789:: ; 6C:4789
 	add a, b
 	ld b, a
 	ld a, $6A
-	call FarCall
-	dw Function_48_42D4
-	db BANK(Function_48_42D4)
+	farcall Function_48_42D4
 	ret
 
 Function_6C_4798:: ; 6C:4798
@@ -1226,51 +1051,13 @@ Label_6C_4807:: ; 6C:4807
 	xor a, a
 	ret
 
-; ---- data $4809-$4816 (13 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
+; ---- data $4809-$4845 (60 bytes) [PROBABLE] table of 5-byte-like records (18 00 01 30 00 / 18 00 09 AF 03 / 18 00 0A 92 09 ...) ending 03 03 01 01 30 right before the text at 4845; read in up to 12 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 
 Data_6C_4809:: ; 6C:4809
-	db $18, $00, $01, $30, $00, $18, $00, $09, $AF, $03, $18, $00, $0A
-
-; ---- data $4816-$4818 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4816:: ; 6C:4816
-	db $92, $09
-
-; ---- data $4818-$481B (3 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_4818:: ; 6C:4818
-	db $18, $00, $11
-
-; ---- data $481B-$481D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_481B:: ; 6C:481B
-	db $16, $0C
-
-; ---- data $481D-$4820 (3 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_481D:: ; 6C:481D
-	db $18, $00, $12
-
-; ---- data $4820-$4822 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4820:: ; 6C:4820
-	db $D2, $0E
-
-; ---- data $4822-$4836 (20 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_4822:: ; 6C:4822
-	db $18, $00, $81, $17, $00, $18, $00, $89, $96, $03, $18, $00, $8A, $79, $09, $18
-	db $00, $91, $FD, $0B
-
-; ---- data $4836-$483E (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_4836:: ; 6C:4836
-	db $18, $00, $92, $B9, $0E, $04, $88, $10
-
-; ---- data $483E-$4845 (7 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-
-Data_6C_483E:: ; 6C:483E
-	db $08, $7B, $03, $03, $01, $01, $30
+	db $18, $00, $01, $30, $00, $18, $00, $09, $AF, $03, $18, $00, $0A, $92, $09, $18
+	db $00, $11, $16, $0C, $18, $00, $12, $D2, $0E, $18, $00, $81, $17, $00, $18, $00
+	db $89, $96, $03, $18, $00, $8A, $79, $09, $18, $00, $91, $FD, $0B, $18, $00, $92
+	db $B9, $0E, $04, $88, $10, $08, $7B, $03, $03, $01, $01, $30
 
 ; ---- text $4845-$485A (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 
@@ -1511,15 +1298,10 @@ String_6C_4F4C:: ; 6C:4F4C
 	db $ED, $A4, $F9, $FA, $C4, $D3, $A6, $C0, $B8, $10, $BB, $DD, $C2, $B8, $AF, $C3
 	db $C8, $A1, $00
 
-; ---- data $516F-$5175 (6 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
+; ---- data $516F-$5177 (8 bytes) [PROBABLE] message-record header 06 B5 FF 18 00 09 2A 00 (06 xx FF = record header as in the other bank-6C script records) preceding the string at 5177; first 6 bytes read in up to 5 scenarios, the 2-byte hole 5175 is its tail
 
 Data_6C_516F:: ; 6C:516F
-	db $06, $B5, $FF, $18, $00, $09
-
-; ---- data $5175-$5177 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5175:: ; 6C:5175
-	db $2A, $00
+	db $06, $B5, $FF, $18, $00, $09, $2A, $00
 
 ; ---- text $5177-$519E (39 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 
@@ -1550,9 +1332,9 @@ String_6C_51B1:: ; 6C:51B1
 Data_6C_5213:: ; 6C:5213
 	db $06, $97, $FF
 
-; ---- data $5216-$5236 (32 bytes) [HYPOTHESIS] UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5216-$5236 (32 bytes) [PROBABLE] body of the record whose header 06 97 FF was read at 5213-5216 (executed); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 
-Data_6C_5216:: ; 6C:5216
+String_6C_5216:: ; 6C:5216
 	db $03, $03, $10, $ED, $D3, $F9, $B0, $FA, $83, $41, $83, $68, $83, $8C, $FD, $A6
 	db $B5, $F3, $B4, $D9, $C9, $CA, $10, $C0, $B2, $CD, $DD, $EA, $D6, $C8, $A1, $00
 
@@ -1568,9 +1350,9 @@ String_6C_5236:: ; 6C:5236
 	db $C6, $A4, $21, $81, $79, $B6, $B7, $10, $BA, $D1, $81, $7A, $20, $C9, $83, $41
 	db $83, $43, $83, $52, $FF, $A6, $B5, $BC, $C3, $C8, $A1, $00
 
-; ---- data $52B2-$52E3 (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $52B2-$52E3 (49 bytes) [PROBABLE] one record (06 84 FF 03 03 11 ... 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 
-Data_6C_52B2:: ; 6C:52B2
+String_6C_52B2:: ; 6C:52B2
 	db $06, $84, $FF, $03, $03, $11, $C6, $AD, $B3, $D8, $AE, $B8, $E0, $D2, $DD, $E0
 	db $ED, $C0, $D7, $A4, $FB, $FE, $10, $83, $4E, $83, $6C, $B0, $83, $80, $C4, $F9
 	db $B0, $FA, $83, $41, $83, $68, $83, $8C, $FD, $A6, $B6, $B2, $C3, $10, $C8, $A1
@@ -1586,9 +1368,9 @@ String_6C_52E3:: ; 6C:52E3
 	db $B3, $BC, $C0, $D8, $A4, $B9, $BC, $C0, $D8, $BD, $D9, $BA, $C4, $D3, $ED, $10
 	db $B7, $D9, $DD, $EA, $D6, $A1, $00
 
-; ---- data $533A-$53F7 (189 bytes) [HYPOTHESIS] UNCLASSIFIED 189 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $533A-$53F7 (189 bytes) [PROBABLE] 5 consecutive records (06 A9 FF / 06 9E FF / 06 AF FF / 06 9A FF ...) each ending with 00; second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 
-Data_6C_533A:: ; 6C:533A
+String_6C_533A:: ; 6C:533A
 	db $06, $A9, $FF, $03, $02, $13, $F9, $B0, $FA, $83, $41, $83, $68, $83, $8C, $FD
 	db $E0, $83, $5A, $B0, $83, $75, $ED, $B7, $C0, $D7, $A4, $10, $83, $41, $83, $68
 	db $83, $8C, $FD, $C1, $AE, $B3, $B6, $D7, $B4, $D7, $F1, $EA, $B9, $ED, $A4, $00
@@ -1609,15 +1391,11 @@ String_6C_53F7:: ; 6C:53F7
 	db $A6, $C2, $B6, $B2, $BA, $C5, $BC, $C3, $A4, $10, $F9, $B0, $FA, $BA, $B3, $B6
 	db $DD, $A6, $B6, $B2, $C3, $B7, $C6, $C0, $C9, $BC, $10, $DD, $ED, $C8, $A1, $00
 
-; ---- data $5427-$542A (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5427-$543A (19 bytes) [PROBABLE] control record (not text): 06 A9 FF 06 99 04 10 03 01 04 93 04 08 B8 02 03 01 14 30 = header + command parameters; bytes 542A-543A were read in up to 8 scenarios, the 3 header bytes were the hole
 
 Data_6C_5427:: ; 6C:5427
-	db $06, $A9, $FF
-
-; ---- data $542A-$543A (16 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 542A-5472 by higher-priority evidence]
-
-Data_6C_542A:: ; 6C:542A
-	db $06, $99, $04, $10, $03, $01, $04, $93, $04, $08, $B8, $02, $03, $01, $14, $30
+	db $06, $A9, $FF, $06, $99, $04, $10, $03, $01, $04, $93, $04, $08, $B8, $02, $03
+	db $01, $14, $30
 
 ; ---- text $543A-$54D3 (153 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 
@@ -1633,9 +1411,9 @@ String_6C_543A:: ; 6C:543A
 	db $C0, $B8, $10, $BB, $DD, $B1, $AF, $C3, $A4, $D0, $DD, $C5, $C2, $C5, $E0, $AF
 	db $C3, $B2, $D9, $10, $DD, $EA, $D6, $A1, $00
 
-; ---- data $54D3-$5505 (50 bytes) [HYPOTHESIS] UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $54D3-$5505 (50 bytes) [PROBABLE] one record (06 9C FF 03 05 16 ... 81 49 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 
-Data_6C_54D3:: ; 6C:54D3
+String_6C_54D3:: ; 6C:54D3
 	db $06, $9C, $FF, $03, $05, $16, $E6, $AC, $B1, $21, $81, $79, $83, $7A, $B0, $83
 	db $80, $83, $79, $B0, $83, $57, $81, $7A, $20, $A6, $B5, $BC, $C3, $A4, $10, $83
 	db $7A, $B0, $83, $80, $83, $79, $B0, $83, $57, $A6, $D0, $C3, $D0, $D6, $B3, $81
@@ -1652,9 +1430,9 @@ String_6C_5505:: ; 6C:5505
 	db $C6, $A4, $83, $57, $FC, $FF, $83, $76, $BD, $D9, $BA, $C4, $E0, $ED, $B7, $D9
 	db $DD, $EA, $10, $D6, $A1, $00
 
-; ---- data $556B-$5594 (41 bytes) [HYPOTHESIS] UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $556B-$5594 (41 bytes) [PROBABLE] one record (06 9A FF 03 05 17 ... 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 
-Data_6C_556B:: ; 6C:556B
+String_6C_556B:: ; 6C:556B
 	db $06, $9A, $FF, $03, $05, $17, $BA, $DA, $A6, $A4, $21, $83, $7A, $B0, $83, $80
 	db $83, $79, $B0, $83, $57, $E0, $83, $8A, $FF, $83, $4E, $BC, $C3, $10, $B2, $D9
 	db $20, $C4, $B2, $B3, $DD, $EA, $D6, $A1, $00
@@ -1685,20 +1463,11 @@ String_6C_5594:: ; 6C:5594
 	db $A4, $10, $C4, $D3, $EA, $C1, $C6, $E6, $CF, $DD, $BC, $C1, $AC, $B5, $B3, $81
 	db $49, $81, $49, $00
 
-; ---- data $56E8-$56EB (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $56E8-$56FB (19 bytes) [PROBABLE] control record (not text): 06 96 FF 06 D8 01 10 04 01 04 D2 01 08 C9 01 03 01 1B 30 (header + parameters), mid part read in 1 scenario
 
 Data_6C_56E8:: ; 6C:56E8
-	db $06, $96, $FF
-
-; ---- data $56EB-$56F4 (9 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6C_56EB:: ; 6C:56EB
-	db $06, $D8, $01, $10, $04, $01, $04, $D2, $01
-
-; ---- data $56F4-$56FB (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_56F4:: ; 6C:56F4
-	db $08, $C9, $01, $03, $01, $1B, $30
+	db $06, $96, $FF, $06, $D8, $01, $10, $04, $01, $04, $D2, $01, $08, $C9, $01, $03
+	db $01, $1B, $30
 
 ; ---- text $56FB-$58BA (447 bytes) [PROBABLE] text: 9 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 
@@ -1732,138 +1501,22 @@ String_6C_56FB:: ; 6C:56FB
 	db $FD, $83, $67, $A6, $B3, $CF, $B8, $C2, $B6, $AF, $C3, $83, $7A, $B0, $10, $83
 	db $80, $83, $79, $B0, $83, $57, $A6, $C0, $C9, $BC, $DD, $ED, $C8, $A1, $00
 
-; ---- data $58BA-$58C6 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $58BA-$5987 (205 bytes) [PROBABLE] control header 06 95 FF 06 06 00 10 05 01 04 followed by Shift-JIS kana character tables (81 42 81 75 ..., hiragana 82 F0 82 9F ..., dakuten set, katakana 83 81 83 8B ...) = the character grid of the text-entry screen; mostly read in up to 12 scenarios, holes are unread bytes of the same tables
 
 Data_6C_58BA:: ; 6C:58BA
-	db $06, $95, $FF, $06, $06, $00, $10, $05, $01, $04, $00, $00
-
-; ---- data $58C6-$58C7 (1 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_58C6:: ; 6C:58C6
-	db $00
-
-; ---- data $58C7-$58C9 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_58C7:: ; 6C:58C7
-	db $00, $00
-
-; ---- data $58C9-$58D1 (8 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
-
-Data_6C_58C9:: ; 6C:58C9
-	db $81, $42, $81, $75, $81, $76, $81, $41
-
-; ---- data $58D1-$58D3 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_58D1:: ; 6C:58D1
-	db $00, $00
-
-; ---- data $58D3-$58D5 (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_6C_58D3:: ; 6C:58D3
-	db $82, $F0
-
-; ---- data $58D5-$58DF (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_58D5:: ; 6C:58D5
-	db $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7
-
-; ---- data $58DF-$5915 (54 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_58DF:: ; 6C:58DF
-	db $82, $E1, $82, $E3, $82, $E5, $82, $C1, $81, $5B, $82, $A0, $82, $A2, $82, $A4
-	db $82, $A6, $82, $A8, $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $82, $B3
-	db $82, $B5, $82, $B7, $82, $B9, $82, $BB, $82, $BD, $82, $BF, $82, $C2, $82, $C4
-	db $82, $C6, $82, $C8, $82, $C9
-
-; ---- data $5915-$5917 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5915:: ; 6C:5915
-	db $82, $CA
-
-; ---- data $5917-$591F (8 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
-
-Data_6C_5917:: ; 6C:5917
-	db $82, $CB, $82, $CC, $82, $CD, $82, $D0
-
-; ---- data $591F-$5921 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_591F:: ; 6C:591F
-	db $82, $D3
-
-; ---- data $5921-$5931 (16 bytes) [CONFIRMED] read as data by executed code (in up to 11/18 scenarios); content class unknown
-
-Data_6C_5921:: ; 6C:5921
-	db $82, $D6, $82, $D9, $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $82, $E2
-
-; ---- data $5931-$5933 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5931:: ; 6C:5931
-	db $82, $E4
-
-; ---- data $5933-$5943 (16 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown
-
-Data_6C_5933:: ; 6C:5933
-	db $82, $E6, $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $82, $ED, $82, $F1
-
-; ---- data $5943-$5947 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5943:: ; 6C:5943
-	db $81, $4A, $81, $4B
-
-; ---- data $5947-$594B (4 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_6C_5947:: ; 6C:5947
-	db $82, $AA, $82, $AC
-
-; ---- data $594B-$594F (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_594B:: ; 6C:594B
-	db $82, $AE, $82, $B0
-
-; ---- data $594F-$5951 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6C_594F:: ; 6C:594F
-	db $82, $B2
-
-; ---- data $5951-$5953 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5951:: ; 6C:5951
-	db $82, $B4
-
-; ---- data $5953-$5957 (4 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
-
-Data_6C_5953:: ; 6C:5953
-	db $82, $B6, $82, $B8
-
-; ---- data $5957-$595B (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5957:: ; 6C:5957
-	db $82, $BA, $82, $BC
-
-; ---- data $595B-$595D (2 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
-
-Data_6C_595B:: ; 6C:595B
-	db $82, $BE
-
-; ---- data $595D-$5961 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_595D:: ; 6C:595D
-	db $82, $C0, $82, $C3
-
-; ---- data $5961-$5971 (16 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
-
-Data_6C_5961:: ; 6C:5961
-	db $82, $C5, $82, $C7, $82, $CE, $82, $D1, $82, $D4, $82, $D7, $82, $DA, $82, $CF
-
-; ---- data $5971-$5979 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5971:: ; 6C:5971
-	db $82, $D2, $82, $D5, $82, $D8, $82, $DB
-
-; ---- data $5979-$5987 (14 bytes) [CONFIRMED] read as data by executed code (in up to 10/18 scenarios); content class unknown
-
-Data_6C_5979:: ; 6C:5979
-	db $83, $81, $83, $8B, $83, $6A, $83, $83, $83, $58, $83, $62, $83, $93
+	db $06, $95, $FF, $06, $06, $00, $10, $05, $01, $04, $00, $00, $00, $00, $00, $81
+	db $42, $81, $75, $81, $76, $81, $41, $00, $00, $82, $F0, $82, $9F, $82, $A1, $82
+	db $A3, $82, $A5, $82, $A7, $82, $E1, $82, $E3, $82, $E5, $82, $C1, $81, $5B, $82
+	db $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $82, $A9, $82, $AB, $82, $AD, $82
+	db $AF, $82, $B1, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $82, $BD, $82
+	db $BF, $82, $C2, $82, $C4, $82, $C6, $82, $C8, $82, $C9, $82, $CA, $82, $CB, $82
+	db $CC, $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $82, $DC, $82, $DD, $82
+	db $DE, $82, $DF, $82, $E0, $82, $E2, $82, $E4, $82, $E6, $82, $E7, $82, $E8, $82
+	db $E9, $82, $EA, $82, $EB, $82, $ED, $82, $F1, $81, $4A, $81, $4B, $82, $AA, $82
+	db $AC, $82, $AE, $82, $B0, $82, $B2, $82, $B4, $82, $B6, $82, $B8, $82, $BA, $82
+	db $BC, $82, $BE, $82, $C0, $82, $C3, $82, $C5, $82, $C7, $82, $CE, $82, $D1, $82
+	db $D4, $82, $D7, $82, $DA, $82, $CF, $82, $D2, $82, $D5, $82, $D8, $82, $DB, $83
+	db $81, $83, $8B, $83, $6A, $83, $83, $83, $58, $83, $62, $83, $93
 
 ; ---- code $5987-$5B79 (498 bytes) [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1871,9 +1524,7 @@ Function_6C_5987:: ; 6C:5987
 	ld b, $01
 
 Label_6C_5989:: ; 6C:5989
-	call FarCall
-	dw Function_6C_4000
-	db BANK(Function_6C_4000)
+	farcall Function_6C_4000
 	or a, a
 	ret z
 	cp a, $04
@@ -1881,18 +1532,14 @@ Label_6C_5989:: ; 6C:5989
 	ld b, a
 	ld a, $01
 	ld hl, $A684
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	push bc
 	call Function_6C_59B2
 	pop bc
 	jr Label_6C_5989
 
 Label_6C_59A8:: ; 6C:59A8
-	call FarCall
-	dw Function_1A_4000
-	db BANK(Function_1A_4000)
+	farcall Function_1A_4000
 	ld b, $04
 	jr Label_6C_5989
 
@@ -1902,15 +1549,11 @@ Function_6C_59B2:: ; 6C:59B2
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	pop bc
 	ld a, $01
 	ld hl, $A684
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld a, $09
 	ld [wRam_C173], a
 	ld [wRam_C1AD], a
@@ -1924,75 +1567,55 @@ Function_6C_59B2:: ; 6C:59B2
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld de, $8000
 	ld hl, $69F0
 	ld a, $6A
 	ld b, $98
 	ld c, $02
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8AF1
 	ld hl, $6A10
 	ld a, $6A
 	ld b, $98
 	ld c, $01
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8B01
 	ld hl, $6A20
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7220
 	ld a, $6A
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $6716
 	ld a, $6A
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7260
 	ld a, $6A
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld a, $60
 	ld bc, $020C
 	ld de, $1700
 	ld hl, $D004
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	ld a, $80
 	ld bc, $060C
 	ld de, $1700
 	ld hl, $D064
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	ld a, $00
 	ld bc, $0610
 	ld de, $1700
 	ld hl, $D122
-	call FarCall
-	dw Function_48_4679
-	db BANK(Function_48_4679)
+	farcall Function_48_4679
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2018,41 +1641,29 @@ Function_6C_59B2:: ; 6C:59B2
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9000
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9400
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_00_0956
+	farcall Function_4F_42B4
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2062,9 +1673,7 @@ Function_6C_59B2:: ; 6C:59B2
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_400E
-	db BANK(Function_4F_400E)
+	farcall Function_4F_400E
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2172,9 +1781,7 @@ Label_6C_5BAF:: ; 6C:5BAF
 	ld hl, $A684
 	add hl, de
 	ld a, $01
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	pop hl
 	jr Label_6C_5B4F
 
@@ -2232,9 +1839,7 @@ Label_6C_5C0B:: ; 6C:5C0B
 	ld a, [wRam_C1AB]
 	cp a, $02
 	jr z, Label_6C_5C1B
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld b, $00
 	ret
 
@@ -2247,9 +1852,7 @@ Label_6C_5C1B:: ; 6C:5C1B
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld b, $FF
 	ret
 
@@ -2310,17 +1913,13 @@ Label_6C_5C66:: ; 6C:5C66
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	pop hl
 	ldh [hScratchA], a
 	pop af
@@ -2338,9 +1937,7 @@ Label_6C_5C66:: ; 6C:5C66
 	ld [wRam_C174], a
 
 Label_6C_5CC5:: ; 6C:5CC5
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C0E2]
 	or a, a
@@ -2359,12 +1956,8 @@ Label_6C_5CC5:: ; 6C:5CC5
 	jr Label_6C_5CEE
 
 Label_6C_5CEE:: ; 6C:5CEE
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $5CFD-$5D07 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 6C:5CFA: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
@@ -2391,9 +1984,7 @@ Label_6C_5D09:: ; 6C:5D09
 	ld de, $72BB
 	ld a, $6A
 	ld b, $80
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $00AA
 	ld hl, $DA20
 	call Function_00_0A65
@@ -2409,9 +2000,7 @@ Label_6C_5D30:: ; 6C:5D30
 	ld de, $72BB
 	ld a, $6A
 	ld b, $80
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $00AA
 	ld hl, $DA20
 	call Function_00_0A65
@@ -2440,9 +2029,7 @@ Label_6C_5D5A:: ; 6C:5D5A
 	ld [wRam_C173], a
 	ld a, [wRam_C1AE]
 	ld [wRam_C174], a
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld b, $00
 	ret
 
@@ -2466,9 +2053,7 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld de, $72BB
 	ld a, $6A
 	ld b, $80
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $7880
 	ld hl, $DA20
 	call Function_00_0A65
@@ -2487,17 +2072,13 @@ Label_6C_5DC6:: ; 6C:5DC6
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2543,18 +2124,14 @@ Function_6C_5E25:: ; 6C:5E25
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $6C
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	push hl
 	ld de, $9600
 	ld hl, $D000
 	ld a, $00
 	ld b, $96
 	ld c, $18
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	pop hl
 	ldh [hScratchA], a
 	pop af
@@ -2578,9 +2155,7 @@ Function_6C_5E6E:: ; 6C:5E6E
 	jr z, Label_6C_5E8B
 	push bc
 	ld a, $40
-	call FarCall
-	dw Function_48_4540
-	db BANK(Function_48_4540)
+	farcall Function_48_4540
 	pop bc
 
 Label_6C_5E8B:: ; 6C:5E8B
@@ -2614,17 +2189,13 @@ Label_6C_5E8B:: ; 6C:5E8B
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9080
 	ld hl, $D880
 	ld a, $00
 	ld b, $98
 	ld c, $08
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2649,9 +2220,7 @@ Label_6C_5E8B:: ; 6C:5E8B
 	ld a, [wRam_C110]
 	ld de, $D830
 	ld bc, $0008
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2661,9 +2230,7 @@ Label_6C_5E8B:: ; 6C:5E8B
 	ld bc, $060C
 	ld de, $F806
 	xor a, a
-	call FarCall
-	dw Function_00_091C
-	db BANK(Function_00_091C)
+	farcall Function_00_091C
 	ldh a, [rLCDC]
 	call Function_00_082C
 	pop hl
@@ -2684,29 +2251,23 @@ Label_6C_5F39:: ; 6C:5F39
 	ld b, $92
 	ld c, $40
 	ld a, [wRam_C110]
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0400
 	add hl, bc
 	ld de, $8C00
 	ld b, $98
 	ld c, $08
 	ld a, [wRam_C110]
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld a, $40
-	call FarCall
-	dw Function_48_44E0
-	db BANK(Function_48_44E0)
+	farcall Function_48_44E0
 	ld a, [wRam_C10E]
 	ld l, a
 	ld a, [wRam_C10F]
 	ld h, a
 	ret
 
-; ---- data $5F6E-$5FBE (80 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown
+; ---- data $5F6E-$6009 (155 bytes) [PROBABLE] 31 records x 5 bytes (61 00 40 80 7A / 61 80 44 88 7A / 61 00 49 90 7A ...; pattern flag, x, y, 7A 61-style pointer tail), read in up to 8 scenarios; 155 bytes = 31 records; the 15 and 50 byte holes are unread records of the same table
 
 Data_6C_5F6E:: ; 6C:5F6E
 	db $61, $00, $40, $80, $7A, $61, $80, $44, $88, $7A, $61, $00, $49, $90, $7A, $61
@@ -2714,29 +2275,11 @@ Data_6C_5F6E:: ; 6C:5F6E
 	db $5B, $B0, $7A, $61, $80, $5F, $B8, $7A, $61, $00, $64, $C0, $7A, $61, $80, $68
 	db $C8, $7A, $61, $00, $6D, $D0, $7A, $61, $80, $71, $D8, $7A, $61, $00, $76, $E0
 	db $7A, $60, $00, $40, $80, $7A, $60, $80, $44, $88, $7A, $60, $00, $49, $90, $7A
-
-; ---- data $5FBE-$5FCD (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5FBE:: ; 6C:5FBE
-	db $60, $80, $4D, $98, $7A, $60, $00, $52, $A0, $7A, $60, $80, $56, $A8, $7A
-
-; ---- data $5FCD-$5FD2 (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_6C_5FCD:: ; 6C:5FCD
-	db $60, $00, $5B, $B0, $7A
-
-; ---- data $5FD2-$6004 (50 bytes) [HYPOTHESIS] UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_5FD2:: ; 6C:5FD2
-	db $60, $80, $5F, $B8, $7A, $60, $00, $64, $C0, $7A, $60, $80, $68, $C8, $7A, $60
-	db $00, $6D, $D0, $7A, $60, $80, $71, $D8, $7A, $60, $00, $76, $E0, $7A, $5B, $00
-	db $40, $80, $56, $5B, $80, $44, $88, $56, $5B, $00, $49, $90, $56, $5B, $80, $4D
-	db $98, $56
-
-; ---- data $6004-$6009 (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6C_6004:: ; 6C:6004
-	db $5B, $00, $52, $A0, $56
+	db $60, $80, $4D, $98, $7A, $60, $00, $52, $A0, $7A, $60, $80, $56, $A8, $7A, $60
+	db $00, $5B, $B0, $7A, $60, $80, $5F, $B8, $7A, $60, $00, $64, $C0, $7A, $60, $80
+	db $68, $C8, $7A, $60, $00, $6D, $D0, $7A, $60, $80, $71, $D8, $7A, $60, $00, $76
+	db $E0, $7A, $5B, $00, $40, $80, $56, $5B, $80, $44, $88, $56, $5B, $00, $49, $90
+	db $56, $5B, $80, $4D, $98, $56, $5B, $00, $52, $A0, $56
 
 ; ---- code $6009-$6036 (45 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
@@ -2887,7 +2430,7 @@ Label_6C_60C9:: ; 6C:60C9
 	cp a, $10
 	jr nz, Label_6C_60EB
 
-; ---- code $60D4-$60EB (23 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 6C:60D2 (executed)
+; ---- code $60D4-$60EB (23 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 6C:60D2 (executed) [executed in 2 scenarios]
 	xor a, a
 	ld [wRam_C1A8], a
 	ld a, [wRam_C1A9]
@@ -2933,9 +2476,7 @@ Label_6C_60EB:: ; 6C:60EB
 	push hl
 	push de
 	push bc
-	call FarCall
-	dw Function_48_4748
-	db BANK(Function_48_4748)
+	farcall Function_48_4748
 	add sp, 10
 	ldh [hScratchA], a
 	pop af
@@ -2985,9 +2526,7 @@ Label_6C_6158:: ; 6C:6158
 	ld b, $97
 	ld c, $11
 	xor a, a
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -3026,16 +2565,22 @@ Label_6C_6198:: ; 6C:6198
 	pop hl
 	jp Label_6C_601B
 
-; ---- data $61AC-$61C4 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6C_61AC:: ; 6C:61AC
-	db $21, $DA, $C0, $35, $C0, $36, $23, $FA, $D9, $C0, $EE, $01, $EA, $D9, $C0, $16
-	db $78, $82, $57, $1E, $80, $21, $20, $DA
+; ---- code $61AC-$61C4 (24 bytes) [PROBABLE] coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4 (call 00:0A65); previous region ends with jp; entry not located
+	ld hl, $C0DA
+	dec [hl]
+	ret nz
+	ld [hl], $23
+	ld a, [wRam_C0D9]
+	xor a, $01
+	ld [wRam_C0D9], a
+	ld d, $78
+	add a, d
+	ld d, a
+	ld e, $80
+	ld hl, $DA20
 
 ; ---- code $61C4-$61CB (7 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0A65
-	db BANK(Function_00_0A65)
+	farcall Function_00_0A65
 	ret
 
 ; ---- zero $61CB-$8000 (7733 bytes) [PROBABLE] trailing 0x00 padding to end of bank

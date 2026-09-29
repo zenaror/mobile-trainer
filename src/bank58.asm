@@ -3,12 +3,13 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank58", ROMX[$4000], BANK[$58]
 
 ; ---- gfx $4000-$41D0 (464 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 65:48D1: hl=$4000 a=$58 c=$1D de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_58_4000:: ; 58:4000
+Tiles_58_4000:: ; 58:4000
 	db $00, $00, $00, $FF, $FF, $00, $DB, $3C, $A5, $66, $E7, $66, $FF, $66, $FF, $66
 	db $00, $00, $00, $FF, $FF, $00, $FB, $3C, $CF, $0C, $FF, $0C, $FF, $0C, $FF, $0C
 	db $00, $00, $00, $FF, $FF, $00, $FB, $7C, $85, $06, $87, $06, $FF, $06, $FD, $06
@@ -39,9 +40,9 @@ Data_58_4000:: ; 58:4000
 	db $EF, $F7, $F5, $FB, $FB, $FC, $FE, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 
-; ---- data $41D0-$4450 (640 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4000-4450 by higher-priority evidence]
+; ---- gfx $41D0-$4450 (640 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 41D0-4450 = 40 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_41D0:: ; 58:41D0
+Tiles_58_41D0:: ; 58:41D0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FE, $00, $FE, $00, $FE, $00, $FF, $00, $FF, $00, $FF
@@ -83,9 +84,9 @@ Data_58_41D0:: ; 58:41D0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $4450-$46D0 (640 bytes) [HYPOTHESIS] UNCLASSIFIED 640 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $4450-$46D0 (640 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 4450-46D0 = 40 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_4450:: ; 58:4450
+Tiles_58_4450:: ; 58:4450
 	db $00, $FF, $00, $E2, $09, $89, $3F, $BE, $3E, $82, $02, $C2, $16, $E4, $0E, $EA
 	db $00, $FF, $00, $03, $F8, $FA, $FA, $48, $4A, $48, $4A, $49, $4A, $49, $4A, $49
 	db $00, $FF, $00, $24, $49, $49, $FD, $FD, $CD, $49, $79, $79, $49, $49, $79, $79
@@ -127,9 +128,9 @@ Data_58_4450:: ; 58:4450
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $46D0-$4E50 (1920 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- gfx $46D0-$4E50 (1920 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 46D0-4E50 = 120 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_46D0:: ; 58:46D0
+Tiles_58_46D0:: ; 58:46D0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $C4, $13, $13, $7F, $7C, $7C, $04, $04, $84, $2C, $C8, $1C, $D4
 	db $00, $FF, $00, $06, $F0, $F4, $F5, $91, $95, $90, $94, $92, $94, $92, $94, $92
@@ -251,9 +252,9 @@ Data_58_46D0:: ; 58:46D0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $4E50-$5350 (1280 bytes) [HYPOTHESIS] UNCLASSIFIED 1280 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $4E50-$5350 (1280 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 4E50-5350 = 80 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_4E50:: ; 58:4E50
+Tiles_58_4E50:: ; 58:4E50
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $C4, $13, $13, $7F, $7C, $7C, $04, $04, $84, $2C, $C8, $1C, $D4
 	db $00, $FF, $00, $06, $F0, $F4, $F5, $91, $95, $90, $94, $92, $94, $92, $94, $92
@@ -335,9 +336,9 @@ Data_58_4E50:: ; 58:4E50
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $5350-$5850 (1280 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+; ---- gfx $5350-$5850 (1280 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 5350-5850 = 80 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_5350:: ; 58:5350
+Tiles_58_5350:: ; 58:5350
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $80, $3D, $BD, $3D, $85, $2D, $A8, $1F, $D7, $37, $A0, $7F, $5F
 	db $00, $FF, $00, $5F, $20, $2F, $70, $56, $F5, $A1, $ED, $40, $68, $24, $F1, $D5
@@ -419,9 +420,9 @@ Data_58_5350:: ; 58:5350
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $5850-$5AD0 (640 bytes) [HYPOTHESIS] UNCLASSIFIED 640 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5850-$5AD0 (640 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 5850-5AD0 = 40 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_5850:: ; 58:5850
+Tiles_58_5850:: ; 58:5850
 	db $00, $FF, $00, $FF, $00, $FE, $00, $FE, $00, $FE, $02, $FC, $02, $FC, $01, $FD
 	db $00, $FF, $09, $F0, $16, $26, $A9, $89, $AB, $89, $AF, $86, $20, $94, $A5, $14
 	db $00, $FF, $00, $FF, $80, $60, $0F, $6F, $4F, $20, $40, $20, $CF, $30, $80, $7F
@@ -463,9 +464,9 @@ Data_58_5850:: ; 58:5850
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $09, $F1, $09, $F1, $09, $F1, $F9, $F1, $89, $81, $09, $F1, $09, $F1, $09, $F1
 
-; ---- data $5AD0-$6A81 (4017 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 5AD0-7150 by higher-priority evidence]
+; ---- gfx $5AD0-$6D40 (4720 bytes) [PROBABLE] 2bpp tile data (rendered 2bpp sheet: Japanese title/registration text banners, digits, frame tiles); 5AD0-6D40 merged from regions with unaligned edges 6A81/6CE1 (heuristic parity noise); executed HDMA source reads on this range are 16-byte aligned to the 4xx0 grid (5AD0-69D0, 69D0-7150, 6C50-6ED0)
 
-Data_58_5AD0:: ; 58:5AD0
+Tiles_58_5AD0:: ; 58:5AD0
 	db $00, $FF, $00, $FF, $00, $FE, $00, $FE, $00, $FE, $02, $FC, $02, $FC, $01, $FD
 	db $00, $FF, $09, $F0, $16, $26, $A9, $89, $AB, $89, $AF, $86, $20, $94, $A5, $14
 	db $00, $FF, $00, $FF, $80, $60, $0F, $6F, $4F, $20, $40, $20, $CF, $30, $80, $7F
@@ -717,63 +718,54 @@ Data_58_5AD0:: ; 58:5AD0
 	db $00, $00, $00, $FF, $FF, $00, $FE, $01, $FD, $03, $FF, $02, $FE, $02, $FE, $02
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
 	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
-	db $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $60, $9F, $90
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FE, $02, $FE, $02, $FE, $02, $FE, $02, $FE, $02, $FF, $03, $FC, $00, $FF, $00
+	db $67, $64, $07, $04, $07, $04, $67, $64, $67, $64, $9F, $9C, $63, $00, $FF, $00
+	db $DF, $08, $FF, $08, $FF, $48, $F7, $54, $BF, $94, $EB, $A2, $5D, $00, $FF, $00
+	db $FF, $90, $EF, $88, $FF, $88, $77, $04, $FF, $04, $FB, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $FF, $FF, $00, $FE, $01, $FD, $03, $FF, $02, $FE, $02, $FE, $02
+	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
+	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
+	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $7F, $E0, $9F, $90
+	db $00, $00, $00, $FF, $FF, $00, $FF, $03, $FE, $02, $FE, $02, $FE, $02, $FE, $02
+	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $1B, $0C, $6F, $64, $67, $64, $07, $04
+	db $00, $00, $00, $FF, $FF, $00, $FF, $FE, $01, $00, $FF, $7E, $C3, $42, $FF, $7E
 
-; ---- gfx $6A81-$6CE1 (608 bytes) [PROBABLE] tiles-2bpp: heuristic: 38 coherent tiles (hsim2=0.958 vsim2=0.767, 0 blank) parity 1
+; ---- gfx $6D40-$7460 (1824 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 6D40-7460 = 114 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_6A81:: ; 58:6A81
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $60, $9F, $90, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE
-	db $02, $FE, $02, $FE, $02, $FE, $02, $FE, $02, $FF, $03, $FC, $00, $FF, $00, $67
-	db $64, $07, $04, $07, $04, $67, $64, $67, $64, $9F, $9C, $63, $00, $FF, $00, $DF
-	db $08, $FF, $08, $FF, $48, $F7, $54, $BF, $94, $EB, $A2, $5D, $00, $FF, $00, $FF
-	db $90, $EF, $88, $FF, $88, $77, $04, $FF, $04, $FB, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
-	db $00, $00, $FF, $FF, $00, $FE, $01, $FD, $03, $FF, $02, $FE, $02, $FE, $02, $00
-
-; ---- data $6CE1-$6D40 (95 bytes) [CONFIRMED] read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 5AD0-7150 by higher-priority evidence]
-
-Data_58_6CE1:: ; 58:6CE1
-	db $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64, $00
-	db $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28, $00
-	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $7F, $E0, $9F, $90, $00
-	db $00, $00, $FF, $FF, $00, $FF, $03, $FE, $02, $FE, $02, $FE, $02, $FE, $02, $00
-	db $00, $00, $FF, $FF, $00, $F7, $F8, $1B, $0C, $6F, $64, $67, $64, $07, $04, $00
-	db $00, $00, $FF, $FF, $00, $FF, $FE, $01, $00, $FF, $7E, $C3, $42, $FF, $7E
-
-; ---- gfx $6D40-$7460 (1824 bytes) [PROBABLE] tiles-2bpp: heuristic: 111 coherent tiles (hsim2=0.936 vsim2=0.802, 0 blank) parity 0
-
-Data_58_6D40:: ; 58:6D40
+Tiles_58_6D40:: ; 58:6D40
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $78, $97, $10, $EF, $20
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -889,9 +881,9 @@ Data_58_6D40:: ; 58:6D40
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $00, $00, $FF, $FF, $00, $FE, $01, $FD, $03, $FF, $02, $FE, $02, $FE, $02
 
-; ---- data $7460-$7650 (496 bytes) [HYPOTHESIS] UNCLASSIFIED 496 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $7460-$7650 (496 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 7460-7650 = 31 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_7460:: ; 58:7460
+Tiles_58_7460:: ; 58:7460
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $9B, $0C, $6F, $64, $67, $64, $67, $64
 	db $00, $00, $00, $FF, $FF, $00, $FF, $20, $FF, $BE, $63, $62, $BF, $2A, $FD, $28
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $BB, $7C, $55, $D6
@@ -924,9 +916,9 @@ Data_58_7460:: ; 58:7460
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 
-; ---- data $7650-$7790 (320 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 7650-7E48 by higher-priority evidence]
+; ---- gfx $7650-$7790 (320 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 7650-7790 = 20 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
 
-Data_58_7650:: ; 58:7650
+Tiles_58_7650:: ; 58:7650
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -948,9 +940,9 @@ Data_58_7650:: ; 58:7650
 	db $00, $00, $00, $FF, $FF, $00, $F7, $F8, $1B, $0C, $6F, $64, $67, $64, $07, $04
 	db $00, $00, $00, $FF, $FF, $00, $FF, $FE, $01, $00, $FF, $7E, $C3, $42, $FF, $7E
 
-; ---- gfx $7790-$7B58 (968 bytes) [PROBABLE] tile data: heuristic: 58 coherent tiles (hsim2=0.800 vsim2=0.702, 0 blank) parity 0; 8/1008 bytes also covered by call-site blocks [clipped from 7790-7B80 by higher-priority proposals]
+; ---- gfx $7790-$7B50 (960 bytes) [PROBABLE] 60 tiles of 2bpp (rendered: title/registration text banner art); 7790-7B50 ends exactly where the 5 palettes at 7B50 begin
 
-Data_58_7790:: ; 58:7790
+Tiles_58_7790:: ; 58:7790
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $78, $97, $10, $EF, $20
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
@@ -1011,13 +1003,13 @@ Data_58_7790:: ; 58:7790
 	db $FF, $00, $FF, $00, $FF, $FE, $01, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
-	db $00, $00, $00, $00, $00, $00, $FF, $7F
 
-; ---- gfx $7B58-$7B78 (32 bytes) [PROBABLE] tiles-2bpp: heuristic: 58 coherent tiles (hsim2=0.800 vsim2=0.702, 0 blank) parity 0; 8/1008 bytes also covered by call-site blocks [clipped from 7790-7B80 by higher-priority evidence]
+; ---- data $7B50-$7B78 (40 bytes) [PROBABLE] 5 CGB palettes (40 bytes) of 4 RGB555 words: 0000 0000 0000 7FFF / 0000 414A 4273 7FFF / 0000 28D3 01FF 7FFF / 2 x 0000; executed reads cover 7B50-7E48 contiguously = these palettes followed by the 18x20 tilemap+attr at 7B78 (loaded together)
 
-Data_58_7B58:: ; 58:7B58
-	db $00, $00, $4A, $41, $73, $42, $FF, $7F, $00, $00, $D3, $28, $FF, $01, $FF, $7F
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+Palette_58_7B50:: ; 58:7B50
+	db $00, $00, $00, $00, $00, $00, $FF, $7F, $00, $00, $4A, $41, $73, $42, $FF, $7F
+	db $00, $00, $D3, $28, $FF, $01, $FF, $7F, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- data $7B78-$7E48 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 65:4900: hl=$7B78 a=$58 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
@@ -1068,47 +1060,15 @@ Data_58_7B78:: ; 58:7B78
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $7E48-$7E4C (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7E48-$7EA0 (88 bytes) [PROBABLE] 22 records x 4 bytes (top tile, bottom tile, attr, attr): 00 10 09 09 / 01 11 09 09 ... 0A 1A 09 09 for attr 09 then the same 11 pairs with attr 0A 0A (8x16 digit glyphs 0-9 + one more, tile pairs n and n+$10); executed code reads single 4-byte records (7E4C-7E50, 7E70-7E74, 7E78-7E80, 7E9C-7EA0 in traces)
 
 Data_58_7E48:: ; 58:7E48
-	db $00, $10, $09, $09
-
-; ---- data $7E4C-$7E58 (12 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
-
-Data_58_7E4C:: ; 58:7E4C
-	db $01, $11, $09, $09, $02, $12, $09, $09, $03, $13, $09, $09
-
-; ---- data $7E58-$7E70 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_58_7E58:: ; 58:7E58
+	db $00, $10, $09, $09, $01, $11, $09, $09, $02, $12, $09, $09, $03, $13, $09, $09
 	db $04, $14, $09, $09, $05, $15, $09, $09, $06, $16, $09, $09, $07, $17, $09, $09
-	db $08, $18, $09, $09, $09, $19, $09, $09
-
-; ---- data $7E70-$7E74 (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
-
-Data_58_7E70:: ; 58:7E70
-	db $0A, $1A, $09, $09
-
-; ---- data $7E74-$7E78 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_58_7E74:: ; 58:7E74
-	db $00, $10, $0A, $0A
-
-; ---- data $7E78-$7E80 (8 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_58_7E78:: ; 58:7E78
-	db $01, $11, $0A, $0A, $02, $12, $0A, $0A
-
-; ---- data $7E80-$7E9C (28 bytes) [HYPOTHESIS] UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_58_7E80:: ; 58:7E80
-	db $03, $13, $0A, $0A, $04, $14, $0A, $0A, $05, $15, $0A, $0A, $06, $16, $0A, $0A
-	db $07, $17, $0A, $0A, $08, $18, $0A, $0A, $09, $19, $0A, $0A
-
-; ---- data $7E9C-$7EA0 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_58_7E9C:: ; 58:7E9C
-	db $0A, $1A, $0A, $0A
+	db $08, $18, $09, $09, $09, $19, $09, $09, $0A, $1A, $09, $09, $00, $10, $0A, $0A
+	db $01, $11, $0A, $0A, $02, $12, $0A, $0A, $03, $13, $0A, $0A, $04, $14, $0A, $0A
+	db $05, $15, $0A, $0A, $06, $16, $0A, $0A, $07, $17, $0A, $0A, $08, $18, $0A, $0A
+	db $09, $19, $0A, $0A, $0A, $1A, $0A, $0A
 
 ; ---- zero $7EA0-$8000 (352 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $160, $00

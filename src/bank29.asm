@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank29", ROMX[$4000], BANK[$29]
 
@@ -23,17 +24,13 @@ Function_29_4000:: ; 29:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_29_407A
 	ld hl, $DA20
 	ld de, $7B20
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3038
 	ld hl, $DA20
 	call Function_00_0A65
@@ -41,13 +38,9 @@ Function_29_4000:: ; 29:4000
 Label_29_403C:: ; 29:403C
 	push bc
 	push hl
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
@@ -65,32 +58,18 @@ Label_29_403C:: ; 29:403C
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ret
 
 Function_29_407A:: ; 29:407A
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw Function_2D_5016
-	db BANK(Function_2D_5016)
-	call FarCall
-	dw LCDOff
-	db BANK(LCDOff)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall Function_2D_5016
+	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
 	ld a, $F0
@@ -102,73 +81,53 @@ Function_29_407A:: ; 29:407A
 	ld de, $D800
 	ld hl, $7A60
 	ld a, $24
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7AA0
 	ld a, $24
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $8801
 	ld hl, $6BF0
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C01
 	ld hl, $6FF0
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $73F0
 	ld a, $24
 	ld b, $98
 	ld c, $0A
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8000
 	ld hl, $7490
 	ld a, $24
 	ld b, $94
 	ld c, $30
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7790
 	ld a, $24
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw LCDOn
-	db BANK(LCDOn)
+	farcall LCDOn
 	ld hl, $DA10
 	ld de, $7B30
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3038
 	ld hl, $DA10
 	call Function_00_0A65
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -181,13 +140,9 @@ Function_29_407A:: ; 29:407A
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -202,9 +157,7 @@ Function_29_407A:: ; 29:407A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -231,7 +184,7 @@ Function_29_41AD:: ; 29:41AD
 	ld hl, $423B
 	jr Label_29_41CD
 
-; ---- code $41B6-$41CD (23 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 29:41AF (executed)
+; ---- code $41B6-$41CD (23 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 29:41AF (executed) [executed in 1 scenarios]
 
 Label_29_41B6:: ; 29:41B6
 	inc de
@@ -285,12 +238,8 @@ Label_29_41E0:: ; 29:41E0
 	ld hl, $D524
 	ld bc, $D000
 	ld de, $D100
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
-	call FarCall
-	dw Function_29_5017
-	db BANK(Function_29_5017)
+	farcall Function_48_403E
+	farcall Function_29_5017
 	call Function_00_0464
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -322,9 +271,7 @@ Function_29_4286:: ; 29:4286
 	jr nz, Label_29_429F
 	ld hl, $4323
 	push de
-	call FarCall
-	dw Function_25_4A90
-	db BANK(Function_25_4A90)
+	farcall Function_25_4A90
 	ld a, d
 	pop de
 	cp a, $0C
@@ -380,15 +327,9 @@ Label_29_42C2:: ; 29:42C2
 	ld hl, $D524
 	ld bc, $D200
 	ld de, $D300
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
-	call FarCall
-	dw Function_29_5017
-	db BANK(Function_29_5017)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_48_403E
+	farcall Function_29_5017
+	farcall Function_00_0956
 	call Function_00_0464
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -426,9 +367,7 @@ Function_29_4374:: ; 29:4374
 	ld de, $7B40
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -441,9 +380,7 @@ Label_29_4399:: ; 29:4399
 	ld de, $7B50
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -456,9 +393,7 @@ Label_29_43B9:: ; 29:43B9
 	ld de, $7B60
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -471,9 +406,7 @@ Label_29_43D9:: ; 29:43D9
 	ld de, $7B70
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -486,9 +419,7 @@ Label_29_43F9:: ; 29:43F9
 	ld de, $7B80
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -501,9 +432,7 @@ Label_29_4419:: ; 29:4419
 	ld de, $7B90
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -516,9 +445,7 @@ Label_29_4439:: ; 29:4439
 	ld de, $7BA0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -531,9 +458,7 @@ Label_29_4459:: ; 29:4459
 	ld de, $7BB0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -546,9 +471,7 @@ Label_29_4479:: ; 29:4479
 	ld de, $7BC0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
@@ -561,9 +484,7 @@ Label_29_4499:: ; 29:4499
 	ld de, $7BD0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
@@ -576,9 +497,7 @@ Label_29_44B9:: ; 29:44B9
 	ld de, $7BE0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
@@ -589,9 +508,7 @@ Label_29_44D9:: ; 29:44D9
 	ld de, $7BF0
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
@@ -619,21 +536,15 @@ Function_29_44F6:: ; 29:44F6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_29_4608
 
 Label_29_4519:: ; 29:4519
 	push bc
 	push hl
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop hl
 	pop bc
 	ldh a, [hJoyPressed]
@@ -737,9 +648,7 @@ Label_29_45B1:: ; 29:45B1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -756,13 +665,9 @@ Label_29_45B1:: ; 29:45B1
 ; ---- code $45E2-$45FF (29 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 
 Label_29_45E2:: ; 29:45E2
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -771,7 +676,7 @@ Label_29_45E2:: ; 29:45E2
 	cp a, $00
 	jr z, Label_29_4605
 
-; ---- code $45FF-$4605 (6 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; fall-through of the jrcc at 29:45FD (executed)
+; ---- code $45FF-$4605 (6 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; fall-through of the jrcc at 29:45FD (executed) [executed in 2 scenarios]
 	cp a, $FF
 	jr z, Label_29_4605
 	xor a, a
@@ -784,21 +689,11 @@ Label_29_4605:: ; 29:4605
 	ret
 
 Function_29_4608:: ; 29:4608
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw Function_2D_5016
-	db BANK(Function_2D_5016)
-	call FarCall
-	dw LCDOff
-	db BANK(LCDOff)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall Function_2D_5016
+	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
 	ld a, $F0
@@ -810,41 +705,31 @@ Function_29_4608:: ; 29:4608
 	ld de, $D800
 	ld hl, $7AE0
 	ld a, $24
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $9400
 	ld hl, $7420
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8800
 	ld hl, $6F30
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C00
 	ld hl, $7330
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9301
 	ld hl, $5060
 	ld a, $29
 	ld b, $98
 	ld c, $03
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_29_46CD
@@ -856,16 +741,14 @@ Function_29_4608:: ; 29:4608
 	cp a, $00
 	jr z, Label_29_46B9
 
-; ---- code $46A1-$46B9 (24 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 29:469F (executed)
+; ---- code $46A1-$46B9 (24 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 29:469F (executed) [executed in 2 scenarios]
 	cp a, $FF
 	jr z, Label_29_46B9
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7730
 	ld a, $25
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	jp Label_29_46DE
 
 ; ---- code $46B9-$46F9 (64 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
@@ -875,9 +758,7 @@ Label_29_46B9:: ; 29:46B9
 	ld de, $D000
 	ld hl, $7A00
 	ld a, $25
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	jp Label_29_46DE
 
 Label_29_46CD:: ; 29:46CD
@@ -885,16 +766,12 @@ Label_29_46CD:: ; 29:46CD
 	ld de, $D000
 	ld hl, $7CD0
 	ld a, $25
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 
 Label_29_46DE:: ; 29:46DE
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call FarCall
-	dw LCDOn
-	db BANK(LCDOn)
+	farcall LCDOn
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_29_46F5
@@ -905,7 +782,7 @@ Label_29_46F5:: ; 29:46F5
 	cp a, $01
 	jr nz, Label_29_46FE
 
-; ---- code $46F9-$46FE (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:46F7 (executed)
+; ---- code $46F9-$46FE (5 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:46F7 (executed) [executed in 3 scenarios]
 	call Function_29_4A65
 	jr Label_29_4701
 
@@ -927,13 +804,9 @@ Label_29_4701:: ; 29:4701
 	ldh [rSVBK], a
 	ei
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -948,9 +821,7 @@ Label_29_4701:: ; 29:4701
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ret
 
 Function_29_4745:: ; 29:4745
@@ -979,7 +850,7 @@ Function_29_4745:: ; 29:4745
 	or a, l
 	jp nz, Label_29_47BD
 
-; ---- code $476B-$47B2 (71 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; entered by jrcc from 29:4755 (executed)
+; ---- code $476B-$47B2 (71 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 
 Label_29_476B:: ; 29:476B
 	ld a, $02
@@ -988,27 +859,21 @@ Label_29_476B:: ; 29:476B
 	ld bc, $D000
 	ld de, $D050
 	ld hl, $47B2
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, $47B2
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
 	ld hl, $47B2
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_29_4FF7
 	pop hl
 	pop de
@@ -1016,9 +881,9 @@ Label_29_476B:: ; 29:476B
 	pop af
 	ret
 
-; ---- data $47B2-$47BD (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $47B2-$47BD (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$47B2 at 29:47A1' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
-Data_29_47B2:: ; 29:47B2
+String_29_47B2:: ; 29:47B2
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- code $47BD-$4873 (182 bytes) [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
@@ -1059,9 +924,7 @@ Label_29_47BD:: ; 29:47BD
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1116,9 +979,7 @@ Label_29_47BD:: ; 29:47BD
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1145,7 +1006,7 @@ Label_29_47BD:: ; 29:47BD
 	cp a, $FF
 	jr nz, Label_29_487C
 
-; ---- code $4873-$487C (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4871 (executed)
+; ---- code $4873-$487C (9 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4871 (executed) [executed in 1 scenarios]
 	ld a, l
 	cp a, $FF
 	jr nz, Label_29_487C
@@ -1191,9 +1052,7 @@ Label_29_487C:: ; 29:487C
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	call Function_29_4A45
 	pop hl
@@ -1223,9 +1082,7 @@ Label_29_48D1:: ; 29:48D1
 	ld bc, $D525
 	ld de, $2710
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1241,9 +1098,7 @@ Label_29_48D1:: ; 29:48D1
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1254,9 +1109,7 @@ Label_29_48D1:: ; 29:48D1
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1267,9 +1120,7 @@ Label_29_48D1:: ; 29:48D1
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1292,9 +1143,7 @@ Label_29_4934:: ; 29:4934
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1310,9 +1159,7 @@ Label_29_4934:: ; 29:4934
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1323,9 +1170,7 @@ Label_29_4934:: ; 29:4934
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1348,9 +1193,7 @@ Label_29_497A:: ; 29:497A
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1366,9 +1209,7 @@ Label_29_497A:: ; 29:497A
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1391,9 +1232,7 @@ Label_29_49AE:: ; 29:49AE
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1440,9 +1279,7 @@ Function_29_49E5:: ; 29:49E5
 	push de
 	push hl
 	ld de, $2710
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_49FB
@@ -1457,9 +1294,7 @@ Label_29_49FB:: ; 29:49FB
 	ld h, d
 	ld l, e
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4A11
@@ -1474,9 +1309,7 @@ Label_29_4A11:: ; 29:4A11
 	ld h, d
 	ld l, e
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4A27
@@ -1491,9 +1324,7 @@ Label_29_4A27:: ; 29:4A27
 	ld h, d
 	ld l, e
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4A3D
@@ -1524,9 +1355,7 @@ Function_29_4A45:: ; 29:4A45
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1560,27 +1389,21 @@ Label_29_4A7D:: ; 29:4A7D
 	ld bc, $D000
 	ld de, $D050
 	ld hl, $4AC4
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, $4AC4
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
 	ld hl, $4AC4
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_29_4FF7
 	pop hl
 	pop de
@@ -1588,9 +1411,9 @@ Label_29_4A7D:: ; 29:4A7D
 	pop af
 	ret
 
-; ---- data $4AC4-$4ACF (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4AC4-$4ACF (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4AC4' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
-Data_29_4AC4:: ; 29:4AC4
+String_29_4AC4:: ; 29:4AC4
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- code $4ACF-$4C96 (455 bytes) [PROBABLE] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code)
@@ -1614,9 +1437,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1654,9 +1475,7 @@ Label_29_4ACF:: ; 29:4ACF
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1696,9 +1515,7 @@ Label_29_4B51:: ; 29:4B51
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	call Function_29_4D01
 	pop hl
@@ -1728,9 +1545,7 @@ Label_29_4B8D:: ; 29:4B8D
 	ld bc, $D525
 	ld de, $2710
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1744,9 +1559,7 @@ Label_29_4B8D:: ; 29:4B8D
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1757,9 +1570,7 @@ Label_29_4B8D:: ; 29:4B8D
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1770,9 +1581,7 @@ Label_29_4B8D:: ; 29:4B8D
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1793,9 +1602,7 @@ Label_29_4BF0:: ; 29:4BF0
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1809,9 +1616,7 @@ Label_29_4BF0:: ; 29:4BF0
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1822,9 +1627,7 @@ Label_29_4BF0:: ; 29:4BF0
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1845,9 +1648,7 @@ Label_29_4C36:: ; 29:4C36
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1861,9 +1662,7 @@ Label_29_4C36:: ; 29:4C36
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -1884,9 +1683,7 @@ Label_29_4C6A:: ; 29:4C6A
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -1918,9 +1715,9 @@ Label_29_4C94:: ; 29:4C94
 	pop bc
 	ret
 
-; ---- data $4C96-$4CA1 (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4C96-$4CA1 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '０' (82 4f) + NUL; address loaded by 'ld hl,$4C96' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
-Data_29_4C96:: ; 29:4C96
+String_29_4C96:: ; 29:4C96
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
 ; ---- code $4CA1-$4D21 (128 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code)
@@ -1929,9 +1726,7 @@ Function_29_4CA1:: ; 29:4CA1
 	push de
 	push hl
 	ld de, $2710
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CB7
@@ -1942,9 +1737,7 @@ Label_29_4CB7:: ; 29:4CB7
 	ld h, d
 	ld l, e
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CCD
@@ -1955,9 +1748,7 @@ Label_29_4CCD:: ; 29:4CCD
 	ld h, d
 	ld l, e
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CE3
@@ -1968,9 +1759,7 @@ Label_29_4CE3:: ; 29:4CE3
 	ld h, d
 	ld l, e
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CF9
@@ -1997,9 +1786,7 @@ Function_29_4D01:: ; 29:4D01
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2026,7 +1813,7 @@ Function_29_4D21:: ; 29:4D21
 	or a, l
 	jp nz, Label_29_4D8B
 
-; ---- code $4D39-$4D80 (71 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jpcc at 29:4D36 (executed)
+; ---- code $4D39-$4D80 (71 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 
 Label_29_4D39:: ; 29:4D39
 	ld a, $02
@@ -2035,27 +1822,21 @@ Label_29_4D39:: ; 29:4D39
 	ld bc, $D000
 	ld de, $D050
 	ld hl, $4D80
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
 	ld hl, $4D80
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
 	ld hl, $4D80
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_29_4FF7
 	pop hl
 	pop de
@@ -2063,9 +1844,9 @@ Label_29_4D39:: ; 29:4D39
 	pop af
 	ret
 
-; ---- data $4D80-$4D8B (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4D80-$4D8B (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4D80' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
-Data_29_4D80:: ; 29:4D80
+String_29_4D80:: ; 29:4D80
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- code $4D8B-$4E1E (147 bytes) [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
@@ -2106,9 +1887,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2136,9 +1915,7 @@ Label_29_4D8B:: ; 29:4D8B
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2192,9 +1969,7 @@ Label_29_4E27:: ; 29:4E27
 	ld d, h
 	ld e, l
 	ld hl, $D524
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	call Function_29_4FD7
 	pop hl
@@ -2224,9 +1999,7 @@ Label_29_4E63:: ; 29:4E63
 	ld bc, $D525
 	ld de, $2710
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -2242,9 +2015,7 @@ Label_29_4E63:: ; 29:4E63
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2255,9 +2026,7 @@ Label_29_4E63:: ; 29:4E63
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2268,9 +2037,7 @@ Label_29_4E63:: ; 29:4E63
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2293,9 +2060,7 @@ Label_29_4EC6:: ; 29:4EC6
 	ld l, e
 	ld de, $03E8
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -2311,9 +2076,7 @@ Label_29_4EC6:: ; 29:4EC6
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2324,9 +2087,7 @@ Label_29_4EC6:: ; 29:4EC6
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2349,9 +2110,7 @@ Label_29_4F0C:: ; 29:4F0C
 	ld l, e
 	ld de, $0064
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -2367,9 +2126,7 @@ Label_29_4F0C:: ; 29:4F0C
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, [bc]
 	add a, l
@@ -2392,9 +2149,7 @@ Label_29_4F40:: ; 29:4F40
 	ld l, e
 	ld de, $000A
 	push bc
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	pop bc
 	ld a, l
 	cp a, $00
@@ -2441,9 +2196,7 @@ Function_29_4F77:: ; 29:4F77
 	push de
 	push hl
 	ld de, $2710
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4F8D
@@ -2458,9 +2211,7 @@ Label_29_4F8D:: ; 29:4F8D
 	ld h, d
 	ld l, e
 	ld de, $03E8
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4FA3
@@ -2475,9 +2226,7 @@ Label_29_4FA3:: ; 29:4FA3
 	ld h, d
 	ld l, e
 	ld de, $0064
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4FB9
@@ -2492,9 +2241,7 @@ Label_29_4FB9:: ; 29:4FB9
 	ld h, d
 	ld l, e
 	ld de, $000A
-	call FarCall
-	dw Divide16
-	db BANK(Divide16)
+	farcall Divide16
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4FCF
@@ -2525,15 +2272,13 @@ Function_29_4FD7:: ; 29:4FD7
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-; ---- code $4FF7-$5017 (32 bytes) [PROBABLE] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by call from 29:47AA (PROBABLE code)
+; ---- code $4FF7-$5017 (32 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by call from 29:47AA (PROBABLE code) [executed in 5 scenarios]
 
 Function_29_4FF7:: ; 29:4FF7
 	ldh a, [rSVBK]
@@ -2546,9 +2291,7 @@ Function_29_4FF7:: ; 29:4FF7
 	ld hl, $D000
 	ld de, $9000
 	ld c, $1F
-	call FarCall
-	dw Function_7F_72C2
-	db BANK(Function_7F_72C2)
+	farcall Function_7F_72C2
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2603,10 +2346,8 @@ Label_29_5055:: ; 29:5055
 	ldh [rHDMA5], a
 	ret
 
-; ---- data $505F-$5060 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_29_505F:: ; 29:505F
-	db $00
+; ---- zero $505F-$5060 (1 bytes) [PROBABLE] 1 byte of $00 padding between the code ending at 505E and the tiles at 5060
+	ds $1, $00
 
 ; ---- gfx $5060-$5090 (48 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4686: hl=$5060 a=$29 c=$03 de=$9301 (dest VRAM $9300, vbank=1)
 
@@ -2615,56 +2356,577 @@ Data_29_5060:: ; 29:5060
 	db $00, $08, $05, $02, $00, $05, $14, $93, $38, $10, $EF, $FF, $00, $FF, $FF, $00
 	db $17, $58, $17, $58, $17, $58, $37, $98, $67, $38, $CF, $F0, $1F, $E0, $FF, $00
 
-; ---- data $5090-$5376 (742 bytes) [HYPOTHESIS] UNCLASSIFIED 742 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $5090-$5376 (742 bytes) [HYPOTHESIS] self-contained routine library that decodes cleanly (460 legal instructions, internal calls/jumps all land on instruction starts inside the span, idioms: LCDC bit2 toggles 5090/5097, OAM copy/clear, PRNG hl=hl*5+$3711 mixed with LY at 50DA, wait LY=$90 at 5117, ROM bank write $2000/$3000 at 510F, CGB palette fade routines through rBCPS/BCPD $FF68-6B with the $DBD0 buffer at 520D-52xx). NO caller/pointer/far pointer to any address inside was found in the ROM (top-level entries 5159 and 517D are uncalled), and 'call $7BB7' at 5120 lands in this bank's zero padding (so it cannot be running in place in bank 29). Kept as code HYPOTHESIS; could be dead code or an image meant for another bank/RAM [verifier: additional evidence against a live routine in place: the PRNG uses ld a,[$0C0E]/ld [$0C0E],a (a ROM address, an MBC RAM-enable write area) and the internal 'call $7BB7' lands in this bank's zero padding; the library is unique in the ROM (no 24-byte window of it appears elsewhere); no word/call/jp/ld r16/far pointer to any of its 460 instruction starts exists outside it; stays HYPOTHESIS]
 
-Data_29_5090:: ; 29:5090
-	db $F0, $40, $E6, $FB, $E0, $40, $C9, $F0, $40, $F6, $04, $E0, $40, $C9, $CD, $90
-	db $50, $06, $C0, $2A, $FE, $FF, $C8, $82, $02, $03, $2A, $83, $02, $03, $2A, $02
-	db $03, $2A, $02, $03, $18, $ED, $F5, $C5, $E5, $06, $A0, $21, $00, $C0, $AF, $22
-	db $05, $20, $FC, $E1, $D1, $F1, $C9, $CD, $4B, $04, $05, $20, $FA, $C9, $CD, $1E
-	db $51, $05, $20, $F3, $C9, $0D, $C8, $19, $18, $FB, $D5, $E5, $FA, $0E, $0C, $6F
-	db $FA, $0F, $0C, $67, $54, $5D, $29, $29, $19, $11, $11, $37, $19, $7D, $EA, $0E
-	db $0C, $F0, $44, $6F, $7C, $85, $EA, $0F, $0C, $E1, $D1, $C9, $E5, $21, $B1, $FF
-	db $36, $00, $FE, $0A, $38, $05, $D6, $0A, $34, $18, $F7, $E0, $B0, $E1, $C9, $EA
-	db $00, $20, $AF, $EA, $00, $30, $C9, $F0, $44, $FE, $90, $20, $FA, $C9, $C5, $D5
-	db $CD, $B7, $7B, $D1, $C1, $F0, $A4, $E6, $01, $28, $10, $F0, $44, $FE, $24, $C8
-	db $FE, $48, $C8, $FE, $6C, $C8, $FE, $90, $20, $F1, $C9, $F0, $44, $FE, $48, $C8
-	db $FE, $90, $20, $F7, $C9, $AF, $E0, $0F, $F0, $FF, $E6, $FE, $E0, $FF, $C9, $AF
-	db $E0, $0F, $F0, $FF, $F6, $01, $E0, $FF, $C9, $F0, $70, $F5, $06, $04, $C5, $CD
-	db $45, $51, $CD, $0D, $52, $06, $08, $C5, $CD, $ED, $52, $C1, $05, $20, $F8, $CD
-	db $3F, $52, $CD, $4F, $51, $C1, $05, $20, $E5, $F1, $E0, $70, $C9, $F0, $70, $F5
-	db $06, $04, $C5, $E5, $CD, $45, $51, $CD, $35, $53, $48, $06, $08, $C5, $CD, $ED
-	db $52, $C1, $05, $20, $F8, $0D, $20, $F3, $CD, $3F, $52, $CD, $4F, $51, $E1, $C1
-	db $05, $20, $DF, $CD, $45, $51, $CD, $35, $53, $CD, $3F, $52, $CD, $4F, $51, $F1
-	db $E0, $70, $C9, $F0, $70, $F5, $06, $04, $C5, $CD, $45, $51, $CD, $0D, $52, $06
-	db $08, $C5, $CD, $9F, $52, $C1, $05, $20, $F8, $CD, $3F, $52, $CD, $4F, $51, $C1
-	db $05, $20, $E5, $F1, $E0, $70, $C9, $F0, $70, $F5, $06, $04, $C5, $E5, $CD, $45
-	db $51, $CD, $35, $53, $48, $06, $08, $C5, $CD, $9F, $52, $C1, $05, $20, $F8, $0D
-	db $20, $F3, $CD, $3F, $52, $CD, $4F, $51, $E1, $C1, $05, $20, $DF, $CD, $45, $51
-	db $CD, $35, $53, $CD, $3F, $52, $CD, $4F, $51, $F1, $E0, $70, $C9, $3E, $01, $E0
-	db $70, $11, $D0, $DB, $AF, $E0, $68, $CD, $17, $51, $06, $40, $0E, $00, $F0, $69
-	db $12, $0C, $79, $E0, $68, $13, $05, $20, $F5, $AF, $E0, $6A, $CD, $17, $51, $06
-	db $40, $0E, $00, $F0, $6B, $12, $0C, $79, $E0, $6A, $13, $05, $20, $F5, $C9, $11
-	db $D0, $DB, $AF, $E0, $68, $CD, $17, $51, $06, $40, $0E, $00, $1A, $E0, $69, $0C
-	db $79, $E0, $68, $13, $05, $20, $F5, $AF, $E0, $6A, $CD, $17, $51, $06, $40, $0E
-	db $00, $1A, $E0, $6B, $0C, $79, $E0, $6A, $13, $05, $20, $F5, $C9, $CD, $45, $51
-	db $AF, $E0, $68, $CD, $17, $51, $06, $40, $0E, $00, $3E, $00, $E0, $69, $0C, $79
-	db $E0, $68, $13, $05, $20, $F4, $AF, $E0, $6A, $CD, $17, $51, $06, $00, $0E, $00
-	db $1A, $E0, $6B, $0C, $79, $E0, $6A, $13, $05, $20, $F5, $CD, $4F, $51, $C9, $21
-	db $D0, $DB, $06, $40, $C5, $2A, $5F, $3C, $E6, $1F, $20, $02, $3E, $1F, $4F, $7B
-	db $E6, $E0, $CB, $37, $5F, $2A, $57, $E6, $03, $CB, $37, $B3, $3C, $3C, $E6, $3E
-	db $20, $02, $3E, $3E, $CB, $37, $5F, $E6, $E0, $B1, $4F, $7B, $E6, $03, $5F, $CB
-	db $3A, $CB, $3A, $7A, $3C, $E6, $1F, $20, $02, $3E, $1F, $CB, $27, $CB, $27, $B3
-	db $57, $59, $2B, $2B, $7B, $22, $7A, $22, $C1, $05, $20, $B8, $C9, $21, $D0, $DB
-	db $06, $40, $C5, $2A, $5F, $E6, $1F, $28, $01, $3D, $4F, $7B, $E6, $E0, $CB, $37
-	db $5F, $2A, $57, $E6, $03, $CB, $37, $B3, $E6, $3E, $28, $02, $3D, $3D, $CB, $37
-	db $5F, $E6, $E0, $B1, $4F, $7B, $E6, $03, $5F, $CB, $3A, $CB, $3A, $7A, $E6, $1F
-	db $28, $01, $3D, $CB, $27, $CB, $27, $B3, $57, $59, $2B, $2B, $7B, $22, $7A, $22
-	db $C1, $05, $20, $BE, $C9, $C5, $0E, $02, $11, $D0, $DB, $06, $40, $E5, $2A, $12
-	db $13, $05, $20, $FA, $E1, $0D, $20, $F3, $C1, $C9, $3E, $80, $E0, $68, $06, $40
-	db $F0, $44, $FE, $90, $20, $FA, $2A, $E0, $69, $05, $20, $FA, $3E, $80, $E0, $6A
-	db $06, $40, $F0, $44, $FE, $90, $20, $FA, $2A, $E0, $6B, $05, $20, $FA, $C9, $F0
-	db $40, $F6, $02, $E0, $40, $C9
+Function_29_5090:: ; 29:5090
+	ldh a, [rLCDC]
+	and a, $FB
+	ldh [rLCDC], a
+	ret
+
+	ldh a, [rLCDC]
+	or a, $04
+	ldh [rLCDC], a
+	ret
+
+	call Function_29_5090
+	ld b, $C0
+
+Label_29_50A3:: ; 29:50A3
+	ld a, [hli]
+	cp a, $FF
+	ret z
+	add a, d
+	ld [bc], a
+	inc bc
+	ld a, [hli]
+	add a, e
+	ld [bc], a
+	inc bc
+	ld a, [hli]
+	ld [bc], a
+	inc bc
+	ld a, [hli]
+	ld [bc], a
+	inc bc
+	jr Label_29_50A3
+
+	push af
+	push bc
+	push hl
+	ld b, $A0
+	ld hl, $C000
+	xor a, a
+
+Label_29_50BF:: ; 29:50BF
+	ld [hli], a
+	dec b
+	jr nz, Label_29_50BF
+	pop hl
+	pop de
+	pop af
+	ret
+
+Label_29_50C7:: ; 29:50C7
+	call Function_00_044B
+	dec b
+	jr nz, Label_29_50C7
+	ret
+
+	call Function_29_511E
+	dec b
+	jr nz, Label_29_50C7
+	ret
+
+Label_29_50D5:: ; 29:50D5
+	dec c
+	ret z
+	add hl, de
+	jr Label_29_50D5
+
+	push de
+	push hl
+	ld a, [$0C0E]
+	ld l, a
+	ld a, [$0C0F]
+	ld h, a
+	ld d, h
+	ld e, l
+	add hl, hl
+	add hl, hl
+	add hl, de
+	ld de, $3711
+	add hl, de
+	ld a, l
+	ld [$0C0E], a
+	ldh a, [rLY]
+	ld l, a
+	ld a, h
+	add a, l
+	ld [$0C0F], a
+	pop hl
+	pop de
+	ret
+
+	push hl
+	ld hl, $FFB1
+	ld [hl], $00
+
+Label_29_5102:: ; 29:5102
+	cp a, $0A
+	jr c, Label_29_510B
+	sub a, $0A
+	inc [hl]
+	jr Label_29_5102
+
+Label_29_510B:: ; 29:510B
+	ldh [hRam_FFB0], a
+	pop hl
+	ret
+
+	ld [rROMB0], a
+	xor a, a
+	ld [rROMB1], a
+	ret
+
+Function_29_5117:: ; 29:5117
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Function_29_5117
+	ret
+
+Function_29_511E:: ; 29:511E
+	push bc
+	push de
+	call $7BB7
+	pop de
+	pop bc
+	ldh a, [hJoyHeld]
+	and a, $01
+	jr z, Label_29_513B
+
+Label_29_512B:: ; 29:512B
+	ldh a, [rLY]
+	cp a, $24
+	ret z
+	cp a, $48
+	ret z
+	cp a, $6C
+	ret z
+	cp a, $90
+	jr nz, Label_29_512B
+	ret
+
+Label_29_513B:: ; 29:513B
+	ldh a, [rLY]
+	cp a, $48
+	ret z
+	cp a, $90
+	jr nz, Label_29_513B
+	ret
+
+Function_29_5145:: ; 29:5145
+	xor a, a
+	ldh [rIF], a
+	ldh a, [rIE]
+	and a, $FE
+	ldh [rIE], a
+	ret
+
+Function_29_514F:: ; 29:514F
+	xor a, a
+	ldh [rIF], a
+	ldh a, [rIE]
+	or a, $01
+	ldh [rIE], a
+	ret
+
+	ldh a, [rSVBK]
+	push af
+	ld b, $04
+
+Label_29_515E:: ; 29:515E
+	push bc
+	call Function_29_5145
+	call Function_29_520D
+	ld b, $08
+
+Label_29_5167:: ; 29:5167
+	push bc
+	call Function_29_52ED
+	pop bc
+	dec b
+	jr nz, Label_29_5167
+	call Function_29_523F
+	call Function_29_514F
+	pop bc
+	dec b
+	jr nz, Label_29_515E
+	pop af
+	ldh [rSVBK], a
+	ret
+
+	ldh a, [rSVBK]
+	push af
+	ld b, $04
+
+Label_29_5182:: ; 29:5182
+	push bc
+	push hl
+	call Function_29_5145
+	call Function_29_5335
+	ld c, b
+
+Label_29_518B:: ; 29:518B
+	ld b, $08
+
+Label_29_518D:: ; 29:518D
+	push bc
+	call Function_29_52ED
+	pop bc
+	dec b
+	jr nz, Label_29_518D
+	dec c
+	jr nz, Label_29_518B
+	call Function_29_523F
+	call Function_29_514F
+	pop hl
+	pop bc
+	dec b
+	jr nz, Label_29_5182
+	call Function_29_5145
+	call Function_29_5335
+	call Function_29_523F
+	call Function_29_514F
+	pop af
+	ldh [rSVBK], a
+	ret
+
+	ldh a, [rSVBK]
+	push af
+	ld b, $04
+
+Label_29_51B8:: ; 29:51B8
+	push bc
+	call Function_29_5145
+	call Function_29_520D
+	ld b, $08
+
+Label_29_51C1:: ; 29:51C1
+	push bc
+	call Function_29_529F
+	pop bc
+	dec b
+	jr nz, Label_29_51C1
+	call Function_29_523F
+	call Function_29_514F
+	pop bc
+	dec b
+	jr nz, Label_29_51B8
+	pop af
+	ldh [rSVBK], a
+	ret
+
+	ldh a, [rSVBK]
+	push af
+	ld b, $04
+
+Label_29_51DC:: ; 29:51DC
+	push bc
+	push hl
+	call Function_29_5145
+	call Function_29_5335
+	ld c, b
+
+Label_29_51E5:: ; 29:51E5
+	ld b, $08
+
+Label_29_51E7:: ; 29:51E7
+	push bc
+	call Function_29_529F
+	pop bc
+	dec b
+	jr nz, Label_29_51E7
+	dec c
+	jr nz, Label_29_51E5
+	call Function_29_523F
+	call Function_29_514F
+	pop hl
+	pop bc
+	dec b
+	jr nz, Label_29_51DC
+	call Function_29_5145
+	call Function_29_5335
+	call Function_29_523F
+	call Function_29_514F
+	pop af
+	ldh [rSVBK], a
+	ret
+
+Function_29_520D:: ; 29:520D
+	ld a, $01
+	ldh [rSVBK], a
+	ld de, $DBD0
+	xor a, a
+	ldh [rBCPS], a
+	call Function_29_5117
+	ld b, $40
+	ld c, $00
+
+Label_29_521E:: ; 29:521E
+	ldh a, [rBCPD]
+	ld [de], a
+	inc c
+	ld a, c
+	ldh [rBCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_521E
+	xor a, a
+	ldh [rOCPS], a
+	call Function_29_5117
+	ld b, $40
+	ld c, $00
+
+Label_29_5233:: ; 29:5233
+	ldh a, [rOCPD]
+	ld [de], a
+	inc c
+	ld a, c
+	ldh [rOCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_5233
+	ret
+
+Function_29_523F:: ; 29:523F
+	ld de, $DBD0
+	xor a, a
+	ldh [rBCPS], a
+	call Function_29_5117
+	ld b, $40
+	ld c, $00
+
+Label_29_524C:: ; 29:524C
+	ld a, [de]
+	ldh [rBCPD], a
+	inc c
+	ld a, c
+	ldh [rBCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_524C
+	xor a, a
+	ldh [rOCPS], a
+	call Function_29_5117
+	ld b, $40
+	ld c, $00
+
+Label_29_5261:: ; 29:5261
+	ld a, [de]
+	ldh [rOCPD], a
+	inc c
+	ld a, c
+	ldh [rOCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_5261
+	ret
+
+	call Function_29_5145
+	xor a, a
+	ldh [rBCPS], a
+	call Function_29_5117
+	ld b, $40
+	ld c, $00
+
+Label_29_527A:: ; 29:527A
+	ld a, $00
+	ldh [rBCPD], a
+	inc c
+	ld a, c
+	ldh [rBCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_527A
+	xor a, a
+	ldh [rOCPS], a
+	call Function_29_5117
+	ld b, $00
+	ld c, $00
+
+Label_29_5290:: ; 29:5290
+	ld a, [de]
+	ldh [rOCPD], a
+	inc c
+	ld a, c
+	ldh [rOCPS], a
+	inc de
+	dec b
+	jr nz, Label_29_5290
+	call Function_29_514F
+	ret
+
+Function_29_529F:: ; 29:529F
+	ld hl, $DBD0
+	ld b, $40
+
+Label_29_52A4:: ; 29:52A4
+	push bc
+	ld a, [hli]
+	ld e, a
+	inc a
+	and a, $1F
+	jr nz, Label_29_52AE
+	ld a, $1F
+
+Label_29_52AE:: ; 29:52AE
+	ld c, a
+	ld a, e
+	and a, $E0
+	swap a
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	and a, $03
+	swap a
+	or a, e
+	inc a
+	inc a
+	and a, $3E
+	jr nz, Label_29_52C4
+	ld a, $3E
+
+Label_29_52C4:: ; 29:52C4
+	swap a
+	ld e, a
+	and a, $E0
+	or a, c
+	ld c, a
+	ld a, e
+	and a, $03
+	ld e, a
+	srl d
+	srl d
+	ld a, d
+	inc a
+	and a, $1F
+	jr nz, Label_29_52DB
+	ld a, $1F
+
+Label_29_52DB:: ; 29:52DB
+	sla a
+	sla a
+	or a, e
+	ld d, a
+	ld e, c
+	dec hl
+	dec hl
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	pop bc
+	dec b
+	jr nz, Label_29_52A4
+	ret
+
+Function_29_52ED:: ; 29:52ED
+	ld hl, $DBD0
+	ld b, $40
+
+Label_29_52F2:: ; 29:52F2
+	push bc
+	ld a, [hli]
+	ld e, a
+	and a, $1F
+	jr z, Label_29_52FA
+	dec a
+
+Label_29_52FA:: ; 29:52FA
+	ld c, a
+	ld a, e
+	and a, $E0
+	swap a
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	and a, $03
+	swap a
+	or a, e
+	and a, $3E
+	jr z, Label_29_530E
+	dec a
+	dec a
+
+Label_29_530E:: ; 29:530E
+	swap a
+	ld e, a
+	and a, $E0
+	or a, c
+	ld c, a
+	ld a, e
+	and a, $03
+	ld e, a
+	srl d
+	srl d
+	ld a, d
+	and a, $1F
+	jr z, Label_29_5323
+	dec a
+
+Label_29_5323:: ; 29:5323
+	sla a
+	sla a
+	or a, e
+	ld d, a
+	ld e, c
+	dec hl
+	dec hl
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	pop bc
+	dec b
+	jr nz, Label_29_52F2
+	ret
+
+Function_29_5335:: ; 29:5335
+	push bc
+	ld c, $02
+	ld de, $DBD0
+
+Label_29_533B:: ; 29:533B
+	ld b, $40
+	push hl
+
+Label_29_533E:: ; 29:533E
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_29_533E
+	pop hl
+	dec c
+	jr nz, Label_29_533B
+	pop bc
+	ret
+
+	ld a, $80
+	ldh [rBCPS], a
+	ld b, $40
+
+Label_29_5350:: ; 29:5350
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Label_29_5350
+
+Label_29_5356:: ; 29:5356
+	ld a, [hli]
+	ldh [rBCPD], a
+	dec b
+	jr nz, Label_29_5356
+	ld a, $80
+	ldh [rOCPS], a
+	ld b, $40
+
+Label_29_5362:: ; 29:5362
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Label_29_5362
+
+Label_29_5368:: ; 29:5368
+	ld a, [hli]
+	ldh [rOCPD], a
+	dec b
+	jr nz, Label_29_5368
+	ret
+
+	ldh a, [rLCDC]
+	or a, $02
+	ldh [rLCDC], a
+	ret
 
 ; ---- data $5376-$53F6 (128 bytes) [PROBABLE] palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
@@ -2800,15 +3062,15 @@ Data_29_5800:: ; 29:5800
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 
-; ---- data $5AD0-$5AE0 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5AD0-$5B10 (64 bytes) [PROBABLE] verifier: 64-byte palette upload (ld bc,$0040 ; ld hl,$5AD0 ; ld a,$29 ; far call 4F:4000, far-call site at 27:4DA9, found by a ROM scan): first group $0000,$294A,$56B5,$7FFF (bit15 clear, grey ramp; same group repeated in 29:5E30-5E50 and 2A:51F8-5220), the other 56 bytes are all-zero (black) palette entries loaded with it. Was: 8-byte palette + 56-byte zero region
 
-Data_29_5AD0:: ; 29:5AD0
+Palette_29_5AD0:: ; 29:5AD0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- zero $5AE0-$5B10 (48 bytes) [HYPOTHESIS] 0x00 run of 185 bytes [clipped from 5AD8-5B91 by higher-priority proposals] [verifier: cut around bytes read as data]
-	ds $30, $00
-
-; ---- data $5B10-$5E0C (764 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5B10-5E50 by higher-priority evidence]
+; ---- gfx $5B10-$5E10 (768 bytes) [CONFIRMED] 48 tiles (768 bytes): HDMA 'ld de,$8000 ; ld hl,$5B10 ; ld a,$29 ; ld c,$30 ; call FarCall -> 00:0749' at 2F:5990-59A1 (executed reads cover 5B10-5E50 in traces); verifier: was clipped at 5E0C, 4 bytes short of the loaded block
 
 Data_29_5B10:: ; 29:5B10
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2858,20 +3120,15 @@ Data_29_5B10:: ; 29:5B10
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $5E0C-$5E4C (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $5E10-$5E50 (64 bytes) [CONFIRMED] 64 bytes = 32 RGB555 words (bit15 clear): loaded by 'ld bc,$0040 ; ld de,$D840 ; ld hl,$5E10 ; ld a,$29 ; far call 4F:4000' at 2F:59A2-59B2; executed reads of 5E10-5E50 in traces (dataaccess rom_read 29 5B10-5E50); verifier: the old split 5E0C-5E4C/5E4C-5E50 was 4 bytes early
 
-Data_29_5E0C:: ; 29:5E0C
-	db $00, $00, $00, $00, $E0, $7F, $FF, $7F, $EF, $57, $00, $00, $ED, $4F, $5F, $02
-	db $00, $00, $3F, $04, $ED, $4F, $BF, $02, $FF, $7F, $00, $00, $00, $00, $4A, $29
-	db $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
-	db $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
-
-; ---- data $5E4C-$5E50 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5B10-5E50 by higher-priority evidence]
-
-Data_29_5E4C:: ; 29:5E4C
-	db $B5, $56, $FF, $7F
+Palette_29_5E10:: ; 29:5E10
+	db $E0, $7F, $FF, $7F, $EF, $57, $00, $00, $ED, $4F, $5F, $02, $00, $00, $3F, $04
+	db $ED, $4F, $BF, $02, $FF, $7F, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
 ; ---- gfx $5E50-$6250 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:5208: hl=$5E50 a=$29 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -2949,48 +3206,310 @@ Data_29_6250:: ; 29:6250
 	db $C6, $EC, $8C, $D8, $CE, $E8, $62, $74, $02, $B4, $86, $CC, $CC, $38, $38, $00
 	db $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $FF
 
-; ---- data $6290-$64F4 (612 bytes) [HYPOTHESIS] UNCLASSIFIED 612 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $6290-$62C0 (48 bytes) [PROBABLE] animation entry table: 12 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$7F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
 
-Data_29_6290:: ; 29:6290
-	db $C0, $62, $EF, $62, $C0, $62, $EF, $62, $C0, $62, $EF, $62, $C0, $62, $EF, $62
-	db $F2, $62, $18, $63, $F2, $62, $18, $63, $F2, $62, $18, $63, $F2, $62, $18, $63
-	db $1D, $63, $43, $63, $1D, $63, $43, $63, $1D, $63, $43, $63, $1D, $63, $43, $63
-	db $C2, $62, $0B, $00, $08, $00, $02, $00, $10, $01, $02, $00, $18, $02, $02, $08
-	db $00, $03, $02, $08, $08, $04, $02, $08, $10, $05, $02, $08, $18, $06, $02, $10
-	db $00, $07, $02, $10, $08, $2A, $02, $10, $10, $2B, $02, $10, $18, $2C, $02, $01
-	db $00, $04, $F6, $62, $07, $63, $04, $00, $00, $08, $01, $00, $08, $09, $01, $00
-	db $1A, $0A, $01, $00, $22, $0B, $01, $04, $FF, $00, $08, $01, $FF, $08, $09, $01
-	db $00, $1A, $0A, $01, $00, $22, $0B, $01, $02, $00, $2E, $01, $08, $21, $63, $32
-	db $63, $04, $00, $1A, $08, $01, $00, $22, $09, $01, $00, $00, $0A, $01, $00, $08
-	db $0B, $01, $04, $00, $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF
-	db $08, $0B, $01, $02, $00, $2E, $01, $08, $00, $00, $00, $00, $00, $00, $00, $00
-	db $06, $64, $14, $64, $06, $64, $14, $64, $06, $64, $14, $64, $06, $64, $14, $64
-	db $19, $64, $27, $64, $19, $64, $27, $64, $19, $64, $27, $64, $19, $64, $27, $64
-	db $2C, $64, $3A, $64, $2C, $64, $3A, $64, $2C, $64, $3A, $64, $2C, $64, $3A, $64
-	db $3F, $64, $4D, $64, $3F, $64, $4D, $64, $3F, $64, $4D, $64, $3F, $64, $4D, $64
-	db $52, $64, $60, $64, $52, $64, $60, $64, $52, $64, $60, $64, $52, $64, $60, $64
-	db $65, $64, $73, $64, $65, $64, $73, $64, $65, $64, $73, $64, $65, $64, $73, $64
-	db $78, $64, $86, $64, $78, $64, $86, $64, $78, $64, $86, $64, $78, $64, $86, $64
-	db $8B, $64, $99, $64, $8B, $64, $99, $64, $8B, $64, $99, $64, $8B, $64, $99, $64
-	db $9E, $64, $C4, $64, $9E, $64, $C4, $64, $9E, $64, $C4, $64, $9E, $64, $C4, $64
-	db $C9, $64, $EF, $64, $C9, $64, $EF, $64, $C9, $64, $EF, $64, $C9, $64, $EF, $64
-	db $F2, $63, $04, $00, $00, $0C, $00, $00, $08, $0D, $00, $08, $00, $0E, $00, $08
-	db $08, $0F, $00, $01, $00, $04, $0A, $64, $0F, $64, $01, $00, $00, $00, $01, $01
-	db $FF, $00, $00, $01, $02, $00, $2E, $01, $08, $1D, $64, $22, $64, $01, $00, $00
-	db $01, $01, $01, $FF, $00, $01, $01, $02, $00, $2E, $01, $08, $30, $64, $35, $64
-	db $01, $00, $00, $02, $01, $01, $FF, $00, $02, $01, $02, $00, $2E, $01, $08, $43
-	db $64, $48, $64, $01, $00, $00, $03, $01, $01, $FF, $00, $03, $01, $02, $00, $2E
-	db $01, $08, $56, $64, $5B, $64, $01, $00, $00, $04, $01, $01, $FF, $00, $04, $01
-	db $02, $00, $2E, $01, $08, $69, $64, $6E, $64, $01, $00, $00, $05, $01, $01, $FF
-	db $00, $05, $01, $02, $00, $2E, $01, $08, $7C, $64, $81, $64, $01, $00, $00, $06
-	db $01, $01, $FF, $00, $06, $01, $02, $00, $2E, $01, $08, $8F, $64, $94, $64, $01
-	db $00, $00, $07, $01, $01, $FF, $00, $07, $01, $02, $00, $2E, $01, $08, $A2, $64
-	db $B3, $64, $04, $00, $00, $08, $01, $00, $08, $09, $01, $00, $1A, $0A, $01, $00
-	db $22, $0B, $01, $04, $FF, $00, $08, $01, $FF, $08, $09, $01, $00, $1A, $0A, $01
-	db $00, $22, $0B, $01, $02, $00, $2E, $01, $08, $CD, $64, $DE, $64, $04, $00, $1A
-	db $08, $01, $00, $22, $09, $01, $00, $00, $0A, $01, $00, $08, $0B, $01, $04, $00
-	db $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF, $08, $0B, $01, $02
-	db $00, $2E, $01, $08
+Table_29_6290:: ; 29:6290
+	dw Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF, Table_29_62C0, Data_29_62EF
+	dw Table_29_62F2, Data_29_6318, Table_29_62F2, Data_29_6318, Table_29_62F2, Data_29_6318, Table_29_62F2, Data_29_6318
+	dw Table_29_631D, Data_29_6343, Table_29_631D, Data_29_6343, Table_29_631D, Data_29_6343, Table_29_631D, Data_29_6343
+
+; ---- words $62C0-$62C2 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $62C2 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_62C0:: ; 29:62C0
+	dw Data_29_62C2
+
+; ---- data $62C2-$62EF (45 bytes) [PROBABLE] OAM frame: count=11 then 11 x (y,x,tile,attr) = 45 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_62C2:: ; 29:62C2
+	db $0B, $00, $08, $00, $02, $00, $10, $01, $02, $00, $18, $02, $02, $08, $00, $03
+	db $02, $08, $08, $04, $02, $08, $10, $05, $02, $08, $18, $06, $02, $10, $00, $07
+	db $02, $10, $08, $2A, $02, $10, $10, $2B, $02, $10, $18, $2C, $02
+
+; ---- data $62EF-$62F2 (3 bytes) [HYPOTHESIS] 3-byte animation script record 01 00 04 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_62EF:: ; 29:62EF
+	db $01, $00, $04
+
+; ---- words $62F2-$62F6 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $62F6, $6307 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_62F2:: ; 29:62F2
+	dw Data_29_62F6, Data_29_6307
+
+; ---- data $62F6-$6307 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_62F6:: ; 29:62F6
+	db $04, $00, $00, $08, $01, $00, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
+	db $01
+
+; ---- data $6307-$6318 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6307:: ; 29:6307
+	db $04, $FF, $00, $08, $01, $FF, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
+	db $01
+
+; ---- data $6318-$631D (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6318:: ; 29:6318
+	db $02, $00, $2E, $01, $08
+
+; ---- words $631D-$6321 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6321, $6332 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_631D:: ; 29:631D
+	dw Data_29_6321, Data_29_6332
+
+; ---- data $6321-$6332 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6321:: ; 29:6321
+	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $00, $00, $0A, $01, $00, $08, $0B
+	db $01
+
+; ---- data $6332-$6343 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6332:: ; 29:6332
+	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF, $08, $0B
+	db $01
+
+; ---- data $6343-$6348 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6343:: ; 29:6343
+	db $02, $00, $2E, $01, $08
+
+; ---- zero $6348-$6350 (8 bytes) [PROBABLE] zero padding inside the animation-resource block
+	ds $8, $00
+
+; ---- words $6350-$63F0 (160 bytes) [PROBABLE] animation entry table: 40 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$7F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
+
+Table_29_6350:: ; 29:6350
+	dw Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414
+	dw Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427
+	dw Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A
+	dw Table_29_643F, Data_29_644D, Table_29_643F, Data_29_644D, Table_29_643F, Data_29_644D, Table_29_643F, Data_29_644D
+	dw Table_29_6452, Data_29_6460, Table_29_6452, Data_29_6460, Table_29_6452, Data_29_6460, Table_29_6452, Data_29_6460
+	dw Table_29_6465, Data_29_6473, Table_29_6465, Data_29_6473, Table_29_6465, Data_29_6473, Table_29_6465, Data_29_6473
+	dw Table_29_6478, Data_29_6486, Table_29_6478, Data_29_6486, Table_29_6478, Data_29_6486, Table_29_6478, Data_29_6486
+	dw Table_29_648B, Data_29_6499, Table_29_648B, Data_29_6499, Table_29_648B, Data_29_6499, Table_29_648B, Data_29_6499
+	dw Table_29_649E, Data_29_64C4, Table_29_649E, Data_29_64C4, Table_29_649E, Data_29_64C4, Table_29_649E, Data_29_64C4
+	dw Table_29_64C9, Data_29_64EF, Table_29_64C9, Data_29_64EF, Table_29_64C9, Data_29_64EF, Table_29_64C9, Data_29_64EF
+
+; ---- words $63F0-$63F2 (2 bytes) [HYPOTHESIS] frame table: 1 pointer(s) $63F2 to OAM frames (extent = first target) [verifier: NO entry of the two entry tables 6290/6350 (and no other word/ld in the ROM) references this object: an unreferenced 13th animation in the block; structure (frame table extent = first target, frame count, script count) matches its siblings and tiles into 6406]
+
+Table_29_63F0:: ; 29:63F0
+	dw Data_29_63F2
+
+; ---- data $63F2-$6403 (17 bytes) [HYPOTHESIS] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table [verifier: NO entry of the two entry tables 6290/6350 (and no other word/ld in the ROM) references this object: an unreferenced 13th animation in the block; structure (frame table extent = first target, frame count, script count) matches its siblings and tiles into 6406]
+
+Data_29_63F2:: ; 29:63F2
+	db $04, $00, $00, $0C, $00, $00, $08, $0D, $00, $08, $00, $0E, $00, $08, $08, $0F
+	db $00
+
+; ---- data $6403-$6406 (3 bytes) [HYPOTHESIS] 3-byte animation script record 01 00 04 [verifier: NO entry of the two entry tables 6290/6350 (and no other word/ld in the ROM) references this object: an unreferenced 13th animation in the block; structure (frame table extent = first target, frame count, script count) matches its siblings and tiles into 6406]
+
+Data_29_6403:: ; 29:6403
+	db $01, $00, $04
+
+; ---- words $6406-$640A (4 bytes) [PROBABLE] frame table: 2 pointer(s) $640A, $640F to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_6406:: ; 29:6406
+	dw Data_29_640A, Data_29_640F
+
+; ---- data $640A-$640F (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_640A:: ; 29:640A
+	db $01, $00, $00, $00, $01
+
+; ---- data $640F-$6414 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_640F:: ; 29:640F
+	db $01, $FF, $00, $00, $01
+
+; ---- data $6414-$6419 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6414:: ; 29:6414
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6419-$641D (4 bytes) [PROBABLE] frame table: 2 pointer(s) $641D, $6422 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_6419:: ; 29:6419
+	dw Data_29_641D, Data_29_6422
+
+; ---- data $641D-$6422 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_641D:: ; 29:641D
+	db $01, $00, $00, $01, $01
+
+; ---- data $6422-$6427 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6422:: ; 29:6422
+	db $01, $FF, $00, $01, $01
+
+; ---- data $6427-$642C (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6427:: ; 29:6427
+	db $02, $00, $2E, $01, $08
+
+; ---- words $642C-$6430 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6430, $6435 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_642C:: ; 29:642C
+	dw Data_29_6430, Data_29_6435
+
+; ---- data $6430-$6435 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6430:: ; 29:6430
+	db $01, $00, $00, $02, $01
+
+; ---- data $6435-$643A (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6435:: ; 29:6435
+	db $01, $FF, $00, $02, $01
+
+; ---- data $643A-$643F (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_643A:: ; 29:643A
+	db $02, $00, $2E, $01, $08
+
+; ---- words $643F-$6443 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6443, $6448 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_643F:: ; 29:643F
+	dw Data_29_6443, Data_29_6448
+
+; ---- data $6443-$6448 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6443:: ; 29:6443
+	db $01, $00, $00, $03, $01
+
+; ---- data $6448-$644D (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6448:: ; 29:6448
+	db $01, $FF, $00, $03, $01
+
+; ---- data $644D-$6452 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_644D:: ; 29:644D
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6452-$6456 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6456, $645B to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_6452:: ; 29:6452
+	dw Data_29_6456, Data_29_645B
+
+; ---- data $6456-$645B (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6456:: ; 29:6456
+	db $01, $00, $00, $04, $01
+
+; ---- data $645B-$6460 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_645B:: ; 29:645B
+	db $01, $FF, $00, $04, $01
+
+; ---- data $6460-$6465 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6460:: ; 29:6460
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6465-$6469 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $6469, $646E to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_6465:: ; 29:6465
+	dw Data_29_6469, Data_29_646E
+
+; ---- data $6469-$646E (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6469:: ; 29:6469
+	db $01, $00, $00, $05, $01
+
+; ---- data $646E-$6473 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_646E:: ; 29:646E
+	db $01, $FF, $00, $05, $01
+
+; ---- data $6473-$6478 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6473:: ; 29:6473
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6478-$647C (4 bytes) [PROBABLE] frame table: 2 pointer(s) $647C, $6481 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_6478:: ; 29:6478
+	dw Data_29_647C, Data_29_6481
+
+; ---- data $647C-$6481 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_647C:: ; 29:647C
+	db $01, $00, $00, $06, $01
+
+; ---- data $6481-$6486 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6481:: ; 29:6481
+	db $01, $FF, $00, $06, $01
+
+; ---- data $6486-$648B (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6486:: ; 29:6486
+	db $02, $00, $2E, $01, $08
+
+; ---- words $648B-$648F (4 bytes) [PROBABLE] frame table: 2 pointer(s) $648F, $6494 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_648B:: ; 29:648B
+	dw Data_29_648F, Data_29_6494
+
+; ---- data $648F-$6494 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_648F:: ; 29:648F
+	db $01, $00, $00, $07, $01
+
+; ---- data $6494-$6499 (5 bytes) [PROBABLE] OAM frame: count=1 then 1 x (y,x,tile,attr) = 5 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_6494:: ; 29:6494
+	db $01, $FF, $00, $07, $01
+
+; ---- data $6499-$649E (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_6499:: ; 29:6499
+	db $02, $00, $2E, $01, $08
+
+; ---- words $649E-$64A2 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $64A2, $64B3 to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_649E:: ; 29:649E
+	dw Data_29_64A2, Data_29_64B3
+
+; ---- data $64A2-$64B3 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_64A2:: ; 29:64A2
+	db $04, $00, $00, $08, $01, $00, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
+	db $01
+
+; ---- data $64B3-$64C4 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_64B3:: ; 29:64B3
+	db $04, $FF, $00, $08, $01, $FF, $08, $09, $01, $00, $1A, $0A, $01, $00, $22, $0B
+	db $01
+
+; ---- data $64C4-$64C9 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_64C4:: ; 29:64C4
+	db $02, $00, $2E, $01, $08
+
+; ---- words $64C9-$64CD (4 bytes) [PROBABLE] frame table: 2 pointer(s) $64CD, $64DE to OAM frames (extent = first target); pointed to by an animation entry
+
+Table_29_64C9:: ; 29:64C9
+	dw Data_29_64CD, Data_29_64DE
+
+; ---- data $64CD-$64DE (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_64CD:: ; 29:64CD
+	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $00, $00, $0A, $01, $00, $08, $0B
+	db $01
+
+; ---- data $64DE-$64EF (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (same layout as the frames of bank 50:6CC4, tuples emitted by the 00:0AE8 sprite engine); pointed to by a frame table
+
+Data_29_64DE:: ; 29:64DE
+	db $04, $00, $1A, $08, $01, $00, $22, $09, $01, $FF, $00, $0A, $01, $FF, $08, $0B
+	db $01
+
+; ---- data $64EF-$64F4 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+
+Data_29_64EF:: ; 29:64EF
+	db $02, $00, $2E, $01, $08
 
 ; ---- zero $64F4-$8000 (6924 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $1B0C, $00

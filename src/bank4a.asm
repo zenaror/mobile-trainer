@@ -3,13 +3,14 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank4A", ROMX[$4000], BANK[$4A]
 
-; ---- data $4000-$4004 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4000-$4004 (4 bytes) [PROBABLE] entry 0 (all zero, unused) of the 4-byte-entry object table at 4A:4000 read by init_object_from_table (00:0A82; entry 1 at 4004 = 4008,402E is the CONFIRMED read data right after); same family as 72:4E40/72:7828 [verifier: the original text said 4E:4E40, which is code; the sibling table is 72:4E40]
 
-Data_4A_4000:: ; 4A:4000
-	db $00, $00, $00, $00
+Table_4A_4000:: ; 4A:4000
+	dw $0000, $0000
 
 ; ---- data $4004-$4033 (47 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
@@ -18,10 +19,8 @@ Data_4A_4004:: ; 4A:4004
 	db $4F, $00, $18, $00, $2F, $08, $18, $00, $6F, $04, $FF, $FF, $00, $0F, $09, $FF
 	db $00, $4F, $FF, $19, $00, $2F, $09, $19, $00, $6F, $02, $00, $2E, $01, $08
 
-; ---- data $4033-$4040 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4A_4033:: ; 4A:4033
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $4033-$4040 (13 bytes) [PROBABLE] 13 x 00 between the descriptor data ending at 4033 and the tile block at 4A:4040
+	ds $D, $00
 
 ; ---- gfx $4040-$4240 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5107: hl=$4040 a=$4A c=$20 de=$8001 (dest VRAM $8000, vbank=1)
 
@@ -436,12 +435,17 @@ Data_4A_5770:: ; 4A:5770
 	db $C4, $C5, $BC, $BD, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5810-$583C (44 bytes) [HYPOTHESIS] UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5810-$5838 (40 bytes) [PROBABLE] tail of the 10-row x 20-column block of tile numbers 4A:5770-5838 (rows of 20: 80..99 / $0A filler / 8A.. ; the first 160 bytes are CONFIRMED read data): two more rows, 40 bytes
 
 Data_4A_5810:: ; 4A:5810
 	db $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $89, $D6, $D7, $D8, $D9, $DA, $DB
 	db $DC, $DD, $DE, $99, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $00, $00, $00, $00
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+; ---- words $5838-$583C (4 bytes) [PROBABLE] entry 0 (4 x 00, unused) of the object table at 4A:5838: ld de,$5838 ; a=$4A ; b=$81 ; init_object_from_table (00:0A82) at 68:513A-5145; entry 1 (583C, CONFIRMED read) follows
+
+Table_4A_5838:: ; 4A:5838
+	dw $0000, $0000
 
 ; ---- data $583C-$5860 (36 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
 

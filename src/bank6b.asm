@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank6B", ROMX[$4000], BANK[$6B]
 
@@ -292,7 +293,7 @@ Function_6B_4CF6:: ; 6B:4CF6
 	ld a, $FF
 	ret
 
-; ---- data $4D1B-$4D20 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4D1B-$4D20 (5 bytes) [PROBABLE] 5-byte BGP fade table 00 40 90 E4 D9 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); previous code ends with ret, zero padding follows
 
 Data_6B_4D1B:: ; 6B:4D1B
 	db $00, $40, $90, $E4, $D9

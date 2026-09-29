@@ -3,156 +3,178 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank74", ROMX[$4000], BANK[$74]
 
-; ---- data $4000-$4007 (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- ptrtable $4000-$4006 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4006, $400A. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_4000:: ; 74:4000
-	db $06, $40, $0A, $40, $00, $00, $6E
+Table_74_4000:: ; 74:4000
+	dw Data_74_4006
+	dw $400A
+	dw $0000
 
-; ---- data $4007-$400A (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4006-$400E (8 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4006 "ng" -> $01; $400A "ok" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4007:: ; 74:4007
-	db $67, $00, $01
+Data_74_4006:: ; 74:4006
+	db $6E, $67, $00, $01, $6F, $6B, $00, $02
 
-; ---- data $400A-$400B (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_400A:: ; 74:400A
-	db $6F
-
-; ---- data $400B-$400E (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_400B:: ; 74:400B
-	db $6B, $00, $02
-
-; ---- ptrtable $400E-$4018 (10 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 20% of targets on string start/after NUL, targets $401A..$402D; referenced by ld r16,$400E at 74:4398
+; ---- ptrtable $400E-$401A (12 bytes) [PROBABLE] pointer list (5 entries + $0000 terminator): $401A, $401E, $4022, $4027, $402D. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
 Table_74_400E:: ; 74:400E
-	dw $401A
+	dw Data_74_401A
 	dw $401E
 	dw $4022
 	dw $4027
 	dw $402D
+	dw $0000
 
-; ---- data $4018-$4053 (59 bytes) [HYPOTHESIS] UNCLASSIFIED 59 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $401A-$4033 (25 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $401A "lt" -> $3C; $401E "gt" -> $3E; $4022 "amp" -> $26; $4027 "quot" -> $22; $402D "nbsp" -> $20. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4018:: ; 74:4018
-	db $00, $00, $6C, $74, $00, $3C, $67, $74, $00, $3E, $61, $6D, $70, $00, $26, $71
-	db $75, $6F, $74, $00, $22, $6E, $62, $73, $70, $00, $20, $3B, $40, $43, $40, $4B
-	db $40, $00, $00, $70, $70, $70, $5F, $69, $64, $00, $01, $72, $5F, $63, $6F, $64
-	db $65, $00, $02, $64, $5F, $63, $6F, $64, $65, $00, $03
+Data_74_401A:: ; 74:401A
+	db $6C, $74, $00, $3C, $67, $74, $00, $3E, $61, $6D, $70, $00, $26, $71, $75, $6F
+	db $74, $00, $22, $6E, $62, $73, $70, $00, $20
 
-; ---- data $4053-$4055 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- ptrtable $4033-$403B (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $403B, $4043, $404B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_4053:: ; 74:4053
-	db $18, $41
+Table_74_4033:: ; 74:4033
+	dw Data_74_403B
+	dw $4043
+	dw $404B
+	dw $0000
 
-; ---- data $4055-$4078 (35 bytes) [HYPOTHESIS] UNCLASSIFIED 35 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $403B-$4053 (24 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $403B "ppp_id" -> $01; $4043 "r_code" -> $02; $404B "d_code" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4055:: ; 74:4055
-	db $00, $00, $5B, $40, $00, $00, $63, $6C, $65, $61, $72, $00, $01, $66, $40, $00
-	db $00, $77, $69, $64, $74, $68, $00, $01, $71, $40, $00, $00, $61, $6C, $69, $67
-	db $6E, $00, $01
+Data_74_403B:: ; 74:403B
+	db $70, $70, $70, $5F, $69, $64, $00, $01, $72, $5F, $63, $6F, $64, $65, $00, $02
+	db $64, $5F, $63, $6F, $64, $65, $00, $03
 
-; ---- data $4078-$407A (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- ptrtable $4053-$4057 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4118. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_4078:: ; 74:4078
-	db $7E, $40
+Table_74_4053:: ; 74:4053
+	dw $4118
+	dw $0000
 
-; ---- data $407A-$407E (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $4057-$405B (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $405B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_407A:: ; 74:407A
-	db $84, $40, $00, $00
+Table_74_4057:: ; 74:4057
+	dw Data_74_405B
+	dw $0000
 
-; ---- data $407E-$4084 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $405B-$4062 (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $405B "clear" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_405B:: ; 74:405B
+	db $63, $6C, $65, $61, $72, $00, $01
+
+; ---- ptrtable $4062-$4066 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4066. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+
+Table_74_4062:: ; 74:4062
+	dw Data_74_4066
+	dw $0000
+
+; ---- data $4066-$406D (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4066 "width" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_4066:: ; 74:4066
+	db $77, $69, $64, $74, $68, $00, $01
+
+; ---- ptrtable $406D-$4071 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4071. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+
+Table_74_406D:: ; 74:406D
+	dw Data_74_4071
+	dw $0000
+
+; ---- data $4071-$4078 (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4071 "align" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_4071:: ; 74:4071
+	db $61, $6C, $69, $67, $6E, $00, $01
+
+; ---- ptrtable $4078-$407E (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $407E, $4084. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+
+Table_74_4078:: ; 74:4078
+	dw Data_74_407E
+	dw $4084
+	dw $0000
+
+; ---- data $407E-$408A (12 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $407E "href" -> $01; $4084 "name" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
 Data_74_407E:: ; 74:407E
-	db $68, $72, $65, $66, $00, $01
+	db $68, $72, $65, $66, $00, $01, $6E, $61, $6D, $65, $00, $02
 
-; ---- data $4084-$40EE (106 bytes) [HYPOTHESIS] UNCLASSIFIED 106 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $408A-$4090 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4090, $4095. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_4084:: ; 74:4084
-	db $6E, $61, $6D, $65, $00, $02, $90, $40, $95, $40, $00, $00, $73, $72, $63, $00
-	db $01, $61, $6C, $69, $67, $6E, $00, $02, $A4, $40, $AA, $40, $B1, $40, $00, $00
+Table_74_408A:: ; 74:408A
+	dw Data_74_4090
+	dw $4095
+	dw $0000
+
+; ---- data $4090-$409C (12 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4090 "src" -> $01; $4095 "align" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_4090:: ; 74:4090
+	db $73, $72, $63, $00, $01, $61, $6C, $69, $67, $6E, $00, $02
+
+; ---- ptrtable $409C-$40A4 (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $40A4, $40AA, $40B1. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+
+Table_74_409C:: ; 74:409C
+	dw Data_74_40A4
+	dw $40AA
+	dw $40B1
+	dw $0000
+
+; ---- data $40A4-$40B6 (18 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $40A4 "left" -> $01; $40AA "right" -> $02; $40B1 "all" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_40A4:: ; 74:40A4
 	db $6C, $65, $66, $74, $00, $01, $72, $69, $67, $68, $74, $00, $02, $61, $6C, $6C
-	db $00, $03, $D0, $40, $E0, $40, $C4, $40, $E6, $40, $CB, $40, $D8, $40, $00, $00
+	db $00, $03
+
+; ---- ptrtable $40B6-$40C4 (14 bytes) [PROBABLE] pointer list (6 entries + $0000 terminator): $40D0, $40E0, $40C4, $40E6, $40CB, $40D8. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+
+Table_74_40B6:: ; 74:40B6
+	dw $40D0
+	dw $40E0
+	dw Data_74_40C4
+	dw $40E6
+	dw $40CB
+	dw $40D8
+	dw $0000
+
+; ---- data $40C4-$40EE (42 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $40C4 "right" -> $04; $40CB "top" -> $10; $40D0 "center" -> $08; $40D8 "middle" -> $20; $40E0 "left" -> $0C; $40E6 "bottom" -> $30. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
+
+Data_74_40C4:: ; 74:40C4
 	db $72, $69, $67, $68, $74, $00, $04, $74, $6F, $70, $00, $10, $63, $65, $6E, $74
 	db $65, $72, $00, $08, $6D, $69, $64, $64, $6C, $65, $00, $20, $6C, $65, $66, $74
 	db $00, $0C, $62, $6F, $74, $74, $6F, $6D, $00, $30
 
-; ---- data $40EE-$4126 (56 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- ptrtable $40EE-$4112 (36 bytes) [PROBABLE] pointer list (17 entries + $0000 terminator): $4157, $4138, $4145, $4140, $413C, $412B, $4133, $414B, $414F, $4153, $4148, $415A, $4160, $4125, $411F, $4118, $4112. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Data_74_40EE:: ; 74:40EE
-	db $57, $41, $38, $41, $45, $41, $40, $41, $3C, $41, $2B, $41, $33, $41, $4B, $41
-	db $4F, $41, $53, $41, $48, $41, $5A, $41, $60, $41, $25, $41, $1F, $41, $18, $41
-	db $12, $41, $00, $00, $68, $74, $6D, $6C, $00, $01, $74, $69, $74, $6C, $65, $00
-	db $02, $68, $65, $61, $64, $00, $03, $62
+Table_74_40EE:: ; 74:40EE
+	dw $4157
+	dw $4138
+	dw $4145
+	dw $4140
+	dw $413C
+	dw $412B
+	dw $4133
+	dw $414B
+	dw $414F
+	dw $4153
+	dw $4148
+	dw $415A
+	dw $4160
+	dw $4125
+	dw $411F
+	dw $4118
+	dw Data_74_4112
+	dw $0000
 
-; ---- data $4126-$412B (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4112-$4165 (83 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4112 "html" -> $01; $4118 "title" -> $02; $411F "head" -> $03; $4125 "body" -> $04; $412B "center" -> $05; $4133 "div" -> $06; $4138 "br" -> $07; $413C "hr" -> $08; $4140 "img" -> $09; $4145 "a" -> $0A; $4148 "b" -> $0B; $414B "ul" -> $0C; $414F "ol" -> $0D; $4153 "li" -> $0E; $4157 "!" -> $0F; $415A "meta" -> $10; $4160 "pre" -> $11. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4126:: ; 74:4126
-	db $6F, $64, $79, $00, $04
-
-; ---- data $412B-$4134 (9 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_412B:: ; 74:412B
-	db $63, $65, $6E, $74, $65, $72, $00, $05, $64
-
-; ---- data $4134-$4138 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_4134:: ; 74:4134
-	db $69, $76, $00, $06
-
-; ---- data $4138-$4141 (9 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_4138:: ; 74:4138
-	db $62, $72, $00, $07, $68, $72, $00, $08, $69
-
-; ---- data $4141-$4145 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_4141:: ; 74:4141
-	db $6D, $67, $00, $09
-
-; ---- data $4145-$4150 (11 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_4145:: ; 74:4145
-	db $61, $00, $0A, $62, $00, $0B, $75, $6C, $00, $0C, $6F
-
-; ---- data $4150-$4153 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_4150:: ; 74:4150
-	db $6C, $00, $0D
-
-; ---- data $4153-$4158 (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_4153:: ; 74:4153
-	db $6C, $69, $00, $0E, $21
-
-; ---- data $4158-$415A (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_4158:: ; 74:4158
-	db $00, $0F
-
-; ---- data $415A-$415B (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_415A:: ; 74:415A
-	db $6D
-
-; ---- data $415B-$4160 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_415B:: ; 74:415B
-	db $65, $74, $61, $00, $10
-
-; ---- data $4160-$4161 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_4160:: ; 74:4160
-	db $70
-
-; ---- data $4161-$4165 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_4161:: ; 74:4161
-	db $72, $65, $00, $11
+Data_74_4112:: ; 74:4112
+	db $68, $74, $6D, $6C, $00, $01, $74, $69, $74, $6C, $65, $00, $02, $68, $65, $61
+	db $64, $00, $03, $62, $6F, $64, $79, $00, $04, $63, $65, $6E, $74, $65, $72, $00
+	db $05, $64, $69, $76, $00, $06, $62, $72, $00, $07, $68, $72, $00, $08, $69, $6D
+	db $67, $00, $09, $61, $00, $0A, $62, $00, $0B, $75, $6C, $00, $0C, $6F, $6C, $00
+	db $0D, $6C, $69, $00, $0E, $21, $00, $0F, $6D, $65, $74, $61, $00, $10, $70, $72
+	db $65, $00, $11
 
 ; ---- code $4165-$417F (26 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
@@ -267,14 +289,10 @@ Label_74_41F2:: ; 74:41F2
 Function_74_4207:: ; 74:4207
 	ld bc, $0000
 	ld de, $0000
-	call FarCall
-	dw Function_4E_5423
-	db BANK(Function_4E_5423)
+	farcall Function_4E_5423
 	ld bc, $0090
 	ld de, $0060
-	call FarCall
-	dw Function_4E_5435
-	db BANK(Function_4E_5435)
+	farcall Function_4E_5435
 	xor a, a
 	ld [wRam_C335], a
 	ld a, $00
@@ -291,28 +309,18 @@ Function_74_4207:: ; 74:4207
 	ldh [hTextX], a
 	ld hl, $B000
 	ld a, $03
-	call FarCall
-	dw Function_74_4296
-	db BANK(Function_74_4296)
-	call FarCall
-	dw Function_74_537D
-	db BANK(Function_74_537D)
-	call FarCall
-	dw Function_74_4165
-	db BANK(Function_74_4165)
+	farcall Function_74_4296
+	farcall Function_74_537D
+	farcall Function_74_4165
 	ret
 
 Function_74_4254:: ; 74:4254
 	ld bc, $0000
 	ld de, $0000
-	call FarCall
-	dw Function_4E_5423
-	db BANK(Function_4E_5423)
+	farcall Function_4E_5423
 	ld bc, $0090
 	ld de, $0060
-	call FarCall
-	dw Function_4E_5435
-	db BANK(Function_4E_5435)
+	farcall Function_4E_5435
 	ld a, $FF
 	ld [wRam_C335], a
 	ld a, $00
@@ -329,9 +337,7 @@ Function_74_4254:: ; 74:4254
 	ldh [hTextX], a
 	ld hl, $B000
 	ld a, $03
-	call FarCall
-	dw Function_74_4296
-	db BANK(Function_74_4296)
+	farcall Function_74_4296
 	ret
 
 Function_74_4296:: ; 74:4296
@@ -372,21 +378,13 @@ Function_74_4296:: ; 74:4296
 	xor a, a
 	call FillBytes
 	call Function_00_0392
-	call FarCall
-	dw Function_74_4F4F
-	db BANK(Function_74_4F4F)
-	call FarCall
-	dw Function_74_5A96
-	db BANK(Function_74_5A96)
-	call FarCall
-	dw Function_74_53E3
-	db BANK(Function_74_53E3)
+	farcall Function_74_4F4F
+	farcall Function_74_5A96
+	farcall Function_74_53E3
 	pop hl
 	push de
 	ldh a, [hRam_FFB5]
-	call FarCall
-	dw Function_74_5B4F
-	db BANK(Function_74_5B4F)
+	farcall Function_74_5B4F
 	pop de
 	ldh a, [hTextX]
 	call BankSwitch_D
@@ -442,7 +440,7 @@ Label_74_4337:: ; 74:4337
 	inc de
 	jr Label_74_4307
 
-; ---- code $434C-$4359 (13 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 74:4337 (executed)
+; ---- code $434C-$4359 (13 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 74:4337 (executed) [executed in 4 scenarios]
 
 Label_74_434C:: ; 74:434C
 	inc de
@@ -463,7 +461,7 @@ Label_74_4359:: ; 74:4359
 	and a, $08
 	jr z, Label_74_4374
 
-; ---- code $4361-$4374 (19 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:435F (executed)
+; ---- code $4361-$4374 (19 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:435F (executed) [executed in 1 scenarios]
 	ld a, c
 	cp a, $0D
 	jp z, Label_74_4C6B
@@ -534,21 +532,15 @@ Label_74_43BA:: ; 74:43BA
 	ld h, a
 	jp Label_74_4307
 
-; ---- data $43C3-$43C4 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_43C3:: ; 74:43C3
-	db $E1
+; ---- code $43C3-$43C4 (1 bytes) [HYPOTHESIS] single 'pop hl' (e1) after the unconditional 'jp $4307' at 74:43C0; no branch/pointer targets 43C3 (tgt scan of all code regions + word scan), so unreachable; falls into the executed 43C4 (target of 13 jz/jp)
+	pop hl
 
 ; ---- code $43C4-$445B (151 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios)
 
 Label_74_43C4:: ; 74:43C4
 	call Function_00_0392
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5252
-	db BANK(Function_74_5252)
+	farcall Function_74_5440
+	farcall Function_74_5252
 	ldh a, [hRam_FFB8]
 	ld l, a
 	ldh a, [hRam_FFB9]
@@ -704,62 +696,31 @@ Label_74_4490:: ; 74:4490
 	push bc
 	ret
 
-; ---- data $44A0-$44A2 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $44A0-$44C4 (36 bytes) [CONFIRMED] 18-word jump table indexed by the HTML tag id: dispatcher at 74:4490-449F (add a,a; add a,$A0; ld l,a; adc a,$44; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; push bc; ret) - executed in the homepage/monkey traces, which read entries 44A2-44BE as data; all 18 targets are instruction starts of code regions: $4439, $4623, $44C4, $462E, $464A, $4718, $472E, $4B98, $4CA6, $4DF9, $4A91, $4A32, $47AA, $4867, $493F, $45D9, $4698, $4666
 
-Data_74_44A0:: ; 74:44A0
-	db $39, $44
-
-; ---- data $44A2-$44A8 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_44A2:: ; 74:44A2
-	db $23, $46, $C4, $44, $2E, $46
-
-; ---- data $44A8-$44AA (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_44A8:: ; 74:44A8
-	db $4A, $46
-
-; ---- data $44AA-$44AC (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_74_44AA:: ; 74:44AA
-	db $18, $47
-
-; ---- data $44AC-$44AE (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_44AC:: ; 74:44AC
-	db $2E, $47
-
-; ---- data $44AE-$44B2 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_44AE:: ; 74:44AE
-	db $98, $4B, $A6, $4C
-
-; ---- data $44B2-$44B4 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_44B2:: ; 74:44B2
-	db $F9, $4D
-
-; ---- data $44B4-$44BA (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_74_44B4:: ; 74:44B4
-	db $91, $4A, $32, $4A, $AA, $47
-
-; ---- data $44BA-$44BC (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_44BA:: ; 74:44BA
-	db $67, $48
-
-; ---- data $44BC-$44BE (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_74_44BC:: ; 74:44BC
-	db $3F, $49
-
-; ---- data $44BE-$44C4 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_44BE:: ; 74:44BE
-	db $D9, $45, $98, $46, $66, $46
+Table_74_44A0:: ; 74:44A0
+	dw Label_74_4439
+	dw Label_74_4623
+	dw Label_74_44C4
+	dw Label_74_462E
+	dw Label_74_464A
+	dw Label_74_4718
+	dw Label_74_472E
+	dw Label_74_4B98
+	dw Label_74_4CA6
+	dw Label_74_4DF9
+	dw Label_74_4A91
+	dw Label_74_4A32
+	dw Label_74_47AA
+	dw Label_74_4867
+	dw Label_74_493F
+	dw Label_74_45D9
+	dw Label_74_4698
+	dw Label_74_4666
 
 ; ---- code $44C4-$44EB (39 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
+
+Label_74_44C4:: ; 74:44C4
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jp z, Label_74_4439
@@ -884,7 +845,7 @@ Label_74_456B:: ; 74:456B
 Label_74_456C:: ; 74:456C
 	jp c, Label_74_457A
 
-; ---- code $456F-$457A (11 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 74:456C (executed)
+; ---- code $456F-$457A (11 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 74:456C (executed) [executed in 1 scenarios]
 	ld a, c
 	cp a, $13
 	jr nc, Label_74_4587
@@ -1027,11 +988,14 @@ Label_74_461C:: ; 74:461C
 	jp Label_74_4307
 
 ; ---- code $4623-$464A (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
+
+Label_74_4623:: ; 74:4623
 	ld a, [wRam_C2C1]
 	or a, $01
 	ld [wRam_C2C1], a
 	jp Label_74_4439
 
+Label_74_462E:: ; 74:462E
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_463F
@@ -1047,6 +1011,8 @@ Label_74_463F:: ; 74:463F
 	jp Label_74_4439
 
 ; ---- code $464A-$4718 (206 bytes) [PROBABLE] 83 insn(s) reached by static flow only; seeds: site x72, table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
+
+Label_74_464A:: ; 74:464A
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_465B
@@ -1061,15 +1027,12 @@ Label_74_465B:: ; 74:465B
 	ld [wRam_C2C1], a
 	jp Label_74_4439
 
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+Label_74_4666:: ; 74:4666
+	farcall Function_74_5440
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4683
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	ld a, [wRam_C2C1]
 	or a, $08
 	ld [wRam_C2C1], a
@@ -1078,20 +1041,15 @@ Label_74_465B:: ; 74:465B
 Label_74_4683:: ; 74:4683
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	ld a, [wRam_C2C1]
 	and a, $F7
 	ld [wRam_C2C1], a
 	jp Label_74_443F
 
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+Label_74_4698:: ; 74:4698
+	farcall Function_74_5440
+	farcall Function_74_5417
 	ld a, [wRam_C2C1]
 	and a, $02
 	jp z, Label_74_443F
@@ -1154,25 +1112,21 @@ Label_74_46FB:: ; 74:46FB
 	jp Label_74_443F
 
 ; ---- code $4718-$472E (22 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+
+Label_74_4718:: ; 74:4718
+	farcall Function_74_5440
+	farcall Function_74_5417
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4740
 	ld b, $08
 	jr Label_74_4788
 
-; ---- code $472E-$4740 (18 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+; ---- code $472E-$4740 (18 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 2 scenarios]
+
+Label_74_472E:: ; 74:472E
+	farcall Function_74_5440
+	farcall Function_74_5417
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4761
@@ -1243,12 +1197,9 @@ Label_74_4788:: ; 74:4788
 	pop hl
 	jp Label_74_443F
 
-	call FarCall
-	dw Function_74_4F97
-	db BANK(Function_74_4F97)
-	call FarCall
-	dw Function_74_4FBE
-	db BANK(Function_74_4FBE)
+Label_74_47AA:: ; 74:47AA
+	farcall Function_74_4F97
+	farcall Function_74_4FBE
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_47F9
@@ -1360,27 +1311,21 @@ Label_74_4853:: ; 74:4853
 	jr nz, Label_74_4863
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 
 Label_74_4863:: ; 74:4863
 	pop hl
 	jp Label_74_443F
 
 ; ---- code $4867-$493F (216 bytes) [PROBABLE] 104 insn(s) reached by static flow only; seeds: site x104; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_74_4F97
-	db BANK(Function_74_4F97)
-	call FarCall
-	dw Function_74_4FBE
-	db BANK(Function_74_4FBE)
+
+Label_74_4867:: ; 74:4867
+	farcall Function_74_4F97
+	farcall Function_74_4FBE
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_48D0
-	call FarCall
-	dw Function_74_4FF2
-	db BANK(Function_74_4FF2)
+	farcall Function_74_4FF2
 	push hl
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -1496,18 +1441,16 @@ Label_74_492B:: ; 74:492B
 	jr nz, Label_74_493B
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 
 Label_74_493B:: ; 74:493B
 	pop hl
 	jp Label_74_443F
 
 ; ---- code $493F-$4987 (72 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
-	call FarCall
-	dw Function_74_4F97
-	db BANK(Function_74_4F97)
+
+Label_74_493F:: ; 74:493F
+	farcall Function_74_4F97
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4987
@@ -1691,9 +1634,9 @@ Label_74_4A27:: ; 74:4A27
 	jp Label_74_443F
 
 ; ---- code $4A32-$4AA4 (114 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios)
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+
+Label_74_4A32:: ; 74:4A32
+	farcall Function_74_5440
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4A6D
@@ -1735,6 +1678,7 @@ Label_74_4A6D:: ; 74:4A6D
 	ldh [hRam_FFB2], a
 	jp Label_74_443F
 
+Label_74_4A91:: ; 74:4A91
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4AD5
@@ -1764,9 +1708,7 @@ Label_74_4A6D:: ; 74:4A6D
 ; ---- code $4AB8-$4AE5 (45 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 2/18 scenarios)
 
 Label_74_4AB8:: ; 74:4AB8
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 
 Label_74_4ABE:: ; 74:4ABE
 	ldh a, [hRam_FFB2]
@@ -1782,9 +1724,7 @@ Label_74_4ABE:: ; 74:4ABE
 	jp Label_74_443F
 
 Label_74_4AD5:: ; 74:4AD5
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 	ld bc, $4078
 	call Function_00_1119
 	cp a, $01
@@ -1808,9 +1748,7 @@ Label_74_4AD5:: ; 74:4AD5
 	ld [de], a
 	ld hl, $DFFE
 	ld bc, $D600
-	call FarCall
-	dw Function_74_5AAE
-	db BANK(Function_74_5AAE)
+	farcall Function_74_5AAE
 	or a, a
 	jr nz, Label_74_4B6D
 	ldh a, [hRam_FFC8]
@@ -1844,9 +1782,7 @@ Label_74_4B21:: ; 74:4B21
 	push bc
 	push de
 	ld hl, $C380
-	call FarCall
-	dw Function_74_5969
-	db BANK(Function_74_5969)
+	farcall Function_74_5969
 	pop de
 	pop bc
 	cp a, $FF
@@ -1858,9 +1794,7 @@ Label_74_4B21:: ; 74:4B21
 	ld [de], a
 	ld hl, $DFFE
 	ld bc, $D600
-	call FarCall
-	dw Function_74_5AAE
-	db BANK(Function_74_5AAE)
+	farcall Function_74_5AAE
 	or a, a
 	jr nz, Label_74_4B6D
 	ld a, l
@@ -1882,7 +1816,7 @@ Label_74_4B6D:: ; 74:4B6D
 	ldh [hRam_FFDD], a
 	jp Label_74_443F
 
-; ---- code $4B81-$4B98 (23 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 74:4B3A (executed)
+; ---- code $4B81-$4B98 (23 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 74:4B3A (executed) [executed in 1 scenarios]
 
 Label_74_4B81:: ; 74:4B81
 	pop hl
@@ -1900,6 +1834,8 @@ Label_74_4B81:: ; 74:4B81
 	jp Label_74_443F
 
 ; ---- code $4B98-$4BA1 (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
+
+Label_74_4B98:: ; 74:4B98
 	ld bc, $4057
 	call Function_00_1119
 	or a, a
@@ -1941,7 +1877,7 @@ Label_74_4BB9:: ; 74:4BB9
 	or a, c
 	jr nz, Label_74_4BD8
 
-; ---- code $4BD2-$4BD8 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4BD0 (executed)
+; ---- code $4BD2-$4BD8 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4BD0 (executed) [executed in 1 scenarios]
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	jr Label_74_4BDE
@@ -1949,14 +1885,10 @@ Label_74_4BB9:: ; 74:4BB9
 ; ---- code $4BD8-$4BEC (20 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 
 Label_74_4BD8:: ; 74:4BD8
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 
 Label_74_4BDE:: ; 74:4BDE
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	push de
 	push hl
 	ld a, [wRam_C330]
@@ -1977,9 +1909,7 @@ Label_74_4BF4:: ; 74:4BF4
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call FarCall
-	dw Function_74_586E
-	db BANK(Function_74_586E)
+	farcall Function_74_586E
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -1997,9 +1927,7 @@ Label_74_4C12:: ; 74:4C12
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call FarCall
-	dw Function_74_586E
-	db BANK(Function_74_586E)
+	farcall Function_74_586E
 	ldh a, [hRam_FFE5]
 	ld e, a
 	ldh a, [hRam_FFE6]
@@ -2025,9 +1953,7 @@ Label_74_4C33:: ; 74:4C33
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call FarCall
-	dw Function_74_586E
-	db BANK(Function_74_586E)
+	farcall Function_74_586E
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -2089,25 +2015,19 @@ Label_74_4C71:: ; 74:4C71
 	jr Label_74_4C99
 
 Label_74_4C93:: ; 74:4C93
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 
 Label_74_4C99:: ; 74:4C99
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	ld a, $20
 	ldh [hRam_FFB3], a
 	jp Label_74_4307
 
 ; ---- code $4CA6-$4CD1 (43 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 2/18 scenarios)
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+
+Label_74_4CA6:: ; 74:4CA6
+	farcall Function_74_5440
+	farcall Function_74_5417
 	ld a, [wRam_C33C]
 	push af
 	ldh a, [hRam_FFE1]
@@ -2132,9 +2052,7 @@ Label_74_4C99:: ; 74:4C99
 ; ---- code $4CD1-$4CF2 (33 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 74:4CCF (executed)
 	push bc
 	ld hl, $C380
-	call FarCall
-	dw Function_74_5B5C
-	db BANK(Function_74_5B5C)
+	farcall Function_74_5B5C
 	inc c
 	dec c
 	pop bc
@@ -2144,9 +2062,7 @@ Label_74_4C99:: ; 74:4C99
 Label_74_4CE2:: ; 74:4CE2
 	cp a, $25
 	jr nz, Label_74_4CF0
-	call FarCall
-	dw Multiply16
-	db BANK(Multiply16)
+	farcall Multiply16
 	ld b, h
 	ld c, l
 	jr Label_74_4CF2
@@ -2163,9 +2079,7 @@ Label_74_4CF2:: ; 74:4CF2
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call FarCall
-	dw Function_74_586E
-	db BANK(Function_74_586E)
+	farcall Function_74_586E
 	ldh a, [hRam_FFC4]
 	ld c, a
 	ldh a, [hRam_FFC2]
@@ -2290,12 +2204,8 @@ Label_74_4D8E:: ; 74:4D8E
 	push af
 	and a, $FC
 	ldh [hRam_FFB2], a
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5440
+	farcall Function_74_5417
 	xor a, a
 	ldh [hRam_FFDA], a
 	ldh [hRam_FFDB], a
@@ -2357,6 +2267,8 @@ Label_74_4DF0:: ; 74:4DF0
 	jp Label_74_4307
 
 ; ---- code $4DF9-$4F4F (342 bytes) [PROBABLE] 180 insn(s) reached by static flow only; seeds: site x164, table x16; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
+
+Label_74_4DF9:: ; 74:4DF9
 	ld a, [wRam_C335]
 	or a, a
 	jp nz, Label_74_4F09
@@ -2389,19 +2301,13 @@ Label_74_4E14:: ; 74:4E14
 	or a, l
 	jp z, Label_74_4ECD
 	ldh a, [hRam_FFD4]
-	call FarCall
-	dw Function_74_5B4F
-	db BANK(Function_74_5B4F)
-	call FarCall
-	dw Function_51_70E0
-	db BANK(Function_51_70E0)
+	farcall Function_74_5B4F
+	farcall Function_51_70E0
 	or a, a
 	jp z, Label_74_4ECD
 	pop hl
 	pop de
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 	push de
 	push hl
 	ldh a, [hRam_FFB2]
@@ -2415,9 +2321,7 @@ Label_74_4E14:: ; 74:4E14
 	ldh [hRam_FFB2], a
 
 Label_74_4E5D:: ; 74:4E5D
-	call FarCall
-	dw Function_74_529F
-	db BANK(Function_74_529F)
+	farcall Function_74_529F
 	pop af
 	ldh [hRam_FFB2], a
 	pop hl
@@ -2431,9 +2335,7 @@ Label_74_4E6B:: ; 74:4E6B
 
 Label_74_4E70:: ; 74:4E70
 	ld a, $03
-	call FarCall
-	dw Function_74_5B4F
-	db BANK(Function_74_5B4F)
+	farcall Function_74_5B4F
 	inc de
 	inc de
 	ld a, [de]
@@ -2499,9 +2401,7 @@ Label_74_4EB1:: ; 74:4EB1
 Label_74_4ECD:: ; 74:4ECD
 	pop hl
 	pop de
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 	ldh a, [hTextX]
 	call BankSwitch_D
 	inc de
@@ -2533,9 +2433,7 @@ Label_74_4EEF:: ; 74:4EEF
 	ldh [hRam_FFB2], a
 
 Label_74_4EFD:: ; 74:4EFD
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 	pop af
 	ldh [hRam_FFB2], a
 	jp Label_74_443F
@@ -2565,9 +2463,7 @@ Label_74_4F10:: ; 74:4F10
 	ld [de], a
 	ld hl, $DCFE
 	ld bc, $DE00
-	call FarCall
-	dw Function_74_5AAE
-	db BANK(Function_74_5AAE)
+	farcall Function_74_5AAE
 	or a, a
 	jr nz, Label_74_4F45
 	ld a, l
@@ -2641,12 +2537,8 @@ Function_74_4F97:: ; 74:4F97
 ; ---- code $4FAA-$4FF2 (72 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 
 Label_74_4FAA:: ; 74:4FAA
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5440
+	farcall Function_74_5417
 
 Label_74_4FB6:: ; 74:4FB6
 	xor a, a
@@ -2670,23 +2562,15 @@ Function_74_4FBE:: ; 74:4FBE
 	ldh a, [hRam_FFC7]
 	or a, c
 	jr nz, Label_74_4FDB
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
+	farcall Function_74_5440
 	ret
 
 Label_74_4FDB:: ; 74:4FDB
-	call FarCall
-	dw Function_74_5440
-	db BANK(Function_74_5440)
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5440
+	farcall Function_74_5417
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	ret
 
 ; ---- code $4FF2-$511A (296 bytes) [PROBABLE] 164 insn(s) reached by static flow only; seeds: site x164; min discovery hops 1; entered by far from 74:4879 (PROBABLE code)
@@ -2903,14 +2787,31 @@ Label_74_510A:: ; 74:510A
 	push bc
 	ret
 
-; ---- data $511A-$513E (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $511A-$513E (36 bytes) [PROBABLE] 18-word jump table: dispatcher at 74:510A-5119 (add a,a; push hl; add a,$1A; ld l,a; ld a,0; adc a,$51; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; pop hl; push bc; ret), same idiom as Table_74_44A0; the dispatcher is executed: traces/detail/*/dataaccess.tsv (browser scenarios) list rom_read 74 512E-5130 and 5134-5138, i.e. entries 10 ($50B3), 13 ($521B) and 14 ($5238) were fetched by 74:5114; the table extent (18 words) is by analogy with Table_74_44A0, hence PROBABLE; all 18 targets are code instruction starts: $50B3, $50B3, $513E, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $51FE, $521B, $5238, $519A, $50B3, $51E4
 
-Data_74_511A:: ; 74:511A
-	db $B3, $50, $B3, $50, $3E, $51, $B3, $50, $B3, $50, $B3, $50, $B3, $50, $B3, $50
-	db $B3, $50, $B3, $50, $B3, $50, $B3, $50, $FE, $51, $1B, $52, $38, $52, $9A, $51
-	db $B3, $50, $E4, $51
+Table_74_511A:: ; 74:511A
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_513E
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_50B3
+	dw Label_74_51FE
+	dw Label_74_521B
+	dw Label_74_5238
+	dw Label_74_519A
+	dw Label_74_50B3
+	dw Label_74_51E4
 
 ; ---- code $513E-$51E4 (166 bytes) [PROBABLE] 86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
+
+Label_74_513E:: ; 74:513E
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jp z, Label_74_50B3
@@ -3022,13 +2923,25 @@ Label_74_51DD:: ; 74:51DD
 	ldh [hRam_FFB3], a
 	jp Label_74_4FFA
 
-; ---- data $51E4-$51FE (26 bytes) [HYPOTHESIS] UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $51E4-$51FE (26 bytes) [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to known code and lands exactly on the next code region 51FE (also a table target)
 
-Data_74_51E4:: ; 74:51E4
-	db $FE, $2F, $28, $0B, $FA, $C1, $C2, $F6, $08, $EA, $C1, $C2, $C3, $B9, $50, $FA
-	db $C1, $C2, $E6, $F7, $EA, $C1, $C2, $C3, $B9, $50
+Label_74_51E4:: ; 74:51E4
+	cp a, $2F
+	jr z, Label_74_51F3
+	ld a, [wRam_C2C1]
+	or a, $08
+	ld [wRam_C2C1], a
+	jp Label_74_50B9
+
+Label_74_51F3:: ; 74:51F3
+	ld a, [wRam_C2C1]
+	and a, $F7
+	ld [wRam_C2C1], a
+	jp Label_74_50B9
 
 ; ---- code $51FE-$5252 (84 bytes) [PROBABLE] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
+
+Label_74_51FE:: ; 74:51FE
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_520F
@@ -3046,6 +2959,7 @@ Label_74_520F:: ; 74:520F
 	ldh [hRam_FFD7], a
 	jp Label_74_50B9
 
+Label_74_521B:: ; 74:521B
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_522C
@@ -3063,6 +2977,7 @@ Label_74_522C:: ; 74:522C
 	ldh [hRam_FFD7], a
 	jp Label_74_50B9
 
+Label_74_5238:: ; 74:5238
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jp z, Label_74_50B9
@@ -3079,18 +2994,14 @@ Label_74_522C:: ; 74:522C
 ; ---- code $5252-$5293 (65 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 Function_74_5252:: ; 74:5252
-	call FarCall
-	dw Function_74_5417
-	db BANK(Function_74_5417)
+	farcall Function_74_5417
 	push de
 	push hl
 	ldh a, [hRam_FFC8]
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call FarCall
-	dw Function_74_586E
-	db BANK(Function_74_586E)
+	farcall Function_74_586E
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -3318,7 +3229,7 @@ Label_74_5393:: ; 74:5393
 	cp a, $04
 	jr nz, Label_74_53D1
 
-; ---- code $53A6-$53D1 (43 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 74:53A4 (executed)
+; ---- code $53A6-$53D1 (43 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 74:53A4 (executed) [executed in 1 scenarios]
 	ld a, $05
 	ld [hl], a
 	ld bc, $0003
@@ -3328,12 +3239,8 @@ Label_74_5393:: ; 74:5393
 	ld h, [hl]
 	ld l, a
 	ld a, $03
-	call FarCall
-	dw Function_74_5B4F
-	db BANK(Function_74_5B4F)
-	call FarCall
-	dw Function_51_7177
-	db BANK(Function_51_7177)
+	farcall Function_74_5B4F
+	farcall Function_51_7177
 	or a, a
 	jr z, Label_74_53D1
 	ld d, h
@@ -3547,7 +3454,7 @@ Label_74_54D9:: ; 74:54D9
 	ld b, a
 	jr nc, Label_74_54FE
 
-; ---- code $54E4-$54EE (10 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 74:54E2 (executed)
+; ---- code $54E4-$54EE (10 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 74:54E2 (executed) [executed in 1 scenarios]
 	dec hl
 	dec hl
 	ld a, c
@@ -4358,39 +4265,30 @@ Label_74_5900:: ; 74:5900
 	ldh [hRam_FFC7], a
 	ret
 
-; ---- data $5905-$590B (6 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- ptrtable $5905-$591D (24 bytes) [PROBABLE] URL scheme pointer list (11 entries + $0000): $591D, $5923, $592A, $5938, $5930, $593D, $5945, $594B, $5951, $5959, $595F. Items follow at 591D, tile exactly to the code at 74:5969; bytes 5905-591D... were read as data by executed code in 5/18 scenarios
 
-Data_74_5905:: ; 74:5905
-	db $1D, $59, $23, $59, $2A, $59
+Table_74_5905:: ; 74:5905
+	dw Data_74_591D
+	dw $5923
+	dw $592A
+	dw $5938
+	dw $5930
+	dw $593D
+	dw $5945
+	dw $594B
+	dw $5951
+	dw $5959
+	dw $595F
+	dw $0000
 
-; ---- data $590B-$591D (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_590B:: ; 74:590B
-	db $38, $59, $30, $59, $3D, $59, $45, $59, $4B, $59, $51, $59, $59, $59, $5F, $59
-	db $00, $00
-
-; ---- data $591D-$5924 (7 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+; ---- data $591D-$5969 (76 bytes) [PROBABLE] URL scheme name items [ASCII NUL][value byte]: $591D "http" -> $01; $5923 "https" -> $FF; $592A "file" -> $FF; $5930 "mailto" -> $FF; $5938 "ftp" -> $FF; $593D "gopher" -> $FF; $5945 "news" -> $FF; $594B "nntp" -> $FF; $5951 "telnet" -> $FF; $5959 "wais" -> $FF; $595F "prospero" -> $FF (value $01 for http, $FF for the others). (Value byte follows the name as in the tag/attribute tables at 74:4000.)
 
 Data_74_591D:: ; 74:591D
-	db $68, $74, $74, $70, $00, $01, $68
-
-; ---- data $5924-$592A (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_5924:: ; 74:5924
-	db $74, $74, $70, $73, $00, $FF
-
-; ---- data $592A-$5930 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_74_592A:: ; 74:592A
-	db $66, $69, $6C, $65, $00, $FF
-
-; ---- data $5930-$5969 (57 bytes) [HYPOTHESIS] UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_5930:: ; 74:5930
-	db $6D, $61, $69, $6C, $74, $6F, $00, $FF, $66, $74, $70, $00, $FF, $67, $6F, $70
-	db $68, $65, $72, $00, $FF, $6E, $65, $77, $73, $00, $FF, $6E, $6E, $74, $70, $00
-	db $FF, $74, $65, $6C, $6E, $65, $74, $00, $FF, $77, $61, $69, $73, $00, $FF, $70
-	db $72, $6F, $73, $70, $65, $72, $6F, $00, $FF
+	db $68, $74, $74, $70, $00, $01, $68, $74, $74, $70, $73, $00, $FF, $66, $69, $6C
+	db $65, $00, $FF, $6D, $61, $69, $6C, $74, $6F, $00, $FF, $66, $74, $70, $00, $FF
+	db $67, $6F, $70, $68, $65, $72, $00, $FF, $6E, $65, $77, $73, $00, $FF, $6E, $6E
+	db $74, $70, $00, $FF, $74, $65, $6C, $6E, $65, $74, $00, $FF, $77, $61, $69, $73
+	db $00, $FF, $70, $72, $6F, $73, $70, $65, $72, $6F, $00, $FF
 
 ; ---- code $5969-$598D (36 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
@@ -4426,7 +4324,7 @@ Label_74_5985:: ; 74:5985
 	cp a, $3A
 	jr nz, Label_74_5985
 
-; ---- code $598D-$59B0 (35 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 74:598B (executed)
+; ---- code $598D-$59B0 (35 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 74:598B (executed) [executed in 1 scenarios]
 	pop hl
 	push hl
 	push de
@@ -4481,9 +4379,9 @@ Label_74_59B6:: ; 74:59B6
 ; ---- code $59D6-$59D8 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 74:59D4 (executed)
 	jr Label_74_59E7
 
-; ---- data $59D8-$59E0 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $59D8-$59E0 (8 bytes) [PROBABLE] 'http://' NUL: copied byte-by-byte to $C380 until NUL by the loop at 74:59E7 (ld hl,$59D8 ; ld a,[hli] ; ld [de],a ; inc de ; dec bc ; or a ; jr nz)
 
-Data_74_59D8:: ; 74:59D8
+String_74_59D8:: ; 74:59D8
 	db $68, $74, $74, $70, $3A, $2F, $2F, $00
 
 ; ---- code $59E0-$59F1 (17 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 74:59B8 (executed)
@@ -4753,7 +4651,7 @@ Label_74_5AF3:: ; 74:5AF3
 	pop de
 	ret
 
-; ---- code $5AF6-$5AF8 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:5AB8 (executed)
+; ---- code $5AF6-$5AF8 (2 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:5AB8 (executed) [executed in 4 scenarios]
 
 Label_74_5AF6:: ; 74:5AF6
 	pop bc
@@ -4830,10 +4728,8 @@ Label_74_5B38:: ; 74:5B38
 	jr z, Label_74_5B48
 	jr Label_74_5B3F
 
-; ---- data $5B3E-$5B3F (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_74_5B3E:: ; 74:5B3E
-	db $C1
+; ---- code $5B3E-$5B3F (1 bytes) [HYPOTHESIS] single 'pop bc' (c1) after the unconditional 'jr $5B3F' at 74:5B3C; nothing targets 5B3E (tgt scan), so unreachable; falls into 5B3F (target of 3 jr)
+	pop bc
 
 ; ---- code $5B3F-$5B48 (9 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 
@@ -4845,7 +4741,7 @@ Label_74_5B3F:: ; 74:5B3F
 	ld h, a
 	jr Label_74_5B01
 
-; ---- code $5B48-$5B49 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 74:5B3A (PROBABLE code)
+; ---- code $5B48-$5B49 (1 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 74:5B3A (PROBABLE code) [executed in 4 scenarios]
 
 Label_74_5B48:: ; 74:5B48
 	inc a
@@ -5072,7 +4968,7 @@ Label_74_5C39:: ; 74:5C39
 	or a, a
 	jr z, Label_74_5C42
 
-; ---- code $5C3D-$5C42 (5 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 74:5C3B (executed)
+; ---- code $5C3D-$5C42 (5 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 74:5C3B (executed) [executed in 1 scenarios]
 	ld [de], a
 	inc de
 	inc hl

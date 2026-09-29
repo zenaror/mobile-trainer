@@ -9,41 +9,42 @@
 465C	47F8	code	-	PROBABLE	202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code)
 47F8	47FD	data	Data_25_47F8	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 47FD	4A15	code	-	PROBABLE	262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code)
-4A15	4A2D	data	Data_25_4A15	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4A15	4A2D	words	Table_25_4A15	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4687 and 25:4A0B (ld hl,$4A15; add hl,bc; ld a,[hli]; ld h,[hl]; ld l,a)
 4A2D	4A90	code	-	PROBABLE	52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code)
 4A90	4AA6	code	Function_25_4A90	CONFIRMED	10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 4AA6	4AF5	code	-	PROBABLE	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed)
-4AF5	4B0D	data	Data_25_4AF5	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4AF5	4B0D	words	Table_25_4AF5	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with no direct ld hl,imm found (identical 12 words to the tables at 25:4A15/4E2B)
 4B0D	4BD0	code	Function_25_4B0D	CONFIRMED	62 insn(s); 62 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 4BD0	4C75	code	-	PROBABLE	53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1; entered by jpcc from 25:4B25 (executed)
 4C75	4CED	code	-	CONFIRMED	68 insn(s); 68 executed (in up to 1/18 scenarios)
-4CED	4CFB	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed)
+4CED	4CFB	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed) | upgraded by classifier 6: all 7 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 4CFB	4D0E	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
 4D0E	4D4D	code	-	PROBABLE	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed)
 4D4D	4D99	code	-	CONFIRMED	34 insn(s); 34 executed (in up to 1/18 scenarios)
 4D99	4E2B	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code)
-4E2B	4E43	data	Data_25_4E2B	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4E43	4F28	code	-	PROBABLE	125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code)
-4F28	4F40	data	Data_25_4F28	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F40	50AA	code	-	PROBABLE	254 insn(s) reached by static flow only; seeds: exec x254; min discovery hops 7; entered by call from 25:48DD (PROBABLE code)
-50AA	50C2	data	Data_25_50AA	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4E2B	4E43	words	Table_25_4E2B	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E13
+4E43	4F28	code	-	CONFIRMED	125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code) | upgraded by classifier 6: all 125 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+4F28	4F40	words	Table_25_4F28	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E67/4EA0/4ED9/4F12
+4F40	50AA	code	-	CONFIRMED	254 insn(s) reached by static flow only; seeds: exec x254; min discovery hops 7; entered by call from 25:48DD (PROBABLE code) | upgraded by classifier 6: all 254 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+50AA	50C2	words	Table_25_50AA	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4F48
 50C2	5228	code	Function_25_50C2	CONFIRMED	251 insn(s); 251 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5228	522A	data	Data_25_5228	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-522A	5240	data	Data_25_522A	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5228	5240	words	Table_25_5228	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
 5240	534C	code	-	PROBABLE	145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
 534C	53D0	code	Function_25_534C	CONFIRMED	68 insn(s); 68 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-53D0	53D8	data	Data_25_53D0	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-53D8	53DA	data	Data_25_53D8	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+53D0	53DA	ptrtable	Table_25_53D0	PROBABLE	5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 53DA	54A7	text	String_25_53DA	PROBABLE	text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 54A7	5569	code	-	PROBABLE	105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code)
-5569	5581	data	Data_25_5569	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5581	5871	code	-	PROBABLE	310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code)
-5871	5889	data	Data_25_5871	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5889	58E7	code	-	PROBABLE	62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3; entered by call from 25:40C5 (PROBABLE code)
-58E7	58F0	data	Data_25_58E7	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58F0	5C40	gfx	Data_25_58F0	PROBABLE	tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.638 vsim2=0.694, 1 blank) parity 0
-5C40	5F10	data	Data_25_5C40	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5A10-5F10 by higher-priority evidence]
-5F10	6410	data	Data_25_5F10	HYPOTHESIS	UNCLASSIFIED 1280 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5569	5581	words	Table_25_5569	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:54E2
+5581	5871	code	-	CONFIRMED	310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code) | upgraded by classifier 6: all 310 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+5871	5889	words	Table_25_5871	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:585C
+5889	58E7	code	-	CONFIRMED	62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3; entered by call from 25:40C5 (PROBABLE code) | upgraded by classifier 6: all 62 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+58E7	58ED	ptrtable	Table_25_58E7	PROBABLE	3 pointers to the 48-byte attribute blocks at 25:58ED/591D/594D; read by 25:5891 (sla a; ld c,a; ld hl,$58E7; add hl,bc; ld a,[hli]; ld c,a; ld h,[hl]; ld l,c)
+58ED	5A0D	data	Data_25_58ED	PROBABLE	12 rows of 24 bytes (20 used + 4 zero pad): BG attribute bytes ($09/$0B/$0C/$29 = palette+VRAM-bank-1 flags; values as in the attribute half of the rect-copy maps); 25:5889 copies 20 bytes per row to VRAM bank 1 $99C0/$99E0 and WRAM7 $D5C0/$D5E0; blocks 58ED/591D/594D are addressed through Table_25_58E7, 597D..59F5 have no table entry (unreferenced HYPOTHESIS). Replaces the mapper heuristic gfx region 58F0-5C40 (the real tile load starts at 5A10)
+5A0D	5A10	zero	-	PROBABLE	3 bytes of zero padding to the 16-byte alignment of the tile block at 25:5A10
+5A10	5E10	gfx	Tiles_25_5A10	CONFIRMED	64 tiles: executed 00:0749 HDMA load at 25:4B5C (hl=$5A10 a=$25 c=$40 de=$9301 = VRAM bank 1 $9300); loader semantic documented in boot_and_home.md
+5E10	5F10	gfx	Tiles_25_5E10	CONFIRMED	16 tiles: executed 00:0749 HDMA load at 25:4B71 (hl=$5E10 a=$25 c=$10 de=$9701 = VRAM bank 1 $9700)
+5F10	6310	gfx	Tiles_25_5F10	PROBABLE	64 tiles: 00:0749 HDMA load at 25:4C04 (hl=$5F10 a=$25 c=$40 de=$9301, VRAM bank 1 $9300); the call site is static-reached code (PROBABLE), same layout as the executed 25:4B5C load; tile art coherence h=0.566 v=0.564 over 64 tiles
+6310	6410	gfx	Tiles_25_6310	PROBABLE	16 tiles: 00:0749 HDMA load at 25:4C19 (hl=$6310 a=$25 c=$10 de=$9701, VRAM bank 1 $9700); static-reached site; ends exactly where the tilemap load 25:6410 starts
 6410	66E0	data	Data_25_6410	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4BC4: hl=$6410 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000
 66E0	69B0	data	Data_25_66E0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4C6C: hl=$66E0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 69B0	69E0	data	Data_25_69B0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]

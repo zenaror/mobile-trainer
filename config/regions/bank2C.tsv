@@ -2,7 +2,7 @@
 4000	4040	code	Function_2C_4000	CONFIRMED	33 insn(s); 33 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 4040	4042	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2C:403E (executed)
 4042	4082	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 2/18 scenarios)
-4082	40C1	code	-	PROBABLE	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; fall-through of the jrcc at 2C:4080 (executed)
+4082	40C1	code	-	CONFIRMED	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; fall-through of the jrcc at 2C:4080 (executed) [executed in 1 scenarios]
 40C1	40D4	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
 40D4	410F	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2C:40C5 (executed)
 410F	4114	code	Function_2C_410F	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -20,9 +20,9 @@
 4467	446F	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
 446F	4475	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 2C:445F (executed)
 4475	4497	code	Function_2C_4475	CONFIRMED	20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-4497	4499	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2C:4495 (executed)
+4497	4499	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2C:4495 (executed) [executed in 1 scenarios]
 4499	44C6	code	-	CONFIRMED	27 insn(s); 27 executed (in up to 2/18 scenarios)
-44C6	44DB	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2C:44C4 (executed)
+44C6	44DB	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2C:44C4 (executed) [executed in 3 scenarios]
 44DB	44DC	data	Data_2C_44DB	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 44DC	455C	code	-	CONFIRMED	58 insn(s); 58 executed (in up to 2/18 scenarios)
 455C	456D	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 2C:455A (executed)
@@ -42,18 +42,17 @@
 46BD	46BF	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2C:46BB (executed)
 46BF	46EB	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
 46EB	4760	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2C:49A9 (PROBABLE code)
-4760	4768	data	Data_2C_4760	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4760	4768	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
 4768	4779	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2C:4709 (PROBABLE code)
-4779	47AF	text	String_2C_4779	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4779-47CA by higher-priority evidence]
-47AF	47BD	ptrtable	Table_2C_47AF	PROBABLE	code-pointer table, 7 entries: 7/7 words hit own-bank code starts (dense run of code pointers); 2/7 targets executed
-47BD	47CA	text	String_2C_47BD	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4779-47CA by higher-priority evidence]
+4779	47CA	text	String_2C_4779	PROBABLE	NUL-terminated Shift-JIS string of 40 kana (rows that can take dakuten: かきくけこ さしすせそ たちつてと はひふへほ, then the katakana カ..ホ; 81 bytes + NUL at 47C9); ld de,$4779 at 2C:4702; identical bytes at 2F:5F41. Verified by decoding all 40 double-byte characters with cp932. Verifier fix: the former ptrtable Table_2C_47AF (47AF-47BD, "7/7 words hit code starts") was the katakana スセソタチツテト bytes 83 58 83 5A ... read as little-endian words, not pointers
 47CA	47CB	data	Data_2C_47CA	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 47CB	483F	code	-	PROBABLE	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2C:49B3 (PROBABLE code)
-483F	4847	data	Data_2C_483F	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+483F	4847	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
 4847	4878	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2C:47E9 (PROBABLE code)
-4878	487E	data	Data_2C_4878	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4878	487D	text	String_2C_4878	PROBABLE	NUL-terminated Shift-JIS string (82 A4 82 A4 00); read byte by byte by 2C:47E2 (ld de,$4878; ld a,[de]; inc de; cp $00; jr z); identical bytes at 2F:6040. The following $C9 (ret) stays unresolved in the next region
+487D	487E	data	Data_2C_487D	HYPOTHESIS	UNCLASSIFIED 1 byte $C9 (ret) between a string and code; no entry found
 487E	48F0	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2C:49C6 (PROBABLE code)
-48F0	48F8	data	Data_2C_48F0	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+48F0	48F8	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
 48F8	4929	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2C:489C (PROBABLE code)
 4929	493E	text	String_2C_4929	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 493E	493F	data	Data_2C_493E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -62,37 +61,39 @@
 49B8	49BF	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
 49BF	49CB	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:49BD (executed)
 49CB	49DF	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 2/18 scenarios)
-49DF	49E3	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:49DD (executed)
+49DF	49E3	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:49DD (executed) [executed in 2 scenarios]
 49E3	49E8	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
 49E8	49E9	data	Data_2C_49E8	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49E9	4A01	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 2C:4999 (executed)
+49E9	4A01	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 2C:4999 (executed) [executed in 2 scenarios]
 4A01	4A05	data	Data_2C_4A01	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 4A05	4A21	code	Function_2C_4A05	CONFIRMED	18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4A21	4A30	data	Data_2C_4A21	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4A21	4A30	zero	-	PROBABLE	all-zero padding before an aligned tile/data block (mapper hint: padding-like)
 4A30	4E30	data	Data_2C_4A30	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4A30-56B0 by higher-priority evidence]
 4E30	5100	data	Data_2C_4E30	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:41CE: hl=$4E30 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000
 5100	5150	data	Data_2C_5100	PROBABLE	palette-rgb555: heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 5150	566C	data	Data_2C_5150	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4A30-56B0 by higher-priority evidence]
-566C	56EC	data	Data_2C_566C	PROBABLE	palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-56EC	56F2	data	Data_2C_56EC	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56F2	56FE	data	Data_2C_56F2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+566C	5670	zero	-	PROBABLE	4 zero bytes before the palette block 5670
+5670	56B0	data	Palette_2C_5670	CONFIRMED	64-byte CGB palette block: FarCall 4F:4000 (bc=$40) to WRAM $D840 at 2C:41AC (ld hl,$5670 ; a=$2C)
+56B0	56C0	ptrtable	Table_2C_56B0	PROBABLE	8 words, all inside $56C0-$56F2 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller not located
+56C0	56F2	data	Data_2C_56C0	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; 56C2 = count $0B + 11 entries, 56EF = 01 00 04 terminator group; targets of the 56B0 table (56C0, 56EF)
+56F2	56FE	words	Table_2C_56F2	CONFIRMED	6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 56FE	5738	code	Function_2C_56FE	CONFIRMED	24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 5738	5768	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 2C:5736 (executed)
 5768	57A7	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 1/18 scenarios)
 57A7	58AC	code	-	PROBABLE	160 insn(s) reached by static flow only; seeds: exec x160; min discovery hops 1; entered by callcc from 2C:579F (executed)
 58AC	5A12	code	Function_2C_58AC	CONFIRMED	129 insn(s); 129 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5A12	5A25	data	Data_2C_5A12	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5A12	5A25	code	-	PROBABLE	10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 5A25	5E51	code	-	PROBABLE	619 insn(s) reached by static flow only; seeds: exec x327, site x292; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 5E51	5FB1	code	Function_2C_5E51	CONFIRMED	299 insn(s); 299 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5FB1	6032	data	Data_2C_5FB1	HYPOTHESIS	UNCLASSIFIED 129 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5FB1	6032	code	-	PROBABLE	80 insn(s): complete SRAM-access routine (push af; ld a,1; ldh [$FF8C],a; ld [$4000],a; ld a,$0A ... xor a; ldh [$FFF5],a; ld [$0000],a; pop af; ret); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 6032	6072	code	Function_2C_6032	CONFIRMED	40 insn(s); 40 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 6072	6075	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 2C:6047 (executed)
 6075	6094	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
-6094	6098	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2C:6092 (executed)
+6094	6098	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2C:6092 (executed) [executed in 2 scenarios]
 6098	60A3	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
 60A3	60A6	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 2C:6078 (executed)
 60A6	60B3	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
-60B3	614D	data	Data_2C_60B3	HYPOTHESIS	UNCLASSIFIED 154 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+60B3	614D	code	-	PROBABLE	102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 614D	6165	code	Function_2C_614D	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 6165	61D9	code	-	PROBABLE	61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 0; fall-through of the jrcc at 2C:6163 (executed)
 61D9	6230	code	-	CONFIRMED	45 insn(s); 45 executed (in up to 2/18 scenarios)
@@ -116,7 +117,7 @@
 6456	64CC	code	-	CONFIRMED	56 insn(s); 56 executed (in up to 1/18 scenarios)
 64CC	64D0	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:64CA (executed)
 64D0	64D4	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-64D4	64E0	data	Data_2C_64D4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+64D4	64E0	words	Table_2C_64D4	CONFIRMED	6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 64E0	64E8	code	Function_2C_64E0	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 64E8	6501	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jpcc at 2C:64E5 (executed)
 6501	6519	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
@@ -126,7 +127,7 @@
 663F	6702	code	-	CONFIRMED	95 insn(s); 95 executed (in up to 2/18 scenarios)
 6702	6704	data	Data_2C_6702	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6702-672D by higher-priority evidence]
 6704	672D	text	String_2C_6704	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-672D	6730	data	Data_2C_672D	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+672D	6730	zero	-	PROBABLE	all-zero padding before an aligned tile/data block (mapper hint: padding-like)
 6730	6B30	gfx	Data_2C_6730	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5907: hl=$6730 a=$2C c=$40 de=$9301 (dest VRAM $9300, vbank=1)
 6B30	6C30	gfx	Data_2C_6B30	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:591C: hl=$6B30 a=$2C c=$10 de=$9701 (dest VRAM $9700, vbank=1)
 6C30	6CC0	gfx	Data_2C_6C30	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:58F2: hl=$6C30 a=$2C c=$09 de=$8F00 (dest VRAM $8F00, vbank=0)
@@ -134,26 +135,29 @@
 6F90	6F9E	data	Data_2C_6F90	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6730-6FD0 by higher-priority evidence]
 6F9E	6FCE	data	Data_2C_6F9E	PROBABLE	palette-rgb555: heuristic: 24 RGB555 words as 6 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 6FCE	6FD0	data	Data_2C_6FCE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6730-6FD0 by higher-priority evidence]
-6FD0	71D0	data	Data_2C_6FD0	HYPOTHESIS	UNCLASSIFIED 512 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-71D0	71EA	data	Data_2C_71D0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 71D0-7210 by higher-priority evidence]
-71EA	7262	data	Data_2C_71EA	PROBABLE	palette-rgb555: heuristic: 60 RGB555 words as 15 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-7262	7355	data	Data_2C_7262	HYPOTHESIS	UNCLASSIFIED 243 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6FD0	71D0	gfx	Tiles_2C_6FD0	PROBABLE	32 tiles (512 bytes) between the palette blocks 6F90 and 71D0; pixel coherence h=0.744 v=0.595; rendered and inspected (sprite/object art); no loader call found
+71D0	7210	data	Palette_2C_71D0	CONFIRMED	64-byte CGB palette block (8 x 4 RGB555 words, bit15 clear): copied by FarCall 4F:4000 (CopyBytes wrapper, bc=$40) to WRAM $D840 at 2C:58C9 (also 2A:4123, 2F:45FB). Replaces the mapper heuristic palette region 71EA-7262 (its tail is really the object table below)
+7210	7260	ptrtable	Table_2C_7210	PROBABLE	40 words, all inside $7260-$7422 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:5A1E ld de,$7220 (a=$2C b=$01)
+7260	7355	data	Data_2C_7260	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_2C_7210 (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
 7355	7357	data	Data_2C_7355	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7357	7421	data	Data_2C_7357	HYPOTHESIS	UNCLASSIFIED 202 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7357	741C	data	Data_2C_7357	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C
+741C	7421	code	-	PROBABLE	2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421; follows the frame data terminator 01 00 04; no direct entry found
 7421	7450	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; entered by jrcc from 2C:7433 (PROBABLE code)
-7450	7456	data	Data_2C_7450	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7450	7456	code	-	PROBABLE	3 insn(s) (ldh a,[$FFA5] ; and $01 ; jr z,$745E): button test whose sibling tests 745E/746D are its jr z targets; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 7456	745E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-745E	7464	data	Data_2C_745E	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+745E	7464	code	-	PROBABLE	3 insn(s) (ldh a,[$FFA5] ; and $02 ; jr z,$746D); entered by jr z from 2C:7454 (this classification)
 7464	746D	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-746D	746F	data	Data_2C_746D	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+746D	746F	code	-	PROBABLE	1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
 746F	7734	code	-	PROBABLE	325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-7734	7740	data	Data_2C_7734	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7734	7740	zero	-	PROBABLE	all-zero padding before an aligned tile/data block (mapper hint: padding-like)
 7740	7860	gfx	Data_2C_7740	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 7860	7B30	data	Data_2C_7860	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:74CD: hl=$7860 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 7B30	7B70	data	Data_2C_7B30	PROBABLE	CGB palette data (RGB555 words): heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7B30-7B80 by higher-priority proposals]
 7B70	7C00	gfx	Data_2C_7B70	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:74AB: hl=$7B70 a=$2C c=$09 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
-7C00	7C80	data	Data_2C_7C00	HYPOTHESIS	UNCLASSIFIED 128 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7C00	7C40	data	Palette_2C_7C00	PROBABLE	64-byte CGB palette block (8 x 4 RGB555 words): FarCall 4F:4000 (bc=$40) to WRAM $D840 at 2C:74DE
+7C40	7C50	ptrtable	Table_2C_7C40	PROBABLE	8 words, all inside $7C50-$7C80 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:74E7 ld de,$7C40 (a=$2C b=$81)
+7C50	7C80	data	Data_2C_7C50	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 7C40 table (7C50, 7C77)
 7C80	7F50	data	Data_2C_7C80	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:524F: hl=$7C80 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
-7F50	7F5E	data	Data_2C_7F50	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7F5E	7FD6	data	Data_2C_7F5E	PROBABLE	palette-rgb555: heuristic: 60 RGB555 words as 15 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-7FD6	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank [clipped from 7FD0-8000 by higher-priority proposals]
+7F50	7F90	data	Palette_2C_7F50	CONFIRMED	64-byte CGB palette block: FarCall 4F:4000 (bc=$40) to WRAM $D800 at 2F:51F6 (ld hl,$7F50 a=$2C) | verifier: upgraded to CONFIRMED, the load site 2F:51EE-51F6 (ld bc,$40 ; ld de,$D800 ; ld hl,$7F50 ; ld a,$2C ; FarCall 4F:4000) is executed (coverage_union)
+7F90	7FD0	data	Palette_2C_7F90	CONFIRMED	64-byte CGB palette block: FarCall 4F:4000 (bc=$40) to WRAM $D840 at 2F:51E5 (ld hl,$7F90 a=$2C) | verifier: upgraded to CONFIRMED, the load site 2F:51DA-51E5 (ld bc,$40 ; ld de,$D840 ; ld hl,$7F90 ; ld a,$2C ; FarCall 4F:4000) is executed (coverage_union)
+7FD0	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

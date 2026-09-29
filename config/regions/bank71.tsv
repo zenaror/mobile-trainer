@@ -6,13 +6,14 @@
 4C90	4C98	data	Data_71_4C90	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4000-4FB8 by higher-priority evidence]
 4C98	4F68	data	Data_71_4C98	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74D1: hl=$4C98 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 4F68	4FB8	data	Data_71_4F68	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74F5: hl=$4F68 a=$71 b=2 rows c=20 cols (tiles then attrs) de=$D200
-4FB8	4FBC	data	Data_71_4FB8	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FBC	5098	data	Data_71_4FBC	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5098	50F8	data	Data_71_5098	HYPOTHESIS	UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50F8	5158	data	Data_71_50F8	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-5158	51B8	data	Data_71_5158	HYPOTHESIS	UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51B8	5278	data	Data_71_51B8	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5278	5340	data	Data_71_5278	HYPOTHESIS	UNCLASSIFIED 200 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FB8	4FC0	words	Table_71_4FB8	PROBABLE	sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $4FB8 is passed as de with a=$71 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 4FC0/5031
+4FC0	4FC6	words	Table_71_4FC0	PROBABLE	sprite frame table: 3 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+4FC6	4FE7	data	Data_71_4FC6	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 8 piece(s); length tiles exactly against the frame-table pointers
+4FE7	500C	data	Data_71_4FE7	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+500C	5031	data	Data_71_500C	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+5031	5038	data	Data_71_5031	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 3 step(s), (frame,delay) pairs: 0:30 1:30 2:30
+5038	5098	data	Data_71_5038	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [range trimmed from 4FBC-5098 by classify_g2]
+5098	5340	data	Data_71_5098	PROBABLE	contiguous data block 5098-5340: 288 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 50F8-5158,51B8-5278) and 392 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 5 regions by classify_g2]
 5340	5740	gfx	Data_71_5340	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79DF: hl=$5340 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 5740	5B40	gfx	Data_71_5740	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79F1: hl=$5740 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 5B40	5DC0	gfx	Data_71_5B40	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A16: hl=$59C0 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 59C0-5DC0 by higher-priority evidence]
@@ -27,7 +28,11 @@
 66C8	6998	data	Data_71_66C8	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A02: hl=$66C8 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 6998	6C68	data	Data_71_6998	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A39: hl=$6998 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
 6C68	6F38	data	Data_71_6C68	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7C2A: hl=$6C68 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
-6F38	6F6F	gfx	Data_71_6F38	PROBABLE	tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.607 vsim2=0.868, 0 blank) parity 0; 553/608 bytes also covered by call-site blocks [clipped from 6D30-6F90 by higher-priority evidence]
+6F38	6F40	words	Table_71_6F38	PROBABLE	sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $6F38 is passed as de with a=$71 at 68:7C3B (`ld hl,$DA00 ; ld de,$6F38 ; ld a,$71 ; ld b,$81 ; farcall 00:0A82`), entry 1 = 6F40/6F6A [verifier: replaces the mapper 'tiles-2bpp' guess; the pointer chain tiles 6F38-6F6F byte for byte]
+6F40	6F44	words	Table_71_6F40	PROBABLE	sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record ($6F44, $6F69); extent = (first record - table)/2
+6F44	6F69	data	Data_71_6F44	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+6F69	6F6A	data	Data_71_6F69	PROBABLE	sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces; 0 piece(s) = an empty frame (1 byte); length tiles exactly against the frame-table pointers
+6F6A	6F6F	data	Data_71_6F6A	PROBABLE	sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:30 1:30; ends exactly at the tilemap block 6F6F
 6F6F	723F	data	Data_71_6F6F	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65FD: hl=$6F6F a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 723F	7271	gfx	Data_71_723F	PROBABLE	tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.670 vsim2=0.903, 1 blank) parity 1; 558/608 bytes also covered by call-site blocks [clipped from 7011-7271 by higher-priority evidence]
 7271	7740	data	Data_71_7271	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 7240-7740 by higher-priority evidence]

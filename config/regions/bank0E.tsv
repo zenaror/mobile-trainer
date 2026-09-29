@@ -12,7 +12,7 @@
 4334	434B	code	Function_0E_4334	CONFIRMED	14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 434B	434F	data	Data_0E_434B	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
 434F	43B1	code	Function_0E_434F	CONFIRMED	32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-43B1	43C0	data	Data_0E_43B1	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+43B1	43C0	zero	-	PROBABLE	15 zero bytes: padding between the ret at 43B0 and the tile block at 43C0 (all bytes are $00)
 43C0	47C0	gfx	Data_0E_43C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4231: hl=$43C0 a=$0E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 47C0	4BC0	gfx	Data_0E_47C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4243: hl=$47C0 a=$0E c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 4BC0	4DC0	gfx	Data_0E_4BC0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4255: hl=$49C0 a=$0E c=$40 de=$8001 (dest VRAM $8000, vbank=1) [clipped from 49C0-4DC0 by higher-priority evidence]

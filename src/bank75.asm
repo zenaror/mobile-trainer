@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank75", ROMX[$4000], BANK[$75]
 
@@ -257,7 +258,7 @@ Label_75_4120:: ; 75:4120
 	cp a, $01
 	jr z, Label_75_416A
 
-; ---- code $4154-$4158 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4152 (executed)
+; ---- code $4154-$4158 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4152 (executed) [executed in 6 scenarios]
 	cp a, $00
 	jr z, Label_75_415D
 
@@ -2490,42 +2491,33 @@ Label_75_4F9A:: ; 75:4F9A
 	ld [wRam_C709], a
 	jp Label_75_4437
 
-; ---- data $4FB2-$4FD3 (33 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- text $4FB2-$4FDE (44 bytes) [CONFIRMED] "http://gameboy.datacenter.ne.jp/cgb/download" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
-Data_75_4FB2:: ; 75:4FB2
+String_75_4FB2:: ; 75:4FB2
 	db $68, $74, $74, $70, $3A, $2F, $2F, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64
 	db $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F
-	db $63
+	db $63, $67, $62, $2F, $64, $6F, $77, $6E, $6C, $6F, $61, $64
 
-; ---- data $4FD3-$4FDE (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4FDE-$5001 (35 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/upload" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
-Data_75_4FD3:: ; 75:4FD3
-	db $67, $62, $2F, $64, $6F, $77, $6E, $6C, $6F, $61, $64
-
-; ---- data $4FDE-$4FFD (31 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_75_4FDE:: ; 75:4FDE
+String_75_4FDE:: ; 75:4FDE
 	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74
-	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $70
+	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $70, $6C
+	db $6F, $61, $64
 
-; ---- data $4FFD-$5001 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5001-$5025 (36 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/utility" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
-Data_75_4FFD:: ; 75:4FFD
-	db $6C, $6F, $61, $64
-
-; ---- data $5001-$5043 (66 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_75_5001:: ; 75:5001
+String_75_5001:: ; 75:5001
 	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74
 	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $74, $69
-	db $6C, $69, $74, $79, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61
-	db $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62
-	db $2F, $72
+	db $6C, $69, $74, $79
 
-; ---- data $5043-$5049 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5025-$5049 (36 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/ranking" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
-Data_75_5043:: ; 75:5043
-	db $61, $6E, $6B, $69, $6E, $67
+String_75_5025:: ; 75:5025
+	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74
+	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $72, $61, $6E
+	db $6B, $69, $6E, $67
 
 ; ---- code $5049-$5118 (207 bytes) [PROBABLE] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 1; entered by jpcc from 75:4DEE (PROBABLE code)
 
@@ -2662,13 +2654,29 @@ Label_75_50F0:: ; 75:50F0
 	ld [wRam_C70A], a
 	ret
 
-; ---- data $5118-$5149 (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_5118:: ; 75:5118
-	db $21, $C6, $C6, $2A, $66, $6F, $FA, $CC, $C6, $22, $FA, $CD, $C6, $77, $21, $2C
-	db $C8, $34, $3E, $0F, $EA, $09, $C7, $3E, $01, $EA, $0A, $C7, $FA, $0C, $C7, $EA
-	db $0D, $C7, $AF, $EA, $26, $C8, $3E, $A3, $11, $10, $00, $21, $32, $C8, $C3, $0B
-	db $5F
+; ---- code $5118-$5149 (49 bytes) [PROBABLE] 22 insn(s): complete routine ending in jp $5F0B (ld hl,$C6C6 ; ld a,[hli] ; ld h,[hl] ; ld l,a ... ld a,$A3 ; ld de,$0010 ; ld hl,$C832 ; jp $5F0B); follows a ret; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C6CC]
+	ld [hli], a
+	ld a, [wRam_C6CD]
+	ld [hl], a
+	ld hl, $C82C
+	inc [hl]
+	ld a, $0F
+	ld [wRam_C709], a
+	ld a, $01
+	ld [wRam_C70A], a
+	ld a, [wRam_C70C]
+	ld [wRam_C70D], a
+	xor a, a
+	ld [wRam_C826], a
+	ld a, $A3
+	ld de, $0010
+	ld hl, $C832
+	jp Function_75_5F0B
 
 ; ---- code $5149-$51DC (147 bytes) [PROBABLE] 90 insn(s) reached by static flow only; seeds: exec x90; min discovery hops 2; entered by jrcc from 75:5100 (PROBABLE code)
 
@@ -3941,7 +3949,7 @@ Label_75_581E:: ; 75:581E
 	ld [hl], a
 	jp Label_75_58C8
 
-; ---- code $5823-$584C (41 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:5818 (executed)
+; ---- code $5823-$584C (41 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:5818 (executed) [executed in 1 scenarios]
 
 Label_75_5823:: ; 75:5823
 	ld a, [wRam_C84B]
@@ -4251,7 +4259,7 @@ Label_75_59FC:: ; 75:59FC
 	ld [wRam_C6A6], a
 	jp Label_75_5B45
 
-; ---- code $5A17-$5A36 (31 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 75:595C (executed)
+; ---- code $5A17-$5A36 (31 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 75:595C (executed) [executed in 3 scenarios]
 
 Label_75_5A17:: ; 75:5A17
 	ld a, [hl]
@@ -5279,17 +5287,17 @@ Data_75_5FFB:: ; 75:5FFB
 	db $80, $00, $99, $66, $19, $00, $00, $02, $60, $60, $00, $DB, $80, $00, $99, $66
 	db $1A, $00, $00, $99, $66, $28, $00, $00
 
-; ---- data $6063-$606D (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6063-$606D (10 bytes) [PROBABLE] Mobile Adapter packet template: magic 99 66, command $14, len 0, checksum $0014 (= sum of cmd..payload, verified), device byte $80, $00; passed to 75:5F08 (ld a,$94 ; ld hl,$6063 ; jp $5F08) at 75:63C6 (static-reached, never executed) | verifier: downgraded from CONFIRMED, no trace reads any byte of 6063-606D (the reads stop at 6063 and resume at 606D); the packet structure and checksum are verified by hand but nothing was executed
 
 Data_75_6063:: ; 75:6063
 	db $99, $66, $14, $00, $00, $00, $00, $14, $80, $00
 
-; ---- data $606D-$6073 (6 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+; ---- data $606D-$6073 (6 bytes) [CONFIRMED] read as data by executed code (in 11 of the trace scenarios): first 6 bytes of the packet template that continues at 6073: magic 99 66, command $15, pad 00, length 00 01
 
 Data_75_606D:: ; 75:606D
 	db $99, $66, $15, $00, $00, $01
 
-; ---- data $6073-$6078 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6073-$6078 (5 bytes) [PROBABLE] tail of the 11-byte Mobile Adapter packet template 606D-6078: payload $FF, checksum $0115 (= sum of cmd..payload, verified by hand), $80 $00; no trace reads these 5 bytes (verifier: split from the CONFIRMED-read head)
 
 Data_75_6073:: ; 75:6073
 	db $FF, $01, $15, $80, $00
@@ -5299,20 +5307,16 @@ Data_75_6073:: ; 75:6073
 Data_75_6078:: ; 75:6078
 	db $99, $66, $23, $00, $00, $06, $99, $66, $24, $00, $00, $01
 
-; ---- data $6084-$6090 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6084-$6099 (21 bytes) [PROBABLE] 21-byte byte table (7 triples ec 14 c9 / e4 0f 0e / e0 0c 53 / c4 07 94 / b0 05 ee / ec 10 b4 / e4 0c dd); indexed by bc via 75:40E1 (ld hl,$6084 ; add hl,bc ; ld c,[hl] ; inc hl ...); meaning unresolved
 
 Data_75_6084:: ; 75:6084
-	db $EC, $14, $C9, $E4, $0F, $0E, $E0, $0C, $53, $C4, $07, $94
+	db $EC, $14, $C9, $E4, $0F, $0E, $E0, $0C, $53, $C4, $07, $94, $B0, $05, $EE, $EC
+	db $10, $B4, $E4, $0C, $DD
 
-; ---- data $6090-$6093 (3 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+; ---- text $6099-$609F (6 bytes) [PROBABLE] NUL-terminated ASCII "HELO " (SMTP command) passed in HL to the string sender 75:4007 at 75:4736 (ld hl,$6099)
 
-Data_75_6090:: ; 75:6090
-	db $B0, $05, $EE
-
-; ---- data $6093-$609F (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_6093:: ; 75:6093
-	db $EC, $10, $B4, $E4, $0C, $DD, $48, $45, $4C, $4F, $20, $00
+String_75_6099:: ; 75:6099
+	db $48, $45, $4C, $4F, $20, $00
 
 ; ---- text $609F-$60B5 (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -5320,40 +5324,16 @@ String_75_609F:: ; 75:609F
 	db $4D, $41, $49, $4C, $20, $46, $52, $4F, $4D, $3A, $3C, $00, $52, $43, $50, $54
 	db $20, $54, $4F, $3A, $3C, $00
 
-; ---- data $60B5-$60BC (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $60B5-$611C (103 bytes) [CONFIRMED] NUL-terminated ASCII POP3/SMTP/HTTP command strings: "DATA" CRLF, "QUIT" CRLF, "USER ", "PASS ", "STAT" CRLF, "LIST 00000" CRLF, "RETR 00000" CRLF, "DELE 00000" CRLF, "TOP 00000 0" CRLF, "GET ", " HTTP/1.0" CRLF; passed to 75:4007 by 75:4878 (DATA), 75:4A3A/4ACE/4C78/4D11 (LIST/RETR/DELE/TOP) ...
 
-Data_75_60B5:: ; 75:60B5
-	db $44, $41, $54, $41, $0D, $0A, $00
-
-; ---- data $60BC-$60CE (18 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
-
-Data_75_60BC:: ; 75:60BC
-	db $51, $55, $49, $54, $0D, $0A, $00, $55, $53, $45, $52, $20, $00, $50, $41, $53
-	db $53, $20
-
-; ---- data $60CE-$60CF (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_60CE:: ; 75:60CE
-	db $00
-
-; ---- data $60CF-$60D6 (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_75_60CF:: ; 75:60CF
-	db $53, $54, $41, $54, $0D, $0A, $00
-
-; ---- data $60D6-$610B (53 bytes) [HYPOTHESIS] UNCLASSIFIED 53 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_60D6:: ; 75:60D6
-	db $4C, $49, $53, $54, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $52, $45, $54
-	db $52, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $44, $45, $4C, $45, $20, $30
-	db $30, $30, $30, $30, $0D, $0A, $00, $54, $4F, $50, $20, $30, $30, $30, $30, $30
-	db $20, $30, $0D, $0A, $00
-
-; ---- data $610B-$611C (17 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
-
-Data_75_610B:: ; 75:610B
-	db $47, $45, $54, $20, $00, $20, $48, $54, $54, $50, $2F, $31, $2E, $30, $0D, $0A
-	db $00
+String_75_60B5:: ; 75:60B5
+	db $44, $41, $54, $41, $0D, $0A, $00, $51, $55, $49, $54, $0D, $0A, $00, $55, $53
+	db $45, $52, $20, $00, $50, $41, $53, $53, $20, $00, $53, $54, $41, $54, $0D, $0A
+	db $00, $4C, $49, $53, $54, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $52, $45
+	db $54, $52, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $44, $45, $4C, $45, $20
+	db $30, $30, $30, $30, $30, $0D, $0A, $00, $54, $4F, $50, $20, $30, $30, $30, $30
+	db $30, $20, $30, $0D, $0A, $00, $47, $45, $54, $20, $00, $20, $48, $54, $54, $50
+	db $2F, $31, $2E, $30, $0D, $0A, $00
 
 ; ---- text $611C-$612D (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -5434,7 +5414,7 @@ Label_75_6191:: ; 75:6191
 	cp a, $01
 	jr nz, Label_75_616A
 
-; ---- code $61A0-$61A7 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:619E (executed)
+; ---- code $61A0-$61A7 (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:619E (executed) [executed in 3 scenarios]
 	ld hl, $C69F
 	res 1, [hl]
 	jr Label_75_6170
@@ -5873,7 +5853,7 @@ Label_75_63F8:: ; 75:63F8
 	call Function_75_67F7
 	jr z, Label_75_640E
 
-; ---- code $6404-$640E (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6402 (executed)
+; ---- code $6404-$640E (10 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6402 (executed) | upgraded by classifier 6: all 4 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $C70A
 	dec [hl]
 	ld hl, $CA04
@@ -5978,7 +5958,7 @@ Label_75_649C:: ; 75:649C
 	cp a, $A3
 	jr z, Label_75_64D4
 
-; ---- code $64A3-$64D4 (49 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 75:64A1 (executed)
+; ---- code $64A3-$64D4 (49 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 75:64A1 (executed) [executed in 3 scenarios]
 	ld a, [wMobileFlags]
 	bit 3, a
 	jr z, Label_75_64B1
@@ -6209,7 +6189,7 @@ Function_75_65CD:: ; 75:65CD
 	inc de
 	ret
 
-; ---- code $6622-$6654 (50 bytes) [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jpcc from 75:64E0 (executed)
+; ---- code $6622-$6654 (50 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jpcc from 75:64E0 (executed) | upgraded by classifier 6: all 23 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Label_75_6622:: ; 75:6622
 	xor a, a
@@ -6533,7 +6513,7 @@ Label_75_67FD:: ; 75:67FD
 	ld [hl], a
 	ret
 
-; ---- code $6809-$681D (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: mobile x12; min discovery hops 3; entered by call from 75:4BA0 (PROBABLE code)
+; ---- code $6809-$681D (20 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: mobile x12; min discovery hops 3; entered by call from 75:4BA0 (PROBABLE code) | upgraded by classifier 6: all 12 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
 Function_75_6809:: ; 75:6809
 	call Function_75_681D
@@ -6798,7 +6778,7 @@ Label_75_6986:: ; 75:6986
 	call Function_75_67F7
 	jr z, Label_75_699C
 
-; ---- code $6992-$699C (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6990 (executed)
+; ---- code $6992-$699C (10 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6990 (executed) | upgraded by classifier 6: all 4 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $C70A
 	dec [hl]
 	ld hl, $CA04
@@ -6981,7 +6961,7 @@ Label_75_6A7D:: ; 75:6A7D
 	ld [wRam_C709], a
 	jp Function_75_68E9
 
-; ---- code $6AAB-$6AC2 (23 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 75:6A73 (executed)
+; ---- code $6AAB-$6AC2 (23 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 75:6A73 (executed) [executed in 1 scenarios]
 
 Label_75_6AAB:: ; 75:6AAB
 	ld a, [wMobileSDK_ReceivePacketBuffer]
@@ -7440,7 +7420,7 @@ Label_75_6D49:: ; 75:6D49
 	dec a
 	jp z, Label_75_73BE
 
-; ---- code $6D5E-$6D62 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 75:6D5B (executed)
+; ---- code $6D5E-$6D62 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 75:6D5B (executed) [executed in 1 scenarios]
 	dec a
 	jp Label_75_6E5C
 
@@ -7646,7 +7626,7 @@ Label_75_6E82:: ; 75:6E82
 	cp a, $03
 	jr nz, Label_75_6E95
 
-; ---- code $6E8A-$6E95 (11 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:6E88 (executed)
+; ---- code $6E8A-$6E95 (11 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:6E88 (executed) [executed in 1 scenarios]
 	ld a, [hl]
 	or a, a
 	jr z, Label_75_6E95
@@ -7666,7 +7646,7 @@ Label_75_6E95:: ; 75:6E95
 	ld a, $32
 	jr z, Label_75_6EAB
 
-; ---- code $6EA8-$6EAB (3 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:6EA6 (executed)
+; ---- code $6EA8-$6EAB (3 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:6EA6 (executed) [executed in 1 scenarios]
 	inc de
 	inc de
 	inc a
@@ -7942,15 +7922,10 @@ Label_75_7036:: ; 75:7036
 	pop bc
 	ret
 
-; ---- data $7039-$703B (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- text $7039-$7040 (7 bytes) [PROBABLE] NUL-terminated ASCII "date: " (7 bytes incl. NUL); follows the ret at 75:7038
 
-Data_75_7039:: ; 75:7039
-	db $64, $61
-
-; ---- data $703B-$7040 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_703B:: ; 75:703B
-	db $74, $65, $3A, $20, $00
+String_75_7039:: ; 75:7039
+	db $64, $61, $74, $65, $3A, $20, $00
 
 ; ---- code $7040-$704B (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
@@ -7962,7 +7937,7 @@ Function_75_7040:: ; 75:7040
 	pop hl
 	ret
 
-; ---- code $704B-$705E (19 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7047 (executed)
+; ---- code $704B-$705E (19 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7047 (executed) [executed in 1 scenarios]
 
 Label_75_704B:: ; 75:704B
 	call Function_75_6B27
@@ -8026,7 +8001,7 @@ Function_75_708C:: ; 75:708C
 	pop hl
 	ret
 
-; ---- code $7097-$70A3 (12 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:7093 (executed)
+; ---- code $7097-$70A3 (12 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:7093 (executed) [executed in 1 scenarios]
 
 Label_75_7097:: ; 75:7097
 	push bc
@@ -8478,15 +8453,10 @@ Function_75_72D5:: ; 75:72D5
 	or a, $20
 	ret
 
-; ---- data $72DE-$72DF (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- text $72DE-$72EA (12 bytes) [PROBABLE] NUL-terminated ASCII "Gb-Status: " (HTTP header name)
 
-Data_75_72DE:: ; 75:72DE
-	db $47
-
-; ---- data $72DF-$72EA (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_72DF:: ; 75:72DF
-	db $62, $2D, $53, $74, $61, $74, $75, $73, $3A, $20, $00
+String_75_72DE:: ; 75:72DE
+	db $47, $62, $2D, $53, $74, $61, $74, $75, $73, $3A, $20, $00
 
 ; ---- text $72EA-$7315 (43 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -8495,9 +8465,9 @@ String_75_72EA:: ; 75:72EA
 	db $2D, $41, $75, $74, $68, $65, $6E, $74, $69, $63, $61, $74, $65, $3A, $20, $47
 	db $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00
 
-; ---- data $7315-$7337 (34 bytes) [HYPOTHESIS] UNCLASSIFIED 34 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $7315-$7337 (34 bytes) [PROBABLE] NUL-terminated ASCII "Content-Type: application/x-cgb" CRLF; passed in HL to 75:4007 at 75:7362 (ld hl,$7315)
 
-Data_75_7315:: ; 75:7315
+String_75_7315:: ; 75:7315
 	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $61, $70
 	db $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $78, $2D, $63, $67, $62, $0D
 	db $0A, $00
@@ -8558,9 +8528,9 @@ Label_75_73A2:: ; 75:73A2
 	call Function_75_4007
 	jr Label_75_7389
 
-; ---- data $73AA-$73BE (20 bytes) [HYPOTHESIS] UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $73AA-$73BE (20 bytes) [PROBABLE] NUL-terminated ASCII "Content-Length: 0" CRLF; ld hl,$73AA at 75:73A2 followed by call $4007
 
-Data_75_73AA:: ; 75:73AA
+String_75_73AA:: ; 75:73AA
 	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $4C, $65, $6E, $67, $74, $68, $3A, $20
 	db $30, $0D, $0A, $00
 
@@ -8618,7 +8588,7 @@ Function_75_7416:: ; 75:7416
 	ld [wRam_C71E], a
 	ret
 
-; ---- code $7436-$7444 (14 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by call from 75:6E92 (PROBABLE code)
+; ---- code $7436-$7444 (14 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by call from 75:6E92 (PROBABLE code) [executed in 1 scenarios]
 
 Function_75_7436:: ; 75:7436
 	ld hl, $C9F4
@@ -8659,7 +8629,7 @@ Label_75_7458:: ; 75:7458
 	ld [hld], a
 	jr nc, Label_75_7465
 
-; ---- code $7463-$7465 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:7461 (executed)
+; ---- code $7463-$7465 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:7461 (executed) [executed in 2 scenarios]
 	ld c, $FE
 
 ; ---- code $7465-$748D (40 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
@@ -9653,45 +9623,61 @@ Function_75_7A02:: ; 75:7A02
 	jr nz, Function_75_7A02
 	ret
 
-; ---- data $7A17-$7C50 (569 bytes) [HYPOTHESIS] UNCLASSIFIED 569 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $7A17-$7A32 (27 bytes) [PROBABLE] NUL-terminated ASCII 'Authorization: GB00 name="' (HTTP header); passed in HL to 75:4007 at 75:77D0 (ld hl,$7A17)
 
-Data_75_7A17:: ; 75:7A17
+String_75_7A17:: ; 75:7A17
 	db $41, $75, $74, $68, $6F, $72, $69, $7A, $61, $74, $69, $6F, $6E, $3A, $20, $47
-	db $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00, $00, $00, $00, $07, $06
-	db $04, $00, $0C, $04, $08, $00, $11, $02, $0C, $00, $16, $00, $10, $00, $07, $06
-	db $14, $00, $0C, $04, $18, $00, $11, $02, $1C, $00, $16, $00, $20, $00, $07, $06
-	db $24, $00, $0C, $04, $28, $00, $11, $02, $2C, $00, $16, $00, $30, $00, $07, $06
-	db $34, $00, $0C, $04, $38, $00, $11, $02, $3C, $00, $16, $10, $04, $00, $05, $16
-	db $18, $00, $09, $14, $2C, $00, $0E, $12, $00, $00, $14, $10, $14, $00, $05, $16
-	db $28, $00, $09, $14, $3C, $00, $0E, $12, $10, $00, $14, $10, $24, $00, $05, $16
-	db $38, $00, $09, $14, $0C, $00, $0E, $12, $20, $00, $14, $10, $34, $00, $05, $16
-	db $08, $00, $09, $14, $1C, $00, $0E, $12, $30, $00, $14, $20, $14, $00, $04, $26
-	db $20, $00, $0B, $24, $2C, $00, $10, $22, $38, $00, $17, $20, $04, $00, $04, $26
-	db $10, $00, $0B, $24, $1C, $00, $10, $22, $28, $00, $17, $20, $34, $00, $04, $26
-	db $00, $00, $0B, $24, $0C, $00, $10, $22, $18, $00, $17, $20, $24, $00, $04, $26
-	db $30, $00, $0B, $24, $3C, $00, $10, $22, $08, $00, $17, $30, $00, $00, $06, $36
-	db $1C, $00, $0A, $34, $38, $00, $0F, $32, $14, $00, $15, $30, $30, $00, $06, $36
-	db $0C, $00, $0A, $34, $28, $00, $0F, $32, $04, $00, $15, $30, $20, $00, $06, $36
-	db $3C, $00, $0A, $34, $18, $00, $0F, $32, $34, $00, $15, $30, $10, $00, $06, $36
-	db $2C, $00, $0A, $34, $08, $00, $0F, $32, $24, $00, $15, $84, $CA, $88, $CA, $8C
-	db $CA, $90, $CA, $84, $CA, $88, $CA, $8C, $CA, $01, $23, $45, $67, $89, $AB, $CD
-	db $EF, $FE, $DC, $BA, $98, $76, $54, $32, $10, $78, $A4, $6A, $D7, $56, $B7, $C7
-	db $E8, $DB, $70, $20, $24, $EE, $CE, $BD, $C1, $AF, $0F, $7C, $F5, $2A, $C6, $87
-	db $47, $13, $46, $30, $A8, $01, $95, $46, $FD, $D8, $98, $80, $69, $AF, $F7, $44
-	db $8B, $B1, $5B, $FF, $FF, $BE, $D7, $5C, $89, $22, $11, $90, $6B, $93, $71, $98
-	db $FD, $8E, $43, $79, $A6, $21, $08, $B4, $49, $62, $25, $1E, $F6, $40, $B3, $40
-	db $C0, $51, $5A, $5E, $26, $AA, $C7, $B6, $E9, $5D, $10, $2F, $D6, $53, $14, $44
-	db $02, $81, $E6, $A1, $D8, $C8, $FB, $D3, $E7, $E6, $CD, $E1, $21, $D6, $07, $37
-	db $C3, $87, $0D, $D5, $F4, $ED, $14, $5A, $45, $05, $E9, $E3, $A9, $F8, $A3, $EF
-	db $FC, $D9, $02, $6F, $67, $8A, $4C, $2A, $8D, $42, $39, $FA, $FF, $81, $F6, $71
-	db $87, $22, $61, $9D, $6D, $0C, $38, $E5, $FD, $44, $EA, $BE, $A4, $A9, $CF, $DE
-	db $4B, $60, $4B, $BB, $F6, $70, $BC, $BF, $BE, $C6, $7E, $9B, $28, $FA, $27, $A1
-	db $EA, $85, $30, $EF, $D4, $05, $1D, $88, $04, $39, $D0, $D4, $D9, $E5, $99, $DB
-	db $E6, $F8, $7C, $A2, $1F, $65, $56, $AC, $C4, $44, $22, $29, $F4, $97, $FF, $2A
-	db $43, $A7, $23, $94, $AB, $39, $A0, $93, $FC, $C3, $59, $5B, $65, $92, $CC, $0C
-	db $8F, $7D, $F4, $EF, $FF, $D1, $5D, $84, $85, $4F, $7E, $A8, $6F, $E0, $E6, $2C
-	db $FE, $14, $43, $01, $A3, $A1, $11, $08, $4E, $82, $7E, $53, $F7, $35, $F2, $3A
-	db $BD, $BB, $D2, $D7, $2A, $91, $D3, $86, $EB
+	db $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00
+
+; ---- data $7A32-$7B32 (256 bytes) [PROBABLE] 256 bytes MD5 per-step parameter table: 4-byte records whose first field cycles the RFC 1321 shift amounts 7,12,17,22 / 5,9,14,20 / 4,11,16,23 / 6,10,15,21 (verified), a round/rotation nibble pair ($06/$04/$02/$00 | $10.. | $20.. | $30..) and a message-word offset; exact record framing (starts at 7A35 after 3 zero bytes) not verified; sits right before the MD5 constants
+
+Table_75_7A32:: ; 75:7A32
+	db $00, $00, $00, $07, $06, $04, $00, $0C, $04, $08, $00, $11, $02, $0C, $00, $16
+	db $00, $10, $00, $07, $06, $14, $00, $0C, $04, $18, $00, $11, $02, $1C, $00, $16
+	db $00, $20, $00, $07, $06, $24, $00, $0C, $04, $28, $00, $11, $02, $2C, $00, $16
+	db $00, $30, $00, $07, $06, $34, $00, $0C, $04, $38, $00, $11, $02, $3C, $00, $16
+	db $10, $04, $00, $05, $16, $18, $00, $09, $14, $2C, $00, $0E, $12, $00, $00, $14
+	db $10, $14, $00, $05, $16, $28, $00, $09, $14, $3C, $00, $0E, $12, $10, $00, $14
+	db $10, $24, $00, $05, $16, $38, $00, $09, $14, $0C, $00, $0E, $12, $20, $00, $14
+	db $10, $34, $00, $05, $16, $08, $00, $09, $14, $1C, $00, $0E, $12, $30, $00, $14
+	db $20, $14, $00, $04, $26, $20, $00, $0B, $24, $2C, $00, $10, $22, $38, $00, $17
+	db $20, $04, $00, $04, $26, $10, $00, $0B, $24, $1C, $00, $10, $22, $28, $00, $17
+	db $20, $34, $00, $04, $26, $00, $00, $0B, $24, $0C, $00, $10, $22, $18, $00, $17
+	db $20, $24, $00, $04, $26, $30, $00, $0B, $24, $3C, $00, $10, $22, $08, $00, $17
+	db $30, $00, $00, $06, $36, $1C, $00, $0A, $34, $38, $00, $0F, $32, $14, $00, $15
+	db $30, $30, $00, $06, $36, $0C, $00, $0A, $34, $28, $00, $0F, $32, $04, $00, $15
+	db $30, $20, $00, $06, $36, $3C, $00, $0A, $34, $18, $00, $0F, $32, $34, $00, $15
+	db $30, $10, $00, $06, $36, $2C, $00, $0A, $34, $08, $00, $0F, $32, $24, $00, $15
+
+; ---- data $7B32-$7B40 (14 bytes) [PROBABLE] 14 bytes = 7 words (CA84 CA88 CA8C CA90 CA84 CA88 CA8C): rotating pointer list to the MD5 state words in WRAM; 8-byte windows (offset = index & $0F) are copied to $CA94 by 75:78E5 (ld hl,$7B32 ; add hl,de ; ld de,$CA94 ; ld b,8 ; jp $4000)
+
+Table_75_7B32:: ; 75:7B32
+	db $84, $CA, $88, $CA, $8C, $CA, $90, $CA, $84, $CA, $88, $CA, $8C, $CA
+
+; ---- data $7B40-$7B50 (16 bytes) [CONFIRMED] MD5 initial state A,B,C,D = 67452301 EFCDAB89 98BADCFE 10325476 stored little-endian (byte-exact RFC 1321 constants); copied (16 bytes) to WRAM $CA84 by 75:76EE (ld de,$CA84 ; ld hl,$7B40 ; ld b,$10 ; call $4000)
+
+Data_75_7B40:: ; 75:7B40
+	db $01, $23, $45, $67, $89, $AB, $CD, $EF, $FE, $DC, $BA, $98, $76, $54, $32, $10
+
+; ---- data $7B50-$7C50 (256 bytes) [CONFIRMED] MD5 constant table T[1..64] = floor(2^32 x abs(sin(i))) as 64 little-endian dwords (byte-exact match computed with Python math.sin; first entries D76AA478 E8C7B756 242070DB C1BDCEEE)
+
+Table_75_7B50:: ; 75:7B50
+	db $78, $A4, $6A, $D7, $56, $B7, $C7, $E8, $DB, $70, $20, $24, $EE, $CE, $BD, $C1
+	db $AF, $0F, $7C, $F5, $2A, $C6, $87, $47, $13, $46, $30, $A8, $01, $95, $46, $FD
+	db $D8, $98, $80, $69, $AF, $F7, $44, $8B, $B1, $5B, $FF, $FF, $BE, $D7, $5C, $89
+	db $22, $11, $90, $6B, $93, $71, $98, $FD, $8E, $43, $79, $A6, $21, $08, $B4, $49
+	db $62, $25, $1E, $F6, $40, $B3, $40, $C0, $51, $5A, $5E, $26, $AA, $C7, $B6, $E9
+	db $5D, $10, $2F, $D6, $53, $14, $44, $02, $81, $E6, $A1, $D8, $C8, $FB, $D3, $E7
+	db $E6, $CD, $E1, $21, $D6, $07, $37, $C3, $87, $0D, $D5, $F4, $ED, $14, $5A, $45
+	db $05, $E9, $E3, $A9, $F8, $A3, $EF, $FC, $D9, $02, $6F, $67, $8A, $4C, $2A, $8D
+	db $42, $39, $FA, $FF, $81, $F6, $71, $87, $22, $61, $9D, $6D, $0C, $38, $E5, $FD
+	db $44, $EA, $BE, $A4, $A9, $CF, $DE, $4B, $60, $4B, $BB, $F6, $70, $BC, $BF, $BE
+	db $C6, $7E, $9B, $28, $FA, $27, $A1, $EA, $85, $30, $EF, $D4, $05, $1D, $88, $04
+	db $39, $D0, $D4, $D9, $E5, $99, $DB, $E6, $F8, $7C, $A2, $1F, $65, $56, $AC, $C4
+	db $44, $22, $29, $F4, $97, $FF, $2A, $43, $A7, $23, $94, $AB, $39, $A0, $93, $FC
+	db $C3, $59, $5B, $65, $92, $CC, $0C, $8F, $7D, $F4, $EF, $FF, $D1, $5D, $84, $85
+	db $4F, $7E, $A8, $6F, $E0, $E6, $2C, $FE, $14, $43, $01, $A3, $A1, $11, $08, $4E
+	db $82, $7E, $53, $F7, $35, $F2, $3A, $BD, $BB, $D2, $D7, $2A, $91, $D3, $86, $EB
 
 ; ---- code $7C50-$7E89 (569 bytes) [PROBABLE] 347 insn(s) reached by static flow only; seeds: exec x289, mobile x58; min discovery hops 0; entered by call from 75:77DC (PROBABLE code)
 
@@ -10120,12 +10106,34 @@ Label_75_7E7A:: ; 75:7E7A
 	res 0, [hl]
 	jp Function_75_5FA0
 
-; ---- data $7E89-$7EB4 (43 bytes) [HYPOTHESIS] UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_75_7E89:: ; 75:7E89
-	db $21, $C1, $C6, $7E, $F5, $CB, $9E, $CB, $86, $21, $BA, $C6, $2A, $5F, $2A, $57
-	db $2A, $66, $6F, $23, $23, $3A, $2B, $EE, $80, $EA, $BE, $C6, $06, $05, $CD, $10
-	db $5F, $F1, $CB, $47, $C8, $21, $C1, $C6, $CB, $C6, $C9
+; ---- code $7E89-$7EB4 (43 bytes) [PROBABLE] 27 insn(s): complete routine (ld hl,$C6C1 ; ld a,[hl] ; push af ; res 3,[hl] ; res 0,[hl] ... bit 0,a ; ret z ; ld hl,$C6C1 ; set 0,[hl] ; ret) falling into the code at 7EB4; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	ld hl, $C6C1
+	ld a, [hl]
+	push af
+	res 3, [hl]
+	res 0, [hl]
+	ld hl, $C6BA
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	inc hl
+	inc hl
+	ld a, [hld]
+	dec hl
+	xor a, $80
+	ld [wMobileSDK_SendCommandID], a
+	ld b, $05
+	call Function_75_5F10
+	pop af
+	bit 0, a
+	ret z
+	ld hl, $C6C1
+	set 0, [hl]
+	ret
 
 ; ---- code $7EB4-$7EEF (59 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: mobile x38; min discovery hops 0; run starts at SDK/API table entry state29 (analysis/mobile_candidates.json)
 

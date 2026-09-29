@@ -6,19 +6,19 @@
 4233	4243	ptrtable	Table_4F_4233	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4F:4230: 8 entries; end = first entry target
 4243	4257	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by table from 4F:4230 (executed)
 4257	428E	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 18/18 scenarios)
-428E	42A1	data	Data_4F_428E	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+428E	42A1	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 42A1	42B4	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 42B4	434A	code	Function_4F_42B4	CONFIRMED	62 insn(s); 62 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-434A	435D	data	Data_4F_434A	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+434A	435D	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 435D	4370	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 4370	4400	code	Function_4F_4370	CONFIRMED	60 insn(s); 60 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-4400	4413	data	Data_4F_4400	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4400	4413	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 4413	4471	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-4471	4484	data	Data_4F_4471	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4471	4484	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 4484	44DF	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: site x38; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-44DF	450B	data	Data_4F_44DF	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44DF	450B	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 450B	452A	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:451E (PROBABLE code)
-452A	4553	data	Data_4F_452A	HYPOTHESIS	UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+452A	4553	code	-	PROBABLE	function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
 4553	4572	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:4566 (PROBABLE code)
 4572	4671	code	Function_4F_4572	CONFIRMED	184 insn(s); 184 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 4671	4677	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:466F (executed)
@@ -26,8 +26,8 @@
 4689	468F	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:4687 (executed)
 468F	4698	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
 4698	46A4	ptrtable	Table_4F_4698	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4F:4695: 6 entries; end = first entry target
-46A4	46A5	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 4F:4695 (executed)
+46A4	46A5	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 4F:4695 (executed) [executed in 3 scenarios]
 46A5	46B7	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
-46B7	4717	code	-	PROBABLE	36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded
+46B7	4717	code	-	CONFIRMED	36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded [executed in 1 scenarios]
 4717	47FD	code	Function_4F_4717	CONFIRMED	108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 47FD	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

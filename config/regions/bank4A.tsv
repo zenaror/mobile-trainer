@@ -1,7 +1,7 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4004	data	Data_4A_4000	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4004	words	Table_4A_4000	PROBABLE	entry 0 (all zero, unused) of the 4-byte-entry object table at 4A:4000 read by init_object_from_table (00:0A82; entry 1 at 4004 = 4008,402E is the CONFIRMED read data right after); same family as 72:4E40/72:7828 [verifier: the original text said 4E:4E40, which is code; the sibling table is 72:4E40]
 4004	4033	data	Data_4A_4004	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-4033	4040	data	Data_4A_4033	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4033	4040	zero	-	PROBABLE	13 x 00 between the descriptor data ending at 4033 and the tile block at 4A:4040
 4040	4240	gfx	Data_4A_4040	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5107: hl=$4040 a=$4A c=$20 de=$8001 (dest VRAM $8000, vbank=1)
 4240	4640	gfx	Data_4A_4240	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50BF: hl=$4240 a=$4A c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 4640	4A40	gfx	Data_4A_4640	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50D1: hl=$4640 a=$4A c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
@@ -10,7 +10,8 @@
 5240	54A0	data	Data_4A_5240	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 51D0-54A0 by higher-priority evidence]
 54A0	5770	data	Data_4A_54A0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 5770	5810	data	Data_4A_5770	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5810	583C	data	Data_4A_5810	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5810	5838	data	Data_4A_5810	PROBABLE	tail of the 10-row x 20-column block of tile numbers 4A:5770-5838 (rows of 20: 80..99 / $0A filler / 8A.. ; the first 160 bytes are CONFIRMED read data): two more rows, 40 bytes
+5838	583C	words	Table_4A_5838	PROBABLE	entry 0 (4 x 00, unused) of the object table at 4A:5838: ld de,$5838 ; a=$4A ; b=$81 ; init_object_from_table (00:0A82) at 68:513A-5145; entry 1 (583C, CONFIRMED read) follows
 583C	5860	data	Data_4A_583C	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
 5860	5870	gfx	Data_4A_5860	PROBABLE	tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
 5870	5C70	gfx	Data_4A_5870	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]

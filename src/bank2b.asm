@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank2B", ROMX[$4000], BANK[$2B]
 
@@ -24,9 +25,7 @@ Function_2B_4000:: ; 2B:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	call Function_00_0464
 	push bc
 	call Function_2B_420C
@@ -34,13 +33,9 @@ Function_2B_4000:: ; 2B:4000
 
 Label_2B_402B:: ; 2B:402B
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	call Function_2B_43A5
 	ldh a, [hJoyPressed]
@@ -68,17 +63,11 @@ Label_2B_405F:: ; 2B:405F
 	jr c, Label_2B_405F
 	cp a, $5A
 	jr nc, Label_2B_405F
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_28_4000
-	db BANK(Function_28_4000)
+	farcall Function_7F_72B0
+	farcall Function_4F_4370
+	farcall Function_28_4000
 
-; ---- code $407B-$4080 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entry not recorded
+; ---- code $407B-$4080 (5 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entry not recorded [executed in 3 scenarios]
 	ld c, $00
 	jp Function_2B_4000
 
@@ -88,7 +77,7 @@ Label_2B_4080:: ; 2B:4080
 	cp a, $01
 	jr nz, Label_2B_40A2
 
-; ---- code $4084-$40A2 (30 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 2B:4082 (executed)
+; ---- code $4084-$40A2 (30 bytes) [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 2B:4082 (executed) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -110,9 +99,7 @@ Label_2B_4080:: ; 2B:4080
 
 Label_2B_40A2:: ; 2B:40A2
 	push bc
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
+	farcall Function_7F_624F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -150,9 +137,7 @@ Label_2B_40A2:: ; 2B:40A2
 	ld [wSpriteSlots + 45], a
 	ld [wSpriteSlots + 46], a
 	ld [wSpriteSlots + 47], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ld de, $0209
 	push af
 	ldh a, [rSVBK]
@@ -168,9 +153,7 @@ Label_2B_40A2:: ; 2B:40A2
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -184,21 +167,15 @@ Label_2B_40A2:: ; 2B:40A2
 	ldh [rSVBK], a
 	pop af
 	push af
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_7F_627C
+	farcall Function_00_0956
 	pop af
 	pop bc
 	dec a
 	jp nz, Label_2B_402B
 
-; ---- code $4161-$4194 (51 bytes) [PROBABLE] 20 insn(s) reached by static flow only; seeds: exec x20; min discovery hops 0; fall-through of the jpcc at 2B:415E (executed)
-	call FarCall
-	dw Function_2D_40DC
-	db BANK(Function_2D_40DC)
+; ---- code $4161-$4194 (51 bytes) [CONFIRMED] 20 insn(s) reached by static flow only; seeds: exec x20; min discovery hops 0; fall-through of the jpcc at 2B:415E (executed) [executed in 1 scenarios]
+	farcall Function_2D_40DC
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -214,15 +191,9 @@ Label_2B_40A2:: ; 2B:40A2
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_00_0956
+	farcall Function_7F_72B0
+	farcall Function_4F_4370
 	ret
 
 ; ---- code $4194-$4203 (111 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios)
@@ -243,12 +214,8 @@ Label_2B_4194:: ; 2B:4194
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_7F_72B0
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -299,7 +266,7 @@ Label_2B_41E3:: ; 2B:41E3
 	cp a, $03
 	jr nz, Label_2B_4205
 
-; ---- code $4203-$4205 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2B:4201 (executed)
+; ---- code $4203-$4205 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2B:4201 (executed) [executed in 2 scenarios]
 	ld c, $00
 
 ; ---- code $4205-$42F3 (238 bytes) [CONFIRMED] 76 insn(s); 76 executed (in up to 2/18 scenarios)
@@ -313,64 +280,44 @@ Label_2B_4209:: ; 2B:4209
 
 Function_2B_420C:: ; 2B:420C
 	push bc
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw Function_2D_408F
-	db BANK(Function_2D_408F)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall Function_2D_408F
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $4E20
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $8000
 	ld hl, $4E60
 	ld a, $2B
 	ld b, $93
 	ld c, $33
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5190
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $9301
 	ld hl, $4880
 	ld a, $2B
 	ld b, $94
 	ld c, $2D
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $4B50
 	ld a, $2B
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA30
 	ld de, $51D0
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $1008
 	ld hl, $DA30
 	call Function_00_0A65
@@ -378,9 +325,7 @@ Function_2B_420C:: ; 2B:420C
 	ld de, $51E0
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $3008
 	ld hl, $DA40
 	call Function_00_0A65
@@ -388,9 +333,7 @@ Function_2B_420C:: ; 2B:420C
 	ld de, $51F0
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $68D0
 	ld hl, $DA10
 	call Function_00_0A65
@@ -398,9 +341,7 @@ Function_2B_420C:: ; 2B:420C
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $68D0
 	ld hl, $DA20
 	call Function_00_0A65
@@ -412,14 +353,12 @@ Function_2B_420C:: ; 2B:420C
 	cp a, $00
 	jr z, Label_2B_430C
 
-; ---- code $42F3-$430C (25 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 2B:42F1 (executed)
+; ---- code $42F3-$430C (25 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 2B:42F1 (executed) [executed in 2 scenarios]
 	ld hl, $DA60
 	ld de, $5230
 	ld a, $2B
 	ld b, $00
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0068
 	ld hl, $DA60
 	call Function_00_0A65
@@ -456,17 +395,11 @@ Label_2B_430C:: ; 2B:430C
 	ld hl, $D4EC
 	call Function_2B_4421
 	call Function_2B_46E5
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -481,9 +414,7 @@ Label_2B_430C:: ; 2B:430C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -511,9 +442,7 @@ Function_2B_43A5:: ; 2B:43A5
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6810
 	ld hl, $DA20
 	call Function_00_0A65
@@ -530,9 +459,7 @@ Label_2B_43CF:: ; 2B:43CF
 	ld de, $5210
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6840
 	ld hl, $DA20
 	call Function_00_0A65
@@ -549,9 +476,7 @@ Label_2B_43F7:: ; 2B:43F7
 	ld de, $5220
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6870
 	ld hl, $DA20
 	call Function_00_0A65
@@ -580,9 +505,7 @@ Label_2B_4426:: ; 2B:4426
 	cp a, $0D
 	jr z, Label_2B_44A6
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_4481
 	pop af
@@ -596,9 +519,7 @@ Label_2B_4426:: ; 2B:4426
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -608,9 +529,7 @@ Label_2B_4426:: ; 2B:4426
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -634,9 +553,7 @@ Label_2B_4481:: ; 2B:4481
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -658,9 +575,7 @@ Label_2B_44A6:: ; 2B:44A6
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -677,9 +592,7 @@ Label_2B_44C1:: ; 2B:44C1
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -698,9 +611,7 @@ Function_2B_44E1:: ; 2B:44E1
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -716,9 +627,7 @@ Function_2B_44F5:: ; 2B:44F5
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -743,9 +652,7 @@ Label_2B_4512:: ; 2B:4512
 	cp a, $0D
 	jr z, Label_2B_4592
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_456D
 	pop af
@@ -759,9 +666,7 @@ Label_2B_4512:: ; 2B:4512
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -771,9 +676,7 @@ Label_2B_4512:: ; 2B:4512
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -797,9 +700,7 @@ Label_2B_456D:: ; 2B:456D
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -819,9 +720,7 @@ Label_2B_4592:: ; 2B:4592
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -838,9 +737,7 @@ Label_2B_45AD:: ; 2B:45AD
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -861,9 +758,7 @@ Function_2B_45CD:: ; 2B:45CD
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -881,9 +776,7 @@ Function_2B_45E1:: ; 2B:45E1
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -908,9 +801,7 @@ Label_2B_45FE:: ; 2B:45FE
 	cp a, $0D
 	jr z, Label_2B_467E
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_4659
 	pop af
@@ -924,9 +815,7 @@ Label_2B_45FE:: ; 2B:45FE
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -936,9 +825,7 @@ Label_2B_45FE:: ; 2B:45FE
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -962,9 +849,7 @@ Label_2B_4659:: ; 2B:4659
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -984,9 +869,7 @@ Label_2B_467E:: ; 2B:467E
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -1003,9 +886,7 @@ Label_2B_4699:: ; 2B:4699
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -1019,16 +900,14 @@ Label_2B_46AA:: ; 2B:46AA
 	call Function_2B_46CD
 	jr Label_2B_46AA
 
-; ---- code $46B9-$46CD (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4631 (PROBABLE code)
+; ---- code $46B9-$46CD (20 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4631 (PROBABLE code) [executed in 2 scenarios]
 
 Function_2B_46B9:: ; 2B:46B9
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -1046,9 +925,7 @@ Function_2B_46CD:: ; 2B:46CD
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -1115,12 +992,8 @@ Label_2B_4739:: ; 2B:4739
 ; ---- code $4743-$478B (72 bytes) [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 1; entered by call from 2B:4098 (PROBABLE code)
 
 Function_2B_4743:: ; 2B:4743
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_7F_72B0
+	farcall Function_4F_4370
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1133,9 +1006,7 @@ Label_2B_475D:: ; 2B:475D
 	ld a, $01
 
 Label_2B_475F:: ; 2B:475F
-	call FarCall
-	dw Function_2D_65B0
-	db BANK(Function_2D_65B0)
+	farcall Function_2D_65B0
 	cp a, $FF
 	jr z, Label_2B_4788
 	xor a, a
@@ -1145,14 +1016,10 @@ Label_2B_476C:: ; 2B:476C
 	ld a, $01
 
 Label_2B_476E:: ; 2B:476E
-	call FarCall
-	dw Function_2C_4000
-	db BANK(Function_2C_4000)
+	farcall Function_2C_4000
 	cp a, $FF
 	jr z, Label_2B_475D
-	call FarCall
-	dw Function_2D_4722
-	db BANK(Function_2D_4722)
+	farcall Function_2D_4722
 	cp a, $FF
 	jr z, Label_2B_476C
 	cp a, $00
@@ -1184,9 +1051,7 @@ Function_2B_478B:: ; 2B:478B
 	ld a, $2B
 	ld bc, $DB40
 	ld de, $DC80
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1197,9 +1062,7 @@ Function_2B_478B:: ; 2B:478B
 	ld hl, $DB40
 	ld de, $8B40
 	ld c, $27
-	call FarCall
-	dw Function_25_538A
-	db BANK(Function_25_538A)
+	farcall Function_25_538A
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1207,15 +1070,13 @@ Function_2B_478B:: ; 2B:478B
 	pop bc
 	ret
 
-; ---- data $47D0-$47D2 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $47D0-$47D8 (8 bytes) [PROBABLE] 4 pointers $47D8, $4801, $482A, $4853 to the 4 NUL-terminated strings of String_2B_47D8 (each string starts right after a NUL, spacing $29); bytes 47D2-47D8 are read as data by executed code (2/18 scenarios)
 
-Data_2B_47D0:: ; 2B:47D0
-	db $D8, $47
-
-; ---- data $47D2-$47D8 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_2B_47D2:: ; 2B:47D2
-	db $01, $48, $2A, $48, $53, $48
+Table_2B_47D0:: ; 2B:47D0
+	dw String_2B_47D8
+	dw $4801
+	dw $482A
+	dw $4853
 
 ; ---- text $47D8-$487C (164 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -1232,10 +1093,8 @@ String_2B_47D8:: ; 2B:47D8
 	db $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
 
-; ---- data $487C-$4880 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_487C:: ; 2B:487C
-	db $00, $00, $00, $00
+; ---- zero $487C-$4880 (4 bytes) [PROBABLE] 4 bytes of $00 after the last string, before the tiles at 4880
+	ds $4, $00
 
 ; ---- gfx $4880-$4B50 (720 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4265: hl=$4880 a=$2B c=$2D de=$9301 (dest VRAM $9300, vbank=1)
 
@@ -1406,178 +1265,127 @@ Data_2B_5190:: ; 2B:5190
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- data $51D0-$51D4 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $51D0-$5240 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Data_2B_51D0:: ; 2B:51D0
-	db $01, $53, $67, $53
+Table_2B_51D0:: ; 2B:51D0
+	dw Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367
+	dw Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0
+	dw Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293
+	dw Table_2B_5298, Data_2B_52B6, Table_2B_5298, Data_2B_52B6, Table_2B_5298, Data_2B_52B6, Table_2B_5298, Data_2B_52B6
+	dw Table_2B_52BB, Data_2B_52D9, Table_2B_52BB, Data_2B_52D9, Table_2B_52BB, Data_2B_52D9, Table_2B_52BB, Data_2B_52D9
+	dw Table_2B_52DE, Data_2B_52FC, Table_2B_52DE, Data_2B_52FC, Table_2B_52DE, Data_2B_52FC, Table_2B_52DE, Data_2B_52FC
+	dw Table_2B_5240, Data_2B_526A, Table_2B_5240, Data_2B_526A, Table_2B_5240, Data_2B_526A, Table_2B_5240, Data_2B_526A
 
-; ---- data $51D4-$51D8 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- words $5240-$5244 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5244, $5269 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_51D4:: ; 2B:51D4
-	db $01, $53, $67, $53
+Table_2B_5240:: ; 2B:5240
+	dw Data_2B_5244, Data_2B_5269
 
-; ---- data $51D8-$51E4 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5244-$5269 (37 bytes) [PROBABLE] OAM frame: count=9 then 9 x (y,x,tile,attr) = 37 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
-Data_2B_51D8:: ; 2B:51D8
-	db $01, $53, $67, $53, $01, $53, $67, $53, $6A, $53, $C0, $53
+Data_2B_5244:: ; 2B:5244
+	db $09, $00, $00, $1A, $03, $00, $08, $1B, $03, $00, $10, $1C, $03, $00, $18, $1D
+	db $03, $08, $00, $2A, $03, $08, $08, $2B, $03, $08, $10, $2C, $03, $08, $18, $2D
+	db $03, $08, $20, $2E, $03
 
-; ---- data $51E4-$51E8 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $5269-$526A (1 bytes) [PROBABLE] OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
-Data_2B_51E4:: ; 2B:51E4
-	db $6A, $53, $C0, $53
+Data_2B_5269:: ; 2B:5269
+	db $00
 
-; ---- data $51E8-$51F4 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $526A-$526D (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_51E8:: ; 2B:51E8
-	db $6A, $53, $C0, $53, $6A, $53, $C0, $53, $6D, $52, $93, $52
+Data_2B_526A:: ; 2B:526A
+	db $01, $00, $2E
 
-; ---- data $51F4-$51F8 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- words $526D-$5271 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5271, $5282 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_51F4:: ; 2B:51F4
-	db $6D, $52, $93, $52
+Table_2B_526D:: ; 2B:526D
+	dw Data_2B_5271, Data_2B_5282
 
-; ---- data $51F8-$5204 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5271-$5282 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
-Data_2B_51F8:: ; 2B:51F8
-	db $6D, $52, $93, $52, $6D, $52, $93, $52, $98, $52, $B6, $52
+Data_2B_5271:: ; 2B:5271
+	db $04, $06, $06, $0F, $01, $06, $12, $0F, $21, $12, $06, $0F, $41, $12, $12, $0F
+	db $61
 
-; ---- data $5204-$5208 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $5282-$5293 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
-Data_2B_5204:: ; 2B:5204
-	db $98, $52, $B6, $52
+Data_2B_5282:: ; 2B:5282
+	db $04, $05, $05, $0F, $01, $05, $13, $0F, $21, $13, $05, $0F, $41, $13, $13, $0F
+	db $61
 
-; ---- data $5208-$5214 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5293-$5298 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_5208:: ; 2B:5208
-	db $98, $52, $B6, $52, $98, $52, $B6, $52, $BB, $52, $D9, $52
+Data_2B_5293:: ; 2B:5293
+	db $02, $00, $2E, $01, $08
 
-; ---- data $5214-$5218 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- words $5298-$529C (4 bytes) [PROBABLE] frame table: 2 pointer(s) $529C, $52A9 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_5214:: ; 2B:5214
-	db $BB, $52, $D9, $52
+Table_2B_5298:: ; 2B:5298
+	dw Data_2B_529C, Data_2B_52A9
 
-; ---- data $5218-$5224 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_5218:: ; 2B:5218
-	db $BB, $52, $D9, $52, $BB, $52, $D9, $52, $DE, $52, $FC, $52
-
-; ---- data $5224-$5228 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_2B_5224:: ; 2B:5224
-	db $DE, $52, $FC, $52
-
-; ---- data $5228-$526D (69 bytes) [HYPOTHESIS] UNCLASSIFIED 69 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_5228:: ; 2B:5228
-	db $DE, $52, $FC, $52, $DE, $52, $FC, $52, $40, $52, $6A, $52, $40, $52, $6A, $52
-	db $40, $52, $6A, $52, $40, $52, $6A, $52, $44, $52, $69, $52, $09, $00, $00, $1A
-	db $03, $00, $08, $1B, $03, $00, $10, $1C, $03, $00, $18, $1D, $03, $08, $00, $2A
-	db $03, $08, $08, $2B, $03, $08, $10, $2C, $03, $08, $18, $2D, $03, $08, $20, $2E
-	db $03, $00, $01, $00, $2E
-
-; ---- data $526D-$529A (45 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_2B_526D:: ; 2B:526D
-	db $71, $52, $82, $52, $04, $06, $06, $0F, $01, $06, $12, $0F, $21, $12, $06, $0F
-	db $41, $12, $12, $0F, $61, $04, $05, $05, $0F, $01, $05, $13, $0F, $21, $13, $05
-	db $0F, $41, $13, $13, $0F, $61, $02, $00, $2E, $01, $08, $9C, $52
-
-; ---- data $529A-$529C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_529A:: ; 2B:529A
-	db $A9, $52
-
-; ---- data $529C-$52A9 (13 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $529C-$52A9 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_529C:: ; 2B:529C
 	db $03, $FD, $04, $00, $01, $FD, $0C, $01, $01, $FD, $14, $02, $01
 
-; ---- data $52A9-$52B7 (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $52A9-$52B6 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_52A9:: ; 2B:52A9
-	db $03, $FD, $04, $00, $01, $FD, $0C, $01, $01, $FD, $14, $02, $01, $02
+	db $03, $FD, $04, $00, $01, $FD, $0C, $01, $01, $FD, $14, $02, $01
 
-; ---- data $52B7-$52B9 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $52B6-$52BB (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_52B7:: ; 2B:52B7
-	db $00, $2E
+Data_2B_52B6:: ; 2B:52B6
+	db $02, $00, $2E, $01, $08
 
-; ---- data $52B9-$52BB (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $52BB-$52BF (4 bytes) [PROBABLE] frame table: 2 pointer(s) $52BF, $52CC to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_52B9:: ; 2B:52B9
-	db $01, $08
+Table_2B_52BB:: ; 2B:52BB
+	dw Data_2B_52BF, Data_2B_52CC
 
-; ---- data $52BB-$52BD (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_2B_52BB:: ; 2B:52BB
-	db $BF, $52
-
-; ---- data $52BD-$52BF (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_52BD:: ; 2B:52BD
-	db $CC, $52
-
-; ---- data $52BF-$52CC (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $52BF-$52CC (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_52BF:: ; 2B:52BF
 	db $03, $FD, $04, $10, $01, $FD, $0C, $11, $01, $FD, $14, $12, $01
 
-; ---- data $52CC-$52DA (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $52CC-$52D9 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_52CC:: ; 2B:52CC
-	db $03, $FD, $04, $10, $01, $FD, $0C, $11, $01, $FD, $14, $12, $01, $02
+	db $03, $FD, $04, $10, $01, $FD, $0C, $11, $01, $FD, $14, $12, $01
 
-; ---- data $52DA-$52DC (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $52D9-$52DE (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_52DA:: ; 2B:52DA
-	db $00, $2E
+Data_2B_52D9:: ; 2B:52D9
+	db $02, $00, $2E, $01, $08
 
-; ---- data $52DC-$52DE (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $52DE-$52E2 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $52E2, $52EF to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_52DC:: ; 2B:52DC
-	db $01, $08
+Table_2B_52DE:: ; 2B:52DE
+	dw Data_2B_52E2, Data_2B_52EF
 
-; ---- data $52DE-$52E0 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_2B_52DE:: ; 2B:52DE
-	db $E2, $52
-
-; ---- data $52E0-$52E2 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_52E0:: ; 2B:52E0
-	db $EF, $52
-
-; ---- data $52E2-$52EF (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $52E2-$52EF (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_52E2:: ; 2B:52E2
 	db $03, $FD, $04, $03, $01, $FD, $0C, $04, $01, $FD, $14, $05, $01
 
-; ---- data $52EF-$52FD (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $52EF-$52FC (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_52EF:: ; 2B:52EF
-	db $03, $FD, $04, $03, $01, $FD, $0C, $04, $01, $FD, $14, $05, $01, $02
+	db $03, $FD, $04, $03, $01, $FD, $0C, $04, $01, $FD, $14, $05, $01
 
-; ---- data $52FD-$52FF (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $52FC-$5301 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_52FD:: ; 2B:52FD
-	db $00, $2E
+Data_2B_52FC:: ; 2B:52FC
+	db $02, $00, $2E, $01, $08
 
-; ---- data $52FF-$5301 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $5301-$5305 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $5305, $5336 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_52FF:: ; 2B:52FF
-	db $01, $08
+Table_2B_5301:: ; 2B:5301
+	dw Data_2B_5305, Data_2B_5336
 
-; ---- data $5301-$5303 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
-
-Data_2B_5301:: ; 2B:5301
-	db $05, $53
-
-; ---- data $5303-$5305 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_5303:: ; 2B:5303
-	db $36, $53
-
-; ---- data $5305-$5336 (49 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $5305-$5336 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_5305:: ; 2B:5305
 	db $0C, $10, $00, $09, $02, $10, $08, $0A, $02, $10, $10, $0B, $02, $08, $00, $06
@@ -1585,7 +1393,7 @@ Data_2B_5305:: ; 2B:5305
 	db $03, $10, $10, $18, $03, $00, $00, $13, $03, $00, $08, $14, $03, $00, $10, $15
 	db $03
 
-; ---- data $5336-$5367 (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5336-$5367 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_5336:: ; 2B:5336
 	db $0C, $10, $00, $09, $02, $10, $08, $0A, $02, $10, $10, $0B, $02, $00, $00, $13
@@ -1593,65 +1401,55 @@ Data_2B_5336:: ; 2B:5336
 	db $04, $08, $10, $28, $04, $10, $00, $29, $04, $10, $08, $2A, $04, $10, $10, $2B
 	db $04
 
-; ---- data $5367-$536C (5 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $5367-$536A (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Data_2B_5367:: ; 2B:5367
-	db $01, $00, $2E, $6E, $53
+	db $01, $00, $2E
 
-; ---- data $536C-$536E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $536A-$536E (4 bytes) [PROBABLE] frame table: 2 pointer(s) $536E, $5397 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Data_2B_536C:: ; 2B:536C
-	db $97, $53
+Table_2B_536A:: ; 2B:536A
+	dw Data_2B_536E, Data_2B_5397
 
-; ---- data $536E-$5397 (41 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $536E-$5397 (41 bytes) [PROBABLE] OAM frame: count=10 then 10 x (y,x,tile,attr) = 41 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_536E:: ; 2B:536E
 	db $0A, $00, $00, $23, $00, $00, $08, $24, $00, $00, $10, $25, $00, $08, $00, $26
 	db $00, $08, $08, $27, $00, $08, $10, $28, $00, $10, $00, $0C, $02, $10, $08, $0D
 	db $02, $10, $10, $0E, $02, $10, $08, $29, $00
 
-; ---- data $5397-$53C0 (41 bytes) [HYPOTHESIS] UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5397-$53C0 (41 bytes) [PROBABLE] OAM frame: count=10 then 10 x (y,x,tile,attr) = 41 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 Data_2B_5397:: ; 2B:5397
 	db $0A, $10, $00, $0C, $02, $10, $08, $0D, $02, $10, $10, $0E, $02, $00, $00, $2C
 	db $00, $00, $08, $2D, $00, $00, $10, $2E, $00, $08, $00, $30, $00, $08, $08, $31
 	db $00, $08, $10, $32, $00, $10, $08, $2F, $00
 
-; ---- data $53C0-$53C3 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+; ---- data $53C0-$53C3 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 Data_2B_53C0:: ; 2B:53C0
 	db $01, $00, $2E
 
-; ---- data $53C3-$53C6 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_53C3:: ; 2B:53C3
-	db $CD, $48, $54
+; ---- code $53C3-$53C6 (3 bytes) [HYPOTHESIS] 'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start
+	call Function_2B_5448
 
 ; ---- code $53C6-$562B (613 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code)
 
 Label_2B_53C6:: ; 2B:53C6
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	call Function_2B_5523
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_2B_53F3
 	push bc
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	push bc
-	call FarCall
-	dw Function_2B_6482
-	db BANK(Function_2B_6482)
+	farcall Function_2B_6482
 	pop bc
 	jp Function_2B_4000
 
@@ -1659,9 +1457,7 @@ Label_2B_53F3:: ; 2B:53F3
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2B_5402
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -1714,63 +1510,44 @@ Function_2B_543D:: ; 2B:543D
 	call Function_2B_56CB
 	ret
 
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw LCDOff
-	db BANK(LCDOff)
+Function_2B_5448:: ; 2B:5448
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall LCDOff
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $62C0
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $9001
 	ld hl, $59C0
 	ld a, $2B
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $5DC0
 	ld a, $2B
 	ld b, $95
 	ld c, $23
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8000
 	ld hl, $6300
 	ld a, $2B
 	ld b, $97
 	ld c, $0F
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $63F0
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5FF0
 	ld a, $2B
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1780,9 +1557,7 @@ Function_2B_543D:: ; 2B:543D
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -1796,19 +1571,13 @@ Function_2B_543D:: ; 2B:543D
 	ld de, $6430
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $1404
 	ld hl, $DA10
 	call Function_00_0A65
 	call Function_2B_55E1
-	call FarCall
-	dw LCDOn
-	db BANK(LCDOn)
-	call FarCall
-	dw Function_2D_5016
-	db BANK(Function_2D_5016)
+	farcall LCDOn
+	farcall Function_2D_5016
 	ld bc, $0000
 	call Function_2B_56CB
 	ret
@@ -1984,12 +1753,17 @@ Label_2B_5623:: ; 2B:5623
 	jr nz, Label_2B_55E3
 	ret
 
-; ---- data $562B-$565B (48 bytes) [HYPOTHESIS] UNCLASSIFIED 48 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
 
-Data_2B_562B:: ; 2B:562B
-	db $61, $98, $66, $98, $6B, $98, $70, $98, $E1, $98, $E6, $98, $EB, $98, $F0, $98
-	db $61, $99, $66, $99, $6B, $99, $70, $99, $24, $A1, $51, $A2, $7E, $A3, $AB, $A4
-	db $D8, $A5, $05, $A7, $32, $A8, $5F, $A9, $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_2B_562B:: ; 2B:562B
+	dw $9861, $9866, $986B, $9870, $98E1, $98E6, $98EB, $98F0
+	dw $9961, $9966, $996B, $9970
+
+; ---- words $5643-$565B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (step $12D) = SRAM record base addresses; ld hl,$5643 at 2B:5600 (index by 2*c)
+
+Table_2B_5643:: ; 2B:5643
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $565B-$57B5 (346 bytes) [PROBABLE] 246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code)
 
@@ -2298,12 +2072,19 @@ Label_2B_57CF:: ; 2B:57CF
 	pop bc
 	ret
 
-; ---- data $5806-$582C (38 bytes) [HYPOTHESIS] UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $5806-$5807 (1 bytes) [HYPOTHESIS] lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
+	ret
 
-Data_2B_5806:: ; 2B:5806
-	db $C9, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $24, $A1
-	db $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9, $8C, $AA
-	db $B9, $AB, $E6, $AC, $13, $AE
+; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
+
+String_2B_5807:: ; 2B:5807
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00
+
+; ---- words $5814-$582C (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
+
+Table_2B_5814:: ; 2B:5814
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $582C-$59B4 (392 bytes) [PROBABLE] 225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code)
 
@@ -2333,9 +2114,7 @@ Label_2B_583E:: ; 2B:583E
 Label_2B_5844:: ; 2B:5844
 	ld a, [hli]
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_5876
 	pop af
@@ -2406,9 +2185,7 @@ Label_2B_5890:: ; 2B:5890
 	cp a, $0D
 	jr z, Label_2B_5910
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_58EB
 	pop af
@@ -2422,9 +2199,7 @@ Label_2B_5890:: ; 2B:5890
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -2434,9 +2209,7 @@ Label_2B_5890:: ; 2B:5890
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -2460,9 +2233,7 @@ Label_2B_58EB:: ; 2B:58EB
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -2482,9 +2253,7 @@ Label_2B_5910:: ; 2B:5910
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -2499,9 +2268,7 @@ Label_2B_592B:: ; 2B:592B
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -2520,9 +2287,7 @@ Function_2B_594B:: ; 2B:594B
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -2538,9 +2303,7 @@ Function_2B_595F:: ; 2B:595F
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -2592,10 +2355,8 @@ Label_2B_59AA:: ; 2B:59AA
 	ldh [rHDMA5], a
 	ret
 
-; ---- data $59B4-$59C0 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_59B4:: ; 2B:59B4
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $59B4-$59C0 (12 bytes) [PROBABLE] 12 bytes of $00 padding before the tiles at 59C0
+	ds $C, $00
 
 ; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -2780,25 +2541,38 @@ Data_2B_6300:: ; 2B:6300
 	db $11, $FF, $68, $EF, $84, $87, $02, $03, $01, $01, $00, $00, $00, $00, $00, $00
 	db $A0, $60, $D0, $B0, $68, $D8, $34, $EC, $1A, $F6, $82, $FE, $44, $7C, $38, $38
 
-; ---- data $63F0-$6480 (144 bytes) [PROBABLE] palette-rgb555: heuristic: 72 RGB555 words as 18 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $63F0-$6430 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear), loaded by 'ld hl,$63F0' at 2B:54AD (a=$2B); replaces the clipped 72-word heuristic region
 
-Data_2B_63F0:: ; 2B:63F0
+Palette_2B_63F0:: ; 2B:63F0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $FB, $00, $9F, $02, $00, $00, $FF, $7F
 	db $FF, $7F, $92, $7A, $A8, $65, $00, $00, $FF, $7F, $FF, $3A, $46, $7D, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $40, $64, $7F, $64, $40, $64, $7F, $64, $40, $64, $7F, $64, $40, $64, $7F, $64
-	db $42, $64, $0F, $02, $04, $00, $00, $02, $0C, $01, $00, $02, $14, $02, $00, $0A
-	db $04, $03, $00, $0A, $0C, $04, $00, $0A, $14, $05, $00, $0A, $1C, $06, $00, $12
-	db $04, $07, $00, $12, $0C, $08, $00, $12, $14, $09, $00, $12, $1C, $0A, $00, $1A
-	db $04, $0B, $00, $1A, $0C, $0C, $00, $1A, $14, $0D, $00, $1A, $1C, $0E, $00, $01
 
-; ---- data $6480-$6482 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Data_2B_6480:: ; 2B:6480
-	db $00, $04
+Table_2B_6430:: ; 2B:6430
+	dw Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F
 
-; ---- code $6482-$64F1 (111 bytes) [PROBABLE] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code)
+; ---- words $6440-$6442 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $6442 to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_6440:: ; 2B:6440
+	dw Data_2B_6442
+
+; ---- data $6442-$647F (61 bytes) [PROBABLE] OAM frame: count=15 then 15 x (y,x,tile,attr) = 61 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_6442:: ; 2B:6442
+	db $0F, $02, $04, $00, $00, $02, $0C, $01, $00, $02, $14, $02, $00, $0A, $04, $03
+	db $00, $0A, $0C, $04, $00, $0A, $14, $05, $00, $0A, $1C, $06, $00, $12, $04, $07
+	db $00, $12, $0C, $08, $00, $12, $14, $09, $00, $12, $1C, $0A, $00, $1A, $04, $0B
+	db $00, $1A, $0C, $0C, $00, $1A, $14, $0D, $00, $1A, $1C, $0E, $00
+
+; ---- data $647F-$6482 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_647F:: ; 2B:647F
+	db $01, $00, $04
+
+; ---- code $6482-$64F1 (111 bytes) [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code) [executed in 2 scenarios]
 
 Function_2B_6482:: ; 2B:6482
 	push bc
@@ -2816,21 +2590,15 @@ Function_2B_6482:: ; 2B:6482
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	pop bc
 	call Function_2B_65AB
 
 Label_2B_64A7:: ; 2B:64A7
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -2848,64 +2616,48 @@ Label_2B_64A7:: ; 2B:64A7
 	pop de
 	pop bc
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
-	call FarCall
-	dw Function_2B_7B02
-	db BANK(Function_2B_7B02)
+	farcall Function_2B_7B02
 	cp a, $FF
 	jp z, Function_2B_6482
 	xor a, a
 	ret
 
-; ---- data $64F1-$6500 (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_64F1:: ; 2B:64F1
-	db $C5, $3E, $07, $E0, $8D, $E0, $70, $3E, $E0, $EA, $10, $DA, $EA, $20, $DA
+; ---- code $64F1-$6500 (15 bytes) [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after the ret at 64F0; no caller/pointer to 64F1 found
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $E0
+	ld [wSpriteSlots + 16], a
+	ld [wSpriteSlots + 32], a
 
 ; ---- code $6500-$6863 (867 bytes) [PROBABLE] 397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ld de, $0206
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ld a, $68
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	pop af
 	pop bc
 	dec a
 	jp nz, Label_2B_64A7
-	call FarCall
-	dw Function_2D_4133
-	db BANK(Function_2D_4133)
+	farcall Function_2D_4133
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_00_0956
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ret
 
 Label_2B_6548:: ; 2B:6548
@@ -2924,13 +2676,9 @@ Label_2B_6548:: ; 2B:6548
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ret
 
@@ -2951,17 +2699,11 @@ Label_2B_6574:: ; 2B:6574
 	pop de
 	pop bc
 	push bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
-	call FarCall
-	dw Function_2A_4000
-	db BANK(Function_2A_4000)
+	farcall Function_2A_4000
 	jp Function_2B_6482
 
 Label_2B_65A8:: ; 2B:65A8
@@ -2969,18 +2711,10 @@ Label_2B_65A8:: ; 2B:65A8
 
 Function_2B_65AB:: ; 2B:65AB
 	push bc
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
-	call FarCall
-	dw LCDOff
-	db BANK(LCDOff)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
+	farcall LCDOff
 	call Function_00_0464
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2994,60 +2728,46 @@ Label_2B_65D2:: ; 2B:65D2
 	dec b
 	jr nz, Label_2B_65D2
 	call Function_00_0464
-	call FarCall
-	dw Function_2D_408F
-	db BANK(Function_2D_408F)
+	farcall Function_2D_408F
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $76A0
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $76E0
 	ld a, $2B
 	ld b, $96
 	ld c, $18
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7860
 	ld a, $2B
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld de, $9001
 	ld hl, $6DD0
 	ld a, $2B
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9401
 	ld hl, $71D0
 	ld a, $2B
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $73D0
 	ld a, $2B
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -3056,9 +2776,7 @@ Label_2B_65D2:: ; 2B:65D2
 	ld de, $78A0
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	call Function_00_0464
 	ld de, $1808
 	ld hl, $DA30
@@ -3067,9 +2785,7 @@ Label_2B_65D2:: ; 2B:65D2
 	ld de, $78C0
 	ld a, $2B
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6810
 	ld hl, $DA10
 	call Function_00_0A65
@@ -3082,9 +2798,7 @@ Label_2B_65D2:: ; 2B:65D2
 	ld a, $02
 	ld [$998F], a
 	call Function_00_0464
-	call FarCall
-	dw LCDOn
-	db BANK(LCDOn)
+	farcall LCDOn
 	pop bc
 	push bc
 	call Function_2B_691A
@@ -3114,9 +2828,7 @@ Label_2B_65D2:: ; 2B:65D2
 	ld de, $7900
 	ld a, $2B
 	ld b, $00
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0868
 	ld hl, $DA60
 	call Function_00_0A65
@@ -3317,13 +3029,9 @@ Label_2B_680E:: ; 2B:680E
 	pop af
 	ldh [rSVBK], a
 	ei
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -3338,74 +3046,97 @@ Label_2B_680E:: ; 2B:680E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	pop bc
 	ld b, c
 	ld c, $00
 	ret
 
-; ---- data $6863-$6895 (50 bytes) [HYPOTHESIS] UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $6863-$687B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$6863 at 2B:66CD, 6717, 6756, 678C
 
-Data_2B_6863:: ; 2B:6863
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE, $C9, $C5, $79, $FE, $00, $20, $24, $11
-	db $10, $68, $21, $10, $DA, $CD, $65, $0A, $21, $20, $DA, $11, $D0, $78, $3E, $2B
-	db $06, $81
+Table_2B_6863:: ; 2B:6863
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
+
+; ---- code $687B-$687C (1 bytes) [HYPOTHESIS] lone 'ret' (c9) between the table and the next function; nothing branches to it
+	ret
+
+; ---- code $687C-$6895 (25 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
+	push bc
+	ld a, c
+	cp a, $00
+	jr nz, Label_2B_68A6
+	ld de, $6810
+	ld hl, $DA10
+	call Function_00_0A65
+	ld hl, $DA20
+	ld de, $78D0
+	ld a, $2B
+	ld b, $81
 
 ; ---- code $6895-$68A6 (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6810
 	ld hl, $DA20
 	call Function_00_0A65
 	pop bc
 	ret
 
-; ---- data $68A6-$68BD (23 bytes) [HYPOTHESIS] UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $68A6-$68BD (23 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68A6 is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
 
-Data_2B_68A6:: ; 2B:68A6
-	db $FE, $01, $20, $24, $11, $30, $68, $21, $10, $DA, $CD, $65, $0A, $21, $20, $DA
-	db $11, $10, $79, $3E, $2B, $06, $81
+Label_2B_68A6:: ; 2B:68A6
+	cp a, $01
+	jr nz, Label_2B_68CE
+	ld de, $6830
+	ld hl, $DA10
+	call Function_00_0A65
+	ld hl, $DA20
+	ld de, $7910
+	ld a, $2B
+	ld b, $81
 
 ; ---- code $68BD-$68CE (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6830
 	ld hl, $DA20
 	call Function_00_0A65
 	pop bc
 	ret
 
-; ---- data $68CE-$68E5 (23 bytes) [HYPOTHESIS] UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $68CE-$68E5 (23 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68CE is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
 
-Data_2B_68CE:: ; 2B:68CE
-	db $FE, $02, $20, $24, $11, $50, $68, $21, $10, $DA, $CD, $65, $0A, $21, $20, $DA
-	db $11, $E0, $78, $3E, $2B, $06, $81
+Label_2B_68CE:: ; 2B:68CE
+	cp a, $02
+	jr nz, Label_2B_68F6
+	ld de, $6850
+	ld hl, $DA10
+	call Function_00_0A65
+	ld hl, $DA20
+	ld de, $78E0
+	ld a, $2B
+	ld b, $81
 
 ; ---- code $68E5-$68F6 (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6850
 	ld hl, $DA20
 	call Function_00_0A65
 	pop bc
 	ret
 
-; ---- data $68F6-$6909 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $68F6-$6909 (19 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68F6 is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
 
-Data_2B_68F6:: ; 2B:68F6
-	db $11, $70, $68, $21, $10, $DA, $CD, $65, $0A, $21, $20, $DA, $11, $F0, $78, $3E
-	db $2B, $06, $81
+Label_2B_68F6:: ; 2B:68F6
+	ld de, $6870
+	ld hl, $DA10
+	call Function_00_0A65
+	ld hl, $DA20
+	ld de, $78F0
+	ld a, $2B
+	ld b, $81
 
 ; ---- code $6909-$69AD (164 bytes) [PROBABLE] 111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $6870
 	ld hl, $DA20
 	call Function_00_0A65
@@ -3527,11 +3258,11 @@ Label_2B_69AB:: ; 2B:69AB
 	pop bc
 	ret
 
-; ---- data $69AD-$69C5 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $69AD-$69C5 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$69AD at 2B:692E and 6947
 
-Data_2B_69AD:: ; 2B:69AD
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_2B_69AD:: ; 2B:69AD
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $69C5-$6CF5 (816 bytes) [PROBABLE] 425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code)
 
@@ -3549,9 +3280,7 @@ Label_2B_69CA:: ; 2B:69CA
 	cp a, $0D
 	jr z, Label_2B_6A4E
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_6A2C
 	ld a, [wRam_C2EE]
@@ -3572,9 +3301,7 @@ Label_2B_69EF:: ; 2B:69EF
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -3584,9 +3311,7 @@ Label_2B_69EF:: ; 2B:69EF
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3608,9 +3333,7 @@ Label_2B_6A2C:: ; 2B:6A2C
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3628,9 +3351,7 @@ Label_2B_6A4E:: ; 2B:6A4E
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3645,9 +3366,7 @@ Label_2B_6A69:: ; 2B:6A69
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3666,9 +3385,7 @@ Function_2B_6A89:: ; 2B:6A89
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3684,9 +3401,7 @@ Function_2B_6A9D:: ; 2B:6A9D
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3709,9 +3424,7 @@ Label_2B_6ABA:: ; 2B:6ABA
 	cp a, $0D
 	jr z, Label_2B_6B3F
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_6B1D
 	ld a, [wRam_C2EE]
@@ -3732,9 +3445,7 @@ Label_2B_6ADF:: ; 2B:6ADF
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -3744,9 +3455,7 @@ Label_2B_6ADF:: ; 2B:6ADF
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3768,9 +3477,7 @@ Label_2B_6B1D:: ; 2B:6B1D
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3788,9 +3495,7 @@ Label_2B_6B3F:: ; 2B:6B3F
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3805,9 +3510,7 @@ Label_2B_6B5A:: ; 2B:6B5A
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3826,9 +3529,7 @@ Function_2B_6B7A:: ; 2B:6B7A
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3844,9 +3545,7 @@ Function_2B_6B8E:: ; 2B:6B8E
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3869,9 +3568,7 @@ Label_2B_6BAB:: ; 2B:6BAB
 	cp a, $0D
 	jr z, Label_2B_6C30
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_6C0E
 	ld a, [wRam_C2EE]
@@ -3892,9 +3589,7 @@ Label_2B_6BD0:: ; 2B:6BD0
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -3904,9 +3599,7 @@ Label_2B_6BD0:: ; 2B:6BD0
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -3928,9 +3621,7 @@ Label_2B_6C0E:: ; 2B:6C0E
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3948,9 +3639,7 @@ Label_2B_6C30:: ; 2B:6C30
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3965,9 +3654,7 @@ Label_2B_6C4B:: ; 2B:6C4B
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -3986,9 +3673,7 @@ Function_2B_6C6B:: ; 2B:6C6B
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -4004,9 +3689,7 @@ Function_2B_6C7F:: ; 2B:6C7F
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -4070,25 +3753,89 @@ Label_2B_6CEB:: ; 2B:6CEB
 	ldh [rHDMA5], a
 	ret
 
-; ---- data $6CF5-$6D6B (118 bytes) [HYPOTHESIS] UNCLASSIFIED 118 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $6CF5-$6D6B (118 bytes) [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets valid
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $00
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $D400
+	ld b, $24
 
-Data_2B_6CF5:: ; 2B:6CF5
-	db $C5, $3E, $01, $E0, $8D, $E0, $70, $3E, $00, $E0, $8C, $EA, $00, $40, $3E, $0A
-	db $E0, $F5, $EA, $00, $00, $21, $00, $D4, $06, $24, $AF, $22, $05, $20, $FB, $C1
-	db $C5, $3E, $00, $E0, $8C, $EA, $00, $40, $3E, $0A, $E0, $F5, $EA, $00, $00, $C5
-	db $48, $06, $00, $CB, $21, $21, $B0, $6D, $09, $C1, $2A, $5F, $7E, $67, $6B, $E5
-	db $11, $ED, $00, $19, $11, $C0, $D4, $06, $40, $2A, $12, $13, $05, $20, $FA, $E1
-	db $11, $C9, $00, $19, $11, $14, $D5, $06, $10, $2A, $12, $13, $05, $20, $FA, $C1
-	db $3E, $01, $E0, $8D, $E0, $70, $3E, $03, $EA, $24, $D5, $78, $EA, $25, $D5, $78
-	db $EA, $26, $D5, $AF, $18, $02
+Label_2B_6D0F:: ; 2B:6D0F
+	xor a, a
+	ld [hli], a
+	dec b
+	jr nz, Label_2B_6D0F
+	pop bc
+	push bc
+	ld a, $00
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	push bc
+	ld c, b
+	ld b, $00
+	sla c
+	ld hl, $6DB0
+	add hl, bc
+	pop bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	push hl
+	ld de, $00ED
+	add hl, de
+	ld de, $D4C0
+	ld b, $40
+
+Label_2B_6D3E:: ; 2B:6D3E
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_2B_6D3E
+	pop hl
+	ld de, $00C9
+	add hl, de
+	ld de, $D514
+	ld b, $10
+
+Label_2B_6D4E:: ; 2B:6D4E
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_2B_6D4E
+	pop bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $03
+	ld [wRam_D524], a
+	ld a, b
+	ld [wRam_D525], a
+	ld a, b
+	ld [wRam_D526], a
+	xor a, a
+	jr Label_2B_6D6D
 
 ; ---- code $6D6B-$6DB0 (69 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0; entered by jrcc from 2B:6D84 (PROBABLE code)
 
 Label_2B_6D6B:: ; 2B:6D6B
 	ld a, $01
-	call FarCall
-	dw Function_2D_65B0
-	db BANK(Function_2D_65B0)
+
+Label_2B_6D6D:: ; 2B:6D6D
+	farcall Function_2D_65B0
 	cp a, $FF
 	jr z, Label_2B_6DA3
 	xor a, a
@@ -4098,14 +3845,10 @@ Label_2B_6D7A:: ; 2B:6D7A
 	ld a, $01
 
 Label_2B_6D7C:: ; 2B:6D7C
-	call FarCall
-	dw Function_2C_4000
-	db BANK(Function_2C_4000)
+	farcall Function_2C_4000
 	cp a, $FF
 	jr z, Label_2B_6D6B
-	call FarCall
-	dw Function_2D_4722
-	db BANK(Function_2D_4722)
+	farcall Function_2D_4722
 	cp a, $FF
 	jr z, Label_2B_6D7A
 	cp a, $00
@@ -4130,11 +3873,18 @@ Label_2B_6DA3:: ; 2B:6DA3
 	ld a, $FF
 	ret
 
-; ---- data $6DB0-$7000 (592 bytes) [HYPOTHESIS] UNCLASSIFIED 592 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $6DB0-$6DC8 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$6DB0 at 2B:6D2A (hl=[table+2c], then + $00ED)
 
-Data_2B_6DB0:: ; 2B:6DB0
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE, $00, $00, $00, $00, $00, $00, $00, $00
+Table_2B_6DB0:: ; 2B:6DB0
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
+
+; ---- zero $6DC8-$6DD0 (8 bytes) [PROBABLE] 8 bytes of $00 between the table and the tile block at 6DD0
+	ds $8, $00
+
+; ---- gfx $6DD0-$71D0 (1024 bytes) [PROBABLE] 64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content)
+
+Tiles_2B_6DD0:: ; 2B:6DD0
 	db $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $FF, $FF, $FF, $C0, $1F, $CF, $27, $DF, $20, $C0, $20, $C0, $1F, $E0, $00
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FE, $FF, $00, $00, $00, $00, $FF, $00, $00
@@ -4170,35 +3920,19 @@ Data_2B_6DB0:: ; 2B:6DB0
 	db $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08
 	db $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38
 	db $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $AC, $58
-
-; ---- zero $7000-$7010 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
-	ds $10, $00
-
-; ---- data $7010-$707F (111 bytes) [HYPOTHESIS] UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_7010:: ; 2B:7010
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $12, $3D
 	db $FF, $00, $AA, $55, $FF, $00, $FF, $00, $F7, $0F, $FF, $08, $FC, $08, $FC, $08
 	db $FF, $00, $AA, $55, $FF, $00, $FF, $00, $FF, $FF, $FF, $00, $00, $00, $00, $00
 	db $FF, $00, $AA, $55, $FF, $00, $FF, $00, $EF, $F0, $9F, $70, $1F, $30, $1F, $30
 	db $FC, $08, $FC, $08, $FC, $08, $FC, $08, $AC, $58, $FC, $08, $FC, $08, $FC, $08
 	db $17, $38, $17, $38, $17, $38, $17, $38, $12, $3D, $17, $38, $17, $38, $17, $38
-	db $AA, $55, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-
-; ---- zero $707F-$70A0 (33 bytes) [HYPOTHESIS] padding? run of 33 x $00 in unclassified bytes
-	ds $21, $00
-
-; ---- data $70A0-$70B0 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_70A0:: ; 2B:70A0
+	db $AA, $55, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $FF
-
-; ---- zero $70B0-$70D0 (32 bytes) [HYPOTHESIS] padding? run of 32 x $00 in unclassified bytes
-	ds $20, $00
-
-; ---- data $70D0-$7230 (352 bytes) [HYPOTHESIS] UNCLASSIFIED 352 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_70D0:: ; 2B:70D0
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $81, $7E, $7E, $BD, $66, $FF, $66, $FF, $66, $FF, $66, $FF, $7E, $BD, $00, $00
 	db $83, $7C, $BB, $7C, $9B, $7C, $DB, $3C, $DB, $3C, $DB, $3C, $DB, $3C, $00, $00
 	db $01, $FE, $7E, $FD, $06, $FF, $7E, $BD, $71, $EE, $60, $FF, $7E, $FF, $00, $00
@@ -4215,19 +3949,21 @@ Data_2B_70D0:: ; 2B:70D0
 	db $00, $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $7E, $FF, $C2, $FF, $00, $00
 	db $00, $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $42, $FF, $7E, $FF, $00, $00
 	db $04, $FF, $EE, $FF, $BF, $FF, $E2, $FF, $BF, $FF, $AA, $FF, $E6, $FF, $00, $00
+
+; ---- gfx $71D0-$73D0 (512 bytes) [PROBABLE] 32 tiles: 'ld de,$9401 ; ld hl,$71D0 ; ld a,$2B ; ld c,$20 ; HDMA' at 2B:6635-6646; ends where the tilemap+attr block at 73D0 begins
+
+Tiles_2B_71D0:: ; 2B:71D0
 	db $29, $FE, $44, $FF, $FE, $FF, $24, $FF, $A5, $7E, $25, $FE, $6D, $DE, $00, $00
 	db $00, $00, $00, $00, $01, $01, $03, $03, $07, $07, $0E, $0E, $07, $07, $03, $03
 	db $70, $70, $E1, $E1, $C3, $C3, $87, $87, $0F, $0F, $1F, $1F, $37, $37, $EE, $EE
 	db $FD, $FD, $FB, $FB, $F7, $F7, $EE, $EE, $DD, $DD, $BB, $BB, $7F, $7F, $FF, $FF
 	db $FC, $08, $FC, $08, $AC, $58, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08
 	db $17, $38, $17, $38, $12, $3D, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38
-
-; ---- zero $7230-$7280 (80 bytes) [HYPOTHESIS] 0x00 run of 80 bytes
-	ds $50, $00
-
-; ---- data $7280-$732F (175 bytes) [HYPOTHESIS] UNCLASSIFIED 175 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_7280:: ; 2B:7280
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $FF, $00, $F0, $0F, $F7, $0F, $F0, $08, $F0, $08, $F0, $08, $F1, $08, $F1, $09
 	db $FF, $00, $00, $FF, $FF, $FF, $00, $00, $7C, $38, $C6, $82, $BB, $10, $49, $09
 	db $FF, $00, $0F, $F0, $EF, $F0, $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $10
@@ -4238,21 +3974,17 @@ Data_2B_7280:: ; 2B:7280
 	db $DD, $DD, $FB, $FB, $77, $77, $3E, $3E, $1D, $1D, $0F, $0F, $07, $07, $03, $03
 	db $DD, $DD, $BB, $BB, $77, $77, $EE, $EE, $DD, $DD, $BB, $BB, $7F, $7F, $FF, $FF
 	db $AC, $58, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FC, $08, $FF, $FF, $FF, $00
-	db $12, $3D, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $FF, $FF, $FF
-
-; ---- zero $732F-$7361 (50 bytes) [HYPOTHESIS] padding? run of 50 x $00 in unclassified bytes
-	ds $32, $00
-
-; ---- data $7361-$73D0 (111 bytes) [HYPOTHESIS] UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_7361:: ; 2B:7361
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $F1
-	db $09, $F1, $09, $F1, $08, $F0, $08, $F0, $08, $F0, $08, $F0, $0F, $FF, $00, $49
-	db $49, $4B, $08, $BE, $1C, $C0, $80, $7F, $3C, $00, $00, $00, $C3, $81, $42, $0F
-	db $10, $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $F0, $FF, $00, $FE
-	db $FE, $FE, $4A, $FE, $7A, $FF, $1B, $FF, $7A, $CF, $79, $CE, $FF, $00, $CF, $FC
-	db $FC, $FC, $84, $7C, $74, $B8, $A8, $FC, $D4, $FC, $B4, $DC, $FC, $00, $DC
+	db $12, $3D, $17, $38, $17, $38, $17, $38, $17, $38, $17, $38, $FF, $FF, $FF, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $F1, $09, $F1, $09, $F1, $08, $F0, $08, $F0, $08, $F0, $08, $F0, $0F, $FF, $00
+	db $49, $49, $4B, $08, $BE, $1C, $C0, $80, $7F, $3C, $00, $00, $00, $C3, $81, $42
+	db $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $10, $0F, $F0, $FF, $00
+	db $FE, $FE, $FE, $4A, $FE, $7A, $FF, $1B, $FF, $7A, $CF, $79, $CE, $FF, $00, $CF
+	db $FC, $FC, $FC, $84, $7C, $74, $B8, $A8, $FC, $D4, $FC, $B4, $DC, $FC, $00, $DC
 
 ; ---- data $73D0-$76A0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -4303,18 +4035,18 @@ Data_2B_73D0:: ; 2B:73D0
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $76A0-$76F0 (80 bytes) [PROBABLE] palette-rgb555: heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $76A0-$76E0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D800 ; ld hl,$76A0 ; ld a,$2B ; far call 4F:4000' at 2B:65E3-65F3; the old heuristic region ran into tile data
 
-Data_2B_76A0:: ; 2B:76A0
+Palette_2B_76A0:: ; 2B:76A0
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $15, $00, $DF, $01, $00, $00, $FF, $7F
 	db $BF, $02, $FF, $7F, $18, $02, $00, $00, $1F, $00, $BF, $02, $00, $00, $FF, $7F
 	db $00, $00, $DF, $01, $0F, $00, $FF, $7F, $FF, $7F, $1F, $00, $18, $02, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- gfx $76E0-$7860 (384 bytes) [PROBABLE] 24 tiles: 'ld de,$8000 ; ld hl,$76E0 ; ld a,$2B ; ld c,$18 ; HDMA' at 2B:65F7-6608; includes the zero run at 7840-7860 (blank tiles)
+
+Tiles_2B_76E0:: ; 2B:76E0
 	db $00, $00, $00, $00, $0F, $0F, $0F, $08, $0F, $08, $08, $08, $0B, $0B, $08, $08
-
-; ---- data $76F0-$7840 (336 bytes) [HYPOTHESIS] UNCLASSIFIED 336 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_76F0:: ; 2B:76F0
 	db $00, $00, $00, $00, $FF, $FF, $FF, $00, $FF, $00, $00, $00, $D5, $D5, $00, $00
 	db $00, $00, $00, $00, $F0, $F0, $10, $10, $F0, $10, $10, $10, $D0, $D0, $10, $10
 	db $0B, $0B, $08, $08, $0A, $0A, $18, $18, $14, $14, $12, $16, $11, $17, $10, $17
@@ -4336,66 +4068,211 @@ Data_2B_76F0:: ; 2B:76F0
 	db $10, $38, $30, $30, $32, $32, $30, $30, $10, $39, $1F, $1F, $07, $0F, $00, $00
 	db $78, $78, $7F, $7F, $3F, $3F, $1C, $1C, $9C, $9C, $FF, $FF, $E3, $F7, $00, $00
 	db $98, $98, $98, $98, $18, $18, $10, $38, $30, $70, $E0, $E0, $80, $C0, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- zero $7840-$7860 (32 bytes) [HYPOTHESIS] 0x00 run of 34 bytes [clipped from 783E-7860 by higher-priority proposals]
-	ds $20, $00
+; ---- data $7860-$78A0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D840 ; ld hl,$7860 ; ld a,$2B ; far call 4F:4000' at 2B:660C-661C
 
-; ---- data $7860-$7888 (40 bytes) [HYPOTHESIS] UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_2B_7860:: ; 2B:7860
+Palette_2B_7860:: ; 2B:7860
 	db $E0, $7F, $1F, $00, $00, $00, $FF, $7F, $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 	db $E0, $7F, $FF, $7F, $9F, $02, $00, $00, $E0, $7F, $BF, $5C, $5F, $66, $FF, $7F
-	db $E0, $7F, $1F, $00, $DF, $01, $00, $00
-
-; ---- data $7888-$7988 (256 bytes) [PROBABLE] palette-rgb555: heuristic: 128 RGB555 words as 32 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_2B_7888:: ; 2B:7888
+	db $E0, $7F, $1F, $00, $DF, $01, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $20, $79, $86, $79, $20, $79, $86, $79
-	db $20, $79, $86, $79, $20, $79, $86, $79, $89, $79, $A7, $79, $89, $79, $A7, $79
-	db $89, $79, $A7, $79, $89, $79, $A7, $79, $4B, $7A, $71, $7A, $4B, $7A, $71, $7A
-	db $4B, $7A, $71, $7A, $4B, $7A, $71, $7A, $AA, $79, $D0, $79, $AA, $79, $D0, $79
-	db $AA, $79, $D0, $79, $AA, $79, $D0, $79, $D5, $79, $0B, $7A, $D5, $79, $0B, $7A
-	db $D5, $79, $0B, $7A, $D5, $79, $0B, $7A, $10, $7A, $46, $7A, $10, $7A, $46, $7A
-	db $10, $7A, $46, $7A, $10, $7A, $46, $7A, $76, $7A, $94, $7A, $76, $7A, $94, $7A
-	db $76, $7A, $94, $7A, $76, $7A, $94, $7A, $97, $7A, $FD, $7A, $97, $7A, $FD, $7A
-	db $97, $7A, $FD, $7A, $97, $7A, $FD, $7A, $24, $79, $55, $79, $0C, $10, $00, $09
-	db $02, $10, $08, $0A, $02, $10, $10, $0B, $02, $10, $00, $06, $04, $10, $08, $07
-	db $04, $10, $10, $08, $04, $08, $00, $03, $04, $08, $08, $04, $04, $08, $10, $05
-	db $04, $00, $00, $00, $04, $00, $08, $01, $04, $00, $10, $02, $04, $0C, $10, $00
-	db $06, $02, $10, $08, $07, $02, $10, $10, $08, $02, $00, $00, $29, $04, $00, $08
-	db $2A, $04, $00, $10, $2B, $04, $08, $00, $00, $04, $08, $08, $01, $04, $08, $10
-	db $02, $04, $10, $00, $26, $04, $10, $08, $27, $04, $10, $10, $28, $04, $01, $00
 
-; ---- data $7988-$7B02 (378 bytes) [HYPOTHESIS] UNCLASSIFIED 378 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Data_2B_7988:: ; 2B:7988
-	db $2E, $8D, $79, $9A, $79, $03, $10, $00, $0C, $02, $10, $08, $0D, $02, $10, $10
-	db $0E, $02, $03, $10, $00, $09, $02, $10, $08, $0A, $02, $10, $10, $0B, $02, $01
-	db $00, $2E, $AE, $79, $BF, $79, $04, $F5, $08, $0C, $01, $F5, $10, $0D, $01, $FD
-	db $08, $0E, $01, $FD, $10, $0F, $01, $04, $F4, $08, $0C, $01, $F4, $10, $0D, $01
-	db $FC, $08, $0E, $01, $FC, $10, $0F, $01, $02, $00, $2E, $01, $08, $D9, $79, $F2
-	db $79, $06, $F5, $04, $00, $01, $F5, $0C, $01, $01, $F5, $14, $02, $01, $FD, $04
-	db $10, $01, $FD, $0C, $11, $01, $FD, $14, $12, $01, $06, $F4, $04, $00, $01, $F4
-	db $0C, $01, $01, $F4, $14, $02, $01, $FC, $04, $10, $01, $FC, $0C, $11, $01, $FC
-	db $14, $12, $01, $02, $00, $2E, $01, $08, $14, $7A, $2D, $7A, $06, $F5, $05, $03
-	db $01, $F5, $0D, $04, $01, $F5, $15, $05, $01, $FD, $05, $13, $01, $FD, $0D, $14
-	db $01, $FD, $15, $15, $01, $06, $F4, $05, $03, $01, $F4, $0D, $04, $01, $F4, $15
-	db $05, $01, $FC, $05, $13, $01, $FC, $0D, $14, $01, $FC, $15, $15, $01, $02, $00
-	db $2E, $01, $08, $4F, $7A, $60, $7A, $04, $05, $05, $16, $02, $05, $13, $16, $22
-	db $13, $05, $16, $42, $13, $13, $16, $62, $04, $04, $04, $16, $02, $04, $14, $16
-	db $22, $14, $04, $16, $42, $14, $14, $16, $62, $02, $00, $2E, $01, $08, $7A, $7A
-	db $93, $7A, $06, $00, $00, $10, $03, $00, $08, $11, $03, $00, $10, $12, $03, $08
-	db $00, $13, $03, $08, $08, $14, $03, $08, $10, $15, $03, $00, $01, $00, $2E, $9B
-	db $7A, $CC, $7A, $0C, $F5, $0D, $2D, $01, $F5, $15, $2E, $01, $FD, $0D, $30, $01
-	db $FD, $15, $31, $01, $F5, $05, $2C, $01, $FD, $05, $2F, $01, $F5, $05, $1D, $01
-	db $F5, $0D, $1E, $01, $F5, $15, $1F, $01, $FD, $05, $20, $01, $FD, $0D, $21, $01
-	db $FD, $15, $22, $01, $0C, $F4, $0D, $2D, $01, $F4, $15, $2E, $01, $FC, $0D, $30
-	db $01, $FC, $15, $31, $01, $F4, $05, $2C, $01, $FC, $05, $2F, $01, $F4, $05, $1D
-	db $01, $F4, $0D, $1E, $01, $F4, $15, $1F, $01, $FC, $05, $20, $01, $FC, $0D, $21
-	db $01, $FC, $15, $22, $01, $02, $00, $2E, $01, $08
+Table_2B_78A0:: ; 2B:78A0
+	dw Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986
+	dw Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7
+	dw Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71
+	dw Table_2B_79AA, Data_2B_79D0, Table_2B_79AA, Data_2B_79D0, Table_2B_79AA, Data_2B_79D0, Table_2B_79AA, Data_2B_79D0
+	dw Table_2B_79D5, Data_2B_7A0B, Table_2B_79D5, Data_2B_7A0B, Table_2B_79D5, Data_2B_7A0B, Table_2B_79D5, Data_2B_7A0B
+	dw Table_2B_7A10, Data_2B_7A46, Table_2B_7A10, Data_2B_7A46, Table_2B_7A10, Data_2B_7A46, Table_2B_7A10, Data_2B_7A46
+	dw Table_2B_7A76, Data_2B_7A94, Table_2B_7A76, Data_2B_7A94, Table_2B_7A76, Data_2B_7A94, Table_2B_7A76, Data_2B_7A94
+	dw Table_2B_7A97, Data_2B_7AFD, Table_2B_7A97, Data_2B_7AFD, Table_2B_7A97, Data_2B_7AFD, Table_2B_7A97, Data_2B_7AFD
 
-; ---- code $7B02-$7D7A (632 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8; entered by far from 2B:64E4 (PROBABLE code)
+; ---- words $7920-$7924 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7924, $7955 to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7920:: ; 2B:7920
+	dw Data_2B_7924, Data_2B_7955
+
+; ---- data $7924-$7955 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7924:: ; 2B:7924
+	db $0C, $10, $00, $09, $02, $10, $08, $0A, $02, $10, $10, $0B, $02, $10, $00, $06
+	db $04, $10, $08, $07, $04, $10, $10, $08, $04, $08, $00, $03, $04, $08, $08, $04
+	db $04, $08, $10, $05, $04, $00, $00, $00, $04, $00, $08, $01, $04, $00, $10, $02
+	db $04
+
+; ---- data $7955-$7986 (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7955:: ; 2B:7955
+	db $0C, $10, $00, $06, $02, $10, $08, $07, $02, $10, $10, $08, $02, $00, $00, $29
+	db $04, $00, $08, $2A, $04, $00, $10, $2B, $04, $08, $00, $00, $04, $08, $08, $01
+	db $04, $08, $10, $02, $04, $10, $00, $26, $04, $10, $08, $27, $04, $10, $10, $28
+	db $04
+
+; ---- data $7986-$7989 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7986:: ; 2B:7986
+	db $01, $00, $2E
+
+; ---- words $7989-$798D (4 bytes) [PROBABLE] frame table: 2 pointer(s) $798D, $799A to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7989:: ; 2B:7989
+	dw Data_2B_798D, Data_2B_799A
+
+; ---- data $798D-$799A (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_798D:: ; 2B:798D
+	db $03, $10, $00, $0C, $02, $10, $08, $0D, $02, $10, $10, $0E, $02
+
+; ---- data $799A-$79A7 (13 bytes) [PROBABLE] OAM frame: count=3 then 3 x (y,x,tile,attr) = 13 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_799A:: ; 2B:799A
+	db $03, $10, $00, $09, $02, $10, $08, $0A, $02, $10, $10, $0B, $02
+
+; ---- data $79A7-$79AA (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_79A7:: ; 2B:79A7
+	db $01, $00, $2E
+
+; ---- words $79AA-$79AE (4 bytes) [PROBABLE] frame table: 2 pointer(s) $79AE, $79BF to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_79AA:: ; 2B:79AA
+	dw Data_2B_79AE, Data_2B_79BF
+
+; ---- data $79AE-$79BF (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_79AE:: ; 2B:79AE
+	db $04, $F5, $08, $0C, $01, $F5, $10, $0D, $01, $FD, $08, $0E, $01, $FD, $10, $0F
+	db $01
+
+; ---- data $79BF-$79D0 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_79BF:: ; 2B:79BF
+	db $04, $F4, $08, $0C, $01, $F4, $10, $0D, $01, $FC, $08, $0E, $01, $FC, $10, $0F
+	db $01
+
+; ---- data $79D0-$79D5 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_79D0:: ; 2B:79D0
+	db $02, $00, $2E, $01, $08
+
+; ---- words $79D5-$79D9 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $79D9, $79F2 to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_79D5:: ; 2B:79D5
+	dw Data_2B_79D9, Data_2B_79F2
+
+; ---- data $79D9-$79F2 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_79D9:: ; 2B:79D9
+	db $06, $F5, $04, $00, $01, $F5, $0C, $01, $01, $F5, $14, $02, $01, $FD, $04, $10
+	db $01, $FD, $0C, $11, $01, $FD, $14, $12, $01
+
+; ---- data $79F2-$7A0B (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_79F2:: ; 2B:79F2
+	db $06, $F4, $04, $00, $01, $F4, $0C, $01, $01, $F4, $14, $02, $01, $FC, $04, $10
+	db $01, $FC, $0C, $11, $01, $FC, $14, $12, $01
+
+; ---- data $7A0B-$7A10 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7A0B:: ; 2B:7A0B
+	db $02, $00, $2E, $01, $08
+
+; ---- words $7A10-$7A14 (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A14, $7A2D to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7A10:: ; 2B:7A10
+	dw Data_2B_7A14, Data_2B_7A2D
+
+; ---- data $7A14-$7A2D (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A14:: ; 2B:7A14
+	db $06, $F5, $05, $03, $01, $F5, $0D, $04, $01, $F5, $15, $05, $01, $FD, $05, $13
+	db $01, $FD, $0D, $14, $01, $FD, $15, $15, $01
+
+; ---- data $7A2D-$7A46 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A2D:: ; 2B:7A2D
+	db $06, $F4, $05, $03, $01, $F4, $0D, $04, $01, $F4, $15, $05, $01, $FC, $05, $13
+	db $01, $FC, $0D, $14, $01, $FC, $15, $15, $01
+
+; ---- data $7A46-$7A4B (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7A46:: ; 2B:7A46
+	db $02, $00, $2E, $01, $08
+
+; ---- words $7A4B-$7A4F (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A4F, $7A60 to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7A4B:: ; 2B:7A4B
+	dw Data_2B_7A4F, Data_2B_7A60
+
+; ---- data $7A4F-$7A60 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A4F:: ; 2B:7A4F
+	db $04, $05, $05, $16, $02, $05, $13, $16, $22, $13, $05, $16, $42, $13, $13, $16
+	db $62
+
+; ---- data $7A60-$7A71 (17 bytes) [PROBABLE] OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A60:: ; 2B:7A60
+	db $04, $04, $04, $16, $02, $04, $14, $16, $22, $14, $04, $16, $42, $14, $14, $16
+	db $62
+
+; ---- data $7A71-$7A76 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7A71:: ; 2B:7A71
+	db $02, $00, $2E, $01, $08
+
+; ---- words $7A76-$7A7A (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A7A, $7A93 to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7A76:: ; 2B:7A76
+	dw Data_2B_7A7A, Data_2B_7A93
+
+; ---- data $7A7A-$7A93 (25 bytes) [PROBABLE] OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A7A:: ; 2B:7A7A
+	db $06, $00, $00, $10, $03, $00, $08, $11, $03, $00, $10, $12, $03, $08, $00, $13
+	db $03, $08, $08, $14, $03, $08, $10, $15, $03
+
+; ---- data $7A93-$7A94 (1 bytes) [PROBABLE] OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A93:: ; 2B:7A93
+	db $00
+
+; ---- data $7A94-$7A97 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7A94:: ; 2B:7A94
+	db $01, $00, $2E
+
+; ---- words $7A97-$7A9B (4 bytes) [PROBABLE] frame table: 2 pointer(s) $7A9B, $7ACC to OAM frames (extent = lowest target); referenced by an animation entry
+
+Table_2B_7A97:: ; 2B:7A97
+	dw Data_2B_7A9B, Data_2B_7ACC
+
+; ---- data $7A9B-$7ACC (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7A9B:: ; 2B:7A9B
+	db $0C, $F5, $0D, $2D, $01, $F5, $15, $2E, $01, $FD, $0D, $30, $01, $FD, $15, $31
+	db $01, $F5, $05, $2C, $01, $FD, $05, $2F, $01, $F5, $05, $1D, $01, $F5, $0D, $1E
+	db $01, $F5, $15, $1F, $01, $FD, $05, $20, $01, $FD, $0D, $21, $01, $FD, $15, $22
+	db $01
+
+; ---- data $7ACC-$7AFD (49 bytes) [PROBABLE] OAM frame: count=12 then 12 x (y,x,tile,attr) = 49 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+
+Data_2B_7ACC:: ; 2B:7ACC
+	db $0C, $F4, $0D, $2D, $01, $F4, $15, $2E, $01, $FC, $0D, $30, $01, $FC, $15, $31
+	db $01, $F4, $05, $2C, $01, $FC, $05, $2F, $01, $F4, $05, $1D, $01, $F4, $0D, $1E
+	db $01, $F4, $15, $1F, $01, $FC, $05, $20, $01, $FC, $0D, $21, $01, $FC, $15, $22
+	db $01
+
+; ---- data $7AFD-$7B02 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+
+Data_2B_7AFD:: ; 2B:7AFD
+	db $02, $00, $2E, $01, $08
+
+; ---- code $7B02-$7D7A (632 bytes) [CONFIRMED] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8; entered by far from 2B:64E4 (PROBABLE code) [executed in 2 scenarios]
 
 Function_2B_7B02:: ; 2B:7B02
 	push bc
@@ -4414,9 +4291,7 @@ Function_2B_7B02:: ; 2B:7B02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	pop bc
 	call Function_2B_7B9B
 	pop bc
@@ -4424,13 +4299,9 @@ Function_2B_7B02:: ; 2B:7B02
 
 Label_2B_7B2A:: ; 2B:7B2A
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -4448,13 +4319,9 @@ Label_2B_7B2A:: ; 2B:7B2A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	xor a, a
 	ret
@@ -4476,14 +4343,10 @@ Label_2B_7B68:: ; 2B:7B68
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	pop bc
 	ld a, $FF
 	ret
@@ -4493,55 +4356,39 @@ Label_2B_7B99:: ; 2B:7B99
 
 Function_2B_7B9B:: ; 2B:7B9B
 	push bc
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_2D_4E06
-	db BANK(Function_2D_4E06)
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall Function_2D_4E06
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $4AF0
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $4B30
 	ld a, $28
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld de, $9301
 	ld hl, $42C0
 	ld a, $28
 	ld b, $95
 	ld c, $21
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $44D0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $4550
 	ld a, $28
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
@@ -4549,9 +4396,7 @@ Function_2B_7B9B:: ; 2B:7B9B
 	ld de, $4B70
 	ld a, $28
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0808
 	ld hl, $DA10
 	call Function_00_0A65
@@ -4577,9 +4422,7 @@ Function_2B_7B9B:: ; 2B:7B9B
 	ld l, e
 	ld a, $02
 	ld [hl], a
-	call FarCall
-	dw Function_22_501D
-	db BANK(Function_22_501D)
+	farcall Function_22_501D
 	call Function_00_0464
 	pop bc
 	ld a, $01
@@ -4678,19 +4521,11 @@ Label_2B_7C89:: ; 2B:7C89
 	ld e, $08
 	call Function_2B_7DF2
 	call Function_00_0464
-	call FarCall
-	dw Function_2B_7D92
-	db BANK(Function_2B_7D92)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_2B_7D92
+	farcall Function_7F_72B0
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -4705,9 +4540,7 @@ Label_2B_7C89:: ; 2B:7C89
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -4721,13 +4554,13 @@ Label_2B_7C89:: ; 2B:7C89
 	ld bc, $0000
 	ret
 
-; ---- data $7D7A-$7D92 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $7D7A-$7D92 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$7D7A at 2B:7C45 and 7C76
 
-Data_2B_7D7A:: ; 2B:7D7A
-	db $24, $A1, $51, $A2, $7E, $A3, $AB, $A4, $D8, $A5, $05, $A7, $32, $A8, $5F, $A9
-	db $8C, $AA, $B9, $AB, $E6, $AC, $13, $AE
+Table_2B_7D7A:: ; 2B:7D7A
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $7D92-$7F44 (434 bytes) [PROBABLE] 235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10; entered by far from 2B:7D29 (PROBABLE code)
+; ---- code $7D92-$7F44 (434 bytes) [CONFIRMED] 235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10; entered by far from 2B:7D29 (PROBABLE code) [executed in 1 scenarios]
 
 Function_2B_7D92:: ; 2B:7D92
 	ldh a, [rSVBK]
@@ -4800,9 +4633,7 @@ Label_2B_7DF7:: ; 2B:7DF7
 	cp a, $0D
 	jr z, Label_2B_7E79
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_2B_7E57
 	ld a, [wRam_C2EE]
@@ -4819,9 +4650,7 @@ Label_2B_7DF7:: ; 2B:7DF7
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -4831,9 +4660,7 @@ Label_2B_7DF7:: ; 2B:7DF7
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -4859,9 +4686,7 @@ Label_2B_7E57:: ; 2B:7E57
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -4879,9 +4704,7 @@ Label_2B_7E79:: ; 2B:7E79
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -4896,9 +4719,7 @@ Label_2B_7E94:: ; 2B:7E94
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -4917,9 +4738,7 @@ Function_2B_7EB4:: ; 2B:7EB4
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -4935,9 +4754,7 @@ Function_2B_7EC8:: ; 2B:7EC8
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -4963,9 +4780,7 @@ Label_2B_7EEB:: ; 2B:7EEB
 Label_2B_7EF2:: ; 2B:7EF2
 	ld d, $FF
 	ld a, [hl]
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr z, Label_2B_7F0F
 	ld a, [hl]
