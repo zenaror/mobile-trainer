@@ -1,0 +1,70 @@
+# addr	name	type	status	evidence
+0000	Rst_00	function	CONFIRMED	rst $00 slot: ret (never used as a call target in reached code)
+0008	Rst_08	function	CONFIRMED	rst $08 slot: ret (never used as a call target in reached code)
+0010	Rst_10	function	CONFIRMED	rst $10 slot: ret (never used as a call target in reached code)
+0018	Rst_18	function	CONFIRMED	rst $18 slot: ret (never used as a call target in reached code)
+0020	Rst_20	function	CONFIRMED	rst $20 slot: ret (never used as a call target in reached code)
+0028	Rst_28	function	CONFIRMED	rst $28 slot: ret (never used as a call target in reached code)
+0030	Rst_30	function	CONFIRMED	rst $30 slot: ret (never used as a call target in reached code)
+0038	Rst_38	function	CONFIRMED	rst $38 slot: ret (never used as a call target in reached code)
+0040	Vector_VBlank	function	CONFIRMED	hardware vector: jp $CBF1 (RAM stub, see 00:04A0); reti
+0048	Vector_STAT	function	CONFIRMED	hardware vector: jp $CBF4 (RAM stub, see 00:04A0); reti
+0050	Vector_Timer	function	CONFIRMED	hardware vector: jp $CBF7 (RAM stub, see 00:04A0); reti
+0058	Vector_Serial	function	CONFIRMED	hardware vector: jp $CBFA (RAM stub, see 00:04A0); reti
+0060	Vector_Joypad	function	CONFIRMED	hardware vector: jp $CBFD (RAM stub, see 00:04A0); reti
+0100	Entry	function	CONFIRMED	reset entry: nop ; jp $0278
+0104	Header	data	CONFIRMED	cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
+0150	MobileAPI	function	PROBABLE	API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54]
+018D	ReturnMobileAPI	function	PROBABLE	return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
+01B7	Int_Serial	function	CONFIRMED	serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive
+01ED	Int_Timer	function	CONFIRMED	timer interrupt handler (RAM vector CBF7 -> jp $01ED): TAC=0; IF&=$1B; if [C709]==0 return at once (01FE jr z,$0242: TIMA/TAC are NOT restarted, the timer stays stopped); else, unless C6C1.bit1 or rSC.bit7 is set (then the bank-75 call is skipped, 0205/020B jr nz,$023A), save ROM bank, call 75:58EA, restore; finally TIMA=TMA and TAC=6 (enable, clock select 10 = 65536 Hz, doubled to 131072 Hz in the CGB double-speed mode that Boot selects). Same shape as pokecrystal MobileTimer
+0278	Boot	function	CONFIRMED	boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever
+032B	Data_00_032B	data	CONFIRMED	inline data of FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
+0352	Data_00_0352	data	CONFIRMED	32 x $7FFF (white) = 64 bytes, source for Function_00_0331 (ld hl,$0352 at 0335/0341)
+03BA	Int_VBlank	function	CONFIRMED	VBlank interrupt handler (RAM vector CBF1 -> jp $03BA): unless [C2F5]!=0 run OAM DMA (call $FF80); increments the saturating VBlank counter C2DF; advances two frame/second/minute clocks (C2D4-C2D6 gated by C69F.bit4: at 70 minutes minutes:=60 and C26F.bit1 is cleared; C266-C268 gated by C69F.bit0: minutes saturate at [C26D]); updates FFFC/C2BF; reti
+04D8	FillBytes	function	CONFIRMED	fill BC bytes at HL with A (BC=0 fills 256 bytes when B=0); used to clear VRAM/WRAM/HRAM in Boot
+04EE	FillWords	function	PROBABLE	fill BC bytes at HL with the repeating 16-bit pattern E,D (2 bytes per step, BC counts bytes) [candidate; raw refs 16]
+050C	CopyBytes	function	CONFIRMED	copy BC bytes from [HL++] to [DE++] (BC=0 with B=0 copies 256)
+0526	CopyBytesBackward	function	PROBABLE	copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43]
+0540	JumpTableBank	function	PROBABLE	A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33]
+0551	FarJumpTable	function	PROBABLE	A=bank, HL=table of 3-byte entries (addr16, bank), C=index: switch to the table bank, read entry, switch to the entry bank, jp to it [candidate; raw refs 4]
+056A	JoypadDispatch	function	PROBABLE	inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26]
+05AC	OAMDMARoutine	function	CONFIRMED	runaddr=$FF80 ; OAM DMA routine image: ld a,$C0 ; ldh [rDMA],a ; ld a,$28 ; .w dec a ; jr nz,.w ; ret. Copied by 059F, called at 03C1 as call $FF80
+05B6	LCDOn	function	CONFIRMED	LCDC |= $80
+05BD	LCDOff	function	CONFIRMED	if LCD on: wait for LY in [$91,$98), clear LCDC bit7, ei, call 0392. Two variants selected by FFA3==$11 (CGB path does not touch IE/IF)
+0602	SwitchCPUSpeed	function	CONFIRMED	A bit7 = requested speed: if rKEY1 bit7 differs, rKEY1=1, IF=IE=0, P1=$30, STOP, restore IE (CGB double-speed switch). Boot calls it with A=$80
+0622	BankSwitch_H	function	CONFIRMED	A=bank, H=high byte of the address being accessed: A=0 -> no change; H<$80 ROM: FF8A<-A,[$2100]<-A; H $80-$BF: SRAM bank FF8C<-A,[$4000]<-A; H>=$C0: WRAM bank FF8D<-A,rSVBK<-A
+063D	BankSwitch_D	function	CONFIRMED	same as BankSwitch_H with the region taken from D
+0658	BankSwitch_B	function	CONFIRMED	same as BankSwitch_H with the region taken from B
+0673	GetBank_H	function	CONFIRMED	returns in A the current bank of the region selected by H (FF8A / FF8C / FF8D)
+06D1	FarCall	function	CONFIRMED	THE far call: call $06D1 ; dw addr ; db bank. Saves A/HL (FFA9/FFAB), pops the return address to read the 3 inline bytes, remembers the caller bank, switches to `bank` (region by target address), runs the target through the HRAM trampoline (A/HL preserved), switches back and returns to the byte after the inline data with the callee A/HL
+06E5	FarCall_Reg	function	PROBABLE	like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18]
+072E	FarJump	function	PROBABLE	far JUMP (tail call, no return): call $072E ; dw addr ; db bank; A/HL passed through. No static caller found [candidate; raw refs 3]
+0BE8	Multiply16	function	PROBABLE	HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 5]
+0BFC	Multiply8x16	function	PROBABLE	HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 12]
+0C0E	Random16	function	PROBABLE	HL = (Random, Random) : H=first byte, L=second byte [candidate; raw refs 4]
+0C18	Random	function	PROBABLE	A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
+0C34	Table_00_0C34	table	CONFIRMED	256 bytes indexed by hFFFD, xor operand of Random (0C2F)
+0D4D	Multiply16x16to32	function	PROBABLE	BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4]
+0D67	Divide16	function	PROBABLE	HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12]
+0D92	Divide32by15	function	PROBABLE	BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6]
+0EF0	Table_00_0EF0	table	CONFIRMED	32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
+1056	Data_00_1056	data	CONFIRMED	inline data of FarCall at 1053: dw $405F ; db $7F -> 7F:405F
+1076	Data_00_1076	data	CONFIRMED	inline data of FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
+10A0	Data_00_10A0	data	CONFIRMED	inline data of FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
+10C3	Data_00_10C3	data	CONFIRMED	inline data of FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
+10D8	Data_00_10D8	data	CONFIRMED	inline data of FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
+14BF	CopyString	function	PROBABLE	copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33]
+14C6	CopyStringMax	function	PROBABLE	copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6]
+14E0	EncodeXorA5	function	PROBABLE	copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6]
+14EA	DecodeXorA5	function	PROBABLE	copy [HL++] XOR $A5 to [DE++] until the decoded byte is $00 (inverse of EncodeXorA5) [reached via inferred links; raw refs 23]
+1509	CompareString	function	PROBABLE	strcmp(HL, DE): A = [HL]-[DE] at the first difference (0 only if both strings end together); verified on interpreter [reached via inferred links; raw refs 11]
+151A	CompareStringN	function	PROBABLE	like CompareString but compares at most B bytes (A = [HL]-[DE]); verified on interpreter [candidate; raw refs 2]
+1533	StringLength	function	PROBABLE	BC = length of the $00-terminated string at HL [reached via inferred links; raw refs 5]
+158A	Data_00_158A	data	CONFIRMED	inline data of FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
+161A	Table_00_161A	table	CONFIRMED	3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
+1620	ReadByteFar	function	PROBABLE	A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92]
+0545	JumpTableInline	label	CONFIRMED	entry of JumpTableBank that takes A=index and the pointer table inline after the call (056A jumps here; 1C:400D, 4C:42F0 ... call it)
+06EE	FarCall_Common	label	CONFIRMED	shared far-call tail: push caller bank, switch, call HRAM trampoline FFA8, switch back, jp FFA8
+20F8	Bank4_Restore	label	PROBABLE	restore hi=0/lo=4 tail: ld a,0; call 2105; ld a,4; ldh [FF8A],a; ld [2000],a; ret
+20FF	Bank4_SetLo	label	PROBABLE	ldh [FF8A],a ; ld [$2000],a ; ret

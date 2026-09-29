@@ -1,0 +1,191 @@
+# bank 00 region proposal (analysis/rom0_analysis.py). Tiles 0000-3FFF exactly.
+# start	end	kind	label	status	note
+0000	0001	code	Rst_00	CONFIRMED	rst $00 slot: ret (never used as a call target in reached code)
+0001	0008	zero	-	CONFIRMED	padding
+0008	0009	code	Rst_08	CONFIRMED	rst $08 slot: ret (never used as a call target in reached code)
+0009	0010	zero	-	CONFIRMED	padding
+0010	0011	code	Rst_10	CONFIRMED	rst $10 slot: ret (never used as a call target in reached code)
+0011	0018	zero	-	CONFIRMED	padding
+0018	0019	code	Rst_18	CONFIRMED	rst $18 slot: ret (never used as a call target in reached code)
+0019	0020	zero	-	CONFIRMED	padding
+0020	0021	code	Rst_20	CONFIRMED	rst $20 slot: ret (never used as a call target in reached code)
+0021	0028	zero	-	CONFIRMED	padding
+0028	0029	code	Rst_28	CONFIRMED	rst $28 slot: ret (never used as a call target in reached code)
+0029	0030	zero	-	CONFIRMED	padding
+0030	0031	code	Rst_30	CONFIRMED	rst $30 slot: ret (never used as a call target in reached code)
+0031	0038	zero	-	CONFIRMED	padding
+0038	0039	code	Rst_38	CONFIRMED	rst $38 slot: ret (never used as a call target in reached code)
+0039	0040	zero	-	CONFIRMED	padding
+0040	0044	code	Vector_VBlank	CONFIRMED	hardware vector: jp $CBF1 (RAM stub, see 00:04A0); reti
+0044	0048	zero	-	CONFIRMED	padding
+0048	004C	code	Vector_STAT	CONFIRMED	hardware vector: jp $CBF4 (RAM stub, see 00:04A0); reti
+004C	0050	zero	-	CONFIRMED	padding
+0050	0054	code	Vector_Timer	CONFIRMED	hardware vector: jp $CBF7 (RAM stub, see 00:04A0); reti
+0054	0058	zero	-	CONFIRMED	padding
+0058	005C	code	Vector_Serial	CONFIRMED	hardware vector: jp $CBFA (RAM stub, see 00:04A0); reti
+005C	0060	zero	-	CONFIRMED	padding
+0060	0064	code	Vector_Joypad	CONFIRMED	hardware vector: jp $CBFD (RAM stub, see 00:04A0); reti
+0064	0100	zero	-	CONFIRMED	padding
+0100	0104	code	Entry	CONFIRMED	reset entry: nop ; jp $0278
+0104	0150	raw	Header	CONFIRMED	cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
+0150	018D	code	MobileAPI	PROBABLE	API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54]
+018D	01B7	code	ReturnMobileAPI	PROBABLE	return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
+01B7	01ED	code	Int_Serial	CONFIRMED	serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive
+01ED	0247	code	Int_Timer	CONFIRMED	timer interrupt handler (RAM vector CBF7 -> jp $01ED): TAC=0; IF&=$1B; if [C709]==0 return at once (01FE jr z,$0242: TIMA/TAC are NOT restarted, the timer stays stopped); else, unless C6C1.bit1 or rSC.bit7 is set (then the bank-75 call is skipped, 0205/020B jr nz,$023A), save ROM bank, call 75:58EA, restore; finally TIMA=TMA and TAC=6 (enable, clock select 10 = 65536 Hz, doubled to 131072 Hz in the CGB double-speed mode that Boot selects). Same shape as pokecrystal MobileTimer
+0247	0278	code	Function_00_0247	PROBABLE	wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F, calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw refs 6]
+0278	032B	code	Boot	CONFIRMED	boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever
+032B	032E	data	Data_00_032B	CONFIRMED	inline data of FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
+032E	0331	code	Function_00_032E	CONFIRMED	continuation
+0331	034A	code	Function_00_0331	PROBABLE	writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80 auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links; raw refs 8]
+034A	0352	code	Function_00_034A	PROBABLE	copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper) [reached via inferred links; raw refs 4]
+0352	0392	data	Data_00_0352	CONFIRMED	32 x $7FFF (white) = 64 bytes, source for Function_00_0331 (ld hl,$0352 at 0335/0341)
+0392	03BA	code	Function_00_0392	CONFIRMED	frame service, at most once per frame: skips if C2BF!=0, sets C2BF=1 (Int_VBlank clears it), saves BC/DE/HL and the WRAM bank, rSVBK=1 (FF8D is not updated), call 04:4082 through stub 20A6 (the stub returns A=$FF without entering bank 04 when D000 bit7 is already set, 2125; D000 is uninitialised at the first call from Boot/LCDOff, so whether 04:4082 runs then depends on power-on WRAM), restores. The first 4 instructions (FFFC compare) have no effect. Called from the wait loops (14 call sites in ROM0) and from other banks (173 raw call patterns)
+03BA	044B	code	Int_VBlank	CONFIRMED	VBlank interrupt handler (RAM vector CBF1 -> jp $03BA): unless [C2F5]!=0 run OAM DMA (call $FF80); increments the saturating VBlank counter C2DF; advances two frame/second/minute clocks (C2D4-C2D6 gated by C69F.bit4: at 70 minutes minutes:=60 and C26F.bit1 is cleared; C266-C268 gated by C69F.bit0: minutes saturate at [C26D]); updates FFFC/C2BF; reti
+044B	0464	code	Function_00_044B	CONFIRMED	wait for VBlank then run the frame service: if LCD on {ei; halt} until C2DF!=0; clear C2DF; call 0392
+0464	047A	code	Function_00_0464	PROBABLE	wait for VBlank flag only (ei; halt until C2DF!=0; clear C2DF); no frame service. Most referenced helper of the ROM (401 raw call sites) [reached via inferred links; raw refs 404]
+047A	04A0	code	Function_00_047A	CONFIRMED	wait for VBlank; returns with IME=0 right after the VBlank interrupt (LY>=$90); if woken late (LY<$90) clears the flag, calls 0392 and waits again
+04A0	04D8	code	Function_00_04A0	PROBABLE	installs the RAM interrupt stubs: CBF1=jp $03BA, CBF4=reti, CBF7=jp $01ED, CBFA=jp $01B7, CBFD=reti (bytes written one by one; verified on interpreter) [reached via inferred links; raw refs 12]
+04D8	04EE	code	FillBytes	CONFIRMED	fill BC bytes at HL with A (BC=0 fills 256 bytes when B=0); used to clear VRAM/WRAM/HRAM in Boot
+04EE	050C	code	FillWords	PROBABLE	fill BC bytes at HL with the repeating 16-bit pattern E,D (2 bytes per step, BC counts bytes) [candidate; raw refs 16]
+050C	0526	code	CopyBytes	CONFIRMED	copy BC bytes from [HL++] to [DE++] (BC=0 with B=0 copies 256)
+0526	0540	code	CopyBytesBackward	PROBABLE	copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43]
+0540	0551	code	JumpTableBank	PROBABLE	A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33]
+0551	056A	code	FarJumpTable	PROBABLE	A=bank, HL=table of 3-byte entries (addr16, bank), C=index: switch to the table bank, read entry, switch to the entry bank, jp to it [candidate; raw refs 4]
+056A	059F	code	JoypadDispatch	PROBABLE	inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26]
+059F	05AC	code	Function_00_059F	CONFIRMED	copies the 10-byte OAM DMA routine from 05AC to HRAM $FF80 (ld bc,$0A80: B=count, C=dest)
+05AC	05B6	ramcode	OAMDMARoutine	CONFIRMED	runaddr=$FF80 ; OAM DMA routine image: ld a,$C0 ; ldh [rDMA],a ; ld a,$28 ; .w dec a ; jr nz,.w ; ret. Copied by 059F, called at 03C1 as call $FF80
+05B6	05BD	code	LCDOn	CONFIRMED	LCDC |= $80
+05BD	0602	code	LCDOff	CONFIRMED	if LCD on: wait for LY in [$91,$98), clear LCDC bit7, ei, call 0392. Two variants selected by FFA3==$11 (CGB path does not touch IE/IF)
+0602	0622	code	SwitchCPUSpeed	CONFIRMED	A bit7 = requested speed: if rKEY1 bit7 differs, rKEY1=1, IF=IE=0, P1=$30, STOP, restore IE (CGB double-speed switch). Boot calls it with A=$80
+0622	063D	code	BankSwitch_H	CONFIRMED	A=bank, H=high byte of the address being accessed: A=0 -> no change; H<$80 ROM: FF8A<-A,[$2100]<-A; H $80-$BF: SRAM bank FF8C<-A,[$4000]<-A; H>=$C0: WRAM bank FF8D<-A,rSVBK<-A
+063D	0658	code	BankSwitch_D	CONFIRMED	same as BankSwitch_H with the region taken from D
+0658	0673	code	BankSwitch_B	CONFIRMED	same as BankSwitch_H with the region taken from B
+0673	0684	code	GetBank_H	CONFIRMED	returns in A the current bank of the region selected by H (FF8A / FF8C / FF8D)
+0684	06B7	code	Function_00_0684	PROBABLE	initialises HRAM bank state and the far-call trampoline: FFA8..FFAF = `ld a,0 ; ld hl,0 ; jp $06B7`; FF8D=rSVBK=1; FF8C=1,[4000]=1 (SRAM bank 1); FFF5=0,[0000]=0 (SRAM disabled); FFF4=0, rVBK=0 [reached via inferred links; raw refs 4]
+06B7	06BC	code	Function_00_06B7	PROBABLE	default target of the trampoline (jp $06B7 written by 0684 to FFAD-FFAF): forever call 044B (wait for VBlank + frame service). Reached only if the trampoline is entered without a patched target; never executed in mGBA (20 M instructions)
+06BC	06D1	code	Function_00_06BC	CONFIRMED	far call with inline 16-bit address (2 bytes after the call); bank comes from hFFF3. Entry to the common far-call path (06EE). One caller: `call $06BC` at 4F:4008 (inline word at 4F:400B = 00:050C CopyBytes, with hFFF3=A and WRAM bank 7 selected)
+06D1	06E5	code	FarCall	CONFIRMED	THE far call: call $06D1 ; dw addr ; db bank. Saves A/HL (FFA9/FFAB), pops the return address to read the 3 inline bytes, remembers the caller bank, switches to `bank` (region by target address), runs the target through the HRAM trampoline (A/HL preserved), switches back and returns to the byte after the inline data with the callee A/HL
+06E5	0716	code	FarCall_Reg	PROBABLE	like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18]
+0716	072E	code	Function_00_0716	PROBABLE	far JUMP (tail call, no return) with inline 16-bit address and bank from hFFF3; no static caller found [candidate; raw refs 6]
+072E	0749	code	FarJump	PROBABLE	far JUMP (tail call, no return): call $072E ; dw addr ; db bank; A/HL passed through. No static caller found [candidate; raw refs 3]
+0749	0787	code	Function_00_0749	CONFIRMED	general-purpose HDMA start (rHDMA5=C-1, bit7=0): A=source bank (region by H), HL=source, DE=dest (E bit0 = VRAM bank via rVBK/FFF4, E&$F0 = low dest byte), C=number of 16-byte blocks, B=LY limit: waits until LY>=$91 and LY<B, else waits for the next VBlank; returns A=bank
+0787	07CB	code	Function_00_0787	CONFIRMED	variant of 0749 that calls the frame service (0392) while waiting
+07CB	07FB	code	Function_00_07CB	PROBABLE	uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; di before the wait, ei + frame service after [reached via inferred links; raw refs 31]
+07FB	082C	code	Function_00_07FB	PROBABLE	uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; di before the wait, ei + frame service after [candidate; raw refs 17]
+082C	085B	code	Function_00_082C	CONFIRMED	uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + frame service after
+085B	0887	code	Function_00_085B	PROBABLE	uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit3; no di, ei + ret (no frame service) [reached via inferred links; raw refs 7]
+0887	08B7	code	Function_00_0887	PROBABLE	uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00 selected by A bit6; no di, ei + frame service after [reached via inferred links; raw refs 1]
+08B7	08CA	code	Function_00_08B7	CONFIRMED	if LCD on: waits until LY < $87 (i.e. rides out VBlank/late lines, ei while waiting) so an HDMA transfer started afterwards fits in VBlank
+08CA	08EA	code	Function_00_08CA	PROBABLE	copy B rows of C bytes from [HL] (bank A) into the WRAM bank 7 buffer at DE (row stride 32), twice: second pass HL+=$400, DE+=$400 [candidate; raw refs 7]
+08EA	0904	code	Function_00_08EA	CONFIRMED	like 08CA but the second pass continues with the same source pointer
+0904	091C	code	Function_00_0904	CONFIRMED	rectangle copy: B rows x C bytes from [HL] to [DE], DE row stride 32 (uses FFB0 as row length)
+091C	093B	code	Function_00_091C	PROBABLE	rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32 (bank A) [reached via inferred links; raw refs 1]
+093B	0956	code	Function_00_093B	PROBABLE	clears the two 1 KiB screen buffers D000-D3FF and D400-D7FF of WRAM bank 7 [candidate; raw refs 6]
+0956	09B6	code	Function_00_0956	CONFIRMED	sprite-object engine pass: sets C2F5=1 (no OAM DMA), clears shadow OAM C000-C09F (0A09), walks the 14 slots at D:DA00 (16 bytes each, WRAM bank 7) writing OAM entries from C004, C2F3=next OAM ptr, C2F5=0
+09B6	09E6	code	Function_00_09B6	CONFIRMED	sprite engine reset: clears C000-C09F, FFF0=FFF1=0 and fills the 14 slots DA00-DADF with $FF
+09E6	0A09	code	Function_00_09E6	PROBABLE	fill 16 bytes at HL (one sprite slot) with $FF in WRAM bank 7 [reached via inferred links; raw refs 50]
+0A09	0A1A	code	Function_00_0A09	CONFIRMED	clears the shadow OAM buffer C000-C09F (160 bytes)
+0A1A	0A2A	code	Function_00_0A1A	PROBABLE	adds FFF1 (lo) / FFF0 (hi) to the 16-bit word at [HL] [candidate; raw refs 28]
+0A2A	0A45	code	Function_00_0A2A	PROBABLE	stores DE at [HL],[HL+1] in WRAM bank 7 (preserves A) [candidate; raw refs 4]
+0A45	0A65	code	Function_00_0A45	PROBABLE	stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs 28]
+0A65	0A82	code	Function_00_0A65	CONFIRMED	stores D,E (big-endian) at [HL],[HL+1] in WRAM bank 7; most referenced helper of the sprite code (520 raw call sites)
+0A82	0AB8	code	Function_00_0A82	CONFIRMED	initialise sprite slot HL: zero 16 bytes, slot+0E=A(bank), then fill the fields from the animation table at DE via 0AB8
+0AB8	0AE8	code	Function_00_0AB8	CONFIRMED	fills slot fields from the 4-byte table entry at DE+4*(A&$7F) (used by 0A82)
+0AE8	0BBD	code	Function_00_0AE8	CONFIRMED	per-slot animation step + OAM writer (layout inferred, HYPOTHESIS): slot [0]=Y [1]=X [2..3]=frame table ptr [4]=frame index ($FF none) [5]=delay [6..7]=script ptr [8]=script index [9..A]=OR/AND attr masks [B..D]=hook (addr16, bank; called via push-return trick to 0B54) [F]=active. Emits (Y,X,tile,attr) tuples at DE (OAM shadow)
+0BBD	0BD4	code	Function_00_0BBD	PROBABLE	HL = BG map offset -> C = (L&31)*8 (x pixel), B = ((HL>>5)&31)*8 (y pixel); verified on interpreter [candidate; raw refs 5]
+0BD4	0BDE	code	Function_00_0BD4	PROBABLE	HL = A*E (calls 0BFC with D=0), preserves AF and DE [candidate; no static referrer]
+0BDE	0BE8	code	Function_00_0BDE	PROBABLE	HL = BC*DE (calls 0BE8), preserves AF, BC, DE [candidate; raw refs 3]
+0BE8	0BFC	code	Multiply16	PROBABLE	HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 5]
+0BFC	0C0E	code	Multiply8x16	PROBABLE	HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 12]
+0C0E	0C18	code	Random16	PROBABLE	HL = (Random, Random) : H=first byte, L=second byte [candidate; raw refs 4]
+0C18	0C34	code	Random	PROBABLE	A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
+0C34	0D34	data	Table_00_0C34	CONFIRMED	256 bytes indexed by hFFFD, xor operand of Random (0C2F)
+0D34	0D4D	code	Function_00_0D34	PROBABLE	push af; ld d,$C2; writes ROM bank $F0 (FF8A/[2100]); ld a,[de] = the WRAM byte at $C200+E (NOT a ROM read: $C2xx is WRAM, so the ROM bank write has no effect on the load; $F0 would wrap to bank $70 on a 128-bank cart); DE = sign-extended byte; restores the ROM bank from the A given at entry. No static caller found
+0D4D	0D67	code	Multiply16x16to32	PROBABLE	BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4]
+0D67	0D92	code	Divide16	PROBABLE	HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12]
+0D92	0DB9	code	Divide32by15	PROBABLE	BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6]
+0DB9	0DCE	code	Function_00_0DB9	CONFIRMED	A=bank, DE=src, HL=dst, C=restore bank: switch ROM bank via FF8A/[2100], copy 12 bytes each written twice, restore bank C
+0DCE	0DE2	code	Function_00_0DCE	PROBABLE	like 0DB9 without duplicating (12 bytes) [candidate; raw refs 8]
+0DE2	0E32	code	Function_00_0DE2	CONFIRMED	A=bank, DE=src (18 bytes), HL=dst1, BC=dst2: two bit-shuffling passes that unpack 4 six-bit values per 3 source bytes (value<<2), pass 1 -> HL, pass 2 -> BC, each output byte written twice; ends by selecting ROM bank $7F. Called only from bank 7F
+0E32	0E7E	code	Function_00_0E32	PROBABLE	same unpacking as 0DE2 but each output byte is written once; ends with ROM bank $7F. Called only from bank 7F [candidate; raw refs 6]
+0E7E	0E93	code	Function_00_0E7E	PROBABLE	A=bank, DE=src, B=count, C=restore bank: copies B bytes into C0A0 (buffer directly after the shadow OAM, also used as glyph buffer by 1044) [candidate; no static referrer]
+0E93	0ED3	code	Function_00_0E93	PROBABLE	alternative STAT interrupt handler (installed into RAM vector CBF4 by 7F:727D): if LY==0: LYC=[D724], SCY=0; else SCY=[C0D3], LYC=0 and, if [D824]!=0, call 0392; saves/restores rSVBK (uses WRAM bank 1) [candidate; raw refs 1]
+0ED3	0EF0	code	Function_00_0ED3	PROBABLE	byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw refs 43]
+0EF0	0F30	words	Table_00_0EF0	CONFIRMED	32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
+0F30	0F68	code	Function_00_0F30	CONFIRMED	character output: C=byte; lead bytes $81-$9F,$E0-$EF,$F8-$F9 take a second byte and draw a double-byte glyph (1044), others a single glyph (10B1); then call 0392, wrap when x(FFBD) exceeds limit FFC4 (newline at 0F69)
+0F68	0F83	code	Function_00_0F68	CONFIRMED	control byte $0D (newline): X(FFBD/E)=FFC1/FFC2; if FFC6==$FF return (end of text, 0F73-0F75); else Y(FFBC)+=FFC6 and continue only while Y<=FFC3 (0F7E cp, jp nc,$0ED8), otherwise return
+0F83	0F9D	code	Function_00_0F83	CONFIRMED	control byte $01: call sub-string: reads addr16 + bank, pushes return pointer and bank, depth++ (FFBF), continues in the new string
+0F9D	0FAC	code	Function_00_0F9D	CONFIRMED	control byte $00/$08/$0A-$0C/$0E-$1B: end of string: at depth 0 return to caller, else pop the saved pointer/bank and continue
+0FAC	0FB3	code	Function_00_0FAC	CONFIRMED	control byte $02: FFBC = next byte
+0FB3	0FBA	code	Function_00_0FB3	CONFIRMED	control byte $03: FFBD = next byte
+0FBA	0FC6	code	Function_00_0FBA	CONFIRMED	control byte $04: FFBC=3, FFBD=0
+0FC6	0FD2	code	Function_00_0FC6	CONFIRMED	control byte $05: FFBC=1, FFBD=0
+0FD2	0FDE	code	Function_00_0FD2	CONFIRMED	control byte $06: FFBC=2, FFBD=0
+0FDE	0FEA	code	Function_00_0FDE	CONFIRMED	control byte $07: FFBC=0, FFBD=2
+0FEA	0FF4	code	Function_00_0FEA	CONFIRMED	control byte $1C: FFBD/FFBE = next word
+0FF4	0FFB	code	Function_00_0FF4	CONFIRMED	control byte $1D: FFBC = next byte
+0FFB	100D	code	Function_00_0FFB	CONFIRMED	control byte $1E: FFBD/FFBE += next word
+100D	1018	code	Function_00_100D	CONFIRMED	control byte $1F: FFBC += next byte
+1018	1028	code	Function_00_1018	CONFIRMED	control byte $09: FFBD/FFBE += $30
+1028	1056	code	Function_00_1028	PROBABLE	draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50]
+1056	1059	data	Data_00_1056	CONFIRMED	inline data of FarCall at 1053: dw $405F ; db $7F -> 7F:405F
+1059	1076	code	Function_00_1059	CONFIRMED	continuation of Function_00_1028
+1076	1079	data	Data_00_1076	CONFIRMED	inline data of FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
+1079	10A0	code	Function_00_1079	CONFIRMED	continuation of Function_00_1028
+10A0	10A3	data	Data_00_10A0	CONFIRMED	inline data of FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
+10A3	10B1	code	Function_00_10A3	CONFIRMED	continuation
+10B1	10C3	code	Function_00_10B1	CONFIRMED	draw single-byte glyph (far calls into bank 7F: 7F:4007, 7F:42C3)
+10C3	10C6	data	Data_00_10C3	CONFIRMED	inline data of FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
+10C6	10D8	code	Function_00_10C6	CONFIRMED	continuation of Function_00_10B1
+10D8	10DB	data	Data_00_10D8	CONFIRMED	inline data of FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
+10DB	10E9	code	Function_00_10DB	CONFIRMED	continuation
+10E9	1119	code	Function_00_10E9	PROBABLE	keyword lookup: BC = table of word pointers to strings (0 terminates); compares [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via inferred links; raw refs 30]
+1119	131A	code	Function_00_1119	PROBABLE	token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>), handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output. HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236]
+131A	1354	code	Function_00_131A	PROBABLE	two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via inferred links; raw refs 43]
+1354	1408	code	Function_00_1354	PROBABLE	keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw refs 23]
+1408	14BF	code	Function_00_1408	PROBABLE	text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13]
+14BF	14C6	code	CopyString	PROBABLE	copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33]
+14C6	14D1	code	CopyStringMax	PROBABLE	copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6]
+14D1	14E0	code	Function_00_14D1	PROBABLE	like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred links; raw refs 4]
+14E0	14EA	code	EncodeXorA5	PROBABLE	copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6]
+14EA	14F3	code	DecodeXorA5	PROBABLE	copy [HL++] XOR $A5 to [DE++] until the decoded byte is $00 (inverse of EncodeXorA5) [reached via inferred links; raw refs 23]
+14F3	1509	code	Function_00_14F3	PROBABLE	string append: finds the first byte equal to A in the string at DE and copies the string at HL there (A=0: strcat) [reached via inferred links; raw refs 19]
+1509	151A	code	CompareString	PROBABLE	strcmp(HL, DE): A = [HL]-[DE] at the first difference (0 only if both strings end together); verified on interpreter [reached via inferred links; raw refs 11]
+151A	1533	code	CompareStringN	PROBABLE	like CompareString but compares at most B bytes (A = [HL]-[DE]); verified on interpreter [candidate; raw refs 2]
+1533	153D	code	StringLength	PROBABLE	BC = length of the $00-terminated string at HL [reached via inferred links; raw refs 5]
+153D	1586	code	Function_00_153D	PROBABLE	A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5), returns HL=$D000, A=5 [reached via inferred links; raw refs 11]
+1586	158A	code	Function_00_1586	PROBABLE	far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred links; raw refs 0]
+158A	158D	data	Data_00_158A	CONFIRMED	inline data of FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
+158D	161A	code	Function_00_158D	PROBABLE	continuation [reached via inferred links; raw refs 11]
+161A	1620	words	Table_00_161A	CONFIRMED	3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
+1620	1686	code	ReadByteFar	PROBABLE	A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92]
+1686	16A2	code	Function_00_1686	PROBABLE	copy E bytes from far HL (bank D, region by H) to [BC++]; restores only the ROM bank [candidate; raw refs 1]
+16A2	16C4	code	Function_00_16A2	PROBABLE	like 08CA but the second source pointer comes from C10E/C10F [reached via inferred links; raw refs 3]
+16C4	16D4	code	Function_00_16C4	PROBABLE	alternative STAT handler (installed by 48:4437 into CBF4): if LY==$80 then SCX=[C0EF] [candidate; raw refs 4]
+16D4	16DC	code	Function_00_16D4	PROBABLE	alternative VBlank handler prologue (installed by 48:4446 into CBF1): SCX=0 then jp $C133 (copy of the original VBlank stub saved by 48:4425) [candidate; no static referrer]
+16DC	1711	code	Function_00_16DC	PROBABLE	alternative STAT handler (installed by 57:4537 into CBF4): raster effect using WY, C0F6, LYC [candidate; raw refs 1]
+1711	172D	code	Function_00_1711	CONFIRMED	wrapper: preserves A, switches ROM bank to $4F, call 4F:47A5, restores
+172D	1770	code	Function_00_172D	PROBABLE	far-to-far copy of BC bytes: source (bank A, HL), destination bank in [C10E], DE; staged through a 16-byte buffer at C10E [candidate; raw refs 7]
+1770	20A0	zero	-	CONFIRMED	padding
+20A0	20A6	code	Function_00_20A0	CONFIRMED	stub: call 20EE (select ROM bank 4 and remember previous) ; jp 04:4000. Called once from Boot with SVBK=1
+20A6	20AC	code	Function_00_20A6	CONFIRMED	stub: call 2129 (re-entrancy guard) ; jp 04:4082. Called from the frame service 0392
+20AC	20B2	code	Function_00_20AC	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
+20B2	20B8	code	Function_00_20B2	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65]
+20B8	20BE	code	Function_00_20B8	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 14]
+20BE	20C4	code	Function_00_20BE	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
+20C4	20CA	code	Function_00_20C4	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
+20CA	20D0	code	Function_00_20CA	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 10]
+20D0	20D6	code	Function_00_20D0	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
+20D6	20DC	code	Function_00_20D6	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
+20DC	20E2	code	Function_00_20DC	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
+20E2	20E8	code	Function_00_20E2	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 1]
+20E8	20EE	code	Function_00_20E8	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
+20EE	2105	code	Function_00_20EE	CONFIRMED	saves ROM bank hi/lo (FF8B->D002, FF8A->D001), selects ROM bank 4 (hi=0, lo=4 via [2000]); 20F8/20FF are the shared restore-bank-4 tail
+2105	210B	code	Function_00_2105	CONFIRMED	ROM bank hi byte: FF8B <- A, [$3000] <- A
+210B	2116	code	Function_00_210B	PROBABLE	restores the ROM bank saved at D001/D002 [reached via inferred links; raw refs 10]
+2116	2129	code	Function_00_2116	CONFIRMED	stub guard used by 20AC..20EB: see stubs. D000 is banked WRAM: the guard state lives in whichever WRAM bank is selected at the call (Boot and 0392 select bank 1 first)
+2129	2141	code	Function_00_2129	CONFIRMED	stub guard used by 20A6: if bank-4 already active (D000.bit7) and not pending, sets D000.bit6 and saves the return address at D003/D004 (deferred call); else returns A=$FF
+2141	215E	code	Function_00_2141	PROBABLE	return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29]
+215E	216F	code	Function_00_215E	PROBABLE	reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit bank number [reached via inferred links; raw refs 7]
+216F	2183	code	Function_00_216F	PROBABLE	like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9]
+2183	4000	zero	-	CONFIRMED	padding up to the end of the bank
