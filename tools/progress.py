@@ -7,6 +7,8 @@ Prints, and writes to docs/PROGRESS.md (deterministic: no dates):
   * bytes per region kind, raw-INCBIN bytes remaining (and how many of them are non-zero)
   * a per-bank table
   * number of named vs generic labels, RAM variables, xrefs, label-resolution statistics
+  * bytes of inline data consumed through call conventions (`config/conventions.tsv`: "data via conventions"); they
+    are part of their code region's bytes (or of the adopted `data` region), not an extra kind
 
 Inputs: baserom.gbc and config/ (regions, symbols, ram, xrefs).  The numbers come
 from the same model the generator uses, so a config that does not generate cleanly
@@ -52,6 +54,16 @@ def collect(model):
                     gap_bytes += r.size
         nonzero = sum(1 for x in rom[b * 0x4000:(b + 1) * 0x4000] if x)
         per_bank[b] = (row, rnz, nonzero)
+    inline_bank = {b: 0 for b in range(model.nbanks)}
+    inline_layout = {}
+    for (b, _ridx), lst in model.insns.items():
+        for _sa, it in lst:
+            if it.flow == 'inline':
+                inline_bank[b] += it.length
+                inline_layout[it.conv.layout] = inline_layout.get(it.conv.layout, 0) + it.length
+    for (b, _a), it in model.inline_adopt.items():
+        inline_bank[b] += it.length
+        inline_layout[it.conv.layout] = inline_layout.get(it.conv.layout, 0) + it.length
     named, generic_named, auto = [], [], {}
     for b in range(model.nbanks):
         for labs in model.labels[b].values():
@@ -68,8 +80,10 @@ def collect(model):
                 consts=len(model.consts), ram=len(model.cfg.ram), xrefs=len(model.cfg.xrefs),
                 regions=sum(1 for b in range(model.nbanks) for r in model.regions[b] if not r.gap),
                 stats=dict(model.stats),
-                insns=sum(len(v) for v in model.insns.values()),
+                insns=sum(1 for v in model.insns.values() for _, i in v if i.flow != 'inline'),
                 illegal=sum(1 for v in model.insns.values() for _, i in v if i.flow == 'bad'),
+                inline_bank=inline_bank, inline_layout=inline_layout, inline_total=sum(inline_bank.values()),
+                conventions=len(model.cfg.conventions),
                 nonzero_total=sum(v[2] for v in per_bank.values()))
 
 
@@ -91,6 +105,9 @@ def render(d, rom_sha, nbanks):
                 d['nonzero_total'] - d['raw_nonzero'], d['nonzero_total'], pct(d['nonzero_total'] - d['raw_nonzero'], d['nonzero_total'])),
             '| regions declared | %d |' % d['regions'],
             '| instructions decoded (code + ramcode) | %d (%d illegal opcodes emitted as `db`) |' % (d['insns'], d['illegal']),
+            '| data via conventions (inline bytes after convention calls; `config/conventions.tsv`, %d convention(s)) | %d bytes%s |' % (
+                d['conventions'], d['inline_total'],
+                ' (%s)' % ', '.join('%s %d' % kv for kv in sorted(d['inline_layout'].items())) if d['inline_layout'] else ''),
             '']
     out += ['## Bytes per kind', '', '| kind | bytes | share |', '|---|---|---|']
     for k in KINDS:
@@ -121,14 +138,21 @@ def render(d, rom_sha, nbanks):
             '| MBC5 register write names substituted | %d |' % st.get('mbc_names', 0),
             '| RAM names substituted | %d |' % st.get('ram_names', 0),
             '| `dw` operands emitted as labels | %d |' % st.get('word_labels', 0),
-            '| xref substitutions | %d |' % (st.get('xref_labels', 0) + st.get('xref_ram', 0)), '']
+            '| xref substitutions | %d |' % (st.get('xref_labels', 0) + st.get('xref_ram', 0)),
+            '| convention call sites (inline data consumed) | %d (%d of them as a `data` region right after the call) |'
+            % (st.get('inline_sites', 0), st.get('inline_adopted', 0)),
+            '| far pointers: target is a ROM location / not a ROM location | %d / %d |'
+            % (st.get('inline_far_targets', 0), st.get('inline_far_targets_unresolved', 0)),
+            '| far pointers emitted as `dw Label` + `db BANK(Label)` (label at exactly the target) | %d |'
+            % st.get('inline_far_labelled', 0), '']
     out += ['## Per bank', '',
-            '| bank | ' + ' | '.join(KINDS) + ' | raw non-zero | classified |',
-            '|---|' + '---|' * (len(KINDS) + 2)]
+            '| bank | ' + ' | '.join(KINDS) + ' | raw non-zero | classified | inline data via conventions |',
+            '|---|' + '---|' * (len(KINDS) + 3)]
     for b in range(nbanks):
         row, rnz, nonzero = d['per_bank'][b]
         size = 0x4000
-        out.append('| %02X | %s | %d | %s |' % (b, ' | '.join(str(row[k]) for k in KINDS), rnz, pct(size - row['raw'], size)))
+        out.append('| %02X | %s | %d | %s | %d |' % (b, ' | '.join(str(row[k]) for k in KINDS), rnz, pct(size - row['raw'], size),
+                                                  d['inline_bank'][b]))
     out.append('')
     return '\n'.join(out)
 
@@ -156,6 +180,8 @@ def main(argv=None):
     for k in KINDS:
         print('  %-9s %8d  %s' % (k, d['per_kind'][k], pct(d['per_kind'][k], total)))
     print('raw INCBIN remaining: %d bytes (%s), of which non-zero: %d' % (raw, pct(raw, total), d['raw_nonzero']))
+    print('data via conventions: %d inline bytes at %d call site(s) %s' % (
+        d['inline_total'], d['stats'].get('inline_sites', 0), d['inline_layout'] or ''))
     print('labels: %d named, %d generic-form in config, %d auto-generated %s; %d const, %d RAM vars, %d xrefs' % (
         d['named'], d['generic_named'], sum(d['auto'].values()), d['auto'] or '', d['consts'], d['ram'], d['xrefs']))
     print('%-4s %s' % ('bank', ' '.join('%8s' % k for k in KINDS) + '  rawNZ  done'))

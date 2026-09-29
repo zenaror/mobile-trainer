@@ -9,6 +9,7 @@ baserom.gbc ──┐
 config/regions/bankNN.tsv ──┤
 config/symbols/bankNN.tsv ──┼─► tools/gen_asm.py ─► src/bankNN.asm, src/ram.inc ─► rgbasm/rgblink ─► ROM == baserom.gbc
 config/ram/*.tsv ───────────┤
+config/conventions.tsv ─────┤
 config/xrefs.tsv ───────────┘        constants/hardware.inc (hardware register names)
 ```
 
@@ -35,7 +36,7 @@ or `-`; otherwise it becomes an exported label at `start` (a *named* label; it b
 
 | kind | emitted as | remarks |
 |---|---|---|
-| `code` | one instruction per line (`tools/sm83.py`); illegal opcodes as `db $xx ; illegal opcode` | an instruction crossing the region end is an **error**; labels and name substitution, see below |
+| `code` | one instruction per line (`tools/sm83.py`); illegal opcodes as `db $xx ; illegal opcode` | an instruction crossing the region end is an **error**; labels and name substitution, see below; the bytes after a call to a convention entry are inline data, see *Inline-data conventions* |
 | `data` | `db` lines, 16 bytes per line | |
 | `words` | `dw` lines, 8 little-endian words per line (`dw $4A21`) | even size; a `dw` value becomes a label only if a *named* label (symbol/region label) exists at that address (same bank or ROM0); the value `$0000` is **never** substituted (null slot, not a pointer to 00:0000) unless an `xref word` row says so |
 | `ptrtable` | `dw`, one word per line | like `words`, documented as a pointer table: also generic labels of code targets (`dw Label_05_4A21`); `$0000` slots stay numeric; a `$4000-$7FFF` value is assumed to mean the table's own bank (heuristic, see Known limitations) |
@@ -118,6 +119,86 @@ elsewhere); a target in the middle of an instruction is an error.  Stale rows (n
 operand kind) are errors.  Far-call analyses should emit rows in this format; feed them with
 `gen_asm.py --xrefs FILE` (repeatable) or merge them into `config/xrefs.tsv`.
 
+## config/conventions.tsv
+
+```
+bank	addr	layout	status	note
+```
+
+Inline-data call conventions: `(bank, addr)` is the **entry address of the callee** that reads bytes stored right
+after the `call`/`jp`/`rst` that reached it.  `layout` says how many bytes and what they are:
+
+| layout | bytes | emitted as |
+|---|---|---|
+| `farptr` | 3: little-endian address word, then a bank byte | `dw <Label or $xxxx>` + `db <BANK(Label) or $bb>` |
+| `inline_dw` | 2 | `dw $xxxx` (a label only through an `xref word` row on the slot, see below) |
+| `inline_db` | 1 | `db $xx` |
+
+Same file rules as the other tables (TAB-separated, `#` comments, optional `bank` header line, hex numbers with
+optional `$`/`0x`, statuses `CONFIRMED|PROBABLE|HYPOTHESIS`; the rest of the line is the note).  Errors: unknown layout,
+bank/address outside the ROM/bank window, bad hex, bad status, two rows for one entry.  The entry is not required to be
+inside a `code` region, but if it is and is not on an instruction boundary there is a warning (error with `--strict`).
+Seed rows (CONFIRMED / documented in `docs/research/boot_and_home.md`):
+
+```
+00	06D1	farptr	CONFIRMED	FarCall: call $06D1 ; dw target ; db bank
+00	06BC	inline_dw	CONFIRMED	call $06BC ; dw target (the bank comes from hFFF3, so no bank byte)
+```
+
+### Inline-data conventions (generator behaviour)
+
+* **What counts as a call.**  An unconditional `call`, `jp` or `rst` inside a `code`/`ramcode` region whose target is
+  the entry.  Conditional forms never consume (the not-taken path would fall into the data).  The target is compared as
+  `(bank, address)` with the usual bank visibility rules: `$0000-$3FFF` is bank 0 from anywhere, `$4000-$7FFF` is the
+  caller's own bank from a ROMX bank, and from ROM0 or RAM code it has no known bank (so a row for `75:4030` is only
+  matched from bank 75, or from ROM0/RAM code through a `branch` xref row that says `75`).
+* **What happens to the bytes.**  The layout's bytes after the call are not decoded; they are emitted on the following
+  lines.  They are never instruction starts: a label there is an error ("inside the inline data of the convention call
+  at ...").  `jp` sites print their blank separator line after the inline bytes.
+* **Where the bytes may live.**  (1) Inside the same `code`/`ramcode` region as the call (the normal case).  (2) Tolerated
+  for `code` only, so already-split proposals keep working: the call is the last instruction of the region and the bytes
+  are a `data` region that starts exactly at the end of the call and has at least the layout's size; the first bytes of
+  that region are then written with the convention (`stats: inline_adopted`); a label at the region start is fine, one
+  inside the inline bytes is not; merging the region into the code region is cleaner.  (3) Everything else is an **error
+  naming the region edge to move**: the bytes cross the region end ("move that region edge to $XXXX"), start in a
+  `code`/`ramcode`/`zero`/`raw`/`words`/... region ("move the end of this code region ... to $XXXX so the inline bytes
+  belong to it"), or would leave the bank.  A cut is never silently accepted.
+* **Far pointers (`farptr`).**  With word `W` and bank byte `B`: `B = 0` designates ROM0 and needs `W < $4000`;
+  otherwise `B` must exist as a ROM bank and `W` lie in its window `$4000-$7FFF` (a `$8000+` word selects a WRAM/SRAM bank,
+  a ROM0 address with `B != 0` is not a ROM location).  If a label exists at **exactly** `(B, W)` the bytes are written as
+  `dw Label` / `db BANK(Label)` and rgbasm/rgblink compute them (the compare proves both bytes); otherwise as `dw $xxxx`
+  / `db $bb`.  A label at the same address in another bank is never used.  Bytes stored in a `ramcode` region are never a
+  target: their labels live at the RAM address and `BANK()` of a label inside a `LOAD` block is the RAM section's bank.
+  A far pointer counts as a `call` xref: a target on an instruction start of a `code` region gets `Function_<bank>_<addr>`
+  (a target in a non-code region gets no generic label, a target inside an instruction is counted as
+  `targets_mid_instruction` and stays numeric).
+* **`inline_dw`.**  Numeric unless an `xref word` row (`bank addr word target_bank target_addr`) names the slot
+  (`addr` = the address of the first inline byte, which is what the row's `bank:addr` means for a words slot).  A
+  `word` xref on a `farptr` slot is an error (far pointers label themselves).
+* **Bank resolution through xrefs.**  A `branch` xref row on a call from ROM0/RAM code into `$4000-$7FFF` decides
+  which `(bank, address)` the call means, also for matching a convention entry.
+* **Tools.**  `tools/conventions_check.py` (below) reports, for a region proposal, sites whose inline bytes are outside
+  the region / in a non-code region and far pointers whose target is not inside a code region;
+  `tools/progress.py` counts the inline bytes as "data via conventions" (they stay part of their code region's bytes);
+  `tools/lib/conv.py` holds the scanner shared by all three.
+
+### tools/conventions_check.py
+
+```
+tools/conventions_check.py [--regions DIR] [--conventions FILE] [--xrefs FILE ...] [--rom FILE] [--max N] [--strict]
+make conventions-check
+```
+
+`--regions` is any directory of `bankNN.tsv` tables (default `config/regions`, so a proposal directory of another
+agent works).  Every `code`/`ramcode` region is swept with the generator's own scanner; the report has (1) the
+convention call sites with `ok` / `adopted` (tolerated data region right after the call) / `ERROR` (the generator would
+refuse: bytes cross the region end or lie in a non-code region or outside the bank; the line names the region edge to
+move), (2) far pointers whose `(bank, address)` is not on an instruction start of a `code` region, grouped by target
+with the kind of region that holds it (`unclassified (raw gap ...)` = classify it as code, `data region` = the pointer
+targets data or the region proposal is wrong, `inside an instruction`, `not a ROM location`), (3) a byte-pattern census
+of `CD/C3 <entry>` anywhere in the ROM by region kind (sites in raw regions are what a future classification has to
+respect).  Exit status 1 with `--strict` only when section 1 has an ERROR.
+
 ## Labels and names
 
 * `call/callcc/rst` targets -> `Function_<bank>_<addr>`; targets only reached by `jp/jr` -> `Label_<bank>_<addr>`;
@@ -159,9 +240,9 @@ operand kind) are errors.  Far-call analyses should emit rows in this format; fe
 * Hard errors (all reported with `file:line`): unknown kind/status/type, bad hex, region outside the bank
   window or overlapping, odd `words`/`ptrtable` size, `zero` with non-zero bytes, `code` instruction crossing the
   region end, `ramcode` without `runaddr`/outside RAM/partial overlay overlap, label not on an instruction/word
-  boundary, duplicate or colliding names (also with hardware/RAM/const names), generic-looking name at the wrong
+  boundary, inline data of a convention call that crosses/leaves its code region or holds a label, duplicate or colliding names (also with hardware/RAM/const names), generic-looking name at the wrong
   address, xref stale/mismatching/unlabelable, ROM size not a multiple of 16 KiB.  `--strict` also turns
-  warnings (missing status, config files not named bankNN.tsv, hardware-name shadowing) into errors.
+  warnings (missing status, config files not named bankNN.tsv, hardware-name shadowing, a convention entry inside an instruction) into errors.
 * Output is deterministic (no dates, sorted, files whose content is unchanged are not rewritten).
 
 ## Commands
@@ -170,13 +251,15 @@ operand kind) are errors.  Far-call analyses should emit rows in this format; fe
 make                 regenerate src/ if config/ or the tools changed, assemble, link, compare -> "RESULT: IDENTICAL"
 make regen           python3 tools/gen_asm.py regen        (checked; writes src/ only if everything passes)
 make verify          python3 tools/gen_asm.py verify       (temp build + compare, src/ untouched)
-make test            tools/selftest_gen.py + tools/test_sm83.py
+make test            tools/selftest_gen.py + tools/test_sm83.py + tools/test_cfg.py
+make conventions-check   python3 tools/conventions_check.py   (far pointers / inline sites vs config/regions)
 make progress        python3 tools/progress.py             (writes docs/PROGRESS.md)
 
 tools/gen_asm.py [regen|verify|check] [--config DIR] [--out DIR] [--rom FILE] [--fast] [--strict]
                  [--xrefs FILE ...] [--keep DIR] [-q]
 tools/compare_rom.py REFERENCE BUILT [--max-runs N] [--config DIR]
 tools/progress.py [--config DIR] [--rom FILE] [--out FILE | --no-write]
+tools/conventions_check.py [--regions DIR] [--conventions FILE] [--xrefs FILE ...] [--rom FILE] [--max N] [--strict]
 tools/selftest_gen.py [-k NAME] [--no-sweep] [--keep]
 ```
 
@@ -206,10 +289,31 @@ xrefs) and proves the rebuild is byte-identical; `sweep_kinds` does the same wit
 name substitution and MBC/hardware names; `failures` (49 cases) checks every hard error; `safety` proves nothing is
 written when the structural or assembler check fails; plus `determinism`, `compare_rom`, `progress`.
 
+Inline-data conventions: `conv_kinds` (synthetic 4-bank ROM: `farptr`/`inline_dw`/`inline_db`, `call` and `jp`, ROM0 vs ROMX
+entries and bank resolution by `branch` xref, a caller in `ramcode`, labels found / missing / at another bank / numeric
+for bank byte 0 with `$4000+`, nonexistent bank, WRAM word, mid-instruction target, ramcode-stored target, conditional call
+that must not consume; the linker resolves every `BANK()`), `conv_boundaries` (26 cases: exact fit, crossing by 1/2 bytes,
+adopted data region, code/zero/raw/words after the call, bank end, labels inside inline data, ramcode, `rst` entry),
+`conv_config` (15 cases: `conventions.tsv` errors, `--strict`, CLI, `conventions_check.py`), `sweep_conv` (the real ROM with
+every non-zero range as code and the real `config/conventions.tsv`; a second implementation of the site rule (it does not
+use `lib/conv.py`, but shares `sm83.decode` and the same linear sweep) finds 5274 sites = 5273 `farptr` + 1 `inline_dw`;
+the generator must consume exactly those, rebuild identically and pair every `dw X` with `db BANK(X)`.  Note: the raw
+census has 5274 `CD D1 06` patterns, so 5273 (not 5274) are `farptr` sites in this sweep: the pattern at 68:784E is
+not an instruction start in the linear sweep, and the total 5274 is a coincidence of 5273 + 1; whether 68:784E is a real
+call is unknown (HYPOTHESIS: data or an operand)) and `sweep_conv_cuts`
+(real sites: a region edge through the inline bytes is refused with the edge to move, a wrong next region is refused, an
+adopted `data` region rebuilds identically).
+
 ## Known limitations
 
 * `code` regions are a linear sweep: bytes that are really data inside a `code` region are still emitted
-  byte-exactly, just as (possibly nonsensical) instructions; split the region when the evidence says so.
+  byte-exactly, just as (possibly nonsensical) instructions; split the region when the evidence says so.  The one
+  exception is the inline data of the call conventions in `config/conventions.tsv` (only those rows are known; other
+  inline-data callees keep showing their data as instructions until a row is added).
+* A convention says what the *callee* reads; it cannot tell whether a particular `call` byte pattern in a `code` region is
+  a real call (the linear sweep is as reliable as the region classification).  The `jp` and `rst` forms are accepted
+  because the callee reads the bytes that follow the transfer instruction; a row for an entry that is only ever reached
+  by a tail `jp` whose following bytes are ordinary code would mis-render them.
 * `rst` operands are named only through the vector label; `jp hl`/computed jumps are opaque.
 * Mid-instruction jump targets (jumping into an operand byte) stay numeric.
 * A symbol/label in the middle of an instruction is rejected instead of being emitted as an alias.
@@ -236,3 +340,19 @@ xref words) all ended in an identical ROM or a loud error.  Corrections made:
   as names at load time (previously they failed late, inside rgbasm, with a syntax error).
 * Timing claims (4.3 s for a full regen) hold only for a config that leaves the zero padding alone; a config that decodes
   every byte of the 2 MiB ROM (zero bytes as `nop`) takes about 11 s on the same machine, generation alone.
+* `--strict` did not reach the warnings raised while the model is built (RAM-name shadowing of a hardware register); `Model` now
+  gets the flag, so those warnings and the convention-entry warning are errors under `--strict` (`selftest_gen.py`, `conv_config`).
+* Retracted (conventions review): "the 5274 sites match the recon count of 5274 `CD D1 06` patterns".  The sweep has 5273
+  `farptr` + 1 `inline_dw` = 5274 sites; the census has 5274 `CD D1 06` (+1 `CD BC 06`) patterns, one of which (68:784E) is
+  not an instruction start in the sweep.  The equal totals are a coincidence.  The site "oracle" of `sweep_conv` is a
+  second implementation of the rule, not an independent decoder.
+* Downgraded (conventions review): `jp`/`rst` consumption of inline bytes is a generator choice, HYPOTHESIS for `farptr`
+  (FarCall reads its bytes through the return address popped from the stack, which only a `call` pushes); the ROM has 0
+  `jp $06D1` / `jp $06BC` patterns, so it has never been exercised on real data (only on synthetic tests).  Bytes stay
+  exact either way (they are re-emitted as `dw`/`db`), only the rendering could mislead.
+* Verified (conventions review): `make verify` IDENTICAL, `selftest_gen.py` all pass; duplicate rows, unknown layout/status,
+  entry outside the bank window, an adopted `data` region cut to 2 bytes, a label inside the inline bytes, and a merged
+  code region all fail loudly on a copy of the real config (exit 1, message names the edge); the real ROM has no far
+  pointer whose bank byte disagrees with its `dw` window (2239 bank byte 0 with `dw < $4000`, 3035 in-window), so those
+  cases are covered by synthetic tests only; a mutated `far_loc` that pairs a ROM0 label with a non-zero bank byte makes
+  `conv_kinds` fail at assembly/compare.

@@ -1,0 +1,6 @@
+# Inline-data call conventions (format: docs/FORMATS.md, section "Inline-data conventions").
+# bank	addr	layout	status	note
+#   (bank, addr) = ENTRY address of the callee that reads the bytes stored right after the call/jp that reached it;
+#   layout: farptr = dw target ; db bank | inline_dw = dw value | inline_db = db value
+00	06D1	farptr	CONFIRMED	FarCall: `call $06D1 ; dw target ; db bank` (docs/research/boot_and_home.md, 00:06D1-06E4 pops the return address and reads 3 inline bytes; 2189 of the 5274 raw sites were seen executing in mGBA with inline target = the bytes)
+00	06BC	inline_dw	CONFIRMED	Function_00_06BC: `call $06BC ; dw target`, the bank comes from hFFF3 (not from the inline bytes), so no bank byte and the word is kept numeric (docs/research/boot_and_home.md, 00:06BC-06D0; one caller, 4F:4008)
