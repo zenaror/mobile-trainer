@@ -4,7 +4,8 @@
 #   make regen      regenerate src/*.asm + src/ram.inc from baserom.gbc + config/ (checked: nothing is written unless
 #                   the generated sources assemble to the reference ROM byte for byte)
 #   make verify     generate into a temp dir, assemble+link, compare with baserom.gbc; never touches src/
-#   make test       SM83 decoder round trip + generator self test
+#   make test       SM83 decoder round trip + control-flow explorer tests + generator self test (incl. inline-data conventions)
+#   make conventions-check   far pointers / inline-data call sites vs the region proposal in config/regions
 #   make progress   bytes per kind / raw remaining / named symbols; rewrites docs/PROGRESS.md
 ROM      := build/mobile_trainer.gbc
 BASEROM  := baserom.gbc
@@ -12,16 +13,16 @@ REFROM   := Mobile Trainer (Japan).gbc
 NBANKS   := 128
 SRCS     := $(shell for i in $$(seq 0 $$(( $(NBANKS) - 1 ))); do printf 'src/bank%02x.asm ' $$i; done)
 OBJS     := $(patsubst src/%.asm,build/%.o,$(SRCS))
-CONFIG   := $(wildcard config/regions/*.tsv config/symbols/*.tsv config/ram/*.tsv config/xrefs.tsv)
+CONFIG   := $(wildcard config/regions/*.tsv config/symbols/*.tsv config/ram/*.tsv config/xrefs.tsv config/conventions.tsv)
 # build/.config.list changes when a config file is added or removed (deletions are invisible to timestamps)
 CONFLIST := build/.config.list
 $(shell mkdir -p build; echo '$(CONFIG)' | cmp -s - $(CONFLIST) 2>/dev/null || echo '$(CONFIG)' > $(CONFLIST))
-GENDEPS  := tools/gen_asm.py tools/sm83.py tools/lib/mtcfg.py constants/hardware.inc $(CONFLIST) $(CONFIG)
+GENDEPS  := tools/gen_asm.py tools/sm83.py tools/lib/mtcfg.py tools/lib/conv.py constants/hardware.inc $(CONFLIST) $(CONFIG)
 
 RGBASM   ?= rgbasm
 RGBLINK  ?= rgblink
 
-.PHONY: all compare clean regen verify baserom check-tools test selftest progress
+.PHONY: all compare clean regen verify baserom check-tools test selftest progress conventions-check
 all: $(ROM) compare
 
 # baserom.gbc is a byte-identical copy of the original ROM (never modified, git-ignored).
@@ -63,6 +64,11 @@ verify: $(BASEROM)
 
 test: selftest
 	python3 tools/test_sm83.py
+	python3 tools/test_cfg.py
+
+# conventions-check: far pointers / inline-data call sites vs a region proposal (default config/regions)
+conventions-check: $(BASEROM)
+	python3 tools/conventions_check.py
 
 selftest:
 	python3 tools/selftest_gen.py

@@ -16,6 +16,14 @@ Tests
   determinism     two runs give identical output
   compare_rom     differences are mapped to regions
   progress        tools/progress.py output sanity
+  conv_kinds      inline-data conventions (config/conventions.tsv): farptr/inline_dw/inline_db, call + jp, labels and
+                  BANK(), mismatched bank bytes, missing labels, ramcode callers, bank resolution of ROMX entries,
+                  xref word on an inline_dw slot, conditional calls that must not consume
+  conv_boundaries the inline bytes at region edges: exact fit, crossing (error naming the edge to move), adopted `data`
+                  region right after the call, code/zero/raw next region, bank end, labels inside inline data, ramcode
+  conv_config     conventions.tsv parse errors and warnings, conventions_check.py on a proposal directory
+  sweep_conv      whole real ROM, every non-zero range as code, with the real seeded config/conventions.tsv
+  sweep_conv_cuts real inline sites with a region edge cut through / right after the inline bytes
 """
 import contextlib
 import io
@@ -83,6 +91,9 @@ class Env:
 
     def xrefs(self, rows):
         self.write('xrefs.tsv', ''.join('\t'.join(str(x) for x in r) + '\n' for r in rows))
+
+    def conventions(self, rows):
+        self.write('conventions.tsv', ''.join('\t'.join(str(x) for x in r) + '\n' for r in rows))
 
     def model(self, strict=False):
         model, diag = gen_asm.load_model(self.rom_path, self.cfg, None, strict)
@@ -758,9 +769,541 @@ def test_progress(tmp):
     return 'progress report generated'
 
 
-TESTS = [('kinds', test_kinds), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
+# ------------------------------------------------------- inline-data conventions
+
+CONV_ROWS = [('00', '0200', 'farptr', 'CONFIRMED', 'selftest far call'),
+             ('00', '0210', 'inline_dw', 'PROBABLE', 'selftest inline word'),
+             ('00', '0220', 'inline_db', 'HYPOTHESIS', 'selftest inline byte'),
+             ('01', '4200', 'farptr', 'PROBABLE', 'selftest far call entry in a ROMX bank')]
+
+
+def conv_rom():
+    """Synthetic 4-bank ROM for test_conv_kinds.  Returns (rom, sites) with sites = {name: address of the call}."""
+    b0, b1, b2, b3 = (bytearray(0x4000) for _ in range(4))
+    b0[0x200] = b0[0x210] = b0[0x220] = b0[0x400] = 0xC9
+    main = [
+        ('A', 'cd0002 404001'),     # (1,4040): a generic Function_ label is created by the far pointer itself
+        ('B', 'cd0002 000400'),     # (0,0400): ROM0 target, bank byte 0
+        ('C', 'cd0002 484002'),     # (2,4048): valid ROM location but nothing labelled there
+        ('C2', 'cd0002 404002'),    # (2,4040): named in bank 2; must not pick up the label of (1,4040)
+        ('D', 'cd0002 404000'),     # bank byte 0 with an address >= $4000
+        ('E', 'cd0002 00c001'),     # $C000: selects WRAM bank 1, not a ROM location
+        ('F', 'cd0002 404009'),     # bank 9 does not exist in a 4 bank ROM
+        ('G', 'cd0002 000401'),     # ROM0 address with a non-zero bank byte
+        ('H1', 'cd1002 2301'),      # inline_dw, numeric
+        ('H2', 'cd1002 4040'),      # inline_dw with an `xref word` row -> label of (1,4040)
+        ('I', 'cd2002 5a'),         # inline_db
+        ('J', 'c32002 7f'),         # jp consumes too
+        ('K', 'cc0002 000000'),     # conditional call: never consumes, the 3 bytes after it are code (nops)
+        ('M', 'cd0002 214001'),     # (1,4021): inside `ld hl, $C000`
+        ('N', 'cd0002 004001'),     # (1,4000): start of a code region
+        ('P1', 'cd0002 604001'),    # (1,4060): named data
+        ('P2', 'cd0002 704001'),    # (1,4070): unnamed data -> numeric
+        ('Q', 'cd0002 804001'),     # (1,4080): bytes stored in a ramcode region -> numeric
+        ('P3', 'cd0002 604002'),    # (2,4060): the label lives in bank 1 only -> numeric
+        ('X', 'cd0042 404001'),     # $4200 from ROM0: consumed only through the `branch` xref (bank 1)
+        ('Y', 'cd0042 000000'),     # $4200 from ROM0 without an xref: no known bank, not a convention call
+        ('Z', 'c9'),
+    ]
+    sites, pos = {}, 0x300
+    for name, hx in main:
+        raw = bytes.fromhex(hx.replace(' ', ''))
+        sites[name] = pos
+        b0[pos:pos + len(raw)] = raw
+        pos += len(raw)
+    sites['main_end'] = pos
+    b1[0x20:0x23] = bytes.fromhex('2100c0')
+    b1[0x00] = b1[0x40] = 0xC9
+    b1[0x60:0x70] = bytes(range(0x10))
+    b1[0x70:0x80] = bytes(range(0x20, 0x30))
+    b1[0x80:0x84] = bytes.fromhex('000000c9')
+    b1[0x100:0x100 + 6 + 6 + 7 + 1] = bytes.fromhex('cd0042404001' 'cd0002404001' 'c30002604001' 'c9')
+    sites['S1'], sites['S2'], sites['S3'] = 0x4100, 0x4106, 0x410C
+    b1[0x200] = 0xC9
+    b2[0x00:0x07] = bytes.fromhex('cd0042000000c9')           # bank 2 calls its own $4200: (2,4200) is no convention
+    b3[0x00:0x07] = bytes.fromhex('cd0002404001c9')           # ramcode calling the ROM0 entry
+    b3[0x10:0x17] = bytes.fromhex('cd0042000000c9')           # ramcode calling $4200: no bank -> not consumed
+    return rom_of(4, {0: b0, 1: b1, 2: b2, 3: b3}), sites
+
+
+def conv_env(tmp, name, rom, rows=CONV_ROWS):
+    env = Env(tmp, name, rom)
+    env.conventions(rows)
+    return env
+
+
+def test_conv_kinds(tmp):
+    rom, S = conv_rom()
+    env = conv_env(tmp, 'conv_kinds', rom)
+    env.regions(0, [('0200', '0230', 'code', '', 'CONFIRMED', 'entries'),
+                    ('0300', '%04X' % S['main_end'], 'code', '', 'PROBABLE', 'call sites'),
+                    ('0400', '0401', 'code', '', 'CONFIRMED', 'ret')])
+    env.regions(1, [('4000', '4060', 'code', '', 'CONFIRMED', ''), ('4060', '4070', 'data', '', 'PROBABLE', ''),
+                    ('4070', '4080', 'data', '', 'PROBABLE', ''),
+                    ('4080', '4084', 'ramcode', '', 'CONFIRMED', 'runaddr=$CC00 stored bytes'),
+                    ('4100', '4114', 'code', '', 'CONFIRMED', 'ROMX call sites'), ('4200', '4201', 'code', '', 'CONFIRMED', '')])
+    env.regions(2, [('4000', '4007', 'code', '', 'CONFIRMED', 'call $4200 in bank 2')])
+    env.regions(3, [('4000', '4007', 'ramcode', '', 'CONFIRMED', 'runaddr=$CD00 RAM code calls the ROM0 entry'),
+                    ('4010', '4017', 'ramcode', '', 'CONFIRMED', 'runaddr=$CD80 RAM code calls $4200')])
+    env.symbols(0, [('0200', 'FarEntry', 'function', 'CONFIRMED', ''), ('0210', 'DwEntry', 'function', 'PROBABLE', ''),
+                    ('0220', 'DbEntry', 'function', 'HYPOTHESIS', ''), ('0400', 'Rom0Target', 'function', 'PROBABLE', '')])
+    env.symbols(1, [('4060', 'DataThing', 'data', 'PROBABLE', ''), ('4200', 'RomxFarEntry', 'function', 'PROBABLE', '')])
+    env.symbols(2, [('4040', 'Bank2Sym', 'label', 'HYPOTHESIS', 'label inside a raw gap')])
+    env.xrefs([('00', '%04X' % S['X'], 'branch', '01', '4200', 'PROBABLE', 'bank 1 entry'),
+               ('00', '%04X' % (S['H2'] + 3), 'word', '01', '4040', 'PROBABLE', 'inline word means 01:4040')])
+    model = env.model()
+    files, built, sym = env.build_all(model)
+    check(built == rom, 'conventions rebuild differs from the ROM (%d differing bytes)' % sum(1 for x, y in zip(built, rom) if x != y))
+    b0, b1, b2, b3 = (files['bank%02x.asm' % i] for i in range(4))
+
+    def has(text, needle, what):
+        check(needle in text, 'missing %r (%s)' % (needle, what))
+
+    def at(text, needle, what):
+        has(text, needle, what)
+        return text.index(needle)
+
+    has(b0, 'call FarEntry\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', 'A: label at (bank byte, address)')
+    has(b0, 'call FarEntry\n\tdw Rom0Target\n\tdb BANK(Rom0Target)\n', 'B: ROM0 target (bank byte 0)')
+    has(b0, 'call FarEntry\n\tdw $4048\n\tdb $02\n', 'C: no label at (2,4048)')
+    has(b0, 'call FarEntry\n\tdw Bank2Sym\n\tdb BANK(Bank2Sym)\n', 'C2: (2,4040) has its own label, not the one of (1,4040)')
+    has(b0, 'call FarEntry\n\tdw $4040\n\tdb $00\n', 'D: bank byte 0 with an address >= $4000 stays numeric')
+    has(b0, 'call FarEntry\n\tdw $C000\n\tdb $01\n', 'E: WRAM address stays numeric')
+    has(b0, 'call FarEntry\n\tdw $4040\n\tdb $09\n', 'F: nonexistent bank stays numeric')
+    has(b0, 'call FarEntry\n\tdw $0400\n\tdb $01\n', 'G: ROM0 address with bank byte 1: a label at (0,0400) must not be used')
+    has(b0, 'call DwEntry\n\tdw $0123\n', 'H1: inline_dw numeric')
+    has(b0, 'call DwEntry\n\tdw Function_01_4040\n', 'H2: inline_dw with xref word')
+    has(b0, 'call DbEntry\n\tdb $5A\n', 'I: inline_db')
+    has(b0, 'jp DbEntry\n\tdb $7F\n\n', 'J: jp consumes; the blank line after a jp comes after its inline byte')
+    has(b0, 'call z, FarEntry\n\tnop\n\tnop\n\tnop\n', 'K: conditional call does not consume')
+    has(b0, 'call FarEntry\n\tdw $4021\n\tdb $01\n', 'M: target inside an instruction stays numeric')
+    has(b0, 'call FarEntry\n\tdw Function_01_4000\n\tdb BANK(Function_01_4000)\n', 'N: code region start')
+    has(b0, 'call FarEntry\n\tdw DataThing\n\tdb BANK(DataThing)\n', 'P1: named data target')
+    has(b0, 'call FarEntry\n\tdw $4070\n\tdb $01\n', 'P2: unnamed data target: the far pointer creates no data label')
+    has(b0, 'call FarEntry\n\tdw $4080\n\tdb $01\n', 'Q: ramcode-stored bytes are never a label target')
+    has(b0, 'call FarEntry\n\tdw $4060\n\tdb $02\n', 'P3: label of another bank is not used')
+    has(b0, 'call RomxFarEntry\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', 'X: branch xref gives the bank of $4200')
+    has(b0, 'call $4200\n\tnop\n\tnop\n\tnop\n', 'Y: ROM0 call of $4200 without xref is not a convention call')
+    check(b0.count('BANK(') == 6, 'bank 0: expected 6 BANK() uses, got %d' % b0.count('BANK('))
+    has(b1, 'call RomxFarEntry\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', 'S1: ROMX call of its own bank entry')
+    has(b1, 'call FarEntry\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', 'S2: ROMX -> ROM0 entry')
+    has(b1, 'jp FarEntry\n\tdw DataThing\n\tdb BANK(DataThing)\n', 'S3: jp far')
+    has(b1, 'Function_01_4040:: ; 01:4040', 'far pointer target became a generic Function_ label (call xref)')
+    has(b1, 'Function_01_4000:: ; 01:4000', 'N label')
+    has(b2, 'call $4200\n\tnop\n', 'bank 2: (2,4200) is not the convention entry (01,4200)')
+    check('dw ' not in b2.split('SECTION')[1].split('INCBIN')[0], 'bank 2 code must not contain dw lines')
+    has(b3, 'call FarEntry\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', 'ramcode calling the ROM0 entry consumes')
+    has(b3, 'call $4200\n\tnop\n', 'ramcode -> $4200: no bank, not consumed')
+    # numbers: 19 farptr + 2 inline_dw + 2 inline_db sites
+    st = model.stats
+    check((st['inline_farptr'], st['inline_inline_dw'], st['inline_inline_db']) == (19, 2, 2), 'site counts %r' % dict(st))
+    check(st['inline_bytes'] == 19 * 3 + 2 * 2 + 2, 'inline_bytes %d' % st['inline_bytes'])
+    check(st['inline_far_labelled'] == 10, 'labelled far pointers %d' % st['inline_far_labelled'])
+    check(st['inline_far_targets'] == 14 and st['inline_far_targets_unresolved'] == 5, 'far target stats %r' % dict(st))
+    check(st['targets_mid_instruction'] >= 1, 'mid-instruction far target not counted')
+    # the linker resolved BANK(): label -> (bank, address) as expected
+    addrs = {}
+    for m in re.finditer(r'^([0-9a-f]{2}):([0-9a-f]{4}) (\S+)$', sym, re.M):
+        addrs[m.group(3)] = (int(m.group(1), 16), int(m.group(2), 16))
+    check(addrs.get('Function_01_4040') == (1, 0x4040) and addrs.get('Bank2Sym') == (2, 0x4040) and addrs.get('Rom0Target') == (0, 0x400),
+          'symbol banks %r' % {k: addrs.get(k) for k in ('Function_01_4040', 'Bank2Sym', 'Rom0Target')})
+    # far pointer bytes in the rebuilt ROM equal the original: bank byte of the (2,4040) pointer is 02, of ROM0 is 00
+    o = S['C2'] + 3
+    check(built[o:o + 3] == bytes([0x40, 0x40, 0x02]) and built[S['B'] + 3:S['B'] + 6] == bytes([0, 4, 0]), 'far bytes')
+    # progress statistics come from the same model
+    import progress
+    d = progress.collect(model)
+    check(d['inline_total'] == st['inline_bytes'] and d['inline_layout']['farptr'] == 19 * 3, 'progress inline totals')
+    return '23 inline sites (call/jp, ramcode, ROMX entry via xref), %d far labels, all BANK() resolved, rebuilt identically' % st['inline_far_labelled']
+
+
+def conv_mini(tmp, name, code, regions, symbols=(), bank=1, rows=CONV_ROWS, xrefs=()):
+    """ROM with the convention entries in bank 0 (`ret` at 0200/0210/0220) and `code` at the start of `bank`."""
+    b0 = bytearray(0x4000)
+    b0[0x200] = b0[0x210] = b0[0x220] = 0xC9
+    bx = bytearray(0x4000)
+    raw = bytes.fromhex(code.replace(' ', ''))
+    bx[:len(raw)] = raw
+    rom = rom_of(4, {0: b0, bank: bx} if bank else {0: bytes(b0)})
+    env = conv_env(tmp, name, rom, rows)
+    env.symbols(0, [('0200', 'FarEntry', 'function', 'CONFIRMED', ''), ('0210', 'DwEntry', 'function', 'PROBABLE', ''),
+                    ('0220', 'DbEntry', 'function', 'HYPOTHESIS', '')])
+    env.regions(bank, regions)
+    if symbols:
+        env.symbols(bank, symbols)
+    if xrefs:
+        env.xrefs(xrefs)
+    return env
+
+
+def test_conv_boundaries(tmp):
+    n = 0
+    R = lambda a, b, k, note='', label='': ('%04X' % a, '%04X' % b, k, label, 'CONFIRMED', note)
+    far = 'cd0002 010203 c9'      # 4000: call FarEntry ; dw $0201 ; db $03 ; ret
+    # exact fit: the inline bytes end exactly at the region end
+    env = conv_mini(tmp, 'b_fit', far, [R(0x4000, 0x4006, 'code'), R(0x4006, 0x4007, 'code')])
+    files, built, _ = env.build_all()
+    check(built == env.rom and 'call FarEntry\n\tdw $0201\n\tdb $03\n' in files['bank01.asm'], 'exact fit')
+    n += 1
+
+    def err(name, code, regions, needle, what, **kw):
+        nonlocal n
+        env = conv_mini(tmp, name, code, regions, **kw)
+        expect_error(env, needle, what)
+        n += 1
+
+    err('b_cross1', far, [R(0x4000, 0x4005, 'code')], 'move that region edge to $4006', 'inline crosses the region end by 1')
+    err('b_cross2', far, [R(0x4000, 0x4004, 'code')], 'cross the end of the code region 4000-4004', 'inline crosses the region end by 2')
+    err('b_cross_call', far, [R(0x4000, 0x4003, 'code')], 'start at the next region 4003-8000 (kind raw', 'call ends the region, bytes in a raw gap')
+    err('b_next_code', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4007, 'code')], '(kind code',
+        'inline bytes in a following code region would be decoded as code')
+    err('b_next_zero', 'cd0002 000000 c9', [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4006, 'zero'), R(0x4006, 0x4007, 'code')],
+        '(kind zero', 'inline bytes in a zero region')
+    err('b_adopt_small', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4005, 'data'), R(0x4005, 0x4007, 'code')],
+        'start at the next region 4003-4005 (kind data', 'adopted data region too small')
+    err('b_next_words', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4007, 'words')], '(kind words', 'only `data` regions are adopted')
+    err('b_label_mid', far, [R(0x4000, 0x4007, 'code')], 'inside the inline data of the convention call at 01:4000',
+        'label in the middle of inline data', symbols=[('4004', 'MidInline', 'label', 'HYPOTHESIS', '')])
+    err('b_label_first', far, [R(0x4000, 0x4007, 'code')], 'inside the inline data of the convention call',
+        'label on the first inline byte', symbols=[('4003', 'FirstInline', 'label', 'HYPOTHESIS', '')])
+    err('b_ram_cross', far, [R(0x4000, 0x4005, 'ramcode', 'runaddr=$CC00')], 'cross the end of the ramcode region', 'ramcode crossing')
+    err('b_ram_next', far, [R(0x4000, 0x4003, 'ramcode', 'runaddr=$CC00'), R(0x4003, 0x4006, 'data')],
+        'ramcode never adopts', 'ramcode does not adopt a following data region')
+    err('b_dw_cross', 'cd1002 aabb c9', [R(0x4000, 0x4004, 'code')], 'move that region edge to $4005', 'inline_dw crossing')
+    err('b_db_cross', 'cd2002 00 c9', [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4004, 'zero')], '(kind zero', 'inline_db into a zero region')
+    # xref word on the pointer of a farptr slot
+    err('b_xref_far', far, [R(0x4000, 0x4007, 'code')], 'farptr convention slot', 'xref word on a farptr slot',
+        xrefs=[('01', '4003', 'word', '00', '0201', 'CONFIRMED', '')])
+    err('b_xref_dw_value', 'cd1002 0402 c9', [R(0x4000, 0x4006, 'code')], 'a name must not change bytes', 'xref word with a wrong value',
+        xrefs=[('01', '4003', 'word', '00', '0400', 'CONFIRMED', '')])
+    # adopted data region: identical build, text, alias label at its start, label inside is refused
+    env = conv_mini(tmp, 'b_adopt', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4006, 'data', 'inline', 'InlBytes'), R(0x4006, 0x4007, 'code')],
+                    symbols=[('4003', 'InlAlias', 'label', 'HYPOTHESIS', '')])
+    files, built, _ = env.build_all()
+    t = files['bank01.asm']
+    check(built == env.rom and 'InlBytes::' in t and 'InlAlias::' in t and 'InlAlias:: ; 01:4003\nInlBytes::\n\tdw $0201\n\tdb $03\n' in t,
+          'adopted region text:\n' + t[-600:])
+    n += 1
+    env = conv_mini(tmp, 'b_adopt_big', far + '0102030405060708090a0b0c', [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4010, 'data')])
+    files, built, _ = env.build_all()
+    check(built == env.rom and '\tdw $0201\n\tdb $03\n\tdb $C9, $01, $02' in files['bank01.asm'], 'adopted bigger data region:\n' + files['bank01.asm'][-400:])
+    n += 1
+    env = conv_mini(tmp, 'b_adopt_lab', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4007, 'data')], symbols=[('4004', 'InsideAdopted', 'label', 'HYPOTHESIS', '')])
+    expect_error(env, 'inside the inline data', 'label inside an adopted data region')
+    n += 1
+    for lay, code, inl in (('inline_dw', 'cd1002 aabb', 2), ('inline_db', 'cd2002 aa', 1)):
+        env = conv_mini(tmp, 'b_adopt_' + lay, code, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4003 + inl, 'data')])
+        files, built, _ = env.build_all()
+        check(built == env.rom and ('\tdw $BBAA\n' if inl == 2 else '\tdb $AA\n') in files['bank01.asm'], 'adopted ' + lay)
+        n += 1
+    # bank end: call at 7FFA (fits), at 7FFC (crosses), at 7FFD (bank ends right after the call)
+    for name, off, needle in (('b_end_fit', 0x3FFA, None), ('b_end_cross', 0x3FFC, 'cross the end'), ('b_end_call', 0x3FFD, 'beyond the end of bank 03')):
+        b0 = bytearray(0x4000)
+        b0[0x200] = 0xC9
+        b3 = bytearray(0x4000)
+        b3[off:off + 3] = bytes.fromhex('cd0002')
+        b3[off + 3:min(off + 6, 0x4000)] = bytes.fromhex('010203')[:min(off + 6, 0x4000) - off - 3]
+        env = conv_env(tmp, name, rom_of(4, {0: b0, 3: b3}))
+        env.regions(3, [R(0x4000 + off, 0x8000, 'code')])
+        if needle is None:
+            files, built, _ = env.build_all()
+            check(built == env.rom and 'dw $0201\n\tdb $03\n' in files['bank03.asm'], 'inline data ends exactly at the bank end')
+        else:
+            expect_error(env, needle, name)
+        n += 1
+    # jp with inline data and a region cut after the jp
+    env = conv_mini(tmp, 'b_jp', 'c30002 010203 c9', [R(0x4000, 0x4006, 'code'), R(0x4006, 0x4007, 'code')])
+    files, built, _ = env.build_all()
+    check(built == env.rom and 'jp FarEntry\n\tdw $0201\n\tdb $03\n\n' in files['bank01.asm'], 'jp consumer')
+    n += 1
+    # rst as consumer when the entry is a vector: `rst $08` + inline byte
+    b0 = bytearray(0x4000)
+    b0[0x08] = 0xC9
+    b1 = bytearray(0x4000)
+    b1[0:3] = bytes.fromhex('cf7fc9')
+    env = conv_env(tmp, 'b_rst', rom_of(4, {0: b0, 1: b1}), [('00', '0008', 'inline_db', 'HYPOTHESIS', 'rst $08 consumes a byte')])
+    env.regions(1, [R(0x4000, 0x4003, 'code')])
+    files, built, _ = env.build_all()
+    check(built == env.rom and 'rst $08\n\tdb $7F\n\tret\n' in files['bank01.asm'], 'rst consumer:\n' + files['bank01.asm'][-200:])
+    n += 1
+    return '%d boundary / failure cases' % n
+
+
+def test_conv_config(tmp):
+    n = 0
+
+    def cfg_err(name, text, needle, what, strict=False):
+        nonlocal n
+        env = conv_mini(tmp, name, 'c9', [('4000', '4001', 'code', '', 'CONFIRMED', '')])
+        env.write('conventions.tsv', text)
+        try:
+            env.model(strict=strict)
+        except GenError as e:
+            check(needle in str(e), '%s: %r not in %s' % (what, needle, e))
+            n += 1
+            return
+        raise Fail('%s: expected an error mentioning %r' % (what, needle))
+
+    cfg_err('c_dup', '00\t0200\tfarptr\tCONFIRMED\tx\n00\t0200\tinline_db\tCONFIRMED\ty\n', 'duplicate convention', 'duplicate entry')
+    cfg_err('c_layout', '00\t0200\tfourbytes\tCONFIRMED\tx\n', 'unknown layout', 'unknown layout')
+    cfg_err('c_bank', '09\t4000\tfarptr\tCONFIRMED\tx\n', 'does not exist', 'nonexistent bank')
+    cfg_err('c_window', '01\t0200\tfarptr\tCONFIRMED\tx\n', 'not inside the bank 01 window', 'address outside the bank window')
+    cfg_err('c_hex', '00\tzz\tfarptr\tCONFIRMED\tx\n', 'must be hex', 'bad hex')
+    cfg_err('c_fields', '00\t0200\n', 'need at least', 'too few fields')
+    cfg_err('c_status', '00\t0200\tfarptr\tSURE\tx\n', 'must be one of', 'bad status')
+    cfg_err('c_nostatus', '00\t0200\tfarptr\t\tx\n', 'missing status', '--strict: missing status', strict=True)
+    # header line and comments are accepted; a missing file means no conventions
+    env = conv_mini(tmp, 'c_ok', 'cd0002 010203', [('4000', '4006', 'code', '', 'CONFIRMED', '')])
+    env.write('conventions.tsv', '# comment\nbank\taddr\tlayout\tstatus\tnote\n\n00\t$0200\tfarptr\tCONFIRMED\tok\n')
+    check(env.model().stats['inline_farptr'] == 1, 'header/comment/`$` prefix handling')
+    n += 1
+    os.remove(os.path.join(env.cfg, 'conventions.tsv'))
+    env.regions(1, [('4000', '4005', 'code', '', 'CONFIRMED', '')])
+    expect_error(env, 'crosses the region end', 'without conventions the inline bytes are decoded as code')
+    n += 1
+    # entry not on an instruction boundary of a code region: warning, error with --strict
+    b0 = bytearray(0x4000)
+    b0[0x1FF:0x201] = bytes.fromhex('3ec9')          # ld a, $C9: 0200 is an operand byte
+    env = conv_env(tmp, 'c_mid', rom_of(4, {0: b0}), [('00', '0200', 'farptr', 'CONFIRMED', 'x')])
+    env.regions(0, [('01FF', '0203', 'code', '', 'CONFIRMED', '')])
+    model = env.model()
+    check(any('not on an instruction boundary' in w for w in model.diag.warnings), 'warning for a mid-instruction convention entry')
+    try:
+        env.model(strict=True)
+        raise Fail('--strict must reject a mid-instruction convention entry')
+    except GenError as e:
+        check('not on an instruction boundary' in str(e), str(e))
+    n += 1
+    # generator via CLI: verify passes and the checker sees the proposal
+    env = conv_mini(tmp, 'c_cli', 'cd0002 010203 c9', [('4000', '4003', 'code', '', 'CONFIRMED', ''), ('4003', '4006', 'data', '', 'CONFIRMED', ''),
+                                                               ('4006', '4007', 'code', '', 'CONFIRMED', '')])
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'gen_asm.py'), 'verify', '--config', env.cfg, '--rom', env.rom_path],
+                       capture_output=True, text=True)
+    check(r.returncode == 0 and 'IDENTICAL' in r.stdout, 'CLI verify with conventions: %s%s' % (r.stdout, r.stderr))
+    n += 1
+    import conventions_check as cc
+    conv_path = os.path.join(env.cfg, 'conventions.tsv')
+
+    def run_check(*args):
+        p = subprocess.run([sys.executable, os.path.join(HERE, 'conventions_check.py'), '--rom', env.rom_path, '--regions',
+                            os.path.join(env.cfg, 'regions'), '--conventions', conv_path, '--xrefs', os.path.join(env.cfg, 'xrefs.tsv')] + list(args),
+                           capture_output=True, text=True)
+        return p
+    p = run_check('--strict')
+    check(p.returncode == 0 and '1 adopted' in p.stdout and 'adopted 01:4000' in p.stdout, 'checker on an adopted site:\n' + p.stdout + p.stderr)
+    check('bank byte 03 addr 0201: 1 site(s) (01:4000) -> not a ROM location' in p.stdout, 'checker far pointer section:\n' + p.stdout)
+    n += 1
+    # a proposal that splits the inline bytes: the checker reports it, --strict fails, the message names the edge to move
+    env.regions(1, [('4000', '4005', 'code', '', 'CONFIRMED', '')])
+    p = run_check('--strict')
+    check(p.returncode == 1 and 'ERROR' in p.stdout and 'move that region edge to $4006' in p.stdout, 'checker on a split site:\n' + p.stdout)
+    p = run_check()
+    check(p.returncode == 0, 'checker without --strict must exit 0')
+    n += 1
+    # far pointers: target in code (ok), target in data, target inside an instruction, not a ROM location
+    b0 = bytearray(0x4000)
+    b0[0x200] = 0xC9
+    b1 = bytearray(0x4000)
+    code = 'cd0002 204001 cd0002 214001 cd0002 304001 cd0002 404001 cd0002 00c001 c9'
+    raw = bytes.fromhex(code.replace(' ', ''))
+    b1[:len(raw)] = raw
+    b1[0x20] = 0x21             # 4020: ld hl, $0000  (4021 is inside it)
+    b1[0x30:0x40] = bytes(range(16))
+    rom = rom_of(4, {0: b0, 1: b1})
+    env = conv_env(tmp, 'c_far', rom)
+    # the five calls fill 4000-401E exactly (5 x 6 bytes); 4020 holds `ld hl, $0000`, so 4021 is inside an instruction
+    env.regions(1, [('4000', '401E', 'code', '', 'CONFIRMED', ''), ('4020', '4023', 'code', '', 'CONFIRMED', ''),
+                    ('4030', '4040', 'data', '', 'CONFIRMED', '')])
+    model = env.model()
+    rep = cc.analyse(rom, model.regions, model.cfg.conventions, {})
+    why = {k: [w for _, w in v] for k, v in rep.far_bad.items()}
+    check(rep.far_total == 5, 'far pointers read: %d' % rep.far_total)
+    check(0x4020 not in [k[1] for k in why], 'a target on an instruction start of a code region is fine: %r' % why)
+    check(any('inside an instruction' in w[0] for k, w in why.items() if k == (1, 0x4021)), 'mid-instruction target: %r' % why)
+    check(any(w[0].startswith('data region') for k, w in why.items() if k == (1, 0x4030)), 'data target: %r' % why)
+    check(any(w[0].startswith('unclassified') for k, w in why.items() if k == (1, 0x4040)), 'gap target: %r' % why)
+    check(why.get((1, 0xC000)) == ['not a ROM location'], 'WRAM target: %r' % why)
+    n += 1
+    return '%d configuration / checker cases' % n
+
+
+def real_conv_rows():
+    """The rows of the real config/conventions.tsv (the sweep must use the seeded convention, not a copy)."""
+    with open(os.path.join(ROOT, 'config', 'conventions.tsv'), encoding='utf-8') as fh:
+        text = fh.read()
+    check('00\t06D1\tfarptr' in text and '00\t06BC\tinline_dw' in text, 'config/conventions.tsv lacks the seeded rows')
+    return text
+
+
+# independent oracle for the real seeded rows (does not use lib/conv.py): call/jp to $06D1 = 3 inline bytes, $06BC = 2
+ORACLE = {0x06D1: 3, 0x06BC: 2}
+
+
+def oracle_inline(ins):
+    return ORACLE.get(ins.target, 0) if ins.flow in ('call', 'jp') else 0
+
+
+def sweep_regions_conv(chunk, base):
+    """Like sweep_regions, but convention aware.  Returns (regions, sites); a site is (call address, insn length, inline
+    length).  The inline bytes are never split from their call: a code region simply runs past the zero-run cut, and a
+    call whose inline bytes would leave the bank ends the code region before the call (the rest becomes data)."""
+    n = len(chunk)
+    regs, sites, pos = [], [], 0
+    while pos < n:
+        if chunk[pos:pos + 16] == ZERO16:
+            j = pos
+            while j < n and chunk[j] == 0:
+                j += 1
+            regs.append((pos, j, 'zero'))
+            pos = j
+            continue
+        start, p = pos, pos
+        while p < n and chunk[p:p + 16] != ZERO16:
+            ins = sm83.decode(chunk, p, base + p)
+            if ins.flow == 'bad' and ins.raw[0] not in sm83.ILLEGAL:
+                break
+            k = oracle_inline(ins)
+            if k:
+                if p + ins.length + k > n:
+                    break
+                sites.append((base + p, ins.length, k))
+            p += ins.length + k
+        if p > start:
+            regs.append((start, p, 'code'))
+        if p < n and chunk[p:p + 16] != ZERO16:
+            regs.append((p, n, 'data'))
+            p = n
+        pos = p
+    return regs, sites
+
+
+def test_sweep_conv(tmp):
+    check(os.path.exists(BASEROM), 'baserom.gbc missing')
+    rom = open(BASEROM, 'rb').read()
+    env = Env(tmp, 'sweepc', rom)
+    env.write('conventions.tsv', real_conv_rows())
+    rng = random.Random(4242)
+    nreg, allsites, starts = 0, [], []
+    for b in range(len(rom) // 0x4000):
+        base = 0 if b == 0 else 0x4000
+        chunk = rom[b * 0x4000:(b + 1) * 0x4000]
+        regs, sites = sweep_regions_conv(chunk, base)
+        env.regions(b, [('%04X' % (base + s0), '%04X' % (base + e0), k, '', 'HYPOTHESIS', 'selftest conv sweep') for s0, e0, k in regs])
+        nreg += len(regs)
+        allsites += [(b,) + x for x in sites]
+        skip = set()
+        for _b, a, il, k in [(b,) + x for x in sites]:
+            skip.update(range(a + il, a + il + k))
+        for s0, e0, kind in regs:
+            if kind != 'code':
+                continue
+            p = s0
+            while p < e0:
+                if base + p in skip:
+                    p += 1
+                    continue
+                ins = sm83.decode(chunk[:e0], p, base + p)
+                starts.append((b, base + p))
+                p += ins.length
+    picks = rng.sample(starts, min(300, len(starts)))
+    per = {}
+    for i, (b, a) in enumerate(sorted(picks)):
+        per.setdefault(b, []).append((a, i))
+    for b, lst in per.items():
+        env.symbols(b, [('%04X' % a, 'SelfSym_%02X_%04X_%d' % (b, a, i), 'label', 'HYPOTHESIS', 'selftest') for a, i in lst])
+    check(len(allsites) > 1000, 'expected thousands of convention sites in the ROM, oracle found %d' % len(allsites))
+    t0 = time.time()
+    model = env.model()
+    files, built, sym = env.build_all(model)
+    check(built == rom, 'convention sweep rebuild differs from baserom (%d differing bytes)' % sum(1 for x, y in zip(built, rom) if x != y))
+    st = model.stats
+    n06d1 = sum(1 for _, a, il, k in allsites if k == 3)
+    check(st['inline_sites'] == len(allsites) and st['inline_farptr'] == n06d1 and st['inline_inline_dw'] == len(allsites) - n06d1,
+          'generator consumed %r sites, oracle %d (%d far)' % (dict(st), len(allsites), n06d1))
+    check(st['inline_bytes'] == sum(k for _, _, _, k in allsites), 'inline byte count')
+    check(st['inline_far_labelled'] > 0 and st['inline_far_targets'] > 0, 'no labelled far pointer in a full ROM sweep')
+    labelled = sum(t.count('\tdb BANK(') for f, t in files.items() if f.endswith('.asm'))
+    check(labelled == st['inline_far_labelled'], 'BANK() lines %d != labelled far pointers %d' % (labelled, st['inline_far_labelled']))
+    # every `db BANK(X)` line follows `dw X` with the same X, and the linker agrees on the bank
+    addrs = {}
+    for m in re.finditer(r'^([0-9a-f]{2}):([0-9a-f]{4}) (\S+)$', sym, re.M):
+        addrs[m.group(3)] = (int(m.group(1), 16), int(m.group(2), 16))
+    check(addrs, 'linker symbol file empty')
+    for f, t in files.items():
+        for m in re.finditer(r'\tdw (\w+)\n\tdb BANK\((\w+)\)\n', t):
+            check(m.group(1) == m.group(2), 'dw/db label mismatch %s/%s' % m.groups())
+    return '%d regions, %d convention sites (%d farptr, %d inline_dw; %d inline bytes), %d far pointers with labels, %d generic Function_, %.0fs' % (
+        nreg, len(allsites), n06d1, len(allsites) - n06d1, st['inline_bytes'], st['inline_far_labelled'], st['generic_Function'], time.time() - t0)
+
+
+def test_sweep_conv_cuts(tmp):
+    """Real sites: a region edge cut through the inline bytes is refused with the edge to move; a `data` region that starts
+    right after the call is adopted (identical rebuild); a code/zero region there is refused."""
+    check(os.path.exists(BASEROM), 'baserom.gbc missing')
+    rom = open(BASEROM, 'rb').read()
+    rng = random.Random(99)
+    per_bank = {}
+    for b in range(len(rom) // 0x4000):
+        base = 0 if b == 0 else 0x4000
+        regs, sites = sweep_regions_conv(rom[b * 0x4000:(b + 1) * 0x4000], base)
+        if sites:
+            per_bank[b] = (base, regs, sites)
+    banks = sorted(per_bank)
+    picks = [(b,) + rng.choice(per_bank[b][2]) for b in rng.sample(banks, 6)]
+    picks.append((0,) + per_bank[0][2][0])                       # the first site of bank 0 (00:0328 is a real FarCall)
+    ncut = nadopt = nnext = 0
+    for i, (b, ca, il, k) in enumerate(picks):
+        base, regs, _sites = per_bank[b]
+        e = ca + il                                              # first inline byte (CPU address)
+        rows0 = [(base + s0, base + e0, kind) for s0, e0, kind in regs]
+        cr = next(r for r in rows0 if r[2] == 'code' and r[0] <= ca and e + k <= r[1])
+
+        def variant(edits):
+            """regions of bank b with the code region `cr` replaced by `edits` (list of (start, end, kind))"""
+            out = [r for r in rows0 if r != cr] + edits
+            return [('%04X' % s0, '%04X' % e0, kind, '', 'HYPOTHESIS', 'selftest cut') for s0, e0, kind in sorted(out)]
+
+        def env_for(tag, edits):
+            env = Env(tmp, 'cut_%d_%s' % (i, tag), rom)
+            env.write('conventions.tsv', real_conv_rows())
+            env.regions(b, variant(edits))
+            return env
+        # 1) an edge inside the inline bytes (after 1 .. k-1 bytes) is refused and names the edge to move
+        for j in range(1, k):
+            env = env_for('cut%d' % j, [(cr[0], e + j, 'code'), (e + j, cr[1], 'data')])
+            expect_error(env, 'move that region edge to $%04X' % (e + k), 'cut %d bytes into the inline data at %02X:%04X' % (j, b, ca))
+            ncut += 1
+        # 2) the call ends the region, the inline bytes start a code / zero region: refused
+        for kind in ('code', 'zero'):
+            env = env_for('next_' + kind, [(cr[0], e, 'code'), (e, cr[1], kind)])
+            try:
+                env.model()
+                raise Fail('%02X:%04X: %s region after the call was accepted' % (b, ca, kind))
+            except GenError as ex:
+                msg = str(ex)
+                if kind == 'zero' and 'non-zero byte' in msg:
+                    pass            # a zero region over real (non-zero) inline bytes is refused earlier, by the zero check
+                else:
+                    check('(kind %s' % kind in msg and '$%04X' % (e + k) in msg, 'unclear message for a %s region after the call: %s' % (kind, msg))
+            nnext += 1
+        # 3) the call ends the region and the inline bytes are a data region of exactly k bytes / all the rest: adopted, identical
+        if i < 3:
+            for tag, edits in (('exact', [(cr[0], e, 'code'), (e, e + k, 'data')] + ([(e + k, cr[1], 'code')] if e + k < cr[1] else [])),
+                               ('rest', [(cr[0], e, 'code'), (e, cr[1], 'data')])):
+                env = env_for('adopt_' + tag, edits)
+                model = env.model()
+                check(model.stats['inline_adopted'] >= 1, 'no adopted site in %s' % tag)
+                files, built, _ = env.build_all(model)
+                check(built == rom, 'adopted %s at %02X:%04X: rebuild differs' % (tag, b, ca))
+                nadopt += 1
+    return '%d real sites: %d cuts through inline data refused, %d wrong next regions refused, %d adoptions rebuilt identically' % (
+        len(picks), ncut, nnext, nadopt)
+
+
+TESTS = [('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
          ('determinism', test_determinism), ('compare_rom', test_compare_rom), ('progress', test_progress),
-         ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code)]
+         ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_conv', test_sweep_conv),
+         ('sweep_conv_cuts', test_sweep_conv_cuts)]
 
 
 def main(argv):

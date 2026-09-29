@@ -34,6 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import sm83                                   # noqa: E402
 from lib import mtcfg                         # noqa: E402
+from lib import conv                          # noqa: E402
 from lib.mtcfg import GenError, Diag, Region  # noqa: E402
 
 ROOT = mtcfg.ROOT
@@ -86,7 +87,7 @@ class BankOut:
 class Model:
     """Everything the emitter needs: decoded code, label tables, cross references."""
 
-    def __init__(self, rom: bytes, cfg: mtcfg.Config, hw: mtcfg.Hardware, incbin: str = 'baserom.gbc'):
+    def __init__(self, rom: bytes, cfg: mtcfg.Config, hw: mtcfg.Hardware, incbin: str = 'baserom.gbc', strict: bool = False):
         if len(rom) < BANK_SIZE or len(rom) % BANK_SIZE:
             raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
         self.rom = rom
@@ -95,7 +96,7 @@ class Model:
         self.incbin = incbin
         self.nbanks = len(rom) // BANK_SIZE
         self.regions = cfg.regions
-        self.diag = Diag()
+        self.diag = Diag(strict)         # --strict: warnings raised while building the model (RAM name shadowing, convention entries) are errors
         self.insns: Dict[Tuple[int, int], List[Tuple[int, sm83.Insn]]] = {}
         self.bound: Dict[int, set] = {b: set() for b in range(self.nbanks)}
         self.labels: Dict[int, Dict[int, List[Label]]] = {b: {} for b in range(self.nbanks)}
@@ -110,12 +111,19 @@ class Model:
         self.ram_sorted: List[mtcfg.RamVar] = []
         self.ram_exact: Dict[int, mtcfg.RamVar] = {}
         self.stats: Dict[str, int] = defaultdict(int)
+        # inline-data conventions (config/conventions.tsv)
+        self.conv_table = conv.ConvTable(cfg.conventions, {(x.bank, x.addr): (x.tbank, x.taddr) for x in cfg.xrefs
+                                                           if x.kind == 'branch' and x.tbank != 'RAM'})
+        self.inline_adopt: Dict[Tuple[int, int], conv.InlineData] = {}      # (bank, addr) -> inline bytes held by a `data` region
+        self.inline_cover: Dict[int, Dict[int, tuple]] = {b: {} for b in range(self.nbanks)}   # addr -> (site, label allowed)
+        self.inline_slots: Dict[Tuple[int, int], str] = {}                  # (bank, slot addr) -> layout
         self._build()
 
     # ------------------------------------------------------------------ build
     def _build(self):
         self._check_zero_regions()
         self._decode()
+        self._check_conventions()
         self._index_ramcode()
         self._index_ram()
         self._collect_labels()
@@ -159,25 +167,71 @@ class Model:
             for r in self.regions[b]:
                 if r.kind not in ('code', 'ramcode'):
                     continue
-                chunk = self.bytes_of(r)
                 addr0 = r.runaddr if r.kind == 'ramcode' else r.start
-                out = []
-                i = 0
-                n = len(chunk)
+                res = conv.scan(self.bytes_of(r), addr0, r.start, b, r.kind, self.conv_table)
+                if res.cross is not None:
+                    at, op, full = res.cross
+                    self.diag.error(r.loc, '%s region %02X:%04X-%04X: instruction at %02X:%04X (opcode $%02X, %d bytes) '
+                                    'crosses the region end' % (r.kind, b, r.start, r.end, b, at, op, full))
                 bound = self.bound[b]
-                while i < n:
-                    ins = sm83.decode(chunk, i, (addr0 + i) & 0xFFFF)
-                    if ins.flow == 'bad' and ins.raw[0] not in sm83.ILLEGAL:
-                        full = sm83.decode(self.rom[r.off + i:r.off + i + 3] + b'\0\0\0', 0, 0)
-                        self.diag.error(r.loc, '%s region %02X:%04X-%04X: instruction at %02X:%04X (opcode $%02X, %d bytes) '
-                                        'crosses the region end' % (r.kind, b, r.start, r.end, b, r.start + i,
-                                                                    ins.raw[0], full.length))
-                        break
-                    out.append((r.start + i, ins))
-                    bound.add(r.start + i)
-                    i += ins.length
-                self.insns[(b, r.idx)] = out
+                for sa, it in res.items:
+                    if it.flow == 'inline':
+                        self._register_inline(b, it)
+                    else:
+                        bound.add(sa)
+                self.insns[(b, r.idx)] = res.items
+                if res.overflow is not None:
+                    self._inline_overflow(r, res.overflow)
         self.diag.raise_if_errors()
+
+    def _register_inline(self, b: int, it: conv.InlineData, label_at_start: bool = False):
+        for k in range(it.length):
+            self.inline_cover[b][it.slot + k] = (it.site, label_at_start and k == 0)
+        self.inline_slots[(b, it.slot)] = it.conv.layout
+        st = self.stats
+        st['inline_sites'] += 1
+        st['inline_bytes'] += it.length
+        st['inline_' + it.conv.layout] += 1
+
+    def _inline_overflow(self, r: Region, ov: conv.Overflow):
+        """A convention call whose inline bytes do not fit into the rest of its code region."""
+        b = r.bank
+        sa, ins = self.insns[(b, r.idx)][ov.index]
+        c = ov.conv
+        e = sa + ins.length
+        what = '%s at %02X:%04X (%s, convention %02X:%04X %s [%s])' % (
+            ins.text(), b, sa, ins.raw.hex(), c.bank, c.addr, c.layout, c.loc)
+        if ov.have == 0 and r.kind == 'code' and r.idx + 1 < len(self.regions[b]):
+            nxt = self.regions[b][r.idx + 1]
+            if nxt.start == e and nxt.kind == 'data' and nxt.size >= c.size:
+                # tolerated: the bytes right after the call were classified as a `data` region of their own
+                it = conv.InlineData(e, e, self.rom[nxt.off:nxt.off + c.size], c, sa)
+                self.inline_adopt[(b, e)] = it
+                self._register_inline(b, it, label_at_start=True)
+                self.stats['inline_adopted'] += 1
+                return
+        end = e + c.size
+        hdr = 'convention call %s: its %d inline byte(s) at %02X:%04X-%04X ' % (what, c.size, b, e, end)
+        if ov.have:
+            self.diag.error(r.loc, hdr + 'cross the end of the %s region %04X-%04X: move that region edge to $%04X '
+                            '(inline data must stay inside one code region), or end the region before the call at $%04X'
+                            % (r.kind, r.start, r.end, end, sa))
+        elif r.idx + 1 >= len(self.regions[b]):
+            self.diag.error(r.loc, hdr + 'would lie beyond the end of bank %02X: end the %s region %04X-%04X before '
+                            'the call at $%04X' % (b, r.kind, r.start, r.end, sa))
+        else:
+            nxt = self.regions[b][r.idx + 1]
+            self.diag.error(r.loc, hdr + 'start at the next region %04X-%04X (kind %s, %s): move the end of this %s '
+                            'region %04X-%04X to $%04X so the inline bytes belong to it%s' % (
+                                nxt.start, nxt.end, nxt.kind, nxt.loc, r.kind, r.start, r.end, end,
+                                '' if r.kind == 'code' else '; ramcode never adopts a following data region'))
+
+    def _check_conventions(self):
+        for c in self.cfg.conventions:
+            r = self.region_at(c.bank, c.addr)
+            if r is not None and r.kind == 'code' and c.addr not in self.bound[c.bank]:
+                self.diag.warn(c.loc, 'convention entry %02X:%04X is not on an instruction boundary of the code region '
+                               '%04X-%04X (%s)' % (c.bank, c.addr, r.start, r.end, r.loc))
 
     def _index_ramcode(self):
         self.ramcodes = [r for b in range(self.nbanks) for r in self.regions[b] if r.kind == 'ramcode']
@@ -237,6 +291,11 @@ class Model:
         r = self.region_at(bank, addr)
         if r is None:
             self.diag.error(loc, 'label %s: address %02X:%04X is outside the bank window' % (name, bank, addr))
+            return
+        cov = self.inline_cover[bank].get(addr)
+        if cov is not None and not cov[1]:
+            self.diag.error(loc, 'label %s at %02X:%04X is inside the inline data of the convention call at %02X:%04X: '
+                            'inline bytes are data, nothing can be labelled there' % (name, bank, addr, bank, cov[0]))
             return
         if r.kind in ('code', 'ramcode') and addr not in self.bound[bank]:
             self.diag.error(loc, 'label %s at %02X:%04X is not on an instruction boundary of the %s region %04X-%04X '
@@ -360,10 +419,20 @@ class Model:
             kind = 'imm'
             if x.kind == 'word':
                 r = self.region_at(x.bank, x.addr)
-                if r is None or r.kind not in ('words', 'ptrtable') or (x.addr - r.start) % 2:
-                    self.diag.error(where, 'xref word: %02X:%04X is not a word slot of a words/ptrtable region' % (x.bank, x.addr))
+                slot = self.inline_slots.get((x.bank, x.addr))
+                if slot == 'inline_dw':
+                    o = x.bank * BANK_SIZE + (x.addr - mtcfg.window(x.bank)[0])
+                    value = self.rom[o] | (self.rom[o + 1] << 8)
+                elif slot == 'farptr':
+                    self.diag.error(where, 'xref word: %02X:%04X is the pointer of a farptr convention slot; it is labelled '
+                                    'automatically when a label exists at exactly (bank byte, address)' % (x.bank, x.addr))
                     continue
-                value = self.rom[r.off + (x.addr - r.start)] | (self.rom[r.off + (x.addr - r.start) + 1] << 8)
+                elif r is None or r.kind not in ('words', 'ptrtable') or (x.addr - r.start) % 2:
+                    self.diag.error(where, 'xref word: %02X:%04X is not a word slot of a words/ptrtable region '
+                                    'or an inline_dw convention slot' % (x.bank, x.addr))
+                    continue
+                else:
+                    value = self.rom[r.off + (x.addr - r.start)] | (self.rom[r.off + (x.addr - r.start) + 1] << 8)
             else:
                 r, ins = self._insn_at(x.bank, x.addr)
                 if ins is None:
@@ -423,6 +492,9 @@ class Model:
         for (b, ridx), lst in self.insns.items():
             r = self.regions[b][ridx]
             for sa, ins in lst:
+                if ins.flow == 'inline':
+                    self._collect_inline(b, ins)
+                    continue
                 if ins.target is None or (b, sa, 'branch') in self.xref:
                     continue
                 loc = self.resolve_target(b, r, ins.target)
@@ -430,6 +502,8 @@ class Model:
                     self.stats['branches_unresolved_bank'] += 1
                     continue
                 self._want(loc, 'call' if ins.flow in CALL_FLOWS else 'jump')
+        for (b, _e), it in sorted(self.inline_adopt.items()):
+            self._collect_inline(b, it)
         for b in range(self.nbanks):
             for r in self.regions[b]:
                 if r.kind != 'ptrtable':
@@ -443,6 +517,30 @@ class Model:
                     loc = self.resolve_target(b, r, v)
                     if loc is not None:
                         self._want(loc, 'ptr')
+
+    def far_loc(self, w: int, bb: int) -> Optional[Tuple[int, int]]:
+        """ROM location (bank, address) a far pointer `dw w ; db bb` designates, or None when it does not name a
+        ROM location: bank byte 0 = ROM0 (address must be < $4000), otherwise the address must lie in the window of
+        ROM bank `bb` (a `$8000+` address selects a WRAM/SRAM bank, not a ROM bank).  Never a ramcode region: its
+        ROM bytes run elsewhere and BANK() of a label inside a LOAD block is the RAM section's bank."""
+        if bb >= self.nbanks:
+            return None
+        if bb == 0:
+            if w >= 0x4000:
+                return None
+        elif not mtcfg.window(bb)[0] <= w < mtcfg.window(bb)[1]:
+            return None
+        r = self.region_at(bb, w)
+        if r is None or r.kind == 'ramcode':
+            return None
+        return (bb, w)
+
+    def _collect_inline(self, b: int, it: conv.InlineData):
+        if it.conv.layout == 'farptr':
+            loc = self.far_loc(it.word, it.raw[2])
+            self.stats['inline_far_targets_unresolved' if loc is None else 'inline_far_targets'] += 1
+            if loc is not None:
+                self._want(loc, 'call')
 
     def _finalize_labels(self):
         for loc in sorted(self.want):
@@ -559,6 +657,13 @@ class Model:
         t = t.strip()
         if t.startswith('$'):
             return int(t[1:], 16)
+        m = re.fullmatch(r'BANK\(([A-Za-z_][A-Za-z0-9_]*)\)', t)
+        if m:           # the ROM bank a label is stored in; only exact for labels outside LOAD blocks
+            loc = self.name_loc.get(m.group(1))
+            r = self.region_at(*loc) if loc and loc[0] not in ('const', 'ram') else None
+            if r is None or r.kind == 'ramcode':
+                raise GenError('internal: BANK(%s) is not a ROM label' % m.group(1))
+            return loc[0]
         if t in self.name_val:
             return self.name_val[t]
         raise GenError('internal: cannot evaluate %r' % t)
@@ -599,14 +704,42 @@ class Model:
         for i, lab in enumerate(labs):
             out.line('%s::%s' % (lab.name, ' ; ' + cite if i == 0 else ''))
 
-    def _segments(self, r: Region) -> List[Tuple[int, int]]:
+    def _segments(self, r: Region, extra=()) -> List[Tuple[int, int]]:
         la = self.label_addrs.get(r.bank)
         if la is None:
             la = sorted(self.labels[r.bank])
         lo = bisect.bisect_right(la, r.start)
         hi = bisect.bisect_left(la, r.end)
-        pts = [r.start] + la[lo:hi] + [r.end]
+        pts = sorted({r.start, r.end, *la[lo:hi], *(e for e in extra if r.start < e < r.end)})
         return list(zip(pts, pts[1:]))
+
+    def inline_lines(self, bank: int, it: conv.InlineData) -> List[Tuple[str, bytes]]:
+        """(text, bytes) lines for the inline bytes after a convention call."""
+        raw, lay = it.raw, it.conv.layout
+        if lay == 'farptr':
+            w, bb = it.word, raw[2]
+            loc = self.far_loc(w, bb)
+            nm = self.name_at(loc) if loc is not None else None
+            if nm is not None:
+                # a label at exactly (bank byte, address): rgbasm/rgblink compute both bytes, the compare proves them
+                self._substitute(nm, self.name_val[nm], w, 'label')
+                if self.name_loc[nm] != loc:
+                    raise GenError('internal: label %s is at %s, not at the far pointer target %s' % (
+                        nm, self.cite(*self.name_loc[nm]), self.cite(*loc)))
+                self.stats['inline_far_labelled'] += 1
+                return [('dw ' + nm, raw[:2]), ('db BANK(%s)' % nm, raw[2:3])]
+            return [('dw ' + hexw(w), raw[:2]), ('db ' + hexb(bb), raw[2:3])]
+        if lay == 'inline_dw':
+            x = self.xref.get((bank, it.slot, 'word'))
+            if x is not None:       # explicit `xref word` row: the analyst says which bank the word means
+                if x[0] == 'ram':
+                    return [('dw ' + self._substitute(x[1][0], x[1][1], it.word, 'ram name'), raw)]
+                nm = self.name_at(x[1])
+                return [('dw ' + self._substitute(nm, self.name_val[nm], it.word, 'label'), raw)]
+            return [('dw ' + hexw(it.word), raw)]
+        if lay == 'inline_db':
+            return [('db ' + hexb(raw[0]), raw)]
+        raise GenError('internal: unhandled inline layout %s' % lay)
 
     def _emit_db(self, out: BankOut, chunk: bytes):
         for i in range(0, len(chunk), 16):
@@ -639,9 +772,17 @@ class Model:
         if r.kind in ('code', 'ramcode'):
             self._emit_code(out, r)
             return
-        for a, z in self._segments(r):
+        adopt = self.inline_adopt.get((r.bank, r.start)) if r.kind == 'data' else None
+        if adopt is not None:
+            out.line('; inline %s bytes of the convention call at %02X:%04X (config/conventions.tsv, docs/FORMATS.md)' % (
+                adopt.conv.layout, r.bank, adopt.site))
+        for a, z in self._segments(r, (r.start + adopt.length,) if adopt is not None else ()):
             self._label_lines(out, r, a)
             chunk = self.rom[r.off + (a - r.start):r.off + (z - r.start)]
+            if adopt is not None and a == r.start:
+                for txt, claim in self.inline_lines(r.bank, adopt):
+                    out.emit('\t' + txt, claim)
+                continue
             if r.kind == 'zero':
                 out.emit('\tds $%X, $00' % len(chunk), chunk)
             elif r.kind == 'raw':
@@ -665,13 +806,20 @@ class Model:
                 out.line('\tLOAD UNION "%s", %s' % (un, spec))
             else:
                 out.line('\tLOAD "RAM_%02X_%04X", %s' % (r.bank, r.start, spec))
-        for sa, ins in self.insns[(r.bank, r.idx)]:
+        items = self.insns[(r.bank, r.idx)]
+        for k, (sa, ins) in enumerate(items):
+            if ins.flow == 'inline':
+                for txt, claim in self.inline_lines(r.bank, ins):
+                    out.emit('\t' + txt, claim)
+                if items[k - 1][1].flow in TERMINATORS:      # inline bytes after a `jp`: the blank line comes after them
+                    out.line('')
+                continue
             self._label_lines(out, r, sa)
             txt = self.render_insn(r, sa, ins)
             if ins.flow == 'bad':
                 txt += ' ; illegal opcode'
             out.emit('\t' + txt, ins.raw)
-            if ins.flow in TERMINATORS:
+            if ins.flow in TERMINATORS and not (k + 1 < len(items) and items[k + 1][1].flow == 'inline'):
                 out.line('')
         if r.kind == 'ramcode':
             out.line('\tENDL')
@@ -733,7 +881,7 @@ def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_
     diag = Diag(strict)
     cfg = mtcfg.load_config(cfgdir, len(rom) // BANK_SIZE, hw, diag, extra_xrefs)
     diag.raise_if_errors()
-    model = Model(rom, cfg, hw, os.path.basename(rom_path))
+    model = Model(rom, cfg, hw, os.path.basename(rom_path), strict)
     return model, diag
 
 

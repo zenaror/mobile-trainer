@@ -7,6 +7,7 @@ tools/selftest_gen.py.  The file formats are documented in docs/FORMATS.md:
     config/symbols/bankNN.tsv   addr name type status evidence
     config/ram/*.tsv            addr name size type status evidence
     config/xrefs.tsv            bank addr operand_kind target_bank target_addr [status evidence]
+    config/conventions.tsv      bank addr layout status note     (inline-data call conventions)
 
 Nothing in this module knows about the SM83 instruction set or the ROM
 contents; it only parses, validates and normalises the tables.
@@ -24,6 +25,10 @@ KINDS = ('code', 'data', 'words', 'ptrtable', 'text', 'gfx', 'zero', 'raw', 'ram
 STATUSES = ('CONFIRMED', 'PROBABLE', 'HYPOTHESIS')
 SYM_TYPES = ('function', 'data', 'table', 'string', 'label', 'const')
 XREF_KINDS = ('branch', 'imm', 'mem', 'word')
+# inline-data conventions: layout -> number of inline bytes after the call/jp (`farptr` = dw target ; db bank)
+LAYOUTS = {'farptr': 3, 'inline_dw': 2, 'inline_db': 1}
+# instruction flows that consume the inline bytes when they transfer control to a convention entry
+CONSUMER_FLOWS = ('call', 'jp', 'rst')
 
 IDENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
 # Generic (evidence-free) names: <Prefix>_<bank>_<addr>, uppercase hex.
@@ -140,6 +145,20 @@ class Xref:
 
 
 @dataclass
+class Convention:
+    bank: int
+    addr: int               # ENTRY address of the callee that reads the inline bytes (CPU address in `bank`)
+    layout: str
+    status: str
+    note: str
+    loc: str
+
+    @property
+    def size(self) -> int:
+        return LAYOUTS[self.layout]
+
+
+@dataclass
 class Hardware:
     io: Dict[int, str] = field(default_factory=dict)     # $FF00-$FF7F / $FFFF -> name
     mbc: Dict[int, str] = field(default_factory=dict)    # MBC5 write address -> name
@@ -152,6 +171,7 @@ class Config:
     symbols: Dict[int, List[Symbol]] = field(default_factory=dict)
     ram: List[RamVar] = field(default_factory=list)
     xrefs: List[Xref] = field(default_factory=list)
+    conventions: List[Convention] = field(default_factory=list)
 
 
 def window(bank: int) -> Tuple[int, int]:
@@ -483,12 +503,63 @@ def xref_files(cfgdir: str, extra=()) -> List[str]:
     return [os.path.join(cfgdir, 'xrefs.tsv')] + list(extra)
 
 
+# ------------------------------------------------------------------ conventions
+
+def load_conventions(cfgdir: str, nbanks: int, diag: Diag) -> List[Convention]:
+    return load_conventions_file(os.path.join(cfgdir, 'conventions.tsv'), nbanks, diag)
+
+
+def load_conventions_file(path: str, nbanks: int, diag: Diag) -> List[Convention]:
+    """config/conventions.tsv: bank addr layout status note.  (bank, addr) = entry address of the callee."""
+    out: List[Convention] = []
+    if not os.path.exists(path):
+        return out
+    seen: Dict[Tuple[int, int], str] = {}
+    for n, f in _rows(path):
+        loc = '%s:%d' % (_rel(path), n)
+        if f[0].strip().lower() == 'bank':
+            continue
+        if len(f) < 3:
+            diag.error(loc, 'need at least: bank addr layout')
+            continue
+        f = f + [''] * (5 - len(f)) if len(f) < 5 else f[:4] + ['\t'.join(f[4:])]
+        try:
+            bank, addr = parse_hex(f[0]), parse_hex(f[1])
+        except ValueError:
+            diag.error(loc, 'bank/addr must be hex, got %r %r' % (f[0], f[1]))
+            continue
+        layout, status, note = f[2].strip(), f[3].strip().upper(), ' '.join(f[4].split())
+        ok = True
+        if bank >= nbanks:
+            diag.error(loc, 'bank %02X does not exist (ROM has %d banks)' % (bank, nbanks))
+            ok = False
+        elif not window(bank)[0] <= addr < window(bank)[1]:
+            diag.error(loc, 'entry address %04X is not inside the bank %02X window %04X-%04X' % ((addr, bank) + window(bank)))
+            ok = False
+        if layout not in LAYOUTS:
+            diag.error(loc, 'unknown layout %r (valid: %s)' % (layout, ' '.join(LAYOUTS)))
+            ok = False
+        if status and status not in STATUSES:
+            diag.error(loc, 'status %r must be one of %s' % (f[3], '|'.join(STATUSES)))
+            ok = False
+        elif not status:
+            diag.warn(loc, 'missing status')
+        if ok and (bank, addr) in seen:
+            diag.error(loc, 'duplicate convention for %02X:%04X (also %s)' % (bank, addr, seen[(bank, addr)]))
+            ok = False
+        if ok:
+            seen[(bank, addr)] = loc
+            out.append(Convention(bank, addr, layout, status, note, loc))
+    return out
+
+
 def load_config(cfgdir: str, nbanks: int, hw: Hardware, diag: Diag, extra_xrefs=()) -> Config:
     cfg = Config()
     cfg.regions = load_regions(cfgdir, nbanks, diag, hw.names)
     cfg.symbols = load_symbols(cfgdir, nbanks, diag, hw.names)
     cfg.ram = load_ram(cfgdir, diag, hw.names)
     cfg.xrefs = load_xrefs(xref_files(cfgdir, extra_xrefs), nbanks, diag)
+    cfg.conventions = load_conventions(cfgdir, nbanks, diag)
     return cfg
 
 

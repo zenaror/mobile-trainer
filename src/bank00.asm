@@ -137,9 +137,9 @@ MobileAPI:: ; 00:0150
 	cp a, $02
 	ld [wMobileAPIIndex], a
 	ld a, l
-	ld [$C823], a
+	ld [wRam_C823], a
 	ld a, h
-	ld [$C824], a
+	ld [wRam_C824], a
 	jr nz, Label_00_016B
 	ldh [hROMBankHi], a
 	ld a, l
@@ -172,9 +172,9 @@ Label_00_016B:: ; 00:016B
 ; ---- code $018D-$01B7 (42 bytes) [PROBABLE] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
 
 ReturnMobileAPI:: ; 00:018D
-	ld [$C823], a
+	ld [wRam_C823], a
 	ld a, l
-	ld [$C824], a
+	ld [wRam_C824], a
 	ld a, h
 	ld [wMobileAPIIndex], a
 	pop de
@@ -193,7 +193,7 @@ ReturnMobileAPI:: ; 00:018D
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [$C823]
+	ld a, [wRam_C823]
 	ret
 
 ; ---- code $01B7-$01ED (54 bytes) [CONFIRMED] serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive
@@ -246,7 +246,7 @@ Int_Timer:: ; 00:01ED
 	ldh a, [rIF]
 	and a, $1B
 	ldh [rIF], a
-	ld a, [$C709]
+	ld a, [wRam_C709]
 	or a, a
 	jr z, Label_00_0242
 	ld a, [wMobileFlags]
@@ -421,9 +421,11 @@ Label_00_0328:: ; 00:0328
 	call FarCall
 
 ; ---- data $032B-$032E (3 bytes) [CONFIRMED] inline data of FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
+; inline farptr bytes of the convention call at 00:0328 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_032B:: ; 00:032B
-	db $00, $40, $1C
+	dw $4000
+	db $1C
 
 ; ---- code $032E-$0331 (3 bytes) [CONFIRMED] continuation
 
@@ -570,13 +572,13 @@ Label_00_040B:: ; 00:040B
 	jr c, Label_00_042E
 	xor a, a
 	ld [hli], a
-	ld a, [$C26D]
+	ld a, [wRam_C26D]
 	ld c, a
 	ld a, $01
 	add a, [hl]
 	cp a, c
 	jr c, Label_00_042E
-	ld a, [$C26D]
+	ld a, [wRam_C26D]
 	ld [hld], a
 	xor a, a
 	ld [hld], a
@@ -686,27 +688,27 @@ Label_00_0497:: ; 00:0497
 
 Function_00_04A0:: ; 00:04A0
 	ld a, $C3
-	ld [$CBF1], a
+	ld [wVBlankVector], a
 	ld a, $BA
-	ld [$CBF2], a
+	ld [wVBlankVector + 1], a
 	ld a, $03
-	ld [$CBF3], a
+	ld [wVBlankVector + 2], a
 	ld a, $D9
-	ld [$CBF4], a
+	ld [wLcdStatVector], a
 	ld a, $D9
-	ld [$CBFD], a
+	ld [wJoypadVector], a
 	ld a, $C3
-	ld [$CBF7], a
+	ld [wTimerVector], a
 	ld a, $ED
-	ld [$CBF8], a
+	ld [wTimerVector + 1], a
 	ld a, $01
-	ld [$CBF9], a
+	ld [wTimerVector + 2], a
 	ld a, $C3
-	ld [$CBFA], a
+	ld [wSerialVector], a
 	ld a, $B7
-	ld [$CBFB], a
+	ld [wSerialVector + 1], a
 	ld a, $01
-	ld [$CBFC], a
+	ld [wSerialVector + 2], a
 	ret
 
 ; ---- code $04D8-$04EE (22 bytes) [CONFIRMED] fill BC bytes at HL with A (BC=0 fills 256 bytes when B=0); used to clear VRAM/WRAM/HRAM in Boot
@@ -880,11 +882,11 @@ FarJumpTable:: ; 00:0551
 ; ---- code $056A-$059F (53 bytes) [PROBABLE] inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26]
 
 JoypadDispatch:: ; 00:056A
-	ldh a, [$FFA7]
+	ldh a, [hRam_FFA7]
 	ld l, a
 	xor a, a
-	ldh [$FFA7], a
-	ldh a, [$FFA5]
+	ldh [hRam_FFA7], a
+	ldh a, [hJoyPressed]
 	or a, l
 	bit 0, a
 	jp nz, Label_00_059B
@@ -1517,7 +1519,7 @@ Function_00_08CA:: ; 00:08CA
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	push bc
 	push de
 	push hl
@@ -1541,7 +1543,7 @@ Function_00_08EA:: ; 00:08EA
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	push bc
 	push de
 	call Function_00_0904
@@ -1561,7 +1563,7 @@ Function_00_0904:: ; 00:0904
 	inc de
 	dec c
 	jr nz, Function_00_0904
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld c, a
 	xor a, $1F
 	inc a
@@ -1580,7 +1582,7 @@ Function_00_0904:: ; 00:0904
 Function_00_091C:: ; 00:091C
 	call BankSwitch_H
 	ld a, c
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 
 Label_00_0922:: ; 00:0922
 	ld a, [hl]
@@ -1589,7 +1591,7 @@ Label_00_0922:: ; 00:0922
 	ld [hli], a
 	dec c
 	jr nz, Label_00_0922
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld c, a
 	xor a, $1F
 	inc a
@@ -1667,10 +1669,10 @@ Label_00_098D:: ; 00:098D
 	dec b
 	jr nz, Label_00_0977
 	ld a, e
-	ld [$C2F3], a
+	ld [wRam_C2F3], a
 	xor a, a
-	ldh [$FFF0], a
-	ldh [$FFF1], a
+	ldh [hRam_FFF0], a
+	ldh [hRam_FFF1], a
 	xor a, a
 	ld [wOAMDMASuppress], a
 	ldh [hScratchA], a
@@ -1699,8 +1701,8 @@ Function_00_09B6:: ; 00:09B6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ldh [$FFF0], a
-	ldh [$FFF1], a
+	ldh [hRam_FFF0], a
+	ldh [hRam_FFF1], a
 	ld hl, $DA00
 	ld bc, $00E0
 	ld a, $FF
@@ -1762,13 +1764,13 @@ Label_00_0A12:: ; 00:0A12
 
 Function_00_0A1A:: ; 00:0A1A
 	push bc
-	ldh a, [$FFF1]
+	ldh a, [hRam_FFF1]
 	ld c, a
 	ld a, [hl]
 	add a, c
 	ld [hli], a
 	ld c, a
-	ldh a, [$FFF0]
+	ldh a, [hRam_FFF0]
 	ld b, a
 	ld a, [hl]
 	add a, b
@@ -1800,7 +1802,7 @@ Function_00_0A2A:: ; 00:0A2A
 ; ---- code $0A45-$0A65 (32 bytes) [PROBABLE] stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs 28]
 
 Function_00_0A45:: ; 00:0A45
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1812,7 +1814,7 @@ Function_00_0A45:: ; 00:0A45
 	ld [hli], a
 	ld a, d
 	ld [hli], a
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld [hli], a
 	ldh [hScratchA], a
 	pop af
@@ -2043,9 +2045,9 @@ Label_00_0B71:: ; 00:0B71
 	ld de, $0009
 	add hl, de
 	ld a, [hli]
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ld a, [hli]
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	pop hl
 	ld a, [hli]
 	add a, $10
@@ -2086,9 +2088,9 @@ Label_00_0B9D:: ; 00:0B9D
 	ld [de], a
 	inc de
 	push bc
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld b, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld c, a
 	ld a, [hli]
 	and a, c
@@ -2342,7 +2344,7 @@ Divide32by15:: ; 00:0D92
 	or a, a
 
 Label_00_0D95:: ; 00:0D95
-	ldh [$FFF7], a
+	ldh [hRam_FFF7], a
 	rl e
 	rl d
 	rl c
@@ -2364,7 +2366,7 @@ Label_00_0D95:: ; 00:0D95
 
 Label_00_0DAE:: ; 00:0DAE
 	ccf
-	ldh a, [$FFF7]
+	ldh a, [hRam_FFF7]
 	dec a
 	jr nz, Label_00_0D95
 	rl e
@@ -2558,7 +2560,7 @@ Function_00_0E93:: ; 00:0E93
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [$D724]
+	ld a, [wRam_D724]
 	ldh [rLYC], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2571,14 +2573,14 @@ Function_00_0E93:: ; 00:0E93
 Label_00_0EB2:: ; 00:0EB2
 	ldh a, [rSVBK]
 	push af
-	ld a, [$C0D3]
+	ld a, [wRam_C0D3]
 	ldh [rSCY], a
 	xor a, a
 	ldh [rLYC], a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [$D824]
+	ld a, [wRam_D824]
 	or a, a
 	jr z, Label_00_0ECC
 	call Function_00_0392
@@ -2593,12 +2595,12 @@ Label_00_0ECC:: ; 00:0ECC
 ; ---- code $0ED3-$0EF0 (29 bytes) [PROBABLE] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw refs 43]
 
 Function_00_0ED3:: ; 00:0ED3
-	ldh [$FFB9], a
+	ldh [hRam_FFB9], a
 	xor a, a
-	ldh [$FFBF], a
+	ldh [hRam_FFBF], a
 
 Label_00_0ED8:: ; 00:0ED8
-	ldh a, [$FFB9]
+	ldh a, [hRam_FFB9]
 	call BankSwitch_H
 
 Label_00_0EDD:: ; 00:0EDD
@@ -2663,7 +2665,7 @@ Label_00_0F5A:: ; 00:0F5A
 	call Function_00_0392
 	ldh a, [hTextX]
 	ld c, a
-	ldh a, [$FFC4]
+	ldh a, [hRam_FFC4]
 	cp a, c
 	jr c, Label_00_0F69
 	jp Label_00_0ED8
@@ -2674,11 +2676,11 @@ Function_00_0F68:: ; 00:0F68
 	pop hl
 
 Label_00_0F69:: ; 00:0F69
-	ldh a, [$FFC1]
+	ldh a, [hRam_FFC1]
 	ldh [hTextX], a
-	ldh a, [$FFC2]
+	ldh a, [hRam_FFC2]
 	ldh [hTextX + 1], a
-	ldh a, [$FFC6]
+	ldh a, [hRam_FFC6]
 	ld b, a
 	inc a
 	ret z
@@ -2686,7 +2688,7 @@ Label_00_0F69:: ; 00:0F69
 	add a, b
 	ldh [hTextY], a
 	ld c, a
-	ldh a, [$FFC3]
+	ldh a, [hRam_FFC3]
 	cp a, c
 	jp nc, Label_00_0ED8
 	ret
@@ -2700,31 +2702,31 @@ Function_00_0F83:: ; 00:0F83
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	push hl
-	ldh a, [$FFB9]
+	ldh a, [hRam_FFB9]
 	push af
-	ldh a, [$FFB0]
-	ldh [$FFB9], a
+	ldh a, [hRam_FFB0]
+	ldh [hRam_FFB9], a
 	ld h, b
 	ld l, c
-	ldh a, [$FFBF]
+	ldh a, [hRam_FFBF]
 	inc a
-	ldh [$FFBF], a
+	ldh [hRam_FFBF], a
 	jp Label_00_0ED8
 
 ; ---- code $0F9D-$0FAC (15 bytes) [CONFIRMED] control byte $00/$08/$0A-$0C/$0E-$1B: end of string: at depth 0 return to caller, else pop the saved pointer/bank and continue
 
 Function_00_0F9D:: ; 00:0F9D
 	pop hl
-	ldh a, [$FFBF]
+	ldh a, [hRam_FFBF]
 	or a, a
 	ret z
 	dec a
-	ldh [$FFBF], a
+	ldh [hRam_FFBF], a
 	pop hl
 	pop af
-	ldh [$FFB9], a
+	ldh [hRam_FFB9], a
 	jp Label_00_0ED8
 
 ; ---- code $0FAC-$0FB3 (7 bytes) [CONFIRMED] control byte $02: FFBC = next byte
@@ -2875,9 +2877,11 @@ Function_00_1044:: ; 00:1044
 	call FarCall
 
 ; ---- data $1056-$1059 (3 bytes) [CONFIRMED] inline data of FarCall at 1053: dw $405F ; db $7F -> 7F:405F
+; inline farptr bytes of the convention call at 00:1053 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_1056:: ; 00:1056
-	db $5F, $40, $7F
+	dw $405F
+	db $7F
 
 ; ---- code $1059-$1076 (29 bytes) [CONFIRMED] continuation of Function_00_1028
 
@@ -2888,9 +2892,9 @@ Function_00_1059:: ; 00:1059
 	ldh a, [hTextX]
 	cp a, $A0
 	jr nc, Function_00_1079
-	ldh a, [$FFBA]
+	ldh a, [hRam_FFBA]
 	ld b, a
-	ldh a, [$FFBB]
+	ldh a, [hRam_FFBB]
 	ld c, a
 	ldh a, [hTextY]
 	ld d, a
@@ -2900,9 +2904,11 @@ Function_00_1059:: ; 00:1059
 	call FarCall
 
 ; ---- data $1076-$1079 (3 bytes) [CONFIRMED] inline data of FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
+; inline farptr bytes of the convention call at 00:1073 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_1076:: ; 00:1076
-	db $C3, $42, $7F
+	dw $42C3
+	db $7F
 
 ; ---- code $1079-$10A0 (39 bytes) [CONFIRMED] continuation of Function_00_1028
 
@@ -2922,17 +2928,19 @@ Function_00_1079:: ; 00:1079
 	cp a, $90
 	jr nc, Function_00_10A3
 	ld d, a
-	ldh a, [$FFBA]
+	ldh a, [hRam_FFBA]
 	ld b, a
-	ldh a, [$FFBB]
+	ldh a, [hRam_FFBB]
 	ld c, a
 	ld hl, $C0B8
 	call FarCall
 
 ; ---- data $10A0-$10A3 (3 bytes) [CONFIRMED] inline data of FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
+; inline farptr bytes of the convention call at 00:109D (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10A0:: ; 00:10A0
-	db $C3, $42, $7F
+	dw $42C3
+	db $7F
 
 ; ---- code $10A3-$10B1 (14 bytes) [CONFIRMED] continuation
 
@@ -2960,16 +2968,18 @@ Function_00_10B1:: ; 00:10B1
 	call FarCall
 
 ; ---- data $10C3-$10C6 (3 bytes) [CONFIRMED] inline data of FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
+; inline farptr bytes of the convention call at 00:10C0 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10C3:: ; 00:10C3
-	db $07, $40, $7F
+	dw $4007
+	db $7F
 
 ; ---- code $10C6-$10D8 (18 bytes) [CONFIRMED] continuation of Function_00_10B1
 
 Function_00_10C6:: ; 00:10C6
-	ldh a, [$FFBA]
+	ldh a, [hRam_FFBA]
 	ld b, a
-	ldh a, [$FFBB]
+	ldh a, [hRam_FFBB]
 	ld c, a
 	ldh a, [hTextY]
 	ld d, a
@@ -2979,9 +2989,11 @@ Function_00_10C6:: ; 00:10C6
 	call FarCall
 
 ; ---- data $10D8-$10DB (3 bytes) [CONFIRMED] inline data of FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
+; inline farptr bytes of the convention call at 00:10D5 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10D8:: ; 00:10D8
-	db $C3, $42, $7F
+	dw $42C3
+	db $7F
 
 ; ---- code $10DB-$10E9 (14 bytes) [CONFIRMED] continuation
 
@@ -3034,9 +3046,9 @@ Label_00_110A:: ; 00:110A
 	pop bc
 	or a, a
 	jr z, Label_00_1117
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld l, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld h, a
 	jr Label_00_10EC
 
@@ -3081,9 +3093,9 @@ Label_00_1146:: ; 00:1146
 	jr Label_00_111C
 
 Label_00_114B:: ; 00:114B
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld e, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld d, a
 	pop bc
 
@@ -3106,18 +3118,18 @@ Label_00_1155:: ; 00:1155
 Label_00_1165:: ; 00:1165
 	dec hl
 	ld a, l
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ld a, h
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	push bc
 	push de
 	call Function_00_10E9
 	pop de
 	or a, a
 	jr nz, Label_00_117F
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld l, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld h, a
 	inc hl
 	pop bc
@@ -3127,9 +3139,9 @@ Label_00_117F:: ; 00:117F
 	ld c, a
 	ld b, $00
 	ld a, e
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ld a, d
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	ld de, $C380
 
 Label_00_118B:: ; 00:118B
@@ -3142,9 +3154,9 @@ Label_00_118B:: ; 00:118B
 	jr c, Label_00_11A5
 	cp a, $3D
 	jr z, Label_00_11B0
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld e, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld d, a
 	pop bc
 	jp Label_00_111C
@@ -3219,9 +3231,9 @@ Label_00_11FE:: ; 00:11FE
 Label_00_11FF:: ; 00:11FF
 	xor a, a
 	ld [de], a
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld e, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld d, a
 	ld a, c
 	pop bc
@@ -3466,7 +3478,7 @@ Function_00_1354:: ; 00:1354
 	cp a, $FF
 	ret z
 	push de
-	ld a, [$C2C9]
+	ld a, [wRam_C2C9]
 	call BankSwitch_D
 	xor a, a
 	ld [de], a
@@ -3512,7 +3524,7 @@ Label_00_1388:: ; 00:1388
 
 Label_00_1390:: ; 00:1390
 	ld a, [de]
-	ld [$C2DC], a
+	ld [wRam_C2DC], a
 	inc de
 	dec hl
 	pop bc
@@ -3561,28 +3573,28 @@ Label_00_13C6:: ; 00:13C6
 	pop hl
 	pop bc
 	ld a, [de]
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	inc de
 	ld a, [de]
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	inc de
 	pop hl
 	pop bc
 	push de
 	push hl
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, c
 	ld e, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	sbc a, b
 	jr c, Label_00_13E0
 	or a, e
 	jr nz, Label_00_13E6
 
 Label_00_13E0:: ; 00:13E0
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	ld c, a
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	ld b, a
 
 Label_00_13E6:: ; 00:13E6
@@ -3601,10 +3613,10 @@ Label_00_13F0:: ; 00:13F0
 	pop hl
 	ld a, c
 	ld [hli], a
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	ld a, b
 	ld [hli], a
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ret
 
 Label_00_13FD:: ; 00:13FD
@@ -3614,8 +3626,8 @@ Label_00_13FD:: ; 00:13FD
 	xor a, a
 	ld [hli], a
 	ld [hli], a
-	ldh [$FFB0], a
-	ldh [$FFB1], a
+	ldh [hRam_FFB0], a
+	ldh [hRam_FFB1], a
 	ret
 
 ; ---- code $1408-$14BF (183 bytes) [PROBABLE] text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13]
@@ -3623,9 +3635,9 @@ Label_00_13FD:: ; 00:13FD
 Function_00_1408:: ; 00:1408
 	call BankSwitch_H
 	ld a, c
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	ld a, b
-	ldh [$FFB1], a
+	ldh [hRam_FFB1], a
 	ld bc, $0000
 
 Label_00_1414:: ; 00:1414
@@ -3652,13 +3664,13 @@ Label_00_142F:: ; 00:142F
 	ld d, a
 	bit 7, a
 	jr nz, Label_00_1414
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	sbc a, d
 	jr c, Label_00_14AA
 	jr nz, Label_00_144A
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
 	jr z, Label_00_14A8
 
@@ -3693,13 +3705,13 @@ Label_00_1466:: ; 00:1466
 	ld d, a
 	bit 7, a
 	jr nz, Label_00_1414
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	sbc a, d
 	jr c, Label_00_14AA
 	jr nz, Label_00_1483
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
 	jr z, Label_00_14A8
 
@@ -3717,13 +3729,13 @@ Label_00_1486:: ; 00:1486
 	ld d, a
 	bit 7, a
 	jr nz, Label_00_1414
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	sbc a, d
 	jr c, Label_00_14B4
 	jr nz, Label_00_14A2
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	sub a, e
 	jr z, Label_00_14A7
 
@@ -3973,9 +3985,11 @@ Function_00_1586:: ; 00:1586
 	call FarCall
 
 ; ---- data $158A-$158D (3 bytes) [CONFIRMED] inline data of FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
+; inline farptr bytes of the convention call at 00:1587 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_158A:: ; 00:158A
-	db $FC, $44, $68
+	dw $44FC
+	db $68
 
 ; ---- code $158D-$161A (141 bytes) [PROBABLE] continuation [reached via inferred links; raw refs 11]
 
@@ -3990,7 +4004,7 @@ Function_00_158D:: ; 00:158D
 	ld a, $68
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	ld a, [$C271]
+	ld a, [wRam_C271]
 	ld hl, Data_68_67AE
 	add a, a
 	add a, l
@@ -4032,7 +4046,7 @@ Label_00_15BD:: ; 00:15BD
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [$B013]
+	ld a, [sSram_B013]
 	xor a, $A5
 	ld hl, Table_00_161A
 	add a, a
@@ -4099,7 +4113,7 @@ Label_00_163E:: ; 00:163E
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, [hli]
-	ld [$C12E], a
+	ld [wRam_C12E], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -4108,7 +4122,7 @@ Label_00_163E:: ; 00:163E
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh a, [hScratchA]
-	ld a, [$C12E]
+	ld a, [wRam_C12E]
 	ret
 
 Label_00_1669:: ; 00:1669
@@ -4162,15 +4176,15 @@ Function_00_16A2:: ; 00:16A2
 	ld a, $07
 	call BankSwitch_D
 	ld a, c
-	ldh [$FFB0], a
+	ldh [hRam_FFB0], a
 	push bc
 	push de
 	call Function_00_0904
 	pop de
 	pop bc
-	ld a, [$C10E]
+	ld a, [wRam_C10E]
 	ld l, a
-	ld a, [$C10F]
+	ld a, [wRam_C10F]
 	ld h, a
 	ld a, d
 	add a, $04
@@ -4189,7 +4203,7 @@ Function_00_16C4:: ; 00:16C4
 	reti
 
 Label_00_16CD:: ; 00:16CD
-	ld a, [$C0EF]
+	ld a, [wRam_C0EF]
 	ldh [rSCX], a
 	pop af
 	reti
@@ -4219,13 +4233,13 @@ Function_00_16DC:: ; 00:16DC
 	srl a
 	srl a
 	ld b, a
-	ld a, [$C0F6]
+	ld a, [wRam_C0F6]
 	xor a, $FF
 	inc a
 	add a, $09
 	ldh [rSCY], a
 	ld a, b
-	ld [$C0F6], a
+	ld [wRam_C0F6], a
 	ld a, $8E
 	ldh [rLYC], a
 	pop bc
@@ -4263,9 +4277,9 @@ Function_00_1711:: ; 00:1711
 ; ---- code $172D-$1770 (67 bytes) [PROBABLE] far-to-far copy of BC bytes: source (bank A, HL), destination bank in [C10E], DE; staged through a 16-byte buffer at C10E [candidate; raw refs 7]
 
 Function_00_172D:: ; 00:172D
-	ldh [$FFB1], a
-	ld a, [$C10E]
-	ldh [$FFB0], a
+	ldh [hRam_FFB1], a
+	ld a, [wRam_C10E]
+	ldh [hRam_FFB0], a
 	inc c
 	dec c
 	jr z, Label_00_1739
@@ -4276,7 +4290,7 @@ Label_00_1739:: ; 00:1739
 	push de
 	ld de, $C10E
 	ld c, $10
-	ldh a, [$FFB1]
+	ldh a, [hRam_FFB1]
 	call BankSwitch_H
 
 Label_00_1745:: ; 00:1745
@@ -4288,7 +4302,7 @@ Label_00_1745:: ; 00:1745
 	pop de
 	push hl
 	ld hl, $C10E
-	ldh a, [$FFB0]
+	ldh a, [hRam_FFB0]
 	call BankSwitch_D
 	ld c, $10
 
