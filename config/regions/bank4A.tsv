@@ -1,0 +1,29 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4004	data	Data_4A_4000	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4004	4033	data	Data_4A_4004	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
+4033	4040	data	Data_4A_4033	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4040	4240	gfx	Data_4A_4040	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5107: hl=$4040 a=$4A c=$20 de=$8001 (dest VRAM $8000, vbank=1)
+4240	4640	gfx	Data_4A_4240	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50BF: hl=$4240 a=$4A c=$40 de=$8801 (dest VRAM $8800, vbank=1)
+4640	4A40	gfx	Data_4A_4640	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50D1: hl=$4640 a=$4A c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
+4A40	4E40	gfx	Data_4A_4A40	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50E3: hl=$4A40 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+4E40	5240	gfx	Data_4A_4E40	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+5240	54A0	data	Data_4A_5240	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 51D0-54A0 by higher-priority evidence]
+54A0	5770	data	Data_4A_54A0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+5770	5810	data	Data_4A_5770	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+5810	583C	data	Data_4A_5810	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+583C	5860	data	Data_4A_583C	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
+5860	5870	gfx	Data_4A_5860	PROBABLE	tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
+5870	5C70	gfx	Data_4A_5870	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5C70	5CB0	gfx	Data_4A_5C70	PROBABLE	tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
+5CB0	5F80	data	Data_4A_5CB0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+5F80	6080	gfx	Data_4A_5F80	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:6385: hl=$5F80 a=$4A c=$10 de=$8000 (dest VRAM $8000, vbank=0)
+6080	6480	gfx	Data_4A_6080	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:6397: hl=$6080 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+6480	6880	gfx	Data_4A_6480	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:63A9: hl=$6480 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+6880	68D0	data	Data_4A_6880	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:63DC: hl=$6600 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 6600-68D0 by higher-priority evidence]
+68D0	6920	gfx	Data_4A_68D0	PROBABLE	tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.623 vsim2=0.877, 2 blank) parity 1; 832/912 bytes also covered by call-site blocks [clipped from 65C1-6951 by higher-priority evidence]
+6920	6D20	gfx	Data_4A_6920	PROBABLE	tiles-vram: 2 call site(s) (67:4394 67:4A09); first: hdma_rom_to_vram at 67:4394: hl=$6920 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+6D20	7120	gfx	Data_4A_6D20	PROBABLE	tiles-vram: 2 call site(s) (67:43A6 67:4A1B); first: hdma_rom_to_vram at 67:43A6: hl=$6D20 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+7120	71E8	data	Data_4A_7120	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:43CE: hl=$7120 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+71E8	72B0	data	Data_4A_71E8	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:43E1: hl=$71E8 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+72B0	7378	data	Data_4A_72B0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:4A3D: hl=$72B0 a=$4A b=5 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+7378	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

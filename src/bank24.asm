@@ -6,5 +6,3676 @@ INCLUDE "ram.inc"
 
 SECTION "Bank24", ROMX[$4000], BANK[$24]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $90000, $4000
+; ---- data $4000-$4018 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4000:: ; 24:4000
+	db $84, $A0, $84, $A1, $84, $A2, $84, $A3, $84, $A4, $84, $A5, $00, $A0, $16, $A0
+	db $2C, $A0, $42, $A0, $58, $A0, $6E, $A0
+
+; ---- code $4018-$42AF (663 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code)
+
+Function_24_4018:: ; 24:4018
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0A
+	ld [wRam_D724], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_7271
+	db BANK(Function_7F_7271)
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_D500]
+	cp a, $00
+	jr nz, Label_24_4053
+	xor a, a
+	ld [wRam_C2CC], a
+
+Label_24_4053:: ; 24:4053
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_D500]
+	ld b, a
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, b
+	ld [wRam_D524], a
+	ld bc, $0000
+	call Function_24_42F0
+	push bc
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0006
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop bc
+	ld c, $00
+
+Label_24_4083:: ; 24:4083
+	push bc
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2CC]
+	bit 4, a
+	jp z, Label_24_41D7
+	ld a, [wTimerEnable]
+	bit 1, a
+	jr z, Label_24_40AC
+	pop bc
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	ld a, $FF
+	ld de, $0000
+	ld hl, $0000
+	ret
+
+Label_24_40AC:: ; 24:40AC
+	ld a, [wTimerEnable]
+	bit 4, a
+	jp z, Label_24_4103
+	push hl
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_24_40FA
+	ld hl, $C26F
+	bit 0, [hl]
+	jr nz, Label_24_40FB
+	ld a, [wRam_C26E]
+	ld b, a
+	ld a, [wRam_C2D6]
+	cp a, b
+	jr c, Label_24_40FA
+	jr nz, Label_24_40D6
+	ld a, [wRam_C2D5]
+	cp a, $1E
+	jr c, Label_24_40FA
+
+Label_24_40D6:: ; 24:40D6
+	ld a, [wRam_C26E]
+	cp a, $45
+	jr nz, Label_24_40E6
+	ld hl, $C26F
+	bit 1, [hl]
+	jr nz, Label_24_40FA
+	set 1, [hl]
+
+Label_24_40E6:: ; 24:40E6
+	ld hl, $C26F
+	set 0, [hl]
+	ld hl, $C26E
+	ld a, [hl]
+	cp a, $45
+	jr z, Label_24_40FB
+	add a, $0A
+	ld [hl], a
+	ld a, $FF
+	jr Label_24_40FB
+
+Label_24_40FA:: ; 24:40FA
+	xor a, a
+
+Label_24_40FB:: ; 24:40FB
+	pop hl
+	or a, a
+	jp nz, Label_24_41C4
+	jp Label_24_41D7
+
+Label_24_4103:: ; 24:4103
+	xor a, a
+	ld [wRam_C2CA], a
+	ld hl, $DAB0
+	call Function_00_09E6
+	ld de, $0110
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_72_402A
+	db BANK(Function_72_402A)
+	call FarCall
+	dw Function_72_461A
+	db BANK(Function_72_461A)
+	call FarCall
+	dw Function_72_444F
+	db BANK(Function_72_444F)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld a, $00
+	ld [wRam_C2C0], a
+	ld [wRam_C2C3], a
+	call FarCall
+	dw Function_51_4000
+	db BANK(Function_51_4000)
+	xor a, a
+	ld [wRam_C1DC], a
+	ld a, [wTimerEnable]
+	ld [wRam_C2CC], a
+	pop bc
+	push bc
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wRam_D724], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_7271
+	db BANK(Function_7F_7271)
+	push bc
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0006
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop bc
+	call Function_24_42F0
+	call FarCall
+	dw Function_7F_627C
+	db BANK(Function_7F_627C)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_0464
+	pop bc
+	jp Label_24_4083
+
+Label_24_41C4:: ; 24:41C4
+	pop bc
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	ld a, $FF
+	ld de, $0000
+	ld hl, $0000
+	ret
+
+Label_24_41D7:: ; 24:41D7
+	call Function_00_0464
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	pop bc
+	ldh a, [hJoyPressed]
+	and a, $01
+	jr z, Label_24_422A
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	push bc
+	call Function_24_4794
+	call Function_24_47FB
+	pop bc
+	call Function_24_4BCD
+	inc a
+	jr nz, Label_24_4219
+	push bc
+	push de
+	push hl
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	pop hl
+	pop de
+	pop bc
+	ret
+
+Label_24_4219:: ; 24:4219
+	push bc
+	xor a, a
+	ld d, $00
+	ld e, $00
+	call Function_24_47FB
+	ld a, $03
+	ld b, $00
+	call Function_24_4A79
+	pop bc
+
+Label_24_422A:: ; 24:422A
+	ldh a, [hJoyPressed]
+	and a, $02
+	jr z, Label_24_4256
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	ld a, $FF
+	ld de, $0000
+	ld hl, $0000
+	ret
+
+Label_24_4256:: ; 24:4256
+	ldh a, [hJoyPressedRepeat]
+	and a, $40
+	jp z, Label_24_4281
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	ld d, c
+	dec c
+	ld a, $FF
+	cp a, c
+	jr nz, Label_24_427A
+	ld c, $05
+
+Label_24_427A:: ; 24:427A
+	ld a, d
+	call Function_24_483E
+	call Function_24_4453
+
+Label_24_4281:: ; 24:4281
+	ldh a, [hJoyPressedRepeat]
+	and a, $80
+	jp z, Label_24_42AC
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	ld d, c
+	inc c
+	ld a, $06
+	cp a, c
+	jr nz, Label_24_42A5
+	ld c, $00
+
+Label_24_42A5:: ; 24:42A5
+	ld a, d
+	call Function_24_483E
+	call Function_24_4453
+
+Label_24_42AC:: ; 24:42AC
+	jp Label_24_4083
+
+; ---- data $42AF-$42F0 (65 bytes) [HYPOTHESIS] UNCLASSIFIED 65 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_42AF:: ; 24:42AF
+	db $C9, $3E, $06, $E0, $8D, $E0, $70, $11, $00, $D5, $21, $D1, $42, $2A, $12, $13
+	db $FE, $00, $20, $F9, $11, $C0, $D3, $21, $E7, $42, $2A, $12, $13, $FE, $00, $20
+	db $F9, $C9, $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F
+	db $2E, $6E, $65, $2E, $6A, $70, $2F, $00, $82, $AD, $81, $5B, $82, $AD, $81, $5B
+	db $00
+
+; ---- code $42F0-$4B10 (2080 bytes) [PROBABLE] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code)
+
+Function_24_42F0:: ; 24:42F0
+	push bc
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $1000
+
+Label_24_42FD:: ; 24:42FD
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_24_42FD
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $0780
+
+Label_24_4310:: ; 24:4310
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_24_4310
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	call Function_00_0464
+	ld de, $9301
+	ld hl, $5400
+	ld a, $24
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+	call Function_00_0464
+	ld de, $9701
+	ld hl, $5800
+	ld a, $24
+	ld b, $97
+	ld c, $10
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+	call Function_00_0464
+	ld de, $8000
+	ld hl, $5EE0
+	ld a, $24
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+	call Function_00_0464
+	ld de, $8400
+	ld hl, $62E0
+	ld a, $24
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D840
+	ld hl, $64E0
+	ld a, $24
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $5EA0
+	ld a, $24
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	call Function_00_0464
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5900
+	ld a, $24
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_00_0464
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D500
+	ld a, [hl]
+	cp a, $00
+	jr z, Label_24_43D2
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5BD0
+	ld a, $24
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_00_0464
+
+Label_24_43D2:: ; 24:43D2
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call Function_00_0464
+	call Function_24_48C7
+	call Function_00_0464
+	pop bc
+	push bc
+	ld a, $00
+	call Function_24_483E
+	call Function_00_0464
+	ld c, $00
+	call Function_24_4453
+	call Function_00_0464
+	ld a, $03
+	ld b, $00
+	call Function_24_4A79
+	call Function_00_0464
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_044B
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0A
+	ld [wRam_D724], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_7271
+	db BANK(Function_7F_7271)
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	pop bc
+	ret
+
+Function_24_4453:: ; 24:4453
+	push bc
+	call Function_24_445C
+	call Function_24_45B7
+	pop bc
+	ret
+
+Function_24_445C:: ; 24:445C
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld hl, $DA60
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DA50
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DA40
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DA30
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DA20
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DA10
+	ld de, $6560
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $4000
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_44EF
+	ld hl, $DA60
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_44EF:: ; 24:44EF
+	ld hl, $4002
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_450B
+	ld hl, $DA50
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_450B:: ; 24:450B
+	ld hl, $4004
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_4527
+	ld hl, $DA40
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_4527:: ; 24:4527
+	ld hl, $4006
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_4543
+	ld hl, $DA30
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_4543:: ; 24:4543
+	ld hl, $4008
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_455F
+	ld hl, $DA20
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_455F:: ; 24:455F
+	ld hl, $400A
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_457B
+	ld hl, $DA10
+	ld de, $6550
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_24_457B:: ; 24:457B
+	ld a, $23
+	ld [wSpriteSlots + 96], a
+	ld a, $2F
+	ld [wSpriteSlots + 80], a
+	ld a, $3B
+	ld [wSpriteSlots + 64], a
+	ld a, $47
+	ld [wSpriteSlots + 48], a
+	ld a, $53
+	ld [wSpriteSlots + 32], a
+	ld a, $5F
+	ld [wSpriteSlots + 16], a
+	ld a, $06
+	ld [wSpriteSlots + 97], a
+	ld [wSpriteSlots + 81], a
+	ld [wSpriteSlots + 65], a
+	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlots + 17], a
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	pop bc
+	ret
+
+Function_24_45B7:: ; 24:45B7
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	xor a, a
+	cp a, c
+	jr nz, Label_24_4618
+	ld hl, $4000
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_45FB
+	ld hl, $DA60
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $23
+	ld [wSpriteSlots + 96], a
+	ld a, $06
+	ld [wSpriteSlots + 97], a
+	jp Label_24_478A
+
+Label_24_45FB:: ; 24:45FB
+	ld hl, $DA60
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $23
+	ld [wSpriteSlots + 96], a
+	ld a, $06
+	ld [wSpriteSlots + 97], a
+	jp Label_24_478A
+
+Label_24_4618:: ; 24:4618
+	inc a
+	cp a, c
+	jr nz, Label_24_4662
+	ld hl, $4002
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_4645
+	ld hl, $DA50
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $2F
+	ld [wSpriteSlots + 80], a
+	ld a, $06
+	ld [wSpriteSlots + 81], a
+	jp Label_24_478A
+
+Label_24_4645:: ; 24:4645
+	ld hl, $DA50
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $2F
+	ld [wSpriteSlots + 80], a
+	ld a, $06
+	ld [wSpriteSlots + 81], a
+	jp Label_24_478A
+
+Label_24_4662:: ; 24:4662
+	inc a
+	cp a, c
+	jr nz, Label_24_46AC
+	ld hl, $4004
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_468F
+	ld hl, $DA40
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $3B
+	ld [wSpriteSlots + 64], a
+	ld a, $06
+	ld [wSpriteSlots + 65], a
+	jp Label_24_478A
+
+Label_24_468F:: ; 24:468F
+	ld hl, $DA40
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $3B
+	ld [wSpriteSlots + 64], a
+	ld a, $06
+	ld [wSpriteSlots + 65], a
+	jp Label_24_478A
+
+Label_24_46AC:: ; 24:46AC
+	inc a
+	cp a, c
+	jr nz, Label_24_46F6
+	ld hl, $4006
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_46D9
+	ld hl, $DA30
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $47
+	ld [wSpriteSlots + 48], a
+	ld a, $06
+	ld [wSpriteSlots + 49], a
+	jp Label_24_478A
+
+Label_24_46D9:: ; 24:46D9
+	ld hl, $DA30
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $47
+	ld [wSpriteSlots + 48], a
+	ld a, $06
+	ld [wSpriteSlots + 49], a
+	jp Label_24_478A
+
+Label_24_46F6:: ; 24:46F6
+	inc a
+	cp a, c
+	jr nz, Label_24_4740
+	ld hl, $4008
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_4723
+	ld hl, $DA20
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $53
+	ld [wSpriteSlots + 32], a
+	ld a, $06
+	ld [wSpriteSlots + 33], a
+	jp Label_24_478A
+
+Label_24_4723:: ; 24:4723
+	ld hl, $DA20
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $53
+	ld [wSpriteSlots + 32], a
+	ld a, $06
+	ld [wSpriteSlots + 33], a
+	jp Label_24_478A
+
+Label_24_4740:: ; 24:4740
+	inc a
+	cp a, c
+	jr nz, Label_24_478A
+	ld hl, $400A
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr z, Label_24_476D
+	ld hl, $DA10
+	ld de, $6530
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $5F
+	ld [wSpriteSlots + 16], a
+	ld a, $06
+	ld [wSpriteSlots + 17], a
+	jp Label_24_478A
+
+Label_24_476D:: ; 24:476D
+	ld hl, $DA10
+	ld de, $6540
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $5F
+	ld [wSpriteSlots + 16], a
+	ld a, $06
+	ld [wSpriteSlots + 17], a
+	jp Label_24_478A
+
+Label_24_478A:: ; 24:478A
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	pop bc
+	ret
+
+Function_24_4794:: ; 24:4794
+	push bc
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld e, c
+	sla e
+	ld d, $00
+	ld hl, $4000
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [de]
+	cp a, $00
+	jr nz, Label_24_47D8
+	ld d, $00
+	ld e, $00
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D500
+	ld a, [hl]
+	cp a, $00
+	jr z, Label_24_47D3
+	ld a, $01
+
+Label_24_47D3:: ; 24:47D3
+	ld c, a
+	ld a, d
+	ld d, c
+	pop bc
+	ret
+
+Label_24_47D8:: ; 24:47D8
+	ld d, $01
+	ld e, $01
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D500
+	ld a, [hl]
+	cp a, $00
+	jr z, Label_24_47F6
+	ld a, $01
+	ld d, $01
+
+Label_24_47F6:: ; 24:47F6
+	ld c, a
+	ld a, d
+	ld d, c
+	pop bc
+	ret
+
+Function_24_47FB:: ; 24:47FB
+	push bc
+	di
+	ld b, a
+	ld a, $01
+	ldh [rVBK], a
+
+Label_24_4802:: ; 24:4802
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Label_24_4802
+	ld a, $0C
+	dec b
+	jr z, Label_24_480F
+	ld a, $0B
+
+Label_24_480F:: ; 24:480F
+	ld hl, $99C3
+	ld [hli], a
+	ld [hl], a
+	ld hl, $99E3
+	ld [hli], a
+	ld [hl], a
+	ld a, $0C
+	dec d
+	jr z, Label_24_4820
+	ld a, $0B
+
+Label_24_4820:: ; 24:4820
+	ld hl, $99C9
+	ld [hli], a
+	ld [hl], a
+	ld hl, $99E9
+	ld [hli], a
+	ld [hl], a
+	ld a, $0C
+	dec e
+	jr z, Label_24_4831
+	ld a, $0B
+
+Label_24_4831:: ; 24:4831
+	ld hl, $99CF
+	ld [hli], a
+	ld [hl], a
+	ld hl, $99EF
+	ld [hli], a
+	ld [hl], a
+	ei
+	pop bc
+	ret
+
+Function_24_483E:: ; 24:483E
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	push bc
+	push af
+	ld e, a
+	sla e
+	ld d, $00
+	ld hl, $400C
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	pop af
+	ld de, $0020
+	ld b, a
+	xor a, a
+	inc b
+
+Label_24_4866:: ; 24:4866
+	dec b
+	jr z, Label_24_486D
+	add a, $0C
+	jr Label_24_4866
+
+Label_24_486D:: ; 24:486D
+	add a, $10
+	ld d, a
+	ld b, $03
+	ld c, $00
+	call Function_24_494C
+	pop bc
+	push bc
+	ld e, c
+	sla e
+	ld d, $00
+	ld hl, $400C
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	pop bc
+	push hl
+	ld de, $0020
+	ld b, c
+	xor a, a
+	inc b
+
+Label_24_488F:: ; 24:488F
+	dec b
+	jr z, Label_24_4896
+	add a, $0C
+	jr Label_24_488F
+
+Label_24_4896:: ; 24:4896
+	add a, $10
+	ld d, a
+	ld b, $00
+	ld c, $01
+	call Function_24_494C
+	pop hl
+	pop bc
+	push bc
+	ld b, $03
+	ld c, $00
+	ld de, $0220
+	ld hl, $D3C0
+	call Function_24_494C
+	call Function_24_4A00
+	pop bc
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	xor a, a
+	ld d, $00
+	ld e, $00
+	call Function_24_47FB
+	pop bc
+	ret
+
+Function_24_48C7:: ; 24:48C7
+	push bc
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	xor a, a
+	ld d, $06
+
+Label_24_48DB:: ; 24:48DB
+	push af
+	push de
+	push bc
+	push af
+	ld e, a
+	sla e
+	ld d, $00
+	ld hl, $400C
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	pop af
+	ld de, $0020
+	ld b, a
+	xor a, a
+	inc b
+
+Label_24_48F4:: ; 24:48F4
+	dec b
+	jr z, Label_24_48FB
+	add a, $0C
+	jr Label_24_48F4
+
+Label_24_48FB:: ; 24:48FB
+	add a, $10
+	ld d, a
+	ld b, $03
+	ld c, $00
+	call Function_24_494C
+	pop bc
+	pop de
+	pop af
+	inc a
+	dec d
+	jr nz, Label_24_48DB
+	ld hl, $400C
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	push hl
+	ld de, $1020
+	ld b, $00
+	ld c, $01
+	call Function_24_494C
+	pop hl
+	pop bc
+	push bc
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, $03
+	ld c, $00
+	ld de, $0220
+	ld hl, $D3C0
+	call Function_24_494C
+	call Function_24_4A00
+	pop bc
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	xor a, a
+	ld d, $00
+	ld e, $00
+	call Function_24_47FB
+	pop bc
+	ret
+
+Function_24_494C:: ; 24:494C
+	ld a, $14
+	ld [wRam_C2EE], a
+
+Label_24_4951:: ; 24:4951
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hli]
+	cp a, $00
+	jr z, Label_24_49CC
+	push af
+	call FarCall
+	dw Function_7F_41A7
+	db BANK(Function_7F_41A7)
+	dec a
+	jr nz, Label_24_49A7
+	pop af
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [hli]
+	ld l, a
+	pop af
+	ld h, a
+	ld bc, $C0A0
+	ld de, $C0B8
+	call FarCall
+	dw Function_7F_405F
+	db BANK(Function_7F_405F)
+	pop hl
+	pop de
+	pop bc
+	inc hl
+	call Function_24_49EC
+	push bc
+	push de
+	push hl
+	ld hl, $C0B8
+	call FarCall
+	dw Function_7F_42C3
+	db BANK(Function_7F_42C3)
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ld a, [wRam_C2EE]
+	dec a
+	dec a
+	ld [wRam_C2EE], a
+	cp a, $00
+	jr z, Label_24_49CC
+	cp a, $01
+	jr z, Label_24_49CC
+	jr Label_24_4951
+
+Label_24_49A7:: ; 24:49A7
+	pop af
+	push bc
+	push de
+	push hl
+	ld b, a
+	ld de, $C0A0
+	call FarCall
+	dw Function_7F_4007
+	db BANK(Function_7F_4007)
+	pop hl
+	pop de
+	pop bc
+	call Function_24_49EC
+	ld a, [wRam_C2EE]
+	dec a
+	ld [wRam_C2EE], a
+	cp a, $00
+	jr z, Label_24_49CC
+	cp a, $01
+	jr z, Label_24_49CC
+	jr Label_24_4951
+
+Label_24_49CC:: ; 24:49CC
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	call FarCall
+	dw Function_7F_4007
+	db BANK(Function_7F_4007)
+	pop hl
+	pop de
+	pop bc
+
+Label_24_49DD:: ; 24:49DD
+	ld a, [wRam_C2EE]
+	cp a, $00
+	ret z
+	dec a
+	ld [wRam_C2EE], a
+	call Function_24_49EC
+	jr Label_24_49DD
+
+Function_24_49EC:: ; 24:49EC
+	push bc
+	push de
+	push hl
+	ld hl, $C0A0
+	call FarCall
+	dw Function_7F_42C3
+	db BANK(Function_7F_42C3)
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+Function_24_4A00:: ; 24:4A00
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, $D000
+	ld de, $9000
+	ld c, $3F
+	call Function_24_4A54
+	call Function_00_0392
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D400
+	ld de, $9400
+	ld c, $3F
+	call Function_24_4A54
+	call Function_00_0392
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D800
+	ld de, $8800
+	ld c, $3F
+	call Function_24_4A54
+	call Function_00_0392
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DC00
+	ld de, $8C00
+	ld c, $2F
+	call Function_24_4A54
+	call Function_00_0392
+	ret
+
+Function_24_4A54:: ; 24:4A54
+	ld a, h
+	ldh [rHDMA1], a
+	ld a, l
+	ldh [rHDMA2], a
+	ld a, d
+	ldh [rHDMA3], a
+	ld a, e
+	ldh [rHDMA4], a
+	ld de, $FF44
+
+Label_24_4A63:: ; 24:4A63
+	ld a, [de]
+	cp a, $5D
+	jr nz, Label_24_4A63
+	di
+	ld b, $91
+
+Label_24_4A6B:: ; 24:4A6B
+	ld a, [de]
+	cp a, b
+	jr nz, Label_24_4A6B
+	ld a, c
+	and a, $7F
+	ldh [rHDMA5], a
+	xor a, a
+	ldh [rSCY], a
+	ei
+	ret
+
+Function_24_4A79:: ; 24:4A79
+	push af
+	push bc
+	push de
+	push hl
+	ld d, a
+	ld e, d
+	ld d, $00
+	sla e
+	ld hl, $4B10
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	push hl
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $24
+	ld bc, $D000
+	ld de, $D140
+	call FarCall
+	dw Function_48_403E
+	db BANK(Function_48_403E)
+	pop hl
+	push hl
+	ld de, $0009
+	add hl, de
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $24
+	ld bc, $D280
+	ld de, $D3C0
+	call FarCall
+	dw Function_48_403E
+	db BANK(Function_48_403E)
+	pop hl
+	push hl
+	ld de, $0012
+	add hl, de
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $24
+	ld bc, $D500
+	ld de, $D640
+	call FarCall
+	dw Function_48_403E
+	db BANK(Function_48_403E)
+	pop hl
+	push hl
+	ld de, $001B
+	add hl, de
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $24
+	ld bc, $D780
+	ld de, $D8C0
+	call FarCall
+	dw Function_48_403E
+	db BANK(Function_48_403E)
+	pop hl
+	push hl
+	ld de, $0024
+	add hl, de
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $24
+	ld bc, $DA00
+	ld de, $DB40
+	call FarCall
+	dw Function_48_403E
+	db BANK(Function_48_403E)
+	pop hl
+	call Function_24_4A00
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
+
+; ---- data $4B10-$4B21 (17 bytes) [HYPOTHESIS] UNCLASSIFIED 17 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4B10:: ; 24:4B10
+	db $18, $4B, $45, $4B, $72, $4B, $9F, $4B, $81, $40, $81, $40, $81, $40, $82, $B1
+	db $00
+
+; ---- text $4B21-$4B3C (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_24_4B21:: ; 24:4B21
+	db $82, $CC, $83, $79, $81, $5B, $83, $57, $00, $82, $C9, $81, $40, $82, $A2, $82
+	db $C7, $00, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $00
+
+; ---- data $4B3C-$4B4E (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4B3C:: ; 24:4B3C
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $82
+	db $A2, $00
+
+; ---- text $4B4E-$4B69 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_24_4B4E:: ; 24:4B4E
+	db $82, $DC, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $83
+	db $5A, $00, $81, $5B, $83, $75, $82, $B5, $82, $DC, $00
+
+; ---- data $4B69-$4B7B (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4B69:: ; 24:4B69
+	db $82, $B7, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
+	db $40, $00
+
+; ---- text $4B7B-$4B96 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_24_4B7B:: ; 24:4B7B
+	db $82, $B1, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $82
+	db $AF, $00, $82, $B5, $82, $DC, $82, $B7, $81, $40, $00
+
+; ---- data $4B96-$4BA8 (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4B96:: ; 24:4B96
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $83, $79, $81
+	db $5B, $00
+
+; ---- text $4BA8-$4BC3 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_24_4BA8:: ; 24:4BA8
+	db $83, $57, $82, $F0, $81, $40, $82, $B9, $00, $82, $F1, $82, $BD, $82, $AD, $82
+	db $B5, $00, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $00
+
+; ---- data $4BC3-$4BCD (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_4BC3:: ; 24:4BC3
+	db $82, $A2, $81, $40, $81, $40, $81, $40, $00, $C9
+
+; ---- code $4BCD-$53FE (2097 bytes) [PROBABLE] 1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code)
+
+Function_24_4BCD:: ; 24:4BCD
+	call Function_24_4E46
+	call Function_24_53FD
+	ld b, $00
+
+Label_24_4BD5:: ; 24:4BD5
+	push bc
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2CC]
+	bit 4, a
+	jp z, Label_24_4D39
+	ld a, [wTimerEnable]
+	bit 1, a
+	jr z, Label_24_4BFE
+	pop bc
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	ld a, $FF
+	ld de, $0000
+	ld hl, $0000
+	ret
+
+Label_24_4BFE:: ; 24:4BFE
+	ld a, [wTimerEnable]
+	bit 4, a
+	jp z, Label_24_4C55
+	push hl
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_24_4C4C
+	ld hl, $C26F
+	bit 0, [hl]
+	jr nz, Label_24_4C4D
+	ld a, [wRam_C26E]
+	ld b, a
+	ld a, [wRam_C2D6]
+	cp a, b
+	jr c, Label_24_4C4C
+	jr nz, Label_24_4C28
+	ld a, [wRam_C2D5]
+	cp a, $1E
+	jr c, Label_24_4C4C
+
+Label_24_4C28:: ; 24:4C28
+	ld a, [wRam_C26E]
+	cp a, $45
+	jr nz, Label_24_4C38
+	ld hl, $C26F
+	bit 1, [hl]
+	jr nz, Label_24_4C4C
+	set 1, [hl]
+
+Label_24_4C38:: ; 24:4C38
+	ld hl, $C26F
+	set 0, [hl]
+	ld hl, $C26E
+	ld a, [hl]
+	cp a, $45
+	jr z, Label_24_4C4D
+	add a, $0A
+	ld [hl], a
+	ld a, $FF
+	jr Label_24_4C4D
+
+Label_24_4C4C:: ; 24:4C4C
+	xor a, a
+
+Label_24_4C4D:: ; 24:4C4D
+	pop hl
+	or a, a
+	jp nz, Label_24_4D25
+	jp Label_24_4D39
+
+Label_24_4C55:: ; 24:4C55
+	xor a, a
+	ld [wRam_C2CA], a
+	call FarCall
+	dw Function_7F_624F
+	db BANK(Function_7F_624F)
+	ld hl, $DAB0
+	call Function_00_09E6
+	ld de, $0110
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_72_402A
+	db BANK(Function_72_402A)
+	call FarCall
+	dw Function_72_461A
+	db BANK(Function_72_461A)
+	call FarCall
+	dw Function_72_444F
+	db BANK(Function_72_444F)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld a, $00
+	ld [wRam_C2C0], a
+	ld [wRam_C2C3], a
+	call FarCall
+	dw Function_51_4000
+	db BANK(Function_51_4000)
+	xor a, a
+	ld [wRam_C1DC], a
+	ld a, [wTimerEnable]
+	ld [wRam_C2CC], a
+	pop bc
+	push bc
+	push bc
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wRam_D724], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	call FarCall
+	dw Function_7F_7271
+	db BANK(Function_7F_7271)
+	push bc
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0006
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop bc
+	call Function_24_42F0
+	call Function_00_0464
+	pop bc
+	push bc
+	call Function_24_4794
+	call Function_24_47FB
+	call FarCall
+	dw Function_7F_627C
+	db BANK(Function_7F_627C)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	pop bc
+	jp Label_24_4BD5
+
+Label_24_4D25:: ; 24:4D25
+	pop bc
+	pop af
+	call FarCall
+	dw Function_7F_72B0
+	db BANK(Function_7F_72B0)
+	call Function_00_0464
+	ld a, $FF
+	ld de, $0000
+	ld hl, $0000
+	ret
+
+Label_24_4D39:: ; 24:4D39
+	call Function_00_0464
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	pop bc
+	ldh a, [hJoyHeld]
+	call nz, Function_24_53FC
+	ldh a, [hJoyPressed]
+	and a, $01
+	jr z, Label_24_4DBA
+	ld a, b
+	cp a, $01
+	jr nz, Label_24_4D5E
+	call Function_24_4F14
+	call FarCall
+	dw Function_22_50FC
+	db BANK(Function_22_50FC)
+	jr Label_24_4D6B
+
+Label_24_4D5E:: ; 24:4D5E
+	cp a, $02
+	jr nz, Label_24_4D97
+	call Function_24_51CB
+	call FarCall
+	dw Function_22_50FC
+	db BANK(Function_22_50FC)
+
+Label_24_4D6B:: ; 24:4D6B
+	inc a
+	jp z, Label_24_4D8A
+	inc a
+	jp z, Label_24_4BD5
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	jp Label_24_4BD5
+
+Label_24_4D8A:: ; 24:4D8A
+	call Function_24_4E71
+	push bc
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	pop bc
+	xor a, a
+	ret
+
+Label_24_4D97:: ; 24:4D97
+	call Function_24_5164
+	inc a
+	jp z, Label_24_4DB7
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	ld a, $FF
+	jp Label_24_4BD5
+
+Label_24_4DB7:: ; 24:4DB7
+	ld a, $FF
+	ret
+
+Label_24_4DBA:: ; 24:4DBA
+	ldh a, [hJoyPressed]
+	and a, $02
+	jr z, Label_24_4DE1
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	call Function_24_4E71
+	push bc
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	pop bc
+	xor a, a
+	ret
+
+Label_24_4DE1:: ; 24:4DE1
+	ldh a, [hJoyPressedRepeat]
+	and a, $20
+	jr z, Label_24_4E12
+	push bc
+	push de
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop de
+	pop bc
+	ld d, b
+	dec b
+	ld a, $FF
+	cp a, b
+	jr nz, Label_24_4E06
+	ld b, $02
+
+Label_24_4E06:: ; 24:4E06
+	ld a, d
+	call Function_24_4EF1
+	ld a, b
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+
+Label_24_4E12:: ; 24:4E12
+	ldh a, [hJoyPressedRepeat]
+	and a, $10
+	jr z, Label_24_4E43
+	push bc
+	push de
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop de
+	pop bc
+	ld d, b
+	inc b
+	ld a, $03
+	cp a, b
+	jr nz, Label_24_4E37
+	ld b, $00
+
+Label_24_4E37:: ; 24:4E37
+	ld a, d
+	call Function_24_4EF1
+	ld a, b
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+
+Label_24_4E43:: ; 24:4E43
+	jp Label_24_4BD5
+
+Function_24_4E46:: ; 24:4E46
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DA00
+	ld de, $6570
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $16
+	ld [wSpriteSlots + 1], a
+	pop bc
+	xor a, a
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+	ret
+
+Function_24_4E71:: ; 24:4E71
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push bc
+	ld a, $E8
+	ld [wSpriteSlots + 1], a
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	pop bc
+	ret
+
+Function_24_4E85:: ; 24:4E85
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $00
+	cp a, b
+	jr nz, Label_24_4EAD
+	ld hl, $DA00
+	ld de, $6570
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $16
+	ld [wSpriteSlots + 1], a
+	pop bc
+	ret
+
+Label_24_4EAD:: ; 24:4EAD
+	ld a, $01
+	cp a, b
+	jr nz, Label_24_4ECE
+	ld hl, $DA00
+	ld de, $6580
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $46
+	ld [wSpriteSlots + 1], a
+	pop bc
+	ret
+
+Label_24_4ECE:: ; 24:4ECE
+	ld a, $02
+	cp a, b
+	jr nz, Label_24_4EEF
+	ld hl, $DA00
+	ld de, $6590
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $76
+	ld [wSpriteSlots + 1], a
+	pop bc
+	ret
+
+Label_24_4EEF:: ; 24:4EEF
+	pop bc
+	ret
+
+Function_24_4EF1:: ; 24:4EF1
+	push bc
+	jr c, Label_24_4F04
+	pop bc
+	call Function_24_4E85
+	push bc
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_0464
+	pop bc
+	ret
+
+Label_24_4F04:: ; 24:4F04
+	pop bc
+	call Function_24_4E85
+	push bc
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_0464
+	pop bc
+	ret
+
+Function_24_4F14:: ; 24:4F14
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D500
+	ld a, [hl]
+	cp a, $00
+	ret z
+	ld a, b
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld e, c
+	ld d, $00
+	sla e
+	ld hl, $4000
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	push bc
+	push de
+	ld a, [de]
+	cp a, $00
+	jp z, Label_24_4FF6
+	push bc
+	push de
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wSpriteSlots + 33]
+	ld c, a
+	ld a, $C0
+	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlots + 17], a
+	ld a, [wSpriteSlots]
+	ld b, a
+	ld a, $C0
+	ld [wSpriteSlots], a
+	push bc
+	ld de, $0109
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	push de
+	pop de
+	call FarCall
+	dw Function_72_4015
+	db BANK(Function_72_4015)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	pop bc
+	push af
+	ld a, c
+	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlots + 17], a
+	ld a, b
+	ld [wSpriteSlots], a
+	pop af
+	pop de
+	pop bc
+	push af
+	call Function_24_4794
+	call Function_24_47FB
+	pop af
+	dec a
+	jr z, Label_24_4FF6
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DA00
+	ld de, $6580
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $46
+	ld [wSpriteSlots + 1], a
+	pop bc
+	push bc
+	call Function_24_4453
+	pop bc
+	pop de
+	pop bc
+	xor a, a
+	ldh [hJoyPressed], a
+	ld a, $FE
+	ret
+
+Label_24_4FF6:: ; 24:4FF6
+	push bc
+	push de
+	call Function_24_4453
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0032
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	pop de
+	pop bc
+	push de
+	push bc
+	ld a, c
+	cp a, $00
+	jr nz, Label_24_5039
+	ld hl, $DA60
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $23
+	ld [wSpriteSlots + 96], a
+	ld a, $06
+	ld [wSpriteSlots + 97], a
+	jp Label_24_50FC
+
+Label_24_5039:: ; 24:5039
+	cp a, $01
+	jr nz, Label_24_5060
+	ld hl, $DA50
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $2F
+	ld [wSpriteSlots + 80], a
+	ld a, $06
+	ld [wSpriteSlots + 81], a
+	jp Label_24_50FC
+
+Label_24_5060:: ; 24:5060
+	cp a, $02
+	jr nz, Label_24_5087
+	ld hl, $DA40
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $3B
+	ld [wSpriteSlots + 64], a
+	ld a, $06
+	ld [wSpriteSlots + 65], a
+	jp Label_24_50FC
+
+Label_24_5087:: ; 24:5087
+	cp a, $03
+	jr nz, Label_24_50AE
+	ld hl, $DA30
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $47
+	ld [wSpriteSlots + 48], a
+	ld a, $06
+	ld [wSpriteSlots + 49], a
+	jp Label_24_50FC
+
+Label_24_50AE:: ; 24:50AE
+	cp a, $04
+	jr nz, Label_24_50D5
+	ld hl, $DA20
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $53
+	ld [wSpriteSlots + 32], a
+	ld a, $06
+	ld [wSpriteSlots + 33], a
+	jp Label_24_50FC
+
+Label_24_50D5:: ; 24:50D5
+	cp a, $05
+	jr nz, Label_24_50FC
+	ld hl, $DA10
+	ld de, $65A0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $5F
+	ld [wSpriteSlots + 16], a
+	ld a, $06
+	ld [wSpriteSlots + 17], a
+	jp Label_24_50FC
+
+Label_24_50FC:: ; 24:50FC
+	pop bc
+	ld e, $32
+
+Label_24_50FF:: ; 24:50FF
+	push bc
+	push de
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_0464
+	pop de
+	pop bc
+	dec e
+	jr nz, Label_24_50FF
+	pop de
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	ld hl, $D500
+	ld c, $00
+
+Label_24_512C:: ; 24:512C
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, Label_24_512C
+	pop bc
+	ld e, c
+	ld d, $00
+	sla e
+	ld hl, $400C
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	push bc
+	ld hl, $D3C0
+	ld a, [hl]
+	cp a, $00
+	jr nz, Label_24_514C
+	ld hl, $D500
+
+Label_24_514C:: ; 24:514C
+	ld c, $16
+
+Label_24_514E:: ; 24:514E
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, Label_24_514E
+	pop bc
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld a, c
+	call Function_24_483E
+	ld a, $FF
+	ret
+
+Function_24_5164:: ; 24:5164
+	push bc
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D500
+	ld a, [hl]
+	cp a, $00
+	jr nz, Label_24_5173
+
+Label_24_5173:: ; 24:5173
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld b, $00
+	sla c
+	ld e, c
+	ld d, $00
+	ld hl, $400C
+	add hl, de
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $4000
+	add hl, bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hl]
+	ld h, a
+	ld l, c
+	ld a, [hl]
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	pop bc
+	cp a, $00
+	ret z
+	push de
+	ld a, b
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+	pop de
+	push bc
+	push de
+	push hl
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop hl
+	pop de
+	pop bc
+	ld a, $FF
+	ret
+
+Function_24_51CB:: ; 24:51CB
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	sla c
+	ld b, $00
+	ld hl, $4000
+	add hl, bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hl]
+	ld b, a
+	ld a, [bc]
+	pop bc
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	cp a, $00
+	ret z
+	ld a, b
+	ld d, b
+	ld b, $00
+	call Function_24_4A79
+	ld b, d
+	push bc
+	push de
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wSpriteSlots + 33]
+	ld c, a
+	ld a, $C0
+	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlots + 17], a
+	ld a, [wSpriteSlots]
+	ld b, a
+	ld a, $C0
+	ld [wSpriteSlots], a
+	push bc
+	ld de, $0108
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	push de
+	pop de
+	call FarCall
+	dw Function_72_4015
+	db BANK(Function_72_4015)
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wRam_D824], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	pop bc
+	push af
+	ld a, c
+	ld [wSpriteSlots + 49], a
+	ld [wSpriteSlots + 33], a
+	ld [wSpriteSlots + 17], a
+	ld a, b
+	ld [wSpriteSlots], a
+	pop af
+	pop de
+	pop bc
+	push af
+	call Function_24_4794
+	call Function_24_47FB
+	pop af
+	dec a
+	jr z, Label_24_52A3
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $DA00
+	ld de, $6590
+	ld a, $24
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $6F
+	ld [wSpriteSlots], a
+	ld a, $76
+	ld [wSpriteSlots + 1], a
+	pop bc
+	push bc
+	call Function_24_4453
+	pop bc
+	xor a, a
+	ldh [hJoyPressed], a
+	ld a, $FE
+	ret
+
+Label_24_52A3:: ; 24:52A3
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0033
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_24_4453
+	pop de
+	pop bc
+	push bc
+	ld a, c
+	cp a, $00
+	jr nz, Label_24_52E3
+	ld hl, $DA60
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $23
+	ld [wSpriteSlots + 96], a
+	ld a, $06
+	ld [wSpriteSlots + 97], a
+	jp Label_24_53A6
+
+Label_24_52E3:: ; 24:52E3
+	cp a, $01
+	jr nz, Label_24_530A
+	ld hl, $DA50
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $2F
+	ld [wSpriteSlots + 80], a
+	ld a, $06
+	ld [wSpriteSlots + 81], a
+	jp Label_24_53A6
+
+Label_24_530A:: ; 24:530A
+	cp a, $02
+	jr nz, Label_24_5331
+	ld hl, $DA40
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $3B
+	ld [wSpriteSlots + 64], a
+	ld a, $06
+	ld [wSpriteSlots + 65], a
+	jp Label_24_53A6
+
+Label_24_5331:: ; 24:5331
+	cp a, $03
+	jr nz, Label_24_5358
+	ld hl, $DA30
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $47
+	ld [wSpriteSlots + 48], a
+	ld a, $06
+	ld [wSpriteSlots + 49], a
+	jp Label_24_53A6
+
+Label_24_5358:: ; 24:5358
+	cp a, $04
+	jr nz, Label_24_537F
+	ld hl, $DA20
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $53
+	ld [wSpriteSlots + 32], a
+	ld a, $06
+	ld [wSpriteSlots + 33], a
+	jp Label_24_53A6
+
+Label_24_537F:: ; 24:537F
+	cp a, $05
+	jr nz, Label_24_53A6
+	ld hl, $DA10
+	ld de, $65B0
+	ld a, $24
+	ld b, $01
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $5F
+	ld [wSpriteSlots + 16], a
+	ld a, $06
+	ld [wSpriteSlots + 17], a
+	jp Label_24_53A6
+
+Label_24_53A6:: ; 24:53A6
+	pop bc
+	ld e, $32
+
+Label_24_53A9:: ; 24:53A9
+	push bc
+	push de
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_0464
+	pop de
+	pop bc
+	dec e
+	jr nz, Label_24_53A9
+	push af
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	push bc
+	sla c
+	ld b, $00
+	ld hl, $400C
+	add hl, bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hl]
+	ld b, a
+	xor a, a
+	ld [bc], a
+	inc bc
+	ld [bc], a
+	pop bc
+	push bc
+	sla c
+	ld b, $00
+	ld hl, $4000
+	add hl, bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hl]
+	ld b, a
+	xor a, a
+	ld [bc], a
+	inc bc
+	ld [bc], a
+	pop bc
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	ld a, c
+	call Function_24_483E
+	ld a, $FF
+	ret
+
+Function_24_53FC:: ; 24:53FC
+	ret
+
+Function_24_53FD:: ; 24:53FD
+	ret
+
+; ---- data $53FE-$55D0 (466 bytes) [HYPOTHESIS] UNCLASSIFIED 466 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_53FE:: ; 24:53FE
+	db $00, $00, $F0, $00, $EF, $07, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F
+	db $EF, $0F, $00, $00, $FD, $FC, $C1, $81, $BD, $B8, $BC, $28, $6C, $44, $66, $44
+	db $66, $42, $00, $00, $DF, $9F, $DF, $5F, $DF, $9F, $3F, $1F, $33, $E1, $ED, $EC
+	db $EE, $62, $00, $00, $FF, $FF, $FC, $F8, $FB, $FB, $FB, $F8, $F8, $F8, $FB, $FB
+	db $FB, $78, $00, $00, $EB, $EA, $2B, $0A, $CB, $CA, $D6, $04, $16, $14, $D6, $D4
+	db $D6, $14, $00, $00, $7F, $7F, $4F, $07, $37, $27, $B7, $27, $B7, $A7, $B7, $A7
+	db $B7, $87, $00, $00, $FF, $FF, $90, $00, $67, $47, $67, $40, $60, $40, $60, $4F
+	db $6F, $4F, $00, $00, $FF, $FF, $07, $02, $FA, $F2, $FA, $12, $1A, $12, $1A, $D2
+	db $DA, $92, $00, $00, $FF, $FF, $3F, $1F, $DF, $9F, $DF, $9F, $DF, $9F, $DF, $9F
+	db $C0, $80, $07, $00, $FB, $F0, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8
+	db $FB, $78, $FF, $FF, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF
+	db $FF, $FF, $80, $FF, $5F, $A0, $91, $6E, $F5, $0E, $11, $EE, $DF, $E0, $C0, $FF
+	db $FF, $FF, $00, $FF, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $00, $FF
+	db $FF, $FF, $07, $FF, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $07, $FF
+	db $FF, $FF, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $07
+	db $F0, $00, $13, $0A, $1B, $F1, $F9, $FD, $FD, $F8, $FC, $FE, $FE, $FC, $FE, $FF
+	db $00, $00, $63, $61, $61, $38, $A0, $24, $D8, $9A, $DC, $9D, $DE, $1E, $1F, $3F
+	db $00, $C0, $08, $04, $F0, $F3, $F7, $07, $06, $0C, $05, $F5, $0D, $04, $FC, $FE
+	db $00, $01, $16, $34, $16, $C4, $EC, $C8, $18, $11, $F0, $E2, $E1, $05, $03, $0B
+	db $00, $F0, $87, $CF, $87, $B6, $FE, $FC, $E1, $C1, $DF, $DE, $DE, $C0, $C0, $E0
+	db $00, $1F, $6F, $4F, $6F, $4E, $CE, $8C, $89, $11, $07, $26, $16, $50, $30, $B8
+	db $00, $07, $B6, $22, $66, $46, $F6, $A6, $B2, $20, $3C, $1C, $1C, $40, $00, $A3
+	db $00, $1C, $FF, $FE, $FF, $80, $C0, $80, $C0, $9F, $DF, $9F, $DF, $1F, $1F, $3F
+	db $00, $C0, $7B, $78, $7B, $78, $7B, $F8, $7B, $78, $FB, $F8, $FB, $F8, $FB, $F0
+	db $07, $00, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF, $00, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF, $00, $FF
+	db $FF, $FF
+
+; ---- gfx $55D0-$5810 (576 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.702, 1 blank) parity 0
+
+Data_24_55D0:: ; 24:55D0
+	db $FF, $FF, $FF, $FF, $FF, $FF, $E4, $E4, $FF, $E4, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $92, $92, $FF, $92, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $49, $49, $FF, $49, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $80, $FF, $5F, $A0, $91, $6E, $F5, $0E
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF, $FF, $01, $FF, $01, $FF, $01
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $07, $FF, $F7, $7F, $F7, $7F, $F7, $7F
+	db $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01
+	db $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $02
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $80, $7F, $3F, $7C, $40, $7B, $43, $77, $46, $6E, $4C, $1F, $1F, $7F, $5F
+	db $00, $01, $FE, $FC, $FE, $00, $7E, $00, $7E, $00, $06, $00, $FA, $F8, $FA, $F8
+	db $00, $80, $7F, $3F, $7F, $40, $7F, $7F, $40, $40, $7F, $40, $60, $40, $6F, $4F
+	db $00, $01, $FE, $7C, $C6, $44, $C6, $C4, $46, $44, $C6, $46, $82, $82, $46, $44
+	db $00, $80, $7F, $3F, $7F, $40, $7F, $40, $77, $40, $7B, $40, $7F, $40, $7F, $40
+	db $00, $01, $FE, $FC, $FE, $00, $7E, $00, $76, $00, $EE, $00, $FE, $00, $FE, $00
+	db $FB, $06, $F6, $0C, $EC, $18, $E8, $18, $E8, $18, $E8, $18, $E8, $18, $E8, $18
+	db $C0, $40, $C0, $60, $A0, $70, $D0, $38, $E8, $18, $E8, $18, $E8, $18, $E8, $18
+	db $D0, $30, $A0, $60, $C1, $41, $C1, $41, $C0, $40, $C0, $60, $A0, $70, $D0, $38
+	db $FF, $FF, $FF, $FF, $E4, $E4, $FF, $E4, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $11, $EE, $DF, $E0, $C0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $01, $FF, $01, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $F7, $7F, $F7, $7F, $07, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db $00, $01, $00, $01, $00, $01, $00, $01, $00, $01, $00, $01, $00, $01, $FE, $FF
+	db $FF, $FF, $80, $FF, $80, $FF, $BF, $C0, $BF, $C0, $BF, $C0, $BF, $C0, $BF, $C0
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $7F, $5F, $7F, $5F, $7F, $7F, $7F, $5F, $1F, $07, $60, $40, $7F, $00, $00, $80
+	db $86, $80, $DE, $80, $9E, $80, $DE, $80, $9E, $00, $3E, $00, $FE, $00, $00, $01
+	db $6F, $4F, $6F, $4F, $60, $40, $77, $40, $63, $40, $76, $40, $7F, $00, $00, $80
+	db $6E, $28, $5E, $10, $5E, $10, $DE, $10, $5E, $10, $DE, $10, $FE, $00, $00, $01
+	db $67, $40, $7F, $40, $7F, $40, $7B, $40, $77, $40, $7F, $40, $7F, $00, $00, $80
+	db $F2, $00, $FE, $00, $FE, $00, $EE, $00, $76, $00, $7E, $00, $FE, $00, $00, $01
+	db $E8, $18, $E8, $18, $E8, $18, $D8, $30, $B0, $60, $E0, $40, $C1, $41, $C1, $41
+	db $D0, $30, $A0, $60, $C1, $41, $C1, $41, $C0, $40, $C0, $60, $A0, $70, $D0, $38
+	db $FF, $FF, $FF, $FF, $92, $92, $FF, $92, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $49, $49, $FF, $49, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $FE, $01, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FD, $03
+
+; ---- data $5810-$58B0 (160 bytes) [HYPOTHESIS] UNCLASSIFIED 160 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_5810:: ; 24:5810
+	db $80, $C0, $7F, $FF, $80, $7F, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $80, $00
+	db $00, $00, $FF, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00
+	db $01, $03, $FE, $FF, $01, $FE, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00
+	db $7F, $80, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $EF, $F0, $1F, $10
+	db $3F, $10, $3F, $10, $3F, $10, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C
+	db $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C
+	db $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $33, $1C, $FF, $FF, $00, $00
+	db $E8, $18, $E8, $18, $E8, $18, $E8, $18, $E8, $18, $E8, $18, $FF, $FF, $00, $00
+	db $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80
+	db $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FC, $80, $FE, $40
+
+; ---- zero $58B0-$5900 (80 bytes) [HYPOTHESIS] padding? run of 80 x $00 in unclassified bytes
+	ds $50, $00
+
+; ---- data $5900-$5BD0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 24:43A7: hl=$5900 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+
+Data_24_5900:: ; 24:5900
+	db $63, $53, $55, $55, $55, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $55
+	db $55, $55, $53, $63, $64, $54, $55, $55, $55, $40, $41, $42, $43, $44, $45, $46
+	db $47, $48, $49, $55, $55, $55, $54, $64, $70, $73, $72, $72, $72, $72, $72, $72
+	db $72, $72, $72, $72, $72, $72, $72, $72, $72, $72, $73, $74, $5C, $4D, $4E, $4F
+	db $3A, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3C, $75
+	db $6C, $50, $51, $52, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34, $35, $36, $37
+	db $38, $39, $3A, $76, $5D, $60, $61, $62, $40, $41, $42, $43, $44, $45, $46, $47
+	db $48, $49, $4A, $4B, $4C, $4D, $4E, $76, $6D, $3D, $3E, $3F, $54, $55, $56, $57
+	db $58, $59, $5A, $5B, $5C, $5D, $5E, $5F, $60, $61, $62, $76, $6C, $50, $51, $52
+	db $68, $69, $6A, $6B, $6C, $6D, $6E, $6F, $70, $71, $72, $73, $74, $75, $76, $76
+	db $5D, $60, $61, $62, $7C, $7D, $7E, $7F, $80, $81, $82, $83, $84, $85, $86, $87
+	db $88, $89, $8A, $76, $6D, $3D, $3E, $3F, $90, $91, $92, $93, $94, $95, $96, $97
+	db $98, $99, $9A, $9B, $9C, $9D, $9E, $76, $6C, $50, $51, $52, $A4, $A5, $A6, $A7
+	db $A8, $A9, $AA, $AB, $AC, $AD, $AE, $AF, $B0, $B1, $B2, $76, $5D, $60, $61, $62
+	db $B8, $B9, $BA, $BB, $BC, $BD, $BE, $BF, $C0, $C1, $C2, $C3, $C4, $C5, $C6, $76
+	db $5E, $3D, $3E, $3F, $CC, $CD, $CE, $CF, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D7
+	db $D8, $D9, $DA, $76, $78, $5F, $6E, $6F, $4A, $4B, $4B, $4B, $4B, $4B, $4B, $4B
+	db $4B, $4B, $4B, $4B, $4B, $4B, $4C, $77, $65, $65, $65, $56, $57, $65, $65, $65
+	db $65, $58, $59, $65, $65, $65, $65, $5A, $5B, $65, $65, $65, $65, $65, $65, $66
+	db $67, $65, $65, $65, $65, $68, $69, $65, $65, $65, $65, $6A, $6B, $65, $65, $65
+	db $00, $01, $02, $03, $28, $29, $2A, $2B, $50, $51, $52, $53, $78, $79, $7A, $7B
+	db $A0, $A1, $A2, $A3, $14, $15, $16, $17, $3C, $3D, $3E, $3F, $64, $65, $66, $67
+	db $8C, $8D, $8E, $8F, $B4, $B5, $B6, $B7, $09, $29, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $2D, $29, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0D
+	db $0D, $2D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D
+	db $0D, $0D, $0D, $0D, $0D, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D
+	db $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D
+	db $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0D
+	db $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B
+	db $0B, $09, $09, $09, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B, $0B, $09
+	db $09, $09, $09, $0B, $0B, $09, $09, $09, $04, $04, $04, $04, $04, $04, $04, $04
+	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
+	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
+
+; ---- data $5BD0-$5EA0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 24:43C9: hl=$5BD0 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+
+Data_24_5BD0:: ; 24:5BD0
+	db $63, $79, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11
+	db $12, $7D, $79, $63, $64, $7A, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F, $20, $21
+	db $22, $23, $24, $25, $26, $7D, $7A, $64, $70, $71, $72, $72, $72, $72, $72, $72
+	db $72, $72, $72, $72, $72, $72, $72, $72, $72, $72, $73, $74, $5C, $4D, $4E, $4F
+	db $3A, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3B, $3C, $75
+	db $6C, $50, $51, $52, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34, $35, $36, $37
+	db $38, $39, $3A, $76, $5D, $60, $61, $62, $40, $41, $42, $43, $44, $45, $46, $47
+	db $48, $49, $4A, $4B, $4C, $4D, $4E, $76, $6D, $3D, $3E, $3F, $54, $55, $56, $57
+	db $58, $59, $5A, $5B, $5C, $5D, $5E, $5F, $60, $61, $62, $76, $6C, $50, $51, $52
+	db $68, $69, $6A, $6B, $6C, $6D, $6E, $6F, $70, $71, $72, $73, $74, $75, $76, $76
+	db $5D, $60, $61, $62, $7C, $7D, $7E, $7F, $80, $81, $82, $83, $84, $85, $86, $87
+	db $88, $89, $8A, $76, $6D, $3D, $3E, $3F, $90, $91, $92, $93, $94, $95, $96, $97
+	db $98, $99, $9A, $9B, $9C, $9D, $9E, $76, $6C, $50, $51, $52, $A4, $A5, $A6, $A7
+	db $A8, $A9, $AA, $AB, $AC, $AD, $AE, $AF, $B0, $B1, $B2, $76, $5D, $60, $61, $62
+	db $B8, $B9, $BA, $BB, $BC, $BD, $BE, $BF, $C0, $C1, $C2, $C3, $C4, $C5, $C6, $76
+	db $5E, $3D, $3E, $3F, $CC, $CD, $CE, $CF, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D7
+	db $D8, $D9, $DA, $76, $78, $5F, $6E, $6F, $4A, $4B, $4B, $4B, $4B, $4B, $4B, $4B
+	db $4B, $4B, $4B, $4B, $4B, $4B, $4C, $77, $65, $65, $65, $56, $57, $65, $65, $65
+	db $65, $58, $59, $65, $65, $65, $65, $5A, $5B, $65, $65, $65, $65, $65, $65, $66
+	db $67, $65, $65, $65, $65, $68, $69, $65, $65, $65, $65, $6A, $6B, $65, $65, $65
+	db $00, $01, $02, $03, $28, $29, $2A, $2B, $50, $51, $52, $53, $78, $79, $7A, $7B
+	db $A0, $A1, $A2, $A3, $14, $15, $16, $17, $3C, $3D, $3E, $3F, $64, $65, $66, $67
+	db $8C, $8D, $8E, $8F, $B4, $B5, $B6, $B7, $09, $09, $01, $01, $01, $01, $01, $01
+	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $09, $29, $29, $2D, $09, $01, $01
+	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $09, $29, $0D
+	db $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D
+	db $0D, $0D, $0D, $0D, $0D, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D
+	db $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D
+	db $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0D, $0D, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0D
+	db $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B
+	db $0B, $09, $09, $09, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $0B, $0B, $09
+	db $09, $09, $09, $0B, $0B, $09, $09, $09, $04, $04, $04, $04, $04, $04, $04, $04
+	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
+	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
+
+; ---- data $5EA0-$5EC6 (38 bytes) [HYPOTHESIS] UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_5EA0:: ; 24:5EA0
+	db $FF, $7F, $FF, $01, $FF, $7F, $00, $00, $20, $7D, $6D, $7A, $00, $00, $FF, $7F
+	db $FF, $01, $FF, $7F, $00, $00, $FF, $7F, $80, $40, $41, $7D, $20, $7D, $6F, $7F
+	db $00, $00, $BD, $01, $20, $7D
+
+; ---- data $5EC6-$5EDE (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+
+Data_24_5EC6:: ; 24:5EC6
+	db $FF, $7F, $FF, $7F, $F4, $57, $E0, $02, $00, $00, $00, $00, $4A, $29, $B5, $56
+	db $FF, $7F, $00, $00, $4A, $29, $B5, $56
+
+; ---- data $5EDE-$5EF1 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_5EDE:: ; 24:5EDE
+	db $FF, $7F, $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D
+	db $F8, $F8, $BE
+
+; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
+
+Data_24_5EF1:: ; 24:5EF1
+	db $BE, $BF, $A3, $FF, $FF, $FF, $7E, $FF, $1E, $FE, $5D, $FD, $63, $FE, $FE, $1F
+	db $1F, $FF, $F1, $FF, $05, $FF, $F1, $FE, $F6, $F4, $EC, $E8, $98, $F0, $F0, $F8
+	db $F8, $F8, $88, $F0, $B0, $E0, $A0, $C0, $C0, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $1F, $1F, $28, $3F, $5B, $7F, $42, $7E, $3B, $3F, $08, $0F, $0F, $0F, $00
+	db $00, $FF, $FF, $00, $FF, $80, $FF, $80, $FF, $80, $FF, $00, $FF, $FF, $FF, $00
+	db $00, $FE, $FE, $5E, $A2, $5E, $A2, $5E, $A2, $5E, $A2, $5E, $A2, $FE, $FE, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $38, $38, $44, $7C, $BB, $FF, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3F, $3F, $7F, $40, $E1, $9E, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $80, $C0, $40, $00
+	db $00, $00, $00, $0F, $0F, $13, $1E, $2A, $3F, $5A, $7F, $4A, $6F, $8A, $EF, $7F
+	db $7F, $C0, $BF, $BF, $7F, $40, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80
+	db $80, $C0, $40, $60, $A0, $B0, $D0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $38
+	db $38, $7F, $6F, $7F, $40, $7F, $6E, $3F, $2D, $3F, $2F, $2F, $30, $1F, $1F, $00
+	db $00, $83, $83, $83, $82, $FF, $FF, $FF, $83, $FF, $FF, $81, $81, $81, $81, $7C
+	db $7C, $FC, $D4, $EC, $14, $FC, $EC, $F8, $E8, $E8, $D8, $D0, $30, $E0, $E0, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $1C
+	db $1C, $22, $3E, $5D, $7F, $A9, $EF, $B6, $FF, $4A, $7B, $32, $33, $02, $03, $3F
+	db $3F, $C0, $FF, $3F, $FF, $40, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $00
+	db $00, $C0, $C0, $20, $E0, $A0, $E0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $A5
+	db $E7, $A5, $E7, $A1, $E7, $5B, $7F, $25, $3D, $19, $19, $03, $03, $02, $03, $9E
+	db $7F, $21, $FF, $40, $FF, $40, $FF, $40, $FF, $40, $FF, $40, $FF, $80, $FF, $60
+	db $A0, $20, $E0, $A0, $E0, $A0, $E0, $A0, $E0, $A0, $E0, $A0, $E0, $50, $F0, $AA
+	db $EF, $AA, $EF, $A6, $EF, $96, $FF, $4A, $7B, $32, $33, $02, $03, $02, $03, $80
+	db $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF, $80, $FF, $50
+	db $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $77
+	db $77, $7F, $5D, $7F, $50, $7F, $5D, $77, $55, $7F, $5D, $7D, $5B, $7F, $7F, $00
+	db $00, $81, $81, $81, $81, $81, $81, $00, $00, $00, $00, $00, $00, $00, $00, $1C
+	db $1C, $FE, $F6, $FE, $02, $FE, $D6, $7C, $44, $7C, $74, $74, $4C, $78, $78, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $7D
+	db $07, $7D, $07, $7D, $07, $7D, $07, $7F, $0F, $7F, $08, $7C, $07, $7F, $03, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF, $2F
+	db $F8, $2F, $F8, $2F, $F8, $2F, $F8, $FF, $FC, $FF, $04, $2F, $D8, $FF, $F0, $7E
+	db $03, $7E, $03, $7E, $03, $7E, $03, $7E, $07, $7F, $05, $7C, $07, $7F, $07, $80
+	db $FF, $B0, $FF, $B0, $DF, $80, $FF, $80, $FF, $80, $FF, $FF, $00, $FF, $FF, $5F
+	db $F0, $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F8, $7F, $E8, $CF, $38, $FF, $F8, $7E
+	db $03, $7E, $03, $7E, $03, $7E, $03, $7E, $07, $7F, $04, $7C, $07, $7F, $07, $80
+	db $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $FF, $00, $FF, $FF, $5F
+	db $F0, $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F8, $7F, $C8, $CF, $38, $FF, $F8, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $07, $07, $0B, $0E, $16, $1F, $2A, $3F, $2A, $3F, $00
+	db $00, $7F, $7F, $C0, $BF, $BF, $7F, $40, $FF, $80, $FF, $80, $FF, $80, $FF, $00
+	db $00, $80, $80, $C0, $40, $60, $A0, $B0, $D0, $50, $F0, $50, $F0, $50, $F0, $00
+	db $00, $1F, $1F, $28, $3F, $5B, $7F, $42, $7E, $3B, $3F, $08, $0F, $0F, $0F, $00
+	db $00, $FF, $FF, $00, $FF, $80, $FF, $80, $FF, $80, $FF, $00, $FF, $FF, $FF, $00
+	db $00, $FE, $FE, $5E, $A2, $5E, $A2, $5E, $A2, $5E, $A2, $5E, $A2, $FE, $FE, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $38, $38, $44, $7C, $BA, $FE, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $1F, $1F, $3F, $20, $F0, $CF, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $80, $C0, $40, $E0, $20, $00
+	db $00, $00, $00, $00, $00, $0E, $0F, $11, $1F, $2D, $3F, $59, $7F, $4B, $6F, $00
+	db $00, $3F, $7F, $60, $DF, $DF, $BF, $BD, $67, $7A, $CF, $7A, $CF, $74, $DF, $00
+	db $00, $C0, $E0, $60, $B0, $B0, $D8, $58, $E8, $28, $F8, $28, $F8, $28, $F8, $00
+	db $00, $00, $00, $00, $01, $01, $03, $1F, $02, $3B, $07, $6C, $1F, $52, $3D, $00
+	db $00, $7F, $FF, $80, $FF, $BF, $7F, $7F, $80, $F7, $F9, $2D, $DF, $F7, $0B, $00
+	db $00, $80, $C0, $F8, $7C, $BC, $C6, $8E, $F2, $06, $FA, $06, $FA, $06, $FA, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $5A
+	db $7F, $52, $77, $52, $77, $52, $77, $5A, $7F, $26, $3F, $1A, $1B, $02, $03, $80
+	db $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF, $50
+
+; ---- data $6301-$63D0 (207 bytes) [HYPOTHESIS] UNCLASSIFIED 207 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_6301:: ; 24:6301
+	db $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $1C
+	db $1C, $22, $3E, $5D, $7F, $A9, $EF, $B6, $FF, $4A, $7B, $32, $33, $02, $03, $3F
+	db $3F, $C0, $FF, $3F, $FF, $40, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $00
+	db $00, $C0, $C0, $20, $E0, $A0, $E0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $A9
+	db $EF, $A4, $E7, $A4, $E7, $59, $7F, $23, $3F, $1D, $1D, $01, $01, $01, $01, $CF
+	db $BF, $90, $FF, $A0, $FF, $A0, $FF, $A0, $FF, $A0, $FF, $A0, $FF, $40, $FF, $30
+	db $D0, $90, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $28, $F8, $4B
+	db $6F, $AB, $EF, $AB, $EF, $AB, $EF, $B5, $FD, $49, $79, $31, $31, $01, $01, $74
+	db $DF, $74, $DF, $74, $DF, $74, $DF, $74, $DF, $75, $DF, $75, $DE, $74, $DF, $28
+	db $F8, $28, $F8, $28, $F8, $28, $F8, $28, $F8, $A8, $F8, $A8, $F8, $28, $F8, $21
+	db $7E, $41, $7E, $42, $FD, $86, $F9, $85, $FA, $8B, $F4, $DF, $A0, $8F, $F0, $F1
+	db $0F, $F9, $07, $F9, $07, $FD, $03, $FB, $05, $F9, $07, $FD, $03, $FD, $03, $06
+	db $FA, $06, $FA, $06, $FA, $06, $FA, $07, $FB, $05, $FB, $07, $FB, $06, $FA
+
+; ---- zero $63D0-$63E0 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
+	ds $10, $00
+
+; ---- data $63E0-$64DC (252 bytes) [HYPOTHESIS] UNCLASSIFIED 252 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_63E0:: ; 24:63E0
+	db $7E, $03, $7E, $03, $7E, $03, $7E, $03, $7E, $07, $7F, $04, $7C, $07, $7F, $07
+	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $FF, $00, $FF, $FF
+	db $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F8, $7F, $C8, $CF, $38, $FF, $F8
+	db $7D, $07, $7D, $07, $7D, $07, $7D, $07, $7F, $0F, $7F, $08, $7C, $07, $7F, $03
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF
+	db $2F, $F8, $2F, $F8, $2F, $F8, $2F, $F8, $FF, $FC, $FF, $04, $2F, $D8, $FF, $F0
+	db $7F, $01, $7F, $01, $7F, $01, $7F, $01, $7F, $03, $7F, $02, $7E, $03, $7F, $03
+	db $40, $FF, $58, $FF, $58, $EF, $40, $FF, $40, $FF, $FF, $C0, $7F, $80, $FF, $FF
+	db $2F, $F8, $2F, $F8, $2F, $F8, $2F, $F8, $2F, $FC, $FF, $34, $E7, $1C, $FF, $FC
+	db $7F, $01, $7F, $01, $7F, $01, $7F, $01, $7F, $03, $7F, $02, $7E, $03, $7F, $03
+	db $74, $DF, $74, $DF, $74, $DF, $74, $DF, $74, $DF, $F4, $5F, $7F, $97, $FF, $FF
+	db $2F, $F8, $2F, $F8, $2F, $F8, $2F, $F8, $2F, $FC, $FF, $E4, $E7, $1C, $FF, $FC
+	db $67, $D8, $5F, $60, $2E, $71, $57, $38, $6D, $1E, $7B, $07, $7C, $07, $7F, $07
+	db $F9, $07, $3B, $C5, $37, $C9, $FF, $03, $ED, $1F, $F7, $F9, $01, $FF, $FF, $FF
+	db $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $FF, $FE
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $64DC-$65EC (272 bytes) [PROBABLE] palette-rgb555: heuristic: 136 RGB555 words as 34 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+
+Data_24_64DC:: ; 24:64DC
+	db $00, $00, $00, $00, $BF, $18, $FF, $7F, $6D, $7A, $00, $00, $E0, $7F, $FF, $7F
+	db $20, $03, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
+	db $B5, $56, $FF, $7F, $E0, $7F, $FF, $7F, $CE, $39, $00, $00, $00, $00, $4A, $29
+	db $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
+	db $B5, $56, $FF, $7F, $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E
+	db $50, $6E, $76, $6E, $C0, $65, $7A, $66, $C0, $65, $7A, $66, $C0, $65, $7A, $66
+	db $C0, $65, $7A, $66, $98, $66, $52, $67, $98, $66, $52, $67, $98, $66, $52, $67
+	db $98, $66, $52, $67, $86, $66, $95, $66, $86, $66, $95, $66, $86, $66, $95, $66
+	db $86, $66, $95, $66, $5E, $67, $6D, $67, $5E, $67, $6D, $67, $5E, $67, $6D, $67
+	db $5E, $67, $6D, $67, $19, $6B, $57, $6B, $19, $6B, $57, $6B, $19, $6B, $57, $6B
+	db $19, $6B, $57, $6B, $5C, $6B, $9A, $6B, $5C, $6B, $9A, $6B, $5C, $6B, $9A, $6B
+	db $5C, $6B, $9A, $6B, $9F, $6B, $DD, $6B, $9F, $6B, $DD, $6B, $9F, $6B, $DD, $6B
+	db $9F, $6B, $DD, $6B, $70, $67, $5D, $68, $70, $67, $5D, $68, $70, $67, $5D, $68
+	db $70, $67, $5D, $68, $6D, $68, $75, $69, $6D, $68, $75, $69, $6D, $68, $75, $69
+	db $6D, $68, $75, $69, $CC, $65, $D9, $65, $F2, $65, $17, $66, $3C, $66, $61, $66
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01, $06, $F8, $00
+	db $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08
+
+; ---- data $65EC-$6698 (172 bytes) [HYPOTHESIS] UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_65EC:: ; 24:65EC
+	db $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0
+	db $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00
+	db $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09, $F0, $00, $39, $01
+	db $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01
+	db $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01
+	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
+	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
+	db $01, $00, $10, $5E, $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10
+	db $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $05, $00
+	db $05, $01, $02, $02, $04, $03, $05, $04, $05, $00, $88, $66, $03, $00, $00, $33
+	db $01, $00, $08, $34, $01, $00, $10, $35, $01, $01, $00, $04
+
+; ---- ptrtable $6698-$66A4 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $66A4..$6739; regular record stride between targets
+
+Table_24_6698:: ; 24:6698
+	dw Data_24_66A4
+	dw $66B1
+	dw $66CA
+	dw $66EF
+	dw $6714
+	dw $6739
+
+; ---- data $66A4-$686D (457 bytes) [HYPOTHESIS] UNCLASSIFIED 457 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_66A4:: ; 24:66A4
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00, $06, $F8, $00
+	db $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26, $00, $00, $08
+	db $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0
+	db $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00
+	db $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0, $00, $0C, $00
+	db $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8, $08, $1D, $00
+	db $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00, $10, $2E, $00
+	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
+	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
+	db $00, $00, $10, $52, $00, $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10
+	db $18, $00, $00, $00, $26, $00, $00, $08, $27, $00, $00, $10, $28, $00, $05, $00
+	db $05, $01, $03, $02, $05, $03, $03, $04, $05, $00, $60, $67, $03, $00, $00, $06
+	db $00, $00, $08, $07, $00, $00, $10, $08, $00, $01, $00, $04, $7E, $67, $A3, $67
+	db $C8, $67, $D5, $67, $EE, $67, $13, $68, $38, $68, $09, $F0, $00, $30, $00, $F0
+	db $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40, $00, $F8, $08, $41, $00, $F8
+	db $10, $42, $00, $00, $00, $50, $00, $00, $08, $51, $00, $00, $10, $52, $00, $09
+	db $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19, $00
+	db $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A, $00
+	db $00, $10, $2B, $00, $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35
+	db $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00
+	db $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0
+	db $08, $37, $01, $F0, $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8
+	db $10, $48, $01, $00, $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09
+	db $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01
+	db $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01
+	db $00, $10, $5B, $01, $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E
+	db $01, $F8, $00, $4C, $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C
+	db $01, $00, $08, $5D, $01, $00, $10, $5E, $01, $07, $00, $05, $01, $08, $02, $0A
+	db $03, $08, $04, $08, $05, $08, $06, $05, $00
+
+; ---- ptrtable $686D-$687D (16 bytes) [PROBABLE] little-endian word table, 8 entries, monotone=1.00, 50% of targets on string start/after NUL, targets $687D..$6950; regular record stride between targets
+
+Table_24_686D:: ; 24:686D
+	dw Data_24_687D
+	dw $68A2
+	dw $68C7
+	dw $68E0
+	dw $68ED
+	dw $6906
+	dw $692B
+	dw $6950
+
+; ---- data $687D-$6995 (280 bytes) [HYPOTHESIS] UNCLASSIFIED 280 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_687D:: ; 24:687D
+	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
+	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
+	db $01, $00, $10, $5E, $01, $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10
+	db $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00
+	db $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01, $06, $F8, $00, $43, $01, $F8
+	db $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00
+	db $10, $55, $01, $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08
+	db $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10
+	db $1B, $00, $00, $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0
+	db $00, $0C, $00, $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8
+	db $08, $1D, $00, $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00
+	db $10, $2E, $00, $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00
+	db $F8, $00, $40, $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00
+	db $00, $08, $51, $00, $00, $10, $52, $00, $08, $00, $05, $01, $08, $02, $08, $03
+	db $0A, $04, $08, $05, $08, $06, $08, $07, $05, $07, $00, $30, $01, $05, $02, $05
+	db $03, $05, $04, $05, $05, $05, $06, $30
+
+; ---- ptrtable $6995-$69A1 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $69A1..$6A36; regular record stride between targets
+
+Table_24_6995:: ; 24:6995
+	dw Data_24_69A1
+	dw $69AE
+	dw $69C7
+	dw $69EC
+	dw $6A11
+	dw $6A36
+
+; ---- data $69A1-$6A57 (182 bytes) [HYPOTHESIS] UNCLASSIFIED 182 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_69A1:: ; 24:69A1
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01, $06, $F8, $00
+	db $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08
+	db $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0
+	db $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00
+	db $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09, $F0, $00, $39, $01
+	db $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01
+	db $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01
+	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
+	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
+	db $01, $00, $10, $5E, $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10
+	db $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $03, $04
+	db $05, $01, $05, $00, $05, $00
+
+; ---- ptrtable $6A57-$6A63 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $6A63..$6AF8; regular record stride between targets
+
+Table_24_6A57:: ; 24:6A57
+	dw Data_24_6A63
+	dw $6A70
+	dw $6A89
+	dw $6AAE
+	dw $6AD3
+	dw $6AF8
+
+; ---- data $6A63-$6BE0 (381 bytes) [HYPOTHESIS] UNCLASSIFIED 381 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_6A63:: ; 24:6A63
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00, $06, $F8, $00
+	db $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26, $00, $00, $08
+	db $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0
+	db $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00
+	db $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0, $00, $0C, $00
+	db $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8, $08, $1D, $00
+	db $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00, $10, $2E, $00
+	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
+	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
+	db $00, $00, $10, $52, $00, $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10
+	db $18, $00, $00, $00, $26, $00, $00, $08, $27, $00, $00, $10, $28, $00, $03, $04
+	db $05, $05, $05, $00, $05, $00, $1D, $6B, $3A, $6B, $07, $0B, $00, $03, $44, $0B
+	db $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03, $24, $F6, $FF, $00, $04, $F6
+	db $07, $01, $04, $F6, $0F, $02, $04, $07, $0C, $FF, $03, $44, $0C, $0D, $03, $64
+	db $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FF, $00, $04, $F6, $07, $01, $04
+	db $F6, $0F, $02, $04, $02, $00, $2E, $01, $08, $60, $6B, $7D, $6B, $07, $0B, $00
+	db $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03, $24, $F6, $FE
+	db $10, $04, $F6, $06, $11, $04, $F6, $0E, $12, $04, $07, $0C, $FF, $03, $44, $0C
+	db $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FE, $10, $04, $F6
+	db $06, $11, $04, $F6, $0E, $12, $04, $02, $00, $2E, $01, $08, $A3, $6B, $C0, $6B
+	db $07, $0B, $00, $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03
+	db $24, $F6, $FE, $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04, $07, $0C, $FF
+	db $03, $44, $0C, $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FE
+	db $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04, $02, $00, $2E
+
+; ---- gfx $6BE0-$6BF0 (16 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.723, 0 blank) parity 0; 576/592 bytes also covered by call-site blocks [clipped from 6BE0-6E30 by higher-priority evidence]
+
+Data_24_6BE0:: ; 24:6BE0
+	db $01, $08, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $6BF0-$6FF0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40D3: hl=$6BF0 a=$24 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
+
+Data_24_6BF0:: ; 24:6BF0
+	db $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $3F, $00, $3F, $80
+	db $FF, $00, $FF, $00, $FE, $01, $FD, $03, $FA, $06, $FA, $06, $FA, $06, $FA, $06
+	db $FF, $00, $FF, $00, $03, $FC, $FC, $FF, $03, $03, $05, $F9, $01, $FD, $00, $0C
+	db $FF, $00, $FF, $00, $03, $FC, $FD, $FE, $02, $03, $03, $7B, $02, $7A, $02, $02
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $1E, $E1, $ED, $F3, $12, $1E, $12, $DE
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $1F, $E0, $EE, $F1, $15, $1B, $15, $DB
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $FF, $FF, $00, $00, $00, $66
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $7F, $80, $BE, $C1, $BD, $C3
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $E1, $1F, $1E, $FE, $E2, $E2
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $10, $EF, $EF, $FF, $10, $10, $10, $D6
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $7D, $83, $BA, $C6, $BA, $C6
+	db $FF, $00, $FF, $00, $FF, $00, $F0, $0F, $0F, $FF, $F0, $F0, $00, $07, $00, $F5
+	db $FF, $00, $FF, $00, $FF, $00, $7F, $80, $BF, $C0, $5F, $60, $50, $6F, $4E, $7F
+	db $FF, $00, $C0, $3F, $BF, $7F, $40, $C0, $40, $DE, $40, $DE, $80, $80, $81, $BE
+	db $03, $FD, $03, $FC, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $FF, $FF, $FF, $01, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD
+	db $3F, $80, $3F, $80, $3F, $80, $3F, $80, $3F, $80, $3F, $80, $00, $80, $00, $FF
+	db $FD, $03, $FE, $01, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $3D, $03, $3D, $83
+	db $E0, $EC, $20, $EC, $A0, $6C, $A1, $6D, $21, $ED, $E1, $ED, $01, $0D, $01, $7D
+	db $04, $F8, $00, $FC, $00, $0C, $E0, $EC, $20, $EC, $E0, $EC, $00, $0C, $00, $7C
+	db $12, $DE, $12, $DE, $12, $DE, $1E, $DE, $00, $C0, $00, $CC, $00, $CC, $00, $FC
+	db $11, $DF, $1F, $DF, $00, $C0, $00, $F6, $00, $F6, $00, $D6, $00, $D6, $00, $DE
+	db $00, $66, $00, $6F, $00, $6F, $00, $66, $00, $66, $00, $66, $00, $66, $00, $6E
+	db $42, $7E, $7E, $7E, $00, $01, $00, $01, $04, $78, $00, $7C, $00, $0C, $00, $3C
+	db $00, $0C, $00, $CC, $00, $F6, $00, $F6, $00, $D8, $00, $D8, $00, $D8, $00, $D8
+	db $00, $C6, $00, $DF, $00, $DF, $00, $C6, $00, $C6, $00, $DF, $00, $D7, $00, $DE
+	db $42, $7E, $7E, $7E, $01, $01, $02, $3C, $00, $3E, $80, $06, $00, $86, $00, $9E
+	db $00, $F7, $00, $30, $00, $67, $00, $67, $00, $66, $00, $66, $00, $66, $00, $7E
+	db $51, $71, $30, $34, $30, $B7, $30, $B7, $30, $34, $C0, $C4, $C1, $DE, $C0, $D7
+	db $80, $BF, $00, $03, $78, $7B, $48, $7B, $48, $7B, $B8, $FB, $40, $43, $40, $5F
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF
+	db $03, $FD, $03, $FC, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $FF
+	db $FF, $FF, $FF, $01, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $03, $FD, $FF, $FF
+	db $3D, $83, $3D, $83, $3E, $81, $3F, $80, $3F, $80, $00, $80, $00, $FF, $FF, $FF
+	db $05, $79, $03, $03, $FC, $FF, $01, $FE, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $04, $78, $03, $03, $FC, $FF, $01, $FE, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $84, $78, $02, $02, $FD, $FF, $00, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $00, $DE, $00, $00, $FF, $FF, $00, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $02, $6C, $01, $01, $FE, $FF, $00, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $84, $B8, $82, $82, $7D, $FF, $80, $7F, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $00, $D8, $02, $02, $FD, $FF, $02, $FD, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $00, $DE, $00, $00, $FF, $FF, $00, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $02, $1C, $C1, $C1, $3E, $FF, $40, $BF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $00, $3C, $81, $81, $7E, $FF, $80, $7F, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $C0, $DD, $40, $C0, $3F, $FF, $C0, $3F, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $41, $5E, $40, $40, $BF, $FF, $00, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF
+	db $FF, $00, $FF, $00, $7F, $80, $BF, $C0, $BF, $C0, $BF, $C0, $BF, $C0, $5F, $60
+	db $5F, $60, $5F, $60, $5F, $60, $5F, $60, $5F, $60, $5F, $60, $5C, $60, $5C, $61
+	db $5C, $61, $9C, $E1, $3C, $C1, $7C, $81, $FC, $01, $00, $01, $00, $FF, $FF, $FF
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FC, $03, $F8, $06, $F8, $04
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $00, $00
+	db $F8, $04, $F8, $04, $F8, $04, $F8, $04, $F8, $04, $F8, $04, $F8, $04, $F8, $04
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $3F, $C0, $1F, $20, $1F, $00
+	db $1F, $00, $1F, $00, $1F, $00, $1F, $00, $1F, $00, $1F, $00, $1F, $00, $1F, $00
+	db $00, $07, $07, $18, $18, $20, $23, $54, $27, $48, $4F, $90, $5F, $80, $5F, $8E
+	db $59, $88, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80
+	db $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $80
+	db $5F, $80, $5F, $80, $5F, $80, $5F, $80, $5F, $8E, $59, $88, $5F, $80, $5F, $80
+	db $0F, $70, $27, $58, $1F, $20, $0F, $17, $00, $07, $00, $00, $00, $00, $00, $00
+	db $00, $E0, $E0, $18, $08, $14, $E4, $1A, $F4, $0A, $FE, $01, $FE, $03, $FE, $73
+	db $CE, $43, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03
+	db $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $03
+
+; ---- gfx $6FF0-$73F0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40E5: hl=$6FF0 a=$24 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
+
+Data_24_6FF0:: ; 24:6FF0
+	db $FE, $03, $FE, $03, $FE, $03, $FE, $03, $FE, $73, $CE, $43, $FE, $03, $FE, $03
+	db $FE, $04, $FC, $06, $F8, $1C, $F0, $E8, $00, $E0, $00, $00, $00, $00, $00, $00
+	db $00, $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FC, $02, $F9, $05
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $FF
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $7F, $80, $3F, $40
+	db $F9, $04, $FC, $02, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $00, $00, $00, $00
+	db $FF, $00, $00, $00, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $00, $00, $00, $00
+	db $3F, $40, $7F, $80, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $00, $00, $00, $00
+	db $FA, $02, $FA, $02, $FA, $02, $FA, $02, $FA, $02, $FA, $02, $FA, $02, $FA, $02
+	db $BF, $00, $BF, $00, $BF, $00, $BF, $00, $BF, $00, $BF, $00, $BF, $00, $BF, $00
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $3F, $3F
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $FF, $FF
+	db $00, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $00, $FF, $00, $00, $FE, $FE
+	db $20, $20, $2E, $2E, $6A, $6A, $AA, $EA, $AE, $EE, $A0, $E0, $A0, $E0, $A0, $E0
+	db $00, $00, $00, $00, $00, $00, $3B, $3B, $00, $00, $00, $00, $35, $35, $00, $00
+	db $02, $02, $02, $02, $03, $03, $F2, $F3, $02, $03, $03, $03, $A2, $A3, $02, $03
+	db $00, $00, $00, $00, $FE, $FE, $79, $FF, $FD, $FF, $FD, $FF, $85, $87, $85, $87
+	db $A7, $E7, $A8, $E8, $B0, $F0, $B0, $F0, $B0, $F0, $B0, $F0, $90, $F0, $88, $E8
+	db $80, $80, $40, $40, $20, $20, $20, $20, $26, $26, $39, $39, $29, $39, $52, $73
+	db $02, $03, $02, $03, $02, $03, $03, $03, $02, $02, $FF, $FF, $0D, $FF, $01, $FF
+	db $85, $87, $49, $CF, $85, $87, $15, $17, $AD, $AF, $D5, $D7, $25, $27, $C5, $C7
+	db $B4, $F4, $D0, $D0, $88, $88, $F8, $F8, $88, $88, $FF, $7F, $00, $00, $FF, $FF
+	db $A7, $A7, $08, $08, $30, $30, $3F, $3F, $20, $20, $FF, $FF, $00, $00, $FF, $FF
+	db $FF, $FF, $00, $00, $00, $00, $FF, $FF, $00, $00, $FF, $FF, $00, $00, $FF, $FF
+	db $FF, $FF, $01, $01, $03, $03, $FD, $FD, $05, $05, $FF, $FE, $00, $00, $FF, $FF
+	db $FF, $00, $00, $00, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $07, $07, $04, $04
+	db $FF, $00, $00, $00, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $FF, $FF, $00, $00
+	db $FF, $00, $00, $00, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $C0, $C0, $40, $40
+	db $05, $05, $05, $05, $7D, $7D, $85, $FD, $84, $FC, $84, $FC, $84, $FC, $84, $FC
+	db $C0, $C0, $40, $40, $47, $47, $C0, $C0, $00, $00, $06, $06, $00, $00, $00, $00
+	db $00, $00, $00, $00, $7E, $7E, $00, $00, $00, $00, $B4, $B4, $00, $00, $00, $00
+	db $40, $40, $40, $40, $7E, $7E, $41, $7F, $41, $7F, $41, $7F, $41, $7F, $41, $7F
+	db $84, $FC, $9C, $FC, $A4, $E4, $A4, $E4, $A7, $E7, $A0, $E0, $9C, $FC, $83, $FF
+	db $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $90, $F0, $50, $70, $30, $30
+	db $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $12, $1E, $14, $1C, $19, $19
+	db $41, $7F, $71, $7F, $49, $4F, $49, $4F, $C9, $CF, $09, $0F, $71, $7F, $81, $FF
+	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $FF, $7F, $00, $00, $FF, $FF
+	db $D8, $D8, $28, $E8, $14, $F4, $08, $F8, $08, $F8, $FF, $FF, $00, $00, $FF, $FF
+	db $36, $37, $28, $2F, $50, $5F, $20, $3F, $20, $3F, $FF, $FF, $00, $00, $FF, $FF
+	db $00, $00, $00, $00, $00, $00, $00, $00, $06, $06, $06, $06, $1F, $1F, $1F, $1F
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $60, $70, $70, $78, $39, $39
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $60, $60, $E0, $E0, $C0, $C0
+	db $00, $00, $00, $00, $00, $00, $00, $00, $03, $03, $03, $03, $1F, $1F, $1F, $1F
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $80, $87, $87
+	db $00, $00, $00, $00, $00, $00, $00, $00, $60, $60, $60, $60, $60, $60, $60, $E0
+	db $00, $00, $00, $00, $00, $00, $00, $00, $06, $06, $06, $06, $06, $06, $06, $06
+	db $00, $00, $00, $00, $00, $00, $00, $00, $C0, $C0, $C0, $C0, $C0, $C0, $C0, $C0
+	db $00, $00, $00, $00, $00, $00, $00, $00, $18, $18, $18, $18, $18, $18, $1F, $1F
+	db $00, $00, $00, $00, $00, $00, $00, $00, $18, $18, $18, $18, $18, $18, $9F, $9F
+	db $00, $00, $00, $00, $00, $00, $00, $00, $AC, $AC, $AC, $AC, $AC, $AC, $0C, $0C
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $60, $60, $77, $77, $37, $77
+	db $00, $00, $00, $00, $00, $00, $00, $00, $C0, $C0, $C0, $C0, $E0, $E0, $E1, $E1
+	db $00, $00, $00, $00, $00, $00, $00, $00, $18, $18, $18, $18, $18, $18, $D8, $F8
+	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01, $01, $01
+	db $00, $00, $00, $00, $00, $00, $00, $00, $B0, $B0, $B0, $B0, $B0, $B0, $B0, $B0
+	db $06, $C6, $CF, $0F, $1F, $1F, $BE, $3E, $B6, $36, $BE, $3E, $9C, $1E, $C0, $00
+	db $1B, $1B, $C7, $C7, $E7, $E7, $63, $63, $69, $61, $EC, $E0, $CE, $E0, $1F, $00
+	db $80, $80, $2F, $0F, $0F, $0F, $80, $80, $C0, $C0, $E7, $E7, $67, $67, $00, $00
+	db $06, $06, $86, $CE, $CE, $CE, $CC, $CE, $CD, $CD, $CD, $CD, $8C, $CC, $20, $00
+	db $07, $07, $F1, $F1, $F4, $F0, $04, $01, $81, $C1, $F7, $F7, $F7, $F7, $00, $00
+	db $E3, $E3, $F3, $FB, $F8, $F8, $DB, $D8, $C3, $C0, $9F, $C0, $3F, $80, $7F, $00
+	db $E6, $E6, $E6, $E6, $06, $0E, $EE, $0E, $CC, $1E, $DC, $1C, $D8, $1C, $C2, $00
+	db $C0, $DF, $DF, $C0, $C0, $C0, $DB, $D8, $DB, $D8, $FB, $F8, $F3, $F8, $07, $00
+
+; ---- gfx $73F0-$7490 (160 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40F7: hl=$73F0 a=$24 c=$0A de=$9001 (dest VRAM $9000, vbank=1)
+
+Data_24_73F0:: ; 24:73F0
+	db $1F, $BF, $B8, $3C, $33, $30, $B7, $30, $B0, $30, $BF, $3F, $9F, $3F, $C0, $00
+	db $9F, $BF, $38, $3C, $B0, $30, $B7, $30, $30, $30, $BF, $BF, $9F, $BF, $00, $00
+	db $0C, $6D, $6D, $0C, $0C, $0C, $EC, $0C, $2D, $0D, $AF, $8F, $A6, $87, $30, $00
+	db $31, $B1, $B1, $33, $33, $33, $33, $33, $33, $33, $33, $33, $03, $03, $F8, $00
+	db $81, $81, $BC, $BC, $BC, $BC, $01, $80, $60, $70, $7D, $7D, $3D, $3D, $00, $00
+	db $F8, $F8, $7C, $7E, $3E, $3E, $36, $76, $70, $70, $E7, $F0, $CF, $E0, $1F, $00
+	db $F9, $F9, $F9, $F9, $01, $03, $FB, $03, $F3, $07, $F7, $07, $F6, $07, $F0, $00
+	db $B0, $B7, $B7, $B0, $B0, $B0, $B6, $B6, $36, $B6, $3E, $3E, $3C, $3E, $81, $00
+	db $FF, $FF, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $7490-$7790 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4109: hl=$7490 a=$24 c=$30 de=$8000 (dest VRAM $8000, vbank=0)
+
+Data_24_7490:: ; 24:7490
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C
+	db $00, $00, $00, $00, $38, $38, $38, $38, $18, $18, $18, $18, $18, $18, $18, $18
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $0C, $0C, $0C, $1C
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $08, $0C, $38, $38
+	db $00, $00, $00, $00, $60, $60, $60, $60, $60, $60, $6C, $6C, $6C, $6C, $6C, $6C
+	db $00, $00, $00, $00, $7C, $7C, $7C, $7C, $60, $60, $60, $60, $60, $60, $70, $78
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $60, $60, $78, $78
+	db $00, $00, $00, $00, $7C, $7C, $7C, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $0C, $0C
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $28, $6C, $38, $38
+	db $00, $00, $00, $00, $10, $38, $38, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C
+	db $00, $00, $00, $00, $0F, $1F, $1E, $30, $37, $6F, $67, $50, $7A, $57, $7F, $57
+	db $00, $00, $00, $00, $C0, $E0, $20, $70, $D0, $F9, $A9, $7D, $E9, $3D, $E9, $3D
+	db $00, $00, $00, $00, $00, $00, $0E, $1F, $F5, $F1, $7B, $04, $81, $7E, $6B, $14
+	db $00, $00, $00, $00, $00, $00, $1C, $1E, $EB, $E3, $F7, $08, $03, $FC, $D7, $28
+	db $00, $00, $00, $00, $00, $00, $7E, $7F, $BD, $81, $DA, $24, $0D, $F2, $9E, $60
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $80, $C0, $80, $C0, $80, $C0
+	db $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $18, $18, $18, $18, $18, $18, $18, $18, $18, $18, $18, $18, $18, $18, $00, $00
+	db $18, $38, $30, $70, $60, $60, $60, $60, $60, $60, $7C, $7C, $7C, $7C, $00, $00
+	db $38, $3C, $0C, $0C, $0C, $0C, $6C, $6C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $6C, $6C, $6C, $6C, $7E, $7E, $7E, $7E, $0C, $0C, $0C, $0C, $0C, $0C, $00, $00
+	db $78, $7C, $6C, $6C, $0C, $0C, $6C, $6C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $7C, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $00, $00
+	db $38, $7C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $3C, $7C, $1C, $3C, $0C, $0C, $0C, $0C, $6C, $6C, $38, $7C, $10, $38, $00, $00
+	db $5F, $50, $5F, $57, $5F, $77, $5D, $77, $2D, $7F, $10, $3F, $0F, $1F, $00, $0F
+	db $E8, $3D, $E8, $3C, $E8, $3C, $E8, $3C, $D0, $FC, $20, $F8, $C0, $F0, $00, $E0
+	db $EB, $D4, $63, $CC, $7B, $44, $63, $58, $5F, $41, $3E, $7F, $00, $3E, $00, $00
+	db $D7, $28, $C7, $18, $F7, $08, $C7, $30, $BB, $83, $7C, $FF, $00, $7E, $00, $00
+	db $5F, $A1, $5B, $A5, $1B, $65, $C5, $19, $BA, $83, $7C, $FF, $00, $7E, $00, $00
+	db $00, $C0, $00, $80, $00, $80, $00, $80, $00, $80, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $04, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $04, $00, $00, $00, $00, $00, $0A, $00, $00, $00
+	db $04, $00, $04, $00, $04, $00, $04, $00, $04, $00, $04, $00, $44, $00, $04, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $78, $78, $40, $78
+	db $00, $00, $04, $07, $08, $0F, $08, $0F, $08, $0F, $08, $0F, $0C, $0F, $17, $17
+	db $00, $00, $00, $80, $0F, $C0, $00, $C0, $19, $C0, $00, $C6, $42, $C6, $84, $8C
+	db $04, $00, $04, $00, $44, $00, $04, $00, $FC, $01, $00, $00, $00, $00, $00, $00
+	db $40, $78, $30, $30, $00, $78, $20, $E8, $40, $50, $08, $28, $18, $D8, $20, $38
+	db $0B, $0B, $0F, $0F, $06, $07, $04, $07, $04, $07, $00, $00, $00, $00, $00, $00
+	db $48, $58, $F0, $F0, $40, $C0, $40, $C0, $40, $C0, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $18, $0B, $18, $08, $18, $1F, $1F, $03, $03
+	db $00, $00, $00, $00, $2F, $00, $00, $00, $FF, $00, $00, $00, $0F, $0F, $0C, $8F
+	db $00, $00, $00, $00, $74, $00, $00, $00, $FF, $00, $00, $00, $E1, $E1, $21, $E3
+	db $80, $00, $80, $00, $80, $00, $A0, $30, $A0, $30, $20, $30, $F0, $F0, $80, $80
+	db $8C, $CF, $2C, $2F, $16, $17, $0B, $0B, $07, $07, $06, $07, $00, $00, $00, $00
+	db $22, $E6, $20, $E8, $40, $D0, $80, $A0, $C0, $C0, $40, $C0, $00, $00, $00, $00
+
+; ---- data $7790-$7A60 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:411A: hl=$7790 a=$24 b=18 rows c=20 cols (tiles then attrs) de=$D000
+
+Data_24_7790:: ; 24:7790
+	db $80, $92, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C, $8D, $8E, $8F
+	db $B0, $82, $92, $80, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $9A, $9B
+	db $9C, $9D, $9E, $9F, $B1, $92, $91, $90, $A0, $A1, $A2, $A3, $A4, $A5, $A6, $A7
+	db $A8, $A9, $AA, $AB, $AC, $AD, $AE, $AF, $B2, $A2, $A1, $A0, $B3, $B4, $B4, $B4
+	db $B4, $B4, $B4, $B4, $B4, $B4, $B4, $B4, $CB, $CC, $CD, $B4, $B4, $B4, $B4, $B6
+	db $B5, $09, $E8, $E9, $EA, $EB, $EC, $ED, $EE, $EF, $09, $09, $CE, $CF, $D0, $D1
+	db $09, $09, $09, $B7, $B5, $B8, $F8, $F9, $FA, $FB, $FC, $FD, $FE, $FF, $C2, $C2
+	db $D2, $D3, $D4, $D5, $C2, $C2, $BD, $B7, $B5, $B9, $C3, $C4, $C4, $C4, $C4, $C4
+	db $C4, $C4, $C4, $C4, $D6, $D7, $D8, $D9, $C4, $C5, $BE, $B7, $B5, $BA, $C9, $00
+	db $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $CA, $BF, $B7
+	db $B5, $BB, $C9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C
+	db $1D, $CA, $C0, $B7, $B5, $BC, $C6, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7
+	db $DA, $DB, $DB, $DC, $C7, $C8, $C1, $B7, $B5, $09, $F0, $F1, $F2, $F3, $F4, $F5
+	db $F6, $F7, $09, $09, $DD, $DE, $DF, $E0, $09, $09, $09, $B7, $B5, $B8, $00, $01
+	db $02, $03, $04, $05, $06, $07, $C2, $C2, $E1, $E2, $E3, $E4, $C2, $C2, $BD, $B7
+	db $B5, $B9, $C3, $C4, $C4, $C4, $C4, $C4, $C4, $C4, $C4, $C4, $E5, $E6, $E7, $E5
+	db $C4, $C5, $BE, $B7, $B5, $BA, $C9, $20, $21, $22, $23, $24, $25, $26, $27, $28
+	db $29, $2A, $2B, $2C, $2D, $CA, $BF, $B7, $B5, $BB, $C9, $30, $31, $32, $33, $34
+	db $35, $36, $37, $38, $39, $3A, $3B, $3C, $3D, $CA, $C0, $B7, $B5, $BC, $C6, $C7
+	db $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C7, $C8, $C1, $B7
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $81, $81, $81, $81, $81, $81, $81, $81, $81, $81, $81, $81
+	db $81, $81, $81, $81, $81, $81, $81, $81, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $28, $28, $28, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $28, $28, $28
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $28, $28, $28, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $08, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09, $09, $0B, $0A, $0A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09
+	db $09, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B
+	db $0B, $0B, $0B, $09, $09, $0B, $0B, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $0B, $0B, $09, $09, $0B, $0B, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $0B, $0B, $09, $09, $0B, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09
+	db $09, $0B, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B, $0B, $0B, $0B, $0B
+	db $0B, $0B, $0B, $09, $09, $0B, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09, $09, $0B, $0B, $0B, $0B, $0B, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $2B, $0B, $0B, $0B, $09, $09, $0B, $0B, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $0B, $0B, $09
+	db $09, $0B, $0B, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $0B, $0B, $09, $09, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B
+	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
+
+; ---- data $7A60-$7C38 (472 bytes) [PROBABLE] palette-rgb555: heuristic: 236 RGB555 words as 59 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+
+Data_24_7A60:: ; 24:7A60
+	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $F2, $2F, $44, $42, $00, $00
+	db $FF, $7F, $44, $42, $EF, $7F, $17, $00, $FF, $7F, $44, $42, $EF, $7F, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $E0, $7F, $FF, $7F, $52, $74, $2B, $44, $E0, $7F, $FF, $7F, $F7, $00, $00, $00
+	db $E0, $7F, $0E, $5E, $FF, $06, $57, $01, $E0, $7F, $0E, $5E, $5F, $0D, $B1, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $90, $7E, $8B, $7D, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $7C, $33, $7C, $00, $7C, $33, $7C, $00, $7C, $33, $7C, $00, $7C, $33, $7C
+	db $36, $7C, $85, $7C, $36, $7C, $85, $7C, $36, $7C, $85, $7C, $36, $7C, $85, $7C
+	db $88, $7C, $93, $7C, $88, $7C, $93, $7C, $88, $7C, $93, $7C, $88, $7C, $93, $7C
+	db $96, $7C, $A1, $7C, $96, $7C, $A1, $7C, $96, $7C, $A1, $7C, $96, $7C, $A1, $7C
+	db $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C
+	db $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C
+	db $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C
+	db $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C
+	db $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C
+	db $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C
+	db $F8, $7C, $03, $7D, $F8, $7C, $03, $7D, $F8, $7C, $03, $7D, $F8, $7C, $03, $7D
+	db $06, $7D, $19, $7D, $06, $7D, $19, $7D, $06, $7D, $19, $7D, $06, $7D, $19, $7D
+	db $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D
+	db $32, $7D, $45, $7D, $32, $7D, $45, $7D, $32, $7D, $45, $7D, $32, $7D, $45, $7D
+	db $02, $7C, $0C, $50, $38, $0A, $01, $50, $40, $0B, $01, $50, $48, $0C, $01, $50
+	db $50, $0D, $01, $50, $58, $0E, $01, $50, $60, $0F, $01, $58, $38, $1A, $01, $58
+	db $40, $1B, $01, $58, $48, $1C, $01, $58, $50, $1D, $01, $58, $58, $1E, $01, $58
+	db $60, $1F, $01, $01, $00, $04, $38, $7C
+
+; ---- data $7C38-$7C88 (80 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 7C00-7C88 by higher-priority evidence]
+
+Data_24_7C38:: ; 24:7C38
+	db $13, $F0, $28, $20, $02, $F0, $30, $21, $02, $F0, $38, $22, $03, $F0, $40, $23
+	db $03, $F8, $28, $24, $02, $F8, $30, $25, $02, $F8, $38, $26, $03, $F8, $40, $27
+	db $03, $00, $28, $28, $02, $00, $30, $29, $02, $27, $28, $2A, $02, $27, $30, $2B
+	db $02, $27, $38, $2C, $02, $27, $40, $2D, $02, $2F, $30, $2E, $02, $2F, $38, $2F
+	db $02, $1F, $2B, $20, $03, $1F, $33, $21, $03, $1F, $3B, $22, $03, $01, $00, $04
+
+; ---- data $7C88-$7D48 (192 bytes) [HYPOTHESIS] UNCLASSIFIED 192 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_24_7C88:: ; 24:7C88
+	db $8A, $7C, $02, $38, $E8, $01, $00, $40, $E8, $11, $00, $01, $00, $04, $98, $7C
+	db $02, $38, $E8, $02, $00, $40, $E8, $12, $00, $01, $00, $04, $A6, $7C, $02, $38
+	db $E8, $03, $00, $40, $E8, $13, $00, $01, $00, $04, $B4, $7C, $02, $38, $E8, $04
+	db $00, $40, $E8, $14, $00, $01, $00, $04, $C2, $7C, $02, $38, $E8, $05, $00, $40
+	db $E8, $15, $00, $01, $00, $04, $D0, $7C, $02, $38, $E8, $06, $00, $40, $E8, $16
+	db $00, $01, $00, $04, $DE, $7C, $02, $38, $E8, $07, $00, $40, $E8, $17, $00, $01
+	db $00, $04, $EC, $7C, $02, $38, $E8, $08, $00, $40, $E8, $18, $00, $01, $00, $04
+	db $FA, $7C, $02, $38, $E8, $09, $00, $40, $E8, $19, $00, $01, $00, $04, $08, $7D
+	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $00, $00, $40, $E8, $10
+	db $00, $01, $00, $04, $1E, $7D, $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38
+	db $E8, $01, $00, $40, $E8, $11, $00, $01, $00, $04, $34, $7D, $04, $38, $E0, $01
+	db $00, $40, $E0, $11, $00, $38, $E8, $02, $00, $40, $E8, $12, $00, $01, $00, $04
+
+; ---- zero $7D48-$8000 (696 bytes) [PROBABLE] trailing 0x00 padding to end of bank
+	ds $2B8, $00

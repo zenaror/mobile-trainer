@@ -1,0 +1,19 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4008	code	Function_69_4000	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+4008	4013	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 69:4005 (executed)
+4013	4045	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
+4045	4051	ptrtable	Table_69_4045	PROBABLE	inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051
+4051	4074	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
+4074	40D1	code	-	PROBABLE	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed)
+40D1	40DA	code	Function_69_40D1	CONFIRMED	4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+40DA	40E0	ptrtable	Table_69_40DA	PROBABLE	inline table of `call $0545` (JumpTableInline) at 69:40D7: 3 entries; end = first entry target
+40E0	4118	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by table from 69:40D7 (executed)
+4118	4152	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 4/18 scenarios)
+4152	4160	gfx	Data_69_4152	PROBABLE	tiles-2bpp: heuristic: 49 coherent tiles (hsim2=0.735 vsim2=0.659, 3 blank) parity 1; 993/1008 bytes also covered by call-site blocks [clipped from 4151-4541 by higher-priority evidence]
+4160	4560	gfx	Data_69_4160	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4124: hl=$4160 a=$69 c=$40 de=$8200 (dest VRAM $8200, vbank=0)
+4560	4760	gfx	Data_69_4560	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4136: hl=$4560 a=$69 c=$20 de=$8600 (dest VRAM $8600, vbank=0)
+4760	48B0	data	Data_69_4760	PROBABLE	palette-rgb555: heuristic: 168 RGB555 words as 42 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+48B0	48B5	data	Data_69_48B0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 48AC-48B5 by higher-priority evidence]
+48B5	48C5	ptrtable	Table_69_48B5	PROBABLE	little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $48C5..$49A8; regular record stride between targets
+48C5	4C46	data	Data_69_48C5	HYPOTHESIS	UNCLASSIFIED 897 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4C46	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

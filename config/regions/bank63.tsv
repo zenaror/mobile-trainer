@@ -1,0 +1,18 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	402D	code	Function_63_4000	CONFIRMED	33 insn(s); 33 executed (in up to 13/18 scenarios); entry proven: target of an executed call/far call
+402D	403D	ptrtable	Table_63_402D	CONFIRMED	code-pointer table, 8 entries: 8/8 words hit own-bank code starts (survey pointer-table extent); 8/8 targets executed; every byte read as data in a trace
+403D	4072	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 13/18 scenarios)
+4072	407A	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 63:403F (executed)
+407A	6080	gfx	Data_63_407A	PROBABLE	tile data: heuristic: 199 coherent tiles (hsim2=0.809 vsim2=0.731, 434 blank) parity 1; 2017/10224 bytes also covered by call-site blocks [clipped from 4071-6861 by higher-priority proposals] [clipped from 4071-6080 by higher-priority evidence]
+6080	6480	gfx	Data_63_6080	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7365: hl=$6080 a=$63 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
+6480	64C0	gfx	Data_63_6480	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7377: hl=$60C0 a=$63 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 60C0-64C0 by higher-priority evidence]
+64C0	68C0	gfx	Data_63_64C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7389: hl=$64C0 a=$63 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
+68C0	6CC0	gfx	Data_63_68C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:739B: hl=$68C0 a=$63 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+6CC0	70C0	gfx	Data_63_6CC0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:73AD: hl=$6CC0 a=$63 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+70C0	7290	data	Data_63_70C0	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 63:73E0: hl=$6FC0 a=$63 b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 6FC0-7290 by higher-priority evidence]
+7290	72B8	data	Data_63_7290	PROBABLE	palette-rgb555: heuristic: 20 RGB555 words as 5 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+72B8	7310	data	Data_63_72B8	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6080-7310 by higher-priority evidence]
+7310	7314	data	Data_63_7310	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7314	732F	data	Data_63_7314	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+732F	742F	code	Function_63_732F	CONFIRMED	83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+742F	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

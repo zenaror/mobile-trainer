@@ -27,7 +27,7 @@
 0060	0064	code	Vector_Joypad	CONFIRMED	hardware vector: jp $CBFD (RAM stub, see 00:04A0); reti
 0064	0100	zero	-	CONFIRMED	padding
 0100	0104	code	Entry	CONFIRMED	reset entry: nop ; jp $0278
-0104	0150	raw	Header	CONFIRMED	cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
+0104	0150	data	Header	CONFIRMED	cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
 0150	018D	code	MobileAPI	PROBABLE	API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54]
 018D	01B7	code	ReturnMobileAPI	PROBABLE	return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
 01B7	01ED	code	Int_Serial	CONFIRMED	serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive

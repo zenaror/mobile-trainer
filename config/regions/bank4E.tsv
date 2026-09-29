@@ -1,0 +1,125 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4002	data	Data_4E_4000	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4002	4172	code	-	PROBABLE	160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+4172	417C	ptrtable	Table_4E_4172	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 4E:416F: 5 entries; fixed length (5 words) by the routine
+417C	41E0	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; entered by table from 4E:416F (PROBABLE code)
+41E0	45FE	data	Data_4E_41E0	HYPOTHESIS	UNCLASSIFIED 1054 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+45FE	4658	code	-	PROBABLE	54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2; entered by far from 4E:40A5 (PROBABLE code)
+4658	4685	code	Function_4E_4658	CONFIRMED	17 insn(s); 17 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+4685	4687	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:4683 (executed)
+4687	46B8	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 18/18 scenarios)
+46B8	46BA	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:46B6 (executed)
+46BA	4730	code	-	CONFIRMED	50 insn(s); 50 executed (in up to 12/18 scenarios)
+4730	4739	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 4E:46ED (executed)
+4739	47EB	code	Function_4E_4739	CONFIRMED	81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+47EB	4866	data	Data_4E_47EB	HYPOTHESIS	UNCLASSIFIED 123 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4866	487F	code	Function_4E_4866	CONFIRMED	11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+487F	4886	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; entered by jrcc from 4E:4879 (executed)
+4886	4904	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 3/18 scenarios)
+4904	493B	data	Data_4E_4904	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+493B	4962	code	-	PROBABLE	15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 2; entered by far from 4F:470E (PROBABLE code)
+4962	4993	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 4/18 scenarios)
+4993	49A1	ptrtable	Table_4E_4993	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4990: 7 entries; end pinned by the executed instruction at 49A1
+49A1	49F5	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios)
+49F5	4A05	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 4E:49E1 (executed)
+4A05	4A0B	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
+4A0B	4A37	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 4E:4A09 (executed)
+4A37	4A43	ptrtable	Table_4E_4A37	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4A34: 6 entries; end pinned by the executed instruction at 4A43
+4A43	4A85	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 1/18 scenarios)
+4A85	4AB2	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4E:4A83 (executed)
+4AB2	4AE2	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
+4AE2	4AEC	ptrtable	Table_4E_4AE2	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 4E:4ADF: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
+4AEC	4AF9	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
+4AF9	4B02	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4E:4AF0 (executed)
+4B02	4B7E	code	-	CONFIRMED	51 insn(s); 51 executed (in up to 1/18 scenarios)
+4B7E	4B8C	ptrtable	Table_4E_4B7E	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4B7B: 7 entries; end = first entry target
+4B8C	4BAA	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by table from 4E:4B7B (executed)
+4BAA	4BF2	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 1/18 scenarios)
+4BF2	4C49	code	-	PROBABLE	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 4E:4BEF (executed)
+4C49	4C57	ptrtable	Table_4E_4C49	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4C46: 7 entries; end = first entry target
+4C57	4C8B	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by table from 4E:4C46 (PROBABLE code)
+4C8B	4CDF	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 1/18 scenarios)
+4CDF	4CEB	ptrtable	Table_4E_4CDF	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4CDC: 6 entries; end pinned by the executed instruction at 4CEB
+4CEB	4D04	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios)
+4D04	4D24	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 4E:4D02 (executed)
+4D24	4D6D	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios)
+4D6D	4D7B	ptrtable	Table_4E_4D6D	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4D6A: 7 entries; end = first entry target
+4D7B	4E60	code	-	PROBABLE	92 insn(s) reached by static flow only; seeds: exec x92; min discovery hops 1; entered by table from 4E:4D6A (executed)
+4E60	4E6E	ptrtable	Table_4E_4E60	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4E5D: 7 entries; end = first entry target
+4E6E	4F1A	code	-	PROBABLE	54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by table from 4E:4E5D (PROBABLE code)
+4F1A	4F26	ptrtable	Table_4E_4F1A	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4F17: 6 entries; end = first entry target
+4F26	4FB7	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by table from 4E:4F17 (PROBABLE code)
+4FB7	4FC3	ptrtable	Table_4E_4FB7	PROBABLE	inline table of `call $0545` (JumpTableInline) at 4E:4FB4: 6 entries; end = first entry target
+4FC3	4FF6	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 2; entered by table from 4E:4FB4 (PROBABLE code)
+4FF6	5003	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
+5003	5009	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:5001 (executed)
+5009	501F	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 3/18 scenarios)
+501F	5204	code	-	PROBABLE	157 insn(s) reached by static flow only; seeds: exec x157; min discovery hops 0; fall-through of the jrcc at 4E:501D (executed)
+5204	5215	code	Function_4E_5204	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+5215	5225	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 4E:5213 (executed)
+5225	5274	code	-	CONFIRMED	32 insn(s); 32 executed (in up to 2/18 scenarios)
+5274	52E7	code	-	PROBABLE	76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by far from 4E:521D (PROBABLE code)
+52E7	5306	code	Function_4E_52E7	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+5306	532B	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 4E:52FF (executed)
+532B	534B	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
+534B	5390	code	-	PROBABLE	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 2; entered by call from 4E:5316 (PROBABLE code)
+5390	5391	data	Data_4E_5390	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5391	53A1	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3; entered by jrcc from 4E:5367 (PROBABLE code)
+53A1	53A9	code	Function_4E_53A1	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+53A9	5423	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 0; fall-through of the retcc at 4E:53A8 (executed)
+5423	55CC	code	Function_4E_5423	CONFIRMED	266 insn(s); 266 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+55CC	55D5	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 4E:55C1 (executed)
+55D5	55E1	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
+55E1	55E8	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 4E:55DE (executed)
+55E8	56B6	code	Function_4E_55E8	CONFIRMED	125 insn(s); 125 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+56B6	56BC	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 4E:569E (executed)
+56BC	56C9	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
+56C9	56CC	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4E:5699 (executed)
+56CC	56F3	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 2/18 scenarios)
+56F3	56F6	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:56F1 (executed)
+56F6	5704	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+5704	570D	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:5702 (executed)
+570D	5721	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
+5721	572D	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:571F (executed)
+572D	57FA	code	-	CONFIRMED	125 insn(s); 125 executed (in up to 2/18 scenarios)
+57FA	5800	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:57F8 (executed)
+5800	5831	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 2/18 scenarios)
+5831	5839	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 4E:5827 (executed)
+5839	589B	code	-	CONFIRMED	69 insn(s); 69 executed (in up to 2/18 scenarios)
+589B	58AB	ptrtable	Table_4E_589B	PROBABLE	code-pointer table, 8 entries: 1/8 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 4E:589A, base from `ld hl,$589B`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 1/8 targets executed
+58AB	58AC	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run starts at an entry of the code-pointer table at 4E:589B
+58AC	590D	code	-	CONFIRMED	55 insn(s); 55 executed (in up to 2/18 scenarios)
+590D	594A	code	-	PROBABLE	40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 1; entered by jrcc from 4E:5905 (executed)
+594A	5969	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 2/18 scenarios)
+5969	5993	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 4E:5967 (executed)
+5993	59BE	code	-	CONFIRMED	25 insn(s); 25 executed (in up to 2/18 scenarios)
+59BE	59F4	code	-	PROBABLE	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jrcc at 4E:59BC (executed)
+59F4	5A6D	code	-	CONFIRMED	66 insn(s); 66 executed (in up to 2/18 scenarios)
+5A6D	5CB6	code	-	PROBABLE	416 insn(s) reached by static flow only; seeds: exec x265, site x5, table x146; min discovery hops 0; run starts at an entry of the code-pointer table at 4E:589B
+5CB6	5D32	code	Function_4E_5CB6	CONFIRMED	42 insn(s); 42 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+5D32	5D66	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jrcc from 4E:5CBB (executed)
+5D66	5D70	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
+5D70	5D93	data	Data_4E_5D70	HYPOTHESIS	UNCLASSIFIED 35 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5D93	5E11	code	-	PROBABLE	59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+5E11	5F34	code	Function_4E_5E11	CONFIRMED	175 insn(s); 175 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+5F34	5F46	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 4E:5EFC (executed)
+5F46	5F58	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
+5F58	5FB9	code	-	PROBABLE	42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by callcc from 4E:5EEA (executed)
+5FB9	6087	code	Function_4E_5FB9	CONFIRMED	111 insn(s); 111 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+6087	60A6	data	Data_4E_6087	HYPOTHESIS	UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+60A6	6172	code	Function_4E_60A6	CONFIRMED	82 insn(s); 82 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+6172	6196	data	Data_4E_6172	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6196	6291	code	Function_4E_6196	CONFIRMED	118 insn(s); 118 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+6291	6543	code	-	PROBABLE	346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0; entered by far from 4E:4002 (PROBABLE code)
+6543	654D	data	Data_4E_6543	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+654D	6551	data	Data_4E_654D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+6551	65A0	data	Data_4E_6551	HYPOTHESIS	UNCLASSIFIED 79 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+65A0	65B3	data	Data_4E_65A0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+65B3	65B5	data	Data_4E_65B3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+65B5	65D2	data	Data_4E_65B5	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+65D2	65D4	data	Data_4E_65D2	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+65D4	65D6	data	Data_4E_65D4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+65D6	65DA	data	Data_4E_65D6	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+65DA	65DE	data	Data_4E_65DA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+65DE	661C	data	Data_4E_65DE	HYPOTHESIS	UNCLASSIFIED 62 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+661C	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

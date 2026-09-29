@@ -1,0 +1,128 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	407B	code	Function_2B_4000	CONFIRMED	52 insn(s); 52 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+407B	4080	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entry not recorded
+4080	4084	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
+4084	40A2	code	-	PROBABLE	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 2B:4082 (executed)
+40A2	4161	code	-	CONFIRMED	75 insn(s); 75 executed (in up to 1/18 scenarios)
+4161	4194	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: exec x20; min discovery hops 0; fall-through of the jpcc at 2B:415E (executed)
+4194	4203	code	-	CONFIRMED	60 insn(s); 60 executed (in up to 2/18 scenarios)
+4203	4205	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2B:4201 (executed)
+4205	42F3	code	-	CONFIRMED	76 insn(s); 76 executed (in up to 2/18 scenarios)
+42F3	430C	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 2B:42F1 (executed)
+430C	441F	code	-	CONFIRMED	110 insn(s); 110 executed (in up to 2/18 scenarios)
+441F	4421	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 2B:43F9 (executed)
+4421	44A6	code	Function_2B_4421	CONFIRMED	70 insn(s); 70 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+44A6	44C1	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 2B:4434 (executed)
+44C1	451E	code	-	CONFIRMED	50 insn(s); 50 executed (in up to 2/18 scenarios)
+451E	45AD	code	-	PROBABLE	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:451B (executed)
+45AD	45CD	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
+45CD	45E1	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4545 (PROBABLE code)
+45E1	460A	code	Function_2B_45E1	CONFIRMED	22 insn(s); 22 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+460A	4699	code	-	PROBABLE	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:4607 (executed)
+4699	46B9	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
+46B9	46CD	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4631 (PROBABLE code)
+46CD	4743	code	Function_2B_46CD	CONFIRMED	61 insn(s); 61 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+4743	478B	code	-	PROBABLE	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 1; entered by call from 2B:4098 (PROBABLE code)
+478B	47D0	code	Function_2B_478B	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+47D0	47D2	data	Data_2B_47D0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47D2	47D8	data	Data_2B_47D2	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+47D8	487C	text	String_2B_47D8	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+487C	4880	data	Data_2B_487C	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4880	4B50	gfx	Data_2B_4880	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4265: hl=$4880 a=$2B c=$2D de=$9301 (dest VRAM $9300, vbank=1)
+4B50	4E20	data	Data_2B_4B50	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:4276: hl=$4B50 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000
+4E20	4E60	data	Data_2B_4E20	PROBABLE	palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+4E60	5190	gfx	Data_2B_4E60	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4242: hl=$4E60 a=$2B c=$33 de=$8000 (dest VRAM $8000, vbank=0)
+5190	51D0	data	Data_2B_5190	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4880-51D0 by higher-priority evidence]
+51D0	51D4	data	Data_2B_51D0	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51D4	51D8	data	Data_2B_51D4	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+51D8	51E4	data	Data_2B_51D8	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51E4	51E8	data	Data_2B_51E4	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+51E8	51F4	data	Data_2B_51E8	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51F4	51F8	data	Data_2B_51F4	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+51F8	5204	data	Data_2B_51F8	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5204	5208	data	Data_2B_5204	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5208	5214	data	Data_2B_5208	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5214	5218	data	Data_2B_5214	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5218	5224	data	Data_2B_5218	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5224	5228	data	Data_2B_5224	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5228	526D	data	Data_2B_5228	HYPOTHESIS	UNCLASSIFIED 69 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+526D	529A	data	Data_2B_526D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+529A	529C	data	Data_2B_529A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+529C	52A9	data	Data_2B_529C	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+52A9	52B7	data	Data_2B_52A9	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52B7	52B9	data	Data_2B_52B7	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+52B9	52BB	data	Data_2B_52B9	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52BB	52BD	data	Data_2B_52BB	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52BD	52BF	data	Data_2B_52BD	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52BF	52CC	data	Data_2B_52BF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52CC	52DA	data	Data_2B_52CC	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52DA	52DC	data	Data_2B_52DA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52DC	52DE	data	Data_2B_52DC	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52DE	52E0	data	Data_2B_52DE	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52E0	52E2	data	Data_2B_52E0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52E2	52EF	data	Data_2B_52E2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52EF	52FD	data	Data_2B_52EF	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52FD	52FF	data	Data_2B_52FD	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+52FF	5301	data	Data_2B_52FF	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5301	5303	data	Data_2B_5301	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5303	5305	data	Data_2B_5303	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5305	5336	data	Data_2B_5305	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5336	5367	data	Data_2B_5336	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5367	536C	data	Data_2B_5367	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+536C	536E	data	Data_2B_536C	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+536E	5397	data	Data_2B_536E	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5397	53C0	data	Data_2B_5397	HYPOTHESIS	UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+53C0	53C3	data	Data_2B_53C0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+53C3	53C6	data	Data_2B_53C3	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+53C6	562B	code	-	PROBABLE	268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code)
+562B	565B	data	Data_2B_562B	HYPOTHESIS	UNCLASSIFIED 48 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+565B	57B5	code	-	PROBABLE	246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code)
+57B5	57CB	text	String_2B_57B5	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+57CB	5806	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code)
+5806	582C	data	Data_2B_5806	HYPOTHESIS	UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+582C	59B4	code	-	PROBABLE	225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code)
+59B4	59C0	data	Data_2B_59B4	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+59C0	5DC0	gfx	Data_2B_59C0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5DC0	5FF0	gfx	Data_2B_5DC0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5FF0	62C0	data	Data_2B_5FF0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:54C3: hl=$5FF0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+62C0	6300	data	Data_2B_62C0	PROBABLE	CGB palette data (RGB555 words): heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 62C0-6310 by higher-priority proposals]
+6300	63F0	gfx	Data_2B_6300	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:54A1: hl=$6300 a=$2B c=$0F de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+63F0	6480	data	Data_2B_63F0	PROBABLE	palette-rgb555: heuristic: 72 RGB555 words as 18 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+6480	6482	data	Data_2B_6480	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6482	64F1	code	-	PROBABLE	48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code)
+64F1	6500	data	Data_2B_64F1	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6500	6863	code	-	PROBABLE	397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+6863	6895	data	Data_2B_6863	HYPOTHESIS	UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6895	68A6	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+68A6	68BD	data	Data_2B_68A6	HYPOTHESIS	UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+68BD	68CE	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+68CE	68E5	data	Data_2B_68CE	HYPOTHESIS	UNCLASSIFIED 23 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+68E5	68F6	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+68F6	6909	data	Data_2B_68F6	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6909	69AD	code	-	PROBABLE	111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+69AD	69C5	data	Data_2B_69AD	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+69C5	6CF5	code	-	PROBABLE	425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code)
+6CF5	6D6B	data	Data_2B_6CF5	HYPOTHESIS	UNCLASSIFIED 118 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6D6B	6DB0	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0; entered by jrcc from 2B:6D84 (PROBABLE code)
+6DB0	7000	data	Data_2B_6DB0	HYPOTHESIS	UNCLASSIFIED 592 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7000	7010	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
+7010	707F	data	Data_2B_7010	HYPOTHESIS	UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+707F	70A0	zero	-	HYPOTHESIS	padding? run of 33 x $00 in unclassified bytes
+70A0	70B0	data	Data_2B_70A0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+70B0	70D0	zero	-	HYPOTHESIS	padding? run of 32 x $00 in unclassified bytes
+70D0	7230	data	Data_2B_70D0	HYPOTHESIS	UNCLASSIFIED 352 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7230	7280	zero	-	HYPOTHESIS	0x00 run of 80 bytes
+7280	732F	data	Data_2B_7280	HYPOTHESIS	UNCLASSIFIED 175 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+732F	7361	zero	-	HYPOTHESIS	padding? run of 50 x $00 in unclassified bytes
+7361	73D0	data	Data_2B_7361	HYPOTHESIS	UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73D0	76A0	data	Data_2B_73D0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+76A0	76F0	data	Data_2B_76A0	PROBABLE	palette-rgb555: heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+76F0	7840	data	Data_2B_76F0	HYPOTHESIS	UNCLASSIFIED 336 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7840	7860	zero	-	HYPOTHESIS	0x00 run of 34 bytes [clipped from 783E-7860 by higher-priority proposals]
+7860	7888	data	Data_2B_7860	HYPOTHESIS	UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7888	7988	data	Data_2B_7888	PROBABLE	palette-rgb555: heuristic: 128 RGB555 words as 32 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+7988	7B02	data	Data_2B_7988	HYPOTHESIS	UNCLASSIFIED 378 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7B02	7D7A	code	-	PROBABLE	268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8; entered by far from 2B:64E4 (PROBABLE code)
+7D7A	7D92	data	Data_2B_7D7A	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7D92	7F44	code	-	PROBABLE	235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10; entered by far from 2B:7D29 (PROBABLE code)
+7F44	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

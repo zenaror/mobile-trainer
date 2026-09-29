@@ -1,0 +1,89 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	41B6	code	Function_29_4000	CONFIRMED	167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+41B6	41CD	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 29:41AF (executed)
+41CD	421E	code	-	CONFIRMED	40 insn(s); 40 executed (in up to 1/18 scenarios)
+421E	4286	text	String_29_421E	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+4286	429A	code	Function_29_4286	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+429A	42AF	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 29:4298 (executed)
+42AF	4306	code	-	CONFIRMED	41 insn(s); 41 executed (in up to 1/18 scenarios)
+4306	4374	text	String_29_4306	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+4374	44F6	code	-	PROBABLE	138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3; entered by call from 29:42AC (PROBABLE code)
+44F6	454E	code	Function_29_44F6	CONFIRMED	41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+454E	45E2	code	-	PROBABLE	88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 0; fall-through of the jpcc at 29:454B (executed)
+45E2	45FF	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios)
+45FF	4605	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; fall-through of the jrcc at 29:45FD (executed)
+4605	46A1	code	-	CONFIRMED	53 insn(s); 53 executed (in up to 2/18 scenarios)
+46A1	46B9	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 29:469F (executed)
+46B9	46F9	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 2/18 scenarios)
+46F9	46FE	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:46F7 (executed)
+46FE	476B	code	-	CONFIRMED	56 insn(s); 56 executed (in up to 2/18 scenarios)
+476B	47B2	code	-	PROBABLE	27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; entered by jrcc from 29:4755 (executed)
+47B2	47BD	data	Data_29_47B2	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47BD	4873	code	-	CONFIRMED	116 insn(s); 116 executed (in up to 1/18 scenarios)
+4873	487C	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4871 (executed)
+487C	48EE	code	-	CONFIRMED	67 insn(s); 67 executed (in up to 1/18 scenarios)
+48EE	4934	code	-	PROBABLE	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the jrcc at 29:48EC (executed)
+4934	4946	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+4946	497A	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0; fall-through of the jrcc at 29:4944 (executed)
+497A	498C	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+498C	49AE	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 29:498A (executed)
+49AE	49C0	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+49C0	49D0	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:49BE (executed)
+49D0	49DA	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+49DA	49E5	data	Data_29_49DA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+49E5	49F5	code	Function_29_49E5	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+49F5	49FB	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:49F3 (executed)
+49FB	4A0B	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4A0B	4A11	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A09 (executed)
+4A11	4A21	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4A21	4A27	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A1F (executed)
+4A27	4A37	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4A37	4A3D	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A35 (executed)
+4A3D	4A65	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 1/18 scenarios)
+4A65	4AC4	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by call from 29:46F9 (PROBABLE code)
+4AC4	4ACF	data	Data_29_4AC4	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4ACF	4C96	code	-	PROBABLE	279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code)
+4C96	4CA1	data	Data_29_4C96	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4CA1	4D21	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code)
+4D21	4D39	code	Function_29_4D21	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+4D39	4D80	code	-	PROBABLE	27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jpcc at 29:4D36 (executed)
+4D80	4D8B	data	Data_29_4D80	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D8B	4E1E	code	-	CONFIRMED	88 insn(s); 88 executed (in up to 1/18 scenarios)
+4E1E	4E27	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4E1C (executed)
+4E27	4E80	code	-	CONFIRMED	49 insn(s); 49 executed (in up to 1/18 scenarios)
+4E80	4EC6	code	-	PROBABLE	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the jrcc at 29:4E7E (executed)
+4EC6	4ED8	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+4ED8	4F0C	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0; fall-through of the jrcc at 29:4ED6 (executed)
+4F0C	4F1E	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+4F1E	4F40	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 29:4F1C (executed)
+4F40	4F52	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+4F52	4F62	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:4F50 (executed)
+4F62	4F6C	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+4F6C	4F77	data	Data_29_4F6C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+4F77	4F87	code	Function_29_4F77	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+4F87	4F8D	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4F85 (executed)
+4F8D	4F9D	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4F9D	4FA3	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4F9B (executed)
+4FA3	4FB3	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4FB3	4FB9	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FB1 (executed)
+4FB9	4FC9	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+4FC9	4FCF	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FC7 (executed)
+4FCF	4FF7	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 1/18 scenarios)
+4FF7	5017	code	-	PROBABLE	15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by call from 29:47AA (PROBABLE code)
+5017	505F	code	Function_29_5017	CONFIRMED	39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+505F	5060	data	Data_29_505F	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5060	5090	gfx	Data_29_5060	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4686: hl=$5060 a=$29 c=$03 de=$9301 (dest VRAM $9300, vbank=1)
+5090	5376	data	Data_29_5090	HYPOTHESIS	UNCLASSIFIED 742 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5376	53F6	data	Data_29_5376	PROBABLE	palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+53F6	5400	gfx	Data_29_53F6	PROBABLE	tiles-2bpp: heuristic: 53 coherent tiles (hsim2=0.790 vsim2=0.794, 6 blank) parity 0; 928/944 bytes also covered by call-site blocks [clipped from 53F0-57A0 by higher-priority evidence]
+5400	5800	gfx	Data_29_5400	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4DCC: hl=$5400 a=$29 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5800	5AD0	data	Data_29_5800	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4DDD: hl=$5800 a=$29 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+5AD0	5AE0	data	Data_29_5AD0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5AE0	5B10	zero	-	HYPOTHESIS	0x00 run of 185 bytes [clipped from 5AD8-5B91 by higher-priority proposals] [verifier: cut around bytes read as data]
+5B10	5E0C	data	Data_29_5B10	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5B10-5E50 by higher-priority evidence]
+5E0C	5E4C	data	Data_29_5E0C	PROBABLE	palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+5E4C	5E50	data	Data_29_5E4C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5B10-5E50 by higher-priority evidence]
+5E50	6250	gfx	Data_29_5E50	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:5208: hl=$5E50 a=$29 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+6250	6290	gfx	Data_29_6250	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2F:521A: hl=$6250 a=$29 c=$04 de=$9701 (dest VRAM $9700, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+6290	64F4	data	Data_29_6290	HYPOTHESIS	UNCLASSIFIED 612 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+64F4	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

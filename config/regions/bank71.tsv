@@ -1,0 +1,34 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4300	gfx	Data_71_4000	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:749E: hl=$4000 a=$71 c=$30 de=$8000 (dest VRAM $8000, vbank=0)
+4300	4500	gfx	Data_71_4300	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7468: hl=$4200 a=$71 c=$30 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 4200-4500 by higher-priority evidence]
+4500	4890	gfx	Data_71_4500	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:747A: hl=$4490 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 4490-4890 by higher-priority evidence]
+4890	4C90	gfx	Data_71_4890	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:748C: hl=$4890 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+4C90	4C98	data	Data_71_4C90	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4000-4FB8 by higher-priority evidence]
+4C98	4F68	data	Data_71_4C98	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74D1: hl=$4C98 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
+4F68	4FB8	data	Data_71_4F68	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:74F5: hl=$4F68 a=$71 b=2 rows c=20 cols (tiles then attrs) de=$D200
+4FB8	4FBC	data	Data_71_4FB8	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FBC	5098	data	Data_71_4FBC	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+5098	50F8	data	Data_71_5098	HYPOTHESIS	UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+50F8	5158	data	Data_71_50F8	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+5158	51B8	data	Data_71_5158	HYPOTHESIS	UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51B8	5278	data	Data_71_51B8	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+5278	5340	data	Data_71_5278	HYPOTHESIS	UNCLASSIFIED 200 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5340	5740	gfx	Data_71_5340	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79DF: hl=$5340 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+5740	5B40	gfx	Data_71_5740	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:79F1: hl=$5740 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+5B40	5DC0	gfx	Data_71_5B40	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A16: hl=$59C0 a=$71 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 59C0-5DC0 by higher-priority evidence]
+5DC0	61C0	gfx	Data_71_5DC0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7A28: hl=$5DC0 a=$71 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+61C0	6440	gfx	Data_71_61C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BF7: hl=$6140 a=$71 c=$30 de=$8000 (dest VRAM $8000, vbank=0) [clipped from 6140-6440 by higher-priority evidence]
+6440	6580	gfx	Data_71_6440	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BD3: hl=$6180 a=$71 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 6180-6580 by higher-priority evidence]
+6580	6680	gfx	Data_71_6580	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:7BE5: hl=$6580 a=$71 c=$10 de=$9001 (dest VRAM $9000, vbank=1)
+6680	6688	data	Data_71_6680	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5340-6F38 by higher-priority evidence]
+6688	66A0	data	Data_71_6688	PROBABLE	palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+66A0	66C1	data	Data_71_66A0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5340-6F38 by higher-priority evidence]
+66C1	66C8	gfx	Data_71_66C1	PROBABLE	tiles-2bpp: heuristic: 82 coherent tiles (hsim2=0.618 vsim2=0.845, 4 blank) parity 1; 1449/1456 bytes also covered by call-site blocks [clipped from 66C1-6C71 by higher-priority evidence]
+66C8	6998	data	Data_71_66C8	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A02: hl=$66C8 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
+6998	6C68	data	Data_71_6998	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7A39: hl=$6998 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
+6C68	6F38	data	Data_71_6C68	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:7C2A: hl=$6C68 a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000
+6F38	6F6F	gfx	Data_71_6F38	PROBABLE	tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.607 vsim2=0.868, 0 blank) parity 0; 553/608 bytes also covered by call-site blocks [clipped from 6D30-6F90 by higher-priority evidence]
+6F6F	723F	data	Data_71_6F6F	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65FD: hl=$6F6F a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+723F	7271	gfx	Data_71_723F	PROBABLE	tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.670 vsim2=0.903, 1 blank) parity 1; 558/608 bytes also covered by call-site blocks [clipped from 7011-7271 by higher-priority evidence]
+7271	7740	data	Data_71_7271	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 7240-7740 by higher-priority evidence]
+7740	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

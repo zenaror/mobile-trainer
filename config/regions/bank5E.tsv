@@ -1,0 +1,24 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4400	gfx	Data_5E_4000	PROBABLE	tiles-vram: 4 call site(s) (67:4370 67:49E5 68:5351 68:5804); first: hdma_rom_to_vram at 67:4370: hl=$4000 a=$5E c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+4400	4800	gfx	Data_5E_4400	PROBABLE	tiles-vram: 4 call site(s) (67:4382 67:49F7 68:5363 68:5816); first: hdma_rom_to_vram at 67:4382: hl=$4400 a=$5E c=$40 de=$8C01 (dest VRAM $8C00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+4800	4C00	gfx	Data_5E_4800	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5375: hl=$4800 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+4C00	4D00	gfx	Data_5E_4C00	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5387: hl=$4C00 a=$5E c=$10 de=$9401 (dest VRAM $9400, vbank=1)
+4D00	4D40	data	Data_5E_4D00	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown [clipped from 4000-4E08 by higher-priority evidence]
+4D40	4E08	data	Data_5E_4D40	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:53A9: hl=$4D40 a=$5E b=5 rows c=20 cols (tiles then attrs) de=$D000
+4E08	4E10	data	Data_5E_4E08	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4E10	5210	gfx	Data_5E_4E10	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:564B: hl=$4E10 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+5210	5610	gfx	Data_5E_5210	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:565D: hl=$5210 a=$5E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+5610	57E0	data	Data_5E_5610	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:567F: hl=$5510 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 5510-57E0 by higher-priority evidence]
+57E0	5800	gfx	Data_5E_57E0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 55:6710: hl=$57E0 a=$5E c=$02 de=$8800 (dest VRAM $8800, vbank=0)
+5800	5C00	gfx	Data_5E_5800	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5828: hl=$5800 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+5C00	6000	gfx	Data_5E_5C00	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:583A: hl=$5C00 a=$5E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+6000	60C8	data	Data_5E_6000	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:585C: hl=$6000 a=$5E b=5 rows c=20 cols (tiles then attrs) de=$D000
+60C8	60D0	data	Data_5E_60C8	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+60D0	64D0	gfx	Data_5E_60D0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5C2E: hl=$60D0 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+64D0	68D0	gfx	Data_5E_64D0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5C40: hl=$64D0 a=$5E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+68D0	6BA0	data	Data_5E_68D0	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5C62: hl=$68D0 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
+6BA0	6FA0	gfx	Data_5E_6BA0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6E5E: hl=$6BA0 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
+6FA0	73A0	gfx	Data_5E_6FA0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6E70: hl=$6FA0 a=$5E c=$40 de=$9401 (dest VRAM $9400, vbank=1)
+73A0	75D0	data	Data_5E_73A0	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6ECE: hl=$7300 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 7300-75D0 by higher-priority evidence]
+75D0	78A0	data	Data_5E_75D0	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6EBB: hl=$75D0 a=$5E b=18 rows c=20 cols (tiles then attrs) de=$D000
+78A0	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

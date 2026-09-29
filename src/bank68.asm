@@ -6,8 +6,8221 @@ INCLUDE "ram.inc"
 
 SECTION "Bank68", ROMX[$4000], BANK[$68]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $1A0000, $27AE
+; ---- data $4000-$4010 (16 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+
+Data_68_4000:: ; 68:4000
+	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $30, $30
+
+; ---- code $4010-$4054 (68 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4010:: ; 68:4010
+	xor a, a
+	ld [wRam_C2D1], a
+	ld hl, $C2D2
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C2D4
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ret
+
+Function_68_4021:: ; 68:4021
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_403B:: ; 68:403B
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4054-$408E (58 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 6; entered by call from 68:4666 (PROBABLE code)
+
+Function_68_4054:: ; 68:4054
+	ld b, $00
+
+Label_68_4056:: ; 68:4056
+	ld a, b
+	cp a, $08
+	jr z, Label_68_408B
+	ld a, [hli]
+	ld c, a
+	swap a
+	and a, $0F
+	cp a, $0F
+	jr z, Label_68_408B
+	push hl
+	ld hl, $408E
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	pop hl
+	ld [de], a
+	inc de
+	ld a, c
+	and a, $0F
+	cp a, $0F
+	jr z, Label_68_408B
+	push hl
+	ld hl, $408E
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	pop hl
+	ld [de], a
+	inc de
+	inc b
+	jr Label_68_4056
+
+Label_68_408B:: ; 68:408B
+	xor a, a
+	ld [de], a
+	ret
+
+; ---- data $408E-$409A (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_408E:: ; 68:408E
+	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A
+
+; ---- code $409A-$40D8 (62 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code)
+
+Function_68_409A:: ; 68:409A
+	ld b, $00
+
+Label_68_409C:: ; 68:409C
+	ld a, [hli]
+	or a, a
+	jr z, Label_68_40AD
+	cp a, $23
+	jr z, Label_68_40B1
+	cp a, $2A
+	jr z, Label_68_40B5
+	sub a, $30
+	ld c, a
+	jr Label_68_40B7
+
+Label_68_40AD:: ; 68:40AD
+	ld c, $0F
+	jr Label_68_40B7
+
+Label_68_40B1:: ; 68:40B1
+	ld c, $0A
+	jr Label_68_40B7
+
+Label_68_40B5:: ; 68:40B5
+	ld c, $0B
+
+Label_68_40B7:: ; 68:40B7
+	ld a, b
+	or a, a
+	jr nz, Label_68_40CA
+	ld b, $01
+	ld a, c
+	swap a
+	and a, $F0
+	ld [de], a
+	ld a, c
+	cp a, $0F
+	jr z, Label_68_40D7
+	jr Label_68_409C
+
+Label_68_40CA:: ; 68:40CA
+	ld b, $00
+	ld a, [de]
+	or a, c
+	ld [de], a
+	inc de
+	ld a, c
+	cp a, $0F
+	jr z, Label_68_40D7
+	jr Label_68_409C
+
+Label_68_40D7:: ; 68:40D7
+	ret
+
+; ---- code $40D8-$4152 (122 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_40D8:: ; 68:40D8
+	call FarCall
+	dw Function_67_6807
+	db BANK(Function_67_6807)
+	push de
+	ld de, $0006
+	call Multiply8x16
+	pop de
+	ld a, d
+	add a, l
+	ld d, e
+	ld e, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+Function_68_40F1:: ; 68:40F1
+	xor a, a
+	ld hl, $C2D4
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	or a, b
+	ret
+
+Function_68_4101:: ; 68:4101
+	xor a, a
+	ld [wRam_C2D1], a
+	ret
+
+Function_68_4106:: ; 68:4106
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld bc, $0163
+	ld hl, $DE80
+	call FillBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_4127:: ; 68:4127
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, d
+	ld c, e
+
+Label_68_4136:: ; 68:4136
+	ld a, [bc]
+	or a, a
+	jr z, Label_68_4148
+	inc bc
+	push bc
+	push hl
+	ld d, a
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	pop hl
+	pop bc
+	jr Label_68_4136
+
+Label_68_4148:: ; 68:4148
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- data $4152-$4161 (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4152:: ; 68:4152
+	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $42, $4B
+
+; ---- code $4161-$417F (30 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0; entered by jr from 68:4173 (PROBABLE code)
+
+Label_68_4161:: ; 68:4161
+	ld a, [bc]
+	or a, a
+	jr z, Label_68_4175
+	inc bc
+	push bc
+	push hl
+	ld a, $2A
+	ld d, a
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	pop hl
+	pop bc
+	jr Label_68_4161
+
+Label_68_4175:: ; 68:4175
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $417F-$41DB (92 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_417F:: ; 68:417F
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	inc hl
+	inc hl
+	inc hl
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_419C:: ; 68:419C
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_DFAA], a
+	ld hl, $DEAB
+	ld de, $DFAA
+	call CopyString
+	ld hl, $41DB
+	ld de, $DFAA
+	call Function_00_14F3
+	ld hl, $DEB4
+	ld de, $DFAA
+	call Function_00_14F3
+	ld hl, $41DD
+	ld de, $DFAA
+	call Function_00_14F3
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- data $41DB-$41DD (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 41DB-41E9 by higher-priority evidence]
+
+Data_68_41DB:: ; 68:41DB
+	db $40, $00
+
+; ---- text $41DD-$41E9 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_68_41DD:: ; 68:41DD
+	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00
+
+; ---- code $41E9-$4241 (88 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_41E9:: ; 68:41E9
+	ld [wRam_C27C], a
+	ld a, l
+	ld [wRam_C27D], a
+	ld a, h
+	ld [wRam_C27E], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $B047
+	ld de, $C27F
+	call DecodeXorA5
+	ld a, [wRam_C27D]
+	ld l, a
+	ld a, [wRam_C27E]
+	ld h, a
+	ld a, [wRam_C27C]
+	call Function_68_4239
+	ld hl, $C27F
+	ld a, [wRam_C27D]
+	ld e, a
+	ld a, [wRam_C27E]
+	ld d, a
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_4239:: ; 68:4239
+	bit 7, h
+	jr z, Label_68_424C
+	bit 6, h
+	jr z, Label_68_4246
+
+; ---- code $4241-$4246 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:423F (executed)
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+; ---- code $4246-$424C (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
+
+Label_68_4246:: ; 68:4246
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ret
+
+; ---- code $424C-$4252 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 68:423B (executed)
+
+Label_68_424C:: ; 68:424C
+	ldh [hROMBankLo], a
+	ld [$2100], a
+	ret
+
+; ---- code $4252-$4283 (49 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4252:: ; 68:4252
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld bc, $0100
+	ld hl, $A000
+	call FillBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+Function_68_4282:: ; 68:4282
+	ret
+
+; ---- data $4283-$42E4 (97 bytes) [HYPOTHESIS] UNCLASSIFIED 97 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4283:: ; 68:4283
+	db $3E, $0A, $E0, $F5, $EA, $00, $00, $E0, $F2, $F0, $8C, $F5, $F0, $F2, $3E, $02
+	db $E0, $8C, $EA, $00, $40, $AF, $21, $00, $A0, $01, $00, $10, $CD, $D8, $04, $CD
+	db $92, $03, $AF, $21, $00, $B0, $01, $00, $10, $CD, $D8, $04, $CD, $92, $03, $3E
+	db $03, $E0, $8C, $EA, $00, $40, $AF, $21, $00, $A0, $01, $00, $10, $CD, $D8, $04
+	db $CD, $92, $03, $AF, $21, $00, $B0, $01, $00, $10, $CD, $D8, $04, $CD, $92, $03
+	db $E0, $F2, $F1, $E0, $8C, $EA, $00, $40, $F0, $F2, $AF, $E0, $F5, $EA, $00, $00
+	db $C9
+
+; ---- code $42E4-$4377 (147 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_42E4:: ; 68:42E4
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld d, $00
+
+Label_68_42ED:: ; 68:42ED
+	ld a, d
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld hl, $A000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	xor a, a
+	ld hl, $B000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	inc d
+	ld a, d
+	cp a, $04
+	jr c, Label_68_42ED
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+Function_68_431A:: ; 68:431A
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [sSram_A000]
+	cp a, $4D
+	jr nz, Label_68_4365
+	ld a, [sSram_A001]
+	cp a, $41
+	jr nz, Label_68_4365
+	ld a, [sSram_A002]
+	cp a, $81
+	jp nz, Label_68_4365
+	ld a, [sSram_A003]
+	cp a, $00
+	jr nz, Label_68_4365
+	call Function_68_459A
+	or a, a
+	jr z, Label_68_4365
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ret
+
+Label_68_4365:: ; 68:4365
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ret
+
+; ---- data $4377-$43B9 (66 bytes) [HYPOTHESIS] UNCLASSIFIED 66 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4377:: ; 68:4377
+	db $3E, $0A, $E0, $F5, $EA, $00, $00, $E0, $F2, $F0, $8C, $F5, $F0, $F2, $3E, $01
+	db $E0, $8C, $EA, $00, $40, $FA, $10, $B0, $EE, $A5, $B7, $28, $13, $E0, $F2, $F1
+	db $E0, $8C, $EA, $00, $40, $F0, $F2, $AF, $E0, $F5, $EA, $00, $00, $3E, $01, $C9
+	db $E0, $F2, $F1, $E0, $8C, $EA, $00, $40, $F0, $F2, $AF, $E0, $F5, $EA, $00, $00
+	db $AF, $C9
+
+; ---- code $43B9-$4430 (119 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_43B9:: ; 68:43B9
+	ld hl, $B010
+	ld a, $03
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_43F4:: ; 68:43F4
+	ld hl, $B011
+	ld a, [wRam_C271]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- data $4430-$4469 (57 bytes) [HYPOTHESIS] UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4430:: ; 68:4430
+	db $21, $11, $B0, $E0, $F2, $F0, $F5, $F5, $F0, $F2, $E0, $F2, $F0, $8C, $F5, $F0
+	db $F2, $3E, $01, $E0, $8C, $EA, $00, $40, $3E, $0A, $E0, $F5, $EA, $00, $00, $7E
+	db $47, $E0, $F2, $F1, $E0, $8C, $EA, $00, $40, $F0, $F2, $E0, $F2, $F1, $E0, $F5
+	db $EA, $00, $00, $F0, $F2, $78, $EE, $A5, $C9
+
+; ---- code $4469-$446E (5 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4469:: ; 68:4469
+	ld b, a
+	ld d, h
+	ld e, l
+	or a, a
+	ret z
+
+; ---- code $446E-$4499 (43 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the retcc at 68:446D (executed)
+	call Function_68_4495
+	call Function_68_4495
+	ld a, b
+	dec a
+	jr z, Label_68_4484
+	dec a
+	jr z, Label_68_447E
+	ld a, $FF
+	ret
+
+Label_68_447E:: ; 68:447E
+	call Function_68_4495
+	call Function_68_4495
+
+Label_68_4484:: ; 68:4484
+	ld a, [hl]
+	or a, a
+	jr z, Label_68_448A
+	ld a, b
+	ret
+
+Label_68_448A:: ; 68:448A
+	ld h, d
+	ld l, e
+	push hl
+	ld b, $00
+	call Function_68_4499
+	pop hl
+	xor a, a
+	ret
+
+Function_68_4495:: ; 68:4495
+	ld a, [hli]
+	or a, a
+	jr nz, Function_68_4495
+
+; ---- code $4499-$44F9 (96 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4499:: ; 68:4499
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, b
+	xor a, $A5
+	ld [sSram_B013], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_44D0:: ; 68:44D0
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [sSram_B013]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ld a, b
+	cp a, $03
+	ret c
+
+; ---- code $44F9-$44FC (3 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the retcc at 68:44F8 (executed)
+	xor a, a
+	ld b, a
+	ret
+
+; ---- code $44FC-$4536 (58 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_44FC:: ; 68:44FC
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [sSram_B012]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	or a, a
+	jr z, Label_68_4539
+
+; ---- code $4536-$4539 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:4534 (executed)
+	ld a, $01
+	ld b, a
+
+; ---- code $4539-$4568 (47 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios)
+
+Label_68_4539:: ; 68:4539
+	ld a, b
+	ret
+
+Function_68_453B:: ; 68:453B
+	ld b, a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, b
+	xor a, $A5
+	ld [sSram_B012], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+; ---- code $4568-$4594 (44 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by far from 67:4E4D (PROBABLE code)
+
+Function_68_4568:: ; 68:4568
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, b
+	ld hl, $4594
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld b, [hl]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, b
+	or a, a
+	ret z
+	ld a, $01
+	ret
+
+; ---- data $4594-$459A (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4594:: ; 68:4594
+	db $10, $DF, $43, $DF, $76, $DF
+
+; ---- code $459A-$45DF (69 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_459A:: ; 68:459A
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $A000
+	ld de, $0000
+	ld b, $BE
+
+Label_68_45B7:: ; 68:45B7
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jr nz, Label_68_45B7
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ld a, b
+	cp a, d
+	jr nz, Label_68_45DF
+	ld a, c
+	cp a, e
+	jr nz, Label_68_45DF
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ret
+
+; ---- code $45DF-$45F1 (18 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 68:45C6 (executed)
+
+Label_68_45DF:: ; 68:45DF
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ret
+
+; ---- code $45F1-$4608 (23 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_45F1:: ; 68:45F1
+	ld hl, $A000
+	ld de, $0000
+	ld b, $BE
+
+Label_68_45F9:: ; 68:45F9
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jp nz, Label_68_45F9
+	ld a, d
+	ld [hli], a
+	ld [hl], e
+	ret
+
+; ---- code $4608-$4735 (301 bytes) [PROBABLE] 136 insn(s) reached by static flow only; seeds: exec x136; min discovery hops 3; entered by far from 67:4023 (PROBABLE code)
+
+Function_68_4608:: ; 68:4608
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $A00C
+	ld de, $DEA0
+	call CopyString
+	ld hl, $A02C
+	ld de, $DFAA
+	call CopyString
+	ld hl, $A07E
+	ld de, $DF32
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A096
+	ld de, $DF65
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A0AE
+	ld de, $DF98
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A076
+	ld de, $DF10
+	call Function_68_4054
+	ld hl, $A08E
+	ld de, $DF43
+	call Function_68_4054
+	ld hl, $A0A6
+	ld de, $DF76
+	call Function_68_4054
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $B014
+	ld de, $DF21
+	call DecodeXorA5
+	ld hl, $B025
+	ld de, $DF54
+	call DecodeXorA5
+	ld hl, $B036
+	ld de, $DF87
+	call DecodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_46C8:: ; 68:46C8
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_C271]
+	ld hl, $67D8
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $0076
+	add hl, de
+	ld de, $DEDD
+	call FarCall
+	dw Function_68_4054
+	db BANK(Function_68_4054)
+	ld a, [wRam_C271]
+	ld hl, $67AE
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $DEEE
+	call FarCall
+	dw CopyString
+	db BANK(CopyString)
+	ld a, [wRam_C271]
+	ld hl, $67D8
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $007E
+	add hl, de
+	ld de, $DEFF
+	ld bc, $0010
+	call FarCall
+	dw Function_00_14D1
+	db BANK(Function_00_14D1)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4735-$4842 (269 bytes) [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4735:: ; 68:4735
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $DFAA
+	ld de, $B047
+	call EncodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_4785:: ; 68:4785
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $B000
+	ld bc, $0200
+	ld a, $A5
+	call FillBytes
+	ld hl, $4000
+	ld de, $B000
+	ld bc, $0010
+	call CopyBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld hl, $B088
+	ld a, $01
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	call Function_68_49B6
+	ret
+
+Function_68_480A:: ; 68:480A
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [sSram_B010]
+	ld b, a
+	push bc
+	ld hl, $B000
+	ld bc, $0066
+	ld a, $A5
+	call FillBytes
+	pop bc
+	ld a, b
+	xor a, $A5
+	cp a, $01
+	jr z, Label_68_4847
+	cp a, $02
+	jr z, Label_68_4847
+
+; ---- code $4842-$4847 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4840 (executed)
+	cp a, $03
+	jr z, Label_68_4847
+	xor a, a
+
+; ---- code $4847-$48C4 (125 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 18/18 scenarios)
+
+Label_68_4847:: ; 68:4847
+	xor a, $A5
+	ld [sSram_B010], a
+	ld hl, $4000
+	ld de, $B000
+	ld bc, $0010
+	call CopyBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	call Function_68_49B6
+	ret
+
+Function_68_4870:: ; 68:4870
+	call Function_68_48DE
+	add a, a
+	add a, $D6
+	ld l, a
+	ld a, $48
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+	ld hl, $B010
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	cp a, $01
+	jr z, Label_68_48C8
+	cp a, $02
+	jr z, Label_68_48CB
+	cp a, $03
+	jr z, Label_68_48CE
+
+; ---- code $48C4-$48C6 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:48C2 (executed)
+	xor a, a
+	ret
+
+; ---- data $48C6-$48C8 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_48C6:: ; 68:48C6
+	db $AF, $C9
+
+; ---- code $48C8-$48CB (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:48BA (executed)
+
+Label_68_48C8:: ; 68:48C8
+	ld a, $02
+	ret
+
+; ---- code $48CB-$48D1 (6 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 12/18 scenarios)
+
+Label_68_48CB:: ; 68:48CB
+	ld a, $03
+	ret
+
+Label_68_48CE:: ; 68:48CE
+	ld a, $04
+	ret
+
+; ---- data $48D1-$48D4 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_48D1:: ; 68:48D1
+	db $3E, $01, $C9
+
+; ---- code $48D4-$48D6 (2 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 5/18 scenarios)
+	xor a, a
+	ret
+
+; ---- data $48D6-$48D8 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_68_48D6:: ; 68:48D6
+	db $80, $48
+
+; ---- data $48D8-$48DC (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_48D8:: ; 68:48D8
+	db $80, $48, $D1, $48
+
+; ---- data $48DC-$48DE (2 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_68_48DC:: ; 68:48DC
+	db $D4, $48
+
+; ---- code $48DE-$48F3 (21 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_48DE:: ; 68:48DE
+	ld hl, $B000
+	call Function_68_4950
+	or a, a
+	jr z, Label_68_48ED
+	cp a, $01
+	jr z, Label_68_48F3
+	jr Label_68_4940
+
+Label_68_48ED:: ; 68:48ED
+	call Function_68_49B6
+	ld a, $00
+	ret
+
+; ---- code $48F3-$4940 (77 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed)
+
+Label_68_48F3:: ; 68:48F3
+	ld hl, $B100
+	call Function_68_4950
+	or a, a
+	jr z, Label_68_48FE
+	jr Label_68_493D
+
+Label_68_48FE:: ; 68:48FE
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $B100
+	ld de, $B000
+	ld bc, $0100
+	call CopyBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, $01
+	ret
+
+Label_68_493D:: ; 68:493D
+	ld a, $02
+	ret
+
+; ---- code $4940-$499A (90 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
+
+Label_68_4940:: ; 68:4940
+	ld hl, $B100
+	call Function_68_4950
+	or a, a
+	jr z, Label_68_48FE
+	cp a, $01
+	jr z, Label_68_493D
+	ld a, $03
+	ret
+
+Function_68_4950:: ; 68:4950
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	push hl
+	ld bc, $00FE
+	call Function_68_49FF
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld a, b
+	cp a, d
+	jr nz, Label_68_498E
+	ld a, c
+	cp a, e
+	jr nz, Label_68_498E
+	pop hl
+	ld de, $4000
+	ld b, $10
+	call CompareStringN
+	or a, a
+	jr nz, Label_68_499E
+	ld b, $00
+	jr Label_68_49A0
+
+Label_68_498E:: ; 68:498E
+	pop hl
+	ld de, $4000
+	ld b, $10
+	call CompareStringN
+	or a, a
+	jr nz, Label_68_499E
+
+; ---- code $499A-$499E (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:4998 (executed)
+	ld b, $01
+	jr Label_68_49A0
+
+; ---- code $499E-$4DB4 (1046 bytes) [CONFIRMED] 528 insn(s); 528 executed (in up to 18/18 scenarios)
+
+Label_68_499E:: ; 68:499E
+	ld b, $02
+
+Label_68_49A0:: ; 68:49A0
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	ret
+
+Function_68_49B6:: ; 68:49B6
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $B000
+	ld bc, $00FE
+	call Function_68_49FF
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld hl, $B000
+	ld de, $B100
+	ld bc, $0100
+	call CopyBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_49FF:: ; 68:49FF
+	ld de, $0000
+
+Label_68_4A02:: ; 68:4A02
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec bc
+	ld a, c
+	or a, b
+	jr nz, Label_68_4A02
+	ret
+
+Function_68_4A0F:: ; 68:4A0F
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ld hl, $BF00
+	ld bc, $0100
+	call FillBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Function_68_4A4A:: ; 68:4A4A
+	push bc
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	call EncodeXorA5
+	ld a, [sSram_B0BE]
+	or a, b
+	ld [sSram_B0BE], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld hl, $B010
+	ld a, $01
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld hl, $B0BE
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	pop bc
+	or a, b
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	call Function_68_49B6
+	ret
+
+Function_68_4B48:: ; 68:4B48
+	push bc
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld hl, $B010
+	ld a, $01
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld hl, $B0BE
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	pop bc
+	or a, b
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	call Function_68_49B6
+	ret
+
+Function_68_4C2B:: ; 68:4C2B
+	ld hl, $B010
+	ld a, $02
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	call Function_68_49B6
+	ret
+
+Function_68_4C69:: ; 68:4C69
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $B066
+	ld de, $DEA0
+	call DecodeXorA5
+	ld hl, $B071
+	ld de, $DEAB
+	call DecodeXorA5
+	ld hl, $B07A
+	ld de, $DEB4
+	call DecodeXorA5
+	ld hl, $B07F
+	ld de, $DEB9
+	call DecodeXorA5
+	ld hl, $B07F
+	ld de, $DECB
+	call DecodeXorA5
+	ld hl, $B08B
+	ld de, $DEDD
+	call DecodeXorA5
+	ld hl, $B09C
+	ld de, $DEEE
+	call DecodeXorA5
+	ld hl, $B0AD
+	ld de, $DEFF
+	call DecodeXorA5
+	ld hl, $B088
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	ld [wRam_C27A], a
+	ld hl, $B08A
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	ld [sSram_BF04], a
+	ld [wRam_C28D], a
+	ld hl, $B089
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	ld [wRam_C28C], a
+	call Function_68_419C
+	ld a, $01
+	ld [wRam_C279], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4DB4-$4E37 (131 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 1; entered by far from 65:46E5 (PROBABLE code)
+
+Function_68_4DB4:: ; 68:4DB4
+	call Function_68_4106
+	call Function_68_4252
+	call Function_68_42E4
+	call FarCall
+	dw Function_68_4785
+	db BANK(Function_68_4785)
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_68_4E51
+	or a, a
+	jr nz, Label_68_4E35
+	call Function_68_4E6A
+	or a, a
+	jr nz, Label_68_4E35
+	ld a, $36
+	call MobileAPI
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $4E46
+	ld de, $B014
+	call EncodeXorA5
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $4E37
+	ld de, $DFAA
+	call CopyString
+	ld b, $00
+	call Function_68_4499
+	call Function_68_43F4
+	call Function_68_4735
+	call Function_68_43B9
+	ld a, $01
+	call FarCall
+	dw Function_68_453B
+	db BANK(Function_68_453B)
+	call FarCall
+	dw Function_68_49B6
+	db BANK(Function_68_49B6)
+	call FarCall
+	dw Function_22_4FA9
+	db BANK(Function_22_4FA9)
+	call FarCall
+	dw Function_48_4920
+	db BANK(Function_48_4920)
+	call FarCall
+	dw Function_4E_4749
+	db BANK(Function_4E_4749)
+	ret
+
+Label_68_4E35:: ; 68:4E35
+	jr Label_68_4E35
+
+; ---- data $4E37-$4E51 (26 bytes) [HYPOTHESIS] UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4E37:: ; 68:4E37
+	db $74, $65, $73, $74, $40, $74, $65, $73, $74, $2E, $74, $65, $73, $74, $00, $30
+	db $37, $35, $35, $33, $31, $31, $39, $37, $33, $00
+
+; ---- code $4E51-$4EA7 (86 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2; entered by call from 68:4DC9 (PROBABLE code)
+
+Function_68_4E51:: ; 68:4E51
+	ld de, $C271
+	ld hl, $0068
+	ld a, $02
+	call MobileAPI
+
+Label_68_4E5C:: ; 68:4E5C
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_4F67
+	bit 0, a
+	jr nz, Label_68_4E5C
+	xor a, a
+	ret
+
+Function_68_4E6A:: ; 68:4E6A
+	ld hl, $4EA7
+	ld de, $D000
+	ld bc, $00C0
+	call CopyBytes
+	ld hl, $D000
+	ld de, $0000
+	ld b, $BE
+
+Label_68_4E7E:: ; 68:4E7E
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jp nz, Label_68_4E7E
+	ld a, d
+	ld [hli], a
+	ld [hl], e
+	ld c, $C0
+	ld hl, $D000
+	ld de, $0000
+	ld a, $04
+	call MobileAPI
+
+Label_68_4E99:: ; 68:4E99
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_4F67
+	bit 0, a
+	jr nz, Label_68_4E99
+	xor a, a
+	ret
+
+; ---- data $4EA7-$4EB7 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4EA7:: ; 68:4EA7
+	db $4D, $41, $81, $00, $AC, $10, $13, $BA, $AC, $10, $13, $BA, $69, $74, $6F, $68
+
+; ---- zero $4EB7-$4EF1 (58 bytes) [HYPOTHESIS] 0x00 run of 58 bytes
+	ds $3A, $00
+
+; ---- data $4EF1-$4F05 (20 bytes) [HYPOTHESIS] UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4EF1:: ; 68:4EF1
+	db $32, $31, $31, $2E, $30, $30, $35, $2E, $30, $30, $31, $2E, $31, $31, $37, $00
+	db $00, $00, $00, $00
+
+; ---- text $4F05-$4F17 (18 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_68_4F05:: ; 68:4F05
+	db $70, $6F, $70, $2E, $64, $36, $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A
+	db $70, $00
+
+; ---- data $4F17-$4F25 (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4F17:: ; 68:4F17
+	db $00, $00, $00, $00, $00, $00, $07, $55, $31, $19, $73, $F0, $00, $00
+
+; ---- text $4F25-$4F35 (16 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_68_4F25:: ; 68:4F25
+	db $4E, $49, $4E, $54, $45, $4E, $44, $4F, $20, $54, $45, $53, $54, $20, $20, $00
+
+; ---- data $4F35-$4F3D (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4F35:: ; 68:4F35
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $4F3D-$4F4D (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
+	ds $10, $00
+
+; ---- data $4F4D-$4F55 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_4F4D:: ; 68:4F4D
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $4F55-$4F67 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
+	ds $12, $00
+
+; ---- code $4F67-$4F71 (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 3; entered by jpcc from 68:4E61 (PROBABLE code)
+
+Label_68_4F67:: ; 68:4F67
+	call Function_68_4F71
+	call FarCall
+	dw Function_68_4F8C
+	db BANK(Function_68_4F8C)
+	ret
+
+; ---- code $4F71-$4FC8 (87 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_4F71:: ; 68:4F71
+	ld a, $00
+	call MobileAPI
+	ld [wRam_C272], a
+	ld a, l
+	ld [wRam_C273], a
+	ld a, h
+	ld [wRam_C274], a
+	ld a, c
+	ld [wRam_C275], a
+	ld a, b
+	ld [wRam_C276], a
+	ld a, $01
+	ret
+
+Function_68_4F8C:: ; 68:4F8C
+	ld a, [wRam_C273]
+	ld l, a
+	ld a, [wRam_C274]
+	ld h, a
+	ld a, [wRam_C272]
+	call FarCall
+	dw Function_5C_5150
+	db BANK(Function_5C_5150)
+	ret
+
+Function_68_4F9E:: ; 68:4F9E
+	xor a, a
+	ld [wRam_C279], a
+	ld [wRam_C27B], a
+	ld a, $01
+	ld [wRam_C27A], a
+	xor a, a
+	ld [wRam_C2D1], a
+	ld hl, $C2D2
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C2D4
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyHeld]
+	and a, $16
+	cp a, $16
+	jr nz, Label_68_4FD6
+
+; ---- code $4FC8-$4FD6 (14 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4FC6 (executed)
+	ld a, $01
+	call FarCall
+	dw Function_68_453B
+	db BANK(Function_68_453B)
+	call FarCall
+	dw Function_68_49B6
+	db BANK(Function_68_49B6)
+
+; ---- code $4FD6-$505E (136 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 4/18 scenarios)
+
+Label_68_4FD6:: ; 68:4FD6
+	call FarCall
+	dw Function_68_44FC
+	db BANK(Function_68_44FC)
+	ld [wRam_C28C], a
+	xor a, a
+	ld [wRam_C28E], a
+	ld a, $00
+	ld [wRam_C1D0], a
+	ld a, $01
+	ld [wRam_C1D1], a
+	call Function_68_5033
+	ld a, [wRam_C27C]
+	ld hl, $BF01
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+
+Label_68_5000:: ; 68:5000
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, [wRam_C27D]
+	dec a
+	ret z
+	ld a, [wRam_C27C]
+	inc a
+	ret
+
+Function_68_5033:: ; 68:5033
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	call Function_68_504D
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	ld a, [wRam_C28E]
+	cp a, $FF
+	jr nz, Function_68_5033
+	ret
+
+Function_68_504D:: ; 68:504D
+	ld a, [wRam_C28E]
+	ld hl, $505E
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $505E-$5066 (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (start is the operand of ld r16); 4/4 targets executed; every byte read as data in a trace
+
+Table_68_505E:: ; 68:505E
+	dw Label_68_5066
+	dw Label_68_5156
+	dw Label_68_5172
+	dw Label_68_51FD
+
+; ---- code $5066-$5220 (442 bytes) [CONFIRMED] 183 insn(s); 183 executed (in up to 4/18 scenarios)
+
+Label_68_5066:: ; 68:5066
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27D], a
+	ld hl, $BF01
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	ld [wRam_C27C], a
+	ld de, $8801
+	ld hl, $4240
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+
+Label_68_50C8:: ; 68:50C8
+	ld hl, $4640
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4A40
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $4E40
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8001
+	ld hl, $4040
+	ld a, $4A
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0028
+	ld de, $D800
+	ld hl, $5180
+	ld a, $4A
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $51A8
+	ld a, $4A
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	call Function_68_522C
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA10
+	ld de, $5838
+	ld a, $4A
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	call Function_68_5209
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, $01
+	ld [wRam_C28E], a
+	ret
+
+Label_68_5156:: ; 68:5156
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0008
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ld a, $02
+	ld [wRam_C28E], a
+	ret
+
+Label_68_5172:: ; 68:5172
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_5187
+	bit 1, a
+	jr nz, Label_68_519E
+	bit 6, a
+	jr nz, Label_68_51BA
+	bit 7, a
+	jr nz, Label_68_51CF
+	jp Label_68_51FC
+
+Label_68_5187:: ; 68:5187
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $03
+	ld [wRam_C28E], a
+	jr Label_68_51FC
+
+Label_68_519E:: ; 68:519E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $03
+	ld [wRam_C28E], a
+	ld a, $01
+	ld [wRam_C27D], a
+	jr Label_68_51FC
+
+Label_68_51BA:: ; 68:51BA
+	ld a, [wRam_C27C]
+	or a, a
+	jr nz, Label_68_51C9
+	ld a, [wRam_C28C]
+	xor a, $01
+	ld b, a
+	ld a, $05
+	sub a, b
+
+Label_68_51C9:: ; 68:51C9
+	dec a
+	ld [wRam_C27C], a
+	jr Label_68_51E1
+
+Label_68_51CF:: ; 68:51CF
+	ld a, [wRam_C28C]
+	add a, $03
+	ld b, a
+	ld a, [wRam_C27C]
+	cp a, b
+	jr nz, Label_68_51DD
+	ld a, $FF
+
+Label_68_51DD:: ; 68:51DD
+	inc a
+	ld [wRam_C27C], a
+
+Label_68_51E1:: ; 68:51E1
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_522C
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call Function_68_5209
+
+Label_68_51FC:: ; 68:51FC
+	ret
+
+Label_68_51FD:: ; 68:51FD
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ld a, $FF
+	ld [wRam_C28E], a
+	ret
+
+Function_68_5209:: ; 68:5209
+	ld a, [wRam_C27C]
+	sla a
+	sla a
+	sla a
+	sla a
+	ld b, a
+	ld a, [wRam_C28C]
+	or a, a
+	jr nz, Label_68_5220
+	ld a, b
+	add a, $30
+	jr Label_68_5223
+
+; ---- code $5220-$5223 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:5219 (executed)
+
+Label_68_5220:: ; 68:5220
+	ld a, b
+	add a, $28
+
+; ---- code $5223-$5245 (34 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
+
+Label_68_5223:: ; 68:5223
+	ld [wSpriteSlots + 16], a
+	ld a, $20
+	ld [wSpriteSlots + 17], a
+	ret
+
+Function_68_522C:: ; 68:522C
+	ld a, [wRam_C28C]
+	or a, a
+	jr nz, Label_68_5245
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $51D0
+	ld a, $4A
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	jr Label_68_5256
+
+; ---- code $5245-$5256 (17 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 68:5230 (executed)
+
+Label_68_5245:: ; 68:5245
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $54A0
+	ld a, $4A
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+
+; ---- code $5256-$526A (20 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
+
+Label_68_5256:: ; 68:5256
+	ld a, [wRam_C27C]
+	ld de, $0040
+	call Multiply8x16
+	ld a, [wRam_C28C]
+	or a, a
+	jr nz, Label_68_526A
+	ld de, $D0C5
+	jr Label_68_526D
+
+; ---- code $526A-$526D (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:5263 (executed)
+
+Label_68_526A:: ; 68:526A
+	ld de, $D0A5
+
+; ---- code $526D-$528C (31 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
+
+Label_68_526D:: ; 68:526D
+	add hl, de
+	ld d, h
+	ld e, l
+	ld bc, $020A
+	ld a, [wRam_C27C]
+	ld hl, $528C
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $4A
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ret
+
+; ---- ptrtable $528C-$5296 (10 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $5770..$5810; referenced by ld r16,$528C at 68:5276
+
+Table_68_528C:: ; 68:528C
+	dw $5770
+	dw $5798
+	dw Label_68_57C0
+	dw $57E8
+	dw Label_68_5810
+
+; ---- code $5296-$52B2 (28 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_5296:: ; 68:5296
+	call Function_68_531A
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_542F
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+; ---- data $52B2-$531A (104 bytes) [HYPOTHESIS] UNCLASSIFIED 104 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_52B2:: ; 68:52B2
+	db $E0, $F2, $F0, $F5, $F5, $F0, $F2, $3E, $0A, $E0, $F5, $EA, $00, $00, $E0, $F2
+	db $F0, $8C, $F5, $F0, $F2, $3E, $01, $E0, $8C, $EA, $00, $40, $E0, $F2, $F0, $8D
+	db $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $21, $66, $B0, $11, $8F, $C2, $CD
+	db $EA, $14, $21, $8F, $C2, $11, $A0, $DE, $CD, $09, $15, $B7, $28, $0C, $FA, $78
+	db $C2, $47, $3E, $01, $EE, $FF, $A0, $EA, $78, $C2, $E0, $F2, $F1, $E0, $8D, $E0
+	db $70, $F0, $F2, $E0, $F2, $F1, $E0, $8C, $EA, $00, $40, $F0, $F2, $E0, $F2, $F1
+	db $E0, $F5, $EA, $00, $00, $F0, $F2, $C9
+
+; ---- code $531A-$5404 (234 bytes) [CONFIRMED] 74 insn(s); 74 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_531A:: ; 68:531A
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld hl, $DE80
+	ld b, $0A
+	call FarCall
+	dw Function_67_6731
+	db BANK(Function_67_6731)
+	ld hl, $DE80
+	ld de, $DEA1
+	call Function_68_4127
+	call Function_68_5417
+	ld de, $8801
+	ld hl, $4000
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4800
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $4C00
+	ld a, $5E
+	ld b, $97
+	ld c, $10
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0514
+	ld de, $D000
+	ld hl, $4D40
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_5584
+	call Function_68_55D1
+	call Function_68_5574
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld a, $00
+	ld b, $02
+	call FarCall
+	dw Function_55_5BA2
+	db BANK(Function_55_5BA2)
+	ld hl, $DA00
+	ld de, $4D30
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld d, $38
+	ld e, $10
+	ld hl, $DE80
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $09
+	jr c, Label_68_53F7
+	ret
+
+Label_68_53F7:: ; 68:53F7
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ret
+
+; ---- data $5404-$5417 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_5404:: ; 68:5404
+	db $FA, $78, $C2, $E6, $01, $20, $06, $3E, $00, $EA, $7D, $C2, $C9, $3E, $01, $EA
+	db $7D, $C2, $C9
+
+; ---- code $5417-$5451 (58 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_5417:: ; 68:5417
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6828
+	db BANK(Function_67_6828)
+	or a, a
+	jr z, Label_68_5429
+	ld a, $00
+	ld [wRam_C27D], a
+	ret
+
+Label_68_5429:: ; 68:5429
+	ld a, $01
+	ld [wRam_C27D], a
+	ret
+
+Function_68_542F:: ; 68:542F
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C27D]
+	ld c, a
+	call FarCall
+	dw Function_55_5C8F
+	db BANK(Function_55_5C8F)
+	cp a, $01
+	jr z, Label_68_5454
+	cp a, $02
+	jr z, Label_68_54A5
+	cp a, $07
+	jp z, Label_68_54DE
+	cp a, $08
+	jp z, Label_68_5516
+
+; ---- code $5451-$5454 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 68:544E (executed)
+	jp Label_68_5549
+
+; ---- code $5454-$54CE (122 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
+
+Label_68_5454:: ; 68:5454
+	ld a, [wRam_C2AD]
+	ld hl, $DE80
+	ld d, a
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	or a, a
+	jr nz, Label_68_5476
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0038
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_5486
+
+Label_68_5476:: ; 68:5476
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+
+Label_68_5486:: ; 68:5486
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $09
+	jr c, Label_68_549C
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jp Label_68_552E
+
+Label_68_549C:: ; 68:549C
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jp Label_68_552E
+
+Label_68_54A5:: ; 68:54A5
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6799
+	db BANK(Function_67_6799)
+	or a, a
+	jr nz, Label_68_5516
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0039
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $09
+	jr c, Label_68_54D6
+
+; ---- code $54CE-$54D6 (8 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:54CC (executed)
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jr Label_68_552E
+
+; ---- code $54D6-$5739 (611 bytes) [CONFIRMED] 239 insn(s); 239 executed (in up to 3/18 scenarios)
+
+Label_68_54D6:: ; 68:54D6
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jr Label_68_552E
+
+Label_68_54DE:: ; 68:54DE
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $09
+	jr nc, Label_68_54FD
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_5549
+
+Label_68_54FD:: ; 68:54FD
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_554C
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_5516:: ; 68:5516
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_554C
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_552E:: ; 68:552E
+	ld d, $38
+	ld e, $10
+	ld hl, $DE80
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_5584
+	call Function_68_55D1
+	call Function_68_5417
+
+Label_68_5549:: ; 68:5549
+	jp Function_68_542F
+
+Function_68_554C:: ; 68:554C
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $67
+	ld [wRam_DEA0], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld hl, $DE80
+	ld de, $DEA1
+	call FarCall
+	dw Function_68_417F
+	db BANK(Function_68_417F)
+	ret
+
+Function_68_5574:: ; 68:5574
+	ld hl, $D047
+	ld de, $0000
+	ld bc, $0207
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_5584:: ; 68:5584
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0207
+	ld bc, $0207
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $15
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $10
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $20
+	ldh [hRam_FFC3], a
+	ld a, $70
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	ld a, $03
+	call Function_00_0ED3
+	ret
+
+Function_68_55D1:: ; 68:55D1
+	ld de, $9000
+	ld hl, $0207
+	ld bc, $0207
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+Function_68_55E1:: ; 68:55E1
+	call Function_68_562F
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+
+Label_68_55EA:: ; 68:55EA
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_55FF
+	bit 1, a
+	jr nz, Label_68_5613
+	jr Label_68_55EA
+
+Label_68_55FF:: ; 68:55FF
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $01
+	jr Label_68_5626
+
+Label_68_5613:: ; 68:5613
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	jr Label_68_5626
+
+Label_68_5626:: ; 68:5626
+	push af
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	pop af
+	ret
+
+Function_68_562F:: ; 68:562F
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld de, $9001
+	ld hl, $4E10
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $5210
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5510
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_568E
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ret
+
+Function_68_568E:: ; 68:568E
+	ld a, $00
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0701
+	ld bc, $0812
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $38
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $38
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0701
+	ld bc, $0712
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $8800
+	ld hl, $0E01
+	ld bc, $0112
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D0E1
+	ld bc, $0712
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D1C1
+	ld bc, $0112
+	ld de, $0080
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_571D:: ; 68:571D
+	call Function_68_57B6
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_592C
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+; ---- data $5739-$57B6 (125 bytes) [HYPOTHESIS] UNCLASSIFIED 125 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_5739:: ; 68:5739
+	db $E0, $F2, $F0, $F5, $F5, $F0, $F2, $3E, $0A, $E0, $F5, $EA, $00, $00, $E0, $F2
+	db $F0, $8C, $F5, $F0, $F2, $3E, $01, $E0, $8C, $EA, $00, $40, $E0, $F2, $F0, $8D
+	db $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $21, $71, $B0, $11, $8F, $C2, $CD
+	db $EA, $14, $21, $8F, $C2, $11, $AB, $DE, $CD, $09, $15, $B7, $20, $15, $21, $7A
+	db $B0, $11, $8F, $C2, $CD, $EA, $14, $21, $8F, $C2, $11, $B4, $DE, $CD, $09, $15
+	db $B7, $28, $0C, $FA, $78, $C2, $47, $3E, $02, $EE, $FF, $A0, $EA, $78, $C2, $E0
+	db $F2, $F1, $E0, $8D, $E0, $70, $F0, $F2, $E0, $F2, $F1, $E0, $8C, $EA, $00, $40
+	db $F0, $F2, $E0, $F2, $F1, $E0, $F5, $EA, $00, $00, $F0, $F2, $C9
+
+; ---- code $57B6-$58E8 (306 bytes) [CONFIRMED] 99 insn(s); 99 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_57B6:: ; 68:57B6
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+
+Label_68_57C0:: ; 68:57C0
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld [wRam_C27D], a
+	ld hl, $DE80
+	ld b, $09
+	call FarCall
+	dw Function_67_6731
+	db BANK(Function_67_6731)
+	ld hl, $DE94
+	ld b, $05
+	call FarCall
+	dw Function_67_6731
+	db BANK(Function_67_6731)
+	ld hl, $DE80
+	ld de, $DEAB
+	call Function_68_4127
+	ld hl, $DE94
+	ld de, $DEB4
+	call Function_68_4127
+	call Function_68_5913
+	ld de, $8801
+	ld hl, $4000
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+
+Label_68_5810:: ; 68:5810
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5800
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $5C00
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0514
+	ld de, $D000
+	ld hl, $6000
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_5B0E
+	ld a, $03
+	ld hl, $DE97
+	call Function_68_5B59
+	call Function_68_5BA4
+	call Function_68_5BB4
+	call Function_68_5AEF
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld a, $01
+	ld b, $02
+	call FarCall
+	dw Function_55_5BA2
+	db BANK(Function_55_5BA2)
+	ld hl, $DA00
+	ld de, $4D30
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	or a, a
+	jr nz, Label_68_58BB
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6828
+	db BANK(Function_67_6828)
+	or a, a
+	jr z, Label_68_58BB
+	ld d, $08
+	ld e, $10
+	ld hl, $DE80
+	jr Label_68_58C7
+
+Label_68_58BB:: ; 68:58BB
+	ld a, $01
+	ld [wRam_C27D], a
+	ld d, $40
+	ld e, $10
+	ld hl, $DE94
+
+Label_68_58C7:: ; 68:58C7
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $03
+	jr c, Label_68_58DB
+	ret
+
+Label_68_58DB:: ; 68:58DB
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ret
+
+; ---- data $58E8-$58FB (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_58E8:: ; 68:58E8
+	db $FA, $78, $C2, $E6, $02, $20, $06, $3E, $00, $EA, $7E, $C2, $C9, $3E, $01, $EA
+	db $7E, $C2, $C9
+
+; ---- code $58FB-$59A8 (173 bytes) [CONFIRMED] 68 insn(s); 68 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_58FB:: ; 68:58FB
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6828
+	db BANK(Function_67_6828)
+	or a, a
+	jr z, Label_68_590D
+	ld a, $00
+	ld [wRam_C27E], a
+	ret
+
+Label_68_590D:: ; 68:590D
+	ld a, $01
+	ld [wRam_C27E], a
+	ret
+
+Function_68_5913:: ; 68:5913
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $03
+	jr nc, Label_68_5926
+	ld a, $00
+	ld [wRam_C27E], a
+	ret
+
+Label_68_5926:: ; 68:5926
+	ld a, $01
+	ld [wRam_C27E], a
+	ret
+
+Function_68_592C:: ; 68:592C
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C27E]
+	ld c, a
+	call FarCall
+	dw Function_55_5C8F
+	db BANK(Function_55_5C8F)
+	cp a, $01
+	jr z, Label_68_5952
+	cp a, $02
+	jp z, Label_68_59D7
+	cp a, $07
+	jp z, Label_68_5A42
+	cp a, $08
+	jp z, Label_68_5A7D
+	jp Label_68_5AB0
+
+Label_68_5952:: ; 68:5952
+	ld a, [wRam_C2AD]
+	ld d, a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_598A
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0038
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6828
+	db BANK(Function_67_6828)
+	or a, a
+	jp nz, Label_68_5A95
+	ld a, $01
+	ld [wRam_C27D], a
+	jp Label_68_5A95
+
+Label_68_598A:: ; 68:598A
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	or a, a
+	jr nz, Label_68_59A8
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0038
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_59B8
+
+; ---- code $59A8-$59B8 (16 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 68:5994 (executed)
+
+Label_68_59A8:: ; 68:59A8
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+
+; ---- code $59B8-$5A2E (118 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 3/18 scenarios)
+
+Label_68_59B8:: ; 68:59B8
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $03
+	jr c, Label_68_59CE
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jp Label_68_5AA2
+
+Label_68_59CE:: ; 68:59CE
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jp Label_68_5AA2
+
+Label_68_59D7:: ; 68:59D7
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_59FD
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6799
+	db BANK(Function_67_6799)
+	or a, a
+	jp nz, Label_68_5A7D
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0039
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jp Label_68_5A95
+
+Label_68_59FD:: ; 68:59FD
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0039
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6799
+	db BANK(Function_67_6799)
+	or a, a
+	jr nz, Label_68_5A36
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $03
+	jr c, Label_68_5A2E
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jr Label_68_5AA2
+
+; ---- code $5A2E-$5A36 (8 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:5A24 (executed)
+
+Label_68_5A2E:: ; 68:5A2E
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jr Label_68_5AA2
+
+; ---- code $5A36-$5D2F (761 bytes) [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios)
+
+Label_68_5A36:: ; 68:5A36
+	xor a, a
+	ld [wRam_C27D], a
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jr Label_68_59D7
+
+Label_68_5A42:: ; 68:5A42
+	ld hl, $DE94
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $03
+	jr nc, Label_68_5A61
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_5AB0
+
+Label_68_5A61:: ; 68:5A61
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_5AD6
+	call Function_68_419C
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_5A7D:: ; 68:5A7D
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_5AD6
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_5A95:: ; 68:5A95
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_5B0E
+	call Function_68_5BA4
+	jr Label_68_5AB0
+
+Label_68_5AA2:: ; 68:5AA2
+	ld a, $03
+	ld hl, $DE97
+	call Function_68_5B59
+	call Function_68_5BB4
+	call Function_68_58FB
+
+Label_68_5AB0:: ; 68:5AB0
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_5AC6
+	ld d, $08
+	ld e, $10
+	ld hl, $DE80
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	jp Function_68_592C
+
+Label_68_5AC6:: ; 68:5AC6
+	ld d, $40
+	ld e, $10
+	ld hl, $DE94
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	jp Function_68_592C
+
+Function_68_5AD6:: ; 68:5AD6
+	ld hl, $DE80
+	ld de, $DEAB
+	call FarCall
+	dw Function_68_417F
+	db BANK(Function_68_417F)
+	ld hl, $DE94
+	ld de, $DEB4
+	call FarCall
+	dw Function_68_417F
+	db BANK(Function_68_417F)
+	ret
+
+Function_68_5AEF:: ; 68:5AEF
+	ld hl, $D041
+	ld de, $0000
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D048
+	ld de, $0010
+	ld bc, $0203
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_5B0E:: ; 68:5B0E
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0201
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $15
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $10
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $20
+	ldh [hRam_FFC3], a
+	ld a, $38
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ret
+
+Function_68_5B59:: ; 68:5B59
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0208
+	ld bc, $0203
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+
+Label_68_5B6C:: ; 68:5B6C
+	ldh [hRam_FFBA], a
+	ld a, $03
+
+Label_68_5B70:: ; 68:5B70
+	ldh [hRam_FFBB], a
+	ld a, $15
+
+Label_68_5B74:: ; 68:5B74
+	ldh [hTextY], a
+	ld a, $40
+
+Label_68_5B78:: ; 68:5B78
+	ldh [hTextX], a
+	ld a, $00
+
+Label_68_5B7C:: ; 68:5B7C
+	ldh [hTextX + 1], a
+	ld a, $10
+
+Label_68_5B80:: ; 68:5B80
+	ldh [hRam_FFC0], a
+	ld a, $40
+
+Label_68_5B84:: ; 68:5B84
+	ldh [hRam_FFC1], a
+	ld a, $00
+
+Label_68_5B88:: ; 68:5B88
+	ldh [hRam_FFC2], a
+	ld a, $20
+
+Label_68_5B8C:: ; 68:5B8C
+	ldh [hRam_FFC3], a
+	ld a, $58
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ret
+
+Function_68_5BA4:: ; 68:5BA4
+	ld de, $9000
+	ld hl, $0201
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+Function_68_5BB4:: ; 68:5BB4
+	ld de, $9100
+	ld hl, $0208
+	ld bc, $0203
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+Function_68_5BC4:: ; 68:5BC4
+	call Function_68_5C12
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+
+Label_68_5BCD:: ; 68:5BCD
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_5BE2
+	bit 1, a
+	jr nz, Label_68_5BF6
+	jr Label_68_5BCD
+
+Label_68_5BE2:: ; 68:5BE2
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $01
+	jr Label_68_5C09
+
+Label_68_5BF6:: ; 68:5BF6
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	jr Label_68_5C09
+
+Label_68_5C09:: ; 68:5C09
+	push af
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	pop af
+	ret
+
+Function_68_5C12:: ; 68:5C12
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld de, $9001
+	ld hl, $60D0
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $64D0
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $68D0
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_5C71
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ret
+
+Function_68_5C71:: ; 68:5C71
+	ld a, $01
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0701
+	ld bc, $0812
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $38
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $38
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0701
+	ld bc, $0712
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $8800
+	ld hl, $0E01
+	ld bc, $0112
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D0E1
+	ld bc, $0712
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D1C1
+	ld bc, $0112
+	ld de, $0080
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_5D00:: ; 68:5D00
+	ld [wRam_C27D], a
+	call Function_68_5D9C
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0009
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	call Function_68_5EC7
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+; ---- data $5D2F-$5D9C (109 bytes) [HYPOTHESIS] UNCLASSIFIED 109 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_5D2F:: ; 68:5D2F
+	db $C9, $E0, $F2, $F0, $F5, $F5, $F0, $F2, $3E, $0A, $E0, $F5, $EA, $00, $00, $E0
+	db $F2, $F0, $8C, $F5, $F0, $F2, $3E, $01, $E0, $8C, $EA, $00, $40, $E0, $F2, $F0
+	db $8D, $F5, $F0, $F2, $3E, $03, $E0, $8D, $E0, $70, $21, $7F, $B0, $11, $8F, $C2
+	db $CD, $EA, $14, $21, $8F, $C2, $11, $D4, $DE, $CD, $09, $15, $B7, $28, $10, $AF
+	db $EA, $79, $C2, $FA, $78, $C2, $47, $3E, $04, $EE, $FF, $A0, $EA, $78, $C2, $E0
+	db $F2, $F1, $E0, $8D, $E0, $70, $F0, $F2, $E0, $F2, $F1, $E0, $8C, $EA, $00, $40
+	db $F0, $F2, $E0, $F2, $F1, $E0, $F5, $EA, $00, $00, $F0, $F2, $C9
+
+; ---- code $5D9C-$5E92 (246 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_5D9C:: ; 68:5D9C
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld hl, $DE80
+	ld b, $09
+	call FarCall
+	dw Function_67_6731
+	db BANK(Function_67_6731)
+	ld hl, $DE80
+	ld de, $DED4
+	call Function_68_4127
+	call Function_68_5EAE
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_5DCD
+
+Label_68_5DCD:: ; 68:5DCD
+	ld de, $8801
+	ld hl, $4000
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4800
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $4C00
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld a, [wRam_C27D]
+	ld hl, $5E92
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0514
+	ld de, $D000
+	ld a, $5D
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_6060
+	call Function_68_60AB
+	call Function_68_6050
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld a, $04
+	ld b, $02
+	call FarCall
+	dw Function_55_5BA2
+	db BANK(Function_55_5BA2)
+	ld hl, $DA00
+	ld de, $4D30
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld d, $38
+	ld e, $10
+	ld hl, $DE80
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	call Function_68_5FE1
+	or a, a
+	jr z, Label_68_5E85
+	ret
+
+Label_68_5E85:: ; 68:5E85
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ret
+
+; ---- ptrtable $5E92-$5E9C (10 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $5000..$78FA; referenced by ld r16,$5E92 at 68:5E29
+
+Table_68_5E92:: ; 68:5E92
+	dw Label_68_5000
+	dw Label_68_50C8
+	dw $5190
+	dw $5258
+	dw Label_68_78FA
+
+; ---- data $5E9C-$5EAE (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_5E9C:: ; 68:5E9C
+	db $C2, $E6, $04, $20, $06, $3E, $00, $EA, $7E, $C2, $C9, $CD, $E1, $5F, $EA, $7E
+	db $C2, $C9
+
+; ---- code $5EAE-$5EE9 (59 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_5EAE:: ; 68:5EAE
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6828
+	db BANK(Function_67_6828)
+	or a, a
+	jr z, Label_68_5EC0
+	ld a, $00
+	ld [wRam_C27E], a
+	ret
+
+Label_68_5EC0:: ; 68:5EC0
+	call Function_68_5FE1
+	ld [wRam_C27E], a
+	ret
+
+Function_68_5EC7:: ; 68:5EC7
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C27E]
+	ld c, a
+	call FarCall
+	dw Function_55_5C8F
+	db BANK(Function_55_5C8F)
+	cp a, $01
+	jr z, Label_68_5EEC
+	cp a, $02
+	jr z, Label_68_5F36
+	cp a, $07
+	jp z, Label_68_5F68
+	cp a, $08
+	jp z, Label_68_5FA2
+
+; ---- code $5EE9-$5EEC (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 68:5EE6 (executed)
+	jp Label_68_5FDE
+
+; ---- code $5EEC-$6020 (308 bytes) [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
+
+Label_68_5EEC:: ; 68:5EEC
+	ld a, [wRam_C2AD]
+	ld hl, $DE80
+	ld d, a
+	call FarCall
+	dw Function_67_674F
+	db BANK(Function_67_674F)
+	or a, a
+	jr nz, Label_68_5F0E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0038
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_5F1E
+
+Label_68_5F0E:: ; 68:5F0E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+
+Label_68_5F1E:: ; 68:5F1E
+	call Function_68_5FE1
+	or a, a
+	jr z, Label_68_5F2D
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jp Label_68_5FC3
+
+Label_68_5F2D:: ; 68:5F2D
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jp Label_68_5FC3
+
+Label_68_5F36:: ; 68:5F36
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6799
+	db BANK(Function_67_6799)
+	or a, a
+	jr nz, Label_68_5FA2
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0039
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_68_5FE1
+	or a, a
+	jr z, Label_68_5F60
+	call FarCall
+	dw Function_55_7000
+	db BANK(Function_55_7000)
+	jr Label_68_5FC3
+
+Label_68_5F60:: ; 68:5F60
+	call FarCall
+	dw Function_55_6FCD
+	db BANK(Function_55_6FCD)
+	jr Label_68_5FC3
+
+Label_68_5F68:: ; 68:5F68
+	call Function_68_5FE1
+	or a, a
+	jr nz, Label_68_5F80
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jr Label_68_5FDE
+
+Label_68_5F80:: ; 68:5F80
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $DE80
+	ld de, $DED4
+	call FarCall
+	dw Function_68_417F
+	db BANK(Function_68_417F)
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_5FA2:: ; 68:5FA2
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $DE80
+	ld de, $DED4
+	call FarCall
+	dw Function_68_417F
+	db BANK(Function_68_417F)
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_5FC3:: ; 68:5FC3
+	ld d, $38
+	ld e, $10
+	ld hl, $DE80
+	call FarCall
+	dw Function_68_40D8
+	db BANK(Function_68_40D8)
+	ld a, $03
+	ld hl, $DE83
+	call Function_68_6060
+	call Function_68_60AB
+	call Function_68_5EAE
+
+Label_68_5FDE:: ; 68:5FDE
+	jp Function_68_5EC7
+
+Function_68_5FE1:: ; 68:5FE1
+	ld hl, $DE80
+	call FarCall
+	dw Function_67_6842
+	db BANK(Function_67_6842)
+	cp a, $04
+	jp c, Label_68_604E
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [hRam_FFB0], a
+	ldh [hRam_FFB1], a
+	ld hl, $DE83
+
+Label_68_6004:: ; 68:6004
+	ld a, [hli]
+	or a, a
+	jr z, Label_68_602E
+	cp a, $30
+	jr c, Label_68_6004
+	cp a, $3A
+	jr c, Label_68_6022
+	cp a, $41
+	jr c, Label_68_6004
+	cp a, $5B
+	jr c, Label_68_6028
+	cp a, $61
+	jr c, Label_68_6004
+	cp a, $7B
+	jr c, Label_68_6028
+
+; ---- code $6020-$6022 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 68:601E (executed)
+	jr Label_68_6004
+
+; ---- code $6022-$6308 (742 bytes) [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios)
+
+Label_68_6022:: ; 68:6022
+	ld a, $01
+	ldh [hRam_FFB0], a
+	jr Label_68_6004
+
+Label_68_6028:: ; 68:6028
+	ld a, $01
+	ldh [hRam_FFB1], a
+	jr Label_68_6004
+
+Label_68_602E:: ; 68:602E
+	ld hl, $FFB0
+	ld a, [hli]
+	or a, a
+	jr z, Label_68_6045
+	ld a, [hl]
+	or a, a
+	jr z, Label_68_6045
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, $01
+	ret
+
+Label_68_6045:: ; 68:6045
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+
+Label_68_604E:: ; 68:604E
+	xor a, a
+	ret
+
+Function_68_6050:: ; 68:6050
+	ld hl, $D047
+	ld de, $0000
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_6060:: ; 68:6060
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0207
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $15
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $10
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $20
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ret
+
+Function_68_60AB:: ; 68:60AB
+	ld de, $9000
+	ld hl, $0207
+	ld bc, $0206
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+Function_68_60BB:: ; 68:60BB
+	call Function_68_6109
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+
+Label_68_60C4:: ; 68:60C4
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_60D9
+	bit 1, a
+	jr nz, Label_68_60ED
+	jr Label_68_60C4
+
+Label_68_60D9:: ; 68:60D9
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $01
+	jr Label_68_6100
+
+Label_68_60ED:: ; 68:60ED
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	jr Label_68_6100
+
+Label_68_6100:: ; 68:6100
+	push af
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	pop af
+	ret
+
+Function_68_6109:: ; 68:6109
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld de, $9001
+	ld hl, $5320
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $5720
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4D00
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5B20
+	ld a, $5D
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_6168
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ret
+
+Function_68_6168:: ; 68:6168
+	ld a, $02
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0701
+	ld bc, $0812
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $38
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $38
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0701
+	ld bc, $0712
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $8800
+	ld hl, $0E01
+	ld bc, $0112
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D0E1
+	ld bc, $0712
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D1C1
+	ld bc, $0112
+	ld de, $0080
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_61F7:: ; 68:61F7
+	call Function_68_6213
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_62C9
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_6213:: ; 68:6213
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, $5DF0
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $61F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $63F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8001
+	ld hl, $49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $65F0
+	ld a, $5D
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $6630
+	ld a, $5D
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_637F
+	call Function_68_6416
+	call Function_68_6360
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $4000
+	ld a, $4A
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	call Function_68_6344
+	ret
+
+Function_68_62C9:: ; 68:62C9
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_62EC
+	bit 1, a
+	jr nz, Label_68_630E
+	bit 5, a
+	jr nz, Label_68_6323
+	bit 4, a
+	jr nz, Label_68_6323
+	jr Function_68_62C9
+
+Label_68_62EC:: ; 68:62EC
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_6308
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $6308-$6344 (60 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1; entered by jrcc from 68:6300 (executed)
+
+Label_68_6308:: ; 68:6308
+	ld a, $02
+	ld [wRam_C27C], a
+	ret
+
+Label_68_630E:: ; 68:630E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6323:: ; 68:6323
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Function_68_6344
+	jr Label_68_6341
+
+Label_68_6341:: ; 68:6341
+	jp Function_68_62C9
+
+; ---- code $6344-$635C (24 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6344:: ; 68:6344
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, $635C
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $635C-$635E (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_635C:: ; 68:635C
+	db $28, $68
+
+; ---- data $635E-$6360 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_635E:: ; 68:635E
+	db $58, $68
+
+; ---- code $6360-$6435 (213 bytes) [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6360:: ; 68:6360
+	ld hl, $D0A6
+	ld de, $0000
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D121
+	ld de, $0010
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_637F:: ; 68:637F
+	ld de, $FFFF
+	ld hl, $0506
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $2B
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $28
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $38
+	ldh [hRam_FFC3], a
+	ld a, $70
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEA0
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $4B
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $58
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DFAA
+	call Function_00_0ED3
+	ret
+
+Function_68_6416:: ; 68:6416
+	ld de, $9000
+	ld hl, $0506
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $9100
+	ld hl, $0901
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+; ---- code $6435-$659A (357 bytes) [PROBABLE] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code)
+
+Function_68_6435:: ; 68:6435
+	call Function_68_6451
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_6507
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_6451:: ; 68:6451
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, $5DF0
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $61F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5870
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8001
+	ld hl, $49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $5C70
+	ld a, $4A
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5CB0
+	ld a, $4A
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_65EA
+	call Function_68_6762
+	call Function_68_659E
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $4000
+	ld a, $4A
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	call Function_68_6582
+	ret
+
+Function_68_6507:: ; 68:6507
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_652A
+	bit 1, a
+	jr nz, Label_68_654C
+	bit 5, a
+	jr nz, Label_68_6561
+	bit 4, a
+	jr nz, Label_68_6561
+	jr Function_68_6507
+
+Label_68_652A:: ; 68:652A
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_6546
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6546:: ; 68:6546
+	ld a, $02
+	ld [wRam_C27C], a
+	ret
+
+Label_68_654C:: ; 68:654C
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6561:: ; 68:6561
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Function_68_6582
+	jr Label_68_657F
+
+Label_68_657F:: ; 68:657F
+	jp Function_68_6507
+
+Function_68_6582:: ; 68:6582
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, $659A
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $659A-$659E (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_659A:: ; 68:659A
+	db $58, $70, $80, $70
+
+; ---- code $659E-$67AE (528 bytes) [PROBABLE] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code)
+
+Function_68_659E:: ; 68:659E
+	ld hl, $D048
+	ld de, $0000
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D0C1
+	ld de, $0010
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D107
+	ld de, $0040
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D147
+	ld de, $0060
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ld hl, $D186
+	ld de, $0080
+	ld bc, $020D
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_65EA:: ; 68:65EA
+	ld de, $FFFF
+	ld hl, $0208
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $13
+	ldh [hTextY], a
+	ld a, $40
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $10
+	ldh [hRam_FFC0], a
+	ld a, $40
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $20
+	ldh [hRam_FFC3], a
+	ld a, $80
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEA0
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0601
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $33
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $30
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $40
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DFAA
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0807
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $43
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $40
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $50
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEDD
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0A07
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $53
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $50
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $60
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEEE
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0C06
+	ld bc, $020D
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $63
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $68
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $70
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEFF
+	call Function_00_0ED3
+	ret
+
+Function_68_6762:: ; 68:6762
+	ld de, $9000
+	ld hl, $0208
+	ld bc, $0208
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $9100
+	ld hl, $0601
+	ld bc, $0212
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $9400
+	ld hl, $0807
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $9600
+	ld hl, $0A07
+	ld bc, $020C
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld de, $8800
+	ld hl, $0C06
+	ld bc, $020D
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+; ---- data $67AE-$67B0 (2 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
 Data_68_67AE:: ; 68:67AE
-	INCBIN "baserom.gbc", $1A27AE, $1852
+	db $B6, $67
+
+; ---- data $67B0-$67B6 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_67B0:: ; 68:67B0
+	db $BC, $67, $C2, $67, $CD, $67
+
+; ---- data $67B6-$67BC (6 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_68_67B6:: ; 68:67B6
+	db $23, $39, $34, $37, $37, $00
+
+; ---- data $67BC-$67D8 (28 bytes) [HYPOTHESIS] UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_67BC:: ; 68:67BC
+	db $23, $39, $34, $37, $37, $00, $30, $30, $37, $37, $34, $38, $37, $37, $35, $32
+	db $00, $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00
+
+; ---- data $67D8-$67DA (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_67D8:: ; 68:67D8
+	db $E0, $67
+
+; ---- data $67DA-$67E0 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_67DA:: ; 68:67DA
+	db $A0, $68, $60, $69, $20, $6A
+
+; ---- data $67E0-$68A0 (192 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_67E0:: ; 68:67E0
+	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $A9, $67, $7F, $00, $00, $F0, $00, $00, $44, $49
+	db $4F, $4E, $20, $50, $44, $43, $2F, $43, $44, $4D, $41, $4F, $4E, $45, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $68A0-$68AC (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_68A0:: ; 68:68A0
+	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3
+
+; ---- zero $68AC-$6916 (106 bytes) [HYPOTHESIS] padding? run of 106 x $00 in unclassified bytes
+	ds $6A, $00
+
+; ---- data $6916-$6936 (32 bytes) [HYPOTHESIS] UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6916:: ; 68:6916
+	db $A9, $67, $7F, $00, $00, $F0, $00, $00, $44, $49, $4F, $4E, $20, $50, $44, $43
+	db $2F, $43, $44, $4D, $41, $4F, $4E, $45, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $6936-$6946 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
+	ds $10, $00
+
+; ---- data $6946-$694E (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6946:: ; 68:6946
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $694E-$6960 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
+	ds $12, $00
+
+; ---- data $6960-$696C (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6960:: ; 68:6960
+	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3
+
+; ---- zero $696C-$69D7 (107 bytes) [HYPOTHESIS] padding? run of 107 x $00 in unclassified bytes
+	ds $6B, $00
+
+; ---- data $69D7-$69F6 (31 bytes) [HYPOTHESIS] UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_69D7:: ; 68:69D7
+	db $77, $48, $77, $51, $F0, $00, $00, $44, $49, $4F, $4E, $20, $44, $44, $49, $2D
+	db $50, $4F, $43, $4B, $45, $54, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $69F6-$6A06 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
+	ds $10, $00
+
+; ---- data $6A06-$6A0E (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6A06:: ; 68:6A06
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $6A0E-$6A20 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
+	ds $12, $00
+
+; ---- data $6A20-$6A2C (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6A20:: ; 68:6A20
+	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3
+
+; ---- zero $6A2C-$6A97 (107 bytes) [HYPOTHESIS] padding? run of 107 x $00 in unclassified bytes
+	ds $6B, $00
+
+; ---- data $6A97-$6AB6 (31 bytes) [HYPOTHESIS] UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6A97:: ; 68:6A97
+	db $77, $48, $77, $51, $F0, $00, $00, $44, $49, $4F, $4E, $20, $44, $44, $49, $2D
+	db $50, $4F, $43, $4B, $45, $54, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $6AB6-$6AC6 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
+	ds $10, $00
+
+; ---- data $6AC6-$6ACE (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_6AC6:: ; 68:6AC6
+	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; ---- zero $6ACE-$6AE0 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
+	ds $12, $00
+
+; ---- code $6AE0-$6BF4 (276 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6AE0:: ; 68:6AE0
+	call Function_68_6AF6
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_6B98
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_6AF6:: ; 68:6AF6
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, $6A00
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $6E00
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8000
+	ld hl, $6900
+	ld a, $5D
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $7000
+	ld a, $5D
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $7040
+	ld a, $5D
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $7048
+	ld a, $5D
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_6C7F
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $7318
+	ld a, $5D
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld de, $1838
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+Function_68_6B98:: ; 68:6B98
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wSpriteSlots + 4]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, b
+	or a, a
+	jr z, Label_68_6BE0
+	cp a, $02
+	jr nz, Label_68_6BE4
+	ld a, [wRam_C286]
+	or a, a
+	jr nz, Label_68_6BE4
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0046
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wRam_C286], a
+	jr Label_68_6BE4
+
+Label_68_6BE0:: ; 68:6BE0
+	xor a, a
+	ld [wRam_C286], a
+
+Label_68_6BE4:: ; 68:6BE4
+	ld a, [wRam_C27D]
+	add a, a
+	add a, $F4
+	ld l, a
+	ld a, $6B
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- data $6BF4-$6BFA (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_6BF4:: ; 68:6BF4
+	db $FA, $6B, $0C, $6C, $3F, $6C
+
+; ---- code $6BFA-$6C5D (99 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 3/18 scenarios)
+	ld de, $C271
+	ld hl, $0068
+	ld a, $02
+	call MobileAPI
+	ld a, $01
+	ld [wRam_C27D], a
+	jr Function_68_6B98
+
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_6C5D
+	bit 0, a
+	jp nz, Function_68_6B98
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Function_68_6CF0
+	ld c, $C0
+	ld hl, $A000
+	ld de, $0000
+	ld a, $04
+	call MobileAPI
+	ld a, $02
+	ld [wRam_C27D], a
+	jp Function_68_6B98
+
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_6C5D
+	bit 0, a
+	jp nz, Function_68_6B98
+	ld a, $36
+	call MobileAPI
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $6C5D-$6C7F (34 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jpcc from 68:6C11 (executed)
+
+Label_68_6C5D:: ; 68:6C5D
+	call FarCall
+	dw Function_68_4F71
+	db BANK(Function_68_4F71)
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_68_4F8C
+	db BANK(Function_68_4F8C)
+	ld a, $36
+	call MobileAPI
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $6C7F-$6DBD (318 bytes) [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6C7F:: ; 68:6C7F
+	ld a, $03
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0B01
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $58
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $58
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $88
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0B01
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D161
+	ld bc, $0612
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_6CF0:: ; 68:6CF0
+	ld a, [sSram_A003]
+	push af
+	ld a, [wRam_C271]
+	ld hl, $67D8
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $00C0
+	ld de, $A000
+	call CopyBytes
+	ld a, $FF
+	ld bc, $0040
+	ld hl, $A0C0
+	call FillBytes
+	pop af
+	ld [sSram_A003], a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $6E03
+	ld de, $DFC3
+	call CopyString
+	ld hl, $DEB4
+	ld de, $DFC3
+	call Function_00_14F3
+	ld hl, $6E0E
+	ld de, $DFC3
+	call Function_00_14F3
+	ld hl, $DFC3
+	ld de, $A05E
+	ld bc, $0014
+	call CopyStringMax
+	ld hl, $6E08
+	ld de, $DFC3
+	call CopyString
+	ld hl, $DEB4
+	ld de, $DFC3
+	call Function_00_14F3
+	ld hl, $6E0E
+	ld de, $DFC3
+	call Function_00_14F3
+	ld hl, $DFC3
+	ld de, $A04A
+	ld bc, $0014
+	call CopyStringMax
+	ld hl, $DEA0
+	ld de, $A00C
+	call CopyString
+	ld hl, $DFAA
+	ld de, $A02C
+	call CopyString
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [wRam_C271]
+	ld hl, $67AE
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $B014
+	call EncodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ld a, [wRam_C28D]
+	or a, a
+	jr z, Label_68_6DF3
+
+; ---- code $6DBD-$6DF3 (54 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed)
+	ld hl, $DEDD
+	ld de, $A076
+	call Function_68_409A
+	ld hl, $DEFF
+	ld de, $A07E
+	ld bc, $0010
+	call CopyStringMax
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $DEEE
+	ld de, $B014
+	call EncodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+
+; ---- code $6DF3-$6E03 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios)
+
+Label_68_6DF3:: ; 68:6DF3
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	call FarCall
+	dw Function_68_45F1
+	db BANK(Function_68_45F1)
+	ret
+
+; ---- data $6E03-$6E0E (11 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6E03-6E1A by higher-priority evidence]
+
+Data_68_6E03:: ; 68:6E03
+	db $70, $6F, $70, $2E, $00, $6D, $61, $69, $6C, $2E, $00
+
+; ---- text $6E0E-$6E1A (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_68_6E0E:: ; 68:6E0E
+	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00
+
+; ---- code $6E1A-$6F97 (381 bytes) [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6E1A:: ; 68:6E1A
+	ld [wRam_C27E], a
+	call Function_68_6E39
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_6EF6
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_6E39:: ; 68:6E39
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $9001
+	ld hl, $6BA0
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $6FA0
+	ld a, $5E
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8001
+	ld hl, $49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $72C0
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld a, [wRam_C27E]
+	or a, a
+	jr z, Label_68_6EC3
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $75D0
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	jr Label_68_6ED4
+
+Label_68_6EC3:: ; 68:6EC3
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $7300
+	ld a, $5E
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+
+Label_68_6ED4:: ; 68:6ED4
+	call Function_68_6FAB
+	call Function_68_7009
+	call Function_68_6F9B
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $4000
+	ld a, $4A
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	call Function_68_6F7F
+	ret
+
+Function_68_6EF6:: ; 68:6EF6
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_6F19
+	bit 1, a
+	jr nz, Label_68_6F40
+	bit 5, a
+	jr nz, Label_68_6F5E
+	bit 4, a
+	jr nz, Label_68_6F5E
+	jr Function_68_6EF6
+
+Label_68_6F19:: ; 68:6F19
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_6F35
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6F35:: ; 68:6F35
+	ld a, $02
+	ld [wRam_C27C], a
+	ld a, $01
+	ld [wRam_C28E], a
+	ret
+
+Label_68_6F40:: ; 68:6F40
+	ld a, [wRam_C27E]
+	or a, a
+	jr z, Function_68_6EF6
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ld [wRam_C28E], a
+	ret
+
+Label_68_6F5E:: ; 68:6F5E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Function_68_6F7F
+	jr Label_68_6F7C
+
+Label_68_6F7C:: ; 68:6F7C
+	jp Function_68_6EF6
+
+Function_68_6F7F:: ; 68:6F7F
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, $6F97
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $6F97-$6F9B (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+
+Data_68_6F97:: ; 68:6F97
+	db $28, $30, $58, $30
+
+; ---- code $6F9B-$7005 (106 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_6F9B:: ; 68:6F9B
+	ld hl, $D121
+	ld de, $0000
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_6FAB:: ; 68:6FAB
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $48
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $C8
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27E]
+	ld hl, $7005
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	call Function_00_0ED3
+	ret
+
+; ---- data $7005-$7009 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_7005:: ; 68:7005
+	db $04, $0B, $0C, $0D
+
+; ---- code $7009-$7079 (112 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_7009:: ; 68:7009
+	ld de, $9000
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ret
+
+Function_68_7019:: ; 68:7019
+	call Function_68_7029
+	call Function_68_7050
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_7029:: ; 68:7029
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld [wRam_C27D], a
+	ld a, $00
+	call FarCall
+	dw Function_68_7401
+	db BANK(Function_68_7401)
+	xor a, a
+	call FarCall
+	dw Function_68_7405
+	db BANK(Function_68_7405)
+	ret
+
+Function_68_7050:: ; 68:7050
+	xor a, a
+	ld [wRam_C2D1], a
+	ld hl, $C2D2
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C2D4
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld a, $09
+	ld [wRam_C26E], a
+	xor a, a
+	ld [wRam_C26F], a
+
+Label_68_7069:: ; 68:7069
+	ld a, [wRam_C27D]
+	add a, a
+	add a, $79
+	ld l, a
+	ld a, $70
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $7079-$708D (20 bytes) [CONFIRMED] code-pointer table, 10 entries: 10/10 words hit own-bank code starts (survey pointer-table extent); 10/10 targets executed; every byte read as data in a trace
+
+Table_68_7079:: ; 68:7079
+	dw Label_68_708D
+	dw Label_68_70A6
+	dw Label_68_70E5
+	dw Label_68_7109
+	dw Label_68_712D
+	dw Label_68_7166
+	dw Label_68_71C3
+	dw Label_68_724F
+	dw Label_68_72D7
+	dw Label_68_7313
+
+; ---- code $708D-$71E3 (342 bytes) [CONFIRMED] 134 insn(s); 134 executed (in up to 3/18 scenarios)
+
+Label_68_708D:: ; 68:708D
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld de, $C271
+	ld hl, $0068
+	ld a, $02
+	call MobileAPI
+	ld a, $01
+	ld [wRam_C27D], a
+	jr Label_68_7069
+
+Label_68_70A6:: ; 68:70A6
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld de, $A200
+	ld a, $0E
+	call MobileAPI
+	ld a, $02
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+Label_68_70E5:: ; 68:70E5
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld de, $A222
+	ld a, $0C
+	call MobileAPI
+	ld a, $03
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+Label_68_7109:: ; 68:7109
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld de, $A244
+	ld a, $10
+	call MobileAPI
+	ld a, $04
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+Label_68_712D:: ; 68:712D
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld hl, $A222
+	ld de, $A100
+	call CopyString
+	ld hl, $A200
+	call CopyString
+	ld hl, $DEB9
+	call CopyString
+	ld hl, $A100
+	ld a, $06
+	call MobileAPI
+	ld a, $05
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+Label_68_7166:: ; 68:7166
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $A244
+	ld de, $A100
+	call CopyString
+	ld hl, $DEB9
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, $05
+	ld [wRam_C26D], a
+	ld hl, $C266
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld hl, $A100
+	ld a, $1E
+	call MobileAPI
+	ld a, $06
+	ld [wRam_C27D], a
+	ld a, $01
+	call FarCall
+	dw Function_68_7611
+	db BANK(Function_68_7611)
+	jp Label_68_7069
+
+Label_68_71C3:: ; 68:71C3
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	push hl
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_68_7210
+	ld hl, $C26F
+	bit 0, [hl]
+	jr nz, Label_68_7211
+	ld a, [wRam_C26E]
+	ld b, a
+	ld a, [wRam_C2D6]
+	cp a, b
+	jr c, Label_68_7210
+
+; ---- code $71E3-$7210 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 68:71E1 (executed)
+	jr nz, Label_68_71EC
+	ld a, [wRam_C2D5]
+	cp a, $1E
+	jr c, Label_68_7210
+
+Label_68_71EC:: ; 68:71EC
+	ld a, [wRam_C26E]
+	cp a, $45
+	jr nz, Label_68_71FC
+	ld hl, $C26F
+	bit 1, [hl]
+	jr nz, Label_68_7210
+	set 1, [hl]
+
+Label_68_71FC:: ; 68:71FC
+	ld hl, $C26F
+	set 0, [hl]
+	ld hl, $C26E
+	ld a, [hl]
+	cp a, $45
+	jr z, Label_68_7211
+	add a, $0A
+	ld [hl], a
+	ld a, $FF
+	jr Label_68_7211
+
+; ---- code $7210-$7223 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 3/18 scenarios)
+
+Label_68_7210:: ; 68:7210
+	xor a, a
+
+Label_68_7211:: ; 68:7211
+	pop hl
+	or a, a
+	jp nz, Label_68_734D
+	ld a, [wRam_C26D]
+	ld b, a
+	ld a, [wRam_C268]
+	cp a, b
+	jr z, Label_68_7223
+	xor a, a
+	jr Label_68_7225
+
+; ---- code $7223-$7225 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:721E (executed)
+
+Label_68_7223:: ; 68:7223
+	ld a, $FF
+
+; ---- code $7225-$726F (74 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 3/18 scenarios)
+
+Label_68_7225:: ; 68:7225
+	or a, a
+	jp nz, Label_68_7364
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld a, $05
+	ld [wRam_C26D], a
+	ld hl, $C266
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld a, $1C
+	call MobileAPI
+	ld a, $07
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+Label_68_724F:: ; 68:724F
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	push hl
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_68_729C
+	ld hl, $C26F
+	bit 0, [hl]
+	jr nz, Label_68_729D
+	ld a, [wRam_C26E]
+	ld b, a
+	ld a, [wRam_C2D6]
+	cp a, b
+	jr c, Label_68_729C
+
+; ---- code $726F-$729C (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 68:726D (executed)
+	jr nz, Label_68_7278
+	ld a, [wRam_C2D5]
+	cp a, $1E
+	jr c, Label_68_729C
+
+Label_68_7278:: ; 68:7278
+	ld a, [wRam_C26E]
+	cp a, $45
+	jr nz, Label_68_7288
+	ld hl, $C26F
+	bit 1, [hl]
+	jr nz, Label_68_729C
+	set 1, [hl]
+
+Label_68_7288:: ; 68:7288
+	ld hl, $C26F
+	set 0, [hl]
+	ld hl, $C26E
+	ld a, [hl]
+	cp a, $45
+	jr z, Label_68_729D
+	add a, $0A
+	ld [hl], a
+	ld a, $FF
+	jr Label_68_729D
+
+; ---- code $729C-$72AF (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios)
+
+Label_68_729C:: ; 68:729C
+	xor a, a
+
+Label_68_729D:: ; 68:729D
+	pop hl
+	or a, a
+	jp nz, Label_68_734D
+	ld a, [wRam_C26D]
+	ld b, a
+	ld a, [wRam_C268]
+	cp a, b
+	jr z, Label_68_72AF
+	xor a, a
+	jr Label_68_72B1
+
+; ---- code $72AF-$72B1 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:72AA (executed)
+
+Label_68_72AF:: ; 68:72AF
+	ld a, $FF
+
+; ---- code $72B1-$7312 (97 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 2/18 scenarios)
+
+Label_68_72B1:: ; 68:72B1
+	or a, a
+	jp nz, Label_68_7364
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld a, $0A
+	call MobileAPI
+	ld a, $08
+	ld [wRam_C27D], a
+	ld a, $02
+	call FarCall
+	dw Function_68_7611
+	db BANK(Function_68_7611)
+	jp Label_68_7069
+
+Label_68_72D7:: ; 68:72D7
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ld hl, $A002
+	ld a, [hl]
+	set 7, a
+	ld [hl], a
+	ld hl, $A003
+	xor a, a
+	ld [hl], a
+	call FarCall
+	dw Function_68_45F1
+	db BANK(Function_68_45F1)
+	ld c, $C0
+	ld hl, $A000
+	ld de, $0000
+	ld a, $04
+	call MobileAPI
+	ld a, $09
+	ld [wRam_C27D], a
+	jp Label_68_7069
+
+; ---- data $7312-$7313 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7312:: ; 68:7312
+	db $C9
+
+; ---- code $7313-$734D (58 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios)
+
+Label_68_7313:: ; 68:7313
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7372
+	bit 0, a
+	jp nz, Label_68_7069
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $36
+	call MobileAPI
+
+Function_68_733C:: ; 68:733C
+	ld a, $01
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	or a, a
+	jr nz, Function_68_733C
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $734D-$7372 (37 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jpcc from 68:7213 (executed)
+
+Label_68_734D:: ; 68:734D
+	ld hl, $C26F
+	res 0, [hl]
+	ld a, $00
+	ld [wRam_C1D0], a
+	ld a, $01
+	ld [wRam_C1D1], a
+	call FarCall
+	dw Function_50_4000
+	db BANK(Function_50_4000)
+	jr Label_68_737B
+
+Label_68_7364:: ; 68:7364
+	ld a, $26
+	ld [wRam_C272], a
+	xor a, a
+	ld [wRam_C273], a
+	ld [wRam_C274], a
+	jr Label_68_737B
+
+; ---- code $7372-$7391 (31 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
+
+Label_68_7372:: ; 68:7372
+	call Function_68_4101
+	call FarCall
+	dw Function_68_4F71
+	db BANK(Function_68_4F71)
+
+Label_68_737B:: ; 68:737B
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_68_73B1
+	ld a, $02
+	call FarCall
+	dw Function_68_7611
+	db BANK(Function_68_7611)
+	ld a, [wTimerEnable]
+	bit 0, a
+	jr z, Label_68_7398
+
+; ---- code $7391-$7398 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:738F (executed)
+	ld a, $34
+	call MobileAPI
+	jr Label_68_739D
+
+; ---- code $7398-$7442 (170 bytes) [CONFIRMED] 69 insn(s); 69 executed (in up to 6/18 scenarios)
+
+Label_68_7398:: ; 68:7398
+	ld a, $0A
+	call MobileAPI
+
+Label_68_739D:: ; 68:739D
+	xor a, a
+	call FarCall
+	dw Function_68_7413
+	db BANK(Function_68_7413)
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_73B1
+	bit 0, a
+	jp nz, Label_68_739D
+
+Label_68_73B1:: ; 68:73B1
+	call Function_68_733C
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_68_4F8C
+	db BANK(Function_68_4F8C)
+	call Function_68_4252
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $36
+	call MobileAPI
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Function_68_73DD:: ; 68:73DD
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	call Function_00_044B
+	ld hl, $FF40
+	ld a, [hl]
+	and a, $FB
+	ld [hl], a
+	call Function_00_047A
+	ldh a, [rLCDC]
+	and a, $DF
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	ret
+
+Function_68_7401:: ; 68:7401
+	ld [wRam_C28B], a
+	ret
+
+Function_68_7405:: ; 68:7405
+	ld [wRam_C287], a
+	xor a, a
+	ld [wRam_C288], a
+	ld [wRam_C289], a
+	ld [wRam_C28A], a
+	ret
+
+Function_68_7413:: ; 68:7413
+	ld [wRam_C289], a
+	ld a, $01
+	ld [wRam_C28A], a
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	call Function_68_7431
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	ld a, [wRam_C28A]
+	ret
+
+Function_68_7431:: ; 68:7431
+	ld a, [wRam_C288]
+	ld hl, $7442
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $7442-$744A (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (survey pointer-table extent); 4/4 targets executed; every byte read as data in a trace
+
+Table_68_7442:: ; 68:7442
+	dw Label_68_744C
+	dw Label_68_7522
+	dw Label_68_7544
+	dw Label_68_7583
+
+; ---- ptrtable $744A-$744C (2 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $744C..$7594; referenced by ld r16,$7442 at 68:7434 [clipped from 7442-744C by higher-priority evidence]
+
+Table_68_744A:: ; 68:744A
+	dw Label_68_7594
+
+; ---- code $744C-$755B (271 bytes) [CONFIRMED] 94 insn(s); 94 executed (in up to 4/18 scenarios)
+
+Label_68_744C:: ; 68:744C
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld de, $8801
+	ld hl, $4200
+	ld a, $71
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4490
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $4890
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8000
+	ld hl, $4000
+	ld a, $71
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4C50
+	ld a, $71
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $4C90
+	ld a, $71
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $4C98
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ld a, [wRam_C287]
+	call Function_68_7611
+	ld a, [wRam_C287]
+	cp a, $02
+	jr z, Label_68_74EA
+	ld a, [wRam_C28B]
+	or a, a
+	jr nz, Label_68_74FB
+
+Label_68_74EA:: ; 68:74EA
+	ld bc, $0214
+	ld de, $D200
+	ld hl, $4F68
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+
+Label_68_74FB:: ; 68:74FB
+	call Function_68_75A4
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $4FB8
+	ld a, $71
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld de, $1C14
+	ld hl, $DA00
+	call Function_00_0A65
+	ld a, $01
+	ld [wRam_C288], a
+	ret
+
+Label_68_7522:: ; 68:7522
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $000A
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ld a, $02
+	ld [wRam_C288], a
+	ret
+
+Label_68_7544:: ; 68:7544
+	ldh a, [hJoyHeld]
+	bit 1, a
+	jr nz, Label_68_755B
+	ld a, [wRam_C289]
+	or a, a
+	jr z, Label_68_7582
+	cp a, $01
+	jr z, Label_68_7554
+
+Label_68_7554:: ; 68:7554
+	ld a, $03
+	ld [wRam_C288], a
+	jr Label_68_7582
+
+; ---- code $755B-$7582 (39 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by jrcc from 68:7548 (executed)
+
+Label_68_755B:: ; 68:755B
+	ld a, [wRam_C28B]
+	or a, a
+	jr z, Label_68_7582
+	ld a, [wRam_C287]
+	cp a, $02
+	jr z, Label_68_7582
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002F
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $02
+	ld [wRam_C28A], a
+	ld a, $04
+	ld [wRam_C288], a
+
+; ---- code $7582-$7594 (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
+
+Label_68_7582:: ; 68:7582
+	ret
+
+Label_68_7583:: ; 68:7583
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C28A], a
+	ret
+
+; ---- code $7594-$75A4 (16 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 68:7442
+
+Label_68_7594:: ; 68:7594
+	ld a, [wRam_C289]
+	or a, a
+	jr z, Label_68_75A3
+	cp a, $01
+	jr z, Label_68_759E
+
+Label_68_759E:: ; 68:759E
+	ld a, $03
+	ld [wRam_C288], a
+
+Label_68_75A3:: ; 68:75A3
+	ret
+
+; ---- code $75A4-$764C (168 bytes) [CONFIRMED] 77 insn(s); 77 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_75A4:: ; 68:75A4
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $48
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D121
+	ld bc, $0612
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_7611:: ; 68:7611
+	ld hl, $764C
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C28B]
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld hl, $765E
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $040C
+	ld de, $D067
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_00_044B
+	ldh a, [rLCDC]
+	call Function_00_07CB
+	ret
+
+; ---- data $764C-$7658 (12 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_68_764C:: ; 68:764C
+	db $52, $76, $56, $76, $5A, $76, $00, $00, $00, $00, $02, $05
+
+; ---- data $7658-$765A (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7658:: ; 68:7658
+	db $06, $07
+
+; ---- data $765A-$7660 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_68_765A:: ; 68:765A
+	db $04, $04, $04, $04, $38, $50
+
+; ---- data $7660-$7662 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7660:: ; 68:7660
+	db $98, $50
+
+; ---- data $7662-$7664 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_68_7662:: ; 68:7662
+	db $F8, $50
+
+; ---- data $7664-$7666 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7664:: ; 68:7664
+	db $58, $51
+
+; ---- data $7666-$766A (4 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_68_7666:: ; 68:7666
+	db $B8, $51, $18, $52
+
+; ---- data $766A-$766E (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_766A:: ; 68:766A
+	db $78, $52, $D8, $52
+
+; ---- code $766E-$771A (172 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_766E:: ; 68:766E
+	ld [wRam_C27C], a
+	ld a, b
+	ld [wRam_C27D], a
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call Function_00_0464
+	ldh a, [rLCDC]
+	and a, $9F
+	ldh [rLCDC], a
+	xor a, a
+	ldh [rSCX], a
+	ldh [rSCY], a
+	ld a, $07
+	ldh [rWX], a
+	ld a, $90
+	ldh [rWY], a
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	call Function_00_0392
+	ld de, $8801
+	ld hl, $42D0
+	ld a, $4B
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $46D0
+	ld a, $4B
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	call Function_68_77D6
+	ld bc, $0028
+	ld de, $D800
+	ld hl, $5870
+	ld a, $4B
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $5898
+	ld a, $4B
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_784E
+	call Function_68_7745
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0013
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+
+Label_68_7708:: ; 68:7708
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BA4
+	db BANK(Function_7D_7BA4)
+	call FarCall
+	dw Function_7D_7BC1
+	db BANK(Function_7D_7BC1)
+	call JoypadDispatch
+
+; ---- ptrtable $771A-$7724 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 68:7717: 5 entries; fixed length (5 words) by the routine
+
+Table_68_771A:: ; 68:771A
+	dw Label_68_7727
+	dw Label_68_773E
+	dw Label_68_7741
+	dw Label_68_7743
+	dw Label_68_7724
+
+; ---- code $7724-$773E (26 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios)
+
+Label_68_7724:: ; 68:7724
+	jp Label_68_7708
+
+Label_68_7727:: ; 68:7727
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ret
+
+; ---- code $773E-$7740 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 68:7717 (executed)
+
+Label_68_773E:: ; 68:773E
+	jr Label_68_7708
+
+; ---- data $7740-$7741 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7740:: ; 68:7740
+	db $C9
+
+; ---- code $7741-$7745 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 68:7717 (executed)
+
+Label_68_7741:: ; 68:7741
+	jr Label_68_7708
+
+Label_68_7743:: ; 68:7743
+	jr Label_68_7708
+
+; ---- code $7745-$779C (87 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_7745:: ; 68:7745
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $48
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27D]
+	cp a, $01
+	jr z, Label_68_7798
+	cp a, $02
+	jr z, Label_68_779C
+	ld a, [wRam_C27C]
+	jr Label_68_779E
+
+Label_68_7798:: ; 68:7798
+	ld a, $04
+	jr Label_68_779E
+
+; ---- code $779C-$779E (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:7791 (executed)
+
+Label_68_779C:: ; 68:779C
+	ld a, $05
+
+; ---- code $779E-$77D0 (50 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
+
+Label_68_779E:: ; 68:779E
+	ld hl, $77D0
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D121
+	ld bc, $0612
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+; ---- data $77D0-$77D1 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_68_77D0:: ; 68:77D0
+	db $05
+
+; ---- data $77D1-$77D4 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_77D1:: ; 68:77D1
+	db $0E, $0F, $10
+
+; ---- data $77D4-$77D5 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_68_77D4:: ; 68:77D4
+	db $11
+
+; ---- data $77D5-$77D6 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_77D5:: ; 68:77D5
+	db $12
+
+; ---- code $77D6-$7831 (91 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_77D6:: ; 68:77D6
+	ld a, [wRam_C27C]
+	ld hl, $7831
+	ld b, a
+	add a, a
+	add a, b
+	ld d, $00
+	ld e, a
+	add hl, de
+	ld d, h
+	ld e, l
+	ld a, [de]
+	inc de
+	ld l, a
+	ld a, [de]
+	inc de
+	ld h, a
+	ld a, [de]
+	ld de, $9001
+	ld b, $95
+	ld c, $28
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_780E
+	ld a, [wRam_C27C]
+	ld hl, $7849
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	jr Label_68_7810
+
+Label_68_780E:: ; 68:780E
+	ld a, $01
+
+Label_68_7810:: ; 68:7810
+	ld hl, $7840
+	ld b, a
+	add a, a
+	add a, b
+	ld d, $00
+	ld e, a
+	add hl, de
+	ld d, h
+	ld e, l
+	ld a, [de]
+	inc de
+	ld l, a
+	ld a, [de]
+	inc de
+	ld h, a
+	ld a, [de]
+	ld de, $9281
+	ld b, $95
+	ld c, $28
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ret
+
+; ---- data $7831-$7840 (15 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_68_7831:: ; 68:7831
+	db $F0, $46, $4B, $70, $49, $4B, $70, $4E, $4B, $F0, $4B, $4B, $F0, $46, $4B
+
+; ---- data $7840-$7843 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_7840:: ; 68:7840
+	db $F0, $50, $4B
+
+; ---- data $7843-$784A (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_68_7843:: ; 68:7843
+	db $70, $53, $4B, $F0, $55, $4B, $02
+
+; ---- data $784A-$784E (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_68_784A:: ; 68:784A
+	db $01, $00, $00, $01
+
+; ---- code $784E-$793D (239 bytes) [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_784E:: ; 68:784E
+	call FarCall
+	dw Function_51_425F
+	db BANK(Function_51_425F)
+	ldh a, [hRam_FFB0]
+	ld [wRam_C2D8], a
+	ldh a, [hRam_FFB1]
+	ld [wRam_C2D9], a
+	ldh a, [hRam_FFB2]
+	ld [wRam_C2DA], a
+	ld a, [wRam_C27C]
+	cp a, $02
+	jr z, Label_68_7873
+	cp a, $03
+	jr z, Label_68_7873
+
+Label_68_786E:: ; 68:786E
+	ld a, [wRam_C2D6]
+	jr Label_68_7884
+
+Label_68_7873:: ; 68:7873
+	xor a, a
+	ld hl, $C2D8
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	or a, b
+	jr z, Label_68_786E
+	ld a, [wRam_C2DA]
+
+Label_68_7884:: ; 68:7884
+	ld d, a
+	call Function_68_792A
+	push af
+	swap a
+	and a, $0F
+	ld hl, $793D
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D0A8
+	ld a, $4B
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	pop af
+	and a, $0F
+	ld hl, $793D
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D0A9
+	ld a, $4B
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ld a, [wRam_C27C]
+	cp a, $02
+	jr z, Label_68_78D6
+	cp a, $03
+	jr z, Label_68_78D6
+
+Label_68_78D1:: ; 68:78D1
+	ld a, [wRam_C2D5]
+	jr Label_68_78E7
+
+Label_68_78D6:: ; 68:78D6
+	xor a, a
+	ld hl, $C2D8
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	or a, b
+	jr z, Label_68_78D1
+	ld a, [wRam_C2D9]
+
+Label_68_78E7:: ; 68:78E7
+	ld d, a
+	call Function_68_792A
+	push af
+	swap a
+	and a, $0F
+	ld hl, $793D
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+
+Label_68_78FA:: ; 68:78FA
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D0AB
+	ld a, $4B
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	pop af
+	and a, $0F
+	ld hl, $793D
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D0AC
+	ld a, $4B
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	ret
+
+Function_68_792A:: ; 68:792A
+	xor a, a
+	ld b, $FF
+
+Label_68_792D:: ; 68:792D
+	ld a, d
+	sub a, $0A
+	ld d, a
+	inc b
+	jr nc, Label_68_792D
+	ld a, d
+	add a, $0A
+	ld d, a
+	ld a, b
+	swap a
+	or a, d
+	ret
+
+; ---- ptrtable $793D-$793F (2 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 30% of targets on string start/after NUL, targets $5B68..$5B8C; referenced by ld r16,$793D at 68:788D [clipped from 793D-7951 by higher-priority evidence]
+
+Table_68_793D:: ; 68:793D
+	dw $5B68
+
+; ---- ptrtable $793F-$7951 (18 bytes) [PROBABLE] code-pointer table, 9 entries: 9/9 words hit own-bank code starts (survey pointer-table extent); 9/9 targets executed
+
+Table_68_793F:: ; 68:793F
+	dw Label_68_5B6C
+	dw Label_68_5B70
+	dw Label_68_5B74
+	dw Label_68_5B78
+	dw Label_68_5B7C
+	dw Label_68_5B80
+	dw Label_68_5B84
+	dw Label_68_5B88
+	dw Label_68_5B8C
+
+; ---- code $7951-$7990 (63 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_7951:: ; 68:7951
+	ld a, $08
+	call FarCall
+	dw Function_65_487C
+	db BANK(Function_65_487C)
+	or a, a
+	jr z, Label_68_798F
+
+Label_68_795C:: ; 68:795C
+	ld a, $09
+	call FarCall
+	dw Function_65_487C
+	db BANK(Function_65_487C)
+	or a, a
+	jr z, Function_68_7951
+
+Label_68_7967:: ; 68:7967
+	xor a, a
+	call Function_68_799A
+	or a, a
+	jr z, Label_68_795C
+	cp a, $02
+	jr z, Label_68_7990
+	ld a, $01
+	call Function_68_799A
+	or a, a
+	jr z, Label_68_7967
+	cp a, $02
+	jr z, Label_68_7990
+	call FarCall
+	dw Function_68_7B9A
+	db BANK(Function_68_7B9A)
+	or a, a
+	jr z, Label_68_7999
+	ld a, $0B
+	call FarCall
+	dw Function_65_487C
+	db BANK(Function_65_487C)
+
+Label_68_798F:: ; 68:798F
+	ret
+
+; ---- code $7990-$799A (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed)
+
+Label_68_7990:: ; 68:7990
+	ld a, $0A
+	call FarCall
+	dw Function_65_487C
+	db BANK(Function_65_487C)
+	ret
+
+Label_68_7999:: ; 68:7999
+	ret
+
+; ---- code $799A-$7ACB (305 bytes) [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_799A:: ; 68:799A
+	ld [wRam_C27C], a
+	call Function_68_79B8
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_7A8F
+	push af
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_55_651C
+	db BANK(Function_55_651C)
+	pop af
+	ret
+
+Function_68_79B8:: ; 68:79B8
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld a, $01
+	ld [wRam_C27D], a
+	ld a, [wRam_C27C]
+	or a, a
+	jr nz, Label_68_7A0A
+	ld de, $9001
+	ld hl, $5340
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $5740
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $66C8
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	jr Label_68_7A3F
+
+Label_68_7A0A:: ; 68:7A0A
+	ld de, $9001
+	ld hl, $59C0
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $5DC0
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $6998
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+
+Label_68_7A3F:: ; 68:7A3F
+	ld de, $8001
+	ld hl, $49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $6680
+	ld a, $71
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	call Function_68_7B1D
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $4000
+	ld a, $4A
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	call Function_68_7B01
+	ret
+
+Function_68_7A8F:: ; 68:7A8F
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	call Function_00_044B
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_7AB2
+	bit 1, a
+	jr nz, Label_68_7ACE
+	bit 5, a
+	jr nz, Label_68_7AE0
+	bit 4, a
+	jr nz, Label_68_7AE0
+	jr Function_68_7A8F
+
+Label_68_7AB2:: ; 68:7AB2
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_7ACB
+	ld a, $01
+	ret
+
+; ---- code $7ACB-$7AE0 (21 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 68:7AC6 (executed)
+
+Label_68_7ACB:: ; 68:7ACB
+	ld a, $02
+	ret
+
+Label_68_7ACE:: ; 68:7ACE
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ret
+
+; ---- code $7AE0-$7B19 (57 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
+
+Label_68_7AE0:: ; 68:7AE0
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Function_68_7B01
+	jr Label_68_7AFE
+
+Label_68_7AFE:: ; 68:7AFE
+	jp Function_68_7A8F
+
+Function_68_7B01:: ; 68:7B01
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, $7B19
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $7B19-$7B1D (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_68_7B19:: ; 68:7B19
+	db $28, $30, $58, $30
+
+; ---- code $7B1D-$7C6B (334 bytes) [CONFIRMED] 119 insn(s); 119 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_7B1D:: ; 68:7B1D
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $48
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27C]
+	or a, a
+	jr nz, Label_68_7B70
+	ld a, $06
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	jr Label_68_7B78
+
+Label_68_7B70:: ; 68:7B70
+	ld a, $07
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+
+Label_68_7B78:: ; 68:7B78
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0901
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D121
+	ld bc, $0612
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+Function_68_7B9A:: ; 68:7B9A
+	call Function_68_7BB0
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+	call Function_68_7C52
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ld a, [wRam_C27C]
+	ret
+
+Function_68_7BB0:: ; 68:7BB0
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	xor a, a
+	ld [wRam_C27C], a
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, $6180
+	ld a, $71
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $6580
+	ld a, $71
+	ld b, $97
+	ld c, $10
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8000
+	ld hl, $6140
+	ld a, $71
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $6680
+	ld a, $71
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $66C0
+	ld a, $71
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $6C68
+	ld a, $71
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_68_7D1C
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, $6F38
+	ld a, $71
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld de, $1C44
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+Function_68_7C52:: ; 68:7C52
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call Function_00_044B
+	ld a, [wRam_C27D]
+	add a, a
+	add a, $6B
+	ld l, a
+	ld a, $7C
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- data $7C6B-$7C71 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_68_7C6B:: ; 68:7C6B
+	db $71, $7C, $86, $7C, $BD, $7C
+
+; ---- code $7C71-$7CE8 (119 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
+	call Function_68_4252
+	ld de, $C271
+	ld hl, $0068
+	ld a, $02
+	call MobileAPI
+	ld a, $01
+	ld [wRam_C27D], a
+	jr Function_68_7C52
+
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7CE8
+	bit 0, a
+	jp nz, Function_68_7C52
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld c, $C0
+	ld hl, $A000
+	ld de, $0000
+	ld a, $04
+	call MobileAPI
+	ld a, $02
+	ld [wRam_C27D], a
+	jp Function_68_7C52
+
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Label_68_7CE8
+	bit 0, a
+	jp nz, Function_68_7C52
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $36
+	call MobileAPI
+	call Function_68_42E4
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $7CE8-$7D1C (52 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by jpcc from 68:7C8B (executed)
+
+Label_68_7CE8:: ; 68:7CE8
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	call FarCall
+	dw Function_68_4F71
+	db BANK(Function_68_4F71)
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	call FarCall
+	dw Function_68_4F8C
+	db BANK(Function_68_4F8C)
+	ld a, $36
+	call MobileAPI
+	ld a, $0A
+	call FarCall
+	dw Function_65_487C
+	db BANK(Function_65_487C)
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $7D1C-$7D8D (113 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+Function_68_7D1C:: ; 68:7D1C
+	ld a, $03
+	call FarCall
+	dw Function_00_153D
+	db BANK(Function_00_153D)
+	push hl
+	push af
+	ld de, $FFFF
+	ld hl, $0B01
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4604
+	db BANK(Function_4F_4604)
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $58
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $58
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $88
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	pop af
+	pop hl
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0B01
+	ld bc, $0612
+	call FarCall
+	dw Function_4F_4572
+	db BANK(Function_4F_4572)
+	ld hl, $D161
+	ld bc, $0612
+	ld de, $0000
+	call FarCall
+	dw Function_4F_45C6
+	db BANK(Function_4F_45C6)
+	ret
+
+; ---- zero $7D8D-$8000 (627 bytes) [PROBABLE] trailing 0x00 padding to end of bank
+	ds $273, $00
