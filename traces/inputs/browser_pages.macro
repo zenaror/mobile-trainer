@@ -1,0 +1,237 @@
+# Scenario 'browser_pages': ホームページ (browser) against the richer synthetic site of traces/web (web=all): page-list tutorial (8 pages), connect,
+# index.html, a.html (ol/ul/pre/div/img/comment/meta, image request img_a.bmp, LEFT/RIGHT between two links on one line), b.html (24 lines: scrolling
+# to the end, image request img_b.bmp), d.html via the last link, then c.html and each of its 14 links in turn (each visit ends with B and A, which
+# leaves an error dialog or a page): a local page, a missing page (served with the generic page), ../di/*.htm and file://di/*.htm help links (the
+# ROM asks the server: HTTP 404 -> error 32-404), an absolute URL, direct .bmp URLs (tall image, oversized 160x120 image), big.html (4.8 KB:
+# "ホームページがおおきすぎて すべてひょうじ できませんでした"), fragment, mailto:, another host name (fake DNS). Starts from the state left by
+# 'browser_bookmarks'. Fake Internet latency 2 frames. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+# --- a.html
+tap DOWN
+wait 30
+tap A
+wait 1500
+shot a_top
+tap DOWN x12
+wait 40
+tap DOWN x12
+wait 40
+tap DOWN x12
+wait 40
+shot a_bottom
+tap LEFT
+wait 40
+tap RIGHT
+wait 40
+tap B
+wait 900
+shot back_to_index
+# --- b.html (scroll to the end)
+tap DOWN x2
+wait 30
+tap A
+wait 1200
+shot b_top
+tap DOWN x12
+wait 40
+tap DOWN x12
+wait 40
+tap DOWN x12
+wait 40
+tap DOWN x12
+wait 40
+shot b_bottom
+tap B
+wait 900
+# --- d.html through the last link of the index
+tap DOWN x6
+wait 30
+tap A
+wait 1200
+shot d_page
+tap B
+wait 900
+# --- c.html and its links
+tap DOWN x3
+wait 30
+tap A
+wait 1200
+shot c_page
+tap DOWN x1
+wait 30
+tap A
+wait 800
+shot link01
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x2
+wait 30
+tap A
+wait 800
+shot link02
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x3
+wait 30
+tap A
+wait 800
+shot link03
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x4
+wait 30
+tap A
+wait 800
+shot link04
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x5
+wait 30
+tap A
+wait 800
+shot link05
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x6
+wait 30
+tap A
+wait 800
+shot link06
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x7
+wait 30
+tap A
+wait 800
+shot link07
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x8
+wait 30
+tap A
+wait 800
+shot link08
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x9
+wait 30
+tap A
+wait 800
+shot link09
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x10
+wait 30
+tap A
+wait 800
+shot link10
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x11
+wait 30
+tap A
+wait 800
+shot link11
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x12
+wait 30
+tap A
+wait 800
+shot link12
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x13
+wait 30
+tap A
+wait 800
+shot link13
+tap B
+wait 500
+tap A
+wait 500
+tap DOWN x14
+wait 30
+tap A
+wait 800
+shot link14
+tap B
+wait 500
+tap A
+wait 500
+shot c_page_again
+tap START
+wait 60
+shot menu
+tap RIGHT
+wait 40
+tap RIGHT
+wait 40
+tap A                        # third icon of the browser menu (END)
+waitstable 60 max 900
+shot menu_end
+tap A
+waitstable 60 max 900
+shot after_end

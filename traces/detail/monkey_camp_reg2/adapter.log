@@ -1,0 +1,1696 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f6146] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6146] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6148] gb.mobile DEBUG: >>> 11 End session
+[f6148] gb.mobile DEBUG: <<< 11 End session
+[f6148] gb.mobile DEBUG: 
+[f6480] HARNESS console reset (power cycle)
+[f6480] NET option pop_fail=none
+[f6480] NET option smtp_fail=none
+[f6480] NET option http_status=0
+[f6480] NET option http_missing=404
+[f6480] NET option http_trunc=-1
+[f6480] NET option http_nolen=0
+[f6480] NET option dns=ok
+[f6480] NET option tcp=ok
+[f6480] NET option cgi=none
+[f6531] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6531] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6533] gb.mobile DEBUG: >>> 11 End session
+[f6533] gb.mobile DEBUG: <<< 11 End session
+[f6533] gb.mobile DEBUG: 
+[f6657] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6657] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6659] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f6659] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6659] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6659] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6659] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6659] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6659] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6659] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6659] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6659] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6666] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f6666] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f6666] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6666] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6666] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6666] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6670] gb.mobile DEBUG: >>> 11 End session
+[f6670] gb.mobile DEBUG: <<< 11 End session
+[f6670] gb.mobile DEBUG: 
+[f6940] NET option http_missing=500
+[f8654] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8654] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8656] gb.mobile DEBUG: >>> 11 End session
+[f8656] gb.mobile DEBUG: <<< 11 End session
+[f8656] gb.mobile DEBUG: 
+[f9782] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9782] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9784] gb.mobile DEBUG: >>> 11 End session
+[f9784] gb.mobile DEBUG: <<< 11 End session
+[f9784] gb.mobile DEBUG: 
+[f12374] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12374] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12376] gb.mobile DEBUG: >>> 11 End session
+[f12376] gb.mobile DEBUG: <<< 11 End session
+[f12376] gb.mobile DEBUG: 
+[f12940] HARNESS console reset (power cycle)
+[f12940] NET option pop_fail=none
+[f12940] NET option smtp_fail=none
+[f12940] NET option http_status=0
+[f12940] NET option http_missing=404
+[f12940] NET option http_trunc=-1
+[f12940] NET option http_nolen=0
+[f12940] NET option dns=ok
+[f12940] NET option tcp=ok
+[f12940] NET option cgi=none
+[f12991] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12991] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12993] gb.mobile DEBUG: >>> 11 End session
+[f12993] gb.mobile DEBUG: <<< 11 End session
+[f12993] gb.mobile DEBUG: 
+[f13117] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13117] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13119] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f13119] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f13119] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f13119] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f13119] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f13119] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f13119] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f13119] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f13119] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f13119] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f13126] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f13126] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f13126] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f13126] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f13126] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f13126] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f13130] gb.mobile DEBUG: >>> 11 End session
+[f13130] gb.mobile DEBUG: <<< 11 End session
+[f13130] gb.mobile DEBUG: 
+[f13400] NET option http_status=500
+[f14070] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14070] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14072] gb.mobile DEBUG: >>> 11 End session
+[f14072] gb.mobile DEBUG: <<< 11 End session
+[f14072] gb.mobile DEBUG: 
+[f14217] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14217] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14219] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f14219] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f14219] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f14219] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f14219] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f14219] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f14219] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f14219] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f14226] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f14226] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f14226] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f14226] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f14226] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f14226] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f14226] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f14226] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f14233] gb.mobile DEBUG: >>> 11 End session
+[f14233] gb.mobile DEBUG: <<< 11 End session
+[f14233] gb.mobile DEBUG: 
+[f14380] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14380] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14382] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f14382] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f14382] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f14382] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f14382] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f14382] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f14382] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f14382] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f14389] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f14389] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f14389] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f14389] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f14389] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f14389] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f14389] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f14389] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f14396] gb.mobile DEBUG: >>> 17 Status
+[f14396] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f14398] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f14398] gb.mobile DEBUG: <<< 12 Call
+[f14401] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f14401] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f14467] gb.mobile DEBUG: >>> 17 Status
+[f14467] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14532] gb.mobile DEBUG: >>> 17 Status
+[f14532] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14602] gb.mobile DEBUG: >>> 17 Status
+[f14602] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14627] gb.mobile DEBUG: >>> 28 DNS request: pop.1111.dion.ne.jp
+[f14627] NET sock_open conn=0 UDP bindport=0
+[f14628] NET udp send to 210.196.3.183:53 (37 bytes)
+[f14628] NET dns query "pop.1111.dion.ne.jp" -> 10.0.220.103
+[f14629] NET sock_close conn=0
+[f14629] gb.mobile DEBUG: <<< 28 DNS request: 10.0.220.103
+[f14631] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.220.103:110
+[f14631] NET sock_open conn=0 TCP bindport=0
+[f14632] NET sock_connect conn=0 TCP 10.0.220.103:110
+[f14632] gb.mobile DEBUG: <POP3> Starting interception on conn 0
+[f14632] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f14634] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14634] gb.mobile DEBUG: <POP3> Greeting seen, has_key=0
+[f14634] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14634] gb.mobile DEBUG: +OK POP3 fake ready
+
+[f14638] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14638] gb.mobile DEBUG: USER 11111111
+
+[f14638] gb.mobile DEBUG: <POP3> USER seen (15 bytes), forwarded (no key)
+[f14638] NET tcp:110 rx-line "USER 11111111"
+[f14638] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14640] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14640] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14640] gb.mobile DEBUG: +OK
+
+[f14643] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14643] gb.mobile DEBUG: PASS aZ01
+
+[f14643] gb.mobile DEBUG: <POP3> PASS seen (11 bytes), forwarded (no key)
+[f14643] NET tcp:110 rx-line "PASS aZ01"
+[f14643] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14645] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14645] gb.mobile DEBUG: <POP3> Auth response: +OK
+[f14645] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14645] gb.mobile DEBUG: +OK
+
+[f14648] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14648] gb.mobile DEBUG: STAT
+
+[f14648] NET tcp:110 rx-line "STAT"
+[f14648] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14651] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14651] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14651] gb.mobile DEBUG: +OK 5 4876
+
+[f14655] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14655] gb.mobile DEBUG: TOP 1 0
+
+[f14655] NET tcp:110 rx-line "TOP 1 0"
+[f14655] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14657] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14657] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14657] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f14673] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14673] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14673] gb.mobile DEBUG: ?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f14681] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14681] gb.mobile DEBUG: TOP 2 0
+
+[f14681] NET tcp:110 rx-line "TOP 2 0"
+[f14681] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14683] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14683] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14683] gb.mobile DEBUG: +OK 286 octets
+Date: Sun, 28 Jan 2001 08:30:00 +0900
+From: someone@example.te
+[f14699] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14699] gb.mobile DEBUG: TOP 3 0
+
+[f14699] NET tcp:110 rx-line "TOP 3 0"
+[f14699] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14701] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14701] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14701] gb.mobile DEBUG: +OK 516 octets
+Date: Mon, 29 Jan 2001 21:15:00 +0900
+Sender: gb-friend@exampl
+[f14718] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14718] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14718] gb.mobile DEBUG: ect: =?ISO-2022-JP?B?GyRCJTIhPCVgJCskaSROJWEhPCVrGyhC?=
+MIME-Version: 1.0
+X-G
+[f14735] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14735] gb.mobile DEBUG: TOP 4 0
+
+[f14735] NET tcp:110 rx-line "TOP 4 0"
+[f14735] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14737] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14737] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14737] gb.mobile DEBUG: +OK 775 octets
+Date: Tue, 30 Jan 2001 12:00:00 +0900
+From: sender@example.tes
+[f14753] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14753] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14753] gb.mobile DEBUG: d; boundary="----=_Part_0_1234"
+
+.
+
+[f14759] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14759] gb.mobile DEBUG: TOP 5 0
+
+[f14759] NET tcp:110 rx-line "TOP 5 0"
+[f14759] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14761] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14761] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14761] gb.mobile DEBUG: +OK 2903 octets
+Date: Wed, 31 Jan 2001 07:45:00 +0900
+From: long@example.test
+[f14778] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14778] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14778] gb.mobile DEBUG: ME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f14851] gb.mobile DEBUG: >>> 17 Status
+[f14851] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14902] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14902] gb.mobile DEBUG: TOP 1 0
+
+[f14902] NET tcp:110 rx-line "TOP 1 0"
+[f14902] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14904] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14904] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14904] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f14920] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14920] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14920] gb.mobile DEBUG: ?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+.
+
+[f14939] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14939] gb.mobile DEBUG: RETR 1
+
+[f14939] NET tcp:110 rx-line "RETR 1"
+[f14939] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14941] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14941] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14941] gb.mobile DEBUG: +OK 396 octets
+Return-Path: <friend@example.test>
+Date: Sat, 27 Jan 2001 10:0
+[f14958] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14958] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14958] gb.mobile DEBUG:     3F 3D 0D 0A 4D 49 4D 45 2D 56 65 72 73 69 6F 6E 
+[f14958] gb.mobile DEBUG:     3A 20 31 2E 30 0D 0A 43 6F 6E 74 65 6E 74 2D 54 
+[f14958] gb.mobile DEBUG:     79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 3B 
+[f14958] gb.mobile DEBUG:     20 63 68 61 72 73 65 74 3D 69 73 6F 2D 32 30 32 
+[f14958] gb.mobile DEBUG:     32 2D 6A 70 0D 0A 0D 0A 1B 24 42 24 2D 24 67 24 
+[f14958] gb.mobile DEBUG:     26 24 4F 1B 28 42 20 1B 24 42 24 24 24 24 24 46 
+[f14958] gb.mobile DEBUG:     24 73 24 2D 24 47 24 39 24 4D 21 23 1B 28 42 0D 
+[f14958] gb.mobile DEBUG:     0A 1B 24 42 24 22 24 3D 24 53 24 4B 1B 28 42 20 
+[f14958] gb.mobile DEBUG:     1B 24 42 24 24 24 33 24 26 21 2A 1B 28 42 0D 0A 
+[f14958] gb.mobile DEBUG:     1B 24 42 24 5E 24 3F 24 4D 1B 28 42 0D 0A 2E 0D 
+[f14958] gb.mobile DEBUG:     0A 
+[f14978] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14978] gb.mobile DEBUG: DELE 1
+
+[f14978] NET tcp:110 rx-line "DELE 1"
+[f14978] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14992] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14992] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14992] gb.mobile DEBUG: +OK deleted
+
+[f15022] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15022] gb.mobile DEBUG: QUIT
+
+[f15022] NET tcp:110 rx-line "QUIT"
+[f15022] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15024] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15024] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15024] gb.mobile DEBUG: +OK bye
+
+[f15026] gb.mobile DEBUG: >>> 24 TCP disconnect (conn 0)
+[f15026] NET sock_close conn=0
+[f15026] gb.mobile DEBUG: <<< 24 TCP disconnect (conn 0)
+[f15028] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f15028] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f15030] gb.mobile DEBUG: >>> 13 Disconnect
+[f15030] gb.mobile DEBUG: <<< 13 Disconnect
+[f15032] gb.mobile DEBUG: >>> 11 End session
+[f15032] gb.mobile DEBUG: <<< 11 End session
+[f15032] gb.mobile DEBUG: 
+[f15416] HARNESS Mobile Adapter removed from the link port
+[f16424] HARNESS Mobile Adapter plugged in again
+[f19448] HARNESS console reset (power cycle)
+[f19448] NET option pop_fail=none
+[f19448] NET option smtp_fail=none
+[f19448] NET option http_status=0
+[f19448] NET option http_missing=404
+[f19448] NET option http_trunc=-1
+[f19448] NET option http_nolen=0
+[f19448] NET option dns=ok
+[f19448] NET option tcp=ok
+[f19448] NET option cgi=none
+[f19499] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19499] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19501] gb.mobile DEBUG: >>> 11 End session
+[f19501] gb.mobile DEBUG: <<< 11 End session
+[f19501] gb.mobile DEBUG: 
+[f19625] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19625] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19627] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f19627] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f19627] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f19627] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f19627] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f19627] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f19627] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f19627] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f19627] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f19627] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f19634] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f19634] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f19634] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f19634] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f19634] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f19634] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f19638] gb.mobile DEBUG: >>> 11 End session
+[f19638] gb.mobile DEBUG: <<< 11 End session
+[f19638] gb.mobile DEBUG: 
+[f19908] NET option smtp_fail=connect
+[f20506] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20506] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20508] gb.mobile DEBUG: >>> 11 End session
+[f20508] gb.mobile DEBUG: <<< 11 End session
+[f20508] gb.mobile DEBUG: 
+[f21366] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21366] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21368] gb.mobile DEBUG: >>> 11 End session
+[f21368] gb.mobile DEBUG: <<< 11 End session
+[f21368] gb.mobile DEBUG: 
+[f21908] HARNESS Mobile Adapter removed from the link port
+[f22908] HARNESS Mobile Adapter plugged in again
+[f25908] HARNESS console reset (power cycle)
+[f25908] NET option pop_fail=none
+[f25908] NET option smtp_fail=none
+[f25908] NET option http_status=0
+[f25908] NET option http_missing=404
+[f25908] NET option http_trunc=-1
+[f25908] NET option http_nolen=0
+[f25908] NET option dns=ok
+[f25908] NET option tcp=ok
+[f25908] NET option cgi=none
+[f25959] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25959] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25961] gb.mobile DEBUG: >>> 11 End session
+[f25961] gb.mobile DEBUG: <<< 11 End session
+[f25961] gb.mobile DEBUG: 
+[f26085] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26085] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26087] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f26087] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f26087] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f26087] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f26087] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f26087] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f26087] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f26087] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f26087] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f26087] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f26094] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f26094] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f26094] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f26094] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f26094] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f26094] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f26098] gb.mobile DEBUG: >>> 11 End session
+[f26098] gb.mobile DEBUG: <<< 11 End session
+[f26098] gb.mobile DEBUG: 
+[f26368] NET option pop_fail=connect
+[f32368] HARNESS console reset (power cycle)
+[f32368] NET option pop_fail=none
+[f32368] NET option smtp_fail=none
+[f32368] NET option http_status=0
+[f32368] NET option http_missing=404
+[f32368] NET option http_trunc=-1
+[f32368] NET option http_nolen=0
+[f32368] NET option dns=ok
+[f32368] NET option tcp=ok
+[f32368] NET option cgi=none
+[f32419] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32419] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32421] gb.mobile DEBUG: >>> 11 End session
+[f32421] gb.mobile DEBUG: <<< 11 End session
+[f32421] gb.mobile DEBUG: 
+[f32545] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32545] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32547] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f32547] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f32547] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f32547] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f32547] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f32547] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f32547] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f32547] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f32547] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f32547] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f32554] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f32554] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f32554] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f32554] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f32554] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f32554] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f32558] gb.mobile DEBUG: >>> 11 End session
+[f32558] gb.mobile DEBUG: <<< 11 End session
+[f32558] gb.mobile DEBUG: 
+[f32828] NET option pop_fail=stat
+[f33386] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33386] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33388] gb.mobile DEBUG: >>> 11 End session
+[f33388] gb.mobile DEBUG: <<< 11 End session
+[f33388] gb.mobile DEBUG: 
+[f33533] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33533] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33535] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f33535] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f33535] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f33535] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f33535] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f33535] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f33535] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f33535] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f33542] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f33542] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f33542] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f33542] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f33542] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f33542] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f33542] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f33542] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f33549] gb.mobile DEBUG: >>> 11 End session
+[f33549] gb.mobile DEBUG: <<< 11 End session
+[f33549] gb.mobile DEBUG: 
+[f38828] HARNESS console reset (power cycle)
+[f38828] NET option pop_fail=none
+[f38828] NET option smtp_fail=none
+[f38828] NET option http_status=0
+[f38828] NET option http_missing=404
+[f38828] NET option http_trunc=-1
+[f38828] NET option http_nolen=0
+[f38828] NET option dns=ok
+[f38828] NET option tcp=ok
+[f38828] NET option cgi=none
+[f38879] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38879] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38881] gb.mobile DEBUG: >>> 11 End session
+[f38881] gb.mobile DEBUG: <<< 11 End session
+[f38881] gb.mobile DEBUG: 
+[f39005] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39005] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39007] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f39007] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f39007] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f39007] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f39007] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f39007] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f39007] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f39007] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f39007] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f39007] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f39014] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f39014] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f39014] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f39014] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f39014] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f39014] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f39018] gb.mobile DEBUG: >>> 11 End session
+[f39018] gb.mobile DEBUG: <<< 11 End session
+[f39018] gb.mobile DEBUG: 
+[f39288] NET option smtp_fail=data
+[f45316] HARNESS console reset (power cycle)
+[f45316] NET option pop_fail=none
+[f45316] NET option smtp_fail=none
+[f45316] NET option http_status=0
+[f45316] NET option http_missing=404
+[f45316] NET option http_trunc=-1
+[f45316] NET option http_nolen=0
+[f45316] NET option dns=ok
+[f45316] NET option tcp=ok
+[f45316] NET option cgi=none
+[f45367] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f45367] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f45369] gb.mobile DEBUG: >>> 11 End session
+[f45369] gb.mobile DEBUG: <<< 11 End session
+[f45369] gb.mobile DEBUG: 
+[f45493] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f45493] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f45495] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f45495] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f45495] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f45495] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f45495] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f45495] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f45495] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f45495] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f45495] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f45495] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f45502] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f45502] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f45502] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f45502] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f45502] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f45502] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f45506] gb.mobile DEBUG: >>> 11 End session
+[f45506] gb.mobile DEBUG: <<< 11 End session
+[f45506] gb.mobile DEBUG: 
+[f45776] NET option dns=drop
+[f46182] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f46182] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f46184] gb.mobile DEBUG: >>> 11 End session
+[f46184] gb.mobile DEBUG: <<< 11 End session
+[f46184] gb.mobile DEBUG: 
+[f46330] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f46330] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f46332] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f46332] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f46332] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f46332] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f46332] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f46332] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f46332] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f46332] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f46339] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f46339] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f46339] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f46339] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f46339] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f46339] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f46339] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f46339] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f46346] gb.mobile DEBUG: >>> 11 End session
+[f46346] gb.mobile DEBUG: <<< 11 End session
+[f46346] gb.mobile DEBUG: 
+[f47610] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f47610] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f47612] gb.mobile DEBUG: >>> 11 End session
+[f47612] gb.mobile DEBUG: <<< 11 End session
+[f47612] gb.mobile DEBUG: 
+[f47756] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f47756] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f47758] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f47758] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f47758] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f47758] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f47758] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f47758] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f47758] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f47758] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f47765] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f47765] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f47765] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f47765] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f47765] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f47765] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f47765] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f47765] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f47771] gb.mobile DEBUG: >>> 11 End session
+[f47771] gb.mobile DEBUG: <<< 11 End session
+[f47771] gb.mobile DEBUG: 
+[f47780] HARNESS Mobile Adapter removed from the link port
+[f48788] HARNESS Mobile Adapter plugged in again
+[f49026] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f49026] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f49028] gb.mobile DEBUG: >>> 11 End session
+[f49028] gb.mobile DEBUG: <<< 11 End session
+[f49028] gb.mobile DEBUG: 
+[f49686] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f49686] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f49688] gb.mobile DEBUG: >>> 11 End session
+[f49688] gb.mobile DEBUG: <<< 11 End session
+[f49688] gb.mobile DEBUG: 
+[f49832] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f49832] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f49834] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f49834] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f49834] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f49834] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f49834] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f49834] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f49834] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f49834] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f49841] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f49841] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f49841] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f49841] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f49841] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f49841] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f49841] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f49841] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f49848] gb.mobile DEBUG: >>> 11 End session
+[f49848] gb.mobile DEBUG: <<< 11 End session
+[f49848] gb.mobile DEBUG: 
+[f50646] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f50646] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f50648] gb.mobile DEBUG: >>> 11 End session
+[f50648] gb.mobile DEBUG: <<< 11 End session
+[f50648] gb.mobile DEBUG: 
+[f50792] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f50792] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f50794] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f50794] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f50794] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f50794] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f50794] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f50794] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f50794] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f50794] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f50801] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f50801] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f50801] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f50801] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f50801] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f50801] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f50801] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f50801] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f50808] gb.mobile DEBUG: >>> 11 End session
+[f50808] gb.mobile DEBUG: <<< 11 End session
+[f50808] gb.mobile DEBUG: 
+[f51788] HARNESS console reset (power cycle)
+[f51788] NET option pop_fail=none
+[f51788] NET option smtp_fail=none
+[f51788] NET option http_status=0
+[f51788] NET option http_missing=404
+[f51788] NET option http_trunc=-1
+[f51788] NET option http_nolen=0
+[f51788] NET option dns=ok
+[f51788] NET option tcp=ok
+[f51788] NET option cgi=none
+[f51839] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51839] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f51841] gb.mobile DEBUG: >>> 11 End session
+[f51841] gb.mobile DEBUG: <<< 11 End session
+[f51841] gb.mobile DEBUG: 
+[f51965] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51965] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f51967] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f51967] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f51967] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f51967] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f51967] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f51967] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f51967] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f51967] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f51967] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f51967] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f51974] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f51974] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f51974] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f51974] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f51974] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f51974] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f51978] gb.mobile DEBUG: >>> 11 End session
+[f51978] gb.mobile DEBUG: <<< 11 End session
+[f51978] gb.mobile DEBUG: 
+[f52248] NET option dns=nx
+[f58260] HARNESS console reset (power cycle)
+[f58260] NET option pop_fail=none
+[f58260] NET option smtp_fail=none
+[f58260] NET option http_status=0
+[f58260] NET option http_missing=404
+[f58260] NET option http_trunc=-1
+[f58260] NET option http_nolen=0
+[f58260] NET option dns=ok
+[f58260] NET option tcp=ok
+[f58260] NET option cgi=none
+[f58311] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f58311] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f58313] gb.mobile DEBUG: >>> 11 End session
+[f58313] gb.mobile DEBUG: <<< 11 End session
+[f58313] gb.mobile DEBUG: 
+[f58437] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f58437] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f58439] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f58439] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f58439] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f58439] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f58439] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f58439] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f58439] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f58439] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f58439] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f58439] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f58446] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f58446] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f58446] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f58446] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f58446] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f58446] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f58450] gb.mobile DEBUG: >>> 11 End session
+[f58450] gb.mobile DEBUG: <<< 11 End session
+[f58450] gb.mobile DEBUG: 
+[f58720] NET option smtp_fail=end
+[f61991] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f61991] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f61993] gb.mobile DEBUG: >>> 11 End session
+[f61993] gb.mobile DEBUG: <<< 11 End session
+[f61993] gb.mobile DEBUG: 
+[f64505] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f64505] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f64507] gb.mobile DEBUG: >>> 11 End session
+[f64507] gb.mobile DEBUG: <<< 11 End session
+[f64507] gb.mobile DEBUG: 
+[f64631] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f64631] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f64633] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f64633] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f64633] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f64633] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f64633] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f64633] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f64633] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f64633] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f64633] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f64633] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f64640] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f64640] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f64640] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f64640] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f64640] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f64640] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f64644] gb.mobile DEBUG: >>> 11 End session
+[f64644] gb.mobile DEBUG: <<< 11 End session
+[f64644] gb.mobile DEBUG: 
+[f64720] HARNESS console reset (power cycle)
+[f64720] NET option pop_fail=none
+[f64720] NET option smtp_fail=none
+[f64720] NET option http_status=0
+[f64720] NET option http_missing=404
+[f64720] NET option http_trunc=-1
+[f64720] NET option http_nolen=0
+[f64720] NET option dns=ok
+[f64720] NET option tcp=ok
+[f64720] NET option cgi=none
+[f64771] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f64771] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f64773] gb.mobile DEBUG: >>> 11 End session
+[f64773] gb.mobile DEBUG: <<< 11 End session
+[f64773] gb.mobile DEBUG: 
+[f64897] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f64897] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f64899] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f64899] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f64899] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f64899] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f64899] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f64899] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f64899] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f64899] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f64899] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f64899] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f64906] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f64906] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f64906] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f64906] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f64906] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f64906] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f64910] gb.mobile DEBUG: >>> 11 End session
+[f64910] gb.mobile DEBUG: <<< 11 End session
+[f64910] gb.mobile DEBUG: 
+[f65180] NET option http_status=500
+[f67180] HARNESS Mobile Adapter removed from the link port
+[f68180] HARNESS Mobile Adapter plugged in again
+[f71180] HARNESS console reset (power cycle)
+[f71180] NET option pop_fail=none
+[f71180] NET option smtp_fail=none
+[f71180] NET option http_status=0
+[f71180] NET option http_missing=404
+[f71180] NET option http_trunc=-1
+[f71180] NET option http_nolen=0
+[f71180] NET option dns=ok
+[f71180] NET option tcp=ok
+[f71180] NET option cgi=none
+[f71231] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f71231] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f71233] gb.mobile DEBUG: >>> 11 End session
+[f71233] gb.mobile DEBUG: <<< 11 End session
+[f71233] gb.mobile DEBUG: 
+[f71357] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f71357] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f71359] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f71359] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f71359] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f71359] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f71359] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f71359] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f71359] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f71359] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f71359] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f71359] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f71366] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f71366] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f71366] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f71366] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f71366] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f71366] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f71370] gb.mobile DEBUG: >>> 11 End session
+[f71370] gb.mobile DEBUG: <<< 11 End session
+[f71370] gb.mobile DEBUG: 
+[f71640] NET option pop_fail=connect
+[f77640] HARNESS console reset (power cycle)
+[f77640] NET option pop_fail=none
+[f77640] NET option smtp_fail=none
+[f77640] NET option http_status=0
+[f77640] NET option http_missing=404
+[f77640] NET option http_trunc=-1
+[f77640] NET option http_nolen=0
+[f77640] NET option dns=ok
+[f77640] NET option tcp=ok
+[f77640] NET option cgi=none
+[f77691] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f77691] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f77693] gb.mobile DEBUG: >>> 11 End session
+[f77693] gb.mobile DEBUG: <<< 11 End session
+[f77693] gb.mobile DEBUG: 
+[f77817] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f77817] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f77819] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f77819] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f77819] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f77819] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f77819] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f77819] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f77819] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f77819] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f77819] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f77819] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f77826] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f77826] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f77826] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f77826] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f77826] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f77826] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f77830] gb.mobile DEBUG: >>> 11 End session
+[f77830] gb.mobile DEBUG: <<< 11 End session
+[f77830] gb.mobile DEBUG: 
+[f78100] NET option http_trunc=300
+[f84120] HARNESS console reset (power cycle)
+[f84120] NET option pop_fail=none
+[f84120] NET option smtp_fail=none
+[f84120] NET option http_status=0
+[f84120] NET option http_missing=404
+[f84120] NET option http_trunc=-1
+[f84120] NET option http_nolen=0
+[f84120] NET option dns=ok
+[f84120] NET option tcp=ok
+[f84120] NET option cgi=none
+[f84171] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f84171] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f84173] gb.mobile DEBUG: >>> 11 End session
+[f84173] gb.mobile DEBUG: <<< 11 End session
+[f84173] gb.mobile DEBUG: 
+[f84297] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f84297] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f84299] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f84299] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f84299] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f84299] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f84299] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f84299] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f84299] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f84299] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f84299] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f84299] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f84306] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f84306] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f84306] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f84306] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f84306] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f84306] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f84310] gb.mobile DEBUG: >>> 11 End session
+[f84310] gb.mobile DEBUG: <<< 11 End session
+[f84310] gb.mobile DEBUG: 
+[f84580] NET option http_trunc=300
+[f90608] HARNESS console reset (power cycle)
+[f90608] NET option pop_fail=none
+[f90608] NET option smtp_fail=none
+[f90608] NET option http_status=0
+[f90608] NET option http_missing=404
+[f90608] NET option http_trunc=-1
+[f90608] NET option http_nolen=0
+[f90608] NET option dns=ok
+[f90608] NET option tcp=ok
+[f90608] NET option cgi=none
+[f90659] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f90659] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f90661] gb.mobile DEBUG: >>> 11 End session
+[f90661] gb.mobile DEBUG: <<< 11 End session
+[f90661] gb.mobile DEBUG: 
+[f90785] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f90785] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f90787] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f90787] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f90787] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f90787] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f90787] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f90787] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f90787] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f90787] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f90787] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f90787] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f90794] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f90794] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f90794] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f90794] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f90794] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f90794] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f90798] gb.mobile DEBUG: >>> 11 End session
+[f90798] gb.mobile DEBUG: <<< 11 End session
+[f90798] gb.mobile DEBUG: 
+[f91068] NET option tcp=refuse
+[f93084] HARNESS Mobile Adapter removed from the link port
+[f94092] HARNESS Mobile Adapter plugged in again
+[f97092] HARNESS console reset (power cycle)
+[f97092] NET option pop_fail=none
+[f97092] NET option smtp_fail=none
+[f97092] NET option http_status=0
+[f97092] NET option http_missing=404
+[f97092] NET option http_trunc=-1
+[f97092] NET option http_nolen=0
+[f97092] NET option dns=ok
+[f97092] NET option tcp=ok
+[f97092] NET option cgi=none
+[f97143] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f97143] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f97145] gb.mobile DEBUG: >>> 11 End session
+[f97145] gb.mobile DEBUG: <<< 11 End session
+[f97145] gb.mobile DEBUG: 
+[f97269] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f97269] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f97271] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f97271] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f97271] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f97271] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f97271] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f97271] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f97271] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f97271] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f97271] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f97271] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f97278] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f97278] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f97278] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f97278] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f97278] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f97278] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f97282] gb.mobile DEBUG: >>> 11 End session
+[f97282] gb.mobile DEBUG: <<< 11 End session
+[f97282] gb.mobile DEBUG: 
+[f103552] HARNESS console reset (power cycle)
+[f103552] NET option pop_fail=none
+[f103552] NET option smtp_fail=none
+[f103552] NET option http_status=0
+[f103552] NET option http_missing=404
+[f103552] NET option http_trunc=-1
+[f103552] NET option http_nolen=0
+[f103552] NET option dns=ok
+[f103552] NET option tcp=ok
+[f103552] NET option cgi=none
+[f103603] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f103603] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f103605] gb.mobile DEBUG: >>> 11 End session
+[f103605] gb.mobile DEBUG: <<< 11 End session
+[f103605] gb.mobile DEBUG: 
+[f103729] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f103729] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f103731] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f103731] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f103731] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f103731] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f103731] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f103731] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f103731] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f103731] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f103731] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f103731] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f103738] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f103738] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f103738] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f103738] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f103738] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f103738] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f103742] gb.mobile DEBUG: >>> 11 End session
+[f103742] gb.mobile DEBUG: <<< 11 End session
+[f103742] gb.mobile DEBUG: 
+[f104012] NET option smtp_fail=data
+[f105502] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f105502] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f105504] gb.mobile DEBUG: >>> 11 End session
+[f105504] gb.mobile DEBUG: <<< 11 End session
+[f105504] gb.mobile DEBUG: 
+[f107911] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f107911] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f107913] gb.mobile DEBUG: >>> 11 End session
+[f107913] gb.mobile DEBUG: <<< 11 End session
+[f107913] gb.mobile DEBUG: 
+[f109679] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f109679] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f109681] gb.mobile DEBUG: >>> 11 End session
+[f109681] gb.mobile DEBUG: <<< 11 End session
+[f109681] gb.mobile DEBUG: 
+[f110012] HARNESS console reset (power cycle)
+[f110012] NET option pop_fail=none
+[f110012] NET option smtp_fail=none
+[f110012] NET option http_status=0
+[f110012] NET option http_missing=404
+[f110012] NET option http_trunc=-1
+[f110012] NET option http_nolen=0
+[f110012] NET option dns=ok
+[f110012] NET option tcp=ok
+[f110012] NET option cgi=none
+[f110063] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f110063] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f110065] gb.mobile DEBUG: >>> 11 End session
+[f110065] gb.mobile DEBUG: <<< 11 End session
+[f110065] gb.mobile DEBUG: 
+[f110189] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f110189] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f110191] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f110191] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f110191] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f110191] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f110191] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f110191] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f110191] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f110191] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f110191] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f110191] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f110198] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f110198] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f110198] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f110198] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f110198] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f110198] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f110202] gb.mobile DEBUG: >>> 11 End session
+[f110202] gb.mobile DEBUG: <<< 11 End session
+[f110202] gb.mobile DEBUG: 
+[f110472] NET option tcp=refuse
+[f116500] HARNESS console reset (power cycle)
+[f116500] NET option pop_fail=none
+[f116500] NET option smtp_fail=none
+[f116500] NET option http_status=0
+[f116500] NET option http_missing=404
+[f116500] NET option http_trunc=-1
+[f116500] NET option http_nolen=0
+[f116500] NET option dns=ok
+[f116500] NET option tcp=ok
+[f116500] NET option cgi=none
+[f116551] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f116551] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f116553] gb.mobile DEBUG: >>> 11 End session
+[f116553] gb.mobile DEBUG: <<< 11 End session
+[f116553] gb.mobile DEBUG: 
+[f116677] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f116677] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f116679] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f116679] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f116679] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f116679] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f116679] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f116679] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f116679] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f116679] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f116679] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f116679] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f116686] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f116686] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f116686] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f116686] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f116686] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f116686] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f116690] gb.mobile DEBUG: >>> 11 End session
+[f116690] gb.mobile DEBUG: <<< 11 End session
+[f116690] gb.mobile DEBUG: 
+[f116960] NET option pop_fail=user
+[f122960] HARNESS console reset (power cycle)
+[f122960] NET option pop_fail=none
+[f122960] NET option smtp_fail=none
+[f122960] NET option http_status=0
+[f122960] NET option http_missing=404
+[f122960] NET option http_trunc=-1
+[f122960] NET option http_nolen=0
+[f122960] NET option dns=ok
+[f122960] NET option tcp=ok
+[f122960] NET option cgi=none
+[f123011] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f123011] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f123013] gb.mobile DEBUG: >>> 11 End session
+[f123013] gb.mobile DEBUG: <<< 11 End session
+[f123013] gb.mobile DEBUG: 
+[f123137] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f123137] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f123139] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f123139] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f123139] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f123139] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f123139] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f123139] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f123139] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f123139] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f123139] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f123139] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f123146] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f123146] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f123146] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f123146] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f123146] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f123146] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f123150] gb.mobile DEBUG: >>> 11 End session
+[f123150] gb.mobile DEBUG: <<< 11 End session
+[f123150] gb.mobile DEBUG: 
+[f125032] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f125032] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f125034] gb.mobile DEBUG: >>> 11 End session
+[f125034] gb.mobile DEBUG: <<< 11 End session
+[f125034] gb.mobile DEBUG: 
+[f125180] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f125180] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f125182] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f125182] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f125182] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f125182] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f125182] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f125182] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f125182] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f125182] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f125189] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f125189] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f125189] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f125189] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f125189] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f125189] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f125189] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f125189] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f125196] gb.mobile DEBUG: >>> 11 End session
+[f125196] gb.mobile DEBUG: <<< 11 End session
+[f125196] gb.mobile DEBUG: 
+[f125343] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f125343] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f125345] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f125345] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f125345] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f125345] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f125345] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f125345] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f125345] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f125345] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f125352] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f125352] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f125352] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f125352] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f125352] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f125352] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f125352] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f125352] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f125359] gb.mobile DEBUG: >>> 17 Status
+[f125359] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f125361] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f125361] gb.mobile DEBUG: <<< 12 Call
+[f125364] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f125364] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f125430] gb.mobile DEBUG: >>> 17 Status
+[f125430] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f125492] gb.mobile DEBUG: >>> 17 Status
+[f125492] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f125554] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f125554] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f125556] gb.mobile DEBUG: >>> 13 Disconnect
+[f125556] gb.mobile DEBUG: <<< 13 Disconnect
+[f125558] gb.mobile DEBUG: >>> 11 End session
+[f125558] gb.mobile DEBUG: <<< 11 End session
+[f125558] gb.mobile DEBUG: 
+[f127704] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f127704] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f127706] gb.mobile DEBUG: >>> 11 End session
+[f127706] gb.mobile DEBUG: <<< 11 End session
+[f127706] gb.mobile DEBUG: 
+[f129144] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f129144] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f129146] gb.mobile DEBUG: >>> 11 End session
+[f129146] gb.mobile DEBUG: <<< 11 End session
+[f129146] gb.mobile DEBUG: 
+[f129420] HARNESS console reset (power cycle)
+[f129420] NET option pop_fail=none
+[f129420] NET option smtp_fail=none
+[f129420] NET option http_status=0
+[f129420] NET option http_missing=404
+[f129420] NET option http_trunc=-1
+[f129420] NET option http_nolen=0
+[f129420] NET option dns=ok
+[f129420] NET option tcp=ok
+[f129420] NET option cgi=none
+[f129471] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f129471] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f129473] gb.mobile DEBUG: >>> 11 End session
+[f129473] gb.mobile DEBUG: <<< 11 End session
+[f129473] gb.mobile DEBUG: 
+[f129597] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f129597] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f129599] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f129599] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f129599] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f129599] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f129599] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f129599] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f129599] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f129599] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f129599] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f129599] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f129606] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f129606] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f129606] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f129606] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f129606] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f129606] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f129610] gb.mobile DEBUG: >>> 11 End session
+[f129610] gb.mobile DEBUG: <<< 11 End session
+[f129610] gb.mobile DEBUG: 
+[f129880] NET option smtp_fail=data
+[f135908] HARNESS console reset (power cycle)
+[f135908] NET option pop_fail=none
+[f135908] NET option smtp_fail=none
+[f135908] NET option http_status=0
+[f135908] NET option http_missing=404
+[f135908] NET option http_trunc=-1
+[f135908] NET option http_nolen=0
+[f135908] NET option dns=ok
+[f135908] NET option tcp=ok
+[f135908] NET option cgi=none
+[f135959] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f135959] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f135961] gb.mobile DEBUG: >>> 11 End session
+[f135961] gb.mobile DEBUG: <<< 11 End session
+[f135961] gb.mobile DEBUG: 
+[f136085] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f136085] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f136087] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f136087] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f136087] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f136087] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f136087] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f136087] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f136087] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f136087] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f136087] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f136087] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f136094] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f136094] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f136094] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f136094] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f136094] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f136094] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f136098] gb.mobile DEBUG: >>> 11 End session
+[f136098] gb.mobile DEBUG: <<< 11 End session
+[f136098] gb.mobile DEBUG: 
+[f136368] NET option smtp_fail=data
+[f138368] HARNESS Mobile Adapter removed from the link port
+[f139368] HARNESS Mobile Adapter plugged in again
+[f142368] HARNESS console reset (power cycle)
+[f142368] NET option pop_fail=none
+[f142368] NET option smtp_fail=none
+[f142368] NET option http_status=0
+[f142368] NET option http_missing=404
+[f142368] NET option http_trunc=-1
+[f142368] NET option http_nolen=0
+[f142368] NET option dns=ok
+[f142368] NET option tcp=ok
+[f142368] NET option cgi=none
+[f142419] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f142419] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f142421] gb.mobile DEBUG: >>> 11 End session
+[f142421] gb.mobile DEBUG: <<< 11 End session
+[f142421] gb.mobile DEBUG: 
+[f142545] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f142545] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f142547] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f142547] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f142547] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f142547] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f142547] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f142547] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f142547] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f142547] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f142547] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f142547] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f142554] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f142554] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f142554] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f142554] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f142554] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f142554] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f142558] gb.mobile DEBUG: >>> 11 End session
+[f142558] gb.mobile DEBUG: <<< 11 End session
+[f142558] gb.mobile DEBUG: 
+[f148828] HARNESS console reset (power cycle)
+[f148828] NET option pop_fail=none
+[f148828] NET option smtp_fail=none
+[f148828] NET option http_status=0
+[f148828] NET option http_missing=404
+[f148828] NET option http_trunc=-1
+[f148828] NET option http_nolen=0
+[f148828] NET option dns=ok
+[f148828] NET option tcp=ok
+[f148828] NET option cgi=none
+[f148879] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f148879] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f148881] gb.mobile DEBUG: >>> 11 End session
+[f148881] gb.mobile DEBUG: <<< 11 End session
+[f148881] gb.mobile DEBUG: 
+[f149005] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f149005] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f149007] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f149007] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f149007] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f149007] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f149007] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f149007] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f149007] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f149007] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f149007] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f149007] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f149014] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f149014] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f149014] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f149014] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f149014] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f149014] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f149018] gb.mobile DEBUG: >>> 11 End session
+[f149018] gb.mobile DEBUG: <<< 11 End session
+[f149018] gb.mobile DEBUG: 
+[f149288] NET option cgi=401/-/fake/-/-
+[f149900] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f149900] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f149902] gb.mobile DEBUG: >>> 11 End session
+[f149902] gb.mobile DEBUG: <<< 11 End session
+[f149902] gb.mobile DEBUG: 
+[f150748] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f150748] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f150750] gb.mobile DEBUG: >>> 11 End session
+[f150750] gb.mobile DEBUG: <<< 11 End session
+[f150750] gb.mobile DEBUG: 
+[f151288] HARNESS Mobile Adapter removed from the link port
+[f152288] HARNESS Mobile Adapter plugged in again
+[f152300] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f152300] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f152302] gb.mobile DEBUG: >>> 11 End session
+[f152302] gb.mobile DEBUG: <<< 11 End session
+[f152302] gb.mobile DEBUG: 
+[f152446] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f152446] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f152448] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f152448] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f152448] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f152448] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f152448] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f152448] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f152448] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f152448] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f152455] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f152455] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f152455] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f152455] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f152455] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f152455] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f152455] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f152455] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f152462] gb.mobile DEBUG: >>> 11 End session
+[f152462] gb.mobile DEBUG: <<< 11 End session
+[f152462] gb.mobile DEBUG: 
+[f153580] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f153580] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f153582] gb.mobile DEBUG: >>> 11 End session
+[f153582] gb.mobile DEBUG: <<< 11 End session
+[f153582] gb.mobile DEBUG: 
+[f154788] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f154788] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f154790] gb.mobile DEBUG: >>> 11 End session
+[f154790] gb.mobile DEBUG: <<< 11 End session
+[f154790] gb.mobile DEBUG: 
+[f155288] HARNESS console reset (power cycle)
+[f155288] NET option pop_fail=none
+[f155288] NET option smtp_fail=none
+[f155288] NET option http_status=0
+[f155288] NET option http_missing=404
+[f155288] NET option http_trunc=-1
+[f155288] NET option http_nolen=0
+[f155288] NET option dns=ok
+[f155288] NET option tcp=ok
+[f155288] NET option cgi=none
+[f155339] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f155339] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f155341] gb.mobile DEBUG: >>> 11 End session
+[f155341] gb.mobile DEBUG: <<< 11 End session
+[f155341] gb.mobile DEBUG: 
+[f155465] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f155465] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f155467] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f155467] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f155467] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f155467] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f155467] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f155467] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f155467] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f155467] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f155467] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f155467] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f155474] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f155474] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f155474] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f155474] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f155474] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f155474] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f155478] gb.mobile DEBUG: >>> 11 End session
+[f155478] gb.mobile DEBUG: <<< 11 End session
+[f155478] gb.mobile DEBUG: 
+[f155748] NET option http_trunc=300
+[f157748] HARNESS Mobile Adapter removed from the link port
+[f158756] HARNESS Mobile Adapter plugged in again
+[f161764] HARNESS console reset (power cycle)
+[f161764] NET option pop_fail=none
+[f161764] NET option smtp_fail=none
+[f161764] NET option http_status=0
+[f161764] NET option http_missing=404
+[f161764] NET option http_trunc=-1
+[f161764] NET option http_nolen=0
+[f161764] NET option dns=ok
+[f161764] NET option tcp=ok
+[f161764] NET option cgi=none
+[f161815] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f161815] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f161817] gb.mobile DEBUG: >>> 11 End session
+[f161817] gb.mobile DEBUG: <<< 11 End session
+[f161817] gb.mobile DEBUG: 
+[f161941] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f161941] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f161943] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f161943] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f161943] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f161943] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f161943] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f161943] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f161943] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f161943] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f161943] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f161943] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f161950] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f161950] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f161950] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f161950] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f161950] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f161950] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f161954] gb.mobile DEBUG: >>> 11 End session
+[f161954] gb.mobile DEBUG: <<< 11 End session
+[f161954] gb.mobile DEBUG: 
+[f162224] NET option pop_fail=connect
+[f164224] HARNESS Mobile Adapter removed from the link port
+[f165232] HARNESS Mobile Adapter plugged in again
+[f168240] HARNESS console reset (power cycle)
+[f168240] NET option pop_fail=none
+[f168240] NET option smtp_fail=none
+[f168240] NET option http_status=0
+[f168240] NET option http_missing=404
+[f168240] NET option http_trunc=-1
+[f168240] NET option http_nolen=0
+[f168240] NET option dns=ok
+[f168240] NET option tcp=ok
+[f168240] NET option cgi=none
+[f168291] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f168291] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f168293] gb.mobile DEBUG: >>> 11 End session
+[f168293] gb.mobile DEBUG: <<< 11 End session
+[f168293] gb.mobile DEBUG: 
+[f168417] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f168417] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f168419] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f168419] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f168419] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f168419] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f168419] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f168419] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f168419] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f168419] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f168419] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f168419] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f168426] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f168426] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f168426] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f168426] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f168426] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f168426] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f168430] gb.mobile DEBUG: >>> 11 End session
+[f168430] gb.mobile DEBUG: <<< 11 End session
+[f168430] gb.mobile DEBUG: 
+[f168700] NET option dns=nx
+[f169273] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f169273] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f169275] gb.mobile DEBUG: >>> 11 End session
+[f169275] gb.mobile DEBUG: <<< 11 End session
+[f169275] gb.mobile DEBUG: 
+[f169399] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f169399] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f169401] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f169401] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f169401] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f169401] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f169401] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f169401] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f169401] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f169401] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f169401] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f169401] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f169408] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f169408] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f169408] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f169408] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f169408] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f169408] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f169412] gb.mobile DEBUG: >>> 11 End session
+[f169412] gb.mobile DEBUG: <<< 11 End session
+[f169412] gb.mobile DEBUG: 
+[f170637] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f170637] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f170639] gb.mobile DEBUG: >>> 11 End session
+[f170639] gb.mobile DEBUG: <<< 11 End session
+[f170639] gb.mobile DEBUG: 
+[f170763] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f170763] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f170765] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f170765] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f170765] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f170765] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f170765] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f170765] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f170765] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f170765] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f170765] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f170765] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f170772] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f170772] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f170772] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f170772] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f170772] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f170772] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f170776] gb.mobile DEBUG: >>> 11 End session
+[f170776] gb.mobile DEBUG: <<< 11 End session
+[f170776] gb.mobile DEBUG: 
+[f172662] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f172662] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f172664] gb.mobile DEBUG: >>> 11 End session
+[f172664] gb.mobile DEBUG: <<< 11 End session
+[f172664] gb.mobile DEBUG: 
+[f172788] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f172788] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f172790] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f172790] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f172790] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f172790] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f172790] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f172790] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f172790] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f172790] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f172790] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f172790] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f172797] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f172797] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f172797] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f172797] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f172797] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f172797] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f172801] gb.mobile DEBUG: >>> 11 End session
+[f172801] gb.mobile DEBUG: <<< 11 End session
+[f172801] gb.mobile DEBUG: 
+[f174728] HARNESS console reset (power cycle)
+[f174728] NET option pop_fail=none
+[f174728] NET option smtp_fail=none
+[f174728] NET option http_status=0
+[f174728] NET option http_missing=404
+[f174728] NET option http_trunc=-1
+[f174728] NET option http_nolen=0
+[f174728] NET option dns=ok
+[f174728] NET option tcp=ok
+[f174728] NET option cgi=none
+[f174779] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f174779] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f174781] gb.mobile DEBUG: >>> 11 End session
+[f174781] gb.mobile DEBUG: <<< 11 End session
+[f174781] gb.mobile DEBUG: 
+[f174905] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f174905] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f174907] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f174907] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f174907] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f174907] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f174907] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f174907] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f174907] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f174907] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f174907] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f174907] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f174914] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f174914] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f174914] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f174914] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f174914] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f174914] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f174918] gb.mobile DEBUG: >>> 11 End session
+[f174918] gb.mobile DEBUG: <<< 11 End session
+[f174918] gb.mobile DEBUG: 
+[f175188] NET option pop_fail=connect

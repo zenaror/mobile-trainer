@@ -58,6 +58,7 @@ struct Opts {
 	const char* macro;
 	const char* recordInput;
 	int frames;
+	int framesGiven;  /* --frames was passed explicitly (also caps a --macro run) */
 	int mobile;       /* 0 = no serial peer, 1 = libmobile adapter */
 	int mobileAt;     /* >0: hot-plug the adapter at this frame instead of at power-on */
 	int netMode;      /* 0 = sockets refused (stub), 1 = real host network, 2 = built-in fake Internet */
@@ -70,7 +71,7 @@ struct Opts {
 /* ------------------------------------------------------------------------- */
 /* input script                                                               */
 
-enum { EV_SET, EV_TAP, EV_SHOT, EV_MARK };
+enum { EV_SET, EV_TAP, EV_SHOT, EV_MARK, EV_UNPLUG, EV_PLUG, EV_NET, EV_RESET, EV_WIPE, EV_SRAM, EV_SRAMFILL, EV_CFG, EV_CFGFILL };
 struct InputEv {
 	int frame;
 	int kind;
@@ -120,6 +121,15 @@ static void addEv(struct InputEv ev) {
  *   <frame> tap <BUTTONS> [len]  press for len frames (default 4), then release
  *   <frame> shot [name]          screenshot at the START of <frame>
  *   <frame> mark <text>          annotation copied into the events log
+ *   <frame> unplug               detach the Mobile Adapter from the link port (serial reads 0xFF from then on)
+ *   <frame> plug                 attach it again (its in-memory configuration is kept, all sessions are lost)
+ *   <frame> net <key>=<value>    change a fake-Internet option at run time (see netSetOpt)
+ *   <frame> sram B:ADDR=VV       set one byte of the save RAM (bank B, address A000-BFFF, hex); <frame> sramfill VV fills all of it
+ *   <frame> cfg OFF=VV           set one byte of the adapter EEPROM image (offset 000-1FF, hex, effective at the next re-creation of the
+ *                                adapter = plug/reset); <frame> cfgfill VV fills the whole image
+ *   <frame> wipe                 factory reset: save RAM back to 0xFF, adapter configuration back to blank (zero), then a power cycle
+ *   <frame> reset                power cycle: the console restarts from the ROM entry point with the same save RAM; the adapter is
+ *                                re-created from its (kept) configuration, so every session is lost; the tracer's data are kept
  * BUTTONS = A B SELECT START UP DOWN LEFT RIGHT joined by '+'.
  */
 static void loadInput(const char* path) {
@@ -167,6 +177,23 @@ static void loadInput(const char* path) {
 		} else if (!strncmp(p, "mark", 4) && (isspace((unsigned char) p[4]) || !p[4])) {
 			ev.kind = EV_MARK;
 			p += 4;
+			while (isspace((unsigned char) *p)) ++p;
+			strncpy(ev.text, p, sizeof(ev.text) - 1);
+		} else if (!strcmp(p, "unplug")) {
+			ev.kind = EV_UNPLUG;
+		} else if (!strcmp(p, "reset")) {
+			ev.kind = EV_RESET;
+		} else if (!strcmp(p, "wipe")) {
+			ev.kind = EV_WIPE;
+		} else if (!strncmp(p, "sramfill", 8) || !strncmp(p, "cfgfill", 7) || !strncmp(p, "sram ", 5) || !strncmp(p, "cfg ", 4)) {
+			ev.kind = !strncmp(p, "sramfill", 8) ? EV_SRAMFILL : !strncmp(p, "cfgfill", 7) ? EV_CFGFILL : !strncmp(p, "sram ", 5) ? EV_SRAM : EV_CFG;
+			const char* a = strchr(p, ' ');
+			strncpy(ev.text, a ? a + 1 : "", sizeof(ev.text) - 1);
+		} else if (!strcmp(p, "plug")) {
+			ev.kind = EV_PLUG;
+		} else if (!strncmp(p, "net", 3) && isspace((unsigned char) p[3])) {
+			ev.kind = EV_NET;
+			p += 3;
 			while (isspace((unsigned char) *p)) ++p;
 			strncpy(ev.text, p, sizeof(ev.text) - 1);
 		} else {
@@ -421,8 +448,23 @@ static const char* hwName(uint16_t a) {
 	}
 }
 
+/* debugging aid, never used by committed scenarios: --watch ADDR (hex, repeatable) logs every CPU write to that address
+   into <outdir>/watch_<scenario>.tsv as "frame pc_bank pc addr value" */
+struct Poke { int bank; unsigned addr; unsigned char val; };
+static struct Poke sramPokes[64], cfgPokes[64];
+static int sramPokeCount, cfgPokeCount;
+
+static uint16_t watchAddr[8];
+static int watchCount;
+static FILE* watchFile;
+
 static void hookStore8(struct SM83Core* c, uint16_t address, int8_t value) {
 	uint8_t v = (uint8_t) value;
+	if (watchCount) {
+		for (int i = 0; i < watchCount; ++i) {
+			if (watchAddr[i] == address && watchFile) fprintf(watchFile, "%d\t%02X\t%04X\t%04X\t%02X\n", curFrame, insBank < 0 ? 0xFF : insBank, insPc, address, v);
+		}
+	}
 	if (address < 0x8000) {
 		int before = gb->memory.currentBank;
 		origStore8(c, address, value);
@@ -508,7 +550,7 @@ static inline uint8_t peek(uint16_t a) {
    is an anomaly (push/ret jump tricks, stack switching) and is recorded with its real destination */
 struct ShadowEnt { uint16_t ret; uint16_t sp; };
 static struct ShadowEnt shadow[8192];
-static int shadowN;
+int shadowN;
 static void shadowPush(uint16_t ret, uint16_t spAfter) {
 	if (shadowN >= (int) (sizeof(shadow) / sizeof(shadow[0]))) {
 		memmove(shadow, shadow + 1024, (size_t) (shadowN - 1024) * sizeof(shadow[0]));   /* drop the oldest frames */
@@ -693,16 +735,38 @@ static int stubSockRecv(void* u, unsigned c, void* d, unsigned s, struct mobile_
  * network code paths can run without any real host traffic:
  *   UDP (any)  -> DNS: every name resolves to 10.0.<n>.<m> (hash of the name)
  *   TCP :110   -> POP3  (+OK to USER/PASS/STAT/LIST/UIDL/RETR/DELE/NOOP/QUIT)
- *   TCP :25    -> SMTP  (220 greeting, 250 to HELO/EHLO/MAIL/RCPT, 354 to DATA, 250 after '.', 221 QUIT)
+ *   TCP :25/587 -> SMTP (libmobile rewrites the ROM's port 25 to 587; 220 greeting, 250 to HELO/EHLO/MAIL/RCPT, 354 to DATA, 250 after '.', 221 QUIT)
  *   TCP other  -> HTTP  (any request answered with an empty 404 and closed)
  * Everything is logged into adapter_<scenario>.log as 'NET ...' lines.
+ *
+ * Options (all default to the behaviour above; set with --net-opt KEY=VALUE, or at run time by the macro/frame
+ * directive `net KEY=VALUE`; every option is a deterministic function of the ROM's traffic, never of wall time):
+ *   pop_fail=CMD     POP3 command CMD (connect user pass stat list uidl retr top dele) is answered "-ERR" ('none' clears)
+ *   smtp_fail=STAGE  SMTP stage (connect helo mail rcpt data end) is answered with a 5xx reply ('none' clears)
+ *   http_status=N    every HTTP request is answered with status N and an empty body (0 = normal behaviour)
+ *   http_missing=N   only requests that are not served from --web-map get status N (default 404)
+ *   http_nolen=1     200 answers carry no Content-Length (HTTP/1.0 close-delimited body)
+ *   http_trunc=N     200 answers announce the full Content-Length but only N body bytes are sent before the close
+ *   http_redirect=1  mapped pages are answered with "302 Found" + Location: <absolute URL of the mapped index page>
+ *   cgi=S/G/A/T/H    answer requests for paths containing ".cgi" or "/utility" with status S, header Gb-Status: G, WWW-Authenticate: GB00 name="A", Content-Type
+ *                    T (html|cgb = application/x-cgb) and body H (hex); '-' omits a field; cgi=none clears (the ROM's response format is not
+ *                    documented: the scenarios probe it, see docs/research/dynamic_tracing.md)
+ *   dns=nx|drop|ok   DNS answers NXDOMAIN (rcode 3), no answer at all, or the normal 10.0.x.y address
+ *   tcp=refuse|reset|ok  refuse every TCP connect, or make every TCP send/recv fail (connection reset), or normal
+ * Mailbox: --mail FILE (repeatable) puts one RFC 822 message into the fake POP3 mailbox; DELE takes effect at QUIT.
+ * With an empty mailbox the legacy answers are kept exactly (STAT "+OK 0 0", LIST/UIDL "+OK" + ".").
  */
 struct FakeSock {
 	int used, type, connected, remoteClosed, inData;
 	unsigned port;
 	unsigned char ip[4];
-	unsigned char rx[8192];
+	unsigned char rx[65536];
 	size_t rxLen, rxPos;
+	unsigned delMask;               /* POP3: session messages (bit n-1 = message number n) marked by DELE */
+	int sessCount;                  /* POP3: messages present when the session started (numbers 1..sessCount stay fixed until QUIT) */
+	int sess[32];                   /* POP3: mailbox index of session message n-1 */
+	size_t smtpBytes;               /* SMTP: bytes of the DATA section seen */
+	int readyFrame;                 /* server bytes become deliverable from this frame on (option latency=N) */
 	char line[1024];
 	size_t lineLen;
 	unsigned char udpPending[600];
@@ -711,7 +775,7 @@ struct FakeSock {
 static struct FakeSock fsock[MOBILE_MAX_CONNECTIONS];
 
 /* --web-map URLPATH=FILE : HTTP resources served by the fake Internet (raw bytes, e.g. Shift-JIS HTML) */
-struct WebEntry { char path[256]; unsigned char* data; size_t size; };
+struct WebEntry { char path[256]; unsigned char* data; size_t size; int status; char hdr[512]; };
 static struct WebEntry webMap[64];
 static int webCount;
 static char httpReqPath[512];
@@ -724,6 +788,8 @@ static void addWebMap(const char* spec) {
 	if (pl >= sizeof(w->path)) exit(2);
 	memcpy(w->path, spec, pl);
 	w->path[pl] = 0;
+	w->status = 200;
+	w->hdr[0] = 0;
 	FILE* f = fopen(eq + 1, "rb");
 	if (!f) { fprintf(stderr, "cannot read web file %s\n", eq + 1); exit(2); }
 	fseek(f, 0, SEEK_END);
@@ -736,6 +802,62 @@ static void addWebMap(const char* spec) {
 	++webCount;
 }
 
+
+/* ---- fake-Internet options (see the header comment above) ---- */
+static struct {
+	char popFail[16], smtpFail[16];
+	int httpStatus, httpMissing, httpNoLen, httpTrunc, httpRedirect;
+	char cgi[160];    /* option cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY: answer for ".cgi" and "/utility" requests ('-' = omit), "" = off */
+	int dns;          /* 0 ok, 1 nx, 2 drop */
+	int tcp;          /* 0 ok, 1 refuse, 2 reset */
+} netCfg = {"", "", 0, 404, 0, -1, 0, "", 0, 0};
+
+struct Mail { unsigned char* data; size_t size; int gone; };
+static struct Mail mails[32];
+static int mailCount;
+
+static void addMail(const char* path) {
+	FILE* f = fopen(path, "rb");
+	if (!f || mailCount >= 32) { fprintf(stderr, "cannot read mail file %s\n", path); exit(2); }
+	fseek(f, 0, SEEK_END);
+	size_t n = (size_t) ftell(f);
+	fseek(f, 0, SEEK_SET);
+	unsigned char* d = malloc(n + 1);
+	size_t got = fread(d, 1, n, f);
+	(void) got;
+	fclose(f);
+	mails[mailCount].data = d;
+	mails[mailCount].size = n;
+	mails[mailCount].gone = 0;
+	++mailCount;
+}
+
+static void netSetOpt(const char* kv);
+static int netTraceRecv;   /* option trace_recv=1: log every delivery of server bytes to the ROM (off by default: keeps old logs identical) */
+
+/* --web-hdr PATH=Header: value  (repeatable) adds a response header line to the entry added with --web-map PATH=...;
+   --web-status PATH=N sets that entry's status code (default 200; the reason phrase is fixed) */
+static struct WebEntry* webFind(const char* spec, const char** rest) {
+	const char* eq = strchr(spec, '=');
+	if (!eq) { fprintf(stderr, "bad web option %s\n", spec); exit(2); }
+	for (int i = 0; i < webCount; ++i)
+		if (strlen(webMap[i].path) == (size_t) (eq - spec) && !strncmp(webMap[i].path, spec, (size_t) (eq - spec))) { *rest = eq + 1; return &webMap[i]; }
+	fprintf(stderr, "web option for an unmapped path: %s (add --web-map first)\n", spec);
+	exit(2);
+}
+static void addWebHdr(const char* spec) {
+	const char* v;
+	struct WebEntry* w = webFind(spec, &v);
+	if (strlen(w->hdr) + strlen(v) + 3 >= sizeof(w->hdr)) { fprintf(stderr, "web header too long\n"); exit(2); }
+	strcat(w->hdr, v);
+	strcat(w->hdr, "\r\n");
+}
+static void addWebStatus(const char* spec) {
+	const char* v;
+	struct WebEntry* w = webFind(spec, &v);
+	w->status = atoi(v);
+}
+
 static void netlog(const char* fmt, ...) {
 	if (!adapterLogFile) return;
 	va_list ap;
@@ -746,9 +868,11 @@ static void netlog(const char* fmt, ...) {
 	va_end(ap);
 }
 
+static int netLatency;   /* option latency=N: server data becomes readable N frames after the ROM's last send (0 = at once, legacy) */
 static void fqueue(struct FakeSock* f, const char* s) {
 	size_t n = strlen(s);
 	if (f->rxLen + n > sizeof(f->rx)) return;
+	if (f->rxLen == f->rxPos) f->readyFrame = curFrame + netLatency;
 	memcpy(f->rx + f->rxLen, s, n);
 	f->rxLen += n;
 }
@@ -769,30 +893,129 @@ static int fakeSockConnect(void* u, unsigned c, const struct mobile_addr* addr) 
 	if (addr->type != MOBILE_ADDRTYPE_IPV4) return -1;
 	memcpy(f->ip, a4->host, 4);
 	f->port = a4->port;
+	if (f->type == MOBILE_SOCKTYPE_TCP && netCfg.tcp == 1) {
+		netlog("sock_connect conn=%u TCP %u.%u.%u.%u:%u -> refused (tcp=refuse)", c, f->ip[0], f->ip[1], f->ip[2], f->ip[3], f->port);
+		return -1;
+	}
 	f->connected = 1;
 	netlog("sock_connect conn=%u %s %u.%u.%u.%u:%u", c, f->type == MOBILE_SOCKTYPE_UDP ? "UDP" : "TCP", f->ip[0], f->ip[1], f->ip[2], f->ip[3], f->port);
 	if (f->type == MOBILE_SOCKTYPE_TCP) {
-		if (f->port == 110) fqueue(f, "+OK POP3 fake ready\r\n");
-		else if (f->port == 25) fqueue(f, "220 fake ESMTP ready\r\n");
+		if (f->port == 110) {
+			f->sessCount = 0;
+			for (int i = 0; i < mailCount; ++i) if (!mails[i].gone) f->sess[f->sessCount++] = i;
+		}
+		if (f->port == 110) fqueue(f, !strcmp(netCfg.popFail, "connect") ? "-ERR service not available\r\n" : "+OK POP3 fake ready\r\n");
+		else if (f->port == 25 || f->port == 587) fqueue(f, !strcmp(netCfg.smtpFail, "connect") ? "554 no service\r\n" : "220 fake ESMTP ready\r\n");
 	}
 	return 1;
 }
 static bool fakeSockListen(void* u, unsigned c) { (void) u; (void) c; return false; }
 static bool fakeSockAccept(void* u, unsigned c) { (void) u; (void) c; return false; }
 
+/* POP3 message-number argument ("RETR 00000" is patched to a decimal number by the ROM), 1-based; 0 when absent */
+static int popArg(const char* l) {
+	const char* sp = strchr(l, ' ');
+	return sp ? atoi(sp + 1) : 0;
+}
+static void popSendMsg(struct FakeSock* f, int idx, int headersOnly) {
+	const struct Mail* m = &mails[idx];
+	size_t i = 0;
+	int bol = 1;
+	int blankSeen = 0;
+	char hdr[64];
+	snprintf(hdr, sizeof(hdr), "+OK %zu octets\r\n", m->size);
+	fqueue(f, hdr);
+	while (i < m->size) {
+		size_t e = i;
+		while (e < m->size && m->data[e] != '\n') ++e;
+		size_t linelen = e - i;
+		size_t l2 = linelen;
+		if (l2 && m->data[i + l2 - 1] == '\r') --l2;
+		if (headersOnly && blankSeen) break;
+		if (l2 == 0) blankSeen = 1;
+		if (bol && l2 && m->data[i] == '.') { if (f->rxLen < sizeof(f->rx)) f->rx[f->rxLen++] = '.'; }
+		if (f->rxLen + l2 + 2 <= sizeof(f->rx)) { memcpy(f->rx + f->rxLen, m->data + i, l2); f->rxLen += l2; f->rx[f->rxLen++] = '\r'; f->rx[f->rxLen++] = '\n'; }
+		i = e + 1;
+	}
+	fqueue(f, ".\r\n");
+}
+static int popLive(const struct FakeSock* f, size_t* total) {
+	int n = 0;
+	*total = 0;
+	for (int i = 0; i < f->sessCount; ++i) if (!(f->delMask & (1u << i))) { ++n; *total += mails[f->sess[i]].size; }
+	return n;
+}
+/* mailbox index of session message number `num` (1-based, numbers do not change after DELE, RFC 1939), -1 if absent or deleted */
+static int popMsg(const struct FakeSock* f, int num) {
+	if (num < 1 || num > f->sessCount || (f->delMask & (1u << (num - 1)))) return -1;
+	return f->sess[num - 1];
+}
+
 static void fakeTcpLine(struct FakeSock* f) {
 	char* l = f->line;
 	netlog("tcp:%u rx-line \"%s\"", f->port, l);
 	if (f->port == 110) {
-		if (!strncasecmp(l, "QUIT", 4)) { fqueue(f, "+OK bye\r\n"); f->remoteClosed = 1; }
-		else if (!strncasecmp(l, "STAT", 4)) fqueue(f, "+OK 0 0\r\n");
-		else if (!strncasecmp(l, "LIST", 4) || !strncasecmp(l, "UIDL", 4)) fqueue(f, "+OK\r\n.\r\n");
-		else fqueue(f, "+OK\r\n");
-	} else if (f->port == 25) {
+		char cmd[8] = {0};
+		for (int i = 0; i < 4 && l[i] && l[i] != ' '; ++i) cmd[i] = (char) tolower((unsigned char) l[i]);
+		const char* fail = netCfg.popFail;
+		if (*fail && (!strcmp(fail, cmd) || (!strcmp(fail, "user") && !strcmp(cmd, "user")))) { fqueue(f, "-ERR simulated failure\r\n"); return; }
+		if (!strcmp(cmd, "quit")) {
+			for (int i = 0; i < f->sessCount; ++i) if (f->delMask & (1u << i)) mails[f->sess[i]].gone = 1;
+			fqueue(f, "+OK bye\r\n");
+			f->remoteClosed = 1;
+		} else if (!strcmp(cmd, "stat")) {
+			size_t tot;
+			int n = popLive(f, &tot);
+			char b[64];
+			snprintf(b, sizeof(b), "+OK %d %zu\r\n", n, tot);
+			fqueue(f, b);
+		} else if (!strcmp(cmd, "list") || !strcmp(cmd, "uidl")) {
+			size_t tot;
+			int n = popLive(f, &tot);
+			int arg = popArg(l);
+			char b[96];
+			if (mailCount == 0) fqueue(f, "+OK\r\n.\r\n");
+			else if (arg > 0) {
+				int ix = popMsg(f, arg);
+				if (ix < 0) fqueue(f, "-ERR no such message\r\n");
+				else { snprintf(b, sizeof(b), "+OK %d %zu\r\n", arg, mails[ix].size); fqueue(f, b); }
+			} else {
+				snprintf(b, sizeof(b), "+OK %d messages (%zu octets)\r\n", n, tot);
+				fqueue(f, b);
+				for (int k = 1; k <= f->sessCount; ++k) {
+					int ix = popMsg(f, k);
+					if (ix >= 0) { snprintf(b, sizeof(b), "%d %zu\r\n", k, mails[ix].size); fqueue(f, b); }
+				}
+				fqueue(f, ".\r\n");
+			}
+		} else if (!strcmp(cmd, "retr") || !strcmp(cmd, "top")) {
+			int ix = popMsg(f, popArg(l));
+			if (mailCount == 0) fqueue(f, "+OK\r\n");
+			else if (ix < 0) fqueue(f, "-ERR no such message\r\n");
+			else popSendMsg(f, ix, !strcmp(cmd, "top"));
+		} else if (!strcmp(cmd, "dele")) {
+			int num = popArg(l);
+			int ix = popMsg(f, num);
+			if (mailCount == 0) fqueue(f, "+OK\r\n");
+			else if (ix < 0) fqueue(f, "-ERR no such message\r\n");
+			else { f->delMask |= 1u << (num - 1); fqueue(f, "+OK deleted\r\n"); }
+		} else fqueue(f, "+OK\r\n");
+	} else if (f->port == 25 || f->port == 587) {   /* libmobile's SMTP interceptor rewrites the ROM's port 25 to 587 */
+		const char* sf = netCfg.smtpFail;
 		if (f->inData) {
-			if (!strcmp(l, ".")) { f->inData = 0; fqueue(f, "250 OK queued\r\n"); }
-		} else if (!strncasecmp(l, "DATA", 4)) { f->inData = 1; fqueue(f, "354 go ahead\r\n"); }
-		else if (!strncasecmp(l, "QUIT", 4)) { fqueue(f, "221 bye\r\n"); f->remoteClosed = 1; }
+			f->smtpBytes += strlen(l) + 2;
+			if (!strcmp(l, ".")) {
+				f->inData = 0;
+				netlog("smtp message received (%zu bytes of DATA)", f->smtpBytes);
+				fqueue(f, !strcmp(sf, "end") ? "554 message rejected\r\n" : "250 OK queued\r\n");
+			}
+		} else if (!strncasecmp(l, "DATA", 4)) {
+			if (!strcmp(sf, "data")) fqueue(f, "554 no data please\r\n");
+			else { f->inData = 1; f->smtpBytes = 0; fqueue(f, "354 go ahead\r\n"); }
+		} else if (!strncasecmp(l, "QUIT", 4)) { fqueue(f, "221 bye\r\n"); f->remoteClosed = 1; }
+		else if (!strncasecmp(l, "HELO", 4) || !strncasecmp(l, "EHLO", 4)) fqueue(f, !strcmp(sf, "helo") ? "501 bad hostname\r\n" : "250 OK\r\n");
+		else if (!strncasecmp(l, "MAIL", 4)) fqueue(f, !strcmp(sf, "mail") ? "553 sender rejected\r\n" : "250 OK\r\n");
+		else if (!strncasecmp(l, "RCPT", 4)) fqueue(f, !strcmp(sf, "rcpt") ? "550 no such user\r\n" : "250 OK\r\n");
 		else fqueue(f, "250 OK\r\n");
 	} else {
 		if (!strncmp(l, "GET ", 4) || !strncmp(l, "POST ", 5)) {
@@ -807,15 +1030,54 @@ static void fakeTcpLine(struct FakeSock* f) {
 			for (int i = 0; i < webCount; ++i) {
 				if (!strcmp(webMap[i].path, httpReqPath) || (webMap[i].path[0] == '*' && strstr(httpReqPath, webMap[i].path + 1))) { hit = &webMap[i]; break; }
 			}
-			if (hit) {
-				char hdr[160];
-				snprintf(hdr, sizeof(hdr), "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nContent-Length: %zu\r\n\r\n", hit->size);
+			if (netCfg.cgi[0] && (strstr(httpReqPath, ".cgi") || strstr(httpReqPath, "/utility"))) {
+				/* cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY (fields separated by '/'; '-' = omit): CTYPE is html|cgb|-;
+				   GBSTATUS becomes "Gb-Status: <n>", AUTH becomes 'WWW-Authenticate: GB00 name="<AUTH>"'; HEXBODY is the body in hex */
+				char spec[160], *fld[5] = {0, 0, 0, 0, 0};
+				snprintf(spec, sizeof(spec), "%s", netCfg.cgi);
+				int nf = 0;
+				for (char* q = strtok(spec, "/"); q && nf < 5; q = strtok(NULL, "/")) fld[nf++] = q;
+				for (int i = nf; i < 5; ++i) fld[i] = "-";
+				char hdr[600];
+				int n = snprintf(hdr, sizeof(hdr), "HTTP/1.0 %d Simulated\r\n", atoi(fld[0]));
+				if (strcmp(fld[1], "-")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Gb-Status: %s\r\n", fld[1]);
+				if (strcmp(fld[2], "-")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "WWW-Authenticate: GB00 name=\"%s\"\r\n", fld[2]);
+				if (!strcmp(fld[3], "cgb")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Type: application/x-cgb\r\n");
+				else if (!strcmp(fld[3], "html")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Type: text/html\r\n");
+				unsigned char body[64];
+				size_t bl = 0;
+				if (strcmp(fld[4], "-")) for (const char* h = fld[4]; h[0] && h[1] && bl < sizeof(body); h += 2) { char t[3] = {h[0], h[1], 0}; body[bl++] = (unsigned char) strtol(t, NULL, 16); }
+				n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Length: %zu\r\n\r\n", bl);
 				fqueue(f, hdr);
-				if (f->rxLen + hit->size <= sizeof(f->rx)) { memcpy(f->rx + f->rxLen, hit->data, hit->size); f->rxLen += hit->size; }
-				netlog("http 200 for %s (%zu bytes)", httpReqPath, hit->size);
+				if (f->rxLen + bl <= sizeof(f->rx)) { memcpy(f->rx + f->rxLen, body, bl); f->rxLen += bl; }
+				netlog("http cgi answer \"%s\" for %s", netCfg.cgi, httpReqPath);
+			} else if (netCfg.httpStatus) {
+				char hdr[128];
+				snprintf(hdr, sizeof(hdr), "HTTP/1.0 %d Simulated\r\nContent-Length: 0\r\n\r\n", netCfg.httpStatus);
+				fqueue(f, hdr);
+				netlog("http %d (http_status) for %s", netCfg.httpStatus, httpReqPath);
+			} else if (hit && netCfg.httpRedirect) {
+				fqueue(f, "HTTP/1.0 302 Found\r\nLocation: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html\r\nContent-Length: 0\r\n\r\n");
+				netlog("http 302 for %s", httpReqPath);
+			} else if (hit) {
+				char hdr[1024];
+				const char* ctype = strstr(httpReqPath, ".bmp") ? "image/bmp" : "text/html";
+				int n = snprintf(hdr, sizeof(hdr), "HTTP/1.0 %d %s\r\n", hit->status, hit->status == 200 ? "OK" : "Simulated");
+				if (!strstr(hit->hdr, "Content-Type:")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Type: %s\r\n", ctype);
+				n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "%s", hit->hdr);
+				if (!netCfg.httpNoLen) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Length: %zu\r\n", hit->size);
+				snprintf(hdr + n, sizeof(hdr) - (size_t) n, "\r\n");
+				fqueue(f, hdr);
+				size_t take = hit->size;
+				if (netCfg.httpTrunc >= 0 && (size_t) netCfg.httpTrunc < take) take = (size_t) netCfg.httpTrunc;
+				if (f->rxLen + take <= sizeof(f->rx)) { memcpy(f->rx + f->rxLen, hit->data, take); f->rxLen += take; }
+				if (take == hit->size) netlog("http %d for %s (%zu bytes)", hit->status, httpReqPath, hit->size);
+				else netlog("http %d for %s (%zu of %zu bytes, http_trunc)", hit->status, httpReqPath, take, hit->size);
 			} else {
-				fqueue(f, "HTTP/1.0 404 Not Found\r\nContent-Length: 0\r\n\r\n");
-				netlog("http 404 for %s", httpReqPath);
+				char hdr[128];
+				snprintf(hdr, sizeof(hdr), "HTTP/1.0 %d Not Found\r\nContent-Length: 0\r\n\r\n", netCfg.httpMissing);
+				fqueue(f, hdr);
+				netlog("http %d for %s", netCfg.httpMissing, httpReqPath);
 			}
 			f->remoteClosed = 1;
 		}
@@ -846,10 +1108,17 @@ static int fakeSockSend(void* u, unsigned c, const void* d, unsigned sz, const s
 		size_t qend = o + 1 + 4;
 		unsigned h = 5381;
 		for (const char* q = name; *q; ++q) h = h * 33 + (unsigned char) *q;
-		netlog("dns query \"%s\" -> 10.0.%u.%u", name, (h >> 8) & 0xFF, (h & 0xFF) | 1);
+		if (netCfg.dns == 2) { netlog("dns query \"%s\" -> no answer (dns=drop)", name); return (int) sz; }
+		if (netCfg.dns == 0) netlog("dns query \"%s\" -> 10.0.%u.%u", name, (h >> 8) & 0xFF, (h & 0xFF) | 1);
 		if (qend > sz) return (int) sz;
 		unsigned char* r = f->udpPending;
 		memcpy(r, p, qend);
+		if (netCfg.dns == 1) {
+			netlog("dns query \"%s\" -> NXDOMAIN (dns=nx)", name);
+			r[2] = 0x81; r[3] = 0x83; r[6] = r[7] = 0; r[8] = r[9] = r[10] = r[11] = 0;
+			f->udpLen = (int) qend;
+			return (int) sz;
+		}
 		r[2] = 0x81; r[3] = 0x80; r[6] = 0; r[7] = 1; r[8] = r[9] = r[10] = r[11] = 0;
 		size_t k = qend;
 		r[k++] = 0xC0; r[k++] = 0x0C; r[k++] = 0; r[k++] = 1; r[k++] = 0; r[k++] = 1;
@@ -858,6 +1127,8 @@ static int fakeSockSend(void* u, unsigned c, const void* d, unsigned sz, const s
 		f->udpLen = (int) k;
 		return (int) sz;
 	}
+	if (netCfg.tcp == 2) { netlog("tcp send on conn=%u -> reset (tcp=reset)", c); return -1; }
+	if (netTraceRecv) netlog("tcp:%u send %u byte(s)", f->port, sz);
 	for (unsigned i = 0; i < sz; ++i) {
 		if (p[i] == '\n') {
 			if (f->lineLen && f->line[f->lineLen - 1] == '\r') --f->lineLen;
@@ -887,16 +1158,42 @@ static int fakeSockRecv(void* u, unsigned c, void* d, unsigned sz, struct mobile
 		}
 		return (int) n;
 	}
+	if (netCfg.tcp == 2) return -1;
+	if (netTraceRecv > 1) netlog("tcp:%u recv poll d=%s sz=%u avail=%zu closed=%d", f->port, d ? "buf" : "null", sz, f->rxLen - f->rxPos, f->remoteClosed);
 	if (!d) return (f->remoteClosed && f->rxPos >= f->rxLen) ? -2 : 0;
-	if (f->rxPos < f->rxLen) {
+	if (f->rxPos < f->rxLen && curFrame >= f->readyFrame) {
 		size_t n = f->rxLen - f->rxPos;
 		if (n > sz) n = sz;
 		memcpy(d, f->rx + f->rxPos, n);
+		if (netTraceRecv) netlog("tcp:%u recv %zu byte(s)", f->port, n);
 		f->rxPos += n;
 		if (f->rxPos >= f->rxLen) f->rxPos = f->rxLen = 0;
 		return (int) n;
 	}
-	return f->remoteClosed ? -2 : 0;
+	return (f->remoteClosed && f->rxPos >= f->rxLen) ? -2 : 0;
+}
+
+static void netSetOpt(const char* kv) {
+	char k[48], v[48];
+	const char* eq = strchr(kv, '=');
+	if (!eq || (size_t) (eq - kv) >= sizeof(k) || strlen(eq + 1) >= sizeof(v)) { fprintf(stderr, "bad net option '%s' (KEY=VALUE)\n", kv); exit(2); }
+	memcpy(k, kv, (size_t) (eq - kv));
+	k[eq - kv] = 0;
+	strcpy(v, eq + 1);
+	if (!strcmp(k, "pop_fail")) snprintf(netCfg.popFail, sizeof(netCfg.popFail), "%.15s", !strcmp(v, "none") ? "" : v);
+	else if (!strcmp(k, "smtp_fail")) snprintf(netCfg.smtpFail, sizeof(netCfg.smtpFail), "%.15s", !strcmp(v, "none") ? "" : v);
+	else if (!strcmp(k, "http_status")) netCfg.httpStatus = atoi(v);
+	else if (!strcmp(k, "http_missing")) netCfg.httpMissing = atoi(v);
+	else if (!strcmp(k, "http_nolen")) netCfg.httpNoLen = atoi(v);
+	else if (!strcmp(k, "http_trunc")) netCfg.httpTrunc = atoi(v);
+	else if (!strcmp(k, "http_redirect")) netCfg.httpRedirect = atoi(v);
+	else if (!strcmp(k, "latency")) netLatency = atoi(v);
+	else if (!strcmp(k, "trace_recv")) netTraceRecv = atoi(v);
+	else if (!strcmp(k, "cgi")) snprintf(netCfg.cgi, sizeof(netCfg.cgi), "%.159s", !strcmp(v, "none") ? "" : v);
+	else if (!strcmp(k, "dns")) netCfg.dns = !strcmp(v, "nx") ? 1 : !strcmp(v, "drop") ? 2 : 0;
+	else if (!strcmp(k, "tcp")) netCfg.tcp = !strcmp(v, "refuse") ? 1 : !strcmp(v, "reset") ? 2 : 0;
+	else { fprintf(stderr, "unknown net option '%s'\n", k); exit(2); }
+	netlog("option %s=%s", k, v);
 }
 
 static void mobileSetup(struct MobileAdapterGB* m) {
@@ -1200,11 +1497,60 @@ static void attachMobile(void) {
 		FILE* cf = fopen(opt.cfgIn, "rb");
 		if (cf) { size_t got = fread(mobileDrv.m.config, 1, MOBILE_CONFIG_SIZE, cf); (void) got; fclose(cf); }
 	}
+	for (int i = 0; i < cfgPokeCount; ++i) mobileDrv.m.config[cfgPokes[i].addr] = cfgPokes[i].val;
 	mobileDrv.m.setup = mobileSetup;
 	GBSIOSetDriver(&gb->sio, &mobileDrv.d);
 	if (!mobileDrv.m.adapter) { fprintf(stderr, "could not start Mobile Adapter\n"); exit(2); }
 	mobileAttached = 1;
 	alog("[f%d] HARNESS Mobile Adapter attached to the link port\n", curFrame);
+}
+
+/* detach / re-attach the adapter (libmobile keeps its EEPROM image in mobileDrv.m.config across an unplug) */
+static void unplugMobile(void) {
+	if (!mobileAttached || !gb->sio.driver) return;
+	GBSIOSetDriver(&gb->sio, NULL);
+	alog("[f%d] HARNESS Mobile Adapter removed from the link port\n", curFrame);
+}
+static void plugMobile(void) {
+	if (!mobileAttached) { attachMobile(); return; }
+	if (gb->sio.driver) return;
+	GBSIOSetDriver(&gb->sio, &mobileDrv.d);
+	alog("[f%d] HARNESS Mobile Adapter plugged in again\n", curFrame);
+}
+
+/* power cycle (macro/frame directive `reset`): SRAM and the adapter's EEPROM image survive, GBSIOReset re-creates the adapter driver */
+static void resetConsole(void) {
+	extern int shadowN;
+	core->reset(core);
+	shadowN = 0;
+	alog("[f%d] HARNESS console reset (power cycle)\n", curFrame);
+}
+
+/* directives sram / sramfill / cfg / cfgfill (state corruption for the boot-state probes) */
+static void stateDirective(int kind, const char* arg) {
+	unsigned b, a, v;
+	if (kind == EV_SRAMFILL) {
+		if (sscanf(arg, "%x", &v) != 1) { fprintf(stderr, "sramfill VV\n"); exit(2); }
+		if (gb->memory.sram) memset(gb->memory.sram, (int) v, gb->sramSize);
+	} else if (kind == EV_CFGFILL) {
+		if (sscanf(arg, "%x", &v) != 1) { fprintf(stderr, "cfgfill VV\n"); exit(2); }
+		memset(mobileDrv.m.config, (int) v, MOBILE_CONFIG_SIZE);
+	} else if (kind == EV_SRAM) {
+		if (sscanf(arg, "%x:%x=%x", &b, &a, &v) != 3 || a < 0xA000 || a > 0xBFFF || b > 3 || !gb->memory.sram) { fprintf(stderr, "sram B:ADDR=VV\n"); exit(2); }
+		gb->memory.sram[b * 0x2000 + (a - 0xA000)] = (uint8_t) v;
+	} else {
+		if (sscanf(arg, "%x=%x", &a, &v) != 2 || a >= MOBILE_CONFIG_SIZE) { fprintf(stderr, "cfg OFF=VV\n"); exit(2); }
+		mobileDrv.m.config[a] = (uint8_t) v;
+	}
+	alog("[f%d] HARNESS state directive %d %s\n", curFrame, kind, arg);
+}
+
+/* macro/frame directive `wipe`: a fresh cartridge and a blank adapter (SRAM 0xFF, adapter EEPROM image zero), then a power cycle */
+static void wipeConsole(void) {
+	if (gb->memory.sram) memset(gb->memory.sram, 0xFF, gb->sramSize);
+	if (mobileAttached) memset(mobileDrv.m.config, 0, MOBILE_CONFIG_SIZE);
+	resetConsole();
+	alog("[f%d] HARNESS wipe: save RAM 0xFF, adapter configuration blank\n", curFrame);
 }
 
 /* run exactly one emulated frame with the given held keys */
@@ -1298,18 +1644,41 @@ static void runMacro(const char* path) {
 			}
 			(void) keyName; (void) kb;
 		} else if (!strcmp(cmd, "monkey")) {
-			/* monkey N SEED [GAP]: N frames of seeded pseudo-random button taps (deterministic) */
+			/* monkey N SEED [GAP [PROFILE]]: N frames of seeded pseudo-random button taps (deterministic).
+			   PROFILE (default "mix" = the original pool) selects the key weights: a (A-heavy), nav (directions), kb (keyboard typing),
+			   menu (A/B/directions), combo (random subsets of 1-3 buttons pressed together) */
 			unsigned nfr = 600, seed = 1, mgap = 24;
-			sscanf(p, "%u %u %u", &nfr, &seed, &mgap);
+			char prof[16] = "mix";
+			sscanf(p, "%u %u %u %15s", &nfr, &seed, &mgap, prof);
 			uint64_t st = 0x9E3779B97F4A7C15ull ^ ((uint64_t) seed * 0xD1B54A32D192ED03ull);
-			static const int pool[] = {1 << GB_KEY_A, 1 << GB_KEY_A, 1 << GB_KEY_A, 1 << GB_KEY_A, 1 << GB_KEY_A, 1 << GB_KEY_B,
-			                           1 << GB_KEY_UP, 1 << GB_KEY_DOWN, 1 << GB_KEY_LEFT, 1 << GB_KEY_RIGHT,
-			                           1 << GB_KEY_UP, 1 << GB_KEY_DOWN, 1 << GB_KEY_LEFT, 1 << GB_KEY_RIGHT,
-			                           1 << GB_KEY_START, 1 << GB_KEY_SELECT, 1 << GB_KEY_B};
+			enum { KA = 1 << GB_KEY_A, KB = 1 << GB_KEY_B, KU = 1 << GB_KEY_UP, KD = 1 << GB_KEY_DOWN, KL = 1 << GB_KEY_LEFT, KR = 1 << GB_KEY_RIGHT,
+			       KS = 1 << GB_KEY_START, KE = 1 << GB_KEY_SELECT };
+			static const int poolMix[] = {KA, KA, KA, KA, KA, KB, KU, KD, KL, KR, KU, KD, KL, KR, KS, KE, KB};
+			static const int poolA[] = {KA, KA, KA, KA, KA, KA, KA, KA, KB, KU, KD, KL, KR, KS};
+			static const int poolNav[] = {KU, KU, KU, KD, KD, KD, KL, KL, KL, KR, KR, KR, KA, KA, KA, KA, KB, KB, KS, KE};
+			static const int poolKb[] = {KA, KA, KA, KA, KA, KA, KR, KR, KR, KR, KR, KD, KD, KD, KL, KL, KU, KU, KS, KB};
+			static const int poolMenu[] = {KA, KA, KA, KA, KA, KB, KB, KB, KU, KU, KD, KD, KS, KE};
+			const int* pool = poolMix;
+			size_t pn = sizeof(poolMix) / sizeof(poolMix[0]);
+			int combo = 0;
+			if (!strcmp(prof, "a")) { pool = poolA; pn = sizeof(poolA) / sizeof(poolA[0]); }
+			else if (!strcmp(prof, "nav")) { pool = poolNav; pn = sizeof(poolNav) / sizeof(poolNav[0]); }
+			else if (!strcmp(prof, "kb")) { pool = poolKb; pn = sizeof(poolKb) / sizeof(poolKb[0]); }
+			else if (!strcmp(prof, "menu")) { pool = poolMenu; pn = sizeof(poolMenu) / sizeof(poolMenu[0]); }
+			else if (!strcmp(prof, "combo")) combo = 1;
+			else if (strcmp(prof, "mix")) { fprintf(stderr, "%s:%d: unknown monkey profile '%s'\n", path, lineno, prof); exit(2); }
 			unsigned end = curFrame + nfr;
 			while (curFrame < end) {
 				st ^= st << 13; st ^= st >> 7; st ^= st << 17;
-				int keys = pool[(st >> 33) % (sizeof(pool) / sizeof(pool[0]))];
+				int keys;
+				if (combo) {
+					keys = 0;
+					int nk = 1 + (int) ((st >> 40) % 3);
+					uint64_t t2 = st;
+					for (int k = 0; k < nk; ++k) { keys |= 1 << ((t2 >> 33) & 7); t2 >>= 3; }
+				} else {
+					keys = pool[(st >> 33) % pn];
+				}
 				char nm[32];
 				keyName(keys, nm);
 				if (recFile) fprintf(recFile, "%d %s\n", curFrame, nm);
@@ -1323,6 +1692,25 @@ static void runMacro(const char* path) {
 		} else if (!strcmp(cmd, "mark")) {
 			EVLOG(&logMarks, "%d\t%s\n", curFrame, p);
 			if (recFile) fprintf(recFile, "%d mark %s\n", curFrame, p);
+		} else if (!strcmp(cmd, "sram") || !strcmp(cmd, "sramfill") || !strcmp(cmd, "cfg") || !strcmp(cmd, "cfgfill")) {
+			int k = !strcmp(cmd, "sram") ? EV_SRAM : !strcmp(cmd, "sramfill") ? EV_SRAMFILL : !strcmp(cmd, "cfg") ? EV_CFG : EV_CFGFILL;
+			stateDirective(k, p);
+			if (recFile) fprintf(recFile, "%d %s %s\n", curFrame, cmd, p);
+		} else if (!strcmp(cmd, "wipe")) {
+			wipeConsole();
+			if (recFile) fprintf(recFile, "%d wipe\n", curFrame);
+		} else if (!strcmp(cmd, "reset")) {
+			resetConsole();
+			if (recFile) fprintf(recFile, "%d reset\n", curFrame);
+		} else if (!strcmp(cmd, "unplug")) {
+			unplugMobile();
+			if (recFile) fprintf(recFile, "%d unplug\n", curFrame);
+		} else if (!strcmp(cmd, "plug")) {
+			plugMobile();
+			if (recFile) fprintf(recFile, "%d plug\n", curFrame);
+		} else if (!strcmp(cmd, "net")) {
+			netSetOpt(p);
+			if (recFile) fprintf(recFile, "%d net %s\n", curFrame, p);
 		} else if (!strcmp(cmd, "waitstable")) {
 			int need = 30, max = 900;
 			char* m = strstr(p, "max");
@@ -1347,7 +1735,7 @@ static void runMacro(const char* path) {
 		} else if (!strcmp(cmd, "end")) break;
 		else { fprintf(stderr, "%s:%d: unknown macro directive '%s'\n", path, lineno, cmd); exit(2); }
 		/* a frame budget guard */
-		if (opt.frames > 0 && curFrame > opt.frames * 100) break;
+		if (curFrame > (opt.framesGiven ? opt.frames : 1200000)) break;    /* runaway guard: --frames if given, else 1.2 M frames */
 	}
 	fclose(f);
 	if (recFile) fprintf(recFile, "# last scripted frame: %d\n", curFrame);
@@ -1368,6 +1756,11 @@ static void usage(void) {
 	        "  --framehash FILE    write per-frame hash of the LCD image\n"
 	        "  --state-out FILE    write an mGBA savestate at the end\n"
 	        "  --web-map PATH=FILE serve FILE for HTTP GET PATH (fake Internet only; repeatable)\n"
+	        "  --sram-poke B:ADDR=VV  patch one byte of the loaded save RAM (SRAM bank B, address A000-BFFF; hex; repeatable)\n"
+	        "  --cfg-poke OFF=VV      patch one byte of the adapter EEPROM image after --mobile-config-in (hex; repeatable)\n"
+	        "  --web-hdr PATH=H: v add a response header to the --web-map entry PATH; --web-status PATH=N sets its status code\n"
+	        "  --mail FILE         put FILE (an RFC 822 message) into the fake POP3 mailbox (repeatable)\n"
+	        "  --net-opt KEY=VALUE fake-Internet option, see the comment above the fake net (repeatable)\n"
 	        "  --serial-limit N    max raw serial events logged (default 3000)\n"
 	        "  --seq-limit N       max raw MBC/IRQ events logged (default 600)\n");
 	exit(2);
@@ -1378,13 +1771,14 @@ int main(int argc, char** argv) {
 	opt.serialLimit = 3000;
 	opt.seqLimit = 600;
 	opt.frames = 600;
+	opt.framesGiven = 0;
 	for (int i = 1; i < argc; ++i) {
 		const char* a = argv[i];
 #define ARG(name) (!strcmp(a, name) && i + 1 < argc)
 		if (ARG("--rom")) opt.rom = argv[++i];
 		else if (ARG("--scenario")) opt.scenario = argv[++i];
 		else if (ARG("--outdir")) opt.outdir = argv[++i];
-		else if (ARG("--frames")) opt.frames = atoi(argv[++i]);
+		else if (ARG("--frames")) { opt.frames = atoi(argv[++i]); opt.framesGiven = 1; }
 		else if (ARG("--input")) opt.input = argv[++i];
 		else if (ARG("--shots")) opt.shotsDir = argv[++i];
 		else if (ARG("--save-in")) opt.saveIn = argv[++i];
@@ -1393,6 +1787,21 @@ int main(int argc, char** argv) {
 		else if (ARG("--state-out")) opt.stateOut = argv[++i];
 		else if (ARG("--macro")) opt.macro = argv[++i];
 		else if (ARG("--web-map")) addWebMap(argv[++i]);
+		else if (ARG("--mail")) addMail(argv[++i]);
+		else if (ARG("--web-hdr")) addWebHdr(argv[++i]);
+		else if (ARG("--web-status")) addWebStatus(argv[++i]);
+		else if (ARG("--sram-poke")) {   /* BANK:ADDR=VAL (hex): patch the loaded save RAM (SRAM bank, CPU address A000-BFFF, byte) */
+			unsigned b, ad, v;
+			if (sscanf(argv[++i], "%x:%x=%x", &b, &ad, &v) != 3 || ad < 0xA000 || ad > 0xBFFF || b > 3 || sramPokeCount >= 64) usage();
+			sramPokes[sramPokeCount++] = (struct Poke) {(int) b, ad, (unsigned char) v};
+		}
+		else if (ARG("--cfg-poke")) {    /* OFFSET=VAL (hex): patch the adapter EEPROM image (0x000-0x1FF) after --mobile-config-in was read */
+			unsigned ad, v;
+			if (sscanf(argv[++i], "%x=%x", &ad, &v) != 2 || ad >= MOBILE_CONFIG_SIZE || cfgPokeCount >= 64) usage();
+			cfgPokes[cfgPokeCount++] = (struct Poke) {0, ad, (unsigned char) v};
+		}
+		else if (ARG("--watch")) { if (watchCount < 8) watchAddr[watchCount++] = (uint16_t) strtol(argv[++i], NULL, 16); }
+		else if (ARG("--net-opt")) netSetOpt(argv[++i]);
 		else if (ARG("--record-input")) opt.recordInput = argv[++i];
 		else if (ARG("--mobile-config-in")) opt.cfgIn = argv[++i];
 		else if (ARG("--mobile-config-out")) opt.cfgOut = argv[++i];
@@ -1413,6 +1822,10 @@ int main(int argc, char** argv) {
 	char lp[1024];
 	snprintf(lp, sizeof(lp), "%s/adapter_%s.log", opt.outdir, opt.scenario);
 	adapterLogFile = fopen(lp, "w");
+	if (watchCount) {
+		snprintf(lp, sizeof(lp), "%s/watch_%s.tsv", opt.outdir, opt.scenario);
+		watchFile = fopen(lp, "w");
+	}
 
 	core = mCoreFind(opt.rom);
 	if (!core) { fprintf(stderr, "no core for %s\n", opt.rom); return 2; }
@@ -1453,6 +1866,11 @@ int main(int argc, char** argv) {
 
 	gb = core->board;
 	cpu = core->cpu;
+	for (int i = 0; i < sramPokeCount; ++i) {
+		size_t off = (size_t) sramPokes[i].bank * 0x2000 + (sramPokes[i].addr - 0xA000);
+		if (gb->memory.sram && off < gb->sramSize) gb->memory.sram[off] = sramPokes[i].val;
+		else { fprintf(stderr, "--sram-poke outside the save RAM\n"); return 2; }
+	}
 
 	/* hooks */
 	origLoad8 = cpu->memory.load8;
@@ -1488,6 +1906,12 @@ int main(int argc, char** argv) {
 				case EV_TAP: tapKeys = e->keys; tapRelease = curFrame + e->len; break;
 				case EV_SHOT: shot(e->text, curFrame); break;
 				case EV_MARK: EVLOG(&logMarks, "%d\t%s\n", curFrame, e->text); break;
+				case EV_RESET: resetConsole(); break;
+				case EV_WIPE: wipeConsole(); break;
+				case EV_SRAM: case EV_SRAMFILL: case EV_CFG: case EV_CFGFILL: stateDirective(e->kind, e->text); break;
+				case EV_UNPLUG: unplugMobile(); break;
+				case EV_PLUG: plugMobile(); break;
+				case EV_NET: netSetOpt(e->text); break;
 				}
 			}
 			if (tapRelease >= 0 && curFrame >= tapRelease) { tapRelease = -1; tapKeys = 0; }

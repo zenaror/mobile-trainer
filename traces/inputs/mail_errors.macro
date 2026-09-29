@@ -1,0 +1,425 @@
+# Scenario 'mail_errors': おくる/うけとる under network faults. Every attempt is a power cycle (`reset`: SRAM and adapter configuration kept, the
+# adapter session restarts) followed by title -> top menu -> メール -> おくる/うけとる -> はい -> start, with one fault set through the `net`
+# directive before the dial: SMTP failures at connect/HELO/MAIL/RCPT/DATA/end-of-data (the saved reply of 'mail_inbox' is in the outbox), POP3
+# failures at connect/USER/PASS/STAT/TOP/RETR/DELE (mails waiting on the fake server), DNS NXDOMAIN/timeout, TCP refused/reset, and the adapter
+# unplugged in the middle of the session. The screenshot of each attempt is taken 3500 frames after the start. Starts from the state left by
+# 'mail_inbox'. Screen names = my reading of the screenshots.
+# --- smtp_connect
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=connect
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_connect
+tap A
+wait 1500
+shot smtp_connect_2
+net smtp_fail=none
+# --- smtp_helo
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=helo
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_helo
+tap A
+wait 1500
+shot smtp_helo_2
+net smtp_fail=none
+# --- smtp_mail
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=mail
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_mail
+tap A
+wait 1500
+shot smtp_mail_2
+net smtp_fail=none
+# --- smtp_rcpt
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=rcpt
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_rcpt
+tap A
+wait 1500
+shot smtp_rcpt_2
+net smtp_fail=none
+# --- smtp_data
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=data
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_data
+tap A
+wait 1500
+shot smtp_data_2
+net smtp_fail=none
+# --- smtp_end
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net smtp_fail=end
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot smtp_end
+tap A
+wait 1500
+shot smtp_end_2
+net smtp_fail=none
+# --- pop_connect
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=connect
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_connect
+tap A
+wait 1500
+shot pop_connect_2
+net pop_fail=none
+# --- pop_user
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=user
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_user
+tap A
+wait 1500
+shot pop_user_2
+net pop_fail=none
+# --- pop_pass
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=pass
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_pass
+tap A
+wait 1500
+shot pop_pass_2
+net pop_fail=none
+# --- pop_stat
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=stat
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_stat
+tap A
+wait 1500
+shot pop_stat_2
+net pop_fail=none
+# --- pop_top
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=top
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_top
+tap A
+wait 1500
+shot pop_top_2
+net pop_fail=none
+# --- pop_retr
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=retr
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_retr
+tap A
+wait 1500
+shot pop_retr_2
+net pop_fail=none
+# --- pop_dele
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net pop_fail=dele
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot pop_dele
+tap A
+wait 1500
+shot pop_dele_2
+net pop_fail=none
+# --- dns_nx
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net dns=nx
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot dns_nx
+tap A
+wait 1500
+shot dns_nx_2
+net dns=ok
+# --- dns_drop
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net dns=drop
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 6000
+shot dns_drop
+tap A
+wait 1500
+shot dns_drop_2
+net dns=ok
+# --- tcp_refuse
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net tcp=refuse
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot tcp_refuse
+tap A
+wait 1500
+shot tcp_refuse_2
+net tcp=ok
+# --- tcp_reset
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net tcp=reset
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 3500
+shot tcp_reset
+tap A
+wait 1500
+shot tcp_reset_2
+net tcp=ok
+# --- unplug_ppp
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 1200
+unplug
+wait 200
+shot unplug_ppp
+tap A
+wait 1500
+shot unplug_ppp_2
+wait 3000
+shot unplug_ppp_end
+plug
+wait 1500
+shot replugged

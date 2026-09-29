@@ -1,10 +1,10 @@
 # Coverage validation report (tools/trace/merge_coverage.py)
-# 43279 unique executed instruction starts from 18 scenarios
+# 72238 unique executed instruction starts from 41 scenarios
 # ERROR = inconsistent with the SM83 decoding chain, WARN = expected in some situations, see the tool's --help
 
 ## counts
-COND_ALWAYS_TAKEN 570
-FALL_MISSING     2227
+COND_ALWAYS_TAKEN 779
+FALL_MISSING     3719
 
 ## ERRORs
 
@@ -12,17 +12,16 @@ FALL_MISSING     2227
 
 ### FALL_MISSING(call) grouped by callee (a callee that pops its return address, e.g. to read inline
 ### argument bytes placed after the call, makes every call site show up here)
-callee 06D1 : 2189 call sites
-callee 0545 : 20 call sites
-callee 056A : 15 call sites
-callee 4B51 : 1 call sites
-callee 5691 : 1 call sites
+callee 06D1 : 3672 call sites
+callee 0545 : 26 call sites
+callee 056A : 17 call sites
+callee 41DA : 2 call sites
+callee 54A7 : 1 call sites
 callee 06BC : 1 call sites
 
-### COND_ALWAYS_TAKEN : 570
+### COND_ALWAYS_TAKEN : 779
 00:02A0  jr z, $02AE
 00:03F2  jr c, $0400
-00:041A  jr c, $042E
 00:0528  jr nz, $0531
 00:065C  jr z, $066D
 00:0675  jr z, $0681
@@ -36,15 +35,16 @@ callee 06BC : 1 call sites
 00:11BA  jp z, $120A
 00:1221  jr c, $1237
 00:1238  jr nc, $120A
+00:1286  jp z, $12C0
+00:12D1  jr c, $12E7
+00:12E8  jr nc, $12C0
 00:138A  jr z, $1390
 00:13DB  jr c, $13E0
 00:1417  jr nc, $144D
 00:1453  jr c, $1466
-00:1466  jr c, $1486
 00:2132  jr nz, $2125
 04:409D  jr nc, $40AC
 04:41CD  jr nz, $4219
-04:424C  jr nz, $4225
 04:42AA  jr nz, $42A2
 04:4311  jr z, $4319
 04:4543  ret z
@@ -55,6 +55,8 @@ callee 06BC : 1 call sites
 04:4813  jr nz, $4816
 04:48FF  jr nz, $4905
 04:4A5A  jr c, $4A73
+04:4B77  jr nz, $4B7F
+04:4B94  jr z, $4B98
 04:4C59  jp nz, $4D3B
 04:4CCF  jp c, $4D9D
 04:4D70  jr z, $4D90
@@ -66,163 +68,161 @@ callee 06BC : 1 call sites
 04:4FEC  jr nc, $4FEF
 04:4FF1  jr c, $4FF5
 0E:4190  jr nz, $4194
-1A:41EF  jp nz, $4281
-1A:4286  jr nz, $4289
+0F:42A6  jr nz, $4286
+0F:437B  jr z, $4385
+0F:447D  jr z, $4485
+0F:4537  jr z, $453B
+0F:4606  jr z, $45F7
+0F:468C  jr z, $4666
+0F:4740  jr nz, $474D
+0F:4788  jr z, $479D
+0F:47FC  jr nz, $482F
+0F:48EB  jr nz, $4908
+0F:4A53  jr z, $4A56
+0F:4B15  jr nz, $4AF9
+0F:4C45  jr z, $4C28
+0F:4E68  jr nz, $4E73
+0F:4F38  jr z, $4F25
+0F:4F91  jr c, $4FA9
+0F:4FDB  jr z, $4FE3
+0F:5084  jr z, $509F
+0F:50AE  jr nz, $50B2
+0F:50D8  jr z, $50E0
+0F:50F4  jr z, $50FC
+0F:5991  jr nz, $59C6
+0F:59FB  jr c, $5A0A
+0F:5CA8  jr nz, $5CB4
+0F:5D3A  jr c, $5D65
+1A:41F4  jp nz, $42B0
+1A:4219  ret z
 1A:4344  jr z, $4351
-1D:4239  jr nz, $423D
-1D:425F  jr nz, $4263
 1F:455B  ret nz
 1F:4601  jr nz, $4605
-22:5002  jr nz, $5017
-22:5095  jr nz, $509D
-23:4062  jr z, $4076
-23:40A2  jr z, $40AB
-23:40EE  jr z, $4116
-23:411A  jr z, $413A
-23:413E  jr z, $415E
-23:4BBF  jr nz, $4C1D
+22:4062  jr z, $4076
+22:40A5  jr z, $40ED
+22:40F8  jr z, $4120
+22:414C  jr z, $4170
+22:4176  jr nz, $41B3
+22:476E  jr z, $4796
+22:47BC  jr z, $47DA
+22:4CDA  jr nz, $4D38
+22:4D7E  jr nz, $4D84
+23:4A7E  jr nz, $4ADC
+23:4B22  jr nz, $4B28
 23:4C65  jr nz, $4C6B
+23:4D20  jr nz, $4D2B
+23:4D52  jr c, $4D81
+23:4DBE  jr z, $4DC4
+23:4DDA  jr nz, $4DE9
+23:4DEF  jr nz, $4DF2
+23:4E51  jr nz, $4EB4
+23:4EDB  jr c, $4F0A
+23:4F63  jr z, $4F69
+23:4F77  jr nz, $4F7E
+23:4F82  jr nz, $4F9C
+23:4FD6  jr z, $4FF0
+23:5000  jr nz, $503F
+23:50B1  jr z, $50B7
+23:5253  jr nz, $525E
+23:52BE  jr nz, $5321
+23:5348  jr c, $5377
+23:53BB  jr z, $53D5
+23:53E5  jr nz, $5424
+23:5496  jr z, $549C
+23:5719  jr z, $5761
+23:5771  jr z, $57A7
+23:57B7  jr z, $57DB
+23:57EB  jr z, $57FD
+23:5837  jr z, $583F
+23:584D  jr z, $5855
+23:5863  jr z, $586B
+23:5879  jr z, $5881
+23:6F45  jr c, $6F89
+24:4097  jr z, $40AC
+24:40CB  jr c, $40FA
+24:4515  jr z, $4527
+24:4531  jr z, $4543
+24:454D  jr z, $455F
+24:4569  jr z, $457B
+24:4670  jr z, $468F
+24:46AE  jr nz, $46F6
+24:46F8  jr nz, $4740
+24:474E  jr z, $476D
+24:4BE9  jr z, $4BFE
+24:4C1D  jr c, $4C4C
+24:4F4B  jp z, $4FF6
+24:5147  jr nz, $514C
+24:526E  jr z, $52A3
+24:52BE  jr nz, $52E3
 25:402C  jr nz, $403F
-25:4AA5  ret z
-25:4CEB  jr z, $4CFB
-25:4D0C  jr z, $4D4D
-26:4039  jp z, $4043
-26:40DE  jr z, $40E8
-26:4129  jp z, $44F5
-26:4518  jp z, $4536
-26:459E  jr nz, $45AE
-26:45B3  jp z, $4636
-26:4702  jp z, $4A8A
+25:430E  jr nz, $4315
+25:4363  jr nz, $436D
+25:4371  jp nz, $4043
+25:4477  jr nz, $4490
+25:44AA  jp z, $4564
+25:46D6  jr z, $46DB
+25:4788  jr nz, $47FD
+25:489D  jr z, $48A5
+25:48AC  jr c, $48B4
+25:4919  jr z, $4929
+25:4932  jr nz, $4936
+25:499F  jr z, $49D6
+25:49F1  jr nz, $49F6
+25:4A30  jr z, $4A36
+25:4A39  jr nz, $4A3C
+25:4AD6  ret z
+25:4DB1  jr z, $4DE8
+25:5265  jr nz, $526B
+25:5306  jr nz, $530E
+25:5310  jr nz, $5318
+25:531A  jr nz, $5322
+26:4437  jp nz, $44F5
+26:45C4  jr nz, $45C8
+26:45FC  jr z, $4602
+26:462A  jr nz, $462D
+26:47D4  jr z, $47DC
+26:47EA  jr nz, $47F5
+26:47FD  jp nz, $4819
+26:48B2  jr z, $48BB
+26:4958  jr c, $4987
+26:498B  jr z, $49F2
 26:4A97  jr nz, $4A9E
-26:4BDC  jp z, $4BF1
-26:4C0D  jr z, $4C1F
+26:4DB8  jr nz, $4DCB
 26:4EDE  jr c, $4F0D
 26:4F11  jr z, $4F65
+26:4F96  jr c, $4FC5
+26:4FC9  jr z, $5026
+26:5470  jr z, $54B8
+26:54C8  jr z, $54FE
+26:550E  jr z, $5532
+26:5542  jr z, $5554
+26:558E  jr z, $5596
+26:55A4  jr z, $55AC
+26:55BA  jr z, $55C2
+26:55D0  jr z, $55D8
+26:55EE  jr z, $55F6
+26:5604  jr z, $560C
+26:561A  jr z, $5622
+26:5630  jr z, $5638
 26:5924  jr c, $5968
-27:4079  jr nz, $40D7
 27:410A  jr nz, $4110
-27:414D  jr z, $4156
 27:41F3  jr nz, $41FC
 27:4299  jr nz, $42B6
 27:4388  jr nz, $4393
 27:43E2  jr z, $43E6
 27:43F4  jr nz, $43FF
+27:45A6  jr nz, $45C3
 27:4778  jr nz, $4781
-27:4810  jr z, $4826
 27:4833  jr nz, $4850
-27:48E4  jr z, $48EA
-28:401E  jr z, $404C
 29:4298  jr nz, $42AF
-29:454B  jp nz, $45E2
-29:45FD  jr z, $4605
-29:469F  jr z, $46B9
-29:46F7  jr nz, $46FE
-29:4768  jp nz, $47BD
-29:4871  jr nz, $487C
+29:439B  jr nz, $43B9
+29:43BB  jr nz, $43D9
+29:457E  jr z, $45A9
 29:48EC  jr z, $4934
 29:4944  jr z, $497A
-29:498A  jr z, $49AE
-29:49BE  jr z, $49D0
-29:49F3  jr z, $49FB
-29:4A09  jr z, $4A11
-29:4A1F  jr z, $4A27
-29:4A35  jr z, $4A3D
-29:4D36  jp nz, $4D8B
-29:4E1C  jr nz, $4E27
-29:4E7E  jr z, $4EC6
-29:4ED6  jr z, $4F0C
-29:4F1C  jr z, $4F40
-29:4F50  jr z, $4F62
-29:4F85  jr z, $4F8D
-29:4F9B  jr z, $4FA3
-29:4FB1  jr z, $4FB9
-29:4FC7  jr z, $4FCF
-2A:5500  jr nz, $5504
-2A:5549  jr nz, $55AD
-2A:55B3  jp z, $563D
-2A:5649  jr nz, $569E
-2A:56C5  jp z, $5706
-2A:56F0  jr z, $5731
-2A:57A3  jr nz, $57AD
-2A:57B5  ret nz
-2A:5919  jr z, $591F
-2A:5A58  jr nz, $5A9B
-2A:5B44  jr nz, $5B87
-2A:5CAF  jr nz, $5CA1
-2A:5CDE  jr z, $5CF5
-2A:5D6B  jr z, $5DAD
-2A:5DF6  jr nz, $5DFD
-2A:5E06  jr nz, $5E11
-2A:5E19  jr nz, $5E22
-2A:5E56  jr nz, $5E60
-2A:5E9C  jr nz, $5EA9
-2A:5EC4  jr nz, $5EC8
-2A:61E1  jr nz, $61FA
-2A:61FF  jr nz, $620E
-2B:4082  jr nz, $40A2
-2B:415E  jp nz, $402B
-2B:4201  jr nz, $4205
-2B:42F1  jr z, $430C
-2B:451B  jp z, $45AD
-2B:4607  jp z, $4699
-2C:403E  jr nz, $4042
-2C:4080  jr z, $40C1
-2C:4112  jr nz, $4118
-2C:4131  jr nz, $413B
-2C:4143  ret nz
-2C:42F9  jr z, $42FF
-2C:4495  jr nz, $4487
-2C:44C4  jr z, $44DC
-2C:455A  jr z, $459C
-2C:45E5  jr nz, $45EC
-2C:45F5  jr nz, $4600
-2C:4608  jr nz, $4611
-2C:4645  jr nz, $464F
-2C:4693  jr nz, $46A0
-2C:46BB  jr nz, $46BF
-2C:49A0  jr nz, $49B8
-2C:49BD  jr nz, $49CB
-2C:49DD  jr nz, $49E3
-2C:5736  jr z, $5768
-2C:6092  jr z, $6098
-2C:6163  jr z, $61D9
-2C:622E  jr z, $6240
-2C:625A  jr z, $626C
-2C:6286  jr z, $6298
-2C:62B2  jr z, $62C4
-2C:62DE  jr z, $62F0
-2C:630A  jr z, $631C
-2C:6325  jp z, $633C
-2C:6355  jr z, $6367
-2C:64CA  jr z, $64D0
-2C:64E5  jp z, $6501
-2C:6517  jr z, $6529
-2D:48CD  ret z
-2D:48F1  jr nz, $490E
-2D:491E  ret z
-2D:4988  ret z
-2D:4CB1  jr z, $4CB7
-2D:4EE0  jr nz, $4ED2
-2D:50AA  jr nz, $50AE
-2D:50C2  jr z, $5102
-2D:51A8  jr nz, $51C5
-2D:51CE  jr nz, $51D9
-2D:51E1  jr nz, $51EA
-2D:51F7  jr z, $520C
-2D:5219  jr z, $521F
-2D:538F  jr nz, $5399
-2D:53DD  jr nz, $53EA
-2D:5405  jr nz, $5409
-2D:543B  jr nz, $5448
-2D:544F  jr z, $5469
-2D:56F9  jr nz, $5711
-2D:5716  jr nz, $5724
-2D:573C  jr nz, $5742
-2D:57AD  jr nz, $57C1
-2D:5819  jp z, $581E
-... 370 more
+... 579 more
 
-### FALL_MISSING(call) : 2227
+### FALL_MISSING(call) : 3719
 00:0328  call $06D1
 00:1053  call $06D1
 00:1073  call $06D1
@@ -378,49 +378,49 @@ callee 06BC : 1 call sites
 1F:4579  call $06D1
 1F:460A  call $06D1
 1F:463A  call $06D1
-23:401D  call $06D1
-23:4044  call $06D1
-23:4077  call $06D1
-23:4080  call $06D1
-23:40AB  call $4B51
-23:41DD  call $06D1
-23:41E3  call $06D1
-23:41E9  call $06D1
-23:41FD  call $06D1
-23:4211  call $06D1
-23:4226  call $06D1
-23:423B  call $06D1
-23:4250  call $06D1
-23:4265  call $06D1
-23:4279  call $06D1
-23:42B1  call $06D1
-23:42F7  call $06D1
-23:4300  call $06D1
-23:4320  call $06D1
-23:43D5  call $06D1
-23:47A2  call $06D1
-23:47B0  call $06D1
-23:4B59  call $06D1
-23:4B62  call $06D1
-23:4B81  call $06D1
-23:4BA5  call $06D1
-23:4BAF  call $06D1
-23:4C1D  call $06D1
-23:4C33  call $06D1
-23:4C5D  call $06D1
-23:4C73  call $06D1
-23:4C7E  call $06D1
-23:4C86  call $06D1
-25:4020  call $06D1
-25:4044  call $06D1
-25:404D  call $06D1
-25:4077  call $06D1
-25:4080  call $06D1
-25:4B0F  call $06D1
-25:4B15  call $06D1
-25:4B1B  call $06D1
-25:4B33  call $06D1
-25:4B47  call $06D1
-25:4B5C  call $06D1
-25:4B71  call $06D1
-... 2027 more
+22:401D  call $06D1
+22:4044  call $06D1
+22:4077  call $06D1
+22:4080  call $06D1
+22:40CE  call $06D1
+22:41C3  call $06D1
+22:41D8  call $06D1
+22:41E7  call $06D1
+22:41FE  call $06D1
+22:4213  call $06D1
+22:4222  call $06D1
+22:422E  call $06D1
+22:4234  call $06D1
+22:423A  call $06D1
+22:424E  call $06D1
+22:4262  call $06D1
+22:4277  call $06D1
+22:428C  call $06D1
+22:42A1  call $06D1
+22:42B6  call $06D1
+22:42CA  call $06D1
+22:4306  call $06D1
+22:4359  call $06D1
+22:436E  call $06D1
+22:4380  call $06D1
+22:4389  call $06D1
+22:43A9  call $06D1
+22:43D6  call $06D1
+22:445E  call $06D1
+22:450B  call $06D1
+22:459C  call $06D1
+22:45A2  call $06D1
+22:45A8  call $06D1
+22:45AE  call $06D1
+22:45C2  call $06D1
+22:45D6  call $06D1
+22:45EB  call $06D1
+22:4600  call $06D1
+22:4615  call $06D1
+22:4629  call $06D1
+22:4657  call $06D1
+22:4677  call $06D1
+22:4691  call $06D1
+22:46AB  call $06D1
+22:46C5  call $06D1
+... 3519 more

@@ -1,0 +1,193 @@
+# Scenario 'boot_states': what the boot does with damaged or unusual saved data. Every attempt changes the save RAM or the adapter's EEPROM
+# image with the runtime directives `sram B:ADDR=VV`, `sramfill VV`, `cfg OFF=VV`, `cfgfill VV`, then power-cycles (`reset`) and looks at the
+# screens for ~1400 frames (title / registration / error screens; two A presses each). The attempts are cumulative (a repaired save stays repaired).
+# Known integrity code (docs/research/sram_layout.md section 2): bank 0 pages A000-AFFE / B000-BFFE with sums at AFFE / BFFE (22:4EF0-4FDE: repair from the
+# valid page, else clear both), bank 1 sums at A8D7, A8B5, A9E4/A9E8 and page B000, bank 2 = copy of the adapter's 192-byte config (sum at A0BE).
+# Adapter config: 'MA' magic, big-endian byte sum at BE-BF (libmobile config verify). Starts from the state left by 'tutorial_profile'.
+# --- control
+reset
+wait 1000
+shot control_boot
+tap A
+waitstable 60 max 600
+shot control_a1
+tap A
+waitstable 60 max 600
+shot control_a2
+# --- bank0_page0
+sram 0:A010=5A
+sram 0:A011=A5
+reset
+wait 1000
+shot bank0_page0_boot
+tap A
+waitstable 60 max 600
+shot bank0_page0_a1
+tap A
+waitstable 60 max 600
+shot bank0_page0_a2
+# --- bank0_page1
+sram 0:B010=5A
+sram 0:B011=A5
+reset
+wait 1000
+shot bank0_page1_boot
+tap A
+waitstable 60 max 600
+shot bank0_page1_a1
+tap A
+waitstable 60 max 600
+shot bank0_page1_a2
+# --- bank0_both
+sram 0:A010=5A
+sram 0:A011=A5
+sram 0:B010=5A
+sram 0:B011=A5
+reset
+wait 1000
+shot bank0_both_boot
+tap A
+waitstable 60 max 600
+shot bank0_both_a1
+tap A
+waitstable 60 max 600
+shot bank0_both_a2
+# --- bank1_A100
+sram 1:A100=5A
+sram 1:A101=A5
+reset
+wait 1000
+shot bank1_A100_boot
+tap A
+waitstable 60 max 600
+shot bank1_A100_a1
+tap A
+waitstable 60 max 600
+shot bank1_A100_a2
+# --- bank1_A690
+sram 1:A690=5A
+sram 1:A691=A5
+reset
+wait 1000
+shot bank1_A690_boot
+tap A
+waitstable 60 max 600
+shot bank1_A690_a1
+tap A
+waitstable 60 max 600
+shot bank1_A690_a2
+# --- bank1_B010
+sram 1:B010=5A
+sram 1:B011=A5
+reset
+wait 1000
+shot bank1_B010_boot
+tap A
+waitstable 60 max 600
+shot bank1_B010_a1
+tap A
+waitstable 60 max 600
+shot bank1_B010_a2
+# --- bank1_A9F0
+sram 1:A9F0=5A
+sram 1:A9F1=A5
+reset
+wait 1000
+shot bank1_A9F0_boot
+tap A
+waitstable 60 max 600
+shot bank1_A9F0_a1
+tap A
+waitstable 60 max 600
+shot bank1_A9F0_a2
+# --- bank2_A010
+sram 2:A010=5A
+sram 2:A011=A5
+reset
+wait 1000
+shot bank2_A010_boot
+tap A
+waitstable 60 max 600
+shot bank2_A010_a1
+tap A
+waitstable 60 max 600
+shot bank2_A010_a2
+# --- bank3_A000
+sram 3:A000=5A
+sram 3:A001=A5
+reset
+wait 1000
+shot bank3_A000_boot
+tap A
+waitstable 60 max 600
+shot bank3_A000_a1
+tap A
+waitstable 60 max 600
+shot bank3_A000_a2
+# --- cfg_magic
+cfg 0=58
+reset
+wait 1000
+shot cfg_magic_boot
+tap A
+waitstable 60 max 600
+shot cfg_magic_a1
+tap A
+waitstable 60 max 600
+shot cfg_magic_a2
+# --- cfg_sum
+cfg BF=00
+cfg BE=00
+reset
+wait 1000
+shot cfg_sum_boot
+tap A
+waitstable 60 max 600
+shot cfg_sum_a1
+tap A
+waitstable 60 max 600
+shot cfg_sum_a2
+# --- sram_zero
+sramfill 00
+reset
+wait 1000
+shot sram_zero_boot
+tap A
+waitstable 60 max 600
+shot sram_zero_a1
+tap A
+waitstable 60 max 600
+shot sram_zero_a2
+# --- sram_ff
+sramfill FF
+reset
+wait 1000
+shot sram_ff_boot
+tap A
+waitstable 60 max 600
+shot sram_ff_a1
+tap A
+waitstable 60 max 600
+shot sram_ff_a2
+# --- cfg_zero
+cfgfill 00
+reset
+wait 1000
+shot cfg_zero_boot
+tap A
+waitstable 60 max 600
+shot cfg_zero_a1
+tap A
+waitstable 60 max 600
+shot cfg_zero_a2
+# --- cfg_ff
+cfgfill FF
+reset
+wait 1000
+shot cfg_ff_boot
+tap A
+waitstable 60 max 600
+shot cfg_ff_a1
+tap A
+waitstable 60 max 600
+shot cfg_ff_a2

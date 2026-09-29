@@ -1,0 +1,157 @@
+# recorded by mgba_trace --macro boot_states.macro (resolved absolute frames)
+0 reset
+1000 shot control_boot
+1000 A
+1004 -
+1618 shot control_a1
+1618 A
+1622 -
+2236 shot control_a2
+2236 sram 0:A010=5A
+2236 sram 0:A011=A5
+2236 reset
+3236 shot bank0_page0_boot
+3236 A
+3240 -
+3854 shot bank0_page0_a1
+3854 A
+3858 -
+4472 shot bank0_page0_a2
+4472 sram 0:B010=5A
+4472 sram 0:B011=A5
+4472 reset
+5472 shot bank0_page1_boot
+5472 A
+5476 -
+5591 shot bank0_page1_a1
+5591 A
+5595 -
+6209 shot bank0_page1_a2
+6209 sram 0:A010=5A
+6209 sram 0:A011=A5
+6209 sram 0:B010=5A
+6209 sram 0:B011=A5
+6209 reset
+7209 shot bank0_both_boot
+7209 A
+7213 -
+7328 shot bank0_both_a1
+7328 A
+7332 -
+7946 shot bank0_both_a2
+7946 sram 1:A100=5A
+7946 sram 1:A101=A5
+7946 reset
+8946 shot bank1_A100_boot
+8946 A
+8950 -
+9174 shot bank1_A100_a1
+9174 A
+9178 -
+9792 shot bank1_A100_a2
+9792 sram 1:A690=5A
+9792 sram 1:A691=A5
+9792 reset
+10792 shot bank1_A690_boot
+10792 A
+10796 -
+10909 shot bank1_A690_a1
+10909 A
+10913 -
+11527 shot bank1_A690_a2
+11527 sram 1:B010=5A
+11527 sram 1:B011=A5
+11527 reset
+12527 shot bank1_B010_boot
+12527 A
+12531 -
+12755 shot bank1_B010_a1
+12755 A
+12759 -
+13373 shot bank1_B010_a2
+13373 sram 1:A9F0=5A
+13373 sram 1:A9F1=A5
+13373 reset
+14373 shot bank1_A9F0_boot
+14373 A
+14377 -
+14601 shot bank1_A9F0_a1
+14601 A
+14605 -
+15219 shot bank1_A9F0_a2
+15219 sram 2:A010=5A
+15219 sram 2:A011=A5
+15219 reset
+16219 shot bank2_A010_boot
+16219 A
+16223 -
+16447 shot bank2_A010_a1
+16447 A
+16451 -
+17065 shot bank2_A010_a2
+17065 sram 3:A000=5A
+17065 sram 3:A001=A5
+17065 reset
+18065 shot bank3_A000_boot
+18065 A
+18069 -
+18293 shot bank3_A000_a1
+18293 A
+18297 -
+18911 shot bank3_A000_a2
+18911 cfg 0=58
+18911 reset
+19911 shot cfg_magic_boot
+19911 A
+19915 -
+20042 shot cfg_magic_a1
+20042 A
+20046 -
+20161 shot cfg_magic_a2
+20161 cfg BF=00
+20161 cfg BE=00
+20161 reset
+21161 shot cfg_sum_boot
+21161 A
+21165 -
+21280 shot cfg_sum_a1
+21280 A
+21284 -
+21411 shot cfg_sum_a2
+21411 sramfill 00
+21411 reset
+22411 shot sram_zero_boot
+22411 A
+22415 -
+22530 shot sram_zero_a1
+22530 A
+22534 -
+22661 shot sram_zero_a2
+22661 sramfill FF
+22661 reset
+23661 shot sram_ff_boot
+23661 A
+23665 -
+23780 shot sram_ff_a1
+23780 A
+23784 -
+23911 shot sram_ff_a2
+23911 cfgfill 00
+23911 reset
+24911 shot cfg_zero_boot
+24911 A
+24915 -
+25030 shot cfg_zero_a1
+25030 A
+25034 -
+25161 shot cfg_zero_a2
+25161 cfgfill FF
+25161 reset
+26161 shot cfg_ff_boot
+26161 A
+26165 -
+26280 shot cfg_ff_a1
+26280 A
+26284 -
+26411 shot cfg_ff_a2
+# last scripted frame: 26411

@@ -1,0 +1,130 @@
+# recorded by mgba_trace --macro browser_bookmarks.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 A
+2740 -
+3066 A
+3070 -
+3353 A
+3357 -
+3620 A
+3624 -
+3929 A
+3933 -
+4202 A
+4206 -
+4412 A
+4416 -
+4679 A
+4683 -
+4925 A
+4929 -
+5121 A
+5125 -
+5500 A
+5504 -
+5843 A
+5847 -
+6214 A
+6218 -
+6466 A
+6470 -
+6900 shot prompt
+6900 DOWN
+6904 -
+6974 A
+6978 -
+7151 shot empty_list
+7151 A
+7155 -
+7245 shot empty_bar
+7245 A
+7249 -
+8179 shot empty_a
+8179 B
+8183 -
+8273 shot list_again
+8273 B
+8277 -
+9207 shot back_prompt
+9207 UP
+9211 -
+9281 A
+9285 -
+10215 shot confirm
+10215 A
+10219 -
+10320 A
+10324 -
+10862 A
+10866 -
+12996 shot index
+12996 START
+13000 -
+13090 A
+13094 -
+13270 shot list_a
+13270 A
+13274 -
+13364 RIGHT
+13368 -
+13458 A
+13462 -
+13593 shot saved_a
+13593 A
+13597 -
+13687 shot saved_bar
+13687 B
+13691 -
+13781 shot back_to_page
+13781 DOWN
+13785 -
+13845 A
+13849 -
+15079 shot a_page
+15079 START
+15083 -
+15173 A
+15177 -
+16107 DOWN
+16111 -
+16181 A
+16185 -
+16275 RIGHT
+16279 -
+16369 A
+16373 -
+16503 shot saved_second
+16503 A
+16507 -
+16597 shot bar_first
+16597 A
+16601 -
+17831 shot goto_page
+17831 START
+17835 -
+17925 A
+17929 -
+18108 DOWN
+18112 -
+18182 A
+18186 -
+18276 RIGHT
+18280 -
+18310 RIGHT
+18314 -
+18404 A
+18408 -
+19338 shot delete_confirm
+19338 LEFT
+19342 -
+19412 A
+19416 -
+19552 shot deleted
+# last scripted frame: 19552

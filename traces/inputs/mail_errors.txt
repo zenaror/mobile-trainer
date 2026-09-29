@@ -1,0 +1,346 @@
+# recorded by mgba_trace --macro mail_errors.macro (resolved absolute frames)
+0 reset
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 net smtp_fail=connect
+2362 A
+2366 -
+2996 A
+3000 -
+3101 A
+3105 -
+6635 shot smtp_connect
+6635 A
+6639 -
+8169 shot smtp_connect_2
+8169 net smtp_fail=none
+8169 reset
+8629 A
+8633 -
+9263 A
+9267 -
+9897 A
+9901 -
+10531 net smtp_fail=helo
+10531 A
+10535 -
+11165 A
+11169 -
+11270 A
+11274 -
+14804 shot smtp_helo
+14804 A
+14808 -
+16338 shot smtp_helo_2
+16338 net smtp_fail=none
+16338 reset
+16798 A
+16802 -
+17432 A
+17436 -
+18066 A
+18070 -
+18700 net smtp_fail=mail
+18700 A
+18704 -
+19334 A
+19338 -
+19439 A
+19443 -
+22973 shot smtp_mail
+22973 A
+22977 -
+24507 shot smtp_mail_2
+24507 net smtp_fail=none
+24507 reset
+24967 A
+24971 -
+25601 A
+25605 -
+26235 A
+26239 -
+26869 net smtp_fail=rcpt
+26869 A
+26873 -
+27503 A
+27507 -
+27608 A
+27612 -
+31142 shot smtp_rcpt
+31142 A
+31146 -
+32676 shot smtp_rcpt_2
+32676 net smtp_fail=none
+32676 reset
+33136 A
+33140 -
+33770 A
+33774 -
+34404 A
+34408 -
+35038 net smtp_fail=data
+35038 A
+35042 -
+35672 A
+35676 -
+35777 A
+35781 -
+39311 shot smtp_data
+39311 A
+39315 -
+40845 shot smtp_data_2
+40845 net smtp_fail=none
+40845 reset
+41305 A
+41309 -
+41939 A
+41943 -
+42573 A
+42577 -
+43207 net smtp_fail=end
+43207 A
+43211 -
+43841 A
+43845 -
+43946 A
+43950 -
+47480 shot smtp_end
+47480 A
+47484 -
+49014 shot smtp_end_2
+49014 net smtp_fail=none
+49014 reset
+49474 A
+49478 -
+50108 A
+50112 -
+50742 A
+50746 -
+51376 net pop_fail=connect
+51376 A
+51380 -
+52010 A
+52014 -
+52115 A
+52119 -
+55649 shot pop_connect
+55649 A
+55653 -
+57183 shot pop_connect_2
+57183 net pop_fail=none
+57183 reset
+57643 A
+57647 -
+58277 A
+58281 -
+58911 A
+58915 -
+59545 net pop_fail=user
+59545 A
+59549 -
+60179 A
+60183 -
+60284 A
+60288 -
+63818 shot pop_user
+63818 A
+63822 -
+65352 shot pop_user_2
+65352 net pop_fail=none
+65352 reset
+65812 A
+65816 -
+66446 A
+66450 -
+67080 A
+67084 -
+67714 net pop_fail=pass
+67714 A
+67718 -
+68348 A
+68352 -
+68453 A
+68457 -
+71987 shot pop_pass
+71987 A
+71991 -
+73521 shot pop_pass_2
+73521 net pop_fail=none
+73521 reset
+73981 A
+73985 -
+74615 A
+74619 -
+75249 A
+75253 -
+75883 net pop_fail=stat
+75883 A
+75887 -
+76517 A
+76521 -
+76622 A
+76626 -
+80156 shot pop_stat
+80156 A
+80160 -
+81690 shot pop_stat_2
+81690 net pop_fail=none
+81690 reset
+82150 A
+82154 -
+82784 A
+82788 -
+83418 A
+83422 -
+84052 net pop_fail=top
+84052 A
+84056 -
+84686 A
+84690 -
+84791 A
+84795 -
+88325 shot pop_top
+88325 A
+88329 -
+89859 shot pop_top_2
+89859 net pop_fail=none
+89859 reset
+90319 A
+90323 -
+90953 A
+90957 -
+91587 A
+91591 -
+92221 net pop_fail=retr
+92221 A
+92225 -
+92855 A
+92859 -
+92960 A
+92964 -
+96494 shot pop_retr
+96494 A
+96498 -
+98028 shot pop_retr_2
+98028 net pop_fail=none
+98028 reset
+98488 A
+98492 -
+99122 A
+99126 -
+99756 A
+99760 -
+100390 net pop_fail=dele
+100390 A
+100394 -
+101024 A
+101028 -
+101129 A
+101133 -
+104663 shot pop_dele
+104663 A
+104667 -
+106197 shot pop_dele_2
+106197 net pop_fail=none
+106197 reset
+106657 A
+106661 -
+107291 A
+107295 -
+107925 A
+107929 -
+108559 net dns=nx
+108559 A
+108563 -
+109193 A
+109197 -
+109298 A
+109302 -
+112832 shot dns_nx
+112832 A
+112836 -
+114366 shot dns_nx_2
+114366 net dns=ok
+114366 reset
+114826 A
+114830 -
+115460 A
+115464 -
+116094 A
+116098 -
+116728 net dns=drop
+116728 A
+116732 -
+117362 A
+117366 -
+117467 A
+117471 -
+123501 shot dns_drop
+123501 A
+123505 -
+125035 shot dns_drop_2
+125035 net dns=ok
+125035 reset
+125495 A
+125499 -
+126129 A
+126133 -
+126763 A
+126767 -
+127397 net tcp=refuse
+127397 A
+127401 -
+128031 A
+128035 -
+128136 A
+128140 -
+131670 shot tcp_refuse
+131670 A
+131674 -
+133204 shot tcp_refuse_2
+133204 net tcp=ok
+133204 reset
+133664 A
+133668 -
+134298 A
+134302 -
+134932 A
+134936 -
+135566 net tcp=reset
+135566 A
+135570 -
+136200 A
+136204 -
+136305 A
+136309 -
+139839 shot tcp_reset
+139839 A
+139843 -
+141373 shot tcp_reset_2
+141373 net tcp=ok
+141373 reset
+141833 A
+141837 -
+142467 A
+142471 -
+143101 A
+143105 -
+143735 A
+143739 -
+144369 A
+144373 -
+144474 A
+144478 -
+145708 unplug
+145908 shot unplug_ppp
+145908 A
+145912 -
+147442 shot unplug_ppp_2
+150442 shot unplug_ppp_end
+150442 plug
+151942 shot replugged
+# last scripted frame: 151942

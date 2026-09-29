@@ -1,0 +1,40 @@
+# Scenario 'mail_receive': おくる/うけとる with six messages waiting on the fake POP3 server (traces/net/mail_*.eml: Japanese
+# ISO-2022-JP, plain ASCII, game mail with X-Game-* headers, multipart with a base64 attachment, a 40-line mail, a header-poor mail).
+# Dial, PPP, DNS, POP3 USER/PASS/STAT/LIST/RETR/DELE/QUIT (fake server with latency=2 frames), result screens.
+# Starts from the state left by 'mail_send' (outbox empty). Screen names = my reading of the screenshots.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+shot top_menu
+tap A                        # top menu: メール
+waitstable 60 max 600
+shot mail_menu
+tap A                        # おくる/うけとる
+waitstable 60 max 300
+shot send_receive_1
+tap A
+waitstable 60 max 600
+shot send_receive_2
+tap A                        # はい
+waitstable 60 max 600
+shot password_saved
+tap A                        # "0でつうしんをはじめる"
+waitstable 60 max 300
+shot connecting
+wait 900
+shot receiving_1
+wait 1200
+shot receiving_2
+waitstable 120 max 3000
+shot comm_finished
+tap A                        # dismiss
+waitstable 60 max 600
+shot result_1
+tap A
+waitstable 60 max 600
+shot result_2
+tap A                        # back to the mail menu
+waitstable 60 max 600
+shot mail_menu_again

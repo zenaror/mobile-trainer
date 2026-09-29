@@ -1,0 +1,82 @@
+# recorded by mgba_trace --macro mail_server_hidden.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 DOWN
+2366 -
+2396 DOWN
+2400 -
+2430 DOWN
+2434 -
+2464 DOWN
+2468 -
+2498 DOWN
+2502 -
+2572 A
+2574 -
+2574 SELECT+LEFT
+2694 -
+3294 shot notice
+3294 A
+3296 -
+3438 shot menu
+3438 DOWN
+3442 -
+3472 DOWN
+3476 -
+3546 A
+3550 -
+4180 shot confirm
+4180 A
+4184 -
+4313 shot refused
+4313 A
+4317 -
+4947 LEFT
+4951 -
+5021 A
+5025 -
+5655 shot confirm_2
+5655 A
+5659 -
+5760 A
+5764 -
+8194 shot deleting
+8254 A
+8258 -
+8353 shot result_1
+8353 A
+8357 -
+9287 shot result_2
+9287 A
+9291 -
+10221 shot back_in_mail_menu
+10221 A
+10223 -
+10223 SELECT+LEFT
+10343 -
+10440 shot notice
+10440 A
+10442 -
+11042 shot menu
+11042 DOWN
+11046 -
+11116 A
+11120 -
+11221 shot auto_confirm
+11221 LEFT
+11225 -
+11295 A
+11299 -
+11914 A
+11918 -
+12320 A
+12324 -
+13619 shot auto_deleting
+13679 A
+13683 -
+14613 shot auto_result_1
+# last scripted frame: 14613

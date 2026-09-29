@@ -1,0 +1,2605 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f0] HARNESS console reset (power cycle)
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f414] HARNESS console reset (power cycle)
+[f465] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f465] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f467] gb.mobile DEBUG: >>> 11 End session
+[f467] gb.mobile DEBUG: <<< 11 End session
+[f467] gb.mobile DEBUG: 
+[f591] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f591] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f593] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f593] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f593] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f593] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f593] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f593] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f593] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f593] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f593] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f593] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f600] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f600] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f600] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f600] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f600] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f600] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f604] gb.mobile DEBUG: >>> 11 End session
+[f604] gb.mobile DEBUG: <<< 11 End session
+[f604] gb.mobile DEBUG: 
+[f828] HARNESS console reset (power cycle)
+[f879] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f879] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f881] gb.mobile DEBUG: >>> 11 End session
+[f881] gb.mobile DEBUG: <<< 11 End session
+[f881] gb.mobile DEBUG: 
+[f1005] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1005] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1007] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f1007] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f1007] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f1007] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f1007] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f1007] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f1007] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f1007] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f1007] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f1007] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f1014] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f1014] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f1014] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f1014] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f1014] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f1014] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f1018] gb.mobile DEBUG: >>> 11 End session
+[f1018] gb.mobile DEBUG: <<< 11 End session
+[f1018] gb.mobile DEBUG: 
+[f1242] HARNESS console reset (power cycle)
+[f1293] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1293] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1295] gb.mobile DEBUG: >>> 11 End session
+[f1295] gb.mobile DEBUG: <<< 11 End session
+[f1295] gb.mobile DEBUG: 
+[f1419] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1419] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1421] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f1421] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f1421] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f1421] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f1421] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f1421] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f1421] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f1421] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f1421] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f1421] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f1428] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f1428] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f1428] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f1428] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f1428] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f1428] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f1432] gb.mobile DEBUG: >>> 11 End session
+[f1432] gb.mobile DEBUG: <<< 11 End session
+[f1432] gb.mobile DEBUG: 
+[f1656] HARNESS console reset (power cycle)
+[f1707] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1707] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1709] gb.mobile DEBUG: >>> 11 End session
+[f1709] gb.mobile DEBUG: <<< 11 End session
+[f1709] gb.mobile DEBUG: 
+[f1833] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f1833] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f1835] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f1835] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f1835] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f1835] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f1835] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f1835] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f1835] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f1835] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f1835] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f1835] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f1842] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f1842] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f1842] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f1842] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f1842] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f1842] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f1846] gb.mobile DEBUG: >>> 11 End session
+[f1846] gb.mobile DEBUG: <<< 11 End session
+[f1846] gb.mobile DEBUG: 
+[f2070] HARNESS console reset (power cycle)
+[f2121] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f2121] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f2123] gb.mobile DEBUG: >>> 11 End session
+[f2123] gb.mobile DEBUG: <<< 11 End session
+[f2123] gb.mobile DEBUG: 
+[f2247] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f2247] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f2249] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f2249] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f2249] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f2249] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f2249] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f2249] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f2249] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f2249] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f2249] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f2249] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f2256] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f2256] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f2256] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f2256] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f2256] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f2256] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f2260] gb.mobile DEBUG: >>> 11 End session
+[f2260] gb.mobile DEBUG: <<< 11 End session
+[f2260] gb.mobile DEBUG: 
+[f2484] HARNESS console reset (power cycle)
+[f2535] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f2535] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f2537] gb.mobile DEBUG: >>> 11 End session
+[f2537] gb.mobile DEBUG: <<< 11 End session
+[f2537] gb.mobile DEBUG: 
+[f2661] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f2661] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f2663] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f2663] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f2663] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f2663] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f2663] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f2663] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f2663] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f2663] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f2663] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f2663] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f2670] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f2670] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f2670] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f2670] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f2670] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f2670] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f2674] gb.mobile DEBUG: >>> 11 End session
+[f2674] gb.mobile DEBUG: <<< 11 End session
+[f2674] gb.mobile DEBUG: 
+[f2898] HARNESS console reset (power cycle)
+[f2949] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f2949] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f2951] gb.mobile DEBUG: >>> 11 End session
+[f2951] gb.mobile DEBUG: <<< 11 End session
+[f2951] gb.mobile DEBUG: 
+[f3075] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3075] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3077] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f3077] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3077] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3077] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3077] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3077] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3077] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3077] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3077] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3077] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3084] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f3084] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f3084] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3084] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3084] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3084] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3088] gb.mobile DEBUG: >>> 11 End session
+[f3088] gb.mobile DEBUG: <<< 11 End session
+[f3088] gb.mobile DEBUG: 
+[f3312] HARNESS console reset (power cycle)
+[f3363] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3363] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3365] gb.mobile DEBUG: >>> 11 End session
+[f3365] gb.mobile DEBUG: <<< 11 End session
+[f3365] gb.mobile DEBUG: 
+[f3489] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3489] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3491] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f3491] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3491] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3491] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3491] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3491] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3491] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3491] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3491] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3491] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3498] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f3498] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f3498] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3498] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3498] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3498] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3502] gb.mobile DEBUG: >>> 11 End session
+[f3502] gb.mobile DEBUG: <<< 11 End session
+[f3502] gb.mobile DEBUG: 
+[f3726] HARNESS console reset (power cycle)
+[f3777] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3777] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3779] gb.mobile DEBUG: >>> 11 End session
+[f3779] gb.mobile DEBUG: <<< 11 End session
+[f3779] gb.mobile DEBUG: 
+[f3903] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3903] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3905] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f3905] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3905] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3905] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3905] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3905] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3905] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3905] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3905] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3905] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3912] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f3912] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f3912] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3912] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3912] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3912] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3916] gb.mobile DEBUG: >>> 11 End session
+[f3916] gb.mobile DEBUG: <<< 11 End session
+[f3916] gb.mobile DEBUG: 
+[f4140] HARNESS console reset (power cycle)
+[f4191] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f4191] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f4193] gb.mobile DEBUG: >>> 11 End session
+[f4193] gb.mobile DEBUG: <<< 11 End session
+[f4193] gb.mobile DEBUG: 
+[f4317] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f4317] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f4319] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f4319] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f4319] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f4319] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f4319] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f4319] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f4319] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f4319] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f4319] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f4319] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f4326] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f4326] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f4326] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f4326] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f4326] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f4326] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f4330] gb.mobile DEBUG: >>> 11 End session
+[f4330] gb.mobile DEBUG: <<< 11 End session
+[f4330] gb.mobile DEBUG: 
+[f4554] HARNESS console reset (power cycle)
+[f4605] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f4605] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f4607] gb.mobile DEBUG: >>> 11 End session
+[f4607] gb.mobile DEBUG: <<< 11 End session
+[f4607] gb.mobile DEBUG: 
+[f4731] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f4731] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f4733] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f4733] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f4733] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f4733] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f4733] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f4733] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f4733] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f4733] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f4733] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f4733] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f4740] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f4740] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f4740] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f4740] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f4740] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f4740] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f4744] gb.mobile DEBUG: >>> 11 End session
+[f4744] gb.mobile DEBUG: <<< 11 End session
+[f4744] gb.mobile DEBUG: 
+[f4968] HARNESS console reset (power cycle)
+[f5019] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5019] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5021] gb.mobile DEBUG: >>> 11 End session
+[f5021] gb.mobile DEBUG: <<< 11 End session
+[f5021] gb.mobile DEBUG: 
+[f5145] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5145] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5147] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f5147] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f5147] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f5147] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f5147] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f5147] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f5147] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f5147] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f5147] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f5147] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f5154] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f5154] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f5154] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f5154] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f5154] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f5154] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f5158] gb.mobile DEBUG: >>> 11 End session
+[f5158] gb.mobile DEBUG: <<< 11 End session
+[f5158] gb.mobile DEBUG: 
+[f5382] HARNESS console reset (power cycle)
+[f5433] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5433] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5435] gb.mobile DEBUG: >>> 11 End session
+[f5435] gb.mobile DEBUG: <<< 11 End session
+[f5435] gb.mobile DEBUG: 
+[f5559] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5559] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5561] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f5561] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f5561] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f5561] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f5561] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f5561] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f5561] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f5561] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f5561] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f5561] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f5568] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f5568] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f5568] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f5568] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f5568] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f5568] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f5572] gb.mobile DEBUG: >>> 11 End session
+[f5572] gb.mobile DEBUG: <<< 11 End session
+[f5572] gb.mobile DEBUG: 
+[f5796] HARNESS console reset (power cycle)
+[f5847] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5847] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5849] gb.mobile DEBUG: >>> 11 End session
+[f5849] gb.mobile DEBUG: <<< 11 End session
+[f5849] gb.mobile DEBUG: 
+[f5973] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f5973] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f5975] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f5975] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f5975] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f5975] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f5975] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f5975] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f5975] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f5975] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f5975] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f5975] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f5982] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f5982] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f5982] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f5982] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f5982] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f5982] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f5986] gb.mobile DEBUG: >>> 11 End session
+[f5986] gb.mobile DEBUG: <<< 11 End session
+[f5986] gb.mobile DEBUG: 
+[f6210] HARNESS console reset (power cycle)
+[f6261] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6261] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6263] gb.mobile DEBUG: >>> 11 End session
+[f6263] gb.mobile DEBUG: <<< 11 End session
+[f6263] gb.mobile DEBUG: 
+[f6387] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6387] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6389] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f6389] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6389] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6389] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6389] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6389] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6389] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6389] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6389] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6389] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6396] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f6396] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f6396] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6396] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6396] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6396] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6400] gb.mobile DEBUG: >>> 11 End session
+[f6400] gb.mobile DEBUG: <<< 11 End session
+[f6400] gb.mobile DEBUG: 
+[f6624] HARNESS console reset (power cycle)
+[f6675] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6675] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6677] gb.mobile DEBUG: >>> 11 End session
+[f6677] gb.mobile DEBUG: <<< 11 End session
+[f6677] gb.mobile DEBUG: 
+[f6801] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6801] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6803] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f6803] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6803] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6803] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6803] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6803] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6803] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6803] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6803] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6803] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6810] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f6810] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f6810] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6810] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6810] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6810] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6814] gb.mobile DEBUG: >>> 11 End session
+[f6814] gb.mobile DEBUG: <<< 11 End session
+[f6814] gb.mobile DEBUG: 
+[f7038] HARNESS console reset (power cycle)
+[f7089] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f7089] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f7091] gb.mobile DEBUG: >>> 11 End session
+[f7091] gb.mobile DEBUG: <<< 11 End session
+[f7091] gb.mobile DEBUG: 
+[f7215] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f7215] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f7217] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f7217] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f7217] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f7217] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f7217] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f7217] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f7217] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f7217] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f7217] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f7217] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f7224] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f7224] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f7224] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f7224] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f7224] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f7224] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f7228] gb.mobile DEBUG: >>> 11 End session
+[f7228] gb.mobile DEBUG: <<< 11 End session
+[f7228] gb.mobile DEBUG: 
+[f7452] HARNESS console reset (power cycle)
+[f7503] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f7503] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f7505] gb.mobile DEBUG: >>> 11 End session
+[f7505] gb.mobile DEBUG: <<< 11 End session
+[f7505] gb.mobile DEBUG: 
+[f7629] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f7629] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f7631] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f7631] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f7631] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f7631] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f7631] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f7631] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f7631] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f7631] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f7631] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f7631] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f7638] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f7638] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f7638] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f7638] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f7638] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f7638] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f7642] gb.mobile DEBUG: >>> 11 End session
+[f7642] gb.mobile DEBUG: <<< 11 End session
+[f7642] gb.mobile DEBUG: 
+[f7866] HARNESS console reset (power cycle)
+[f7917] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f7917] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f7919] gb.mobile DEBUG: >>> 11 End session
+[f7919] gb.mobile DEBUG: <<< 11 End session
+[f7919] gb.mobile DEBUG: 
+[f8043] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8043] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8045] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f8045] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f8045] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f8045] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f8045] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f8045] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f8045] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f8045] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f8045] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f8045] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f8052] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f8052] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f8052] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f8052] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f8052] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f8052] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f8056] gb.mobile DEBUG: >>> 11 End session
+[f8056] gb.mobile DEBUG: <<< 11 End session
+[f8056] gb.mobile DEBUG: 
+[f8280] HARNESS console reset (power cycle)
+[f8331] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8331] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8333] gb.mobile DEBUG: >>> 11 End session
+[f8333] gb.mobile DEBUG: <<< 11 End session
+[f8333] gb.mobile DEBUG: 
+[f8457] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8457] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8459] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f8459] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f8459] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f8459] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f8459] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f8459] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f8459] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f8459] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f8459] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f8459] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f8466] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f8466] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f8466] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f8466] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f8466] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f8466] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f8470] gb.mobile DEBUG: >>> 11 End session
+[f8470] gb.mobile DEBUG: <<< 11 End session
+[f8470] gb.mobile DEBUG: 
+[f8694] HARNESS console reset (power cycle)
+[f8745] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8745] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8747] gb.mobile DEBUG: >>> 11 End session
+[f8747] gb.mobile DEBUG: <<< 11 End session
+[f8747] gb.mobile DEBUG: 
+[f8871] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f8871] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f8873] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f8873] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f8873] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f8873] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f8873] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f8873] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f8873] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f8873] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f8873] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f8873] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f8880] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f8880] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f8880] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f8880] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f8880] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f8880] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f8884] gb.mobile DEBUG: >>> 11 End session
+[f8884] gb.mobile DEBUG: <<< 11 End session
+[f8884] gb.mobile DEBUG: 
+[f9108] HARNESS console reset (power cycle)
+[f9159] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9159] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9161] gb.mobile DEBUG: >>> 11 End session
+[f9161] gb.mobile DEBUG: <<< 11 End session
+[f9161] gb.mobile DEBUG: 
+[f9285] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9285] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9287] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f9287] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f9287] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f9287] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f9287] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f9287] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f9287] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f9287] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f9287] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f9287] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f9294] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f9294] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f9294] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f9294] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f9294] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f9294] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f9298] gb.mobile DEBUG: >>> 11 End session
+[f9298] gb.mobile DEBUG: <<< 11 End session
+[f9298] gb.mobile DEBUG: 
+[f9522] HARNESS console reset (power cycle)
+[f9573] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9573] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9575] gb.mobile DEBUG: >>> 11 End session
+[f9575] gb.mobile DEBUG: <<< 11 End session
+[f9575] gb.mobile DEBUG: 
+[f9699] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9699] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9701] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f9701] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f9701] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f9701] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f9701] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f9701] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f9701] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f9701] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f9701] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f9701] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f9708] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f9708] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f9708] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f9708] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f9708] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f9708] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f9712] gb.mobile DEBUG: >>> 11 End session
+[f9712] gb.mobile DEBUG: <<< 11 End session
+[f9712] gb.mobile DEBUG: 
+[f9936] HARNESS console reset (power cycle)
+[f9987] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9987] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9989] gb.mobile DEBUG: >>> 11 End session
+[f9989] gb.mobile DEBUG: <<< 11 End session
+[f9989] gb.mobile DEBUG: 
+[f10113] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f10113] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f10115] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f10115] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f10115] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f10115] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f10115] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f10115] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f10115] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f10115] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f10115] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f10115] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f10122] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f10122] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f10122] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f10122] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f10122] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f10122] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f10126] gb.mobile DEBUG: >>> 11 End session
+[f10126] gb.mobile DEBUG: <<< 11 End session
+[f10126] gb.mobile DEBUG: 
+[f10350] HARNESS console reset (power cycle)
+[f10401] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f10401] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f10403] gb.mobile DEBUG: >>> 11 End session
+[f10403] gb.mobile DEBUG: <<< 11 End session
+[f10403] gb.mobile DEBUG: 
+[f10527] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f10527] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f10529] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f10529] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f10529] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f10529] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f10529] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f10529] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f10529] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f10529] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f10529] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f10529] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f10536] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f10536] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f10536] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f10536] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f10536] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f10536] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f10540] gb.mobile DEBUG: >>> 11 End session
+[f10540] gb.mobile DEBUG: <<< 11 End session
+[f10540] gb.mobile DEBUG: 
+[f10764] HARNESS console reset (power cycle)
+[f10815] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f10815] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f10817] gb.mobile DEBUG: >>> 11 End session
+[f10817] gb.mobile DEBUG: <<< 11 End session
+[f10817] gb.mobile DEBUG: 
+[f10941] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f10941] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f10943] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f10943] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f10943] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f10943] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f10943] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f10943] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f10943] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f10943] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f10943] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f10943] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f10950] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f10950] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f10950] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f10950] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f10950] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f10950] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f10954] gb.mobile DEBUG: >>> 11 End session
+[f10954] gb.mobile DEBUG: <<< 11 End session
+[f10954] gb.mobile DEBUG: 
+[f11178] HARNESS console reset (power cycle)
+[f11229] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f11229] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f11231] gb.mobile DEBUG: >>> 11 End session
+[f11231] gb.mobile DEBUG: <<< 11 End session
+[f11231] gb.mobile DEBUG: 
+[f11355] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f11355] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f11357] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f11357] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f11357] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f11357] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f11357] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f11357] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f11357] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f11357] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f11357] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f11357] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f11364] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f11364] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f11364] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f11364] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f11364] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f11364] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f11368] gb.mobile DEBUG: >>> 11 End session
+[f11368] gb.mobile DEBUG: <<< 11 End session
+[f11368] gb.mobile DEBUG: 
+[f11592] HARNESS console reset (power cycle)
+[f11643] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f11643] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f11645] gb.mobile DEBUG: >>> 11 End session
+[f11645] gb.mobile DEBUG: <<< 11 End session
+[f11645] gb.mobile DEBUG: 
+[f11769] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f11769] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f11771] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f11771] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f11771] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f11771] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f11771] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f11771] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f11771] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f11771] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f11771] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f11771] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f11778] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f11778] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f11778] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f11778] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f11778] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f11778] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f11782] gb.mobile DEBUG: >>> 11 End session
+[f11782] gb.mobile DEBUG: <<< 11 End session
+[f11782] gb.mobile DEBUG: 
+[f12006] HARNESS console reset (power cycle)
+[f12057] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12057] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12059] gb.mobile DEBUG: >>> 11 End session
+[f12059] gb.mobile DEBUG: <<< 11 End session
+[f12059] gb.mobile DEBUG: 
+[f12183] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12183] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12185] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f12185] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f12185] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f12185] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f12185] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f12185] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f12185] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f12185] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f12185] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f12185] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f12192] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f12192] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f12192] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f12192] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f12192] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f12192] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f12196] gb.mobile DEBUG: >>> 11 End session
+[f12196] gb.mobile DEBUG: <<< 11 End session
+[f12196] gb.mobile DEBUG: 
+[f12420] HARNESS console reset (power cycle)
+[f12471] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12471] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12473] gb.mobile DEBUG: >>> 11 End session
+[f12473] gb.mobile DEBUG: <<< 11 End session
+[f12473] gb.mobile DEBUG: 
+[f12597] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12597] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12599] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f12599] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f12599] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f12599] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f12599] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f12599] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f12599] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f12599] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f12599] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f12599] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f12606] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f12606] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f12606] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f12606] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f12606] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f12606] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f12610] gb.mobile DEBUG: >>> 11 End session
+[f12610] gb.mobile DEBUG: <<< 11 End session
+[f12610] gb.mobile DEBUG: 
+[f12834] HARNESS console reset (power cycle)
+[f12885] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f12885] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f12887] gb.mobile DEBUG: >>> 11 End session
+[f12887] gb.mobile DEBUG: <<< 11 End session
+[f12887] gb.mobile DEBUG: 
+[f13011] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13011] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13013] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f13013] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f13013] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f13013] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f13013] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f13013] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f13013] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f13013] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f13013] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f13013] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f13020] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f13020] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f13020] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f13020] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f13020] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f13020] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f13024] gb.mobile DEBUG: >>> 11 End session
+[f13024] gb.mobile DEBUG: <<< 11 End session
+[f13024] gb.mobile DEBUG: 
+[f13248] HARNESS console reset (power cycle)
+[f13299] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13299] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13301] gb.mobile DEBUG: >>> 11 End session
+[f13301] gb.mobile DEBUG: <<< 11 End session
+[f13301] gb.mobile DEBUG: 
+[f13425] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13425] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13427] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f13427] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f13427] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f13427] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f13427] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f13427] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f13427] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f13427] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f13427] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f13427] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f13434] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f13434] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f13434] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f13434] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f13434] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f13434] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f13438] gb.mobile DEBUG: >>> 11 End session
+[f13438] gb.mobile DEBUG: <<< 11 End session
+[f13438] gb.mobile DEBUG: 
+[f13662] HARNESS console reset (power cycle)
+[f13713] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13713] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13715] gb.mobile DEBUG: >>> 11 End session
+[f13715] gb.mobile DEBUG: <<< 11 End session
+[f13715] gb.mobile DEBUG: 
+[f13839] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f13839] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f13841] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f13841] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f13841] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f13841] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f13841] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f13841] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f13841] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f13841] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f13841] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f13841] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f13848] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f13848] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f13848] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f13848] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f13848] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f13848] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f13852] gb.mobile DEBUG: >>> 11 End session
+[f13852] gb.mobile DEBUG: <<< 11 End session
+[f13852] gb.mobile DEBUG: 
+[f14076] HARNESS console reset (power cycle)
+[f14127] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14127] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14129] gb.mobile DEBUG: >>> 11 End session
+[f14129] gb.mobile DEBUG: <<< 11 End session
+[f14129] gb.mobile DEBUG: 
+[f14253] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14253] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14255] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f14255] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f14255] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f14255] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f14255] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f14255] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f14255] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f14255] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f14255] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f14255] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f14262] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f14262] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f14262] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f14262] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f14262] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f14262] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f14266] gb.mobile DEBUG: >>> 11 End session
+[f14266] gb.mobile DEBUG: <<< 11 End session
+[f14266] gb.mobile DEBUG: 
+[f14490] HARNESS console reset (power cycle)
+[f14541] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14541] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14543] gb.mobile DEBUG: >>> 11 End session
+[f14543] gb.mobile DEBUG: <<< 11 End session
+[f14543] gb.mobile DEBUG: 
+[f14667] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14667] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14669] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f14669] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f14669] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f14669] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f14669] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f14669] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f14669] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f14669] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f14669] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f14669] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f14676] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f14676] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f14676] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f14676] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f14676] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f14676] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f14680] gb.mobile DEBUG: >>> 11 End session
+[f14680] gb.mobile DEBUG: <<< 11 End session
+[f14680] gb.mobile DEBUG: 
+[f14904] HARNESS console reset (power cycle)
+[f14955] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f14955] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f14957] gb.mobile DEBUG: >>> 11 End session
+[f14957] gb.mobile DEBUG: <<< 11 End session
+[f14957] gb.mobile DEBUG: 
+[f15081] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15081] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15083] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f15083] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f15083] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f15083] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f15083] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f15083] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f15083] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f15083] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f15083] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f15083] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f15090] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f15090] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f15090] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f15090] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f15090] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f15090] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f15094] gb.mobile DEBUG: >>> 11 End session
+[f15094] gb.mobile DEBUG: <<< 11 End session
+[f15094] gb.mobile DEBUG: 
+[f15318] HARNESS console reset (power cycle)
+[f15369] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15369] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15371] gb.mobile DEBUG: >>> 11 End session
+[f15371] gb.mobile DEBUG: <<< 11 End session
+[f15371] gb.mobile DEBUG: 
+[f15495] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15495] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15497] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f15497] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f15497] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f15497] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f15497] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f15497] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f15497] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f15497] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f15497] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f15497] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f15504] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f15504] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f15504] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f15504] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f15504] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f15504] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f15508] gb.mobile DEBUG: >>> 11 End session
+[f15508] gb.mobile DEBUG: <<< 11 End session
+[f15508] gb.mobile DEBUG: 
+[f15732] HARNESS console reset (power cycle)
+[f15783] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15783] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15785] gb.mobile DEBUG: >>> 11 End session
+[f15785] gb.mobile DEBUG: <<< 11 End session
+[f15785] gb.mobile DEBUG: 
+[f15909] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15909] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15911] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f15911] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f15911] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f15911] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f15911] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f15911] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f15911] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f15911] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f15911] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f15911] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f15918] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f15918] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f15918] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f15918] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f15918] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f15918] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f15922] gb.mobile DEBUG: >>> 11 End session
+[f15922] gb.mobile DEBUG: <<< 11 End session
+[f15922] gb.mobile DEBUG: 
+[f16146] HARNESS console reset (power cycle)
+[f16197] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f16197] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f16199] gb.mobile DEBUG: >>> 11 End session
+[f16199] gb.mobile DEBUG: <<< 11 End session
+[f16199] gb.mobile DEBUG: 
+[f16323] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f16323] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f16325] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f16325] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f16325] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f16325] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f16325] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f16325] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f16325] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f16325] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f16325] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f16325] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f16332] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f16332] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f16332] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f16332] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f16332] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f16332] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f16336] gb.mobile DEBUG: >>> 11 End session
+[f16336] gb.mobile DEBUG: <<< 11 End session
+[f16336] gb.mobile DEBUG: 
+[f16560] HARNESS console reset (power cycle)
+[f16611] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f16611] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f16613] gb.mobile DEBUG: >>> 11 End session
+[f16613] gb.mobile DEBUG: <<< 11 End session
+[f16613] gb.mobile DEBUG: 
+[f16737] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f16737] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f16739] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f16739] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f16739] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f16739] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f16739] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f16739] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f16739] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f16739] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f16739] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f16739] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f16746] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f16746] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f16746] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f16746] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f16746] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f16746] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f16750] gb.mobile DEBUG: >>> 11 End session
+[f16750] gb.mobile DEBUG: <<< 11 End session
+[f16750] gb.mobile DEBUG: 
+[f16974] HARNESS console reset (power cycle)
+[f17025] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17025] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17027] gb.mobile DEBUG: >>> 11 End session
+[f17027] gb.mobile DEBUG: <<< 11 End session
+[f17027] gb.mobile DEBUG: 
+[f17151] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17151] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17153] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f17153] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f17153] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f17153] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f17153] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f17153] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f17153] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f17153] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f17153] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f17153] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f17160] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f17160] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f17160] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f17160] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f17160] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f17160] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f17164] gb.mobile DEBUG: >>> 11 End session
+[f17164] gb.mobile DEBUG: <<< 11 End session
+[f17164] gb.mobile DEBUG: 
+[f17388] HARNESS console reset (power cycle)
+[f17439] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17439] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17441] gb.mobile DEBUG: >>> 11 End session
+[f17441] gb.mobile DEBUG: <<< 11 End session
+[f17441] gb.mobile DEBUG: 
+[f17565] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17565] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17567] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f17567] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f17567] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f17567] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f17567] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f17567] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f17567] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f17567] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f17567] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f17567] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f17574] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f17574] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f17574] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f17574] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f17574] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f17574] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f17578] gb.mobile DEBUG: >>> 11 End session
+[f17578] gb.mobile DEBUG: <<< 11 End session
+[f17578] gb.mobile DEBUG: 
+[f17802] HARNESS console reset (power cycle)
+[f17853] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17853] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17855] gb.mobile DEBUG: >>> 11 End session
+[f17855] gb.mobile DEBUG: <<< 11 End session
+[f17855] gb.mobile DEBUG: 
+[f17979] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f17979] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f17981] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f17981] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f17981] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f17981] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f17981] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f17981] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f17981] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f17981] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f17981] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f17981] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f17988] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f17988] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f17988] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f17988] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f17988] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f17988] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f17992] gb.mobile DEBUG: >>> 11 End session
+[f17992] gb.mobile DEBUG: <<< 11 End session
+[f17992] gb.mobile DEBUG: 
+[f18216] HARNESS console reset (power cycle)
+[f18267] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18267] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18269] gb.mobile DEBUG: >>> 11 End session
+[f18269] gb.mobile DEBUG: <<< 11 End session
+[f18269] gb.mobile DEBUG: 
+[f18393] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18393] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18395] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f18395] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f18395] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f18395] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f18395] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f18395] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f18395] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f18395] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f18395] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f18395] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f18402] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f18402] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f18402] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f18402] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f18402] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f18402] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f18406] gb.mobile DEBUG: >>> 11 End session
+[f18406] gb.mobile DEBUG: <<< 11 End session
+[f18406] gb.mobile DEBUG: 
+[f18630] HARNESS console reset (power cycle)
+[f18681] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18681] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18683] gb.mobile DEBUG: >>> 11 End session
+[f18683] gb.mobile DEBUG: <<< 11 End session
+[f18683] gb.mobile DEBUG: 
+[f18807] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18807] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18809] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f18809] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f18809] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f18809] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f18809] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f18809] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f18809] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f18809] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f18809] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f18809] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f18816] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f18816] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f18816] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f18816] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f18816] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f18816] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f18820] gb.mobile DEBUG: >>> 11 End session
+[f18820] gb.mobile DEBUG: <<< 11 End session
+[f18820] gb.mobile DEBUG: 
+[f19044] HARNESS console reset (power cycle)
+[f19095] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19095] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19097] gb.mobile DEBUG: >>> 11 End session
+[f19097] gb.mobile DEBUG: <<< 11 End session
+[f19097] gb.mobile DEBUG: 
+[f19221] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19221] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19223] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f19223] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f19223] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f19223] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f19223] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f19223] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f19223] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f19223] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f19223] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f19223] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f19230] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f19230] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f19230] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f19230] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f19230] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f19230] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f19234] gb.mobile DEBUG: >>> 11 End session
+[f19234] gb.mobile DEBUG: <<< 11 End session
+[f19234] gb.mobile DEBUG: 
+[f19458] HARNESS console reset (power cycle)
+[f19509] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19509] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19511] gb.mobile DEBUG: >>> 11 End session
+[f19511] gb.mobile DEBUG: <<< 11 End session
+[f19511] gb.mobile DEBUG: 
+[f19635] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19635] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19637] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f19637] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f19637] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f19637] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f19637] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f19637] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f19637] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f19637] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f19637] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f19637] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f19644] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f19644] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f19644] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f19644] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f19644] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f19644] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f19648] gb.mobile DEBUG: >>> 11 End session
+[f19648] gb.mobile DEBUG: <<< 11 End session
+[f19648] gb.mobile DEBUG: 
+[f19872] HARNESS console reset (power cycle)
+[f19923] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f19923] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f19925] gb.mobile DEBUG: >>> 11 End session
+[f19925] gb.mobile DEBUG: <<< 11 End session
+[f19925] gb.mobile DEBUG: 
+[f20049] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20049] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20051] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f20051] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f20051] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f20051] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f20051] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f20051] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f20051] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f20051] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f20051] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f20051] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f20058] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f20058] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f20058] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f20058] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f20058] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f20058] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f20062] gb.mobile DEBUG: >>> 11 End session
+[f20062] gb.mobile DEBUG: <<< 11 End session
+[f20062] gb.mobile DEBUG: 
+[f20286] HARNESS console reset (power cycle)
+[f20337] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20337] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20339] gb.mobile DEBUG: >>> 11 End session
+[f20339] gb.mobile DEBUG: <<< 11 End session
+[f20339] gb.mobile DEBUG: 
+[f20463] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20463] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20465] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f20465] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f20465] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f20465] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f20465] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f20465] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f20465] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f20465] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f20465] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f20465] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f20472] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f20472] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f20472] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f20472] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f20472] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f20472] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f20476] gb.mobile DEBUG: >>> 11 End session
+[f20476] gb.mobile DEBUG: <<< 11 End session
+[f20476] gb.mobile DEBUG: 
+[f20700] HARNESS console reset (power cycle)
+[f20751] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20751] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20753] gb.mobile DEBUG: >>> 11 End session
+[f20753] gb.mobile DEBUG: <<< 11 End session
+[f20753] gb.mobile DEBUG: 
+[f20877] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f20877] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f20879] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f20879] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f20879] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f20879] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f20879] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f20879] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f20879] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f20879] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f20879] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f20879] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f20886] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f20886] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f20886] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f20886] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f20886] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f20886] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f20890] gb.mobile DEBUG: >>> 11 End session
+[f20890] gb.mobile DEBUG: <<< 11 End session
+[f20890] gb.mobile DEBUG: 
+[f21114] HARNESS console reset (power cycle)
+[f21165] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21165] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21167] gb.mobile DEBUG: >>> 11 End session
+[f21167] gb.mobile DEBUG: <<< 11 End session
+[f21167] gb.mobile DEBUG: 
+[f21291] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21291] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21293] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f21293] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f21293] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f21293] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f21293] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f21293] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f21293] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f21293] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f21293] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f21293] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f21300] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f21300] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f21300] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f21300] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f21300] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f21300] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f21304] gb.mobile DEBUG: >>> 11 End session
+[f21304] gb.mobile DEBUG: <<< 11 End session
+[f21304] gb.mobile DEBUG: 
+[f21528] HARNESS console reset (power cycle)
+[f21579] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21579] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21581] gb.mobile DEBUG: >>> 11 End session
+[f21581] gb.mobile DEBUG: <<< 11 End session
+[f21581] gb.mobile DEBUG: 
+[f21705] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21705] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21707] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f21707] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f21707] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f21707] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f21707] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f21707] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f21707] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f21707] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f21707] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f21707] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f21714] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f21714] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f21714] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f21714] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f21714] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f21714] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f21718] gb.mobile DEBUG: >>> 11 End session
+[f21718] gb.mobile DEBUG: <<< 11 End session
+[f21718] gb.mobile DEBUG: 
+[f21942] HARNESS console reset (power cycle)
+[f21993] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f21993] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f21995] gb.mobile DEBUG: >>> 11 End session
+[f21995] gb.mobile DEBUG: <<< 11 End session
+[f21995] gb.mobile DEBUG: 
+[f22119] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f22119] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f22121] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f22121] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f22121] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f22121] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f22121] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f22121] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f22121] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f22121] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f22121] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f22121] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f22128] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f22128] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f22128] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f22128] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f22128] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f22128] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f22132] gb.mobile DEBUG: >>> 11 End session
+[f22132] gb.mobile DEBUG: <<< 11 End session
+[f22132] gb.mobile DEBUG: 
+[f22356] HARNESS console reset (power cycle)
+[f22407] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f22407] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f22409] gb.mobile DEBUG: >>> 11 End session
+[f22409] gb.mobile DEBUG: <<< 11 End session
+[f22409] gb.mobile DEBUG: 
+[f22533] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f22533] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f22535] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f22535] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f22535] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f22535] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f22535] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f22535] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f22535] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f22535] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f22535] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f22535] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f22542] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f22542] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f22542] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f22542] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f22542] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f22542] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f22546] gb.mobile DEBUG: >>> 11 End session
+[f22546] gb.mobile DEBUG: <<< 11 End session
+[f22546] gb.mobile DEBUG: 
+[f22770] HARNESS console reset (power cycle)
+[f22821] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f22821] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f22823] gb.mobile DEBUG: >>> 11 End session
+[f22823] gb.mobile DEBUG: <<< 11 End session
+[f22823] gb.mobile DEBUG: 
+[f22947] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f22947] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f22949] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f22949] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f22949] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f22949] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f22949] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f22949] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f22949] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f22949] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f22949] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f22949] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f22956] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f22956] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f22956] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f22956] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f22956] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f22956] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f22960] gb.mobile DEBUG: >>> 11 End session
+[f22960] gb.mobile DEBUG: <<< 11 End session
+[f22960] gb.mobile DEBUG: 
+[f23184] HARNESS console reset (power cycle)
+[f23235] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f23235] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f23237] gb.mobile DEBUG: >>> 11 End session
+[f23237] gb.mobile DEBUG: <<< 11 End session
+[f23237] gb.mobile DEBUG: 
+[f23361] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f23361] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f23363] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f23363] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f23363] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f23363] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f23363] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f23363] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f23363] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f23363] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f23363] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f23363] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f23370] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f23370] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f23370] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f23370] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f23370] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f23370] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f23374] gb.mobile DEBUG: >>> 11 End session
+[f23374] gb.mobile DEBUG: <<< 11 End session
+[f23374] gb.mobile DEBUG: 
+[f23598] HARNESS console reset (power cycle)
+[f23649] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f23649] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f23651] gb.mobile DEBUG: >>> 11 End session
+[f23651] gb.mobile DEBUG: <<< 11 End session
+[f23651] gb.mobile DEBUG: 
+[f23775] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f23775] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f23777] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f23777] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f23777] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f23777] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f23777] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f23777] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f23777] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f23777] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f23777] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f23777] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f23784] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f23784] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f23784] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f23784] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f23784] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f23784] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f23788] gb.mobile DEBUG: >>> 11 End session
+[f23788] gb.mobile DEBUG: <<< 11 End session
+[f23788] gb.mobile DEBUG: 
+[f24012] HARNESS console reset (power cycle)
+[f24063] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24063] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24065] gb.mobile DEBUG: >>> 11 End session
+[f24065] gb.mobile DEBUG: <<< 11 End session
+[f24065] gb.mobile DEBUG: 
+[f24189] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24189] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24191] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f24191] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f24191] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f24191] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f24191] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f24191] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f24191] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f24191] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f24191] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f24191] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f24198] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f24198] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f24198] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f24198] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f24198] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f24198] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f24202] gb.mobile DEBUG: >>> 11 End session
+[f24202] gb.mobile DEBUG: <<< 11 End session
+[f24202] gb.mobile DEBUG: 
+[f24426] HARNESS console reset (power cycle)
+[f24477] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24477] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24479] gb.mobile DEBUG: >>> 11 End session
+[f24479] gb.mobile DEBUG: <<< 11 End session
+[f24479] gb.mobile DEBUG: 
+[f24603] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24603] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24605] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f24605] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f24605] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f24605] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f24605] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f24605] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f24605] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f24605] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f24605] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f24605] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f24612] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f24612] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f24612] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f24612] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f24612] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f24612] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f24616] gb.mobile DEBUG: >>> 11 End session
+[f24616] gb.mobile DEBUG: <<< 11 End session
+[f24616] gb.mobile DEBUG: 
+[f24840] HARNESS console reset (power cycle)
+[f24891] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24891] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24893] gb.mobile DEBUG: >>> 11 End session
+[f24893] gb.mobile DEBUG: <<< 11 End session
+[f24893] gb.mobile DEBUG: 
+[f25017] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25017] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25019] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f25019] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f25019] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f25019] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f25019] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f25019] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f25019] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f25019] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f25019] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f25019] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f25026] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f25026] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f25026] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f25026] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f25026] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f25026] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f25030] gb.mobile DEBUG: >>> 11 End session
+[f25030] gb.mobile DEBUG: <<< 11 End session
+[f25030] gb.mobile DEBUG: 
+[f25254] HARNESS console reset (power cycle)
+[f25305] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25305] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25307] gb.mobile DEBUG: >>> 11 End session
+[f25307] gb.mobile DEBUG: <<< 11 End session
+[f25307] gb.mobile DEBUG: 
+[f25431] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25431] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25433] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f25433] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f25433] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f25433] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f25433] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f25433] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f25433] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f25433] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f25433] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f25433] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f25440] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f25440] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f25440] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f25440] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f25440] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f25440] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f25444] gb.mobile DEBUG: >>> 11 End session
+[f25444] gb.mobile DEBUG: <<< 11 End session
+[f25444] gb.mobile DEBUG: 
+[f25668] HARNESS console reset (power cycle)
+[f25719] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25719] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25721] gb.mobile DEBUG: >>> 11 End session
+[f25721] gb.mobile DEBUG: <<< 11 End session
+[f25721] gb.mobile DEBUG: 
+[f25845] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f25845] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f25847] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f25847] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f25847] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f25847] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f25847] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f25847] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f25847] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f25847] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f25847] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f25847] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f25854] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f25854] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f25854] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f25854] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f25854] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f25854] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f25858] gb.mobile DEBUG: >>> 11 End session
+[f25858] gb.mobile DEBUG: <<< 11 End session
+[f25858] gb.mobile DEBUG: 
+[f26082] HARNESS console reset (power cycle)
+[f26133] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26133] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26135] gb.mobile DEBUG: >>> 11 End session
+[f26135] gb.mobile DEBUG: <<< 11 End session
+[f26135] gb.mobile DEBUG: 
+[f26259] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26259] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26261] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f26261] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f26261] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f26261] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f26261] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f26261] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f26261] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f26261] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f26261] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f26261] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f26268] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f26268] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f26268] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f26268] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f26268] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f26268] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f26272] gb.mobile DEBUG: >>> 11 End session
+[f26272] gb.mobile DEBUG: <<< 11 End session
+[f26272] gb.mobile DEBUG: 
+[f26496] HARNESS console reset (power cycle)
+[f26547] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26547] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26549] gb.mobile DEBUG: >>> 11 End session
+[f26549] gb.mobile DEBUG: <<< 11 End session
+[f26549] gb.mobile DEBUG: 
+[f26673] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26673] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26675] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f26675] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f26675] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f26675] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f26675] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f26675] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f26675] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f26675] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f26675] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f26675] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f26682] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f26682] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f26682] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f26682] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f26682] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f26682] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f26686] gb.mobile DEBUG: >>> 11 End session
+[f26686] gb.mobile DEBUG: <<< 11 End session
+[f26686] gb.mobile DEBUG: 
+[f26910] HARNESS console reset (power cycle)
+[f26961] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f26961] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f26963] gb.mobile DEBUG: >>> 11 End session
+[f26963] gb.mobile DEBUG: <<< 11 End session
+[f26963] gb.mobile DEBUG: 
+[f27087] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f27087] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f27089] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f27089] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f27089] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f27089] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f27089] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f27089] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f27089] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f27089] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f27089] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f27089] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f27096] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f27096] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f27096] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f27096] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f27096] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f27096] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f27100] gb.mobile DEBUG: >>> 11 End session
+[f27100] gb.mobile DEBUG: <<< 11 End session
+[f27100] gb.mobile DEBUG: 
+[f27324] HARNESS console reset (power cycle)
+[f27375] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f27375] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f27377] gb.mobile DEBUG: >>> 11 End session
+[f27377] gb.mobile DEBUG: <<< 11 End session
+[f27377] gb.mobile DEBUG: 
+[f27501] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f27501] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f27503] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f27503] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f27503] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f27503] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f27503] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f27503] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f27503] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f27503] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f27503] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f27503] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f27510] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f27510] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f27510] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f27510] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f27510] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f27510] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f27514] gb.mobile DEBUG: >>> 11 End session
+[f27514] gb.mobile DEBUG: <<< 11 End session
+[f27514] gb.mobile DEBUG: 
+[f27738] HARNESS console reset (power cycle)
+[f27789] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f27789] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f27791] gb.mobile DEBUG: >>> 11 End session
+[f27791] gb.mobile DEBUG: <<< 11 End session
+[f27791] gb.mobile DEBUG: 
+[f27915] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f27915] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f27917] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f27917] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f27917] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f27917] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f27917] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f27917] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f27917] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f27917] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f27917] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f27917] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f27924] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f27924] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f27924] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f27924] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f27924] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f27924] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f27928] gb.mobile DEBUG: >>> 11 End session
+[f27928] gb.mobile DEBUG: <<< 11 End session
+[f27928] gb.mobile DEBUG: 
+[f28152] HARNESS console reset (power cycle)
+[f28203] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f28203] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f28205] gb.mobile DEBUG: >>> 11 End session
+[f28205] gb.mobile DEBUG: <<< 11 End session
+[f28205] gb.mobile DEBUG: 
+[f28329] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f28329] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f28331] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f28331] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f28331] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f28331] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f28331] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f28331] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f28331] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f28331] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f28331] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f28331] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f28338] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f28338] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f28338] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f28338] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f28338] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f28338] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f28342] gb.mobile DEBUG: >>> 11 End session
+[f28342] gb.mobile DEBUG: <<< 11 End session
+[f28342] gb.mobile DEBUG: 
+[f28566] HARNESS console reset (power cycle)
+[f28617] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f28617] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f28619] gb.mobile DEBUG: >>> 11 End session
+[f28619] gb.mobile DEBUG: <<< 11 End session
+[f28619] gb.mobile DEBUG: 
+[f28743] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f28743] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f28745] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f28745] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f28745] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f28745] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f28745] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f28745] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f28745] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f28745] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f28745] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f28745] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f28752] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f28752] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f28752] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f28752] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f28752] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f28752] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f28756] gb.mobile DEBUG: >>> 11 End session
+[f28756] gb.mobile DEBUG: <<< 11 End session
+[f28756] gb.mobile DEBUG: 
+[f28980] HARNESS console reset (power cycle)
+[f29031] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29031] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29033] gb.mobile DEBUG: >>> 11 End session
+[f29033] gb.mobile DEBUG: <<< 11 End session
+[f29033] gb.mobile DEBUG: 
+[f29157] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29157] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29159] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f29159] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f29159] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f29159] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f29159] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f29159] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f29159] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f29159] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f29159] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f29159] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f29166] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f29166] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f29166] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f29166] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f29166] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f29166] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f29170] gb.mobile DEBUG: >>> 11 End session
+[f29170] gb.mobile DEBUG: <<< 11 End session
+[f29170] gb.mobile DEBUG: 
+[f29394] HARNESS console reset (power cycle)
+[f29445] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29445] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29447] gb.mobile DEBUG: >>> 11 End session
+[f29447] gb.mobile DEBUG: <<< 11 End session
+[f29447] gb.mobile DEBUG: 
+[f29571] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29571] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29573] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f29573] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f29573] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f29573] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f29573] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f29573] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f29573] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f29573] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f29573] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f29573] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f29580] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f29580] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f29580] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f29580] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f29580] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f29580] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f29584] gb.mobile DEBUG: >>> 11 End session
+[f29584] gb.mobile DEBUG: <<< 11 End session
+[f29584] gb.mobile DEBUG: 
+[f29808] HARNESS console reset (power cycle)
+[f29859] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29859] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29861] gb.mobile DEBUG: >>> 11 End session
+[f29861] gb.mobile DEBUG: <<< 11 End session
+[f29861] gb.mobile DEBUG: 
+[f29985] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f29985] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f29987] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f29987] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f29987] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f29987] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f29987] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f29987] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f29987] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f29987] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f29987] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f29987] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f29994] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f29994] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f29994] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f29994] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f29994] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f29994] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f29998] gb.mobile DEBUG: >>> 11 End session
+[f29998] gb.mobile DEBUG: <<< 11 End session
+[f29998] gb.mobile DEBUG: 
+[f30222] HARNESS console reset (power cycle)
+[f30273] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f30273] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f30275] gb.mobile DEBUG: >>> 11 End session
+[f30275] gb.mobile DEBUG: <<< 11 End session
+[f30275] gb.mobile DEBUG: 
+[f30399] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f30399] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f30401] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f30401] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f30401] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f30401] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f30401] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f30401] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f30401] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f30401] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f30401] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f30401] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f30408] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f30408] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f30408] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f30408] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f30408] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f30408] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f30412] gb.mobile DEBUG: >>> 11 End session
+[f30412] gb.mobile DEBUG: <<< 11 End session
+[f30412] gb.mobile DEBUG: 
+[f30636] HARNESS console reset (power cycle)
+[f30687] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f30687] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f30689] gb.mobile DEBUG: >>> 11 End session
+[f30689] gb.mobile DEBUG: <<< 11 End session
+[f30689] gb.mobile DEBUG: 
+[f30813] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f30813] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f30815] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f30815] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f30815] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f30815] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f30815] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f30815] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f30815] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f30815] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f30815] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f30815] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f30822] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f30822] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f30822] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f30822] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f30822] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f30822] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f30826] gb.mobile DEBUG: >>> 11 End session
+[f30826] gb.mobile DEBUG: <<< 11 End session
+[f30826] gb.mobile DEBUG: 
+[f31050] HARNESS console reset (power cycle)
+[f31101] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f31101] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f31103] gb.mobile DEBUG: >>> 11 End session
+[f31103] gb.mobile DEBUG: <<< 11 End session
+[f31103] gb.mobile DEBUG: 
+[f31227] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f31227] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f31229] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f31229] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f31229] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f31229] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f31229] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f31229] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f31229] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f31229] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f31229] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f31229] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f31236] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f31236] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f31236] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f31236] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f31236] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f31236] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f31240] gb.mobile DEBUG: >>> 11 End session
+[f31240] gb.mobile DEBUG: <<< 11 End session
+[f31240] gb.mobile DEBUG: 
+[f31464] HARNESS console reset (power cycle)
+[f31515] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f31515] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f31517] gb.mobile DEBUG: >>> 11 End session
+[f31517] gb.mobile DEBUG: <<< 11 End session
+[f31517] gb.mobile DEBUG: 
+[f31641] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f31641] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f31643] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f31643] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f31643] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f31643] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f31643] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f31643] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f31643] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f31643] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f31643] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f31643] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f31650] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f31650] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f31650] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f31650] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f31650] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f31650] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f31654] gb.mobile DEBUG: >>> 11 End session
+[f31654] gb.mobile DEBUG: <<< 11 End session
+[f31654] gb.mobile DEBUG: 
+[f31878] HARNESS console reset (power cycle)
+[f31929] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f31929] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f31931] gb.mobile DEBUG: >>> 11 End session
+[f31931] gb.mobile DEBUG: <<< 11 End session
+[f31931] gb.mobile DEBUG: 
+[f32055] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32055] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32057] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f32057] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f32057] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f32057] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f32057] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f32057] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f32057] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f32057] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f32057] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f32057] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f32064] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f32064] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f32064] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f32064] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f32064] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f32064] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f32068] gb.mobile DEBUG: >>> 11 End session
+[f32068] gb.mobile DEBUG: <<< 11 End session
+[f32068] gb.mobile DEBUG: 
+[f32292] HARNESS console reset (power cycle)
+[f32343] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32343] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32345] gb.mobile DEBUG: >>> 11 End session
+[f32345] gb.mobile DEBUG: <<< 11 End session
+[f32345] gb.mobile DEBUG: 
+[f32469] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32469] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32471] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f32471] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f32471] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f32471] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f32471] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f32471] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f32471] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f32471] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f32471] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f32471] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f32478] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f32478] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f32478] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f32478] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f32478] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f32478] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f32482] gb.mobile DEBUG: >>> 11 End session
+[f32482] gb.mobile DEBUG: <<< 11 End session
+[f32482] gb.mobile DEBUG: 
+[f32706] HARNESS console reset (power cycle)
+[f32757] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32757] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32759] gb.mobile DEBUG: >>> 11 End session
+[f32759] gb.mobile DEBUG: <<< 11 End session
+[f32759] gb.mobile DEBUG: 
+[f32883] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f32883] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f32885] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f32885] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f32885] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f32885] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f32885] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f32885] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f32885] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f32885] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f32885] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f32885] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f32892] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f32892] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f32892] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f32892] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f32892] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f32892] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f32896] gb.mobile DEBUG: >>> 11 End session
+[f32896] gb.mobile DEBUG: <<< 11 End session
+[f32896] gb.mobile DEBUG: 
+[f33120] HARNESS console reset (power cycle)
+[f33171] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33171] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33173] gb.mobile DEBUG: >>> 11 End session
+[f33173] gb.mobile DEBUG: <<< 11 End session
+[f33173] gb.mobile DEBUG: 
+[f33297] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33297] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33299] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f33299] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f33299] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f33299] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f33299] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f33299] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f33299] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f33299] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f33299] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f33299] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f33306] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f33306] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f33306] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f33306] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f33306] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f33306] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f33310] gb.mobile DEBUG: >>> 11 End session
+[f33310] gb.mobile DEBUG: <<< 11 End session
+[f33310] gb.mobile DEBUG: 
+[f33534] HARNESS console reset (power cycle)
+[f33585] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33585] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33587] gb.mobile DEBUG: >>> 11 End session
+[f33587] gb.mobile DEBUG: <<< 11 End session
+[f33587] gb.mobile DEBUG: 
+[f33711] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33711] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f33713] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f33713] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f33713] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f33713] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f33713] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f33713] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f33713] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f33713] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f33713] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f33713] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f33720] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f33720] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f33720] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f33720] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f33720] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f33720] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f33724] gb.mobile DEBUG: >>> 11 End session
+[f33724] gb.mobile DEBUG: <<< 11 End session
+[f33724] gb.mobile DEBUG: 
+[f33948] HARNESS console reset (power cycle)
+[f33999] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f33999] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34001] gb.mobile DEBUG: >>> 11 End session
+[f34001] gb.mobile DEBUG: <<< 11 End session
+[f34001] gb.mobile DEBUG: 
+[f34125] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f34125] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34127] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f34127] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f34127] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f34127] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f34127] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f34127] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f34127] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f34127] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f34127] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f34127] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f34134] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f34134] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f34134] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f34134] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f34134] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f34134] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f34138] gb.mobile DEBUG: >>> 11 End session
+[f34138] gb.mobile DEBUG: <<< 11 End session
+[f34138] gb.mobile DEBUG: 
+[f34362] HARNESS console reset (power cycle)
+[f34413] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f34413] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34415] gb.mobile DEBUG: >>> 11 End session
+[f34415] gb.mobile DEBUG: <<< 11 End session
+[f34415] gb.mobile DEBUG: 
+[f34539] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f34539] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34541] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f34541] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f34541] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f34541] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f34541] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f34541] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f34541] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f34541] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f34541] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f34541] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f34548] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f34548] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f34548] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f34548] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f34548] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f34548] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f34552] gb.mobile DEBUG: >>> 11 End session
+[f34552] gb.mobile DEBUG: <<< 11 End session
+[f34552] gb.mobile DEBUG: 
+[f34776] HARNESS console reset (power cycle)
+[f34827] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f34827] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34829] gb.mobile DEBUG: >>> 11 End session
+[f34829] gb.mobile DEBUG: <<< 11 End session
+[f34829] gb.mobile DEBUG: 
+[f34953] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f34953] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f34955] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f34955] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f34955] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f34955] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f34955] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f34955] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f34955] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f34955] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f34955] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f34955] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f34962] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f34962] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f34962] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f34962] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f34962] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f34962] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f34966] gb.mobile DEBUG: >>> 11 End session
+[f34966] gb.mobile DEBUG: <<< 11 End session
+[f34966] gb.mobile DEBUG: 
+[f35190] HARNESS console reset (power cycle)
+[f35241] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f35241] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f35243] gb.mobile DEBUG: >>> 11 End session
+[f35243] gb.mobile DEBUG: <<< 11 End session
+[f35243] gb.mobile DEBUG: 
+[f35367] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f35367] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f35369] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f35369] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f35369] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f35369] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f35369] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f35369] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f35369] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f35369] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f35369] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f35369] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f35376] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f35376] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f35376] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f35376] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f35376] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f35376] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f35380] gb.mobile DEBUG: >>> 11 End session
+[f35380] gb.mobile DEBUG: <<< 11 End session
+[f35380] gb.mobile DEBUG: 
+[f35604] HARNESS console reset (power cycle)
+[f35655] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f35655] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f35657] gb.mobile DEBUG: >>> 11 End session
+[f35657] gb.mobile DEBUG: <<< 11 End session
+[f35657] gb.mobile DEBUG: 
+[f35781] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f35781] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f35783] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f35783] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f35783] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f35783] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f35783] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f35783] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f35783] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f35783] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f35783] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f35783] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f35790] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f35790] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f35790] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f35790] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f35790] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f35790] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f35794] gb.mobile DEBUG: >>> 11 End session
+[f35794] gb.mobile DEBUG: <<< 11 End session
+[f35794] gb.mobile DEBUG: 
+[f36018] HARNESS console reset (power cycle)
+[f36069] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f36069] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f36071] gb.mobile DEBUG: >>> 11 End session
+[f36071] gb.mobile DEBUG: <<< 11 End session
+[f36071] gb.mobile DEBUG: 
+[f36195] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f36195] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f36197] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f36197] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f36197] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f36197] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f36197] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f36197] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f36197] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f36197] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f36197] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f36197] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f36204] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f36204] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f36204] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f36204] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f36204] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f36204] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f36208] gb.mobile DEBUG: >>> 11 End session
+[f36208] gb.mobile DEBUG: <<< 11 End session
+[f36208] gb.mobile DEBUG: 
+[f36432] HARNESS console reset (power cycle)
+[f36483] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f36483] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f36485] gb.mobile DEBUG: >>> 11 End session
+[f36485] gb.mobile DEBUG: <<< 11 End session
+[f36485] gb.mobile DEBUG: 
+[f36609] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f36609] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f36611] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f36611] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f36611] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f36611] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f36611] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f36611] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f36611] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f36611] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f36611] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f36611] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f36618] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f36618] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f36618] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f36618] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f36618] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f36618] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f36622] gb.mobile DEBUG: >>> 11 End session
+[f36622] gb.mobile DEBUG: <<< 11 End session
+[f36622] gb.mobile DEBUG: 
+[f36846] HARNESS console reset (power cycle)
+[f36897] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f36897] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f36899] gb.mobile DEBUG: >>> 11 End session
+[f36899] gb.mobile DEBUG: <<< 11 End session
+[f36899] gb.mobile DEBUG: 
+[f37023] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f37023] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f37025] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f37025] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f37025] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f37025] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f37025] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f37025] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f37025] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f37025] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f37025] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f37025] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f37032] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f37032] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f37032] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f37032] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f37032] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f37032] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f37036] gb.mobile DEBUG: >>> 11 End session
+[f37036] gb.mobile DEBUG: <<< 11 End session
+[f37036] gb.mobile DEBUG: 
+[f37260] HARNESS console reset (power cycle)
+[f37311] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f37311] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f37313] gb.mobile DEBUG: >>> 11 End session
+[f37313] gb.mobile DEBUG: <<< 11 End session
+[f37313] gb.mobile DEBUG: 
+[f37437] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f37437] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f37439] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f37439] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f37439] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f37439] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f37439] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f37439] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f37439] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f37439] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f37439] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f37439] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f37446] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f37446] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f37446] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f37446] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f37446] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f37446] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f37450] gb.mobile DEBUG: >>> 11 End session
+[f37450] gb.mobile DEBUG: <<< 11 End session
+[f37450] gb.mobile DEBUG: 
+[f37674] HARNESS console reset (power cycle)
+[f37725] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f37725] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f37727] gb.mobile DEBUG: >>> 11 End session
+[f37727] gb.mobile DEBUG: <<< 11 End session
+[f37727] gb.mobile DEBUG: 
+[f37851] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f37851] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f37853] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f37853] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f37853] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f37853] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f37853] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f37853] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f37853] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f37853] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f37853] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f37853] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f37860] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f37860] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f37860] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f37860] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f37860] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f37860] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f37864] gb.mobile DEBUG: >>> 11 End session
+[f37864] gb.mobile DEBUG: <<< 11 End session
+[f37864] gb.mobile DEBUG: 
+[f38088] HARNESS console reset (power cycle)
+[f38139] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38139] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38141] gb.mobile DEBUG: >>> 11 End session
+[f38141] gb.mobile DEBUG: <<< 11 End session
+[f38141] gb.mobile DEBUG: 
+[f38265] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38265] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38267] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f38267] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f38267] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f38267] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f38267] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f38267] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f38267] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f38267] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f38267] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f38267] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f38274] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f38274] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f38274] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f38274] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f38274] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f38274] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f38278] gb.mobile DEBUG: >>> 11 End session
+[f38278] gb.mobile DEBUG: <<< 11 End session
+[f38278] gb.mobile DEBUG: 
+[f38502] HARNESS console reset (power cycle)
+[f38553] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38553] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38555] gb.mobile DEBUG: >>> 11 End session
+[f38555] gb.mobile DEBUG: <<< 11 End session
+[f38555] gb.mobile DEBUG: 
+[f38679] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38679] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38681] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f38681] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f38681] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f38681] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f38681] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f38681] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f38681] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f38681] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f38681] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f38681] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f38688] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f38688] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f38688] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f38688] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f38688] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f38688] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f38692] gb.mobile DEBUG: >>> 11 End session
+[f38692] gb.mobile DEBUG: <<< 11 End session
+[f38692] gb.mobile DEBUG: 
+[f38916] HARNESS console reset (power cycle)
+[f38967] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f38967] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f38969] gb.mobile DEBUG: >>> 11 End session
+[f38969] gb.mobile DEBUG: <<< 11 End session
+[f38969] gb.mobile DEBUG: 
+[f39093] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39093] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39095] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f39095] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f39095] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f39095] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f39095] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f39095] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f39095] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f39095] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f39095] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f39095] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f39102] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f39102] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f39102] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f39102] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f39102] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f39102] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f39106] gb.mobile DEBUG: >>> 11 End session
+[f39106] gb.mobile DEBUG: <<< 11 End session
+[f39106] gb.mobile DEBUG: 
+[f39330] HARNESS console reset (power cycle)
+[f39381] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39381] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39383] gb.mobile DEBUG: >>> 11 End session
+[f39383] gb.mobile DEBUG: <<< 11 End session
+[f39383] gb.mobile DEBUG: 
+[f39507] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39507] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39509] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f39509] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f39509] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f39509] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f39509] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f39509] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f39509] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f39509] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f39509] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f39509] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f39516] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f39516] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f39516] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f39516] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f39516] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f39516] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f39520] gb.mobile DEBUG: >>> 11 End session
+[f39520] gb.mobile DEBUG: <<< 11 End session
+[f39520] gb.mobile DEBUG: 
+[f39744] HARNESS console reset (power cycle)
+[f39795] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39795] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39797] gb.mobile DEBUG: >>> 11 End session
+[f39797] gb.mobile DEBUG: <<< 11 End session
+[f39797] gb.mobile DEBUG: 
+[f39921] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f39921] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f39923] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f39923] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f39923] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f39923] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 [f39923] HARNESS log truncated (size cap reached)

@@ -1,0 +1,11 @@
+Date: Sun, 28 Jan 2001 08:30:00 +0900
+From: someone@example.test
+To: 11111111@1111.dion.ne.jp
+Subject: plain ascii subject
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+
+Hello from the fake POP3 server.
+This line has a leading dot below.
+.hidden dot line
+End.

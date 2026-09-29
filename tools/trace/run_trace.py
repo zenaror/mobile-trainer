@@ -95,10 +95,27 @@ def ensure_harness(b):
 
 # ----------------------------------------------------------------------------------------------- scenarios
 class Scen:
+    """One row of traces/scenarios.tsv.  `net` is `stub|fake|real` optionally followed by `:key=value,key=value` (fake Internet
+    options, see the comment above the fake net in mgba_trace.c; the key `mail=a+b` selects traces/net/mail_a.eml, mail_b.eml for
+    the fake POP3 mailbox).  `web` is 0, 1 (index.html + page.html, the original two pages) or `all` (every traces/web/* file
+    served under its own name, index.html for any path containing index.html, page.html for other .html)."""
+
     def __init__(self, row):
-        (self.name, self.mobile, self.net, self.parent, self.web, self.desc) = row[:6]
-        self.web = self.web == "1"
+        (self.name, self.mobile, net, self.parent, self.web, self.desc) = row[:6]
+        self.net, _, optstr = net.partition(":")
+        self.netopts, self.mails = [], []
+        for kv in [x for x in optstr.split(",") if x]:
+            k, _, v = kv.partition("=")
+            if k == "mail":
+                self.mails += ["mail_%s.eml" % m for m in v.split("+") if m]
+            else:
+                self.netopts.append(kv)
         self.parent = None if self.parent == "-" else self.parent
+        # optional 7th column: extra tokens: `lite` (publish only coverage/mbc_writes + the small detail files), or raw harness
+        # arguments (`--sram-fill 00`, `--sram-poke 0:A000=12`, `--cfg-poke 2=00`) separated by spaces
+        extra = row[6].split() if len(row) > 6 else []
+        self.lite = "lite" in extra
+        self.args = [x for x in extra if x != "lite"]
 
 
 def load_scenarios():
@@ -130,12 +147,28 @@ def order(scens):
 
 
 def prepare_web():
+    """Shift-JIS copies of the synthetic pages -> .cache/trace/web/ (binary files such as .bmp are copied as they are)"""
     w = CACHE / "web"
     w.mkdir(parents=True, exist_ok=True)
-    for f in ("index", "page"):
-        t = (ROOT / "traces" / "web" / (f + ".html")).read_text(encoding="utf-8")
-        (w / (f + ".html")).write_bytes(t.replace("\r\n", "\n").encode("cp932"))
+    for f in sorted((ROOT / "traces" / "web").iterdir()):
+        if f.suffix == ".html":
+            t = f.read_text(encoding="utf-8")
+            (w / f.name).write_bytes(t.replace("\r\n", "\n").encode("cp932"))
+        elif f.suffix in (".bmp", ".htm"):
+            shutil.copy(f, w / f.name)
     return w
+
+
+def web_args(mode):
+    w = prepare_web()
+    if mode == "all":
+        a = []
+        for f in sorted(w.iterdir()):
+            if f.name not in ("index.html", "page.html"):
+                a += ["--web-map", "*/%s=%s" % (f.name, f)]    # own name first ('*' = substring match on the request path)
+        a += ["--web-map", "*index.html=%s" % (w / "index.html"), "--web-map", "*.html=%s" % (w / "page.html")]
+        return a
+    return ["--web-map", "*index.html=%s" % (w / "index.html"), "--web-map", "*.html=%s" % (w / "page.html")]
 
 
 def last_frame(txt):
@@ -181,9 +214,13 @@ def run_scenario(s, harness, args, outroot):
     cmd += ["--save-out", str(out / (s.name + ".sav"))]
     if s.mobile != "off":
         cmd += ["--mobile-config-out", str(out / (s.name + ".cfg"))]
-    if s.web:
-        w = prepare_web()
-        cmd += ["--web-map", "*index.html=%s" % (w / "index.html"), "--web-map", "*.html=%s" % (w / "page.html")]
+    cmd += s.args
+    for kv in s.netopts:
+        cmd += ["--net-opt", kv]
+    for m in s.mails:
+        cmd += ["--mail", str(TRACES / "net" / m)]
+    if s.web != "0":
+        cmd += web_args(s.web)
     t0 = time.time()
     r = subprocess.run(cmd, capture_output=True, text=True)
     dt = time.time() - t0
@@ -210,6 +247,8 @@ def publish(s, outroot):
     for f in sorted(out.iterdir()):
         n = f.name
         kind = n[:-len(s.name) - 5] if n.endswith("_%s.tsv" % s.name) else None
+        if s.lite and kind in ("serial", "callgraph", "hwregs", "mbc_seq", "irq"):
+            continue                    # lite scenarios keep coverage, mbc_writes, dataaccess, ramcode, serialsum, irqsum, stats, marks, adapter.log
         if kind in PRIMARY:
             shutil.copy(f, TRACES / n)
         elif n.endswith((".sav", ".cfg", ".bin")) and not n.startswith("ram_end"):

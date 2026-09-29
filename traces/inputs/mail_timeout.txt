@@ -1,0 +1,31 @@
+# recorded by mgba_trace --macro mail_timeout.macro (resolved absolute frames)
+460 A
+464 -
+1094 shot top_menu
+1094 A
+1098 -
+1728 shot mail_menu
+1728 A
+1732 -
+2062 shot send_receive_1
+2062 A
+2066 -
+2696 shot send_receive_2
+2696 A
+2700 -
+2801 shot password_saved
+2801 A
+2805 -
+3135 shot connecting
+6135 shot w1
+9135 shot w2
+12135 shot w3
+15135 shot w4
+21135 shot w5
+21135 A
+21139 -
+21769 shot w6
+21769 A
+21773 -
+22403 shot w7
+# last scripted frame: 22403

@@ -1,0 +1,101 @@
+# Scenario 'mail_server_full': メールサーバ (server mail management) with five messages on the fake POP3 server. Run 1 = "かくにんしてから
+# けす": connect (USER/PASS/STAT/TOP per mail), then for each mail the icon bar of the check screen: mail 1 delete (first icon, A), mail 2
+# skip (RIGHT, A), mail 3 delete, mail 4 skip, mail 5 end (RIGHT x2, A), result screens. Run 2 = "ぜんぶけす" (delete everything): the confirmation
+# is refused once ("いいえ" is the default), then accepted (LEFT, A): connect, POP3 DELE of the remaining mails, result screens.
+# Starts from the state left by 'mail_inbox'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x5
+wait 30
+tap A                        # メールサーバ
+waitstable 60 max 600
+shot server_notice
+tap A                        # OK (first-use notice)
+waitstable 60 max 600
+shot server_menu
+tap A                        # かくにんしてからけす
+waitstable 60 max 600
+shot check_confirm
+tap A                        # はい
+waitstable 60 max 600
+tap A                        # 0でつうしんをはじめる
+waitstable 60 max 900
+wait 1500
+shot check_mail1
+tap A                        # delete mail 1
+wait 900
+shot check_mail2
+tap RIGHT
+wait 30
+tap A                        # skip mail 2
+wait 900
+shot check_mail3
+tap A                        # delete mail 3
+wait 900
+shot check_mail4
+tap RIGHT
+wait 30
+tap A                        # skip mail 4
+wait 900
+shot check_mail5
+tap RIGHT x2
+wait 30
+tap A                        # end
+wait 900
+shot check_end
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot check_result_1
+tap A
+waitstable 60 max 900
+shot check_result_2
+tap A
+waitstable 60 max 900
+shot back_in_mail_menu
+# --- run 2: ぜんぶけす (the mail menu cursor is still on メールサーバ)
+tap A
+waitstable 60 max 600
+shot server_notice_2
+tap A                        # OK
+waitstable 60 max 600
+shot server_menu_2
+tap DOWN
+wait 40
+shot server_menu_2_down
+tap A                        # じどうでぜんぶけす
+waitstable 60 max 600
+shot all_confirm
+tap A                        # "いいえ" (default)
+waitstable 60 max 600
+shot all_refused
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A                        # "はい"
+waitstable 60 max 600
+shot all_confirm_2
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 1500
+shot all_deleting
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot all_result_1
+tap A
+waitstable 60 max 900
+shot all_result_2
+tap A
+waitstable 60 max 900
+shot end
