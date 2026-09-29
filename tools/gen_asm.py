@@ -87,10 +87,13 @@ class BankOut:
 class Model:
     """Everything the emitter needs: decoded code, label tables, cross references."""
 
-    def __init__(self, rom: bytes, cfg: mtcfg.Config, hw: mtcfg.Hardware, incbin: str = 'baserom.gbc', strict: bool = False):
+    def __init__(self, rom: bytes, cfg: mtcfg.Config, hw: mtcfg.Hardware, incbin: str = 'baserom.gbc', strict: bool = False,
+                 macros: bool = True):
         if len(rom) < BANK_SIZE or len(rom) % BANK_SIZE:
             raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
         self.rom = rom
+        self.macros = macros            # emit `farcall` / `farcall_raw` (constants/macros.inc) instead of call + dw + db
+        self._fc = False                # cached far-call convention (False = not looked up yet)
         self.cfg = cfg
         self.hw = hw
         self.incbin = incbin
@@ -127,6 +130,7 @@ class Model:
         self._index_ramcode()
         self._index_ram()
         self._collect_labels()
+        self._check_macro_names()
         self.diag.raise_if_errors()
         self._resolve_xrefs()
         self._collect_refs()
@@ -518,6 +522,34 @@ class Model:
                     if loc is not None:
                         self._want(loc, 'ptr')
 
+    MACRO_NAMES = ('farcall', 'farcall_raw', 'FARCALL_FN')     # macros / EQUS of constants/macros.inc + ram.inc (one namespace with labels)
+
+    def _check_macro_names(self):
+        """With macros on, no label, constant or RAM name may be one of MACRO_NAMES: rgbasm keeps macros, EQUS and labels in one
+        symbol namespace, so the clash would only surface later as an rgbasm error in every bank (found by the verifier)."""
+        if not self.macros:
+            return
+        for b in range(self.nbanks):
+            for s in self.cfg.symbols.get(b, ()):
+                if s.name in self.MACRO_NAMES:
+                    self.diag.error(s.loc, 'name %r collides with a farcall macro of constants/macros.inc (rename it or use --no-macros)' % s.name)
+        for v in self.cfg.ram:
+            if v.name in self.MACRO_NAMES:
+                self.diag.error(v.loc, 'name %r collides with a farcall macro of constants/macros.inc (rename it or use --no-macros)' % v.name)
+
+    def farcall_conv(self):
+        """(convention, entry label name) of THE far call the `farcall` macros stand for, or None: macros are on, there
+        is exactly one `farptr` convention in config/conventions.tsv and its entry has a label (the macro calls
+        that label through the FARCALL_FN EQUS of ram.inc, so the name is never hard-coded)."""
+        if self._fc is False:
+            self._fc = None
+            fcs = [c for c in self.cfg.conventions if c.layout == 'farptr']
+            if self.macros and len(fcs) == 1:
+                nm = self.name_at((fcs[0].bank, fcs[0].addr))
+                if nm is not None and self.name_val.get(nm) == fcs[0].addr and fcs[0].bank == 0:
+                    self._fc = (fcs[0], nm)
+        return self._fc
+
     def far_loc(self, w: int, bb: int) -> Optional[Tuple[int, int]]:
         """ROM location (bank, address) a far pointer `dw w ; db bb` designates, or None when it does not name a
         ROM location: bank byte 0 = ROM0 (address must be < $4000), otherwise the address must lie in the window of
@@ -670,7 +702,20 @@ class Model:
 
     def verify_line(self, text: str, claim: bytes, absoff: int):
         text = text.split(' ;', 1)[0]
-        if text.startswith('\tdb '):
+        if text.startswith('\tfarcall'):
+            fc = self.farcall_conv()
+            if fc is None:
+                raise GenError('internal: %r without a far-call convention' % text)
+            m = re.fullmatch(r'\tfarcall ([A-Za-z_][A-Za-z0-9_]*)', text)
+            if m:
+                args = [self._tok(m.group(1)), self._tok('BANK(%s)' % m.group(1))]
+            else:
+                m = re.fullmatch(r'\tfarcall_raw (\$[0-9A-F]{4}), (\$[0-9A-F]{2})', text)
+                if not m:
+                    raise GenError('internal: bad farcall line %r' % text)
+                args = [self._tok(m.group(1)), self._tok(m.group(2))]
+            got = b'\xCD' + fc[0].addr.to_bytes(2, 'little') + args[0].to_bytes(2, 'little') + bytes([args[1]])
+        elif text.startswith('\tdb '):
             got = bytes(self._tok(t) for t in text[4:].split(','))
         elif text.startswith('\tdw '):
             got = b''.join(self._tok(t).to_bytes(2, 'little') for t in text[4:].split(','))
@@ -807,7 +852,26 @@ class Model:
             else:
                 out.line('\tLOAD "RAM_%02X_%04X", %s' % (r.bank, r.start, spec))
         items = self.insns[(r.bank, r.idx)]
+        fc = self.farcall_conv()
+        skip = -1
         for k, (sa, ins) in enumerate(items):
+            if k == skip:
+                continue
+            if fc is not None and ins.flow == 'call' and k + 1 < len(items) and items[k + 1][1].flow == 'inline' \
+                    and items[k + 1][1].conv is fc[0] and \
+                    self.render_insn(r, sa, ins) == 'call ' + fc[1]:
+                self._label_lines(out, r, sa)
+                it = items[k + 1][1]
+                lines = self.inline_lines(r.bank, it)
+                if lines[1][0].startswith('db BANK(') and lines[0][0].startswith('dw ') and lines[0][0][3:] == lines[1][0][8:-1]:
+                    txt = 'farcall ' + lines[0][0][3:]
+                    self.stats['farcall_macro'] += 1
+                else:
+                    txt = 'farcall_raw %s, %s' % (lines[0][0][3:], lines[1][0][3:])
+                    self.stats['farcall_raw_macro'] += 1
+                out.emit('\t' + txt, ins.raw + it.raw)
+                skip = k + 1
+                continue
             if ins.flow == 'inline':
                 for txt, claim in self.inline_lines(r.bank, ins):
                     out.emit('\t' + txt, claim)
@@ -831,6 +895,8 @@ class Model:
         out.line('')
         out.line('INCLUDE "constants/hardware.inc"')
         out.line('INCLUDE "ram.inc"')
+        if self.farcall_conv() is not None:
+            out.line('INCLUDE "constants/macros.inc"')
         cs = self.cfg.symbols.get(b, [])
         cs = [s for s in cs if s.type == 'const']
         if cs:
@@ -854,6 +920,10 @@ class Model:
                  '; RAM / SRAM / HRAM variable names from config/ram/*.tsv (addresses only, no bytes).', '']
         for v in sorted(self.cfg.ram, key=lambda v: (v.addr, v.name)):
             lines.append('DEF %s EQU $%04X ; size %d %s %s %s' % (v.name, v.addr, v.size, v.type, v.status, v.evidence))
+        fc = self.farcall_conv()
+        if fc is not None:
+            lines += ['', '; label of the far-call convention entry %02X:%04X (config/conventions.tsv); the farcall macros of' % (fc[0].bank, fc[0].addr),
+                      '; constants/macros.inc call it through this EQUS', 'DEF FARCALL_FN EQUS "%s"' % fc[1]]
         return '\n'.join(lines).rstrip('\n') + '\n'
 
     def generate(self) -> Dict[str, str]:
@@ -866,7 +936,7 @@ class Model:
 # ------------------------------------------------------------------ front-end
 
 def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_path: Optional[str] = None,
-               strict: bool = False, extra_xrefs=(), rom: Optional[bytes] = None):
+               strict: bool = False, extra_xrefs=(), rom: Optional[bytes] = None, macros: bool = True):
     """Load ROM + config and build the Model.  Returns (model, diag)."""
     rom_path = rom_path or os.path.join(ROOT, 'baserom.gbc')
     cfgdir = cfgdir or os.path.join(ROOT, 'config')
@@ -881,7 +951,7 @@ def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_
     diag = Diag(strict)
     cfg = mtcfg.load_config(cfgdir, len(rom) // BANK_SIZE, hw, diag, extra_xrefs)
     diag.raise_if_errors()
-    model = Model(rom, cfg, hw, os.path.basename(rom_path), strict)
+    model = Model(rom, cfg, hw, os.path.basename(rom_path), strict, macros)
     return model, diag
 
 
@@ -949,11 +1019,12 @@ def main(argv=None) -> int:
     ap.add_argument('--strict', action='store_true', help='treat config warnings as errors')
     ap.add_argument('--xrefs', action='append', default=[], help='additional xrefs file (same format as config/xrefs.tsv)')
     ap.add_argument('--keep', help='verify: keep the temp build in this directory')
+    ap.add_argument('--no-macros', action='store_true', help='emit `call FarCall` + dw + db instead of the farcall macros')
     ap.add_argument('-q', '--quiet', action='store_true')
     a = ap.parse_args(argv)
 
     try:
-        model, diag = load_model(a.rom, a.config, None, a.strict, a.xrefs)
+        model, diag = load_model(a.rom, a.config, None, a.strict, a.xrefs, macros=not a.no_macros)
         for w in (diag.warnings + model.diag.warnings)[:25]:
             print('warning: ' + w, file=sys.stderr)
         files = model.generate()

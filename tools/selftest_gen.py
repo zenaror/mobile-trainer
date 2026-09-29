@@ -95,8 +95,8 @@ class Env:
     def conventions(self, rows):
         self.write('conventions.tsv', ''.join('\t'.join(str(x) for x in r) + '\n' for r in rows))
 
-    def model(self, strict=False):
-        model, diag = gen_asm.load_model(self.rom_path, self.cfg, None, strict)
+    def model(self, strict=False, macros=True):
+        model, diag = gen_asm.load_model(self.rom_path, self.cfg, None, strict, macros=macros)
         return model
 
     def build_all(self, model=None):
@@ -335,6 +335,8 @@ def test_kinds(tmp):
     files, built, sym = env.build_all(model)
     check(built == rom, 'synthetic rebuild differs from ROM')
     b0, b1, b2, b3 = (files['bank%02x.asm' % i] for i in range(4))
+    check('farcall' not in b0 + b1 + b3 and 'FARCALL_FN' not in files['ram.inc'],
+          'two farptr conventions: the farcall macros must stay off')
 
     def has(text, needle, what):
         check(needle in text, 'missing %r (%s)' % (needle, what))
@@ -832,6 +834,69 @@ def conv_env(tmp, name, rom, rows=CONV_ROWS):
     return env
 
 
+def test_conv_macros(tmp):
+    """`farcall` / `farcall_raw` (constants/macros.inc): one convention -> macros; both modes rebuild the ROM
+    identically; the called symbol comes from the label at the convention entry; jp / conditional calls stay plain."""
+    rom, S = conv_rom()
+    rows = [r for r in CONV_ROWS if r[0] == '00']            # a single farptr convention
+    env = conv_env(tmp, 'conv_macros', rom, rows)
+    env.regions(0, [('0200', '0230', 'code', '', 'CONFIRMED', 'entries'),
+                    ('0300', '%04X' % S['main_end'], 'code', '', 'PROBABLE', 'call sites'),
+                    ('0400', '0401', 'code', '', 'CONFIRMED', 'ret')])
+    env.regions(1, [('4000', '4060', 'code', '', 'CONFIRMED', ''), ('4060', '4070', 'data', '', 'PROBABLE', ''),
+                    ('4070', '4080', 'data', '', 'PROBABLE', ''),
+                    ('4080', '4084', 'ramcode', '', 'CONFIRMED', 'runaddr=$CC00 stored bytes'),
+                    ('4100', '4114', 'code', '', 'CONFIRMED', 'ROMX call sites'), ('4200', '4201', 'code', '', 'CONFIRMED', '')])
+    env.regions(2, [('4000', '4007', 'code', '', 'CONFIRMED', 'call $4200 in bank 2')])
+    env.regions(3, [('4000', '4007', 'ramcode', '', 'CONFIRMED', 'runaddr=$CD00 RAM code calls the ROM0 entry'),
+                    ('4010', '4017', 'ramcode', '', 'CONFIRMED', 'runaddr=$CD80 RAM code calls $4200')])
+    env.symbols(0, [('0200', 'MyFar', 'function', 'CONFIRMED', ''), ('0210', 'DwEntry', 'function', 'PROBABLE', ''),
+                    ('0220', 'DbEntry', 'function', 'HYPOTHESIS', ''), ('0400', 'Rom0Target', 'function', 'PROBABLE', '')])
+    env.symbols(1, [('4060', 'DataThing', 'data', 'PROBABLE', '')])
+    env.xrefs([('00', '%04X' % (S['H2'] + 3), 'word', '01', '4040', 'PROBABLE', 'inline word means 01:4040')])
+    model = env.model()
+    files, built, _ = env.build_all(model)
+    check(built == rom, 'macro rebuild differs from the ROM (%d differing bytes)' % sum(1 for x, y in zip(built, rom) if x != y))
+    b0, b3 = (files['bank%02x.asm' % i] for i in (0, 3))
+
+    def has(text, needle, what):
+        check(needle in text, 'missing %r (%s)' % (needle, what))
+
+    has(files['ram.inc'], 'DEF FARCALL_FN EQUS "MyFar"', 'the macro callee is derived from the label at the convention entry')
+    check('INCLUDE "constants/macros.inc"' in b0 and 'MyFar' not in open(os.path.join(ROOT, 'constants', 'macros.inc')).read(),
+          'macros.inc must not hard-code the callee')
+    has(b0, '\tfarcall Function_01_4040\n', 'A: label at (bank byte, address)')
+    has(b0, '\tfarcall Rom0Target\n', 'B: ROM0 target (BANK() of a ROM0 label is 0, proven by the identical rebuild)')
+    has(b0, '\tfarcall_raw $4048, $02\n', 'C: no label at (2,4048) -> raw')
+    has(b0, '\tfarcall_raw $4040, $02\n', 'C2: no label at (2,4040) here -> raw')
+    has(b0, '\tfarcall_raw $4040, $00\n', 'D: bank byte 0 with an address >= $4000')
+    has(b0, '\tfarcall_raw $C000, $01\n', 'E: WRAM address')
+    has(b0, '\tfarcall_raw $4040, $09\n', 'F: nonexistent bank')
+    has(b0, '\tfarcall_raw $0400, $01\n', 'G: ROM0 address with bank byte 1')
+    has(b0, 'call z, MyFar\n\tnop\n', 'K: conditional call does not consume and stays a plain call')
+    has(b0, 'call DwEntry\n\tdw $0123\n', 'other conventions keep the plain form')
+    has(b0, 'jp DbEntry\n\tdb $7F\n', 'jp conventions keep the plain form')
+    has(b3, '\tfarcall Function_01_4040\n', 'ramcode caller')
+    check('\tcall MyFar\n\tdw' not in b0 + b3, 'a plain far call survived with macros on')
+    st = model.stats
+    check(st['farcall_macro'] + st['farcall_raw_macro'] == st['inline_farptr'], 'every consumed farptr call is a macro line: %r' % dict(st))
+    # --no-macros: same bytes, plain text
+    pm = env.model(macros=False)
+    pfiles, pbuilt, _ = env.build_all(pm)
+    check(pbuilt == rom == built, '--no-macros rebuild differs')
+    ptxt = ''.join(t for f, t in pfiles.items() if f.endswith('.asm')) + pfiles['ram.inc']
+    check('farcall' not in ptxt and 'FARCALL_FN' not in ptxt and 'macros.inc' not in ptxt, '--no-macros output mentions the macros')
+    has(pfiles['bank00.asm'], 'call MyFar\n\tdw Function_01_4040\n\tdb BANK(Function_01_4040)\n', '--no-macros plain form')
+    # a label named like a macro would only fail late inside rgbasm: refuse it early (macros on), allow it with --no-macros
+    for bad in ('farcall', 'farcall_raw', 'FARCALL_FN'):
+        env.symbols(0, [('0200', 'MyFar', 'function', 'CONFIRMED', ''), ('0210', bad, 'function', 'PROBABLE', ''),
+                        ('0220', 'DbEntry', 'function', 'HYPOTHESIS', ''), ('0400', 'Rom0Target', 'function', 'PROBABLE', '')])
+        expect_error(env, 'collides with a farcall macro', 'label named %s' % bad)
+        env.model(macros=False)
+    return '%d farcall + %d farcall_raw, plain form with --no-macros, callee from the entry label, jp/conditional stay plain' % (
+        st['farcall_macro'], st['farcall_raw_macro'])
+
+
 def test_conv_kinds(tmp):
     rom, S = conv_rom()
     env = conv_env(tmp, 'conv_kinds', rom)
@@ -1213,7 +1278,7 @@ def test_sweep_conv(tmp):
         env.symbols(b, [('%04X' % a, 'SelfSym_%02X_%04X_%d' % (b, a, i), 'label', 'HYPOTHESIS', 'selftest') for a, i in lst])
     check(len(allsites) > 1000, 'expected thousands of convention sites in the ROM, oracle found %d' % len(allsites))
     t0 = time.time()
-    model = env.model()
+    model = env.model(macros=False)
     files, built, sym = env.build_all(model)
     check(built == rom, 'convention sweep rebuild differs from baserom (%d differing bytes)' % sum(1 for x, y in zip(built, rom) if x != y))
     st = model.stats
@@ -1232,8 +1297,21 @@ def test_sweep_conv(tmp):
     for f, t in files.items():
         for m in re.finditer(r'\tdw (\w+)\n\tdb BANK\((\w+)\)\n', t):
             check(m.group(1) == m.group(2), 'dw/db label mismatch %s/%s' % m.groups())
-    return '%d regions, %d convention sites (%d farptr, %d inline_dw; %d inline bytes), %d far pointers with labels, %d generic Function_, %.0fs' % (
-        nreg, len(allsites), n06d1, len(allsites) - n06d1, st['inline_bytes'], st['inline_far_labelled'], st['generic_Function'], time.time() - t0)
+    # the same sweep with the farcall macros (default): identical bytes, every far site is one macro line
+    mmodel = env.model()
+    mfiles, mbuilt, msym = env.build_all(mmodel)
+    check(mbuilt == rom, 'macro sweep rebuild differs from baserom (%d differing bytes)' % sum(1 for x, y in zip(mbuilt, rom) if x != y))
+    mst = mmodel.stats
+    txt = ''.join(t for f, t in mfiles.items() if f.endswith('.asm'))
+    nfc = len(re.findall(r'^\tfarcall ', txt, re.M))
+    nraw = len(re.findall(r'^\tfarcall_raw ', txt, re.M))
+    check((nfc, nraw) == (mst['farcall_macro'], mst['farcall_raw_macro']), 'macro line count %d/%d vs stats' % (nfc, nraw))
+    check(nfc == st['inline_far_labelled'] and nfc + nraw == n06d1, 'macro sites %d+%d != %d farptr sites (%d labelled)' % (nfc, nraw, n06d1, st['inline_far_labelled']))
+    check('\tdb BANK(' not in txt and '\tcall Function_00_06D1' not in txt, 'plain far call text left with macros on')
+    check('DEF FARCALL_FN EQUS "Function_00_06D1"' in mfiles['ram.inc'], 'ram.inc lacks FARCALL_FN (the sweep names no symbols: generic label of 00:06D1)')
+    check(all('INCLUDE "constants/macros.inc"' in t for f, t in mfiles.items() if f.endswith('.asm')), 'a bank does not include macros.inc')
+    return '%d regions, %d convention sites (%d farptr, %d inline_dw; %d inline bytes), %d far pointers with labels, %d generic Function_, macros: %d farcall + %d farcall_raw, %.0fs' % (
+        nreg, len(allsites), n06d1, len(allsites) - n06d1, st['inline_bytes'], st['inline_far_labelled'], st['generic_Function'], nfc, nraw, time.time() - t0)
 
 
 def test_sweep_conv_cuts(tmp):
@@ -1300,7 +1378,7 @@ def test_sweep_conv_cuts(tmp):
         len(picks), ncut, nnext, nadopt)
 
 
-TESTS = [('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
+TESTS = [('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
          ('determinism', test_determinism), ('compare_rom', test_compare_rom), ('progress', test_progress),
          ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_conv', test_sweep_conv),
          ('sweep_conv_cuts', test_sweep_conv_cuts)]
