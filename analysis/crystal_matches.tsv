@@ -1,0 +1,482 @@
+# ref	crystal_symbol	crystal_bank	crystal_addr	crystal_len	sig_bytes	trainer_bank	trainer_addr	matched_bytes	match_kind	insns_matched	imm8_diffs(+off:crystal>trainer)	n_trainer_hits	n_crystal_dups	confidence	status	jp_crystal_match	layout	notes
+eng	MobileAPI	00	3E32	46	27	00	0150	61	structural_aligned	18/23		1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): anchored on call/jp operand of matched callee at 00:018A; skeleton-aligned: 14/23 instructions in trusted blocks (61%): 13 identical, 0 imm8-diff, 1 other-diff; RAM operands consistent with RAM map: 2 ok / 0 conflicting; 0 alternative location(s)
+eng	ReturnMobileAPI	00	3E60	32	18	00	018D	42	structural_aligned	14/17		1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): placed by adjacency after structural unit MobileAPI (Crystal contiguous units; Trainer code follows at 00:018D); skeleton-aligned: 13/17 instructions in trusted blocks (76%): 13 identical, 0 imm8-diff, 0 other-diff
+eng	MobileTimer	00	3E93	68	49	00	01ED	90	structural_aligned	31/40		1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): anchored on call/jp operand of matched callee at 00:0227; skeleton-aligned: 27/40 instructions in trusted blocks (68%): 24 identical, 0 imm8-diff, 3 other-diff; RAM operands consistent with RAM map: 2 ok / 0 conflicting; 0 alternative location(s)
+eng	OAMDMACode	01	403F	10	9	00	05AC	10	masked_imm8diff	6/6	+000:C4>C0	1	0	LOW	HYPOTHESIS	exact@01:403F		
+eng	PalPacket_Pal01	02	5CE6	16	14	0E	6098	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	Function114243	45	4243	25	18	0F	4247	25	exact_masked	16/16		1	0	MEDIUM	PROBABLE	exact@45:4243		
+eng	Function11425c	45	425C	12	6	0F	4260	12	guided_full	6/6		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 12 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114269	45	4269	202	149	0F	426D	202	exact_masked	115/115		1	0	HIGH	CONFIRMED	exact@45:4269		
+eng	Function114333	45	4333	9	5	0F	4337	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function11433c	45	433C	123	94	0F	4340	123	exact_masked	76/76		1	0	HIGH	CONFIRMED	exact@45:433C	block:3fn/396B	
+eng	Function1143b7	45	43B7	60	49	0F	43BB	60	exact_masked	44/44		1	0	HIGH	CONFIRMED	exact@45:43B7	block:3fn/396B	
+eng	Function1143f3	45	43F3	213	174	0F	43F7	213	exact_masked	126/126		1	0	HIGH	CONFIRMED	exact@45:43F3	block:3fn/396B	
+eng	Function1144c8	45	44C8	9	5	0F	44CC	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1144d1	45	44D1	144	100	0F	44D5	144	exact_masked	85/85		1	0	HIGH	CONFIRMED	exact@45:44D1	block:5fn/458B	
+eng	Function114561	45	4561	21	19	0F	4565	21	exact_masked	19/19		1	0	MEDIUM	PROBABLE	exact@45:4561	block:5fn/458B	
+eng	Function114576	45	4576	79	53	0F	457A	79	exact_masked	42/42		1	0	HIGH	CONFIRMED	exact@45:4576	block:5fn/458B	
+eng	Function1145c5	45	45C5	119	109	0F	45C9	119	exact_masked	70/70		1	0	HIGH	CONFIRMED	exact@45:45C5	block:5fn/458B	
+eng	Function11463c	45	463C	95	68	0F	4640	95	exact_masked	54/54		1	0	HIGH	CONFIRMED	exact@45:463C	block:5fn/458B	
+eng	Function11469b	45	469B	9	5	0F	469F	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1146a4	45	46A4	86	58	0F	46A8	86	exact_masked	46/46		1	0	HIGH	CONFIRMED	exact@45:46A4	block:3fn/406B	
+eng	Function1146fa	45	46FA	211	129	0F	46FE	211	exact_masked	101/101		1	0	HIGH	CONFIRMED	exact@45:46FA	block:3fn/406B	
+eng	Function1147cd	45	47CD	109	89	0F	47D1	109	exact_masked	62/62		1	0	HIGH	CONFIRMED	exact@45:47CD	block:3fn/406B	
+eng	Function11483a	45	483A	9	5	0F	483E	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114843	45	4843	36	21	0F	4847	36	exact_masked	19/19		1	0	MEDIUM	PROBABLE	exact@45:4843		
+eng	Function114867	45	4867	82	59	0F	486B	82	exact_masked	53/53		1	0	HIGH	CONFIRMED	exact@45:4867		
+eng	Function1148b9	45	48B9	9	5	0F	48BD	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1148c2	45	48C2	130	91	0F	48C6	130	exact_masked	81/81		1	0	HIGH	CONFIRMED	exact@45:48C2		
+eng	Function114944	45	4944	9	5	0F	4948	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function11494d	45	494D	118	83	0F	4951	118	exact_masked	73/73		1	0	HIGH	CONFIRMED	exact@45:494D		
+eng	Function1149c3	45	49C3	9	5	0F	49C7	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1149cc	45	49CC	67	48	0F	49D0	67	exact_masked	45/45		1	0	HIGH	CONFIRMED	exact@45:49CC		
+eng	Function114a0f	45	4A0F	9	5	0F	4A13	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114a18	45	4A18	89	73	0F	4A1C	89	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@45:4A18		
+eng	Function114a71	45	4A71	9	5	0F	4A75	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114a7a	45	4A7A	76	58	0F	4A7E	76	exact_masked	44/44		1	0	HIGH	CONFIRMED	exact@45:4A7A		
+eng	Function114ac6	45	4AC6	9	5	0F	4ACA	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114acf	45	4ACF	125	109	0F	4AD3	125	exact_masked	81/81		1	0	HIGH	CONFIRMED	exact@45:4ACF		
+eng	Function114b4c	45	4B4C	9	5	0F	4B50	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114b55	45	4B55	103	78	0F	4B59	103	exact_masked	67/67		1	0	HIGH	CONFIRMED	exact@45:4B55	block:3fn/256B	
+eng	Function114bbc	45	4BBC	79	53	0F	4BC0	79	exact_masked	45/45		1	0	HIGH	CONFIRMED	exact@45:4BBC	block:3fn/256B	
+eng	Function114c0b	45	4C0B	74	64	0F	4C0F	74	exact_masked	49/49		1	0	HIGH	CONFIRMED	exact@45:4C0B	block:3fn/256B	
+eng	Function114c5e	45	4C5E	123	105	0F	4C62	123	exact_masked	85/85		1	0	HIGH	CONFIRMED	exact@45:4C5E	block:8fn/642B	
+eng	Function114cd9	45	4CD9	96	64	0F	4CDD	96	exact_masked	56/56		1	0	HIGH	CONFIRMED	exact@45:4CD9	block:8fn/642B	
+eng	Function114d39	45	4D39	96	74	0F	4D3D	96	exact_masked	50/50		1	0	HIGH	CONFIRMED	exact@45:4D39	block:8fn/642B	
+eng	Function114d99	45	4D99	88	74	0F	4D9D	88	masked_imm8diff	59/59	+048:DD>D6,+04C:C8>25	1	0	MEDIUM	PROBABLE	exact@45:4D99	block:8fn/642B	
+eng	Function114df1	45	4DF1	60	60	0F	4DF5	60	exact_masked	39/39		1	0	HIGH	CONFIRMED	exact@45:4DF1	block:8fn/642B	
+eng	Function114e2d	45	4E2D	53	53	0F	4E31	53	exact_masked	28/28		1	0	HIGH	CONFIRMED	exact@45:4E2D	block:8fn/642B	
+eng	Function114e62	45	4E62	62	42	0F	4E66	62	exact_masked	35/35		1	0	HIGH	CONFIRMED	exact@45:4E62	block:8fn/642B	
+eng	Function114ea0	45	4EA0	64	47	0F	4EA4	64	exact_masked	42/42		1	0	HIGH	CONFIRMED	exact@45:4EA0	block:8fn/642B	
+eng	Function114ee0	45	4EE0	9	5	0F	4EE4	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function114ee9	45	4EE9	33	31	0F	4EED	33	exact_masked	31/31		1	0	HIGH	CONFIRMED	exact@45:4EE9	block:5fn/368B	
+eng	Function114f0a	45	4F0A	47	37	0F	4F0E	47	exact_masked	27/27		1	0	HIGH	CONFIRMED	exact@45:4F0A	block:5fn/368B	
+eng	Function114f39	45	4F39	32	28	0F	4F3D	32	exact_masked	26/26		1	0	HIGH	CONFIRMED	exact@45:4F39	block:5fn/368B	
+eng	Function114f59	45	4F59	199	142	0F	4F5D	199	exact_masked	100/100		1	0	HIGH	CONFIRMED	exact@45:4F59	block:5fn/368B	
+eng	Function115020	45	5020	57	44	0F	5024	57	exact_masked	40/40		1	0	HIGH	CONFIRMED	exact@45:5020	block:5fn/368B	
+eng	Function115059	45	5059	9	5	0F	505D	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function115062	45	5062	81	60	0F	5066	81	exact_masked	43/43		1	0	HIGH	CONFIRMED	exact@45:5062	block:3fn/270B	
+eng	Function1150b3	45	50B3	131	115	0F	50B7	131	exact_masked	86/86		1	0	HIGH	CONFIRMED	exact@45:50B3	block:3fn/270B	
+eng	Function115136	45	5136	58	43	0F	513A	58	exact_masked	39/39		1	0	HIGH	CONFIRMED	exact@45:5136	block:3fn/270B	
+eng	Function115170	45	5170	9	5	0F	5174	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function115179	45	5179	149	120	0F	517D	149	exact_masked	98/98		1	0	HIGH	CONFIRMED	exact@45:5179		
+eng	Function11520e	45	520E	9	5	0F	5212	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function115217	45	5217	111	92	0F	521B	111	exact_masked	71/71		1	0	HIGH	CONFIRMED	exact@45:5217		
+eng	Function115286	45	5286	9	5	0F	528A	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function11528f	45	528F	32	21	0F	5293	32	exact_masked	20/20		1	0	MEDIUM	PROBABLE	exact@45:528F		
+eng	Function1152af	45	52AF	9	5	0F	52B3	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1152b8	45	52B8	197	135	0F	52BC	197	exact_masked	108/108		1	0	HIGH	CONFIRMED	exact@45:52B8	block:4fn/540B	
+eng	Function11537d	45	537D	56	46	0F	5381	56	exact_masked	46/46		1	0	HIGH	CONFIRMED	exact@45:537D	block:4fn/540B	
+eng	Function1153b5	45	53B5	29	23	0F	53B9	29	exact_masked	23/23		1	0	MEDIUM	PROBABLE	exact@45:53B5	block:4fn/540B	
+eng	Function1153d2	45	53D2	258	186	0F	53D6	258	masked_imm8diff	159/159	+015:DC>D0	1	0	MEDIUM	PROBABLE	exact@45:53D2	block:4fn/540B	
+eng	Function1154d4	45	5560	219	143	0F	5575	79	partial	43/108		1	0	MEDIUM	PROBABLE	exact@45:54D4		
+eng	Function1155af	45	55AF	34	28	0F	55C4	34	exact_masked	28/28		1	0	HIGH	CONFIRMED	exact@45:55AF	block:17fn/1970B	
+eng	Function1155d1	45	55D1	57	41	0F	55E6	57	exact_masked	39/39		1	0	HIGH	CONFIRMED	exact@45:55D1	block:17fn/1970B	
+eng	Function11560a	45	560A	194	126	0F	561F	194	masked_imm8diff	113/113	+043:03>0E,+04A:DB>00,+0AC:03>0E,+0B0:DB>00	1	0	MEDIUM	PROBABLE	exact@45:560A	block:17fn/1970B	
+eng	Function1156cc	45	56CC	102	68	0F	56E1	102	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@45:56CC	block:17fn/1970B	
+eng	Function115732	45	5732	42	40	0F	5747	42	exact_masked	40/40		1	0	HIGH	CONFIRMED	exact@45:5732	block:17fn/1970B	
+eng	Function11575c	45	575C	116	112	0F	5771	116	exact_masked	72/72		1	0	HIGH	CONFIRMED	exact@45:575C	block:17fn/1970B	
+eng	Function1157d0	45	57D0	78	56	0F	57E5	78	exact_masked	49/49		1	0	HIGH	CONFIRMED	exact@45:57D0	block:17fn/1970B	
+eng	Function11581e	45	581E	164	104	0F	5833	164	exact_masked	92/92		1	0	HIGH	CONFIRMED	exact@45:581E	block:17fn/1970B	
+eng	Function1158c2	45	58C2	282	222	0F	58D7	282	exact_masked	192/192		1	0	HIGH	CONFIRMED	exact@45:58C2	block:17fn/1970B	
+eng	Function113d47	44	7D47	31	31	0F	59F1	31	exact_masked	18/18		2	1	REJECTED	HYPOTHESIS	exact@44:7D47		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function1159dc	45	59DC	31	31	0F	59F1	31	exact_masked	18/18		1	1	AMBIGUOUS	HYPOTHESIS	exact@44:7D47	block:17fn/1970B	disambiguated among 2 Trainer hits by library layout order
+eng	Function1159fb	45	59FB	100	66	0F	5A10	100	exact_masked	51/51		1	0	HIGH	CONFIRMED	exact@45:59FB	block:17fn/1970B	
+eng	Function115a5f	45	5A5F	81	77	0F	5A74	81	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@45:5A5F	block:17fn/1970B	
+eng	Function115ab0	45	5AB0	80	58	0F	5AC5	80	exact_masked	51/51		1	0	HIGH	CONFIRMED	exact@45:5AB0	block:17fn/1970B	
+eng	Function115b00	45	5B00	200	136	0F	5B15	200	exact_masked	114/114		1	0	HIGH	CONFIRMED	exact@45:5B00	block:17fn/1970B	
+eng	Function115bc8	45	5BC8	129	101	0F	5BDD	129	exact_masked	86/86		1	0	HIGH	CONFIRMED	exact@45:5BC8	block:17fn/1970B	
+eng	Function115c49	45	5C49	266	224	0F	5C5E	266	exact_masked	176/176		1	0	HIGH	CONFIRMED	exact@45:5C49	block:17fn/1970B	
+eng	Function115d53	45	5D53	14	12	0F	5D68	14	exact_masked	11/11		1	0	MEDIUM	PROBABLE	exact@45:5D53	block:17fn/1970B	
+eng	Function115d61	45	5D61	9	5	0F	5D76	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function115d6a	45	5D6A	13	11	0F	5D7F	13	exact_masked	10/10		1	0	MEDIUM	PROBABLE	exact@45:5D6A		byte-identical; corroborated by call/jp operands of 7 independent confident matched callers pointing at this address
+eng	Function115d77	45	5D77	9	5	0F	5D8C	9	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function115d80	45	5D80	25	22	0F	5D95	25	exact_masked	17/17		1	0	MEDIUM	PROBABLE	exact@45:5D80		
+eng	PalPacket_Pal01	02	5CE6	16	14	1D	4875	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1D	4876	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	1D	4D0E	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1D	4D0F	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	1D	4D10	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	MorphMailDividerGFX	2E	5926	8	8	1D	4EAC	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4CE8	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4CE9	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4F48	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4F49	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4F8C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4F8D	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	4FAF	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	1E	5B8E	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5352	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5354	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5368	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	537C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5390	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	53A4	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	53B8	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5622	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5624	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5638	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	564C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5660	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5674	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5688	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	58F2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	58F4	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5908	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	591C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5930	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5944	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5958	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	5FAD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	22	618D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	24	6BE0	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MorphMailDividerGFX	2E	5926	8	8	24	705C	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	PalPacket_Pal01	02	5CE6	16	14	24	7D45	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	25	79C1	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	25	79C2	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	25	79C3	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7C91	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7C92	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7C93	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7F61	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7F62	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	25	7F63	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	26	5A0F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	26	722D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	26	7D3F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	27	508F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	27	7CE2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	54A8	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6AA2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6AA4	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6AB8	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6ACC	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6AE0	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6AF4	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6B08	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6D72	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6D74	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6D88	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6D9C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6DB0	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6DC4	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	6DD8	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	28	7A5A	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	29	64F2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	2B	494F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	2B	5EDD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MorphMailDividerGFX	2E	5926	8	8	2B	6DF9	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	PalPacket_Pal01	02	5CE6	16	14	2B	72E0	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	2C	6A0D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	2C	6ADD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MobileSDK_CopyBytes	44	4000	7	7	2D	40D5	7	exact_masked	6/6		2	0	REJECTED	HYPOTHESIS	exact@44:4000		alternative hit rejected: violates library layout order between HIGH anchors
+eng	ClearLinkData	0A	4426	14	10	2D	4E1F	14	exact_masked	9/9		2	0	LOW	HYPOTHESIS	exact@0A:43EA		
+eng	ClearLinkData	0A	4426	14	10	2D	7EBF	14	exact_masked	9/9		2	0	LOW	HYPOTHESIS	exact@0A:43EA		
+eng	PalPacket_Pal01	02	5CE6	16	14	2E	795F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	41	6C0E	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	TileCollisionTable	13	4EF1	256	224	43	49D4	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	PalPacket_Pal01	02	5CE6	16	14	43	5AAD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	43	603D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	43	603F	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	44	6BAD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	45	5AD0	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	45	64A2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	46	412E	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	46	71F2	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MorphMailDividerGFX	2E	5926	8	8	47	5D79	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	PalPacket_Pal01	02	5CE6	16	14	4A	4031	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	TileCollisionTable	13	4EF1	256	224	4A	6061	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	PalPacket_Pal01	02	5CE6	16	14	4A	659D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	4A	65C7	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	4D	7981	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	606F	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	60BE	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	6710	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	6884	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	6886	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	51	6B1C	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	51	6B1D	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_AllPal0	02	5BD6	16	16	53	416F	16	exact_masked	16/16		1	0	LOW	HYPOTHESIS	exact@02:5B93		
+eng	GetCurrentPuzzlePieceVTileCorner	38	5481	14	10	55	640E	14	exact_masked	9/9		2	0	LOW	HYPOTHESIS	exact@38:5C8E		
+eng	GetCurrentPuzzlePieceVTileCorner	38	5481	14	10	55	65C9	14	exact_masked	9/9		2	0	LOW	HYPOTHESIS	exact@38:5C8E		
+eng	Trade_CopyTwoBytes	3F	4E0F	6	6	55	6F8F	6	exact_masked	6/6		1	2	LOW	HYPOTHESIS	exact@24:752D		
+eng	PalPacket_Pal01	02	5CE6	16	14	56	584D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	58	7B65	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	5D	7025	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	5F	470D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MapGroupPalettes	13	4E05	26	26	5F	6980	26	exact_masked	13/13		23	0	AMBIGUOUS	HYPOTHESIS	exact@13:4E05		
+eng	MapGroupPalettes	13	4E05	26	26	5F	6981	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6982	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6983	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6984	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6985	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6986	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6987	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6988	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6989	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698A	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698B	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698C	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698D	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698E	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	698F	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6990	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6991	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6992	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6993	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6994	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6995	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MapGroupPalettes	13	4E05	26	26	5F	6996	26	exact_masked	13/13		23	0	SUPERSEDED	HYPOTHESIS	exact@13:4E05		overlaps a better record of the same unit
+eng	MorphMailDividerGFX	2E	5926	8	8	61	4BE8	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	PalPacket_Pal01	02	5CE6	16	14	62	6BFD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	63	60AC	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	63	72D7	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	Function11765d	45	7719	14	9	65	4BB8	14	exact_masked	8/8		1	7	LOW	HYPOTHESIS	exact@00:1E5B		
+eng	MobileStudium	45	7B3E	14	9	65	4BB8	14	exact_masked	8/8		1	7	LOW	HYPOTHESIS	exact@00:1E5B		
+eng	Function11c1ab	47	4198	14	9	65	4BB8	14	exact_masked	8/8		1	7	LOW	HYPOTHESIS	exact@00:1E5B		
+eng	Function1719c8	5C	592F	14	9	65	4BB8	14	exact_masked	8/8		1	7	LOW	HYPOTHESIS	exact@00:1E5B		
+eng	Function17a781	5E	67C1	14	9	65	4BB8	14	exact_masked	8/8		1	7	LOW	HYPOTHESIS	exact@00:1E5B		
+eng	Function11a63c	46	698F	37	13	67	5E8F	37	exact_masked	13/13		1	2	LOW	HYPOTHESIS	exact@10:47E7		
+eng	PalPacket_Pal01	02	5CE6	16	14	69	4C44	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	6B	4679	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	6B	467A	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	70	5480	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	70	64BF	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	72	4BFD	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	72	704D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	72	704E	16	exact_masked	14/14		116	127	SUPERSEDED	HYPOTHESIS	exact@02:5CA3		overlaps a better record of the same unit
+eng	PalPacket_Pal01	02	5CE6	16	14	72	765E	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	72	7A1D	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MobileSDK_CopyBytes	44	4000	7	7	75	4000	7	exact_masked	6/6		1	0	MEDIUM	PROBABLE	exact@44:4000	block:3fn/41B	disambiguated among 2 Trainer hits by library layout order; byte-identical; corroborated by call/jp operands of 49 independent confident matched callers pointing at this address
+eng	MobileSDK_CopyString	44	4007	8	8	75	4007	8	exact_masked	7/7		1	0	MEDIUM	PROBABLE	exact@44:4007	block:3fn/41B	byte-identical; corroborated by call/jp operands of 16 independent confident matched callers pointing at this address
+eng	MobileSDK_CopyStringLen	44	400F	26	26	75	400F	26	exact_masked	22/22		1	0	HIGH	CONFIRMED	exact@44:400F	block:3fn/41B	
+eng	ResetReceivePacketBuffer	44	4029	7	5	75	4029	7	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 5 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	_MobileAPI	44	4030	64	46	75	4030	64	masked_imm8diff	36/36	+02E:36>35	1	0	MEDIUM	PROBABLE	exact@44:4030		
+eng	Function1100b4	44	40B4	40	30	75	40B4	40	exact_masked	24/24		1	0	HIGH	CONFIRMED	exact@44:40B4		
+eng	MobileAPI_SetTimer	44	40DC	57	41	75	40DC	57	exact_masked	33/33		1	0	HIGH	CONFIRMED	exact@44:40DC		
+eng	Function110115	44	4115	273	197	75	4115	119	partial	63/136		1	0	SUPERSEDED	PROBABLE	exact@44:4115		superseded by aligned record
+eng	Function110115	44	4115	273	197	75	4115	272	aligned	135/136		1	0	MEDIUM	PROBABLE	exact@44:4115		skeleton-aligned: 135/136 instructions in trusted blocks (99%): 128 identical, 0 imm8-diff, 7 other-diff; refines partial hit (the exact run ends where code generation differs)
+eng	Function110226	44	4226	2	2	75	4225	2	guided_full	1/1		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 22 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function110231	44	4231	4	4	75	4230	4	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 11 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function110236	44	4236	91	58	75	4235	41	partial	23/49		2	0	SUPERSEDED	HYPOTHESIS	exact@44:4236		superseded by aligned record
+eng	Function110236	44	4236	91	58	75	4235	89	aligned	47/49	+04B:35>34	1	0	MEDIUM	PROBABLE	exact@44:4236		skeleton-aligned: 46/49 instructions in trusted blocks (94%): 45 identical, 1 imm8-diff, 0 other-diff; refines partial hit (the exact run ends where code generation differs)
+eng	Function110236	44	4266	91	58	75	4263	43	partial	23/49	+04B:35>34	2	0	SUPERSEDED	HYPOTHESIS	exact@44:4236		overlaps a better record of the same unit
+eng	Function110291	44	4291	155	106	75	428E	155	masked_imm8diff	84/84	+041:72>11,+044:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4291	block:4fn/283B	
+eng	Function11032c	44	432C	103	64	75	4329	103	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@44:432C	block:4fn/283B	
+eng	Function110393	44	4393	7	7	75	4390	7	exact_masked	5/5		1	0	MEDIUM	PROBABLE	exact@44:4393	block:4fn/283B	short/low-signal unit sits inside a contiguous block of 4 functions (283 bytes) that matches at constant offset
+eng	Function11039a	44	439A	18	18	75	4397	18	exact_masked	13/13		1	0	MEDIUM	PROBABLE	exact@44:439A	block:4fn/283B	
+eng	Function1103ac	44	43AC	134	77	75	43B1	134	masked_imm8diff	63/63	+03D:80>1F,+040:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:43AC		
+eng	Function110432	44	4432	6	4	75	4437	6	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 15 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function110438	44	4438	77	46	75	443D	77	masked_imm8diff	37/37	+02C:81>20,+02F:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4438	block:4fn/320B	
+eng	Mobile_DialTelephone	44	4485	43	27	75	448A	43	exact_masked	21/21		1	0	HIGH	CONFIRMED	exact@44:4485	block:4fn/320B	
+eng	Function1104b0	44	44B0	22	10	75	44B5	22	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:44B0	block:4fn/320B	short/low-signal unit sits inside a contiguous block of 4 functions (320 bytes) that matches at constant offset
+eng	Function1104c6	44	44C6	178	104	75	44CB	178	exact_masked	77/77		1	0	HIGH	CONFIRMED	exact@44:44C6	block:4fn/320B	
+eng	Function110596	44	4596	71	40	75	459B	71	masked_imm8diff	34/34	+030:80>1F,+033:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4596		
+eng	Function1105dd	44	45DD	56	33	75	45E2	56	structural_aligned	27/27	+01D:81>20,+020:C8>C7	1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): anchored on call/jp operand of matched callee at 75:45E7; skeleton-aligned: 27/27 instructions in trusted blocks (100%): 25 identical, 2 imm8-diff, 0 other-diff; RAM operands consistent with RAM map: 6 ok / 0 conflicting; 0 alternative location(s)
+eng	Function110615	44	4615	218	138	75	461A	218	masked_imm8diff	107/107	+024:9D>3A,+027:CB>CA	1	0	MEDIUM	PROBABLE	exact@44:4615	block:4fn/644B	
+eng	Function1106ef	44	46EF	104	60	75	46F4	104	exact_masked	48/48		1	0	HIGH	CONFIRMED	exact@44:46EF	block:4fn/644B	
+eng	Function110757	44	4757	168	94	75	475C	168	exact_masked	78/78		1	0	HIGH	CONFIRMED	exact@44:4757	block:4fn/644B	
+eng	Function1107ff	44	47FF	154	78	75	4804	154	exact_masked	67/67		1	0	HIGH	CONFIRMED	exact@44:47FF	block:4fn/644B	
+eng	Function1108ab	44	48AB	90	46	75	48B0	90	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:48AB	block:11fn/1794B	
+eng	Function110905	44	4905	159	89	75	490A	159	exact_masked	71/71		1	0	HIGH	CONFIRMED	exact@44:4905	block:11fn/1794B	
+eng	Function1109a4	44	49A4	85	43	75	49A9	85	exact_masked	36/36		1	0	HIGH	CONFIRMED	exact@44:49A4	block:11fn/1794B	
+eng	Function1109f9	44	49F9	98	50	75	49FE	98	exact_masked	43/43		1	0	HIGH	CONFIRMED	exact@44:49F9	block:11fn/1794B	
+eng	Function110a5b	44	4A5B	153	93	75	4A60	153	masked_imm8diff	80/80	+045:80>1F,+048:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4A5B	block:11fn/1794B	disambiguated among 2 Trainer hits by library layout order
+eng	Function110c9e	44	4C9E	153	93	75	4A60	153	masked_imm8diff	80/80	+00A:1C>1A,+045:80>1F,+048:C8>C7,+062:0E>0D,+091:1C>1A	2	0	REJECTED	HYPOTHESIS	exact@44:4C9E		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function110af4	44	4AF4	328	224	75	4AF9	328	exact_masked	197/197		1	0	HIGH	CONFIRMED	exact@44:4AF4	block:11fn/1794B	
+eng	Function110c3c	44	4C3C	98	50	75	4C41	98	exact_masked	43/43		1	0	HIGH	CONFIRMED	exact@44:4C3C	block:11fn/1794B	
+eng	Function110a5b	44	4A5B	153	93	75	4CA3	153	masked_imm8diff	80/80	+00A:1A>1C,+045:80>1F,+048:C8>C7,+062:0D>0E,+091:1A>1C	2	0	REJECTED	HYPOTHESIS	exact@44:4A5B		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function110c9e	44	4C9E	153	93	75	4CA3	153	masked_imm8diff	80/80	+045:80>1F,+048:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4C9E	block:11fn/1794B	disambiguated among 2 Trainer hits by library layout order
+eng	Function110d37	44	4D37	166	154	75	4D3C	166	exact_masked	109/109		1	0	HIGH	CONFIRMED	exact@44:4D37	block:11fn/1794B	
+eng	Function110ddd	44	4DDD	298	210	75	4DE2	298	masked_imm8diff	171/171	+063:80>1F,+068:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:4DDD	block:11fn/1794B	
+eng	Function110f07	44	4F07	166	102	75	4F0C	166	exact_masked	78/78		1	0	HIGH	CONFIRMED	exact@44:4F07	block:11fn/1794B	
+eng	Function111044	44	5044	283	185	75	5049	283	exact_masked	164/164		1	0	HIGH	CONFIRMED	exact@44:5044	block:4fn/442B	
+eng	Function11115f	44	515F	107	75	75	5164	107	exact_masked	70/70		1	0	HIGH	CONFIRMED	exact@44:515F	block:4fn/442B	
+eng	Function1111ca	44	51CA	13	7	75	51CF	13	exact_masked	5/5		1	0	MEDIUM	PROBABLE	exact@44:51CA	block:4fn/442B	short/low-signal unit sits inside a contiguous block of 4 functions (442 bytes) that matches at constant offset
+eng	Function1111d7	44	51D7	39	31	75	51DC	39	exact_masked	27/27		1	0	HIGH	CONFIRMED	exact@44:51D7	block:4fn/442B	
+eng	Function1111fe	44	522F	311	215	75	523C	262	partial	156/180	+048:80>1F,+04D:C8>C7	1	0	SUPERSEDED	PROBABLE	exact@44:51FE		superseded by aligned record
+eng	Function1111fe	44	522F	311	215	75	523C	262	aligned	156/180	+048:80>1F,+04D:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:51FE		skeleton-aligned: 156/180 instructions in trusted blocks (87%): 154 identical, 2 imm8-diff, 0 other-diff; refines partial hit (the exact run ends where code generation differs; starts at instruction 24 of the unit)
+eng	Function111335	44	5335	181	135	75	5342	181	exact_masked	102/102		1	0	HIGH	CONFIRMED	exact@44:5335		
+eng	Function1113f7	44	53F7	1	1	75	5404	1	guided_full	1/1		1	0	LOW	HYPOTHESIS			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own); DEMOTED by verifier rule: only 1 unmasked bytes and no corroboration (0 confident caller(s); contiguous run of 2 unit(s), 5 unmasked bytes, no HIGH member)
+eng	Function1113f8	44	53F8	6	4	75	5405	6	guided_full	4/4		1	0	LOW	HYPOTHESIS			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own); DEMOTED by verifier rule: only 4 unmasked bytes and no corroboration (0 confident caller(s); contiguous run of 2 unit(s), 5 unmasked bytes, no HIGH member)
+eng	Function1113fe	44	5422	142	98	75	542B	106	partial	63/78		1	0	SUPERSEDED	PROBABLE	exact@44:53FE		superseded by aligned record
+eng	Function1113fe	44	5422	142	98	75	542B	106	aligned	63/78		1	0	LOW	HYPOTHESIS	exact@44:53FE		skeleton-aligned: 63/78 instructions in trusted blocks (81%): 63 identical, 0 imm8-diff, 0 other-diff; refines partial hit (the exact run ends where code generation differs; starts at instruction 15 of the unit)
+eng	Function11148c	44	548C	180	122	75	5495	180	exact_masked	99/99		1	0	HIGH	CONFIRMED	exact@44:548C		
+eng	MobileAPI_TelephoneStatus	44	5541	85	48	75	554A	85	masked_imm8diff	36/36	+031:40>49	1	0	MEDIUM	PROBABLE	exact@44:5541		
+eng	Function111596	44	5596	78	54	75	559F	78	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:5596		
+eng	Function1115e4	44	55F0	44	32	75	55F3	48	structural_aligned	18/22		1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): anchored on call/jp operand of matched callee at 75:5604; skeleton-aligned: 16/22 instructions in trusted blocks (73%): 11 identical, 0 imm8-diff, 5 other-diff; RAM operands consistent with RAM map: 3 ok / 0 conflicting; 0 alternative location(s)
+eng	Function111610	44	5610	29	21	75	561D	29	structural_aligned	16/16		1	0	LOW	HYPOTHESIS			STRUCTURAL (not byte-identical): placed by adjacency after structural unit Function1115e4 (Crystal contiguous units; Trainer code follows at 75:561D); skeleton-aligned: 16/16 instructions in trusted blocks (100%): 15 identical, 0 imm8-diff, 1 other-diff
+eng	Function11162d	44	562D	34	20	75	563A	34	exact_masked	18/18		1	0	MEDIUM	PROBABLE	exact@44:562D	block:4fn/115B	
+eng	Function11164f	44	564F	21	15	75	565C	21	exact_masked	13/13		1	0	MEDIUM	PROBABLE	exact@44:564F	block:4fn/115B	
+eng	Function111664	44	5664	34	24	75	5671	34	exact_masked	20/20		1	0	HIGH	CONFIRMED	exact@44:5664	block:4fn/115B	
+eng	Function111686	44	5686	26	17	75	5693	26	exact_masked	15/15		1	0	MEDIUM	PROBABLE	exact@44:5686	block:4fn/115B	
+eng	Function1116a0	44	56A0	4	4	75	56AD	4	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 6 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1116a4	44	56A4	5	3	75	56B1	5	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 4 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1116a9	44	56A9	28	18	75	56B6	28	exact_masked	16/16		1	0	MEDIUM	PROBABLE	exact@44:56A9	block:3fn/237B	
+eng	_MobileReceive	44	56C5	183	132	75	56D2	183	masked_imm8diff	97/97	+027:08>A8	1	0	MEDIUM	PROBABLE	exact@44:56C5	block:3fn/237B	
+eng	Function11177c	44	577C	26	20	75	5789	26	exact_masked	17/17		1	0	MEDIUM	PROBABLE	exact@44:577C	block:3fn/237B	
+eng	Function111796	44	5796	4	4	75	57A3	4	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1117a0	44	57A0	2	2	75	57AD	2	guided_full	1/1		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	asm_1117a2	44	57A2	69	41	75	57AF	69	exact_masked	34/34		1	0	HIGH	CONFIRMED	exact@44:57A2		
+eng	Function1117e7	44	57E7	135	94	75	57F4	134	aligned	68/69		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); skeleton-aligned: 68/69 instructions in trusted blocks (99%): 67 identical, 0 imm8-diff, 1 other-diff
+eng	Function1117e7	44	57F1	135	94	75	57FD	125	partial	64/69		1	0	SUPERSEDED	PROBABLE	exact@44:57E7		superseded by aligned record
+eng	Function1117e7	44	57F1	135	94	75	57FD	125	aligned	64/69		1	0	SUPERSEDED	PROBABLE	exact@44:57E7		skeleton-aligned: 64/69 instructions in trusted blocks (93%): 64 identical, 0 imm8-diff, 0 other-diff; refines partial hit (the exact run ends where code generation differs; starts at instruction 5 of the unit); overlaps a better record of the same unit
+eng	Function11186e	44	586E	22	17	75	587A	22	exact_masked	13/13		1	0	MEDIUM	PROBABLE	exact@44:586E	block:3fn/78B	
+eng	Function111884	44	5884	14	10	75	5890	14	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:5884	block:3fn/78B	short/low-signal unit sits inside a contiguous block of 3 functions (78 bytes) that matches at constant offset
+eng	Function111892	44	5892	42	33	75	589E	42	masked_imm8diff	24/24	+012:11>B1,+015:C8>C6	1	0	MEDIUM	PROBABLE	exact@44:5892	block:3fn/78B	
+eng	Function1118bc	44	58BC	6	4	75	58C8	6	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 4 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1118c2	44	58C2	28	17	75	58CE	28	exact_masked	16/16		1	0	MEDIUM	PROBABLE	exact@44:58C2	block:4fn/360B	
+eng	_Timer	44	58DE	274	170	75	58EA	274	exact_masked	124/124		1	0	HIGH	CONFIRMED	exact@44:58DE	block:4fn/360B	
+eng	Function1119f0_BeginSession	44	59F0	27	13	75	59FC	27	exact_masked	10/10		1	0	MEDIUM	PROBABLE	exact@44:59F0	block:4fn/360B	
+eng	Function111a0b	44	5A0B	31	21	75	5A17	31	exact_masked	17/17		1	0	MEDIUM	PROBABLE	exact@44:5A0B	block:4fn/360B	
+eng	Function111a2a	44	5A2A	22	16	75	5A36	18	aligned	9/11		1	0	LOW	HYPOTHESIS			reached by following a call/jp edge from 1 confident matched caller function(s); skeleton-aligned: 8/11 instructions in trusted blocks (73%): 6 identical, 0 imm8-diff, 2 other-diff
+eng	Function111a42	44	5A42	5	2	75	5A4C	5	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	asm_111a47	44	5A47	114	74	75	5A51	114	exact_masked	55/55		1	0	HIGH	CONFIRMED	exact@44:5A47		
+eng	Function111abd	44	5ABD	100	64	75	5AC7	100	exact_masked	48/48		1	0	HIGH	CONFIRMED	exact@44:5ABD	block:3fn/126B	
+eng	Function111b21	44	5B21	13	10	75	5B2B	13	exact_masked	10/10		1	0	MEDIUM	PROBABLE	exact@44:5B21	block:3fn/126B	short/low-signal unit sits inside a contiguous block of 3 functions (126 bytes) that matches at constant offset
+eng	Function111b2e	44	5B2E	13	9	75	5B38	13	exact_masked	6/6		1	0	MEDIUM	PROBABLE	exact@44:5B2E	block:3fn/126B	short/low-signal unit sits inside a contiguous block of 3 functions (126 bytes) that matches at constant offset
+eng	Function111b3b	44	5B3B	1	1	75	5B45	1	guided_full	1/1		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 4 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function111b3c	44	5B3C	202	130	75	5B46	68	partial	30/92		2	0	SUPERSEDED	HYPOTHESIS	exact@44:5B3C		superseded by aligned record
+eng	Function111b3c	44	5B3C	202	130	75	5B46	201	aligned	91/92		1	0	MEDIUM	PROBABLE	exact@44:5B3C		skeleton-aligned: 91/92 instructions in trusted blocks (99%): 87 identical, 0 imm8-diff, 4 other-diff; refines partial hit (the exact run ends where code generation differs)
+eng	Function111b3c	44	5B93	202	130	75	5B9C	115	partial	53/92		2	0	SUPERSEDED	HYPOTHESIS	exact@44:5B3C		overlaps a better record of the same unit
+eng	Function111c17	44	5C17	171	111	75	5C20	171	exact_masked	90/90		1	0	HIGH	CONFIRMED	exact@44:5C17	block:5fn/334B	
+eng	Function111cc2	44	5CC2	69	53	75	5CCB	69	exact_masked	45/45		1	0	HIGH	CONFIRMED	exact@44:5CC2	block:5fn/334B	
+eng	Function111d07	44	5D07	28	18	75	5D10	28	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:5D07	block:5fn/334B	
+eng	Function111d23	44	5D23	22	12	75	5D2C	22	exact_masked	10/10		1	0	MEDIUM	PROBABLE	exact@44:5D23	block:5fn/334B	
+eng	ParseResponse_BeginSession	44	5D39	44	34	75	5D42	44	exact_masked	24/24		1	0	HIGH	CONFIRMED	exact@44:5D39	block:5fn/334B	
+eng	Function111d65	44	5D65	11	7	75	5D6E	11	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function111d70	44	5D70	105	65	75	5D79	105	exact_masked	50/50		1	0	HIGH	CONFIRMED	exact@44:5D70	block:3fn/184B	
+eng	Function111dd9	44	5DD9	60	52	75	5DE2	60	exact_masked	34/34		1	0	HIGH	CONFIRMED	exact@44:5DD9	block:3fn/184B	
+eng	Function111e15	44	5E15	19	15	75	5E1E	19	exact_masked	13/13		1	0	MEDIUM	PROBABLE	exact@44:5E15	block:3fn/184B	
+eng	GetErrorCode	44	5E2B	205	163	75	5E34	205	exact_masked	97/97		1	0	HIGH	CONFIRMED	exact@44:5E2B		
+eng	Function111ef8	44	5EF8	7	3	75	5F01	7	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 2 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	PacketSendEmptyBody	44	5EFF	3	1	75	5F08	3	guided_full	1/1		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 4 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function111f02	44	5F02	5	3	75	5F0B	5	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 16 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	PacketSendBytes	44	5F07	92	55	75	5F10	92	exact_masked	46/46		1	0	HIGH	CONFIRMED	exact@44:5F07	block:4fn/235B	
+eng	Function111f63	44	5F63	42	34	75	5F6C	42	exact_masked	29/29		1	0	HIGH	CONFIRMED	exact@44:5F63	block:4fn/235B	
+eng	Function111f8d	44	5F8D	10	10	75	5F96	10	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:5F8D	block:4fn/235B	short/low-signal unit sits inside a contiguous block of 4 functions (235 bytes) that matches at constant offset
+eng	Function111f97	44	5F97	91	69	75	5FA0	91	exact_masked	43/43		1	0	HIGH	CONFIRMED	exact@44:5F97	block:4fn/235B	
+eng	Function11214e	44	614E	94	74	75	6149	94	exact_masked	49/49		1	0	HIGH	CONFIRMED	exact@44:614E		
+eng	Function1121f6	44	61F6	91	73	75	61F1	91	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@44:61F6		
+eng	Function112251	44	6251	12	6	75	624C	12	guided_full	6/6		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function11225d	44	625D	12	6	75	6258	12	guided_full	5/5		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 9 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Mobile_EndSession	44	6269	8	4	75	6264	8	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 7 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function112271	44	62C5	218	144	75	62CB	134	partial	59/107		1	0	MEDIUM	PROBABLE	exact@44:6271		
+eng	Function11234b	44	634B	15	9	75	6351	15	exact_masked	7/7		1	0	LOW	HYPOTHESIS	exact@44:634B		
+eng	Function11236b	44	636B	8	4	75	6371	8	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 2 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function112373	44	6373	67	49	75	6379	67	exact_masked	33/33		1	0	HIGH	CONFIRMED	exact@44:6373	block:11fn/731B	
+eng	Function1123b6	44	63B6	43	31	75	63BC	43	exact_masked	21/21		1	0	HIGH	CONFIRMED	exact@44:63B6	block:11fn/731B	
+eng	Function1123e1	44	63E1	79	51	75	63E7	79	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:63E1	block:11fn/731B	
+eng	Function112430	44	6430	33	17	75	6436	33	exact_masked	14/14		1	0	MEDIUM	PROBABLE	exact@44:6430	block:11fn/731B	
+eng	Function112451	44	6451	227	145	75	6457	227	exact_masked	113/113		1	0	HIGH	CONFIRMED	exact@44:6451	block:11fn/731B	
+eng	Function112534	44	6534	50	24	75	653A	50	exact_masked	21/21		1	0	HIGH	CONFIRMED	exact@44:6534	block:11fn/731B	
+eng	Function112566	44	6566	49	31	75	656C	49	exact_masked	21/21		1	0	HIGH	CONFIRMED	exact@44:6566	block:11fn/731B	
+eng	Function112597	44	6597	40	26	75	659D	40	exact_masked	18/18		1	0	HIGH	CONFIRMED	exact@44:6597	block:11fn/731B	
+eng	Function1125bf	44	65BF	8	6	75	65C5	8	exact_masked	4/4		1	0	MEDIUM	PROBABLE	exact@44:65BF	block:11fn/731B	short/low-signal unit sits inside a contiguous block of 11 functions (731 bytes) that matches at constant offset
+eng	Function1125c7	44	65C7	85	59	75	65CD	85	masked_imm8diff	50/50	+01D:80>1F,+020:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:65C7	block:11fn/731B	
+eng	Function11261c	44	661C	50	26	75	6622	50	exact_masked	23/23		1	0	HIGH	CONFIRMED	exact@44:661C	block:11fn/731B	
+eng	Function112654	44	6654	71	39	75	665A	71	exact_masked	34/34		1	0	HIGH	CONFIRMED	exact@44:6654		
+eng	Function11269b	44	669B	17	7	75	66A1	17	guided_full	7/7		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 3 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1126ac	44	66AC	4	2	75	66B2	4	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1126b0	44	66B0	6	2	75	66B6	6	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 2 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1126b6	44	66B6	48	32	75	66BC	64	aligned	24/24		1	0	LOW	HYPOTHESIS			reached by following a call/jp edge from 2 confident matched caller function(s); skeleton-aligned: 24/24 instructions in trusted blocks (100%): 24 identical, 0 imm8-diff, 0 other-diff
+eng	Function1126e6	44	66E6	47	37	75	66FC	47	exact_masked	29/29		1	0	HIGH	CONFIRMED	exact@44:66E6		
+eng	Function112724	44	6724	5	3	75	673A	5	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 10 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function112729	44	6729	17	15	75	673F	17	guided_full	12/12	+009:C8>C7,+00C:80>1F	1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 3 confident matched caller function(s); callee bytes identical (masked)
+eng	Function11273a	44	673A	139	93	75	6750	139	exact_masked	68/68		1	0	HIGH	CONFIRMED	exact@44:673A		
+eng	Function1127c5	44	67C5	8	4	75	67DB	8	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 12 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1127cd	44	67CD	20	14	75	67E3	20	exact_masked	11/11		1	0	MEDIUM	PROBABLE	exact@44:67CD		disambiguated among 2 Trainer hits by library layout order
+eng	Function112a42	44	6A42	20	14	75	67E3	20	masked_imm8diff	11/11	+00A:31>30	2	0	REJECTED	HYPOTHESIS	exact@44:6A42		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function1127e1	44	67E1	6	2	75	67F7	6	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 10 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function1127e7	44	67E7	12	12	75	67FD	12	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:67E7	block:20fn/1914B	
+eng	Function1127f3	44	67F3	20	16	75	6809	20	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:67F3	block:20fn/1914B	
+eng	Function112807	44	6807	57	41	75	681D	57	exact_masked	32/32		1	0	HIGH	CONFIRMED	exact@44:6807	block:20fn/1914B	
+eng	Function112840	44	6840	125	75	75	6856	125	exact_masked	61/61		1	0	HIGH	CONFIRMED	exact@44:6840	block:20fn/1914B	
+eng	Function1128bd	44	68BD	22	14	75	68D3	22	exact_masked	11/11		1	0	MEDIUM	PROBABLE	exact@44:68BD	block:20fn/1914B	
+eng	Function1128d3	44	68D3	8	6	75	68E9	8	exact_masked	4/4		1	0	MEDIUM	PROBABLE	exact@44:68D3	block:20fn/1914B	short/low-signal unit sits inside a contiguous block of 20 functions (1914 bytes) that matches at constant offset
+eng	Function1128db	44	68DB	131	83	75	68F1	131	exact_masked	62/62		1	0	HIGH	CONFIRMED	exact@44:68DB	block:20fn/1914B	
+eng	Function11295e	44	695E	11	11	75	6974	11	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:695E	block:20fn/1914B	short/low-signal unit sits inside a contiguous block of 20 functions (1914 bytes) that matches at constant offset
+eng	Function112969	44	6969	51	33	75	697F	51	exact_masked	24/24		1	0	HIGH	CONFIRMED	exact@44:6969	block:20fn/1914B	
+eng	Function11299c	44	699C	144	88	75	69B2	144	exact_masked	64/64		1	0	HIGH	CONFIRMED	exact@44:699C	block:20fn/1914B	
+eng	Function112a2c	44	6A2C	22	16	75	6A42	22	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:6A2C	block:20fn/1914B	
+eng	Function1127cd	44	67CD	20	14	75	6A58	20	masked_imm8diff	11/11	+00A:30>31	2	0	REJECTED	HYPOTHESIS	exact@44:67CD		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function112a42	44	6A42	20	14	75	6A58	20	exact_masked	11/11		1	0	MEDIUM	PROBABLE	exact@44:6A42	block:20fn/1914B	disambiguated among 2 Trainer hits by library layout order
+eng	Function112a56	44	6A56	86	56	75	6A6C	86	exact_masked	47/47		1	0	HIGH	CONFIRMED	exact@44:6A56	block:20fn/1914B	
+eng	Function112aac	44	6AAC	101	73	75	6AC2	101	exact_masked	56/56		1	0	HIGH	CONFIRMED	exact@44:6AAC	block:20fn/1914B	
+eng	Function112b11	44	6B11	96	70	75	6B27	96	exact_masked	56/56		1	0	HIGH	CONFIRMED	exact@44:6B11	block:20fn/1914B	
+eng	Function112b71	44	6B71	74	48	75	6B87	74	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:6B71	block:20fn/1914B	
+eng	Function112bbb	44	6BBB	49	27	75	6BD1	49	exact_masked	21/21		1	0	HIGH	CONFIRMED	exact@44:6BBB	block:20fn/1914B	
+eng	Function112bec	44	6BEC	308	198	75	6C02	308	exact_masked	170/170		1	0	HIGH	CONFIRMED	exact@44:6BEC	block:20fn/1914B	
+eng	Function112d20	44	6D20	19	9	75	6D36	19	exact_masked	7/7		1	0	MEDIUM	PROBABLE	exact@44:6D20	block:20fn/1914B	short/low-signal unit sits inside a contiguous block of 20 functions (1914 bytes) that matches at constant offset
+eng	Function112d33	44	6D33	558	382	75	6D49	558	exact_masked	275/275		1	0	HIGH	CONFIRMED	exact@44:6D33	block:20fn/1914B	
+eng	Function112f61	44	6F61	116	74	75	6F77	82	partial	41/57		1	0	SUPERSEDED	PROBABLE	exact@44:6F61		superseded by aligned record
+eng	Function112f61	44	6F61	116	74	75	6F77	150	aligned	57/57		1	0	MEDIUM	PROBABLE	exact@44:6F61		skeleton-aligned: 55/57 instructions in trusted blocks (96%): 53 identical, 0 imm8-diff, 2 other-diff; refines partial hit (the exact run ends where code generation differs)
+eng	Function112fd5	44	6FD5	44	34	75	700D	44	exact_masked	29/29		1	0	HIGH	CONFIRMED	exact@44:6FD5		
+eng	Function113180	44	7180	23	19	75	700D	23	exact_masked	15/15		3	2	LOW	HYPOTHESIS	exact@44:6FD5		
+eng	Function113008	44	7008	30	20	75	7040	30	exact_masked	18/18		1	0	MEDIUM	PROBABLE	exact@44:7008	block:3fn/99B	
+eng	Function113026	44	7026	46	32	75	705E	46	exact_masked	28/28		1	0	HIGH	CONFIRMED	exact@44:7026	block:3fn/99B	
+eng	Function113054	44	7054	23	15	75	708C	23	exact_masked	13/13		1	0	MEDIUM	PROBABLE	exact@44:7054	block:3fn/99B	
+eng	Function11306b	44	706B	7	3	75	70A3	7	guided_full	3/3		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function113072	44	7072	23	13	75	70AA	23	exact_masked	10/10		1	0	MEDIUM	PROBABLE	exact@44:7072	block:4fn/270B	
+eng	Function113089	44	7089	12	12	75	70C1	12	exact_masked	7/7		1	0	MEDIUM	PROBABLE	exact@44:7089	block:4fn/270B	
+eng	Function113095	44	7095	210	146	75	70CD	210	exact_masked	120/120		1	0	HIGH	CONFIRMED	exact@44:7095	block:4fn/270B	
+eng	Function113167	44	7167	25	21	75	719F	25	exact_masked	16/16		1	0	MEDIUM	PROBABLE	exact@44:7167	block:4fn/270B	
+eng	Function113180	44	7180	23	19	75	719F	23	exact_masked	15/15		3	2	LOW	HYPOTHESIS	exact@44:6FD5		
+eng	Function113180	44	7180	23	19	75	71B8	23	exact_masked	15/15		3	2	LOW	HYPOTHESIS	exact@44:6FD5	block:9fn/294B	
+eng	Function113197	44	7197	18	14	75	71CF	18	exact_masked	14/14		1	0	MEDIUM	PROBABLE	exact@44:7197	block:9fn/294B	
+eng	Function1131a9	44	71A9	93	69	75	71E1	93	exact_masked	57/57		1	0	HIGH	CONFIRMED	exact@44:71A9	block:9fn/294B	
+eng	Function113206	44	7206	63	37	75	723E	63	exact_masked	33/33		1	0	HIGH	CONFIRMED	exact@44:7206	block:9fn/294B	
+eng	Function113245	44	7245	35	23	75	727D	35	exact_masked	20/20		1	0	MEDIUM	PROBABLE	exact@44:7245	block:9fn/294B	
+eng	Function113268	44	7268	11	11	75	72A0	11	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:7268	block:9fn/294B	short/low-signal unit sits inside a contiguous block of 9 functions (294 bytes) that matches at constant offset
+eng	Function113273	44	7273	14	14	75	72AB	14	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:7273	block:9fn/294B	
+eng	Function113281	44	7281	28	26	75	72B9	28	exact_masked	23/23		1	0	HIGH	CONFIRMED	exact@44:7281	block:9fn/294B	
+eng	Function11329d	44	729D	9	9	75	72D5	9	exact_masked	6/6		1	0	MEDIUM	PROBABLE	exact@44:729D	block:9fn/294B	short/low-signal unit sits inside a contiguous block of 9 functions (294 bytes) that matches at constant offset
+eng	Function113317	44	7317	91	49	75	734F	91	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:7317		
+eng	Function113386	44	7386	88	42	75	73BE	88	exact_masked	36/36		1	0	HIGH	CONFIRMED	exact@44:7386		
+eng	Function1133de	44	73DE	32	12	75	7416	32	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:73DE		byte-identical; corroborated by call/jp operands of 2 independent confident matched callers pointing at this address
+eng	Function1133fe	44	7424	132	106	75	7436	260	aligned	23/82		1	0	LOW	HYPOTHESIS			reached by following a call/jp edge from 1 confident matched caller function(s); skeleton-aligned: 12/82 instructions in trusted blocks (15%): 12 identical, 0 imm8-diff, 0 other-diff
+eng	Function113482	44	7482	73	49	75	7444	73	exact_masked	45/45		1	0	HIGH	CONFIRMED	exact@44:7482	block:5fn/299B	
+eng	Function1134cb	44	74CB	78	54	75	748D	78	exact_masked	39/39		1	0	HIGH	CONFIRMED	exact@44:74CB	block:5fn/299B	
+eng	Function113519	44	7519	121	89	75	74DB	121	masked_imm8diff	64/64	+017:E0>7F,+01A:C8>C7	1	0	MEDIUM	PROBABLE	exact@44:7519	block:5fn/299B	
+eng	Function113592	44	7592	11	9	75	7554	11	exact_masked	9/9		1	0	MEDIUM	PROBABLE	exact@44:7592	block:5fn/299B	short/low-signal unit sits inside a contiguous block of 5 functions (299 bytes) that matches at constant offset
+eng	Function11359d	44	759D	16	10	75	755F	16	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:759D	block:5fn/299B	short/low-signal unit sits inside a contiguous block of 5 functions (299 bytes) that matches at constant offset
+eng	Function1135ba	44	75BA	49	23	75	757C	49	exact_masked	19/19		1	0	MEDIUM	PROBABLE	exact@44:75BA		
+eng	Function1135eb	44	75EB	53	45	75	75AD	53	exact_masked	30/30		1	0	HIGH	CONFIRMED	exact@44:75EB		
+eng	Function113620	44	7620	3	3	75	75E2	3	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function113623	44	7623	3	3	75	75E5	3	guided_full	2/2		1	0	MEDIUM	PROBABLE			reached by following a call/jp edge from 1 confident matched caller function(s); callee bytes identical (masked) (short: low information on its own)
+eng	Function113626	44	7626	76	54	75	75E8	76	exact_masked	43/43		1	0	HIGH	CONFIRMED	exact@44:7626	block:6fn/845B	
+eng	Function113672	44	7672	79	53	75	7634	79	exact_masked	42/42		1	0	HIGH	CONFIRMED	exact@44:7672	block:6fn/845B	
+eng	Function1136c1	44	76C1	584	416	75	7683	584	masked_imm8diff	319/319	+076:8E>50,+07F:70>32,+110:8E>50	1	0	MEDIUM	PROBABLE	exact@44:76C1	block:6fn/845B	
+eng	Function113909	44	7909	21	15	75	78CB	21	exact_masked	11/11		1	0	MEDIUM	PROBABLE	exact@44:7909	block:6fn/845B	
+eng	Function11391e	44	791E	17	11	75	78E0	17	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:791E	block:6fn/845B	short/low-signal unit sits inside a contiguous block of 6 functions (845 bytes) that matches at constant offset
+eng	Function11392f	44	792F	68	34	75	78F1	68	exact_masked	32/32		2	1	AMBIGUOUS	HYPOTHESIS	exact@44:792F	block:6fn/845B	
+eng	Function113973	44	7973	68	34	75	78F1	68	exact_masked	32/32		2	1	AMBIGUOUS	HYPOTHESIS	exact@44:792F		
+eng	Function11392f	44	792F	68	34	75	7935	68	exact_masked	32/32		2	1	AMBIGUOUS	HYPOTHESIS	exact@44:792F		
+eng	Function113973	44	7973	68	34	75	7935	68	exact_masked	32/32		2	1	AMBIGUOUS	HYPOTHESIS	exact@44:792F	block:9fn/226B	
+eng	Function1139b7	44	79B7	39	21	75	7979	39	exact_masked	20/20		1	0	MEDIUM	PROBABLE	exact@44:79B7	block:9fn/226B	
+eng	Function1139de	44	79DE	45	23	75	79A0	45	exact_masked	22/22		1	0	MEDIUM	PROBABLE	exact@44:79DE	block:9fn/226B	
+eng	Function113a0b	44	7A0B	10	10	75	79CD	10	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:7A0B	block:9fn/226B	short/low-signal unit sits inside a contiguous block of 9 functions (226 bytes) that matches at constant offset
+eng	Function113a15	44	7A15	10	10	75	79D7	10	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:7A15	block:9fn/226B	short/low-signal unit sits inside a contiguous block of 9 functions (226 bytes) that matches at constant offset
+eng	Function113a1f	44	7A1F	9	9	75	79E1	9	exact_masked	7/7		1	0	MEDIUM	PROBABLE	exact@44:7A1F	block:9fn/226B	short/low-signal unit sits inside a contiguous block of 9 functions (226 bytes) that matches at constant offset
+eng	Function113a28	44	7A28	10	10	75	79EA	10	exact_masked	8/8		1	0	MEDIUM	PROBABLE	exact@44:7A28	block:9fn/226B	short/low-signal unit sits inside a contiguous block of 9 functions (226 bytes) that matches at constant offset
+eng	Function113a32	44	7A32	14	14	75	79F4	14	exact_masked	12/12		1	0	MEDIUM	PROBABLE	exact@44:7A32	block:9fn/226B	
+eng	Function113a40	44	7A40	21	21	75	7A02	21	exact_masked	20/20		1	0	MEDIUM	PROBABLE	exact@44:7A40	block:9fn/226B	
+eng	Function113c8e	44	7C8E	185	147	75	7C50	185	exact_masked	124/124		1	0	HIGH	CONFIRMED	exact@44:7C8E	block:8fn/758B	
+eng	Function113d47	44	7D47	31	31	75	7D09	31	exact_masked	18/18		1	1	AMBIGUOUS	HYPOTHESIS	exact@44:7D47	block:8fn/758B	disambiguated among 2 Trainer hits by library layout order
+eng	Function1159dc	45	59DC	31	31	75	7D09	31	exact_masked	18/18		2	1	REJECTED	HYPOTHESIS	exact@44:7D47		alternative hit rejected: violates library layout order between HIGH anchors
+eng	Function113d66	44	7D66	220	188	75	7D28	220	exact_masked	141/141		1	0	HIGH	CONFIRMED	exact@44:7D66	block:8fn/758B	
+eng	Function113e42	44	7E42	118	82	75	7E04	118	exact_masked	58/58		1	0	HIGH	CONFIRMED	exact@44:7E42	block:8fn/758B	
+eng	Function113eb8	44	7EB8	15	9	75	7E7A	15	exact_masked	6/6		1	0	MEDIUM	PROBABLE	exact@44:7EB8	block:8fn/758B	short/low-signal unit sits inside a contiguous block of 8 functions (758 bytes) that matches at constant offset
+eng	Function113ec7	44	7EC7	43	33	75	7E89	43	exact_masked	27/27		1	0	HIGH	CONFIRMED	exact@44:7EC7	block:8fn/758B	
+eng	Function113ef2	44	7EF2	59	45	75	7EB4	59	exact_masked	38/38		1	0	HIGH	CONFIRMED	exact@44:7EF2	block:8fn/758B	
+eng	Function113f2d	44	7F2D	87	59	75	7EEF	87	exact_masked	52/52		1	0	HIGH	CONFIRMED	exact@44:7F2D	block:8fn/758B	
+eng	PalPacket_Pal01	02	5CE6	16	14	7E	41ED	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	TileCollisionTable	13	4EF1	256	224	7E	4CF9	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	TileCollisionTable	13	4EF1	256	224	7E	4E19	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	PalPacket_Pal01	02	5CE6	16	14	7E	5147	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	PalPacket_Pal01	02	5CE6	16	14	7E	5387	16	exact_masked	14/14		116	127	LOW	HYPOTHESIS	exact@02:5CA3		
+eng	MorphMailDividerGFX	2E	5926	8	8	7E	65C7	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	TileCollisionTable	13	4EF1	256	224	7E	6ADE	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	TileCollisionTable	13	4EF1	256	224	7E	74B3	46	partial	46/224		6	0	LOW	HYPOTHESIS	exact@13:4E1F		
+eng	MorphMailDividerGFX	2E	5926	8	8	7F	62AC	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
+eng	MorphMailDividerGFX	2E	5926	8	8	7F	62B4	8	exact_masked	8/8		8	19	LOW	HYPOTHESIS	exact@00:001C		
