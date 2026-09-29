@@ -6,5 +6,5273 @@ INCLUDE "ram.inc"
 
 SECTION "Bank55", ROMX[$4000], BANK[$55]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $154000, $4000
+; ---- data $4000-$4002 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_4000:: ; 55:4000
+	db $14, $00
+
+; ---- data $4002-$4004 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4002:: ; 55:4002
+	db $03, $00
+
+; ---- data $4004-$4005 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_4004:: ; 55:4004
+	db $00
+
+; ---- data $4005-$4006 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4005:: ; 55:4005
+	db $00
+
+; ---- data $4006-$400C (6 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_55_4006:: ; 55:4006
+	db $00, $00, $00, $00, $34, $46
+
+; ---- data $400C-$400E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_400C:: ; 55:400C
+	db $46, $58
+
+; ---- data $400E-$400F (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_400E:: ; 55:400E
+	db $58
+
+; ---- data $400F-$4010 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_400F:: ; 55:400F
+	db $58
+
+; ---- data $4010-$4018 (8 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_4010:: ; 55:4010
+	db $58, $58, $58, $58, $28, $40, $2A, $40
+
+; ---- data $4018-$401C (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4018:: ; 55:4018
+	db $2C, $40, $2E, $40
+
+; ---- data $401C-$401E (2 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_401C:: ; 55:401C
+	db $30, $40
+
+; ---- data $401E-$4020 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_401E:: ; 55:401E
+	db $32, $40
+
+; ---- data $4020-$402C (12 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_4020:: ; 55:4020
+	db $34, $40, $3C, $40, $3C, $40, $44, $40, $46, $40, $B2, $40
+
+; ---- data $402C-$4030 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_402C:: ; 55:402C
+	db $42, $41, $D2, $41
+
+; ---- data $4030-$4032 (2 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_4030:: ; 55:4030
+	db $86, $42
+
+; ---- data $4032-$4034 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4032:: ; 55:4032
+	db $3A, $43
+
+; ---- data $4034-$403A (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_4034:: ; 55:4034
+	db $EE, $43, $A2, $44, $56, $45
+
+; ---- data $403A-$403C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_403A:: ; 55:403A
+	db $0A, $46
+
+; ---- data $403C-$4040 (4 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 403C-4042 by higher-priority evidence]
+
+Data_55_403C:: ; 55:403C
+	db $BE, $46, $72, $47
+
+; ---- gfx $4040-$43E0 (928 bytes) [PROBABLE] tiles-2bpp: heuristic: 48 coherent tiles (hsim2=0.659 vsim2=0.709, 4 blank) parity 0
+
+Data_55_4040:: ; 55:4040
+	db $26, $48, $DA, $48, $8E, $49, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $31
+	db $00, $00, $00, $32, $00, $00, $00, $33, $00, $00, $00, $34, $00, $00, $00, $35
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $36, $00, $00, $00, $37, $00, $00, $00, $38, $00, $00, $00, $39
+	db $00, $00, $00, $30, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82
+	db $00, $00, $00, $31, $00, $32, $00, $33, $00, $34, $00, $35, $00, $00, $00, $36
+	db $00, $37, $00, $38, $00, $39, $00, $30, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $61, $00, $62, $00, $63, $00, $64, $00, $65
+	db $00, $00, $00, $66, $00, $67, $00, $68, $00, $69, $00, $6A, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $6B, $00, $6C, $00, $6D
+	db $00, $6E, $00, $6F, $00, $00, $00, $70, $00, $71, $00, $72, $00, $73, $00, $74
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $75
+	db $00, $76, $00, $77, $00, $78, $00, $79, $00, $00, $00, $7A, $00, $2E, $00, $40
+	db $00, $2D, $00, $5F, $00, $2B, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $31, $00, $00, $00, $00, $00, $32
+	db $00, $00, $00, $00, $00, $33, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $34, $00, $00
+	db $00, $00, $00, $35, $00, $00, $00, $00, $00, $36, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $37, $00, $00, $00, $00, $00, $38, $00, $00, $00, $00, $00, $39, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $2A, $00, $00, $00, $00, $00, $30, $00, $00, $00, $00
+	db $00, $23, $00, $00, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82
+	db $00, $00, $00, $41, $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61
+	db $00, $62, $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31
+	db $00, $32, $00, $33, $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A
+	db $00, $00, $00, $66, $00, $67, $00, $68, $00, $69, $00, $6A, $00, $00, $00, $7A
+	db $00, $35, $00, $36, $00, $37, $00, $38, $00, $39, $00, $4B, $00, $4C, $00, $4D
+	db $00, $4E, $00, $4F, $00, $00, $00, $6B, $00, $6C, $00, $6D, $00, $6E, $00, $6F
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $01, $20, $00, $50
+	db $00, $51, $00, $52, $00, $53, $00, $54, $00, $00, $00, $70, $00, $71, $00, $72
+	db $00, $73, $00, $74, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $55, $00, $56, $00, $57, $00, $58, $00, $59, $00, $00, $00, $75
+	db $00, $76, $00, $77, $00, $78, $00, $79, $00, $00, $00, $00, $FF, $83, $00, $00
+	db $00, $00, $FF, $82, $00, $00, $00, $41, $00, $42, $00, $43, $00, $44, $00, $45
+	db $00, $00, $00, $61, $00, $62, $00, $63, $00, $64, $00, $65, $00, $00, $00, $5A
+	db $00, $30, $00, $31, $00, $32, $00, $33, $00, $34, $00, $46, $00, $47, $00, $48
+	db $00, $49, $00, $4A, $00, $00, $00, $66, $00, $67, $00, $68, $00, $69, $00, $6A
+	db $00, $00, $00, $7A, $00, $35, $00, $36, $00, $37, $00, $38, $00, $39, $00, $4B
+	db $00, $4C, $00, $4D, $00, $4E, $00, $4F, $00, $00, $00, $6B, $00, $6C, $00, $6D
+	db $00, $6E, $00, $6F, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $50, $00, $51, $00, $52, $00, $53, $00, $54, $00, $00, $00, $70
+	db $00, $71, $00, $72, $00, $73, $00, $74, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $55, $00, $56, $00, $57, $00, $58, $00, $59
+	db $00, $00, $00, $75, $00, $76, $00, $77, $00, $78, $00, $79, $00, $00, $00, $00
+	db $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00, $00, $41, $00, $42, $00, $43
+	db $00, $44, $00, $45, $00, $00, $00, $61, $00, $62, $00, $63, $00, $64, $00, $65
+	db $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32, $00, $33, $00, $34, $00, $46
+	db $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00, $00, $66, $00, $67, $00, $68
+	db $00, $69, $00, $6A, $00, $00, $00, $7A, $00, $35, $00, $36, $00, $37, $00, $38
+	db $00, $39, $00, $4B, $00, $4C, $00, $4D, $00, $4E, $00, $4F, $00, $00, $00, $6B
+	db $00, $6C, $00, $6D, $00, $6E, $00, $6F, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $50, $00, $51, $00, $52, $00, $53, $00, $54
+	db $00, $00, $00, $70, $00, $71, $00, $72, $00, $73, $00, $74, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $55, $00, $56, $00, $57
+	db $00, $58, $00, $59, $00, $00, $00, $75, $00, $76, $00, $77, $00, $78, $00, $79
+
+; ---- data $43E0-$43EE (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_43E0:: ; 55:43E0
+	db $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00
+
+; ---- text $43EE-$43F9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_43EE:: ; 55:43EE
+	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00
+
+; ---- text $43F9-$4406 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
+
+String_55_43F9:: ; 55:43F9
+	db $00, $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00, $00
+
+; ---- text $4406-$441D (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_4406:: ; 55:4406
+	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB
+	db $82, $AD, $82, $AF, $82, $B1, $00
+
+; ---- text $441D-$442A (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
+
+String_55_441D:: ; 55:441D
+	db $00, $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00, $00
+
+; ---- text $442A-$4441 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_442A:: ; 55:442A
+	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5
+	db $82, $B7, $82, $B9, $82, $BB, $00
+
+; ---- text $4441-$444E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
+
+String_55_4441:: ; 55:4441
+	db $00, $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00, $00
+
+; ---- text $444E-$4465 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_444E:: ; 55:444E
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF
+	db $82, $C2, $82, $C4, $82, $C6, $00
+
+; ---- text $4465-$4495 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
+
+String_55_4465:: ; 55:4465
+	db $00, $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00, $00, $81, $75, $81
+	db $76, $81, $69, $81, $6A, $01, $20, $01, $0D, $82, $C8, $82, $C9, $82, $CA, $82
+	db $CB, $82, $CC, $00, $00, $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00
+
+; ---- data $4495-$4498 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4495:: ; 55:4495
+	db $00, $00, $00
+
+; ---- data $4498-$449A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4498:: ; 55:4498
+	db $FF, $83
+
+; ---- data $449A-$449E (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_449A:: ; 55:449A
+	db $00, $00, $00, $00
+
+; ---- data $449E-$44A0 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_449E:: ; 55:449E
+	db $FF, $82
+
+; ---- data $44A0-$44A2 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_44A0:: ; 55:44A0
+	db $00, $00
+
+; ---- data $44A2-$44A4 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_44A2:: ; 55:44A2
+	db $83, $41
+
+; ---- data $44A4-$44BA (22 bytes) [HYPOTHESIS] UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_44A4:: ; 55:44A4
+	db $83, $43, $83, $45, $83, $47, $83, $49, $00, $00, $83, $6E, $83, $71, $83, $74
+	db $83, $77, $83, $7A, $00, $00
+
+; ---- text $44BA-$44D1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_44BA:: ; 55:44BA
+	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C
+	db $83, $4E, $83, $50, $83, $52, $00
+
+; ---- data $44D1-$44DE (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_44D1:: ; 55:44D1
+	db $00, $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00, $00
+
+; ---- text $44DE-$44F5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_44DE:: ; 55:44DE
+	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56
+	db $83, $58, $83, $5A, $83, $5C, $00
+
+; ---- data $44F5-$4502 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_44F5:: ; 55:44F5
+	db $00, $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00, $00
+
+; ---- text $4502-$4519 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_4502:: ; 55:4502
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60
+	db $83, $63, $83, $65, $83, $67, $00
+
+; ---- data $4519-$4532 (25 bytes) [HYPOTHESIS] UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4519:: ; 55:4519
+	db $00, $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00, $00, $81, $75, $81
+	db $76, $81, $69, $81, $6A, $01, $20, $01, $0D
+
+; ---- data $4532-$4536 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4532:: ; 55:4532
+	db $83, $69, $83, $6A
+
+; ---- data $4536-$4552 (28 bytes) [HYPOTHESIS] UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4536:: ; 55:4536
+	db $83, $6B, $83, $6C, $83, $6D, $00, $00, $83, $8F, $83, $92, $83, $93, $81, $4B
+	db $81, $4A, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00
+
+; ---- data $4552-$4554 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4552:: ; 55:4552
+	db $FF, $82
+
+; ---- data $4554-$456E (26 bytes) [HYPOTHESIS] UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4554:: ; 55:4554
+	db $00, $00, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $00, $00, $82, $81
+	db $82, $82, $82, $83, $82, $84, $82, $85, $00, $00
+
+; ---- text $456E-$4585 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_456E:: ; 55:456E
+	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66
+	db $82, $67, $82, $68, $82, $69, $00
+
+; ---- text $4585-$45FD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 456E-45FD by higher-priority evidence]
+
+String_55_4585:: ; 55:4585
+	db $00, $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00, $00, $82, $9A, $82
+	db $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82
+	db $6D, $82, $6E, $00, $00, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00
+	db $00, $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82
+	db $70, $82, $71, $82, $72, $82, $73, $00, $00, $82, $90, $82, $91, $82, $92, $82
+	db $93, $82, $94, $00, $00, $81, $97, $81, $7C, $81, $51, $81, $7B, $01, $20, $01
+	db $0D, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00, $00, $82, $95, $82
+	db $96, $82, $97, $82, $98, $82, $99, $00
+
+; ---- data $45FD-$4606 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_45FD:: ; 55:45FD
+	db $00, $00, $00, $FF, $83, $00, $00, $00, $00
+
+; ---- data $4606-$4608 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4606:: ; 55:4606
+	db $FF, $82
+
+; ---- data $4608-$460A (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4608:: ; 55:4608
+	db $00, $00
+
+; ---- text $460A-$468D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
+
+String_55_460A:: ; 55:460A
+	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00, $00, $81, $93, $81, $95
+	db $81, $8F, $81, $49, $81, $48, $00, $00, $81, $97, $82, $4F, $82, $50, $82, $51
+	db $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00, $00
+	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00, $00, $81, $5E, $82, $54
+	db $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E
+	db $81, $83, $00, $00, $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00, $00
+	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76
+	db $81, $77, $81, $78, $81, $79, $00, $00, $81, $7A, $81, $7E, $81, $80, $81, $A7
+	db $81, $A6, $00
+
+; ---- data $468D-$46BE (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_468D:: ; 55:468D
+	db $00, $81, $A8, $81, $A9, $81, $AA, $81, $AB, $01, $20, $01, $0D, $81, $9A, $81
+	db $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81
+	db $A2, $81, $9B, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00
+	db $00
+
+; ---- text $46BE-$46C9 (11 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_46BE:: ; 55:46BE
+	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00
+
+; ---- text $46C9-$46D6 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
+
+String_55_46C9:: ; 55:46C9
+	db $00, $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00, $00
+
+; ---- text $46D6-$46ED (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_46D6:: ; 55:46D6
+	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB
+	db $82, $AD, $82, $AF, $82, $B1, $00
+
+; ---- text $46ED-$46FA (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
+
+String_55_46ED:: ; 55:46ED
+	db $00, $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00, $00
+
+; ---- text $46FA-$4711 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_46FA:: ; 55:46FA
+	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5
+	db $82, $B7, $82, $B9, $82, $BB, $00
+
+; ---- text $4711-$471E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
+
+String_55_4711:: ; 55:4711
+	db $00, $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00, $00
+
+; ---- text $471E-$4735 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_471E:: ; 55:471E
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF
+	db $82, $C2, $82, $C4, $82, $C6, $00
+
+; ---- text $4735-$4765 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
+
+String_55_4735:: ; 55:4735
+	db $00, $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00, $00, $81, $75, $81
+	db $76, $81, $69, $81, $6A, $81, $40, $01, $20, $82, $C8, $82, $C9, $82, $CA, $82
+	db $CB, $82, $CC, $00, $00, $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00
+
+; ---- data $4765-$476E (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4765:: ; 55:4765
+	db $00, $00, $00, $FF, $83, $00, $00, $00, $00
+
+; ---- data $476E-$4770 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_476E:: ; 55:476E
+	db $FF, $82
+
+; ---- data $4770-$4776 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4770:: ; 55:4770
+	db $00, $00, $83, $41, $83, $43
+
+; ---- data $4776-$477A (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4776:: ; 55:4776
+	db $83, $45, $83, $47
+
+; ---- data $477A-$478A (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_477A:: ; 55:477A
+	db $83, $49, $00, $00, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00, $00
+
+; ---- text $478A-$47A1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_478A:: ; 55:478A
+	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C
+	db $83, $4E, $83, $50, $83, $52, $00
+
+; ---- data $47A1-$47AE (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_47A1:: ; 55:47A1
+	db $00, $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00, $00
+
+; ---- text $47AE-$47C5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_47AE:: ; 55:47AE
+	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56
+	db $83, $58, $83, $5A, $83, $5C, $00
+
+; ---- data $47C5-$47D2 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_47C5:: ; 55:47C5
+	db $00, $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00, $00
+
+; ---- text $47D2-$47E9 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_47D2:: ; 55:47D2
+	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60
+	db $83, $63, $83, $65, $83, $67, $00
+
+; ---- data $47E9-$482C (67 bytes) [HYPOTHESIS] UNCLASSIFIED 67 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_47E9:: ; 55:47E9
+	db $00, $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00, $00, $81, $75, $81
+	db $76, $81, $69, $81, $6A, $81, $40, $01, $20, $83, $69, $83, $6A, $83, $6B, $83
+	db $6C, $83, $6D, $00, $00, $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00
+	db $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00, $00, $82, $60, $82
+	db $61, $82, $62
+
+; ---- data $482C-$482E (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_482C:: ; 55:482C
+	db $82, $63
+
+; ---- data $482E-$483E (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_482E:: ; 55:482E
+	db $82, $64, $00, $00, $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00, $00
+
+; ---- text $483E-$4855 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_55_483E:: ; 55:483E
+	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66
+	db $82, $67, $82, $68, $82, $69, $00
+
+; ---- text $4855-$48CD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 483E-48CD by higher-priority evidence]
+
+String_55_4855:: ; 55:4855
+	db $00, $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00, $00, $82, $9A, $82
+	db $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82
+	db $6D, $82, $6E, $00, $00, $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00
+	db $00, $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82
+	db $70, $82, $71, $82, $72, $82, $73, $00, $00, $82, $90, $82, $91, $82, $92, $82
+	db $93, $82, $94, $00, $00, $81, $97, $81, $7C, $81, $51, $81, $7B, $81, $40, $01
+	db $20, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00, $00, $82, $95, $82
+	db $96, $82, $97, $82, $98, $82, $99, $00
+
+; ---- data $48CD-$48D0 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_48CD:: ; 55:48CD
+	db $00, $00, $00
+
+; ---- data $48D0-$48D2 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_48D0:: ; 55:48D0
+	db $FF, $83
+
+; ---- data $48D2-$48D6 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_48D2:: ; 55:48D2
+	db $00, $00, $00, $00
+
+; ---- data $48D6-$48D8 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_48D6:: ; 55:48D6
+	db $FF, $82
+
+; ---- data $48D8-$48DA (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_48D8:: ; 55:48D8
+	db $00, $00
+
+; ---- text $48DA-$495D (131 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
+
+String_55_48DA:: ; 55:48DA
+	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00, $00, $81, $93, $81, $95
+	db $81, $8F, $81, $49, $81, $48, $00, $00, $81, $97, $82, $4F, $82, $50, $82, $51
+	db $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00, $00
+	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00, $00, $81, $5E, $82, $54
+	db $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E
+	db $81, $83, $00, $00, $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00, $00
+	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76
+	db $81, $77, $81, $78, $81, $79, $00, $00, $81, $7A, $81, $7E, $81, $80, $81, $A7
+	db $81, $A6, $00
+
+; ---- data $495D-$498E (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_495D:: ; 55:495D
+	db $00, $81, $A8, $81, $A9, $81, $AA, $81, $AB, $81, $40, $01, $20, $81, $9A, $81
+	db $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81
+	db $A2, $81, $9B, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00, $FF, $82, $00
+	db $00
+
+; ---- data $498E-$4990 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_498E:: ; 55:498E
+	db $00, $41
+
+; ---- data $4990-$4A1E (142 bytes) [HYPOTHESIS] UNCLASSIFIED 142 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4990:: ; 55:4990
+	db $00, $42, $00, $43, $00, $44, $00, $45, $00, $00, $00, $61, $00, $62, $00, $63
+	db $00, $64, $00, $65, $00, $00, $00, $5A, $00, $30, $00, $31, $00, $32, $00, $33
+	db $00, $34, $00, $46, $00, $47, $00, $48, $00, $49, $00, $4A, $00, $00, $00, $66
+	db $00, $67, $00, $68, $00, $69, $00, $6A, $00, $00, $00, $7A, $00, $35, $00, $36
+	db $00, $37, $00, $38, $00, $39, $00, $4B, $00, $4C, $00, $4D, $00, $4E, $00, $4F
+	db $00, $00, $00, $6B, $00, $6C, $00, $6D, $00, $6E, $00, $6F, $00, $00, $00, $2E
+	db $00, $40, $00, $2D, $00, $5F, $00, $2B, $00, $00, $00, $50, $00, $51, $00, $52
+	db $00, $53, $00, $54, $00, $00, $00, $70, $00, $71, $00, $72, $00, $73, $00, $74
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $4A1E-$4A20 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4A1E:: ; 55:4A1E
+	db $00, $55
+
+; ---- data $4A20-$4A3E (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4A20:: ; 55:4A20
+	db $00, $56, $00, $57, $00, $58, $00, $59, $00, $00, $00, $75, $00, $76, $00, $77
+	db $00, $78, $00, $79, $00, $00, $00, $00, $FF, $83, $00, $00, $00, $00
+
+; ---- data $4A3E-$4A40 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_4A3E:: ; 55:4A3E
+	db $FF, $82
+
+; ---- data $4A40-$4A42 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4A40:: ; 55:4A40
+	db $00, $00
+
+; ---- data $4A42-$4A46 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_4A42:: ; 55:4A42
+	db $56, $4A, $9A, $4B
+
+; ---- data $4A46-$4A4A (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4A46:: ; 55:4A46
+	db $4A, $4D, $FA, $4E
+
+; ---- data $4A4A-$4A4C (2 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_4A4A:: ; 55:4A4A
+	db $16, $51
+
+; ---- data $4A4C-$4A4E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4A4C:: ; 55:4A4C
+	db $32, $53
+
+; ---- data $4A4E-$4A51 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4A4E-4A56 by higher-priority evidence]
+
+Data_55_4A4E:: ; 55:4A4E
+	db $4E, $55, $6A
+
+; ---- gfx $4A51-$4F61 (1296 bytes) [PROBABLE] tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.690 vsim2=0.666, 22 blank) parity 1
+
+Data_55_4A51:: ; 55:4A51
+	db $57, $6A, $57, $86, $59, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $34, $16, $26
+	db $26, $00, $08, $00, $00, $00, $00, $00, $00, $14, $18, $28, $28, $00, $00, $00
+	db $00, $00, $00, $00, $00, $16, $1A, $2A, $2A, $00, $00, $00, $00, $00, $00, $00
+	db $00, $18, $1C, $2C, $2C, $00, $00, $00, $00, $00, $00, $00, $00, $1A, $31, $2E
+	db $2E, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $34, $28, $14, $14, $00, $08, $00
+	db $00, $00, $00, $00, $00, $26, $2A, $16, $16, $00, $00, $00, $00, $00, $00, $00
+	db $00, $28, $2C, $18, $18, $00, $00, $00, $00, $00, $00, $00, $00, $2A, $2E, $1A
+	db $1A, $00, $00, $00, $00, $00, $00, $00, $00, $2C, $31, $1C, $1C, $00, $04, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $2E, $34, $31, $31, $80
+	db $0C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $31, $26, $34
+	db $34, $40, $0C, $00, $00, $00, $00, $00, $00, $46, $01, $36, $12, $00, $08, $00
+	db $02, $37, $13, $00, $00, $01, $03, $38, $14, $00, $00, $02, $04, $39, $15, $00
+	db $00, $03, $06, $3A, $16, $00, $00, $00, $00, $00, $00, $00, $00, $04, $07, $3C
+	db $18, $00, $00, $06, $08, $3D, $19, $00, $00, $07, $09, $3E, $1A, $00, $00, $08
+	db $0A, $3F, $1B, $00, $00, $09, $43, $40, $1C, $00, $04, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $46, $13, $00, $24, $00, $08, $12, $14, $01, $25, $00
+	db $00, $13, $15, $02, $26, $00, $00, $14, $16, $03, $27, $00, $00, $15, $18, $04
+	db $28, $00, $00, $00, $00, $00, $00, $00, $00, $16, $19, $06, $2A, $00, $00, $18
+	db $1A, $07, $2B, $00, $00, $19, $1B, $08, $2C, $00, $00, $1A, $1C, $09, $2D, $00
+	db $00, $1B, $43, $0A, $2E, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $46, $25, $12, $36, $00, $08, $24, $26, $13, $37, $00, $00, $25, $27, $14
+	db $38, $00, $00, $26, $28, $15, $39, $00, $00, $27, $2A, $16, $3A, $00, $00, $00
+	db $00, $00, $00, $00, $00, $28, $2B, $18, $3C, $00, $00, $2A, $2C, $19, $3D, $00
+	db $00, $2B, $2D, $1A, $3E, $00, $00, $2C, $2E, $1B, $3F, $00, $00, $2D, $43, $1C
+	db $40, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $46, $37, $24
+	db $00, $00, $08, $36, $38, $25, $01, $00, $00, $37, $39, $26, $02, $00, $00, $38
+	db $3A, $27, $03, $00, $00, $39, $3C, $28, $04, $00, $00, $00, $00, $00, $00, $00
+	db $00, $3A, $3D, $2A, $06, $00, $00, $3C, $3E, $2B, $07, $00, $00, $3D, $3F, $2C
+	db $08, $00, $00, $3E, $40, $2D, $09, $00, $00, $3F, $41, $2E, $0A, $00, $00, $40
+	db $43, $2E, $0A, $00, $44, $00, $00, $00, $00, $00, $00, $2E, $46, $43, $43, $80
+	db $0C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $43, $36, $46
+	db $46, $40, $0C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $46, $06, $39, $15, $00
+	db $08, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $03, $09, $3C
+	db $18, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $06
+	db $43, $3F, $1B, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $46, $18, $03, $27, $00, $08, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $15, $1B, $06, $2A, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $18, $43, $09, $2D, $00
+	db $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $46, $2A, $15, $39, $00, $08, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $27, $2D, $18, $3C, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $2A, $43, $1B, $3F, $00, $04, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $46
+	db $3C, $27, $03, $00, $08, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $39, $3F, $2A, $06, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $3C, $43, $2D, $09, $00, $04, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $3F, $46, $43, $43, $80
+	db $0C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $43, $39, $46
+	db $46, $40, $0C, $00, $00, $00, $00, $00, $00, $11, $01, $48, $12, $00, $00, $00
+	db $02, $49, $13, $00, $00, $01, $03, $4A, $14, $00, $00, $02, $04, $4B, $15, $00
+	db $00, $03, $06, $4C, $16, $00, $00, $00, $00, $00, $00, $00, $00, $04, $07, $4E
+	db $18, $00, $00, $06, $08, $4F, $19, $00, $00, $07, $09, $50, $1A, $00, $00, $08
+	db $0A, $51, $1B, $00, $00, $09, $0C, $52, $1C, $00, $00, $00, $00, $00, $00, $00
+	db $00, $0A, $0D, $55, $1E, $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F, $55
+	db $20, $00, $20, $0E, $10, $58, $21, $00, $20, $0F, $11, $58, $22, $00, $20, $10
+
+; ---- data $4F61-$5012 (177 bytes) [HYPOTHESIS] UNCLASSIFIED 177 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_4F61:: ; 55:4F61
+	db $00, $58, $23, $00, $20, $23, $13, $00, $24, $00, $00, $12, $14, $01, $25, $00
+	db $00, $13, $15, $02, $26, $00, $00, $14, $16, $03, $27, $00, $00, $15, $18, $04
+	db $28, $00, $00, $00, $00, $00, $00, $00, $00, $16, $19, $06, $2A, $00, $00, $18
+	db $1A, $07, $2B, $00, $00, $19, $1B, $08, $2C, $00, $00, $1A, $1C, $09, $2D, $00
+	db $00, $1B, $1E, $0A, $2E, $00, $00, $00, $00, $00, $00, $00, $00, $1C, $1F, $0C
+	db $55, $00, $10, $1E, $20, $0D, $55, $00, $10, $1F, $21, $0E, $55, $00, $10, $20
+	db $22, $0F, $58, $00, $10, $21, $23, $10, $58, $00, $10, $22, $12, $11, $35, $00
+	db $00, $35, $25, $12, $36, $00, $00, $24, $26, $13, $37, $00, $00, $25, $27, $14
+	db $38, $00, $00, $26, $28, $15, $39, $00, $00, $27, $2A, $16, $3A, $00, $00, $00
+	db $00, $00, $00, $00, $00, $28, $2B, $18, $3C, $00, $00, $2A, $2C, $19, $3D, $00
+	db $00, $2B, $2D, $1A, $3E, $00, $00, $2C, $2E, $1B, $3F, $00, $00, $2D, $35, $1C
+	db $40
+
+; ---- zero $5012-$5038 (38 bytes) [HYPOTHESIS] padding? run of 38 x $00 in unclassified bytes
+	ds $26, $00
+
+; ---- data $5038-$5080 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5038:: ; 55:5038
+	db $2E, $24, $23, $58, $00, $10, $58, $37, $24, $48, $00, $08, $36, $38, $25, $49
+	db $00, $00, $37, $39, $26, $4A, $00, $00, $38, $3A, $27, $4B, $00, $00, $39, $3C
+	db $28, $4C, $00, $00, $00, $00, $00, $00, $00, $00, $3A, $3D, $2A, $4E, $00, $00
+	db $3C, $3E, $2B, $4F, $00, $00, $3D, $3F, $2C, $50, $00, $00, $3E, $40, $2D, $51
+	db $00, $00, $3F, $55, $2E, $52, $00, $04
+
+; ---- zero $5080-$50AA (42 bytes) [HYPOTHESIS] 0x00 run of 42 bytes
+	ds $2A, $00
+
+; ---- data $50AA-$5116 (108 bytes) [HYPOTHESIS] UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_50AA:: ; 55:50AA
+	db $58, $49, $36, $00, $00, $08, $48, $4A, $37, $01, $00, $00, $49, $4B, $38, $02
+	db $00, $00, $4A, $4C, $39, $03, $00, $00, $4B, $4E, $3A, $04, $00, $00, $00, $00
+	db $00, $00, $00, $00, $4C, $4F, $3C, $06, $00, $00, $4E, $50, $3D, $07, $00, $00
+	db $4F, $51, $3E, $08, $00, $00, $50, $52, $3F, $09, $00, $00, $51, $55, $40, $0A
+	db $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $52, $58
+	db $1F, $0D, $B0, $3C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $55, $48, $22, $10, $70, $3C, $00, $00, $00, $00, $00, $00
+
+; ---- data $5116-$5130 (26 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_5116:: ; 55:5116
+	db $11, $01, $48, $12, $00, $00, $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14
+	db $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06
+
+; ---- data $5130-$5131 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5130:: ; 55:5130
+	db $4C
+
+; ---- data $5131-$5134 (3 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_55_5131:: ; 55:5131
+	db $16, $00, $00
+
+; ---- data $5134-$513A (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5134:: ; 55:5134
+	db $00, $00, $00, $00, $00, $00
+
+; ---- data $513A-$5146 (12 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_55_513A:: ; 55:513A
+	db $04, $07, $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00
+
+; ---- data $5146-$5147 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5146:: ; 55:5146
+	db $07
+
+; ---- data $5147-$5148 (1 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_5147:: ; 55:5147
+	db $09
+
+; ---- data $5148-$514A (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5148:: ; 55:5148
+	db $50, $1A
+
+; ---- data $514A-$514C (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_514A:: ; 55:514A
+	db $00, $00
+
+; ---- data $514C-$514D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_514C:: ; 55:514C
+	db $08
+
+; ---- data $514D-$514E (1 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_514D:: ; 55:514D
+	db $0A
+
+; ---- data $514E-$514F (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_514E:: ; 55:514E
+	db $51
+
+; ---- data $514F-$5154 (5 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+
+Data_55_514F:: ; 55:514F
+	db $1B, $00, $00, $09, $0C
+
+; ---- data $5154-$5155 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5154:: ; 55:5154
+	db $52
+
+; ---- data $5155-$5158 (3 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+
+Data_55_5155:: ; 55:5155
+	db $1C, $00, $00
+
+; ---- data $5158-$515F (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5158:: ; 55:5158
+	db $00, $00, $00, $00, $00, $00, $0A
+
+; ---- data $515F-$5196 (55 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_515F:: ; 55:515F
+	db $0D, $55, $1E, $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F, $55, $20, $00
+	db $20, $0E, $10, $58, $21, $00, $20, $0F, $11, $58, $22, $00, $20, $10, $00, $58
+	db $23, $00, $20, $23, $13, $00, $24, $00, $00, $12, $14, $01, $25, $00, $00, $13
+	db $15, $02, $26, $00, $00, $14, $16
+
+; ---- data $5196-$5197 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5196:: ; 55:5196
+	db $03
+
+; ---- data $5197-$51A0 (9 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_5197:: ; 55:5197
+	db $27, $00, $00, $15, $18, $04, $28, $00, $00
+
+; ---- data $51A0-$51A8 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51A0:: ; 55:51A0
+	db $00, $00, $00, $00, $00, $00, $16, $19
+
+; ---- data $51A8-$51A9 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_51A8:: ; 55:51A8
+	db $06
+
+; ---- data $51A9-$51AA (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51A9:: ; 55:51A9
+	db $2A
+
+; ---- data $51AA-$51AC (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_51AA:: ; 55:51AA
+	db $00, $00
+
+; ---- data $51AC-$51AD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51AC:: ; 55:51AC
+	db $18
+
+; ---- data $51AD-$51AF (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51AD:: ; 55:51AD
+	db $1A, $07
+
+; ---- data $51AF-$51B0 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51AF:: ; 55:51AF
+	db $2B
+
+; ---- data $51B0-$51B3 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51B0:: ; 55:51B0
+	db $00, $00, $19
+
+; ---- data $51B3-$51B4 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51B3:: ; 55:51B3
+	db $1B
+
+; ---- data $51B4-$51B5 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51B4:: ; 55:51B4
+	db $08
+
+; ---- data $51B5-$51B6 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51B5:: ; 55:51B5
+	db $2C
+
+; ---- data $51B6-$51BA (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_51B6:: ; 55:51B6
+	db $00, $00, $1A, $1C
+
+; ---- data $51BA-$51BC (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51BA:: ; 55:51BA
+	db $09, $2D
+
+; ---- data $51BC-$51BE (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_51BC:: ; 55:51BC
+	db $00, $00
+
+; ---- data $51BE-$51C1 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51BE:: ; 55:51BE
+	db $1B, $1E, $0A
+
+; ---- data $51C1-$51C4 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51C1:: ; 55:51C1
+	db $2E, $00, $00
+
+; ---- data $51C4-$51CA (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51C4:: ; 55:51C4
+	db $00, $00, $00, $00, $00, $00
+
+; ---- data $51CA-$51CB (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51CA:: ; 55:51CA
+	db $1C
+
+; ---- data $51CB-$51CC (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51CB:: ; 55:51CB
+	db $1F
+
+; ---- data $51CC-$51CD (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_51CC:: ; 55:51CC
+	db $0C
+
+; ---- data $51CD-$51CE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_51CD:: ; 55:51CD
+	db $55
+
+; ---- data $51CE-$5206 (56 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_51CE:: ; 55:51CE
+	db $00, $10, $1E, $20, $0D, $55, $00, $10, $1F, $21, $0E, $55, $00, $10, $20, $22
+	db $0F, $58, $00, $10, $21, $23, $10, $58, $00, $10, $22, $12, $11, $58, $00, $10
+	db $58, $25, $12, $36, $00, $08, $24, $26, $13, $37, $00, $00, $25, $27, $14, $38
+	db $00, $00, $26, $28, $15, $39, $00, $00
+
+; ---- data $5206-$5208 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5206:: ; 55:5206
+	db $27, $2A
+
+; ---- data $5208-$520C (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_5208:: ; 55:5208
+	db $16, $3A, $00, $00
+
+; ---- data $520C-$5226 (26 bytes) [HYPOTHESIS] UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_520C:: ; 55:520C
+	db $00, $00, $00, $00, $00, $00, $28, $2B, $18, $3C, $00, $00, $2A, $2C, $19, $3D
+	db $00, $00, $2B, $2D, $1A, $3E, $00, $00, $2C, $2E
+
+; ---- data $5226-$5227 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5226:: ; 55:5226
+	db $1B
+
+; ---- data $5227-$5228 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5227:: ; 55:5227
+	db $3F
+
+; ---- data $5228-$522A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5228:: ; 55:5228
+	db $00, $00
+
+; ---- data $522A-$522B (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_522A:: ; 55:522A
+	db $2D
+
+; ---- data $522B-$522C (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_522B:: ; 55:522B
+	db $55
+
+; ---- data $522C-$522D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_522C:: ; 55:522C
+	db $1C
+
+; ---- data $522D-$5230 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_522D:: ; 55:522D
+	db $40, $00, $04
+
+; ---- zero $5230-$525A (42 bytes) [HYPOTHESIS] 0x00 run of 42 bytes
+	ds $2A, $00
+
+; ---- data $525A-$526C (18 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_525A:: ; 55:525A
+	db $58, $37, $24, $48, $00, $08, $36, $38, $25, $49, $00, $00, $37, $39, $26, $4A
+	db $00, $00
+
+; ---- data $526C-$526D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_526C:: ; 55:526C
+	db $38
+
+; ---- data $526D-$5273 (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_526D:: ; 55:526D
+	db $3A, $27, $4B, $00, $00, $39
+
+; ---- data $5273-$5274 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5273:: ; 55:5273
+	db $3C
+
+; ---- data $5274-$5278 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_5274:: ; 55:5274
+	db $28, $4C, $00, $00
+
+; ---- data $5278-$527F (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5278:: ; 55:5278
+	db $00, $00, $00, $00, $00, $00, $3A
+
+; ---- data $527F-$5280 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_527F:: ; 55:527F
+	db $3D
+
+; ---- data $5280-$5282 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5280:: ; 55:5280
+	db $2A, $4E
+
+; ---- data $5282-$5284 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5282:: ; 55:5282
+	db $00, $00
+
+; ---- data $5284-$5285 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5284:: ; 55:5284
+	db $3C
+
+; ---- data $5285-$5286 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5285:: ; 55:5285
+	db $3E
+
+; ---- data $5286-$5288 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5286:: ; 55:5286
+	db $2B, $4F
+
+; ---- data $5288-$528A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5288:: ; 55:5288
+	db $00, $00
+
+; ---- data $528A-$528B (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_528A:: ; 55:528A
+	db $3D
+
+; ---- data $528B-$528C (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_528B:: ; 55:528B
+	db $3F
+
+; ---- data $528C-$528E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_528C:: ; 55:528C
+	db $2C, $50
+
+; ---- data $528E-$5290 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_528E:: ; 55:528E
+	db $00, $00
+
+; ---- data $5290-$5291 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5290:: ; 55:5290
+	db $3E
+
+; ---- data $5291-$5293 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5291:: ; 55:5291
+	db $40, $2D
+
+; ---- data $5293-$5294 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5293:: ; 55:5293
+	db $51
+
+; ---- data $5294-$5296 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5294:: ; 55:5294
+	db $00, $00
+
+; ---- data $5296-$5298 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5296:: ; 55:5296
+	db $3F, $55
+
+; ---- data $5298-$529C (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_5298:: ; 55:5298
+	db $2E, $52, $00, $04
+
+; ---- zero $529C-$52C6 (42 bytes) [HYPOTHESIS] 0x00 run of 42 bytes
+	ds $2A, $00
+
+; ---- data $52C6-$52E4 (30 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_52C6:: ; 55:52C6
+	db $58, $49, $36, $00, $00, $08, $48, $4A, $37, $01, $00, $00, $49, $4B, $38, $02
+	db $00, $00, $4A, $4C, $39, $03, $00, $00, $4B, $4E, $3A, $04, $00, $00
+
+; ---- data $52E4-$52EA (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_52E4:: ; 55:52E4
+	db $00, $00, $00, $00, $00, $00
+
+; ---- data $52EA-$52F2 (8 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_52EA:: ; 55:52EA
+	db $4C, $4F, $3C, $06, $00, $00, $4E, $50
+
+; ---- data $52F2-$52F3 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_52F2:: ; 55:52F2
+	db $3D
+
+; ---- data $52F3-$52F7 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_52F3:: ; 55:52F3
+	db $07, $00, $00, $4F
+
+; ---- data $52F7-$52FA (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_52F7:: ; 55:52F7
+	db $51, $3E, $08
+
+; ---- data $52FA-$52FC (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_52FA:: ; 55:52FA
+	db $00, $00
+
+; ---- data $52FC-$52FD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_52FC:: ; 55:52FC
+	db $50
+
+; ---- data $52FD-$5308 (11 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_52FD:: ; 55:52FD
+	db $52, $3F, $09, $00, $00, $51, $55, $40, $0A, $00, $04
+
+; ---- data $5308-$5314 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5308:: ; 55:5308
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $5314-$531A (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_5314:: ; 55:5314
+	db $52, $58, $1F, $0D, $B0, $3C
+
+; ---- data $531A-$5326 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_531A:: ; 55:531A
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $5326-$532C (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_5326:: ; 55:5326
+	db $55, $48, $22, $10, $70, $3C
+
+; ---- data $532C-$544C (288 bytes) [HYPOTHESIS] UNCLASSIFIED 288 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_532C:: ; 55:532C
+	db $00, $00, $00, $00, $00, $00, $11, $01, $48, $12, $00, $00, $00, $02, $49, $13
+	db $00, $00, $01, $03, $4A, $14, $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06
+	db $4C, $16, $00, $00, $00, $00, $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00
+	db $06, $08, $4F, $19, $00, $00, $07, $09, $50, $1A, $00, $00, $08, $0A, $51, $1B
+	db $00, $00, $09, $0C, $52, $1C, $00, $00, $00, $00, $00, $00, $00, $00, $0A, $0D
+	db $55, $1E, $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F, $55, $20, $00, $20
+	db $0E, $10, $58, $21, $00, $20, $0F, $11, $58, $22, $00, $20, $10, $00, $58, $23
+	db $00, $20, $23, $13, $00, $24, $00, $00, $12, $14, $01, $25, $00, $00, $13, $15
+	db $02, $26, $00, $00, $14, $16, $03, $27, $00, $00, $15, $18, $04, $28, $00, $00
+	db $00, $00, $00, $00, $00, $00, $16, $19, $06, $2A, $00, $00, $18, $1A, $07, $2B
+	db $00, $00, $19, $1B, $08, $2C, $00, $00, $1A, $1C, $09, $2D, $00, $00, $1B, $1E
+	db $0A, $2E, $00, $00, $00, $00, $00, $00, $00, $00, $1C, $1F, $0C, $55, $00, $10
+	db $1E, $20, $0D, $55, $00, $10, $1F, $21, $0E, $55, $00, $10, $20, $22, $0F, $58
+	db $00, $10, $21, $23, $10, $58, $00, $10, $22, $12, $11, $58, $00, $10, $58, $25
+	db $12, $36, $00, $08, $24, $26, $13, $37, $00, $00, $25, $27, $14, $38, $00, $00
+	db $26, $28, $15, $39, $00, $00, $27, $2A, $16, $3A, $00, $00, $00, $00, $00, $00
+	db $00, $00, $28, $2B, $18, $3C, $00, $00, $2A, $2C, $19, $3D, $00, $00, $2B, $2D
+	db $1A, $3E, $00, $00, $2C, $2E, $1B, $3F, $00, $00, $2D, $55, $1C, $40, $00, $04
+
+; ---- zero $544C-$5476 (42 bytes) [HYPOTHESIS] padding? run of 42 x $00 in unclassified bytes
+	ds $2A, $00
+
+; ---- data $5476-$54C0 (74 bytes) [HYPOTHESIS] UNCLASSIFIED 74 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5476:: ; 55:5476
+	db $58, $37, $24, $48, $00, $08, $36, $38, $25, $49, $00, $00, $37, $39, $26, $4A
+	db $00, $00, $38, $3A, $27, $4B, $00, $00, $39, $3C, $28, $4C, $00, $00, $00, $00
+	db $00, $00, $00, $00, $3A, $3D, $2A, $4E, $00, $00, $3C, $3E, $2B, $4F, $00, $00
+	db $3D, $3F, $2C, $50, $00, $00, $3E, $40, $2D, $51, $00, $00, $3F, $55, $2E, $52
+	db $00, $04, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- zero $54C0-$54E2 (34 bytes) [HYPOTHESIS] 0x00 run of 42 bytes [clipped from 54B8-54E2 by higher-priority proposals]
+	ds $22, $00
+
+; ---- data $54E2-$554E (108 bytes) [HYPOTHESIS] UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_54E2:: ; 55:54E2
+	db $58, $49, $36, $00, $00, $08, $48, $4A, $37, $01, $00, $00, $49, $4B, $38, $02
+	db $00, $00, $4A, $4C, $39, $03, $00, $00, $4B, $4E, $3A, $04, $00, $00, $00, $00
+	db $00, $00, $00, $00, $4C, $4F, $3C, $06, $00, $00, $4E, $50, $3D, $07, $00, $00
+	db $4F, $51, $3E, $08, $00, $00, $50, $52, $3F, $09, $00, $00, $51, $55, $40, $0A
+	db $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $52, $58
+	db $1F, $0D, $B0, $3C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $55, $48, $22, $10, $70, $3C, $00, $00, $00, $00, $00, $00
+
+; ---- data $554E-$5551 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_554E:: ; 55:554E
+	db $11, $01, $48
+
+; ---- data $5551-$5552 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5551:: ; 55:5551
+	db $12
+
+; ---- data $5552-$5555 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5552:: ; 55:5552
+	db $00, $00, $00
+
+; ---- data $5555-$5558 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5555:: ; 55:5555
+	db $02, $49, $13
+
+; ---- data $5558-$555A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5558:: ; 55:5558
+	db $00, $00
+
+; ---- data $555A-$55AF (85 bytes) [HYPOTHESIS] UNCLASSIFIED 85 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_555A:: ; 55:555A
+	db $01, $03, $4A, $14, $00, $00, $02, $04, $4B, $15, $00, $00, $03, $06, $4C, $16
+	db $00, $00, $00, $00, $00, $00, $00, $00, $04, $07, $4E, $18, $00, $00, $06, $08
+	db $4F, $19, $00, $00, $07, $09, $50, $1A, $00, $00, $08, $0A, $51, $1B, $00, $00
+	db $09, $0C, $52, $1C, $00, $00, $00, $00, $00, $00, $00, $00, $0A, $0D, $55, $1E
+	db $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F, $55, $20, $00, $20, $0E, $10
+	db $58, $21, $00, $20, $0F
+
+; ---- data $55AF-$55B1 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_55AF:: ; 55:55AF
+	db $11, $58
+
+; ---- data $55B1-$55B2 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_55B1:: ; 55:55B1
+	db $22
+
+; ---- data $55B2-$55B5 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_55B2:: ; 55:55B2
+	db $00, $20, $10
+
+; ---- data $55B5-$55B7 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_55B5:: ; 55:55B5
+	db $00, $58
+
+; ---- data $55B7-$55BA (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_55B7:: ; 55:55B7
+	db $23, $00, $20
+
+; ---- data $55BA-$55BD (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_55BA:: ; 55:55BA
+	db $23, $13, $00
+
+; ---- data $55BD-$55C0 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_55BD:: ; 55:55BD
+	db $24, $00, $00
+
+; ---- data $55C0-$5616 (86 bytes) [HYPOTHESIS] UNCLASSIFIED 86 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_55C0:: ; 55:55C0
+	db $12, $14, $01, $25, $00, $00, $13, $15, $02, $26, $00, $00, $14, $16, $03, $27
+	db $00, $00, $15, $18, $04, $28, $00, $00, $00, $00, $00, $00, $00, $00, $16, $19
+	db $06, $2A, $00, $00, $18, $1A, $07, $2B, $00, $00, $19, $1B, $08, $2C, $00, $00
+	db $1A, $1C, $09, $2D, $00, $00, $1B, $1E, $0A, $2E, $00, $00, $00, $00, $00, $00
+	db $00, $00, $1C, $1F, $0C, $30, $00, $00, $1E, $20, $0D, $31, $00, $00, $1F, $21
+	db $0E, $32, $00, $00, $20, $22
+
+; ---- data $5616-$5617 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5616:: ; 55:5616
+	db $0F
+
+; ---- data $5617-$5618 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5617:: ; 55:5617
+	db $33
+
+; ---- data $5618-$561A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5618:: ; 55:5618
+	db $00, $00
+
+; ---- data $561A-$561C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_561A:: ; 55:561A
+	db $21, $23
+
+; ---- data $561C-$561D (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_561C:: ; 55:561C
+	db $10
+
+; ---- data $561D-$561E (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_561D:: ; 55:561D
+	db $34
+
+; ---- data $561E-$5621 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_561E:: ; 55:561E
+	db $00, $00, $22
+
+; ---- data $5621-$5624 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5621:: ; 55:5621
+	db $12, $11, $35
+
+; ---- data $5624-$5626 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5624:: ; 55:5624
+	db $00, $00
+
+; ---- data $5626-$5628 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5626:: ; 55:5626
+	db $35, $25
+
+; ---- data $5628-$5629 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5628:: ; 55:5628
+	db $12
+
+; ---- data $5629-$562A (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5629:: ; 55:5629
+	db $36
+
+; ---- data $562A-$562C (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_562A:: ; 55:562A
+	db $00, $00
+
+; ---- data $562C-$5682 (86 bytes) [HYPOTHESIS] UNCLASSIFIED 86 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_562C:: ; 55:562C
+	db $24, $26, $13, $37, $00, $00, $25, $27, $14, $38, $00, $00, $26, $28, $15, $39
+	db $00, $00, $27, $2A, $16, $3A, $00, $00, $00, $00, $00, $00, $00, $00, $28, $2B
+	db $18, $3C, $00, $00, $2A, $2C, $19, $3D, $00, $00, $2B, $2D, $1A, $3E, $00, $00
+	db $2C, $2E, $1B, $3F, $00, $00, $2D, $30, $1C, $40, $00, $00, $00, $00, $00, $00
+	db $00, $00, $2E, $31, $1E, $42, $00, $00, $30, $32, $1F, $43, $00, $00, $31, $33
+	db $20, $44, $00, $00, $32, $34
+
+; ---- data $5682-$5683 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5682:: ; 55:5682
+	db $21
+
+; ---- data $5683-$5684 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5683:: ; 55:5683
+	db $45
+
+; ---- data $5684-$5687 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5684:: ; 55:5684
+	db $00, $00, $33
+
+; ---- data $5687-$568A (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5687:: ; 55:5687
+	db $35, $22, $46
+
+; ---- data $568A-$568C (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_568A:: ; 55:568A
+	db $00, $00
+
+; ---- data $568C-$5693 (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_568C:: ; 55:568C
+	db $34, $24, $23, $47, $00, $00, $47
+
+; ---- data $5693-$5695 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5693:: ; 55:5693
+	db $37, $24
+
+; ---- data $5695-$5696 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5695:: ; 55:5695
+	db $48
+
+; ---- data $5696-$5698 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5696:: ; 55:5696
+	db $00, $00
+
+; ---- data $5698-$5699 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5698:: ; 55:5698
+	db $36
+
+; ---- data $5699-$569A (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5699:: ; 55:5699
+	db $38
+
+; ---- data $569A-$569C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_569A:: ; 55:569A
+	db $25, $49
+
+; ---- data $569C-$569E (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_569C:: ; 55:569C
+	db $00, $00
+
+; ---- data $569E-$56A1 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_569E:: ; 55:569E
+	db $37, $39, $26
+
+; ---- data $56A1-$56A4 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_56A1:: ; 55:56A1
+	db $4A, $00, $00
+
+; ---- data $56A4-$56F3 (79 bytes) [HYPOTHESIS] UNCLASSIFIED 79 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_56A4:: ; 55:56A4
+	db $38, $3A, $27, $4B, $00, $00, $39, $3C, $28, $4C, $00, $00, $00, $00, $00, $00
+	db $00, $00, $3A, $3D, $2A, $4E, $00, $00, $3C, $3E, $2B, $4F, $00, $00, $3D, $3F
+	db $2C, $50, $00, $00, $3E, $40, $2D, $51, $00, $00, $3F, $42, $2E, $52, $00, $00
+	db $00, $00, $00, $00, $00, $00, $40, $43, $30, $55, $00, $10, $42, $44, $31, $55
+	db $00, $10, $43, $45, $32, $55, $00, $10, $44, $46, $33, $58, $00, $10, $45
+
+; ---- data $56F3-$56F9 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_56F3:: ; 55:56F3
+	db $47, $34, $58, $00, $10, $46
+
+; ---- data $56F9-$56FC (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_56F9:: ; 55:56F9
+	db $36, $35, $58
+
+; ---- data $56FC-$56FE (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_56FC:: ; 55:56FC
+	db $00, $10
+
+; ---- data $56FE-$56FF (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_56FE:: ; 55:56FE
+	db $58
+
+; ---- data $56FF-$5701 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_56FF:: ; 55:56FF
+	db $49, $36
+
+; ---- data $5701-$5702 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5701:: ; 55:5701
+	db $00
+
+; ---- data $5702-$5704 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5702:: ; 55:5702
+	db $00, $08
+
+; ---- data $5704-$5706 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5704:: ; 55:5704
+	db $48, $4A
+
+; ---- data $5706-$5707 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5706:: ; 55:5706
+	db $37
+
+; ---- data $5707-$5708 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5707:: ; 55:5707
+	db $01
+
+; ---- data $5708-$570A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5708:: ; 55:5708
+	db $00, $00
+
+; ---- data $570A-$570C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_570A:: ; 55:570A
+	db $49, $4B
+
+; ---- data $570C-$570D (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_570C:: ; 55:570C
+	db $38
+
+; ---- data $570D-$570E (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_570D:: ; 55:570D
+	db $02
+
+; ---- data $570E-$5710 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_570E:: ; 55:570E
+	db $00, $00
+
+; ---- data $5710-$574D (61 bytes) [HYPOTHESIS] UNCLASSIFIED 61 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5710:: ; 55:5710
+	db $4A, $4C, $39, $03, $00, $00, $4B, $4E, $3A, $04, $00, $00, $00, $00, $00, $00
+	db $00, $00, $4C, $4F, $3C, $06, $00, $00, $4E, $50, $3D, $07, $00, $00, $4F, $51
+	db $3E, $08, $00, $00, $50, $52, $3F, $09, $00, $00, $51, $55, $40, $0A, $00, $04
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $52
+
+; ---- data $574D-$574E (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_574D:: ; 55:574D
+	db $58
+
+; ---- data $574E-$5750 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_574E:: ; 55:574E
+	db $43, $0D
+
+; ---- data $5750-$5752 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5750:: ; 55:5750
+	db $B0, $3C
+
+; ---- data $5752-$575E (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5752:: ; 55:5752
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $575E-$5764 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_575E:: ; 55:575E
+	db $55, $48, $46, $10, $70, $3C
+
+; ---- data $5764-$576A (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5764:: ; 55:5764
+	db $00, $00, $00, $00, $00, $00
+
+; ---- data $576A-$576C (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_576A:: ; 55:576A
+	db $11, $01
+
+; ---- data $576C-$576D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_576C:: ; 55:576C
+	db $48
+
+; ---- data $576D-$5770 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_576D:: ; 55:576D
+	db $12, $00, $00
+
+; ---- data $5770-$5771 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5770:: ; 55:5770
+	db $00
+
+; ---- data $5771-$5772 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5771:: ; 55:5771
+	db $02
+
+; ---- data $5772-$5773 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5772:: ; 55:5772
+	db $49
+
+; ---- data $5773-$5776 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5773:: ; 55:5773
+	db $13, $00, $00
+
+; ---- data $5776-$5777 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5776:: ; 55:5776
+	db $01
+
+; ---- data $5777-$5778 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5777:: ; 55:5777
+	db $03
+
+; ---- data $5778-$577A (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5778:: ; 55:5778
+	db $4A, $14
+
+; ---- data $577A-$577C (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_577A:: ; 55:577A
+	db $00, $00
+
+; ---- data $577C-$577E (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_577C:: ; 55:577C
+	db $02, $04
+
+; ---- data $577E-$5782 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_577E:: ; 55:577E
+	db $4B, $15, $00, $00
+
+; ---- data $5782-$57CB (73 bytes) [HYPOTHESIS] UNCLASSIFIED 73 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5782:: ; 55:5782
+	db $03, $06, $4C, $16, $00, $00, $00, $00, $00, $00, $00, $00, $04, $07, $4E, $18
+	db $00, $00, $06, $08, $4F, $19, $00, $00, $07, $09, $50, $1A, $00, $00, $08, $0A
+	db $51, $1B, $00, $00, $09, $0C, $52, $1C, $00, $00, $00, $00, $00, $00, $00, $00
+	db $0A, $0D, $55, $1E, $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F, $55, $20
+	db $00, $20, $0E, $10, $58, $21, $00, $20, $0F
+
+; ---- data $57CB-$57CD (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57CB:: ; 55:57CB
+	db $11, $58
+
+; ---- data $57CD-$57CE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57CD:: ; 55:57CD
+	db $22
+
+; ---- data $57CE-$57D0 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57CE:: ; 55:57CE
+	db $00, $20
+
+; ---- data $57D0-$57D2 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57D0:: ; 55:57D0
+	db $10, $00
+
+; ---- data $57D2-$57D3 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57D2:: ; 55:57D2
+	db $58
+
+; ---- data $57D3-$57D4 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57D3:: ; 55:57D3
+	db $23
+
+; ---- data $57D4-$57D6 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57D4:: ; 55:57D4
+	db $00, $20
+
+; ---- data $57D6-$57DE (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57D6:: ; 55:57D6
+	db $23, $13, $00, $24, $00, $00, $12, $14
+
+; ---- data $57DE-$57DF (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57DE:: ; 55:57DE
+	db $01
+
+; ---- data $57DF-$57E0 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57DF:: ; 55:57DF
+	db $25
+
+; ---- data $57E0-$57E2 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57E0:: ; 55:57E0
+	db $00, $00
+
+; ---- data $57E2-$57EA (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57E2:: ; 55:57E2
+	db $13, $15, $02, $26, $00, $00, $14, $16
+
+; ---- data $57EA-$57EB (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57EA:: ; 55:57EA
+	db $03
+
+; ---- data $57EB-$57EC (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57EB:: ; 55:57EB
+	db $27
+
+; ---- data $57EC-$57EE (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_57EC:: ; 55:57EC
+	db $00, $00
+
+; ---- data $57EE-$584E (96 bytes) [HYPOTHESIS] UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_57EE:: ; 55:57EE
+	db $15, $18, $04, $28, $00, $00, $00, $00, $00, $00, $00, $00, $16, $19, $06, $2A
+	db $00, $00, $18, $1A, $07, $2B, $00, $00, $19, $1B, $08, $2C, $00, $00, $1A, $1C
+	db $09, $2D, $00, $00, $1B, $1E, $0A, $2E, $00, $00, $00, $00, $00, $00, $00, $00
+	db $1C, $1F, $0C, $30, $00, $00, $1E, $20, $0D, $31, $00, $00, $1F, $21, $0E, $32
+	db $00, $00, $20, $22, $0F, $33, $00, $00, $21, $23, $10, $34, $00, $00, $22, $12
+	db $11, $35, $00, $00, $35, $25, $12, $36, $00, $00, $24, $26, $13, $37, $00, $00
+
+; ---- data $584E-$584F (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_584E:: ; 55:584E
+	db $25
+
+; ---- data $584F-$5852 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_584F:: ; 55:584F
+	db $27, $14, $38
+
+; ---- data $5852-$5855 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5852:: ; 55:5852
+	db $00, $00, $26
+
+; ---- data $5855-$5858 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5855:: ; 55:5855
+	db $28, $15, $39
+
+; ---- data $5858-$585A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5858:: ; 55:5858
+	db $00, $00
+
+; ---- data $585A-$58C2 (104 bytes) [HYPOTHESIS] UNCLASSIFIED 104 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_585A:: ; 55:585A
+	db $27, $2A, $16, $3A, $00, $00, $00, $00, $00, $00, $00, $00, $28, $2B, $18, $3C
+	db $00, $00, $2A, $2C, $19, $3D, $00, $00, $2B, $2D, $1A, $3E, $00, $00, $2C, $2E
+	db $1B, $3F, $00, $00, $2D, $30, $1C, $40, $00, $00, $00, $00, $00, $00, $00, $00
+	db $2E, $31, $1E, $42, $00, $00, $30, $32, $1F, $43, $00, $00, $31, $33, $20, $44
+	db $00, $00, $32, $34, $21, $45, $00, $00, $33, $35, $22, $46, $00, $00, $34, $24
+	db $23, $47, $00, $00, $47, $37, $24, $48, $00, $00, $36, $38, $25, $49, $00, $00
+	db $37, $39, $26, $4A, $00, $00, $38, $3A
+
+; ---- data $58C2-$58C3 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_58C2:: ; 55:58C2
+	db $27
+
+; ---- data $58C3-$58C4 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_58C3:: ; 55:58C3
+	db $4B
+
+; ---- data $58C4-$58C6 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_58C4:: ; 55:58C4
+	db $00, $00
+
+; ---- data $58C6-$590F (73 bytes) [HYPOTHESIS] UNCLASSIFIED 73 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_58C6:: ; 55:58C6
+	db $39, $3C, $28, $4C, $00, $00, $00, $00, $00, $00, $00, $00, $3A, $3D, $2A, $4E
+	db $00, $00, $3C, $3E, $2B, $4F, $00, $00, $3D, $3F, $2C, $50, $00, $00, $3E, $40
+	db $2D, $51, $00, $00, $3F, $42, $2E, $52, $00, $00, $00, $00, $00, $00, $00, $00
+	db $40, $43, $30, $55, $00, $10, $42, $44, $31, $55, $00, $10, $43, $45, $32, $55
+	db $00, $10, $44, $46, $33, $58, $00, $10, $45
+
+; ---- data $590F-$5910 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_590F:: ; 55:590F
+	db $47
+
+; ---- data $5910-$5912 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5910:: ; 55:5910
+	db $34, $58
+
+; ---- data $5912-$5914 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5912:: ; 55:5912
+	db $00, $10
+
+; ---- data $5914-$592D (25 bytes) [HYPOTHESIS] UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5914:: ; 55:5914
+	db $46, $36, $35, $58, $00, $10, $58, $49, $36, $00, $00, $08, $48, $4A, $37, $01
+	db $00, $00, $49, $4B, $38, $02, $00, $00, $4A
+
+; ---- data $592D-$592F (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_592D:: ; 55:592D
+	db $4C, $39
+
+; ---- data $592F-$5930 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_592F:: ; 55:592F
+	db $03
+
+; ---- data $5930-$5933 (3 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5930:: ; 55:5930
+	db $00, $00, $4B
+
+; ---- data $5933-$5936 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5933:: ; 55:5933
+	db $4E, $3A, $04
+
+; ---- data $5936-$5938 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5936:: ; 55:5936
+	db $00, $00
+
+; ---- data $5938-$5969 (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5938:: ; 55:5938
+	db $00, $00, $00, $00, $00, $00, $4C, $4F, $3C, $06, $00, $00, $4E, $50, $3D, $07
+	db $00, $00, $4F, $51, $3E, $08, $00, $00, $50, $52, $3F, $09, $00, $00, $51, $55
+	db $40, $0A, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $52
+
+; ---- data $5969-$596A (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5969:: ; 55:5969
+	db $58
+
+; ---- data $596A-$596C (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_596A:: ; 55:596A
+	db $43, $0D
+
+; ---- data $596C-$596E (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_596C:: ; 55:596C
+	db $B0, $3C
+
+; ---- data $596E-$597A (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_596E:: ; 55:596E
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- data $597A-$597B (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_597A:: ; 55:597A
+	db $55
+
+; ---- data $597B-$597C (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_597B:: ; 55:597B
+	db $48
+
+; ---- data $597C-$5980 (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_597C:: ; 55:597C
+	db $46, $10, $70, $3C
+
+; ---- data $5980-$5988 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5980:: ; 55:5980
+	db $00, $00, $00, $00, $00, $00, $11, $01
+
+; ---- data $5988-$5989 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_5988:: ; 55:5988
+	db $48
+
+; ---- data $5989-$598A (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5989:: ; 55:5989
+	db $12
+
+; ---- data $598A-$598C (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_598A:: ; 55:598A
+	db $00, $00
+
+; ---- data $598C-$5B0C (384 bytes) [HYPOTHESIS] UNCLASSIFIED 384 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_598C:: ; 55:598C
+	db $00, $02, $49, $13, $00, $00, $01, $03, $4A, $14, $00, $00, $02, $04, $4B, $15
+	db $00, $00, $03, $06, $4C, $16, $00, $00, $00, $00, $00, $00, $00, $00, $04, $07
+	db $4E, $18, $00, $00, $06, $08, $4F, $19, $00, $00, $07, $09, $50, $1A, $00, $00
+	db $08, $0A, $51, $1B, $00, $00, $09, $0C, $52, $1C, $00, $00, $00, $00, $00, $00
+	db $00, $00, $0A, $0D, $55, $1E, $00, $20, $0C, $0E, $55, $1F, $00, $20, $0D, $0F
+	db $55, $20, $00, $20, $0E, $10, $58, $21, $00, $20, $0F, $11, $58, $22, $00, $20
+	db $10, $00, $58, $23, $00, $00, $23, $13, $00, $24, $00, $00, $12, $14, $01, $25
+	db $00, $00, $13, $15, $02, $26, $00, $00, $14, $16, $03, $27, $00, $00, $15, $18
+	db $04, $28, $00, $00, $00, $00, $00, $00, $00, $00, $16, $19, $06, $2A, $00, $00
+	db $18, $1A, $07, $2B, $00, $00, $19, $1B, $08, $2C, $00, $00, $1A, $1C, $09, $2D
+	db $00, $00, $1B, $1E, $0A, $2E, $00, $00, $00, $00, $00, $00, $00, $00, $1C, $1F
+	db $0C, $30, $00, $00, $1E, $20, $0D, $31, $00, $00, $1F, $21, $0E, $32, $00, $00
+	db $20, $22, $0F, $33, $00, $00, $21, $23, $10, $34, $00, $00, $22, $12, $11, $34
+	db $00, $00, $34, $25, $12, $36, $00, $00, $24, $26, $13, $37, $00, $00, $25, $27
+	db $14, $38, $00, $00, $26, $28, $15, $39, $00, $00, $27, $2A, $16, $3A, $00, $00
+	db $00, $00, $00, $00, $00, $00, $28, $2B, $18, $3C, $00, $00, $2A, $2C, $19, $3D
+	db $00, $00, $2B, $2D, $1A, $3E, $00, $00, $2C, $2E, $1B, $3F, $00, $00, $2D, $30
+	db $1C, $40, $00, $00, $00, $00, $00, $00, $00, $00, $2E, $31, $1E, $55, $00, $10
+	db $30, $32, $1F, $55, $00, $10, $31, $33, $20, $55, $00, $10, $32, $34, $21, $58
+	db $00, $10, $33, $24, $22, $58, $00, $10, $00, $00, $00, $00, $00, $00, $58, $37
+	db $24, $48, $00, $08, $36, $38, $25, $49, $00, $00, $37, $39, $26, $4A, $00, $00
+	db $38, $3A, $27, $4B, $00, $00, $39, $3C, $28, $4C, $00, $00, $00, $00, $00, $00
+	db $00, $00, $3A, $3D, $2A, $4E, $00, $00, $3C, $3E, $2B, $4F, $00, $00, $3D, $3F
+	db $2C, $50, $00, $00, $3E, $40, $2D, $51, $00, $00, $3F, $55, $2E, $52, $00, $04
+
+; ---- zero $5B0C-$5B36 (42 bytes) [HYPOTHESIS] padding? run of 42 x $00 in unclassified bytes
+	ds $2A, $00
+
+; ---- data $5B36-$5BA2 (108 bytes) [HYPOTHESIS] UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5B36:: ; 55:5B36
+	db $58, $49, $36, $00, $00, $00, $48, $4A, $37, $01, $00, $00, $49, $4B, $38, $02
+	db $00, $00, $4A, $4C, $39, $03, $00, $00, $4B, $4E, $3A, $04, $00, $00, $00, $00
+	db $00, $00, $00, $00, $4C, $4F, $3C, $06, $00, $00, $4E, $50, $3D, $07, $00, $00
+	db $4F, $51, $3E, $08, $00, $00, $50, $52, $3F, $09, $00, $00, $51, $55, $40, $0A
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $52, $58
+	db $31, $0D, $B0, $3C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $55, $48, $34, $10, $70, $3C, $00, $00, $00, $00, $00, $00
+
+; ---- code $5BA2-$5C9F (253 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_5BA2:: ; 55:5BA2
+	ld [wRam_C2AB], a
+	ld a, b
+	ld [wRam_C2AF], a
+	ld a, c
+	call Function_55_7007
+	ld b, $15
+	ld c, $03
+	call FarCall
+	dw Function_7D_7C00
+	db BANK(Function_7D_7C00)
+	xor a, a
+	ld [wRam_C2AC], a
+	ld a, [wRam_C2AB]
+	ld hl, $4000
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld [wRam_C2B5], a
+	ld a, $FF
+	ld [wRam_C2BD], a
+	ld [wRam_C2BE], a
+	ld [wRam_C2B0], a
+	ld a, $01
+	ld [wRam_C2B1], a
+	jr Label_55_5BDD
+
+Label_55_5BDD:: ; 55:5BDD
+	ldh a, [rLCDC]
+	and a, $9F
+	ld b, a
+	and a, $08
+	xor a, $08
+	rlca
+	rlca
+	rlca
+	or a, b
+	ldh [rLCDC], a
+	ld a, $07
+	ldh [rWX], a
+	ld a, $90
+	ldh [rWY], a
+	ld de, $8001
+	ld hl, $49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld a, [wRam_C2AB]
+	call Function_55_6ED6
+	or a, a
+	jp z, Label_55_5C5A
+	ld bc, $0010
+	ld de, $D830
+	ld hl, $4CD0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	jr Label_55_5C5A
+
+Label_55_5C5A:: ; 55:5C5A
+	ld a, [wRam_C2AF]
+	cp a, $02
+	jr nz, Label_55_5C71
+	call Function_55_63E7
+	call Function_00_047A
+	ldh a, [rLCDC]
+	or a, $20
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+
+Label_55_5C71:: ; 55:5C71
+	ld a, $01
+	call Function_55_66C6
+	ld hl, $DAB0
+	ld de, $4CF8
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, $FF
+	ld [wSpriteSlots + 180], a
+	call Function_55_617B
+	ret
+
+Function_55_5C8F:: ; 55:5C8F
+	ld a, c
+	ld [wRam_C2B4], a
+	ld a, $01
+	ld [wRam_C2B3], a
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr nz, Label_55_5CA3
+
+; ---- code $5C9F-$5CA3 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5C9D (executed)
+	ld a, b
+	ld [wRam_C2B3], a
+
+; ---- code $5CA3-$5D3D (154 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
+
+Label_55_5CA3:: ; 55:5CA3
+	xor a, a
+	ld [wRam_C2B2], a
+	ld a, [wRam_C2AB]
+	cp a, $0A
+	jp z, Label_55_6563
+	ld a, [wRam_C2AF]
+	cp a, $02
+	jr z, Label_55_5CBC
+	cp a, $00
+	jr z, Label_55_5CDD
+	jr Label_55_5CE0
+
+Label_55_5CBC:: ; 55:5CBC
+	ld a, [wRam_C2AB]
+	call Function_55_6EAA
+	or a, a
+	jr z, Label_55_5CE0
+	ld a, [wRam_C2AB]
+	ld hl, $400A
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld [wRam_C2B5], a
+	call Function_55_5F35
+	call Function_55_6190
+	jr Label_55_5CE0
+
+Label_55_5CDD:: ; 55:5CDD
+	call Function_55_6318
+
+Label_55_5CE0:: ; 55:5CE0
+	ld a, [wRam_C2AB]
+	call Function_55_6EC0
+	or a, a
+	jr z, Label_55_5D05
+	ld a, [wRam_C2B4]
+	or a, a
+	jr z, Label_55_5D05
+	ld a, [wRam_C2AB]
+	ld hl, $400A
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld [wRam_C2B5], a
+	call Function_55_5F35
+	call Function_55_6190
+
+Label_55_5D05:: ; 55:5D05
+	ld a, $01
+	ld [wRam_C2AF], a
+	call Function_55_5F35
+	call Function_55_6190
+	ld a, [wRam_C2AB]
+	cp a, $07
+	jr nz, Label_55_5D36
+	ld a, [wRam_C2B4]
+	or a, a
+	jr z, Label_55_5D36
+	ld hl, $DAD0
+	ld de, $4D40
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld de, $7870
+	ld hl, $DAD0
+	call Function_00_0A65
+
+Label_55_5D36:: ; 55:5D36
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr nz, Label_55_5D49
+
+; ---- code $5D3D-$5D49 (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5D3B (executed)
+	call Function_55_7000
+	ld a, [wRam_C2B3]
+	or a, a
+	jr nz, Label_55_5D49
+	call Function_55_6FCD
+
+; ---- code $5D49-$5D70 (39 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios)
+
+Label_55_5D49:: ; 55:5D49
+	call Function_55_6C16
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_5D66
+	call Function_00_044B
+	jr Label_55_5D69
+
+Label_55_5D66:: ; 55:5D66
+	call Function_00_0464
+
+Label_55_5D69:: ; 55:5D69
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr nz, Label_55_5D76
+
+; ---- code $5D70-$5D76 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5D6E (executed)
+	call FarCall
+	dw Function_57_53B9
+	db BANK(Function_57_53B9)
+
+; ---- code $5D76-$5DF5 (127 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 11/18 scenarios)
+
+Label_55_5D76:: ; 55:5D76
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_55_5D9A
+	bit 1, a
+	jr nz, Label_55_5D9D
+	bit 6, a
+	jr nz, Label_55_5DB6
+	bit 7, a
+	jr nz, Label_55_5DC1
+	bit 5, a
+	jr nz, Label_55_5DA0
+	bit 4, a
+	jr nz, Label_55_5DAB
+	bit 3, a
+	jr nz, Label_55_5DCC
+	bit 2, a
+	jr nz, Label_55_5E02
+	jr Label_55_5D49
+
+Label_55_5D9A:: ; 55:5D9A
+	jp Label_55_5E5D
+
+Label_55_5D9D:: ; 55:5D9D
+	jp Label_55_5F1A
+
+Label_55_5DA0:: ; 55:5DA0
+	ld a, $00
+	call Function_55_5F66
+	call Function_55_6190
+	jp Label_55_5E5A
+
+Label_55_5DAB:: ; 55:5DAB
+	ld a, $01
+	call Function_55_5F66
+	call Function_55_6190
+	jp Label_55_5E5A
+
+Label_55_5DB6:: ; 55:5DB6
+	ld a, $02
+	call Function_55_5F66
+	call Function_55_6190
+	jp Label_55_5E5A
+
+Label_55_5DC1:: ; 55:5DC1
+	ld a, $03
+	call Function_55_5F66
+	call Function_55_6190
+	jp Label_55_5E5A
+
+Label_55_5DCC:: ; 55:5DCC
+	ld a, [wRam_C2AB]
+	ld hl, $400A
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld [wRam_C2B5], a
+	call Function_55_5F35
+	call Function_55_6190
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jp Label_55_5E5A
+
+; ---- data $5DF5-$5E02 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5DF5:: ; 55:5DF5
+	db $FA, $AB, $C2, $CD, $EC, $6E, $B7, $CA, $5A, $5E, $C3, $29, $5F
+
+; ---- code $5E02-$5E30 (46 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
+
+Label_55_5E02:: ; 55:5E02
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr z, Label_55_5E42
+	cp a, $01
+	jr z, Label_55_5E57
+	ld a, [wRam_C2AB]
+	call Function_55_6E94
+	or a, a
+	jp z, Label_55_5D49
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $003A
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $C2AC
+	ld a, [hl]
+	inc a
+	cp a, $04
+	jr nz, Label_55_5E31
+
+; ---- code $5E30-$5E31 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5E2E (executed)
+	xor a, a
+
+; ---- code $5E31-$5E42 (17 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
+
+Label_55_5E31:: ; 55:5E31
+	ld [hl], a
+	call Function_55_5F35
+	call Function_55_6C10
+	xor a, a
+	call Function_55_66C6
+	call Function_55_6BB2
+	jp Label_55_5D49
+
+; ---- code $5E42-$5E57 (21 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 55:5E07 (executed)
+
+Label_55_5E42:: ; 55:5E42
+	ld a, [wRam_C2B3]
+	or a, a
+	jr nz, Label_55_5E4B
+	jp Label_55_5D49
+
+Label_55_5E4B:: ; 55:5E4B
+	xor a, a
+	call Function_55_6427
+	ld a, $00
+	ld [wRam_C2AF], a
+	jp Label_55_5F26
+
+; ---- code $5E57-$5E75 (30 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 10/18 scenarios)
+
+Label_55_5E57:: ; 55:5E57
+	jp Label_55_5F26
+
+Label_55_5E5A:: ; 55:5E5A
+	jp Label_55_5D49
+
+Label_55_5E5D:: ; 55:5E5D
+	ld hl, $C2AE
+	ld a, [hld]
+	cp a, $01
+	jr z, Label_55_5E6C
+	cp a, $FF
+	jr z, Label_55_5E99
+	jp Label_55_5F09
+
+Label_55_5E6C:: ; 55:5E6C
+	ld a, [hl]
+	cp a, $0D
+	jr z, Label_55_5E78
+	cp a, $20
+	jr z, Label_55_5E7B
+
+; ---- code $5E75-$5E7B (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed)
+	jp Label_55_5F09
+
+Label_55_5E78:: ; 55:5E78
+	jp Label_55_5F1D
+
+; ---- code $5E7B-$5E82 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_55_5E7B:: ; 55:5E7B
+	ld a, [wRam_C2AB]
+	cp a, $03
+	jr nz, Label_55_5E8E
+
+; ---- code $5E82-$5E8E (12 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 55:5E80 (executed)
+	ld hl, $C2AE
+	ld a, $00
+	ld [hld], a
+	ld a, $20
+	ld [hl], a
+	jp Label_55_5F17
+
+; ---- code $5E8E-$5EAA (28 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 9/18 scenarios)
+
+Label_55_5E8E:: ; 55:5E8E
+	ld hl, $C2AE
+	ld a, $81
+	ld [hld], a
+	ld a, $40
+	ld [hl], a
+	jr Label_55_5F17
+
+Label_55_5E99:: ; 55:5E99
+	ld a, [hl]
+	cp a, $80
+	jr z, Label_55_5EAC
+	cp a, $81
+	jr z, Label_55_5EB7
+	cp a, $82
+	jr z, Label_55_5EB9
+	cp a, $83
+	jr z, Label_55_5EE7
+
+; ---- code $5EAA-$5EB9 (15 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 55:5EA8 (executed)
+	jr Label_55_5F09
+
+Label_55_5EAC:: ; 55:5EAC
+	ld hl, $C2AE
+	ld a, $00
+	ld [hld], a
+	ld a, $20
+	ld [hl], a
+	jr Label_55_5F17
+
+Label_55_5EB7:: ; 55:5EB7
+	jr Label_55_5F1D
+
+; ---- code $5EB9-$5EC0 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 9/18 scenarios)
+
+Label_55_5EB9:: ; 55:5EB9
+	ld a, [wRam_C2B3]
+	or a, a
+	jp nz, Label_55_5ED3
+
+; ---- code $5EC0-$5ED3 (19 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jpcc at 55:5EBD (executed)
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jp Label_55_5D49
+
+; ---- code $5ED3-$5EEE (27 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
+
+Label_55_5ED3:: ; 55:5ED3
+	ld a, [wRam_C2AB]
+	call Function_55_6F02
+	or a, a
+	jr z, Label_55_5F23
+	xor a, a
+	call Function_55_6427
+	ld a, $00
+	ld [wRam_C2AF], a
+	jr Label_55_5F23
+
+Label_55_5EE7:: ; 55:5EE7
+	ld a, [wRam_C2AB]
+	cp a, $07
+	jr nz, Label_55_5EF5
+
+; ---- code $5EEE-$5EF5 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:5EEC (executed)
+	ld a, [wRam_C2B4]
+	or a, a
+	jp nz, Label_55_5D49
+
+; ---- code $5EF5-$5EFE (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios)
+
+Label_55_5EF5:: ; 55:5EF5
+	ld a, [wRam_C2AB]
+	call Function_55_6F18
+	or a, a
+	jr z, Label_55_5F20
+
+; ---- code $5EFE-$5F09 (11 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5EFC (executed)
+	xor a, a
+	call Function_55_6427
+	ld a, $00
+	ld [wRam_C2AF], a
+	jr Label_55_5F20
+
+; ---- code $5F09-$5F1D (20 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 10/18 scenarios)
+
+Label_55_5F09:: ; 55:5F09
+	ld a, [wRam_C2AB]
+	cp a, $01
+	jr nz, Label_55_5F17
+	call Function_55_6FA1
+	or a, a
+	jp nz, Label_55_5E5A
+
+Label_55_5F17:: ; 55:5F17
+	ld a, $01
+	ret
+
+Label_55_5F1A:: ; 55:5F1A
+	ld a, $02
+	ret
+
+; ---- code $5F1D-$5F20 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2; entered by jp from 55:5E78 (PROBABLE code)
+
+Label_55_5F1D:: ; 55:5F1D
+	ld a, $03
+	ret
+
+; ---- code $5F20-$5F29 (9 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 9/18 scenarios)
+
+Label_55_5F20:: ; 55:5F20
+	ld a, $08
+	ret
+
+Label_55_5F23:: ; 55:5F23
+	ld a, $07
+	ret
+
+Label_55_5F26:: ; 55:5F26
+	ld a, $0A
+	ret
+
+; ---- data $5F29-$5F35 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_5F29:: ; 55:5F29
+	db $AF, $CD, $27, $64, $3E, $00, $EA, $AF, $C2, $3E, $09, $C9
+
+; ---- code $5F35-$5FC8 (147 bytes) [CONFIRMED] 98 insn(s); 98 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_5F35:: ; 55:5F35
+	ld a, [wRam_C2AB]
+	ld hl, $4014
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C2AC]
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C2B5]
+	ld d, $00
+	ld e, a
+	add hl, de
+	add hl, de
+	ld de, $C2AE
+	ld a, [hli]
+	ld [de], a
+	dec de
+	ld a, [hl]
+	ld [de], a
+	call Function_55_6C10
+	ret
+
+Function_55_5F66:: ; 55:5F66
+	push af
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop af
+	ld [wRam_C2B9], a
+	push af
+	ld a, [wRam_C2B5]
+	ld b, $00
+	ld c, a
+	ld d, $00
+	ld e, $06
+	call Multiply16
+	ld d, h
+	ld e, l
+	ld a, [wRam_C2AB]
+	ld hl, $4A42
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	ld a, $04
+	push hl
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld [wRam_C2B7], a
+	ld a, [hl]
+	ld [wRam_C2B8], a
+	pop hl
+	pop af
+	push af
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hl]
+	ld [wRam_C2B6], a
+	pop af
+	add a, a
+	add a, $C8
+	ld l, a
+	ld a, $5F
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- data $5FC8-$5FD0 (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_5FC8:: ; 55:5FC8
+	db $D0, $5F, $F4, $5F, $FD, $5F, $20, $60
+
+; ---- code $5FD0-$604D (125 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 8/18 scenarios)
+	ld a, [wRam_C2B7]
+	bit 7, a
+	jp z, Label_55_602E
+
+Label_55_5FD8:: ; 55:5FD8
+	ld a, [wRam_C2BE]
+	cp a, $FF
+	jr z, Label_55_602E
+	ld a, [wRam_C2B6]
+	call Function_55_615F
+	call Function_55_6041
+	ld a, [wRam_C2BE]
+	ld c, a
+	call Function_55_616D
+	ld [wRam_C2B5], a
+	jr Label_55_6029
+
+	ld a, [wRam_C2B7]
+	bit 6, a
+	jr z, Label_55_602E
+	jr Label_55_5FD8
+
+	ld a, [wRam_C2B7]
+	bit 5, a
+	jr z, Label_55_602E
+
+Label_55_6004:: ; 55:6004
+	ld a, [wRam_C2BD]
+	cp a, $FF
+	jr z, Label_55_602E
+	ld a, [wRam_C2B6]
+	call Function_55_615F
+	call Function_55_6041
+	ld a, [wRam_C2BD]
+	ld b, a
+	call Function_55_616D
+	ld [wRam_C2B5], a
+	jr Label_55_6029
+
+	ld a, [wRam_C2B7]
+	bit 4, a
+	jr z, Label_55_602E
+	jr Label_55_6004
+
+Label_55_6029:: ; 55:6029
+	call Function_55_6068
+	jr Label_55_603D
+
+Label_55_602E:: ; 55:602E
+	ld a, [wRam_C2B5]
+	call Function_55_6149
+	call Function_55_6068
+	ld a, [wRam_C2B6]
+	ld [wRam_C2B5], a
+
+Label_55_603D:: ; 55:603D
+	call Function_55_5F35
+	ret
+
+Function_55_6041:: ; 55:6041
+	ld a, [wRam_C2AB]
+	cp a, $01
+	jr z, Label_55_604D
+	cp a, $03
+	jr z, Label_55_605A
+	ret
+
+; ---- code $604D-$6068 (27 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed)
+
+Label_55_604D:: ; 55:604D
+	ld a, [wRam_C2B9]
+	or a, a
+	ret nz
+	ld a, [wRam_C2BE]
+	cp a, $03
+	ret nz
+	inc b
+	ret
+
+Label_55_605A:: ; 55:605A
+	ld a, [wRam_C2B9]
+	cp a, $02
+	ret nz
+	ld a, [wRam_C2BD]
+	cp a, $11
+	ret nz
+	inc c
+	ret
+
+; ---- code $6068-$6087 (31 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6068:: ; 55:6068
+	ld a, [wRam_C2AE]
+	cp a, $FF
+	jr z, Label_55_60E1
+	ld a, $FF
+	ld [wRam_C2BD], a
+	ld [wRam_C2BE], a
+	ld a, [wRam_C2B9]
+	add a, a
+	add a, $87
+	ld l, a
+	ld a, $60
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- data $6087-$608F (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6087:: ; 55:6087
+	db $8F, $60, $A0, $60, $B1, $60, $C2, $60
+
+; ---- code $608F-$60F1 (98 bytes) [CONFIRMED] 45 insn(s); 45 executed (in up to 7/18 scenarios)
+	ld a, [wRam_C2B8]
+	bit 7, a
+	call nz, Function_55_60D3
+	ld a, [wRam_C2B8]
+	bit 3, a
+	call nz, Function_55_60DA
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 6, a
+	call nz, Function_55_60D3
+	ld a, [wRam_C2B8]
+	bit 2, a
+	call nz, Function_55_60DA
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 5, a
+	call nz, Function_55_60D3
+	ld a, [wRam_C2B8]
+	bit 1, a
+	call nz, Function_55_60DA
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 4, a
+	call nz, Function_55_60D3
+	ld a, [wRam_C2B8]
+	bit 0, a
+	call nz, Function_55_60DA
+	ret
+
+Function_55_60D3:: ; 55:60D3
+	ld a, [wRam_C2BA]
+	ld [wRam_C2BD], a
+	ret
+
+Function_55_60DA:: ; 55:60DA
+	ld a, [wRam_C2BB]
+	ld [wRam_C2BE], a
+	ret
+
+Label_55_60E1:: ; 55:60E1
+	ld a, [wRam_C2B9]
+	add a, a
+	add a, $F1
+	ld l, a
+	ld a, $60
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- data $60F1-$60F9 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_60F1:: ; 55:60F1
+	db $F9, $60, $0A, $61, $1B, $61, $2C, $61
+
+; ---- code $60F9-$6184 (139 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
+	ld a, [wRam_C2B8]
+	bit 7, a
+	call z, Function_55_613D
+	ld a, [wRam_C2B8]
+	bit 3, a
+	call z, Function_55_6143
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 6, a
+	call z, Function_55_613D
+	ld a, [wRam_C2B8]
+	bit 2, a
+	call z, Function_55_6143
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 5, a
+	call z, Function_55_613D
+	ld a, [wRam_C2B8]
+	bit 1, a
+	call z, Function_55_6143
+	ret
+
+	ld a, [wRam_C2B8]
+	bit 4, a
+	call z, Function_55_613D
+	ld a, [wRam_C2B8]
+	bit 0, a
+	call z, Function_55_6143
+	ret
+
+Function_55_613D:: ; 55:613D
+	ld a, $FF
+	ld [wRam_C2BD], a
+	ret
+
+Function_55_6143:: ; 55:6143
+	ld a, $FF
+	ld [wRam_C2BE], a
+	ret
+
+Function_55_6149:: ; 55:6149
+	ld a, [wRam_C2B5]
+	ld b, $00
+
+Label_55_614E:: ; 55:614E
+	sub a, $12
+	jr c, Label_55_6155
+	inc b
+	jr Label_55_614E
+
+Label_55_6155:: ; 55:6155
+	add a, $12
+	ld [wRam_C2BA], a
+	ld a, b
+	ld [wRam_C2BB], a
+	ret
+
+Function_55_615F:: ; 55:615F
+	ld b, $00
+
+Label_55_6161:: ; 55:6161
+	sub a, $12
+	jr c, Label_55_6168
+	inc b
+	jr Label_55_6161
+
+Label_55_6168:: ; 55:6168
+	add a, $12
+	ld c, b
+	ld b, a
+	ret
+
+Function_55_616D:: ; 55:616D
+	push bc
+	ld d, $00
+	ld e, c
+	ld bc, $0012
+	call Multiply16
+	pop bc
+	ld a, b
+	add a, l
+	ret
+
+Function_55_617B:: ; 55:617B
+	ld a, $FF
+	ld [wRam_C2BD], a
+	ld [wRam_C2BE], a
+	ret
+
+; ---- data $6184-$6190 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6184:: ; 55:6184
+	db $3E, $FF, $EA, $BD, $C2, $C9, $3E, $FF, $EA, $BE, $C2, $C9
+
+; ---- code $6190-$624D (189 bytes) [CONFIRMED] 103 insn(s); 103 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6190:: ; 55:6190
+	call Function_55_6149
+	ld a, [wRam_C2AB]
+	ld hl, $62A0
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld b, [hl]
+	ld c, a
+	ld hl, $C2AE
+	ld a, [hld]
+	cp a, $FF
+	jr z, Label_55_61BF
+	push bc
+	ld hl, $DAB0
+	ld de, $4CF8
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	pop bc
+	jr Label_55_61F6
+
+Label_55_61BF:: ; 55:61BF
+	push bc
+	ld hl, $DAB0
+	ld de, $4CF8
+	ld a, $5F
+	ld b, $82
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	pop bc
+	ld a, [wRam_C2AB]
+	ld hl, $62B4
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C2AD]
+	sub a, $80
+	add a, a
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld d, [hl]
+	inc hl
+	ld e, [hl]
+	ld a, b
+	add a, d
+	ld b, a
+	ld a, c
+	add a, e
+	ld c, a
+
+Label_55_61F6:: ; 55:61F6
+	ld a, [wRam_C2BB]
+	sla a
+	sla a
+	sla a
+	sla a
+	add a, c
+	ld e, a
+	ld a, [wRam_C2BA]
+	sla a
+	sla a
+	sla a
+	add a, b
+	ld d, a
+	ld a, e
+	ld [wRam_C284], a
+	ld a, d
+	ld [wRam_C285], a
+	ld a, [wRam_C2AE]
+	cp a, $FF
+	jr nz, Label_55_623B
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, e
+	ld [wSpriteSlots + 176], a
+	ld a, d
+	ld [wSpriteSlots + 177], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+
+Label_55_623B:: ; 55:623B
+	ld a, [wRam_C2AE]
+	cp a, $FF
+	jr nz, Label_55_6299
+	ld a, [wRam_C2AD]
+	cp a, $82
+	jr z, Label_55_624F
+	cp a, $83
+	jr z, Label_55_6261
+
+; ---- code $624D-$624F (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:624B (executed)
+	jr Label_55_629F
+
+; ---- code $624F-$62A0 (81 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 11/18 scenarios)
+
+Label_55_624F:: ; 55:624F
+	ld hl, $DAA0
+	ld de, $4D18
+	ld a, $5F
+	ld b, $85
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	jr Label_55_6271
+
+Label_55_6261:: ; 55:6261
+	ld hl, $DAA0
+	ld de, $4D18
+	ld a, $5F
+	ld b, $84
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_55_6271:: ; 55:6271
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wSpriteSlots + 176]
+	sub a, $09
+	ld [wSpriteSlots + 160], a
+	ld a, [wSpriteSlots + 177]
+	sub a, $02
+	ld [wSpriteSlots + 161], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	jr Label_55_629F
+
+Label_55_6299:: ; 55:6299
+	ld hl, $DAA0
+	call Function_00_09E6
+
+Label_55_629F:: ; 55:629F
+	ret
+
+; ---- data $62A0-$62A4 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_62A0:: ; 55:62A0
+	db $34, $07, $34, $07
+
+; ---- data $62A4-$62A8 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62A4:: ; 55:62A4
+	db $34, $07, $2C, $07
+
+; ---- data $62A8-$62AA (2 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_62A8:: ; 55:62A8
+	db $2C, $07
+
+; ---- data $62AA-$62AC (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62AA:: ; 55:62AA
+	db $2C, $07
+
+; ---- data $62AC-$62B4 (8 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 62AC-62B8 by higher-priority evidence]
+
+Data_55_62AC:: ; 55:62AC
+	db $3C, $07, $3C, $07, $3C, $07, $3C, $07
+
+; ---- ptrtable $62B4-$62C8 (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $62C8..$6310; referenced by ld r16,$62B4 at 55:61D4
+
+Table_55_62B4:: ; 55:62B4
+	dw Data_55_62C8
+	dw Data_55_62D0
+	dw Data_55_62D8
+	dw $62E0
+	dw $62E8
+	dw Data_55_62F0
+	dw $62F8
+	dw Data_55_6300
+	dw $6308
+	dw Data_55_6310
+
+; ---- data $62C8-$62CC (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62C8:: ; 55:62C8
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62CC-$62D0 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_62CC:: ; 55:62CC
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62D0-$62D4 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62D0:: ; 55:62D0
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62D4-$62D8 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_62D4:: ; 55:62D4
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62D8-$62EC (20 bytes) [HYPOTHESIS] UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62D8:: ; 55:62D8
+	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62EC-$62F0 (4 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_62EC:: ; 55:62EC
+	db $FF, $FA, $FF, $FA
+
+; ---- data $62F0-$62FC (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_62F0:: ; 55:62F0
+	db $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA, $FF, $FA
+
+; ---- data $62FC-$6300 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_62FC:: ; 55:62FC
+	db $FF, $FA, $FF, $FA
+
+; ---- data $6300-$6304 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6300:: ; 55:6300
+	db $FF, $FA, $FF, $FA
+
+; ---- data $6304-$6306 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_6304:: ; 55:6304
+	db $FF, $FA
+
+; ---- data $6306-$630C (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6306:: ; 55:6306
+	db $FF, $FA, $FF, $FA, $FF, $FA
+
+; ---- data $630C-$6310 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_630C:: ; 55:630C
+	db $FF, $FA, $FF, $FA
+
+; ---- data $6310-$6314 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6310:: ; 55:6310
+	db $FF, $FA, $FF, $FA
+
+; ---- data $6314-$6316 (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_6314:: ; 55:6314
+	db $FF, $FA
+
+; ---- data $6316-$6318 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6316:: ; 55:6316
+	db $FF, $FA
+
+; ---- code $6318-$636D (85 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6318:: ; 55:6318
+	call Function_00_047A
+	ldh a, [rLCDC]
+	or a, $20
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0034
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call Function_55_640E
+	ld [wRam_C2A2], a
+	ld a, [wRam_C2AB]
+	cp a, $06
+	jr nz, Label_55_6348
+	call FarCall
+	dw Function_7F_70FD
+	db BANK(Function_7F_70FD)
+
+Label_55_6348:: ; 55:6348
+	cp a, $08
+	jr nz, Label_55_6352
+	call FarCall
+	dw Function_7F_7149
+	db BANK(Function_7F_7149)
+
+Label_55_6352:: ; 55:6352
+	cp a, $09
+	jr nz, Label_55_635C
+	call FarCall
+	dw Function_7F_71A7
+	db BANK(Function_7F_71A7)
+
+Label_55_635C:: ; 55:635C
+	cp a, $07
+	jr nz, Label_55_6366
+	call FarCall
+	dw Function_7F_7205
+	db BANK(Function_7F_7205)
+
+Label_55_6366:: ; 55:6366
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr nz, Label_55_6386
+
+; ---- code $636D-$6386 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6381
+	call Function_00_044B
+	jr Label_55_6384
+
+Label_55_6381:: ; 55:6381
+	call Function_00_0464
+
+Label_55_6384:: ; 55:6384
+	jr Label_55_63D2
+
+; ---- code $6386-$63CD (71 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 5/18 scenarios)
+
+Label_55_6386:: ; 55:6386
+	ld a, [wRam_C2AB]
+	cp a, $06
+	jr nz, Label_55_639A
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_7116
+	db BANK(Function_7F_7116)
+	jr Label_55_63D2
+
+Label_55_639A:: ; 55:639A
+	cp a, $08
+	jr nz, Label_55_63AB
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_7165
+	db BANK(Function_7F_7165)
+	jr Label_55_63D2
+
+Label_55_63AB:: ; 55:63AB
+	cp a, $09
+	jr nz, Label_55_63BC
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_71C3
+	db BANK(Function_7F_71C3)
+	jr Label_55_63D2
+
+Label_55_63BC:: ; 55:63BC
+	cp a, $07
+	jr nz, Label_55_63CD
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_720C
+	db BANK(Function_7F_720C)
+	jr Label_55_63D2
+
+; ---- code $63CD-$63D2 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:63BE (executed)
+
+Label_55_63CD:: ; 55:63CD
+	push de
+	call Function_00_0464
+	pop de
+
+; ---- code $63D2-$641C (74 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 11/18 scenarios)
+
+Label_55_63D2:: ; 55:63D2
+	ld hl, $FF4A
+	ld a, [hl]
+	sub a, $08
+	ld [hl], a
+	push af
+	ld a, [wRam_C2A2]
+	ld b, a
+	pop af
+	cp a, b
+	jp nz, Label_55_6366
+	call Function_55_6BB2
+	ret
+
+Function_55_63E7:: ; 55:63E7
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_63F5
+	call Function_00_044B
+	jr Label_55_63F8
+
+Label_55_63F5:: ; 55:63F5
+	call Function_00_0464
+
+Label_55_63F8:: ; 55:63F8
+	call Function_55_640E
+	ldh [rWY], a
+	call Function_00_047A
+	ldh a, [rLCDC]
+	or a, $20
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	call Function_55_6BB2
+	ret
+
+Function_55_640E:: ; 55:640E
+	ld a, [wRam_C2AB]
+	ld hl, $641C
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $641C-$641E (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_641C:: ; 55:641C
+	db $28, $28
+
+; ---- data $641E-$6420 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_641E:: ; 55:641E
+	db $28, $28
+
+; ---- data $6420-$6421 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6420:: ; 55:6420
+	db $28
+
+; ---- data $6421-$6422 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6421:: ; 55:6421
+	db $28
+
+; ---- data $6422-$6426 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6422:: ; 55:6422
+	db $38, $38, $38, $38
+
+; ---- data $6426-$6427 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6426:: ; 55:6426
+	db $38
+
+; ---- code $6427-$644E (39 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6427:: ; 55:6427
+	ld hl, $DAA0
+	call Function_00_09E6
+	ld hl, $DAB0
+	call Function_00_09E6
+	ld hl, $DAC0
+	call Function_00_09E6
+	ld hl, $DAD0
+	call Function_00_09E6
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6453
+
+; ---- code $644E-$6453 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:644C (executed)
+	call Function_00_044B
+	jr Label_55_6456
+
+; ---- code $6453-$649D (74 bytes) [CONFIRMED] 28 insn(s); 28 executed (in up to 4/18 scenarios)
+
+Label_55_6453:: ; 55:6453
+	call Function_00_0464
+
+Label_55_6456:: ; 55:6456
+	ldh a, [rWY]
+	cp a, $90
+	ret nc
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0035
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C2AB]
+	cp a, $06
+	jr nz, Label_55_6478
+	call FarCall
+	dw Function_7F_7125
+	db BANK(Function_7F_7125)
+
+Label_55_6478:: ; 55:6478
+	cp a, $08
+	jr nz, Label_55_6482
+	call FarCall
+	dw Function_7F_7178
+	db BANK(Function_7F_7178)
+
+Label_55_6482:: ; 55:6482
+	cp a, $09
+	jr nz, Label_55_648C
+	call FarCall
+	dw Function_7F_71D6
+	db BANK(Function_7F_71D6)
+
+Label_55_648C:: ; 55:648C
+	cp a, $07
+	jr nz, Label_55_6496
+	call FarCall
+	dw Function_7F_721D
+	db BANK(Function_7F_721D)
+
+Label_55_6496:: ; 55:6496
+	ld a, [wRam_C2AB]
+	cp a, $05
+	jr nz, Label_55_64B6
+
+; ---- code $649D-$64B6 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_64B1
+	call Function_00_044B
+	jr Label_55_64B4
+
+Label_55_64B1:: ; 55:64B1
+	call Function_00_0464
+
+Label_55_64B4:: ; 55:64B4
+	jr Label_55_6502
+
+; ---- code $64B6-$6548 (146 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 8/18 scenarios)
+
+Label_55_64B6:: ; 55:64B6
+	ld a, [wRam_C2AB]
+	cp a, $06
+	jr nz, Label_55_64CA
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_713A
+	db BANK(Function_7F_713A)
+	jr Label_55_6502
+
+Label_55_64CA:: ; 55:64CA
+	cp a, $08
+	jr nz, Label_55_64DB
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_7194
+	db BANK(Function_7F_7194)
+	jr Label_55_6502
+
+Label_55_64DB:: ; 55:64DB
+	cp a, $09
+	jr nz, Label_55_64EC
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_71F2
+	db BANK(Function_7F_71F2)
+	jr Label_55_6502
+
+Label_55_64EC:: ; 55:64EC
+	cp a, $07
+	jr nz, Label_55_64FD
+	push de
+	call Function_00_0464
+	pop de
+	call FarCall
+	dw Function_7F_7224
+	db BANK(Function_7F_7224)
+	jr Label_55_6502
+
+Label_55_64FD:: ; 55:64FD
+	push de
+	call Function_00_0464
+	pop de
+
+Label_55_6502:: ; 55:6502
+	ld hl, $FF4A
+	ld a, [hl]
+	add a, $08
+	ld [hl], a
+	cp a, $90
+	jp c, Label_55_6496
+	call Function_00_047A
+	ldh a, [rLCDC]
+	and a, $DF
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	ret
+
+Function_55_651C:: ; 55:651C
+	ld hl, $DAA0
+	call Function_00_09E6
+	ld hl, $DAB0
+	call Function_00_09E6
+	ld hl, $DAC0
+	call Function_00_09E6
+	ld hl, $DAD0
+	call Function_00_09E6
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6548
+	call Function_00_044B
+	jr Label_55_654B
+
+; ---- code $6548-$654B (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6541 (executed)
+
+Label_55_6548:: ; 55:6548
+	call Function_00_0464
+
+; ---- code $654B-$658F (68 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 8/18 scenarios)
+
+Label_55_654B:: ; 55:654B
+	call Function_00_047A
+	ldh a, [rLCDC]
+	and a, $DF
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	ret
+
+Function_55_6559:: ; 55:6559
+	xor a, a
+	call Function_55_6427
+	ld a, $00
+	ld [wRam_C2AF], a
+	ret
+
+Label_55_6563:: ; 55:6563
+	call Function_00_047A
+	ldh a, [rLCDC]
+	or a, $20
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0034
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+
+Label_55_6580:: ; 55:6580
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6594
+
+; ---- code $658F-$6594 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:658D (executed)
+	call Function_00_044B
+	jr Label_55_6597
+
+; ---- code $6594-$65D7 (67 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
+
+Label_55_6594:: ; 55:6594
+	call Function_00_0464
+
+Label_55_6597:: ; 55:6597
+	ldh a, [rWY]
+	sub a, $08
+	cp a, $80
+	jr nz, Label_55_65A4
+	push af
+	call Function_55_6BD7
+	pop af
+
+Label_55_65A4:: ; 55:65A4
+	ldh [rWY], a
+	cp a, $60
+	jp nz, Label_55_6580
+	call Function_55_65DA
+	push af
+	call Function_55_6427
+	call Function_00_047A
+	ldh a, [rLCDC]
+	and a, $DF
+	ldh [rLCDC], a
+	ei
+	call Function_00_0392
+	call Function_55_7048
+	pop af
+	or a, a
+	jr nz, Label_55_65C9
+	ld a, $09
+	ret
+
+Label_55_65C9:: ; 55:65C9
+	ld a, [wRam_C2BC]
+	ld hl, $65D7
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $65D7-$65D8 (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_65D7:: ; 55:65D7
+	db $04
+
+; ---- data $65D8-$65D9 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_65D8:: ; 55:65D8
+	db $05
+
+; ---- data $65D9-$65DA (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_65D9:: ; 55:65D9
+	db $06
+
+; ---- code $65DA-$6602 (40 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_65DA:: ; 55:65DA
+	ld hl, $DAB0
+	ld de, $4CF8
+	ld a, $5F
+	ld b, $82
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+
+Label_55_65EA:: ; 55:65EA
+	call Function_55_667B
+
+Label_55_65ED:: ; 55:65ED
+	call FarCall
+	dw Function_7D_7BB7
+	db BANK(Function_7D_7BB7)
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6607
+
+; ---- code $6602-$6607 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:6600 (executed)
+	call Function_00_044B
+	jr Label_55_660A
+
+; ---- code $6607-$6662 (91 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
+
+Label_55_6607:: ; 55:6607
+	call Function_00_0464
+
+Label_55_660A:: ; 55:660A
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_55_661E
+	bit 1, a
+	jr nz, Label_55_6622
+	bit 5, a
+	jr nz, Label_55_6626
+	bit 4, a
+	jr nz, Label_55_6646
+	jr Label_55_65ED
+
+Label_55_661E:: ; 55:661E
+	ld a, $01
+	jr Label_55_6666
+
+Label_55_6622:: ; 55:6622
+	ld a, $00
+	jr Label_55_6666
+
+Label_55_6626:: ; 55:6626
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $C2BC
+	ld a, [hl]
+	or a, a
+	jr z, Label_55_6641
+	dec a
+	ld [hl], a
+	jr Label_55_65EA
+
+Label_55_6641:: ; 55:6641
+	ld a, $02
+	ld [hl], a
+	jr Label_55_65EA
+
+Label_55_6646:: ; 55:6646
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld hl, $C2BC
+	ld a, [hl]
+	cp a, $02
+	jr z, Label_55_6662
+	inc a
+	ld [hl], a
+	jr Label_55_65EA
+
+; ---- code $6662-$6666 (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:665C (executed)
+
+Label_55_6662:: ; 55:6662
+	xor a, a
+	ld [hl], a
+	jr Label_55_65EA
+
+; ---- code $6666-$66C0 (90 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios)
+
+Label_55_6666:: ; 55:6666
+	push af
+	ld hl, $DAA0
+	call Function_00_09E6
+	ld hl, $DAB0
+	call Function_00_09E6
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	pop af
+	ret
+
+Function_55_667B:: ; 55:667B
+	ld hl, $66C0
+	ld a, [wRam_C2BC]
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld d, $66
+	ld e, a
+	ld hl, $DAB0
+	call Function_00_0A65
+	ld a, [wRam_C2BC]
+	inc a
+	set 7, a
+	ld b, a
+	ld hl, $DAA0
+	ld de, $4D18
+	ld a, $5F
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld hl, $66C3
+	ld a, [wRam_C2BC]
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld d, $5D
+	ld e, a
+	ld hl, $DAA0
+	call Function_00_0A65
+	call Function_55_6BD7
+	ret
+
+; ---- data $66C0-$66C6 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_66C0:: ; 55:66C0
+	db $1E, $46, $6E, $1C, $44, $6C
+
+; ---- code $66C6-$66D9 (19 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_66C6:: ; 55:66C6
+	ldh [hRam_FFB0], a
+	ld a, [wRam_C2AB]
+	ld hl, $66D9
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $66D9-$66EF (22 bytes) [PROBABLE] code-pointer table, 11 entries: 8/11 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 55:66D8, base from `ld hl,$66D9`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 8/11 targets executed
+
+Table_55_66D9:: ; 55:66D9
+	dw Label_55_66EF
+	dw Label_55_6704
+	dw Label_55_672B
+	dw Label_55_6740
+	dw Label_55_6755
+	dw Label_55_679F
+	dw Label_55_6858
+	dw Label_55_696B
+	dw Label_55_696B
+	dw Label_55_6A7E
+	dw Label_55_6AC9
+
+; ---- code $66EF-$672B (60 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios)
+
+Label_55_66EF:: ; 55:66EF
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $4ECB
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+Label_55_6704:: ; 55:6704
+	ld de, $8800
+	ld hl, $57E0
+	ld a, $5E
+	ld b, $98
+	ld c, $02
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $50D3
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+; ---- code $672B-$6755 (42 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9
+
+Label_55_672B:: ; 55:672B
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $54E3
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+Label_55_6740:: ; 55:6740
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $56EB
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+; ---- code $6755-$679F (74 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
+
+Label_55_6755:: ; 55:6755
+	ld de, $8801
+	ld hl, $4000
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0018
+	ld de, $D828
+	ld hl, $4D28
+	ld a, $5E
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $52DB
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+; ---- code $679F-$6858 (185 bytes) [PROBABLE] 69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9
+
+Label_55_679F:: ; 55:679F
+	ld de, $8801
+	ld hl, $5900
+	ld a, $5F
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $5D00
+	ld a, $5F
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $6100
+	ld a, $5F
+	ld b, $97
+	ld c, $10
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0008
+	ld de, $D808
+	ld hl, $6BB8
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld bc, $0010
+	ld de, $D830
+	ld hl, $6BC0
+	ld a, $5F
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld bc, $0D14
+	ld de, $D240
+	ld hl, $69B0
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6B51
+	ret
+
+; ---- code $6858-$6869 (17 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
+
+Label_55_6858:: ; 55:6858
+	ld a, [wRam_C2AC]
+	ld hl, $6869
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $6869-$686F (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
+
+Table_55_6869:: ; 55:6869
+	dw Label_55_6871
+	dw Label_55_68AA
+	dw Label_55_68E3
+
+; ---- data $686F-$6871 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_686F:: ; 55:686F
+	db $1C, $69
+
+; ---- code $6871-$691C (171 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios)
+
+Label_55_6871:: ; 55:6871
+	ld de, $8801
+	ld hl, $4000
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4800
+	ld a, $66
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6952
+
+Label_55_68AA:: ; 55:68AA
+	ld de, $8801
+	ld hl, $4A40
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4E40
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5240
+	ld a, $66
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6952
+
+Label_55_68E3:: ; 55:68E3
+	ld de, $8801
+	ld hl, $5480
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $5880
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5C80
+	ld a, $66
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6952
+
+; ---- data $691C-$6928 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_691C:: ; 55:691C
+	db $11, $01, $88, $21, $C0, $5E, $3E, $66, $06, $92, $0E, $40
+
+; ---- code $6928-$6952 (42 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $62C0
+	ld a, $66
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $66C0
+	ld a, $66
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+
+; ---- code $6952-$697C (42 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
+
+Label_55_6952:: ; 55:6952
+	ldh a, [hRam_FFB0]
+	or a, a
+	ret z
+	ld bc, $0B14
+	ld de, $D240
+	ld hl, $7210
+	ld a, $66
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6AF0
+	ret
+
+Label_55_696B:: ; 55:696B
+	ld a, [wRam_C2AC]
+	ld hl, $697C
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $697C-$6982 (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
+
+Table_55_697C:: ; 55:697C
+	dw Label_55_6984
+	dw Label_55_69BD
+	dw Label_55_69F6
+
+; ---- data $6982-$6984 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6982:: ; 55:6982
+	db $2F, $6A
+
+; ---- code $6984-$6A2F (171 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 4/18 scenarios)
+
+Label_55_6984:: ; 55:6984
+	ld de, $8801
+	ld hl, $4000
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4800
+	ld a, $62
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6A65
+
+Label_55_69BD:: ; 55:69BD
+	ld de, $8801
+	ld hl, $4B00
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4F00
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5300
+	ld a, $62
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6A65
+
+Label_55_69F6:: ; 55:69F6
+	ld de, $8801
+	ld hl, $5600
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $5A00
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $5E00
+	ld a, $62
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jp Label_55_6A65
+
+; ---- data $6A2F-$6A3B (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6A2F:: ; 55:6A2F
+	db $11, $01, $88, $21, $00, $61, $3E, $62, $06, $92, $0E, $40
+
+; ---- code $6A3B-$6A65 (42 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $6500
+	ld a, $62
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $6900
+	ld a, $62
+	ld b, $95
+	ld c, $24
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+
+; ---- code $6A65-$6B18 (179 bytes) [CONFIRMED] 68 insn(s); 68 executed (in up to 5/18 scenarios)
+
+Label_55_6A65:: ; 55:6A65
+	ldh a, [hRam_FFB0]
+	or a, a
+	ret z
+	ld bc, $0B14
+	ld de, $D240
+	ld hl, $7210
+	ld a, $66
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6AF0
+	ret
+
+Label_55_6A7E:: ; 55:6A7E
+	ld de, $8801
+	ld hl, $4000
+	ld a, $5F
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $4400
+	ld a, $5F
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $4800
+	ld a, $5F
+	ld b, $98
+	ld c, $01
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0B14
+	ld de, $D240
+	ld hl, $4810
+	ld a, $5F
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6AF0
+	ret
+
+Label_55_6AC9:: ; 55:6AC9
+	ld de, $8A81
+	ld hl, $6900
+	ld a, $66
+	ld b, $96
+	ld c, $19
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld bc, $0614
+	ld de, $D240
+	ld hl, $73C8
+	ld a, $66
+	call FarCall
+	dw Function_00_08EA
+	db BANK(Function_00_08EA)
+	call Function_55_6AF0
+	ret
+
+Function_55_6AF0:: ; 55:6AF0
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [rLCDC]
+	and a, $40
+	swap a
+	add a, $98
+	ld d, a
+	ld e, $00
+	ld b, $96
+	ld c, $16
+	ld hl, $D240
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6B21
+
+; ---- code $6B18-$6B21 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:6B16 (executed)
+	xor a, a
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6B27
+
+; ---- code $6B21-$6B38 (23 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 5/18 scenarios)
+
+Label_55_6B21:: ; 55:6B21
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+Label_55_6B27:: ; 55:6B27
+	inc e
+	ld b, $96
+	ld c, $16
+	ld hl, $D640
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6B41
+
+; ---- code $6B38-$6B41 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:6B36 (executed)
+	xor a, a
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6B47
+
+; ---- code $6B41-$6B82 (65 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 7/18 scenarios)
+
+Label_55_6B41:: ; 55:6B41
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+Label_55_6B47:: ; 55:6B47
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_55_6B51:: ; 55:6B51
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [rLCDC]
+	and a, $40
+	swap a
+	add a, $98
+	ld d, a
+	ld e, $00
+	ld b, $96
+	ld c, $1A
+	ld hl, $D240
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6B82
+	xor a, a
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6B88
+
+; ---- code $6B82-$6B88 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6B77 (executed)
+
+Label_55_6B82:: ; 55:6B82
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+; ---- code $6B88-$6BA2 (26 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 7/18 scenarios)
+
+Label_55_6B88:: ; 55:6B88
+	inc e
+	ld b, $96
+	ld c, $1A
+	ld hl, $D640
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6BA2
+	xor a, a
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6BA8
+
+; ---- code $6BA2-$6BA8 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6B97 (executed)
+
+Label_55_6BA2:: ; 55:6BA2
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+; ---- code $6BA8-$6BF7 (79 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 11/18 scenarios)
+
+Label_55_6BA8:: ; 55:6BA8
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_55_6BB2:: ; 55:6BB2
+	ld a, [wRam_C2AB]
+	call Function_55_6E94
+	or a, a
+	ret z
+	ld a, [wRam_C2AC]
+	inc a
+	ld b, a
+	ld hl, $DAC0
+	ld de, $4D04
+	ld a, $5F
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld de, $8808
+	ld hl, $DAC0
+	call Function_00_0A65
+	ret
+
+Function_55_6BD7:: ; 55:6BD7
+	ld a, [wRam_C2BC]
+	ld hl, $6C0A
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $8801
+	ld b, $95
+	ld c, $28
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6C01
+
+; ---- code $6BF7-$6C01 (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:6BF5 (executed)
+	ld a, $66
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6C09
+
+; ---- code $6C01-$6C0A (9 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
+
+Label_55_6C01:: ; 55:6C01
+	ld a, $66
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+Label_55_6C09:: ; 55:6C09
+	ret
+
+; ---- data $6C0A-$6C10 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_6C0A:: ; 55:6C0A
+	db $90, $6A, $10, $6D, $90, $6F
+
+; ---- code $6C10-$6C39 (41 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6C10:: ; 55:6C10
+	ld a, $01
+	ld [wRam_C2B2], a
+	ret
+
+Function_55_6C16:: ; 55:6C16
+	ld a, [wRam_C2B2]
+	or a, a
+	ret z
+	ld hl, $C2AE
+	ld a, [hl]
+	or a, a
+	jr z, Label_55_6C28
+	cp a, $01
+	jr z, Label_55_6C2F
+	jr Label_55_6C45
+
+Label_55_6C28:: ; 55:6C28
+	dec hl
+	ld a, [hl]
+	call Function_55_6CC6
+	jr Label_55_6C48
+
+Label_55_6C2F:: ; 55:6C2F
+	dec hl
+	ld a, [hl]
+	cp a, $0D
+	jr z, Label_55_6C3B
+	cp a, $20
+	jr z, Label_55_6C40
+
+; ---- code $6C39-$6C3B (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:6C37 (executed)
+	jr Label_55_6C48
+
+; ---- code $6C3B-$6CD4 (153 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 11/18 scenarios)
+
+Label_55_6C3B:: ; 55:6C3B
+	ld bc, $83C0
+	jr Label_55_6C48
+
+Label_55_6C40:: ; 55:6C40
+	ld bc, $83BF
+	jr Label_55_6C48
+
+Label_55_6C45:: ; 55:6C45
+	dec hl
+	ld b, a
+	ld c, [hl]
+
+Label_55_6C48:: ; 55:6C48
+	ld hl, $0003
+	push hl
+	ld hl, $DE10
+	push hl
+	ld hl, $0003
+	push hl
+	ld hl, $DE00
+	push hl
+	push bc
+	call FarCall
+	dw Function_48_4748
+	db BANK(Function_48_4748)
+	add sp, 10
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wRam_C284]
+	ld [wSpriteSlots + 176], a
+	ld a, [wRam_C285]
+	ld [wSpriteSlots + 177], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $8241
+	ld hl, $DE00
+	ld b, $98
+	ld c, $02
+	ld a, [wRam_C2AB]
+	call Function_55_6F2E
+	or a, a
+	jr z, Label_55_6CB2
+	xor a, a
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	jr Label_55_6CB8
+
+Label_55_6CB2:: ; 55:6CB2
+	call FarCall
+	dw Function_00_0749
+	db BANK(Function_00_0749)
+
+Label_55_6CB8:: ; 55:6CB8
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	xor a, a
+	ld [wRam_C2B2], a
+	ret
+
+Function_55_6CC6:: ; 55:6CC6
+	sub a, $20
+	ld h, $00
+	ld l, a
+	add hl, hl
+	ld de, $6CD4
+	add hl, de
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ret
+
+; ---- data $6CD4-$6CEA (22 bytes) [HYPOTHESIS] UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6CD4:: ; 55:6CD4
+	db $81, $40, $81, $49, $81, $68, $81, $94, $81, $90, $81, $93, $81, $95, $81, $66
+	db $81, $69, $81, $6A, $81, $96
+
+; ---- data $6CEA-$6CEC (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_6CEA:: ; 55:6CEA
+	db $81, $7B
+
+; ---- data $6CEC-$6CF4 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6CEC:: ; 55:6CEC
+	db $81, $43, $81, $7C, $81, $44, $81, $5E
+
+; ---- data $6CF4-$6D08 (20 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6CF4:: ; 55:6CF4
+	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
+	db $82, $57, $82, $58
+
+; ---- data $6D08-$6D16 (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6D08:: ; 55:6D08
+	db $81, $46, $81, $47, $81, $83, $81, $81, $81, $84, $81, $48, $81, $97
+
+; ---- data $6D16-$6D4A (52 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+
+Data_55_6D16:: ; 55:6D16
+	db $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $82, $66, $82, $67
+	db $82, $68, $82, $69, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $82, $6F
+	db $82, $70, $82, $71, $82, $72, $82, $73, $82, $74, $82, $75, $82, $76, $82, $77
+	db $82, $78, $82, $79
+
+; ---- data $6D4A-$6D52 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6D4A:: ; 55:6D4A
+	db $81, $6D, $81, $8F, $81, $6E, $81, $4F
+
+; ---- data $6D52-$6D54 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_6D52:: ; 55:6D52
+	db $81, $51
+
+; ---- data $6D54-$6D56 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6D54:: ; 55:6D54
+	db $81, $4D
+
+; ---- data $6D56-$6D6C (22 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
+
+Data_55_6D56:: ; 55:6D56
+	db $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $82, $86, $82, $87, $82, $88
+	db $82, $89, $82, $8A, $82, $8B
+
+; ---- data $6D6C-$6D70 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6D6C:: ; 55:6D6C
+	db $82, $8C, $82, $8D
+
+; ---- data $6D70-$6D8A (26 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_6D70:: ; 55:6D70
+	db $82, $8E, $82, $8F, $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $82, $95
+	db $82, $96, $82, $97, $82, $98, $82, $99, $82, $9A
+
+; ---- data $6D8A-$6E94 (266 bytes) [HYPOTHESIS] UNCLASSIFIED 266 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6D8A:: ; 55:6D8A
+	db $81, $6F, $81, $62, $81, $70, $81, $50, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $42, $81, $75
+	db $81, $76, $81, $41, $81, $45, $83, $92, $83, $40, $83, $42, $83, $44, $83, $46
+	db $83, $48, $83, $83, $83, $85, $83, $87, $83, $62, $81, $5B, $83, $41, $83, $43
+	db $83, $45, $83, $47, $83, $49, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52
+	db $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63
+	db $83, $65, $83, $67, $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $83, $6E
+	db $83, $71, $83, $74, $83, $77, $83, $7A, $83, $7D, $83, $7E, $83, $80, $83, $81
+	db $83, $82, $83, $84, $83, $86, $83, $88, $83, $89, $83, $8A, $83, $8B, $83, $8C
+	db $83, $8D, $83, $8F, $83, $93, $81, $4A, $81, $4B, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
+
+; ---- code $6E94-$6E9F (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6E94:: ; 55:6E94
+	ld hl, $6E9F
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6E9F-$6EA1 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6E9F:: ; 55:6E9F
+	db $00, $00
+
+; ---- data $6EA1-$6EA3 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EA1:: ; 55:6EA1
+	db $00, $00
+
+; ---- data $6EA3-$6EA4 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6EA3:: ; 55:6EA3
+	db $00
+
+; ---- data $6EA4-$6EA5 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EA4:: ; 55:6EA4
+	db $00
+
+; ---- data $6EA5-$6EA9 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6EA5:: ; 55:6EA5
+	db $01, $01, $01, $00
+
+; ---- data $6EA9-$6EAA (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EA9:: ; 55:6EA9
+	db $00
+
+; ---- code $6EAA-$6EB5 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6EAA:: ; 55:6EAA
+	ld hl, $6EB5
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6EB5-$6EB7 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6EB5:: ; 55:6EB5
+	db $00, $00
+
+; ---- data $6EB7-$6EB9 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EB7:: ; 55:6EB7
+	db $00, $00
+
+; ---- data $6EB9-$6EBA (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6EB9:: ; 55:6EB9
+	db $00
+
+; ---- data $6EBA-$6EBD (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EBA:: ; 55:6EBA
+	db $00, $01, $01
+
+; ---- data $6EBD-$6EBE (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_6EBD:: ; 55:6EBD
+	db $01
+
+; ---- data $6EBE-$6EC0 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EBE:: ; 55:6EBE
+	db $01, $01
+
+; ---- code $6EC0-$6ECB (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6EC0:: ; 55:6EC0
+	ld hl, $6ECB
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6ECB-$6ECD (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6ECB:: ; 55:6ECB
+	db $01, $01
+
+; ---- data $6ECD-$6ECF (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6ECD:: ; 55:6ECD
+	db $01, $01
+
+; ---- data $6ECF-$6ED0 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6ECF:: ; 55:6ECF
+	db $01
+
+; ---- data $6ED0-$6ED1 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6ED0:: ; 55:6ED0
+	db $01
+
+; ---- data $6ED1-$6ED5 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6ED1:: ; 55:6ED1
+	db $00, $00, $00, $00
+
+; ---- data $6ED5-$6ED6 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6ED5:: ; 55:6ED5
+	db $00
+
+; ---- code $6ED6-$6EE1 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6ED6:: ; 55:6ED6
+	ld hl, $6EE1
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6EE1-$6EE3 (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6EE1:: ; 55:6EE1
+	db $00, $00
+
+; ---- data $6EE3-$6EE5 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EE3:: ; 55:6EE3
+	db $00, $00
+
+; ---- data $6EE5-$6EE6 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6EE5:: ; 55:6EE5
+	db $00
+
+; ---- data $6EE6-$6EE7 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EE6:: ; 55:6EE6
+	db $01
+
+; ---- data $6EE7-$6EEC (5 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6EE7:: ; 55:6EE7
+	db $01, $01, $01, $01, $01
+
+; ---- data $6EEC-$6F02 (22 bytes) [HYPOTHESIS] UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6EEC:: ; 55:6EEC
+	db $21, $F7, $6E, $85, $6F, $3E, $00, $8C, $67, $7E, $C9, $00, $00, $00, $00, $00
+	db $00, $01, $01, $01, $01, $01
+
+; ---- code $6F02-$6F0D (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6F02:: ; 55:6F02
+	ld hl, $6F0D
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6F0D-$6F0F (2 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6F0D:: ; 55:6F0D
+	db $00, $00
+
+; ---- data $6F0F-$6F11 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F0F:: ; 55:6F0F
+	db $00, $00
+
+; ---- data $6F11-$6F12 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6F11:: ; 55:6F11
+	db $00
+
+; ---- data $6F12-$6F13 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F12:: ; 55:6F12
+	db $01
+
+; ---- data $6F13-$6F17 (4 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_55_6F13:: ; 55:6F13
+	db $01, $00, $01, $01
+
+; ---- data $6F17-$6F18 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F17:: ; 55:6F17
+	db $00
+
+; ---- code $6F18-$6F23 (11 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6F18:: ; 55:6F18
+	ld hl, $6F23
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ret
+
+; ---- data $6F23-$6F25 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+
+Data_55_6F23:: ; 55:6F23
+	db $00, $00
+
+; ---- data $6F25-$6F27 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F25:: ; 55:6F25
+	db $00, $00
+
+; ---- data $6F27-$6F28 (1 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
+
+Data_55_6F27:: ; 55:6F27
+	db $00
+
+; ---- data $6F28-$6F2E (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F28:: ; 55:6F28
+	db $01, $01, $01, $01, $01, $00
+
+; ---- code $6F2E-$6F3B (13 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6F2E:: ; 55:6F2E
+	push hl
+	ld hl, $6F3B
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	pop hl
+	ret
+
+; ---- data $6F3B-$6F3D (2 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_55_6F3B:: ; 55:6F3B
+	db $01, $01
+
+; ---- data $6F3D-$6F3F (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F3D:: ; 55:6F3D
+	db $01, $01
+
+; ---- data $6F3F-$6F40 (1 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6F3F:: ; 55:6F3F
+	db $01
+
+; ---- data $6F40-$6F41 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F40:: ; 55:6F40
+	db $01
+
+; ---- data $6F41-$6F46 (5 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6F41:: ; 55:6F41
+	db $00, $00, $00, $00, $00
+
+; ---- data $6F46-$6FA1 (91 bytes) [HYPOTHESIS] UNCLASSIFIED 91 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6F46:: ; 55:6F46
+	db $FA, $B1, $C2, $3D, $B7, $28, $04, $EA, $B1, $C2, $C9, $CD, $7A, $04, $FA, $B0
+	db $C2, $3C, $E6, $03, $EA, $B0, $C2, $21, $9D, $6F, $85, $6F, $3E, $00, $8C, $67
+	db $7E, $EA, $B1, $C2, $FA, $B0, $C2, $87, $21, $95, $6F, $85, $6F, $7C, $CE, $00
+	db $67, $3E, $B2, $E0, $6A, $0E, $6B, $2A, $E2, $7E, $E2, $FB, $CD, $92, $03, $2B
+	db $3E, $07, $E0, $8D, $E0, $70, $11, $72, $D8, $2A, $12, $13, $7E, $12, $C9, $54
+	db $7F, $FF, $7F, $54, $7F, $12, $7E, $06, $0C, $06, $06
+
+; ---- code $6FA1-$6FC7 (38 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6FA1:: ; 55:6FA1
+	ld a, [wRam_C2AD]
+	ld b, a
+	ld c, $00
+	ld hl, $6FC7
+
+Label_55_6FAA:: ; 55:6FAA
+	ld a, [hli]
+	or a, a
+	jr z, Label_55_6FC5
+	cp a, b
+	jr z, Label_55_6FB3
+	jr Label_55_6FAA
+
+Label_55_6FB3:: ; 55:6FB3
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld c, $01
+
+Label_55_6FC5:: ; 55:6FC5
+	ld a, c
+	ret
+
+; ---- data $6FC7-$6FCD (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6FC7:: ; 55:6FC7
+	db $40, $2E, $2D, $5F, $2B, $00
+
+; ---- code $6FCD-$6FF4 (39 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_6FCD:: ; 55:6FCD
+	ld hl, $DAD0
+	ld de, $4D38
+	ld a, $5F
+	ld b, $81
+	call FarCall
+	dw Function_00_0A82
+	db BANK(Function_00_0A82)
+	ld a, [wRam_C2AB]
+	ld hl, $6FF4
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $DAD0
+	call Function_00_0A65
+	ret
+
+; ---- data $6FF4-$6FF8 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+
+Data_55_6FF4:: ; 55:6FF4
+	db $88, $50, $88, $60
+
+; ---- data $6FF8-$6FFC (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6FF8:: ; 55:6FF8
+	db $88, $60, $88, $68
+
+; ---- data $6FFC-$6FFE (2 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_55_6FFC:: ; 55:6FFC
+	db $88, $68
+
+; ---- data $6FFE-$7000 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_55_6FFE:: ; 55:6FFE
+	db $88, $68
+
+; ---- code $7000-$7082 (130 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
+
+Function_55_7000:: ; 55:7000
+	ld hl, $DAD0
+	call Function_00_09E6
+	ret
+
+Function_55_7007:: ; 55:7007
+	or a, a
+	jr nz, Label_55_700E
+	ld [wRam_C2BC], a
+	ret
+
+Label_55_700E:: ; 55:700E
+	ld hl, $BF05
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	ld [wRam_C2BC], a
+	ret
+
+Function_55_7048:: ; 55:7048
+	ld a, [wRam_C2BC]
+	ld hl, $BF05
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- zero $7082-$8000 (3966 bytes) [PROBABLE] trailing 0x00 padding to end of bank
+	ds $F7E, $00

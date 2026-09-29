@@ -1,0 +1,35 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4250	data	Data_44_4000	HYPOTHESIS	UNCLASSIFIED 592 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4250	4880	gfx	Data_44_4250	PROBABLE	tiles-2bpp: heuristic: 43 coherent tiles (hsim2=0.721 vsim2=0.706, 50 blank) parity 0
+4880	48A0	data	Data_44_4880	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+48A0	4CCA	gfx	Data_44_48A0	PROBABLE	tile data: heuristic: 55 coherent tiles (hsim2=0.654 vsim2=0.846, 10 blank) parity 0 [clipped from 48A0-4CD0 by higher-priority proposals]
+4CCA	4CD0	gfx	Data_44_4CCA	PROBABLE	tiles-2bpp: heuristic: 55 coherent tiles (hsim2=0.654 vsim2=0.846, 10 blank) parity 0 [clipped from 48A0-4CD0 by higher-priority evidence]
+4CD0	4D5A	data	Data_44_4CD0	PROBABLE	palette-rgb555: heuristic: 72 RGB555 words as 18 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 4CCA-4D5A by higher-priority evidence]
+4D5A	55D0	gfx	Data_44_4D5A	PROBABLE	tiles-2bpp: heuristic: 67 coherent tiles (hsim2=0.699 vsim2=0.676, 63 blank) parity 0 [clipped from 4D50-55D0 by higher-priority evidence]
+55D0	55FB	data	Data_44_55D0	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+55FB	5650	zero	-	HYPOTHESIS	0x00 run of 85 bytes
+5650	56F0	data	Data_44_5650	HYPOTHESIS	UNCLASSIFIED 160 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+56F0	5A10	gfx	Data_44_56F0	PROBABLE	tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.663 vsim2=0.868, 5 blank) parity 0
+5A10	5A30	data	Data_44_5A10	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5A30	5AA0	data	Data_44_5A30	PROBABLE	palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+5AA0	61A0	data	Data_44_5AA0	HYPOTHESIS	UNCLASSIFIED 1792 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+61A0	62A0	zero	-	HYPOTHESIS	0x00 run of 256 bytes
+62A0	634C	data	Data_44_62A0	HYPOTHESIS	UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+634C	63A0	zero	-	HYPOTHESIS	padding? run of 84 x $00 in unclassified bytes
+63A0	644A	data	Data_44_63A0	HYPOTHESIS	UNCLASSIFIED 170 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+644A	64A0	zero	-	HYPOTHESIS	padding? run of 86 x $00 in unclassified bytes
+64A0	65FC	data	Data_44_64A0	HYPOTHESIS	UNCLASSIFIED 348 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+65FC	6608	ptrtable	Table_44_65FC	PROBABLE	little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $4140..$4B4A; regular record stride between targets
+6608	6780	data	Data_44_6608	HYPOTHESIS	UNCLASSIFIED 376 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6780	6800	data	Data_44_6780	PROBABLE	palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+6800	6960	data	Data_44_6800	HYPOTHESIS	UNCLASSIFIED 352 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6960	6970	data	Data_44_6960	HYPOTHESIS	run of 16 x $FF (padding?) in unclassified bytes
+6970	6BB0	data	Data_44_6970	HYPOTHESIS	UNCLASSIFIED 576 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6BB0	6FF0	zero	-	HYPOTHESIS	0x00 run of 1088 bytes
+6FF0	709E	data	Data_44_6FF0	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+709E	70F0	zero	-	HYPOTHESIS	0x00 run of 82 bytes
+70F0	719E	data	Data_44_70F0	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+719E	71F1	zero	-	HYPOTHESIS	padding? run of 83 x $00 in unclassified bytes
+71F1	74BA	data	Data_44_71F1	HYPOTHESIS	UNCLASSIFIED 713 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+74BA	7542	data	Data_44_74BA	PROBABLE	palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+7542	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank [clipped from 7540-8000 by higher-priority proposals]

@@ -1,0 +1,91 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4050	data	Data_43_4000	HYPOTHESIS	UNCLASSIFIED 80 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4050	428F	gfx	Data_43_4050	PROBABLE	tile data: heuristic: 52 coherent tiles (hsim2=0.735 vsim2=0.688, 72 blank) parity 0 [clipped from 4050-4820 by higher-priority proposals]
+428F	4820	gfx	Data_43_428F	PROBABLE	tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.735 vsim2=0.688, 72 blank) parity 0 [clipped from 4050-4820 by higher-priority evidence]
+4820	48AD	data	Data_43_4820	HYPOTHESIS	UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+48AD	4900	zero	-	HYPOTHESIS	0x00 run of 83 bytes
+4900	4990	data	Data_43_4900	HYPOTHESIS	UNCLASSIFIED 144 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4990	4CCA	gfx	Data_43_4990	PROBABLE	tile data: heuristic: 45 coherent tiles (hsim2=0.703 vsim2=0.899, 5 blank) parity 0 [clipped from 4990-4CD0 by higher-priority proposals]
+4CCA	4CD0	gfx	Data_43_4CCA	PROBABLE	tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.703 vsim2=0.899, 5 blank) parity 0 [clipped from 4990-4CD0 by higher-priority evidence]
+4CD0	4D62	data	Data_43_4CD0	PROBABLE	palette-rgb555: heuristic: 76 RGB555 words as 19 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 4CCA-4D62 by higher-priority evidence]
+4D62	5121	data	Data_43_4D62	HYPOTHESIS	UNCLASSIFIED 959 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5121	5751	gfx	Data_43_5121	PROBABLE	tiles-2bpp: heuristic: 32 coherent tiles (hsim2=0.687 vsim2=0.661, 67 blank) parity 1
+5751	578D	data	Data_43_5751	HYPOTHESIS	UNCLASSIFIED 60 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+578D	579F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+579F	57A1	data	Data_43_579F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+57A1	57B3	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+57B3	57B5	data	Data_43_57B3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+57B5	57C7	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+57C7	57C9	data	Data_43_57C7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+57C9	57DB	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+57DB	57DD	data	Data_43_57DB	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+57DD	57EF	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+57EF	57F1	data	Data_43_57EF	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+57F1	5803	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+5803	5805	data	Data_43_5803	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5805	5817	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+5817	5819	data	Data_43_5817	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5819	582B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+582B	582D	data	Data_43_582B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+582D	583F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+583F	5841	data	Data_43_583F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5841	5853	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+5853	5855	data	Data_43_5853	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5855	5867	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+5867	5869	data	Data_43_5867	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5869	587B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+587B	58F5	data	Data_43_587B	HYPOTHESIS	UNCLASSIFIED 122 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+58F5	5907	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+5907	59D1	data	Data_43_5907	HYPOTHESIS	UNCLASSIFIED 202 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+59D1	59E3	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+59E3	5A50	data	Data_43_59E3	HYPOTHESIS	UNCLASSIFIED 109 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5A50	5AA0	data	Data_43_5A50	PROBABLE	palette-rgb555: heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+5AA0	5AC0	data	Data_43_5AA0	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5AC0	5AD5	zero	-	HYPOTHESIS	padding? run of 21 x $00 in unclassified bytes
+5AD5	5E60	data	Data_43_5AD5	HYPOTHESIS	UNCLASSIFIED 907 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5E60	5E70	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
+5E70	6040	data	Data_43_5E70	HYPOTHESIS	UNCLASSIFIED 464 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6040	6050	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
+6050	607B	data	Data_43_6050	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+607B	608B	data	Data_43_607B	PROBABLE	palette-rgb555: heuristic: 8 RGB555 words as 2 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+608B	6140	data	Data_43_608B	HYPOTHESIS	UNCLASSIFIED 181 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6140	62A0	zero	-	HYPOTHESIS	0x00 run of 352 bytes
+62A0	634E	data	Data_43_62A0	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+634E	63A0	zero	-	HYPOTHESIS	0x00 run of 82 bytes
+63A0	644C	data	Data_43_63A0	HYPOTHESIS	UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+644C	64A1	zero	-	HYPOTHESIS	padding? run of 85 x $00 in unclassified bytes
+64A1	677E	data	Data_43_64A1	HYPOTHESIS	UNCLASSIFIED 733 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+677E	67EE	data	Data_43_677E	PROBABLE	palette-rgb555: heuristic: 56 RGB555 words as 14 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+67EE	6C8E	data	Data_43_67EE	HYPOTHESIS	UNCLASSIFIED 1184 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6C8E	6FF2	zero	-	HYPOTHESIS	padding? run of 868 x $00 in unclassified bytes
+6FF2	70A0	data	Data_43_6FF2	HYPOTHESIS	UNCLASSIFIED 174 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+70A0	70F0	zero	-	HYPOTHESIS	0x00 run of 80 bytes
+70F0	7198	data	Data_43_70F0	HYPOTHESIS	UNCLASSIFIED 168 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7198	71F0	zero	-	HYPOTHESIS	0x00 run of 88 bytes
+71F0	722D	data	Data_43_71F0	HYPOTHESIS	UNCLASSIFIED 61 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+722D	723F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+723F	7241	data	Data_43_723F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7241	7253	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+7253	7255	data	Data_43_7253	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7255	7267	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+7267	7269	data	Data_43_7267	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7269	727B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+727B	727D	data	Data_43_727B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+727D	728F	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+728F	7291	data	Data_43_728F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7291	72A3	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+72A3	72A5	data	Data_43_72A3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72A5	72B7	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+72B7	72B9	data	Data_43_72B7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72B9	72CB	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+72CB	72CD	data	Data_43_72CB	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72CD	72DF	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+72DF	72E1	data	Data_43_72DF	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72E1	72F3	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+72F3	72F5	data	Data_43_72F3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72F5	7307	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+7307	7309	data	Data_43_7307	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7309	731B	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
+731B	74E8	data	Data_43_731B	HYPOTHESIS	UNCLASSIFIED 461 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+74E8	7540	data	Data_43_74E8	PROBABLE	palette-rgb555: heuristic: 44 RGB555 words as 11 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+7540	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

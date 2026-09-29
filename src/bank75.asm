@@ -6,14 +6,10238 @@ INCLUDE "ram.inc"
 
 SECTION "Bank75", ROMX[$4000], BANK[$75]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $1D4000, $30
+; ---- code $4000-$4070 (112 bytes) [CONFIRMED] 76 insn(s); 76 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Data_75_4030:: ; 75:4030
-	INCBIN "baserom.gbc", $1D4030, $16A2
+Function_75_4000:: ; 75:4000
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Function_75_4000
+	ret
 
-Data_75_56D2:: ; 75:56D2
-	INCBIN "baserom.gbc", $1D56D2, $218
+Function_75_4007:: ; 75:4007
+	ld a, [hli]
+	ld [de], a
+	or a, a
+	ret z
+	inc de
+	inc bc
+	jr Function_75_4007
 
-Data_75_58EA:: ; 75:58EA
-	INCBIN "baserom.gbc", $1D58EA, $2716
+Function_75_400F:: ; 75:400F
+	push bc
+	ld c, $00
+	ld b, a
+	dec b
+
+Label_75_4014:: ; 75:4014
+	ld a, [hli]
+	ld [de], a
+	or a, a
+	jr z, Label_75_4020
+	inc de
+	inc c
+	dec b
+	jr nz, Label_75_4014
+	xor a, a
+	ld [de], a
+
+Label_75_4020:: ; 75:4020
+	ld a, c
+	pop bc
+	add a, c
+	ld c, a
+	ld a, b
+	adc a, $00
+	ld b, a
+	ret
+
+Function_75_4029:: ; 75:4029
+	xor a, a
+	ld hl, $C8D7
+	ld [hli], a
+	ld [hl], a
+	ret
+
+Label_75_4030:: ; 75:4030
+	push de
+	ld a, [wMobileAPIIndex]
+	cp a, $0C
+	jr z, Label_75_4047
+	cp a, $0E
+	jr z, Label_75_4047
+	cp a, $10
+	jr z, Label_75_4047
+	xor a, a
+	ld [wRam_C6D4], a
+	ld a, [wMobileAPIIndex]
+
+Label_75_4047:: ; 75:4047
+	ld d, $00
+	ld e, a
+	ld hl, $4070
+	add hl, de
+	ld a, [hli]
+	ld [wMobileAPIIndex], a
+	ld a, [hl]
+	pop de
+	ld hl, $018D
+	push hl
+	ld h, a
+	ld a, [wMobileAPIIndex]
+	ld l, a
+	push hl
+	ld a, $35
+	cp a, l
+	jr nz, Label_75_4066
+	ld a, $42
+	cp a, h
+
+Label_75_4066:: ; 75:4066
+	call nz, Function_75_40B4
+	ld hl, $C823
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ret
+
+; ---- ptrtable $4070-$40B4 (68 bytes) [PROBABLE] code-pointer table, 34 entries: 34/34 words hit own-bank code starts (start is the operand of ld r16); 18/34 targets executed
+
+Table_75_4070:: ; 75:4070
+	dw Label_75_4115
+	dw Label_75_4235
+	dw Label_75_428E
+	dw Label_75_43B1
+	dw Label_75_443D
+	dw Label_75_44CB
+	dw Label_75_457D
+	dw Label_75_4587
+	dw Label_75_4591
+	dw Label_75_45E2
+	dw Label_75_46F4
+	dw Label_75_475C
+	dw Label_75_4804
+	dw Label_75_489E
+	dw Label_75_48A8
+	dw Label_75_490A
+	dw Label_75_49A9
+	dw Label_75_49FE
+	dw Label_75_4A60
+	dw Label_75_4C41
+	dw Label_75_4CA3
+	dw Label_75_4DE2
+	dw Label_75_5203
+	dw Label_75_540B
+	dw Function_75_40DC
+	dw Label_75_554A
+	dw Label_75_559F
+	dw Label_75_563A
+	dw Label_75_4329
+	dw Label_75_5495
+	dw Label_75_561D
+	dw Label_75_43A9
+	dw Label_75_4234
+	dw Label_75_5549
+
+; ---- code $40B4-$40C7 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_40B4:: ; 75:40B4
+	push bc
+
+Label_75_40B5:: ; 75:40B5
+	di
+	ld a, [wRam_C6A0]
+	ld b, a
+	ld a, [wRam_C6AB]
+	ld c, a
+	ld a, [wMobileFlags]
+	ei
+	or a, a
+	bit 0, a
+	jr z, Label_75_40DA
+
+; ---- code $40C7-$40DA (19 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 0; fall-through of the jrcc at 75:40C5 (executed)
+	ld a, b
+	or a, a
+	jr nz, Label_75_40B5
+	ld a, c
+	cp a, $04
+	jr z, Label_75_40B5
+	xor a, a
+	ld [wRam_C6AF], a
+	ld hl, $C69F
+	set 1, [hl]
+	scf
+
+; ---- code $40DA-$40ED (19 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 18/18 scenarios)
+
+Label_75_40DA:: ; 75:40DA
+	pop bc
+	ret
+
+Function_75_40DC:: ; 75:40DC
+	xor a, a
+	ldh [rTAC], a
+	ld e, c
+	ld b, a
+	ld hl, $6084
+	add hl, bc
+	ld c, [hl]
+	inc hl
+	ldh a, [rKEY1]
+	bit 7, a
+	jr nz, Label_75_40F9
+
+; ---- code $40ED-$40F9 (12 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 75:40EB (executed)
+	ld a, e
+	sra c
+	ld a, e
+	cp a, $04
+	jr nc, Label_75_40F9
+	ld de, $000F
+	add hl, de
+
+; ---- code $40F9-$411C (35 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
+
+Label_75_40F9:: ; 75:40F9
+	ld a, c
+	ldh [rTMA], a
+	ldh [rTIMA], a
+	ld a, [hli]
+	ld [wRam_C6BF], a
+	ld [wRam_C6B6], a
+	ld a, [hl]
+	ld [wRam_C6C0], a
+	ld [wRam_C6B5], a
+	ld c, $07
+	ld a, $02
+	ldh [c], a
+	ld a, $06
+	ldh [c], a
+	ret
+
+Label_75_4115:: ; 75:4115
+	ld hl, $C69F
+	bit 1, [hl]
+	jr nz, Label_75_4120
+
+; ---- code $411C-$4120 (4 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:411A (executed)
+	xor a, a
+	ld l, a
+	ld h, a
+	ret
+
+; ---- code $4120-$4154 (52 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios)
+
+Label_75_4120:: ; 75:4120
+	res 1, [hl]
+	ld a, [wRam_C6AF]
+	ld e, a
+	cp a, $22
+	jr z, Label_75_416A
+	cp a, $23
+	jr z, Label_75_416A
+	cp a, $25
+	jr z, Label_75_416A
+	cp a, $26
+	jr z, Label_75_418E
+	cp a, $24
+	jr z, Label_75_41A4
+	cp a, $30
+	jp z, Label_75_41F7
+	cp a, $31
+	jp z, Label_75_420C
+	cp a, $32
+	jr z, Label_75_41A4
+	cp a, $33
+	jr z, Label_75_41A4
+	swap a
+	and a, $0F
+	cp a, $01
+	jr z, Label_75_416A
+
+; ---- code $4154-$4158 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4152 (executed)
+	cp a, $00
+	jr z, Label_75_415D
+
+; ---- code $4158-$415D (5 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 4/18 scenarios)
+
+Label_75_4158:: ; 75:4158
+	ld hl, $0000
+
+Label_75_415B:: ; 75:415B
+	ld a, e
+	ret
+
+; ---- code $415D-$416A (13 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 75:4156 (PROBABLE code)
+
+Label_75_415D:: ; 75:415D
+	ld a, e
+	add a, $15
+	ld e, a
+	xor a, a
+	ld hl, $C6B0
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C69F
+
+; ---- code $416A-$418C (34 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios)
+
+Label_75_416A:: ; 75:416A
+	xor a, a
+	ld [wRam_C70C], a
+	ld [hl], a
+	ld [wRam_C6A7], a
+	inc a
+	ld [wRam_C709], a
+	ld hl, $C6C1
+	res 0, [hl]
+	res 5, [hl]
+	ld hl, $C9E4
+	xor a, a
+	ld [hli], a
+	inc a
+	ld [hl], a
+	call Function_75_5693
+	ld a, $15
+	cp a, e
+	jr nz, Label_75_4158
+
+; ---- code $418C-$41A4 (24 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; fall-through of the jrcc at 75:418A (executed)
+	jr Label_75_41D6
+
+Label_75_418E:: ; 75:418E
+	ld a, [wTimerEnable]
+	bit 4, a
+	ld a, $01
+	jr z, Label_75_416A
+	ld a, $02
+	ld [wRam_C709], a
+	ld a, [wRam_C6A5]
+	ld [wRam_C6A7], a
+	jr Label_75_4158
+
+; ---- code $41A4-$41E8 (68 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
+
+Label_75_41A4:: ; 75:41A4
+	res 0, [hl]
+	ld hl, $C6C1
+	res 5, [hl]
+	ld hl, $C69F
+	res 7, [hl]
+	res 6, [hl]
+	set 5, [hl]
+	xor a, a
+	ld [wRam_C70C], a
+	ld [wRam_C84C], a
+	ld a, $02
+	ld [wRam_C709], a
+	ld a, $04
+	ld [wRam_C6A7], a
+	ld a, e
+	cp a, $32
+	jr z, Label_75_41D6
+	cp a, $33
+	jr z, Label_75_41D6
+	cp a, $30
+	jr z, Label_75_41D6
+	cp a, $31
+	jr nz, Label_75_4158
+
+Label_75_41D6:: ; 75:41D6
+	ld hl, $C6B0
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $32
+	cp a, e
+	jp nz, Label_75_415B
+	ld a, $03
+	cp a, h
+	jp nz, Label_75_415B
+
+; ---- code $41E8-$4225 (61 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the jpcc at 75:41E5 (executed)
+	dec a
+	cp a, l
+	jr z, Label_75_41F1
+	dec a
+	cp a, l
+	jp nz, Label_75_415B
+
+Label_75_41F1:: ; 75:41F1
+	ld bc, $C71F
+	jp Label_75_415B
+
+Label_75_41F7:: ; 75:41F7
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $A4
+	jr z, Label_75_41A4
+	ld a, $03
+	ld [wRam_C709], a
+	ld hl, $C6B0
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp Label_75_415B
+
+Label_75_420C:: ; 75:420C
+	ld a, [wRam_C6B0]
+	cp a, $02
+	jr z, Label_75_41A4
+	cp a, $03
+	jr z, Label_75_41A4
+	ld a, $04
+	ld [wRam_C709], a
+	ld hl, $C6B0
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp Label_75_415B
+
+; ---- code $4225-$4230 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 3/18 scenarios)
+
+Function_75_4225:: ; 75:4225
+	ld a, $21
+
+Label_75_4227:: ; 75:4227
+	ld [wRam_C6AF], a
+	ld hl, $C69F
+	set 1, [hl]
+	ret
+
+; ---- code $4230-$4235 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x2, mobile x1; min discovery hops 0; entered by jp from 75:43D8 (PROBABLE code)
+
+Function_75_4230:: ; 75:4230
+	ld a, $20
+	jr Label_75_4227
+
+Label_75_4234:: ; 75:4234
+	nop
+
+; ---- code $4235-$4282 (77 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 18/18 scenarios)
+
+Label_75_4235:: ; 75:4235
+	ld a, [wMobileAPIIndex]
+	push af
+	push bc
+	push hl
+	xor a, a
+	ldh [rTAC], a
+	ldh a, [rIF]
+	and a, $1B
+	ldh [rIF], a
+	call Function_75_4029
+	ld bc, $0450
+	ld hl, $C69F
+
+Label_75_424D:: ; 75:424D
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, c
+	or a, b
+	jr nz, Label_75_424D
+	ld a, [wMobileFlags]
+	set 6, a
+	ld [wMobileFlags], a
+	pop hl
+	ld a, l
+	ldh [hROMBankLo], a
+	ld a, h
+	ldh [hROMBankHi], a
+	pop bc
+	ld hl, $C820
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hl], a
+	ld hl, $C70D
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	xor a, a
+	ld [wRam_C6B9], a
+	ld c, $0C
+	call Function_75_40DC
+	call Function_75_44B5
+	pop af
+	cp a, $34
+	jr nz, Label_75_4286
+
+; ---- code $4282-$4286 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4280 (executed)
+	ld a, $2B
+	jr Label_75_4288
+
+; ---- code $4286-$4295 (15 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 18/18 scenarios)
+
+Label_75_4286:: ; 75:4286
+	ld a, $0A
+
+Label_75_4288:: ; 75:4288
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_428E:: ; 75:428E
+	ld a, [wTimerEnable]
+	bit 1, a
+	jr z, Label_75_42A3
+
+; ---- code $4295-$42A3 (14 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:4293 (executed)
+	ld a, [wRam_C6AF]
+	cp a, $14
+	jr z, Label_75_42B0
+	cp a, $25
+	jr z, Label_75_42B0
+	ld a, [wTimerEnable]
+
+; ---- code $42A3-$42EB (72 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios)
+
+Label_75_42A3:: ; 75:42A3
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+
+Label_75_42B0:: ; 75:42B0
+	xor a, a
+	ldh [rTAC], a
+	xor a, a
+	ld [wRam_C6B9], a
+	ld a, l
+	ld b, h
+	ld hl, $C71F
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld hl, $C6C8
+	ld a, $11
+	ld [hli], a
+	ld a, $C7
+	ld [hl], a
+	ld de, $C9E4
+	ld b, $05
+	ld hl, $6059
+	call Function_75_4000
+	ld a, [wRam_C71F + 2]
+	ld c, a
+	or a, a
+	jr z, Label_75_42EF
+	cp a, $80
+	jr nc, Label_75_42EF
+
+; ---- code $42EB-$42EF (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:42E9 (executed)
+	ld c, $80
+	jr Label_75_42F1
+
+; ---- code $42EF-$4378 (137 bytes) [CONFIRMED] 75 insn(s); 75 executed (in up to 17/18 scenarios)
+
+Label_75_42EF:: ; 75:42EF
+	ld a, $80
+
+Label_75_42F1:: ; 75:42F1
+	ld b, a
+	inc a
+	ld [de], a
+	inc de
+	ld a, $80
+	add a, c
+	ld hl, $C721
+	ld [hli], a
+	ld a, [hl]
+	ld [de], a
+	inc de
+	add a, $80
+	ld [hl], a
+	ld hl, $C71F
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld c, b
+	call Function_75_4000
+	ld a, l
+	ld [wRam_C71F], a
+	ld a, h
+	ld [wRam_C71F + 1], a
+	ld b, c
+	inc b
+	call Function_75_5F6C
+	call Function_75_44B5
+	ld a, $2E
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 1, [hl]
+	set 0, [hl]
+	ret
+
+Label_75_4329:: ; 75:4329
+	ld a, [wTimerEnable]
+	bit 1, a
+	jp nz, Function_75_4225
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+	xor a, a
+	ldh [rTAC], a
+	ld [wRam_C6B9], a
+	ld hl, $C71F
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld de, $C9E4
+	ld b, $06
+	ld hl, $6041
+	call Function_75_4000
+	ld a, [wRam_C71F + 3]
+	ld [de], a
+	inc de
+	ld a, [wRam_C71F + 2]
+	ld c, a
+	or a, a
+	jr z, Label_75_437C
+	cp a, $80
+	jr nc, Label_75_437C
+
+; ---- code $4378-$437C (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4376 (executed)
+	ld c, $80
+	jr Label_75_437E
+
+; ---- code $437C-$43A7 (43 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 18/18 scenarios)
+
+Label_75_437C:: ; 75:437C
+	ld a, $80
+
+Label_75_437E:: ; 75:437E
+	ld [de], a
+	inc de
+	ld b, $02
+	call Function_75_5F6C
+	call Function_75_44B5
+	ld a, $2D
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Function_75_4390:: ; 75:4390
+	ld c, $FF
+	ldh a, [c]
+	or a, $0C
+	ldh [c], a
+	ret
+
+Function_75_4397:: ; 75:4397
+	ld b, $00
+
+Label_75_4399:: ; 75:4399
+	inc b
+	jr z, Label_75_43A0
+	ld a, [hli]
+	or a, a
+	jr nz, Label_75_4399
+
+Label_75_43A0:: ; 75:43A0
+	ld a, b
+	cp a, c
+	jr nc, Label_75_43A7
+	cp a, $02
+	ret
+
+; ---- code $43A7-$43A9 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 75:43A2 (executed)
+
+Label_75_43A7:: ; 75:43A7
+	scf
+	ret
+
+; ---- code $43A9-$43D7 (46 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios)
+
+Label_75_43A9:: ; 75:43A9
+	ld de, $C6D5
+	ld b, $08
+	call Function_75_4000
+
+Label_75_43B1:: ; 75:43B1
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+	push hl
+	ld c, $15
+	call Function_75_4397
+	jr c, Label_75_43D7
+	ld c, $22
+	call Function_75_4397
+	jr c, Label_75_43D7
+	ld c, $12
+	call Function_75_4397
+	jr nc, Label_75_43DB
+
+; ---- code $43D7-$43DB (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entered by jrcc from 75:43C7 (executed)
+
+Label_75_43D7:: ; 75:43D7
+	pop hl
+	jp Function_75_4230
+
+; ---- code $43DB-$443D (98 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
+
+Label_75_43DB:: ; 75:43DB
+	xor a, a
+	ldh [rTAC], a
+	ld [wRam_C70C], a
+	ld [wRam_C819], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld hl, $C6C8
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hl], a
+	call Function_75_448A
+	push hl
+	ld b, a
+	call Function_75_5F6C
+	ld b, $05
+	ld hl, $6032
+	ld de, $CA11
+	call Function_75_4000
+	inc de
+	inc de
+	pop hl
+	ld bc, $0000
+	call Function_75_4007
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 51], a
+	ld [wRam_C70A], a
+	push de
+	inc de
+	ld bc, $0000
+	ld a, $20
+	call Function_75_400F
+	ld l, e
+	ld h, d
+	pop de
+	ld a, c
+	ld [de], a
+	ld a, [wRam_C70A]
+	add a, c
+	add a, $0A
+	ld [wMobileSDK_PacketBuffer + 50], a
+	call Function_75_44B5
+	ld a, $0B
+	ld [wRam_C709], a
+
+Label_75_4437:: ; 75:4437
+	ld hl, $C69F
+	set 0, [hl]
+	ret
+
+; ---- code $443D-$448A (77 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: mobile x37; min discovery hops 0; run starts at SDK/API table entry api08 (analysis/mobile_candidates.json)
+
+Label_75_443D:: ; 75:443D
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+	push hl
+	ld c, $15
+	call Function_75_4397
+	jr nc, Label_75_4459
+	pop hl
+	jp Function_75_4230
+
+Label_75_4459:: ; 75:4459
+	xor a, a
+	ldh [rTAC], a
+	ld [wRam_C819], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld hl, $C82C
+	ld a, $20
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld a, $FF
+	ld [wRam_C70D], a
+	call Function_75_448A
+	ld b, a
+	call Function_75_5F6C
+	call Function_75_44B5
+	ld a, $0C
+	ld [wRam_C709], a
+	jr Label_75_4437
+
+; ---- code $448A-$449F (21 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_448A:: ; 75:448A
+	ld de, $C9E4
+	ld hl, $6018
+	ld b, $06
+	call Function_75_4000
+	pop bc
+	pop hl
+	push bc
+	ld a, [wMobileSDK_AdapterType]
+	cp a, $8C
+	jr c, Label_75_44A3
+
+; ---- code $449F-$44A3 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:449D (executed)
+	ld a, $03
+	jr Label_75_44A6
+
+; ---- code $44A3-$450C (105 bytes) [CONFIRMED] 45 insn(s); 45 executed (in up to 18/18 scenarios)
+
+Label_75_44A3:: ; 75:44A3
+	ld a, [wRam_C710]
+
+Label_75_44A6:: ; 75:44A6
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld a, $14
+	call Function_75_400F
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 5], a
+	ret
+
+Function_75_44B5:: ; 75:44B5
+	xor a, a
+	ld [wMobileSDK_SendCommandID], a
+	call Function_75_4390
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $0001
+	ld hl, $5FFB
+	ld b, $01
+	jp Function_75_5F10
+
+Label_75_44CB:: ; 75:44CB
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jr z, Label_75_452B
+	cp a, $03
+	jr z, Label_75_452B
+	cp a, $02
+	jp nz, Function_75_4225
+	ld hl, $C6C1
+	bit 4, [hl]
+	jr nz, Label_75_450C
+	ld a, $02
+	ld [wRam_C70A], a
+	ld a, $A2
+	ld [wMobileSDK_SendCommandID], a
+	ld de, $000A
+	ld hl, $6037
+	ld b, $05
+	call Function_75_5F10
+
+Label_75_44FF:: ; 75:44FF
+	ld a, $0E
+	ld [wRam_C709], a
+	ld hl, $C69F
+	set 0, [hl]
+	res 3, [hl]
+	ret
+
+; ---- code $450C-$452B (31 bytes) [PROBABLE] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by jrcc from 75:44E8 (executed)
+
+Label_75_450C:: ; 75:450C
+	ld a, [wRam_C6A7]
+	or a, a
+	jr nz, Label_75_4524
+	ld a, $01
+	ld [wRam_C709], a
+	ld hl, $C6C1
+	res 4, [hl]
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $17
+	ld [hl], a
+	ret
+
+Label_75_4524:: ; 75:4524
+	ld a, $02
+	ld [wRam_C70A], a
+	jr Label_75_44FF
+
+; ---- code $452B-$4586 (91 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 7/18 scenarios)
+
+Label_75_452B:: ; 75:452B
+	call Function_75_673A
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $CA04
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $07
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60BC
+	call Function_75_4007
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $0E
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_457D:: ; 75:457D
+	ld b, $25
+	call Function_75_459B
+	or a, a
+	jp nz, Label_75_757C
+
+; ---- code $4586-$4587 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 75:4583 (executed)
+	ret
+
+; ---- code $4587-$459A (19 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 8/18 scenarios)
+
+Label_75_4587:: ; 75:4587
+	ld b, $26
+	call Function_75_459B
+	or a, a
+	jp nz, Label_75_755F
+	ret
+
+Label_75_4591:: ; 75:4591
+	ld b, $27
+	call Function_75_459B
+	or a, a
+	jp nz, Label_75_756F
+
+; ---- code $459A-$459B (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 75:4597 (executed)
+	ret
+
+; ---- code $459B-$45DE (67 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_459B:: ; 75:459B
+	ld a, [wTimerEnable]
+	bit 0, a
+	jr nz, Label_75_45DE
+	ld a, [wRam_C709]
+	cp a, $01
+	jr nz, Label_75_45DE
+	ld a, [wRam_C6D4]
+	or a, a
+	ret nz
+	ld a, b
+	ld [wRam_C9D3], a
+	xor a, a
+	ldh [rTAC], a
+	ld a, e
+	ld [wRam_C70D], a
+	ld a, d
+	ld [wRam_C70D + 1], a
+	xor a, a
+	ld [wRam_C6B9], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld hl, $C6C8
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hl], a
+	call Function_75_44B5
+	ld a, [wRam_C9D3]
+	ld [wRam_C709], a
+	xor a, a
+	jp Label_75_4437
+
+; ---- code $45DE-$461A (60 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x2, mobile x27; min discovery hops 0; entered by jrcc from 75:45A0 (executed)
+
+Label_75_45DE:: ; 75:45DE
+	pop hl
+	jp Function_75_4225
+
+Label_75_45E2:: ; 75:45E2
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+	xor a, a
+	ldh [rTAC], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	ld hl, $C82C
+	ld a, $20
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld a, $FF
+	ld [wRam_C70D], a
+	call Function_75_44B5
+	ld a, $0D
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+; ---- code $461A-$4629 (15 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 7/18 scenarios)
+
+Label_75_461A:: ; 75:461A
+	ld b, $15
+	ld [wRam_C70D], a
+	or a, a
+	jr z, Label_75_462A
+	dec a
+	jr z, Label_75_4631
+	dec a
+	jp z, Label_75_46C6
+
+; ---- code $4629-$4631 (8 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 75:4626 (executed)
+	ret
+
+Label_75_462A:: ; 75:462A
+	ld a, $19
+	ld hl, $C6DD
+	jr Label_75_4636
+
+; ---- code $4631-$468B (90 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios)
+
+Label_75_4631:: ; 75:4631
+	ld a, $6E
+	ld hl, $C6F1
+
+Label_75_4636:: ; 75:4636
+	push hl
+	push bc
+	ld [wMobileSDK_PacketBuffer + 91], a
+	ld hl, $C6C8
+	ld a, $3A
+	ld [hli], a
+	ld a, $CA
+	ld [hl], a
+	xor a, a
+	ld [wMobileSDK_PacketBuffer + 90], a
+	ld [wRam_C70A], a
+	ld [wRam_C84C], a
+	ld de, $CA34
+	ld hl, $6078
+	ld b, $06
+	call Function_75_4000
+	ld de, $C9E4
+	ld hl, $605E
+	ld b, $05
+	call Function_75_4000
+	pop bc
+	pop hl
+	push de
+	inc de
+	ld a, b
+	ld bc, $0000
+	call Function_75_400F
+	ld a, c
+	pop hl
+	ld [hl], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, [wRam_C70D]
+	cp a, $02
+	jr nz, Label_75_46B1
+	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
+	or a, a
+	jr z, Label_75_46B1
+	ld hl, $C832
+	ld a, [hli]
+	cp a, $99
+	jr nz, Label_75_46B1
+
+; ---- code $468B-$46B1 (38 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 75:4689 (executed)
+	ld a, [hli]
+	cp a, $66
+	jr nz, Label_75_46B1
+	ld a, [hli]
+	cp a, $23
+	jr nz, Label_75_46B1
+	ld a, $02
+	ld [wRam_C70D], a
+	dec a
+	ld [wRam_C70A], a
+	ld a, $A3
+	ld de, $0010
+	ld hl, $C832
+	call Function_75_5F0B
+	ld a, $0F
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+; ---- code $46B1-$46F4 (67 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 7/18 scenarios)
+
+Label_75_46B1:: ; 75:46B1
+	ld hl, $C9E4
+	ld a, $A8
+	ld [wMobileSDK_SendCommandID], a
+	ld b, $05
+	call Function_75_5F10
+	ld a, $0F
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_46C6:: ; 75:46C6
+	ld b, $50
+	ld hl, $C715
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $0007
+	add hl, de
+	ld de, $C79E
+
+Label_75_46D5:: ; 75:46D5
+	ld a, [hli]
+	ld [de], a
+	cp a, $2F
+	jr z, Label_75_46DF
+	inc de
+	dec b
+	jr nz, Label_75_46D5
+
+Label_75_46DF:: ; 75:46DF
+	xor a, a
+	ld [de], a
+	dec hl
+	ld a, l
+	ld [wRam_C715], a
+	ld a, h
+	ld [wRam_C716], a
+	ld hl, $C79E
+	ld a, $50
+	ld b, $40
+	jp Label_75_4636
+
+; ---- code $46F4-$48A8 (436 bytes) [PROBABLE] 197 insn(s) reached by static flow only; seeds: mobile x197; min discovery hops 0; run starts at SDK/API table entry api14 (analysis/mobile_candidates.json)
+
+Label_75_46F4:: ; 75:46F4
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $02
+	jp nz, Function_75_4225
+	ld a, [wRam_C70C]
+	or a, a
+	jp nz, Function_75_4225
+	push hl
+	ld c, $20
+	call Function_75_4397
+	jr nc, Label_75_4717
+	pop hl
+	jp Function_75_4230
+
+Label_75_4717:: ; 75:4717
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $CA44
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld de, $CA54
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	inc de
+	inc de
+	ld bc, $0001
+	ld hl, $6099
+	call Function_75_4007
+	pop hl
+	push hl
+	ld b, $FF
+
+Label_75_4740:: ; 75:4740
+	inc b
+	ld a, [hli]
+	or a, a
+	jr z, Label_75_4749
+	cp a, $40
+	jr nz, Label_75_4740
+
+Label_75_4749:: ; 75:4749
+	ld a, c
+	add a, b
+	add a, $02
+	ld [wMobileSDK_PacketBuffer + 117], a
+	pop hl
+	call Function_75_4000
+	call Function_75_6974
+	ld a, $00
+	jp Label_75_461A
+
+Label_75_475C:: ; 75:475C
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $03
+	jp nz, Function_75_4225
+	ld a, [wRam_C827]
+	or a, a
+	jp nz, Function_75_4225
+	push hl
+
+Label_75_4774:: ; 75:4774
+	ld a, [hli]
+	or a, a
+	jr nz, Label_75_4774
+	ld a, [hl]
+	or a, a
+	jp z, Label_75_4800
+	pop hl
+	push hl
+	ld c, $20
+	call Function_75_4397
+	jr c, Label_75_4800
+
+Label_75_4786:: ; 75:4786
+	ld c, $81
+	call Function_75_4397
+	jr c, Label_75_4800
+	xor a, a
+	cp a, [hl]
+	jr nz, Label_75_4786
+	call Function_75_673A
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $C9F0
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld de, $C9F6
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld de, $C9F7
+	ld hl, $609F
+	call Function_75_4007
+	pop hl
+	call Function_75_4007
+	ld a, $3E
+	ld [de], a
+	inc de
+	inc c
+	ld a, l
+	ld [wRam_C71B], a
+	ld a, h
+	ld [wRam_C71C], a
+	call Function_75_6974
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 17], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9F0
+	ld d, $00
+	ld e, c
+	ld b, $05
+	call Function_75_5F10
+	ld a, $15
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_4800:: ; 75:4800
+	pop hl
+	jp Function_75_4230
+
+Label_75_4804:: ; 75:4804
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $03
+	jp nz, Function_75_4225
+	ld a, [wRam_C827]
+	or a, a
+	jp z, Function_75_4225
+	ld a, c
+	or a, b
+	jp z, Function_75_4230
+	ld a, l
+	ld [wRam_C71B], a
+	ld a, h
+	ld [wRam_C71C], a
+	ld hl, $C71D
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, d
+	ld [wRam_C70D + 1], a
+	call Function_75_673A
+	ld hl, $C827
+	ld a, [hl]
+	and a, $01
+	xor a, $01
+	ld [wRam_C70A], a
+	inc [hl]
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld de, $C9EA
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $CA7A
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld de, $CA80
+	ld a, [wRam_C70B]
+	ld [de], a
+	ld a, [wRam_C70A]
+	or a, a
+	jr nz, Label_75_4896
+	ld bc, $0001
+	ld de, $CA81
+	ld hl, $60B5
+	call Function_75_4007
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 155], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld de, $0011
+	ld hl, $CA7A
+	ld b, $05
+	call Function_75_5F10
+
+Label_75_4896:: ; 75:4896
+	ld a, $16
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_489E:: ; 75:489E
+	ld a, [wRam_C709]
+	cp a, $03
+	jp nz, Function_75_4225
+	jr Label_75_48B0
+
+; ---- code $48A8-$4934 (140 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 5/18 scenarios)
+
+Label_75_48A8:: ; 75:48A8
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+
+Label_75_48B0:: ; 75:48B0
+	ld hl, $C69F
+	bit 0, [hl]
+	jp nz, Function_75_4225
+	call Function_75_673A
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $CA04
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $07
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60BC
+	call Function_75_4007
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $17
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_490A:: ; 75:490A
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $02
+	jp nz, Function_75_4225
+	ld a, [wRam_C70C]
+	or a, a
+	jp nz, Function_75_4225
+	xor a, a
+	ld [wRam_C70A], a
+	push hl
+	ld c, $20
+	call Function_75_4397
+	jr c, Label_75_4934
+	ld c, $22
+	call Function_75_4397
+	jr nc, Label_75_4938
+
+; ---- code $4934-$4938 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entered by jrcc from 75:492B (executed)
+
+Label_75_4934:: ; 75:4934
+	pop hl
+	jp Function_75_4230
+
+; ---- code $4938-$49FE (198 bytes) [CONFIRMED] 87 insn(s); 87 executed (in up to 5/18 scenarios)
+
+Label_75_4938:: ; 75:4938
+	ld de, $CA44
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	inc de
+	inc de
+	ld hl, $60C3
+	call Function_75_4007
+	pop hl
+	push hl
+	ld b, $FF
+
+Label_75_494F:: ; 75:494F
+	inc b
+	ld a, [hli]
+	or a, a
+	jr z, Label_75_4958
+	cp a, $40
+	jr nz, Label_75_494F
+
+Label_75_4958:: ; 75:4958
+	ld a, b
+	add a, $06
+	ld c, a
+	ld [wMobileSDK_PacketBuffer + 101], a
+	pop hl
+	ld de, $CA50
+	call Function_75_4000
+
+Label_75_4966:: ; 75:4966
+	ld a, [hli]
+	or a, a
+	jr nz, Label_75_4966
+	call Function_75_6974
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 101], a
+	ld bc, $0006
+	ld de, $CA90
+	ld a, $20
+	call Function_75_400F
+	call Function_75_6974
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 165], a
+	ld de, $CA84
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld de, $CA8B
+	ld hl, $60C9
+	ld b, $05
+	call Function_75_4000
+	ld de, $CA64
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, $01
+	jp Label_75_461A
+
+Label_75_49A9:: ; 75:49A9
+	ld hl, $C69F
+	bit 0, [hl]
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+	ld a, e
+	ld [wRam_C70D], a
+	ld a, d
+	ld [wRam_C70D + 1], a
+	xor a, a
+	ld [wRam_C70A], a
+	call Function_75_673F
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $07
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60CF
+	call Function_75_4007
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $18
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+; ---- code $49FE-$4DE2 (996 bytes) [PROBABLE] 552 insn(s) reached by static flow only; seeds: mobile x552; min discovery hops 0; run starts at SDK/API table entry api22 (analysis/mobile_candidates.json)
+
+Label_75_49FE:: ; 75:49FE
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+	xor a, a
+	ld [wRam_C70A], a
+	ld a, e
+	ld [wRam_C70D], a
+	ld a, d
+	ld [wRam_C70D + 1], a
+	ld a, l
+	or a, h
+	jp z, Function_75_4230
+	push hl
+	call Function_75_673F
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $0D
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60D6
+	call Function_75_4007
+	ld de, $C9F0
+	pop hl
+	call Function_75_4D3C
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $1D
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_4A60:: ; 75:4A60
+	ld a, [wTimerEnable]
+	bit 2, a
+	jr z, Label_75_4A72
+	ld a, [wRam_C709]
+	cp a, $1A
+	jp nz, Function_75_4225
+	jp Label_75_4AF9
+
+Label_75_4A72:: ; 75:4A72
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+	ld a, l
+	or a, h
+	jp z, Function_75_4230
+	ld a, l
+	ld [wRam_C70D], a
+	ld a, h
+	ld [wRam_C70D + 1], a
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc de
+	inc de
+	dec bc
+	dec bc
+	ld hl, $C82C
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hl], a
+	ld hl, $C6C8
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	ld a, $80
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $0D
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60E3
+	call Function_75_4007
+	ld de, $C9F0
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Function_75_4D3C
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $1A
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_4AF9:: ; 75:4AF9
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc de
+	inc de
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld e, [hl]
+	ld a, b
+	or a, c
+	ld [wRam_C70D], a
+	ld [wRam_C70D + 1], a
+	jr z, Label_75_4B61
+	dec bc
+	dec bc
+	ld a, [wRam_C830]
+	or a, a
+	jp nz, Label_75_4BDA
+	ld a, [wRam_C831]
+	or a, a
+	jr z, Label_75_4B21
+	ld e, a
+
+Label_75_4B21:: ; 75:4B21
+	xor a, a
+	ld [wRam_C831], a
+	cp a, b
+	jr nz, Label_75_4B61
+	ld a, e
+	cp a, c
+	jr c, Label_75_4B61
+	push bc
+	sub a, c
+	ld [hl], a
+	ld b, c
+	ld hl, $C6CC
+	ld a, [wRam_C830]
+	add a, c
+	ld [hli], a
+	ld a, b
+	adc a, $00
+	ld [hl], a
+	xor a, a
+	ld [wRam_C830], a
+	ld hl, $C8DC
+	ld a, [hli]
+	inc hl
+	sub a, e
+	dec a
+	ld e, a
+	ld d, $00
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	pop bc
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	ret
+
+Label_75_4B61:: ; 75:4B61
+	ld a, c
+	sub a, e
+	ld c, a
+	ld a, b
+	sbc a, $00
+	ld b, a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	ld hl, $C6CC
+	ld a, [wRam_C830]
+	add a, e
+	ld [hli], a
+	ld a, $00
+	adc a, $00
+	ld [hl], a
+	xor a, a
+	ld [wRam_C830], a
+	ld a, [wRam_C70D]
+	or a, a
+	jr z, Label_75_4BA0
+	ld b, e
+	ld hl, $C8DC
+	ld a, [hli]
+	inc hl
+	sub a, e
+	dec a
+	ld e, a
+	ld d, $00
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+
+Label_75_4BA0:: ; 75:4BA0
+	call Function_75_6809
+	jr z, Label_75_4BC0
+	di
+	ld hl, $C69F
+	res 2, [hl]
+	ld a, $01
+	ld [wRam_C70A], a
+	ld de, $000B
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $CA64
+	ld b, $05
+	jp Function_75_5F10
+
+Label_75_4BC0:: ; 75:4BC0
+	ld a, $04
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	res 2, [hl]
+	ld hl, $C6C6
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld hl, $C6CC
+	ld b, $02
+	jp Function_75_4000
+
+Label_75_4BDA:: ; 75:4BDA
+	ld e, a
+	xor a, a
+	cp a, b
+	jr nz, Label_75_4C0A
+	ld a, e
+	cp a, c
+	jr c, Label_75_4C0A
+	ld b, c
+	ld hl, $C830
+	ld a, [hl]
+	sub a, c
+	ld [hl], a
+	ld a, $80
+	sub a, e
+	ld e, a
+	ld d, $00
+	ld hl, $C71F
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, c
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ret
+
+Label_75_4C0A:: ; 75:4C0A
+	push hl
+	push bc
+	ld a, [wRam_C830]
+	ld b, a
+	ld a, $80
+	sub a, e
+	ld e, a
+	ld d, $00
+	ld hl, $C71F
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	ld a, e
+	ld [wRam_C6C8], a
+	ld a, d
+	ld [wRam_C6C9], a
+	pop bc
+	ld a, [wRam_C830]
+	ld e, a
+	ld a, c
+	sub a, e
+	ld c, a
+	ld a, b
+	sbc a, $00
+	ld b, a
+	ld a, [wRam_C831]
+	ld e, a
+	pop hl
+	jp Label_75_4B21
+
+Label_75_4C41:: ; 75:4C41
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+	ld a, l
+	or a, h
+	jp z, Function_75_4230
+	ld a, l
+	ld [wRam_C70D], a
+	ld a, h
+	ld [wRam_C70D + 1], a
+	call Function_75_673F
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $0D
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60F0
+	call Function_75_4007
+	ld de, $C9F0
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Function_75_4D3C
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $1B
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_4CA3:: ; 75:4CA3
+	ld a, [wTimerEnable]
+	bit 2, a
+	jr z, Label_75_4CB5
+	ld a, [wRam_C709]
+	cp a, $1C
+	jp nz, Function_75_4225
+	jp Label_75_4AF9
+
+Label_75_4CB5:: ; 75:4CB5
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $04
+	jp nz, Function_75_4225
+	ld a, l
+	or a, h
+	jp z, Function_75_4230
+	ld a, l
+	ld [wRam_C70D], a
+	ld a, h
+	ld [wRam_C70D + 1], a
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc de
+	inc de
+	dec bc
+	dec bc
+	ld hl, $C82C
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hl], a
+	ld hl, $C6C8
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	ld a, $80
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	xor a, a
+	ld [wRam_C70A], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	ld a, $0E
+	ld [de], a
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	ld hl, $60FD
+	call Function_75_4007
+	ld de, $C9EF
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Function_75_4D3C
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $1C
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Function_75_4D3C:: ; 75:4D3C
+	push bc
+	push de
+	ld b, $00
+
+Label_75_4D40:: ; 75:4D40
+	ld a, $27
+	cp a, h
+	jr c, Label_75_4D4E
+	jr nz, Label_75_4D57
+	ld a, $10
+	cp a, l
+	jr z, Label_75_4D4E
+	jr nc, Label_75_4D57
+
+Label_75_4D4E:: ; 75:4D4E
+	inc b
+	ld a, b
+	ld bc, $D8F0
+	add hl, bc
+	ld b, a
+	jr Label_75_4D40
+
+Label_75_4D57:: ; 75:4D57
+	ld a, $30
+	or a, b
+	ld [de], a
+	inc de
+	ld b, $00
+
+Label_75_4D5E:: ; 75:4D5E
+	ld a, $03
+	cp a, h
+	jr c, Label_75_4D6C
+	jr nz, Label_75_4D75
+	ld a, $E8
+	cp a, l
+	jr z, Label_75_4D6C
+	jr nc, Label_75_4D75
+
+Label_75_4D6C:: ; 75:4D6C
+	inc b
+	ld a, b
+	ld bc, $FC18
+	add hl, bc
+	ld b, a
+	jr Label_75_4D5E
+
+Label_75_4D75:: ; 75:4D75
+	ld a, $30
+	or a, b
+	ld [de], a
+	inc de
+	ld b, $00
+
+Label_75_4D7C:: ; 75:4D7C
+	ld a, $00
+	cp a, h
+	jr nz, Label_75_4D88
+	ld a, $64
+	cp a, l
+	jr z, Label_75_4D88
+	jr nc, Label_75_4D91
+
+Label_75_4D88:: ; 75:4D88
+	inc b
+	ld a, b
+	ld bc, $FF9C
+	add hl, bc
+	ld b, a
+	jr Label_75_4D7C
+
+Label_75_4D91:: ; 75:4D91
+	ld a, $30
+	or a, b
+	ld [de], a
+	inc de
+	ld b, $00
+	ld a, l
+
+Label_75_4D99:: ; 75:4D99
+	cp a, $0A
+	jr c, Label_75_4DA2
+	sub a, $0A
+	inc b
+	jr Label_75_4D99
+
+Label_75_4DA2:: ; 75:4DA2
+	ld l, a
+	ld a, $30
+	or a, b
+	ld [de], a
+	inc de
+	ld a, $30
+	or a, l
+	ld [de], a
+	pop de
+	ld l, e
+	ld h, d
+	ld b, $05
+
+Label_75_4DB1:: ; 75:4DB1
+	ld a, [hl]
+	cp a, $30
+	jr nz, Label_75_4DBC
+	inc hl
+	dec b
+	jr nz, Label_75_4DB1
+	jr Label_75_4DDA
+
+Label_75_4DBC:: ; 75:4DBC
+	ld a, $05
+	cp a, b
+	jr z, Label_75_4DDA
+	sub a, b
+	ld c, a
+	ld a, [wMobileSDK_PacketBuffer + 5]
+	sub a, c
+	ld c, a
+	ld [wMobileSDK_PacketBuffer + 5], a
+	push hl
+	ld b, $01
+
+Label_75_4DCE:: ; 75:4DCE
+	inc b
+	ld a, [hli]
+	cp a, $0D
+	jr nz, Label_75_4DCE
+	pop hl
+	call Function_75_4000
+	pop hl
+	ret
+
+Label_75_4DDA:: ; 75:4DDA
+	pop bc
+
+Label_75_4DDB:: ; 75:4DDB
+	ld a, [de]
+	inc de
+	cp a, $0A
+	jr nz, Label_75_4DDB
+	ret
+
+; ---- code $4DE2-$4DEC (10 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
+
+Label_75_4DE2:: ; 75:4DE2
+	ld a, [wTimerEnable]
+	bit 2, a
+	ld a, [wRam_C709]
+	jr z, Label_75_4E05
+
+; ---- code $4DEC-$4E05 (25 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 75:4DEA (executed)
+	cp a, $13
+	jp z, Label_75_5049
+	cp a, $1F
+	jp z, Label_75_5049
+	cp a, $21
+	jp z, Label_75_5049
+	jp Function_75_4225
+
+Label_75_4DFE:: ; 75:4DFE
+	pop hl
+
+Label_75_4DFF:: ; 75:4DFF
+	pop hl
+	pop hl
+	pop hl
+
+Label_75_4E02:: ; 75:4E02
+	jp Function_75_4230
+
+; ---- code $4E05-$4E4A (69 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
+
+Label_75_4E05:: ; 75:4E05
+	cp a, $02
+	jp nz, Function_75_4225
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C70C]
+	or a, a
+	jp nz, Function_75_4225
+	ld a, l
+	ld [wRam_C852], a
+	ld a, h
+	ld [wRam_C853], a
+	xor a, a
+	ld [wRam_C826], a
+	ld [wRam_C842], a
+	ld [wRam_C827], a
+	ld [wRam_C830], a
+	ld a, [hli]
+	ld [wRam_C6D2], a
+	ld a, [hli]
+	ld [wRam_C6D3], a
+	inc hl
+	inc hl
+	ld a, l
+	ld [wRam_C81E], a
+	ld a, h
+	ld [wRam_C81F], a
+	dec hl
+	dec hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $1F
+	cp a, l
+	jr nz, Label_75_4E4F
+
+; ---- code $4E4A-$4E4F (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:4E48 (executed)
+	ld a, $C7
+	cp a, h
+	jr z, Label_75_4E02
+
+; ---- code $4E4F-$4E72 (35 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios)
+
+Label_75_4E4F:: ; 75:4E4F
+	push hl
+	push de
+	push bc
+	push hl
+	ld b, $07
+	ld de, $4FB2
+
+Label_75_4E58:: ; 75:4E58
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_4DFE
+	inc hl
+	dec b
+	jr nz, Label_75_4E58
+	push hl
+	ld b, $23
+	ld c, $00
+	ld de, $4FDE
+
+Label_75_4E69:: ; 75:4E69
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_4E75
+	inc hl
+	dec b
+	jr nz, Label_75_4E69
+
+; ---- code $4E72-$4E75 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4E70 (executed)
+	pop hl
+	jr Label_75_4DFE
+
+; ---- code $4E75-$4E87 (18 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
+
+Label_75_4E75:: ; 75:4E75
+	pop hl
+	push hl
+	ld b, $24
+	ld c, $00
+	ld de, $5025
+
+Label_75_4E7E:: ; 75:4E7E
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_4E8B
+	inc hl
+	dec b
+	jr nz, Label_75_4E7E
+
+; ---- code $4E87-$4E8B (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:4E85 (executed)
+	pop hl
+	jp Label_75_4DFE
+
+; ---- code $4E8B-$4EE0 (85 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 2/18 scenarios)
+
+Label_75_4E8B:: ; 75:4E8B
+	pop hl
+	push hl
+	ld b, $24
+	ld c, $00
+	ld de, $5001
+
+Label_75_4E94:: ; 75:4E94
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_4EA7
+	inc hl
+	dec b
+	jr nz, Label_75_4E94
+	pop hl
+	ld a, $01
+	ld [wRam_C827], a
+	ld c, $01
+	jr Label_75_4EB8
+
+Label_75_4EA7:: ; 75:4EA7
+	pop hl
+	ld b, $25
+	ld c, $00
+	ld de, $4FB9
+
+Label_75_4EAF:: ; 75:4EAF
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_4ED0
+	inc hl
+	dec b
+	jr nz, Label_75_4EAF
+
+Label_75_4EB8:: ; 75:4EB8
+	ld hl, $C81E
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld c, $12
+	call Function_75_4397
+	jp c, Label_75_4DFE
+	ld c, $12
+	call Function_75_4397
+	jp c, Label_75_4DFE
+	ld c, $01
+
+Label_75_4ED0:: ; 75:4ED0
+	ld a, c
+	ld [wRam_C82C], a
+	ld [wMobileSDK_ReceivePacketBuffer + 128], a
+	pop hl
+	call Function_75_51DC
+	ld a, b
+	cp a, $04
+	jr c, Label_75_4EE8
+
+; ---- code $4EE0-$4EE8 (8 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:4EDE (executed)
+	jp nz, Label_75_4DFF
+	xor a, a
+	or a, c
+	jp nz, Label_75_4DFF
+
+; ---- code $4EE8-$4F2D (69 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
+
+Label_75_4EE8:: ; 75:4EE8
+	ld hl, $C828
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	pop bc
+	pop de
+	pop hl
+	ld a, l
+	ld [wRam_C715], a
+	ld a, h
+	ld [wRam_C716], a
+	ld hl, $C711
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc hl
+	inc hl
+	xor a, a
+	ld [wRam_C831], a
+
+Label_75_4F0C:: ; 75:4F0C
+	ld hl, $C6D2
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	or a, h
+	jr z, Label_75_4F17
+	xor a, a
+	ld [hl], a
+
+Label_75_4F17:: ; 75:4F17
+	ld hl, $C82E
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C705
+	ld a, [hli]
+	or a, [hl]
+	inc hl
+	or a, [hl]
+	inc hl
+	or a, [hl]
+	jr nz, Label_75_4F2D
+	ld a, $02
+	jp Label_75_461A
+
+; ---- code $4F2D-$4FB2 (133 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1; entered by jrcc from 75:4F26 (executed)
+
+Label_75_4F2D:: ; 75:4F2D
+	ld a, $02
+	ld [wRam_C70D], a
+	ld a, $1F
+	ld [wMobileSDK_PacketBuffer + 10], a
+	ld a, $90
+	ld [wMobileSDK_PacketBuffer + 11], a
+	ld a, $01
+	ld [wRam_C70A], a
+	ld de, $C9E4
+	ld hl, $6078
+	ld b, $06
+	call Function_75_4000
+	ld hl, $C705
+	ld b, $04
+	call Function_75_4000
+	inc de
+	inc de
+	ld b, $06
+	call Function_75_5F6C
+	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
+	or a, a
+	jr z, Label_75_4F9A
+	ld hl, $C832
+	ld a, [hli]
+	cp a, $99
+	jr nz, Label_75_4F8F
+	ld a, [hli]
+	cp a, $66
+	jr nz, Label_75_4F8F
+	ld a, [hli]
+	cp a, $23
+	jr nz, Label_75_4F8F
+	ld a, $02
+	ld [wRam_C70D], a
+	dec a
+	ld [wRam_C70A], a
+	ld a, $A3
+	ld de, $0010
+	ld hl, $C832
+	call Function_75_5F0B
+	ld a, $0F
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_4F8F:: ; 75:4F8F
+	ld hl, $C9E4
+	ld de, $C832
+	ld b, $10
+	call Function_75_4000
+
+Label_75_4F9A:: ; 75:4F9A
+	ld de, $0010
+	ld hl, $C9E4
+	ld a, $A3
+	ld [wMobileSDK_SendCommandID], a
+	ld b, $05
+	call Function_75_5F10
+	ld a, $0F
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+; ---- data $4FB2-$4FD3 (33 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_4FB2:: ; 75:4FB2
+	db $68, $74, $74, $70, $3A, $2F, $2F, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64
+	db $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F
+	db $63
+
+; ---- data $4FD3-$4FDE (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_4FD3:: ; 75:4FD3
+	db $67, $62, $2F, $64, $6F, $77, $6E, $6C, $6F, $61, $64
+
+; ---- data $4FDE-$4FFD (31 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_4FDE:: ; 75:4FDE
+	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74
+	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $70
+
+; ---- data $4FFD-$5001 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_4FFD:: ; 75:4FFD
+	db $6C, $6F, $61, $64
+
+; ---- data $5001-$5043 (66 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_5001:: ; 75:5001
+	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74
+	db $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $74, $69
+	db $6C, $69, $74, $79, $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61
+	db $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62
+	db $2F, $72
+
+; ---- data $5043-$5049 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_5043:: ; 75:5043
+	db $61, $6E, $6B, $69, $6E, $67
+
+; ---- code $5049-$5118 (207 bytes) [PROBABLE] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 1; entered by jpcc from 75:4DEE (PROBABLE code)
+
+Label_75_5049:: ; 75:5049
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc de
+	inc de
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld e, [hl]
+	ld a, b
+	or a, c
+	ld [wRam_C70D], a
+	ld [wRam_C70D + 1], a
+	dec bc
+	dec bc
+	jp z, Label_75_51CF
+	ld a, [wRam_C82E]
+	or a, a
+	call nz, Function_75_5164
+	xor a, a
+	cp a, e
+	jp z, Label_75_50F0
+	xor a, a
+	cp a, b
+	jr nz, Label_75_50B1
+	ld a, e
+	cp a, c
+	jr c, Label_75_50B1
+	push bc
+	sub a, c
+	ld [hl], a
+	ld b, c
+	ld hl, $C6CC
+	ld a, c
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ld hl, $C8DC
+	ld a, [hli]
+	inc hl
+	sub a, e
+	dec a
+	ld e, a
+	ld d, $00
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	pop bc
+	ld a, [wRam_C82E]
+	ld l, a
+	ld h, $00
+	add hl, bc
+	ld c, l
+	ld b, h
+	xor a, a
+	ld [wRam_C82E], a
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	ret
+
+Label_75_50B1:: ; 75:50B1
+	ld a, c
+	sub a, e
+	ld c, a
+	ld a, b
+	sbc a, $00
+	ld b, a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	ld hl, $C6CC
+	ld a, [wRam_C82E]
+	add a, e
+	ld [hli], a
+	ld a, $00
+	adc a, $00
+	ld [hl], a
+	xor a, a
+	ld [wRam_C82E], a
+	ld a, [wRam_C70D]
+	or a, a
+	jr z, Label_75_50F0
+	ld b, e
+	ld hl, $C8DC
+	ld a, [hli]
+	inc hl
+	sub a, e
+	dec a
+	ld e, a
+	ld d, $00
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+
+Label_75_50F0:: ; 75:50F0
+	di
+	ld a, $02
+	ld [wRam_C826], a
+	ld hl, $C69F
+	res 2, [hl]
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_5149
+	ld de, $000B
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	ld a, $01
+	ld [wRam_C70A], a
+	ret
+
+; ---- data $5118-$5149 (49 bytes) [HYPOTHESIS] UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_5118:: ; 75:5118
+	db $21, $C6, $C6, $2A, $66, $6F, $FA, $CC, $C6, $22, $FA, $CD, $C6, $77, $21, $2C
+	db $C8, $34, $3E, $0F, $EA, $09, $C7, $3E, $01, $EA, $0A, $C7, $FA, $0C, $C7, $EA
+	db $0D, $C7, $AF, $EA, $26, $C8, $3E, $A3, $11, $10, $00, $21, $32, $C8, $C3, $0B
+	db $5F
+
+; ---- code $5149-$51DC (147 bytes) [PROBABLE] 90 insn(s) reached by static flow only; seeds: exec x90; min discovery hops 2; entered by jrcc from 75:5100 (PROBABLE code)
+
+Label_75_5149:: ; 75:5149
+	res 0, [hl]
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C6CC]
+	ld [hli], a
+	ld a, [wRam_C6CD]
+	ld [hl], a
+	ld a, $02
+	ld [wRam_C709], a
+	xor a, a
+	ld [wRam_C70C], a
+	ei
+	ret
+
+Function_75_5164:: ; 75:5164
+	ld e, a
+	xor a, a
+	cp a, b
+	jr nz, Label_75_516D
+	ld a, c
+	cp a, e
+	jr c, Label_75_51A7
+
+Label_75_516D:: ; 75:516D
+	push hl
+	push bc
+	ld b, e
+	ld c, e
+	ld a, [wRam_C830]
+	sub a, e
+	ld e, a
+	ld d, $00
+	ld hl, $C71F
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	call Function_75_4000
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld e, c
+	ld a, c
+	ld hl, $C6CC
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	pop bc
+	ld a, c
+	sub a, e
+	ld c, a
+	ld a, b
+	sbc a, $00
+	ld b, a
+	ld a, [wRam_C82F]
+	ld [wRam_C6CA], a
+	ld e, a
+	pop hl
+	ret
+
+Label_75_51A7:: ; 75:51A7
+	ld a, e
+	sub a, c
+	ld [wRam_C82E], a
+	ld a, [wRam_C830]
+	sub a, e
+	ld e, a
+	ld d, $00
+	ld hl, $C71F
+	add hl, de
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	ld b, c
+	call Function_75_4000
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, c
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	pop af
+	ret
+
+Label_75_51CF:: ; 75:51CF
+	ld hl, $C69F
+	res 2, [hl]
+	ld a, $06
+	ld [wRam_C70A], a
+	jp Function_75_6436
+
+; ---- code $51DC-$5258 (124 bytes) [CONFIRMED] 73 insn(s); 73 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_51DC:: ; 75:51DC
+	push hl
+	ld hl, $C705
+	ld a, [hli]
+	or a, [hl]
+	inc hl
+	or a, [hl]
+	inc hl
+	or a, [hl]
+	pop hl
+	jr nz, Label_75_51F3
+	ld de, $0007
+	add hl, de
+
+Label_75_51ED:: ; 75:51ED
+	ld a, [hli]
+	cp a, $2F
+	jr nz, Label_75_51ED
+	dec hl
+
+Label_75_51F3:: ; 75:51F3
+	ld bc, $FFFF
+
+Label_75_51F6:: ; 75:51F6
+	ld a, [hli]
+	inc bc
+	or a, a
+	jr nz, Label_75_51F6
+	ld hl, $C719
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hl], a
+	ret
+
+Label_75_5203:: ; 75:5203
+	ld a, [wTimerEnable]
+	bit 2, a
+	ld a, [wRam_C709]
+	jp nz, Label_75_53F7
+	cp a, $02
+	jp nz, Function_75_4225
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	ld a, [wRam_C70C]
+	or a, a
+	jp nz, Function_75_4225
+	xor a, a
+	ld [wRam_C826], a
+	ld [wRam_C827], a
+	ld [wRam_C830], a
+	push hl
+	push de
+	push bc
+	push hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, l
+	ld [wRam_C852], a
+	ld a, h
+	ld [wRam_C853], a
+	ld a, [hli]
+	ld [wRam_C6D2], a
+	ld a, [hli]
+	ld [wRam_C6D3], a
+	inc hl
+	inc hl
+	ld a, l
+	ld [wRam_C81E], a
+	ld a, h
+	ld [wRam_C81F], a
+	dec hl
+	dec hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $1F
+	cp a, l
+	jr nz, Label_75_525E
+
+; ---- code $5258-$525E (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:5256 (executed)
+	ld a, $C7
+	cp a, h
+	jp z, Label_75_5404
+
+; ---- code $525E-$527A (28 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
+
+Label_75_525E:: ; 75:525E
+	ld b, $07
+	ld de, $4FB2
+
+Label_75_5263:: ; 75:5263
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jp nz, Label_75_5404
+	inc hl
+	dec b
+	jr nz, Label_75_5263
+	push hl
+	ld b, $25
+	ld c, $00
+	ld de, $4FB9
+
+Label_75_5275:: ; 75:5275
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_5282
+
+; ---- code $527A-$5282 (8 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:5278 (executed)
+	inc hl
+	dec b
+	jr nz, Label_75_5275
+	pop hl
+	jp Label_75_5404
+
+; ---- code $5282-$5290 (14 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
+
+Label_75_5282:: ; 75:5282
+	pop hl
+	push hl
+	ld b, $24
+	ld c, $00
+	ld de, $5025
+
+Label_75_528B:: ; 75:528B
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_529C
+
+; ---- code $5290-$529C (12 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 75:528E (executed)
+	inc hl
+	dec b
+	jr nz, Label_75_528B
+	ld a, $02
+	ld [wRam_C827], a
+	pop hl
+	jr Label_75_52AD
+
+; ---- code $529C-$52A9 (13 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
+
+Label_75_529C:: ; 75:529C
+	pop hl
+	ld b, $23
+	ld c, $00
+	ld de, $4FDE
+
+Label_75_52A4:: ; 75:52A4
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_52D9
+
+; ---- code $52A9-$52D9 (48 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jrcc at 75:52A7 (executed)
+	inc hl
+	dec b
+	jr nz, Label_75_52A4
+
+Label_75_52AD:: ; 75:52AD
+	ld a, [hli]
+	or a, a
+	jr nz, Label_75_52AD
+
+Label_75_52B1:: ; 75:52B1
+	ld a, [hld]
+	cp a, $2F
+	jr nz, Label_75_52B1
+	inc hl
+	inc hl
+	ld a, [hl]
+	cp a, $30
+	jr c, Label_75_52D9
+	cp a, $3A
+	jr nc, Label_75_52D9
+	ld hl, $C81E
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld c, $12
+	call Function_75_4397
+	jp c, Label_75_5404
+	ld c, $12
+	call Function_75_4397
+	jp c, Label_75_5404
+	ld c, $01
+
+; ---- code $52D9-$52F0 (23 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
+
+Label_75_52D9:: ; 75:52D9
+	ld a, c
+	ld [wRam_C82C], a
+	ld [wMobileSDK_ReceivePacketBuffer + 128], a
+	pop hl
+	ld de, $0006
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Function_75_51DC
+	ld a, b
+	cp a, $04
+	jr c, Label_75_52F8
+
+; ---- code $52F0-$52F8 (8 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; fall-through of the jrcc at 75:52EE (executed)
+	jp nz, Label_75_5405
+	xor a, a
+	or a, c
+	jp nz, Label_75_5405
+
+; ---- code $52F8-$5357 (95 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 1/18 scenarios)
+
+Label_75_52F8:: ; 75:52F8
+	pop bc
+	pop de
+	pop hl
+	ld a, l
+	ld [wRam_C715], a
+	ld a, h
+	ld [wRam_C716], a
+	ld hl, $C711
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc hl
+	inc hl
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	call Function_75_5342
+	ld hl, $C715
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [hli]
+	ld [wRam_C847], a
+	ld a, [hli]
+	ld [wRam_C848], a
+	ld a, [hli]
+	ld [wRam_C849], a
+	ld a, [hli]
+	ld [wRam_C84A], a
+	inc hl
+	inc hl
+	ld a, [hli]
+	ld [wRam_C715], a
+	ld a, [hl]
+	ld [wRam_C716], a
+	ld a, [wRam_C82C]
+	xor a, $01
+	ld [wRam_C831], a
+	jp Label_75_4F0C
+
+Function_75_5342:: ; 75:5342
+	ld hl, $C715
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	inc hl
+	inc hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	xor a, a
+	ld [wRam_C71F + 73], a
+
+Label_75_5351:: ; 75:5351
+	ld de, $8AD0
+	add hl, de
+	jr nc, Label_75_535B
+
+; ---- code $5357-$535B (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5355 (executed)
+	add a, $03
+	jr Label_75_5351
+
+; ---- code $535B-$5365 (10 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
+
+Label_75_535B:: ; 75:535B
+	ld de, $7530
+	add hl, de
+
+Label_75_535F:: ; 75:535F
+	ld de, $D8F0
+	add hl, de
+	jr nc, Label_75_5368
+
+; ---- code $5365-$5368 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5363 (executed)
+	inc a
+	jr Label_75_535F
+
+; ---- code $5368-$5376 (14 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
+
+Label_75_5368:: ; 75:5368
+	ld de, $2710
+	add hl, de
+	ld [wRam_C71F + 70], a
+	xor a, a
+
+Label_75_5370:: ; 75:5370
+	ld de, $F448
+	add hl, de
+	jr nc, Label_75_537A
+
+; ---- code $5376-$537A (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5374 (executed)
+	add a, $30
+	jr Label_75_5370
+
+; ---- code $537A-$5384 (10 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
+
+Label_75_537A:: ; 75:537A
+	ld de, $0BB8
+	add hl, de
+
+Label_75_537E:: ; 75:537E
+	ld de, $FC18
+	add hl, de
+	jr nc, Label_75_5388
+
+; ---- code $5384-$5388 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5382 (executed)
+	add a, $10
+	jr Label_75_537E
+
+; ---- code $5388-$5392 (10 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
+
+Label_75_5388:: ; 75:5388
+	ld de, $03E8
+	add hl, de
+
+Label_75_538C:: ; 75:538C
+	ld de, $FED4
+	add hl, de
+	jr nc, Label_75_5396
+
+; ---- code $5392-$5396 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5390 (executed)
+	add a, $03
+	jr Label_75_538C
+
+; ---- code $5396-$53A0 (10 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
+
+Label_75_5396:: ; 75:5396
+	ld de, $012C
+	add hl, de
+
+Label_75_539A:: ; 75:539A
+	ld de, $FF9C
+	add hl, de
+	jr nc, Label_75_53A3
+
+; ---- code $53A0-$53A3 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:539E (executed)
+	inc a
+	jr Label_75_539A
+
+; ---- code $53A3-$53F7 (84 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios)
+
+Label_75_53A3:: ; 75:53A3
+	ld de, $0064
+	add hl, de
+	ld [wRam_C71F + 71], a
+	xor a, a
+
+Label_75_53AB:: ; 75:53AB
+	ld de, $FFE2
+	add hl, de
+	jr nc, Label_75_53B5
+	add a, $30
+	jr Label_75_53AB
+
+Label_75_53B5:: ; 75:53B5
+	ld de, $001E
+	add hl, de
+
+Label_75_53B9:: ; 75:53B9
+	ld de, $FFF6
+	add hl, de
+	jr nc, Label_75_53C3
+	add a, $10
+	jr Label_75_53B9
+
+Label_75_53C3:: ; 75:53C3
+	ld de, $000A
+	add hl, de
+	add a, l
+	ld [wRam_C71F + 72], a
+	ld de, $C842
+	ld hl, $C765
+	ld a, [hli]
+	or a, $30
+	ld [de], a
+	inc de
+	ld a, [hl]
+	swap a
+	and a, $0F
+	or a, $30
+	ld [de], a
+	inc de
+	ld a, [hli]
+	and a, $0F
+	or a, $30
+	ld [de], a
+	inc de
+	ld a, [hl]
+	swap a
+	and a, $0F
+	or a, $30
+	ld [de], a
+	inc de
+	ld a, [hl]
+	and a, $0F
+	or a, $30
+	ld [de], a
+	inc de
+	ret
+
+; ---- code $53F7-$559F (424 bytes) [PROBABLE] 224 insn(s) reached by static flow only; seeds: exec x10, mobile x214; min discovery hops 0; entered by jpcc from 75:520B (executed)
+
+Label_75_53F7:: ; 75:53F7
+	cp a, $14
+	jp z, Label_75_5049
+	cp a, $24
+	jp z, Label_75_5049
+	jp Function_75_4225
+
+Label_75_5404:: ; 75:5404
+	pop hl
+
+Label_75_5405:: ; 75:5405
+	pop hl
+	pop hl
+	pop hl
+	jp Function_75_4230
+
+Label_75_540B:: ; 75:540B
+	ld a, [wMobileFlags]
+	bit 4, a
+	jr z, Label_75_5488
+	bit 7, a
+	jr nz, Label_75_5488
+	ld a, [wTimerEnable]
+	bit 0, a
+	jr nz, Label_75_5488
+
+Label_75_541D:: ; 75:541D
+	ld a, [wRam_C6A0]
+	or a, a
+	jr nz, Label_75_541D
+	di
+	ld a, [wTimerEnable]
+	bit 3, a
+	jr nz, Label_75_5484
+	ld a, [wRam_C6A7]
+	or a, a
+	jr nz, Label_75_543F
+	ld hl, $C69F
+	set 1, [hl]
+	ld a, $23
+	ld [wRam_C6AF], a
+	ld a, $FF
+	ei
+	ret
+
+Label_75_543F:: ; 75:543F
+	xor a, a
+	ld [wRam_C70A], a
+	push hl
+	ld hl, $C6C8
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	pop hl
+	ld a, [hli]
+	or a, a
+	jr z, Label_75_548E
+	cp a, $81
+	jr nc, Label_75_548E
+	ld c, a
+	inc a
+	inc a
+	ld [de], a
+	inc de
+	ld a, $FF
+	ld [de], a
+	inc de
+	ld a, c
+	ld [de], a
+	inc de
+	ld b, c
+	call Function_75_4000
+	ld b, c
+	inc b
+	inc b
+	call Function_75_5F6C
+	ld hl, $C6C1
+	set 7, [hl]
+	ld hl, $C69F
+	set 0, [hl]
+	ld a, $00
+	ei
+	ret
+
+Label_75_5484:: ; 75:5484
+	ei
+	ld a, $01
+	ret
+
+Label_75_5488:: ; 75:5488
+	call Function_75_4225
+	ld a, $FF
+	ret
+
+Label_75_548E:: ; 75:548E
+	ei
+	call Function_75_4230
+	ld a, $FF
+	ret
+
+Label_75_5495:: ; 75:5495
+	ld a, [wMobileFlags]
+	bit 4, a
+	jp z, Function_75_4225
+	ld a, [wTimerEnable]
+	bit 0, a
+	jp nz, Function_75_4225
+	bit 3, a
+	jp z, Function_75_4225
+	ld e, l
+	ld d, h
+	ld a, [wRam_C82F]
+	or a, a
+	jr nz, Label_75_5510
+	ld a, [wRam_C830]
+	ld c, a
+	ld b, $00
+	ld hl, $C8DD
+	add hl, bc
+	ld a, [hli]
+	or a, a
+	jr z, Label_75_54C4
+	cp a, $81
+	jr c, Label_75_54C6
+
+Label_75_54C4:: ; 75:54C4
+	ld a, $80
+
+Label_75_54C6:: ; 75:54C6
+	ld b, a
+	inc c
+	add a, c
+	ld [wRam_C830], a
+	ld a, [wRam_C831]
+	dec a
+	sub a, b
+	ld c, a
+	ld [wRam_C831], a
+	ld a, b
+	ld [de], a
+	inc de
+	call Function_75_4000
+
+Label_75_54DB:: ; 75:54DB
+	xor a, a
+	or a, c
+	jr nz, Label_75_54E5
+	ld hl, $C69F
+	res 3, [hl]
+	ret
+
+Label_75_54E5:: ; 75:54E5
+	ld a, [hli]
+	or a, a
+	jr z, Label_75_54ED
+	cp a, $81
+	jr c, Label_75_54EF
+
+Label_75_54ED:: ; 75:54ED
+	ld a, $80
+
+Label_75_54EF:: ; 75:54EF
+	cp a, c
+	ret c
+	ld [wRam_C82E], a
+	dec c
+	ld a, c
+	or a, a
+	jr z, Label_75_5509
+	ld [wRam_C82F], a
+	ld b, a
+	ld de, $C71F
+	call Function_75_4000
+
+Label_75_5503:: ; 75:5503
+	ld hl, $C69F
+	res 3, [hl]
+	ret
+
+Label_75_5509:: ; 75:5509
+	ld a, $FF
+	ld [wRam_C82F], a
+	jr Label_75_5503
+
+Label_75_5510:: ; 75:5510
+	cp a, $FF
+	jr nz, Label_75_5515
+	xor a, a
+
+Label_75_5515:: ; 75:5515
+	ld b, a
+	ld a, [wRam_C82E]
+	sub a, b
+	ld c, a
+	ld hl, $C71F
+	ld a, [wRam_C82E]
+	ld [de], a
+	inc de
+	ld a, b
+	or a, a
+	jr z, Label_75_552A
+	call Function_75_4000
+
+Label_75_552A:: ; 75:552A
+	ld hl, $C8DE
+	ld b, c
+	call Function_75_4000
+	push hl
+	ld a, c
+	inc a
+	ld [wRam_C830], a
+	ld b, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	sub a, b
+	ld [wRam_C831], a
+	ld c, a
+	xor a, a
+	ld hl, $C82E
+	ld [hli], a
+	ld [hl], a
+	pop hl
+	jr Label_75_54DB
+
+Label_75_5549:: ; 75:5549
+	nop
+
+Label_75_554A:: ; 75:554A
+	ld hl, $C69F
+	bit 0, [hl]
+	jp nz, Function_75_4225
+	ld a, [wRam_C709]
+	cp a, $05
+	jp nc, Function_75_4225
+	ld [wRam_C822], a
+	ld a, e
+	ld [wRam_C70D], a
+	ld a, d
+	ld [wRam_C70D + 1], a
+	ld a, [wRam_C6A7]
+	cp a, $02
+	jr c, Label_75_558B
+	xor a, a
+	ld [wRam_C70A], a
+	ld a, $97
+	ld hl, $6028
+	call Function_75_5F08
+
+Label_75_5578:: ; 75:5578
+	ld a, [wMobileAPIIndex]
+	cp a, $49
+	jr nz, Label_75_5583
+	ld a, $2C
+	jr Label_75_5585
+
+Label_75_5583:: ; 75:5583
+	ld a, $1E
+
+Label_75_5585:: ; 75:5585
+	ld [wRam_C709], a
+	jp Label_75_4437
+
+Label_75_558B:: ; 75:558B
+	xor a, a
+	ldh [rTAC], a
+	ld a, [wRam_C70F]
+	ld c, a
+	call Function_75_40DC
+	call Function_75_44B5
+	ld a, $01
+	ld [wRam_C70A], a
+	jr Label_75_5578
+
+; ---- code $559F-$55B8 (25 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
+
+Label_75_559F:: ; 75:559F
+	ld hl, $C709
+	ld a, [hl]
+	cp a, $01
+	jp z, Function_75_4225
+	cp a, $2A
+	jp z, Function_75_4225
+	ld a, [wRam_C6A0]
+	bit 1, a
+	jr nz, Label_75_55B8
+	ld a, $2A
+	jr Label_75_55ED
+
+; ---- code $55B8-$55ED (53 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1; entered by jrcc from 75:55B2 (executed)
+
+Label_75_55B8:: ; 75:55B8
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $92
+	jr nz, Label_75_55E6
+	ld a, $2A
+	ld b, $00
+	di
+	ld [hli], a
+	ld [hl], b
+	ld hl, $C6C1
+	res 5, [hl]
+	res 0, [hl]
+	xor a, a
+	ld [wRam_C6AB], a
+	ld [wRam_C6A0], a
+	ld a, $08
+	ld [wRam_C6A7], a
+	call Function_75_4029
+	call Function_75_565C
+	ld hl, $C69F
+	set 0, [hl]
+	ei
+	ret
+
+Label_75_55E6:: ; 75:55E6
+	ld a, $2A
+	ld [hli], a
+	ld a, $01
+	ld [hl], a
+	ret
+
+; ---- code $55ED-$55F3 (6 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
+
+Label_75_55ED:: ; 75:55ED
+	di
+	push af
+	cp a, $2A
+	jr z, Label_75_5607
+
+; ---- code $55F3-$5607 (20 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 75:55F1 (executed)
+	ld a, [wRam_C70C]
+	or a, a
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	jr z, Label_75_5616
+	cp a, $9F
+	jr z, Label_75_561A
+	cp a, $A4
+	jr z, Label_75_561A
+
+Label_75_5604:: ; 75:5604
+	call Function_75_6436
+
+; ---- code $5607-$5616 (15 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
+
+Label_75_5607:: ; 75:5607
+	ld hl, $C69F
+	set 0, [hl]
+	ld a, $01
+	ld [wRam_C70A], a
+	pop af
+	ld [wRam_C709], a
+	ret
+
+; ---- code $5616-$563A (36 bytes) [PROBABLE] 20 insn(s) reached by static flow only; seeds: exec x4, mobile x16; min discovery hops 0; entered by jrcc from 75:55FA (PROBABLE code)
+
+Label_75_5616:: ; 75:5616
+	cp a, $A3
+	jr z, Label_75_5604
+
+Label_75_561A:: ; 75:561A
+	ei
+	jr Label_75_5607
+
+Label_75_561D:: ; 75:561D
+	ld hl, $C709
+	ld a, [hl]
+	dec a
+	jp z, Function_75_4225
+	dec a
+	jp z, Function_75_4225
+	ld a, [wRam_C6A0]
+	or a, a
+	jr nz, Label_75_5633
+	ld a, $28
+	jr Label_75_55ED
+
+Label_75_5633:: ; 75:5633
+	ld a, $28
+	ld b, $02
+	ld [hli], a
+	ld [hl], b
+	ret
+
+; ---- code $563A-$565C (34 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
+
+Label_75_563A:: ; 75:563A
+	ld a, [wRam_C709]
+	cp a, $01
+	jp nz, Function_75_4225
+	xor a, a
+	ld hl, $C9E4
+	ld [hli], a
+	ld [hl], a
+	call Function_75_5693
+	call Function_75_4029
+	ld bc, $0450
+	ld hl, $C6A0
+
+Label_75_5654:: ; 75:5654
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, c
+	or a, b
+	jr nz, Label_75_5654
+	ret
+
+; ---- code $565C-$5671 (21 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 3; entered by call from 75:55DC (PROBABLE code)
+
+Function_75_565C:: ; 75:565C
+	ld hl, $C6B5
+	xor a, a
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	ld b, a
+	ld a, [wMobileSDK_AdapterType]
+	ld a, b
+	srl a
+	srl a
+	add a, b
+	add a, b
+	ld [hl], a
+	ret
+
+; ---- code $5671-$56B1 (64 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_5671:: ; 75:5671
+	ld hl, $C8D7
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jr z, Label_75_5686
+	ld a, [wMobileFlags]
+	bit 0, a
+	jr z, Label_75_5689
+
+Label_75_5686:: ; 75:5686
+	ld hl, $C8CC
+
+Label_75_5689:: ; 75:5689
+	add hl, de
+	ld [hl], c
+	inc de
+	ld hl, $C8D7
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ret
+
+Function_75_5693:: ; 75:5693
+	xor a, a
+	ldh [rTAC], a
+	ld c, $FF
+	ldh a, [c]
+	and a, $F3
+	ldh [c], a
+	ld a, [wMobileSDK_PacketBuffer + 1]
+	ld [wRam_C709], a
+	ld a, [wMobileSDK_PacketBuffer]
+	ld c, a
+	ld hl, $C69F
+	ld a, [hl]
+	or a, c
+	ld [hl], a
+	ret
+
+Label_75_56AD:: ; 75:56AD
+	ld a, $01
+	jr Label_75_56B6
+
+; ---- code $56B1-$56B6 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2; entered by jp from 75:6249 (PROBABLE code)
+
+Label_75_56B1:: ; 75:56B1
+	set 1, [hl]
+	ld a, [wRam_C709]
+
+; ---- code $56B6-$5732 (124 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 18/18 scenarios)
+
+Label_75_56B6:: ; 75:56B6
+	ld [wMobileSDK_PacketBuffer + 1], a
+	ld hl, $C6B5
+	xor a, a
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	rla
+	ld [hl], a
+	ld hl, $C69F
+	ld a, [hl]
+	ld b, a
+	and a, $0D
+	ld [hl], a
+	ld a, $02
+	and a, b
+	ld [wMobileSDK_PacketBuffer], a
+	ret
+
+Function_75_56D2:: ; 75:56D2
+	ld a, [wRam_C6A0]
+	rrca
+	jp nc, Label_75_58C8
+	rrca
+	jp c, Label_75_57F4
+	ld hl, $C6A1
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	dec de
+	ld a, d
+	ld [hld], a
+	ld a, e
+	ld [hl], a
+	cp a, $02
+	jp nc, Label_75_58C8
+	ld a, d
+	or a, a
+	jp nz, Label_75_58C8
+	ld hl, $C6A8
+	add hl, de
+	ldh a, [rSB]
+	ld [hl], a
+	ld a, $A8
+	cp a, l
+	jp nz, Label_75_58C8
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jr z, Label_75_5723
+	ld a, $F2
+	cp a, [hl]
+	jp z, Label_75_57A3
+	dec a
+	cp a, [hl]
+	jp z, Label_75_57AD
+	dec a
+	cp a, [hl]
+	jp z, Label_75_57AD
+	ld a, [wRam_C6A7]
+	cp a, $01
+	jr nz, Label_75_5723
+	ld a, [wRam_C6A6]
+	or a, a
+	jr z, Label_75_5785
+
+Label_75_5723:: ; 75:5723
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jr z, Label_75_573D
+	cp a, $EE
+	jr z, Label_75_5734
+	cp a, $9F
+	jr nz, Label_75_5734
+
+; ---- code $5732-$5734 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:5730 (executed)
+	ld a, $95
+
+; ---- code $5734-$577B (71 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 18/18 scenarios)
+
+Label_75_5734:: ; 75:5734
+	cp a, [hl]
+	jr nz, Label_75_57A7
+	ld a, [wMobileSDK_AdapterType]
+	or a, a
+	jr z, Label_75_573D
+
+Label_75_573D:: ; 75:573D
+	xor a, a
+	ld [wRam_C6B9], a
+	ld a, $03
+	ld [wRam_C6A0], a
+	xor a, a
+	ld hl, $C6AA
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld hl, $C6BF
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld hl, $C6B5
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, [wMobileFlags]
+	bit 0, a
+	jr z, Label_75_5764
+	ld a, $0B
+	jr Label_75_5781
+
+Label_75_5764:: ; 75:5764
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jr z, Label_75_577B
+	cp a, $92
+	jr z, Label_75_577F
+	cp a, $A3
+	jr z, Label_75_577F
+	cp a, $A8
+	jr z, Label_75_577F
+	ld a, $20
+	jr Label_75_5781
+
+; ---- code $577B-$577F (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 75:5769 (executed)
+
+Label_75_577B:: ; 75:577B
+	ld a, $03
+	jr Label_75_5781
+
+; ---- code $577F-$57A3 (36 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 18/18 scenarios)
+
+Label_75_577F:: ; 75:577F
+	ld a, $60
+
+Label_75_5781:: ; 75:5781
+	ld [hl], a
+	jp Label_75_58C8
+
+Label_75_5785:: ; 75:5785
+	xor a, a
+	ld [wRam_C6A0], a
+
+Label_75_5789:: ; 75:5789
+	ld hl, $C6C0
+	ld a, [hld]
+	ld e, a
+	ld a, [hl]
+	dec a
+	ld b, $03
+
+Label_75_5792:: ; 75:5792
+	or a, a
+	rra
+	rr e
+	dec b
+	jr nz, Label_75_5792
+	or a, a
+	inc a
+	ld hl, $C6B6
+	ld [hld], a
+	ld [hl], e
+	jp Label_75_58C8
+
+; ---- code $57A3-$57A7 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 75:5709 (executed)
+
+Label_75_57A3:: ; 75:57A3
+	ld b, $0A
+	jr Label_75_57AF
+
+; ---- code $57A7-$57AD (6 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
+
+Label_75_57A7:: ; 75:57A7
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	jp Label_75_58C8
+
+; ---- code $57AD-$57F4 (71 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 1; entered by jpcc from 75:570E (executed)
+
+Label_75_57AD:: ; 75:57AD
+	ld b, $03
+
+Label_75_57AF:: ; 75:57AF
+	ld hl, $C6C1
+	set 3, [hl]
+	ld hl, $C6B5
+	ld a, [wRam_C6C0]
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	ld [hl], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ld hl, $C6B9
+	inc [hl]
+	ld a, b
+	cp a, [hl]
+	jp nc, Label_75_58C8
+	xor a, a
+	ld hl, $C6A6
+	ld [hli], a
+	ld [wRam_C6A0], a
+	ld a, $06
+	ld [hl], a
+	ld hl, $C69F
+	set 1, [hl]
+	ld a, $15
+	ld [wRam_C6AF], a
+	ld hl, $C6B0
+	ld a, [wRam_C6A8]
+	and a, $0F
+	cp a, $02
+	jr nz, Label_75_57EE
+	inc a
+
+Label_75_57EE:: ; 75:57EE
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	jp Label_75_58C8
+
+; ---- code $57F4-$5823 (47 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 17/18 scenarios)
+
+Label_75_57F4:: ; 75:57F4
+	ld a, [wRam_C6AB]
+	or a, a
+	jr z, Label_75_5804
+	dec a
+	jr z, Label_75_587A
+	dec a
+	jp z, Label_75_5890
+	jp Label_75_589E
+
+Label_75_5804:: ; 75:5804
+	ld hl, $C6AA
+	ld a, [hl]
+	or a, a
+	jr nz, Label_75_580F
+	ld b, $99
+	jr Label_75_5811
+
+Label_75_580F:: ; 75:580F
+	ld b, $66
+
+Label_75_5811:: ; 75:5811
+	ldh a, [rSB]
+	cp a, b
+	jr z, Label_75_584C
+	cp a, $D2
+	jr nz, Label_75_5823
+	xor a, a
+	ld [wRam_C84B], a
+
+Label_75_581E:: ; 75:581E
+	xor a, a
+	ld [hl], a
+	jp Label_75_58C8
+
+; ---- code $5823-$584C (41 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:5818 (executed)
+
+Label_75_5823:: ; 75:5823
+	ld a, [wRam_C84B]
+	inc a
+	ld [wRam_C84B], a
+	cp a, $14
+	jr c, Label_75_581E
+	ld a, $06
+	ld [wRam_C6A7], a
+	ld a, $10
+	ld [wRam_C6AF], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ld hl, $C6C1
+	res 0, [hl]
+	ld hl, $C69F
+	ld a, [hl]
+	set 1, a
+	and a, $0F
+	ld [hl], a
+	jr Label_75_58C8
+
+; ---- code $584C-$5865 (25 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 17/18 scenarios)
+
+Label_75_584C:: ; 75:584C
+	inc [hl]
+	ld a, $02
+	cp a, [hl]
+	jr nz, Label_75_58C8
+	xor a, a
+	ld [hli], a
+	inc [hl]
+	ld hl, $C6B2
+	ld b, $03
+
+Label_75_585A:: ; 75:585A
+	ld [hli], a
+	dec b
+	jr nz, Label_75_585A
+	ld a, [wMobileFlags]
+	bit 4, a
+	jr z, Label_75_5870
+
+; ---- code $5865-$5870 (11 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:5863 (executed)
+	ld b, a
+	ld a, [wTimerEnable]
+	bit 3, a
+	jr nz, Label_75_5870
+	jp Label_75_5789
+
+; ---- code $5870-$58B9 (73 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 17/18 scenarios)
+
+Label_75_5870:: ; 75:5870
+	ld a, [wRam_C6C0]
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	ld [hl], a
+	jr Label_75_58C8
+
+Label_75_587A:: ; 75:587A
+	call Function_75_58CE
+	ld a, $04
+	cp a, [hl]
+	jr nz, Label_75_58C8
+	xor a, a
+	ld [hli], a
+	ldh a, [rSB]
+	ld [wRam_C6AC], a
+	inc [hl]
+	or a, a
+	jr nz, Label_75_58C8
+	inc [hl]
+	jr Label_75_58C8
+
+Label_75_5890:: ; 75:5890
+	call Function_75_58CE
+	ld a, [wRam_C6AC]
+	cp a, [hl]
+	jr nz, Label_75_58C8
+	xor a, a
+	ld [hli], a
+	inc [hl]
+	jr Label_75_58C8
+
+Label_75_589E:: ; 75:589E
+	ldh a, [rSB]
+	ld c, a
+	call Function_75_5671
+	ld hl, $C6AA
+	inc [hl]
+	ld a, $02
+	cp a, [hl]
+	jr c, Label_75_58C0
+	ld a, [wRam_C6AA]
+	add a, $B1
+	ld e, a
+	ld d, $C6
+	ld a, [de]
+	cp a, c
+	jr z, Label_75_58C8
+
+; ---- code $58B9-$58C0 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:58B7 (executed)
+	ld a, $01
+	ld [wRam_C6B4], a
+	jr Label_75_58C8
+
+; ---- code $58C0-$597C (188 bytes) [CONFIRMED] 94 insn(s); 94 executed (in up to 18/18 scenarios)
+
+Label_75_58C0:: ; 75:58C0
+	ld a, $04
+	cp a, [hl]
+	jr nz, Label_75_58C8
+	xor a, a
+	ld [hli], a
+	inc [hl]
+
+Label_75_58C8:: ; 75:58C8
+	ld hl, $C6C1
+	res 1, [hl]
+	ret
+
+Function_75_58CE:: ; 75:58CE
+	ldh a, [rSB]
+	ld c, a
+	ld b, $00
+	ld hl, $C6B2
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a
+	add hl, bc
+	ld a, h
+	ld [wRam_C6B2], a
+	ld a, l
+	ld [wRam_C6B2 + 1], a
+	call Function_75_5671
+	ld hl, $C6AA
+	inc [hl]
+	ret
+
+Function_75_58EA:: ; 75:58EA
+	ld a, [wRam_C6AB]
+	cp a, $04
+	call z, Function_75_5B46
+	call Function_75_6149
+	ld hl, $C6A7
+	ld a, [hli]
+	cp a, $02
+	jr c, Label_75_5933
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld c, a
+	and a, b
+	cp a, $FF
+	jr z, Label_75_590A
+	ld a, c
+	or a, b
+	jr nz, Label_75_5933
+
+Label_75_590A:: ; 75:590A
+	ld hl, $C6A7
+	ld a, $06
+	cp a, [hl]
+	jp z, Label_75_5B45
+	ld [hl], a
+	ld a, $10
+	ld [wRam_C6AF], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ld hl, $C6C1
+	res 0, [hl]
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $0F
+	or a, $02
+	ld [hl], a
+	ld a, $10
+	ld [wRam_C6AF], a
+	jp Label_75_5B45
+
+Label_75_5933:: ; 75:5933
+	ld a, [wRam_C6A0]
+	cp a, $01
+	jp z, Label_75_5B2B
+	cp a, $03
+	jp z, Label_75_5A36
+	ld a, [wRam_C6A7]
+	cp a, $01
+	jp c, Label_75_5B45
+	ld hl, $C6B5
+	dec [hl]
+	jp nz, Label_75_5B45
+	inc hl
+	dec [hl]
+	jp nz, Label_75_5B45
+	ld hl, $C6A7
+	ld a, [wMobileFlags]
+	bit 3, a
+	jp nz, Label_75_5A17
+	bit 4, a
+	jr nz, Label_75_59A8
+	ld a, [hl]
+	cp a, $01
+	jp z, Label_75_59FC
+	cp a, $0A
+	jr z, Label_75_5990
+	cp a, $08
+	jr z, Label_75_5989
+	ld a, [wRam_C709]
+	cp a, $2A
+	jr z, Label_75_599D
+	cp a, $0D
+	jr nz, Label_75_5983
+
+; ---- code $597C-$5983 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:597A (executed)
+	ld a, [wRam_C70A]
+	cp a, $04
+	jr nc, Label_75_59A8
+
+; ---- code $5983-$5989 (6 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
+
+Label_75_5983:: ; 75:5983
+	call Function_75_5FA0
+	jp Label_75_5B45
+
+; ---- code $5989-$5990 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 75:596F (executed)
+
+Label_75_5989:: ; 75:5989
+	ld a, [wRam_C6A5]
+	ld [hl], a
+	jp Label_75_5B45
+
+; ---- code $5990-$599D (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 17/18 scenarios)
+
+Label_75_5990:: ; 75:5990
+	xor a, a
+	ld [hl], a
+	ld hl, $C69F
+	res 0, [hl]
+	call Function_75_5693
+	jp Label_75_5B45
+
+; ---- code $599D-$59FC (95 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 1; entered by jrcc from 75:5976 (executed)
+
+Label_75_599D:: ; 75:599D
+	xor a, a
+	ld [hl], a
+	ld [wTimerEnable], a
+	call Function_75_5693
+	jp Label_75_5B45
+
+Label_75_59A8:: ; 75:59A8
+	ld b, a
+	ld [hl], a
+	or a, a
+	jp z, Label_75_5B45
+	ld a, [wMobileFlags]
+	bit 7, a
+	jr nz, Label_75_59CA
+
+Label_75_59B5:: ; 75:59B5
+	ld a, [wTimerEnable]
+	bit 3, a
+	jr nz, Label_75_5983
+	ld de, $000B
+	ld hl, $606D
+	ld a, $95
+	call Function_75_5F0B
+	jp Label_75_5B45
+
+Label_75_59CA:: ; 75:59CA
+	ld a, [wTimerEnable]
+	bit 3, a
+	jr nz, Label_75_59E9
+	ld a, [wMobileSDK_PacketBuffer + 5]
+	add a, $0A
+	ld e, a
+	ld d, $00
+	ld a, $95
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C9E4
+	ld b, $05
+	call Function_75_5F10
+	jp Label_75_5B45
+
+Label_75_59E9:: ; 75:59E9
+	ld hl, $C69F
+	set 1, [hl]
+	res 0, [hl]
+	ld hl, $C6C1
+	res 7, [hl]
+	ld a, $21
+	ld [wRam_C6AF], a
+	jr Label_75_59B5
+
+; ---- code $59FC-$5A17 (27 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
+
+Label_75_59FC:: ; 75:59FC
+	ld a, $90
+	ld [wMobileSDK_SendCommandID], a
+	ld [wRam_C6A8], a
+	ld b, $05
+	ld de, $0012
+	ld hl, $5FFC
+	call Function_75_5F10
+	ld a, $01
+	ld [wRam_C6A6], a
+	jp Label_75_5B45
+
+; ---- code $5A17-$5A36 (31 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 75:595C (executed)
+
+Label_75_5A17:: ; 75:5A17
+	ld a, [hl]
+	cp a, $06
+	jp z, Label_75_5B45
+	ld hl, $C6C1
+	res 3, [hl]
+	res 0, [hl]
+	ld hl, $C6BA
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld b, $05
+	call Function_75_5F10
+	jp Label_75_5B45
+
+; ---- code $5A36-$5A57 (33 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 17/18 scenarios)
+
+Label_75_5A36:: ; 75:5A36
+	ld hl, $C6AB
+	ld a, [hld]
+	or a, a
+	jr z, Label_75_5A51
+	cp a, $03
+	jr nz, Label_75_5A4A
+	ld a, [hl]
+	cp a, $02
+	jr z, Label_75_5AC3
+	cp a, $03
+	jr z, Label_75_5AC7
+
+Label_75_5A4A:: ; 75:5A4A
+	ld a, $4B
+
+Label_75_5A4C:: ; 75:5A4C
+	ldh [rSB], a
+	jp Label_75_5B38
+
+Label_75_5A51:: ; 75:5A51
+	ld hl, $C6B5
+	dec [hl]
+	jr nz, Label_75_5A4A
+
+; ---- code $5A57-$5AC3 (108 bytes) [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 0; fall-through of the jrcc at 75:5A55 (executed)
+	inc hl
+	dec [hl]
+	jr nz, Label_75_5A4A
+	inc hl
+	dec [hl]
+	jr z, Label_75_5A6D
+	ld hl, $C6BF
+	ld a, [hli]
+	ld d, a
+	ld a, [hl]
+	ld hl, $C6B5
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	jr Label_75_5A4A
+
+Label_75_5A6D:: ; 75:5A6D
+	di
+	ld a, [wRam_C709]
+	cp a, $2A
+	jr z, Label_75_5AB2
+	ld hl, $C84F
+	inc [hl]
+	ld a, [hl]
+	cp a, $01
+	jr z, Label_75_5A9B
+	ld hl, $C6C1
+	res 5, [hl]
+	res 0, [hl]
+	ld hl, $C69F
+	res 4, [hl]
+	ld a, $00
+	ld [wRam_C6A5], a
+	ld a, $29
+	ld [wRam_C709], a
+	ld a, $01
+	ld [wRam_C6A6], a
+	jr Label_75_5AB2
+
+Label_75_5A9B:: ; 75:5A9B
+	ld a, $29
+	ld [wRam_C709], a
+	xor a, a
+	ld [wRam_C6A6], a
+	ld [wRam_C70A], a
+	ld [wRam_C6AB], a
+	ld [wRam_C6A0], a
+	ld a, $08
+	ld [wRam_C6A7], a
+
+Label_75_5AB2:: ; 75:5AB2
+	call Function_75_4029
+	call Function_75_565C
+	ld hl, $C6C1
+	res 5, [hl]
+	res 0, [hl]
+	ei
+	jp Label_75_5B45
+
+; ---- code $5AC3-$5AD5 (18 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 17/18 scenarios)
+
+Label_75_5AC3:: ; 75:5AC3
+	ld a, $80
+	jr Label_75_5A4C
+
+Label_75_5AC7:: ; 75:5AC7
+	ld a, [wRam_C6B4]
+	or a, a
+	jr nz, Label_75_5AD5
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	xor a, $80
+	jp Label_75_5A4C
+
+; ---- code $5AD5-$5B2B (86 bytes) [PROBABLE] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by jrcc from 75:5ACB (executed)
+
+Label_75_5AD5:: ; 75:5AD5
+	ld hl, $C6B9
+	inc [hl]
+	ld a, $03
+	cp a, [hl]
+	jr z, Label_75_5B08
+	call Function_75_4029
+	ld a, $03
+	ld [wRam_C6A0], a
+	xor a, a
+	ld hl, $C6AA
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C6B5
+	ld a, [wRam_C6C0]
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	ld [hli], a
+	ld a, [wMobileFlags]
+	bit 0, a
+	jr z, Label_75_5B03
+	ld a, $0B
+	jr Label_75_5B05
+
+Label_75_5B03:: ; 75:5B03
+	ld a, $20
+
+Label_75_5B05:: ; 75:5B05
+	ld [hli], a
+	jr Label_75_5B26
+
+Label_75_5B08:: ; 75:5B08
+	ld hl, $C6A6
+	xor a, a
+	ld [hli], a
+	ld [wRam_C6A0], a
+	ld a, $06
+	ld [hl], a
+	ld hl, $C69F
+	set 1, [hl]
+	ld a, $15
+	ld [wRam_C6AF], a
+	ld a, $02
+	ld [wRam_C6B0], a
+	xor a, a
+	ld [wRam_C6B0 + 1], a
+
+Label_75_5B26:: ; 75:5B26
+	ld a, $F1
+	jp Label_75_5A4C
+
+; ---- code $5B2B-$5C49 (286 bytes) [CONFIRMED] 135 insn(s); 135 executed (in up to 18/18 scenarios)
+
+Label_75_5B2B:: ; 75:5B2B
+	ld hl, $C6A3
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld a, [de]
+	ldh [rSB], a
+	inc de
+	ld a, d
+	ld [hld], a
+	ld [hl], e
+
+Label_75_5B38:: ; 75:5B38
+	ld hl, $C6C1
+	set 1, [hl]
+	ld a, $03
+	ldh [rSC], a
+	ld a, $83
+	ldh [rSC], a
+
+Label_75_5B45:: ; 75:5B45
+	ret
+
+Function_75_5B46:: ; 75:5B46
+	xor a, a
+	ld [wRam_C6B9], a
+	ld [wRam_C6AB], a
+	ld hl, $C84E
+	ld [hli], a
+	ld [hl], a
+	ld [wRam_C6A0], a
+	ld hl, $C6C1
+	res 5, [hl]
+	bit 0, [hl]
+	jr z, Label_75_5B63
+	ld a, [wMobileSDK_ReceivePacketBufferAlt]
+	jr Label_75_5B66
+
+Label_75_5B63:: ; 75:5B63
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+
+Label_75_5B66:: ; 75:5B66
+	cp a, $9F
+	jr nz, Label_75_5B6C
+	ld a, $95
+
+Label_75_5B6C:: ; 75:5B6C
+	ld b, a
+	ld hl, $5E31
+	push hl
+	cp a, $EE
+	jp z, Label_75_5E34
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jp z, Label_75_5F01
+	cp a, $95
+	jp z, Label_75_5C20
+	cp a, $A8
+	jp z, Label_75_5D2C
+	cp a, $A3
+	jr z, Label_75_5BC7
+	cp a, $A4
+	jr z, Label_75_5BC7
+	cp a, $93
+	jr z, Label_75_5BE9
+	cp a, $99
+	jr z, Label_75_5BF9
+	cp a, $9A
+	jr z, Label_75_5C0F
+	cp a, $97
+	jp z, Label_75_5D79
+	cp a, $A1
+	jr z, Label_75_5BD9
+	cp a, $A2
+	jr z, Label_75_5BD3
+	cp a, $90
+	jp z, Label_75_5D42
+	cp a, $94
+	jp z, Label_75_5D6E
+	cp a, $92
+	jp z, Label_75_5D6E
+	ld hl, $C6C1
+	res 0, [hl]
+	ld a, $0A
+	ld [wRam_C6A7], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ret
+
+Label_75_5BC7:: ; 75:5BC7
+	ld a, [wMobileSDK_ReceivePacketBuffer + 4]
+	ld [wRam_C70B], a
+	ld a, $04
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5BD3:: ; 75:5BD3
+	ld a, $03
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5BD9:: ; 75:5BD9
+	ld a, $04
+	ld [wRam_C6A7], a
+	ld de, $C6C2
+	ld hl, $C8DD
+	ld b, $04
+	jp Function_75_4000
+
+Label_75_5BE9:: ; 75:5BE9
+	ld a, $02
+	ld [wRam_C6A7], a
+	ld hl, $C6C1
+	res 4, [hl]
+	ld hl, $C69F
+	res 4, [hl]
+	ret
+
+Label_75_5BF9:: ; 75:5BF9
+	ld hl, $C6C8
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $C8DC
+	ld a, [hli]
+	dec a
+	ld b, a
+	inc hl
+	call Function_75_4000
+	ld a, $02
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5C0F:: ; 75:5C0F
+	ld de, $C711
+	ld hl, $C8DD
+	ld b, $02
+	call Function_75_4000
+	ld a, $02
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5C20:: ; 75:5C20
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_5D10
+	ld a, [wRam_C70D + 1]
+	ld b, a
+	ld a, [wRam_C70D]
+	or a, b
+	jp z, Label_75_5D10
+	ld hl, $C6CA
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	dec a
+	jp z, Label_75_5D10
+	ld c, a
+	ld a, [wMobileFlags]
+	bit 4, a
+	jp z, Label_75_5CCB
+
+; ---- code $5C49-$5CCB (130 bytes) [PROBABLE] 71 insn(s) reached by static flow only; seeds: exec x71; min discovery hops 0; fall-through of the jpcc at 75:5C46 (executed)
+	ld a, [wRam_C82F]
+	or a, a
+	jr nz, Label_75_5C92
+	ld a, [wMobileSDK_ReceivePacketBuffer + 5]
+	or a, a
+	jr z, Label_75_5C59
+	cp a, $81
+	jr c, Label_75_5C5B
+
+Label_75_5C59:: ; 75:5C59
+	ld a, $80
+
+Label_75_5C5B:: ; 75:5C5B
+	ld b, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	dec a
+	dec a
+	cp a, b
+	jr c, Label_75_5C77
+
+Label_75_5C64:: ; 75:5C64
+	ld hl, $C69F
+	set 3, [hl]
+	ld hl, $C830
+	ld a, $01
+	ld [hli], a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	dec a
+	ld [hl], a
+	jp Label_75_5D10
+
+Label_75_5C77:: ; 75:5C77
+	ld hl, $C82F
+	or a, a
+	jr z, Label_75_5C8C
+	ld [hld], a
+	ld [hl], b
+	ld b, a
+	ld hl, $C8DF
+	ld de, $C71F
+	call Function_75_4000
+	jp Label_75_5D10
+
+Label_75_5C8C:: ; 75:5C8C
+	ld a, $FF
+	ld [hld], a
+	ld [hl], b
+	jr Label_75_5D10
+
+Label_75_5C92:: ; 75:5C92
+	cp a, $FF
+	jr nz, Label_75_5CA6
+	ld hl, $C82E
+	ld a, [hli]
+	ld b, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	dec a
+	cp a, b
+	jr nc, Label_75_5C64
+	jr z, Label_75_5C64
+	xor a, a
+	ld [hl], a
+
+Label_75_5CA6:: ; 75:5CA6
+	ld hl, $C82E
+	ld a, [hli]
+	sub a, [hl]
+	ld b, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	dec a
+	cp a, b
+	jr nc, Label_75_5C64
+	jr z, Label_75_5C64
+	ld b, a
+	ld l, [hl]
+	ld h, $00
+	add a, l
+	ld [wRam_C82F], a
+	ld de, $C71F
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, $C8DE
+	call Function_75_4000
+	jr Label_75_5D10
+
+; ---- code $5CCB-$5D17 (76 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 6/18 scenarios)
+
+Label_75_5CCB:: ; 75:5CCB
+	xor a, a
+	cp a, d
+	jr nz, Label_75_5CE3
+	ld a, c
+	cp a, e
+	jr c, Label_75_5CE3
+	jr z, Label_75_5CE3
+	ld a, [wTimerEnable]
+	set 2, a
+	ld [wTimerEnable], a
+	ld a, c
+	sub a, e
+	ld c, e
+	ld e, a
+	jr Label_75_5CEA
+
+Label_75_5CE3:: ; 75:5CE3
+	ld a, e
+	sub a, c
+	ld e, a
+	ld a, d
+	sbc a, $00
+	ld d, a
+
+Label_75_5CEA:: ; 75:5CEA
+	ld a, d
+	ld [hld], a
+	ld [hl], e
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	ld hl, $C8DE
+	ld a, c
+	or a, a
+	jr z, Label_75_5D10
+	ld b, a
+	call Function_75_4000
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld de, $0003
+	add hl, de
+	ld a, [hl]
+	add a, c
+	ld [hli], a
+	jr nc, Label_75_5D10
+	inc [hl]
+
+Label_75_5D10:: ; 75:5D10
+	ld a, [wMobileFlags]
+	bit 4, a
+	jr z, Label_75_5D25
+
+; ---- code $5D17-$5D25 (14 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:5D15 (executed)
+	bit 7, a
+	jr z, Label_75_5D25
+	ld hl, $C6C1
+	res 7, [hl]
+	ld hl, $C69F
+	res 0, [hl]
+
+; ---- code $5D25-$5D6B (70 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 17/18 scenarios)
+
+Label_75_5D25:: ; 75:5D25
+	ld a, [wRam_C6A5]
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5D2C:: ; 75:5D2C
+	ld a, [wRam_C6C8]
+	ld e, a
+	ld a, [wRam_C6C9]
+	ld d, a
+	ld hl, $C8DD
+	ld b, $04
+	call Function_75_4000
+	ld a, $04
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5D42:: ; 75:5D42
+	ld de, $C8DC
+	ld hl, $6001
+	ld b, $09
+
+Label_75_5D4A:: ; 75:5D4A
+	ld a, [de]
+	inc de
+	cp a, [hl]
+	jr nz, Label_75_5D53
+	inc hl
+	dec b
+	jr nz, Label_75_5D4A
+
+Label_75_5D53:: ; 75:5D53
+	ld a, b
+	or a, a
+	jr nz, Label_75_5D62
+	ld a, [wMobileSDK_ReceivePacketBuffer + 14]
+	cp a, $80
+	jr c, Label_75_5D6B
+	cp a, $90
+	jr nc, Label_75_5D6B
+
+Label_75_5D62:: ; 75:5D62
+	ld [wMobileSDK_AdapterType], a
+	ld a, $02
+	ld [wRam_C6A7], a
+	ret
+
+; ---- code $5D6B-$5D6E (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 75:5D5C (executed)
+
+Label_75_5D6B:: ; 75:5D6B
+	xor a, a
+	jr Label_75_5D62
+
+; ---- code $5D6E-$5D99 (43 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 7/18 scenarios)
+
+Label_75_5D6E:: ; 75:5D6E
+	ld a, $03
+	ld [wRam_C6A7], a
+	ld hl, $C69F
+	set 4, [hl]
+	ret
+
+Label_75_5D79:: ; 75:5D79
+	ld hl, $C6C1
+	bit 0, [hl]
+	jr z, Label_75_5DC9
+	ld a, [wRam_C6A5]
+	ld [wRam_C6A7], a
+	ld a, [wMobileSDK_ReceivePacketBufferAlt + 4]
+	ld b, a
+	call Function_75_5DE2
+	call Function_75_5E1E
+	res 0, [hl]
+	ld a, b
+	cp a, $07
+	jr z, Label_75_5DB2
+	or a, a
+	ret nz
+
+; ---- code $5D99-$5DC9 (48 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the retcc at 75:5D98 (executed)
+	ld hl, $C69F
+	res 4, [hl]
+	set 1, [hl]
+	ld a, [wMobileFlags]
+	bit 4, a
+	jr nz, Label_75_5DC4
+	ld a, $23
+	ld [wRam_C6AF], a
+	ld a, $06
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5DB2:: ; 75:5DB2
+	ld hl, $C69F
+	res 4, [hl]
+	set 1, [hl]
+	ld a, $11
+	ld [wRam_C6AF], a
+	ld a, $06
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5DC4:: ; 75:5DC4
+	xor a, a
+	ld [wRam_C6A7], a
+	ret
+
+; ---- code $5DC9-$5DEC (35 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 7/18 scenarios)
+
+Label_75_5DC9:: ; 75:5DC9
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 4]
+	ld b, a
+	call Function_75_5DE2
+	call Function_75_5E1E
+	ld a, b
+	ld [hl], a
+	ld a, [wRam_C6A5]
+	ld [wRam_C6A7], a
+	ret
+
+Function_75_5DE2:: ; 75:5DE2
+	cp a, $FF
+	jr z, Label_75_5DF0
+	or a, a
+	ret z
+	cp a, $04
+	jr z, Label_75_5DF3
+
+; ---- code $5DEC-$5DF3 (7 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:5DEA (executed)
+	cp a, $05
+	jr z, Label_75_5E1B
+
+Label_75_5DF0:: ; 75:5DF0
+	ld b, $07
+	ret
+
+; ---- code $5DF3-$5E01 (14 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
+
+Label_75_5DF3:: ; 75:5DF3
+	ld b, $05
+	ld a, [wMobileFlags]
+	bit 0, a
+	jr z, Label_75_5E01
+	ld a, [wRam_C709]
+	jr Label_75_5E04
+
+; ---- code $5E01-$5E04 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 75:5DFA (executed)
+
+Label_75_5E01:: ; 75:5E01
+	ld a, [wRam_C822]
+
+; ---- code $5E04-$5E19 (21 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
+
+Label_75_5E04:: ; 75:5E04
+	cp a, $04
+	ret z
+	cp a, $1C
+	ret z
+	cp a, $1A
+	ret z
+	dec b
+	cp a, $03
+	ret z
+	ld b, $01
+	ld a, [wMobileFlags]
+	bit 4, a
+	ret z
+
+; ---- code $5E19-$5E1E (5 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the retcc at 75:5E18 (executed)
+	inc b
+	ret
+
+Label_75_5E1B:: ; 75:5E1B
+	ld b, $03
+	ret
+
+; ---- code $5E1E-$5E58 (58 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_5E1E:: ; 75:5E1E
+	ld a, b
+	and a, $07
+	rrca
+	rrca
+	rrca
+	push hl
+	ld l, a
+	ld a, [wTimerEnable]
+	and a, $1F
+	or a, l
+	ld [wTimerEnable], a
+	pop hl
+	ret
+
+	jp Function_75_4029
+
+Label_75_5E34:: ; 75:5E34
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jp z, Label_75_5F01
+	ld a, [wRam_C709]
+	cp a, $0D
+	jr z, Label_75_5E51
+	cp a, $2A
+	jr z, Label_75_5E51
+	ld a, $06
+	ld [wRam_C6A7], a
+	ld hl, $C69F
+	set 1, [hl]
+
+Label_75_5E51:: ; 75:5E51
+	ld a, [wMobileFlags]
+	bit 0, a
+	jr z, Label_75_5E5D
+
+; ---- code $5E58-$5E5D (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:5E56 (executed)
+	ld hl, $C8D0
+	jr Label_75_5E60
+
+; ---- code $5E5D-$5E8C (47 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
+
+Label_75_5E5D:: ; 75:5E5D
+	ld hl, $C8DD
+
+Label_75_5E60:: ; 75:5E60
+	ld a, [hli]
+	ld [wRam_C6AE], a
+	cp a, $10
+	jr z, Label_75_5E91
+	cp a, $12
+	jr z, Label_75_5E95
+	cp a, $13
+	jr z, Label_75_5EAA
+	cp a, $15
+	jr z, Label_75_5EB7
+	cp a, $19
+	jr z, Label_75_5EE5
+	cp a, $21
+	jr z, Label_75_5EE9
+	cp a, $22
+	jr z, Label_75_5EAA
+	cp a, $23
+	jr z, Label_75_5EED
+	cp a, $24
+	jr z, Label_75_5EF6
+	cp a, $28
+	jr z, Label_75_5EF2
+
+; ---- code $5E8C-$5E8D (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:5E8A (executed)
+	ld a, [hl]
+
+; ---- code $5E8D-$5E91 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
+
+Label_75_5E8D:: ; 75:5E8D
+	ld [wRam_C6AF], a
+	ret
+
+; ---- code $5E91-$5EF2 (97 bytes) [PROBABLE] 47 insn(s) reached by static flow only; seeds: exec x47; min discovery hops 1; entered by jrcc from 75:5E66 (executed)
+
+Label_75_5E91:: ; 75:5E91
+	ld a, $10
+	jr Label_75_5E8D
+
+Label_75_5E95:: ; 75:5E95
+	ld a, [hl]
+	or a, $00
+	jr z, Label_75_5EA6
+	cp a, $02
+	jr z, Label_75_5EA2
+	ld a, $13
+	jr Label_75_5E8D
+
+Label_75_5EA2:: ; 75:5EA2
+	ld a, $17
+	jr Label_75_5E8D
+
+Label_75_5EA6:: ; 75:5EA6
+	ld a, $12
+	jr Label_75_5E8D
+
+Label_75_5EAA:: ; 75:5EAA
+	ld hl, $C69F
+	res 1, [hl]
+	res 4, [hl]
+	ld a, $02
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5EB7:: ; 75:5EB7
+	ld a, [hl]
+	cp a, $01
+	jr nz, Label_75_5EDC
+	ld a, [wMobileFlags]
+	bit 4, a
+	jr z, Label_75_5EDC
+	res 4, a
+	ld [wMobileFlags], a
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $0F
+	or a, $02
+	ld [hl], a
+	ld a, $23
+	ld [wRam_C6AF], a
+	ld a, $06
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5EDC:: ; 75:5EDC
+	ld hl, $C6C1
+	res 5, [hl]
+	ld a, $24
+	jr Label_75_5E8D
+
+Label_75_5EE5:: ; 75:5EE5
+	ld a, $14
+	jr Label_75_5E8D
+
+Label_75_5EE9:: ; 75:5EE9
+	ld a, $22
+	jr Label_75_5E8D
+
+Label_75_5EED:: ; 75:5EED
+	ld hl, $C69F
+	res 1, [hl]
+
+; ---- code $5EF2-$5EF6 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
+
+Label_75_5EF2:: ; 75:5EF2
+	ld a, $24
+	jr Label_75_5E8D
+
+; ---- code $5EF6-$5F08 (18 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 75:5E86 (executed)
+
+Label_75_5EF6:: ; 75:5EF6
+	ld hl, $C69F
+	res 1, [hl]
+	ld a, $03
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_5F01:: ; 75:5F01
+	ld a, [wRam_C6A5]
+	ld [wRam_C6A7], a
+	ret
+
+; ---- code $5F08-$5F1B (19 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 18/18 scenarios)
+
+Function_75_5F08:: ; 75:5F08
+	ld de, $000A
+
+Function_75_5F0B:: ; 75:5F0B
+	ld [wMobileSDK_SendCommandID], a
+	ld b, $05
+
+Function_75_5F10:: ; 75:5F10
+	call Function_75_40B4
+	ret c
+	ld a, [wRam_C6A0]
+	cp a, $00
+	jr z, Label_75_5F20
+
+; ---- code $5F1B-$5F20 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:5F19 (executed)
+	call Function_75_4225
+	scf
+	ret
+
+; ---- code $5F20-$5FB5 (149 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 18/18 scenarios)
+
+Label_75_5F20:: ; 75:5F20
+	ldh a, [rSC]
+	and a, $80
+	jr nz, Label_75_5F20
+	di
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $FF
+	jr z, Label_75_5F3E
+	ld a, l
+	ld [wRam_C6BC], a
+	ld a, h
+	ld [wRam_C6BD], a
+	ld a, e
+	ld [wRam_C6BA], a
+	ld a, d
+	ld [wRam_C6BB], a
+
+Label_75_5F3E:: ; 75:5F3E
+	ld a, e
+	ld [wRam_C6A1], a
+	ld a, d
+	ld [wRam_C6A1 + 1], a
+	ld a, l
+	ld [wRam_C6A3], a
+	ld a, h
+	ld [wRam_C6A3 + 1], a
+	ld hl, $C6A7
+	ld a, [hl]
+	cp a, b
+	jr z, Label_75_5F58
+	ld [wRam_C6A5], a
+
+Label_75_5F58:: ; 75:5F58
+	ld a, b
+	ld [wRam_C6A7], a
+	xor a, a
+	ld [wRam_C6A6], a
+	ld a, $01
+	ld [wRam_C6A0], a
+	ld hl, $C6C1
+	set 5, [hl]
+	ei
+	ret
+
+Function_75_5F6C:: ; 75:5F6C
+	push de
+	ld hl, $0000
+	ld c, b
+	xor a, a
+	cp a, b
+	jr z, Label_75_5F7A
+
+Label_75_5F75:: ; 75:5F75
+	call Function_75_5F96
+	jr nz, Label_75_5F75
+
+Label_75_5F7A:: ; 75:5F7A
+	ld b, $04
+
+Label_75_5F7C:: ; 75:5F7C
+	call Function_75_5F96
+	jr nz, Label_75_5F7C
+	ld e, l
+	ld d, h
+	ld hl, $000A
+	add hl, bc
+	ld c, l
+	ld b, h
+	pop hl
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, $80
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ld e, c
+	ld d, b
+	ret
+
+Function_75_5F96:: ; 75:5F96
+	dec de
+	ld a, [de]
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	dec b
+	ret
+
+Function_75_5FA0:: ; 75:5FA0
+	ld hl, $C6C1
+	bit 0, [hl]
+	ret nz
+	ld a, [wRam_C6A7]
+	cp a, $02
+	jr c, Label_75_5FD4
+	cp a, $05
+	jr z, Label_75_5FD4
+	cp a, $06
+	jr nz, Label_75_5FD6
+
+; ---- code $5FB5-$5FD6 (33 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 75:5FB3 (executed)
+	ld a, [wRam_C6AF]
+	cp a, $22
+	jr z, Label_75_5FD4
+	cp a, $23
+	jr z, Label_75_5FD4
+	cp a, $26
+	jr z, Label_75_5FD4
+	swap a
+	and a, $0F
+	cp a, $01
+	jr z, Label_75_5FD4
+	cp a, $00
+	jr z, Label_75_5FD4
+	cp a, $08
+	jr nz, Label_75_5FD6
+
+Label_75_5FD4:: ; 75:5FD4
+	scf
+	ret
+
+; ---- code $5FD6-$5FF2 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
+
+Label_75_5FD6:: ; 75:5FD6
+	ld b, $05
+	ld hl, $C6BE
+	ld a, [hl]
+	cp a, $FF
+	jr z, Label_75_5FF2
+	ld a, $97
+	ld [hl], a
+	ld hl, $6028
+	ld de, $000A
+	call Function_75_5F10
+	ld hl, $C6C1
+	set 0, [hl]
+	ret
+
+; ---- code $5FF2-$5FFB (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 75:5FDE (executed)
+
+Label_75_5FF2:: ; 75:5FF2
+	ld hl, $5FFC
+	ld de, $0012
+	jp Function_75_5F10
+
+; ---- data $5FFB-$6063 (104 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+
+Data_75_5FFB:: ; 75:5FFB
+	db $4B, $99, $66, $10, $00, $00, $08, $4E, $49, $4E, $54, $45, $4E, $44, $4F, $02
+	db $77, $80, $00, $99, $66, $11, $00, $00, $00, $00, $11, $80, $00, $99, $66, $12
+	db $00, $00, $00, $99, $66, $13, $00, $00, $00, $00, $13, $80, $00, $99, $66, $17
+	db $00, $00, $00, $00, $17, $80, $00, $99, $66, $21, $00, $00, $99, $66, $22, $00
+	db $00, $00, $00, $22, $80, $00, $99, $66, $19, $00, $00, $02, $00, $60, $00, $7B
+	db $80, $00, $99, $66, $19, $00, $00, $02, $60, $60, $00, $DB, $80, $00, $99, $66
+	db $1A, $00, $00, $99, $66, $28, $00, $00
+
+; ---- data $6063-$606D (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_6063:: ; 75:6063
+	db $99, $66, $14, $00, $00, $00, $00, $14, $80, $00
+
+; ---- data $606D-$6073 (6 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_75_606D:: ; 75:606D
+	db $99, $66, $15, $00, $00, $01
+
+; ---- data $6073-$6078 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_6073:: ; 75:6073
+	db $FF, $01, $15, $80, $00
+
+; ---- data $6078-$6084 (12 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown
+
+Data_75_6078:: ; 75:6078
+	db $99, $66, $23, $00, $00, $06, $99, $66, $24, $00, $00, $01
+
+; ---- data $6084-$6090 (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_6084:: ; 75:6084
+	db $EC, $14, $C9, $E4, $0F, $0E, $E0, $0C, $53, $C4, $07, $94
+
+; ---- data $6090-$6093 (3 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+
+Data_75_6090:: ; 75:6090
+	db $B0, $05, $EE
+
+; ---- data $6093-$609F (12 bytes) [HYPOTHESIS] UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_6093:: ; 75:6093
+	db $EC, $10, $B4, $E4, $0C, $DD, $48, $45, $4C, $4F, $20, $00
+
+; ---- text $609F-$60B5 (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_75_609F:: ; 75:609F
+	db $4D, $41, $49, $4C, $20, $46, $52, $4F, $4D, $3A, $3C, $00, $52, $43, $50, $54
+	db $20, $54, $4F, $3A, $3C, $00
+
+; ---- data $60B5-$60BC (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_60B5:: ; 75:60B5
+	db $44, $41, $54, $41, $0D, $0A, $00
+
+; ---- data $60BC-$60CE (18 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
+
+Data_75_60BC:: ; 75:60BC
+	db $51, $55, $49, $54, $0D, $0A, $00, $55, $53, $45, $52, $20, $00, $50, $41, $53
+	db $53, $20
+
+; ---- data $60CE-$60CF (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_60CE:: ; 75:60CE
+	db $00
+
+; ---- data $60CF-$60D6 (7 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_60CF:: ; 75:60CF
+	db $53, $54, $41, $54, $0D, $0A, $00
+
+; ---- data $60D6-$610B (53 bytes) [HYPOTHESIS] UNCLASSIFIED 53 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_60D6:: ; 75:60D6
+	db $4C, $49, $53, $54, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $52, $45, $54
+	db $52, $20, $30, $30, $30, $30, $30, $0D, $0A, $00, $44, $45, $4C, $45, $20, $30
+	db $30, $30, $30, $30, $0D, $0A, $00, $54, $4F, $50, $20, $30, $30, $30, $30, $30
+	db $20, $30, $0D, $0A, $00
+
+; ---- data $610B-$611C (17 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
+
+Data_75_610B:: ; 75:610B
+	db $47, $45, $54, $20, $00, $20, $48, $54, $54, $50, $2F, $31, $2E, $30, $0D, $0A
+	db $00
+
+; ---- text $611C-$612D (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_75_611C:: ; 75:611C
+	db $55, $73, $65, $72, $2D, $41, $67, $65, $6E, $74, $3A, $20, $43, $47, $42, $2D
+	db $00
+
+; ---- data $612D-$6138 (11 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
+
+Data_75_612D:: ; 75:612D
+	db $0D, $0A, $0D, $0A, $00, $50, $4F, $53, $54, $20, $00
+
+; ---- text $6138-$6149 (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_75_6138:: ; 75:6138
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $4C, $65, $6E, $67, $74, $68, $3A, $20
+	db $00
+
+; ---- code $6149-$6182 (57 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_6149:: ; 75:6149
+	ld a, [wMobileFlags]
+	bit 5, a
+	ret nz
+	ld a, [wRam_C709]
+	cp a, $0A
+	ret c
+	ld c, a
+	cp a, $0D
+	jr z, Label_75_6182
+	cp a, $0F
+	jr z, Label_75_6191
+	cp a, $29
+	jr z, Label_75_6170
+	cp a, $2A
+	jr z, Label_75_6170
+	cp a, $28
+	jr z, Label_75_6170
+
+Label_75_616A:: ; 75:616A
+	ld a, [wRam_C6A7]
+	cp a, $06
+	ret z
+
+Label_75_6170:: ; 75:6170
+	ld b, $00
+	sla c
+	ld hl, $6193
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	push hl
+	ld hl, $C70A
+	inc [hl]
+	ld a, [hl]
+	ret
+
+; ---- code $6182-$6191 (15 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:6158 (executed)
+
+Label_75_6182:: ; 75:6182
+	ld c, a
+	ld a, [wRam_C70A]
+	cp a, $01
+	jr nz, Label_75_616A
+	ld hl, $C69F
+	res 1, [hl]
+	jr Label_75_6170
+
+; ---- code $6191-$61A0 (15 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 7/18 scenarios)
+
+Label_75_6191:: ; 75:6191
+	ld c, a
+	ld a, [wRam_C6AF]
+	cp a, $24
+	jr nz, Label_75_616A
+	ld a, [wRam_C70A]
+	cp a, $01
+	jr nz, Label_75_616A
+
+; ---- code $61A0-$61A7 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:619E (executed)
+	ld hl, $C69F
+	res 1, [hl]
+	jr Label_75_6170
+
+; ---- ptrtable $61A7-$61F1 (74 bytes) [PROBABLE] code-pointer table, 37 entries: 37/37 words hit own-bank code starts (dense run of code pointers); 22/37 targets executed
+
+Table_75_61A7:: ; 75:61A7
+	dw Label_75_61F1
+	dw Label_75_626C
+	dw Label_75_6379
+	dw Label_75_63BC
+	dw Label_75_63E7
+	dw Label_75_6457
+	dw Label_75_672B
+	dw Label_75_6750
+	dw Label_75_69B2
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_6856
+	dw Label_75_68F1
+	dw Label_75_697F
+	dw Label_75_6A6C
+	dw Label_75_6B87
+	dw Label_75_6C02
+	dw Label_75_6BD1
+	dw Label_75_6C02
+	dw Label_75_6B87
+	dw Label_75_748D
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_6D49
+	dw Label_75_74DB
+	dw Label_75_74DB
+	dw Label_75_74DB
+	dw Label_75_7E04
+	dw Label_75_7EB4
+	dw Label_75_7EEF
+	dw Label_75_61F1
+	dw Label_75_748D
+	dw Label_75_7634
+	dw Label_75_75E8
+
+; ---- code $61F1-$6201 (16 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 17/18 scenarios)
+
+Label_75_61F1:: ; 75:61F1
+	dec a
+	jr z, Label_75_61F9
+	dec a
+	jr z, Label_75_620B
+	dec [hl]
+	ret
+
+Label_75_61F9:: ; 75:61F9
+	ld a, [wMobileSDK_AdapterType]
+	or a, a
+	jr z, Label_75_6201
+	jr Label_75_6264
+
+; ---- code $6201-$620B (10 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 75:61FD (executed)
+
+Label_75_6201:: ; 75:6201
+	ld a, $10
+	call Function_75_6258
+	res 0, [hl]
+	set 1, [hl]
+	ret
+
+; ---- code $620B-$621F (20 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 17/18 scenarios)
+
+Label_75_620B:: ; 75:620B
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wMobileSDK_AdapterType]
+	cp a, $88
+	jr c, Label_75_6244
+	sub a, $88
+	ld [hl], a
+	cp a, $04
+	jr c, Label_75_6221
+
+; ---- code $621F-$6221 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:621D (executed)
+	ld a, $03
+
+; ---- code $6221-$6225 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 17/18 scenarios)
+
+Label_75_6221:: ; 75:6221
+	cp a, $03
+	jr nz, Label_75_6226
+
+; ---- code $6225-$6226 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:6223 (executed)
+	dec a
+
+; ---- code $6226-$6232 (12 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 17/18 scenarios)
+
+Label_75_6226:: ; 75:6226
+	ld b, a
+	ld a, $04
+	sub a, b
+	ld d, a
+	rlca
+	add a, d
+	ld c, a
+	xor a, a
+	cp a, b
+	jr z, Label_75_6235
+
+; ---- code $6232-$6235 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:6230 (executed)
+	ld a, $03
+	xor a, b
+
+; ---- code $6235-$6244 (15 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 17/18 scenarios)
+
+Label_75_6235:: ; 75:6235
+	ld hl, $C710
+	ld [hld], a
+	ld [hl], c
+	ld a, [wRam_C709]
+	cp a, $0A
+	jr nz, Label_75_624C
+	jp Label_75_56AD
+
+; ---- code $6244-$6264 (32 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 75:6216 (executed)
+
+Label_75_6244:: ; 75:6244
+	ld a, $10
+	call Function_75_6258
+	jp Label_75_56B1
+
+Label_75_624C:: ; 75:624C
+	xor a, a
+	ld [wTimerEnable], a
+	ld [wRam_C6A7], a
+	inc a
+	ld [wRam_C709], a
+	ret
+
+Function_75_6258:: ; 75:6258
+	ld [wRam_C6AF], a
+	ld a, $05
+	ld [wRam_C709], a
+	ld hl, $C69F
+	ret
+
+; ---- code $6264-$6281 (29 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 17/18 scenarios)
+
+Label_75_6264:: ; 75:6264
+	ld a, $91
+	ld hl, $600E
+	jp Function_75_5F08
+
+Label_75_626C:: ; 75:626C
+	dec a
+	jr z, Label_75_6287
+	dec a
+	jr z, Label_75_628D
+	dec a
+	jr z, Label_75_629C
+	dec a
+	jp z, Label_75_630F
+	dec a
+	jp z, Label_75_632C
+	dec a
+	jp z, Label_75_633B
+
+; ---- code $6281-$6287 (6 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 75:627E (executed)
+	dec a
+	jp z, Label_75_6348
+	dec [hl]
+	ret
+
+; ---- code $6287-$62FB (116 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 7/18 scenarios)
+
+Label_75_6287:: ; 75:6287
+	ld hl, $6041
+	jp Label_75_6371
+
+Label_75_628D:: ; 75:628D
+	ld hl, $C6C8
+	ld a, $7F
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	ld hl, $604D
+	jp Label_75_6371
+
+Label_75_629C:: ; 75:629C
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $4D
+	jr nz, Label_75_62FB
+	ld a, [hld]
+	cp a, $41
+	jr nz, Label_75_62FB
+	ld b, $BE
+	ld de, $0000
+
+Label_75_62AE:: ; 75:62AE
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jr nz, Label_75_62AE
+	ld a, [hli]
+	cp a, d
+	jr nz, Label_75_6302
+	ld a, [hl]
+	cp a, e
+	jr nz, Label_75_6302
+	ld a, [wRam_C6D5]
+	or a, a
+	jr z, Label_75_62CB
+	ld de, $C6DD
+	jr Label_75_62D6
+
+Label_75_62CB:: ; 75:62CB
+	ld hl, $C723
+	ld de, $C6D5
+	ld b, $08
+	call Function_75_4000
+
+Label_75_62D6:: ; 75:62D6
+	ld hl, $C769
+	ld b, $2C
+	call Function_75_4000
+	ld a, [wMobileSDK_PacketBuffer + 50]
+	ld c, a
+	sub a, $08
+	ld e, a
+	ld d, $00
+	ld hl, $CA17
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, $C6D5
+	ld b, $08
+	call Function_75_4000
+	ld b, c
+	call Function_75_5F6C
+	jr Label_75_6360
+
+; ---- code $62FB-$630F (20 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 75:62A2 (executed)
+
+Label_75_62FB:: ; 75:62FB
+	ld a, $25
+	ld [wRam_C711], a
+	jr Label_75_6307
+
+Label_75_6302:: ; 75:6302
+	ld a, $14
+	ld [wRam_C711], a
+
+Label_75_6307:: ; 75:6307
+	ld a, $06
+	ld [wRam_C70A], a
+	jp Label_75_6264
+
+; ---- code $630F-$631A (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 7/18 scenarios)
+
+Label_75_630F:: ; 75:630F
+	ld a, [wTimerEnable]
+	and a, $E0
+	jr nz, Label_75_631A
+	ld b, $92
+	jr Label_75_6351
+
+; ---- code $631A-$632C (18 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 75:6314 (executed)
+
+Label_75_631A:: ; 75:631A
+	cp a, $E0
+	ld a, $11
+	jr z, Label_75_6321
+	inc a
+
+Label_75_6321:: ; 75:6321
+	ld [wRam_C711], a
+	ld a, $06
+	ld [wRam_C70A], a
+	jp Label_75_6264
+
+; ---- code $632C-$6348 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 7/18 scenarios)
+
+Label_75_632C:: ; 75:632C
+	ld d, a
+	ld a, [wMobileSDK_PacketBuffer + 50]
+	add a, $0A
+	ld e, a
+	ld hl, $CA11
+	ld a, $A1
+	jp Function_75_5F0B
+
+Label_75_633B:: ; 75:633B
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	set 5, [hl]
+	ret
+
+; ---- code $6348-$6351 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jpcc from 75:6282 (PROBABLE code)
+
+Label_75_6348:: ; 75:6348
+	ld a, [wRam_C711]
+	call Function_75_6258
+	jp Label_75_56B1
+
+; ---- code $6351-$6379 (40 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 17/18 scenarios)
+
+Label_75_6351:: ; 75:6351
+	ld a, [wMobileSDK_PacketBuffer + 5]
+	add a, $0A
+	ld e, a
+	ld d, $00
+	ld hl, $C9E4
+	ld a, b
+	jp Function_75_5F0B
+
+Label_75_6360:: ; 75:6360
+	ld hl, $C70D
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hl], a
+	ld a, $97
+	ld hl, $6028
+	jp Function_75_5F08
+
+Label_75_6371:: ; 75:6371
+	ld a, $99
+	ld de, $000C
+	jp Function_75_5F0B
+
+; ---- code $6379-$63E7 (110 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: mobile x54; min discovery hops 0; run starts at SDK/API table entry state0C (analysis/mobile_candidates.json)
+
+Label_75_6379:: ; 75:6379
+	dec a
+	jr z, Label_75_6360
+	dec a
+	jr z, Label_75_6387
+	dec a
+	jr z, Label_75_63A1
+	dec a
+	jr z, Label_75_63B3
+	dec [hl]
+	ret
+
+Label_75_6387:: ; 75:6387
+	ld a, [wTimerEnable]
+	and a, $E0
+	jr nz, Label_75_6392
+	ld b, $92
+	jr Label_75_6351
+
+Label_75_6392:: ; 75:6392
+	cp a, $E0
+	ld a, $11
+	jr z, Label_75_6399
+	inc a
+
+Label_75_6399:: ; 75:6399
+	ld a, $03
+	ld [wRam_C70A], a
+	jp Label_75_6264
+
+Label_75_63A1:: ; 75:63A1
+	ld hl, $C6C1
+	set 4, [hl]
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	set 6, [hl]
+	ret
+
+Label_75_63B3:: ; 75:63B3
+	ld a, [wRam_C711]
+	call Function_75_6258
+	jp Label_75_56B1
+
+Label_75_63BC:: ; 75:63BC
+	dec a
+	jr z, Label_75_63C4
+	dec a
+	jr z, Label_75_63CC
+	ret
+
+Label_75_63C3:: ; 75:63C3
+	dec [hl]
+
+Label_75_63C4:: ; 75:63C4
+	ld a, $94
+	ld hl, $6063
+	jp Function_75_5F08
+
+Label_75_63CC:: ; 75:63CC
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $EE
+	jr z, Label_75_63C3
+	ld hl, $C6C1
+	set 4, [hl]
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	set 6, [hl]
+	set 5, [hl]
+	ret
+
+; ---- code $63E7-$6404 (29 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 6/18 scenarios)
+
+Label_75_63E7:: ; 75:63E7
+	dec a
+	jr z, Label_75_63F8
+	dec a
+	jr z, Label_75_6410
+	dec a
+	jr z, Label_75_641C
+	dec a
+	jr z, Label_75_6424
+	dec a
+	jr z, Label_75_6427
+	dec [hl]
+	ret
+
+Label_75_63F8:: ; 75:63F8
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_640E
+	call Function_75_67F7
+	jr z, Label_75_640E
+
+; ---- code $6404-$640E (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6402 (executed)
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA04
+	jp Function_75_67DB
+
+; ---- code $640E-$645D (79 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 6/18 scenarios)
+
+Label_75_640E:: ; 75:640E
+	jr Function_75_6436
+
+Label_75_6410:: ; 75:6410
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $A2
+	ld hl, $6037
+	jp Function_75_5F08
+
+Label_75_641C:: ; 75:641C
+	ld a, $93
+	ld hl, $601E
+	jp Function_75_5F08
+
+Label_75_6424:: ; 75:6424
+	jp Label_75_6264
+
+Label_75_6427:: ; 75:6427
+	ld hl, $C6C1
+	res 4, [hl]
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $0F
+	ld [hl], a
+	jp Label_75_56AD
+
+Function_75_6436:: ; 75:6436
+	ld a, $03
+	ld [wRam_C6A7], a
+	ld de, $C9E4
+	ld hl, $607E
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	inc b
+	call Function_75_5F6C
+	ld a, $A4
+	ld hl, $C9E4
+	jp Function_75_5F0B
+
+Label_75_6457:: ; 75:6457
+	dec a
+	jr z, Label_75_645E
+	dec a
+	jr z, Label_75_649C
+
+; ---- code $645D-$645E (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:645B (executed)
+	ret
+
+; ---- code $645E-$647C (30 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 6/18 scenarios)
+
+Label_75_645E:: ; 75:645E
+	ld b, $06
+	ld de, $CA40
+	call Function_75_5F6C
+	ld a, [wRam_C70D]
+	inc a
+	cp a, $03
+	jr nz, Label_75_6491
+	ld a, [wMobileSDK_ReceivePacketBuffer + 128]
+	or a, a
+	jr z, Label_75_6491
+	ld hl, $C832
+	ld a, [hli]
+	cp a, $99
+	jr nz, Label_75_6486
+
+; ---- code $647C-$6486 (10 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:647A (executed)
+	ld a, [hli]
+	cp a, $66
+	jr nz, Label_75_6486
+	ld a, [hli]
+	cp a, $23
+	jr z, Label_75_6491
+
+; ---- code $6486-$64A3 (29 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 6/18 scenarios)
+
+Label_75_6486:: ; 75:6486
+	ld hl, $CA34
+	ld de, $C832
+	ld b, $10
+	call Function_75_4000
+
+Label_75_6491:: ; 75:6491
+	ld a, $A3
+	ld de, $0010
+	ld hl, $CA34
+	jp Function_75_5F0B
+
+Label_75_649C:: ; 75:649C
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $A3
+	jr z, Label_75_64D4
+
+; ---- code $64A3-$64D4 (49 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 75:64A1 (executed)
+	ld a, [wMobileFlags]
+	bit 3, a
+	jr z, Label_75_64B1
+	dec [hl]
+	ld a, $03
+	ld [wRam_C6A7], a
+	ret
+
+Label_75_64B1:: ; 75:64B1
+	ld a, [wRam_C84C]
+	cp a, $05
+	jr c, Label_75_64BE
+	ld hl, $C69F
+	set 1, [hl]
+	ret
+
+Label_75_64BE:: ; 75:64BE
+	dec [hl]
+	ld hl, $C84C
+	inc [hl]
+	ld hl, $C6C1
+	set 3, [hl]
+	ld hl, $C6B5
+	ld a, [wRam_C6C0]
+	ld [hli], a
+	ld a, [wRam_C6BF]
+	ld [hl], a
+	ret
+
+; ---- code $64D4-$64EB (23 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 6/18 scenarios)
+
+Label_75_64D4:: ; 75:64D4
+	xor a, a
+	ld [wRam_C84C], a
+	ld a, [wRam_C70D]
+	inc a
+	ld [wRam_C70C], a
+	dec a
+	jp z, Label_75_6622
+	dec a
+	jp z, Label_75_665A
+	dec a
+	jp z, Label_75_659D
+
+; ---- code $64EB-$653A (79 bytes) [PROBABLE] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 0; fall-through of the jpcc at 75:64E8 (executed)
+	dec a
+	jp z, Label_75_656C
+	call Function_75_65CD
+	push de
+	ld de, $C71F
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, $01
+	ld [wRam_C70D], a
+	ld a, $FA
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	pop de
+	ld a, $01
+	ld [wRam_C831], a
+	call Function_75_66A1
+	ld a, $05
+	ld [wRam_C70A], a
+	call Function_75_653A
+	ld a, [wRam_C842]
+	or a, a
+	jr z, Label_75_6527
+	ld a, $01
+
+Label_75_6527:: ; 75:6527
+	add a, $23
+	ld [wRam_C709], a
+	ld a, [wRam_C827]
+	cp a, $02
+	jr nz, Label_75_6537
+	xor a, a
+	ld [wRam_C842], a
+
+Label_75_6537:: ; 75:6537
+	jp Label_75_65C5
+
+; ---- code $653A-$656C (50 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_653A:: ; 75:653A
+	ld b, $FA
+	ld hl, $C71F
+	xor a, a
+
+Label_75_6540:: ; 75:6540
+	ld [hli], a
+	dec b
+	jr nz, Label_75_6540
+	ld a, [wRam_C715]
+	ld [wRam_C71B], a
+	ld a, [wRam_C716]
+	ld [wRam_C71C], a
+	ld a, [wRam_C719]
+	ld [wRam_C71D], a
+	ld a, [wRam_C71A]
+	ld [wRam_C71E], a
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 17], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld hl, $C9F0
+	jp Function_75_5F0B
+
+; ---- code $656C-$659D (49 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 75:64EC (PROBABLE code)
+
+Label_75_656C:: ; 75:656C
+	call Function_75_65CD
+	ld a, [wMobileSDK_PacketBuffer + 19]
+	and a, $01
+	or a, a
+	jr nz, Label_75_6583
+	ld a, [wRam_C827]
+	cp a, $02
+	jr nz, Label_75_6583
+	ld a, $01
+	ld [wRam_C831], a
+
+Label_75_6583:: ; 75:6583
+	call Function_75_66A1
+	ld a, $05
+	ld [wRam_C70A], a
+	call Function_75_653A
+	ld a, [wRam_C842]
+	or a, a
+	jr z, Label_75_6596
+	ld a, $01
+
+Label_75_6596:: ; 75:6596
+	add a, $21
+	ld [wRam_C709], a
+	jr Label_75_65C5
+
+; ---- code $659D-$6622 (133 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 2/18 scenarios)
+
+Label_75_659D:: ; 75:659D
+	call Function_75_65CD
+	call Function_75_66A1
+	ld a, $05
+	ld [wRam_C70A], a
+	call Function_75_653A
+	ld a, [wRam_C82C]
+	ld b, a
+	ld a, [wRam_C831]
+	and a, $01
+	add a, $13
+	bit 0, b
+	jr z, Label_75_65C2
+	sub a, $13
+	add a, $1F
+	dec b
+	sla b
+	add a, b
+
+Label_75_65C2:: ; 75:65C2
+	ld [wRam_C709], a
+
+Label_75_65C5:: ; 75:65C5
+	ld hl, $C69F
+	set 0, [hl]
+	res 2, [hl]
+	ret
+
+Function_75_65CD:: ; 75:65CD
+	ld hl, $C711
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld a, [wRam_C831]
+	and a, $01
+	xor a, $01
+	ld [wRam_C70A], a
+	ld hl, $C6C6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	inc de
+	inc de
+	ld a, $1F
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	dec bc
+	dec bc
+	ld a, $FA
+	ld [hli], a
+	ld a, $00
+	ld [hli], a
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $C9F0
+	ld hl, $606D
+	ld b, $05
+	call Function_75_4000
+	inc de
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ret
+
+; ---- code $6622-$6654 (50 bytes) [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jpcc from 75:64E0 (executed)
+
+Label_75_6622:: ; 75:6622
+	xor a, a
+	ld [wRam_C70A], a
+	ld a, [wRam_C70B]
+	ld [wMobileSDK_PacketBuffer + 118], a
+	ld de, $CA4A
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	call Function_75_673A
+	ld a, [wMobileSDK_PacketBuffer + 117]
+	ld b, a
+	ld de, $CA5A
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	call Function_75_5F6C
+	ld hl, $CA44
+	call Function_75_67DB
+	ld a, $11
+	ld [wRam_C709], a
+
+; ---- code $6654-$66D9 (133 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios)
+
+Label_75_6654:: ; 75:6654
+	ld hl, $C69F
+	set 0, [hl]
+	ret
+
+Label_75_665A:: ; 75:665A
+	xor a, a
+	ld [wRam_C70A], a
+	ld a, [wRam_C70B]
+	ld [wMobileSDK_PacketBuffer + 102], a
+	ld [wMobileSDK_PacketBuffer + 166], a
+	ld de, $CA6A
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	call Function_75_673A
+	ld a, [wMobileSDK_PacketBuffer + 165]
+	ld b, a
+	ld de, $CA8A
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	call Function_75_5F6C
+	ld a, [wMobileSDK_PacketBuffer + 101]
+	ld b, a
+	ld de, $CA4A
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	call Function_75_5F6C
+	ld hl, $CA64
+	call Function_75_67DB
+	ld a, $12
+	ld [wRam_C709], a
+	jr Label_75_6654
+
+Function_75_66A1:: ; 75:66A1
+	ld bc, $0001
+	ld hl, $610B
+	ld a, [wRam_C831]
+	or a, a
+	call nz, Function_75_66B2
+	call Function_75_4007
+	ret
+
+Function_75_66B2:: ; 75:66B2
+	ld hl, $6132
+	ret
+
+Function_75_66B6:: ; 75:66B6
+	ld hl, $6110
+	jp Function_75_4007
+
+Function_75_66BC:: ; 75:66BC
+	ld hl, $611C
+	call Function_75_4007
+	ld hl, $013F
+	ld b, $04
+	call Function_75_4000
+	ld a, $2D
+	ld [de], a
+	inc de
+	ld a, [$014C]
+	and a, $F0
+	swap a
+	cp a, $0A
+	jr c, Label_75_66DD
+
+; ---- code $66D9-$66DD (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:66D7 (executed)
+	add a, $57
+	jr Label_75_66DF
+
+; ---- code $66DD-$66EA (13 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
+
+Label_75_66DD:: ; 75:66DD
+	or a, $30
+
+Label_75_66DF:: ; 75:66DF
+	ld [de], a
+	inc de
+	ld a, [$014C]
+	and a, $0F
+	cp a, $0A
+	jr c, Label_75_66EE
+
+; ---- code $66EA-$66EE (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:66E8 (executed)
+	add a, $37
+	jr Label_75_66F0
+
+; ---- code $66EE-$672B (61 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 2/18 scenarios)
+
+Label_75_66EE:: ; 75:66EE
+	or a, $30
+
+Label_75_66F0:: ; 75:66F0
+	ld [de], a
+	inc de
+	ld a, $07
+	add a, c
+	ld c, a
+	ld hl, $612D
+	jp Function_75_4007
+
+Function_75_66FC:: ; 75:66FC
+	xor a, a
+	ld [wRam_C70A], a
+	ld hl, $6138
+	call Function_75_4007
+	ld hl, $C842
+	ld b, $05
+
+Label_75_670B:: ; 75:670B
+	ld a, [hl]
+	cp a, $30
+	jr nz, Label_75_6717
+	inc hl
+	dec b
+	ld a, $01
+	cp a, b
+	jr nz, Label_75_670B
+
+Label_75_6717:: ; 75:6717
+	push bc
+	call Function_75_4000
+	ld a, $0D
+	ld [de], a
+	inc de
+	ld a, $0A
+	ld [de], a
+	inc de
+	pop bc
+	ld a, b
+	add a, $02
+	add a, c
+	ld c, a
+	or a, c
+	ret
+
+; ---- code $672B-$673A (15 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: mobile x7; min discovery hops 0; run starts at SDK/API table entry state10 (analysis/mobile_candidates.json)
+
+Label_75_672B:: ; 75:672B
+	xor a, a
+	ld [wRam_C70B], a
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	ret
+
+; ---- code $673A-$6750 (22 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_673A:: ; 75:673A
+	ld a, $FF
+	ld [wRam_C70D], a
+
+Function_75_673F:: ; 75:673F
+	push hl
+	ld hl, $C6CB
+	xor a, a
+	ld [hld], a
+	ld a, $FF
+	ld [hld], a
+	ld a, $C7
+	ld [hld], a
+	ld a, $1F
+	ld [hl], a
+	pop hl
+	ret
+
+; ---- code $6750-$67DB (139 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: mobile x68; min discovery hops 0; run starts at SDK/API table entry state11 (analysis/mobile_candidates.json)
+
+Label_75_6750:: ; 75:6750
+	dec a
+	jr z, Label_75_6768
+	dec a
+	jr z, Label_75_67A5
+	dec a
+	jr z, Label_75_675A
+	ret
+
+Label_75_675A:: ; 75:675A
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $30
+	call Function_75_6258
+	set 1, [hl]
+	res 0, [hl]
+	ret
+
+Label_75_6768:: ; 75:6768
+	call Function_75_67F7
+	jr nz, Label_75_6790
+	ld hl, $C71F
+	call Function_75_6B27
+	ld a, $02
+	cp a, d
+	jr nz, Label_75_67CD
+	ld a, $20
+	cp a, e
+	jr nz, Label_75_67CD
+	call Function_75_673A
+	ld a, [wMobileSDK_PacketBuffer + 117]
+	add a, $0A
+	ld e, a
+	ld d, $00
+	ld a, $95
+	ld hl, $CA54
+	jp Function_75_5F0B
+
+Label_75_6790:: ; 75:6790
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_67E3
+	ld hl, $C70A
+	dec [hl]
+	xor a, a
+	ld [wMobileSDK_ReceivePacketBuffer + 3], a
+	ld hl, $CA44
+	jp Function_75_67DB
+
+Label_75_67A5:: ; 75:67A5
+	call Function_75_67F7
+	jr nz, Label_75_6790
+	ld hl, $C71F
+	call Function_75_6B27
+	ld a, $02
+	cp a, d
+	jr nz, Label_75_67CD
+	ld a, $50
+	cp a, e
+	jr nz, Label_75_67CD
+	ld a, $03
+	ld [wRam_C709], a
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $D6
+	or a, $80
+	ld [hl], a
+	xor a, a
+	ld [wRam_C827], a
+	ret
+
+Label_75_67CD:: ; 75:67CD
+	ld hl, $C6B0
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld a, $02
+	ld [wRam_C70A], a
+	jp Function_75_6436
+
+; ---- code $67DB-$67E3 (8 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_67DB:: ; 75:67DB
+	ld de, $000B
+	ld a, $95
+	jp Function_75_5F0B
+
+; ---- code $67E3-$67F7 (20 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: mobile x11; min discovery hops 2; entered by jrcc from 75:6795 (PROBABLE code)
+
+Label_75_67E3:: ; 75:67E3
+	ld hl, $C6B0
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $30
+	call Function_75_6258
+	set 1, [hl]
+	res 0, [hl]
+	ret
+
+; ---- code $67F7-$6809 (18 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_67F7:: ; 75:67F7
+	call Function_75_681D
+	ld hl, $C6D1
+
+Label_75_67FD:: ; 75:67FD
+	ld a, [hli]
+	cp a, $0D
+	ret nz
+	ld a, [hl]
+	cp a, $0A
+	ret nz
+	ld a, $20
+	ld [hl], a
+	ret
+
+; ---- code $6809-$681D (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: mobile x12; min discovery hops 3; entered by call from 75:4BA0 (PROBABLE code)
+
+Function_75_6809:: ; 75:6809
+	call Function_75_681D
+	ld hl, $C6CE
+	ld a, [hli]
+	cp a, $0D
+	ret nz
+	ld a, [hli]
+	cp a, $0A
+	ret nz
+	ld a, [hli]
+	cp a, $2E
+	ret nz
+	jr Label_75_67FD
+
+; ---- code $681D-$682B (14 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_681D:: ; 75:681D
+	push bc
+	push de
+	ld hl, $C8DC
+	ld a, [hl]
+	dec a
+	jr z, Label_75_6843
+	ld c, a
+	cp a, $05
+	jr nc, Label_75_6846
+
+; ---- code $682B-$6840 (21 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 0; fall-through of the jrcc at 75:6829 (executed)
+	ld a, $05
+	sub a, c
+	ld b, a
+	ld e, c
+	ld d, $00
+	ld hl, $C6CE
+	add hl, de
+	ld de, $C6CE
+	call Function_75_4000
+	ld hl, $C8DE
+	ld b, c
+
+; ---- code $6840-$6856 (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 4/18 scenarios)
+
+Label_75_6840:: ; 75:6840
+	call Function_75_4000
+
+Label_75_6843:: ; 75:6843
+	pop de
+	pop bc
+	ret
+
+Label_75_6846:: ; 75:6846
+	sub a, $05
+	ld c, a
+	ld b, $00
+	ld hl, $C8DE
+	add hl, bc
+	ld b, $05
+	ld de, $C6CE
+	jr Label_75_6840
+
+; ---- code $6856-$68E9 (147 bytes) [PROBABLE] 72 insn(s) reached by static flow only; seeds: mobile x72; min discovery hops 0; run starts at SDK/API table entry state15 (analysis/mobile_candidates.json)
+
+Label_75_6856:: ; 75:6856
+	dec a
+	jr z, Label_75_685A
+	ret
+
+Label_75_685A:: ; 75:685A
+	call Function_75_67F7
+	jr nz, Label_75_68C1
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $32
+	jr nz, Label_75_68D3
+	ld a, [hli]
+	cp a, $35
+	jr nz, Label_75_68D3
+	call Function_75_673A
+	ld hl, $C71B
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [hl]
+	or a, a
+	jr z, Label_75_68B3
+	push hl
+	ld hl, $C70A
+	dec [hl]
+	ld bc, $0001
+	ld de, $C9F7
+	ld hl, $60AB
+	call Function_75_4007
+	pop hl
+	ld a, $80
+	call Function_75_400F
+	ld a, $3E
+	ld [de], a
+	inc de
+	inc c
+	ld a, l
+	ld [wRam_C71B], a
+	ld a, h
+	ld [wRam_C71C], a
+	call Function_75_6974
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 17], a
+	ld b, c
+	call Function_75_5F6C
+	ld hl, $C9F0
+	ld d, $00
+	ld e, c
+	ld a, $95
+	jp Function_75_5F0B
+
+Label_75_68B3:: ; 75:68B3
+	ld a, $03
+	ld [wRam_C709], a
+	call Function_75_68E9
+	ld a, $01
+	ld [wRam_C827], a
+	ret
+
+Label_75_68C1:: ; 75:68C1
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_67E3
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $C9E4
+	jp Function_75_67DB
+
+Label_75_68D3:: ; 75:68D3
+	ld hl, $C71F
+	call Function_75_6B27
+	ld hl, $C6B0
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld a, $30
+	call Function_75_6258
+	set 1, [hl]
+	res 0, [hl]
+	ret
+
+; ---- code $68E9-$68F1 (8 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_68E9:: ; 75:68E9
+	ld hl, $C69F
+	res 0, [hl]
+	res 2, [hl]
+	ret
+
+; ---- code $68F1-$6974 (131 bytes) [PROBABLE] 62 insn(s) reached by static flow only; seeds: mobile x62; min discovery hops 0; run starts at SDK/API table entry state16 (analysis/mobile_candidates.json)
+
+Label_75_68F1:: ; 75:68F1
+	dec a
+	jr z, Label_75_695D
+	dec a
+	jr z, Label_75_68FB
+	dec a
+	jr z, Label_75_6929
+	ret
+
+Label_75_68FB:: ; 75:68FB
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_67E3
+	call Function_75_7444
+	ld a, [wRam_C70D + 1]
+	or a, a
+	jr nz, Label_75_6917
+	ld a, $03
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	ret
+
+Label_75_6917:: ; 75:6917
+	call Function_75_673A
+	ld de, $C9E9
+	ld a, $01
+	ld [de], a
+	inc de
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	jr Label_75_6957
+
+Label_75_6929:: ; 75:6929
+	call Function_75_67F7
+	jr nz, Label_75_6953
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_67E3
+	ld hl, $C71F
+	call Function_75_6B27
+	ld a, d
+	cp a, $02
+	jr nz, Label_75_6971
+	ld a, e
+	cp a, $50
+	jr nz, Label_75_6971
+	ld a, $03
+	ld [wRam_C709], a
+	call Function_75_68E9
+	xor a, a
+	ld [wRam_C827], a
+	ret
+
+Label_75_6953:: ; 75:6953
+	ld hl, $C70A
+	dec [hl]
+
+Label_75_6957:: ; 75:6957
+	ld hl, $C9E4
+	jp Function_75_67DB
+
+Label_75_695D:: ; 75:695D
+	call Function_75_67F7
+	jr nz, Label_75_6953
+	ld hl, $C71F
+	call Function_75_6B27
+	ld a, d
+	cp a, $03
+	jr nz, Label_75_6971
+	ld a, e
+	cp a, $54
+	ret z
+
+Label_75_6971:: ; 75:6971
+	jp Label_75_68D3
+
+; ---- code $6974-$6985 (17 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_6974:: ; 75:6974
+	ld a, $0D
+	ld [de], a
+	inc de
+	inc c
+	ld a, $0A
+	ld [de], a
+	inc de
+	inc c
+	ret
+
+Label_75_697F:: ; 75:697F
+	dec a
+	jr z, Label_75_6986
+	dec a
+	jr z, Label_75_699F
+
+; ---- code $6985-$6986 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:6983 (executed)
+	ret
+
+; ---- code $6986-$6992 (12 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
+
+Label_75_6986:: ; 75:6986
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_699C
+	call Function_75_67F7
+	jr z, Label_75_699C
+
+; ---- code $6992-$699C (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 75:6990 (executed)
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA04
+	jp Function_75_67DB
+
+; ---- code $699C-$69BB (31 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 4/18 scenarios)
+
+Label_75_699C:: ; 75:699C
+	jp Function_75_6436
+
+Label_75_699F:: ; 75:699F
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	res 7, [hl]
+	set 5, [hl]
+	ret
+
+Label_75_69B2:: ; 75:69B2
+	dec a
+	jr z, Label_75_69C0
+	dec a
+	jr z, Label_75_69DF
+	dec a
+	jr z, Label_75_69FD
+
+; ---- code $69BB-$69C0 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:69B9 (executed)
+	dec a
+	jp z, Label_75_6A33
+	ret
+
+; ---- code $69C0-$6A14 (84 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 4/18 scenarios)
+
+Label_75_69C0:: ; 75:69C0
+	call Function_75_67F7
+	jr nz, Label_75_6A14
+	ld a, [wRam_C71F]
+	cp a, $2B
+	jr nz, Label_75_6A25
+	call Function_75_673A
+	ld a, [wMobileSDK_PacketBuffer + 101]
+	add a, $0A
+	ld e, a
+	ld d, $00
+	ld a, $95
+	ld hl, $CA44
+	jp Function_75_5F0B
+
+Label_75_69DF:: ; 75:69DF
+	ld d, a
+	call Function_75_67F7
+	jr nz, Label_75_6A14
+	ld a, [wRam_C71F]
+	cp a, $2B
+	jr nz, Label_75_6A25
+	call Function_75_673A
+	ld a, [wMobileSDK_PacketBuffer + 165]
+	add a, $0A
+	ld e, a
+	ld a, $95
+	ld hl, $CA84
+	jp Function_75_5F0B
+
+Label_75_69FD:: ; 75:69FD
+	call Function_75_67F7
+	jr nz, Label_75_6A14
+	ld a, [wRam_C71F]
+	cp a, $2B
+	jr nz, Label_75_6A25
+	ld a, $04
+	ld [wRam_C709], a
+	call Function_75_68E9
+	set 7, [hl]
+	ret
+
+; ---- code $6A14-$6A6C (88 bytes) [PROBABLE] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by jrcc from 75:69C3 (executed)
+
+Label_75_6A14:: ; 75:6A14
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_6A58
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA64
+	jp Function_75_67DB
+
+Label_75_6A25:: ; 75:6A25
+	ld a, [wRam_C70A]
+	ld [wMobileSDK_PacketBuffer + 32], a
+	ld a, $03
+	ld [wRam_C70A], a
+	jp Function_75_6436
+
+Label_75_6A33:: ; 75:6A33
+	xor a, a
+	ld [wRam_C70C], a
+	ld de, $0002
+	ld a, [wMobileSDK_PacketBuffer + 32]
+	cp a, $01
+	jr z, Label_75_6A42
+	inc de
+
+Label_75_6A42:: ; 75:6A42
+	ld hl, $C69F
+	set 1, [hl]
+	res 0, [hl]
+	ld hl, $C6AF
+	ld a, $31
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld a, $05
+	ld [wRam_C709], a
+	ret
+
+Label_75_6A58:: ; 75:6A58
+	ld hl, $C6B0
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $31
+	call Function_75_6258
+	set 1, [hl]
+	res 0, [hl]
+	ret
+
+; ---- code $6A6C-$6A6F (3 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
+
+Label_75_6A6C:: ; 75:6A6C
+	dec a
+	jr z, Label_75_6A70
+
+; ---- code $6A6F-$6A70 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:6A6D (executed)
+	ret
+
+; ---- code $6A70-$6AAB (59 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
+
+Label_75_6A70:: ; 75:6A70
+	call Function_75_67F7
+	jr nz, Label_75_6AAB
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $2B
+	jr nz, Label_75_6ABC
+
+Label_75_6A7D:: ; 75:6A7D
+	ld a, [hli]
+	cp a, $20
+	jr nz, Label_75_6A7D
+	call Function_75_6AC2
+	ld a, [wRam_C70D]
+	ld c, a
+	ld a, [wRam_C70D + 1]
+	ld b, a
+	ld a, e
+	ld [bc], a
+	inc bc
+	ld a, d
+	ld [bc], a
+	call Function_75_6AC2
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	inc hl
+	inc hl
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, $04
+	ld [wRam_C709], a
+	jp Function_75_68E9
+
+; ---- code $6AAB-$6AC2 (23 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 75:6A73 (executed)
+
+Label_75_6AAB:: ; 75:6AAB
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_6A58
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA64
+	jp Function_75_67DB
+
+Label_75_6ABC:: ; 75:6ABC
+	ld de, $0005
+	jp Label_75_6A42
+
+; ---- code $6AC2-$6B57 (149 bytes) [CONFIRMED] 79 insn(s); 79 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_6AC2:: ; 75:6AC2
+	ld a, [wRam_C711]
+	push af
+	ld a, [wRam_C712]
+	push af
+	ld a, [wRam_C713]
+	push af
+	ld bc, $0000
+	ld de, $0000
+
+Label_75_6AD4:: ; 75:6AD4
+	ld a, [hli]
+	cp a, $0D
+	jr z, Label_75_6B1A
+	cp a, $20
+	jr z, Label_75_6B1A
+	and a, $0F
+	ld b, a
+	sla e
+	rl d
+	rl c
+	ld a, e
+	ld [wRam_C711], a
+	ld a, d
+	ld [wRam_C712], a
+	ld a, c
+	ld [wRam_C713], a
+	sla e
+	rl d
+	rl c
+	sla e
+	rl d
+	rl c
+	ld a, [wRam_C711]
+	add a, e
+	ld e, a
+	ld a, [wRam_C712]
+	adc a, d
+	ld d, a
+	ld a, [wRam_C713]
+	adc a, c
+	ld c, a
+	ld a, b
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	ld a, $00
+	adc a, c
+	ld c, a
+	jr Label_75_6AD4
+
+Label_75_6B1A:: ; 75:6B1A
+	pop af
+	ld [wRam_C713], a
+	pop af
+	ld [wRam_C712], a
+	pop af
+	ld [wRam_C711], a
+	ret
+
+Function_75_6B27:: ; 75:6B27
+	ld a, [wRam_C711]
+	push af
+	ld a, [wRam_C712]
+	push af
+	ld a, [wRam_C713]
+	push af
+	ld bc, $0300
+	ld de, $C711
+	call Function_75_6B76
+	call nc, Function_75_6B76
+	call nc, Function_75_6B76
+	dec hl
+
+Label_75_6B43:: ; 75:6B43
+	ld a, [hli]
+	cp a, $0D
+	jr z, Label_75_6B4C
+	cp a, $20
+	jr nz, Label_75_6B43
+
+Label_75_6B4C:: ; 75:6B4C
+	push hl
+	ld hl, $C711
+	ld de, $0000
+	ld a, b
+	or a, a
+	jr z, Label_75_6B5F
+
+; ---- code $6B57-$6B5F (8 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:6B55 (executed)
+	dec a
+	jr z, Label_75_6B61
+	dec a
+	jr z, Label_75_6B65
+	jr Label_75_6B68
+
+; ---- code $6B5F-$6B85 (38 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios)
+
+Label_75_6B5F:: ; 75:6B5F
+	ld a, [hli]
+	ld d, a
+
+Label_75_6B61:: ; 75:6B61
+	ld a, [hli]
+	swap a
+	ld e, a
+
+Label_75_6B65:: ; 75:6B65
+	ld a, [hli]
+	or a, e
+	ld e, a
+
+Label_75_6B68:: ; 75:6B68
+	pop hl
+	pop af
+	ld [wRam_C713], a
+	pop af
+	ld [wRam_C712], a
+	pop af
+	ld [wRam_C711], a
+	ret
+
+Function_75_6B76:: ; 75:6B76
+	ld a, [hli]
+	cp a, $30
+	jr c, Label_75_6B85
+	cp a, $3A
+	jr nc, Label_75_6B85
+	and a, $0F
+	ld [de], a
+	inc de
+	dec b
+	ret
+
+; ---- code $6B85-$6D49 (452 bytes) [PROBABLE] 238 insn(s) reached by static flow only; seeds: exec x2, mobile x236; min discovery hops 0; entered by jrcc from 75:6B79 (executed)
+
+Label_75_6B85:: ; 75:6B85
+	scf
+	ret
+
+Label_75_6B87:: ; 75:6B87
+	dec a
+	jr z, Label_75_6B8B
+	ret
+
+Label_75_6B8B:: ; 75:6B8B
+	call Function_75_67F7
+	jr nz, Label_75_6BB9
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $2B
+	jr nz, Label_75_6BCB
+
+Label_75_6B98:: ; 75:6B98
+	ld a, [hli]
+	cp a, $20
+	jr nz, Label_75_6B98
+
+Label_75_6B9D:: ; 75:6B9D
+	ld a, [hli]
+	cp a, $20
+	jr nz, Label_75_6B9D
+	call Function_75_6AC2
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld a, $04
+	ld [wRam_C709], a
+	jp Function_75_68E9
+
+Label_75_6BB9:: ; 75:6BB9
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_6A58
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA64
+	jp Function_75_67DB
+
+Label_75_6BCB:: ; 75:6BCB
+	ld de, $0004
+	jp Label_75_6A42
+
+Label_75_6BD1:: ; 75:6BD1
+	dec a
+	jr z, Label_75_6BD5
+	ret
+
+Label_75_6BD5:: ; 75:6BD5
+	call Function_75_67F7
+	jr nz, Label_75_6BEA
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $2B
+	jr nz, Label_75_6BFC
+	ld a, $04
+	ld [wRam_C709], a
+	jp Function_75_68E9
+
+Label_75_6BEA:: ; 75:6BEA
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_6A58
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA64
+	jp Function_75_67DB
+
+Label_75_6BFC:: ; 75:6BFC
+	ld de, $0004
+	jp Label_75_6A42
+
+Label_75_6C02:: ; 75:6C02
+	dec a
+	jr z, Label_75_6C0D
+	dec a
+	jp z, Label_75_6CF1
+	dec a
+	ret nz
+	dec [hl]
+	ret
+
+Label_75_6C0D:: ; 75:6C0D
+	ld a, [wRam_C71F]
+	cp a, $2D
+	jr nz, Label_75_6C19
+	call Function_75_67F7
+	jr z, Label_75_6C21
+
+Label_75_6C19:: ; 75:6C19
+	ld a, [wTimerEnable]
+	bit 2, a
+	jp z, Label_75_6D05
+
+Label_75_6C21:: ; 75:6C21
+	ld hl, $C70A
+	inc [hl]
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $2B
+	jp nz, Label_75_6D36
+	ld b, $7F
+
+Label_75_6C30:: ; 75:6C30
+	ld a, [hli]
+	dec b
+	cp a, $0A
+	jr nz, Label_75_6C30
+	push hl
+	ld hl, $C82C
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, b
+	ld [wRam_C6CC], a
+	ld a, [hli]
+	ld h, [hl]
+	sub a, b
+	ld l, a
+	ld a, h
+	sbc a, $00
+	ld h, a
+	jr nc, Label_75_6C6C
+	cp a, $FF
+	jr nz, Label_75_6C6C
+	ld hl, $C82E
+	ld a, [hli]
+	ld c, a
+	inc hl
+	ld a, b
+	sub a, c
+	ld [hli], a
+	ld a, [wRam_C6CA]
+	ld [hl], a
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, c
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	pop hl
+	ld b, c
+	jp Function_75_4000
+
+Label_75_6C6C:: ; 75:6C6C
+	ld [wRam_C830], a
+	ld a, [wRam_C6CA]
+	ld c, a
+	ld [wRam_C831], a
+	push hl
+	ld a, l
+	sub a, c
+	ld l, a
+	ld a, h
+	sbc a, $00
+	ld h, a
+	jr nc, Label_75_6CB5
+	cp a, $FF
+	jr nz, Label_75_6CB5
+	ld a, c
+	ld [wMobileSDK_ReceivePacketBuffer + 1], a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	sub a, c
+	pop hl
+	ld c, l
+	pop hl
+	push af
+	call Function_75_4000
+	pop af
+	push de
+	ld hl, $C8DD
+	ld e, a
+	ld d, $00
+	add hl, de
+	pop de
+	ld b, c
+	call Function_75_4000
+	ld a, [wMobileSDK_ReceivePacketBuffer + 1]
+	sub a, c
+	ld [wRam_C831], a
+	ld hl, $C6C6
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_C82E]
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ret
+
+Label_75_6CB5:: ; 75:6CB5
+	ld [wRam_C831], a
+	ld a, l
+	ld [wRam_C6CA], a
+	ld a, h
+	ld [wRam_C6CB], a
+	pop hl
+	pop hl
+	call Function_75_4000
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	sub a, c
+	push de
+	ld hl, $C8DD
+	ld e, a
+	ld d, $00
+	add hl, de
+	pop de
+	ld b, c
+	call Function_75_4000
+	ld a, [wRam_C6CC]
+	add a, c
+	ld [wRam_C6CC], a
+	ld a, [wRam_C6CD]
+	adc a, $00
+	ld [wRam_C6CD], a
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld hl, $C69F
+	res 2, [hl]
+
+Label_75_6CF1:: ; 75:6CF1
+	ld a, [wTimerEnable]
+	bit 2, a
+	jr z, Label_75_6D00
+	ld a, $02
+	ld [wRam_C70A], a
+	jp Label_75_6D1F
+
+Label_75_6D00:: ; 75:6D00
+	call Function_75_6809
+	jr z, Label_75_6D17
+
+Label_75_6D05:: ; 75:6D05
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp z, Label_75_6A58
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $CA64
+	jp Function_75_67DB
+
+Label_75_6D17:: ; 75:6D17
+	ld a, $04
+	ld [wRam_C709], a
+	call Function_75_68E9
+
+Label_75_6D1F:: ; 75:6D1F
+	ld a, [wRam_C70D]
+	ld l, a
+	ld a, [wRam_C70D + 1]
+	or a, l
+	ret z
+	ld hl, $C6C6
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld hl, $C6CC
+	ld b, $02
+	jp Function_75_4000
+
+Label_75_6D36:: ; 75:6D36
+	ld a, [wRam_C709]
+	cp a, $1A
+	jr nz, Label_75_6D43
+	ld de, $0004
+	jp Label_75_6A42
+
+Label_75_6D43:: ; 75:6D43
+	ld de, $0004
+	jp Label_75_6A42
+
+; ---- code $6D49-$6D5E (21 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
+
+Label_75_6D49:: ; 75:6D49
+	dec a
+	jr z, Label_75_6D9D
+	dec a
+	jr z, Label_75_6DB5
+	dec a
+	jp z, Label_75_6E5C
+	dec a
+	jr z, Label_75_6D63
+	dec a
+	jp z, Label_75_734F
+	dec a
+	jp z, Label_75_73BE
+
+; ---- code $6D5E-$6D62 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 75:6D5B (executed)
+	dec a
+	jp Label_75_6E5C
+
+; ---- data $6D62-$6D63 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_6D62:: ; 75:6D62
+	db $C9
+
+; ---- code $6D63-$6D9D (58 bytes) [PROBABLE] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1; entered by jrcc from 75:6D54 (executed)
+
+Label_75_6D63:: ; 75:6D63
+	ld a, [wRam_C709]
+	cp a, $23
+	jr z, Label_75_6D83
+	cp a, $1F
+	jr z, Label_75_6D76
+	cp a, $20
+	jr z, Label_75_6D83
+	cp a, $22
+	jr nz, Label_75_6D98
+
+Label_75_6D76:: ; 75:6D76
+	ld hl, $C828
+	ld a, [hli]
+	cp a, $01
+	jr nz, Label_75_6D98
+	ld a, [hl]
+	cp a, $04
+	jr nz, Label_75_6D98
+
+Label_75_6D83:: ; 75:6D83
+	ld hl, $C70D
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C6CA
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C69F
+	res 2, [hl]
+	ld hl, $C70A
+	dec [hl]
+	dec [hl]
+
+Label_75_6D98:: ; 75:6D98
+	ld hl, $C70A
+	dec [hl]
+	ret
+
+; ---- code $6D9D-$6DFF (98 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
+
+Label_75_6D9D:: ; 75:6D9D
+	call Function_75_7444
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+
+Label_75_6DB5:: ; 75:6DB5
+	ld a, [wTimerEnable]
+	bit 2, a
+	jr z, Label_75_6DC1
+	ld a, $03
+	ld [hl], a
+	jr Label_75_6DD7
+
+Label_75_6DC1:: ; 75:6DC1
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_6DD7
+	ld hl, $C70A
+	dec [hl]
+	ld de, $000B
+	ld hl, $C9E4
+	ld b, $05
+	jp Function_75_5F10
+
+Label_75_6DD7:: ; 75:6DD7
+	ld a, [wRam_C826]
+	cp a, $02
+	jr nc, Label_75_6E08
+	call Function_75_6F77
+	bit 2, a
+	ret nz
+	cp a, $03
+	jr z, Label_75_6E4E
+	cp a, $01
+	jr nz, Label_75_6E08
+	ld a, [wRam_C709]
+	cp a, $1F
+	jr z, Label_75_6DF7
+	cp a, $20
+	jr nz, Label_75_6E08
+
+Label_75_6DF7:: ; 75:6DF7
+	ld hl, $C828
+	ld a, [hli]
+	cp a, $01
+	jr nz, Label_75_6E08
+
+; ---- code $6DFF-$6E08 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 75:6DFD (executed)
+	ld a, $04
+	cp a, [hl]
+	jr nz, Label_75_6E08
+	xor a, a
+	ld [wRam_C82D], a
+
+; ---- code $6E08-$6E30 (40 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 2/18 scenarios)
+
+Label_75_6E08:: ; 75:6E08
+	ld a, [wRam_C70D]
+	ld l, a
+	ld a, [wRam_C70D + 1]
+	or a, l
+	ret z
+	ld a, [wRam_C709]
+	cp a, $13
+	jr z, Label_75_6E37
+	cp a, $14
+	jr z, Label_75_6E37
+	cp a, $20
+	ret z
+	cp a, $22
+	ret z
+	cp a, $23
+	ret z
+	cp a, $1F
+	jr nz, Label_75_6E37
+	ld hl, $C828
+	ld a, [hli]
+	cp a, $00
+	ret nz
+
+; ---- code $6E30-$6E37 (7 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the retcc at 75:6E2F (executed)
+	ld a, $02
+	cp a, [hl]
+	ret nz
+	ld a, [wRam_C709]
+
+; ---- code $6E37-$6E3B (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
+
+Label_75_6E37:: ; 75:6E37
+	cp a, $24
+	jr nz, Label_75_6E40
+
+; ---- code $6E3B-$6E40 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:6E39 (executed)
+	ld hl, $C717
+	jr Label_75_6E43
+
+; ---- code $6E40-$6E4E (14 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
+
+Label_75_6E40:: ; 75:6E40
+	ld hl, $C6C6
+
+Label_75_6E43:: ; 75:6E43
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld hl, $C6CC
+	ld b, $02
+	jp Function_75_4000
+
+; ---- code $6E4E-$6E5C (14 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 75:6DE6 (executed)
+
+Label_75_6E4E:: ; 75:6E4E
+	ld hl, $C69F
+	set 1, [hl]
+	res 0, [hl]
+	ld de, $C828
+	ld a, $24
+	jr Label_75_6EAB
+
+; ---- code $6E5C-$6E8A (46 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios)
+
+Label_75_6E5C:: ; 75:6E5C
+	ld a, [wRam_C709]
+	cp a, $1F
+	jr z, Label_75_6EBC
+	cp a, $20
+	jr z, Label_75_6EBC
+	ld a, [wRam_C827]
+	cp a, $01
+	jr z, Label_75_6E7B
+	ld a, [wRam_C709]
+	cp a, $21
+	jp z, Label_75_6F00
+	cp a, $22
+	jp z, Label_75_6F00
+
+Label_75_6E7B:: ; 75:6E7B
+	ld a, [wRam_C82D]
+	or a, a
+	jp z, Label_75_6F53
+
+Label_75_6E82:: ; 75:6E82
+	ld hl, $C829
+	ld a, [hld]
+	cp a, $03
+	jr nz, Label_75_6E95
+
+; ---- code $6E8A-$6E95 (11 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 75:6E88 (executed)
+	ld a, [hl]
+	or a, a
+	jr z, Label_75_6E95
+	cp a, $03
+	jr nc, Label_75_6E95
+	call Function_75_7436
+
+; ---- code $6E95-$6EA8 (19 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
+
+Label_75_6E95:: ; 75:6E95
+	ld hl, $C69F
+	set 1, [hl]
+	res 0, [hl]
+	ld de, $C828
+	ld a, [wRam_C82D]
+	cp a, $01
+	ld a, $32
+	jr z, Label_75_6EAB
+
+; ---- code $6EA8-$6EAB (3 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:6EA6 (executed)
+	inc de
+	inc de
+	inc a
+
+; ---- code $6EAB-$6EC6 (27 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
+
+Label_75_6EAB:: ; 75:6EAB
+	ld [wRam_C6AF], a
+	ld hl, $C6B0
+	ld a, [de]
+	inc de
+	ld [hli], a
+	ld a, [de]
+	ld [hl], a
+	ld a, $05
+	ld [wRam_C709], a
+	ret
+
+Label_75_6EBC:: ; 75:6EBC
+	ld hl, $C828
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	cp a, $00
+	jr nz, Label_75_6ED7
+
+; ---- code $6EC6-$6ED7 (17 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 75:6EC4 (executed)
+	ld a, $02
+	cp a, h
+	jr nz, Label_75_6ED7
+	ld a, [wRam_C82A]
+	ld b, a
+	ld a, [wRam_C82B]
+	or a, b
+	jr nz, Label_75_6E82
+	jr Label_75_6F53
+
+; ---- code $6ED7-$6EDC (5 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_75_6ED7:: ; 75:6ED7
+	ld a, $01
+	cp a, l
+	jr nz, Label_75_6E82
+
+; ---- code $6EDC-$6F53 (119 bytes) [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 0; fall-through of the jrcc at 75:6EDA (executed)
+	ld a, $04
+	cp a, h
+	jr nz, Label_75_6E82
+	ld a, [wRam_C842]
+	or a, a
+	jr nz, Label_75_6F11
+	ld a, [wRam_C70D]
+	ld l, a
+	ld a, [wRam_C70D + 1]
+	or a, l
+	jr nz, Label_75_6F11
+	ld a, $02
+	ld [wRam_C709], a
+	xor a, a
+	ld [wRam_C70C], a
+	ld hl, $C69F
+	res 0, [hl]
+	ret
+
+Label_75_6F00:: ; 75:6F00
+	ld hl, $C828
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	cp a, $00
+	jp nz, Label_75_6E82
+	ld a, $02
+	cp a, h
+	jp nz, Label_75_6E82
+
+Label_75_6F11:: ; 75:6F11
+	ld a, [wRam_C82A]
+	ld b, a
+	ld a, [wRam_C82B]
+	cp a, b
+	jp nz, Label_75_6E82
+	or a, a
+	jr z, Label_75_6F29
+	cp a, $01
+	jp nz, Label_75_6E82
+	ld a, $01
+	ld [wRam_C830], a
+
+Label_75_6F29:: ; 75:6F29
+	ld a, [wRam_C70A]
+	cp a, $07
+	jr z, Label_75_6F53
+	ld hl, $C82C
+	inc [hl]
+	ld a, $0F
+	ld [wRam_C709], a
+	ld a, $01
+	ld [wRam_C70A], a
+	ld a, [wRam_C70C]
+	ld [wRam_C70D], a
+	xor a, a
+	ld [wRam_C826], a
+	ld a, $A3
+	ld de, $0010
+	ld hl, $C832
+	jp Function_75_5F0B
+
+; ---- code $6F53-$6F5A (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_75_6F53:: ; 75:6F53
+	ld a, [wRam_C830]
+	cp a, $01
+	jr nz, Label_75_6F68
+
+; ---- code $6F5A-$6F68 (14 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 75:6F58 (executed)
+	ld a, $02
+	ld [wRam_C82D], a
+	ld hl, $C82A
+	dec a
+	ld [hli], a
+	ld [hl], a
+	jp Label_75_6E95
+
+; ---- code $6F68-$6FAA (66 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
+
+Label_75_6F68:: ; 75:6F68
+	ld a, $02
+	ld [wRam_C709], a
+	xor a, a
+	ld [wRam_C70C], a
+	ld hl, $C69F
+	res 0, [hl]
+	ret
+
+Function_75_6F77:: ; 75:6F77
+	ld hl, $C826
+	ld a, [hl]
+	or a, a
+	jr nz, Label_75_6FA0
+	inc [hl]
+	ld hl, $C71F
+	ld de, $0008
+	add hl, de
+
+Label_75_6F86:: ; 75:6F86
+	ld a, [hli]
+	cp a, $20
+	jr z, Label_75_6F86
+	dec hl
+	ld d, $00
+	cp a, $32
+	jr z, Label_75_6F93
+	inc d
+
+Label_75_6F93:: ; 75:6F93
+	ld a, d
+	ld [wRam_C82D], a
+	call Function_75_6B27
+	ld hl, $C828
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+
+Label_75_6FA0:: ; 75:6FA0
+	ld hl, $C71F
+	ld a, [wRam_C6CC]
+	ld b, a
+	or a, a
+	jr nz, Label_75_6FB7
+
+; ---- code $6FAA-$6FB7 (13 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 75:6FA8 (executed)
+	ld hl, $C828
+	ld a, $00
+	ld [hli], a
+	ld [hl], a
+	ld a, $01
+	ld [wRam_C82D], a
+	ret
+
+; ---- code $6FB7-$6FE1 (42 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
+
+Label_75_6FB7:: ; 75:6FB7
+	call Function_75_700D
+	call Function_75_7040
+	call Function_75_705E
+	call Function_75_708C
+	call Function_75_719F
+	call Function_75_71B8
+	push hl
+	call Function_75_72A0
+	jr c, Label_75_6FE1
+	pop de
+	ld a, $0D
+	cp a, [hl]
+	jr z, Label_75_6FDA
+	ld a, $0A
+	cp a, [hl]
+	jr nz, Label_75_6FB7
+
+Label_75_6FDA:: ; 75:6FDA
+	ld hl, $C82D
+	res 2, [hl]
+	jr Label_75_7006
+
+; ---- code $6FE1-$7006 (37 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 75:6FCD (executed)
+
+Label_75_6FE1:: ; 75:6FE1
+	pop hl
+	ld a, l
+	cp a, $1F
+	jr nz, Label_75_7001
+	ld a, h
+	cp a, $C7
+	jr nz, Label_75_7001
+	ld a, $01
+	ld [wRam_C82D], a
+	ld hl, $C828
+	xor a, a
+	ld [hli], a
+	ld [hl], a
+	ld a, $0D
+	ld [wRam_C817], a
+	ld a, $0A
+	ld [wRam_C818], a
+
+Label_75_7001:: ; 75:7001
+	ld hl, $C82D
+	set 2, [hl]
+
+; ---- code $7006-$7018 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
+
+Label_75_7006:: ; 75:7006
+	call Function_75_70A3
+	ld a, [wRam_C82D]
+	ret
+
+Function_75_700D:: ; 75:700D
+	ld de, $7039
+	push hl
+	call Function_75_72B9
+	jr nc, Label_75_7018
+	pop hl
+	ret
+
+; ---- code $7018-$7039 (33 bytes) [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 75:7014 (executed)
+
+Label_75_7018:: ; 75:7018
+	pop de
+	push bc
+	push de
+	push hl
+	ld b, $00
+
+Label_75_701E:: ; 75:701E
+	inc b
+	ld a, [hli]
+	cp a, $0A
+	jr nz, Label_75_701E
+	pop hl
+	ld c, b
+	ld a, [wRam_C6D2]
+	ld e, a
+	ld a, [wRam_C6D3]
+	ld d, a
+	or a, e
+	jr z, Label_75_7036
+	call Function_75_4000
+	xor a, a
+	ld [de], a
+
+Label_75_7036:: ; 75:7036
+	pop hl
+	pop bc
+	ret
+
+; ---- data $7039-$703B (2 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_7039:: ; 75:7039
+	db $64, $61
+
+; ---- data $703B-$7040 (5 bytes) [HYPOTHESIS] UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_703B:: ; 75:703B
+	db $74, $65, $3A, $20, $00
+
+; ---- code $7040-$704B (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_7040:: ; 75:7040
+	ld de, $72DE
+	push hl
+	call Function_75_72AB
+	jr nc, Label_75_704B
+	pop hl
+	ret
+
+; ---- code $704B-$705E (19 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7047 (executed)
+
+Label_75_704B:: ; 75:704B
+	call Function_75_6B27
+	ld hl, $C82A
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	pop hl
+	ld a, d
+	or a, e
+	ret z
+	ld a, $02
+	ld [wRam_C82D], a
+	ret
+
+; ---- code $705E-$7069 (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_705E:: ; 75:705E
+	ld de, $72EA
+	push hl
+	call Function_75_72AB
+	jr nc, Label_75_7069
+	pop hl
+	ret
+
+; ---- code $7069-$708C (35 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 75:7065 (executed)
+
+Label_75_7069:: ; 75:7069
+	pop hl
+	push bc
+	push hl
+	push hl
+	ld b, $00
+
+Label_75_706F:: ; 75:706F
+	inc b
+	ld a, [hli]
+	cp a, $0A
+	jr nz, Label_75_706F
+	pop hl
+	ld c, b
+	ld de, $C9F6
+	call Function_75_4000
+	ld hl, $C9F6
+	ld de, $C852
+	ld b, c
+	call Function_75_4000
+	xor a, a
+	ld [de], a
+	pop hl
+	pop bc
+	ret
+
+; ---- code $708C-$7097 (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_708C:: ; 75:708C
+	ld de, $72F7
+	push hl
+	call Function_75_72AB
+	jr nc, Label_75_7097
+	pop hl
+	ret
+
+; ---- code $7097-$70A3 (12 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1; entered by jrcc from 75:7093 (executed)
+
+Label_75_7097:: ; 75:7097
+	push bc
+	ld de, $C852
+	ld b, $30
+	call Function_75_7683
+	pop bc
+	pop hl
+	ret
+
+; ---- code $70A3-$70B0 (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_70A3:: ; 75:70A3
+	ld hl, $C71F
+	ld a, [wRam_C6CC]
+	ld b, a
+
+Label_75_70AA:: ; 75:70AA
+	call Function_75_72A0
+	jp nc, Label_75_70C1
+
+; ---- code $70B0-$70C1 (17 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 75:70AD (executed)
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jp nz, Label_75_71E1
+	push hl
+	ld hl, $C82D
+	res 2, [hl]
+	pop hl
+	jr Label_75_70CD
+
+; ---- code $70C1-$70EB (42 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios)
+
+Label_75_70C1:: ; 75:70C1
+	ld a, [hl]
+	cp a, $0D
+	jr z, Label_75_70CC
+	cp a, $0A
+	jr z, Label_75_70CD
+	jr Label_75_70AA
+
+Label_75_70CC:: ; 75:70CC
+	inc hl
+
+Label_75_70CD:: ; 75:70CD
+	inc hl
+	push bc
+	ld a, [wRam_C711]
+	ld b, a
+	ld a, [wRam_C712]
+	or a, b
+	pop bc
+	jr z, Label_75_70EB
+	ld a, [wRam_C709]
+	cp a, $23
+	jr z, Label_75_70EB
+	cp a, $20
+	jr z, Label_75_70EB
+	cp a, $22
+	jr z, Label_75_70EB
+	jr Label_75_710E
+
+; ---- code $70EB-$710E (35 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jrcc from 75:70D8 (executed)
+
+Label_75_70EB:: ; 75:70EB
+	xor a, a
+	ld hl, $C70D
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C69F
+	res 2, [hl]
+	ld a, [wRam_C709]
+	cp a, $13
+	jr z, Label_75_7100
+	cp a, $14
+	ret nz
+
+Label_75_7100:: ; 75:7100
+	ld a, $06
+	ld [wRam_C70A], a
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	ret z
+	jp Function_75_6436
+
+; ---- code $710E-$7128 (26 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
+
+Label_75_710E:: ; 75:710E
+	ld a, [wRam_C6CA]
+	ld c, a
+	dec b
+	dec b
+	ld a, b
+	ld [wRam_C6CC], a
+	jr z, Label_75_7145
+	ld a, [wRam_C712]
+	ld d, a
+	ld a, [wRam_C711]
+	ld e, a
+	dec de
+	dec de
+	xor a, a
+	or a, d
+	jr nz, Label_75_712D
+
+; ---- code $7128-$712D (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:7126 (executed)
+	ld a, e
+	cp a, b
+	jp c, Label_75_723E
+
+; ---- code $712D-$7168 (59 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 2/18 scenarios)
+
+Label_75_712D:: ; 75:712D
+	ld a, e
+	sub a, b
+	ld [wRam_C6CA], a
+	ld a, d
+	sbc a, $00
+	ld [wRam_C6CB], a
+	ld a, [wRam_C713]
+	ld e, a
+	ld a, [wRam_C714]
+	ld d, a
+	inc de
+	inc de
+	call Function_75_4000
+
+Label_75_7145:: ; 75:7145
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	cp a, $9F
+	jr z, Label_75_7188
+	ld a, [wMobileSDK_ReceivePacketBuffer + 3]
+	or a, a
+	jr z, Label_75_7188
+	ld l, c
+	sub a, c
+	ld c, a
+	ld a, l
+	ld hl, $C8DD
+	add hl, bc
+	ld b, a
+	push de
+	ld a, [wRam_C6CA]
+	ld e, a
+	ld a, [wRam_C6CB]
+	ld d, a
+	xor a, a
+	or a, d
+	jr nz, Label_75_716D
+
+; ---- code $7168-$716D (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 75:7166 (executed)
+	ld a, e
+	cp a, b
+	jp c, Label_75_727D
+
+; ---- code $716D-$71AA (61 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 2/18 scenarios)
+
+Label_75_716D:: ; 75:716D
+	pop de
+	push hl
+	ld hl, $C6CC
+	ld a, [hl]
+	add a, b
+	ld [hli], a
+	ld a, [hl]
+	adc a, $00
+	ld [hl], a
+	ld c, b
+	pop hl
+	call Function_75_4000
+	ld hl, $C6CA
+	ld a, [hl]
+	sub a, c
+	ld [hli], a
+	ld a, [hl]
+	sbc a, $00
+	ld [hl], a
+
+Label_75_7188:: ; 75:7188
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld hl, $C69F
+	res 2, [hl]
+	ld a, $01
+	ld [wRam_C70A], a
+	ld a, $02
+	ld [wRam_C826], a
+	ret
+
+Function_75_719F:: ; 75:719F
+	ld de, $7337
+	push hl
+	call Function_75_72AB
+	jr nc, Label_75_71AA
+	pop hl
+	ret
+
+; ---- code $71AA-$71B8 (14 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 75:71A6 (executed)
+
+Label_75_71AA:: ; 75:71AA
+	pop de
+	push bc
+	push de
+	push hl
+	ld b, $00
+
+Label_75_71B0:: ; 75:71B0
+	inc b
+	ld a, [hli]
+	cp a, $0A
+	jr nz, Label_75_71B0
+	jr Label_75_71CF
+
+; ---- code $71B8-$71C3 (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_71B8:: ; 75:71B8
+	ld de, $7344
+	push hl
+	call Function_75_72AB
+	jr nc, Label_75_71C3
+	pop hl
+	ret
+
+; ---- code $71C3-$72A0 (221 bytes) [PROBABLE] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 1; entered by jrcc from 75:71BF (executed)
+
+Label_75_71C3:: ; 75:71C3
+	pop de
+	push bc
+	push de
+	push hl
+	ld b, $00
+
+Label_75_71C9:: ; 75:71C9
+	inc b
+	ld a, [hli]
+	cp a, $0A
+	jr nz, Label_75_71C9
+
+Label_75_71CF:: ; 75:71CF
+	pop hl
+	ld c, b
+	ld de, $C9F4
+	ld a, b
+	ld [de], a
+	inc de
+	dec b
+	dec b
+	call Function_75_4000
+	xor a, a
+	ld [de], a
+	pop hl
+	pop bc
+	ret
+
+Label_75_71E1:: ; 75:71E1
+	ld hl, $C818
+	ld de, $C71F
+	ld b, $00
+	ld c, b
+	ld a, [hl]
+	cp a, $0A
+	jr z, Label_75_71FC
+
+Label_75_71EF:: ; 75:71EF
+	ld a, [hld]
+	inc b
+	cp a, $0A
+	jr nz, Label_75_71EF
+	inc hl
+	inc hl
+	dec b
+	ld c, b
+	call Function_75_4000
+
+Label_75_71FC:: ; 75:71FC
+	ld a, [wRam_C6CA]
+	ld b, a
+	add a, c
+	ld c, a
+	push bc
+	ld a, $FF
+	sub a, b
+	ld c, a
+	ld b, $00
+	ld hl, $C8DD
+	add hl, bc
+	pop bc
+	call Function_75_4000
+	ld a, c
+	ld [wRam_C6CC], a
+	ld a, $FA
+	sub a, c
+	ld [wRam_C6CA], a
+	ld hl, $C6C8
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	ld l, e
+	ld h, d
+	ld de, $C819
+
+Label_75_7227:: ; 75:7227
+	xor a, a
+	ld [hli], a
+	ld a, l
+	cp a, e
+	jr nz, Label_75_7227
+	ld a, d
+	cp a, h
+	jr nz, Label_75_7227
+	ld hl, $C69F
+	res 2, [hl]
+	ld hl, $C70A
+	dec [hl]
+	dec [hl]
+	ld a, $04
+	ret
+
+Label_75_723E:: ; 75:723E
+	ld a, b
+	sub a, e
+	ld [wRam_C82E], a
+	ld a, [wTimerEnable]
+	bit 2, a
+	ld a, c
+	jr nz, Label_75_724C
+	xor a, a
+
+Label_75_724C:: ; 75:724C
+	ld [wRam_C82F], a
+	ld b, e
+	ld c, e
+	ld a, [wRam_C713]
+	ld e, a
+	ld a, [wRam_C714]
+	ld d, a
+	inc de
+	inc de
+	call Function_75_4000
+	ld a, [wRam_C82E]
+	ld [wRam_C830], a
+	ld b, a
+	ld de, $C71F
+	call Function_75_4000
+	ld hl, $C6CC
+	ld a, c
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ld hl, $C69F
+	set 2, [hl]
+	ld a, $03
+	ld [wRam_C70A], a
+	ret
+
+Label_75_727D:: ; 75:727D
+	ld a, b
+	sub a, e
+	ld [wRam_C82F], a
+	ld [wRam_C6CA], a
+	ld b, e
+	ld c, e
+	pop de
+	call Function_75_4000
+	ld hl, $C6CC
+	ld a, c
+	add a, [hl]
+	ld [hli], a
+	ld a, $00
+	adc a, [hl]
+	ld [hl], a
+	ld hl, $C69F
+	set 2, [hl]
+	ld a, $03
+	ld [wRam_C70A], a
+	ret
+
+; ---- code $72A0-$72A9 (9 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_72A0:: ; 75:72A0
+	dec b
+	ld a, [hli]
+	cp a, $0A
+	ret z
+	xor a, a
+	or a, b
+	jr nz, Function_75_72A0
+
+; ---- code $72A9-$72AB (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:72A7 (executed)
+	scf
+	ret
+
+; ---- code $72AB-$72DE (51 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_72AB:: ; 75:72AB
+	ld c, $00
+
+Label_75_72AD:: ; 75:72AD
+	ld a, [de]
+	inc de
+	or a, a
+	ret z
+	xor a, [hl]
+	inc hl
+	or a, c
+	ld c, a
+	jr z, Label_75_72AD
+	scf
+	ret
+
+Function_75_72B9:: ; 75:72B9
+	ld c, $00
+	push hl
+	ld l, e
+	ld h, d
+	pop de
+
+Label_75_72BF:: ; 75:72BF
+	ld a, [de]
+	inc de
+	call Function_75_72D5
+	xor a, [hl]
+	inc hl
+	or a, c
+	ld c, a
+	xor a, a
+	cp a, [hl]
+	jr z, Label_75_72D0
+	cp a, c
+	jr z, Label_75_72BF
+	scf
+
+Label_75_72D0:: ; 75:72D0
+	push hl
+	ld l, e
+	ld h, d
+	pop de
+	ret
+
+Function_75_72D5:: ; 75:72D5
+	cp a, $41
+	ret c
+	cp a, $5B
+	ret nc
+	or a, $20
+	ret
+
+; ---- data $72DE-$72DF (1 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
+
+Data_75_72DE:: ; 75:72DE
+	db $47
+
+; ---- data $72DF-$72EA (11 bytes) [HYPOTHESIS] UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_72DF:: ; 75:72DF
+	db $62, $2D, $53, $74, $61, $74, $75, $73, $3A, $20, $00
+
+; ---- text $72EA-$7315 (43 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_75_72EA:: ; 75:72EA
+	db $47, $62, $2D, $41, $75, $74, $68, $2D, $49, $44, $3A, $20, $00, $57, $57, $57
+	db $2D, $41, $75, $74, $68, $65, $6E, $74, $69, $63, $61, $74, $65, $3A, $20, $47
+	db $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00
+
+; ---- data $7315-$7337 (34 bytes) [HYPOTHESIS] UNCLASSIFIED 34 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_7315:: ; 75:7315
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $61, $70
+	db $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $78, $2D, $63, $67, $62, $0D
+	db $0A, $00
+
+; ---- text $7337-$734F (24 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_75_7337:: ; 75:7337
+	db $55, $52, $49, $2D, $68, $65, $61, $64, $65, $72, $3A, $20, $00, $4C, $6F, $63
+	db $61, $74, $69, $6F, $6E, $3A, $20, $00
+
+; ---- code $734F-$73AA (91 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by jpcc from 75:6D57 (executed)
+
+Label_75_734F:: ; 75:734F
+	ld a, $01
+	ld [wRam_C70A], a
+	ld de, $C9F6
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	call Function_75_66B6
+	ld hl, $7315
+	ld a, [wRam_C842]
+	or a, a
+	call nz, Function_75_4007
+	ld a, [wRam_C709]
+	cp a, $22
+	jr nz, Label_75_737C
+	ld a, [wRam_C827]
+	cp a, $02
+	jr nz, Label_75_7389
+	jr Label_75_7380
+
+Label_75_737C:: ; 75:737C
+	cp a, $24
+	jr nz, Label_75_7389
+
+Label_75_7380:: ; 75:7380
+	ld a, [wRam_C842]
+	or a, a
+	jr z, Label_75_73A2
+	call Function_75_7416
+
+Label_75_7389:: ; 75:7389
+	ld hl, $C852
+	call Function_75_4007
+	call Function_75_66BC
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 17], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld hl, $C9F0
+	jp Function_75_5F0B
+
+Label_75_73A2:: ; 75:73A2
+	ld hl, $73AA
+	call Function_75_4007
+	jr Label_75_7389
+
+; ---- data $73AA-$73BE (20 bytes) [HYPOTHESIS] UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_73AA:: ; 75:73AA
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $4C, $65, $6E, $67, $74, $68, $3A, $20
+	db $30, $0D, $0A, $00
+
+; ---- code $73BE-$7436 (120 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
+
+Label_75_73BE:: ; 75:73BE
+	call Function_75_7444
+	ld a, $01
+	ld [wRam_C70A], a
+	ld de, $C9E4
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld b, $01
+	call Function_75_5F6C
+	ld de, $C9F0
+	ld hl, $606D
+	ld b, $06
+	call Function_75_4000
+	ld a, [wRam_C70C]
+	cp a, $03
+	jp nz, Label_75_734F
+	ld de, $C9F6
+	ld a, [wRam_C70B]
+	ld [de], a
+	inc de
+	ld bc, $0001
+	call Function_75_66B6
+	ld a, [wRam_C831]
+	or a, a
+	call nz, Function_75_7416
+	call Function_75_66BC
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 17], a
+	ld b, c
+	call Function_75_5F6C
+	ld a, $95
+	ld hl, $C9F0
+	jp Function_75_5F0B
+
+Function_75_7416:: ; 75:7416
+	call Function_75_66FC
+	xor a, a
+	ld [wRam_C70A], a
+	ld a, [wRam_C847]
+	ld [wRam_C71B], a
+	ld a, [wRam_C848]
+	ld [wRam_C71C], a
+	ld a, [wRam_C849]
+	ld [wRam_C71D], a
+	ld a, [wRam_C84A]
+	ld [wRam_C71E], a
+	ret
+
+; ---- code $7436-$7444 (14 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by call from 75:6E92 (PROBABLE code)
+
+Function_75_7436:: ; 75:7436
+	ld hl, $C9F4
+	ld de, $C71F
+	ld a, [hli]
+	ld b, a
+	call Function_75_4000
+	xor a, a
+	ld [de], a
+	ret
+
+; ---- code $7444-$7463 (31 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_7444:: ; 75:7444
+	ld hl, $C71E
+	ld a, [hld]
+	ld b, a
+	ld a, [hld]
+	ld c, a
+	ld a, b
+	or a, c
+	ret z
+	pop hl
+	ld hl, $FF02
+	add hl, bc
+	jr c, Label_75_7458
+	xor a, a
+	ld l, a
+	ld h, a
+
+Label_75_7458:: ; 75:7458
+	ld e, l
+	ld d, h
+	ld hl, $C71E
+	ld a, d
+	ld [hld], a
+	ld a, e
+	ld [hld], a
+	jr nc, Label_75_7465
+
+; ---- code $7463-$7465 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 75:7461 (executed)
+	ld c, $FE
+
+; ---- code $7465-$748D (40 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
+
+Label_75_7465:: ; 75:7465
+	ld a, [hld]
+	ld l, [hl]
+	ld h, a
+	ld a, c
+	inc a
+	ld [wMobileSDK_PacketBuffer + 5], a
+	ld de, $C9EB
+	ld b, c
+	call Function_75_4000
+	ld a, l
+	ld [wRam_C71B], a
+	ld a, h
+	ld [wRam_C71C], a
+	ld b, c
+	inc b
+	call Function_75_5F6C
+	ld hl, $C70A
+	dec [hl]
+	ld hl, $C9E4
+	ld a, $95
+	jp Function_75_5F0B
+
+; ---- code $748D-$74DB (78 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: mobile x39; min discovery hops 0; run starts at SDK/API table entry state1E (analysis/mobile_candidates.json)
+
+Label_75_748D:: ; 75:748D
+	dec a
+	jr z, Label_75_749B
+	dec a
+	jr z, Label_75_74B6
+	dec a
+	jr z, Label_75_74BE
+	dec a
+	jr z, Label_75_74D0
+	dec [hl]
+	ret
+
+Label_75_749B:: ; 75:749B
+	ld a, [wMobileSDK_ReceivePacketBuffer + 4]
+	cp a, $00
+	jr z, Label_75_74B2
+	cp a, $FF
+	jr z, Label_75_74B2
+	ld a, [wRam_C822]
+	ld [wRam_C709], a
+	ld hl, $C69F
+	res 0, [hl]
+	ret
+
+Label_75_74B2:: ; 75:74B2
+	inc [hl]
+	inc [hl]
+	jr Label_75_74BE
+
+Label_75_74B6:: ; 75:74B6
+	ld a, $97
+	ld hl, $6028
+	jp Function_75_5F08
+
+Label_75_74BE:: ; 75:74BE
+	ld hl, $C70D
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wMobileSDK_ReceivePacketBuffer + 6]
+	cp a, $F0
+	jr c, Label_75_74CD
+	set 7, [hl]
+
+Label_75_74CD:: ; 75:74CD
+	jp Label_75_6264
+
+Label_75_74D0:: ; 75:74D0
+	ld a, [wRam_C709]
+	cp a, $1E
+	jp nz, Label_75_624C
+	jp Label_75_56AD
+
+; ---- code $74DB-$753C (97 bytes) [CONFIRMED] 54 insn(s); 54 executed (in up to 8/18 scenarios)
+
+Label_75_74DB:: ; 75:74DB
+	dec a
+	jr z, Label_75_74E9
+	dec a
+	jr z, Label_75_74EF
+	dec a
+	jr z, Label_75_74FE
+	dec a
+	jr z, Label_75_7501
+	dec [hl]
+	ret
+
+Label_75_74E9:: ; 75:74E9
+	ld hl, $6041
+	jp Label_75_6371
+
+Label_75_74EF:: ; 75:74EF
+	ld hl, $C6C8
+	ld a, $7F
+	ld [hli], a
+	ld a, $C7
+	ld [hli], a
+	ld hl, $604D
+	jp Label_75_6371
+
+Label_75_74FE:: ; 75:74FE
+	jp Label_75_6264
+
+Label_75_7501:: ; 75:7501
+	ld hl, $C71F
+	ld a, [hli]
+	cp a, $4D
+	jr nz, Label_75_7548
+	ld a, [hld]
+	cp a, $41
+	jr nz, Label_75_7548
+	ld b, $BE
+	ld de, $0000
+
+Label_75_7513:: ; 75:7513
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jr nz, Label_75_7513
+	ld a, [hli]
+	cp a, d
+	jr nz, Label_75_754C
+	ld a, [hl]
+	cp a, e
+	jr nz, Label_75_754C
+	ld a, [wRam_C70D]
+	ld e, a
+	ld a, [wRam_C70D + 1]
+	ld d, a
+	ld hl, $7540
+	push hl
+	ld a, [wRam_C709]
+	cp a, $25
+	jr z, Label_75_757C
+	cp a, $26
+	jr z, Label_75_755F
+
+; ---- code $753C-$7540 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:753A (executed)
+	cp a, $27
+	jr z, Label_75_756F
+
+; ---- code $7540-$7548 (8 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 8/18 scenarios)
+	ld a, $01
+	ld [wRam_C6D4], a
+	jp Label_75_56AD
+
+; ---- code $7548-$7554 (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 75:7507 (executed)
+
+Label_75_7548:: ; 75:7548
+	ld a, $25
+	jr Label_75_754E
+
+Label_75_754C:: ; 75:754C
+	ld a, $14
+
+Label_75_754E:: ; 75:754E
+	call Function_75_6258
+	jp Label_75_56B1
+
+; ---- code $7554-$75E5 (145 bytes) [CONFIRMED] 73 insn(s); 73 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
+
+Function_75_7554:: ; 75:7554
+	push de
+	ld l, e
+	ld h, d
+	xor a, a
+	ld [hl], a
+	inc de
+	call Function_75_4000
+	pop de
+	ret
+
+Label_75_755F:: ; 75:755F
+	ld b, $20
+	call Function_75_7554
+	ld a, $21
+	ld hl, $C72B
+	call Function_75_400F
+	xor a, a
+	ld [de], a
+	ret
+
+Label_75_756F:: ; 75:756F
+	ld b, $1E
+	call Function_75_7554
+	ld a, $1F
+	ld hl, $C74B
+	jp Function_75_400F
+
+Label_75_757C:: ; 75:757C
+	ld b, $65
+	call Function_75_7554
+	ld hl, $C795
+	call Function_75_75AD
+	ld a, $11
+	ld hl, $C79D
+	call Function_75_400F
+	inc de
+	ld hl, $C7AD
+	call Function_75_75AD
+	ld a, $11
+	ld hl, $C7B5
+	call Function_75_400F
+	inc de
+	ld hl, $C7C5
+	call Function_75_75AD
+	ld a, $11
+	ld hl, $C7CD
+	jp Function_75_400F
+
+Function_75_75AD:: ; 75:75AD
+	ld b, $08
+
+Label_75_75AF:: ; 75:75AF
+	ld a, [hl]
+	swap a
+	and a, $0F
+	cp a, $0F
+	jr z, Label_75_75DE
+	or a, $30
+	cp a, $3A
+	call z, Function_75_75E2
+	cp a, $3B
+	call z, Function_75_75E5
+	ld [de], a
+	inc de
+	ld a, [hli]
+	and a, $0F
+	cp a, $0F
+	jr z, Label_75_75DE
+	or a, $30
+	cp a, $3A
+	call z, Function_75_75E2
+	cp a, $3B
+	call z, Function_75_75E5
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_75_75AF
+
+Label_75_75DE:: ; 75:75DE
+	xor a, a
+	ld [de], a
+	inc de
+	ret
+
+Function_75_75E2:: ; 75:75E2
+	ld a, $23
+	ret
+
+; ---- code $75E5-$75E8 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by callcc from 75:75C1 (executed)
+
+Function_75_75E5:: ; 75:75E5
+	ld a, $2A
+	ret
+
+; ---- code $75E8-$7601 (25 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios)
+
+Label_75_75E8:: ; 75:75E8
+	dec a
+	jr z, Label_75_75F6
+	dec a
+	jr z, Label_75_75FB
+	dec a
+	jr z, Label_75_762E
+	dec a
+	jr z, Label_75_7631
+	dec [hl]
+	ret
+
+Label_75_75F6:: ; 75:75F6
+	ld b, $9A
+	jp Label_75_6351
+
+Label_75_75FB:: ; 75:75FB
+	ld a, [wRam_C71F + 2]
+	or a, a
+	jr nz, Label_75_7604
+
+; ---- code $7601-$7604 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:75FF (executed)
+	inc [hl]
+	jr Label_75_762E
+
+; ---- code $7604-$7652 (78 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 17/18 scenarios)
+
+Label_75_7604:: ; 75:7604
+	ld de, $C9E9
+	ld c, a
+	inc a
+	ld [de], a
+	inc de
+	ld a, $80
+	ld [de], a
+	inc de
+	ld hl, $C71F
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld b, c
+	call Function_75_4000
+	ld b, c
+	inc b
+	call Function_75_5F6C
+	ld a, [wMobileSDK_PacketBuffer + 5]
+	add a, $0A
+	ld e, a
+	ld d, $00
+	ld a, $9A
+	ld hl, $C9E4
+	jp Function_75_5F0B
+
+Label_75_762E:: ; 75:762E
+	jp Label_75_6264
+
+Label_75_7631:: ; 75:7631
+	jp Label_75_56AD
+
+Label_75_7634:: ; 75:7634
+	dec a
+	jr z, Label_75_7642
+	dec a
+	jr z, Label_75_7648
+	dec a
+	jr z, Label_75_767D
+	dec a
+	jr z, Label_75_7680
+	dec [hl]
+	ret
+
+Label_75_7642:: ; 75:7642
+	ld hl, $C9E4
+	jp Label_75_6371
+
+Label_75_7648:: ; 75:7648
+	ld a, [wRam_C71F + 2]
+	or a, a
+	jr z, Label_75_7655
+	cp a, $81
+	jr nc, Label_75_7655
+
+; ---- code $7652-$7655 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 75:7650 (executed)
+	inc [hl]
+	jr Label_75_767D
+
+; ---- code $7655-$7683 (46 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 17/18 scenarios)
+
+Label_75_7655:: ; 75:7655
+	ld hl, $C9EB
+	sub a, $80
+	ld [hld], a
+	ld a, $80
+	ld [hl], a
+	ld de, $C9EC
+	ld b, $02
+	call Function_75_5F6C
+	ld hl, $C71F
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $0080
+	add hl, de
+	ld e, h
+	ld a, l
+	ld hl, $C6C8
+	ld [hli], a
+	ld [hl], e
+	ld hl, $C9E4
+	jp Label_75_6371
+
+Label_75_767D:: ; 75:767D
+	jp Label_75_6264
+
+Label_75_7680:: ; 75:7680
+	jp Label_75_56AD
+
+; ---- code $7683-$7A17 (916 bytes) [PROBABLE] 507 insn(s) reached by static flow only; seeds: exec x507; min discovery hops 2; entered by call from 75:709D (PROBABLE code)
+
+Function_75_7683:: ; 75:7683
+	xor a, a
+	ld [wMobileSDK_PacketBuffer + 225], a
+	ld a, l
+	ld [wMobileSDK_PacketBuffer + 192], a
+	ld a, h
+	ld [wMobileSDK_PacketBuffer + 193], a
+	ld hl, $CAA6
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld hl, $CAA4
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CA04
+	ld b, $30
+	ld c, b
+	call Function_75_4000
+	ld hl, $C81E
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+Label_75_76AD:: ; 75:76AD
+	ld a, [hli]
+	or a, a
+	jr nz, Label_75_76AD
+	call Function_75_4007
+	ld a, $37
+	cp a, c
+	inc a
+	jr nc, Label_75_76C1
+	ld a, $02
+	ld [wMobileSDK_PacketBuffer + 225], a
+	ld a, $78
+
+Label_75_76C1:: ; 75:76C1
+	sub a, c
+	ld b, a
+	ld a, $80
+	ld [de], a
+	inc de
+	xor a, a
+
+Label_75_76C8:: ; 75:76C8
+	dec b
+	jr z, Label_75_76CF
+	ld [de], a
+	inc de
+	jr Label_75_76C8
+
+Label_75_76CF:: ; 75:76CF
+	or a, a
+	sla c
+	rl b
+	sla c
+	rl b
+	sla c
+	rl b
+	ld a, c
+	ld [de], a
+	inc de
+	ld a, b
+	ld [de], a
+	inc de
+	ld l, e
+	ld h, d
+	ld b, $06
+	xor a, a
+
+Label_75_76E7:: ; 75:76E7
+	ld [hli], a
+	dec b
+	jr nz, Label_75_76E7
+	ld de, $CA84
+	ld hl, $7B40
+	ld b, $10
+	call Function_75_4000
+
+Label_75_76F6:: ; 75:76F6
+	ld hl, $CAA9
+	ld a, $50
+	ld [hli], a
+	ld a, $7B
+	ld [hl], a
+	ld hl, $CAAB
+	ld a, $32
+	ld [hli], a
+	ld a, $7A
+	ld [hl], a
+	ld hl, $CA84
+	ld de, $CAB5
+	ld b, $10
+	call Function_75_4000
+
+Label_75_7713:: ; 75:7713
+	ld hl, $CAAB
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [hli]
+	ld c, a
+	push hl
+	call Function_75_78CB
+	ld hl, $CA94
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79F4
+	pop hl
+	ld a, [hli]
+	ld d, [hl]
+	inc hl
+	ld e, a
+	push hl
+	ld a, [wMobileSDK_PacketBuffer + 225]
+	bit 0, a
+	jr z, Label_75_773E
+	ld hl, $0040
+	add hl, de
+	ld e, l
+	ld d, h
+
+Label_75_773E:: ; 75:773E
+	ld hl, $CA04
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, $CA9C
+	call Function_75_79F4
+	ld hl, $CAA9
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79F4
+	pop hl
+	ld a, [hli]
+	ld b, a
+	ld a, l
+	ld [wMobileSDK_PacketBuffer + 199], a
+	ld a, h
+	ld [wMobileSDK_PacketBuffer + 200], a
+	ld hl, $CA9C
+	call Function_75_7A02
+	ld hl, $CA96
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79F4
+	ld hl, $CA94
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CAA9
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, h
+	ld [wMobileSDK_PacketBuffer + 198], a
+	ld a, l
+	ld [wMobileSDK_PacketBuffer + 197], a
+	cp a, $50
+	jp nz, Label_75_7713
+	ld de, $CAB5
+	ld hl, $CA84
+	call Function_75_79F4
+	ld de, $CAB9
+	call Function_75_79F4
+	ld de, $CABD
+	call Function_75_79F4
+	ld de, $CAC1
+	call Function_75_79F4
+	ld hl, $CAC5
+	bit 1, [hl]
+	jr z, Label_75_77BE
+	dec [hl]
+	jp Label_75_76F6
+
+Label_75_77BE:: ; 75:77BE
+	ld hl, $CA04
+	ld de, $CA34
+	ld bc, $0030
+	call Function_75_7D28
+	ld hl, $CAA6
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $7A17
+	call Function_75_4007
+	ld hl, $CA34
+	ld bc, $0020
+	call Function_75_7C50
+	ld a, l
+	ld [wMobileSDK_PacketBuffer + 194], a
+	ld a, h
+	ld [wMobileSDK_PacketBuffer + 195], a
+	ld b, $12
+	ld hl, $CA34
+	ld de, $CA04
+
+Label_75_77EF:: ; 75:77EF
+	ld a, $40
+	and a, [hl]
+	rlca
+	ld c, a
+	ld a, [hli]
+	bit 4, a
+	jr z, Label_75_77FB
+	set 6, c
+
+Label_75_77FB:: ; 75:77FB
+	bit 2, a
+	jr z, Label_75_7801
+	set 5, c
+
+Label_75_7801:: ; 75:7801
+	bit 0, a
+	jr z, Label_75_7807
+	set 4, c
+
+Label_75_7807:: ; 75:7807
+	ld a, [hli]
+	bit 6, a
+	jr z, Label_75_780E
+	set 3, c
+
+Label_75_780E:: ; 75:780E
+	bit 4, a
+	jr z, Label_75_7814
+	set 2, c
+
+Label_75_7814:: ; 75:7814
+	bit 2, a
+	jr z, Label_75_781A
+	set 1, c
+
+Label_75_781A:: ; 75:781A
+	bit 0, a
+	jr z, Label_75_7820
+	set 0, c
+
+Label_75_7820:: ; 75:7820
+	ld a, c
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_75_77EF
+	ld b, $12
+	ld hl, $CA57
+	ld de, $CA27
+
+Label_75_782E:: ; 75:782E
+	ld a, $02
+	and a, [hl]
+	rrca
+	ld c, a
+	ld a, [hld]
+	bit 3, a
+	jr z, Label_75_783A
+	set 1, c
+
+Label_75_783A:: ; 75:783A
+	bit 5, a
+	jr z, Label_75_7840
+	set 2, c
+
+Label_75_7840:: ; 75:7840
+	bit 7, a
+	jr z, Label_75_7846
+	set 3, c
+
+Label_75_7846:: ; 75:7846
+	ld a, [hld]
+	bit 1, a
+	jr z, Label_75_784D
+	set 4, c
+
+Label_75_784D:: ; 75:784D
+	bit 3, a
+	jr z, Label_75_7853
+	set 5, c
+
+Label_75_7853:: ; 75:7853
+	bit 5, a
+	jr z, Label_75_7859
+	set 6, c
+
+Label_75_7859:: ; 75:7859
+	bit 7, a
+	jr z, Label_75_785F
+	set 7, c
+
+Label_75_785F:: ; 75:785F
+	ld a, c
+	ld [de], a
+	dec de
+	dec b
+	jr nz, Label_75_782E
+	ld b, $10
+	ld de, $CA34
+	ld hl, $CA84
+	call Function_75_4000
+	ld bc, $0010
+	ld hl, $C81E
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Function_75_4007
+	ld a, $24
+	sub a, c
+	ld b, a
+	ld l, e
+	ld h, d
+	ld a, $FF
+
+Label_75_7884:: ; 75:7884
+	ld [hli], a
+	dec b
+	jr nz, Label_75_7884
+	xor a, a
+	ld [hl], a
+	ld b, $24
+	ld hl, $CA04
+	ld de, $CA34
+
+Label_75_7892:: ; 75:7892
+	ld a, [de]
+	inc de
+	xor a, [hl]
+	ld c, $00
+	bit 0, a
+	jr z, Label_75_789D
+	set 3, c
+
+Label_75_789D:: ; 75:789D
+	bit 3, a
+	jr z, Label_75_78A3
+	set 6, c
+
+Label_75_78A3:: ; 75:78A3
+	bit 6, a
+	jr z, Label_75_78A9
+	set 0, c
+
+Label_75_78A9:: ; 75:78A9
+	and a, $B6
+	or a, c
+	ld [hli], a
+	dec b
+	jr nz, Label_75_7892
+	ld hl, $CAA6
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA04
+	ld bc, $0024
+	call Function_75_7C50
+	ld a, $22
+	ld [hli], a
+	ld a, $0D
+	ld [hli], a
+	ld a, $0A
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	ret
+
+Function_75_78CB:: ; 75:78CB
+	call Function_75_78E0
+	ld a, c
+	and a, $F0
+	swap a
+	or a, a
+	jr z, Label_75_78F1
+	dec a
+	jr z, Label_75_7935
+	dec a
+	jp z, Label_75_7979
+	jp Label_75_79A0
+
+Function_75_78E0:: ; 75:78E0
+	and a, $0F
+	ld e, a
+	ld d, $00
+	ld hl, $7B32
+	add hl, de
+	ld de, $CA94
+	ld b, $08
+	jp Function_75_4000
+
+Label_75_78F1:: ; 75:78F1
+	ld hl, $CA96
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CA9C
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CA98
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79CD
+	ld hl, $CA96
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CAA0
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CAA0
+	call Function_75_79E1
+	ld hl, $CA9A
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CAA0
+	call Function_75_79CD
+	ld hl, $CA9C
+	ld de, $CAA0
+	call Function_75_79D7
+	ret
+
+Label_75_7935:: ; 75:7935
+	ld hl, $CA96
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CA9C
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CA9A
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79CD
+	ld hl, $CA9A
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CAA0
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CAA0
+	call Function_75_79E1
+	ld hl, $CA98
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CAA0
+	call Function_75_79CD
+	ld hl, $CA9C
+	ld de, $CAA0
+	call Function_75_79D7
+	ret
+
+Label_75_7979:: ; 75:7979
+	ld hl, $CA96
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CA9C
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CA98
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79EA
+	ld hl, $CA9A
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79EA
+	ret
+
+Label_75_79A0:: ; 75:79A0
+	ld hl, $CA9A
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $CA9C
+	ld b, $04
+	call Function_75_4000
+	ld hl, $CA9C
+	call Function_75_79E1
+	ld hl, $CA96
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79D7
+	ld hl, $CA98
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
+	ld hl, $CA9C
+	call Function_75_79EA
+	ret
+
+Function_75_79CD:: ; 75:79CD
+	ld b, $04
+
+Label_75_79CF:: ; 75:79CF
+	ld a, [de]
+	inc de
+	and a, [hl]
+	ld [hli], a
+	dec b
+	jr nz, Label_75_79CF
+	ret
+
+Function_75_79D7:: ; 75:79D7
+	ld b, $04
+
+Label_75_79D9:: ; 75:79D9
+	ld a, [de]
+	inc de
+	or a, [hl]
+	ld [hli], a
+	dec b
+	jr nz, Label_75_79D9
+	ret
+
+Function_75_79E1:: ; 75:79E1
+	ld b, $04
+
+Label_75_79E3:: ; 75:79E3
+	ld a, [hl]
+	cpl
+	ld [hli], a
+	dec b
+	jr nz, Label_75_79E3
+	ret
+
+Function_75_79EA:: ; 75:79EA
+	ld b, $04
+
+Label_75_79EC:: ; 75:79EC
+	ld a, [de]
+	inc de
+	xor a, [hl]
+	ld [hli], a
+	dec b
+	jr nz, Label_75_79EC
+	ret
+
+Function_75_79F4:: ; 75:79F4
+	ld a, [de]
+	inc de
+	add a, [hl]
+	ld [hli], a
+	ld b, $03
+
+Label_75_79FA:: ; 75:79FA
+	ld a, [de]
+	inc de
+	adc a, [hl]
+	ld [hli], a
+	dec b
+	jr nz, Label_75_79FA
+	ret
+
+Function_75_7A02:: ; 75:7A02
+	or a, a
+	push hl
+	ld a, [hli]
+	rla
+	ld a, [hl]
+	rla
+	ld [hli], a
+	ld a, [hl]
+	rla
+	ld [hli], a
+	ld a, [hl]
+	rla
+	ld [hl], a
+	pop hl
+	ld a, [hl]
+	rla
+	ld [hl], a
+	dec b
+	jr nz, Function_75_7A02
+	ret
+
+; ---- data $7A17-$7C50 (569 bytes) [HYPOTHESIS] UNCLASSIFIED 569 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_7A17:: ; 75:7A17
+	db $41, $75, $74, $68, $6F, $72, $69, $7A, $61, $74, $69, $6F, $6E, $3A, $20, $47
+	db $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00, $00, $00, $00, $07, $06
+	db $04, $00, $0C, $04, $08, $00, $11, $02, $0C, $00, $16, $00, $10, $00, $07, $06
+	db $14, $00, $0C, $04, $18, $00, $11, $02, $1C, $00, $16, $00, $20, $00, $07, $06
+	db $24, $00, $0C, $04, $28, $00, $11, $02, $2C, $00, $16, $00, $30, $00, $07, $06
+	db $34, $00, $0C, $04, $38, $00, $11, $02, $3C, $00, $16, $10, $04, $00, $05, $16
+	db $18, $00, $09, $14, $2C, $00, $0E, $12, $00, $00, $14, $10, $14, $00, $05, $16
+	db $28, $00, $09, $14, $3C, $00, $0E, $12, $10, $00, $14, $10, $24, $00, $05, $16
+	db $38, $00, $09, $14, $0C, $00, $0E, $12, $20, $00, $14, $10, $34, $00, $05, $16
+	db $08, $00, $09, $14, $1C, $00, $0E, $12, $30, $00, $14, $20, $14, $00, $04, $26
+	db $20, $00, $0B, $24, $2C, $00, $10, $22, $38, $00, $17, $20, $04, $00, $04, $26
+	db $10, $00, $0B, $24, $1C, $00, $10, $22, $28, $00, $17, $20, $34, $00, $04, $26
+	db $00, $00, $0B, $24, $0C, $00, $10, $22, $18, $00, $17, $20, $24, $00, $04, $26
+	db $30, $00, $0B, $24, $3C, $00, $10, $22, $08, $00, $17, $30, $00, $00, $06, $36
+	db $1C, $00, $0A, $34, $38, $00, $0F, $32, $14, $00, $15, $30, $30, $00, $06, $36
+	db $0C, $00, $0A, $34, $28, $00, $0F, $32, $04, $00, $15, $30, $20, $00, $06, $36
+	db $3C, $00, $0A, $34, $18, $00, $0F, $32, $34, $00, $15, $30, $10, $00, $06, $36
+	db $2C, $00, $0A, $34, $08, $00, $0F, $32, $24, $00, $15, $84, $CA, $88, $CA, $8C
+	db $CA, $90, $CA, $84, $CA, $88, $CA, $8C, $CA, $01, $23, $45, $67, $89, $AB, $CD
+	db $EF, $FE, $DC, $BA, $98, $76, $54, $32, $10, $78, $A4, $6A, $D7, $56, $B7, $C7
+	db $E8, $DB, $70, $20, $24, $EE, $CE, $BD, $C1, $AF, $0F, $7C, $F5, $2A, $C6, $87
+	db $47, $13, $46, $30, $A8, $01, $95, $46, $FD, $D8, $98, $80, $69, $AF, $F7, $44
+	db $8B, $B1, $5B, $FF, $FF, $BE, $D7, $5C, $89, $22, $11, $90, $6B, $93, $71, $98
+	db $FD, $8E, $43, $79, $A6, $21, $08, $B4, $49, $62, $25, $1E, $F6, $40, $B3, $40
+	db $C0, $51, $5A, $5E, $26, $AA, $C7, $B6, $E9, $5D, $10, $2F, $D6, $53, $14, $44
+	db $02, $81, $E6, $A1, $D8, $C8, $FB, $D3, $E7, $E6, $CD, $E1, $21, $D6, $07, $37
+	db $C3, $87, $0D, $D5, $F4, $ED, $14, $5A, $45, $05, $E9, $E3, $A9, $F8, $A3, $EF
+	db $FC, $D9, $02, $6F, $67, $8A, $4C, $2A, $8D, $42, $39, $FA, $FF, $81, $F6, $71
+	db $87, $22, $61, $9D, $6D, $0C, $38, $E5, $FD, $44, $EA, $BE, $A4, $A9, $CF, $DE
+	db $4B, $60, $4B, $BB, $F6, $70, $BC, $BF, $BE, $C6, $7E, $9B, $28, $FA, $27, $A1
+	db $EA, $85, $30, $EF, $D4, $05, $1D, $88, $04, $39, $D0, $D4, $D9, $E5, $99, $DB
+	db $E6, $F8, $7C, $A2, $1F, $65, $56, $AC, $C4, $44, $22, $29, $F4, $97, $FF, $2A
+	db $43, $A7, $23, $94, $AB, $39, $A0, $93, $FC, $C3, $59, $5B, $65, $92, $CC, $0C
+	db $8F, $7D, $F4, $EF, $FF, $D1, $5D, $84, $85, $4F, $7E, $A8, $6F, $E0, $E6, $2C
+	db $FE, $14, $43, $01, $A3, $A1, $11, $08, $4E, $82, $7E, $53, $F7, $35, $F2, $3A
+	db $BD, $BB, $D2, $D7, $2A, $91, $D3, $86, $EB
+
+; ---- code $7C50-$7E89 (569 bytes) [PROBABLE] 347 insn(s) reached by static flow only; seeds: exec x289, mobile x58; min discovery hops 0; entered by call from 75:77DC (PROBABLE code)
+
+Function_75_7C50:: ; 75:7C50
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 201], a
+	ld a, b
+	ld [wMobileSDK_PacketBuffer + 202], a
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld l, c
+	ld h, b
+	xor a, a
+	ld [wMobileSDK_PacketBuffer + 207], a
+
+Label_75_7C62:: ; 75:7C62
+	ld b, $03
+	push hl
+	ld hl, $CAAF
+
+Label_75_7C68:: ; 75:7C68
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec b
+	jr nz, Label_75_7C68
+	ld a, [wMobileSDK_PacketBuffer + 201]
+	ld c, a
+	ld a, [wMobileSDK_PacketBuffer + 202]
+	ld b, a
+	xor a, a
+	or a, b
+	jr nz, Label_75_7C91
+	ld a, $02
+	cp a, c
+	jr c, Label_75_7C91
+	push hl
+	dec hl
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 207], a
+
+Label_75_7C85:: ; 75:7C85
+	xor a, a
+	ld [hld], a
+	inc c
+	ld a, $03
+	cp a, c
+	jr nz, Label_75_7C85
+	pop hl
+	ld bc, $0003
+
+Label_75_7C91:: ; 75:7C91
+	dec bc
+	dec bc
+	dec bc
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 201], a
+	ld a, b
+	ld [wMobileSDK_PacketBuffer + 202], a
+	push de
+	dec hl
+	ld c, [hl]
+	dec hl
+	ld b, [hl]
+	dec hl
+	ld a, [hl]
+	ld d, a
+	srl a
+	srl a
+	ld [hli], a
+	ld a, $03
+	and a, d
+	ld d, a
+	ld a, $F0
+	and a, b
+	or a, d
+	swap a
+	ld [hli], a
+	ld a, $0F
+	and a, b
+	ld d, a
+	ld a, c
+	and a, $C0
+	or a, d
+	rlca
+	rlca
+	ld [hli], a
+	ld a, $3F
+	and a, c
+	ld [hld], a
+	dec hl
+	dec hl
+	pop de
+	ld b, h
+	ld c, l
+	pop hl
+	ld a, [bc]
+	inc bc
+	call Function_75_7D09
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Function_75_7D09
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Function_75_7D09
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Function_75_7D09
+	ld [hli], a
+	ld a, [wMobileSDK_PacketBuffer + 201]
+	cp a, $00
+	jp nz, Label_75_7C62
+	ld a, [wMobileSDK_PacketBuffer + 202]
+	cp a, $00
+	jp nz, Label_75_7C62
+	ld a, [wMobileSDK_PacketBuffer + 207]
+	cp a, $00
+	jr z, Label_75_7D05
+	push hl
+	dec hl
+	ld b, a
+
+Label_75_7CFB:: ; 75:7CFB
+	ld a, $3D
+	ld [hld], a
+	inc b
+	ld a, $03
+	cp a, b
+	jr nz, Label_75_7CFB
+	pop hl
+
+Label_75_7D05:: ; 75:7D05
+	ld a, $00
+	ld [hl], a
+	ret
+
+Function_75_7D09:: ; 75:7D09
+	cp a, $1A
+	jr c, Label_75_7D1C
+	cp a, $34
+	jr c, Label_75_7D1F
+	cp a, $3E
+	jr c, Label_75_7D22
+	cp a, $3E
+	jr z, Label_75_7D25
+	ld a, $2F
+	ret
+
+Label_75_7D1C:: ; 75:7D1C
+	add a, $41
+	ret
+
+Label_75_7D1F:: ; 75:7D1F
+	add a, $47
+	ret
+
+Label_75_7D22:: ; 75:7D22
+	sub a, $04
+	ret
+
+Label_75_7D25:: ; 75:7D25
+	ld a, $2B
+	ret
+
+Function_75_7D28:: ; 75:7D28
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 201], a
+	ld a, b
+	ld [wMobileSDK_PacketBuffer + 202], a
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld l, c
+	ld h, b
+
+Label_75_7D36:: ; 75:7D36
+	ld a, [wMobileSDK_PacketBuffer + 202]
+	or a, a
+	jr nz, Label_75_7D44
+	ld a, [wMobileSDK_PacketBuffer + 201]
+	cp a, $04
+	jp c, Label_75_7DE8
+
+Label_75_7D44:: ; 75:7D44
+	ld b, $04
+	push hl
+	ld hl, $CAAF
+
+Label_75_7D4A:: ; 75:7D4A
+	ld a, [de]
+	inc de
+	call Function_75_7DBC
+	ld [hli], a
+	dec b
+	jr nz, Label_75_7D4A
+	ld a, [wMobileSDK_PacketBuffer + 201]
+	ld c, a
+	ld a, [wMobileSDK_PacketBuffer + 202]
+	ld b, a
+	dec bc
+	dec bc
+	dec bc
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_75_7D70
+
+Label_75_7D63:: ; 75:7D63
+	ld a, [de]
+	cp a, $0D
+	jr z, Label_75_7D6C
+	cp a, $0A
+	jr nz, Label_75_7D70
+
+Label_75_7D6C:: ; 75:7D6C
+	inc de
+	dec bc
+	jr Label_75_7D63
+
+Label_75_7D70:: ; 75:7D70
+	ld a, c
+	ld [wMobileSDK_PacketBuffer + 201], a
+	ld a, b
+	ld [wMobileSDK_PacketBuffer + 202], a
+	push de
+	dec hl
+	ld d, [hl]
+	dec hl
+	ld c, [hl]
+	dec hl
+	ld b, [hl]
+	dec hl
+	ld a, [hl]
+	sla b
+	sla b
+	sla b
+	rla
+	sla b
+	rla
+	ld [hli], a
+	ld [hl], b
+	inc hl
+	rrc c
+	rrc c
+	ld [hl], c
+	dec hl
+	ld a, $0F
+	and a, c
+	or a, [hl]
+	ld [hli], a
+	ld a, [hli]
+	and a, $C0
+	or a, [hl]
+	dec hl
+	ld [hld], a
+	dec hl
+	pop de
+	ld b, h
+	ld c, l
+	pop hl
+	ld a, [bc]
+	ld [hli], a
+	inc bc
+	ld a, [bc]
+	ld [hli], a
+	inc bc
+	ld a, [bc]
+	ld [hli], a
+	ld a, [wMobileSDK_PacketBuffer + 201]
+	or a, a
+	jr nz, Label_75_7D36
+	ld a, [wMobileSDK_PacketBuffer + 202]
+	or a, a
+	jp nz, Label_75_7D36
+	xor a, a
+	ld [hl], a
+	ret
+
+Function_75_7DBC:: ; 75:7DBC
+	cp a, $2B
+	jr c, Label_75_7DE6
+	jr z, Label_75_7DF3
+	cp a, $2F
+	jr c, Label_75_7DE6
+	jr z, Label_75_7DF6
+	cp a, $30
+	jr c, Label_75_7DE6
+	cp a, $3A
+	jr c, Label_75_7DF9
+	cp a, $3D
+	jr c, Label_75_7DE6
+	jr z, Label_75_7DFC
+	cp a, $41
+	jr c, Label_75_7DE6
+	cp a, $5B
+	jr c, Label_75_7DFE
+	cp a, $61
+	jr c, Label_75_7DE6
+	cp a, $7B
+	jr c, Label_75_7E01
+
+Label_75_7DE6:: ; 75:7DE6
+	pop hl
+	pop hl
+
+Label_75_7DE8:: ; 75:7DE8
+	ld hl, $C69F
+	set 1, [hl]
+	ld a, $20
+	ld [wRam_C6AF], a
+	ret
+
+Label_75_7DF3:: ; 75:7DF3
+	ld a, $3E
+	ret
+
+Label_75_7DF6:: ; 75:7DF6
+	ld a, $3F
+	ret
+
+Label_75_7DF9:: ; 75:7DF9
+	add a, $04
+	ret
+
+Label_75_7DFC:: ; 75:7DFC
+	xor a, a
+	ret
+
+Label_75_7DFE:: ; 75:7DFE
+	sub a, $41
+	ret
+
+Label_75_7E01:: ; 75:7E01
+	sub a, $47
+	ret
+
+Label_75_7E04:: ; 75:7E04
+	dec a
+	jr z, Label_75_7E11
+	dec a
+	jr z, Label_75_7E47
+	dec a
+	jr z, Label_75_7E6A
+	dec a
+	jr z, Label_75_7E72
+	ret
+
+Label_75_7E11:: ; 75:7E11
+	ld a, [wRam_C6A7]
+	cp a, $08
+	jr nz, Label_75_7E1A
+
+Label_75_7E18:: ; 75:7E18
+	dec [hl]
+	ret
+
+Label_75_7E1A:: ; 75:7E1A
+	xor a, a
+	ld [wRam_C70C], a
+	ld a, $02
+	ld [wRam_C709], a
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $10
+	set 5, a
+	ld [hl], a
+	jp Label_75_7E7A
+
+Label_75_7E2F:: ; 75:7E2F
+	ld a, [wRam_C70C]
+	or a, a
+	ld a, [wMobileSDK_ReceivePacketBuffer]
+	jr z, Label_75_7E43
+	cp a, $9F
+	jr z, Label_75_7E47
+	cp a, $A4
+	jr z, Label_75_7E47
+
+Label_75_7E40:: ; 75:7E40
+	jp Function_75_6436
+
+Label_75_7E43:: ; 75:7E43
+	cp a, $A3
+	jr z, Label_75_7E40
+
+Label_75_7E47:: ; 75:7E47
+	xor a, a
+	ld [wRam_C70C], a
+	ld [wMobileSDK_SendCommandID], a
+	ld a, $02
+	ld [wRam_C709], a
+	ld a, $03
+	ld [wRam_C6A7], a
+	ld hl, $C69F
+	ld a, [hl]
+	and a, $10
+	set 5, a
+	ld [hl], a
+	ld hl, $C6C1
+	bit 0, [hl]
+	call z, Function_75_5FA0
+	ret
+
+Label_75_7E6A:: ; 75:7E6A
+	ld a, [wRam_C6A7]
+	cp a, $08
+	jr z, Label_75_7E18
+	ret
+
+Label_75_7E72:: ; 75:7E72
+	ld a, $01
+	ld [wRam_C70A], a
+	jp Label_75_7E2F
+
+Label_75_7E7A:: ; 75:7E7A
+	ld a, $FF
+	ld [wMobileSDK_SendCommandID], a
+	ld hl, $C6C1
+	res 5, [hl]
+	res 0, [hl]
+	jp Function_75_5FA0
+
+; ---- data $7E89-$7EB4 (43 bytes) [HYPOTHESIS] UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_75_7E89:: ; 75:7E89
+	db $21, $C1, $C6, $7E, $F5, $CB, $9E, $CB, $86, $21, $BA, $C6, $2A, $5F, $2A, $57
+	db $2A, $66, $6F, $23, $23, $3A, $2B, $EE, $80, $EA, $BE, $C6, $06, $05, $CD, $10
+	db $5F, $F1, $CB, $47, $C8, $21, $C1, $C6, $CB, $C6, $C9
+
+; ---- code $7EB4-$7EEF (59 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: mobile x38; min discovery hops 0; run starts at SDK/API table entry state29 (analysis/mobile_candidates.json)
+
+Label_75_7EB4:: ; 75:7EB4
+	dec a
+	jr z, Label_75_7EBC
+	dec a
+	jr z, Label_75_7EC5
+	dec [hl]
+	ret
+
+Label_75_7EBC:: ; 75:7EBC
+	ld a, [wRam_C6A7]
+	cp a, $08
+	jr nz, Label_75_7E7A
+	dec [hl]
+	ret
+
+Label_75_7EC5:: ; 75:7EC5
+	ld a, $26
+	call Function_75_6258
+	ld a, $2A
+	ld [wRam_C709], a
+	ld hl, $C6C0
+	ld a, [hld]
+	ld h, [hl]
+	ld l, a
+	ld e, l
+	ld d, h
+	add hl, de
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, $C6B5
+	ld e, a
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ld hl, $C9E4
+	ld a, $02
+	ld [hli], a
+	dec a
+	ld [hl], a
+	ret
+
+; ---- code $7EEF-$7EF7 (8 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
+
+Label_75_7EEF:: ; 75:7EEF
+	dec a
+	jr z, Label_75_7EF7
+	dec a
+	jr z, Label_75_7F11
+	dec [hl]
+	ret
+
+; ---- code $7EF7-$7F11 (26 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 75:7EF0 (executed)
+
+Label_75_7EF7:: ; 75:7EF7
+	ld a, [wRam_C6A7]
+	cp a, $08
+	jr nz, Label_75_7F00
+	dec [hl]
+	ret
+
+Label_75_7F00:: ; 75:7F00
+	xor a, a
+	ld [wMobileSDK_ReceivePacketBuffer], a
+	ld [wMobileSDK_ReceivePacketBufferAlt], a
+	ld a, [wMobileSDK_SendCommandID]
+	cp a, $91
+	jr z, Label_75_7F11
+	jp Label_75_7E7A
+
+; ---- code $7F11-$7F46 (53 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios)
+
+Label_75_7F11:: ; 75:7F11
+	xor a, a
+	ld [wRam_C70C], a
+	ld hl, $C69F
+	set 0, [hl]
+	ld hl, $C6C1
+	xor a, a
+	ld [hl], a
+	xor a, a
+	ld [wRam_C6AB], a
+	xor a, a
+	ld [wMobileSDK_PacketBuffer], a
+	ld hl, $C6C0
+	ld a, [hld]
+	ld h, [hl]
+	ld l, a
+	ld e, l
+	ld d, h
+	add hl, de
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, $C6B5
+	ld e, a
+	ld [hli], a
+	ld a, d
+	ld [hl], a
+	xor a, a
+	ld [wRam_C6A0], a
+	ld hl, $C9E4
+	xor a, a
+	ld [hli], a
+	inc a
+	ld [hl], a
+	ret
+
+; ---- zero $7F46-$8000 (186 bytes) [PROBABLE] trailing 0x00 padding to end of bank
+	ds $BA, $00

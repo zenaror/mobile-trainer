@@ -1,0 +1,96 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4020	code	Function_28_4000	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+4020	404C	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 28:401E (executed)
+404C	422B	code	-	CONFIRMED	179 insn(s); 179 executed (in up to 1/18 scenarios)
+422B	426B	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed)
+426B	42B7	code	-	CONFIRMED	42 insn(s); 42 executed (in up to 1/18 scenarios)
+42B7	42C0	data	Data_28_42B7	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+42C0	44D0	gfx	Data_28_42C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 28:4088: hl=$42C0 a=$28 c=$21 de=$9301 (dest VRAM $9300, vbank=1)
+44D0	4550	gfx	Data_28_44D0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 28:409A: hl=$44D0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0)
+4550	4820	data	Data_28_4550	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:7C08: hl=$4550 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+4820	4AF0	data	Data_28_4820	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 28:40AB: hl=$4820 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000
+4AF0	4B70	data	Data_28_4AF0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4820-4B70 by higher-priority evidence]
+4B70	4B74	data	Data_28_4B70	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4B74	4B78	data	Data_28_4B74	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+4B78	4B80	data	Data_28_4B78	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4B80	4BA6	data	Data_28_4B80	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+4BA6	4BD0	data	Data_28_4BA6	HYPOTHESIS	UNCLASSIFIED 42 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4BD0	4FD0	gfx	Data_28_4BD0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5931: hl=$4BD0 a=$28 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
+4FD0	51D0	gfx	Data_28_4FD0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5946: hl=$4FD0 a=$28 c=$20 de=$8400 (dest VRAM $8400, vbank=0)
+51D0	51DE	data	Data_28_51D0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4BD0-5210 by higher-priority evidence]
+51DE	51FE	data	Data_28_51DE	PROBABLE	palette-rgb555: heuristic: 16 RGB555 words as 4 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+51FE	5210	data	Data_28_51FE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4BD0-5210 by higher-priority evidence]
+5210	5214	data	Data_28_5210	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5214	5218	data	Data_28_5214	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5218	5224	data	Data_28_5218	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5224	5228	data	Data_28_5224	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5228	5244	data	Data_28_5228	HYPOTHESIS	UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5244	5248	data	Data_28_5244	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5248	5280	data	Data_28_5248	HYPOTHESIS	UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5280	52C1	data	Data_28_5280	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+52C1	52D7	data	Data_28_52C1	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52D7	5379	data	Data_28_52D7	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+5379	54B0	data	Data_28_5379	HYPOTHESIS	UNCLASSIFIED 311 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+54B0	58B0	gfx	Data_28_54B0	PROBABLE	tiles-vram: 2 call site(s) (22:45EB 23:44DA); first: hdma_rom_to_vram at 22:45EB: hl=$54B0 a=$28 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+58B0	5B50	gfx	Data_28_58B0	PROBABLE	tiles-vram: 2 call site(s) (22:4600 23:44EF); first: hdma_rom_to_vram at 22:4600: hl=$58B0 a=$28 c=$2A de=$9701 (dest VRAM $9700, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5B50	5BD0	gfx	Data_28_5B50	PROBABLE	tiles-vram: 2 call site(s) (22:4615 23:4504); first: hdma_rom_to_vram at 22:4615: hl=$5B50 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+5BD0	5EA0	data	Data_28_5BD0	PROBABLE	tilemap+attr: 2 call site(s) (22:4629 23:4518); first: copy_tilemap_rect_pair at 22:4629: hl=$5BD0 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+5EA0	5EC0	data	Data_28_5EA0	PROBABLE	palette-rgb555: heuristic: 16 RGB555 words as 4 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+5EC0	5ED0	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
+5ED0	5ED6	data	Data_28_5ED0	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5ED6	5F1E	data	Data_28_5ED6	PROBABLE	palette-rgb555: heuristic: 36 RGB555 words as 9 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+5F1E	5F20	data	Data_28_5F1E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F20	6150	gfx	Data_28_5F20	PROBABLE	tiles-vram: 2 call site(s) (22:4277 23:4226); first: hdma_rom_to_vram at 22:4277: hl=$5F20 a=$28 c=$23 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+6150	6550	gfx	Data_28_6150	PROBABLE	tiles-vram: 2 call site(s) (22:428C 23:423B); first: hdma_rom_to_vram at 22:428C: hl=$6150 a=$28 c=$40 de=$8800 (dest VRAM $8800, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+6550	67E0	gfx	Data_28_6550	PROBABLE	tiles-vram: 2 call site(s) (22:42A1 23:4250); first: hdma_rom_to_vram at 22:42A1: hl=$6550 a=$28 c=$29 de=$8C00 (dest VRAM $8C00, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+67E0	6860	gfx	Data_28_67E0	PROBABLE	tiles-vram: 2 call site(s) (22:42B6 23:4265); first: hdma_rom_to_vram at 22:42B6: hl=$67E0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+6860	6B30	data	Data_28_6860	PROBABLE	tilemap+attr: 2 call site(s) (23:4172 23:4279); first: copy_tilemap_rect_pair at 23:4172: hl=$6860 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+6B30	6E00	data	Data_28_6B30	PROBABLE	tilemap+attr: 2 call site(s) (23:41AD 23:42D0); first: copy_tilemap_rect_pair at 23:41AD: hl=$6B30 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
+6E00	6E08	data	Data_28_6E00	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6E00-6E80 by higher-priority evidence]
+6E08	6EA0	data	Data_28_6E08	PROBABLE	palette-rgb555: heuristic: 76 RGB555 words as 19 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+6EA0	6ECB	data	Data_28_6EA0	HYPOTHESIS	UNCLASSIFIED 43 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6ECB	6F12	data	Data_28_6ECB	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+6F12	6F24	data	Data_28_6F12	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F24	6F28	data	Data_28_6F24	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+6F28	6F34	data	Data_28_6F28	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F34	6F38	data	Data_28_6F34	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+6F38	7024	data	Data_28_6F38	HYPOTHESIS	UNCLASSIFIED 236 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7024	7028	data	Data_28_7024	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
+7028	7034	data	Data_28_7028	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7034	7038	data	Data_28_7034	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+7038	7040	data	Data_28_7038	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7040	7042	data	Data_28_7040	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7042	7044	data	Data_28_7042	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7044	7055	data	Data_28_7044	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7055	7067	data	Data_28_7055	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7067	7069	data	Data_28_7067	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7069	72AF	data	Data_28_7069	HYPOTHESIS	UNCLASSIFIED 582 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72AF	72FB	data	Data_28_72AF	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+72FB	732F	data	Data_28_72FB	HYPOTHESIS	UNCLASSIFIED 52 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+732F	7333	data	Data_28_732F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7333	733F	data	Data_28_7333	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+733F	7343	data	Data_28_733F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7343	734F	data	Data_28_7343	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+734F	7353	data	Data_28_734F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7353	737F	data	Data_28_7353	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+737F	7383	data	Data_28_737F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7383	738F	data	Data_28_7383	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+738F	7393	data	Data_28_738F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7393	739F	data	Data_28_7393	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+739F	73A3	data	Data_28_739F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+73A3	73AF	data	Data_28_73A3	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73AF	73B3	data	Data_28_73AF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+73B3	73BF	data	Data_28_73B3	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73BF	73C3	data	Data_28_73BF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+73C3	73CF	data	Data_28_73C3	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73CF	73D3	data	Data_28_73CF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+73D3	73FF	data	Data_28_73D3	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73FF	7403	data	Data_28_73FF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7403	75E2	data	Data_28_7403	HYPOTHESIS	UNCLASSIFIED 479 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+75E2	7678	data	Data_28_75E2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7678	76EE	data	Data_28_7678	HYPOTHESIS	UNCLASSIFIED 118 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+76EE	7823	data	Data_28_76EE	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+7823	783F	data	Data_28_7823	HYPOTHESIS	UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+783F	784D	data	Data_28_783F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+784D	7A5D	data	Data_28_784D	HYPOTHESIS	UNCLASSIFIED 528 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7A5D	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

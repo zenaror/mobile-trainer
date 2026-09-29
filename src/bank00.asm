@@ -126,10 +126,14 @@ Entry:: ; 00:0100
 	nop
 	jp Boot
 
-; ---- raw $0104-$0150 (76 bytes) [CONFIRMED] cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
+; ---- data $0104-$0150 (76 bytes) [CONFIRMED] cartridge header 0104-014F (logo, title M-TRAINER, CGB-only, MBC5+RAM+BATTERY, checksums); see docs/ROM_INFO.md
 
 Header:: ; 00:0104
-	INCBIN "baserom.gbc", $104, $4C
+	db $CE, $ED, $66, $66, $CC, $0D, $00, $0B, $03, $73, $00, $83, $00, $0C, $00, $0D
+	db $00, $08, $11, $1F, $88, $89, $00, $0E, $DC, $CC, $6E, $E6, $DD, $DD, $D9, $99
+	db $BB, $BB, $67, $63, $6E, $0E, $EC, $CC, $DD, $DC, $99, $9F, $BB, $B9, $33, $3E
+	db $4D, $2D, $54, $52, $41, $49, $4E, $45, $52, $00, $00, $42, $39, $41, $4A, $C0
+	db $30, $31, $00, $1B, $06, $03, $00, $33, $00, $DA, $5A, $C8
 
 ; ---- code $0150-$018D (61 bytes) [PROBABLE] API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54]
 
@@ -167,7 +171,7 @@ Label_00_016B:: ; 00:016B
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	jp Data_75_4030
+	jp Label_75_4030
 
 ; ---- code $018D-$01B7 (42 bytes) [PROBABLE] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer]
 
@@ -217,7 +221,7 @@ Int_Serial:: ; 00:01B7
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	call Data_75_56D2
+	call Function_75_56D2
 	pop de
 	ld hl, $FF8A
 	ld a, e
@@ -269,7 +273,7 @@ Int_Timer:: ; 00:01ED
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	call Data_75_58EA
+	call Function_75_58EA
 	pop de
 	ld hl, $FF8A
 	ld a, e
@@ -312,7 +316,7 @@ Function_00_0247:: ; 00:0247
 	ld [$2100], a
 	ld a, h
 	ld [rROMB1], a
-	call Data_0F_4247
+	call Function_0F_4247
 	pop de
 	ld a, e
 	ldh [hROMBankLo], a
@@ -353,7 +357,7 @@ Label_00_02A2:: ; 00:02A2
 	ld a, $6B
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Data_6B_4C80
+	call Function_6B_4C80
 	jr Label_00_02A2
 
 Label_00_02AE:: ; 00:02AE
@@ -406,7 +410,7 @@ Label_00_02C0:: ; 00:02C0
 	ld a, $4F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Data_4F_4717
+	call Function_4F_4717
 	ld bc, $0001
 	di
 	ld a, c
@@ -424,8 +428,8 @@ Label_00_0328:: ; 00:0328
 ; inline farptr bytes of the convention call at 00:0328 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_032B:: ; 00:032B
-	dw $4000
-	db $1C
+	dw Function_1C_4000
+	db BANK(Function_1C_4000)
 
 ; ---- code $032E-$0331 (3 bytes) [CONFIRMED] continuation
 
@@ -2011,6 +2015,8 @@ Label_00_0B36:: ; 00:0B36
 	call BankSwitch_D
 	or a, e
 	or a, d
+
+Label_00_0B4A:: ; 00:0B4A
 	jr z, Label_00_0B71
 	pop hl
 	push hl
@@ -2872,6 +2878,8 @@ Function_00_1044:: ; 00:1044
 	cp a, $90
 	jr nc, Function_00_1079
 	ld de, $C0B8
+
+Label_00_104F:: ; 00:104F
 	ld bc, $C0A0
 	xor a, a
 	call FarCall
@@ -2880,8 +2888,8 @@ Function_00_1044:: ; 00:1044
 ; inline farptr bytes of the convention call at 00:1053 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_1056:: ; 00:1056
-	dw $405F
-	db $7F
+	dw Function_7F_405F
+	db BANK(Function_7F_405F)
 
 ; ---- code $1059-$1076 (29 bytes) [CONFIRMED] continuation of Function_00_1028
 
@@ -2907,8 +2915,8 @@ Function_00_1059:: ; 00:1059
 ; inline farptr bytes of the convention call at 00:1073 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_1076:: ; 00:1076
-	dw $42C3
-	db $7F
+	dw Function_7F_42C3
+	db BANK(Function_7F_42C3)
 
 ; ---- code $1079-$10A0 (39 bytes) [CONFIRMED] continuation of Function_00_1028
 
@@ -2939,8 +2947,8 @@ Function_00_1079:: ; 00:1079
 ; inline farptr bytes of the convention call at 00:109D (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10A0:: ; 00:10A0
-	dw $42C3
-	db $7F
+	dw Function_7F_42C3
+	db BANK(Function_7F_42C3)
 
 ; ---- code $10A3-$10B1 (14 bytes) [CONFIRMED] continuation
 
@@ -2971,8 +2979,8 @@ Function_00_10B1:: ; 00:10B1
 ; inline farptr bytes of the convention call at 00:10C0 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10C3:: ; 00:10C3
-	dw $4007
-	db $7F
+	dw Function_7F_4007
+	db BANK(Function_7F_4007)
 
 ; ---- code $10C6-$10D8 (18 bytes) [CONFIRMED] continuation of Function_00_10B1
 
@@ -2992,8 +3000,8 @@ Function_00_10C6:: ; 00:10C6
 ; inline farptr bytes of the convention call at 00:10D5 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_10D8:: ; 00:10D8
-	dw $42C3
-	db $7F
+	dw Function_7F_42C3
+	db BANK(Function_7F_42C3)
 
 ; ---- code $10DB-$10E9 (14 bytes) [CONFIRMED] continuation
 
@@ -3988,8 +3996,8 @@ Function_00_1586:: ; 00:1586
 ; inline farptr bytes of the convention call at 00:1587 (config/conventions.tsv, docs/FORMATS.md)
 
 Data_00_158A:: ; 00:158A
-	dw $44FC
-	db $68
+	dw Function_68_44FC
+	db BANK(Function_68_44FC)
 
 ; ---- code $158D-$161A (141 bytes) [PROBABLE] continuation [reached via inferred links; raw refs 11]
 
@@ -4266,7 +4274,7 @@ Function_00_1711:: ; 00:1711
 	ld a, $4F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Data_4F_47A5
+	call Function_4F_47A5
 	ldh [hScratchA], a
 	pop af
 	ldh [hROMBankLo], a
@@ -4336,25 +4344,25 @@ Label_00_176B:: ; 00:176B
 
 Function_00_20A0:: ; 00:20A0
 	call Function_00_20EE
-	jp Data_04_4000
+	jp Label_04_4000
 
 ; ---- code $20A6-$20AC (6 bytes) [CONFIRMED] stub: call 2129 (re-entrancy guard) ; jp 04:4082. Called from the frame service 0392
 
 Function_00_20A6:: ; 00:20A6
 	call Function_00_2129
-	jp Data_04_4082
+	jp Label_04_4082
 
 ; ---- code $20AC-$20B2 (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
 Function_00_20AC:: ; 00:20AC
 	call Function_00_2116
-	jp Data_04_41C0
+	jp Label_04_41C0
 
 ; ---- code $20B2-$20B8 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65]
 
 Function_00_20B2:: ; 00:20B2
 	call Function_00_2116
-	jp Data_04_4287
+	jp Label_04_4287
 
 ; ---- code $20B8-$20BE (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 14]
 
@@ -4366,19 +4374,19 @@ Function_00_20B8:: ; 00:20B8
 
 Function_00_20BE:: ; 00:20BE
 	call Function_00_2116
-	jp Data_04_43DC
+	jp Label_04_43DC
 
 ; ---- code $20C4-$20CA (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
 Function_00_20C4:: ; 00:20C4
 	call Function_00_2116
-	jp Data_04_4429
+	jp Label_04_4429
 
 ; ---- code $20CA-$20D0 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 10]
 
 Function_00_20CA:: ; 00:20CA
 	call Function_00_2116
-	jp Data_04_42EC
+	jp Label_04_42EC
 
 ; ---- code $20D0-$20D6 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
 
@@ -4408,7 +4416,7 @@ Function_00_20E2:: ; 00:20E2
 
 Function_00_20E8:: ; 00:20E8
 	call Function_00_2116
-	jp Data_04_42D6
+	jp Label_04_42D6
 
 ; ---- code $20EE-$2105 (23 bytes) [CONFIRMED] saves ROM bank hi/lo (FF8B->D002, FF8A->D001), selects ROM bank 4 (hi=0, lo=4 via [2000]); 20F8/20FF are the shared restore-bank-4 tail
 

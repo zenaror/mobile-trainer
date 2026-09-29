@@ -1,0 +1,20 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4244	code	-	PROBABLE	217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code)
+4244	4254	ptrtable	Table_50_4244	PROBABLE	little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $439A..$574A; referenced by ld r16,$4244 at 50:4259; verifier: dropped first entry (operand of the preceding jp/call at 4241)
+4254	42AC	code	-	PROBABLE	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 3; entered by jp from 50:411E (PROBABLE code)
+42AC	42B6	ptrtable	Table_50_42AC	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 50:42A9: 5 entries; fixed length (5 words) by the routine
+42B6	438A	code	-	PROBABLE	109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4; entered by table from 50:42A9 (PROBABLE code)
+438A	5821	data	Data_50_438A	HYPOTHESIS	UNCLASSIFIED 5271 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5821	5A20	gfx	Data_50_5821	PROBABLE	tile data: heuristic: 116 coherent tiles (hsim2=0.741 vsim2=0.822, 6 blank) parity 1; 1521/2032 bytes also covered by call-site blocks [clipped from 5821-6011 by higher-priority proposals]
+5A20	5E20	gfx	Data_50_5A20	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40AE: hl=$5A20 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+5E20	5FC0	gfx	Data_50_5E20	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40C0: hl=$5E20 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+5FC0	5FD0	gfx	Data_50_5FC0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40D2: hl=$5FC0 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+5FD0	62F0	gfx	Data_50_5FD0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:40E4: hl=$5FD0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+62F0	66F0	gfx	Data_50_62F0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:417F: hl=$62F0 a=$50 c=$40 de=$9000 (dest VRAM $9000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+66F0	6890	gfx	Data_50_66F0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:4191: hl=$66F0 a=$50 c=$1A de=$9400 (dest VRAM $9400, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
+6890	68A0	gfx	Data_50_6890	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41A3: hl=$6890 a=$50 c=$01 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+68A0	6BC0	gfx	Data_50_68A0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 50:41B5: hl=$68A0 a=$50 c=$32 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
+6BC0	6BC1	gfx	Data_50_6BC0	PROBABLE	tiles-2bpp: heuristic: 37 coherent tiles (hsim2=0.713 vsim2=0.720, 1 blank) parity 1; 639/640 bytes also covered by call-site blocks [clipped from 6941-6BC1 by higher-priority evidence]
+6BC1	6CC0	data	Data_50_6BC1	PROBABLE	palette-rgb555: heuristic: 128 RGB555 words as 32 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 6BC0-6CC0 by higher-priority evidence]
+6CC0	6D1E	data	Data_50_6CC0	HYPOTHESIS	UNCLASSIFIED 94 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6D1E	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

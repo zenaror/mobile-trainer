@@ -6,5 +6,541 @@ INCLUDE "ram.inc"
 
 SECTION "Bank1B", ROMX[$4000], BANK[$1B]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $6C000, $4000
+; ---- data $4000-$4040 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+
+Data_1B_4000:: ; 1B:4000
+	db $00, $00, $1B, $25, $9F, $51, $FF, $7F, $FF, $7F, $4A, $29, $B5, $56, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $4040-$404A (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_1B_4040:: ; 1B:4040
+	db $AF, $01, $FC, $00, $21, $D4, $C0, $CD, $D8, $04
+
+; ---- code $404A-$41C3 (377 bytes) [PROBABLE] 125 insn(s) reached by static flow only; seeds: site x125; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	call FarCall
+	dw Function_48_48BB
+	db BANK(Function_48_48BB)
+	call LCDOff
+	ldh a, [rLCDC]
+	and a, $9F
+	ldh [rLCDC], a
+	xor a, a
+	ldh [rSCX], a
+	ldh [rSCY], a
+	ld a, $07
+	ldh [rWX], a
+	ld a, $90
+	ldh [rWY], a
+	call FarCall
+	dw Function_00_09B6
+	db BANK(Function_00_09B6)
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $0800
+	xor a, a
+	call FillBytes
+	ld de, $8000
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8400
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8800
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C00
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9000
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9400
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8001
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8401
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8801
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C01
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9001
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $9401
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $4000
+	ld a, $1B
+	call FarCall
+	dw Function_4F_4000
+	db BANK(Function_4F_4000)
+	ld a, $80
+	ld bc, $0400
+	ld hl, $D000
+	call FillBytes
+	ld hl, $D400
+	ld bc, $1214
+	ld de, $0009
+	xor a, a
+	call FarCall
+	dw Function_00_091C
+	db BANK(Function_00_091C)
+	ld a, $80
+	ld bc, $0810
+	ld de, $F001
+	ld hl, $D142
+	call FarCall
+	dw Function_48_4679
+	db BANK(Function_48_4679)
+	call Function_1B_42C4
+	call Function_1B_4371
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call FarCall
+	dw Function_00_0956
+	db BANK(Function_00_0956)
+	call LCDOn
+	call FarCall
+	dw Function_4F_42B4
+	db BANK(Function_4F_42B4)
+
+Label_1B_41B1:: ; 1B:41B1
+	call Function_00_044B
+	call FarCall
+	dw Function_7D_7BA4
+	db BANK(Function_7D_7BA4)
+	call FarCall
+	dw Function_7D_7BC1
+	db BANK(Function_7D_7BC1)
+	call JoypadDispatch
+
+; ---- ptrtable $41C3-$41CD (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 1B:41C0: 5 entries; fixed length (5 words) by the routine
+
+Table_1B_41C3:: ; 1B:41C3
+	dw Label_1B_41D8
+	dw Label_1B_41F0
+	dw Label_1B_4208
+	dw Label_1B_423E
+	dw Label_1B_41CD
+
+; ---- code $41CD-$4314 (327 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: site x148; min discovery hops 0; entered by table from 1B:41C0 (PROBABLE code)
+
+Label_1B_41CD:: ; 1B:41CD
+	call Function_1B_4450
+	ldh a, [hJoyPressedRepeat]
+	call Function_1B_4261
+	jp Label_1B_41B1
+
+Label_1B_41D8:: ; 1B:41D8
+	ld a, [wRam_C0E5]
+	ld c, a
+	ld a, [wRam_C0D6]
+	ld b, a
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20B2
+	pop af
+	ldh [rSVBK], a
+	jp Label_1B_41B1
+
+Label_1B_41F0:: ; 1B:41F0
+	ld a, [wRam_C0E5]
+	ld c, a
+	ld a, [wRam_C0D6]
+	ld b, a
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jp Label_1B_41B1
+
+Label_1B_4208:: ; 1B:4208
+	ld bc, $0000
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20C4
+	pop af
+	ldh [rSVBK], a
+	ld bc, $0000
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20BE
+	pop af
+	ldh [rSVBK], a
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20A6
+	pop af
+	ldh [rSVBK], a
+	call FarCall
+	dw Function_4F_4370
+	db BANK(Function_4F_4370)
+	ld a, $01
+	ret
+
+Label_1B_423E:: ; 1B:423E
+	ld bc, $0000
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20C4
+	pop af
+	ldh [rSVBK], a
+	ld bc, $0000
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20BE
+	pop af
+	ldh [rSVBK], a
+	jp Label_1B_41B1
+
+Function_1B_4261:: ; 1B:4261
+	bit 6, a
+	jr nz, Label_1B_4272
+	bit 7, a
+	jr nz, Label_1B_427D
+	bit 4, a
+	jr nz, Label_1B_42A6
+	bit 5, a
+	jr nz, Label_1B_4288
+	ret
+
+Label_1B_4272:: ; 1B:4272
+	ld a, [wRam_C0D6]
+	inc a
+	ld [wRam_C0D6], a
+	call Function_1B_4371
+	ret
+
+Label_1B_427D:: ; 1B:427D
+	ld a, [wRam_C0D6]
+	dec a
+	ld [wRam_C0D6], a
+	call Function_1B_4371
+	ret
+
+Label_1B_4288:: ; 1B:4288
+	ld a, [wRam_C0E7]
+	cp a, $3C
+	jr nc, Label_1B_429A
+	ld a, [wRam_C0E5]
+	dec a
+	ld [wRam_C0E5], a
+	call Function_1B_4371
+	ret
+
+Label_1B_429A:: ; 1B:429A
+	ld a, [wRam_C0E5]
+	sub a, $04
+	ld [wRam_C0E5], a
+	call Function_1B_4371
+	ret
+
+Label_1B_42A6:: ; 1B:42A6
+	ld a, [wRam_C0E7]
+	cp a, $3C
+	jr nc, Label_1B_42B8
+	ld a, [wRam_C0E5]
+	inc a
+	ld [wRam_C0E5], a
+	call Function_1B_4371
+	ret
+
+Label_1B_42B8:: ; 1B:42B8
+	ld a, [wRam_C0E5]
+	add a, $04
+	ld [wRam_C0E5], a
+	call Function_1B_4371
+	ret
+
+Function_1B_42C4:: ; 1B:42C4
+	ld hl, $4314
+	ld de, $D000
+	ld bc, $0010
+	ld a, $03
+	ldh [hRam_FFB0], a
+	ld a, $1B
+	call FarCall
+	dw Function_48_40A9
+	db BANK(Function_48_40A9)
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $8800
+	ld hl, $D000
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ld de, $8C00
+	ld hl, $D400
+	ld a, $00
+	ld b, $92
+	ld c, $40
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- text $4314-$4371 (93 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_1B_4314:: ; 1B:4314
+	db $81, $40, $82, $60, $81, $46, $82, $6C, $82, $74, $82, $72, $82, $68, $82, $62
+	db $81, $40, $82, $61, $81, $46, $82, $72, $82, $6E, $82, $74, $82, $6D, $82, $63
+	db $82, $72, $82, $94, $82, $81, $81, $46, $82, $72, $82, $73, $82, $6E, $82, $6F
+	db $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63
+	db $81, $40, $81, $AA, $81, $AB, $81, $69, $81, $A9, $81, $A8, $81, $6A, $81, $46
+	db $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00
+
+; ---- code $4371-$4430 (191 bytes) [PROBABLE] 115 insn(s) reached by static flow only; seeds: site x115; min discovery hops 4; entered by call from 1B:419A (PROBABLE code)
+
+Function_1B_4371:: ; 1B:4371
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $0400
+	xor a, a
+	call FillBytes
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $D000
+	ld a, $81
+	ld [de], a
+	inc de
+	ld a, $79
+	ld [de], a
+	inc de
+	ld a, [wRam_C0D6]
+	ld b, a
+	swap a
+	and a, $0F
+	add a, a
+	ld hl, $4430
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, b
+	and a, $0F
+	add a, a
+	ld hl, $4430
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [wRam_C0E5]
+	ld b, a
+	swap a
+	and a, $0F
+	add a, a
+	ld hl, $4430
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, b
+	and a, $0F
+	add a, a
+	ld hl, $4430
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, $81
+	ld [de], a
+	inc de
+	ld a, $7A
+	ld [de], a
+	inc de
+	xor a, a
+	ld [de], a
+	ld hl, $D000
+	ld de, $D000
+	ld bc, $0010
+	ld a, $03
+	ldh [hRam_FFB0], a
+	ld a, $02
+	call FarCall
+	dw Function_48_40A9
+	db BANK(Function_48_40A9)
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $8E00
+	ld hl, $D000
+	ld a, $00
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- data $4430-$4450 (32 bytes) [HYPOTHESIS] UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_1B_4430:: ; 1B:4430
+	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
+	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
+
+; ---- code $4450-$446B (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 1B:41CD (PROBABLE code)
+
+Function_1B_4450:: ; 1B:4450
+	ld a, [wRam_C0E8]
+	ld b, a
+	ldh a, [hJoyHeld]
+	cp a, b
+	jr z, Label_1B_4461
+	ld [wRam_C0E8], a
+	xor a, a
+	ld [wRam_C0E7], a
+	ret
+
+Label_1B_4461:: ; 1B:4461
+	ld a, [wRam_C0E7]
+	add a, $01
+	ret c
+	ld [wRam_C0E7], a
+	ret
+
+; ---- zero $446B-$8000 (15253 bytes) [PROBABLE] trailing 0x00 padding to end of bank
+	ds $3B95, $00

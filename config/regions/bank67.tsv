@@ -1,0 +1,106 @@
+# merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
+4000	4156	code	-	PROBABLE	127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 2; entered by jpcc from 67:4125 (PROBABLE code)
+4156	41FE	code	Function_67_4156	CONFIRMED	90 insn(s); 90 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
+41FE	424A	code	-	PROBABLE	31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 4; entered by far from 65:429A (PROBABLE code)
+424A	431F	data	Data_67_424A	HYPOTHESIS	UNCLASSIFIED 213 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+431F	4571	code	-	PROBABLE	211 insn(s) reached by static flow only; seeds: exec x211; min discovery hops 6; entered by call from 67:422E (PROBABLE code)
+4571	4593	data	Data_67_4571	HYPOTHESIS	UNCLASSIFIED 34 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4593	486D	code	-	PROBABLE	285 insn(s) reached by static flow only; seeds: exec x285; min discovery hops 3; entered by call from 67:4553 (PROBABLE code)
+486D	4871	data	Data_67_486D	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4871	491C	code	-	PROBABLE	74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 6; entered by call from 67:47BA (PROBABLE code)
+491C	4924	data	Data_67_491C	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4924	4940	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 5; entered by far from 65:4563 (PROBABLE code)
+4940	49A8	data	Data_67_4940	HYPOTHESIS	UNCLASSIFIED 104 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+49A8	4BC2	code	-	PROBABLE	190 insn(s) reached by static flow only; seeds: exec x190; min discovery hops 6; entered by call from 67:4924 (PROBABLE code)
+4BC2	4BD5	data	Data_67_4BC2	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4BD5	4F68	code	-	PROBABLE	370 insn(s) reached by static flow only; seeds: exec x370; min discovery hops 4; entered by call from 67:4BAF (PROBABLE code)
+4F68	4F6E	data	Data_67_4F68	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4F6E	50A5	code	-	PROBABLE	143 insn(s) reached by static flow only; seeds: exec x143; min discovery hops 7; entered by call from 67:4DFE (PROBABLE code)
+50A5	50B7	data	Data_67_50A5	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+50B7	5104	code	-	PROBABLE	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 8; entered by call from 67:4DFB (PROBABLE code)
+5104	510A	data	Data_67_5104	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+510A	5275	code	-	PROBABLE	139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5; entered by far from 67:40B9 (PROBABLE code)
+5275	5279	data	Data_67_5275	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5279	53D6	code	-	PROBABLE	142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 7; entered by call from 67:51C6 (PROBABLE code)
+53D6	53DC	data	Data_67_53D6	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+53DC	546C	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 3; entered by far from 67:4019 (PROBABLE code)
+546C	54DB	data	Data_67_546C	HYPOTHESIS	UNCLASSIFIED 111 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+54DB	55B8	code	-	PROBABLE	92 insn(s) reached by static flow only; seeds: exec x60, site x32; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+55B8	562C	data	Data_67_55B8	HYPOTHESIS	UNCLASSIFIED 116 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+562C	5664	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+5664	568C	data	Data_67_5664	HYPOTHESIS	UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+568C	56FA	code	-	PROBABLE	62 insn(s) reached by static flow only; seeds: site x62; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+56FA	570C	data	Data_67_56FA	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+570C	580C	code	-	PROBABLE	88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 5; entered by far from 67:411E (PROBABLE code)
+580C	5821	data	Data_67_580C	HYPOTHESIS	UNCLASSIFIED 21 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5821	585A	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 67:57E3 (PROBABLE code)
+585A	585E	data	Data_67_585A	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+585E	58CD	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 7; entered by call from 67:57B0 (PROBABLE code)
+58CD	5931	code	Function_67_58CD	CONFIRMED	30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+5931	593E	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:592F (executed)
+593E	5973	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 3/18 scenarios)
+5973	5980	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:5971 (executed)
+5980	5996	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+5996	59CB	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 67:5994 (executed)
+59CB	59E7	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
+59E7	5A3E	code	-	PROBABLE	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 1; entered by jrcc from 67:598E (executed)
+5A3E	5A9E	code	Function_67_5A3E	CONFIRMED	42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+5A9E	5AA8	ptrtable	Table_67_5A9E	CONFIRMED	code-pointer table, 5 entries: 5/5 words hit own-bank code starts (survey pointer-table extent); 5/5 targets executed; every byte read as data in a trace
+5AA8	5AAA	data	Data_67_5AA8	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5AAA	5BFD	code	-	CONFIRMED	140 insn(s); 140 executed (in up to 1/18 scenarios)
+5BFD	5C2A	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 67:5BFB (executed)
+5C2A	5C3D	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 1/18 scenarios)
+5C3D	5C3F	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 67:5C38 (executed)
+5C3F	5C50	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+5C50	5CF4	code	-	PROBABLE	70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min discovery hops 0; fall-through of the jpcc at 67:5C4D (executed)
+5CF4	5D00	code	Function_67_5CF4	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+5D00	5D26	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jpcc from 67:5C2D (executed)
+5D26	5D3A	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
+5D3A	5D99	code	-	PROBABLE	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 67:5D38 (executed)
+5D99	5DAF	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
+5DAF	5DB6	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 2; fall-through of the jrcc at 67:5DAD (executed)
+5DB6	5DFE	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios)
+5DFE	5E43	code	-	PROBABLE	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 1; entered by jpcc from 67:5AB5 (executed)
+5E43	5E7D	data	Data_67_5E43	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5E7D	5EB4	code	Function_67_5E7D	CONFIRMED	19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+5EB4	5EBC	data	Data_67_5EB4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5EB4-5ED1 by higher-priority evidence]
+5EBC	5ED1	text	String_67_5EBC	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+5ED1	5ED8	data	Data_67_5ED1	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5ED8	5F0A	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: site x19; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+5F0A	5F38	data	Data_67_5F0A	HYPOTHESIS	UNCLASSIFIED 46 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F38	5F54	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+5F54	5F5E	code	Function_67_5F54	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+5F5E	5F66	data	Data_67_5F5E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5F66	60BA	code	-	PROBABLE	220 insn(s) reached by static flow only; seeds: exec x220; min discovery hops 2; entered by call from 67:5D5B (PROBABLE code)
+60BA	60D2	code	Function_67_60BA	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+60D2	60DD	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:60D0 (executed)
+60DD	6108	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
+6108	611C	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: site x7; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+611C	61CA	code	Function_67_611C	CONFIRMED	67 insn(s); 67 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+61CA	61CD	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 67:61C8 (executed)
+61CD	61D2	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
+61D2	6205	data	Data_67_61D2	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+6205	6246	code	Function_67_6205	CONFIRMED	27 insn(s); 27 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+6246	624E	data	Data_67_6246	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6246-6257 by higher-priority evidence]
+624E	626F	text	String_67_624E	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+626F	628B	code	Function_67_626F	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+628B	6296	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:6289 (executed)
+6296	62B8	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 1/18 scenarios)
+62B8	62D5	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery hops 0; entered by jrcc from 67:629D (executed)
+62D5	6325	code	Function_67_62D5	CONFIRMED	30 insn(s); 30 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+6325	6328	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 67:6323 (executed)
+6328	632D	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
+632D	6369	data	Data_67_632D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+6369	64AE	code	Function_67_6369	CONFIRMED	126 insn(s); 126 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+64AE	64B4	data	Data_67_64AE	CONFIRMED	read as data by executed code (in up to 18/18 scenarios); content class unknown
+64B4	65F2	code	-	CONFIRMED	114 insn(s); 114 executed (in up to 18/18 scenarios)
+65F2	6603	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 67:65DD (executed)
+6603	6664	code	-	CONFIRMED	39 insn(s); 39 executed (in up to 2/18 scenarios)
+6664	66A6	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 67:665C (executed)
+66A6	66BE	code	Function_67_66A6	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+66BE	66C0	data	Data_67_66BE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+66C0	66C2	data	Data_67_66C0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+66C2	67DB	code	Function_67_66C2	CONFIRMED	166 insn(s); 166 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+67DB	6807	data	Data_67_67DB	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6807	685F	code	Function_67_6807	CONFIRMED	56 insn(s); 56 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+685F	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

@@ -6,5 +6,2131 @@ INCLUDE "ram.inc"
 
 SECTION "Bank48", ROMX[$4000], BANK[$48]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $120000, $4000
+; ---- code $4000-$41EC (492 bytes) [CONFIRMED] 309 insn(s); 309 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_4000:: ; 48:4000
+	push de
+	push hl
+	ld e, c
+	ld d, $00
+	ld l, $00
+
+Label_48_4007:: ; 48:4007
+	bit 7, c
+	jr nz, Label_48_4012
+	sla c
+	jr z, Label_48_4039
+	inc d
+	jr Label_48_4007
+
+Label_48_4012:: ; 48:4012
+	ld h, d
+
+Label_48_4013:: ; 48:4013
+	ld c, e
+	ld d, h
+	inc d
+	dec d
+	jr z, Label_48_401E
+
+Label_48_4019:: ; 48:4019
+	sla c
+	dec d
+	jr nz, Label_48_4019
+
+Label_48_401E:: ; 48:401E
+	ld a, b
+	cp a, c
+	jr c, Label_48_4033
+	sub a, c
+	ld b, a
+	ld c, $01
+	ld d, h
+	inc d
+	dec d
+	jr z, Label_48_4030
+
+Label_48_402B:: ; 48:402B
+	sla c
+	dec d
+	jr nz, Label_48_402B
+
+Label_48_4030:: ; 48:4030
+	ld a, l
+	or a, c
+	ld l, a
+
+Label_48_4033:: ; 48:4033
+	dec h
+	ld a, h
+	cp a, $FF
+	jr nz, Label_48_4013
+
+Label_48_4039:: ; 48:4039
+	ld c, b
+	ld b, l
+	pop hl
+	pop de
+	ret
+
+Function_48_403E:: ; 48:403E
+	ldh [hRam_FFBB], a
+	ld a, c
+	ldh [hRam_FFB2], a
+	ld a, b
+	ldh [hRam_FFB3], a
+	ld a, e
+	ldh [hRam_FFB4], a
+	ld a, d
+	ldh [hRam_FFB5], a
+
+Label_48_404C:: ; 48:404C
+	ldh a, [hRam_FFBB]
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_409C
+	ld b, a
+	ldh a, [hRam_FFBB]
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_409C
+	push hl
+	ld c, a
+	ldh a, [hRam_FFB0]
+	ld l, a
+	ld h, $00
+	push hl
+	push de
+	push hl
+	ldh a, [hRam_FFB2]
+	ld l, a
+	ldh a, [hRam_FFB3]
+	ld h, a
+	push hl
+	push bc
+	call FarCall
+	dw Function_48_4748
+	db BANK(Function_48_4748)
+	add sp, 10
+	pop hl
+	ldh a, [hRam_FFB4]
+	add a, $10
+	ld e, a
+	ldh [hRam_FFB4], a
+	jr nc, Label_48_4086
+	ldh a, [hRam_FFB5]
+	inc a
+	ldh [hRam_FFB5], a
+
+Label_48_4086:: ; 48:4086
+	ldh a, [hRam_FFB2]
+	add a, $10
+	ld c, a
+	ldh [hRam_FFB2], a
+	jr nc, Label_48_4094
+	ldh a, [hRam_FFB3]
+	inc a
+	ldh [hRam_FFB3], a
+
+Label_48_4094:: ; 48:4094
+	ldh a, [hRam_FFB5]
+	ld d, a
+	ldh a, [hRam_FFB3]
+	ld b, a
+	jr Label_48_404C
+
+Label_48_409C:: ; 48:409C
+	ldh a, [hRam_FFB2]
+	ld c, a
+	ldh a, [hRam_FFB3]
+	ld b, a
+	ldh a, [hRam_FFB4]
+	ld e, a
+	ldh a, [hRam_FFB5]
+	ld d, a
+	ret
+
+Function_48_40A9:: ; 48:40A9
+	ld [wRam_C172], a
+	ldh a, [hRam_FFB0]
+	ld [wRam_C167], a
+	ld a, c
+	ld [wRam_C16B], a
+	ld a, e
+	ld [wRam_C16D], a
+	ld a, d
+	ld [wRam_C16E], a
+	ld a, b
+	ld [wRam_C16C], a
+	ld [wRam_C16F], a
+
+Label_48_40C4:: ; 48:40C4
+	push hl
+	swap a
+	ld l, a
+	and a, $0F
+	ld h, a
+	ld a, l
+	and a, $F0
+	ld l, a
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+
+Label_48_40D3:: ; 48:40D3
+	ld a, [wRam_C172]
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_4159
+	cp a, $0D
+	jr z, Label_48_4141
+	ld b, a
+	ld a, [wRam_C172]
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_4159
+	push de
+	push hl
+	ld c, a
+	ld a, [wRam_C167]
+	ld l, a
+	ld h, $00
+	push hl
+	ld a, [wRam_C16B]
+	swap a
+	ld h, d
+	ld l, e
+	ld e, a
+	and a, $0F
+	ld d, a
+	ld a, e
+	and a, $F0
+	ld e, a
+	add hl, de
+	push hl
+	ld a, l
+	sub a, e
+	ld e, a
+	ld a, h
+	sbc a, d
+	ld d, a
+	ld a, [wRam_C167]
+	ld l, a
+	ld h, $00
+	push hl
+	push de
+	push bc
+	call FarCall
+	dw Function_48_4748
+	db BANK(Function_48_4748)
+	add sp, 10
+	pop hl
+	pop de
+	ld a, $10
+	add a, e
+	ld e, a
+	ld a, d
+	adc a, $00
+	ld d, a
+	ld a, [wRam_C16B]
+	ld b, a
+	ld a, [wRam_C16F]
+	inc a
+	cp a, b
+	ld [wRam_C16F], a
+	jr nz, Label_48_40D3
+	ld a, [wRam_C16C]
+	ld [wRam_C16F], a
+	ld b, a
+	ld a, [wRam_C16B]
+	add a, b
+	jr Label_48_40C4
+
+Label_48_4141:: ; 48:4141
+	inc hl
+	ld a, [wRam_C16F]
+	ld b, a
+	ld a, [wRam_C16B]
+	ld c, a
+	sub a, b
+	ld b, a
+	ld a, [wRam_C16C]
+	ld [wRam_C16F], a
+	add a, b
+	ld b, a
+	ld a, c
+	add a, b
+	jp Label_48_40C4
+
+Label_48_4159:: ; 48:4159
+	ret
+
+Function_48_415A:: ; 48:415A
+	ldh [hRam_FFBB], a
+	ld a, e
+	ldh [hRam_FFB6], a
+	ld a, d
+	ldh [hRam_FFB7], a
+	ld a, b
+	ldh [hRam_FFB5], a
+	ldh [hRam_FFB8], a
+	ld a, c
+	ldh [hRam_FFB4], a
+	swap a
+	ld c, a
+	and a, $F0
+	ldh [hRam_FFB9], a
+	ld a, c
+	and a, $0F
+	ldh [hRam_FFBA], a
+	push hl
+	push de
+	ldh a, [hRam_FFB4]
+	swap a
+	ld l, a
+	and a, $0F
+	ld h, a
+	ld a, l
+	and a, $F0
+	ld l, a
+	ld d, h
+	ld e, l
+	ldh a, [hRam_FFB1]
+	call Multiply8x16
+	pop de
+	add hl, de
+	ld d, h
+	ld e, l
+	ldh a, [hRam_FFB8]
+
+Label_48_4191:: ; 48:4191
+	swap a
+	ld l, a
+	and a, $0F
+	ld h, a
+	ld a, l
+	and a, $F0
+	ld l, a
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+
+Label_48_419F:: ; 48:419F
+	ldh a, [hRam_FFBB]
+	call ReadByteFar
+	or a, a
+	jp z, Label_48_4222
+	cp a, $0D
+	jr z, Label_48_4202
+	ld b, a
+	ldh a, [hRam_FFBB]
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_4222
+	push de
+	push hl
+	ld c, a
+	ldh a, [hRam_FFB0]
+	ld l, a
+	ld h, $00
+	push hl
+	ldh a, [hRam_FFB9]
+	add a, e
+	ld l, a
+	ldh a, [hRam_FFBA]
+	adc a, d
+	ld h, a
+	push hl
+	ldh a, [hRam_FFB0]
+	ld l, a
+	ld h, $00
+	push hl
+	push de
+	push bc
+	call FarCall
+	dw Function_48_4748
+	db BANK(Function_48_4748)
+	add sp, 10
+	pop hl
+	pop de
+	ld a, $10
+	add a, e
+	ld e, a
+	ld a, d
+	adc a, $00
+	ld d, a
+	ldh a, [hRam_FFB4]
+	ld b, a
+	ldh a, [hRam_FFB8]
+	inc a
+	cp a, b
+	ldh [hRam_FFB8], a
+	jr nz, Label_48_419F
+
+; ---- code $41EC-$4222 (54 bytes) [PROBABLE] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; fall-through of the jrcc at 48:41EA (executed)
+	ldh a, [hRam_FFB1]
+	inc a
+	ldh [hRam_FFB1], a
+	ld b, a
+	ldh a, [hRam_FFB2]
+	cp a, b
+	jr z, Label_48_4222
+	ldh a, [hRam_FFB5]
+	ldh [hRam_FFB8], a
+	ld b, a
+	ldh a, [hRam_FFB4]
+	add a, b
+	push hl
+	jr Label_48_4191
+
+Label_48_4202:: ; 48:4202
+	ldh a, [hRam_FFB1]
+	inc a
+	ldh [hRam_FFB1], a
+	ld b, a
+	ldh a, [hRam_FFB2]
+	cp a, b
+	jr z, Label_48_4222
+	inc hl
+	ldh a, [hRam_FFB8]
+	ld b, a
+	ldh a, [hRam_FFB4]
+	ld c, a
+	sub a, b
+	ld b, a
+	ldh a, [hRam_FFB5]
+	ldh [hRam_FFB8], a
+	add a, b
+	ld b, a
+	ld a, c
+	add a, b
+	push hl
+	jp Label_48_4191
+
+; ---- code $4222-$4615 (1011 bytes) [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios)
+
+Label_48_4222:: ; 48:4222
+	ret
+
+Function_48_4223:: ; 48:4223
+	ld a, [wRam_C0F3]
+	or a, a
+	jr z, Label_48_422E
+	dec a
+	ld [wRam_C0F3], a
+	ret
+
+Label_48_422E:: ; 48:422E
+	ld hl, $C0F5
+	dec [hl]
+	ret nz
+	ld [hl], $02
+	ld a, [wRam_C0EF]
+	and a, $01
+	jr z, Label_48_424F
+	ld hl, $C0F4
+	dec [hl]
+	jr nz, Label_48_424F
+	ld a, [wRam_C0EC]
+	sla a
+	sla a
+	ld [hl], a
+	ld a, $B4
+	ld [wRam_C0F3], a
+
+Label_48_424F:: ; 48:424F
+	ld a, [wRam_C0EF]
+	inc a
+	ld [wRam_C0EF], a
+	dec a
+	and a, $07
+	ret nz
+	ld a, [wRam_C0F6]
+	add a, $16
+	and a, $1F
+	swap a
+	ld e, a
+	and a, $0F
+	add a, $94
+	ld d, a
+	ld a, e
+	and a, $F0
+	ld e, a
+	ld a, [wRam_C0EE]
+	inc a
+	swap a
+	ld l, a
+	and a, $0F
+	add a, $D0
+	ld h, a
+	ld a, l
+	and a, $F0
+	ld l, a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push hl
+	push de
+	ld a, $00
+	ld b, $98
+	ld c, $01
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	call Function_00_0392
+	pop de
+	pop hl
+	ld a, d
+	add a, $02
+	ld d, a
+	ld a, h
+	add a, $04
+	ld h, a
+	ld a, $00
+	ld b, $98
+	ld c, $01
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, [wRam_C0F6]
+	inc a
+	and a, $1F
+	ld [wRam_C0F6], a
+	ld a, [wRam_C0EE]
+	inc a
+	ld [wRam_C0EE], a
+	ld hl, $C0EC
+	cp a, [hl]
+	ret nz
+	xor a, a
+	ld [wRam_C0EE], a
+	ret
+
+Function_48_42D4:: ; 48:42D4
+	ld d, a
+	call ReadByteFar
+	ld [wRam_C0EB], a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, b
+	add a, a
+	add a, a
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, d
+	call ReadByteFar
+	ld [wRam_C0E9], a
+	ld b, a
+	ld a, d
+	call ReadByteFar
+	ld [wRam_C0EA], a
+	push hl
+	ld h, a
+	ld l, b
+	ld c, $00
+	ld a, [wRam_C0EB]
+	ld e, a
+
+Label_48_4309:: ; 48:4309
+	ld a, e
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_431A
+	ld a, e
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_431A
+	inc c
+	jr Label_48_4309
+
+Label_48_431A:: ; 48:431A
+	ld a, c
+	sla a
+	sla a
+	ld b, a
+	ld a, $50
+	sub a, b
+	ld [wRam_C0ED], a
+	ld a, $14
+	ld [wRam_C0EE], a
+	ld a, d
+	pop hl
+	call ReadByteFar
+	ld [wRam_C0F0], a
+	ld b, a
+	ld a, d
+	call ReadByteFar
+	ld [wRam_C0F1], a
+	ld h, a
+	ld l, b
+	ld c, $00
+	ld a, [wRam_C0EB]
+	ld e, a
+
+Label_48_4343:: ; 48:4343
+	ld a, e
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_4354
+	ld a, e
+	call ReadByteFar
+	or a, a
+	jr z, Label_48_4354
+	inc c
+	jr Label_48_4343
+
+Label_48_4354:: ; 48:4354
+	ld a, c
+	add a, $15
+	ld [wRam_C0EC], a
+	sla a
+	sla a
+	add a, $04
+	ld [wRam_C0F4], a
+	ld a, $B4
+	ld [wRam_C0F3], a
+	ld a, $02
+	ld [wRam_C0F5], a
+	ld a, [wRam_C0ED]
+	and a, $07
+	ld b, a
+	ld a, $08
+	sub a, b
+	push af
+	call Function_48_4460
+	pop af
+	ld [wRam_C0EF], a
+	ld a, [wRam_C0ED]
+	srl a
+	srl a
+	srl a
+	inc a
+	ld b, a
+	ld a, [wRam_C0E9]
+	ld l, a
+	ld a, [wRam_C0EA]
+	ld h, a
+	ld c, $40
+	ld de, $D000
+	ld a, $02
+	ldh [hRam_FFB0], a
+	dec a
+	ldh [hRam_FFB2], a
+	dec a
+	ldh [hRam_FFB1], a
+	ld a, [wRam_C0EB]
+	call FarCall
+	dw Function_48_415A
+	db BANK(Function_48_415A)
+	ld b, $15
+	ld a, [wRam_C0F0]
+	ld l, a
+	ld a, [wRam_C0F1]
+	ld h, a
+	ld c, $40
+	ld de, $D000
+	ld a, $02
+	ldh [hRam_FFB0], a
+	dec a
+	ldh [hRam_FFB2], a
+	dec a
+	ldh [hRam_FFB1], a
+	ld a, [wRam_C0EB]
+	call FarCall
+	dw Function_48_415A
+	db BANK(Function_48_415A)
+	ldh a, [rIE]
+	and a, $02
+	call z, Function_48_440A
+	xor a, a
+	ld [wRam_C0F6], a
+	call Function_00_0392
+	ld de, $9400
+	ld hl, $D000
+	ld a, $00
+	ld b, $97
+	ld c, $14
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	call Function_00_0392
+	ld de, $9600
+	ld hl, $D400
+	ld a, $00
+	ld b, $97
+	ld c, $14
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_440A:: ; 48:440A
+	di
+	ld a, $08
+	ldh [rSTAT], a
+	ld a, $80
+	ldh [rLYC], a
+	ld a, [wLcdStatVector]
+	ld [wRam_C130], a
+	ld a, [wLcdStatVector + 1]
+	ld [wRam_C131], a
+	ld a, [wLcdStatVector + 2]
+	ld [wRam_C132], a
+	ld a, [wVBlankVector]
+	ld [wRam_C133], a
+	ld a, [wVBlankVector + 1]
+	ld [wRam_C134], a
+	ld a, [wVBlankVector + 2]
+	ld [wRam_C135], a
+	ld a, $C3
+	ld [wLcdStatVector], a
+	ld a, $C4
+	ld [wLcdStatVector + 1], a
+	ld a, $16
+	ld [wLcdStatVector + 2], a
+	ld a, $C3
+	ld [wVBlankVector], a
+	ld a, $D4
+	ld [wVBlankVector + 1], a
+	ld a, $16
+	ld [wVBlankVector + 2], a
+	ldh a, [rIE]
+	or a, $03
+	ldh [rIE], a
+	xor a, a
+	ldh [rIF], a
+	ei
+	ret
+
+Function_48_4460:: ; 48:4460
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld bc, $0800
+	ld hl, $D000
+	call FillBytes
+	call Function_00_0392
+	ld de, $9400
+	ld hl, $D000
+	ld a, $00
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	call Function_00_0392
+	ld de, $9600
+	ld hl, $D000
+	ld a, $00
+	ld b, $95
+	ld c, $20
+	call FarCall
+	dw Function_00_0787
+	db BANK(Function_00_0787)
+	ldh a, [rIE]
+	and a, $02
+	jr z, Label_48_44D6
+	di
+	ldh a, [rSTAT]
+	and a, $87
+	ldh [rSTAT], a
+	ld hl, $CBF4
+	ld a, [wRam_C130]
+	ld [hli], a
+	ld a, [wRam_C131]
+	ld [hli], a
+	ld a, [wRam_C132]
+	ld [hl], a
+	ld hl, $CBF1
+	ld a, [wRam_C133]
+	ld [hli], a
+	ld a, [wRam_C134]
+	ld [hli], a
+	ld a, [wRam_C135]
+	ld [hl], a
+	ldh a, [rIE]
+	and a, $FD
+	ldh [rIE], a
+	xor a, a
+	ldh [rIF], a
+	ei
+
+Label_48_44D6:: ; 48:44D6
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_44E0:: ; 48:44E0
+	ldh [hRam_FFB0], a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0080
+	ld de, $D880
+	ld hl, $D800
+	call CopyBytes
+	ld bc, $0080
+	ld de, $D900
+	ld hl, $D800
+	call CopyBytes
+	ld a, $00
+	ld [wRam_C2ED], a
+	ld bc, $7FFF
+	ld a, $E0
+	call Function_48_459D
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+	call LCDOn
+
+Label_48_451D:: ; 48:451D
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+	or a, a
+	jr nz, Label_48_451D
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_4540:: ; 48:4540
+	ldh [hRam_FFB0], a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0080
+	ld de, $D880
+	ld hl, $D800
+	call CopyBytes
+	ld bc, $0080
+	ld de, $D900
+	ld hl, $D800
+	call CopyBytes
+	ld a, $01
+	ld [wRam_C2ED], a
+	ld bc, $7FFF
+	ld a, $20
+	call Function_48_459D
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+
+Label_48_457A:: ; 48:457A
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+	or a, a
+	jr nz, Label_48_457A
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_459D:: ; 48:459D
+	ld [wRam_C2F2], a
+	bit 7, a
+	jr nz, Label_48_45B5
+	ld a, c
+	ld [wRam_C2EE], a
+	ld a, b
+	ld [wRam_C2EF], a
+	xor a, a
+	ld [wRam_C2F0], a
+	ld [wRam_C2F1], a
+	jr Label_48_45C5
+
+Label_48_45B5:: ; 48:45B5
+	ld a, c
+	ld [wRam_C2EE], a
+	ld a, b
+	ld [wRam_C2EF], a
+	xor a, a
+	ld [wRam_C2F0], a
+	inc a
+	ld [wRam_C2F1], a
+
+Label_48_45C5:: ; 48:45C5
+	ld de, $D980
+	ld hl, $D900
+	ld b, $40
+	ld c, $04
+	ld a, $01
+	ldh [hRam_FFB1], a
+
+Label_48_45D3:: ; 48:45D3
+	push hl
+	ldh a, [hRam_FFB0]
+	ld hl, $FFB1
+	and a, [hl]
+	pop hl
+	jr nz, Label_48_45F4
+	inc hl
+	inc hl
+	xor a, a
+	ld [de], a
+	inc de
+	ld [de], a
+	inc de
+	dec c
+	jr nz, Label_48_45F0
+	push hl
+	ld c, $04
+	ld hl, $FFB1
+	sla [hl]
+	pop hl
+
+Label_48_45F0:: ; 48:45F0
+	dec b
+	jr nz, Label_48_45D3
+	ret
+
+Label_48_45F4:: ; 48:45F4
+	ld a, [wRam_C2EE]
+	ld [hli], a
+	ld a, [wRam_C2EF]
+	ld [hli], a
+	ld a, [wRam_C2F0]
+	ld [de], a
+	inc de
+	ld a, [wRam_C2F1]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, Label_48_4612
+	push hl
+	ld c, $04
+	ld hl, $FFB1
+	sla [hl]
+	pop hl
+
+Label_48_4612:: ; 48:4612
+	dec b
+	jr nz, Label_48_45D3
+
+; ---- code $4615-$4616 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 48:4613 (executed)
+	ret
+
+; ---- code $4616-$4629 (19 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_4616:: ; 48:4616
+	ld [wRam_C12E], a
+	ld a, h
+	cp a, $A0
+	ret c
+	cp a, $C0
+	jr c, Label_48_462A
+	cp a, $D0
+	jr c, Label_48_465C
+	cp a, $E0
+	jr c, Label_48_465F
+
+; ---- code $4629-$462A (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 48:4627 (executed)
+	ret
+
+; ---- code $462A-$4744 (282 bytes) [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios)
+
+Label_48_462A:: ; 48:462A
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, [wRam_C12E]
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld [hl], b
+	inc hl
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	push bc
+	push de
+	push hl
+	call Function_48_495C
+	pop hl
+	pop de
+	pop bc
+	ret
+
+Label_48_465C:: ; 48:465C
+	ld a, b
+	ld [hli], a
+	ret
+
+Label_48_465F:: ; 48:465F
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, [wRam_C12E]
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld [hl], b
+	inc hl
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_4679:: ; 48:4679
+	ld [wRam_C10F], a
+	ld a, $07
+	ld [wRam_C10E], a
+	ld a, [wRam_C10F]
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld [wRam_C10F], a
+	ld a, [wRam_C10E]
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	push de
+	push hl
+	ld a, [wRam_C10F]
+	ld d, b
+
+Label_48_469B:: ; 48:469B
+	ld e, c
+
+Label_48_469C:: ; 48:469C
+	ld [hli], a
+	inc a
+	dec e
+	jr nz, Label_48_469C
+	push af
+	ld a, $20
+	sub a, c
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	pop af
+	dec d
+	jr nz, Label_48_469B
+	pop hl
+	ld de, $0400
+	add hl, de
+	pop de
+	xor a, a
+	call FarCall
+	dw Function_00_091C
+	db BANK(Function_00_091C)
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_46C6:: ; 48:46C6
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $04
+	ld [wRam_C10E], a
+	ld bc, $0080
+	ld de, $D880
+	ld hl, $D800
+	call CopyBytes
+	ld a, $00
+	ld [wRam_C2ED], a
+	ld bc, $7FFF
+	ld a, $30
+	call FarCall
+	dw Function_4F_4166
+	db BANK(Function_4F_4166)
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+
+Label_48_46FA:: ; 48:46FA
+	call Function_00_047A
+	ld hl, $D800
+	call FarCall
+	dw Function_4F_404B
+	db BANK(Function_4F_404B)
+	ei
+	call Function_00_0392
+	call Function_48_4223
+	ld hl, $C10E
+	dec [hl]
+	jr nz, Label_48_46FA
+	ld [hl], $04
+	call FarCall
+	dw Function_4F_41E0
+	db BANK(Function_4F_41E0)
+	or a, a
+	jr nz, Label_48_46FA
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_4728:: ; 48:4728
+	or a, a
+	jr z, Label_48_4744
+	ld b, a
+	ld c, $0A
+	call FarCall
+	dw Function_48_4000
+	db BANK(Function_48_4000)
+	ld e, c
+	ld c, $0A
+	call FarCall
+	dw Function_48_4000
+	db BANK(Function_48_4000)
+	ld a, c
+	swap a
+	and a, $F0
+	or a, e
+	ret
+
+; ---- code $4744-$4748 (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 48:4729 (executed)
+
+Label_48_4744:: ; 48:4744
+	ld a, $00
+	ld b, a
+	ret
+
+; ---- code $4748-$480F (199 bytes) [CONFIRMED] 118 insn(s); 118 executed (in up to 15/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_4748:: ; 48:4748
+	ld hl, sp+6
+	ld a, [hli]
+	ld [wRam_C136], a
+	ld a, [hli]
+	ld [wRam_C137], a
+	ld a, [hli]
+	ld [wRam_C13C], a
+	ld a, [hli]
+	ld [wRam_C13D], a
+	ld a, [hli]
+	ld [wRam_C13B], a
+	inc hl
+	ld a, [hli]
+	ld [wRam_C139], a
+	ld a, [hli]
+	ld [wRam_C13A], a
+	ld a, [hli]
+	ld [wRam_C138], a
+	inc hl
+	ld a, [wRam_C136]
+	ld e, a
+	ld a, [wRam_C137]
+	ld d, a
+	ld hl, $4810
+
+Label_48_4777:: ; 48:4777
+	ld c, [hl]
+	inc hl
+	ld a, [hli]
+	ld b, a
+	inc a
+	jp z, Label_48_480F
+	ld a, d
+	sub a, b
+	jr z, Label_48_478A
+	jr nc, Label_48_4793
+	inc hl
+	inc hl
+	inc hl
+	jr Label_48_4777
+
+Label_48_478A:: ; 48:478A
+	ld a, e
+	sub a, c
+	jr nc, Label_48_4793
+	inc hl
+	inc hl
+	inc hl
+	jr Label_48_4777
+
+Label_48_4793:: ; 48:4793
+	ld a, e
+	sub a, c
+	ld c, a
+	ld b, $00
+	sla c
+	rl b
+	sla c
+	rl b
+	sla c
+	rl b
+	sla c
+	rl b
+	ld d, [hl]
+	inc hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, bc
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld b, h
+	ld c, l
+	ld a, [wRam_C13C]
+	ld l, a
+	ld a, [wRam_C13D]
+	ld h, a
+	ld a, [wRam_C13B]
+	ld d, a
+	call BankSwitch_H
+	ld e, $08
+
+Label_48_47D6:: ; 48:47D6
+	ld a, [bc]
+	inc bc
+	ld [hli], a
+	ld [hli], a
+	dec e
+	jr nz, Label_48_47D6
+	ld a, [wRam_C139]
+	ld l, a
+	ld a, [wRam_C13A]
+	ld h, a
+	ld a, [wRam_C138]
+	ld d, a
+	call BankSwitch_H
+	ld e, $08
+
+Label_48_47EE:: ; 48:47EE
+	ld a, [bc]
+	inc bc
+	ld [hli], a
+	ld [hli], a
+	dec e
+	jr nz, Label_48_47EE
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $480F-$4810 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jpcc from 48:477C (executed)
+
+Label_48_480F:: ; 48:480F
+	ret
+
+; ---- data $4810-$4830 (32 bytes) [CONFIRMED] read as data by executed code (in up to 15/18 scenarios); content class unknown
+
+Data_48_4810:: ; 48:4810
+	db $BF, $83, $48, $7B, $5D, $40, $83, $48, $EB, $53, $9F, $82, $48, $BB, $4E, $81
+	db $82, $48, $1B, $4D, $60, $82, $48, $7B, $4B, $4F, $82, $48, $DB, $4A, $F4, $81
+
+; ---- data $4830-$4833 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4830:: ; 48:4830
+	db $48, $5B, $5D
+
+; ---- data $4833-$4835 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4833:: ; 48:4833
+	db $A6, $81
+
+; ---- data $4835-$4838 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4835:: ; 48:4835
+	db $48, $FB, $5C
+
+; ---- data $4838-$483A (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4838:: ; 48:4838
+	db $9E, $81
+
+; ---- data $483A-$483D (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_483A:: ; 48:483A
+	db $48, $9B, $5C
+
+; ---- data $483D-$4844 (7 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_483D:: ; 48:483D
+	db $99, $81, $48, $5B, $5C, $93, $81
+
+; ---- data $4844-$4847 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4844:: ; 48:4844
+	db $48, $0B, $5C
+
+; ---- data $4847-$4849 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4847:: ; 48:4847
+	db $8F, $81
+
+; ---- data $4849-$484C (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4849:: ; 48:4849
+	db $48, $EB, $5B
+
+; ---- data $484C-$484E (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_484C:: ; 48:484C
+	db $89, $81
+
+; ---- data $484E-$4851 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_484E:: ; 48:484E
+	db $48, $CB, $5B
+
+; ---- data $4851-$4853 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4851:: ; 48:4851
+	db $83, $81
+
+; ---- data $4853-$4856 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4853:: ; 48:4853
+	db $48, $AB, $5B
+
+; ---- data $4856-$4858 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4856:: ; 48:4856
+	db $80, $81
+
+; ---- data $4858-$485B (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4858:: ; 48:4858
+	db $48, $8B, $5B
+
+; ---- data $485B-$485D (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_485B:: ; 48:485B
+	db $7E, $81
+
+; ---- data $485D-$4860 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_485D:: ; 48:485D
+	db $48, $7B, $5B
+
+; ---- data $4860-$4867 (7 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4860:: ; 48:4860
+	db $75, $81, $48, $FB, $5A, $6D, $81
+
+; ---- data $4867-$486A (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4867:: ; 48:4867
+	db $48, $BB, $5A
+
+; ---- data $486A-$486C (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_486A:: ; 48:486A
+	db $69, $81
+
+; ---- data $486C-$486F (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_486C:: ; 48:486C
+	db $48, $9B, $5A
+
+; ---- data $486F-$4871 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_486F:: ; 48:486F
+	db $68, $81
+
+; ---- data $4871-$4874 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4871:: ; 48:4871
+	db $48, $8B, $5A
+
+; ---- data $4874-$4876 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4874:: ; 48:4874
+	db $65, $81
+
+; ---- data $4876-$4879 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4876:: ; 48:4876
+	db $48, $6B, $5A
+
+; ---- data $4879-$487B (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_4879:: ; 48:4879
+	db $62, $81
+
+; ---- data $487B-$487E (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_487B:: ; 48:487B
+	db $48, $4B, $5A
+
+; ---- data $487E-$4897 (25 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
+
+Data_48_487E:: ; 48:487E
+	db $60, $81, $48, $3B, $5A, $5E, $81, $48, $2B, $5A, $5B, $81, $48, $6B, $5D, $4F
+	db $81, $48, $FB, $59, $40, $81, $48, $3B, $59
+
+; ---- data $4897-$4899 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4897:: ; 48:4897
+	db $FF, $FF
+
+; ---- code $4899-$48B8 (31 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_4899:: ; 48:4899
+	call Function_48_48E1
+	ld a, $01
+	ld hl, $A8B5
+	call ReadByteFar
+	ld b, a
+	ld a, $01
+	ld hl, $A8B6
+	call ReadByteFar
+	ld h, a
+	ld l, b
+	ld a, l
+	sub a, e
+	ld l, a
+	ld a, h
+	sbc a, d
+	ld h, a
+	ld a, h
+	or a, l
+	ret z
+
+; ---- code $48B8-$48BB (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the retcc at 48:48B7 (executed)
+	ld a, $FF
+	ret
+
+; ---- code $48BB-$48BC (1 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_48BB:: ; 48:48BB
+	ret
+
+; ---- data $48BC-$48E1 (37 bytes) [HYPOTHESIS] UNCLASSIFIED 37 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_48BC:: ; 48:48BC
+	db $CD, $E1, $48, $3E, $01, $21, $B5, $A8, $CD, $20, $16, $47, $3E, $01, $21, $B6
+	db $A8, $CD, $20, $16, $67, $68, $7D, $93, $6F, $7C, $9A, $67, $7C, $B5, $C8, $CD
+	db $20, $49, $3E, $FF, $C9
+
+; ---- code $48E1-$48F7 (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_48E1:: ; 48:48E1
+	xor a, a
+	ld [wRam_C12F], a
+	ld hl, $A684
+	ld d, $01
+	ld c, $10
+	ld e, $00
+
+Label_48_48EE:: ; 48:48EE
+	ld a, d
+	call ReadByteFar
+	ld b, a
+	add a, e
+	ld e, a
+	jr nc, Label_48_48FE
+
+; ---- code $48F7-$48FE (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:48F5 (executed)
+	ld a, [wRam_C12F]
+	inc a
+	ld [wRam_C12F], a
+
+; ---- code $48FE-$49A3 (165 bytes) [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios)
+
+Label_48_48FE:: ; 48:48FE
+	dec c
+	jr nz, Label_48_48EE
+	ld hl, $A87D
+	ld d, $01
+	ld c, $38
+
+Label_48_4908:: ; 48:4908
+	ld a, d
+	call ReadByteFar
+	ld b, a
+	add a, e
+	ld e, a
+	jr nc, Label_48_4918
+	ld a, [wRam_C12F]
+	inc a
+	ld [wRam_C12F], a
+
+Label_48_4918:: ; 48:4918
+	dec c
+	jr nz, Label_48_4908
+	ld a, [wRam_C12F]
+	ld d, a
+	ret
+
+Function_48_4920:: ; 48:4920
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $A684
+	xor a, a
+	ld c, $10
+
+Label_48_493B:: ; 48:493B
+	ld [hli], a
+	dec c
+	jr nz, Label_48_493B
+	ld hl, $A87D
+	ld c, $38
+
+Label_48_4944:: ; 48:4944
+	ld [hli], a
+	dec c
+	jr nz, Label_48_4944
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	call Function_48_495C
+	ret
+
+Function_48_495C:: ; 48:495C
+	call Function_48_48E1
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $A8B5
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ret
+
+Function_48_498C:: ; 48:498C
+	call FarCall
+	dw Function_48_48BB
+	db BANK(Function_48_48BB)
+	ld b, $00
+	ld a, $01
+	ld hl, $A881
+	call ReadByteFar
+	cp a, $FF
+	ret z
+	cp a, $00
+	jr z, Label_48_49A9
+
+; ---- code $49A3-$49A9 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:49A1 (executed)
+	cp a, $01
+	jr z, Label_48_49B6
+	jr Label_48_49C3
+
+; ---- code $49A9-$49B6 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
+
+Label_48_49A9:: ; 48:49A9
+	ld b, $91
+	call FarCall
+	dw Function_6C_59B2
+	db BANK(Function_6C_59B2)
+	xor a, a
+	or a, b
+	ret nz
+	jr Label_48_49C3
+
+; ---- code $49B6-$49C3 (13 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 48:49A5 (PROBABLE code)
+
+Label_48_49B6:: ; 48:49B6
+	ld b, $92
+	call FarCall
+	dw Function_6C_59B2
+	db BANK(Function_6C_59B2)
+	xor a, a
+	or a, b
+	ret nz
+	jr Label_48_49C3
+
+; ---- code $49C3-$4A8C (201 bytes) [CONFIRMED] 82 insn(s); 82 executed (in up to 12/18 scenarios)
+
+Label_48_49C3:: ; 48:49C3
+	ld a, $01
+	ld hl, $A881
+	call ReadByteFar
+	inc a
+	ld b, a
+	ld a, $01
+	ld hl, $A881
+	call FarCall
+	dw Function_48_4616
+	db BANK(Function_48_4616)
+	ld b, $00
+	ret
+
+Function_48_49DB:: ; 48:49DB
+	call FarCall
+	dw Function_48_48BB
+	db BANK(Function_48_48BB)
+	ld b, $00
+	ld a, $01
+	ld hl, $A89A
+	call ReadByteFar
+	cp a, $FF
+	ret z
+	cp a, $00
+	jr z, Label_48_49F8
+	cp a, $01
+	jr z, Label_48_4A29
+	jr Label_48_4A36
+
+Label_48_49F8:: ; 48:49F8
+	ld b, $89
+	call FarCall
+	dw Function_6C_59B2
+	db BANK(Function_6C_59B2)
+	xor a, a
+	or a, b
+	ret nz
+	call FarCall
+	dw Function_22_4FA9
+	db BANK(Function_22_4FA9)
+	ld a, $01
+	call FarCall
+	dw Function_2A_5495
+	db BANK(Function_2A_5495)
+	ld a, $01
+	ld hl, $A89A
+	call ReadByteFar
+	inc a
+	ld b, a
+	ld a, $01
+	ld hl, $A89A
+	call FarCall
+	dw Function_48_4616
+	db BANK(Function_48_4616)
+	ld b, $00
+	ret
+
+Label_48_4A29:: ; 48:4A29
+	ld b, $8A
+	call FarCall
+	dw Function_6C_59B2
+	db BANK(Function_6C_59B2)
+	xor a, a
+	or a, b
+	ret nz
+	jr Label_48_4A36
+
+Label_48_4A36:: ; 48:4A36
+	ld a, $01
+	ld hl, $A89A
+	call ReadByteFar
+	inc a
+	ld b, a
+	ld a, $01
+	ld hl, $A89A
+	call FarCall
+	dw Function_48_4616
+	db BANK(Function_48_4616)
+	ld b, $00
+	ret
+
+Function_48_4A4E:: ; 48:4A4E
+	call FarCall
+	dw Function_48_48BB
+	db BANK(Function_48_48BB)
+	ld b, $00
+	ld a, $01
+	ld hl, $A89B
+	call ReadByteFar
+	cp a, $FF
+	ret z
+	cp a, $00
+	jr z, Label_48_4A67
+	jr Label_48_4A74
+
+Label_48_4A67:: ; 48:4A67
+	ld b, $81
+	call FarCall
+	dw Function_6C_59B2
+	db BANK(Function_6C_59B2)
+	xor a, a
+	or a, b
+	ret nz
+	jr Label_48_4A74
+
+Label_48_4A74:: ; 48:4A74
+	ld a, $01
+	ld hl, $A89B
+	call ReadByteFar
+	inc a
+	ld b, a
+	ld a, $01
+	ld hl, $A89B
+	call FarCall
+	dw Function_48_4616
+	db BANK(Function_48_4616)
+	ld b, $00
+	ret
+
+; ---- data $4A8C-$4AAB (31 bytes) [HYPOTHESIS] UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_48_4A8C:: ; 48:4A8C
+	db $CD, $22, $06, $79, $E0, $B0, $7E, $A2, $B3, $22, $0D, $20, $F9, $F0, $B0, $4F
+	db $EE, $1F, $3C, $E6, $1F, $85, $6F, $3E, $00, $8C, $67, $05, $20, $E8, $C9
+
+; ---- code $4AAB-$4ADB (48 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
+
+Function_48_4AAB:: ; 48:4AAB
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $A8B7
+	ld c, $20
+	xor a, a
+
+Label_48_4AC6:: ; 48:4AC6
+	ld [hli], a
+	dec c
+	jr nz, Label_48_4AC6
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- gfx $4ADB-$5DC0 (4837 bytes) [PROBABLE] tiles-2bpp: heuristic: 297 coherent tiles (hsim2=0.728 vsim2=0.655, 2 blank) parity 0 [clipped from 4AD0-5DC0 by higher-priority evidence]
+
+Data_48_4ADB:: ; 48:4ADB
+	db $00, $00, $00, $00, $00, $7C, $82, $86, $8A, $92, $A2, $C2, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $30, $10, $10, $10, $10, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $82, $82, $02, $1C, $60, $80, $80, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $82, $82, $02, $3C, $02, $82, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $0C, $14, $24, $44, $44, $84, $84, $FE, $04, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $80, $80, $80, $FC, $02, $02, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $1C, $20, $40, $80, $FC, $82, $82, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $82, $82, $02, $04, $08, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $82, $82, $82, $7C, $82, $82, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $82, $82, $82, $7E, $02, $02, $04, $78, $00, $00
+	db $00, $00, $00, $00, $00, $10, $28, $28, $44, $44, $82, $FE, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $F8, $84, $84, $84, $FC, $82, $82, $82, $FC, $00, $00
+	db $00, $00, $00, $00, $00, $3C, $42, $80, $80, $80, $80, $80, $42, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $F8, $84, $82, $82, $82, $82, $82, $84, $F8, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $80, $80, $80, $FC, $80, $80, $80, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $80, $80, $80, $FC, $80, $80, $80, $80, $00, $00
+	db $00, $00, $00, $00, $00, $3E, $40, $80, $80, $9E, $82, $82, $42, $3E, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $82, $FE, $82, $82, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $10, $10, $10, $10, $10, $10, $10, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $02, $02, $02, $02, $02, $82, $82, $44, $38, $00, $00
+	db $00, $00, $00, $00, $00, $82, $84, $88, $90, $A0, $D0, $88, $84, $82, $00, $00
+	db $00, $00, $00, $00, $00, $80, $80, $80, $80, $80, $80, $80, $80, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $C6, $C6, $AA, $AA, $92, $92, $82, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $C2, $A2, $92, $8A, $86, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $38, $44, $82, $82, $82, $82, $82, $44, $38, $00, $00
+	db $00, $00, $00, $00, $00, $F8, $84, $82, $82, $84, $F8, $80, $80, $80, $00, $00
+	db $00, $00, $00, $00, $00, $38, $44, $82, $82, $82, $BA, $C6, $44, $3A, $00, $00
+	db $00, $00, $00, $00, $00, $F8, $84, $82, $82, $84, $F8, $84, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $82, $80, $80, $7C, $02, $02, $82, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $10, $10, $10, $10, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $82, $82, $82, $82, $44, $38, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $44, $44, $28, $28, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $92, $92, $92, $AA, $AA, $44, $44, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $44, $28, $10, $28, $44, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $44, $28, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $02, $04, $08, $10, $20, $40, $80, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $3C, $02, $3E, $42, $42, $3E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $40, $40, $40, $7C, $42, $42, $42, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3C, $42, $40, $42, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $02, $02, $02, $3E, $42, $42, $42, $3E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3C, $42, $7E, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $0C, $10, $FE, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3C, $42, $42, $3E, $02, $3C, $00
+	db $00, $00, $00, $00, $00, $00, $40, $40, $40, $58, $64, $42, $42, $42, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $30, $00, $30, $10, $10, $10, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $06, $00, $0E, $02, $02, $02, $84, $78, $00
+	db $00, $00, $00, $00, $00, $00, $40, $40, $40, $46, $58, $60, $58, $46, $00, $00
+	db $00, $00, $00, $00, $00, $00, $30, $10, $10, $10, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $EC, $92, $92, $92, $92, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $42, $42, $42, $42, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3C, $42, $42, $42, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $42, $42, $7C, $40, $40, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3E, $42, $42, $3E, $02, $02, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $5C, $62, $40, $40, $40, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3E, $40, $3E, $02, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $10, $7E, $10, $10, $10, $0C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $42, $42, $42, $46, $3A, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $82, $82, $44, $28, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $82, $92, $92, $92, $6C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $44, $28, $10, $28, $44, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $42, $42, $24, $18, $08, $70, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $08, $10, $20, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $20, $FC, $22, $7C, $AA, $92, $64, $00, $00
+	db $00, $00, $00, $00, $00, $20, $FE, $20, $3A, $64, $AA, $AA, $92, $64, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $84, $82, $82, $82, $92, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $84, $82, $82, $82, $82, $82, $90, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $78, $00, $7C, $82, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $78, $00, $7C, $82, $02, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $38, $00, $FC, $08, $30, $50, $8E, $00, $00
+	db $00, $00, $00, $00, $00, $38, $00, $FE, $04, $08, $10, $30, $50, $8E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $24, $F2, $20, $7C, $A2, $A2, $64, $00, $00
+	db $00, $00, $00, $00, $00, $24, $F2, $20, $3C, $62, $A2, $A2, $A2, $64, $00, $00
+	db $00, $00, $00, $00, $00, $20, $24, $F2, $4A, $48, $88, $88, $08, $30, $00, $00
+	db $00, $00, $00, $0A, $0A, $20, $24, $F2, $4A, $48, $88, $88, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $10, $FC, $08, $7E, $04, $0C, $00, $80, $78, $00, $00
+	db $00, $00, $00, $0A, $0A, $10, $FC, $08, $7E, $04, $0C, $00, $80, $78, $00, $00
+	db $00, $00, $00, $00, $00, $08, $10, $20, $40, $40, $40, $20, $10, $08, $00, $00
+	db $00, $00, $0A, $0A, $00, $08, $10, $20, $40, $40, $40, $20, $10, $08, $00, $00
+	db $00, $00, $00, $00, $00, $04, $84, $BE, $84, $84, $84, $84, $84, $48, $00, $00
+	db $00, $00, $0A, $0A, $00, $04, $84, $BE, $84, $84, $84, $84, $84, $48, $00, $00
+	db $00, $00, $00, $00, $00, $00, $7C, $02, $04, $00, $00, $40, $40, $3E, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $7C, $02, $04, $00, $00, $40, $40, $3E, $00, $00
+	db $00, $00, $00, $00, $00, $10, $FE, $08, $04, $0C, $80, $80, $40, $3C, $00, $00
+	db $00, $00, $00, $0A, $0A, $10, $FE, $08, $04, $0C, $80, $80, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $40, $40, $40, $40, $40, $42, $42, $44, $38, $00, $00
+	db $00, $00, $00, $00, $0A, $4A, $40, $40, $40, $40, $42, $42, $44, $38, $00, $00
+	db $00, $00, $00, $00, $00, $08, $FE, $08, $38, $48, $48, $38, $08, $30, $00, $00
+	db $00, $00, $0A, $0A, $00, $08, $FE, $08, $38, $48, $48, $38, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $44, $44, $FE, $44, $44, $4C, $40, $40, $3C, $00, $00
+	db $00, $00, $0A, $0A, $00, $44, $44, $FE, $44, $44, $4C, $40, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $78, $10, $20, $FE, $10, $20, $20, $20, $1C, $00, $00
+	db $00, $00, $0A, $0A, $00, $78, $10, $20, $FE, $10, $20, $20, $20, $1C, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $FC, $40, $4E, $40, $80, $90, $8E, $00, $00
+	db $00, $00, $00, $00, $0A, $2A, $20, $FC, $40, $4E, $40, $80, $90, $8E, $00, $00
+	db $00, $00, $00, $00, $00, $20, $FE, $20, $40, $7C, $82, $02, $04, $38, $00, $00
+	db $00, $00, $00, $0A, $0A, $20, $FE, $20, $40, $7C, $82, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $FC, $02, $02, $02, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $0A, $0A, $00, $FC, $02, $02, $02, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $10, $20, $20, $20, $20, $10, $0C, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $FE, $10, $20, $20, $20, $20, $10, $0C, $00, $00
+	db $00, $00, $00, $00, $00, $40, $40, $4C, $70, $40, $80, $80, $80, $7C, $00, $00
+	db $00, $00, $00, $00, $0A, $4A, $40, $4C, $70, $40, $80, $80, $80, $7C, $00, $00
+	db $00, $00, $00, $00, $00, $20, $F4, $42, $8A, $88, $38, $4C, $48, $30, $00, $00
+	db $00, $00, $00, $00, $00, $80, $BC, $82, $84, $80, $80, $80, $A0, $9E, $00, $00
+	db $00, $00, $00, $00, $00, $04, $44, $5C, $64, $4A, $AA, $96, $AA, $6D, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $EC, $32, $22, $62, $A6, $2A, $2E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $38, $54, $92, $92, $92, $92, $92, $64, $00, $00
+	db $00, $00, $00, $00, $00, $04, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $00, $0A, $0A, $00, $04, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $0E, $0A, $0E, $00, $04, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $00, $00, $00, $00, $00, $F0, $24, $46, $84, $84, $84, $88, $70, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $F0, $24, $46, $84, $84, $84, $88, $70, $00, $00
+	db $00, $00, $0E, $0A, $0E, $00, $F0, $24, $46, $84, $84, $84, $88, $70, $00, $00
+	db $00, $00, $00, $00, $00, $30, $08, $08, $10, $50, $4A, $8A, $8A, $30, $00, $00
+	db $00, $00, $00, $0A, $0A, $30, $08, $08, $10, $50, $4A, $8A, $8A, $30, $00, $00
+	db $00, $00, $0E, $0A, $0E, $30, $08, $08, $10, $50, $4A, $8A, $8A, $30, $00, $00
+	db $00, $00, $00, $00, $00, $00, $20, $50, $48, $88, $84, $84, $02, $02, $00, $00
+	db $00, $00, $00, $00, $0A, $0A, $20, $50, $48, $88, $84, $84, $02, $02, $00, $00
+	db $00, $00, $00, $0E, $0A, $0E, $20, $50, $48, $88, $84, $84, $02, $02, $00, $00
+	db $00, $00, $00, $00, $00, $BE, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $00, $0A, $0A, $00, $BE, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $0E, $0A, $0E, $00, $BE, $84, $BE, $84, $84, $9C, $A6, $A4, $98, $00, $00
+	db $00, $00, $00, $00, $00, $08, $FE, $08, $FE, $08, $08, $78, $8C, $72, $00, $00
+	db $00, $00, $00, $00, $00, $70, $10, $14, $24, $7C, $A6, $A4, $A4, $68, $00, $00
+	db $00, $00, $00, $00, $00, $20, $F4, $22, $60, $A0, $A0, $A2, $62, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $04, $44, $5C, $64, $4A, $AA, $AA, $92, $64, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $F8, $40, $F8, $40, $42, $42, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $48, $5C, $E2, $22, $2C, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $88, $9C, $6A, $42, $C2, $2C, $20, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $88, $BC, $CA, $8A, $AA, $1C, $30, $00, $00
+	db $00, $00, $00, $00, $00, $08, $BC, $CA, $8A, $8A, $AA, $9C, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $08, $08, $0E, $08, $78, $8C, $72, $00, $00
+	db $00, $00, $00, $00, $00, $08, $08, $0E, $08, $08, $78, $8C, $8A, $70, $00, $00
+	db $00, $00, $00, $00, $00, $30, $08, $80, $B8, $C4, $82, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $82, $82, $42, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $08, $30, $7C, $82, $32, $4A, $4A, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $EC, $32, $22, $22, $64, $A4, $22, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $10, $20, $78, $84, $02, $02, $04, $38, $00, $00
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $00, $00, $00, $00, $00, $20, $F0, $2C, $32, $62, $62, $A2, $A2, $2C, $00, $00
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $00, $00, $00, $00, $00, $10, $FC, $20, $76, $98, $28, $48, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $10, $10, $20, $20, $60, $52, $52, $92, $8C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $FE, $02, $12, $14, $10, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $14, $10, $10, $20, $40, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $02, $04, $18, $F0, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $02, $04, $08, $30, $D0, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $10, $FE, $82, $82, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $10, $10, $FE, $82, $82, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $7C, $10, $10, $10, $10, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $7C, $10, $10, $10, $10, $10, $10, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $04, $FE, $0C, $14, $24, $C4, $04, $00, $00
+	db $00, $00, $00, $00, $00, $04, $04, $FE, $04, $0C, $14, $24, $C4, $04, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $FE, $22, $22, $22, $42, $42, $8E, $00, $00
+	db $00, $00, $00, $00, $0A, $2A, $20, $FE, $22, $22, $22, $42, $42, $8E, $00, $00
+	db $00, $00, $00, $00, $00, $10, $10, $FE, $10, $10, $FE, $08, $08, $08, $00, $00
+	db $00, $00, $00, $0A, $0A, $10, $10, $FE, $10, $10, $FE, $08, $08, $08, $00, $00
+	db $00, $00, $00, $00, $00, $00, $7E, $42, $42, $82, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $7E, $42, $42, $82, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $40, $40, $7E, $44, $84, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $0A, $4A, $40, $7E, $44, $84, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $02, $02, $02, $02, $FE, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $FE, $02, $02, $02, $02, $02, $02, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $44, $44, $FE, $44, $44, $04, $04, $08, $30, $00, $00
+	db $00, $00, $0A, $0A, $00, $44, $44, $FE, $44, $44, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $00, $E2, $02, $E2, $02, $04, $04, $08, $70, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $E2, $02, $E2, $02, $04, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $04, $08, $10, $28, $44, $82, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $FE, $02, $04, $08, $10, $28, $44, $82, $00, $00
+	db $00, $00, $00, $00, $00, $40, $40, $FE, $42, $44, $40, $40, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $0A, $4A, $40, $FE, $42, $44, $40, $40, $40, $3C, $00, $00
+	db $00, $00, $00, $00, $00, $00, $82, $82, $42, $02, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $82, $82, $42, $02, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $7E, $42, $42, $B2, $0A, $06, $04, $08, $70, $00, $00
+	db $00, $00, $0A, $0A, $00, $7E, $42, $42, $B2, $0A, $06, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $0C, $70, $10, $10, $FE, $10, $10, $10, $20, $00, $00
+	db $00, $00, $0A, $0A, $00, $0C, $70, $10, $10, $FE, $10, $10, $10, $20, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $A2, $A2, $A2, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $A0, $A2, $A2, $A2, $02, $02, $04, $08, $70, $00, $00
+	db $00, $00, $00, $0A, $0A, $A0, $A2, $A2, $A2, $02, $02, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $00, $00, $FE, $08, $08, $08, $10, $60, $00, $00
+	db $00, $00, $0A, $0A, $00, $7C, $00, $00, $FE, $08, $08, $08, $10, $60, $00, $00
+	db $00, $00, $00, $00, $00, $20, $20, $20, $38, $26, $20, $20, $20, $20, $00, $00
+	db $00, $00, $00, $0A, $0A, $20, $20, $20, $38, $26, $20, $20, $20, $20, $00, $00
+	db $00, $00, $00, $00, $00, $08, $08, $FE, $08, $08, $08, $08, $10, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $7C, $00, $00, $00, $00, $00, $00, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $44, $28, $10, $28, $C6, $00, $00
+	db $00, $00, $00, $00, $00, $10, $FE, $04, $08, $18, $34, $D2, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $02, $02, $02, $04, $04, $08, $10, $E0, $00, $00
+	db $00, $00, $00, $00, $00, $08, $48, $48, $44, $44, $44, $82, $82, $82, $00, $00
+	db $00, $00, $0A, $0A, $00, $08, $48, $48, $44, $44, $44, $82, $82, $82, $00, $00
+	db $00, $0E, $0A, $0E, $00, $08, $48, $48, $44, $44, $44, $82, $82, $82, $00, $00
+	db $00, $00, $00, $00, $00, $80, $80, $86, $98, $E0, $80, $80, $80, $7E, $00, $00
+	db $00, $00, $00, $00, $0A, $8A, $80, $86, $98, $E0, $80, $80, $80, $7E, $00, $00
+	db $00, $00, $00, $0E, $0A, $8E, $80, $86, $98, $E0, $80, $80, $80, $7E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $02, $04, $04, $08, $70, $00, $00
+	db $00, $00, $00, $0A, $0A, $00, $FE, $02, $02, $02, $04, $04, $08, $70, $00, $00
+	db $00, $00, $0E, $0A, $0E, $00, $FE, $02, $02, $02, $04, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $20, $50, $50, $88, $88, $04, $04, $02, $02, $00, $00
+	db $00, $00, $00, $0A, $0A, $20, $50, $50, $88, $88, $04, $04, $02, $02, $00, $00
+	db $00, $00, $00, $0E, $0A, $2E, $50, $50, $88, $88, $04, $04, $02, $02, $00, $00
+	db $00, $00, $00, $00, $00, $10, $FE, $10, $10, $54, $54, $92, $92, $10, $00, $00
+	db $00, $00, $00, $0A, $0A, $10, $FE, $10, $10, $54, $54, $92, $92, $10, $00, $00
+	db $00, $00, $0E, $0A, $0E, $10, $FE, $10, $10, $54, $54, $92, $92, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $44, $28, $30, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $70, $0E, $00, $70, $0C, $00, $00, $F0, $0E, $00, $00
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $00, $00, $00, $00, $00, $20, $20, $20, $40, $44, $44, $84, $9A, $E2, $00, $00
+	db $00, $00, $00, $00, $00, $02, $02, $42, $24, $14, $08, $14, $22, $C0, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $20, $20, $FE, $20, $20, $20, $20, $1E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $40, $40, $FE, $42, $24, $28, $20, $00, $00
+	db $00, $00, $00, $00, $00, $40, $40, $FE, $42, $44, $28, $20, $20, $20, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $78, $08, $08, $08, $08, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $7C, $04, $04, $04, $08, $08, $08, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $7E, $02, $3E, $02, $02, $7E, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $7E, $02, $02, $02, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $7C, $00, $FE, $02, $02, $02, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $82, $82, $82, $82, $02, $04, $04, $08, $30, $00, $00
+	db $00, $00, $00, $00, $00, $50, $50, $50, $50, $52, $52, $52, $94, $98, $00, $00
+	db $00, $00, $00, $00, $00, $80, $80, $80, $80, $82, $82, $84, $88, $F0, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $82, $82, $82, $82, $82, $82, $FE, $00, $00
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $00, $00, $00, $00, $00, $00, $FE, $82, $82, $02, $02, $04, $08, $30, $00, $00
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
+	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $7E, $02, $04, $08, $70, $00, $00
+	db $00, $00, $00, $00, $00, $00, $C0, $20, $02, $02, $02, $04, $08, $F0, $00, $00
+	db $00, $00, $00, $0A, $0A, $10, $10, $FE, $82, $82, $02, $02, $04, $38, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $40, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $60, $90, $90, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $C0, $C0, $40, $80, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $C0, $C0, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $18, $18, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $18, $18, $00, $18, $18, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $18, $18, $00, $18, $18, $08, $10, $00, $00
+	db $00, $00, $00, $00, $00, $3C, $66, $66, $66, $0C, $18, $00, $18, $18, $00, $00
+	db $00, $00, $00, $00, $00, $18, $18, $18, $18, $10, $10, $00, $30, $30, $00, $00
+	db $00, $00, $00, $00, $00, $05, $F5, $80, $82, $82, $82, $82, $82, $FE, $00, $00
+	db $00, $00, $00, $00, $07, $05, $F7, $80, $82, $82, $82, $82, $82, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $18, $24, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $7E, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $00
+	db $00, $00, $00, $00, $00, $04, $04, $08, $08, $10, $10, $20, $20, $40, $40, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $60, $92, $0C, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $92, $92, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $04, $08, $0C, $0C, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $60, $60, $20, $40, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $D8, $D8, $48, $90, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $04, $08, $08, $10, $10, $10, $10, $08, $08, $04, $00, $00
+	db $00, $00, $00, $00, $40, $20, $20, $10, $10, $10, $10, $20, $20, $40, $00, $00
+	db $00, $00, $00, $00, $0C, $08, $08, $08, $08, $08, $08, $08, $08, $0C, $00, $00
+	db $00, $00, $00, $00, $60, $20, $20, $20, $20, $20, $20, $20, $20, $60, $00, $00
+	db $00, $00, $00, $00, $04, $08, $08, $08, $18, $08, $08, $08, $08, $04, $00, $00
+	db $00, $00, $00, $00, $40, $20, $20, $20, $30, $20, $20, $20, $20, $40, $00, $00
+	db $00, $00, $00, $00, $1E, $10, $10, $10, $10, $10, $10, $10, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $10, $10, $10, $10, $10, $F0, $00
+	db $00, $00, $00, $00, $7E, $42, $5E, $50, $50, $50, $50, $50, $70, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $1C, $14, $14, $14, $14, $14, $F4, $84, $FC, $00
+	db $00, $00, $00, $00, $1E, $1C, $18, $18, $10, $10, $10, $18, $18, $1C, $1E, $00
+	db $00, $00, $00, $00, $F0, $70, $30, $30, $10, $10, $10, $30, $30, $70, $F0, $00
+	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $FE, $10, $10, $10, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $82, $44, $28, $10, $28, $44, $82, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $18, $18, $00, $7E, $00, $18, $18, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $FE, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $02, $04, $08, $10, $20, $40, $20, $10, $08, $04, $02, $00
+	db $00, $00, $00, $00, $80, $40, $20, $10, $08, $04, $08, $10, $20, $40, $80, $00
+	db $00, $00, $00, $00, $10, $38, $54, $92, $38, $44, $82, $82, $44, $38, $00, $00
+	db $00, $00, $00, $00, $38, $44, $82, $82, $44, $38, $10, $FE, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $82, $44, $28, $FE, $10, $FE, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $10, $7C, $92, $90, $7C, $12, $92, $7C, $10, $00, $00
+	db $00, $00, $00, $00, $00, $62, $94, $94, $68, $10, $2C, $52, $52, $8C, $00, $00
+	db $00, $00, $00, $00, $00, $14, $14, $FE, $28, $28, $28, $FE, $50, $50, $00, $00
+	db $00, $00, $00, $00, $00, $30, $48, $48, $50, $20, $62, $94, $88, $76, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $92, $54, $38, $38, $54, $92, $10, $00, $00
+	db $00, $00, $00, $00, $00, $38, $44, $9A, $AA, $AA, $AA, $BE, $40, $3E, $00, $00
+	db $00, $00, $00, $00, $00, $10, $28, $C6, $82, $44, $44, $BA, $C6, $00, $00, $00
+	db $00, $00, $00, $00, $00, $10, $38, $FE, $FE, $7C, $7C, $FE, $C6, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $38, $44, $82, $82, $82, $44, $38, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $38, $7C, $FE, $FE, $FE, $7C, $38, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $28, $44, $82, $44, $28, $10, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $38, $7C, $FE, $7C, $38, $10, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $82, $82, $82, $82, $82, $FE, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $00, $00, $00
+	db $00, $00, $00, $00, $00, $10, $10, $28, $28, $44, $44, $82, $FE, $00, $00, $00
+	db $00, $00, $00, $00, $00, $10, $10, $38, $38, $7C, $7C, $FE, $FE, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $44, $28, $92, $28, $44, $10, $00, $00, $00
+	db $00, $00, $00, $00, $00, $FE, $00, $FE, $10, $10, $10, $10, $10, $10, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $08, $04, $FE, $04, $08, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $20, $40, $FE, $40, $20, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $38, $54, $10, $10, $10, $10, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $10, $54, $38, $10, $00, $00, $00
+	db $00, $00, $00, $00, $10, $18, $1C, $14, $12, $12, $72, $F4, $F0, $60, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $80, $7E, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $AA, $00, $82, $00, $82, $00, $82, $00, $82, $00, $AA, $00
+	db $00, $00, $00, $00, $02, $02, $02, $02, $02, $02, $02, $02, $22, $62, $FC, $00
+	db $00, $00, $00, $38, $7C, $EE, $D6, $D6, $D6, $C6, $D6, $D6, $7C, $38, $00, $00
+	db $00, $00, $00, $38, $7C, $CE, $D6, $D6, $CE, $D6, $D6, $CE, $7C, $38, $00, $00
+	db $00, $00, $00, $38, $28
+
+; ---- data $5DC0-$5DCB (11 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown [clipped from 5D6B-5DCB by higher-priority evidence]
+
+Data_48_5DC0:: ; 48:5DC0
+	db $38, $FE, $FE, $BA, $FE, $FE, $38, $28, $38, $00, $00
+
+; ---- zero $5DCB-$69AB (3040 bytes) [PROBABLE] trailing 0x00 padding to end of bank [verifier: cut around bytes read as data]
+	ds $BE0, $00
+
+; ---- data $69AB-$69CB (32 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown
+
+Data_48_69AB:: ; 48:69AB
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+; ---- zero $69CB-$8000 (5685 bytes) [PROBABLE] trailing 0x00 padding to end of bank [verifier: cut around bytes read as data]
+	ds $1635, $00
