@@ -1,0 +1,1211 @@
+{
+ "bans": 5,
+ "layers": [
+  [
+   "layer 0: executed starts + boot/vector seeds",
+   84182
+  ],
+  [
+   "layer 1: raw inline-convention call sites (iteration 0)",
+   12413
+  ],
+  [
+   "layer 2: SDK/API/state/mail table entries (iteration 0)",
+   5931
+  ],
+  [
+   "layer 2: code-pointer tables (iteration 0)",
+   647
+  ]
+ ],
+ "per_bank": {
+  "04": {
+   "counts": {
+    "code/CONFIRMED": 2976,
+    "code/PROBABLE": 652,
+    "data/CONFIRMED": 9968,
+    "ptrtable/CONFIRMED": 8,
+    "ptrtable/PROBABLE": 50,
+    "unclassified/HYPOTHESIS": 2358,
+    "zero/PROBABLE": 372
+   },
+   "exec_bytes": 2976,
+   "exec_insns": 1764,
+   "nonzero": 15403
+  },
+  "05": {
+   "counts": {
+    "data/CONFIRMED": 8389,
+    "unclassified/HYPOTHESIS": 2046,
+    "zero/PROBABLE": 5949
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 10291
+  },
+  "0E": {
+   "counts": {
+    "code/CONFIRMED": 903,
+    "code/PROBABLE": 20,
+    "data/CONFIRMED": 1448,
+    "data/PROBABLE": 432,
+    "gfx/CONFIRMED": 8192,
+    "gfx/PROBABLE": 160,
+    "ptrtable/PROBABLE": 14,
+    "unclassified/HYPOTHESIS": 15,
+    "zero/PROBABLE": 5200
+   },
+   "exec_bytes": 816,
+   "exec_insns": 379,
+   "nonzero": 7413
+  },
+  "0F": {
+   "counts": {
+    "code/PROBABLE": 6982,
+    "text/PROBABLE": 419,
+    "unclassified/HYPOTHESIS": 197,
+    "zero/PROBABLE": 8786
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 7420
+  },
+  "19": {
+   "counts": {
+    "code/PROBABLE": 2951,
+    "data/PROBABLE": 64,
+    "ptrtable/PROBABLE": 20,
+    "text/PROBABLE": 358,
+    "unclassified/HYPOTHESIS": 88,
+    "zero/PROBABLE": 12903
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 3210
+  },
+  "1A": {
+   "counts": {
+    "code/CONFIRMED": 891,
+    "code/PROBABLE": 158,
+    "data/CONFIRMED": 744,
+    "data/PROBABLE": 576,
+    "gfx/CONFIRMED": 2304,
+    "gfx/PROBABLE": 11,
+    "ptrtable/CONFIRMED": 10,
+    "ptrtable/PROBABLE": 66,
+    "text/CONFIRMED": 44,
+    "text/PROBABLE": 635,
+    "unclassified/HYPOTHESIS": 155,
+    "zero/PROBABLE": 10790
+   },
+   "exec_bytes": 804,
+   "exec_insns": 379,
+   "nonzero": 4568
+  },
+  "1B": {
+   "counts": {
+    "code/PROBABLE": 922,
+    "data/PROBABLE": 64,
+    "ptrtable/PROBABLE": 10,
+    "text/PROBABLE": 93,
+    "unclassified/HYPOTHESIS": 42,
+    "zero/PROBABLE": 15253
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 1026
+  },
+  "1C": {
+   "counts": {
+    "code/CONFIRMED": 38,
+    "code/PROBABLE": 3,
+    "ptrtable/PROBABLE": 6,
+    "unclassified/HYPOTHESIS": 4,
+    "zero/PROBABLE": 16333
+   },
+   "exec_bytes": 26,
+   "exec_insns": 10,
+   "nonzero": 49
+  },
+  "1D": {
+   "counts": {
+    "code/CONFIRMED": 956,
+    "code/PROBABLE": 4,
+    "data/CONFIRMED": 2030,
+    "data/PROBABLE": 216,
+    "gfx/CONFIRMED": 5392,
+    "ptrtable/CONFIRMED": 10,
+    "ptrtable/PROBABLE": 24,
+    "text/PROBABLE": 430,
+    "unclassified/HYPOTHESIS": 84,
+    "zero/PROBABLE": 7238
+   },
+   "exec_bytes": 854,
+   "exec_insns": 395,
+   "nonzero": 7644
+  },
+  "1E": {
+   "counts": {
+    "data/CONFIRMED": 2379,
+    "data/PROBABLE": 192,
+    "gfx/CONFIRMED": 6400,
+    "ptrtable/PROBABLE": 26,
+    "text/CONFIRMED": 49,
+    "text/PROBABLE": 139,
+    "unclassified/HYPOTHESIS": 426,
+    "zero/PROBABLE": 6773
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 7873
+  },
+  "1F": {
+   "counts": {
+    "code/CONFIRMED": 1608,
+    "code/PROBABLE": 15,
+    "data/CONFIRMED": 6,
+    "ptrtable/CONFIRMED": 10,
+    "zero/PROBABLE": 14745
+   },
+   "exec_bytes": 1464,
+   "exec_insns": 641,
+   "nonzero": 1570
+  },
+  "22": {
+   "counts": {
+    "code/CONFIRMED": 419,
+    "code/PROBABLE": 3315,
+    "data/CONFIRMED": 3256,
+    "data/PROBABLE": 2312,
+    "text/CONFIRMED": 109,
+    "text/PROBABLE": 350,
+    "unclassified/HYPOTHESIS": 175,
+    "zero/PROBABLE": 6448
+   },
+   "exec_bytes": 419,
+   "exec_insns": 246,
+   "nonzero": 8653
+  },
+  "23": {
+   "counts": {
+    "code/CONFIRMED": 744,
+    "code/PROBABLE": 10564,
+    "data/CONFIRMED": 7,
+    "data/PROBABLE": 1166,
+    "gfx/PROBABLE": 2272,
+    "ptrtable/PROBABLE": 18,
+    "text/CONFIRMED": 109,
+    "text/PROBABLE": 432,
+    "unclassified/HYPOTHESIS": 864,
+    "zero/PROBABLE": 208
+   },
+   "exec_bytes": 648,
+   "exec_insns": 313,
+   "nonzero": 15221
+  },
+  "24": {
+   "counts": {
+    "code/PROBABLE": 4840,
+    "data/CONFIRMED": 800,
+    "data/PROBABLE": 2208,
+    "gfx/CONFIRMED": 2976,
+    "gfx/PROBABLE": 1632,
+    "ptrtable/PROBABLE": 52,
+    "text/PROBABLE": 108,
+    "unclassified/HYPOTHESIS": 2976,
+    "zero/HYPOTHESIS": 96,
+    "zero/PROBABLE": 696
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13059
+  },
+  "25": {
+   "counts": {
+    "code/CONFIRMED": 1043,
+    "code/PROBABLE": 4914,
+    "data/CONFIRMED": 3332,
+    "data/PROBABLE": 1728,
+    "gfx/CONFIRMED": 2048,
+    "gfx/PROBABLE": 1520,
+    "text/PROBABLE": 205,
+    "unclassified/HYPOTHESIS": 1498,
+    "zero/PROBABLE": 96
+   },
+   "exec_bytes": 977,
+   "exec_insns": 559,
+   "nonzero": 13928
+  },
+  "26": {
+   "counts": {
+    "code/CONFIRMED": 1897,
+    "code/PROBABLE": 4201,
+    "data/CONFIRMED": 85,
+    "data/PROBABLE": 360,
+    "gfx/CONFIRMED": 7680,
+    "gfx/PROBABLE": 632,
+    "text/CONFIRMED": 27,
+    "text/PROBABLE": 296,
+    "unclassified/HYPOTHESIS": 503,
+    "zero/PROBABLE": 703
+   },
+   "exec_bytes": 1684,
+   "exec_insns": 796,
+   "nonzero": 12292
+  },
+  "27": {
+   "counts": {
+    "code/CONFIRMED": 2309,
+    "code/PROBABLE": 1764,
+    "data/CONFIRMED": 2824,
+    "data/PROBABLE": 56,
+    "gfx/CONFIRMED": 8192,
+    "gfx/PROBABLE": 15,
+    "ptrtable/PROBABLE": 10,
+    "unclassified/HYPOTHESIS": 418,
+    "zero/PROBABLE": 796
+   },
+   "exec_bytes": 2003,
+   "exec_insns": 940,
+   "nonzero": 12756
+  },
+  "28": {
+   "counts": {
+    "code/CONFIRMED": 587,
+    "code/PROBABLE": 108,
+    "data/CONFIRMED": 1866,
+    "data/PROBABLE": 3168,
+    "gfx/CONFIRMED": 2192,
+    "gfx/PROBABLE": 4192,
+    "unclassified/HYPOTHESIS": 2812,
+    "zero/HYPOTHESIS": 16,
+    "zero/PROBABLE": 1443
+   },
+   "exec_bytes": 476,
+   "exec_insns": 231,
+   "nonzero": 11147
+  },
+  "29": {
+   "counts": {
+    "code/CONFIRMED": 2036,
+    "code/PROBABLE": 1875,
+    "data/CONFIRMED": 790,
+    "data/PROBABLE": 912,
+    "gfx/CONFIRMED": 48,
+    "gfx/PROBABLE": 2122,
+    "text/PROBABLE": 214,
+    "unclassified/HYPOTHESIS": 1415,
+    "zero/HYPOTHESIS": 48,
+    "zero/PROBABLE": 6924
+   },
+   "exec_bytes": 1811,
+   "exec_insns": 983,
+   "nonzero": 8187
+  },
+  "2A": {
+   "counts": {
+    "code/CONFIRMED": 2155,
+    "code/PROBABLE": 5349,
+    "data/CONFIRMED": 2982,
+    "data/PROBABLE": 1816,
+    "ff-run/HYPOTHESIS": 16,
+    "gfx/PROBABLE": 1488,
+    "ptrtable/PROBABLE": 6,
+    "text/PROBABLE": 182,
+    "unclassified/HYPOTHESIS": 1910,
+    "zero/HYPOTHESIS": 96,
+    "zero/PROBABLE": 384
+   },
+   "exec_bytes": 1981,
+   "exec_insns": 1047,
+   "nonzero": 13759
+  },
+  "2B": {
+   "counts": {
+    "code/CONFIRMED": 1460,
+    "code/PROBABLE": 5094,
+    "data/CONFIRMED": 1008,
+    "data/PROBABLE": 2048,
+    "gfx/CONFIRMED": 1536,
+    "gfx/PROBABLE": 1824,
+    "text/PROBABLE": 186,
+    "unclassified/HYPOTHESIS": 2797,
+    "zero/HYPOTHESIS": 243,
+    "zero/PROBABLE": 188
+   },
+   "exec_bytes": 1322,
+   "exec_insns": 645,
+   "nonzero": 14195
+  },
+  "2C": {
+   "counts": {
+    "code/CONFIRMED": 3184,
+    "code/PROBABLE": 3811,
+    "data/CONFIRMED": 3842,
+    "data/PROBABLE": 2000,
+    "gfx/CONFIRMED": 1424,
+    "gfx/PROBABLE": 432,
+    "ptrtable/PROBABLE": 14,
+    "text/PROBABLE": 129,
+    "unclassified/HYPOTHESIS": 1506,
+    "zero/PROBABLE": 42
+   },
+   "exec_bytes": 2953,
+   "exec_insns": 1655,
+   "nonzero": 13752
+  },
+  "2D": {
+   "counts": {
+    "code/CONFIRMED": 4277,
+    "code/PROBABLE": 3794,
+    "data/CONFIRMED": 3904,
+    "data/PROBABLE": 128,
+    "gfx/PROBABLE": 2160,
+    "text/PROBABLE": 777,
+    "unclassified/HYPOTHESIS": 1037,
+    "zero/PROBABLE": 307
+   },
+   "exec_bytes": 3950,
+   "exec_insns": 2139,
+   "nonzero": 13851
+  },
+  "2E": {
+   "counts": {
+    "code/CONFIRMED": 1012,
+    "code/PROBABLE": 4359,
+    "data/CONFIRMED": 797,
+    "data/PROBABLE": 2752,
+    "gfx/CONFIRMED": 4736,
+    "text/CONFIRMED": 123,
+    "text/PROBABLE": 75,
+    "unclassified/HYPOTHESIS": 835,
+    "zero/PROBABLE": 1695
+   },
+   "exec_bytes": 880,
+   "exec_insns": 449,
+   "nonzero": 12266
+  },
+  "2F": {
+   "counts": {
+    "code/CONFIRMED": 2612,
+    "code/PROBABLE": 7534,
+    "data/CONFIRMED": 2304,
+    "data/PROBABLE": 800,
+    "text/PROBABLE": 307,
+    "unclassified/HYPOTHESIS": 2670,
+    "zero/HYPOTHESIS": 73,
+    "zero/PROBABLE": 84
+   },
+   "exec_bytes": 2387,
+   "exec_insns": 1255,
+   "nonzero": 14942
+  },
+  "3D": {
+   "counts": {
+    "text/CONFIRMED": 4493,
+    "zero/PROBABLE": 11891
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 4464
+  },
+  "3E": {
+   "counts": {
+    "text/CONFIRMED": 13776,
+    "zero/PROBABLE": 2608
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13677
+  },
+  "3F": {
+   "counts": {
+    "data/CONFIRMED": 1,
+    "data/PROBABLE": 254,
+    "text/PROBABLE": 11,
+    "unclassified/HYPOTHESIS": 2,
+    "zero/PROBABLE": 16116
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 260
+  },
+  "41": {
+   "counts": {
+    "data/PROBABLE": 440,
+    "ff-run/HYPOTHESIS": 40,
+    "gfx/PROBABLE": 3584,
+    "ptrtable/PROBABLE": 24,
+    "unclassified/HYPOTHESIS": 7547,
+    "zero/HYPOTHESIS": 1997,
+    "zero/PROBABLE": 2752
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 8700
+  },
+  "42": {
+   "counts": {
+    "data/PROBABLE": 536,
+    "ff-run/HYPOTHESIS": 16,
+    "gfx/PROBABLE": 3024,
+    "unclassified/HYPOTHESIS": 7647,
+    "zero/HYPOTHESIS": 2411,
+    "zero/PROBABLE": 2750
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 9453
+  },
+  "43": {
+   "counts": {
+    "data/PROBABLE": 442,
+    "gfx/PROBABLE": 4416,
+    "unclassified/HYPOTHESIS": 6615,
+    "zero/HYPOTHESIS": 2159,
+    "zero/PROBABLE": 2752
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 7747
+  },
+  "44": {
+   "counts": {
+    "data/PROBABLE": 514,
+    "ff-run/HYPOTHESIS": 16,
+    "gfx/PROBABLE": 5622,
+    "ptrtable/PROBABLE": 12,
+    "unclassified/HYPOTHESIS": 5706,
+    "zero/HYPOTHESIS": 1764,
+    "zero/PROBABLE": 2750
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 9422
+  },
+  "45": {
+   "counts": {
+    "data/PROBABLE": 520,
+    "ff-run/HYPOTHESIS": 33,
+    "gfx/PROBABLE": 3728,
+    "unclassified/HYPOTHESIS": 7432,
+    "zero/HYPOTHESIS": 1921,
+    "zero/PROBABLE": 2750
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 9357
+  },
+  "46": {
+   "counts": {
+    "data/PROBABLE": 472,
+    "ff-run/HYPOTHESIS": 32,
+    "gfx/PROBABLE": 3008,
+    "ptrtable/PROBABLE": 12,
+    "unclassified/HYPOTHESIS": 8267,
+    "zero/HYPOTHESIS": 1841,
+    "zero/PROBABLE": 2752
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 9147
+  },
+  "47": {
+   "counts": {
+    "data/CONFIRMED": 4128,
+    "data/PROBABLE": 432,
+    "ff-run/HYPOTHESIS": 32,
+    "gfx/CONFIRMED": 128,
+    "gfx/PROBABLE": 3264,
+    "unclassified/HYPOTHESIS": 2934,
+    "zero/HYPOTHESIS": 2970,
+    "zero/PROBABLE": 2496
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 6680
+  },
+  "48": {
+   "counts": {
+    "code/CONFIRMED": 2484,
+    "code/PROBABLE": 90,
+    "data/CONFIRMED": 136,
+    "gfx/PROBABLE": 4837,
+    "unclassified/HYPOTHESIS": 112,
+    "zero/PROBABLE": 8725
+   },
+   "exec_bytes": 2373,
+   "exec_insns": 1288,
+   "nonzero": 5228
+  },
+  "4A": {
+   "counts": {
+    "data/CONFIRMED": 931,
+    "data/PROBABLE": 2040,
+    "gfx/CONFIRMED": 6912,
+    "gfx/PROBABLE": 3232,
+    "unclassified/HYPOTHESIS": 61,
+    "zero/PROBABLE": 3208
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 10705
+  },
+  "4B": {
+   "counts": {
+    "data/CONFIRMED": 4220,
+    "data/PROBABLE": 1088,
+    "gfx/CONFIRMED": 2048,
+    "gfx/PROBABLE": 6392,
+    "unclassified/HYPOTHESIS": 2604,
+    "zero/PROBABLE": 32
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13630
+  },
+  "4C": {
+   "counts": {
+    "code/CONFIRMED": 2565,
+    "code/PROBABLE": 2098,
+    "data/CONFIRMED": 8,
+    "ptrtable/CONFIRMED": 22,
+    "ptrtable/PROBABLE": 20,
+    "unclassified/HYPOTHESIS": 118,
+    "zero/PROBABLE": 11553
+   },
+   "exec_bytes": 2319,
+   "exec_insns": 1066,
+   "nonzero": 4570
+  },
+  "4D": {
+   "counts": {
+    "data/PROBABLE": 720,
+    "gfx/PROBABLE": 13104,
+    "ptrtable/PROBABLE": 24,
+    "unclassified/HYPOTHESIS": 875,
+    "zero/PROBABLE": 1661
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 11326
+  },
+  "4E": {
+   "counts": {
+    "code/CONFIRMED": 3864,
+    "code/PROBABLE": 4184,
+    "data/CONFIRMED": 113,
+    "ptrtable/CONFIRMED": 10,
+    "ptrtable/PROBABLE": 144,
+    "unclassified/HYPOTHESIS": 1441,
+    "zero/PROBABLE": 6628
+   },
+   "exec_bytes": 3591,
+   "exec_insns": 1913,
+   "nonzero": 9082
+  },
+  "4F": {
+   "counts": {
+    "code/CONFIRMED": 1396,
+    "code/PROBABLE": 444,
+    "ptrtable/PROBABLE": 44,
+    "unclassified/HYPOTHESIS": 161,
+    "zero/PROBABLE": 14339
+   },
+   "exec_bytes": 1358,
+   "exec_insns": 759,
+   "nonzero": 1960
+  },
+  "50": {
+   "counts": {
+    "code/PROBABLE": 880,
+    "data/PROBABLE": 255,
+    "gfx/PROBABLE": 5024,
+    "ptrtable/PROBABLE": 26,
+    "unclassified/HYPOTHESIS": 5365,
+    "zero/PROBABLE": 4834
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 8893
+  },
+  "51": {
+   "counts": {
+    "code/CONFIRMED": 431,
+    "code/PROBABLE": 2275,
+    "data/CONFIRMED": 64,
+    "data/PROBABLE": 1565,
+    "gfx/PROBABLE": 10239,
+    "ptrtable/CONFIRMED": 10,
+    "unclassified/HYPOTHESIS": 8,
+    "zero/PROBABLE": 1792
+   },
+   "exec_bytes": 395,
+   "exec_insns": 199,
+   "nonzero": 9066
+  },
+  "52": {
+   "counts": {
+    "gfx/PROBABLE": 2944,
+    "unclassified/HYPOTHESIS": 14,
+    "zero/HYPOTHESIS": 113,
+    "zero/PROBABLE": 13313
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 1787
+  },
+  "53": {
+   "counts": {
+    "ptrtable/PROBABLE": 50,
+    "text/PROBABLE": 319,
+    "zero/PROBABLE": 16015
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 344
+  },
+  "54": {
+   "counts": {
+    "code/CONFIRMED": 811,
+    "code/PROBABLE": 3982,
+    "data/CONFIRMED": 6,
+    "text/PROBABLE": 65,
+    "unclassified/HYPOTHESIS": 233,
+    "zero/PROBABLE": 11287
+   },
+   "exec_bytes": 721,
+   "exec_insns": 364,
+   "nonzero": 4832
+  },
+  "55": {
+   "counts": {
+    "code/CONFIRMED": 3843,
+    "code/PROBABLE": 576,
+    "data/CONFIRMED": 797,
+    "gfx/PROBABLE": 2224,
+    "ptrtable/CONFIRMED": 12,
+    "ptrtable/PROBABLE": 42,
+    "text/CONFIRMED": 276,
+    "text/PROBABLE": 744,
+    "unclassified/HYPOTHESIS": 3622,
+    "zero/HYPOTHESIS": 282,
+    "zero/PROBABLE": 3966
+   },
+   "exec_bytes": 3600,
+   "exec_insns": 1745,
+   "nonzero": 8795
+  },
+  "56": {
+   "counts": {
+    "data/CONFIRMED": 1509,
+    "data/PROBABLE": 3072,
+    "gfx/CONFIRMED": 5120,
+    "gfx/PROBABLE": 4438,
+    "text/CONFIRMED": 394,
+    "unclassified/HYPOTHESIS": 267,
+    "zero/PROBABLE": 1584
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 11106
+  },
+  "57": {
+   "counts": {
+    "code/CONFIRMED": 1747,
+    "code/PROBABLE": 3857,
+    "gfx/PROBABLE": 16,
+    "unclassified/HYPOTHESIS": 77,
+    "zero/PROBABLE": 10687
+   },
+   "exec_bytes": 1600,
+   "exec_insns": 717,
+   "nonzero": 5304
+  },
+  "58": {
+   "counts": {
+    "data/CONFIRMED": 9020,
+    "gfx/CONFIRMED": 464,
+    "gfx/PROBABLE": 3432,
+    "unclassified/HYPOTHESIS": 3116,
+    "zero/PROBABLE": 352
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 12029
+  },
+  "5B": {
+   "counts": {
+    "data/CONFIRMED": 1152,
+    "data/PROBABLE": 96,
+    "ff-run/HYPOTHESIS": 186,
+    "unclassified/HYPOTHESIS": 4422,
+    "zero/PROBABLE": 10528
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 5169
+  },
+  "5C": {
+   "counts": {
+    "code/CONFIRMED": 801,
+    "code/PROBABLE": 135,
+    "data/CONFIRMED": 2235,
+    "gfx/CONFIRMED": 1472,
+    "gfx/PROBABLE": 208,
+    "ptrtable/CONFIRMED": 10,
+    "ptrtable/PROBABLE": 72,
+    "text/PROBABLE": 3923,
+    "unclassified/HYPOTHESIS": 407,
+    "zero/PROBABLE": 7121
+   },
+   "exec_bytes": 726,
+   "exec_insns": 355,
+   "nonzero": 7849
+  },
+  "5D": {
+   "counts": {
+    "data/CONFIRMED": 3369,
+    "gfx/CONFIRMED": 12544,
+    "gfx/PROBABLE": 64,
+    "unclassified/HYPOTHESIS": 7,
+    "zero/PROBABLE": 400
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 12529
+  },
+  "5E": {
+   "counts": {
+    "data/CONFIRMED": 2928,
+    "gfx/CONFIRMED": 9504,
+    "gfx/PROBABLE": 2048,
+    "unclassified/HYPOTHESIS": 16,
+    "zero/PROBABLE": 1888
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 11145
+  },
+  "5F": {
+   "counts": {
+    "data/CONFIRMED": 2282,
+    "data/PROBABLE": 1704,
+    "gfx/CONFIRMED": 2832,
+    "gfx/PROBABLE": 2392,
+    "unclassified/HYPOTHESIS": 86,
+    "zero/HYPOTHESIS": 1920,
+    "zero/PROBABLE": 5168
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 7856
+  },
+  "60": {
+   "counts": {
+    "data/CONFIRMED": 2096,
+    "data/PROBABLE": 104,
+    "ff-run/HYPOTHESIS": 546,
+    "gfx/PROBABLE": 5744,
+    "unclassified/HYPOTHESIS": 6590,
+    "zero/PROBABLE": 1304
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13419
+  },
+  "61": {
+   "counts": {
+    "data/CONFIRMED": 12176,
+    "data/PROBABLE": 104,
+    "gfx/PROBABLE": 2800,
+    "zero/PROBABLE": 1304
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13584
+  },
+  "62": {
+   "counts": {
+    "gfx/CONFIRMED": 7872,
+    "gfx/PROBABLE": 3392,
+    "zero/PROBABLE": 5120
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 8604
+  },
+  "63": {
+   "counts": {
+    "code/CONFIRMED": 354,
+    "code/PROBABLE": 8,
+    "data/CONFIRMED": 579,
+    "data/PROBABLE": 40,
+    "gfx/CONFIRMED": 4160,
+    "gfx/PROBABLE": 8198,
+    "ptrtable/CONFIRMED": 16,
+    "unclassified/HYPOTHESIS": 4,
+    "zero/PROBABLE": 3025
+   },
+   "exec_bytes": 306,
+   "exec_insns": 145,
+   "nonzero": 4649
+  },
+  "65": {
+   "counts": {
+    "code/CONFIRMED": 1887,
+    "code/PROBABLE": 825,
+    "data/CONFIRMED": 235,
+    "ptrtable/CONFIRMED": 10,
+    "text/PROBABLE": 3577,
+    "unclassified/HYPOTHESIS": 263,
+    "zero/PROBABLE": 9587
+   },
+   "exec_bytes": 1605,
+   "exec_insns": 792,
+   "nonzero": 6619
+  },
+  "66": {
+   "counts": {
+    "data/CONFIRMED": 808,
+    "gfx/CONFIRMED": 8272,
+    "gfx/PROBABLE": 4416,
+    "zero/PROBABLE": 2888
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 10774
+  },
+  "67": {
+   "counts": {
+    "code/CONFIRMED": 2624,
+    "code/PROBABLE": 6613,
+    "data/CONFIRMED": 201,
+    "ptrtable/CONFIRMED": 10,
+    "text/PROBABLE": 54,
+    "unclassified/HYPOTHESIS": 833,
+    "zero/PROBABLE": 6049
+   },
+   "exec_bytes": 2342,
+   "exec_insns": 1119,
+   "nonzero": 9812
+  },
+  "68": {
+   "counts": {
+    "code/CONFIRMED": 11532,
+    "code/PROBABLE": 2285,
+    "data/CONFIRMED": 309,
+    "ptrtable/CONFIRMED": 46,
+    "ptrtable/PROBABLE": 42,
+    "text/PROBABLE": 58,
+    "unclassified/HYPOTHESIS": 971,
+    "zero/HYPOTHESIS": 514,
+    "zero/PROBABLE": 627
+   },
+   "exec_bytes": 10485,
+   "exec_insns": 4871,
+   "nonzero": 14117
+  },
+  "69": {
+   "counts": {
+    "code/CONFIRMED": 160,
+    "code/PROBABLE": 160,
+    "data/CONFIRMED": 5,
+    "data/PROBABLE": 336,
+    "gfx/CONFIRMED": 1536,
+    "gfx/PROBABLE": 14,
+    "ptrtable/PROBABLE": 34,
+    "unclassified/HYPOTHESIS": 897,
+    "zero/PROBABLE": 13242
+   },
+   "exec_bytes": 145,
+   "exec_insns": 64,
+   "nonzero": 2074
+  },
+  "6A": {
+   "counts": {
+    "data/CONFIRMED": 3301,
+    "data/PROBABLE": 1240,
+    "gfx/CONFIRMED": 6224,
+    "gfx/PROBABLE": 651,
+    "ptrtable/PROBABLE": 34,
+    "text/CONFIRMED": 93,
+    "text/PROBABLE": 375,
+    "unclassified/HYPOTHESIS": 1073,
+    "zero/PROBABLE": 3393
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 11231
+  },
+  "6B": {
+   "counts": {
+    "code/PROBABLE": 155,
+    "gfx/PROBABLE": 3024,
+    "unclassified/HYPOTHESIS": 5,
+    "zero/HYPOTHESIS": 176,
+    "zero/PROBABLE": 13024
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 1640
+  },
+  "6C": {
+   "counts": {
+    "code/CONFIRMED": 3354,
+    "code/PROBABLE": 568,
+    "data/CONFIRMED": 974,
+    "ptrtable/CONFIRMED": 20,
+    "text/PROBABLE": 3176,
+    "unclassified/HYPOTHESIS": 559,
+    "zero/PROBABLE": 7733
+   },
+   "exec_bytes": 3087,
+   "exec_insns": 1485,
+   "nonzero": 8304
+  },
+  "70": {
+   "counts": {
+    "code/CONFIRMED": 1214,
+    "code/PROBABLE": 597,
+    "data/CONFIRMED": 1390,
+    "gfx/CONFIRMED": 6656,
+    "ptrtable/CONFIRMED": 26,
+    "ptrtable/PROBABLE": 44,
+    "unclassified/HYPOTHESIS": 3705,
+    "zero/HYPOTHESIS": 80,
+    "zero/PROBABLE": 2672
+   },
+   "exec_bytes": 1127,
+   "exec_insns": 513,
+   "nonzero": 11753
+  },
+  "71": {
+   "counts": {
+    "data/CONFIRMED": 4748,
+    "data/PROBABLE": 744,
+    "gfx/CONFIRMED": 8144,
+    "gfx/PROBABLE": 112,
+    "unclassified/HYPOTHESIS": 396,
+    "zero/PROBABLE": 2240
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 12195
+  },
+  "72": {
+   "counts": {
+    "code/CONFIRMED": 2703,
+    "code/PROBABLE": 1235,
+    "data/CONFIRMED": 1359,
+    "data/PROBABLE": 344,
+    "gfx/CONFIRMED": 2304,
+    "gfx/PROBABLE": 1280,
+    "ptrtable/CONFIRMED": 30,
+    "ptrtable/PROBABLE": 178,
+    "text/CONFIRMED": 1089,
+    "text/PROBABLE": 2175,
+    "unclassified/HYPOTHESIS": 2182,
+    "zero/PROBABLE": 1505
+   },
+   "exec_bytes": 2454,
+   "exec_insns": 1114,
+   "nonzero": 12909
+  },
+  "73": {
+   "counts": {
+    "code/CONFIRMED": 639,
+    "code/PROBABLE": 323,
+    "data/CONFIRMED": 1153,
+    "data/PROBABLE": 200,
+    "gfx/CONFIRMED": 5120,
+    "gfx/PROBABLE": 1200,
+    "ptrtable/CONFIRMED": 10,
+    "text/PROBABLE": 142,
+    "unclassified/HYPOTHESIS": 156,
+    "zero/PROBABLE": 7441
+   },
+   "exec_bytes": 558,
+   "exec_insns": 235,
+   "nonzero": 5864
+  },
+  "74": {
+   "counts": {
+    "code/CONFIRMED": 3311,
+    "code/PROBABLE": 3379,
+    "data/CONFIRMED": 151,
+    "ptrtable/PROBABLE": 18,
+    "unclassified/HYPOTHESIS": 406,
+    "zero/PROBABLE": 9119
+   },
+   "exec_bytes": 3191,
+   "exec_insns": 1855,
+   "nonzero": 7061
+  },
+  "75": {
+   "counts": {
+    "code/CONFIRMED": 6833,
+    "code/PROBABLE": 7936,
+    "data/CONFIRMED": 311,
+    "ptrtable/PROBABLE": 142,
+    "text/PROBABLE": 123,
+    "unclassified/HYPOTHESIS": 853,
+    "zero/PROBABLE": 186
+   },
+   "exec_bytes": 6833,
+   "exec_insns": 3585,
+   "nonzero": 15763
+  },
+  "76": {
+   "counts": {
+    "gfx/PROBABLE": 11304,
+    "zero/PROBABLE": 5080
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 8820
+  },
+  "77": {
+   "counts": {
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1156
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 14124
+  },
+  "78": {
+   "counts": {
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1156
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 14102
+  },
+  "79": {
+   "counts": {
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1156
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 14074
+  },
+  "7A": {
+   "counts": {
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1156
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 13190
+  },
+  "7B": {
+   "counts": {
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1156
+   },
+   "exec_bytes": 0,
+   "exec_insns": 0,
+   "nonzero": 14042
+  },
+  "7C": {
+   "counts": {
+    "code/CONFIRMED": 357,
+    "code/PROBABLE": 266,
+    "gfx/PROBABLE": 15218,
+    "ptrtable/PROBABLE": 36,
+    "unclassified/HYPOTHESIS": 12,
+    "zero/PROBABLE": 495
+   },
+   "exec_bytes": 273,
+   "exec_insns": 118,
+   "nonzero": 14562
+  },
+  "7D": {
+   "counts": {
+    "code/CONFIRMED": 146,
+    "code/PROBABLE": 4,
+    "gfx/PROBABLE": 15228,
+    "zero/PROBABLE": 1006
+   },
+   "exec_bytes": 146,
+   "exec_insns": 83,
+   "nonzero": 14125
+  },
+  "7E": {
+   "counts": {
+    "code/CONFIRMED": 119,
+    "code/PROBABLE": 559,
+    "data/CONFIRMED": 2,
+    "gfx/PROBABLE": 15228,
+    "unclassified/HYPOTHESIS": 143,
+    "zero/PROBABLE": 333
+   },
+   "exec_bytes": 119,
+   "exec_insns": 79,
+   "nonzero": 8275
+  },
+  "7F": {
+   "counts": {
+    "code/CONFIRMED": 2501,
+    "code/PROBABLE": 5792,
+    "data/CONFIRMED": 410,
+    "data/PROBABLE": 1038,
+    "gfx/PROBABLE": 1968,
+    "ptrtable/PROBABLE": 92,
+    "text/PROBABLE": 287,
+    "unclassified/HYPOTHESIS": 3230,
+    "zero/HYPOTHESIS": 239,
+    "zero/PROBABLE": 827
+   },
+   "exec_bytes": 2450,
+   "exec_insns": 1664,
+   "nonzero": 13468
+  }
+ },
+ "rounds": 2,
+ "tables": 22,
+ "totals": {
+  "code/CONFIRMED": 86783,
+  "code/PROBABLE": 122455,
+  "data/CONFIRMED": 115868,
+  "data/PROBABLE": 41298,
+  "ff-run/HYPOTHESIS": 917,
+  "gfx/CONFIRMED": 144432,
+  "gfx/PROBABLE": 271617,
+  "ptrtable/CONFIRMED": 270,
+  "ptrtable/PROBABLE": 1406,
+  "text/CONFIRMED": 20582,
+  "text/PROBABLE": 20364,
+  "unclassified/HYPOTHESIS": 118271,
+  "zero/HYPOTHESIS": 18959,
+  "zero/PROBABLE": 413034
+ },
+ "unknown_bytes": 118271,
+ "unknown_spans": 1497,
+ "validation": {
+  "bank0_hand_code_starts": 3325,
+  "bank0_reached": 2934,
+  "bank0_reached_not_hand_code": 0,
+  "boundary_crossings": 0,
+  "code_regions": 2319,
+  "entrypoints": {
+   "CONFIRMED/True": 99,
+   "PROBABLE/False": 1,
+   "PROBABLE/True": 1279
+  },
+  "entrypoints_not_code": 1,
+  "executed_missing": 0,
+  "executed_starts": 43265,
+  "farcall_targets": {
+   "CONFIRMED/True": 23,
+   "HYPOTHESIS/True": 1390,
+   "PROBABLE/True": 3877
+  },
+  "farcall_targets_not_code": 0,
+  "sweep_failures": 0,
+  "tiling_problems": 0
+ }
+}
