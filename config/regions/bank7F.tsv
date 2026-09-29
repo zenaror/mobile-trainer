@@ -1,9 +1,9 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4007	data	Data_7F_4000	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4007	code	-	HYPOTHESIS	complete 3-insn function (call $400E ; call $0DCE ; ret): twin of the executed 7F:4007 (call $400E ; call $0DB9 ; ret); both callees are proven (400E executed 12/18; 00:0DCE = the non-duplicating variant of 00:0DB9); no caller/pointer to 7F:4000 found in the ROM (whole-ROM search of far calls, ld r16, words), entry unproven [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
 4007	4019	code	Function_7F_4007	CONFIRMED	9 insn(s); 9 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 4019	401B	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 7F:4011 (executed)
 401B	4042	code	-	CONFIRMED	25 insn(s); 25 executed (in up to 12/18 scenarios)
-4042	404C	data	Data_7F_4042	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4042	404C	code	-	PROBABLE	head of the function that contains the validated far-call site at 404C: push bc ; ld b,d ; ld c,e ; ld hl,$000C ; add hl,de ; ld d,h ; ld e,l ; pop hl (argument set-up), starting right after the ret at 4041 of the executed glyph routine; no caller found, entry unproven
 404C	405F	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 405F	4083	code	Function_7F_405F	CONFIRMED	16 insn(s); 16 executed (in up to 13/18 scenarios); entry proven: target of an executed call/far call
 4083	4087	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7F:4081 (executed)
@@ -13,7 +13,7 @@
 41A7	41B3	code	Function_7F_41A7	CONFIRMED	8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 41B3	41C5	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 7F:41B1 (executed)
 41C5	4202	code	-	CONFIRMED	43 insn(s); 43 executed (in up to 14/18 scenarios)
-4202	4204	data	Data_7F_4202	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4202	4204	code	-	PROBABLE	entry 0 of the 16-word jump table 7F:42A3 (target $4202): pop hl ; ret (handler that only cleans the stack)
 4204	422B	code	-	CONFIRMED	32 insn(s); 32 executed (in up to 6/18 scenarios)
 422B	424A	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: table x24; min discovery hops 0; run starts at an entry of the code-pointer table at 7F:42A5
 424A	425A	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -38,7 +38,7 @@
 4506	457C	code	-	CONFIRMED	84 insn(s); 84 executed (in up to 14/18 scenarios)
 457C	4590	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:457A (executed)
 4590	45CC	code	-	CONFIRMED	43 insn(s); 43 executed (in up to 14/18 scenarios)
-45CC	45D5	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:45CA (executed)
+45CC	45D5	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:45CA (executed) [executed in 2 scenarios]
 45D5	4606	code	-	CONFIRMED	36 insn(s); 36 executed (in up to 14/18 scenarios)
 4606	461A	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4604 (executed)
 461A	4656	code	-	CONFIRMED	43 insn(s); 43 executed (in up to 14/18 scenarios)
@@ -64,138 +64,86 @@
 4911	4942	code	-	CONFIRMED	36 insn(s); 36 executed (in up to 14/18 scenarios)
 4942	4956	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4940 (executed)
 4956	499C	code	-	CONFIRMED	49 insn(s); 49 executed (in up to 14/18 scenarios)
-499C	499D	data	Data_7F_499C	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-499D	499E	data	Data_7F_499D	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-499E	499F	data	Data_7F_499E	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-499F	49A0	data	Data_7F_499F	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49A0	49A1	data	Data_7F_49A0	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49A1	49A2	data	Data_7F_49A1	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49A2	49A3	data	Data_7F_49A2	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49A3	49A5	data	Data_7F_49A3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49A5	49A6	data	Data_7F_49A5	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49A6	49A7	data	Data_7F_49A6	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49A7	49A8	data	Data_7F_49A7	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49A8	49A9	data	Data_7F_49A8	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49A9	49AA	data	Data_7F_49A9	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49AA	49AB	data	Data_7F_49AA	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-49AB	49AC	data	Data_7F_49AB	CONFIRMED	read as data by executed code (in up to 14/18 scenarios); content class unknown
-49AC	4BBC	data	Data_7F_49AC	HYPOTHESIS	UNCLASSIFIED 528 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+499C	49A5	data	Table_7F_499C	PROBABLE	9-byte mask table 03 81 C0 E0 F0 F8 FC FE FF indexed with c: ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a at 7F:4311 (executed; near-identical clones of this reader in the PROBABLE code at 7F:49FA and 7F:4B03 read the table too; entries 0,2,4,6 = bytes 499C,499E,49A0,49A2 read in 14/18 scenarios); extent 9 = distance to the second table
+49A5	49AE	data	Table_7F_49A5	PROBABLE	9-byte mask table FF FF FF 7F 3F 1F 0F 07 03 read as ld hl,$49A5 ; add hl,bc ; ld a,[hl] ; ld [$C0D1],a at 7F:4319 (executed; entries 0,2,4,6 read; clones at 7F:4A02 and 7F:4B0B); pairs with Table_7F_499C
+49AE	4BBC	code	-	PROBABLE	two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the PROBABLE code 4BBC); they use the mask tables 7F:499C/49A5 like 4956; 4AAF is referenced by no code word/call found, entries unproven [verifier: the absence of a caller is not evidence against: the executed sibling 7F:4956 has no static caller either; 7F:49F6-4A07 is an instruction-level clone of the executed reader 7F:430D-431E (push hl ; ld c,a ; ld b,0 ; ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a ; ld hl,$49A5 ; ... ld [$C0D1],a; verified by decoding both); still no entry, so PROBABLE only through the family evidence]
 4BBC	4C42	code	-	PROBABLE	65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6; entered by call from 7F:4D77 (PROBABLE code)
 4C42	4C57	code	Function_7F_4C42	CONFIRMED	15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 4C57	4C77	data	Data_7F_4C57	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-4C77	4C78	data	Data_7F_4C77	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4C77	4C78	data	Data_7F_4C77	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) between the 32-byte buffer 4C57-4C77 and the code at 4C78; a lone ret stub like 2E:4EB1 (which is called) is possible, but no caller/pointer was found; left unclassified
 4C78	4D50	code	-	PROBABLE	116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-4D50	4D5E	data	Data_7F_4D50	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D50	4D58	data	Palette_7F_4D50	PROBABLE	8 bytes = one RGB555 palette (7FFF 7C00 001F 0000) written to the palette port with ld hl,$4D50 ; ld b,8 ; ld a,[hli] ; ldh [$69],a at 7F:4D41-4D49
+4D58	4D5E	code	-	PROBABLE	function head ld hl,$4D88 ; ld de,$0000 : the loop that follows (4D5E, PROBABLE, jr nz back at 4D85) prints the string at 7F:4D88 ("Sample DATA.") glyph by glyph; immediate = exact string start; no caller found, entry unproven
 4D5E	4D88	code	-	PROBABLE	25 insn(s) reached by static flow only; seeds: site x25; min discovery hops 0; entered by jrcc from 7F:4D85 (PROBABLE code)
-4D88	4D95	data	Data_7F_4D88	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D88	4D95	text	String_7F_4D88	PROBABLE	ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
 4D95	4DF2	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C84 (PROBABLE code)
 4DF2	4E0D	text	String_7F_4DF2	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4E0D	4E6A	code	-	PROBABLE	56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C93 (PROBABLE code)
 4E6A	4E85	text	String_7F_4E6A	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4E85	4E89	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1; entered by call from 7F:4C81 (PROBABLE code)
-4E89	4E95	data	Data_7F_4E89	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4E89	4E95	ptrtable	Table_7F_4E89	PROBABLE	6 x dw string pointers (4E95, 4EA8, 4EC1, 4ED0, 4EE1, 4EE8); every target is a string start of the text below (Japanese/ASCII page names); 7F:4E85 (call $4BBC ; ret) precedes it; no ld hl,$4E89 found, so the reader is unlocated
 4E95	4ED0	text	String_7F_4E95	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4ED0	4EF0	data	Data_7F_4ED0	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4ED0	4EF0	text	String_7F_4ED0	PROBABLE	ASCII "MissingLink_HOME" + $07 (control byte) + "sample" + NUL, followed by "sample" and "sample2" strings that are the last targets (4EE1, 4EE8) of the table 7F:4E89
 4EF0	4EFC	ptrtable	Table_7F_4EF0	PROBABLE	little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $4EFC..$4F79; regular record stride between targets; verifier: truncated from 8 to 6 entries: entry 0 = 4EFC is where the table ends
-4EFC	4F15	data	Data_7F_4EFC	HYPOTHESIS	UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4EFC	4F15	text	String_7F_4EFC	PROBABLE	ASCII URL "http://www.nintendo.com/" + NUL = first target (4EFC) of the pointer table 7F:4EF0
 4F15	4FC3	text	String_7F_4F15	PROBABLE	text: 8 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4FC3	4FF5	data	Data_7F_4FC3	HYPOTHESIS	UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FC3	4FCF	words	Table_7F_4FC3	PROBABLE	6 words = SRAM addresses A084,A184,A284,A384,A484,A584 (not text although the bytes 84 A0.. are valid Shift-JIS): read by 7 code sites as ld hl,$4FC3 ; ld a,[hli] ; ld e,a ; ld a,[hli] ; ld d,a ; ld a,[de] (7F:5386 ...) and by ld hl,$4FC5/$4FC7/... (entries)
+4FCF	4FDB	words	Table_7F_4FCF	PROBABLE	6 words = SRAM addresses A000,A016,A02C,A042,A058,A06E (stride $16), read via ld hl,$4FCF at 7 code sites (7F:5709, 5731, 579A, 57C2, 5F2E, 5F87, 61B5)
+4FDB	4FF5	code	-	PROBABLE	function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call 7F:7271, an executed function); starts right after the word table above; no caller found, entry unproven
 4FF5	51ED	code	-	PROBABLE	221 insn(s) reached by static flow only; seeds: site x221; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-51ED	51EE	data	Data_7F_51ED	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51ED	51EE	data	Data_7F_51ED	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
 51EE	5CB8	code	-	PROBABLE	1292 insn(s) reached by static flow only; seeds: site x1292; min discovery hops 0; entered by call from 7F:500C (PROBABLE code)
-5CB8	5CDC	data	Data_7F_5CB8	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5CB8	5CDC	code	-	PROBABLE	first half of a function (cp a,b ; ret z ; push af ; ld a,$E8 ; ld [$DA81],a ... jr c,$5CE7 ; ... call $5C39 (called from 7F:5CB4) ; push bc ; far call) that continues in the PROBABLE site region 5CDC and, through the jr c target 5CE7, in the second half; all direct targets land on instruction starts (5C39, 5CE7, 0464, 5CCA loop)
 5CDC	5CE7	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-5CE7	5CFF	data	Data_7F_5CE7	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5CE7	5CFF	code	-	PROBABLE	second half (jr c target of 5CC2, 5CE7): add a,$28 ... loop ... pop bc ; call $5C39 ; push bc, flowing into the far-call site region at 5CFF; twin of the first half 5CB8-5CE7
 5CFF	61E8	code	-	PROBABLE	626 insn(s) reached by static flow only; seeds: site x626; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-61E8	61FC	data	Data_7F_61E8	HYPOTHESIS	UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+61E8	61FC	code	-	HYPOTHESIS	complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld [$C2D4..$C2D7],a ; ret) directly before the executed function 7F:61FC; no caller/pointer found, entry unproven
 61FC	620C	code	Function_7F_61FC	CONFIRMED	10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-620C	6218	data	Data_7F_620C	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+620C	6218	code	-	HYPOTHESIS	complete function (ld a,[$C26B] ; cp $1E ; jr c ; ld a,$FF ; ret ; xor a ; ret) directly before the PROBABLE far-entry 7F:6218; no caller/pointer found, entry unproven
 6218	624F	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery hops 0; entered by far from 23:50E5 (PROBABLE code)
 624F	62A9	code	Function_7F_624F	CONFIRMED	60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-62A9	62B0	data	Data_7F_62A9	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+62A9	62B0	zero	-	PROBABLE	7 x 00 between the ret of the executed function 7F:624F-62A9 and the tile block 7F:62B0
 62B0	66B0	gfx	Data_7F_62B0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5233: hl=$62B0 a=$7F c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 66B0	67D0	gfx	Data_7F_66B0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5245: hl=$66B0 a=$7F c=$12 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 67D0	6AA0	data	Data_7F_67D0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 7F:5281: hl=$67D0 a=$7F b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
-6AA0	6AE0	data	Data_7F_6AA0	HYPOTHESIS	UNCLASSIFIED 64 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6AA0	6AE0	data	Palette_7F_6AA0	PROBABLE	8 RGB555 palettes of 4 colours (64 bytes, bit15 clear): follows the tilemap+attr block 67D0-6AA0 (0x2D0) exactly and is loaded with ld hl,$6AA0 at 7F:52A4 (same tiles/tilemap/palette layout as banks 41-47)
 6AE0	6D70	gfx	Data_7F_6AE0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 7F:5257: hl=$6AE0 a=$7F c=$29 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
-6D70	70FD	data	Data_7F_6D70	HYPOTHESIS	UNCLASSIFIED 909 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6D70	6DB0	data	Palette_7F_6D70	PROBABLE	8 RGB555 palettes of 4 colours (64 bytes, all words < $8000), loaded with ld hl,$6D70 at 7F:5293; follows the tile block 6AE0-6D70 (41 tiles, HDMA c=$29)
+6DB0	6E50	words	Table_7F_6DB0	PROBABLE	10 object tables of 4 entries x 2 words (6DB0 ... 6E40, 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$6DB0..$6E40 a=$7F, call sites 7F:5267 549B 54E5 5BE0 ...); all 80 words point into the animation block 6E50-70FD
+6E50	70FD	data	Data_7F_6E50	PROBABLE	animation descriptors / sprite lists reached from the object tables 7F:6DB0-6E50 (same format as bank 72:786C-7A1F: sprite list = count + count*(y,x,tile,attr), descriptors 02 00 .. dw dw)
 70FD	710D	code	Function_7F_70FD	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-710D	7112	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 7F:710B (executed)
+710D	7112	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 7F:710B (executed) [executed in 1 scenarios]
 7112	712F	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 2/18 scenarios)
-712F	7136	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:712D (executed)
+712F	7136	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:712D (executed) [executed in 2 scenarios]
 7136	7157	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios)
-7157	715F	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:7155 (executed)
+7157	715F	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:7155 (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 715F	7186	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 2/18 scenarios)
-7186	718E	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:7184 (executed)
+7186	718E	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 7F:7184 (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 718E	7235	code	-	CONFIRMED	85 insn(s); 85 executed (in up to 3/18 scenarios)
-7235	723D	data	Data_7F_7235	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7235	723D	code	-	PROBABLE	two functions in the family of the executed 7F:721D/7224: 7235-723B (push af ; ld e,0 ; ld d,9 ; pop af ; ret; same shape as 721D with d=8) and the first byte (push af) of the function 723C-7253 whose body is the validated far-call region 723D-7253; no caller found (7F:721D/7224 are far-called from 55:6490/64F5), entry unproven
 723D	7253	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: site x7; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-7253	725B	data	Data_7F_7253	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7253	725B	code	-	PROBABLE	twin of 7F:7235: push af ; ld e,0 ; ld d,9 ; pop af ; ret + first byte (push af) of the function 725A-7271 (body = far-call region 725B-7271); entry unproven
 725B	7271	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: site x7; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 7271	72E2	code	Function_7F_7271	CONFIRMED	67 insn(s); 67 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-72E2	7306	data	Data_7F_72E2	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+72E2	7306	code	-	PROBABLE	function 72E2-730D (push bc ; ldh a,[$FF70] ... step [$DA31] toward d by 8 ... far call 00:0956 ; pop bc ; ret) whose tail is the validated far-call site region 7306; entry unproven
 7306	730E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-730E	7332	data	Data_7F_730E	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+730E	7332	code	-	PROBABLE	twin of 7F:72E2 with step 12 and [$DA51]: function 730E-7339, tail = validated far-call site region 7332; entry unproven
 7332	733A	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 733A	7375	code	Function_7F_733A	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-7375	7377	data	Data_7F_7375	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7377	7385	data	Data_7F_7377	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7385	7390	data	Data_7F_7385	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7390	73AD	zero	-	HYPOTHESIS	padding? run of 29 x $00 in unclassified bytes
-73AD	7425	data	Data_7F_73AD	HYPOTHESIS	UNCLASSIFIED 120 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7375	7385	words	Table_7F_7375	PROBABLE	8 x dw row pointers (7385, 7399, 73AD, 73C1, 73D5, 73E9, 73FD, 7411) of the executed function 7F:733A (ld hl,$7375 ; c=2*d ; add hl,bc ; ld a,[hli] ; ld c,a ; ld b,[hl]); the first entry is CONFIRMED read data
+7385	7425	data	Data_7F_7385	PROBABLE	8 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:733A (ld hl,$7375 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; 8 x 20 = 160 bytes end exactly at the next function 7F:7425
 7425	7467	code	Function_7F_7425	CONFIRMED	38 insn(s); 38 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 7467	747F	ptrtable	Table_7F_7467	PROBABLE	little-endian word table, 12 entries, monotone=1.00, 75% of targets on string start/after NUL, targets $747F..$7564; referenced by ld r16,$7467 at 7F:7426
-747F	74A0	zero	-	HYPOTHESIS	0x00 run of 40 bytes [clipped from 747F-74A7 by higher-priority proposals]
-74A0	74CF	data	Data_7F_74A0	HYPOTHESIS	UNCLASSIFIED 47 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-74CF	74DA	data	Data_7F_74CF	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-74DA	74E3	data	Data_7F_74DA	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-74E3	74EE	data	Data_7F_74E3	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-74EE	751F	data	Data_7F_74EE	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-751F	752A	data	Data_7F_751F	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-752A	7550	data	Data_7F_752A	HYPOTHESIS	UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7550	755B	data	Data_7F_7550	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-755B	7578	data	Data_7F_755B	HYPOTHESIS	UNCLASSIFIED 29 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+747F	7578	data	Data_7F_747F	PROBABLE	12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7425 (ld hl,$7467 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function (rows at 747F,7493,...,7533,7550,7564: the pointers of Table_7F_7467; 12 rows x 20 + a 9-byte gap between 7547 and 7550) ending exactly at the executed function 7F:7578
 7578	75B3	code	Function_7F_7578	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-75B3	75B5	data	Data_7F_75B3	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-75B5	75CB	data	Data_7F_75B5	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-75CB	75D6	data	Data_7F_75CB	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-75D6	75F3	zero	-	HYPOTHESIS	padding? run of 29 x $00 in unclassified bytes
-75F3	76C4	data	Data_7F_75F3	HYPOTHESIS	UNCLASSIFIED 209 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+75B3	75CB	ptrtable	Table_7F_75B3	PROBABLE	12 x dw row pointers (75CB, 75DF, ..., 767F, 769C, 76B0) of the executed function 7F:7578 (ld hl,$75B3 ; c=2*d ...); the first word is CONFIRMED read data
+75CB	76C4	data	Data_7F_75CB	PROBABLE	12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7578 (ld hl,$75B3 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; rows end exactly at the next function 7F:76C4
 76C4	7706	code	Function_7F_76C4	CONFIRMED	38 insn(s); 38 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 7706	771E	ptrtable	Table_7F_7706	PROBABLE	little-endian word table, 12 entries, monotone=1.00, 75% of targets on string start/after NUL, targets $771E..$7803; referenced by ld r16,$7706 at 7F:76C5
-771E	7740	zero	-	HYPOTHESIS	0x00 run of 40 bytes [clipped from 771E-7746 by higher-priority proposals]
-7740	776E	data	Data_7F_7740	HYPOTHESIS	UNCLASSIFIED 46 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-776E	7779	data	Data_7F_776E	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7779	7782	data	Data_7F_7779	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7782	778D	data	Data_7F_7782	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-778D	77BE	data	Data_7F_778D	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-77BE	77C9	data	Data_7F_77BE	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-77C9	77EF	data	Data_7F_77C9	HYPOTHESIS	UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-77EF	77FA	data	Data_7F_77EF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-77FA	7817	data	Data_7F_77FA	HYPOTHESIS	UNCLASSIFIED 29 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+771E	7817	data	Data_7F_771E	PROBABLE	12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:76C4 (ld hl,$7706 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; the pointers of Table_7F_7706 (771E .. 77D2, 77EF, 7803) end exactly at the code region 7817
 7817	7830	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 1; entered by far from 7F:7244 (PROBABLE code)
-7830	7924	data	Data_7F_7830	HYPOTHESIS	UNCLASSIFIED 244 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7924	7938	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-7938	7964	data	Data_7F_7938	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7964	7978	zero	-	HYPOTHESIS	padding? run of 20 x $00 in unclassified bytes
-7978	79A4	data	Data_7F_7978	HYPOTHESIS	UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-79A4	79BC	zero	-	HYPOTHESIS	padding? run of 24 x $00 in unclassified bytes
-79BC	7A3A	data	Data_7F_79BC	HYPOTHESIS	UNCLASSIFIED 126 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7A3A	7A4A	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-7A4A	7A74	data	Data_7F_7A4A	HYPOTHESIS	UNCLASSIFIED 42 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7A74	7A86	zero	-	HYPOTHESIS	padding? run of 18 x $00 in unclassified bytes
-7A86	7AC0	data	Data_7F_7A86	HYPOTHESIS	UNCLASSIFIED 58 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7AC0	7AD0	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-7AD0	7B00	data	Data_7F_7AD0	HYPOTHESIS	UNCLASSIFIED 48 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7B00	7B10	data	Data_7F_7B00	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7B00-7B28 by higher-priority evidence]
-7B10	7BA0	data	Data_7F_7B10	PROBABLE	palette-rgb555: heuristic: 72 RGB555 words as 18 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-7BA0	7BB0	data	Data_7F_7BA0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7BB0	7BC7	data	Data_7F_7BB0	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-7BC7	7BCF	data	Data_7F_7BC7	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7BCF	7C6A	data	Data_7F_7BCF	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-7C6A	7C6C	data	Data_7F_7C6A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7C6C	7CA3	data	Data_7F_7C6C	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7CA3	7CBC	data	Data_7F_7CA3	HYPOTHESIS	UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7CBC	7CC3	data	Data_7F_7CBC	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-7CC3	7CC5	data	Data_7F_7CC3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7830	7B00	gfx	Tiles_7F_7830	PROBABLE	45 tiles (0x2D0 bytes) of 2bpp sprite-like graphics (rendered: signal/sync-style icons and small diagonal shapes; blank rows/tiles included); no HDMA call site found in the ROM (address never loaded as an immediate); bounded by the ret of 7F:782F before and the 8 palettes (7B00) after
+7B00	7B40	data	Palette_7F_7B00	PROBABLE	8 RGB555 palettes of 4 colours (64 bytes, all words < $8000; the last five are 0000 294A 56B5 7FFF); the mapper heuristic that made 7B10-7BA0 one 18-group palette ran over the object tables that follow (7B40-7B90)
+7B40	7B90	words	Table_7F_7B40	PROBABLE	5 object tables of 4 entries x 2 words (7B40, 7B50, 7B60, 7B70, 7B80; 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$7B50/$7B60/$7B70/$7B80, a=$7F, callers in banks 2A, 2C, 2D, 2F, 65); all words point into 7B90-7CC5
+7B90	7CC5	data	Data_7F_7B90	PROBABLE	animation descriptors / sprite lists reached from the object tables 7F:7B40-7B90 (format as in bank 72:786C-7A1F); parts of it are CONFIRMED read by executed code (5/18 scenarios)
 7CC5	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

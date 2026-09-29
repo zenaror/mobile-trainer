@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank0E", ROMX[$4000], BANK[$0E]
 
@@ -12,9 +13,7 @@ Function_0E_4000:: ; 0E:4000
 	ld [wRam_C280], a
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ld a, [wRam_C280]
 	or a, a
 	jr nz, Label_0E_4019
@@ -62,13 +61,9 @@ Label_0E_401E:: ; 0E:401E
 	ret
 
 Function_0E_405F:: ; 0E:405F
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	call Function_0E_4083
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C27C]
 	cp a, $FF
@@ -109,9 +104,7 @@ Table_0E_4094:: ; 0E:4094
 
 Label_0E_40A2:: ; 0E:40A2
 	call Function_0E_434F
-	call FarCall
-	dw Function_4F_42FF
-	db BANK(Function_4F_42FF)
+	farcall Function_4F_42FF
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -157,9 +150,7 @@ Label_0E_40DD:: ; 0E:40DD
 	jr Label_0E_410B
 
 Label_0E_40F4:: ; 0E:40F4
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, [wRam_C27C]
 	add a, $02
 	ld [wRam_C27C], a
@@ -174,9 +165,7 @@ Label_0E_410B:: ; 0E:410B
 	ret
 
 Label_0E_410C:: ; 0E:410C
-	call FarCall
-	dw Function_4F_43B8
-	db BANK(Function_4F_43B8)
+	farcall Function_4F_43B8
 	ld a, [wRam_C27C]
 	inc a
 	ld [wRam_C27C], a
@@ -213,9 +202,7 @@ Label_0E_411A:: ; 0E:411A
 	ld a, b
 	ld [wRam_C27D], a
 	call Function_0E_4215
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -320,9 +307,7 @@ Label_0E_41FD:: ; 0E:41FD
 	ret
 
 Label_0E_41FE:: ; 0E:41FE
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	ld a, $FF
 	ld [wRam_C27C], a
 	ret
@@ -330,9 +315,7 @@ Label_0E_41FE:: ; 0E:41FE
 ; ---- code $420A-$4215 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 
 Label_0E_420A:: ; 0E:420A
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
+	farcall Function_4F_4370
 	xor a, a
 	ld [wRam_C27C], a
 	ret
@@ -345,86 +328,64 @@ Function_0E_4215:: ; 0E:4215
 	ld a, [hl]
 	or a, $04
 	ld [hl], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld de, $8000
 	ld hl, $43C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8800
 	ld hl, $47C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8001
 	ld hl, $49C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8801
 	ld hl, $4BC0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8C01
 	ld hl, $4FC0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9001
 	ld hl, $53C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $57C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $5F30
 	ld a, $0E
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5F70
 	ld a, $0E
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5BC0
 	ld a, $0E
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_0E_4311
 	ldh a, [rLCDC]
 	call Function_00_07CB
@@ -432,23 +393,17 @@ Function_0E_4215:: ; 0E:4215
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	call Function_0E_4334
 	ld hl, $DA20
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $82
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld de, $0000
 	ld hl, $DA20
 	call Function_00_0A65
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
 Function_0E_4311:: ; 0E:4311
@@ -466,9 +421,7 @@ Function_0E_4311:: ; 0E:4311
 	ld h, [hl]
 	ld l, a
 	ld a, $0E
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ret
 
 ; ---- data $4330-$4334 (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
@@ -507,50 +460,36 @@ Function_0E_434F:: ; 0E:434F
 	ld a, [hl]
 	or a, $04
 	ld [hl], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	ld de, $9001
 	ld hl, $60A0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $64A0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6B70
 	ld a, $0E
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $68A0
 	ld a, $0E
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_07CB
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ret
 
-; ---- data $43B1-$43C0 (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_0E_43B1:: ; 0E:43B1
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $43B1-$43C0 (15 bytes) [PROBABLE] 15 zero bytes: padding between the ret at 43B0 and the tile block at 43C0 (all bytes are $00)
+	ds $F, $00
 
 ; ---- gfx $43C0-$47C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 0E:4231: hl=$43C0 a=$0E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 

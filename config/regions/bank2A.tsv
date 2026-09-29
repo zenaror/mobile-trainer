@@ -1,31 +1,60 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4214	code	-	PROBABLE	231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code)
-4214	422C	data	Data_2A_4214	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-422C	4274	code	-	PROBABLE	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 11; entered by call from 2A:4046 (PROBABLE code)
-4274	4280	data	Data_2A_4274	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4214	422C	words	Table_2A_4214	PROBABLE	SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4214 at 2A:41A3 (index = c*2, ld hl,[hl]; then + $00C9). Values are SRAM addresses, not ROM pointers
+422C	4274	code	-	CONFIRMED	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 11; entered by call from 2A:4046 (PROBABLE code) [executed in 1 scenarios]
+4274	4280	words	Table_2A_4274	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4274 at 2A:4246 (index e*2 then ld e,[hl]; ld h,[hl]). Values are SRAM addresses, not ROM pointers
 4280	4306	code	-	PROBABLE	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code)
-4306	4312	data	Data_2A_4306	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4306	4312	words	Table_2A_4306	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4306 at 2A:429B and 2A:42CD. Values are SRAM addresses, not ROM pointers
 4312	445F	code	-	PROBABLE	189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code)
-445F	4483	data	Data_2A_445F	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+445F	446B	words	Table_2A_445F	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$445F at 2A:4324, 43D2, 4425. Values are SRAM addresses, not ROM pointers
+446B	4483	words	Table_2A_446B	PROBABLE	SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$446B at 2A:43BE and 2A:4411. Values are SRAM addresses, not ROM pointers
 4483	483B	code	-	PROBABLE	432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code)
-483B	4847	data	Data_2A_483B	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+483B	4847	words	Table_2A_483B	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$483B at 2A:4821. Values are SRAM addresses, not ROM pointers
 4847	4A3D	code	-	PROBABLE	187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code)
 4A3D	4A66	text	String_2A_4A3D	PROBABLE	text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
 4A66	4A6C	ptrtable	Table_2A_4A66	PROBABLE	code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 0/3 targets executed
 4A6C	4A93	text	String_2A_4A6C	PROBABLE	text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
-4A93	4B80	data	Data_2A_4A93	HYPOTHESIS	UNCLASSIFIED 237 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4B80	4BA0	zero	-	HYPOTHESIS	0x00 run of 32 bytes
-4BA0	4C10	data	Data_2A_4BA0	HYPOTHESIS	UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4C10	4C20	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-4C20	4C90	data	Data_2A_4C20	HYPOTHESIS	UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4C90	4CA0	data	Data_2A_4C90	HYPOTHESIS	run of 16 x $FF (padding?) in unclassified bytes
-4CA0	4CD0	zero	-	HYPOTHESIS	padding? run of 48 x $00 in unclassified bytes
+4A93	4AA0	zero	-	PROBABLE	13 bytes of $00 between the last string and the tiles at 4AA0 (padding)
+4AA0	4CD0	gfx	Tiles_2A_4AA0	PROBABLE	35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments
 4CD0	4FA0	data	Data_2A_4CD0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:417B: hl=$4CD0 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
-4FA0	4FAE	data	Data_2A_4FA0	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FAE	4FDE	data	Data_2A_4FAE	PROBABLE	palette-rgb555: heuristic: 24 RGB555 words as 6 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-4FDE	51F8	data	Data_2A_4FDE	HYPOTHESIS	UNCLASSIFIED 538 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51F8	5290	data	Data_2A_51F8	PROBABLE	palette-rgb555: heuristic: 76 RGB555 words as 19 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-5290	5495	data	Data_2A_5290	HYPOTHESIS	UNCLASSIFIED 517 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4FA0	4FE0	data	Palette_2A_4FA0	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear), 8 palette groups: loaded by 'ld bc,$0040 ; ld de,$D800 ; ld hl,$4FA0 ; ld a,$2A ; far call 4F:4000' at 2A:4129-4139
+4FE0	51E0	gfx	Tiles_2A_4FE0	PROBABLE	32 tiles (512 bytes) 2bpp: rendered as coherent sprite/tile art; no HDMA call site found (the block sits between the palette 4FA0-4FE0 that is loaded via 4F:4000 and the palette 51E0-5220); bounds fixed by the neighbouring palettes
+51E0	5220	data	Palette_2A_51E0	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear) starting at the first valid palette word (4FED,09BF,7BAC,0000...), ends where the animation entry table 5220 begins; replaces the clipped 51F8 heuristic palette
+5220	5290	words	Table_2A_5220	PROBABLE	animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+5290	5294	words	Table_2A_5290	PROBABLE	frame table: 2 pointer(s) $5294, $52A9 to OAM frames (extent = lowest target); referenced by an animation entry
+5294	52A9	data	Data_2A_5294	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+52A9	52BE	data	Data_2A_52A9	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+52BE	52C1	data	Data_2A_52BE	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+52C1	52C5	words	Table_2A_52C1	PROBABLE	frame table: 2 pointer(s) $52C5, $52D6 to OAM frames (extent = lowest target); referenced by an animation entry
+52C5	52D6	data	Data_2A_52C5	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+52D6	52E7	data	Data_2A_52D6	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+52E7	52EA	data	Data_2A_52E7	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+52EA	52EC	words	Table_2A_52EA	PROBABLE	frame table: 1 pointer(s) $52EC to OAM frames (extent = lowest target); referenced by an animation entry
+52EC	52FD	data	Data_2A_52EC	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+52FD	5300	data	Data_2A_52FD	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+5300	530A	words	Table_2A_5300	PROBABLE	frame table: 5 pointer(s) $530A, $531B, $533C, $535D, $537E to OAM frames (extent = lowest target); referenced by an animation entry
+530A	531B	data	Data_2A_530A	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+531B	533C	data	Data_2A_531B	PROBABLE	OAM frame: count=8 then 8 x (y,x,tile,attr) = 33 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+533C	535D	data	Data_2A_533C	PROBABLE	OAM frame: count=8 then 8 x (y,x,tile,attr) = 33 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+535D	537E	data	Data_2A_535D	PROBABLE	OAM frame: count=8 then 8 x (y,x,tile,attr) = 33 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+537E	5397	data	Data_2A_537E	PROBABLE	OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+5397	53A2	data	Data_2A_5397	HYPOTHESIS	animation script: count=5 then 5 x 2 bytes (00 05 01 05 02 05 03 03 04 12), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+53A2	53AC	words	Table_2A_53A2	PROBABLE	frame table: 5 pointer(s) $53AC, $53BD, $53DE, $53FF, $542C to OAM frames (extent = lowest target); referenced by an animation entry
+53AC	53BD	data	Data_2A_53AC	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+53BD	53DE	data	Data_2A_53BD	PROBABLE	OAM frame: count=8 then 8 x (y,x,tile,attr) = 33 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+53DE	53FF	data	Data_2A_53DE	PROBABLE	OAM frame: count=8 then 8 x (y,x,tile,attr) = 33 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+53FF	542C	data	Data_2A_53FF	PROBABLE	OAM frame: count=11 then 11 x (y,x,tile,attr) = 45 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+542C	5451	data	Data_2A_542C	PROBABLE	OAM frame: count=9 then 9 x (y,x,tile,attr) = 37 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+5451	545C	data	Data_2A_5451	HYPOTHESIS	animation script: count=5 then 5 x 2 bytes (00 05 01 05 02 05 03 03 04 12), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+545C	545F	data	Data_2A_545C	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), NOT referenced by any entry of the entry table 5220 (verifier: unreferenced orphan script, structurally identical to its siblings) (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+545F	5463	words	Table_2A_545F	PROBABLE	frame table: 2 pointer(s) $5463, $546C to OAM frames (extent = lowest target); referenced by an animation entry
+5463	546C	data	Data_2A_5463	PROBABLE	OAM frame: count=2 then 2 x (y,x,tile,attr) = 9 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+546C	5475	data	Data_2A_546C	PROBABLE	OAM frame: count=2 then 2 x (y,x,tile,attr) = 9 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+5475	547A	data	Data_2A_5475	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 0f 01 14), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+547A	547E	words	Table_2A_547A	PROBABLE	frame table: 2 pointer(s) $547E, $5487 to OAM frames (extent = lowest target); referenced by an animation entry
+547E	5487	data	Data_2A_547E	PROBABLE	OAM frame: count=2 then 2 x (y,x,tile,attr) = 9 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+5487	5490	data	Data_2A_5487	PROBABLE	OAM frame: count=2 then 2 x (y,x,tile,attr) = 9 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+5490	5495	data	Data_2A_5490	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 0f 01 14), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 5495	5502	code	Function_2A_5495	CONFIRMED	44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 5502	5504	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5500 (executed)
 5504	554B	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 2/18 scenarios)
@@ -35,14 +64,14 @@
 563D	564B	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
 564B	569E	code	-	PROBABLE	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed)
 569E	56C8	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
-56C8	56CB	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 2A:56C5 (executed)
-56CB	56EC	data	Data_2A_56CB	HYPOTHESIS	UNCLASSIFIED 33 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+56C8	56CB	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 2A:56C5 (executed) [executed in 5 scenarios]
+56CB	56EC	code	-	HYPOTHESIS	no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: call chain (call $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after the unconditional 'jp $54FD' at 2A:56C8
 56EC	56F2	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
-56F2	5706	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 2A:56F0 (executed)
+56F2	5706	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
 5706	5744	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 1/18 scenarios)
 5744	577F	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed)
 577F	5781	code	Function_2A_577F	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5781	578A	data	Data_2A_5781	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5781	578A	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5781-$578A was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,b; cp 7; jr nz; ld a,c; cp 9; ret z - skipped by the unconditional 'jr $578A' at 2A:577F, falls into 578A
 578A	57A5	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
 57A5	57AD	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:57A3 (executed)
 57AD	57B6	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
@@ -60,16 +89,16 @@
 5B87	5BAC	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 2/18 scenarios)
 5BAC	5BC7	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 2A:5B3A (executed)
 5BC7	5C7D	code	-	CONFIRMED	102 insn(s); 102 executed (in up to 2/18 scenarios)
-5C7D	5C81	data	Data_2A_5C7D	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5C7D	5C81	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5C7D-$5C81 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: inc c; dec c; jr nz,$5C83 - skipped by the unconditional 'jr $5C6C' at 2A:5C7B... falls into 5C81 (pop bc; ret)
 5C81	5C89	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
 5C89	5C8F	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 2A:5C79 (executed)
 5C8F	5CB1	code	Function_2A_5C8F	CONFIRMED	20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 5CB1	5CB3	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5CAF (executed)
 5CB3	5CE0	code	-	CONFIRMED	27 insn(s); 27 executed (in up to 2/18 scenarios)
-5CE0	5CF5	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2A:5CDE (executed)
+5CE0	5CF5	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2A:5CDE (executed) [executed in 5 scenarios]
 5CF5	5D6D	code	-	CONFIRMED	54 insn(s); 54 executed (in up to 2/18 scenarios)
 5D6D	5D7E	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 2A:5D6B (executed)
-5D7E	5D8B	data	Data_2A_5D7E	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5D7E	5D8B	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5D7E-$5D8B was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,1; ldh [$8D],a; ldh [$70],a; ld a,[hl]; cp $0D; cp 0; jr z,$5DAD - skipped by the unconditional 'jr $5DAD' at 2A:5D7C, falls into 5D8B
 5D8B	5DAD	code	-	PROBABLE	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 2A:5D75 (PROBABLE code)
 5DAD	5DF8	code	-	CONFIRMED	49 insn(s); 49 executed (in up to 2/18 scenarios)
 5DF8	5DFD	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2A:5DF6 (executed)
@@ -85,50 +114,67 @@
 5EC6	5EC8	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5EC4 (executed)
 5EC8	5EF4	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
 5EF4	5F69	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code)
-5F69	5F71	data	Data_2A_5F69	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F69	5F71	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5F69-$5F71 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5F0E' at 2A:5F67
 5F71	5F82	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code)
 5F82	5FD3	text	String_2A_5F82	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5FD3	5FD4	data	Data_2A_5FD3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5FD3	5FD4	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string that follows the function ending before it
 5FD4	6048	code	-	PROBABLE	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code)
-6048	6050	data	Data_2A_6048	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6048	6050	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6048-$6050 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5FEE'
 6050	6081	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code)
-6081	6087	data	Data_2A_6081	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6081	6086	text	String_2A_6081	PROBABLE	Shift-JIS NUL-terminated string (2 x 82 A4 = full-width 'う' x2); address loaded by 'ld de,$6081' at 2A:5FEA
+6086	6087	code	-	HYPOTHESIS	lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087; nothing branches to it
 6087	60F9	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code)
-60F9	6101	data	Data_2A_60F9	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+60F9	6101	code	-	HYPOTHESIS	no branch/call/pointer to any address in $60F9-$6101 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $60A1'
 6101	6132	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code)
 6132	6147	text	String_2A_6132	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6147	6148	data	Data_2A_6147	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6147	6148	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6147-$6148 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string
 6148	61E3	code	Function_2A_6148	CONFIRMED	78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-61E3	61FA	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2A:61E1 (executed)
+61E3	61FA	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2A:61E1 (executed) [executed in 1 scenarios]
 61FA	6201	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
 6201	620E	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed)
 620E	6222	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
-6222	6223	data	Data_2A_6222	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6222	6223	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6222-$6223 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) after the unconditional 'jp $617B' at 2A:621F
 6223	6253	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 2A:61DA (executed)
-6253	6257	data	Data_2A_6253	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6253	6257	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6253-$6257 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: jp $617B ; ret - after the ret at 2A:6252
 6257	62FE	code	Function_2A_6257	CONFIRMED	81 insn(s); 81 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-62FE	6300	data	Data_2A_62FE	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+62FE	6300	zero	-	PROBABLE	2 bytes of $00 alignment padding between the last ret and the data block at $6300
 6300	6B40	data	Data_2A_6300	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6300-6E50 by higher-priority evidence]
 6B40	6E10	data	Data_2A_6B40	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:5856: hl=$6B40 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000
-6E10	6E30	data	Data_2A_6E10	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6300-6E50 by higher-priority evidence]
-6E30	6EB0	data	Data_2A_6E30	PROBABLE	palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-6EB0	6F06	data	Data_2A_6EB0	HYPOTHESIS	UNCLASSIFIED 86 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F06	6F7C	data	Data_2A_6F06	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6F7C	6F95	data	Data_2A_6F7C	HYPOTHESIS	UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6E10	6E50	data	Palette_2A_6E10	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear) right after the tilemap+attr block 6B40-6E10 (6B40+$2D0); previous data was cut into a CONFIRMED read fragment 6E10-6E30 and a clipped heuristic palette 6E30-6EB0
+6E50	6EA0	words	Table_2A_6E50	PROBABLE	animation entry table: 20 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
+6EA0	6EA4	words	Table_2A_6EA0	PROBABLE	frame table: 2 pointer(s) $6EA4, $6EB9 to OAM frames (extent = lowest target); referenced by an animation entry
+6EA4	6EB9	data	Data_2A_6EA4	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6EB9	6ECE	data	Data_2A_6EB9	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6ECE	6ED3	data	Data_2A_6ECE	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+6ED3	6ED7	words	Table_2A_6ED3	PROBABLE	frame table: 2 pointer(s) $6ED7, $6EEC to OAM frames (extent = lowest target); referenced by an animation entry
+6ED7	6EEC	data	Data_2A_6ED7	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6EEC	6F01	data	Data_2A_6EEC	PROBABLE	OAM frame: count=5 then 5 x (y,x,tile,attr) = 21 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F01	6F06	data	Data_2A_6F01	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 2a 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+6F06	6F0A	words	Table_2A_6F06	PROBABLE	frame table: 2 pointer(s) $6F0A, $6F23 to OAM frames (extent = lowest target); referenced by an animation entry
+6F0A	6F23	data	Data_2A_6F0A	PROBABLE	OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F23	6F3C	data	Data_2A_6F23	PROBABLE	OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F3C	6F41	data	Data_2A_6F3C	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+6F41	6F45	words	Table_2A_6F41	PROBABLE	frame table: 2 pointer(s) $6F45, $6F5E to OAM frames (extent = lowest target); referenced by an animation entry
+6F45	6F5E	data	Data_2A_6F45	PROBABLE	OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F5E	6F77	data	Data_2A_6F5E	PROBABLE	OAM frame: count=6 then 6 x (y,x,tile,attr) = 25 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F77	6F7C	data	Data_2A_6F77	HYPOTHESIS	animation script: count=2 then 2 x 2 bytes (00 08 01 23), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+6F7C	6F80	words	Table_2A_6F7C	PROBABLE	frame table: 2 pointer(s) $6F80, $6F91 to OAM frames (extent = lowest target); referenced by an animation entry
+6F80	6F91	data	Data_2A_6F80	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F91	6F92	data	Data_2A_6F91	PROBABLE	OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
+6F92	6F95	data	Data_2A_6F92	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 6F95	709F	code	-	PROBABLE	135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code)
-709F	70AB	data	Data_2A_709F	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+709F	70AB	words	Table_2A_709F	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$709F at 2A:705B. Values are SRAM addresses, not ROM pointers
 70AB	7221	code	-	PROBABLE	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code)
-7221	722D	data	Data_2A_7221	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-722D	7287	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5; entered by call from 2A:7154 (PROBABLE code)
-7287	7293	data	Data_2A_7287	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7221	722D	words	Table_2A_7221	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$7221 at 2A:718B. Values are SRAM addresses, not ROM pointers
+722D	7287	code	-	CONFIRMED	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5; entered by call from 2A:7154 (PROBABLE code) [executed in 1 scenarios]
+7287	7293	words	Table_2A_7287	HYPOTHESIS	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); no reference found (identical bytes to the referenced sibling tables 4274/4306/445F/483B/709F/7221 that the compiler emits after each function). Values are SRAM addresses, not ROM pointers
 7293	73BB	code	-	PROBABLE	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code)
-73BB	73C0	data	Data_2A_73BB	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+73BB	73C0	code	-	HYPOTHESIS	no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:73BA
 73C0	74A7	code	-	PROBABLE	123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7419 (PROBABLE code)
-74A7	74AC	data	Data_2A_74A7	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+74A7	74AC	code	-	HYPOTHESIS	no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:74A6
 74AC	7593	code	-	PROBABLE	123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7505 (PROBABLE code)
-7593	75AE	data	Data_2A_7593	HYPOTHESIS	UNCLASSIFIED 27 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-75AE	75DE	data	Data_2A_75AE	PROBABLE	palette-rgb555: heuristic: 24 RGB555 words as 6 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-75DE	75E0	data	Data_2A_75DE	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7593	75A0	zero	-	PROBABLE	13 bytes of $00 padding after the ret at 7592, before the palette at 75A0
+75A0	75E0	data	Palette_2A_75A0	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear): loaded by 'ld bc,$0040 ; ld de,$D800 ; ld hl,$75A0 ; ld a,$2A ; far call 4F:4000' at 2A:70C7-70D7; ends where the tiles at 75E0 begin
 75E0	79E0	gfx	Data_2A_75E0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2A:70E4: hl=$75E0 a=$2A c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 79E0	7A20	gfx	Data_2A_79E0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2A:70F6: hl=$79E0 a=$2A c=$04 de=$9701 (dest VRAM $9700, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 7A20	7CF0	data	Data_2A_7A20	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:7107: hl=$7A20 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]

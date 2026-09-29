@@ -3,10 +3,11 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank51", ROMX[$4000], BANK[$51]
 
-; ---- code $4000-$404A (74 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by far from 24:4168 (PROBABLE code)
+; ---- code $4000-$404A (74 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by far from 24:4168 (PROBABLE code) [executed in 4 scenarios]
 
 Function_51_4000:: ; 51:4000
 	call Function_51_404A
@@ -56,9 +57,7 @@ Function_51_404A:: ; 51:404A
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	call LCDOn
 	call Function_51_4239
 	or a, a
@@ -71,34 +70,26 @@ Function_51_404A:: ; 51:404A
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $51B0
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $5880
 	ld a, $51
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $55B0
 	ld a, $51
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	jr Label_51_4105
 
-; ---- code $40BF-$4105 (70 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 51:4075 (executed)
+; ---- code $40BF-$4105 (70 bytes) [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 51:4075 (executed) [executed in 1 scenarios]
 
 Label_51_40BF:: ; 51:40BF
 	ld de, $9001
@@ -106,31 +97,23 @@ Label_51_40BF:: ; 51:40BF
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $9401
 	ld hl, $46A0
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $4D70
 	ld a, $51
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $4AA0
 	ld a, $51
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 
 ; ---- code $4105-$4112 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 
@@ -156,7 +139,7 @@ Label_51_4117:: ; 51:4117
 	ld de, $D162
 	jr Label_51_4128
 
-; ---- code $4125-$4128 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:411E (executed)
+; ---- code $4125-$4128 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:411E (executed) [executed in 1 scenarios]
 
 Label_51_4125:: ; 51:4125
 	ld de, $D162
@@ -178,7 +161,7 @@ Label_51_4128:: ; 51:4128
 	ld de, $D167
 	jr Label_51_414A
 
-; ---- code $4147-$414A (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:4140 (executed)
+; ---- code $4147-$414A (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:4140 (executed) [executed in 1 scenarios]
 
 Label_51_4147:: ; 51:4147
 	ld de, $D167
@@ -197,12 +180,8 @@ Label_51_414A:: ; 51:414A
 	call Function_51_41FE
 	ldh a, [rLCDC]
 	call Function_00_07CB
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_00_0956
+	farcall Function_4F_42B4
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_51_4186
@@ -216,7 +195,7 @@ Label_51_414A:: ; 51:414A
 	ldh [rSVBK], a
 	jr Label_51_4196
 
-; ---- code $4186-$4196 (16 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 51:4172 (executed)
+; ---- code $4186-$4196 (16 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 51:4172 (executed) [executed in 1 scenarios]
 
 Label_51_4186:: ; 51:4186
 	ldh a, [hWRAMBank]
@@ -235,16 +214,10 @@ Label_51_4196:: ; 51:4196
 	ldh [hRam_FFF6], a
 
 Label_51_4199:: ; 51:4199
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $41B1-$41BB (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 51:41AE: 5 entries; fixed length (5 words) by the routine
@@ -275,12 +248,8 @@ Label_51_41C4:: ; 51:41C4
 ; ---- code $41C7-$41E6 (31 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 
 Label_51_41C7:: ; 51:41C7
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_4F_4370
+	farcall Function_00_09B6
 
 Label_51_41D3:: ; 51:41D3
 	ldh [hRam_FFA7], a
@@ -442,10 +411,8 @@ Label_51_4292:: ; 51:4292
 	ldh a, [hRam_FFB1]
 	ret
 
-; ---- data $429A-$42A0 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_51_429A:: ; 51:429A
-	db $00, $00, $00, $00, $00, $00
+; ---- zero $429A-$42A0 (6 bytes) [PROBABLE] 6 x 00 between the code ending at 429A (ret at 4299) and the tile block at 51:42A0 (alignment)
+	ds $6, $00
 
 ; ---- gfx $42A0-$46A0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40CB: hl=$42A0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -943,10 +910,8 @@ Data_51_5EC0:: ; 51:5EC0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $F3, $7F, $45, $6A, $80, $40, $7F, $03
 	db $C9, $40, $F3, $7F, $AE, $69, $33, $46, $00, $7C, $FF, $7F, $1F, $58, $00, $00
 
-; ---- data $5EE0-$5EE1 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_51_5EE0:: ; 51:5EE0
-	db $00
+; ---- zero $5EE0-$5EE1 (1 bytes) [HYPOTHESIS] single $00 byte right after the palette-like block ending at 5EE0 and before the tile data (5EE1); purpose unknown (padding?)
+	ds $1, $00
 
 ; ---- gfx $5EE1-$70E0 (4607 bytes) [PROBABLE] tile data: heuristic: 175 coherent tiles (hsim2=0.751 vsim2=0.738, 102 blank) parity 1 [boundary trimmed 5EE1-70E1 -> 5EE1-70E0 against proven code]
 
@@ -1791,7 +1756,7 @@ Label_51_73CE:: ; 51:73CE
 Data_51_73D1:: ; 51:73D1
 	db $FF, $7F, $3F, $1F, $0F, $07, $03, $01, $00
 
-; ---- code $73DA-$740C (50 bytes) [PROBABLE] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 2; entered by call from 51:719C (PROBABLE code)
+; ---- code $73DA-$740C (50 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 2; entered by call from 51:719C (PROBABLE code) [executed in 1 scenarios]
 
 Function_51_73DA:: ; 51:73DA
 	ld a, [hli]
@@ -1842,7 +1807,7 @@ Label_51_7402:: ; 51:7402
 	pop de
 	ret
 
-; ---- data $740C-$740D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $740C-$740D (1 bytes) [HYPOTHESIS] single $FF byte between the ret at 740B and the function at 740D (ldh [$FFD0],a ...); probably padding, not referenced, not an instruction reached by flow
 
 Data_51_740C:: ; 51:740C
 	db $FF

@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank4F", ROMX[$4000], BANK[$4F]
 
@@ -471,16 +472,19 @@ Label_4F_427F:: ; 4F:427F
 	or a, a
 	ret
 
-; ---- data $428E-$42A1 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_428E:: ; 4F:428E
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $CD, $7A, $04
-	db $21, $00, $D8
+; ---- code $428E-$42A1 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
 
 ; ---- code $42A1-$42B4 (19 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_4F_400E
-	db BANK(Function_4F_400E)
+	farcall Function_4F_400E
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -514,9 +518,7 @@ Function_4F_42B4:: ; 4F:42B4
 Label_4F_42E0:: ; 4F:42E0
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -551,9 +553,7 @@ Function_4F_42FF:: ; 4F:42FF
 Label_4F_432B:: ; 4F:432B
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -565,16 +565,19 @@ Label_4F_432B:: ; 4F:432B
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $434A-$435D (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_434A:: ; 4F:434A
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $CD, $7A, $04
-	db $21, $00, $D8
+; ---- code $434A-$435D (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
 
 ; ---- code $435D-$4370 (19 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_4F_400E
-	db BANK(Function_4F_400E)
+	farcall Function_4F_400E
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -607,9 +610,7 @@ Function_4F_4370:: ; 4F:4370
 Label_4F_4399:: ; 4F:4399
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -643,9 +644,7 @@ Function_4F_43B8:: ; 4F:43B8
 Label_4F_43E1:: ; 4F:43E1
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -657,16 +656,19 @@ Label_4F_43E1:: ; 4F:43E1
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $4400-$4413 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_4400:: ; 4F:4400
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $CD, $7A, $04
-	db $21, $00, $D8
+; ---- code $4400-$4413 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
 
 ; ---- code $4413-$4471 (94 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_4F_400E
-	db BANK(Function_4F_400E)
+	farcall Function_4F_400E
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -696,9 +698,7 @@ Data_4F_4400:: ; 4F:4400
 Label_4F_4452:: ; 4F:4452
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -710,16 +710,19 @@ Label_4F_4452:: ; 4F:4452
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $4471-$4484 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_4471:: ; 4F:4471
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $CD, $7A, $04
-	db $21, $00, $D8
+; ---- code $4471-$4484 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
 
 ; ---- code $4484-$44DF (91 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: site x38; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw Function_4F_400E
-	db BANK(Function_4F_400E)
+	farcall Function_4F_400E
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -748,9 +751,7 @@ Data_4F_4471:: ; 4F:4471
 Label_4F_44C0:: ; 4F:44C0
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -762,21 +763,32 @@ Label_4F_44C0:: ; 4F:44C0
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $44DF-$450B (44 bytes) [HYPOTHESIS] UNCLASSIFIED 44 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_44DF:: ; 4F:44DF
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $01, $80, $00
-	db $11, $80, $D8, $21, $00, $D8, $CD, $0C, $05, $3E, $03, $EA, $ED, $C2, $01, $FF
-	db $7F, $3E, $F0, $CD, $66, $41, $CD, $E0, $41, $CD, $B6, $05
+; ---- code $44DF-$450B (44 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0080
+	ld de, $D880
+	ld hl, $D800
+	call CopyBytes
+	ld a, $03
+	ld [wRam_C2ED], a
+	ld bc, $7FFF
+	ld a, $F0
+	call Function_4F_4166
+	call Function_4F_41E0
+	call LCDOn
 
 ; ---- code $450B-$452A (31 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:451E (PROBABLE code)
 
 Label_4F_450B:: ; 4F:450B
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -788,21 +800,31 @@ Label_4F_450B:: ; 4F:450B
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $452A-$4553 (41 bytes) [HYPOTHESIS] UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4F_452A:: ; 4F:452A
-	db $E0, $F2, $F0, $8D, $F5, $F0, $F2, $3E, $07, $E0, $8D, $E0, $70, $01, $80, $00
-	db $11, $80, $D8, $21, $00, $D8, $CD, $0C, $05, $3E, $03, $EA, $ED, $C2, $01, $FF
-	db $7F, $3E, $10, $CD, $66, $41, $CD, $E0, $41
+; ---- code $452A-$4553 (41 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0080
+	ld de, $D880
+	ld hl, $D800
+	call CopyBytes
+	ld a, $03
+	ld [wRam_C2ED], a
+	ld bc, $7FFF
+	ld a, $10
+	call Function_4F_4166
+	call Function_4F_41E0
 
 ; ---- code $4553-$4572 (31 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:4566 (PROBABLE code)
 
 Label_4F_4553:: ; 4F:4553
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_4F_41E0
@@ -1022,45 +1044,33 @@ Label_4F_4635:: ; 4F:4635
 	ret
 
 Function_4F_4668:: ; 4F:4668
-	call FarCall
-	dw Function_4E_46CF
-	db BANK(Function_4E_46CF)
+	farcall Function_4E_46CF
 	or a, a
 	jr z, Label_4F_4677
 
 ; ---- code $4671-$4677 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:466F (executed)
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_4E_4749
 
 ; ---- code $4677-$4689 (18 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 
 Label_4F_4677:: ; 4F:4677
-	call FarCall
-	dw Function_48_498C
-	db BANK(Function_48_498C)
+	farcall Function_48_498C
 	xor a, a
 	or a, b
 	ret nz
 
 Label_4F_4680:: ; 4F:4680
-	call FarCall
-	dw Function_4E_46CF
-	db BANK(Function_4E_46CF)
+	farcall Function_4E_46CF
 	or a, a
 	jr z, Label_4F_468F
 
 ; ---- code $4689-$468F (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:4687 (executed)
-	call FarCall
-	dw Function_4E_4749
-	db BANK(Function_4E_4749)
+	farcall Function_4E_4749
 
 ; ---- code $468F-$4698 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 
 Label_4F_468F:: ; 4F:468F
-	call FarCall
-	dw Function_73_5F17
-	db BANK(Function_73_5F17)
+	farcall Function_73_5F17
 	call JumpTableInline
 
 ; ---- ptrtable $4698-$46A4 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4695: 6 entries; end = first entry target
@@ -1073,7 +1083,7 @@ Table_4F_4698:: ; 4F:4698
 	dw Function_4F_4717
 	dw Function_4F_4717
 
-; ---- code $46A4-$46A5 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 4F:4695 (executed)
+; ---- code $46A4-$46A5 (1 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 4F:4695 (executed) [executed in 3 scenarios]
 
 Label_4F_46A4:: ; 4F:46A4
 	ret
@@ -1081,22 +1091,16 @@ Label_4F_46A4:: ; 4F:46A4
 ; ---- code $46A5-$46B7 (18 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 
 Label_4F_46A5:: ; 4F:46A5
-	call FarCall
-	dw Function_4E_46A3
-	db BANK(Function_4E_46A3)
+	farcall Function_4E_46A3
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	call FarCall
-	dw Function_4E_48CB
-	db BANK(Function_4E_48CB)
+	farcall Function_4E_48CB
 
-; ---- code $46B7-$4717 (96 bytes) [PROBABLE] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded
+; ---- code $46B7-$4717 (96 bytes) [CONFIRMED] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded [executed in 1 scenarios]
 	jp Label_4F_4680
 
 Label_4F_46BA:: ; 4F:46BA
-	call FarCall
-	dw Function_4E_46A3
-	db BANK(Function_4E_46A3)
+	farcall Function_4E_46A3
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
 	ld a, $06
@@ -1105,21 +1109,13 @@ Label_4F_46BA:: ; 4F:46BA
 	xor a, a
 	ld [wRam_D3C0], a
 	ld [wRam_D500], a
-	call FarCall
-	dw Function_24_4018
-	db BANK(Function_24_4018)
+	farcall Function_24_4018
 	push bc
 	push de
 	push hl
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
-	call FarCall
-	dw Function_4E_4795
-	db BANK(Function_4E_4795)
+	farcall Function_4F_4370
+	farcall Function_00_09B6
+	farcall Function_4E_4795
 	pop hl
 	pop de
 	pop bc
@@ -1137,9 +1133,7 @@ Label_4F_46BA:: ; 4F:46BA
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call FarCall
-	dw Function_4E_493B
-	db BANK(Function_4E_493B)
+	farcall Function_4E_493B
 	jp Label_4F_4680
 
 ; ---- code $4717-$47FD (230 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
@@ -1203,9 +1197,7 @@ Label_4F_4754:: ; 4F:4754
 	call Function_00_059F
 	xor a, a
 	ld [wOAMDMASuppress], a
-	call FarCall
-	dw Function_7D_7BF0
-	db BANK(Function_7D_7BF0)
+	farcall Function_7D_7BF0
 	call Function_00_0331
 	ld a, $83
 	ldh [rLCDC], a
@@ -1259,9 +1251,7 @@ Label_4F_47DE:: ; 4F:47DE
 	jr nz, Label_4F_47DE
 	xor a, a
 	ld [wOAMDMASuppress], a
-	call FarCall
-	dw Function_7D_7BF0
-	db BANK(Function_7D_7BF0)
+	farcall Function_7D_7BF0
 	ret
 
 ; ---- zero $47FD-$8000 (14339 bytes) [PROBABLE] trailing 0x00 padding to end of bank

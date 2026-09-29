@@ -16,9 +16,9 @@
 6C00	6E00	gfx	Data_5D_6C00	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B19: hl=$6A00 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 6A00-6E00 by higher-priority evidence]
 6E00	7200	gfx	Data_5D_6E00	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 7200	7318	data	Data_5D_7200	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6B70: hl=$7048 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 7048-7318 by higher-priority evidence]
-7318	731C	data	Data_5D_7318	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7318	731C	zero	-	PROBABLE	4 x 00 (all bytes zero) between two read-data blocks
 731C	735D	data	Data_5D_731C	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-735D	7360	data	Data_5D_735D	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+735D	7360	zero	-	PROBABLE	3 x 00 (all bytes zero) between two read-data blocks
 7360	7760	gfx	Data_5D_7360	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:658D: hl=$7360 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 7760	7B60	gfx	Data_5D_7760	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:659F: hl=$7760 a=$5D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 7B60	7BA0	data	Data_5D_7B60	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7360-7E70 by higher-priority evidence]

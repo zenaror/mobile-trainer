@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank48", ROMX[$4000], BANK[$48]
 
@@ -108,9 +109,7 @@ Label_48_404C:: ; 48:404C
 	ld h, a
 	push hl
 	push bc
-	call FarCall
-	dw Function_48_4748
-	db BANK(Function_48_4748)
+	farcall Function_48_4748
 	add sp, 10
 	pop hl
 	ldh a, [hRam_FFB4]
@@ -221,9 +220,7 @@ Label_48_40D3:: ; 48:40D3
 	push hl
 	push de
 	push bc
-	call FarCall
-	dw Function_48_4748
-	db BANK(Function_48_4748)
+	farcall Function_48_4748
 	add sp, 10
 	pop hl
 	pop de
@@ -349,9 +346,7 @@ Label_48_419F:: ; 48:419F
 	push hl
 	push de
 	push bc
-	call FarCall
-	dw Function_48_4748
-	db BANK(Function_48_4748)
+	farcall Function_48_4748
 	add sp, 10
 	pop hl
 	pop de
@@ -480,9 +475,7 @@ Label_48_424F:: ; 48:424F
 	ld a, $00
 	ld b, $98
 	ld c, $01
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0392
 	pop de
 	pop hl
@@ -495,9 +488,7 @@ Label_48_424F:: ; 48:424F
 	ld a, $00
 	ld b, $98
 	ld c, $01
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -638,9 +629,7 @@ Label_48_4354:: ; 48:4354
 	dec a
 	ldh [hRam_FFB1], a
 	ld a, [wRam_C0EB]
-	call FarCall
-	dw Function_48_415A
-	db BANK(Function_48_415A)
+	farcall Function_48_415A
 	ld b, $15
 	ld a, [wRam_C0F0]
 	ld l, a
@@ -655,9 +644,7 @@ Label_48_4354:: ; 48:4354
 	dec a
 	ldh [hRam_FFB1], a
 	ld a, [wRam_C0EB]
-	call FarCall
-	dw Function_48_415A
-	db BANK(Function_48_415A)
+	farcall Function_48_415A
 	ldh a, [rIE]
 	and a, $02
 	call z, Function_48_440A
@@ -669,18 +656,14 @@ Label_48_4354:: ; 48:4354
 	ld a, $00
 	ld b, $97
 	ld c, $14
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0392
 	ld de, $9600
 	ld hl, $D400
 	ld a, $00
 	ld b, $97
 	ld c, $14
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -744,18 +727,14 @@ Function_48_4460:: ; 48:4460
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	call Function_00_0392
 	ld de, $9600
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh a, [rIE]
 	and a, $02
 	jr z, Label_48_44D6
@@ -814,22 +793,16 @@ Function_48_44E0:: ; 48:44E0
 	ld bc, $7FFF
 	ld a, $E0
 	call Function_48_459D
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_41E0
 	call LCDOn
 
 Label_48_451D:: ; 48:451D
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_41E0
 	or a, a
 	jr nz, Label_48_451D
 	ldh [hScratchA], a
@@ -861,21 +834,15 @@ Function_48_4540:: ; 48:4540
 	ld bc, $7FFF
 	ld a, $20
 	call Function_48_459D
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_41E0
 
 Label_48_457A:: ; 48:457A
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_41E0
 	or a, a
 	jr nz, Label_48_457A
 	ldh [hScratchA], a
@@ -1082,9 +1049,7 @@ Label_48_469C:: ; 48:469C
 	add hl, de
 	pop de
 	xor a, a
-	call FarCall
-	dw Function_00_091C
-	db BANK(Function_00_091C)
+	farcall Function_00_091C
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1110,19 +1075,13 @@ Function_48_46C6:: ; 48:46C6
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $30
-	call FarCall
-	dw Function_4F_4166
-	db BANK(Function_4F_4166)
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_4166
+	farcall Function_4F_41E0
 
 Label_48_46FA:: ; 48:46FA
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	call Function_48_4223
@@ -1130,9 +1089,7 @@ Label_48_46FA:: ; 48:46FA
 	dec [hl]
 	jr nz, Label_48_46FA
 	ld [hl], $04
-	call FarCall
-	dw Function_4F_41E0
-	db BANK(Function_4F_41E0)
+	farcall Function_4F_41E0
 	or a, a
 	jr nz, Label_48_46FA
 	ldh [hScratchA], a
@@ -1147,14 +1104,10 @@ Function_48_4728:: ; 48:4728
 	jr z, Label_48_4744
 	ld b, a
 	ld c, $0A
-	call FarCall
-	dw Function_48_4000
-	db BANK(Function_48_4000)
+	farcall Function_48_4000
 	ld e, c
 	ld c, $0A
-	call FarCall
-	dw Function_48_4000
-	db BANK(Function_48_4000)
+	farcall Function_48_4000
 	ld a, c
 	swap a
 	and a, $F0
@@ -1305,157 +1258,18 @@ Label_48_47EE:: ; 48:47EE
 Label_48_480F:: ; 48:480F
 	ret
 
-; ---- data $4810-$4830 (32 bytes) [CONFIRMED] read as data by executed code (in up to 15/18 scenarios); content class unknown
+; ---- data $4810-$4899 (137 bytes) [CONFIRMED] 27 five-byte records (key16 little-endian = SJIS code where a glyph run starts, bank byte $48, glyph-run pointer16) sorted by descending key + $FFFF terminator (ends 4899). Read by the executed glyph fetcher Function_48_4748 (loop at 48:4777: ld c,[hl]; ld b,[hli]; inc a; jp z end; stride 5 via 3 x inc hl); entry keys $83BF,$8340,$829F,$8281,$8260,$824F,$81F4,... $8140; pointers $5D7B,$53EB,$4EBB,$4D1B,$4B7B,$4ADB,... Unread 3-byte gaps folded in.
 
-Data_48_4810:: ; 48:4810
+Table_48_4810:: ; 48:4810
 	db $BF, $83, $48, $7B, $5D, $40, $83, $48, $EB, $53, $9F, $82, $48, $BB, $4E, $81
 	db $82, $48, $1B, $4D, $60, $82, $48, $7B, $4B, $4F, $82, $48, $DB, $4A, $F4, $81
-
-; ---- data $4830-$4833 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4830:: ; 48:4830
-	db $48, $5B, $5D
-
-; ---- data $4833-$4835 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4833:: ; 48:4833
-	db $A6, $81
-
-; ---- data $4835-$4838 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4835:: ; 48:4835
-	db $48, $FB, $5C
-
-; ---- data $4838-$483A (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4838:: ; 48:4838
-	db $9E, $81
-
-; ---- data $483A-$483D (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_483A:: ; 48:483A
-	db $48, $9B, $5C
-
-; ---- data $483D-$4844 (7 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_483D:: ; 48:483D
-	db $99, $81, $48, $5B, $5C, $93, $81
-
-; ---- data $4844-$4847 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4844:: ; 48:4844
-	db $48, $0B, $5C
-
-; ---- data $4847-$4849 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4847:: ; 48:4847
-	db $8F, $81
-
-; ---- data $4849-$484C (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4849:: ; 48:4849
-	db $48, $EB, $5B
-
-; ---- data $484C-$484E (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_484C:: ; 48:484C
-	db $89, $81
-
-; ---- data $484E-$4851 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_484E:: ; 48:484E
-	db $48, $CB, $5B
-
-; ---- data $4851-$4853 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4851:: ; 48:4851
-	db $83, $81
-
-; ---- data $4853-$4856 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4853:: ; 48:4853
-	db $48, $AB, $5B
-
-; ---- data $4856-$4858 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4856:: ; 48:4856
-	db $80, $81
-
-; ---- data $4858-$485B (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4858:: ; 48:4858
-	db $48, $8B, $5B
-
-; ---- data $485B-$485D (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_485B:: ; 48:485B
-	db $7E, $81
-
-; ---- data $485D-$4860 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_485D:: ; 48:485D
-	db $48, $7B, $5B
-
-; ---- data $4860-$4867 (7 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4860:: ; 48:4860
-	db $75, $81, $48, $FB, $5A, $6D, $81
-
-; ---- data $4867-$486A (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4867:: ; 48:4867
-	db $48, $BB, $5A
-
-; ---- data $486A-$486C (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_486A:: ; 48:486A
-	db $69, $81
-
-; ---- data $486C-$486F (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_486C:: ; 48:486C
-	db $48, $9B, $5A
-
-; ---- data $486F-$4871 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_486F:: ; 48:486F
-	db $68, $81
-
-; ---- data $4871-$4874 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4871:: ; 48:4871
-	db $48, $8B, $5A
-
-; ---- data $4874-$4876 (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4874:: ; 48:4874
-	db $65, $81
-
-; ---- data $4876-$4879 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4876:: ; 48:4876
-	db $48, $6B, $5A
-
-; ---- data $4879-$487B (2 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_4879:: ; 48:4879
-	db $62, $81
-
-; ---- data $487B-$487E (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_487B:: ; 48:487B
-	db $48, $4B, $5A
-
-; ---- data $487E-$4897 (25 bytes) [CONFIRMED] read as data by executed code (in up to 13/18 scenarios); content class unknown
-
-Data_48_487E:: ; 48:487E
-	db $60, $81, $48, $3B, $5A, $5E, $81, $48, $2B, $5A, $5B, $81, $48, $6B, $5D, $4F
-	db $81, $48, $FB, $59, $40, $81, $48, $3B, $59
-
-; ---- data $4897-$4899 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_4897:: ; 48:4897
-	db $FF, $FF
+	db $48, $5B, $5D, $A6, $81, $48, $FB, $5C, $9E, $81, $48, $9B, $5C, $99, $81, $48
+	db $5B, $5C, $93, $81, $48, $0B, $5C, $8F, $81, $48, $EB, $5B, $89, $81, $48, $CB
+	db $5B, $83, $81, $48, $AB, $5B, $80, $81, $48, $8B, $5B, $7E, $81, $48, $7B, $5B
+	db $75, $81, $48, $FB, $5A, $6D, $81, $48, $BB, $5A, $69, $81, $48, $9B, $5A, $68
+	db $81, $48, $8B, $5A, $65, $81, $48, $6B, $5A, $62, $81, $48, $4B, $5A, $60, $81
+	db $48, $3B, $5A, $5E, $81, $48, $2B, $5A, $5B, $81, $48, $6B, $5D, $4F, $81, $48
+	db $FB, $59, $40, $81, $48, $3B, $59, $FF, $FF
 
 ; ---- code $4899-$48B8 (31 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1480,7 +1294,7 @@ Function_48_4899:: ; 48:4899
 	or a, l
 	ret z
 
-; ---- code $48B8-$48BB (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the retcc at 48:48B7 (executed)
+; ---- code $48B8-$48BB (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the retcc at 48:48B7 (executed) [executed in 1 scenarios]
 	ld a, $FF
 	ret
 
@@ -1489,12 +1303,29 @@ Function_48_4899:: ; 48:4899
 Function_48_48BB:: ; 48:48BB
 	ret
 
-; ---- data $48BC-$48E1 (37 bytes) [HYPOTHESIS] UNCLASSIFIED 37 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_48_48BC:: ; 48:48BC
-	db $CD, $E1, $48, $3E, $01, $21, $B5, $A8, $CD, $20, $16, $47, $3E, $01, $21, $B6
-	db $A8, $CD, $20, $16, $67, $68, $7D, $93, $6F, $7C, $9A, $67, $7C, $B5, $C8, $CD
-	db $20, $49, $3E, $FF, $C9
+; ---- code $48BC-$48E1 (37 bytes) [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets (48E1, 1620, 4920) are known code starts
+	call Function_48_48E1
+	ld a, $01
+	ld hl, $A8B5
+	call ReadByteFar
+	ld b, a
+	ld a, $01
+	ld hl, $A8B6
+	call ReadByteFar
+	ld h, a
+	ld l, b
+	ld a, l
+	sub a, e
+	ld l, a
+	ld a, h
+	sbc a, d
+	ld h, a
+	ld a, h
+	or a, l
+	ret z
+	call Function_48_4920
+	ld a, $FF
+	ret
 
 ; ---- code $48E1-$48F7 (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1514,7 +1345,7 @@ Label_48_48EE:: ; 48:48EE
 	ld e, a
 	jr nc, Label_48_48FE
 
-; ---- code $48F7-$48FE (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:48F5 (executed)
+; ---- code $48F7-$48FE (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:48F5 (executed) [executed in 1 scenarios]
 	ld a, [wRam_C12F]
 	inc a
 	ld [wRam_C12F], a
@@ -1611,9 +1442,7 @@ Function_48_495C:: ; 48:495C
 	ret
 
 Function_48_498C:: ; 48:498C
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A881
@@ -1623,7 +1452,7 @@ Function_48_498C:: ; 48:498C
 	cp a, $00
 	jr z, Label_48_49A9
 
-; ---- code $49A3-$49A9 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:49A1 (executed)
+; ---- code $49A3-$49A9 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:49A1 (executed) [executed in 4 scenarios]
 	cp a, $01
 	jr z, Label_48_49B6
 	jr Label_48_49C3
@@ -1632,21 +1461,17 @@ Function_48_498C:: ; 48:498C
 
 Label_48_49A9:: ; 48:49A9
 	ld b, $91
-	call FarCall
-	dw Function_6C_59B2
-	db BANK(Function_6C_59B2)
+	farcall Function_6C_59B2
 	xor a, a
 	or a, b
 	ret nz
 	jr Label_48_49C3
 
-; ---- code $49B6-$49C3 (13 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 48:49A5 (PROBABLE code)
+; ---- code $49B6-$49C3 (13 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 48:49A5 (PROBABLE code) [executed in 3 scenarios]
 
 Label_48_49B6:: ; 48:49B6
 	ld b, $92
-	call FarCall
-	dw Function_6C_59B2
-	db BANK(Function_6C_59B2)
+	farcall Function_6C_59B2
 	xor a, a
 	or a, b
 	ret nz
@@ -1662,16 +1487,12 @@ Label_48_49C3:: ; 48:49C3
 	ld b, a
 	ld a, $01
 	ld hl, $A881
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld b, $00
 	ret
 
 Function_48_49DB:: ; 48:49DB
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A89A
@@ -1686,19 +1507,13 @@ Function_48_49DB:: ; 48:49DB
 
 Label_48_49F8:: ; 48:49F8
 	ld b, $89
-	call FarCall
-	dw Function_6C_59B2
-	db BANK(Function_6C_59B2)
+	farcall Function_6C_59B2
 	xor a, a
 	or a, b
 	ret nz
-	call FarCall
-	dw Function_22_4FA9
-	db BANK(Function_22_4FA9)
+	farcall Function_22_4FA9
 	ld a, $01
-	call FarCall
-	dw Function_2A_5495
-	db BANK(Function_2A_5495)
+	farcall Function_2A_5495
 	ld a, $01
 	ld hl, $A89A
 	call ReadByteFar
@@ -1706,17 +1521,13 @@ Label_48_49F8:: ; 48:49F8
 	ld b, a
 	ld a, $01
 	ld hl, $A89A
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld b, $00
 	ret
 
 Label_48_4A29:: ; 48:4A29
 	ld b, $8A
-	call FarCall
-	dw Function_6C_59B2
-	db BANK(Function_6C_59B2)
+	farcall Function_6C_59B2
 	xor a, a
 	or a, b
 	ret nz
@@ -1730,16 +1541,12 @@ Label_48_4A36:: ; 48:4A36
 	ld b, a
 	ld a, $01
 	ld hl, $A89A
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld b, $00
 	ret
 
 Function_48_4A4E:: ; 48:4A4E
-	call FarCall
-	dw Function_48_48BB
-	db BANK(Function_48_48BB)
+	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
 	ld hl, $A89B
@@ -1752,9 +1559,7 @@ Function_48_4A4E:: ; 48:4A4E
 
 Label_48_4A67:: ; 48:4A67
 	ld b, $81
-	call FarCall
-	dw Function_6C_59B2
-	db BANK(Function_6C_59B2)
+	farcall Function_6C_59B2
 	xor a, a
 	or a, b
 	ret nz
@@ -1768,17 +1573,35 @@ Label_48_4A74:: ; 48:4A74
 	ld b, a
 	ld a, $01
 	ld hl, $A89B
-	call FarCall
-	dw Function_48_4616
-	db BANK(Function_48_4616)
+	farcall Function_48_4616
 	ld b, $00
 	ret
 
-; ---- data $4A8C-$4AAB (31 bytes) [HYPOTHESIS] UNCLASSIFIED 31 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $4A8C-$4AAB (31 bytes) [HYPOTHESIS] byte-identical to ROM0 Function_00_091C (rectangle AND/OR: call $0622; [hl]=([hl]&d)|e, row stride 32) - a private copy; no caller/pointer to 48:4A8C found (words.py scan), follows the ret at 4A8B, ends with ret at 4AAA
+	call BankSwitch_H
+	ld a, c
+	ldh [hRam_FFB0], a
 
-Data_48_4A8C:: ; 48:4A8C
-	db $CD, $22, $06, $79, $E0, $B0, $7E, $A2, $B3, $22, $0D, $20, $F9, $F0, $B0, $4F
-	db $EE, $1F, $3C, $E6, $1F, $85, $6F, $3E, $00, $8C, $67, $05, $20, $E8, $C9
+Label_48_4A92:: ; 48:4A92
+	ld a, [hl]
+	and a, d
+	or a, e
+	ld [hli], a
+	dec c
+	jr nz, Label_48_4A92
+	ldh a, [hRam_FFB0]
+	ld c, a
+	xor a, $1F
+	inc a
+	and a, $1F
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	dec b
+	jr nz, Label_48_4A92
+	ret
 
 ; ---- code $4AAB-$4ADB (48 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
@@ -1811,9 +1634,9 @@ Label_48_4AC6:: ; 48:4AC6
 	ldh a, [hScratchA]
 	ret
 
-; ---- gfx $4ADB-$5DC0 (4837 bytes) [PROBABLE] tiles-2bpp: heuristic: 297 coherent tiles (hsim2=0.728 vsim2=0.655, 2 blank) parity 0 [clipped from 4AD0-5DC0 by higher-priority evidence]
+; ---- gfx $4ADB-$4B7B (160 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $824F (record of Table_48_4810; 10 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
 
-Data_48_4ADB:: ; 48:4ADB
+Font_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $7C, $82, $86, $8A, $92, $A2, $C2, $82, $7C, $00, $00
 	db $00, $00, $00, $00, $00, $30, $10, $10, $10, $10, $10, $10, $10, $10, $00, $00
 	db $00, $00, $00, $00, $00, $7C, $82, $82, $02, $1C, $60, $80, $80, $FE, $00, $00
@@ -1824,6 +1647,10 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $FE, $82, $82, $02, $04, $08, $10, $10, $10, $00, $00
 	db $00, $00, $00, $00, $00, $7C, $82, $82, $82, $7C, $82, $82, $82, $7C, $00, $00
 	db $00, $00, $00, $00, $00, $7C, $82, $82, $82, $7E, $02, $02, $04, $78, $00, $00
+
+; ---- gfx $4B7B-$4D1B (416 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8260 (record of Table_48_4810; 26 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_4B7B:: ; 48:4B7B
 	db $00, $00, $00, $00, $00, $10, $28, $28, $44, $44, $82, $FE, $82, $82, $00, $00
 	db $00, $00, $00, $00, $00, $F8, $84, $84, $84, $FC, $82, $82, $82, $FC, $00, $00
 	db $00, $00, $00, $00, $00, $3C, $42, $80, $80, $80, $80, $80, $42, $3C, $00, $00
@@ -1850,6 +1677,10 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $82, $82, $44, $28, $10, $28, $44, $82, $82, $00, $00
 	db $00, $00, $00, $00, $00, $82, $82, $82, $44, $28, $10, $10, $10, $10, $00, $00
 	db $00, $00, $00, $00, $00, $FE, $02, $04, $08, $10, $20, $40, $80, $FE, $00, $00
+
+; ---- gfx $4D1B-$4EBB (416 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8281 (record of Table_48_4810; 26 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_4D1B:: ; 48:4D1B
 	db $00, $00, $00, $00, $00, $00, $00, $00, $3C, $02, $3E, $42, $42, $3E, $00, $00
 	db $00, $00, $00, $00, $00, $00, $40, $40, $40, $7C, $42, $42, $42, $7C, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $3C, $42, $40, $42, $3C, $00, $00
@@ -1876,6 +1707,10 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $44, $28, $10, $28, $44, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $42, $42, $24, $18, $08, $70, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $08, $10, $20, $7C, $00, $00
+
+; ---- gfx $4EBB-$53EB (1328 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $829F (record of Table_48_4810; 83 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_4EBB:: ; 48:4EBB
 	db $00, $00, $00, $00, $00, $00, $00, $20, $FC, $22, $7C, $AA, $92, $64, $00, $00
 	db $00, $00, $00, $00, $00, $20, $FE, $20, $3A, $64, $AA, $AA, $92, $64, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $84, $82, $82, $82, $92, $60, $00, $00
@@ -1959,6 +1794,10 @@ Data_48_4ADB:: ; 48:4ADB
 	db $FF, $FF, $FF, $FF, $FF, $11, $FF, $89, $EF, $EF, $EF, $E7, $FF, $E3, $FF, $FF
 	db $00, $00, $00, $00, $00, $10, $FC, $20, $76, $98, $28, $48, $40, $3C, $00, $00
 	db $00, $00, $00, $00, $00, $10, $10, $20, $20, $60, $52, $52, $92, $8C, $00, $00
+
+; ---- gfx $53EB-$593B (1360 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8340 (record of Table_48_4810; 85 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_53EB:: ; 48:53EB
 	db $00, $00, $00, $00, $00, $00, $00, $00, $FE, $02, $12, $14, $10, $60, $00, $00
 	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $14, $10, $10, $20, $40, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $02, $04, $18, $F0, $10, $10, $10, $00, $00
@@ -2044,6 +1883,10 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $00, $FE, $02, $02, $7E, $02, $04, $08, $70, $00, $00
 	db $00, $00, $00, $00, $00, $00, $C0, $20, $02, $02, $02, $04, $08, $F0, $00, $00
 	db $00, $00, $00, $0A, $0A, $10, $10, $FE, $82, $82, $02, $02, $04, $38, $00, $00
+
+; ---- gfx $593B-$59FB (192 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8140 (record of Table_48_4810; 12 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_593B:: ; 48:593B
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $80, $40, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $60, $90, $90, $60, $00, $00
@@ -2056,22 +1899,58 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $00, $18, $18, $18, $18, $10, $10, $00, $30, $30, $00, $00
 	db $00, $00, $00, $00, $00, $05, $F5, $80, $82, $82, $82, $82, $82, $FE, $00, $00
 	db $00, $00, $00, $00, $07, $05, $F7, $80, $82, $82, $82, $82, $82, $FE, $00, $00
+
+; ---- gfx $59FB-$5A2B (48 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $814F (record of Table_48_4810; 3 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_59FB:: ; 48:59FB
 	db $00, $00, $00, $00, $00, $18, $24, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $7E, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $00
+
+; ---- gfx $5A2B-$5A3B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $815E (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A2B:: ; 48:5A2B
 	db $00, $00, $00, $00, $00, $04, $04, $08, $08, $10, $10, $20, $20, $40, $40, $00
+
+; ---- gfx $5A3B-$5A4B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8160 (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A3B:: ; 48:5A3B
 	db $00, $00, $00, $00, $00, $00, $00, $00, $60, $92, $0C, $00, $00, $00, $00, $00
+
+; ---- gfx $5A4B-$5A6B (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8162 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A4B:: ; 48:5A4B
 	db $00, $00, $00, $00, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $10, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $92, $92, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $5A6B-$5A8B (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8165 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A6B:: ; 48:5A6B
 	db $00, $00, $00, $00, $00, $04, $08, $0C, $0C, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $60, $60, $20, $40, $00, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $5A8B-$5A9B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8168 (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A8B:: ; 48:5A8B
 	db $00, $00, $00, $00, $00, $D8, $D8, $48, $90, $00, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $5A9B-$5ABB (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8169 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5A9B:: ; 48:5A9B
 	db $00, $00, $00, $00, $04, $08, $08, $10, $10, $10, $10, $08, $08, $04, $00, $00
 	db $00, $00, $00, $00, $40, $20, $20, $10, $10, $10, $10, $20, $20, $40, $00, $00
+
+; ---- gfx $5ABB-$5AFB (64 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $816D (record of Table_48_4810; 4 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5ABB:: ; 48:5ABB
 	db $00, $00, $00, $00, $0C, $08, $08, $08, $08, $08, $08, $08, $08, $0C, $00, $00
 	db $00, $00, $00, $00, $60, $20, $20, $20, $20, $20, $20, $20, $20, $60, $00, $00
 	db $00, $00, $00, $00, $04, $08, $08, $08, $18, $08, $08, $08, $08, $04, $00, $00
 	db $00, $00, $00, $00, $40, $20, $20, $20, $30, $20, $20, $20, $20, $40, $00, $00
+
+; ---- gfx $5AFB-$5B7B (128 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8175 (record of Table_48_4810; 8 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5AFB:: ; 48:5AFB
 	db $00, $00, $00, $00, $1E, $10, $10, $10, $10, $10, $10, $10, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $10, $10, $10, $10, $10, $F0, $00
 	db $00, $00, $00, $00, $7E, $42, $5E, $50, $50, $50, $50, $50, $70, $00, $00, $00
@@ -2080,48 +1959,91 @@ Data_48_4ADB:: ; 48:4ADB
 	db $00, $00, $00, $00, $F0, $70, $30, $30, $10, $10, $10, $30, $30, $70, $F0, $00
 	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $FE, $10, $10, $10, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $5B7B-$5B8B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $817E (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5B7B:: ; 48:5B7B
 	db $00, $00, $00, $00, $00, $00, $82, $44, $28, $10, $28, $44, $82, $00, $00, $00
+
+; ---- gfx $5B8B-$5BAB (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8180 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5B8B:: ; 48:5B8B
 	db $00, $00, $00, $00, $00, $00, $18, $18, $00, $7E, $00, $18, $18, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $FE, $00, $FE, $00, $00, $00, $00, $00
+
+; ---- gfx $5BAB-$5BCB (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8183 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5BAB:: ; 48:5BAB
 	db $00, $00, $00, $00, $02, $04, $08, $10, $20, $40, $20, $10, $08, $04, $02, $00
 	db $00, $00, $00, $00, $80, $40, $20, $10, $08, $04, $08, $10, $20, $40, $80, $00
+
+; ---- gfx $5BCB-$5BEB (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8189 (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5BCB:: ; 48:5BCB
 	db $00, $00, $00, $00, $10, $38, $54, $92, $38, $44, $82, $82, $44, $38, $00, $00
 	db $00, $00, $00, $00, $38, $44, $82, $82, $44, $38, $10, $FE, $10, $10, $00, $00
+
+; ---- gfx $5BEB-$5C0B (32 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $818F (record of Table_48_4810; 2 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5BEB:: ; 48:5BEB
 	db $00, $00, $00, $00, $00, $82, $44, $28, $FE, $10, $FE, $10, $10, $10, $00, $00
 	db $00, $00, $00, $00, $00, $10, $7C, $92, $90, $7C, $12, $92, $7C, $10, $00, $00
+
+; ---- gfx $5C0B-$5C5B (80 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8193 (record of Table_48_4810; 5 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5C0B:: ; 48:5C0B
 	db $00, $00, $00, $00, $00, $62, $94, $94, $68, $10, $2C, $52, $52, $8C, $00, $00
 	db $00, $00, $00, $00, $00, $14, $14, $FE, $28, $28, $28, $FE, $50, $50, $00, $00
 	db $00, $00, $00, $00, $00, $30, $48, $48, $50, $20, $62, $94, $88, $76, $00, $00
 	db $00, $00, $00, $00, $00, $00, $10, $92, $54, $38, $38, $54, $92, $10, $00, $00
 	db $00, $00, $00, $00, $00, $38, $44, $9A, $AA, $AA, $AA, $BE, $40, $3E, $00, $00
+
+; ---- gfx $5C5B-$5C9B (64 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $8199 (record of Table_48_4810; 4 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5C5B:: ; 48:5C5B
 	db $00, $00, $00, $00, $00, $10, $28, $C6, $82, $44, $44, $BA, $C6, $00, $00, $00
 	db $00, $00, $00, $00, $00, $10, $38, $FE, $FE, $7C, $7C, $FE, $C6, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $38, $44, $82, $82, $82, $44, $38, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $38, $7C, $FE, $FE, $FE, $7C, $38, $00, $00, $00
+
+; ---- gfx $5C9B-$5CFB (96 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $819E (record of Table_48_4810; 6 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5C9B:: ; 48:5C9B
 	db $00, $00, $00, $00, $00, $00, $10, $28, $44, $82, $44, $28, $10, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $10, $38, $7C, $FE, $7C, $38, $10, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $FE, $82, $82, $82, $82, $82, $FE, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $FE, $FE, $FE, $FE, $FE, $FE, $FE, $00, $00, $00
 	db $00, $00, $00, $00, $00, $10, $10, $28, $28, $44, $44, $82, $FE, $00, $00, $00
 	db $00, $00, $00, $00, $00, $10, $10, $38, $38, $7C, $7C, $FE, $FE, $00, $00, $00
+
+; ---- gfx $5CFB-$5D5B (96 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $81A6 (record of Table_48_4810; 6 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5CFB:: ; 48:5CFB
 	db $00, $00, $00, $00, $00, $00, $10, $44, $28, $92, $28, $44, $10, $00, $00, $00
 	db $00, $00, $00, $00, $00, $FE, $00, $FE, $10, $10, $10, $10, $10, $10, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $08, $04, $FE, $04, $08, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $20, $40, $FE, $40, $20, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $10, $38, $54, $10, $10, $10, $10, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $10, $10, $10, $10, $54, $38, $10, $00, $00, $00
+
+; ---- gfx $5D5B-$5D6B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $81F4 (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5D5B:: ; 48:5D5B
 	db $00, $00, $00, $00, $10, $18, $1C, $14, $12, $12, $72, $F4, $F0, $60, $00, $00
+
+; ---- gfx $5D6B-$5D7B (16 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $815B (record of Table_48_4810; 1 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5D6B:: ; 48:5D6B
 	db $00, $00, $00, $00, $00, $00, $00, $00, $80, $7E, $00, $00, $00, $00, $00, $00
+
+; ---- gfx $5D7B-$5DCB (80 bytes) [PROBABLE] 8x16 1bpp glyph run for SJIS codes from $83BF (record of Table_48_4810; 5 glyphs x 16 bytes). 48:47D6/47EE copy 8 bytes twice per glyph doubling each byte (1bpp -> 2bpp), so glyph = 16 rows of 1bpp; rendering the whole block shows digits, Latin, hiragana, katakana, symbols. Run length matches the SJIS range (e.g. $824F..$8258 = 10 glyphs = $A0 = 4B7B-4ADB)
+
+Font_48_5D7B:: ; 48:5D7B
 	db $00, $00, $00, $00, $AA, $00, $82, $00, $82, $00, $82, $00, $82, $00, $AA, $00
 	db $00, $00, $00, $00, $02, $02, $02, $02, $02, $02, $02, $02, $22, $62, $FC, $00
 	db $00, $00, $00, $38, $7C, $EE, $D6, $D6, $D6, $C6, $D6, $D6, $7C, $38, $00, $00
 	db $00, $00, $00, $38, $7C, $CE, $D6, $D6, $CE, $D6, $D6, $CE, $7C, $38, $00, $00
-	db $00, $00, $00, $38, $28
-
-; ---- data $5DC0-$5DCB (11 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown [clipped from 5D6B-5DCB by higher-priority evidence]
-
-Data_48_5DC0:: ; 48:5DC0
-	db $38, $FE, $FE, $BA, $FE, $FE, $38, $28, $38, $00, $00
+	db $00, $00, $00, $38, $28, $38, $FE, $FE, $BA, $FE, $FE, $38, $28, $38, $00, $00
 
 ; ---- zero $5DCB-$69AB (3040 bytes) [PROBABLE] trailing 0x00 padding to end of bank [verifier: cut around bytes read as data]
 	ds $BE0, $00

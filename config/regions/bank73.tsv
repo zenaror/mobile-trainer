@@ -1,15 +1,15 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4005	data	Data_73_4000	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4005	4009	data	Data_73_4005	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4001	data	Data_73_4000	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+4001	4009	ptrtable	Table_73_4001	PROBABLE	4 pointers, every target is the first byte of one of the 4 NUL-terminated Shift-JIS strings of String_73_4009; byte 4000 = $73 (own bank number) precedes the table; caller 73:62C6 ld hl,$4000 ; ld a,$73
 4009	4097	text	String_73_4009	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4097	4367	data	Data_73_4097	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 73:5FC8: hl=$4097 a=$73 b=18 rows c=20 cols (tiles then attrs) de=$D000
-4367	438F	data	Data_73_4367	HYPOTHESIS	UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4367	438F	data	Tilemap_73_4367	PROBABLE	tile-index rectangle 4 rows x 10 columns (40 bytes): 73:6230 ld bc,$040A ; ld de,$D089 ; ld hl,$4367 ; ld a,$73 ; FarCall 00:16A2 (rect copy from ROM bank a to WRAM)
 438F	43AD	data	Data_73_438F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-43AD	43D5	data	Data_73_43AD	HYPOTHESIS	UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+43AD	43D5	data	Data_73_43AD	PROBABLE	40 bytes of BG attribute values (all $09): same 4 x 10 geometry as the tilemap at 4367; attribute source pointer: 73:6220 (ld a,$AD ; ld [$C10E],a ; ld a,$43 ; ld [$C10F],a) sets $C10E/$C10F = $43AD right before the FarCall 00:16A2 rect copy of the tilemap at 4367 (00:16A2 reads [$C10E/$C10F] as the source of its second copy, dest +$0400); the site is static-reached, not executed (verifier: earlier note said "no direct reference")
 43D5	441B	data	Data_73_43D5	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-441B	4439	data	Data_73_441B	HYPOTHESIS	UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+441B	4439	data	Tilemap_73_441B	PROBABLE	tile-index rectangle 3 rows x 10 columns (30 bytes): 73:624B ld bc,$030A ; ld de,$D129 ; ld hl,$441B ; ld a,$73 ; FarCall 00:16A2
 4439	4461	data	Data_73_4439	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4461	447F	data	Data_73_4461	HYPOTHESIS	UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4461	447F	data	Data_73_4461	PROBABLE	30 bytes of BG attribute values ($09/$0A/$29): same 3 x 10 geometry as the tilemap at 441B; attribute source pointer: 73:623B (ld a,$61 ; ld [$C10E],a ; ld a,$44 ; ld [$C10F],a) sets $C10E/$C10F = $4461 before the rect copy of 441B at 73:6250 (static-reached, not executed; verifier: earlier note said "no direct reference")
 447F	4530	data	Data_73_447F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 447F-45DD by higher-priority evidence]
 4530	45E0	gfx	Data_73_4530	PROBABLE	tile data: heuristic: 61 coherent tiles (hsim2=0.744 vsim2=0.679, 107 blank) parity 0; 1536/2736 bytes also covered by call-site blocks [clipped from 4530-4FE0 by higher-priority proposals]
 45E0	49E0	gfx	Data_73_45E0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 73:5F5E: hl=$45E0 a=$73 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
@@ -32,10 +32,10 @@
 60D7	60EA	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 1/18 scenarios)
 60EA	6114	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 73:60BB (PROBABLE code)
 6114	6143	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios)
-6143	614F	data	Data_73_6143	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-614F	61D5	code	-	PROBABLE	61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1; entered by table from 73:6093 (executed)
+6143	614F	code	-	HYPOTHESIS	6 insn(s): two consecutive tiny functions (ld a,[$C0F8] ; xor $01 ; ret) and (ld a,[$C0F9] ; xor $01 ; ret) falling into the code at 614F; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
+614F	61D5	code	-	CONFIRMED	61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1; entered by table from 73:6093 (executed) [executed in 3 scenarios]
 61D5	6220	code	Function_73_61D5	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-6220	6265	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 73:61D9 (executed)
+6220	6265	code	-	CONFIRMED	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 73:61D9 (executed) [executed in 4 scenarios]
 6265	62D2	code	Function_73_6265	CONFIRMED	50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 62D2	62EF	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by callcc from 73:62B7 (executed)
 62EF	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

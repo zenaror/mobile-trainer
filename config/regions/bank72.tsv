@@ -10,7 +10,7 @@
 4578	4596	code	Function_72_4578	CONFIRMED	6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 4596	45A0	ptrtable	Table_72_4596	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 72:4593: 5 entries; fixed length (5 words) by the routine
 45A0	4603	code	-	CONFIRMED	45 insn(s); 45 executed (in up to 3/18 scenarios)
-4603	4606	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed)
+4603	4606	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 4606	4647	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 1/18 scenarios)
 4647	4674	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 72:4645 (executed)
 4674	4698	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios)
@@ -35,88 +35,88 @@
 48C0	4CC0	gfx	Data_72_48C0	CONFIRMED	tiles-vram: 2 call site(s) (72:4069 72:41F0); first: hdma_rom_to_vram at 72:4069: hl=$48C0 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 4CC0	4E28	data	Data_72_4CC0	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:408B: hl=$4CC0 a=$72 b=9 rows c=20 cols (tiles then attrs) de=$D180
 4E28	4E40	data	Data_72_4E28	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 48C0-4E40 by higher-priority evidence]
-4E40	4E44	data	Data_72_4E40	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4E40	4E44	words	Table_72_4E40	PROBABLE	object table entry 0 (2 words 4E48, 4E6E): table of 4-byte entries read by init_object_from_table (00:0A82, de=$4E40 a=$72 at 72:40CB and 72:4252, index B&7F = 1 executed); entry 1 (4E44, CONFIRMED read) holds the same two words; both words land on the sprite-list data at 72:4E48/4E6E
 4E44	4E73	data	Data_72_4E44	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4E44-502B by higher-priority evidence]
 4E73	502B	data	Data_72_4E73	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:4212: hl=$4E73 a=$72 b=11 rows c=20 cols (tiles then attrs) de=$D140
 502B	50BD	ptrtable	Table_72_502B	PROBABLE	little-endian word table, 73 entries, monotone=0.99, 92% of targets on string start/after NUL, targets $5033..$50BD; referenced by ld r16,$502B at 72:402D
-50BD	514A	data	Data_72_50BD	HYPOTHESIS	UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+50BD	514A	text	String_72_50BD	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 514A	518C	text	String_72_514A	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-518C	51B0	data	Data_72_518C	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+518C	51B0	text	String_72_518C	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 51B0	51D1	text	String_72_51B0	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 51D1	525E	text	String_72_51D1	PROBABLE	text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 51B0-52A0 by higher-priority evidence]
 525E	52A0	text	String_72_525E	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-52A0	52E8	data	Data_72_52A0	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52A0	52E8	text	String_72_52A0	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 52E8	532A	text	String_72_52E8	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 532A	53C5	text	String_72_532A	PROBABLE	text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 52E8-53C5 by higher-priority evidence]
-53C5	53D8	data	Data_72_53C5	HYPOTHESIS	UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+53C5	53D8	text	String_72_53C5	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 53D8	53F9	text	String_72_53D8	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 53F9	541D	text	String_72_53F9	PROBABLE	text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 53D8-541D by higher-priority evidence]
-541D	5441	data	Data_72_541D	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+541D	5441	text	String_72_541D	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5441	5483	text	String_72_5441	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5483	54A7	data	Data_72_5483	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5483	54A7	text	String_72_5483	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 54A7	54C8	text	String_72_54A7	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-54C8	54EC	data	Data_72_54C8	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+54C8	54EC	text	String_72_54C8	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 54EC	550D	text	String_72_54EC	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-550D	5531	data	Data_72_550D	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+550D	5531	text	String_72_550D	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5531	5552	text	String_72_5531	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5552	5576	text	String_72_5552	PROBABLE	text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5531-5576 by higher-priority evidence]
-5576	559A	data	Data_72_5576	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5576	559A	text	String_72_5576	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 559A	55DC	text	String_72_559A	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-55DC	5600	data	Data_72_55DC	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+55DC	5600	text	String_72_55DC	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5600	5621	text	String_72_5600	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5621	5645	text	String_72_5621	PROBABLE	text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5600-5645 by higher-priority evidence]
 5645	5666	data	Data_72_5645	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5621-5666 by higher-priority evidence]
-5666	5669	data	Data_72_5666	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5666	5669	text	String_72_5666	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5669	56AB	text	String_72_5669	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 56AB	56AE	text	String_72_56AB	PROBABLE	text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 56AE	56F0	text	String_72_56AE	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 56F0	56F3	text	String_72_56F0	PROBABLE	text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 56F3	5735	text	String_72_56F3	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5735	577A	text	String_72_5735	PROBABLE	text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
-577A	57BF	data	Data_72_577A	HYPOTHESIS	UNCLASSIFIED 69 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+577A	57BF	text	String_72_577A	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 57BF	57C2	data	Data_72_57BF	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 57BF-5804 by higher-priority evidence]
 57C2	5804	text	String_72_57C2	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5804	5891	data	Data_72_5804	HYPOTHESIS	UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5804	5891	text	String_72_5804	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5891	58D3	text	String_72_5891	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 58D3	5918	text	String_72_58D3	PROBABLE	text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5891-5918 by higher-priority evidence]
-5918	5960	data	Data_72_5918	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5918	5960	text	String_72_5918	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5960	59A2	text	String_72_5960	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 59A2	59E7	text	String_72_59A2	PROBABLE	text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5960-59E7 by higher-priority evidence]
-59E7	5A2F	data	Data_72_59E7	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+59E7	5A2F	text	String_72_59E7	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5A2F	5A71	text	String_72_5A2F	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5A71	5AB9	data	Data_72_5A71	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5A71	5AB9	text	String_72_5A71	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5AB9	5AFB	text	String_72_5AB9	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5AFB	5B43	data	Data_72_5AFB	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5AFB	5B43	text	String_72_5AFB	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5B43	5B85	text	String_72_5B43	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5B85	5BCD	data	Data_72_5B85	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5B85	5BCD	text	String_72_5B85	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5BCD	5C0F	text	String_72_5BCD	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5C0F	5C57	data	Data_72_5C0F	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5C0F	5C57	text	String_72_5C0F	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5C57	5C99	text	String_72_5C57	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5C99	5CDE	text	String_72_5C99	PROBABLE	text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5C57-5CDE by higher-priority evidence]
-5CDE	5D6B	data	Data_72_5CDE	HYPOTHESIS	UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5CDE	5D6B	text	String_72_5CDE	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5D6B	5DAD	text	String_72_5D6B	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5DAD	5DB0	text	String_72_5DAD	PROBABLE	text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5D6B-5DF2 by higher-priority evidence]
 5DB0	5DF2	text	String_72_5DB0	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5DF2	5F4E	data	Data_72_5DF2	HYPOTHESIS	UNCLASSIFIED 348 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5DF2	5F4E	text	String_72_5DF2	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 5F4E	5F90	text	String_72_5F4E	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5F90	5F93	text	String_72_5F90	PROBABLE	text block: 5 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5F4E-5FF6 by higher-priority evidence]
 5F93	5FF6	text	String_72_5F93	CONFIRMED	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-5FF6	603E	data	Data_72_5FF6	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5FF6	603E	text	String_72_5FF6	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 603E	6080	text	String_72_603E	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6080	60E9	data	Data_72_6080	HYPOTHESIS	UNCLASSIFIED 105 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6080	60E9	text	String_72_6080	PROBABLE	message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 60E9	612B	text	String_72_60E9	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 612B	6350	text	String_72_612B	PROBABLE	text block: 22 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 60E9-63D7 by higher-priority evidence]
 6350	6392	text	String_72_6350	CONFIRMED	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 6392	63D7	text	String_72_6392	PROBABLE	text block: 22 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 60E9-63D7 by higher-priority evidence]
-63D7	63D8	data	Data_72_63D7	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+63D7	63D8	data	Data_72_63D7	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the string terminator at 63D6 and directly before the far-call target 72:63D8 (4E:4D10 calls 63D8, not 63D7); left unclassified
 63D8	6556	code	-	PROBABLE	142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 1; entered by far from 4E:4D16 (PROBABLE code)
-6556	6563	data	Data_72_6556	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6556	6563	data	Data_72_6556	PROBABLE	13-byte script: 12 x $04 then terminator $80; read via ld hl,$6556 at 72:650C followed by the far call to the script reader at 72:4824 (same reader/format as the CONFIRMED read script at 72:6ADF: bytes until $80)
 6563	65EB	code	-	PROBABLE	54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by far from 4E:4D1C (PROBABLE code)
 65EB	65F5	ptrtable	Table_72_65EB	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 72:65E8: 5 entries; fixed length (5 words) by the routine
 65F5	6643	code	-	PROBABLE	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 3; entered by table from 72:65E8 (PROBABLE code)
 6643	6647	ptrtable	Table_72_6643	PROBABLE	inline table of `call $0545` (JumpTableInline) at 72:6640: 2 entries; end is a heuristic guess (words stay plausible code pointers)
 6647	6711	code	-	PROBABLE	104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 2; entered by jpcc from 72:665F (PROBABLE code)
-6711	6712	data	Data_72_6711	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6711	6712	data	Data_72_6711	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the ret at 6710 and directly before the executed function 72:6712; no entry at 6711 found; left unclassified
 6712	67B2	code	Function_72_6712	CONFIRMED	56 insn(s); 56 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 67B2	67D1	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 72:678C (executed)
 67D1	6892	code	-	CONFIRMED	74 insn(s); 74 executed (in up to 1/18 scenarios)
@@ -133,30 +133,31 @@
 69CE	69F3	code	-	PROBABLE	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by table from 72:697C (PROBABLE code)
 69F3	6ADF	code	Function_72_69F3	CONFIRMED	106 insn(s); 106 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 6ADF	6AEC	data	Data_72_6ADF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6AEC	6AFA	data	Data_72_6AEC	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6AEC	6AFA	data	Table_72_6AEC	PROBABLE	2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23
 6AFA	6B4C	text	String_72_6AFA	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6B4C	6B53	data	Data_72_6B4C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6B53	6B68	data	Data_72_6B53	HYPOTHESIS	UNCLASSIFIED 21 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6B4C	6B68	data	Table_72_6B4C	PROBABLE	4 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6B4C at 72:69F3-69FF (ld de,$6B4C); record 0 (6B4C-6B53) is CONFIRMED read by executed code; last word of every record points into the strings at 72:6B68.. (6B68, 6B91, 6BBA, 6BE3 = record starts); extent = 4 records up to the String region at 72:6B68
 6B68	6BE3	text	String_72_6B68	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-6BE3	6C10	data	Data_72_6BE3	HYPOTHESIS	UNCLASSIFIED 45 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6BE3	6C0C	text	String_72_6BE3	PROBABLE	text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); no table pointer found
+6C0C	6C10	zero	-	PROBABLE	4 x 00 padding before the tile block at 72:6C10
 6C10	7010	gfx	Data_72_6C10	CONFIRMED	tiles-vram: 3 call site(s) (4E:61C1 4E:62BC 72:6733); first: hdma_rom_to_vram at 4E:61C1: hl=$6C10 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 7010	7110	gfx	Data_72_7010	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:6745: hl=$7010 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1)
 7110	7200	data	Data_72_7110	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:6767: hl=$7110 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180
 7200	7206	data	Data_72_7200	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6C10-7218 by higher-priority evidence]
 7206	7216	data	Data_72_7206	PROBABLE	palette-rgb555: heuristic: 8 RGB555 words as 2 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 7216	7218	data	Data_72_7216	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 6C10-7218 by higher-priority evidence]
-7218	7220	data	Data_72_7218	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7218	7220	zero	-	PROBABLE	8 x 00 padding between the palette/data at 72:7206-7218 and the tile block 72:7220
 7220	7620	gfx	Data_72_7220	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 7620	7720	gfx	Data_72_7620	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 7720	7810	data	Data_72_7720	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [verifier: call site never executed in a trace -> PROBABLE]
-7810	7816	data	Data_72_7810	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-7816	786E	data	Data_72_7816	PROBABLE	palette-rgb555: heuristic: 44 RGB555 words as 11 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-786E	7880	data	Data_72_786E	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7810	7828	data	Palette_72_7810	PROBABLE	3 RGB555 palettes of 4 colours (bit15 clear, black/white ends); 7810 is loaded by ld hl,$7810 (bc=$0010 -> de=$D830, far call 4F:4000) at 72:6417; the third group (7820) follows the same format
+7828	786C	words	Table_72_7828	PROBABLE	object table for init_object_from_table (00:0A82, de=$7828 a=$72, 4-byte entries = 2 words; callers 4E:5F08.., 72:45D2, 72:46D4, 72:64C6, 72:66BE, 72:6802, 72:6A12); 17 entries, every word lands exactly on a descriptor start of the data block 72:786C-7A1F (partition check)
+786C	786E	data	Data_72_786C	PROBABLE	descriptor $786C = dw $786E (first word of the animation/sprite data block; target of table entry words)
+786E	7880	data	Data_72_786E	PROBABLE	animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 7880	7894	data	Data_72_7880	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-7894	78CA	data	Data_72_7894	HYPOTHESIS	UNCLASSIFIED 54 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7894	78CA	data	Data_72_7894	PROBABLE	animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 78CA	78F5	data	Data_72_78CA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-78F5	795B	data	Data_72_78F5	HYPOTHESIS	UNCLASSIFIED 102 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+78F5	795B	data	Data_72_78F5	PROBABLE	animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 795B	79A0	data	Data_72_795B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-79A0	7A04	data	Data_72_79A0	HYPOTHESIS	UNCLASSIFIED 100 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+79A0	7A04	data	Data_72_79A0	PROBABLE	animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 7A04	7A1F	data	Data_72_7A04	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
 7A1F	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

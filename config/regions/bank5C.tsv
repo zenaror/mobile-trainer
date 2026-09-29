@@ -1,75 +1,38 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4F53	text	String_5C_4000	PROBABLE	text: 36 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4F53	4F54	data	Data_5C_4F53	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F54	4F57	data	Data_5C_4F54	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F57	4F58	data	Data_5C_4F57	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F58	4F5B	data	Data_5C_4F58	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F5B	4F5C	data	Data_5C_4F5B	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F5C	4F5F	data	Data_5C_4F5C	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F5F	4F60	data	Data_5C_4F5F	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F60	4F63	data	Data_5C_4F60	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F63	4F64	data	Data_5C_4F63	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F64	4F67	data	Data_5C_4F64	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F67	4F68	data	Data_5C_4F67	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F68	4F6B	data	Data_5C_4F68	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F6B	4F6C	data	Data_5C_4F6B	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F6C	4F6F	data	Data_5C_4F6C	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F6F	4F70	data	Data_5C_4F6F	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F70	4F73	data	Data_5C_4F70	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F73	4F74	data	Data_5C_4F73	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F74	4F77	data	Data_5C_4F74	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F77	4F78	data	Data_5C_4F77	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F78	4F7B	data	Data_5C_4F78	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F7B	4F7C	data	Data_5C_4F7B	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F7C	4F7F	data	Data_5C_4F7C	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F7F	4F80	data	Data_5C_4F7F	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F80	4F83	data	Data_5C_4F80	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F83	4F88	data	Data_5C_4F83	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4F88	4F8B	data	Data_5C_4F88	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F8B	4F8C	data	Data_5C_4F8B	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4F8C	4F8F	data	Data_5C_4F8C	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F8F	4F90	data	Data_5C_4F8F	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4F90	4F93	data	Data_5C_4F90	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F93	4F94	data	Data_5C_4F93	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4F94	4F97	data	Data_5C_4F94	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F97	4F9C	data	Data_5C_4F97	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4F9C	4F9F	data	Data_5C_4F9C	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4F9F	4FA0	data	Data_5C_4F9F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4FA0	4FA3	data	Data_5C_4FA0	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FA3	4FA7	data	Data_5C_4FA3	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4FA7	4FF9	data	Data_5C_4FA7	HYPOTHESIS	UNCLASSIFIED 82 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4FF9	4FFC	data	Data_5C_4FF9	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4FFC	504D	data	Data_5C_4FFC	HYPOTHESIS	UNCLASSIFIED 81 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-504D	504E	data	Data_5C_504D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-504E	5050	data	Data_5C_504E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5050	5051	data	Data_5C_5050	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5051	5053	data	Data_5C_5051	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5053	5054	data	Data_5C_5053	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5054	5056	data	Data_5C_5054	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5056	5058	data	Data_5C_5056	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5058	5059	data	Data_5C_5058	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5059	505B	data	Data_5C_5059	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-505B	505C	data	Data_5C_505B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-505C	505E	data	Data_5C_505C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-505E	505F	data	Data_5C_505E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-505F	5062	data	Data_5C_505F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5062	50F5	data	Data_5C_5062	HYPOTHESIS	UNCLASSIFIED 147 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50F5	50F7	data	Data_5C_50F5	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-50F7	50F8	data	Data_5C_50F7	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50F8	50FB	data	Data_5C_50F8	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-50FB	5106	data	Data_5C_50FB	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5106	5144	ptrtable	Table_5C_5106	PROBABLE	little-endian word table, 31 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4000..$4DCF
-5144	5146	data	Data_5C_5144	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5146	5150	ptrtable	Table_5C_5146	PROBABLE	little-endian word table, 5 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4E21..$4F14
+4F53	4FA8	data	Table_5C_4F53	CONFIRMED	21 records of 4 bytes [id ; mode ; dw list pointer] terminated by $FF at 4FA7 (ids 10-17, 20-26, 30-33, 40, F0), searched linearly by the executed code at 5C:527A-5289 (ld hl,$4F53 ; ld a,[hli] ; cp $FF ; cp b ; inc hl x3 ; jr), b = [C196]; mode = second byte (dec a ; jr nz at 528B-528D: mode 1 takes the path at 5C:528F, any other mode the path at 5C:52EF (each loads a different tilemap first)), dw = list of triples read at 5C:5302-531C; the id/mode/pointer bytes are read data (dataaccess, 3/18 scenarios) and every pointer lands exactly on a list start
+4FA8	4FAE	data	Data_5C_4FA8	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FAE	4FB4	data	Data_5C_4FAE	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FB4	4FBA	data	Data_5C_4FB4	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FBA	4FC0	data	Data_5C_4FBA	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FC0	4FC6	data	Data_5C_4FC0	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FC6	4FD5	data	Data_5C_4FC6	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FD5	4FDB	data	Data_5C_4FD5	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FDB	4FE1	data	Data_5C_4FDB	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FE1	4FE7	data	Data_5C_4FE1	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FE7	4FED	data	Data_5C_4FE7	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FED	4FF3	data	Data_5C_4FED	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FF3	4FF9	data	Data_5C_4FF3	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FF9	4FFF	data	Data_5C_4FF9	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+4FFF	5005	data	Data_5C_4FFF	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+5005	500B	data	Data_5C_5005	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+500B	503E	data	Data_5C_500B	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+503E	504D	data	Data_5C_503E	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+504D	5080	data	Data_5C_504D	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+5080	50B9	data	Data_5C_5080	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+50B9	50F5	data	Data_5C_50B9	PROBABLE	list of 3-byte triples [d ; e ; message index] ended by the default triple [$FF ; $FF ; index]: searched at 5C:5302-531C for d=[C197], e=[C198] (cp d ; jr nz ; ld a,[hl] ; cp e ; step 3), the index selects the string pointer in the table 5C:5104 (ld hl,$5104 ; add a,a); pointed to by the record table 5C:4F53, the 20 lists tile 4FA8-50F5 exactly
+50F5	5104	data	Data_5C_50F5	PROBABLE	5 triples [00 00 21][00 10 22][01 00 23][01 10 24][01 11 25]: list of the mode-2 record (id $F0) of the table 5C:4F53 (pointer 50F5), same triple format without a $FF terminator; ends at the message-pointer table 5C:5104
+5104	5144	ptrtable	Table_5C_5104	PROBABLE	32 x dw string pointers (slots 0-31; the same index space continues through slot 32 = 5C:5144 and slots 33-37 = the table 5C:5146, see there) indexed by the message index from the lists (ld hl,$5104 ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a at 5C:5320-532C); entry 0 is $0000 (null, kept numeric), entries 1-31 = 4000..4DCF strings (100% of targets on string starts)
+5144	5146	words	Data_5C_5144	PROBABLE	slot 32 of the message-pointer index space (5C:5104 + 2*32 = 5144): the word $0020 is not a string pointer (below $4000) and no triple list selects index 32 (verifier: the lists of the records 5C:4F53 use indices 1-31 and, for the mode-2 record $F0 at 50F5, 33-37); meaning of the value $0020 unknown
+5146	5150	ptrtable	Table_5C_5146	PROBABLE	little-endian word table, 5 entries, monotone=1.00, 100% of targets on string start/after NUL, targets $4E21..$4F14 [verifier: this is the continuation of the message pointer index space of 5C:5104 (5104 + 2*33 = 5146): the mode-2 record $F0 of the table 5C:4F53 has the list 5C:50F5 = 5 triples with message indices $21..$25 = slots 33-37 = exactly these 5 words]
 5150	5231	code	Function_5C_5150	CONFIRMED	78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 5231	523B	ptrtable	Table_5C_5231	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 5C:522E: 5 entries; fixed length (5 words) by the routine
 523B	53A1	code	-	CONFIRMED	155 insn(s); 155 executed (in up to 3/18 scenarios)
 53A1	53B3	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jpcc from 5C:5280 (executed)
 53B3	5403	code	Function_5C_53B3	CONFIRMED	43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-5403	5407	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 5C:5401 (executed)
+5403	5407	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 5C:5401 (executed) [executed in 1 scenarios]
 5407	545B	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 3/18 scenarios)
-545B	5465	data	Data_5C_545B	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-5465	546F	data	Data_5C_5465	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+545B	546F	data	Table_5C_545B	PROBABLE	20 bytes = 10 pairs of tile numbers ($27,$37 ; $28,$38 ; ... $2F,$3F ; $40,$50) for the digits 0-9 (two-tile-high glyphs): read by the code at 5C:5440-5455 (ld bc,$545B ; add hl,bc, 2 bytes per digit); the first 10 bytes are CONFIRMED read data
 546F	5476	code	Function_5C_546F	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 5476	54A5	code	-	PROBABLE	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 5C:5474 (executed)
 54A5	54BE	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 1/18 scenarios)
@@ -80,7 +43,7 @@
 5516	57E6	data	Data_5C_5516	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 5C:52A2: hl=$5516 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
 57E6	5AB6	data	Data_5C_57E6	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 5C:52B7: hl=$57E6 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
 5AB6	5D86	data	Data_5C_5AB6	CONFIRMED	tilemap+attr: 2 call site(s) (5C:52FB 5C:53AC); first: copy_tilemap_rect_pair at 5C:52FB: hl=$5AB6 a=$5C b=18 rows c=20 cols (tiles then attrs) de=$D000
-5D86	5D90	data	Data_5C_5D86	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5D86	5D90	zero	-	PROBABLE	10 x 00 between the 09-filled block ending at 5D86 and the tile block at 5D90
 5D90	5DB0	gfx	Data_5C_5D90	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:5194: hl=$5D90 a=$5C c=$02 de=$8001 (dest VRAM $8000, vbank=1)
 5DB0	5DD0	gfx	Data_5C_5DB0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:51A6: hl=$5DB0 a=$5C c=$02 de=$8101 (dest VRAM $8100, vbank=1)
 5DD0	61D0	gfx	Data_5C_5DD0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 5C:51B8: hl=$5DD0 a=$5C c=$40 de=$9001 (dest VRAM $9000, vbank=1)

@@ -1,54 +1,32 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4101	code	Function_6C_4000	CONFIRMED	95 insn(s); 95 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-4101	411A	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 6C:40C1 (executed)
+4101	411A	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 411A	41CB	code	-	CONFIRMED	61 insn(s); 61 executed (in up to 3/18 scenarios)
 41CB	41D5	ptrtable	Table_6C_41CB	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 6C:41C8: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 41D5	422E	code	-	CONFIRMED	35 insn(s); 35 executed (in up to 3/18 scenarios)
-422E	423B	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:421F (executed)
+422E	423B	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
 423B	4241	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
-4241	4247	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 6C:4214 (executed)
+4241	4247	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 6C:4214 (executed) [executed in 2 scenarios]
 4247	428F	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 3/18 scenarios)
-428F	429C	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed)
+428F	429C	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
 429C	4344	code	-	CONFIRMED	75 insn(s); 75 executed (in up to 3/18 scenarios)
 4344	436C	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed)
 436C	4498	code	-	CONFIRMED	148 insn(s); 148 executed (in up to 3/18 scenarios)
 4498	4525	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed)
-4525	4529	data	Data_6C_4525	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4529	452B	data	Data_6C_4529	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-452B	4531	data	Data_6C_452B	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4531	4535	data	Data_6C_4531	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4535	4537	data	Data_6C_4535	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4537	4538	data	Data_6C_4537	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4538	453B	data	Data_6C_4538	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-453B	453D	data	Data_6C_453B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4525	453D	data	Data_6C_4525	PROBABLE	24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before Function_6C_453D; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 453D	4566	code	Function_6C_453D	CONFIRMED	17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 4566	458E	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4564 (executed)
 458E	46BA	code	-	CONFIRMED	148 insn(s); 148 executed (in up to 3/18 scenarios)
 46BA	4747	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed)
-4747	474B	data	Data_6C_4747	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-474B	474D	data	Data_6C_474B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-474D	4753	data	Data_6C_474D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4753	4757	data	Data_6C_4753	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4757	4759	data	Data_6C_4757	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4759	475A	data	Data_6C_4759	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-475A	475D	data	Data_6C_475A	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-475D	4763	data	Data_6C_475D	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4747	4763	data	Data_6C_4747	PROBABLE	same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before Function_6C_4763; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 4763	4776	code	Function_6C_4763	CONFIRMED	9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-4776	4778	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed)
+4776	4778	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed) [executed in 2 scenarios]
 4778	47C0	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 3/18 scenarios)
 47C0	47C3	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 6C:47BE (executed)
 47C3	47F3	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 3/18 scenarios)
 47F3	4807	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed)
 4807	4809	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 3/18 scenarios)
-4809	4816	data	Data_6C_4809	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-4816	4818	data	Data_6C_4816	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4818	481B	data	Data_6C_4818	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-481B	481D	data	Data_6C_481B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-481D	4820	data	Data_6C_481D	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-4820	4822	data	Data_6C_4820	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4822	4836	data	Data_6C_4822	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-4836	483E	data	Data_6C_4836	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-483E	4845	data	Data_6C_483E	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
+4809	4845	data	Data_6C_4809	PROBABLE	table of 5-byte-like records (18 00 01 30 00 / 18 00 09 AF 03 / 18 00 0A 92 09 ...) ending 03 03 01 01 30 right before the text at 4845; read in up to 12 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 4845	485A	text	String_6C_4845	PROBABLE	text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 485A	4899	data	Data_6C_485A	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
 4899	493B	text	String_6C_4899	PROBABLE	text: 3 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
@@ -70,55 +48,26 @@
 4E03	4F12	text	String_6C_4E03	PROBABLE	text: 5 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 4F12	4F4C	data	Data_6C_4F12	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
 4F4C	516F	text	String_6C_4F4C	PROBABLE	text: 12 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-516F	5175	data	Data_6C_516F	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 483E-5175 by higher-priority evidence]
-5175	5177	data	Data_6C_5175	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+516F	5177	data	Data_6C_516F	PROBABLE	message-record header 06 B5 FF 18 00 09 2A 00 (06 xx FF = record header as in the other bank-6C script records) preceding the string at 5177; first 6 bytes read in up to 5 scenarios, the 2-byte hole 5175 is its tail
 5177	519E	text	String_6C_5177	PROBABLE	text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 519E	51B1	data	Data_6C_519E	CONFIRMED	read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 5177-5216 by higher-priority evidence]
 51B1	5213	text	String_6C_51B1	PROBABLE	text: 3 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
 5213	5216	data	Data_6C_5213	CONFIRMED	read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 5177-5216 by higher-priority evidence]
-5216	5236	data	Data_6C_5216	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5216	5236	text	String_6C_5216	PROBABLE	body of the record whose header 06 97 FF was read at 5213-5216 (executed); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 5236	52B2	text	String_6C_5236	PROBABLE	text: 2 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-52B2	52E3	data	Data_6C_52B2	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52B2	52E3	text	String_6C_52B2	PROBABLE	one record (06 84 FF 03 03 11 ... 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 52E3	533A	text	String_6C_52E3	PROBABLE	text: 2 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-533A	53F7	data	Data_6C_533A	HYPOTHESIS	UNCLASSIFIED 189 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+533A	53F7	text	String_6C_533A	PROBABLE	5 consecutive records (06 A9 FF / 06 9E FF / 06 AF FF / 06 9A FF ...) each ending with 00; second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 53F7	5427	text	String_6C_53F7	PROBABLE	text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-5427	542A	data	Data_6C_5427	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-542A	543A	data	Data_6C_542A	CONFIRMED	read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 542A-5472 by higher-priority evidence]
+5427	543A	data	Data_6C_5427	PROBABLE	control record (not text): 06 A9 FF 06 99 04 10 03 01 04 93 04 08 B8 02 03 01 14 30 = header + command parameters; bytes 542A-543A were read in up to 8 scenarios, the 3 header bytes were the hole
 543A	54D3	text	String_6C_543A	PROBABLE	text: 4 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-54D3	5505	data	Data_6C_54D3	HYPOTHESIS	UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+54D3	5505	text	String_6C_54D3	PROBABLE	one record (06 9C FF 03 05 16 ... 81 49 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 5505	556B	text	String_6C_5505	PROBABLE	text: 2 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-556B	5594	data	Data_6C_556B	HYPOTHESIS	UNCLASSIFIED 41 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+556B	5594	text	String_6C_556B	PROBABLE	one record (06 9A FF 03 05 17 ... 00); second-convention message record (bank 6C script): header 06 xx FF 03 aa bb, text bytes A1-DF/E0-FF singles and SJIS katakana pairs with 10 = line/page code, ends with 00; the record header bytes were not anchored by the mapper text scan, so the record was left unresolved by the mapper; it sits between text runs of the same format (docs/research/text_encoding.md section on the second convention)
 5594	56E8	text	String_6C_5594	PROBABLE	text: 7 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-56E8	56EB	data	Data_6C_56E8	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56EB	56F4	data	Data_6C_56EB	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-56F4	56FB	data	Data_6C_56F4	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+56E8	56FB	data	Data_6C_56E8	PROBABLE	control record (not text): 06 96 FF 06 D8 01 10 04 01 04 D2 01 08 C9 01 03 01 1B 30 (header + parameters), mid part read in 1 scenario
 56FB	58BA	text	String_6C_56FB	PROBABLE	text: 9 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)
-58BA	58C6	data	Data_6C_58BA	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58C6	58C7	data	Data_6C_58C6	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-58C7	58C9	data	Data_6C_58C7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58C9	58D1	data	Data_6C_58C9	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-58D1	58D3	data	Data_6C_58D1	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58D3	58D5	data	Data_6C_58D3	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-58D5	58DF	data	Data_6C_58D5	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58DF	5915	data	Data_6C_58DF	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-5915	5917	data	Data_6C_5915	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5917	591F	data	Data_6C_5917	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-591F	5921	data	Data_6C_591F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5921	5931	data	Data_6C_5921	CONFIRMED	read as data by executed code (in up to 11/18 scenarios); content class unknown
-5931	5933	data	Data_6C_5931	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5933	5943	data	Data_6C_5933	CONFIRMED	read as data by executed code (in up to 12/18 scenarios); content class unknown
-5943	5947	data	Data_6C_5943	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5947	594B	data	Data_6C_5947	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-594B	594F	data	Data_6C_594B	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-594F	5951	data	Data_6C_594F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5951	5953	data	Data_6C_5951	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5953	5957	data	Data_6C_5953	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5957	595B	data	Data_6C_5957	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-595B	595D	data	Data_6C_595B	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-595D	5961	data	Data_6C_595D	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5961	5971	data	Data_6C_5961	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-5971	5979	data	Data_6C_5971	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5979	5987	data	Data_6C_5979	CONFIRMED	read as data by executed code (in up to 10/18 scenarios); content class unknown
+58BA	5987	data	Data_6C_58BA	PROBABLE	control header 06 95 FF 06 06 00 10 05 01 04 followed by Shift-JIS kana character tables (81 42 81 75 ..., hiragana 82 F0 82 9F ..., dakuten set, katakana 83 81 83 8B ...) = the character grid of the text-entry screen; mostly read in up to 12 scenarios, holes are unread bytes of the same tables
 5987	5B79	code	Function_6C_5987	CONFIRMED	185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 5B79	5B7E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 6C:5B77 (executed)
 5B7E	5B88	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 12/18 scenarios)
@@ -130,11 +79,7 @@
 5C36	5CFD	code	-	CONFIRMED	86 insn(s); 86 executed (in up to 12/18 scenarios)
 5CFD	5D07	ptrtable	Table_6C_5CFD	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 6C:5CFA: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 5D07	5F6E	code	-	CONFIRMED	264 insn(s); 264 executed (in up to 12/18 scenarios)
-5F6E	5FBE	data	Data_6C_5F6E	CONFIRMED	read as data by executed code (in up to 8/18 scenarios); content class unknown
-5FBE	5FCD	data	Data_6C_5FBE	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5FCD	5FD2	data	Data_6C_5FCD	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5FD2	6004	data	Data_6C_5FD2	HYPOTHESIS	UNCLASSIFIED 50 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6004	6009	data	Data_6C_6004	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+5F6E	6009	data	Data_6C_5F6E	PROBABLE	31 records x 5 bytes (61 00 40 80 7A / 61 80 44 88 7A / 61 00 49 90 7A ...; pattern flag, x, y, 7A 61-style pointer tail), read in up to 8 scenarios; 155 bytes = 31 records; the 15 and 50 byte holes are unread records of the same table
 6009	6036	code	Function_6C_6009	CONFIRMED	23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 6036	603A	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 6C:6034 (executed)
 603A	6062	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 11/18 scenarios)
@@ -142,8 +87,8 @@
 6068	6090	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 12/18 scenarios)
 6090	60AF	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 6C:6036 (PROBABLE code)
 60AF	60D4	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 12/18 scenarios)
-60D4	60EB	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 6C:60D2 (executed)
+60D4	60EB	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 6C:60D2 (executed) [executed in 2 scenarios]
 60EB	61AC	code	-	CONFIRMED	107 insn(s); 107 executed (in up to 12/18 scenarios)
-61AC	61C4	data	Data_6C_61AC	HYPOTHESIS	UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+61AC	61C4	code	-	PROBABLE	coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4 (call 00:0A65); previous region ends with jp; entry not located
 61C4	61CB	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 61CB	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

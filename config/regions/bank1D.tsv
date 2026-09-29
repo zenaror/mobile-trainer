@@ -2,32 +2,27 @@
 4000	41A0	code	Function_1D_4000	CONFIRMED	145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 41A0	41AA	ptrtable	Table_1D_41A0	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 1D:419D: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 41AA	423B	code	-	CONFIRMED	57 insn(s); 57 executed (in up to 9/18 scenarios)
-423B	423D	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:4239 (executed)
+423B	423D	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:4239 (executed) [executed in 5 scenarios]
 423D	4261	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 7/18 scenarios)
-4261	4263	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:425F (executed)
+4261	4263	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:425F (executed) [executed in 5 scenarios]
 4263	430D	code	-	CONFIRMED	89 insn(s); 89 executed (in up to 9/18 scenarios)
-430D	4317	data	Data_1D_430D	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-4317	431B	data	Data_1D_4317	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-431B	4322	data	Data_1D_431B	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-4322	4324	data	Data_1D_4322	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4324	4325	data	Data_1D_4324	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+430D	431D	words	Table_1D_430D	PROBABLE	8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$430D at 1D:42C1, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
+431D	4325	data	Data_1D_431D	PROBABLE	byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$431D' at 1D:42D6 (executed reads)
 4325	4383	code	Function_1D_4325	CONFIRMED	57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-4383	438F	data	Data_1D_4383	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-438F	4391	data	Data_1D_438F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4391	4399	data	Data_1D_4391	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-4399	439A	data	Data_1D_4399	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-439A	439B	data	Data_1D_439A	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
+4383	4393	words	Table_1D_4383	PROBABLE	8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$4383 at 1D:4337, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
+4393	439B	data	Data_1D_4393	PROBABLE	byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$4393' at 1D:434C (executed reads)
 439B	43FA	code	Function_1D_439B	CONFIRMED	34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 43FA	43FB	data	Data_1D_43FA	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 43FA-4945 by higher-priority evidence]
 43FB	4413	ptrtable	Table_1D_43FB	PROBABLE	little-endian word table, 14 entries, monotone=1.00, 93% of targets on string start/after NUL, targets $4417..$4592 [clipped from 43FB-4417 by higher-priority proposals]
 4413	45C1	text	String_1D_4413	PROBABLE	text: 14 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 45C1	4891	data	Data_1D_45C1	CONFIRMED	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1D:40CC: hl=$45C1 a=$1D b=18 rows c=20 cols (tiles then attrs) de=$D000
-4891	4945	data	Data_1D_4891	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 43FA-4945 by higher-priority evidence]
-4945	4963	data	Data_1D_4945	HYPOTHESIS	UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4963	4A35	data	Data_1D_4963	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-4A35	4A53	data	Data_1D_4A35	HYPOTHESIS	UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A53	4D11	data	Data_1D_4A53	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-4D11	4D20	data	Data_1D_4D11	HYPOTHESIS	UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4891	4981	data	Tilemap_1D_4891	PROBABLE	10 columns x 24 rows tile-id map (tiles half of a 240+240 byte pair). base $4891 is base loaded by 'ld hl,$4891' at 1D:42E1 (then + index, ld c,$0A); executed reads in mail_*/monkey traces walk it in 10-byte rows (e.g. 4963-49C7). Attribute half follows at 4981. Covers the former unresolved span 4945-4963 (3 map rows).
+4981	4A71	data	Attrmap_1D_4981	PROBABLE	attribute half (10x24) paired with Tilemap_1D_4891: values 01/02/09/29 (CGB BG attributes: palette 1/2/1, xflip 0x20); executed reads begin exactly at 4981 in mail_/monkey traces
+4A71	4B61	data	Tilemap_1D_4A71	PROBABLE	10x24 tile-id map (frame border 36 37.. 36 in first row); base loaded by 'ld hl,$4A71' at 1D:4357 (+ index, ld c,$0A); executed reads in 10-byte rows from 4A71. the former unresolved span 4A35-4A53 belongs to the preceding attr map, see Attrmap_1D_4981
+4B61	4C51	data	Attrmap_1D_4B61	PROBABLE	attribute half (10x24) paired with Tilemap_1D_4A71; executed reads begin at 4B61
+4C51	4CB1	data	Tilemap_1D_4C51	PROBABLE	tile-id map half of a 96+96 byte pair loaded at 1D:43BC 'ld hl,$4C51' (with 'ld bc,$0608 ; ld de,$D0C1') then Function_00_16A2 (far); executed reads at 4C51-4D11 and second halves 4C81-4CB1 / 4CE1-4D11 (48 bytes each)
+4CB1	4D11	data	Attrmap_1D_4CB1	PROBABLE	attribute half (values 01/03/09) paired with Tilemap_1D_4C51; ends exactly at padding 4D11
+4D11	4D20	zero	-	PROBABLE	15 bytes of $00 padding before the tile block loaded from 4D20
 4D20	4EB0	gfx	Data_1D_4D20	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4050: hl=$4D20 a=$1D c=$19 de=$8000 (dest VRAM $8000, vbank=0)
 4EB0	52B0	gfx	Data_1D_4EB0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4062: hl=$4EB0 a=$1D c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 52B0	56B0	gfx	Data_1D_52B0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4074: hl=$52B0 a=$1D c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)

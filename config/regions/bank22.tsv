@@ -1,43 +1,43 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	43E0	code	-	PROBABLE	408 insn(s) reached by static flow only; seeds: exec x408; min discovery hops 1; entered by far from 7C:7D0C (PROBABLE code)
 43E0	444D	text	String_22_43E0	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-444D	4468	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 3; entered by call from 22:41AE (PROBABLE code)
-4468	448D	data	Data_22_4468	HYPOTHESIS	UNCLASSIFIED 37 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+444D	4468	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 3; entered by call from 22:41AE (PROBABLE code) [executed in 1 scenarios]
+4468	448D	text	String_22_4468	HYPOTHESIS	Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_22_448D (ld hl,$448D at 22:444D) - probably a blank-line string
 448D	44FA	text	String_22_448D	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-44FA	4515	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 4; entered by call from 22:4228 (PROBABLE code)
+44FA	4515	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 4; entered by call from 22:4228 (PROBABLE code) [executed in 1 scenarios]
 4515	4582	text	String_22_4515	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4582	47DD	code	-	PROBABLE	242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 4; entered by call from 22:4B2F (PROBABLE code)
-47DD	47DE	data	Data_22_47DD	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47DD	47DE	code	-	HYPOTHESIS	c9 ret directly after the unconditional 'jp $4719' at 22:47DA: unreachable by flow, no reference; kept as code because it is a whole instruction at a function boundary
 47DE	481B	code	-	PROBABLE	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 7; entered by call from 22:47B5 (PROBABLE code)
 481B	489F	text	String_22_481B	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-489F	48CD	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 4; entered by call from 22:43DC (PROBABLE code)
-48CD	48FE	data	Data_22_48CD	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+489F	48CD	code	-	CONFIRMED	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 4; entered by call from 22:43DC (PROBABLE code) [executed in 1 scenarios]
+48CD	48FE	code	-	PROBABLE	function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...) that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven; both direct call targets (4975, 4A97) are known code starts
 48FE	4A8C	code	-	PROBABLE	243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-4A8C	4A97	data	Data_22_4A8C	HYPOTHESIS	UNCLASSIFIED 11 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4A8C	4A97	text	String_22_4A8C	PROBABLE	Shift-JIS NUL-terminated string 5 x 82 4F (full-width digit zero); copied byte-by-byte to $D524 until NUL by the loop at 22:4983 (ld hl,$4A8C at 22:497D)
 4A97	4BB5	code	-	PROBABLE	130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 22:491A (PROBABLE code)
-4BB5	4BB7	data	Data_22_4BB5	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4BB5	4BB7	code	-	HYPOTHESIS	jr $4C2B (18 74) after the unconditional 'jp $4BD1' at 22:4BB2: unreachable by flow and never referenced; target 4C2B is a code instruction start
 4BB7	4C5B	code	-	PROBABLE	63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 5; entered by jpcc from 22:4B96 (PROBABLE code)
-4C5B	4C62	data	Data_22_4C5B	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4C5B	4C62	data	Data_22_4C5B	PROBABLE	7-byte template (03 00 00 01 24 d5 00) copied by the loop 'ld hl,$D624 ; ld de,$4C5B ; ld b,$07' at 22:4B3D-4B4A
 4C62	4D00	code	-	PROBABLE	74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 4; entered by call from 22:40ED (PROBABLE code)
-4D00	4D02	data	Data_22_4D00	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D00	4D02	code	-	HYPOTHESIS	jr $4D76 (18 74) after the unconditional 'jp $4D1C' at 22:4CFD: unreachable, same pattern as 4BB5; target is a code instruction start
 4D02	4DA6	code	-	PROBABLE	63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 6; entered by jpcc from 22:4CE1 (PROBABLE code)
-4DA6	4DAD	data	Data_22_4DA6	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4DA6	4DAD	data	Data_22_4DA6	PROBABLE	7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4DA6 ; ld b,$07' loop at 22:4C8B
 4DAD	4E41	code	-	PROBABLE	69 insn(s) reached by static flow only; seeds: exec x69; min discovery hops 4; entered by call from 22:40AE (PROBABLE code)
-4E41	4E43	data	Data_22_4E41	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4E41	4E43	code	-	HYPOTHESIS	jr $4EB9 (18 76) after the unconditional 'jp $4E5D': unreachable, same pattern as 4BB5; target is a code instruction start
 4E43	4EE9	code	-	PROBABLE	64 insn(s) reached by static flow only; seeds: exec x64; min discovery hops 5; entered by jpcc from 22:4E22 (PROBABLE code)
-4EE9	4EF0	data	Data_22_4EE9	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4EE9	4EF0	data	Data_22_4EE9	PROBABLE	7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4EE9 ; ld b,$07' loop at 22:4DCD
 4EF0	4FCF	code	Function_22_4EF0	CONFIRMED	127 insn(s); 127 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
 4FCF	4FD6	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 22:4FC1 (executed)
 4FD6	5004	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 12/18 scenarios)
-5004	5017	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 22:5002 (executed)
+5004	5017	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 22:5002 (executed) [executed in 1 scenarios]
 5017	5077	code	-	CONFIRMED	59 insn(s); 59 executed (in up to 12/18 scenarios)
-5077	5093	code	-	PROBABLE	15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 7; entered by call from 22:5103 (PROBABLE code)
+5077	5093	code	-	CONFIRMED	15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 7; entered by call from 22:5103 (PROBABLE code) [executed in 4 scenarios]
 5093	5097	code	Function_22_5093	CONFIRMED	3 insn(s); 3 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-5097	509D	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 22:5095 (executed)
+5097	509D	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 22:5095 (executed) [executed in 1 scenarios]
 509D	50CF	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 6/18 scenarios)
-50CF	50FC	data	Data_22_50CF	HYPOTHESIS	UNCLASSIFIED 45 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-50FC	510B	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 6; entered by far from 24:4D56 (PROBABLE code)
-510B	5110	data	Data_22_510B	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+50CF	50FC	code	-	HYPOTHESIS	two unreferenced functions 50CF (push af..hl; call $5035; call $5093; inc a; jr nz; call $50A0; ... ret) and 50E6 (same skeleton returning a=$FF/$01), each ending in ret, directly before the far-entered 50FC (entered from 24:4D59) and after the CONFIRMED 509D; all 5 direct call targets are known code starts (5035,5093,50A0). No caller/pointer found in the ROM
+50FC	510B	code	-	CONFIRMED	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 6; entered by far from 24:4D56 (PROBABLE code) [executed in 4 scenarios]
+510B	5110	zero	-	PROBABLE	5 bytes of $00 between the last code and the data at 5110 (padding)
 5110	53E0	data	Data_22_5110	PROBABLE	tilemap+attr: 2 call site(s) (22:4184 22:42CA); first: copy_tilemap_rect_pair at 22:4184: hl=$5110 a=$22 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 53E0	56B0	data	Data_22_53E0	PROBABLE	tilemap+attr: 2 call site(s) (22:41C3 22:4325); first: copy_tilemap_rect_pair at 22:41C3: hl=$53E0 a=$22 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 56B0	5980	data	Data_22_56B0	PROBABLE	tilemap+attr: 2 call site(s) (22:41FE 22:4359); first: copy_tilemap_rect_pair at 22:41FE: hl=$56B0 a=$22 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]

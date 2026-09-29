@@ -4,27 +4,27 @@
 57CD	7B7C	gfx	Data_7C_57CD	PROBABLE	font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 25,26,27,28,29,30,31,32,33, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code) [clipped from 4000-7B7C by higher-priority evidence]
 7B7C	7B8E	code	Function_7C_7B7C	CONFIRMED	6 insn(s); 6 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 7B8E	7B96	ptrtable	Table_7C_7B8E	PROBABLE	inline table of `call $0545` (JumpTableInline) at 7C:7B8B: 4 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
-7B96	7B99	data	Data_7C_7B96	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7B96	7B99	code	-	PROBABLE	jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7B85 (loop head)
 7B99	7BC9	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 9/18 scenarios)
 7BC9	7BD7	ptrtable	Table_7C_7BC9	PROBABLE	inline table of `call $0545` (JumpTableInline) at 7C:7BC6: 7 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
-7BD7	7BDA	data	Data_7C_7BD7	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7BD7	7BDA	code	-	PROBABLE	jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7BC0 (loop head)
 7BDA	7BFA	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 4/18 scenarios)
 7BFA	7C6A	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed)
 7C6A	7C73	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 4/18 scenarios)
 7C73	7C7C	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code)
 7C7C	7CDF	code	-	CONFIRMED	32 insn(s); 32 executed (in up to 2/18 scenarios)
-7CDF	7CE2	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded
+7CDF	7CE2	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 2 scenarios]
 7CE2	7CF3	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios)
-7CF3	7CF6	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded
+7CF3	7CF6	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 5 scenarios]
 7CF6	7D0C	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
-7D0C	7D15	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7C:7D0A (executed)
+7D0C	7D15	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7C:7D0A (executed) [executed in 1 scenarios]
 7D15	7D60	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 4/18 scenarios)
-7D60	7D6E	ptrtable	Table_7C_7D60	PROBABLE	inline table of `call $0545` (JumpTableInline) at 7C:7D5D: 7 entries; end is a heuristic guess (words stay plausible code pointers)
-7D6E	7D6F	data	Data_7C_7D6E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7D60	7D6C	ptrtable	Table_7C_7D60	PROBABLE	inline table of `call $0545` at 7C:7D5D: 6 entries (7D6F 7D70 7D79 7D82 7DFF 7E08); the mapper counted 7 by reading the operand of the following jp (C3 57 7D) as a word 57C3, hence 7D6E was left as a 1-byte hole
+7D6C	7D6F	code	-	PROBABLE	jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7D57 (loop head); its operand high byte 7D at 7D6E was the 1-byte hole
 7D6F	7D8B	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 4/18 scenarios)
-7D8B	7D8D	data	Data_7C_7D8B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7D8B	7D8D	code	-	HYPOTHESIS	ld a,$00 falling into the raw far-call site at 7D8D (PROBABLE); the previous region ends with jp $7D57 so no path enters here; no reference found
 7D8D	7DFC	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-7DFC	7DFF	data	Data_7C_7DFC	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+7DFC	7DFF	code	-	HYPOTHESIS	jp $7D57 after an unconditional jr; no reference found
 7DFF	7E08	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
-7E08	7E11	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 7C:7D5D (executed)
+7E08	7E11	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 7C:7D5D (executed) [executed in 2 scenarios]
 7E11	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

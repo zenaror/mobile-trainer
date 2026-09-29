@@ -3,21 +3,18 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank1C", ROMX[$4000], BANK[$1C]
 
 ; ---- code $4000-$4010 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
 Function_1C_4000:: ; 1C:4000
-	call FarCall
-	dw Function_65_4000
-	db BANK(Function_65_4000)
+	farcall Function_65_4000
 	xor a, a
 
 Label_1C_4007:: ; 1C:4007
-	call FarCall
-	dw Function_0E_4000
-	db BANK(Function_0E_4000)
+	farcall Function_0E_4000
 	call JumpTableInline
 
 ; ---- ptrtable $4010-$4016 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 1C:400D: 3 entries; end is a heuristic guess (words stay plausible code pointers)
@@ -45,16 +42,12 @@ Data_1C_401C:: ; 1C:401C
 ; ---- code $401D-$4033 (22 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios)
 
 Label_1C_401D:: ; 1C:401D
-	call FarCall
-	dw Function_7C_7B7C
-	db BANK(Function_7C_7B7C)
+	farcall Function_7C_7B7C
 	ld a, $01
 	jp Label_1C_4007
 
 Label_1C_4028:: ; 1C:4028
-	call FarCall
-	dw Function_7C_7D1F
-	db BANK(Function_7C_7D1F)
+	farcall Function_7C_7D1F
 	ld a, $01
 	jp Label_1C_4007
 

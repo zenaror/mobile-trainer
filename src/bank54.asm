@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank54", ROMX[$4000], BANK[$54]
 
@@ -20,13 +21,11 @@ Function_54_4000:: ; 54:4000
 	ld [wRam_C1DA], a
 	ret
 
-; ---- code $4011-$403D (44 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code)
+; ---- code $4011-$403D (44 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code) [executed in 4 scenarios]
 
 Function_54_4011:: ; 54:4011
 	ld a, $00
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld b, a
 	ld [wRam_C1DD], a
 	ld a, l
@@ -65,9 +64,7 @@ Function_54_403D:: ; 54:403D
 	ld l, a
 	ld de, $C271
 	ld a, $02
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_405D:: ; 54:405D
@@ -110,18 +107,14 @@ Label_54_4071:: ; 54:4071
 Label_54_4086:: ; 54:4086
 	ld de, $C1E0
 	ld a, $0E
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
 Label_54_4094:: ; 54:4094
 	ld de, $C201
 	ld a, $10
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld hl, $C1D8
 	res 0, [hl]
 	xor a, a
@@ -133,9 +126,7 @@ Label_54_4094:: ; 54:4094
 	inc [hl]
 	ld de, $C480
 	ld a, $0C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 
 ; ---- code $40B7-$413B (132 bytes) [CONFIRMED] 53 insn(s); 53 executed (in up to 4/18 scenarios)
 
@@ -167,50 +158,32 @@ Label_54_40D1:: ; 54:40D1
 	dec b
 	jr nz, Label_54_40D1
 	ld de, $C240
-	call FarCall
-	dw Function_67_5F54
-	db BANK(Function_67_5F54)
+	farcall Function_67_5F54
 	pop de
 	inc de
 	ld hl, $413B
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $413B
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld a, $3E
 	ld hl, $C240
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
 Label_54_4102:: ; 54:4102
 	dec a
 	ld hl, $C480
-	call FarCall
-	dw Function_68_4469
-	db BANK(Function_68_4469)
+	farcall Function_68_4469
 	ld de, $C240
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C1E0
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld a, $06
 	ld hl, $C240
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -233,9 +206,7 @@ Function_54_4141:: ; 54:4141
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld de, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld a, [wRam_C709]
 	cp a, $01
 	jr z, Label_54_4176
@@ -251,9 +222,7 @@ Function_54_4141:: ; 54:4141
 	ld l, a
 	ld de, $C271
 	ld a, $02
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 ; ---- code $4176-$41B1 (59 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 4/18 scenarios)
@@ -265,9 +234,7 @@ Label_54_4176:: ; 54:4176
 	ld [wRam_C1D9], a
 	ld de, $C480
 	ld a, $0C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_418C:: ; 54:418C
@@ -278,9 +245,7 @@ Function_54_418C:: ; 54:418C
 	xor a, a
 	ld [wRam_C1D9], a
 	ld a, $0A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_41A3:: ; 54:41A3
@@ -292,7 +257,7 @@ Function_54_41A3:: ; 54:41A3
 	ld a, $01
 	ret
 
-; ---- code $41B1-$41B7 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:41A8 (executed)
+; ---- code $41B1-$41B7 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:41A8 (executed) [executed in 5 scenarios]
 
 Label_54_41B1:: ; 54:41B1
 	call Function_54_4011
@@ -303,62 +268,89 @@ Label_54_41B1:: ; 54:41B1
 
 Label_54_41B7:: ; 54:41B7
 	ld a, $36
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
 	ret
 
-; ---- data $41C5-$41FB (54 bytes) [HYPOTHESIS] UNCLASSIFIED 54 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $41C5-$41FB (54 bytes) [PROBABLE] 25 insn(s): start of the function that ends in the FarCall sites at 54:41FB-4274 (writes WRAM $C1D8/$C1D9/$C1DB, tests bits of $C69F, register setup ld de,$C480 ; ld bc,0 ; ld a,$28 for the FarCall at 41FB); contains the branches to 4204/4215/422E classified below; follows the ret at 41C4; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	ld a, $03
+	ld [wRam_C1DB], a
+	ld a, $01
+	ld [wRam_C1D8], a
+	xor a, a
+	ld [wRam_C1D9], a
+	ret
 
-Data_54_41C5:: ; 54:41C5
-	db $3E, $03, $EA, $DB, $C1, $3E, $01, $EA, $D8, $C1, $AF, $EA, $D9, $C1, $C9, $FA
-	db $9F, $C6, $CB, $4F, $20, $0B, $CB, $57, $20, $0D, $CB, $47, $28, $32, $3E, $01
-	db $C9, $CD, $11, $40, $3E, $FF, $C9, $FA, $09, $C7, $FE, $1A, $28, $11, $11, $80
-	db $C4, $01, $00, $00, $3E, $28
+	ld a, [wTimerEnable]
+	bit 1, a
+	jr nz, Label_54_41E6
+	bit 2, a
+	jr nz, Label_54_41EC
+	bit 0, a
+	jr z, Label_54_4215
+	ld a, $01
+	ret
+
+Label_54_41E6:: ; 54:41E6
+	call Function_54_4011
+	ld a, $FF
+	ret
+
+Label_54_41EC:: ; 54:41EC
+	ld a, [wRam_C709]
+	cp a, $1A
+	jr z, Label_54_4204
+	ld de, $C480
+	ld bc, $0000
+	ld a, $28
 
 ; ---- code $41FB-$4204 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
-; ---- data $4204-$420C (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $4204-$420C (8 bytes) [PROBABLE] 3 insn(s) (ld de,$C480 ; ld bc,0 ; ld a,$24) register setup for the FarCall at 420C; entered by jr z from 54:41F1 (this classification)
 
-Data_54_4204:: ; 54:4204
-	db $11, $80, $C4, $01, $00, $00, $3E, $24
+Label_54_4204:: ; 54:4204
+	ld de, $C480
+	ld bc, $0000
+	ld a, $24
 
 ; ---- code $420C-$4215 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
-; ---- data $4215-$4225 (16 bytes) [HYPOTHESIS] UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $4215-$4225 (16 bytes) [PROBABLE] 10 insn(s) (ld hl,$C1D9 ; inc [hl] ; ld a,[hl] ; dec a ; jr z ... ret) ; entered by jr z from 54:41E1 (this classification)
 
-Data_54_4215:: ; 54:4215
-	db $21, $D9, $C1, $34, $7E, $3D, $28, $06, $3D, $28, $0E, $3E, $FF, $C9, $3E, $0A
+Label_54_4215:: ; 54:4215
+	ld hl, $C1D9
+	inc [hl]
+	ld a, [hl]
+	dec a
+	jr z, Label_54_4223
+	dec a
+	jr z, Label_54_422E
+	ld a, $FF
+	ret
+
+Label_54_4223:: ; 54:4223
+	ld a, $0A
 
 ; ---- code $4225-$422E (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
-; ---- data $422E-$4230 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $422E-$4230 (2 bytes) [PROBABLE] 1 insn (ld a,$36) ; entered by jr z from 54:421E (this classification)
 
-Data_54_422E:: ; 54:422E
-	db $3E, $36
+Label_54_422E:: ; 54:422E
+	ld a, $36
 
 ; ---- code $4230-$423C (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
@@ -379,9 +371,7 @@ Function_54_423C:: ; 54:423C
 
 Label_54_4251:: ; 54:4251
 	ld a, $34
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Label_54_425A:: ; 54:425A
@@ -412,9 +402,7 @@ Label_54_4274:: ; 54:4274
 
 Label_54_427A:: ; 54:427A
 	ld a, $36
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
@@ -457,19 +445,13 @@ Function_54_4288:: ; 54:4288
 	ld [de], a
 	inc de
 	ld hl, $C1E0
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	pop de
 	ld hl, $C240
 	ld a, $2A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_42E4:: ; 54:42E4
@@ -535,19 +517,13 @@ Function_54_42FB:: ; 54:42FB
 	ld [de], a
 	inc de
 	ld hl, $C1E0
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	pop de
 	ld hl, $C240
 	ld a, $2C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_4357:: ; 54:4357
@@ -563,16 +539,14 @@ Function_54_4357:: ; 54:4357
 
 Label_54_436B:: ; 54:436B
 	ld a, $00
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	cp a, $32
 	jr nz, Label_54_4385
 	ld a, $03
 	cp a, h
 	jr nz, Label_54_4383
 
-; ---- code $437C-$4383 (7 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed)
+; ---- code $437C-$4383 (7 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed) [executed in 1 scenarios]
 	ld a, l
 	dec a
 	jr z, Label_54_4393
@@ -625,17 +599,13 @@ Label_54_43A8:: ; 54:43A8
 	cp a, $07
 	jr z, Label_54_43DA
 	ld a, $2A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
 Label_54_43CF:: ; 54:43CF
 	ld a, $2C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -647,9 +617,7 @@ Label_54_43DA:: ; 54:43DA
 	inc hl
 	inc hl
 	ld a, $2A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -667,18 +635,14 @@ Label_54_43F1:: ; 54:43F1
 	cp a, $03
 	jr z, Label_54_4409
 	ld a, $2A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ld [wRam_C1DC], a
 	ret
 
 Label_54_4409:: ; 54:4409
 	ld a, $2C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ld [wRam_C1DC], a
 	ret
@@ -713,9 +677,7 @@ Function_54_4417:: ; 54:4417
 	ld e, a
 	ld l, c
 	ld h, b
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ret
 
 Label_54_444B:: ; 54:444B
@@ -747,9 +709,7 @@ Label_54_445D:: ; 54:445D
 Label_54_4466:: ; 54:4466
 	ld l, c
 	ld h, b
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ret
 
 Label_54_446F:: ; 54:446F
@@ -774,9 +734,7 @@ Function_54_4483:: ; 54:4483
 	cp a, $02
 	ret z
 	ld a, $3C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_4492:: ; 54:4492
@@ -813,7 +771,7 @@ Function_54_44AC:: ; 54:44AC
 	xor a, a
 	jr Label_54_44C1
 
-; ---- code $44BF-$44C1 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed)
+; ---- code $44BF-$44C1 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed) [executed in 1 scenarios]
 
 Label_54_44BF:: ; 54:44BF
 	ld a, $FF
@@ -831,9 +789,7 @@ Label_54_44C1:: ; 54:44C1
 	inc a
 	ld [wRam_C1DA], a
 	ld a, $3C
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -874,9 +830,7 @@ Function_54_44FE:: ; 54:44FE
 	ld [wRam_C1D9], a
 	ld hl, $C201
 	ld a, $14
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_451B:: ; 54:451B
@@ -909,16 +863,12 @@ Function_54_4538:: ; 54:4538
 	xor a, a
 	ld [wRam_C1D9], a
 	ld a, $1A
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_4552:: ; 54:4552
 	call Function_54_44AC
-	call FarCall
-	dw Function_26_58DC
-	db BANK(Function_26_58DC)
+	farcall Function_26_58DC
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_4569
@@ -956,9 +906,7 @@ Function_54_4575:: ; 54:4575
 	ld hl, $475A
 	ld de, $C240
 	ld bc, $000A
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld c, $01
 	ld de, $C240
 	ld b, $06
@@ -980,22 +928,16 @@ Function_54_4575:: ; 54:4575
 	ld a, $28
 	ld [de], a
 	inc de
-	call FarCall
-	dw Function_54_4748
-	db BANK(Function_54_4748)
+	farcall Function_54_4748
 	dec de
 	ld hl, $4770
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 
 Label_54_45DB:: ; 54:45DB
 	ld hl, $C580
 	ld de, $C480
 	ld bc, $0100
-	call FarCall
-	dw Function_7E_7C34
-	db BANK(Function_7E_7C34)
+	farcall Function_7E_7C34
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
@@ -1014,13 +956,9 @@ Label_54_45DB:: ; 54:45DB
 	ld [rRAMB], a
 	ld de, $A000
 	ld hl, $C201
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C580
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	xor a, a
 	ld [de], a
 	pop de
@@ -1041,17 +979,13 @@ Label_54_45DB:: ; 54:45DB
 	call Function_54_4748
 	dec de
 	ld hl, $4770
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 
 Label_54_464D:: ; 54:464D
 	ld hl, $C580
 	ld de, $C480
 	ld bc, $0100
-	call FarCall
-	dw Function_7E_7C34
-	db BANK(Function_7E_7C34)
+	farcall Function_7E_7C34
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
@@ -1067,17 +1001,13 @@ Label_54_464D:: ; 54:464D
 	jr z, Label_54_46A9
 	ld de, $C500
 	ld bc, $0014
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	xor a, a
 	ld [wRam_C514], a
 	ld hl, $C500
 	ld de, $C480
 	ld bc, $0080
-	call FarCall
-	dw Function_7E_7C34
-	db BANK(Function_7E_7C34)
+	farcall Function_7E_7C34
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
@@ -1105,9 +1035,7 @@ Label_54_46A9:: ; 54:46A9
 	ld [rRAMB], a
 	ld hl, $A000
 	ld a, $16
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1121,9 +1049,7 @@ Function_54_46E8:: ; 54:46E8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $08
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	ld c, $00
 	cp a, $FF
 	jr z, Function_54_46E8
@@ -1210,11 +1136,20 @@ Label_54_474A:: ; 54:474A
 	inc b
 	ret
 
-; ---- data $475A-$4772 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $475A-$4764 (10 bytes) [PROBABLE] 10-byte blob copied to WRAM $C240 by CopyBytes 00:050C (FarCall 0C 05 00, bc=$000A) at 54:4593 (ld hl,$475A ; ld de,$C240)
 
 Data_54_475A:: ; 54:475A
-	db $03, $00, $A1, $00, $0F, $00, $00, $80, $C4, $00, $00, $01, $C2, $00, $00, $00
-	db $A0, $00, $00, $00, $A1, $00, $29, $00
+	db $03, $00, $A1, $00, $0F, $00, $00, $80, $C4, $00
+
+; ---- data $4764-$4770 (12 bytes) [HYPOTHESIS] 12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
+
+Data_54_4764:: ; 54:4764
+	db $00, $01, $C2, $00, $00, $00, $A0, $00, $00, $00, $A1, $00
+
+; ---- text $4770-$4772 (2 bytes) [PROBABLE] NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644
+
+String_54_4770:: ; 54:4770
+	db $29, $00
 
 ; ---- code $4772-$4856 (228 bytes) [PROBABLE] 112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code)
 
@@ -1263,9 +1198,7 @@ Label_54_47A6:: ; 54:47A6
 	ld hl, $A100
 	ld a, $18
 	ld d, $00
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 
 Label_54_47BF:: ; 54:47BF
 	ld a, $01
@@ -1286,9 +1219,7 @@ Label_54_47C2:: ; 54:47C2
 	ld b, $00
 	push bc
 	ld de, $C580
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	pop bc
 	ld hl, $C580
 	add hl, bc
@@ -1303,17 +1234,13 @@ Label_54_47C2:: ; 54:47C2
 	inc de
 	ld hl, $C580
 	ld bc, $0200
-	call FarCall
-	dw Function_7E_7C34
-	db BANK(Function_7E_7C34)
+	farcall Function_7E_7C34
 	ld hl, $C482
 	add hl, bc
 	ld e, l
 	ld d, h
 	ld hl, $4856
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 
 Label_54_4812:: ; 54:4812
 	ld hl, $C480
@@ -1327,9 +1254,7 @@ Label_54_4818:: ; 54:4818
 	ld hl, $C480
 	ld a, $18
 	ld d, $01
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	jr Label_54_47BF
 
 Label_54_482C:: ; 54:482C
@@ -1348,9 +1273,7 @@ Label_54_4834:: ; 54:4834
 	ld [de], a
 	inc de
 	ld hl, $4856
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	jr Label_54_4812
 
 Function_54_484A:: ; 54:484A
@@ -1368,9 +1291,9 @@ Label_54_484C:: ; 54:484C
 Label_54_4855:: ; 54:4855
 	ret
 
-; ---- data $4856-$485C (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4856-$485C (6 bytes) [PROBABLE] NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F
 
-Data_54_4856:: ; 54:4856
+String_54_4856:: ; 54:4856
 	db $0D, $0A, $2E, $0D, $0A, $00
 
 ; ---- code $485C-$4895 (57 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -1385,21 +1308,15 @@ Function_54_485C:: ; 54:485C
 	ld [wRam_C1D9], a
 	ld hl, $C201
 	ld de, $C480
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld a, [wMobileFlags]
 	bit 0, a
 	jr nz, Label_54_4895
 	ld hl, $C480
 	ld a, $1E
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 ; ---- code $4895-$489B (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4887 (executed)
@@ -1413,9 +1330,7 @@ Label_54_4895:: ; 54:4895
 
 Function_54_489B:: ; 54:489B
 	call Function_54_44AC
-	call FarCall
-	dw Function_26_58DC
-	db BANK(Function_26_58DC)
+	farcall Function_26_58DC
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_48B2
@@ -1424,7 +1339,7 @@ Function_54_489B:: ; 54:489B
 	ld a, $01
 	ret
 
-; ---- code $48B2-$48B8 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed)
+; ---- code $48B2-$48B8 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
 
 Label_54_48B2:: ; 54:48B2
 	call Function_54_4011
@@ -1456,18 +1371,12 @@ Label_54_48C9:: ; 54:48C9
 	ld [hl], a
 	ld hl, $C201
 	ld de, $C480
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C220
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $C480
 	ld a, $1E
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -1481,9 +1390,7 @@ Label_54_48F5:: ; 54:48F5
 Label_54_48F9:: ; 54:48F9
 	ld a, $20
 	ld de, $C240
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -1542,9 +1449,7 @@ Label_54_4933:: ; 54:4933
 	ld de, $A000
 	ld bc, $0FFF
 	ld a, $28
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_4969:: ; 54:4969
@@ -1568,9 +1473,7 @@ Label_54_4984:: ; 54:4984
 	ld de, $C480
 	ld bc, $0000
 	ld a, $28
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -1594,19 +1497,13 @@ Label_54_4995:: ; 54:4995
 	ld hl, $49E0
 	ld de, $D406
 	ld bc, $0010
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld hl, $4A01
 	ld de, $D41B
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $49F0
 	ld de, $D4C0
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	jp Label_54_4BE8
 
 ; ---- text $49E0-$4A12 (50 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -1643,23 +1540,17 @@ Label_54_4A2E:: ; 54:4A2E
 	ld de, $C240
 	ld hl, $4C35
 	ld bc, $0008
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld de, $C240
 	ld hl, $4C3D
 	ld bc, $0007
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr nz, Label_54_4A8A
 	ld de, $C480
@@ -1669,9 +1560,7 @@ Label_54_4A2E:: ; 54:4A2E
 	ld de, $C580
 	ld hl, $C480
 	ld bc, $0200
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
+	farcall Function_7E_7D62
 	ld de, $B450
 	ld hl, $B470
 	call Function_54_4FD2
@@ -1687,9 +1576,7 @@ Label_54_4A8A:: ; 54:4A8A
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr nz, Label_54_4AE6
 	ld c, l
@@ -1714,14 +1601,12 @@ Label_54_4AB9:: ; 54:4AB9
 	jr z, Label_54_4AB9
 	ld de, $B430
 	ld hl, $C480
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	jr Label_54_4AF2
 
-; ---- data $4AD0-$4AD7 (7 bytes) [HYPOTHESIS] UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4AD0-$4AD7 (7 bytes) [PROBABLE] NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 
-Data_54_4AD0:: ; 54:4AD0
+String_54_4AD0:: ; 54:4AD0
 	db $83, $81, $81, $5B, $83, $8B, $00
 
 ; ---- text $4AD7-$4AE6 (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -1734,9 +1619,7 @@ String_54_4AD7:: ; 54:4AD7
 Label_54_4AE6:: ; 54:4AE6
 	ld de, $B430
 	ld hl, $4AD0
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 
 Label_54_4AF2:: ; 54:4AF2
 	ld a, $06
@@ -1746,18 +1629,14 @@ Label_54_4AF2:: ; 54:4AF2
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr nz, Label_54_4B1D
 	call Function_54_5168
 	ld de, $B400
 	ld hl, $C580
 	ld bc, $0006
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 
 Label_54_4B1D:: ; 54:4B1D
 	ld a, $05
@@ -1767,9 +1646,7 @@ Label_54_4B1D:: ; 54:4B1D
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr nz, Label_54_4B6F
 	ld de, $C480
@@ -1787,9 +1664,7 @@ Label_54_4B42:: ; 54:4B42
 	ld de, $B410
 	ld hl, $C480
 	ld bc, $0018
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
+	farcall Function_7E_7D62
 	ld hl, $B410
 	ld hl, $B410
 	ld b, $FF
@@ -1813,19 +1688,13 @@ Label_54_4B6F:: ; 54:4B6F
 	ld hl, $B400
 	ld de, $D400
 	ld bc, $0006
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld hl, $B430
 	ld de, $D406
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld hl, $B410
 	ld de, $D41B
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1837,9 +1706,7 @@ Label_54_4B6F:: ; 54:4B6F
 	ld hl, $B470
 
 Label_54_4BAF:: ; 54:4BAF
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ld c, $00
 	ld a, [sSram_B450]
 	or a, a
@@ -1880,9 +1747,7 @@ Label_54_4BEC:: ; 54:4BEC
 	ld de, $C240
 	ld hl, $4C3D
 	ld bc, $0007
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $0B
 	ld [wRam_C240], a
 	ld a, $05
@@ -1890,9 +1755,7 @@ Label_54_4BEC:: ; 54:4BEC
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jp nz, Label_54_4BE8
 	ld b, $0B
@@ -1910,11 +1773,25 @@ Label_54_4C1D:: ; 54:4C1D
 	ld b, $02
 	jr Label_54_4BC6
 
-; ---- data $4C2A-$4C47 (29 bytes) [HYPOTHESIS] UNCLASSIFIED 29 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4C2A-$4C35 (11 bytes) [PROBABLE] 11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
 
-Data_54_4C2A:: ; 54:4C2A
-	db $43, $47, $42, $2D, $42, $58, $54, $4A, $2D, $30, $30, $03, $02, $A0, $03, $00
-	db $B0, $00, $08, $00, $03, $02, $A0, $03, $80, $C4, $03, $02, $A0
+String_54_4C2A:: ; 54:4C2A
+	db $43, $47, $42, $2D, $42, $58, $54, $4A, $2D, $30, $30
+
+; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] 8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
+
+Data_54_4C35:: ; 54:4C35
+	db $03, $02, $A0, $03, $00, $B0, $00, $08
+
+; ---- data $4C3D-$4C44 (7 bytes) [PROBABLE] 7-byte blob (same bytes as 54:4FCB) read via ld hl,$4C3D at 54:4A44 and 54:4BEF
+
+Data_54_4C3D:: ; 54:4C3D
+	db $00, $03, $02, $A0, $03, $80, $C4
+
+; ---- data $4C44-$4C47 (3 bytes) [PROBABLE] 3-byte blob (03 02 a0) read via ld hl,$4C44 at 54:5124
+
+Data_54_4C44:: ; 54:4C44
+	db $03, $02, $A0
 
 ; ---- code $4C47-$4CAD (102 bytes) [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code)
 
@@ -1985,16 +1862,12 @@ Label_54_4C91:: ; 54:4C91
 	xor a, a
 	or a, c
 	jr nz, Label_54_4CA3
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 	ret
 
 Label_54_4CA3:: ; 54:4CA3
 	ld bc, $0002
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ret
 
 ; ---- data $4CAD-$4CB0 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -2032,9 +1905,7 @@ Function_54_4CB0:: ; 54:4CB0
 	ld de, $A000
 	ld bc, $0FFF
 	ld a, $24
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_4CF4:: ; 54:4CF4
@@ -2058,9 +1929,7 @@ Label_54_4D0F:: ; 54:4D0F
 	ld de, $C480
 	ld bc, $0000
 	ld a, $24
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -2097,33 +1966,25 @@ Label_54_4D38:: ; 54:4D38
 	ld de, $C240
 	ld hl, $4FC3
 	ld bc, $0008
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $04
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jp nz, Label_54_4FA4
 	ld de, $C240
 	ld hl, $4FCB
 	ld bc, $0007
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4D9A
 	ld a, $02
@@ -2138,12 +1999,8 @@ Label_54_4D9A:: ; 54:4D9A
 	ld de, $C580
 	ld hl, $C480
 	ld bc, $0200
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_7E_7D62
+	farcall Function_2D_46E9
 	ld bc, $00C9
 	push hl
 	add hl, bc
@@ -2176,9 +2033,7 @@ Label_54_4DD5:: ; 54:4DD5
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4DF5
 	ld a, $02
@@ -2190,9 +2045,7 @@ Label_54_4DF5:: ; 54:4DF5
 	add hl, de
 	xor a, a
 	ld [hl], a
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_2D_46E9
 	ld de, $00D9
 	add hl, de
 	ld e, l
@@ -2200,9 +2053,7 @@ Label_54_4DF5:: ; 54:4DF5
 	push hl
 	ld hl, $C480
 	ld bc, $0014
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
+	farcall Function_7E_7D62
 	ld hl, $C580
 	ld b, $1A
 	xor a, a
@@ -2214,9 +2065,7 @@ Label_54_4E1A:: ; 54:4E1A
 	ld hl, $C480
 	ld de, $C580
 	ld bc, $0018
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
+	farcall Function_7E_7D62
 	ld hl, $C580
 	ld b, $FF
 
@@ -2242,9 +2091,7 @@ Label_54_4E47:: ; 54:4E47
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4E67
 	ld a, $02
@@ -2253,18 +2100,14 @@ Label_54_4E47:: ; 54:4E47
 
 Label_54_4E67:: ; 54:4E67
 	call Function_54_5168
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_2D_46E9
 	ld de, $0003
 	add hl, de
 	ld e, l
 	ld d, h
 	ld hl, $C580
 	ld bc, $0006
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -2290,9 +2133,7 @@ Label_54_4E95:: ; 54:4E95
 	pop hl
 	ld bc, $00C1
 	ld de, $C480
-	call FarCall
-	dw Function_7E_7D62
-	db BANK(Function_7E_7D62)
+	farcall Function_7E_7D62
 	ld hl, $C480
 	ld b, $C0
 
@@ -2319,31 +2160,23 @@ Label_54_4EC3:: ; 54:4EC3
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_2D_46E9
 	ld de, $0009
 	add hl, de
 	ld e, l
 	ld d, h
 	ld hl, $C480
-	call FarCall
-	dw CopyString
-	db BANK(CopyString)
+	farcall CopyString
 
 Label_54_4EE7:: ; 54:4EE7
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_2D_46E9
 	ld a, $01
 	ld [hli], a
 	ld a, [wRam_C25F]
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	call FarCall
-	dw Function_22_501D
-	db BANK(Function_22_501D)
+	farcall Function_22_501D
 	ld a, [wRam_C25E]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -2360,9 +2193,7 @@ Label_54_4EE7:: ; 54:4EE7
 	ld h, [hl]
 	ld l, a
 	ld a, $26
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ld a, $01
 	ret
 
@@ -2444,18 +2275,14 @@ Label_54_4F70:: ; 54:4F70
 	ld [hl], a
 
 Label_54_4F8B:: ; 54:4F8B
-	call FarCall
-	dw Function_2D_46E9
-	db BANK(Function_2D_46E9)
+	farcall Function_2D_46E9
 	ld de, $0009
 	add hl, de
 	ld e, l
 	ld d, h
 	ld hl, $C480
 	pop bc
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	jp Label_54_4EE7
 
 Label_54_4FA4:: ; 54:4FA4
@@ -2474,10 +2301,15 @@ Label_54_4FA4:: ; 54:4FA4
 	ld [rRAMG], a
 	jp Label_54_4D2E
 
-; ---- data $4FC3-$4FD2 (15 bytes) [HYPOTHESIS] UNCLASSIFIED 15 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4FC3-$4FCB (8 bytes) [PROBABLE] 8-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0008) at 54:4D4F (ld hl,$4FC3 ; ld de,$C240)
 
 Data_54_4FC3:: ; 54:4FC3
-	db $03, $02, $A0, $03, $00, $B0, $00, $08, $00, $03, $02, $A0, $03, $80, $C4
+	db $03, $02, $A0, $03, $00, $B0, $00, $08
+
+; ---- data $4FCB-$4FD2 (7 bytes) [PROBABLE] 7-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0007) at 54:4D73 (ld hl,$4FCB)
+
+Data_54_4FCB:: ; 54:4FCB
+	db $00, $03, $02, $A0, $03, $80, $C4
 
 ; ---- code $4FD2-$511B (329 bytes) [PROBABLE] 203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code)
 
@@ -2680,9 +2512,7 @@ Label_54_50DD:: ; 54:50DD
 	push bc
 	push hl
 	push de
-	call FarCall
-	dw Function_55_6CC6
-	db BANK(Function_55_6CC6)
+	farcall Function_55_6CC6
 	pop de
 	pop hl
 	ld a, b
@@ -2713,9 +2543,7 @@ Function_54_50FC:: ; 54:50FC
 	dec de
 	ld hl, $511B
 	ld bc, $0002
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld a, $02
 	ld [wRam_C25D], a
 	ret
@@ -2733,9 +2561,7 @@ Function_54_511D:: ; 54:511D
 	ld de, $C240
 	ld hl, $4C44
 	ld bc, $0003
-	call FarCall
-	dw CopyBytes
-	db BANK(CopyBytes)
+	farcall CopyBytes
 	ld hl, $A000
 	ld a, [hli]
 	ld [wRam_C243], a
@@ -2746,9 +2572,7 @@ Function_54_511D:: ; 54:511D
 	ldh [rSVBK], a
 	ld a, $01
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	ld e, $00
 	or a, a
 	ret nz
@@ -2759,9 +2583,7 @@ Function_54_511D:: ; 54:511D
 	ldh [rSVBK], a
 	ld a, $02
 	ld de, $C240
-	call FarCall
-	dw Function_00_0247
-	db BANK(Function_00_0247)
+	farcall Function_00_0247
 	ld e, $01
 	ret
 
@@ -3095,29 +2917,34 @@ Label_54_532E:: ; 54:532E
 	ld [wRam_C584], a
 	jp Label_54_5287
 
-; ---- data $5343-$5386 (67 bytes) [HYPOTHESIS] UNCLASSIFIED 67 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5343-$5368 (37 bytes) [PROBABLE] ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
 
-Data_54_5343:: ; 54:5343
+String_54_5343:: ; 54:5343
 	db $6A, $61, $6E, $66, $65, $62, $6D, $61, $72, $61, $70, $72, $6D, $61, $79, $6A
 	db $75, $6E, $6A, $75, $6C, $61, $75, $67, $73, $65, $70, $6F, $63, $74, $6E, $6F
-	db $76, $64, $65, $63, $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $10, $11
-	db $12, $31, $28, $31, $30, $31, $30, $31, $31, $30, $00, $00, $00, $00, $00, $00
-	db $31, $30, $31
+	db $76, $64, $65, $63, $00
+
+; ---- data $5368-$5374 (12 bytes) [PROBABLE] 12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
+
+Table_54_5368:: ; 54:5368
+	db $01, $02, $03, $04, $05, $06, $07, $08, $09, $10, $11, $12
+
+; ---- data $5374-$5386 (18 bytes) [PROBABLE] days per month in BCD: 31 28 31 30 31 30 31 31 30, 6 zero bytes, 31 30 31 - indexed by the BCD month number from base $5373 (54:52B1 and 54:5319: ld hl,$5373 ; add hl,de) so BCD 10/11/12 land on the last three entries
+
+Table_54_5374:: ; 54:5374
+	db $31, $28, $31, $30, $31, $30, $31, $31, $30, $00, $00, $00, $00, $00, $00, $31
+	db $30, $31
 
 ; ---- code $5386-$53E9 (99 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code)
 
 Function_54_5386:: ; 54:5386
 	or a, a
 	jr nz, Label_54_5391
-	call FarCall
-	dw Function_2E_55FA
-	db BANK(Function_2E_55FA)
+	farcall Function_2E_55FA
 	jr Label_54_5397
 
 Label_54_5391:: ; 54:5391
-	call FarCall
-	dw Function_23_6F00
-	db BANK(Function_23_6F00)
+	farcall Function_23_6F00
 
 Label_54_5397:: ; 54:5397
 	push hl
@@ -3134,23 +2961,17 @@ Label_54_5397:: ; 54:5397
 	xor a, a
 	ld [wRam_C1D9], a
 	ld a, $26
-	call FarCall
-	dw MobileAPI
-	db BANK(MobileAPI)
+	farcall MobileAPI
 	ret
 
 Function_54_53BB:: ; 54:53BB
 	or a, a
 	jr nz, Label_54_53C6
-	call FarCall
-	dw Function_2E_55FA
-	db BANK(Function_2E_55FA)
+	farcall Function_2E_55FA
 	jr Label_54_53CC
 
 Label_54_53C6:: ; 54:53C6
-	call FarCall
-	dw Function_23_6F00
-	db BANK(Function_23_6F00)
+	farcall Function_23_6F00
 
 Label_54_53CC:: ; 54:53CC
 	call Function_54_44AC

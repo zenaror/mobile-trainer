@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank5D", ROMX[$4000], BANK[$5D]
 
@@ -892,10 +893,8 @@ Data_5D_7200:: ; 5D:7200
 	db $10, $10, $10, $29, $49, $49, $69, $69, $69, $69, $69, $69, $69, $69, $69, $69
 	db $69, $69, $69, $69, $69, $69, $69, $69
 
-; ---- data $7318-$731C (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_5D_7318:: ; 5D:7318
-	db $00, $00, $00, $00
+; ---- zero $7318-$731C (4 bytes) [PROBABLE] 4 x 00 (all bytes zero) between two read-data blocks
+	ds $4, $00
 
 ; ---- data $731C-$735D (65 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
@@ -906,10 +905,8 @@ Data_5D_731C:: ; 5D:731C
 	db $0D, $07, $40, $03, $05, $08, $40, $00, $04, $00, $14, $01, $14, $02, $14, $03
 	db $14
 
-; ---- data $735D-$7360 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_5D_735D:: ; 5D:735D
-	db $00, $00, $00
+; ---- zero $735D-$7360 (3 bytes) [PROBABLE] 3 x 00 (all bytes zero) between two read-data blocks
+	ds $3, $00
 
 ; ---- gfx $7360-$7760 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:658D: hl=$7360 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 

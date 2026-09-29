@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank4D", ROMX[$4000], BANK[$4D]
 
@@ -476,63 +477,48 @@ Data_4D_5810:: ; 4D:5810
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $5AE0-$5B0A (42 bytes) [HYPOTHESIS] UNCLASSIFIED 42 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5AE0-$5B6C (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
 
-Data_4D_5AE0:: ; 4D:5AE0
+Tilemap_4D_5AE0:: ; 4D:5AE0
 	db $00, $0B, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $00, $10, $1B
 	db $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B, $10, $92, $92, $92, $92
-	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92
-
-; ---- ptrtable $5B0A-$5B16 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 17% of targets on string start/after NUL, targets $440C..$4E4D; regular record stride between targets
-
-Table_4D_5B0A:: ; 4D:5B0A
-	dw $440C
-	dw $4645
-	dw $4847
-	dw $4A49
-	dw $4C4B
-	dw $4E4D
-
-; ---- data $5B16-$5B18 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4D_5B16:: ; 4D:5B16
-	db $4F, $0C
-
-; ---- ptrtable $5B18-$5B24 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $541C..$5E5D; regular record stride between targets
-
-Table_4D_5B18:: ; 4D:5B18
-	dw $541C
-	dw $5655
-	dw $5857
-	dw $5A59
-	dw $5C5B
-	dw $5E5D
-
-; ---- data $5B24-$5D50 (556 bytes) [HYPOTHESIS] UNCLASSIFIED 556 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_4D_5B24:: ; 4D:5B24
-	db $5F, $1C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
+	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $0C, $44, $45, $46, $47, $48
+	db $49, $4A, $4B, $4C, $4D, $4E, $4F, $0C, $1C, $54, $55, $56, $57, $58, $59, $5A
+	db $5B, $5C, $5D, $5E, $5F, $1C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0C, $27, $0D, $0E, $0F, $20, $21, $22
-	db $23, $24, $25, $26, $27, $0C, $1C, $37, $1D, $1E, $1F, $30, $31, $32, $33, $34
-	db $35, $36, $37, $1C, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92
-	db $92, $92, $00, $28, $29, $2A, $2B, $2C, $2D, $2E, $2F, $40, $41, $42, $43, $00
-	db $10, $38, $39, $3A, $3B, $3C, $3D, $3E, $3F, $50, $51, $52, $53, $10, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $2A, $00, $09, $09, $01, $02, $03, $04, $05, $06, $07, $08, $09
-	db $09, $00, $10, $19, $19, $11, $12, $13, $14, $15, $16, $17, $18, $19, $19, $10
-	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $0C, $25
-	db $25, $26, $27, $0F, $20, $21, $22, $23, $24, $25, $25, $0C, $1C, $2D, $2D, $2E
-	db $2F, $1F, $28, $29, $2A, $2B, $2C, $2D, $2D, $1C, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
-	db $2A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $2A, $2A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
+
+; ---- data $5B6C-$5BF8 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+
+Tilemap_4D_5B6C:: ; 4D:5B6C
+	db $0C, $27, $0D, $0E, $0F, $20, $21, $22, $23, $24, $25, $26, $27, $0C, $1C, $37
+	db $1D, $1E, $1F, $30, $31, $32, $33, $34, $35, $36, $37, $1C, $92, $92, $92, $92
+	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $00, $28, $29, $2A, $2B, $2C
+	db $2D, $2E, $2F, $40, $41, $42, $43, $00, $10, $38, $39, $3A, $3B, $3C, $3D, $3E
+	db $3F, $50, $51, $52, $53, $10, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
+
+; ---- data $5BF8-$5C84 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+
+Tilemap_4D_5BF8:: ; 4D:5BF8
+	db $00, $09, $09, $01, $02, $03, $04, $05, $06, $07, $08, $09, $09, $00, $10, $19
+	db $19, $11, $12, $13, $14, $15, $16, $17, $18, $19, $19, $10, $92, $92, $92, $92
+	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $0C, $25, $25, $26, $27, $0F
+	db $20, $21, $22, $23, $24, $25, $25, $0C, $1C, $2D, $2D, $2E, $2F, $1F, $28, $29
+	db $2A, $2B, $2C, $2D, $2D, $1C, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $2A, $2A, $0A, $0A
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $2A, $2A
+
+; ---- data $5C84-$5D10 (140 bytes) [PROBABLE] 14x5 tilemap: 70 tile indices then 70 attribute bytes (0x8C); one of 4 words {5AE0,5B6C,5BF8,5C84} of the pointer table at 67:491C (`ld hl,$491C` at 67:4906, bc=$050E = 5 rows x 14 cols) (bank 67 bytes at 491C: e0 5a 6c 5b f8 5b 84 5c); rows visible in the bytes (00 0b 01 02..); the mapper ptrtable guesses at 5B0A/5B18 were tile indices
+
+Tilemap_4D_5C84:: ; 4D:5C84
 	db $0C, $25, $25, $0D, $0E, $0F, $20, $21, $22, $23, $24, $25, $25, $0C, $1C, $2D
 	db $2D, $1D, $1E, $1F, $28, $29, $2A, $2B, $2C, $2D, $2D, $1C, $92, $92, $92, $92
 	db $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $00, $09, $09, $0A, $0B, $03
@@ -541,11 +527,20 @@ Data_4D_5B24:: ; 4D:5B24
 	db $0A, $2A, $2A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
 	db $2A, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A
-	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $00, $00, $00, $00
-	db $18, $5D, $3E, $5D, $1C, $5D, $2D, $5D, $04, $00, $00, $00, $08, $08, $00, $10
-	db $08, $00, $78, $00, $28, $08, $78, $10, $28, $04, $00, $FF, $00, $08, $08, $FF
-	db $10, $08, $00, $79, $00, $28, $08, $79, $10, $28, $02, $00, $1E, $01, $05, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
+
+; ---- words $5D10-$5D18 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$5D10 a=$4D at 67:47C6 (entry 0 unused, entry 1 = 5D18/5D3E); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
+
+Table_4D_5D10:: ; 4D:5D10
+	dw $0000, $0000, Data_4D_5D18, $5D3E
+
+; ---- data $5D18-$5D50 (56 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:5D18-5D50 (ends with zero padding to the tile block)
+
+Data_4D_5D18:: ; 4D:5D18
+	db $1C, $5D, $2D, $5D, $04, $00, $00, $00, $08, $08, $00, $10, $08, $00, $78, $00
+	db $28, $08, $78, $10, $28, $04, $00, $FF, $00, $08, $08, $FF, $10, $08, $00, $79
+	db $00, $28, $08, $79, $10, $28, $02, $00, $1E, $01, $05, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- gfx $5D50-$5D70 (32 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DBC: hl=$5D50 a=$4D c=$02 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -1017,27 +1012,43 @@ Data_4D_7470:: ; 4D:7470
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 
-; ---- data $7870-$7983 (275 bytes) [HYPOTHESIS] UNCLASSIFIED 275 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7870-$78C0 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
 
-Data_4D_7870:: ; 4D:7870
+Tilemap_4D_7870:: ; 4D:7870
 	db $00, $01, $02, $03, $04, $05, $06, $09, $0A, $0B, $0C, $23, $0E, $20, $0A, $0B
 	db $0C, $23, $0F, $21, $10, $11, $12, $13, $14, $15, $16, $19, $1A, $1B, $1C, $33
 	db $1E, $30, $1A, $1B, $1C, $33, $1F, $31, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+; ---- data $78C0-$7910 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+
+Tilemap_4D_78C0:: ; 4D:78C0
 	db $21, $22, $0A, $0B, $0C, $23, $25, $01, $02, $03, $04, $05, $07, $09, $0A, $0B
 	db $0C, $23, $0F, $21, $31, $32, $1A, $1B, $1C, $33, $35, $11, $12, $13, $14, $15
 	db $17, $19, $1A, $1B, $1C, $33, $1F, $31, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
+
+; ---- data $7910-$7960 (80 bytes) [PROBABLE] 20x2 tilemap: 40 tile indices (2 rows of 20) then 40 attribute bytes (+0x28); dims from `ld bc,$0214` at 67:50E8, the table is indexed by [$C27D] at `ld hl,$5104` (67:50EE) (v4 correction: earlier text said 8x5 and table 67:510B); word of the pointer table at 67:5104 (70 78 c0 78 10 79)
+
+Tilemap_4D_7910:: ; 4D:7910
 	db $21, $22, $0A, $0B, $0C, $23, $24, $22, $0A, $0B, $0C, $23, $25, $01, $02, $03
 	db $04, $05, $08, $00, $31, $32, $1A, $1B, $1C, $33, $34, $32, $1A, $1B, $1C, $33
 	db $35, $11, $12, $13, $14, $15, $18, $10, $2A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A, $2A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $2A
-	db $00, $00, $00, $00, $68, $79, $7E, $79, $6C, $79, $75, $79, $02, $00, $00, $00
-	db $08, $00, $08, $01, $08, $02, $FF, $00, $00, $08, $FF, $08, $01, $08, $02, $00
-	db $1E, $01, $05
+
+; ---- words $7960-$7968 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$7960 a=$4D at 67:4E0A (entry 0 unused, entry 1 = 7968/797E); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
+
+Table_4D_7960:: ; 4D:7960
+	dw $0000, $0000, Data_4D_7968, $797E
+
+; ---- data $7968-$7983 (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:7968-7983
+
+Data_4D_7968:: ; 4D:7968
+	db $6C, $79, $75, $79, $02, $00, $00, $00, $08, $00, $08, $01, $08, $02, $FF, $00
+	db $00, $08, $FF, $08, $01, $08, $02, $00, $1E, $01, $05
 
 ; ---- zero $7983-$8000 (1661 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $67D, $00

@@ -1,30 +1,27 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4007	data	Data_74_4000	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4007	400A	data	Data_74_4007	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-400A	400B	data	Data_74_400A	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-400B	400E	data	Data_74_400B	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-400E	4018	ptrtable	Table_74_400E	PROBABLE	little-endian word table, 5 entries, monotone=1.00, 20% of targets on string start/after NUL, targets $401A..$402D; referenced by ld r16,$400E at 74:4398
-4018	4053	data	Data_74_4018	HYPOTHESIS	UNCLASSIFIED 59 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4053	4055	data	Data_74_4053	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4055	4078	data	Data_74_4055	HYPOTHESIS	UNCLASSIFIED 35 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4078	407A	data	Data_74_4078	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-407A	407E	data	Data_74_407A	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-407E	4084	data	Data_74_407E	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4084	40EE	data	Data_74_4084	HYPOTHESIS	UNCLASSIFIED 106 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-40EE	4126	data	Data_74_40EE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4126	412B	data	Data_74_4126	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-412B	4134	data	Data_74_412B	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4134	4138	data	Data_74_4134	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4138	4141	data	Data_74_4138	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4141	4145	data	Data_74_4141	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4145	4150	data	Data_74_4145	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4150	4153	data	Data_74_4150	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4153	4158	data	Data_74_4153	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4158	415A	data	Data_74_4158	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-415A	415B	data	Data_74_415A	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-415B	4160	data	Data_74_415B	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4160	4161	data	Data_74_4160	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4161	4165	data	Data_74_4161	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4006	ptrtable	Table_74_4000	PROBABLE	pointer list (2 entries + $0000 terminator): $4006, $400A. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4006	400E	data	Data_74_4006	PROBABLE	items [ASCII name][NUL][value byte]: $4006 "ng" -> $01; $400A "ok" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+400E	401A	ptrtable	Table_74_400E	PROBABLE	pointer list (5 entries + $0000 terminator): $401A, $401E, $4022, $4027, $402D. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+401A	4033	data	Data_74_401A	PROBABLE	items [ASCII name][NUL][value byte]: $401A "lt" -> $3C; $401E "gt" -> $3E; $4022 "amp" -> $26; $4027 "quot" -> $22; $402D "nbsp" -> $20. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+4033	403B	ptrtable	Table_74_4033	PROBABLE	pointer list (3 entries + $0000 terminator): $403B, $4043, $404B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+403B	4053	data	Data_74_403B	PROBABLE	items [ASCII name][NUL][value byte]: $403B "ppp_id" -> $01; $4043 "r_code" -> $02; $404B "d_code" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+4053	4057	ptrtable	Table_74_4053	PROBABLE	pointer list (1 entries + $0000 terminator): $4118. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4057	405B	ptrtable	Table_74_4057	PROBABLE	pointer list (1 entries + $0000 terminator): $405B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+405B	4062	data	Data_74_405B	PROBABLE	items [ASCII name][NUL][value byte]: $405B "clear" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+4062	4066	ptrtable	Table_74_4062	PROBABLE	pointer list (1 entries + $0000 terminator): $4066. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4066	406D	data	Data_74_4066	PROBABLE	items [ASCII name][NUL][value byte]: $4066 "width" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+406D	4071	ptrtable	Table_74_406D	PROBABLE	pointer list (1 entries + $0000 terminator): $4071. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4071	4078	data	Data_74_4071	PROBABLE	items [ASCII name][NUL][value byte]: $4071 "align" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+4078	407E	ptrtable	Table_74_4078	PROBABLE	pointer list (2 entries + $0000 terminator): $407E, $4084. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+407E	408A	data	Data_74_407E	PROBABLE	items [ASCII name][NUL][value byte]: $407E "href" -> $01; $4084 "name" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+408A	4090	ptrtable	Table_74_408A	PROBABLE	pointer list (2 entries + $0000 terminator): $4090, $4095. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4090	409C	data	Data_74_4090	PROBABLE	items [ASCII name][NUL][value byte]: $4090 "src" -> $01; $4095 "align" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+409C	40A4	ptrtable	Table_74_409C	PROBABLE	pointer list (3 entries + $0000 terminator): $40A4, $40AA, $40B1. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+40A4	40B6	data	Data_74_40A4	PROBABLE	items [ASCII name][NUL][value byte]: $40A4 "left" -> $01; $40AA "right" -> $02; $40B1 "all" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+40B6	40C4	ptrtable	Table_74_40B6	PROBABLE	pointer list (6 entries + $0000 terminator): $40D0, $40E0, $40C4, $40E6, $40CB, $40D8. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+40C4	40EE	data	Data_74_40C4	PROBABLE	items [ASCII name][NUL][value byte]: $40C4 "right" -> $04; $40CB "top" -> $10; $40D0 "center" -> $08; $40D8 "middle" -> $20; $40E0 "left" -> $0C; $40E6 "bottom" -> $30. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
+40EE	4112	ptrtable	Table_74_40EE	PROBABLE	pointer list (17 entries + $0000 terminator): $4157, $4138, $4145, $4140, $413C, $412B, $4133, $414B, $414F, $4153, $4148, $415A, $4160, $4125, $411F, $4118, $4112. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
+4112	4165	data	Data_74_4112	PROBABLE	items [ASCII name][NUL][value byte]: $4112 "html" -> $01; $4118 "title" -> $02; $411F "head" -> $03; $4125 "body" -> $04; $412B "center" -> $05; $4133 "div" -> $06; $4138 "br" -> $07; $413C "hr" -> $08; $4140 "img" -> $09; $4145 "a" -> $0A; $4148 "b" -> $0B; $414B "ul" -> $0C; $414F "ol" -> $0D; $4153 "li" -> $0E; $4157 "!" -> $0F; $415A "meta" -> $10; $4160 "pre" -> $11. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' ').  Pointer list precedes it.
 4165	417F	code	Function_74_4165	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 417F	41EF	code	-	PROBABLE	63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 0; fall-through of the jpcc at 74:417C (executed)
 41EF	41F2	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
@@ -32,34 +29,24 @@
 4207	4326	code	Function_74_4207	CONFIRMED	114 insn(s); 114 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 4326	4337	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:4324 (executed)
 4337	434C	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios)
-434C	4359	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 74:4337 (executed)
+434C	4359	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 74:4337 (executed) [executed in 4 scenarios]
 4359	4361	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
-4361	4374	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:435F (executed)
+4361	4374	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:435F (executed) [executed in 1 scenarios]
 4374	4392	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 2/18 scenarios)
 4392	43C3	code	-	PROBABLE	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1; entered by jrcc from 74:431A (executed)
-43C3	43C4	data	Data_74_43C3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+43C3	43C4	code	-	HYPOTHESIS	single 'pop hl' (e1) after the unconditional 'jp $4307' at 74:43C0; no branch/pointer targets 43C3 (tgt scan of all code regions + word scan), so unreachable; falls into the executed 43C4 (target of 13 jz/jp)
 43C4	445B	code	-	CONFIRMED	81 insn(s); 81 executed (in up to 2/18 scenarios)
 445B	446F	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 74:4459 (executed)
 446F	4473	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
 4473	4477	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 74:4470 (executed)
 4477	44A0	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 2/18 scenarios)
-44A0	44A2	data	Data_74_44A0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44A2	44A8	data	Data_74_44A2	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-44A8	44AA	data	Data_74_44A8	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44AA	44AC	data	Data_74_44AA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-44AC	44AE	data	Data_74_44AC	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44AE	44B2	data	Data_74_44AE	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-44B2	44B4	data	Data_74_44B2	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44B4	44BA	data	Data_74_44B4	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-44BA	44BC	data	Data_74_44BA	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44BC	44BE	data	Data_74_44BC	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-44BE	44C4	data	Data_74_44BE	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44A0	44C4	ptrtable	Table_74_44A0	CONFIRMED	18-word jump table indexed by the HTML tag id: dispatcher at 74:4490-449F (add a,a; add a,$A0; ld l,a; adc a,$44; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; push bc; ret) - executed in the homepage/monkey traces, which read entries 44A2-44BE as data; all 18 targets are instruction starts of code regions: $4439, $4623, $44C4, $462E, $464A, $4718, $472E, $4B98, $4CA6, $4DF9, $4A91, $4A32, $47AA, $4867, $493F, $45D9, $4698, $4666
 44C4	44EB	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 2/18 scenarios)
 44EB	4530	code	-	PROBABLE	40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 1; entered by jrcc from 74:44DD (executed)
 4530	455B	code	Function_74_4530	CONFIRMED	28 insn(s); 28 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 455B	456C	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:4559 (executed)
 456C	456F	code	-	CONFIRMED	1 insn(s); 1 executed (in up to 2/18 scenarios)
-456F	457A	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 74:456C (executed)
+456F	457A	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jpcc at 74:456C (executed) [executed in 1 scenarios]
 457A	4587	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 2/18 scenarios)
 4587	45AA	code	-	PROBABLE	23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 74:457D (executed)
 45AA	45D9	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 2/18 scenarios)
@@ -67,7 +54,7 @@
 4623	464A	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios)
 464A	4718	code	-	PROBABLE	83 insn(s) reached by static flow only; seeds: site x72, table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
 4718	472E	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
-472E	4740	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+472E	4740	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 2 scenarios]
 4740	4761	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios)
 4761	4788	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 1; entered by jrcc from 74:473E (PROBABLE code)
 4788	481A	code	-	CONFIRMED	71 insn(s); 71 executed (in up to 1/18 scenarios)
@@ -85,11 +72,11 @@
 4AB8	4AE5	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 2/18 scenarios)
 4AE5	4B21	code	-	PROBABLE	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 74:4AE3 (executed)
 4B21	4B81	code	-	CONFIRMED	49 insn(s); 49 executed (in up to 2/18 scenarios)
-4B81	4B98	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 74:4B3A (executed)
+4B81	4B98	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 74:4B3A (executed) [executed in 1 scenarios]
 4B98	4BA1	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
 4BA1	4BB9	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 74:4B9F (executed)
 4BB9	4BD2	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
-4BD2	4BD8	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4BD0 (executed)
+4BD2	4BD8	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4BD0 (executed) [executed in 1 scenarios]
 4BD8	4BEC	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
 4BEC	4BF4	ptrtable	Table_74_4BEC	PROBABLE	inline table of `call $0545` (JumpTableInline) at 74:4BE9: 4 entries; end = first entry target
 4BF4	4C2E	code	-	PROBABLE	31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 1; entered by table from 74:4BE9 (executed)
@@ -109,14 +96,14 @@
 4FA6	4FAA	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4FA4 (executed)
 4FAA	4FF2	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
 4FF2	511A	code	-	PROBABLE	164 insn(s) reached by static flow only; seeds: site x164; min discovery hops 1; entered by far from 74:4879 (PROBABLE code)
-511A	513E	data	Data_74_511A	HYPOTHESIS	UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+511A	513E	ptrtable	Table_74_511A	PROBABLE	18-word jump table: dispatcher at 74:510A-5119 (add a,a; push hl; add a,$1A; ld l,a; ld a,0; adc a,$51; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; pop hl; push bc; ret), same idiom as Table_74_44A0; the dispatcher is executed: traces/detail/*/dataaccess.tsv (browser scenarios) list rom_read 74 512E-5130 and 5134-5138, i.e. entries 10 ($50B3), 13 ($521B) and 14 ($5238) were fetched by 74:5114; the table extent (18 words) is by analogy with Table_74_44A0, hence PROBABLE; all 18 targets are code instruction starts: $50B3, $50B3, $513E, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $51FE, $521B, $5238, $519A, $50B3, $51E4
 513E	51E4	code	-	PROBABLE	86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
-51E4	51FE	data	Data_74_51E4	HYPOTHESIS	UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+51E4	51FE	code	-	PROBABLE	table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to known code and lands exactly on the next code region 51FE (also a table target)
 51FE	5252	code	-	PROBABLE	40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
 5252	5293	code	Function_74_5252	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 5293	537D	code	-	PROBABLE	148 insn(s) reached by static flow only; seeds: exec x7, site x141; min discovery hops 1; entered by jrcc from 74:526F (executed)
 537D	53A6	code	Function_74_537D	CONFIRMED	23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-53A6	53D1	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 74:53A4 (executed)
+53A6	53D1	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 74:53A4 (executed) [executed in 1 scenarios]
 53D1	5491	code	-	CONFIRMED	110 insn(s); 110 executed (in up to 2/18 scenarios)
 5491	54AA	code	-	PROBABLE	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 74:548F (executed)
 54AA	54B2	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
@@ -124,7 +111,7 @@
 54C3	54C6	code	-	CONFIRMED	1 insn(s); 1 executed (in up to 2/18 scenarios)
 54C6	54D9	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jpcc at 74:54C3 (executed)
 54D9	54E4	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
-54E4	54EE	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 74:54E2 (executed)
+54E4	54EE	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 74:54E2 (executed) [executed in 1 scenarios]
 54EE	551E	code	-	CONFIRMED	25 insn(s); 25 executed (in up to 2/18 scenarios)
 551E	5525	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 74:551C (executed)
 5525	555D	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 2/18 scenarios)
@@ -144,17 +131,13 @@
 5861	58C2	code	-	CONFIRMED	63 insn(s); 63 executed (in up to 2/18 scenarios)
 58C2	58F4	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the jrcc at 74:58C0 (executed)
 58F4	5905	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
-5905	590B	data	Data_74_5905	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-590B	591D	data	Data_74_590B	HYPOTHESIS	UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-591D	5924	data	Data_74_591D	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-5924	592A	data	Data_74_5924	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-592A	5930	data	Data_74_592A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5930	5969	data	Data_74_5930	HYPOTHESIS	UNCLASSIFIED 57 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5905	591D	ptrtable	Table_74_5905	PROBABLE	URL scheme pointer list (11 entries + $0000): $591D, $5923, $592A, $5938, $5930, $593D, $5945, $594B, $5951, $5959, $595F. Items follow at 591D, tile exactly to the code at 74:5969; bytes 5905-591D... were read as data by executed code in 5/18 scenarios
+591D	5969	data	Data_74_591D	PROBABLE	URL scheme name items [ASCII NUL][value byte]: $591D "http" -> $01; $5923 "https" -> $FF; $592A "file" -> $FF; $5930 "mailto" -> $FF; $5938 "ftp" -> $FF; $593D "gopher" -> $FF; $5945 "news" -> $FF; $594B "nntp" -> $FF; $5951 "telnet" -> $FF; $5959 "wais" -> $FF; $595F "prospero" -> $FF (value $01 for http, $FF for the others). (Value byte follows the name as in the tag/attribute tables at 74:4000.)
 5969	598D	code	Function_74_5969	CONFIRMED	22 insn(s); 22 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-598D	59B0	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 74:598B (executed)
+598D	59B0	code	-	CONFIRMED	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 74:598B (executed) [executed in 1 scenarios]
 59B0	59D6	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 2/18 scenarios)
 59D6	59D8	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 74:59D4 (executed)
-59D8	59E0	data	Data_74_59D8	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+59D8	59E0	text	String_74_59D8	PROBABLE	'http://' NUL: copied byte-by-byte to $C380 until NUL by the loop at 74:59E7 (ld hl,$59D8 ; ld a,[hli] ; ld [de],a ; inc de ; dec bc ; or a ; jr nz)
 59E0	59F1	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 74:59B8 (executed)
 59F1	5A07	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
 5A07	5A13	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; fall-through of the jrcc at 74:5A05 (executed)
@@ -169,16 +152,16 @@
 5AD7	5AEB	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios)
 5AEB	5AF3	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 74:5AE9 (executed)
 5AF3	5AF6	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
-5AF6	5AF8	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:5AB8 (executed)
+5AF6	5AF8	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:5AB8 (executed) [executed in 4 scenarios]
 5AF8	5B21	code	Function_74_5AF8	CONFIRMED	29 insn(s); 29 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 5B21	5B23	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 74:5B1F (executed)
 5B23	5B30	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
 5B30	5B32	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 74:5B2E (executed)
 5B32	5B38	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
 5B38	5B3E	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 74:5B26 (executed)
-5B3E	5B3F	data	Data_74_5B3E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5B3E	5B3F	code	-	HYPOTHESIS	single 'pop bc' (c1) after the unconditional 'jr $5B3F' at 74:5B3C; nothing targets 5B3E (tgt scan), so unreachable; falls into 5B3F (target of 3 jr)
 5B3F	5B48	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
-5B48	5B49	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 74:5B3A (PROBABLE code)
+5B48	5B49	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 74:5B3A (PROBABLE code) [executed in 4 scenarios]
 5B49	5B4B	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
 5B4B	5B4F	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:5B04 (executed)
 5B4F	5B5C	code	Function_74_5B4F	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -192,7 +175,7 @@
 5C00	5C2F	code	-	CONFIRMED	35 insn(s); 35 executed (in up to 1/18 scenarios)
 5C2F	5C32	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 74:5C2D (executed)
 5C32	5C3D	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
-5C3D	5C42	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 74:5C3B (executed)
+5C3D	5C42	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 74:5C3B (executed) [executed in 1 scenarios]
 5C42	5C57	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
 5C57	5C60	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 74:5C55 (executed)
 5C60	5C61	code	-	CONFIRMED	1 insn(s); 1 executed (in up to 2/18 scenarios)

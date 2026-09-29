@@ -4,28 +4,28 @@
 4455	48D0	gfx	Data_60_4455	PROBABLE	tiles-2bpp: heuristic: 79 coherent tiles (hsim2=0.719 vsim2=0.686, 3 blank) parity 0 [clipped from 4360-48D0 by higher-priority evidence]
 48D0	4B50	data	Data_60_48D0	CONFIRMED	read as data by executed code (in up to 8/18 scenarios); content class unknown [clipped from 4000-4D80 by higher-priority evidence]
 4B50	4D80	gfx	Data_60_4B50	PROBABLE	tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.759 vsim2=0.729, 0 blank) parity 0
-4D80	4DD2	data	Data_60_4D80	HYPOTHESIS	run of 82 x $FF (padding?) in unclassified bytes
-4DD2	5270	data	Data_60_4DD2	HYPOTHESIS	UNCLASSIFIED 1182 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4D80	4DD0	data	Data_60_4D80	HYPOTHESIS	run of 82 x $FF (padding?) in unclassified bytes
+4DD0	5270	gfx	Tiles_60_4DD0	PROBABLE	74 tiles: 2bpp tile data (pixel coherence hsim=0.674 vsim=0.583); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 5270	52C0	data	Data_60_5270	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-52C0	52D0	data	Data_60_52C0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52C0	52D0	gfx	Tiles_60_52C0	HYPOTHESIS	1 tiles: 2bpp tile data (pixel coherence hsim=0.357 vsim=0.786); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 52D0	5640	gfx	Data_60_52D0	PROBABLE	tiles-2bpp: heuristic: 48 coherent tiles (hsim2=0.661 vsim2=0.678, 0 blank) parity 0
-5640	56F0	data	Data_60_5640	HYPOTHESIS	UNCLASSIFIED 176 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5640	56F0	gfx	Tiles_60_5640	PROBABLE	11 tiles: 2bpp tile data (pixel coherence hsim=0.769 vsim=0.438); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 56F0	5740	data	Data_60_56F0	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-5740	57B0	data	Data_60_5740	HYPOTHESIS	UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5740	57B0	gfx	Tiles_60_5740	HYPOTHESIS	7 tiles: 2bpp tile data (pixel coherence hsim=0.658 vsim=0.607); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 57B0	5800	data	Data_60_57B0	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-5800	5B00	data	Data_60_5800	HYPOTHESIS	UNCLASSIFIED 768 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5800	5B00	gfx	Tiles_60_5800	PROBABLE	48 tiles: 2bpp tile data (pixel coherence hsim=0.749 vsim=0.741); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 5B00	5D50	data	Data_60_5B00	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 5B00-5F80 by higher-priority evidence]
 5D50	6010	gfx	Data_60_5D50	PROBABLE	tiles-2bpp: heuristic: 40 coherent tiles (hsim2=0.705 vsim2=0.757, 0 blank) parity 0
-6010	6060	data	Data_60_6010	HYPOTHESIS	UNCLASSIFIED 80 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6010	6060	gfx	Tiles_60_6010	HYPOTHESIS	5 tiles: 2bpp tile data (pixel coherence hsim=0.411 vsim=0.411); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 6060	62B0	gfx	Data_60_6060	PROBABLE	tiles-2bpp: heuristic: 32 coherent tiles (hsim2=0.696 vsim2=0.706, 0 blank) parity 0
-62B0	6470	data	Data_60_62B0	HYPOTHESIS	UNCLASSIFIED 448 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+62B0	6470	gfx	Tiles_60_62B0	PROBABLE	28 tiles: 2bpp tile data (pixel coherence hsim=0.723 vsim=0.524); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 6470	64C0	data	Data_60_6470	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-64C0	6530	data	Data_60_64C0	HYPOTHESIS	UNCLASSIFIED 112 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+64C0	6530	gfx	Tiles_60_64C0	HYPOTHESIS	7 tiles: 2bpp tile data (pixel coherence hsim=0.699 vsim=0.63); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 6530	6580	data	Data_60_6530	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-6580	6600	data	Data_60_6580	HYPOTHESIS	UNCLASSIFIED 128 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6580	6600	gfx	Tiles_60_6580	PROBABLE	8 tiles: 2bpp tile data (pixel coherence hsim=0.636 vsim=0.576); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 6600	6640	data	Data_60_6600	HYPOTHESIS	run of 64 x $FF (padding?) in unclassified bytes
-6640	70A0	data	Data_60_6640	HYPOTHESIS	UNCLASSIFIED 2656 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6640	70A0	gfx	Tiles_60_6640	PROBABLE	166 tiles: 2bpp tile data (pixel coherence hsim=0.676 vsim=0.565); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 70A0	76F0	gfx	Data_60_70A0	PROBABLE	tiles-2bpp: heuristic: 89 coherent tiles (hsim2=0.708 vsim2=0.660, 8 blank) parity 0
-76F0	7A80	data	Data_60_76F0	HYPOTHESIS	UNCLASSIFIED 912 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+76F0	7A80	gfx	Tiles_60_76F0	PROBABLE	57 tiles: 2bpp tile data (pixel coherence hsim=0.735 vsim=0.425); bank 60 is one tile sheet 4000-7A80 (rendered: UI frames, Japanese text glyphs, sprites) followed by the palette at 7A80; span sits between PROBABLE gfx blocks; no loader call found
 7A80	7AE8	data	Data_60_7A80	PROBABLE	palette-rgb555: heuristic: 52 RGB555 words as 13 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 7AE8	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

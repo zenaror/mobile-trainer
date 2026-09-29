@@ -1,25 +1,12 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4002	data	Data_55_4000	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4002	4004	data	Data_55_4002	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4004	4005	data	Data_55_4004	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-4005	4006	data	Data_55_4005	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4006	400C	data	Data_55_4006	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-400C	400E	data	Data_55_400C	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-400E	400F	data	Data_55_400E	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-400F	4010	data	Data_55_400F	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4010	4018	data	Data_55_4010	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4018	401C	data	Data_55_4018	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-401C	401E	data	Data_55_401C	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-401E	4020	data	Data_55_401E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4020	402C	data	Data_55_4020	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-402C	4030	data	Data_55_402C	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4030	4032	data	Data_55_4030	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-4032	4034	data	Data_55_4032	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4034	403A	data	Data_55_4034	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-403A	403C	data	Data_55_403A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-403C	4040	data	Data_55_403C	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 403C-4042 by higher-priority evidence]
-4040	43E0	gfx	Data_55_4040	PROBABLE	tiles-2bpp: heuristic: 48 coherent tiles (hsim2=0.659 vsim2=0.709, 4 blank) parity 0
-43E0	43EE	data	Data_55_43E0	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4014	data	Data_55_4000	PROBABLE	20-byte header ($0014, $0003, zeros, $4634?, $58 run) of the on-screen keyboard tables; bytes 4000-4001, 4004, 4006-400B, 400E, 4010-4013 were read by executed code (traces); fields not decoded [verifier: restored from HYPOTHESIS; the traces prove the read ranges as data (they were CONFIRMED before the merge) and the block is one 20-byte header]
+4014	4046	ptrtable	Table_55_4014	PROBABLE	25 words $4028...$498E (all inside the bank, ascending, the last three $4826/$48DA/$498E are $B4 apart); read by executed code; they point at the keyboard character pages below (page starts 4046, 40B2, 4142, 41D2 then every $B4 up to 498E)
+4046	40B2	data	Data_55_4046	PROBABLE	keyboard character page block (108 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
+40B2	4142	data	Data_55_40B2	PROBABLE	keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
+4142	41D2	data	Data_55_4142	PROBABLE	keyboard character page block (144 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
+41D2	4286	data	Data_55_41D2	PROBABLE	keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
+4286	433A	data	Data_55_4286	PROBABLE	keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
+433A	43EE	data	Data_55_433A	PROBABLE	keyboard character page block (180 bytes): cells of 4 bytes (00 00 00 xx) or 2 bytes (00 xx) holding ASCII codes 0-9/a-z/A-Z with zero padding and, at the end of the page, the markers ff 83 / ff 82; page boundaries are the word-table entries at 4014 (block starts 4046/40B2/4142/41D2/4286/433A are entries, sizes $6C,$90,$90,$B4,$B4,$B4); the mapper labelled 4040-43E0 "tiles-2bpp" but the content is character codes (digits, letters, zeros), not tile data
 43EE	43F9	text	String_55_43EE	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 43F9	4406	text	String_55_43F9	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 4406	441D	text	String_55_4406	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -28,30 +15,23 @@
 4441	444E	text	String_55_4441	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 444E	4465	text	String_55_444E	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4465	4495	text	String_55_4465	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
-4495	4498	data	Data_55_4495	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4498	449A	data	Data_55_4498	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-449A	449E	data	Data_55_449A	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-449E	44A0	data	Data_55_449E	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-44A0	44A2	data	Data_55_44A0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44A2	44A4	data	Data_55_44A2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-44A4	44BA	data	Data_55_44A4	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4495	44A4	data	Data_55_4495	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4495-44A4 that executed code reads piecewise [split by classify_g2]
+44A4	44BA	text	String_55_44A4	PROBABLE	Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: イウエオ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 44BA	44D1	text	String_55_44BA	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-44D1	44DE	data	Data_55_44D1	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44D1	44DE	text	String_55_44D1	PROBABLE	Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 44DE	44F5	text	String_55_44DE	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-44F5	4502	data	Data_55_44F5	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+44F5	4502	text	String_55_44F5	PROBABLE	Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 4502	4519	text	String_55_4502	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4519	4532	data	Data_55_4519	HYPOTHESIS	UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4532	4536	data	Data_55_4532	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4536	4552	data	Data_55_4536	HYPOTHESIS	UNCLASSIFIED 28 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4552	4554	data	Data_55_4552	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4554	456E	data	Data_55_4554	HYPOTHESIS	UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4519	4532	text	String_55_4519	PROBABLE	Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: |ラリルレロ||「」（）    ), between confirmed/probable text rows of the same on-screen keyboard character pages
+4532	454A	text	String_55_4532	PROBABLE	Shift-JIS keyboard row(s) inside the run 4532-4554: clean cp932 pairs with NUL row terminators (ナニヌネノ||ワヲン゜゛||); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
+454A	4554	data	Data_55_454A	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4532-4554 that executed code reads piecewise [split by classify_g2]
+4554	456E	text	String_55_4554	PROBABLE	Shift-JIS keyboard row(s) NUL separated (10 double-byte chars, decodes cleanly with cp932: ||ＡＢＣＤＥ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 456E	4585	text	String_55_456E	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4585	45FD	text	String_55_4585	PROBABLE	text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 456E-45FD by higher-priority evidence]
-45FD	4606	data	Data_55_45FD	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4606	4608	data	Data_55_4606	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4608	460A	data	Data_55_4608	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+45FD	460A	data	Data_55_45FD	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 45FD-460A that executed code reads piecewise [split by classify_g2]
 460A	468D	text	String_55_460A	PROBABLE	text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
-468D	46BE	data	Data_55_468D	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+468D	46B0	text	String_55_468D	PROBABLE	Shift-JIS keyboard rows (symbols: arrows, stars, squares; codes 01 20 / 01 0D are inline controls) NUL separated; decodes cleanly with cp932; between the text rows 460A-468D and 46BE of the same page
+46B0	46BE	data	Data_55_46B0	PROBABLE	14-byte page trailer 00 00 00 00 ff 83 00 00 00 00 ff 82 00 00, byte-identical to the trailers at 43E0/45FD/4765 (the ff 83 / ff 82 words are read by executed code at 4498/449E/4552/4606/476E)
 46BE	46C9	text	String_55_46BE	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 46C9	46D6	text	String_55_46C9	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 46D6	46ED	text	String_55_46D6	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -60,281 +40,47 @@
 4711	471E	text	String_55_4711	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 471E	4735	text	String_55_471E	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4735	4765	text	String_55_4735	PROBABLE	text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
-4765	476E	data	Data_55_4765	HYPOTHESIS	UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-476E	4770	data	Data_55_476E	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4770	4776	data	Data_55_4770	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4776	477A	data	Data_55_4776	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-477A	478A	data	Data_55_477A	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4765	4771	data	Data_55_4765	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4765-477A that executed code reads piecewise [split by classify_g2]
+4771	477A	text	String_55_4771	PROBABLE	Shift-JIS keyboard row(s) inside the run 4765-477A: clean cp932 pairs with NUL row terminators (|アイウエ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
+477A	478A	text	String_55_477A	PROBABLE	Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: オ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 478A	47A1	text	String_55_478A	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-47A1	47AE	data	Data_55_47A1	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47A1	47AE	text	String_55_47A1	PROBABLE	Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 47AE	47C5	text	String_55_47AE	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-47C5	47D2	data	Data_55_47C5	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47C5	47D2	text	String_55_47C5	PROBABLE	Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 47D2	47E9	text	String_55_47D2	CONFIRMED	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-47E9	482C	data	Data_55_47E9	HYPOTHESIS	UNCLASSIFIED 67 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-482C	482E	data	Data_55_482C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-482E	483E	data	Data_55_482E	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+47E9	481A	text	String_55_47E9	PROBABLE	Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ラリルレロ||「」（） ^ ナニヌネノ); 0 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
+481A	4825	data	Data_55_481A	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 47E9-482E that executed code reads piecewise [split by classify_g2]
+4825	482E	text	String_55_4825	PROBABLE	Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ＡＢＣＤ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
+482E	483E	text	String_55_482E	PROBABLE	Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: Ｅ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 483E	4855	text	String_55_483E	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4855	48CD	text	String_55_4855	PROBABLE	text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 483E-48CD by higher-priority evidence]
-48CD	48D0	data	Data_55_48CD	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-48D0	48D2	data	Data_55_48D0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-48D2	48D6	data	Data_55_48D2	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-48D6	48D8	data	Data_55_48D6	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-48D8	48DA	data	Data_55_48D8	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+48CD	48DA	data	Data_55_48CD	PROBABLE	keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 48CD-48DA that executed code reads piecewise [split by classify_g2]
 48DA	495D	text	String_55_48DA	PROBABLE	text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII
-495D	498E	data	Data_55_495D	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-498E	4990	data	Data_55_498E	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-4990	4A1E	data	Data_55_4990	HYPOTHESIS	UNCLASSIFIED 142 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A1E	4A20	data	Data_55_4A1E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4A20	4A3E	data	Data_55_4A20	HYPOTHESIS	UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A3E	4A40	data	Data_55_4A3E	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-4A40	4A42	data	Data_55_4A40	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A42	4A46	data	Data_55_4A42	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-4A46	4A4A	data	Data_55_4A46	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A4A	4A4C	data	Data_55_4A4A	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-4A4C	4A4E	data	Data_55_4A4C	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4A4E	4A51	data	Data_55_4A4E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4A4E-4A56 by higher-priority evidence]
-4A51	4F61	gfx	Data_55_4A51	PROBABLE	tiles-2bpp: heuristic: 52 coherent tiles (hsim2=0.690 vsim2=0.666, 22 blank) parity 1
-4F61	5012	data	Data_55_4F61	HYPOTHESIS	UNCLASSIFIED 177 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5012	5038	zero	-	HYPOTHESIS	padding? run of 38 x $00 in unclassified bytes
-5038	5080	data	Data_55_5038	HYPOTHESIS	UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5080	50AA	zero	-	HYPOTHESIS	0x00 run of 42 bytes
-50AA	5116	data	Data_55_50AA	HYPOTHESIS	UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5116	5130	data	Data_55_5116	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-5130	5131	data	Data_55_5130	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5131	5134	data	Data_55_5131	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-5134	513A	data	Data_55_5134	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-513A	5146	data	Data_55_513A	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-5146	5147	data	Data_55_5146	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5147	5148	data	Data_55_5147	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5148	514A	data	Data_55_5148	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-514A	514C	data	Data_55_514A	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-514C	514D	data	Data_55_514C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-514D	514E	data	Data_55_514D	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-514E	514F	data	Data_55_514E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-514F	5154	data	Data_55_514F	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-5154	5155	data	Data_55_5154	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5155	5158	data	Data_55_5155	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-5158	515F	data	Data_55_5158	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-515F	5196	data	Data_55_515F	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-5196	5197	data	Data_55_5196	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5197	51A0	data	Data_55_5197	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-51A0	51A8	data	Data_55_51A0	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51A8	51A9	data	Data_55_51A8	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-51A9	51AA	data	Data_55_51A9	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51AA	51AC	data	Data_55_51AA	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-51AC	51AD	data	Data_55_51AC	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51AD	51AF	data	Data_55_51AD	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51AF	51B0	data	Data_55_51AF	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51B0	51B3	data	Data_55_51B0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51B3	51B4	data	Data_55_51B3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51B4	51B5	data	Data_55_51B4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51B5	51B6	data	Data_55_51B5	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51B6	51BA	data	Data_55_51B6	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-51BA	51BC	data	Data_55_51BA	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51BC	51BE	data	Data_55_51BC	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-51BE	51C1	data	Data_55_51BE	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51C1	51C4	data	Data_55_51C1	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51C4	51CA	data	Data_55_51C4	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51CA	51CB	data	Data_55_51CA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51CB	51CC	data	Data_55_51CB	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51CC	51CD	data	Data_55_51CC	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-51CD	51CE	data	Data_55_51CD	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-51CE	5206	data	Data_55_51CE	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5206	5208	data	Data_55_5206	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5208	520C	data	Data_55_5208	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-520C	5226	data	Data_55_520C	HYPOTHESIS	UNCLASSIFIED 26 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5226	5227	data	Data_55_5226	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5227	5228	data	Data_55_5227	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5228	522A	data	Data_55_5228	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-522A	522B	data	Data_55_522A	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-522B	522C	data	Data_55_522B	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-522C	522D	data	Data_55_522C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-522D	5230	data	Data_55_522D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5230	525A	zero	-	HYPOTHESIS	0x00 run of 42 bytes
-525A	526C	data	Data_55_525A	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-526C	526D	data	Data_55_526C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-526D	5273	data	Data_55_526D	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-5273	5274	data	Data_55_5273	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5274	5278	data	Data_55_5274	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-5278	527F	data	Data_55_5278	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-527F	5280	data	Data_55_527F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5280	5282	data	Data_55_5280	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5282	5284	data	Data_55_5282	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5284	5285	data	Data_55_5284	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5285	5286	data	Data_55_5285	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5286	5288	data	Data_55_5286	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5288	528A	data	Data_55_5288	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-528A	528B	data	Data_55_528A	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-528B	528C	data	Data_55_528B	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-528C	528E	data	Data_55_528C	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-528E	5290	data	Data_55_528E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5290	5291	data	Data_55_5290	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5291	5293	data	Data_55_5291	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5293	5294	data	Data_55_5293	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5294	5296	data	Data_55_5294	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5296	5298	data	Data_55_5296	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5298	529C	data	Data_55_5298	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-529C	52C6	zero	-	HYPOTHESIS	0x00 run of 42 bytes
-52C6	52E4	data	Data_55_52C6	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-52E4	52EA	data	Data_55_52E4	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-52EA	52F2	data	Data_55_52EA	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-52F2	52F3	data	Data_55_52F2	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-52F3	52F7	data	Data_55_52F3	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-52F7	52FA	data	Data_55_52F7	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-52FA	52FC	data	Data_55_52FA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-52FC	52FD	data	Data_55_52FC	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-52FD	5308	data	Data_55_52FD	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-5308	5314	data	Data_55_5308	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5314	531A	data	Data_55_5314	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-531A	5326	data	Data_55_531A	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5326	532C	data	Data_55_5326	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-532C	544C	data	Data_55_532C	HYPOTHESIS	UNCLASSIFIED 288 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-544C	5476	zero	-	HYPOTHESIS	padding? run of 42 x $00 in unclassified bytes
-5476	54C0	data	Data_55_5476	HYPOTHESIS	UNCLASSIFIED 74 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-54C0	54E2	zero	-	HYPOTHESIS	0x00 run of 42 bytes [clipped from 54B8-54E2 by higher-priority proposals]
-54E2	554E	data	Data_55_54E2	HYPOTHESIS	UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-554E	5551	data	Data_55_554E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5551	5552	data	Data_55_5551	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5552	5555	data	Data_55_5552	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5555	5558	data	Data_55_5555	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5558	555A	data	Data_55_5558	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-555A	55AF	data	Data_55_555A	HYPOTHESIS	UNCLASSIFIED 85 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-55AF	55B1	data	Data_55_55AF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-55B1	55B2	data	Data_55_55B1	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-55B2	55B5	data	Data_55_55B2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-55B5	55B7	data	Data_55_55B5	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-55B7	55BA	data	Data_55_55B7	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-55BA	55BD	data	Data_55_55BA	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-55BD	55C0	data	Data_55_55BD	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-55C0	5616	data	Data_55_55C0	HYPOTHESIS	UNCLASSIFIED 86 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5616	5617	data	Data_55_5616	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5617	5618	data	Data_55_5617	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5618	561A	data	Data_55_5618	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-561A	561C	data	Data_55_561A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-561C	561D	data	Data_55_561C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-561D	561E	data	Data_55_561D	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-561E	5621	data	Data_55_561E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5621	5624	data	Data_55_5621	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5624	5626	data	Data_55_5624	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5626	5628	data	Data_55_5626	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5628	5629	data	Data_55_5628	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5629	562A	data	Data_55_5629	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-562A	562C	data	Data_55_562A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-562C	5682	data	Data_55_562C	HYPOTHESIS	UNCLASSIFIED 86 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5682	5683	data	Data_55_5682	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5683	5684	data	Data_55_5683	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5684	5687	data	Data_55_5684	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5687	568A	data	Data_55_5687	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-568A	568C	data	Data_55_568A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-568C	5693	data	Data_55_568C	HYPOTHESIS	UNCLASSIFIED 7 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5693	5695	data	Data_55_5693	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5695	5696	data	Data_55_5695	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5696	5698	data	Data_55_5696	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5698	5699	data	Data_55_5698	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5699	569A	data	Data_55_5699	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-569A	569C	data	Data_55_569A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-569C	569E	data	Data_55_569C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-569E	56A1	data	Data_55_569E	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56A1	56A4	data	Data_55_56A1	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-56A4	56F3	data	Data_55_56A4	HYPOTHESIS	UNCLASSIFIED 79 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56F3	56F9	data	Data_55_56F3	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-56F9	56FC	data	Data_55_56F9	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56FC	56FE	data	Data_55_56FC	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-56FE	56FF	data	Data_55_56FE	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-56FF	5701	data	Data_55_56FF	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5701	5702	data	Data_55_5701	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5702	5704	data	Data_55_5702	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5704	5706	data	Data_55_5704	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5706	5707	data	Data_55_5706	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5707	5708	data	Data_55_5707	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5708	570A	data	Data_55_5708	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-570A	570C	data	Data_55_570A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-570C	570D	data	Data_55_570C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-570D	570E	data	Data_55_570D	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-570E	5710	data	Data_55_570E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5710	574D	data	Data_55_5710	HYPOTHESIS	UNCLASSIFIED 61 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-574D	574E	data	Data_55_574D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-574E	5750	data	Data_55_574E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5750	5752	data	Data_55_5750	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5752	575E	data	Data_55_5752	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-575E	5764	data	Data_55_575E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5764	576A	data	Data_55_5764	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-576A	576C	data	Data_55_576A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-576C	576D	data	Data_55_576C	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-576D	5770	data	Data_55_576D	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-5770	5771	data	Data_55_5770	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5771	5772	data	Data_55_5771	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5772	5773	data	Data_55_5772	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5773	5776	data	Data_55_5773	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5776	5777	data	Data_55_5776	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5777	5778	data	Data_55_5777	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5778	577A	data	Data_55_5778	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-577A	577C	data	Data_55_577A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-577C	577E	data	Data_55_577C	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-577E	5782	data	Data_55_577E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5782	57CB	data	Data_55_5782	HYPOTHESIS	UNCLASSIFIED 73 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57CB	57CD	data	Data_55_57CB	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57CD	57CE	data	Data_55_57CD	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57CE	57D0	data	Data_55_57CE	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57D0	57D2	data	Data_55_57D0	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57D2	57D3	data	Data_55_57D2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57D3	57D4	data	Data_55_57D3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57D4	57D6	data	Data_55_57D4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57D6	57DE	data	Data_55_57D6	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57DE	57DF	data	Data_55_57DE	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57DF	57E0	data	Data_55_57DF	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57E0	57E2	data	Data_55_57E0	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57E2	57EA	data	Data_55_57E2	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57EA	57EB	data	Data_55_57EA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57EB	57EC	data	Data_55_57EB	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-57EC	57EE	data	Data_55_57EC	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-57EE	584E	data	Data_55_57EE	HYPOTHESIS	UNCLASSIFIED 96 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-584E	584F	data	Data_55_584E	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-584F	5852	data	Data_55_584F	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5852	5855	data	Data_55_5852	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5855	5858	data	Data_55_5855	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5858	585A	data	Data_55_5858	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-585A	58C2	data	Data_55_585A	HYPOTHESIS	UNCLASSIFIED 104 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58C2	58C3	data	Data_55_58C2	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-58C3	58C4	data	Data_55_58C3	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-58C4	58C6	data	Data_55_58C4	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-58C6	590F	data	Data_55_58C6	HYPOTHESIS	UNCLASSIFIED 73 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-590F	5910	data	Data_55_590F	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5910	5912	data	Data_55_5910	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5912	5914	data	Data_55_5912	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5914	592D	data	Data_55_5914	HYPOTHESIS	UNCLASSIFIED 25 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-592D	592F	data	Data_55_592D	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-592F	5930	data	Data_55_592F	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5930	5933	data	Data_55_5930	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5933	5936	data	Data_55_5933	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5936	5938	data	Data_55_5936	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5938	5969	data	Data_55_5938	HYPOTHESIS	UNCLASSIFIED 49 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5969	596A	data	Data_55_5969	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-596A	596C	data	Data_55_596A	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-596C	596E	data	Data_55_596C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-596E	597A	data	Data_55_596E	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-597A	597B	data	Data_55_597A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-597B	597C	data	Data_55_597B	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-597C	5980	data	Data_55_597C	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5980	5988	data	Data_55_5980	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5988	5989	data	Data_55_5988	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5989	598A	data	Data_55_5989	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-598A	598C	data	Data_55_598A	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-598C	5B0C	data	Data_55_598C	HYPOTHESIS	UNCLASSIFIED 384 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5B0C	5B36	zero	-	HYPOTHESIS	padding? run of 42 x $00 in unclassified bytes
-5B36	5BA2	data	Data_55_5B36	HYPOTHESIS	UNCLASSIFIED 108 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+495D	4982	text	String_55_495D	PROBABLE	Shift-JIS keyboard row(s) (arrows, spaces; 01 20 inline control) NUL separated, clean cp932; between the text rows 48DA-495D and the page trailer at 4982
+4982	498E	data	Data_55_4982	PROBABLE	12-byte page trailer 00 00 ff 83 00 00 00 00 ff 82 00 00 (same marker pattern as 43E0/45FD; the ff 83 / ff 82 words are read by executed code)
+498E	4A42	data	Data_55_498E	PROBABLE	last keyboard character page (block $B4 from the table at 4014, entry 498E): 16-bit cells 00 41 00 42 ... 00 5A / 00 61 ... 00 7A / 00 30 ... (Latin letters and digits as 00 xx words); parts read by executed code
+4A42	4A56	words	Table_55_4A42	PROBABLE	10 words $4A56,$4B9A,$4D4A,$4EFA,$5116,$5332,$554E,$576A,$576A,$5986 read by executed code; the first target equals the table end and the targets tile the bytes up to the code at $5BA2 exactly (block sizes $144,$1B0,$1B0,$21C x5 = 54/72/90 six-byte records)
+4A56	4B9A	data	Data_55_4A56	PROBABLE	keyboard cursor/neighbour record block (324 bytes = 54 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+4B9A	4D4A	data	Data_55_4B9A	PROBABLE	keyboard cursor/neighbour record block (432 bytes = 72 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+4D4A	4EFA	data	Data_55_4D4A	PROBABLE	keyboard cursor/neighbour record block (432 bytes = 72 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+4EFA	5116	data	Data_55_4EFA	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+5116	5332	data	Data_55_5116	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+5332	554E	data	Data_55_5332	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+554E	576A	data	Data_55_554E	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+576A	5986	data	Data_55_576A	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
+5986	5BA2	data	Data_55_5986	PROBABLE	keyboard cursor/neighbour record block (540 bytes = 90 records of 6 bytes, e.g. "58 23 00 20 23 13", "00 24 00 00 12 14"), start given by the word table at 4A42, extents tile exactly; parts read by executed code; field meaning not decoded; the mapper labelled 4A51-4F61 "tiles-2bpp" but the bytes are small indices and zeros in 6-byte rows
 5BA2	5C9F	code	Function_55_5BA2	CONFIRMED	106 insn(s); 106 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-5C9F	5CA3	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5C9D (executed)
+5C9F	5CA3	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5C9D (executed) [executed in 4 scenarios]
 5CA3	5D3D	code	-	CONFIRMED	67 insn(s); 67 executed (in up to 11/18 scenarios)
-5D3D	5D49	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5D3B (executed)
+5D3D	5D49	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5D3B (executed) [executed in 4 scenarios]
 5D49	5D70	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 11/18 scenarios)
-5D70	5D76	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5D6E (executed)
+5D70	5D76	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5D6E (executed) [executed in 4 scenarios]
 5D76	5DF5	code	-	CONFIRMED	56 insn(s); 56 executed (in up to 11/18 scenarios)
-5DF5	5E02	data	Data_55_5DF5	HYPOTHESIS	UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5DF5	5E02	code	-	HYPOTHESIS	13-byte routine ld a,[$C2AB] ; call $6EEC ; or a ; jp z,$5E5A ; jp $5F29 - the state variable and the jp targets match the neighbouring CONFIRMED handlers, and it calls the (now classified) lookup routine 6EEC; no branch into it found [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 5E02	5E30	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 4/18 scenarios)
-5E30	5E31	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5E2E (executed)
+5E30	5E31	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:5E2E (executed) [executed in 3 scenarios]
 5E31	5E42	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
-5E42	5E57	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 55:5E07 (executed)
+5E42	5E57	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 55:5E07 (executed) [executed in 4 scenarios]
 5E57	5E75	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 10/18 scenarios)
 5E75	5E7B	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed)
 5E7B	5E82	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -342,96 +88,71 @@
 5E8E	5EAA	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 9/18 scenarios)
 5EAA	5EB9	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 55:5EA8 (executed)
 5EB9	5EC0	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 9/18 scenarios)
-5EC0	5ED3	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jpcc at 55:5EBD (executed)
+5EC0	5ED3	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jpcc at 55:5EBD (executed) [executed in 4 scenarios]
 5ED3	5EEE	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 9/18 scenarios)
-5EEE	5EF5	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:5EEC (executed)
+5EEE	5EF5	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:5EEC (executed) [executed in 1 scenarios]
 5EF5	5EFE	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 4/18 scenarios)
-5EFE	5F09	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5EFC (executed)
+5EFE	5F09	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 55:5EFC (executed) [executed in 4 scenarios]
 5F09	5F1D	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 10/18 scenarios)
-5F1D	5F20	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2; entered by jp from 55:5E78 (PROBABLE code)
+5F1D	5F20	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 2; entered by jp from 55:5E78 (PROBABLE code) [executed in 3 scenarios]
 5F20	5F29	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 9/18 scenarios)
-5F29	5F35	data	Data_55_5F29	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F29	5F35	code	-	HYPOTHESIS	xor a ; call $6427 ; ld a,0 ; ld [$C2AF],a ; ld a,9 ; ret - target of the jp $5F29 at 55:5DFF, sibling of the "ld a,N ; ret" handlers at 5F1D/5F20 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS; its only jumper is the HYPOTHESIS routine 5DF5]
 5F35	5FC8	code	Function_55_5F35	CONFIRMED	98 insn(s); 98 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-5FC8	5FD0	data	Data_55_5FC8	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
+5FC8	5FD0	words	Table_55_5FC8	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 5FD0	604D	code	-	CONFIRMED	51 insn(s); 51 executed (in up to 8/18 scenarios)
 604D	6068	code	-	PROBABLE	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed)
 6068	6087	code	Function_55_6068	CONFIRMED	17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
-6087	608F	data	Data_55_6087	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
+6087	608F	words	Table_55_6087	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 608F	60F1	code	-	CONFIRMED	45 insn(s); 45 executed (in up to 7/18 scenarios)
-60F1	60F9	data	Data_55_60F1	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
+60F1	60F9	words	Table_55_60F1	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 60F9	6184	code	-	CONFIRMED	67 insn(s); 67 executed (in up to 11/18 scenarios)
-6184	6190	data	Data_55_6184	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6184	6190	code	-	HYPOTHESIS	two 6-byte routines (ld a,$FF ; ld [$C2BD],a ; ret) and (ld a,$FF ; ld [$C2BE],a ; ret): siblings of the called routines 613D/6143 and of 617B (which writes both); nothing calls them
 6190	624D	code	Function_55_6190	CONFIRMED	103 insn(s); 103 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 624D	624F	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:624B (executed)
 624F	62A0	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 11/18 scenarios)
-62A0	62A4	data	Data_55_62A0	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-62A4	62A8	data	Data_55_62A4	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62A8	62AA	data	Data_55_62A8	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-62AA	62AC	data	Data_55_62AA	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62AC	62B4	data	Data_55_62AC	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 62AC-62B8 by higher-priority evidence]
+62A0	62B4	data	Data_55_62A0	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 62A0-62B4 that executed code reads piecewise [split by classify_g2]
 62B4	62C8	ptrtable	Table_55_62B4	PROBABLE	little-endian word table, 10 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $62C8..$6310; referenced by ld r16,$62B4 at 55:61D4
-62C8	62CC	data	Data_55_62C8	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62CC	62D0	data	Data_55_62CC	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-62D0	62D4	data	Data_55_62D0	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62D4	62D8	data	Data_55_62D4	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-62D8	62EC	data	Data_55_62D8	HYPOTHESIS	UNCLASSIFIED 20 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62EC	62F0	data	Data_55_62EC	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-62F0	62FC	data	Data_55_62F0	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-62FC	6300	data	Data_55_62FC	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6300	6304	data	Data_55_6300	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6304	6306	data	Data_55_6304	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6306	630C	data	Data_55_6306	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-630C	6310	data	Data_55_630C	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6310	6314	data	Data_55_6310	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6314	6316	data	Data_55_6314	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6316	6318	data	Data_55_6316	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+62C8	6318	data	Data_55_62C8	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 62C8-6318 that executed code reads piecewise [split by classify_g2]
 6318	636D	code	Function_55_6318	CONFIRMED	32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 636D	6386	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
 6386	63CD	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 5/18 scenarios)
 63CD	63D2	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:63BE (executed)
 63D2	641C	code	-	CONFIRMED	38 insn(s); 38 executed (in up to 11/18 scenarios)
-641C	641E	data	Data_55_641C	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-641E	6420	data	Data_55_641E	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6420	6421	data	Data_55_6420	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6421	6422	data	Data_55_6421	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6422	6426	data	Data_55_6422	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6426	6427	data	Data_55_6426	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+641C	6427	data	Data_55_641C	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 641C-6427 that executed code reads piecewise [split by classify_g2]
 6427	644E	code	Function_55_6427	CONFIRMED	13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-644E	6453	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:644C (executed)
+644E	6453	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:644C (executed) [executed in 4 scenarios]
 6453	649D	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 4/18 scenarios)
 649D	64B6	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
 64B6	6548	code	-	CONFIRMED	60 insn(s); 60 executed (in up to 8/18 scenarios)
-6548	654B	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6541 (executed)
+6548	654B	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6541 (executed) [executed in 1 scenarios]
 654B	658F	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 8/18 scenarios)
 658F	6594	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:658D (executed)
 6594	65D7	code	-	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios)
-65D7	65D8	data	Data_55_65D7	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-65D8	65D9	data	Data_55_65D8	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-65D9	65DA	data	Data_55_65D9	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
+65D7	65DA	data	Data_55_65D7	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 65D7-65DA that executed code reads piecewise [split by classify_g2]
 65DA	6602	code	Function_55_65DA	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 6602	6607	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:6600 (executed)
 6607	6662	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 2/18 scenarios)
-6662	6666	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:665C (executed)
+6662	6666	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:665C (executed) [executed in 1 scenarios]
 6666	66C0	code	-	CONFIRMED	42 insn(s); 42 executed (in up to 2/18 scenarios)
 66C0	66C6	data	Data_55_66C0	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
 66C6	66D9	code	Function_55_66C6	CONFIRMED	13 insn(s); 13 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 66D9	66EF	ptrtable	Table_55_66D9	PROBABLE	code-pointer table, 11 entries: 8/11 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 55:66D8, base from `ld hl,$66D9`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 8/11 targets executed
 66EF	672B	code	-	CONFIRMED	20 insn(s); 20 executed (in up to 3/18 scenarios)
-672B	6755	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9
+672B	6755	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: site x6, table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
 6755	679F	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 7/18 scenarios)
-679F	6858	code	-	PROBABLE	69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9
+679F	6858	code	-	CONFIRMED	69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 6858	6869	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
 6869	686F	ptrtable	Table_55_6869	CONFIRMED	code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
-686F	6871	data	Data_55_686F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+686F	6871	ptrtable	Table_55_686F	PROBABLE	one more code pointer ($691C) at the end of the dispatch table that precedes it; target = the code classified at 691C
 6871	691C	code	-	CONFIRMED	57 insn(s); 57 executed (in up to 2/18 scenarios)
-691C	6928	data	Data_55_691C	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6928	6952	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+691C	6928	code	-	CONFIRMED	ld de,$8801 ; ld hl,$5EC0 ; ld a,$66 ; ld b,$92 ; ld c,$40: argument set-up for the far call of the tile uploader that follows (region 6928); its address $691C is the last word of the code-pointer table before it (55:686F word $691C) [executed in 2 scenarios]
+6928	6952	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 2 scenarios]
 6952	697C	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 4/18 scenarios)
 697C	6982	ptrtable	Table_55_697C	CONFIRMED	code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
-6982	6984	data	Data_55_6982	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6982	6984	ptrtable	Table_55_6982	PROBABLE	one more code pointer ($6A2F) at the end of the dispatch table that precedes it
 6984	6A2F	code	-	CONFIRMED	57 insn(s); 57 executed (in up to 4/18 scenarios)
-6A2F	6A3B	data	Data_55_6A2F	HYPOTHESIS	UNCLASSIFIED 12 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6A3B	6A65	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+6A2F	6A3B	code	-	CONFIRMED	ld de,$8801 ; ld hl,$6100 ; ld a,$62 ; ld b,$92 ; ld c,$40: argument set-up for the tile uploader that follows at 6A3B; its address is the last word $6A2F of the table at 55:6982 [executed in 4 scenarios]
+6A3B	6A65	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 4 scenarios]
 6A65	6B18	code	-	CONFIRMED	68 insn(s); 68 executed (in up to 5/18 scenarios)
 6B18	6B21	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 55:6B16 (executed)
 6B21	6B38	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 5/18 scenarios)
@@ -447,72 +168,28 @@
 6C10	6C39	code	Function_55_6C10	CONFIRMED	23 insn(s); 23 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 6C39	6C3B	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 55:6C37 (executed)
 6C3B	6CD4	code	-	CONFIRMED	72 insn(s); 72 executed (in up to 11/18 scenarios)
-6CD4	6CEA	data	Data_55_6CD4	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6CEA	6CEC	data	Data_55_6CEA	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6CEC	6CF4	data	Data_55_6CEC	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6CF4	6D08	data	Data_55_6CF4	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6D08	6D16	data	Data_55_6D08	HYPOTHESIS	UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6D16	6D4A	data	Data_55_6D16	CONFIRMED	read as data by executed code (in up to 9/18 scenarios); content class unknown
-6D4A	6D52	data	Data_55_6D4A	HYPOTHESIS	UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6D52	6D54	data	Data_55_6D52	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6D54	6D56	data	Data_55_6D54	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6D56	6D6C	data	Data_55_6D56	CONFIRMED	read as data by executed code (in up to 6/18 scenarios); content class unknown
-6D6C	6D70	data	Data_55_6D6C	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6D70	6D8A	data	Data_55_6D70	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-6D8A	6E94	data	Data_55_6D8A	HYPOTHESIS	UNCLASSIFIED 266 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6CD4	6E94	text	String_55_6CD4	PROBABLE	Shift-JIS keyboard row(s) inside the run 6CD4-6E94: clean cp932 pairs with NUL row terminators ( ！”＃＄％＆’（）＊＋，－．／０１２３); 6 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 6E94	6E9F	code	Function_55_6E94	CONFIRMED	8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-6E9F	6EA1	data	Data_55_6E9F	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6EA1	6EA3	data	Data_55_6EA1	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EA3	6EA4	data	Data_55_6EA3	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6EA4	6EA5	data	Data_55_6EA4	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EA5	6EA9	data	Data_55_6EA5	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6EA9	6EAA	data	Data_55_6EA9	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6E9F	6EAA	data	Data_55_6E9F	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6E9F-6EAA that executed code reads piecewise [split by classify_g2]
 6EAA	6EB5	code	Function_55_6EAA	CONFIRMED	8 insn(s); 8 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-6EB5	6EB7	data	Data_55_6EB5	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6EB7	6EB9	data	Data_55_6EB7	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EB9	6EBA	data	Data_55_6EB9	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6EBA	6EBD	data	Data_55_6EBA	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EBD	6EBE	data	Data_55_6EBD	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6EBE	6EC0	data	Data_55_6EBE	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6EB5	6EC0	data	Data_55_6EB5	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6EB5-6EC0 that executed code reads piecewise [split by classify_g2]
 6EC0	6ECB	code	Function_55_6EC0	CONFIRMED	8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-6ECB	6ECD	data	Data_55_6ECB	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6ECD	6ECF	data	Data_55_6ECD	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6ECF	6ED0	data	Data_55_6ECF	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6ED0	6ED1	data	Data_55_6ED0	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6ED1	6ED5	data	Data_55_6ED1	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6ED5	6ED6	data	Data_55_6ED5	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6ECB	6ED6	data	Data_55_6ECB	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6ECB-6ED6 that executed code reads piecewise [split by classify_g2]
 6ED6	6EE1	code	Function_55_6ED6	CONFIRMED	8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-6EE1	6EE3	data	Data_55_6EE1	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6EE3	6EE5	data	Data_55_6EE3	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EE5	6EE6	data	Data_55_6EE5	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6EE6	6EE7	data	Data_55_6EE6	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6EE7	6EEC	data	Data_55_6EE7	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6EEC	6F02	data	Data_55_6EEC	HYPOTHESIS	UNCLASSIFIED 22 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6EE1	6EEC	data	Data_55_6EE1	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6EE1-6EEC that executed code reads piecewise [split by classify_g2]
+6EEC	6EF7	code	-	PROBABLE	lookup routine ld hl,$6EF7 ; add a,l ; ld l,a ; ld a,0 ; adc a,h ; ld h,a ; ld a,[hl] ; ret: byte-exact sibling of the executed routines at 6E94/6EAA/6EC0/6ED6/6F02/6F18 (each followed by its 11-byte table); called by call $6EEC at 55:5DF8 [verifier: entry evidence = fixed-stride periodicity: the executed siblings 6ED6 and 6F02 sit exactly $16 bytes (8-insn routine + 11-byte table) either side of 6EEC, all with identical code bytes except the base operand; the caller 55:5DF8 is itself HYPOTHESIS]
+6EF7	6F02	data	Data_55_6EF7	PROBABLE	11-byte lookup table addressed by ld hl,$6EF7 in the routine 6EEC (the executed sibling routines each index an 11-byte table of zeros and ones the same way)
 6F02	6F0D	code	Function_55_6F02	CONFIRMED	8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-6F0D	6F0F	data	Data_55_6F0D	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6F0F	6F11	data	Data_55_6F0F	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F11	6F12	data	Data_55_6F11	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6F12	6F13	data	Data_55_6F12	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F13	6F17	data	Data_55_6F13	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
-6F17	6F18	data	Data_55_6F17	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F0D	6F18	data	Data_55_6F0D	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6F0D-6F18 that executed code reads piecewise [split by classify_g2]
 6F18	6F23	code	Function_55_6F18	CONFIRMED	8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-6F23	6F25	data	Data_55_6F23	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-6F25	6F27	data	Data_55_6F25	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F27	6F28	data	Data_55_6F27	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
-6F28	6F2E	data	Data_55_6F28	HYPOTHESIS	UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F23	6F2E	data	Data_55_6F23	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6F23-6F2E that executed code reads piecewise [split by classify_g2]
 6F2E	6F3B	code	Function_55_6F2E	CONFIRMED	10 insn(s); 10 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
-6F3B	6F3D	data	Data_55_6F3B	CONFIRMED	read as data by executed code (in up to 5/18 scenarios); content class unknown
-6F3D	6F3F	data	Data_55_6F3D	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F3F	6F40	data	Data_55_6F3F	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6F40	6F41	data	Data_55_6F40	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6F41	6F46	data	Data_55_6F41	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6F46	6FA1	data	Data_55_6F46	HYPOTHESIS	UNCLASSIFIED 91 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6F3B	6F46	data	Data_55_6F3B	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6F3B-6F46 that executed code reads piecewise [split by classify_g2]
+6F46	6F95	code	-	HYPOTHESIS	ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else calls $047A, advances [$C2B0] mod 4 and writes two colour bytes to BCPD (ldh [$6A]=$B2 / [c]=$6B) from the word table below; follows the 11-byte table of the previous routine like the other routines of this run [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+6F95	6FA1	data	Data_55_6F95	HYPOTHESIS	12 bytes: 4 RGB555 colours $7F54,$7FFF,$7F54,$7E12 at 6F95 (indexed by [$C2B0]*2 via `ld hl,$6F95`, written to BCPD) and 4 delay bytes $06,$0C,$06,$06 at 6F9D (`ld hl,$6F9D ; ld a,[hl]`); both operands land exactly on these addresses and the block ends at the executed code 6FA1, but the only reader is the HYPOTHESIS routine 6F46 [verifier: earlier note called all 12 bytes a colour table; status lowered]
 6FA1	6FC7	code	Function_55_6FA1	CONFIRMED	21 insn(s); 21 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 6FC7	6FCD	data	Data_55_6FC7	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
 6FCD	6FF4	code	Function_55_6FCD	CONFIRMED	19 insn(s); 19 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-6FF4	6FF8	data	Data_55_6FF4	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown
-6FF8	6FFC	data	Data_55_6FF8	HYPOTHESIS	UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6FFC	6FFE	data	Data_55_6FFC	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown
-6FFE	7000	data	Data_55_6FFE	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6FF4	7000	data	Data_55_6FF4	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 6FF4-7000 that executed code reads piecewise [split by classify_g2]
 7000	7082	code	Function_55_7000	CONFIRMED	67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 7082	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

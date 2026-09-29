@@ -1,39 +1,41 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4540	data	Data_42_4000	HYPOTHESIS	UNCLASSIFIED 1344 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4000	4540	gfx	Tiles_42_4000	PROBABLE	2bpp tiles by coherence: 84 non-blank tiles, mean adjacent-pixel similarity h=0.59 v=0.57 (random data ~0.25-0.35); 
 4540	4802	zero	-	HYPOTHESIS	0x00 run of 706 bytes
-4802	48AB	data	Data_42_4802	HYPOTHESIS	UNCLASSIFIED 169 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4802	48AB	gfx	Data_42_4802	HYPOTHESIS	2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.52 v=0.62 (random data ~0.25-0.35); 
 48AB	4900	zero	-	HYPOTHESIS	padding? run of 85 x $00 in unclassified bytes
-4900	49B0	data	Data_42_4900	HYPOTHESIS	UNCLASSIFIED 176 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4900	49B0	gfx	Data_42_4900	HYPOTHESIS	2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.59 v=0.67 (random data ~0.25-0.35); 11 tiles: glyphs 0-9 and : (large digits) seen when rendered
 49B0	4A00	zero	-	HYPOTHESIS	0x00 run of 86 bytes [clipped from 49AA-4A00 by higher-priority proposals]
-4A00	4CCA	data	Data_42_4A00	HYPOTHESIS	UNCLASSIFIED 714 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4CCA	4D52	data	Data_42_4CCA	PROBABLE	palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-4D52	4F00	data	Data_42_4D52	HYPOTHESIS	UNCLASSIFIED 430 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+4A00	4CD0	data	Tilemap_42_4A00	PROBABLE	tilemap+attr block of screen 1: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B, all values < $10 as bank/palette attributes) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only
+4CD0	4D50	data	Palette_42_4CD0	PROBABLE	RGB555 palette block (128 B = 8 BG + 8 OBJ palettes of 4 colours, starts with the same $7FFF,$011C,$7E02 colours in all four screens of this bank); replaces the mapper palette guess that was offset by 6/2 bytes
+4D50	4F00	gfx	Tiles_42_4D50	PROBABLE	2bpp tiles by coherence: 27 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.59 (random data ~0.25-0.35); 
 4F00	52C0	gfx	Data_42_4F00	PROBABLE	tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.656 vsim2=0.620, 1 blank) parity 0
-52C0	52E0	data	Data_42_52C0	HYPOTHESIS	UNCLASSIFIED 32 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-52E0	5760	gfx	Data_42_52E0	PROBABLE	tiles-2bpp: heuristic: 47 coherent tiles (hsim2=0.582 vsim2=0.596, 20 blank) parity 0
-5760	5A1A	data	Data_42_5760	HYPOTHESIS	UNCLASSIFIED 698 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5A1A	5A9A	data	Data_42_5A1A	PROBABLE	palette-rgb555: heuristic: 64 RGB555 words as 16 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-5A9A	5E5E	data	Data_42_5A9A	HYPOTHESIS	UNCLASSIFIED 964 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+52C0	52E0	gfx	Data_42_52C0	HYPOTHESIS	2bpp tiles by coherence: 1 non-blank tiles, mean adjacent-pixel similarity h=0.71 v=0.30 (random data ~0.25-0.35); 
+52E0	5750	gfx	Data_42_52E0	PROBABLE	tiles-2bpp: heuristic: 47 coherent tiles (hsim2=0.582 vsim2=0.596, 20 blank) parity 0 [range trimmed from 52E0-5760 by classify_g2]
+5750	5A20	data	Tilemap_42_5750	PROBABLE	tilemap+attr block of screen 2: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B, all values < $10 as bank/palette attributes) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only
+5A20	5AA0	data	Palette_42_5A20	PROBABLE	RGB555 palette block (128 B = 8 BG + 8 OBJ palettes of 4 colours, starts with the same $7FFF,$011C,$7E02 colours in all four screens of this bank); replaces the mapper palette guess that was offset by 6/2 bytes
+5AA0	5E5E	gfx	Tiles_42_5AA0	PROBABLE	2bpp tiles by coherence: 59 non-blank tiles, mean adjacent-pixel similarity h=0.76 v=0.63 (random data ~0.25-0.35); 
 5E5E	5E90	zero	-	HYPOTHESIS	padding? run of 50 x $00 in unclassified bytes
-5E90	5F60	data	Data_42_5E90	HYPOTHESIS	UNCLASSIFIED 208 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5E90	5F60	gfx	Data_42_5E90	HYPOTHESIS	2bpp tiles by coherence: 13 non-blank tiles, mean adjacent-pixel similarity h=0.60 v=0.68 (random data ~0.25-0.35); 
 5F60	5F92	zero	-	HYPOTHESIS	padding? run of 50 x $00 in unclassified bytes
-5F92	6140	data	Data_42_5F92	HYPOTHESIS	UNCLASSIFIED 430 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+5F92	6140	gfx	Tiles_42_5F92	PROBABLE	2bpp tiles by coherence: 26 non-blank tiles, mean adjacent-pixel similarity h=0.71 v=0.66 (random data ~0.25-0.35); 
 6140	62A0	zero	-	HYPOTHESIS	padding? run of 352 x $00 in unclassified bytes
-62A0	634A	data	Data_42_62A0	HYPOTHESIS	UNCLASSIFIED 170 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+62A0	634A	gfx	Data_42_62A0	HYPOTHESIS	2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.48 v=0.62 (random data ~0.25-0.35); 
 634A	63A0	zero	-	HYPOTHESIS	0x00 run of 86 bytes
-63A0	63B0	data	Data_42_63A0	HYPOTHESIS	UNCLASSIFIED 16 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-63B0	6740	gfx	Data_42_63B0	PROBABLE	tiles-2bpp: heuristic: 47 coherent tiles (hsim2=0.620 vsim2=0.850, 5 blank) parity 0
-6740	6778	data	Data_42_6740	HYPOTHESIS	UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-6778	6800	data	Data_42_6778	PROBABLE	palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+63A0	63B0	gfx	Data_42_63A0	HYPOTHESIS	2bpp tiles (too few non-blank tiles to score); 
+63B0	64A0	gfx	Data_42_63B0	PROBABLE	tiles-2bpp: heuristic: 47 coherent tiles (hsim2=0.620 vsim2=0.850, 5 blank) parity 0 [range trimmed from 63B0-6740 by classify_g2]
+64A0	6770	data	Tilemap_42_64A0	PROBABLE	tilemap+attr block of screen 3: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B; values $01,$08-$0B,$2A,$2B: valid CGB attribute bits, palette 0-3, tile bank 1 and, for $2A/$2B, X-flip - NOT all < $10 as the other three screens) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only
+6770	67F0	data	Palette_42_6770	PROBABLE	RGB555 palette block (128 B = 8 BG + 8 OBJ palettes of 4 colours, starts with the same $7FFF,$011C,$7E02 colours in all four screens of this bank); replaces the mapper palette guess that was offset by 6/2 bytes
+67F0	6800	gfx	Data_42_67F0	HYPOTHESIS	one 2bpp tile ($FF,$00 x8 = two-colour stripes) directly after the palette block; the old mapper palette region wrongly extended over it
 6800	6810	zero	-	HYPOTHESIS	padding? run of 16 x $00 in unclassified bytes
-6810	69A0	data	Data_42_6810	HYPOTHESIS	UNCLASSIFIED 400 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6810	69A0	gfx	Tiles_42_6810	PROBABLE	2bpp tiles by coherence: 25 non-blank tiles, mean adjacent-pixel similarity h=0.60 v=0.60 (random data ~0.25-0.35); 
 69A0	69B0	data	Data_42_69A0	HYPOTHESIS	run of 16 x $FF (padding?) in unclassified bytes
-69B0	6CC0	data	Data_42_69B0	HYPOTHESIS	UNCLASSIFIED 784 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+69B0	6CC0	gfx	Data_42_69B0	HYPOTHESIS	2bpp tiles by coherence: 49 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.47 (random data ~0.25-0.35); 
 6CC0	6FF2	zero	-	HYPOTHESIS	0x00 run of 818 bytes
-6FF2	709E	data	Data_42_6FF2	HYPOTHESIS	UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+6FF2	709E	gfx	Data_42_6FF2	HYPOTHESIS	2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.61 (random data ~0.25-0.35); 
 709E	70F0	zero	-	HYPOTHESIS	0x00 run of 82 bytes
-70F0	719C	data	Data_42_70F0	HYPOTHESIS	UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-719C	71F2	zero	-	HYPOTHESIS	padding? run of 86 x $00 in unclassified bytes
-71F2	74BA	data	Data_42_71F2	HYPOTHESIS	UNCLASSIFIED 712 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-74BA	7542	data	Data_42_74BA	PROBABLE	palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+70F0	719C	gfx	Data_42_70F0	HYPOTHESIS	2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.59 (random data ~0.25-0.35); 
+719C	71F0	zero	-	HYPOTHESIS	padding? run of 86 x $00 in unclassified bytes
+71F0	74C0	data	Tilemap_42_71F0	PROBABLE	tilemap+attr block of screen 4: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B, all values < $10 as bank/palette attributes) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only
+74C0	7540	data	Palette_42_74C0	PROBABLE	RGB555 palette block (128 B = 8 BG + 8 OBJ palettes of 4 colours, starts with the same $7FFF,$011C,$7E02 colours in all four screens of this bank); replaces the mapper palette guess that was offset by 6/2 bytes
+7540	7542	zero	-	PROBABLE	0x00 padding after the palette block of screen 4
 7542	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank [clipped from 753D-8000 by higher-priority proposals]

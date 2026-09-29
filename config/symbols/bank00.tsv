@@ -19,7 +19,6 @@
 01B7	Int_Serial	function	CONFIRMED	serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive
 01ED	Int_Timer	function	CONFIRMED	timer interrupt handler (RAM vector CBF7 -> jp $01ED): TAC=0; IF&=$1B; if [C709]==0 return at once (01FE jr z,$0242: TIMA/TAC are NOT restarted, the timer stays stopped); else, unless C6C1.bit1 or rSC.bit7 is set (then the bank-75 call is skipped, 0205/020B jr nz,$023A), save ROM bank, call 75:58EA, restore; finally TIMA=TMA and TAC=6 (enable, clock select 10 = 65536 Hz, doubled to 131072 Hz in the CGB double-speed mode that Boot selects). Same shape as pokecrystal MobileTimer
 0278	Boot	function	CONFIRMED	boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever
-032B	Data_00_032B	data	CONFIRMED	inline data of FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
 0352	Data_00_0352	data	CONFIRMED	32 x $7FFF (white) = 64 bytes, source for Function_00_0331 (ld hl,$0352 at 0335/0341)
 03BA	Int_VBlank	function	CONFIRMED	VBlank interrupt handler (RAM vector CBF1 -> jp $03BA): unless [C2F5]!=0 run OAM DMA (call $FF80); increments the saturating VBlank counter C2DF; advances two frame/second/minute clocks (C2D4-C2D6 gated by C69F.bit4: at 70 minutes minutes:=60 and C26F.bit1 is cleared; C266-C268 gated by C69F.bit0: minutes saturate at [C26D]); updates FFFC/C2BF; reti
 04D8	FillBytes	function	CONFIRMED	fill BC bytes at HL with A (BC=0 fills 256 bytes when B=0); used to clear VRAM/WRAM/HRAM in Boot
@@ -49,11 +48,6 @@
 0D67	Divide16	function	PROBABLE	HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12]
 0D92	Divide32by15	function	PROBABLE	BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6]
 0EF0	Table_00_0EF0	table	CONFIRMED	32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
-1056	Data_00_1056	data	CONFIRMED	inline data of FarCall at 1053: dw $405F ; db $7F -> 7F:405F
-1076	Data_00_1076	data	CONFIRMED	inline data of FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
-10A0	Data_00_10A0	data	CONFIRMED	inline data of FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
-10C3	Data_00_10C3	data	CONFIRMED	inline data of FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
-10D8	Data_00_10D8	data	CONFIRMED	inline data of FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
 14BF	CopyString	function	PROBABLE	copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33]
 14C6	CopyStringMax	function	PROBABLE	copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6]
 14E0	EncodeXorA5	function	PROBABLE	copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6]
@@ -61,7 +55,6 @@
 1509	CompareString	function	PROBABLE	strcmp(HL, DE): A = [HL]-[DE] at the first difference (0 only if both strings end together); verified on interpreter [reached via inferred links; raw refs 11]
 151A	CompareStringN	function	PROBABLE	like CompareString but compares at most B bytes (A = [HL]-[DE]); verified on interpreter [candidate; raw refs 2]
 1533	StringLength	function	PROBABLE	BC = length of the $00-terminated string at HL [reached via inferred links; raw refs 5]
-158A	Data_00_158A	data	CONFIRMED	inline data of FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
 161A	Table_00_161A	table	CONFIRMED	3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
 1620	ReadByteFar	function	PROBABLE	A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92]
 0545	JumpTableInline	label	CONFIRMED	entry of JumpTableBank that takes A=index and the pointer table inline after the call (056A jumps here; 1C:400D, 4C:42F0 ... call it)

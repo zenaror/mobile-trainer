@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank5E", ROMX[$4000], BANK[$5E]
 
@@ -255,10 +256,8 @@ Data_5E_4D40:: ; 5E:4D40
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0B, $0B, $0B, $0B, $0B
 	db $0B, $0B, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $4E08-$4E10 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_5E_4E08:: ; 5E:4E08
-	db $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $4E08-$4E10 (8 bytes) [PROBABLE] 8 bytes $00 between the 5x20 tilemap+attr block (4D40-4E08, 200 bytes) and the tile block at 4E10: padding to the 16-byte tile alignment
+	ds $8, $00
 
 ; ---- gfx $4E10-$5210 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:564B: hl=$4E10 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
@@ -588,10 +587,8 @@ Data_5E_6000:: ; 5E:6000
 	db $0A, $0A, $0A, $0A, $0A, $0B, $0B, $0B, $0B, $0B, $2B, $0A, $0B, $0B, $2B, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $60C8-$60D0 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_5E_60C8:: ; 5E:60C8
-	db $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $60C8-$60D0 (8 bytes) [PROBABLE] 8 bytes $00 between the 5x20 tilemap+attr block (6000-60C8, 200 bytes) and the tile block at 60D0: padding to the 16-byte tile alignment
+	ds $8, $00
 
 ; ---- gfx $60D0-$64D0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5C2E: hl=$60D0 a=$5E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 

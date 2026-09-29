@@ -3,23 +3,22 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank24", ROMX[$4000], BANK[$24]
 
-; ---- data $4000-$4018 (24 bytes) [HYPOTHESIS] UNCLASSIFIED 24 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4000-$4018 (24 bytes) [PROBABLE] 12 words = SRAM addresses: $A084,$A184..$A584 (stride $100) and $A000,$A016,$A02C,$A042,$A058,$A06E (stride $16); entries 4000/4002/4004/4006/4008/400A are loaded by ld hl,$400x at 24:44C9,44E5,4501,451D,4539,4555 (analysis of ld imm16 operands); meaning of the slots not decoded
 
-Data_24_4000:: ; 24:4000
-	db $84, $A0, $84, $A1, $84, $A2, $84, $A3, $84, $A4, $84, $A5, $00, $A0, $16, $A0
-	db $2C, $A0, $42, $A0, $58, $A0, $6E, $A0
+Table_24_4000:: ; 24:4000
+	dw $A084, $A184, $A284, $A384, $A484, $A584, $A000, $A016
+	dw $A02C, $A042, $A058, $A06E
 
 ; ---- code $4018-$42AF (663 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code)
 
 Function_24_4018:: ; 24:4018
 	ld b, $15
 	ld c, $03
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -34,9 +33,7 @@ Function_24_4018:: ; 24:4018
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -75,9 +72,7 @@ Label_24_4053:: ; 24:4053
 
 Label_24_4083:: ; 24:4083
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jp z, Label_24_41D7
@@ -85,9 +80,7 @@ Label_24_4083:: ; 24:4083
 	bit 1, a
 	jr z, Label_24_40AC
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -163,15 +156,9 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_72_402A
-	db BANK(Function_72_402A)
-	call FarCall
-	dw Function_72_461A
-	db BANK(Function_72_461A)
-	call FarCall
-	dw Function_72_444F
-	db BANK(Function_72_444F)
+	farcall Function_72_402A
+	farcall Function_72_461A
+	farcall Function_72_444F
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -184,22 +171,14 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_4F_4370
+	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_4000
-	db BANK(Function_51_4000)
+	farcall Function_51_4000
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -220,9 +199,7 @@ Label_24_4103:: ; 24:4103
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -236,21 +213,15 @@ Label_24_4103:: ; 24:4103
 	ei
 	pop bc
 	call Function_24_42F0
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_7F_627C
+	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	jp Label_24_4083
 
 Label_24_41C4:: ; 24:41C4
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -259,9 +230,7 @@ Label_24_41C4:: ; 24:41C4
 
 Label_24_41D7:: ; 24:41D7
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -288,9 +257,7 @@ Label_24_41D7:: ; 24:41D7
 	push bc
 	push de
 	push hl
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	pop hl
 	pop de
@@ -324,9 +291,7 @@ Label_24_422A:: ; 24:422A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -392,14 +357,42 @@ Label_24_42A5:: ; 24:42A5
 Label_24_42AC:: ; 24:42AC
 	jp Label_24_4083
 
-; ---- data $42AF-$42F0 (65 bytes) [HYPOTHESIS] UNCLASSIFIED 65 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $42AF-$42D1 (34 bytes) [HYPOTHESIS] ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the one at $42E7 to $D3C0 (WRAM bank 6); the two ld hl immediates point exactly at the strings below, which is why code and text are classified together; entry not proven (no caller found) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	ret
 
-Data_24_42AF:: ; 24:42AF
-	db $C9, $3E, $06, $E0, $8D, $E0, $70, $11, $00, $D5, $21, $D1, $42, $2A, $12, $13
-	db $FE, $00, $20, $F9, $11, $C0, $D3, $21, $E7, $42, $2A, $12, $13, $FE, $00, $20
-	db $F9, $C9, $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F
-	db $2E, $6E, $65, $2E, $6A, $70, $2F, $00, $82, $AD, $81, $5B, $82, $AD, $81, $5B
-	db $00
+	ld a, $06
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $D500
+	ld hl, $42D1
+
+Label_24_42BC:: ; 24:42BC
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $00
+	jr nz, Label_24_42BC
+	ld de, $D3C0
+	ld hl, $42E7
+
+Label_24_42C9:: ; 24:42C9
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $00
+	jr nz, Label_24_42C9
+	ret
+
+; ---- text $42D1-$42E7 (22 bytes) [PROBABLE] ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
+
+String_24_42D1:: ; 24:42D1
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F, $2E, $6E
+	db $65, $2E, $6A, $70, $2F, $00
+
+; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (ぐーぐー), addressed by ld hl,$42E7 at 24:42C6
+
+String_24_42E7:: ; 24:42E7
+	db $82, $AD, $81, $5B, $82, $AD, $81, $5B, $00
 
 ; ---- code $42F0-$4B10 (2080 bytes) [PROBABLE] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code)
 
@@ -431,69 +424,53 @@ Label_24_4310:: ; 24:4310
 	ld a, b
 	or a, c
 	jr nz, Label_24_4310
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_00_09B6
 	call Function_00_0464
 	ld de, $9301
 	ld hl, $5400
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9701
 	ld hl, $5800
 	ld a, $24
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
 	ld hl, $5EE0
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8400
 	ld hl, $62E0
 	ld a, $24
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0749
-	db BANK(Function_00_0749)
+	farcall Function_00_0749
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $64E0
 	ld a, $24
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $5EA0
 	ld a, $24
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5900
 	ld a, $24
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -506,9 +483,7 @@ Label_24_4310:: ; 24:4310
 	ld de, $D000
 	ld hl, $5BD0
 	ld a, $24
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	call Function_00_0464
 
 Label_24_43D2:: ; 24:43D2
@@ -529,13 +504,9 @@ Label_24_43D2:: ; 24:43D2
 	ld b, $00
 	call Function_24_4A79
 	call Function_00_0464
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_044B
-	call FarCall
-	dw Function_4F_42B4
-	db BANK(Function_4F_42B4)
+	farcall Function_4F_42B4
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -550,9 +521,7 @@ Label_24_43D2:: ; 24:43D2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -562,9 +531,7 @@ Label_24_43D2:: ; 24:43D2
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -599,44 +566,32 @@ Function_24_445C:: ; 24:445C
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA50
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA40
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA30
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA20
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DA10
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $4000
 	ld a, [hli]
 	ld e, a
@@ -649,9 +604,7 @@ Function_24_445C:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_44EF:: ; 24:44EF
 	ld hl, $4002
@@ -666,9 +619,7 @@ Label_24_44EF:: ; 24:44EF
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_450B:: ; 24:450B
 	ld hl, $4004
@@ -683,9 +634,7 @@ Label_24_450B:: ; 24:450B
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_4527:: ; 24:4527
 	ld hl, $4006
@@ -700,9 +649,7 @@ Label_24_4527:: ; 24:4527
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_4543:: ; 24:4543
 	ld hl, $4008
@@ -717,9 +664,7 @@ Label_24_4543:: ; 24:4543
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_455F:: ; 24:455F
 	ld hl, $400A
@@ -734,9 +679,7 @@ Label_24_455F:: ; 24:455F
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 
 Label_24_457B:: ; 24:457B
 	ld a, $23
@@ -794,9 +737,7 @@ Function_24_45B7:: ; 24:45B7
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $23
 	ld [wSpriteSlots + 96], a
 	ld a, $06
@@ -808,9 +749,7 @@ Label_24_45FB:: ; 24:45FB
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $23
 	ld [wSpriteSlots + 96], a
 	ld a, $06
@@ -833,9 +772,7 @@ Label_24_4618:: ; 24:4618
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $2F
 	ld [wSpriteSlots + 80], a
 	ld a, $06
@@ -847,9 +784,7 @@ Label_24_4645:: ; 24:4645
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $2F
 	ld [wSpriteSlots + 80], a
 	ld a, $06
@@ -872,9 +807,7 @@ Label_24_4662:: ; 24:4662
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $3B
 	ld [wSpriteSlots + 64], a
 	ld a, $06
@@ -886,9 +819,7 @@ Label_24_468F:: ; 24:468F
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $3B
 	ld [wSpriteSlots + 64], a
 	ld a, $06
@@ -911,9 +842,7 @@ Label_24_46AC:: ; 24:46AC
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $47
 	ld [wSpriteSlots + 48], a
 	ld a, $06
@@ -925,9 +854,7 @@ Label_24_46D9:: ; 24:46D9
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $47
 	ld [wSpriteSlots + 48], a
 	ld a, $06
@@ -950,9 +877,7 @@ Label_24_46F6:: ; 24:46F6
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $53
 	ld [wSpriteSlots + 32], a
 	ld a, $06
@@ -964,9 +889,7 @@ Label_24_4723:: ; 24:4723
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $53
 	ld [wSpriteSlots + 32], a
 	ld a, $06
@@ -989,9 +912,7 @@ Label_24_4740:: ; 24:4740
 	ld de, $6530
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $5F
 	ld [wSpriteSlots + 16], a
 	ld a, $06
@@ -1003,9 +924,7 @@ Label_24_476D:: ; 24:476D
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $5F
 	ld [wSpriteSlots + 16], a
 	ld a, $06
@@ -1337,9 +1256,7 @@ Label_24_4951:: ; 24:4951
 	cp a, $00
 	jr z, Label_24_49CC
 	push af
-	call FarCall
-	dw Function_7F_41A7
-	db BANK(Function_7F_41A7)
+	farcall Function_7F_41A7
 	dec a
 	jr nz, Label_24_49A7
 	pop af
@@ -1353,9 +1270,7 @@ Label_24_4951:: ; 24:4951
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	call FarCall
-	dw Function_7F_405F
-	db BANK(Function_7F_405F)
+	farcall Function_7F_405F
 	pop hl
 	pop de
 	pop bc
@@ -1365,9 +1280,7 @@ Label_24_4951:: ; 24:4951
 	push de
 	push hl
 	ld hl, $C0B8
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -1391,9 +1304,7 @@ Label_24_49A7:: ; 24:49A7
 	push hl
 	ld b, a
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -1413,9 +1324,7 @@ Label_24_49CC:: ; 24:49CC
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	call FarCall
-	dw Function_7F_4007
-	db BANK(Function_7F_4007)
+	farcall Function_7F_4007
 	pop hl
 	pop de
 	pop bc
@@ -1434,9 +1343,7 @@ Function_24_49EC:: ; 24:49EC
 	push de
 	push hl
 	ld hl, $C0A0
-	call FarCall
-	dw Function_7F_42C3
-	db BANK(Function_7F_42C3)
+	farcall Function_7F_42C3
 	pop hl
 	pop de
 	pop bc
@@ -1533,9 +1440,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D000
 	ld de, $D140
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	push hl
 	ld de, $0009
@@ -1546,9 +1451,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D280
 	ld de, $D3C0
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	push hl
 	ld de, $0012
@@ -1559,9 +1462,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D500
 	ld de, $D640
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	push hl
 	ld de, $001B
@@ -1572,9 +1473,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $D780
 	ld de, $D8C0
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	push hl
 	ld de, $0024
@@ -1585,9 +1484,7 @@ Function_24_4A79:: ; 24:4A79
 	ld a, $24
 	ld bc, $DA00
 	ld de, $DB40
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	pop hl
 	call Function_24_4A00
 	pop hl
@@ -1596,11 +1493,18 @@ Function_24_4A79:: ; 24:4A79
 	pop af
 	ret
 
-; ---- data $4B10-$4B21 (17 bytes) [HYPOTHESIS] UNCLASSIFIED 17 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- ptrtable $4B10-$4B18 (8 bytes) [PROBABLE] 4 words $4B18,$4B45,$4B72,$4B9F = starts of four 45-byte (multi-line, NUL separated) Shift-JIS messages at 4B18-4BCC; the table is loaded by ld hl,$4B10 at 24:4A83 (a=$24 nearby)
 
-Data_24_4B10:: ; 24:4B10
-	db $18, $4B, $45, $4B, $72, $4B, $9F, $4B, $81, $40, $81, $40, $81, $40, $82, $B1
-	db $00
+Table_24_4B10:: ; 24:4B10
+	dw String_24_4B18
+	dw $4B45
+	dw $4B72
+	dw $4B9F
+
+; ---- text $4B18-$4B21 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
+
+String_24_4B18:: ; 24:4B18
+	db $81, $40, $81, $40, $81, $40, $82, $B1, $00
 
 ; ---- text $4B21-$4B3C (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -1608,9 +1512,9 @@ String_24_4B21:: ; 24:4B21
 	db $82, $CC, $83, $79, $81, $5B, $83, $57, $00, $82, $C9, $81, $40, $82, $A2, $82
 	db $C7, $00, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $00
 
-; ---- data $4B3C-$4B4E (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4B3C-$4B4E (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
-Data_24_4B3C:: ; 24:4B3C
+String_24_4B3C:: ; 24:4B3C
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $82
 	db $A2, $00
 
@@ -1620,9 +1524,9 @@ String_24_4B4E:: ; 24:4B4E
 	db $82, $DC, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $83
 	db $5A, $00, $81, $5B, $83, $75, $82, $B5, $82, $DC, $00
 
-; ---- data $4B69-$4B7B (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4B69-$4B7B (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
-Data_24_4B69:: ; 24:4B69
+String_24_4B69:: ; 24:4B69
 	db $82, $B7, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
@@ -1632,9 +1536,9 @@ String_24_4B7B:: ; 24:4B7B
 	db $82, $B1, $82, $CC, $83, $79, $81, $5B, $00, $83, $57, $82, $F0, $81, $40, $82
 	db $AF, $00, $82, $B5, $82, $DC, $82, $B7, $81, $40, $00
 
-; ---- data $4B96-$4BA8 (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4B96-$4BA8 (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
-Data_24_4B96:: ; 24:4B96
+String_24_4B96:: ; 24:4B96
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $83, $79, $81
 	db $5B, $00
 
@@ -1644,10 +1548,15 @@ String_24_4BA8:: ; 24:4BA8
 	db $83, $57, $82, $F0, $81, $40, $82, $B9, $00, $82, $F1, $82, $BD, $82, $AD, $82
 	db $B5, $00, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $00
 
-; ---- data $4BC3-$4BCD (10 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $4BC3-$4BCC (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
-Data_24_4BC3:: ; 24:4BC3
-	db $82, $A2, $81, $40, $81, $40, $81, $40, $00, $C9
+String_24_4BC3:: ; 24:4BC3
+	db $82, $A2, $81, $40, $81, $40, $81, $40, $00
+
+; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
+
+Data_24_4BCC:: ; 24:4BCC
+	db $C9
 
 ; ---- code $4BCD-$53FE (2097 bytes) [PROBABLE] 1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code)
 
@@ -1658,9 +1567,7 @@ Function_24_4BCD:: ; 24:4BCD
 
 Label_24_4BD5:: ; 24:4BD5
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jp z, Label_24_4D39
@@ -1668,9 +1575,7 @@ Label_24_4BD5:: ; 24:4BD5
 	bit 1, a
 	jr z, Label_24_4BFE
 	pop bc
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -1731,9 +1636,7 @@ Label_24_4C4D:: ; 24:4C4D
 Label_24_4C55:: ; 24:4C55
 	xor a, a
 	ld [wRam_C2CA], a
-	call FarCall
-	dw Function_7F_624F
-	db BANK(Function_7F_624F)
+	farcall Function_7F_624F
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
@@ -1749,15 +1652,9 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_72_402A
-	db BANK(Function_72_402A)
-	call FarCall
-	dw Function_72_461A
-	db BANK(Function_72_461A)
-	call FarCall
-	dw Function_72_444F
-	db BANK(Function_72_444F)
+	farcall Function_72_402A
+	farcall Function_72_461A
+	farcall Function_72_444F
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1770,22 +1667,14 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
-	call FarCall
-	dw Function_4F_4370
-	db BANK(Function_4F_4370)
-	call FarCall
-	dw Function_00_09B6
-	db BANK(Function_00_09B6)
+	farcall Function_4F_4370
+	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	call FarCall
-	dw Function_51_4000
-	db BANK(Function_51_4000)
+	farcall Function_51_4000
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -1807,9 +1696,7 @@ Label_24_4C55:: ; 24:4C55
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call FarCall
-	dw Function_7F_7271
-	db BANK(Function_7F_7271)
+	farcall Function_7F_7271
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -1828,21 +1715,15 @@ Label_24_4C55:: ; 24:4C55
 	push bc
 	call Function_24_4794
 	call Function_24_47FB
-	call FarCall
-	dw Function_7F_627C
-	db BANK(Function_7F_627C)
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_7F_627C
+	farcall Function_00_0956
 	pop bc
 	jp Label_24_4BD5
 
 Label_24_4D25:: ; 24:4D25
 	pop bc
 	pop af
-	call FarCall
-	dw Function_7F_72B0
-	db BANK(Function_7F_72B0)
+	farcall Function_7F_72B0
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -1851,9 +1732,7 @@ Label_24_4D25:: ; 24:4D25
 
 Label_24_4D39:: ; 24:4D39
 	call Function_00_0464
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	ldh a, [hJoyHeld]
 	call nz, Function_24_53FC
@@ -1864,18 +1743,14 @@ Label_24_4D39:: ; 24:4D39
 	cp a, $01
 	jr nz, Label_24_4D5E
 	call Function_24_4F14
-	call FarCall
-	dw Function_22_50FC
-	db BANK(Function_22_50FC)
+	farcall Function_22_50FC
 	jr Label_24_4D6B
 
 Label_24_4D5E:: ; 24:4D5E
 	cp a, $02
 	jr nz, Label_24_4D97
 	call Function_24_51CB
-	call FarCall
-	dw Function_22_50FC
-	db BANK(Function_22_50FC)
+	farcall Function_22_50FC
 
 Label_24_4D6B:: ; 24:4D6B
 	inc a
@@ -1899,9 +1774,7 @@ Label_24_4D6B:: ; 24:4D6B
 Label_24_4D8A:: ; 24:4D8A
 	call Function_24_4E71
 	push bc
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	xor a, a
 	ret
@@ -1947,9 +1820,7 @@ Label_24_4DBA:: ; 24:4DBA
 	pop bc
 	call Function_24_4E71
 	push bc
-	call FarCall
-	dw Function_7D_7BB7
-	db BANK(Function_7D_7BB7)
+	farcall Function_7D_7BB7
 	pop bc
 	xor a, a
 	ret
@@ -2034,9 +1905,7 @@ Function_24_4E46:: ; 24:4E46
 	ld de, $6570
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $16
@@ -2056,9 +1925,7 @@ Function_24_4E71:: ; 24:4E71
 	push bc
 	ld a, $E8
 	ld [wSpriteSlots + 1], a
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	pop bc
 	ret
 
@@ -2074,9 +1941,7 @@ Function_24_4E85:: ; 24:4E85
 	ld de, $6570
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $16
@@ -2092,9 +1957,7 @@ Label_24_4EAD:: ; 24:4EAD
 	ld de, $6580
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $46
@@ -2110,9 +1973,7 @@ Label_24_4ECE:: ; 24:4ECE
 	ld de, $6590
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $76
@@ -2130,9 +1991,7 @@ Function_24_4EF1:: ; 24:4EF1
 	pop bc
 	call Function_24_4E85
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	ret
@@ -2141,9 +2000,7 @@ Label_24_4F04:: ; 24:4F04
 	pop bc
 	call Function_24_4E85
 	push bc
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	ret
@@ -2214,9 +2071,7 @@ Function_24_4F14:: ; 24:4F14
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2254,9 +2109,7 @@ Function_24_4F14:: ; 24:4F14
 	ld de, $6580
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2300,9 +2153,7 @@ Label_24_4FF6:: ; 24:4FF6
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2319,9 +2170,7 @@ Label_24_5039:: ; 24:5039
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2338,9 +2187,7 @@ Label_24_5060:: ; 24:5060
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2357,9 +2204,7 @@ Label_24_5087:: ; 24:5087
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2376,9 +2221,7 @@ Label_24_50AE:: ; 24:50AE
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2395,9 +2238,7 @@ Label_24_50D5:: ; 24:50D5
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2414,9 +2255,7 @@ Label_24_50FC:: ; 24:50FC
 Label_24_50FF:: ; 24:50FF
 	push bc
 	push de
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
 	pop de
 	pop bc
@@ -2613,9 +2452,7 @@ Function_24_51CB:: ; 24:51CB
 	pop af
 	push de
 	pop de
-	call FarCall
-	dw Function_72_4015
-	db BANK(Function_72_4015)
+	farcall Function_72_4015
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2653,9 +2490,7 @@ Function_24_51CB:: ; 24:51CB
 	ld de, $6590
 	ld a, $24
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2694,9 +2529,7 @@ Label_24_52A3:: ; 24:52A3
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2713,9 +2546,7 @@ Label_24_52E3:: ; 24:52E3
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2732,9 +2563,7 @@ Label_24_530A:: ; 24:530A
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2751,9 +2580,7 @@ Label_24_5331:: ; 24:5331
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2770,9 +2597,7 @@ Label_24_5358:: ; 24:5358
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2789,9 +2614,7 @@ Label_24_537F:: ; 24:537F
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2808,9 +2631,7 @@ Label_24_53A6:: ; 24:53A6
 Label_24_53A9:: ; 24:53A9
 	push bc
 	push de
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_0464
 	pop de
 	pop bc
@@ -2868,39 +2689,41 @@ Function_24_53FC:: ; 24:53FC
 Function_24_53FD:: ; 24:53FD
 	ret
 
-; ---- data $53FE-$55D0 (466 bytes) [HYPOTHESIS] UNCLASSIFIED 466 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- zero $53FE-$5400 (2 bytes) [PROBABLE] 0x00 padding between code and the tile block at $5400
+	ds $2, $00
 
-Data_24_53FE:: ; 24:53FE
-	db $00, $00, $F0, $00, $EF, $07, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F
-	db $EF, $0F, $00, $00, $FD, $FC, $C1, $81, $BD, $B8, $BC, $28, $6C, $44, $66, $44
-	db $66, $42, $00, $00, $DF, $9F, $DF, $5F, $DF, $9F, $3F, $1F, $33, $E1, $ED, $EC
-	db $EE, $62, $00, $00, $FF, $FF, $FC, $F8, $FB, $FB, $FB, $F8, $F8, $F8, $FB, $FB
-	db $FB, $78, $00, $00, $EB, $EA, $2B, $0A, $CB, $CA, $D6, $04, $16, $14, $D6, $D4
-	db $D6, $14, $00, $00, $7F, $7F, $4F, $07, $37, $27, $B7, $27, $B7, $A7, $B7, $A7
-	db $B7, $87, $00, $00, $FF, $FF, $90, $00, $67, $47, $67, $40, $60, $40, $60, $4F
-	db $6F, $4F, $00, $00, $FF, $FF, $07, $02, $FA, $F2, $FA, $12, $1A, $12, $1A, $D2
-	db $DA, $92, $00, $00, $FF, $FF, $3F, $1F, $DF, $9F, $DF, $9F, $DF, $9F, $DF, $9F
-	db $C0, $80, $07, $00, $FB, $F0, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8
-	db $FB, $78, $FF, $FF, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF
-	db $FF, $FF, $80, $FF, $5F, $A0, $91, $6E, $F5, $0E, $11, $EE, $DF, $E0, $C0, $FF
-	db $FF, $FF, $00, $FF, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $00, $FF
-	db $FF, $FF, $07, $FF, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $07, $FF
-	db $FF, $FF, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $07
-	db $F0, $00, $13, $0A, $1B, $F1, $F9, $FD, $FD, $F8, $FC, $FE, $FE, $FC, $FE, $FF
-	db $00, $00, $63, $61, $61, $38, $A0, $24, $D8, $9A, $DC, $9D, $DE, $1E, $1F, $3F
-	db $00, $C0, $08, $04, $F0, $F3, $F7, $07, $06, $0C, $05, $F5, $0D, $04, $FC, $FE
-	db $00, $01, $16, $34, $16, $C4, $EC, $C8, $18, $11, $F0, $E2, $E1, $05, $03, $0B
-	db $00, $F0, $87, $CF, $87, $B6, $FE, $FC, $E1, $C1, $DF, $DE, $DE, $C0, $C0, $E0
-	db $00, $1F, $6F, $4F, $6F, $4E, $CE, $8C, $89, $11, $07, $26, $16, $50, $30, $B8
-	db $00, $07, $B6, $22, $66, $46, $F6, $A6, $B2, $20, $3C, $1C, $1C, $40, $00, $A3
-	db $00, $1C, $FF, $FE, $FF, $80, $C0, $80, $C0, $9F, $DF, $9F, $DF, $1F, $1F, $3F
-	db $00, $C0, $7B, $78, $7B, $78, $7B, $F8, $7B, $78, $FB, $F8, $FB, $F8, $FB, $F0
-	db $07, $00, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF, $00, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF, $00, $FF
-	db $FF, $FF
+; ---- gfx $5400-$55D0 (464 bytes) [PROBABLE] 2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Function_00_0749 (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site never executed in a trace
+
+Tiles_24_5400:: ; 24:5400
+	db $F0, $00, $EF, $07, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F
+	db $00, $00, $FD, $FC, $C1, $81, $BD, $B8, $BC, $28, $6C, $44, $66, $44, $66, $42
+	db $00, $00, $DF, $9F, $DF, $5F, $DF, $9F, $3F, $1F, $33, $E1, $ED, $EC, $EE, $62
+	db $00, $00, $FF, $FF, $FC, $F8, $FB, $FB, $FB, $F8, $F8, $F8, $FB, $FB, $FB, $78
+	db $00, $00, $EB, $EA, $2B, $0A, $CB, $CA, $D6, $04, $16, $14, $D6, $D4, $D6, $14
+	db $00, $00, $7F, $7F, $4F, $07, $37, $27, $B7, $27, $B7, $A7, $B7, $A7, $B7, $87
+	db $00, $00, $FF, $FF, $90, $00, $67, $47, $67, $40, $60, $40, $60, $4F, $6F, $4F
+	db $00, $00, $FF, $FF, $07, $02, $FA, $F2, $FA, $12, $1A, $12, $1A, $D2, $DA, $92
+	db $00, $00, $FF, $FF, $3F, $1F, $DF, $9F, $DF, $9F, $DF, $9F, $DF, $9F, $C0, $80
+	db $07, $00, $FB, $F0, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $F8, $FB, $78
+	db $FF, $FF, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF, $FF, $FF
+	db $80, $FF, $5F, $A0, $91, $6E, $F5, $0E, $11, $EE, $DF, $E0, $C0, $FF, $FF, $FF
+	db $00, $FF, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $FF, $01, $00, $FF, $FF, $FF
+	db $07, $FF, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $F7, $7F, $07, $FF, $FF, $FF
+	db $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $0F, $EF, $07, $F0, $00
+	db $13, $0A, $1B, $F1, $F9, $FD, $FD, $F8, $FC, $FE, $FE, $FC, $FE, $FF, $00, $00
+	db $63, $61, $61, $38, $A0, $24, $D8, $9A, $DC, $9D, $DE, $1E, $1F, $3F, $00, $C0
+	db $08, $04, $F0, $F3, $F7, $07, $06, $0C, $05, $F5, $0D, $04, $FC, $FE, $00, $01
+	db $16, $34, $16, $C4, $EC, $C8, $18, $11, $F0, $E2, $E1, $05, $03, $0B, $00, $F0
+	db $87, $CF, $87, $B6, $FE, $FC, $E1, $C1, $DF, $DE, $DE, $C0, $C0, $E0, $00, $1F
+	db $6F, $4F, $6F, $4E, $CE, $8C, $89, $11, $07, $26, $16, $50, $30, $B8, $00, $07
+	db $B6, $22, $66, $46, $F6, $A6, $B2, $20, $3C, $1C, $1C, $40, $00, $A3, $00, $1C
+	db $FF, $FE, $FF, $80, $C0, $80, $C0, $9F, $DF, $9F, $DF, $1F, $1F, $3F, $00, $C0
+	db $7B, $78, $7B, $78, $7B, $F8, $7B, $78, $FB, $F8, $FB, $F8, $FB, $F0, $07, $00
+	db $FF, $FF, $FF, $FF, $C0, $C0, $FF, $C0, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $00, $00, $FF, $00, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
+	db $FF, $FF, $FF, $FF, $01, $01, $FF, $01, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
 
 ; ---- gfx $55D0-$5810 (576 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.702, 1 blank) parity 0
 
@@ -2942,9 +2765,9 @@ Data_24_55D0:: ; 24:55D0
 	db $FF, $FF, $FF, $FF, $49, $49, $FF, $49, $FF, $FF, $FF, $FF, $00, $FF, $FF, $FF
 	db $FE, $01, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FD, $03
 
-; ---- data $5810-$58B0 (160 bytes) [HYPOTHESIS] UNCLASSIFIED 160 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $5810-$58B0 (160 bytes) [PROBABLE] 2bpp tiles by coherence: 9 non-blank tiles, mean adjacent-pixel similarity h=0.72 v=0.79 (random data ~0.25-0.35); part of the 256-byte block 5800-5900 uploaded by Function_00_0749 (hl=$5800 a=$24 c=$10 de=$9701) at 24:4341; call site never executed
 
-Data_24_5810:: ; 24:5810
+Tiles_24_5810:: ; 24:5810
 	db $80, $C0, $7F, $FF, $80, $7F, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $80, $00
 	db $00, $00, $FF, $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00
 	db $01, $03, $FE, $FF, $01, $FE, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00
@@ -3057,24 +2880,19 @@ Data_24_5BD0:: ; 24:5BD0
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04
 
-; ---- data $5EA0-$5EC6 (38 bytes) [HYPOTHESIS] UNCLASSIFIED 38 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $5EA0-$5EE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (-> 00:050C copy; hl=$5EA0 a=$24 bc=$0040 de=$D800, WRAM7 BG palette buffer) at 24:4393; call site never executed; replaces the mapper palette guess 5EC6-5EDE
 
-Data_24_5EA0:: ; 24:5EA0
+Palette_24_5EA0:: ; 24:5EA0
 	db $FF, $7F, $FF, $01, $FF, $7F, $00, $00, $20, $7D, $6D, $7A, $00, $00, $FF, $7F
 	db $FF, $01, $FF, $7F, $00, $00, $FF, $7F, $80, $40, $41, $7D, $20, $7D, $6F, $7F
-	db $00, $00, $BD, $01, $20, $7D
+	db $00, $00, $BD, $01, $20, $7D, $FF, $7F, $FF, $7F, $F4, $57, $E0, $02, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- data $5EC6-$5EDE (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- gfx $5EE0-$5EF1 (17 bytes) [PROBABLE] 2bpp tiles (too few non-blank tiles to score); first bytes of the 1024-byte block 5EE0-62E0 uploaded by Function_00_0749 (hl=$5EE0 a=$24 c=$40 de=$8000) at 24:4356; call site never executed
 
-Data_24_5EC6:: ; 24:5EC6
-	db $FF, $7F, $FF, $7F, $F4, $57, $E0, $02, $00, $00, $00, $00, $4A, $29, $B5, $56
-	db $FF, $7F, $00, $00, $4A, $29, $B5, $56
-
-; ---- data $5EDE-$5EF1 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_24_5EDE:: ; 24:5EDE
-	db $FF, $7F, $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D
-	db $F8, $F8, $BE
+Tiles_24_5EE0:: ; 24:5EE0
+	db $FF, $FF, $FF, $8A, $FF, $FF, $FF, $8B, $FF, $FA, $FB, $F7, $F5, $8D, $F8, $F8
+	db $BE
 
 ; ---- gfx $5EF1-$6301 (1040 bytes) [PROBABLE] tiles-2bpp: heuristic: 45 coherent tiles (hsim2=0.655 vsim2=0.638, 7 blank) parity 1
 
@@ -3145,9 +2963,9 @@ Data_24_5EF1:: ; 24:5EF1
 	db $7F, $52, $77, $52, $77, $52, $77, $5A, $7F, $26, $3F, $1A, $1B, $02, $03, $80
 	db $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $80, $FF, $50
 
-; ---- data $6301-$63D0 (207 bytes) [HYPOTHESIS] UNCLASSIFIED 207 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $6301-$63D0 (207 bytes) [PROBABLE] 2bpp tiles by coherence: 12 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.75 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Function_00_0749 (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site never executed
 
-Data_24_6301:: ; 24:6301
+Tiles_24_6301:: ; 24:6301
 	db $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $50, $F0, $1C
 	db $1C, $22, $3E, $5D, $7F, $A9, $EF, $B6, $FF, $4A, $7B, $32, $33, $02, $03, $3F
 	db $3F, $C0, $FF, $3F, $FF, $40, $FF, $80, $FF, $80, $FF, $B0, $FF, $B0, $DF, $00
@@ -3165,9 +2983,9 @@ Data_24_6301:: ; 24:6301
 ; ---- zero $63D0-$63E0 (16 bytes) [HYPOTHESIS] padding? run of 16 x $00 in unclassified bytes
 	ds $10, $00
 
-; ---- data $63E0-$64DC (252 bytes) [HYPOTHESIS] UNCLASSIFIED 252 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- gfx $63E0-$64E0 (256 bytes) [PROBABLE] 2bpp tiles by coherence: 15 non-blank tiles, mean adjacent-pixel similarity h=0.61 v=0.72 (random data ~0.25-0.35); inside block 62E0-64E0 uploaded by Function_00_0749 (hl=$62E0 a=$24 c=$20 de=$8400) at 24:436B; call site never executed
 
-Data_24_63E0:: ; 24:63E0
+Tiles_24_63E0:: ; 24:63E0
 	db $7E, $03, $7E, $03, $7E, $03, $7E, $03, $7E, $07, $7F, $04, $7C, $07, $7F, $07
 	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $80, $FF, $FF, $00, $FF, $FF
 	db $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F0, $5F, $F8, $7F, $C8, $CF, $38, $FF, $F8
@@ -3183,189 +3001,463 @@ Data_24_63E0:: ; 24:63E0
 	db $67, $D8, $5F, $60, $2E, $71, $57, $38, $6D, $1E, $7B, $07, $7C, $07, $7F, $07
 	db $F9, $07, $3B, $C5, $37, $C9, $FF, $03, $ED, $1F, $F7, $F9, $01, $FF, $FF, $FF
 	db $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $07, $FA, $FF, $FE
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $64DC-$65EC (272 bytes) [PROBABLE] palette-rgb555: heuristic: 136 RGB555 words as 34 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $64E0-$6520 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$64E0 a=$24 bc=$0040 de=$D840, WRAM7 OBJ palette buffer) at 24:437F; call site never executed; replaces the mapper guess 64DC-65EC (136 words) which swallowed the sprite tables below
 
-Data_24_64DC:: ; 24:64DC
-	db $00, $00, $00, $00, $BF, $18, $FF, $7F, $6D, $7A, $00, $00, $E0, $7F, $FF, $7F
-	db $20, $03, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
-	db $B5, $56, $FF, $7F, $E0, $7F, $FF, $7F, $CE, $39, $00, $00, $00, $00, $4A, $29
-	db $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29
-	db $B5, $56, $FF, $7F, $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E
-	db $50, $6E, $76, $6E, $C0, $65, $7A, $66, $C0, $65, $7A, $66, $C0, $65, $7A, $66
-	db $C0, $65, $7A, $66, $98, $66, $52, $67, $98, $66, $52, $67, $98, $66, $52, $67
-	db $98, $66, $52, $67, $86, $66, $95, $66, $86, $66, $95, $66, $86, $66, $95, $66
-	db $86, $66, $95, $66, $5E, $67, $6D, $67, $5E, $67, $6D, $67, $5E, $67, $6D, $67
-	db $5E, $67, $6D, $67, $19, $6B, $57, $6B, $19, $6B, $57, $6B, $19, $6B, $57, $6B
-	db $19, $6B, $57, $6B, $5C, $6B, $9A, $6B, $5C, $6B, $9A, $6B, $5C, $6B, $9A, $6B
-	db $5C, $6B, $9A, $6B, $9F, $6B, $DD, $6B, $9F, $6B, $DD, $6B, $9F, $6B, $DD, $6B
-	db $9F, $6B, $DD, $6B, $70, $67, $5D, $68, $70, $67, $5D, $68, $70, $67, $5D, $68
-	db $70, $67, $5D, $68, $6D, $68, $75, $69, $6D, $68, $75, $69, $6D, $68, $75, $69
-	db $6D, $68, $75, $69, $CC, $65, $D9, $65, $F2, $65, $17, $66, $3C, $66, $61, $66
-	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01, $06, $F8, $00
-	db $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08
+Palette_24_64E0:: ; 24:64E0
+	db $BF, $18, $FF, $7F, $6D, $7A, $00, $00, $E0, $7F, $FF, $7F, $20, $03, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- data $65EC-$6698 (172 bytes) [HYPOTHESIS] UNCLASSIFIED 172 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6520-$6530 (16 bytes) [HYPOTHESIS] 16 bytes = 4 x the pair $6E50/$6E76; same 4x-repeated row shape as the object-table rows at 6530+, but the targets fall inside tile data (6BF0-6FF0) so it is not one of them; meaning unknown
 
-Data_24_65EC:: ; 24:65EC
-	db $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0
-	db $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00
-	db $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09, $F0, $00, $39, $01
-	db $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01
-	db $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01
+Data_24_6520:: ; 24:6520
+	db $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E, $50, $6E, $76, $6E
+
+; ---- words $6530-$65C0 (144 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $6530 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 65C0/667A 65C0/667A 65C0/667A 65C0/667A
+
+Table_24_6530:: ; 24:6530
+	dw Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A, Table_24_65C0, Data_24_667A
+	dw Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752, Table_24_6698, Data_24_6752
+	dw Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695, Table_24_6686, Data_24_6695
+	dw Table_24_675E, Data_24_676D, Table_24_675E, Data_24_676D, Table_24_675E, Data_24_676D, Table_24_675E, Data_24_676D
+	dw Table_24_6B19, Data_24_6B57, Table_24_6B19, Data_24_6B57, Table_24_6B19, Data_24_6B57, Table_24_6B19, Data_24_6B57
+	dw Table_24_6B5C, Data_24_6B9A, Table_24_6B5C, Data_24_6B9A, Table_24_6B5C, Data_24_6B9A, Table_24_6B5C, Data_24_6B9A
+	dw Table_24_6B9F, Data_24_6BDD, Table_24_6B9F, Data_24_6BDD, Table_24_6B9F, Data_24_6BDD, Table_24_6B9F, Data_24_6BDD
+	dw Table_24_6770, Data_24_685D, Table_24_6770, Data_24_685D, Table_24_6770, Data_24_685D, Table_24_6770, Data_24_685D
+	dw Table_24_686D, Data_24_6975, Table_24_686D, Data_24_6975, Table_24_686D, Data_24_6975, Table_24_686D, Data_24_6975
+
+; ---- words $65C0-$65CC (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_65C0:: ; 24:65C0
+	dw Data_24_65CC, Data_24_65D9, Data_24_65F2, Data_24_6617, Data_24_663C, Data_24_6661
+
+; ---- data $65CC-$65D9 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_65CC:: ; 24:65CC
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01
+
+; ---- data $65D9-$65F2 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_65D9:: ; 24:65D9
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $65F2-$6617 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_65F2:: ; 24:65F2
+	db $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0, $10, $38, $01, $F8, $00, $46
+	db $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00, $00, $56, $01, $00, $08, $57
+	db $01, $00, $10, $58, $01
+
+; ---- data $6617-$663C (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6617:: ; 24:6617
+	db $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49
+	db $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A
+	db $01, $00, $10, $5B, $01
+
+; ---- data $663C-$6661 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_663C:: ; 24:663C
 	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
 	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
-	db $01, $00, $10, $5E, $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10
-	db $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $05, $00
-	db $05, $01, $02, $02, $04, $03, $05, $04, $05, $00, $88, $66, $03, $00, $00, $33
-	db $01, $00, $08, $34, $01, $00, $10, $35, $01, $01, $00, $04
+	db $01, $00, $10, $5E, $01
 
-; ---- ptrtable $6698-$66A4 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $66A4..$6739; regular record stride between targets
+; ---- data $6661-$667A (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6661:: ; 24:6661
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $667A-$6685 (11 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 5 step(s), (frame,delay) pairs: 0:5 1:2 2:4 3:5 4:5
+
+Data_24_667A:: ; 24:667A
+	db $05, $00, $05, $01, $02, $02, $04, $03, $05, $04, $05
+
+; ---- zero $6685-$6686 (1 bytes) [PROBABLE] alignment padding byte(s) between sprite script and the following word table (frame tables sit at even addresses)
+	ds $1, $00
+
+; ---- words $6686-$6688 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6686:: ; 24:6686
+	dw Data_24_6688
+
+; ---- data $6688-$6695 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6688:: ; 24:6688
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01
+
+; ---- data $6695-$6698 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_6695:: ; 24:6695
+	db $01, $00, $04
+
+; ---- words $6698-$66A4 (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Table_24_6698:: ; 24:6698
-	dw Data_24_66A4
-	dw $66B1
-	dw $66CA
-	dw $66EF
-	dw $6714
-	dw $6739
+	dw Data_24_66A4, Data_24_66B1, Data_24_66CA, Data_24_66EF, Data_24_6714, Data_24_6739
 
-; ---- data $66A4-$686D (457 bytes) [HYPOTHESIS] UNCLASSIFIED 457 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $66A4-$66B1 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 Data_24_66A4:: ; 24:66A4
-	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00, $06, $F8, $00
-	db $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26, $00, $00, $08
-	db $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0
-	db $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00
-	db $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0, $00, $0C, $00
-	db $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8, $08, $1D, $00
-	db $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00, $10, $2E, $00
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+
+; ---- data $66B1-$66CA (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_66B1:: ; 24:66B1
+	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00
+
+; ---- data $66CA-$66EF (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_66CA:: ; 24:66CA
+	db $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19
+	db $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A
+	db $00, $00, $10, $2B, $00
+
+; ---- data $66EF-$6714 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_66EF:: ; 24:66EF
+	db $09, $F0, $00, $0C, $00, $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C
+	db $00, $F8, $08, $1D, $00, $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D
+	db $00, $00, $10, $2E, $00
+
+; ---- data $6714-$6739 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6714:: ; 24:6714
 	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
 	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
-	db $00, $00, $10, $52, $00, $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10
-	db $18, $00, $00, $00, $26, $00, $00, $08, $27, $00, $00, $10, $28, $00, $05, $00
-	db $05, $01, $03, $02, $05, $03, $03, $04, $05, $00, $60, $67, $03, $00, $00, $06
-	db $00, $00, $08, $07, $00, $00, $10, $08, $00, $01, $00, $04, $7E, $67, $A3, $67
-	db $C8, $67, $D5, $67, $EE, $67, $13, $68, $38, $68, $09, $F0, $00, $30, $00, $F0
-	db $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40, $00, $F8, $08, $41, $00, $F8
-	db $10, $42, $00, $00, $00, $50, $00, $00, $08, $51, $00, $00, $10, $52, $00, $09
-	db $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19, $00
-	db $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A, $00
-	db $00, $10, $2B, $00, $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35
-	db $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00
-	db $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0
-	db $08, $37, $01, $F0, $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8
-	db $10, $48, $01, $00, $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09
-	db $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01
-	db $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01
-	db $00, $10, $5B, $01, $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E
-	db $01, $F8, $00, $4C, $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C
-	db $01, $00, $08, $5D, $01, $00, $10, $5E, $01, $07, $00, $05, $01, $08, $02, $0A
-	db $03, $08, $04, $08, $05, $08, $06, $05, $00
+	db $00, $00, $10, $52, $00
 
-; ---- ptrtable $686D-$687D (16 bytes) [PROBABLE] little-endian word table, 8 entries, monotone=1.00, 50% of targets on string start/after NUL, targets $687D..$6950; regular record stride between targets
+; ---- data $6739-$6752 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6739:: ; 24:6739
+	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00
+
+; ---- data $6752-$675D (11 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 5 step(s), (frame,delay) pairs: 0:5 1:3 2:5 3:3 4:5
+
+Data_24_6752:: ; 24:6752
+	db $05, $00, $05, $01, $03, $02, $05, $03, $03, $04, $05
+
+; ---- zero $675D-$675E (1 bytes) [PROBABLE] alignment padding byte(s) between sprite script and the following word table (frame tables sit at even addresses)
+	ds $1, $00
+
+; ---- words $675E-$6760 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_675E:: ; 24:675E
+	dw Data_24_6760
+
+; ---- data $6760-$676D (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6760:: ; 24:6760
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+
+; ---- data $676D-$6770 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_676D:: ; 24:676D
+	db $01, $00, $04
+
+; ---- words $6770-$677E (14 bytes) [PROBABLE] sprite frame table: 7 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6770:: ; 24:6770
+	dw Data_24_677E, Data_24_67A3, Data_24_67C8, Data_24_67D5, Data_24_67EE, Data_24_6813, Data_24_6838
+
+; ---- data $677E-$67A3 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_677E:: ; 24:677E
+	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
+	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
+	db $00, $00, $10, $52, $00
+
+; ---- data $67A3-$67C8 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_67A3:: ; 24:67A3
+	db $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19
+	db $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A
+	db $00, $00, $10, $2B, $00
+
+; ---- data $67C8-$67D5 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_67C8:: ; 24:67C8
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01
+
+; ---- data $67D5-$67EE (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_67D5:: ; 24:67D5
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $67EE-$6813 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_67EE:: ; 24:67EE
+	db $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0, $10, $38, $01, $F8, $00, $46
+	db $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00, $00, $56, $01, $00, $08, $57
+	db $01, $00, $10, $58, $01
+
+; ---- data $6813-$6838 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6813:: ; 24:6813
+	db $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49
+	db $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A
+	db $01, $00, $10, $5B, $01
+
+; ---- data $6838-$685D (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6838:: ; 24:6838
+	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
+	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
+	db $01, $00, $10, $5E, $01
+
+; ---- data $685D-$686C (15 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 7 step(s), (frame,delay) pairs: 0:5 1:8 2:10 3:8 4:8 5:8 6:5
+
+Data_24_685D:: ; 24:685D
+	db $07, $00, $05, $01, $08, $02, $0A, $03, $08, $04, $08, $05, $08, $06, $05
+
+; ---- zero $686C-$686D (1 bytes) [PROBABLE] alignment padding byte(s) between sprite script and the following word table (frame tables sit at even addresses)
+	ds $1, $00
+
+; ---- words $686D-$687D (16 bytes) [PROBABLE] sprite frame table: 8 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 Table_24_686D:: ; 24:686D
-	dw Data_24_687D
-	dw $68A2
-	dw $68C7
-	dw $68E0
-	dw $68ED
-	dw $6906
-	dw $692B
-	dw $6950
+	dw Data_24_687D, Data_24_68A2, Data_24_68C7, Data_24_68E0, Data_24_68ED, Data_24_6906, Data_24_692B, Data_24_6950
 
-; ---- data $687D-$6995 (280 bytes) [HYPOTHESIS] UNCLASSIFIED 280 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $687D-$68A2 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
 Data_24_687D:: ; 24:687D
 	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
 	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
-	db $01, $00, $10, $5E, $01, $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10
-	db $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00
-	db $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01, $06, $F8, $00, $43, $01, $F8
-	db $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00
-	db $10, $55, $01, $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+	db $01, $00, $10, $5E, $01
+
+; ---- data $68A2-$68C7 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_68A2:: ; 24:68A2
+	db $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49
+	db $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A
+	db $01, $00, $10, $5B, $01
+
+; ---- data $68C7-$68E0 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_68C7:: ; 24:68C7
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $68E0-$68ED (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_68E0:: ; 24:68E0
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+
+; ---- data $68ED-$6906 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_68ED:: ; 24:68ED
 	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
-	db $00, $00, $08, $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08
-	db $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10
-	db $1B, $00, $00, $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0
-	db $00, $0C, $00, $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8
-	db $08, $1D, $00, $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00
-	db $10, $2E, $00, $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00
-	db $F8, $00, $40, $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00
-	db $00, $08, $51, $00, $00, $10, $52, $00, $08, $00, $05, $01, $08, $02, $08, $03
-	db $0A, $04, $08, $05, $08, $06, $08, $07, $05, $07, $00, $30, $01, $05, $02, $05
-	db $03, $05, $04, $05, $05, $05, $06, $30
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00
 
-; ---- ptrtable $6995-$69A1 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $69A1..$6A36; regular record stride between targets
+; ---- data $6906-$692B (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
-Table_24_6995:: ; 24:6995
-	dw Data_24_69A1
-	dw $69AE
-	dw $69C7
-	dw $69EC
-	dw $6A11
-	dw $6A36
+Data_24_6906:: ; 24:6906
+	db $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19
+	db $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A
+	db $00, $00, $10, $2B, $00
 
-; ---- data $69A1-$6A57 (182 bytes) [HYPOTHESIS] UNCLASSIFIED 182 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $692B-$6950 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
-Data_24_69A1:: ; 24:69A1
-	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01, $06, $F8, $00
-	db $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53, $01, $00, $08
-	db $54, $01, $00, $10, $55, $01, $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0
-	db $10, $38, $01, $F8, $00, $46, $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00
-	db $00, $56, $01, $00, $08, $57, $01, $00, $10, $58, $01, $09, $F0, $00, $39, $01
-	db $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49, $01, $F8, $08, $4A, $01
-	db $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A, $01, $00, $10, $5B, $01
-	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
-	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
-	db $01, $00, $10, $5E, $01, $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10
-	db $45, $01, $00, $00, $53, $01, $00, $08, $54, $01, $00, $10, $55, $01, $03, $04
-	db $05, $01, $05, $00, $05, $00
+Data_24_692B:: ; 24:692B
+	db $09, $F0, $00, $0C, $00, $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C
+	db $00, $F8, $08, $1D, $00, $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D
+	db $00, $00, $10, $2E, $00
 
-; ---- ptrtable $6A57-$6A63 (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $6A63..$6AF8; regular record stride between targets
+; ---- data $6950-$6975 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
-Table_24_6A57:: ; 24:6A57
-	dw Data_24_6A63
-	dw $6A70
-	dw $6A89
-	dw $6AAE
-	dw $6AD3
-	dw $6AF8
-
-; ---- data $6A63-$6BE0 (381 bytes) [HYPOTHESIS] UNCLASSIFIED 381 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_24_6A63:: ; 24:6A63
-	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00, $06, $F8, $00
-	db $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26, $00, $00, $08
-	db $27, $00, $00, $10, $28, $00, $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0
-	db $10, $0B, $00, $F8, $00, $19, $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00
-	db $00, $29, $00, $00, $08, $2A, $00, $00, $10, $2B, $00, $09, $F0, $00, $0C, $00
-	db $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C, $00, $F8, $08, $1D, $00
-	db $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D, $00, $00, $10, $2E, $00
+Data_24_6950:: ; 24:6950
 	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
 	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
-	db $00, $00, $10, $52, $00, $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10
-	db $18, $00, $00, $00, $26, $00, $00, $08, $27, $00, $00, $10, $28, $00, $03, $04
-	db $05, $05, $05, $00, $05, $00, $1D, $6B, $3A, $6B, $07, $0B, $00, $03, $44, $0B
-	db $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03, $24, $F6, $FF, $00, $04, $F6
-	db $07, $01, $04, $F6, $0F, $02, $04, $07, $0C, $FF, $03, $44, $0C, $0D, $03, $64
-	db $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FF, $00, $04, $F6, $07, $01, $04
-	db $F6, $0F, $02, $04, $02, $00, $2E, $01, $08, $60, $6B, $7D, $6B, $07, $0B, $00
-	db $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03, $24, $F6, $FE
-	db $10, $04, $F6, $06, $11, $04, $F6, $0E, $12, $04, $07, $0C, $FF, $03, $44, $0C
-	db $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FE, $10, $04, $F6
-	db $06, $11, $04, $F6, $0E, $12, $04, $02, $00, $2E, $01, $08, $A3, $6B, $C0, $6B
+	db $00, $00, $10, $52, $00
+
+; ---- data $6975-$6986 (17 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 8 step(s), (frame,delay) pairs: 0:5 1:8 2:8 3:10 4:8 5:8 6:8 7:5
+
+Data_24_6975:: ; 24:6975
+	db $08, $00, $05, $01, $08, $02, $08, $03, $0A, $04, $08, $05, $08, $06, $08, $07
+	db $05
+
+; ---- data $6986-$6995 (15 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 7 step(s), (frame,delay) pairs: 0:48 1:5 2:5 3:5 4:5 5:5 6:48; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
+
+Data_24_6986:: ; 24:6986
+	db $07, $00, $30, $01, $05, $02, $05, $03, $05, $04, $05, $05, $05, $06, $30
+
+; ---- words $6995-$69A1 (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6995:: ; 24:6995
+	dw Data_24_69A1, Data_24_69AE, Data_24_69C7, Data_24_69EC, Data_24_6A11, Data_24_6A36
+
+; ---- data $69A1-$69AE (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_69A1:: ; 24:69A1
+	db $03, $00, $00, $33, $01, $00, $08, $34, $01, $00, $10, $35, $01
+
+; ---- data $69AE-$69C7 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_69AE:: ; 24:69AE
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $69C7-$69EC (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_69C7:: ; 24:69C7
+	db $09, $F0, $00, $36, $01, $F0, $08, $37, $01, $F0, $10, $38, $01, $F8, $00, $46
+	db $01, $F8, $08, $47, $01, $F8, $10, $48, $01, $00, $00, $56, $01, $00, $08, $57
+	db $01, $00, $10, $58, $01
+
+; ---- data $69EC-$6A11 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_69EC:: ; 24:69EC
+	db $09, $F0, $00, $39, $01, $F0, $08, $3A, $01, $F0, $10, $3B, $01, $F8, $00, $49
+	db $01, $F8, $08, $4A, $01, $F8, $10, $4B, $01, $00, $00, $59, $01, $00, $08, $5A
+	db $01, $00, $10, $5B, $01
+
+; ---- data $6A11-$6A36 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6A11:: ; 24:6A11
+	db $09, $F0, $00, $3C, $01, $F0, $08, $3D, $01, $F0, $10, $3E, $01, $F8, $00, $4C
+	db $01, $F8, $08, $4D, $01, $F8, $10, $4E, $01, $00, $00, $5C, $01, $00, $08, $5D
+	db $01, $00, $10, $5E, $01
+
+; ---- data $6A36-$6A4F (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6A36:: ; 24:6A36
+	db $06, $F8, $00, $43, $01, $F8, $08, $44, $01, $F8, $10, $45, $01, $00, $00, $53
+	db $01, $00, $08, $54, $01, $00, $10, $55, $01
+
+; ---- data $6A4F-$6A56 (7 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 3 step(s), (frame,delay) pairs: 4:5 1:5 0:5; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
+
+Data_24_6A4F:: ; 24:6A4F
+	db $03, $04, $05, $01, $05, $00, $05
+
+; ---- zero $6A56-$6A57 (1 bytes) [PROBABLE] alignment padding byte(s) between sprite script and the following word table (frame tables sit at even addresses)
+	ds $1, $00
+
+; ---- words $6A57-$6A63 (12 bytes) [PROBABLE] sprite frame table: 6 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6A57:: ; 24:6A57
+	dw Data_24_6A63, Data_24_6A70, Data_24_6A89, Data_24_6AAE, Data_24_6AD3, Data_24_6AF8
+
+; ---- data $6A63-$6A70 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6A63:: ; 24:6A63
+	db $03, $00, $00, $06, $00, $00, $08, $07, $00, $00, $10, $08, $00
+
+; ---- data $6A70-$6A89 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6A70:: ; 24:6A70
+	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00
+
+; ---- data $6A89-$6AAE (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6A89:: ; 24:6A89
+	db $09, $F0, $00, $09, $00, $F0, $08, $0A, $00, $F0, $10, $0B, $00, $F8, $00, $19
+	db $00, $F8, $08, $1A, $00, $F8, $10, $1B, $00, $00, $00, $29, $00, $00, $08, $2A
+	db $00, $00, $10, $2B, $00
+
+; ---- data $6AAE-$6AD3 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6AAE:: ; 24:6AAE
+	db $09, $F0, $00, $0C, $00, $F0, $08, $0D, $00, $F0, $10, $0E, $00, $F8, $00, $1C
+	db $00, $F8, $08, $1D, $00, $F8, $10, $1E, $00, $00, $00, $2C, $00, $00, $08, $2D
+	db $00, $00, $10, $2E, $00
+
+; ---- data $6AD3-$6AF8 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6AD3:: ; 24:6AD3
+	db $09, $F0, $00, $30, $00, $F0, $08, $31, $00, $F0, $10, $32, $00, $F8, $00, $40
+	db $00, $F8, $08, $41, $00, $F8, $10, $42, $00, $00, $00, $50, $00, $00, $08, $51
+	db $00, $00, $10, $52, $00
+
+; ---- data $6AF8-$6B11 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6AF8:: ; 24:6AF8
+	db $06, $F8, $00, $16, $00, $F8, $08, $17, $00, $F8, $10, $18, $00, $00, $00, $26
+	db $00, $00, $08, $27, $00, $00, $10, $28, $00
+
+; ---- data $6B11-$6B18 (7 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 3 step(s), (frame,delay) pairs: 4:5 5:5 0:5; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
+
+Data_24_6B11:: ; 24:6B11
+	db $03, $04, $05, $05, $05, $00, $05
+
+; ---- zero $6B18-$6B19 (1 bytes) [PROBABLE] alignment padding byte(s) between sprite script and the following word table (frame tables sit at even addresses)
+	ds $1, $00
+
+; ---- words $6B19-$6B1D (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6B19:: ; 24:6B19
+	dw Data_24_6B1D, Data_24_6B3A
+
+; ---- data $6B1D-$6B3A (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6B1D:: ; 24:6B1D
 	db $07, $0B, $00, $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03
-	db $24, $F6, $FE, $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04, $07, $0C, $FF
-	db $03, $44, $0C, $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03, $24, $F6, $FE
-	db $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04, $02, $00, $2E
+	db $24, $F6, $FF, $00, $04, $F6, $07, $01, $04, $F6, $0F, $02, $04
 
-; ---- gfx $6BE0-$6BF0 (16 bytes) [PROBABLE] tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.723, 0 blank) parity 0; 576/592 bytes also covered by call-site blocks [clipped from 6BE0-6E30 by higher-priority evidence]
+; ---- data $6B3A-$6B57 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
 
-Data_24_6BE0:: ; 24:6BE0
-	db $01, $08, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+Data_24_6B3A:: ; 24:6B3A
+	db $07, $0C, $FF, $03, $44, $0C, $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03
+	db $24, $F6, $FF, $00, $04, $F6, $07, $01, $04, $F6, $0F, $02, $04
+
+; ---- data $6B57-$6B5C (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:46 1:8
+
+Data_24_6B57:: ; 24:6B57
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6B5C-$6B60 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6B5C:: ; 24:6B5C
+	dw Data_24_6B60, Data_24_6B7D
+
+; ---- data $6B60-$6B7D (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6B60:: ; 24:6B60
+	db $07, $0B, $00, $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03
+	db $24, $F6, $FE, $10, $04, $F6, $06, $11, $04, $F6, $0E, $12, $04
+
+; ---- data $6B7D-$6B9A (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6B7D:: ; 24:6B7D
+	db $07, $0C, $FF, $03, $44, $0C, $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03
+	db $24, $F6, $FE, $10, $04, $F6, $06, $11, $04, $F6, $0E, $12, $04
+
+; ---- data $6B9A-$6B9F (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:46 1:8
+
+Data_24_6B9A:: ; 24:6B9A
+	db $02, $00, $2E, $01, $08
+
+; ---- words $6B9F-$6BA3 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_6B9F:: ; 24:6B9F
+	dw Data_24_6BA3, Data_24_6BC0
+
+; ---- data $6BA3-$6BC0 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6BA3:: ; 24:6BA3
+	db $07, $0B, $00, $03, $44, $0B, $0C, $03, $64, $FF, $00, $03, $04, $FF, $0C, $03
+	db $24, $F6, $FE, $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04
+
+; ---- data $6BC0-$6BDD (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_6BC0:: ; 24:6BC0
+	db $07, $0C, $FF, $03, $44, $0C, $0D, $03, $64, $FE, $FF, $03, $04, $FE, $0D, $03
+	db $24, $F6, $FE, $20, $04, $F6, $06, $21, $04, $F6, $0E, $22, $04
+
+; ---- data $6BDD-$6BE2 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:46 1:8
+
+Data_24_6BDD:: ; 24:6BDD
+	db $02, $00, $2E, $01, $08
+
+; ---- zero $6BE2-$6BF0 (14 bytes) [PROBABLE] 0x00 padding after the last sprite script of the 6530 block, before the tile block at 6BF0
+	ds $E, $00
 
 ; ---- gfx $6BF0-$6FF0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:40D3: hl=$6BF0 a=$24 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
@@ -3618,64 +3710,267 @@ Data_24_7790:: ; 24:7790
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 	db $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08, $08
 
-; ---- data $7A60-$7C38 (472 bytes) [PROBABLE] palette-rgb555: heuristic: 236 RGB555 words as 59 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- data $7A60-$7AA0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7A60 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
 
-Data_24_7A60:: ; 24:7A60
+Palette_24_7A60:: ; 24:7A60
 	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $F2, $2F, $44, $42, $00, $00
 	db $FF, $7F, $44, $42, $EF, $7F, $17, $00, $FF, $7F, $44, $42, $EF, $7F, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $7AA0-$7AE0 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AA0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed; earlier 'never executed' used the old 18-scenario union) - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
+
+Palette_24_7AA0:: ; 24:7AA0
 	db $E0, $7F, $FF, $7F, $52, $74, $2B, $44, $E0, $7F, $FF, $7F, $F7, $00, $00, $00
 	db $E0, $7F, $0E, $5E, $FF, $06, $57, $01, $E0, $7F, $0E, $5E, $5F, $0D, $B1, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $7AE0-$7B20 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7AE0 a=$24 bc=$0040) from 29:40B0 / 29:40C1 / 29:463E; the call sites 29:40B0/29:40C1/29:463E ARE in analysis/coverage_union.tsv (executed) and traces/detail dataaccess records rom_read 24:7AE0-7B20 (this block read as data by executed code); earlier 'never executed' was stale - status kept PROBABLE; the mapper palette guess 7A60-7C38 wrongly extended over the object tables
+
+Palette_24_7AE0:: ; 24:7AE0
 	db $FF, $7F, $9F, $02, $F7, $00, $00, $00, $FF, $7F, $90, $7E, $8B, $7D, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $7C, $33, $7C, $00, $7C, $33, $7C, $00, $7C, $33, $7C, $00, $7C, $33, $7C
-	db $36, $7C, $85, $7C, $36, $7C, $85, $7C, $36, $7C, $85, $7C, $36, $7C, $85, $7C
-	db $88, $7C, $93, $7C, $88, $7C, $93, $7C, $88, $7C, $93, $7C, $88, $7C, $93, $7C
-	db $96, $7C, $A1, $7C, $96, $7C, $A1, $7C, $96, $7C, $A1, $7C, $96, $7C, $A1, $7C
-	db $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C, $A4, $7C, $AF, $7C
-	db $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C, $B2, $7C, $BD, $7C
-	db $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C, $C0, $7C, $CB, $7C
-	db $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C, $CE, $7C, $D9, $7C
-	db $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C, $DC, $7C, $E7, $7C
-	db $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C, $EA, $7C, $F5, $7C
-	db $F8, $7C, $03, $7D, $F8, $7C, $03, $7D, $F8, $7C, $03, $7D, $F8, $7C, $03, $7D
-	db $06, $7D, $19, $7D, $06, $7D, $19, $7D, $06, $7D, $19, $7D, $06, $7D, $19, $7D
-	db $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D, $1C, $7D, $2F, $7D
-	db $32, $7D, $45, $7D, $32, $7D, $45, $7D, $32, $7D, $45, $7D, $32, $7D, $45, $7D
-	db $02, $7C, $0C, $50, $38, $0A, $01, $50, $40, $0B, $01, $50, $48, $0C, $01, $50
-	db $50, $0D, $01, $50, $58, $0E, $01, $50, $60, $0F, $01, $58, $38, $1A, $01, $58
-	db $40, $1B, $01, $58, $48, $1C, $01, $58, $50, $1D, $01, $58, $58, $1E, $01, $58
-	db $60, $1F, $01, $01, $00, $04, $38, $7C
 
-; ---- data $7C38-$7C88 (80 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 7C00-7C88 by higher-priority evidence]
+; ---- words $7B20-$7C00 (224 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7B20 is passed as de with a=$24 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7C00/7C33 7C00/7C33 7C00/7C33 7C00/7C33
+
+Table_24_7B20:: ; 24:7B20
+	dw Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33, Table_24_7C00, Data_24_7C33
+	dw Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85, Table_24_7C36, Data_24_7C85
+	dw Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93, Table_24_7C88, Data_24_7C93
+	dw Table_24_7C96, Data_24_7CA1, Table_24_7C96, Data_24_7CA1, Table_24_7C96, Data_24_7CA1, Table_24_7C96, Data_24_7CA1
+	dw Table_24_7CA4, Data_24_7CAF, Table_24_7CA4, Data_24_7CAF, Table_24_7CA4, Data_24_7CAF, Table_24_7CA4, Data_24_7CAF
+	dw Table_24_7CB2, Data_24_7CBD, Table_24_7CB2, Data_24_7CBD, Table_24_7CB2, Data_24_7CBD, Table_24_7CB2, Data_24_7CBD
+	dw Table_24_7CC0, Data_24_7CCB, Table_24_7CC0, Data_24_7CCB, Table_24_7CC0, Data_24_7CCB, Table_24_7CC0, Data_24_7CCB
+	dw Table_24_7CCE, Data_24_7CD9, Table_24_7CCE, Data_24_7CD9, Table_24_7CCE, Data_24_7CD9, Table_24_7CCE, Data_24_7CD9
+	dw Table_24_7CDC, Data_24_7CE7, Table_24_7CDC, Data_24_7CE7, Table_24_7CDC, Data_24_7CE7, Table_24_7CDC, Data_24_7CE7
+	dw Table_24_7CEA, Data_24_7CF5, Table_24_7CEA, Data_24_7CF5, Table_24_7CEA, Data_24_7CF5, Table_24_7CEA, Data_24_7CF5
+	dw Table_24_7CF8, Data_24_7D03, Table_24_7CF8, Data_24_7D03, Table_24_7CF8, Data_24_7D03, Table_24_7CF8, Data_24_7D03
+	dw Table_24_7D06, Data_24_7D19, Table_24_7D06, Data_24_7D19, Table_24_7D06, Data_24_7D19, Table_24_7D06, Data_24_7D19
+	dw Table_24_7D1C, Data_24_7D2F, Table_24_7D1C, Data_24_7D2F, Table_24_7D1C, Data_24_7D2F, Table_24_7D1C, Data_24_7D2F
+	dw Table_24_7D32, Data_24_7D45, Table_24_7D32, Data_24_7D45, Table_24_7D32, Data_24_7D45, Table_24_7D32, Data_24_7D45
+
+; ---- words $7C00-$7C02 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7C00:: ; 24:7C00
+	dw Data_24_7C02
+
+; ---- data $7C02-$7C33 (49 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 12 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7C02:: ; 24:7C02
+	db $0C, $50, $38, $0A, $01, $50, $40, $0B, $01, $50, $48, $0C, $01, $50, $50, $0D
+	db $01, $50, $58, $0E, $01, $50, $60, $0F, $01, $58, $38, $1A, $01, $58, $40, $1B
+	db $01, $58, $48, $1C, $01, $58, $50, $1D, $01, $58, $58, $1E, $01, $58, $60, $1F
+	db $01
+
+; ---- data $7C33-$7C36 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7C33:: ; 24:7C33
+	db $01, $00, $04
+
+; ---- words $7C36-$7C38 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7C36:: ; 24:7C36
+	dw Data_24_7C38
+
+; ---- data $7C38-$7C85 (77 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 19 piece(s); length tiles exactly against the frame-table pointers
 
 Data_24_7C38:: ; 24:7C38
 	db $13, $F0, $28, $20, $02, $F0, $30, $21, $02, $F0, $38, $22, $03, $F0, $40, $23
 	db $03, $F8, $28, $24, $02, $F8, $30, $25, $02, $F8, $38, $26, $03, $F8, $40, $27
 	db $03, $00, $28, $28, $02, $00, $30, $29, $02, $27, $28, $2A, $02, $27, $30, $2B
 	db $02, $27, $38, $2C, $02, $27, $40, $2D, $02, $2F, $30, $2E, $02, $2F, $38, $2F
-	db $02, $1F, $2B, $20, $03, $1F, $33, $21, $03, $1F, $3B, $22, $03, $01, $00, $04
+	db $02, $1F, $2B, $20, $03, $1F, $33, $21, $03, $1F, $3B, $22, $03
 
-; ---- data $7C88-$7D48 (192 bytes) [HYPOTHESIS] UNCLASSIFIED 192 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7C85-$7C88 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
-Data_24_7C88:: ; 24:7C88
-	db $8A, $7C, $02, $38, $E8, $01, $00, $40, $E8, $11, $00, $01, $00, $04, $98, $7C
-	db $02, $38, $E8, $02, $00, $40, $E8, $12, $00, $01, $00, $04, $A6, $7C, $02, $38
-	db $E8, $03, $00, $40, $E8, $13, $00, $01, $00, $04, $B4, $7C, $02, $38, $E8, $04
-	db $00, $40, $E8, $14, $00, $01, $00, $04, $C2, $7C, $02, $38, $E8, $05, $00, $40
-	db $E8, $15, $00, $01, $00, $04, $D0, $7C, $02, $38, $E8, $06, $00, $40, $E8, $16
-	db $00, $01, $00, $04, $DE, $7C, $02, $38, $E8, $07, $00, $40, $E8, $17, $00, $01
-	db $00, $04, $EC, $7C, $02, $38, $E8, $08, $00, $40, $E8, $18, $00, $01, $00, $04
-	db $FA, $7C, $02, $38, $E8, $09, $00, $40, $E8, $19, $00, $01, $00, $04, $08, $7D
+Data_24_7C85:: ; 24:7C85
+	db $01, $00, $04
+
+; ---- words $7C88-$7C8A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7C88:: ; 24:7C88
+	dw Data_24_7C8A
+
+; ---- data $7C8A-$7C93 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7C8A:: ; 24:7C8A
+	db $02, $38, $E8, $01, $00, $40, $E8, $11, $00
+
+; ---- data $7C93-$7C96 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7C93:: ; 24:7C93
+	db $01, $00, $04
+
+; ---- words $7C96-$7C98 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7C96:: ; 24:7C96
+	dw Data_24_7C98
+
+; ---- data $7C98-$7CA1 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7C98:: ; 24:7C98
+	db $02, $38, $E8, $02, $00, $40, $E8, $12, $00
+
+; ---- data $7CA1-$7CA4 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CA1:: ; 24:7CA1
+	db $01, $00, $04
+
+; ---- words $7CA4-$7CA6 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CA4:: ; 24:7CA4
+	dw Data_24_7CA6
+
+; ---- data $7CA6-$7CAF (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CA6:: ; 24:7CA6
+	db $02, $38, $E8, $03, $00, $40, $E8, $13, $00
+
+; ---- data $7CAF-$7CB2 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CAF:: ; 24:7CAF
+	db $01, $00, $04
+
+; ---- words $7CB2-$7CB4 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CB2:: ; 24:7CB2
+	dw Data_24_7CB4
+
+; ---- data $7CB4-$7CBD (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CB4:: ; 24:7CB4
+	db $02, $38, $E8, $04, $00, $40, $E8, $14, $00
+
+; ---- data $7CBD-$7CC0 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CBD:: ; 24:7CBD
+	db $01, $00, $04
+
+; ---- words $7CC0-$7CC2 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CC0:: ; 24:7CC0
+	dw Data_24_7CC2
+
+; ---- data $7CC2-$7CCB (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CC2:: ; 24:7CC2
+	db $02, $38, $E8, $05, $00, $40, $E8, $15, $00
+
+; ---- data $7CCB-$7CCE (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CCB:: ; 24:7CCB
+	db $01, $00, $04
+
+; ---- words $7CCE-$7CD0 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CCE:: ; 24:7CCE
+	dw Data_24_7CD0
+
+; ---- data $7CD0-$7CD9 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CD0:: ; 24:7CD0
+	db $02, $38, $E8, $06, $00, $40, $E8, $16, $00
+
+; ---- data $7CD9-$7CDC (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CD9:: ; 24:7CD9
+	db $01, $00, $04
+
+; ---- words $7CDC-$7CDE (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CDC:: ; 24:7CDC
+	dw Data_24_7CDE
+
+; ---- data $7CDE-$7CE7 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CDE:: ; 24:7CDE
+	db $02, $38, $E8, $07, $00, $40, $E8, $17, $00
+
+; ---- data $7CE7-$7CEA (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CE7:: ; 24:7CE7
+	db $01, $00, $04
+
+; ---- words $7CEA-$7CEC (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CEA:: ; 24:7CEA
+	dw Data_24_7CEC
+
+; ---- data $7CEC-$7CF5 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CEC:: ; 24:7CEC
+	db $02, $38, $E8, $08, $00, $40, $E8, $18, $00
+
+; ---- data $7CF5-$7CF8 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7CF5:: ; 24:7CF5
+	db $01, $00, $04
+
+; ---- words $7CF8-$7CFA (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7CF8:: ; 24:7CF8
+	dw Data_24_7CFA
+
+; ---- data $7CFA-$7D03 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7CFA:: ; 24:7CFA
+	db $02, $38, $E8, $09, $00, $40, $E8, $19, $00
+
+; ---- data $7D03-$7D06 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7D03:: ; 24:7D03
+	db $01, $00, $04
+
+; ---- words $7D06-$7D08 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7D06:: ; 24:7D06
+	dw Data_24_7D08
+
+; ---- data $7D08-$7D19 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7D08:: ; 24:7D08
 	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $00, $00, $40, $E8, $10
-	db $00, $01, $00, $04, $1E, $7D, $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38
-	db $E8, $01, $00, $40, $E8, $11, $00, $01, $00, $04, $34, $7D, $04, $38, $E0, $01
-	db $00, $40, $E0, $11, $00, $38, $E8, $02, $00, $40, $E8, $12, $00, $01, $00, $04
+	db $00
+
+; ---- data $7D19-$7D1C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7D19:: ; 24:7D19
+	db $01, $00, $04
+
+; ---- words $7D1C-$7D1E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7D1C:: ; 24:7D1C
+	dw Data_24_7D1E
+
+; ---- data $7D1E-$7D2F (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7D1E:: ; 24:7D1E
+	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $01, $00, $40, $E8, $11
+	db $00
+
+; ---- data $7D2F-$7D32 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7D2F:: ; 24:7D2F
+	db $01, $00, $04
+
+; ---- words $7D32-$7D34 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
+
+Table_24_7D32:: ; 24:7D32
+	dw Data_24_7D34
+
+; ---- data $7D34-$7D45 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
+
+Data_24_7D34:: ; 24:7D34
+	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $02, $00, $40, $E8, $12
+	db $00
+
+; ---- data $7D45-$7D48 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
+
+Data_24_7D45:: ; 24:7D45
+	db $01, $00, $04
 
 ; ---- zero $7D48-$8000 (696 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $2B8, $00

@@ -3,34 +3,23 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank72", ROMX[$4000], BANK[$72]
 
 ; ---- code $4000-$43A1 (929 bytes) [CONFIRMED] 351 insn(s); 351 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
 Function_72_4000:: ; 72:4000
-	call FarCall
-	dw Function_72_402A
-	db BANK(Function_72_402A)
-	call FarCall
-	dw Function_72_461A
-	db BANK(Function_72_461A)
-	call FarCall
-	dw Function_72_444F
-	db BANK(Function_72_444F)
+	farcall Function_72_402A
+	farcall Function_72_461A
+	farcall Function_72_444F
 	ldh a, [hRam_FFF6]
 	ret
 
 Function_72_4015:: ; 72:4015
-	call FarCall
-	dw Function_72_402A
-	db BANK(Function_72_402A)
-	call FarCall
-	dw Function_72_4578
-	db BANK(Function_72_4578)
-	call FarCall
-	dw Function_72_444F
-	db BANK(Function_72_444F)
+	farcall Function_72_402A
+	farcall Function_72_4578
+	farcall Function_72_444F
 	ldh a, [hRam_FFF6]
 	ret
 
@@ -61,41 +50,29 @@ Function_72_402A:: ; 72:402A
 	ld a, [hli]
 	cp a, $03
 	jp nc, Label_72_41D8
-	call FarCall
-	dw Function_72_472B
-	db BANK(Function_72_472B)
-	call FarCall
-	dw Function_72_4805
-	db BANK(Function_72_4805)
+	farcall Function_72_472B
+	farcall Function_72_4805
 	ld de, $8801
 	ld hl, $48C0
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
 	ld hl, $4E28
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0914
 	ld de, $D180
 	ld hl, $4CC0
 	ld a, $72
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -105,9 +82,7 @@ Function_72_402A:: ; 72:402A
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -119,9 +94,7 @@ Function_72_402A:: ; 72:402A
 	ld de, $4E40
 	ld a, $72
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -148,9 +121,7 @@ Function_72_402A:: ; 72:402A
 	ld hl, $D1A2
 	ld bc, $0410
 	ld de, $0EC0
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	pop hl
 	call Function_00_0392
 	ld bc, $DC00
@@ -158,29 +129,21 @@ Function_72_402A:: ; 72:402A
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47A3
-	db BANK(Function_72_47A3)
+	farcall Function_72_47A3
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -203,9 +166,7 @@ Function_72_402A:: ; 72:402A
 	cp a, $48
 	jr z, Label_72_4196
 	ld hl, $43A1
-	call FarCall
-	dw Function_72_4824
-	db BANK(Function_72_4824)
+	farcall Function_72_4824
 
 Label_72_4196:: ; 72:4196
 	ldh a, [rLCDC]
@@ -230,9 +191,7 @@ Label_72_4196:: ; 72:4196
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -241,41 +200,29 @@ Label_72_4196:: ; 72:4196
 	ret
 
 Label_72_41D8:: ; 72:41D8
-	call FarCall
-	dw Function_72_4749
-	db BANK(Function_72_4749)
-	call FarCall
-	dw Function_72_4805
-	db BANK(Function_72_4805)
+	farcall Function_72_4749
+	farcall Function_72_4805
 	ld de, $8801
 	ld hl, $48C0
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
 	ld hl, $4E28
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0B14
 	ld de, $D140
 	ld hl, $4E73
 	ld a, $72
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -285,9 +232,7 @@ Label_72_41D8:: ; 72:41D8
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -299,9 +244,7 @@ Label_72_41D8:: ; 72:41D8
 	ld de, $4E40
 	ld a, $72
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -325,15 +268,11 @@ Label_72_41D8:: ; 72:41D8
 	ld hl, $D162
 	ld bc, $0410
 	ld de, $0EC0
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	ld hl, $D1E2
 	ld bc, $0210
 	ld de, $0E00
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	pop hl
 	call Function_00_0392
 	ld bc, $DC00
@@ -341,26 +280,20 @@ Label_72_41D8:: ; 72:41D8
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	push hl
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -375,21 +308,15 @@ Label_72_41D8:: ; 72:41D8
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld de, $9001
 	ld hl, $DC00
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47D4
-	db BANK(Function_72_47D4)
+	farcall Function_72_47D4
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -412,9 +339,7 @@ Label_72_41D8:: ; 72:41D8
 	cp a, $38
 	jr z, Label_72_435F
 	ld hl, $43A4
-	call FarCall
-	dw Function_72_4824
-	db BANK(Function_72_4824)
+	farcall Function_72_4824
 
 Label_72_435F:: ; 72:435F
 	ldh a, [rLCDC]
@@ -439,9 +364,7 @@ Label_72_435F:: ; 72:435F
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -595,9 +518,7 @@ Function_72_444F:: ; 72:444F
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47A3
-	db BANK(Function_72_47A3)
+	farcall Function_72_47A3
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -608,9 +529,7 @@ Function_72_444F:: ; 72:444F
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	call FarCall
-	dw Function_72_4767
-	db BANK(Function_72_4767)
+	farcall Function_72_4767
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
@@ -618,9 +537,7 @@ Function_72_444F:: ; 72:444F
 	cp a, $90
 	jr z, Label_72_44BB
 	ld hl, $4572
-	call FarCall
-	dw Function_72_4872
-	db BANK(Function_72_4872)
+	farcall Function_72_4872
 
 Label_72_44BB:: ; 72:44BB
 	call Function_00_047A
@@ -635,9 +552,7 @@ Label_72_44BB:: ; 72:44BB
 	ld c, a
 	ld a, [wRam_C2E3]
 	ld b, a
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -662,9 +577,7 @@ Label_72_44E6:: ; 72:44E6
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47D4
-	db BANK(Function_72_47D4)
+	farcall Function_72_47D4
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -675,9 +588,7 @@ Label_72_44E6:: ; 72:44E6
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	call FarCall
-	dw Function_72_4785
-	db BANK(Function_72_4785)
+	farcall Function_72_4785
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
@@ -685,9 +596,7 @@ Label_72_44E6:: ; 72:44E6
 	cp a, $90
 	jr z, Label_72_4547
 	ld hl, $4575
-	call FarCall
-	dw Function_72_4872
-	db BANK(Function_72_4872)
+	farcall Function_72_4872
 
 Label_72_4547:: ; 72:4547
 	call Function_00_047A
@@ -702,9 +611,7 @@ Label_72_4547:: ; 72:4547
 	ld c, a
 	ld a, [wRam_C2E3]
 	ld b, a
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -720,19 +627,11 @@ Data_72_4572:: ; 72:4572
 ; ---- code $4578-$4596 (30 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
 Function_72_4578:: ; 72:4578
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_69_40D1
-	db BANK(Function_69_40D1)
+	farcall Function_00_0956
+	farcall Function_69_40D1
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $4596-$45A0 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4593: 5 entries; fixed length (5 words) by the routine
@@ -803,7 +702,7 @@ Label_72_45EA:: ; 72:45EA
 Label_72_4600:: ; 72:4600
 	jp Function_72_4578
 
-; ---- code $4603-$4606 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed)
+; ---- code $4603-$4606 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 
 Label_72_4603:: ; 72:4603
 	jp Function_72_4578
@@ -883,19 +782,11 @@ Label_72_4675:: ; 72:4675
 	jp nz, Label_72_4721
 
 Label_72_467A:: ; 72:467A
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_69_40D1
-	db BANK(Function_69_40D1)
+	farcall Function_00_0956
+	farcall Function_69_40D1
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $4698-$46A2 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4695: 5 entries; fixed length (5 words) by the routine
@@ -1184,9 +1075,7 @@ Label_72_4848:: ; 72:4848
 	push hl
 	push bc
 	push de
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_047A
 	pop de
 	ldh a, [rWY]
@@ -1257,9 +1146,7 @@ Label_72_4896:: ; 72:4896
 	push hl
 	push bc
 	push de
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
+	farcall Function_00_0956
 	call Function_00_047A
 	pop de
 	ldh a, [rWY]
@@ -1380,10 +1267,10 @@ Data_72_4E28:: ; 72:4E28
 	db $5F, $2E, $55, $11, $FF, $7B, $45, $08, $1C, $21, $8C, $6D, $45, $08, $FF, $7F
 	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 
-; ---- data $4E40-$4E44 (4 bytes) [HYPOTHESIS] UNCLASSIFIED 4 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $4E40-$4E44 (4 bytes) [PROBABLE] object table entry 0 (2 words 4E48, 4E6E): table of 4-byte entries read by init_object_from_table (00:0A82, de=$4E40 a=$72 at 72:40CB and 72:4252, index B&7F = 1 executed); entry 1 (4E44, CONFIRMED read) holds the same two words; both words land on the sprite-list data at 72:4E48/4E6E
 
-Data_72_4E40:: ; 72:4E40
-	db $48, $4E, $6E, $4E
+Table_72_4E40:: ; 72:4E40
+	dw $4E48, $4E6E
 
 ; ---- data $4E44-$4E73 (47 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4E44-502B by higher-priority evidence]
 
@@ -1431,65 +1318,65 @@ Table_72_502B:: ; 72:502B
 	dw $5035
 	dw $5063
 	dw $50BB
-	dw Data_72_50BD
+	dw String_72_50BD
 	dw $5102
 	dw $5147
-	dw Data_72_518C
+	dw String_72_518C
 	dw String_72_51D1
 	dw $5216
 	dw $525B
-	dw Data_72_52A0
+	dw String_72_52A0
 	dw $52E5
 	dw String_72_532A
 	dw $536F
 	dw $53B4
 	dw String_72_53F9
 	dw $543E
-	dw Data_72_5483
-	dw Data_72_54C8
-	dw Data_72_550D
+	dw String_72_5483
+	dw String_72_54C8
+	dw String_72_550D
 	dw String_72_5552
 	dw $5597
-	dw Data_72_55DC
+	dw String_72_55DC
 	dw String_72_5621
-	dw Data_72_5666
+	dw String_72_5666
 	dw String_72_56AB
 	dw String_72_56F0
 	dw String_72_5735
-	dw Data_72_577A
+	dw String_72_577A
 	dw Data_72_57BF
-	dw Data_72_5804
+	dw String_72_5804
 	dw $5849
 	dw $588E
 	dw String_72_58D3
-	dw Data_72_5918
+	dw String_72_5918
 	dw $595D
 	dw String_72_59A2
-	dw Data_72_59E7
+	dw String_72_59E7
 	dw $5A2C
-	dw Data_72_5A71
+	dw String_72_5A71
 	dw $5AB6
-	dw Data_72_5AFB
+	dw String_72_5AFB
 	dw $5B40
-	dw Data_72_5B85
+	dw String_72_5B85
 	dw $5BCA
-	dw Data_72_5C0F
+	dw String_72_5C0F
 	dw $5C54
 	dw String_72_5C99
-	dw Data_72_5CDE
+	dw String_72_5CDE
 	dw $5D23
 	dw $5D68
 	dw String_72_5DAD
-	dw Data_72_5DF2
+	dw String_72_5DF2
 	dw $5E37
 	dw $5E7C
 	dw $5EC1
 	dw $5F06
 	dw $5F4B
 	dw String_72_5F90
-	dw Data_72_5FF6
+	dw String_72_5FF6
 	dw $603B
-	dw Data_72_6080
+	dw String_72_6080
 	dw $60E6
 	dw String_72_612B
 	dw $6191
@@ -1499,11 +1386,11 @@ Table_72_502B:: ; 72:502B
 	dw $6308
 	dw $634D
 	dw String_72_6392
-	dw Data_72_50BD
+	dw String_72_50BD
 
-; ---- data $50BD-$514A (141 bytes) [HYPOTHESIS] UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $50BD-$514A (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_50BD:: ; 72:50BD
+String_72_50BD:: ; 72:50BD
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1523,9 +1410,9 @@ String_72_514A:: ; 72:514A
 	db $5B, $83, $57, $82, $F0, $82, $DD, $82, $DC, $82, $B7, $81, $42, $81, $40, $81
 	db $40, $00
 
-; ---- data $518C-$51B0 (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $518C-$51B0 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_518C:: ; 72:518C
+String_72_518C:: ; 72:518C
 	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
@@ -1559,9 +1446,9 @@ String_72_525E:: ; 72:525E
 	db $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $52A0-$52E8 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $52A0-$52E8 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_52A0:: ; 72:52A0
+String_72_52A0:: ; 72:52A0
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82
 	db $50, $82, $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1591,9 +1478,9 @@ String_72_532A:: ; 72:532A
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00, $86, $01, $01, $81, $40, $81
 	db $40, $81, $40, $82, $B6, $82, $A9, $82, $F1, $82, $AA
 
-; ---- data $53C5-$53D8 (19 bytes) [HYPOTHESIS] UNCLASSIFIED 19 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $53C5-$53D8 (19 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_53C5:: ; 72:53C5
+String_72_53C5:: ; 72:53C5
 	db $F9, $44, $F9, $44, $F9, $44, $F9, $44, $F9, $44, $82, $D3, $82, $F1, $81, $40
 	db $81, $40, $00
 
@@ -1611,9 +1498,9 @@ String_72_53F9:: ; 72:53F9
 	db $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81
 	db $40, $81, $40, $00
 
-; ---- data $541D-$5441 (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $541D-$5441 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_541D:: ; 72:541D
+String_72_541D:: ; 72:541D
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $00, $86, $01, $01
@@ -1627,9 +1514,9 @@ String_72_5441:: ; 72:5441
 	db $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82
 	db $BD, $00
 
-; ---- data $5483-$54A7 (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5483-$54A7 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5483:: ; 72:5483
+String_72_5483:: ; 72:5483
 	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
@@ -1641,9 +1528,9 @@ String_72_54A7:: ; 72:54A7
 	db $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40
 	db $00
 
-; ---- data $54C8-$54EC (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $54C8-$54EC (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_54C8:: ; 72:54C8
+String_72_54C8:: ; 72:54C8
 	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
@@ -1655,9 +1542,9 @@ String_72_54EC:: ; 72:54EC
 	db $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40
 	db $00
 
-; ---- data $550D-$5531 (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $550D-$5531 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_550D:: ; 72:550D
+String_72_550D:: ; 72:550D
 	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
@@ -1676,9 +1563,9 @@ String_72_5552:: ; 72:5552
 	db $AA, $82, $AB, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81
 	db $40, $81, $40, $00
 
-; ---- data $5576-$559A (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5576-$559A (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5576:: ; 72:5576
+String_72_5576:: ; 72:5576
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $00, $86, $02, $00
@@ -1692,9 +1579,9 @@ String_72_559A:: ; 72:559A
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $55DC-$5600 (36 bytes) [HYPOTHESIS] UNCLASSIFIED 36 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $55DC-$5600 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_55DC:: ; 72:55DC
+String_72_55DC:: ; 72:55DC
 	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00
@@ -1720,9 +1607,9 @@ Data_72_5645:: ; 72:5645
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $00
 
-; ---- data $5666-$5669 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5666-$5669 (3 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5666:: ; 72:5666
+String_72_5666:: ; 72:5666
 	db $86, $02, $00
 
 ; ---- text $5669-$56AB (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -1771,9 +1658,9 @@ String_72_5735:: ; 72:5735
 	db $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9
 	db $81, $48, $81, $40, $00
 
-; ---- data $577A-$57BF (69 bytes) [HYPOTHESIS] UNCLASSIFIED 69 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $577A-$57BF (69 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_577A:: ; 72:577A
+String_72_577A:: ; 72:577A
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $4F, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1794,9 +1681,9 @@ String_72_57C2:: ; 72:57C2
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $5804-$5891 (141 bytes) [HYPOTHESIS] UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5804-$5891 (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5804:: ; 72:5804
+String_72_5804:: ; 72:5804
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1825,9 +1712,9 @@ String_72_58D3:: ; 72:58D3
 	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
 	db $81, $40, $81, $40, $00
 
-; ---- data $5918-$5960 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5918-$5960 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5918:: ; 72:5918
+String_72_5918:: ; 72:5918
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $4F, $82, $56, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1852,9 +1739,9 @@ String_72_59A2:: ; 72:59A2
 	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
 	db $81, $40, $81, $40, $00
 
-; ---- data $59E7-$5A2F (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $59E7-$5A2F (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_59E7:: ; 72:59E7
+String_72_59E7:: ; 72:59E7
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $50, $82, $4F, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1870,9 +1757,9 @@ String_72_5A2F:: ; 72:5A2F
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $5A71-$5AB9 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5A71-$5AB9 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5A71:: ; 72:5A71
+String_72_5A71:: ; 72:5A71
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1888,9 +1775,9 @@ String_72_5AB9:: ; 72:5AB9
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $5AFB-$5B43 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5AFB-$5B43 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5AFB:: ; 72:5AFB
+String_72_5AFB:: ; 72:5AFB
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $50, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1906,9 +1793,9 @@ String_72_5B43:: ; 72:5B43
 	db $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81
 	db $40, $00
 
-; ---- data $5B85-$5BCD (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5B85-$5BCD (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5B85:: ; 72:5B85
+String_72_5B85:: ; 72:5B85
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1924,9 +1811,9 @@ String_72_5BCD:: ; 72:5BCD
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $5C0F-$5C57 (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5C0F-$5C57 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5C0F:: ; 72:5C0F
+String_72_5C0F:: ; 72:5C0F
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $50, $82, $57, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1951,9 +1838,9 @@ String_72_5C99:: ; 72:5C99
 	db $82, $A9, $82, $A2, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42
 	db $81, $40, $81, $40, $00
 
-; ---- data $5CDE-$5D6B (141 bytes) [HYPOTHESIS] UNCLASSIFIED 141 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5CDE-$5D6B (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5CDE:: ; 72:5CDE
+String_72_5CDE:: ; 72:5CDE
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $51, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -1987,9 +1874,9 @@ String_72_5DB0:: ; 72:5DB0
 	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $5DF2-$5F4E (348 bytes) [HYPOTHESIS] UNCLASSIFIED 348 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5DF2-$5F4E (348 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5DF2:: ; 72:5DF2
+String_72_5DF2:: ; 72:5DF2
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $51, $82, $54, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -2038,9 +1925,9 @@ String_72_5F93:: ; 72:5F93
 	db $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48
 	db $81, $40, $00
 
-; ---- data $5FF6-$603E (72 bytes) [HYPOTHESIS] UNCLASSIFIED 72 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $5FF6-$603E (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_5FF6:: ; 72:5FF6
+String_72_5FF6:: ; 72:5FF6
 	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
 	db $52, $82, $51, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -2056,9 +1943,9 @@ String_72_603E:: ; 72:603E
 	db $E0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48, $81, $40, $81
 	db $40, $00
 
-; ---- data $6080-$60E9 (105 bytes) [HYPOTHESIS] UNCLASSIFIED 105 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $6080-$60E9 (105 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
-Data_72_6080:: ; 72:6080
+String_72_6080:: ; 72:6080
 	db $86, $04, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82
 	db $51, $82, $52, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
 	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
@@ -2133,7 +2020,7 @@ String_72_6392:: ; 72:6392
 	db $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1
 	db $81, $42, $81, $40, $00
 
-; ---- data $63D7-$63D8 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $63D7-$63D8 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the string terminator at 63D6 and directly before the far-call target 72:63D8 (4E:4D10 calls 63D8, not 63D7); left unclassified
 
 Data_72_63D7:: ; 72:63D7
 	db $AF
@@ -2146,49 +2033,35 @@ Function_72_63D8:: ; 72:63D8
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	call FarCall
-	dw Function_72_472B
-	db BANK(Function_72_472B)
-	call FarCall
-	dw Function_72_4805
-	db BANK(Function_72_4805)
+	farcall Function_72_472B
+	farcall Function_72_4805
 	ld de, $8F01
 	ld hl, $7620
 	ld a, $72
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8801
 	ld hl, $7220
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
 	ld hl, $7810
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0614
 	ld de, $D180
 	ld hl, $7720
 	ld a, $72
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7820
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0392
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2236,9 +2109,7 @@ Label_72_6495:: ; 72:6495
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2247,24 +2118,18 @@ Label_72_6495:: ; 72:6495
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47A3
-	db BANK(Function_72_47A3)
+	farcall Function_72_47A3
 	ld hl, $DAC0
 	ld de, $7828
 	ld a, $72
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
 	call Function_00_0A45
 	ldh a, [hRam_FFF6]
-	call FarCall
-	dw Function_72_669F
-	db BANK(Function_72_669F)
+	farcall Function_72_669F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2283,17 +2148,13 @@ Label_72_6495:: ; 72:6495
 	cp a, $60
 	jr z, Label_72_6515
 	ld hl, $6556
-	call FarCall
-	dw Function_72_4824
-	db BANK(Function_72_4824)
+	farcall Function_72_4824
 
 Label_72_6515:: ; 72:6515
 	ld hl, $D200
 	ld bc, $0214
 	ld de, $0EC0
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -2308,9 +2169,7 @@ Label_72_6515:: ; 72:6515
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2318,7 +2177,7 @@ Label_72_6515:: ; 72:6515
 	ldh a, [hScratchA]
 	ret
 
-; ---- data $6556-$6563 (13 bytes) [HYPOTHESIS] UNCLASSIFIED 13 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6556-$6563 (13 bytes) [PROBABLE] 13-byte script: 12 x $04 then terminator $80; read via ld hl,$6556 at 72:650C followed by the far call to the script reader at 72:4824 (same reader/format as the CONFIRMED read script at 72:6ADF: bytes until $80)
 
 Data_72_6556:: ; 72:6556
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
@@ -2330,9 +2189,7 @@ Function_72_6563:: ; 72:6563
 
 Label_72_6565:: ; 72:6565
 	ldh [hRam_FFF6], a
-	call FarCall
-	dw Function_72_669F
-	db BANK(Function_72_669F)
+	farcall Function_72_669F
 
 Label_72_656D:: ; 72:656D
 	ld a, [wRam_C2CC]
@@ -2390,19 +2247,11 @@ Label_72_65C8:: ; 72:65C8
 	jp nz, Label_72_6695
 
 Label_72_65CD:: ; 72:65CD
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_69_40D1
-	db BANK(Function_69_40D1)
+	farcall Function_00_0956
+	farcall Function_69_40D1
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $65EB-$65F5 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 72:65E8: 5 entries; fixed length (5 words) by the routine
@@ -2556,9 +2405,7 @@ Function_72_669F:: ; 72:669F
 	ld hl, $DAD0
 	ld de, $7828
 	ld a, $72
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -2584,20 +2431,16 @@ Function_72_669F:: ; 72:669F
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
 	ld b, $95
 	ld c, $28
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ret
 
-; ---- data $6711-$6712 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6711-$6712 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the ret at 6710 and directly before the executed function 72:6712; no entry at 6711 found; left unclassified
 
 Data_72_6711:: ; 72:6711
 	db $AF
@@ -2610,49 +2453,35 @@ Function_72_6712:: ; 72:6712
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	call FarCall
-	dw Function_72_472B
-	db BANK(Function_72_472B)
-	call FarCall
-	dw Function_72_4805
-	db BANK(Function_72_4805)
+	farcall Function_72_472B
+	farcall Function_72_4805
 	ld de, $8801
 	ld hl, $6C10
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld de, $8F01
 	ld hl, $7010
 	ld a, $72
 	ld b, $97
 	ld c, $10
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
 	ld hl, $7200
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	ld bc, $0614
 	ld de, $D180
 	ld hl, $7110
 	ld a, $72
-	call FarCall
-	dw Function_00_08EA
-	db BANK(Function_00_08EA)
+	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7210
 	ld a, $72
-	call FarCall
-	dw Function_4F_4000
-	db BANK(Function_4F_4000)
+	farcall Function_4F_4000
 	call Function_00_0392
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2705,9 +2534,7 @@ Label_72_67D1:: ; 72:67D1
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	call FarCall
-	dw Function_4F_404B
-	db BANK(Function_4F_404B)
+	farcall Function_4F_404B
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2716,24 +2543,18 @@ Label_72_67D1:: ; 72:67D1
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47A3
-	db BANK(Function_72_47A3)
+	farcall Function_72_47A3
 	ld hl, $DAC0
 	ld de, $7828
 	ld a, $72
 	ld b, $81
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
 	call Function_00_0A45
 	ldh a, [hRam_FFF6]
-	call FarCall
-	dw Function_72_69F3
-	db BANK(Function_72_69F3)
+	farcall Function_72_69F3
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2752,17 +2573,13 @@ Label_72_67D1:: ; 72:67D1
 	cp a, $60
 	jr z, Label_72_6851
 	ld hl, $6892
-	call FarCall
-	dw Function_72_4824
-	db BANK(Function_72_4824)
+	farcall Function_72_4824
 
 Label_72_6851:: ; 72:6851
 	ld hl, $D200
 	ld bc, $0214
 	ld de, $0EC0
-	call FarCall
-	dw Function_4F_45C6
-	db BANK(Function_4F_45C6)
+	farcall Function_4F_45C6
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -2777,9 +2594,7 @@ Label_72_6851:: ; 72:6851
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2799,9 +2614,7 @@ Function_72_689F:: ; 72:689F
 
 Label_72_68A1:: ; 72:68A1
 	ldh [hRam_FFF6], a
-	call FarCall
-	dw Function_72_69F3
-	db BANK(Function_72_69F3)
+	farcall Function_72_69F3
 
 Label_72_68A9:: ; 72:68A9
 	ld a, [wRam_C2CC]
@@ -2863,19 +2676,11 @@ Label_72_6904:: ; 72:6904
 	jp nz, Label_72_69E9
 
 Label_72_6909:: ; 72:6909
-	call FarCall
-	dw Function_00_0956
-	db BANK(Function_00_0956)
-	call FarCall
-	dw Function_69_40D1
-	db BANK(Function_69_40D1)
+	farcall Function_00_0956
+	farcall Function_69_40D1
 	call Function_00_044B
-	call FarCall
-	dw Function_7D_7BA4
-	db BANK(Function_7D_7BA4)
-	call FarCall
-	dw Function_7D_7BC1
-	db BANK(Function_7D_7BC1)
+	farcall Function_7D_7BA4
+	farcall Function_7D_7BC1
 	call JoypadDispatch
 
 ; ---- ptrtable $6927-$6931 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:6924: 5 entries; fixed length (5 words) by the routine
@@ -3052,9 +2857,7 @@ Function_72_69F3:: ; 72:69F3
 	ld hl, $DAD0
 	ld de, $7828
 	ld a, $72
-	call FarCall
-	dw Function_00_0A82
-	db BANK(Function_00_0A82)
+	farcall Function_00_0A82
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -3081,18 +2884,14 @@ Function_72_69F3:: ; 72:69F3
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	call FarCall
-	dw Function_48_403E
-	db BANK(Function_48_403E)
+	farcall Function_48_403E
 	call Function_00_0392
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
 	ld b, $95
 	ld c, $28
-	call FarCall
-	dw Function_00_0787
-	db BANK(Function_00_0787)
+	farcall Function_00_0787
 	ret
 
 Function_72_6A6B:: ; 72:6A6B
@@ -3101,9 +2900,7 @@ Function_72_6A6B:: ; 72:6A6B
 	push af
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call FarCall
-	dw Function_72_47A3
-	db BANK(Function_72_47A3)
+	farcall Function_72_47A3
 	ld hl, $DAD0
 	call Function_00_09E6
 	ld hl, $DACB
@@ -3116,9 +2913,7 @@ Function_72_6A6B:: ; 72:6A6B
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	call FarCall
-	dw Function_72_4767
-	db BANK(Function_72_4767)
+	farcall Function_72_4767
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
@@ -3126,9 +2921,7 @@ Function_72_6A6B:: ; 72:6A6B
 	cp a, $90
 	jr z, Label_72_6AB4
 	ld hl, $6ADF
-	call FarCall
-	dw Function_72_4872
-	db BANK(Function_72_4872)
+	farcall Function_72_4872
 
 Label_72_6AB4:: ; 72:6AB4
 	call Function_00_047A
@@ -3143,9 +2936,7 @@ Label_72_6AB4:: ; 72:6AB4
 	ld b, a
 	ld a, [wRam_C2E3]
 	ld c, a
-	call FarCall
-	dw Function_7D_7C00
-	db BANK(Function_7D_7C00)
+	farcall Function_7D_7C00
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -3158,9 +2949,9 @@ Label_72_6AB4:: ; 72:6AB4
 Data_72_6ADF:: ; 72:6ADF
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
-; ---- data $6AEC-$6AFA (14 bytes) [HYPOTHESIS] UNCLASSIFIED 14 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $6AEC-$6AFA (14 bytes) [PROBABLE] 2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23
 
-Data_72_6AEC:: ; 72:6AEC
+Table_72_6AEC:: ; 72:6AEC
 	db $30, $68, $83, $30, $68, $FA, $6A, $60, $68, $84, $60, $68, $23, $6B
 
 ; ---- text $6AFA-$6B4C (82 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -3173,16 +2964,11 @@ String_72_6AFA:: ; 72:6AFA
 	db $40, $82, $E0, $82, $C7, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81
 	db $40, $00
 
-; ---- data $6B4C-$6B53 (7 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- data $6B4C-$6B68 (28 bytes) [PROBABLE] 4 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6B4C at 72:69F3-69FF (ld de,$6B4C); record 0 (6B4C-6B53) is CONFIRMED read by executed code; last word of every record points into the strings at 72:6B68.. (6B68, 6B91, 6BBA, 6BE3 = record starts); extent = 4 records up to the String region at 72:6B68
 
-Data_72_6B4C:: ; 72:6B4C
-	db $20, $68, $82, $20, $68, $68, $6B
-
-; ---- data $6B53-$6B68 (21 bytes) [HYPOTHESIS] UNCLASSIFIED 21 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_72_6B53:: ; 72:6B53
-	db $48, $68, $83, $48, $68, $91, $6B, $70, $68, $84, $70, $68, $BA, $6B, $20, $68
-	db $87, $20, $68, $E3, $6B
+Table_72_6B4C:: ; 72:6B4C
+	db $20, $68, $82, $20, $68, $68, $6B, $48, $68, $83, $48, $68, $91, $6B, $70, $68
+	db $84, $70, $68, $BA, $6B, $20, $68, $87, $20, $68, $E3, $6B
 
 ; ---- text $6B68-$6BE3 (123 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -3196,12 +2982,15 @@ String_72_6B68:: ; 72:6B68
 	db $82, $F0, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4
 	db $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $00
 
-; ---- data $6BE3-$6C10 (45 bytes) [HYPOTHESIS] UNCLASSIFIED 45 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $6BE3-$6C0C (41 bytes) [PROBABLE] text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); no table pointer found
 
-Data_72_6BE3:: ; 72:6BE3
+String_72_6BE3:: ; 72:6BE3
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $48, $81, $48
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $00, $00, $00, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+
+; ---- zero $6C0C-$6C10 (4 bytes) [PROBABLE] 4 x 00 padding before the tile block at 72:6C10
+	ds $4, $00
 
 ; ---- gfx $6C10-$7010 (1024 bytes) [CONFIRMED] tiles-vram: 3 call site(s) (4E:61C1 4E:62BC 72:6733); first: hdma_rom_to_vram at 4E:61C1: hl=$6C10 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
@@ -3325,10 +3114,8 @@ Data_72_7206:: ; 72:7206
 Data_72_7216:: ; 72:7216
 	db $00, $00
 
-; ---- data $7218-$7220 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_72_7218:: ; 72:7218
-	db $00, $00, $00, $00, $00, $00, $00, $00
+; ---- zero $7218-$7220 (8 bytes) [PROBABLE] 8 x 00 padding between the palette/data at 72:7206-7218 and the tile block 72:7220
+	ds $8, $00
 
 ; ---- gfx $7220-$7620 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -3437,22 +3224,27 @@ Data_72_7720:: ; 72:7720
 	db $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E
 	db $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E
 
-; ---- data $7810-$7816 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7810-$7828 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (bit15 clear, black/white ends); 7810 is loaded by ld hl,$7810 (bc=$0010 -> de=$D830, far call 4F:4000) at 72:6417; the third group (7820) follows the same format
 
-Data_72_7810:: ; 72:7810
-	db $00, $00, $73, $42, $4A, $41
+Palette_72_7810:: ; 72:7810
+	db $00, $00, $73, $42, $4A, $41, $FF, $7F, $FF, $7F, $7F, $01, $53, $2C, $00, $00
+	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 
-; ---- data $7816-$786E (88 bytes) [PROBABLE] palette-rgb555: heuristic: 44 RGB555 words as 11 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+; ---- words $7828-$786C (68 bytes) [PROBABLE] object table for init_object_from_table (00:0A82, de=$7828 a=$72, 4-byte entries = 2 words; callers 4E:5F08.., 72:45D2, 72:46D4, 72:64C6, 72:66BE, 72:6802, 72:6A12); 17 entries, every word lands exactly on a descriptor start of the data block 72:786C-7A1F (partition check)
 
-Data_72_7816:: ; 72:7816
-	db $FF, $7F, $FF, $7F, $7F, $01, $53, $2C, $00, $00, $E0, $7F, $FF, $7F, $CE, $39
-	db $00, $00, $CA, $78, $F0, $78, $CA, $78, $F0, $78, $76, $79, $9D, $79, $A0, $79
-	db $BF, $79, $C3, $79, $E6, $79, $40, $79, $56, $79, $5B, $79, $71, $79, $F5, $78
-	db $3B, $79, $94, $78, $AA, $78, $AF, $78, $C5, $78, $E9, $79, $FF, $79, $04, $7A
-	db $1A, $7A, $6C, $78, $73, $78, $6C, $78, $73, $78, $76, $78, $7D, $78, $80, $78
-	db $87, $78, $8A, $78, $91, $78, $6E, $78
+Table_72_7828:: ; 72:7828
+	dw Data_72_78CA, $78F0, Data_72_78CA, $78F0, $7976, $799D, Data_72_79A0, $79BF
+	dw $79C3, $79E6, $7940, $7956, Data_72_795B, $7971, Data_72_78F5, $793B
+	dw Data_72_7894, $78AA, $78AF, $78C5, $79E9, $79FF, Data_72_7A04, $7A1A
+	dw Data_72_786C, $7873, Data_72_786C, $7873, $7876, $787D, Data_72_7880, $7887
+	dw $788A, $7891
 
-; ---- data $786E-$7880 (18 bytes) [HYPOTHESIS] UNCLASSIFIED 18 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $786C-$786E (2 bytes) [PROBABLE] descriptor $786C = dw $786E (first word of the animation/sprite data block; target of table entry words)
+
+Data_72_786C:: ; 72:786C
+	db $6E, $78
+
+; ---- data $786E-$7880 (18 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 Data_72_786E:: ; 72:786E
 	db $01, $00, $00, $FF, $07, $01, $00, $04, $78, $78, $01, $00, $00, $FF, $07, $01
@@ -3464,7 +3256,7 @@ Data_72_7880:: ; 72:7880
 	db $82, $78, $01, $00, $00, $FF, $07, $01, $00, $04, $8C, $78, $01, $00, $00, $FF
 	db $07, $01, $00, $04
 
-; ---- data $7894-$78CA (54 bytes) [HYPOTHESIS] UNCLASSIFIED 54 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7894-$78CA (54 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 Data_72_7894:: ; 72:7894
 	db $98, $78, $A1, $78, $02, $00, $00, $0B, $07, $00, $08, $0C, $07, $02, $FF, $00
@@ -3479,7 +3271,7 @@ Data_72_78CA:: ; 72:78CA
 	db $4C, $0A, $0A, $81, $6C, $04, $FD, $FD, $81, $0C, $FD, $0B, $81, $2C, $0B, $FD
 	db $81, $4C, $0B, $0B, $81, $6C, $02, $00, $2E, $01, $08
 
-; ---- data $78F5-$795B (102 bytes) [HYPOTHESIS] UNCLASSIFIED 102 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $78F5-$795B (102 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 Data_72_78F5:: ; 72:78F5
 	db $F9, $78, $1A, $79, $08, $ED, $F8, $F8, $0C, $ED, $00, $F9, $0C, $ED, $08, $FA
@@ -3499,7 +3291,7 @@ Data_72_795B:: ; 72:795B
 	db $92, $0C, $F5, $00, $93, $0C, $F5, $08, $94, $0C, $F5, $10, $95, $0C, $F5, $18
 	db $96, $0C, $01, $00, $04
 
-; ---- data $79A0-$7A04 (100 bytes) [HYPOTHESIS] UNCLASSIFIED 100 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $79A0-$7A04 (100 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 Data_72_79A0:: ; 72:79A0
 	db $A2, $79, $07, $ED, $F9, $87, $0C, $ED, $01, $88, $0C, $ED, $09, $89, $0C, $F5

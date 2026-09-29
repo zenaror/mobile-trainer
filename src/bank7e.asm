@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank7E", ROMX[$4000], BANK[$7E]
 
@@ -1363,7 +1364,7 @@ Label_7E_7D5A:: ; 7E:7D5A
 	ld [wRam_C282], a
 	jp Label_7E_7D66
 
-; ---- code $7D62-$7D66 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 14; entered by far from 54:4A73 (PROBABLE code)
+; ---- code $7D62-$7D66 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 14; entered by far from 54:4A73 (PROBABLE code) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 
 Function_7E_7D62:: ; 7E:7D62
 	xor a, a
@@ -1401,15 +1402,10 @@ Label_7E_7D75:: ; 7E:7D75
 	ld l, a
 	jp hl
 
-; ---- data $7D8F-$7D91 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- words $7D8F-$7D99 (10 bytes) [PROBABLE] 5-entry jump table (7D99, 7DB0, 7DE5, 7E05, 7E1E) of the executed dispatcher at 7E:7D7B-7D8E (ldh a,[$FFB1] ; add a,a ; add a,$8F ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl); entry 0 is CONFIRMED read data, entries 1-4 are the starts of the handlers 7DB0/7DE5/7E05/7E1E (each begins with pop hl)
 
-Data_7E_7D8F:: ; 7E:7D8F
-	db $99, $7D
-
-; ---- data $7D91-$7D99 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_7E_7D91:: ; 7E:7D91
-	db $B0, $7D, $E5, $7D, $05, $7E, $1E, $7E
+Table_7E_7D8F:: ; 7E:7D8F
+	dw $7D99, $7DB0, $7DE5, $7E05, $7E1E
 
 ; ---- code $7D99-$7DAA (17 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	pop hl
@@ -1424,25 +1420,102 @@ Data_7E_7D91:: ; 7E:7D91
 	jp z, Label_7E_7E37
 	jr Label_7E_7D75
 
-; ---- code $7DAA-$7DB0 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 7E:7D9E (executed)
+; ---- code $7DAA-$7DB0 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 7E:7D9E (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 
 Label_7E_7DAA:: ; 7E:7DAA
 	ld a, $02
 	ldh [hRam_FFB1], a
 	jr Label_7E_7D75
 
-; ---- data $7DB0-$7E37 (135 bytes) [HYPOTHESIS] UNCLASSIFIED 135 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- code $7DB0-$7DDF (47 bytes) [CONFIRMED] handler 7DB0 (entry 1 of the jump table 7E:7D8F, each handler starts with pop hl); 7DB0-7DDF decodes to jp/jr targets on instruction starts, ends with jr $7D75 [executed in 6 scenarios]
+	pop hl
+	ldh a, [hRam_FFB0]
+	cp a, $1B
+	jr z, Label_7E_7DAA
+	push bc
+	push de
+	ld a, [hli]
+	ld c, a
+	ldh a, [hRam_FFB0]
+	ld b, a
+	call Function_7E_7B7C
+	ld a, c
+	ldh [hRam_FFB2], a
+	ld a, b
+	ldh [hRam_FFB3], a
+	pop de
+	pop bc
+	ldh a, [hRam_FFB3]
+	ld [de], a
+	inc de
+	dec bc
+	ld a, c
+	or a, b
+	jp z, Label_7E_7E37
+	ldh a, [hRam_FFB2]
+	ld [de], a
+	inc de
+	dec bc
+	ld a, c
+	or a, b
+	jp z, Label_7E_7E37
+	jr Label_7E_7D75
 
-Data_7E_7DB0:: ; 7E:7DB0
-	db $E1, $F0, $B0, $FE, $1B, $28, $F3, $C5, $D5, $2A, $4F, $F0, $B0, $47, $CD, $7C
-	db $7B, $79, $E0, $B2, $78, $E0, $B3, $D1, $C1, $F0, $B3, $12, $13, $0B, $79, $B0
-	db $CA, $37, $7E, $F0, $B2, $12, $13, $0B, $79, $B0, $CA, $37, $7E, $18, $96, $3E
-	db $02, $E0, $B1, $18, $90, $E1, $F0, $B0, $FE, $28, $28, $0B, $FE, $24, $28, $0E
-	db $3E, $00, $E0, $B1, $C3, $75, $7D, $3E, $03, $E0, $B1, $C3, $75, $7D, $3E, $04
-	db $E0, $B1, $C3, $75, $7D, $E1, $F0, $B0, $FE, $4A, $28, $0B, $FE, $42, $28, $07
-	db $3E, $00, $E0, $B1, $C3, $75, $7D, $3E, $00, $E0, $B1, $C3, $75, $7D, $E1, $F0
-	db $B0, $FE, $4A, $28, $0B, $FE, $42, $28, $07, $3E, $00, $E0, $B1, $C3, $75, $7D
-	db $3E, $01, $E0, $B1, $C3, $75, $7D
+; ---- code $7DDF-$7DE5 (6 bytes) [HYPOTHESIS] ld a,2 ; ldh [$FFB1],a ; jr $7D75 (same body as the executed 7E:7DAA): no decoded branch, table word or call targets 7DDF (checked by the verifier), it follows the unconditional jr $7D75 at 7DDD, so its entry is unproven
+	ld a, $02
+	ldh [hRam_FFB1], a
+	jr Label_7E_7D75
+
+; ---- code $7DE5-$7E37 (82 bytes) [PROBABLE] handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends with jp $7D75 exactly at the executed code 7E37
+	pop hl
+	ldh a, [hRam_FFB0]
+	cp a, $28
+	jr z, Label_7E_7DF7
+	cp a, $24
+	jr z, Label_7E_7DFE
+	ld a, $00
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+Label_7E_7DF7:: ; 7E:7DF7
+	ld a, $03
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+Label_7E_7DFE:: ; 7E:7DFE
+	ld a, $04
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+	pop hl
+	ldh a, [hRam_FFB0]
+	cp a, $4A
+	jr z, Label_7E_7E17
+	cp a, $42
+	jr z, Label_7E_7E17
+	ld a, $00
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+Label_7E_7E17:: ; 7E:7E17
+	ld a, $00
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+	pop hl
+	ldh a, [hRam_FFB0]
+	cp a, $4A
+	jr z, Label_7E_7E30
+	cp a, $42
+	jr z, Label_7E_7E30
+	ld a, $00
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
+
+Label_7E_7E30:: ; 7E:7E30
+	ld a, $01
+	ldh [hRam_FFB1], a
+	jp Label_7E_7D75
 
 ; ---- code $7E37-$7E3D (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
@@ -1451,7 +1524,7 @@ Label_7E_7E37:: ; 7E:7E37
 	or a, a
 	jr nz, Label_7E_7E4C
 
-; ---- code $7E3D-$7E4C (15 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 7E:7E3B (executed)
+; ---- code $7E3D-$7E4C (15 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 7E:7E3B (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 	ldh a, [hRam_FFB4]
 	ld c, a
 	ldh a, [hRam_FFB5]

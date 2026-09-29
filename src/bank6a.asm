@@ -3,6 +3,7 @@
 
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.inc"
+INCLUDE "constants/macros.inc"
 
 SECTION "Bank6A", ROMX[$4000], BANK[$6A]
 
@@ -153,85 +154,56 @@ Data_6A_45A0:: ; 6A:45A0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- data $4870-$48B6 (70 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $4870-$4A14 (420 bytes) [PROBABLE] 10-wide box tilemap: 21 rows x 10 tile indices (0xd2 bytes) then 21 rows x 10 attribute bytes (+0xd2); code at 6C:43DC does `ld hl,$4870` then indexes it with an offset and adds 0xd2 to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
 
-Data_6A_4870:: ; 6A:4870
+Tilemap_6A_4870:: ; 6A:4870
 	db $1A, $1A, $1A, $1A, $1A, $1A, $1A, $1A, $1A, $1A, $1A, $38, $39, $3A, $3B, $3C
 	db $3D, $3E, $3F, $1A, $1A, $48, $49, $4A, $4B, $4C, $4D, $4E, $4F, $1A, $1A, $5E
 	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F
 	db $5E, $1A, $1A, $62, $50, $51, $52, $53, $54, $55, $63, $1A, $1A, $7F, $60, $60
-	db $60, $60, $60, $60, $61, $1A
-
-; ---- data $48B6-$48DE (40 bytes) [HYPOTHESIS] UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_48B6:: ; 6A:48B6
-	db $1A, $61, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $30, $31, $32, $33, $34
-	db $35, $36, $37, $1A, $1A, $40, $41, $42, $43, $44, $45, $46, $47, $1A, $1A, $5E
-	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A
-
-; ---- data $48DE-$48FC (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6A_48DE:: ; 6A:48DE
-	db $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $56, $57, $58, $59, $5A
-	db $5B, $5C, $5D, $1A, $28, $0D, $1D, $1D, $1D, $1D, $1D, $1D, $0D, $28
-
-; ---- data $48FC-$491A (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_48FC:: ; 6A:48FC
-	db $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $2F, $7A, $7A, $7A
-	db $7A, $2F, $63, $1A, $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A
-
-; ---- data $491A-$4988 (110 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6A_491A:: ; 6A:491A
-	db $1A, $61, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $7D, $FE, $7B, $7B, $7B
-	db $7B, $FE, $7D, $1A, $1A, $7E, $FF, $7C, $7C, $7C, $7C, $FF, $7E, $1A, $1A, $5E
-	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $09, $09, $09, $09, $09, $09, $09, $09
+	db $60, $60, $60, $60, $61, $1A, $1A, $61, $60, $60, $60, $60, $60, $60, $61, $1A
+	db $1A, $30, $31, $32, $33, $34, $35, $36, $37, $1A, $1A, $40, $41, $42, $43, $44
+	db $45, $46, $47, $1A, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $5E
+	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $56, $57, $58, $59, $5A, $5B, $5C
+	db $5D, $1A, $28, $0D, $1D, $1D, $1D, $1D, $1D, $1D, $0D, $28, $1A, $5E, $5F, $5F
+	db $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $2F, $7A, $7A, $7A, $7A, $2F, $63, $1A
+	db $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $61, $60, $60, $60, $60
+	db $60, $60, $61, $1A, $1A, $7D, $FE, $7B, $7B, $7B, $7B, $FE, $7D, $1A, $1A, $7E
+	db $FF, $7C, $7C, $7C, $7C, $FF, $7E, $1A, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F
+	db $5E, $1A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-
-; ---- data $4988-$49B0 (40 bytes) [HYPOTHESIS] UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_4988:: ; 6A:4988
-	db $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $29, $09
-
-; ---- data $49B0-$49CE (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6A_49B0:: ; 6A:49B0
-	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09
-
-; ---- data $49CE-$49EC (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_49CE:: ; 6A:49CE
-	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-
-; ---- data $49EC-$4AC8 (220 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6A_49EC:: ; 6A:49EC
-	db $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $01, $09, $09, $09
-	db $09, $01, $29, $09, $09, $09, $01, $09, $09, $09, $09, $01, $29, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $29, $09, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F
-	db $5E, $1A, $1A, $62, $2F, $64, $65, $66, $67, $2F, $63, $1A, $1A, $7F, $60, $60
-	db $60, $60, $60, $60, $61, $1A, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A
-	db $1A, $62, $68, $69, $6A, $6B, $6C, $6D, $63, $1A, $1A, $7F, $60, $60, $60, $60
-	db $60, $60, $61, $1A, $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62
-	db $2F, $7A, $7A, $7A, $7A, $2F, $63, $1A, $1A, $7F, $60, $60, $60, $60, $60, $60
-	db $61, $1A, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $01, $09, $09, $09, $09, $01, $29, $09
+	db $09, $09, $01, $09, $09, $09, $09, $01, $29, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $29, $09
 
-; ---- data $4AC8-$4B7C (180 bytes) [HYPOTHESIS] UNCLASSIFIED 180 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4A14-$4AC8 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:446D does `ld hl,$4A14` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
 
-Data_6A_4AC8:: ; 6A:4AC8
+Tilemap_6A_4A14:: ; 6A:4A14
+	db $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $2F, $64, $65, $66
+	db $67, $2F, $63, $1A, $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $5E
+	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $68, $69, $6A, $6B, $6C, $6D
+	db $63, $1A, $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $5E, $5F, $5F
+	db $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $2F, $7A, $7A, $7A, $7A, $2F, $63, $1A
+	db $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A, $09, $09, $09, $09, $09, $09
+	db $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $09
+
+; ---- data $4AC8-$4B7C (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:44FA does `ld hl,$4AC8` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+
+Tilemap_6A_4AC8:: ; 6A:4AC8
 	db $1A, $5E, $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $74, $75, $76, $77
 	db $78, $79, $63, $1A, $1A, $7F, $60, $60, $60, $60, $60, $60, $61, $1A, $1A, $5E
 	db $5F, $5F, $5F, $5F, $5F, $5F, $5E, $1A, $1A, $62, $6E, $6F, $70, $71, $72, $73
@@ -245,85 +217,56 @@ Data_6A_4AC8:: ; 6A:4AC8
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09
 
-; ---- data $4B7C-$4BC2 (70 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- data $4B7C-$4D20 (420 bytes) [PROBABLE] 10-wide box tilemap: 21 rows x 10 tile indices (0xd2 bytes) then 21 rows x 10 attribute bytes (+0xd2); code at 6C:45FE does `ld hl,$4B7C` then indexes it with an offset and adds 0xd2 to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
 
-Data_6A_4B7C:: ; 6A:4B7C
+Tilemap_6A_4B7C:: ; 6A:4B7C
 	db $0B, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0B, $1B, $88, $89, $8A, $8B, $8C
 	db $8D, $8E, $8F, $1B, $2B, $98, $99, $9A, $9B, $9C, $9D, $9E, $9F, $2B, $2C, $1F
 	db $1E, $1E, $1E, $1E, $1E, $1E, $1F, $2C, $09, $AD, $A0, $A1, $A2, $A3, $A4, $A5
 	db $AD, $09, $19, $FD, $B0, $B1, $B2, $B3, $B4, $B5, $FD, $19, $29, $2A, $2A, $2A
-	db $2A, $2A, $2A, $2A, $2A, $29
-
-; ---- data $4BC2-$4BEA (40 bytes) [HYPOTHESIS] UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_4BC2:: ; 6A:4BC2
-	db $0B, $0F, $0E, $0E, $0E, $0E, $0E, $0E, $0F, $0B, $1B, $80, $81, $82, $83, $84
-	db $85, $86, $87, $1B, $2B, $90, $91, $92, $93, $94, $95, $96, $97, $2B, $2C, $1F
-	db $1E, $1E, $1E, $1E, $1E, $1E, $1F, $2C
-
-; ---- data $4BEA-$4C08 (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6A_4BEA:: ; 6A:4BEA
-	db $09, $A6, $A7, $A8, $A9, $AA, $AB, $AC, $AD, $09, $19, $B6, $B7, $B8, $B9, $BA
-	db $BB, $BC, $BD, $19, $2D, $2E, $2E, $2E, $2E, $2E, $2E, $2E, $2E, $2D
-
-; ---- data $4C08-$4C26 (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_4C08:: ; 6A:4C08
-	db $09, $AD, $AD, $A5, $A5, $A5, $A5, $AD, $AD, $09, $19, $FD, $FD, $B5, $B5, $B5
-	db $B5, $FD, $FD, $19, $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29
-
-; ---- data $4C26-$4C94 (110 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6A_4C26:: ; 6A:4C26
-	db $0B, $0F, $0E, $0E, $0E, $0E, $0E, $0E, $0F, $0B, $1B, $00, $00, $E2, $E2, $E2
-	db $E2, $00, $00, $1B, $2B, $01, $01, $F2, $F2, $F2, $F2, $01, $01, $2B, $2C, $1F
-	db $1E, $1E, $1E, $1E, $1E, $1E, $1F, $2C, $09, $09, $09, $09, $09, $09, $09, $09
+	db $2A, $2A, $2A, $2A, $2A, $29, $0B, $0F, $0E, $0E, $0E, $0E, $0E, $0E, $0F, $0B
+	db $1B, $80, $81, $82, $83, $84, $85, $86, $87, $1B, $2B, $90, $91, $92, $93, $94
+	db $95, $96, $97, $2B, $2C, $1F, $1E, $1E, $1E, $1E, $1E, $1E, $1F, $2C, $09, $A6
+	db $A7, $A8, $A9, $AA, $AB, $AC, $AD, $09, $19, $B6, $B7, $B8, $B9, $BA, $BB, $BC
+	db $BD, $19, $2D, $2E, $2E, $2E, $2E, $2E, $2E, $2E, $2E, $2D, $09, $AD, $AD, $A5
+	db $A5, $A5, $A5, $AD, $AD, $09, $19, $FD, $FD, $B5, $B5, $B5, $B5, $FD, $FD, $19
+	db $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29, $0B, $0F, $0E, $0E, $0E, $0E
+	db $0E, $0E, $0F, $0B, $1B, $00, $00, $E2, $E2, $E2, $E2, $00, $00, $1B, $2B, $01
+	db $01, $F2, $F2, $F2, $F2, $01, $01, $2B, $2C, $1F, $1E, $1E, $1E, $1E, $1E, $1E
+	db $1F, $2C, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $02, $02, $02
+	db $02, $02, $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29
+	db $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01
+	db $01, $01, $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $29, $09, $29, $09, $09, $09, $09, $09, $09
 	db $09, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $02, $02, $02
 	db $02, $02, $02, $02, $02, $29, $09, $29, $09, $09, $09, $09, $09, $09, $09, $29
 	db $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
-
-; ---- data $4C94-$4CBC (40 bytes) [HYPOTHESIS] UNCLASSIFIED 40 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_4C94:: ; 6A:4C94
-	db $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29
-	db $09, $09, $09, $09, $09, $09, $09, $29
-
-; ---- data $4CBC-$4CDA (30 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
-
-Data_6A_4CBC:: ; 6A:4CBC
-	db $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
-
-; ---- data $4CDA-$4CF8 (30 bytes) [HYPOTHESIS] UNCLASSIFIED 30 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_4CDA:: ; 6A:4CDA
-	db $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
-
-; ---- data $4CF8-$4DD4 (220 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
-
-Data_6A_4CF8:: ; 6A:4CF8
-	db $09, $29, $09, $09, $09, $09, $09, $09, $09, $29, $09, $02, $02, $02, $02, $02
-	db $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29
-	db $09, $09, $09, $09, $09, $09, $09, $29, $09, $AD, $AD, $A0, $A1, $A2, $AD, $AD
-	db $AD, $09, $19, $FD, $FD, $B0, $B1, $B2, $FD, $FD, $FD, $19, $29, $2A, $2A, $2A
-	db $2A, $2A, $2A, $2A, $2A, $29, $09, $AE, $AF, $C0, $C1, $C2, $C3, $C4, $C5, $09
-	db $19, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $19, $29, $2A, $2A, $2A, $2A, $2A
-	db $2A, $2A, $2A, $29, $09, $AD, $AD, $A5, $A5, $A5, $A5, $AD, $AD, $09, $19, $FD
-	db $FD, $B5, $B5, $B5, $B5, $FD, $FD, $19, $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A
-	db $2A, $29, $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02
-	db $02, $02, $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
-	db $09, $01, $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02
 	db $02, $02, $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $01
 	db $01, $01, $01, $01, $01, $01, $01, $29, $09, $02, $02, $02, $02, $02, $02, $02
-	db $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29
+	db $02, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $29, $09, $09
+	db $09, $09, $09, $09, $09, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29
+	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29, $09, $09, $09, $09
+	db $09, $09, $09, $29
 
-; ---- data $4DD4-$4E90 (188 bytes) [HYPOTHESIS] UNCLASSIFIED 188 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $4D20-$4DD4 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:468F does `ld hl,$4D20` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
 
-Data_6A_4DD4:: ; 6A:4DD4
+Tilemap_6A_4D20:: ; 6A:4D20
+	db $09, $AD, $AD, $A0, $A1, $A2, $AD, $AD, $AD, $09, $19, $FD, $FD, $B0, $B1, $B2
+	db $FD, $FD, $FD, $19, $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29, $09, $AE
+	db $AF, $C0, $C1, $C2, $C3, $C4, $C5, $09, $19, $BE, $BF, $D0, $D1, $D2, $D3, $D4
+	db $D5, $19, $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29, $09, $AD, $AD, $A5
+	db $A5, $A5, $A5, $AD, $AD, $09, $19, $FD, $FD, $B5, $B5, $B5, $B5, $FD, $FD, $19
+	db $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29, $09, $01, $01, $01, $01, $01
+	db $01, $01, $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01
+	db $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01, $01, $29
+	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09, $09, $09
+	db $09, $09, $09, $29
+
+; ---- data $4DD4-$4E88 (180 bytes) [PROBABLE] 10-wide box tilemap: 9 rows x 10 tile indices (0x5a bytes) then 9 rows x 10 attribute bytes (+0x5a); code at 6C:471C does `ld hl,$4DD4` then indexes it with an offset and adds 0x5a to reach the attribute byte (`ld bc,$00D2`/`ld a,$5A`); attribute rows mirror the tile rows (left border attr 09/19, right border 29 = X-flip); parts read by executed code in up to 3/18 scenarios
+
+Tilemap_6A_4DD4:: ; 6A:4DD4
 	db $09, $AD, $CC, $CD, $CE, $CF, $E0, $E1, $AD, $09, $19, $FD, $DC, $DD, $DE, $DF
 	db $F0, $F1, $FD, $19, $29, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $2A, $29, $09, $AD
 	db $C6, $C7, $C8, $C9, $CA, $CB, $AD, $09, $19, $FD, $D6, $D7, $D8, $D9, $DA, $DB
@@ -335,7 +278,10 @@ Data_6A_4DD4:: ; 6A:4DD4
 	db $01, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01, $01, $29
 	db $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $29, $00, $00, $00, $00, $00, $00, $00, $00
+	db $09, $09, $09, $29
+
+; ---- zero $4E88-$4E90 (8 bytes) [PROBABLE] 8 zero bytes (padding before the tile block at 4E90)
+	ds $8, $00
 
 ; ---- gfx $4E90-$5290 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 6C:4047: hl=$4E90 a=$6A c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
@@ -809,31 +755,25 @@ String_6A_65A8:: ; 6A:65A8
 Data_6A_6651:: ; 6A:6651
 	db $6A
 
-; ---- data $6652-$665A (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $6652-$665E (12 bytes) [PROBABLE] 3 x 4-byte entries: [0000 0000] [6672 667B] [6696 669F]; entry = pair of pointers to two NUL-terminated Shift-JIS strings (title/label) in 6A:6672-66F5; 6651 byte 6A read separately
 
-Data_6A_6652:: ; 6A:6652
-	db $00, $00, $00, $00, $72, $66, $7B, $66
+Table_6A_6652:: ; 6A:6652
+	dw $0000, $0000, String_6A_6672, String_6A_667B, String_6A_6696, String_6A_669F
 
-; ---- data $665A-$665E (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
+; ---- words $665E-$666A (12 bytes) [PROBABLE] 3 x 4-byte entries: [0000 0000] [0000 0000] [66C0 66C9]; pair of string pointers (see 6A:6652) [v4: bytes 6666-666A were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_6A_665A:: ; 6A:665A
-	db $96, $66, $9F, $66
+Table_6A_665E:: ; 6A:665E
+	dw $0000, $0000, $0000, $0000, String_6A_66C0, String_6A_66C9
 
-; ---- data $665E-$6666 (8 bytes) [HYPOTHESIS] UNCLASSIFIED 8 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- words $666A-$6672 (8 bytes) [PROBABLE] 2 x 4-byte entries: [0000 0000] [66EC 66F5]; pair of string pointers (see 6A:6652)
 
-Data_6A_665E:: ; 6A:665E
-	db $00, $00, $00, $00, $00, $00, $00, $00
+Table_6A_666A:: ; 6A:666A
+	dw $0000, $0000, String_6A_66EC, String_6A_66F5
 
-; ---- data $6666-$666A (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; ---- text $6672-$667B (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder
 
-Data_6A_6666:: ; 6A:6666
-	db $C0, $66, $C9, $66
-
-; ---- data $666A-$667B (17 bytes) [HYPOTHESIS] UNCLASSIFIED 17 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-
-Data_6A_666A:: ; 6A:666A
-	db $00, $00, $00, $00, $EC, $66, $F5, $66, $81, $48, $81, $48, $81, $48, $81, $48
-	db $00
+String_6A_6672:: ; 6A:6672
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- text $667B-$6696 (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -841,9 +781,9 @@ String_6A_667B:: ; 6A:667B
 	db $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82, $DF
 	db $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00
 
-; ---- data $6696-$669F (9 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6696-66EC by higher-priority evidence]
+; ---- text $6696-$669F (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder [v4: bytes 6696-669F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_6A_6696:: ; 6A:6696
+String_6A_6696:: ; 6A:6696
 	db $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- text $669F-$66C0 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -853,16 +793,21 @@ String_6A_669F:: ; 6A:669F
 	db $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7
 	db $00
 
-; ---- data $66C0-$66EC (44 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6696-66EC by higher-priority evidence]
+; ---- text $66C0-$66C9 (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder [v4: bytes 66C0-66C9 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_6A_66C0:: ; 6A:66C0
-	db $81, $48, $81, $48, $81, $48, $81, $48, $00, $81, $48, $81, $48, $81, $48, $81
-	db $48, $81, $48, $81, $48, $81, $48, $82, $CC, $81, $40, $82, $B9, $82, $C2, $82
-	db $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC, $82, $B7, $00
+String_6A_66C0:: ; 6A:66C0
+	db $81, $48, $81, $48, $81, $48, $81, $48, $00
 
-; ---- data $66EC-$66F5 (9 bytes) [HYPOTHESIS] UNCLASSIFIED 9 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- text $66C9-$66EC (35 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; text after the placeholder [v4: bytes 66C9-66EC were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_6A_66EC:: ; 6A:66EC
+String_6A_66C9:: ; 6A:66C9
+	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $82, $CC
+	db $81, $40, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $F0, $82, $B5, $82, $DC
+	db $82, $B7, $00
+
+; ---- text $66EC-$66F5 (9 bytes) [PROBABLE] NUL-terminated Shift-JIS string pointed to by a word of the 6A:6652-6672 tables; 4 x 81 48 (full-width ?) placeholder
+
+String_6A_66EC:: ; 6A:66EC
 	db $81, $48, $81, $48, $81, $48, $81, $48, $00
 
 ; ---- text $66F5-$6716 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -1005,9 +950,9 @@ Data_6A_6A20:: ; 6A:6A20
 	db $6B, $6B, $EC, $EE, $ED, $ED, $DC, $DE, $3B, $F7, $F7, $00, $00, $00, $00, $FF
 	db $D8, $D3, $58, $D3, $58, $53, $28, $33, $D0, $E3, $E0, $07, $00, $0F, $00, $FF
 
-; ---- gfx $6E20-$70A1 (641 bytes) [PROBABLE] tiles-2bpp: heuristic: 35 coherent tiles (hsim2=0.789 vsim2=0.761, 1 blank) parity 1; 15/656 bytes also covered by call-site blocks [clipped from 6E11-70A1 by higher-priority evidence]
+; ---- gfx $6E20-$7220 (1024 bytes) [PROBABLE] 64 x 2bpp tiles (0x400, continues the 0x400 HDMA block 6A20-6E20; rendered: button glyphs "A すすむ B もどる"); no call site with hl=$6E20 found; the mapper heuristic cut it at 70A1 (parity 1) which is wrong
 
-Data_6A_6E20:: ; 6A:6E20
+Tiles_6A_6E20:: ; 6A:6E20
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $05, $FC, $0A, $F8, $14, $F0, $14, $F0, $14, $F0, $14, $F0, $14, $F0, $14, $F0
 	db $00, $00, $00, $00, $00, $00, $3F, $00, $40, $3F, $9F, $7F, $BF, $7F, $BF, $7F
@@ -1048,44 +993,35 @@ Data_6A_6E20:: ; 6A:6E20
 	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $FE, $01, $FE, $01, $FE
 	db $00, $00, $FF, $FF, $3F, $80, $78, $3E, $DE, $40, $9F, $BE, $FF, $A3, $FF, $A3
 	db $00, $00, $FF, $FF, $00, $7F, $80, $3F, $43, $18, $25, $0B, $A6, $0A, $A5, $0B
-	db $00
+	db $00, $00, $FF, $FF, $00, $FF, $38, $83, $D7, $38, $EF, $EF, $04, $04, $AF, $AF
+	db $00, $00, $FF, $FF, $00, $FF, $71, $86, $AE, $71, $DF, $DF, $0C, $0C, $5E, $5E
+	db $00, $00, $FF, $FF, $00, $FF, $F8, $03, $F4, $F9, $6A, $6C, $36, $34, $7A, $7C
+	db $00, $00, $FF, $FF, $00, $FF, $00, $FE, $01, $FC, $03, $FD, $03, $FD, $03, $FD
+	db $00, $00, $FF, $FF, $7E, $00, $F1, $7C, $BE, $80, $7D, $7C, $FF, $46, $FF, $46
+	db $00, $00, $FF, $FF, $00, $FF, $01, $7C, $83, $39, $46, $1A, $4C, $14, $4A, $16
+	db $00, $00, $FF, $FF, $00, $FF, $87, $38, $6A, $97, $DD, $E5, $3D, $3D, $FC, $FC
+	db $00, $00, $FF, $FF, $00, $FF, $FF, $00, $53, $FF, $AC, $AC, $AE, $AE, $7C, $7C
+	db $00, $00, $FF, $FF, $00, $FF, $E0, $0F, $D0, $E7, $30, $27, $F0, $E7, $28, $33
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
+	db $01, $FE, $01, $FE, $01, $FE, $01, $FE, $00, $FE, $00, $FF, $00, $FF, $00, $FF
+	db $7F, $BF, $7F, $A3, $77, $23, $77, $23, $B7, $00, $40, $00, $3F, $80, $00, $C0
+	db $A3, $08, $A1, $0C, $A1, $0E, $A1, $0E, $41, $0E, $80, $1E, $00, $3F, $00, $7F
+	db $AF, $AF, $8F, $CF, $EF, $EF, $8F, $9F, $76, $F9, $F9, $00, $00, $06, $00, $FF
+	db $5D, $5D, $1D, $9D, $DC, $DE, $1F, $3F, $EE, $F1, $F1, $00, $00, $06, $00, $FF
+	db $7C, $78, $6C, $69, $6C, $69, $14, $99, $E8, $F1, $F0, $03, $00, $07, $00, $FF
+	db $02, $FD, $02, $FD, $02, $FC, $02, $FC, $01, $FC, $00, $FE, $00, $FF, $00, $FF
+	db $FD, $7C, $FF, $46, $FF, $46, $FD, $7C, $7E, $00, $81, $00, $7E, $00, $00, $80
+	db $4C, $14, $4A, $16, $46, $12, $45, $1B, $82, $19, $01, $3C, $00, $7E, $00, $FF
+	db $39, $3B, $EB, $EB, $EB, $EB, $14, $1C, $EB, $F7, $F7, $00, $00, $00, $00, $FF
+	db $FB, $FB, $FC, $FE, $FD, $FD, $3C, $3E, $DB, $E7, $E7, $00, $00, $00, $00, $FF
 
-; ---- data $70A1-$7220 (383 bytes) [HYPOTHESIS] UNCLASSIFIED 383 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $7220-$72A0 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80, all bit15 clear); 6C:5A2F loads hl=$7220 bc=$0040 de=$D800 then calls far 4F:4000; first 0x10 bytes read in 12/18 scenarios
 
-Data_6A_70A1:: ; 6A:70A1
-	db $00, $FF, $FF, $00, $FF, $38, $83, $D7, $38, $EF, $EF, $04, $04, $AF, $AF, $00
-	db $00, $FF, $FF, $00, $FF, $71, $86, $AE, $71, $DF, $DF, $0C, $0C, $5E, $5E, $00
-	db $00, $FF, $FF, $00, $FF, $F8, $03, $F4, $F9, $6A, $6C, $36, $34, $7A, $7C, $00
-	db $00, $FF, $FF, $00, $FF, $00, $FE, $01, $FC, $03, $FD, $03, $FD, $03, $FD, $00
-	db $00, $FF, $FF, $7E, $00, $F1, $7C, $BE, $80, $7D, $7C, $FF, $46, $FF, $46, $00
-	db $00, $FF, $FF, $00, $FF, $01, $7C, $83, $39, $46, $1A, $4C, $14, $4A, $16, $00
-	db $00, $FF, $FF, $00, $FF, $87, $38, $6A, $97, $DD, $E5, $3D, $3D, $FC, $FC, $00
-	db $00, $FF, $FF, $00, $FF, $FF, $00, $53, $FF, $AC, $AC, $AE, $AE, $7C, $7C, $00
-	db $00, $FF, $FF, $00, $FF, $E0, $0F, $D0, $E7, $30, $27, $F0, $E7, $28, $33, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $01
-	db $FE, $01, $FE, $01, $FE, $01, $FE, $00, $FE, $00, $FF, $00, $FF, $00, $FF, $7F
-	db $BF, $7F, $A3, $77, $23, $77, $23, $B7, $00, $40, $00, $3F, $80, $00, $C0, $A3
-	db $08, $A1, $0C, $A1, $0E, $A1, $0E, $41, $0E, $80, $1E, $00, $3F, $00, $7F, $AF
-	db $AF, $8F, $CF, $EF, $EF, $8F, $9F, $76, $F9, $F9, $00, $00, $06, $00, $FF, $5D
-	db $5D, $1D, $9D, $DC, $DE, $1F, $3F, $EE, $F1, $F1, $00, $00, $06, $00, $FF, $7C
-	db $78, $6C, $69, $6C, $69, $14, $99, $E8, $F1, $F0, $03, $00, $07, $00, $FF, $02
-	db $FD, $02, $FD, $02, $FC, $02, $FC, $01, $FC, $00, $FE, $00, $FF, $00, $FF, $FD
-	db $7C, $FF, $46, $FF, $46, $FD, $7C, $7E, $00, $81, $00, $7E, $00, $00, $80, $4C
-	db $14, $4A, $16, $46, $12, $45, $1B, $82, $19, $01, $3C, $00, $7E, $00, $FF, $39
-	db $3B, $EB, $EB, $EB, $EB, $14, $1C, $EB, $F7, $F7, $00, $00, $00, $00, $FF, $FB
-	db $FB, $FC, $FE, $FD, $FD, $3C, $3E, $DB, $E7, $E7, $00, $00, $00, $00, $FF
-
-; ---- data $7220-$7230 (16 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown [clipped from 7220-72BF by higher-priority evidence]
-
-Data_6A_7220:: ; 6A:7220
+Palette_6A_7220:: ; 6A:7220
 	db $FF, $7F, $1F, $00, $4A, $29, $00, $00, $E0, $01, $00, $00, $2A, $03, $FF, $7F
-
-; ---- data $7230-$72B8 (136 bytes) [PROBABLE] palette-rgb555: heuristic: 68 RGB555 words as 17 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
-
-Data_6A_7230:: ; 6A:7230
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -1093,13 +1029,17 @@ Data_6A_7230:: ; 6A:7230
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+; ---- data $72A0-$72BB (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 6A:72A0-72BB [v4: bytes 72B8-72BB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
+
+Data_6A_72A0:: ; 6A:72A0
 	db $A4, $72, $AD, $72, $02, $00, $00, $00, $00, $00, $08, $01, $00, $02, $01, $00
-	db $00, $00, $01, $08, $01, $00, $02, $00
+	db $00, $00, $01, $08, $01, $00, $02, $00, $2E, $01, $08
 
-; ---- data $72B8-$72BF (7 bytes) [CONFIRMED] read as data by executed code (in up to 12/18 scenarios); content class unknown [clipped from 7220-72BF by higher-priority evidence]
+; ---- words $72BB-$72BF (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$72BB a=$6A at 6C:5D1E (1 entry: 72A0/72B6); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 72BB-72BF were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_6A_72B8:: ; 6A:72B8
-	db $2E, $01, $08, $A0, $72, $B6, $72
+Table_6A_72BB:: ; 6A:72BB
+	dw Data_6A_72A0, $72B6
 
 ; ---- zero $72BF-$8000 (3393 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $D41, $00

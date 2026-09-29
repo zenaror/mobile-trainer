@@ -1,11 +1,5 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	42F0	data	Data_5B_4000	HYPOTHESIS	UNCLASSIFIED 752 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-42F0	4306	data	Data_5B_42F0	HYPOTHESIS	run of 22 x $FF (padding?) in unclassified bytes
-4306	44F0	data	Data_5B_4306	HYPOTHESIS	UNCLASSIFIED 490 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-44F0	4540	data	Data_5B_44F0	HYPOTHESIS	run of 80 x $FF (padding?) in unclassified bytes
-4540	48FE	data	Data_5B_4540	HYPOTHESIS	UNCLASSIFIED 958 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-48FE	4952	data	Data_5B_48FE	HYPOTHESIS	run of 84 x $FF (padding?) in unclassified bytes
-4952	5200	data	Data_5B_4952	HYPOTHESIS	UNCLASSIFIED 2222 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-5200	5680	data	Data_5B_5200	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown
-5680	56E0	data	Data_5B_5680	PROBABLE	palette-rgb555: heuristic: 48 RGB555 words as 12 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
+4000	5200	gfx	Tiles_5B_4000	PROBABLE	288 x 2bpp tiles (0x1200 bytes): rendered as a 16-wide tile sheet the whole span is coherent tile art (logo lettering, window frames, katakana/kana glyph tiles); tiles are 16-aligned from 4000 and the run 4000-5680 is an exact multiple of 16; the $FF runs at 42F0/44F0/48FE are solid-colour tiles inside the art; no loader call site found (bank 5B has no direct hl/a immediate references); mapper heuristics listed 12 overlapping HYPOTHESIS tile blocks over it
+5200	5680	gfx	Tiles_5B_5200	PROBABLE	72 x 2bpp tiles (0x480 bytes) continuing the tile sheet above; the whole span was read as data by executed code in 1/18 scenarios (CPU copy of 0x480 bytes) and renders as coherent tile art
+5680	56E0	data	Palette_5B_5680	PROBABLE	12 CGB palettes x 4 RGB555 words (0x60 bytes), bit15 clear in all words, contains 7FFF (mapper heuristic); after the tile sheet; 56A0-56A8 read by executed code
 56E0	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank
