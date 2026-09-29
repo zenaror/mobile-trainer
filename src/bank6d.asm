@@ -6,5 +6,5 @@ INCLUDE "ram.inc"
 
 SECTION "Bank6D", ROMX[$4000], BANK[$6D]
 
-; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $1B4000, $4000
+; ---- zero $4000-$8000 (16384 bytes) [CONFIRMED] bank is entirely 0x00 in the reference ROM
+	ds $4000, $00

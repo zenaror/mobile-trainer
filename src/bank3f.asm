@@ -7,4 +7,6 @@ INCLUDE "ram.inc"
 SECTION "Bank3F", ROMX[$4000], BANK[$3F]
 
 ; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
+
+Data_3F_4000:: ; 3F:4000
 	INCBIN "baserom.gbc", $FC000, $4000

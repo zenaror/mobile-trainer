@@ -7,4 +7,42 @@ INCLUDE "ram.inc"
 SECTION "Bank04", ROMX[$4000], BANK[$04]
 
 ; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $10000, $4000
+
+Data_04_4000:: ; 04:4000
+	INCBIN "baserom.gbc", $10000, $82
+
+Data_04_4082:: ; 04:4082
+	INCBIN "baserom.gbc", $10082, $13E
+
+Data_04_41C0:: ; 04:41C0
+	INCBIN "baserom.gbc", $101C0, $C7
+
+Data_04_4287:: ; 04:4287
+	INCBIN "baserom.gbc", $10287, $39
+
+Data_04_42C0:: ; 04:42C0
+	INCBIN "baserom.gbc", $102C0, $16
+
+Data_04_42D6:: ; 04:42D6
+	INCBIN "baserom.gbc", $102D6, $16
+
+Data_04_42EC:: ; 04:42EC
+	INCBIN "baserom.gbc", $102EC, $F0
+
+Data_04_43DC:: ; 04:43DC
+	INCBIN "baserom.gbc", $103DC, $4D
+
+Data_04_4429:: ; 04:4429
+	INCBIN "baserom.gbc", $10429, $22
+
+Data_04_444B:: ; 04:444B
+	INCBIN "baserom.gbc", $1044B, $11
+
+Data_04_445C:: ; 04:445C
+	INCBIN "baserom.gbc", $1045C, $55
+
+Data_04_44B1:: ; 04:44B1
+	INCBIN "baserom.gbc", $104B1, $7B
+
+Data_04_452C:: ; 04:452C
+	INCBIN "baserom.gbc", $1052C, $3AD4

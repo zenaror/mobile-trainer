@@ -7,4 +7,7 @@ INCLUDE "ram.inc"
 SECTION "Bank68", ROMX[$4000], BANK[$68]
 
 ; ---- raw $4000-$8000 (16384 bytes) [unclassified gap]
-	INCBIN "baserom.gbc", $1A0000, $4000
+	INCBIN "baserom.gbc", $1A0000, $27AE
+
+Data_68_67AE:: ; 68:67AE
+	INCBIN "baserom.gbc", $1A27AE, $1852
