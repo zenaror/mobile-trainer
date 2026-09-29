@@ -1,0 +1,142 @@
+# Text encoding of the Mobile Trainer (Japan)
+
+Status vocabulary: **CONFIRMED** (cited bytes / disassembly / verified by rendering), **PROBABLE**, **HYPOTHESIS**.
+Coordinates are `bank:addr` CPU addresses. Everything below is reproducible with `python3 tools/survey.py`
+(outputs `analysis/strings.tsv`, `constants/charmap.asm`, `analysis/bank_survey.json`) and
+`python3 tools/extract_gfx.py` (font sheets).
+
+## 1. Summary
+
+| claim | status | evidence |
+|---|---|---|
+| The game's text is **Shift-JIS** (JIS X 0208 double bytes) plus single bytes `0x20-0x7F` (JIS X 0201 Roman: `0x5C` = yen sign, `0x7E` = overline). It is *not* a Pokemon-Crystal-style custom charmap. | CONFIRMED | text engine `00:0ED3` treats lead bytes `81-9F, E0-EF, F8-F9` as double-byte characters (`00:0F31-0F47`); 699-707 decoded strings read as Japanese (`analysis/strings.tsv`); glyph lookup converts SJIS to JIS row/col (`7F:4072`) |
+| Glyphs come from a **12x12 1bpp JIS X 0208 font** stored *uncompressed* in banks 76-7E (18 bytes/glyph) and a **6x12 Latin font** at `76:67A8`. | CONFIRMED | disassembly `7F:400E-40B9`, tables `7F:40F9`/`7F:4150`; rendered sheets in `docs/research/img/` show correct hiragana/katakana/Latin/Greek/Cyrillic/box rows |
+| Control codes are the bytes `< 0x20`, dispatched through the table at `00:0EF0`; `00` ends a string, `01` calls a far sub-string, `0D` is newline. | CONFIRMED | disassembly `00:0EDD-1030` (section 4) |
+| Banks 3D/3E contain **55 HTML pages** (ASCII tags + Shift-JIS), indexed from bank 3F. | CONFIRMED | section 5 |
+| A **second convention** (single bytes A1-DF in JIS X 0201 kana order, gaiji singles E0-FF, SJIS katakana pairs) is used by the text in bank 6C. The strings read as Japanese under it, but whether A1-DF are half-width katakana or hiragana glyphs is unresolved (hiragana is likelier: `ｺﾉカｰトリ{FE}ジ` = このカートリッジ mixes them with full-width katakana loanwords). | PROBABLE (convention exists) / HYPOTHESIS (glyph mapping) | section 6 |
+| Relationship to Pokemon Crystal's charmap (`$50` terminator, `$4E`/`$4F` line controls ...): none found for the main text; the Trainer's strings are SJIS with NUL terminators and `0x0D` newlines, not Crystal tile-index text. | PROBABLE (negative) | 700 strings decode as SJIS with NUL terminators; no `$50`-terminated tile-index text was found in the areas surveyed (Crystal's `charmap.asm` was consulted only to compare conventions) |
+
+## 2. How the encoding was found
+
+1. Bank 72 hexdump: `81 40 81 40 ... 82 c5 82 f1 82 ed 82 f0 ...` - `81 40` is the ideographic space, `82 c5 82 f1 82 ed 82 f0` = でんわを in SJIS.
+2. A ROM-wide scan for runs of valid CP932 double bytes (`survey.scan_text_runs`) found 1372 raw runs; after scoring (kana/punctuation weight, kanji level 2 / Greek / Cyrillic penalised, repetition rejected, graphics overlap rejected) 699 strings remain.
+3. The text engine in bank 00 (`00:0ED3`) was located through the `cp $81 / cp $A0 / cp $E0 / cp $F0 / cp $F8 / cp $FA` lead-byte chain, which occurs at `00:0F31`, `00:1029`, `00:112D` ... (the HTML renderer and the char drawer repeat it) and, verifier note, also in other banks (4E:527E, 54:4C4D/4C70/4F2D/4F54/50A8, 74:431E and 9 more, 7E:7C4A), i.e. other text readers exist (not traced).
+4. Following the glyph fetch (`call $06D1 ; dw $405F ; db $7F` = `7F:405F`) gave the SJIS-to-JIS conversion and the font tables; the font banks were rendered to PNG to confirm the layout.
+
+### 2.1 Lead/trail test (CONFIRMED, `00:0F31-0F49`, repeated at `00:1029`, `00:1119`)
+
+```
+cp $81 ; jr c -> single   ; < 81            single byte
+cp $A0 ; jr c -> DOUBLE   ; 81..9F          double byte
+cp $E0 ; jr c -> single   ; A0..DF          single byte (renders as '?' in the main engine)
+cp $F0 ; jr c -> DOUBLE   ; E0..EF          double byte
+cp $F8 ; jr c -> single   ; F0..F7          single byte
+cp $FA ; jr c -> DOUBLE   ; F8..F9          double byte (gaiji rows, no glyph banks behind them)
+                          ; FA..FF          single byte
+```
+
+Single bytes are drawn by `7F:4007` (Latin glyph `76:67A8 + (c-$20)*12`, anything outside `20..7F` draws glyph `$3F` = `?`),
+double bytes by `7F:405F`.
+
+## 3. Font layout (CONFIRMED)
+
+`7F:4072` converts the SJIS pair to JIS row/column exactly like the standard algorithm (`row = (lead - 0x81 or 0xC1)*2 + 1 + (trail >= 0x9F)`, `col = trail - 0x40/0x41/0x9F + 1`) and `7F:40B9` locates the glyph:
+
+```
+bank  = byte at 7F:40F9 + (row-1)
+slot  = row - byte at 7F:4150 + (row-1)
+glyph = bank : 0x4000 + (slot*94 + (col-1)) * 18      ; 18 bytes
+```
+
+Values read from the ROM (`survey.font_layout`):
+
+| bank | JIS rows | notes |
+|---|---|---|
+| 7E | 1-8, 13 | symbols, digits, Latin, hiragana, katakana, Greek, Cyrillic, box drawing, NEC row 13; code follows at 7B7C |
+| 7D | 16-24 | kanji level 1; small code follows at 7B7C |
+| 7C | 25-33 | small code/data after 7B7C (to 7E11) |
+| 7B | 34-42 | |
+| 7A | 43-51 | |
+| 79 | 52-60 | |
+| 78 | 61-69 | |
+| 77 | 70-78 | |
+| 76 | 79-84 (the tables also map rows 85-87 to bank 76, which would read the Latin font; JIS X 0208 has no rows past 84) | + Latin font at 76:67A8..6C28 |
+
+Glyph bitmap: 12 rows of 12 bits, MSB = left pixel, two rows per 3 bytes (`row0 = b0<<4 | b1>>4`, `row1 = (b1&0x0F)<<8 | b2`). Verified by rendering: `img/font_jis_rows_01-08.png` (hiragana row 4 reads ぁあぃいぅうぇえぉお...; katakana, Greek, Cyrillic and box-drawing rows also read correctly), `img/font_latin_6x12.png` (ASCII order, `\` shows as yen, `~` as overline). Extent check: 9 rows x 94 x 18 = 0x3B7C = end of glyph data in banks 77-7B; 6 rows x 94 x 18 = 0x27A8, and the Latin font ends at 0x6C28 = the bank 76 data end.
+
+Row 88-94 map to bank 01 (empty) in the table: no glyphs exist for gaiji rows.
+
+## 4. Control codes of the text-stream interpreter (CONFIRMED from disassembly)
+
+Entry `00:0ED3` (a = bank, HL = string); loop at `00:0EDD` reads a byte; `>= 0x20` goes to the character path, `< 0x20` jumps through the 16-bit table at `00:0EF0` (index = code). Code positions FFBC (compared with 0x90 = 144) and FFBD/FFBE (16-bit, compared with 0xA0 = 160, +6 per half-width cell) are the text cursor; naming them Y / X is PROBABLE.
+
+| code | handler | effect (CONFIRMED from the instructions) | status of the meaning |
+|---|---|---|---|
+| 00 | 00:0F9D | end of string; returns to the caller, or to the parent string if nested (nest counter FFBF) | CONFIRMED |
+| 01 | 00:0F83 | inline `dw addr, db bank`: run that string, then continue after the 3 argument bytes (nest counter +1, bank in FFB9) | CONFIRMED |
+| 02 | 00:0FAC | FFBC := imm8 | effect CONFIRMED, "Y position" PROBABLE |
+| 03 | 00:0FB3 | FFBD := imm8 | effect CONFIRMED, "X position" PROBABLE |
+| 04 | 00:0FBA | FFBC := 3, FFBD := 0 | effect CONFIRMED |
+| 05 | 00:0FC6 | FFBC := 1, FFBD := 0 | effect CONFIRMED |
+| 06 | 00:0FD2 | FFBC := 2, FFBD := 0 | effect CONFIRMED |
+| 07 | 00:0FDE | FFBC := 0, FFBD := 2 | effect CONFIRMED |
+| 09 | 00:1018 | FFBD/FFBE += 0x30 | effect CONFIRMED (tab) |
+| 0D | 00:0F68 | FFBD/FFBE := left margin (FFC1/FFC2), FFBC += line height (FFC6) | CONFIRMED newline |
+| 1C | 00:0FEA | FFBD/FFBE := imm16 | effect CONFIRMED |
+| 1D | 00:0FF4 | FFBC := imm8 | effect CONFIRMED |
+| 1E | 00:0FFB | FFBD/FFBE += imm16 | effect CONFIRMED |
+| 1F | 00:100D | FFBC += imm8 | effect CONFIRMED |
+| 08, 0A-0C, 0E-1B | 00:0F9D | same handler as 00 (terminates) | CONFIRMED (dispatch table entries) |
+
+`constants/charmap.asm` exports these as `CONST_TXT_*`. The HTML pages (banks 3D/3E) are not run through this interpreter but through a separate tag scanner at `00:1119` that recognises `>` (0x3E), `=` (0x3D), `"` (0x22), `'` (0x27) and NUL (PROBABLE, only skimmed).
+
+### 4.1 Message records in bank 72 (PROBABLE)
+
+`72:502B-50BD` is a table of 73 words (PROBABLE; a verifier re-read corrected the first description). Entries 0-3 (5033, 5035, 5063, 50BB) point into the table itself, so the table most likely starts with 4 list pointers (lists of 1, 23, 44 and 1 entries, HYPOTHESIS) followed by 69 pointers to message records starting at `72:50BD` (entry 72 = 50BD repeats the first record). Consecutive record pointers are 69 (0x45) bytes apart, except entries 60, 63 and 65-68 which are 102 bytes apart (records with a third 32-byte line: e.g. 72:5F90 `86 05 00` + `メールボックスがいっぱいで` / `メールをうけとれません。` / `セーブしたメールをけ...`). A 69-byte record is
+`86 aa bb` (3 header bytes), 32 bytes of line 1 (16 full-width characters, padded with `81 40`), `00`, 32 bytes of line 2, `00`; e.g. the record at `72:5147` (`86 ..` header) has `ホームページをみます。` as its second line at `72:516B` (verifier correction: 516B is the start of line 2, not of a record). Header bytes seen: `86 02 01`, `86 00 01`, `86 04 01`, `86 02 00`, `86 00 00`, `86 05 00`... (meaning unknown; 0x86 is a legal SJIS lead byte, so these three bytes are *not* processed by the generic double-byte path - a different reader is used). The list-header reading above is a HYPOTHESIS.
+
+## 5. HTML store (CONFIRMED)
+
+Banks 3D and 3E: back-to-back records `name (ASCII) 00 | u16 LE length | body (length bytes, last byte 00)`. The chain covers 3D:4000-518C (13 files) and 3E:4000-75CF (42 files), both followed only by zeros. Bank 3F: `dw $4006,$4006,$0000`, the string `file://di/`, `$02`, 55 far pointers `(addr16, bank)` (3F:4012-40B6) equal to the 55 record starts, then `00 00`, 11 ascending words (40B9..40CE) and 61 index bytes (40CF..410B; all <= 0x36) forming 11 lists (PROBABLE: per-topic lists of file indices).
+
+Files: saport, saver, security, syokitou, title, translat, tu_error, cdmaone, user, website, www (3D; `website.htm`/`www.htm` occur twice, at 4ABE/4C38 and again at 4E25/4F9F, with byte-identical bodies), and a_mark, account, add_tyou, address, atesaki, browser, connect, contents, data_cen, dion, download, email, facemark, gbcorse, hensin, homepage, internet, jump, link, loginid, m_friend, m_home, m_sys, m_tre, ma, mail_sav, mailsoft, marklist, mente, mobile, netiquet, netsurf, nickname, ninsyou, offline, online, pagelist, password, phs, pdc, provider, receive (3E).
+Bodies use `<HTML> <TITLE> <B> <HR> <A HREF="../di/address.htm"> <BR>` etc. with CR LF line ends and Shift-JIS kana text, e.g. `3E:4000 a_mark.htm`: `<TITLE>＠</TITLE> <B>【あっとまーく】</B> ... <A HREF="../di/address.htm">メールアドレス</A>にかならずはいっているマーク。` (decoded in `analysis/strings.tsv`, one row per file, status CONFIRMED). The relative link `../di/address.htm` agrees with the `file://di/` prefix in bank 3F.
+
+## 6. Second text convention (bank 6C) - PROBABLE
+
+Bank 6C has 65 NUL-terminated strings that decode as sensible Japanese only if
+* single bytes `A1-DF` follow the JIS X 0201 half-width-katakana code order (`ﾖｳｺｿ｡` reads ヨウコソ。 / ようこそ。); whether the glyphs are katakana or hiragana is unresolved (HYPOTHESIS: hiragana, because katakana loanwords in the same strings use SJIS pairs),
+* `81-9F` + trail bytes are SJIS pairs (mostly full-width katakana: `モバイル`, `トレーナー`, `ＧＢ`),
+* `E0-FF` single bytes are extra kana (gaiji) - inferred from context (HYPOTHESIS): `F9` = メ and `FA` = ル (`{F9}ｰ{FA}` = メール, `モバイ{FA}` = モバイル), `FD` = ス (`シ{FD}テム` = システム), `FE` = ッ (`カｰトリ{FE}ジ` = カートリッジ), `ED` = で (HYPOTHESIS; the earlier reading `ED` = は is contradicted by the text: は already occurs as single byte CA, e.g. `ｺﾉカｰトリ{FE}ジ{ED}ﾊ` = このカートリッジでは and `GB{ED}ｱｿ{F1}ﾀﾒﾆ` = GBであそぶために, so `F1` would be ぶ),
+* `< 0x20` control bytes, `10` used where a space would be, and a per-string header like `06 xx FF 03 ss ss` (unknown).
+
+The main engine draws all single bytes `>= 0x80` as `?`, so this convention is handled by different code (not yet located). The strings are listed in `analysis/strings.tsv` with `{XX}` for undecoded bytes and status PROBABLE/HYPOTHESIS; they are *not* part of `charmap.asm`.
+
+## 7. charmap.asm - what is and is not justified
+
+`constants/charmap.asm` (generated; assembles with RGBDS 1.0.3, `charmap "あ", $82, $A0`):
+
+* ASCII `0x20-0x7E` identity, plus `¥`->$5C and `‾`->$7E (CONFIRMED by the Latin font sheet).
+* All JIS X 0208 **rows 1-8** (symbols, full-width digits/Latin, hiragana, katakana, Greek, Cyrillic, box drawing). Justification: engine arithmetic + font rendering of the complete rows; **observed in ROM strings** (CONFIRMED/PROBABLE strings only): row 1: 39/94, row 2: 5/53, row 3: 62/62, row 4: 79/83, row 5: 73/86, row 6: 0/48, row 7: 0/66, row 8: 0/32. The glyph-to-code mapping itself is the standard SJIS arithmetic that 7F:4072 implements (rendering of rows 1-8 was re-checked). The unobserved glyphs are marked only by the section comment (`seen xN` is appended to observed entries); they rest on the standard row order plus font rendering and are **PROBABLE, not CONFIRMED**.
+* **Kanji only if observed**: level-1 kanji seen in an accepted string (each entry carries its count); level-2 kanji only if seen >= 2 times. About 156 kanji occur, mostly in banks 5C and 65 (error messages and help text, e.g. 通信, 接続, 初期登録).
+* Control codes as `DEF CONST_TXT_* EQU` (section 4).
+
+Not included: half-width katakana / gaiji of the second convention (HYPOTHESIS), NEC row 13 and IBM extension rows (font bank 7E has row 13 slots but no observed use).
+
+Statistics of the decoded corpus after the adversarial review (`analysis/strings.tsv`, 707 entries): SJIS 200 CONFIRMED + 259 PROBABLE + 70 HYPOTHESIS, 65 hybrid (bank 6C, PROBABLE), 55 html (CONFIRMED, decode re-checked independently), 58 ASCII (55 PROBABLE + 3 HYPOTHESIS) (mail headers `Sender:`/`Subject:`/`MIME-Version: 1.0`/`X-Game-title: MOBILE TRAINER` in bank 0F, SMTP/HTTP keywords in bank 75, host names such as `pop.d6.dion.ne.jp` in bank 68, sample URLs in 7F). Densest text banks: 72 (dialog records), 6C (second convention), 55 (kana tables and menus), 1A (menu labels), 65 (help pages with CR line breaks), 3E/3D (html), 5C (error messages).
+
+## 8. Font glyphs vs. graphics text
+
+Many screens (banks 4A, 4B, 4D, 50, 51, 56, 58, 5B-63, 66, 6A ...) use **pre-rendered text tile graphics** (the kanji/kana are baked into 2bpp tiles: "電話番号入力", "モバイルシステムGB" ...), loaded straight to VRAM by the HDMA loader. Those never go through the text engine; decoding them needs glyph OCR, not a charmap. Banks 5F, 62 and 66 also hold plain 8x8 2bpp kana/Latin tile fonts ("あいうえお...", "ABCDEFGHIJKLMNOP..."). For example `62:4000-43FF` (64 tiles of hiragana in gojuon order) is DMA'd to VRAM by a call-site-proven load (`docs/research/img/tiles-vram_62_4000_400.png`, CONFIRMED as tile data). No byte-to-tile table for them has been found yet; HYPOTHESIS that they belong to tile-based text such as the second convention above.
+
+## 9. Open questions
+
+1. Which routine reads bank 6C's single-byte kana strings, and what is the byte-to-glyph mapping of E0-FF? (find the caller of `ld hl, $4899`-style pointers into bank 6C; check the 8x8 kana fonts of banks 5F/62/66.)
+2. Meaning of the `86 aa bb` record header (bank 72) and of the `06 xx FF 03 ss ss` prefix (bank 6C).
+3. HTML tag scanner semantics (`00:1119-12xx`).
+4. Whether the stray `0A` after `0D` in some strings (e.g. `19:447C`) is handled by the interpreter (table maps `0A` to the terminating handler).
+
+## 10. Verifier notes (adversarial re-check)
+
+Independently re-derived from the ROM bytes: lead-byte chain (00:0F31), control table and all handler addresses (00:0EF0-1030), the SJIS-to-JIS conversion and glyph address arithmetic (7F:4072/40B9/41D0; glyphs for あいうえお/モバイルトレーナー/通信正差 rendered and read correctly, Latin font `MAIL FROM:<abc> Content-Length: 123 \~` rendered correctly), the 55 HTML records and the 55-entry index (3F:4012), and every non-bank-6C string decode (own cp932 decode with 5C=yen, 7E=overline matched all strings byte for byte). Not verified: the meaning of the text-engine cursor variable names, the tag scanner at 00:1119.
+Corrections made: see section 9 of `bank_survey.md` (72:502B structure, bank 6C `ED`, string trimming and status caps).
