@@ -1,0 +1,7 @@
+# Extra Ghidra entry points, one per line, TAB-separated:  bank(hex)  addr(hex, CPU address)  [label]
+# bank 00 = 0000-3FFF, banks 01-7F = 4000-7FFF. Lines here are USER seeds: every entry becomes a
+# function root before auto-analysis. Keep only addresses proven to be code (cite evidence in
+# docs/research/); Ghidra output stays a HYPOTHESIS source. The target of 0100 (jp nn) and the interrupt
+# vectors are seeded by GbSeed.java itself (the loader alone leaves the vectors undefined in headless runs
+# and does not make the 0100 target a function; verified without GbSeed: 15 functions, 02A9/0314 unresolved). Example (not active):
+# 00	0278	Function_00_0278
