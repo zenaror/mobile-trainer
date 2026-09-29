@@ -1,0 +1,18 @@
+# Original commercial ROM is the reference of truth but is NOT versioned.
+# Its identity is recorded in roms.sha256 / docs/ROM_INFO.md.
+*.gbc
+*.cgb
+*.gb
+*.sav
+*.rtc
+*.ss?
+# build products
+build/
+*.o
+*.pyc
+__pycache__/
+# local scratch / tool caches (Ghidra projects, downloaded extensions, traces)
+.cache/
+scratch/
+traces/*.bin
+tools/ghidra/project/
