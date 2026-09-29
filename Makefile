@@ -1,6 +1,6 @@
 # Mobile Trainer (Japan) -- RGBDS build.  `make` builds and byte-compares against the reference ROM.
 #
-#   make            regenerate src/ if config/ or the generator changed, assemble, link, compare (IDENTICAL or fail)
+#   make            assemble+link the committed src/, check SHA-256 against roms.sha256 (and byte-compare when the ROM is present)
 #   make regen      regenerate src/*.asm + src/ram.inc from baserom.gbc + config/ (checked: nothing is written unless
 #                   the generated sources assemble to the reference ROM byte for byte)
 #   make verify     generate into a temp dir, assemble+link, compare with baserom.gbc; never touches src/
@@ -22,8 +22,14 @@ GENDEPS  := tools/gen_asm.py tools/sm83.py tools/lib/mtcfg.py tools/lib/conv.py 
 RGBASM   ?= rgbasm
 RGBLINK  ?= rgblink
 
-.PHONY: all compare clean regen verify baserom check-tools test selftest progress conventions-check
-all: $(ROM) compare
+.PHONY: all checkhash compare clean regen verify baserom check-tools test selftest progress conventions-check
+all: $(ROM) checkhash
+	@if [ -f "$(BASEROM)" ] || [ -f "$(REFROM)" ]; then $(MAKE) --no-print-directory compare; else echo "(reference ROM not present: byte compare skipped, hash check above is authoritative)"; fi
+
+# the sources are self-contained: the built ROM must hash to the reference ROM's SHA-256 (roms.sha256)
+checkhash: $(ROM)
+	@want=$$(cut -d' ' -f1 roms.sha256); got=$$(sha256sum $(ROM) | cut -d' ' -f1); \
+	if [ "$$want" = "$$got" ]; then echo "SHA-256 OK: $$got"; else echo "SHA-256 MISMATCH: built $$got, expected $$want"; exit 1; fi
 
 # baserom.gbc is a byte-identical copy of the original ROM (never modified, git-ignored).
 $(BASEROM):
@@ -36,14 +42,8 @@ baserom: $(BASEROM)
 
 # src/ is generated: it is refreshed whenever the generator or any config table is newer than the stamp.
 # gen_asm.py rewrites only the files whose content changes, so untouched banks are not reassembled.
-build/.gen.stamp: $(GENDEPS) $(BASEROM) | build
-	python3 tools/gen_asm.py regen
-	@touch $@
-
-# (the no-op recipe makes make re-stat the sources after regeneration, so changed banks are reassembled in the same run)
-$(SRCS) src/ram.inc: build/.gen.stamp ;
-
-build/%.o: src/%.asm $(BASEROM) | build
+# (only `make regen` refreshes it; a plain `make` assembles the committed sources and needs no reference ROM)
+build/%.o: src/%.asm | build
 	$(RGBASM) -I . -I src -M build/$*.d -MP -o $@ $<
 
 build:
@@ -57,7 +57,6 @@ compare: $(ROM) $(BASEROM)
 
 regen: $(BASEROM)
 	python3 tools/gen_asm.py regen
-	@touch build/.gen.stamp 2>/dev/null || true
 
 verify: $(BASEROM)
 	python3 tools/gen_asm.py verify
