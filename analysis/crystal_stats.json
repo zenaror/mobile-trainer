@@ -1,0 +1,153 @@
+{
+ "params": {
+  "gb_root": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects",
+  "trainer": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Mobile Trainer/baserom.gbc",
+  "refs": "eng,ptbr",
+  "primary": "eng",
+  "jp": null,
+  "out": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Mobile Trainer/analysis",
+  "keep_ldh": false,
+  "seed_min": 4,
+  "seeds": 3,
+  "regex_min_sig": 10,
+  "max_seed_hits": 4000,
+  "min_sig_report": 6,
+  "min_sig_partial": 24,
+  "min_sig_full": 6,
+  "data_min": 16,
+  "data_min_paired": 6,
+  "raw_min": 32,
+  "no_data": false,
+  "no_raw": false,
+  "no_guided": false,
+  "emit_all_refs": false,
+  "no_structural": false,
+  "diff": null,
+  "at": null,
+  "selftest": false,
+  "quiet": true
+ },
+ "trainer_sha256": "6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570",
+ "refs": {
+  "eng": {
+   "units": 9668,
+   "data_regions": 21687,
+   "rom": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Pokemon Crystal English Project/pokecrystal.gbc",
+   "sha1": "fd05085758ec344cca6424b535e24686efd31594"
+  },
+  "ptbr": {
+   "units": 9669,
+   "data_regions": 21682,
+   "rom": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Pokemon Crystal BR/pokecrystal-mobile-ptbr/pokecrystal.gbc",
+   "sha1": "bafd36195500790df3f63a6534e39d6a78e5b69d"
+  }
+ },
+ "jp_rom": {
+  "path": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/aaaaa/baseroms/jp/baserom-jp.gb",
+  "sha1": "95127b901bbce2407daf43cce9f45d4c27ef635d"
+ },
+ "records": {
+  "eng": {
+   "total": 481,
+   "conf": {
+    "LOW": 137,
+    "SUPERSEDED": 54,
+    "AMBIGUOUS": 7,
+    "REJECTED": 7,
+    "MEDIUM": 141,
+    "HIGH": 135
+   },
+   "kind": {
+    "masked_imm8diff": 23,
+    "exact_masked": 373,
+    "partial": 17,
+    "aligned": 11,
+    "guided_full": 51,
+    "structural_aligned": 6
+   },
+   "by_bank_pair_high_medium": {
+    "44>75": 190,
+    "45>0F": 86
+   }
+  },
+  "ptbr": {
+   "total": 481,
+   "conf": {
+    "LOW": 137,
+    "SUPERSEDED": 54,
+    "AMBIGUOUS": 7,
+    "REJECTED": 7,
+    "MEDIUM": 141,
+    "HIGH": 135
+   },
+   "kind": {
+    "masked_imm8diff": 23,
+    "exact_masked": 373,
+    "partial": 17,
+    "aligned": 11,
+    "guided_full": 51,
+    "structural_aligned": 6
+   },
+   "by_bank_pair_high_medium": {
+    "44>75": 190,
+    "45>0F": 86
+   }
+  }
+ },
+ "crosscheck": {
+  "ptbr": {
+   "records": 420,
+   "same_record_as_primary": 420,
+   "only_primary": [],
+   "only_secondary": [],
+   "conf_disagreements": 0
+  }
+ },
+ "data_matches": 83,
+ "symbol_map_rows": 1145,
+ "symbol_map_status": {
+  "HYPOTHESIS": 32,
+  "PROBABLE": 329,
+  "CONFIRMED": 784
+ },
+ "symbol_map_kind": {
+  "structural_aligned": 5,
+  "local_label_of": 841,
+  "exact_masked": 204,
+  "guided_full": 51,
+  "ptr_table_entry": 13,
+  "masked_imm8diff": 18,
+  "partial_window": 2,
+  "aligned": 7,
+  "ptr_table_entry_DIFFERS": 1,
+  "aligned_window": 1,
+  "callee_operand_only": 2
+ },
+ "api_wrapper_trainer": "00:0150",
+ "api_call_sites": 52,
+ "api_indices_used": {
+  "02": 9,
+  "38": 2,
+  "36": 18,
+  "04": 5,
+  "0E": 2,
+  "3E": 1,
+  "2C": 1,
+  "0A": 4,
+  "2A": 1,
+  "34": 3,
+  "00": 1,
+  "0C": 1,
+  "10": 1,
+  "06": 1,
+  "1E": 1,
+  "1C": 1
+ },
+ "coverage_bytes_by_trainer_bank": {
+  "0F": 6817,
+  "75": 13964
+ },
+ "ram_map_rows": 100,
+ "ram_map_weak_rows": 133,
+ "raw_runs": 87
+}

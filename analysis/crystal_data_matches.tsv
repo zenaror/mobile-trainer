@@ -1,0 +1,84 @@
+# ref	crystal_symbol	crystal_bank	crystal_addr	length	trainer_bank	trainer_addr	match_kind	source_kind	n_trainer_hits	n_crystal_copies	confidence	status	first_bytes/evidence
+eng	Unknown_113b7e	44	7B7E	16	04	548D	exact_unmasked	data	2	1	AMBIGUOUS	HYPOTHESIS	0123456789abcdeffedcba9876543210
+eng	String_114004	45	4004	13	0F	4004	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4347422d414141412d30300000 | unique in Crystal bank and in paired Trainer bank; delta +0 vs local code delta +4
+eng	String_114033	45	4033	7	0F	4033	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	46726f6d3a2000 | unique in Crystal bank and in paired Trainer bank; delta +0 vs local code delta +4; bracketed by strong data matches with the same offset (4004..4062)
+eng	String_11403a	45	403A	9	0F	403A	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	53656e6465723a2000 | unique in Crystal bank and in paired Trainer bank; delta +0 vs local code delta +4; bracketed by strong data matches with the same offset (4004..4062)
+eng	String_114043	45	4043	11	0F	4043	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5265706c792d546f3a2000 | unique in Crystal bank and in paired Trainer bank; delta +0 vs local code delta +4; bracketed by strong data matches with the same offset (4004..4062)
+eng	String_114058	45	4058	10	0F	4058	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5375626a6563743a2000 | unique in Crystal bank and in paired Trainer bank; delta +0 vs local code delta +4; bracketed by strong data matches with the same offset (4004..4062)
+eng	String_114062	45	4062	18	0F	4062	exact_unmasked	data	1	1	MEDIUM	PROBABLE	4d494d452d56657273696f6e3a20312e
+eng	String_11408d	45	408D	18	0F	4091	exact_unmasked	data	1	1	MEDIUM	PROBABLE	582d47616d652d636f64653a20434742
+eng	String_11409f	45	409F	25	0F	40A3	exact_unmasked	data	1	1	MEDIUM	PROBABLE	582d47426d61696c2d747970653a2065
+eng	String_1140b8	45	40B8	46	0F	40BC	exact_unmasked	data	1	1	HIGH	CONFIRMED	436f6e74656e742d547970653a207465
+eng	String_1140e6	45	40E6	42	0F	40EA	exact_unmasked	data	1	1	HIGH	CONFIRMED	436f6e74656e742d547970653a206d75
+eng	String_114110	45	4110	47	0F	4114	exact_unmasked	data	1	1	HIGH	CONFIRMED	436f6e74656e742d547970653a204170
+eng	String_11413f	45	413F	33	0F	4143	exact_unmasked	data	1	1	HIGH	CONFIRMED	436f6e74656e742d5472616e73666572
+eng	Jumptable_114165	45	4165	26	0F	4169	pointer_table_relocated	dw	1	1	MEDIUM	PROBABLE	11/13 entries pinned by matched functions (11 agree); unpinned entries wildcard | trainer words 426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD
+eng	Unknown_11417f.From	45	4199	6	0F	419D	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	46524f4d3a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (413F..41C8)
+eng	Unknown_11417f.Sender	45	419F	8	0F	41A3	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	53454e4445523a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (413F..41C8)
+eng	Unknown_11417f.ReplyTo	45	41A7	10	0F	41AB	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5245504c592d544f3a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (413F..41C8)
+eng	Unknown_11417f.Subject	45	41B9	9	0F	41BD	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5355424a4543543a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (413F..41C8)
+eng	Unknown_11417f.Date	45	41C2	6	0F	41C6	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	444154453a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (413F..41C8)
+eng	Unknown_11417f.ContentType	45	41C8	14	0F	41CC	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	434f4e54454e542d545950453a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4
+eng	Unknown_11417f.MimeVersion	45	41D6	14	0F	41DA	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4d494d452d56455253494f4e3a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4
+eng	Unknown_11417f.XMailer	45	41E4	10	0F	41E8	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	582d4d41494c45523a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (41D6..41EE)
+eng	Unknown_11417f.XGameTitle	45	41EE	14	0F	41F2	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	582d47414d452d5449544c453a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4
+eng	Unknown_11417f.XGameCode	45	41FC	13	0F	4200	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	582d47414d452d434f44453a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4
+eng	Unknown_11417f.XGBMailType	45	4209	15	0F	420D	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	582d47424d41494c2d545950453a00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4
+eng	String_114218	45	4218	6	0F	421C	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4e414d453d00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (4209..4232)
+eng	String_11421e	45	421E	10	0F	4222	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4d554c54495041525400 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (4209..4232)
+eng	String_114228	45	4228	10	0F	422C	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	424f554e444152593d00 | unique in Crystal bank and in paired Trainer bank; delta +4 vs local code delta +4; bracketed by strong data matches with the same offset (4209..4232)
+eng	String_114232	45	4232	17	0F	4236	exact_unmasked	data	1	1	MEDIUM	PROBABLE	3d3f49534f2d323032322d4a503f423f
+eng	EnvironmentColorsPointers.DungeonColors	02	72C9	32	23	7758	exact_unmasked	data	1	3	AMBIGUOUS	HYPOTHESIS	000102030405060708090a0b0c0d0e0f
+eng	Zipcode_CharPool_Ato9_Blank	12	712C	26	2E	6AA0	exact_unmasked	data	4	2	AMBIGUOUS	HYPOTHESIS	808182838485868788898a8b8c8d8e8f
+eng	Zipcode_CharPool_Ato9_Blank	12	712C	26	2E	6E60	exact_unmasked	data	4	2	AMBIGUOUS	HYPOTHESIS	808182838485868788898a8b8c8d8e8f
+eng	Zipcode_CharPool_Ato9_Blank	12	712C	26	2E	7130	exact_unmasked	data	4	2	AMBIGUOUS	HYPOTHESIS	808182838485868788898a8b8c8d8e8f
+eng	Zipcode_CharPool_Ato9_Blank	12	712C	26	2E	7400	exact_unmasked	data	4	2	AMBIGUOUS	HYPOTHESIS	808182838485868788898a8b8c8d8e8f
+eng	HTTPUtilityURL	44	4FFC	36	67	6334	exact_unmasked	data	2	1	AMBIGUOUS	HYPOTHESIS	67616d65626f792e6461746163656e74
+eng	_MobileAPI.dw	44	4070	68	75	4070	pointer_table_relocated	dw	1	1	MEDIUM	PROBABLE	23/34 entries pinned by matched functions (22 agree); DIFFERING entries: #31 Function1103ac: crystal->43B1 trainer 43A9; unpinned entries wildcard | trainer words 4115 4235 428E 43B1 443D 44CB 457D 4587
+eng	URIPrefix	44	4FAD	7	75	4FB2	exact_unmasked_paired_bank	data	1	1	LOW	HYPOTHESIS	687474703a2f2f | unique in Crystal bank and in paired Trainer bank; delta +5 vs local code delta +5
+eng	HTTPDownloadURL	44	4FB4	37	75	4FB9	exact_unmasked	data	1	6	AMBIGUOUS	HYPOTHESIS	67616d65626f792e6461746163656e74
+eng	HTTPUploadURL	44	4FD9	35	75	4FDE	exact_unmasked	data	1	1	HIGH	CONFIRMED	67616d65626f792e6461746163656e74
+eng	HTTPUtilityURL	44	4FFC	36	75	5001	exact_unmasked	data	2	1	AMBIGUOUS	HYPOTHESIS	67616d65626f792e6461746163656e74
+eng	HTTPRankingURL	44	5020	36	75	5025	exact_unmasked	data	1	1	HIGH	CONFIRMED	67616d65626f792e6461746163656e74
+eng	MobilePacket_BeginSession	44	6001	18	75	5FFC	exact_unmasked	data	1	1	MEDIUM	PROBABLE	9966100000084e494e54454e444f0277
+eng	MobilePacket_EndSession	44	6013	10	75	600E	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	99661100000000118000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6001..6046)
+eng	MobilePacket_DialTelephone	44	601D	6	75	6018	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	996612000000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6001..6046)
+eng	MobilePacket_HangUpTelephone	44	6023	10	75	601E	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	99661300000000138000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6001..6046)
+eng	MobilePacket_TelephoneStatus	44	602D	10	75	6028	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	99661700000000178000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6001..6046)
+eng	MobilePacket_ISPLogout	44	603C	10	75	6037	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	99662200000000228000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6001..6046)
+eng	MobilePacket_ReadConfigurationDataPart1	44	6046	12	75	6041	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	9966190000020060007b8000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9
+eng	MobilePacket_ReadConfigurationDataPart2	44	6052	12	75	604D	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	996619000002606000db8000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9
+eng	MobilePacket_WaitForTelephoneCall	44	6068	10	75	6063	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	99661400000000148000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6052..6089)
+eng	MobilePacket_TransferData	44	6072	11	75	606D	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	996615000001ff01158000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta +9; bracketed by strong data matches with the same offset (6052..6089)
+eng	MobilePacket_OpenTCPConnection	44	607D	6	75	6078	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	996623000006 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (6052..6089)
+eng	MobilePacket_CloseTCPConnection	44	6083	6	75	607E	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	996624000001 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (6052..6089)
+eng	Unknown_112089	44	6089	21	75	6084	exact_unmasked	data	1	1	MEDIUM	PROBABLE	ec14c9e40f0ee00c53c40794b005eeec
+eng	Unknown_11209e	44	609E	6	75	6099	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	48454c4f2000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (6089..60A4)
+eng	Unknown_1120a4	44	60A4	12	75	609F	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4d41494c2046524f4d3a3c00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_1120b0	44	60B0	10	75	60AB	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5243505420544f3a3c00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120ba	44	60BA	7	75	60B5	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	444154410d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120c1	44	60C1	7	75	60BC	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	515549540d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120c8	44	60C8	6	75	60C3	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	555345522000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120ce	44	60CE	6	75	60C9	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	504153532000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120d4	44	60D4	7	75	60CF	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	535441540d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (60A4..60DB)
+eng	Unknown_1120db	44	60DB	13	75	60D6	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4c4953542030303030300d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_1120e8	44	60E8	13	75	60E3	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	524554522030303030300d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_1120f5	44	60F5	13	75	60F0	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	44454c452030303030300d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_112102	44	6102	14	75	60FD	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	544f5020303030303020300d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_112115	44	6115	12	75	6110	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	20485454502f312e300d0a00 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5
+eng	Unknown_112121	44	6121	17	75	611C	exact_unmasked	data	1	1	MEDIUM	PROBABLE	557365722d4167656e743a204347422d
+eng	Unknown_112137	44	6137	6	75	6132	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	504f53542000 | unique in Crystal bank and in paired Trainer bank; delta -5 vs local code delta -5; bracketed by strong data matches with the same offset (6121..613D)
+eng	Unknown_11213d	44	613D	17	75	6138	exact_unmasked	data	1	1	MEDIUM	PROBABLE	436f6e74656e742d4c656e6774683a20
+eng	Jumptable_1121ac	44	61AC	74	75	61A7	pointer_table_relocated	dw	1	1	MEDIUM	PROBABLE	35/37 entries pinned by matched functions (35 agree); unpinned entries wildcard | trainer words 61F1 626C 6379 63BC 63E7 6457 672B 6750
+eng	Unknown_113001	44	7001	7	75	7039	exact_unmasked_paired_bank	data	1	1	LOW	HYPOTHESIS	646174653a2000 | unique in Crystal bank and in paired Trainer bank; delta +56 vs local code delta +56
+eng	Unknown_1132a6	44	72A6	12	75	72DE	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	47622d5374617475733a2000 | unique in Crystal bank and in paired Trainer bank; delta +56 vs local code delta +56
+eng	Unknown_1132b2	44	72B2	13	75	72EA	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	47622d417574682d49443a2000 | unique in Crystal bank and in paired Trainer bank; delta +56 vs local code delta +56
+eng	Unknown_1132bf	44	72BF	30	75	72F7	exact_unmasked	data	1	1	MEDIUM	PROBABLE	5757572d41757468656e746963617465
+eng	Unknown_1132dd	44	72DD	34	75	7315	exact_unmasked	data	1	1	HIGH	CONFIRMED	436f6e74656e742d547970653a206170
+eng	Unknown_1132ff	44	72FF	13	75	7337	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	5552492d6865616465723a2000 | unique in Crystal bank and in paired Trainer bank; delta +56 vs local code delta +56
+eng	Unknown_11330c	44	730C	11	75	7344	exact_unmasked_paired_bank	data	1	1	MEDIUM	PROBABLE	4c6f636174696f6e3a2000 | unique in Crystal bank and in paired Trainer bank; delta +56 vs local code delta +56; bracketed by strong data matches with the same offset (72FF..7372)
+eng	Unknown_113372	44	7372	20	75	73AA	exact_unmasked	data	1	1	MEDIUM	PROBABLE	436f6e74656e742d4c656e6774683a20
+eng	Unknown_113a55	44	7A55	27	75	7A17	exact_unmasked	data	1	1	MEDIUM	PROBABLE	417574686f72697a6174696f6e3a2047
+eng	Unknown_113a70	44	7A70	256	75	7A32	exact_unmasked	data	1	1	HIGH	CONFIRMED	000000070604000c04080011020c0016
+eng	Unknown_113b7e	44	7B7E	16	75	7B40	exact_unmasked	data	2	1	AMBIGUOUS	HYPOTHESIS	0123456789abcdeffedcba9876543210
+eng	MD5_K_Table	44	7B8E	256	75	7B50	exact_unmasked	data	1	1	HIGH	CONFIRMED	78a46ad756b7c7e8db702024eecebdc1
