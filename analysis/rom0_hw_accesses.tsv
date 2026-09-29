@@ -1,0 +1,593 @@
+# insn	mode	addr	name	how   (ROM0 code reached by the CFG; ldh [c] resolved by back-scan)
+00:015F	w	FF8B		ldh
+00:0162	w	FF8A		ldh
+00:0170	ptr	FF8A		ld16
+00:0177	ptr	FF8A		ld16
+00:0182	w	2000		abs
+00:0187	w	3000		abs
+00:0199	ptr	FF8A		ld16
+00:01A1	w	2000		abs
+00:01A5	w	3000		abs
+00:01BB	ptr	FF8A		ld16
+00:01C2	ptr	FF8A		ld16
+00:01CD	w	2000		abs
+00:01D2	w	3000		abs
+00:01D9	ptr	FF8A		ld16
+00:01E1	w	2000		abs
+00:01E5	w	3000		abs
+00:01F2	w	FF07	rTAC	ldh
+00:01F4	r	FF0F	rIF	ldh
+00:01F8	w	FF0F	rIF	ldh
+00:0207	r	FF02	rSC	ldh
+00:020D	ptr	FF8A		ld16
+00:0214	ptr	FF8A		ld16
+00:021F	w	2000		abs
+00:0224	w	3000		abs
+00:022B	ptr	FF8A		ld16
+00:0233	w	2000		abs
+00:0237	w	3000		abs
+00:023A	r	FF06	rTMA	ldh
+00:023C	w	FF05	rTIMA	ldh
+00:0240	w	FF07	rTAC	ldh
+00:024A	r	FF8A		ldh
+00:024D	r	FF8B		ldh
+00:0255	w	FF8A		ldh
+00:0258	w	FF8B		ldh
+00:025B	w	2100		abs
+00:025F	w	3000		abs
+00:0267	w	FF8A		ldh
+00:026A	w	FF8B		ldh
+00:026D	w	2100		abs
+00:0271	w	3000		abs
+00:0279	w	FFA3		ldh
+00:0280	w	FF07	rTAC	ldh
+00:0282	w	FF0F	rIF	ldh
+00:0284	w	FFFF	rIE	ldh
+00:0289	ptr	FFFE		ld16
+00:028C	r	FFA3		ldh
+00:0296	w	0000		abs
+00:0299	w	4000		abs
+00:029C	r	FFA3		ldh
+00:02A4	w	FF8A		ldh
+00:02A6	w	2100		abs
+00:02B0	w	FF4F	rVBK	ldh
+00:02C1	w	FF70	rSVBK	ldh
+00:02D2	w	FF70	rSVBK	ldh
+00:02D4	w	FF4F	rVBK	ldh
+00:02ED	ptr	FF80		ld16
+00:02FB	w	FFFC		ldh
+00:0300	r	FF8D		ldh
+00:0305	w	FF70	rSVBK	ldh
+00:030B	w	FF70	rSVBK	ldh
+00:030F	w	FF8A		ldh
+00:0311	w	2100		abs
+00:031C	w	FF8A		ldh
+00:031E	w	2100		abs
+00:0322	w	FF8B		ldh
+00:0324	w	3000		abs
+00:0333	w	FF68	rBCPS	ldh
+00:033F	w	FF6A	rOCPS	ldh
+00:034D	w	????		ldh [c] unresolved
+00:0393	r	FFFC		ldh
+00:03A8	r	FF8D		ldh
+00:03AD	w	FF70	rSVBK	ldh
+00:03B3	w	FF70	rSVBK	ldh
+00:0435	r	FFFC		ldh
+00:0438	w	FFFC		ldh
+00:0441	w	FFFC		ldh
+00:044C	r	FF40	rLCDC	ldh
+00:0465	r	FF40	rLCDC	ldh
+00:047B	r	FF40	rLCDC	ldh
+00:048B	r	FF44	rLY	ldh
+00:056A	r	FFA7		ldh
+00:056E	w	FFA7		ldh
+00:0570	r	FFA5		ldh
+00:05A6	w	????		ldh [c] unresolved
+00:05B6	r	FF40	rLCDC	ldh
+00:05BA	w	FF40	rLCDC	ldh
+00:05BD	r	FF40	rLCDC	ldh
+00:05C3	r	FFA3		ldh
+00:05C9	r	FFFF	rIE	ldh
+00:05CE	w	FF0F	rIF	ldh
+00:05D0	w	FFFF	rIE	ldh
+00:05D2	r	FF44	rLY	ldh
+00:05DC	r	FF40	rLCDC	ldh
+00:05E0	w	FF40	rLCDC	ldh
+00:05E3	w	FF0F	rIF	ldh
+00:05E6	w	FFFF	rIE	ldh
+00:05ED	r	FF44	rLY	ldh
+00:05F7	r	FF40	rLCDC	ldh
+00:05FB	w	FF40	rLCDC	ldh
+00:0603	r	FFFF	rIE	ldh
+00:0606	r	FF4D	rKEY1	ldh
+00:060E	w	FF4D	rKEY1	ldh
+00:0611	w	FF0F	rIF	ldh
+00:0613	w	FFFF	rIE	ldh
+00:0617	w	FF00	rP1	ldh
+00:061C	w	FF0F	rIF	ldh
+00:061F	w	FFFF	rIE	ldh
+00:062C	w	FF8D		ldh
+00:062E	w	FF70	rSVBK	ldh
+00:0631	w	FF8C		ldh
+00:0633	w	4000		abs
+00:0637	w	FF8A		ldh
+00:0639	w	2100		abs
+00:0647	w	FF8D		ldh
+00:0649	w	FF70	rSVBK	ldh
+00:064C	w	FF8C		ldh
+00:064E	w	4000		abs
+00:0652	w	FF8A		ldh
+00:0654	w	2100		abs
+00:0662	w	FF8D		ldh
+00:0664	w	FF70	rSVBK	ldh
+00:0667	w	FF8C		ldh
+00:0669	w	4000		abs
+00:066D	w	FF8A		ldh
+00:066F	w	2100		abs
+00:067B	r	FF8D		ldh
+00:067E	r	FF8C		ldh
+00:0681	r	FF8A		ldh
+00:0686	w	FFA8		ldh
+00:068A	w	FFAA		ldh
+00:068E	w	FFAD		ldh
+00:0691	w	FFA9		ldh
+00:0693	w	FFAB		ldh
+00:0695	w	FFAC		ldh
+00:0699	w	FFAE		ldh
+00:069D	w	FFAF		ldh
+00:06A1	w	FF8D		ldh
+00:06A3	w	FF70	rSVBK	ldh
+00:06A5	w	FF8C		ldh
+00:06A7	w	4000		abs
+00:06AB	w	FFF5		ldh
+00:06AD	w	0000		abs
+00:06B2	w	FFF4		ldh
+00:06B4	w	FF4F	rVBK	ldh
+00:06BC	w	FFA9		ldh
+00:06BF	w	FFAB		ldh
+00:06C2	w	FFAC		ldh
+00:06C6	w	FFAE		ldh
+00:06C9	w	FFAF		ldh
+00:06CB	r	FFF3		ldh
+00:06CD	w	FFF2		ldh
+00:06D1	w	FFA9		ldh
+00:06D4	w	FFAB		ldh
+00:06D7	w	FFAC		ldh
+00:06DB	w	FFAE		ldh
+00:06DE	w	FFAF		ldh
+00:06E1	w	FFF2		ldh
+00:06E5	w	FFF2		ldh
+00:06E8	w	FFAE		ldh
+00:06EB	w	FFAF		ldh
+00:06F4	r	FFAF		ldh
+00:06F7	r	FFF2		ldh
+00:06FF	w	FFA9		ldh
+00:0702	w	FFAB		ldh
+00:0705	w	FFAC		ldh
+00:070E	w	FFAE		ldh
+00:0711	w	FFAF		ldh
+00:0716	w	FFA9		ldh
+00:0719	w	FFAB		ldh
+00:071C	w	FFAC		ldh
+00:0720	w	FFAE		ldh
+00:0723	w	FFAF		ldh
+00:0726	r	FFF3		ldh
+00:072E	w	FFA9		ldh
+00:0731	w	FFAB		ldh
+00:0734	w	FFAC		ldh
+00:0738	w	FFAE		ldh
+00:073B	w	FFAF		ldh
+00:073F	r	FFAF		ldh
+00:0749	w	FFF3		ldh
+00:074F	w	FF51	rHDMA1	ldh
+00:0752	w	FF52	rHDMA2	ldh
+00:0755	w	FF53	rHDMA3	ldh
+00:075A	w	FF54	rHDMA4	ldh
+00:075F	w	FFF4		ldh
+00:0761	w	FF4F	rVBK	ldh
+00:0764	r	FF40	rLCDC	ldh
+00:076A	r	FF44	rLY	ldh
+00:0774	w	FF55	rHDMA5	ldh
+00:0777	r	FFF3		ldh
+00:077A	r	FF44	rLY	ldh
+00:0780	r	FFF3		ldh
+00:0787	w	FFF3		ldh
+00:078D	w	FF51	rHDMA1	ldh
+00:0790	w	FF52	rHDMA2	ldh
+00:0793	w	FF53	rHDMA3	ldh
+00:0798	w	FF54	rHDMA4	ldh
+00:079D	w	FFF4		ldh
+00:079F	w	FF4F	rVBK	ldh
+00:07A2	r	FF40	rLCDC	ldh
+00:07A8	r	FF44	rLY	ldh
+00:07B2	w	FF55	rHDMA5	ldh
+00:07B8	r	FFF3		ldh
+00:07BB	r	FF44	rLY	ldh
+00:07C4	r	FFF3		ldh
+00:07CE	w	FF8D		ldh
+00:07D0	w	FF70	rSVBK	ldh
+00:07FE	w	FF8D		ldh
+00:0800	w	FF70	rSVBK	ldh
+00:082F	w	FF8D		ldh
+00:0831	w	FF70	rSVBK	ldh
+00:085E	w	FF8D		ldh
+00:0860	w	FF70	rSVBK	ldh
+00:088A	w	FF8D		ldh
+00:088C	w	FF70	rSVBK	ldh
+00:08B7	r	FF40	rLCDC	ldh
+00:08BC	r	FF44	rLY	ldh
+00:08C1	r	FF44	rLY	ldh
+00:08D3	w	FFB0		ldh
+00:08F3	w	FFB0		ldh
+00:090A	r	FFB0		ldh
+00:0920	w	FFB0		ldh
+00:0929	r	FFB0		ldh
+00:093D	w	FF8D		ldh
+00:093F	w	FF70	rSVBK	ldh
+00:0962	w	FFF2		ldh
+00:0964	r	FF8D		ldh
+00:0967	r	FFF2		ldh
+00:096B	w	FF8D		ldh
+00:096D	w	FF70	rSVBK	ldh
+00:09A0	w	FFF0		ldh
+00:09A2	w	FFF1		ldh
+00:09A8	w	FFF2		ldh
+00:09AB	w	FF8D		ldh
+00:09AD	w	FF70	rSVBK	ldh
+00:09AF	r	FFF2		ldh
+00:09BC	w	FFF2		ldh
+00:09BE	r	FF8D		ldh
+00:09C1	r	FFF2		ldh
+00:09C5	w	FF8D		ldh
+00:09C7	w	FF70	rSVBK	ldh
+00:09CA	w	FFF0		ldh
+00:09CC	w	FFF1		ldh
+00:09D9	w	FFF2		ldh
+00:09DC	w	FF8D		ldh
+00:09DE	w	FF70	rSVBK	ldh
+00:09E0	r	FFF2		ldh
+00:09E8	w	FFF2		ldh
+00:09EA	r	FF8D		ldh
+00:09ED	r	FFF2		ldh
+00:09F1	w	FF8D		ldh
+00:09F3	w	FF70	rSVBK	ldh
+00:09FD	w	FFF2		ldh
+00:0A00	w	FF8D		ldh
+00:0A02	w	FF70	rSVBK	ldh
+00:0A04	r	FFF2		ldh
+00:0A1B	r	FFF1		ldh
+00:0A22	r	FFF0		ldh
+00:0A2A	w	FFF2		ldh
+00:0A2C	r	FF8D		ldh
+00:0A2F	r	FFF2		ldh
+00:0A33	w	FF8D		ldh
+00:0A35	w	FF70	rSVBK	ldh
+00:0A3B	w	FFF2		ldh
+00:0A3E	w	FF8D		ldh
+00:0A40	w	FF70	rSVBK	ldh
+00:0A42	r	FFF2		ldh
+00:0A45	w	FFB0		ldh
+00:0A47	w	FFF2		ldh
+00:0A49	r	FF8D		ldh
+00:0A4C	r	FFF2		ldh
+00:0A50	w	FF8D		ldh
+00:0A52	w	FF70	rSVBK	ldh
+00:0A58	r	FFB0		ldh
+00:0A5B	w	FFF2		ldh
+00:0A5E	w	FF8D		ldh
+00:0A60	w	FF70	rSVBK	ldh
+00:0A62	r	FFF2		ldh
+00:0A66	w	FFF2		ldh
+00:0A68	r	FF8D		ldh
+00:0A6B	r	FFF2		ldh
+00:0A6F	w	FF8D		ldh
+00:0A71	w	FF70	rSVBK	ldh
+00:0A77	w	FFF2		ldh
+00:0A7A	w	FF8D		ldh
+00:0A7C	w	FF70	rSVBK	ldh
+00:0A7E	r	FFF2		ldh
+00:0A82	w	FFF2		ldh
+00:0A84	r	FF8D		ldh
+00:0A87	r	FFF2		ldh
+00:0A8B	w	FFF2		ldh
+00:0A8D	w	FF8A		ldh
+00:0A8F	w	2100		abs
+00:0A94	w	FF8D		ldh
+00:0A96	w	FF70	rSVBK	ldh
+00:0AA5	r	FFF2		ldh
+00:0AAE	w	FFF2		ldh
+00:0AB1	w	FF8D		ldh
+00:0AB3	w	FF70	rSVBK	ldh
+00:0AB5	r	FFF2		ldh
+00:0AF6	ptr	FFF6		ld16
+00:0B56	w	FF8D		ldh
+00:0B58	w	FF70	rSVBK	ldh
+00:0B7A	w	FFB0		ldh
+00:0B7D	w	FFB1		ldh
+00:0BAA	r	FFB0		ldh
+00:0BAD	r	FFB1		ldh
+00:0C19	r	FFFD		ldh
+00:0C1C	w	FFFD		ldh
+00:0C27	r	FFFE		ldh
+00:0C30	w	FFFE		ldh
+00:0D39	w	FF8A		ldh
+00:0D3B	w	2100		abs
+00:0D47	w	FF8A		ldh
+00:0D49	w	2100		abs
+00:0D95	w	FFF7		ldh
+00:0DAF	r	FFF7		ldh
+00:0DB9	w	FF8A		ldh
+00:0DBB	w	2100		abs
+00:0DC8	w	FF8A		ldh
+00:0DCA	w	2100		abs
+00:0DCE	w	FF8A		ldh
+00:0DD0	w	2100		abs
+00:0DDC	w	FF8A		ldh
+00:0DDE	w	2100		abs
+00:0DE2	w	FF8A		ldh
+00:0DE4	w	2100		abs
+00:0E2C	w	FF8A		ldh
+00:0E2E	w	2100		abs
+00:0E32	w	FF8A		ldh
+00:0E34	w	2100		abs
+00:0E78	w	FF8A		ldh
+00:0E7A	w	2100		abs
+00:0E7E	w	FF8A		ldh
+00:0E80	w	2100		abs
+00:0E8D	w	FF8A		ldh
+00:0E8F	w	2100		abs
+00:0E94	r	FF44	rLY	ldh
+00:0E9A	r	FF70	rSVBK	ldh
+00:0E9F	w	FF8D		ldh
+00:0EA1	w	FF70	rSVBK	ldh
+00:0EA6	w	FF45	rLYC	ldh
+00:0EA9	w	FF8D		ldh
+00:0EAB	w	FF70	rSVBK	ldh
+00:0EAE	w	FF42	rSCY	ldh
+00:0EB2	r	FF70	rSVBK	ldh
+00:0EB8	w	FF42	rSCY	ldh
+00:0EBB	w	FF45	rLYC	ldh
+00:0EBF	w	FF8D		ldh
+00:0EC1	w	FF70	rSVBK	ldh
+00:0ECD	w	FF8D		ldh
+00:0ECF	w	FF70	rSVBK	ldh
+00:0ED3	w	FFB9		ldh
+00:0ED6	w	FFBF		ldh
+00:0ED8	r	FFB9		ldh
+00:0F5D	r	FFBD		ldh
+00:0F60	r	FFC4		ldh
+00:0F69	r	FFC1		ldh
+00:0F6B	w	FFBD		ldh
+00:0F6D	r	FFC2		ldh
+00:0F6F	w	FFBE		ldh
+00:0F71	r	FFC6		ldh
+00:0F76	r	FFBC		ldh
+00:0F79	w	FFBC		ldh
+00:0F7C	r	FFC3		ldh
+00:0F89	w	FFB0		ldh
+00:0F8C	r	FFB9		ldh
+00:0F8F	r	FFB0		ldh
+00:0F91	w	FFB9		ldh
+00:0F95	r	FFBF		ldh
+00:0F98	w	FFBF		ldh
+00:0F9E	r	FFBF		ldh
+00:0FA3	w	FFBF		ldh
+00:0FA7	w	FFB9		ldh
+00:0FAE	w	FFBC		ldh
+00:0FB5	w	FFBD		ldh
+00:0FBD	w	FFBC		ldh
+00:0FC1	w	FFBD		ldh
+00:0FC9	w	FFBC		ldh
+00:0FCD	w	FFBD		ldh
+00:0FD5	w	FFBC		ldh
+00:0FD9	w	FFBD		ldh
+00:0FE1	w	FFBC		ldh
+00:0FE5	w	FFBD		ldh
+00:0FEC	w	FFBD		ldh
+00:0FEF	w	FFBE		ldh
+00:0FF6	w	FFBC		ldh
+00:1000	r	FFBD		ldh
+00:1003	w	FFBD		ldh
+00:1005	r	FFBE		ldh
+00:1008	w	FFBE		ldh
+00:1010	r	FFBC		ldh
+00:1013	w	FFBC		ldh
+00:1019	r	FFBD		ldh
+00:101D	w	FFBD		ldh
+00:101F	r	FFBE		ldh
+00:1023	w	FFBE		ldh
+00:1046	r	FFBC		ldh
+00:1059	r	FFBE		ldh
+00:105E	r	FFBD		ldh
+00:1064	r	FFBA		ldh
+00:1067	r	FFBB		ldh
+00:106A	r	FFBC		ldh
+00:106D	r	FFBD		ldh
+00:1079	r	FFBD		ldh
+00:107D	w	FFBD		ldh
+00:1080	r	FFBE		ldh
+00:1084	w	FFBE		ldh
+00:108D	r	FFBC		ldh
+00:1094	r	FFBA		ldh
+00:1097	r	FFBB		ldh
+00:10A3	r	FFBD		ldh
+00:10A7	w	FFBD		ldh
+00:10AA	r	FFBE		ldh
+00:10AE	w	FFBE		ldh
+00:10B2	r	FFBE		ldh
+00:10B7	r	FFBD		ldh
+00:10C6	r	FFBA		ldh
+00:10C9	r	FFBB		ldh
+00:10CC	r	FFBC		ldh
+00:10CF	r	FFBD		ldh
+00:10DB	r	FFBD		ldh
+00:10DF	w	FFBD		ldh
+00:10E2	r	FFBE		ldh
+00:10E6	w	FFBE		ldh
+00:110F	r	FFB0		ldh
+00:1112	r	FFB1		ldh
+00:114B	r	FFB0		ldh
+00:114E	r	FFB1		ldh
+00:1167	w	FFB0		ldh
+00:116A	w	FFB1		ldh
+00:1175	r	FFB0		ldh
+00:1178	r	FFB1		ldh
+00:1183	w	FFB0		ldh
+00:1186	w	FFB1		ldh
+00:119B	r	FFB0		ldh
+00:119E	r	FFB1		ldh
+00:1201	r	FFB0		ldh
+00:1204	r	FFB1		ldh
+00:1323	w	FF8A		ldh
+00:1325	w	2100		abs
+00:1347	w	FF8A		ldh
+00:1349	w	2100		abs
+00:136D	w	FF8A		ldh
+00:136F	w	2100		abs
+00:13A5	w	FF8A		ldh
+00:13A7	w	2100		abs
+00:13BF	w	FF8A		ldh
+00:13C1	w	2100		abs
+00:13C9	w	FFB0		ldh
+00:13CD	w	FFB1		ldh
+00:13D4	r	FFB0		ldh
+00:13D8	r	FFB1		ldh
+00:13E0	r	FFB0		ldh
+00:13E3	r	FFB1		ldh
+00:13F6	w	FFB1		ldh
+00:13FA	w	FFB0		ldh
+00:1403	w	FFB0		ldh
+00:1405	w	FFB1		ldh
+00:140C	w	FFB0		ldh
+00:140F	w	FFB1		ldh
+00:143B	r	FFB0		ldh
+00:143E	r	FFB1		ldh
+00:1445	r	FFB0		ldh
+00:1474	r	FFB0		ldh
+00:1477	r	FFB1		ldh
+00:147E	r	FFB0		ldh
+00:1493	r	FFB0		ldh
+00:1496	r	FFB1		ldh
+00:149D	r	FFB0		ldh
+00:1534	ptr	FFFF	rIE	ld16
+00:153E	w	FFF2		ldh
+00:1540	r	FF8D		ldh
+00:1543	r	FFF2		ldh
+00:1547	w	FF8D		ldh
+00:1549	w	FF70	rSVBK	ldh
+00:154B	w	FFF2		ldh
+00:154D	r	FF8A		ldh
+00:1550	r	FFF2		ldh
+00:1554	w	FF8A		ldh
+00:1556	w	2100		abs
+00:156D	w	FFF2		ldh
+00:1570	w	FF8A		ldh
+00:1572	w	2100		abs
+00:1575	r	FFF2		ldh
+00:1577	w	FFF2		ldh
+00:157A	w	FF8D		ldh
+00:157C	w	FF70	rSVBK	ldh
+00:157E	r	FFF2		ldh
+00:1591	w	FFF2		ldh
+00:1593	r	FF8A		ldh
+00:1596	r	FFF2		ldh
+00:159A	w	FF8A		ldh
+00:159C	w	2100		abs
+00:15B2	w	FFF2		ldh
+00:15B5	w	FF8A		ldh
+00:15B7	w	2100		abs
+00:15BA	r	FFF2		ldh
+00:15BE	w	FFF2		ldh
+00:15C0	r	FFF5		ldh
+00:15C3	r	FFF2		ldh
+00:15C5	w	FFF2		ldh
+00:15C7	r	FF8C		ldh
+00:15CA	r	FFF2		ldh
+00:15CE	w	FF8C		ldh
+00:15D0	w	4000		abs
+00:15D5	w	FFF5		ldh
+00:15D7	w	0000		abs
+00:15DA	w	FFF2		ldh
+00:15DC	r	FF8D		ldh
+00:15DF	r	FFF2		ldh
+00:15E3	w	FF8D		ldh
+00:15E5	w	FF70	rSVBK	ldh
+00:15FC	w	FFF2		ldh
+00:15FF	w	FF8D		ldh
+00:1601	w	FF70	rSVBK	ldh
+00:1603	r	FFF2		ldh
+00:1605	w	FFF2		ldh
+00:1608	w	FF8C		ldh
+00:160A	w	4000		abs
+00:160D	r	FFF2		ldh
+00:160F	w	FFF2		ldh
+00:1612	w	FFF5		ldh
+00:1614	w	0000		abs
+00:1617	r	FFF2		ldh
+00:1628	w	FFF2		ldh
+00:162A	r	FF8D		ldh
+00:162D	r	FFF2		ldh
+00:162F	w	FF8D		ldh
+00:1631	w	FF70	rSVBK	ldh
+00:1634	w	FFF2		ldh
+00:1637	w	FF8D		ldh
+00:1639	w	FF70	rSVBK	ldh
+00:163B	r	FFF2		ldh
+00:163E	w	FFF2		ldh
+00:1640	r	FF8C		ldh
+00:1643	r	FFF2		ldh
+00:1645	w	FF8C		ldh
+00:1647	w	4000		abs
+00:164C	w	FFF5		ldh
+00:164E	w	0000		abs
+00:1656	w	FFF5		ldh
+00:1658	w	0000		abs
+00:165B	w	FFF2		ldh
+00:165E	w	FF8C		ldh
+00:1660	w	4000		abs
+00:1663	r	FFF2		ldh
+00:166C	w	FFF2		ldh
+00:166E	r	FF8A		ldh
+00:1671	r	FFF2		ldh
+00:1673	w	FF8A		ldh
+00:1675	w	2100		abs
+00:1679	w	FFF2		ldh
+00:167C	w	FF8A		ldh
+00:167E	w	2100		abs
+00:1681	r	FFF2		ldh
+00:1686	w	FFF2		ldh
+00:1688	r	FF8A		ldh
+00:168B	r	FFF2		ldh
+00:1697	w	FFF2		ldh
+00:169A	w	FF8A		ldh
+00:169C	w	2100		abs
+00:169F	r	FFF2		ldh
+00:16AB	w	FFB0		ldh
+00:16C5	r	FF44	rLY	ldh
+00:16D0	w	FF43	rSCX	ldh
+00:16D6	w	FF43	rSCX	ldh
+00:16DD	r	FF44	rLY	ldh
+00:16E3	r	FF4A	rWY	ldh
+00:16FB	w	FF42	rSCY	ldh
+00:1703	w	FF45	rLYC	ldh
+00:1709	w	FF42	rSCY	ldh
+00:170D	w	FF45	rLYC	ldh
+00:1711	w	FFF2		ldh
+00:1713	r	FF8A		ldh
+00:1716	r	FFF2		ldh
+00:171A	w	FF8A		ldh
+00:171C	w	2100		abs
+00:1722	w	FFF2		ldh
+00:1725	w	FF8A		ldh
+00:1727	w	2100		abs
+00:172A	r	FFF2		ldh
+00:172D	w	FFB1		ldh
+00:1732	w	FFB0		ldh
+00:1740	r	FFB1		ldh
+00:1750	r	FFB0		ldh
+00:20EE	r	FF8B		ldh
+00:20F3	r	FF8A		ldh
+00:20FF	w	FF8A		ldh
+00:2101	w	2000		abs
+00:2105	w	FF8B		ldh
+00:2107	w	3000		abs

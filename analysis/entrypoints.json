@@ -1,0 +1,10047 @@
+{
+"generated_by": "analysis/rom0_analysis.py",
+"seeds": [
+{
+"node": "00:0100",
+"note": "reset entry"
+},
+{
+"node": "R1:CBF1",
+"note": "VBlank RAM vector"
+},
+{
+"node": "R1:CBF4",
+"note": "STAT RAM vector"
+},
+{
+"node": "R1:CBF7",
+"note": "Timer RAM vector"
+},
+{
+"node": "R1:CBFA",
+"note": "Serial RAM vector"
+},
+{
+"node": "R1:CBFD",
+"note": "Joypad RAM vector"
+},
+{
+"node": "R2:FF80",
+"note": "OAM DMA routine (HRAM)"
+},
+{
+"node": "R3:FFA8",
+"note": "far-call trampoline (HRAM)"
+},
+{
+"node": "00:0B54",
+"note": "return address pushed by 00:0B4E (indirect call idiom)"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[0]"
+},
+{
+"node": "00:0F83",
+"note": "Table_00_0EF0[1]"
+},
+{
+"node": "00:0FAC",
+"note": "Table_00_0EF0[2]"
+},
+{
+"node": "00:0FB3",
+"note": "Table_00_0EF0[3]"
+},
+{
+"node": "00:0FBA",
+"note": "Table_00_0EF0[4]"
+},
+{
+"node": "00:0FC6",
+"note": "Table_00_0EF0[5]"
+},
+{
+"node": "00:0FD2",
+"note": "Table_00_0EF0[6]"
+},
+{
+"node": "00:0FDE",
+"note": "Table_00_0EF0[7]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[8]"
+},
+{
+"node": "00:1018",
+"note": "Table_00_0EF0[9]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[10]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[11]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[12]"
+},
+{
+"node": "00:0F68",
+"note": "Table_00_0EF0[13]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[14]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[15]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[16]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[17]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[18]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[19]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[20]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[21]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[22]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[23]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[24]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[25]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[26]"
+},
+{
+"node": "00:0F9D",
+"note": "Table_00_0EF0[27]"
+},
+{
+"node": "00:0FEA",
+"note": "Table_00_0EF0[28]"
+},
+{
+"node": "00:0FF4",
+"note": "Table_00_0EF0[29]"
+},
+{
+"node": "00:0FFB",
+"note": "Table_00_0EF0[30]"
+},
+{
+"node": "00:100D",
+"note": "Table_00_0EF0[31]"
+}
+],
+"note": "entries of ALL banks found by tools/cfg.py from the proven seeds (+ROM0 candidates); confidence PROBABLE when any link of the discovery chain is inferred (bank guess, table heuristic)",
+"entries": [
+{
+"bank": "RAM:3",
+"addr": "FFA8",
+"kind": "ram_code",
+"evidence": "far-call trampoline (HRAM)",
+"confidence": "CONFIRMED",
+"runtime_addr": "FFA8",
+"structural": true
+},
+{
+"bank": "RAM:2",
+"addr": "FF80",
+"kind": "ram_code",
+"evidence": "OAM DMA routine (HRAM)",
+"confidence": "CONFIRMED",
+"runtime_addr": "FF80",
+"structural": true
+},
+{
+"bank": "RAM:1",
+"addr": "CBF1",
+"kind": "ram_code",
+"evidence": "VBlank RAM vector",
+"confidence": "CONFIRMED",
+"runtime_addr": "CBF1",
+"structural": true
+},
+{
+"bank": "RAM:1",
+"addr": "CBF4",
+"kind": "ram_code",
+"evidence": "STAT RAM vector",
+"confidence": "CONFIRMED",
+"runtime_addr": "CBF4",
+"structural": true
+},
+{
+"bank": "RAM:1",
+"addr": "CBF7",
+"kind": "ram_code",
+"evidence": "Timer RAM vector",
+"confidence": "CONFIRMED",
+"runtime_addr": "CBF7",
+"structural": true
+},
+{
+"bank": "RAM:1",
+"addr": "CBFA",
+"kind": "ram_code",
+"evidence": "Serial RAM vector",
+"confidence": "CONFIRMED",
+"runtime_addr": "CBFA",
+"structural": true
+},
+{
+"bank": "RAM:1",
+"addr": "CBFD",
+"kind": "ram_code",
+"evidence": "Joypad RAM vector",
+"confidence": "CONFIRMED",
+"runtime_addr": "CBFD",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0000",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_00"
+},
+{
+"bank": 0,
+"addr": "0008",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_08"
+},
+{
+"bank": 0,
+"addr": "0010",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_10"
+},
+{
+"bank": 0,
+"addr": "0018",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_18"
+},
+{
+"bank": 0,
+"addr": "0020",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_20"
+},
+{
+"bank": 0,
+"addr": "0028",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_28"
+},
+{
+"bank": 0,
+"addr": "0030",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_30"
+},
+{
+"bank": 0,
+"addr": "0038",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "Rst_38"
+},
+{
+"bank": 0,
+"addr": "0040",
+"kind": "hardware_vector",
+"evidence": "hardware interrupt vector (jp $CBxx RAM stub)",
+"confidence": "CONFIRMED",
+"name": "Vector_VBlank"
+},
+{
+"bank": 0,
+"addr": "0048",
+"kind": "hardware_vector",
+"evidence": "hardware interrupt vector (jp $CBxx RAM stub)",
+"confidence": "CONFIRMED",
+"name": "Vector_STAT"
+},
+{
+"bank": 0,
+"addr": "0050",
+"kind": "hardware_vector",
+"evidence": "hardware interrupt vector (jp $CBxx RAM stub)",
+"confidence": "CONFIRMED",
+"name": "Vector_Timer"
+},
+{
+"bank": 0,
+"addr": "0058",
+"kind": "hardware_vector",
+"evidence": "hardware interrupt vector (jp $CBxx RAM stub)",
+"confidence": "CONFIRMED",
+"name": "Vector_Serial"
+},
+{
+"bank": 0,
+"addr": "0060",
+"kind": "hardware_vector",
+"evidence": "hardware interrupt vector (jp $CBxx RAM stub)",
+"confidence": "CONFIRMED",
+"name": "Vector_Joypad"
+},
+{
+"bank": 0,
+"addr": "0100",
+"kind": "reset",
+"evidence": "reset entry",
+"confidence": "CONFIRMED",
+"name": "Entry",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0150",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 52",
+"confidence": "PROBABLE",
+"name": "MobileAPI"
+},
+{
+"bank": 0,
+"addr": "018D",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "ReturnMobileAPI"
+},
+{
+"bank": 0,
+"addr": "01B7",
+"kind": "interrupt_handler",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "Int_Serial",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "01ED",
+"kind": "interrupt_handler",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "Int_Timer",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0247",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0278",
+"kind": "boot",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "Boot",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0331",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "034A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0392",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "03BA",
+"kind": "interrupt_handler",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "Int_VBlank",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "044B",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0464",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 401",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "047A",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "04A0",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "04D8",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "FillBytes",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "04EE",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "FillWords"
+},
+{
+"bank": 0,
+"addr": "050C",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "CopyBytes",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0526",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 5",
+"confidence": "PROBABLE",
+"name": "CopyBytesBackward"
+},
+{
+"bank": 0,
+"addr": "0540",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "JumpTableBank"
+},
+{
+"bank": 0,
+"addr": "0545",
+"kind": "call_target",
+"evidence": "jp 00:0589 -> 00:0545",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0551",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "FarJumpTable"
+},
+{
+"bank": 0,
+"addr": "056A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 22",
+"confidence": "PROBABLE",
+"name": "JoypadDispatch"
+},
+{
+"bank": 0,
+"addr": "059F",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "05B6",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "LCDOn",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "05BD",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "LCDOff",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0602",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "SwitchCPUSpeed",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0622",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "BankSwitch_H",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "063D",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "BankSwitch_D",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0658",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "BankSwitch_B",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0673",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "GetBank_H",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0684",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "06B7",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "06BC",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "06D1",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"name": "FarCall",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "06E5",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "FarCall_Reg"
+},
+{
+"bank": 0,
+"addr": "0716",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "072E",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE",
+"name": "FarJump"
+},
+{
+"bank": 0,
+"addr": "0749",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0787",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "07CB",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 16",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "07FB",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "082C",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "085B",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0887",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "08B7",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "08CA",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "08EA",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0904",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "091C",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "093B",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0956",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "09B6",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "09E6",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 44",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0A09",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0A1A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0A2A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0A45",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 15",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0A65",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0A82",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0AB8",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0AE8",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0B54",
+"kind": "return_address",
+"evidence": "return address pushed by 00:0B4E (indirect call idiom)",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0BBD",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0BD4",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0BDE",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0BE8",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 4",
+"confidence": "PROBABLE",
+"name": "Multiply16"
+},
+{
+"bank": 0,
+"addr": "0BFC",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 8",
+"confidence": "PROBABLE",
+"name": "Multiply8x16"
+},
+{
+"bank": 0,
+"addr": "0C0E",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 4",
+"confidence": "PROBABLE",
+"name": "Random16"
+},
+{
+"bank": 0,
+"addr": "0C18",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE",
+"name": "Random"
+},
+{
+"bank": 0,
+"addr": "0D34",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0D4D",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 1",
+"confidence": "PROBABLE",
+"name": "Multiply16x16to32"
+},
+{
+"bank": 0,
+"addr": "0D67",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 8",
+"confidence": "PROBABLE",
+"name": "Divide16"
+},
+{
+"bank": 0,
+"addr": "0D92",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 6",
+"confidence": "PROBABLE",
+"name": "Divide32by15"
+},
+{
+"bank": 0,
+"addr": "0DB9",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0DCE",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0DE2",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0E32",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0E7E",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0E93",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0ED3",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 33",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "0F30",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0F68",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[13]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0F83",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[1]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0F9D",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[0]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FAC",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[2]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FB3",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[3]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FBA",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[4]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FC6",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[5]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FD2",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[6]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FDE",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[7]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FEA",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[28]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FF4",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[29]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "0FFB",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[30]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "100D",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[31]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "1018",
+"kind": "table_target",
+"evidence": "Table_00_0EF0[9]",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "1028",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1044",
+"kind": "call_target",
+"evidence": "call target",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "10B1",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "10E9",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 14",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1119",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 10",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "131A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1354",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1408",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "14BF",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 32",
+"confidence": "PROBABLE",
+"name": "CopyString"
+},
+{
+"bank": 0,
+"addr": "14C6",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 4",
+"confidence": "PROBABLE",
+"name": "CopyStringMax"
+},
+{
+"bank": 0,
+"addr": "14D1",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "14E0",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 6",
+"confidence": "PROBABLE",
+"name": "EncodeXorA5"
+},
+{
+"bank": 0,
+"addr": "14EA",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 21",
+"confidence": "PROBABLE",
+"name": "DecodeXorA5"
+},
+{
+"bank": 0,
+"addr": "14F3",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 16",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1509",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 11",
+"confidence": "PROBABLE",
+"name": "CompareString"
+},
+{
+"bank": 0,
+"addr": "151A",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE",
+"name": "CompareStringN"
+},
+{
+"bank": 0,
+"addr": "1533",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 4",
+"confidence": "PROBABLE",
+"name": "StringLength"
+},
+{
+"bank": 0,
+"addr": "153D",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1586",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1620",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 90",
+"confidence": "PROBABLE",
+"name": "ReadByteFar"
+},
+{
+"bank": 0,
+"addr": "1686",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "16A2",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "16C4",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "16D4",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "16DC",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1711",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "172D",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20A0",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20A6",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20AC",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20B2",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20B8",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20BE",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20C4",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20CA",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20D0",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20D6",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20DC",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20E2",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "20E8",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20EE",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "20FF",
+"kind": "call_target",
+"evidence": "call 00:2178 -> 00:20FF",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "2105",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "210B",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "2116",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "2129",
+"kind": "function",
+"evidence": "structural path from the proven seeds",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 0,
+"addr": "2141",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 15",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "215E",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "216F",
+"kind": "function",
+"evidence": "curated ROM0 function start (linear layout, decodes to the next start); raw call/jp patterns in other banks: 3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "414C",
+"kind": "call_target",
+"evidence": "call 04:43E9 -> 04:414C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4153",
+"kind": "call_target",
+"evidence": "call 04:42F0 -> 04:4153",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4167",
+"kind": "call_target",
+"evidence": "call 04:4302 -> 04:4167",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4177",
+"kind": "call_target",
+"evidence": "call 04:4AC7 -> 04:4177",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4180",
+"kind": "call_target",
+"evidence": "call 04:4ACC -> 04:4180",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4189",
+"kind": "call_target",
+"evidence": "call 04:4AD5 -> 04:4189",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4192",
+"kind": "call_target",
+"evidence": "call 04:4ADA -> 04:4192",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "419B",
+"kind": "call_target",
+"evidence": "call 04:4119 -> 04:419B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "41AC",
+"kind": "call_target",
+"evidence": "call 04:411F -> 04:41AC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "430A",
+"kind": "call_target",
+"evidence": "call 04:429C -> 04:430A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "434C",
+"kind": "call_target",
+"evidence": "call 04:42A2 -> 04:434C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4374",
+"kind": "call_target",
+"evidence": "call target",
+"confidence": "CONFIRMED"
+},
+{
+"bank": 4,
+"addr": "4386",
+"kind": "call_target",
+"evidence": "call 04:457D -> 04:4386",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4433",
+"kind": "call_target",
+"evidence": "call 04:4429 -> 04:4433",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "44B7",
+"kind": "call_target",
+"evidence": "call 04:44B1 -> 04:44B7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "453A",
+"kind": "call_target",
+"evidence": "call 04:4084 -> 04:453A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "455A",
+"kind": "call_target",
+"evidence": "call 04:40A2 -> 04:455A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "456C",
+"kind": "call_target",
+"evidence": "call 04:4105 -> 04:456C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4889",
+"kind": "call_target",
+"evidence": "call 04:4AA8 -> 04:4889",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4BC9",
+"kind": "call_target",
+"evidence": "call 04:40B1 -> 04:4BC9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4BDB",
+"kind": "call_target",
+"evidence": "call 04:40FA -> 04:4BDB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4C14",
+"kind": "call_target",
+"evidence": "call 04:411C -> 04:4C14",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4DD3",
+"kind": "call_target",
+"evidence": "call 04:4D2A -> 04:4DD3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4DDF",
+"kind": "call_target",
+"evidence": "callcc 04:4CB3 -> 04:4DDF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4E04",
+"kind": "call_target",
+"evidence": "callcc 04:4D07 -> 04:4E04",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4E34",
+"kind": "call_target",
+"evidence": "call 04:4D1E -> 04:4E34",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4E4B",
+"kind": "call_target",
+"evidence": "call 04:4C67 -> 04:4E4B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4ECA",
+"kind": "call_target",
+"evidence": "call 04:4DBD -> 04:4ECA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4F4F",
+"kind": "call_target",
+"evidence": "call 04:4DC7 -> 04:4F4F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4FD4",
+"kind": "call_target",
+"evidence": "jp 04:4C11 -> 04:4FD4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "4FEA",
+"kind": "call_target",
+"evidence": "call 04:4EF7 -> 04:4FEA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "5007",
+"kind": "call_target",
+"evidence": "call 04:4EFB -> 04:5007",
+"confidence": "PROBABLE"
+},
+{
+"bank": 4,
+"addr": "502B",
+"kind": "call_target",
+"evidence": "call 04:4D76 -> 04:502B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 14,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 1C:4007 -> 0E:4000",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 14,
+"addr": "405F",
+"kind": "call_target",
+"evidence": "call 0E:401E -> 0E:405F",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 14,
+"addr": "4083",
+"kind": "call_target",
+"evidence": "call 0E:4065 -> 0E:4083",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 15,
+"addr": "4247",
+"kind": "call_target",
+"evidence": "call 00:0262 -> 0F:4247",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 6C:59A8 -> 1A:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "416D",
+"kind": "table_target",
+"evidence": "table 1A:4160 -> 1A:416D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "4177",
+"kind": "table_target",
+"evidence": "table 1A:4160 -> 1A:4177",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "41CA",
+"kind": "table_target",
+"evidence": "table 1A:4160 -> 1A:41CA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "41E2",
+"kind": "table_target",
+"evidence": "table 1A:4160 -> 1A:41E2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "41E5",
+"kind": "call_target",
+"evidence": "callcc 1A:4171 -> 1A:41E5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "42DE",
+"kind": "call_target",
+"evidence": "call 1A:4129 -> 1A:42DE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "4317",
+"kind": "call_target",
+"evidence": "call 1A:412C -> 1A:4317",
+"confidence": "PROBABLE"
+},
+{
+"bank": 26,
+"addr": "4391",
+"kind": "call_target",
+"evidence": "call 1A:4126 -> 1A:4391",
+"confidence": "PROBABLE"
+},
+{
+"bank": 28,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 00:0328 -> 1C:4000",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 28,
+"addr": "4019",
+"kind": "table_target",
+"evidence": "table 1C:400D -> 1C:4019",
+"confidence": "PROBABLE"
+},
+{
+"bank": 28,
+"addr": "401D",
+"kind": "table_target",
+"evidence": "table 1C:400D -> 1C:401D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 28,
+"addr": "4028",
+"kind": "table_target",
+"evidence": "table 1C:400D -> 1C:4028",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7BC0 -> 1D:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "41AA",
+"kind": "table_target",
+"evidence": "table 1D:419D -> 1D:41AA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "41BD",
+"kind": "table_target",
+"evidence": "table 1D:419D -> 1D:41BD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "41EC",
+"kind": "table_target",
+"evidence": "table 1D:419D -> 1D:41EC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "4217",
+"kind": "table_target",
+"evidence": "table 1D:419D -> 1D:4217",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "421A",
+"kind": "call_target",
+"evidence": "callcc 1D:4169 -> 1D:421A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "4229",
+"kind": "call_target",
+"evidence": "callcc 1D:41B4 -> 1D:4229",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "42A0",
+"kind": "call_target",
+"evidence": "callcc 1D:4290 -> 1D:42A0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "42AF",
+"kind": "call_target",
+"evidence": "call 1D:4147 -> 1D:42AF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "42FE",
+"kind": "call_target",
+"evidence": "callcc 1D:42B5 -> 1D:42FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "4325",
+"kind": "call_target",
+"evidence": "call 1D:414F -> 1D:4325",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "4374",
+"kind": "call_target",
+"evidence": "callcc 1D:432B -> 1D:4374",
+"confidence": "PROBABLE"
+},
+{
+"bank": 29,
+"addr": "439B",
+"kind": "call_target",
+"evidence": "call 1D:41B7 -> 1D:439B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7B85 -> 1F:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "41F3",
+"kind": "table_target",
+"evidence": "table 1F:41E6 -> 1F:41F3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "4217",
+"kind": "table_target",
+"evidence": "table 1F:41E6 -> 1F:4217",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "425A",
+"kind": "table_target",
+"evidence": "table 1F:41E6 -> 1F:425A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "428B",
+"kind": "table_target",
+"evidence": "table 1F:41E6 -> 1F:428B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "428E",
+"kind": "table_target",
+"evidence": "table 1F:41E6 -> 1F:428E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "4291",
+"kind": "call_target",
+"evidence": "callcc 1F:4200 -> 1F:4291",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "4351",
+"kind": "call_target",
+"evidence": "call 1F:42BD -> 1F:4351",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "43F7",
+"kind": "call_target",
+"evidence": "call 1F:4154 -> 1F:43F7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "44D5",
+"kind": "call_target",
+"evidence": "call 1F:4203 -> 1F:44D5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "4561",
+"kind": "call_target",
+"evidence": "call 1F:41F9 -> 1F:4561",
+"confidence": "PROBABLE"
+},
+{
+"bank": 31,
+"addr": "45CA",
+"kind": "call_target",
+"evidence": "call 1F:433C -> 1F:45CA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7D0C -> 22:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4173",
+"kind": "call_target",
+"evidence": "call 22:4145 -> 22:4173",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "422D",
+"kind": "call_target",
+"evidence": "call 22:4028 -> 22:422D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "43C5",
+"kind": "call_target",
+"evidence": "call 22:4317 -> 22:43C5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "444D",
+"kind": "call_target",
+"evidence": "call 22:42F9 -> 22:444D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "44FA",
+"kind": "call_target",
+"evidence": "call 22:434B -> 22:44FA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4582",
+"kind": "call_target",
+"evidence": "call 22:4B2F -> 22:4582",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "47DE",
+"kind": "call_target",
+"evidence": "call 22:47B5 -> 22:47DE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "489F",
+"kind": "call_target",
+"evidence": "call 22:4464 -> 22:489F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4B17",
+"kind": "call_target",
+"evidence": "call 22:40A7 -> 22:4B17",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4C62",
+"kind": "call_target",
+"evidence": "call 22:40ED -> 22:4C62",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4DAD",
+"kind": "call_target",
+"evidence": "call 22:40AE -> 22:4DAD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4EF0",
+"kind": "call_target",
+"evidence": "call 22:5023 -> 22:4EF0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4F24",
+"kind": "call_target",
+"evidence": "call 22:5028 -> 22:4F24",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4F46",
+"kind": "call_target",
+"evidence": "call 22:4FB2 -> 22:4F46",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4F53",
+"kind": "call_target",
+"evidence": "call 22:4FC5 -> 22:4F53",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4F7B",
+"kind": "call_target",
+"evidence": "call 22:502D -> 22:4F7B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "4FA9",
+"kind": "far_target",
+"evidence": "far 48:4A03 -> 22:4FA9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "501D",
+"kind": "far_target",
+"evidence": "far 2A:54CA -> 22:501D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "5035",
+"kind": "call_target",
+"evidence": "call 22:5100 -> 22:5035",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "5077",
+"kind": "call_target",
+"evidence": "call 22:5103 -> 22:5077",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "5093",
+"kind": "call_target",
+"evidence": "call 22:4FE6 -> 22:5093",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "50A0",
+"kind": "call_target",
+"evidence": "call 22:4FEC -> 22:50A0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 34,
+"addr": "50FC",
+"kind": "far_target",
+"evidence": "far 24:4D56 -> 22:50FC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7D15 -> 23:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4161",
+"kind": "call_target",
+"evidence": "call 23:4137 -> 23:4161",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "41DC",
+"kind": "call_target",
+"evidence": "call 23:4028 -> 23:41DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "433C",
+"kind": "call_target",
+"evidence": "call 23:42C2 -> 23:433C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "43C4",
+"kind": "call_target",
+"evidence": "call 23:42A4 -> 23:43C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4471",
+"kind": "call_target",
+"evidence": "call 23:4A1E -> 23:4471",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "46CD",
+"kind": "call_target",
+"evidence": "call 23:46A4 -> 23:46CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "478E",
+"kind": "call_target",
+"evidence": "call 23:43DB -> 23:478E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4A06",
+"kind": "call_target",
+"evidence": "call 23:40A4 -> 23:4A06",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4B51",
+"kind": "call_target",
+"evidence": "call 23:40AB -> 23:4B51",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "4C94",
+"kind": "far_target",
+"evidence": "far 22:4BED -> 23:4C94",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "50CC",
+"kind": "call_target",
+"evidence": "callcc 23:4F0E -> 23:50CC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "5137",
+"kind": "call_target",
+"evidence": "callcc 23:4D85 -> 23:5137",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "51C7",
+"kind": "far_target",
+"evidence": "far 22:4D38 -> 23:51C7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "54B1",
+"kind": "call_target",
+"evidence": "callcc 23:537B -> 23:54B1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "55C3",
+"kind": "call_target",
+"evidence": "call 23:4CB4 -> 23:55C3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "56A1",
+"kind": "call_target",
+"evidence": "call 23:4F21 -> 23:56A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "56F0",
+"kind": "call_target",
+"evidence": "call 23:56C4 -> 23:56F0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "5829",
+"kind": "call_target",
+"evidence": "call 23:56BE -> 23:5829",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "5889",
+"kind": "call_target",
+"evidence": "call 23:56E7 -> 23:5889",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "58C4",
+"kind": "call_target",
+"evidence": "call 23:4E57 -> 23:58C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "5FA2",
+"kind": "call_target",
+"evidence": "call 23:4E5F -> 23:5FA2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6699",
+"kind": "far_target",
+"evidence": "far 2E:42A0 -> 23:6699",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6D8C",
+"kind": "call_target",
+"evidence": "call 23:4E62 -> 23:6D8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6DD0",
+"kind": "call_target",
+"evidence": "call 23:507A -> 23:6DD0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6E14",
+"kind": "call_target",
+"evidence": "call 23:5578 -> 23:6E14",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6E9C",
+"kind": "call_target",
+"evidence": "call 23:4CEA -> 23:6E9C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6EE0",
+"kind": "call_target",
+"evidence": "call 23:6E2A -> 23:6EE0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 35,
+"addr": "6F00",
+"kind": "call_target",
+"evidence": "call 23:4D0A -> 23:6F00",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4018",
+"kind": "far_target",
+"evidence": "far 4E:4DB1 -> 24:4018",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "42F0",
+"kind": "call_target",
+"evidence": "call 24:406A -> 24:42F0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4453",
+"kind": "call_target",
+"evidence": "call 24:427E -> 24:4453",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "445C",
+"kind": "call_target",
+"evidence": "call 24:4454 -> 24:445C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "45B7",
+"kind": "call_target",
+"evidence": "call 24:4457 -> 24:45B7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4794",
+"kind": "call_target",
+"evidence": "call 24:41FC -> 24:4794",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "47FB",
+"kind": "call_target",
+"evidence": "call 24:41FF -> 24:47FB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "483E",
+"kind": "call_target",
+"evidence": "call 24:427B -> 24:483E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "48C7",
+"kind": "call_target",
+"evidence": "call 24:43DA -> 24:48C7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "494C",
+"kind": "call_target",
+"evidence": "call 24:4874 -> 24:494C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "49EC",
+"kind": "call_target",
+"evidence": "call 24:497F -> 24:49EC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4A00",
+"kind": "call_target",
+"evidence": "call 24:48B0 -> 24:4A00",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4A54",
+"kind": "call_target",
+"evidence": "call 24:4A11 -> 24:4A54",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4A79",
+"kind": "call_target",
+"evidence": "call 24:4226 -> 24:4A79",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4BCD",
+"kind": "call_target",
+"evidence": "call 24:4203 -> 24:4BCD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4E46",
+"kind": "call_target",
+"evidence": "call 24:4BCD -> 24:4E46",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4E71",
+"kind": "call_target",
+"evidence": "call 24:4D8A -> 24:4E71",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4E85",
+"kind": "call_target",
+"evidence": "call 24:4EF5 -> 24:4E85",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4EF1",
+"kind": "call_target",
+"evidence": "call 24:4E07 -> 24:4EF1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "4F14",
+"kind": "call_target",
+"evidence": "call 24:4D53 -> 24:4F14",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "5164",
+"kind": "call_target",
+"evidence": "call 24:4D97 -> 24:5164",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "51CB",
+"kind": "call_target",
+"evidence": "call 24:4D62 -> 24:51CB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "53FC",
+"kind": "call_target",
+"evidence": "callcc 24:4D45 -> 24:53FC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 36,
+"addr": "53FD",
+"kind": "call_target",
+"evidence": "call 24:4BD0 -> 24:53FD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7CC4 -> 25:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4804",
+"kind": "call_target",
+"evidence": "call 25:41E2 -> 25:4804",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4885",
+"kind": "call_target",
+"evidence": "callcc 25:4111 -> 25:4885",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4907",
+"kind": "call_target",
+"evidence": "callcc 25:4118 -> 25:4907",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4987",
+"kind": "call_target",
+"evidence": "call 25:403A -> 25:4987",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "49EB",
+"kind": "call_target",
+"evidence": "call 25:4907 -> 25:49EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4A2D",
+"kind": "call_target",
+"evidence": "call 25:42FF -> 25:4A2D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4A68",
+"kind": "call_target",
+"evidence": "call 25:4341 -> 25:4A68",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4A90",
+"kind": "call_target",
+"evidence": "call 25:4054 -> 25:4A90",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4B0D",
+"kind": "call_target",
+"evidence": "callcc 25:4030 -> 25:4B0D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4D99",
+"kind": "call_target",
+"evidence": "call 25:4D27 -> 25:4D99",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4DFD",
+"kind": "call_target",
+"evidence": "call 25:4A52 -> 25:4DFD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4E43",
+"kind": "call_target",
+"evidence": "call 25:4A55 -> 25:4E43",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "4F40",
+"kind": "call_target",
+"evidence": "call 25:4A63 -> 25:4F40",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "50C2",
+"kind": "call_target",
+"evidence": "call 25:4CEE -> 25:50C2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "5240",
+"kind": "call_target",
+"evidence": "call 25:4E78 -> 25:5240",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "52EA",
+"kind": "call_target",
+"evidence": "call 25:52E5 -> 25:52EA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "52FE",
+"kind": "call_target",
+"evidence": "call 25:4358 -> 25:52FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "534C",
+"kind": "call_target",
+"evidence": "call 25:4156 -> 25:534C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "538A",
+"kind": "far_target",
+"evidence": "far 22:48B3 -> 25:538A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "53AA",
+"kind": "call_target",
+"evidence": "call 25:4153 -> 25:53AA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "54A7",
+"kind": "call_target",
+"evidence": "call 25:4591 -> 25:54A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "5581",
+"kind": "call_target",
+"evidence": "call 25:4033 -> 25:5581",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "5641",
+"kind": "call_target",
+"evidence": "call 25:4036 -> 25:5641",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "5848",
+"kind": "call_target",
+"evidence": "call 25:5696 -> 25:5848",
+"confidence": "PROBABLE"
+},
+{
+"bank": 37,
+"addr": "5889",
+"kind": "call_target",
+"evidence": "call 25:40C5 -> 25:5889",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 27:40D7 -> 26:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "4C94",
+"kind": "call_target",
+"evidence": "call 26:475F -> 26:4C94",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "4DAB",
+"kind": "call_target",
+"evidence": "call 26:485F -> 26:4DAB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "4EC3",
+"kind": "call_target",
+"evidence": "call 26:4433 -> 26:4EC3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "4F7B",
+"kind": "call_target",
+"evidence": "call 26:45BE -> 26:4F7B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5067",
+"kind": "far_target",
+"evidence": "far 23:4D22 -> 26:5067",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "50AC",
+"kind": "call_target",
+"evidence": "call 26:46B4 -> 26:50AC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "50C6",
+"kind": "call_target",
+"evidence": "call 26:42EE -> 26:50C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5106",
+"kind": "call_target",
+"evidence": "call 26:4737 -> 26:5106",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5168",
+"kind": "call_target",
+"evidence": "call 26:402F -> 26:5168",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5343",
+"kind": "call_target",
+"evidence": "call 26:58E0 -> 26:5343",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "537C",
+"kind": "call_target",
+"evidence": "call 26:4798 -> 26:537C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5447",
+"kind": "call_target",
+"evidence": "call 26:53DD -> 26:5447",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5580",
+"kind": "call_target",
+"evidence": "call 26:53A2 -> 26:5580",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "55E0",
+"kind": "call_target",
+"evidence": "call 26:5401 -> 26:55E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5640",
+"kind": "call_target",
+"evidence": "call 26:543A -> 26:5640",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5697",
+"kind": "call_target",
+"evidence": "call 26:403E -> 26:5697",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "56DB",
+"kind": "call_target",
+"evidence": "call 26:4568 -> 26:56DB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "57A7",
+"kind": "call_target",
+"evidence": "call 26:4A9E -> 26:57A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "57EB",
+"kind": "call_target",
+"evidence": "call 26:4A99 -> 26:57EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "582F",
+"kind": "call_target",
+"evidence": "call 26:4A1E -> 26:582F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "5873",
+"kind": "call_target",
+"evidence": "call 26:44F5 -> 26:5873",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "58B7",
+"kind": "call_target",
+"evidence": "call 26:5801 -> 26:58B7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "58DC",
+"kind": "far_target",
+"evidence": "far 54:489E -> 26:58DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 38,
+"addr": "59B6",
+"kind": "call_target",
+"evidence": "call 26:58D3 -> 26:59B6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7C6A -> 27:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "41BC",
+"kind": "call_target",
+"evidence": "call 27:47EE -> 27:41BC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "41E3",
+"kind": "far_target",
+"evidence": "far 22:4B7F -> 27:41E3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "4747",
+"kind": "call_target",
+"evidence": "call 27:4334 -> 27:4747",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "4768",
+"kind": "far_target",
+"evidence": "far 22:4BC1 -> 27:4768",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "49B0",
+"kind": "far_target",
+"evidence": "far 22:4BCB -> 27:49B0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 39,
+"addr": "4B95",
+"kind": "call_target",
+"evidence": "call 27:4787 -> 27:4B95",
+"confidence": "PROBABLE"
+},
+{
+"bank": 40,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 2D:5981 -> 28:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 40,
+"addr": "404E",
+"kind": "call_target",
+"evidence": "call 28:4006 -> 28:404E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 40,
+"addr": "41CB",
+"kind": "far_target",
+"evidence": "far 28:40DE -> 28:41CB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 40,
+"addr": "428B",
+"kind": "call_target",
+"evidence": "call 28:4203 -> 28:428B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 40,
+"addr": "429F",
+"kind": "call_target",
+"evidence": "call 28:4286 -> 28:429F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 27:4156 -> 29:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "407A",
+"kind": "call_target",
+"evidence": "call 29:4020 -> 29:407A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "41AD",
+"kind": "call_target",
+"evidence": "call 29:4199 -> 29:41AD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4286",
+"kind": "call_target",
+"evidence": "call 29:41A9 -> 29:4286",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4374",
+"kind": "call_target",
+"evidence": "call 29:42AC -> 29:4374",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "44F6",
+"kind": "far_target",
+"evidence": "far 22:4C4C -> 29:44F6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4608",
+"kind": "call_target",
+"evidence": "call 29:4516 -> 29:4608",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4745",
+"kind": "call_target",
+"evidence": "call 29:46F0 -> 29:4745",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "48C3",
+"kind": "call_target",
+"evidence": "call 29:47D7 -> 29:48C3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "49E5",
+"kind": "call_target",
+"evidence": "call 29:47DC -> 29:49E5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4A45",
+"kind": "call_target",
+"evidence": "call 29:48BB -> 29:4A45",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4A65",
+"kind": "call_target",
+"evidence": "call 29:46F9 -> 29:4A65",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4B7F",
+"kind": "call_target",
+"evidence": "call 29:4AD1 -> 29:4B7F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4CA1",
+"kind": "call_target",
+"evidence": "call 29:4AD6 -> 29:4CA1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4D01",
+"kind": "call_target",
+"evidence": "call 29:4B77 -> 29:4D01",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4D21",
+"kind": "call_target",
+"evidence": "call 29:46FE -> 29:4D21",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4E55",
+"kind": "call_target",
+"evidence": "call 29:4DA5 -> 29:4E55",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4F77",
+"kind": "call_target",
+"evidence": "call 29:4DAA -> 29:4F77",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4FD7",
+"kind": "call_target",
+"evidence": "call 29:4E4D -> 29:4FD7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "4FF7",
+"kind": "call_target",
+"evidence": "call 29:47AA -> 29:4FF7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "5017",
+"kind": "far_target",
+"evidence": "far 29:42E8 -> 29:5017",
+"confidence": "PROBABLE"
+},
+{
+"bank": 41,
+"addr": "503F",
+"kind": "call_target",
+"evidence": "call 29:502B -> 29:503F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 2B:659F -> 2A:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "40BB",
+"kind": "call_target",
+"evidence": "callcc 2A:40B3 -> 2A:40BB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "40E0",
+"kind": "call_target",
+"evidence": "callcc 2A:40AC -> 2A:40E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4105",
+"kind": "call_target",
+"evidence": "call 2A:4024 -> 2A:4105",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "422C",
+"kind": "call_target",
+"evidence": "call 2A:4046 -> 2A:422C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4280",
+"kind": "call_target",
+"evidence": "call 2A:404D -> 2A:4280",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4312",
+"kind": "call_target",
+"evidence": "call 2A:403E -> 2A:4312",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4441",
+"kind": "call_target",
+"evidence": "call 2A:5760 -> 2A:4441",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4483",
+"kind": "call_target",
+"evidence": "call 2A:41C4 -> 2A:4483",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4547",
+"kind": "call_target",
+"evidence": "call 2A:44C6 -> 2A:4547",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "455B",
+"kind": "call_target",
+"evidence": "call 2A:4542 -> 2A:455B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4573",
+"kind": "call_target",
+"evidence": "call 2A:4049 -> 2A:4573",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "480C",
+"kind": "call_target",
+"evidence": "call 2A:4591 -> 2A:480C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "4847",
+"kind": "call_target",
+"evidence": "callcc 2A:4808 -> 2A:4847",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "49C5",
+"kind": "call_target",
+"evidence": "call 2A:4192 -> 2A:49C5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5495",
+"kind": "far_target",
+"evidence": "far 7C:7CED -> 2A:5495",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5744",
+"kind": "call_target",
+"evidence": "callcc 2A:5735 -> 2A:5744",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "576B",
+"kind": "call_target",
+"evidence": "callcc 2A:573C -> 2A:576B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "577F",
+"kind": "call_target",
+"evidence": "call 2A:54E2 -> 2A:577F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "57BD",
+"kind": "call_target",
+"evidence": "call 2A:54D1 -> 2A:57BD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "590B",
+"kind": "call_target",
+"evidence": "call 2A:54FA -> 2A:590B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "594B",
+"kind": "call_target",
+"evidence": "call 2A:602B -> 2A:594B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5952",
+"kind": "call_target",
+"evidence": "call 2A:594D -> 2A:5952",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5A0F",
+"kind": "call_target",
+"evidence": "call 2A:598A -> 2A:5A0F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5A23",
+"kind": "call_target",
+"evidence": "call 2A:5A0A -> 2A:5A23",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5A3B",
+"kind": "call_target",
+"evidence": "call 2A:62AB -> 2A:5A3B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5AFB",
+"kind": "call_target",
+"evidence": "call 2A:5A73 -> 2A:5AFB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5B0F",
+"kind": "call_target",
+"evidence": "call 2A:5AF6 -> 2A:5B0F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5B27",
+"kind": "call_target",
+"evidence": "call 2A:62BD -> 2A:5B27",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5BE7",
+"kind": "call_target",
+"evidence": "call 2A:5B5F -> 2A:5BE7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5BFB",
+"kind": "call_target",
+"evidence": "call 2A:5BE2 -> 2A:5BFB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5C13",
+"kind": "call_target",
+"evidence": "call 2A:602E -> 2A:5C13",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5C3B",
+"kind": "call_target",
+"evidence": "call 2A:5C27 -> 2A:5C3B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5C5B",
+"kind": "call_target",
+"evidence": "call 2A:5FD4 -> 2A:5C5B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5C8F",
+"kind": "call_target",
+"evidence": "call 2A:5C5C -> 2A:5C8F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5CD2",
+"kind": "call_target",
+"evidence": "call 2A:6216 -> 2A:5CD2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5E23",
+"kind": "call_target",
+"evidence": "call 2A:621C -> 2A:5E23",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5EF4",
+"kind": "call_target",
+"evidence": "call 2A:61EA -> 2A:5EF4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "5FD4",
+"kind": "call_target",
+"evidence": "call 2A:61F4 -> 2A:5FD4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "6087",
+"kind": "call_target",
+"evidence": "call 2A:6208 -> 2A:6087",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "6148",
+"kind": "call_target",
+"evidence": "call 2A:5537 -> 2A:6148",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "6257",
+"kind": "call_target",
+"evidence": "call 2A:58BC -> 2A:6257",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "62C5",
+"kind": "call_target",
+"evidence": "call 2A:5637 -> 2A:62C5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "6F95",
+"kind": "far_target",
+"evidence": "far 2F:7F2A -> 2A:6F95",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "704B",
+"kind": "call_target",
+"evidence": "call 2A:702F -> 2A:704B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "70AB",
+"kind": "call_target",
+"evidence": "call 2A:6FB5 -> 2A:70AB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "7187",
+"kind": "call_target",
+"evidence": "call 2A:7121 -> 2A:7187",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "722D",
+"kind": "call_target",
+"evidence": "call 2A:7154 -> 2A:722D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "7293",
+"kind": "far_target",
+"evidence": "far 2A:7219 -> 2A:7293",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "72CF",
+"kind": "call_target",
+"evidence": "call 2A:71D7 -> 2A:72CF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "738F",
+"kind": "call_target",
+"evidence": "call 2A:7307 -> 2A:738F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 42,
+"addr": "73A3",
+"kind": "call_target",
+"evidence": "call 2A:738A -> 2A:73A3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7CA7 -> 2B:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "420C",
+"kind": "call_target",
+"evidence": "call 2B:4027 -> 2B:420C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "43A5",
+"kind": "call_target",
+"evidence": "call 2B:403C -> 2B:43A5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "4421",
+"kind": "call_target",
+"evidence": "call 2B:431B -> 2B:4421",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "44E1",
+"kind": "call_target",
+"evidence": "call 2B:4459 -> 2B:44E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "44F5",
+"kind": "call_target",
+"evidence": "call 2B:44DC -> 2B:44F5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "450D",
+"kind": "call_target",
+"evidence": "call 2B:4342 -> 2B:450D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "45CD",
+"kind": "call_target",
+"evidence": "call 2B:4545 -> 2B:45CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "45E1",
+"kind": "call_target",
+"evidence": "call 2B:45C8 -> 2B:45E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "45F9",
+"kind": "call_target",
+"evidence": "call 2B:4328 -> 2B:45F9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "46B9",
+"kind": "call_target",
+"evidence": "call 2B:4631 -> 2B:46B9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "46CD",
+"kind": "call_target",
+"evidence": "call 2B:46B4 -> 2B:46CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "46E5",
+"kind": "call_target",
+"evidence": "call 2B:4352 -> 2B:46E5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "4723",
+"kind": "call_target",
+"evidence": "call 2B:46F9 -> 2B:4723",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "4743",
+"kind": "call_target",
+"evidence": "call 2B:4098 -> 2B:4743",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "478B",
+"kind": "call_target",
+"evidence": "call 2B:41E0 -> 2B:478B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6482",
+"kind": "far_target",
+"evidence": "far 25:475C -> 2B:6482",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "65AB",
+"kind": "call_target",
+"evidence": "call 2B:64A4 -> 2B:65AB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "691A",
+"kind": "call_target",
+"evidence": "call 2B:66B7 -> 2B:691A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "69C5",
+"kind": "call_target",
+"evidence": "call 2B:6735 -> 2B:69C5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6A89",
+"kind": "call_target",
+"evidence": "call 2B:6A08 -> 2B:6A89",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6A9D",
+"kind": "call_target",
+"evidence": "call 2B:6A84 -> 2B:6A9D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6AB5",
+"kind": "call_target",
+"evidence": "call 2B:67C0 -> 2B:6AB5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6B7A",
+"kind": "call_target",
+"evidence": "call 2B:6AF8 -> 2B:6B7A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6B8E",
+"kind": "call_target",
+"evidence": "call 2B:6B75 -> 2B:6B8E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6BA6",
+"kind": "call_target",
+"evidence": "call 2B:676B -> 2B:6BA6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6C6B",
+"kind": "call_target",
+"evidence": "call 2B:6BE9 -> 2B:6C6B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6C7F",
+"kind": "call_target",
+"evidence": "call 2B:6C66 -> 2B:6C7F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6C97",
+"kind": "call_target",
+"evidence": "call 2B:67EB -> 2B:6C97",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "6CD5",
+"kind": "call_target",
+"evidence": "call 2B:6CAB -> 2B:6CD5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7B02",
+"kind": "far_target",
+"evidence": "far 2B:64E4 -> 2B:7B02",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7B9B",
+"kind": "call_target",
+"evidence": "call 2B:7B25 -> 2B:7B9B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7D92",
+"kind": "far_target",
+"evidence": "far 2B:7D29 -> 2B:7D92",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7DD0",
+"kind": "call_target",
+"evidence": "call 2B:7DA6 -> 2B:7DD0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7DF2",
+"kind": "call_target",
+"evidence": "call 2B:7C9E -> 2B:7DF2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7EB4",
+"kind": "call_target",
+"evidence": "call 2B:7E30 -> 2B:7EB4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7EC8",
+"kind": "call_target",
+"evidence": "call 2B:7EAF -> 2B:7EC8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 43,
+"addr": "7EE0",
+"kind": "call_target",
+"evidence": "call 2B:7C94 -> 2B:7EE0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 25:5536 -> 2C:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "40D4",
+"kind": "call_target",
+"evidence": "callcc 2C:40C5 -> 2C:40D4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "40FB",
+"kind": "call_target",
+"evidence": "callcc 2C:40CC -> 2C:40FB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "410F",
+"kind": "call_target",
+"evidence": "call 2C:4029 -> 2C:410F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "414C",
+"kind": "call_target",
+"evidence": "call 2C:4023 -> 2C:414C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "42EB",
+"kind": "call_target",
+"evidence": "call 2C:4053 -> 2C:42EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "431D",
+"kind": "call_target",
+"evidence": "call 2C:4822 -> 2C:431D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "43D8",
+"kind": "call_target",
+"evidence": "call 2C:4355 -> 2C:43D8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "43EC",
+"kind": "call_target",
+"evidence": "call 2C:43D3 -> 2C:43EC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4404",
+"kind": "call_target",
+"evidence": "call 2C:4825 -> 2C:4404",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4421",
+"kind": "call_target",
+"evidence": "call 2C:4418 -> 2C:4421",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4441",
+"kind": "call_target",
+"evidence": "call 2C:47CB -> 2C:4441",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4475",
+"kind": "call_target",
+"evidence": "call 2C:4442 -> 2C:4475",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "44B8",
+"kind": "call_target",
+"evidence": "call 2C:49D3 -> 2C:44B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4612",
+"kind": "call_target",
+"evidence": "call 2C:49E3 -> 2C:4612",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "46EB",
+"kind": "call_target",
+"evidence": "call 2C:49A9 -> 2C:46EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "47CB",
+"kind": "call_target",
+"evidence": "call 2C:49B3 -> 2C:47CB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "487E",
+"kind": "call_target",
+"evidence": "call 2C:49C6 -> 2C:487E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "493F",
+"kind": "call_target",
+"evidence": "call 2C:405C -> 2C:493F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4972",
+"kind": "call_target",
+"evidence": "call 2C:4035 -> 2C:4972",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "4A05",
+"kind": "call_target",
+"evidence": "call 2C:49D8 -> 2C:4A05",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "56FE",
+"kind": "far_target",
+"evidence": "far 2D:67DA -> 2C:56FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "57A7",
+"kind": "call_target",
+"evidence": "callcc 2C:579F -> 2C:57A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "57CC",
+"kind": "call_target",
+"evidence": "callcc 2C:5798 -> 2C:57CC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "57F1",
+"kind": "call_target",
+"evidence": "call 2C:5739 -> 2C:57F1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "58AC",
+"kind": "call_target",
+"evidence": "call 2C:571E -> 2C:58AC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "5CD2",
+"kind": "call_target",
+"evidence": "call 2C:60A3 -> 2C:5CD2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "5E51",
+"kind": "call_target",
+"evidence": "call 2C:6072 -> 2C:5E51",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "6032",
+"kind": "call_target",
+"evidence": "call 2C:57C5 -> 2C:6032",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "614D",
+"kind": "far_target",
+"evidence": "far 2F:4AF8 -> 2C:614D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "61F9",
+"kind": "call_target",
+"evidence": "call 2C:61F4 -> 2C:61F9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "620D",
+"kind": "call_target",
+"evidence": "call 2C:57C8 -> 2C:620D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "64A5",
+"kind": "call_target",
+"evidence": "call 2C:622A -> 2C:64A5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "64E0",
+"kind": "call_target",
+"evidence": "callcc 2C:64A1 -> 2C:64E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "665F",
+"kind": "far_target",
+"evidence": "far 2F:418F -> 2C:665F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "669D",
+"kind": "call_target",
+"evidence": "call 2C:6673 -> 2C:669D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 44,
+"addr": "66BD",
+"kind": "call_target",
+"evidence": "call 2C:596B -> 2C:66BD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7C9C -> 2D:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "403C",
+"kind": "far_target",
+"evidence": "far 2D:589C -> 2D:403C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "408F",
+"kind": "far_target",
+"evidence": "far 2B:65DA -> 2D:408F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "40DC",
+"kind": "far_target",
+"evidence": "far 2B:4161 -> 2D:40DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4133",
+"kind": "far_target",
+"evidence": "far 25:42D6 -> 2D:4133",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "46A8",
+"kind": "call_target",
+"evidence": "call 2D:4000 -> 2D:46A8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "46E9",
+"kind": "far_target",
+"evidence": "far 54:4DFB -> 2D:46E9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4722",
+"kind": "far_target",
+"evidence": "far 25:5540 -> 2D:4722",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "48B3",
+"kind": "call_target",
+"evidence": "callcc 2D:4898 -> 2D:48B3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "48DA",
+"kind": "call_target",
+"evidence": "callcc 2D:489F -> 2D:48DA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "48EE",
+"kind": "call_target",
+"evidence": "call 2D:4755 -> 2D:48EE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4942",
+"kind": "call_target",
+"evidence": "callcc 2D:48A6 -> 2D:4942",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4968",
+"kind": "call_target",
+"evidence": "callcc 2D:48AD -> 2D:4968",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "497C",
+"kind": "call_target",
+"evidence": "call 2D:474B -> 2D:497C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "499E",
+"kind": "call_target",
+"evidence": "call 2D:4742 -> 2D:499E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4CA5",
+"kind": "call_target",
+"evidence": "call 2D:476D -> 2D:4CA5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4E06",
+"kind": "far_target",
+"evidence": "far 22:423A -> 2D:4E06",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4E2D",
+"kind": "far_target",
+"evidence": "far 2D:4003 -> 2D:4E2D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4E8C",
+"kind": "call_target",
+"evidence": "call 2D:553D -> 2D:4E8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4EC0",
+"kind": "call_target",
+"evidence": "call 2D:5212 -> 2D:4EC0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4F03",
+"kind": "call_target",
+"evidence": "call 2D:4745 -> 2D:4F03",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4F2F",
+"kind": "call_target",
+"evidence": "call 2D:5226 -> 2D:4F2F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4FEA",
+"kind": "call_target",
+"evidence": "call 2D:4F67 -> 2D:4FEA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "4FFE",
+"kind": "call_target",
+"evidence": "call 2D:4FE5 -> 2D:4FFE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5016",
+"kind": "far_target",
+"evidence": "far 29:461A -> 2D:5016",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5054",
+"kind": "call_target",
+"evidence": "call 2D:502A -> 2D:5054",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "508C",
+"kind": "call_target",
+"evidence": "call 2D:51F0 -> 2D:508C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "50B8",
+"kind": "call_target",
+"evidence": "call 2D:572E -> 2D:50B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "51EB",
+"kind": "call_target",
+"evidence": "call 2D:5590 -> 2D:51EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5210",
+"kind": "call_target",
+"evidence": "call 2D:558B -> 2D:5210",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "522B",
+"kind": "call_target",
+"evidence": "call 2D:5761 -> 2D:522B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "535C",
+"kind": "call_target",
+"evidence": "call 2D:5744 -> 2D:535C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "542D",
+"kind": "call_target",
+"evidence": "call 2D:5428 -> 2D:542D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "546D",
+"kind": "call_target",
+"evidence": "call 2D:5702 -> 2D:546D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "553D",
+"kind": "call_target",
+"evidence": "call 2D:570C -> 2D:553D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "55E0",
+"kind": "call_target",
+"evidence": "call 2D:571F -> 2D:55E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5691",
+"kind": "call_target",
+"evidence": "call 2D:4777 -> 2D:5691",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5A7B",
+"kind": "call_target",
+"evidence": "call 2D:5737 -> 2D:5A7B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "5A98",
+"kind": "call_target",
+"evidence": "call 2D:5822 -> 2D:5A98",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "65B0",
+"kind": "far_target",
+"evidence": "far 25:5527 -> 2D:65B0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "67CB",
+"kind": "call_target",
+"evidence": "call 2D:67A0 -> 2D:67CB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "67E1",
+"kind": "call_target",
+"evidence": "callcc 2D:67BC -> 2D:67E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6808",
+"kind": "call_target",
+"evidence": "callcc 2D:67C3 -> 2D:6808",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "681C",
+"kind": "call_target",
+"evidence": "call 2D:65F1 -> 2D:681C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "684F",
+"kind": "call_target",
+"evidence": "call 2D:676F -> 2D:684F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "68A9",
+"kind": "call_target",
+"evidence": "call 2D:65EB -> 2D:68A9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6A4C",
+"kind": "call_target",
+"evidence": "call 2D:6614 -> 2D:6A4C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6A96",
+"kind": "call_target",
+"evidence": "call 2D:6F8D -> 2D:6A96",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6B51",
+"kind": "call_target",
+"evidence": "call 2D:6ACE -> 2D:6B51",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6B65",
+"kind": "call_target",
+"evidence": "call 2D:6B4C -> 2D:6B65",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6B7D",
+"kind": "call_target",
+"evidence": "call 2D:6FBC -> 2D:6B7D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6C38",
+"kind": "call_target",
+"evidence": "call 2D:6BB5 -> 2D:6C38",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6C4C",
+"kind": "call_target",
+"evidence": "call 2D:6C33 -> 2D:6C4C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6C64",
+"kind": "far_target",
+"evidence": "far 2F:70B8 -> 2D:6C64",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6C8C",
+"kind": "call_target",
+"evidence": "call 2D:6C78 -> 2D:6C8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6CAC",
+"kind": "call_target",
+"evidence": "call 2D:6DBC -> 2D:6CAC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6CDF",
+"kind": "call_target",
+"evidence": "call 2D:6CAD -> 2D:6CDF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6D21",
+"kind": "call_target",
+"evidence": "call 2D:6F52 -> 2D:6D21",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6E03",
+"kind": "call_target",
+"evidence": "call 2D:6F74 -> 2D:6E03",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6ECE",
+"kind": "call_target",
+"evidence": "call 2D:661E -> 2D:6ECE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6F01",
+"kind": "call_target",
+"evidence": "call 2D:65FD -> 2D:6F01",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "6F7B",
+"kind": "call_target",
+"evidence": "call 2D:6DE2 -> 2D:6F7B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "702A",
+"kind": "call_target",
+"evidence": "call 2D:6F7D -> 2D:702A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "7046",
+"kind": "call_target",
+"evidence": "call 2D:6EC9 -> 2D:7046",
+"confidence": "PROBABLE"
+},
+{
+"bank": 45,
+"addr": "70F4",
+"kind": "far_target",
+"evidence": "far 2A:5D3E -> 2D:70F4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 22:4E79 -> 2E:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "48F8",
+"kind": "call_target",
+"evidence": "callcc 2E:410B -> 2E:48F8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4A7D",
+"kind": "call_target",
+"evidence": "callcc 2E:44C7 -> 2E:4A7D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4B2E",
+"kind": "call_target",
+"evidence": "call 2E:4020 -> 2E:4B2E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4C58",
+"kind": "call_target",
+"evidence": "call 2E:4AD4 -> 2E:4C58",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4DBF",
+"kind": "call_target",
+"evidence": "call 2E:43CB -> 2E:4DBF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4EB1",
+"kind": "call_target",
+"evidence": "call 2E:4E02 -> 2E:4EB1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4EBD",
+"kind": "call_target",
+"evidence": "call 2E:43D3 -> 2E:4EBD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4F06",
+"kind": "far_target",
+"evidence": "far 2E:4ECE -> 2E:4F06",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4FA9",
+"kind": "call_target",
+"evidence": "call 2E:4F42 -> 2E:4FA9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4FBD",
+"kind": "call_target",
+"evidence": "call 2E:4F02 -> 2E:4FBD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "4FE5",
+"kind": "call_target",
+"evidence": "call 2E:4FD1 -> 2E:4FE5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "5005",
+"kind": "call_target",
+"evidence": "call 2E:43D0 -> 2E:5005",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "5184",
+"kind": "call_target",
+"evidence": "call 2E:42F9 -> 2E:5184",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "533C",
+"kind": "call_target",
+"evidence": "call 2E:41FB -> 2E:533C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "538B",
+"kind": "call_target",
+"evidence": "call 2E:403F -> 2E:538B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "5429",
+"kind": "call_target",
+"evidence": "call 2E:46BD -> 2E:5429",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "5478",
+"kind": "call_target",
+"evidence": "call 2E:53A2 -> 2E:5478",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "5498",
+"kind": "call_target",
+"evidence": "call 2E:4A49 -> 2E:5498",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "55FA",
+"kind": "far_target",
+"evidence": "far 54:53BE -> 2E:55FA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 46,
+"addr": "561C",
+"kind": "call_target",
+"evidence": "call 2E:481F -> 2E:561C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 2F:7EDB -> 2F:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "40E1",
+"kind": "call_target",
+"evidence": "callcc 2F:40DB -> 2F:40E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4109",
+"kind": "call_target",
+"evidence": "callcc 2F:40D4 -> 2F:4109",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4455",
+"kind": "call_target",
+"evidence": "call 2F:428D -> 2F:4455",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4496",
+"kind": "call_target",
+"evidence": "call 2F:4350 -> 2F:4496",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "44B5",
+"kind": "call_target",
+"evidence": "call 2F:4034 -> 2F:44B5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "44F2",
+"kind": "call_target",
+"evidence": "call 2F:4143 -> 2F:44F2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4572",
+"kind": "call_target",
+"evidence": "call 2F:4028 -> 2F:4572",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4678",
+"kind": "call_target",
+"evidence": "call 2F:4105 -> 2F:4678",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4907",
+"kind": "call_target",
+"evidence": "call 2F:4696 -> 2F:4907",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4942",
+"kind": "call_target",
+"evidence": "callcc 2F:4903 -> 2F:4942",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4AC0",
+"kind": "far_target",
+"evidence": "far 2F:40FF -> 2F:4AC0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4B4E",
+"kind": "call_target",
+"evidence": "call 2F:42AA -> 2F:4B4E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4BAA",
+"kind": "call_target",
+"evidence": "call 2F:418C -> 2F:4BAA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "4CA7",
+"kind": "call_target",
+"evidence": "call 2F:4041 -> 2F:4CA7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5098",
+"kind": "far_target",
+"evidence": "far 2F:7F3D -> 2F:5098",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "51C1",
+"kind": "call_target",
+"evidence": "call 2F:50B8 -> 2F:51C1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "52E9",
+"kind": "call_target",
+"evidence": "call 2F:5283 -> 2F:52E9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "538F",
+"kind": "call_target",
+"evidence": "call 2F:52B6 -> 2F:538F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "53F5",
+"kind": "call_target",
+"evidence": "call 2F:5339 -> 2F:53F5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "54B5",
+"kind": "call_target",
+"evidence": "call 2F:542D -> 2F:54B5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "54C9",
+"kind": "call_target",
+"evidence": "call 2F:54B0 -> 2F:54C9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "54E1",
+"kind": "far_target",
+"evidence": "far 2A:71E9 -> 2F:54E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "55A1",
+"kind": "call_target",
+"evidence": "call 2F:5519 -> 2F:55A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "55B5",
+"kind": "call_target",
+"evidence": "call 2F:559C -> 2F:55B5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "55CD",
+"kind": "far_target",
+"evidence": "far 2A:71FE -> 2F:55CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "568D",
+"kind": "call_target",
+"evidence": "call 2F:5605 -> 2F:568D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "56A1",
+"kind": "call_target",
+"evidence": "call 2F:5688 -> 2F:56A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "56B9",
+"kind": "far_target",
+"evidence": "far 2A:7213 -> 2F:56B9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5779",
+"kind": "call_target",
+"evidence": "call 2F:56F1 -> 2F:5779",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "578D",
+"kind": "call_target",
+"evidence": "call 2F:5774 -> 2F:578D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "57F2",
+"kind": "far_target",
+"evidence": "far 2F:7F1C -> 2F:57F2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "58CE",
+"kind": "call_target",
+"evidence": "callcc 2F:58BF -> 2F:58CE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "58F5",
+"kind": "call_target",
+"evidence": "callcc 2F:58C6 -> 2F:58F5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5909",
+"kind": "call_target",
+"evidence": "call 2F:581B -> 2F:5909",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "593B",
+"kind": "call_target",
+"evidence": "call 2F:5815 -> 2F:593B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5AB8",
+"kind": "call_target",
+"evidence": "call 2F:584A -> 2F:5AB8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5AEA",
+"kind": "call_target",
+"evidence": "call 2F:5FEA -> 2F:5AEA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5BA5",
+"kind": "call_target",
+"evidence": "call 2F:5B22 -> 2F:5BA5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5BB9",
+"kind": "call_target",
+"evidence": "call 2F:5BA0 -> 2F:5BB9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5BD1",
+"kind": "call_target",
+"evidence": "call 2F:5FED -> 2F:5BD1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5BEE",
+"kind": "call_target",
+"evidence": "call 2F:5BE5 -> 2F:5BEE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5C0E",
+"kind": "call_target",
+"evidence": "call 2F:5F93 -> 2F:5C0E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5C42",
+"kind": "call_target",
+"evidence": "call 2F:5C0F -> 2F:5C42",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5C85",
+"kind": "call_target",
+"evidence": "call 2F:619B -> 2F:5C85",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5DDC",
+"kind": "call_target",
+"evidence": "call 2F:61C3 -> 2F:5DDC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5EB3",
+"kind": "call_target",
+"evidence": "call 2F:6171 -> 2F:5EB3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "5F93",
+"kind": "call_target",
+"evidence": "call 2F:617B -> 2F:5F93",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6046",
+"kind": "call_target",
+"evidence": "call 2F:618E -> 2F:6046",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6107",
+"kind": "call_target",
+"evidence": "call 2F:5854 -> 2F:6107",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "613A",
+"kind": "call_target",
+"evidence": "call 2F:5827 -> 2F:613A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "61CE",
+"kind": "call_target",
+"evidence": "call 2F:61A4 -> 2F:61CE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6D00",
+"kind": "far_target",
+"evidence": "far 2F:7F0D -> 2F:6D00",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6F07",
+"kind": "call_target",
+"evidence": "callcc 2F:6EF8 -> 2F:6F07",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6F2E",
+"kind": "call_target",
+"evidence": "callcc 2F:6EFF -> 2F:6F2E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6F42",
+"kind": "call_target",
+"evidence": "call 2F:6D29 -> 2F:6F42",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6F73",
+"kind": "call_target",
+"evidence": "call 2F:6E22 -> 2F:6F73",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "6F8C",
+"kind": "call_target",
+"evidence": "call 2F:6D23 -> 2F:6F8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7121",
+"kind": "call_target",
+"evidence": "call 2F:6D51 -> 2F:7121",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "716F",
+"kind": "call_target",
+"evidence": "call 2F:767B -> 2F:716F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "722A",
+"kind": "call_target",
+"evidence": "call 2F:71A7 -> 2F:722A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "723E",
+"kind": "call_target",
+"evidence": "call 2F:7225 -> 2F:723E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7256",
+"kind": "call_target",
+"evidence": "call 2F:768F -> 2F:7256",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7311",
+"kind": "call_target",
+"evidence": "call 2F:728E -> 2F:7311",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7325",
+"kind": "call_target",
+"evidence": "call 2F:730C -> 2F:7325",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "733D",
+"kind": "call_target",
+"evidence": "call 2F:7713 -> 2F:733D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7365",
+"kind": "call_target",
+"evidence": "call 2F:7351 -> 2F:7365",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7385",
+"kind": "call_target",
+"evidence": "call 2F:7490 -> 2F:7385",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "73B8",
+"kind": "call_target",
+"evidence": "call 2F:7386 -> 2F:73B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "73FA",
+"kind": "call_target",
+"evidence": "call 2F:7624 -> 2F:73FA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "74D7",
+"kind": "call_target",
+"evidence": "call 2F:7646 -> 2F:74D7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "75A0",
+"kind": "call_target",
+"evidence": "call 2F:6D5B -> 2F:75A0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "75D3",
+"kind": "call_target",
+"evidence": "call 2F:6D35 -> 2F:75D3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "764D",
+"kind": "call_target",
+"evidence": "call 2F:766B -> 2F:764D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7669",
+"kind": "call_target",
+"evidence": "call 2F:74B6 -> 2F:7669",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7718",
+"kind": "call_target",
+"evidence": "call 2F:759B -> 2F:7718",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7EBF",
+"kind": "far_target",
+"evidence": "far 7C:7CD9 -> 2F:7EBF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 47,
+"addr": "7F5D",
+"kind": "call_target",
+"evidence": "call 2F:7EEF -> 2F:7F5D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 50:4370 -> 48:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "403E",
+"kind": "far_target",
+"evidence": "far 72:4128 -> 48:403E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "40A9",
+"kind": "far_target",
+"evidence": "far 57:5453 -> 48:40A9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "415A",
+"kind": "far_target",
+"evidence": "far 1A:43E2 -> 48:415A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4223",
+"kind": "far_target",
+"evidence": "far 6C:41D5 -> 48:4223",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "42D4",
+"kind": "far_target",
+"evidence": "far 6C:4791 -> 48:42D4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "440A",
+"kind": "call_target",
+"evidence": "callcc 48:43CF -> 48:440A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4460",
+"kind": "call_target",
+"evidence": "call 48:4377 -> 48:4460",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "44E0",
+"kind": "far_target",
+"evidence": "far 6C:5F5F -> 48:44E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4540",
+"kind": "far_target",
+"evidence": "far 6C:5E84 -> 48:4540",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "459D",
+"kind": "call_target",
+"evidence": "call 48:4511 -> 48:459D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4616",
+"kind": "far_target",
+"evidence": "far 57:40C9 -> 48:4616",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4679",
+"kind": "far_target",
+"evidence": "far 57:51A3 -> 48:4679",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "46C6",
+"kind": "far_target",
+"evidence": "far 6C:426A -> 48:46C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4728",
+"kind": "far_target",
+"evidence": "far 57:492C -> 48:4728",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4748",
+"kind": "far_target",
+"evidence": "far 55:6C59 -> 48:4748",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "48BB",
+"kind": "far_target",
+"evidence": "far 5C:515C -> 48:48BB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "48E1",
+"kind": "call_target",
+"evidence": "call 48:495C -> 48:48E1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "495C",
+"kind": "call_target",
+"evidence": "call 48:4655 -> 48:495C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "498C",
+"kind": "far_target",
+"evidence": "far 4F:4677 -> 48:498C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "49DB",
+"kind": "far_target",
+"evidence": "far 7C:7BB7 -> 48:49DB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4A4E",
+"kind": "far_target",
+"evidence": "far 7C:7B7C -> 48:4A4E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 72,
+"addr": "4AAB",
+"kind": "far_target",
+"evidence": "far 65:4009 -> 48:4AAB",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 76,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4E:4983 -> 4C:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4016",
+"kind": "table_target",
+"evidence": "table 4C:400D -> 4C:4016",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "404D",
+"kind": "table_target",
+"evidence": "jrcc 4C:400B -> 4C:404D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "417D",
+"kind": "table_target",
+"evidence": "jpcc 4C:44D2 -> 4C:417D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4291",
+"kind": "table_target",
+"evidence": "table 4C:400D -> 4C:4291",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "42F7",
+"kind": "table_target",
+"evidence": "table 4C:42F0 -> 4C:42F7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4312",
+"kind": "table_target",
+"evidence": "table 4C:42F0 -> 4C:4312",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "460D",
+"kind": "table_target",
+"evidence": "table 4C:457A -> 4C:460D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46A6",
+"kind": "call_target",
+"evidence": "call 4C:490C -> 4C:46A6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46B8",
+"kind": "far_target",
+"evidence": "far 4C:47C6 -> 4C:46B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46C4",
+"kind": "table_target",
+"evidence": "table 4C:46BD -> 4C:46C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46CD",
+"kind": "table_target",
+"evidence": "table 4C:46BD -> 4C:46CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46D6",
+"kind": "far_target",
+"evidence": "far 4C:47CE -> 4C:46D6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46E2",
+"kind": "table_target",
+"evidence": "table 4C:46DB -> 4C:46E2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46EB",
+"kind": "table_target",
+"evidence": "table 4C:46DB -> 4C:46EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "46F4",
+"kind": "far_target",
+"evidence": "far 50:402A -> 4C:46F4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "477E",
+"kind": "far_target",
+"evidence": "far 4E:4FEE -> 4C:477E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "47C4",
+"kind": "far_target",
+"evidence": "far 4E:4FF6 -> 4C:47C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4840",
+"kind": "far_target",
+"evidence": "far 4C:4571 -> 4C:4840",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4B54",
+"kind": "far_target",
+"evidence": "far 4E:4968 -> 4C:4B54",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4B7C",
+"kind": "far_target",
+"evidence": "far 4C:42A9 -> 4C:4B7C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4B81",
+"kind": "far_target",
+"evidence": "far target",
+"confidence": "CONFIRMED"
+},
+{
+"bank": 76,
+"addr": "4BC1",
+"kind": "far_target",
+"evidence": "far 4E:5131 -> 4C:4BC1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4C03",
+"kind": "call_target",
+"evidence": "call 4C:4D5A -> 4C:4C03",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4C4E",
+"kind": "far_target",
+"evidence": "far 4E:4962 -> 4C:4C4E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4C95",
+"kind": "far_target",
+"evidence": "far 4C:42AF -> 4C:4C95",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4CF6",
+"kind": "far_target",
+"evidence": "far 4E:513F -> 4C:4CF6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4D6F",
+"kind": "far_target",
+"evidence": "far 4E:4C82 -> 4C:4D6F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4DB2",
+"kind": "far_target",
+"evidence": "far 4C:4065 -> 4C:4DB2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4DFB",
+"kind": "far_target",
+"evidence": "far 4C:4537 -> 4C:4DFB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4F56",
+"kind": "far_target",
+"evidence": "far 1A:41C1 -> 4C:4F56",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "4FFF",
+"kind": "table_target",
+"evidence": "table 4C:4FF2 -> 4C:4FFF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "501E",
+"kind": "table_target",
+"evidence": "table 4C:4FF2 -> 4C:501E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "509A",
+"kind": "table_target",
+"evidence": "table 4C:4FF2 -> 4C:509A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "50DD",
+"kind": "table_target",
+"evidence": "table 4C:4FF2 -> 4C:50DD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "50E0",
+"kind": "table_target",
+"evidence": "table 4C:4FF2 -> 4C:50E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "5111",
+"kind": "far_target",
+"evidence": "far 4C:50F6 -> 4C:5111",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "5122",
+"kind": "far_target",
+"evidence": "far 4C:4F69 -> 4C:5122",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "51A1",
+"kind": "far_target",
+"evidence": "far 4C:518E -> 4C:51A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "5274",
+"kind": "far_target",
+"evidence": "far 4C:5141 -> 4C:5274",
+"confidence": "PROBABLE"
+},
+{
+"bank": 76,
+"addr": "52A8",
+"kind": "far_target",
+"evidence": "far 4C:509E -> 4C:52A8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4658",
+"kind": "far_target",
+"evidence": "far 65:4003 -> 4E:4658",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 78,
+"addr": "46A3",
+"kind": "far_target",
+"evidence": "far 67:62D5 -> 4E:46A3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "46CF",
+"kind": "far_target",
+"evidence": "far 4F:4668 -> 4E:46CF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4739",
+"kind": "call_target",
+"evidence": "call 4E:47AC -> 4E:4739",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 78,
+"addr": "4749",
+"kind": "far_target",
+"evidence": "far 4F:4671 -> 4E:4749",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4795",
+"kind": "far_target",
+"evidence": "far 4E:4E2B -> 4E:4795",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 78,
+"addr": "4866",
+"kind": "far_target",
+"evidence": "far 4E:51DC -> 4E:4866",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "488D",
+"kind": "far_target",
+"evidence": "far 67:6315 -> 4E:488D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "48CB",
+"kind": "far_target",
+"evidence": "far 4F:46B1 -> 4E:48CB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "493B",
+"kind": "far_target",
+"evidence": "far 4F:470E -> 4E:493B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "49A1",
+"kind": "table_target",
+"evidence": "table 4E:4990 -> 4E:49A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4A43",
+"kind": "table_target",
+"evidence": "jrcc 4E:4A09 -> 4E:4A43",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4A58",
+"kind": "table_target",
+"evidence": "table target",
+"confidence": "CONFIRMED"
+},
+{
+"bank": 78,
+"addr": "4AEC",
+"kind": "table_target",
+"evidence": "table 4E:4ADF -> 4E:4AEC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4B0B",
+"kind": "table_target",
+"evidence": "table 4E:4ADF -> 4E:4B0B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4B0E",
+"kind": "table_target",
+"evidence": "table 4E:4ADF -> 4E:4B0E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4B8C",
+"kind": "table_target",
+"evidence": "table 4E:4B7B -> 4E:4B8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4BAA",
+"kind": "table_target",
+"evidence": "table 4E:4B7B -> 4E:4BAA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4BAD",
+"kind": "table_target",
+"evidence": "table 4E:4ADF -> 4E:4BAD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4C57",
+"kind": "table_target",
+"evidence": "table 4E:4C46 -> 4E:4C57",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4C78",
+"kind": "table_target",
+"evidence": "table 4E:4C46 -> 4E:4C78",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4CEB",
+"kind": "table_target",
+"evidence": "table 4E:4ADF -> 4E:4CEB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4D7B",
+"kind": "table_target",
+"evidence": "table 4E:4D6A -> 4E:4D7B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4E6E",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:4E6E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4E8C",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:4E8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4EED",
+"kind": "table_target",
+"evidence": "table 4E:4D6A -> 4E:4EED",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4F26",
+"kind": "table_target",
+"evidence": "table 4E:4F17 -> 4E:4F26",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4F39",
+"kind": "table_target",
+"evidence": "table 4E:4F17 -> 4E:4F39",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4F81",
+"kind": "table_target",
+"evidence": "table 4E:4D6A -> 4E:4F81",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4FC3",
+"kind": "table_target",
+"evidence": "table 4E:4FB4 -> 4E:4FC3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "4FD6",
+"kind": "table_target",
+"evidence": "table 4E:4FB4 -> 4E:4FD6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5009",
+"kind": "table_target",
+"evidence": "table 4E:4990 -> 4E:5009",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5018",
+"kind": "table_target",
+"evidence": "table 4E:4990 -> 4E:5018",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5040",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:5040",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5082",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:5082",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5088",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:5088",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "50BE",
+"kind": "table_target",
+"evidence": "table 4E:4A34 -> 4E:50BE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5107",
+"kind": "table_target",
+"evidence": "table 4E:4E5D -> 4E:5107",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5162",
+"kind": "table_target",
+"evidence": "table 4E:4A34 -> 4E:5162",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "51A6",
+"kind": "table_target",
+"evidence": "table 4E:4A34 -> 4E:51A6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5204",
+"kind": "far_target",
+"evidence": "far 4E:52E7 -> 4E:5204",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5274",
+"kind": "far_target",
+"evidence": "far 4E:521D -> 4E:5274",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "52E7",
+"kind": "far_target",
+"evidence": "far 4E:49BA -> 4E:52E7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "534B",
+"kind": "call_target",
+"evidence": "call 4E:5316 -> 4E:534B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "53A1",
+"kind": "far_target",
+"evidence": "far 4E:56E8 -> 4E:53A1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "53D1",
+"kind": "far_target",
+"evidence": "far 4E:5721 -> 4E:53D1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5423",
+"kind": "call_target",
+"evidence": "call 4E:49B7 -> 4E:5423",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5435",
+"kind": "far_target",
+"evidence": "far 4E:5452 -> 4E:5435",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "544A",
+"kind": "call_target",
+"evidence": "call 4E:5733 -> 4E:544A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5512",
+"kind": "far_target",
+"evidence": "far 4E:4B19 -> 4E:5512",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "55E8",
+"kind": "call_target",
+"evidence": "call 4E:571B -> 4E:55E8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "56DB",
+"kind": "far_target",
+"evidence": "far 4E:4AF9 -> 4E:56DB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5716",
+"kind": "far_target",
+"evidence": "far 4E:4B02 -> 4E:5716",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "574D",
+"kind": "far_target",
+"evidence": "far 4E:540B -> 4E:574D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "57DC",
+"kind": "call_target",
+"evidence": "call 4E:54FF -> 4E:57DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5B69",
+"kind": "far_target",
+"evidence": "far 4E:5405 -> 4E:5B69",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5C10",
+"kind": "far_target",
+"evidence": "far 4E:53C4 -> 4E:5C10",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5CB6",
+"kind": "far_target",
+"evidence": "far 4E:627D -> 4E:5CB6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5E11",
+"kind": "far_target",
+"evidence": "far 4E:626B -> 4E:5E11",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5E5B",
+"kind": "far_target",
+"evidence": "far 4E:5ED5 -> 4E:5E5B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5EC0",
+"kind": "far_target",
+"evidence": "far 4E:4A2C -> 4E:5EC0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5F58",
+"kind": "call_target",
+"evidence": "callcc 4E:5EEA -> 4E:5F58",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "5FB9",
+"kind": "far_target",
+"evidence": "far 4E:4AC4 -> 4E:5FB9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "6024",
+"kind": "call_target",
+"evidence": "call 4E:6005 -> 4E:6024",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "6034",
+"kind": "call_target",
+"evidence": "call 4E:600A -> 4E:6034",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "604C",
+"kind": "far_target",
+"evidence": "far 69:40CA -> 4E:604C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "60A6",
+"kind": "far_target",
+"evidence": "far 4E:526D -> 4E:60A6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "60C5",
+"kind": "far_target",
+"evidence": "far 4E:5744 -> 4E:60C5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "60E4",
+"kind": "far_target",
+"evidence": "far 4E:522E -> 4E:60E4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "612B",
+"kind": "far_target",
+"evidence": "far 4E:52ED -> 4E:612B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 78,
+"addr": "6196",
+"kind": "far_target",
+"evidence": "far 4E:49A7 -> 4E:6196",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 67:5782 -> 4F:4000",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "400E",
+"kind": "far_target",
+"evidence": "far 6C:5B24 -> 4F:400E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4021",
+"kind": "call_target",
+"evidence": "call 4F:4012 -> 4F:4021",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "404B",
+"kind": "far_target",
+"evidence": "far 4F:439F -> 4F:404B",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "405E",
+"kind": "call_target",
+"evidence": "call 4F:404F -> 4F:405E",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4083",
+"kind": "call_target",
+"evidence": "call 4F:427F -> 4F:4083",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4146",
+"kind": "call_target",
+"evidence": "call 4F:40DA -> 4F:4146",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4153",
+"kind": "call_target",
+"evidence": "jrcc 4F:4147 -> 4F:4153",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4166",
+"kind": "call_target",
+"evidence": "call 4F:4393 -> 4F:4166",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "41A4",
+"kind": "table_target",
+"evidence": "table 4F:4191 -> 4F:41A4",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "41AE",
+"kind": "table_target",
+"evidence": "table 4F:4191 -> 4F:41AE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "41B8",
+"kind": "table_target",
+"evidence": "table 4F:4191 -> 4F:41B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "41C2",
+"kind": "table_target",
+"evidence": "table 4F:4191 -> 4F:41C2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "41E0",
+"kind": "call_target",
+"evidence": "call 4F:4396 -> 4F:41E0",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4243",
+"kind": "table_target",
+"evidence": "table 4F:4230 -> 4F:4243",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "424D",
+"kind": "table_target",
+"evidence": "table 4F:4230 -> 4F:424D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4257",
+"kind": "table_target",
+"evidence": "table 4F:4230 -> 4F:4257",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4261",
+"kind": "table_target",
+"evidence": "table 4F:4230 -> 4F:4261",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "42B4",
+"kind": "far_target",
+"evidence": "far 67:570F -> 4F:42B4",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4370",
+"kind": "far_target",
+"evidence": "far 67:5718 -> 4F:4370",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 79,
+"addr": "4572",
+"kind": "far_target",
+"evidence": "far 67:58C6 -> 4F:4572",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "45C6",
+"kind": "far_target",
+"evidence": "far 67:5867 -> 4F:45C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4604",
+"kind": "far_target",
+"evidence": "far 67:5877 -> 4F:4604",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4668",
+"kind": "far_target",
+"evidence": "far 7C:7BA3 -> 4F:4668",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "46A4",
+"kind": "table_target",
+"evidence": "table 4F:4695 -> 4F:46A4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "46A5",
+"kind": "table_target",
+"evidence": "table 4F:4695 -> 4F:46A5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "46BA",
+"kind": "table_target",
+"evidence": "table 4F:4695 -> 4F:46BA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "4717",
+"kind": "call_target",
+"evidence": "call 00:0314 -> 4F:4717",
+"confidence": "PROBABLE"
+},
+{
+"bank": 79,
+"addr": "47A5",
+"kind": "call_target",
+"evidence": "call 00:171F -> 4F:47A5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 5C:54F4 -> 50:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "4061",
+"kind": "call_target",
+"evidence": "call 50:4015 -> 50:4061",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "42B6",
+"kind": "table_target",
+"evidence": "table 50:42A9 -> 50:42B6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "42EB",
+"kind": "table_target",
+"evidence": "table 50:42A9 -> 50:42EB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "430A",
+"kind": "table_target",
+"evidence": "table 50:42A9 -> 50:430A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "430C",
+"kind": "call_target",
+"evidence": "callcc 50:42BA -> 50:430C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "4338",
+"kind": "call_target",
+"evidence": "call 50:4273 -> 50:4338",
+"confidence": "PROBABLE"
+},
+{
+"bank": 80,
+"addr": "4352",
+"kind": "call_target",
+"evidence": "call 50:4276 -> 50:4352",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4E:5003 -> 51:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "404A",
+"kind": "call_target",
+"evidence": "call 51:4000 -> 51:404A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "4199",
+"kind": "table_target",
+"evidence": "table target",
+"confidence": "CONFIRMED"
+},
+{
+"bank": 81,
+"addr": "41BB",
+"kind": "table_target",
+"evidence": "table 51:41AE -> 51:41BB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "41BE",
+"kind": "table_target",
+"evidence": "table 51:41AE -> 51:41BE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "41C1",
+"kind": "table_target",
+"evidence": "table 51:41AE -> 51:41C1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "41C4",
+"kind": "table_target",
+"evidence": "table 51:41AE -> 51:41C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "41D8",
+"kind": "call_target",
+"evidence": "call 51:412E -> 51:41D8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "41FE",
+"kind": "call_target",
+"evidence": "call 51:4138 -> 51:41FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "4239",
+"kind": "call_target",
+"evidence": "call 51:4069 -> 51:4239",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "4245",
+"kind": "far_target",
+"evidence": "far 4E:46C6 -> 51:4245",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "425F",
+"kind": "far_target",
+"evidence": "far 68:784E -> 51:425F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "70E0",
+"kind": "call_target",
+"evidence": "call 51:7180 -> 51:70E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "70F4",
+"kind": "call_target",
+"evidence": "call 51:70E7 -> 51:70F4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "7161",
+"kind": "call_target",
+"evidence": "call 51:70EC -> 51:7161",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "7177",
+"kind": "far_target",
+"evidence": "far 74:53B9 -> 51:7177",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "73DA",
+"kind": "call_target",
+"evidence": "call 51:719C -> 51:73DA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 81,
+"addr": "73F2",
+"kind": "call_target",
+"evidence": "call 51:71E0 -> 51:73F2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4000",
+"kind": "call_target",
+"evidence": "call 54:5398 -> 54:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4011",
+"kind": "far_target",
+"evidence": "far 4E:5027 -> 54:4011",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "403D",
+"kind": "far_target",
+"evidence": "far 4C:4359 -> 54:403D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "405D",
+"kind": "far_target",
+"evidence": "far 4C:435F -> 54:405D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4141",
+"kind": "far_target",
+"evidence": "far 4C:439E -> 54:4141",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "418C",
+"kind": "far_target",
+"evidence": "far 4C:47D4 -> 54:418C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "41A3",
+"kind": "far_target",
+"evidence": "far 4C:47DA -> 54:41A3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "423C",
+"kind": "far_target",
+"evidence": "far 4C:47F2 -> 54:423C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4266",
+"kind": "far_target",
+"evidence": "far 4C:47F8 -> 54:4266",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4288",
+"kind": "far_target",
+"evidence": "far 4C:4945 -> 54:4288",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "42E4",
+"kind": "call_target",
+"evidence": "call 54:42B3 -> 54:42E4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "42FB",
+"kind": "far_target",
+"evidence": "far 4C:4457 -> 54:42FB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4357",
+"kind": "far_target",
+"evidence": "far 4C:44BA -> 54:4357",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4417",
+"kind": "call_target",
+"evidence": "call 54:43A8 -> 54:4417",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4483",
+"kind": "far_target",
+"evidence": "far 4C:4189 -> 54:4483",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4492",
+"kind": "far_target",
+"evidence": "far 4C:418F -> 54:4492",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "44AC",
+"kind": "call_target",
+"evidence": "call 54:53CC -> 54:44AC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "44FE",
+"kind": "far_target",
+"evidence": "far 26:4132 -> 54:44FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "451B",
+"kind": "far_target",
+"evidence": "far 26:4155 -> 54:451B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4538",
+"kind": "far_target",
+"evidence": "far 26:430E -> 54:4538",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4552",
+"kind": "far_target",
+"evidence": "far 26:4331 -> 54:4552",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4575",
+"kind": "far_target",
+"evidence": "far 26:428C -> 54:4575",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "46E8",
+"kind": "call_target",
+"evidence": "call 54:45A9 -> 54:46E8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4726",
+"kind": "call_target",
+"evidence": "call 54:45ED -> 54:4726",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4736",
+"kind": "call_target",
+"evidence": "call 54:45B1 -> 54:4736",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4748",
+"kind": "far_target",
+"evidence": "far 54:45CB -> 54:4748",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4772",
+"kind": "far_target",
+"evidence": "far 26:42BA -> 54:4772",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "484A",
+"kind": "call_target",
+"evidence": "call 54:47CE -> 54:484A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "485C",
+"kind": "far_target",
+"evidence": "far 23:4CF3 -> 54:485C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "489B",
+"kind": "far_target",
+"evidence": "far 23:4D14 -> 54:489B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4914",
+"kind": "far_target",
+"evidence": "far 23:4D97 -> 54:4914",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4969",
+"kind": "far_target",
+"evidence": "far 23:4DC9 -> 54:4969",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4C47",
+"kind": "call_target",
+"evidence": "call 54:4A87 -> 54:4C47",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4CB0",
+"kind": "far_target",
+"evidence": "far 26:48CC -> 54:4CB0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4CF4",
+"kind": "far_target",
+"evidence": "far 26:48FA -> 54:4CF4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "4FD2",
+"kind": "call_target",
+"evidence": "call 54:4A7F -> 54:4FD2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "50FC",
+"kind": "call_target",
+"evidence": "call 54:5002 -> 54:50FC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "511D",
+"kind": "call_target",
+"evidence": "call 54:49A2 -> 54:511D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "5168",
+"kind": "call_target",
+"evidence": "call 54:4B0B -> 54:5168",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "521F",
+"kind": "call_target",
+"evidence": "call 54:517C -> 54:521F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "522A",
+"kind": "call_target",
+"evidence": "call 54:5194 -> 54:522A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "5231",
+"kind": "call_target",
+"evidence": "call 54:517F -> 54:5231",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "5240",
+"kind": "call_target",
+"evidence": "call 54:521B -> 54:5240",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "5386",
+"kind": "far_target",
+"evidence": "far 23:4FB5 -> 54:5386",
+"confidence": "PROBABLE"
+},
+{
+"bank": 84,
+"addr": "53BB",
+"kind": "far_target",
+"evidence": "far 23:4FF3 -> 54:53BB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "5BA2",
+"kind": "far_target",
+"evidence": "far 67:4A5A -> 55:5BA2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "5C8F",
+"kind": "far_target",
+"evidence": "far 67:4AA2 -> 55:5C8F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "5F35",
+"kind": "call_target",
+"evidence": "call 55:5CFF -> 55:5F35",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "5F66",
+"kind": "call_target",
+"evidence": "call 55:5DAD -> 55:5F66",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6149",
+"kind": "call_target",
+"evidence": "call 55:6190 -> 55:6149",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "617B",
+"kind": "call_target",
+"evidence": "call 55:5C8B -> 55:617B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6190",
+"kind": "call_target",
+"evidence": "call 55:5D02 -> 55:6190",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6318",
+"kind": "call_target",
+"evidence": "call 55:5CDD -> 55:6318",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "63E7",
+"kind": "call_target",
+"evidence": "call 55:5C61 -> 55:63E7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "640E",
+"kind": "call_target",
+"evidence": "call 55:6335 -> 55:640E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6427",
+"kind": "call_target",
+"evidence": "call 55:5E4C -> 55:6427",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "651C",
+"kind": "far_target",
+"evidence": "far 67:571E -> 55:651C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6559",
+"kind": "far_target",
+"evidence": "far 57:43B3 -> 55:6559",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "65DA",
+"kind": "call_target",
+"evidence": "call 55:65AB -> 55:65DA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "667B",
+"kind": "call_target",
+"evidence": "call 55:65EA -> 55:667B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "66C6",
+"kind": "call_target",
+"evidence": "call 55:5E39 -> 55:66C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6BB2",
+"kind": "call_target",
+"evidence": "call 55:5E3C -> 55:6BB2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6BD7",
+"kind": "call_target",
+"evidence": "call 55:65A0 -> 55:6BD7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6C10",
+"kind": "call_target",
+"evidence": "call 55:5E35 -> 55:6C10",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6C16",
+"kind": "call_target",
+"evidence": "call 55:5D49 -> 55:6C16",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6CC6",
+"kind": "call_target",
+"evidence": "call 55:6C2A -> 55:6CC6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6E94",
+"kind": "call_target",
+"evidence": "call 55:5E10 -> 55:6E94",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6EAA",
+"kind": "call_target",
+"evidence": "call 55:5CBF -> 55:6EAA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6EC0",
+"kind": "call_target",
+"evidence": "call 55:5CE3 -> 55:6EC0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6ED6",
+"kind": "call_target",
+"evidence": "call 55:5C1A -> 55:6ED6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6F02",
+"kind": "call_target",
+"evidence": "call 55:5ED6 -> 55:6F02",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6F18",
+"kind": "call_target",
+"evidence": "call 55:5EF8 -> 55:6F18",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6F2E",
+"kind": "call_target",
+"evidence": "call 55:653D -> 55:6F2E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6FA1",
+"kind": "call_target",
+"evidence": "call 55:5F10 -> 55:6FA1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "6FCD",
+"kind": "far_target",
+"evidence": "far 67:4B3F -> 55:6FCD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "7000",
+"kind": "far_target",
+"evidence": "far 67:4B37 -> 55:7000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "7007",
+"kind": "call_target",
+"evidence": "call 55:5BAA -> 55:7007",
+"confidence": "PROBABLE"
+},
+{
+"bank": 85,
+"addr": "7048",
+"kind": "call_target",
+"evidence": "call 55:65BF -> 55:7048",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4C:42FC -> 57:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "40E0",
+"kind": "call_target",
+"evidence": "call 57:405F -> 57:40E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "44E4",
+"kind": "call_target",
+"evidence": "call 57:404C -> 57:44E4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "45E6",
+"kind": "call_target",
+"evidence": "call 57:4068 -> 57:45E6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "47A6",
+"kind": "call_target",
+"evidence": "call 57:4049 -> 57:47A6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "510F",
+"kind": "call_target",
+"evidence": "call 57:53BE -> 57:510F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "527D",
+"kind": "call_target",
+"evidence": "call 57:437A -> 57:527D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "5340",
+"kind": "call_target",
+"evidence": "call 57:510B -> 57:5340",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "5355",
+"kind": "call_target",
+"evidence": "call 57:50C0 -> 57:5355",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "5369",
+"kind": "call_target",
+"evidence": "call 57:4271 -> 57:5369",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "53B9",
+"kind": "far_target",
+"evidence": "far 55:5D70 -> 57:53B9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "53C6",
+"kind": "call_target",
+"evidence": "call 57:5033 -> 57:53C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "541C",
+"kind": "call_target",
+"evidence": "call 57:4596 -> 57:541C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "5444",
+"kind": "call_target",
+"evidence": "call 57:4308 -> 57:5444",
+"confidence": "PROBABLE"
+},
+{
+"bank": 87,
+"addr": "546C",
+"kind": "call_target",
+"evidence": "call 57:44A9 -> 57:546C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5150",
+"kind": "far_target",
+"evidence": "far 68:4F97 -> 5C:5150",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "523B",
+"kind": "table_target",
+"evidence": "table 5C:522E -> 5C:523B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "524C",
+"kind": "table_target",
+"evidence": "table 5C:522E -> 5C:524C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5264",
+"kind": "table_target",
+"evidence": "table 5C:522E -> 5C:5264",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5266",
+"kind": "call_target",
+"evidence": "callcc 5C:5246 -> 5C:5266",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5267",
+"kind": "call_target",
+"evidence": "call 5C:51F2 -> 5C:5267",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "53B3",
+"kind": "call_target",
+"evidence": "call 5C:51F5 -> 5C:53B3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5441",
+"kind": "call_target",
+"evidence": "call 5C:53CB -> 5C:5441",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "546F",
+"kind": "call_target",
+"evidence": "callcc 5C:523F -> 5C:546F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 92,
+"addr": "5504",
+"kind": "call_target",
+"evidence": "call 5C:53DD -> 5C:5504",
+"confidence": "PROBABLE"
+},
+{
+"bank": 99,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7F:405F -> 63:4000",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 101,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 1C:4000 -> 65:4000",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 101,
+"addr": "473F",
+"kind": "far_target",
+"evidence": "far 67:5928 -> 65:473F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "47C8",
+"kind": "far_target",
+"evidence": "far 67:596A -> 65:47C8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "487C",
+"kind": "far_target",
+"evidence": "far 67:40D5 -> 65:487C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4958",
+"kind": "table_target",
+"evidence": "table 65:494B -> 65:4958",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "495B",
+"kind": "table_target",
+"evidence": "table 65:494B -> 65:495B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4974",
+"kind": "table_target",
+"evidence": "table 65:494B -> 65:4974",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4999",
+"kind": "table_target",
+"evidence": "table 65:494B -> 65:4999",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "499B",
+"kind": "table_target",
+"evidence": "table 65:494B -> 65:499B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "49A2",
+"kind": "call_target",
+"evidence": "call 65:4924 -> 65:49A2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4A37",
+"kind": "call_target",
+"evidence": "call 65:491E -> 65:4A37",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4AD7",
+"kind": "call_target",
+"evidence": "call 65:4921 -> 65:4AD7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 101,
+"addr": "4BA8",
+"kind": "call_target",
+"evidence": "call 65:4932 -> 65:4BA8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 7C:7E08 -> 67:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4156",
+"kind": "call_target",
+"evidence": "call 67:4000 -> 67:4156",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "418E",
+"kind": "call_target",
+"evidence": "call 67:4003 -> 67:418E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "41C6",
+"kind": "call_target",
+"evidence": "call 67:4006 -> 67:41C6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "41FE",
+"kind": "call_target",
+"evidence": "call 67:4086 -> 67:41FE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "422B",
+"kind": "far_target",
+"evidence": "far 67:40E0 -> 67:422B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "431F",
+"kind": "call_target",
+"evidence": "call 67:422E -> 67:431F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "443C",
+"kind": "call_target",
+"evidence": "call 67:4237 -> 67:443C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4559",
+"kind": "call_target",
+"evidence": "call 67:4533 -> 67:4559",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4593",
+"kind": "call_target",
+"evidence": "call 67:4553 -> 67:4593",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "45AB",
+"kind": "call_target",
+"evidence": "call 67:4361 -> 67:45AB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "45C4",
+"kind": "call_target",
+"evidence": "call 67:43F2 -> 67:45C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "45D4",
+"kind": "call_target",
+"evidence": "call 67:454D -> 67:45D4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4621",
+"kind": "call_target",
+"evidence": "call 67:4550 -> 67:4621",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4631",
+"kind": "far_target",
+"evidence": "far 67:402B -> 67:4631",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4688",
+"kind": "call_target",
+"evidence": "call 67:4634 -> 67:4688",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "47DC",
+"kind": "call_target",
+"evidence": "call 67:464D -> 67:47DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4855",
+"kind": "call_target",
+"evidence": "call 67:4845 -> 67:4855",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4871",
+"kind": "call_target",
+"evidence": "call 67:47BA -> 67:4871",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4881",
+"kind": "call_target",
+"evidence": "call 67:47B4 -> 67:4881",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "48E0",
+"kind": "call_target",
+"evidence": "call 67:47B7 -> 67:48E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "48F0",
+"kind": "call_target",
+"evidence": "call 67:4848 -> 67:48F0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4924",
+"kind": "far_target",
+"evidence": "far 67:40F4 -> 67:4924",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "49A8",
+"kind": "call_target",
+"evidence": "call 67:4924 -> 67:49A8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4A98",
+"kind": "call_target",
+"evidence": "call 67:492D -> 67:4A98",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4BB5",
+"kind": "call_target",
+"evidence": "call 67:4B8F -> 67:4BB5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4BD5",
+"kind": "call_target",
+"evidence": "call 67:4BAF -> 67:4BD5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4BED",
+"kind": "call_target",
+"evidence": "call 67:49D6 -> 67:4BED",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4C06",
+"kind": "call_target",
+"evidence": "call 67:4A4E -> 67:4C06",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4C16",
+"kind": "call_target",
+"evidence": "call 67:4BA9 -> 67:4C16",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4C63",
+"kind": "call_target",
+"evidence": "call 67:4BAC -> 67:4C63",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4C73",
+"kind": "far_target",
+"evidence": "far 67:408A -> 67:4C73",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4CCB",
+"kind": "call_target",
+"evidence": "call 67:4C76 -> 67:4CCB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4E20",
+"kind": "call_target",
+"evidence": "call 67:4C7F -> 67:4E20",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4F50",
+"kind": "call_target",
+"evidence": "call 67:4F36 -> 67:4F50",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4F6E",
+"kind": "call_target",
+"evidence": "call 67:4DFE -> 67:4F6E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "4F9C",
+"kind": "call_target",
+"evidence": "call 67:4F47 -> 67:4F9C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "50B7",
+"kind": "call_target",
+"evidence": "call 67:4F4A -> 67:50B7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "50E5",
+"kind": "call_target",
+"evidence": "call 67:4F3F -> 67:50E5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "510A",
+"kind": "far_target",
+"evidence": "far 67:4100 -> 67:510A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5129",
+"kind": "call_target",
+"evidence": "call 67:510D -> 67:5129",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "51E2",
+"kind": "call_target",
+"evidence": "call 67:5116 -> 67:51E2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "525D",
+"kind": "call_target",
+"evidence": "call 67:5255 -> 67:525D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5279",
+"kind": "call_target",
+"evidence": "call 67:51C6 -> 67:5279",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "52A7",
+"kind": "call_target",
+"evidence": "call 67:51C0 -> 67:52A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5389",
+"kind": "call_target",
+"evidence": "call 67:51C3 -> 67:5389",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "53B7",
+"kind": "call_target",
+"evidence": "call 67:51BD -> 67:53B7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "53DC",
+"kind": "far_target",
+"evidence": "far 67:4019 -> 67:53DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5402",
+"kind": "call_target",
+"evidence": "call 67:53DC -> 67:5402",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5410",
+"kind": "call_target",
+"evidence": "call 67:53F5 -> 67:5410",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5535",
+"kind": "far_target",
+"evidence": "far 67:4115 -> 67:5535",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5554",
+"kind": "call_target",
+"evidence": "call 67:553E -> 67:5554",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "555C",
+"kind": "call_target",
+"evidence": "call 67:5547 -> 67:555C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "570C",
+"kind": "far_target",
+"evidence": "far 67:411E -> 67:570C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5728",
+"kind": "call_target",
+"evidence": "call 67:570C -> 67:5728",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "57CC",
+"kind": "call_target",
+"evidence": "call 67:5715 -> 67:57CC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5842",
+"kind": "call_target",
+"evidence": "call 67:583A -> 67:5842",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "585E",
+"kind": "call_target",
+"evidence": "call 67:57B0 -> 67:585E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "586E",
+"kind": "call_target",
+"evidence": "call 67:57AA -> 67:586E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "58BD",
+"kind": "call_target",
+"evidence": "call 67:57AD -> 67:58BD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "58CD",
+"kind": "far_target",
+"evidence": "far 7C:7D70 -> 67:58CD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5A0E",
+"kind": "call_target",
+"evidence": "call 67:59BF -> 67:5A0E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5A3E",
+"kind": "call_target",
+"evidence": "call 67:5990 -> 67:5A3E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5A4E",
+"kind": "call_target",
+"evidence": "call 67:5A3E -> 67:5A4E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5A75",
+"kind": "call_target",
+"evidence": "call 67:5A41 -> 67:5A75",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "5F54",
+"kind": "far_target",
+"evidence": "far 54:40DA -> 67:5F54",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "60BA",
+"kind": "far_target",
+"evidence": "far 7C:7D79 -> 67:60BA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "611C",
+"kind": "far_target",
+"evidence": "far 4C:4320 -> 67:611C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6171",
+"kind": "call_target",
+"evidence": "call 67:60C8 -> 67:6171",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6205",
+"kind": "far_target",
+"evidence": "far 4C:4422 -> 67:6205",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "626F",
+"kind": "far_target",
+"evidence": "far 7C:7D82 -> 67:626F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "62D5",
+"kind": "far_target",
+"evidence": "far 67:627E -> 67:62D5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6369",
+"kind": "far_target",
+"evidence": "far 67:5409 -> 67:6369",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 103,
+"addr": "6401",
+"kind": "far_target",
+"evidence": "far 65:4029 -> 67:6401",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 103,
+"addr": "6437",
+"kind": "call_target",
+"evidence": "call 67:6401 -> 67:6437",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 103,
+"addr": "644E",
+"kind": "call_target",
+"evidence": "call 67:641A -> 67:644E",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 103,
+"addr": "6536",
+"kind": "far_target",
+"evidence": "far 67:59A6 -> 67:6536",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6565",
+"kind": "call_target",
+"evidence": "call 67:6539 -> 67:6565",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6625",
+"kind": "call_target",
+"evidence": "call 67:6552 -> 67:6625",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "66A6",
+"kind": "call_target",
+"evidence": "call 67:669E -> 67:66A6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "66C2",
+"kind": "call_target",
+"evidence": "call 67:6609 -> 67:66C2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "66D2",
+"kind": "call_target",
+"evidence": "call 67:6603 -> 67:66D2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6721",
+"kind": "call_target",
+"evidence": "call 67:6606 -> 67:6721",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6731",
+"kind": "far_target",
+"evidence": "far 67:49C4 -> 67:6731",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "674F",
+"kind": "far_target",
+"evidence": "far 67:4AC4 -> 67:674F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6799",
+"kind": "far_target",
+"evidence": "far 67:4B11 -> 67:6799",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6807",
+"kind": "far_target",
+"evidence": "far 68:40D8 -> 67:6807",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6828",
+"kind": "far_target",
+"evidence": "far 67:4BD8 -> 67:6828",
+"confidence": "PROBABLE"
+},
+{
+"bank": 103,
+"addr": "6842",
+"kind": "far_target",
+"evidence": "far 67:4B4A -> 67:6842",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4010",
+"kind": "far_target",
+"evidence": "far 27:42CF -> 68:4010",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4021",
+"kind": "far_target",
+"evidence": "far 67:6147 -> 68:4021",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "403B",
+"kind": "far_target",
+"evidence": "far 67:6131 -> 68:403B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4054",
+"kind": "far_target",
+"evidence": "far 68:46EC -> 68:4054",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "40D8",
+"kind": "far_target",
+"evidence": "far 67:4B9E -> 68:40D8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "40F1",
+"kind": "far_target",
+"evidence": "far 67:6296 -> 68:40F1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4106",
+"kind": "far_target",
+"evidence": "far 67:400D -> 68:4106",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4127",
+"kind": "far_target",
+"evidence": "far 67:49D0 -> 68:4127",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "417F",
+"kind": "far_target",
+"evidence": "far 67:4BBB -> 68:417F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "41E9",
+"kind": "far_target",
+"evidence": "far 2A:54C4 -> 68:41E9",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4239",
+"kind": "call_target",
+"evidence": "call 68:421D -> 68:4239",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4252",
+"kind": "far_target",
+"evidence": "far 67:4013 -> 68:4252",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4282",
+"kind": "far_target",
+"evidence": "far 67:58CD -> 68:4282",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4469",
+"kind": "far_target",
+"evidence": "far 54:4106 -> 68:4469",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4495",
+"kind": "call_target",
+"evidence": "call 68:446E -> 68:4495",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4499",
+"kind": "far_target",
+"evidence": "far 67:4138 -> 68:4499",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "44D0",
+"kind": "far_target",
+"evidence": "far 67:4046 -> 68:44D0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "44FC",
+"kind": "far_target",
+"evidence": "far 00:1587 -> 68:44FC",
+"confidence": "CONFIRMED"
+},
+{
+"bank": 104,
+"addr": "453B",
+"kind": "far_target",
+"evidence": "far 68:4FCA -> 68:453B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4568",
+"kind": "far_target",
+"evidence": "far 67:4EFC -> 68:4568",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4608",
+"kind": "far_target",
+"evidence": "far 67:4023 -> 68:4608",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "46C8",
+"kind": "far_target",
+"evidence": "far 67:40B0 -> 68:46C8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "49B6",
+"kind": "far_target",
+"evidence": "far 67:413E -> 68:49B6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "49FF",
+"kind": "call_target",
+"evidence": "call 68:49D8 -> 68:49FF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4A0F",
+"kind": "far_target",
+"evidence": "far 65:400F -> 68:4A0F",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 104,
+"addr": "4F8C",
+"kind": "far_target",
+"evidence": "far 4E:51E2 -> 68:4F8C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "4F9E",
+"kind": "far_target",
+"evidence": "far 7C:7D57 -> 68:4F9E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5033",
+"kind": "call_target",
+"evidence": "call 68:4FED -> 68:5033",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "504D",
+"kind": "call_target",
+"evidence": "call 68:5039 -> 68:504D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5D00",
+"kind": "far_target",
+"evidence": "far 67:6138 -> 68:5D00",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5D9C",
+"kind": "call_target",
+"evidence": "call 68:5D03 -> 68:5D9C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5EAE",
+"kind": "call_target",
+"evidence": "call 68:5FDB -> 68:5EAE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5EC7",
+"kind": "call_target",
+"evidence": "call 68:5D1C -> 68:5EC7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "5FE1",
+"kind": "call_target",
+"evidence": "call 68:5F68 -> 68:5FE1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6050",
+"kind": "call_target",
+"evidence": "call 68:5E4F -> 68:6050",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6060",
+"kind": "call_target",
+"evidence": "call 68:5FD5 -> 68:6060",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "60AB",
+"kind": "call_target",
+"evidence": "call 68:5FD8 -> 68:60AB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6AF6",
+"kind": "far_target",
+"evidence": "far 67:5538 -> 68:6AF6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6C7F",
+"kind": "call_target",
+"evidence": "call 68:6B76 -> 68:6C7F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6E1A",
+"kind": "far_target",
+"evidence": "far 67:6121 -> 68:6E1A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6E39",
+"kind": "call_target",
+"evidence": "call 68:6E1D -> 68:6E39",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6EF6",
+"kind": "call_target",
+"evidence": "call 68:6E26 -> 68:6EF6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6F7F",
+"kind": "call_target",
+"evidence": "call 68:6F77 -> 68:6F7F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6F9B",
+"kind": "call_target",
+"evidence": "call 68:6EDA -> 68:6F9B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "6FAB",
+"kind": "call_target",
+"evidence": "call 68:6ED4 -> 68:6FAB",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7009",
+"kind": "call_target",
+"evidence": "call 68:6ED7 -> 68:7009",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "73DD",
+"kind": "far_target",
+"evidence": "far 4C:40E4 -> 68:73DD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7401",
+"kind": "far_target",
+"evidence": "far 67:6304 -> 68:7401",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7405",
+"kind": "far_target",
+"evidence": "far 4C:46CF -> 68:7405",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7413",
+"kind": "far_target",
+"evidence": "far 4C:46ED -> 68:7413",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7431",
+"kind": "call_target",
+"evidence": "call 68:7421 -> 68:7431",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "766E",
+"kind": "far_target",
+"evidence": "far 67:628F -> 68:766E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7724",
+"kind": "table_target",
+"evidence": "table 68:7717 -> 68:7724",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7727",
+"kind": "table_target",
+"evidence": "table 68:7717 -> 68:7727",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "773E",
+"kind": "table_target",
+"evidence": "table 68:7717 -> 68:773E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7741",
+"kind": "table_target",
+"evidence": "table 68:7717 -> 68:7741",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7743",
+"kind": "table_target",
+"evidence": "table 68:7717 -> 68:7743",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7745",
+"kind": "call_target",
+"evidence": "call 68:76EA -> 68:7745",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "77D6",
+"kind": "call_target",
+"evidence": "call 68:76C2 -> 68:77D6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "784E",
+"kind": "call_target",
+"evidence": "call 68:76E7 -> 68:784E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "792A",
+"kind": "call_target",
+"evidence": "call 68:7885 -> 68:792A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7951",
+"kind": "far_target",
+"evidence": "far 7C:7DFF -> 68:7951",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "799A",
+"kind": "call_target",
+"evidence": "call 68:7968 -> 68:799A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "79B8",
+"kind": "call_target",
+"evidence": "call 68:799D -> 68:79B8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7A8F",
+"kind": "call_target",
+"evidence": "call 68:79A6 -> 68:7A8F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7B01",
+"kind": "call_target",
+"evidence": "call 68:7AF9 -> 68:7B01",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7B1D",
+"kind": "call_target",
+"evidence": "call 68:7A73 -> 68:7B1D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7B9A",
+"kind": "far_target",
+"evidence": "far 68:797E -> 68:7B9A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7BB0",
+"kind": "call_target",
+"evidence": "call 68:7B9A -> 68:7BB0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7C52",
+"kind": "call_target",
+"evidence": "call 68:7BA3 -> 68:7C52",
+"confidence": "PROBABLE"
+},
+{
+"bank": 104,
+"addr": "7D1C",
+"kind": "call_target",
+"evidence": "call 68:7C30 -> 68:7D1C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4E:49CA -> 69:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "4034",
+"kind": "far_target",
+"evidence": "far 69:402B -> 69:4034",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "4051",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:4051",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "406D",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:406D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "407F",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:407F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "4091",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:4091",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "40AD",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:40AD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "40BF",
+"kind": "table_target",
+"evidence": "table 69:4042 -> 69:40BF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "40D1",
+"kind": "far_target",
+"evidence": "far 72:457E -> 69:40D1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "40E0",
+"kind": "table_target",
+"evidence": "table 69:40D7 -> 69:40E0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "4118",
+"kind": "table_target",
+"evidence": "table 69:40D7 -> 69:4118",
+"confidence": "PROBABLE"
+},
+{
+"bank": 105,
+"addr": "414D",
+"kind": "table_target",
+"evidence": "table 69:40D7 -> 69:414D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 107,
+"addr": "4C80",
+"kind": "call_target",
+"evidence": "call 00:02A9 -> 6B:4C80",
+"confidence": "PROBABLE"
+},
+{
+"bank": 107,
+"addr": "4CF6",
+"kind": "call_target",
+"evidence": "call 6B:4CED -> 6B:4CF6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 6C:5989 -> 6C:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "41D5",
+"kind": "table_target",
+"evidence": "table 6C:41C8 -> 6C:41D5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "41E5",
+"kind": "table_target",
+"evidence": "table 6C:41C8 -> 6C:41E5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "425A",
+"kind": "table_target",
+"evidence": "table 6C:41C8 -> 6C:425A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "429C",
+"kind": "table_target",
+"evidence": "table 6C:41C8 -> 6C:429C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "429F",
+"kind": "call_target",
+"evidence": "callcc 6C:41DF -> 6C:429F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "431B",
+"kind": "call_target",
+"evidence": "call 6C:40D9 -> 6C:431B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "453D",
+"kind": "call_target",
+"evidence": "call 6C:4149 -> 6C:453D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "4763",
+"kind": "call_target",
+"evidence": "call 6C:41A0 -> 6C:4763",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "4798",
+"kind": "call_target",
+"evidence": "call 6C:477C -> 6C:4798",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5987",
+"kind": "far_target",
+"evidence": "far 7C:7BAE -> 6C:5987",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "59B2",
+"kind": "call_target",
+"evidence": "call 6C:59A2 -> 6C:59B2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5D07",
+"kind": "table_target",
+"evidence": "table 6C:5CFA -> 6C:5D07",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5D09",
+"kind": "table_target",
+"evidence": "table 6C:5CFA -> 6C:5D09",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5D30",
+"kind": "table_target",
+"evidence": "table 6C:5CFA -> 6C:5D30",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5D5A",
+"kind": "table_target",
+"evidence": "table 6C:5CFA -> 6C:5D5A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5D9C",
+"kind": "table_target",
+"evidence": "table 6C:5CFA -> 6C:5D9C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5E25",
+"kind": "call_target",
+"evidence": "call 6C:6075 -> 6C:5E25",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "5E6E",
+"kind": "call_target",
+"evidence": "callcc 6C:5CBA -> 6C:5E6E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 108,
+"addr": "6009",
+"kind": "call_target",
+"evidence": "call 6C:5CD4 -> 6C:6009",
+"confidence": "PROBABLE"
+},
+{
+"bank": 112,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4C:46C6 -> 70:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 112,
+"addr": "4023",
+"kind": "far_target",
+"evidence": "far 4C:46E4 -> 70:4023",
+"confidence": "PROBABLE"
+},
+{
+"bank": 112,
+"addr": "407F",
+"kind": "call_target",
+"evidence": "call 70:4034 -> 70:407F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 112,
+"addr": "408F",
+"kind": "call_target",
+"evidence": "call 70:4031 -> 70:408F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4000",
+"kind": "far_target",
+"evidence": "far 4E:4A26 -> 72:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4015",
+"kind": "far_target",
+"evidence": "far 50:4039 -> 72:4015",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "402A",
+"kind": "far_target",
+"evidence": "far 50:4024 -> 72:402A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "43A7",
+"kind": "call_target",
+"evidence": "call 72:40F6 -> 72:43A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "43B6",
+"kind": "table_target",
+"evidence": "table 72:43A7 -> 72:43B6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "43C1",
+"kind": "table_target",
+"evidence": "table 72:43A7 -> 72:43C1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "43DC",
+"kind": "table_target",
+"evidence": "table 72:43A7 -> 72:43DC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4407",
+"kind": "table_target",
+"evidence": "table 72:43A7 -> 72:4407",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4412",
+"kind": "table_target",
+"evidence": "table 72:43A7 -> 72:4412",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4424",
+"kind": "call_target",
+"evidence": "call 72:43FC -> 72:4424",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "444F",
+"kind": "far_target",
+"evidence": "far 50:4030 -> 72:444F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4578",
+"kind": "far_target",
+"evidence": "far 72:401B -> 72:4578",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "45A0",
+"kind": "table_target",
+"evidence": "table 72:4593 -> 72:45A0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "45EA",
+"kind": "table_target",
+"evidence": "table 72:4593 -> 72:45EA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4600",
+"kind": "table_target",
+"evidence": "table 72:4593 -> 72:4600",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4603",
+"kind": "table_target",
+"evidence": "table 72:4593 -> 72:4603",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4606",
+"kind": "table_target",
+"evidence": "table 72:4593 -> 72:4606",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "461A",
+"kind": "far_target",
+"evidence": "far 72:4006 -> 72:461A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "46A2",
+"kind": "table_target",
+"evidence": "table 72:4695 -> 72:46A2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "46EC",
+"kind": "table_target",
+"evidence": "table 72:4695 -> 72:46EC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4702",
+"kind": "table_target",
+"evidence": "table 72:4695 -> 72:4702",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4705",
+"kind": "table_target",
+"evidence": "table 72:4695 -> 72:4705",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4708",
+"kind": "table_target",
+"evidence": "table 72:4695 -> 72:4708",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "472B",
+"kind": "far_target",
+"evidence": "far 72:4051 -> 72:472B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4749",
+"kind": "far_target",
+"evidence": "far 72:41D8 -> 72:4749",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4767",
+"kind": "far_target",
+"evidence": "far 72:449F -> 72:4767",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4785",
+"kind": "far_target",
+"evidence": "far 72:452B -> 72:4785",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "47A3",
+"kind": "far_target",
+"evidence": "far 72:4481 -> 72:47A3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "47D4",
+"kind": "far_target",
+"evidence": "far 72:450D -> 72:47D4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4805",
+"kind": "far_target",
+"evidence": "far 72:4057 -> 72:4805",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4824",
+"kind": "far_target",
+"evidence": "far 72:4190 -> 72:4824",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "4872",
+"kind": "far_target",
+"evidence": "far 72:44B5 -> 72:4872",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "63D8",
+"kind": "far_target",
+"evidence": "far 4E:4D16 -> 72:63D8",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6563",
+"kind": "far_target",
+"evidence": "far 4E:4D1C -> 72:6563",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "65F5",
+"kind": "table_target",
+"evidence": "table 72:65E8 -> 72:65F5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "663B",
+"kind": "table_target",
+"evidence": "table 72:65E8 -> 72:663B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "663E",
+"kind": "table_target",
+"evidence": "table 72:65E8 -> 72:663E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "665A",
+"kind": "table_target",
+"evidence": "table 72:6640 -> 72:665A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6677",
+"kind": "table_target",
+"evidence": "table 72:65E8 -> 72:6677",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "667B",
+"kind": "table_target",
+"evidence": "table 72:6640 -> 72:667B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "669F",
+"kind": "far_target",
+"evidence": "far 72:6567 -> 72:669F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6712",
+"kind": "far_target",
+"evidence": "far 4E:4D36 -> 72:6712",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "689F",
+"kind": "far_target",
+"evidence": "far 4E:4D3C -> 72:689F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6931",
+"kind": "table_target",
+"evidence": "table 72:6924 -> 72:6931",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6977",
+"kind": "table_target",
+"evidence": "table 72:6924 -> 72:6977",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "697A",
+"kind": "table_target",
+"evidence": "table 72:6924 -> 72:697A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6998",
+"kind": "table_target",
+"evidence": "table 72:697C -> 72:6998",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "69AD",
+"kind": "table_target",
+"evidence": "table 72:697C -> 72:69AD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "69CA",
+"kind": "table_target",
+"evidence": "table 72:6924 -> 72:69CA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "69CE",
+"kind": "table_target",
+"evidence": "table 72:697C -> 72:69CE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "69F3",
+"kind": "far_target",
+"evidence": "far 72:68A3 -> 72:69F3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 114,
+"addr": "6A6B",
+"kind": "far_target",
+"evidence": "far 4E:4D52 -> 72:6A6B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "5F17",
+"kind": "far_target",
+"evidence": "far 4F:468F -> 73:5F17",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "60A0",
+"kind": "table_target",
+"evidence": "table 73:6093 -> 73:60A0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "6114",
+"kind": "table_target",
+"evidence": "table 73:6093 -> 73:6114",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "614F",
+"kind": "table_target",
+"evidence": "table 73:6093 -> 73:614F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "617A",
+"kind": "table_target",
+"evidence": "table 73:6093 -> 73:617A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "617D",
+"kind": "table_target",
+"evidence": "table 73:6093 -> 73:617D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "6180",
+"kind": "call_target",
+"evidence": "callcc 73:60E1 -> 73:6180",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "61D5",
+"kind": "call_target",
+"evidence": "call 73:5FCE -> 73:61D5",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "6265",
+"kind": "call_target",
+"evidence": "call 73:60E4 -> 73:6265",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "62AA",
+"kind": "call_target",
+"evidence": "call 73:606B -> 73:62AA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "62D2",
+"kind": "call_target",
+"evidence": "callcc 73:62B7 -> 73:62D2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "62DA",
+"kind": "call_target",
+"evidence": "callcc 73:62BD -> 73:62DA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 115,
+"addr": "62E2",
+"kind": "call_target",
+"evidence": "callcc 73:62C3 -> 73:62E2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4165",
+"kind": "far_target",
+"evidence": "far 74:424D -> 74:4165",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4207",
+"kind": "far_target",
+"evidence": "far 4E:5145 -> 74:4207",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4254",
+"kind": "far_target",
+"evidence": "far 4C:4564 -> 74:4254",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4296",
+"kind": "far_target",
+"evidence": "far 74:4241 -> 74:4296",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4530",
+"kind": "call_target",
+"evidence": "call 74:44E5 -> 74:4530",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "4F4F",
+"kind": "far_target",
+"evidence": "far 74:42E1 -> 74:4F4F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5252",
+"kind": "far_target",
+"evidence": "far 74:43CD -> 74:5252",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "537D",
+"kind": "far_target",
+"evidence": "far 74:4247 -> 74:537D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "53E3",
+"kind": "far_target",
+"evidence": "far 74:42ED -> 74:53E3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5417",
+"kind": "far_target",
+"evidence": "far 74:5252 -> 74:5417",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5440",
+"kind": "far_target",
+"evidence": "far 74:43C7 -> 74:5440",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5528",
+"kind": "call_target",
+"evidence": "call 74:5502 -> 74:5528",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5548",
+"kind": "call_target",
+"evidence": "call 74:5460 -> 74:5548",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "55BE",
+"kind": "call_target",
+"evidence": "call 74:5505 -> 74:55BE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5663",
+"kind": "call_target",
+"evidence": "call 74:5431 -> 74:5663",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "57AD",
+"kind": "call_target",
+"evidence": "call 74:55C7 -> 74:57AD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "586E",
+"kind": "far_target",
+"evidence": "far 74:5260 -> 74:586E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5969",
+"kind": "far_target",
+"evidence": "far 4C:4003 -> 74:5969",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5981",
+"kind": "far_target",
+"evidence": "far 4C:48FD -> 74:5981",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5A76",
+"kind": "call_target",
+"evidence": "call 74:5A19 -> 74:5A76",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5A96",
+"kind": "far_target",
+"evidence": "far 74:42E7 -> 74:5A96",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5B4F",
+"kind": "far_target",
+"evidence": "far 74:53B3 -> 74:5B4F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 116,
+"addr": "5BA0",
+"kind": "far_target",
+"evidence": "far 4C:4906 -> 74:5BA0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "4000",
+"kind": "call_target",
+"evidence": "jp 75:5BE6 -> 75:4000",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "4029",
+"kind": "call_target",
+"evidence": "call 75:5ADE -> 75:4029",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "40B4",
+"kind": "call_target",
+"evidence": "callcc 75:4066 -> 75:40B4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "4225",
+"kind": "call_target",
+"evidence": "call 75:5F1B -> 75:4225",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "565C",
+"kind": "call_target",
+"evidence": "call 75:5AB5 -> 75:565C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5671",
+"kind": "call_target",
+"evidence": "call 75:58A1 -> 75:5671",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5693",
+"kind": "call_target",
+"evidence": "call 75:59A2 -> 75:5693",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "56D2",
+"kind": "call_target",
+"evidence": "call 00:01D5 -> 75:56D2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "58CE",
+"kind": "call_target",
+"evidence": "call 75:5890 -> 75:58CE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "58EA",
+"kind": "call_target",
+"evidence": "call 00:0227 -> 75:58EA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5B46",
+"kind": "call_target",
+"evidence": "callcc 75:58EF -> 75:5B46",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5DE2",
+"kind": "call_target",
+"evidence": "call 75:5D8A -> 75:5DE2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5E1E",
+"kind": "call_target",
+"evidence": "call 75:5D8D -> 75:5E1E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5F0B",
+"kind": "call_target",
+"evidence": "call 75:59C4 -> 75:5F0B",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5F10",
+"kind": "call_target",
+"evidence": "call 75:5FE9 -> 75:5F10",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "5FA0",
+"kind": "call_target",
+"evidence": "call 75:5983 -> 75:5FA0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 117,
+"addr": "6149",
+"kind": "call_target",
+"evidence": "call 75:58F2 -> 75:6149",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "57C3",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:57C3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7B7C",
+"kind": "far_target",
+"evidence": "far 1C:401D -> 7C:7B7C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7B99",
+"kind": "table_target",
+"evidence": "table 7C:7B8B -> 7C:7B99",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7B9A",
+"kind": "table_target",
+"evidence": "table 7C:7B8B -> 7C:7B9A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7BA3",
+"kind": "table_target",
+"evidence": "table 7C:7B8B -> 7C:7BA3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7BAC",
+"kind": "table_target",
+"evidence": "table 7C:7B8B -> 7C:7BAC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7BB7",
+"kind": "far_target",
+"evidence": "far 7C:7B9A -> 7C:7BB7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7BDA",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7BDA",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7C7C",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7C7C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7CB0",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7CB0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7CCD",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7CCD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7CE2",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7CE2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7CF6",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7CF6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D1E",
+"kind": "table_target",
+"evidence": "table 7C:7BC6 -> 7C:7D1E",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D1F",
+"kind": "far_target",
+"evidence": "far 1C:4028 -> 7C:7D1F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D6F",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7D6F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D70",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7D70",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D79",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7D79",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7D82",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7D82",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7DFF",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7DFF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 124,
+"addr": "7E08",
+"kind": "table_target",
+"evidence": "table 7C:7D5D -> 7C:7E08",
+"confidence": "PROBABLE"
+},
+{
+"bank": 125,
+"addr": "7B7C",
+"kind": "call_target",
+"evidence": "call 7D:7BC1 -> 7D:7B7C",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 125,
+"addr": "7BA4",
+"kind": "far_target",
+"evidence": "far 65:493F -> 7D:7BA4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 125,
+"addr": "7BB7",
+"kind": "far_target",
+"evidence": "far 67:57D5 -> 7D:7BB7",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 125,
+"addr": "7BC1",
+"kind": "call_target",
+"evidence": "call 7D:7BBA -> 7D:7BC1",
+"confidence": "PROBABLE",
+"structural": true
+},
+{
+"bank": 125,
+"addr": "7BF0",
+"kind": "far_target",
+"evidence": "far 4F:47F6 -> 7D:7BF0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 125,
+"addr": "7C00",
+"kind": "far_target",
+"evidence": "far target",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 126,
+"addr": "7B7C",
+"kind": "call_target",
+"evidence": "call 7E:7BDA -> 7E:7B7C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7BA3",
+"kind": "call_target",
+"evidence": "call 7E:7CCB -> 7E:7BA3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7BD6",
+"kind": "call_target",
+"evidence": "call 7E:7E89 -> 7E:7BD6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7BDE",
+"kind": "call_target",
+"evidence": "call 7E:7D3E -> 7E:7BDE",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7C2A",
+"kind": "call_target",
+"evidence": "call 7E:7BDE -> 7E:7C2A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7C34",
+"kind": "far_target",
+"evidence": "far 54:47FD -> 7E:7C34",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7D19",
+"kind": "far_target",
+"evidence": "far 4C:455E -> 7E:7D19",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7D62",
+"kind": "far_target",
+"evidence": "far 54:4A73 -> 7E:7D62",
+"confidence": "PROBABLE"
+},
+{
+"bank": 126,
+"addr": "7E68",
+"kind": "call_target",
+"evidence": "call 7E:7D56 -> 7E:7E68",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "4007",
+"kind": "far_target",
+"evidence": "far 00:10C0 -> 7F:4007",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "400E",
+"kind": "call_target",
+"evidence": "call 7F:4007 -> 7F:400E",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "405F",
+"kind": "far_target",
+"evidence": "far 00:1053 -> 7F:405F",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "4072",
+"kind": "call_target",
+"evidence": "call 7F:4065 -> 7F:4072",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "40B0",
+"kind": "call_target",
+"evidence": "call 7F:4068 -> 7F:40B0",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "40B9",
+"kind": "call_target",
+"evidence": "call 7F:406B -> 7F:40B9",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "41A7",
+"kind": "far_target",
+"evidence": "far 24:495D -> 7F:41A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "41D0",
+"kind": "call_target",
+"evidence": "call 7F:40DF -> 7F:41D0",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "41EA",
+"kind": "call_target",
+"evidence": "call 7F:42C5 -> 7F:41EA",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "42C3",
+"kind": "far_target",
+"evidence": "far 00:10D5 -> 7F:42C3",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "42CA",
+"kind": "far_target",
+"evidence": "far target",
+"confidence": "CONFIRMED",
+"structural": true
+},
+{
+"bank": 127,
+"addr": "4C42",
+"kind": "far_target",
+"evidence": "far 2A:59F7 -> 7F:4C42",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "61FC",
+"kind": "far_target",
+"evidence": "far 27:42DB -> 7F:61FC",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "61FF",
+"kind": "far_target",
+"evidence": "far 27:4869 -> 7F:61FF",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "6218",
+"kind": "far_target",
+"evidence": "far 23:50E5 -> 7F:6218",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "624F",
+"kind": "far_target",
+"evidence": "far 24:4C59 -> 7F:624F",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "627C",
+"kind": "far_target",
+"evidence": "far 24:4D15 -> 7F:627C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "70FD",
+"kind": "far_target",
+"evidence": "far 55:6342 -> 7F:70FD",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7116",
+"kind": "far_target",
+"evidence": "far 55:6392 -> 7F:7116",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7125",
+"kind": "far_target",
+"evidence": "far 55:6472 -> 7F:7125",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "713A",
+"kind": "far_target",
+"evidence": "far 55:64C2 -> 7F:713A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7149",
+"kind": "far_target",
+"evidence": "far 55:634C -> 7F:7149",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7165",
+"kind": "far_target",
+"evidence": "far 55:63A3 -> 7F:7165",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7178",
+"kind": "far_target",
+"evidence": "far 55:647C -> 7F:7178",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7194",
+"kind": "far_target",
+"evidence": "far 55:64D3 -> 7F:7194",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "71A7",
+"kind": "far_target",
+"evidence": "far 55:6356 -> 7F:71A7",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "71C3",
+"kind": "far_target",
+"evidence": "far 55:63B4 -> 7F:71C3",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "71D6",
+"kind": "far_target",
+"evidence": "far 55:6486 -> 7F:71D6",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "71F2",
+"kind": "far_target",
+"evidence": "far 55:64E4 -> 7F:71F2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7205",
+"kind": "far_target",
+"evidence": "far 55:6360 -> 7F:7205",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "720C",
+"kind": "far_target",
+"evidence": "far 55:63C5 -> 7F:720C",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "721D",
+"kind": "far_target",
+"evidence": "far 55:6490 -> 7F:721D",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7224",
+"kind": "far_target",
+"evidence": "far 55:64F5 -> 7F:7224",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7271",
+"kind": "far_target",
+"evidence": "far 24:403C -> 7F:7271",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "72B0",
+"kind": "far_target",
+"evidence": "far 24:409A -> 7F:72B0",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "72C2",
+"kind": "far_target",
+"evidence": "far 29:500B -> 7F:72C2",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "733A",
+"kind": "far_target",
+"evidence": "far 7F:7116 -> 7F:733A",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7425",
+"kind": "far_target",
+"evidence": "far 7F:7168 -> 7F:7425",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "7578",
+"kind": "far_target",
+"evidence": "far 7F:713A -> 7F:7578",
+"confidence": "PROBABLE"
+},
+{
+"bank": 127,
+"addr": "76C4",
+"kind": "far_target",
+"evidence": "far 7F:7197 -> 7F:76C4",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "032E",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1059",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation of Function_00_1028",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "1079",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation of Function_00_1028",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "10A3",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "10C6",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation of Function_00_10B1",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "10DB",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation",
+"confidence": "PROBABLE"
+},
+{
+"bank": 0,
+"addr": "158D",
+"kind": "function",
+"evidence": "continuation/other code of a curated ROM0 region: continuation [reached via inferred links; raw refs 11]",
+"confidence": "PROBABLE"
+}
+]
+}

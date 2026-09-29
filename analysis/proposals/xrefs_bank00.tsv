@@ -1,0 +1,29 @@
+# bank	addr	operand_kind	target_bank	target_addr	status	evidence   (config/xrefs.tsv format; bank 00 operands)
+00	018A	branch	75	4030	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	01D5	branch	75	56D2	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	0227	branch	75	58EA	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	0262	branch	0F	4247	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	02A9	branch	6B	4C80	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	0314	branch	4F	4717	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	0335	imm	00	0352	PROBABLE	immediate equals the start of Data_00_0352 (ROM0 address)
+00	0341	imm	00	0352	PROBABLE	immediate equals the start of Data_00_0352 (ROM0 address)
+00	0C1E	imm	00	0C34	PROBABLE	immediate equals the start of Table_00_0C34 (ROM0 address)
+00	15EC	imm	00	161A	PROBABLE	immediate equals the start of Table_00_161A (ROM0 address)
+00	171F	branch	4F	47A5	PROBABLE	bank from the constant MBC ROM-bank write earlier in the same straight-line run
+00	20A3	branch	04	4000	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20A9	branch	04	4082	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20AF	branch	04	41C0	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20B5	branch	04	4287	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20BB	branch	04	42C0	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20C1	branch	04	43DC	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20C7	branch	04	4429	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20CD	branch	04	42EC	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20D3	branch	04	444B	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20D9	branch	04	44B1	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20DF	branch	04	452C	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20E5	branch	04	445C	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	20EB	branch	04	42D6	PROBABLE	stub `call <guard> ; jp`: the guard (00:20EE) selects ROM bank 4 (ld a,$04 ; ldh [FF8A],a ; ld [$2000],a)
+00	131E	imm	3F	4000	PROBABLE	ROM bank $3F selected by the MBC write at 00:1325 (ld a,$3F ; ldh [FF8A],a ; ld [$2100],a) in the same straight-line run
+00	1368	imm	3F	4000	PROBABLE	ROM bank $3F selected by the MBC write at 00:136F (ld a,$3F ; ldh [FF8A],a ; ld [$2100],a) in the same straight-line run
+00	155A	imm	65	567F	PROBABLE	ROM bank $65 selected by the MBC write at 00:1556 (ld a,$65 ; ldh [FF8A],a ; ld [$2100],a) in the same straight-line run
+00	15A2	imm	68	67AE	PROBABLE	ROM bank $68 selected by the MBC write at 00:159C (ld a,$68 ; ldh [FF8A],a ; ld [$2100],a) in the same straight-line run
