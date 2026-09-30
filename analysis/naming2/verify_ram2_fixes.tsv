@@ -1,0 +1,2 @@
+old_name	new_name	kind	status	evidence
+# analysis/naming2/verify_ram2_fixes.tsv -- adversarial verification of the ram2 pass (docs/research/naming2_verify_ram2.md): 0 correction rows; all 49 applied names are upheld, the evidence-column corrections and status verdicts are in the document
