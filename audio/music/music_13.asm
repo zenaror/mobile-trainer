@@ -6,7 +6,8 @@ SECTION "audio/music/music_13", ROMX
 
 ; ---- data $4CA1-$4D76 (213 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_05_4CA1:: ; 05:4CA1
+SoundSong13_Track0:: ; 05:4CA1
+Data_05_4CA1::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_tempo $37
@@ -29,7 +30,7 @@ Data_05_4CA1:: ; 05:4CA1
 	sound_instrument $01
 	sound_note 6, $4B, $16
 	sound_wait 6
-	sound_rs sound_note_mod 6, $07
+	sound_rs sound_note_vol 6, $07
 	sound_wait 6
 	sound_instrument $20
 	sound_note 6, $5B, $0D
@@ -39,7 +40,8 @@ Data_05_4CA1:: ; 05:4CA1
 	sound_note 8, $4F
 	sound_wait 8
 	sound_end
-Data_05_4CD8:: ; 05:4CD8
+SoundSong13_Track1:: ; 05:4CD8
+Data_05_4CD8::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $05
@@ -61,7 +63,7 @@ Data_05_4CD8:: ; 05:4CD8
 	sound_instrument $05
 	sound_note 6, $43, $11
 	sound_wait 6
-	sound_rs sound_note_mod 6, $05
+	sound_rs sound_note_vol 6, $05
 	sound_wait 6
 	sound_instrument $04
 	sound_note 6, $52, $0D
@@ -71,7 +73,8 @@ Data_05_4CD8:: ; 05:4CD8
 	sound_note 8, $3F
 	sound_wait 8
 	sound_end
-Data_05_4D0D:: ; 05:4D0D
+SoundSong13_Track2:: ; 05:4D0D
+Data_05_4D0D::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $08
@@ -94,7 +97,8 @@ Data_05_4D0D:: ; 05:4D0D
 	sound_note 8, $27
 	sound_wait 8
 	sound_end
-Data_05_4D2B:: ; 05:4D2B
+SoundSong13_Track3:: ; 05:4D2B
+Data_05_4D2B::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
@@ -102,46 +106,47 @@ Data_05_4D2B:: ; 05:4D2B
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 5, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 5, $27, $11
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 5, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
 	sound_note 5, $27, $11
 	sound_wait 6
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 5, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
 	sound_note 5, $27, $11
 	sound_wait 6
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 6, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_end
 
 ; ---- data $4D76-$4D78 (2 bytes) [PROBABLE] header NN=04 KK=00 of the channel-pointer table at 4D78 (4 words = NN*(KK+1)); the byte before (4D75) is $B1 [v4: bytes 4D76-4D77 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_05_4D76:: ; 05:4D76
+SoundSong13_Header:: ; 05:4D76
+Data_05_4D76::
 	sound_stream_header 4, 0
 
 ; ---- words $4D78-$4D80 (8 bytes) [PROBABLE] 4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4D76 [v4: bytes 4D78-4D80 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_4D78:: ; 05:4D78
-	dw Data_05_4CA1, Data_05_4CD8, Data_05_4D0D, Data_05_4D2B ; track stream pointers (read by the driver)
+	dw SoundSong13_Track0, SoundSong13_Track1, SoundSong13_Track2, SoundSong13_Track3 ; track stream pointers (read by the driver)

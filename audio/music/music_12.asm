@@ -6,7 +6,8 @@ SECTION "audio/music/music_12", ROMX
 
 ; ---- data $4A2F-$4B30 (257 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_05_4A2F:: ; 05:4A2F
+SoundSong12_Track0:: ; 05:4A2F
+Data_05_4A2F::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_4A33:: ; 05:4A33
@@ -164,7 +165,8 @@ Data_05_4B30:: ; 05:4B30
 
 ; ---- data $4B31-$4B7B (74 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_05_4B31:: ; 05:4B31
+SoundSong12_Track1:: ; 05:4B31
+Data_05_4B31::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_4B35:: ; 05:4B35
@@ -226,7 +228,8 @@ Data_05_4B7B:: ; 05:4B7B
 
 ; ---- data $4B7C-$4BD9 (93 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_05_4B7C:: ; 05:4B7C
+SoundSong12_Track2:: ; 05:4B7C
+Data_05_4B7C::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_4B80:: ; 05:4B80
@@ -298,7 +301,8 @@ Data_05_4BD9:: ; 05:4BD9
 
 ; ---- data $4BDA-$4C86 (172 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_05_4BDA:: ; 05:4BDA
+SoundSong12_Track3:: ; 05:4BDA
+Data_05_4BDA::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_4BDE:: ; 05:4BDE
@@ -307,16 +311,16 @@ Data_05_4BDE:: ; 05:4BDE
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_note_mod 12, $0D
+	sound_note_vol 12, $0D
 	sound_wait 12
 	sound_note 6, $2A, $0F
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_cmd_C1 $20
+	sound_pitch_bend $20
 	sound_note 6, $25, $10
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
@@ -324,12 +328,12 @@ Data_05_4BDE:: ; 05:4BDE
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_note_mod 12, $0D
+	sound_note_vol 12, $0D
 	sound_wait 12
-	sound_cmd_C1 $20
+	sound_pitch_bend $20
 	sound_note 6, $25, $10
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
@@ -342,16 +346,16 @@ Data_05_4C1E:: ; 05:4C1E
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_note_mod 12, $0D
+	sound_note_vol 12, $0D
 	sound_wait 12
 	sound_note 6, $2A, $0F
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_cmd_C1 $20
+	sound_pitch_bend $20
 	sound_note 6, $25, $10
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
@@ -359,12 +363,12 @@ Data_05_4C1E:: ; 05:4C1E
 	sound_wait 6
 	sound_note 3, $24, $0B
 	sound_wait 6
-	sound_note_mod 12, $0D
+	sound_note_vol 12, $0D
 	sound_wait 12
-	sound_cmd_C1 $20
+	sound_pitch_bend $20
 	sound_note 6, $25, $10
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 5
 	sound_note 3, $24, $0B
 	sound_wait 6
@@ -382,13 +386,13 @@ Data_05_4C1E:: ; 05:4C1E
 	sound_wait 48
 	sound_note 3, $2E, $03
 	sound_wait 6
-	sound_rs sound_note_mod 3, $06
+	sound_rs sound_note_vol 3, $06
 	sound_wait 6
-	sound_rs sound_note_mod 3, $09
+	sound_rs sound_note_vol 3, $09
 	sound_wait 6
-	sound_rs sound_note_mod 3, $0C
+	sound_rs sound_note_vol 3, $0C
 	sound_wait 6
-	sound_rs sound_note_mod 3, $0F
+	sound_rs sound_note_vol 3, $0F
 	sound_wait 6
 	sound_note 3
 	sound_wait 6
@@ -405,12 +409,13 @@ Data_05_4C86:: ; 05:4C86
 
 ; ---- data $4C87-$4C89 (2 bytes) [PROBABLE] header NN=04 KK=02 of the channel-pointer table at 4C89 (12 words = NN*(KK+1)); the byte before (4C86) is $B1
 
-Data_05_4C87:: ; 05:4C87
+SoundSong12_Header:: ; 05:4C87
+Data_05_4C87::
 	sound_stream_header 4, 2
 
 ; ---- words $4C89-$4CA1 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 4C87 [v4: bytes 4C89-4C91 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_4C89:: ; 05:4C89
-	dw Data_05_4A2F, Data_05_4B31, Data_05_4B7C, Data_05_4BDA ; track stream pointers (read by the driver)
+	dw SoundSong12_Track0, SoundSong12_Track1, SoundSong12_Track2, SoundSong12_Track3 ; track stream pointers (read by the driver)
 	dw Data_05_4A33, Data_05_4B35, Data_05_4B80, Data_05_4BDE ; not read by the driver: target of each track's final sound_jump
 	dw Data_05_4B30, Data_05_4B7B, Data_05_4BD9, Data_05_4C86 ; not read by the driver: address after each track's final sound_jump

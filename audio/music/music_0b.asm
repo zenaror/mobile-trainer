@@ -6,7 +6,8 @@ SECTION "audio/music/music_0b", ROMX
 
 ; ---- data $79A4-$7BF3 (591 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; command semantics not decoded (part of region $574D-$7E8C)
 
-Data_04_79A4:: ; 04:79A4
+SoundSong0B_Track0:: ; 04:79A4
+Data_04_79A4::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_79A8:: ; 04:79A8
@@ -71,7 +72,8 @@ Data_04_79A8:: ; 04:79A8
 	sound_jump Data_04_79A8
 Data_04_79F3:: ; 04:79F3
 	sound_end
-Data_04_79F4:: ; 04:79F4
+SoundSong0B_Track1:: ; 04:79F4
+Data_04_79F4::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_79F8:: ; 04:79F8
@@ -195,7 +197,8 @@ Data_04_79F8:: ; 04:79F8
 	sound_jump Data_04_79F8
 Data_04_7ABC:: ; 04:7ABC
 	sound_end
-Data_04_7ABD:: ; 04:7ABD
+SoundSong0B_Track2:: ; 04:7ABD
+Data_04_7ABD::
 	sound_volume $7F
 	sound_pitch_add $F4
 Data_04_7AC1:: ; 04:7AC1
@@ -283,7 +286,8 @@ Data_04_7AC1:: ; 04:7AC1
 	sound_jump Data_04_7AC1
 Data_04_7B5B:: ; 04:7B5B
 	sound_end
-Data_04_7B5C:: ; 04:7B5C
+SoundSong0B_Track3:: ; 04:7B5C
+Data_04_7B5C::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_7B60:: ; 04:7B60
@@ -359,8 +363,9 @@ Data_04_7B98:: ; 04:7B98
 	sound_jump Data_04_7B60
 Data_04_7BD8:: ; 04:7BD8
 	sound_end
-Data_04_7BD9:: ; 04:7BD9
+SoundSong0B_Header:: ; 04:7BD9
+Data_04_7BD9::
 	sound_stream_header 4, 2
-	dw Data_04_79A4, Data_04_79F4, Data_04_7ABD, Data_04_7B5C ; track stream pointers (read by the driver)
+	dw SoundSong0B_Track0, SoundSong0B_Track1, SoundSong0B_Track2, SoundSong0B_Track3 ; track stream pointers (read by the driver)
 	dw Data_04_79A8, Data_04_79F8, Data_04_7AC1, Data_04_7B60 ; not read by the driver: target of each track's final sound_jump
 	dw Data_04_79F3, Data_04_7ABC, Data_04_7B5B, Data_04_7BD8 ; not read by the driver: address after each track's final sound_jump

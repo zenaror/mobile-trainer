@@ -56,9 +56,12 @@ EXPECT_HANDLER = {0xB1: 0x45DB, 0xB2: 0x479B, 0xB3: 0x4777, 0xB4: 0x47A3, 0xB5: 
 END_HANDLERS = (0x45DB, 0x4A24)          # SoundDrv_CmdEnd and the `jp SoundDrv_CmdEnd` stub: opcodes without a real handler
 NO_HANDLER = (0xB6, 0xB7, 0xB8, 0xB9, 0xBA, 0xBB, 0xC7, 0xC8, 0xCB, 0xCC)
 ONE_BYTE = (0xBC, 0xBD, 0xBE, 0xBF, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC9, 0xCA)   # each handler does one `inc de`
-CMD_NAME = {0xBC: 'sound_tempo', 0xBD: 'sound_pitch_add', 0xBE: 'sound_instrument', 0xBF: 'sound_volume'}
-for _op in (0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC9, 0xCA):
-    CMD_NAME[_op] = 'sound_cmd_C%X' % (_op & 0xF)
+# macro names of the one-byte commands; the ones with an opcode in the name are the commands whose effect is not demonstrated
+# (docs/research/audio_format.md section 5)
+CMD_NAME = {0xBC: 'sound_tempo', 0xBD: 'sound_pitch_add', 0xBE: 'sound_instrument', 0xBF: 'sound_volume',
+            0xC0: 'sound_pan', 0xC1: 'sound_pitch_bend', 0xC2: 'sound_pitch_bend_scale', 0xC3: 'sound_vibrato_rate',
+            0xC4: 'sound_vibrato_delay', 0xC5: 'sound_vibrato_depth', 0xC6: 'sound_vibrato_disable', 0xC9: 'sound_detune',
+            0xCA: 'sound_cmd_CA'}
 MAX_CALL_DEPTH = 5                        # SoundDrv_CmdCall: the depth counter goes up by 2 and must be < $0A
 
 # the values written by `_sound_dur_def` in constants/audio_macros.inc (checked against the ROM table and the include)
@@ -346,11 +349,11 @@ def item_text(it, name):
         elif cls == ('pitch', 'mod'):
             t = 'sound_note %d, %s, %s' % (it.dur, hx(vals[0]), hx(vals[1]))
         elif cls == ('mod',):
-            t = 'sound_note_mod %d, %s' % (it.dur, hx(vals[0]))
+            t = 'sound_note_vol %d, %s' % (it.dur, hx(vals[0]))
         else:
             return None
     elif k == 'cf':
-        t = 'sound_cmd_CF' + (' ' + hx(it.ext[0][1]) if it.ext else '')
+        t = 'sound_note_off' + (' ' + hx(it.ext[0][1]) if it.ext else '')
     elif k == 'end':
         t = 'sound_end'
     elif k == 'ret':
@@ -419,6 +422,7 @@ class SrcFile:
 
     def _parse(self, body):
         cur = None
+        last_mid = None
         for line in body:
             m = REGION.match(line)
             if m:
@@ -438,9 +442,12 @@ class SrcFile:
                 cur.start_labels.append(line)
             elif lm:
                 am = LABEL_ADDR.search(lm.group('rest'))
-                if not am:
+                if am:
+                    last_mid = int(am.group(2), 16)
+                elif not (cur.content and LABEL.match(cur.content[-1]) and last_mid is not None):
                     raise DecodeError('%s: label %s inside a block has no address comment' % (self.rel, lm.group(1)))
-                cur.mid_labels.setdefault(int(am.group(2), 16), []).append(line)
+                # a label without address comment right below another label is an alias of it (apply_renames.py writes them)
+                cur.mid_labels.setdefault(last_mid, []).append(line)
                 cur.content.append(line)
             elif line.strip() == '':
                 continue
@@ -476,10 +483,99 @@ def audio_files(root):
     return rels + ['audio/sfx.asm'], 'audio/music_pointers.asm'
 
 
+STATUS = re.compile(r'\[(CONFIRMED|PROBABLE|HYPOTHESIS)\]')
+HEADER_SIZE = re.compile(r'^(; ---- \w+ \$[0-9A-Fa-f]{4}-\$)([0-9A-Fa-f]{4}) \((\d+) bytes\)(.*)$')
+
+
+def cut_points(bank, headers, items):
+    """Addresses that lie strictly inside a command (or inside a word of a header pointer set) of the decoded streams."""
+    cuts = set()
+    for it in items[bank].values():
+        cuts.update(range(it.addr + 1, it.addr + it.size))
+    for (b, addr), h in headers.items():
+        if b != bank:
+            continue
+        cuts.add(addr + 1)
+        for si in range(len(h.sets)):
+            base = addr + 2 + 2 * si * h.tracks
+            cuts.update(base + 2 * k + 1 for k in range(h.tracks))
+    return cuts
+
+
+def mentions(root, name):
+    """Number of source lines (.asm/.inc under root, not the build directory) that mention `name` other than as its own label line."""
+    pat = re.compile(r'\b%s\b' % re.escape(name))
+    own = re.compile(r'^%s::' % re.escape(name))
+    n = 0
+    for dp, dn, fn in os.walk(root):
+        dn[:] = [d for d in dn if d not in ('build', '.git', 'traces', 'scratch')]
+        for f in fn:
+            if f.endswith(('.asm', '.inc')):
+                with open(os.path.join(dp, f), encoding='utf-8', errors='replace') as fh:
+                    for line in fh:
+                        if pat.search(line) and not own.match(line):
+                            n += 1
+    return n
+
+
+def merge_cut_blocks(root, files, headers, items, targets, log):
+    """Join a block to its predecessor when the boundary between them cuts a command in two and the label that starts the block
+    is not used anywhere (not by a stream pointer, a jump/call, or any source line): such a label is an artifact of the coverage
+    pieces of the earlier analysis, and a command cut in two by it cannot be written as a macro.  The header of the second block is
+    kept as text inside the header of the first (nothing of the earlier analysis is dropped).  A boundary whose label IS used stays
+    (the command split is then real) and its bytes stay `db`.  Returns the number of merges."""
+    cuts = {b: cut_points(b, headers, items) for b in (4, 5)}
+    merged = 0
+    for f in files:
+        out = []
+        for b in f.blocks:
+            if out and b.start in cuts[f.bank] and b.kind == out[-1].kind and b.start == out[-1].end:
+                names = [label_names(l) for l in b.start_labels]
+                keep = (f.bank, b.start) in targets or any(mentions(root, n) for n in names)
+                if names and not keep:
+                    prev = out[-1]
+                    mp, mb = HEADER_SIZE.match(prev.header), HEADER_SIZE.match(b.header)
+                    if not (mp and mb):
+                        raise DecodeError('%s: cannot merge the block at $%04X (header format)' % (f.rel, b.start))
+                    old_second = b.header[len('; ---- '):]
+                    note = ' | block boundary $%04X removed (it cut a command in two; its label %s was not referenced); the second part was: %s' % (
+                        b.start, ', '.join(names), old_second)
+                    order = ('CONFIRMED', 'PROBABLE', 'HYPOTHESIS')
+                    sp, sb = STATUS.search(prev.header), STATUS.search(b.header)
+                    tail = mp.group(4)
+                    if sp and sb and order.index(sb.group(1)) > order.index(sp.group(1)):
+                        tail = tail.replace('[%s]' % sp.group(1), '[%s]' % sb.group(1), 1)
+                        note += ' (status of the merged block lowered to the weaker of the two parts)'
+                    prev.header = '%s%04X (%d bytes)%s%s' % (mp.group(1), b.end, b.end - prev.start, tail, note)
+                    prev.end = b.end
+                    for a, lines in b.mid_labels.items():
+                        prev.mid_labels.setdefault(a, []).extend(lines)
+                    prev.content += b.content
+                    merged += 1
+                    log('  merged block $%04X-$%04X into $%04X (label %s unreferenced)' % (b.start, b.end, prev.start, ', '.join(names)))
+                    continue
+            out.append(b)
+        f.blocks = out
+    return merged
+
+
 def rewrite(root, rom, songs, headers, items, dur, verbose):
     stream_rels, ptr_rel = audio_files(root)
     files = [SrcFile(root, r) for r in stream_rels]
     ptrfile = SrcFile(root, ptr_rel)
+
+    # targets that need a name: header pointers, stream pointers, jump/call/loop targets
+    targets = set()
+    for (bank, addr), h in headers.items():
+        targets.add((bank, addr))
+        for st in h.sets:
+            for w in st:
+                targets.add((bank, w))
+    for bank in (4, 5):
+        for it in items[bank].values():
+            if it.target is not None:
+                targets.add((bank, it.target))
+    merged = merge_cut_blocks(root, files, headers, items, targets, print if verbose else (lambda *_: None))
 
     # labels that exist: (bank, addr) -> names (block starts and labels inside blocks)
     labels = {}
@@ -493,18 +589,6 @@ def rewrite(root, rom, songs, headers, items, dur, verbose):
                 labels.setdefault((f.bank, a), []).extend(label_names(l) for l in lines)
             for a in range(b.start, b.end):
                 block_at[(f.bank, a)] = (f, b)
-
-    # targets that need a name: header pointers, stream pointers, jump/call/loop targets
-    targets = set()
-    for (bank, addr), h in headers.items():
-        targets.add((bank, addr))
-        for s in h.sets:
-            for w in s:
-                targets.add((bank, w))
-    for bank in (4, 5):
-        for it in items[bank].values():
-            if it.target is not None:
-                targets.add((bank, it.target))
 
     created = {}                                      # (bank, addr) -> name, labels this run adds
     for key in sorted(targets):
@@ -523,7 +607,10 @@ def rewrite(root, rom, songs, headers, items, dur, verbose):
         names = labels.get((bank, addr))
         if not names:
             raise DecodeError('no label for %02X:%04X' % (bank, addr))
-        for n in names:
+        for n in names:                               # a song/track name given by tools/apply_renames.py (analysis/naming2/audio2_renames.tsv) ...
+            if n.startswith('SoundSong'):
+                return n
+        for n in names:                               # ... else the neutral name (a semantic label such as Data_SoundDrv_Streams is not used)
             if NEUTRAL.match(n):
                 return n
         return names[0]
@@ -618,12 +705,169 @@ def rewrite(root, rom, songs, headers, items, dur, verbose):
     if verbose:
         for key, nm in sorted(created.items()):
             print('  new label %s' % nm)
-    return files + [ptrfile], created, raw_bytes
+    return files + [ptrfile], created, raw_bytes, merged, labels
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# the tables of the driver (audio/notes.asm, audio/instruments.asm, audio/wave_samples.asm)
+# --------------------------------------------------------------------------------------------------------------------
+
+NOTE_TABLE = 0x5075          # 120 records of 3 bytes: dw period, db step (SoundDrv_LookupFrequency 04:4FF5)
+NOTE_COUNT = 120
+INSTR_TABLE = 0x51DD         # 112 records of 6 bytes (SoundDrv_GetInstrumentPtr 04:4889)
+INSTR_COUNT = 112
+WAVE_TABLE = 0x547D          # 10 patterns of 16 bytes (SoundDrv_WriteChannelParams 04:4EB3-4EC8)
+WAVE_COUNT = 10
+PITCH_BASE = 0x24            # SoundDrv_NoteToIndex: pitch byte - $24 = index into the note table
+PER_NOTE_FIRST = 0x64        # per-note instrument mode reads record (pitch + $40); the data uses pitches $24-$2F
+NOTE_NAMES = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
+
+TABLE_NOTE = {
+    'notes.asm#0': ('[CONFIRMED] Table_SoundDrv_Durations: 49 bytes, the ticks of a wait (index = opcode - $80) or the gate time of a note (index = opcode - $CF); '
+                    'read by the wait handler 04:4756 and by SoundDrv_CmdNote 04:4A2B; 00..18 step 1, then 1C 1E 20 24 28 2A 2C 30 34 36 38 3C 40 42 44 48 4C 4E 50 54 58 5A 5C 60'),
+    'notes.asm#1': ('[CONFIRMED] Table_SoundDrv_NoteFreq: 120 records of 3 bytes (dw 11-bit period, db step), index = pitch byte - $24 (SoundDrv_NoteToIndex 04:4FEA), '
+                    'one semitone per record; SoundDrv_WriteChannelPitch 04:4ECA adds step * (fraction of the pitch offset) / 256 to the period; every period is within 1 of the '
+                    'equal-tempered value of MIDI note 36 + index (A4 = 440 Hz; $002C = 65.4 Hz = C2) and step is the next period minus this one, within 1'),
+    'instruments.asm': ('[CONFIRMED] Table_SoundDrv_Instruments: 112 records of 6 bytes (layout and field evidence: docs/research/audio_format.md section 6); records $00-$63 are '
+                        'selected by sound_instrument, $64-$6F by the per-note mode (record = pitch + $40; the data plays pitches $24-$2F there)'),
+    'wave_samples.asm': ('[CONFIRMED] Table_SoundDrv_WavePatterns: 10 patterns of 16 bytes = 32 4-bit samples (high nibble first in wave RAM), copied unchanged to $FF30-$FF3F by '
+                         'SoundDrv_WriteChannelParams 04:4EB3-4EC8 for a wave-channel instrument (byte 0 - $10 = pattern)'),
+}
+
+
+def dec_env(b3, b4):
+    """Envelope fields of instrument bytes 3 and 4 as SoundDrv_UpdateChannel reads them (docs/research/audio_format.md section 7)."""
+    att, dec, rel = (~b3 >> 5) & 7, (~b3 >> 1) & 7, (~b4 >> 1) & 7
+    f = lambda v: '-' if v == 0 else str(v)
+    return 'attack %s, decay %s, sustain %X, release %s' % (f(att), f(dec), b4 >> 4, f(rel))
+
+
+def instr_text(rec):
+    """Macro for a 6-byte instrument record: the form of its channel class (byte 0), or sound_instr_raw when no form fits exactly."""
+    b0, b1, b2, b3, b4, b5 = rec
+    if b0 < 4:
+        return 'sound_instr_pulse1 %d, %d, %s, %s, %s, %s' % (b0, b1, hx(b2), hx(b3), hx(b4), hx(b5))
+    if b2 == 0 and 0x08 <= b0 <= 0x0B:
+        return 'sound_instr_pulse2 %d, %d, %s, %s, %s' % (b0 & 3, b1, hx(b3), hx(b4), hx(b5))
+    if b2 == 0 and 0x10 <= b0 <= 0x19:
+        return 'sound_instr_wave %d, %d, %s, %s, %s' % (b0 - 0x10, b1, hx(b3), hx(b4), hx(b5))
+    if b2 == 0 and b0 in (0x40, 0x41):
+        return 'sound_instr_noise %d, %d, %s, %s, %s' % (b0 & 1, b1, hx(b3), hx(b4), hx(b5))
+    return 'sound_instr_raw ' + ', '.join(hx(v) for v in rec)
+
+
+def table_files(root, rom, dur):
+    """The three table files in macro form.  Returns (files, stats)."""
+    stats = {}
+    # --- notes.asm: durations + note frequencies
+    f = SrcFile(root, 'audio/notes.asm')
+    if [(b.start, b.end) for b in f.blocks] != [(0x5044, 0x5075), (0x5075, 0x51DD)]:
+        raise DecodeError('audio/notes.asm: unexpected block structure')
+    rows = []
+    for i in range(0, 49, 16):
+        chunk = dur[i:i + 16]
+        rows.append('\tsound_durations %s ; index $%02X-$%02X' % (', '.join(str(v) for v in chunk), i, i + len(chunk) - 1))
+    f.blocks[0].new_content = rows
+    freq = [(rom.w(4, NOTE_TABLE + 3 * i), rom.b(4, NOTE_TABLE + 3 * i + 2)) for i in range(NOTE_COUNT)]
+    # invariants the comments rely on (the claims of TABLE_NOTE['notes.asm#1'])
+    for i, (per, step) in enumerate(freq):
+        eq = 2048 - 131072 / (440.0 * 2 ** ((36 + i - 69) / 12.0))
+        if abs(min(eq, 2047) - per) > 1.0:
+            raise DecodeError('note table: record %d period $%03X is not within 1 of the equal-tempered value %.2f' % (i, per, eq))
+        if i + 1 < NOTE_COUNT and abs(freq[i + 1][0] - per - step) > 1:
+            raise DecodeError('note table: record %d step %d is not the difference to the next period' % (i, step))
+    rows = []
+    for i, (per, step) in enumerate(freq):
+        midi = 36 + i
+        rows.append('\tsound_note_freq $%04X, %s ; pitch %s %s%d' % (per, hx(step), hx(PITCH_BASE + i), NOTE_NAMES[midi % 12], midi // 12 - 1))
+    f.blocks[1].new_content = rows
+    out = [f]
+    # --- instruments.asm
+    g = SrcFile(root, 'audio/instruments.asm')
+    if [(b.start, b.end) for b in g.blocks] != [(INSTR_TABLE, INSTR_TABLE + 6 * INSTR_COUNT)]:
+        raise DecodeError('audio/instruments.asm: unexpected block structure')
+    rows, raw = [], 0
+    for i in range(INSTR_COUNT):
+        rec = [rom.b(4, INSTR_TABLE + 6 * i + k) for k in range(6)]
+        t = instr_text(rec)
+        raw += t.startswith('sound_instr_raw')
+        note = 'id %s: %s' % (hx(i), dec_env(rec[3], rec[4]))
+        if i >= PER_NOTE_FIRST:
+            note = 'id %s = per-note record of pitch %s: %s' % (hx(i), hx(i - 0x40), dec_env(rec[3], rec[4]))
+        rows.append('\t' + t + ' ; ' + note)
+    g.blocks[0].new_content = rows
+    out.append(g)
+    stats['instruments raw'] = raw
+    # --- wave_samples.asm
+    w = SrcFile(root, 'audio/wave_samples.asm')
+    if [(b.start, b.end) for b in w.blocks] != [(WAVE_TABLE, WAVE_TABLE + 16 * WAVE_COUNT)]:
+        raise DecodeError('audio/wave_samples.asm: unexpected block structure')
+    rows = []
+    for n in range(WAVE_COUNT):
+        bs = [rom.b(4, WAVE_TABLE + 16 * n + k) for k in range(16)]
+        smp = [v for by in bs for v in (by >> 4, by & 15)]
+        rows.append('\tsound_wave_pattern \\')
+        rows.append('\t\t' + ', '.join('$%X' % v for v in smp[:16]) + ', \\')
+        rows.append('\t\t' + ', '.join('$%X' % v for v in smp[16:]) + ' ; wave %d (instrument byte 0 = %s)' % (n, hx(0x10 + n)))
+    w.blocks[0].new_content = rows
+    out.append(w)
+    # headers: the new note first, the earlier one kept as text
+    for fl, key_of in ((f, ('notes.asm#0', 'notes.asm#1')), (g, ('instruments.asm',)), (w, ('wave_samples.asm',))):
+        for b, key in zip(fl.blocks, key_of):
+            b.header = table_header(b.header, TABLE_NOTE[key])
+    return out, stats
+
+
+OLD_MARK = ' | superseded note: '
+
+
+def table_header(header, note):
+    m = HEADER_SIZE.match(header)
+    if not m:
+        raise DecodeError('table header format: ' + header[:60])
+    rest = m.group(4).strip()
+    if OLD_MARK in rest:
+        old = rest.split(OLD_MARK, 1)[1]
+    else:
+        old = rest
+    return '%s%s (%s bytes) %s%s%s' % (m.group(1), m.group(2), m.group(3), note, OLD_MARK, old)
 
 
 # --------------------------------------------------------------------------------------------------------------------
 # verification
 # --------------------------------------------------------------------------------------------------------------------
+
+def song_name_rows(songs, headers, labels):
+    """Manifest rows (tools/apply_renames.py) that name the stream headers and track starts after the id of the first song record
+    that uses them: SoundSongNN_Header, SoundSongNN_TrackK.  The song table (Table_SoundDrv_Songs) and the stream headers are the
+    evidence (CONFIRMED: the driver reads both, decoder run on all of them)."""
+    rows, first = [], {}
+    for sid in sorted(songs):
+        s = songs[sid]
+        first.setdefault((s.bank, s.ptr), []).append(sid)
+
+    def neutral(bank, addr):                      # the neutral name of the address, when it is the primary label (apply_renames.py renames
+        names = labels.get((bank, addr), [])      # primary labels only; an alias cannot be the old name of a row)
+        return names[0] if names and NEUTRAL.match(names[0]) else None
+    used = set()
+    for (bank, ptr), sids in sorted(first.items(), key=lambda kv: kv[1][0]):
+        h = headers[(bank, ptr)]
+        sid = sids[0]
+        others = ', '.join('$%02X' % x for x in sids[1:])
+        hn = neutral(bank, ptr)
+        if hn and hn not in used:
+            used.add(hn)
+            rows.append('\t'.join([hn, 'SoundSong%02X_Header' % sid, 'data', 'CONFIRMED',
+                                   'stream header of song id $%02X: song table record (04:5515 + 8*id) points here, %d track(s)%s; decoded by tools/audio_to_macros.py'
+                                   % (sid, h.tracks, ('; the records of ' + others + ' point to the same header') if others else '')]))
+        for k, t in enumerate(h.sets[0]):
+            tn = neutral(bank, t)
+            if tn and tn not in used:
+                used.add(tn)
+                rows.append('\t'.join([tn, 'SoundSong%02X_Track%d' % (sid, k), 'data', 'CONFIRMED',
+                                       'start of the stream of track %d of song id $%02X: word %d of the stream header, read by SoundDrv_InitTrackRuntime (04:4386); the stream reader of the driver was run on this track (tools/audio_driver_check.py, check_songs)' % (k, sid, k)]))
+    return rows
+
 
 def run(cmd, root):
     p = subprocess.run(cmd, shell=True, cwd=root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace')
@@ -664,6 +908,7 @@ def main(argv=None):
     ap.add_argument('--no-build', action='store_true')
     ap.add_argument('--no-symcheck', action='store_true')
     ap.add_argument('-v', '--verbose', action='store_true')
+    ap.add_argument('--names', metavar='FILE', help='also write the manifest rows that name song headers and tracks (for tools/apply_renames.py)')
     a = ap.parse_args(argv)
     root = os.path.abspath(a.root)
 
@@ -695,18 +940,30 @@ def main(argv=None):
     rom = Rom(rom_path)
     try:
         songs, headers, items, dur = decode_all(rom, print)
-        files, created, raw_bytes = rewrite(root, rom, songs, headers, items, dur, a.verbose)
+        files, created, raw_bytes, merged, labels = rewrite(root, rom, songs, headers, items, dur, a.verbose)
     except DecodeError as e:
         print('error: %s' % e, file=sys.stderr)
         return 2
 
+    try:
+        tfiles, tstats = table_files(root, rom, dur)
+    except DecodeError as e:
+        print('error: %s' % e, file=sys.stderr)
+        return 2
+    files = files + tfiles
+    if a.names:
+        rows = song_name_rows(songs, headers, labels)
+        with open(a.names, 'w') as fh:
+            fh.write('\n'.join(rows) + '\n')
+        print('%d song/track name rows written to %s' % (len(rows), a.names))
     changed = [f for f in files if f.render() != f.text]
     kinds = {}
     for bank in (4, 5):
         for it in items[bank].values():
             kinds[it.kind] = kinds.get(it.kind, 0) + 1
     print('items: ' + ', '.join('%s %d' % kv for kv in sorted(kinds.items())))
-    print('labels created: %d; bytes left as db: %d; files that change: %d of %d' % (len(created), raw_bytes, len(changed), len(files)))
+    print('tables: durations 49, note records %d, instrument records %d (%d raw), wave patterns %d' % (NOTE_COUNT, INSTR_COUNT, tstats['instruments raw'], WAVE_COUNT))
+    print('labels created: %d; blocks merged: %d; bytes left as db: %d; files that change: %d of %d' % (len(created), merged, raw_bytes, len(changed), len(files)))
     if a.check:
         for f in changed:
             print('not in macro form: ' + f.rel)
