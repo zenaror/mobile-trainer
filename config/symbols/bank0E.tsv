@@ -1,0 +1,39 @@
+# addr	name	type	status	evidence
+4000	Title_Run	function	CONFIRMED	Title screen (Mobile System GB logo, then title menu Start / mobile settings): A=0 on the first call plays the logo states, A!=0 starts at the title; runs Title_StateLoop, saves wRam_C27D to SRAM 1:$BF00, returns A=C27D+1 to 1C:4007
+405F	Title_StateLoop	function	CONFIRMED	Per-frame loop: Joypad_Update (7D:7BB7) poll, Title_DispatchState, 00:0956 sprite update, 00:044B wait VBlank; ends when state byte wRam_C27C==$FF, then clears LCDC bit2 (8x8 sprites)
+4083	Title_DispatchState	function	CONFIRMED	Jump-table dispatch on state wRam_C27C through Table_Title_States (jp hl); states 0-6
+4094	Table_Title_States	table	CONFIRMED	7 word pointers, one per title state: logo load, logo wait, logo fade-out, title load, title menu, exit, timeout restart (6/7 targets executed)
+40A2	Title_StateLoadLogo	label	CONFIRMED	State 0: Title_LoadLogoScreen (Mobile System GB logo), palette fade 4F:42FF, plays sound id $1B via stub 00:20E8, clears frame counter wRam_C27E/F, state++; screen = 'MOBILE SYSTEM GB' logo at frame 327-476 of every trace
+40CA	Title_StateLogoWait	label	CONFIRMED	State 1: counts wRam_C27E/F up to 180 frames ($00B4) then state++; A or Start (hJoyPressedRepeat bit0/bit3) fades 4F:4370 and skips to state 3
+410C	Title_StateLogoFadeOut	label	CONFIRMED	State 2: palette fade via 4F:43B8, state++
+411A	Title_StateLoadTitle	label	CONFIRMED	State 3: reads last selection from SRAM bank 1 $BF00 into wRam_C27D, Title_LoadTitleScreen, fade-in 4F:42B4, plays sound id 1 (title music) via 00:20E8, clears frame counter, state++
+417B	Title_StateMenu	label	CONFIRMED	State 4: title menu; unless wRam_C280!=0 the idle timer wRam_C27E/F counts to $2A30 (10800 frames) then state 6; Up/Down toggle selection, A/Start confirm (state 5)
+419F	Title_MenuHandleButtons	label	CONFIRMED	State 4 button test on hJoyPressedRepeat: A (bit0) or Start (bit3) -> Title_MenuConfirm, Up (bit6) or Down (bit7) -> Title_MenuToggleSelection, else return
+41B3	Title_MenuTimeout	label	PROBABLE	Idle timer reached $2A30: sets state 6 (Title_StateTimeoutRestart); not executed in any trace
+41BA	Title_MenuToggleSelection	label	CONFIRMED	Up/Down pressed: resets the idle timer wRam_C27E/F, plays sound id $29 (stub 00:20AC), toggles wRam_C27D (xor 1), redraws highlight (Title_DrawMenuHighlight) and cursor sprite (Title_PlaceCursor)
+41E6	Title_MenuConfirm	label	CONFIRMED	A/Start pressed: plays sound id $2C via stub 00:20AC, state++ (state 5)
+41FE	Title_StateExit	label	CONFIRMED	State 5: fade out 4F:4370 and sets state $FF, ending Title_StateLoop (Title_Run then stores/returns the selection)
+420A	Title_StateTimeoutRestart	label	PROBABLE	State 6 (entered only by Title_MenuTimeout): fade out 4F:4370 and state:=0 so the logo sequence restarts; never executed
+4215	Title_LoadTitleScreen	function	CONFIRMED	Loads the title screen: HDMA of 7 tile blocks (Gfx_Title_*), palettes to $D800/$D840, tilemap 5BC0 to $D000, two sprite objects (5FB0), highlight plate and cursor; called by Title_StateLoadTitle
+4311	Title_DrawMenuHighlight	function	CONFIRMED	Copies the 4x10 highlight tilemap (bc=$040A) of the selected item from Table_Title_HighlightTilemaps[wRam_C27D] to the tile buffer at $D185 (00:08EA)
+4330	Table_Title_HighlightTilemaps	table	CONFIRMED	2 word pointers (5E90, 5EE0) to the 4x10 tile+attr highlight plates for menu item 0 / 1; read as data by Title_DrawMenuHighlight
+4334	Title_PlaceCursor	function	CONFIRMED	Moves sprite slot $DA10 (00:0A65) to the position of the selected item taken from Table_Title_CursorPositions[wRam_C27D]
+434B	Table_Title_CursorPositions	table	CONFIRMED	2 x (x,y) pairs $18,$60 and $18,$70: cursor sprite position for title item 0 and 1; read by Title_PlaceCursor
+434F	Title_LoadLogoScreen	function	CONFIRMED	Loads the Mobile System GB logo screen: HDMA tiles 60A0/64A0, palette 6B70, tilemap 68A0; called by the first title state (first at frame 327; 35 of 41 scenarios)
+43C0	Gfx_Title_Tiles0	data	CONFIRMED	Title tile block 0, 64 tiles HDMA'd to VRAM $8000 bank 0 by Title_LoadTitleScreen
+47C0	Gfx_Title_Tiles1	data	CONFIRMED	Title tile block 1, 64 tiles to VRAM $8800 bank 0; its second half is also the source of the bank-1 upload from $49C0
+4BC0	Gfx_Title_Tiles2	data	CONFIRMED	Title tile data: second half of the 1 KB read from $49C0 (-> VRAM $8001, vbank 1) and first half of the 1 KB read from $4BC0 (-> $8801, vbank 1) by Title_LoadTitleScreen
+4DC0	Gfx_Title_Tiles3	data	CONFIRMED	Title tile data: second half of the 1 KB read from $4BC0 (-> VRAM $8801, vbank 1); read only by that upload
+4FC0	Gfx_Title_Tiles4	data	CONFIRMED	Title tile block, 64 tiles to VRAM $8C00 bank 1
+53C0	Gfx_Title_Tiles5	data	CONFIRMED	Title tile block, 64 tiles to VRAM $9000 bank 1
+57C0	Gfx_Title_Tiles6	data	CONFIRMED	Title tile block, 64 tiles to VRAM $9400 bank 1
+5BC0	Tilemap_Title_Screen	data	CONFIRMED	Title screen 20x18 tile map + attribute map (bc=$1214, 720 bytes) copied to $D000 by 00:08EA in Title_LoadTitleScreen
+5E90	Tilemap_Title_HighlightStart	data	PROBABLE	4x10 tile+attr plate (80 bytes) for item 0 (Start); first word of Table_Title_HighlightTilemaps
+5EE0	Tilemap_Title_HighlightSettings	data	PROBABLE	4x10 tile+attr plate (80 bytes) for item 1 (mobile settings); second word of Table_Title_HighlightTilemaps
+5F30	Palette_Title_Bg	data	PROBABLE	64-byte BG palette block copied to $D800 (4F:4000, bc=$0040) by Title_LoadTitleScreen
+5F70	Palette_Title_Obj	data	PROBABLE	64-byte OBJ palette block copied to $D840 by Title_LoadTitleScreen
+5FB0	Objects_Title	data	PROBABLE	Sprite object table + records of the title screen: 00:0A82 loads entries $81 (slot $DA10) and $82 (slot $DA20) from de=$5FB0
+60A0	Gfx_TitleLogo_Tiles0	data	CONFIRMED	Mobile System GB logo tiles, 64 tiles to VRAM $9000 bank 1 (Title_LoadLogoScreen)
+64A0	Gfx_TitleLogo_Tiles1	data	CONFIRMED	Mobile System GB logo tiles, 64 tiles to VRAM $9400 bank 1 (Title_LoadLogoScreen)
+68A0	Tilemap_TitleLogo_Screen	data	CONFIRMED	Logo screen 20x18 tile+attr map (720 bytes) copied to $D000 by Title_LoadLogoScreen
+6B70	Palette_TitleLogo	data	PROBABLE	64-byte BG palette copied to $D800 by Title_LoadLogoScreen

@@ -1,0 +1,42 @@
+# addr	name	type	status	evidence
+4000	MailMenu_Run	function	CONFIRMED	Mail menu (6 plates: send/receive, write mail, mailbox, address book, profile, mail server; screenshot 'mail_menu' at frame 16224): loads gfx, initial item from SRAM 1:$A8B8; returns A=item 1-6 on A, 0 on B; called from 7C:7BC0
+4188	MailMenu_Loop	label	CONFIRMED	Per-frame loop: 00:0956 sprites, 00:044B wait VBlank, Joypad_UpdateIdleFrames (7D:7BA4)/7BC1, call JoypadDispatch with Table_MailMenu_Buttons
+41A0	Table_MailMenu_Buttons	table	CONFIRMED	JoypadDispatch inline table (5 words): A -> MailMenu_OnA, B -> MailMenu_OnB, Select/Start ignored (MailMenu_Ignore), none -> MailMenu_Idle
+41AA	MailMenu_Idle	label	CONFIRMED	No A/B/Select/Start: Ticker_Update (48:4223), D-pad with key repeat (hJoyPressedRepeat & $F0) -> MailMenu_HandleDpad, MailMenu_AnimateIcon, loop
+41BD	MailMenu_OnA	label	CONFIRMED	A pressed: sound id $2C (stub 00:20AC), fade out (Palette_FadeOutWithTicker (48:46C6)/4460), write item wRam_C0E5 to SRAM bank 1 $A8B8 (WriteByteFar (48:4616)), return A=item; 7C:7BC6 dispatches on it (1 send/receive ... 6 mail server)
+41EC	MailMenu_OnB	label	CONFIRMED	B pressed: sound id $2E, fade out, write 0 to SRAM 1:$A8B8, return A=0 (back to top menu, jump table entry 0 = ret)
+4217	MailMenu_Ignore	label	CONFIRMED	Select and Start entries of the JoypadDispatch table: jp MailMenu_Loop
+421A	MailMenu_GetLabelIndexA	function	CONFIRMED	Returns A=1 if the byte at SRAM bank 0 $A000 is 0, else 6: picks the text pair of item 2 (write-mail vs 'メールをかくにん' when a draft exists)
+4229	MailMenu_HandleDpad	function	CONFIRMED	Up (bit6): previous item (item 1 wraps to 6), Down (bit7): next item (6 wraps to 1); redraws plates, plays cursor sound id $29
+427A	MailMenu_AfterMove	label	CONFIRMED	Plays sound id $29 (stub 00:20AC) and restarts the scrolling description ticker of the item via Ticker_Start (48:42D4) (string index at $43FA, item text index from MailMenu_GetLabelIndexB)
+42A0	MailMenu_GetLabelIndexB	function	CONFIRMED	Duplicate of MailMenu_GetLabelIndexA (A=1 if SRAM 0:$A000 == 0 else 6); used by MailMenu_AfterMove
+42AF	MailMenu_DrawItemNormal	function	CONFIRMED	Draws plate of item wRam_C0E6 (the previously selected one) in normal style: 10-column rectangle from Tilemap_MailMenu_PlatesNormal at offset Data_MailMenu_PlateOffsets[c] into the tile buffer (00:16A2)
+42FE	MailMenu_GetPlateIndexA	function	CONFIRMED	Returns A=1 if SRAM 0:$A000 == 0 else 7: plate graphic index for item 2 (normal plates)
+430D	Table_MailMenu_PlateBufferOffsets	table	PROBABLE	8 words: tile-buffer offsets (row*32+9, rows 0,3,5,8,10,13) added to $D000 to place plate c (words 7-8 unused); read by MailMenu_DrawItemNormal (ld hl,$430D)
+431D	Data_MailMenu_PlateOffsets	data	PROBABLE	8 bytes 00 28 46 6E 8C B4 00 D2: offset of plate c inside Tilemap_MailMenu_PlatesNormal (rows of 10 tiles, 4 rows = $28 bytes per plate)
+4325	MailMenu_DrawItemSelected	function	CONFIRMED	Draws the selected item wRam_C0E5 in highlighted style from Tilemap_MailMenu_PlatesSelected (same scheme as MailMenu_DrawItemNormal); called on entry and after every move
+4374	MailMenu_GetPlateIndexB	function	CONFIRMED	Duplicate of MailMenu_GetPlateIndexA for the selected plates (A=1 or 7)
+4383	Table_MailMenu_SelectedBufferOffsets	table	PROBABLE	Copy of Table_MailMenu_PlateBufferOffsets used by MailMenu_DrawItemSelected (ld hl,$4383)
+4393	Data_MailMenu_SelectedPlateOffsets	data	PROBABLE	Copy of Data_MailMenu_PlateOffsets (00 28 46 6E 8C B4 00 D2) used by MailMenu_DrawItemSelected
+439B	MailMenu_AnimateIcon	function	CONFIRMED	Every $1E frames toggles wRam_C0E8 and copies the 6x8 mail icon frame (Tilemap_MailMenu_IconFrames $4C51 or $4C81) to $D0C1 (00:16A2), then sprites + tile upload: the animated envelope
+43FA	Data_MailMenu_StringIndexBank	data	CONFIRMED	Byte $1D (= this bank) that starts the string index passed to the ticker routine Ticker_Start (48:42D4) (ld hl,$43FA): byte 0 = text bank, then the word table Table_MailMenu_Strings
+43FB	Table_MailMenu_Strings	table	PROBABLE	14 word pointers (7 name/description pairs): send/receive, write mail, mailbox, address book, profile, mail server, and the alternative 'メールをかくにん' pair for item 2; targets $4417.. (analysis/strings.tsv)
+4413	Table_MailMenu_StringsTail	table	PROBABLE	Last two words ($4581, $4592) of Table_MailMenu_Strings (the 'メールをかくにん' name/description pair), classified inside the text region by the mapper
+4417	String_MailMenu_Items	string	PROBABLE	Item names and descriptions (Shift-JIS, NUL terminated): おくる／うけとる (send/receive), メールをかく, メールボックス, アドレスちょう, プロフィール, メールサーバ + descriptions; see analysis/strings.tsv
+45C1	Tilemap_MailMenu_Screen	data	CONFIRMED	Mail menu screen 20x18 tile+attr map (720 bytes) copied to $D000 by 00:08EA
+4891	Tilemap_MailMenu_PlatesNormal	data	PROBABLE	Tile map (10 columns x 24 rows) of the six normal item plates; ld hl,$4891, rows of 10 read by 00:16A2 (attrs at $4981)
+4981	Attrmap_MailMenu_PlatesNormal	data	PROBABLE	Attribute map matching Tilemap_MailMenu_PlatesNormal (offset $F0, added)
+4A71	Tilemap_MailMenu_PlatesSelected	data	PROBABLE	Tile map (10 x 24) of the six highlighted plates; ld hl,$4A71 (attrs at $4B61)
+4B61	Attrmap_MailMenu_PlatesSelected	data	PROBABLE	Attribute map matching Tilemap_MailMenu_PlatesSelected (offset $F0)
+4C51	Tilemap_MailMenu_IconFrames	data	PROBABLE	Two 6x8 tile frames (4C51, 4C81) of the animated icon (attrs $4CB1/$4CE1); copied to $D0C1 by MailMenu_AnimateIcon (bc=$0608)
+4CB1	Attrmap_MailMenu_IconFrames	data	PROBABLE	Attribute maps of the two icon frames (offsets $B1/$E1 from $4C00 in MailMenu_AnimateIcon)
+4D20	Gfx_MailMenu_Tiles0	data	CONFIRMED	25 tiles HDMA'd to VRAM $8000 bank 0
+4EB0	Gfx_MailMenu_Tiles1	data	CONFIRMED	64 tiles to VRAM $8800 bank 0
+52B0	Gfx_MailMenu_Tiles2	data	CONFIRMED	64 tiles to VRAM $8C00 bank 0
+56B0	Gfx_MailMenu_Tiles3	data	CONFIRMED	64 tiles to VRAM $9000 bank 0; its last 128 bytes are also the head of the $5A30 upload
+5AB0	Gfx_MailMenu_Tiles4	data	CONFIRMED	Last 896 bytes of the 1 KB HDMA'd from $5A30 to VRAM $9001 bank 1; the first 128 bytes of that upload lie in Gfx_MailMenu_Tiles3
+5E30	Gfx_MailMenu_Tiles5	data	CONFIRMED	64 tiles to VRAM $9401 (bank 1)
+6230	Palette_MailMenu_Bg	data	CONFIRMED	64-byte BG palette block copied to $D800 (4F:4000) by MailMenu_Run
+6270	Palette_MailMenu_Obj	data	CONFIRMED	64-byte OBJ palette block copied to $D840 by MailMenu_Run
+6320	Data_MailMenu_ObjectRecords	data	CONFIRMED	Sprite frame/script records of the mail menu objects (read by 00:0A82 via the table at $63B6)
+63B6	Table_MailMenu_Objects	table	PROBABLE	Object table (4-byte entries: frame table, script) passed to 00:0A82 with b=$80 (mail icon sprite, slot $DA10)

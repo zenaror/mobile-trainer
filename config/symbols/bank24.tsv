@@ -1,0 +1,55 @@
+# addr	name	type	status	evidence
+4000	PageList_UrlSlotTable	table	PROBABLE	6 words = SRAM bank1 $A084+n*$100 (URL slot n of the page list); indexed 2*row at 24:4794/4F14/5164/51CB, slot in use when its first byte != 0; also word table 7F:4FC3
+400C	PageList_TitleSlotTable	table	PROBABLE	6 words = SRAM bank1 $A000+n*$16 (title slot n, 22 bytes); indexed 2*row at 24:483E/48C7/4F14/5164/51CB, drawn as the row text of the page list; also 7F:4FCF
+4018	PageList_Main	function	CONFIRMED	Page list screen ('ページリスト', 6 rows, up/down cursor, A opens goto/save/delete menu 24:4BCD, B cancels); far-called by 4E:4DB1 and 4F:46D3; executed in browser_bookmarks; returns HL=chosen URL slot, or A=$FF
+4083	PageList_Main_Loop	label	CONFIRMED	per-frame loop head of PageList_Main: sprite update 00:0956, connection-abort test (wTimerEnable bit1), time warning test (bit4), then joypad handling (hJoyPressed A/B, repeat up/down)
+42B0	Function_24_42B0	function	HYPOTHESIS	idea: copies the strings at 24:42D1 (http://www.goo.ne.jp/) to WRAM6 $D500 and 24:42E7 to $D3C0 (current page URL/title buffers); no caller or pointer found, never executed
+42D1	Url_GooNeJp	string	CONFIRMED	ASCII 'http://www.goo.ne.jp/' NUL-terminated (22 bytes), addressed by ld hl,$42D1 at 24:42B9 by the unreferenced routine Function_24_42B0, which copies it to WRAM6 $D500
+42E7	String_24_42E7	string	HYPOTHESIS	Shift-JIS 'くーくー' (82 AD 81 5B x2, NUL), copied to WRAM6 $D3C0 (current page title buffer) by the unreferenced Function_24_42B0 after the goo URL; idea: default title of that bookmark; never executed
+42F0	PageList_InitScreen	function	CONFIRMED	Builds the page list screen: clears WRAM2/3, HDMA tiles 24:5400/5800/5EE0/62E0, palettes 5EA0/64E0, tilemap 5900 (5BD0 if [D500]!=0), draws titles/cursor; executed in browser_bookmarks (called at 24:406A)
+4453	PageList_UpdateRowSprites	function	CONFIRMED	C=cursor row: runs PageList_InitRowSprites (445C) then PageList_HighlightRowSprite (45B7); called after each cursor move (24:427D/42A8, 4BCD loop); executed in browser_bookmarks
+445C	PageList_InitRowSprites	function	CONFIRMED	Puts the 6 row marker sprites (WRAM7 slots DA10-DA60, y=$23+$0C*n, x=6) on object 24:6560, or 24:6550 when the URL slot n is in use (first byte != 0); executed in browser_bookmarks
+45B7	PageList_HighlightRowSprite	function	CONFIRMED	C=row 0-5: switches that row's marker sprite to object 24:6530 (slot in use) or 24:6540 (slot empty) at its y position; executed in browser_bookmarks
+4794	PageList_GetActionAvailability	function	CONFIRMED	C=row: A=E=1 if URL slot C in use (first byte != 0) else 0; D=1 if the current page URL buffer WRAM6 $D500 is non-empty; feeds PageList_SetActionIcons (go / save / delete availability)
+47FB	PageList_SetActionIcons	function	CONFIRMED	A,D,E = enable flags of the three icons (go/save/delete): writes BG attribute $0C (1) or $0B (else) in VRAM bank1 at $99C3/$99C9/$99CF (+$20 second row) after waiting LY=$90; executed in browser_bookmarks
+483E	PageList_RedrawSelection	function	CONFIRMED	A=old row, C=new row: redraws title of row A normally and of row C highlighted (SRAM title slots), the current page title from WRAM6 $D3C0 in the header, uploads text tiles, disables icons; executed
+48C7	PageList_DrawAllTitles	function	CONFIRMED	Draws the 6 title slots (SRAM bank1 $A000+n*$16, rows y=$10+$0C*n) with row 0 highlighted and the current page title $D3C0, then PageList_UploadTextTiles; called once by PageList_InitScreen; executed
+494C	PageList_DrawTextLine	function	PROBABLE	HL=NUL-terminated Shift-JIS/ASCII text, D,E=y,x, wRam_C2EE=$14 cells: 7F:41A7 (2-byte test), 7F:405F/4007 (glyph), 7F:42C3 (blit), x+=6, blank padding; sibling of 25:5240/28:41CB (same loop, not byte-identical: reads via WRAM bank 6)
+49EC	PageList_BlitGlyphAdvance	function	PROBABLE	Blits the glyph buffer $C0A0 through 7F:42C3 at the text position and advances E (x) by 6; used by PageList_DrawTextLine, also for the blank padding; same as 25:52EA and 28:428B
+4A00	PageList_UploadTextTiles	function	CONFIRMED	Copies the 4 text tile buffers of WRAM bank2 (D000,D400,D800,DC00) to VRAM $9000/$9400/$8800/$8C00 with PageList_StartHDMAAtVBlank; called after every text redraw; executed in browser_bookmarks
+4A54	PageList_StartHDMAAtVBlank	function	CONFIRMED	HL=source, DE=VRAM dest, C=blocks-1: writes rHDMA1-4, waits LY=$5D then LY=$91 with interrupts off, starts general HDMA (rHDMA5=C&$7F), clears SCY; NOT identical to 25:538A (which waits $8F, no di/ei, no SCY); executed
+4A79	PageList_ShowMessage	function	CONFIRMED	A=message 0-3 (table 24:4B10): renders the five 9-byte lines of the selected 45-byte message through 48:403E into WRAM2 tile buffers and uploads them (goto/save/delete/select-a-page hints); executed
+4B10	PageList_MessageTable	table	PROBABLE	4 words -> the four 45-byte, five-line Shift-JIS hint messages 24:4B18/4B45/4B72/4B9F; loaded by ld hl,$4B10 at 24:4A83 (message index = A*2)
+4B18	PageList_Msg_GoToPage	string	PROBABLE	message 0 (5 lines x 9 bytes): 'このページに いどうします' = move to this page; shown while the go icon (action 0) is selected
+4B45	PageList_Msg_SavePage	string	PROBABLE	message 1: 'いまのページを セーブします' = save the current page; shown for action 1 (save)
+4B72	PageList_Msg_DeletePage	string	PROBABLE	message 2: 'このページを けします' = delete this page; shown for action 2 (delete)
+4B9F	PageList_Msg_SelectPage	string	PROBABLE	message 3: 'ページを せんたくしてください' = please select a page; shown by PageList_Main after opening the list (A=3 at 24:43F6 and 24:4226)
+4BCD	PageList_ActionMenu	function	CONFIRMED	A pressed on a row: 3-choice menu (left/right, b=0 go 5164, 1 save 4F14, 2 delete 51CB), B backs out; has its own abort/time checks; returns A=$FF with HL=URL slot when a page was chosen; executed in browser_bookmarks
+4BD5	PageList_ActionMenu_Loop	label	CONFIRMED	per-frame loop head of PageList_ActionMenu (action index in B, row in C)
+4E46	PageList_ActionMenuInit	function	CONFIRMED	Creates the action cursor sprite (WRAM7 slot DA00, object 24:6570, y=$6F x=$16) and shows message 0 via PageList_ShowMessage; first call of PageList_ActionMenu; executed
+4E71	PageList_HideActionCursor	function	CONFIRMED	Moves the action cursor sprite (slot DA00 y byte) to $E8 = off screen and updates sprites; called when leaving the action menu (24:4D8A, 4DDA); executed
+4E85	PageList_SetActionCursor	function	CONFIRMED	B=action 0-2: object 24:6570/6580/6590 with x=$16/$46/$76 for slot DA00 (the cursor over the go/save/delete icon); executed in browser_bookmarks
+4EF1	PageList_MoveActionCursor	function	CONFIRMED	Wrapper used on left/right presses (repeat $20/$10): PageList_SetActionCursor, sprite update 00:0956, frame wait; executed in browser_bookmarks
+4F14	PageList_SaveCurrentPage	function	CONFIRMED	Save action: no-op (A=0) if $D500 empty; asks overwrite dialog 72:4015 id $0109 if the slot is used; copies the 256-byte URL $D500 to the URL slot and the title $D3C0 (or the URL if empty) to the 22-byte title slot; A=$FE if refused
+5164	PageList_GoToSlot	function	CONFIRMED	Go action: returns A=0 if the URL slot is empty; else bank-04 request 00:20AC id $2C (A-press effect, sound driver is a HYPOTHESIS), A=$FF with HL=URL slot address and DE=title slot address for the caller (browser 4E:4DB1); executed
+51CB	PageList_DeleteSlot	function	CONFIRMED	Delete action: returns if slot empty; confirmation dialog 72:4015 id $0108; on yes issues 00:20AC id $33, animates the row sprite and zeroes the first 2 bytes of the URL and title slots (A=$FE if refused); executed in browser_bookmarks
+53FC	Function_24_53FC	function	HYPOTHESIS	single ret (empty stub), called at 24:4D48 when hJoyHeld != 0; idea: removed debug/no-op hook
+53FD	Function_24_53FD	function	HYPOTHESIS	single ret (empty stub), called at the start of PageList_ActionMenu (24:4BD0); idea: no-op hook
+5400	PageList_Tiles_5400	data	PROBABLE	1024 B of 2bpp tiles: 00:0749 HDMA load at 24:432C to VRAM bank1 $9300 (page list frame/row art)
+5800	PageList_Tiles_5800	data	PROBABLE	256 B tiles: 00:0749 HDMA load at 24:4341 to VRAM bank1 $9700
+5900	PageList_Tilemap_5900	data	CONFIRMED	20x18 tile map + attribute map (720 B) of the page list; copied by 00:08EA at 24:43A7; rendered: title 'ページリスト', six rows, three icons
+5BD0	PageList_Tilemap_5BD0	data	PROBABLE	20x18 map + attributes: same page list layout with a blank header; copied by 00:08EA at 24:43C9 when the WRAM6 URL buffer $D500 is non-empty
+5EA0	PageList_BgPalette	data	PROBABLE	64 B RGB555 BG palettes copied to WRAM7 $D800 by 4F:4000 at 24:4393 (page list screen)
+5EE0	PageList_Tiles_5EE0	data	PROBABLE	1024 B tiles: 00:0749 HDMA load at 24:4356 to VRAM bank0 $8000
+62E0	PageList_Tiles_62E0	data	PROBABLE	512 B tiles: 00:0749 HDMA load at 24:436B to VRAM bank0 $8400
+64E0	PageList_ObjPalette	data	PROBABLE	64 B RGB555 OBJ palettes copied to WRAM7 $D840 by 4F:4000 at 24:437F (page list sprites)
+6530	PageList_ObjTable	table	PROBABLE	sprite object rows (4 identical 4-byte entries each): 6530/6540 row marker used/empty, 6550/6560 base, 6570/6580/6590 action cursor, 65A0/65B0 flash; read by 00:0A82 with a=$24 from PageList_* routines
+6BF0	MailResult_Tiles_6BF0	data	CONFIRMED	1024 B tiles: HDMA load at 29:40D3 (29:407A) to VRAM bank1 $8800; executed in mail_send
+6FF0	MailResult_Tiles_6FF0	data	CONFIRMED	1024 B tiles: HDMA load at 29:40E5 to VRAM bank1 $8C00 (communication result screen)
+73F0	MailResult_Tiles_73F0	data	CONFIRMED	160 B tiles: HDMA load at 29:40F7 to VRAM bank1 $9000
+7490	MailResult_Tiles_7490	data	CONFIRMED	768 B tiles: HDMA load at 29:4109 to VRAM bank0 $8000
+7790	MailResult_Tilemap	data	CONFIRMED	20x18 map + attributes of the communication result screen (rendered: 'つうしんけっかはっぴょう', boxes 'おくったメール' / 'とどいたメール'); copied by 00:08EA at 29:411A
+7A60	MailResult_BgPalette	data	PROBABLE	64 B BG palettes loaded to $D800 by 4F:4000 at 29:40B0 (result screen 29:407A)
+7AA0	MailResult_ObjPalette	data	PROBABLE	64 B OBJ palettes loaded to $D840 by 4F:4000 at 29:40C1 (result screen 29:407A)
+7AE0	MailServerStatus_BgPalette	data	PROBABLE	64 B BG palettes loaded to $D800 by 4F:4000 at the start of 29:4608 (mail server status screen)
+7B20	MailResult_ObjTable	table	PROBABLE	sprite object rows: 7B20/7B30 = result screen sprites (29:4000, 407A), 7B40..7BF0 = 12 rows chosen by the received-mail count in 29:4374 (00:0A82 with a=$24)

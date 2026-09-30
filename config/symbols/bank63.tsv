@@ -1,0 +1,19 @@
+# addr	name	type	status	evidence
+4000	Font_ValidateSjisCode	function	PROBABLE	HL=Shift-JIS code (lead in H, trail in L, built by 00:1044): tests bit L&7 of [Font_SjisValidBitmap+HL>>3] via a jump table; valid -> HL unchanged, invalid -> HL=$81A1 (SJIS black square). Only callers: 7F:404C/405F glyph drawing
+402D	Font_SjisBitJumpTable	table	CONFIRMED	8 code pointers indexed by the bit number L&7 (bit 0..7 of C); every target executed; entered through the ld l/jp hl dispatcher at 63:4000-402C
+406D	Font_ValidateSjisCode_Valid	label	CONFIRMED	bit set: pop hl/de/bc/af and return with HL = the original code
+4072	Font_ValidateSjisCode_Invalid	label	CONFIRMED	bit clear: restores registers and returns HL=$81A1 (SJIS black square, the substitute glyph); reached once in the traces (browser_pages f38342)
+407A	Font_SjisValidBitmap	data	PROBABLE	8 KiB bitmap (65536 bits) indexed by a 16-bit Shift-JIS code: 7332 bits set, only lead bytes 81-84/87-9F/E0-EA with trail 40-7E/80-FC; mapper class 'gfx' is wrong (data 407A-607A, 607A-6080 = 6 pad bytes)
+6080	NoAdapter_Gfx_8000	data	CONFIRMED	64 tiles HDMA'd to VRAM bank 0 $8000 by 63:7365 (screen 'Mobile Adapter GB not plugged in')
+60C0	NoAdapter_Gfx_8800	data	CONFIRMED	64 tiles (60C0-64C0, overlapping the $8000 block) HDMA'd to VRAM bank 1 $8800 by 63:7377
+64C0	NoAdapter_Gfx_8C00	data	CONFIRMED	64 tiles HDMA'd to VRAM bank 1 $8C00 by 63:7389
+68C0	NoAdapter_Gfx_9000	data	CONFIRMED	64 tiles HDMA'd to VRAM bank 1 $9000 by 63:739B
+6CC0	NoAdapter_Gfx_9400	data	CONFIRMED	64 tiles HDMA'd to VRAM bank 1 $9400 by 63:73AD
+6FC0	NoAdapter_Tilemap	data	CONFIRMED	18x20 tilemap+attr (720 bytes) loaded to D000 by 63:73E0 (00:08EA); overlaps the tail of the 9400 tile block
+7290	NoAdapter_Palette_Bg	data	PROBABLE	64 bytes RGB555 copied to the BG palette staging buffer D800 by 63:73BE (4F:4000 bc=$40)
+72D0	NoAdapter_Palette_Obj	data	PROBABLE	64 bytes RGB555 copied to the OBJ palette staging buffer D840 by 63:73CF (4F:4000 bc=$40)
+7310	NoAdapter_ObjTable	table	PROBABLE	2 object-table entries (entry 1 = frame table 7318 / script 732A) used by the object init in 63:7342 (DE=$7310, A=$63, B=$81 -> 00:0A82) to create the sprite in slot DA00
+7318	NoAdapter_ObjAnim	data	PROBABLE	frame table, 2 frames and script of the one animated sprite of the screen
+732F	NoAdapter_ShowScreen	function	CONFIRMED	'Mobile Adapter GB is not plugged in' screen: draws it (7342), fades in, waits for A or Start (7413), fades out. Executed in noadapter (6x) and hotplug (1x) at frame 68; then 65:4063 resets with A=$11
+7342	NoAdapter_DrawScreen	function	CONFIRMED	loads the tiles, palettes, tilemap and the sprite of the screen, turns the LCD on and shows the first frame; clears SCX/SCY
+7413	NoAdapter_WaitButton	function	CONFIRMED	loop: sprites, VBlank wait, pad read (7D:7BB7); returns when hJoyPressedRepeat bit0 (A) or bit3 (Start) is set

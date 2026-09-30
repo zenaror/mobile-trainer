@@ -1,0 +1,18 @@
+# addr	name	type	status	evidence
+# namer 5/8 (docs/research/naming_g5.md): semantic names need >= 2 independent evidence pieces; rows with a generic name document behaviour without asserting a purpose
+4000	CommNotice_ShowDialog	function	CONFIRMED	Connection-time notice ("communication time will soon reach N minutes, continue?"): runs CommNotice_RunDialog; on answer 0 (no/alert/timeout) shows 72:$010F/$0110 around Comm_Disconnect, returns 1, else 0; callers 4E,5C,67,68,7F
+4061	CommNotice_RunDialog	function	CONFIRMED	C0D6=[C1D1], C0D8=[C1D0] (choice mode); loads tile set (C0D6=0: 5A20.., else 62F0..), picks screen C1CD 1-8 from C0D8, [C26E]>=$3C, [C2D6]>=$3C, loops: A returns C0D4^1 (1 = yes; 0 in alert mode), 10 s timeout returns 0
+4244	Table_CommNotice_Screens	table	PROBABLE	8 word pointers to the 20x18 tile maps Tilemap_50_* (attribute map follows each at +$168), indexed by (C1CD-1)*2 at 50:4254; 8 screens = 2 tile sets x choice/no choice x under/over one hour
+4254	CommNotice_DrawScreenAndLoop	label	PROBABLE	Copies map+attr pair Table_50_4244[C1CD-1] (20x18) to $D000/$D400 via 00:08EA, draws the choice cursor and minute digit, fades in (4F:42B4) and loops on JoypadDispatch (Table_50_42AC)
+430C	CommNotice_HandleLeftRight	function	PROBABLE	In choice mode (C0D8!=0) D-pad Left/Right toggles C0D4, redraws the cursor and plays sound $29 (00:20AC); called from the loop's no-button branch (50:42B6); not executed
+4338	CommNotice_DrawChoiceCursor	function	PROBABLE	Places sprite slot DA10 at (Y=$67, X=$27) or (Y=$67, X=$57) by C0D4: under the buttons yes (はい, left) and no (いいえ, right) of the choice screens; 2 callers here
+4352	CommNotice_DrawMinuteDigit	function	PROBABLE	Tens of ([C26E]+1) minutes (48:4000 divide by 10) minus 2: draws digit tile $26+n and $2C+n into the map cell chosen by Table_50_438A[C1CD-1]; nothing for 10 minutes (first notice at C26E=9)
+438A	Table_CommNotice_DigitCells	table	PROBABLE	8 WRAM map-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) where CommNotice_DrawMinuteDigit writes its digit tile pair, indexed by (C1CD-1)*2
+439A	Tilemap_CommNotice_A_CutOver60	data	PROBABLE	Screen 1 (tile set A, no choice, C26E>=60 and C2D6>=60), text rendered from the tiles: "N minutes or more of continuous communication, so the line will be cut" (0ぷんいじょう れんぞくで つうしんしていますので せつだんをおこないます); attr map follows at +$168
+466A	Tilemap_CommNotice_A_AskOver60	data	PROBABLE	Screen 2 (set A, choice, over 60): "connected continuously for N minutes or more. Continue as it is? [はい][いいえ]"
+493A	Tilemap_CommNotice_A_CutSoon	data	PROBABLE	Screen 3 (set A, no choice, under 60): "the communication time will soon reach N minutes, so the line will be cut" (つうしんじかんがまもなく 0ぷんに なりますので せつだんをおこないます)
+4C0A	Tilemap_CommNotice_A_AskSoon	data	CONFIRMED	Screen 4 (set A, choice, under 60; the one executed in browser_pages): "the communication time will soon reach N minutes. Continue as it is? [はい][いいえ]" (このまま つづけますか?); left button = yes at x=$27
+4EDA	Tilemap_CommNotice_B_CutOver60	data	PROBABLE	Screen 5 (tile set B used when C1D1=1, no choice, over 60): same text as screen 1 with the other frame graphics
+51AA	Tilemap_CommNotice_B_AskOver60	data	PROBABLE	Screen 6 (set B, choice, over 60): same text as screen 2
+547A	Tilemap_CommNotice_B_CutSoon	data	PROBABLE	Screen 7 (set B, no choice, under 60): same text as screen 3
+574A	Tilemap_CommNotice_B_AskSoon	data	PROBABLE	Screen 8 (set B, choice, under 60): same text as screen 4

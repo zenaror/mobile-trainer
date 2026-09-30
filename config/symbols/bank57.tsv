@@ -1,0 +1,49 @@
+# addr	name	type	status	evidence
+4000	ConnectDialog_Run	function	CONFIRMED	Modal connect dialog: BC=arg struct in bank D [mode,-,-,dest bank,dest ptr,mail count]; mode C0D8 picks the screen (fee confirm, password entry, save/forget); B=$FF cancel, B=0 ok+password at dest. Callers 22,23,27,4C
+4029	ConnectDialog_Run_LoadMode	label	PROBABLE	re-entry after a mode change (jp from 4068 when the new mode is <5): resets LCDC/scroll/window regs and sprites, then redraws the screen of the new mode
+4044	ConnectDialog_Run_EnterMode	label	PROBABLE	C0E5=1 (cursor on Yes), DrawScreen (47A6), EnterMode (44E4), one sound request (00:20E8 bc=$12), then the frame loop
+405F	ConnectDialog_Run_FrameLoop	label	CONFIRMED	loop: call HandleFrame (40E0) until it returns A!=0 (mode change requested)
+4068	ConnectDialog_Run_ModeChanged	label	CONFIRMED	after HandleFrame!=0: LeaveMode (45E6) commits C0D6 into C0D8; new mode 0 -> cancel (408D), $10 -> accept (4096), <5 -> full reload (4029), >=5 -> redraw only (4044) if the previous mode was >=5, else full reload
+408D	ConnectDialog_Run_Cancel	label	CONFIRMED	fade out (4F:4370) and return B=$FF (dialog cancelled); reached in 7 scenarios when No/B is chosen
+4096	ConnectDialog_Run_Accept	label	CONFIRMED	fade out; copies the entered/stored password (C1B2, C1CB chars) NUL-terminated to the far pointer arg[3..5] with 48:4616, returns B=0; executed in 19 scenarios
+40E0	ConnectDialog_HandleFrame	function	CONFIRMED	one frame: sprites (00:0956), wait VBlank (00:044B), read pad (7D:7BA4/7BC1), dispatch on mode C0D8 to the per-mode input handler (mode 6 -> keyboard 426B); returns A!=0 when the mode changes
+412A	Label_57_412A	label	HYPOTHESIS	input handler of mode 1 (Yes/No fee confirm variant): left/right toggles C0E5, A on Yes -> C0D6=2, else -> C0D6=0; never executed, no caller starts in mode 1
+4189	Label_57_4189	label	HYPOTHESIS	input handler of mode 2: like 41CA (A on Yes -> mode 9 if SRAM1:A880 !=0 else 5) but No/B -> mode 1; never executed, no caller starts in mode 2
+41CA	ConnectDialog_Input_ConnectConfirm	label	CONFIRMED	input of modes 3/4 (screen 'connect? Yes/No'): left/right toggles Yes/No (C0E5 xor 3, sfx $29); A on Yes -> mode 9 if saved password length SRAM1:A880 !=0 else mode 5; No/B -> mode 0. Executed at mail_send f2696
+4237	ConnectDialog_Input_PasswordPrompt	label	PROBABLE	input of mode 5 (password entry screen before the keyboard is active): A -> mode 6; B -> the caller's initial mode arg[0] when arg[0]>=3, else mode 2 (57:4253-4267); executed only in monkey campaigns
+426B	ConnectDialog_Input_Keyboard	label	CONFIRMED	input of mode 6: polls the on-screen keyboard (55:5C8F): 1 append char, 2 erase, $0A validate then mode 7 if ok, 7 -> exit ok ($10), 8/9 -> mode 5; executed in 4 monkey scenarios
+4299	ConnectDialog_Keyboard_AppendChar	label	CONFIRMED	keyboard result 1: if C1CB==8 buzz (sfx $31) else sfx $38, store char C2AD into C1B2[len], its glyph bytes (55:6CC6) into C1BA[2*len], len++, redraw
+433F	ConnectDialog_Keyboard_EraseChar	label	CONFIRMED	keyboard result 2: if len==0 go back to mode 5 (438E) else sfx $39, len--, terminate C1B2/C1BA, redraw the field
+43BC	ConnectDialog_Input_SaveConfirm	label	PROBABLE	input of mode 7 (screen 'save password? する/しない'): left/right toggles C0E5; A on する -> mode 8, しない/B -> mode 6; executed only in monkey campaigns
+4421	ConnectDialog_Input_PasswordSaved	label	PROBABLE	input of mode 8 (screen 'password saved'): A -> accept ($10), B -> back to mode 7; executed only in monkey campaigns
+4443	ConnectDialog_Input_StoredPassword	label	CONFIRMED	input of mode 9 (screen 'password is saved, A starts communication'): A -> accept ($10); B -> arg[0] if >=3 else mode 2 (57:4463-4477); Select -> mode 10 (forget). Executed at mail_send f2801 (password_saved.png)
+4481	ConnectDialog_Input_ForgetConfirm	label	PROBABLE	input of mode 10 (text 'stop saving the password?' Yes/No): A on Yes -> mode 5 (LeaveMode clears SRAM1:A880), No/B -> mode 9
+44E4	ConnectDialog_EnterMode	function	CONFIRMED	per-mode entry action after the screen is drawn: 5 redraw password field; 6 raster split + keyboard init (55:5BA2); 8 store password to SRAM (SavedPassword_Store); 9 load stored password into C1B2/C1CB; 7/10 sound+cursor
+4517	ConnectDialog_Enter_Keyboard	label	CONFIRMED	mode 6 entry: C0F6=9, STAT=$44/LYC=$1A, installs 00:16DC raster handler in the RAM STAT vector (saved to C130-C132), enables STAT IRQ, keyboard init 55:5BA2
+4590	ConnectDialog_Enter_PasswordSaved	label	PROBABLE	mode 8 entry: SavedPassword_Store(de=C1B2, a=C1CB) writes the typed password to SRAM
+459A	ConnectDialog_Enter_StoredPassword	label	CONFIRMED	mode 9 entry: C1CB=SRAM1:A880, C1B2[i]=SRAM1:A88D[i] xor $5A (decodes the saved password), redraws the field (510F)
+45E6	ConnectDialog_LeaveMode	function	CONFIRMED	mode change: C0E6=old mode, C0D8=C0D6 (new), then per old-mode cleanup: fade out, restore STAT vector after the keyboard (46E0), clear saved password when leaving mode 10 (477E)
+46E0	ConnectDialog_Leave_Keyboard	label	CONFIRMED	leaving mode 6: 55:651C, restores the STAT vector CBF4 from C130-C132, clears IE bit1/IF/SCY, moves sprite slots DA20/DA30/DA40 off screen (Y=0,X=$B4) and clears the DA2B hook
+474F	ConnectDialog_Leave_PasswordSaved	label	PROBABLE	leaving mode 8: if the new mode is 7 the saved password is removed again (SRAM1:A880:=0 via 48:4616)
+477E	ConnectDialog_Leave_ForgetConfirm	label	CONFIRMED	leaving mode 10: unless the new mode is 9 (No), clears C1CB and writes 0 to SRAM1:A880 (saved password forgotten), fade out
+47A6	ConnectDialog_DrawScreen	function	CONFIRMED	draws the screen of mode C0D8: modes 1-4 -> 47D1, 5/6 -> 4951, 7 -> 4AC7, 8 -> 4D40, 9 -> 4E4C, 10 -> 4F59 (tiles/tilemaps in bank 56, text rendered from 56:4000-4159)
+47D1	ConnectDialog_Draw_ConnectConfirm	label	CONFIRMED	screen of modes 1-4: title 'connect' + fee text 56:4000 (call/connection charges apply, OK?) + Yes/No; mode 4 also shows the receivable mail count arg[6] as two digits (4914)
+4951	ConnectDialog_Draw_PasswordEntry	label	CONFIRMED	screen of modes 5/6: 'enter the password' + masked 8-char field + keyboard window (text 56:4047); executed in 4 monkey scenarios
+4AC7	ConnectDialog_Draw_SavePasswordConfirm	label	PROBABLE	screen of mode 7: 'save the password?' with Attention text 56:406A and する/しない buttons
+4D30	ConnectDialog_BlankTile	data	PROBABLE	one blank (all $00) 2bpp tile copied to VRAM $8C10 by 4951 and 4AC7 (spacer tile)
+4D40	ConnectDialog_Draw_PasswordSaved	label	CONFIRMED	screen of mode 8: 'password saved' (text 56:40BF, B: back); executed in 3 monkey scenarios
+4E4C	ConnectDialog_Draw_StoredPassword	label	CONFIRMED	screen of mode 9: 'password is saved' (text 56:410A, A starts communication, Select stops saving); executed at mail_send f2801
+4F59	ConnectDialog_Draw_ForgetConfirm	label	CONFIRMED	screen of mode 10: 'stop saving the password? Yes/No' (text 56:4159); executed in 4 scenarios
+5077	ConnectDialog_Draw_Finish	label	CONFIRMED	common tail of the draw routines: HDMA of 56:75C0 tiles to $8000, palettes 56:7840, upload BG (00:082C), sprites (00:0956) and fade in (4F:42B4)
+510F	ConnectDialog_DrawPasswordField	function	CONFIRMED	redraws the mode's tilemap and the password field: modes 5-7 pad the empty cells ($22/$10 tiles, 520D), modes 8-10 draw C1CB masked cells ($11/$12, 51BC); then HDMA of the rows to $9880
+527D	ConnectDialog_PlaceCaretSprites	function	CONFIRMED	positions sprite slots DA20/DA30 (00:0A65): Y=C1CC+$1E (-8 if WY=$28), X=8*C1CB+$32/$30 i.e. the caret after the last typed char
+52D8	ConnectDialog_ObjHook_Caret	label	PROBABLE	per-frame object hook (registered in slot DA20+$0B via 00:0A45; engine calls slot hooks in 00:0AE8): when the caret animation ended ([slot+$F] 0/$FF) restarts anim $81, re-places it and sets C0E8=1
+531E	ConnectDialog_ObjHook_FollowRaster	label	PROBABLE	per-frame object hook (registered via 00:0A45 in DA2B): sets the Y of slots DA20/DA30 (wSpriteSlots+32/+48) to C0F6+$15
+5340	ConnectDialog_ShowLowerWindow	function	PROBABLE	LCDC|=$60, WY=$38, C0F7=1: shows the lower window (mode 7 attention box); does nothing if C0F7 is already set
+5355	ConnectDialog_HideLowerWindow	function	PROBABLE	inverse of 5340: LCDC|=$60, WY=$90 (window off screen), C0F7=0
+5369	ConnectDialog_ValidatePassword	function	CONFIRMED	checks C1B2[0..C1CB): needs length>=4, at least one digit and one letter; B=1 valid else 0, C=1 if length==8. Matches the DION rule '4-8 alphanumeric' (5C:4B52..4D3F); executed 1019x in 4 monkey campaigns
+53B9	ConnectDialog_RefreshFieldIfDirty	function	PROBABLE	called via farcall from 55:1013 (keyboard code): if C0E8!=0 redraws the password field (510F) and clears C0E8
+53C6	ConnectDialog_UploadMapRow	function	PROBABLE	HDMA copy of one 2-block BG-map row from HL (tiles, VRAM bank 0) and HL+$400 (attrs, bank 1) to DE; waits for LY>=$91 like 00:0749; used for the 3 title rows at $9800-$9840
+541C	SavedPassword_Store	function	CONFIRMED	A=length (1-8), DE=chars: writes chars xor $5A to SRAM1:A88D.. and the length to SRAM1:A880 (48:4616 far write). A=0 would unbalance the stack (jr z 5437 pops without a push): callers 57:4590, 65:47EA, 67:5A0E pass 1-8
+5444	ConnectDialog_RenderTypedChars	function	PROBABLE	converts the 2-byte glyph codes C1BA (8 bytes, 48:40A9 with FFB0=2) into tile data in D000 and HDMAs 16 blocks to VRAM bank 1 $9701 (typed-character tiles of the password field)
+546C	ConnectDialog_PlayButtonSfx	function	CONFIRMED	B=A: A-button sound (bc=$2C; mode 8 Yes $32, mode 10 $33) or B-button sound ($2E) via 00:20AC; per-mode jump table on C0D8; executed in 20 scenarios

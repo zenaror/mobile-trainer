@@ -1,0 +1,21 @@
+# Names for bank 70 (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4000	CommScene_Init	function	PROBABLE	A=kind 0..2 (C27D), clears state C27C/C27E/C27F, C283 = 1 only if kind != 0 and online (wTimerEnable bit4); via 4C:46C4 when wRam_C2C3==0; scrolling landmark panorama scene (rendered 70:6D10 map); executed in browser_*
+4023	CommScene_Step	function	PROBABLE	A=step arg (C27E: 1 = A pressed): one frame: input 7D:7BB7, CommScene_RunState, CommScene_ApplyScrollFrame, online-icon sprite DA30 by wTimerEnable bit4; returns C27F (0 done, 1 running, 2 cancelled by B); 4C:46D6
+407F	CommScene_ApplyScrollFrame	function	PROBABLE	sprite update Function_00_0956, wait VBlank, rSCX = [C2A8] (background scroll), frame service
+408F	CommScene_RunState	function	PROBABLE	jp hl through CommScene_KindTable[C27D] then [state C27C]
+40AD	CommScene_KindTable	table	PROBABLE	3 pointers to the per-kind state tables indexed by C27D: kind 0 = 10 states from $40E3, kind 1 = 9 states from $428D, kind 2 = 5 states from $4418
+4275	CommScene_ResetScroll	function	CONFIRMED	C2A8 = C2A9 = 0 (background scroll)
+427D	CommScene_ScrollIncrement	function	CONFIRMED	inc wRam_C2A8 (copied to rSCX by CommScene_ApplyScrollFrame): background scrolls one step per call
+4285	CommScene_ScrollDecrement	function	CONFIRMED	dec wRam_C2A8: opposite scroll direction
+44B0	CommScene_LoadGraphics	function	PROBABLE	clears sprites, window WX=7 WY=$70, LCDC bit2, HDMA-loads 9 tile blocks (70:5490..6A90) to VRAM banks 0/1, palettes $6C90/$6CD0, 14x32 panorama map $6D10 (mountains, torii-like gate, skyscrapers, pyramid when rendered)
+4613	CommScene_Teardown	function	PROBABLE	clears sprites, waits, LCDC bit2 and window off, C2A8=C2A9=0; called by every kind's final state (70:4202, 439A, 449D)
+4638	CommScene_UploadBackgroundMap	function	PROBABLE	HDMA-uploads the WRAM7 buffers $D000 (tile ids) / $D400 (attrs), $400 bytes each, to the BG map $9800 of VRAM banks 0/1 (source bank arg 0 = WRAM, not a zero fill); called by CommScene_LoadGraphics after it copies the map to $D000
+466B	CommScene_UploadTextBox	function	PROBABLE	HDMA-uploads the 20x4-tile text box in $D000/$D400 to the window map ($9800/$9C00 by LCDC bit6) with rect 4x$24
+46A6	Function_70_46A6	function	HYPOTHESIS	idea: random event: if SRAM A9ED bit6 and A9ED&$30 and A9EE==0: A9EE = $02 + Random16 mod 3 (or $0A + mod 6 if bit7); returns 0/1/2; SRAM-access helper shape, no caller found
+477F	CommScene_PlaceTextSprites	function	CONFIRMED	positions sprite slots DA40/DA50 at Y=$30, X=C280 and C280-$10 (or +$10 when C281!=0)
+47BB	CommScene_SetTextSprites	function	CONFIRMED	C281=A; initialises sprite slots DA40/DA50 from Table_70_53EB with anim ids 1/3 (A=0) or 2/4 (A!=0)
+4803	CommScene_ShowTextBox	function	CONFIRMED	A=0..7: copies the 20x4 text box map CommScene_TextBoxMaps[A] (bc=$0414 to $D000) then CommScene_UploadTextBox
+4822	CommScene_TextBoxMaps	table	CONFIRMED	8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0), indexed by A in CommScene_ShowTextBox
+534C	CommScene_ObjTable	table	CONFIRMED	4-entry animation table (init_object_from_table de=$534C a=$70) used for the two scenery objects (ids 1,2), online icon (id $83)
+53EB	CommScene_TextObjTable	table	CONFIRMED	animation table used with de=$53EB a=$70 at 70:415C/47BB for the text-box arrow and text sprites (executed)

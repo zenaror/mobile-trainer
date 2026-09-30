@@ -1,0 +1,143 @@
+# addr	name	type	status	evidence  (namer 4/8: bank 2D)
+0003	MAILREC_OFS_TIME	const	PROBABLE	Record offset of the 6-byte BCD timestamp yyyy mm dd hh mm (sample headers 20 00 06 28 12 30 ...; 2E prints the same format as a date)
+0006	ABOOK_SLOT_COUNT	const	CONFIRMED	Address-book slots: Abook_SlotAddrTable* have 6 words, AbookList_CursorDown wraps at 6
+0009	MAILREC_OFS_BODY	const	CONFIRMED	Record offset of the body ($C0 bytes): sample installer target A12D = A124+9, staged with WRAM D400 (2D:403C)
+000C	MAILREC_COUNT	const	CONFIRMED	Number of mail records: 12 words in MailRecord_AddrTable, 12 in-use bytes scanned by 25:4A90, MailRecord_Delete loops B up to $0C (2D:4164)
+0010	MAIL_NAME_SIZE	const	CONFIRMED	Name buffer size: D514-D523, SRAM A114-A123 and address-book slot +0 (8 double-byte chars, AbookName_GetLength cap)
+0010	ABOOK_SLOT_OFS_ADDRESS	const	CONFIRMED	Address-book slot offset of the $40-byte address (Abook_ProbeSlot adds $10 to the slot pointer)
+0014	MAIL_SUBJECT_SIZE	const	CONFIRMED	Subject buffer size: D500-D513, SRAM A100-A113 (10 double-byte chars)
+0040	MAIL_ADDRESS_SIZE	const	CONFIRMED	Address buffer size: D4C0-D4FF, SRAM A000-A03F, MailAddr_GetLength cap
+0050	ABOOK_SLOT_SIZE	const	CONFIRMED	Address-book slot size: stride of A69D,A6ED,A73D,A78D,A7DD,A82D (name $10 + address $40)
+00B4	TICKER_PAUSE_FRAMES	const	CONFIRMED	Frames the ticker waits before it starts scrolling and after each loop ($B4 = 180 stored in wTickerPauseFrames C0F3 by Ticker_Start/Ticker_Update)
+00C0	MAIL_BODY_SIZE	const	CONFIRMED	Body buffer size: 8 rows x 12 cells x 2 bytes; D400-D4BF, SRAM A040-A0FF, MailBody_GetLength cap
+00C9	MAILREC_OFS_NAME	const	CONFIRMED	Record offset of the sender name ($10 bytes): sample installer A1ED = A124+$C9, receiver adds $C9 to the free record (54:4DB5), reply copies it to D514
+00D9	MAILREC_OFS_SUBJECT	const	CONFIRMED	Record offset of the subject ($14 bytes): sample installer A1FD = A124+$D9, receiver adds $D9 to the free record (54:4E01)
+00ED	MAILREC_OFS_ADDRESS	const	CONFIRMED	Record offset of the sender address ($40 bytes; $ED+$40 = MAILREC_SIZE): sample installer A211, receiver adds $ED (54:4DBD), reply copies it to D4C0
+012D	MAILREC_SIZE	const	CONFIRMED	Bytes per mail record: stride of A124,A251,A37E..AE13 and the copy/zero length bc=$012D in MailRecord_Delete (2D:4153, 416B)
+4000	MailCompose_Run	function	CONFIRMED	Write-mail flow (called by 7C:7C9C): MailStaging_Clear, D524=1, then address screen 65B0 -> title screen 2C:4000 -> body editor 4722 (FF = back one step); run in mail_compose from frame 3091 (address screen shot f03694)
+403C	MailDraft_SaveToSram	function	CONFIRMED	Copies WRAM bank1 D400($C0)/D4C0($40)/D500($14)/D514($10) to SRAM bank0 A040/A000/A100/A114, then 22:501D (bank-0 checksum+mirror); run in mail_compose at frame 8858, right after dialog $0202 (save?) shot s1
+408F	MailDraft_LoadFromSram	function	CONFIRMED	Reverse of MailDraft_SaveToSram: SRAM bank0 A040/A000/A100/A114 -> WRAM bank1 D400/D4C0/D500/D514 (sizes $C0/$40/$14/$10); 113 runs in 7 scenarios (first mail_inbox frame 3207); callers 2B:421F/65DA
+40DC	MailDraft_Clear	function	CONFIRMED	Zeroes the SRAM bank0 draft A000-A123 and its WRAM staging D400/D4C0/D500/D514, then 22:501D; callers 26:433B (send session, mail_send frame 3635 after session start 3286) and 2B:4161
+4133	MailRecord_Delete	function	CONFIRMED	B=index: shifts records B+1..11 down by one record ($12D bytes, SRAM bank0 via MailRecord_AddrTable), zeroes the last one at AE13, 22:501D; run when deleting a mail in mail_inbox (frame 10714, shot del_yes)
+417D	MailRecord_AddrTable	table	CONFIRMED	12 words A124,A251,...,AE13 = addresses of the 12 mail records (stride $12D); indexed by B in MailRecord_Delete (2D:4149); same table at 25:4AF5 (first-free scan) and 2D:470A
+4195	MailRecord_InstallSampleMails	function	PROBABLE	Never executed: strcpy/9-byte copies 5 sample mails into records 0-4 (hdr +0, body +9, name +$C9, subject +$D9, address +$ED) from MailSample*; ends with 22:501D. Entry unknown (sample/debug data)
+42AA	SampleData_CopyString	function	PROBABLE	Private copy of CopyString (00:14BF): copy [HL++] to [DE++] up to and including NUL; all 20 callers are inside MailRecord_InstallSampleMails (2D:4195-42A3); Abook_InstallSampleEntries (44FB) inlines its own copy loops
+42B2	MailSample0_Header	data	PROBABLE	9-byte record header 01 00 00 20 00 06 28 12 30: +0 in-use=1, +3..+8 BCD 2000-06-28 12:30 (same layout as 2E date line); copied to A124 by MailRecord_InstallSampleMails
+42BB	MailSample0_Body	string	PROBABLE	Sample mail 0 body "こんど、またあそぼう" (next time let us play again), copied to A12D (record 0 +9)
+42D0	MailSample0_Name	string	PROBABLE	Sample mail 0 sender name "マリオ" (Mario), copied to A1ED (record 0 +$C9)
+42D7	MailSample0_Subject	string	PROBABLE	Sample mail 0 subject "またあそぼうね", copied to A1FD (record 0 +$D9)
+42E6	MailSample0_Address	string	PROBABLE	Sample mail 0 sender address "mario@mario.ne.jp", copied to A211 (record 0 +$ED)
+42F8	MailSample1_Header	data	PROBABLE	9-byte record header 01 00 00 20 00 06 29 20 46 (BCD 2000-06-29 20:46), copied to A251 (record 1)
+4301	MailSample1_Body	string	PROBABLE	Sample mail 1 body "７がつのさいしょのにちようびに、やきゅうをするからこいよ" (baseball on the first Sunday of July), to A25A
+433A	MailSample1_Name	string	PROBABLE	Sample mail 1 sender name "クッパだいおう" (King Koopa), to A31A (record 1 +$C9)
+4349	MailSample1_Subject	string	PROBABLE	Sample mail 1 subject "やきゅうやるぞ", to A32A (record 1 +$D9)
+4358	MailSample1_Address	string	PROBABLE	Sample mail 1 sender address "kuppa@mario.ne.jp", to A33E (record 1 +$ED)
+436A	MailSample2_Header	data	PROBABLE	9-byte record header 01 00 00 20 00 07 10 17 50 (BCD 2000-07-10 17:50), copied to A37E (record 2)
+4373	MailSample2_Body	string	PROBABLE	Sample mail 2 body: new Pokemon game announcement ending "にんてんどうのホームページへＧＯ！", to A387
+43E8	MailSample2_Name	string	PROBABLE	Sample mail 2 sender name "メールマガジンGB", to A447 (record 2 +$C9)
+43F9	MailSample2_Subject	string	PROBABLE	Sample mail 2 subject "GAMER's Life", to A457 (record 2 +$D9)
+4406	MailSample2_Address	string	PROBABLE	Sample mail 2 sender address "grave01@natird.ad.jp", to A46B (record 2 +$ED)
+441B	MailSample3_Header	data	PROBABLE	9-byte record header 01 00 00 20 00 07 11 00 44 (BCD 2000-07-11 00:44), copied to A4AB (record 3)
+4424	MailSample3_Body	string	PROBABLE	Sample mail 3 body: mail centre maintenance notice, "7/14-7/20 ... メールをチェックできなくなります", to A4B4
+44A3	MailSample3_Name	string	PROBABLE	Sample mail 3 sender name "ＧＢセンター", to A574 (record 3 +$C9)
+44B0	MailSample3_Subject	string	PROBABLE	Sample mail 3 subject "だいじなおしらせ" (important notice), to A584 (record 3 +$D9)
+44C1	MailSample3_Address	string	PROBABLE	Sample mail 3 sender address "ieve@makopi.ne.jp", to A598 (record 3 +$ED)
+44D3	MailSample4_Header	data	PROBABLE	9-byte record header 01 00 00 20 00 07 12 19 28 (BCD 2000-07-12 19:28), copied to A5D8 (record 4)
+44DC	MailSample4_Body	string	PROBABLE	Sample mail 4 body "くくく・・・", to A5E1
+44E9	MailSample4_Name	string	PROBABLE	Sample mail 4 sender name: empty string, to A6A1 (record 4 +$C9)
+44EA	MailSample4_Subject	string	PROBABLE	Sample mail 4 subject "むだい" (untitled), to A6B1 (record 4 +$D9)
+44F1	MailSample4_Address	string	PROBABLE	Sample mail 4 sender address "p@p.ne.jp", to A6C5 (record 4 +$ED)
+44FB	Abook_InstallSampleEntries	function	PROBABLE	Never executed: writes 6 address-book slots (SRAM bank1 A69D+i*$50: name +0, address +$10, same slot layout as 2F tables) from AbookSample*: names フジシゲユウイチ/ハヤシショウゴ/株式会社ミッシ…, missinglink.co.jp
+45A6	AbookSample0_Name	string	PROBABLE	Sample address-book slot 0 name "フジシゲユウイチ" (16 bytes), copied to A69D
+45B7	AbookSample1_Name	string	PROBABLE	Sample slot 1 name: empty string (single NUL at 45B7, separate from the NUL at 45B6 that ends AbookSample0_Name) copied to A6ED
+45B8	AbookSample2_Name	string	PROBABLE	Sample slot 2 name "ハヤシショウゴ", copied to A73D
+45C7	AbookSample3_Name	string	PROBABLE	Sample slot 3 name "株式会社ミッシ…" (16 bytes, truncated), copied to A78D
+45D8	AbookSample4_Name	string	PROBABLE	Sample slot 4 name: empty string, copied to A7DD
+45D9	AbookSample5_Name	string	PROBABLE	Sample slot 5 name: empty string, copied to A82D
+45DA	AbookSample0_Address	string	PROBABLE	Sample slot 0 address "fujishige@missinglink.co.jp", copied to A6AD
+45F6	AbookSample1_Address	string	PROBABLE	Sample slot 1 address: empty string, copied to A6FD
+45F7	AbookSample2_Address	string	PROBABLE	Sample slot 2 address "hayashi@missinglink.co.jp", copied to A74D
+4611	AbookSample3_Address	string	PROBABLE	Sample slot 3 address "master@missinglink.co.jp", copied to A79D
+462A	AbookSample4_Address	string	PROBABLE	Sample slot 4 address: empty string, copied to A7ED
+462B	AbookSample5_Address	string	PROBABLE	Sample slot 5 address "abc@a.b.c", copied to A83D
+4635	SampleData_InstallNameAddressPair	function	PROBABLE	Never executed: copies "スーパーマリオ" to AF40 and "ninten88@gbaa.dion.ne.jp" to AF50 (the $10/$40 name+address pair read by 2A:6257 from AF40/AF50) but selects SRAM bank 1 while 2A uses bank 0
+465E	SampleData_Name	string	PROBABLE	"スーパーマリオ" copied to AF40 by SampleData_InstallNameAddressPair
+466D	SampleData_Address	string	PROBABLE	"ninten88@gbaa.dion.ne.jp" copied to AF50 by SampleData_InstallNameAddressPair
+4686	Sram_ClearBank0Page0	function	PROBABLE	Never executed: selects SRAM bank 0 and zeroes $A000-$AFFF, then 22:501D (same tail as MailDraft_Clear); entry unknown
+46A8	MailStaging_Clear	function	CONFIRMED	Zeroes WRAM bank1 D400($C0) D4C0($40) D500($14) D514($10) = mail body/address/subject/name staging; first step of MailCompose_Run; run in 6 scenarios
+46E9	MailRecord_GetFreeSlotPtr	function	CONFIRMED	Far-calls 25:4A90 (Mailbox_CountRecords: D = consecutive used records = index of the first free one; D=12 means full, callers must check) and returns HL=MailRecord_AddrTable2[D], SRAM bank0 enabled; callers 54:4DAF.. (mail receive)
+470A	MailRecord_AddrTable2	table	CONFIRMED	Second copy of the 12 mail-record addresses A124..AE13 (stride $12D); indexed by MailRecord_GetFreeSlotPtr (2D:46F4)
+4722	MailBody_Edit	function	CONFIRMED	Body editor (メールほんぶん): 8x12 SJIS cell grid D400, cursor B=row C=col; d-pad moves, A opens the keyboard (5691), B returns FF; leave/discard dialogs $0200/$0211/$020F by D524 (A=0); save is done inside MailBody_KeyboardLoop (A=1)
+48B3	MailBody_CursorLeft	function	CONFIRMED	Left (hJoyPressedRepeat bit5): plays bank-04 service BC=$36 (00:20AC), C-- (C0D2 = goal column) or to the end of the previous row via MailBody_GetRowPtr; no move at (0,0)
+48DA	MailBody_CursorRight	function	CONFIRMED	Right (bit4): plays BC=$36 then falls into MailBody_CursorRightStep
+48EE	MailBody_CursorRightStep	function	CONFIRMED	Moves the cursor one char right or to the next row start; no move on an empty cell/last cell (row 7 col 11); also used 24x by MailBody_Edit to park the cursor at the text end
+4942	MailBody_CursorUp	function	CONFIRMED	Up (bit6): plays BC=$36, B-- (not above row 0), C=min(C0D2 goal column, row length E)
+4968	MailBody_CursorDown	function	CONFIRMED	Down (bit7): plays BC=$36 then falls into MailBody_CursorDownStep
+497C	MailBody_CursorDownStep	function	CONFIRMED	Moves down one row if it exists (MailBody_GetRowPtr D<>FF), C=min(goal column C0D2, row length); also used 7x by MailBody_Edit at start
+499E	MailBody_SetupScreen	function	CONFIRMED	Loads the body-editor screen: HDMA tiles 5AC0/5EC0 (VRAM bank1 $9300/$9700) and 62D0 ($8000), palettes 6290/6570 (D800/D840), tilemap 5FC0, cursor objects DA10/DA20 (7F:7B60/7B50), rSCY=0, C0D3=0; run in mail_compose frame 6082
+4CA5	MailBody_PlaceCursorSprites	function	CONFIRMED	B=row C=col: sets the two cursor objects (wSpriteSlots+16/32 Y = $0D+12*row - C0D3, +17/33 X = 8+12*col) with WRAM bank 7; 571 runs in mail_compose
+4E06	TextTiles_ClearBuffers	function	CONFIRMED	Zeroes WRAM bank 2 D000-DFFF (the 4 KiB text glyph tile buffers written by TextTiles_Render*) and bank 3 D000-D77F; 26 callers, run at every screen set-up (20 scenarios)
+4E2D	MailBody_ClearBuffer	function	PROBABLE	Zeroes WRAM bank1 D400-D4BF ($C0 = 8 rows x 12 chars x 2 bytes) then disables SRAM; far-called once by MailCompose_Run right after MailStaging_Clear
+4E42	Function_2D_4E42	function	HYPOTHESIS	Wrapper (bank1, push bc, call 2D:4E54, disable SRAM, pop bc) next to the unexecuted scanner 2D:4E54; no caller found; idea: variant of MailBody_GetCharPtr
+4E54	Function_2D_4E54	function	HYPOTHESIS	Never executed scanner of D400 in 2-byte cells for $0D/$00 returning A,E,HL (or FF,FF,$FFFF); called only by 2D:4E42; idea: older MailBody_GetRowPtr/GetCharPtr
+4E8C	MailBody_GetCharPtr	function	CONFIRMED	B=row C=col: HL=pointer to the 2-byte cell in D400; A=first byte of the cell, or $0D at a newline cell / $FF past the text end (both with D=FF); checked on the repo interpreter; 1272 runs in 7 scenarios
+4EC0	MailBody_GetRowPtr	function	CONFIRMED	B=row: walks D400 (NUL ends, $0D or 12 cells end a row) -> HL=row start, D=0 (row exists) / FF (absent), E=chars in the row capped at 11 (meaningless when D=FF); checked on the repo interpreter; 3223 runs
+4F03	Function_2D_4F03	function	HYPOTHESIS	Probe of the last row (row 7): A=1 if row 7 is absent, else compares its length with $0B and uses MailBody_GetCharPtr(7,11); callers 2D:4745/59A6 ignore A - idea: buffer-full test
+4F2F	MailBody_DrawRow	function	CONFIRMED	Draws the $0D/NUL-terminated SJIS cells at HL (a D400 row) into the tile buffers at DE=(y,x): 7F:41A7 double-byte test, 7F:405F/4007 glyph fetch, 7F:42C3 blit, 6 px per cell (12 per SJIS char), C2EE=$18 budget, pads with blanks; 673 runs
+4FEA	MailBody_DrawRow_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 via 7F:42C3 at BC,DE and advances E by 6 pixels; helper of MailBody_DrawRow
+4FFE	MailBody_DrawRow_Pad	function	CONFIRMED	Blits a blank cell (7F:42CA with B=2 C=0) and advances E by 6 pixels; pads/ends a MailBody_DrawRow line
+5016	TextTiles_UploadBuffers	function	CONFIRMED	HDMA of WRAM bank 2 D000/D400/D800/DC00 ($400 bytes each) to VRAM $9000/$9400/$8800/$8C00 (VBK=0) via TextTiles_HdmaBlock; 10 far callers, run in 17 scenarios
+5054	TextTiles_HdmaBlock	function	CONFIRMED	HL=src DE=dst C=blocks-1: writes rHDMA1-4, waits for LY $8F then $91, sets rLYC=[D724], rSCY=0 and starts rHDMA5; helper of TextTiles_UploadBuffers
+508C	MailBody_GetRowFill	function	CONFIRMED	B=row: counts chars of the row -> D=FF if empty, 1 if >=12 (full row), 0 otherwise; used by the redraw loops after an insert/delete
+50B8	MailBody_InsertChar	function	CONFIRMED	DE=SJIS code from the keyboard (C2AD/C2AE): beeps BC=$31 if the grid is full, else BC=$38, shifts cells right (backward copy from D4BC to D4BE), stores DE at the cursor, redraws, advances the cursor
+51EB	MailBody_RedrawFromRow	function	CONFIRMED	Redraws row B and following rows while they overflow (MailBody_GetRowFill), then TextTiles_UploadBuffers; used after insert/newline/backspace
+5210	MailBody_RedrawRow	function	CONFIRMED	B=row: HL=row start (MailBody_GetRowPtr), Y=12*row, calls MailBody_DrawRow at x=8
+522B	MailBody_InsertNewline	function	PROBABLE	Beeps BC=$31 when full, else BC=$3B: shifts the buffer and stores $0D $0A at the cursor, redraws all rows; run in monkey scenarios only (9 runs)
+535C	MailBody_Backspace	function	CONFIRMED	Beeps BC=$39, changes the cursor object to anim 7F:7B80, moves the cursor left (or to previous row end) and deletes that cell by shifting the buffer left (to D4BE), redraws; run in 5 scenarios
+542D	MailBody_RedrawAfterBackspace	function	CONFIRMED	E=1 if a newline cell was deleted: redraws rows from the cursor row (via MailBody_RedrawRow/GetCharPtr/GetRowFill), then TextTiles_UploadBuffers
+546D	MailBody_ApplyDakuten	function	PROBABLE	Key $814A (゛): if the char before the cursor is one of the 40 kana of MailBody_DakutenKanaList (scanned at 2D:5487) its trail byte +1 (voiced kana), beep $38, redraw; run in monkey_camp_reg (2 runs)
+54EB	MailBody_DakutenKanaList	string	PROBABLE	40 kana that take dakuten: かきくけこさしすせそたちつてとはひふへほ + カキクケコサシスセソタチツテトハヒフヘホ; scanned by MailBody_ApplyDakuten (2D:5487)
+553D	MailBody_ApplyDakutenU	function	PROBABLE	Key $814A on ウ ($8345): the cell is replaced by ヴ ($8394), beep BC=$38; otherwise beep BC=$31 (error); run in monkey_camp_reg (2 runs) as the fallback after MailBody_ApplyDakuten
+55E0	MailBody_ApplyHandakuten	function	PROBABLE	Key $814B (゜): if the char before the cursor is in MailBody_HandakutenKanaList its trail byte +2 (semi-voiced kana), beep $38, redraw; static-flow code, never run
+567B	MailBody_HandakutenKanaList	string	PROBABLE	10 kana that take handakuten: はひふへほハヒフヘホ; scanned by MailBody_ApplyHandakuten (2D:55FA)
+5691	MailBody_KeyboardLoop	function	CONFIRMED	Keyboard widget loop (55:5BA2 A=6, 55:5C8F): 2=backspace, 3=newline, 7=3-icon menu; its save path (2D:582C: dialog $0202, MailDraft_SaveToSram) drops the return address and leaves MailBody_Edit with A=1; $814A/$814B -> dakuten
+5A7B	MailBody_GetLength	function	CONFIRMED	Counts non-zero bytes of D400 up to $C0 -> A; Backspace at (0,0) with an empty body closes the keyboard
+5A98	MailBody_ReloadTiles	function	CONFIRMED	HDMA 2D:5AC0 -> VRAM bank1 $9300 ($20 blocks) and 5CC0 -> $9500 ($30 blocks): restores editor tiles after the keyboard/icon menu closes; called at 2D:5822/5830/58CC/58DD/5956/59B5
+5AC0	Gfx_MailBody_Tiles	data	CONFIRMED	Tile block (2bpp) HDMA-loaded by MailBody_SetupScreen to VRAM bank 1 $9300 (5AC0-5EC0, $40 blocks): body-editor background/keyboard tiles
+5EC0	Gfx_MailBody_Tiles2	data	CONFIRMED	Second tile block of the body editor: HDMA to VRAM bank 1 $9700 by MailBody_SetupScreen (5EC0-5FC0, $10 blocks)
+5FC0	Tilemap_MailBody	data	CONFIRMED	18x20 tile map + attribute map ($2D0 bytes) copied to D000 by 00:08EA in MailBody_SetupScreen (2D:4A16)
+6290	Palette_MailBody_Bg	data	CONFIRMED	64-byte BG palette block copied to D800 by 4F:4000 in MailBody_SetupScreen
+62D0	Gfx_MailBody_ObjTiles	data	CONFIRMED	Sprite tiles: HDMA to VRAM bank0 $8000 ($2A blocks) by MailBody_SetupScreen
+6570	Palette_MailBody_Obj	data	CONFIRMED	64-byte OBJ palette block copied to D840 by 4F:4000 in MailBody_SetupScreen
+65B0	MailAddr_Edit	function	CONFIRMED	Recipient-address entry (メールあて先): 3-line ASCII field D4C0 ($40); A opens keyboard 6ECE, SELECT address book 67CB, B leaves (dialog $0200/$0211/$020F by D524, A=FF), keyboard OK (result 7) with D4C0 empty gives $0205 else A=0; frame 3091
+67CB	MailAddr_OpenAddressBook	function	PROBABLE	SELECT on the address screen (screen footer セレクト アドレスちょう): fade out (7F:72B0, 4F:4370) then far-calls 2C:56FE (AddrPick_Menu, bank 2C list of the 6 address-book slots); A=FF = cancelled; on return MailAddr_Edit restarts; run in monkeys
+67E1	MailAddr_CursorLeft	function	CONFIRMED	Left on the address screen: plays BC=$36, C-- or to the end of the previous row via MailAddr_GetRowPtr; stores C0D2
+6808	MailAddr_CursorRight	function	CONFIRMED	Right on the address screen: plays BC=$36, then MailAddr_CursorRightStep
+681C	MailAddr_CursorRightStep	function	CONFIRMED	Cursor one char right within D4C0 (index max $40, kept in C0D2); 64 steps run at screen start to park the cursor at the text end
+684F	MailCompose_ConfirmDiscard	function	CONFIRMED	A=0 if D400/D4C0/D500 are all empty or the user accepts dialog $0200 (draft will disappear), else FF; used when B is pressed while D524=1
+68A9	MailAddr_SetupScreen	function	CONFIRMED	Loads the address screen: HDMA tiles 7120/7520/75D0/7880, tilemap 7B50, palette 7E20 (D800), cursor objects; draws the three address lines; run in mail_compose frame 3092
+6A4C	MailAddr_PlaceCursorSprites	function	CONFIRMED	C=char index in D4C0 (lines of 20/24/20 after a +4 offset): row/col -> cursor objects wSpriteSlots+16/32 Y=$38+12*row-C0D3, +17/33 X=8+6*col; 3011 runs
+6A96	MailAddr_DrawLine20	function	CONFIRMED	Draws the ASCII/SJIS string at HL (D4C0 or D4EC part) at DE=(y,x) with a 20-cell budget (C2EE=$15); lines 1 and 3 of the address field
+6B51	MailAddr_DrawLine20_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of MailAddr_DrawLine20
+6B65	MailAddr_DrawLine20_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42CA) and advances E by 6 pixels; pads/ends a line of MailAddr_DrawLine20
+6B7D	MailAddr_DrawLine24	function	CONFIRMED	Same as MailAddr_DrawLine20 with a 24-cell budget (C2EE=$19): line 2 (D4D4) of the address field
+6C38	MailAddr_DrawLine24_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of MailAddr_DrawLine24
+6C4C	MailAddr_DrawLine24_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42CA) and advances E by 6 pixels; pads/ends a line of MailAddr_DrawLine24
+6C64	TextTiles_UploadBuffersShort	function	CONFIRMED	HDMA of WRAM bank 2 D000/D400 ($400 bytes each) to $9000/$9400 (no LYC update); 312 runs; 2F:6F8C etc. far-call it
+6CAC	MailAddr_GetCharPtr	function	CONFIRMED	B=0 C=index: HL=D4C0+C (1 byte per char), A=byte at HL ($0D or FF/D=FF when past the NUL); calls MailAddr_GetRowPtr first; 2847 runs in 7 scenarios
+6CDF	MailAddr_GetRowPtr	function	CONFIRMED	B=row (0 in practice): HL=D4C0, D=0/FF, E=chars capped at $17 (copy of MailBody_GetRowPtr with 24 cells per row); 2847 runs
+6D21	MailAddr_InsertChar	function	CONFIRMED	DE=key code: beeps BC=$31 if the last byte D4FF is used, else BC=$38, shifts D4C0.. right, stores the char, MailAddr_RedrawAfterInsert; 180 runs
+6E03	MailAddr_Backspace	function	CONFIRMED	Beeps BC=$39, cursor object anim 7F:7B80, moves left and deletes the cell before the cursor by shifting D4C0.. left, then MailAddr_RedrawAfterBackspace
+6ECE	MailAddr_OpenKeyboard	function	CONFIRMED	Opens keyboard widget 55:5BA2 with A=9 (the mode also used by AbookAddr_OpenKeyboard; body editor uses 6, name editor 8) then falls into MailAddr_KeyboardLoop
+6F01	MailAddr_KeyboardLoop	function	CONFIRMED	Loops 55:5C8F: 2=backspace (closes the keyboard when D4C0 is empty), 7/9 return, 8 exit, $814A/$814B keys ignored, other codes -> MailAddr_InsertChar; 268 runs
+6F7B	MailAddr_RedrawAfterInsert	function	CONFIRMED	Redraws the address lines affected by the insert (line choice from cursor index C and MailAddr_GetLength thresholds $14/$2C/$2D) and uploads with TextTiles_UploadBuffersShort
+702A	MailAddr_GetLength	function	CONFIRMED	Counts non-zero bytes of D4C0 up to $40 -> A (address length)
+7046	MailAddr_RedrawAfterBackspace	function	CONFIRMED	Same redraw as MailAddr_RedrawAfterInsert after a deletion
+70F4	Joypad_ClearAndResetRepeat	function	CONFIRMED	Zeroes hJoyHeld/hJoyPressed/FFA7/hJoyPressedRepeat/wJoyIdleFrames, C2E1=$14 C2E2=2 and C2E5-C2E8=$14 (auto-repeat params documented for 7D:7BF0); 12 far callers; DEC A on exit
+7120	Gfx_MailAddr_Tiles	data	CONFIRMED	Tiles HDMA-loaded by MailAddr_SetupScreen to VRAM bank 1 $9300 (7120-7520, $40 blocks)
+7520	Gfx_MailAddr_Tiles2	data	CONFIRMED	Tiles HDMA-loaded by MailAddr_SetupScreen to VRAM bank 1 $9700 (7520-75D0, $0B blocks)
+75D0	Gfx_MailAddr_Tiles3	data	CONFIRMED	Tiles HDMA-loaded by MailAddr_SetupScreen to VRAM $8800 (75D0-7880, $2B blocks)
+7880	Gfx_MailAddr_ObjTiles	data	CONFIRMED	Sprite tiles HDMA-loaded by MailAddr_SetupScreen to VRAM $8000 ($2D blocks, 7880-7B50)
+7B50	Tilemap_MailAddr	data	CONFIRMED	18x20 tile+attribute map copied to D000 by MailAddr_SetupScreen (2D:6916)
+7E20	Palette_MailAddr_Bg	data	CONFIRMED	$30-byte BG palette copied to D800 by MailAddr_SetupScreen (ld hl,$7E20 at 2D:69CA, 4F:4000)
+7E60	Sram_ClearAllBanks	function	PROBABLE	Never executed: for SRAM banks 0-3 zeroes $A000-$BFFF ($2000 bytes each); complete function ending at the zero padding, entry unknown

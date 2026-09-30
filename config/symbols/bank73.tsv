@@ -1,0 +1,32 @@
+# Names for bank 73 (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4001	BrowserStart_StringTable	table	PROBABLE	4 pointers to the strings (title/description of the two entries); byte $4000 = $73 (bank) precedes it; caller 73:62C6 ld hl,$4000 -> Function_48_42D4
+4009	BrowserStart_Strings	string	PROBABLE	'ホームページ', 'インターネットをつかって にんてんどうモバイルホームページをみることができます', 'ページリスト', 'ページリストを つかうことができます'
+4097	BrowserStart_Map	data	CONFIRMED	20x18 tilemap+attr copied to $D000 (copy_tilemap_rect_pair at 73:5FC8)
+4367	BrowserStart_TopMapNormal	data	PROBABLE	4x10 tile rectangle of the upper button (not selected) copied to $D089 by 73:6230 (bc=$040A, FarCall 00:16A2)
+438F	BrowserStart_BottomMapNormal	data	PROBABLE	3x10 tile rectangle of the lower button (not selected) copied to $D129 by 73:61EB (item 1 selected)
+43AD	BrowserStart_TopAttrNormal	data	PROBABLE	40 attribute bytes ($09) of the upper button, source set through C10E/C10F=$43AD (73:6220)
+43D5	BrowserStart_BottomAttrNormal	data	PROBABLE	30 attribute bytes of the lower button, source set through C10E/C10F=$43D5 (73:61DB)
+43F3	BrowserStart_TopMapSelected	data	PROBABLE	4x10 tile rectangle of the upper button highlighted (item 1 selected), 73:6206
+441B	BrowserStart_BottomMapSelected	data	PROBABLE	3x10 tile rectangle of the lower button highlighted (item 2 selected), 73:624B
+4439	BrowserStart_TopAttrSelected	data	PROBABLE	40 attribute bytes for the highlighted upper button, C10E/C10F=$4439 (73:61F6)
+4461	BrowserStart_BottomAttrSelected	data	PROBABLE	30 attribute bytes ($09/$0A/$29) for the highlighted lower button, C10E/C10F=$4461 (73:623B)
+447F	BrowserStart_AnimFrames	data	CONFIRMED	5 frames of 5x7 tile ids ($23 bytes each) of the rotating globe/satellite picture (rendered with the 73 tile blocks); one frame copied to $D0C1 every $19 frames
+45E0	BrowserStart_Tiles0	data	CONFIRMED	$400 bytes HDMA to VRAM $8000 (73:5F5E)
+4DE0	BrowserStart_Tiles1	data	CONFIRMED	$400 bytes HDMA to VRAM $8800 (73:5F70)
+51E0	BrowserStart_Tiles2	data	CONFIRMED	$400 bytes HDMA to VRAM $8C00 (73:5F82)
+55E0	BrowserStart_Tiles3	data	CONFIRMED	$400 bytes HDMA to VRAM $9001 (73:5F94)
+59E0	BrowserStart_Tiles4	data	CONFIRMED	$400 bytes HDMA to VRAM $9401 (73:5FA6)
+5DE0	BrowserStart_Palettes	data	CONFIRMED	$40 bytes of BG palettes copied to WRAM $D800 by Function_4F_4000 (73:5FB2)
+5E20	BrowserStart_ObjPalettes	data	PROBABLE	$40 bytes of OBJ palettes copied to WRAM $D840 (73:6009, hl=$5E20)
+5F0F	BrowserStart_ObjTable	table	PROBABLE	animation object table used with init_object_from_table de=$5F0F a=$73 ids $80/$81 (73:5FD4/5FED)
+5F17	Browser_StartChoiceScreen	function	PROBABLE	choice screen 'ホームページ' / 'ページリスト' (strings 73:4009, last choice in SRAM A8B7); returns the chosen item; called from 4F:468F (7C:7BA3 browser entry, scenario browser_bookmarks)
+6096	BrowserStart_InputTable	table	CONFIRMED	JoypadDispatch table: A (6114 confirm), B (614F cancel), two no-ops, default (60A0)
+6143	Function_73_6143	function	HYPOTHESIS	idea: two 3-byte getters (ld a,[C0F8] ; xor 1 ; ret) and (ld a,[C0F9] ; xor 1 ; ret); no caller or table word found (docs classify_g6)
+6180	BrowserStart_HandleDpad	function	PROBABLE	bits 6/7 of A: toggles the selected item C0E5 (1<->2), redraws buttons and description, plays 20AC(bc=$29)
+61D5	BrowserStart_DrawButtons	function	PROBABLE	copies the normal/selected tilemap+attr rectangles of both buttons ($D089 4x10, $D129 3x10) according to C0E5 and refreshes the screen
+6265	BrowserStart_AnimateFrame	function	PROBABLE	every $19 frames copies the next 5x7 tile frame of BrowserStart_AnimFrames (globe with satellite) to $D0C1; frame counter C0E8 wraps at 5
+62AA	BrowserStart_ShowDescription	function	PROBABLE	b = index of the selected item (bit position of C0E5) adjusted by the tiny helpers 62D2/62DA/62E2; Function_48_42D4(hl=$4000 a=$73) prints its description
+62D2	Function_73_62D2	function	HYPOTHESIS	idea: description-index adjust for item 1: returns B=5 when [C0F8] != 0 (alternate description); only called by BrowserStart_ShowDescription (73:62B7)
+62DA	Function_73_62DA	function	HYPOTHESIS	idea: description-index adjust for item 2: B=6 when [C0F9] != 0; called by BrowserStart_ShowDescription (73:62BD), never executed
+62E2	Function_73_62E2	function	HYPOTHESIS	idea: description-index adjust for item 3: reads SRAM bank1 A9ED, B+1 when bit7 set; called at 73:62C3, never executed

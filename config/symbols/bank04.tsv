@@ -1,0 +1,88 @@
+# addr	name	type	status	evidence
+4000	SoundDrv_Init	function	CONFIRMED	Sound driver init, called only from Boot via stub 00:20A0: clears state D001-D03F (keeps saved ROM bank), tempos $4A/$40, 8 track records (D040, stride $3C), 4 channel records (D220, stride $18); writes NR52=$80, NR51=$FF, NR50=$77
+4082	SoundDrv_FrameTick	function	CONFIRMED	Per-frame sound engine tick, entered through stub 00:20A6 from the frame service 00:0392 (once per frame, all scenarios): SFX group tempo/track steps, music group steps, then hardware channel updates and the active-track mask D024
+40AC	SoundDrv_SfxTickLoop	label	CONFIRMED	SFX (track group A) tempo accumulator D008/D009 reached the threshold $4A: SoundDrv_ServiceChannelSfx for all channels, SoundDrv_StepTrack for the 4 SFX tracks, repeated while the accumulator stays >= $4A
+40D0	SoundDrv_MusicPhase	label	CONFIRMED	End of the SFX phase (clears D000 bit5) and start of the music (track group B) phase: adds the music tempo step D00C to the accumulator D00D/D00E and compares with $4A
+40F5	SoundDrv_MusicTickLoop	label	CONFIRMED	Music tempo accumulator reached $4A: SoundDrv_ServiceChannelMusic for all channels, SoundDrv_StepTrack for the 4 music tracks, repeat while >= $4A
+4119	SoundDrv_ChannelPhase	label	CONFIRMED	Final phase of the tick: SoundDrv_UpdateChannel for the 4 channels, decrements the 16-step divider D01A, builds the active-track bit mask D024 from bit7 of each of the 8 track flags, returns via 00:2141
+414C	SoundDrv_SelectSfxTracks	function	CONFIRMED	Sets the track iterator to the 4 SFX tracks (count 4, first record D040); companion of SoundDrv_SelectMusicTracks
+4153	SoundDrv_SelectMusicTracks	function	CONFIRMED	Sets the track iterator to the 4 music tracks (count 4, first record D130 = D040+4*$3C)
+415A	Function_04_415A	function	HYPOTHESIS	Unreferenced sibling of 414C/4153 (ld de,$D040 ; ld a,8): would iterate all 8 tracks; lands on the executed tail 415F
+415F	SoundDrv_SetTrackIterator	label	CONFIRMED	Shared tail: D00F = track count A, D010/D011 = first track record pointer DE
+4167	SoundDrv_NextTrack	function	CONFIRMED	Decrements the track counter D00F, advances the track pointer D010/D011 by $3C; returns Z when all tracks were visited
+4177	SoundDrv_SelectChannel1	function	CONFIRMED	Channel iterator = channel 1 only (record D220, count 1, register base NR12 $12)
+4180	SoundDrv_SelectChannel2	function	CONFIRMED	Channel iterator = channel 2 only (record D238, register base NR22 $17)
+4189	SoundDrv_SelectChannel3	function	CONFIRMED	Channel iterator = channel 3 (wave) only (record D250, register base NR32 $1C)
+4192	SoundDrv_SelectChannel4	function	CONFIRMED	Channel iterator = channel 4 (noise) only (record D268, register base NR42 $21)
+419B	SoundDrv_SelectAllChannels	function	CONFIRMED	Channel iterator over the 4 hardware channels (record D220, count 4, register base $12)
+41A2	SoundDrv_SetChannelIterator	label	CONFIRMED	Shared tail: D012 = count, D013/D014 = channel record pointer, D015 = register base (NRx2 low address)
+41AC	SoundDrv_NextChannel	function	CONFIRMED	Decrements D012, advances the channel record pointer by $18 and the register base by 5 ($12 -> $17 -> $1C -> $21); returns Z at the end
+41C0	SoundDrv_PlaySfx	function	CONFIRMED	Start effect BC (0 = stop all): loads its header (430A), starts its tracks on the SFX tracks by priority; via stub 00:20AC; UI sounds $29-$2E; SoundTest_OnB ('B: SOUND'); the flags<4 single-track path (41CF) is never used by the data
+4219	SoundDrv_PlaySfxAllTracks	label	CONFIRMED	Header flags bit7 set (all 70 headers have $FF, so this is the path every effect takes): starts every track of the effect on free SFX tracks and builds the started-track mask D03A
+4287	SoundDrv_PlayMusic	function	CONFIRMED	Start music BC (0 = pause): remembers the id in D01B/D01C, resets fade and pause flags, loads header 430A, starts its tracks on the 4 music tracks, clears the rest; entered via stub 00:20B2; SoundTest_OnA ('MUSIC')
+42C0	SoundDrv_PlayMusicIfNotPlaying	function	PROBABLE	Like PlayMusic but returns at once when the same id is already playing (D01B/D01C match and D024 high nibble non-zero); entered via stub 00:20B8 which has no caller
+42D6	SoundDrv_PlayMusicOrResume	function	CONFIRMED	Same id and no music track active -> SoundDrv_ResumeMusic; same id still playing -> return; other id -> SoundDrv_PlayMusic; via stub 00:20E8 (title/logo music $1B/$01, dictionary $1A, server menus)
+42EC	SoundDrv_ResumeMusic	label	PROBABLE	Clears D025 and re-activates every music track whose flags have bit5/6 set (sets bit7): resume after SoundDrv_PauseMusic; entered via stub 00:20CA (no caller); not executed
+430A	SoundDrv_LoadSongHeader	function	CONFIRMED	Validates id BC (< $47) and loads the 8-byte entry at Table_SoundDrv_Songs+8*(id-1): stream ptr (D017/18), ROM bank word (wBank4ReadBank), priority D03E, flags/first track D03F, track count D03C
+434C	SoundDrv_StartTrack	function	CONFIRMED	Initialises the track record at D010/D011 from the loaded header (flags $A0, stream ptr, bank, id D038/D039, priority) and continues with SoundDrv_NextHeaderTrack; returns Z when the header has no more tracks
+4374	SoundDrv_NextHeaderTrack	function	CONFIRMED	Decrements the header track count D03C and advances the header stream pointer D017/D018 by 2; returns Z when done
+4386	SoundDrv_InitTrackRuntime	function	CONFIRMED	First step of a started track: flags := $C0, reads the first stream word (00:216F), stores it and resets the runtime fields (counters, envelope, defaults $40/$02/$17...)
+43DC	SoundDrv_StopSfxById	function	PROBABLE	Stops the SFX tracks playing id BC (matching D038/D039 at track+6/7), BC=0 stops all (SoundDrv_StopAllSfx); entered via stub 00:20BE (SoundTest_OnStart with bc=0)
+4414	SoundDrv_StopAllSfx	label	PROBABLE	Clears the flags byte of the 4 SFX tracks (SoundDrv_SelectSfxTracks loop); target of BC=0 in PlaySfx and StopSfxById
+4429	SoundDrv_PauseMusic	function	CONFIRMED	Stub target of 00:20C4 (also PlayMusic with BC=0, SoundTest_OnStart/OnSelect): SoundDrv_PauseMusicCore then return via 00:2141
+442F	SoundDrv_FadeFinished	label	PROBABLE	Fade-out end (from SoundDrv_UpdateFade when the level underflows): clears D020, falls into PauseMusicCore
+4433	SoundDrv_PauseMusicCore	function	CONFIRMED	Sets D025=$FF and clears bit7 (active) of the 4 music track flags; tracks keep bit6, so SoundDrv_ResumeMusic can restart them; channels are released on the next tick
+444B	SoundDrv_GetActiveMasks	function	PROBABLE	Returns D = SFX active mask (D024 low nibble), E = music active mask (D024 high nibble); stub 00:20D0 has no caller
+445C	SoundDrv_GetPlayingId	function	PROBABLE	A=0: BC = current music id if a music track is active else 0; A=1-4: BC = id of the effect on SFX track A via Table_SoundDrv_SfxTrackPtrs (offset +6/+7); stub 00:20E2 has no caller
+449B	Table_SoundDrv_SfxTrackPtrs	table	PROBABLE	4 word pointers D040,D07C,D0B8,D0F4 (records of SFX tracks 0-3, stride $3C) indexed by A-1 in SoundDrv_GetPlayingId
+44A3	Table_SoundDrv_ParamHandlers	table	PROBABLE	7 word pointers of the track-parameter setter (SoundDrv_SetTrackParam, index A < 7): each sets one per-track field for all tracks selected by masks D/E
+44B1	SoundDrv_SetTrackParam	function	PROBABLE	Set a parameter of selected tracks: A = parameter index (0-6), BC = value, D = SFX track mask, E = music track mask; via stub 00:20D6, no caller
+44B7	SoundDrv_SetTrackParamCore	function	PROBABLE	Stores BC/DE in D038-D03B and jumps through Table_SoundDrv_ParamHandlers[A] with SoundDrv_JumpTable; also called by SoundDrv_UpdateFade with A=2
+44CF	SoundDrv_SetTrackFieldByte	label	PROBABLE	For each track selected by the mask: sets the update flag D03C and stores byte D039 at track+BC (mask built by SoundDrv_BuildTrackMask)
+44EC	SoundDrv_SetTrackFieldWord	label	PROBABLE	Same as SoundDrv_SetTrackFieldByte but stores the word D038/D039 at track+BC
+450D	SoundDrv_BuildTrackMask	function	PROBABLE	Combines D03B (SFX mask, low nibble) and D03A (music mask, moved to the high nibble) into the 8-bit track mask in D, E=8 tracks, HL=D040
+4522	SoundDrv_NextTrackRecord	function	PROBABLE	HL += $3C, E -= 1 (used by the mask loops); Z when the 8 tracks were visited
+452C	SoundDrv_StartFadeOut	function	PROBABLE	A = speed: D020=D021=A, D022=$40 (fade level); stub 00:20DC has no caller; SoundDrv_UpdateFade then lowers the level by 4 every A ticks
+453A	SoundDrv_UpdateFade	function	PROBABLE	Per-tick fade-out step called from SoundDrv_FrameTick; only its D020==0 early return ever ran: every D021 ticks lowers D022 by 4 and applies it via SetTrackParam A=2. No trace starts a fade (StartFadeOut has no caller)
+455A	SoundDrv_ApplyTrackUpdates	function	CONFIRMED	For an active track (flags >= $C0): copies the update flags to D019 and applies pitch/pan/volume changes (SoundDrv_ComputeTrackOutput); used between tempo ticks
+456C	SoundDrv_StepTrack	function	CONFIRMED	One sequencer tick of the track at D010/D011: cold-starts it (4386) if needed, counts down the length counter (track+1), then reads bytes from the stream (SoundDrv_ReadNextCommand); notes >= $D0, commands $B1-$CF, rests $81-$B0
+459B	SoundDrv_ReadNextCommand	label	CONFIRMED	Reads the next stream byte through 00:216F (bank-aware read via wBank4ReadBank) into D01F/A and dispatches: >= $D0 note, < $B1 rest/length, else Table_SoundDrv_Commands[A-$B1]
+45CD	SoundDrv_JumpTable	label	CONFIRMED	Generic dispatcher used by the sequencer and by SetTrackParam: BC = table base, A = index; loads the word (sla a ; add a,c ...) and jp hl
+45DB	SoundDrv_CmdEnd	label	CONFIRMED	Command $B1 (and default of unused commands): clears the track flags (track ends); ends 66 of the 152 tracks of the 59 distinct song/effect headers, the other 86 loop with $B2
+4668	SoundDrv_ComputeTrackOutput	label	CONFIRMED	Converts the dirty flags of the track (D019 bit2 pitch, bit0 pan, bit1 volume) into output fields: pitch word -> track+$2C/2D, pan -> +$2E, volume (via 502B) -> +$2F
+46E8	Table_SoundDrv_Commands	table	PROBABLE	31 word pointers for stream command bytes $B1-$CF (end, jump, call, return, repeat, tempo, instrument, volume, pan, ...); index = byte - $B1 in SoundDrv_ReadNextCommand
+4726	Table_SoundDrv_ExtCommands	table	PROBABLE	12 word pointers of the extended command (sub-command < $0C, SoundDrv_CmdExtended): each overrides one field of the track: instrument bytes +$0C/$0D/$0E, nibbles of +$0F/+$10, or bytes +$27/+$28 (0 and 8/9 = end)
+473E	SoundDrv_CmdExtended	label	PROBABLE	Command $CD: reads a sub-command byte (< $0C) and dispatches through Table_SoundDrv_ExtCommands; larger values end the track
+4756	SoundDrv_CmdRest	label	CONFIRMED	Stream bytes $81-$B0 (below the command range): length counter (track+1) = Table_SoundDrv_Durations[byte-$80]-1, stream pointer saved, back to the tick; the 4 tracks of song 1 total 200/200/200/198 ticks
+4777	SoundDrv_CmdCall	label	CONFIRMED	Command $B3: pushes the return stream pointer on the track call stack (depth byte track+$26, max 5 entries) and jumps to the address that follows; 276 uses in the songs (subroutines end with $B4)
+479B	SoundDrv_CmdJump	label	CONFIRMED	Command $B2: reads a 16-bit address from the stream (00:216F) and continues there (86 uses = track loops); also the tail of Call and Repeat
+47A3	SoundDrv_CmdReturn	label	CONFIRMED	Command $B4: pops the pointer pushed by Call (113 uses ending the song subroutines); with an empty call stack (track+$26 = 0) it is a no-op (jp 459B)
+47C5	SoundDrv_CmdRepeat	label	PROBABLE	Command $B5: counted loop: count byte (0 = forever), counter at track+$29; jumps to the address that follows until the count is reached, then skips it; no song uses it (0 uses in 152 tracks), not executed
+47E3	SoundDrv_CmdSetTempo	label	CONFIRMED	Command $BC: stores the tempo byte in D00A (music) or D005 (SFX while D000 bit5 is set) and recomputes the step (SoundDrv_UpdateTempoStep)
+47FB	SoundDrv_UpdateTempoStep	function	CONFIRMED	Tempo step = tempo byte (HL) * scale byte (HL+1) via 5007, >> 6, capped at $FF and at least 1; stored at HL+2 (D007 for SFX, D00C for music)
+4819	SoundDrv_ParamTempoScale	label	PROBABLE	Table_SoundDrv_ParamHandlers[0]: stores D039 as tempo scale (D006 for the SFX group if D03B != 0, D00B for music if D03A != 0) and recomputes the step with SoundDrv_UpdateTempoStep
+484E	SoundDrv_CmdSetInstrument	label	CONFIRMED	Command $BE: selects instrument A (from Table_SoundDrv_Instruments, 6 bytes each) and copies its record into track+$0C..$11; index $64 only clears the instrument-valid bit (D019 bit4)
+4889	SoundDrv_GetInstrumentPtr	function	CONFIRMED	HL = Table_SoundDrv_Instruments + 6*A
+492A	SoundDrv_CmdSetVolume	label	CONFIRMED	Command $BF: track+$15 = stream byte*2 (rlca) and dirty bit1 (volume) in D019; SoundDrv_ComputeTrackOutput multiplies +$15 and +$16 into the output volume
+4947	SoundDrv_ParamVolumeScale	label	PROBABLE	Table_SoundDrv_ParamHandlers[2]: sets volume-dirty flag (D03C bit1) and stores D039 at track+$16 for the selected tracks (04:44CF); used with A=2 by SoundDrv_UpdateFade
+4A2B	SoundDrv_CmdNote	label	CONFIRMED	Stream bytes $D0-$FF: note with length code (byte-$CF): b = Table_SoundDrv_Durations[...], stored at track+$0B, followed by optional pitch/modifier bytes, then SoundDrv_StartNote
+4A81	SoundDrv_StartNote	label	CONFIRMED	Starts the note: picks the hardware channel from the instrument type byte (<8 ch1, <$10 ch2, <$40 ch3, else ch4), arbitrates with the current channel owner by priority, fills the channel record
+4BC9	SoundDrv_ServiceChannelSfx	function	CONFIRMED	Per-tick check of a channel owned by an SFX track (channel+2 bit7 = SFX owner; other channels return): frees and silences it when the owner track stopped (flags < $C0), else counts down channel+7 and calls SoundDrv_NoteGateExpired at 0
+4BDB	SoundDrv_ServiceChannelMusic	function	CONFIRMED	Same as SoundDrv_ServiceChannelSfx for channels owned by a music track (returns for SFX-owned channels)
+4BFC	SoundDrv_NoteGateExpired	function	PROBABLE	Channel timer (channel+7) reached 0: if the release flag (channel bit6) is already set the channel is freed and silenced (SoundDrv_SilenceChannel), else channel flags |= $50 and &= $DF (start of the release phase)
+4C14	SoundDrv_UpdateChannel	function	CONFIRMED	Per-channel hardware update: releases and silences the channel when its owner track stopped (flags < $C0), else runs the envelope state machine and calls the register writers (4ECA pitch, 4F4F pan, 4F97 volume)
+4E4B	SoundDrv_WriteChannelParams	function	CONFIRMED	Note-start register setup of the channel D015: NRx1 duty/length + NR10 sweep for square, NR31/NR34 + wave pattern (4EA9) for channel 3, NR41/NR43 width/NR44 for noise
+4ECA	SoundDrv_WriteChannelPitch	function	CONFIRMED	Adds the track pitch offsets, converts the note to a period through SoundDrv_NoteToIndex/LookupFrequency and writes NRx3/NRx4 (noise channel: NR43 divisor/width bits)
+4F4F	SoundDrv_WriteChannelPan	function	CONFIRMED	Updates NR51 for the channel: masks $EE11/$DD22/$BB44/$7788 for channels 1-4, left/right bits from track+$2E bits 7/6
+4F97	SoundDrv_WriteChannelVolume	function	CONFIRMED	Writes the channel envelope/volume (NRx2 from channel+$11; NR32 level for the wave channel) and sets the trigger bit (NRx4 bit7, NR30 for wave)
+4FD4	SoundDrv_SilenceChannel	function	CONFIRMED	Silences channel D015: NRx2=$08, NRx4=$80 (wave: NR30=0)
+4FEA	SoundDrv_NoteToIndex	function	CONFIRMED	A = note - $24 clamped to 0..$77 (index into Table_SoundDrv_NoteFreq), falls into SoundDrv_LookupFrequency
+4FF5	SoundDrv_LookupFrequency	function	CONFIRMED	DE = 11-bit period word and A = extra byte from Table_SoundDrv_NoteFreq + 3*A
+5007	SoundDrv_Mul8x8	function	CONFIRMED	HL = B * C (unsigned 8x8 -> 16 bit shift-and-add multiply); used for the tempo step, pitch and volume scaling
+502B	SoundDrv_MulNibbles	function	CONFIRMED	A = (B >> 4) * (C >> 4): 4-bit x 4-bit shift-and-add product; callers add $0F and mask $F0 to scale a volume/pan byte
+5044	Table_SoundDrv_Durations	table	PROBABLE	49 bytes 00,01..18,1C,1E,20,24,28,2A,2C,30,34,36,38,3C,40,42,44,48,4C,4E,50,54,58,5A,5C,60: length in ticks per length code; read at 04:4756 (byte-$80) and 04:4A2B (byte-$CF)
+5075	Table_SoundDrv_NoteFreq	table	PROBABLE	120 x 3 bytes: 11-bit GB period word + 1 byte, index 0-$77 = note $24-$9B; $002C = 65.4 Hz = C2, 12 entries per octave (classify_g3); read by SoundDrv_LookupFrequency
+51DD	Table_SoundDrv_Instruments	table	PROBABLE	112 x 6-byte instrument records (last byte $3C in 101 of them); copied to track+$0C..$11 by SoundDrv_CmdSetInstrument (index*6)
+547D	Table_SoundDrv_WavePatterns	table	PROBABLE	10 x 16-byte wave RAM patterns; SoundDrv_WriteChannelParams (04:4EA9) copies pattern [index] to $FF30-$FF3F when the channel 3 pattern changes
+551D	Table_SoundDrv_Songs	table	PROBABLE	70 x 8-byte headers, id 1-70 at $5515+8*id: stream ptr, ROM bank word, priority ($C8, three effects $C9/$D2), flags $FF, track count 1-4, spare; ids 1-$0D bank 4, $0E-$1D bank 5, $1E-$28 copies of id 1, $29-$46 effects (bank 5)
+574D	Data_SoundDrv_Streams	data	PROBABLE	Sound byte-code streams of songs 1-$0D (ids $1E-$28 alias song 1) read by SoundDrv_StepTrack; songs $0E-$1D and the 30 effects $29-$46 are in bank 05; all 152 tracks decode to $B1/$B2 ends (naming_g1.md)

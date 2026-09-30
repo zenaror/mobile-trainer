@@ -1,0 +1,144 @@
+# addr	name	type	status	evidence
+4000	SettingsPhone_Run	function	CONFIRMED	Hidden settings entry 5 (電話番号の変更, 7C:7D5D state 5): read adapter config (53DC), choice menu, slot menu, number keypads + comment keyboard, confirm (510A), write config (5535), 'continue?' (570C); pages $0C-$0E. settings_phone
+4156	SettingsPhone_ResetTopCursor	function	CONFIRMED	writes 0 to SRAM1:BF02 (remembered cursor of the top choice menu, saved by SettingsPhone_ChoiceMenu a=0) with SRAM enable/bank saved and restored
+418E	SettingsPhone_ResetSlotCursor	function	CONFIRMED	writes 0 to SRAM1:BF03 (remembered cursor of the slot menu, saved by SettingsPhone_SlotMenu)
+41C6	SettingsPhone_ResetMethodCursor	function	CONFIRMED	writes 0 to SRAM1:BF04 (remembered cursor of the input-method choice menu, saved by SettingsPhone_ChoiceMenu a=1)
+41FE	SettingsPhone_ClearEntryBuffers	function	PROBABLE	WRAM bank 3: zero-fills the $33 bytes DEDD.. (internet number, self-page number, comment: 3x17 bytes) and clears bits 3 and 5 of C278; also called by 65:4226 at the start of registration
+422B	PhoneKeypad_Run	function	CONFIRMED	A=0 internet phone number, 1 self-page number: numeric keypad screen editing a TextBuf at DE80 (17 slots), result copied to DEDD/DEEE; returns C27C (1 ok). Callers 67:40DE/40E9 (settings_phone f11202) and 65:4531/454A (hidden registration)
+424A	Function_67_424A	function	HYPOTHESIS	unreferenced: decodes SRAM1:B08B/B09C (xor $A5) and compares with DEDD/DEEE, clearing bit3/bit4 of C278 when they differ (idea: 'phone number changed' flags); reached only by ROM0 trampolines 00:20BB/20CD
+431F	PhoneKeypad_Setup	function	CONFIRMED	sets up the keypad screen: TextBuf_Init(DE80,$11), loads the current number from DEDD/DEEE (68:4127), tiles from banks 5E/4A, tilemap 4A:7120/71E8, keyboard init 55:5BA2, first text print
+443C	PhoneKeypad_Loop	function	CONFIRMED	polls the keyboard (55:5C8F, C=[C27E]): 1 append digit (TextBuf_AppendChar, sfx $38; $31 if full), 2 delete (sfx $39; cancels if empty), 7 accept if length>=1 (C27C:=1), 8 cancel (C27C:=0); redraws the text after each edit
+4559	PhoneKeypad_StoreResult	function	CONFIRMED	copies the TextBuf text at DE80 into DEDD (C27D=0) or DEEE (C27D=1) with 68:417F
+4571	Function_67_4571	function	HYPOTHESIS	unreferenced: C27E := 1 when bit3 (C27D=0) or bit4 (C27D=1) of C278 is set, else 0; idea: 'number field is set' flag for the keypad
+4593	PhoneKeypad_UpdateFullFlag	function	PROBABLE	C27E := 1 when TextBuf_GetFree(DE80) is 0 (buffer full) else 0; argument C of the keyboard poll
+45AB	PhoneKeypad_UpdateNonEmptyFlag	function	PROBABLE	C27E := 1 when TextBuf_GetLength(DE80)>=1 else 0
+45C4	PhoneKeypad_BuildTextMap	function	PROBABLE	4F:45C6 with HL=D044, DE=0, BC=$020C: writes ascending tile numbers for the 2x12 text field into the tile map buffer
+45D4	PhoneKeypad_PrintText	function	PROBABLE	clears the 2x12 text field (4F:4604 DE=$FFFF), sets the text engine box (x=$20,y=$15) and prints the NUL-terminated string at HL (WRAM bank 3, DE83 = TextBuf chars) with 00:0ED3
+4621	PhoneKeypad_UploadTextTiles	function	PROBABLE	4F:4572: uploads the rendered 2x12 text tiles to VRAM $9000
+4631	SettingsPhone_ChoiceMenu	function	CONFIRMED	A=0: menu 電話番号変更内容選択 (change phone number / select the normally used number); A=1: menu 電話番号入力方法選択 (auto / manual). Returns C27C: 0 = B, n = choice n; cursor kept in SRAM1:BF02/BF04
+4688	SettingsPhone_ChoiceMenu_Setup	function	CONFIRMED	restores the cursor from SRAM1:BF02/BF04, loads tiles/tilemap of bank 4D for the variant in C27E, prompt text, cursor sprite
+47DC	SettingsPhone_ChoiceMenu_Loop	function	CONFIRMED	frame loop: A -> C27C=cursor+1 (sfx $2C), B -> 0 (sfx $2E), up/down toggles the cursor (sfx $29) and redraws
+4855	SettingsPhone_ChoiceMenu_PlaceCursor	function	CONFIRMED	cursor sprite slot DA00 := SettingsPhone_ChoiceMenu_CursorPos[C27D] (00:0A65)
+486D	SettingsPhone_ChoiceMenu_CursorPos	data	PROBABLE	2 (X,Y) pairs of the cursor sprite for the two choices ($10,$17 / $10,$2F)
+4871	SettingsPhone_ChoiceMenu_BuildTextMap	function	PROBABLE	4F:45C6: tile numbers of the 6x18 prompt area (HL=D121)
+4881	SettingsPhone_ChoiceMenu_PrintPrompt	function	CONFIRMED	clears the prompt box and prints PromptText 8 ('select from the menu', C27E=0) or 9 ('choose the phone number entry method', C27E=1) copied by 00:153D
+48E0	SettingsPhone_ChoiceMenu_UploadTextTiles	function	PROBABLE	4F:4572: uploads the prompt text tiles to VRAM $9000
+48F0	SettingsPhone_ChoiceMenu_LoadTilemap	function	CONFIRMED	copies the 14x5 selection tilemap (bank 4D, pointer from SettingsPhone_ChoiceMenu_TilemapTable[2*C27E + C27D]) to D063 with 00:08EA
+491C	SettingsPhone_ChoiceMenu_TilemapTable	table	PROBABLE	4 pointers ($5AE0,$5B6C,$5BF8,$5C84) into bank 4D: the four 14x5 highlighted-choice tilemaps; kept numeric
+4924	PhoneComment_KeyboardRun	function	CONFIRMED	text keyboard for the comment field (max 16 chars, TextBuf at DE80 size $11), result in DEFF; callers 67:40F4 and 65:4563. Executed in settings_phone f12927
+4940	Function_67_4940	function	HYPOTHESIS	unreferenced sibling of 424A: decodes SRAM1:B0AD and compares with DEFF, clearing bit5 of C278 when different
+49A8	PhoneComment_KeyboardSetup	function	PROBABLE	sets up the comment keyboard screen: TextBuf_Init(DE80,$11), current comment DEFF, tilemap 4A:72B0, keyboard mode 3 (55:5BA2)
+4A98	PhoneComment_KeyboardLoop	function	PROBABLE	same polling loop as PhoneKeypad_Loop for the comment keyboard (55:5C8F with C=[C27D])
+4BB5	PhoneComment_StoreResult	function	PROBABLE	copies the TextBuf text at DE80 into DEFF (68:417F)
+4BC2	Function_67_4BC2	function	HYPOTHESIS	unreferenced: C27D := 1 when bit5 of C278 is set, else 0 (comment keyboard flag)
+4BD5	PhoneComment_UpdateFullFlag	function	PROBABLE	C27D := 1 when the TextBuf at DE80 has no free slot (argument C of the keyboard poll), else 0
+4BED	PhoneComment_UpdateNonEmptyFlag	function	PROBABLE	C27D := 1 when the TextBuf at DE80 holds >=1 char, else 0
+4C06	PhoneComment_BuildTextMap	function	PROBABLE	4F:45C6 (HL=D044, BC=$020C): tile numbers of the text field
+4C16	PhoneComment_PrintText	function	PROBABLE	clears the text field and prints the TextBuf string at HL with 00:0ED3 (box x=$20,y=$15)
+4C63	PhoneComment_UploadTextTiles	function	PROBABLE	4F:4572: uploads the text tiles to VRAM $9000
+4C73	SettingsPhone_SlotMenu	function	CONFIRMED	A=0: 変更用電話番号選択 (slot to change), A=1: 通常使用電話番号選択 (default slot): 3 tabs 登録場所1-3 showing internet number / self-page number / comment (DF10..); cursor kept in SRAM1:BF03; returns C27C = slot+1 or 0
+4CCB	SettingsPhone_SlotMenu_Setup	function	CONFIRMED	restores the cursor from SRAM1:BF03, loads bank-4D tiles for the variant, tilemap 4D:75A0, slot field texts, cursor sprite
+4E20	SettingsPhone_SlotMenu_Loop	function	CONFIRMED	frame loop: A picks the slot (checks via 68:4568 that it holds data in variant 1), B cancels, left/right cycles the tabs (sfx $29)
+4F50	SettingsPhone_SlotMenu_PlaceCursor	function	CONFIRMED	sprite slot DA00 := SettingsPhone_SlotMenu_CursorPos[C27D] (00:0A65)
+4F68	SettingsPhone_SlotMenu_CursorPos	data	PROBABLE	3 (X,Y) pairs of the tab cursor ($18,$2F / $47,$2F / $77,$2F)
+4F6E	SettingsPhone_SlotMenu_BuildTextMap	function	PROBABLE	3x 4F:45C6: tile numbers of the three 2x12 field text rows (D127,D167,D1A6)
+4F9C	SettingsPhone_SlotMenu_PrintSlotFields	function	CONFIRMED	prints the three fields (internet number, self-page number, comment) of the slot C27D from SettingsPhone_SlotMenu_FieldTable with 00:0ED3
+50A5	SettingsPhone_SlotMenu_FieldTable	table	PROBABLE	9 WRAM pointers: internet number DF10/DF43/DF76, self-page DF21/DF54/DF87, comment DF32/DF65/DF98 (3 slots x $33 bytes at DF10..)
+50B7	SettingsPhone_SlotMenu_UploadTextTiles	function	PROBABLE	3x 4F:4572: uploads the three field text rows to VRAM $9000/$9200/$9400
+50E5	SettingsPhone_SlotMenu_LoadTabTilemap	function	CONFIRMED	copies the 20x2 tab tilemap of the selected slot (bank 4D, pointer from SettingsPhone_SlotMenu_TabTilemapTable[C27D]) to D0E0
+5104	SettingsPhone_SlotMenu_TabTilemapTable	table	PROBABLE	3 pointers ($7870,$78C0,$7910) into bank 4D (20x2 tilemaps of tab 1-3); kept numeric
+510A	SettingsPhone_ConfirmScreen	function	CONFIRMED	C27E=slot: screen 次のように電話番号を変更します / よろしいですか？ [はい][いいえ] listing the new numbers (DEDD,DEEE,DEFF); returns C27C: 0 = B, 1 = yes, 2 = no. Executed in settings_phone f3903
+5129	SettingsPhone_ConfirmScreen_Setup	function	CONFIRMED	loads bank 4B/5F tiles and tilemap 4B:73F0, palettes, field texts, slot tab and cursor sprite
+51E2	SettingsPhone_ConfirmScreen_Loop	function	CONFIRMED	frame loop: A -> C27C=1 (Yes) or 2 (No, cursor 1), B -> 0, left/right toggles Yes/No (sfx $29)
+525D	SettingsPhone_ConfirmScreen_PlaceCursor	function	CONFIRMED	sprite slot DA00 := SettingsPhone_ConfirmScreen_CursorPos[C27D]
+5275	SettingsPhone_ConfirmScreen_CursorPos	data	PROBABLE	2 (X,Y) pairs of the Yes/No cursor ($28,$68 / $58,$68)
+5279	SettingsPhone_ConfirmScreen_BuildTextMap	function	PROBABLE	3x 4F:45C6: tile numbers of the three field rows (D0A7,D0E7,D126)
+52A7	SettingsPhone_ConfirmScreen_PrintFields	function	CONFIRMED	prints DEDD (internet number), DEEE (self-page number) and DEFF (comment) into three text boxes with 00:0ED3
+5389	SettingsPhone_ConfirmScreen_UploadTextTiles	function	PROBABLE	3x 4F:4572: uploads the field text rows to VRAM $9000/$9200/$9400
+53B7	SettingsPhone_ConfirmScreen_LoadSlotTilemap	function	CONFIRMED	copies the 2x1 slot-number tilemap (bank 4B, pointer from SettingsPhone_ConfirmScreen_SlotTilemapTable[C27E]) to D066
+53D6	SettingsPhone_ConfirmScreen_SlotTilemapTable	table	PROBABLE	3 pointers ($76C0,$76C4,$76C8) into bank 4B (slot number 1/2/3 tiles); kept numeric
+53DC	SettingsPhone_ReadAdapterConfig	function	CONFIRMED	checking screen + sound, then the API state machine: MobileAPI $02 init, $38 read $C0 config bytes to SRAM2:$A000, $36 reset, validation 68:459A/431A; failure -> error F0/01/00 (5C) and C27C=0. Executed in settings_phone f2001
+5402	SettingsPhone_ReadAdapterConfig_Setup	function	CONFIRMED	C27C=C27D=0 and AdapterCheck_DrawScreen
+5410	SettingsPhone_ReadAdapterConfig_Poll	function	CONFIRMED	per-frame poll (sprites, VBlank, sound $46 latch C286) then jp [Table_67_546C+2*C27D]: states init (5472), read config (5484), reset+validate (54B9); bit1 error -> 5509
+546C	SettingsPhone_ReadAdapterConfig_StateTable	table	PROBABLE	3 state handlers 5472/5484/54B9 indexed by C27D
+5535	SettingsPhone_WriteAdapterConfig	function	CONFIRMED	A=slot index (C27E): API sequence that writes the modified configuration image (PatchConfigImage, MobileAPI $04 write $C0 bytes from SRAM2:$A000) and resets ($36); returns C27C. Executed in settings_phone f4837
+5554	SettingsPhone_WriteAdapterConfig_Setup	function	CONFIRMED	C27C=C27D=0
+555C	SettingsPhone_WriteAdapterConfig_Poll	function	CONFIRMED	per-frame poll and jp [Table_67_55B8+2*C27D]: init (55BE), patch image + write (55D0, API $04), finish (560A, API $36, 68:49B6)
+55B8	SettingsPhone_WriteAdapterConfig_StateTable	table	PROBABLE	3 state handlers 55BE/55D0/560A indexed by C27D
+5664	SettingsPhone_PatchConfigImage	function	CONFIRMED	copies the edited number/comment of slot C27E into the adapter config image SRAM2:A000 (68:409A, CopyStringMax), stores the self-page number xor $A5 in SRAM1 B014/B025/B036, recomputes the sum of $BE bytes into A0BE/A0BF
+56FA	SettingsPhone_ConfigNumberAddrs	table	PROBABLE	3 addresses $A076,$A08E,$A0A6: number field of slot 0-2 in the adapter config image (stride $18)
+5700	SettingsPhone_SramSelfPageAddrs	table	PROBABLE	3 addresses $B014,$B025,$B036 (SRAM bank 1 XOR-$A5 strings, stride $11) written by PatchConfigImage; same table as Table_00_161A
+5706	SettingsPhone_ConfigCommentAddrs	table	PROBABLE	3 addresses $A07E,$A096,$A0AE: comment field (16 bytes) of slot 0-2 in the config image
+570C	SettingsPhone_ContinuePrompt	function	CONFIRMED	screen 電話番号変更終了 / 続けて登録をしますか？ [はい][いいえ]; returns C27C: 1 yes (settings_phone restarts at 4000), else done. Executed in settings_phone f5155
+5728	SettingsPhone_ContinuePrompt_Setup	function	CONFIRMED	loads bank 4B/5F tiles and tilemap 4B:7D10, prints PromptText 10 (phone number change finished), cursor sprite
+57CC	SettingsPhone_ContinuePrompt_Loop	function	CONFIRMED	frame loop: A -> Yes (1) / No (2), left/right toggles (sfx $29)
+5842	SettingsPhone_ContinuePrompt_PlaceCursor	function	CONFIRMED	sprite slot DA00 := SettingsPhone_ContinuePrompt_CursorPos[C27D]
+585A	SettingsPhone_ContinuePrompt_CursorPos	data	PROBABLE	2 (X,Y) pairs of the Yes/No cursor ($28,$30 / $58,$30)
+585E	SettingsPhone_ContinuePrompt_BuildTextMap	function	PROBABLE	4F:45C6: tile numbers of the prompt area
+586E	SettingsPhone_ContinuePrompt_PrintPrompt	function	CONFIRMED	clears the prompt box and prints PromptText 10 (00:153D A=10)
+58BD	SettingsPhone_ContinuePrompt_UploadTextTiles	function	PROBABLE	4F:4572: uploads the prompt text tiles to VRAM $9000
+58CD	PasswordChange_Run	function	CONFIRMED	Settings menu entry 1 (パスワードの変更, 7C:7D70): pages $0F/$10, keyboards for current/new/confirm password (68:5D00 a=2,3,1), checks 65:473F/47C8 (error F0/00/10), PasswordChange_Communicate, save question, result pages $11/$12
+5A0E	PasswordChange_SaveNewPassword	function	PROBABLE	copies the new password DEC2 to C28F, StringLength, SavedPassword_Store: refreshes the saved connect password after a successful change when the user chose to save (PwSaveConfirm_Run result 1)
+5A3E	PasswordChange_Communicate	function	CONFIRMED	draws the communicating screen and runs the network state machine that POSTs the password change to the DION CGI; returns C27C (1 ok, 0 fail, 2 cancelled). Executed in title_settings f6198
+5A4E	PasswordChange_Communicate_Setup	function	CONFIRMED	7D:7C00, sprite reset, C27C=C27D=0, then bank-68 screen helpers 68:7401(A=1) and 68:7405(A=0); kind 1/2/3 = password change/usage time/usage fee (cf. 68:766E)
+5A75	PasswordChange_Communicate_Poll	function	CONFIRMED	clears comm counters, C26E:=9, C26F:=0, then jp [PasswordChange_StateTable+2*C27D]
+5A9E	PasswordChange_StateTable	table	CONFIRMED	6 state handlers 5AAA/5ACA/5B0E/5B5B/5BD8/5CC2 indexed by C27D (state 5 is set at 67:5CB2)
+5AAA	PasswordChange_State_Init	label	CONFIRMED	state 0: 68:7413(0) poll (result 2 -> abort 5DFE), MobileAPI $02 (init), C27D:=1
+5ACA	PasswordChange_State_ReadLoginId	label	CONFIRMED	state 1: when idle MobileAPI $0E (export the login ID) into SRAM3:$A200, C27D:=2; polled 864x in settings_cgi
+5B0E	PasswordChange_State_Connect	label	CONFIRMED	state 2: builds the connect argument (default DNS pair, login ID from 00:1586, 'guest' twice) at $A100 and calls MobileAPI $3E (connect with DNS), C27D:=3
+5B5B	PasswordChange_State_SendRequest	label	CONFIRMED	state 3: clears SRAM3:$B000.., copies the CGI URL to $A463 (67:5B7E), builds the POST body (PasswordChange_BuildRequestBody), request descriptor at $A100, MobileAPI $2C (HTTP), C27D:=4, 68:7611(1)
+5BD8	PasswordChange_State_WaitResponse	label	CONFIRMED	state 4: polls; comm-time limit (C26E += 10 up to $45, then 50:4000); parses the answer at D340/D380: 'OK' -> disconnect (5CAD), else category $40 + 4 ASCII digits as code (5C88), $26 on 5-minute timeout (5D18)
+5CC2	PasswordChange_State_Finish	label	PROBABLE	state 5 (after disconnect): MobileAPI $36 reset, steps the comm panel to its end (Function_67_5CF4), C27C:=1
+5CF4	Function_67_5CF4	function	HYPOTHESIS	loops 68:7413 (CommPanel_Step, A=1: C289=1) until it returns 0 (bank-68 namer: 0 finished, 2 cancelled), i.e. steps the communication panel to its end; used at the end of every comm transaction (5CC2, 5D99, 5DFE)
+5D26	PasswordChange_HandleHttpStatus	label	CONFIRMED	API error: if C272==$32 (HTTP status class) and C274==3 (3xx) and C273 is 1 or 2 (301/302) a redirect is followed from 5D45, else the error is reported
+5D45	PasswordChange_FollowRedirect	label	PROBABLE	3xx redirect: resolves the Location URL with HttpRedirect_ResolveUrl, rebuilds the request descriptor and calls MobileAPI $2A (HTTP)
+5D99	PasswordChange_Cleanup	label	CONFIRMED	error/abort path: stops the API ($34 when running else $0A), waits until it stops, steps the comm panel to its end, fade out, 68:4F8C shows the error screen, SRAM off, MobileAPI $36, C27C:=0; executed in title_settings f6539
+5DFE	PasswordChange_Abort	label	PROBABLE	user cancel (68:7413 returned 2): MobileAPI $34 abort, wait until it stops, comm panel to its end (5CF4), reset ($36), C27C:=2
+5E43	Net_PwdChgCgiUrl	string	CONFIRMED	ASCII 'http://mgb.dion.ne.jp/cgi-bin/mgb/daa_gb_pwdchg.cgi' (DION password-change CGI), copied to SRAM3:$A463 at 67:5B7E (state 3 of PasswordChange)
+5E77	Net_GuestString	string	CONFIRMED	ASCII 'guest', copied twice after the login ID into the connect argument at $A100 in state 2 of PasswordChange (67:5B30-5B50)
+5E7D	PasswordChange_BuildRequestBody	function	CONFIRMED	concatenates 'PPP_ID=' + login ID ($A200) + '&PASSWD=' + current password (DEB9) + '&NEWPASSWD=' + new password (DEC2) at SRAM3:$A363 with CopyString/00:14F3; returns after the last piece (ret at 5EB3)
+5EB4	Net_PppIdKey	string	CONFIRMED	ASCII 'PPP_ID=' (POST parameter name), first piece of the request body built by 67:5E7D
+5EBC	Net_PasswdKey	string	CONFIRMED	ASCII '&PASSWD=' (POST parameter name)
+5EC5	Net_NewPasswdKey	string	CONFIRMED	ASCII '&NEWPASSWD=' (POST parameter name)
+5ED1	Function_67_5ED1	function	HYPOTHESIS	unreferenced start of the 5ED1-5F54 routine: C27C=C27D=0, AdapterCheck_DrawScreen, fade in, poll 5EF1 (init API $02, reset API $36), fade out, return C27C; idea: adapter session reset with the check screen
+5EF1	Function_67_5EF1	function	HYPOTHESIS	tiny 2-state poll (init API $02, then reset API $36) behind the unreferenced entry 5ED1/5ED8 (draws the checking screen); no caller found, idea: 'reset adapter session'
+5F54	Net_CopyDefaultDnsPair	function	CONFIRMED	copies the 8 bytes at Net_DefaultDnsPair to DE (CopyBytes): the DNS pair prefix of the connect argument
+5F5E	Net_DefaultDnsPair	data	CONFIRMED	C0 A8 28 02 C0 A8 28 02 = 192.168.40.2 twice (primary/secondary DNS) used as the prefix of MobileAPI $3E (docs/research/mobile_trainer_serial.md)
+5F66	HttpRedirect_ResolveUrl	function	PROBABLE	URL at [C275/C276] (written from BC of API $00 by 68:4F71, called at 67:5D26): 'http://...' is copied to $A463, else joined to the base there (JoinRelative) and normalised; redirect 67:5D45; cf. HtmlUrl_Resolve (bank 74)
+5FB5	HttpRedirect_JoinRelative	function	PROBABLE	HL=base URL, DE=relative part: if it starts with '/' keeps scheme+host of the base and replaces the path, else appends it at the end of the base (inserting '/' when the base does not end with one)
+5FF9	HttpRedirect_NormalizePath	function	PROBABLE	HL=URL: in place, turns '\' into '/', removes './' and '../' segments, stops at '?' or '#' (compares $2F,$2E,$5C,$3F,$23)
+60BA	UsageTime_Run	function	CONFIRMED	Settings menu entry 2 (ご利用時間の確認, 7C:7D79): page $13 (explanation), UsageTime_Request, result screens (68:766E a=2) and page $14 (cancelled). Executed in title_settings f8507 (time_explain shot f8615)
+611C	PasswordPrompt_Ask	function	CONFIRMED	asks for the DION password (68:6E1A confirm dialog, keyboard 68:5D00 a=0 into DED4), copies it to DECB and C220 and returns A=1, or A=0 on B/failure; called from 4C:4312 (executed in title_settings f8651 and the monkey campaigns)
+6171	UsageTime_Request	function	CONFIRMED	clears SRAM3:$A000.., copies the jikan CGI URL to $A100, login ID (00:1586) to C28F, 68:7401(2), HTTP request 4E:488D; returns A=1 ok, 0 error, 2 cancelled by C2CA. Executed in title_settings f8630
+61D2	Net_UsageTimeCgiUrl	string	CONFIRMED	ASCII 'http://mgb.dion.ne.jp/cgi-bin/mgb/daa_gb_jikan.cgi' (jikan = time): the usage-time CGI, copied to SRAM3:$A100 by 67:6171
+6205	Net_BuildLoginPostBody	function	CONFIRMED	builds 'PPP_ID=' + C1E0 (login ID) + '&PASSWD=' + DECB at SRAM3:$A000 (WRAM bank 3 selected) and returns the length; called from 4C:43CD, executed in title_settings f10818
+6246	Net_PppIdKeyDup	string	CONFIRMED	ASCII 'PPP_ID=' (second copy used by 67:6205)
+624E	Net_PasswdKeyDup	string	CONFIRMED	ASCII '&PASSWD=' (second copy used by 67:6205)
+6257	Net_DebugLoginBody	string	PROBABLE	ASCII 'PPP_ID=1002&PASSWD=itoh': test parameters after the CGI strings, no reference found in the ROM; 'itoh' is the login id of the developer test image 68:4EA7 (docs/research/mobile_trainer_product_notes.md)
+626F	UsageFee_Run	function	CONFIRMED	Settings menu entry 3 (ご利用額の確認, 7C:7D82): page $15 (explanation), UsageFee_Request, result screens (68:766E a=3) and page $16 (cancelled). Executed in title_settings f14403
+62D5	UsageFee_Request	function	CONFIRMED	like UsageTime_Request but with the fee summary URL (Net_UsageFeeUrl, copied at 67:62F9; a GET per docs/research/dynamic_tracing.md), 68:7401(3), 4E:488D with BC=0,D=1; returns A=1/0/2. Executed in title_settings f14532
+632D	Net_UsageFeeUrl	string	CONFIRMED	ASCII 'http://gameboy.datacenter.ne.jp/cgb/utility?request=summary' (usage fee summary), copied to SRAM3:$A100 by 67:62D5
+6369	AdapterCheck_DrawScreen	function	CONFIRMED	draws the 'checking Mobile Adapter GB' screen (モバイルアダプタGBをチェックしています): bank-4A tiles/tilemap/palettes, animated adapter sprite, LCD on; executed in all 41 scenarios (boot check; also via 67:5402, 6437)
+6401	AdapterCheck_Run	function	CONFIRMED	called by Startup_Run: check screen + sound request (00:20E8 bc=$18), runs the API state machine (644E) and returns A=[C27C]: 0 comm failure/no adapter, 1 adapter configuration valid, 2 invalid/blank; fades out
+6437	AdapterCheck_Setup	function	CONFIRMED	7D:7C00 (b=$15,c=3), sprite reset, then AdapterCheck_DrawScreen
+644E	AdapterCheck_Poll	function	CONFIRMED	per-frame loop of the adapter check: sprites, VBlank wait, sound request $46 once when the adapter sprite reaches frame 2 (latch C286), then jp [AdapterCheck_StateTable+2*C27D]
+64AE	AdapterCheck_StateTable	table	CONFIRMED	3 code pointers 64B4/64C7/64F5 indexed by C27D; read in all 41 scenarios (boot check)
+64B4	AdapterCheck_State_Init	label	CONFIRMED	state 0: MobileAPI $02 (Init, DE=$C271, HL=$0067 caller bank), C27D:=1
+64C7	AdapterCheck_State_ReadConfig	label	CONFIRMED	state 1: when idle (wTimerEnable bits 0/1 clear) MobileAPI $38 reads the $C0-byte adapter configuration into SRAM bank 2 $A000, C27D:=2; bit1 set -> 6520
+64F5	AdapterCheck_State_Finish	label	CONFIRMED	state 2: SRAM off, MobileAPI $36 (reset SDK), 68:431A validates the configuration image: C27C:=1 valid, 2 invalid
+6520	AdapterCheck_Abort	label	CONFIRMED	API failure (wTimerEnable bit1): 68:4F71, SRAM off, MobileAPI $36, C27C:=0
+6536	PwSaveConfirm_Run	function	CONFIRMED	A=variant C27E (0 registration wizard, 1 password change): screen パスワード保存の確認 / パスワードを保存します よろしいですか？ [はい][いいえ]; returns C27C: 0 = B (variant 0 only), 1 yes, 2 no. Executed in register f3278 (shot password_save_confirm)
+6565	PwSaveConfirm_Setup	function	CONFIRMED	loads bank 5D tiles, tilemap 5D:7BA0 (variant 0) or 71:6F6F (variant 1), default cursor = C27A xor 1, prompt text, cursor sprite
+6625	PwSaveConfirm_Loop	function	CONFIRMED	frame loop: A -> 1 (Yes) or 2 (No), B -> 0 in variant 0, left/right toggles (sfx $29)
+66A6	PwSaveConfirm_PlaceCursor	function	CONFIRMED	sprite slot DA00 := PwSaveConfirm_CursorPos[C27D]
+66BE	PwSaveConfirm_CursorPos	data	PROBABLE	2 (X,Y) pairs of the Yes/No cursor ($28,$30 / $58,$30)
+66C2	PwSaveConfirm_BuildTextMap	function	PROBABLE	4F:45C6: tile numbers of the prompt area
+66D2	PwSaveConfirm_PrintPrompt	function	CONFIRMED	clears the prompt box and prints a prompt text via 00:153D (PromptText_Table)
+6721	PwSaveConfirm_UploadTextTiles	function	PROBABLE	4F:4572: uploads the prompt text tiles to VRAM $9000
+6731	TextBuf_Init	function	CONFIRMED	HL=buffer (WRAM bank 3), B=capacity: [+0]=B, [+1]=B-1 (free slots), [+2]=0 (count), [+3]=0 (empty NUL-terminated text). Used by both keypads (DE80, B=$11) and bank 68; executed in 17 scenarios
+674F	TextBuf_AppendChar	function	CONFIRMED	HL=TextBuf, D=char: A=1 if no free slot, else inserts D at the cursor position [+2] (tail shifted up, NUL kept), free--, count++ and returns A=0
+6799	TextBuf_DeleteLast	function	CONFIRMED	HL=TextBuf: A=1 if count==0, else removes the character before the cursor (the loop only works with the cursor at the end, which is always the case), free++, count-- and returns A=0
+67DB	Function_67_67DB	function	HYPOTHESIS	unreferenced sibling of the TextBuf functions: decrements the count byte [HL+2] when non-zero, returns A=0/1
+6807	TextBuf_GetCount	function	CONFIRMED	B=A=[HL+2] (number of characters) with WRAM bank 3 selected; executed in 17 scenarios
+6828	TextBuf_GetFree	function	CONFIRMED	B=A=[HL+1] (free character slots) with WRAM bank 3 selected
+6842	TextBuf_GetLength	function	CONFIRMED	B=A=capacity-free-1 = [HL]-[HL+1]-1 (length of the text) with WRAM bank 3 selected

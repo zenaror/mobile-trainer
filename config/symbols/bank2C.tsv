@@ -1,0 +1,76 @@
+# addr	name	type	status	evidence
+4000	MailTitle_Entry	function	CONFIRMED	Mail title entry, A=0 (A opens keyboard) or 1 (keyboard open at once): edits D500 (20 B = 10 kana) with the bank-55 keyboard; ret A=0 on OK, $FF on B. Far-called by 2D:4027, 25:5536, 2B:476E/6D7C; exec mail_compose; shot subj_typed
+4042	MailTitle_Entry_Loop	label	CONFIRMED	per-frame loop of MailTitle_Entry (keyboard closed): sprite tick, VBlank, 7D:7BB7, cursor sprites (42EB); A opens the keyboard (493F), B leaves, Left/Right (40C1) move the text cursor; executed
+40D4	MailTitle_CursorLeft	function	CONFIRMED	Left handler (hJoyPressedRepeat&$20 at 40C1): snd bc=$36, c-1 (mirrored to wRam_C0D2); at column 0 of a later line jumps to the end of the previous line (MailTitle_CharPtr); exec monkey_camp_reg2/rich
+40FB	MailTitle_CursorRight	function	CONFIRMED	Right handler (hJoyPressedRepeat&$10 at 40C1): snd bc=$36 then falls into MailTitle_MoveCursorRight; exec monkey_camp_reg2
+410F	MailTitle_MoveCursorRight	function	CONFIRMED	Advance the text cursor one char: not past line 7/col 11, col 0 needs a non-empty line, $0D -> next line col 0, else col++ wrapping at 12 (mirrored in wRam_C0D2); MailTitle_Entry calls it 10x to reach the text end
+414C	MailTitle_InitScreen	function	CONFIRMED	Setup (A=1 also opens the keyboard: 55:5BA2 A=8,B=2): tiles 4A30->$9300 (0x40), 5410->$8800 (0x26), 5140->$8000 (0x2D), palettes 5100 (BG) 5670 (OBJ), tilemap 4E30, cursor sprites, draws title D500 at DE=$0420; exec mail_compose
+42EB	MailTitle_PlaceTextCursor	function	CONFIRMED	B=line,C=col: cursor sprites (slots +16/+32): y=$38+12*B-[C0D3], x=$20+12*C; called after every cursor move
+431D	MailTitle_DrawTextLine	function	CONFIRMED	Draw NUL-terminated Shift-JIS at HL (D500 title, DE=$0420) in <=20 six-pixel cells at pixel (D=y,E=x) into the WRAM-bank2 tile buffer (7F:4007/405F/42C3), pads, 7F:4C42; exec mail_compose
+43D8	MailTitle_DrawTextLine_BlitGlyphAdvance	function	CONFIRMED	Helper of MailTitle_DrawTextLine: blit glyph C0A0 via 7F:42C3, E+=6
+43EC	MailTitle_DrawTextLine_BlitBlankAdvance	function	CONFIRMED	Helper of MailTitle_DrawTextLine: blank pad cell (B=2,C=0) via 7F:42CA (no style transform), E+=6
+4404	MailTitle_UploadTextTiles	function	CONFIRMED	Copies the tile buffer D000 (WRAM bank2) -> VRAM $9000, 0x28 tiles, via Gfx_StartHDMAAtVBlank_2C_4421; called after each redraw of the title
+4421	Gfx_StartHDMAAtVBlank_2C_4421	function	CONFIRMED	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F then $91, rHDMA5=C&$7F; same body as 2A:5C3B
+4441	MailTitle_CharPtr	function	CONFIRMED	B=line,C=col: HL=pointer to the 2-byte char at that position of the D500 buffer via MailTitle_FindLine, A=char byte, $0D at newline, $FF/D=$FF beyond the text (twin of Profile_CharPtr)
+4475	MailTitle_FindLine	function	CONFIRMED	B=line: HL=start of line B in D500 (lines end at $0D or 12 chars, 2 bytes/char), D=$FF if the text ends earlier, E=line length; ends with [rRAMG]=0 (twin of Profile_FindLine)
+44B8	MailTitle_InsertChar	function	CONFIRMED	DE=char (D=lead,E=trail; from wRam_C2AE/C2AD): if the last cell D512 is used -> snd bc=$31, return; else key animation, shift words up from D510, store D,E at the cursor, redraw + upload, cursor right; exec mail_compose
+4612	MailTitle_DeleteChar	function	CONFIRMED	Backspace: snd bc=$39, key animation, cursor left, shift the following words down until D512, zero-terminate, redraw + upload; executed in several scenarios
+46EB	MailTitle_ApplyDakuten	function	PROBABLE	Keyboard char 814A (dakuten): previous char looked up in String_MailTitle_DakutenKana (2C:4779), +1 on its trail byte; byte-identical twin of Profile_ApplyDakuten; never executed here
+4779	String_MailTitle_DakutenKana	string	PROBABLE	40 kana that take dakuten (hiragana ka..ho, katakana KA..HO), Shift-JIS NUL; scanned by MailTitle_ApplyDakuten; identical to 2A:5F82 and 2F:5F41
+47CB	MailTitle_ApplyVu	function	PROBABLE	Dakuten fallback: previous char katakana U (8345) -> VU (8394); twin of Profile_ApplyVu; never executed here
+4878	String_2C_4878	string	HYPOTHESIS	idea: dummy iteration table (82A4 82A4 00 = 2 pairs) of MailTitle_ApplyVu: the loop counts its pairs but compares constants 8345/8394; identical bytes at 2F:6040
+487E	MailTitle_ApplyHandakuten	function	PROBABLE	Keyboard char 814B (handakuten): previous char looked up in String_MailTitle_HandakutenKana, +2 on its trail byte; twin of Profile_ApplyHandakuten; never executed here
+4929	String_MailTitle_HandakutenKana	string	PROBABLE	10 kana that take handakuten (ha hi fu he ho, katakana HA..HO), Shift-JIS NUL; identical to 2A:6132
+493F	MailTitle_OpenKeyboard	function	CONFIRMED	Opens the kana keyboard (55:5BA2 with A=8; D824 cleared/set around it) and falls into MailTitle_KeyboardLoop; called when A is pressed in MailTitle_Entry; exec mail_compose
+4972	MailTitle_KeyboardLoop	function	CONFIRMED	Polls 55:5C8F: 0 again, 9 return, 7 return (OK), 2 backspace (4A05 length; empty text at (0,0) closes the keyboard via 49E9), 8 close, chars 814A/814B dakuten, else insert (44B8); exec mail_compose
+4A05	MailTitle_GetLength	function	CONFIRMED	Counts the non-zero bytes of D500 up to $14: A = length of the title buffer; used by the backspace key to decide whether to close the keyboard
+4A30	Gfx_MailTitle_Tiles9300	data	CONFIRMED	0x40 tiles: MailTitle_InitScreen HDMA (00:0749) hl=$4A30 -> VRAM bank1 $9300 (c=$40)
+4E30	Data_MailTitle_TilemapAttr	data	CONFIRMED	20x18 tilemap + attribute map: 00:08EA hl=$4E30 in MailTitle_InitScreen (2C:41CE)
+5100	Palette_MailTitle_Bg	data	PROBABLE	64 bytes: 4F:4000 -> WRAM D800 (bc=$40) in MailTitle_InitScreen (the region's last 16 bytes 5140.. are the first tile)
+5140	Gfx_MailTitle_Tiles8000	data	CONFIRMED	0x2D tiles: MailTitle_InitScreen HDMA hl=$5140 -> VRAM $8000 (c=$2D)
+5410	Gfx_MailTitle_Tiles8800	data	CONFIRMED	0x26 tiles: MailTitle_InitScreen HDMA hl=$5410 -> VRAM $8800 (c=$26)
+5670	Palette_MailTitle_Obj	data	CONFIRMED	64 bytes: 4F:4000 -> WRAM D840 (OBJ palettes) in MailTitle_InitScreen (2C:41AC)
+56F2	Table_AddrPick_SlotAddrs	table	CONFIRMED	6 words $A69D..$A82D step $50 = address-book slot bases (SRAM bank1): name[16] at +0, address[64] at +$10; read by 57F1 (ld hl,$56F2 at 5823/5868) and 6032 (6050/6080); dead twins 5CA3/5FB1/60B3 too
+56FE	AddrPick_Menu	function	CONFIRMED	List of the 6 address-book slots ('アドレスを せんたくしてください'): Up/Down (c=1..6), A copies the slot (name -> D514, address -> D4C0) via 57F1 and returns A=1, B returns $FF. Far-called by 2D:67DA; exec monkey/tutorial
+5721	AddrPick_Menu_Loop	label	CONFIRMED	per-frame loop of AddrPick_Menu: sprite tick, VBlank, 7D:7BB7, A (57F1 load slot) / B (ret $FF) / Up-Down (hJoyPressedRepeat &$40/$80 at 5794) dispatch
+57A7	AddrPick_CursorDown	function	CONFIRMED	Down handler (hJoyPressedRepeat&$80): snd bc=$29, c=(c+1), 7->1; old slot name/highlight redrawn by 6032 and icons by 620D; executed in monkey/tutorial scenarios
+57CC	AddrPick_CursorUp	function	PROBABLE	Up handler (hJoyPressedRepeat&$40): snd bc=$29, c-1, 0->6, then 6032 + 620D; mirror of AddrPick_CursorDown; never executed in traces
+57F1	AddrPick_LoadSelection	function	CONFIRMED	Slot C (1-based): SRAM bank1 slot base from Table_AddrPick_SlotAddrs, empty (+$10==0) -> snd bc=$31, A=0; else address (+$10,64 B) -> D4C0, name (+0,16 B) -> D514, snd $2C, A=1; C=0 clears both (dead path)
+58AC	AddrPick_InitScreen	function	CONFIRMED	Setup: palettes 2C:71D0->D840 and 6F90->D800, tiles 6C30->$8F00, 6730->$9300, 6B30->$9700, bank28 4BD0->$8000 and 4FD0->$8400, tilemap 6CC0, caption 66BD, upload 665F, list attrs 5E51, slot icons/names
+5A12	Function_2C_5A12	function	HYPOTHESIS	idea: dead twin of AddrPick_RefreshSlotIcons using table 7220-7250 and 5CA3 for the used test; falls into the far-call site at 5A25; no caller found
+5CA3	Function_2C_5CA3	function	HYPOTHESIS	idea: IsSlotUsed twin (Table_AddrPick_SlotAddrs) called only by the dead twin at 5A25; A=0 used, $FF empty
+5CD2	Function_2C_5CD2	function	HYPOTHESIS	idea: alternate list-attribute writer ($08 rows $9866/$9886, $04 rows $98C6..$99C6 in VRAM bank1 and the WRAM7 copy): only reached for cursor index 0, but the picker cursor is 1-based, so unreached
+5E51	AddrPick_InitListAttrs	function	PROBABLE	Writes BG attribute bytes of the list area (VRAM bank1 $9866.. and the WRAM7 copy D466..): 13-tile rows $9866/$9886 = $0C, rows $98C6..$99C6 = $00; called by AddrPick_InitScreen (and by 6032 only for old slot index 0, never)
+5FB1	Function_2C_5FB1	function	HYPOTHESIS	idea: dead twin of AddrPick_MoveNameHighlight drawing names at x=$28 (used by the 2A-style list); no caller found
+6032	AddrPick_MoveNameHighlight	function	CONFIRMED	A=old slot, C=new slot (1-based): old name redrawn normal (B=3,C=0) and new highlighted (B=0,C=1) via AddrBook_DrawSlotName at x=$30, y=12*slot, then upload 665F; twin of SaveSenderAddr_MoveNameHighlight
+60B3	Function_2C_60B3	function	HYPOTHESIS	idea: dead twin of SaveSenderAddr_DrawSlotNames: draws the 6 slot names at x=$28 with 614D; no caller found
+614D	AddrBook_DrawSlotName	function	CONFIRMED	HL=slot base (SRAM bank1, name[16] at +0), D=y, E=x px, B/C passed on to 7F:42C3 as style (3,0 normal / 0,1 highlighted): draws the name in <=16 cells (7F:4007/405F/42C3); used by 2A:422C/4280 and 2F screens
+61F9	AddrBook_DrawSlotName_BlitGlyphAdvance	function	CONFIRMED	Helper of AddrBook_DrawSlotName: blit glyph C0A0 via 7F:42C3, E+=6
+620D	AddrPick_RefreshSlotIcons	function	CONFIRMED	For the 6 slots sets sprite slots DA70..DA20 to the empty-icon anim (bank28 table 5220) or used-icon anim (5230, per 64A5), the cursor slot uses 2C:7240/7250; sets y/x, on Up/Down calls 64E0; twin of 2A:4573
+64A5	AddrPick_IsSlotUsed	function	CONFIRMED	A=slot 0..5: SRAM bank1, hl=Table_AddrPick_SlotAddrs_Icons[A]+$10; returns A=0 if that byte !=0 (used) else $FF; twin of SaveSenderAddr_IsSlotUsed
+64D4	Table_AddrPick_SlotAddrs_Icons	table	CONFIRMED	6 words $A69D..$A82D step $50 read by AddrPick_IsSlotUsed (ld hl,$64D4 at 64BB)
+64E0	AddrPick_CursorMoveEffect	function	PROBABLE	Called at the end of AddrPick_RefreshSlotIcons when hJoyPressed&$C0 (Up/Down): re-inits the cursor slot icon with anim bank28 5240/5250, sets its y/x, waits until Up/Down released; twin of SaveSenderAddr_CursorMoveEffect. Executed via AddrPick_InitScreen, which forces hJoyPressed=$80 before its first refresh
+665F	AddrBook_UploadTextTiles	function	CONFIRMED	Copies the WRAM bank2 tile buffer to VRAM (D000->$9000, D400->$9400, D800->$8800 0x40 tiles each, DC00->$8C00 0x30) via Gfx_StartHDMAAtVBlank_2C_669D; far-called by 2A:4027/4105/42F6 and 2F address-book screens
+669D	Gfx_StartHDMAAtVBlank_2C_669D	function	CONFIRMED	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F then $91, rHDMA5=C&$7F; same body as 2A:5C3B
+66BD	AddrPick_LoadCaption	function	CONFIRMED	Renders the caption string Table_AddrPick_Captions[0] with 48:403E into DB40/DC80 and copies 0x27 tiles to VRAM $8B40 (25:538A): bottom-bar text 'Please select an address'
+6702	Table_AddrPick_Captions	table	CONFIRMED	1 pointer ($6704) to the caption string; read by AddrPick_LoadCaption (ld hl,$6702 at 66C5)
+6704	String_AddrPick_Caption	string	PROBABLE	'　　アドレスを　せんたくしてください　　' = 'Please select an address' (28 chars); caption of the address picker; loaded by AddrPick_LoadCaption
+6730	Gfx_AddrPick_Tiles9300	data	CONFIRMED	0x40 tiles: AddrPick_InitScreen HDMA (00:0787) hl=$6730 -> VRAM bank1 $9300
+6B30	Gfx_AddrPick_Tiles9700	data	CONFIRMED	0x10 tiles: AddrPick_InitScreen HDMA hl=$6B30 -> VRAM bank1 $9700 (c=$10)
+6C30	Gfx_AddrBook_Tiles8F00	data	CONFIRMED	9 tiles loaded to VRAM $8F00 by AddrPick_InitScreen (c=$09) and by 2F:4572 (another address-book screen): shared by both
+6CC0	Data_AddrPick_TilemapAttr	data	CONFIRMED	20x18 tilemap + attribute map: 00:08EA hl=$6CC0 in AddrPick_InitScreen (2C:595A)
+6F90	Palette_AddrPick_Bg	data	CONFIRMED	64 bytes (regions 6F90/6F9E/6FCE): AddrPick_InitScreen 4F:4000 -> WRAM D800 (hl=$6F90)
+71D0	Palette_AddrBook_Obj	data	CONFIRMED	64-byte OBJ palette block copied to WRAM D840 by SaveSenderAddr_InitScreen (2A:4105), AddrPick_InitScreen and several 2F address-book screens
+7210	Table_AddrSlotIcon_Anims	table	PROBABLE	Animation entry table of the slot icons (00:0A82): groups $7240 (cursor slot, empty) and $7250 (cursor slot, used) used by 2C:620D and 2A:4573; $7220/$7230 only by the dead twin 5A12 (live code takes empty/used icons from bank 28 5220/5230)
+741C	Function_2C_741C	function	HYPOTHESIS	idea: entry (call 746F) of an unused screen: draws 3 address lines (D4C0/D4D4/D4EC) under a rendered header 'みる < START > かく', waits 60 frames, yes/no 72:4015 DE=$0204, A=0 yes/$FF; no caller
+746F	Function_2C_746F	function	HYPOTHESIS	idea: screen setup of the unused address screen (rendered: header みる/START/かく over 3 text boxes): tiles 7740/7B70, tilemap 7860, palettes 7B30/7C00, anims 7C40, text via 755C/7648
+755C	Function_2C_755C	function	HYPOTHESIS	idea: draw-string routine with 21 cells for the D4C0 address line of the unexecuted confirmation screen 746F (DE=$0420); helpers 761C/7630
+761C	Function_2C_761C	function	HYPOTHESIS	idea: BlitGlyphAdvance helper of Function_2C_755C (blit via 7F:42C3, E+=6)
+7630	Function_2C_7630	function	HYPOTHESIS	idea: BlitBlankAdvance helper of Function_2C_755C
+7648	Function_2C_7648	function	HYPOTHESIS	idea: draw-string routine with 25 cells for the D4D4 address line of the unexecuted confirmation screen (DE=$1008); helpers 7708/771C
+7708	Function_2C_7708	function	HYPOTHESIS	idea: BlitGlyphAdvance helper of Function_2C_7648
+771C	Function_2C_771C	function	HYPOTHESIS	idea: BlitBlankAdvance helper of Function_2C_7648
+7740	Data_2C_7740	data	HYPOTHESIS	idea: 0x12 tiles of the unexecuted confirmation screen: 746F HDMA hl=$7740 -> VRAM bank1 $9300; 7B70 (9 tiles -> $8000), tilemap 7860, palettes 7B30/7C00
+7C80	Data_AddrBookEntry_TilemapAttr	data	PROBABLE	20x18 tilemap + attribute map read by 00:08EA in 2F:51C1 (hl=$7C80, a=$2C); rendered: 'アドレスちょう', labels ニックネーム/アドレス, 'B もどる' = the address-book entry view screen
+7F50	Palette_AddrBookEntry_Bg	data	CONFIRMED	64-byte BG palette block copied to D800 by 2F:51C1 (hl=$7F50, a=$2C)
+7F90	Palette_AddrBookEntry_Obj	data	CONFIRMED	64-byte OBJ palette block copied to D840 by 2F:51C1 (hl=$7F90, a=$2C)

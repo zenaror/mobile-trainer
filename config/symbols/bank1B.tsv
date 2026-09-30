@@ -1,0 +1,16 @@
+# addr	name	type	status	evidence
+4000	Palette_DebugScreens1B	data	PROBABLE	Palette block (8 x 4 colours) copied to $D800 by SoundTest_Run; byte-identical to 19:4940
+4040	SoundTest_Run	function	PROBABLE	Unreferenced debug sound test screen: number = wRam_C0D6:C0E5 in hex; A plays it as music (stub 00:20B2), B as sound effect (00:20AC), Start stops (00:20C4 / 00:20BE with bc=0), Select ends; never executed
+41B1	SoundTest_Loop	label	PROBABLE	Per-frame loop: 00:044B, Joypad_UpdateIdleFrames (7D:7BA4)/7BC1, call JoypadDispatch with Table_SoundTest_Buttons
+41C3	Table_SoundTest_Buttons	table	PROBABLE	JoypadDispatch inline table: A -> SoundTest_OnA (MUSIC), B -> SoundTest_OnB (SOUND), Select -> SoundTest_OnSelect (END), Start -> SoundTest_OnStart (STOP), none -> SoundTest_Idle
+41CD	SoundTest_Idle	label	PROBABLE	SoundTest_UpdateHoldTimer, then D-pad with repeat -> SoundTest_HandleDpad, loop
+41D8	SoundTest_OnA	label	PROBABLE	A: C=wRam_C0E5, B=wRam_C0D6 (sound id), SVBK=1, call 00:20B2 (music start stub -> 04:4287 SoundDrv_PlayMusic)
+41F0	SoundTest_OnB	label	PROBABLE	B: same id, call 00:20AC (sound effect stub -> 04:41C0 SoundDrv_PlaySfx)
+4208	SoundTest_OnSelect	label	PROBABLE	Select: stops music (00:20C4, bc=0) and effects (00:20BE, bc=0), ticks 00:20A6, fades out 4F:4370, returns A=1 (leave test)
+423E	SoundTest_OnStart	label	PROBABLE	Start ('STOP'): 00:20C4 and 00:20BE with bc=0 (stop music, stop all effects), stay in the test
+4261	SoundTest_HandleDpad	function	PROBABLE	Up/Down change the high byte wRam_C0D6, Left/Right the low byte wRam_C0E5 (by 4 after the hold timer passes $3C); redraws SoundTest_DrawNumber
+42C4	SoundTest_LoadHelpText	function	PROBABLE	Renders String_SoundTest_Help (TextTiles_RenderGrid (48:40A9)) into VRAM $8800/$8C00
+4314	String_SoundTest_Help	string	PROBABLE	Shift-JIS 'Ａ：ＭＵＳＩＣ Ｂ：ＳＯＵＮＤ Ｓｔａ：ＳＴＯＰ Ｓｅｌ：ＥＮＤ / ↑↓（←→）：Ｎｕｍｂｅｒ'
+4371	SoundTest_DrawNumber	function	PROBABLE	Draws '【' + four full-width hex digits (wRam_C0D6 hi, wRam_C0E5 lo) + '】' from String_SoundTest_HexChars and uploads to VRAM $8E00
+4430	String_SoundTest_HexChars	string	PROBABLE	16 full-width hex characters '０'-'９','Ａ'-'Ｆ' (2 bytes each, no NUL) indexed by nibble in SoundTest_DrawNumber
+4450	SoundTest_UpdateHoldTimer	function	PROBABLE	Auto-repeat timer: resets wRam_C0E7 when hJoyHeld changes (wRam_C0E8), else increments it (saturating)

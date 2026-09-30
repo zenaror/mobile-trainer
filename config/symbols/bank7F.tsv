@@ -1,0 +1,76 @@
+# addr	name	type	status	evidence  (bank 7F, namer 8/8; see docs/research/naming_g8.md)
+4000	Function_7F_4000	function	HYPOTHESIS	twin of Glyph_LoadAscii ending in 00:0DCE (12 bytes written once, no plane duplication) instead of 00:0DB9; no caller found
+4007	Glyph_LoadAscii	function	CONFIRMED	B=char, DE=dest buffer: Glyph_AsciiAddr then 00:0DB9 copies the 12 font rows doubled to 24 bytes (2 planes) into DE; 88 external callers (00:10C0 ...), executed in 28 scenarios
+400E	Glyph_AsciiAddr	function	CONFIRMED	B=char ($20-$7F, else '?'): DE = $67A8 + 12*(char-$20) in ROM bank $76 (A=$76, C=$7F = bank to restore), HL = caller's DE; the 6x12 ASCII font sits in bank 76 after JIS rows 79-84 ('A' rendered from 76:67A8+$21*12)
+4042	Function_7F_4042	function	HYPOTHESIS	variant of Glyph_LoadWide that unpacks through 00:0E32 (single planes, dest DE and DE+12); no caller or table entry found
+405F	Glyph_LoadWide	function	CONFIRMED	HL=Shift-JIS code, BC/DE=two 24-byte buffers ($C0A0/$C0B8 from 00:1044): far call 63:4000 (SJIS validity bitmap, invalid -> $81A1), Glyph_SjisToJis, Glyph_JisToKuTen, Glyph_KuTenAddr, 00:0DE2 unpacks the glyph into 6-px halves; 34 callers
+4072	Glyph_SjisToJis	function	CONFIRMED	HL=Shift-JIS (H lead, L trail) -> HL=JIS X 0208 code (e.g. $82A0 -> $2422); standard Shift-JIS to JIS row/column arithmetic, executed in 32 scenarios
+40B0	Glyph_JisToKuTen	function	CONFIRMED	HL: subtracts $20 from both bytes: JIS code -> (ku,ten) row/column numbers (e.g. $2422 -> ku 4, ten 2 = hiragana A)
+40B9	Glyph_KuTenAddr	function	CONFIRMED	H=ku (1-based), L=ten: A = ROM bank from GlyphFont_RowBankTable[ku-1], DE = $4000 + ((ku - first row of that bank)*94 + ten-1)*18 via Glyph_Mul16; BC/HL come back swapped (BC=old DE, HL=old BC)
+40F9	GlyphFont_RowBankTable	data	CONFIRMED	87 bytes: ROM bank holding JIS row ku (index ku-1): rows 1-8,13 -> 7E; 16-24 -> 7D; 25-33 -> 7C; 34-42 -> 7B; 43-51 -> 7A; 52-60 -> 79; 61-69 -> 78; 70-78 -> 77; 79-87 -> 76; $FF = none; decoded and read at 7F:40BD (ld hl,$40F9)
+4150	GlyphFont_RowFirstTable	data	CONFIRMED	87 bytes: first ku stored in the bank of row ku (1 for 7E rows 1-8 and 5 for row 13 = 9th slot, 16, 25, ..., 79); glyph slot = ku - this value, read at 7F:40CA (ld hl,$4150)
+41A7	Glyph_IsSjisLeadByte	function	CONFIRMED	A=byte: A=1/carry set for Shift-JIS lead bytes $81-$9F, $E0-$EF, $F8-$F9 else A=0/carry clear (same ranges as the text engine tests at 00:0F30/1028); executed in 13 scenarios
+41D0	Glyph_Mul16	function	CONFIRMED	HL = BC * DE (16-bit shift-add), AF/BC/DE preserved; only used by Glyph_KuTenAddr (7F:40DF, 40EC)
+41EA	Canvas_RemapGlyphColors	function	PROBABLE	B,C in 0-3 (hRam_FFBA/FFBB in the text engine): jumps through Canvas_RemapTable[B+4*C]; the 16 handlers rewrite the 12 plane-byte pairs at HL in place (identity, clear plane 0 or 1, fill the 6-px cell)
+42A3	Canvas_RemapTable	table	PROBABLE	16 code pointers indexed B+4*C by Canvas_RemapGlyphColors (sla c x3 ; sla b ; add ; targets 4202..42A1, each starts with pop hl); read at 7F:41F8
+42C3	Canvas_BlitGlyph	function	CONFIRMED	HL=24-byte 6x12 glyph (2 planes), D=y, E=x in pixels, B/C colours: Canvas_RemapGlyphColors then Canvas_BlitGlyphNoRemap; 90 external callers (00:1073/109D/10D5 ...), 33 scenarios
+42CA	Canvas_BlitGlyphNoRemap	function	CONFIRMED	draws the 24 glyph bytes at pixel (E,D) into the 2bpp tile canvas in WRAM bank 2 (bank 3 after tile row 12): tile row=y>>3 x $140, col=(x>>3)*16; Canvas_BlitMaskCur/Next merge the shifted bits; also called directly by 2A:5A2D, 2C:43F6 ...
+499C	Canvas_BlitMaskCur	data	PROBABLE	9 bytes 03 81 C0 E0 F0 F8 FC FE FF indexed by x&7: bits of the current tile byte KEPT around the 6-px glyph, copied to [C0D0] at 7F:4311-4316 (ld hl,$499C)
+49A5	Canvas_BlitMaskNext	data	PROBABLE	9 bytes FF FF FF 7F 3F 1F 0F 07 03 indexed by x&7: bits kept in the next tile (glyph spill over the 8-px tile edge), copied to [C0D1] at 7F:4319-431E
+49AE	Function_7F_49AE	function	HYPOTHESIS	clone of Canvas_BlitGlyph (push hl ; push de ; call 41EA ...) 49AE-4AAE; unreferenced
+4AAF	Function_7F_4AAF	function	HYPOTHESIS	second clone of Canvas_BlitGlyph that also clips glyphs whose y >= $F0 (negative y, first rows skipped); unreferenced
+4BBC	Canvas_UploadToVram	function	PROBABLE	general-DMA copy of the WRAM canvas to VRAM: bank 2 $D000/$D400 -> $9000/$9400 (64 tiles each), $D800 -> $8800 (112), then bank 3 $D000 -> VRAM bank 1 $9000 (120); callers only in the unreferenced 7F:4C78 demo
+4C20	Gfx_GdmaAtVBlank	function	PROBABLE	HL=src, DE=dst, C=(blocks-1): programs rHDMA1-4, waits LY=$8F then $91 with interrupts off, writes rHDMA5 (bit7=0, general DMA), ei; twin of Gfx_GdmaAtVBlankNoDi
+4C42	Glyph_LoadDottedLine	function	CONFIRMED	copies the 32 bytes at Glyph_DottedLineData to $C0A0 (glyph buffer); 6 external callers in banks 2A/2C/2D/2F blit it as a 6-px cell (Canvas_BlitGlyph/NoRemap, x += 6); executed in 12 scenarios
+4C57	Glyph_DottedLineData	data	CONFIRMED	32 bytes, all 00 except row 11 (bytes 22-23) = 33 CC (dotted line in one 6-px cell, plane pairs); read as data by the 7F:4C4D copy loop (executed)
+4C78	Function_7F_4C78	function	HYPOTHESIS	unreferenced text-canvas demo: 00:09B6, 4CA9 (init), 4E85, 4D95 (12 lines of the sample string), wait A, 4E0D (inverted colours), B returns; strings 'Sample DATA.' and the sample-data sentence
+4CA9	Canvas_InitScreen	function	PROBABLE	LCD off if on, clears VRAM $8800-$97FF in both banks, writes an identity BG map ($9800, 20x18 tile ids 0-$EF), attribute map (bank-1 tiles from row 12), zeroes canvas banks 2/3, loads BG palette 0 from 7F:4D50; only caller is 7F:4C7E
+4D95	Function_7F_4D95	function	HYPOTHESIS	draws the sample sentence (7F:4DF2, 'sample data, you know~') on 12 rows, glyph pairs via Glyph_LoadWide + Canvas_BlitGlyph with colours B=3,C=0, then Canvas_UploadToVram; unreferenced
+4E0D	Function_7F_4E0D	function	HYPOTHESIS	same as 4D95 with colours B=0,C=3 (inverted); unreferenced
+4E89	Sample_PageNamePtrs	table	PROBABLE	6 pointers to sample page titles 7F:4E95.. (Nintendo homepage, Pokemon..., GAMEFREAK HOME, MissingLink_HOME, sample, sample2); paired 1:1 with Sample_PageUrlPtrs; six = slots of the page list (bank 24 PageList_*); no code loads it
+4EF0	Sample_PageUrlPtrs	table	PROBABLE	6 pointers to sample URLs (nintendo.com, pokemon.co.jp, gamefreek.net, missinglink.co.jp, sample.to, sample2.to) matching Sample_PageNamePtrs; no code loads it
+4FC3	PageListProto_UrlSlotTable	table	PROBABLE	6 words = SRAM bank 1 $A084+n*$100 (URL slots), the table of 24:4000 PageList_UrlSlotTable; read only by the unreferenced prototype (ld hl,$4FC3 at 7F:5386 5485 565D 5D3C 5F8F 5FD1 61C7)
+4FCF	PageListProto_TitleSlotTable	table	PROBABLE	6 words = SRAM bank 1 $A000+n*$16 (title slots, 22 bytes), the table of 24:400C PageList_TitleSlotTable; read only by the unreferenced prototype (ld hl,$4FCF at 7F:5709 5731 579A 57C2 5F2E 5F87 61B5)
+4FDB	Function_7F_4FDB	function	HYPOTHESIS	head of the unreferenced page-list prototype: stores D724=$0B, D725=0 in WRAM bank 1, then far-calls Stat_EnableScrollSplit; the code up to 7F:61E8 (SRAM slot tables 4FC3/4FCF) is never executed
+5011	Function_7F_5011	function	HYPOTHESIS	prototype screen loop: far calls 72:402A/461A/444F, 4F:4370, 51:4000 and 7271/72B0; reached only from 7F:5112/51EA inside the unreferenced region
+5805	Function_7F_5805	function	HYPOTHESIS	draws a string of up to $14 characters: Glyph_IsSjisLeadByte, Glyph_LoadWide or Glyph_LoadAscii, Canvas_BlitGlyph per glyph (7F:5816-5896); only callers are inside the unreferenced region
+61E6	Function_7F_61E6	function	HYPOTHESIS	single ret; called as `call nz` at 7F:5ADB in the unreferenced region
+61E7	Function_7F_61E7	function	HYPOTHESIS	single ret; called at 7F:598C in the unreferenced region; followed by the dead routine 61E8 that zeroes timer A (C2D4-C2D7)
+61FC	Stub_Nop_7F_61FC	function	CONFIRMED	push af ; pop af ; ret (does nothing); farcalled once from 27:42DB and called by Function_7F_6235; executed in 15 scenarios, so callers treat it as a placeholder hook
+61FF	Timer_ResetClockB	function	PROBABLE	zeroes wTimerBFrames ($C266), $C267 and $C268 = the frame/second/minute clock Int_VBlank advances when [wTimerEnable] bit0 is set (00:03D0-0404); 29 external callers in banks 23/26/..., executed in 15 scenarios
+6218	Function_7F_6218	function	HYPOTHESIS	res 0,[C26F] ; C1D0=1 ; C1D1=0 ; far call 50:4000 (dialog routine that reads C1D0/C1D1) ; returns A=0 if it returned 0 else $FF; 10 callers in banks 23/26 but never executed
+6235	Function_7F_6235	function	HYPOTHESIS	like 6218 with C1D0=0 ; always returns $FF (after the no-op Stub_Nop_7F_61FC); callers 23:51AF, 23:5525, 2E:4970; never executed
+624F	Sprites_SaveSlotsToBank3	function	PROBABLE	copies 256 bytes from WRAM bank 7 $DA00 (wSpriteSlots, 14 x 16 bytes + 32) to WRAM bank 3 $D900, restores rSVBK; pair of Sprites_RestoreSlotsFromBank3; executed in 7 scenarios (mail_compose/inbox ...)
+627C	Sprites_RestoreSlotsFromBank3	function	PROBABLE	inverse of Sprites_SaveSlotsToBank3: 256 bytes WRAM bank 3 $D900 -> bank 7 $DA00 (wSpriteSlots); 16 external callers, executed in 7 scenarios
+70FD	KbdSlide_InPrepMode6	function	PROBABLE	called by 55:6342 when [C2AB]==6: D = (wSpriteSlots[16] - $0D)/$0C (row index of the cursor object), E=0 = start state of the slide-in steps; executed in 7 scenarios
+7116	KbdSlide_InStepMode6	function	PROBABLE	55:6392 per-frame step while WY falls by 8: ScrollSplit_StepUp3(D,E) then far call 00:0956 (sprite/OAM update), keeps DE
+7125	KbdSlide_OutPrepMode6	function	PROBABLE	called by 55:6472 (slide-out, [C2AB]==6): D = [C0D3]/$0C + 1 (0 when [C0D3]==0) = row index into the StepDown3 table, E=0
+713A	KbdSlide_OutStepMode6	function	PROBABLE	55:64C2 per-frame step while WY rises by 8: ScrollSplit_StepDown3(D,E) then 00:0956
+7149	KbdSlide_InPrepMode8	function	PROBABLE	55:634C: D = [D725] (WRAM bank 1) or 4 when zero, E=0
+7165	KbdSlide_InStepMode8	function	PROBABLE	55:63A3 slide-in step: ScrollSplit_StepUp4(D,E) then 00:0956
+7178	KbdSlide_OutPrepMode8	function	PROBABLE	55:647C slide-out: same D/E as KbdSlide_InPrepMode8
+7194	KbdSlide_OutStepMode8	function	PROBABLE	55:64D3 slide-out step: ScrollSplit_StepDown4(D,E) then 00:0956
+71A7	KbdSlide_InPrepMode9	function	PROBABLE	55:6356: D = [D725] or 5, E=0
+71C3	KbdSlide_InStepMode9	function	PROBABLE	55:63B4 slide-in step: ScrollSplit_StepUp4 then 00:0956
+71D6	KbdSlide_OutPrepMode9	function	PROBABLE	55:6486 slide-out: same D/E as KbdSlide_InPrepMode9
+71F2	KbdSlide_OutStepMode9	function	PROBABLE	55:64E4 slide-out step: ScrollSplit_StepDown4 then 00:0956
+7205	KbdSlide_InPrepMode7	function	PROBABLE	55:6360: D=8, E=0 (constant start state)
+720C	KbdSlide_InStepMode7	function	PROBABLE	55:63C5 slide-in step: ScrollSplit_StepUp4 then 00:0956 (registers preserved except DE)
+721D	KbdSlide_OutPrepMode7	function	PROBABLE	55:6490 slide-out: D=8, E=0
+7224	KbdSlide_OutStepMode7	function	PROBABLE	55:64F5 slide-out step: ScrollSplit_StepDown4 then 00:0956
+7271	Stat_EnableScrollSplit	function	CONFIRMED	installs the RAM STAT vector wLcdStatVector = jp $0E93 (alternative STAT handler), waits LY=$64, rSTAT=$44, rLYC=0, [C0D3]=0, IF=0, IE|=3; the handler switches SCY to [C0D3] at line [D724]; 74 external callers, 21 scenarios
+72B0	Stat_DisableScrollSplit	function	CONFIRMED	writes $D9 (reti) to wLcdStatVector (CBF4), IF=0, IE &= $FD (STAT off); inverse of Stat_EnableScrollSplit; 139 external callers, executed in 21 scenarios
+72C2	Gfx_GdmaAtVBlankNoDi	function	CONFIRMED	same as Gfx_GdmaAtVBlank without di/ei: HL=src DE=dst C=(blocks-1), waits LY=$8F/$91, writes rHDMA5; 14 external callers (22:4B0B, 23:49FA ...), executed in 12 scenarios
+733A	ScrollSplit_StepUp3	function	CONFIRMED	D=table row (0-7), E=step (0-19): b = Table[D][E]; [C0D3] += b (SCY below the split line, 00:0EB2) and sprite slots +16/+32/+64 (Y) -= b; E++; executed 7 scenarios
+7375	ScrollSplit_StepUp3Ptrs	table	PROBABLE	8 row pointers (7385, 7399, ... stride $14) read by ScrollSplit_StepUp3 (ld hl,$7375 at 7F:733B ; c=2*d)
+7385	ScrollSplit_StepUp3Deltas	data	PROBABLE	8 rows x 20 bytes of per-step pixel deltas indexed [D][E] by ScrollSplit_StepUp3
+7425	ScrollSplit_StepUp4	function	CONFIRMED	D=row (0-11), E=step: b = Table[D][E]; [C0D3] += b, sprite slots +16/+32/+48/+64 Y -= b; E++ (four-object variant of StepUp3); executed 12 scenarios
+7467	ScrollSplit_StepUp4Ptrs	table	PROBABLE	12 row pointers of ScrollSplit_StepUp4 (ld hl,$7467 at 7F:7426)
+747F	ScrollSplit_StepUp4Deltas	data	PROBABLE	12 rows x 20 bytes of per-step deltas indexed [D][E]
+7578	ScrollSplit_StepDown3	function	CONFIRMED	like StepUp3 with the opposite sign: [C0D3] -= b, sprite slots +16/+32/+64 Y += b; executed 7 scenarios
+75B3	ScrollSplit_StepDown3Ptrs	table	PROBABLE	12 row pointers of ScrollSplit_StepDown3 (ld hl,$75B3 at 7F:7579)
+75CB	ScrollSplit_StepDown3Deltas	data	PROBABLE	12 rows x 20 bytes of per-step deltas indexed [D][E]
+76C4	ScrollSplit_StepDown4	function	CONFIRMED	like StepUp4 with the opposite sign ([C0D3] -= b, four sprite slots Y += b); executed 11 scenarios
+7706	ScrollSplit_StepDown4Ptrs	table	PROBABLE	12 row pointers of ScrollSplit_StepDown4 (ld hl,$7706 at 7F:76C5)
+771E	ScrollSplit_StepDown4Deltas	data	PROBABLE	12 rows x 20 bytes of per-step deltas indexed [D][E]
+7817	Function_7F_7817	function	HYPOTHESIS	WRAM bank 7: sprite slots +16 and +32 Y = $20 - [C0D3]; only called from the unreferenced chains 7F:723D and 7F:725B

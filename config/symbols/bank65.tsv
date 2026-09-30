@@ -1,0 +1,110 @@
+# addr	name	type	status	evidence
+4000	Startup_Run	function	CONFIRMED	First program run by the main loop (1C:4000 far-calls it once): inits (00:1711, 4E:4658, 48:4AAB, 68:4A0F), clears comm timers C2D1-C2D7, runs AdapterCheck_Run (result 0/1/2), jumps via Startup_StatusJumpTable; 41/41 scenarios
+403C	Startup_StatusJumpTable	table	CONFIRMED	3 code pointers 4042/4078/40CF indexed by the AdapterCheck_Run result (0 no adapter or error, 1 adapter config valid, 2 config invalid/blank); read by the jp hl at 65:403B in all 41 scenarios
+4042	Startup_NoAdapter	label	CONFIRMED	AdapterCheck result 0: 68:4870 classifies the SRAM state (0-4) and jumps through Startup_NoAdapterJumpTable (0,2,3 -> no-adapter screen 4063; 1 -> error F0/0110 then 4063; 4 -> 4055 continue). Executed in noadapter, hotplug
+4055	Label_65_4055	label	HYPOTHESIS	index 4 of the no-adapter table: jp 416C (verify the save data and continue without adapter); never executed
+4063	Startup_NoAdapterScreen	label	CONFIRMED	far-calls NoAdapter_ShowScreen (63:732F), then A=$11 and jp Entry (00:0100 soft reset); noadapter scenario f68
+406E	Startup_NoAdapterJumpTable	table	PROBABLE	5 code pointers 4063,4058,4063,4063,4055 indexed by the SRAM state class returned by 68:4870; first word read in traces
+4078	Startup_ConfigValid	label	CONFIRMED	AdapterCheck result 1 (adapter configuration valid): 68:4870 state -> Startup_ConfigValidJumpTable; executed in 32 scenarios at frame 324 after the check screen
+408B	Startup_ConfigValid_Continue	label	PROBABLE	state 4 of the valid-config table: jp 416C (verify save data, then return to the main program)
+408E	Startup_ConfigValid_ShowInfoError	label	PROBABLE	state 1: error screen F0/01/10 (5C) then start registration path; not executed
+40A6	Startup_ConfigValid_Fresh	label	PROBABLE	state 0: C277=C278=0 then Registration_Run and return; not executed (adapter valid but cartridge never registered)
+40B3	Startup_ConfigValid_Resume	label	PROBABLE	state 2: Registration_ReadStage then Registration_Run (resume) and return; not executed
+40BC	Startup_ConfigValid_ResumeCopy	label	PROBABLE	state 3: identical to 40B3; not executed
+40C5	Startup_ConfigValidJumpTable	table	PROBABLE	5 code pointers 40A6,408E,40B3,40BC,408B indexed by 68:4870; last word read in traces
+40CF	Startup_ConfigBlank	label	CONFIRMED	AdapterCheck result 2 (config invalid/blank): 68:4870 state -> Startup_ConfigBlankJumpTable; executed in register*, monkey_blank, resume_registration, hotplug scenarios
+40E2	Startup_ConfigBlank_ShowInfoError	label	CONFIRMED	states 1 and 4: error F0/01/00 (adapter registration info error, data initialized) via 5C:5150, then C277=C278=0 and Registration_Run; executed in boot_states
+40FA	Startup_ConfigBlank_Fresh	label	CONFIRMED	state 0: C277=C278=0, Registration_Run, return; the normal first-run path of the register scenarios (8 scenarios)
+4107	Startup_ConfigBlank_Resume	label	CONFIRMED	state 2: Registration_ReadStage then Registration_Run (resume); executed in monkey_camp_blank, boot_states
+4110	Startup_ConfigBlank_ResumeCopy	label	CONFIRMED	state 3: identical to 4107; executed once
+4119	Startup_ConfigBlankJumpTable	table	PROBABLE	5 code pointers 40FA,40E2,4107,4110,40E2 indexed by 68:4870
+4123	Registration_ReadStage	function	CONFIRMED	reads SRAM1:B010 (registration stage, XOR $A5), keeps only 1,2,3 (else 0) in C277 (preserving the SRAM enable/bank); C277==2 makes Registration_Run show the 'resume' page
+416C	Startup_VerifySaveData	label	CONFIRMED	checks the three SRAM areas (22:4FF6, 48:4899, 4E:46CF); any failure -> 418A; otherwise falls to the return; executed in 32 scenarios
+418A	Startup_SaveDataError	label	CONFIRMED	error F0/01/11 ('cartridge save data error, data will be initialized') via 5C:5150, then reinitialises the areas (22:4FA9, 48:4920, 4E:4749); executed in boot_states
+41A9	Startup_Return	label	CONFIRMED	common ret of the startup paths (back to the main program in 1C:4000)
+41AA	Function_65_41AA	function	HYPOTHESIS	silent variant of Startup_VerifySaveData/SaveDataError: 22:4FF6==$FF -> 22:4FA9; 48:4899!=0 -> 48:4920; 4E:46CF!=0 -> 4E:4749 (re-initialise each broken area without a message); entered only by a raw far-call site
+41DA	Registration_Run	function	CONFIRMED	Initial-registration wizard: notice pages 0-3/7 (Notice_ShowPage), login ID / mail / password entry screens (bank 68), password-save confirm (67:6536), welcome pages 5/6; resume page $17 if C277==2; run by the register* scenarios
+42A3	Registration_IntroPage	label	CONFIRMED	shows page 0 (intro); if B+Select+Right ($16 in hJoyHeld) are held C28C:=1 selects the hidden variant with the phone-number-method page ($0C); executed at f333 in register scenarios
+42E3	Registration_NoticePages	label	CONFIRMED	stores C28C in SRAM1:B089 (68:4B48), then notice pages 1, 2, 3, 7 in order (B goes back one page, page 1 back to the intro); executed at register f415
+432D	Registration_LoginIdEntry	label	PROBABLE	login ID screen 68:5296 (first frame 929, shot login_id_keypad f1138); B goes back (431D), then DEA0 is stored to SRAM1:B066 (68:4A4A b=1)
+4344	Registration_MailIntro	label	PROBABLE	screen 68:5BC4 (first frame 1372, shot mail_intro f1449) before the mail address keyboard
+434D	Registration_MailAddressEntry	label	PROBABLE	mail address screen 68:571D (frame 1464); DEAB/DEB4 are stored to SRAM1:B071/B07A (68:4A4A b=2)
+4384	Registration_PasswordIntro	label	PROBABLE	screen 68:60BB (first frame 1879, shot password_intro f1956); falls into the password entry
+438D	Registration_PasswordEntry	label	PROBABLE	copies DEB9->DED4, keyboard 68:5D00 (A=0 password, A=1 confirmation), Password_CompareEntries mismatch -> error F0/00/10 (5C) and both buffers cleared; shot password_confirm f2832
+4402	Registration_PasswordAccepted	label	CONFIRMED	password stored to SRAM1:B07F (68:4A4A b=4), then PwSaveConfirm_Run(A=0) (67:6536) decides C27A and SRAM1:B088; executed at register f3278
+4435	Registration_SummaryStep	label	PROBABLE	68:61F7 summary/confirm screen (first frame 3601, shot register_summary f4208): 0 (B) back to the save-password question (4410), 2 back to the login ID step (431D), else Registration_Communicate
+4455	Registration_NoticePages_Hidden	label	PROBABLE	hidden-variant copy of Registration_NoticePages (C28C=1) that continues at 448F; executed at register_hidden f415
+44DD	Registration_PhoneMethodMenu	label	CONFIRMED	hidden variant only: SettingsPhone_ChoiceMenu(A=1) auto/manual (67:4631); auto stores B08A:=0 and goes on, manual stores B08A:=1 and continues at 4526; executed at register_hidden f1879 (shot phone_method f2085)
+4526	Registration_ManualPhoneEntry	label	PROBABLE	manual phone entry: page $0C, PhoneKeypad_Run(A=0) -> SRAM1:B08B, PhoneKeypad_Run(A=1) -> B09C, PhoneComment_KeyboardRun -> B0AD (68:4A4A); not executed in the traces
+4642	Registration_Communicate	label	PROBABLE	after the summary: 68:4C2B, clears the saved password (SRAM1:A880:=0), Registration_SavePassword if C27A, 68:6AE0, 68:6E1A (connect confirm, shot f4832), 68:7019 (network, frame 4849), result screen 68:766E; then the welcome pages
+46B6	Registration_WelcomePages	label	CONFIRMED	notice pages 5 and 6 (welcome, mail the registration form); B on page 6 repeats page 5; executed at register f5892 (shots welcome_1/2)
+46CA	Registration_Aborted	label	CONFIRMED	registration failed or cancelled: 68:766E result screen then the locked page 4 ('registration cancelled, turn the power OFF'); executed in register_neterr f5546 after error 24-000
+46FF	Function_65_46FF	function	HYPOTHESIS	unreferenced: WRAM bank 3, CopyString DECB -> DEB9 (confirm buffer copied over the first entry)
+471F	Function_65_471F	function	HYPOTHESIS	unreferenced: WRAM bank 3, CopyString DECB -> DEC2
+473F	Password_CompareEntries	function	CONFIRMED	WRAM bank 3: CompareString(DEB9, DECB) -> A=B=difference (0 equal); registration: password vs confirmation (mismatch -> error F0/00/10); password change: rejects a new password equal to the current one
+4761	Function_65_4761	function	HYPOTHESIS	compares DEB9 with the edited copy DED4; when different clears the confirm buffer (68:403B on DECB), C279:=0 and clears bit2 of C278 (SRAM enabled around it): probably 'password edited, confirmation invalid'
+47C8	Password_CompareNewAndConfirm	function	CONFIRMED	WRAM bank 3: CompareString(DECB, DEC2) -> A (0 equal); used by the password-change flow 67:58CD (new password vs its confirmation)
+47EA	Registration_SavePassword	function	CONFIRMED	copies the password DEB9 to C28F, StringLength, then SavedPassword_Store (57:541C): stores it in SRAM1:A880/A88D for the connect dialog; executed at register f4225
+481A	Function_65_481A	function	HYPOTHESIS	dead variant of Startup_VerifySaveData: 68:48DE state 2/3 -> 4852/485D, else 48:4899/4E:46CF checks; its 'call $21A0' targets ROM0 padding (stale), entered only by a raw far-call site
+487C	Notice_ShowPage	function	CONFIRMED	A=page id 0-23: draws a full-screen notice page (header gfx, page n/m counter, body text from Notice_PageTable, footer, sound) and waits: A -> returns 1, B -> returns 0 (only in modes 1/5), mode 2 pages never return. Used by 65, 67, 68
+493C	Notice_ShowPage_InputLoop	label	CONFIRMED	frame loop of the notice page: VBlank wait, pad read, JoypadDispatch (A -> 495B, B -> 4974, others ignored)
+494E	Notice_JoypadTable	table	CONFIRMED	inline table of the JoypadDispatch call at 65:494B: A 495B, B 4974, Select 4999, Start 499B, none 4958
+495B	Notice_ShowPage_ButtonA	label	CONFIRMED	A: sound $2C, fade out, return A=1
+4974	Notice_ShowPage_ButtonB	label	CONFIRMED	B: only when C280 (record byte 1) is 1 or 5: sound $2E, fade out, return A=0; other page modes ignore B
+499D	Notice_ShowPage_Locked	label	CONFIRMED	record mode 2 (pages 4 'registration cancelled, power OFF' and 11 'registration deleted, power OFF'): endless VBlank loop, no way out
+49A2	Notice_DrawBodyText	function	CONFIRMED	clears the text box and prints the page text (pointer at record+4) with 00:0ED3, then uploads the text tiles (4F:4572/45C6)
+4A37	Notice_LoadHeaderGfx	function	CONFIRMED	copies the page header tiles (far pointer from Notice_HeaderGfxTable[record byte 0], 40 blocks to $9301) and the footer tiles (Notice_FooterGfxTable[record byte 1], to $9581)
+4A81	Notice_HeaderGfxTable	table	PROBABLE	24 far pointers (addr16 LE + bank) to the header tile sets (banks 58, 4B, 71), indexed by record byte 0; read by 65:4A37
+4AC9	Notice_FooterGfxTable	table	PROBABLE	7 word pointers to footer tile sets in bank 58 ($69D0,$6C50,$6ED0,$7150,$73D0,$7650,$78D0), indexed by record byte 1; read by 65:4A37
+4AD7	Notice_DrawPageCounter	function	CONFIRMED	if record byte 2 (page number) !=0 writes the tiles of 'n / m' (digit records of Table_65_4B7C/4B92, slash = index 10) into the tile map at D210-D212
+4B78	Notice_DigitRecordLists	table	PROBABLE	2 pointers to the digit record lists 4B7C (normal) and 4B92 (variant used when record byte 0 == 4)
+4B7C	Notice_DigitRecords_Normal	table	PROBABLE	11 words = addresses of the 4-byte digit glyph records 58:7E48..7E70 (digits 0-9 and slash)
+4B92	Notice_DigitRecords_Variant	table	PROBABLE	11 words = addresses of the digit records 58:7E74..7E9C (attribute variant)
+4BA8	Notice_RequestPageSound	function	CONFIRMED	reads Notice_PageSoundTable[C27C] and passes it as BC to the bank-4 audio stub 00:20E8 (WRAM bank 1 selected)
+4BC6	Notice_PageSoundTable	data	PROBABLE	24 bytes indexed by the page id: $09 for most pages, $19 for pages 5/6 (welcome), $13 for page 11; argument of 00:20E8
+4BDE	Notice_PageTable	table	PROBABLE	24 six-byte records per page id: [header gfx index, footer/button mode (0-6; 2=locked, 1/5=B allowed), page n, page count m, text pointer]
+4C6E	NoticeText_RegistrationStart	string	CONFIRMED	notice page 0 text (Shift-JIS, NUL-terminated, word 1 of record 0 of Notice_PageTable): starting the initial registration to DION; young children should register together with an adult
+4CFA	NoticeText_HaveManualReady	string	CONFIRMED	notice page 1 text (Shift-JIS, NUL-terminated, word 1 of record 1 of Notice_PageTable): have the manual and registration form from the Mobile Adapter GB box at hand
+4D50	NoticeText_AgreeToTerms	string	CONFIRMED	notice page 2 text (Shift-JIS, NUL-terminated, word 1 of record 2 of Notice_PageTable): to use Mobile System GB please agree to the KDDI service terms and the Nintendo Mobile System GB terms of use
+4E0D	NoticeText_ReadTerms	string	CONFIRMED	notice page 3 text (Shift-JIS, NUL-terminated, word 1 of record 3 of Notice_PageTable): the terms are written in the DION Mobile GB course registration form and the adapter manual; be sure to read them
+4E88	NoticeText_RegistrationCancelled	string	CONFIRMED	notice page 4 text (Shift-JIS, NUL-terminated, word 1 of record 4 of Notice_PageTable): initial registration cancelled; turn the Game Boy power switch OFF
+4ED4	NoticeText_Welcome	string	CONFIRMED	notice page 5 text (Shift-JIS, NUL-terminated, word 1 of record 5 of Notice_PageTable): welcome to Mobile System GB; from today mail and the Nintendo mobile homepage are available
+4F3E	NoticeText_MailRegistrationForm	string	CONFIRMED	notice page 6 text (Shift-JIS, NUL-terminated, word 1 of record 6 of Notice_PageTable): fill in the registration form from the box and mail it to KDDI, then enjoy Mobile System GB
+4FC1	NoticeText_UsageFeeWarning	string	CONFIRMED	notice page 7 text (Shift-JIS, NUL-terminated, word 1 of record 7 of Notice_PageTable): using Mobile System GB may cost usage fees besides call charges; read the adapter manual
+505A	NoticeText_DeleteRegistrationWarning	string	CONFIRMED	notice page 8 text (Shift-JIS, NUL-terminated, word 1 of record 8 of Notice_PageTable): all information saved in the adapter and Mobile Trainer will be deleted; read the Mobile Trainer manual first
+50EE	NoticeText_DeleteBeforeDisposal	string	CONFIRMED	notice page 9 text (Shift-JIS, NUL-terminated, word 1 of record 9 of Notice_PageTable): when passing on, lending or disposing of the adapter, be sure to delete the registration info
+5157	NoticeText_DeleteCancelled	string	CONFIRMED	notice page 10 text (Shift-JIS, NUL-terminated, word 1 of record 10 of Notice_PageTable): deletion of the registration info was cancelled
+5179	NoticeText_DeleteDone	string	CONFIRMED	notice page 11 text (Shift-JIS, NUL-terminated, word 1 of record 11 of Notice_PageTable): registration info completely deleted; register again to use it; turn the power OFF
+5202	NoticeText_ManualPhoneEntry	string	CONFIRMED	notice page 12 text (Shift-JIS, NUL-terminated, word 1 of record 12 of Notice_PageTable): enter phone numbers manually: internet number, self-page number, comment; check them carefully
+52A8	NoticeText_PhoneChangeDone	string	CONFIRMED	notice page 13 text (Shift-JIS, NUL-terminated, word 1 of record 13 of Notice_PageTable): the phone number change finished correctly
+52CE	NoticeText_PhoneChangeCancelled	string	CONFIRMED	notice page 14 text (Shift-JIS, NUL-terminated, word 1 of record 14 of Notice_PageTable): the phone number change was cancelled
+52EE	NoticeText_PasswordChangeIntro	string	CONFIRMED	notice page 15 text (Shift-JIS, NUL-terminated, word 1 of record 15 of Notice_PageTable): changing the password; read the Mobile Trainer manual first; keep the password secret
+5389	NoticeText_PasswordRules	string	CONFIRMED	notice page 16 text (Shift-JIS, NUL-terminated, word 1 of record 16 of Notice_PageTable): password = letters and digits mixed, 4-8 characters, upper/lower case are different
+5424	NoticeText_PasswordChangeCancelled	string	CONFIRMED	notice page 17 text (Shift-JIS, NUL-terminated, word 1 of record 17 of Notice_PageTable): the password change was cancelled
+5446	NoticeText_PasswordChangeDone	string	CONFIRMED	notice page 18 text (Shift-JIS, NUL-terminated, word 1 of record 18 of Notice_PageTable): the new password is usable in about 5 minutes; write it down and keep it safe
+54BA	NoticeText_UsageTimeIntro	string	CONFIRMED	notice page 19 text (Shift-JIS, NUL-terminated, word 1 of record 19 of Notice_PageTable): you can view the usage time of the DION Mobile GB course; read the Mobile Trainer manual
+5534	NoticeText_UsageTimeCancelled	string	CONFIRMED	notice page 20 text (Shift-JIS, NUL-terminated, word 1 of record 20 of Notice_PageTable): the usage time check was cancelled
+5558	NoticeText_UsageFeeIntro	string	CONFIRMED	notice page 21 text (Shift-JIS, NUL-terminated, word 1 of record 21 of Notice_PageTable): you can view the monthly total and details of the Nintendo content usage fees of Mobile System GB
+5602	NoticeText_UsageFeeCancelled	string	CONFIRMED	notice page 22 text (Shift-JIS, NUL-terminated, word 1 of record 22 of Notice_PageTable): the usage fee check was cancelled
+5624	NoticeText_ResumeRegistration	string	CONFIRMED	notice page 23 text (Shift-JIS, NUL-terminated, word 1 of record 23 of Notice_PageTable): the previous initial registration did not finish; press A to resume where it stopped
+567F	PromptText_Table	table	PROBABLE	20 word pointers to the prompt strings 56A7-5A49; 00:153D copies string [A] of this table to D000; callers 67:4887 (A=8/9), 67:5732 (A=10), 68 (input screens)
+56A7	PromptText_EnterLoginId	string	CONFIRMED	prompt string 0 of PromptText_Table (Shift-JIS, NUL-terminated): enter the login ID written on the DION Mobile GB course registration form
+56FB	PromptText_EnterMailAddress	string	CONFIRMED	prompt string 1 of PromptText_Table (Shift-JIS, NUL-terminated): enter the mail address written on the DION Mobile GB course registration form
+5751	PromptText_EnterPassword	string	CONFIRMED	prompt string 2 of PromptText_Table (Shift-JIS, NUL-terminated): enter a password; take care that other people do not learn it
+57A7	PromptText_DoNotUnplug	string	CONFIRMED	prompt string 3 of PromptText_Table (Shift-JIS, NUL-terminated): do not unplug the adapter or phone or turn the Game Boy power switch OFF
+5809	PromptText_CheckingRegistration	string	CONFIRMED	prompt string 4 of PromptText_Table (Shift-JIS, NUL-terminated): checking the information registered in the Mobile Adapter GB
+583C	PromptText_RegistrationVerified	string	CONFIRMED	prompt string 5 of PromptText_Table (Shift-JIS, NUL-terminated): confirmed that the registration info is correct; initial registration ends
+5879	PromptText_DeleteWarning	string	CONFIRMED	prompt string 6 of PromptText_Table (Shift-JIS, NUL-terminated): deleted info cannot be restored; be careful
+58B6	PromptText_ReRegisterAfterDelete	string	CONFIRMED	prompt string 7 of PromptText_Table (Shift-JIS, NUL-terminated): to use the service again after deleting, register again
+5906	PromptText_SelectMenu	string	CONFIRMED	prompt string 8 of PromptText_Table (Shift-JIS, NUL-terminated): please select from the menu
+5920	PromptText_SelectPhoneEntryMethod	string	CONFIRMED	prompt string 9 of PromptText_Table (Shift-JIS, NUL-terminated): choose how to enter the phone number
+5946	PromptText_PhoneChangeDone	string	CONFIRMED	prompt string 10 of PromptText_Table (Shift-JIS, NUL-terminated): the phone number change finished correctly
+596C	PromptText_ChangePassword	string	CONFIRMED	prompt string 11 of PromptText_Table (Shift-JIS, NUL-terminated): changing the password
+5985	PromptText_ViewUsageTime	string	CONFIRMED	prompt string 12 of PromptText_Table (Shift-JIS, NUL-terminated): viewing the usage time
+5998	PromptText_ViewUsageFee	string	CONFIRMED	prompt string 13 of PromptText_Table (Shift-JIS, NUL-terminated): viewing the usage fee
+59A9	PromptText_PasswordChangeDone	string	CONFIRMED	prompt string 14 of PromptText_Table (Shift-JIS, NUL-terminated): the password change finished correctly
+59CF	PromptText_UsageTimeDone	string	CONFIRMED	prompt string 15 of PromptText_Table (Shift-JIS, NUL-terminated): the usage time check ended
+59F1	PromptText_UsageFeeDone	string	CONFIRMED	prompt string 16 of PromptText_Table (Shift-JIS, NUL-terminated): the usage fee check ended
+5A11	PromptText_CommFailed	string	CONFIRMED	prompt string 17 of PromptText_Table (Shift-JIS, NUL-terminated): communication failed because of an error
+5A33	PromptText_CommInterrupted	string	CONFIRMED	prompt string 18 of PromptText_Table (Shift-JIS, NUL-terminated): communication was interrupted
+5A49	PromptText_PasswordSaveNote	string	CONFIRMED	prompt string 19 of PromptText_Table (Shift-JIS, NUL-terminated): see the manual for the notes about saving the password

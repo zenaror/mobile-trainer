@@ -1,0 +1,64 @@
+# addr	name	type	status	evidence
+4000	Mailbox_Main	function	CONFIRMED	Mailbox screen ('メールボックス', 12 records in SRAM bank0 A124+n*$12D): list of 4 rows, read/reply/delete icons; C264=0 normal, $FF = choose-mail-to-delete mode; far-called from 7C:7C61, 7C:7CC4, 27:4173; executed in mail_inbox/mail_mailbox
+4043	Mailbox_Main_Loop	label	CONFIRMED	per-frame loop head of Mailbox_Main: sprites 00:0956, wait, joypad 7D:7BB7, then Mailbox_CountRecords; B leaves (returns A=$FF), A opens the icon menu, up/down move (Mailbox_CursorUp/Down)
+415C	Mailbox_IconMenu_Loop	label	CONFIRMED	loop head after A on a mail: left/right ($20/$10) move the icon cursor D (0 read, 1 reply, 2 delete) via Mailbox_SetActionCursor, A executes (25:420A), B returns to the list
+420A	Mailbox_IconMenu_PressA	label	CONFIRMED	A pressed on the icon cursor D: D==2 -> delete confirmation (dialog 72:4015 id $0206, then record delete 2D:4133 and Mailbox_RedrawAfterDelete), else jp 25:446E (reply/read); executed in mail_inbox
+446E	Mailbox_IconMenu_ReplyOrRead	label	CONFIRMED	icon D==1 (reply, at 25:4490) or D==0 (read, jp 25:465C); in C264=$FF mode the icon menu is bypassed; executed in mail_inbox
+4564	Mailbox_ReplyStart	label	CONFIRMED	reply when the outbox area ([A000] bank0) is empty: bank-04 request 00:20AC id $2C, hides sprites, Mailbox_ReplyToRecord (54A7) and restores the list; if [A000] != 0 a dialog id $0213 is shown instead (25:44AC); executed in mail_inbox
+465C	Mailbox_ReadMail	label	CONFIRMED	icon D==0: if record+1 flag is set clears it and shows dialog $021E/$022B (22:501D), then opens the mail viewer 2B:6482 with the record index (B+C); returns to the list; executed in mail_inbox
+4804	Mailbox_SetActionCursor	function	CONFIRMED	D=icon 0-2: object 26:7B10/7B20/7B30 in sprite slot DA20 at y=$70, x=$20/$48/$70 and hint text Mailbox_ShowHint(D) + upload; the read/reply/delete icon cursor; executed in mail_inbox
+4885	Mailbox_CursorUp	function	CONFIRMED	Up pressed ($40 repeat): moves the list cursor C up (scrolls offset B when at the top of the 4 visible rows, wraps to the last mail), redraws sender/timestamp/rows/numbers/icons; executed in mail_inbox
+4907	Mailbox_CursorDown	function	CONFIRMED	Down pressed ($80 repeat): moves the list cursor C down (scrolls B, stops at the last used record via Mailbox_NextRecordUsed), redraws like Mailbox_CursorUp; executed in mail_inbox
+4987	Mailbox_UpdateScrollArrows	function	CONFIRMED	Shows the up/down scroll arrow sprites (objects 26:7B40/7B50, slots DA30/DA40) when more than 4 mails exist, else parks them off screen at x=$D0; twin of 25:4D99; executed in mail_inbox
+49EB	Mailbox_NextRecordUsed	function	CONFIRMED	B=scroll,C=cursor: A = first byte (in-use flag) of record B+C+1 in SRAM bank0, or 0 if that index is 12; used by Mailbox_CursorDown; executed
+4A15	Mailbox_RecordAddrs_4A15	table	CONFIRMED	12 words $A124+n*$12D = addresses of the 12 mail records (SRAM bank0); indexed 2*(B+C) at 25:4687/4A0B; identical copies at 4AF5/4E2B/4F28/50AA/5228/5569/5871
+4A2D	Mailbox_RedrawAfterDelete	function	CONFIRMED	After a mail was deleted (2D:4133): adjusts scroll B/cursor C and redraws sender name, row titles, tiles, numbers, icons, timestamp; single caller 25:42FF; executed in mail_inbox
+4A68	Mailbox_ShowEmptyList	function	PROBABLE	Clears WRAM2 $D000 x$0D00 text tile buffer, redraws timestamp and tile upload and resets sprites: the display when no mail is left (25:4341 after count==0); not executed in traces
+4A90	Mailbox_CountRecords	function	CONFIRMED	SRAM bank0: D = number of consecutive used records (first byte != 0) from A124, stride $12D, 0-12; leaves SRAM enabled; used by 25/26/27/29/7C (12 = mailbox full); executed in 15 scenarios
+4AF5	Mailbox_RecordAddrs_4AF5	table	PROBABLE	copy of the 12-word mail record address table (A124+n*$12D); no direct ld hl,$4AF5 found
+4B0D	Mailbox_LoadScreen	function	CONFIRMED	Loads the mailbox screen: sprite reset, 2D:4E06, palettes 69B0/6EF0, tiles 5A10/5E10/69F0/6A00/6CF0 (5F10/6310 + tilemap 66E0 in delete mode C264=$FF), tilemap 6410, count/row attributes; executed in mail_inbox
+4D99	Mailbox_UpdateScrollArrows_B	function	PROBABLE	identical twin of Mailbox_UpdateScrollArrows (25:4987), called only from Mailbox_LoadScreen (25:4D27)
+4DFD	Mailbox_DrawSenderName	function	CONFIRMED	B+C=record: draws the 16-byte name field (record+$C9, default 'マリオ') with Mailbox_DrawTextLine at y=$02,x=$30 (the 'ニックネーム' box of the rendered screen); executed in mail_inbox
+4E2B	Mailbox_RecordAddrs_4E2B	table	CONFIRMED	copy of the 12-word mail record address table; read at 25:4E13 (sender name field)
+4E43	Mailbox_DrawRowTitles	function	CONFIRMED	Draws the 20-byte text field (record+$D9, default 'またあそぼうね') of the 4 visible records at rows y=$10/$1C/$28/$34, x=$20 (highlights row C); executed in mail_inbox
+4F28	Mailbox_RecordAddrs_4F28	table	CONFIRMED	copy of the 12-word mail record address table; read at 25:4E67/4EA0/4ED9/4F12 (row titles)
+4F40	Mailbox_DrawTimestamp	function	CONFIRMED	Record+3..+8 (6 BCD bytes 20 00 06 28 12 30 in the default records) -> 12 digit tiles ($D0+nibble) at VRAM $98A1.. with gaps for the 年 月 日 時 分 labels; also into WRAM7 map; executed in mail_inbox
+50AA	Mailbox_RecordAddrs_50AA	table	CONFIRMED	copy of the 12-word mail record address table; read at 25:4F48 (timestamp)
+50C2	Mailbox_ClearTimestamp	function	CONFIRMED	Same as Mailbox_DrawTimestamp but writes only blank tile $D0 for all 12 digit cells (used when no mail is selected / list empty); executed in 5 scenarios
+5228	Mailbox_RecordAddrs_5228	table	CONFIRMED	copy of the 12-word mail record address table; first entry read by 25:50CA (Mailbox_ClearTimestamp)
+5240	Mailbox_DrawTextLine	function	CONFIRMED	HL=NUL-terminated SJIS/ASCII text in SRAM bank0, A=max cells, DE=y,x: 7F:41A7 (2-byte test), 7F:405F/4007 (glyph), 7F:42C3 (blit), x+=6, blank padding; sibling of 24:494C and 28:41CB (same loop, not byte-identical); executed
+52EA	Mailbox_BlitGlyphAdvance	function	CONFIRMED	Blits glyph buffer $C0A0 via 7F:42C3 at the text position and advances x by 6; helper of Mailbox_DrawTextLine; executed
+52FE	Mailbox_DrawMailCount	function	CONFIRMED	Shows the number of mails (Mailbox_CountRecords, 0-12) as two digit tiles ($E0+digit) at VRAM $98CE and WRAM7 $D0CE (the 'NN/12' counter of the screen); executed in mail_inbox
+534C	Mailbox_UploadTextTiles	function	CONFIRMED	Copies the text tile buffers of WRAM bank2 (D000,D400,D800,DC00) to VRAM $9000/$9400/$8800/$8C00 via Gfx_StartHDMAAtVBlank (25:538A); executed in 5 scenarios
+538A	Gfx_StartHDMAAtVBlank	function	CONFIRMED	HL=source, DE=VRAM dest, C=blocks-1: rHDMA1-4 set, wait LY=$8F then LY=$91, rHDMA5=C&$7F (general purpose HDMA); library used by 22:48B3/48C1, 23:47A2/47B0, 2B:47C2, 2C:66F4 and this bank; executed in 12 scenarios
+53AA	Mailbox_ShowHint	function	CONFIRMED	D=-1..3 (message D+1 of table 25:53D0): renders the 20-cell hint text into WRAM2 $DA00/$DB40 via 48:403E (select mail / read / reply / delete / no mail); executed in mail_inbox
+53D0	Mailbox_HintTable	table	PROBABLE	5 words -> the five hint strings 25:53DA/5403/542C/5455/547E; read by 25:53B2 (ld hl,$53D0)
+53DA	Mailbox_Hint_SelectMail	string	PROBABLE	'メールを せんたくしてください' = select a mail (hint index 0, shown in the delete-selection mode)
+5403	Mailbox_Hint_Read	string	CONFIRMED	'もらったメールを よみます' = read the received mail (hint for icon 0)
+542C	Mailbox_Hint_Reply	string	CONFIRMED	'このメールに へんじをかきます' = write a reply to this mail (hint for icon 1)
+5455	Mailbox_Hint_Delete	string	CONFIRMED	'このメールを けします' = delete this mail (hint for icon 2)
+547E	Mailbox_Hint_NoMail	string	CONFIRMED	'メールが ありません' = there is no mail (hint index 4, shown when the mailbox is empty)
+54A7	Mailbox_ReplyToRecord	function	PROBABLE	Reply: clears WRAM1 $D400 x$124, copies record+$ED (40 B ASCII address) to $D4C0 and record+$C9 (16 B name) to $D514, sets $D524=3/index, then farcalls 2D:65B0, 2C:4000, 2D:4722; A=$FF if cancelled
+5569	Mailbox_RecordAddrs_5569	table	PROBABLE	copy of the 12-word mail record address table; read at 25:54E2 (reply)
+5581	Mailbox_ShowRowNumbers	function	CONFIRMED	B=scroll: copies 4 number tiles VRAM $8700+16*B -> $8010, parks the 4 row-number sprites (DA50-DA80) then shows as many as there are mails (objects 26:7B60-7B90 = digits 1-4 at y=$38/$44/$50/$5C); executed in mail_inbox
+5641	Mailbox_ShowRowStatusIcons	function	CONFIRMED	Shows one envelope sprite per visible mail (slots DA90-DAC0; object 26:7BB0 open envelope, or 26:7BA0 closed when Function_25_5848 returns $FF) and the cursor-row variants 26:7BC0/7BD0; executed in mail_inbox
+5848	Function_25_5848	function	HYPOTHESIS	A+B=record index: returns $FF if record byte0 == 1 else 0; selects the closed-envelope object; idea: byte0==1 marks an unread/new mail (default records hold 01)
+5871	Mailbox_RecordAddrs_5871	table	CONFIRMED	copy of the 12-word mail record address table; read at 25:585C (Function_25_5848)
+5889	Mailbox_SetIconBarAttrs	function	PROBABLE	A=0..2: copies two 20-byte BG attribute rows of 25:58ED/591D/594D to VRAM bank1 $99C0/$99E0 (and WRAM7 $D5C0/$D5E0), i.e. the palette/enable state of the three-icon bar; executed in mail_inbox
+58E7	Mailbox_IconBarAttrTable	table	PROBABLE	3 words -> the 48-byte attribute blocks 25:58ED/591D/594D (2 rows x 24 B, 20 used); read by 25:5891
+58ED	Mailbox_IconBarAttrs	data	PROBABLE	12 rows x 24 B of BG attributes ($09/$0B/$0C/$29); copied 20 bytes per row by Mailbox_SetIconBarAttrs
+5A10	Mailbox_Tiles_5A10	data	CONFIRMED	1024 B tiles: executed 00:0749 HDMA at 25:4B5C to VRAM bank1 $9300 (mailbox frame/title art)
+5E10	Mailbox_Tiles_5E10	data	CONFIRMED	256 B tiles: executed HDMA at 25:4B71 to VRAM bank1 $9700
+5F10	Mailbox_Tiles_5F10	data	PROBABLE	1024 B tiles for the delete-selection mode (C264=$FF): HDMA at 25:4C04 to VRAM bank1 $9300 (rendered with tilemap 66E0: 'けすメールをえらんでね')
+6310	Mailbox_Tiles_6310	data	PROBABLE	256 B tiles: HDMA at 25:4C19 to VRAM bank1 $9700 (delete-selection mode)
+6410	Mailbox_Tilemap_Normal	data	CONFIRMED	20x18 map + attributes of the mailbox (rendered: title 'メールボックス', 'ニックネーム', 年月日時分, counter 00/12, 3 icons); copied by 00:08EA at 25:4BC4
+66E0	Mailbox_Tilemap_DeleteSelect	data	PROBABLE	20x18 map + attributes of the delete-selection mode (rendered: 'けすメールをえらんでね' header); copied at 25:4C6C when C264=$FF
+69B0	Mailbox_BgPalette	data	CONFIRMED	64 B BG palettes copied to WRAM7 $D800 by 4F:4000 at 25:4B33/4BDB/4C80; read as data by executed code
+69F0	Mailbox_Tiles_69F0	data	CONFIRMED	768 B tiles: HDMA at 25:4B86 to VRAM bank0 $8000 (list/sprite art); executed
+6CF0	Mailbox_Tiles_6CF0	data	CONFIRMED	512 B tiles: HDMA at 25:4BB0 to VRAM bank0 $8D00; executed
+6EF0	Mailbox_ObjPalette	data	CONFIRMED	64 B OBJ palettes copied to WRAM7 $D840 by 4F:4000 at 25:4B47/4BEF; read as data by executed code
+6F30	MailServerStatus_Tiles_6F30	data	CONFIRMED	1024 B tiles: HDMA at 29:4662 (29:4608) to VRAM $8800 (mail server status screen)
+7330	MailServerStatus_Tiles_7330	data	CONFIRMED	1024 B tiles: HDMA at 29:4674 to VRAM $8C00 (mail server status screen)
+7730	MailServerStatus_Tilemap_Received	data	CONFIRMED	20x18 map+attr loaded at 29:46AB when C264=0 and the received count [D625] is not 0/$FF (executed in mail_receive); rendered: 'メールサーバじょうきょう', 3 rows checked/other-software/on-server mails, 'A とどいたメールをみる'
+7A00	MailServerStatus_Tilemap_NoneReceived	data	CONFIRMED	20x18 map+attr loaded at 29:46BF when C264=0 and [D625] is 0 or $FF (executed in mail_send): same screen with the prompt 'A メニューにもどる'
+7CD0	MailServerStatus_Tilemap_ServerMgmt	data	CONFIRMED	20x18 map+attr loaded at 29:46D3 when C264 != 0 (modes 1/2, executed in mail_server*): rows 'チェックしたメール / けしおわったメール / サーバにあるメール' + 'A メニューにもどる'

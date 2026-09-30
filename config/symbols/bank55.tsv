@@ -1,0 +1,62 @@
+# addr	name	type	status	evidence
+# namer 5/8 (docs/research/naming_g5.md): semantic names need >= 2 independent evidence pieces; rows with a generic name document behaviour without asserting a purpose
+4000	Table_Kbd_StartCell	table	PROBABLE	Per keyboard type 0-9 (index wRam_C2AB) the initial cursor cell ($14,0,3,0,0,0,0,0,0,0), read by Kbd_Open (ld hl,$4000 ; add a,l) into wRam_C2B5; cell index = row*18 + column
+400A	Table_Kbd_OkCell	table	PROBABLE	Per keyboard type 0-9 the cell of the OK key ($34,$46,$46,$58 x7); Start jumps the cursor there (55:5DCC, ld hl,$400A ; add a,l), also used by Kbd_Run (55:5CBC, 55:5CE0) to start on the OK cell
+4014	Table_Kbd_PagePointers	table	PROBABLE	Words 0-9 (index = keyboard type C2AB) point to page-pointer arrays stored in the same table: $4028 (type 0), $402A.. one page for types 1-5, $4034 (type 6, 4 pages), $403C (types 7, 8: 4 pages), $4044 (type 9); read by Kbd_FetchCell
+4046	Data_Kbd_Page_Digits	data	PROBABLE	Type 0 page: 3 rows x 18 cells of 2 bytes (kind,value): digits 1-5 / 6-9,0 and the special keys FF83 and FF82; ASCII cells are 00 xx; decoded by hand from the bytes
+40B2	Data_Kbd_Page_IdChars	data	PROBABLE	Type 1 page: 12345 67890 / abcde fghij / klmno pqrst / uvwxy z.@-_+ plus FF83/FF82 (lower-case letters, digits and . @ - _ +); Kbd_RejectSymbol filters the five symbols for type 1
+4142	Data_Kbd_Page_PhoneKeypad	data	PROBABLE	Type 2 page: telephone keypad 1 2 3 / 4 5 6 / 7 8 9 / * 0 # plus FF83/FF82
+41D2	Data_Kbd_Page_Ascii3	data	PROBABLE	Type 3 page: ABCDE abcde Z01234 / FGHIJ fghij z56789 / KLMNO klmno [space key 01 20] / ... FF83/FF82 (upper case, lower case, digits, with a space key)
+4286	Data_Kbd_Page_Ascii4	data	PROBABLE	Type 4 page: same letters and digits as type 3 without the space key
+433A	Data_Kbd_Page_Ascii5	data	PROBABLE	Type 5 page: same letters and digits as type 4 (type 5 is the keyboard opened from bank 57)
+43EE	Data_Kbd_Page_T6_Hiragana	data	PROBABLE	Type 6 page 0 (page array at $4034): hiragana grid あいうえお..ん゛゜ plus space [01 20], newline [01 0D] and FF83/FF82; cells are (SJIS lead,trail) pairs, 5 rows x 18
+44A2	Data_Kbd_Page_T6_Katakana	data	PROBABLE	Type 6 page 1: katakana grid アイウエオ.. with the same layout as the hiragana page
+4556	Data_Kbd_Page_T6_FullWidthAlnum	data	PROBABLE	Type 6 page 2: full-width Latin letters (upper and lower case), digits and .,!?:/@-_+
+460A	Data_Kbd_Page_T6_Symbols	data	PROBABLE	Type 6 page 3: full-width symbols (+-=#$ %&!? ... brackets, arrows, stars, squares)
+46BE	Data_Kbd_Page_T78_Hiragana	data	PROBABLE	Types 7 and 8 page 0 (page array at $403C): same hiragana content as type 6 page 0 with a different neighbour table (Data_55_576A)
+4772	Data_Kbd_Page_T78_Katakana	data	PROBABLE	Types 7/8 page 1: katakana
+4826	Data_Kbd_Page_T78_FullWidthAlnum	data	PROBABLE	Types 7/8 page 2: full-width alphanumerics
+48DA	Data_Kbd_Page_T78_Symbols	data	PROBABLE	Types 7/8 page 3: full-width symbols
+498E	Data_Kbd_Page_T9_Ascii	data	PROBABLE	Type 9 page (single): ASCII cells 00 xx: A-Z a-z 0-9 and . @ - _ + plus FF83/FF82; used by the mail address keyboards (banks 2D/2F)
+4A42	Table_Kbd_NeighbourRecords	table	PROBABLE	10 word pointers (index = keyboard type) to blocks of 6-byte cell records: bytes 0-3 = neighbour cell for Left/Right/Up/Down, 4-5 = wrap flags (e.g. cell 0 of type 7: 11 01 48 12); read by Kbd_MoveCursor; types 7 and 8 share one block
+5BA2	Kbd_Open	function	CONFIRMED	A=keyboard type (C2AB, 0-10), B=mode (C2AF: 0 = Kbd_Run slides the panel in, 2 = shown here at once), C!=0 loads the remembered input mode (Kbd_LoadInputMode): page 0, start cell, tiles, palettes, panel map, cursor; 19 callers, 23 scenarios
+5C8F	Kbd_Run	function	CONFIRMED	Input loop (C -> C2B4, B -> C2B3 for type 5): D-pad moves, A picks the cell (C2AE/C2AD), B, Select = next page, Start = OK cell; returns A: 1 char, 2 B, 3 newline key, 7/8 keys $82/$83, $0A Select (type 5); type 10: 4/5/6 or 9; 23 scenarios
+5D49	Kbd_Run_Loop	label	PROBABLE	Frame of the input loop: Kbd_DrawGlyphPreview, sprite engine, VBlank wait (00:044B or 00:0464 by Kbd_TypeWaitsWithService), joypad decode (hJoyPressedRepeat bit0 A, bit1 B, bit2 Select, bit3 Start, bit4 right, bit5 left, bit6 up, bit7 down)
+5E5D	Kbd_Run_ButtonA	label	PROBABLE	A pressed: kind byte C2AE: 0 ASCII, 1 control ($0D newline, $20 space), $FF special key ($80 space, $81 newline, $82 = OK icon, $83 = back-arrow icon, as rendered from bank 66), else a Shift-JIS lead byte; sets the return code
+5F35	Kbd_FetchCell	function	PROBABLE	Follows Table_Kbd_PagePointers[C2AB] -> page[C2AC] -> cell C2B5 (2 bytes each) and stores the pair in C2AE (first byte) and C2AD (second byte), then requests a glyph redraw; 6 internal callers
+5F66	Kbd_MoveCursor	function	PROBABLE	A=direction 0 left, 1 right, 2 up, 3 down: sound $29 (00:20AC), reads the 6-byte record of Table_Kbd_NeighbourRecords for the cell (neighbour to C2B6, flag bytes to C2B7/C2B8), dispatches via Table_55_5FC8 and sets the new cell C2B5
+6068	Function_55_6068	function	PROBABLE	Second half of a cursor move: C2BD/C2BE := $FF, then per direction (Table_55_6087, or Table_55_60F1 on special-key cells) and the record flag byte C2B8 stores the current column/row into C2BD/C2BE (remembered position for wide keys)
+6149	Kbd_SplitCursorIndex	function	PROBABLE	Splits the cursor cell C2B5 by repeated subtraction of 18 (the panel is 18 columns wide): C2BA = column, C2BB = row; callers Kbd_UpdateCursorSprite and the move handlers
+615F	Kbd_IndexToColRow	function	PROBABLE	A=cell index: returns B=column (A mod 18), C=row (A div 18)
+616D	Kbd_ColRowToIndex	function	PROBABLE	B=column, C=row: returns A = row*18 + column (00:0BE8 Multiply16)
+6190	Kbd_UpdateCursorSprite	function	PROBABLE	Cursor pixel position x = col*8 + bx, y = row*16 + by (bases = word at $62A0 + 2*type) into C284/C285; selects the cursor anim (slot DAB0, 5F:4CF8: $81, or $82 on special keys with offsets from $62B4) and the DAA0 marker on cells FF82/FF83
+6318	Kbd_SlideIn	function	PROBABLE	Sound $34 (00:20AC), window on (LCDC bit5), WY lowered by 8 per frame from $90 to the type's target (Kbd_GetSlideTargetY) while per-type bank-7F routines animate the panel; then Kbd_ShowPageIndicator; caller Kbd_Run (C2AF=0)
+63E7	Kbd_ShowInstant	function	PROBABLE	Waits one frame, sets WY to the target of Kbd_GetSlideTargetY and enables the window, then Kbd_ShowPageIndicator: shows the keyboard without the slide; called by Kbd_Open when C2AF==2
+640E	Kbd_GetSlideTargetY	function	PROBABLE	Returns A = [$641C + C2AB]: window Y after sliding in ($28 for types 0-5, $38 for types 6-10)
+6427	Kbd_SlideOut	function	PROBABLE	Clears sprite slots DAA0..DAD0, sprite pass and VBlank wait, then raises WY by 8 per frame up to $90 (sound $35, per-type bank-7F step) and disables the window; 6 internal callers
+651C	Kbd_HideInstant	function	PROBABLE	Clears sprite slots DAA0..DAD0, runs the sprite pass, waits for VBlank and clears LCDC bit5 (window off): hides the keyboard at once; 16 callers in banks 2A/57/67/68
+6559	Kbd_Hide	function	PROBABLE	Kbd_SlideOut then C2AF=0 (keyboard closed); callers 2A, 2C, 2D, 2F, 57 after input ends
+65DA	Kbd_TypePickerLoop	function	PROBABLE	Keyboard type 10 (picker): Left/Right change the choice C2BC 0-2 (sound $29), A returns 1, B returns 0; Kbd_Run's type-10 path (55:6563) then returns Data_55_65D7[C2BC] = 4/5/6 or 9 for B; 7 scenarios
+667B	Kbd_UpdatePickerSprites	function	PROBABLE	Positions the picker cursor sprite (x from Data_55_66C0[C2BC]) and the tab sprite (from Data_55_66C3), then Kbd_LoadPickerTabTiles; used by Kbd_TypePickerLoop
+66C6	Kbd_LoadPageGraphics	function	PROBABLE	A=1 also rebuilds the panel map (FFB0): jumps through Table_55_66D9 by keyboard type and page C2AC to HDMA the tile pages ($8801/$8C01/$9001 from banks 5D/5E/5F/62/66) and the panel map, then Kbd_UploadPanelMap13Rows/11Rows; 23 scenarios
+6AF0	Kbd_UploadPanelMap11Rows	function	PROBABLE	Uploads the panel map ($D240 tile ids, $D640 attributes, 11 rows of 32 = $16 blocks) to the window tile map ($9C00 or $9800 by LCDC bit6) through HDMA (00:0787 or 00:0749); used by the 11-row keyboards
+6B51	Kbd_UploadPanelMap13Rows	function	PROBABLE	Same as 55:6AF0 for 13 rows ($1A blocks, panel maps loaded with bc=$0D14); 6 internal callers
+6BB2	Kbd_ShowPageIndicator	function	PROBABLE	If Kbd_TypeHasPages: sprite slot DAC0 from anim 5F:4D04 (variant C2AC+1) at (Y=$88, X=8) = the page number marker; 3 internal callers
+6BD7	Kbd_LoadPickerTabTiles	function	PROBABLE	Loads the tile block Data_55_6C0A[C2BC] ($6A90/$6D10/$6F90 in bank 66) to VRAM $8801 ($28 blocks) for the type-10 picker
+6C10	Kbd_RequestGlyphRedraw	function	PROBABLE	Sets wRam_C2B2 = 1 (the highlighted character changed and its preview glyph must be redrawn); 2 internal callers
+6C16	Kbd_DrawGlyphPreview	function	PROBABLE	If C2B2: turns the current cell (C2AE/C2AD) into a Shift-JIS pair (ASCII via Text_HalfToFullWidth; $0D/$20 -> $83C0/$83BF), fetches its glyph with 48:4748 and uploads it to VRAM $8241, positions sprite slot 11 from C284/C285; clears C2B2
+6CC6	Text_HalfToFullWidth	function	CONFIRMED	A=byte $20-$FF: returns BC = Shift-JIS pair from Table_Text_HalfToFullWidth[(A-$20)*2] (ASCII to full-width, half-width katakana to full-width katakana); callers 55:6C28, 54:50E5 (mail names), bank 57; 21 scenarios
+6CD4	Table_Text_HalfToFullWidth	table	CONFIRMED	224 Shift-JIS pairs for the bytes $20..$FF: $20 -> 8140, $21 -> 8149 ... $41-$5A -> Ａ-Ｚ, $61-$7A -> ａ-ｚ, $A1-$DF -> 。「」、・ヲァ.. half-width katakana to full-width, blanks elsewhere; verified by decoding all pairs with cp932
+6E94	Kbd_TypeHasPages	function	PROBABLE	A=keyboard type: returns the byte of Data_55_6E9F (1 for types 6,7,8): gates the Select page switch (handler 55:5E02) and Kbd_ShowPageIndicator; = the types that own 4 pages in Table_Kbd_PagePointers
+6EAA	Function_55_6EAA	function	PROBABLE	A=keyboard type: returns Data_55_6EB5[A] (1 for types 6-10); when C2AF==2 Kbd_Run first places the cursor on the OK cell (Table_Kbd_OkCell) for those types (55:5CBC)
+6EC0	Function_55_6EC0	function	PROBABLE	A=keyboard type: returns Data_55_6ECB[A] (1 for types 0-5); with C2B4!=0 Kbd_Run places the cursor on the OK cell (Table_Kbd_OkCell) first (55:5CE0)
+6ED6	Function_55_6ED6	function	PROBABLE	A=keyboard type: returns Data_55_6EE1[A] (1 for types 5-10); when set Kbd_Open loads the extra palette 5F:4CD0 into $D830 and uploads it
+6EEC	Function_55_6EEC	function	HYPOTHESIS	byte-exact sibling of the lookup routines (table Data_55_6EF7: 0 x6, 1 x5); only caller is the unreferenced 55:5DF5; not executed
+6F02	Function_55_6F02	function	PROBABLE	A=keyboard type: returns Data_55_6F0D[A] (1 for types 5,6,8,9); when set special key $82 closes the keyboard and Kbd_Run returns 7
+6F18	Function_55_6F18	function	PROBABLE	A=keyboard type: returns Data_55_6F23[A] (1 for types 5-9); when set special key $83 closes the keyboard and Kbd_Run returns 8
+6F2E	Kbd_TypeWaitsWithService	function	PROBABLE	A=keyboard type: returns Data_55_6F3B[A] (1 for types 0-5); all 14 callers choose 00:044B (VBlank wait + frame service) when it is non-zero, else 00:0464 (VBlank only)
+6FA1	Kbd_RejectSymbol	function	PROBABLE	Looks up C2AD in the list $6FC7 "@.-_+": on a hit plays sound $31 and returns 1 (Kbd_Run then ignores the key); called only for keyboard type 1 (55:5F09)
+6FCD	Kbd_ShowMarkerSprite	function	PROBABLE	Starts sprite slot DAD0 (anim 5F:4D38) at Data_55_6FF4[type]; banks 67/68 call it while the entered text is shorter than a threshold (TextBuf_GetLength < 1 or < 9), Kbd_Run for type 5; what the marker means is unproven
+7000	Kbd_HideMarkerSprite	function	PROBABLE	Clears sprite slot DAD0 (00:09E6), counterpart of Kbd_ShowMarkerSprite: banks 67/68 call it once the entered text reaches the threshold length (>= 1 or >= 9 characters), Kbd_Run for type 5
+7007	Kbd_LoadInputMode	function	PROBABLE	A=0: C2BC=0, else C2BC = SRAM bank1 $BF05 (SRAM enable/bank saved and restored around the read); read from Kbd_Open with C
+7048	Kbd_SaveInputMode	function	PROBABLE	Stores C2BC into SRAM bank1 $BF05 (saving and restoring SRAM enable/bank); called after the type-10 picker closes

@@ -1,0 +1,37 @@
+# analysis/naming/ram_g8.tsv -- RAM name proposals of namer 8/8 (banks 74 7C 7D 7E 7F); config/ram format: addr name size type status evidence
+# NOT merged into config/ram: the orchestrator reconciles them with the existing rows ("replaces X" = current neutral name).
+# WRAM D000-DFFF rows are size 1 on purpose (banked memory, see docs/research/ram_names_reconciliation.md); the true extent is in the evidence.
+# Verifier note: D300-D3BF / D600-DFFD proposals are WRAM bank 6 only and overlap other passes' names for the same addresses in other banks (e.g. wMail_TextBuffer D024, bank-dependent); C2C3 = wCommSessionKind (config/ram) is what Charset_ConvertPage tests.
+# Independent agreement (not repeated as rows): C0D3 = wSplitScrollY, D724 = wStatSplitLine, D824 = wStatIrqServiceFlag (ram_g4.tsv);
+#   C267/C268 = wTimerBSeconds/wTimerBMinutes (ram_g7.tsv); C2D5/C2D6 = wTimerASeconds/wTimerAMinutes (ram_g2.tsv, ram_g7.tsv).
+#   Bank 7F evidence for them: 7F:7271 zeroes C0D3 and sets D824=1; 7F:733A/7425/7578/76C4 add/subtract C0D3; 7F:61FF zeroes C266-C268; 7F:59D4-59E4 (unreferenced) compares C2D5/C2D6.
+# addr	name	size	type	status	evidence
+C0A0	wGlyphBufLeft	24	array	PROBABLE	replaces wRam_C0A0: 24-byte glyph buffer (12 rows x 2 plane bytes) = left 6-px half: filled by 7F:4007 (ASCII) and 7F:405F (BC from 00:1044), blitted by 7F:42C3 (00:10C6/1059); also scratch (7F:4C42, 00:0E7E)
+C0B8	wGlyphBufRight	24	array	PROBABLE	replaces wRam_C0B8: second 24-byte buffer = right 6-px half of a wide glyph (DE argument of 7F:405F at 00:104B, blitted 6 px further right at 00:1079-109D); adjacent to wGlyphBufLeft (C0A0+24)
+C0D0	wGlyphMaskCur	1	byte	PROBABLE	replaces wRam_C0D0: AND mask (bits kept) for the current tile byte, loaded from Canvas_BlitMaskCur[x&7] at 7F:4311-4316, read by every row step of 7F:42CA (24 reads)
+C0D1	wGlyphMaskNext	1	byte	PROBABLE	replaces wRam_C0D1: AND mask for the next tile byte (glyph spill), loaded from Canvas_BlitMaskNext[x&7] at 7F:4319-431E, read by every row step of 7F:42CA
+C2E1	wJoyRepeatDelay	1	byte	PROBABLE	replaces wRam_C2E1: initial auto-repeat delay in frames: stored by Joypad_SetRepeatTiming (7D:7C00-7C03, B) and reloaded into a button's counter while it is released (7D:7BD4-7BE4); screens set B=$14/$15
+C2E2	wJoyRepeatInterval	1	byte	PROBABLE	replaces wRam_C2E2: auto-repeat interval in frames (C of Joypad_SetRepeatTiming, 7D:7C00-7C06); reloaded when a held button's counter reaches 0 (7D:7BE0-7BE1); screens set C=$02/$03
+C2E5	wJoyRepeatCounters	8	array	PROBABLE	replaces wRam_C2E5: 8 per-button auto-repeat counters (bit order of hJoyHeld from bit 0), initialised to the delay by Joypad_SetRepeatTiming (7D:7C09-7C0F), stepped by Joypad_UpdateUnsaved (7D:7BCD-7BE8)
+C2C1	wHtmlFlags	1	byte	PROBABLE	replaces wRam_C2C1: parser flags: bit0 <html> seen (tested by 4C:456A/5187), bit1 in <head> (meta only then), bit2 <body> (only set by unreachable 74:464A, so never), bit3 in <pre> (CR/LF/TAB kept, 74:4359-4372); 74:4623/462E/464A/4666
+C330	wHtmlBrClear	1	byte	PROBABLE	replaces wRam_C330: <br clear=> value 0 none, 1 left, 2 right, 3 all (Html_ClearValueNames); index of Html_BrClearJumpTable (74:4BB9 store, 74:4BE6 load); bank 51 reuses it as scratch
+C335	wHtmlScanOnly	1	byte	PROBABLE	replaces wRam_C335: 0 = full parse+layout (Html_ParsePage 74:4220), $FF = scan only (Html_ScanPage 74:426E); non-zero makes 74:5417, 5440 and 529F return at once and routes <img> to the URL list (74:4DF9)
+C336	wHtmlLinkHeapPtr	2	word	PROBABLE	replaces wRam_C336 (+C337): next free byte of the link string heap in WRAM bank 6 ($D800 at start, 74:5A96; $E0xx = full, tests at 74:4AF4/4B38); advanced by Html_Tag_A
+C338	wHtmlBoldCount	2	word	PROBABLE	replaces wRam_C338 (+C339): number of open <b> tags: +1 on <b> (74:4A6D-4A7E), -1 on </b> (74:4A3E-4A55); the style bits hRam_FFB2&3 follow it
+C33A	wHtmlListCounter	2	word	PROBABLE	replaces wRam_C33A (+C33B): current list item counter, high byte bits 0-5 ($3F00 = bullet mode set by <ul>, 1 set by <ol>); printed/incremented by Html_Tag_Li (74:4959-4A27, capped at 99), pushed on <ul>/<ol>
+C33C	wHtmlAlign	1	byte	PROBABLE	replaces wRam_C33C: current horizontal alignment in bits 2-3 (04 right, 08 centre, 0C left), set by <center>/<div align=> (74:47A3), read by the layout (74:4CB2, 4D2D-4D3B, 5679); saved/restored through the align stack
+C33D	wHtmlAlignSp	1	byte	PROBABLE	replaces wRam_C33D: low byte of the align stack pointer ($D000+n in WRAM bank 6): push 74:4788-47A3 (<center>, <div align>), pop 74:4740-475F; 0 = empty, $FF = full
+C33E	wHtmlListDepth	1	byte	PROBABLE	replaces wRam_C33E: nesting depth of <ul>/<ol> = index of the saved counters at WRAM bank 6 $D100+2*n (push 74:47C3-47DF, 4886-48AD; pop 74:47F9-4853, 48D0-492B); $FF = full
+C340	wHtmlTitleBuf	32	array	PROBABLE	replaces wRam_C340: scratch for the page title (<=19 bytes + SJIS '...' $8163 + NUL) built by Html_StoreTitle (74:4592-45B9) before it is copied into the page header
+C380	wAttrUrlBuf	256	array	PROBABLE	replaces wRam_C380: text buffer for tag attribute values (00:1119 writes up to 255 bytes at DE=$C380) and for URLs (HtmlUrl_Resolve builds the absolute URL here, 74:5981; HtmlUrl_NormalizePath edits it); user of the same buffer in 4C
+D300	wHtmlMetaPppId	1	array	PROBABLE	WRAM bank 6 only, 64 bytes (D300-D33F, last byte cleared): <meta ppp_id=..> value (Html_MetaAttrNames 1) copied from $C380 by 74:46C1-46DC
+D340	wHtmlMetaRCode	1	array	PROBABLE	WRAM bank 6 only, 64 bytes (D340-D37F): <meta r_code=..> value ('ok'/'ng') copied at 74:46DE-46F9, tested by Html_MetaResultToError (74:416B)
+D380	wHtmlMetaDCode	1	array	PROBABLE	WRAM bank 6 only, 64 bytes (D380-D3BF): <meta d_code=..> value (hex digits) copied at 74:46FB-4716, parsed by Html_MetaResultToError (74:4184-41F0)
+D600	wHtmlLinkPtrList	1	array	PROBABLE	WRAM bank 6 only, up to 512 bytes: zero-terminated list of pointers to link/anchor strings ('/'-tagged href, '#'-tagged name) searched by Html_StringTable_Find (bc=$D600 at 74:4B05/4B59), emptied by 74:5A96; max 256 entries
+D800	wHtmlLinkHeap	1	array	PROBABLE	WRAM bank 6 only, $D800-$DFFD: heap of the link strings (heap end hl=$DFFE at 74:4B02/4B56) filled through [C336/C337] (wHtmlLinkHeapPtr)
+FFE1	hViewX	2	word	PROBABLE	replaces hRam_FFE1 (+FFE2): view origin X: 4E:5423 stores BC here, 74:4207/4254 call it with (0,0) via far call 4E:5423; 74:586E copies it as the left line limit
+FFE3	hViewY	2	word	PROBABLE	replaces hRam_FFE3 (+FFE4): view origin Y (DE of 4E:5423, read 12x in bank 4E)
+FFE5	hViewRight	2	word	PROBABLE	replaces hRam_FFE5 (+FFE6): FFE1 + width, width=$90 (144 px) passed by 74:4207/4254 to 4E:5435; right line limit used by 74:586E, 4CB6 (hr full width) and 5252
+FFE7	hViewBottom	2	word	PROBABLE	replaces hRam_FFE7 (+FFE8): FFE3 + height, height=$60 (96 px) from 4E:5435
+FFEB	hViewScrollMax	2	word	PROBABLE	replaces hRam_FFEB (+FFEC): maximum vertical scroll = max(0, page height FFC8/FFC9 - 96), computed at 74:43F4-4403 and read by the viewer (6 reads in bank 4E)
+FFED	hPageHeaderPtr	3	array	PROBABLE	replaces hRam_FFED/FFEE/FFEF: address (lo,hi) and WRAM bank of the page header/line table ($D000 bank 4): stored by 74:4207/4254 (and copied to FFB8-FFBA), read by 4E:544A (header+$15 record count, records at +$20)

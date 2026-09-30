@@ -1,0 +1,54 @@
+# Names for bank 72 (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4000	Dialog_ShowMonitored	function	PROBABLE	open message DE (D=list 0-3, E=index) with Dialog_Open, wait with Dialog_WaitInputMonitored, Dialog_Close; returns A=hFFF6 (0 cancel, 1/2 choice); callers 4E:4A26/4CC4/4EFF/4F9C/5181 (browser)
+4015	Dialog_Show	function	PROBABLE	Dialog_Open, Dialog_WaitInput (no connection monitoring), Dialog_Close; returns A=hFFF6; used by the mail/address-book banks (22:4044, 23:4044, 24:4F88, 25:426E, 2A:436D ... 2F:6EB0), 7C:7C4D, 7F:5D84, 50:4039
+402A	Dialog_Open	function	PROBABLE	D=list, E=index: record = Dialog_ListTable[D][E] ($86, type, default hFFF6, 16-char lines); saves BG under the window, loads window gfx, slides in (WY $90->$48/$38), draws lines with Function_48_403E, buttons by type
+41D8	Dialog_OpenTall	function	PROBABLE	variant of Dialog_Open for record types >= 3 (three text lines, map Dialog_WindowMapTall, window height $38)
+43A7	Dialog_SetupCursorByType	function	PROBABLE	jump on C2CD (record byte 1): 0/3 no button, 1/4 one button (tiles at $D248), 2/5 two buttons ($D245/$D24B) plus choice cursor by hFFF6; types 3-5 use the tall 3-line window
+4424	Dialog_DrawButtonTiles	function	PROBABLE	HL=map position, A=first tile id: writes a 4x2 tile block (ids A..A+3, A+$10..A+$13) and attrs $0F at +$400 into the window map; used for the OK/yes/no button labels at $D245/$D24B/$D248
+444F	Dialog_Close	function	PROBABLE	restores the saved background, slides the window out (WY -> $90) with Dialog_SlideOut, LCDC window off, hides the cursor sprite DAC0; callers 24:4130/4C88, 2E:4259/485B, 4E:4F67, 50:4030, 7F:50AA/5A44
+44E6	Dialog_CloseTall	label	PROBABLE	tall-window branch of Dialog_Close (type >= 3): restore $160-byte regions D0E0/D4E0, Dialog_SlideOut with script $4575
+4578	Dialog_WaitInput	function	PROBABLE	per frame: 00:0956, ConnIcon_LoadGraphicsIfRequested, VBlank wait, input (7D:7BA4/7BC1), JoypadDispatch table 4596: A -> 20AC(bc=$2D) hFFF6++, B -> bc=$2E hFFF6=0, Left/Right toggle hFFF6 for types 2 and 5
+4596	Dialog_WaitInputTable	table	CONFIRMED	JoypadDispatch table of Dialog_WaitInput: A (45EA), B (4606), two no-ops, default (45A0)
+461A	Dialog_WaitInputMonitored	function	PROBABLE	like Dialog_WaitInput but when wRam_C2CC bit4 (online at open) it also watches wTimerEnable: bit1 error -> hFFF6=5, bit4 lost -> 3, 10-minute warning (C26E/C2D6) -> 4
+4698	Dialog_WaitInputMonitoredTable	table	CONFIRMED	JoypadDispatch table of Dialog_WaitInputMonitored (46EC, 4708, 4702, 4705, 46A2)
+472B	Dialog_SaveBackground	function	CONFIRMED	copies BG map rows WRAM7 $D120/$D520 ($120 bytes each) to $D2E0/$D6E0 (saved area under the window)
+4749	Dialog_SaveBackgroundTall	function	CONFIRMED	like Dialog_SaveBackground for the tall window ($160 bytes from $D0E0/$D4E0 to $D2A0/$D6A0)
+4767	Dialog_RestoreBackground	function	CONFIRMED	inverse copy of Dialog_SaveBackground
+4785	Dialog_RestoreBackgroundTall	function	CONFIRMED	inverse copy of Dialog_SaveBackgroundTall
+47A3	Dialog_UploadWindowMap	function	PROBABLE	HDMA-uploads the 20x18 window map in WRAM7 $D180/$D580 to the window tilemap ($98/$9C00 chosen by LCDC bit6) via 00:08B7/0749
+47D4	Dialog_UploadWindowMapTall	function	PROBABLE	like Dialog_UploadWindowMap for the tall window ($D140/$D540, 22 columns)
+4805	Dialog_InitWindowRegs	function	PROBABLE	LCDC window map select, WX=7, WY=$90 (window hidden below the screen), frame service
+4824	Dialog_SlideIn	function	PROBABLE	HL=step script ($80 ends), C=axis mask: per step hFFF1 -= d, WY -= d, SCY += e with sprite update and frame wait (window moves up); sets C2CF=$FF meanwhile
+4872	Dialog_SlideOut	function	PROBABLE	inverse of Dialog_SlideIn (WY += d, SCY -= e); used with scripts $4572/$4575
+48C0	Dialog_WindowTiles	data	CONFIRMED	$400 bytes HDMA-loaded to VRAM $8800 (72:4069, 41F0)
+4CC0	Dialog_WindowMap	data	CONFIRMED	20x9 tilemap+attr copied to $D180 by Dialog_Open (rect copy 00:08EA at 72:408B)
+4E28	Dialog_Palette	data	CONFIRMED	$10 bytes copied to WRAM $D830 by Function_4F_4000 (72:4075)
+4E38	Dialog_ObjPalette	data	PROBABLE	8 bytes copied to $D860 (72:4097, bc=8)
+4E40	Dialog_CursorObjTable	table	PROBABLE	object table entry (dw 4E48, 4E6E) used with init_object_from_table(hl=DAC0, de=$4E40 a=$72) at 72:40CB (dialog cursor sprite, b=$81)
+4E73	Dialog_WindowMapTall	data	CONFIRMED	20x11 tilemap+attr of the tall window copied to $D140 (72:4212)
+502B	Dialog_ListTable	table	PROBABLE	4 list pointers (5033, 5035, 5063, 50BB) followed by the message pointers of lists 1 and 2 (73 words); used as ld hl,$502B ; add hl,bc*2 in Dialog_Open
+5033	Dialog_List0	table	PROBABLE	list 0: 1 message pointer (blank message record at 72:50BD)
+5035	Dialog_List1_Browser	table	PROBABLE	list 1: 23 message pointers (hang up/homepage/page list texts: 'でんわをきって ホームページをみます', 'もどれるページがありません'); used by 4E/50/7F callers with D=1
+5063	Dialog_List2_Mail	table	PROBABLE	list 2: 44 message pointers (mail/address book texts: 'かきかけのメールはきえてしまいます', 'メールアドレスはかならずかいてください', server mail); used by banks 22-2F with D=2
+50BB	Dialog_List3	table	PROBABLE	list 3: 1 message pointer (blank record 72:50BD)
+63D8	BrowserMenu_OpenTwoItem	function	PROBABLE	A=initial item: slides in the 2-item browser menu (tiles 7220/7620, map 7720, palette 7810), texts 'でんわをきります'/'トップメニューにもどります'; caller 4E:4D16 when wRam_C2C3==1 (settings CGI page session, scenario settings_cgi)
+6563	BrowserMenu_RunTwoItem	function	PROBABLE	input loop of the 2-item menu: Left/Right change hFFF6 (0..1), A confirms, watches wTimerEnable like Dialog_WaitInputMonitored; returns hFFF6: 0 B, 2 hang up, 3 top menu, 4 link lost, 5 time warning, 6 adapter error
+669F	BrowserMenu_DrawItemTwo	function	PROBABLE	A=item: records at BrowserMenu_TwoItemRecords (7 bytes: cursor pos, anim, pos2, text ptr): moves cursor sprites and renders the item text with Function_48_403E to VRAM $8C01
+6712	BrowserMenu_OpenThreeItem	function	PROBABLE	A=initial item: slides in the 3-item browser menu (tiles 6C10/7010, map 7110), items 'ページリスト', 'でんわをきります', 'ホームページをしゅうりょうします'; caller 4E:4D36 when wRam_C2C3==0 (homepage session)
+689F	BrowserMenu_RunThreeItem	function	PROBABLE	input loop of the 3-item menu: Left/Right cycle hFFF6 over 0..2, A confirms; returns hFFF6: 0 B, 1 page list, 2 hang up, 3 end homepage, 4 link lost, 5 time warning, 6 adapter error (targets of 4E:4D6D)
+69F3	BrowserMenu_DrawItemThree	function	PROBABLE	like BrowserMenu_DrawItemTwo with the 4 records of BrowserMenu_ThreeItemRecords
+6A6B	BrowserMenu_Close	function	PROBABLE	shared closing: window map restore, slide out ($6ADF), hides sprite DAC0, restores C2E3/C2E4 screen params; caller 4E:4D52
+6AEC	BrowserMenu_TwoItemRecords	data	PROBABLE	2 records of 7 bytes (dw cursor Y/X, db anim id, dw pos2, dw text ptr): $6830 hang-up (text 6AFA), $6860 return to top menu (text 6B23)
+6AFA	BrowserMenu_TwoItemTexts	string	PROBABLE	2 x 16-char centred lines (fullwidth): 'でんわを きります' and 'トップメニューに もどります'
+6B4C	BrowserMenu_ThreeItemRecords	data	PROBABLE	4 records of 7 bytes (as the 2-item table): items page list ($6820, text 6B68), hang up ($6848, 6B91), end homepage ($6870, 6BBA), placeholder ($6820, 6BE3)
+6B68	BrowserMenu_ThreeItemTexts	string	PROBABLE	'ページリストへの かきこみができます', 'でんわを きります', 'ホームページを しゅうりょうします' (16-char lines)
+6BE3	BrowserMenu_PlaceholderText	string	PROBABLE	20 fullwidth characters, blanks and '？' placeholders (record 3 of the 3-item menu; never selected)
+6C10	BrowserMenu3_Tiles0	data	CONFIRMED	$400 bytes HDMA to VRAM $8801 (72:6733 and 4E:61C1)
+7010	BrowserMenu3_Tiles1	data	CONFIRMED	$100 bytes HDMA to VRAM $8F01 (72:6745)
+7110	BrowserMenu3_Map	data	CONFIRMED	20x6 tilemap+attr copied to $D180 (72:6767)
+7220	BrowserMenu2_Tiles0	data	PROBABLE	$400 bytes HDMA to VRAM $8801 (72:640B)
+7620	BrowserMenu2_Tiles1	data	PROBABLE	$100 bytes HDMA to VRAM $8F01 (72:63F9)
+7720	BrowserMenu2_Map	data	PROBABLE	20x6 tilemap+attr copied to $D180 (72:642D)
+7810	BrowserMenu2_Palette	data	PROBABLE	3 palettes of 4 colours: first 16 bytes to WRAM $D830 (72:6417)
+7828	BrowserMenu_CursorObjTable	table	PROBABLE	17 four-byte entries (frame-list ptr, delay-list ptr) for init_object_from_table(de=$7828 a=$72): menu cursor sprites, used at 72:64C6 and 72:6802 (hl=DAC0) and 72:66BE (hl=DAD0)

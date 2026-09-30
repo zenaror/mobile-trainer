@@ -1,0 +1,43 @@
+# analysis/naming/ram_g1.tsv -- RAM name proposals of naming pass g1 (banks 04 0E 19 1A 1B 1C 1D 1F 22 23), config/ram format: addr name size type status evidence
+# NOT loaded by the generator; the orchestrator reconciles against config/ram.  WRAM D000-DFFF is banked: every SoundDrv row below is WRAM bank 1 (SVBK=1)
+# only (the sound stubs are always called with rSVBK=1: 00:0392, 1F:4000, 1D:4000 ...); the same CPU addresses hold unrelated data in other WRAM banks
+# (e.g. wRam_D041 in bank 7), so apply these names only to the code of bank 04 / bank 00 sound stubs, or keep them as documentation.
+# addr	name	size	type	status	evidence
+D005	wSoundDrv_SfxTempo	1	byte	PROBABLE	WRAM1. SFX group tempo byte: init $4A (04:4000), written by SoundDrv_CmdSetTempo when D000 bit5 (04:47E3), read by SoundDrv_UpdateTempoStep (04:47FB); replaces wRam_D005
+D006	wSoundDrv_SfxTempoScale	1	byte	PROBABLE	WRAM1. SFX tempo scale (init $40): stored by the param handler 04:4819 (from D039), multiplied with D005 by 04:47FB; replaces wRam_D006
+D007	wSoundDrv_SfxTempoStep	1	byte	PROBABLE	WRAM1. Effective SFX tempo step (init $4A) = D005*D006>>6 (04:47FB); added to the accumulator D008/D009 each frame by 04:4082; replaces wRam_D007
+D008	wSoundDrv_SfxTempoAccum	2	word	PROBABLE	WRAM1. 16-bit SFX tempo accumulator: += D007 per frame, a sequencer tick runs and $4A is subtracted while it is >= $4A (04:4082-40D0); replaces wRam_D008
+D00A	wSoundDrv_MusicTempo	1	byte	PROBABLE	WRAM1. Music group tempo byte (init $4A): written by 04:47E3 when D000 bit5 is clear, read by 04:47FB; replaces wRam_D00A
+D00B	wSoundDrv_MusicTempoScale	1	byte	PROBABLE	WRAM1. Music tempo scale (init $40): stored by param handler 04:4829 from D039; replaces wRam_D00B
+D00C	wSoundDrv_MusicTempoStep	1	byte	PROBABLE	WRAM1. Effective music tempo step (init $4A) written by 04:47FB, added to D00D/D00E by 04:40D0; replaces wRam_D00C
+D00D	wSoundDrv_MusicTempoAccum	2	word	PROBABLE	WRAM1. 16-bit music tempo accumulator, same scheme as D008 (04:40D0-4119); replaces wRam_D00D
+D00F	wSoundDrv_TrackCount	1	byte	PROBABLE	WRAM1. Track loop counter set by SoundDrv_SetTrackIterator (04:415F: 4 tracks per group), decremented by SoundDrv_NextTrack (04:4167); also OR-ed with $80 as SFX marker in 04:4ADD; replaces wRam_D00F
+D010	wSoundDrv_TrackPtr	2	word	PROBABLE	WRAM1. Pointer to the current track record (D040 + n*$3C); set at 04:415F/4167, loaded by ~30 routines (ld a,[D010] ; ld l,a ; ld a,[D011] ; ld h,a); replaces wRam_D010/D011
+D012	wSoundDrv_ChannelCount	1	byte	PROBABLE	WRAM1. Channel loop counter set by 04:41A2, decremented by SoundDrv_NextChannel (04:41AC); replaces wRam_D012
+D013	wSoundDrv_ChannelPtr	2	word	PROBABLE	WRAM1. Pointer to the current channel record (D220 + n*$18), advanced by $18 in 04:41AC, read by 04:4BC9/4C14/4E4B/4F97; replaces wRam_D013/D014
+D015	wSoundDrv_ChannelReg	1	byte	PROBABLE	WRAM1. Low address of the current channel's NRx2 register ($12,$17,$1C,$21): used as ldh [c] index in 04:4E4B/4F4F/4F97/4FD4 and compared with $1C (wave) / $17; replaces wRam_D015
+D017	wSoundDrv_HeaderPtr	2	word	PROBABLE	WRAM1. Pointer to the next track's stream word inside the song header being started (set by 04:430A, advanced by 2 in 04:4374, read by 04:434C); replaces wRam_D017/D018
+D019	wSoundDrv_UpdateFlags	1	byte	PROBABLE	WRAM1. Working copy of the flags byte of the track being processed (written back at 04:46E6): bits 0-2 = dirty flags (bit0 pan, bit1 volume, bit2 pitch), bit4 = per-note instrument mode (command $BE $64); set by ~20 handlers, consumed by 04:4668/4DB6; replaces wRam_D019
+D01A	wSoundDrv_TickDivider	1	byte	PROBABLE	WRAM1. Cycles $0E..0 once per frame (reload $0F at 0, 04:411C-412F); when it is 0 (one frame in 15) the channel counter at channel+$0C advances by 2 instead of 1 (04:4C44-4C4A); replaces wRam_D01A
+D01B	wSoundDrv_MusicId	2	word	PROBABLE	WRAM1. Id of the music being played (D01B lo / D01C hi), set by SoundDrv_PlayMusic and compared by 04:42C0/42D6/445C; replaces wRam_D01B/D01C
+D01D	wSoundDrv_WaveCache	1	byte	PROBABLE	WRAM1. Index of the wave pattern last copied to wave RAM (init $FF); 04:4EA9 skips the 16-byte copy when unchanged; replaces wRam_D01D
+D01F	wSoundDrv_StreamByte	1	byte	PROBABLE	WRAM1. Last byte read from a sound stream (04:459B/45B6); operand of the command handlers; replaces wRam_D01F
+D020	wSoundDrv_FadeSpeed	1	byte	PROBABLE	WRAM1. Fade-out speed (ticks per step) set by SoundDrv_StartFadeOut (04:452C); 0 = no fade; cleared by SoundDrv_PlayMusic (04:4287) and 04:442F; read by SoundDrv_UpdateFade; replaces wRam_D020
+D021	wSoundDrv_FadeCounter	1	byte	PROBABLE	WRAM1. Countdown of SoundDrv_UpdateFade (04:453A): reloaded with D020 by 04:452C, decremented per tick; replaces wRam_D021
+D022	wSoundDrv_FadeLevel	1	byte	PROBABLE	WRAM1. Fade volume level, starts at $40 (04:452C) and drops by 4 per step (04:4550) until it underflows; passed as value to SetTrackParam A=2; replaces wRam_D022
+D024	wSoundDrv_ActiveMask	1	byte	PROBABLE	WRAM1. Bit i = track i active (bit7 of its flags), low nibble SFX tracks, high nibble music tracks; rebuilt each tick (04:4138-4148), read by 04:42C0/42D6/444B/445C; replaces wRam_D024
+D025	wSoundDrv_MusicPaused	1	byte	PROBABLE	WRAM1. $FF while music is paused/fading finished (set by 04:4433), 0 after PlayMusic/Resume (04:4287/42EC); SoundDrv_UpdateFade returns while non-zero; replaces wRam_D025
+D038	wSoundDrv_ReqBC	2	word	PROBABLE	WRAM1. Copy of the BC argument (sound id in 04:41C0/4287/430A/434C, parameter value in 04:44B7); D038 lo, D039 hi; replaces wRam_D038/D039
+D03A	wSoundDrv_ReqDE	2	word	PROBABLE	WRAM1. DE argument of SetTrackParam (D03A = music track mask, D03B = SFX mask, 04:450D); also scratch: started-tracks mask / current bit in 04:4219 and instrument index in 04:4A81; replaces wRam_D03A/D03B
+D03C	wSoundDrv_HeaderTrackCount	1	byte	PROBABLE	WRAM1. Number of tracks left in the header being started (04:430A loads it, 04:4374 decrements); doubles as dirty-flag scratch in the param handlers (04:4840/4947); replaces wRam_D03C
+D03E	wSoundDrv_HeaderPriority	1	byte	PROBABLE	WRAM1. Priority byte of the loaded song header, compared with the running track's priority (track+8) in 04:41F9/4266 and stored by 04:434C; replaces wRam_D03E
+D03F	wSoundDrv_HeaderFlags	1	byte	PROBABLE	WRAM1. Flags byte of the loaded header: bit7 = start all tracks (04:4219), otherwise first SFX track index 0-3 (04:41CF); replaces wRam_D03F
+D040	wSoundDrv_Tracks	480	array	PROBABLE	WRAM1. 8 track records of $3C bytes: tracks 0-3 = SFX (D040-D12F), tracks 4-7 = music (D130-D21F); loops 'ld b,8 ; ld de,$003C ; ld hl,$D040' (04:4043, 4138), SoundDrv_SelectSfxTracks/MusicTracks; field +0 flags (bit7 active, bit6 running), +1 length counter, +2/3 stream ptr, +4/5 bank, +6/7 id, +8 priority, +$2C..$2F computed pitch/pan/volume; replaces wRam_D040-D21F
+D220	wSoundDrv_Channels	96	array	PROBABLE	WRAM1. 4 hardware channel records of $18 bytes (ch1 D220, ch2 D238, ch3 D250, ch4 D268): SoundDrv_Select*Channel* (04:4177-419B) and loops with 'ld de,$0018' in 04:41AC; +0 flags (bit7 active), +2 owner id (bit7 = SFX), +4/5 owner track pointer, +8.. duty/length, +$11 envelope; replaces wRam_D220..
+A8B8	sSram_MailMenuLastItem	1	byte	PROBABLE	SRAM bank 1 only. Last selected mail menu item: read at 1D:4000 (ReadByteFar hl=$A8B8, 0 -> item 1), written by MailMenu_OnA (item) and MailMenu_OnB (0) through 48:4616; replaces sSram_A8B8
+A8B9	sSram_TopMenuLastItem	1	byte	PROBABLE	SRAM bank 1 only. Last selected top menu item (1-3): read at 1F:4000, written by TopMenu_OnA (item) / TopMenu_OnB (0) through 48:4616; replaces sSram_A8B9
+BF00	sSram_TitleLastSelection	1	byte	PROBABLE	SRAM bank 1 only. Title menu selection (0 Start, 1 mobile settings): written from wRam_C27D at the end of Title_Run (0E:401E, doc sram_layout.md), read back by Title_StateLoadTitle (0E:411A); replaces sSram_BF00
+B0BF	sSram_SignupDebugFlag	1	byte	HYPOTHESIS	SRAM bank 1 only. Byte edited by the unreferenced debug screen DebugFlags_Run (19:4000, entry 0 of Table_DebugFlags_Entries, title '[sign-up debug flag]'); no other reader found; replaces nothing (no row)
+AFFE	sSram_Bank0Page0Checksum	2	word	CONFIRMED	SRAM bank 0. Little-endian additive checksum of $A000-$AFFD written by SramCheck_Bank0StorePageSum (22:4F24) and compared by SramCheck_VerifyAndRepairAll; replaces sSram_AFFE
+BFFE	sSram_Bank0Page1Checksum	2	word	CONFIRMED	SRAM bank 0. Checksum of the mirror page $B000-$BFFD (22:4F24 with A=1, 22:4EF0 reads it); replaces sSram_BFFE if present
+A8D7	sSram_Bank1BlockChecksum	2	word	CONFIRMED	SRAM bank 1. Little-endian checksum of $A000-$A683 + $A69D-$A87C: read by SramCheck_Bank1BlockSum (22:5035), written by SramCheck_Bank1StoreSum (22:5077); replaces sSram_A8D7

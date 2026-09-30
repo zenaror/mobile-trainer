@@ -1,0 +1,97 @@
+# analysis/naming/ram_sdk.tsv - PROPOSED RAM names for the Mobile Adapter SDK block (agent naming_sdk); NOT applied to config/ram.
+# Same columns as config/ram/*.tsv: addr name size type status evidence. A proposed row supersedes config/ram/sdk.tsv rows inside its range (several 1-byte rows are merged into words/arrays).
+# Rows D000-D625 are in WRAM BANK 5 (the mail-library callers in bank 54 set SVBK=5): they collide by address with unrelated bank-1 names in config/ram/rom0_ram.tsv (wBank4*), so they must be applied as banked names or kept as documentation.
+# Statuses: CONFIRMED = bytes/trace demonstrate it; PROBABLE = 2+ code evidences; HYPOTHESIS = weak. Crystal wMobileSDK_* names are imported from the community disassembly only where the code identity is proven (wMobileSDK_PacketChecksum, wMobileSDK_AdapterType, wMobileSDK_SendCommandID, ...Buffer names).
+# Tested: with config/ram/sdk.tsv replaced by the C6xx-C9E4 rows below (minus C69F, whose byte is already wTimerEnable in rom0_ram.tsv) the ROM still rebuilds identically. C6C1 keeps rom0 name wMobileFlags (bits: 0 status poll in flight/alt rx buffer, 1 byte in flight, 3 resend pending, 4 data-transfer (connected) mode, 5 tx pending, 6 inside MobileAPI, 7 prepared data packet); C825 keeps wMobileAPIIndex.
+# Adversarial re-check: the C6xx-C9E4 rows (minus C69F) were loaded as config/ram/sdk.tsv in a scratch config and `verify --strict` printed IDENTICAL; spot-checked roles (C6A8/C6AA/C6AB/C6AC/C6B2/C6B4 receive path, C6DD/C6F1 server names, C6D2 date pointer, C70F/C710 by adapter type) against the code. D002 in WRAM bank 5 is the mail selector although the generated source still shows the unrelated name wBank4SavedBankHi for it.
+addr	name	size	type	status	evidence
+C69F	wMobileSDK_Flags	1	byte	PROBABLE	SDK status flags (Crystal wc821): bit0 API busy (SetBusy 75:4437, tested by every API handler), bit1 event/error pending (SetErrorEvent 75:422A, cleared by PollResult 75:4115), bit2 more reply data pending, bit3 peer data pending, bit4 call active (RxDialReply 75:5D73 sets, RxHangUpReply 75:5BF3 clears), bits5-7 telephone-status class (75:5E26); Int_VBlank uses bit4/bit0 to gate the two comm-time clocks; same byte as rom0 name wTimerEnable (was wTimerEnable)
+C6A0	wMobileSDK_SerialPhase	1	byte	PROBABLE	serial engine phase: 0 idle, 1 transmitting a packet (PacketSendBytes 75:5F14), 3 receiving (75:56D2); bit0/bit1 tested first by MobileSDK_SerialReceive 75:56D2 (was wRam_C6A0)
+C6A1	wMobileSDK_TxRemaining	2	word	PROBABLE	bytes left of the packet being clocked out (16-bit LE, decremented per byte at 75:56DD; set by PacketSendBytes 75:5F3F)
+C6A3	wMobileSDK_TxPointer	2	word	PROBABLE	address of the next tx byte (MobileSDK_TxNextByte 75:5B2B reads it, advances it)
+C6A5	wMobileSDK_PrevPhaseCode	1	byte	PROBABLE	phase code saved by PacketSendBytes (75:5F55) before overwriting C6A7; restored by MobileSDK_RestorePhaseCode 75:5F01 and RxFinish 75:5D25
+C6A7	wMobileSDK_PhaseCode	1	byte	PROBABLE	phase code passed in B to PacketSendBytes: 1 BeginSession pending, 2 ready, 3 after logout/close, 4 after TCP-open/DNS/login reply, 5 request in flight, 6 error latched, 8 abort/timeout wait, $0A unknown reply (75:5F4E, set by the RX reply handlers 75:5BC7-5D6E); meaning of each value HYPOTHESIS (was wRam_C6A7)
+C6A8	wMobileSDK_AckBytes	2	array	PROBABLE	last two reply bytes of a sent packet: C6A8 = adapter ack (command^$80) or transport error $F0-$F2, C6A9 = adapter device id|$80 (SerialReceive 75:56F2)
+C6AA	wMobileSDK_RxIndex	1	byte	PROBABLE	receive byte index inside the current stage / magic-hunt index (75:5804, 75:58E5)
+C6AB	wMobileSDK_RxStage	1	byte	PROBABLE	receive stage: 0 magic ($99,$66), 1 header, 2 data, 3 checksum+ack, 4 complete (dispatch 75:57F4, complete handler 75:5B4A)
+C6AC	wMobileSDK_RxLength	1	byte	PROBABLE	received data length (low byte of header[3], stored at 75:5886)
+C6AE	wMobileSDK_ErrorCommand	1	byte	PROBABLE	first data byte of an adapter error packet = the command that failed; written by Mobile_GetErrorCode 75:5E61, only ever written
+C6AF	wMobileSDK_ErrorCode	1	byte	PROBABLE	last SDK error code ($10 no adapter, $12/$13/$17 dial, $14 config, $15 retries, $20/$21 argument/busy, $22-$26 ISP/TCP/timeout, $30-$33 mail/HTTP); returned by MobileAPI_PollResult
+C6B0	wMobileSDK_ErrorInfo	2	word	PROBABLE	extra error information returned in HL by PollResult: ack low nibble (75:57E1), server reply code (75:68D9); Pop3ReplyError 75:6A42 stores code, E, D at C6AF..C6B1
+C6B2	wMobileSDK_PacketChecksum	2	word	PROBABLE	running 16-bit receive checksum, big-endian (75:58D3); compared with the received checksum in RxTrailerByte; Crystal name wMobileSDK_PacketChecksum
+C6B4	wMobileSDK_RxChecksumError	1	byte	PROBABLE	set to 1 when the received checksum differs (75:58BB); tested by TxAckRxPacket 75:5AC7 to answer $F1
+C6B5	wMobileSDK_TimeoutCounter	3	array	PROBABLE	response time-out: C6B5 lo / C6B6 hi 16-bit down counter (one step per timer tick), C6B7 repeat count ($20, $60 for dial/TCP/DNS, $0B poll, $03 idle) (75:5753, 75:5A51)
+C6B9	wMobileSDK_RetryCount	1	byte	PROBABLE	resend/retry counter (75:57C3 increments, limit B=10 or 3; 75:5AD5 counts checksum retries)
+C6BA	wMobileSDK_ResendSize	2	word	PROBABLE	size of the last packet queued by PacketSendBytes (saved at 75:5F37 for resends)
+C6BC	wMobileSDK_ResendPointer	2	word	PROBABLE	data pointer of the last queued packet (75:5F2F), read by MobileSDK_ResendPacket 75:5A17 via ld hl,$C6BA
+C6BF	wMobileSDK_TimeoutReload	2	array	PROBABLE	reload value of the response counters: C6BF = count hi, C6C0 = count lo, loaded by MobileAPI_SetTimer 75:40FF from the timing table
+C6C2	wMobileSDK_IspIpAddress	4	array	PROBABLE	4 bytes copied from the ISP-login reply data (MobileSDK_RxIspLoginReply 75:5BDE)
+C6C6	wMobileSDK_ResultBufferPtr	2	word	PROBABLE	caller buffer whose first 2 bytes receive the received length (Pop3Retr/Top 75:4A8C, RxCopyToDest end 75:4AF9)
+C6C8	wMobileSDK_DestPointer	2	word	PROBABLE	current write pointer for reply data / config bytes (RxReadConfigReply 75:5BF9, RxDnsReply 75:5D2C, RxCopyToDest 75:5CED)
+C6CA	wMobileSDK_DestRemaining	2	word	PROBABLE	free space left at the destination pointer (reached as C6C8+2 by RxCopyToDest 75:5CCB and HttpReadBody 75:5049)
+C6CC	wMobileSDK_ReceivedLength	2	word	PROBABLE	bytes delivered so far to the caller buffer; copied into the buffer length prefix at the end (75:4B30)
+C6CE	wMobileSDK_ReplyTail	5	array	PROBABLE	last 5 bytes of the reply text seen by MobileSDK_TrackReplyTail 75:6832; ends checked for CR LF (75:67FA) and CR LF . CR LF (75:680C)
+C6D2	wMobileSDK_HttpDatePtr	2	word	PROBABLE	pointer to the caller date buffer taken from the request struct (HttpGet 75:4E2F / HttpPost 75:5203); written through by MobileSDK_HttpHdrDate 75:7026
+C6D4	wMobileSDK_ConfigCached	1	byte	PROBABLE	1 after the adapter config image was read and validated (75:7542); cleared by MobileSDK_ApiDispatch (75:4041) unless the API is $0C/$0E/$10
+C6D5	wMobileSDK_DnsServers	8	array	PROBABLE	DNS server pair (config image C723 copied at 75:62CE, or the caller pair of API $3E at 75:43A9); appended to the ISP-login packet
+C6DD	wMobileSDK_SmtpServerName	20	array	PROBABLE	NUL-terminated SMTP server name copied from config bytes 0x4A.. (MobileState_ConnectIsp 75:62CB copies $2C bytes to C708); passed to the DNS query by DnsAndTcpOpen service 0 (75:462C)
+C6F1	wMobileSDK_PopServerName	24	array	PROBABLE	NUL-terminated POP3 server name (rest of the $2C-byte copy); DnsAndTcpOpen service 1 (75:4633)
+C709	wMobileSDK_State	1	byte	PROBABLE	SDK high-level state: 1 idle, 2 connected, 3 SMTP session, 4 POP3 session, 5 error, >= $0A dispatched through MobileSDK_StateTable (75:614F)
+C70A	wMobileSDK_Substep	1	byte	PROBABLE	substep counter of the current state (incremented before each handler call, 75:617C)
+C70B	wMobileSDK_ConnectionId	1	byte	PROBABLE	TCP connection id from the Open-TCP reply (75:5BCA); placed in TransferData/Close-TCP packets
+C70C	wMobileSDK_ConnectionFlag	1	byte	PROBABLE	set to service index+1 when a TCP connection is open (75:64DC); cleared on close/loss
+C70D	wMobileSDK_ResultPointer	2	word	PROBABLE	caller result buffer pointer (Init DE / per-API DE); C70D also holds the service index 0/1/2 or $FF during connect (dual use, 75:461C, 75:4F..)
+C70F	wMobileSDK_TimingOffset	1	byte	PROBABLE	offset into MobileSDK_TimingTable chosen from the adapter type (12 Blue, 9 Yellow, 6 Red); passed to SetTimer by every API handler; stored by MobileState_IdentifyAdapter 75:61F1
+C710	wMobileSDK_DialAdapterByte	1	byte	PROBABLE	first data byte of the Dial packet by adapter type: 0 Blue, 2 Yellow, 1 Red/Green (75:6235); libmobile commands.c agrees
+C715	wMobileSDK_HttpRequestPointer	2	word	PROBABLE	pointer to the caller request struct of HttpGet/HttpPost (saved at 75:4EF4); +0 body/date, +2 URL
+C719	wMobileSDK_HttpPathLength	2	word	HYPOTHESIS	request path length computed by MobileSDK_UrlMeasurePath 75:51FB (weak: only its store 75:51FB seen)
+C71B	wMobileSDK_DataPointer	2	word	PROBABLE	dual use: HTTP POST body pointer (HttpAddContentLength 75:7416 restores it), SMTP recipient-list pointer (75:47D6); saved/restored around requests (75:7420)
+C71D	wMobileSDK_DataLength	2	word	PROBABLE	dual use: remaining POST body length (HttpSendBodyChunk 75:7444) / caller size arguments of API $04/$38
+C71F	wMobileSDK_Window	250	array	PROBABLE	adapter config image ("MA" magic, checksum at C7DD/E) on the connect/export paths and $FA-byte reply/receive window otherwise (cleared by ClearWindow 75:653C); size 250 from that clear loop
+C822	wMobileSDK_SavedState	1	byte	PROBABLE	state saved by MobileAPI_TelephoneStatus (75:555A) and restored by MobileState_TelephoneStatus (75:74A6)
+C826	wMobileSDK_HttpParseState	1	byte	PROBABLE	HTTP response parse state: 0 not started, 1 header lines, 2 body (75:6F77, 75:719B)
+C828	wMobileSDK_HttpStatus	2	array	PROBABLE	HTTP status code in BCD: C828 = tens/units, C829 = hundreds (ParseReplyCode result stored at 75:6F9A); 3 in C829 with 1/2 in C828 = redirect
+C82A	wMobileSDK_GbStatus	2	array	PROBABLE	value of the "Gb-Status:" response header (75:704E)
+C842	wMobileSDK_ContentLengthDigits	5	array	PROBABLE	5 ASCII digits of the POST body length (FormatContentLength 75:53CB); skipped zeros by HttpContentLengthLine 75:6706
+C84C	wMobileSDK_OpenTcpRetries	1	byte	PROBABLE	Open-TCP retry counter (75:64B1 compares with 5, 75:64B1 increments); cleared on success
+C852	wMobileSDK_HttpLineBuffer	122	array	HYPOTHESIS	holds the request struct pointer at entry (75:4E1A) and later the Authorization / Gb-Auth-ID line (75:7080, AuthBuildResponse 75:7683 output); extent C852-C8CB by the next variable, not measured
+C8CC	wMobileSDK_ReceivePacketBufferAlt	11	array	PROBABLE	rx buffer used for status-poll replies (RxStoreByte 75:5686), Crystal name
+C8D7	wMobileSDK_ReceivedBytes	2	word	PROBABLE	rx write index of the current packet (RxStoreByte 75:5671, reset by Mobile_ResetReceivePacketBuffer 75:402A)
+C8D9	wMobileSDK_ReceivePacketBuffer	250	array	PROBABLE	receive packet buffer: header[4] data checksum[2] ack[2] without the magic bytes; +3 = length, +4 first data byte
+C9E4	wMobileSDK_PacketBuffer	281	array	PROBABLE	transmit/build buffer for all packets; +0/+1 = final-state flags/state pair (SetFinalState 75:56B6, StopLink 75:569C)
+D000	wMail_InputBank	1	byte	PROBABLE	WRAM BANK 5 (bank-54 callers write SVBK=5 before 00:0247): SRAM bank currently read by the mail parsers; incremented by Mail_NextSramPage 75-style wrappers (0F:4338)
+D001	wMail_OutputBank	1	byte	PROBABLE	WRAM bank 5: scratch copy of the output SRAM bank (0F:48BE wrappers, 0F:4EA8)
+D002	wMail_Selector	1	byte	CONFIRMED	WRAM bank 5: selector in / result out of the mail library (00:0247, 00:0274, 0F:4250, 0F:4260)
+D006	wMail_OutputBankVar	1	byte	PROBABLE	WRAM bank 5: SRAM bank of the output stream (0F:4EA4, 0F:5025)
+D007	wMail_OutputPointer	2	word	PROBABLE	WRAM bank 5: output stream pointer (Mail_EmitCrLf 0F:4EA4 reads D006 then D007/8 through ld hl,$D006)
+D009	wMail_OutputFree	2	word	PROBABLE	WRAM bank 5: free bytes left in the output area, decremented by each emitter (0F:49DD)
+D00D	wMail_ItemListPointer	2	word	PROBABLE	WRAM bank 5: pointer into the caller item list (Mail_FetchComposeItem 0F:4F3D)
+D011	wMail_KeywordValue	4	array	PROBABLE	WRAM bank 5: result of Mail_FindKeywordValue: bank, pointer (2), length (0F:4B2A)
+D017	wMail_ErrorFlag	1	byte	PROBABLE	WRAM bank 5: set to 1 when a header/message scan ended without the expected terminator (0F:4A6F, 0F:4AC4)
+D023	wMail_ComposeState	1	byte	PROBABLE	WRAM bank 5: composer/encoder phase, $FF error; also "header name already emitted" flag in Mail_EmitHeaderField (0F:4F5D)
+D024	wMail_TextBuffer	1536	array	PROBABLE	WRAM bank 5: scratch text buffer (header values, unfolded text) D024-D623 by the distance to the next variable; users 0F:4C0F, 0F:50B7
+D624	wMail_ScratchLength	1	byte	HYPOTHESIS	WRAM bank 5: dual use: boundary length (0F:463B) / start of the scratch text at D624 (Mail_DecodeEncodedWords, Mail_EncodeHeaderWords)
+D625	wMail_BoundaryText	64	array	PROBABLE	WRAM bank 5: MIME boundary text (max $40) stored by Mail_ParseMultipartBoundary 0F:4624
+# --- existing config/ram/sdk.tsv rows kept unchanged (no better evidence gathered): name, size, status as in config
+C6A6	wRam_C6A6	1	byte	HYPOTHESIS	role: cleared when a packet is queued and when a response completes (flag), role unclear (analysis/mobile_candidates.json wram_sdk_layout, bank 75 SDK); Crystal wc806, 6 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=1 w=6 l=2 ptr-uses=2 banks=1 (t1: r=1 w=6 l=2); const stores 00 x4,01 x2
+C6B8	wMobileSDK_AdapterType	1	byte	PROBABLE	role: adapter type = device id|$80 from BeginSession reply (88..8B) (analysis/mobile_candidates.json wram_sdk_layout, bank 75 SDK); Crystal wMobileSDK_AdapterType, 5 corroborating matches (analysis/crystal_ram_map.tsv); name imported from the Crystal community disassembly: Crystal name wMobileSDK_AdapterType, 5 corroborating matches; PROBABLE at most, not proof of identical meaning; census: usage r=5 w=1 l=0 ptr-uses=0 banks=1 (t1: r=2 w=1 l=0)
+C6BE	wMobileSDK_SendCommandID	1	byte	PROBABLE	role: expected ack command of current request (request|$80; $FF = idle poll) (analysis/mobile_candidates.json wram_sdk_layout, bank 75 SDK); Crystal wMobileSDK_SendCommandID, 28 corroborating matches (analysis/crystal_ram_map.tsv); name imported from the Crystal community disassembly: Crystal name wMobileSDK_SendCommandID, 28 corroborating matches; PROBABLE at most, not proof of identical meaning; census: usage r=10 w=22 l=1 ptr-uses=2 banks=1 (t1: r=8 w=4 l=1); const stores 95 x12,00 x2,A2 x1
+C711	wRam_C711	1	byte	HYPOTHESIS	role: pending error code copy (analysis/mobile_candidates.json wram_sdk_layout, bank 75 SDK); Crystal wc872, 9 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=8 w=8 l=6 ptr-uses=3 banks=1 (t1: r=0 w=0 l=1); loaded before call 4000 x1,6B76 x1; const stores 25 x1,14 x1,12 x1
+C712	wRam_C712	1	byte	PROBABLE	Crystal wc873, 3 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=6 w=5 l=0 ptr-uses=3 banks=1 (t1: r=0 w=0 l=0)
+C713	wRam_C713	1	byte	PROBABLE	Crystal wc874, 4 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=6 w=5 l=0 ptr-uses=3 banks=1 (t1: r=0 w=0 l=0)
+C819	wRam_C819	1	byte	PROBABLE	Crystal wc97a, 3 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=0 w=2 l=1 ptr-uses=0 banks=1 (t1: r=0 w=0 l=0); const stores 00 x2
+C81E	wRam_C81E	1	byte	PROBABLE	Crystal wc97f, 3 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=4 w=2 l=4 ptr-uses=4 banks=1 (t1: r=0 w=0 l=0); loaded before call 4397 x2,4007 x1
+C827	wRam_C827	1	byte	PROBABLE	Crystal wc98a, 11 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=7 w=8 l=1 ptr-uses=2 banks=1 (t1: r=0 w=0 l=0); const stores 00 x4,01 x2,02 x1
+C82C	wRam_C82C	1	byte	PROBABLE	Crystal wc98f, 9 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=5 w=8 l=7 ptr-uses=7 banks=1 (t1: r=0 w=0 l=0); const stores 20 x2,01 x2
+C82D	wRam_C82D	1	byte	PROBABLE	Crystal wc990, 4 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=7 w=13 l=3 ptr-uses=8 banks=1 (t1: r=0 w=0 l=0); loaded before call 70A3 x1; const stores 01 x3,C7 x2,02 x2
+C82E	wRam_C82E	1	byte	PROBABLE	Crystal wc991, 7 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=11 w=12 l=5 ptr-uses=11 banks=1 (t1: r=2 w=1 l=2); const stores 00 x6,80 x1
+C82F	wRam_C82F	1	byte	PROBABLE	Crystal wc992, 5 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=5 w=12 l=1 ptr-uses=9 banks=1 (t1: r=2 w=2 l=1); const stores 00 x5,FF x1
+C830	wRam_C830	1	byte	PROBABLE	Crystal wc993, 8 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=10 w=14 l=2 ptr-uses=6 banks=1 (t1: r=0 w=1 l=1); const stores 00 x6,01 x2
+C831	wRam_C831	1	byte	PROBABLE	Crystal wc994, 11 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=6 w=14 l=0 ptr-uses=4 banks=1 (t1: r=0 w=1 l=0); const stores 00 x4,01 x2
+C832	wRam_C832	1	byte	PROBABLE	Crystal wc995, 5 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=3 w=0 l=9 ptr-uses=3 banks=1 (t1: r=0 w=0 l=0); loaded before call 5F0B x2,4000 x2
+D005	wRam_D005	1	byte	PROBABLE	Crystal w5_dc00+5, 7 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=6 w=7 l=1 ptr-uses=12 banks=4 (t1: r=0 w=1 l=0); loaded before call 47FB x1; const stores 4A x1; wram banks 2,?
+D00F	wRam_D00F	1	byte	PROBABLE	Crystal w5_dc0d+3, 10 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=3 w=6 l=3 ptr-uses=3 banks=4 (t1: r=2 w=3 l=3); const stores 00 x1,01 x1,7A x1; wram banks 2,?
+D010	wRam_D010	1	byte	PROBABLE	Crystal w5_dc11, 5 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=38 w=8 l=4 ptr-uses=4 banks=5 (t1: r=22 w=4 l=4); loaded before call 0A65 x2; const stores 00 x3,01 x1; wram banks 2,?
+D015	wRam_D015	1	byte	PROBABLE	Crystal w5_dc11+5, 6 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=11 w=3 l=0 ptr-uses=3 banks=2 (t1: r=10 w=2 l=0); const stores 01 x1; wram banks ?
+D01A	wRam_D01A	1	byte	PROBABLE	Crystal w5_dc11+9, 3 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=5 w=3 l=0 ptr-uses=0 banks=2 (t1: r=2 w=1 l=0); const stores 0E x1; wram banks ?
+D01B	wRam_D01B	1	byte	PROBABLE	Crystal w5_dc11+10, 3 corroborating matches (analysis/crystal_ram_map.tsv); census: usage r=3 w=1 l=1 ptr-uses=0 banks=2 (t1: r=1 w=1 l=0); loaded before call 5D12 x1; wram banks ?

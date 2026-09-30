@@ -1,0 +1,38 @@
+# addr	name	type	status	evidence
+4000	DebugFlags_Run	function	PROBABLE	Unreferenced 'DEBUG MODE' screen (String_DebugFlags_Help: up/down choose, left/right cursor, A change, Start BIT<->DEC, Sel/B end): edits the sign-up debug flag at SRAM 1:$B0BF; no caller found, never executed
+4199	DebugFlags_Loop	label	PROBABLE	Per-frame loop: 00:0956, 00:044B, Joypad_UpdateIdleFrames (7D:7BA4)/7BC1, call JoypadDispatch with Table_DebugFlags_Buttons
+41B1	Table_DebugFlags_Buttons	table	PROBABLE	JoypadDispatch inline table (5 words): A -> DebugFlags_OnA, B and Select -> DebugFlags_Exit, Start -> DebugFlags_OnStart, none -> DebugFlags_Idle
+41BB	DebugFlags_Idle	label	PROBABLE	No button: DebugFlags_PlaceCursor, DebugFlags_UpdateHoldTimer, D-pad with repeat (hJoyPressedRepeat & $F0) -> DebugFlags_HandleDpad
+41CB	DebugFlags_OnA	label	PROBABLE	A pressed ('Change'): BIT mode xors the selected bit (mask $8000>>wRam_C0D4) into the 16-bit value; DEC mode adds the place value 10^k of the selected digit with wrap; value written through WriteByteFar (48:4616) (SRAM bank 1)
+42A1	DebugFlags_Exit	label	PROBABLE	B/Select: slide window out (DebugFlags_SlideOut), fade out 4F:4370, then 4E:4795 and 68:49B6 (SRAM checksum refresh routines of banks 4E/68) and return
+42B7	DebugFlags_OnStart	label	PROBABLE	Start pressed ('BIT<->DEC'): cycles display mode wRam_C0D8 (1 = BIT, 2 = DEC) and re-places the cursor sprite / digit index wRam_C0D4
+4321	DebugFlags_EntryHasHighByte	function	PROBABLE	Returns NZ when the second address word of entry wRam_C0E5 in Table_DebugFlags_Entries is non-zero (value has a high byte); duplicated at 19:43D7
+4333	DebugFlags_HandleDpad	function	PROBABLE	Up/Down change entry wRam_C0E5, Left/Right move the digit/bit cursor wRam_C0D4 (0-4 in DEC mode, 0-15 in BIT mode)
+43D7	DebugFlags_EntryHasHighByte2	function	PROBABLE	Duplicate of DebugFlags_EntryHasHighByte
+43E9	DebugFlags_LoadHelpText	function	PROBABLE	Renders String_DebugFlags_Help (TextTiles_RenderGrid (48:40A9), text to tiles in WRAM bank 3) and a cursor glyph to VRAM $8800/$8C00/$9000 and $8000
+447C	String_DebugFlags_Help	string	PROBABLE	Shift-JIS: '＝＝ ＤＥＢＵＧ ＭＯＤＥ ＝＝ / ↑↓：えらぶ ←→：カーソル Ａ：へんこう / Ｓｔａ：ＢＩＴ←→ＤＥＣ Ｓｅｌ／Ｂ：しゅうりょう' + rule (2-byte characters, 3 lines)
+4532	DebugFlags_DrawEntryName	function	PROBABLE	Draws the title string of entry wRam_C0E5 (pointer table at $4912, e.g. '【サインアップデバッグフラグ】') into VRAM $9400 via TextTiles_RenderGrid (48:40A9), then DebugFlags_DrawValue
+458A	DebugFlags_DrawValue	function	PROBABLE	Renders the value of the entry as full-width characters from String_DebugFlags_Chars: BIT mode 8/16 x '０/１', DEC mode a 5-digit decimal, otherwise hex; uploads the tiles to VRAM $9600
+47AE	String_DebugFlags_Chars	string	PROBABLE	Full-width digit glyphs '０'-'９','Ａ'-'Ｆ' (2 bytes each), 8 x '－' at $47CE (missing high byte) and the decimal template '【０００００】' at $47DE
+47ED	DebugFlags_PlaceCursor	function	PROBABLE	Moves the cursor sprite (WRAM bank 7, wSpriteSlots+17) to x = 8*cursor+$10 (BIT mode) or 8*cursor+$48 (DEC mode)
+481D	Table_DebugFlags_Objects	table	PROBABLE	Object table (1 entry: frame table $4821, script $4828) of the cursor sprite, loaded with 00:0A82 (b=0, slot $DA10)
+482B	DebugFlags_SlideIn	function	PROBABLE	Slides the window layer in: wRam_C0E5 goes $99 down to 0 in steps that shrink from $10 to 1, written to rWY each frame
+4858	DebugFlags_SlideOut	function	PROBABLE	Slides the window layer out: wRam_C0E5 from 0 up to $99 written to rWY each frame (inverse of DebugFlags_SlideIn)
+4885	DebugFlags_UpdateHoldTimer	function	PROBABLE	If hJoyHeld changed resets wRam_C0E7, else increments it (saturating): auto-repeat timer (4/16-bit steps after $3C frames)
+48A0	DebugFlags_ReadValue	function	PROBABLE	Reads the 16-bit value of the entry through ReadByteFar (00:1620) from SRAM bank 1: B = byte at second pointer (0 if none), C = byte at first pointer (Table_DebugFlags_Entries)
+48D5	DebugFlags_WriteValue	function	PROBABLE	Writes D to the second and E to the first pointer of the entry through WriteByteFar (48:4616) (SRAM bank 1); the inverse of DebugFlags_ReadValue
+490E	Table_DebugFlags_Entries	table	PROBABLE	Entry table: entry 0 = (SRAM address $B0BF, second address 0), followed by the word $4914 at $4912 = title string pointer; only one entry (layout of the 6 bytes is HYPOTHESIS)
+4914	String_DebugFlags_Title	string	PROBABLE	Shift-JIS '【サインアップデバッグフラグ】' = '[sign-up debug flag]', title of entry 0
+4940	Palette_DebugScreens	data	PROBABLE	Palette block (8 x 4 colours) loaded to $D800 by Debug_ErrorScreenTest; identical to 1B:4000
+4980	Debug_ErrorScreenTest	function	PROBABLE	Unreferenced debug screen: hex-edits three values (kind, number hi/lo) and on A calls the error screen 5C:5150 (used by bank 65 error handlers); text 'A: error, B+up/down: kind, Sel: END, up/down (left/right): number'; never executed
+4AEB	DebugErrorTest_Loop	label	PROBABLE	Per-frame loop: 00:044B, Joypad_UpdateIdleFrames (7D:7BA4)/7BC1, call JoypadDispatch with Table_DebugErrorTest_Buttons
+4AFD	Table_DebugErrorTest_Buttons	table	PROBABLE	JoypadDispatch inline table: A -> DebugErrorTest_OnA, B/Start ignored, Select -> DebugErrorTest_Exit, none -> DebugErrorTest_Idle
+4B07	DebugErrorTest_Idle	label	PROBABLE	DebugErrorTest_UpdateHoldTimer then D-pad handling DebugErrorTest_HandleDpad (hJoyPressedRepeat), loop
+4B12	DebugErrorTest_OnA	label	PROBABLE	A pressed: fade out (4F:4370), calls the error screen CommErr_ShowScreen (5C:5150) with A=wRam_C0D4 (kind), H=wRam_C0D6, L=wRam_C0E5 (number), restores the edited values and re-enters the screen
+4B3E	DebugErrorTest_Exit	label	PROBABLE	Select pressed: fade out 4F:4370 and return A=1
+4B4A	DebugErrorTest_HandleDpad	function	PROBABLE	Up/Down change wRam_C0D6 (or wRam_C0D4 while B is held), Left/Right change wRam_C0E5 (by 4 after the hold timer passes $3C); redraws via DebugErrorTest_DrawValues
+4BCF	DebugErrorTest_LoadHelpText	function	PROBABLE	Renders String_DebugErrorTest_Help (TextTiles_RenderGrid (48:40A9)) into VRAM $8800/$8C00
+4C1F	String_DebugErrorTest_Help	string	PROBABLE	Shift-JIS 'Ａ：エラー Ｂ＋↑↓：しゅるい Ｓｅｌ：ＥＮＤ / ↑↓（←→）：Ｎｕｍｂｅｒ' = A: error, B+up/down: kind, Sel: END, up/down (left/right): number
+4C74	DebugErrorTest_DrawValues	function	PROBABLE	Draws '【' + six full-width hex digits (wRam_C0D4, C0D6, C0E5) + '】' from Data_DebugErrorTest_HexChars and uploads to VRAM $8E00
+4D5E	Data_DebugErrorTest_HexChars	data	PROBABLE	16 full-width characters '０'-'９','Ａ'-'Ｆ' (2 bytes each) indexed by nibble at six sites in DebugErrorTest_DrawValues
+4D7E	DebugErrorTest_UpdateHoldTimer	function	PROBABLE	Same auto-repeat hold timer as DebugFlags_UpdateHoldTimer (wRam_C0E7/C0E8 with hJoyHeld)
