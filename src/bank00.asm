@@ -172,7 +172,7 @@ Label_00_016B:: ; 00:016B
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	jp Label_75_4030
+	jp MobileSDK_ApiDispatch
 
 ; ---- code $018D-$01B7 (42 bytes) [CONFIRMED] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer] [executed in 41 scenarios]
 
@@ -222,7 +222,7 @@ Int_Serial:: ; 00:01B7
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	call Function_75_56D2
+	call MobileSDK_SerialReceive
 	pop de
 	ld hl, $FF8A
 	ld a, e
@@ -274,7 +274,7 @@ Int_Timer:: ; 00:01ED
 	ld [rROMB0], a
 	ld a, $00
 	ld [rROMB1], a
-	call Function_75_58EA
+	call MobileSDK_TimerTick
 	pop de
 	ld hl, $FF8A
 	ld a, e
@@ -317,7 +317,7 @@ Function_00_0247:: ; 00:0247
 	ld [$2100], a
 	ld a, h
 	ld [rROMB1], a
-	call Function_0F_4247
+	call Mail_Dispatch
 	pop de
 	ld a, e
 	ldh [hROMBankLo], a
@@ -358,7 +358,7 @@ Label_00_02A2:: ; 00:02A2
 	ld a, $6B
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Function_6B_4C80
+	call NonCgb_ErrorScreen
 	jr Label_00_02A2
 
 Label_00_02AE:: ; 00:02AE
@@ -411,7 +411,7 @@ Label_00_02C0:: ; 00:02C0
 	ld a, $4F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Function_4F_4717
+	call Boot_ClearAndInit
 	ld bc, $0001
 	di
 	ld a, c
@@ -423,7 +423,7 @@ Label_00_02C0:: ; 00:02C0
 	ei
 
 Label_00_0328:: ; 00:0328
-	farcall Function_1C_4000
+	farcall Main_Run
 
 ; ---- code $032E-$0331 (3 bytes) [CONFIRMED] continuation
 
@@ -2872,7 +2872,7 @@ Function_00_1044:: ; 00:1044
 	ld de, $C0B8
 	ld bc, $C0A0
 	xor a, a
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 
 ; ---- code $1059-$1079 (32 bytes) [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
 
@@ -2892,7 +2892,7 @@ Function_00_1059:: ; 00:1059
 	ldh a, [hTextX]
 	ld e, a
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 
 ; ---- code $1079-$10A3 (42 bytes) [CONFIRMED] continuation of Function_00_1028 | inline far pointer: FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
 
@@ -2917,7 +2917,7 @@ Function_00_1079:: ; 00:1079
 	ldh a, [hRam_FFBB]
 	ld c, a
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 
 ; ---- code $10A3-$10B1 (14 bytes) [CONFIRMED] continuation
 
@@ -2942,7 +2942,7 @@ Function_00_10B1:: ; 00:10B1
 	cp a, $A0
 	jr nc, Function_00_10DB
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 
 ; ---- code $10C6-$10DB (21 bytes) [CONFIRMED] continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
 
@@ -2956,7 +2956,7 @@ Function_00_10C6:: ; 00:10C6
 	ldh a, [hTextX]
 	ld e, a
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 
 ; ---- code $10DB-$10E9 (14 bytes) [CONFIRMED] continuation
 
@@ -3915,7 +3915,7 @@ Function_00_153D:: ; 00:153D
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld a, b
-	ld hl, Table_65_567F
+	ld hl, PromptText_Table
 	add a, a
 	add a, l
 	ld l, a
@@ -3945,7 +3945,7 @@ Function_00_153D:: ; 00:153D
 
 Function_00_1586:: ; 00:1586
 	push de
-	farcall Function_68_44FC
+	farcall Settings_GetHiddenModeFlag
 
 ; ---- code $158D-$161A (141 bytes) [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 
@@ -3961,7 +3961,7 @@ Function_00_158D:: ; 00:158D
 	ldh [hROMBankLo], a
 	ld [$2100], a
 	ld a, [wRam_C271]
-	ld hl, Table_68_67AE
+	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
 	ld l, a
@@ -4222,7 +4222,7 @@ Function_00_1711:: ; 00:1711
 	ld a, $4F
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	call Function_4F_47A5
+	call Boot_ReinitRuntime
 	ldh [hScratchA], a
 	pop af
 	ldh [hROMBankLo], a
@@ -4292,79 +4292,79 @@ Label_00_176B:: ; 00:176B
 
 Function_00_20A0:: ; 00:20A0
 	call Function_00_20EE
-	jp Label_04_4000
+	jp SoundDrv_Init
 
 ; ---- code $20A6-$20AC (6 bytes) [CONFIRMED] stub: call 2129 (re-entrancy guard) ; jp 04:4082. Called from the frame service 0392
 
 Function_00_20A6:: ; 00:20A6
 	call Function_00_2129
-	jp Label_04_4082
+	jp SoundDrv_FrameTick
 
 ; ---- code $20AC-$20B2 (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
 Function_00_20AC:: ; 00:20AC
 	call Function_00_2116
-	jp Label_04_41C0
+	jp SoundDrv_PlaySfx
 
 ; ---- code $20B2-$20B8 (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65] [executed in 34 scenarios]
 
 Function_00_20B2:: ; 00:20B2
 	call Function_00_2116
-	jp Label_04_4287
+	jp SoundDrv_PlayMusic
 
 ; ---- code $20B8-$20BE (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 14]
 
 Function_00_20B8:: ; 00:20B8
 	call Function_00_2116
-	jp Label_04_42C0
+	jp SoundDrv_PlayMusicIfNotPlaying
 
 ; ---- code $20BE-$20C4 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
 
 Function_00_20BE:: ; 00:20BE
 	call Function_00_2116
-	jp Label_04_43DC
+	jp SoundDrv_StopSfxById
 
 ; ---- code $20C4-$20CA (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
 Function_00_20C4:: ; 00:20C4
 	call Function_00_2116
-	jp Label_04_4429
+	jp SoundDrv_PauseMusic
 
 ; ---- code $20CA-$20D0 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 10]
 
 Function_00_20CA:: ; 00:20CA
 	call Function_00_2116
-	jp Label_04_42EC
+	jp SoundDrv_ResumeMusic
 
 ; ---- code $20D0-$20D6 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
 
 Function_00_20D0:: ; 00:20D0
 	call Function_00_2116
-	jp Label_04_444B
+	jp SoundDrv_GetActiveMasks
 
 ; ---- code $20D6-$20DC (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
 
 Function_00_20D6:: ; 00:20D6
 	call Function_00_2116
-	jp Label_04_44B1
+	jp SoundDrv_SetTrackParam
 
 ; ---- code $20DC-$20E2 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
 
 Function_00_20DC:: ; 00:20DC
 	call Function_00_2116
-	jp Label_04_452C
+	jp SoundDrv_StartFadeOut
 
 ; ---- code $20E2-$20E8 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 1]
 
 Function_00_20E2:: ; 00:20E2
 	call Function_00_2116
-	jp Label_04_445C
+	jp SoundDrv_GetPlayingId
 
 ; ---- code $20E8-$20EE (6 bytes) [CONFIRMED] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 
 Function_00_20E8:: ; 00:20E8
 	call Function_00_2116
-	jp Label_04_42D6
+	jp SoundDrv_PlayMusicOrResume
 
 ; ---- code $20EE-$2105 (23 bytes) [CONFIRMED] saves ROM bank hi/lo (FF8B->D002, FF8A->D001), selects ROM bank 4 (hi=0, lo=4 via [2000]); 20F8/20FF are the shared restore-bank-4 tail
 

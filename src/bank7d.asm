@@ -9,7 +9,8 @@ SECTION "Bank7D", ROMX[$4000], BANK[$7D]
 
 ; ---- gfx $4000-$7B7C (15228 bytes) [PROBABLE] font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 16,17,18,19,20,21,22,23,24, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code)
 
-Data_7D_4000:: ; 7D:4000
+GlyphFont_Jis12x12_7D:: ; 7D:4000
+Data_7D_4000::
 	db $7F, $F0, $50, $05, $03, $FE, $25, $22, $52, $25, $23, $FE, $05, $00, $50, $7F
 	db $F0, $00, $07, $F7, $14, $51, $45, $7F, $55, $55, $55, $55, $55, $7F, $71, $40
 	db $14, $07, $F0, $00, $20, $82, $3E, $78, $82, $88, $2F, $F2, $80, $28, $81, $3E
@@ -965,7 +966,8 @@ Data_7D_4000:: ; 7D:4000
 
 ; ---- code $7B7C-$7BE0 (100 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7D_7B7C:: ; 7D:7B7C
+Joypad_ReadRaw:: ; 7D:7B7C
+Function_7D_7B7C::
 	ld a, $20
 	ldh [rP1], a
 	ldh a, [rP1]
@@ -989,7 +991,7 @@ Function_7D_7B7C:: ; 7D:7B7C
 	ldh [rP1], a
 	ret
 
-Function_7D_7BA4:: ; 7D:7BA4
+Joypad_UpdateIdleFrames:: ; 7D:7BA4
 	ldh a, [hJoyHeld]
 	or a, a
 	jr z, Label_7D_7BAD
@@ -1005,18 +1007,18 @@ Label_7D_7BAD:: ; 7D:7BAD
 Label_7D_7BB6:: ; 7D:7BB6
 	ret
 
-Function_7D_7BB7:: ; 7D:7BB7
+Joypad_Update:: ; 7D:7BB7
 	push bc
 	push de
 	push hl
-	call Function_7D_7BC1
+	call Joypad_UpdateUnsaved
 	pop hl
 	pop de
 	pop bc
 	ret
 
-Function_7D_7BC1:: ; 7D:7BC1
-	call Function_7D_7B7C
+Joypad_UpdateUnsaved:: ; 7D:7BC1
+	call Joypad_ReadRaw
 	ldh a, [hJoyHeld]
 	xor a, b
 	and a, b
@@ -1052,7 +1054,7 @@ Label_7D_7BE4:: ; 7D:7BE4
 	ldh [hJoyPressedRepeat], a
 	ret
 
-Function_7D_7BF0:: ; 7D:7BF0
+Joypad_Init:: ; 7D:7BF0
 	xor a, a
 	ldh [hJoyHeld], a
 	ldh [hJoyPressed], a
@@ -1062,7 +1064,7 @@ Function_7D_7BF0:: ; 7D:7BF0
 	ld b, $14
 	ld c, $02
 
-Function_7D_7C00:: ; 7D:7C00
+Joypad_SetRepeatTiming:: ; 7D:7C00
 	ld a, c
 	ld [wRam_C2E2], a
 	ld a, b

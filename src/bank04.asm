@@ -9,7 +9,7 @@ SECTION "Bank04", ROMX[$4000], BANK[$04]
 
 ; ---- code $4000-$409F (159 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios)
 
-Label_04_4000:: ; 04:4000
+SoundDrv_Init:: ; 04:4000
 	ld a, $FF
 	ld [wBank4State], a
 	ld a, [wBank4SavedBankLo]
@@ -80,10 +80,10 @@ Label_04_4051:: ; 04:4051
 	ld [wBank4State], a
 	jp Function_00_210B
 
-Label_04_4082:: ; 04:4082
+SoundDrv_FrameTick:: ; 04:4082
 	push bc
 	push de
-	call Function_04_453A
+	call SoundDrv_UpdateFade
 	ld hl, $D000
 	set 5, [hl]
 	ld hl, $D007
@@ -98,33 +98,33 @@ Label_04_4082:: ; 04:4082
 	ld b, a
 	ld a, [hl]
 	sbc a, $00
-	jr nc, Label_04_40AC
+	jr nc, SoundDrv_SfxTickLoop
 
 ; ---- code $409F-$40AC (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 04:409D (executed)
-	call Function_04_414C
+	call SoundDrv_SelectSfxTracks
 
 Label_04_40A2:: ; 04:40A2
-	call Function_04_455A
-	call Function_04_4167
+	call SoundDrv_ApplyTrackUpdates
+	call SoundDrv_NextTrack
 	jr nz, Label_04_40A2
-	jr Label_04_40D0
+	jr SoundDrv_MusicPhase
 
 ; ---- code $40AC-$415A (174 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 18/18 scenarios)
 
-Label_04_40AC:: ; 04:40AC
+SoundDrv_SfxTickLoop:: ; 04:40AC
 	ld [hld], a
 	ld [hl], b
-	call Function_04_419B
+	call SoundDrv_SelectAllChannels
 
 Label_04_40B1:: ; 04:40B1
-	call Function_04_4BC9
-	call Function_04_41AC
+	call SoundDrv_ServiceChannelSfx
+	call SoundDrv_NextChannel
 	jr nz, Label_04_40B1
-	call Function_04_414C
+	call SoundDrv_SelectSfxTracks
 
 Label_04_40BC:: ; 04:40BC
-	call Function_04_456C
-	call Function_04_4167
+	call SoundDrv_StepTrack
+	call SoundDrv_NextTrack
 	jr nz, Label_04_40BC
 	ld hl, $D008
 	ld a, [hli]
@@ -132,9 +132,9 @@ Label_04_40BC:: ; 04:40BC
 	ld b, a
 	ld a, [hl]
 	sbc a, $00
-	jr nc, Label_04_40AC
+	jr nc, SoundDrv_SfxTickLoop
 
-Label_04_40D0:: ; 04:40D0
+SoundDrv_MusicPhase:: ; 04:40D0
 	ld hl, $D000
 	res 5, [hl]
 	ld hl, $D00C
@@ -149,29 +149,29 @@ Label_04_40D0:: ; 04:40D0
 	ld b, a
 	ld a, [hl]
 	sbc a, $00
-	jr nc, Label_04_40F5
-	call Function_04_4153
+	jr nc, SoundDrv_MusicTickLoop
+	call SoundDrv_SelectMusicTracks
 
 Label_04_40EB:: ; 04:40EB
-	call Function_04_455A
-	call Function_04_4167
+	call SoundDrv_ApplyTrackUpdates
+	call SoundDrv_NextTrack
 	jr nz, Label_04_40EB
-	jr Label_04_4119
+	jr SoundDrv_ChannelPhase
 
-Label_04_40F5:: ; 04:40F5
+SoundDrv_MusicTickLoop:: ; 04:40F5
 	ld [hld], a
 	ld [hl], b
-	call Function_04_419B
+	call SoundDrv_SelectAllChannels
 
 Label_04_40FA:: ; 04:40FA
-	call Function_04_4BDB
-	call Function_04_41AC
+	call SoundDrv_ServiceChannelMusic
+	call SoundDrv_NextChannel
 	jr nz, Label_04_40FA
-	call Function_04_4153
+	call SoundDrv_SelectMusicTracks
 
 Label_04_4105:: ; 04:4105
-	call Function_04_456C
-	call Function_04_4167
+	call SoundDrv_StepTrack
+	call SoundDrv_NextTrack
 	jr nz, Label_04_4105
 	ld hl, $D00D
 	ld a, [hli]
@@ -179,14 +179,14 @@ Label_04_4105:: ; 04:4105
 	ld b, a
 	ld a, [hl]
 	sbc a, $00
-	jr nc, Label_04_40F5
+	jr nc, SoundDrv_MusicTickLoop
 
-Label_04_4119:: ; 04:4119
-	call Function_04_419B
+SoundDrv_ChannelPhase:: ; 04:4119
+	call SoundDrv_SelectAllChannels
 
 Label_04_411C:: ; 04:411C
-	call Function_04_4C14
-	call Function_04_41AC
+	call SoundDrv_UpdateChannel
+	call SoundDrv_NextChannel
 	jr nz, Label_04_411C
 	ld a, [wRam_D01A]
 	and a, a
@@ -215,23 +215,25 @@ Label_04_4138:: ; 04:4138
 	pop bc
 	jp Function_00_2141
 
-Function_04_414C:: ; 04:414C
+SoundDrv_SelectSfxTracks:: ; 04:414C
 	ld de, $D040
 	ld a, $04
-	jr Label_04_415F
+	jr SoundDrv_SetTrackIterator
 
-Function_04_4153:: ; 04:4153
+SoundDrv_SelectMusicTracks:: ; 04:4153
 	ld de, $D130
 	ld a, $04
-	jr Label_04_415F
+	jr SoundDrv_SetTrackIterator
 
 ; ---- code $415A-$415F (5 bytes) [HYPOTHESIS] sibling of the executed entries 414C/4153 (ld de,imm ; ld a,imm ; shared tail 415F): decodes to ld de,$D040 ; ld a,$08 and lands exactly on the executed tail 415F; no caller or table entry found anywhere in the ROM, so entry unproven
+
+Function_04_415A:: ; 04:415A
 	ld de, $D040
 	ld a, $08
 
 ; ---- code $415F-$41CF (112 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 18/18 scenarios)
 
-Label_04_415F:: ; 04:415F
+SoundDrv_SetTrackIterator:: ; 04:415F
 	ld hl, $D00F
 	ld [hli], a
 	ld a, e
@@ -239,7 +241,7 @@ Label_04_415F:: ; 04:415F
 	ld [hl], d
 	ret
 
-Function_04_4167:: ; 04:4167
+SoundDrv_NextTrack:: ; 04:4167
 	ld hl, $D00F
 	dec [hl]
 	ret z
@@ -253,36 +255,36 @@ Function_04_4167:: ; 04:4167
 	rra
 	ret
 
-Function_04_4177:: ; 04:4177
+SoundDrv_SelectChannel1:: ; 04:4177
 	ld de, $D220
 	ld a, $01
 	ld c, $12
-	jr Label_04_41A2
+	jr SoundDrv_SetChannelIterator
 
-Function_04_4180:: ; 04:4180
+SoundDrv_SelectChannel2:: ; 04:4180
 	ld de, $D238
 	ld a, $01
 	ld c, $17
-	jr Label_04_41A2
+	jr SoundDrv_SetChannelIterator
 
-Function_04_4189:: ; 04:4189
+SoundDrv_SelectChannel3:: ; 04:4189
 	ld de, $D250
 	ld a, $01
 	ld c, $1C
-	jr Label_04_41A2
+	jr SoundDrv_SetChannelIterator
 
-Function_04_4192:: ; 04:4192
+SoundDrv_SelectChannel4:: ; 04:4192
 	ld de, $D268
 	ld a, $01
 	ld c, $21
-	jr Label_04_41A2
+	jr SoundDrv_SetChannelIterator
 
-Function_04_419B:: ; 04:419B
+SoundDrv_SelectAllChannels:: ; 04:419B
 	ld de, $D220
 	ld a, $04
 	ld c, $12
 
-Label_04_41A2:: ; 04:41A2
+SoundDrv_SetChannelIterator:: ; 04:41A2
 	ld hl, $D012
 	ld [hli], a
 	ld a, e
@@ -292,7 +294,7 @@ Label_04_41A2:: ; 04:41A2
 	ld [hl], c
 	ret
 
-Function_04_41AC:: ; 04:41AC
+SoundDrv_NextChannel:: ; 04:41AC
 	ld hl, $D012
 	dec [hl]
 	ret z
@@ -309,14 +311,14 @@ Function_04_41AC:: ; 04:41AC
 	rra
 	ret
 
-Label_04_41C0:: ; 04:41C0
+SoundDrv_PlaySfx:: ; 04:41C0
 	ld a, b
 	or a, c
-	jp z, Label_04_4414
-	call Function_04_430A
+	jp z, SoundDrv_StopAllSfx
+	call SoundDrv_LoadSongHeader
 	ld a, [wRam_D03F]
 	bit 7, a
-	jr nz, Label_04_4219
+	jr nz, SoundDrv_PlaySfxAllTracks
 
 ; ---- code $41CF-$4219 (74 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 04:41CD (executed)
 	ld b, a
@@ -357,15 +359,15 @@ Label_04_41F9:: ; 04:41F9
 	ld a, [wRam_D03E]
 	cp a, [hl]
 	jr nc, Label_04_420C
-	call Function_04_4374
+	call SoundDrv_NextHeaderTrack
 	jr Label_04_420F
 
 Label_04_420C:: ; 04:420C
-	call Function_04_434C
+	call SoundDrv_StartTrack
 
 Label_04_420F:: ; 04:420F
 	jr z, Label_04_4216
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_41F1
 
 Label_04_4216:: ; 04:4216
@@ -373,8 +375,8 @@ Label_04_4216:: ; 04:4216
 
 ; ---- code $4219-$424E (53 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 17/18 scenarios)
 
-Label_04_4219:: ; 04:4219
-	call Function_04_414C
+SoundDrv_PlaySfxAllTracks:: ; 04:4219
+	call SoundDrv_SelectSfxTracks
 	ld a, $01
 	ld [wRam_D03B], a
 	xor a, a
@@ -387,7 +389,7 @@ Label_04_4225:: ; 04:4225
 	ld h, a
 	bit 7, [hl]
 	jr nz, Label_04_4241
-	call Function_04_434C
+	call SoundDrv_StartTrack
 	jr z, Label_04_4284
 	ld a, [wRam_D03B]
 	ld b, a
@@ -399,11 +401,11 @@ Label_04_4241:: ; 04:4241
 	ld a, [wRam_D03B]
 	sla a
 	ld [wRam_D03B], a
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_4225
 
 ; ---- code $424E-$4284 (54 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 04:424C (executed) [executed in 6 scenarios]
-	call Function_04_414C
+	call SoundDrv_SelectSfxTracks
 	ld a, $01
 	ld [wRam_D03B], a
 
@@ -422,14 +424,14 @@ Label_04_4256:: ; 04:4256
 	ld a, [wRam_D03E]
 	cp a, [hl]
 	jr c, Label_04_4277
-	call Function_04_434C
+	call SoundDrv_StartTrack
 	jr z, Label_04_4284
 
 Label_04_4277:: ; 04:4277
 	ld a, [wRam_D03B]
 	sla a
 	ld [wRam_D03B], a
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_4256
 
 ; ---- code $4284-$42AC (40 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
@@ -437,10 +439,10 @@ Label_04_4277:: ; 04:4277
 Label_04_4284:: ; 04:4284
 	jp Function_00_2141
 
-Label_04_4287:: ; 04:4287
+SoundDrv_PlayMusic:: ; 04:4287
 	ld a, b
 	or a, c
-	jp z, Label_04_4429
+	jp z, SoundDrv_PauseMusic
 	ld a, c
 	ld [wRam_D01B], a
 	ld a, b
@@ -449,13 +451,13 @@ Label_04_4287:: ; 04:4287
 	ld [wRam_D020], a
 	xor a, a
 	ld [wRam_D025], a
-	call Function_04_430A
-	call Function_04_4153
+	call SoundDrv_LoadSongHeader
+	call SoundDrv_SelectMusicTracks
 
 Label_04_42A2:: ; 04:42A2
-	call Function_04_434C
+	call SoundDrv_StartTrack
 	jr z, Label_04_42B8
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_42A2
 
 ; ---- code $42AC-$42AE (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 04:42AA (executed)
@@ -472,7 +474,7 @@ Label_04_42AE:: ; 04:42AE
 	ld [hl], a
 
 Label_04_42B8:: ; 04:42B8
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_42AE
 
 Label_04_42BD:: ; 04:42BD
@@ -480,38 +482,38 @@ Label_04_42BD:: ; 04:42BD
 
 ; ---- code $42C0-$42D6 (22 bytes) [PROBABLE] entry: ROM0 stub 00:20B8 (call 2116 ; jp 04:42C0). Adversarial check: no `call`/`jp` to $20B8 exists anywhere in the ROM (the '14 raw refs' of the ROM0 stub note are bare word occurrences of B8 20, none preceded by a call/jp opcode), so the stub itself has no known caller; the entry rests on the ROM0 stub of the same shape as the executed stub 20C4 plus exact tiling between CONFIRMED code (42AE-42C0 and 42D6-42EC); clean decode to a terminator, no illegal opcodes, targets inside the bank
 
-Label_04_42C0:: ; 04:42C0
+SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
 	ld a, [wRam_D01B]
 	cp a, c
-	jr nz, Label_04_4287
+	jr nz, SoundDrv_PlayMusic
 	ld a, [wRam_D01C]
 	cp a, b
-	jr nz, Label_04_4287
+	jr nz, SoundDrv_PlayMusic
 	ld a, [wRam_D024]
 	and a, $F0
-	jr z, Label_04_4287
+	jr z, SoundDrv_PlayMusic
 	jp Function_00_2141
 
 ; ---- code $42D6-$42EC (22 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
 
-Label_04_42D6:: ; 04:42D6
+SoundDrv_PlayMusicOrResume:: ; 04:42D6
 	ld a, [wRam_D01B]
 	cp a, c
-	jr nz, Label_04_4287
+	jr nz, SoundDrv_PlayMusic
 	ld a, [wRam_D01C]
 	cp a, b
-	jr nz, Label_04_4287
+	jr nz, SoundDrv_PlayMusic
 	ld a, [wRam_D024]
 	and a, $F0
-	jr z, Label_04_42EC
+	jr z, SoundDrv_ResumeMusic
 	jp Function_00_2141
 
 ; ---- code $42EC-$430A (30 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 04:42E7 (executed)
 
-Label_04_42EC:: ; 04:42EC
+SoundDrv_ResumeMusic:: ; 04:42EC
 	xor a, a
 	ld [wRam_D025], a
-	call Function_04_4153
+	call SoundDrv_SelectMusicTracks
 
 Label_04_42F3:: ; 04:42F3
 	ld a, [wRam_D010]
@@ -524,13 +526,14 @@ Label_04_42F3:: ; 04:42F3
 	set 7, [hl]
 
 Label_04_4302:: ; 04:4302
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_42F3
 	jp Function_00_2141
 
 ; ---- code $430A-$4313 (9 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_04_430A:: ; 04:430A
+SoundDrv_LoadSongHeader:: ; 04:430A
+Function_04_430A::
 	ld a, b
 	ld [wRam_D039], a
 	cp a, $00
@@ -581,7 +584,7 @@ Label_04_431D:: ; 04:431D
 	ld [wRam_D018], a
 	ret
 
-Function_04_434C:: ; 04:434C
+SoundDrv_StartTrack:: ; 04:434C
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -604,7 +607,7 @@ Function_04_434C:: ; 04:434C
 	ld a, [wRam_D03E]
 	ld [hli], a
 
-Function_04_4374:: ; 04:4374
+SoundDrv_NextHeaderTrack:: ; 04:4374
 	ld hl, $D03C
 	dec [hl]
 	ret z
@@ -618,7 +621,7 @@ Function_04_4374:: ; 04:4374
 	rra
 	ret
 
-Function_04_4386:: ; 04:4386
+SoundDrv_InitTrackRuntime:: ; 04:4386
 	ld a, $C0
 	ld [hli], a
 	xor a, a
@@ -693,15 +696,15 @@ Function_04_4386:: ; 04:4386
 
 ; ---- code $43DC-$4429 (77 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: exec x10, site x29; min discovery hops 1; entered by jp from 00:20C1 (PROBABLE code)
 
-Label_04_43DC:: ; 04:43DC
+SoundDrv_StopSfxById:: ; 04:43DC
 	ld a, b
 	or a, c
-	jp z, Label_04_4414
+	jp z, SoundDrv_StopAllSfx
 	ld a, c
 	ld [wRam_D038], a
 	ld a, b
 	ld [wRam_D039], a
-	call Function_04_414C
+	call SoundDrv_SelectSfxTracks
 
 Label_04_43EC:: ; 04:43EC
 	ld a, [wRam_D010]
@@ -724,12 +727,12 @@ Label_04_43EC:: ; 04:43EC
 	ld [bc], a
 
 Label_04_440C:: ; 04:440C
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_43EC
 	jp Function_00_2141
 
-Label_04_4414:: ; 04:4414
-	call Function_04_414C
+SoundDrv_StopAllSfx:: ; 04:4414
+	call SoundDrv_SelectSfxTracks
 
 Label_04_4417:: ; 04:4417
 	ld a, [wRam_D010]
@@ -738,28 +741,29 @@ Label_04_4417:: ; 04:4417
 	ld h, a
 	xor a, a
 	ld [hl], a
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_4417
 	jp Function_00_2141
 
 ; ---- code $4429-$442F (6 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 18/18 scenarios)
 
-Label_04_4429:: ; 04:4429
-	call Function_04_4433
+SoundDrv_PauseMusic:: ; 04:4429
+	call SoundDrv_PauseMusicCore
 	jp Function_00_2141
 
 ; ---- code $442F-$4433 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 04:454D (PROBABLE code)
 
-Label_04_442F:: ; 04:442F
+SoundDrv_FadeFinished:: ; 04:442F
 	xor a, a
 	ld [wRam_D020], a
 
 ; ---- code $4433-$444B (24 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_04_4433:: ; 04:4433
+SoundDrv_PauseMusicCore:: ; 04:4433
+Function_04_4433::
 	ld a, $FF
 	ld [wRam_D025], a
-	call Function_04_4153
+	call SoundDrv_SelectMusicTracks
 
 Label_04_443B:: ; 04:443B
 	ld a, [wRam_D010]
@@ -767,13 +771,13 @@ Label_04_443B:: ; 04:443B
 	ld a, [wRam_D011]
 	ld h, a
 	res 7, [hl]
-	call Function_04_4167
+	call SoundDrv_NextTrack
 	jr nz, Label_04_443B
 	ret
 
 ; ---- code $444B-$445C (17 bytes) [PROBABLE] entry: ROM0 stub 00:20D0 (call 2116 ; jp 04:444B; no call/jp to $20D0 found in the ROM, stub has no known caller); reads [D024] nibbles into D/E, jp 2141 (bank-04 routine exit)
 
-Label_04_444B:: ; 04:444B
+SoundDrv_GetActiveMasks:: ; 04:444B
 	ld a, [wRam_D024]
 	and a, $0F
 	ld d, a
@@ -785,7 +789,7 @@ Label_04_444B:: ; 04:444B
 
 ; ---- code $445C-$449B (63 bytes) [PROBABLE] entry: ROM0 stub 00:20E2 (call 2116 ; jp 04:445C; no call/jp to $20E2 found in the ROM, stub has no known caller); indexes the WRAM record table at 449B with [bc]=4499+2a, ends with jp 2141
 
-Label_04_445C:: ; 04:445C
+SoundDrv_GetPlayingId:: ; 04:445C
 	and a, a
 	jr nz, Label_04_4470
 	ld a, [wRam_D024]
@@ -833,15 +837,17 @@ Label_04_4498:: ; 04:4498
 
 ; ---- words $449B-$44A3 (8 bytes) [PROBABLE] 4 WRAM record addresses D040,D07C,D0B8,D0F4 (stride $3C = the 8 x $3C-byte records cleared at D040 by 04:4000); read by the code at 4479 (ld bc,$4499 ; sla a ; add a,c ; ld a,[bc]) with index 1-4 (index 0 would be the operand of the jp $2141 at 4498)
 
-Data_04_449B:: ; 04:449B
+Table_SoundDrv_SfxTrackPtrs:: ; 04:449B
+Data_04_449B::
 	dw $D040, $D07C, $D0B8, $D0F4
 
 ; ---- ptrtable $44A3-$44B1 (14 bytes) [PROBABLE] 7 code pointers (4819 4840 4947 4962 4991 4908 49CD), base loaded by ld bc,$44A3 at 04:44C9 then jp 45CD (jump-table dispatcher: sla a ; add a,c ; ... ; jp hl); all 7 targets decode cleanly
 
-Table_04_44A3:: ; 04:44A3
-	dw Label_04_4819
+Table_SoundDrv_ParamHandlers:: ; 04:44A3
+Table_04_44A3::
+	dw SoundDrv_ParamTempoScale
 	dw Label_04_4840
-	dw Label_04_4947
+	dw SoundDrv_ParamVolumeScale
 	dw Label_04_4962
 	dw Label_04_4991
 	dw Label_04_4908
@@ -849,13 +855,13 @@ Table_04_44A3:: ; 04:44A3
 
 ; ---- code $44B1-$44B7 (6 bytes) [PROBABLE] entry: ROM0 stub 00:20D6 (call 2116 ; jp 04:44B1; no call/jp to $20D6 found in the ROM, stub has no known caller): call 44B7 ; jp 2141
 
-Label_04_44B1:: ; 04:44B1
-	call Function_04_44B7
+SoundDrv_SetTrackParam:: ; 04:44B1
+	call SoundDrv_SetTrackParamCore
 	jp Function_00_2141
 
 ; ---- code $44B7-$44CF (24 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jp from 04:4557 (PROBABLE code)
 
-Function_04_44B7:: ; 04:44B7
+SoundDrv_SetTrackParamCore:: ; 04:44B7
 	cp a, $07
 	ret nc
 	push af
@@ -871,13 +877,13 @@ Function_04_44B7:: ; 04:44B7
 	xor a, a
 	ld [hl], a
 	pop af
-	ld bc, $44A3
-	jp Label_04_45CD
+	ld bc, Table_SoundDrv_ParamHandlers
+	jp SoundDrv_JumpTable
 
 ; ---- code $44CF-$453A (107 bytes) [PROBABLE] target of 4 jp $44CF at 04:4912/496D/4952/4994 (code entered through jump-table entries) and contains the entry 452C of ROM0 stub 00:20DC (no call/jp to $20DC found in the ROM); clean decode, ends with jp 2141
 
-Label_04_44CF:: ; 04:44CF
-	call Function_04_450D
+SoundDrv_SetTrackFieldByte:: ; 04:44CF
+	call SoundDrv_BuildTrackMask
 
 Label_04_44D2:: ; 04:44D2
 	rrc d
@@ -894,12 +900,12 @@ Label_04_44D2:: ; 04:44D2
 	pop hl
 
 Label_04_44E6:: ; 04:44E6
-	call Function_04_4522
+	call SoundDrv_NextTrackRecord
 	jr nz, Label_04_44D2
 	ret
 
-Label_04_44EC:: ; 04:44EC
-	call Function_04_450D
+SoundDrv_SetTrackFieldWord:: ; 04:44EC
+	call SoundDrv_BuildTrackMask
 
 Label_04_44EF:: ; 04:44EF
 	rrc d
@@ -918,11 +924,11 @@ Label_04_44EF:: ; 04:44EF
 	pop hl
 
 Label_04_4507:: ; 04:4507
-	call Function_04_4522
+	call SoundDrv_NextTrackRecord
 	jr nz, Label_04_44EF
 	ret
 
-Function_04_450D:: ; 04:450D
+SoundDrv_BuildTrackMask:: ; 04:450D
 	ld a, [wRam_D03B]
 	and a, $0F
 	ld d, a
@@ -935,7 +941,7 @@ Function_04_450D:: ; 04:450D
 	ld hl, $D040
 	ret
 
-Function_04_4522:: ; 04:4522
+SoundDrv_NextTrackRecord:: ; 04:4522
 	ld a, $3C
 	add a, l
 	ld l, a
@@ -945,7 +951,7 @@ Function_04_4522:: ; 04:4522
 	dec e
 	ret
 
-Label_04_452C:: ; 04:452C
+SoundDrv_StartFadeOut:: ; 04:452C
 	ld [wRam_D020], a
 	ld [wRam_D021], a
 	ld a, $40
@@ -954,7 +960,8 @@ Label_04_452C:: ; 04:452C
 
 ; ---- code $453A-$4544 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_04_453A:: ; 04:453A
+SoundDrv_UpdateFade:: ; 04:453A
+Function_04_453A::
 	ld a, [wRam_D025]
 	and a, a
 	ret nz
@@ -969,16 +976,17 @@ Function_04_453A:: ; 04:453A
 	ld [hli], a
 	ld a, [hl]
 	sub a, $04
-	jp c, Label_04_442F
+	jp c, SoundDrv_FadeFinished
 	ld [hl], a
 	ld b, a
 	ld a, $02
 	ld de, $00FF
-	jp Function_04_44B7
+	jp SoundDrv_SetTrackParamCore
 
 ; ---- code $455A-$4621 (199 bytes) [CONFIRMED] 120 insn(s); 120 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_04_455A:: ; 04:455A
+SoundDrv_ApplyTrackUpdates:: ; 04:455A
+Function_04_455A::
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -987,9 +995,9 @@ Function_04_455A:: ; 04:455A
 	cp a, $C0
 	ret c
 	ld [wRam_D019], a
-	jp Label_04_4668
+	jp SoundDrv_ComputeTrackOutput
 
-Function_04_456C:: ; 04:456C
+SoundDrv_StepTrack:: ; 04:456C
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1000,7 +1008,7 @@ Function_04_456C:: ; 04:456C
 	bit 6, a
 	jr nz, Label_04_4582
 	push hl
-	call Function_04_4386
+	call SoundDrv_InitTrackRuntime
 	pop hl
 	ld a, [hl]
 
@@ -1025,7 +1033,7 @@ Label_04_458E:: ; 04:458E
 	ld a, [hl]
 	ld [wBank4ReadBank + 1], a
 
-Label_04_459B:: ; 04:459B
+SoundDrv_ReadNextCommand:: ; 04:459B
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1051,12 +1059,12 @@ Label_04_45B6:: ; 04:45B6
 
 Label_04_45C0:: ; 04:45C0
 	cp a, $D0
-	jp nc, Label_04_4A2B
+	jp nc, SoundDrv_CmdNote
 	sub a, $B1
-	jp c, Label_04_4756
-	ld bc, $46E8
+	jp c, SoundDrv_CmdRest
+	ld bc, Table_SoundDrv_Commands
 
-Label_04_45CD:: ; 04:45CD
+SoundDrv_JumpTable:: ; 04:45CD
 	sla a
 	add a, c
 	ld c, a
@@ -1070,7 +1078,7 @@ Label_04_45CD:: ; 04:45CD
 	ld h, a
 	jp hl
 
-Label_04_45DB:: ; 04:45DB
+SoundDrv_CmdEnd:: ; 04:45DB
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1115,7 +1123,7 @@ Label_04_4603:: ; 04:4603
 	ld b, a
 	push hl
 	push bc
-	call Function_04_5007
+	call SoundDrv_Mul8x8
 	pop bc
 	ld b, h
 	pop hl
@@ -1185,7 +1193,7 @@ Label_04_465D:: ; 04:465D
 	ld h, a
 	ld a, [wRam_D019]
 
-Label_04_4668:: ; 04:4668
+SoundDrv_ComputeTrackOutput:: ; 04:4668
 	bit 2, a
 	jr z, Label_04_46A8
 	ld bc, $001D
@@ -1260,7 +1268,7 @@ Label_04_46BF:: ; 04:46BF
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
-	call Function_04_502B
+	call SoundDrv_MulNibbles
 	add a, $0F
 	and a, $F0
 	cp a, $40
@@ -1284,22 +1292,23 @@ Label_04_46E6:: ; 04:46E6
 
 ; ---- ptrtable $46E8-$4726 (62 bytes) [PROBABLE] 31 code pointers (jump table of the dispatcher 04:45CD, base ld bc,$46E8 at 04:45CA; executed reads cover 46E8-46F0 and 4708-4712); every word is a code entry that decodes cleanly (45DB 479B 4777 47A3 47C5 4A24 45DB 47E3 483A 484E 492A 4955 4896 48D5 48EC 4925 4970 4984 4997 49B6 ...); merged from mapper pieces 46E8/46F0/46F8/4706/4708/4712/4722
 
-Table_04_46E8:: ; 04:46E8
-	dw Label_04_45DB
-	dw Label_04_479B
-	dw Label_04_4777
-	dw Label_04_47A3
-	dw Label_04_47C5
+Table_SoundDrv_Commands:: ; 04:46E8
+Table_04_46E8::
+	dw SoundDrv_CmdEnd
+	dw SoundDrv_CmdJump
+	dw SoundDrv_CmdCall
+	dw SoundDrv_CmdReturn
+	dw SoundDrv_CmdRepeat
 	dw Label_04_4A24
 	dw Label_04_4A24
 	dw Label_04_4A24
-	dw Label_04_45DB
-	dw Label_04_45DB
-	dw Label_04_45DB
-	dw Label_04_47E3
+	dw SoundDrv_CmdEnd
+	dw SoundDrv_CmdEnd
+	dw SoundDrv_CmdEnd
+	dw SoundDrv_CmdSetTempo
 	dw Label_04_483A
-	dw Label_04_484E
-	dw Label_04_492A
+	dw SoundDrv_CmdSetInstrument
+	dw SoundDrv_CmdSetVolume
 	dw Label_04_4955
 	dw Label_04_4896
 	dw Label_04_48D5
@@ -1312,15 +1321,16 @@ Table_04_46E8:: ; 04:46E8
 	dw Label_04_4997
 	dw Label_04_49B6
 	dw Label_04_4A24
-	dw Label_04_45DB
-	dw Label_04_473E
+	dw SoundDrv_CmdEnd
+	dw SoundDrv_CmdExtended
 	dw Label_04_4A27
 	dw Label_04_4B66
 
 ; ---- ptrtable $4726-$473E (24 bytes) [PROBABLE] 12 code pointers, base ld bc,$4726 at 04:4750 then jp 45CD; ends at the code region 473E; targets 45DB 49D3 49E2 49FF 4A1A 4A1F 49C3 49C8 4A24 4A24 49D8 49DD all decode cleanly
 
-Table_04_4726:: ; 04:4726
-	dw Label_04_45DB
+Table_SoundDrv_ExtCommands:: ; 04:4726
+Table_04_4726::
+	dw SoundDrv_CmdEnd
 	dw Label_04_49D3
 	dw Label_04_49E2
 	dw Label_04_49FF
@@ -1335,24 +1345,24 @@ Table_04_4726:: ; 04:4726
 
 ; ---- code $473E-$4756 (24 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
-Label_04_473E:: ; 04:473E
+SoundDrv_CmdExtended:: ; 04:473E
 	ld a, [wRam_D01F]
 	inc de
 	cp a, $0C
-	jp nc, Label_04_45DB
+	jp nc, SoundDrv_CmdEnd
 	ld b, a
 	call Function_00_215E
 	ld a, c
 	ld [wRam_D01F], a
 	ld a, b
-	ld bc, $4726
-	jp Label_04_45CD
+	ld bc, Table_SoundDrv_ExtCommands
+	jp SoundDrv_JumpTable
 
 ; ---- code $4756-$47C5 (111 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios)
 
-Label_04_4756:: ; 04:4756
+SoundDrv_CmdRest:: ; 04:4756
 	add a, $31
-	jp z, Label_04_459B
+	jp z, SoundDrv_ReadNextCommand
 	add a, $44
 	ld l, a
 	ld a, $00
@@ -1373,7 +1383,7 @@ Label_04_4756:: ; 04:4756
 	ld [hld], a
 	jp Label_04_45E6
 
-Label_04_4777:: ; 04:4777
+SoundDrv_CmdCall:: ; 04:4777
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1382,7 +1392,7 @@ Label_04_4777:: ; 04:4777
 	add hl, bc
 	ld a, [hl]
 	cp a, $0A
-	jp nc, Label_04_45DB
+	jp nc, SoundDrv_CmdEnd
 	inc a
 	inc a
 	ld [hl], a
@@ -1399,13 +1409,13 @@ Label_04_4777:: ; 04:4777
 	dec de
 	dec de
 
-Label_04_479B:: ; 04:479B
+SoundDrv_CmdJump:: ; 04:479B
 	call Function_00_216F
 	ld e, c
 	ld d, b
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
-Label_04_47A3:: ; 04:47A3
+SoundDrv_CmdReturn:: ; 04:47A3
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1414,7 +1424,7 @@ Label_04_47A3:: ; 04:47A3
 	add hl, bc
 	ld a, [hl]
 	and a, a
-	jp z, Label_04_459B
+	jp z, SoundDrv_ReadNextCommand
 	dec a
 	dec a
 	ld [hl], a
@@ -1426,11 +1436,11 @@ Label_04_47A3:: ; 04:47A3
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $47C5-$47E3 (30 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: table x18; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
-Label_04_47C5:: ; 04:47C5
+SoundDrv_CmdRepeat:: ; 04:47C5
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1440,19 +1450,19 @@ Label_04_47C5:: ; 04:47C5
 	ld a, [wRam_D01F]
 	inc de
 	and a, a
-	jr z, Label_04_479B
+	jr z, SoundDrv_CmdJump
 	inc [hl]
 	cp a, [hl]
-	jr nz, Label_04_479B
+	jr nz, SoundDrv_CmdJump
 	xor a, a
 	ld [hl], a
 	inc de
 	inc de
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $47E3-$4808 (37 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 18/18 scenarios)
 
-Label_04_47E3:: ; 04:47E3
+SoundDrv_CmdSetTempo:: ; 04:47E3
 	ld hl, $D000
 	bit 5, [hl]
 	ld hl, $D00A
@@ -1463,16 +1473,16 @@ Label_04_47F0:: ; 04:47F0
 	ld a, [wRam_D01F]
 	inc de
 	ld [hl], a
-	call Function_04_47FB
-	jp Label_04_459B
+	call SoundDrv_UpdateTempoStep
+	jp SoundDrv_ReadNextCommand
 
-Function_04_47FB:: ; 04:47FB
+SoundDrv_UpdateTempoStep:: ; 04:47FB
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
 	ld c, a
 	push hl
-	call Function_04_5007
+	call SoundDrv_Mul8x8
 	ld a, h
 	cp a, $40
 	jr c, Label_04_480C
@@ -1503,14 +1513,14 @@ Label_04_4816:: ; 04:4816
 
 ; ---- code $4819-$483A (33 bytes) [PROBABLE] validated entry 4819 of jump table Table_04_44A3 (index 0); clean decode to a terminator
 
-Label_04_4819:: ; 04:4819
+SoundDrv_ParamTempoScale:: ; 04:4819
 	ld a, [wRam_D03B]
 	and a, a
 	jr z, Label_04_4829
 	ld hl, $D006
 	ld a, [wRam_D039]
 	ld [hld], a
-	call Function_04_47FB
+	call SoundDrv_UpdateTempoStep
 
 Label_04_4829:: ; 04:4829
 	ld a, [wRam_D03A]
@@ -1519,7 +1529,7 @@ Label_04_4829:: ; 04:4829
 	ld hl, $D00B
 	ld a, [wRam_D039]
 	ld [hld], a
-	call Function_04_47FB
+	call SoundDrv_UpdateTempoStep
 
 Label_04_4839:: ; 04:4839
 	ret
@@ -1537,16 +1547,16 @@ Label_04_4840:: ; 04:4840
 	set 2, a
 	ld [wRam_D03C], a
 	ld bc, $0013
-	jp Label_04_44EC
+	jp SoundDrv_SetTrackFieldWord
 
 ; ---- code $484E-$4901 (179 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios)
 
-Label_04_484E:: ; 04:484E
+SoundDrv_CmdSetInstrument:: ; 04:484E
 	ld a, [wRam_D01F]
 	inc de
 	cp a, $64
 	jr z, Label_04_487E
-	call Function_04_4889
+	call SoundDrv_GetInstrumentPtr
 	ld a, [wRam_D010]
 	add a, $0C
 	ld c, a
@@ -1570,15 +1580,15 @@ Label_04_484E:: ; 04:484E
 	ld a, [wRam_D019]
 	res 4, a
 	ld [wRam_D019], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 Label_04_487E:: ; 04:487E
 	ld a, [wRam_D019]
 	set 4, a
 	ld [wRam_D019], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
-Function_04_4889:: ; 04:4889
+SoundDrv_GetInstrumentPtr:: ; 04:4889
 	ld l, a
 	ld h, $00
 	add hl, hl
@@ -1610,7 +1620,7 @@ Label_04_48AD:: ; 04:48AD
 	push hl
 	sla b
 	jr c, Label_04_48B9
-	call Function_04_5007
+	call SoundDrv_Mul8x8
 	ld c, l
 	ld b, h
 	jr Label_04_48C6
@@ -1619,7 +1629,7 @@ Label_04_48B9:: ; 04:48B9
 	ld a, b
 	cpl
 	ld b, a
-	call Function_04_5007
+	call SoundDrv_Mul8x8
 	dec hl
 	ld a, l
 	cpl
@@ -1636,7 +1646,7 @@ Label_04_48C6:: ; 04:48C6
 	ld a, [wRam_D019]
 	set 2, a
 	ld [wRam_D019], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 Label_04_48D5:: ; 04:48D5
 	ld a, [wRam_D010]
@@ -1676,7 +1686,7 @@ Label_04_48EC:: ; 04:48EC
 ; ---- code $4905-$4908 (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 17/18 scenarios)
 
 Label_04_4905:: ; 04:4905
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $4908-$4925 (29 bytes) [PROBABLE] validated entry 4908 of jump table Table_04_44A3; clean decode to a terminator
 
@@ -1685,7 +1695,7 @@ Label_04_4908:: ; 04:4908
 	sla a
 	jr z, Label_04_4915
 	ld bc, $001F
-	jp Label_04_44CF
+	jp SoundDrv_SetTrackFieldByte
 
 Label_04_4915:: ; 04:4915
 	rra
@@ -1694,7 +1704,7 @@ Label_04_4915:: ; 04:4915
 	xor a, $40
 	ld [wRam_D039], a
 	ld bc, $001F
-	jp Label_04_44EC
+	jp SoundDrv_SetTrackFieldWord
 
 ; ---- code $4925-$4947 (34 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 18/18 scenarios)
 
@@ -1702,7 +1712,7 @@ Label_04_4925:: ; 04:4925
 	ld bc, $002A
 	jr Label_04_4973
 
-Label_04_492A:: ; 04:492A
+SoundDrv_CmdSetVolume:: ; 04:492A
 	ld a, [wRam_D019]
 	set 1, a
 	ld [wRam_D019], a
@@ -1716,16 +1726,16 @@ Label_04_492A:: ; 04:492A
 	inc de
 	rlca
 	ld [hl], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $4947-$4955 (14 bytes) [PROBABLE] validated entry 4947 of jump table Table_04_44A3; clean decode to a terminator
 
-Label_04_4947:: ; 04:4947
+SoundDrv_ParamVolumeScale:: ; 04:4947
 	ld a, [wRam_D03C]
 	set 1, a
 	ld [wRam_D03C], a
 	ld bc, $0016
-	jp Label_04_44CF
+	jp SoundDrv_SetTrackFieldByte
 
 ; ---- code $4955-$4962 (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
@@ -1743,7 +1753,7 @@ Label_04_4962:: ; 04:4962
 	set 0, a
 	ld [wRam_D03C], a
 	ld bc, $0018
-	jp Label_04_44CF
+	jp SoundDrv_SetTrackFieldByte
 
 ; ---- code $4970-$4984 (20 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
 
@@ -1759,7 +1769,7 @@ Label_04_4973:: ; 04:4973
 	ld a, [wRam_D01F]
 	inc de
 	ld [hl], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $4984-$4991 (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
@@ -1774,7 +1784,7 @@ Label_04_4984:: ; 04:4984
 
 Label_04_4991:: ; 04:4991
 	ld bc, $0022
-	jp Label_04_44CF
+	jp SoundDrv_SetTrackFieldByte
 
 ; ---- code $4997-$49C3 (44 bytes) [PROBABLE] 20 insn(s) reached by static flow only; seeds: table x20; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
@@ -1795,7 +1805,7 @@ Label_04_49A2:: ; 04:49A2
 	rlca
 	sub a, $80
 	ld [hl], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 Label_04_49B6:: ; 04:49B6
 	ld a, [wRam_D019]
@@ -1816,7 +1826,7 @@ Label_04_49C8:: ; 04:49C8
 
 Label_04_49CD:: ; 04:49CD
 	ld bc, $0027
-	jp Label_04_44EC
+	jp SoundDrv_SetTrackFieldWord
 
 Label_04_49D3:: ; 04:49D3
 	ld bc, $000C
@@ -1848,7 +1858,7 @@ Label_04_49E5:: ; 04:49E5
 	and a, $0F
 	or a, b
 	ld [hl], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 Label_04_49FF:: ; 04:49FF
 	ld bc, $000F
@@ -1867,7 +1877,7 @@ Label_04_4A02:: ; 04:4A02
 	and a, $F0
 	or a, b
 	ld [hl], a
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 Label_04_4A1A:: ; 04:4A1A
 	ld bc, $0010
@@ -1880,7 +1890,7 @@ Label_04_4A1F:: ; 04:4A1F
 ; ---- code $4A24-$4A27 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
 Label_04_4A24:: ; 04:4A24
-	jp Label_04_45DB
+	jp SoundDrv_CmdEnd
 
 ; ---- code $4A27-$4A5C (53 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 18/18 scenarios)
 
@@ -1888,7 +1898,7 @@ Label_04_4A27:: ; 04:4A27
 	ld b, $00
 	jr Label_04_4A36
 
-Label_04_4A2B:: ; 04:4A2B
+SoundDrv_CmdNote:: ; 04:4A2B
 	sub a, $CF
 	add a, $44
 	ld l, a
@@ -1917,7 +1927,7 @@ Label_04_4A4B:: ; 04:4A4B
 
 Label_04_4A50:: ; 04:4A50
 	bit 7, a
-	jr nz, Label_04_4A81
+	jr nz, SoundDrv_StartNote
 	cp a, $24
 	jr nc, Label_04_4A69
 	cp a, $20
@@ -1925,7 +1935,7 @@ Label_04_4A50:: ; 04:4A50
 
 ; ---- code $4A5C-$4A69 (13 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 04:4A5A (executed)
 	bit 5, b
-	jr nz, Label_04_4A81
+	jr nz, SoundDrv_StartNote
 	set 5, b
 	sub a, $20
 	inc hl
@@ -1937,7 +1947,7 @@ Label_04_4A50:: ; 04:4A50
 
 Label_04_4A69:: ; 04:4A69
 	bit 7, b
-	jr nz, Label_04_4A81
+	jr nz, SoundDrv_StartNote
 	set 7, b
 	dec hl
 	ld [hli], a
@@ -1945,7 +1955,7 @@ Label_04_4A69:: ; 04:4A69
 
 Label_04_4A73:: ; 04:4A73
 	bit 6, b
-	jr nz, Label_04_4A81
+	jr nz, SoundDrv_StartNote
 	set 6, b
 	rlca
 	rlca
@@ -1954,7 +1964,7 @@ Label_04_4A73:: ; 04:4A73
 	ld [hl], a
 	jr Label_04_4A4B
 
-Label_04_4A81:: ; 04:4A81
+SoundDrv_StartNote:: ; 04:4A81
 	push de
 	dec hl
 	ld a, [hl]
@@ -1977,7 +1987,7 @@ Label_04_4A81:: ; 04:4A81
 	ld d, h
 	ld a, [wRam_D03A]
 	add a, $40
-	call Function_04_4889
+	call SoundDrv_GetInstrumentPtr
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -2002,21 +2012,21 @@ Label_04_4ABE:: ; 04:4ABE
 	jr nc, Label_04_4AD1
 	cp a, $08
 	jr nc, Label_04_4ACC
-	call Function_04_4177
+	call SoundDrv_SelectChannel1
 	jr Label_04_4ADD
 
 Label_04_4ACC:: ; 04:4ACC
-	call Function_04_4180
+	call SoundDrv_SelectChannel2
 	jr Label_04_4ADD
 
 Label_04_4AD1:: ; 04:4AD1
 	cp a, $40
 	jr nc, Label_04_4ADA
-	call Function_04_4189
+	call SoundDrv_SelectChannel3
 	jr Label_04_4ADD
 
 Label_04_4ADA:: ; 04:4ADA
-	call Function_04_4192
+	call SoundDrv_SelectChannel4
 
 Label_04_4ADD:: ; 04:4ADD
 	ld a, [wRam_D00F]
@@ -2058,7 +2068,7 @@ Label_04_4B10:: ; 04:4B10
 	jr c, Label_04_4B62
 
 Label_04_4B1A:: ; 04:4B1A
-	call Function_04_4FD4
+	call SoundDrv_SilenceChannel
 	ld a, [wRam_D010]
 	ld e, a
 	ld a, [wRam_D011]
@@ -2112,7 +2122,7 @@ Label_04_4B1A:: ; 04:4B1A
 
 Label_04_4B62:: ; 04:4B62
 	pop de
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $4B66-$4BC9 (99 bytes) [PROBABLE] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
@@ -2138,7 +2148,7 @@ Label_04_4B7F:: ; 04:4B7F
 	add a, [hl]
 	ld [wRam_D03A], a
 	push de
-	call Function_04_419B
+	call SoundDrv_SelectAllChannels
 	ld a, [wRam_D00F]
 	ld hl, $D000
 	bit 5, [hl]
@@ -2170,20 +2180,21 @@ Label_04_4B9D:: ; 04:4B9D
 	ld a, [hl]
 	and a, a
 	jr nz, Label_04_4BC0
-	call Function_04_4BFC
+	call SoundDrv_NoteGateExpired
 	jr Label_04_4BC5
 
 Label_04_4BC0:: ; 04:4BC0
-	call Function_04_41AC
+	call SoundDrv_NextChannel
 	jr nz, Label_04_4B9D
 
 Label_04_4BC5:: ; 04:4BC5
 	pop de
-	jp Label_04_459B
+	jp SoundDrv_ReadNextCommand
 
 ; ---- code $4BC9-$4C5C (147 bytes) [CONFIRMED] 90 insn(s); 90 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_04_4BC9:: ; 04:4BC9
+SoundDrv_ServiceChannelSfx:: ; 04:4BC9
+Function_04_4BC9::
 	ld a, [wRam_D013]
 	ld l, a
 	ld a, [wRam_D014]
@@ -2196,7 +2207,7 @@ Function_04_4BC9:: ; 04:4BC9
 	ret z
 	jr Label_04_4BEB
 
-Function_04_4BDB:: ; 04:4BDB
+SoundDrv_ServiceChannelMusic:: ; 04:4BDB
 	ld a, [wRam_D013]
 	ld l, a
 	ld a, [wRam_D014]
@@ -2225,7 +2236,7 @@ Label_04_4BEB:: ; 04:4BEB
 	dec [hl]
 	ret nz
 
-Function_04_4BFC:: ; 04:4BFC
+SoundDrv_NoteGateExpired:: ; 04:4BFC
 	ld bc, $FFF9
 	add hl, bc
 	ld a, [hl]
@@ -2243,9 +2254,9 @@ Label_04_4C0B:: ; 04:4C0B
 Label_04_4C0F:: ; 04:4C0F
 	xor a, a
 	ld [hl], a
-	jp Function_04_4FD4
+	jp SoundDrv_SilenceChannel
 
-Function_04_4C14:: ; 04:4C14
+SoundDrv_UpdateChannel:: ; 04:4C14
 	ld a, [wRam_D013]
 	ld l, a
 	ld a, [wRam_D014]
@@ -2304,7 +2315,7 @@ Label_04_4C5F:: ; 04:4C5F
 	bit 5, [hl]
 	jr z, Label_04_4C8F
 	push hl
-	call Function_04_4E4B
+	call SoundDrv_WriteChannelParams
 	pop hl
 	ld a, [wRam_D019]
 	or a, $07
@@ -2503,7 +2514,7 @@ Label_04_4D54:: ; 04:4D54
 	ld a, d
 	and a, a
 	jr z, Label_04_4D90
-	call Function_04_502B
+	call SoundDrv_MulNibbles
 	add a, $0F
 	and a, $F0
 	ld [hli], a
@@ -2530,7 +2541,7 @@ Label_04_4D90:: ; 04:4D90
 	ld h, a
 	xor a, a
 	ld [hl], a
-	jp Function_04_4FD4
+	jp SoundDrv_SilenceChannel
 
 Label_04_4D9D:: ; 04:4D9D
 	ld a, [wRam_D015]
@@ -2550,19 +2561,19 @@ Label_04_4DB6:: ; 04:4DB6
 	ld a, [wRam_D019]
 	bit 2, a
 	jr z, Label_04_4DC3
-	call Function_04_4ECA
+	call SoundDrv_WriteChannelPitch
 	ld a, [wRam_D019]
 
 Label_04_4DC3:: ; 04:4DC3
 	bit 0, a
 	jr z, Label_04_4DCD
-	call Function_04_4F4F
+	call SoundDrv_WriteChannelPan
 	ld a, [wRam_D019]
 
 Label_04_4DCD:: ; 04:4DCD
 	bit 1, a
 	ret z
-	jp Label_04_4F97
+	jp SoundDrv_WriteChannelVolume
 
 Function_04_4DD3:: ; 04:4DD3
 	ld bc, $FFFB
@@ -2585,7 +2596,7 @@ Function_04_4DDF:: ; 04:4DDF
 	ld de, $002F
 	add hl, de
 	ld b, [hl]
-	call Function_04_502B
+	call SoundDrv_MulNibbles
 	add a, $0F
 	and a, $F0
 	pop hl
@@ -2604,7 +2615,7 @@ Function_04_4E04:: ; 04:4E04
 	ld de, $FFFA
 	add hl, de
 	ld c, [hl]
-	call Function_04_502B
+	call SoundDrv_MulNibbles
 	add a, $0F
 	ld c, a
 	ld a, [wRam_D010]
@@ -2614,7 +2625,7 @@ Function_04_4E04:: ; 04:4E04
 	ld de, $002F
 	add hl, de
 	ld b, [hl]
-	call Function_04_502B
+	call SoundDrv_MulNibbles
 	add a, $0F
 	and a, $F0
 	pop hl
@@ -2642,7 +2653,7 @@ Label_04_4E49:: ; 04:4E49
 	ld a, b
 	ret
 
-Function_04_4E4B:: ; 04:4E4B
+SoundDrv_WriteChannelParams:: ; 04:4E4B
 	ld a, [wRam_D013]
 	ld l, a
 	ld a, [wRam_D014]
@@ -2758,7 +2769,7 @@ Label_04_4EC3:: ; 04:4EC3
 	jr nz, Label_04_4EC3
 	ret
 
-Function_04_4ECA:: ; 04:4ECA
+SoundDrv_WriteChannelPitch:: ; 04:4ECA
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -2788,9 +2799,9 @@ Function_04_4ECA:: ; 04:4ECA
 Label_04_4EF5:: ; 04:4EF5
 	push hl
 	ld a, b
-	call Function_04_4FEA
+	call SoundDrv_NoteToIndex
 	ld b, a
-	call Function_04_5007
+	call SoundDrv_Mul8x8
 	ld bc, $00FF
 	add hl, bc
 	ld l, h
@@ -2863,7 +2874,7 @@ Label_04_4F44:: ; 04:4F44
 	ldh [c], a
 	ret
 
-Function_04_4F4F:: ; 04:4F4F
+SoundDrv_WriteChannelPan:: ; 04:4F4F
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -2920,7 +2931,7 @@ Label_04_4F90:: ; 04:4F90
 	ldh [c], a
 	ret
 
-Label_04_4F97:: ; 04:4F97
+SoundDrv_WriteChannelVolume:: ; 04:4F97
 	ld a, [wRam_D013]
 	ld l, a
 	ld a, [wRam_D014]
@@ -2967,7 +2978,7 @@ Label_04_4FC0:: ; 04:4FC0
 	ldh [rNR34], a
 	ret
 
-Function_04_4FD4:: ; 04:4FD4
+SoundDrv_SilenceChannel:: ; 04:4FD4
 	ld a, [wRam_D015]
 	ld c, a
 	cp a, $1C
@@ -2985,7 +2996,7 @@ Label_04_4FE5:: ; 04:4FE5
 	ldh [rNR30], a
 	ret
 
-Function_04_4FEA:: ; 04:4FEA
+SoundDrv_NoteToIndex:: ; 04:4FEA
 	sub a, $24
 	jr nc, Label_04_4FEF
 
@@ -2996,21 +3007,21 @@ Function_04_4FEA:: ; 04:4FEA
 
 Label_04_4FEF:: ; 04:4FEF
 	cp a, $78
-	jr c, Label_04_4FF5
+	jr c, SoundDrv_LookupFrequency
 
 ; ---- code $4FF3-$4FF5 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 04:4FF1 (executed)
 	ld a, $77
 
 ; ---- code $4FF5-$5044 (79 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 18/18 scenarios)
 
-Label_04_4FF5:: ; 04:4FF5
+SoundDrv_LookupFrequency:: ; 04:4FF5
 	ld d, $00
 	ld e, a
 	add a, e
 	add a, e
 	rl d
 	ld e, a
-	ld hl, $5075
+	ld hl, Table_SoundDrv_NoteFreq
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -3019,7 +3030,7 @@ Label_04_4FF5:: ; 04:4FF5
 	ld a, [hl]
 	ret
 
-Function_04_5007:: ; 04:5007
+SoundDrv_Mul8x8:: ; 04:5007
 	ld h, b
 	ld l, $00
 	ld b, l
@@ -3063,7 +3074,7 @@ Label_04_5027:: ; 04:5027
 	add hl, bc
 	ret
 
-Function_04_502B:: ; 04:502B
+SoundDrv_MulNibbles:: ; 04:502B
 	ld a, c
 	and a, $F0
 	swap a
@@ -3092,7 +3103,8 @@ Label_04_5040:: ; 04:5040
 
 ; ---- data $5044-$5075 (49 bytes) [PROBABLE] 49-byte lookup table: 00..18 step 1 (25 values) then 1C 1E 20 24 28 2A 2C 30 34 36 38 3C 40 42 44 48 4C 4E 50 54 58 5A 5C 60 (step pattern 2,2,4,4 repeating); the mapper had 5068-5074 as a word table (false positive) and 8 executed-read pieces with 1-byte unread holes; all were entries of this one table. Field meaning unknown
 
-Data_04_5044:: ; 04:5044
+Table_SoundDrv_Durations:: ; 04:5044
+Data_04_5044::
 	db $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F
 	db $10, $11, $12, $13, $14, $15, $16, $17, $18, $1C, $1E, $20, $24, $28, $2A, $2C
 	db $30, $34, $36, $38, $3C, $40, $42, $44, $48, $4C, $4E, $50, $54, $58, $5A, $5C
@@ -3100,7 +3112,8 @@ Data_04_5044:: ; 04:5044
 
 ; ---- data $5075-$51DD (360 bytes) [PROBABLE] sound note table: 120 records x 3 bytes = little-endian 11-bit GB frequency (002C 009D 0107 016B 01C9 0223 0277 02C7 0312 0358 039B 03DA 0416 044E ... 07FE, non-decreasing over all 120 entries (strictly increasing up to entry 88, then the values 07F4-07FE repeat: the 11-bit period saturates), matches the equal-tempered GB period table: 002C = 65.4 Hz = C2, 12 entries per octave) followed by one byte (70 6A 64 5F 59 54 50 ... decreasing per note, meaning unknown); 5075+120*3 = 51DD = start of the next table; executed reads of 5074-51DD in up to 17/18 scenarios
 
-Data_04_5075:: ; 04:5075
+Table_SoundDrv_NoteFreq:: ; 04:5075
+Data_04_5075::
 	db $2C, $00, $70, $9D, $00, $6A, $07, $01, $64, $6B, $01, $5F, $C9, $01, $59, $23
 	db $02, $54, $77, $02, $50, $C7, $02, $4B, $12, $03, $47, $58, $03, $43, $9B, $03
 	db $3F, $DA, $03, $3C, $16, $04, $38, $4E, $04, $35, $83, $04, $32, $B5, $04, $30
@@ -3127,7 +3140,8 @@ Data_04_5075:: ; 04:5075
 
 ; ---- data $51DD-$547D (672 bytes) [PROBABLE] sound instrument/envelope table: 112 records x 6 bytes (first byte 0B/09/0A/00/01/02/11/14/... , 00, 00, NRx2-like byte FB/FD/..., 7F/6F/4F/FF..., last byte $3C constant (the unread byte of each record in traces) except the last 10 records); the 1-byte unread holes of the mapper were this constant; executed reads in up to 18/18 scenarios; 51DD+112*6 = 547D = start of the wave table
 
-Data_04_51DD:: ; 04:51DD
+Table_SoundDrv_Instruments:: ; 04:51DD
+Data_04_51DD::
 	db $0B, $00, $00, $FB, $7F, $3C, $09, $00, $00, $FB, $6F, $3C, $0A, $00, $00, $FD
 	db $4F, $3C, $0A, $00, $00, $FB, $7C, $3C, $00, $00, $00, $FD, $4F, $3C, $01, $00
 	db $00, $FA, $6F, $3C, $02, $00, $00, $FC, $6F, $3C, $00, $00, $00, $FF, $FF, $3C
@@ -3173,7 +3187,8 @@ Data_04_51DD:: ; 04:51DD
 
 ; ---- data $547D-$551D (160 bytes) [PROBABLE] 10 CGB wave-RAM patterns x 16 bytes (32 4-bit samples each: 00 11 23 56 89 AC DE EF FF EE DC A9 86 53 21 10 ; 01 23 45 ... ; FF FF 00.. pulse shapes ; ...); 547D+160 = 551D = start of the song table
 
-Data_04_547D:: ; 04:547D
+Table_SoundDrv_WavePatterns:: ; 04:547D
+Data_04_547D::
 	db $00, $11, $23, $56, $89, $AC, $DE, $EF, $FF, $EE, $DC, $A9, $86, $53, $21, $10
 	db $01, $23, $45, $67, $89, $AB, $CD, $EF, $FE, $DC, $BA, $98, $76, $54, $32, $10
 	db $FF, $EE, $DD, $CC, $BB, $AA, $99, $88, $77, $66, $55, $44, $33, $22, $11, $00
@@ -3187,7 +3202,8 @@ Data_04_547D:: ; 04:547D
 
 ; ---- data $551D-$574D (560 bytes) [PROBABLE] song table: 70 records x 8 bytes = word address (58BC 5CBF 5EF4 60E8 ...), word ROM bank (0004 or 0005; 9-bit bank number as read by 00:215E/216F from D026/D027, per docs/research/boot_and_home.md), word $FFC8 (rarely $FFD2/$FFC9), word 0001-0004 (last byte $00 is the unread constant in traces); the 11 identical 58BC/0004 records and the bank-5 entries (4218 4540 46E6 ...) confirm the address+bank reading; 551D+560 = 574D = first sound bytecode
 
-Data_04_551D:: ; 04:551D
+Table_SoundDrv_Songs:: ; 04:551D
+Data_04_551D::
 	db $BC, $58, $04, $00, $C8, $FF, $04, $00, $BF, $5C, $04, $00, $C8, $FF, $04, $00
 	db $F4, $5E, $04, $00, $C8, $FF, $04, $00, $E8, $60, $04, $00, $C8, $FF, $04, $00
 	db $22, $68, $04, $00, $C8, $FF, $04, $00, $3A, $6B, $04, $00, $C8, $FF, $04, $00
@@ -3226,7 +3242,8 @@ Data_04_551D:: ; 04:551D
 
 ; ---- data $574D-$7E8C (10047 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; command semantics not decoded
 
-Data_04_574D:: ; 04:574D
+Data_SoundDrv_Streams:: ; 04:574D
+Data_04_574D::
 	db $BF, $7F, $BD, $00, $BC, $3D, $BE, $52, $C5, $0F, $C3, $2A, $C4, $1A, $8C, $D5
 	db $48, $1A, $86, $47, $86, $48, $86, $D4, $4D, $8C, $4B, $8C, $D4, $8C, $D5, $4A
 	db $86, $DB, $48, $8C, $46, $8C, $45, $8C, $D5, $46, $86, $EF, $48, $A2, $D5, $46

@@ -9,7 +9,8 @@ SECTION "Bank27", ROMX[$4000], BANK[$27]
 
 ; ---- code $4000-$407B (123 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_4000:: ; 27:4000
+MailSendRecv_Main:: ; 27:4000
+Function_27_4000::
 	ld a, $01
 	ld [wRam_C1D0], a
 	xor a, a
@@ -18,7 +19,7 @@ Function_27_4000:: ; 27:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, $417A
+	ld de, MailSendRecv_RequestTemplate
 	ld b, $07
 
 Label_27_4017:: ; 27:4017
@@ -27,7 +28,7 @@ Label_27_4017:: ; 27:4017
 	inc de
 	dec b
 	jr nz, Label_27_4017
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ld a, $0C
 	sub a, d
 	ld [wRam_D62A], a
@@ -35,10 +36,10 @@ Label_27_4017:: ; 27:4017
 	ld [wRam_D62B], a
 	ld d, $01
 	ld bc, $D624
-	farcall Function_57_4000
+	farcall ConnectDialog_Run
 	inc b
 	ret z
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -63,10 +64,10 @@ Label_27_4017:: ; 27:4017
 	xor a, a
 	ld [hli], a
 	ld [hli], a
-	farcall Function_51_4245
+	farcall CommTime_Reset
 	ld a, $00
 	ld b, $00
-	farcall Function_27_41E3
+	farcall MailConnect_Screen
 	cp a, $FF
 	jr z, Label_27_407B
 	cp a, $20
@@ -104,17 +105,17 @@ Label_27_40A1:: ; 27:40A1
 	bit 4, a
 	jp z, Label_27_40B3
 	ld b, $00
-	farcall Function_27_4768
+	farcall MailDisconnect_Screen
 	jr Label_27_40BB
 
 Label_27_40B3:: ; 27:40B3
 	ld b, $00
-	farcall Function_27_49B0
+	farcall MailDisconnect_ScreenNoTimer
 
 ; ---- code $40BB-$40F5 (58 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 
 Label_27_40BB:: ; 27:40BB
-	farcall Function_51_4239
+	farcall CommTime_TimerAIsNonZero
 	or a, a
 	jr nz, Label_27_40C8
 	ld a, h
@@ -125,13 +126,13 @@ Label_27_40C8:: ; 27:40C8
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_404A
+	farcall CommTime_DrawSummaryScreen
 
 Label_27_40D6:: ; 27:40D6
 	ret
 
 Label_27_40D7:: ; 27:40D7
-	farcall Function_26_4000
+	farcall MailSession_Run
 	cp a, $80
 	cp a, $7F
 	ld a, [wTimerEnable]
@@ -139,7 +140,7 @@ Label_27_40D7:: ; 27:40D7
 	jp z, Label_27_40F5
 	ld a, $01
 	ld b, $00
-	farcall Function_27_4768
+	farcall MailDisconnect_Screen
 	jr Label_27_40FF
 
 ; ---- code $40F5-$40FF (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jpcc from 27:40E6 (executed)
@@ -147,14 +148,14 @@ Label_27_40D7:: ; 27:40D7
 Label_27_40F5:: ; 27:40F5
 	ld a, $01
 	ld b, $00
-	farcall Function_27_49B0
+	farcall MailDisconnect_ScreenNoTimer
 
 ; ---- code $40FF-$410C (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 
 Label_27_40FF:: ; 27:40FF
 	xor a, a
 	ld [wRam_C2D1], a
-	farcall Function_51_4239
+	farcall CommTime_TimerAIsNonZero
 	or a, a
 	jr nz, Label_27_4110
 
@@ -169,7 +170,7 @@ Label_27_4110:: ; 27:4110
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_404A
+	farcall CommTime_DrawSummaryScreen
 
 Label_27_411E:: ; 27:411E
 	di
@@ -179,7 +180,7 @@ Label_27_411E:: ; 27:411E
 	and a, $F3
 	ldh [rIE], a
 	ei
-	farcall Function_25_4A90
+	farcall Mailbox_CountRecords
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -206,10 +207,10 @@ Label_27_411E:: ; 27:411E
 ; ---- code $4156-$4166 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 
 Label_27_4156:: ; 27:4156
-	farcall Function_29_4000
+	farcall MailResult_Screen
 	xor a, a
 	ld [wRam_C264], a
-	farcall Function_29_44F6
+	farcall MailServerStatus_Screen
 
 ; ---- code $4166-$417A (20 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
 	cp a, $FF
@@ -218,26 +219,27 @@ Label_27_4156:: ; 27:4156
 	ld a, $00
 	ld [wRam_C264], a
 	ld d, $FF
-	farcall Function_25_4000
+	farcall Mailbox_Main
 	ret
 
 ; ---- data $417A-$4181 (7 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_27_417A:: ; 27:417A
+MailSendRecv_RequestTemplate:: ; 27:417A
+Data_27_417A::
 	db $04, $00, $00, $01, $24, $D5, $04
 
 ; ---- code $4181-$41BC (59 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_54_423C
+	farcall Mobile_BeginCancel
 
 Label_27_4187:: ; 27:4187
-	farcall Function_54_4266
+	farcall Mobile_CancelPoll
 	cp a, $01
 	jr z, Label_27_4187
 	cp a, $FF
 	jr z, Label_27_4195
 
 Label_27_4195:: ; 27:4195
-	farcall Function_51_4239
+	farcall CommTime_TimerAIsNonZero
 	or a, a
 	jr nz, Label_27_41A2
 	ld a, h
@@ -248,7 +250,7 @@ Label_27_41A2:: ; 27:41A2
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_404A
+	farcall CommTime_DrawSummaryScreen
 
 Label_27_41B0:: ; 27:41B0
 	di
@@ -262,7 +264,8 @@ Label_27_41B0:: ; 27:41B0
 
 ; ---- code $41BC-$41DB (31 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_41BC:: ; 27:41BC
+Mail_OutboxIsEmpty:: ; 27:41BC
+Function_27_41BC::
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -290,7 +293,8 @@ Label_27_41DB:: ; 27:41DB
 
 ; ---- code $41E3-$41F5 (18 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_41E3:: ; 27:41E3
+MailConnect_Screen:: ; 27:41E3
+Function_27_41E3::
 	ld a, $00
 	push af
 	ld a, b
@@ -317,7 +321,7 @@ Label_27_41FC:: ; 27:41FC
 
 Label_27_4201:: ; 27:4201
 	pop af
-	call Function_27_4B95
+	call MailConnect_InitScreen
 	push bc
 	ldh a, [hWRAMBank]
 	push af
@@ -360,7 +364,7 @@ Label_27_4225:: ; 27:4225
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_27_4297
-	call Function_27_41BC
+	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_27_427C
 	ld hl, $DA40
@@ -415,9 +419,9 @@ Label_27_42B6:: ; 27:42B6
 	call Function_00_0A65
 
 Label_27_42CF:: ; 27:42CF
-	farcall Function_68_4010
-	farcall Function_7F_61FF
-	farcall Function_7F_61FC
+	farcall Session_ResetCounters
+	farcall Timer_ResetClockB
+	farcall Stub_Nop_7F_61FC
 	xor a, a
 	ld [wRam_C2D1], a
 	ld hl, $C2D2
@@ -433,10 +437,10 @@ Label_27_42CF:: ; 27:42CF
 	xor a, a
 	ld [wRam_C26F], a
 	ld de, $C0A9
-	farcall Function_54_403D
+	farcall Mobile_SessionInit
 	ld b, $00
 
-Label_27_4305:: ; 27:4305
+MailConnect_Screen_Loop:: ; 27:4305
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -451,7 +455,7 @@ Label_27_4305:: ; 27:4305
 	farcall Function_00_0956
 	ei
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -459,11 +463,11 @@ Label_27_4305:: ; 27:4305
 	ld b, $01
 
 Label_27_4334:: ; 27:4334
-	call Function_27_4747
-	jp z, Label_27_46E5
+	call MailConnect_PollAdapterError
+	jp z, MailConnect_ShowError
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
-	jr nz, Label_27_4305
+	jr nz, MailConnect_Screen_Loop
 
 Label_27_4341:: ; 27:4341
 	ld a, b
@@ -484,7 +488,7 @@ Label_27_4341:: ; 27:4341
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -492,10 +496,10 @@ Label_27_4341:: ; 27:4341
 	ld b, $01
 
 Label_27_4374:: ; 27:4374
-	call Function_27_4747
-	jp z, Label_27_46E5
+	call MailConnect_PollAdapterError
+	jp z, MailConnect_ShowError
 	push bc
-	farcall Function_54_405D
+	farcall Mobile_ConnectPoll
 	pop bc
 	cp a, $01
 	jr z, Label_27_4341
@@ -503,7 +507,7 @@ Label_27_4374:: ; 27:4374
 	jr nz, Label_27_4393
 
 ; ---- code $438A-$4393 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:4388 (executed)
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -514,12 +518,12 @@ Label_27_4393:: ; 27:4393
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_68_44D0
+	farcall Settings_GetSelectedDialEntry
 	inc b
 	ld c, b
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld hl, $C0A0
-	farcall Function_54_4141
+	farcall Mobile_BeginConnect
 	pop bc
 
 Label_27_43B3:: ; 27:43B3
@@ -541,7 +545,7 @@ Label_27_43B3:: ; 27:43B3
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -554,7 +558,7 @@ Label_27_43B3:: ; 27:43B3
 
 Label_27_43E6:: ; 27:43E6
 	push bc
-	farcall Function_54_405D
+	farcall Mobile_ConnectPoll
 	pop bc
 	cp a, $01
 	jr z, Label_27_43B3
@@ -562,7 +566,7 @@ Label_27_43E6:: ; 27:43E6
 	jr nz, Label_27_43FF
 
 ; ---- code $43F6-$43FF (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:43F4 (executed)
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -585,7 +589,7 @@ Label_27_43FF:: ; 27:43FF
 	pop bc
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $7948
+	ld hl, MailConnect_WinMsg_Connected
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -636,8 +640,8 @@ Label_27_444C:: ; 27:444C
 	pop bc
 
 Label_27_448B:: ; 27:448B
-	call Function_27_4747
-	jp z, Label_27_46E5
+	call MailConnect_PollAdapterError
+	jp z, MailConnect_ShowError
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -664,12 +668,12 @@ Label_27_448B:: ; 27:448B
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $A7
 	jr c, Label_27_448B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -680,7 +684,7 @@ Label_27_44E1:: ; 27:44E1
 	call Function_00_0464
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $7560
+	ld hl, MailConnect_WinMsg_Cancelling
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -716,8 +720,8 @@ Label_27_452C:: ; 27:452C
 	pop bc
 	dec b
 	jr nz, Label_27_452C
-	farcall Function_7F_61FF
-	farcall Function_54_423C
+	farcall Timer_ResetClockB
+	farcall Mobile_BeginCancel
 	ld de, $2FE0
 	ld hl, $DA50
 	call Function_00_0A65
@@ -732,7 +736,7 @@ Label_27_452C:: ; 27:452C
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_27_45A4
-	call Function_27_41BC
+	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_27_4589
 	ld hl, $DA40
@@ -802,9 +806,9 @@ Label_27_45DC:: ; 27:45DC
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
-	farcall Function_54_4266
+	farcall Mobile_CancelPoll
 	cp a, $01
 	jr z, Label_27_45DC
 	push bc
@@ -824,7 +828,7 @@ Label_27_45DC:: ; 27:45DC
 	call Function_00_0A65
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $7628
+	ld hl, MailConnect_WinMsg_Cancelled
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -855,12 +859,12 @@ Label_27_4641:: ; 27:4641
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $C0
 	jr nz, Label_27_4641
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
 	ldh a, [rLCDC]
@@ -891,12 +895,12 @@ Label_27_46A1:: ; 27:46A1
 	farcall Function_00_0956
 	ei
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_27_46C8
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -907,7 +911,7 @@ Label_27_46C8:: ; 27:46C8
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_27_46DD
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -924,7 +928,7 @@ Data_27_46DF:: ; 27:46DF
 
 ; ---- code $46E5-$4747 (98 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 27:4337 (executed) [executed in 4 scenarios]
 
-Label_27_46E5:: ; 27:46E5
+MailConnect_ShowError:: ; 27:46E5
 	ld a, [wRam_C1DE]
 	ld [wRam_C273], a
 	ld a, [wRam_C1DF]
@@ -938,19 +942,19 @@ Label_27_46E5:: ; 27:46E5
 	ld a, $07
 	ldh [rWX], a
 	call Function_00_044B
-	farcall Function_4F_4370
-	farcall Function_7F_61FF
+	farcall Palette_FadeOutToWhite
+	farcall Timer_ResetClockB
 	ld de, $C0A9
-	farcall Function_54_418C
+	farcall Mobile_BeginDisconnect
 
 Label_27_471A:: ; 27:471A
-	farcall Function_54_41A3
+	farcall Mobile_DisconnectPoll
 	cp a, $01
 	jr z, Label_27_471A
-	farcall Function_54_423C
+	farcall Mobile_BeginCancel
 
 Label_27_472A:: ; 27:472A
-	farcall Function_54_4266
+	farcall Mobile_CancelPoll
 	cp a, $01
 	jr z, Label_27_472A
 	cp a, $FF
@@ -960,13 +964,14 @@ Label_27_4738:: ; 27:4738
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
-	farcall Function_68_4F8C
+	farcall Mobile_ShowLastError
 	ld a, $80
 	ret
 
 ; ---- code $4747-$4751 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_4747:: ; 27:4747
+MailConnect_PollAdapterError:: ; 27:4747
+Function_27_4747::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_27_4751
@@ -983,7 +988,7 @@ Label_27_4751:: ; 27:4751
 	ld a, $07
 	ldh [rWX], a
 	call Function_00_044B
-	farcall Function_54_4011
+	farcall Mobile_FetchResult
 	pop hl
 	pop de
 	pop bc
@@ -993,7 +998,8 @@ Label_27_4751:: ; 27:4751
 
 ; ---- code $4768-$477A (18 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_4768:: ; 27:4768
+MailDisconnect_Screen:: ; 27:4768
+Function_27_4768::
 	ld a, $01
 	push af
 	ld a, b
@@ -1020,7 +1026,7 @@ Label_27_4781:: ; 27:4781
 
 Label_27_4786:: ; 27:4786
 	pop af
-	call Function_27_4B95
+	call MailConnect_InitScreen
 	push bc
 	ldh a, [hWRAMBank]
 	push af
@@ -1033,7 +1039,7 @@ Label_27_4786:: ; 27:4786
 	pop bc
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $76F0
+	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -1057,7 +1063,7 @@ Label_27_4786:: ; 27:4786
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_27_4831
-	call Function_27_41BC
+	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_27_4816
 	ld hl, $DA40
@@ -1120,9 +1126,9 @@ Label_27_4850:: ; 27:4850
 	call Function_00_0A65
 
 Label_27_4869:: ; 27:4869
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld de, $C0A9
-	farcall Function_54_418C
+	farcall Mobile_BeginDisconnect
 	ld b, $00
 
 Label_27_487A:: ; 27:487A
@@ -1163,14 +1169,14 @@ Label_27_48A5:: ; 27:48A5
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	pop de
 	dec de
 	ld a, d
 	or a, e
 	push de
-	farcall Function_54_41A3
+	farcall Mobile_DisconnectPoll
 	pop de
 	cp a, $01
 	jr z, Label_27_48A5
@@ -1187,8 +1193,8 @@ Label_27_48A5:: ; 27:48A5
 ; ---- code $48EA-$49B0 (198 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios)
 
 Label_27_48EA:: ; 27:48EA
-	farcall Function_7F_61FF
-	farcall Function_54_423C
+	farcall Timer_ResetClockB
+	farcall Mobile_BeginCancel
 
 Label_27_48F6:: ; 27:48F6
 	push de
@@ -1207,8 +1213,8 @@ Label_27_48F6:: ; 27:48F6
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
-	farcall Function_54_4266
+	farcall Joypad_Update
+	farcall Mobile_CancelPoll
 	pop bc
 	pop de
 	cp a, $01
@@ -1230,7 +1236,7 @@ Label_27_48F6:: ; 27:48F6
 	call Function_00_0A65
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $77B8
+	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -1261,12 +1267,12 @@ Label_27_495E:: ; 27:495E
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $D0
 	jr nz, Label_27_495E
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
 	ldh a, [rLCDC]
@@ -1277,10 +1283,10 @@ Label_27_495E:: ; 27:495E
 
 ; ---- code $49B0-$4B95 (485 bytes) [PROBABLE] 199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code)
 
-Function_27_49B0:: ; 27:49B0
+MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp nz, Function_27_4768
+	jp nz, MailDisconnect_Screen
 	ld a, $01
 	push af
 	ld a, b
@@ -1303,7 +1309,7 @@ Label_27_49D1:: ; 27:49D1
 
 Label_27_49D6:: ; 27:49D6
 	pop af
-	call Function_27_4B95
+	call MailConnect_InitScreen
 	push bc
 	ldh a, [hWRAMBank]
 	push af
@@ -1316,7 +1322,7 @@ Label_27_49D6:: ; 27:49D6
 	pop bc
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $76F0
+	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -1340,7 +1346,7 @@ Label_27_49D6:: ; 27:49D6
 	ld a, [wRam_C264]
 	cp a, $00
 	jr nz, Label_27_4A81
-	call Function_27_41BC
+	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_27_4A66
 	ld hl, $DA40
@@ -1434,7 +1440,7 @@ Label_27_4AE5:: ; 27:4AE5
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	dec b
 	jr nz, Label_27_4AE5
@@ -1455,7 +1461,7 @@ Label_27_4AE5:: ; 27:4AE5
 	call Function_00_0A65
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $77B8
+	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
 	farcall Function_00_08EA
 	ld a, $40
@@ -1486,12 +1492,12 @@ Label_27_4B43:: ; 27:4B43
 	call Function_00_20A6
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $D0
 	jr nz, Label_27_4B43
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
 	ldh a, [rLCDC]
@@ -1502,7 +1508,8 @@ Label_27_4B43:: ; 27:4B43
 
 ; ---- code $4B95-$4D06 (369 bytes) [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_27_4B95:: ; 27:4B95
+MailConnect_InitScreen:: ; 27:4B95
+Function_27_4B95::
 	push bc
 	push af
 	farcall Function_00_09B6
@@ -1516,76 +1523,76 @@ Function_27_4B95:: ; 27:4B95
 	ld de, $D840
 	ld hl, $7520
 	ld a, $27
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $74E0
+	ld hl, MailConnect_BgPalette
 	ld a, $27
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $8001
-	ld hl, $5060
+	ld hl, MailConnect_Tiles_5060
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8401
-	ld hl, $5460
+	ld hl, MailConnect_Tiles_5460
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $5E60
+	ld hl, MailConnect_Tiles_5E60
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $6260
+	ld hl, MailConnect_Tiles_6260
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9000
-	ld hl, $6660
+	ld hl, MailConnect_Tiles_6660
 	ld a, $27
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5860
+	ld hl, MailConnect_Tiles_5860
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5C60
+	ld hl, MailConnect_Tiles_5C60
 	ld a, $27
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6860
+	ld hl, MailConnect_Tiles_6860
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8400
-	ld hl, $6C60
+	ld hl, MailConnect_Tiles_6C60
 	ld a, $27
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1220
 	ld de, $D000
-	ld hl, $7060
+	ld hl, MailConnect_Tilemap
 	ld a, $27
 	farcall Function_00_08EA
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7520
 	ld a, $27
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
 	call Function_00_082C
 	pop af
@@ -1593,7 +1600,7 @@ Function_27_4B95:: ; 27:4B95
 	jr z, Label_27_4CAF
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $7880
+	ld hl, MailConnect_WinMsg_Connecting
 	ld a, $27
 	farcall Function_00_08EA
 	jr Label_27_4CC0
@@ -1601,7 +1608,7 @@ Function_27_4B95:: ; 27:4B95
 Label_27_4CAF:: ; 27:4CAF
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $76F0
+	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Function_00_08EA
 
@@ -1609,7 +1616,7 @@ Label_27_4CC0:: ; 27:4CC0
 	ld a, $40
 	farcall Function_00_0887
 	ld hl, $DA10
-	ld de, $7A10
+	ld de, MailConnect_ObjTable
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
@@ -1642,7 +1649,7 @@ Label_27_4CC0:: ; 27:4CC0
 	ld hl, $D800
 
 ; ---- code $4D19-$4D31 (24 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -1663,12 +1670,12 @@ Label_27_4D31:: ; 27:4D31
 	or a, $64
 	ldh [rLCDC], a
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld bc, $0000
 	ret
 
 ; ---- code $4D4E-$4D51 (3 bytes) [PROBABLE] 1 insn (call $4D81) falling into the code at 4D51; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
-	call Function_27_4D81
+	call CommTime_DrawHMSScreen
 
 ; ---- code $4D51-$4D81 (48 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0; entered by jr from 27:4D7F (PROBABLE code)
 
@@ -1676,12 +1683,12 @@ Label_27_4D51:: ; 27:4D51
 	push bc
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_27_4D70
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
@@ -1689,7 +1696,7 @@ Label_27_4D70:: ; 27:4D70
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_27_4D7F
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
@@ -1698,7 +1705,7 @@ Label_27_4D7F:: ; 27:4D7F
 
 ; ---- code $4D81-$4D87 (6 bytes) [PROBABLE] 5 insn(s) (xor a ; ldh [$FF43],a ; push de ; push bc ; push af) falling into the code at 4D87; entered by call $4D81 from 27:4D4E (this classification)
 
-Function_27_4D81:: ; 27:4D81
+CommTime_DrawHMSScreen:: ; 27:4D81
 	xor a, a
 	ldh [rSCX], a
 	push de
@@ -1716,23 +1723,23 @@ Function_27_4D81:: ; 27:4D81
 	push bc
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5AD0
+	ld hl, Palette_29_5AD0
 	ld a, $29
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7520
 	ld a, $27
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, $5400
+	ld hl, Data_29_5400
 	ld a, $29
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5800
+	ld hl, Data_29_5800
 	ld a, $29
 	farcall Function_00_08EA
 	ldh [hScratchA], a
@@ -1744,7 +1751,7 @@ Function_27_4D81:: ; 27:4D81
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -1836,6 +1843,8 @@ Function_27_4D81:: ; 27:4D81
 	jp Label_27_4EEB
 
 ; ---- code $4EC0-$4ED3 (19 bytes) [PROBABLE] 9 insn(s): same prologue as 27:4D06 (WRAM7 switch, call $047A, ld hl,$D800) falling into the code at 4ED3; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+
+Function_27_4EC0:: ; 27:4EC0
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1847,7 +1856,7 @@ Function_27_4D81:: ; 27:4D81
 	ld hl, $D800
 
 ; ---- code $4ED3-$4EF5 (34 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -1879,25 +1888,25 @@ Label_27_4EEB:: ; 27:4EEB
 ; ---- code $4F0B-$4FD8 (205 bytes) [PROBABLE] 72 insn(s) reached by static flow only; seeds: site x72; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $4DB0
+	ld hl, Data_51_4DB0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $51B0
+	ld hl, Data_51_51B0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5880
+	ld hl, Data_51_5880
 	ld a, $51
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $55B0
+	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
 	farcall Function_00_08EA
 	ld a, [wTimerAFrames]
@@ -1943,15 +1952,15 @@ Label_27_4F84:: ; 27:4F84
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	xor a, a
 	ldh [hRam_FFF6], a
 
 Label_27_4FC0:: ; 27:4FC0
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4FD8-$4FE2 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 27:4FD5: 5 entries; fixed length (5 words) by the routine
@@ -1978,7 +1987,7 @@ Label_27_4FEB:: ; 27:4FEB
 	jp Label_27_4FC0
 
 Label_27_4FEE:: ; 27:4FEE
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ret
 
@@ -2057,7 +2066,8 @@ Data_27_5048:: ; 27:5048
 
 ; ---- gfx $5060-$5460 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BDB: hl=$5060 a=$27 c=$40 de=$8001 (dest VRAM $8000, vbank=1)
 
-Data_27_5060:: ; 27:5060
+MailConnect_Tiles_5060:: ; 27:5060
+Data_27_5060::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $1F, $00, $0F, $00, $07, $00, $03, $00, $01
@@ -2125,7 +2135,8 @@ Data_27_5060:: ; 27:5060
 
 ; ---- gfx $5460-$5860 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BED: hl=$5460 a=$27 c=$40 de=$8401 (dest VRAM $8400, vbank=1)
 
-Data_27_5460:: ; 27:5460
+MailConnect_Tiles_5460:: ; 27:5460
+Data_27_5460::
 	db $0F, $0F, $7F, $7F, $BF, $E7, $BF, $E7, $BD, $E6, $5E, $73, $2F, $39, $17, $1C
 	db $0B, $0E, $05, $07, $05, $06, $07, $04, $07, $04, $07, $04, $05, $06, $03, $02
 	db $E0, $E0, $F0, $F0, $F0, $F0, $F0, $F0, $F0, $10, $F0, $10, $50, $B0, $A0, $E0
@@ -2193,7 +2204,8 @@ Data_27_5460:: ; 27:5460
 
 ; ---- gfx $5860-$5C60 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C35: hl=$5860 a=$27 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_27_5860:: ; 27:5860
+MailConnect_Tiles_5860:: ; 27:5860
+Data_27_5860::
 	db $00, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $00, $00, $FF, $FF, $20, $C0, $5C, $9F, $B0, $20, $7F, $5F, $51, $51, $51, $51
@@ -2261,7 +2273,8 @@ Data_27_5860:: ; 27:5860
 
 ; ---- gfx $5C60-$5E60 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C47: hl=$5C60 a=$27 c=$20 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_27_5C60:: ; 27:5C60
+MailConnect_Tiles_5C60:: ; 27:5C60
+Data_27_5C60::
 	db $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FE, $01, $E0, $1F, $E0, $07, $F8
 	db $00, $FF, $00, $07, $F8, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $FF, $00, $FF, $00, $7F, $80, $1F, $E0, $0F, $F0, $03, $FC, $00, $FF, $00
@@ -2297,7 +2310,8 @@ Data_27_5C60:: ; 27:5C60
 
 ; ---- gfx $5E60-$6260 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4BFF: hl=$5E60 a=$27 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_27_5E60:: ; 27:5E60
+MailConnect_Tiles_5E60:: ; 27:5E60
+Data_27_5E60::
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FB, $FF, $E7, $FF, $CF, $FF, $FF, $FF, $FE, $FF
 	db $FF, $FF, $FE, $FF, $F9, $FF, $C3, $F3, $06, $CF, $19, $FF, $C3, $E7, $07, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $C3, $FF, $81, $C3, $00, $BD, $1C, $7D
@@ -2365,7 +2379,8 @@ Data_27_5E60:: ; 27:5E60
 
 ; ---- gfx $6260-$6660 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C11: hl=$6260 a=$27 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-Data_27_6260:: ; 27:6260
+MailConnect_Tiles_6260:: ; 27:6260
+Data_27_6260::
 	db $85, $C2, $81, $86, $90, $E6, $CA, $E4, $00, $0C, $44, $08, $50, $08, $48, $10
 	db $FC, $FF, $E0, $FC, $00, $E0, $00, $83, $00, $8E, $81, $E1, $E1, $F5, $E0, $F4
 	db $38, $C4, $3A, $C6, $38, $C4, $31, $CD, $22, $DC, $07, $87, $47, $5B, $01, $01
@@ -2433,7 +2448,8 @@ Data_27_6260:: ; 27:6260
 
 ; ---- gfx $6660-$6860 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C23: hl=$6660 a=$27 c=$20 de=$9000 (dest VRAM $9000, vbank=0)
 
-Data_27_6660:: ; 27:6660
+MailConnect_Tiles_6660:: ; 27:6660
+Data_27_6660::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2469,7 +2485,8 @@ Data_27_6660:: ; 27:6660
 
 ; ---- gfx $6860-$6C60 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C59: hl=$6860 a=$27 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_27_6860:: ; 27:6860
+MailConnect_Tiles_6860:: ; 27:6860
+Data_27_6860::
 	db $00, $00, $03, $03, $07, $04, $0F, $08, $0F, $08, $0F, $08, $0B, $0C, $04, $07
 	db $02, $03, $07, $04, $0F, $08, $1F, $12, $7D, $66, $FB, $8C, $FB, $8C, $7B, $7C
 	db $00, $00, $C0, $C0, $E0, $20, $F0, $10, $F0, $10, $F0, $10, $D0, $30, $20, $E0
@@ -2537,7 +2554,8 @@ Data_27_6860:: ; 27:6860
 
 ; ---- gfx $6C60-$7060 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4C6B: hl=$6C60 a=$27 c=$40 de=$8400 (dest VRAM $8400, vbank=0)
 
-Data_27_6C60:: ; 27:6C60
+MailConnect_Tiles_6C60:: ; 27:6C60
+Data_27_6C60::
 	db $00, $00, $03, $03, $07, $04, $0F, $08, $0F, $08, $0F, $08, $0B, $0C, $04, $07
 	db $02, $03, $05, $06, $0B, $0C, $0F, $0A, $0F, $09, $0F, $08, $0F, $0A, $0D, $0B
 	db $00, $00, $C0, $C0, $E0, $20, $F0, $10, $F0, $10, $F0, $10, $D0, $30, $20, $E0
@@ -2605,7 +2623,8 @@ Data_27_6C60:: ; 27:6C60
 
 ; ---- data $7060-$74E0 (1152 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4C7C: hl=$7060 a=$27 b=18 rows c=32 cols (tiles then attrs) de=$D000
 
-Data_27_7060:: ; 27:7060
+MailConnect_Tilemap:: ; 27:7060
+Data_27_7060::
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
@@ -2681,7 +2700,8 @@ Data_27_7060:: ; 27:7060
 
 ; ---- data $74E0-$7518 (56 bytes) [PROBABLE] palette-rgb555: heuristic: 28 RGB555 words as 7 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_27_74E0:: ; 27:74E0
+MailConnect_BgPalette:: ; 27:74E0
+Data_27_74E0::
 	db $00, $00, $2C, $21, $5F, $03, $FF, $7F, $00, $00, $F7, $00, $9F, $02, $FF, $7F
 	db $00, $00, $A0, $71, $E0, $03, $FF, $7F, $00, $00, $F7, $00, $5F, $00, $FF, $7F
 	db $00, $00, $60, $2D, $B2, $46, $FF, $7F, $00, $00, $12, $7C, $4A, $7E, $FF, $7F
@@ -2690,15 +2710,18 @@ Data_27_74E0:: ; 27:74E0
 ; ---- data $7518-$7560 (72 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 5060-7A10 by higher-priority evidence]
 
 Data_27_7518:: ; 27:7518
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $7F, $02, $1A, $01, $00, $00
-	db $00, $7C, $1F, $00, $10, $00, $00, $00, $00, $7C, $1F, $7C, $FF, $4F, $00, $00
-	db $00, $7C, $80, $7D, $FF, $7F, $00, $00, $00, $7C, $40, $02, $FF, $4F, $00, $00
-	db $00, $7C, $00, $00, $EF, $3D, $FF, $7F, $00, $7C, $2C, $21, $00, $00, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	db $00, $00, $00, $00, $00, $00, $00, $00
+
+MailScreens_ObjPalette_7520:: ; 27:7520
+	db $00, $7C, $7F, $02, $1A, $01, $00, $00, $00, $7C, $1F, $00, $10, $00, $00, $00
+	db $00, $7C, $1F, $7C, $FF, $4F, $00, $00, $00, $7C, $80, $7D, $FF, $7F, $00, $00
+	db $00, $7C, $40, $02, $FF, $4F, $00, $00, $00, $7C, $00, $00, $EF, $3D, $FF, $7F
+	db $00, $7C, $2C, $21, $00, $00, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
 ; ---- data $7560-$7628 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:44EF: hl=$7560 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_7560:: ; 27:7560
+MailConnect_WinMsg_Cancelling:: ; 27:7560
+Data_27_7560::
 	db $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $20, $21, $2F
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $1C, $1D, $1E
 	db $1F, $30, $31, $2F, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2715,7 +2738,8 @@ Data_27_7560:: ; 27:7560
 
 ; ---- data $7628-$76F0 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4633: hl=$7628 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_7628:: ; 27:7628
+MailConnect_WinMsg_Cancelled:: ; 27:7628
+Data_27_7628::
 	db $2F, $2F, $2F, $2F, $2F, $08, $09, $0A, $0B, $0C, $0D, $20, $0D, $22, $2F, $2F
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $18, $19, $1A, $1B, $1C, $1D, $30
 	db $1D, $32, $2F, $2F, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2732,7 +2756,8 @@ Data_27_7628:: ; 27:7628
 
 ; ---- data $76F0-$77B8 (200 bytes) [CONFIRMED] tilemap+attr: 3 call site(s) (27:47A7 27:49F7 27:4CBA); first: copy_tilemap_rect_pair at 27:47A7: hl=$76F0 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_76F0:: ; 27:76F0
+MailDisconnect_WinMsg_Ending:: ; 27:76F0
+Data_27_76F0::
 	db $2F, $2F, $2F, $2F, $2F, $0D, $27, $29, $5C, $5D, $29, $0D, $0E, $0F, $20, $21
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $1D, $28, $2A, $5E, $5F, $2A, $1D
 	db $1E, $1F, $30, $31, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2749,7 +2774,8 @@ Data_27_76F0:: ; 27:76F0
 
 ; ---- data $77B8-$7880 (200 bytes) [CONFIRMED] tilemap+attr: 2 call site(s) (27:4950 27:4B35); first: copy_tilemap_rect_pair at 27:4950: hl=$77B8 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_77B8:: ; 27:77B8
+MailDisconnect_WinMsg_Ended:: ; 27:77B8
+Data_27_77B8::
 	db $2F, $2F, $2F, $2F, $2F, $0D, $27, $29, $5C, $5D, $29, $0D, $20, $0D, $22, $2F
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $1D, $28, $2A, $5E, $5F, $2A, $1D
 	db $30, $1D, $32, $2F, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2766,7 +2792,8 @@ Data_27_77B8:: ; 27:77B8
 
 ; ---- data $7880-$7948 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4CA7: hl=$7880 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_7880:: ; 27:7880
+MailConnect_WinMsg_Connecting:: ; 27:7880
+Data_27_7880::
 	db $2F, $2F, $2F, $2F, $2F, $23, $25, $2B, $2D, $0D, $0E, $0F, $20, $21, $2F, $2F
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $24, $26, $2C, $2E, $1D, $1E, $1F
 	db $30, $31, $2F, $2F, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2783,7 +2810,8 @@ Data_27_7880:: ; 27:7880
 
 ; ---- data $7948-$7A10 (200 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4423: hl=$7948 a=$27 b=5 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_27_7948:: ; 27:7948
+MailConnect_WinMsg_Connected:: ; 27:7948
+Data_27_7948::
 	db $2F, $2F, $2F, $2F, $2F, $23, $25, $2B, $2D, $0D, $20, $0D, $22, $2F, $2F, $2F
 	db $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $24, $26, $2C, $2E, $1D, $30, $1D
 	db $32, $2F, $2F, $2F, $2F, $2F, $2F, $2F, $00, $00, $00, $00, $00, $00, $00, $00
@@ -2800,7 +2828,8 @@ Data_27_7948:: ; 27:7948
 
 ; ---- ptrtable $7A10-$7AF0 (224 bytes) [PROBABLE] 112 words, all inside $7AF0-$7CE4 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; callers e.g. 26:4064 ld de,$7A30, 27:4247, 27:4CCB ld de,$7A10 (a=$27 b=$81)
 
-Table_27_7A10:: ; 27:7A10
+MailConnect_ObjTable:: ; 27:7A10
+Table_27_7A10::
 	dw Data_27_7AF0
 	dw $7B2B
 	dw Data_27_7AF0

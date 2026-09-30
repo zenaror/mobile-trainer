@@ -9,7 +9,8 @@ SECTION "Bank70", ROMX[$4000], BANK[$70]
 
 ; ---- code $4000-$401A (26 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_4000:: ; 70:4000
+CommScene_Init:: ; 70:4000
+Function_70_4000::
 	ld [wRam_C27D], a
 	xor a, a
 	ld [wRam_C27C], a
@@ -35,13 +36,13 @@ Label_70_401F:: ; 70:401F
 	ld [wRam_C283], a
 	ret
 
-Function_70_4023:: ; 70:4023
+CommScene_Step:: ; 70:4023
 	ld [wRam_C27E], a
 	ld a, $01
 	ld [wRam_C27F], a
-	farcall Function_7D_7BB7
-	call Function_70_408F
-	call Function_70_407F
+	farcall Joypad_Update
+	call CommScene_RunState
+	call CommScene_ApplyScrollFrame
 	ld a, [wRam_C27D]
 	or a, a
 	jr z, Label_70_407B
@@ -54,7 +55,7 @@ Function_70_4023:: ; 70:4023
 	bit 4, a
 	jr z, Label_70_407B
 	ld hl, $DA30
-	ld de, $534C
+	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
 	farcall Function_00_0A82
@@ -84,7 +85,7 @@ Label_70_407B:: ; 70:407B
 	ld a, [wRam_C27F]
 	ret
 
-Function_70_407F:: ; 70:407F
+CommScene_ApplyScrollFrame:: ; 70:407F
 	call Function_00_0956
 	call Function_00_0464
 	ld hl, $C2A8
@@ -93,9 +94,9 @@ Function_70_407F:: ; 70:407F
 	call Function_00_0392
 	ret
 
-Function_70_408F:: ; 70:408F
+CommScene_RunState:: ; 70:408F
 	ld a, [wRam_C27D]
-	ld hl, $40AD
+	ld hl, CommScene_KindTable
 	add a, a
 	add a, l
 	ld l, a
@@ -119,7 +120,8 @@ Function_70_408F:: ; 70:408F
 
 ; ---- ptrtable $40AD-$40B3 (6 bytes) [PROBABLE] little-endian word table, 27 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $40B3..$449D; referenced by ld r16,$40AD at 70:4092 [clipped from 40AD-40E3 by higher-priority evidence]
 
-Table_70_40AD:: ; 70:40AD
+CommScene_KindTable:: ; 70:40AD
+Table_70_40AD::
 	dw Table_70_40B3
 	dw Table_70_40C7
 	dw $40D9
@@ -167,19 +169,19 @@ Table_70_40D3:: ; 70:40D3
 ; ---- code $40E3-$417E (155 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 1/18 scenarios)
 
 Label_70_40E3:: ; 70:40E3
-	call Function_70_44B0
+	call CommScene_LoadGraphics
 	xor a, a
-	call Function_70_4803
-	call Function_70_4275
+	call CommScene_ShowTextBox
+	call CommScene_ResetScroll
 	ld a, $01
 	ld [wRam_C27C], a
 	xor a, a
 	ld [wRam_C280], a
 	ld a, $00
-	call Function_70_47BB
-	call Function_70_477F
+	call CommScene_SetTextSprites
+	call CommScene_PlaceTextSprites
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -205,7 +207,7 @@ Label_70_4121:: ; 70:4121
 	ld [wRam_C27C], a
 
 Label_70_4131:: ; 70:4131
-	call Function_70_477F
+	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4135:: ; 70:4135
@@ -229,7 +231,7 @@ Label_70_4144:: ; 70:4144
 	ld a, $14
 	ld [wRam_C282], a
 	ld hl, $DA60
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
 	farcall Function_00_0A82
@@ -237,7 +239,7 @@ Label_70_4144:: ; 70:4144
 	ld hl, $DA60
 	call Function_00_0A65
 	ld a, $01
-	call Function_70_4803
+	call CommScene_ShowTextBox
 	ld a, $04
 	ld [wRam_C27C], a
 	jr Label_70_41BB
@@ -256,7 +258,7 @@ Label_70_417E:: ; 70:417E
 	ld a, $02
 	ld [wRam_C27F], a
 	ld hl, $DA60
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
 	farcall Function_00_0A82
@@ -264,7 +266,7 @@ Label_70_417E:: ; 70:417E
 	ld hl, $DA60
 	call Function_00_0A65
 	ld a, $06
-	call Function_70_4803
+	call CommScene_ShowTextBox
 	ld a, $14
 	ld [wRam_C282], a
 	ld a, $07
@@ -273,7 +275,7 @@ Label_70_417E:: ; 70:417E
 ; ---- code $41BB-$4215 (90 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 
 Label_70_41BB:: ; 70:41BB
-	call Function_70_427D
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_41BF:: ; 70:41BF
@@ -296,7 +298,7 @@ Label_70_41BF:: ; 70:41BF
 	ld [wRam_C27C], a
 
 Label_70_41E4:: ; 70:41E4
-	call Function_70_427D
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_41E8:: ; 70:41E8
@@ -310,13 +312,13 @@ Label_70_41E8:: ; 70:41E8
 	jr Label_70_41FB
 
 Label_70_41FB:: ; 70:41FB
-	call Function_70_477F
-	call Function_70_427D
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_4202:: ; 70:4202
-	farcall Function_4F_4370
-	call Function_70_4613
+	farcall Palette_FadeOutToWhite
+	call CommScene_Teardown
 	ld a, $FF
 	ld [wRam_C27C], a
 	xor a, a
@@ -334,13 +336,13 @@ Label_70_4215:: ; 70:4215
 	ld hl, $DA60
 	call Function_00_09E6
 	ld a, $01
-	call Function_70_47BB
+	call CommScene_SetTextSprites
 	ld a, $08
 	ld [wRam_C27C], a
 	jr Label_70_4231
 
 Label_70_4231:: ; 70:4231
-	call Function_70_477F
+	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4235:: ; 70:4235
@@ -365,7 +367,7 @@ Label_70_4241:: ; 70:4241
 	jr Label_70_4258
 
 Label_70_4258:: ; 70:4258
-	call Function_70_4285
+	call CommScene_ScrollDecrement
 	ret
 
 Label_70_425C:: ; 70:425C
@@ -379,19 +381,20 @@ Label_70_425C:: ; 70:425C
 	jr Label_70_426E
 
 Label_70_426E:: ; 70:426E
-	call Function_70_477F
-	call Function_70_4285
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollDecrement
 	ret
 
 ; ---- code $4275-$4285 (16 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_4275:: ; 70:4275
+CommScene_ResetScroll:: ; 70:4275
+Function_70_4275::
 	xor a, a
 	ld [wRam_C2A8], a
 	ld [wRam_C2A9], a
 	ret
 
-Function_70_427D:: ; 70:427D
+CommScene_ScrollIncrement:: ; 70:427D
 	ld a, [wRam_C2A8]
 	inc a
 	ld [wRam_C2A8], a
@@ -399,7 +402,7 @@ Function_70_427D:: ; 70:427D
 
 ; ---- code $4285-$428D (8 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
 
-Function_70_4285:: ; 70:4285
+CommScene_ScrollDecrement:: ; 70:4285
 	ld a, [wRam_C2A8]
 	dec a
 	ld [wRam_C2A8], a
@@ -408,19 +411,19 @@ Function_70_4285:: ; 70:4285
 ; ---- code $428D-$4316 (137 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 
 Label_70_428D:: ; 70:428D
-	call Function_70_44B0
+	call CommScene_LoadGraphics
 	ld a, $02
-	call Function_70_4803
-	call Function_70_4275
+	call CommScene_ShowTextBox
+	call CommScene_ResetScroll
 	ld a, $01
 	ld [wRam_C27C], a
 	ld a, $48
 	ld [wRam_C280], a
 	ld a, $00
-	call Function_70_47BB
-	call Function_70_477F
+	call CommScene_SetTextSprites
+	call CommScene_PlaceTextSprites
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -457,7 +460,7 @@ Label_70_42DC:: ; 70:42DC
 	ld a, $14
 	ld [wRam_C282], a
 	ld hl, $DA60
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
 	farcall Function_00_0A82
@@ -465,7 +468,7 @@ Label_70_42DC:: ; 70:42DC
 	ld hl, $DA60
 	call Function_00_0A65
 	ld a, $03
-	call Function_70_4803
+	call CommScene_ShowTextBox
 	ld a, $03
 	ld [wRam_C27C], a
 	jr Label_70_4353
@@ -484,7 +487,7 @@ Label_70_4316:: ; 70:4316
 	ld a, $02
 	ld [wRam_C27F], a
 	ld hl, $DA60
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
 	farcall Function_00_0A82
@@ -492,7 +495,7 @@ Label_70_4316:: ; 70:4316
 	ld hl, $DA60
 	call Function_00_0A65
 	ld a, $06
-	call Function_70_4803
+	call CommScene_ShowTextBox
 	ld a, $14
 	ld [wRam_C282], a
 	ld a, $06
@@ -501,7 +504,7 @@ Label_70_4316:: ; 70:4316
 ; ---- code $4353-$43AD (90 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 
 Label_70_4353:: ; 70:4353
-	call Function_70_427D
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_4357:: ; 70:4357
@@ -524,7 +527,7 @@ Label_70_4357:: ; 70:4357
 	ld [wRam_C27C], a
 
 Label_70_437C:: ; 70:437C
-	call Function_70_427D
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_4380:: ; 70:4380
@@ -538,13 +541,13 @@ Label_70_4380:: ; 70:4380
 	jr Label_70_4393
 
 Label_70_4393:: ; 70:4393
-	call Function_70_477F
-	call Function_70_427D
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_439A:: ; 70:439A
-	farcall Function_4F_4370
-	call Function_70_4613
+	farcall Palette_FadeOutToWhite
+	call CommScene_Teardown
 	ld a, $FF
 	ld [wRam_C27C], a
 	xor a, a
@@ -562,14 +565,14 @@ Label_70_43AD:: ; 70:43AD
 	ld hl, $DA60
 	call Function_00_09E6
 	ld a, $01
-	call Function_70_47BB
+	call CommScene_SetTextSprites
 	ld a, $07
 	ld [wRam_C27C], a
 	jr Label_70_43C9
 
 Label_70_43C9:: ; 70:43C9
-	call Function_70_477F
-	call Function_70_427D
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollIncrement
 	ret
 
 Label_70_43D0:: ; 70:43D0
@@ -582,7 +585,7 @@ Label_70_43D0:: ; 70:43D0
 
 Label_70_43DC:: ; 70:43DC
 	ld a, $01
-	call Function_70_47BB
+	call CommScene_SetTextSprites
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -596,8 +599,8 @@ Label_70_43DC:: ; 70:43DC
 	jr Label_70_43F8
 
 Label_70_43F8:: ; 70:43F8
-	call Function_70_477F
-	call Function_70_4285
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollDecrement
 	ret
 
 Label_70_43FF:: ; 70:43FF
@@ -611,24 +614,24 @@ Label_70_43FF:: ; 70:43FF
 	jr Label_70_4411
 
 Label_70_4411:: ; 70:4411
-	call Function_70_477F
-	call Function_70_4285
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollDecrement
 	ret
 
 Label_70_4418:: ; 70:4418
-	call Function_70_44B0
+	call CommScene_LoadGraphics
 	ld a, $04
-	call Function_70_4803
-	call Function_70_4275
+	call CommScene_ShowTextBox
+	call CommScene_ResetScroll
 	ld a, $01
 	ld [wRam_C27C], a
 	ld a, $48
 	ld [wRam_C280], a
 	ld a, $01
-	call Function_70_47BB
-	call Function_70_477F
+	call CommScene_SetTextSprites
+	call CommScene_PlaceTextSprites
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -664,11 +667,11 @@ Label_70_4464:: ; 70:4464
 	ld a, $03
 	ld [wRam_C27C], a
 	ld a, $05
-	call Function_70_4803
+	call CommScene_ShowTextBox
 	jr Label_70_4480
 
 Label_70_4480:: ; 70:4480
-	call Function_70_4285
+	call CommScene_ScrollDecrement
 	ret
 
 Label_70_4484:: ; 70:4484
@@ -682,13 +685,13 @@ Label_70_4484:: ; 70:4484
 	jr Label_70_4496
 
 Label_70_4496:: ; 70:4496
-	call Function_70_477F
-	call Function_70_4285
+	call CommScene_PlaceTextSprites
+	call CommScene_ScrollDecrement
 	ret
 
 Label_70_449D:: ; 70:449D
-	farcall Function_4F_4370
-	call Function_70_4613
+	farcall Palette_FadeOutToWhite
+	call CommScene_Teardown
 	ld a, $FF
 	ld [wRam_C27C], a
 	xor a, a
@@ -697,7 +700,8 @@ Label_70_449D:: ; 70:449D
 
 ; ---- code $44B0-$46A6 (502 bytes) [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_44B0:: ; 70:44B0
+CommScene_LoadGraphics:: ; 70:44B0
+Function_70_44B0::
 	farcall Function_00_09B6
 	ld hl, $C2A8
 	xor a, a
@@ -720,77 +724,77 @@ Function_70_44B0:: ; 70:44B0
 	ld a, $70
 	ldh [rWY], a
 	ld de, $8000
-	ld hl, $5490
+	ld hl, Data_70_5490
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8400
-	ld hl, $5890
+	ld hl, Data_70_5890
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $5C90
+	ld hl, Data_70_5C90
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $6090
+	ld hl, Data_70_6090
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9000
-	ld hl, $6490
+	ld hl, Data_70_6490
 	ld a, $70
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $6490
+	ld hl, Data_70_6490
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8401
-	ld hl, $6890
+	ld hl, Data_70_6890
 	ld a, $70
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $6690
+	ld hl, Data_70_6690
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $6A90
+	ld hl, Tiles_70_6A90
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6C90
+	ld hl, Palette_70_6C90
 	ld a, $70
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $6CD0
+	ld hl, Palette_70_6CD0
 	ld a, $70
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0E20
 	ld de, $D000
-	ld hl, $6D10
+	ld hl, Tilemap_70_6D10
 	ld a, $70
 	farcall Function_00_08EA
-	call Function_70_4638
+	call CommScene_UploadBackgroundMap
 	ld hl, $DA10
-	ld de, $534C
+	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $01
 	farcall Function_00_0A82
@@ -798,7 +802,7 @@ Function_70_44B0:: ; 70:44B0
 	ld hl, $DA10
 	call Function_00_0A65
 	ld hl, $DA20
-	ld de, $534C
+	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $02
 	farcall Function_00_0A82
@@ -814,7 +818,7 @@ Function_70_44B0:: ; 70:44B0
 
 Label_70_45EC:: ; 70:45EC
 	ld hl, $DA30
-	ld de, $534C
+	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
 	farcall Function_00_0A82
@@ -831,7 +835,7 @@ Label_70_4605:: ; 70:4605
 	call Function_00_0392
 	ret
 
-Function_70_4613:: ; 70:4613
+CommScene_Teardown:: ; 70:4613
 	farcall Function_00_09B6
 	call Function_00_044B
 	ld hl, $FF40
@@ -849,7 +853,7 @@ Function_70_4613:: ; 70:4613
 	ld [wRam_C2A9], a
 	ret
 
-Function_70_4638:: ; 70:4638
+CommScene_UploadBackgroundMap:: ; 70:4638
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -878,7 +882,7 @@ Function_70_4638:: ; 70:4638
 	ldh a, [hScratchA]
 	ret
 
-Function_70_466B:: ; 70:466B
+CommScene_UploadTextBox:: ; 70:466B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -913,6 +917,8 @@ Function_70_466B:: ; 70:466B
 	ret
 
 ; ---- code $46A6-$4704 (94 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+
+Function_70_46A6:: ; 70:46A6
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -1039,7 +1045,8 @@ Label_70_4769:: ; 70:4769
 
 ; ---- code $477F-$47A0 (33 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_477F:: ; 70:477F
+CommScene_PlaceTextSprites:: ; 70:477F
+Function_70_477F::
 	ld a, [wRam_C281]
 	or a, a
 	jr nz, Label_70_47A0
@@ -1074,17 +1081,18 @@ Label_70_47A0:: ; 70:47A0
 
 ; ---- code $47BB-$47E2 (39 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_47BB:: ; 70:47BB
+CommScene_SetTextSprites:: ; 70:47BB
+Function_70_47BB::
 	ld [wRam_C281], a
 	or a, a
 	jr nz, Label_70_47E2
 	ld hl, $DA40
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $81
 	farcall Function_00_0A82
 	ld hl, $DA50
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $83
 	farcall Function_00_0A82
@@ -1094,12 +1102,12 @@ Function_70_47BB:: ; 70:47BB
 
 Label_70_47E2:: ; 70:47E2
 	ld hl, $DA40
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $82
 	farcall Function_00_0A82
 	ld hl, $DA50
-	ld de, $53EB
+	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $84
 	farcall Function_00_0A82
@@ -1107,8 +1115,9 @@ Label_70_47E2:: ; 70:47E2
 
 ; ---- code $4803-$4822 (31 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_70_4803:: ; 70:4803
-	ld hl, $4822
+CommScene_ShowTextBox:: ; 70:4803
+Function_70_4803::
+	ld hl, CommScene_TextBoxMaps
 	add a, a
 	add a, l
 	ld l, a
@@ -1122,12 +1131,13 @@ Function_70_4803:: ; 70:4803
 	ld de, $D000
 	ld a, $70
 	farcall Function_00_08EA
-	call Function_70_466B
+	call CommScene_UploadTextBox
 	ret
 
 ; ---- ptrtable $4822-$4832 (16 bytes) [CONFIRMED] 8 word pointers to the 20x4 tilemap+attr blocks 7090..74F0 (stride $A0); indexed by A in Function_70_4803 (70:4803, executed) via ld hl,$4822 ; add a,a ... ; length 8 = 16 bytes to the next table at 4832; all 8 targets are block-aligned in 7090-7590
 
-Table_70_4822:: ; 70:4822
+CommScene_TextBoxMaps:: ; 70:4822
+Table_70_4822::
 	dw Tilemap_70_7090
 	dw Tilemap_70_7130
 	dw Tilemap_70_71D0
@@ -1761,7 +1771,8 @@ Data_70_5343:: ; 70:5343
 
 ; ---- ptrtable $534C-$535C (16 bytes) [CONFIRMED] animation table: 4 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
 
-Table_70_534C:: ; 70:534C
+CommScene_ObjTable:: ; 70:534C
+Table_70_534C::
 	dw $0000
 	dw $0000
 	dw Table_70_535C
@@ -1830,7 +1841,8 @@ Data_70_53E6:: ; 70:53E6
 
 ; ---- ptrtable $53EB-$5403 (24 bytes) [CONFIRMED] animation table: 6 entries x 4 bytes (2 pointers each; entry 0 may be null), used as DE by init_object_from_table (00:0A82 / 00:0AB8, index = B&7F): word0 = list of frame pointers, word1 = count + 2-byte pairs. CONFIRMED by executed callers: ld de,$53EB at 70:415C and ld de,$534C at 70:45B1 (a=$70, then call 00:0A82). Whole structure tiles exactly (every pointer lands on a record start)
 
-Table_70_53EB:: ; 70:53EB
+CommScene_TextObjTable:: ; 70:53EB
+Table_70_53EB::
 	dw $0000
 	dw $0000
 	dw Table_70_5403

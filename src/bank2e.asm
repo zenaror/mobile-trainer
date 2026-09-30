@@ -9,7 +9,8 @@ SECTION "Bank2E", ROMX[$4000], BANK[$2E]
 
 ; ---- code $4000-$4090 (144 bytes) [CONFIRMED] 63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2E_4000:: ; 2E:4000
+MailServerMgr_Run:: ; 2E:4000
+Function_2E_4000::
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,8 +25,8 @@ Function_2E_4000:: ; 2E:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_2E_4B2E
+	farcall Stat_EnableScrollSplit
+	call MailServerMgr_SetupScreen
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -48,7 +49,7 @@ Function_2E_4000:: ; 2E:4000
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	call Function_2E_538B
+	call MailServerMgr_ShowLoadingMsg
 	ld hl, $DAD0
 	ld de, $7700
 	ld a, $2E
@@ -57,27 +58,27 @@ Function_2E_4000:: ; 2E:4000
 	ld de, $0000
 	ld hl, $DAD0
 	call Function_00_0A65
-	farcall Function_7F_61FF
-	farcall Function_54_485C
+	farcall Timer_ResetClockB
+	farcall Pop3_StartLogin
 
 Label_2E_4067:: ; 2E:4067
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyHeld]
 	and a, $02
 	jp nz, Label_2E_4A47
-	farcall Function_54_489B
+	farcall Pop3_LoginStatPoll
 	cp a, $01
 	jr z, Label_2E_4067
 	cp a, $FF
 	jr nz, Label_2E_4099
 
 ; ---- code $4090-$4099 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed)
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -88,7 +89,7 @@ Label_2E_4099:: ; 2E:4099
 	push de
 	push hl
 	ld de, $9401
-	ld hl, $5AE0
+	ld hl, Gfx_MailServerMgr_Tiles1
 	ld a, $2E
 	ld b, $98
 	ld c, $01
@@ -161,9 +162,9 @@ Label_2E_4108:: ; 2E:4108
 	push de
 	push hl
 	ld c, $00
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	xor a, a
-	farcall Function_54_4914
+	farcall Pop3_StartTop
 	pop hl
 	pop de
 	pop bc
@@ -176,8 +177,8 @@ Label_2E_4125:: ; 2E:4125
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	call Function_2E_55FA
-	farcall Function_7D_7BB7
+	call MailServerMgr_UpdateTimerDisplay
+	farcall Joypad_Update
 	pop hl
 	pop de
 	pop bc
@@ -192,7 +193,7 @@ Label_2E_4149:: ; 2E:4149
 	push de
 	push hl
 	xor a, a
-	farcall Function_54_4969
+	farcall Pop3_TopPoll
 	cp a, $01
 	jr nz, Label_2E_415C
 	pop hl
@@ -206,7 +207,7 @@ Label_2E_415C:: ; 2E:415C
 	pop hl
 	pop de
 	pop bc
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	pop de
 	ld a, $80
 	ret
@@ -302,21 +303,21 @@ Label_2E_417F:: ; 2E:417F
 	jp nz, Label_2E_4292
 	ld hl, $0000
 	ld a, $05
-	farcall Function_23_58C4
+	farcall SpriteCounter_StubA
 	ld hl, $0000
 	ld a, $04
-	farcall Function_23_5FA2
-	call Function_2E_533C
+	farcall SpriteCounter_StubB
+	call MailServerMgr_ClearTextTiles
 	di
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	ei
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6960
+	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	ld de, $0228
 	push af
 	ldh a, [rSVBK]
@@ -332,13 +333,13 @@ Label_2E_417F:: ; 2E:417F
 	pop af
 	push de
 	pop de
-	farcall Function_72_402A
+	farcall Dialog_Open
 	ld a, $78
 
 Label_2E_4241:: ; 2E:4241
 	push af
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_2E_4255
@@ -350,7 +351,7 @@ Label_2E_4255:: ; 2E:4255
 	pop af
 	dec a
 	jr nz, Label_2E_4241
-	farcall Function_72_444F
+	farcall Dialog_Close
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -363,7 +364,7 @@ Label_2E_4255:: ; 2E:4255
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	ld a, $01
 
 Label_2E_4279:: ; 2E:4279
@@ -372,9 +373,9 @@ Label_2E_4279:: ; 2E:4279
 	pop af
 	dec a
 	jr nz, Label_2E_4279
-	call Function_2E_55FA
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	call MailServerMgr_UpdateTimerDisplay
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
@@ -392,7 +393,7 @@ Label_2E_4298:: ; 2E:4298
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall Function_23_6699
+	farcall SpriteCounter_StubC
 	pop bc
 	pop hl
 	ld a, b
@@ -412,13 +413,13 @@ Label_2E_4298:: ; 2E:4298
 	ld a, [de]
 	ld h, a
 	ld a, $04
-	farcall Function_23_5FA2
+	farcall SpriteCounter_StubB
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	pop hl
 	pop bc
 	push bc
@@ -441,13 +442,13 @@ Label_2E_4298:: ; 2E:4298
 	inc bc
 	add hl, bc
 	ld a, $B8
-	call Function_2E_5184
+	call MailServerMgr_DrawMailNumber
 	pop hl
 	inc hl
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	xor a, a
 	ld c, $01
-	farcall Function_54_4914
+	farcall Pop3_StartTop
 
 Label_2E_430D:: ; 2E:430D
 	push bc
@@ -457,8 +458,8 @@ Label_2E_430D:: ; 2E:430D
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	pop hl
 	pop de
 	pop bc
@@ -471,14 +472,14 @@ Label_2E_430D:: ; 2E:430D
 
 Label_2E_4332:: ; 2E:4332
 	xor a, a
-	farcall Function_54_4969
+	farcall Pop3_TopPoll
 	cp a, $01
 	jr z, Label_2E_430D
 	cp a, $FF
 	jr nz, Label_2E_434C
 	pop hl
 	pop bc
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -579,11 +580,11 @@ Label_2E_43AF:: ; 2E:43AF
 	pop bc
 	pop af
 	push af
-	call Function_2E_4DBF
+	call MailServerMgr_DrawMailInfo
 	pop af
 	dec a
-	call Function_2E_5005
-	call Function_2E_4EBD
+	call MailServerMgr_DrawMailDate
+	call MailServerMgr_DrawMailFields
 	pop hl
 	push hl
 	ld a, $01
@@ -600,7 +601,7 @@ Label_2E_43AF:: ; 2E:43AF
 	inc bc
 	add hl, bc
 	ld a, $B8
-	call Function_2E_5184
+	call MailServerMgr_DrawMailNumber
 	pop hl
 	pop bc
 	push bc
@@ -609,7 +610,7 @@ Label_2E_43AF:: ; 2E:43AF
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall Function_23_6699
+	farcall SpriteCounter_StubC
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -628,19 +629,19 @@ Label_2E_43AF:: ; 2E:43AF
 	ld a, [de]
 	ld h, a
 	ld a, $04
-	farcall Function_23_5FA2
+	farcall SpriteCounter_StubB
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	pop hl
 	pop bc
 	push bc
 	push hl
 	ld hl, $DA00
-	ld de, $76C0
+	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
 	farcall Function_00_0A82
@@ -648,7 +649,7 @@ Label_2E_43AF:: ; 2E:43AF
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $00
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	ld c, $00
 
 Label_2E_4458:: ; 2E:4458
@@ -659,8 +660,8 @@ Label_2E_4458:: ; 2E:4458
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr z, Label_2E_447A
-	farcall Function_54_4011
-	farcall Function_26_5067
+	farcall Mobile_FetchResult
+	farcall MailSession_ShowCommError
 	pop bc
 	pop hl
 	pop bc
@@ -668,7 +669,7 @@ Label_2E_4458:: ; 2E:4458
 	ret
 
 Label_2E_447A:: ; 2E:447A
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -715,7 +716,7 @@ Label_2E_44C4:: ; 2E:44C4
 	cp a, $00
 	call nz, Function_2E_4A7D
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
@@ -769,7 +770,7 @@ Label_2E_4518:: ; 2E:4518
 	jr nz, Label_2E_4544
 	push bc
 	ld hl, $DA00
-	ld de, $76C0
+	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
 	farcall Function_00_0A82
@@ -777,7 +778,7 @@ Label_2E_4518:: ; 2E:4518
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $00
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	pop bc
 
 Label_2E_4544:: ; 2E:4544
@@ -794,7 +795,7 @@ Label_2E_4544:: ; 2E:4544
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $01
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	pop bc
 
 Label_2E_4569:: ; 2E:4569
@@ -811,7 +812,7 @@ Label_2E_4569:: ; 2E:4569
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $02
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	pop bc
 
 Label_2E_458E:: ; 2E:458E
@@ -859,7 +860,7 @@ Label_2E_458E:: ; 2E:458E
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -876,8 +877,8 @@ Label_2E_458E:: ; 2E:458E
 	pop bc
 	dec a
 	jp nz, Label_2E_4611
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
@@ -888,7 +889,7 @@ Label_2E_4611:: ; 2E:4611
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall Function_23_6699
+	farcall SpriteCounter_StubC
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -908,13 +909,13 @@ Label_2E_4611:: ; 2E:4611
 	ld h, a
 	add hl, bc
 	ld a, $04
-	farcall Function_23_5FA2
+	farcall SpriteCounter_StubB
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	pop hl
 	pop bc
 	push bc
@@ -928,7 +929,7 @@ Label_2E_4611:: ; 2E:4611
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $02
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	ld c, $02
 	jp Label_2E_4458
 
@@ -942,10 +943,10 @@ Label_2E_467A:: ; 2E:467A
 	pop bc
 	push bc
 	push hl
-	call Function_2E_533C
+	call MailServerMgr_ClearTextTiles
 	ld bc, $0614
 	ld de, $D0A0
-	ld hl, $6C30
+	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Function_00_08EA
 	di
@@ -960,7 +961,7 @@ Label_2E_467A:: ; 2E:467A
 	ld de, $0000
 	ld hl, $DAD0
 	call Function_00_0A65
-	call Function_2E_5429
+	call MailServerMgr_ShowDeletingMsg
 	pop hl
 	pop bc
 	inc bc
@@ -994,17 +995,17 @@ Label_2E_467A:: ; 2E:467A
 	pop bc
 	push bc
 	push hl
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	xor a, a
-	farcall Function_54_5386
+	farcall Pop3_StartDele
 
 Label_2E_46F8:: ; 2E:46F8
 	call Function_00_0464
 	di
 	farcall Function_00_0956
 	ei
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2E_4717
@@ -1014,12 +1015,12 @@ Label_2E_46F8:: ; 2E:46F8
 
 Label_2E_4717:: ; 2E:4717
 	xor a, a
-	farcall Function_54_53BB
+	farcall Pop3_DelePoll
 	cp a, $01
 	jr z, Label_2E_46F8
 	cp a, $FF
 	jr nz, Label_2E_4731
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	pop hl
 	pop bc
 	ld a, $80
@@ -1040,10 +1041,10 @@ Label_2E_4736:: ; 2E:4736
 	pop bc
 	push bc
 	push hl
-	call Function_2E_533C
+	call MailServerMgr_ClearTextTiles
 	ld bc, $0614
 	ld de, $D0A0
-	ld hl, $6C30
+	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Function_00_08EA
 	di
@@ -1058,7 +1059,7 @@ Label_2E_4736:: ; 2E:4736
 	ld de, $0000
 	ld hl, $DAD0
 	call Function_00_0A65
-	call Function_2E_538B
+	call MailServerMgr_ShowLoadingMsg
 	pop hl
 	pop bc
 
@@ -1093,7 +1094,7 @@ Label_2E_477E:: ; 2E:477E
 	cp a, $00
 	inc de
 	jp nz, Label_2E_4887
-	call Function_2E_533C
+	call MailServerMgr_ClearTextTiles
 	push af
 	push bc
 	push de
@@ -1102,7 +1103,7 @@ Label_2E_477E:: ; 2E:477E
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	ei
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	pop hl
 	pop de
 	pop bc
@@ -1111,7 +1112,7 @@ Label_2E_477E:: ; 2E:477E
 	ld l, c
 	ld h, b
 	ld a, $05
-	farcall Function_23_6699
+	farcall SpriteCounter_StubC
 	pop hl
 	ld a, h
 	xor a, $FF
@@ -1131,20 +1132,20 @@ Label_2E_477E:: ; 2E:477E
 	ld h, a
 	add hl, bc
 	ld a, $04
-	farcall Function_23_5FA2
+	farcall SpriteCounter_StubB
 	di
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
-	call Function_2E_55FA
+	farcall Joypad_Update
+	call MailServerMgr_UpdateTimerDisplay
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6960
+	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_561C
+	call MailServerMgr_DrawTimer
 	ld de, $0229
 	push af
 	ldh a, [rSVBK]
@@ -1160,13 +1161,13 @@ Label_2E_477E:: ; 2E:477E
 	pop af
 	push de
 	pop de
-	farcall Function_72_402A
+	farcall Dialog_Open
 	ld a, $78
 
 Label_2E_4843:: ; 2E:4843
 	push af
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_2E_4857
@@ -1178,8 +1179,8 @@ Label_2E_4857:: ; 2E:4857
 	pop af
 	dec a
 	jr nz, Label_2E_4843
-	farcall Function_72_444F
-	call Function_2E_561C
+	farcall Dialog_Close
+	call MailServerMgr_DrawTimer
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1192,8 +1193,8 @@ Label_2E_4857:: ; 2E:4857
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
@@ -1207,15 +1208,15 @@ Label_2E_4887:: ; 2E:4887
 	push hl
 
 ; ---- code $488E-$4B2E (672 bytes) [PROBABLE] 298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	push af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
 	jr z, Label_2E_48EE
@@ -1233,10 +1234,10 @@ Label_2E_4887:: ; 2E:4887
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_2E_4B2E
-	call Function_2E_538B
-	farcall Function_7F_627C
+	farcall Stat_EnableScrollSplit
+	call MailServerMgr_SetupScreen
+	call MailServerMgr_ShowLoadingMsg
+	farcall Sprites_RestoreSlotsFromBank3
 	pop hl
 	pop de
 	pop bc
@@ -1259,15 +1260,15 @@ Function_2E_48F8:: ; 2E:48F8
 	push bc
 	push de
 	push hl
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	push af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
 	jr z, Label_2E_495C
@@ -1285,10 +1286,10 @@ Function_2E_48F8:: ; 2E:48F8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	call Function_2E_4B2E
-	call Function_2E_538B
-	farcall Function_7F_627C
+	farcall Stat_EnableScrollSplit
+	call MailServerMgr_SetupScreen
+	call MailServerMgr_ShowLoadingMsg
+	farcall Sprites_RestoreSlotsFromBank3
 	pop hl
 	pop de
 	pop bc
@@ -1307,12 +1308,12 @@ Label_2E_495C:: ; 2E:495C
 	ld a, $80
 	ret
 
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	ld de, $C0A9
 	farcall Function_7F_6235
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
 
@@ -1325,19 +1326,19 @@ Label_2E_4988:: ; 2E:4988
 	pop hl
 	inc hl
 	ld a, $B8
-	call Function_2E_5184
+	call MailServerMgr_DrawMailNumber
 	jr Label_2E_4988
 
-	farcall Function_7F_61FF
+	farcall Timer_ResetClockB
 	xor a, a
-	farcall Function_54_5386
+	farcall Pop3_StartDele
 
 Label_2E_49AA:: ; 2E:49AA
 	di
 	farcall Function_00_0956
 	ei
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2E_49DA
@@ -1362,12 +1363,12 @@ Label_2E_49AA:: ; 2E:49AA
 
 Label_2E_49DA:: ; 2E:49DA
 	xor a, a
-	farcall Function_54_53BB
+	farcall Pop3_DelePoll
 	cp a, $01
 	jr z, Label_2E_49AA
 	cp a, $FF
 	jr nz, Label_2E_49F2
-	farcall Function_26_5067
+	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
@@ -1416,14 +1417,14 @@ Label_2E_4A31:: ; 2E:4A31
 	pop af
 	dec a
 	jr nz, Label_2E_4A31
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
 Label_2E_4A47:: ; 2E:4A47
 	ld a, $04
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	ld a, $78
 	ld a, $01
 
@@ -1449,8 +1450,8 @@ Label_2E_4A50:: ; 2E:4A50
 	ld [bc], a
 	inc bc
 	ld [bc], a
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
@@ -1460,15 +1461,15 @@ Function_2E_4A7D:: ; 2E:4A7D
 	push de
 	push hl
 	push bc
-	farcall Function_7F_624F
-	farcall Function_7F_72B0
+	farcall Sprites_SaveSlotsToBank3
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	push af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	pop bc
 	inc a
@@ -1488,10 +1489,10 @@ Function_2E_4A7D:: ; 2E:4A7D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop bc
-	call Function_2E_4C58
-	farcall Function_7F_627C
+	call MailServerMgr_RedrawScreen
+	farcall Sprites_RestoreSlotsFromBank3
 	pop hl
 	pop de
 	pop bc
@@ -1510,8 +1511,8 @@ Label_2E_4AE2:: ; 2E:4AE2
 	ld a, $80
 	ret
 
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
 	push af
 	ldh a, [rSVBK]
@@ -1527,19 +1528,20 @@ Label_2E_4AE2:: ; 2E:4AE2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_EnableScrollSplit
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
 
 ; ---- code $4B2E-$4C58 (298 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2E_4B2E:: ; 2E:4B2E
+MailServerMgr_SetupScreen:: ; 2E:4B2E
+Function_2E_4B2E::
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
-	farcall Function_2D_5016
+	farcall TextTiles_ClearBuffers
+	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
@@ -1547,66 +1549,66 @@ Function_2E_4B2E:: ; 2E:4B2E
 	ldh [rWY], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $7590
+	ld hl, Palette_MailServerMgr_Bg
 	ld a, $2E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $75D0
 	ld a, $2E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, $56E0
+	ld hl, Gfx_MailServerMgr_Tiles0
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5AE0
+	ld hl, Gfx_MailServerMgr_Tiles1
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8801
-	ld hl, $5EE0
+	ld hl, Gfx_MailServerMgr_Tiles2
 	ld a, $2E
 	ld b, $97
 	ld c, $12
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6560
+	ld hl, Gfx_MailServerMgr_Tiles5
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8A80
-	ld hl, $6000
+	ld hl, Gfx_MailServerMgr_Tiles3
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8E80
-	ld hl, $6400
+	ld hl, Gfx_MailServerMgr_Tiles4
 	ld a, $2E
 	ld b, $96
 	ld c, $16
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6960
+	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld bc, $0614
 	ld de, $D0A0
-	ld hl, $6C30
+	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall LCDOn
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -1617,9 +1619,9 @@ Function_2E_4B2E:: ; 2E:4B2E
 	pop af
 	ldh [rSVBK], a
 	ei
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1634,17 +1636,17 @@ Function_2E_4B2E:: ; 2E:4B2E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ret
 
 ; ---- code $4C58-$4EB2 (602 bytes) [PROBABLE] 260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code)
 
-Function_2E_4C58:: ; 2E:4C58
+MailServerMgr_RedrawScreen:: ; 2E:4C58
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
-	farcall Function_2D_5016
+	farcall TextTiles_ClearBuffers
+	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	xor a, a
 	ldh [rSCX], a
@@ -1652,66 +1654,66 @@ Function_2E_4C58:: ; 2E:4C58
 	ldh [rWY], a
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $7590
+	ld hl, Palette_MailServerMgr_Bg
 	ld a, $2E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $75D0
 	ld a, $2E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, $56E0
+	ld hl, Gfx_MailServerMgr_Tiles0
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5AE0
+	ld hl, Gfx_MailServerMgr_Tiles1
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8801
-	ld hl, $5EE0
+	ld hl, Gfx_MailServerMgr_Tiles2
 	ld a, $2E
 	ld b, $97
 	ld c, $12
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6560
+	ld hl, Gfx_MailServerMgr_Tiles5
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8A80
-	ld hl, $6000
+	ld hl, Gfx_MailServerMgr_Tiles3
 	ld a, $2E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8E80
-	ld hl, $6400
+	ld hl, Gfx_MailServerMgr_Tiles4
 	ld a, $2E
 	ld b, $96
 	ld c, $16
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6960
+	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld bc, $0614
 	ld de, $D0A0
-	ld hl, $6C30
+	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall LCDOn
-	call Function_2E_55FA
+	call MailServerMgr_UpdateTimerDisplay
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1726,10 +1728,10 @@ Function_2E_4C58:: ; 2E:4C58
 	ld h, a
 	push hl
 	push af
-	call Function_2E_4DBF
+	call MailServerMgr_DrawMailInfo
 	pop af
-	call Function_2E_5005
-	call Function_2E_4EBD
+	call MailServerMgr_DrawMailDate
+	call MailServerMgr_DrawMailFields
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1745,10 +1747,10 @@ Function_2E_4C58:: ; 2E:4C58
 	inc bc
 	add hl, bc
 	ld a, $B8
-	call Function_2E_5184
+	call MailServerMgr_DrawMailNumber
 	pop bc
 	ld a, c
-	call Function_2E_5498
+	call MailServerMgr_ShowChoiceHelp
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -1759,9 +1761,9 @@ Function_2E_4C58:: ; 2E:4C58
 	pop af
 	ldh [rSVBK], a
 	ei
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1776,17 +1778,17 @@ Function_2E_4C58:: ; 2E:4C58
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ret
 
-Function_2E_4DBF:: ; 2E:4DBF
+MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	push bc
 	push de
 	push hl
 	pop hl
 	pop de
 	pop bc
-	call Function_2E_533C
+	call MailServerMgr_ClearTextTiles
 	push bc
 	push hl
 	dec d
@@ -1807,13 +1809,13 @@ Label_2E_4DDD:: ; 2E:4DDD
 	ld a, b
 	or a, c
 	jr nz, Label_2E_4DDD
-	call Function_2E_4FBD
+	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6960
+	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_561C
+	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1837,13 +1839,13 @@ Label_2E_4E14:: ; 2E:4E14
 	ld a, b
 	or a, c
 	jr nz, Label_2E_4E14
-	call Function_2E_4FBD
+	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6D20
+	ld hl, Tilemap_MailServerMgr_InfoB
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_561C
+	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1870,13 +1872,13 @@ Label_2E_4E4F:: ; 2E:4E4F
 	ld a, b
 	or a, c
 	jr nz, Label_2E_4E4F
-	call Function_2E_4FBD
+	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6FF0
+	ld hl, Tilemap_MailServerMgr_InfoC
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_561C
+	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1900,13 +1902,13 @@ Label_2E_4E86:: ; 2E:4E86
 	ld a, b
 	or a, c
 	jr nz, Label_2E_4E86
-	call Function_2E_4FBD
+	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $72C0
+	ld hl, Tilemap_MailServerMgr_InfoD
 	ld a, $2E
 	farcall Function_00_08EA
-	call Function_2E_561C
+	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1920,6 +1922,8 @@ Function_2E_4EB1:: ; 2E:4EB1
 	ret
 
 ; ---- code $4EB2-$4EBD (11 bytes) [HYPOTHESIS] complete 11-byte function (ld b,$3C ; loop: push bc ; call $0464 ; pop bc ; dec b ; jr nz ; ret): waits 60 x the 00:0464 routine (executed 21685 times, 13 scenarios); jr lands on its own instruction start; no caller found (entry unproven) [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
+
+Function_2E_4EB2:: ; 2E:4EB2
 	ld b, $3C
 
 Label_2E_4EB4:: ; 2E:4EB4
@@ -1932,7 +1936,7 @@ Label_2E_4EB4:: ; 2E:4EB4
 
 ; ---- code $4EBD-$4F9A (221 bytes) [PROBABLE] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code)
 
-Function_2E_4EBD:: ; 2E:4EBD
+MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1940,7 +1944,7 @@ Function_2E_4EBD:: ; 2E:4EBD
 	ld bc, $0300
 	ld de, $0220
 	ld hl, $D406
-	farcall Function_2E_4F06
+	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1948,7 +1952,7 @@ Function_2E_4EBD:: ; 2E:4EBD
 	ld bc, $0300
 	ld de, $1220
 	ld hl, $D4C0
-	farcall Function_2E_4F06
+	farcall MailServerMgr_DrawFieldText
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1956,11 +1960,11 @@ Function_2E_4EBD:: ; 2E:4EBD
 	ld bc, $0300
 	ld de, $2220
 	ld hl, $D41B
-	farcall Function_2E_4F06
-	call Function_2E_4FBD
+	farcall MailServerMgr_DrawFieldText
+	call MailServerMgr_UploadTextTiles
 	ret
 
-Function_2E_4F06:: ; 2E:4F06
+MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld [wRam_C2EE], a
 
 Label_2E_4F09:: ; 2E:4F09
@@ -1971,7 +1975,7 @@ Label_2E_4F09:: ; 2E:4F09
 	cp a, $00
 	jr z, Label_2E_4F88
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2E_4F66
 	ld a, [wRam_C2EE]
@@ -1992,17 +1996,17 @@ Label_2E_4F29:: ; 2E:4F29
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2E_4FA9
+	call MailServerMgr_DrawFieldText_Glyph
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2024,11 +2028,11 @@ Label_2E_4F66:: ; 2E:4F66
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2E_4FA9
+	call MailServerMgr_DrawFieldText_Glyph
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -2042,7 +2046,7 @@ Label_2E_4F88:: ; 2E:4F88
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -2051,22 +2055,24 @@ Label_2E_4F99:: ; 2E:4F99
 	ret
 
 ; ---- code $4F9A-$4FA9 (15 bytes) [HYPOTHESIS] complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9 ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
+
+Function_2E_4F9A:: ; 2E:4F9A
 	ld a, [wRam_C2EE]
 	cp a, $00
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2E_4FA9
+	call MailServerMgr_DrawFieldText_Glyph
 	jr Label_2E_4F99
 
 ; ---- code $4FA9-$533C (915 bytes) [PROBABLE] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code)
 
-Function_2E_4FA9:: ; 2E:4FA9
+MailServerMgr_DrawFieldText_Glyph:: ; 2E:4FA9
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2075,7 +2081,7 @@ Function_2E_4FA9:: ; 2E:4FA9
 	ld e, a
 	ret
 
-Function_2E_4FBD:: ; 2E:4FBD
+MailServerMgr_UploadTextTiles:: ; 2E:4FBD
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2086,17 +2092,17 @@ Function_2E_4FBD:: ; 2E:4FBD
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_2E_4FE5
+	call MailServerMgr_HdmaBlock
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_2E_4FE5
+	call MailServerMgr_HdmaBlock
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2E_4FE5:: ; 2E:4FE5
+MailServerMgr_HdmaBlock:: ; 2E:4FE5
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2122,7 +2128,7 @@ Label_2E_4FFB:: ; 2E:4FFB
 	ldh [rHDMA5], a
 	ret
 
-Function_2E_5005:: ; 2E:5005
+MailServerMgr_DrawMailDate:: ; 2E:5005
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2392,7 +2398,7 @@ Label_2E_5057:: ; 2E:5057
 	pop bc
 	ret
 
-Function_2E_5184:: ; 2E:5184
+MailServerMgr_DrawMailNumber:: ; 2E:5184
 	push hl
 	push af
 	ld a, $07
@@ -2629,7 +2635,8 @@ Label_2E_5315:: ; 2E:5315
 
 ; ---- code $533C-$53A8 (108 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2E_533C:: ; 2E:533C
+MailServerMgr_ClearTextTiles:: ; 2E:533C
+Function_2E_533C::
 	push bc
 	push de
 	push hl
@@ -2653,15 +2660,15 @@ Label_2E_534E:: ; 2E:534E
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	ld hl, $D800
 	ld de, $8800
 	ld c, $27
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2670,7 +2677,7 @@ Label_2E_534E:: ; 2E:534E
 	pop bc
 	ret
 
-Function_2E_538B:: ; 2E:538B
+MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 	push bc
 	push hl
 	ld a, $02
@@ -2678,26 +2685,27 @@ Function_2E_538B:: ; 2E:538B
 	ld a, $2E
 	ld bc, $D000
 	ld de, $D0C0
-	ld hl, $53A8
-	farcall Function_48_403E
-	call Function_2E_5478
+	ld hl, String_MailServerMgr_LoadingMail
+	farcall TextTiles_RenderLine
+	call MailServerMgr_UploadMessageTiles
 	pop hl
 	pop bc
 	ret
 
 ; ---- text $53A8-$53C1 (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_2E_53A8:: ; 2E:53A8
-	db $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $E6, $82, $DD, $82, $B1, $82, $F1
-	db $82, $C5, $82, $A2, $82, $DC, $82, $B7, $00
+String_MailServerMgr_LoadingMail:: ; 2E:53A8
+String_2E_53A8::
+	db $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $E6, $82, $DD, $82, $B1, $82, $F1, $82, $C5, $82, $A2, $82, $DC, $82, $B7, $00 ; "メールをよみこんでいます"
 
 ; ---- text $53C1-$53DA (25 bytes) [PROBABLE] second line of the message record (12 full-width spaces $8140 + NUL), same layout as 2E:5410/545F/55A8: line 1 string, blank line, then the function that far-calls the text drawer
 
 String_2E_53C1:: ; 2E:53C1
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
 ; ---- code $53DA-$53EB (17 bytes) [PROBABLE] head of the message function (push bc ; push hl ; ld a,2 ; ldh [hFFB0],a ; ld a,$2E ; ld bc,$D000 ; ld de,$D0C0 ; ld hl,$53F7) continuing into the far-call site at 53EB and ending with ret at 53F6 before the string 2E:53F7; identical to the executed sibling 2E:5429; no caller found (entry unproven)
+
+MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	push bc
 	push hl
 	ld a, $02
@@ -2708,27 +2716,26 @@ String_2E_53C1:: ; 2E:53C1
 	ld hl, $53F7
 
 ; ---- code $53EB-$53F7 (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_48_403E
-	call Function_2E_5478
+	farcall TextTiles_RenderLine
+	call MailServerMgr_UploadMessageTiles
 	pop hl
 	pop bc
 	ret
 
 ; ---- text $53F7-$5410 (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_2E_53F7:: ; 2E:53F7
-	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9
-	db $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00
+String_MailServerMgr_NoMail:: ; 2E:53F7
+String_2E_53F7::
+	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはありませんでした"
 
 ; ---- text $5410-$5429 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
 String_2E_5410:: ; 2E:5410
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
 ; ---- code $5429-$5446 (29 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 12; entered by call from 2E:46BD (PROBABLE code) [executed in 3 scenarios]
 
-Function_2E_5429:: ; 2E:5429
+MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 	push bc
 	push hl
 	ld a, $02
@@ -2736,28 +2743,28 @@ Function_2E_5429:: ; 2E:5429
 	ld a, $2E
 	ld bc, $D000
 	ld de, $D0C0
-	ld hl, $5446
-	farcall Function_48_403E
-	call Function_2E_5478
+	ld hl, String_MailServerMgr_DeletingMail
+	farcall TextTiles_RenderLine
+	call MailServerMgr_UploadMessageTiles
 	pop hl
 	pop bc
 	ret
 
 ; ---- text $5446-$545F (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_2E_5446:: ; 2E:5446
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $C4
-	db $82, $A2, $82, $DC, $82, $B7, $81, $40, $00
+String_MailServerMgr_DeletingMail:: ; 2E:5446
+String_2E_5446::
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $40, $00 ; "　メールをけしています　"
 
 ; ---- text $545F-$5478 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
 String_2E_545F:: ; 2E:545F
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
 ; ---- code $5478-$5498 (32 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2E_5478:: ; 2E:5478
+MailServerMgr_UploadMessageTiles:: ; 2E:5478
+Function_2E_5478::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2768,7 +2775,7 @@ Function_2E_5478:: ; 2E:5478
 	ld hl, $D000
 	ld de, $9000
 	ld c, $17
-	farcall Function_7F_72C2
+	farcall Gfx_GdmaAtVBlankNoDi
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2776,14 +2783,14 @@ Function_2E_5478:: ; 2E:5478
 
 ; ---- code $5498-$54F8 (96 bytes) [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 2; entered by call from 2E:4453 (PROBABLE code) [executed in 3 scenarios]
 
-Function_2E_5498:: ; 2E:5498
+MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	push bc
 	push hl
 	inc a
 	ld e, a
 	ld d, $00
 	sla e
-	ld hl, $54F8
+	ld hl, Table_MailServerMgr_HelpStrings
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -2794,7 +2801,7 @@ Function_2E_5498:: ; 2E:5498
 	ld a, $2E
 	ld bc, $D800
 	ld de, $D940
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2839,46 +2846,48 @@ Label_2E_54E6:: ; 2E:54E6
 
 ; ---- ptrtable $54F8-$5504 (12 bytes) [PROBABLE] 6 x dw string pointers (5504, 552D, 5556, 557F, 55A8, 55D1; stride 41 = 20 full-width chars + NUL) indexed by 2*(a+1) at 2E:549A-54A6 (ld hl,$54F8 ; add hl,de ; ld a,[hli] ; ld h,[hl]); every target is a string start
 
-Table_2E_54F8:: ; 2E:54F8
+Table_MailServerMgr_HelpStrings:: ; 2E:54F8
+Table_2E_54F8::
 	dw String_2E_5504
-	dw String_2E_552D
-	dw $5556
-	dw $557F
+	dw String_MailServerMgr_HelpDeleteThis
+	dw String_MailServerMgr_HelpLoadNext
+	dw String_MailServerMgr_HelpStopTidy
 	dw String_2E_55A8
 	dw $55D1
 
 ; ---- text $5504-$552D (41 bytes) [PROBABLE] string 0 of the table 2E:54F8 (40 bytes of full-width spaces + NUL); 41-byte record like the CONFIRMED strings 552D-55A8
 
 String_2E_5504:: ; 2E:5504
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- text $552D-$55A8 (123 bytes) [CONFIRMED] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_2E_552D:: ; 2E:552D
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B
-	db $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $82
-	db $C2, $82, $AC, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82
-	db $E6, $82, $DD, $82, $B1, $82, $DD, $82, $DC, $82, $B7, $81, $40, $81, $40, $81
-	db $40, $00, $81, $40, $81, $40, $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $CC
-	db $82, $B9, $82, $A2, $82, $E8, $82, $F0, $81, $40, $82, $E2, $82, $DF, $82, $DC
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $00
+String_MailServerMgr_HelpDeleteThis:: ; 2E:552D
+String_2E_552D::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "　　　　このメールを　けします　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+String_MailServerMgr_HelpLoadNext:: ; 2E:5556
+	db $81, $40, $81, $40, $81, $40, $82, $C2, $82, $AC, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $E6, $82, $DD, $82, $B1, $82, $DD, $82, $DC, $82, $B7 ; "　　　つぎのメールを　よみこみます"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+String_MailServerMgr_HelpStopTidy:: ; 2E:557F
+	db $81, $40, $81, $40, $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $CC, $82, $B9, $82, $A2, $82, $E8, $82, $F0, $81, $40, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $40 ; "　　　サーバのせいりを　やめます　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- text $55A8-$55FA (82 bytes) [PROBABLE] strings 4 and 5 of the table 2E:54F8 (55A8, 55D1: full-width spaces, 41 bytes each incl. NUL); cp932-valid, ends where the executed function 2E:55FA starts
 
 String_2E_55A8:: ; 2E:55A8
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $55FA-$561C (34 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2E_55FA:: ; 2E:55FA
+MailServerMgr_UpdateTimerDisplay:: ; 2E:55FA
+Function_2E_55FA::
 	push af
 	push bc
 	push de
@@ -2904,7 +2913,7 @@ Function_2E_55FA:: ; 2E:55FA
 
 ; ---- code $561C-$5636 (26 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 10; entered by call from 2E:481F (PROBABLE code) [executed in 3 scenarios]
 
-Function_2E_561C:: ; 2E:561C
+MailServerMgr_DrawTimer:: ; 2E:561C
 	push af
 	push bc
 	push de
@@ -3020,7 +3029,8 @@ Label_2E_56C5:: ; 2E:56C5
 
 ; ---- gfx $56E0-$5AE0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4B81 2E:4CAC); first: hdma_rom_to_vram at 2E:4B81: hl=$56E0 a=$2E c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_2E_56E0:: ; 2E:56E0
+Gfx_MailServerMgr_Tiles0:: ; 2E:56E0
+Data_2E_56E0::
 	db $80, $7F, $7F, $BF, $7F, $C0, $7F, $C0, $77, $C8, $7B, $C4, $7F, $C0, $7F, $C0
 	db $01, $FE, $FE, $FD, $FE, $01, $7E, $81, $76, $89, $EE, $11, $FE, $01, $FE, $01
 	db $67, $D8, $7F, $C0, $7F, $C0, $7B, $C4, $77, $C8, $7F, $C0, $7F, $80, $80, $7F
@@ -3088,7 +3098,8 @@ Data_2E_56E0:: ; 2E:56E0
 
 ; ---- gfx $5AE0-$5AF0 (16 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2E:40A8: hl=$5AE0 a=$2E c=$01 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_2E_5AE0:: ; 2E:5AE0
+Gfx_MailServerMgr_Tiles1:: ; 2E:5AE0
+Data_2E_5AE0::
 	db $E4, $27, $E4, $27, $E4, $27, $E4, $27, $E4, $27, $E4, $27, $E4, $27, $E4, $27
 
 ; ---- gfx $5AF0-$5EE0 (1008 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4B93 2E:4CBE); first: hdma_rom_to_vram at 2E:4B93: hl=$5AE0 a=$2E c=$40 de=$9401 (dest VRAM $9400, vbank=1) [clipped from 5AE0-5EE0 by higher-priority evidence]
@@ -3160,7 +3171,8 @@ Data_2E_5AF0:: ; 2E:5AF0
 
 ; ---- gfx $5EE0-$6000 (288 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BA5 2E:4CD0); first: hdma_rom_to_vram at 2E:4BA5: hl=$5EE0 a=$2E c=$12 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_2E_5EE0:: ; 2E:5EE0
+Gfx_MailServerMgr_Tiles2:: ; 2E:5EE0
+Data_2E_5EE0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -3182,7 +3194,8 @@ Data_2E_5EE0:: ; 2E:5EE0
 
 ; ---- gfx $6000-$6400 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BC9 2E:4CF4); first: hdma_rom_to_vram at 2E:4BC9: hl=$6000 a=$2E c=$40 de=$8A80 (dest VRAM $8A80, vbank=0)
 
-Data_2E_6000:: ; 2E:6000
+Gfx_MailServerMgr_Tiles3:: ; 2E:6000
+Data_2E_6000::
 	db $FF, $FF, $FF, $80, $FF, $00, $E8, $17, $EE, $11, $E8, $17, $EE, $11, $EE, $11
 	db $FF, $FF, $FF, $00, $FF, $00, $6D, $92, $EE, $11, $43, $BC, $ED, $12, $ED, $12
 	db $FF, $FF, $FF, $00, $FF, $00, $FF, $00, $C7, $38, $AB, $54, $6D, $92, $6D, $92
@@ -3250,7 +3263,8 @@ Data_2E_6000:: ; 2E:6000
 
 ; ---- gfx $6400-$6560 (352 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BDB 2E:4D06); first: hdma_rom_to_vram at 2E:4BDB: hl=$6400 a=$2E c=$16 de=$8E80 (dest VRAM $8E80, vbank=0)
 
-Data_2E_6400:: ; 2E:6400
+Gfx_MailServerMgr_Tiles4:: ; 2E:6400
+Data_2E_6400::
 	db $3C, $7F, $66, $7F, $66, $77, $7E, $7F, $3C, $7F, $00, $3E, $00, $00, $00, $00
 	db $3E, $7F, $06, $3F, $66, $77, $7E, $7F, $3C, $7F, $00, $3E, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $80, $C0, $80, $C0, $E0, $F0, $F0, $F0
@@ -3276,7 +3290,8 @@ Data_2E_6400:: ; 2E:6400
 
 ; ---- gfx $6560-$6960 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (2E:4BB7 2E:4CE2); first: hdma_rom_to_vram at 2E:4BB7: hl=$6560 a=$2E c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_2E_6560:: ; 2E:6560
+Gfx_MailServerMgr_Tiles5:: ; 2E:6560
+Data_2E_6560::
 	db $1C, $22, $36, $00, $36, $00, $36, $00, $36, $00, $36, $00, $1C, $22, $00, $00
 	db $1C, $00, $0C, $10, $0C, $00, $0C, $00, $0C, $00, $0C, $00, $0C, $00, $00, $00
 	db $3C, $02, $02, $00, $1C, $22, $30, $08, $30, $08, $30, $00, $3E, $00, $00, $00
@@ -3344,7 +3359,8 @@ Data_2E_6560:: ; 2E:6560
 
 ; ---- data $6960-$6C30 (720 bytes) [CONFIRMED] tilemap+attr: 5 call site(s) (2E:4217 2E:4819 2E:4BEC 2E:4D17); first: copy_tilemap_rect_pair at 2E:4217: hl=$6960 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_2E_6960:: ; 2E:6960
+Tilemap_MailServerMgr_Main:: ; 2E:6960
+Data_2E_6960::
 	db $1C, $1C, $14, $17, $19, $AF, $B6, $3D, $3E, $3F, $53, $54, $B2, $B1, $AF, $19
 	db $17, $14, $1C, $1C, $15, $15, $16, $18, $1A, $BF, $4C, $4D, $4E, $4F, $55, $56
 	db $B3, $BF, $BF, $1A, $18, $16, $15, $15, $C6, $B5, $B5, $B5, $B5, $B5, $B5, $B5
@@ -3393,7 +3409,8 @@ Data_2E_6960:: ; 2E:6960
 
 ; ---- data $6C30-$6D20 (240 bytes) [PROBABLE] tilemap+attr: 4 call site(s) (2E:4697 2E:4753 2E:4C02 2E:4D2D); first: copy_tilemap_rect_pair at 2E:4697: hl=$6C30 a=$2E b=6 rows c=20 cols (tiles then attrs) de=$D0A0 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2E_6C30:: ; 2E:6C30
+Tilemap_MailServerMgr_Footer:: ; 2E:6C30
+Data_2E_6C30::
 	db $CB, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B
 	db $1B, $1B, $1B, $CC, $CB, $1B, $1B, $1B, $1B, $1B, $00, $01, $02, $03, $04, $05
 	db $06, $07, $08, $09, $0A, $0B, $1B, $CC, $CB, $1B, $1B, $1B, $1B, $1B, $0C, $0D
@@ -3412,7 +3429,8 @@ Data_2E_6C30:: ; 2E:6C30
 
 ; ---- data $6D20-$6FF0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E29: hl=$6D20 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2E_6D20:: ; 2E:6D20
+Tilemap_MailServerMgr_InfoB:: ; 2E:6D20
+Data_2E_6D20::
 	db $1C, $1C, $14, $17, $19, $AF, $B6, $3D, $3E, $3F, $53, $54, $B2, $B1, $AF, $19
 	db $17, $14, $1C, $1C, $15, $15, $16, $18, $1A, $BF, $4C, $4D, $4E, $4F, $55, $56
 	db $B3, $BF, $BF, $1A, $18, $16, $15, $15, $C6, $B5, $B5, $B5, $B5, $B5, $B5, $B5
@@ -3461,7 +3479,8 @@ Data_2E_6D20:: ; 2E:6D20
 
 ; ---- data $6FF0-$72C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E64: hl=$6FF0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2E_6FF0:: ; 2E:6FF0
+Tilemap_MailServerMgr_InfoC:: ; 2E:6FF0
+Data_2E_6FF0::
 	db $1C, $1C, $14, $17, $19, $AF, $B6, $3D, $3E, $3F, $53, $54, $B2, $B1, $AF, $19
 	db $17, $14, $1C, $1C, $15, $15, $16, $18, $1A, $BF, $4C, $4D, $4E, $4F, $55, $56
 	db $B3, $BF, $BF, $1A, $18, $16, $15, $15, $C6, $B5, $B5, $B5, $B5, $B5, $B5, $B5
@@ -3510,7 +3529,8 @@ Data_2E_6FF0:: ; 2E:6FF0
 
 ; ---- data $72C0-$7590 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2E:4E9B: hl=$72C0 a=$2E b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2E_72C0:: ; 2E:72C0
+Tilemap_MailServerMgr_InfoD:: ; 2E:72C0
+Data_2E_72C0::
 	db $1C, $1C, $14, $17, $19, $AF, $B6, $3D, $3E, $3F, $53, $54, $B2, $B1, $AF, $19
 	db $17, $14, $1C, $1C, $15, $15, $16, $18, $1A, $BF, $4C, $4D, $4E, $4F, $55, $56
 	db $B3, $BF, $BF, $1A, $18, $16, $15, $15, $C6, $B5, $B5, $B5, $B5, $B5, $B5, $B5
@@ -3559,7 +3579,8 @@ Data_2E_72C0:: ; 2E:72C0
 
 ; ---- data $7590-$75C0 (48 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 7590-7610 by higher-priority evidence]
 
-Data_2E_7590:: ; 2E:7590
+Palette_MailServerMgr_Bg:: ; 2E:7590
+Data_2E_7590::
 	db $FF, $7F, $FB, $00, $0E, $53, $00, $00, $00, $00, $5F, $02, $F7, $00, $FF, $7F
 	db $00, $00, $FB, $00, $0A, $00, $FF, $7F, $FB, $00, $6A, $71, $00, $00, $FF, $7F
 	db $FF, $7F, $00, $29, $0E, $53, $00, $00, $FB, $00, $70, $7E, $00, $00, $FF, $7F
@@ -3568,6 +3589,8 @@ Data_2E_7590:: ; 2E:7590
 
 Data_2E_75C0:: ; 2E:75C0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+Palette_MailServerMgr_Obj:: ; 2E:75D0
 	db $E8, $7A, $00, $00, $B3, $12, $FF, $7F, $E8, $7A, $7F, $02, $18, $01, $00, $00
 	db $E8, $7A, $40, $02, $FF, $4F, $00, $00, $E8, $7A, $4A, $29, $B5, $56, $FF, $7F
 	db $E8, $7A, $4A, $29, $B5, $56, $FF, $7F, $E8, $7A, $4A, $29, $B5, $56, $FF, $7F
@@ -3586,7 +3609,8 @@ Data_2E_75C0:: ; 2E:75C0
 
 ; ---- words $76C0-$7710 (80 bytes) [PROBABLE] 5 object tables of 4 entries x 2 words (76C0,76D0,76E0,76F0,7700) read by init_object_from_table (00:0A82, de=$76C0..$7700, a=$2E: callers 2E:4442,452F,4554,4579,4661,46AE,404C,476A); all 40 words (10 distinct: 77FA..7957) land inside the animation block 2E:7710-7961
 
-Table_2E_76C0:: ; 2E:76C0
+Table_MailServerMgr_ObjAnims:: ; 2E:76C0
+Table_2E_76C0::
 	dw $77FA, $7838, $77FA, $7838, $77FA, $7838, $77FA, $7838
 	dw $783D, $787B, $783D, $787B, $783D, $787B, $783D, $787B
 	dw $7880, $78BE, $7880, $78BE, $7880, $78BE, $7880, $78BE

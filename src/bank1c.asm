@@ -9,20 +9,22 @@ SECTION "Bank1C", ROMX[$4000], BANK[$1C]
 
 ; ---- code $4000-$4010 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1C_4000:: ; 1C:4000
-	farcall Function_65_4000
+Main_Run:: ; 1C:4000
+Function_1C_4000::
+	farcall Startup_Run
 	xor a, a
 
-Label_1C_4007:: ; 1C:4007
-	farcall Function_0E_4000
+Main_TitleLoop:: ; 1C:4007
+	farcall Title_Run
 	call JumpTableInline
 
 ; ---- ptrtable $4010-$4016 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 1C:400D: 3 entries; end is a heuristic guess (words stay plausible code pointers)
 
-Table_1C_4010:: ; 1C:4010
-	dw Label_1C_4019
-	dw Label_1C_401D
-	dw Label_1C_4028
+Table_Main_TitleChoices:: ; 1C:4010
+Table_1C_4010::
+	dw Main_TitleChoiceNone
+	dw Main_TitleChoiceStart
+	dw Main_TitleChoiceSettings
 
 ; ---- data $4016-$4019 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -31,8 +33,8 @@ Data_1C_4016:: ; 1C:4016
 
 ; ---- code $4019-$401C (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 1C:400D (executed)
 
-Label_1C_4019:: ; 1C:4019
-	jp Label_1C_4007
+Main_TitleChoiceNone:: ; 1C:4019
+	jp Main_TitleLoop
 
 ; ---- data $401C-$401D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -41,15 +43,15 @@ Data_1C_401C:: ; 1C:401C
 
 ; ---- code $401D-$4033 (22 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios)
 
-Label_1C_401D:: ; 1C:401D
-	farcall Function_7C_7B7C
+Main_TitleChoiceStart:: ; 1C:401D
+	farcall Nav_TitleStart
 	ld a, $01
-	jp Label_1C_4007
+	jp Main_TitleLoop
 
-Label_1C_4028:: ; 1C:4028
-	farcall Function_7C_7D1F
+Main_TitleChoiceSettings:: ; 1C:4028
+	farcall Nav_TitleMobileSettings
 	ld a, $01
-	jp Label_1C_4007
+	jp Main_TitleLoop
 
 ; ---- zero $4033-$8000 (16333 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $3FCD, $00

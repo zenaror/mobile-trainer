@@ -15,7 +15,7 @@ Data_3F_4000:: ; 3F:4000
 ; ---- text $4006-$4011 (11 bytes) [PROBABLE] html_url_prefix: "file://di/",0 (ASCII) (verified structure, layout from engine code)
 
 String_3F_4006:: ; 3F:4006
-	db $66, $69, $6C, $65, $3A, $2F, $2F, $64, $69, $2F, $00
+	db $66, $69, $6C, $65, $3A, $2F, $2F, $64, $69, $2F, $00 ; "file://di/"
 
 ; ---- data $4011-$4012 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4006-403F by higher-priority evidence]
 

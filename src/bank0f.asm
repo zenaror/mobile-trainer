@@ -9,162 +9,216 @@ SECTION "Bank0F", ROMX[$4000], BANK[$0F]
 
 ; ---- text $4000-$4004 (4 bytes) [PROBABLE] ASCII string "---" + NUL (mail-header/text helper strings of this bank; neighbour of the CONFIRMED-style string table entries)
 
-String_0F_4000:: ; 0F:4000
-	db $2D, $2D, $2D, $00
+MailStr_Boundary:: ; 0F:4000
+String_0F_4000::
+	db $2D, $2D, $2D, $00 ; "---"
 
 ; ---- text $4004-$4010 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_4004:: ; 0F:4004
-	db $43, $47, $42, $2D, $41, $41, $41, $41, $2D, $30, $30, $00
+MailStr_GameCodeAllowList:: ; 0F:4004
+String_0F_4004::
+	db $43, $47, $42, $2D, $41, $41, $41, $41, $2D, $30, $30, $00 ; "CGB-AAAA-00"
 
 ; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
 	ds $1, $00
 
 ; ---- ptrtable $4011-$4033 (34 bytes) [PROBABLE] 17 x dw string pointers: 4033 "From: ", 403A "Sender: ", 4043 "Reply-To: ", 404E "To: ", 4053 "Cc: ", 4058 "Subject: ", ... 4164 "--", 4167 "."; every target is a NUL-terminated ASCII string start (mail header field names of the message composer/parser); table starts at an odd address
 
-Table_0F_4011:: ; 0F:4011
-	dw String_0F_4033
-	dw String_0F_403A
-	dw $4043
-	dw String_0F_404E
-	dw $4053
-	dw String_0F_4058
-	dw $4062
-	dw $4074
-	dw $4091
-	dw $40A3
-	dw $40BC
-	dw $40EA
-	dw $4114
-	dw $4143
-	dw String_0F_4164
-	dw String_0F_4164
-	dw String_0F_4167
+Mail_HeaderStringTable:: ; 0F:4011
+Table_0F_4011::
+	dw MailStr_HdrFrom
+	dw MailStr_HdrSender
+	dw MailStr_HdrReplyTo
+	dw MailStr_HdrTo
+	dw MailStr_HdrCc
+	dw MailStr_HdrSubject
+	dw MailStr_HdrMimeVersion
+	dw MailStr_HdrXGameTitle
+	dw MailStr_HdrXGameCode
+	dw MailStr_HdrXGBmailType
+	dw MailStr_HdrContentTypeText
+	dw MailStr_HdrContentTypeMultipart
+	dw MailStr_HdrContentTypeOctet
+	dw MailStr_HdrTransferEncodingBase64
+	dw MailStr_DashDash
+	dw MailStr_DashDash
+	dw MailStr_Dot
 
 ; ---- text $4033-$403A (7 bytes) [PROBABLE] ASCII string "From: " + NUL, entry 0 of the pointer table 0F:4011
 
-String_0F_4033:: ; 0F:4033
-	db $46, $72, $6F, $6D, $3A, $20, $00
+MailStr_HdrFrom:: ; 0F:4033
+String_0F_4033::
+	db $46, $72, $6F, $6D, $3A, $20, $00 ; "From: "
 
 ; ---- text $403A-$404E (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_403A:: ; 0F:403A
-	db $53, $65, $6E, $64, $65, $72, $3A, $20, $00, $52, $65, $70, $6C, $79, $2D, $54
-	db $6F, $3A, $20, $00
+MailStr_HdrSender:: ; 0F:403A
+String_0F_403A::
+	db $53, $65, $6E, $64, $65, $72, $3A, $20, $00 ; "Sender: "
+
+MailStr_HdrReplyTo:: ; 0F:4043
+	db $52, $65, $70, $6C, $79, $2D, $54, $6F, $3A, $20, $00 ; "Reply-To: "
 
 ; ---- text $404E-$4058 (10 bytes) [PROBABLE] ASCII strings "To: " and "Cc: " (entries 3 and 4 of the pointer table 0F:4011 = 404E, 4053)
 
-String_0F_404E:: ; 0F:404E
-	db $54, $6F, $3A, $20, $00, $43, $63, $3A, $20, $00
+MailStr_HdrTo:: ; 0F:404E
+String_0F_404E::
+	db $54, $6F, $3A, $20, $00 ; "To: "
+
+MailStr_HdrCc:: ; 0F:4053
+	db $43, $63, $3A, $20, $00 ; "Cc: "
 
 ; ---- text $4058-$4164 (268 bytes) [PROBABLE] text: 9 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_4058:: ; 0F:4058
-	db $53, $75, $62, $6A, $65, $63, $74, $3A, $20, $00, $4D, $49, $4D, $45, $2D, $56
-	db $65, $72, $73, $69, $6F, $6E, $3A, $20, $31, $2E, $30, $00, $58, $2D, $47, $61
-	db $6D, $65, $2D, $74, $69, $74, $6C, $65, $3A, $20, $4D, $4F, $42, $49, $4C, $45
-	db $20, $54, $52, $41, $49, $4E, $45, $52, $00, $58, $2D, $47, $61, $6D, $65, $2D
-	db $63, $6F, $64, $65, $3A, $20, $43, $47, $42, $2D, $00, $58, $2D, $47, $42, $6D
-	db $61, $69, $6C, $2D, $74, $79, $70, $65, $3A, $20, $65, $78, $63, $6C, $75, $73
-	db $69, $76, $65, $00, $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65
-	db $3A, $20, $74, $65, $78, $74, $2F, $70, $6C, $61, $69, $6E, $3B, $20, $63, $68
-	db $61, $72, $73, $65, $74, $3D, $69, $73, $6F, $2D, $32, $30, $32, $32, $2D, $6A
-	db $70, $00, $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20
-	db $6D, $75, $6C, $74, $69, $70, $61, $72, $74, $2F, $6D, $69, $78, $65, $64, $3B
-	db $20, $62, $6F, $75, $6E, $64, $61, $72, $79, $3D, $22, $00, $43, $6F, $6E, $74
-	db $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $41, $70, $70, $6C, $69, $63
-	db $61, $74, $69, $6F, $6E, $2F, $4F, $63, $74, $65, $74, $2D, $53, $74, $72, $65
-	db $61, $6D, $3B, $20, $6E, $61, $6D, $65, $3D, $22, $00, $43, $6F, $6E, $74, $65
-	db $6E, $74, $2D, $54, $72, $61, $6E, $73, $66, $65, $72, $2D, $45, $6E, $63, $6F
-	db $64, $69, $6E, $67, $3A, $42, $61, $73, $65, $36, $34, $00
+MailStr_HdrSubject:: ; 0F:4058
+String_0F_4058::
+	db $53, $75, $62, $6A, $65, $63, $74, $3A, $20, $00 ; "Subject: "
+
+MailStr_HdrMimeVersion:: ; 0F:4062
+	db $4D, $49, $4D, $45, $2D, $56, $65, $72, $73, $69, $6F, $6E, $3A, $20, $31, $2E, $30, $00 ; "MIME-Version: 1.0"
+
+MailStr_HdrXGameTitle:: ; 0F:4074
+	db $58, $2D, $47, $61, $6D, $65, $2D, $74, $69, $74, $6C, $65, $3A, $20, $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "X-Game-title: MOBILE TRAINER"
+
+MailStr_HdrXGameCode:: ; 0F:4091
+	db $58, $2D, $47, $61, $6D, $65, $2D, $63, $6F, $64, $65, $3A, $20, $43, $47, $42, $2D, $00 ; "X-Game-code: CGB-"
+
+MailStr_HdrXGBmailType:: ; 0F:40A3
+	db $58, $2D, $47, $42, $6D, $61, $69, $6C, $2D, $74, $79, $70, $65, $3A, $20, $65, $78, $63, $6C, $75, $73, $69, $76, $65, $00 ; "X-GBmail-type: exclusive"
+
+MailStr_HdrContentTypeText:: ; 0F:40BC
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $74, $65, $78, $74, $2F, $70, $6C, $61, $69, $6E, $3B, $20, $63, $68, $61, $72, $73, $65, $74, $3D ; "Content-Type: text/plain; charset="
+	db $69, $73, $6F, $2D, $32, $30, $32, $32, $2D, $6A, $70, $00 ; "iso-2022-jp"
+
+MailStr_HdrContentTypeMultipart:: ; 0F:40EA
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $6D, $75, $6C, $74, $69, $70, $61, $72, $74, $2F, $6D, $69, $78, $65, $64, $3B, $20, $62, $6F, $75 ; "Content-Type: multipart/mixed; bou"
+	db $6E, $64, $61, $72, $79, $3D, $22, $00 ; "ndary=\""
+
+MailStr_HdrContentTypeOctet:: ; 0F:4114
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $41, $70, $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $4F, $63, $74, $65, $74, $2D, $53, $74 ; "Content-Type: Application/Octet-St"
+	db $72, $65, $61, $6D, $3B, $20, $6E, $61, $6D, $65, $3D, $22, $00 ; "ream; name=\""
+
+MailStr_HdrTransferEncodingBase64:: ; 0F:4143
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $72, $61, $6E, $73, $66, $65, $72, $2D, $45, $6E, $63, $6F, $64, $69, $6E, $67, $3A, $42, $61, $73, $65, $36, $34, $00 ; "Content-Transfer-Encoding:Base64"
 
 ; ---- text $4164-$4167 (3 bytes) [PROBABLE] ASCII string "--" + NUL (entry 14/15 of the pointer table 0F:4011 = 4164)
 
-String_0F_4164:: ; 0F:4164
-	db $2D, $2D, $00
+MailStr_DashDash:: ; 0F:4164
+String_0F_4164::
+	db $2D, $2D, $00 ; "--"
 
 ; ---- text $4167-$4169 (2 bytes) [PROBABLE] ASCII string "." + NUL (entry 16 of the pointer table 0F:4011 = 4167)
 
-String_0F_4167:: ; 0F:4167
-	db $2E, $00
+MailStr_Dot:: ; 0F:4167
+String_0F_4167::
+	db $2E, $00 ; "."
 
 ; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
 
-Table_0F_4169:: ; 0F:4169
-	dw $426C, $426D, $4340, $43BB, $44D5, $4B59, $4BC0, $4CDD
-	dw $4E66, $52BC, $54D8, $56E1, $5A10
+Mail_SelectorTable:: ; 0F:4169
+Table_0F_4169::
+	dw Mail_SelectorNop, Mail_ScanHeaders, Mail_CheckGameMail, Mail_LocateHeader, Mail_ParseBody, Mail_IndexHeaders, Mail_GetDecodedHeader, Mail_GetAddressList
+	dw Mail_ComposeNext, Function_0F_52BC, Function_0F_54D8, Function_0F_56E1, Function_0F_5A10
 
 ; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
 
-Table_0F_4183:: ; 0F:4183
-	dw String_0F_419D
-	dw $41A3
-	dw String_0F_41AB
-	dw String_0F_41B5
-	dw $41B9
-	dw String_0F_41BD
-	dw String_0F_41C6
-	dw String_0F_41CC
-	dw $41DA
-	dw $41E8
-	dw $41F2
-	dw $4200
-	dw $420D
+Mail_HeaderKeywordTable:: ; 0F:4183
+Table_0F_4183::
+	dw MailStr_KwFrom
+	dw MailStr_KwSender
+	dw MailStr_KwReplyTo
+	dw MailStr_KwTo
+	dw MailStr_KwCc
+	dw MailStr_KwSubject
+	dw MailStr_KwDate
+	dw MailStr_KwContentType
+	dw MailStr_KwMimeVersion
+	dw MailStr_KwXMailer
+	dw MailStr_KwXGameTitle
+	dw MailStr_KwXGameCode
+	dw MailStr_KwXGBmailType
 
 ; ---- text $419D-$41AB (14 bytes) [PROBABLE] ASCII strings "FROM:" and "SENDER:" + NULs (entries 0-1 of the pointer table 0F:4183)
 
-String_0F_419D:: ; 0F:419D
-	db $46, $52, $4F, $4D, $3A, $00, $53, $45, $4E, $44, $45, $52, $3A, $00
+MailStr_KwFrom:: ; 0F:419D
+String_0F_419D::
+	db $46, $52, $4F, $4D, $3A, $00 ; "FROM:"
+
+MailStr_KwSender:: ; 0F:41A3
+	db $53, $45, $4E, $44, $45, $52, $3A, $00 ; "SENDER:"
 
 ; ---- text $41AB-$41B5 (10 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_41AB:: ; 0F:41AB
-	db $52, $45, $50, $4C, $59, $2D, $54, $4F, $3A, $00
+MailStr_KwReplyTo:: ; 0F:41AB
+String_0F_41AB::
+	db $52, $45, $50, $4C, $59, $2D, $54, $4F, $3A, $00 ; "REPLY-TO:"
 
 ; ---- text $41B5-$41BD (8 bytes) [PROBABLE] ASCII strings "TO:" and "CC:" (entries of the pointer table 0F:4183)
 
-String_0F_41B5:: ; 0F:41B5
-	db $54, $4F, $3A, $00, $43, $43, $3A, $00
+MailStr_KwTo:: ; 0F:41B5
+String_0F_41B5::
+	db $54, $4F, $3A, $00 ; "TO:"
+
+MailStr_KwCc:: ; 0F:41B9
+	db $43, $43, $3A, $00 ; "CC:"
 
 ; ---- text $41BD-$41C6 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_41BD:: ; 0F:41BD
-	db $53, $55, $42, $4A, $45, $43, $54, $3A, $00
+MailStr_KwSubject:: ; 0F:41BD
+String_0F_41BD::
+	db $53, $55, $42, $4A, $45, $43, $54, $3A, $00 ; "SUBJECT:"
 
 ; ---- text $41C6-$41CC (6 bytes) [PROBABLE] ASCII string "DATE:" + NUL (entry 6 of the pointer table 0F:4183)
 
-String_0F_41C6:: ; 0F:41C6
-	db $44, $41, $54, $45, $3A, $00
+MailStr_KwDate:: ; 0F:41C6
+String_0F_41C6::
+	db $44, $41, $54, $45, $3A, $00 ; "DATE:"
 
 ; ---- text $41CC-$421C (80 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_41CC:: ; 0F:41CC
-	db $43, $4F, $4E, $54, $45, $4E, $54, $2D, $54, $59, $50, $45, $3A, $00, $4D, $49
-	db $4D, $45, $2D, $56, $45, $52, $53, $49, $4F, $4E, $3A, $00, $58, $2D, $4D, $41
-	db $49, $4C, $45, $52, $3A, $00, $58, $2D, $47, $41, $4D, $45, $2D, $54, $49, $54
-	db $4C, $45, $3A, $00, $58, $2D, $47, $41, $4D, $45, $2D, $43, $4F, $44, $45, $3A
-	db $00, $58, $2D, $47, $42, $4D, $41, $49, $4C, $2D, $54, $59, $50, $45, $3A, $00
+MailStr_KwContentType:: ; 0F:41CC
+String_0F_41CC::
+	db $43, $4F, $4E, $54, $45, $4E, $54, $2D, $54, $59, $50, $45, $3A, $00 ; "CONTENT-TYPE:"
+
+MailStr_KwMimeVersion:: ; 0F:41DA
+	db $4D, $49, $4D, $45, $2D, $56, $45, $52, $53, $49, $4F, $4E, $3A, $00 ; "MIME-VERSION:"
+
+MailStr_KwXMailer:: ; 0F:41E8
+	db $58, $2D, $4D, $41, $49, $4C, $45, $52, $3A, $00 ; "X-MAILER:"
+
+MailStr_KwXGameTitle:: ; 0F:41F2
+	db $58, $2D, $47, $41, $4D, $45, $2D, $54, $49, $54, $4C, $45, $3A, $00 ; "X-GAME-TITLE:"
+
+MailStr_KwXGameCode:: ; 0F:4200
+	db $58, $2D, $47, $41, $4D, $45, $2D, $43, $4F, $44, $45, $3A, $00 ; "X-GAME-CODE:"
+
+MailStr_KwXGBmailType:: ; 0F:420D
+	db $58, $2D, $47, $42, $4D, $41, $49, $4C, $2D, $54, $59, $50, $45, $3A, $00 ; "X-GBMAIL-TYPE:"
 
 ; ---- text $421C-$4222 (6 bytes) [PROBABLE] ASCII string "NAME=" + NUL (MIME parameter, referenced by ld hl in the parser)
 
-String_0F_421C:: ; 0F:421C
-	db $4E, $41, $4D, $45, $3D, $00
+MailStr_KwName:: ; 0F:421C
+String_0F_421C::
+	db $4E, $41, $4D, $45, $3D, $00 ; "NAME="
 
 ; ---- text $4222-$4236 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_0F_4222:: ; 0F:4222
-	db $4D, $55, $4C, $54, $49, $50, $41, $52, $54, $00, $42, $4F, $55, $4E, $44, $41
-	db $52, $59, $3D, $00
+MailStr_KwMultipart:: ; 0F:4222
+String_0F_4222::
+	db $4D, $55, $4C, $54, $49, $50, $41, $52, $54, $00 ; "MULTIPART"
+
+MailStr_KwBoundary:: ; 0F:422C
+	db $42, $4F, $55, $4E, $44, $41, $52, $59, $3D, $00 ; "BOUNDARY="
 
 ; ---- text $4236-$4247 (17 bytes) [PROBABLE] ASCII string "=?ISO-2022-JP?B?" + NUL (MIME encoded-word prefix), copied by 0F:5104 (ld hl,$4236 ; ld a,[hli] ; and a ; jr z ; ld [de],a)
 
-String_0F_4236:: ; 0F:4236
-	db $3D, $3F, $49, $53, $4F, $2D, $32, $30, $32, $32, $2D, $4A, $50, $3F, $42, $3F
-	db $00
+MailStr_EncodedWordPrefix:: ; 0F:4236
+String_0F_4236::
+	db $3D, $3F, $49, $53, $4F, $2D, $32, $30, $32, $32, $2D, $4A, $50, $3F, $42, $3F, $00 ; "=?ISO-2022-JP?B?"
 
 ; ---- code $4247-$47A5 (1374 bytes) [PROBABLE] 795 insn(s) reached by static flow only; seeds: exec x16, mobile x779; min discovery hops 0; entered by call from 00:0262 (PROBABLE code)
 
-Function_0F_4247:: ; 0F:4247
+Mail_Dispatch:: ; 0F:4247
 	ld a, $0A
 	ld [rRAMG], a
 	ldh a, [hSRAMBank]
@@ -174,7 +228,7 @@ Function_0F_4247:: ; 0F:4247
 	add a, a
 	ld e, a
 	ld d, $00
-	ld hl, $4169
+	ld hl, Mail_SelectorTable
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -182,7 +236,7 @@ Function_0F_4247:: ; 0F:4247
 	pop de
 	jp hl
 
-Label_0F_4260:: ; 0F:4260
+Mail_Return:: ; 0F:4260
 	ld [wBank4SavedBankHi], a
 	pop af
 	ldh [hSRAMBank], a
@@ -190,8 +244,10 @@ Label_0F_4260:: ; 0F:4260
 	ld [rRAMB], a
 	ret
 
+Mail_SelectorNop:: ; 0F:426C
 	ret
 
+Mail_ScanHeaders:: ; 0F:426D
 	ld h, d
 	ld l, e
 	xor a, a
@@ -230,7 +286,7 @@ Label_0F_4296:: ; 0F:4296
 
 Label_0F_429F:: ; 0F:429F
 	inc e
-	call z, Function_0F_4337
+	call z, Mail_ScanHeaders_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -252,13 +308,13 @@ Label_0F_42B4:: ; 0F:42B4
 	ld a, $01
 	ld h, d
 	ld l, e
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_42BF:: ; 0F:42BF
 	and a, a
 	jr z, Label_0F_42A8
 	inc e
-	call z, Function_0F_4337
+	call z, Mail_ScanHeaders_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -285,7 +341,7 @@ Label_0F_42D8:: ; 0F:42D8
 	ld a, $01
 	ld [wBank4SavedBankHi], a
 	inc e
-	call z, Function_0F_4337
+	call z, Mail_ScanHeaders_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -300,12 +356,12 @@ Label_0F_42D8:: ; 0F:42D8
 Label_0F_4302:: ; 0F:4302
 	xor a, a
 	ld b, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4307:: ; 0F:4307
 	xor a, a
 	ld b, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_430D:: ; 0F:430D
 	xor a, a
@@ -318,7 +374,7 @@ Label_0F_4311:: ; 0F:4311
 	ld a, $01
 	ld [wBank4DeferredCall], a
 	inc e
-	call z, Function_0F_4337
+	call z, Mail_ScanHeaders_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -332,13 +388,14 @@ Label_0F_4311:: ; 0F:4311
 	ld [wBank4SavedBankHi], a
 	jp Label_0F_429F
 
-Function_0F_4337:: ; 0F:4337
+Mail_ScanHeaders_NextPage:: ; 0F:4337
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
+Mail_CheckGameMail:: ; 0F:4340
 	push de
 	ld h, d
 	ld l, e
@@ -348,7 +405,7 @@ Function_0F_4337:: ; 0F:4337
 	inc hl
 	ld d, [hl]
 	ld b, $0B
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_435C
 	and a, a
@@ -358,7 +415,7 @@ Function_0F_4337:: ; 0F:4337
 Label_0F_4355:: ; 0F:4355
 	xor a, a
 	ld b, $03
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_435B:: ; 0F:435B
 	pop hl
@@ -367,7 +424,7 @@ Label_0F_435C:: ; 0F:435C
 	pop hl
 	ld a, $01
 	ld b, $82
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4364:: ; 0F:4364
 	ld a, h
@@ -382,7 +439,7 @@ Label_0F_4364:: ; 0F:4364
 	ld d, [hl]
 	inc hl
 	ld b, $0C
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_435B
 	and a, a
@@ -391,7 +448,7 @@ Label_0F_4364:: ; 0F:4364
 	ld b, $02
 	pop hl
 	pop hl
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4385:: ; 0F:4385
 	pop de
@@ -400,8 +457,8 @@ Label_0F_4385:: ; 0F:4385
 	ld [wBank4State], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_0F_4C0F
-	ld hl, $4004
+	call Mail_UnfoldHeader
+	ld hl, MailStr_GameCodeAllowList
 
 Label_0F_4398:: ; 0F:4398
 	ld de, $D024
@@ -424,7 +481,7 @@ Label_0F_43A5:: ; 0F:43A5
 	and a, a
 	jr nz, Label_0F_4398
 	ld b, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_43B1:: ; 0F:43B1
 	ld a, [de]
@@ -432,8 +489,9 @@ Label_0F_43B1:: ; 0F:43B1
 	jr nz, Label_0F_4355
 	xor a, a
 	ld b, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
+Mail_LocateHeader:: ; 0F:43BB
 	ld a, [de]
 	ld b, a
 	inc de
@@ -448,7 +506,7 @@ Label_0F_43B1:: ; 0F:43B1
 	push de
 	ld d, a
 	ld e, h
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_43EF
 	and a, a
@@ -473,7 +531,7 @@ Label_0F_43B1:: ; 0F:43B1
 	ld [hli], a
 	ld [hl], b
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_43EF:: ; 0F:43EF
 	ld b, $82
@@ -481,9 +539,9 @@ Label_0F_43EF:: ; 0F:43EF
 Label_0F_43F1:: ; 0F:43F1
 	ld a, $01
 	pop hl
-	jp Label_0F_4260
+	jp Mail_Return
 
-Function_0F_43F7:: ; 0F:43F7
+Mail_FindHeader:: ; 0F:43F7
 	call Function_0F_4416
 	and a, a
 	jr nz, Label_0F_4411
@@ -516,7 +574,7 @@ Function_0F_4416:: ; 0F:4416
 	ld [wBank4State], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld hl, $4183
+	ld hl, Mail_HeaderKeywordTable
 	ld a, b
 	add a, a
 	ld c, a
@@ -533,12 +591,12 @@ Label_0F_442F:: ; 0F:442F
 	and a, a
 	jp z, Label_0F_44C6
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	cp a, $0D
 	jr nz, Label_0F_442F
 	ld a, [de]
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	cp a, $0A
 	jr nz, Label_0F_442F
 	ld a, [de]
@@ -554,7 +612,7 @@ Label_0F_444E:: ; 0F:444E
 	and a, a
 	jr z, Label_0F_44C6
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	cp a, $61
 	jr c, Label_0F_4466
 	cp a, $7B
@@ -600,13 +658,13 @@ Label_0F_448A:: ; 0F:448A
 	jr z, Label_0F_44C6
 	inc bc
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	cp a, $0D
 	jr nz, Label_0F_448A
 	ld a, [de]
 	inc bc
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	cp a, $0A
 	jr nz, Label_0F_448A
 	ld a, [de]
@@ -623,14 +681,14 @@ Label_0F_448A:: ; 0F:448A
 
 Label_0F_44B2:: ; 0F:44B2
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	ld a, [de]
 	cp a, $0D
 	jp nz, Label_0F_442F
 
 Label_0F_44BC:: ; 0F:44BC
 	inc e
-	call z, Function_0F_44CC
+	call z, Mail_FindHeader_NextPage
 	ld a, [de]
 	cp a, $0A
 	jp nz, Label_0F_442F
@@ -641,14 +699,15 @@ Label_0F_44C6:: ; 0F:44C6
 	ld a, $01
 	ret
 
-Function_0F_44CC:: ; 0F:44CC
+Mail_FindHeader_NextPage:: ; 0F:44CC
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-	call Function_0F_4565
+Mail_ParseBody:: ; 0F:44D5
+	call Mail_LoadArgs
 	dec de
 	dec de
 	push de
@@ -678,20 +737,20 @@ Function_0F_44CC:: ; 0F:44CC
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	call Function_0F_457A
+	call Mail_ParseContentType
 	cp a, $02
 	jr z, Label_0F_455F
 	and a, a
 	jr z, Label_0F_4515
 	ld a, $01
 	ld [wRam_D00D], a
-	call Function_0F_46FE
+	call Mail_ParseMultipart
 	and a, a
 	jr nz, Label_0F_455F
 	jr Label_0F_4520
 
 Label_0F_4515:: ; 0F:4515
-	call Function_0F_46A8
+	call Mail_ParseSinglePart
 	and a, a
 	jr nz, Label_0F_455F
 	ld a, $02
@@ -734,7 +793,7 @@ Label_0F_453B:: ; 0F:453B
 	ld d, [hl]
 	xor a, a
 	ld [de], a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_455D:: ; 0F:455D
 	ld b, $83
@@ -742,9 +801,9 @@ Label_0F_455D:: ; 0F:455D
 Label_0F_455F:: ; 0F:455F
 	pop hl
 	ld a, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
-Function_0F_4565:: ; 0F:4565
+Mail_LoadArgs:: ; 0F:4565
 	ld hl, $D003
 	ld a, [de]
 	ld [hli], a
@@ -765,11 +824,11 @@ Function_0F_4565:: ; 0F:4565
 	ld [hl], a
 	ret
 
-Function_0F_457A:: ; 0F:457A
+Mail_ParseContentType:: ; 0F:457A
 	xor a, a
 	ld [wRam_D00F], a
 	ld b, $07
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_45BA
 	and a, a
@@ -782,8 +841,8 @@ Function_0F_457A:: ; 0F:457A
 	push de
 	push bc
 	ld hl, $D024
-	call Function_0F_5D68
-	call Function_0F_45C9
+	call Mail_CopyFromSram
+	call Mail_ParseMultipartBoundary
 	pop bc
 	pop de
 	pop hl
@@ -797,7 +856,7 @@ Function_0F_457A:: ; 0F:457A
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, $421C
-	call Function_0F_4AD3
+	call Mail_FindKeywordValue
 
 Label_0F_45B8:: ; 0F:45B8
 	xor a, a
@@ -819,9 +878,9 @@ Label_0F_45C3:: ; 0F:45C3
 	ld [wRam_D00F], a
 	ret
 
-Function_0F_45C9:: ; 0F:45C9
+Mail_ParseMultipartBoundary:: ; 0F:45C9
 	ld hl, $D024
-	ld de, $4222
+	ld de, MailStr_KwMultipart
 	ld c, $00
 
 Label_0F_45D1:: ; 0F:45D1
@@ -913,7 +972,7 @@ Label_0F_463A:: ; 0F:463A
 	xor a, a
 	ret
 
-Function_0F_4640:: ; 0F:4640
+Mail_MatchBoundary:: ; 0F:4640
 	ld a, [wBank4State]
 	push af
 	push de
@@ -928,7 +987,7 @@ Label_0F_464C:: ; 0F:464C
 	cp a, c
 	jr nz, Label_0F_468E
 	inc e
-	call z, Function_0F_469F
+	call z, Mail_MatchBoundary_NextPage
 	dec b
 	jr nz, Label_0F_464C
 	ld a, [de]
@@ -941,12 +1000,12 @@ Label_0F_464C:: ; 0F:464C
 
 Label_0F_4666:: ; 0F:4666
 	inc e
-	call z, Function_0F_469F
+	call z, Mail_MatchBoundary_NextPage
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_468E
 	inc e
-	call z, Function_0F_469F
+	call z, Mail_MatchBoundary_NextPage
 	xor a, a
 	pop hl
 	pop hl
@@ -954,12 +1013,12 @@ Label_0F_4666:: ; 0F:4666
 
 Label_0F_4677:: ; 0F:4677
 	inc e
-	call z, Function_0F_469F
+	call z, Mail_MatchBoundary_NextPage
 	ld a, [de]
 	cp a, $2D
 	jr nz, Label_0F_468E
 	inc e
-	call z, Function_0F_469F
+	call z, Mail_MatchBoundary_NextPage
 	ld a, $01
 	ld [wRam_D010], a
 	ld a, [de]
@@ -977,14 +1036,14 @@ Label_0F_468E:: ; 0F:468E
 	ld a, $01
 	ret
 
-Function_0F_469F:: ; 0F:469F
+Mail_MatchBoundary_NextPage:: ; 0F:469F
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_46A8:: ; 0F:46A8
+Mail_ParseSinglePart:: ; 0F:46A8
 	call Function_0F_486B
 	and a, a
 	jr nz, Label_0F_46E8
@@ -996,7 +1055,7 @@ Function_0F_46A8:: ; 0F:46A8
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	call Function_0F_4A1C
+	call Mail_SkipHeaderBlock
 	and a, a
 	jr nz, Label_0F_46EC
 	call Function_0F_48C6
@@ -1010,7 +1069,7 @@ Function_0F_46A8:: ; 0F:46A8
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	call Function_0F_4A7E
+	call Mail_FindMessageEnd
 	and a, a
 	jr nz, Label_0F_46EC
 
@@ -1042,7 +1101,7 @@ Label_0F_46FB:: ; 0F:46FB
 	ld a, $01
 	ret
 
-Function_0F_46FE:: ; 0F:46FE
+Mail_ParseMultipart:: ; 0F:46FE
 	call Function_0F_486B
 	and a, a
 	jp nz, Label_0F_478E
@@ -1054,7 +1113,7 @@ Function_0F_46FE:: ; 0F:46FE
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	call Function_0F_4A1C
+	call Mail_SkipHeaderBlock
 	and a, a
 	jp nz, Label_0F_4792
 	call Function_0F_49D0
@@ -1067,12 +1126,12 @@ Function_0F_46FE:: ; 0F:46FE
 	ld [rRAMB], a
 	ld a, $01
 	ld [wRam_D015], a
-	call Function_0F_47D1
+	call Mail_FindBoundary
 	and a, a
 	jp nz, Label_0F_47BB
 
 Label_0F_473B:: ; 0F:473B
-	call Function_0F_4847
+	call Mail_FindPartName
 	cp a, $01
 	jr nz, Label_0F_474D
 	ld a, [wRam_D017]
@@ -1096,7 +1155,7 @@ Label_0F_474D:: ; 0F:474D
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	call Function_0F_47D1
+	call Mail_FindBoundary
 	and a, a
 	jr nz, Label_0F_47BB
 	ld a, [wRam_D00E]
@@ -1148,7 +1207,7 @@ Label_0F_479D:: ; 0F:479D
 	ld [wBank4State], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_0F_4A7E
+	call Mail_FindMessageEnd
 	and a, a
 	jr z, Label_0F_47CF
 	xor a, a
@@ -1171,7 +1230,7 @@ Label_0F_47CF:: ; 0F:47CF
 	xor a, a
 	ret
 
-Function_0F_47D1:: ; 0F:47D1
+Mail_FindBoundary:: ; 0F:47D1
 	ld bc, $0000
 	ld a, [wRam_D015]
 	and a, a
@@ -1182,7 +1241,7 @@ Label_0F_47DA:: ; 0F:47DA
 	and a, a
 	jr z, Label_0F_4833
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	inc bc
 	cp a, $0D
 	jr nz, Label_0F_47DA
@@ -1193,7 +1252,7 @@ Label_0F_47DA:: ; 0F:47DA
 Label_0F_47EC:: ; 0F:47EC
 	inc bc
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	ld a, [de]
 	cp a, $20
 	jr z, Label_0F_482B
@@ -1202,12 +1261,12 @@ Label_0F_47EC:: ; 0F:47EC
 	cp a, $0D
 	jr nz, Label_0F_482F
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_4833
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	ld a, h
 	and a, a
 	jr z, Label_0F_4810
@@ -1218,14 +1277,14 @@ Label_0F_4810:: ; 0F:4810
 	cp a, $2D
 	jr nz, Label_0F_47DA
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	ld a, [de]
 	cp a, $2D
 	jr nz, Label_0F_47DA
 	inc e
-	call z, Function_0F_483E
+	call z, Mail_FindBoundary_NextPage
 	push bc
-	call Function_0F_4640
+	call Mail_MatchBoundary
 	pop bc
 	and a, a
 	jr nz, Label_0F_47DA
@@ -1249,27 +1308,27 @@ Label_0F_483B:: ; 0F:483B
 	ld a, $01
 	ret
 
-Function_0F_483E:: ; 0F:483E
+Mail_FindBoundary_NextPage:: ; 0F:483E
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4847:: ; 0F:4847
+Mail_FindPartName:: ; 0F:4847
 	ld a, [wBank4State]
 	push af
 	push de
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_0F_4A1C
+	call Mail_SkipHeaderBlock
 	and a, a
 	jr nz, Label_0F_4863
 	pop de
 	pop af
 	ld [wBank4State], a
 	ld hl, $421C
-	call Function_0F_4AD3
+	call Mail_FindKeywordValue
 	ret
 
 Label_0F_4863:: ; 0F:4863
@@ -1341,7 +1400,7 @@ Label_0F_48BA:: ; 0F:48BA
 Function_0F_48BD:: ; 0F:48BD
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
@@ -1439,7 +1498,7 @@ Label_0F_4945:: ; 0F:4945
 Function_0F_4948:: ; 0F:4948
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
@@ -1529,7 +1588,7 @@ Label_0F_49C4:: ; 0F:49C4
 Function_0F_49C7:: ; 0F:49C7
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
@@ -1585,11 +1644,11 @@ Label_0F_4A0F:: ; 0F:4A0F
 Function_0F_4A13:: ; 0F:4A13
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4A1C:: ; 0F:4A1C
+Mail_SkipHeaderBlock:: ; 0F:4A1C
 	ld bc, $0000
 	ld h, b
 
@@ -1599,7 +1658,7 @@ Label_0F_4A20:: ; 0F:4A20
 	and a, a
 	jr z, Label_0F_4A6A
 	inc e
-	call z, Function_0F_4A75
+	call z, Mail_SkipHeaderBlock_NextPage
 	cp a, $0D
 	jr nz, Label_0F_4A20
 	ld a, [de]
@@ -1609,7 +1668,7 @@ Label_0F_4A20:: ; 0F:4A20
 Label_0F_4A32:: ; 0F:4A32
 	inc bc
 	inc e
-	call z, Function_0F_4A75
+	call z, Mail_SkipHeaderBlock_NextPage
 	ld a, [de]
 	cp a, $20
 	jr z, Label_0F_4A62
@@ -1618,12 +1677,12 @@ Label_0F_4A32:: ; 0F:4A32
 	cp a, $0D
 	jr nz, Label_0F_4A66
 	inc e
-	call z, Function_0F_4A75
+	call z, Mail_SkipHeaderBlock_NextPage
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_4A6A
 	inc e
-	call z, Function_0F_4A75
+	call z, Mail_SkipHeaderBlock_NextPage
 	ld a, h
 	and a, a
 	jr z, Label_0F_4A56
@@ -1657,14 +1716,14 @@ Label_0F_4A72:: ; 0F:4A72
 	ld a, $01
 	ret
 
-Function_0F_4A75:: ; 0F:4A75
+Mail_SkipHeaderBlock_NextPage:: ; 0F:4A75
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4A7E:: ; 0F:4A7E
+Mail_FindMessageEnd:: ; 0F:4A7E
 	ld bc, $0000
 
 Label_0F_4A81:: ; 0F:4A81
@@ -1673,30 +1732,30 @@ Label_0F_4A81:: ; 0F:4A81
 	and a, a
 	jr z, Label_0F_4ABF
 	inc e
-	call z, Function_0F_4ACA
+	call z, Mail_FindMessageEnd_NextPage
 	cp a, $0D
 	jr nz, Label_0F_4A81
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_4ABF
 	inc e
-	call z, Function_0F_4ACA
+	call z, Mail_FindMessageEnd_NextPage
 	inc bc
 	ld a, [de]
 	cp a, $2E
 	jr nz, Label_0F_4A81
 	inc e
-	call z, Function_0F_4ACA
+	call z, Mail_FindMessageEnd_NextPage
 	ld a, [de]
 	cp a, $0D
 	jr nz, Label_0F_4A81
 	inc e
-	call z, Function_0F_4ACA
+	call z, Mail_FindMessageEnd_NextPage
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_4ABF
 	inc e
-	call z, Function_0F_4ACA
+	call z, Mail_FindMessageEnd_NextPage
 	ld hl, $D003
 	ld a, [wBank4State]
 	ld [hli], a
@@ -1716,14 +1775,14 @@ Label_0F_4AC7:: ; 0F:4AC7
 	ld a, $01
 	ret
 
-Function_0F_4ACA:: ; 0F:4ACA
+Mail_FindMessageEnd_NextPage:: ; 0F:4ACA
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4AD3:: ; 0F:4AD3
+Mail_FindKeywordValue:: ; 0F:4AD3
 	push hl
 	push bc
 
@@ -1732,7 +1791,7 @@ Label_0F_4AD5:: ; 0F:4AD5
 	ld b, a
 	ld a, [de]
 	inc e
-	call z, Function_0F_4B50
+	call z, Mail_FindKeywordValue_NextPage
 	cp a, $61
 	jr c, Label_0F_4AE6
 	cp a, $7B
@@ -1766,7 +1825,7 @@ Label_0F_4AF9:: ; 0F:4AF9
 	ld b, a
 	ld a, [de]
 	inc e
-	call z, Function_0F_4B50
+	call z, Mail_FindKeywordValue_NextPage
 	cp a, $61
 	jr c, Label_0F_4B0D
 	cp a, $7B
@@ -1787,7 +1846,7 @@ Label_0F_4B0D:: ; 0F:4B0D
 Label_0F_4B19:: ; 0F:4B19
 	pop bc
 	pop hl
-	jr Function_0F_4AD3
+	jr Mail_FindKeywordValue
 
 Label_0F_4B1D:: ; 0F:4B1D
 	ld b, $00
@@ -1796,7 +1855,7 @@ Label_0F_4B1D:: ; 0F:4B1D
 	cp a, $22
 	jr nz, Label_0F_4B2A
 	inc e
-	call z, Function_0F_4B50
+	call z, Mail_FindKeywordValue_NextPage
 
 Label_0F_4B2A:: ; 0F:4B2A
 	ld hl, $D011
@@ -1814,7 +1873,7 @@ Label_0F_4B35:: ; 0F:4B35
 	cp a, $0D
 	jr z, Label_0F_4B46
 	inc e
-	call z, Function_0F_4B50
+	call z, Mail_FindKeywordValue_NextPage
 	inc b
 	dec c
 	jr nz, Label_0F_4B35
@@ -1828,14 +1887,15 @@ Label_0F_4B46:: ; 0F:4B46
 	xor a, a
 	ret
 
-Function_0F_4B50:: ; 0F:4B50
+Mail_FindKeywordValue_NextPage:: ; 0F:4B50
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-	call Function_0F_4565
+Mail_IndexHeaders:: ; 0F:4B59
+	call Mail_LoadArgs
 	ld b, $00
 	ld hl, $D003
 	ld c, [hl]
@@ -1849,7 +1909,7 @@ Label_0F_4B69:: ; 0F:4B69
 	push de
 	push bc
 	push hl
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_4BB6
 	and a, a
@@ -1902,8 +1962,8 @@ Label_0F_4B9A:: ; 0F:4B9A
 	inc hl
 	ld bc, $004E
 	ld hl, $D024
-	call Function_0F_5D7F
-	jp Label_0F_4260
+	call Mail_CopyToSram
+	jp Mail_Return
 
 Label_0F_4BB6:: ; 0F:4BB6
 	ld a, $01
@@ -1911,8 +1971,9 @@ Label_0F_4BB6:: ; 0F:4BB6
 	pop bc
 	pop bc
 	ld b, $82
-	jp Label_0F_4260
+	jp Mail_Return
 
+Mail_GetDecodedHeader:: ; 0F:4BC0
 	ld h, d
 	ld l, e
 	ld a, [hli]
@@ -1924,7 +1985,7 @@ Label_0F_4BB6:: ; 0F:4BB6
 	ld d, [hl]
 	inc hl
 	push hl
-	call Function_0F_43F7
+	call Mail_FindHeader
 	cp a, $02
 	jr z, Label_0F_4C07
 	and a, a
@@ -1933,9 +1994,9 @@ Label_0F_4BB6:: ; 0F:4BB6
 	ld [wBank4State], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_0F_4C0F
+	call Mail_UnfoldHeader
 	ld hl, $D024
-	call Function_0F_4C62
+	call Mail_DecodeEncodedWords
 	ld a, b
 	or a, c
 	jr z, Label_0F_4C03
@@ -1949,9 +2010,9 @@ Label_0F_4BB6:: ; 0F:4BB6
 	ld d, [hl]
 	ld hl, $D024
 	push bc
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	pop hl
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4C03:: ; 0F:4C03
 	ld b, $84
@@ -1963,12 +2024,12 @@ Label_0F_4C07:: ; 0F:4C07
 Label_0F_4C09:: ; 0F:4C09
 	ld a, $01
 	pop hl
-	jp Label_0F_4260
+	jp Mail_Return
 
-Function_0F_4C0F:: ; 0F:4C0F
+Mail_UnfoldHeader:: ; 0F:4C0F
 	ld hl, $D024
 	push bc
-	call Function_0F_5D68
+	call Mail_CopyFromSram
 	pop bc
 	ld hl, $D024
 	ld d, h
@@ -2029,13 +2090,13 @@ Label_0F_4C52:: ; 0F:4C52
 ; ---- code $4C59-$4C62 (9 bytes) [HYPOTHESIS] complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret) between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no caller/pointer found, entry unproven
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
 ; ---- code $4C62-$4D35 (211 bytes) [PROBABLE] 137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0; entered by call from 0F:4BE4 (PROBABLE code)
 
-Function_0F_4C62:: ; 0F:4C62
+Mail_DecodeEncodedWords:: ; 0F:4C62
 	ld de, $D624
 	push hl
 
@@ -2083,7 +2144,7 @@ Label_0F_4C88:: ; 0F:4C88
 	ld [wBank4DeferredCall + 1], a
 	pop hl
 	push de
-	call Function_0F_5C5E
+	call Mail_Base64Decode
 	pop de
 	ld h, d
 	ld l, e
@@ -2140,6 +2201,7 @@ Label_0F_4CDB:: ; 0F:4CDB
 	dec bc
 	ret
 
+Mail_GetAddressList:: ; 0F:4CDD
 	ld h, d
 	ld l, e
 	ld b, [hl]
@@ -2151,7 +2213,7 @@ Label_0F_4CDB:: ; 0F:4CDB
 	ld d, [hl]
 	inc hl
 	push hl
-	call Function_0F_43F7
+	call Mail_FindHeader
 	and a, a
 	jr nz, Label_0F_4D37
 	ld [wBank4DeferredCall], a
@@ -2161,9 +2223,9 @@ Label_0F_4CDB:: ; 0F:4CDB
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, $D024
-	call Function_0F_4D3D
+	call Mail_StripCommentsAndSpaces
 	ld hl, $D024
-	call Function_0F_4D9D
+	call Mail_ExtractAddresses
 	pop hl
 	push hl
 	inc hl
@@ -2186,9 +2248,9 @@ Label_0F_4D15:: ; 0F:4D15
 	ld a, [hli]
 	ld d, a
 	ld hl, $D624
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4D2D:: ; 0F:4D2D
 	ld a, [hli]
@@ -2207,9 +2269,9 @@ Label_0F_4D31:: ; 0F:4D31
 Label_0F_4D37:: ; 0F:4D37
 	pop hl
 	ld a, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
-Function_0F_4D3D:: ; 0F:4D3D
+Mail_StripCommentsAndSpaces:: ; 0F:4D3D
 	ld a, [wBank4DeferredCall + 1]
 	and a, a
 	jr nz, Label_0F_4D4E
@@ -2263,26 +2325,26 @@ Label_0F_4D88:: ; 0F:4D88
 	or a, c
 	jr z, Label_0F_4D9A
 	inc e
-	jr nz, Function_0F_4D3D
+	jr nz, Mail_StripCommentsAndSpaces
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
-	jr Function_0F_4D3D
+	jr Mail_StripCommentsAndSpaces
 
 Label_0F_4D9A:: ; 0F:4D9A
 	xor a, a
 	ld [hli], a
 	ret
 
-Function_0F_4D9D:: ; 0F:4D9D
+Mail_ExtractAddresses:: ; 0F:4D9D
 	ld de, $D624
 	xor a, a
 	ld [de], a
 
 Label_0F_4DA2:: ; 0F:4DA2
 	ld a, [hli]
-	call Function_0F_4DF5
+	call Mail_SkipJisEscape
 	and a, a
 	jr z, Label_0F_4DE2
 	cp a, $40
@@ -2292,7 +2354,7 @@ Label_0F_4DA2:: ; 0F:4DA2
 Label_0F_4DAE:: ; 0F:4DAE
 	dec hl
 	ld a, [hl]
-	call Function_0F_4E31
+	call Mail_ClassifyAddressChar
 	and a, a
 	jr z, Label_0F_4DAE
 	inc hl
@@ -2303,7 +2365,7 @@ Label_0F_4DBA:: ; 0F:4DBA
 	ld a, [hli]
 	cp a, $40
 	jr z, Label_0F_4DC5
-	call Function_0F_4E31
+	call Mail_ClassifyAddressChar
 	and a, a
 	jr nz, Label_0F_4DC8
 
@@ -2352,7 +2414,7 @@ Label_0F_4DE2:: ; 0F:4DE2
 	xor a, a
 	ret
 
-Function_0F_4DF5:: ; 0F:4DF5
+Mail_SkipJisEscape:: ; 0F:4DF5
 	cp a, $1B
 	ret nz
 	ld a, [hli]
@@ -2401,7 +2463,7 @@ Label_0F_4E2F:: ; 0F:4E2F
 	xor a, a
 	ret
 
-Function_0F_4E31:: ; 0F:4E31
+Mail_ClassifyAddressChar:: ; 0F:4E31
 	cp a, $30
 	jr c, Label_0F_4E49
 	cp a, $40
@@ -2437,26 +2499,27 @@ Label_0F_4E5C:: ; 0F:4E5C
 	xor a, a
 	ret
 
+Mail_ComposeNext:: ; 0F:4E66
 	ld a, c
 	and a, a
 	jr nz, Label_0F_4E73
 	ld a, [wRam_D023]
 	and a, a
-	jp z, Label_0F_4260
+	jp z, Mail_Return
 	jr Label_0F_4E7A
 
 Label_0F_4E73:: ; 0F:4E73
 	xor a, a
 	ld [wRam_D023], a
-	call Function_0F_4EED
+	call Mail_ComposeInit
 
 Label_0F_4E7A:: ; 0F:4E7A
-	call Function_0F_4F0E
+	call Mail_ComposeStep
 	cp a, $FF
-	jp z, Label_0F_4260
+	jp z, Mail_Return
 	and a, a
 	jr nz, Label_0F_4E9D
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_4E9D
 	ld hl, $D009
@@ -2472,14 +2535,14 @@ Label_0F_4E7A:: ; 0F:4E7A
 	ld l, a
 	add hl, de
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_4E9D:: ; 0F:4E9D
 	ld a, $01
 	ld b, $83
-	jp Label_0F_4260
+	jp Mail_Return
 
-Function_0F_4EA4:: ; 0F:4EA4
+Mail_EmitCrLf:: ; 0F:4EA4
 	ld hl, $D006
 	ld a, [hli]
 	ld [wBank4SavedBankLo], a
@@ -2500,12 +2563,12 @@ Function_0F_4EA4:: ; 0F:4EA4
 	or a, c
 	jr z, Label_0F_4EDF
 	inc e
-	call z, Function_0F_4EE4
+	call z, Mail_EmitCrLf_NextPage
 	ld a, $0A
 	ld [de], a
 	dec bc
 	inc e
-	call z, Function_0F_4EE4
+	call z, Mail_EmitCrLf_NextPage
 	ld hl, $D006
 	ld a, [wBank4SavedBankLo]
 	ld [hli], a
@@ -2525,14 +2588,14 @@ Label_0F_4EDF:: ; 0F:4EDF
 	ld b, $83
 	ret
 
-Function_0F_4EE4:: ; 0F:4EE4
+Mail_EmitCrLf_NextPage:: ; 0F:4EE4
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4EED:: ; 0F:4EED
+Mail_ComposeInit:: ; 0F:4EED
 	ld hl, $D003
 	ld a, b
 	ld [hli], a
@@ -2565,8 +2628,8 @@ Function_0F_4EED:: ; 0F:4EED
 	ld [hl], d
 	ret
 
-Function_0F_4F0E:: ; 0F:4F0E
-	call Function_0F_4F3D
+Mail_ComposeStep:: ; 0F:4F0E
+	call Mail_FetchComposeItem
 	and a, a
 	jr nz, Label_0F_4F2A
 	ld a, [wBank4DeferredCall]
@@ -2574,7 +2637,7 @@ Function_0F_4F0E:: ; 0F:4F0E
 	jr c, Label_0F_4F25
 	cp a, $0C
 	jr z, Label_0F_4F27
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_4F27
 
@@ -2587,7 +2650,7 @@ Label_0F_4F27:: ; 0F:4F27
 	ret
 
 Label_0F_4F2A:: ; 0F:4F2A
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_4F27
 	ld hl, $D00D
@@ -2600,7 +2663,7 @@ Label_0F_4F2A:: ; 0F:4F2A
 	ld a, $FF
 	ret
 
-Function_0F_4F3D:: ; 0F:4F3D
+Mail_FetchComposeItem:: ; 0F:4F3D
 	ld hl, $D00D
 	ld e, [hl]
 	inc hl
@@ -2630,7 +2693,7 @@ Function_0F_4F3D:: ; 0F:4F3D
 Label_0F_4F5C:: ; 0F:4F5C
 	ret
 
-Function_0F_4F5D:: ; 0F:4F5D
+Mail_EmitHeaderField:: ; 0F:4F5D
 	ld a, [wRam_D023]
 	and a, a
 	jr nz, Label_0F_4F80
@@ -2640,12 +2703,12 @@ Function_0F_4F5D:: ; 0F:4F5D
 	add a, a
 	ld e, a
 	ld d, $00
-	ld hl, $4011
+	ld hl, Mail_HeaderStringTable
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	call Function_0F_5024
+	call Mail_EmitString
 	and a, a
 	jr nz, Label_0F_4FEB
 	ld a, $01
@@ -2689,15 +2752,15 @@ Label_0F_4FAB:: ; 0F:4FAB
 	inc hl
 	ld d, [hl]
 	ld hl, $D024
-	call Function_0F_5D68
+	call Mail_CopyFromSram
 	ld hl, $D024
-	call Function_0F_5024
+	call Mail_EmitString
 	and a, a
 	jr nz, Label_0F_4FEB
 	jr Label_0F_5022
 
 Label_0F_4FCD:: ; 0F:4FCD
-	call Function_0F_5066
+	call Mail_EmitAddressListItem
 	and a, a
 	jr nz, Label_0F_4FEB
 	ld a, [wBank4DeferredCall + 1]
@@ -2705,7 +2768,7 @@ Label_0F_4FCD:: ; 0F:4FCD
 	ld [wBank4DeferredCall + 1], a
 	and a, a
 	jr z, Label_0F_4FE3
-	call Function_0F_4F3D
+	call Mail_FetchComposeItem
 	and a, a
 	jr nz, Label_0F_4FCD
 
@@ -2720,35 +2783,35 @@ Label_0F_4FEB:: ; 0F:4FEB
 	ret
 
 Label_0F_4FF0:: ; 0F:4FF0
-	call Function_0F_5066
+	call Mail_EmitAddressListItem
 	and a, a
 	jr nz, Label_0F_4FEB
 	jr Label_0F_5022
 
 Label_0F_4FF8:: ; 0F:4FF8
-	call Function_0F_517D
+	call Mail_EmitGameCodeValue
 	and a, a
 	jr nz, Label_0F_4FEB
 	jr Label_0F_5022
 
 Label_0F_5000:: ; 0F:5000
 	ld hl, $4000
-	call Function_0F_521B
+	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, Label_0F_4FEB
 	jr Label_0F_5022
 
 Label_0F_500B:: ; 0F:500B
-	call Function_0F_5293
+	call Mail_CopyItemToBuffer
 	ld hl, $D024
-	call Function_0F_521B
+	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, Label_0F_4FEB
 	jr Label_0F_5022
 
 Label_0F_5019:: ; 0F:5019
 	ld hl, $4000
-	call Function_0F_521B
+	call Mail_EmitStringAndSuffix
 	and a, a
 	jr nz, Label_0F_4FEB
 
@@ -2756,7 +2819,7 @@ Label_0F_5022:: ; 0F:5022
 	xor a, a
 	ret
 
-Function_0F_5024:: ; 0F:5024
+Mail_EmitString:: ; 0F:5024
 	push hl
 	ld hl, $D006
 	ld a, [hli]
@@ -2783,7 +2846,7 @@ Label_0F_503A:: ; 0F:503A
 	or a, c
 	jr z, Label_0F_505A
 	inc e
-	call z, Function_0F_505D
+	call z, Mail_EmitString_NextPage
 	jr Label_0F_503A
 
 Label_0F_504A:: ; 0F:504A
@@ -2804,14 +2867,14 @@ Label_0F_505A:: ; 0F:505A
 	ld a, $01
 	ret
 
-Function_0F_505D:: ; 0F:505D
+Mail_EmitString_NextPage:: ; 0F:505D
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_5066:: ; 0F:5066
+Mail_EmitAddressListItem:: ; 0F:5066
 	ld hl, $D00F
 	ld a, [hli]
 	and a, a
@@ -2848,9 +2911,9 @@ Label_0F_509C:: ; 0F:509C
 	ld [hli], a
 
 Label_0F_509F:: ; 0F:509F
-	call Function_0F_5D68
-	call Function_0F_50B7
-	call Function_0F_513A
+	call Mail_CopyFromSram
+	call Mail_EncodeHeaderWords
+	call Mail_EmitBufferToOutput
 	ld a, [wRam_D023]
 	inc a
 	cp a, $04
@@ -2864,7 +2927,7 @@ Label_0F_50B2:: ; 0F:50B2
 Label_0F_50B6:: ; 0F:50B6
 	ret
 
-Function_0F_50B7:: ; 0F:50B7
+Mail_EncodeHeaderWords:: ; 0F:50B7
 	ld hl, $D024
 	ld de, $D624
 	ld b, $00
@@ -2921,7 +2984,7 @@ Label_0F_50FC:: ; 0F:50FC
 	ld [wRam_D013], a
 	ld a, h
 	ld [wRam_D014], a
-	ld hl, $4236
+	ld hl, MailStr_EncodedWordPrefix
 
 Label_0F_5107:: ; 0F:5107
 	ld a, [hli]
@@ -2936,7 +2999,7 @@ Label_0F_510F:: ; 0F:510F
 	dec hl
 	dec hl
 	push de
-	call Function_0F_58D7
+	call Mail_Base64Encode
 	pop de
 	ld h, d
 	ld l, e
@@ -2970,7 +3033,7 @@ Label_0F_5137:: ; 0F:5137
 	ld [de], a
 	ret
 
-Function_0F_513A:: ; 0F:513A
+Mail_EmitBufferToOutput:: ; 0F:513A
 	ld hl, $D006
 	ld a, [hli]
 	ld [wBank4SavedBankLo], a
@@ -2996,7 +3059,7 @@ Label_0F_5151:: ; 0F:5151
 	or a, c
 	jr z, Label_0F_5171
 	inc e
-	call z, Function_0F_5174
+	call z, Mail_EmitBufferToOutput_NextPage
 	jr Label_0F_5151
 
 Label_0F_5161:: ; 0F:5161
@@ -3017,14 +3080,14 @@ Label_0F_5171:: ; 0F:5171
 	ld a, $01
 	ret
 
-Function_0F_5174:: ; 0F:5174
+Mail_EmitBufferToOutput_NextPage:: ; 0F:5174
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_517D:: ; 0F:517D
+Mail_EmitGameCodeValue:: ; 0F:517D
 	ld hl, $D006
 	ld a, [hli]
 	ld [wBank4SavedBankLo], a
@@ -3046,7 +3109,7 @@ Function_0F_517D:: ; 0F:517D
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
 	ld [de], a
 	dec bc
@@ -3054,7 +3117,7 @@ Function_0F_517D:: ; 0F:517D
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
 	ld [de], a
 	dec bc
@@ -3062,7 +3125,7 @@ Function_0F_517D:: ; 0F:517D
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [hli]
 	ld [de], a
 	dec bc
@@ -3070,7 +3133,7 @@ Function_0F_517D:: ; 0F:517D
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, $2D
 	ld [de], a
 	dec bc
@@ -3078,7 +3141,7 @@ Function_0F_517D:: ; 0F:517D
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, [$014C]
 	ld h, a
 	and a, $F0
@@ -3098,7 +3161,7 @@ Label_0F_51DE:: ; 0F:51DE
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld a, h
 	and a, $0F
 	cp a, $0A
@@ -3120,7 +3183,7 @@ Label_0F_51F8:: ; 0F:51F8
 	or a, c
 	jr z, Label_0F_51F3
 	inc e
-	call z, Function_0F_5212
+	call z, Mail_EmitGameCodeValue_NextPage
 	ld hl, $D006
 	ld a, [wBank4SavedBankLo]
 	ld [hli], a
@@ -3134,14 +3197,14 @@ Label_0F_51F8:: ; 0F:51F8
 	xor a, a
 	ret
 
-Function_0F_5212:: ; 0F:5212
+Mail_EmitGameCodeValue_NextPage:: ; 0F:5212
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_521B:: ; 0F:521B
+Mail_EmitStringAndSuffix:: ; 0F:521B
 	push hl
 	ld hl, $D006
 	ld a, [hli]
@@ -3168,7 +3231,7 @@ Label_0F_5231:: ; 0F:5231
 	or a, c
 	jr z, Label_0F_5266
 	inc e
-	call z, Function_0F_528A
+	call z, Mail_EmitStringAndSuffix_NextPage
 	jr Label_0F_5231
 
 Label_0F_5241:: ; 0F:5241
@@ -3212,7 +3275,7 @@ Label_0F_526B:: ; 0F:526B
 	or a, c
 	jr z, Label_0F_5266
 	inc e
-	call z, Function_0F_528A
+	call z, Mail_EmitStringAndSuffix_NextPage
 	dec h
 	jr nz, Label_0F_526B
 	jr Label_0F_5256
@@ -3225,17 +3288,17 @@ Label_0F_527C:: ; 0F:527C
 	or a, c
 	jr z, Label_0F_5266
 	inc e
-	call z, Function_0F_528A
+	call z, Mail_EmitStringAndSuffix_NextPage
 	jr Label_0F_5256
 
-Function_0F_528A:: ; 0F:528A
+Mail_EmitStringAndSuffix_NextPage:: ; 0F:528A
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_5293:: ; 0F:5293
+Mail_CopyItemToBuffer:: ; 0F:5293
 	ld hl, $D00F
 	ld c, [hl]
 	inc hl
@@ -3253,19 +3316,20 @@ Label_0F_52A8:: ; 0F:52A8
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_52B3
+	call z, Mail_CopyItemToBuffer_NextPage
 	dec c
 	jr nz, Label_0F_52A8
 	ld [hl], c
 	ret
 
-Function_0F_52B3:: ; 0F:52B3
+Mail_CopyItemToBuffer_NextPage:: ; 0F:52B3
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
+Function_0F_52BC:: ; 0F:52BC
 	push bc
 	call Function_0F_5381
 	push de
@@ -3318,7 +3382,7 @@ Label_0F_52FD:: ; 0F:52FD
 	pop hl
 	ld a, $01
 	ld b, $83
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_5305:: ; 0F:5305
 	ld hl, $D00D
@@ -3331,7 +3395,7 @@ Label_0F_530B:: ; 0F:530B
 	ld a, $01
 	ld [wBank4DeferredCall + 1], a
 	call Function_0F_53B9
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_52FD
 	ld a, [wRam_D005]
@@ -3340,7 +3404,7 @@ Label_0F_530B:: ; 0F:530B
 	ld a, [wBank4DeferredCall]
 	inc a
 	ld [wBank4DeferredCall], a
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_52FD
 	ld [wRam_D023], a
@@ -3352,10 +3416,10 @@ Label_0F_5339:: ; 0F:5339
 	call Function_0F_53B9
 	xor a, a
 	ld [wRam_D023], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_52FD
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_52FD
 	ld a, [wBank4DeferredCall]
@@ -3370,10 +3434,10 @@ Label_0F_5339:: ; 0F:5339
 	call Function_0F_53B9
 	xor a, a
 	ld [wRam_D023], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_52FD
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_52FD
 
@@ -3391,7 +3455,7 @@ Label_0F_536F:: ; 0F:536F
 	ld l, a
 	add hl, de
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Function_0F_5381:: ; 0F:5381
 	ld hl, $D006
@@ -3509,7 +3573,7 @@ Label_0F_53F9:: ; 0F:53F9
 	ld h, a
 	push bc
 	ld b, $00
-	call Function_0F_5D68
+	call Mail_CopyFromSram
 	inc hl
 	ld [hl], a
 	pop bc
@@ -3567,7 +3631,7 @@ Label_0F_544F:: ; 0F:544F
 
 Label_0F_545B:: ; 0F:545B
 	ld hl, $D024
-	call Function_0F_4D9D
+	call Mail_ExtractAddresses
 	ld hl, $D625
 
 Label_0F_5464:: ; 0F:5464
@@ -3636,7 +3700,7 @@ Label_0F_5490:: ; 0F:5490
 	inc hl
 	ld d, [hl]
 	ld hl, $D625
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	ld hl, $D015
 	ld a, [wBank4SavedBankLo]
 	ld [hli], a
@@ -3655,6 +3719,7 @@ Label_0F_5490:: ; 0F:5490
 	xor a, a
 	ret
 
+Function_0F_54D8:: ; 0F:54D8
 	xor a, a
 	ld [wRam_D023], a
 	call Function_0F_55C4
@@ -3682,7 +3747,7 @@ Label_0F_54FB:: ; 0F:54FB
 Label_0F_5506:: ; 0F:5506
 	ld a, $0A
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr z, Label_0F_552F
 	jr Label_0F_5541
@@ -3690,23 +3755,23 @@ Label_0F_5506:: ; 0F:5506
 Label_0F_5513:: ; 0F:5513
 	ld a, $0C
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	ld a, $0D
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
 
 Label_0F_552F:: ; 0F:552F
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	call Function_0F_561F
@@ -3715,36 +3780,36 @@ Label_0F_552F:: ; 0F:552F
 
 Label_0F_5541:: ; 0F:5541
 	ld a, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_5546:: ; 0F:5546
 	ld a, $01
 	ld [wRam_D01C], a
 	ld a, $0B
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 
 Label_0F_555C:: ; 0F:555C
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	ld a, $0E
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	jr Label_0F_54FB
 
 Label_0F_5575:: ; 0F:5575
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	ld a, [wRam_D01C]
@@ -3752,22 +3817,22 @@ Label_0F_5575:: ; 0F:5575
 	jr z, Label_0F_5592
 	ld a, $0F
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
 
 Label_0F_558C:: ; 0F:558C
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 
 Label_0F_5592:: ; 0F:5592
 	ld a, $10
 	ld [wBank4DeferredCall], a
-	call Function_0F_4F5D
+	call Mail_EmitHeaderField
 	and a, a
 	jr nz, Label_0F_5541
-	call Function_0F_4EA4
+	call Mail_EmitCrLf
 	and a, a
 	jr nz, Label_0F_5541
 	ld hl, $D009
@@ -3783,7 +3848,7 @@ Label_0F_5592:: ; 0F:5592
 	ld l, a
 	add hl, de
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_55B5:: ; 0F:55B5
 	ld a, [wRam_D015]
@@ -3939,7 +4004,7 @@ Label_0F_566E:: ; 0F:566E
 	inc hl
 	ld d, [hl]
 	ld hl, $D024
-	call Function_0F_5D68
+	call Mail_CopyFromSram
 	ld hl, $D018
 	ld [hl], e
 	inc hl
@@ -3953,7 +4018,7 @@ Label_0F_566E:: ; 0F:566E
 	inc hl
 	ld d, [hl]
 	ld hl, $D024
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	ld hl, $D007
 	ld [hl], e
 	inc hl
@@ -3994,9 +4059,10 @@ Label_0F_56CB:: ; 0F:56CB
 	ld bc, $0E00
 	jr Label_0F_566E
 
+Function_0F_56E1:: ; 0F:56E1
 	ld a, [wRam_D023]
 	and a, a
-	jp z, Label_0F_4260
+	jp z, Mail_Return
 	cp a, $02
 	jr z, Label_0F_570F
 	cp a, $03
@@ -4008,7 +4074,7 @@ Label_0F_56CB:: ; 0F:56CB
 	cp a, $FF
 	jr z, Label_0F_5740
 	cp a, $01
-	jp nz, Label_0F_4260
+	jp nz, Mail_Return
 	call Function_0F_5747
 	call Function_0F_5771
 	ld a, h
@@ -4031,7 +4097,7 @@ Label_0F_5712:: ; 0F:5712
 	ld a, [wRam_D011]
 	ld l, a
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_572B:: ; 0F:572B
 	ld hl, $D00A
@@ -4048,12 +4114,12 @@ Label_0F_572B:: ; 0F:572B
 	add hl, de
 	xor a, a
 	ld [wRam_D023], a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_5740:: ; 0F:5740
 	ld a, $01
 	ld b, $83
-	jp Label_0F_4260
+	jp Mail_Return
 
 Function_0F_5747:: ; 0F:5747
 	ld hl, $D002
@@ -4260,7 +4326,7 @@ Function_0F_5833:: ; 0F:5833
 	ld d, [hl]
 	ld hl, $D024
 	push bc
-	call Function_0F_5D68
+	call Mail_CopyFromSram
 	pop bc
 	ld hl, $D002
 	ld a, [wBank4State]
@@ -4270,7 +4336,7 @@ Function_0F_5833:: ; 0F:5833
 	ld [hl], d
 	ld hl, $D024
 	ld de, $D624
-	call Function_0F_58D7
+	call Mail_Base64Encode
 	ld hl, $D624
 	ld c, [hl]
 	inc hl
@@ -4313,7 +4379,7 @@ Label_0F_5883:: ; 0F:5883
 	inc hl
 	ld d, [hl]
 	ld hl, $D626
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	ld hl, $D007
 	ld a, [wBank4SavedBankLo]
 	ld [hli], a
@@ -4348,7 +4414,7 @@ Label_0F_58D1:: ; 0F:58D1
 	ld [wRam_D023], a
 	ret
 
-Function_0F_58D7:: ; 0F:58D7
+Mail_Base64Encode:: ; 0F:58D7
 	ld a, e
 	ld [wRam_D020], a
 	ld a, d
@@ -4472,19 +4538,19 @@ Label_0F_5929:: ; 0F:5929
 	pop hl
 	ld a, [bc]
 	inc bc
-	call Function_0F_59F1
+	call Mail_Base64EncodeChar
 	ld [hli], a
 	ld a, [bc]
 	inc bc
-	call Function_0F_59F1
+	call Mail_Base64EncodeChar
 	ld [hli], a
 	ld a, [bc]
 	inc bc
-	call Function_0F_59F1
+	call Mail_Base64EncodeChar
 	ld [hli], a
 	ld a, [bc]
 	inc bc
-	call Function_0F_59F1
+	call Mail_Base64EncodeChar
 	ld [hli], a
 	ld a, [wRam_D022]
 	inc a
@@ -4560,7 +4626,7 @@ Label_0F_59ED:: ; 0F:59ED
 	ld [hl], a
 	ret
 
-Function_0F_59F1:: ; 0F:59F1
+Mail_Base64EncodeChar:: ; 0F:59F1
 	cp a, $1A
 	jr c, Label_0F_5A04
 	cp a, $34
@@ -4588,9 +4654,10 @@ Label_0F_5A0D:: ; 0F:5A0D
 	ld a, $2B
 	ret
 
+Function_0F_5A10:: ; 0F:5A10
 	ld a, [wRam_D023]
 	and a, a
-	jp z, Label_0F_4260
+	jp z, Mail_Return
 	cp a, $02
 	jr z, Label_0F_5A3E
 	cp a, $03
@@ -4602,7 +4669,7 @@ Label_0F_5A0D:: ; 0F:5A0D
 	cp a, $FF
 	jr z, Label_0F_5A6F
 	cp a, $01
-	jp nz, Label_0F_4260
+	jp nz, Mail_Return
 	call Function_0F_5747
 	call Function_0F_5A74
 	ld a, h
@@ -4625,7 +4692,7 @@ Label_0F_5A41:: ; 0F:5A41
 	ld a, [wRam_D011]
 	ld l, a
 	xor a, a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_5A5A:: ; 0F:5A5A
 	ld hl, $D00A
@@ -4642,11 +4709,11 @@ Label_0F_5A5A:: ; 0F:5A5A
 	add hl, de
 	xor a, a
 	ld [wRam_D023], a
-	jp Label_0F_4260
+	jp Mail_Return
 
 Label_0F_5A6F:: ; 0F:5A6F
 	ld a, $01
-	jp Label_0F_4260
+	jp Mail_Return
 
 Function_0F_5A74:: ; 0F:5A74
 	ld hl, $D005
@@ -4829,7 +4896,7 @@ Label_0F_5B58:: ; 0F:5B58
 	ld [hl], d
 	ld hl, $D624
 	ld de, $D024
-	call Function_0F_5C5E
+	call Mail_Base64Decode
 	ld hl, $D024
 	ld c, [hl]
 	inc hl
@@ -4872,7 +4939,7 @@ Label_0F_5B90:: ; 0F:5B90
 	inc hl
 	ld d, [hl]
 	ld hl, $D026
-	call Function_0F_5D7F
+	call Mail_CopyToSram
 	ld hl, $D007
 	ld a, [wBank4SavedBankLo]
 	ld [hli], a
@@ -4991,7 +5058,7 @@ Label_0F_5C4F:: ; 0F:5C4F
 Function_0F_5C52:: ; 0F:5C52
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
@@ -4999,7 +5066,7 @@ Label_0F_5C5B:: ; 0F:5C5B
 	ld a, $02
 	ret
 
-Function_0F_5C5E:: ; 0F:5C5E
+Mail_Base64Decode:: ; 0F:5C5E
 	ld a, e
 	ld [wRam_D01F], a
 	ld a, d
@@ -5036,7 +5103,7 @@ Label_0F_5C86:: ; 0F:5C86
 Label_0F_5C8C:: ; 0F:5C8C
 	ld a, [de]
 	inc de
-	call Function_0F_5D12
+	call Mail_Base64DecodeChar
 	ld [hli], a
 	dec b
 	jr nz, Label_0F_5C8C
@@ -5138,7 +5205,7 @@ Label_0F_5CB4:: ; 0F:5CB4
 	jp nz, Label_0F_5C79
 	ret
 
-Function_0F_5D12:: ; 0F:5D12
+Mail_Base64DecodeChar:: ; 0F:5D12
 	cp a, $2B
 	jr c, Label_0F_5D3C
 	jr z, Label_0F_5D44
@@ -5207,46 +5274,46 @@ Label_0F_5D65:: ; 0F:5D65
 	sub a, $47
 	ret
 
-Function_0F_5D68:: ; 0F:5D68
+Mail_CopyFromSram:: ; 0F:5D68
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5D76
+	call z, Mail_CopyFromSram_NextPage
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Function_0F_5D68
+	jr nz, Mail_CopyFromSram
 	xor a, a
 	ld [hl], a
 	ret
 
-Function_0F_5D76:: ; 0F:5D76
+Mail_CopyFromSram_NextPage:: ; 0F:5D76
 	push bc
 	ld bc, $D000
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_5D7F:: ; 0F:5D7F
+Mail_CopyToSram:: ; 0F:5D7F
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_5D8C
+	call z, Mail_CopyToSram_NextPage
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Function_0F_5D7F
+	jr nz, Mail_CopyToSram
 	xor a, a
 	ret
 
-Function_0F_5D8C:: ; 0F:5D8C
+Mail_CopyToSram_NextPage:: ; 0F:5D8C
 	push bc
 	ld bc, $D001
-	call Function_0F_5D95
+	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_5D95:: ; 0F:5D95
+Mail_NextSramPage:: ; 0F:5D95
 	ld e, a
 	ld a, d
 	cp a, $BF

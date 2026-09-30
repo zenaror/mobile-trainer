@@ -9,12 +9,14 @@ SECTION "Bank68", ROMX[$4000], BANK[$68]
 
 ; ---- data $4000-$4010 (16 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
 
-Data_68_4000:: ; 68:4000
+Settings_MagicString:: ; 68:4000
+Data_68_4000::
 	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $30, $30
 
 ; ---- code $4010-$4054 (68 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4010:: ; 68:4010
+Session_ResetCounters:: ; 68:4010
+Function_68_4010::
 	xor a, a
 	ld [wRam_C2D1], a
 	ld hl, $C2D2
@@ -27,7 +29,7 @@ Function_68_4010:: ; 68:4010
 	ld [hl], a
 	ret
 
-Function_68_4021:: ; 68:4021
+Wram3_CopyString:: ; 68:4021
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -43,7 +45,7 @@ Function_68_4021:: ; 68:4021
 	ldh a, [hScratchA]
 	ret
 
-Function_68_403B:: ; 68:403B
+Wram3_ClearByte:: ; 68:403B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -62,7 +64,7 @@ Function_68_403B:: ; 68:403B
 
 ; ---- code $4054-$408E (58 bytes) [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 6; entered by call from 68:4666 (PROBABLE code) [executed in 2 scenarios]
 
-Function_68_4054:: ; 68:4054
+PhoneNumber_UnpackBcd:: ; 68:4054
 	ld b, $00
 
 Label_68_4056:: ; 68:4056
@@ -76,7 +78,7 @@ Label_68_4056:: ; 68:4056
 	cp a, $0F
 	jr z, Label_68_408B
 	push hl
-	ld hl, $408E
+	ld hl, Dial_KeyCharTable
 	add a, l
 	ld l, a
 	ld a, $00
@@ -91,7 +93,7 @@ Label_68_4056:: ; 68:4056
 	cp a, $0F
 	jr z, Label_68_408B
 	push hl
-	ld hl, $408E
+	ld hl, Dial_KeyCharTable
 	add a, l
 	ld l, a
 	ld a, $00
@@ -111,12 +113,13 @@ Label_68_408B:: ; 68:408B
 
 ; ---- text $408E-$409A (12 bytes) [PROBABLE] 12 ASCII bytes "0123456789#*" (not NUL-terminated: telephone dial keys), addressed by ld hl,$408E at 68:4066 and 68:407B
 
-String_68_408E:: ; 68:408E
-	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A
+Dial_KeyCharTable:: ; 68:408E
+String_68_408E::
+	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A ; "0123456789#*"
 
 ; ---- code $409A-$40D8 (62 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code)
 
-Function_68_409A:: ; 68:409A
+PhoneNumber_PackBcd:: ; 68:409A
 	ld b, $00
 
 Label_68_409C:: ; 68:409C
@@ -172,8 +175,9 @@ Label_68_40D7:: ; 68:40D7
 
 ; ---- code $40D8-$4152 (122 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_40D8:: ; 68:40D8
-	farcall Function_67_6807
+TextEntry_UpdateCursorSprite:: ; 68:40D8
+Function_68_40D8::
+	farcall TextBuf_GetCount
 	push de
 	ld de, $0006
 	call Multiply8x16
@@ -186,7 +190,7 @@ Function_68_40D8:: ; 68:40D8
 	call Function_00_0A65
 	ret
 
-Function_68_40F1:: ; 68:40F1
+OnlineTimer_HasElapsed:: ; 68:40F1
 	xor a, a
 	ld hl, $C2D4
 	ld b, [hl]
@@ -207,7 +211,7 @@ Function_68_4101:: ; 68:4101
 	ld [wRam_C2D1], a
 	ret
 
-Function_68_4106:: ; 68:4106
+Account_ClearWorkBuffers:: ; 68:4106
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -226,7 +230,7 @@ Function_68_4106:: ; 68:4106
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4127:: ; 68:4127
+TextEntry_InsertString:: ; 68:4127
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -245,7 +249,7 @@ Label_68_4136:: ; 68:4136
 	push bc
 	push hl
 	ld d, a
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	pop hl
 	pop bc
 	jr Label_68_4136
@@ -259,6 +263,8 @@ Label_68_4148:: ; 68:4148
 	ret
 
 ; ---- code $4152-$4161 (15 bytes) [HYPOTHESIS] function body after the ret at 4151 (ldh [$F2],a ; ldh a,[$8D] ; push af ; ... ld a,3 ; ldh [$8D],a ; ldh [$70],a ; ld b,d ; ld c,e) that falls into the code at 4161 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4152:: ; 68:4152
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -280,7 +286,7 @@ Label_68_4161:: ; 68:4161
 	push hl
 	ld a, $2A
 	ld d, a
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	pop hl
 	pop bc
 	jr Label_68_4161
@@ -295,7 +301,8 @@ Label_68_4175:: ; 68:4175
 
 ; ---- code $417F-$41DB (92 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_417F:: ; 68:417F
+TextEntry_CopyText:: ; 68:417F
+Function_68_417F::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -314,7 +321,7 @@ Function_68_417F:: ; 68:417F
 	ldh a, [hScratchA]
 	ret
 
-Function_68_419C:: ; 68:419C
+Account_BuildMailAddress:: ; 68:419C
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -345,17 +352,20 @@ Function_68_419C:: ; 68:419C
 
 ; ---- data $41DB-$41DD (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 41DB-41E9 by higher-priority evidence]
 
-Data_68_41DB:: ; 68:41DB
+Account_MailAtSign:: ; 68:41DB
+Data_68_41DB::
 	db $40, $00
 
 ; ---- text $41DD-$41E9 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_68_41DD:: ; 68:41DD
-	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00
+Account_MailDomainSuffix:: ; 68:41DD
+String_68_41DD::
+	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; ".dion.ne.jp"
 
 ; ---- code $41E9-$4241 (88 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_41E9:: ; 68:41E9
+Account_CopyMailAddressToFar:: ; 68:41E9
+Function_68_41E9::
 	ld [wRam_C27C], a
 	ld a, l
 	ld [wRam_C27D], a
@@ -379,7 +389,7 @@ Function_68_41E9:: ; 68:41E9
 	ld a, [wRam_C27E]
 	ld h, a
 	ld a, [wRam_C27C]
-	call Function_68_4239
+	call BankSwitch_H_Local
 	ld hl, $C27F
 	ld a, [wRam_C27D]
 	ld e, a
@@ -393,7 +403,7 @@ Function_68_41E9:: ; 68:41E9
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4239:: ; 68:4239
+BankSwitch_H_Local:: ; 68:4239
 	bit 7, h
 	jr z, Label_68_424C
 	bit 6, h
@@ -420,7 +430,8 @@ Label_68_424C:: ; 68:424C
 
 ; ---- code $4252-$4283 (49 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4252:: ; 68:4252
+Config_ClearSramMirror:: ; 68:4252
+Function_68_4252::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -449,6 +460,8 @@ Function_68_4282:: ; 68:4282
 	ret
 
 ; ---- code $4283-$42E4 (97 bytes) [HYPOTHESIS] complete ret-terminated function (42 insn): enables SRAM ($0A to $0000 / hFFF5), selects SRAM bank 2 then 3 ($4000 register) and clears $A000-$AFFF and $B000-$BFFF with call $04D8 / $0392, then restores the banks; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4283:: ; 68:4283
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -494,7 +507,8 @@ Function_68_4282:: ; 68:4282
 
 ; ---- code $42E4-$4377 (147 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_42E4:: ; 68:42E4
+Sram_WipeAllBanks:: ; 68:42E4
+Function_68_42E4::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -523,7 +537,7 @@ Label_68_42ED:: ; 68:42ED
 	ld [rRAMG], a
 	ret
 
-Function_68_431A:: ; 68:431A
+Config_MirrorIsRegistered:: ; 68:431A
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -546,7 +560,7 @@ Function_68_431A:: ; 68:431A
 	ld a, [sSram_A003]
 	cp a, $00
 	jr nz, Label_68_4365
-	call Function_68_459A
+	call Config_MirrorChecksumOk
 	or a, a
 	jr z, Label_68_4365
 	ldh [hScratchA], a
@@ -573,6 +587,8 @@ Label_68_4365:: ; 68:4365
 	ret
 
 ; ---- code $4377-$43B9 (66 bytes) [HYPOTHESIS] complete ret-terminated function (34 insn): enables SRAM, selects bank 1, reads [$B010] xor $A5 and returns 1 or 0 (SRAM validity check); entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4377:: ; 68:4377
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -612,7 +628,8 @@ Label_68_43A7:: ; 68:43A7
 
 ; ---- code $43B9-$4430 (119 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_43B9:: ; 68:43B9
+Settings_SetProgressState3:: ; 68:43B9
+Function_68_43B9::
 	ld hl, $B010
 	ld a, $03
 	xor a, $A5
@@ -645,7 +662,7 @@ Function_68_43B9:: ; 68:43B9
 	ldh a, [hScratchA]
 	ret
 
-Function_68_43F4:: ; 68:43F4
+Settings_StoreAdapterType:: ; 68:43F4
 	ld hl, $B011
 	ld a, [wRam_C271]
 	xor a, $A5
@@ -679,6 +696,8 @@ Function_68_43F4:: ; 68:43F4
 	ret
 
 ; ---- code $4430-$4469 (57 bytes) [HYPOTHESIS] complete ret-terminated function (30 insn): ld hl,$B011 ... reads one SRAM byte from bank 1 with the enable/bank save-restore sequence, returns b xor $A5; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4430:: ; 68:4430
 	ld hl, $B011
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -712,7 +731,8 @@ Function_68_43F4:: ; 68:43F4
 
 ; ---- code $4469-$446E (5 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4469:: ; 68:4469
+Dial_SelectEntryFromList:: ; 68:4469
+Function_68_4469::
 	ld b, a
 	ld d, h
 	ld e, l
@@ -746,7 +766,7 @@ Label_68_448A:: ; 68:448A
 	ld l, e
 	push hl
 	ld b, $00
-	call Function_68_4499
+	call Settings_SetSelectedDialEntry
 	pop hl
 	xor a, a
 	ret
@@ -758,7 +778,8 @@ Function_68_4495:: ; 68:4495
 
 ; ---- code $4499-$44F9 (96 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4499:: ; 68:4499
+Settings_SetSelectedDialEntry:: ; 68:4499
+Function_68_4499::
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -788,7 +809,7 @@ Function_68_4499:: ; 68:4499
 	ldh a, [hScratchA]
 	ret
 
-Function_68_44D0:: ; 68:44D0
+Settings_GetSelectedDialEntry:: ; 68:44D0
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -818,7 +839,8 @@ Function_68_44D0:: ; 68:44D0
 
 ; ---- code $44FC-$4536 (58 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_44FC:: ; 68:44FC
+Settings_GetHiddenModeFlag:: ; 68:44FC
+Function_68_44FC::
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -860,7 +882,7 @@ Label_68_4539:: ; 68:4539
 	ld a, b
 	ret
 
-Function_68_453B:: ; 68:453B
+Settings_SetHiddenModeFlag:: ; 68:453B
 	ld b, a
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -887,7 +909,7 @@ Function_68_453B:: ; 68:453B
 
 ; ---- code $4568-$4594 (44 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by far from 67:4E4D (PROBABLE code) [executed in 2 scenarios]
 
-Function_68_4568:: ; 68:4568
+Dial_EntryHasNumber:: ; 68:4568
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -897,7 +919,7 @@ Function_68_4568:: ; 68:4568
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, b
-	ld hl, $4594
+	ld hl, Dial_EntryNumberBuffers
 	add a, a
 	add a, l
 	ld l, a
@@ -921,12 +943,14 @@ Function_68_4568:: ; 68:4568
 
 ; ---- words $4594-$459A (6 bytes) [PROBABLE] 3 words $DF10,$DF43,$DF76 (stride $33, WRAM1 addresses) addressed by ld hl,$4594 at 68:4577; extent bounded by the next code region
 
-Table_68_4594:: ; 68:4594
+Dial_EntryNumberBuffers:: ; 68:4594
+Table_68_4594::
 	dw $DF10, $DF43, $DF76
 
 ; ---- code $459A-$45DF (69 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_459A:: ; 68:459A
+Config_MirrorChecksumOk:: ; 68:459A
+Function_68_459A::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -986,7 +1010,8 @@ Label_68_45DF:: ; 68:45DF
 
 ; ---- code $45F1-$4608 (23 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_45F1:: ; 68:45F1
+Config_MirrorUpdateChecksum:: ; 68:45F1
+Function_68_45F1::
 	ld hl, $A000
 	ld de, $0000
 	ld b, $BE
@@ -1007,7 +1032,7 @@ Label_68_45F9:: ; 68:45F9
 
 ; ---- code $4608-$4735 (301 bytes) [CONFIRMED] 136 insn(s) reached by static flow only; seeds: exec x136; min discovery hops 3; entered by far from 67:4023 (PROBABLE code) [executed in 1 scenarios]
 
-Function_68_4608:: ; 68:4608
+Config_LoadMirrorToWram:: ; 68:4608
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1045,13 +1070,13 @@ Function_68_4608:: ; 68:4608
 	call Function_00_14D1
 	ld hl, $A076
 	ld de, $DF10
-	call Function_68_4054
+	call PhoneNumber_UnpackBcd
 	ld hl, $A08E
 	ld de, $DF43
-	call Function_68_4054
+	call PhoneNumber_UnpackBcd
 	ld hl, $A0A6
 	ld de, $DF76
-	call Function_68_4054
+	call PhoneNumber_UnpackBcd
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -1088,7 +1113,7 @@ Function_68_4608:: ; 68:4608
 	ldh a, [hScratchA]
 	ret
 
-Function_68_46C8:: ; 68:46C8
+Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1097,7 +1122,7 @@ Function_68_46C8:: ; 68:46C8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [wRam_C271]
-	ld hl, $67D8
+	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
 	ld l, a
@@ -1110,9 +1135,9 @@ Function_68_46C8:: ; 68:46C8
 	ld de, $0076
 	add hl, de
 	ld de, $DEDD
-	farcall Function_68_4054
+	farcall PhoneNumber_UnpackBcd
 	ld a, [wRam_C271]
-	ld hl, $67AE
+	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
 	ld l, a
@@ -1125,7 +1150,7 @@ Function_68_46C8:: ; 68:46C8
 	ld de, $DEEE
 	farcall CopyString
 	ld a, [wRam_C271]
-	ld hl, $67D8
+	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
 	ld l, a
@@ -1149,7 +1174,8 @@ Function_68_46C8:: ; 68:46C8
 
 ; ---- code $4735-$4842 (269 bytes) [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4735:: ; 68:4735
+Settings_StoreMailAddress:: ; 68:4735
+Function_68_4735::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1191,7 +1217,7 @@ Function_68_4735:: ; 68:4735
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4785:: ; 68:4785
+Settings_InitPage:: ; 68:4785
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1210,7 +1236,7 @@ Function_68_4785:: ; 68:4785
 	ld bc, $0200
 	ld a, $A5
 	call FillBytes
-	ld hl, $4000
+	ld hl, Settings_MagicString
 	ld de, $B000
 	ld bc, $0010
 	call CopyBytes
@@ -1254,10 +1280,10 @@ Function_68_4785:: ; 68:4785
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ret
 
-Function_68_480A:: ; 68:480A
+Settings_ClearFieldsKeepProgress:: ; 68:480A
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1297,7 +1323,7 @@ Function_68_480A:: ; 68:480A
 Label_68_4847:: ; 68:4847
 	xor a, $A5
 	ld [sSram_B010], a
-	ld hl, $4000
+	ld hl, Settings_MagicString
 	ld de, $B000
 	ld bc, $0010
 	call CopyBytes
@@ -1311,11 +1337,11 @@ Label_68_4847:: ; 68:4847
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ret
 
-Function_68_4870:: ; 68:4870
-	call Function_68_48DE
+Settings_GetRegistrationProgress:: ; 68:4870
+	call Settings_VerifyAndRepair
 	add a, a
 	add a, $D6
 	ld l, a
@@ -1397,14 +1423,16 @@ Label_68_48CE:: ; 68:48CE
 
 ; ---- words $48D6-$48DE (8 bytes) [PROBABLE] contiguous data block 48D6-48DE: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 48D6-48D8,48DC-48DE) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 3 regions by classify_g2] [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_68_48D6:: ; 68:48D6
+Settings_ProgressJumpTable:: ; 68:48D6
+Table_68_48D6::
 	dw $4880, $4880, $48D1, $48D4
 
 ; ---- code $48DE-$48F3 (21 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_48DE:: ; 68:48DE
+Settings_VerifyAndRepair:: ; 68:48DE
+Function_68_48DE::
 	ld hl, $B000
-	call Function_68_4950
+	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, Label_68_48ED
 	cp a, $01
@@ -1412,7 +1440,7 @@ Function_68_48DE:: ; 68:48DE
 	jr Label_68_4940
 
 Label_68_48ED:: ; 68:48ED
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ld a, $00
 	ret
 
@@ -1420,7 +1448,7 @@ Label_68_48ED:: ; 68:48ED
 
 Label_68_48F3:: ; 68:48F3
 	ld hl, $B100
-	call Function_68_4950
+	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, Label_68_48FE
 	jr Label_68_493D
@@ -1465,7 +1493,7 @@ Label_68_493D:: ; 68:493D
 
 Label_68_4940:: ; 68:4940
 	ld hl, $B100
-	call Function_68_4950
+	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, Label_68_48FE
 	cp a, $01
@@ -1473,7 +1501,7 @@ Label_68_4940:: ; 68:4940
 	ld a, $03
 	ret
 
-Function_68_4950:: ; 68:4950
+Settings_CheckPageMagicAndSum:: ; 68:4950
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1490,7 +1518,7 @@ Function_68_4950:: ; 68:4950
 	ld [rRAMG], a
 	push hl
 	ld bc, $00FE
-	call Function_68_49FF
+	call Checksum16_Sum
 	ld c, [hl]
 	inc hl
 	ld b, [hl]
@@ -1501,7 +1529,7 @@ Function_68_4950:: ; 68:4950
 	cp a, e
 	jr nz, Label_68_498E
 	pop hl
-	ld de, $4000
+	ld de, Settings_MagicString
 	ld b, $10
 	call CompareStringN
 	or a, a
@@ -1511,7 +1539,7 @@ Function_68_4950:: ; 68:4950
 
 Label_68_498E:: ; 68:498E
 	pop hl
-	ld de, $4000
+	ld de, Settings_MagicString
 	ld b, $10
 	call CompareStringN
 	or a, a
@@ -1540,7 +1568,7 @@ Label_68_49A0:: ; 68:49A0
 	ld a, b
 	ret
 
-Function_68_49B6:: ; 68:49B6
+Settings_UpdateChecksumAndBackup:: ; 68:49B6
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1557,7 +1585,7 @@ Function_68_49B6:: ; 68:49B6
 	ld [rRAMG], a
 	ld hl, $B000
 	ld bc, $00FE
-	call Function_68_49FF
+	call Checksum16_Sum
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -1577,7 +1605,7 @@ Function_68_49B6:: ; 68:49B6
 	ldh a, [hScratchA]
 	ret
 
-Function_68_49FF:: ; 68:49FF
+Checksum16_Sum:: ; 68:49FF
 	ld de, $0000
 
 Label_68_4A02:: ; 68:4A02
@@ -1593,7 +1621,7 @@ Label_68_4A02:: ; 68:4A02
 	jr nz, Label_68_4A02
 	ret
 
-Function_68_4A0F:: ; 68:4A0F
+Settings_ClearVariableBlock:: ; 68:4A0F
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1624,7 +1652,7 @@ Function_68_4A0F:: ; 68:4A0F
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4A4A:: ; 68:4A4A
+Settings_StoreStringField:: ; 68:4A4A
 	push bc
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -1755,10 +1783,10 @@ Function_68_4A4A:: ; 68:4A4A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ret
 
-Function_68_4B48:: ; 68:4B48
+Settings_StoreByteField:: ; 68:4B48
 	push bc
 	xor a, $A5
 	ld b, a
@@ -1877,10 +1905,10 @@ Function_68_4B48:: ; 68:4B48
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ret
 
-Function_68_4C2B:: ; 68:4C2B
+Settings_SetProgressState2:: ; 68:4C2B
 	ld hl, $B010
 	ld a, $02
 	xor a, $A5
@@ -1911,10 +1939,10 @@ Function_68_4C2B:: ; 68:4C2B
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ldh a, [hScratchA]
-	call Function_68_49B6
+	call Settings_UpdateChecksumAndBackup
 	ret
 
-Function_68_4C69:: ; 68:4C69
+Settings_LoadAccountToWram:: ; 68:4C69
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2051,7 +2079,7 @@ Function_68_4C69:: ; 68:4C69
 	ld a, b
 	xor a, $A5
 	ld [wRam_C28C], a
-	call Function_68_419C
+	call Account_BuildMailAddress
 	ld a, $01
 	ld [wRam_C279], a
 	ldh [hScratchA], a
@@ -2073,18 +2101,18 @@ Function_68_4C69:: ; 68:4C69
 
 ; ---- code $4DB4-$4E37 (131 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 1; entered by far from 65:46E5 (PROBABLE code)
 
-Function_68_4DB4:: ; 68:4DB4
-	call Function_68_4106
-	call Function_68_4252
-	call Function_68_42E4
-	farcall Function_68_4785
+Dev_InstallTestConfig:: ; 68:4DB4
+	call Account_ClearWorkBuffers
+	call Config_ClearSramMirror
+	call Sram_WipeAllBanks
+	farcall Settings_InitPage
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_68_4E51
+	call Mobile_InitAndWait
 	or a, a
 	jr nz, Label_68_4E35
-	call Function_68_4E6A
+	call Dev_WriteTestConfigImage
 	or a, a
 	jr nz, Label_68_4E35
 	ld a, $36
@@ -2095,7 +2123,7 @@ Function_68_4DB4:: ; 68:4DB4
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4E46
+	ld hl, Dev_TestDialNumber
 	ld de, $B014
 	call EncodeXorA5
 	xor a, a
@@ -2104,20 +2132,20 @@ Function_68_4DB4:: ; 68:4DB4
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $4E37
+	ld hl, Dev_TestMailAddress
 	ld de, $DFAA
 	call CopyString
 	ld b, $00
-	call Function_68_4499
-	call Function_68_43F4
-	call Function_68_4735
-	call Function_68_43B9
+	call Settings_SetSelectedDialEntry
+	call Settings_StoreAdapterType
+	call Settings_StoreMailAddress
+	call Settings_SetProgressState3
 	ld a, $01
-	farcall Function_68_453B
-	farcall Function_68_49B6
-	farcall Function_22_4FA9
-	farcall Function_48_4920
-	farcall Function_4E_4749
+	farcall Settings_SetHiddenModeFlag
+	farcall Settings_UpdateChecksumAndBackup
+	farcall SramCheck_VerifyAndRepairAll
+	farcall Sram_ResetChecksum3Areas
+	farcall SaveCheck_ResetBlock
 	ret
 
 Label_68_4E35:: ; 68:4E35
@@ -2125,17 +2153,19 @@ Label_68_4E35:: ; 68:4E35
 
 ; ---- text $4E37-$4E46 (15 bytes) [PROBABLE] ASCII "test@test.test" NUL, addressed by ld hl,$4E37 (4E40 = its substring ".test") at 68:4DFD / 68:50EC
 
-String_68_4E37:: ; 68:4E37
-	db $74, $65, $73, $74, $40, $74, $65, $73, $74, $2E, $74, $65, $73, $74, $00
+Dev_TestMailAddress:: ; 68:4E37
+String_68_4E37::
+	db $74, $65, $73, $74, $40, $74, $65, $73, $74, $2E, $74, $65, $73, $74, $00 ; "test@test.test"
 
 ; ---- text $4E46-$4E51 (11 bytes) [PROBABLE] ASCII "0755311973" NUL, addressed by ld hl,$4E46 at 68:4DE8
 
-String_68_4E46:: ; 68:4E46
-	db $30, $37, $35, $35, $33, $31, $31, $39, $37, $33, $00
+Dev_TestDialNumber:: ; 68:4E46
+String_68_4E46::
+	db $30, $37, $35, $35, $33, $31, $31, $39, $37, $33, $00 ; "0755311973"
 
 ; ---- code $4E51-$4EA7 (86 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2; entered by call from 68:4DC9 (PROBABLE code)
 
-Function_68_4E51:: ; 68:4E51
+Mobile_InitAndWait:: ; 68:4E51
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
@@ -2144,14 +2174,14 @@ Function_68_4E51:: ; 68:4E51
 Label_68_4E5C:: ; 68:4E5C
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_4F67
+	jp nz, Mobile_ReportLastError
 	bit 0, a
 	jr nz, Label_68_4E5C
 	xor a, a
 	ret
 
-Function_68_4E6A:: ; 68:4E6A
-	ld hl, $4EA7
+Dev_WriteTestConfigImage:: ; 68:4E6A
+	ld hl, Dev_TestConfigImage
 	ld de, $D000
 	ld bc, $00C0
 	call CopyBytes
@@ -2180,7 +2210,7 @@ Label_68_4E7E:: ; 68:4E7E
 Label_68_4E99:: ; 68:4E99
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_4F67
+	jp nz, Mobile_ReportLastError
 	bit 0, a
 	jr nz, Label_68_4E99
 	xor a, a
@@ -2188,7 +2218,8 @@ Label_68_4E99:: ; 68:4E99
 
 ; ---- data $4EA7-$4EB7 (16 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
-Data_68_4EA7:: ; 68:4EA7
+Dev_TestConfigImage:: ; 68:4EA7
+Data_68_4EA7::
 	db $4D, $41, $81, $00, $AC, $10, $13, $BA, $AC, $10, $13, $BA, $69, $74, $6F, $68
 
 ; ---- zero $4EB7-$4EF1 (58 bytes) [HYPOTHESIS] 0x00 run of 58 bytes
@@ -2197,14 +2228,13 @@ Data_68_4EA7:: ; 68:4EA7
 ; ---- text $4EF1-$4F05 (20 bytes) [PROBABLE] ASCII "211.005.001.117" NUL + NUL padding (IP address-like string) inside the 192-byte record 4EA7-4F67 copied to $D000 by 68:4E51
 
 String_68_4EF1:: ; 68:4EF1
-	db $32, $31, $31, $2E, $30, $30, $35, $2E, $30, $30, $31, $2E, $31, $31, $37, $00
-	db $00, $00, $00, $00
+	db $32, $31, $31, $2E, $30, $30, $35, $2E, $30, $30, $31, $2E, $31, $31, $37, $00 ; "211.005.001.117"
+	ds $4, $00 ; padding
 
 ; ---- text $4F05-$4F17 (18 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_68_4F05:: ; 68:4F05
-	db $70, $6F, $70, $2E, $64, $36, $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A
-	db $70, $00
+	db $70, $6F, $70, $2E, $64, $36, $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; "pop.d6.dion.ne.jp"
 
 ; ---- data $4F17-$4F25 (14 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
@@ -2214,7 +2244,7 @@ Data_68_4F17:: ; 68:4F17
 ; ---- text $4F25-$4F35 (16 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_68_4F25:: ; 68:4F25
-	db $4E, $49, $4E, $54, $45, $4E, $44, $4F, $20, $54, $45, $53, $54, $20, $20, $00
+	db $4E, $49, $4E, $54, $45, $4E, $44, $4F, $20, $54, $45, $53, $54, $20, $20, $00 ; "NINTENDO TEST  "
 
 ; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
@@ -2234,14 +2264,15 @@ Data_68_4F4D:: ; 68:4F4D
 
 ; ---- code $4F67-$4F71 (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 3; entered by jpcc from 68:4E61 (PROBABLE code)
 
-Label_68_4F67:: ; 68:4F67
-	call Function_68_4F71
-	farcall Function_68_4F8C
+Mobile_ReportLastError:: ; 68:4F67
+	call Mobile_SaveLastResult
+	farcall Mobile_ShowLastError
 	ret
 
 ; ---- code $4F71-$4FC8 (87 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_4F71:: ; 68:4F71
+Mobile_SaveLastResult:: ; 68:4F71
+Function_68_4F71::
 	ld a, $00
 	call MobileAPI
 	ld [wRam_C272], a
@@ -2256,16 +2287,16 @@ Function_68_4F71:: ; 68:4F71
 	ld a, $01
 	ret
 
-Function_68_4F8C:: ; 68:4F8C
+Mobile_ShowLastError:: ; 68:4F8C
 	ld a, [wRam_C273]
 	ld l, a
 	ld a, [wRam_C274]
 	ld h, a
 	ld a, [wRam_C272]
-	farcall Function_5C_5150
+	farcall CommErr_ShowScreen
 	ret
 
-Function_68_4F9E:: ; 68:4F9E
+SettingsMenu_Run:: ; 68:4F9E
 	xor a, a
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
@@ -2281,7 +2312,7 @@ Function_68_4F9E:: ; 68:4F9E
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyHeld]
 	and a, $16
 	cp a, $16
@@ -2289,13 +2320,13 @@ Function_68_4F9E:: ; 68:4F9E
 
 ; ---- code $4FC8-$4FD6 (14 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4FC6 (executed) [executed in 1 scenarios]
 	ld a, $01
-	farcall Function_68_453B
-	farcall Function_68_49B6
+	farcall Settings_SetHiddenModeFlag
+	farcall Settings_UpdateChecksumAndBackup
 
 ; ---- code $4FD6-$505E (136 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 4/18 scenarios)
 
 Label_68_4FD6:: ; 68:4FD6
-	farcall Function_68_44FC
+	farcall Settings_GetHiddenModeFlag
 	ld [wRam_C28C], a
 	xor a, a
 	ld [wRam_C28E], a
@@ -2303,7 +2334,7 @@ Label_68_4FD6:: ; 68:4FD6
 	ld [wRam_C1D0], a
 	ld a, $01
 	ld [wRam_C1D1], a
-	call Function_68_5033
+	call SettingsMenu_RunLoop
 	ld a, [wRam_C27C]
 	ld hl, $BF01
 	ld b, a
@@ -2340,19 +2371,19 @@ Label_68_4FD6:: ; 68:4FD6
 	inc a
 	ret
 
-Function_68_5033:: ; 68:5033
-	farcall Function_7D_7BB7
-	call Function_68_504D
+SettingsMenu_RunLoop:: ; 68:5033
+	farcall Joypad_Update
+	call SettingsMenu_Dispatch
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C28E]
 	cp a, $FF
-	jr nz, Function_68_5033
+	jr nz, SettingsMenu_RunLoop
 	ret
 
-Function_68_504D:: ; 68:504D
+SettingsMenu_Dispatch:: ; 68:504D
 	ld a, [wRam_C28E]
-	ld hl, $505E
+	ld hl, SettingsMenu_StateTable
 	add a, a
 	add a, l
 	ld l, a
@@ -2366,18 +2397,19 @@ Function_68_504D:: ; 68:504D
 
 ; ---- ptrtable $505E-$5066 (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (start is the operand of ld r16); 4/4 targets executed; every byte read as data in a trace
 
-Table_68_505E:: ; 68:505E
-	dw Label_68_5066
-	dw Label_68_5156
-	dw Label_68_5172
-	dw Label_68_51FD
+SettingsMenu_StateTable:: ; 68:505E
+Table_68_505E::
+	dw SettingsMenu_StateInit
+	dw SettingsMenu_StateFadeIn
+	dw SettingsMenu_StateInput
+	dw SettingsMenu_StateExit
 
 ; ---- code $5066-$5220 (442 bytes) [CONFIRMED] 183 insn(s); 183 executed (in up to 4/18 scenarios)
 
-Label_68_5066:: ; 68:5066
+SettingsMenu_StateInit:: ; 68:5066
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27D], a
@@ -2411,31 +2443,31 @@ Label_68_5066:: ; 68:5066
 	ld a, b
 	ld [wRam_C27C], a
 	ld de, $8801
-	ld hl, $4240
+	ld hl, Data_4A_4240
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4640
+	ld hl, Data_4A_4640
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4A40
+	ld hl, Data_4A_4A40
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $4E40
+	ld hl, Data_4A_4E40
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $4040
+	ld hl, Data_4A_4040
 	ld a, $4A
 	ld b, $95
 	ld c, $20
@@ -2444,28 +2476,28 @@ Label_68_5066:: ; 68:5066
 	ld de, $D800
 	ld hl, $5180
 	ld a, $4A
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, $D840
 	ld hl, $51A8
 	ld a, $4A
-	farcall Function_4F_4000
-	call Function_68_522C
+	farcall Palette_LoadToBuffer
+	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA10
-	ld de, $5838
+	ld de, Table_4A_5838
 	ld a, $4A
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_68_5209
+	call SettingsMenu_UpdateCursorSprite
 	farcall Function_00_0956
 	ld a, $01
 	ld [wRam_C28E], a
 	ret
 
-Label_68_5156:: ; 68:5156
-	farcall Function_4F_42B4
+SettingsMenu_StateFadeIn:: ; 68:5156
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -2478,7 +2510,7 @@ Label_68_5156:: ; 68:5156
 	ld [wRam_C28E], a
 	ret
 
-Label_68_5172:: ; 68:5172
+SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_5187
@@ -2555,21 +2587,21 @@ Label_68_51E1:: ; 68:51E1
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_522C
+	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call Function_68_5209
+	call SettingsMenu_UpdateCursorSprite
 
 Label_68_51FC:: ; 68:51FC
 	ret
 
-Label_68_51FD:: ; 68:51FD
-	farcall Function_4F_4370
+SettingsMenu_StateExit:: ; 68:51FD
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ld [wRam_C28E], a
 	ret
 
-Function_68_5209:: ; 68:5209
+SettingsMenu_UpdateCursorSprite:: ; 68:5209
 	ld a, [wRam_C27C]
 	sla a
 	sla a
@@ -2597,7 +2629,7 @@ Label_68_5223:: ; 68:5223
 	ld [wSpriteSlots + 17], a
 	ret
 
-Function_68_522C:: ; 68:522C
+SettingsMenu_DrawItems:: ; 68:522C
 	ld a, [wRam_C28C]
 	or a, a
 	jr nz, Label_68_5245
@@ -2613,7 +2645,7 @@ Function_68_522C:: ; 68:522C
 Label_68_5245:: ; 68:5245
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $54A0
+	ld hl, Data_4A_54A0
 	ld a, $4A
 	farcall Function_00_08EA
 
@@ -2642,7 +2674,7 @@ Label_68_526D:: ; 68:526D
 	ld e, l
 	ld bc, $020A
 	ld a, [wRam_C27C]
-	ld hl, $528C
+	ld hl, SettingsMenu_ItemHighlightMaps
 	add a, a
 	add a, l
 	ld l, a
@@ -2658,21 +2690,25 @@ Label_68_526D:: ; 68:526D
 
 ; ---- words $528C-$5296 (10 bytes) [PROBABLE] 5 words $5770,$5798,$57C0,$57E8,$5810 (stride $28) read with `ld hl,$528C ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5276 and passed as HL to the far call `ld a,$4A ; farcall 00:08EA` (68:5283, copy_tilemap_rect_pair, bc=$050A): the words are therefore pointers into BANK 4A data, NOT into bank 68 code [verifier: retyped ptrtable->words; as a ptrtable the generator emitted `dw Label_68_5798`, a false symbolic reference to code of this bank]
 
-Table_68_528C:: ; 68:528C
+SettingsMenu_ItemHighlightMaps:: ; 68:528C
+Table_68_528C::
 	dw $5770, $5798, $57C0, $57E8, $5810
 
 ; ---- code $5296-$52B2 (28 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_5296:: ; 68:5296
-	call Function_68_531A
-	farcall Function_4F_42B4
-	call Function_68_542F
-	farcall Function_4F_4370
-	farcall Function_55_651C
+Account_LoginIdEntryScreen:: ; 68:5296
+Function_68_5296::
+	call Account_LoginIdEntry_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_LoginIdEntry_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
 ; ---- code $52B2-$531A (104 bytes) [HYPOTHESIS] complete ret-terminated function (51 insn): SRAM enable/bank-1 select, copies with call $14EA / $1509 and clears a flag bit in [$C278] (xor $FF/and); the routine at 5739 is its twin; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_52B2:: ; 68:52B2
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -2729,64 +2765,65 @@ Label_68_52FC:: ; 68:52FC
 
 ; ---- code $531A-$5404 (234 bytes) [CONFIRMED] 74 insn(s); 74 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_531A:: ; 68:531A
+Account_LoginIdEntry_Setup:: ; 68:531A
+Function_68_531A::
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld hl, $DE80
 	ld b, $0A
-	farcall Function_67_6731
+	farcall TextBuf_Init
 	ld hl, $DE80
 	ld de, $DEA1
-	call Function_68_4127
-	call Function_68_5417
+	call TextEntry_InsertString
+	call Account_LoginIdEntry_UpdateOkState
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_5E_4000
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4800
+	ld hl, Data_5E_4800
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $4C00
+	ld hl, Data_5E_4C00
 	ld a, $5E
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $4D40
+	ld hl, Data_5E_4D40
 	ld a, $5E
 	farcall Function_00_08EA
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_5584
-	call Function_68_55D1
-	call Function_68_5574
+	call Account_LoginId_PrintField
+	call Account_LoginId_UploadTextTiles
+	call Account_LoginId_BuildTextMap
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld a, $00
 	ld b, $02
-	farcall Function_55_5BA2
+	farcall Kbd_Open
 	ld hl, $DA00
 	ld de, $4D30
 	ld a, $5F
@@ -2795,19 +2832,21 @@ Function_68_531A:: ; 68:531A
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
-	farcall Function_68_40D8
+	farcall TextEntry_UpdateCursorSprite
 	ld hl, $DE80
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, Label_68_53F7
 	ret
 
 Label_68_53F7:: ; 68:53F7
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	farcall Function_00_0956
 	ret
 
 ; ---- code $5404-$5417 (19 bytes) [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 -> [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_5404:: ; 68:5404
 	ld a, [wRam_C278]
 	and a, $01
 	jr nz, Label_68_5411
@@ -2822,9 +2861,10 @@ Label_68_5411:: ; 68:5411
 
 ; ---- code $5417-$5451 (58 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_5417:: ; 68:5417
+Account_LoginIdEntry_UpdateOkState:: ; 68:5417
+Function_68_5417::
 	ld hl, $DE80
-	farcall Function_67_6828
+	farcall TextBuf_GetFree
 	or a, a
 	jr z, Label_68_5429
 	ld a, $00
@@ -2836,11 +2876,11 @@ Label_68_5429:: ; 68:5429
 	ld [wRam_C27D], a
 	ret
 
-Function_68_542F:: ; 68:542F
+Account_LoginIdEntry_InputLoop:: ; 68:542F
 	farcall Function_00_0956
 	ld a, [wRam_C27D]
 	ld c, a
-	farcall Function_55_5C8F
+	farcall Kbd_Run
 	cp a, $01
 	jr z, Label_68_5454
 	cp a, $02
@@ -2859,7 +2899,7 @@ Label_68_5454:: ; 68:5454
 	ld a, [wRam_C2AD]
 	ld hl, $DE80
 	ld d, a
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, Label_68_5476
 	ldh a, [hWRAMBank]
@@ -2884,19 +2924,19 @@ Label_68_5476:: ; 68:5476
 
 Label_68_5486:: ; 68:5486
 	ld hl, $DE80
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, Label_68_549C
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jp Label_68_552E
 
 Label_68_549C:: ; 68:549C
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jp Label_68_552E
 
 Label_68_54A5:: ; 68:54A5
 	ld hl, $DE80
-	farcall Function_67_6799
+	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, Label_68_5516
 	ldh a, [hWRAMBank]
@@ -2908,23 +2948,23 @@ Label_68_54A5:: ; 68:54A5
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $09
 	jr c, Label_68_54D6
 
 ; ---- code $54CE-$54D6 (8 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:54CC (executed)
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jr Label_68_552E
 
 ; ---- code $54D6-$5739 (611 bytes) [CONFIRMED] 239 insn(s); 239 executed (in up to 3/18 scenarios)
 
 Label_68_54D6:: ; 68:54D6
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jr Label_68_552E
 
 Label_68_54DE:: ; 68:54DE
 	ld hl, $DE80
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $09
 	jr nc, Label_68_54FD
 	ldh a, [hWRAMBank]
@@ -2946,7 +2986,7 @@ Label_68_54FD:: ; 68:54FD
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_554C
+	call Account_CommitLoginId
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
@@ -2960,7 +3000,7 @@ Label_68_5516:: ; 68:5516
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_554C
+	call Account_CommitLoginId
 	xor a, a
 	ld [wRam_C27C], a
 	ret
@@ -2969,17 +3009,17 @@ Label_68_552E:: ; 68:552E
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
-	farcall Function_68_40D8
+	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_5584
-	call Function_68_55D1
-	call Function_68_5417
+	call Account_LoginId_PrintField
+	call Account_LoginId_UploadTextTiles
+	call Account_LoginIdEntry_UpdateOkState
 
 Label_68_5549:: ; 68:5549
-	jp Function_68_542F
+	jp Account_LoginIdEntry_InputLoop
 
-Function_68_554C:: ; 68:554C
+Account_CommitLoginId:: ; 68:554C
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2996,23 +3036,23 @@ Function_68_554C:: ; 68:554C
 	ldh a, [hScratchA]
 	ld hl, $DE80
 	ld de, $DEA1
-	farcall Function_68_417F
+	farcall TextEntry_CopyText
 	ret
 
-Function_68_5574:: ; 68:5574
+Account_LoginId_BuildTextMap:: ; 68:5574
 	ld hl, $D047
 	ld de, $0000
 	ld bc, $0207
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_5584:: ; 68:5584
+Account_LoginId_PrintField:: ; 68:5584
 	push hl
 	push af
 	ld de, $FFFF
 	ld hl, $0207
 	ld bc, $0207
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -3045,20 +3085,20 @@ Function_68_5584:: ; 68:5584
 	call Function_00_0ED3
 	ret
 
-Function_68_55D1:: ; 68:55D1
+Account_LoginId_UploadTextTiles:: ; 68:55D1
 	ld de, $9000
 	ld hl, $0207
 	ld bc, $0207
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_68_55E1:: ; 68:55E1
-	call Function_68_562F
-	farcall Function_4F_42B4
+Account_LoginIdIntroPage:: ; 68:55E1
+	call Account_LoginIdIntro_Draw
+	farcall Palette_FadeInFromWhite
 
 Label_68_55EA:: ; 68:55EA
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_55FF
@@ -3092,43 +3132,43 @@ Label_68_5613:: ; 68:5613
 
 Label_68_5626:: ; 68:5626
 	push af
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	ret
 
-Function_68_562F:: ; 68:562F
+Account_LoginIdIntro_Draw:: ; 68:562F
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $4E10
+	ld hl, Data_5E_4E10
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5210
+	ld hl, Data_5E_5210
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5510
 	ld a, $5E
 	farcall Function_00_08EA
-	call Function_68_568E
+	call Account_LoginIdIntro_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
 
-Function_68_568E:: ; 68:568E
+Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ld a, $00
 	farcall Function_00_153D
 	push hl
@@ -3136,7 +3176,7 @@ Function_68_568E:: ; 68:568E
 	ld de, $FFFF
 	ld hl, $0701
 	ld bc, $0812
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -3169,31 +3209,33 @@ Function_68_568E:: ; 68:568E
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $8800
 	ld hl, $0E01
 	ld bc, $0112
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D0E1
 	ld bc, $0712
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D1C1
 	ld bc, $0112
 	ld de, $0080
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_571D:: ; 68:571D
-	call Function_68_57B6
-	farcall Function_4F_42B4
-	call Function_68_592C
-	farcall Function_4F_4370
-	farcall Function_55_651C
+Account_MailAddressEntryScreen:: ; 68:571D
+	call Account_MailAddressEntry_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_MailAddressEntry_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
 ; ---- code $5739-$57B6 (125 bytes) [HYPOTHESIS] complete ret-terminated function (59 insn), twin of 52B2-531A (same SRAM/[$C278] logic with $B071/$B07A); entry not proven. [verifier: retracted the earlier claim that the words $5770/$5798 of the table at 528C enter this range: that table is indexed and passed to a far call with a=$4A (68:5283), so its words are pointers into bank 4A, and $5770 would lie inside the operand of `ld de,$DEAB` here anyway]
+
+Function_68_5739:: ; 68:5739
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -3260,86 +3302,87 @@ Label_68_5798:: ; 68:5798
 
 ; ---- code $57B6-$58E8 (306 bytes) [CONFIRMED] 99 insn(s); 99 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_57B6:: ; 68:57B6
+Account_MailAddressEntry_Setup:: ; 68:57B6
+Function_68_57B6::
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
 	ld hl, $DE80
 	ld b, $09
-	farcall Function_67_6731
+	farcall TextBuf_Init
 	ld hl, $DE94
 	ld b, $05
-	farcall Function_67_6731
+	farcall TextBuf_Init
 	ld hl, $DE80
 	ld de, $DEAB
-	call Function_68_4127
+	call TextEntry_InsertString
 	ld hl, $DE94
 	ld de, $DEB4
-	call Function_68_4127
-	call Function_68_5913
+	call TextEntry_InsertString
+	call Account_MailAddressEntry_CheckDomainLen
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_5E_4000
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5800
+	ld hl, Data_5E_5800
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5C00
+	ld hl, Data_5E_5C00
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, $D000
-	ld hl, $6000
+	ld hl, Data_5E_6000
 	ld a, $5E
 	farcall Function_00_08EA
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_5B0E
+	call Account_MailLocal_PrintField
 	ld a, $03
 	ld hl, $DE97
-	call Function_68_5B59
-	call Function_68_5BA4
-	call Function_68_5BB4
-	call Function_68_5AEF
+	call Account_MailDomain_PrintField
+	call Account_MailLocal_UploadTextTiles
+	call Account_MailDomain_UploadTextTiles
+	call Account_MailAddress_BuildTextMap
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld a, $01
 	ld b, $02
-	farcall Function_55_5BA2
+	farcall Kbd_Open
 	ld hl, $DA00
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
 	farcall Function_00_0A82
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	or a, a
 	jr nz, Label_68_58BB
 	ld hl, $DE80
-	farcall Function_67_6828
+	farcall TextBuf_GetFree
 	or a, a
 	jr z, Label_68_58BB
 	ld d, $08
@@ -3355,19 +3398,21 @@ Label_68_58BB:: ; 68:58BB
 	ld hl, $DE94
 
 Label_68_58C7:: ; 68:58C7
-	farcall Function_68_40D8
+	farcall TextEntry_UpdateCursorSprite
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, Label_68_58DB
 	ret
 
 Label_68_58DB:: ; 68:58DB
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	farcall Function_00_0956
 	ret
 
 ; ---- code $58E8-$58FB (19 bytes) [HYPOTHESIS] complete function: [$C278] bit1 -> [$C27E] = 0/1, ret; twin of 5404-5417; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_58E8:: ; 68:58E8
 	ld a, [wRam_C278]
 	and a, $02
 	jr nz, Label_68_58F5
@@ -3382,9 +3427,10 @@ Label_68_58F5:: ; 68:58F5
 
 ; ---- code $58FB-$59A8 (173 bytes) [CONFIRMED] 68 insn(s); 68 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_58FB:: ; 68:58FB
+Account_MailAddressEntry_UpdateOkState:: ; 68:58FB
+Function_68_58FB::
 	ld hl, $DE94
-	farcall Function_67_6828
+	farcall TextBuf_GetFree
 	or a, a
 	jr z, Label_68_590D
 	ld a, $00
@@ -3396,9 +3442,9 @@ Label_68_590D:: ; 68:590D
 	ld [wRam_C27E], a
 	ret
 
-Function_68_5913:: ; 68:5913
+Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $03
 	jr nc, Label_68_5926
 	ld a, $00
@@ -3410,11 +3456,11 @@ Label_68_5926:: ; 68:5926
 	ld [wRam_C27E], a
 	ret
 
-Function_68_592C:: ; 68:592C
+Account_MailAddressEntry_InputLoop:: ; 68:592C
 	farcall Function_00_0956
 	ld a, [wRam_C27E]
 	ld c, a
-	farcall Function_55_5C8F
+	farcall Kbd_Run
 	cp a, $01
 	jr z, Label_68_5952
 	cp a, $02
@@ -3432,7 +3478,7 @@ Label_68_5952:: ; 68:5952
 	or a, a
 	jr nz, Label_68_598A
 	ld hl, $DE80
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -3442,7 +3488,7 @@ Label_68_5952:: ; 68:5952
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
-	farcall Function_67_6828
+	farcall TextBuf_GetFree
 	or a, a
 	jp nz, Label_68_5A95
 	ld a, $01
@@ -3451,7 +3497,7 @@ Label_68_5952:: ; 68:5952
 
 Label_68_598A:: ; 68:598A
 	ld hl, $DE94
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, Label_68_59A8
 	ldh a, [hWRAMBank]
@@ -3480,14 +3526,14 @@ Label_68_59A8:: ; 68:59A8
 
 Label_68_59B8:: ; 68:59B8
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, Label_68_59CE
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jp Label_68_5AA2
 
 Label_68_59CE:: ; 68:59CE
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jp Label_68_5AA2
 
 Label_68_59D7:: ; 68:59D7
@@ -3495,7 +3541,7 @@ Label_68_59D7:: ; 68:59D7
 	or a, a
 	jr nz, Label_68_59FD
 	ld hl, $DE80
-	farcall Function_67_6799
+	farcall TextBuf_DeleteLast
 	or a, a
 	jp nz, Label_68_5A7D
 	ldh a, [hWRAMBank]
@@ -3518,20 +3564,20 @@ Label_68_59FD:: ; 68:59FD
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE94
-	farcall Function_67_6799
+	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, Label_68_5A36
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $03
 	jr c, Label_68_5A2E
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jr Label_68_5AA2
 
 ; ---- code $5A2E-$5A36 (8 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:5A24 (executed) [executed in 1 scenarios]
 
 Label_68_5A2E:: ; 68:5A2E
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jr Label_68_5AA2
 
 ; ---- code $5A36-$5D2F (761 bytes) [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios)
@@ -3539,12 +3585,12 @@ Label_68_5A2E:: ; 68:5A2E
 Label_68_5A36:: ; 68:5A36
 	xor a, a
 	ld [wRam_C27D], a
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jr Label_68_59D7
 
 Label_68_5A42:: ; 68:5A42
 	ld hl, $DE94
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $03
 	jr nc, Label_68_5A61
 	ldh a, [hWRAMBank]
@@ -3566,8 +3612,8 @@ Label_68_5A61:: ; 68:5A61
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_5AD6
-	call Function_68_419C
+	call Account_CommitMailFields
+	call Account_BuildMailAddress
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
@@ -3581,7 +3627,7 @@ Label_68_5A7D:: ; 68:5A7D
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_5AD6
+	call Account_CommitMailFields
 	xor a, a
 	ld [wRam_C27C], a
 	ret
@@ -3589,16 +3635,16 @@ Label_68_5A7D:: ; 68:5A7D
 Label_68_5A95:: ; 68:5A95
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_5B0E
-	call Function_68_5BA4
+	call Account_MailLocal_PrintField
+	call Account_MailLocal_UploadTextTiles
 	jr Label_68_5AB0
 
 Label_68_5AA2:: ; 68:5AA2
 	ld a, $03
 	ld hl, $DE97
-	call Function_68_5B59
-	call Function_68_5BB4
-	call Function_68_58FB
+	call Account_MailDomain_PrintField
+	call Account_MailDomain_UploadTextTiles
+	call Account_MailAddressEntry_UpdateOkState
 
 Label_68_5AB0:: ; 68:5AB0
 	ld a, [wRam_C27D]
@@ -3607,43 +3653,43 @@ Label_68_5AB0:: ; 68:5AB0
 	ld d, $08
 	ld e, $10
 	ld hl, $DE80
-	farcall Function_68_40D8
-	jp Function_68_592C
+	farcall TextEntry_UpdateCursorSprite
+	jp Account_MailAddressEntry_InputLoop
 
 Label_68_5AC6:: ; 68:5AC6
 	ld d, $40
 	ld e, $10
 	ld hl, $DE94
-	farcall Function_68_40D8
-	jp Function_68_592C
+	farcall TextEntry_UpdateCursorSprite
+	jp Account_MailAddressEntry_InputLoop
 
-Function_68_5AD6:: ; 68:5AD6
+Account_CommitMailFields:: ; 68:5AD6
 	ld hl, $DE80
 	ld de, $DEAB
-	farcall Function_68_417F
+	farcall TextEntry_CopyText
 	ld hl, $DE94
 	ld de, $DEB4
-	farcall Function_68_417F
+	farcall TextEntry_CopyText
 	ret
 
-Function_68_5AEF:: ; 68:5AEF
+Account_MailAddress_BuildTextMap:: ; 68:5AEF
 	ld hl, $D041
 	ld de, $0000
 	ld bc, $0206
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D048
 	ld de, $0010
 	ld bc, $0203
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_5B0E:: ; 68:5B0E
+Account_MailLocal_PrintField:: ; 68:5B0E
 	push hl
 	push af
 	ld de, $FFFF
 	ld hl, $0201
 	ld bc, $0206
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -3675,13 +3721,13 @@ Function_68_5B0E:: ; 68:5B0E
 	call Function_00_0ED3
 	ret
 
-Function_68_5B59:: ; 68:5B59
+Account_MailDomain_PrintField:: ; 68:5B59
 	push hl
 	push af
 	ld de, $FFFF
 	ld hl, $0208
 	ld bc, $0203
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 
 Label_68_5B6C:: ; 68:5B6C
@@ -3731,27 +3777,27 @@ Label_68_5B8C:: ; 68:5B8C
 	call Function_00_0ED3
 	ret
 
-Function_68_5BA4:: ; 68:5BA4
+Account_MailLocal_UploadTextTiles:: ; 68:5BA4
 	ld de, $9000
 	ld hl, $0201
 	ld bc, $0206
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_68_5BB4:: ; 68:5BB4
+Account_MailDomain_UploadTextTiles:: ; 68:5BB4
 	ld de, $9100
 	ld hl, $0208
 	ld bc, $0203
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_68_5BC4:: ; 68:5BC4
-	call Function_68_5C12
-	farcall Function_4F_42B4
+Account_MailIntroPage:: ; 68:5BC4
+	call Account_MailIntro_Draw
+	farcall Palette_FadeInFromWhite
 
 Label_68_5BCD:: ; 68:5BCD
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_5BE2
@@ -3785,43 +3831,43 @@ Label_68_5BF6:: ; 68:5BF6
 
 Label_68_5C09:: ; 68:5C09
 	push af
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	ret
 
-Function_68_5C12:: ; 68:5C12
+Account_MailIntro_Draw:: ; 68:5C12
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $60D0
+	ld hl, Data_5E_60D0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $64D0
+	ld hl, Data_5E_64D0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $68D0
+	ld hl, Data_5E_68D0
 	ld a, $5E
 	farcall Function_00_08EA
-	call Function_68_5C71
+	call Account_MailIntro_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
 
-Function_68_5C71:: ; 68:5C71
+Account_MailIntro_PrintMessage:: ; 68:5C71
 	ld a, $01
 	farcall Function_00_153D
 	push hl
@@ -3829,7 +3875,7 @@ Function_68_5C71:: ; 68:5C71
 	ld de, $FFFF
 	ld hl, $0701
 	ld bc, $0812
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -3862,25 +3908,25 @@ Function_68_5C71:: ; 68:5C71
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $8800
 	ld hl, $0E01
 	ld bc, $0112
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D0E1
 	ld bc, $0712
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D1C1
 	ld bc, $0112
 	ld de, $0080
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_5D00:: ; 68:5D00
+Account_PasswordEntryScreen:: ; 68:5D00
 	ld [wRam_C27D], a
-	call Function_68_5D9C
-	farcall Function_4F_42B4
+	call Account_PasswordEntry_Setup
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -3889,13 +3935,15 @@ Function_68_5D00:: ; 68:5D00
 	call Function_00_20E8
 	pop af
 	ldh [rSVBK], a
-	call Function_68_5EC7
-	farcall Function_4F_4370
-	farcall Function_55_651C
+	call Account_PasswordEntry_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
 ; ---- code $5D2F-$5D9C (109 bytes) [HYPOTHESIS] complete ret-terminated function (54 insn) between proven code; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_5D2F:: ; 68:5D2F
 	ret
 
 	ldh [hScratchA], a
@@ -3956,56 +4004,57 @@ Label_68_5D7E:: ; 68:5D7E
 
 ; ---- code $5D9C-$5E92 (246 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_5D9C:: ; 68:5D9C
+Account_PasswordEntry_Setup:: ; 68:5D9C
+Function_68_5D9C::
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld hl, $DE80
 	ld b, $09
-	farcall Function_67_6731
+	farcall TextBuf_Init
 	ld hl, $DE80
 	ld de, $DED4
-	call Function_68_4127
-	call Function_68_5EAE
+	call TextEntry_InsertString
+	call Account_PasswordEntry_UpdateOkState
 	ld a, [wRam_C27D]
 	or a, a
 	jr nz, Label_68_5DCD
 
 Label_68_5DCD:: ; 68:5DCD
 	ld de, $8801
-	ld hl, $4000
+	ld hl, Data_5D_4000
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $4400
+	ld hl, Data_5D_4400
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $4800
+	ld hl, Data_5D_4800
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $4C00
+	ld hl, Data_5D_4C00
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C27D]
-	ld hl, $5E92
+	ld hl, Account_PasswordEntryMaps
 	add a, a
 	add a, l
 	ld l, a
@@ -4021,14 +4070,14 @@ Label_68_5DCD:: ; 68:5DCD
 	farcall Function_00_08EA
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_6060
-	call Function_68_60AB
-	call Function_68_6050
+	call Account_Password_PrintField
+	call Account_Password_UploadTextTiles
+	call Account_Password_BuildTextMap
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld a, $04
 	ld b, $02
-	farcall Function_55_5BA2
+	farcall Kbd_Open
 	ld hl, $DA00
 	ld de, $4D30
 	ld a, $5F
@@ -4037,23 +4086,26 @@ Label_68_5DCD:: ; 68:5DCD
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
-	farcall Function_68_40D8
-	call Function_68_5FE1
+	farcall TextEntry_UpdateCursorSprite
+	call Account_PasswordIsValid
 	or a, a
 	jr z, Label_68_5E85
 	ret
 
 Label_68_5E85:: ; 68:5E85
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	farcall Function_00_0956
 	ret
 
 ; ---- words $5E92-$5E9A (8 bytes) [PROBABLE] 4 words $5000,$50C8,$5190,$5258 (stride $C8) read with `ld hl,$5E92 ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5E29 and used as HL of the far call with a=$5D (68:5E3C, bc=$0514, de=$D000): pointers into BANK 5D data, NOT into bank 68 code [verifier: retyped ptrtable->words (the generator emitted `dw Label_68_5000`/`Label_68_50C8`, false references to bank-68 code); range trimmed from 5E92-5E9C by classify_g2, the 5th word $78FA was the operand of `ld a,[$C278]` at 5E9A]
 
-Table_68_5E92:: ; 68:5E92
+Account_PasswordEntryMaps:: ; 68:5E92
+Table_68_5E92::
 	dw $5000, $50C8, $5190, $5258
 
 ; ---- code $5E9A-$5EAE (20 bytes) [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA) was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no caller/table word -> HYPOTHESIS]
+
+Function_68_5E9A:: ; 68:5E9A
 	ld a, [wRam_C278]
 	and a, $04
 	jr nz, Label_68_5EA7
@@ -4062,15 +4114,16 @@ Table_68_5E92:: ; 68:5E92
 	ret
 
 Label_68_5EA7:: ; 68:5EA7
-	call Function_68_5FE1
+	call Account_PasswordIsValid
 	ld [wRam_C27E], a
 	ret
 
 ; ---- code $5EAE-$5EE9 (59 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_5EAE:: ; 68:5EAE
+Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
+Function_68_5EAE::
 	ld hl, $DE80
-	farcall Function_67_6828
+	farcall TextBuf_GetFree
 	or a, a
 	jr z, Label_68_5EC0
 	ld a, $00
@@ -4078,15 +4131,15 @@ Function_68_5EAE:: ; 68:5EAE
 	ret
 
 Label_68_5EC0:: ; 68:5EC0
-	call Function_68_5FE1
+	call Account_PasswordIsValid
 	ld [wRam_C27E], a
 	ret
 
-Function_68_5EC7:: ; 68:5EC7
+Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	farcall Function_00_0956
 	ld a, [wRam_C27E]
 	ld c, a
-	farcall Function_55_5C8F
+	farcall Kbd_Run
 	cp a, $01
 	jr z, Label_68_5EEC
 	cp a, $02
@@ -4105,7 +4158,7 @@ Label_68_5EEC:: ; 68:5EEC
 	ld a, [wRam_C2AD]
 	ld hl, $DE80
 	ld d, a
-	farcall Function_67_674F
+	farcall TextBuf_AppendChar
 	or a, a
 	jr nz, Label_68_5F0E
 	ldh a, [hWRAMBank]
@@ -4129,19 +4182,19 @@ Label_68_5F0E:: ; 68:5F0E
 	ldh [rSVBK], a
 
 Label_68_5F1E:: ; 68:5F1E
-	call Function_68_5FE1
+	call Account_PasswordIsValid
 	or a, a
 	jr z, Label_68_5F2D
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jp Label_68_5FC3
 
 Label_68_5F2D:: ; 68:5F2D
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jp Label_68_5FC3
 
 Label_68_5F36:: ; 68:5F36
 	ld hl, $DE80
-	farcall Function_67_6799
+	farcall TextBuf_DeleteLast
 	or a, a
 	jr nz, Label_68_5FA2
 	ldh a, [hWRAMBank]
@@ -4152,18 +4205,18 @@ Label_68_5F36:: ; 68:5F36
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_68_5FE1
+	call Account_PasswordIsValid
 	or a, a
 	jr z, Label_68_5F60
-	farcall Function_55_7000
+	farcall Kbd_HideMarkerSprite
 	jr Label_68_5FC3
 
 Label_68_5F60:: ; 68:5F60
-	farcall Function_55_6FCD
+	farcall Kbd_ShowMarkerSprite
 	jr Label_68_5FC3
 
 Label_68_5F68:: ; 68:5F68
-	call Function_68_5FE1
+	call Account_PasswordIsValid
 	or a, a
 	jr nz, Label_68_5F80
 	ldh a, [hWRAMBank]
@@ -4187,7 +4240,7 @@ Label_68_5F80:: ; 68:5F80
 	ldh [rSVBK], a
 	ld hl, $DE80
 	ld de, $DED4
-	farcall Function_68_417F
+	farcall TextEntry_CopyText
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
@@ -4203,7 +4256,7 @@ Label_68_5FA2:: ; 68:5FA2
 	ldh [rSVBK], a
 	ld hl, $DE80
 	ld de, $DED4
-	farcall Function_68_417F
+	farcall TextEntry_CopyText
 	xor a, a
 	ld [wRam_C27C], a
 	ret
@@ -4212,19 +4265,19 @@ Label_68_5FC3:: ; 68:5FC3
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
-	farcall Function_68_40D8
+	farcall TextEntry_UpdateCursorSprite
 	ld a, $03
 	ld hl, $DE83
-	call Function_68_6060
-	call Function_68_60AB
-	call Function_68_5EAE
+	call Account_Password_PrintField
+	call Account_Password_UploadTextTiles
+	call Account_PasswordEntry_UpdateOkState
 
 Label_68_5FDE:: ; 68:5FDE
-	jp Function_68_5EC7
+	jp Account_PasswordEntry_InputLoop
 
-Function_68_5FE1:: ; 68:5FE1
+Account_PasswordIsValid:: ; 68:5FE1
 	ld hl, $DE80
-	farcall Function_67_6842
+	farcall TextBuf_GetLength
 	cp a, $04
 	jp c, Label_68_604E
 	ldh [hScratchA], a
@@ -4298,20 +4351,20 @@ Label_68_604E:: ; 68:604E
 	xor a, a
 	ret
 
-Function_68_6050:: ; 68:6050
+Account_Password_BuildTextMap:: ; 68:6050
 	ld hl, $D047
 	ld de, $0000
 	ld bc, $0206
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_6060:: ; 68:6060
+Account_Password_PrintField:: ; 68:6060
 	push hl
 	push af
 	ld de, $FFFF
 	ld hl, $0207
 	ld bc, $0206
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4343,20 +4396,20 @@ Function_68_6060:: ; 68:6060
 	call Function_00_0ED3
 	ret
 
-Function_68_60AB:: ; 68:60AB
+Account_Password_UploadTextTiles:: ; 68:60AB
 	ld de, $9000
 	ld hl, $0207
 	ld bc, $0206
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_68_60BB:: ; 68:60BB
-	call Function_68_6109
-	farcall Function_4F_42B4
+Account_PasswordIntroPage:: ; 68:60BB
+	call Account_PasswordIntro_Draw
+	farcall Palette_FadeInFromWhite
 
 Label_68_60C4:: ; 68:60C4
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_60D9
@@ -4390,43 +4443,43 @@ Label_68_60ED:: ; 68:60ED
 
 Label_68_6100:: ; 68:6100
 	push af
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop af
 	ret
 
-Function_68_6109:: ; 68:6109
+Account_PasswordIntro_Draw:: ; 68:6109
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $5320
+	ld hl, Data_5D_5320
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5720
+	ld hl, Data_5D_5720
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D00
+	ld hl, Data_5E_4D00
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5B20
+	ld hl, Data_5D_5B20
 	ld a, $5D
 	farcall Function_00_08EA
-	call Function_68_6168
+	call Account_PasswordIntro_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
 
-Function_68_6168:: ; 68:6168
+Account_PasswordIntro_PrintMessage:: ; 68:6168
 	ld a, $02
 	farcall Function_00_153D
 	push hl
@@ -4434,7 +4487,7 @@ Function_68_6168:: ; 68:6168
 	ld de, $FFFF
 	ld hl, $0701
 	ld bc, $0812
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4467,95 +4520,95 @@ Function_68_6168:: ; 68:6168
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $8800
 	ld hl, $0E01
 	ld bc, $0112
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D0E1
 	ld bc, $0712
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D1C1
 	ld bc, $0112
 	ld de, $0080
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_61F7:: ; 68:61F7
-	call Function_68_6213
-	farcall Function_4F_42B4
-	call Function_68_62C9
-	farcall Function_4F_4370
-	farcall Function_55_651C
+Account_ConfirmScreen:: ; 68:61F7
+	call Account_ConfirmScreen_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_ConfirmScreen_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_6213:: ; 68:6213
+Account_ConfirmScreen_Setup:: ; 68:6213
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $8801
-	ld hl, $5DF0
+	ld hl, Data_5D_5DF0
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $61F0
+	ld hl, Data_5D_61F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $63F0
+	ld hl, Data_5D_63F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $49D0
+	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $65F0
+	ld hl, Data_5D_65F0
 	ld a, $5D
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6630
+	ld hl, Data_5D_6630
 	ld a, $5D
 	farcall Function_00_08EA
-	call Function_68_637F
-	call Function_68_6416
-	call Function_68_6360
+	call Account_ConfirmScreen_PrintAccount
+	call Account_ConfirmScreen_UploadTextTiles
+	call Account_ConfirmScreen_BuildTextMap
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $4000
+	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_68_6344
+	call Account_ConfirmScreen_UpdateCursor
 	ret
 
-Function_68_62C9:: ; 68:62C9
+Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_62EC
@@ -4565,7 +4618,7 @@ Function_68_62C9:: ; 68:62C9
 	jr nz, Label_68_6323
 	bit 4, a
 	jr nz, Label_68_6323
-	jr Function_68_62C9
+	jr Account_ConfirmScreen_InputLoop
 
 Label_68_62EC:: ; 68:62EC
 	ldh a, [hWRAMBank]
@@ -4616,18 +4669,19 @@ Label_68_6323:: ; 68:6323
 	ld b, $01
 	xor a, b
 	ld [wRam_C27D], a
-	call Function_68_6344
+	call Account_ConfirmScreen_UpdateCursor
 	jr Label_68_6341
 
 Label_68_6341:: ; 68:6341
-	jp Function_68_62C9
+	jp Account_ConfirmScreen_InputLoop
 
 ; ---- code $6344-$635C (24 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6344:: ; 68:6344
+Account_ConfirmScreen_UpdateCursor:: ; 68:6344
+Function_68_6344::
 	ld a, [wRam_C27D]
 	add a, a
-	ld hl, $635C
+	ld hl, Account_ConfirmCursorPositions
 	add a, l
 	ld l, a
 	ld a, h
@@ -4643,27 +4697,29 @@ Function_68_6344:: ; 68:6344
 
 ; ---- words $635C-$6360 (4 bytes) [PROBABLE] 2 words $6828,$6858 (configuration record addresses) read as ld a,[hli]/ld e,a/ld d,[hl] with base $635C by the code at 6344-635C (index [$C27D]*2); extent bounded by the code at 6360
 
-Table_68_635C:: ; 68:635C
+Account_ConfirmCursorPositions:: ; 68:635C
+Table_68_635C::
 	dw $6828, $6858
 
 ; ---- code $6360-$6435 (213 bytes) [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6360:: ; 68:6360
+Account_ConfirmScreen_BuildTextMap:: ; 68:6360
+Function_68_6360::
 	ld hl, $D0A6
 	ld de, $0000
 	ld bc, $0208
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D121
 	ld de, $0010
 	ld bc, $0212
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_637F:: ; 68:637F
+Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ld de, $FFFF
 	ld hl, $0506
 	ld bc, $0208
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4696,7 +4752,7 @@ Function_68_637F:: ; 68:637F
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0212
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4728,93 +4784,93 @@ Function_68_637F:: ; 68:637F
 	call Function_00_0ED3
 	ret
 
-Function_68_6416:: ; 68:6416
+Account_ConfirmScreen_UploadTextTiles:: ; 68:6416
 	ld de, $9000
 	ld hl, $0506
 	ld bc, $0208
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $9100
 	ld hl, $0901
 	ld bc, $0212
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
 ; ---- code $6435-$659A (357 bytes) [PROBABLE] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code)
 
-Function_68_6435:: ; 68:6435
-	call Function_68_6451
-	farcall Function_4F_42B4
-	call Function_68_6507
-	farcall Function_4F_4370
-	farcall Function_55_651C
+Account_ConfirmManualScreen:: ; 68:6435
+	call Account_ConfirmManualScreen_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_ConfirmManualScreen_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_6451:: ; 68:6451
+Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $8801
-	ld hl, $5DF0
+	ld hl, Data_5D_5DF0
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $61F0
+	ld hl, Data_5D_61F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5870
+	ld hl, Data_4A_5870
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $49D0
+	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5C70
+	ld hl, Data_4A_5C70
 	ld a, $4A
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5CB0
+	ld hl, Data_4A_5CB0
 	ld a, $4A
 	farcall Function_00_08EA
-	call Function_68_65EA
+	call Account_ConfirmManualScreen_PrintAccount
 	call Function_68_6762
 	call Function_68_659E
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $4000
+	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_68_6582
+	call Account_ConfirmManualScreen_UpdateCursor
 	ret
 
-Function_68_6507:: ; 68:6507
+Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_652A
@@ -4824,7 +4880,7 @@ Function_68_6507:: ; 68:6507
 	jr nz, Label_68_6561
 	bit 4, a
 	jr nz, Label_68_6561
-	jr Function_68_6507
+	jr Account_ConfirmManualScreen_InputLoop
 
 Label_68_652A:: ; 68:652A
 	ldh a, [hWRAMBank]
@@ -4873,16 +4929,16 @@ Label_68_6561:: ; 68:6561
 	ld b, $01
 	xor a, b
 	ld [wRam_C27D], a
-	call Function_68_6582
+	call Account_ConfirmManualScreen_UpdateCursor
 	jr Label_68_657F
 
 Label_68_657F:: ; 68:657F
-	jp Function_68_6507
+	jp Account_ConfirmManualScreen_InputLoop
 
-Function_68_6582:: ; 68:6582
+Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
 	ld a, [wRam_C27D]
 	add a, a
-	ld hl, $659A
+	ld hl, Account_ConfirmManualCursorPositions
 	add a, l
 	ld l, a
 	ld a, h
@@ -4898,7 +4954,8 @@ Function_68_6582:: ; 68:6582
 
 ; ---- words $659A-$659E (4 bytes) [PROBABLE] 2 words $7058,$7080 addressed by ld hl,$659A at 68:6586 (word read + call $0A65); extent bounded by the code at 659E
 
-Table_68_659A:: ; 68:659A
+Account_ConfirmManualCursorPositions:: ; 68:659A
+Table_68_659A::
 	dw $7058, $7080
 
 ; ---- code $659E-$67AE (528 bytes) [PROBABLE] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code)
@@ -4907,30 +4964,30 @@ Function_68_659E:: ; 68:659E
 	ld hl, $D048
 	ld de, $0000
 	ld bc, $0208
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D0C1
 	ld de, $0010
 	ld bc, $0212
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D107
 	ld de, $0040
 	ld bc, $020C
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D147
 	ld de, $0060
 	ld bc, $020C
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D186
 	ld de, $0080
 	ld bc, $020D
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_65EA:: ; 68:65EA
+Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ld de, $FFFF
 	ld hl, $0208
 	ld bc, $0208
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4963,7 +5020,7 @@ Function_68_65EA:: ; 68:65EA
 	ld de, $FFFF
 	ld hl, $0601
 	ld bc, $0212
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -4996,7 +5053,7 @@ Function_68_65EA:: ; 68:65EA
 	ld de, $FFFF
 	ld hl, $0807
 	ld bc, $020C
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -5029,7 +5086,7 @@ Function_68_65EA:: ; 68:65EA
 	ld de, $FFFF
 	ld hl, $0A07
 	ld bc, $020C
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -5062,7 +5119,7 @@ Function_68_65EA:: ; 68:65EA
 	ld de, $FFFF
 	ld hl, $0C06
 	ld bc, $020D
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -5098,58 +5155,65 @@ Function_68_6762:: ; 68:6762
 	ld de, $9000
 	ld hl, $0208
 	ld bc, $0208
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $9100
 	ld hl, $0601
 	ld bc, $0212
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $9400
 	ld hl, $0807
 	ld bc, $020C
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $9600
 	ld hl, $0A07
 	ld bc, $020C
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld de, $8800
 	ld hl, $0C06
 	ld bc, $020D
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
 ; ---- words $67AE-$67B6 (8 bytes) [PROBABLE] 4 words $67B6,$67BC,$67C2,$67CD = the four dial-string addresses below (each word points exactly at a NUL-terminated ASCII string)
 
-Table_68_67AE:: ; 68:67AE
-	dw String_68_67B6, String_68_67BC, String_68_67C2, String_68_67CD
+Dial_DefaultNumberTable:: ; 68:67AE
+Table_68_67AE::
+	dw Dial_DefaultNumber0, Dial_DefaultNumber1, Dial_DefaultNumber2, Dial_DefaultNumber3
 
 ; ---- text $67B6-$67BC (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67AE)
 
-String_68_67B6:: ; 68:67B6
-	db $23, $39, $34, $37, $37, $00
+Dial_DefaultNumber0:: ; 68:67B6
+String_68_67B6::
+	db $23, $39, $34, $37, $37, $00 ; "#9477"
 
 ; ---- text $67BC-$67C2 (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67B0)
 
-String_68_67BC:: ; 68:67BC
-	db $23, $39, $34, $37, $37, $00
+Dial_DefaultNumber1:: ; 68:67BC
+String_68_67BC::
+	db $23, $39, $34, $37, $37, $00 ; "#9477"
 
 ; ---- text $67C2-$67CD (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B2)
 
-String_68_67C2:: ; 68:67C2
-	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00
+Dial_DefaultNumber2:: ; 68:67C2
+String_68_67C2::
+	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
 
 ; ---- text $67CD-$67D8 (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B4)
 
-String_68_67CD:: ; 68:67CD
-	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00
+Dial_DefaultNumber3:: ; 68:67CD
+String_68_67CD::
+	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
 
 ; ---- words $67D8-$67E0 (8 bytes) [PROBABLE] 4 words $67E0,$68A0,$6960,$6A20 = the starts of the four 192-byte "MA" records (each word points exactly at a block that starts with "MA 01 00")
 
-Table_68_67D8:: ; 68:67D8
-	dw Data_68_67E0, Data_68_68A0, Data_68_6960, Data_68_6A20
+Config_DefaultImageTable:: ; 68:67D8
+Table_68_67D8::
+	dw Config_DefaultImage0, Config_DefaultImage1, Config_DefaultImage2, Config_DefaultImage3
 
 ; ---- data $67E0-$68A0 (192 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-Data_68_67E0:: ; 68:67E0
+Config_DefaultImage0:: ; 68:67E0
+Data_68_67E0::
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -5165,7 +5229,8 @@ Data_68_67E0:: ; 68:67E0
 
 ; ---- data $68A0-$6960 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 1); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
-Data_68_68A0:: ; 68:68A0
+Config_DefaultImage1:: ; 68:68A0
+Data_68_68A0::
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -5181,7 +5246,8 @@ Data_68_68A0:: ; 68:68A0
 
 ; ---- data $6960-$6A20 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 2); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
-Data_68_6960:: ; 68:6960
+Config_DefaultImage2:: ; 68:6960
+Data_68_6960::
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -5197,7 +5263,8 @@ Data_68_6960:: ; 68:6960
 
 ; ---- data $6A20-$6AE0 (192 bytes) [PROBABLE] 192-byte ($00C0) record starting with the "MA 01 00 D2 C4 03 B7 D2 8D 70 A3" header, same layout as the record at 67E0 (read by executed code) and 4EA7; addressed by the word table at 67D8 (entry 3); contains zero padding runs, $FF runs and ASCII (DION ... strings); fields not decoded
 
-Data_68_6A20:: ; 68:6A20
+Config_DefaultImage3:: ; 68:6A20
+Data_68_6A20::
 	db $4D, $41, $01, $00, $D2, $C4, $03, $B7, $D2, $8D, $70, $A3, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -5213,18 +5280,19 @@ Data_68_6A20:: ; 68:6A20
 
 ; ---- code $6AE0-$6BF4 (276 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6AE0:: ; 68:6AE0
-	call Function_68_6AF6
-	farcall Function_4F_42B4
-	call Function_68_6B98
-	farcall Function_4F_4370
+Registration_WriteConfigToAdapter:: ; 68:6AE0
+Function_68_6AE0::
+	call Registration_WriteConfig_Setup
+	farcall Palette_FadeInFromWhite
+	call Registration_WriteConfig_RunState
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_6AF6:: ; 68:6AF6
+Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
@@ -5236,13 +5304,13 @@ Function_68_6AF6:: ; 68:6AF6
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $6E00
+	ld hl, Data_5D_6E00
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6900
+	ld hl, Data_5D_6900
 	ld a, $5D
 	ld b, $94
 	ld c, $30
@@ -5251,18 +5319,18 @@ Function_68_6AF6:: ; 68:6AF6
 	ld de, $D800
 	ld hl, $7000
 	ld a, $5D
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, $D840
 	ld hl, $7040
 	ld a, $5D
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7048
 	ld a, $5D
 	farcall Function_00_08EA
-	call Function_68_6C7F
+	call Registration_DoNotUnplugMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
@@ -5275,7 +5343,7 @@ Function_68_6AF6:: ; 68:6AF6
 	call Function_00_0A65
 	ret
 
-Function_68_6B98:: ; 68:6B98
+Registration_WriteConfig_RunState:: ; 68:6B98
 	farcall Function_00_0956
 	call Function_00_044B
 	ldh [hScratchA], a
@@ -5331,30 +5399,34 @@ Label_68_6BE4:: ; 68:6BE4
 
 ; ---- words $6BF4-$6BFA (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_68_6BF4:: ; 68:6BF4
-	dw $6BFA, $6C0C, $6C3F
+Registration_WriteConfig_StateTable:: ; 68:6BF4
+Table_68_6BF4::
+	dw Registration_WriteConfig_StateInit, Registration_WriteConfig_StateWrite, Registration_WriteConfig_StateFinish
 
 ; ---- code $6BFA-$6C5D (99 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 3/18 scenarios)
+
+Registration_WriteConfig_StateInit:: ; 68:6BFA
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI
 	ld a, $01
 	ld [wRam_C27D], a
-	jr Function_68_6B98
+	jr Registration_WriteConfig_RunState
 
+Registration_WriteConfig_StateWrite:: ; 68:6C0C
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_68_6C5D
 	bit 0, a
-	jp nz, Function_68_6B98
+	jp nz, Registration_WriteConfig_RunState
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $02
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_68_6CF0
+	call Config_BuildImageFromAccount
 	ld c, $C0
 	ld hl, $A000
 	ld de, $0000
@@ -5362,13 +5434,14 @@ Table_68_6BF4:: ; 68:6BF4
 	call MobileAPI
 	ld a, $02
 	ld [wRam_C27D], a
-	jp Function_68_6B98
+	jp Registration_WriteConfig_RunState
 
+Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_68_6C5D
 	bit 0, a
-	jp nz, Function_68_6B98
+	jp nz, Registration_WriteConfig_RunState
 	ld a, $36
 	call MobileAPI
 	xor a, a
@@ -5381,9 +5454,9 @@ Table_68_6BF4:: ; 68:6BF4
 ; ---- code $6C5D-$6C7F (34 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jpcc from 68:6C11 (executed)
 
 Label_68_6C5D:: ; 68:6C5D
-	farcall Function_68_4F71
-	farcall Function_4F_4370
-	farcall Function_68_4F8C
+	farcall Mobile_SaveLastResult
+	farcall Palette_FadeOutToWhite
+	farcall Mobile_ShowLastError
 	ld a, $36
 	call MobileAPI
 	xor a, a
@@ -5395,7 +5468,8 @@ Label_68_6C5D:: ; 68:6C5D
 
 ; ---- code $6C7F-$6DBD (318 bytes) [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6C7F:: ; 68:6C7F
+Registration_DoNotUnplugMessage:: ; 68:6C7F
+Function_68_6C7F::
 	ld a, $03
 	farcall Function_00_153D
 	push hl
@@ -5403,7 +5477,7 @@ Function_68_6C7F:: ; 68:6C7F
 	ld de, $FFFF
 	ld hl, $0B01
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -5436,18 +5510,18 @@ Function_68_6C7F:: ; 68:6C7F
 	ld de, $9000
 	ld hl, $0B01
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D161
 	ld bc, $0612
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_6CF0:: ; 68:6CF0
+Config_BuildImageFromAccount:: ; 68:6CF0
 	ld a, [sSram_A003]
 	push af
 	ld a, [wRam_C271]
-	ld hl, $67D8
+	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
 	ld l, a
@@ -5473,7 +5547,7 @@ Function_68_6CF0:: ; 68:6CF0
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $6E03
+	ld hl, Config_HostPrefixStrings
 	ld de, $DFC3
 	call CopyString
 	ld hl, $DEB4
@@ -5513,7 +5587,7 @@ Function_68_6CF0:: ; 68:6CF0
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, [wRam_C271]
-	ld hl, $67AE
+	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
 	ld l, a
@@ -5537,7 +5611,7 @@ Function_68_6CF0:: ; 68:6CF0
 ; ---- code $6DBD-$6DF3 (54 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed)
 	ld hl, $DEDD
 	ld de, $A076
-	call Function_68_409A
+	call PhoneNumber_PackBcd
 	ld hl, $DEFF
 	ld de, $A07E
 	ld bc, $0010
@@ -5566,54 +5640,57 @@ Label_68_6DF3:: ; 68:6DF3
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	farcall Function_68_45F1
+	farcall Config_MirrorUpdateChecksum
 	ret
 
 ; ---- data $6E03-$6E0E (11 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6E03-6E1A by higher-priority evidence]
 
-Data_68_6E03:: ; 68:6E03
+Config_HostPrefixStrings:: ; 68:6E03
+Data_68_6E03::
 	db $70, $6F, $70, $2E, $00, $6D, $61, $69, $6C, $2E, $00
 
 ; ---- text $6E0E-$6E1A (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_68_6E0E:: ; 68:6E0E
-	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00
+Config_DionDomainSuffix:: ; 68:6E0E
+String_68_6E0E::
+	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; ".dion.ne.jp"
 
 ; ---- code $6E1A-$6F97 (381 bytes) [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6E1A:: ; 68:6E1A
+Account_ActionConfirmPage:: ; 68:6E1A
+Function_68_6E1A::
 	ld [wRam_C27E], a
-	call Function_68_6E39
-	farcall Function_4F_42B4
-	call Function_68_6EF6
-	farcall Function_4F_4370
-	farcall Function_55_651C
+	call Account_ActionConfirmPage_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_ActionConfirmPage_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_6E39:: ; 68:6E39
+Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $9001
-	ld hl, $6BA0
+	ld hl, Data_5E_6BA0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $6FA0
+	ld hl, Data_5E_6FA0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8001
-	ld hl, $49D0
+	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
@@ -5622,18 +5699,18 @@ Function_68_6E39:: ; 68:6E39
 	ld de, $D800
 	ld hl, $72C0
 	ld a, $5E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, [wRam_C27E]
 	or a, a
 	jr z, Label_68_6EC3
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $75D0
+	ld hl, Data_5E_75D0
 	ld a, $5E
 	farcall Function_00_08EA
 	jr Label_68_6ED4
@@ -5646,23 +5723,23 @@ Label_68_6EC3:: ; 68:6EC3
 	farcall Function_00_08EA
 
 Label_68_6ED4:: ; 68:6ED4
-	call Function_68_6FAB
-	call Function_68_7009
-	call Function_68_6F9B
+	call Account_ActionConfirmPage_PrintMessage
+	call Account_ActionConfirmPage_UploadTextTiles
+	call Account_ActionConfirmPage_BuildTextMap
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $4000
+	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_68_6F7F
+	call Account_ActionConfirmPage_UpdateCursor
 	ret
 
-Function_68_6EF6:: ; 68:6EF6
+Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, Label_68_6F19
@@ -5672,7 +5749,7 @@ Function_68_6EF6:: ; 68:6EF6
 	jr nz, Label_68_6F5E
 	bit 4, a
 	jr nz, Label_68_6F5E
-	jr Function_68_6EF6
+	jr Account_ActionConfirmPage_InputLoop
 
 Label_68_6F19:: ; 68:6F19
 	ldh a, [hWRAMBank]
@@ -5700,7 +5777,7 @@ Label_68_6F35:: ; 68:6F35
 Label_68_6F40:: ; 68:6F40
 	ld a, [wRam_C27E]
 	or a, a
-	jr z, Function_68_6EF6
+	jr z, Account_ActionConfirmPage_InputLoop
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -5727,16 +5804,16 @@ Label_68_6F5E:: ; 68:6F5E
 	ld b, $01
 	xor a, b
 	ld [wRam_C27D], a
-	call Function_68_6F7F
+	call Account_ActionConfirmPage_UpdateCursor
 	jr Label_68_6F7C
 
 Label_68_6F7C:: ; 68:6F7C
-	jp Function_68_6EF6
+	jp Account_ActionConfirmPage_InputLoop
 
-Function_68_6F7F:: ; 68:6F7F
+Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
 	ld a, [wRam_C27D]
 	add a, a
-	ld hl, $6F97
+	ld hl, Account_ActionConfirmCursorPositions
 	add a, l
 	ld l, a
 	ld a, h
@@ -5752,23 +5829,25 @@ Function_68_6F7F:: ; 68:6F7F
 
 ; ---- data $6F97-$6F9B (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
-Data_68_6F97:: ; 68:6F97
+Account_ActionConfirmCursorPositions:: ; 68:6F97
+Data_68_6F97::
 	db $28, $30, $58, $30
 
 ; ---- code $6F9B-$7005 (106 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_6F9B:: ; 68:6F9B
+Account_ActionConfirmPage_BuildTextMap:: ; 68:6F9B
+Function_68_6F9B::
 	ld hl, $D121
 	ld de, $0000
 	ld bc, $0612
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_6FAB:: ; 68:6FAB
+Account_ActionConfirmPage_PrintMessage:: ; 68:6FAB
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -5796,7 +5875,7 @@ Function_68_6FAB:: ; 68:6FAB
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, [wRam_C27E]
-	ld hl, $7005
+	ld hl, Account_ActionMessageIds
 	add a, l
 	ld l, a
 	ld a, $00
@@ -5809,40 +5888,42 @@ Function_68_6FAB:: ; 68:6FAB
 
 ; ---- data $7005-$7009 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-Data_68_7005:: ; 68:7005
+Account_ActionMessageIds:: ; 68:7005
+Data_68_7005::
 	db $04, $0B, $0C, $0D
 
 ; ---- code $7009-$7079 (112 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_7009:: ; 68:7009
+Account_ActionConfirmPage_UploadTextTiles:: ; 68:7009
+Function_68_7009::
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ret
 
-Function_68_7019:: ; 68:7019
-	call Function_68_7029
-	call Function_68_7050
-	farcall Function_4F_4370
+Registration_VerifyAndFinalizeOnline:: ; 68:7019
+	call Registration_Verify_Setup
+	call Registration_Verify_RunState
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_7029:: ; 68:7029
+Registration_Verify_Setup:: ; 68:7029
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
 	ld a, $00
-	farcall Function_68_7401
+	farcall CommPanel_SetVariant
 	xor a, a
-	farcall Function_68_7405
+	farcall CommPanel_Init
 	ret
 
-Function_68_7050:: ; 68:7050
+Registration_Verify_RunState:: ; 68:7050
 	xor a, a
 	ld [wRam_C2D1], a
 	ld hl, $C2D2
@@ -5873,23 +5954,24 @@ Label_68_7069:: ; 68:7069
 
 ; ---- ptrtable $7079-$708D (20 bytes) [CONFIRMED] code-pointer table, 10 entries: 10/10 words hit own-bank code starts (survey pointer-table extent); 10/10 targets executed; every byte read as data in a trace
 
-Table_68_7079:: ; 68:7079
-	dw Label_68_708D
-	dw Label_68_70A6
-	dw Label_68_70E5
-	dw Label_68_7109
-	dw Label_68_712D
-	dw Label_68_7166
-	dw Label_68_71C3
-	dw Label_68_724F
-	dw Label_68_72D7
-	dw Label_68_7313
+Registration_Verify_StateTable:: ; 68:7079
+Table_68_7079::
+	dw Registration_Verify_StateInit
+	dw Registration_Verify_StateReadLoginId
+	dw Registration_Verify_StateReadDialSlots
+	dw Registration_Verify_StateReadMailAddress
+	dw Registration_Verify_StateIspLogin
+	dw Registration_Verify_StatePopLogin
+	dw Registration_Verify_StateAfterPopLogin
+	dw Registration_Verify_StateHangUp
+	dw Registration_Verify_StateWriteConfig
+	dw Registration_Verify_StateFinish
 
 ; ---- code $708D-$71E3 (342 bytes) [CONFIRMED] 134 insn(s); 134 executed (in up to 3/18 scenarios)
 
-Label_68_708D:: ; 68:708D
+Registration_Verify_StateInit:: ; 68:708D
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
@@ -5898,12 +5980,12 @@ Label_68_708D:: ; 68:708D
 	ld [wRam_C27D], a
 	jr Label_68_7069
 
-Label_68_70A6:: ; 68:70A6
+Registration_Verify_StateReadLoginId:: ; 68:70A6
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld a, $03
@@ -5926,12 +6008,12 @@ Label_68_70A6:: ; 68:70A6
 	ld [wRam_C27D], a
 	jp Label_68_7069
 
-Label_68_70E5:: ; 68:70E5
+Registration_Verify_StateReadDialSlots:: ; 68:70E5
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld de, $A222
@@ -5941,12 +6023,12 @@ Label_68_70E5:: ; 68:70E5
 	ld [wRam_C27D], a
 	jp Label_68_7069
 
-Label_68_7109:: ; 68:7109
+Registration_Verify_StateReadMailAddress:: ; 68:7109
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld de, $A244
@@ -5956,12 +6038,12 @@ Label_68_7109:: ; 68:7109
 	ld [wRam_C27D], a
 	jp Label_68_7069
 
-Label_68_712D:: ; 68:712D
+Registration_Verify_StateIspLogin:: ; 68:712D
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld hl, $A222
@@ -5978,12 +6060,12 @@ Label_68_712D:: ; 68:712D
 	ld [wRam_C27D], a
 	jp Label_68_7069
 
-Label_68_7166:: ; 68:7166
+Registration_Verify_StatePopLogin:: ; 68:7166
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ldh [hScratchA], a
@@ -6016,12 +6098,12 @@ Label_68_7166:: ; 68:7166
 	ld a, $06
 	ld [wRam_C27D], a
 	ld a, $01
-	farcall Function_68_7611
+	farcall CommPanel_DrawCaption
 	jp Label_68_7069
 
-Label_68_71C3:: ; 68:71C3
+Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -6070,7 +6152,7 @@ Label_68_7210:: ; 68:7210
 Label_68_7211:: ; 68:7211
 	pop hl
 	or a, a
-	jp nz, Label_68_734D
+	jp nz, Registration_Verify_OnTimeLimit
 	ld a, [wRam_C26D]
 	ld b, a
 	ld a, [wRam_C268]
@@ -6088,10 +6170,10 @@ Label_68_7223:: ; 68:7223
 
 Label_68_7225:: ; 68:7225
 	or a, a
-	jp nz, Label_68_7364
+	jp nz, Registration_Verify_OnTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld a, $05
@@ -6107,9 +6189,9 @@ Label_68_7225:: ; 68:7225
 	ld [wRam_C27D], a
 	jp Label_68_7069
 
-Label_68_724F:: ; 68:724F
+Registration_Verify_StateHangUp:: ; 68:724F
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -6158,7 +6240,7 @@ Label_68_729C:: ; 68:729C
 Label_68_729D:: ; 68:729D
 	pop hl
 	or a, a
-	jp nz, Label_68_734D
+	jp nz, Registration_Verify_OnTimeLimit
 	ld a, [wRam_C26D]
 	ld b, a
 	ld a, [wRam_C268]
@@ -6176,10 +6258,10 @@ Label_68_72AF:: ; 68:72AF
 
 Label_68_72B1:: ; 68:72B1
 	or a, a
-	jp nz, Label_68_7364
+	jp nz, Registration_Verify_OnTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld a, $0A
@@ -6187,15 +6269,15 @@ Label_68_72B1:: ; 68:72B1
 	ld a, $08
 	ld [wRam_C27D], a
 	ld a, $02
-	farcall Function_68_7611
+	farcall CommPanel_DrawCaption
 	jp Label_68_7069
 
-Label_68_72D7:: ; 68:72D7
+Registration_Verify_StateWriteConfig:: ; 68:72D7
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ld hl, $A002
@@ -6205,7 +6287,7 @@ Label_68_72D7:: ; 68:72D7
 	ld hl, $A003
 	xor a, a
 	ld [hl], a
-	farcall Function_68_45F1
+	farcall Config_MirrorUpdateChecksum
 	ld c, $C0
 	ld hl, $A000
 	ld de, $0000
@@ -6220,12 +6302,12 @@ Label_68_72D7:: ; 68:72D7
 
 ; ---- code $7313-$734D (58 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios)
 
-Label_68_7313:: ; 68:7313
+Registration_Verify_StateFinish:: ; 68:7313
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7372
+	jp nz, Registration_Verify_OnAdapterError
 	bit 0, a
 	jp nz, Label_68_7069
 	ldh [hScratchA], a
@@ -6239,47 +6321,47 @@ Label_68_7313:: ; 68:7313
 	ld a, $36
 	call MobileAPI
 
-Function_68_733C:: ; 68:733C
+CommPanel_WaitClose:: ; 68:733C
 	ld a, $01
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	or a, a
-	jr nz, Function_68_733C
+	jr nz, CommPanel_WaitClose
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
 ; ---- code $734D-$7372 (37 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jpcc from 68:7213 (executed)
 
-Label_68_734D:: ; 68:734D
+Registration_Verify_OnTimeLimit:: ; 68:734D
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
 	ld [wRam_C1D0], a
 	ld a, $01
 	ld [wRam_C1D1], a
-	farcall Function_50_4000
-	jr Label_68_737B
+	farcall CommNotice_ShowDialog
+	jr Registration_Verify_Abort
 
-Label_68_7364:: ; 68:7364
+Registration_Verify_OnTimeout:: ; 68:7364
 	ld a, $26
 	ld [wRam_C272], a
 	xor a, a
 	ld [wRam_C273], a
 	ld [wRam_C274], a
-	jr Label_68_737B
+	jr Registration_Verify_Abort
 
 ; ---- code $7372-$7391 (31 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 
-Label_68_7372:: ; 68:7372
+Registration_Verify_OnAdapterError:: ; 68:7372
 	call Function_68_4101
-	farcall Function_68_4F71
+	farcall Mobile_SaveLastResult
 
-Label_68_737B:: ; 68:737B
+Registration_Verify_Abort:: ; 68:737B
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_68_73B1
 	ld a, $02
-	farcall Function_68_7611
+	farcall CommPanel_DrawCaption
 	ld a, [wTimerEnable]
 	bit 0, a
 	jr z, Label_68_7398
@@ -6297,7 +6379,7 @@ Label_68_7398:: ; 68:7398
 
 Label_68_739D:: ; 68:739D
 	xor a, a
-	farcall Function_68_7413
+	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_68_73B1
@@ -6305,10 +6387,10 @@ Label_68_739D:: ; 68:739D
 	jp nz, Label_68_739D
 
 Label_68_73B1:: ; 68:73B1
-	call Function_68_733C
-	farcall Function_4F_4370
-	farcall Function_68_4F8C
-	call Function_68_4252
+	call CommPanel_WaitClose
+	farcall Palette_FadeOutToWhite
+	farcall Mobile_ShowLastError
+	call Config_ClearSramMirror
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -6324,7 +6406,7 @@ Label_68_73B1:: ; 68:73B1
 	ret
 
 Function_68_73DD:: ; 68:73DD
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	call Function_00_044B
 	ld hl, $FF40
@@ -6339,11 +6421,11 @@ Function_68_73DD:: ; 68:73DD
 	call Function_00_0392
 	ret
 
-Function_68_7401:: ; 68:7401
+CommPanel_SetVariant:: ; 68:7401
 	ld [wRam_C28B], a
 	ret
 
-Function_68_7405:: ; 68:7405
+CommPanel_Init:: ; 68:7405
 	ld [wRam_C287], a
 	xor a, a
 	ld [wRam_C288], a
@@ -6351,20 +6433,20 @@ Function_68_7405:: ; 68:7405
 	ld [wRam_C28A], a
 	ret
 
-Function_68_7413:: ; 68:7413
+CommPanel_Step:: ; 68:7413
 	ld [wRam_C289], a
 	ld a, $01
 	ld [wRam_C28A], a
-	farcall Function_7D_7BB7
-	call Function_68_7431
+	farcall Joypad_Update
+	call CommPanel_RunState
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C28A]
 	ret
 
-Function_68_7431:: ; 68:7431
+CommPanel_RunState:: ; 68:7431
 	ld a, [wRam_C288]
-	ld hl, $7442
+	ld hl, CommPanel_StateTable
 	add a, a
 	add a, l
 	ld l, a
@@ -6378,11 +6460,12 @@ Function_68_7431:: ; 68:7431
 
 ; ---- ptrtable $7442-$744A (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (survey pointer-table extent); 4/4 targets executed; every byte read as data in a trace
 
-Table_68_7442:: ; 68:7442
-	dw Label_68_744C
-	dw Label_68_7522
-	dw Label_68_7544
-	dw Label_68_7583
+CommPanel_StateTable:: ; 68:7442
+Table_68_7442::
+	dw CommPanel_StateDraw
+	dw CommPanel_StateScreenOn
+	dw CommPanel_StateWait
+	dw CommPanel_StateHide
 
 ; ---- ptrtable $744A-$744C (2 bytes) [PROBABLE] little-endian word table, 5 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $744C..$7594; referenced by ld r16,$7442 at 68:7434 [clipped from 7442-744C by higher-priority evidence]
 
@@ -6391,10 +6474,10 @@ Table_68_744A:: ; 68:744A
 
 ; ---- code $744C-$755B (271 bytes) [CONFIRMED] 94 insn(s); 94 executed (in up to 4/18 scenarios)
 
-Label_68_744C:: ; 68:744C
+CommPanel_StateDraw:: ; 68:744C
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	ld de, $8801
 	ld hl, $4200
@@ -6409,13 +6492,13 @@ Label_68_744C:: ; 68:744C
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $4890
+	ld hl, Data_71_4890
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $4000
+	ld hl, Data_71_4000
 	ld a, $71
 	ld b, $94
 	ld c, $30
@@ -6424,19 +6507,19 @@ Label_68_744C:: ; 68:744C
 	ld de, $D800
 	ld hl, $4C50
 	ld a, $71
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, $D840
-	ld hl, $4C90
+	ld hl, Data_71_4C90
 	ld a, $71
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4C98
+	ld hl, Data_71_4C98
 	ld a, $71
 	farcall Function_00_08EA
 	ld a, [wRam_C287]
-	call Function_68_7611
+	call CommPanel_DrawCaption
 	ld a, [wRam_C287]
 	cp a, $02
 	jr z, Label_68_74EA
@@ -6447,16 +6530,16 @@ Label_68_744C:: ; 68:744C
 Label_68_74EA:: ; 68:74EA
 	ld bc, $0214
 	ld de, $D200
-	ld hl, $4F68
+	ld hl, Data_71_4F68
 	ld a, $71
 	farcall Function_00_08EA
 
 Label_68_74FB:: ; 68:74FB
-	call Function_68_75A4
+	call CommPanel_PrintWarningText
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $4FB8
+	ld de, Table_71_4FB8
 	ld a, $71
 	ld b, $81
 	farcall Function_00_0A82
@@ -6467,9 +6550,9 @@ Label_68_74FB:: ; 68:74FB
 	ld [wRam_C288], a
 	ret
 
-Label_68_7522:: ; 68:7522
+CommPanel_StateScreenOn:: ; 68:7522
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -6482,7 +6565,7 @@ Label_68_7522:: ; 68:7522
 	ld [wRam_C288], a
 	ret
 
-Label_68_7544:: ; 68:7544
+CommPanel_StateWait:: ; 68:7544
 	ldh a, [hJoyHeld]
 	bit 1, a
 	jr nz, Label_68_755B
@@ -6524,8 +6607,8 @@ Label_68_755B:: ; 68:755B
 Label_68_7582:: ; 68:7582
 	ret
 
-Label_68_7583:: ; 68:7583
-	farcall Function_4F_4370
+CommPanel_StateHide:: ; 68:7583
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C28A], a
@@ -6549,11 +6632,12 @@ Label_68_75A3:: ; 68:75A3
 
 ; ---- code $75A4-$764C (168 bytes) [CONFIRMED] 77 insn(s); 77 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_75A4:: ; 68:75A4
+CommPanel_PrintWarningText:: ; 68:75A4
+Function_68_75A4::
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -6586,15 +6670,15 @@ Function_68_75A4:: ; 68:75A4
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D121
 	ld bc, $0612
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_7611:: ; 68:7611
-	ld hl, $764C
+CommPanel_DrawCaption:: ; 68:7611
+	ld hl, CommPanel_CaptionSets
 	add a, a
 	add a, l
 	ld l, a
@@ -6611,7 +6695,7 @@ Function_68_7611:: ; 68:7611
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	ld hl, $765E
+	ld hl, CommPanel_CaptionMaps
 	add a, a
 	add a, l
 	ld l, a
@@ -6632,7 +6716,8 @@ Function_68_7611:: ; 68:7611
 
 ; ---- words $764C-$7652 (6 bytes) [PROBABLE] 3 words $7652,$7656,$765A = the starts of the three 4-byte records below
 
-Table_68_764C:: ; 68:764C
+CommPanel_CaptionSets:: ; 68:764C
+Table_68_764C::
 	dw Data_68_7652, $7656, $765A
 
 ; ---- data $7652-$765E (12 bytes) [PROBABLE] three 4-byte records (00 00 00 00 / 02 05 06 07 / 04 04 04 04) addressed by the word table at 764C; use not decoded
@@ -6642,18 +6727,20 @@ Data_68_7652:: ; 68:7652
 
 ; ---- words $765E-$766E (16 bytes) [PROBABLE] 8 words $5038,$5098,$50F8,$5158,$51B8,$5218,$5278,$52D8 (constant stride $60), directly after the 4-byte records; targets are not in this bank; use not decoded
 
-Table_68_765E:: ; 68:765E
+CommPanel_CaptionMaps:: ; 68:765E
+Table_68_765E::
 	dw $5038, $5098, $50F8, $5158, $51B8, $5218, $5278, $52D8
 
 ; ---- code $766E-$771A (172 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_766E:: ; 68:766E
+Account_ResultPage:: ; 68:766E
+Function_68_766E::
 	ld [wRam_C27C], a
 	ld a, b
 	ld [wRam_C27D], a
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	call Function_00_0464
 	ldh a, [rLCDC]
 	and a, $9F
@@ -6668,33 +6755,33 @@ Function_68_766E:: ; 68:766E
 	farcall Function_00_09B6
 	call Function_00_0392
 	ld de, $8801
-	ld hl, $42D0
+	ld hl, Data_4B_42D0
 	ld a, $4B
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $46D0
+	ld hl, Data_4B_46D0
 	ld a, $4B
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
-	call Function_68_77D6
+	call Account_ResultPage_LoadBanner
 	ld bc, $0028
 	ld de, $D800
 	ld hl, $5870
 	ld a, $4B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5898
+	ld hl, Data_4B_5898
 	ld a, $4B
 	farcall Function_00_08EA
-	call Function_68_784E
-	call Function_68_7745
+	call Account_ResultPage_DrawTimeDigits
+	call Account_ResultPage_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -6706,8 +6793,8 @@ Function_68_766E:: ; 68:766E
 
 Label_68_7708:: ; 68:7708
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $771A-$7724 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 68:7717: 5 entries; fixed length (5 words) by the routine
@@ -6733,7 +6820,7 @@ Label_68_7727:: ; 68:7727
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 ; ---- code $773E-$7740 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 68:7717 (executed)
@@ -6754,11 +6841,12 @@ Label_68_7743:: ; 68:7743
 
 ; ---- code $7745-$779C (87 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_7745:: ; 68:7745
+Account_ResultPage_PrintMessage:: ; 68:7745
+Function_68_7745::
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -6805,7 +6893,7 @@ Label_68_779C:: ; 68:779C
 ; ---- code $779E-$77D0 (50 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
 
 Label_68_779E:: ; 68:779E
-	ld hl, $77D0
+	ld hl, Account_ResultMessageIds
 	add a, l
 	ld l, a
 	ld a, $00
@@ -6817,21 +6905,23 @@ Label_68_779E:: ; 68:779E
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D121
 	ld bc, $0612
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
 ; ---- data $77D0-$77D6 (6 bytes) [PROBABLE] contiguous data block 77D0-77D6: 2 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 77D0-77D1,77D4-77D5) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
 
-Data_68_77D0:: ; 68:77D0
+Account_ResultMessageIds:: ; 68:77D0
+Data_68_77D0::
 	db $05, $0E, $0F, $10, $11, $12
 
 ; ---- code $77D6-$7831 (91 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_77D6:: ; 68:77D6
+Account_ResultPage_LoadBanner:: ; 68:77D6
+Function_68_77D6::
 	ld a, [wRam_C27C]
 	ld hl, $7831
 	ld b, a
@@ -6900,8 +6990,9 @@ Data_68_7831:: ; 68:7831
 
 ; ---- code $784E-$793D (239 bytes) [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_784E:: ; 68:784E
-	farcall Function_51_425F
+Account_ResultPage_DrawTimeDigits:: ; 68:784E
+Function_68_784E::
+	farcall CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
 	ld [wRam_C2D8], a
 	ldh a, [hRam_FFB1]
@@ -6934,11 +7025,11 @@ Label_68_7873:: ; 68:7873
 
 Label_68_7884:: ; 68:7884
 	ld d, a
-	call Function_68_792A
+	call Byte_ToPackedBcd
 	push af
 	swap a
 	and a, $0F
-	ld hl, $793D
+	ld hl, Account_DigitTilemapTable
 	add a, a
 	add a, l
 	ld l, a
@@ -6954,7 +7045,7 @@ Label_68_7884:: ; 68:7884
 	farcall Function_00_08EA
 	pop af
 	and a, $0F
-	ld hl, $793D
+	ld hl, Account_DigitTilemapTable
 	add a, a
 	add a, l
 	ld l, a
@@ -6994,11 +7085,11 @@ Label_68_78D6:: ; 68:78D6
 
 Label_68_78E7:: ; 68:78E7
 	ld d, a
-	call Function_68_792A
+	call Byte_ToPackedBcd
 	push af
 	swap a
 	and a, $0F
-	ld hl, $793D
+	ld hl, Account_DigitTilemapTable
 	add a, a
 	add a, l
 	ld l, a
@@ -7014,7 +7105,7 @@ Label_68_78E7:: ; 68:78E7
 	farcall Function_00_08EA
 	pop af
 	and a, $0F
-	ld hl, $793D
+	ld hl, Account_DigitTilemapTable
 	add a, a
 	add a, l
 	ld l, a
@@ -7030,7 +7121,7 @@ Label_68_78E7:: ; 68:78E7
 	farcall Function_00_08EA
 	ret
 
-Function_68_792A:: ; 68:792A
+Byte_ToPackedBcd:: ; 68:792A
 	xor a, a
 	ld b, $FF
 
@@ -7050,7 +7141,8 @@ Label_68_792D:: ; 68:792D
 
 ; ---- ptrtable $793D-$793F (2 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 30% of targets on string start/after NUL, targets $5B68..$5B8C; referenced by ld r16,$793D at 68:788D [clipped from 793D-7951 by higher-priority evidence]
 
-Table_68_793D:: ; 68:793D
+Account_DigitTilemapTable:: ; 68:793D
+Table_68_793D::
 	dw $5B68
 
 ; ---- ptrtable $793F-$7951 (18 bytes) [PROBABLE] code-pointer table, 9 entries: 9/9 words hit own-bank code starts (survey pointer-table extent); 9/9 targets executed
@@ -7068,36 +7160,37 @@ Table_68_793F:: ; 68:793F
 
 ; ---- code $7951-$7990 (63 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_7951:: ; 68:7951
+Registration_DeleteFlow:: ; 68:7951
+Function_68_7951::
 	ld a, $08
-	farcall Function_65_487C
+	farcall Notice_ShowPage
 	or a, a
 	jr z, Label_68_798F
 
 Label_68_795C:: ; 68:795C
 	ld a, $09
-	farcall Function_65_487C
+	farcall Notice_ShowPage
 	or a, a
-	jr z, Function_68_7951
+	jr z, Registration_DeleteFlow
 
 Label_68_7967:: ; 68:7967
 	xor a, a
-	call Function_68_799A
+	call Registration_DeleteConfirmPage
 	or a, a
 	jr z, Label_68_795C
 	cp a, $02
 	jr z, Label_68_7990
 	ld a, $01
-	call Function_68_799A
+	call Registration_DeleteConfirmPage
 	or a, a
 	jr z, Label_68_7967
 	cp a, $02
 	jr z, Label_68_7990
-	farcall Function_68_7B9A
+	farcall Registration_DeleteExecute
 	or a, a
 	jr z, Label_68_7999
 	ld a, $0B
-	farcall Function_65_487C
+	farcall Notice_ShowPage
 
 Label_68_798F:: ; 68:798F
 	ret
@@ -7106,7 +7199,7 @@ Label_68_798F:: ; 68:798F
 
 Label_68_7990:: ; 68:7990
 	ld a, $0A
-	farcall Function_65_487C
+	farcall Notice_ShowPage
 	ret
 
 Label_68_7999:: ; 68:7999
@@ -7114,21 +7207,22 @@ Label_68_7999:: ; 68:7999
 
 ; ---- code $799A-$7ACB (305 bytes) [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_799A:: ; 68:799A
+Registration_DeleteConfirmPage:: ; 68:799A
+Function_68_799A::
 	ld [wRam_C27C], a
-	call Function_68_79B8
-	farcall Function_4F_42B4
-	call Function_68_7A8F
+	call Registration_DeleteConfirm_Setup
+	farcall Palette_FadeInFromWhite
+	call Registration_DeleteConfirm_InputLoop
 	push af
-	farcall Function_4F_4370
-	farcall Function_55_651C
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
 	pop af
 	ret
 
-Function_68_79B8:: ; 68:79B8
+Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	ld a, $01
 	ld [wRam_C27D], a
@@ -7136,20 +7230,20 @@ Function_68_79B8:: ; 68:79B8
 	or a, a
 	jr nz, Label_68_7A0A
 	ld de, $9001
-	ld hl, $5340
+	ld hl, Data_71_5340
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5740
+	ld hl, Data_71_5740
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $66C8
+	ld hl, Data_71_66C8
 	ld a, $71
 	farcall Function_00_08EA
 	jr Label_68_7A3F
@@ -7162,48 +7256,48 @@ Label_68_7A0A:: ; 68:7A0A
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5DC0
+	ld hl, Data_71_5DC0
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6998
+	ld hl, Data_71_6998
 	ld a, $71
 	farcall Function_00_08EA
 
 Label_68_7A3F:: ; 68:7A3F
 	ld de, $8001
-	ld hl, $49D0
+	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6680
+	ld hl, Data_71_6680
 	ld a, $71
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0018
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
-	farcall Function_4F_4000
-	call Function_68_7B1D
+	farcall Palette_LoadToBuffer
+	call Registration_DeleteConfirm_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $4000
+	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
 	farcall Function_00_0A82
-	call Function_68_7B01
+	call Registration_DeleteConfirm_UpdateCursor
 	ret
 
-Function_68_7A8F:: ; 68:7A8F
+Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	farcall Function_00_0956
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	call Function_00_044B
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -7214,7 +7308,7 @@ Function_68_7A8F:: ; 68:7A8F
 	jr nz, Label_68_7AE0
 	bit 4, a
 	jr nz, Label_68_7AE0
-	jr Function_68_7A8F
+	jr Registration_DeleteConfirm_InputLoop
 
 Label_68_7AB2:: ; 68:7AB2
 	ldh a, [hWRAMBank]
@@ -7264,16 +7358,16 @@ Label_68_7AE0:: ; 68:7AE0
 	ld b, $01
 	xor a, b
 	ld [wRam_C27D], a
-	call Function_68_7B01
+	call Registration_DeleteConfirm_UpdateCursor
 	jr Label_68_7AFE
 
 Label_68_7AFE:: ; 68:7AFE
-	jp Function_68_7A8F
+	jp Registration_DeleteConfirm_InputLoop
 
-Function_68_7B01:: ; 68:7B01
+Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
 	ld a, [wRam_C27D]
 	add a, a
-	ld hl, $7B19
+	ld hl, Registration_DeleteCursorPositions
 	add a, l
 	ld l, a
 	ld a, h
@@ -7289,16 +7383,18 @@ Function_68_7B01:: ; 68:7B01
 
 ; ---- data $7B19-$7B1D (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_68_7B19:: ; 68:7B19
+Registration_DeleteCursorPositions:: ; 68:7B19
+Data_68_7B19::
 	db $28, $30, $58, $30
 
 ; ---- code $7B1D-$7C6B (334 bytes) [CONFIRMED] 119 insn(s); 119 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_7B1D:: ; 68:7B1D
+Registration_DeleteConfirm_PrintMessage:: ; 68:7B1D
+Function_68_7B1D::
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -7341,25 +7437,25 @@ Label_68_7B78:: ; 68:7B78
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D121
 	ld bc, $0612
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-Function_68_7B9A:: ; 68:7B9A
-	call Function_68_7BB0
-	farcall Function_4F_42B4
-	call Function_68_7C52
-	farcall Function_4F_4370
+Registration_DeleteExecute:: ; 68:7B9A
+	call Registration_DeleteExecute_Setup
+	farcall Palette_FadeInFromWhite
+	call Registration_DeleteExecute_RunState
+	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_7BB0:: ; 68:7BB0
+Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
@@ -7371,7 +7467,7 @@ Function_68_7BB0:: ; 68:7BB0
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $6580
+	ld hl, Data_71_6580
 	ld a, $71
 	ld b, $97
 	ld c, $10
@@ -7384,24 +7480,24 @@ Function_68_7BB0:: ; 68:7BB0
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6680
+	ld hl, Data_71_6680
 	ld a, $71
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, $D840
 	ld hl, $66C0
 	ld a, $71
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6C68
+	ld hl, Data_71_6C68
 	ld a, $71
 	farcall Function_00_08EA
-	call Function_68_7D1C
+	call Registration_DeleteExecute_PrintMessage
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $6F38
+	ld de, Table_71_6F38
 	ld a, $71
 	ld b, $81
 	farcall Function_00_0A82
@@ -7410,7 +7506,7 @@ Function_68_7BB0:: ; 68:7BB0
 	call Function_00_0A65
 	ret
 
-Function_68_7C52:: ; 68:7C52
+Registration_DeleteExecute_RunState:: ; 68:7C52
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C27D]
@@ -7427,24 +7523,25 @@ Function_68_7C52:: ; 68:7C52
 
 ; ---- words $7C6B-$7C71 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_68_7C6B:: ; 68:7C6B
+Registration_DeleteExecute_StateTable:: ; 68:7C6B
+Table_68_7C6B::
 	dw $7C71, $7C86, $7CBD
 
 ; ---- code $7C71-$7CE8 (119 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
-	call Function_68_4252
+	call Config_ClearSramMirror
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI
 	ld a, $01
 	ld [wRam_C27D], a
-	jr Function_68_7C52
+	jr Registration_DeleteExecute_RunState
 
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_68_7CE8
 	bit 0, a
-	jp nz, Function_68_7C52
+	jp nz, Registration_DeleteExecute_RunState
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -7462,13 +7559,13 @@ Table_68_7C6B:: ; 68:7C6B
 	call MobileAPI
 	ld a, $02
 	ld [wRam_C27D], a
-	jp Function_68_7C52
+	jp Registration_DeleteExecute_RunState
 
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_68_7CE8
 	bit 0, a
-	jp nz, Function_68_7C52
+	jp nz, Registration_DeleteExecute_RunState
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -7479,7 +7576,7 @@ Table_68_7C6B:: ; 68:7C6B
 	ld [rRAMG], a
 	ld a, $36
 	call MobileAPI
-	call Function_68_42E4
+	call Sram_WipeAllBanks
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
@@ -7495,20 +7592,21 @@ Label_68_7CE8:: ; 68:7CE8
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_68_4F71
-	farcall Function_4F_4370
-	farcall Function_68_4F8C
+	farcall Mobile_SaveLastResult
+	farcall Palette_FadeOutToWhite
+	farcall Mobile_ShowLastError
 	ld a, $36
 	call MobileAPI
 	ld a, $0A
-	farcall Function_65_487C
+	farcall Notice_ShowPage
 	xor a, a
 	ld [wRam_C27C], a
 	ret
 
 ; ---- code $7D1C-$7D8D (113 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_68_7D1C:: ; 68:7D1C
+Registration_DeleteExecute_PrintMessage:: ; 68:7D1C
+Function_68_7D1C::
 	ld a, $03
 	farcall Function_00_153D
 	push hl
@@ -7516,7 +7614,7 @@ Function_68_7D1C:: ; 68:7D1C
 	ld de, $FFFF
 	ld hl, $0B01
 	ld bc, $0612
-	farcall Function_4F_4604
+	farcall TileCanvas_FillRect
 	ld a, $00
 	ldh [hRam_FFBA], a
 	ld a, $03
@@ -7549,11 +7647,11 @@ Function_68_7D1C:: ; 68:7D1C
 	ld de, $9000
 	ld hl, $0B01
 	ld bc, $0612
-	farcall Function_4F_4572
+	farcall TileCanvas_UploadRect
 	ld hl, $D161
 	ld bc, $0612
 	ld de, $0000
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ret
 
 ; ---- zero $7D8D-$8000 (627 bytes) [PROBABLE] trailing 0x00 padding to end of bank

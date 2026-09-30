@@ -9,7 +9,8 @@ SECTION "Bank25", ROMX[$4000], BANK[$25]
 
 ; ---- code $4000-$402E (46 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_25_4000:: ; 25:4000
+Mailbox_Main:: ; 25:4000
+Function_25_4000::
 	push bc
 	push hl
 	push de
@@ -28,7 +29,7 @@ Function_25_4000:: ; 25:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop de
 	pop hl
 	ld a, [wRam_C264]
@@ -38,34 +39,34 @@ Function_25_4000:: ; 25:4000
 ; ---- code $402E-$403F (17 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed)
 	push bc
 	dec h
-	call z, Function_25_4B0D
-	call Function_25_5581
-	call Function_25_5641
+	call z, Mailbox_LoadScreen
+	call Mailbox_ShowRowNumbers
+	call Mailbox_ShowRowStatusIcons
 	pop bc
-	call Function_25_4987
+	call Mailbox_UpdateScrollArrows
 	jr Label_25_4042
 
 ; ---- code $403F-$408A (75 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
 
 Label_25_403F:: ; 25:403F
-	call Function_25_4B0D
+	call Mailbox_LoadScreen
 
 Label_25_4042:: ; 25:4042
 	pop bc
 
-Label_25_4043:: ; 25:4043
+Mailbox_Main_Loop:: ; 25:4043
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
 	jr nz, Label_25_408A
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_25_4043
+	jr z, Mailbox_Main_Loop
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -79,9 +80,9 @@ Label_25_4043:: ; 25:4043
 	pop de
 	pop bc
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
 	ret
@@ -122,7 +123,7 @@ Label_25_40C3:: ; 25:40C3
 	ld a, $02
 
 Label_25_40C5:: ; 25:40C5
-	call Function_25_5889
+	call Mailbox_SetIconBarAttrs
 	ld de, $68D0
 	ld hl, $DA40
 	call Function_00_0A65
@@ -150,9 +151,9 @@ Label_25_40DF:: ; 25:40DF
 	pop de
 	pop bc
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
 	ret
@@ -160,16 +161,16 @@ Label_25_40DF:: ; 25:40DF
 Label_25_410D:: ; 25:410D
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
-	call nz, Function_25_4885
+	call nz, Mailbox_CursorUp
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
-	call nz, Function_25_4907
-	jp Label_25_4043
+	call nz, Mailbox_CursorDown
+	jp Mailbox_Main_Loop
 
 Label_25_411E:: ; 25:411E
 	push bc
 	ld hl, $DA10
-	ld de, $7B00
+	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
 	farcall Function_00_0A82
@@ -185,17 +186,17 @@ Label_25_411E:: ; 25:411E
 	ld hl, $DA20
 	call Function_00_0A65
 	ld d, $00
-	call Function_25_53AA
-	call Function_25_534C
+	call Mailbox_ShowHint
+	call Mailbox_UploadTextTiles
 	pop bc
 	ld d, $00
 
-Label_25_415C:: ; 25:415C
+Mailbox_IconMenu_Loop:: ; 25:415C
 	push bc
 	push de
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop de
 	pop bc
 	ldh a, [hJoyPressed]
@@ -226,15 +227,15 @@ Label_25_415C:: ; 25:415C
 	ld hl, $DA20
 	call Function_00_0A65
 	xor a, a
-	call Function_25_5889
+	call Mailbox_SetIconBarAttrs
 	push bc
 	push de
 	ld d, $FF
-	call Function_25_53AA
-	call Function_25_534C
+	call Mailbox_ShowHint
+	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
-	jp Label_25_4043
+	jp Mailbox_Main_Loop
 
 Label_25_41C0:: ; 25:41C0
 	ldh a, [hJoyPressedRepeat]
@@ -259,12 +260,12 @@ Label_25_41C0:: ; 25:41C0
 	ld d, $02
 
 Label_25_41E2:: ; 25:41E2
-	call Function_25_4804
+	call Mailbox_SetActionCursor
 
 Label_25_41E5:: ; 25:41E5
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jr z, Label_25_420A
+	jr z, Mailbox_IconMenu_PressA
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -284,18 +285,18 @@ Label_25_41E5:: ; 25:41E5
 	ld d, $00
 
 Label_25_4207:: ; 25:4207
-	call Function_25_4804
+	call Mailbox_SetActionCursor
 
-Label_25_420A:: ; 25:420A
+Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_25_415C
+	jp z, Mailbox_IconMenu_Loop
 	ld a, d
 	cp a, $02
-	jp nz, Label_25_446E
+	jp nz, Mailbox_IconMenu_ReplyOrRead
 	push bc
 	push de
-	farcall Function_7F_624F
+	farcall Sprites_SaveSlotsToBank3
 	ld de, $70D0
 	ld hl, $DA10
 	call Function_00_0A65
@@ -332,7 +333,7 @@ Label_25_420A:: ; 25:420A
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -359,35 +360,35 @@ Label_25_420A:: ; 25:420A
 	ld [wSpriteSlots + 193], a
 	ld a, d
 	ld [wSpriteSlots + 64], a
-	farcall Function_7F_627C
+	farcall Sprites_RestoreSlotsFromBank3
 	pop af
 	pop de
 	pop bc
 	push af
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $01
-	call nz, Function_25_4804
+	call nz, Mailbox_SetActionCursor
 	push bc
 	push de
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $01
-	call nz, Function_25_5641
+	call nz, Mailbox_ShowRowStatusIcons
 	pop de
 	pop bc
 	pop af
 	dec a
-	jp nz, Label_25_415C
+	jp nz, Mailbox_IconMenu_Loop
 	push bc
 	ld a, b
 	add a, c
 	ld b, a
-	farcall Function_2D_4133
+	farcall MailRecord_Delete
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -399,30 +400,30 @@ Label_25_420A:: ; 25:420A
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	call Function_25_5889
+	call Mailbox_SetIconBarAttrs
 	pop de
 	pop bc
 	pop bc
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $00
 	jr z, Label_25_4341
-	call Function_25_4A2D
+	call Mailbox_RedrawAfterDelete
 	push bc
 	push de
 	ld d, $FF
-	call Function_25_53AA
-	call Function_25_4A90
+	call Mailbox_ShowHint
+	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
 	jr nz, Label_25_4315
 	ld d, $03
-	call Function_25_53AA
+	call Mailbox_ShowHint
 
 Label_25_4315:: ; 25:4315
-	call Function_25_534C
+	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
 	push bc
@@ -443,11 +444,11 @@ Label_25_4322:: ; 25:4322
 
 Label_25_433B:: ; 25:433B
 	pop bc
-	call Function_25_4987
+	call Mailbox_UpdateScrollArrows
 	jr Label_25_4344
 
 Label_25_4341:: ; 25:4341
-	call Function_25_4A68
+	call Mailbox_ShowEmptyList
 
 Label_25_4344:: ; 25:4344
 	push bc
@@ -458,29 +459,29 @@ Label_25_4344:: ; 25:4344
 	ld hl, $DA20
 	call Function_00_0A65
 	pop bc
-	call Function_25_52FE
+	call Mailbox_DrawMailCount
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $00
 	jr nz, Label_25_436D
 	ld d, $03
-	call Function_25_53AA
-	call Function_25_534C
+	call Mailbox_ShowHint
+	call Mailbox_UploadTextTiles
 
 Label_25_436D:: ; 25:436D
 	ld a, [wRam_C264]
 	inc a
-	jp nz, Label_25_4043
+	jp nz, Mailbox_Main_Loop
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $00
 	jr nz, Label_25_4386
 	ld d, $03
-	call Function_25_53AA
+	call Mailbox_ShowHint
 	jp Label_25_4454
 
 Label_25_4386:: ; 25:4386
@@ -522,7 +523,7 @@ Label_25_4386:: ; 25:4386
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -554,10 +555,10 @@ Label_25_4386:: ; 25:4386
 	pop bc
 	push af
 	ld d, $FF
-	call Function_25_4804
+	call Mailbox_SetActionCursor
 	push bc
 	push de
-	call Function_25_5641
+	call Mailbox_ShowRowStatusIcons
 	pop de
 	pop bc
 	pop af
@@ -572,26 +573,26 @@ Label_25_4386:: ; 25:4386
 	push bc
 	push de
 	ld d, $FF
-	call Function_25_53AA
-	call Function_25_4A90
+	call Mailbox_ShowHint
+	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
 	jr nz, Label_25_444C
 	ld d, $03
-	call Function_25_53AA
+	call Mailbox_ShowHint
 
 Label_25_444C:: ; 25:444C
-	call Function_25_534C
+	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
-	jp Label_25_4043
+	jp Mailbox_Main_Loop
 
 Label_25_4454:: ; 25:4454
 	push bc
-	call Function_25_534C
-	farcall Function_7F_72B0
+	call Mailbox_UploadTextTiles
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
 	ret
@@ -603,9 +604,9 @@ Data_25_446B:: ; 25:446B
 
 ; ---- code $446E-$4659 (491 bytes) [PROBABLE] 223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code)
 
-Label_25_446E:: ; 25:446E
+Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	cp a, $01
-	jp nz, Label_25_465C
+	jp nz, Mailbox_ReadMail
 	ld a, [wRam_C264]
 	inc a
 	jr nz, Label_25_4490
@@ -621,10 +622,10 @@ Label_25_446E:: ; 25:446E
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jp Label_25_415C
+	jp Mailbox_IconMenu_Loop
 
 Label_25_4490:: ; 25:4490
-	farcall Function_7F_624F
+	farcall Sprites_SaveSlotsToBank3
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -634,7 +635,7 @@ Label_25_4490:: ; 25:4490
 	ld hl, $A000
 	ld a, [hl]
 	cp a, $00
-	jp z, Label_25_4564
+	jp z, Mailbox_ReplyStart
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -682,7 +683,7 @@ Label_25_4490:: ; 25:4490
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -720,12 +721,12 @@ Label_25_4490:: ; 25:4490
 	pop bc
 	push bc
 	push de
-	call Function_25_5641
+	call Mailbox_ShowRowStatusIcons
 	pop de
 	pop bc
-	jp Label_25_415C
+	jp Mailbox_IconMenu_Loop
 
-Label_25_4564:: ; 25:4564
+Mailbox_ReplyStart:: ; 25:4564
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -740,13 +741,13 @@ Label_25_4564:: ; 25:4564
 	pop bc
 	push de
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	push bc
-	farcall Function_7F_624F
-	call Function_25_54A7
+	farcall Sprites_SaveSlotsToBank3
+	call Mailbox_ReplyToRecord
 	push af
 	push af
 	ldh a, [rSVBK]
@@ -762,7 +763,7 @@ Label_25_4564:: ; 25:4564
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -778,15 +779,15 @@ Label_25_4564:: ; 25:4564
 	cp a, $00
 	jr nz, Label_25_45D3
 	ld d, $FF
-	jp Function_25_4000
+	jp Mailbox_Main
 
 Label_25_45D3:: ; 25:45D3
 	push de
 	push bc
 	ld d, $01
-	call Function_25_4B0D
+	call Mailbox_LoadScreen
 	ld a, $01
-	call Function_25_5889
+	call Mailbox_SetIconBarAttrs
 	pop bc
 	push bc
 	ld a, b
@@ -806,7 +807,7 @@ Label_25_45E8:: ; 25:45E8
 
 Label_25_4601:: ; 25:4601
 	ld hl, $DA10
-	ld de, $7B00
+	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
 	farcall Function_00_0A82
@@ -816,8 +817,8 @@ Label_25_4601:: ; 25:4601
 	ld b, $81
 	farcall Function_00_0A82
 	ld d, $01
-	call Function_25_53AA
-	call Function_25_534C
+	call Mailbox_ShowHint
+	call Mailbox_UploadTextTiles
 	ld de, $7020
 	ld hl, $DA10
 	call Function_00_0A65
@@ -828,7 +829,7 @@ Label_25_4601:: ; 25:4601
 	ld hl, $DA30
 	call Function_00_0A65
 	ld d, $01
-	call Function_25_4804
+	call Mailbox_SetActionCursor
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -836,7 +837,7 @@ Label_25_4601:: ; 25:4601
 	ld [wSpriteSlots + 16], a
 	pop bc
 	pop de
-	jp Label_25_415C
+	jp Mailbox_IconMenu_Loop
 
 ; ---- data $4659-$465C (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -845,7 +846,7 @@ Data_25_4659:: ; 25:4659
 
 ; ---- code $465C-$47F8 (412 bytes) [PROBABLE] 202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code)
 
-Label_25_465C:: ; 25:465C
+Mailbox_ReadMail:: ; 25:465C
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -871,7 +872,7 @@ Label_25_465C:: ; 25:465C
 	sla a
 	ld c, a
 	ld b, $00
-	ld hl, $4A15
+	ld hl, Mailbox_RecordAddrs_4A15
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -883,7 +884,7 @@ Label_25_465C:: ; 25:465C
 	push af
 	xor a, a
 	ld [hl], a
-	farcall Function_22_501D
+	farcall SramCheck_Bank0Commit
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -925,7 +926,7 @@ Label_25_46DB:: ; 25:46DB
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -965,7 +966,7 @@ Label_25_473D:: ; 25:473D
 	pop bc
 	push bc
 	push de
-	call Function_25_5641
+	call Mailbox_ShowRowStatusIcons
 	pop de
 	pop bc
 	push bc
@@ -974,11 +975,11 @@ Label_25_473D:: ; 25:473D
 	add a, b
 	ld c, a
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
-	farcall Function_2B_6482
+	farcall MailView_SenderPage
 	push af
 	push af
 	ldh a, [rSVBK]
@@ -994,7 +995,7 @@ Label_25_473D:: ; 25:473D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop af
 	pop de
 	pop bc
@@ -1003,7 +1004,7 @@ Label_25_473D:: ; 25:473D
 	push de
 	push bc
 	ld d, $FF
-	call Function_25_4B0D
+	call Mailbox_LoadScreen
 	push bc
 	push de
 	push hl
@@ -1036,7 +1037,7 @@ Label_25_47CA:: ; 25:47CA
 	ld a, $02
 
 Label_25_47CC:: ; 25:47CC
-	call Function_25_5889
+	call Mailbox_SetIconBarAttrs
 	pop bc
 	pop de
 	push de
@@ -1071,9 +1072,9 @@ Data_25_47F8:: ; 25:47F8
 Label_25_47FD:: ; 25:47FD
 	ld h, $01
 	ld d, $FF
-	jp Function_25_4000
+	jp Mailbox_Main
 
-Function_25_4804:: ; 25:4804
+Mailbox_SetActionCursor:: ; 25:4804
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1135,20 +1136,20 @@ Label_25_4878:: ; 25:4878
 	pop bc
 	push bc
 	push de
-	call Function_25_53AA
-	call Function_25_534C
+	call Mailbox_ShowHint
+	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
 	ret
 
-Function_25_4885:: ; 25:4885
+Mailbox_CursorUp:: ; 25:4885
 	ld a, c
 	cp a, $00
 	jr nz, Label_25_48B6
 	ld a, b
 	cp a, $00
 	jr nz, Label_25_48B4
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $01
 	jr z, Label_25_48A5
@@ -1191,14 +1192,14 @@ Label_25_48B6:: ; 25:48B6
 	pop bc
 	dec c
 	push bc
-	call Function_25_4DFD
-	call Function_25_4E43
-	call Function_25_534C
+	call Mailbox_DrawSenderName
+	call Mailbox_DrawRowTitles
+	call Mailbox_UploadTextTiles
 	pop bc
 	push bc
-	call Function_25_5581
-	call Function_25_5641
-	call Function_25_4F40
+	call Mailbox_ShowRowNumbers
+	call Mailbox_ShowRowStatusIcons
+	call Mailbox_DrawTimestamp
 	pop bc
 	push bc
 	ld a, b
@@ -1218,18 +1219,18 @@ Label_25_48E9:: ; 25:48E9
 
 Label_25_4902:: ; 25:4902
 	pop bc
-	call Function_25_4987
+	call Mailbox_UpdateScrollArrows
 	ret
 
-Function_25_4907:: ; 25:4907
-	call Function_25_49EB
+Mailbox_CursorDown:: ; 25:4907
+	call Mailbox_NextRecordUsed
 	inc a
 	dec a
 	jr nz, Label_25_492F
 	ld a, b
 	cp a, $00
 	jr nz, Label_25_4929
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $01
 	jr z, Label_25_4929
@@ -1268,14 +1269,14 @@ Label_25_4936:: ; 25:4936
 	pop bc
 	inc c
 	push bc
-	call Function_25_4DFD
-	call Function_25_4E43
-	call Function_25_534C
+	call Mailbox_DrawSenderName
+	call Mailbox_DrawRowTitles
+	call Mailbox_UploadTextTiles
 	pop bc
 	push bc
-	call Function_25_5581
-	call Function_25_5641
-	call Function_25_4F40
+	call Mailbox_ShowRowNumbers
+	call Mailbox_ShowRowStatusIcons
+	call Mailbox_DrawTimestamp
 	pop bc
 	push bc
 	ld a, b
@@ -1295,13 +1296,13 @@ Label_25_4969:: ; 25:4969
 
 Label_25_4982:: ; 25:4982
 	pop bc
-	call Function_25_4987
+	call Mailbox_UpdateScrollArrows
 	ret
 
-Function_25_4987:: ; 25:4987
+Mailbox_UpdateScrollArrows:: ; 25:4987
 	push bc
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
 	jr z, Label_25_49D6
@@ -1344,7 +1345,7 @@ Label_25_49D6:: ; 25:49D6
 	pop bc
 	ret
 
-Function_25_49EB:: ; 25:49EB
+Mailbox_NextRecordUsed:: ; 25:49EB
 	push bc
 	inc c
 	ld a, c
@@ -1367,7 +1368,7 @@ Label_25_49F6:: ; 25:49F6
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4A15
+	ld hl, Mailbox_RecordAddrs_4A15
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -1378,13 +1379,14 @@ Label_25_49F6:: ; 25:49F6
 
 ; ---- words $4A15-$4A2D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4687 and 25:4A0B (ld hl,$4A15; add hl,bc; ld a,[hli]; ld h,[hl]; ld l,a)
 
-Table_25_4A15:: ; 25:4A15
+Mailbox_RecordAddrs_4A15:: ; 25:4A15
+Table_25_4A15::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4A2D-$4A90 (99 bytes) [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code)
 
-Function_25_4A2D:: ; 25:4A2D
+Mailbox_RedrawAfterDelete:: ; 25:4A2D
 	ld a, b
 	cp a, $00
 	jr z, Label_25_4A36
@@ -1413,18 +1415,18 @@ Label_25_4A3C:: ; 25:4A3C
 	pop bc
 	dec c
 	push bc
-	call Function_25_4DFD
-	call Function_25_4E43
-	call Function_25_534C
+	call Mailbox_DrawSenderName
+	call Mailbox_DrawRowTitles
+	call Mailbox_UploadTextTiles
 	pop bc
 	push bc
-	call Function_25_5581
-	call Function_25_5641
-	call Function_25_4F40
+	call Mailbox_ShowRowNumbers
+	call Mailbox_ShowRowStatusIcons
+	call Mailbox_DrawTimestamp
 	pop bc
 	ret
 
-Function_25_4A68:: ; 25:4A68
+Mailbox_ShowEmptyList:: ; 25:4A68
 	push bc
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -1439,8 +1441,8 @@ Label_25_4A75:: ; 25:4A75
 	ld a, b
 	or a, c
 	jr nz, Label_25_4A75
-	call Function_25_4F40
-	call Function_25_534C
+	call Mailbox_DrawTimestamp
+	call Mailbox_UploadTextTiles
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	pop bc
@@ -1448,7 +1450,8 @@ Label_25_4A75:: ; 25:4A75
 
 ; ---- code $4A90-$4AA6 (22 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_25_4A90:: ; 25:4A90
+Mailbox_CountRecords:: ; 25:4A90
+Function_25_4A90::
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1510,42 +1513,44 @@ Function_25_4A90:: ; 25:4A90
 
 ; ---- words $4AF5-$4B0D (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with no direct ld hl,imm found (identical 12 words to the tables at 25:4A15/4E2B)
 
-Table_25_4AF5:: ; 25:4AF5
+Mailbox_RecordAddrs_4AF5:: ; 25:4AF5
+Table_25_4AF5::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4B0D-$4BD0 (195 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_25_4B0D:: ; 25:4B0D
+Mailbox_LoadScreen:: ; 25:4B0D
+Function_25_4B0D::
 	push de
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
+	farcall TextTiles_ClearBuffers
 	ld a, [wRam_C264]
 	inc a
 	jp z, Label_25_4BD0
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $69B0
+	ld hl, Mailbox_BgPalette
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld de, $9301
-	ld hl, $5A10
+	ld hl, Mailbox_Tiles_5A10
 	ld a, $25
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9701
-	ld hl, $5E10
+	ld hl, Mailbox_Tiles_5E10
 	ld a, $25
 	ld b, $97
 	ld c, $10
@@ -1574,7 +1579,7 @@ Function_25_4B0D:: ; 25:4B0D
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $6410
+	ld hl, Mailbox_Tilemap_Normal
 	ld a, $25
 	farcall Function_00_08EA
 	call Function_00_0464
@@ -1585,25 +1590,25 @@ Function_25_4B0D:: ; 25:4B0D
 Label_25_4BD0:: ; 25:4BD0
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $69B0
+	ld hl, Mailbox_BgPalette
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld de, $9301
-	ld hl, $5F10
+	ld hl, Mailbox_Tiles_5F10
 	ld a, $25
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9701
-	ld hl, $6310
+	ld hl, Mailbox_Tiles_6310
 	ld a, $25
 	ld b, $97
 	ld c, $10
@@ -1632,7 +1637,7 @@ Label_25_4BD0:: ; 25:4BD0
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $66E0
+	ld hl, Mailbox_Tilemap_DeleteSelect
 	ld a, $25
 	farcall Function_00_08EA
 	call Function_00_0464
@@ -1642,15 +1647,15 @@ Label_25_4BD0:: ; 25:4BD0
 Label_25_4C75:: ; 25:4C75
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $69B0
+	ld hl, Mailbox_BgPalette
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1706,50 +1711,50 @@ Label_25_4CA2:: ; 25:4CA2
 	pop de
 	ld e, d
 	push bc
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
 	jr z, Label_25_4CFB
 
 ; ---- code $4CED-$4CFB (14 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed) | upgraded by classifier 6: all 7 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push de
-	call Function_25_50C2
+	call Mailbox_ClearTimestamp
 	pop de
 	ld d, e
-	call Function_25_53AA
-	call Function_25_52FE
+	call Mailbox_ShowHint
+	call Mailbox_DrawMailCount
 	jr Label_25_4D03
 
 ; ---- code $4CFB-$4D0E (19 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 
 Label_25_4CFB:: ; 25:4CFB
 	ld d, $03
-	call Function_25_53AA
-	call Function_25_50C2
+	call Mailbox_ShowHint
+	call Mailbox_ClearTimestamp
 
 Label_25_4D03:: ; 25:4D03
-	call Function_25_534C
+	call Mailbox_UploadTextTiles
 	pop bc
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
 	jr z, Label_25_4D4D
 
 ; ---- code $4D0E-$4D4D (63 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed)
 	push bc
-	call Function_25_5581
-	call Function_25_5641
+	call Mailbox_ShowRowNumbers
+	call Mailbox_ShowRowStatusIcons
 	pop bc
 	push bc
-	call Function_25_4DFD
-	call Function_25_4E43
-	call Function_25_534C
+	call Mailbox_DrawSenderName
+	call Mailbox_DrawRowTitles
+	call Mailbox_UploadTextTiles
 	pop bc
 	push bc
-	call Function_25_4F40
+	call Mailbox_DrawTimestamp
 	pop bc
 	push bc
-	call Function_25_4D99
+	call Mailbox_UpdateScrollArrows_B
 	pop bc
 	push bc
 	ld a, b
@@ -1777,9 +1782,9 @@ Label_25_4D4D:: ; 25:4D4D
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1794,7 +1799,7 @@ Label_25_4D4D:: ; 25:4D4D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -1810,10 +1815,10 @@ Label_25_4D4D:: ; 25:4D4D
 
 ; ---- code $4D99-$4E2B (146 bytes) [PROBABLE] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code)
 
-Function_25_4D99:: ; 25:4D99
+Mailbox_UpdateScrollArrows_B:: ; 25:4D99
 	push bc
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
 	jr z, Label_25_4DE8
@@ -1856,7 +1861,7 @@ Label_25_4DE8:: ; 25:4DE8
 	pop bc
 	ret
 
-Function_25_4DFD:: ; 25:4DFD
+Mailbox_DrawSenderName:: ; 25:4DFD
 	push bc
 	ld a, b
 	add a, c
@@ -1869,7 +1874,7 @@ Function_25_4DFD:: ; 25:4DFD
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4E2B
+	ld hl, Mailbox_RecordAddrs_4E2B
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -1879,19 +1884,20 @@ Function_25_4DFD:: ; 25:4DFD
 	ld bc, $0300
 	ld de, $0230
 	ld a, $10
-	call Function_25_5240
+	call Mailbox_DrawTextLine
 	pop bc
 	ret
 
 ; ---- words $4E2B-$4E43 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E13
 
-Table_25_4E2B:: ; 25:4E2B
+Mailbox_RecordAddrs_4E2B:: ; 25:4E2B
+Table_25_4E2B::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4E43-$4F28 (229 bytes) [CONFIRMED] 125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code) | upgraded by classifier 6: all 125 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
-Function_25_4E43:: ; 25:4E43
+Mailbox_DrawRowTitles:: ; 25:4E43
 	push bc
 	ld de, $0300
 	ld a, $00
@@ -1913,7 +1919,7 @@ Label_25_4E4F:: ; 25:4E4F
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4F28
+	ld hl, Mailbox_RecordAddrs_4F28
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -1923,7 +1929,7 @@ Label_25_4E4F:: ; 25:4E4F
 	ld de, $1020
 	pop bc
 	ld a, $14
-	call Function_25_5240
+	call Mailbox_DrawTextLine
 	pop bc
 	push bc
 	ld de, $0300
@@ -1946,7 +1952,7 @@ Label_25_4E88:: ; 25:4E88
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4F28
+	ld hl, Mailbox_RecordAddrs_4F28
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -1956,7 +1962,7 @@ Label_25_4E88:: ; 25:4E88
 	pop bc
 	ld de, $1C20
 	ld a, $14
-	call Function_25_5240
+	call Mailbox_DrawTextLine
 	pop bc
 	push bc
 	ld de, $0300
@@ -1979,7 +1985,7 @@ Label_25_4EC1:: ; 25:4EC1
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4F28
+	ld hl, Mailbox_RecordAddrs_4F28
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -1989,7 +1995,7 @@ Label_25_4EC1:: ; 25:4EC1
 	pop bc
 	ld de, $2820
 	ld a, $14
-	call Function_25_5240
+	call Mailbox_DrawTextLine
 	pop bc
 	push bc
 	ld de, $0300
@@ -2012,7 +2018,7 @@ Label_25_4EFA:: ; 25:4EFA
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $4F28
+	ld hl, Mailbox_RecordAddrs_4F28
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -2022,26 +2028,27 @@ Label_25_4EFA:: ; 25:4EFA
 	pop bc
 	ld de, $3420
 	ld a, $14
-	call Function_25_5240
+	call Mailbox_DrawTextLine
 	pop bc
 	ret
 
 ; ---- words $4F28-$4F40 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E67/4EA0/4ED9/4F12
 
-Table_25_4F28:: ; 25:4F28
+Mailbox_RecordAddrs_4F28:: ; 25:4F28
+Table_25_4F28::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $4F40-$50AA (362 bytes) [CONFIRMED] 254 insn(s) reached by static flow only; seeds: exec x254; min discovery hops 7; entered by call from 25:48DD (PROBABLE code) | upgraded by classifier 6: all 254 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
-Function_25_4F40:: ; 25:4F40
+Mailbox_DrawTimestamp:: ; 25:4F40
 	push bc
 	ld a, b
 	add a, c
 	sla a
 	ld c, a
 	ld b, $00
-	ld hl, $50AA
+	ld hl, Mailbox_RecordAddrs_50AA
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2296,20 +2303,22 @@ Label_25_4F7E:: ; 25:4F7E
 
 ; ---- words $50AA-$50C2 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4F48
 
-Table_25_50AA:: ; 25:50AA
+Mailbox_RecordAddrs_50AA:: ; 25:50AA
+Table_25_50AA::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $50C2-$5228 (358 bytes) [CONFIRMED] 251 insn(s); 251 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_25_50C2:: ; 25:50C2
+Mailbox_ClearTimestamp:: ; 25:50C2
+Function_25_50C2::
 	push bc
 	ld a, b
 	add a, c
 	sla a
 	ld c, a
 	ld b, $00
-	ld hl, $5228
+	ld hl, Mailbox_RecordAddrs_5228
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2559,13 +2568,14 @@ Label_25_50E3:: ; 25:50E3
 
 ; ---- words $5228-$5240 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
 
-Table_25_5228:: ; 25:5228
+Mailbox_RecordAddrs_5228:: ; 25:5228
+Table_25_5228::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $5240-$534C (268 bytes) [PROBABLE] 145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
 
-Function_25_5240:: ; 25:5240
+Mailbox_DrawTextLine:: ; 25:5240
 	ld [wRam_C2EE], a
 
 Label_25_5243:: ; 25:5243
@@ -2579,7 +2589,7 @@ Label_25_5243:: ; 25:5243
 	cp a, $00
 	jr z, Label_25_52CA
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_25_52A8
 	ld a, [wRam_C2EE]
@@ -2600,17 +2610,17 @@ Label_25_526B:: ; 25:526B
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_25_52EA
+	call Mailbox_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2632,11 +2642,11 @@ Label_25_52A8:: ; 25:52A8
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_25_52EA
+	call Mailbox_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -2650,7 +2660,7 @@ Label_25_52CA:: ; 25:52CA
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -2661,15 +2671,15 @@ Label_25_52DB:: ; 25:52DB
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_25_52EA
+	call Mailbox_BlitGlyphAdvance
 	jr Label_25_52DB
 
-Function_25_52EA:: ; 25:52EA
+Mailbox_BlitGlyphAdvance:: ; 25:52EA
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2678,10 +2688,10 @@ Function_25_52EA:: ; 25:52EA
 	ld e, a
 	ret
 
-Function_25_52FE:: ; 25:52FE
+Mailbox_DrawMailCount:: ; 25:52FE
 	push bc
 	push de
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $0C
 	jr nz, Label_25_530E
@@ -2738,7 +2748,8 @@ Label_25_5327:: ; 25:5327
 
 ; ---- code $534C-$53D0 (132 bytes) [CONFIRMED] 68 insn(s); 68 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_25_534C:: ; 25:534C
+Mailbox_UploadTextTiles:: ; 25:534C
+Function_25_534C::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2749,25 +2760,25 @@ Function_25_534C:: ; 25:534C
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_25_538A
+	call Gfx_StartHDMAAtVBlank
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_25_538A
+	call Gfx_StartHDMAAtVBlank
 	ld hl, $D800
 	ld de, $8800
 	ld c, $3F
-	call Function_25_538A
+	call Gfx_StartHDMAAtVBlank
 	ld hl, $DC00
 	ld de, $8C00
 	ld c, $07
-	call Function_25_538A
+	call Gfx_StartHDMAAtVBlank
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_25_538A:: ; 25:538A
+Gfx_StartHDMAAtVBlank:: ; 25:538A
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2793,14 +2804,14 @@ Label_25_53A0:: ; 25:53A0
 	ldh [rHDMA5], a
 	ret
 
-Function_25_53AA:: ; 25:53AA
+Mailbox_ShowHint:: ; 25:53AA
 	push bc
 	push de
 	inc d
 	ld e, d
 	ld d, $00
 	sla e
-	ld hl, $53D0
+	ld hl, Mailbox_HintTable
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -2811,40 +2822,47 @@ Function_25_53AA:: ; 25:53AA
 	ld a, $25
 	ld bc, $DA00
 	ld de, $DB40
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	pop de
 	pop bc
 	ret
 
 ; ---- ptrtable $53D0-$53DA (10 bytes) [PROBABLE] 5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 
-Table_25_53D0:: ; 25:53D0
-	dw String_25_53DA
-	dw $5403
-	dw $542C
-	dw $5455
-	dw $547E
+Mailbox_HintTable:: ; 25:53D0
+Table_25_53D0::
+	dw Mailbox_Hint_SelectMail
+	dw Mailbox_Hint_Read
+	dw Mailbox_Hint_Reply
+	dw Mailbox_Hint_Delete
+	dw Mailbox_Hint_NoMail
 
 ; ---- text $53DA-$54A7 (205 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_25_53DA:: ; 25:53DA
-	db $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $B9
-	db $82, $F1, $82, $BD, $82, $AD, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3
-	db $82, $A2, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $82
-	db $E0, $82, $E7, $82, $C1, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81
-	db $40, $82, $E6, $82, $DD, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B
-	db $82, $C9, $81, $40, $82, $D6, $82, $F1, $82, $B6, $82, $F0, $82, $A9, $82, $AB
-	db $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81
-	db $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81
-	db $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $83, $81
-	db $81, $5B, $83, $8B, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9
-	db $82, $F1, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00
+Mailbox_Hint_SelectMail:: ; 25:53DA
+String_25_53DA::
+	db $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $B9, $82, $F1, $82, $BD, $82, $AD, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2 ; "　　メールを　せんたくしてください"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+Mailbox_Hint_Read:: ; 25:5403
+	db $81, $40, $81, $40, $81, $40, $82, $E0, $82, $E7, $82, $C1, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $E6, $82, $DD, $82, $DC, $82, $B7, $81, $40 ; "　　　もらったメールを　よみます　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+Mailbox_Hint_Reply:: ; 25:542C
+	db $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $C9, $81, $40, $82, $D6, $82, $F1, $82, $B6, $82, $F0, $82, $A9, $82, $AB, $82, $DC, $82, $B7 ; "　　このメールに　へんじをかきます"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+Mailbox_Hint_Delete:: ; 25:5455
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "　　　　このメールを　けします　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+Mailbox_Hint_NoMail:: ; 25:547E
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $40, $81, $40 ; "　　　　　メールが　ありません　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- code $54A7-$5569 (194 bytes) [PROBABLE] 105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code)
 
-Function_25_54A7:: ; 25:54A7
+Mailbox_ReplyToRecord:: ; 25:54A7
 	ld a, c
 	add a, b
 	ld b, a
@@ -2880,7 +2898,7 @@ Label_25_54C5:: ; 25:54C5
 	ld c, b
 	ld b, $00
 	sla c
-	ld hl, $5569
+	ld hl, Mailbox_RecordAddrs_5569
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2930,7 +2948,7 @@ Label_25_5525:: ; 25:5525
 	ld a, $01
 
 Label_25_5527:: ; 25:5527
-	farcall Function_2D_65B0
+	farcall MailAddr_Edit
 	cp a, $FF
 	jr z, Label_25_555C
 	xor a, a
@@ -2940,10 +2958,10 @@ Label_25_5534:: ; 25:5534
 	ld a, $01
 
 Label_25_5536:: ; 25:5536
-	farcall Function_2C_4000
+	farcall MailTitle_Entry
 	cp a, $FF
 	jr z, Label_25_5525
-	farcall Function_2D_4722
+	farcall MailBody_Edit
 	cp a, $FF
 	jr z, Label_25_5534
 	cp a, $00
@@ -2969,13 +2987,14 @@ Label_25_555C:: ; 25:555C
 
 ; ---- words $5569-$5581 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:54E2
 
-Table_25_5569:: ; 25:5569
+Mailbox_RecordAddrs_5569:: ; 25:5569
+Table_25_5569::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $5581-$5871 (752 bytes) [CONFIRMED] 310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code) | upgraded by classifier 6: all 310 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
-Function_25_5581:: ; 25:5581
+Mailbox_ShowRowNumbers:: ; 25:5581
 	push de
 	push bc
 	ld c, b
@@ -3013,7 +3032,7 @@ Label_25_559A:: ; 25:559A
 	call Function_00_0A65
 	pop bc
 	push bc
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
 	jr z, Label_25_563E
@@ -3067,7 +3086,7 @@ Label_25_563E:: ; 25:563E
 	pop de
 	ret
 
-Function_25_5641:: ; 25:5641
+Mailbox_ShowRowStatusIcons:: ; 25:5641
 	push de
 	push bc
 	ld de, $38D0
@@ -3084,7 +3103,7 @@ Function_25_5641:: ; 25:5641
 	call Function_00_0A65
 	pop bc
 	push bc
-	call Function_25_4A90
+	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
 	jp z, Label_25_5755
@@ -3320,7 +3339,7 @@ Function_25_5848:: ; 25:5848
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $5871
+	ld hl, Mailbox_RecordAddrs_5871
 	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
@@ -3339,20 +3358,21 @@ Label_25_586F:: ; 25:586F
 
 ; ---- words $5871-$5889 (24 bytes) [PROBABLE] 12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:585C
 
-Table_25_5871:: ; 25:5871
+Mailbox_RecordAddrs_5871:: ; 25:5871
+Table_25_5871::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $5889-$58E7 (94 bytes) [CONFIRMED] 62 insn(s) reached by static flow only; seeds: exec x62; min discovery hops 3; entered by call from 25:40C5 (PROBABLE code) | upgraded by classifier 6: all 62 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 
-Function_25_5889:: ; 25:5889
+Mailbox_SetIconBarAttrs:: ; 25:5889
 	push bc
 	push de
 	push hl
 	sla a
 	ld c, a
 	ld b, $00
-	ld hl, $58E7
+	ld hl, Mailbox_IconBarAttrTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -3421,14 +3441,16 @@ Label_25_58DD:: ; 25:58DD
 
 ; ---- ptrtable $58E7-$58ED (6 bytes) [PROBABLE] 3 pointers to the 48-byte attribute blocks at 25:58ED/591D/594D; read by 25:5891 (sla a; ld c,a; ld hl,$58E7; add hl,bc; ld a,[hli]; ld c,a; ld h,[hl]; ld l,c)
 
-Table_25_58E7:: ; 25:58E7
-	dw Data_25_58ED
+Mailbox_IconBarAttrTable:: ; 25:58E7
+Table_25_58E7::
+	dw Mailbox_IconBarAttrs
 	dw $591D
 	dw $594D
 
 ; ---- data $58ED-$5A0D (288 bytes) [PROBABLE] 12 rows of 24 bytes (20 used + 4 zero pad): BG attribute bytes ($09/$0B/$0C/$29 = palette+VRAM-bank-1 flags; values as in the attribute half of the rect-copy maps); 25:5889 copies 20 bytes per row to VRAM bank 1 $99C0/$99E0 and WRAM7 $D5C0/$D5E0; blocks 58ED/591D/594D are addressed through Table_25_58E7, 597D..59F5 have no table entry (unreferenced HYPOTHESIS). Replaces the mapper heuristic gfx region 58F0-5C40 (the real tile load starts at 5A10)
 
-Data_25_58ED:: ; 25:58ED
+Mailbox_IconBarAttrs:: ; 25:58ED
+Data_25_58ED::
 	db $29, $29, $29, $29, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $0B, $0B
 	db $09, $09, $09, $09, $00, $00, $00, $00, $29, $09, $09, $09, $0B, $0B, $09, $09
 	db $09, $0B, $0B, $09, $09, $09, $0B, $0B, $09, $09, $09, $09, $00, $00, $00, $00
@@ -3453,7 +3475,8 @@ Data_25_58ED:: ; 25:58ED
 
 ; ---- gfx $5A10-$5E10 (1024 bytes) [CONFIRMED] 64 tiles: executed 00:0749 HDMA load at 25:4B5C (hl=$5A10 a=$25 c=$40 de=$9301 = VRAM bank 1 $9300); loader semantic documented in boot_and_home.md
 
-Tiles_25_5A10:: ; 25:5A10
+Mailbox_Tiles_5A10:: ; 25:5A10
+Tiles_25_5A10::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00
 	db $80, $00, $7F, $3F, $78, $40, $77, $47, $6F, $48, $5F, $52, $5F, $54, $5F, $54
@@ -3521,7 +3544,8 @@ Tiles_25_5A10:: ; 25:5A10
 
 ; ---- gfx $5E10-$5F10 (256 bytes) [CONFIRMED] 16 tiles: executed 00:0749 HDMA load at 25:4B71 (hl=$5E10 a=$25 c=$10 de=$9701 = VRAM bank 1 $9700)
 
-Tiles_25_5E10:: ; 25:5E10
+Mailbox_Tiles_5E10:: ; 25:5E10
+Tiles_25_5E10::
 	db $FE, $03, $FF, $01, $FF, $FF, $02, $FF, $02, $FF, $FF, $FD, $FF, $00, $FF, $00
 	db $A7, $FC, $E7, $7C, $C7, $FD, $06, $FF, $0E, $FB, $FF, $F1, $FF, $00, $FF, $00
 	db $CF, $7F, $C8, $7F, $88, $FF, $1E, $F7, $3E, $E3, $FF, $C1, $FF, $00, $FF, $00
@@ -3541,7 +3565,8 @@ Tiles_25_5E10:: ; 25:5E10
 
 ; ---- gfx $5F10-$6310 (1024 bytes) [PROBABLE] 64 tiles: 00:0749 HDMA load at 25:4C04 (hl=$5F10 a=$25 c=$40 de=$9301, VRAM bank 1 $9300); the call site is static-reached code (PROBABLE), same layout as the executed 25:4B5C load; tile art coherence h=0.566 v=0.564 over 64 tiles
 
-Tiles_25_5F10:: ; 25:5F10
+Mailbox_Tiles_5F10:: ; 25:5F10
+Tiles_25_5F10::
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00, $FE, $00
 	db $80, $00, $7F, $3F, $78, $40, $77, $47, $6F, $48, $5F, $52, $5F, $54, $5F, $54
@@ -3609,7 +3634,8 @@ Tiles_25_5F10:: ; 25:5F10
 
 ; ---- gfx $6310-$6410 (256 bytes) [PROBABLE] 16 tiles: 00:0749 HDMA load at 25:4C19 (hl=$6310 a=$25 c=$10 de=$9701, VRAM bank 1 $9700); static-reached site; ends exactly where the tilemap load 25:6410 starts
 
-Tiles_25_6310:: ; 25:6310
+Mailbox_Tiles_6310:: ; 25:6310
+Tiles_25_6310::
 	db $FE, $03, $FF, $01, $FF, $FF, $02, $FF, $02, $FF, $FF, $FD, $FF, $00, $FF, $00
 	db $A7, $FC, $E7, $7C, $C7, $FD, $06, $FF, $0E, $FB, $FF, $F1, $FF, $00, $FF, $00
 	db $CF, $7F, $C8, $7F, $88, $FF, $1E, $F7, $3E, $E3, $FF, $C1, $FF, $00, $FF, $00
@@ -3629,7 +3655,8 @@ Tiles_25_6310:: ; 25:6310
 
 ; ---- data $6410-$66E0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4BC4: hl=$6410 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_25_6410:: ; 25:6410
+Mailbox_Tilemap_Normal:: ; 25:6410
+Data_25_6410::
 	db $31, $3E, $30, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $4A, $4B, $4C
 	db $4D, $30, $3E, $31, $7D, $3F, $4E, $50, $51, $52, $53, $54, $55, $56, $57, $58
 	db $59, $5A, $5B, $5C, $5D, $4E, $3F, $7D, $65, $5E, $66, $66, $66, $66, $66, $66
@@ -3678,7 +3705,8 @@ Data_25_6410:: ; 25:6410
 
 ; ---- data $66E0-$69B0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 25:4C6C: hl=$66E0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_25_66E0:: ; 25:66E0
+Mailbox_Tilemap_DeleteSelect:: ; 25:66E0
+Data_25_66E0::
 	db $31, $4F, $6E, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $4A, $4B, $4C
 	db $4D, $4E, $4F, $31, $7D, $5F, $7E, $50, $51, $52, $53, $54, $55, $56, $57, $58
 	db $59, $5A, $5B, $5C, $5D, $5E, $5F, $7D, $65, $EA, $66, $66, $66, $66, $66, $66
@@ -3727,7 +3755,8 @@ Data_25_66E0:: ; 25:66E0
 
 ; ---- data $69B0-$69E0 (48 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
 
-Data_25_69B0:: ; 25:69B0
+Mailbox_BgPalette:: ; 25:69B0
+Data_25_69B0::
 	db $FF, $7F, $6C, $7F, $FF, $7F, $00, $00, $00, $00, $5F, $02, $D7, $00, $FF, $7F
 	db $00, $00, $5F, $02, $0B, $00, $FF, $7F, $0D, $10, $D7, $00, $D7, $00, $3F, $46
 	db $00, $00, $0D, $17, $F7, $00, $FF, $7F, $2A, $10, $BC, $01, $D7, $00, $FF, $7F
@@ -3736,6 +3765,8 @@ Data_25_69B0:: ; 25:69B0
 
 Data_25_69E0:: ; 25:69E0
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+Mailbox_Tiles_69F0:: ; 25:69F0
 	db $F8, $00, $F8, $70, $F0, $40, $E0, $40, $C0, $00, $00, $00, $00, $00, $00, $00
 	db $00, $3F, $0C, $7F, $1C, $7F, $0C, $7F, $0C, $7F, $0C, $7F, $0C, $7F, $00, $3F
 	db $00, $3F, $1C, $7F, $36, $7F, $06, $7F, $0C, $7F, $18, $7F, $3E, $7F, $00, $3F
@@ -3792,31 +3823,34 @@ Data_25_6BD1:: ; 25:6BD1
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $81
-	db $7E, $7E, $BD, $66, $FF, $66, $FF, $66, $FF, $66, $FF, $7E, $BD, $81, $7E, $83
-	db $7C, $BB, $7C, $9B, $7C, $DB, $3C, $DB, $3C, $DB, $3C, $DB, $3C, $C3, $3C, $01
-	db $FE, $7E, $FD, $06, $FF, $7E, $BD, $71, $EE, $60, $FF, $7E, $FF, $00, $FF, $01
-	db $FE, $7E, $FD, $06, $FF, $BE, $7D, $86, $7F, $06, $FF, $7E, $FD, $01, $FE, $C1
-	db $3E, $9D, $7E, $3D, $EE, $6D, $FE, $6C, $FF, $7E, $FF, $0C, $FF, $E1, $1E, $00
-	db $FF, $7E, $FF, $60, $FF, $7E, $FD, $06, $FF, $06, $FF, $7E, $FD, $01, $FE, $81
-	db $7E, $7D, $BE, $61, $FE, $7E, $FD, $66, $FF, $66, $FF, $7E, $BD, $81, $7E, $00
-	db $FF, $7E, $FF, $06, $FF, $CE, $3D, $DD, $3A, $DB, $3C, $DB, $3C, $C3, $3C, $81
-	db $7E, $7E, $BD, $66, $FF, $7E, $BD, $66, $FF, $66, $FF, $7E, $BD, $81, $7E, $81
-	db $7E, $7E, $BD, $66, $FF, $66, $FF, $7E, $BF, $86, $7F, $BE, $7D, $81, $7E, $29
-	db $FE, $44, $FF, $FE, $FF, $24, $FF, $A5, $7E, $25, $FE, $6D, $DE, $03, $FC, $D4
-	db $FF, $3E, $FF, $C8, $FF, $7E, $FF, $48, $FF, $56, $FF, $FE, $FF, $00, $FF, $80
-	db $FF, $FE, $FF, $88, $FF, $7E, $FF, $48, $FF, $FE, $FF, $08, $FF, $E3, $1C, $00
-	db $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $7E, $FF, $C2, $FF, $18, $E7, $00
-	db $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $42, $FF, $7E, $FF, $00, $FF, $04
-	db $FF, $EE, $FF, $BF, $FF, $E2, $FF, $BF, $FF, $AA, $FF, $E6, $FF, $00, $FF, $00
-	db $00, $38, $7D, $6C, $6D, $6C, $6D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
-	db $00, $38, $BB, $18, $9B, $18, $DB, $18, $DB, $18, $DB, $18, $DB, $00, $00, $00
-	db $00, $78, $7D, $0C, $0D, $38, $7D, $60, $71, $60, $61, $7C, $7D, $00, $00, $00
-	db $00, $78, $7D, $0C, $0D, $38, $BD, $0C, $8D, $0C, $0D, $78, $7D, $00, $00, $00
-	db $00, $1C, $9D, $2C, $3D, $6C, $6D, $6C, $6C, $7E, $7E, $0C, $0C, $00, $00, $00
-	db $00, $7C, $7D, $60, $61, $78, $7D, $0C, $0D, $0C, $0D, $78, $7D, $00, $00, $00
-	db $00, $38, $7B, $60, $63, $78, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00, $00
-	db $00, $7C, $7D, $0C, $0D, $18, $DD, $30, $BB, $30, $B7, $30, $B7, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+Mailbox_Tiles_6CF0:: ; 25:6CF0
+	db $81, $7E, $7E, $BD, $66, $FF, $66, $FF, $66, $FF, $66, $FF, $7E, $BD, $81, $7E
+	db $83, $7C, $BB, $7C, $9B, $7C, $DB, $3C, $DB, $3C, $DB, $3C, $DB, $3C, $C3, $3C
+	db $01, $FE, $7E, $FD, $06, $FF, $7E, $BD, $71, $EE, $60, $FF, $7E, $FF, $00, $FF
+	db $01, $FE, $7E, $FD, $06, $FF, $BE, $7D, $86, $7F, $06, $FF, $7E, $FD, $01, $FE
+	db $C1, $3E, $9D, $7E, $3D, $EE, $6D, $FE, $6C, $FF, $7E, $FF, $0C, $FF, $E1, $1E
+	db $00, $FF, $7E, $FF, $60, $FF, $7E, $FD, $06, $FF, $06, $FF, $7E, $FD, $01, $FE
+	db $81, $7E, $7D, $BE, $61, $FE, $7E, $FD, $66, $FF, $66, $FF, $7E, $BD, $81, $7E
+	db $00, $FF, $7E, $FF, $06, $FF, $CE, $3D, $DD, $3A, $DB, $3C, $DB, $3C, $C3, $3C
+	db $81, $7E, $7E, $BD, $66, $FF, $7E, $BD, $66, $FF, $66, $FF, $7E, $BD, $81, $7E
+	db $81, $7E, $7E, $BD, $66, $FF, $66, $FF, $7E, $BF, $86, $7F, $BE, $7D, $81, $7E
+	db $29, $FE, $44, $FF, $FE, $FF, $24, $FF, $A5, $7E, $25, $FE, $6D, $DE, $03, $FC
+	db $D4, $FF, $3E, $FF, $C8, $FF, $7E, $FF, $48, $FF, $56, $FF, $FE, $FF, $00, $FF
+	db $80, $FF, $FE, $FF, $88, $FF, $7E, $FF, $48, $FF, $FE, $FF, $08, $FF, $E3, $1C
+	db $00, $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $7E, $FF, $C2, $FF, $18, $E7
+	db $00, $FF, $7E, $FF, $42, $FF, $7E, $FF, $42, $FF, $42, $FF, $7E, $FF, $00, $FF
+	db $04, $FF, $EE, $FF, $BF, $FF, $E2, $FF, $BF, $FF, $AA, $FF, $E6, $FF, $00, $FF
+	db $00, $00, $38, $7D, $6C, $6D, $6C, $6D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00
+	db $00, $00, $38, $BB, $18, $9B, $18, $DB, $18, $DB, $18, $DB, $18, $DB, $00, $00
+	db $00, $00, $78, $7D, $0C, $0D, $38, $7D, $60, $71, $60, $61, $7C, $7D, $00, $00
+	db $00, $00, $78, $7D, $0C, $0D, $38, $BD, $0C, $8D, $0C, $0D, $78, $7D, $00, $00
+	db $00, $00, $1C, $9D, $2C, $3D, $6C, $6D, $6C, $6C, $7E, $7E, $0C, $0C, $00, $00
+	db $00, $00, $7C, $7D, $60, $61, $78, $7D, $0C, $0D, $0C, $0D, $78, $7D, $00, $00
+	db $00, $00, $38, $7B, $60, $63, $78, $7D, $6C, $6D, $6C, $6D, $38, $7D, $00, $00
+	db $00, $00, $7C, $7D, $0C, $0D, $18, $DD, $30, $BB, $30, $B7, $30, $B7, $00, $00
+	db $00
 
 ; ---- data $6E71-$6EF6 (133 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 69B0-7730 by higher-priority evidence]
 
@@ -3828,8 +3862,10 @@ Data_25_6E71:: ; 25:6E71
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $00
-	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF, $45
-	db $73, $00, $00, $4A, $29
+	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00, $00, $FF
+
+Mailbox_ObjPalette:: ; 25:6EF0
+	db $45, $73, $00, $00, $4A, $29
 
 ; ---- data $6EF6-$6F2E (56 bytes) [PROBABLE] palette-rgb555: heuristic: 28 RGB555 words as 7 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
@@ -3846,7 +3882,8 @@ Data_25_6F2E:: ; 25:6F2E
 
 ; ---- gfx $6F30-$7330 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4662: hl=$6F30 a=$25 c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_25_6F30:: ; 25:6F30
+MailServerStatus_Tiles_6F30:: ; 25:6F30
+Data_25_6F30::
 	db $C0, $3F, $90, $60, $20, $C0, $00, $C0, $00, $C0, $00, $C0, $00, $C0, $00, $C0
 	db $03, $FF, $04, $04, $04, $05, $3C, $1D, $20, $21, $20, $2F, $20, $2F, $20, $21
 	db $C0, $FF, $20, $20, $20, $A0, $20, $A0, $20, $A0, $3F, $BF, $00, $80, $00, $F7
@@ -3914,7 +3951,8 @@ Data_25_6F30:: ; 25:6F30
 
 ; ---- gfx $7330-$7730 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 29:4674: hl=$7330 a=$25 c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-Data_25_7330:: ; 25:7330
+MailServerStatus_Tiles_7330:: ; 25:7330
+Data_25_7330::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $21, $39, $19, $19, $48, $48
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $08, $C8, $08, $C8, $8F, $CF
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $02, $13, $12, $13, $92, $93
@@ -3982,7 +4020,8 @@ Data_25_7330:: ; 25:7330
 
 ; ---- data $7730-$7A00 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:46B0: hl=$7730 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_25_7730:: ; 25:7730
+MailServerStatus_Tilemap_Received:: ; 25:7730
+Data_25_7730::
 	db $8E, $8F, $A2, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C
 	db $8D, $A2, $A0, $8E, $9E, $9F, $B2, $90, $91, $92, $93, $94, $95, $96, $97, $98
 	db $99, $9A, $9B, $9C, $9D, $B2, $A1, $9E, $B0, $B1, $C7, $C7, $C7, $C7, $C7, $C7
@@ -4031,7 +4070,8 @@ Data_25_7730:: ; 25:7730
 
 ; ---- data $7A00-$7CD0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:46C4: hl=$7A00 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_25_7A00:: ; 25:7A00
+MailServerStatus_Tilemap_NoneReceived:: ; 25:7A00
+Data_25_7A00::
 	db $8E, $8F, $A2, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C
 	db $8D, $A2, $A0, $8E, $9E, $9F, $B2, $90, $91, $92, $93, $94, $95, $96, $97, $98
 	db $99, $9A, $9B, $9C, $9D, $B2, $A1, $9E, $B0, $B1, $C7, $C7, $C7, $C7, $C7, $C7
@@ -4080,7 +4120,8 @@ Data_25_7A00:: ; 25:7A00
 
 ; ---- data $7CD0-$7FA0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 29:46D8: hl=$7CD0 a=$25 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_25_7CD0:: ; 25:7CD0
+MailServerStatus_Tilemap_ServerMgmt:: ; 25:7CD0
+Data_25_7CD0::
 	db $8E, $8F, $A2, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $8A, $8B, $8C
 	db $8D, $A2, $A0, $8E, $9E, $9F, $B2, $90, $91, $92, $93, $94, $95, $96, $97, $98
 	db $99, $9A, $9B, $9C, $9D, $B2, $A1, $9E, $B0, $B1, $C7, $C7, $C7, $C7, $C7, $C7

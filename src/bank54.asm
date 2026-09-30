@@ -9,7 +9,8 @@ SECTION "Bank54", ROMX[$4000], BANK[$54]
 
 ; ---- code $4000-$4011 (17 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_4000:: ; 54:4000
+Mobile_ResetCommandTimer:: ; 54:4000
+Function_54_4000::
 	ld a, $05
 	ld [wRam_C26D], a
 	ld hl, $C266
@@ -23,7 +24,7 @@ Function_54_4000:: ; 54:4000
 
 ; ---- code $4011-$403D (44 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code) [executed in 4 scenarios]
 
-Function_54_4011:: ; 54:4011
+Mobile_FetchResult:: ; 54:4011
 	ld a, $00
 	farcall MobileAPI
 	ld b, a
@@ -51,7 +52,8 @@ Function_54_4011:: ; 54:4011
 
 ; ---- code $403D-$406B (46 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_403D:: ; 54:403D
+Mobile_SessionInit:: ; 54:403D
+Function_54_403D::
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -67,7 +69,7 @@ Function_54_403D:: ; 54:403D
 	farcall MobileAPI
 	ret
 
-Function_54_405D:: ; 54:405D
+Mobile_ConnectPoll:: ; 54:405D
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_406B
@@ -79,7 +81,7 @@ Function_54_405D:: ; 54:405D
 ; ---- code $406B-$4071 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4062 (executed)
 
 Label_54_406B:: ; 54:406B
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -158,12 +160,12 @@ Label_54_40D1:: ; 54:40D1
 	dec b
 	jr nz, Label_54_40D1
 	ld de, $C240
-	farcall Function_67_5F54
+	farcall Net_CopyDefaultDnsPair
 	pop de
 	inc de
-	ld hl, $413B
+	ld hl, String_Mobile_GuestLogin
 	farcall CopyString
-	ld hl, $413B
+	ld hl, String_Mobile_GuestLogin
 	farcall CopyString
 	ld a, $3E
 	ld hl, $C240
@@ -174,7 +176,7 @@ Label_54_40D1:: ; 54:40D1
 Label_54_4102:: ; 54:4102
 	dec a
 	ld hl, $C480
-	farcall Function_68_4469
+	farcall Dial_SelectEntryFromList
 	ld de, $C240
 	farcall CopyString
 	ld hl, $C1E0
@@ -195,12 +197,14 @@ Label_54_4135:: ; 54:4135
 
 ; ---- data $413B-$4141 (6 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_54_413B:: ; 54:413B
+String_Mobile_GuestLogin:: ; 54:413B
+Data_54_413B::
 	db $67, $75, $65, $73, $74, $00
 
 ; ---- code $4141-$415A (25 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_4141:: ; 54:4141
+Mobile_BeginConnect:: ; 54:4141
+Function_54_4141::
 	ld a, c
 	ld [wRam_C1D2], a
 	ld a, $03
@@ -237,7 +241,7 @@ Label_54_4176:: ; 54:4176
 	farcall MobileAPI
 	ret
 
-Function_54_418C:: ; 54:418C
+Mobile_BeginDisconnect:: ; 54:418C
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -248,7 +252,7 @@ Function_54_418C:: ; 54:418C
 	farcall MobileAPI
 	ret
 
-Function_54_41A3:: ; 54:41A3
+Mobile_DisconnectPoll:: ; 54:41A3
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_41B1
@@ -260,7 +264,7 @@ Function_54_41A3:: ; 54:41A3
 ; ---- code $41B1-$41B7 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:41A8 (executed) [executed in 5 scenarios]
 
 Label_54_41B1:: ; 54:41B1
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -275,6 +279,8 @@ Label_54_41B7:: ; 54:41B7
 	ret
 
 ; ---- code $41C5-$41FB (54 bytes) [PROBABLE] 25 insn(s): start of the function that ends in the FarCall sites at 54:41FB-4274 (writes WRAM $C1D8/$C1D9/$C1DB, tests bits of $C69F, register setup ld de,$C480 ; ld bc,0 ; ld a,$28 for the FarCall at 41FB); contains the branches to 4204/4215/422E classified below; follows the ret at 41C4; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+
+Function_54_41C5:: ; 54:41C5
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -294,7 +300,7 @@ Label_54_41B7:: ; 54:41B7
 	ret
 
 Label_54_41E6:: ; 54:41E6
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -358,7 +364,8 @@ Label_54_422E:: ; 54:422E
 
 ; ---- code $423C-$4274 (56 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_423C:: ; 54:423C
+Mobile_BeginCancel:: ; 54:423C
+Function_54_423C::
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -382,7 +389,7 @@ Label_54_425A:: ; 54:425A
 	ld [wTimerEnable], a
 	ret
 
-Function_54_4266:: ; 54:4266
+Mobile_CancelPoll:: ; 54:4266
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_4274
@@ -394,7 +401,7 @@ Function_54_4266:: ; 54:4266
 ; ---- code $4274-$427A (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:426B (executed)
 
 Label_54_4274:: ; 54:4274
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -408,7 +415,7 @@ Label_54_427A:: ; 54:427A
 	ld [hl], a
 	ret
 
-Function_54_4288:: ; 54:4288
+Http_StartGet:: ; 54:4288
 	ld a, l
 	ld [wRam_C1D6], a
 	ld a, h
@@ -430,7 +437,7 @@ Function_54_4288:: ; 54:4288
 	ld [wRam_C1DC], a
 	push de
 	push hl
-	call Function_54_42E4
+	call Url_EnsurePath
 	pop hl
 	ld de, $C240
 	xor a, a
@@ -454,7 +461,7 @@ Function_54_4288:: ; 54:4288
 	farcall MobileAPI
 	ret
 
-Function_54_42E4:: ; 54:42E4
+Url_EnsurePath:: ; 54:42E4
 	ld e, $00
 
 Label_54_42E6:: ; 54:42E6
@@ -480,7 +487,8 @@ Label_54_42F1:: ; 54:42F1
 
 ; ---- code $42FB-$437C (129 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_42FB:: ; 54:42FB
+Http_StartPost:: ; 54:42FB
+Function_54_42FB::
 	ld a, l
 	ld [wRam_C1D6], a
 	ld a, h
@@ -502,7 +510,7 @@ Function_54_42FB:: ; 54:42FB
 	ld [wRam_C1DC], a
 	push de
 	push hl
-	call Function_54_42E4
+	call Url_EnsurePath
 	pop hl
 	ld de, $C244
 	xor a, a
@@ -526,7 +534,7 @@ Function_54_42FB:: ; 54:42FB
 	farcall MobileAPI
 	ret
 
-Function_54_4357:: ; 54:4357
+Http_Poll:: ; 54:4357
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_436B
@@ -582,7 +590,7 @@ Label_54_4393:: ; 54:4393
 	ld [wRam_C1D8], a
 
 Label_54_43A8:: ; 54:43A8
-	call Function_54_4417
+	call Url_ResolveLocation
 	ld hl, $C1D2
 	ld a, [hli]
 	ld c, a
@@ -647,7 +655,7 @@ Label_54_4409:: ; 54:4409
 	ld [wRam_C1DC], a
 	ret
 
-Function_54_4417:: ; 54:4417
+Url_ResolveLocation:: ; 54:4417
 	ld l, c
 	ld h, b
 	ld a, [hli]
@@ -729,7 +737,7 @@ Label_54_4479:: ; 54:4479
 	ld d, h
 	jr Label_54_4466
 
-Function_54_4483:: ; 54:4483
+Mobile_BeginStop:: ; 54:4483
 	ld a, [wRam_C709]
 	cp a, $02
 	ret z
@@ -737,7 +745,7 @@ Function_54_4483:: ; 54:4483
 	farcall MobileAPI
 	ret
 
-Function_54_4492:: ; 54:4492
+Mobile_StopPoll:: ; 54:4492
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_44A0
@@ -747,7 +755,7 @@ Function_54_4492:: ; 54:4492
 	ret
 
 Label_54_44A0:: ; 54:44A0
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -759,7 +767,8 @@ Label_54_44A6:: ; 54:44A6
 
 ; ---- code $44AC-$44BF (19 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_44AC:: ; 54:44AC
+Mobile_CheckTimeout:: ; 54:44AC
+Function_54_44AC::
 	ld a, [wRam_C1DA]
 	or a, a
 	jr nz, Label_54_44D7
@@ -816,12 +825,12 @@ Label_54_44E6:: ; 54:44E6
 	ret
 
 Label_54_44F8:: ; 54:44F8
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
-Function_54_44FE:: ; 54:44FE
-	call Function_54_4000
+Smtp_StartHelo:: ; 54:44FE
+	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -833,8 +842,8 @@ Function_54_44FE:: ; 54:44FE
 	farcall MobileAPI
 	ret
 
-Function_54_451B:: ; 54:451B
-	call Function_54_44AC
+Smtp_HeloPoll:: ; 54:451B
+	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_452C
@@ -844,7 +853,7 @@ Function_54_451B:: ; 54:451B
 	ret
 
 Label_54_452C:: ; 54:452C
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -854,8 +863,8 @@ Label_54_4532:: ; 54:4532
 	ld [hl], a
 	ret
 
-Function_54_4538:: ; 54:4538
-	call Function_54_4000
+Smtp_StartQuit:: ; 54:4538
+	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -866,9 +875,9 @@ Function_54_4538:: ; 54:4538
 	farcall MobileAPI
 	ret
 
-Function_54_4552:: ; 54:4552
-	call Function_54_44AC
-	farcall Function_26_58DC
+Smtp_QuitPoll:: ; 54:4552
+	call Mobile_CheckTimeout
+	farcall MailSession_UpdateTimerDisplay
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_4569
@@ -878,7 +887,7 @@ Function_54_4552:: ; 54:4552
 	ret
 
 Label_54_4569:: ; 54:4569
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -888,8 +897,8 @@ Label_54_456F:: ; 54:456F
 	ld [hl], a
 	ret
 
-Function_54_4575:: ; 54:4575
-	call Function_54_4000
+Smtp_StartMailFrom:: ; 54:4575
+	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -903,14 +912,14 @@ Function_54_4575:: ; 54:4575
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $475A
+	ld hl, Data_54_475A
 	ld de, $C240
 	ld bc, $000A
 	farcall CopyBytes
 	ld c, $01
 	ld de, $C240
 	ld b, $06
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld hl, $C201
 	ld c, $40
 	call Function_54_4736
@@ -930,20 +939,20 @@ Function_54_4575:: ; 54:4575
 	inc de
 	farcall Function_54_4748
 	dec de
-	ld hl, $4770
+	ld hl, String_Mail_CloseParen
 	farcall CopyString
 
 Label_54_45DB:: ; 54:45DB
 	ld hl, $C580
 	ld de, $C480
 	ld bc, $0100
-	farcall Function_7E_7C34
+	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
 	ld de, $C240
 	ld b, $00
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -978,20 +987,20 @@ Label_54_45DB:: ; 54:45DB
 	inc de
 	call Function_54_4748
 	dec de
-	ld hl, $4770
+	ld hl, String_Mail_CloseParen
 	farcall CopyString
 
 Label_54_464D:: ; 54:464D
 	ld hl, $C580
 	ld de, $C480
 	ld bc, $0100
-	farcall Function_7E_7C34
+	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
 	ld de, $C240
 	ld b, $03
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1007,13 +1016,13 @@ Label_54_464D:: ; 54:464D
 	ld hl, $C500
 	ld de, $C480
 	ld bc, $0080
-	farcall Function_7E_7C34
+	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
 	call Function_54_4726
 	ld c, $01
 	ld de, $C240
 	ld b, $05
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 
 Label_54_46A9:: ; 54:46A9
 	xor a, a
@@ -1021,15 +1030,15 @@ Label_54_46A9:: ; 54:46A9
 	ld c, $01
 	ld de, $C240
 	ld b, $07
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld c, $01
 	ld de, $C240
 	ld b, $08
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld c, $01
 	ld de, $C240
 	ld b, $0A
-	call Function_54_46E8
+	call Mail_BuildHeaderField
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1044,7 +1053,7 @@ Label_54_46A9:: ; 54:46A9
 	xor a, a
 	ret
 
-Function_54_46E8:: ; 54:46E8
+Mail_BuildHeaderField:: ; 54:46E8
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1052,7 +1061,7 @@ Function_54_46E8:: ; 54:46E8
 	farcall Function_00_0247
 	ld c, $00
 	cp a, $FF
-	jr z, Function_54_46E8
+	jr z, Mail_BuildHeaderField
 	ld c, l
 	ld b, h
 	ld hl, $C241
@@ -1148,13 +1157,14 @@ Data_54_4764:: ; 54:4764
 
 ; ---- text $4770-$4772 (2 bytes) [PROBABLE] NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644
 
-String_54_4770:: ; 54:4770
-	db $29, $00
+String_Mail_CloseParen:: ; 54:4770
+String_54_4770::
+	db $29, $00 ; ")"
 
 ; ---- code $4772-$4856 (228 bytes) [PROBABLE] 112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code)
 
-Function_54_4772:: ; 54:4772
-	call Function_54_44AC
+Smtp_DataPoll:: ; 54:4772
+	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_4782
@@ -1166,7 +1176,7 @@ Label_54_4782:: ; 54:4782
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -1234,12 +1244,12 @@ Label_54_47C2:: ; 54:47C2
 	inc de
 	ld hl, $C580
 	ld bc, $0200
-	farcall Function_7E_7C34
+	farcall Charset_SjisToIso2022Jp
 	ld hl, $C482
 	add hl, bc
 	ld e, l
 	ld d, h
-	ld hl, $4856
+	ld hl, String_Smtp_EndOfData
 	farcall CopyString
 
 Label_54_4812:: ; 54:4812
@@ -1272,7 +1282,7 @@ Label_54_4834:: ; 54:4834
 	ld a, $0A
 	ld [de], a
 	inc de
-	ld hl, $4856
+	ld hl, String_Smtp_EndOfData
 	farcall CopyString
 	jr Label_54_4812
 
@@ -1293,13 +1303,15 @@ Label_54_4855:: ; 54:4855
 
 ; ---- text $4856-$485C (6 bytes) [PROBABLE] NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F
 
-String_54_4856:: ; 54:4856
-	db $0D, $0A, $2E, $0D, $0A, $00
+String_Smtp_EndOfData:: ; 54:4856
+String_54_4856::
+	db $0D, $0A, $2E, $0D, $0A, $00 ; "<$0D><$0A>.<$0D><$0A>"
 
 ; ---- code $485C-$4895 (57 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_485C:: ; 54:485C
-	call Function_54_4000
+Pop3_StartLogin:: ; 54:485C
+Function_54_485C::
+	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wRam_C1DB], a
 	ld a, $01
@@ -1328,9 +1340,10 @@ Label_54_4895:: ; 54:4895
 
 ; ---- code $489B-$48B2 (23 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_54_489B:: ; 54:489B
-	call Function_54_44AC
-	farcall Function_26_58DC
+Pop3_LoginStatPoll:: ; 54:489B
+Function_54_489B::
+	call Mobile_CheckTimeout
+	farcall MailSession_UpdateTimerDisplay
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_48B2
@@ -1342,7 +1355,7 @@ Function_54_489B:: ; 54:489B
 ; ---- code $48B2-$48B8 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
 
 Label_54_48B2:: ; 54:48B2
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -1407,10 +1420,10 @@ Label_54_4907:: ; 54:4907
 
 ; ---- code $4914-$49E0 (204 bytes) [PROBABLE] 87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code)
 
-Function_54_4914:: ; 54:4914
+Pop3_StartTop:: ; 54:4914
 	push hl
 	push bc
-	call Function_54_4000
+	call Mobile_ResetCommandTimer
 	pop bc
 	pop hl
 	ld a, l
@@ -1452,8 +1465,8 @@ Label_54_4933:: ; 54:4933
 	farcall MobileAPI
 	ret
 
-Function_54_4969:: ; 54:4969
-	call Function_54_44AC
+Pop3_TopPoll:: ; 54:4969
+	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_497E
@@ -1465,7 +1478,7 @@ Function_54_4969:: ; 54:4969
 	ret
 
 Label_54_497E:: ; 54:497E
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -1494,7 +1507,7 @@ Label_54_4995:: ; 54:4995
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, $49E0
+	ld hl, String_Mail_DataCorrupt
 	ld de, $D406
 	ld bc, $0010
 	farcall CopyBytes
@@ -1508,11 +1521,12 @@ Label_54_4995:: ; 54:4995
 
 ; ---- text $49E0-$4A12 (50 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_54_49E0:: ; 54:49E0
-	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $83, $66, $81, $5B, $83, $5E, $82, $AA
-	db $82, $B1, $82, $ED, $82, $EA, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42
-	db $00, $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81
-	db $42, $00
+String_Mail_DataCorrupt:: ; 54:49E0
+String_54_49E0::
+	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $83, $66, $81, $5B, $83, $5E, $82, $AA, $82, $B1, $82, $ED, $82, $EA, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $00 ; "メールのデータがこわれています。"
+
+String_Mail_PleaseDelete:: ; 54:4A01
+	db $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00 ; "けしてください。"
 
 ; ---- code $4A12-$4AD0 (190 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code)
 
@@ -1538,11 +1552,11 @@ Label_54_4A2E:: ; 54:4A2E
 	dec b
 	jr nz, Label_54_4A2E
 	ld de, $C240
-	ld hl, $4C35
+	ld hl, Data_54_4C35
 	ld bc, $0008
 	farcall CopyBytes
 	ld de, $C240
-	ld hl, $4C3D
+	ld hl, Data_54_4C3D
 	ld bc, $0007
 	farcall CopyBytes
 	ld a, $05
@@ -1560,13 +1574,13 @@ Label_54_4A2E:: ; 54:4A2E
 	ld de, $C580
 	ld hl, $C480
 	ld bc, $0200
-	farcall Function_7E_7D62
+	farcall Charset_Iso2022JpToSjis
 	ld de, $B450
 	ld hl, $B470
 	call Function_54_4FD2
 	ld b, $13
 	ld hl, $B470
-	call Function_54_4C47
+	call Text_TruncateSjis
 
 Label_54_4A8A:: ; 54:4A8A
 	ld a, $0A
@@ -1587,9 +1601,9 @@ Label_54_4A8A:: ; 54:4A8A
 	ld [hl], a
 	ld b, $13
 	ld hl, $C480
-	call Function_54_4C47
+	call Text_TruncateSjis
 	ld hl, $C480
-	ld de, $4AD7
+	ld de, String_Mail_GameTitle
 
 Label_54_4AB9:: ; 54:4AB9
 	ld a, [de]
@@ -1606,19 +1620,21 @@ Label_54_4AB9:: ; 54:4AB9
 
 ; ---- text $4AD0-$4AD7 (7 bytes) [PROBABLE] NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 
-String_54_4AD0:: ; 54:4AD0
-	db $83, $81, $81, $5B, $83, $8B, $00
+String_Mail_DefaultSource:: ; 54:4AD0
+String_54_4AD0::
+	db $83, $81, $81, $5B, $83, $8B, $00 ; "メール"
 
 ; ---- text $4AD7-$4AE6 (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_54_4AD7:: ; 54:4AD7
-	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00
+String_Mail_GameTitle:: ; 54:4AD7
+String_54_4AD7::
+	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "MOBILE TRAINER"
 
 ; ---- code $4AE6-$4C2A (324 bytes) [PROBABLE] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code)
 
 Label_54_4AE6:: ; 54:4AE6
 	ld de, $B430
-	ld hl, $4AD0
+	ld hl, String_Mail_DefaultSource
 	farcall CopyString
 
 Label_54_4AF2:: ; 54:4AF2
@@ -1632,7 +1648,7 @@ Label_54_4AF2:: ; 54:4AF2
 	farcall Function_00_0247
 	or a, a
 	jr nz, Label_54_4B1D
-	call Function_54_5168
+	call Mail_ParseDate
 	ld de, $B400
 	ld hl, $C580
 	ld bc, $0006
@@ -1664,7 +1680,7 @@ Label_54_4B42:: ; 54:4B42
 	ld de, $B410
 	ld hl, $C480
 	ld bc, $0018
-	farcall Function_7E_7D62
+	farcall Charset_Iso2022JpToSjis
 	ld hl, $B410
 	ld hl, $B410
 	ld b, $FF
@@ -1679,7 +1695,7 @@ Label_54_4B5D:: ; 54:4B5D
 	jr c, Label_54_4B6F
 	ld b, $12
 	ld hl, $B410
-	call Function_54_4C47
+	call Text_TruncateSjis
 
 Label_54_4B6F:: ; 54:4B6F
 	ld a, $01
@@ -1745,7 +1761,7 @@ Label_54_4BE8:: ; 54:4BE8
 
 Label_54_4BEC:: ; 54:4BEC
 	ld de, $C240
-	ld hl, $4C3D
+	ld hl, Data_54_4C3D
 	ld bc, $0007
 	farcall CopyBytes
 	ld a, $0B
@@ -1760,7 +1776,7 @@ Label_54_4BEC:: ; 54:4BEC
 	jp nz, Label_54_4BE8
 	ld b, $0B
 	ld hl, $C480
-	ld de, $4C2A
+	ld de, String_Mail_GameCodeCrystal
 
 Label_54_4C1D:: ; 54:4C1D
 	ld a, [de]
@@ -1775,8 +1791,9 @@ Label_54_4C1D:: ; 54:4C1D
 
 ; ---- text $4C2A-$4C35 (11 bytes) [PROBABLE] 11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
 
-String_54_4C2A:: ; 54:4C2A
-	db $43, $47, $42, $2D, $42, $58, $54, $4A, $2D, $30, $30
+String_Mail_GameCodeCrystal:: ; 54:4C2A
+String_54_4C2A::
+	db $43, $47, $42, $2D, $42, $58, $54, $4A, $2D, $30, $30 ; "CGB-BXTJ-00"
 
 ; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] 8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
 
@@ -1795,7 +1812,7 @@ Data_54_4C44:: ; 54:4C44
 
 ; ---- code $4C47-$4CAD (102 bytes) [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code)
 
-Function_54_4C47:: ; 54:4C47
+Text_TruncateSjis:: ; 54:4C47
 	ld c, $01
 
 Label_54_4C49:: ; 54:4C49
@@ -1858,7 +1875,7 @@ Label_54_4C91:: ; 54:4C91
 	dec hl
 	ld e, l
 	ld d, h
-	ld hl, $4CAD
+	ld hl, String_Text_Ellipsis
 	xor a, a
 	or a, c
 	jr nz, Label_54_4CA3
@@ -1872,14 +1889,15 @@ Label_54_4CA3:: ; 54:4CA3
 
 ; ---- data $4CAD-$4CB0 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_54_4CAD:: ; 54:4CAD
+String_Text_Ellipsis:: ; 54:4CAD
+Data_54_4CAD::
 	db $81, $63, $00
 
 ; ---- code $4CB0-$4FC3 (787 bytes) [PROBABLE] 366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code)
 
-Function_54_4CB0:: ; 54:4CB0
+Pop3_StartRetr:: ; 54:4CB0
 	push hl
-	call Function_54_4000
+	call Mobile_ResetCommandTimer
 	pop hl
 	ld a, l
 	ld [wRam_C1D6], a
@@ -1908,8 +1926,8 @@ Function_54_4CB0:: ; 54:4CB0
 	farcall MobileAPI
 	ret
 
-Function_54_4CF4:: ; 54:4CF4
-	call Function_54_44AC
+Pop3_RetrPoll:: ; 54:4CF4
+	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_4D09
@@ -1921,7 +1939,7 @@ Function_54_4CF4:: ; 54:4CF4
 	ret
 
 Label_54_4D09:: ; 54:4D09
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
@@ -1964,7 +1982,7 @@ Label_54_4D38:: ; 54:4D38
 	or a, a
 	jp nz, Label_54_4FA4
 	ld de, $C240
-	ld hl, $4FC3
+	ld hl, Data_54_4FC3
 	ld bc, $0008
 	farcall CopyBytes
 	ld a, $05
@@ -1976,7 +1994,7 @@ Label_54_4D38:: ; 54:4D38
 	or a, a
 	jp nz, Label_54_4FA4
 	ld de, $C240
-	ld hl, $4FCB
+	ld hl, Data_54_4FCB
 	ld bc, $0007
 	farcall CopyBytes
 	ld a, $05
@@ -1999,8 +2017,8 @@ Label_54_4D9A:: ; 54:4D9A
 	ld de, $C580
 	ld hl, $C480
 	ld bc, $0200
-	farcall Function_7E_7D62
-	farcall Function_2D_46E9
+	farcall Charset_Iso2022JpToSjis
+	farcall MailRecord_GetFreeSlotPtr
 	ld bc, $00C9
 	push hl
 	add hl, bc
@@ -2045,7 +2063,7 @@ Label_54_4DF5:: ; 54:4DF5
 	add hl, de
 	xor a, a
 	ld [hl], a
-	farcall Function_2D_46E9
+	farcall MailRecord_GetFreeSlotPtr
 	ld de, $00D9
 	add hl, de
 	ld e, l
@@ -2053,7 +2071,7 @@ Label_54_4DF5:: ; 54:4DF5
 	push hl
 	ld hl, $C480
 	ld bc, $0014
-	farcall Function_7E_7D62
+	farcall Charset_Iso2022JpToSjis
 	ld hl, $C580
 	ld b, $1A
 	xor a, a
@@ -2065,7 +2083,7 @@ Label_54_4E1A:: ; 54:4E1A
 	ld hl, $C480
 	ld de, $C580
 	ld bc, $0018
-	farcall Function_7E_7D62
+	farcall Charset_Iso2022JpToSjis
 	ld hl, $C580
 	ld b, $FF
 
@@ -2081,7 +2099,7 @@ Label_54_4E32:: ; 54:4E32
 	ld a, $02
 	ld [wRam_C25D], a
 	ld b, $12
-	call Function_54_4C47
+	call Text_TruncateSjis
 
 Label_54_4E47:: ; 54:4E47
 	ld a, $06
@@ -2099,8 +2117,8 @@ Label_54_4E47:: ; 54:4E47
 	jr Label_54_4DF5
 
 Label_54_4E67:: ; 54:4E67
-	call Function_54_5168
-	farcall Function_2D_46E9
+	call Mail_ParseDate
+	farcall MailRecord_GetFreeSlotPtr
 	ld de, $0003
 	add hl, de
 	ld e, l
@@ -2133,7 +2151,7 @@ Label_54_4E95:: ; 54:4E95
 	pop hl
 	ld bc, $00C1
 	ld de, $C480
-	farcall Function_7E_7D62
+	farcall Charset_Iso2022JpToSjis
 	ld hl, $C480
 	ld b, $C0
 
@@ -2160,7 +2178,7 @@ Label_54_4EC3:: ; 54:4EC3
 	add hl, bc
 	xor a, a
 	ld [hl], a
-	farcall Function_2D_46E9
+	farcall MailRecord_GetFreeSlotPtr
 	ld de, $0009
 	add hl, de
 	ld e, l
@@ -2169,14 +2187,14 @@ Label_54_4EC3:: ; 54:4EC3
 	farcall CopyString
 
 Label_54_4EE7:: ; 54:4EE7
-	farcall Function_2D_46E9
+	farcall MailRecord_GetFreeSlotPtr
 	ld a, $01
 	ld [hli], a
 	ld a, [wRam_C25F]
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	farcall Function_22_501D
+	farcall SramCheck_Bank0Commit
 	ld a, [wRam_C25E]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -2275,7 +2293,7 @@ Label_54_4F70:: ; 54:4F70
 	ld [hl], a
 
 Label_54_4F8B:: ; 54:4F8B
-	farcall Function_2D_46E9
+	farcall MailRecord_GetFreeSlotPtr
 	ld de, $0009
 	add hl, de
 	ld e, l
@@ -2512,7 +2530,7 @@ Label_54_50DD:: ; 54:50DD
 	push bc
 	push hl
 	push de
-	farcall Function_55_6CC6
+	farcall Text_HalfToFullWidth
 	pop de
 	pop hl
 	ld a, b
@@ -2541,7 +2559,7 @@ Function_54_50FC:: ; 54:50FC
 	ret z
 	dec de
 	dec de
-	ld hl, $511B
+	ld hl, Data_Text_Ellipsis2
 	ld bc, $0002
 	farcall CopyBytes
 	ld a, $02
@@ -2550,7 +2568,8 @@ Function_54_50FC:: ; 54:50FC
 
 ; ---- data $511B-$511D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_54_511B:: ; 54:511B
+Data_Text_Ellipsis2:: ; 54:511B
+Data_54_511B::
 	db $81, $63
 
 ; ---- code $511D-$5343 (550 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code)
@@ -2559,7 +2578,7 @@ Function_54_511D:: ; 54:511D
 	xor a, a
 	ld [sSram_AFFF], a
 	ld de, $C240
-	ld hl, $4C44
+	ld hl, Data_54_4C44
 	ld bc, $0003
 	farcall CopyBytes
 	ld hl, $A000
@@ -2587,7 +2606,7 @@ Function_54_511D:: ; 54:511D
 	ld e, $01
 	ret
 
-Function_54_5168:: ; 54:5168
+Mail_ParseDate:: ; 54:5168
 	ld hl, $C480
 	add hl, bc
 	xor a, a
@@ -2628,7 +2647,7 @@ Label_54_518D:: ; 54:518D
 	ld d, a
 	push hl
 	ld e, $FF
-	ld hl, $5343
+	ld hl, String_Mail_Months
 
 Label_54_51A9:: ; 54:51A9
 	inc e
@@ -2653,7 +2672,7 @@ Label_54_51BC:: ; 54:51BC
 	cp a, d
 	jr nz, Label_54_51A9
 	ld d, $00
-	ld hl, $5368
+	ld hl, Table_Mail_MonthBcd
 	add hl, de
 	ld a, [hl]
 	ld [wRam_C582], a
@@ -2919,36 +2938,38 @@ Label_54_532E:: ; 54:532E
 
 ; ---- text $5343-$5368 (37 bytes) [PROBABLE] ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
 
-String_54_5343:: ; 54:5343
-	db $6A, $61, $6E, $66, $65, $62, $6D, $61, $72, $61, $70, $72, $6D, $61, $79, $6A
-	db $75, $6E, $6A, $75, $6C, $61, $75, $67, $73, $65, $70, $6F, $63, $74, $6E, $6F
-	db $76, $64, $65, $63, $00
+String_Mail_Months:: ; 54:5343
+String_54_5343::
+	db $6A, $61, $6E, $66, $65, $62, $6D, $61, $72, $61, $70, $72, $6D, $61, $79, $6A, $75, $6E, $6A, $75, $6C, $61, $75, $67, $73, $65, $70, $6F, $63, $74, $6E, $6F, $76, $64 ; "janfebmaraprmayjunjulaugsepoctnovd"
+	db $65, $63, $00 ; "ec"
 
 ; ---- data $5368-$5374 (12 bytes) [PROBABLE] 12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
 
-Table_54_5368:: ; 54:5368
+Table_Mail_MonthBcd:: ; 54:5368
+Table_54_5368::
 	db $01, $02, $03, $04, $05, $06, $07, $08, $09, $10, $11, $12
 
 ; ---- data $5374-$5386 (18 bytes) [PROBABLE] days per month in BCD: 31 28 31 30 31 30 31 31 30, 6 zero bytes, 31 30 31 - indexed by the BCD month number from base $5373 (54:52B1 and 54:5319: ld hl,$5373 ; add hl,de) so BCD 10/11/12 land on the last three entries
 
-Table_54_5374:: ; 54:5374
+Table_Mail_DaysPerMonth:: ; 54:5374
+Table_54_5374::
 	db $31, $28, $31, $30, $31, $30, $31, $31, $30, $00, $00, $00, $00, $00, $00, $31
 	db $30, $31
 
 ; ---- code $5386-$53E9 (99 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code)
 
-Function_54_5386:: ; 54:5386
+Pop3_StartDele:: ; 54:5386
 	or a, a
 	jr nz, Label_54_5391
-	farcall Function_2E_55FA
+	farcall MailServerMgr_UpdateTimerDisplay
 	jr Label_54_5397
 
 Label_54_5391:: ; 54:5391
-	farcall Function_23_6F00
+	farcall MailSrvDel_DrawElapsedTime
 
 Label_54_5397:: ; 54:5397
 	push hl
-	call Function_54_4000
+	call Mobile_ResetCommandTimer
 	pop hl
 	ld a, l
 	ld [wRam_C1D6], a
@@ -2964,17 +2985,17 @@ Label_54_5397:: ; 54:5397
 	farcall MobileAPI
 	ret
 
-Function_54_53BB:: ; 54:53BB
+Pop3_DelePoll:: ; 54:53BB
 	or a, a
 	jr nz, Label_54_53C6
-	farcall Function_2E_55FA
+	farcall MailServerMgr_UpdateTimerDisplay
 	jr Label_54_53CC
 
 Label_54_53C6:: ; 54:53C6
-	farcall Function_23_6F00
+	farcall MailSrvDel_DrawElapsedTime
 
 Label_54_53CC:: ; 54:53CC
-	call Function_54_44AC
+	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr nz, Label_54_53DD
@@ -2984,7 +3005,7 @@ Label_54_53CC:: ; 54:53CC
 	ret
 
 Label_54_53DD:: ; 54:53DD
-	call Function_54_4011
+	call Mobile_FetchResult
 	ld a, $FF
 	ret
 

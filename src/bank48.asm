@@ -9,7 +9,8 @@ SECTION "Bank48", ROMX[$4000], BANK[$48]
 
 ; ---- code $4000-$41EC (492 bytes) [CONFIRMED] 309 insn(s); 309 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_4000:: ; 48:4000
+Divide8:: ; 48:4000
+Function_48_4000::
 	push de
 	push hl
 	ld e, c
@@ -74,7 +75,7 @@ Label_48_4039:: ; 48:4039
 	pop de
 	ret
 
-Function_48_403E:: ; 48:403E
+TextTiles_RenderLine:: ; 48:403E
 	ldh [hRam_FFBB], a
 	ld a, c
 	ldh [hRam_FFB2], a
@@ -109,7 +110,7 @@ Label_48_404C:: ; 48:404C
 	ld h, a
 	push hl
 	push bc
-	farcall Function_48_4748
+	farcall Font_BlitGlyph8x16
 	add sp, 10
 	pop hl
 	ldh a, [hRam_FFB4]
@@ -149,7 +150,7 @@ Label_48_409C:: ; 48:409C
 	ld d, a
 	ret
 
-Function_48_40A9:: ; 48:40A9
+TextTiles_RenderGrid:: ; 48:40A9
 	ld [wRam_C172], a
 	ldh a, [hRam_FFB0]
 	ld [wRam_C167], a
@@ -220,7 +221,7 @@ Label_48_40D3:: ; 48:40D3
 	push hl
 	push de
 	push bc
-	farcall Function_48_4748
+	farcall Font_BlitGlyph8x16
 	add sp, 10
 	pop hl
 	pop de
@@ -263,7 +264,7 @@ Label_48_4141:: ; 48:4141
 Label_48_4159:: ; 48:4159
 	ret
 
-Function_48_415A:: ; 48:415A
+TextTiles_RenderGridRows:: ; 48:415A
 	ldh [hRam_FFBB], a
 	ld a, e
 	ldh [hRam_FFB6], a
@@ -346,7 +347,7 @@ Label_48_419F:: ; 48:419F
 	push hl
 	push de
 	push bc
-	farcall Function_48_4748
+	farcall Font_BlitGlyph8x16
 	add sp, 10
 	pop hl
 	pop de
@@ -409,7 +410,7 @@ Label_48_4202:: ; 48:4202
 Label_48_4222:: ; 48:4222
 	ret
 
-Function_48_4223:: ; 48:4223
+Ticker_Update:: ; 48:4223
 	ld a, [wRam_C0F3]
 	or a, a
 	jr z, Label_48_422E
@@ -508,7 +509,7 @@ Label_48_424F:: ; 48:424F
 	ld [wRam_C0EE], a
 	ret
 
-Function_48_42D4:: ; 48:42D4
+Ticker_Start:: ; 48:42D4
 	ld d, a
 	call ReadByteFar
 	ld [wRam_C0EB], a
@@ -607,7 +608,7 @@ Label_48_4354:: ; 48:4354
 	ld a, $08
 	sub a, b
 	push af
-	call Function_48_4460
+	call Ticker_Stop
 	pop af
 	ld [wRam_C0EF], a
 	ld a, [wRam_C0ED]
@@ -629,7 +630,7 @@ Label_48_4354:: ; 48:4354
 	dec a
 	ldh [hRam_FFB1], a
 	ld a, [wRam_C0EB]
-	farcall Function_48_415A
+	farcall TextTiles_RenderGridRows
 	ld b, $15
 	ld a, [wRam_C0F0]
 	ld l, a
@@ -644,10 +645,10 @@ Label_48_4354:: ; 48:4354
 	dec a
 	ldh [hRam_FFB1], a
 	ld a, [wRam_C0EB]
-	farcall Function_48_415A
+	farcall TextTiles_RenderGridRows
 	ldh a, [rIE]
 	and a, $02
-	call z, Function_48_440A
+	call z, Ticker_InstallRasterIrq
 	xor a, a
 	ld [wRam_C0F6], a
 	call Function_00_0392
@@ -671,7 +672,7 @@ Label_48_4354:: ; 48:4354
 	ldh a, [hScratchA]
 	ret
 
-Function_48_440A:: ; 48:440A
+Ticker_InstallRasterIrq:: ; 48:440A
 	di
 	ld a, $08
 	ldh [rSTAT], a
@@ -709,7 +710,7 @@ Function_48_440A:: ; 48:440A
 	ei
 	ret
 
-Function_48_4460:: ; 48:4460
+Ticker_Stop:: ; 48:4460
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -771,7 +772,7 @@ Label_48_44D6:: ; 48:44D6
 	ldh a, [hScratchA]
 	ret
 
-Function_48_44E0:: ; 48:44E0
+Palette_FadeInMasked:: ; 48:44E0
 	ldh [hRam_FFB0], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -792,17 +793,17 @@ Function_48_44E0:: ; 48:44E0
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $E0
-	call Function_48_459D
-	farcall Function_4F_41E0
+	call Palette_SetFadeTargetMasked
+	farcall PalFade_Step
 	call LCDOn
 
 Label_48_451D:: ; 48:451D
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	farcall Function_4F_41E0
+	farcall PalFade_Step
 	or a, a
 	jr nz, Label_48_451D
 	ldh [hScratchA], a
@@ -812,7 +813,7 @@ Label_48_451D:: ; 48:451D
 	ldh a, [hScratchA]
 	ret
 
-Function_48_4540:: ; 48:4540
+Palette_FadeOutMasked:: ; 48:4540
 	ldh [hRam_FFB0], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -833,16 +834,16 @@ Function_48_4540:: ; 48:4540
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $20
-	call Function_48_459D
-	farcall Function_4F_41E0
+	call Palette_SetFadeTargetMasked
+	farcall PalFade_Step
 
 Label_48_457A:: ; 48:457A
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	farcall Function_4F_41E0
+	farcall PalFade_Step
 	or a, a
 	jr nz, Label_48_457A
 	ldh [hScratchA], a
@@ -852,7 +853,7 @@ Label_48_457A:: ; 48:457A
 	ldh a, [hScratchA]
 	ret
 
-Function_48_459D:: ; 48:459D
+Palette_SetFadeTargetMasked:: ; 48:459D
 	ld [wRam_C2F2], a
 	bit 7, a
 	jr nz, Label_48_45B5
@@ -938,7 +939,8 @@ Label_48_4612:: ; 48:4612
 
 ; ---- code $4616-$4629 (19 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_4616:: ; 48:4616
+WriteByteFar:: ; 48:4616
+Function_48_4616::
 	ld [wRam_C12E], a
 	ld a, h
 	cp a, $A0
@@ -979,7 +981,7 @@ Label_48_462A:: ; 48:462A
 	push bc
 	push de
 	push hl
-	call Function_48_495C
+	call Sram_UpdateChecksum3
 	pop hl
 	pop de
 	pop bc
@@ -1007,7 +1009,7 @@ Label_48_465F:: ; 48:465F
 	ldh a, [hScratchA]
 	ret
 
-Function_48_4679:: ; 48:4679
+Tilemap_FillRectSequential:: ; 48:4679
 	ld [wRam_C10F], a
 	ld a, $07
 	ld [wRam_C10E], a
@@ -1057,7 +1059,7 @@ Label_48_469C:: ; 48:469C
 	ldh a, [hScratchA]
 	ret
 
-Function_48_46C6:: ; 48:46C6
+Palette_FadeOutWithTicker:: ; 48:46C6
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1075,21 +1077,21 @@ Function_48_46C6:: ; 48:46C6
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $30
-	farcall Function_4F_4166
-	farcall Function_4F_41E0
+	farcall PalFade_Start
+	farcall PalFade_Step
 
 Label_48_46FA:: ; 48:46FA
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_48_4223
+	call Ticker_Update
 	ld hl, $C10E
 	dec [hl]
 	jr nz, Label_48_46FA
 	ld [hl], $04
-	farcall Function_4F_41E0
+	farcall PalFade_Step
 	or a, a
 	jr nz, Label_48_46FA
 	ldh [hScratchA], a
@@ -1099,15 +1101,15 @@ Label_48_46FA:: ; 48:46FA
 	ldh a, [hScratchA]
 	ret
 
-Function_48_4728:: ; 48:4728
+Bcd_FromBinary8:: ; 48:4728
 	or a, a
 	jr z, Label_48_4744
 	ld b, a
 	ld c, $0A
-	farcall Function_48_4000
+	farcall Divide8
 	ld e, c
 	ld c, $0A
-	farcall Function_48_4000
+	farcall Divide8
 	ld a, c
 	swap a
 	and a, $F0
@@ -1123,7 +1125,8 @@ Label_48_4744:: ; 48:4744
 
 ; ---- code $4748-$480F (199 bytes) [CONFIRMED] 118 insn(s); 118 executed (in up to 15/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_4748:: ; 48:4748
+Font_BlitGlyph8x16:: ; 48:4748
+Function_48_4748::
 	ld hl, sp+6
 	ld a, [hli]
 	ld [wRam_C136], a
@@ -1147,7 +1150,7 @@ Function_48_4748:: ; 48:4748
 	ld e, a
 	ld a, [wRam_C137]
 	ld d, a
-	ld hl, $4810
+	ld hl, Font_GlyphRunTable
 
 Label_48_4777:: ; 48:4777
 	ld c, [hl]
@@ -1260,7 +1263,8 @@ Label_48_480F:: ; 48:480F
 
 ; ---- data $4810-$4899 (137 bytes) [CONFIRMED] 27 five-byte records (key16 little-endian = SJIS code where a glyph run starts, bank byte $48, glyph-run pointer16) sorted by descending key + $FFFF terminator (ends 4899). Read by the executed glyph fetcher Function_48_4748 (loop at 48:4777: ld c,[hl]; ld b,[hli]; inc a; jp z end; stride 5 via 3 x inc hl); entry keys $83BF,$8340,$829F,$8281,$8260,$824F,$81F4,... $8140; pointers $5D7B,$53EB,$4EBB,$4D1B,$4B7B,$4ADB,... Unread 3-byte gaps folded in.
 
-Table_48_4810:: ; 48:4810
+Font_GlyphRunTable:: ; 48:4810
+Table_48_4810::
 	db $BF, $83, $48, $7B, $5D, $40, $83, $48, $EB, $53, $9F, $82, $48, $BB, $4E, $81
 	db $82, $48, $1B, $4D, $60, $82, $48, $7B, $4B, $4F, $82, $48, $DB, $4A, $F4, $81
 	db $48, $5B, $5D, $A6, $81, $48, $FB, $5C, $9E, $81, $48, $9B, $5C, $99, $81, $48
@@ -1273,8 +1277,9 @@ Table_48_4810:: ; 48:4810
 
 ; ---- code $4899-$48B8 (31 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_4899:: ; 48:4899
-	call Function_48_48E1
+Sram_VerifyChecksum3:: ; 48:4899
+Function_48_4899::
+	call Sram_ComputeChecksum3
 	ld a, $01
 	ld hl, $A8B5
 	call ReadByteFar
@@ -1304,7 +1309,9 @@ Function_48_48BB:: ; 48:48BB
 	ret
 
 ; ---- code $48BC-$48E1 (37 bytes) [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets (48E1, 1620, 4920) are known code starts
-	call Function_48_48E1
+
+Function_48_48BC:: ; 48:48BC
+	call Sram_ComputeChecksum3
 	ld a, $01
 	ld hl, $A8B5
 	call ReadByteFar
@@ -1323,13 +1330,14 @@ Function_48_48BB:: ; 48:48BB
 	ld a, h
 	or a, l
 	ret z
-	call Function_48_4920
+	call Sram_ResetChecksum3Areas
 	ld a, $FF
 	ret
 
 ; ---- code $48E1-$48F7 (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_48E1:: ; 48:48E1
+Sram_ComputeChecksum3:: ; 48:48E1
+Function_48_48E1::
 	xor a, a
 	ld [wRam_C12F], a
 	ld hl, $A684
@@ -1377,7 +1385,7 @@ Label_48_4918:: ; 48:4918
 	ld d, a
 	ret
 
-Function_48_4920:: ; 48:4920
+Sram_ResetChecksum3Areas:: ; 48:4920
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1411,11 +1419,11 @@ Label_48_4944:: ; 48:4944
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh a, [hScratchA]
-	call Function_48_495C
+	call Sram_UpdateChecksum3
 	ret
 
-Function_48_495C:: ; 48:495C
-	call Function_48_48E1
+Sram_UpdateChecksum3:: ; 48:495C
+	call Sram_ComputeChecksum3
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -1441,7 +1449,7 @@ Function_48_495C:: ; 48:495C
 	ldh a, [hScratchA]
 	ret
 
-Function_48_498C:: ; 48:498C
+Tutorial_GateHomepage:: ; 48:498C
 	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
@@ -1461,7 +1469,7 @@ Function_48_498C:: ; 48:498C
 
 Label_48_49A9:: ; 48:49A9
 	ld b, $91
-	farcall Function_6C_59B2
+	farcall HelpScript_Run
 	xor a, a
 	or a, b
 	ret nz
@@ -1471,7 +1479,7 @@ Label_48_49A9:: ; 48:49A9
 
 Label_48_49B6:: ; 48:49B6
 	ld b, $92
-	farcall Function_6C_59B2
+	farcall HelpScript_Run
 	xor a, a
 	or a, b
 	ret nz
@@ -1487,11 +1495,11 @@ Label_48_49C3:: ; 48:49C3
 	ld b, a
 	ld a, $01
 	ld hl, $A881
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld b, $00
 	ret
 
-Function_48_49DB:: ; 48:49DB
+Tutorial_GateMailMenu:: ; 48:49DB
 	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
@@ -1507,13 +1515,13 @@ Function_48_49DB:: ; 48:49DB
 
 Label_48_49F8:: ; 48:49F8
 	ld b, $89
-	farcall Function_6C_59B2
+	farcall HelpScript_Run
 	xor a, a
 	or a, b
 	ret nz
-	farcall Function_22_4FA9
+	farcall SramCheck_VerifyAndRepairAll
 	ld a, $01
-	farcall Function_2A_5495
+	farcall Profile_Edit
 	ld a, $01
 	ld hl, $A89A
 	call ReadByteFar
@@ -1521,13 +1529,13 @@ Label_48_49F8:: ; 48:49F8
 	ld b, a
 	ld a, $01
 	ld hl, $A89A
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld b, $00
 	ret
 
 Label_48_4A29:: ; 48:4A29
 	ld b, $8A
-	farcall Function_6C_59B2
+	farcall HelpScript_Run
 	xor a, a
 	or a, b
 	ret nz
@@ -1541,11 +1549,11 @@ Label_48_4A36:: ; 48:4A36
 	ld b, a
 	ld a, $01
 	ld hl, $A89A
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld b, $00
 	ret
 
-Function_48_4A4E:: ; 48:4A4E
+Tutorial_GateTopMenu:: ; 48:4A4E
 	farcall Function_48_48BB
 	ld b, $00
 	ld a, $01
@@ -1559,7 +1567,7 @@ Function_48_4A4E:: ; 48:4A4E
 
 Label_48_4A67:: ; 48:4A67
 	ld b, $81
-	farcall Function_6C_59B2
+	farcall HelpScript_Run
 	xor a, a
 	or a, b
 	ret nz
@@ -1573,11 +1581,13 @@ Label_48_4A74:: ; 48:4A74
 	ld b, a
 	ld a, $01
 	ld hl, $A89B
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld b, $00
 	ret
 
 ; ---- code $4A8C-$4AAB (31 bytes) [HYPOTHESIS] byte-identical to ROM0 Function_00_091C (rectangle AND/OR: call $0622; [hl]=([hl]&d)|e, row stride 32) - a private copy; no caller/pointer to 48:4A8C found (words.py scan), follows the ret at 4A8B, ends with ret at 4AAA
+
+Function_48_4A8C:: ; 48:4A8C
 	call BankSwitch_H
 	ld a, c
 	ldh [hRam_FFB0], a
@@ -1605,7 +1615,8 @@ Label_48_4A92:: ; 48:4A92
 
 ; ---- code $4AAB-$4ADB (48 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_48_4AAB:: ; 48:4AAB
+Sram_ClearMenuCursorMemory:: ; 48:4AAB
+Function_48_4AAB::
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af

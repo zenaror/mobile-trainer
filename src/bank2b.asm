@@ -9,7 +9,8 @@ SECTION "Bank2B", ROMX[$4000], BANK[$2B]
 
 ; ---- code $4000-$407B (123 bytes) [CONFIRMED] 52 insn(s); 52 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2B_4000:: ; 2B:4000
+MailDraft_Menu:: ; 2B:4000
+Function_2B_4000::
 	call Function_00_044B
 	push af
 	ldh a, [rSVBK]
@@ -25,19 +26,19 @@ Function_2B_4000:: ; 2B:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	call Function_00_0464
 	push bc
-	call Function_2B_420C
+	call MailDraft_Menu_InitScreen
 	pop bc
 
-Label_2B_402B:: ; 2B:402B
+MailDraft_Menu_Loop:: ; 2B:402B
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
-	call Function_2B_43A5
+	call MailDraft_Menu_MoveCursorSprites
 	ldh a, [hJoyPressed]
 	and a, $01
 	jp z, Label_2B_4194
@@ -63,13 +64,13 @@ Label_2B_405F:: ; 2B:405F
 	jr c, Label_2B_405F
 	cp a, $5A
 	jr nc, Label_2B_405F
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
-	farcall Function_28_4000
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
+	farcall MailBody_ViewScreen
 
 ; ---- code $407B-$4080 (5 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; entry not recorded [executed in 3 scenarios]
 	ld c, $00
-	jp Function_2B_4000
+	jp MailDraft_Menu
 
 ; ---- code $4080-$4084 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 
@@ -90,16 +91,16 @@ Label_2B_4080:: ; 2B:4080
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call Function_2B_4743
+	call MailDraft_Edit
 	cp a, $FF
 	ld c, $01
-	jp Function_2B_4000
+	jp MailDraft_Menu
 
 ; ---- code $40A2-$4161 (191 bytes) [CONFIRMED] 75 insn(s); 75 executed (in up to 1/18 scenarios)
 
 Label_2B_40A2:: ; 2B:40A2
 	push bc
-	farcall Function_7F_624F
+	farcall Sprites_SaveSlotsToBank3
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -153,7 +154,7 @@ Label_2B_40A2:: ; 2B:40A2
 	pop af
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -167,15 +168,15 @@ Label_2B_40A2:: ; 2B:40A2
 	ldh [rSVBK], a
 	pop af
 	push af
-	farcall Function_7F_627C
+	farcall Sprites_RestoreSlotsFromBank3
 	farcall Function_00_0956
 	pop af
 	pop bc
 	dec a
-	jp nz, Label_2B_402B
+	jp nz, MailDraft_Menu_Loop
 
 ; ---- code $4161-$4194 (51 bytes) [CONFIRMED] 20 insn(s) reached by static flow only; seeds: exec x20; min discovery hops 0; fall-through of the jpcc at 2B:415E (executed) [executed in 1 scenarios]
-	farcall Function_2D_40DC
+	farcall MailDraft_Clear
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -192,8 +193,8 @@ Label_2B_40A2:: ; 2B:40A2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	farcall Function_00_0956
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	ret
 
 ; ---- code $4194-$4203 (111 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios)
@@ -214,8 +215,8 @@ Label_2B_4194:: ; 2B:4194
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
@@ -243,7 +244,7 @@ Label_2B_41BD:: ; 2B:41BD
 
 Label_2B_41DF:: ; 2B:41DF
 	ld a, c
-	call Function_2B_478B
+	call MailDraft_Menu_SetCaption
 
 Label_2B_41E3:: ; 2B:41E3
 	ldh a, [hJoyPressedRepeat]
@@ -273,48 +274,48 @@ Label_2B_41E3:: ; 2B:41E3
 
 Label_2B_4205:: ; 2B:4205
 	ld a, c
-	call Function_2B_478B
+	call MailDraft_Menu_SetCaption
 
 Label_2B_4209:: ; 2B:4209
-	jp Label_2B_402B
+	jp MailDraft_Menu_Loop
 
-Function_2B_420C:: ; 2B:420C
+MailDraft_Menu_InitScreen:: ; 2B:420C
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
-	farcall Function_2D_408F
+	farcall TextTiles_ClearBuffers
+	farcall MailDraft_LoadFromSram
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4E20
+	ld hl, Palette_MailDraftMenu_Bg
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $8000
-	ld hl, $4E60
+	ld hl, Gfx_MailDraftMenu_Tiles8000
 	ld a, $2B
 	ld b, $93
 	ld c, $33
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $5190
+	ld hl, Palette_MailDraftMenu_Obj
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, $4880
+	ld hl, Gfx_MailDraftMenu_Tiles9300
 	ld a, $2B
 	ld b, $94
 	ld c, $2D
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4B50
+	ld hl, Data_MailDraftMenu_TilemapAttr
 	ld a, $2B
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA30
-	ld de, $51D0
+	ld de, Table_MailDraftMenu_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Function_00_0A82
@@ -368,38 +369,38 @@ Function_2B_420C:: ; 2B:420C
 Label_2B_430C:: ; 2B:430C
 	pop bc
 	ld a, c
-	call Function_2B_478B
+	call MailDraft_Menu_SetCaption
 	ld bc, $0300
 	ld d, $14
 	ld e, $20
 	ld hl, $D500
-	call Function_2B_4421
+	call MailDraft_DrawTextLine21
 	ld bc, $0300
 	ld d, $02
 	ld e, $08
 	ld hl, $D514
-	call Function_2B_45F9
+	call MailDraft_DrawTextLine17
 	ld bc, $0300
 	ld d, $24
 	ld e, $20
 	ld hl, $D4C0
-	call Function_2B_4421
+	call MailDraft_DrawTextLine21
 	ld bc, $0300
 	ld d, $30
 	ld e, $08
 	ld hl, $D4D4
-	call Function_2B_450D
+	call MailDraft_DrawTextLine25
 	ld bc, $0300
 	ld d, $3C
 	ld e, $08
 	ld hl, $D4EC
-	call Function_2B_4421
-	call Function_2B_46E5
+	call MailDraft_DrawTextLine21
+	call MailDraft_UploadTextTiles
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -414,7 +415,7 @@ Label_2B_430C:: ; 2B:430C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -430,7 +431,7 @@ Label_2B_430C:: ; 2B:430C
 	ld bc, $0000
 	ret
 
-Function_2B_43A5:: ; 2B:43A5
+MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	push bc
 	ld a, c
 	cp a, $00
@@ -491,7 +492,8 @@ Label_2B_441F:: ; 2B:441F
 
 ; ---- code $4421-$44A6 (133 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2B_4421:: ; 2B:4421
+MailDraft_DrawTextLine21:: ; 2B:4421
+Function_2B_4421::
 	ld a, $15
 	ld [wRam_C2EE], a
 
@@ -505,7 +507,7 @@ Label_2B_4426:: ; 2B:4426
 	cp a, $0D
 	jr z, Label_2B_44A6
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_4481
 	pop af
@@ -519,17 +521,17 @@ Label_2B_4426:: ; 2B:4426
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_44E1
+	call MailDraft_DrawTextLine21_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -553,11 +555,11 @@ Label_2B_4481:: ; 2B:4481
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_44E1
+	call MailDraft_DrawTextLine21_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -575,14 +577,14 @@ Label_2B_44A6:: ; 2B:44A6
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_44F5
+	call MailDraft_DrawTextLine21_BlitBlankAdvance
 
 ; ---- code $44C1-$451E (93 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 2/18 scenarios)
 
@@ -592,7 +594,7 @@ Label_2B_44C1:: ; 2B:44C1
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -603,15 +605,15 @@ Label_2B_44D2:: ; 2B:44D2
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_44F5
+	call MailDraft_DrawTextLine21_BlitBlankAdvance
 	jr Label_2B_44D2
 
-Function_2B_44E1:: ; 2B:44E1
+MailDraft_DrawTextLine21_BlitGlyphAdvance:: ; 2B:44E1
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -620,14 +622,14 @@ Function_2B_44E1:: ; 2B:44E1
 	ld e, a
 	ret
 
-Function_2B_44F5:: ; 2B:44F5
+MailDraft_DrawTextLine21_BlitBlankAdvance:: ; 2B:44F5
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -636,7 +638,7 @@ Function_2B_44F5:: ; 2B:44F5
 	ld e, a
 	ret
 
-Function_2B_450D:: ; 2B:450D
+MailDraft_DrawTextLine25:: ; 2B:450D
 	ld a, $19
 	ld [wRam_C2EE], a
 
@@ -652,7 +654,7 @@ Label_2B_4512:: ; 2B:4512
 	cp a, $0D
 	jr z, Label_2B_4592
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_456D
 	pop af
@@ -666,17 +668,17 @@ Label_2B_4512:: ; 2B:4512
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_45CD
+	call MailDraft_DrawTextLine25_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -700,11 +702,11 @@ Label_2B_456D:: ; 2B:456D
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_45CD
+	call MailDraft_DrawTextLine25_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -720,14 +722,14 @@ Label_2B_4592:: ; 2B:4592
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_45E1
+	call MailDraft_DrawTextLine25_BlitBlankAdvance
 
 ; ---- code $45AD-$45CD (32 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 
@@ -737,7 +739,7 @@ Label_2B_45AD:: ; 2B:45AD
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -748,17 +750,17 @@ Label_2B_45BE:: ; 2B:45BE
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_45E1
+	call MailDraft_DrawTextLine25_BlitBlankAdvance
 	jr Label_2B_45BE
 
 ; ---- code $45CD-$45E1 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4545 (PROBABLE code)
 
-Function_2B_45CD:: ; 2B:45CD
+MailDraft_DrawTextLine25_BlitGlyphAdvance:: ; 2B:45CD
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -769,14 +771,15 @@ Function_2B_45CD:: ; 2B:45CD
 
 ; ---- code $45E1-$460A (41 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2B_45E1:: ; 2B:45E1
+MailDraft_DrawTextLine25_BlitBlankAdvance:: ; 2B:45E1
+Function_2B_45E1::
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -785,7 +788,7 @@ Function_2B_45E1:: ; 2B:45E1
 	ld e, a
 	ret
 
-Function_2B_45F9:: ; 2B:45F9
+MailDraft_DrawTextLine17:: ; 2B:45F9
 	ld a, $11
 	ld [wRam_C2EE], a
 
@@ -801,7 +804,7 @@ Label_2B_45FE:: ; 2B:45FE
 	cp a, $0D
 	jr z, Label_2B_467E
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_4659
 	pop af
@@ -815,17 +818,17 @@ Label_2B_45FE:: ; 2B:45FE
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_46B9
+	call MailDraft_DrawTextLine17_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -849,11 +852,11 @@ Label_2B_4659:: ; 2B:4659
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_46B9
+	call MailDraft_DrawTextLine17_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -869,14 +872,14 @@ Label_2B_467E:: ; 2B:467E
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_46CD
+	call MailDraft_DrawTextLine17_BlitBlankAdvance
 
 ; ---- code $4699-$46B9 (32 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 
@@ -886,7 +889,7 @@ Label_2B_4699:: ; 2B:4699
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -897,17 +900,17 @@ Label_2B_46AA:: ; 2B:46AA
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_46CD
+	call MailDraft_DrawTextLine17_BlitBlankAdvance
 	jr Label_2B_46AA
 
 ; ---- code $46B9-$46CD (20 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4631 (PROBABLE code) [executed in 2 scenarios]
 
-Function_2B_46B9:: ; 2B:46B9
+MailDraft_DrawTextLine17_BlitGlyphAdvance:: ; 2B:46B9
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -918,14 +921,15 @@ Function_2B_46B9:: ; 2B:46B9
 
 ; ---- code $46CD-$4743 (118 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2B_46CD:: ; 2B:46CD
+MailDraft_DrawTextLine17_BlitBlankAdvance:: ; 2B:46CD
+Function_2B_46CD::
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -934,7 +938,7 @@ Function_2B_46CD:: ; 2B:46CD
 	ld e, a
 	ret
 
-Function_2B_46E5:: ; 2B:46E5
+MailDraft_UploadTextTiles:: ; 2B:46E5
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -945,25 +949,25 @@ Function_2B_46E5:: ; 2B:46E5
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_2B_4723
+	call Gfx_StartHDMAAtVBlank_2B_4723
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_2B_4723
+	call Gfx_StartHDMAAtVBlank_2B_4723
 	ld hl, $D800
 	ld de, $8800
 	ld c, $3F
-	call Function_2B_4723
+	call Gfx_StartHDMAAtVBlank_2B_4723
 	ld hl, $DC00
 	ld de, $8C00
 	ld c, $3F
-	call Function_2B_4723
+	call Gfx_StartHDMAAtVBlank_2B_4723
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2B_4723:: ; 2B:4723
+Gfx_StartHDMAAtVBlank_2B_4723:: ; 2B:4723
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -991,9 +995,9 @@ Label_2B_4739:: ; 2B:4739
 
 ; ---- code $4743-$478B (72 bytes) [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 1; entered by call from 2B:4098 (PROBABLE code)
 
-Function_2B_4743:: ; 2B:4743
-	farcall Function_7F_72B0
-	farcall Function_4F_4370
+MailDraft_Edit:: ; 2B:4743
+	farcall Stat_DisableScrollSplit
+	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1006,7 +1010,7 @@ Label_2B_475D:: ; 2B:475D
 	ld a, $01
 
 Label_2B_475F:: ; 2B:475F
-	farcall Function_2D_65B0
+	farcall MailAddr_Edit
 	cp a, $FF
 	jr z, Label_2B_4788
 	xor a, a
@@ -1016,10 +1020,10 @@ Label_2B_476C:: ; 2B:476C
 	ld a, $01
 
 Label_2B_476E:: ; 2B:476E
-	farcall Function_2C_4000
+	farcall MailTitle_Entry
 	cp a, $FF
 	jr z, Label_2B_475D
-	farcall Function_2D_4722
+	farcall MailBody_Edit
 	cp a, $FF
 	jr z, Label_2B_476C
 	cp a, $00
@@ -1033,14 +1037,15 @@ Label_2B_4788:: ; 2B:4788
 
 ; ---- code $478B-$47D0 (69 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_2B_478B:: ; 2B:478B
+MailDraft_Menu_SetCaption:: ; 2B:478B
+Function_2B_478B::
 	push bc
 	push de
 	inc a
 	ld e, a
 	ld d, $00
 	sla e
-	ld hl, $47D0
+	ld hl, Table_MailDraftMenu_Captions
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -1051,7 +1056,7 @@ Function_2B_478B:: ; 2B:478B
 	ld a, $2B
 	ld bc, $DB40
 	ld de, $DC80
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1062,7 +1067,7 @@ Function_2B_478B:: ; 2B:478B
 	ld hl, $DB40
 	ld de, $8B40
 	ld c, $27
-	farcall Function_25_538A
+	farcall Gfx_StartHDMAAtVBlank
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1072,33 +1077,39 @@ Function_2B_478B:: ; 2B:478B
 
 ; ---- ptrtable $47D0-$47D8 (8 bytes) [PROBABLE] 4 pointers $47D8, $4801, $482A, $4853 to the 4 NUL-terminated strings of String_2B_47D8 (each string starts right after a NUL, spacing $29); bytes 47D2-47D8 are read as data by executed code (2/18 scenarios)
 
-Table_2B_47D0:: ; 2B:47D0
-	dw String_2B_47D8
-	dw $4801
-	dw $482A
-	dw $4853
+Table_MailDraftMenu_Captions:: ; 2B:47D0
+Table_2B_47D0::
+	dw String_MailDraftMenu_CaptionConfirm
+	dw String_MailDraftMenu_CaptionView
+	dw String_MailDraftMenu_CaptionEdit
+	dw String_MailDraftMenu_CaptionDelete
 
 ; ---- text $47D8-$487C (164 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_2B_47D8:: ; 2B:47D8
-	db $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B
-	db $82, $F0, $81, $40, $82, $A9, $82, $AD, $82, $C9, $82, $F1, $82, $B5, $82, $DC
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $00, $81, $40, $82, $A9, $82, $A2, $82
-	db $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $DD, $82, $E9, $82
-	db $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $40, $81
-	db $40, $00, $81, $40, $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81
-	db $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $C8, $82, $A8, $82, $B5, $82, $DC
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81
-	db $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82
-	db $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+String_MailDraftMenu_CaptionConfirm:: ; 2B:47D8
+String_2B_47D8::
+	db $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $A9, $82, $AD, $82, $C9, $82, $F1, $82, $B5, $82, $DC, $82, $B7 ; "　　かいたメールを　かくにんします"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+String_MailDraftMenu_CaptionView:: ; 2B:4801
+	db $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $DD, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC ; "　かいたメールを　みることができま"
+	db $82, $B7, $81, $40, $81, $40, $00 ; "す　　"
+
+String_MailDraftMenu_CaptionEdit:: ; 2B:482A
+	db $81, $40, $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $C8, $82, $A8, $82, $B5, $82, $DC, $82, $B7, $81, $40 ; "　　　かいたメールを　なおします　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+String_MailDraftMenu_CaptionDelete:: ; 2B:4853
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40 ; "　　　　かいたメールを　けします　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- zero $487C-$4880 (4 bytes) [PROBABLE] 4 bytes of $00 after the last string, before the tiles at 4880
 	ds $4, $00
 
 ; ---- gfx $4880-$4B50 (720 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4265: hl=$4880 a=$2B c=$2D de=$9301 (dest VRAM $9300, vbank=1)
 
-Data_2B_4880:: ; 2B:4880
+Gfx_MailDraftMenu_Tiles9300:: ; 2B:4880
+Data_2B_4880::
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1147,7 +1158,8 @@ Data_2B_4880:: ; 2B:4880
 
 ; ---- data $4B50-$4E20 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:4276: hl=$4B50 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_2B_4B50:: ; 2B:4B50
+Data_MailDraftMenu_TilemapAttr:: ; 2B:4B50
+Data_2B_4B50::
 	db $42, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $42, $42, $42
 	db $42, $34, $35, $36, $42, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F
 	db $20, $42, $42, $42, $42, $44, $45, $46, $3D, $3D, $3D, $3D, $3D, $3D, $3D, $3D
@@ -1196,7 +1208,8 @@ Data_2B_4B50:: ; 2B:4B50
 
 ; ---- data $4E20-$4E60 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_2B_4E20:: ; 2B:4E20
+Palette_MailDraftMenu_Bg:: ; 2B:4E20
+Data_2B_4E20::
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $00, $00, $9F, $02, $F7, $00, $FF, $7F
 	db $3E, $01, $E7, $1B, $00, $00, $FF, $7F, $FF, $7F, $3E, $01, $1F, $1E, $00, $00
 	db $9F, $12, $FF, $7F, $1F, $00, $00, $00, $FF, $7F, $9F, $12, $18, $02, $00, $00
@@ -1204,7 +1217,8 @@ Data_2B_4E20:: ; 2B:4E20
 
 ; ---- gfx $4E60-$5190 (816 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:4242: hl=$4E60 a=$2B c=$33 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_2B_4E60:: ; 2B:4E60
+Gfx_MailDraftMenu_Tiles8000:: ; 2B:4E60
+Data_2B_4E60::
 	db $7E, $7E, $7E, $42, $FF, $F7, $FE, $81, $FF, $F7, $77, $6F, $6B, $5A, $73, $73
 	db $00, $00, $00, $00, $FF, $FF, $FF, $0A, $FF, $BA, $FF, $BF, $FF, $08, $FF, $FF
 	db $3F, $3F, $3F, $21, $BF, $AD, $FF, $ED, $FF, $BD, $FD, $BB, $FA, $76, $DC, $DC
@@ -1259,7 +1273,8 @@ Data_2B_4E60:: ; 2B:4E60
 
 ; ---- data $5190-$51D0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4880-51D0 by higher-priority evidence]
 
-Data_2B_5190:: ; 2B:5190
+Palette_MailDraftMenu_Obj:: ; 2B:5190
+Data_2B_5190::
 	db $E0, $7F, $FF, $7F, $1F, $00, $00, $00, $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 	db $E0, $7F, $18, $02, $00, $00, $FF, $7F, $E0, $7F, $DF, $01, $00, $00, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -1267,7 +1282,8 @@ Data_2B_5190:: ; 2B:5190
 
 ; ---- words $51D0-$5240 (112 bytes) [PROBABLE] animation entry table: 28 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Table_2B_51D0:: ; 2B:51D0
+Table_MailDraftMenu_Anims:: ; 2B:51D0
+Table_2B_51D0::
 	dw Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367, Table_2B_5301, Data_2B_5367
 	dw Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0, Table_2B_536A, Data_2B_53C0
 	dw Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293, Table_2B_526D, Data_2B_5293
@@ -1431,7 +1447,9 @@ Data_2B_53C0:: ; 2B:53C0
 	db $01, $00, $2E
 
 ; ---- code $53C3-$53C6 (3 bytes) [HYPOTHESIS] 'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start
-	call Function_2B_5448
+
+MailGrid_Screen:: ; 2B:53C3
+	call MailGrid_InitScreen
 
 ; ---- code $53C6-$562B (613 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code)
 
@@ -1439,113 +1457,113 @@ Label_2B_53C6:: ; 2B:53C6
 	push bc
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
-	call Function_2B_5523
+	call MailGrid_PlaceCursorSprite
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_2B_53F3
 	push bc
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	push bc
-	farcall Function_2B_6482
+	farcall MailView_SenderPage
 	pop bc
-	jp Function_2B_4000
+	jp MailDraft_Menu
 
 Label_2B_53F3:: ; 2B:53F3
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2B_5402
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
 Label_2B_5402:: ; 2B:5402
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	call nz, Function_2B_5420
+	call nz, MailGrid_CursorLeft
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	call nz, Function_2B_5429
+	call nz, MailGrid_CursorRight
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
-	call nz, Function_2B_5432
+	call nz, MailGrid_CursorUp
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
-	call nz, Function_2B_543D
+	call nz, MailGrid_CursorDown
 	jr Label_2B_53C6
 
-Function_2B_5420:: ; 2B:5420
+MailGrid_CursorLeft:: ; 2B:5420
 	ld a, c
 	cp a, $00
 	ret z
 	dec c
-	call Function_2B_56CB
+	call MailGrid_ShowCellDetails
 	ret
 
-Function_2B_5429:: ; 2B:5429
+MailGrid_CursorRight:: ; 2B:5429
 	ld a, c
 	cp a, $0B
 	ret z
 	inc c
-	call Function_2B_56CB
+	call MailGrid_ShowCellDetails
 	ret
 
-Function_2B_5432:: ; 2B:5432
+MailGrid_CursorUp:: ; 2B:5432
 	ld a, c
 	cp a, $04
 	ret c
 	sub a, $04
 	ld c, a
-	call Function_2B_56CB
+	call MailGrid_ShowCellDetails
 	ret
 
-Function_2B_543D:: ; 2B:543D
+MailGrid_CursorDown:: ; 2B:543D
 	ld a, c
 	cp a, $08
 	ret nc
 	add a, $04
 	ld c, a
-	call Function_2B_56CB
+	call MailGrid_ShowCellDetails
 	ret
 
-Function_2B_5448:: ; 2B:5448
+MailGrid_InitScreen:: ; 2B:5448
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
+	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $62C0
+	ld hl, Palette_MailGrid_Bg
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, $59C0
+	ld hl, Gfx_MailGrid_Tiles9000
 	ld a, $2B
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5DC0
+	ld hl, Gfx_MailGrid_Tiles9400
 	ld a, $2B
 	ld b, $95
 	ld c, $23
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6300
+	ld hl, Gfx_MailGrid_Tiles8000
 	ld a, $2B
 	ld b, $97
 	ld c, $0F
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $63F0
+	ld hl, Palette_MailGrid_Obj
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $5FF0
+	ld hl, Data_MailGrid_TilemapAttr
 	ld a, $2B
 	farcall Function_00_08EA
 	ldh [hScratchA], a
@@ -1557,7 +1575,7 @@ Function_2B_5448:: ; 2B:5448
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -1568,21 +1586,21 @@ Function_2B_5448:: ; 2B:5448
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA10
-	ld de, $6430
+	ld de, Table_MailGrid_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Function_00_0A82
 	ld de, $1404
 	ld hl, $DA10
 	call Function_00_0A65
-	call Function_2B_55E1
+	call MailGrid_DrawCellIcons
 	farcall LCDOn
-	farcall Function_2D_5016
+	farcall TextTiles_UploadBuffers
 	ld bc, $0000
-	call Function_2B_56CB
+	call MailGrid_ShowCellDetails
 	ret
 
-Function_2B_5523:: ; 2B:5523
+MailGrid_PlaceCursorSprite:: ; 2B:5523
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1699,14 +1717,14 @@ Label_2B_55DF:: ; 2B:55DF
 	pop bc
 	ret
 
-Function_2B_55E1:: ; 2B:55E1
+MailGrid_DrawCellIcons:: ; 2B:55E1
 	ld c, $00
 
 Label_2B_55E3:: ; 2B:55E3
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $562B
+	ld hl, Table_MailGrid_CellTilemapAddrs
 	add hl, bc
 	ld a, [hli]
 	ld e, a
@@ -1720,7 +1738,7 @@ Label_2B_55E3:: ; 2B:55E3
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld hl, $5643
+	ld hl, Table_MailGrid_RecAddrs_Cells
 	add hl, bc
 	ld a, [hli]
 	ld e, a
@@ -1736,13 +1754,13 @@ Label_2B_55E3:: ; 2B:55E3
 	pop hl
 	cp a, $01
 	jr nz, Label_2B_561B
-	call Function_2B_565B
+	call MailGrid_DrawCellIcon_Flag1
 	xor a, a
 
 Label_2B_561B:: ; 2B:561B
 	cp a, $02
 	jr nz, Label_2B_5623
-	call Function_2B_5693
+	call MailGrid_DrawCellIcon_Flag2
 	xor a, a
 
 Label_2B_5623:: ; 2B:5623
@@ -1755,19 +1773,21 @@ Label_2B_5623:: ; 2B:5623
 
 ; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
 
-Table_2B_562B:: ; 2B:562B
+Table_MailGrid_CellTilemapAddrs:: ; 2B:562B
+Table_2B_562B::
 	dw $9861, $9866, $986B, $9870, $98E1, $98E6, $98EB, $98F0
 	dw $9961, $9966, $996B, $9970
 
 ; ---- words $5643-$565B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (step $12D) = SRAM record base addresses; ld hl,$5643 at 2B:5600 (index by 2*c)
 
-Table_2B_5643:: ; 2B:5643
+Table_MailGrid_RecAddrs_Cells:: ; 2B:5643
+Table_2B_5643::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $565B-$57B5 (346 bytes) [PROBABLE] 246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code)
 
-Function_2B_565B:: ; 2B:565B
+MailGrid_DrawCellIcon_Flag1:: ; 2B:565B
 	xor a, a
 	ldh [rVBK], a
 	ld de, $0020
@@ -1818,7 +1838,7 @@ Function_2B_565B:: ; 2B:565B
 	ld [hli], a
 	ret
 
-Function_2B_5693:: ; 2B:5693
+MailGrid_DrawCellIcon_Flag2:: ; 2B:5693
 	xor a, a
 	ldh [rVBK], a
 	ld de, $0020
@@ -1869,7 +1889,7 @@ Function_2B_5693:: ; 2B:5693
 	ld [hli], a
 	ret
 
-Function_2B_56CB:: ; 2B:56CB
+MailGrid_ShowCellDetails:: ; 2B:56CB
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1879,7 +1899,7 @@ Function_2B_56CB:: ; 2B:56CB
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $5814
+	ld hl, Table_MailGrid_RecAddrs_Details
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -1898,7 +1918,7 @@ Label_2B_56F2:: ; 2B:56F2
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $5814
+	ld hl, Table_MailGrid_RecAddrs_Details
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -1984,7 +2004,7 @@ Label_2B_572D:: ; 2B:572D
 	ldh [rSVBK], a
 	ld b, $00
 	sla c
-	ld hl, $5814
+	ld hl, Table_MailGrid_RecAddrs_Details
 	add hl, bc
 	ld a, [hli]
 	ld e, a
@@ -1994,11 +2014,11 @@ Label_2B_572D:: ; 2B:572D
 	ld de, $00C9
 	add hl, de
 	ld de, $D524
-	call Function_2B_582C
+	call MailGrid_CopyTextEllipsis
 	ld bc, $0200
 	ld de, $0408
 	ld hl, $D524
-	call Function_2B_588B
+	call MailGrid_DrawTextLine12
 	pop bc
 	push bc
 	ld a, $01
@@ -2006,7 +2026,7 @@ Label_2B_572D:: ; 2B:572D
 	ldh [rSVBK], a
 	ld b, $00
 	sla c
-	ld hl, $5814
+	ld hl, Table_MailGrid_RecAddrs_Details
 	add hl, bc
 	ld a, [hli]
 	ld e, a
@@ -2016,20 +2036,20 @@ Label_2B_572D:: ; 2B:572D
 	ld de, $00D9
 	add hl, de
 	ld de, $D524
-	call Function_2B_582C
+	call MailGrid_CopyTextEllipsis
 	ld bc, $0200
 	ld de, $0458
 	ld hl, $D524
-	call Function_2B_588B
-	call Function_2B_5977
+	call MailGrid_DrawTextLine12
+	call MailGrid_UploadTextTiles
 	pop bc
 	ret
 
 ; ---- text $57B5-$57CB (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_2B_57B5:: ; 2B:57B5
-	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $E1, $00, $82, $A0, $82
-	db $BB, $82, $DA, $82, $A4, $00
+	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $E1, $00 ; "そうしんしゃ"
+	db $82, $A0, $82, $BB, $82, $DA, $82, $A4, $00 ; "あそぼう"
 
 ; ---- code $57CB-$5806 (59 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code)
 
@@ -2062,13 +2082,13 @@ Label_2B_57CF:: ; 2B:57CF
 	push bc
 	ld bc, $0200
 	ld de, $0408
-	ld hl, $5807
-	call Function_2B_588B
+	ld hl, String_2B_5807
+	call MailGrid_DrawTextLine12
 	ld bc, $0200
 	ld de, $0458
-	ld hl, $5807
-	call Function_2B_588B
-	call Function_2B_5977
+	ld hl, String_2B_5807
+	call MailGrid_DrawTextLine12
+	call MailGrid_UploadTextTiles
 	pop bc
 	ret
 
@@ -2078,17 +2098,18 @@ Label_2B_57CF:: ; 2B:57CF
 ; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
 
 String_2B_5807:: ; 2B:5807
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　"
 
 ; ---- words $5814-$582C (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
 
-Table_2B_5814:: ; 2B:5814
+Table_MailGrid_RecAddrs_Details:: ; 2B:5814
+Table_2B_5814::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $582C-$59B4 (392 bytes) [PROBABLE] 225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code)
 
-Function_2B_582C:: ; 2B:582C
+MailGrid_CopyTextEllipsis:: ; 2B:582C
 	push hl
 	push de
 	ld c, $00
@@ -2114,7 +2135,7 @@ Label_2B_583E:: ; 2B:583E
 Label_2B_5844:: ; 2B:5844
 	ld a, [hli]
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_5876
 	pop af
@@ -2171,7 +2192,7 @@ Label_2B_5887:: ; 2B:5887
 Label_2B_588A:: ; 2B:588A
 	ret
 
-Function_2B_588B:: ; 2B:588B
+MailGrid_DrawTextLine12:: ; 2B:588B
 	ld a, $0C
 	ld [wRam_C2EE], a
 
@@ -2185,7 +2206,7 @@ Label_2B_5890:: ; 2B:5890
 	cp a, $0D
 	jr z, Label_2B_5910
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_58EB
 	pop af
@@ -2199,17 +2220,17 @@ Label_2B_5890:: ; 2B:5890
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_594B
+	call MailGrid_DrawTextLine12_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2233,11 +2254,11 @@ Label_2B_58EB:: ; 2B:58EB
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_594B
+	call MailGrid_DrawTextLine12_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -2253,14 +2274,14 @@ Label_2B_5910:: ; 2B:5910
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_595F
+	call MailGrid_DrawTextLine12_BlitBlankAdvance
 
 Label_2B_592B:: ; 2B:592B
 	push bc
@@ -2268,7 +2289,7 @@ Label_2B_592B:: ; 2B:592B
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -2279,15 +2300,15 @@ Label_2B_593C:: ; 2B:593C
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_595F
+	call MailGrid_DrawTextLine12_BlitBlankAdvance
 	jr Label_2B_593C
 
-Function_2B_594B:: ; 2B:594B
+MailGrid_DrawTextLine12_BlitGlyphAdvance:: ; 2B:594B
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2296,14 +2317,14 @@ Function_2B_594B:: ; 2B:594B
 	ld e, a
 	ret
 
-Function_2B_595F:: ; 2B:595F
+MailGrid_DrawTextLine12_BlitBlankAdvance:: ; 2B:595F
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -2312,7 +2333,7 @@ Function_2B_595F:: ; 2B:595F
 	ld e, a
 	ret
 
-Function_2B_5977:: ; 2B:5977
+MailGrid_UploadTextTiles:: ; 2B:5977
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2323,13 +2344,13 @@ Function_2B_5977:: ; 2B:5977
 	ld hl, $D000
 	ld de, $9000
 	ld c, $27
-	call Function_2B_5994
+	call Gfx_StartHDMAAtVBlank_2B_5994
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2B_5994:: ; 2B:5994
+Gfx_StartHDMAAtVBlank_2B_5994:: ; 2B:5994
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2360,7 +2381,8 @@ Label_2B_59AA:: ; 2B:59AA
 
 ; ---- gfx $59C0-$5DC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2B_59C0:: ; 2B:59C0
+Gfx_MailGrid_Tiles9000:: ; 2B:59C0
+Data_2B_59C0::
 	db $3F, $5F, $7C, $B0, $79, $E1, $72, $E2, $65, $E4, $6B, $E9, $77, $F2, $6F, $E4
 	db $F1, $ED, $8C, $BF, $3B, $73, $7F, $C0, $50, $C0, $37, $67, $7F, $C0, $50, $C0
 	db $FF, $FE, $1E, $C1, $CD, $E3, $A5, $33, $23, $36, $C3, $E6, $A3, $36, $22, $36
@@ -2428,7 +2450,8 @@ Data_2B_59C0:: ; 2B:59C0
 
 ; ---- gfx $5DC0-$5FF0 (560 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2B_5DC0:: ; 2B:5DC0
+Gfx_MailGrid_Tiles9400:: ; 2B:5DC0
+Data_2B_5DC0::
 	db $0F, $0C, $0F, $0C, $4F, $0C, $6F, $0C, $6F, $0C, $6F, $0C, $4F, $0C, $0F, $0C
 	db $F0, $10, $F8, $08, $F7, $0F, $E3, $1F, $C0, $3F, $80, $7F, $01, $FE, $03, $FC
 	db $00, $00, $00, $00, $FF, $FF, $FF, $FF, $C0, $3F, $80, $7F, $01, $FE, $03, $FC
@@ -2467,7 +2490,8 @@ Data_2B_5DC0:: ; 2B:5DC0
 
 ; ---- data $5FF0-$62C0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:54C3: hl=$5FF0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2B_5FF0:: ; 2B:5FF0
+Data_MailGrid_TilemapAttr:: ; 2B:5FF0
+Data_2B_5FF0::
 	db $10, $0F, $0E, $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C
 	db $0D, $0E, $0F, $10, $21, $20, $1F, $11, $12, $13, $14, $15, $16, $17, $18, $19
 	db $1A, $1B, $1C, $1D, $1E, $1F, $20, $21, $2C, $2D, $2E, $2D, $2F, $30, $2E, $2D
@@ -2516,7 +2540,8 @@ Data_2B_5FF0:: ; 2B:5FF0
 
 ; ---- data $62C0-$6300 (64 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 62C0-6310 by higher-priority proposals]
 
-Data_2B_62C0:: ; 2B:62C0
+Palette_MailGrid_Bg:: ; 2B:62C0
+Data_2B_62C0::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $FB, $00, $9F, $02, $00, $00, $FF, $7F
 	db $FF, $7F, $92, $7A, $A8, $65, $00, $00, $FF, $7F, $FF, $3A, $46, $7D, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -2524,7 +2549,8 @@ Data_2B_62C0:: ; 2B:62C0
 
 ; ---- gfx $6300-$63F0 (240 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:54A1: hl=$6300 a=$2B c=$0F de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2B_6300:: ; 2B:6300
+Gfx_MailGrid_Tiles8000:: ; 2B:6300
+Data_2B_6300::
 	db $00, $00, $00, $00, $03, $03, $04, $07, $0B, $0C, $17, $18, $2E, $31, $5C, $63
 	db $00, $00, $FF, $FF, $00, $FF, $FF, $00, $FF, $00, $00, $FF, $00, $FF, $7F, $FF
 	db $00, $00, $80, $80, $60, $E0, $98, $78, $E4, $1C, $72, $8E, $39, $C7, $1D, $E3
@@ -2543,7 +2569,8 @@ Data_2B_6300:: ; 2B:6300
 
 ; ---- data $63F0-$6430 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear), loaded by 'ld hl,$63F0' at 2B:54AD (a=$2B); replaces the clipped 72-word heuristic region
 
-Palette_2B_63F0:: ; 2B:63F0
+Palette_MailGrid_Obj:: ; 2B:63F0
+Palette_2B_63F0::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $FB, $00, $9F, $02, $00, $00, $FF, $7F
 	db $FF, $7F, $92, $7A, $A8, $65, $00, $00, $FF, $7F, $FF, $3A, $46, $7D, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -2551,7 +2578,8 @@ Palette_2B_63F0:: ; 2B:63F0
 
 ; ---- words $6430-$6440 (16 bytes) [PROBABLE] animation entry table: 4 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Table_2B_6430:: ; 2B:6430
+Table_MailGrid_Anims:: ; 2B:6430
+Table_2B_6430::
 	dw Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F
 
 ; ---- words $6440-$6442 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $6442 to OAM frames (extent = lowest target); referenced by an animation entry
@@ -2574,7 +2602,7 @@ Data_2B_647F:: ; 2B:647F
 
 ; ---- code $6482-$64F1 (111 bytes) [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code) [executed in 2 scenarios]
 
-Function_2B_6482:: ; 2B:6482
+MailView_SenderPage:: ; 2B:6482
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -2590,15 +2618,15 @@ Function_2B_6482:: ; 2B:6482
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop bc
-	call Function_2B_65AB
+	call MailView_SenderPage_InitScreen
 
-Label_2B_64A7:: ; 2B:64A7
+MailView_SenderPage_Loop:: ; 2B:64A7
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -2616,17 +2644,19 @@ Label_2B_64A7:: ; 2B:64A7
 	pop de
 	pop bc
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
-	farcall Function_2B_7B02
+	farcall MailView_BodyPage
 	cp a, $FF
-	jp z, Function_2B_6482
+	jp z, MailView_SenderPage
 	xor a, a
 	ret
 
 ; ---- code $64F1-$6500 (15 bytes) [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after the ret at 64F0; no caller/pointer to 64F1 found
+
+Function_2B_64F1:: ; 2B:64F1
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2640,7 +2670,7 @@ Label_2B_64A7:: ; 2B:64A7
 	ld de, $0206
 	push de
 	pop de
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ld a, $68
 	ld [wSpriteSlots + 16], a
@@ -2649,15 +2679,15 @@ Label_2B_64A7:: ; 2B:64A7
 	pop af
 	pop bc
 	dec a
-	jp nz, Label_2B_64A7
-	farcall Function_2D_4133
+	jp nz, MailView_SenderPage_Loop
+	farcall MailRecord_Delete
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	farcall Function_00_0956
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ret
 
 Label_2B_6548:: ; 2B:6548
@@ -2676,9 +2706,9 @@ Label_2B_6548:: ; 2B:6548
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
@@ -2699,21 +2729,21 @@ Label_2B_6574:: ; 2B:6574
 	pop de
 	pop bc
 	push bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
-	farcall Function_2A_4000
-	jp Function_2B_6482
+	farcall SaveSenderAddr_Menu
+	jp MailView_SenderPage
 
 Label_2B_65A8:: ; 2B:65A8
-	jp Label_2B_64A7
+	jp MailView_SenderPage_Loop
 
-Function_2B_65AB:: ; 2B:65AB
+MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
+	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	call Function_00_0464
 	ld a, $01
@@ -2728,16 +2758,16 @@ Label_2B_65D2:: ; 2B:65D2
 	dec b
 	jr nz, Label_2B_65D2
 	call Function_00_0464
-	farcall Function_2D_408F
+	farcall MailDraft_LoadFromSram
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $76A0
+	ld hl, Palette_MailView_Bg
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld de, $8000
-	ld hl, $76E0
+	ld hl, Gfx_MailView_Tiles8000
 	ld a, $2B
 	ld b, $96
 	ld c, $18
@@ -2745,19 +2775,19 @@ Label_2B_65D2:: ; 2B:65D2
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $7860
+	ld hl, Palette_MailView_Obj
 	ld a, $2B
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0464
 	ld de, $9001
-	ld hl, $6DD0
+	ld hl, Gfx_MailView_Tiles9000
 	ld a, $2B
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $9401
-	ld hl, $71D0
+	ld hl, Gfx_MailView_Tiles9400
 	ld a, $2B
 	ld b, $95
 	ld c, $20
@@ -2765,7 +2795,7 @@ Label_2B_65D2:: ; 2B:65D2
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $73D0
+	ld hl, Data_MailView_TilemapAttr
 	ld a, $2B
 	farcall Function_00_08EA
 	call Function_00_0464
@@ -2773,7 +2803,7 @@ Label_2B_65D2:: ; 2B:65D2
 	call Function_00_082C
 	call Function_00_0464
 	ld hl, $DA30
-	ld de, $78A0
+	ld de, Table_MailView_Anims
 	ld a, $2B
 	ld b, $81
 	farcall Function_00_0A82
@@ -2801,7 +2831,7 @@ Label_2B_65D2:: ; 2B:65D2
 	farcall LCDOn
 	pop bc
 	push bc
-	call Function_2B_691A
+	call MailView_DrawDateTime
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -2811,7 +2841,7 @@ Label_2B_65D2:: ; 2B:65D2
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $6863
+	ld hl, Table_MailView_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2852,7 +2882,7 @@ Label_2B_66F9:: ; 2B:66F9
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $6863
+	ld hl, Table_MailView_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2872,7 +2902,7 @@ Label_2B_66F9:: ; 2B:66F9
 	ld bc, $0300
 	ld d, $14
 	ld e, $20
-	call Function_2B_69C5
+	call MailView_DrawTextLine20
 	push bc
 	push de
 	push hl
@@ -2891,7 +2921,7 @@ Label_2B_66F9:: ; 2B:66F9
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $6863
+	ld hl, Table_MailView_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2904,7 +2934,7 @@ Label_2B_66F9:: ; 2B:66F9
 	ld bc, $0300
 	ld d, $02
 	ld e, $20
-	call Function_2B_6BA6
+	call MailView_DrawTextLine16
 	push bc
 	push de
 	push hl
@@ -2923,7 +2953,7 @@ Label_2B_66F9:: ; 2B:66F9
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $6863
+	ld hl, Table_MailView_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -2937,7 +2967,7 @@ Label_2B_66F9:: ; 2B:66F9
 	ld d, $24
 	ld e, $20
 	push hl
-	call Function_2B_69C5
+	call MailView_DrawTextLine20
 	push bc
 	push de
 	push hl
@@ -2955,7 +2985,7 @@ Label_2B_66F9:: ; 2B:66F9
 	ld d, $30
 	ld e, $08
 	push hl
-	call Function_2B_6AB5
+	call MailView_DrawTextLine24
 	push bc
 	push de
 	push hl
@@ -2972,7 +3002,7 @@ Label_2B_66F9:: ; 2B:66F9
 	ld bc, $0300
 	ld d, $3C
 	ld e, $08
-	call Function_2B_69C5
+	call MailView_DrawTextLine20
 
 Label_2B_67E0:: ; 2B:67E0
 	pop bc
@@ -2984,7 +3014,7 @@ Label_2B_67E0:: ; 2B:67E0
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_6C97
+	call MailView_UploadTextTiles
 	push bc
 	push de
 	push hl
@@ -3029,9 +3059,9 @@ Label_2B_680E:: ; 2B:680E
 	pop af
 	ldh [rSVBK], a
 	ei
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -3046,7 +3076,7 @@ Label_2B_680E:: ; 2B:680E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop bc
 	ld b, c
 	ld c, $00
@@ -3054,7 +3084,8 @@ Label_2B_680E:: ; 2B:680E
 
 ; ---- words $6863-$687B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$6863 at 2B:66CD, 6717, 6756, 678C
 
-Table_2B_6863:: ; 2B:6863
+Table_MailView_RecAddrs:: ; 2B:6863
+Table_2B_6863::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
@@ -3062,6 +3093,8 @@ Table_2B_6863:: ; 2B:6863
 	ret
 
 ; ---- code $687C-$6895 (25 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
+
+Function_2B_687C:: ; 2B:687C
 	push bc
 	ld a, c
 	cp a, $00
@@ -3143,7 +3176,7 @@ Label_2B_68F6:: ; 2B:68F6
 	pop bc
 	ret
 
-Function_2B_691A:: ; 2B:691A
+MailView_DrawDateTime:: ; 2B:691A
 	push bc
 	ld a, $00
 	ldh [hSRAMBank], a
@@ -3154,7 +3187,7 @@ Function_2B_691A:: ; 2B:691A
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $69AD
+	ld hl, Table_MailView_RecAddrs_DateTime
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -3173,7 +3206,7 @@ Label_2B_6942:: ; 2B:6942
 	push bc
 	ld b, $00
 	sla c
-	ld hl, $69AD
+	ld hl, Table_MailView_RecAddrs_DateTime
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -3260,13 +3293,14 @@ Label_2B_69AB:: ; 2B:69AB
 
 ; ---- words $69AD-$69C5 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$69AD at 2B:692E and 6947
 
-Table_2B_69AD:: ; 2B:69AD
+Table_MailView_RecAddrs_DateTime:: ; 2B:69AD
+Table_2B_69AD::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $69C5-$6CF5 (816 bytes) [PROBABLE] 425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code)
 
-Function_2B_69C5:: ; 2B:69C5
+MailView_DrawTextLine20:: ; 2B:69C5
 	ld a, $14
 	ld [wRam_C2EE], a
 
@@ -3280,7 +3314,7 @@ Label_2B_69CA:: ; 2B:69CA
 	cp a, $0D
 	jr z, Label_2B_6A4E
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6A2C
 	ld a, [wRam_C2EE]
@@ -3301,17 +3335,17 @@ Label_2B_69EF:: ; 2B:69EF
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_6A89
+	call MailView_DrawTextLine20_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3333,11 +3367,11 @@ Label_2B_6A2C:: ; 2B:6A2C
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_6A89
+	call MailView_DrawTextLine20_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -3351,14 +3385,14 @@ Label_2B_6A4E:: ; 2B:6A4E
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6A9D
+	call MailView_DrawTextLine20_BlitBlankAdvance
 
 Label_2B_6A69:: ; 2B:6A69
 	push bc
@@ -3366,7 +3400,7 @@ Label_2B_6A69:: ; 2B:6A69
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -3377,15 +3411,15 @@ Label_2B_6A7A:: ; 2B:6A7A
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6A9D
+	call MailView_DrawTextLine20_BlitBlankAdvance
 	jr Label_2B_6A7A
 
-Function_2B_6A89:: ; 2B:6A89
+MailView_DrawTextLine20_BlitGlyphAdvance:: ; 2B:6A89
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3394,14 +3428,14 @@ Function_2B_6A89:: ; 2B:6A89
 	ld e, a
 	ret
 
-Function_2B_6A9D:: ; 2B:6A9D
+MailView_DrawTextLine20_BlitBlankAdvance:: ; 2B:6A9D
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3410,7 +3444,7 @@ Function_2B_6A9D:: ; 2B:6A9D
 	ld e, a
 	ret
 
-Function_2B_6AB5:: ; 2B:6AB5
+MailView_DrawTextLine24:: ; 2B:6AB5
 	ld a, $18
 	ld [wRam_C2EE], a
 
@@ -3424,7 +3458,7 @@ Label_2B_6ABA:: ; 2B:6ABA
 	cp a, $0D
 	jr z, Label_2B_6B3F
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6B1D
 	ld a, [wRam_C2EE]
@@ -3445,17 +3479,17 @@ Label_2B_6ADF:: ; 2B:6ADF
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_6B7A
+	call MailView_DrawTextLine24_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3477,11 +3511,11 @@ Label_2B_6B1D:: ; 2B:6B1D
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_6B7A
+	call MailView_DrawTextLine24_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -3495,14 +3529,14 @@ Label_2B_6B3F:: ; 2B:6B3F
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6B8E
+	call MailView_DrawTextLine24_BlitBlankAdvance
 
 Label_2B_6B5A:: ; 2B:6B5A
 	push bc
@@ -3510,7 +3544,7 @@ Label_2B_6B5A:: ; 2B:6B5A
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -3521,15 +3555,15 @@ Label_2B_6B6B:: ; 2B:6B6B
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6B8E
+	call MailView_DrawTextLine24_BlitBlankAdvance
 	jr Label_2B_6B6B
 
-Function_2B_6B7A:: ; 2B:6B7A
+MailView_DrawTextLine24_BlitGlyphAdvance:: ; 2B:6B7A
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3538,14 +3572,14 @@ Function_2B_6B7A:: ; 2B:6B7A
 	ld e, a
 	ret
 
-Function_2B_6B8E:: ; 2B:6B8E
+MailView_DrawTextLine24_BlitBlankAdvance:: ; 2B:6B8E
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3554,7 +3588,7 @@ Function_2B_6B8E:: ; 2B:6B8E
 	ld e, a
 	ret
 
-Function_2B_6BA6:: ; 2B:6BA6
+MailView_DrawTextLine16:: ; 2B:6BA6
 	ld a, $10
 	ld [wRam_C2EE], a
 
@@ -3568,7 +3602,7 @@ Label_2B_6BAB:: ; 2B:6BAB
 	cp a, $0D
 	jr z, Label_2B_6C30
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6C0E
 	ld a, [wRam_C2EE]
@@ -3589,17 +3623,17 @@ Label_2B_6BD0:: ; 2B:6BD0
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_6C6B
+	call MailView_DrawTextLine16_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3621,11 +3655,11 @@ Label_2B_6C0E:: ; 2B:6C0E
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_6C6B
+	call MailView_DrawTextLine16_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -3639,14 +3673,14 @@ Label_2B_6C30:: ; 2B:6C30
 	push hl
 	ld b, $3C
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6C7F
+	call MailView_DrawTextLine16_BlitBlankAdvance
 
 Label_2B_6C4B:: ; 2B:6C4B
 	push bc
@@ -3654,7 +3688,7 @@ Label_2B_6C4B:: ; 2B:6C4B
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -3665,15 +3699,15 @@ Label_2B_6C5C:: ; 2B:6C5C
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_6C7F
+	call MailView_DrawTextLine16_BlitBlankAdvance
 	jr Label_2B_6C5C
 
-Function_2B_6C6B:: ; 2B:6C6B
+MailView_DrawTextLine16_BlitGlyphAdvance:: ; 2B:6C6B
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3682,14 +3716,14 @@ Function_2B_6C6B:: ; 2B:6C6B
 	ld e, a
 	ret
 
-Function_2B_6C7F:: ; 2B:6C7F
+MailView_DrawTextLine16_BlitBlankAdvance:: ; 2B:6C7F
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -3698,7 +3732,7 @@ Function_2B_6C7F:: ; 2B:6C7F
 	ld e, a
 	ret
 
-Function_2B_6C97:: ; 2B:6C97
+MailView_UploadTextTiles:: ; 2B:6C97
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -3709,25 +3743,25 @@ Function_2B_6C97:: ; 2B:6C97
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_2B_6CD5
+	call Gfx_StartHDMAAtVBlank_2B_6CD5
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_2B_6CD5
+	call Gfx_StartHDMAAtVBlank_2B_6CD5
 	ld hl, $D800
 	ld de, $8800
 	ld c, $3F
-	call Function_2B_6CD5
+	call Gfx_StartHDMAAtVBlank_2B_6CD5
 	ld hl, $DC00
 	ld de, $8C00
 	ld c, $3F
-	call Function_2B_6CD5
+	call Gfx_StartHDMAAtVBlank_2B_6CD5
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2B_6CD5:: ; 2B:6CD5
+Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -3754,6 +3788,8 @@ Label_2B_6CEB:: ; 2B:6CEB
 	ret
 
 ; ---- code $6CF5-$6D6B (118 bytes) [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets valid
+
+Function_2B_6CF5:: ; 2B:6CF5
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -3784,7 +3820,7 @@ Label_2B_6D0F:: ; 2B:6D0F
 	ld c, b
 	ld b, $00
 	sla c
-	ld hl, $6DB0
+	ld hl, Table_2B_6DB0
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -3835,7 +3871,7 @@ Label_2B_6D6B:: ; 2B:6D6B
 	ld a, $01
 
 Label_2B_6D6D:: ; 2B:6D6D
-	farcall Function_2D_65B0
+	farcall MailAddr_Edit
 	cp a, $FF
 	jr z, Label_2B_6DA3
 	xor a, a
@@ -3845,10 +3881,10 @@ Label_2B_6D7A:: ; 2B:6D7A
 	ld a, $01
 
 Label_2B_6D7C:: ; 2B:6D7C
-	farcall Function_2C_4000
+	farcall MailTitle_Entry
 	cp a, $FF
 	jr z, Label_2B_6D6B
-	farcall Function_2D_4722
+	farcall MailBody_Edit
 	cp a, $FF
 	jr z, Label_2B_6D7A
 	cp a, $00
@@ -3884,7 +3920,8 @@ Table_2B_6DB0:: ; 2B:6DB0
 
 ; ---- gfx $6DD0-$71D0 (1024 bytes) [PROBABLE] 64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content)
 
-Tiles_2B_6DD0:: ; 2B:6DD0
+Gfx_MailView_Tiles9000:: ; 2B:6DD0
+Tiles_2B_6DD0::
 	db $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $00, $FF, $FF, $FF, $C0, $1F, $CF, $27, $DF, $20, $C0, $20, $C0, $1F, $E0, $00
 	db $00, $FF, $FF, $FF, $00, $FF, $FF, $FE, $FF, $00, $00, $00, $00, $FF, $00, $00
@@ -3952,7 +3989,8 @@ Tiles_2B_6DD0:: ; 2B:6DD0
 
 ; ---- gfx $71D0-$73D0 (512 bytes) [PROBABLE] 32 tiles: 'ld de,$9401 ; ld hl,$71D0 ; ld a,$2B ; ld c,$20 ; HDMA' at 2B:6635-6646; ends where the tilemap+attr block at 73D0 begins
 
-Tiles_2B_71D0:: ; 2B:71D0
+Gfx_MailView_Tiles9400:: ; 2B:71D0
+Tiles_2B_71D0::
 	db $29, $FE, $44, $FF, $FE, $FF, $24, $FF, $A5, $7E, $25, $FE, $6D, $DE, $00, $00
 	db $00, $00, $00, $00, $01, $01, $03, $03, $07, $07, $0E, $0E, $07, $07, $03, $03
 	db $70, $70, $E1, $E1, $C3, $C3, $87, $87, $0F, $0F, $1F, $1F, $37, $37, $EE, $EE
@@ -3988,7 +4026,8 @@ Tiles_2B_71D0:: ; 2B:71D0
 
 ; ---- data $73D0-$76A0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2B_73D0:: ; 2B:73D0
+Data_MailView_TilemapAttr:: ; 2B:73D0
+Data_2B_73D0::
 	db $3A, $3B, $3B, $3B, $3B, $3C, $3B, $3B, $3D, $3B, $3B, $3E, $3B, $3B, $3F, $3B
 	db $3B, $40, $50, $3A, $49, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E
 	db $0F, $49, $49, $49, $49, $41, $42, $43, $49, $18, $19, $1A, $1B, $1C, $1D, $1E
@@ -4037,7 +4076,8 @@ Data_2B_73D0:: ; 2B:73D0
 
 ; ---- data $76A0-$76E0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D800 ; ld hl,$76A0 ; ld a,$2B ; far call 4F:4000' at 2B:65E3-65F3; the old heuristic region ran into tile data
 
-Palette_2B_76A0:: ; 2B:76A0
+Palette_MailView_Bg:: ; 2B:76A0
+Palette_2B_76A0::
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $15, $00, $DF, $01, $00, $00, $FF, $7F
 	db $BF, $02, $FF, $7F, $18, $02, $00, $00, $1F, $00, $BF, $02, $00, $00, $FF, $7F
 	db $00, $00, $DF, $01, $0F, $00, $FF, $7F, $FF, $7F, $1F, $00, $18, $02, $00, $00
@@ -4045,7 +4085,8 @@ Palette_2B_76A0:: ; 2B:76A0
 
 ; ---- gfx $76E0-$7860 (384 bytes) [PROBABLE] 24 tiles: 'ld de,$8000 ; ld hl,$76E0 ; ld a,$2B ; ld c,$18 ; HDMA' at 2B:65F7-6608; includes the zero run at 7840-7860 (blank tiles)
 
-Tiles_2B_76E0:: ; 2B:76E0
+Gfx_MailView_Tiles8000:: ; 2B:76E0
+Tiles_2B_76E0::
 	db $00, $00, $00, $00, $0F, $0F, $0F, $08, $0F, $08, $08, $08, $0B, $0B, $08, $08
 	db $00, $00, $00, $00, $FF, $FF, $FF, $00, $FF, $00, $00, $00, $D5, $D5, $00, $00
 	db $00, $00, $00, $00, $F0, $F0, $10, $10, $F0, $10, $10, $10, $D0, $D0, $10, $10
@@ -4073,7 +4114,8 @@ Tiles_2B_76E0:: ; 2B:76E0
 
 ; ---- data $7860-$78A0 (64 bytes) [PROBABLE] 64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D840 ; ld hl,$7860 ; ld a,$2B ; far call 4F:4000' at 2B:660C-661C
 
-Palette_2B_7860:: ; 2B:7860
+Palette_MailView_Obj:: ; 2B:7860
+Palette_2B_7860::
 	db $E0, $7F, $1F, $00, $00, $00, $FF, $7F, $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 	db $E0, $7F, $FF, $7F, $9F, $02, $00, $00, $E0, $7F, $BF, $5C, $5F, $66, $FF, $7F
 	db $E0, $7F, $1F, $00, $DF, $01, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -4081,7 +4123,8 @@ Palette_2B_7860:: ; 2B:7860
 
 ; ---- words $78A0-$7920 (128 bytes) [PROBABLE] animation entry table: 32 entries of 4 bytes (frame-table pointer, script pointer), each animation repeated 4x; format of the sprite-slot initialiser 00:0A82/0AB8 (entry at DE+4*(A&$7F) -> slot[2..3] frame table, slot[6..7] script)
 
-Table_2B_78A0:: ; 2B:78A0
+Table_MailView_Anims:: ; 2B:78A0
+Table_2B_78A0::
 	dw Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986, Table_2B_7920, Data_2B_7986
 	dw Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7, Table_2B_7989, Data_2B_79A7
 	dw Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71, Table_2B_7A4B, Data_2B_7A71
@@ -4274,7 +4317,7 @@ Data_2B_7AFD:: ; 2B:7AFD
 
 ; ---- code $7B02-$7D7A (632 bytes) [CONFIRMED] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8; entered by far from 2B:64E4 (PROBABLE code) [executed in 2 scenarios]
 
-Function_2B_7B02:: ; 2B:7B02
+MailView_BodyPage:: ; 2B:7B02
 	push bc
 	push bc
 	push af
@@ -4291,17 +4334,17 @@ Function_2B_7B02:: ; 2B:7B02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop bc
-	call Function_2B_7B9B
+	call MailView_BodyPage_InitScreen
 	pop bc
 	ld c, b
 
-Label_2B_7B2A:: ; 2B:7B2A
+MailView_BodyPage_Loop:: ; 2B:7B2A
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -4319,9 +4362,9 @@ Label_2B_7B2A:: ; 2B:7B2A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	xor a, a
 	ret
@@ -4343,42 +4386,42 @@ Label_2B_7B68:: ; 2B:7B68
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
 	ret
 
 Label_2B_7B99:: ; 2B:7B99
-	jr Label_2B_7B2A
+	jr MailView_BodyPage_Loop
 
-Function_2B_7B9B:: ; 2B:7B9B
+MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
-	farcall Function_2D_4E06
+	farcall TextTiles_ClearBuffers
 	call Function_00_0464
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4AF0
+	ld hl, MailBody_BgPalette
 	ld a, $28
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $4B30
 	ld a, $28
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, $42C0
+	ld hl, MailBody_Tiles_42C0
 	ld a, $28
 	ld b, $95
 	ld c, $21
 	farcall Function_00_0749
 	call Function_00_0464
 	ld de, $8000
-	ld hl, $44D0
+	ld hl, MailBody_Tiles_44D0
 	ld a, $28
 	ld b, $98
 	ld c, $08
@@ -4386,14 +4429,14 @@ Function_2B_7B9B:: ; 2B:7B9B
 	call Function_00_0464
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4550
+	ld hl, Data_28_4550
 	ld a, $28
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
 	ld hl, $DA10
-	ld de, $4B70
+	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
@@ -4412,7 +4455,7 @@ Function_2B_7B9B:: ; 2B:7B9B
 	ld c, b
 	ld b, $00
 	sla c
-	ld hl, $7D7A
+	ld hl, Table_MailView_BodyPage_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -4422,7 +4465,7 @@ Function_2B_7B9B:: ; 2B:7B9B
 	ld l, e
 	ld a, $02
 	ld [hl], a
-	farcall Function_22_501D
+	farcall SramCheck_Bank0Commit
 	call Function_00_0464
 	pop bc
 	ld a, $01
@@ -4438,7 +4481,7 @@ Function_2B_7B9B:: ; 2B:7B9B
 	ld c, b
 	ld b, $00
 	sla c
-	ld hl, $7D7A
+	ld hl, Table_MailView_BodyPage_RecAddrs
 	add hl, bc
 	pop bc
 	ld a, [hli]
@@ -4459,73 +4502,73 @@ Label_2B_7C89:: ; 2B:7C89
 	jr nz, Label_2B_7C89
 	call Function_00_0464
 	ld b, $00
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld de, $0008
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $01
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $0C
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $02
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $18
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $03
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $24
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $04
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $30
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $05
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $3C
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $06
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $48
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
 	ld b, $07
-	call Function_2B_7EE0
+	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld d, $54
 	ld e, $08
-	call Function_2B_7DF2
+	call MailView_BodyPage_DrawTextLine24
 	call Function_00_0464
-	farcall Function_2B_7D92
-	farcall Function_7F_72B0
-	farcall Function_7F_72B0
+	farcall MailView_BodyPage_UploadTextTiles
+	farcall Stat_DisableScrollSplit
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -4540,7 +4583,7 @@ Label_2B_7C89:: ; 2B:7C89
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	di
 	ldh a, [hWRAMBank]
 	push af
@@ -4556,13 +4599,14 @@ Label_2B_7C89:: ; 2B:7C89
 
 ; ---- words $7D7A-$7D92 (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases); ld hl,$7D7A at 2B:7C45 and 7C76
 
-Table_2B_7D7A:: ; 2B:7D7A
+Table_MailView_BodyPage_RecAddrs:: ; 2B:7D7A
+Table_2B_7D7A::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
 ; ---- code $7D92-$7F44 (434 bytes) [CONFIRMED] 235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10; entered by far from 2B:7D29 (PROBABLE code) [executed in 1 scenarios]
 
-Function_2B_7D92:: ; 2B:7D92
+MailView_BodyPage_UploadTextTiles:: ; 2B:7D92
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -4573,25 +4617,25 @@ Function_2B_7D92:: ; 2B:7D92
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_2B_7DD0
+	call Gfx_StartHDMAAtVBlank_2B_7DD0
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_2B_7DD0
+	call Gfx_StartHDMAAtVBlank_2B_7DD0
 	ld hl, $D800
 	ld de, $8800
 	ld c, $3F
-	call Function_2B_7DD0
+	call Gfx_StartHDMAAtVBlank_2B_7DD0
 	ld hl, $DC00
 	ld de, $8C00
 	ld c, $3F
-	call Function_2B_7DD0
+	call Gfx_StartHDMAAtVBlank_2B_7DD0
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2B_7DD0:: ; 2B:7DD0
+Gfx_StartHDMAAtVBlank_2B_7DD0:: ; 2B:7DD0
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -4619,7 +4663,7 @@ Label_2B_7DE7:: ; 2B:7DE7
 	ei
 	ret
 
-Function_2B_7DF2:: ; 2B:7DF2
+MailView_BodyPage_DrawTextLine24:: ; 2B:7DF2
 	ld a, $18
 	ld [wRam_C2EE], a
 
@@ -4633,7 +4677,7 @@ Label_2B_7DF7:: ; 2B:7DF7
 	cp a, $0D
 	jr z, Label_2B_7E79
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_7E57
 	ld a, [wRam_C2EE]
@@ -4650,17 +4694,17 @@ Label_2B_7DF7:: ; 2B:7DF7
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_2B_7EB4
+	call MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -4686,11 +4730,11 @@ Label_2B_7E57:: ; 2B:7E57
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_2B_7EB4
+	call MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -4704,14 +4748,14 @@ Label_2B_7E79:: ; 2B:7E79
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_7EC8
+	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
 
 Label_2B_7E94:: ; 2B:7E94
 	push bc
@@ -4719,7 +4763,7 @@ Label_2B_7E94:: ; 2B:7E94
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -4730,15 +4774,15 @@ Label_2B_7EA5:: ; 2B:7EA5
 	ret z
 	dec a
 	ld [wRam_C2EE], a
-	call Function_2B_7EC8
+	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
 	jr Label_2B_7EA5
 
-Function_2B_7EB4:: ; 2B:7EB4
+MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance:: ; 2B:7EB4
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -4747,14 +4791,14 @@ Function_2B_7EB4:: ; 2B:7EB4
 	ld e, a
 	ret
 
-Function_2B_7EC8:: ; 2B:7EC8
+MailView_BodyPage_DrawTextLine24_BlitBlankAdvance:: ; 2B:7EC8
 	push bc
 	push de
 	push hl
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -4763,7 +4807,7 @@ Function_2B_7EC8:: ; 2B:7EC8
 	ld e, a
 	ret
 
-Function_2B_7EE0:: ; 2B:7EE0
+MailView_BodyPage_FindLine:: ; 2B:7EE0
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -4780,7 +4824,7 @@ Label_2B_7EEB:: ; 2B:7EEB
 Label_2B_7EF2:: ; 2B:7EF2
 	ld d, $FF
 	ld a, [hl]
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr z, Label_2B_7F0F
 	ld a, [hl]

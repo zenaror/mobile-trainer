@@ -9,24 +9,25 @@ SECTION "Bank72", ROMX[$4000], BANK[$72]
 
 ; ---- code $4000-$43A1 (929 bytes) [CONFIRMED] 351 insn(s); 351 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_4000:: ; 72:4000
-	farcall Function_72_402A
-	farcall Function_72_461A
-	farcall Function_72_444F
+Dialog_ShowMonitored:: ; 72:4000
+Function_72_4000::
+	farcall Dialog_Open
+	farcall Dialog_WaitInputMonitored
+	farcall Dialog_Close
 	ldh a, [hRam_FFF6]
 	ret
 
-Function_72_4015:: ; 72:4015
-	farcall Function_72_402A
-	farcall Function_72_4578
-	farcall Function_72_444F
+Dialog_Show:: ; 72:4015
+	farcall Dialog_Open
+	farcall Dialog_WaitInput
+	farcall Dialog_Close
 	ldh a, [hRam_FFF6]
 	ret
 
-Function_72_402A:: ; 72:402A
+Dialog_Open:: ; 72:402A
 	ld c, d
 	ld b, $00
-	ld hl, $502B
+	ld hl, Dialog_ListTable
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -49,30 +50,30 @@ Function_72_402A:: ; 72:402A
 	ld a, [hli]
 	ld a, [hli]
 	cp a, $03
-	jp nc, Label_72_41D8
-	farcall Function_72_472B
-	farcall Function_72_4805
+	jp nc, Dialog_OpenTall
+	farcall Dialog_SaveBackground
+	farcall Dialog_InitWindowRegs
 	ld de, $8801
-	ld hl, $48C0
+	ld hl, Dialog_WindowTiles
 	ld a, $72
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
-	ld hl, $4E28
+	ld hl, Dialog_Palette
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0914
 	ld de, $D180
-	ld hl, $4CC0
+	ld hl, Dialog_WindowMap
 	ld a, $72
 	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -82,7 +83,7 @@ Function_72_402A:: ; 72:402A
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -91,7 +92,7 @@ Function_72_402A:: ; 72:402A
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld hl, $DAC0
-	ld de, $4E40
+	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Function_00_0A82
@@ -110,7 +111,7 @@ Function_72_402A:: ; 72:402A
 	ldh [hRam_FFF6], a
 	push hl
 	ld a, [wRam_C2CD]
-	call Function_72_43A7
+	call Dialog_SetupCursorByType
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -121,7 +122,7 @@ Function_72_402A:: ; 72:402A
 	ld hl, $D1A2
 	ld bc, $0410
 	ld de, $0EC0
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	call Function_00_0392
 	ld bc, $DC00
@@ -129,13 +130,13 @@ Function_72_402A:: ; 72:402A
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
@@ -143,7 +144,7 @@ Function_72_402A:: ; 72:402A
 	ld c, $40
 	farcall Function_00_0787
 	ldh a, [rLCDC]
-	farcall Function_72_47A3
+	farcall Dialog_UploadWindowMap
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -165,8 +166,8 @@ Function_72_402A:: ; 72:402A
 	ldh a, [rWY]
 	cp a, $48
 	jr z, Label_72_4196
-	ld hl, $43A1
-	farcall Function_72_4824
+	ld hl, Data_72_43A1
+	farcall Dialog_SlideIn
 
 Label_72_4196:: ; 72:4196
 	ldh a, [rLCDC]
@@ -191,7 +192,7 @@ Label_72_4196:: ; 72:4196
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -199,30 +200,30 @@ Label_72_4196:: ; 72:4196
 	ldh a, [hScratchA]
 	ret
 
-Label_72_41D8:: ; 72:41D8
-	farcall Function_72_4749
-	farcall Function_72_4805
+Dialog_OpenTall:: ; 72:41D8
+	farcall Dialog_SaveBackgroundTall
+	farcall Dialog_InitWindowRegs
 	ld de, $8801
-	ld hl, $48C0
+	ld hl, Dialog_WindowTiles
 	ld a, $72
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
-	ld hl, $4E28
+	ld hl, Dialog_Palette
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0B14
 	ld de, $D140
-	ld hl, $4E73
+	ld hl, Dialog_WindowMapTall
 	ld a, $72
 	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -232,7 +233,7 @@ Label_72_41D8:: ; 72:41D8
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -241,7 +242,7 @@ Label_72_41D8:: ; 72:41D8
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld hl, $DAC0
-	ld de, $4E40
+	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Function_00_0A82
@@ -260,7 +261,7 @@ Label_72_41D8:: ; 72:41D8
 	ldh [hRam_FFF6], a
 	push hl
 	ld a, [wRam_C2CD]
-	call Function_72_43A7
+	call Dialog_SetupCursorByType
 	ld hl, $DC00
 	ld bc, $0400
 	xor a, a
@@ -268,11 +269,11 @@ Label_72_41D8:: ; 72:41D8
 	ld hl, $D162
 	ld bc, $0410
 	ld de, $0EC0
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ld hl, $D1E2
 	ld bc, $0210
 	ld de, $0E00
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	pop hl
 	call Function_00_0392
 	ld bc, $DC00
@@ -280,13 +281,13 @@ Label_72_41D8:: ; 72:41D8
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ld bc, $DE00
 	ld de, $DF00
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	push hl
 	ld de, $8C01
 	ld hl, $DC00
@@ -308,7 +309,7 @@ Label_72_41D8:: ; 72:41D8
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ld de, $9001
 	ld hl, $DC00
 	ld a, $00
@@ -316,7 +317,7 @@ Label_72_41D8:: ; 72:41D8
 	ld c, $20
 	farcall Function_00_0787
 	ldh a, [rLCDC]
-	farcall Function_72_47D4
+	farcall Dialog_UploadWindowMapTall
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -339,7 +340,7 @@ Label_72_41D8:: ; 72:41D8
 	cp a, $38
 	jr z, Label_72_435F
 	ld hl, $43A4
-	farcall Function_72_4824
+	farcall Dialog_SlideIn
 
 Label_72_435F:: ; 72:435F
 	ldh a, [rLCDC]
@@ -364,7 +365,7 @@ Label_72_435F:: ; 72:435F
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -379,7 +380,8 @@ Data_72_43A1:: ; 72:43A1
 
 ; ---- code $43A7-$43AA (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_43A7:: ; 72:43A7
+Dialog_SetupCursorByType:: ; 72:43A7
+Function_72_43A7::
 	call JumpTableInline
 
 ; ---- ptrtable $43AA-$43B6 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:43A7: 6 entries; end pinned by the executed instruction at 43B6
@@ -438,10 +440,10 @@ Label_72_43EC:: ; 72:43EC
 Label_72_43F7:: ; 72:43F7
 	ld hl, $D245
 	ld a, $88
-	call Function_72_4424
+	call Dialog_DrawButtonTiles
 	ld hl, $D24B
 	ld a, $8C
-	jp Function_72_4424
+	jp Dialog_DrawButtonTiles
 
 Label_72_4407:: ; 72:4407
 	ld de, $D040
@@ -460,7 +462,7 @@ Label_72_441B:: ; 72:441B
 	ld hl, $D248
 	ld a, $A0
 
-Function_72_4424:: ; 72:4424
+Dialog_DrawButtonTiles:: ; 72:4424
 	push hl
 	ld c, a
 	ld [hli], a
@@ -497,11 +499,11 @@ Function_72_4424:: ; 72:4424
 	ld [hli], a
 	ret
 
-Function_72_444F:: ; 72:444F
+Dialog_Close:: ; 72:444F
 	call Function_00_0392
 	ld a, [wRam_C2CD]
 	cp a, $03
-	jp nc, Label_72_44E6
+	jp nc, Dialog_CloseTall
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -518,7 +520,7 @@ Function_72_444F:: ; 72:444F
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
-	farcall Function_72_47A3
+	farcall Dialog_UploadWindowMap
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -529,15 +531,15 @@ Function_72_444F:: ; 72:444F
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	farcall Function_72_4767
+	farcall Dialog_RestoreBackground
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
 	jr z, Label_72_44BB
-	ld hl, $4572
-	farcall Function_72_4872
+	ld hl, Data_72_4572
+	farcall Dialog_SlideOut
 
 Label_72_44BB:: ; 72:44BB
 	call Function_00_047A
@@ -552,7 +554,7 @@ Label_72_44BB:: ; 72:44BB
 	ld c, a
 	ld a, [wRam_C2E3]
 	ld b, a
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -560,7 +562,7 @@ Label_72_44BB:: ; 72:44BB
 	ldh a, [hScratchA]
 	ret
 
-Label_72_44E6:: ; 72:44E6
+Dialog_CloseTall:: ; 72:44E6
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -577,7 +579,7 @@ Label_72_44E6:: ; 72:44E6
 	ld bc, $0120
 	call CopyBytesBackward
 	ldh a, [rLCDC]
-	farcall Function_72_47D4
+	farcall Dialog_UploadWindowMapTall
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
@@ -588,7 +590,7 @@ Label_72_44E6:: ; 72:44E6
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	farcall Function_72_4785
+	farcall Dialog_RestoreBackgroundTall
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
@@ -596,7 +598,7 @@ Label_72_44E6:: ; 72:44E6
 	cp a, $90
 	jr z, Label_72_4547
 	ld hl, $4575
-	farcall Function_72_4872
+	farcall Dialog_SlideOut
 
 Label_72_4547:: ; 72:4547
 	call Function_00_047A
@@ -611,7 +613,7 @@ Label_72_4547:: ; 72:4547
 	ld c, a
 	ld a, [wRam_C2E3]
 	ld b, a
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -626,17 +628,19 @@ Data_72_4572:: ; 72:4572
 
 ; ---- code $4578-$4596 (30 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_4578:: ; 72:4578
+Dialog_WaitInput:: ; 72:4578
+Function_72_4578::
 	farcall Function_00_0956
-	farcall Function_69_40D1
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4596-$45A0 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4593: 5 entries; fixed length (5 words) by the routine
 
-Table_72_4596:: ; 72:4596
+Dialog_WaitInputTable:: ; 72:4596
+Table_72_4596::
 	dw Label_72_45EA
 	dw Label_72_4606
 	dw Label_72_4600
@@ -650,7 +654,7 @@ Label_72_45A0:: ; 72:45A0
 	cp a, $05
 	jr z, Label_72_45AC
 	cp a, $02
-	jp nz, Function_72_4578
+	jp nz, Dialog_WaitInput
 
 Label_72_45AC:: ; 72:45AC
 	ldh a, [hJoyPressedRepeat]
@@ -658,7 +662,7 @@ Label_72_45AC:: ; 72:45AC
 	jr nz, Label_72_45B9
 	bit 5, a
 	jr nz, Label_72_45B9
-	jp Function_72_4578
+	jp Dialog_WaitInput
 
 Label_72_45B9:: ; 72:45B9
 	ldh a, [hWRAMBank]
@@ -677,13 +681,13 @@ Label_72_45B9:: ; 72:45B9
 	ld de, $7828
 	ld hl, $DAC0
 	call Function_00_0A65
-	jp Function_72_4578
+	jp Dialog_WaitInput
 
 Label_72_45DE:: ; 72:45DE
 	ld de, $7858
 	ld hl, $DAC0
 	call Function_00_0A65
-	jp Function_72_4578
+	jp Dialog_WaitInput
 
 Label_72_45EA:: ; 72:45EA
 	ldh a, [hWRAMBank]
@@ -700,12 +704,12 @@ Label_72_45EA:: ; 72:45EA
 	ret
 
 Label_72_4600:: ; 72:4600
-	jp Function_72_4578
+	jp Dialog_WaitInput
 
 ; ---- code $4603-$4606 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 
 Label_72_4603:: ; 72:4603
-	jp Function_72_4578
+	jp Dialog_WaitInput
 
 ; ---- code $4606-$4647 (65 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
 
@@ -722,7 +726,7 @@ Label_72_4606:: ; 72:4606
 	ldh [hRam_FFF6], a
 	ret
 
-Function_72_461A:: ; 72:461A
+Dialog_WaitInputMonitored:: ; 72:461A
 	ld a, [wRam_C2CC]
 	bit 4, a
 	jr z, Label_72_467A
@@ -783,15 +787,16 @@ Label_72_4675:: ; 72:4675
 
 Label_72_467A:: ; 72:467A
 	farcall Function_00_0956
-	farcall Function_69_40D1
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4698-$46A2 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:4695: 5 entries; fixed length (5 words) by the routine
 
-Table_72_4698:: ; 72:4698
+Dialog_WaitInputMonitoredTable:: ; 72:4698
+Table_72_4698::
 	dw Label_72_46EC
 	dw Label_72_4708
 	dw Label_72_4702
@@ -805,7 +810,7 @@ Label_72_46A2:: ; 72:46A2
 	cp a, $05
 	jr z, Label_72_46AE
 	cp a, $02
-	jp nz, Function_72_461A
+	jp nz, Dialog_WaitInputMonitored
 
 ; ---- code $46AE-$4708 (90 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 0; entered by jrcc from 72:46A7 (executed)
 
@@ -815,7 +820,7 @@ Label_72_46AE:: ; 72:46AE
 	jr nz, Label_72_46BB
 	bit 5, a
 	jr nz, Label_72_46BB
-	jp Function_72_461A
+	jp Dialog_WaitInputMonitored
 
 Label_72_46BB:: ; 72:46BB
 	ldh a, [hWRAMBank]
@@ -834,13 +839,13 @@ Label_72_46BB:: ; 72:46BB
 	ld de, $7828
 	ld hl, $DAC0
 	call Function_00_0A65
-	jp Function_72_461A
+	jp Dialog_WaitInputMonitored
 
 Label_72_46E0:: ; 72:46E0
 	ld de, $7858
 	ld hl, $DAC0
 	call Function_00_0A65
-	jp Function_72_461A
+	jp Dialog_WaitInputMonitored
 
 Label_72_46EC:: ; 72:46EC
 	ldh a, [hWRAMBank]
@@ -857,10 +862,10 @@ Label_72_46EC:: ; 72:46EC
 	ret
 
 Label_72_4702:: ; 72:4702
-	jp Function_72_461A
+	jp Dialog_WaitInputMonitored
 
 Label_72_4705:: ; 72:4705
-	jp Function_72_461A
+	jp Dialog_WaitInputMonitored
 
 ; ---- code $4708-$471C (20 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 
@@ -896,7 +901,8 @@ Label_72_4726:: ; 72:4726
 
 ; ---- code $472B-$4836 (267 bytes) [CONFIRMED] 123 insn(s); 123 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_472B:: ; 72:472B
+Dialog_SaveBackground:: ; 72:472B
+Function_72_472B::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -909,7 +915,7 @@ Function_72_472B:: ; 72:472B
 	ld de, $D6E0
 	jp CopyBytes
 
-Function_72_4749:: ; 72:4749
+Dialog_SaveBackgroundTall:: ; 72:4749
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -922,7 +928,7 @@ Function_72_4749:: ; 72:4749
 	ld de, $D6A0
 	jp CopyBytes
 
-Function_72_4767:: ; 72:4767
+Dialog_RestoreBackground:: ; 72:4767
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -935,7 +941,7 @@ Function_72_4767:: ; 72:4767
 	ld de, $D520
 	jp CopyBytes
 
-Function_72_4785:: ; 72:4785
+Dialog_RestoreBackgroundTall:: ; 72:4785
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -948,7 +954,7 @@ Function_72_4785:: ; 72:4785
 	ld de, $D4E0
 	jp CopyBytes
 
-Function_72_47A3:: ; 72:47A3
+Dialog_UploadWindowMap:: ; 72:47A3
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -976,7 +982,7 @@ Function_72_47A3:: ; 72:47A3
 	call Function_00_0392
 	ret
 
-Function_72_47D4:: ; 72:47D4
+Dialog_UploadWindowMapTall:: ; 72:47D4
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1004,7 +1010,7 @@ Function_72_47D4:: ; 72:47D4
 	call Function_00_0392
 	ret
 
-Function_72_4805:: ; 72:4805
+Dialog_InitWindowRegs:: ; 72:4805
 	call Function_00_047A
 	ldh a, [rLCDC]
 	and a, $9F
@@ -1024,7 +1030,7 @@ Function_72_4805:: ; 72:4805
 	call Function_00_0392
 	ret
 
-Function_72_4824:: ; 72:4824
+Dialog_SlideIn:: ; 72:4824
 	ld a, $FF
 	ld [wRam_C2CF], a
 
@@ -1095,7 +1101,7 @@ Label_72_486D:: ; 72:486D
 	ld [wRam_C2CF], a
 	ret
 
-Function_72_4872:: ; 72:4872
+Dialog_SlideOut:: ; 72:4872
 	ld a, $FF
 	ld [wRam_C2CF], a
 
@@ -1168,7 +1174,8 @@ Label_72_48BB:: ; 72:48BB
 
 ; ---- gfx $48C0-$4CC0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (72:4069 72:41F0); first: hdma_rom_to_vram at 72:4069: hl=$48C0 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_72_48C0:: ; 72:48C0
+Dialog_WindowTiles:: ; 72:48C0
+Data_72_48C0::
 	db $01, $00, $03, $01, $07, $02, $0E, $05, $1C, $0B, $38, $17, $7F, $3F, $7F, $00
 	db $F8, $F8, $F8, $88, $F8, $B8, $E0, $A0, $E0, $E0, $00, $00, $00, $00, $00, $00
 	db $FF, $FF, $FF, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -1236,7 +1243,8 @@ Data_72_48C0:: ; 72:48C0
 
 ; ---- data $4CC0-$4E28 (360 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:408B: hl=$4CC0 a=$72 b=9 rows c=20 cols (tiles then attrs) de=$D180
 
-Data_72_4CC0:: ; 72:4CC0
+Dialog_WindowMap:: ; 72:4CC0
+Data_72_4CC0::
 	db $85, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82
 	db $82, $82, $82, $83, $95, $97, $97, $97, $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8
 	db $C9, $CA, $CB, $CC, $97, $97, $97, $93, $87, $97, $97, $97, $D1, $D2, $D3, $D4
@@ -1263,13 +1271,17 @@ Data_72_4CC0:: ; 72:4CC0
 
 ; ---- data $4E28-$4E40 (24 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 48C0-4E40 by higher-priority evidence]
 
-Data_72_4E28:: ; 72:4E28
+Dialog_Palette:: ; 72:4E28
+Data_72_4E28::
 	db $5F, $2E, $55, $11, $FF, $7B, $45, $08, $1C, $21, $8C, $6D, $45, $08, $FF, $7F
+
+Dialog_ObjPalette:: ; 72:4E38
 	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 
 ; ---- words $4E40-$4E44 (4 bytes) [PROBABLE] object table entry 0 (2 words 4E48, 4E6E): table of 4-byte entries read by init_object_from_table (00:0A82, de=$4E40 a=$72 at 72:40CB and 72:4252, index B&7F = 1 executed); entry 1 (4E44, CONFIRMED read) holds the same two words; both words land on the sprite-list data at 72:4E48/4E6E
 
-Table_72_4E40:: ; 72:4E40
+Dialog_CursorObjTable:: ; 72:4E40
+Table_72_4E40::
 	dw $4E48, $4E6E
 
 ; ---- data $4E44-$4E73 (47 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4E44-502B by higher-priority evidence]
@@ -1281,7 +1293,8 @@ Data_72_4E44:: ; 72:4E44
 
 ; ---- data $4E73-$502B (440 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:4212: hl=$4E73 a=$72 b=11 rows c=20 cols (tiles then attrs) de=$D140
 
-Data_72_4E73:: ; 72:4E73
+Dialog_WindowMapTall:: ; 72:4E73
+Data_72_4E73::
 	db $85, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82, $82
 	db $82, $82, $82, $83, $95, $97, $97, $97, $97, $97, $97, $97, $97, $97, $97, $97
 	db $97, $97, $97, $97, $97, $97, $97, $93, $87, $97, $97, $97, $97, $97, $97, $97
@@ -1313,12 +1326,17 @@ Data_72_4E73:: ; 72:4E73
 
 ; ---- ptrtable $502B-$50BD (146 bytes) [PROBABLE] little-endian word table, 73 entries, monotone=0.99, 92% of targets on string start/after NUL, targets $5033..$50BD; referenced by ld r16,$502B at 72:402D
 
-Table_72_502B:: ; 72:502B
-	dw $5033
-	dw $5035
-	dw $5063
-	dw $50BB
+Dialog_ListTable:: ; 72:502B
+Table_72_502B::
+	dw Dialog_List0
+	dw Dialog_List1_Browser
+	dw Dialog_List2_Mail
+	dw Dialog_List3
+
+Dialog_List0:: ; 72:5033
 	dw String_72_50BD
+
+Dialog_List1_Browser:: ; 72:5035
 	dw $5102
 	dw $5147
 	dw String_72_518C
@@ -1342,6 +1360,8 @@ Table_72_502B:: ; 72:502B
 	dw String_72_5666
 	dw String_72_56AB
 	dw String_72_56F0
+
+Dialog_List2_Mail:: ; 72:5063
 	dw String_72_5735
 	dw String_72_577A
 	dw Data_72_57BF
@@ -1386,219 +1406,176 @@ Table_72_502B:: ; 72:502B
 	dw $6308
 	dw $634D
 	dw String_72_6392
+
+Dialog_List3:: ; 72:50BB
 	dw String_72_50BD
 
 ; ---- text $50BD-$514A (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_50BD:: ; 72:50BD
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $00, $01, $81, $40, $81, $40, $81, $40, $82, $50
-	db $82, $4F, $82, $4F, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $02, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $82, $50, $82, $4F, $82, $4F, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　１００　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $514A-$518C (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_514A:: ; 72:514A
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0
-	db $81, $40, $82, $AB, $82, $C1, $82, $C4, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81
-	db $5B, $83, $57, $82, $F0, $82, $DD, $82, $DC, $82, $B7, $81, $42, $81, $40, $81
-	db $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82, $C1, $82, $C4, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　でんわを　きって　　　　"
+	db $81, $40, $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $82, $DD, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $00 ; "　　　ホームページをみます。　　"
 
 ; ---- text $518C-$51B0 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_518C:: ; 72:518C
-	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- text $51B0-$51D1 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_51B0:: ; 72:51B0
-	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB
-	db $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40
-	db $00
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわをきりました。　　　"
 
 ; ---- text $51D1-$525E (141 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 51B0-52A0 by higher-priority evidence]
 
 String_72_51D1:: ; 72:51D1
-	db $86, $02, $01, $81, $40, $83, $81, $83, $82, $83, $8A, $81, $5B, $83, $7B, $81
-	db $5B, $83, $8B, $82, $F0, $82, $A9, $82, $E7, $82, $C9, $82, $B5, $82, $DC, $82
-	db $B7, $81, $42, $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB
-	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $83, $5A, $81, $5B
-	db $83, $75, $82, $B3, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $83, $66, $81, $5B
-	db $83, $5E, $82, $F0, $81, $40, $81, $40, $00, $82, $A4, $82, $ED, $82, $AA, $82
-	db $AB, $82, $B5, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00, $86, $02, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $83, $81, $83, $82, $83, $8A, $81, $5B, $83, $7B, $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $E7, $82, $C9, $82, $B5, $82, $DC, $82, $B7, $81, $42, $00 ; "　メモリーボールをからにします。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B3, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $83, $66, $81, $5B, $83, $5E, $82, $F0, $81, $40, $81, $40, $00 ; "　　セーブされているデータを　　"
+	db $82, $A4, $82, $ED, $82, $AA, $82, $AB, $82, $B5, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00 ; "うわがきします。よろしいですか？"
+	db $86, $02, $00 ; record header
 
 ; ---- text $525E-$52A0 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_525E:: ; 72:525E
-	db $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $C1, $82, $C4
-	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $81, $40
-	db $00, $81, $40, $81, $40, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82
-	db $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $C1, $82, $C4, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $81, $40, $00 ; "　でんわをきってホームページを　"
+	db $81, $40, $81, $40, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　しゅうりょうします。　　　"
 
 ; ---- text $52A0-$52E8 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_52A0:: ; 72:52A0
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82
-	db $50, $82, $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $01, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $50, $82, $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　１０６　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $01, $01 ; record header
 
 ; ---- text $52E8-$532A (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_52E8:: ; 72:52E8
-	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $AA
-	db $82, $A8, $82, $A8, $82, $AB, $82, $B7, $82, $AC, $82, $C4, $81, $40, $81, $40
-	db $00, $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $81
-	db $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82
-	db $BD, $00
+	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $AA, $82, $A8, $82, $A8, $82, $AB, $82, $B7, $82, $AC, $82, $C4, $81, $40, $81, $40, $00 ; "　ホームページがおおきすぎて　　"
+	db $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $81, $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "すべてひょうじ　できませんでした"
 
 ; ---- text $532A-$53C5 (155 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 52E8-53C5 by higher-priority evidence]
 
 String_72_532A:: ; 72:532A
-	db $86, $02, $01, $81, $40, $83, $79, $81, $5B, $83, $57, $82, $CC, $82, $C8, $82
-	db $A2, $82, $E6, $82, $A4, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81
-	db $42, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB
-	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $83, $5A, $81, $5B
-	db $83, $75, $82, $B3, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $83, $66, $81, $5B
-	db $83, $5E, $82, $F0, $81, $40, $81, $40, $00, $82, $A4, $82, $ED, $82, $AA, $82
-	db $AB, $82, $B5, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00, $86, $01, $01, $81, $40, $81
-	db $40, $81, $40, $82, $B6, $82, $A9, $82, $F1, $82, $AA
+	db $86, $02, $01 ; record header
+	db $81, $40, $83, $79, $81, $5B, $83, $57, $82, $CC, $82, $C8, $82, $A2, $82, $E6, $82, $A4, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $00 ; "　ページのないようをけします。　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B3, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $83, $66, $81, $5B, $83, $5E, $82, $F0, $81, $40, $81, $40, $00 ; "　　セーブされているデータを　　"
+	db $82, $A4, $82, $ED, $82, $AA, $82, $AB, $82, $B5, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00 ; "うわがきします。よろしいですか？"
+	db $86, $01, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $82, $B6, $82, $A9, $82, $F1, $82, $AA ; "　　　じかんが"
 
 ; ---- text $53C5-$53D8 (19 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_53C5:: ; 72:53C5
-	db $F9, $44, $F9, $44, $F9, $44, $F9, $44, $F9, $44, $82, $D3, $82, $F1, $81, $40
-	db $81, $40, $00
+	db $F9, $44, $F9, $44, $F9, $44, $F9, $44, $F9, $44, $82, $D3, $82, $F1, $81, $40, $81, $40, $00 ; "<$F9><$44><$F9><$44><$F9><$44><$F9><$44><$F9><$44>ふん　　"
 
 ; ---- text $53D8-$53F9 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_53D8:: ; 72:53D8
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $F0, $82, $B1, $82, $A6
-	db $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $F0, $82, $B1, $82, $A6, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　をこえました。　　　　"
 
 ; ---- text $53F9-$541D (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 53D8-541D by higher-priority evidence]
 
 String_72_53F9:: ; 72:53F9
-	db $86, $01, $01, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82
-	db $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $01, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわをきりました。　　　"
 
 ; ---- text $541D-$5441 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_541D:: ; 72:541D
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $86, $01, $01
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $01, $01 ; record header
 
 ; ---- text $5441-$5483 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5441:: ; 72:5441
-	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $AA
-	db $82, $A8, $82, $A8, $82, $AB, $82, $B7, $82, $AC, $82, $C4, $81, $40, $81, $40
-	db $00, $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $81
-	db $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82
-	db $BD, $00
+	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $AA, $82, $A8, $82, $A8, $82, $AB, $82, $B7, $82, $AC, $82, $C4, $81, $40, $81, $40, $00 ; "　ホームページがおおきすぎて　　"
+	db $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $81, $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "すべてひょうじ　できませんでした"
 
 ; ---- text $5483-$54A7 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5483:: ; 72:5483
-	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- text $54A7-$54C8 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_54A7:: ; 72:54A7
-	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB
-	db $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40
-	db $00
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $00 ; "　　　でんわをきっています。　　"
 
 ; ---- text $54C8-$54EC (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_54C8:: ; 72:54C8
-	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- text $54EC-$550D (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_54EC:: ; 72:54EC
-	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $AA, $82, $AB
-	db $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40
-	db $00
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $AA, $82, $AB, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわがきれました。　　　"
 
 ; ---- text $550D-$5531 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_550D:: ; 72:550D
-	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- text $5531-$5552 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5531:: ; 72:5531
-	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB
-	db $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40
-	db $00
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $00 ; "　　　でんわをきっています。　　"
 
 ; ---- text $5552-$5576 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5531-5576 by higher-priority evidence]
 
 String_72_5552:: ; 72:5552
-	db $86, $01, $01, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82
-	db $AA, $82, $AB, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $01, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $AA, $82, $AB, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわがきれました。　　　"
 
 ; ---- text $5576-$559A (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5576:: ; 72:5576
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $86, $02, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $559A-$55DC (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_559A:: ; 72:559A
-	db $82, $C2, $82, $A4, $82, $B5, $82, $F1, $82, $B9, $82, $C2, $82, $BC, $82, $AD
-	db $82, $F0, $81, $40, $82, $C2, $82, $C3, $82, $AF, $82, $DC, $82, $B7, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $82, $C2, $82, $A4, $82, $B5, $82, $F1, $82, $B9, $82, $C2, $82, $BC, $82, $AD, $82, $F0, $81, $40, $82, $C2, $82, $C3, $82, $AF, $82, $DC, $82, $B7, $81, $42, $00 ; "つうしんせつぞくを　つづけます。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $55DC-$5600 (36 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_55DC:: ; 72:55DC
-	db $86, $00, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00
+	db $86, $00, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- text $5600-$5621 (33 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5600:: ; 72:5600
-	db $81, $40, $82, $E0, $82, $C7, $82, $EA, $82, $E9, $83, $79, $81, $5B, $83, $57
-	db $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $42
-	db $00
+	db $81, $40, $82, $E0, $82, $C7, $82, $EA, $82, $E9, $83, $79, $81, $5B, $83, $57, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $42, $00 ; "　もどれるページが　ありません。"
 
 ; ---- text $5621-$5645 (36 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5600-5645 by higher-priority evidence]
 
 String_72_5621:: ; 72:5621
-	db $86, $01, $01, $81, $40, $82, $E0, $82, $C7, $82, $EA, $82, $E9, $83, $79, $81
-	db $5B, $83, $57, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82
-	db $F1, $81, $42, $00
+	db $86, $01, $01 ; record header
+	db $81, $40, $82, $E0, $82, $C7, $82, $EA, $82, $E9, $83, $79, $81, $5B, $83, $57, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $42, $00 ; "　もどれるページが　ありません。"
 
 ; ---- data $5645-$5666 (33 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5621-5666 by higher-priority evidence]
 
@@ -1610,62 +1587,49 @@ Data_72_5645:: ; 72:5645
 ; ---- text $5666-$5669 (3 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5666:: ; 72:5666
-	db $86, $02, $00
+	db $86, $02, $00 ; record header
 
 ; ---- text $5669-$56AB (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5669:: ; 72:5669
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79
-	db $81, $5B, $83, $57, $82, $F0, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82
-	db $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　ホームページを　　　　　"
+	db $81, $40, $81, $40, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $00 ; "　　　しゅうりょうします。　　　"
 
 ; ---- text $56AB-$56AE (3 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 
 String_72_56AB:: ; 72:56AB
-	db $86, $00, $00
+	db $86, $00, $00 ; record header
 
 ; ---- text $56AE-$56F0 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_56AE:: ; 72:56AE
-	db $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57
-	db $82, $F0, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $81, $40, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82
-	db $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $42, $81
-	db $40, $00
+	db $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $81, $40, $81, $40, $81, $40, $00 ; "　　ホームページをただしく　　　"
+	db $81, $40, $81, $40, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $42, $81, $40, $00 ; "　　ひょうじできませんでした。　"
 
 ; ---- text $56F0-$56F3 (3 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 
 String_72_56F0:: ; 72:56F0
-	db $86, $01, $00
+	db $86, $01, $00 ; record header
 
 ; ---- text $56F3-$5735 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_56F3:: ; 72:56F3
-	db $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57
-	db $82, $F0, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $81, $40, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82
-	db $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $42, $81
-	db $40, $00
+	db $81, $40, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $81, $40, $81, $40, $81, $40, $00 ; "　　ホームページをただしく　　　"
+	db $81, $40, $81, $40, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $42, $81, $40, $00 ; "　　ひょうじできませんでした。　"
 
 ; ---- text $5735-$577A (69 bytes) [PROBABLE] text block: 8 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5669-577A by higher-priority evidence]
 
 String_72_5735:: ; 72:5735
-	db $86, $02, $01, $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $83
-	db $81, $81, $5B, $83, $8B, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81
-	db $40, $81, $40, $00, $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7
-	db $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9
-	db $81, $48, $81, $40, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81, $40, $81, $40, $00 ; "　かきかけのメールは　きえて　　"
+	db $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $00 ; "　しまいます。よろしいですか？　"
 
 ; ---- text $577A-$57BF (69 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_577A:: ; 72:577A
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $4F, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０１　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
 
 ; ---- data $57BF-$57C2 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 57BF-5804 by higher-priority evidence]
 
@@ -1675,350 +1639,265 @@ Data_72_57BF:: ; 72:57BF
 ; ---- text $57C2-$5804 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_57C2:: ; 72:57C2
-	db $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0
-	db $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $DC, $82, $B7, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $DC, $82, $B7, $81, $42, $00 ; "　かいたメールを　セーブします。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5804-$5891 (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5804:: ; 72:5804
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $82, $51, $82, $4F, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $01, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０３　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０４　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $01, $01 ; record header
 
 ; ---- text $5891-$58D3 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5891:: ; 72:5891
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41
-	db $83, $68, $83, $8C, $83, $58, $82, $CD, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $82, $A9, $82, $C8, $82, $E7, $82, $B8, $82, $A9, $82
-	db $A2, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81
-	db $40, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $CD, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　メールアドレスは　　　　"
+	db $81, $40, $81, $40, $82, $A9, $82, $C8, $82, $E7, $82, $B8, $82, $A9, $82, $A2, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81, $40, $00 ; "　　かならずかいてください。　　"
 
 ; ---- text $58D3-$5918 (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5891-5918 by higher-priority evidence]
 
 String_72_58D3:: ; 72:58D3
-	db $86, $02, $01, $81, $40, $82, $E0, $82, $E7, $82, $C1, $82, $BD, $83, $81, $81
-	db $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81
-	db $42, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB
-	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $82, $E0, $82, $E7, $82, $C1, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $00 ; "　もらったメールを　けします。　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5918-$5960 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5918:: ; 72:5918
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $4F, $82, $56, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $56, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０７　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
 
 ; ---- text $5960-$59A2 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5960:: ; 72:5960
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41
-	db $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $81, $40, $81, $40, $81, $40
-	db $00, $82, $A4, $82, $ED, $82, $AA, $82, $AB, $82, $B5, $82, $DC, $82, $B7, $81
-	db $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81
-	db $48, $00
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　メールアドレスを　　　　"
+	db $82, $A4, $82, $ED, $82, $AA, $82, $AB, $82, $B5, $82, $DC, $82, $B7, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $00 ; "うわがきします　よろしいですか？"
 
 ; ---- text $59A2-$59E7 (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5960-59E7 by higher-priority evidence]
 
 String_72_59A2:: ; 72:59A2
-	db $86, $02, $01, $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81
-	db $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81
-	db $42, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB
-	db $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $00 ; "　　かいたメールを　けします。　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $59E7-$5A2F (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_59E7:: ; 72:59E7
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $50, $82, $4F, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $50, $82, $4F, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２１０　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $5A2F-$5A71 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5A2F:: ; 72:5A2F
-	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0
-	db $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $DC, $82, $B7, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $DC, $82, $B7, $81, $42, $00 ; "メールアドレスを　セーブします。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5A71-$5AB9 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5A71:: ; 72:5A71
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $52, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０３　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
 
 ; ---- text $5AB9-$5AFB (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5AB9:: ; 72:5AB9
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58
-	db $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $00 ; "　メールアドレスを　けします。　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5AFB-$5B43 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5AFB:: ; 72:5AFB
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $50, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $50, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２１４　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
 
 ; ---- text $5B43-$5B85 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5B43:: ; 72:5B43
-	db $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $82, $D6, $82, $F1
-	db $82, $B6, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81, $40, $81, $40
-	db $00, $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $82
-	db $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81
-	db $40, $00
+	db $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $82, $D6, $82, $F1, $82, $B6, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81, $40, $81, $40, $00 ; "　かきかけのへんじは　きえて　　"
+	db $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $00 ; "　しまいます。よろしいですか？　"
 
 ; ---- text $5B85-$5BCD (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5B85:: ; 72:5B85
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $4F, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２０６　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $5BCD-$5C0F (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5BCD:: ; 72:5BCD
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CC, $82, $B5, $82, $E3, $82, $A4
-	db $82, $B9, $82, $A2, $82, $F0, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CC, $82, $B5, $82, $E3, $82, $A4, $82, $B9, $82, $A2, $82, $F0, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42, $00 ; "　メールのしゅうせいをやめます。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5C0F-$5C57 (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5C0F:: ; 72:5C0F
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $50, $82, $57, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $01, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $50, $82, $57, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２１８　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $01, $01 ; record header
 
 ; ---- text $5C57-$5C99 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5C57:: ; 72:5C57
-	db $82, $A8, $82, $AD, $82, $C1, $82, $C4, $82, $A2, $82, $C8, $82, $A2, $83, $81
-	db $81, $5B, $83, $8B, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42
-	db $00, $82, $D6, $82, $F1, $82, $B6, $82, $F0, $82, $A9, $82, $AD, $82, $B1, $82
-	db $C6, $82, $AA, $81, $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $81
-	db $42, $00
+	db $82, $A8, $82, $AD, $82, $C1, $82, $C4, $82, $A2, $82, $C8, $82, $A2, $83, $81, $81, $5B, $83, $8B, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42, $00 ; "おくっていないメールがあります。"
+	db $82, $D6, $82, $F1, $82, $B6, $82, $F0, $82, $A9, $82, $AD, $82, $B1, $82, $C6, $82, $AA, $81, $40, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $81, $42, $00 ; "へんじをかくことが　できません。"
 
 ; ---- text $5C99-$5CDE (69 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5C57-5CDE by higher-priority evidence]
 
 String_72_5C99:: ; 72:5C99
-	db $86, $01, $01, $81, $40, $81, $40, $81, $40, $81, $40, $83, $6A, $83, $62, $83
-	db $4E, $83, $6C, $81, $5B, $83, $80, $82, $CD, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $82, $A9, $82, $C8, $82, $E7, $82, $B8
-	db $82, $A9, $82, $A2, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42
-	db $81, $40, $81, $40, $00
+	db $86, $01, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $6A, $83, $62, $83, $4E, $83, $6C, $81, $5B, $83, $80, $82, $CD, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　ニックネームは　　　　　"
+	db $81, $40, $81, $40, $82, $A9, $82, $C8, $82, $E7, $82, $B8, $82, $A9, $82, $A2, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81, $40, $00 ; "　　かならずかいてください。　　"
 
 ; ---- text $5CDE-$5D6B (141 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5CDE:: ; 72:5CDE
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $51, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $82, $51, $82, $51, $82, $51, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $02, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $50, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２１　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $51, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２２　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
 
 ; ---- text $5D6B-$5DAD (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5D6B:: ; 72:5D6B
-	db $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $83, $66, $81, $5B
-	db $83, $5E, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81, $40, $81, $40
-	db $00, $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $82
-	db $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81
-	db $40, $00
+	db $81, $40, $82, $A9, $82, $AB, $82, $A9, $82, $AF, $82, $CC, $83, $66, $81, $5B, $83, $5E, $82, $CD, $81, $40, $82, $AB, $82, $A6, $82, $C4, $81, $40, $81, $40, $00 ; "　かきかけのデータは　きえて　　"
+	db $81, $40, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $00 ; "　しまいます。よろしいですか？　"
 
 ; ---- text $5DAD-$5DB0 (3 bytes) [PROBABLE] text block: 4 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5D6B-5DF2 by higher-priority evidence]
 
 String_72_5DAD:: ; 72:5DAD
-	db $86, $02, $00
+	db $86, $02, $00 ; record header
 
 ; ---- text $5DB0-$5DF2 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5DB0:: ; 72:5DB0
-	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $CC, $82, $B5, $82, $E3, $82, $A4
-	db $82, $B9, $82, $A2, $82, $F0, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $CC, $82, $B5, $82, $E3, $82, $A4, $82, $B9, $82, $A2, $82, $F0, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42, $00 ; "アドレスのしゅうせいをやめます。"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $5DF2-$5F4E (348 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5DF2:: ; 72:5DF2
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $51, $82, $54, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $82, $51, $82, $51, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $02, $01, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $56, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86
-	db $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51
-	db $82, $57, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $82, $51, $82, $51, $82, $58, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $01, $01
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $54, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２５　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $55, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２６　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $56, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２７　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $57, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２８　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $51, $82, $58, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２２９　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $01, $01 ; record header
 
 ; ---- text $5F4E-$5F90 (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5F4E:: ; 72:5F4E
-	db $82, $E0, $82, $B6, $82, $B7, $82, $A4, $82, $CC, $83, $49, $81, $5B, $83, $6F
-	db $81, $5B, $82, $B5, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $C5, $82, $B7
-	db $00, $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82
-	db $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81
-	db $42, $00
+	db $82, $E0, $82, $B6, $82, $B7, $82, $A4, $82, $CC, $83, $49, $81, $5B, $83, $6F, $81, $5B, $82, $B5, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $C5, $82, $B7, $00 ; "もじすうのオーバーしたメールです"
+	db $82, $B7, $82, $D7, $82, $C4, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $42, $00 ; "すべてひょうじできませんでした。"
 
 ; ---- text $5F90-$5F93 (3 bytes) [PROBABLE] text block: 5 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 5F4E-5FF6 by higher-priority evidence]
 
 String_72_5F90:: ; 72:5F90
-	db $86, $05, $00
+	db $86, $05, $00 ; record header
 
 ; ---- text $5F93-$5FF6 (99 bytes) [CONFIRMED] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_5F93:: ; 72:5F93
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $7B, $83, $62, $83, $4E, $83, $58
-	db $82, $AA, $82, $A2, $82, $C1, $82, $CF, $82, $A2, $82, $C5, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A4, $82
-	db $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $81, $42, $81, $40, $81
-	db $40, $00, $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $BD, $83, $81, $81, $5B
-	db $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48
-	db $81, $40, $00
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $83, $7B, $83, $62, $83, $4E, $83, $58, $82, $AA, $82, $A2, $82, $C1, $82, $CF, $82, $A2, $82, $C5, $81, $40, $81, $40, $00 ; "　メールボックスがいっぱいで　　"
+	db $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $81, $42, $81, $40, $81, $40, $00 ; "　　メールをうけとれません。　　"
+	db $83, $5A, $81, $5B, $83, $75, $82, $B5, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48, $81, $40, $00 ; "セーブしたメールをけしますか？　"
 
 ; ---- text $5FF6-$603E (72 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_5FF6:: ; 72:5FF6
-	db $86, $02, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82
-	db $52, $82, $51, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $86, $02, $00
+	db $86, $02, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $52, $82, $51, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　２３２　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $603E-$6080 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_603E:: ; 72:603E
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC
-	db $82, $B5, $82, $BD, $81, $42, $82, $C2, $82, $C3, $82, $AF, $82, $C4, $81, $40
-	db $00, $81, $40, $82, $D9, $82, $A9, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82
-	db $E0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48, $81, $40, $81
-	db $40, $00
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $42, $82, $C2, $82, $C3, $82, $AF, $82, $C4, $81, $40, $00 ; "　メールをけしました。つづけて　"
+	db $81, $40, $82, $D9, $82, $A9, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $E0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $00 ; "　ほかのメールもけしますか？　　"
 
 ; ---- text $6080-$60E9 (105 bytes) [PROBABLE] message records of the 72:502B pointer table: 86 aa bb header + 32-byte line + 00 (+ second/third 32-byte line + 00); the record starts are table targets (dw at 72:5033-50A9...), whole span decodes as cp932 (full-width spaces/digits, header 86 aa bb, NULs) per docs/research/text_encoding.md section on bank 72 records; ends with the 86 header of the next record
 
 String_72_6080:: ; 72:6080
-	db $86, $04, $01, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82
-	db $51, $82, $52, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
-	db $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $81, $40, $00, $86, $02, $01
+	db $86, $04, $01 ; record header
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $51, $82, $52, $82, $53, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　２３４　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　　　　　"
+	db $86, $02, $01 ; record header
 
 ; ---- text $60E9-$612B (66 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_60E9:: ; 72:60E9
-	db $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $83, $81, $81, $5B
-	db $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40
-	db $00, $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82
-	db $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00
+	db $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $42, $81, $40, $00 ; "サーバにあるメールをけします。　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
 ; ---- text $612B-$6350 (549 bytes) [PROBABLE] text block: 22 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 60E9-63D7 by higher-priority evidence]
 
 String_72_612B:: ; 72:612B
-	db $86, $04, $01, $82, $D9, $82, $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82
-	db $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82
-	db $B7, $81, $42, $00, $81, $40, $82, $BD, $82, $DC, $82, $E9, $82, $C6, $81, $40
-	db $82, $C2, $82, $A4, $82, $B5, $82, $F1, $82, $B6, $82, $A9, $82, $F1, $82, $AA
-	db $81, $40, $81, $40, $00, $81, $40, $81, $40, $82, $C8, $82, $AA, $82, $AD, $82
-	db $C8, $82, $C1, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81
-	db $42, $81, $40, $81, $40, $00, $86, $04, $01, $81, $40, $81, $40, $82, $D9, $82
-	db $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82, $CC, $83, $81, $81, $5B, $83
-	db $8B, $82, $AA, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $82, $D3
-	db $82, $A6, $82, $C4, $82, $AB, $82, $DC, $82, $B5, $82, $BD, $81, $42, $82, $CD
-	db $82, $E2, $82, $DF, $82, $C9, $81, $40, $81, $40, $00, $81, $40, $81, $40, $82
-	db $AF, $82, $B7, $82, $E6, $82, $A4, $82, $C9, $82, $B5, $82, $C4, $82, $AD, $82
-	db $BE, $82, $B3, $82, $A2, $81, $40, $81, $40, $81, $40, $00, $86, $04, $01, $82
-	db $D9, $82, $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82, $CC, $83, $81, $81
-	db $5B, $83, $8B, $82, $AA, $81, $40, $82, $BD, $82, $AD, $82, $B3, $82, $F1, $00
-	db $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42, $83, $81, $81, $5B, $83, $8B
-	db $83, $54, $81, $5B, $83, $6F, $82, $AA, $82, $DF, $82, $F1, $82, $C5, $81, $40
-	db $00, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82
-	db $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81
-	db $40, $00, $86, $04, $01, $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $CC, $83
-	db $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B7, $82, $DC, $82, $A6, $82
-	db $C9, $81, $40, $81, $40, $00, $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $B5
-	db $82, $E5, $82, $CC, $81, $40, $82, $BF, $82, $E3, $82, $A4, $82, $A2, $82, $B6
-	db $82, $B1, $82, $A4, $82, $F0, $00, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $82, $DD, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81
-	db $40, $81, $40, $81, $40, $81, $40, $00, $86, $00, $01, $81, $40, $83, $54, $81
-	db $5B, $83, $6F, $82, $C9, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82
-	db $E8, $82, $DC, $82, $B9, $82, $F1, $81, $42, $81, $40, $00, $81, $40, $81, $40
-	db $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $E8, $82, $DC
-	db $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $00, $86, $00, $01
-	db $83, $60, $83, $46, $83, $62, $83, $4E, $82, $F0, $82, $B5, $82, $E3, $82, $A4
-	db $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $42
-	db $00, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82
-	db $AB, $82, $E8, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00, $86, $02, $00
+	db $86, $04, $01 ; record header
+	db $82, $D9, $82, $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42, $00 ; "ほかのソフトのメールがあります。"
+	db $81, $40, $82, $BD, $82, $DC, $82, $E9, $82, $C6, $81, $40, $82, $C2, $82, $A4, $82, $B5, $82, $F1, $82, $B6, $82, $A9, $82, $F1, $82, $AA, $81, $40, $81, $40, $00 ; "　たまると　つうしんじかんが　　"
+	db $81, $40, $81, $40, $82, $C8, $82, $AA, $82, $AD, $82, $C8, $82, $C1, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $00 ; "　　ながくなってしまいます。　　"
+	db $86, $04, $01 ; record header
+	db $81, $40, $81, $40, $82, $D9, $82, $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $81, $40, $81, $40, $00 ; "　　ほかのソフトのメールが　　　"
+	db $81, $40, $81, $40, $82, $D3, $82, $A6, $82, $C4, $82, $AB, $82, $DC, $82, $B5, $82, $BD, $81, $42, $82, $CD, $82, $E2, $82, $DF, $82, $C9, $81, $40, $81, $40, $00 ; "　　ふえてきました。はやめに　　"
+	db $81, $40, $81, $40, $82, $AF, $82, $B7, $82, $E6, $82, $A4, $82, $C9, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $40, $81, $40, $81, $40, $00 ; "　　けすようにしてください　　　"
+	db $86, $04, $01 ; record header
+	db $82, $D9, $82, $A9, $82, $CC, $83, $5C, $83, $74, $83, $67, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $82, $BD, $82, $AD, $82, $B3, $82, $F1, $00 ; "ほかのソフトのメールが　たくさん"
+	db $82, $A0, $82, $E8, $82, $DC, $82, $B7, $81, $42, $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $AA, $82, $DF, $82, $F1, $82, $C5, $81, $40, $00 ; "あります。メールサーバがめんで　"
+	db $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81, $40, $00 ; "　　メールをけしてください。　　"
+	db $86, $04, $01 ; record header
+	db $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B7, $82, $DC, $82, $A6, $82, $C9, $81, $40, $81, $40, $00 ; "　サーバのメールをけすまえに　　"
+	db $82, $B9, $82, $C2, $82, $DF, $82, $A2, $82, $B5, $82, $E5, $82, $CC, $81, $40, $82, $BF, $82, $E3, $82, $A4, $82, $A2, $82, $B6, $82, $B1, $82, $A4, $82, $F0, $00 ; "せつめいしょの　ちゅういじこうを"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $DD, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　みてください。　　　　"
+	db $86, $00, $01 ; record header
+	db $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $C9, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $42, $81, $40, $00 ; "　サーバにメールはありません。　"
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわをきります。　　　　"
+	db $86, $00, $01 ; record header
+	db $83, $60, $83, $46, $83, $62, $83, $4E, $82, $F0, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $42, $00 ; "チェックをしゅうりょうしました。"
+	db $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　でんわをきります。　　　　"
+	db $86, $02, $00 ; record header
 
 ; ---- text $6350-$6392 (66 bytes) [CONFIRMED] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_72_6350:: ; 72:6350
-	db $81, $40, $81, $40, $83, $54, $81, $5B, $83, $6F, $83, $81, $81, $5B, $83, $8B
-	db $82, $CC, $82, $B3, $82, $AD, $82, $B6, $82, $E5, $82, $F0, $81, $40, $81, $40
-	db $00, $81, $40, $81, $40, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42, $82
-	db $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81
-	db $40, $00
+	db $81, $40, $81, $40, $83, $54, $81, $5B, $83, $6F, $83, $81, $81, $5B, $83, $8B, $82, $CC, $82, $B3, $82, $AD, $82, $B6, $82, $E5, $82, $F0, $81, $40, $81, $40, $00 ; "　　サーバメールのさくじょを　　"
+	db $81, $40, $81, $40, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $42, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $00 ; "　　やめます。よろしいですか？　"
 
 ; ---- text $6392-$63D7 (69 bytes) [PROBABLE] text block: 22 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 60E9-63D7 by higher-priority evidence]
 
 String_72_6392:: ; 72:6392
-	db $86, $01, $01, $81, $40, $82, $A8, $82, $A9, $82, $B5, $82, $C8, $83, $66, $81
-	db $5B, $83, $5E, $82, $AA, $82, $A0, $82, $C1, $82, $BD, $82, $CC, $82, $C5, $81
-	db $40, $81, $40, $00, $81, $40, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $82, $D0
-	db $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1
-	db $81, $42, $81, $40, $00
+	db $86, $01, $01 ; record header
+	db $81, $40, $82, $A8, $82, $A9, $82, $B5, $82, $C8, $83, $66, $81, $5B, $83, $5E, $82, $AA, $82, $A0, $82, $C1, $82, $BD, $82, $CC, $82, $C5, $81, $40, $81, $40, $00 ; "　おかしなデータがあったので　　"
+	db $81, $40, $82, $BD, $82, $BE, $82, $B5, $82, $AD, $82, $D0, $82, $E5, $82, $A4, $82, $B6, $82, $C5, $82, $AB, $82, $DC, $82, $B9, $82, $F1, $81, $42, $81, $40, $00 ; "　ただしくひょうじできません。　"
 
 ; ---- data $63D7-$63D8 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the string terminator at 63D6 and directly before the far-call target 72:63D8 (4E:4D10 calls 63D8, not 63D7); left unclassified
 
@@ -2027,41 +1906,41 @@ Data_72_63D7:: ; 72:63D7
 
 ; ---- code $63D8-$6556 (382 bytes) [PROBABLE] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 1; entered by far from 4E:4D16 (PROBABLE code)
 
-Function_72_63D8:: ; 72:63D8
+BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh [hRam_FFF6], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	farcall Function_72_472B
-	farcall Function_72_4805
+	farcall Dialog_SaveBackground
+	farcall Dialog_InitWindowRegs
 	ld de, $8F01
-	ld hl, $7620
+	ld hl, BrowserMenu2_Tiles1
 	ld a, $72
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld de, $8801
-	ld hl, $7220
+	ld hl, BrowserMenu2_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
-	ld hl, $7810
+	ld hl, BrowserMenu2_Palette
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0614
 	ld de, $D180
-	ld hl, $7720
+	ld hl, BrowserMenu2_Map
 	ld a, $72
 	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7820
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0392
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2109,7 +1988,7 @@ Label_72_6495:: ; 72:6495
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2118,9 +1997,9 @@ Label_72_6495:: ; 72:6495
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	farcall Function_72_47A3
+	farcall Dialog_UploadWindowMap
 	ld hl, $DAC0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Function_00_0A82
@@ -2129,7 +2008,7 @@ Label_72_6495:: ; 72:6495
 	ld a, $00
 	call Function_00_0A45
 	ldh a, [hRam_FFF6]
-	farcall Function_72_669F
+	farcall BrowserMenu_DrawItemTwo
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2147,14 +2026,14 @@ Label_72_6495:: ; 72:6495
 	ldh a, [rWY]
 	cp a, $60
 	jr z, Label_72_6515
-	ld hl, $6556
-	farcall Function_72_4824
+	ld hl, Data_72_6556
+	farcall Dialog_SlideIn
 
 Label_72_6515:: ; 72:6515
 	ld hl, $D200
 	ld bc, $0214
 	ld de, $0EC0
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -2169,7 +2048,7 @@ Label_72_6515:: ; 72:6515
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2184,12 +2063,12 @@ Data_72_6556:: ; 72:6556
 
 ; ---- code $6563-$65EB (136 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by far from 4E:4D1C (PROBABLE code)
 
-Function_72_6563:: ; 72:6563
+BrowserMenu_RunTwoItem:: ; 72:6563
 	ldh a, [hRam_FFF6]
 
 Label_72_6565:: ; 72:6565
 	ldh [hRam_FFF6], a
-	farcall Function_72_669F
+	farcall BrowserMenu_DrawItemTwo
 
 Label_72_656D:: ; 72:656D
 	ld a, [wRam_C2CC]
@@ -2248,10 +2127,10 @@ Label_72_65C8:: ; 72:65C8
 
 Label_72_65CD:: ; 72:65CD
 	farcall Function_00_0956
-	farcall Function_69_40D1
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $65EB-$65F5 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 72:65E8: 5 entries; fixed length (5 words) by the routine
@@ -2380,7 +2259,7 @@ Label_72_669A:: ; 72:669A
 	ldh [hRam_FFF6], a
 	ret
 
-Function_72_669F:: ; 72:669F
+BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld e, a
 	ld l, a
 	ld d, $00
@@ -2403,7 +2282,7 @@ Function_72_669F:: ; 72:669F
 	ld b, a
 	push hl
 	ld hl, $DAD0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	farcall Function_00_0A82
 	pop hl
@@ -2431,7 +2310,7 @@ Function_72_669F:: ; 72:669F
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
@@ -2447,41 +2326,42 @@ Data_72_6711:: ; 72:6711
 
 ; ---- code $6712-$67B2 (160 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_6712:: ; 72:6712
+BrowserMenu_OpenThreeItem:: ; 72:6712
+Function_72_6712::
 	ldh [hRam_FFF6], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	farcall Function_72_472B
-	farcall Function_72_4805
+	farcall Dialog_SaveBackground
+	farcall Dialog_InitWindowRegs
 	ld de, $8801
-	ld hl, $6C10
+	ld hl, BrowserMenu3_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8F01
-	ld hl, $7010
+	ld hl, BrowserMenu3_Tiles1
 	ld a, $72
 	ld b, $97
 	ld c, $10
 	farcall Function_00_0787
 	ld bc, $0010
 	ld de, $D830
-	ld hl, $7200
+	ld hl, Data_72_7200
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0614
 	ld de, $D180
-	ld hl, $7110
+	ld hl, BrowserMenu3_Map
 	ld a, $72
 	farcall Function_00_08EA
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7210
 	ld a, $72
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	call Function_00_0392
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2534,7 +2414,7 @@ Label_72_67D1:: ; 72:67D1
 	ldh [rSVBK], a
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -2543,9 +2423,9 @@ Label_72_67D1:: ; 72:67D1
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	farcall Function_72_47A3
+	farcall Dialog_UploadWindowMap
 	ld hl, $DAC0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $81
 	farcall Function_00_0A82
@@ -2554,7 +2434,7 @@ Label_72_67D1:: ; 72:67D1
 	ld a, $00
 	call Function_00_0A45
 	ldh a, [hRam_FFF6]
-	farcall Function_72_69F3
+	farcall BrowserMenu_DrawItemThree
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2572,14 +2452,14 @@ Label_72_67D1:: ; 72:67D1
 	ldh a, [rWY]
 	cp a, $60
 	jr z, Label_72_6851
-	ld hl, $6892
-	farcall Function_72_4824
+	ld hl, Data_72_6892
+	farcall Dialog_SlideIn
 
 Label_72_6851:: ; 72:6851
 	ld hl, $D200
 	ld bc, $0214
 	ld de, $0EC0
-	farcall Function_4F_45C6
+	farcall Tilemap_FillAscendingWithAttr
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -2594,7 +2474,7 @@ Label_72_6851:: ; 72:6851
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2609,12 +2489,13 @@ Data_72_6892:: ; 72:6892
 
 ; ---- code $689F-$68D6 (55 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_689F:: ; 72:689F
+BrowserMenu_RunThreeItem:: ; 72:689F
+Function_72_689F::
 	ldh a, [hRam_FFF6]
 
 Label_72_68A1:: ; 72:68A1
 	ldh [hRam_FFF6], a
-	farcall Function_72_69F3
+	farcall BrowserMenu_DrawItemThree
 
 Label_72_68A9:: ; 72:68A9
 	ld a, [wRam_C2CC]
@@ -2677,10 +2558,10 @@ Label_72_6904:: ; 72:6904
 
 Label_72_6909:: ; 72:6909
 	farcall Function_00_0956
-	farcall Function_69_40D1
+	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $6927-$6931 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:6924: 5 entries; fixed length (5 words) by the routine
@@ -2832,7 +2713,8 @@ Label_72_69EE:: ; 72:69EE
 
 ; ---- code $69F3-$6ADF (236 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_72_69F3:: ; 72:69F3
+BrowserMenu_DrawItemThree:: ; 72:69F3
+Function_72_69F3::
 	ld e, a
 	ld l, a
 	ld d, $00
@@ -2855,7 +2737,7 @@ Function_72_69F3:: ; 72:69F3
 	ld b, a
 	push hl
 	ld hl, $DAD0
-	ld de, $7828
+	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	farcall Function_00_0A82
 	pop hl
@@ -2884,7 +2766,7 @@ Function_72_69F3:: ; 72:69F3
 	ld a, $07
 	ldh [hRam_FFB0], a
 	ld a, $72
-	farcall Function_48_403E
+	farcall TextTiles_RenderLine
 	call Function_00_0392
 	ld de, $8C01
 	ld hl, $DC00
@@ -2894,13 +2776,13 @@ Function_72_69F3:: ; 72:69F3
 	farcall Function_00_0787
 	ret
 
-Function_72_6A6B:: ; 72:6A6B
+BrowserMenu_Close:: ; 72:6A6B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	farcall Function_72_47A3
+	farcall Dialog_UploadWindowMap
 	ld hl, $DAD0
 	call Function_00_09E6
 	ld hl, $DACB
@@ -2913,15 +2795,15 @@ Function_72_6A6B:: ; 72:6A6B
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	farcall Function_72_4767
+	farcall Dialog_RestoreBackground
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
 	jr z, Label_72_6AB4
-	ld hl, $6ADF
-	farcall Function_72_4872
+	ld hl, Data_72_6ADF
+	farcall Dialog_SlideOut
 
 Label_72_6AB4:: ; 72:6AB4
 	call Function_00_047A
@@ -2936,7 +2818,7 @@ Label_72_6AB4:: ; 72:6AB4
 	ld b, a
 	ld a, [wRam_C2E3]
 	ld c, a
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2951,50 +2833,51 @@ Data_72_6ADF:: ; 72:6ADF
 
 ; ---- data $6AEC-$6AFA (14 bytes) [PROBABLE] 2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23
 
-Table_72_6AEC:: ; 72:6AEC
+BrowserMenu_TwoItemRecords:: ; 72:6AEC
+Table_72_6AEC::
 	db $30, $68, $83, $30, $68, $FA, $6A, $60, $68, $84, $60, $68, $23, $6B
 
 ; ---- text $6AFA-$6B4C (82 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_6AFA:: ; 72:6AFA
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED
-	db $82, $F0, $81, $40, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00, $81, $40, $81, $40, $81, $40, $83
-	db $67, $83, $62, $83, $76, $83, $81, $83, $6A, $83, $85, $81, $5B, $82, $C9, $81
-	db $40, $82, $E0, $82, $C7, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81
-	db $40, $00
+BrowserMenu_TwoItemTexts:: ; 72:6AFA
+String_72_6AFA::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40 ; "　　　　　でんわを　きります　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db $81, $40, $81, $40, $81, $40, $83, $67, $83, $62, $83, $76, $83, $81, $83, $6A, $83, $85, $81, $5B, $82, $C9, $81, $40, $82, $E0, $82, $C7, $82, $E8, $82, $DC, $82, $B7 ; "　　　トップメニューに　もどります"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- data $6B4C-$6B68 (28 bytes) [PROBABLE] 4 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6B4C at 72:69F3-69FF (ld de,$6B4C); record 0 (6B4C-6B53) is CONFIRMED read by executed code; last word of every record points into the strings at 72:6B68.. (6B68, 6B91, 6BBA, 6BE3 = record starts); extent = 4 records up to the String region at 72:6B68
 
-Table_72_6B4C:: ; 72:6B4C
+BrowserMenu_ThreeItemRecords:: ; 72:6B4C
+Table_72_6B4C::
 	db $20, $68, $82, $20, $68, $68, $6B, $48, $68, $83, $48, $68, $91, $6B, $70, $68
 	db $84, $70, $68, $BA, $6B, $20, $68, $87, $20, $68, $E3, $6B
 
 ; ---- text $6B68-$6BE3 (123 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_72_6B68:: ; 72:6B68
-	db $81, $40, $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $82, $D6
-	db $82, $CC, $81, $40, $82, $A9, $82, $AB, $82, $B1, $82, $DD, $82, $AA, $82, $C5
-	db $82, $AB, $82, $DC, $82, $B7, $81, $40, $00, $81, $40, $81, $40, $81, $40, $81
-	db $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82
-	db $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
-	db $40, $00, $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57
-	db $82, $F0, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4
-	db $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $00
+BrowserMenu_ThreeItemTexts:: ; 72:6B68
+String_72_6B68::
+	db $81, $40, $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $82, $D6, $82, $CC, $81, $40, $82, $A9, $82, $AB, $82, $B1, $82, $DD, $82, $AA, $82, $C5, $82, $AB ; "　ページリストへの　かきこみができ"
+	db $82, $DC, $82, $B7, $81, $40, $00 ; "ます　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40 ; "　　　　　でんわを　きります　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC ; "　ホームページを　しゅうりょうしま"
+	db $82, $B7, $81, $40, $81, $40, $00 ; "す　　"
 
 ; ---- text $6BE3-$6C0C (41 bytes) [PROBABLE] text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); no table pointer found
 
-String_72_6BE3:: ; 72:6BE3
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $48, $81, $48
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $40, $81, $40
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00
+BrowserMenu_PlaceholderText:: ; 72:6BE3
+String_72_6BE3::
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $40, $81, $40, $81, $40 ; "　　　　　　？？？？？？？？　　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
 ; ---- zero $6C0C-$6C10 (4 bytes) [PROBABLE] 4 x 00 padding before the tile block at 72:6C10
 	ds $4, $00
 
 ; ---- gfx $6C10-$7010 (1024 bytes) [CONFIRMED] tiles-vram: 3 call site(s) (4E:61C1 4E:62BC 72:6733); first: hdma_rom_to_vram at 4E:61C1: hl=$6C10 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_72_6C10:: ; 72:6C10
+BrowserMenu3_Tiles0:: ; 72:6C10
+Data_72_6C10::
 	db $01, $00, $03, $01, $07, $02, $0E, $05, $1C, $0B, $38, $17, $7F, $3F, $7F, $00
 	db $F8, $F8, $F8, $88, $F0, $B0, $E0, $A0, $C0, $C0, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -3062,7 +2945,8 @@ Data_72_6C10:: ; 72:6C10
 
 ; ---- gfx $7010-$7110 (256 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:6745: hl=$7010 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1)
 
-Data_72_7010:: ; 72:7010
+BrowserMenu3_Tiles1:: ; 72:7010
+Data_72_7010::
 	db $80, $7F, $7F, $BF, $67, $D8, $5B, $FC, $5D, $FE, $6E, $DF, $77, $CF, $43, $FF
 	db $01, $FE, $FE, $FD, $E6, $19, $DA, $3D, $BA, $7D, $76, $F9, $EE, $F1, $C2, $FD
 	db $43, $FF, $77, $CF, $6E, $DF, $5D, $FE, $5B, $FC, $67, $D8, $7F, $80, $80, $7F
@@ -3082,7 +2966,8 @@ Data_72_7010:: ; 72:7010
 
 ; ---- data $7110-$7200 (240 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:6767: hl=$7110 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180
 
-Data_72_7110:: ; 72:7110
+BrowserMenu3_Map:: ; 72:7110
+Data_72_7110::
 	db $A6, $A7, $A8, $A9, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
 	db $A9, $A8, $A7, $A6, $B6, $B7, $B8, $B9, $A0, $A1, $AF, $AF, $AF, $A2, $A3, $AF
 	db $AF, $AF, $A4, $A5, $BF, $B8, $B7, $B6, $AB, $AC, $B8, $B9, $B0, $B1, $AF, $AF
@@ -3119,7 +3004,8 @@ Data_72_7216:: ; 72:7216
 
 ; ---- gfx $7220-$7620 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:640B: hl=$7220 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_72_7220:: ; 72:7220
+BrowserMenu2_Tiles0:: ; 72:7220
+Data_72_7220::
 	db $01, $00, $03, $01, $07, $02, $0E, $05, $1C, $0B, $38, $17, $7F, $3F, $7F, $00
 	db $F8, $F8, $F8, $88, $F0, $B0, $E0, $A0, $C0, $C0, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -3187,7 +3073,8 @@ Data_72_7220:: ; 72:7220
 
 ; ---- gfx $7620-$7720 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 72:63F9: hl=$7620 a=$72 c=$10 de=$8F01 (dest VRAM $8F00, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_72_7620:: ; 72:7620
+BrowserMenu2_Tiles1:: ; 72:7620
+Data_72_7620::
 	db $80, $00, $7F, $3F, $67, $40, $5B, $58, $5D, $5C, $6E, $4E, $77, $47, $43, $43
 	db $01, $00, $FE, $FC, $E6, $00, $DA, $18, $BA, $38, $76, $70, $EE, $E0, $C2, $C0
 	db $43, $43, $77, $47, $6E, $4E, $5D, $5C, $5B, $58, $67, $40, $7F, $00, $80, $00
@@ -3207,7 +3094,8 @@ Data_72_7620:: ; 72:7620
 
 ; ---- data $7720-$7810 (240 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:642D: hl=$7720 a=$72 b=6 rows c=20 cols (tiles then attrs) de=$D180 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_72_7720:: ; 72:7720
+BrowserMenu2_Map:: ; 72:7720
+Data_72_7720::
 	db $A6, $A7, $A8, $A9, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA, $AA
 	db $A9, $A8, $A7, $A6, $B6, $B7, $B8, $B9, $AF, $AF, $A2, $A3, $AF, $AF, $AF, $AF
 	db $A4, $A5, $BF, $BF, $BF, $B8, $B7, $B6, $AB, $AC, $B8, $B9, $AF, $AF, $B2, $B3
@@ -3226,13 +3114,15 @@ Data_72_7720:: ; 72:7720
 
 ; ---- data $7810-$7828 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (bit15 clear, black/white ends); 7810 is loaded by ld hl,$7810 (bc=$0010 -> de=$D830, far call 4F:4000) at 72:6417; the third group (7820) follows the same format
 
-Palette_72_7810:: ; 72:7810
+BrowserMenu2_Palette:: ; 72:7810
+Palette_72_7810::
 	db $00, $00, $73, $42, $4A, $41, $FF, $7F, $FF, $7F, $7F, $01, $53, $2C, $00, $00
 	db $E0, $7F, $FF, $7F, $CE, $39, $00, $00
 
 ; ---- words $7828-$786C (68 bytes) [PROBABLE] object table for init_object_from_table (00:0A82, de=$7828 a=$72, 4-byte entries = 2 words; callers 4E:5F08.., 72:45D2, 72:46D4, 72:64C6, 72:66BE, 72:6802, 72:6A12); 17 entries, every word lands exactly on a descriptor start of the data block 72:786C-7A1F (partition check)
 
-Table_72_7828:: ; 72:7828
+BrowserMenu_CursorObjTable:: ; 72:7828
+Table_72_7828::
 	dw Data_72_78CA, $78F0, Data_72_78CA, $78F0, $7976, $799D, Data_72_79A0, $79BF
 	dw $79C3, $79E6, $7940, $7956, Data_72_795B, $7971, Data_72_78F5, $793B
 	dw Data_72_7894, $78AA, $78AF, $78C5, $79E9, $79FF, Data_72_7A04, $7A1A

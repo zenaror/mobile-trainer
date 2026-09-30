@@ -9,7 +9,8 @@ SECTION "Bank63", ROMX[$4000], BANK[$63]
 
 ; ---- code $4000-$402D (45 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 13/18 scenarios); entry proven: target of an executed call/far call
 
-Function_63_4000:: ; 63:4000
+Font_ValidateSjisCode:: ; 63:4000
+Function_63_4000::
 	push af
 	push bc
 	push de
@@ -46,7 +47,8 @@ Function_63_4000:: ; 63:4000
 
 ; ---- ptrtable $402D-$403D (16 bytes) [CONFIRMED] code-pointer table, 8 entries: 8/8 words hit own-bank code starts (survey pointer-table extent); 8/8 targets executed; every byte read as data in a trace
 
-Table_63_402D:: ; 63:402D
+Font_SjisBitJumpTable:: ; 63:402D
+Table_63_402D::
 	dw Label_63_403D
 	dw Label_63_4043
 	dw Label_63_4049
@@ -60,45 +62,45 @@ Table_63_402D:: ; 63:402D
 
 Label_63_403D:: ; 63:403D
 	bit 0, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_4043:: ; 63:4043
 	bit 1, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_4049:: ; 63:4049
 	bit 2, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_404F:: ; 63:404F
 	bit 3, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_4055:: ; 63:4055
 	bit 4, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_405B:: ; 63:405B
 	bit 5, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_4061:: ; 63:4061
 	bit 6, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
 Label_63_4067:: ; 63:4067
 	bit 7, c
-	jr z, Label_63_4072
-	jr Label_63_406D
+	jr z, Font_ValidateSjisCode_Invalid
+	jr Font_ValidateSjisCode_Valid
 
-Label_63_406D:: ; 63:406D
+Font_ValidateSjisCode_Valid:: ; 63:406D
 	pop hl
 	pop de
 	pop bc
@@ -107,7 +109,7 @@ Label_63_406D:: ; 63:406D
 
 ; ---- code $4072-$407A (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 63:403F (executed) [executed in 1 scenarios]
 
-Label_63_4072:: ; 63:4072
+Font_ValidateSjisCode_Invalid:: ; 63:4072
 	pop hl
 	pop de
 	pop bc
@@ -117,7 +119,8 @@ Label_63_4072:: ; 63:4072
 
 ; ---- gfx $407A-$6080 (8198 bytes) [PROBABLE] tile data: heuristic: 199 coherent tiles (hsim2=0.809 vsim2=0.731, 434 blank) parity 1; 2017/10224 bytes also covered by call-site blocks [clipped from 4071-6861 by higher-priority proposals] [clipped from 4071-6080 by higher-priority evidence]
 
-Data_63_407A:: ; 63:407A
+Font_SjisValidBitmap:: ; 63:407A
+Data_63_407A::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -634,11 +637,14 @@ Data_63_407A:: ; 63:407A
 
 ; ---- gfx $6080-$6480 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7365: hl=$6080 a=$63 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_63_6080:: ; 63:6080
+NoAdapter_Gfx_8000:: ; 63:6080
+Data_63_6080::
 	db $00, $00, $01, $01, $01, $01, $61, $61, $71, $71, $39, $39, $00, $19, $00, $00
 	db $00, $00, $80, $80, $80, $80, $86, $86, $8E, $8E, $9C, $9C, $00, $98, $00, $00
 	db $00, $00, $00, $00, $00, $10, $21, $18, $11, $0E, $09, $06, $01, $0E, $1F, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+NoAdapter_Gfx_8800:: ; 63:60C0
 	db $00, $FF, $00, $FF, $00, $FF, $00, $F0, $0E, $F0, $01, $FC, $00, $FD, $00, $FD
 	db $00, $5F, $00, $5F, $A0, $5E, $02, $1C, $E1, $1C, $04, $F9, $00, $F9, $02, $F8
 	db $00, $FF, $00, $FF, $00, $FF, $00, $F7, $00, $F4, $03, $F4, $00, $F7, $00, $D7
@@ -710,7 +716,8 @@ Data_63_6480:: ; 63:6480
 
 ; ---- gfx $64C0-$68C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:7389: hl=$64C0 a=$63 c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_63_64C0:: ; 63:64C0
+NoAdapter_Gfx_8C00:: ; 63:64C0
+Data_63_64C0::
 	db $00, $FF, $00, $FF, $00, $FD, $04, $F9, $00, $F0, $0B, $F0, $00, $F0, $0B, $F0
 	db $00, $FF, $00, $FF, $00, $F8, $07, $F8, $08, $70, $87, $70, $08, $77, $80, $7F
 	db $00, $FF, $00, $FF, $00, $7F, $80, $77, $00, $37, $C0, $17, $00, $D7, $00, $D7
@@ -778,7 +785,8 @@ Data_63_64C0:: ; 63:64C0
 
 ; ---- gfx $68C0-$6CC0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:739B: hl=$68C0 a=$63 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_63_68C0:: ; 63:68C0
+NoAdapter_Gfx_9000:: ; 63:68C0
+Data_63_68C0::
 	db $F7, $F4, $F1, $F6, $FD, $F3, $F4, $F8, $F8, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $13, $FE, $13, $ED, $FE, $01, $00, $01, $FF, $FF, $FF, $FF, $FF, $FF, $FF
 	db $FF, $9E, $F3, $9E, $6D, $F3, $0C, $00, $0C, $FF, $FF, $FF, $FF, $FF, $FF, $FF
@@ -846,7 +854,8 @@ Data_63_68C0:: ; 63:68C0
 
 ; ---- gfx $6CC0-$70C0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 63:73AD: hl=$6CC0 a=$63 c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_63_6CC0:: ; 63:6CC0
+NoAdapter_Gfx_9400:: ; 63:6CC0
+Data_63_6CC0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -895,6 +904,8 @@ Data_63_6CC0:: ; 63:6CC0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+NoAdapter_Tilemap:: ; 63:6FC0
 	db $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34, $34
 	db $34, $34, $34, $34, $E0, $E1, $E2, $E3, $E4, $E5, $E6, $E7, $E8, $E9, $10, $11
 	db $12, $13, $14, $15, $16, $17, $18, $19, $F0, $F1, $F2, $F3, $F4, $F5, $F6, $F7
@@ -947,7 +958,8 @@ Data_63_70C0:: ; 63:70C0
 
 ; ---- data $7290-$72B8 (40 bytes) [PROBABLE] palette-rgb555: heuristic: 20 RGB555 words as 5 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_63_7290:: ; 63:7290
+NoAdapter_Palette_Bg:: ; 63:7290
+Data_63_7290::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $F5, $00, $9F, $02, $FF, $7F
 	db $00, $00, $00, $7C, $20, $7E, $FF, $7F, $00, $00, $99, $00, $DF, $01, $FF, $7F
 	db $00, $00, $11, $00, $9F, $02, $FF, $7F
@@ -956,42 +968,47 @@ Data_63_7290:: ; 63:7290
 
 Data_63_72B8:: ; 63:72B8
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $7C, $0F, $00, $1F, $00, $7F, $01
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00
+
+NoAdapter_Palette_Obj:: ; 63:72D0
+	db $00, $7C, $0F, $00, $1F, $00, $7F, $01, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; ---- words $7310-$7318 (8 bytes) [PROBABLE] 2 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$7310 a=$63 at 63:73F5 (entry 0 unused, entry 1 = 7318/732A); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 7314-7318 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_63_7310:: ; 63:7310
-	dw $0000, $0000, Data_63_7318, $732A
+NoAdapter_ObjTable:: ; 63:7310
+Table_63_7310::
+	dw $0000, $0000, NoAdapter_ObjAnim, $732A
 
 ; ---- data $7318-$732F (23 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 63:7318-732F [v4: bytes 7318-732F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_63_7318:: ; 63:7318
+NoAdapter_ObjAnim:: ; 63:7318
+Data_63_7318::
 	db $1C, $73, $25, $73, $02, $00, $00, $00, $00, $00, $08, $01, $00, $01, $08, $08
 	db $02, $00, $02, $00, $1E, $01, $1E
 
 ; ---- code $732F-$742F (256 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_63_732F:: ; 63:732F
-	call Function_63_7342
-	farcall Function_4F_42B4
-	call Function_63_7413
-	farcall Function_4F_4370
+NoAdapter_ShowScreen:: ; 63:732F
+Function_63_732F::
+	call NoAdapter_DrawScreen
+	farcall Palette_FadeInFromWhite
+	call NoAdapter_WaitButton
+	farcall Palette_FadeOutToWhite
 	ret
 
-Function_63_7342:: ; 63:7342
+NoAdapter_DrawScreen:: ; 63:7342
 	ld b, $15
 	ld c, $03
-	farcall Function_7D_7C00
+	farcall Joypad_SetRepeatTiming
 	farcall Function_00_09B6
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
 	ld de, $8000
-	ld hl, $6080
+	ld hl, NoAdapter_Gfx_8000
 	ld a, $63
 	ld b, $92
 	ld c, $40
@@ -1003,33 +1020,33 @@ Function_63_7342:: ; 63:7342
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C01
-	ld hl, $64C0
+	ld hl, NoAdapter_Gfx_8C00
 	ld a, $63
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $68C0
+	ld hl, NoAdapter_Gfx_9000
 	ld a, $63
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $6CC0
+	ld hl, NoAdapter_Gfx_9400
 	ld a, $63
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $7290
+	ld hl, NoAdapter_Palette_Bg
 	ld a, $63
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $72D0
 	ld a, $63
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $6FC0
@@ -1038,7 +1055,7 @@ Function_63_7342:: ; 63:7342
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA00
-	ld de, $7310
+	ld de, NoAdapter_ObjTable
 	ld a, $63
 	ld b, $81
 	farcall Function_00_0A82
@@ -1052,8 +1069,8 @@ Function_63_7342:: ; 63:7342
 	ldh [rSCY], a
 	ret
 
-Function_63_7413:: ; 63:7413
-	farcall Function_7D_7BB7
+NoAdapter_WaitButton:: ; 63:7413
+	farcall Joypad_Update
 	farcall Function_00_0956
 	call Function_00_044B
 	ldh a, [hJoyPressedRepeat]
@@ -1061,7 +1078,7 @@ Function_63_7413:: ; 63:7413
 	jr nz, Label_63_742E
 	bit 3, a
 	jr nz, Label_63_742E
-	jr Function_63_7413
+	jr NoAdapter_WaitButton
 
 Label_63_742E:: ; 63:742E
 	ret

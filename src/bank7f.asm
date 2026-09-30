@@ -8,18 +8,21 @@ INCLUDE "constants/macros.inc"
 SECTION "Bank7F", ROMX[$4000], BANK[$7F]
 
 ; ---- code $4000-$4007 (7 bytes) [HYPOTHESIS] complete 3-insn function (call $400E ; call $0DCE ; ret): twin of the executed 7F:4007 (call $400E ; call $0DB9 ; ret); both callees are proven (400E executed 12/18; 00:0DCE = the non-duplicating variant of 00:0DB9); no caller/pointer to 7F:4000 found in the ROM (whole-ROM search of far calls, ld r16, words), entry unproven [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
-	call Function_7F_400E
+
+Function_7F_4000:: ; 7F:4000
+	call Glyph_AsciiAddr
 	call Function_00_0DCE
 	ret
 
 ; ---- code $4007-$4019 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_4007:: ; 7F:4007
-	call Function_7F_400E
+Glyph_LoadAscii:: ; 7F:4007
+Function_7F_4007::
+	call Glyph_AsciiAddr
 	call Function_00_0DB9
 	ret
 
-Function_7F_400E:: ; 7F:400E
+Glyph_AsciiAddr:: ; 7F:400E
 	ld a, b
 	cp a, $20
 	jr c, Label_7F_4019
@@ -66,6 +69,8 @@ Label_7F_402D:: ; 7F:402D
 	ret
 
 ; ---- code $4042-$404C (10 bytes) [PROBABLE] head of the function that contains the validated far-call site at 404C: push bc ; ld b,d ; ld c,e ; ld hl,$000C ; add hl,de ; ld d,h ; ld e,l ; pop hl (argument set-up), starting right after the ret at 4041 of the executed glyph routine; no caller found, entry unproven
+
+Function_7F_4042:: ; 7F:4042
 	push bc
 	ld b, d
 	ld c, e
@@ -76,24 +81,25 @@ Label_7F_402D:: ; 7F:402D
 	pop hl
 
 ; ---- code $404C-$405F (19 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_63_4000
-	call Function_7F_4072
-	call Function_7F_40B0
-	call Function_7F_40B9
+	farcall Font_ValidateSjisCode
+	call Glyph_SjisToJis
+	call Glyph_JisToKuTen
+	call Glyph_KuTenAddr
 	call Function_00_0E32
 	ret
 
 ; ---- code $405F-$4083 (36 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 13/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_405F:: ; 7F:405F
-	farcall Function_63_4000
-	call Function_7F_4072
-	call Function_7F_40B0
-	call Function_7F_40B9
+Glyph_LoadWide:: ; 7F:405F
+Function_7F_405F::
+	farcall Font_ValidateSjisCode
+	call Glyph_SjisToJis
+	call Glyph_JisToKuTen
+	call Glyph_KuTenAddr
 	call Function_00_0DE2
 	ret
 
-Function_7F_4072:: ; 7F:4072
+Glyph_SjisToJis:: ; 7F:4072
 	push bc
 	ld a, l
 	cp a, $9F
@@ -152,7 +158,7 @@ Label_7F_40A3:: ; 7F:40A3
 	pop bc
 	ret
 
-Function_7F_40B0:: ; 7F:40B0
+Glyph_JisToKuTen:: ; 7F:40B0
 	ld a, h
 	sub a, $20
 	ld h, a
@@ -161,12 +167,12 @@ Function_7F_40B0:: ; 7F:40B0
 	ld l, a
 	ret
 
-Function_7F_40B9:: ; 7F:40B9
+Glyph_KuTenAddr:: ; 7F:40B9
 	push bc
 	push de
 	ld b, h
 	ld c, l
-	ld hl, $40F9
+	ld hl, GlyphFont_RowBankTable
 	ld a, b
 	dec a
 	add a, l
@@ -176,7 +182,7 @@ Function_7F_40B9:: ; 7F:40B9
 	ld h, a
 	ld a, [hl]
 	push af
-	ld hl, $4150
+	ld hl, GlyphFont_RowFirstTable
 	ld a, b
 	dec a
 	add a, l
@@ -192,7 +198,7 @@ Function_7F_40B9:: ; 7F:40B9
 	xor a, a
 	ld d, a
 	ld bc, $005E
-	call Function_7F_41D0
+	call Glyph_Mul16
 	pop bc
 	dec c
 	xor a, a
@@ -201,7 +207,7 @@ Function_7F_40B9:: ; 7F:40B9
 	ld d, h
 	ld e, l
 	ld bc, $0012
-	call Function_7F_41D0
+	call Glyph_Mul16
 	ld bc, $4000
 	add hl, bc
 	ld d, h
@@ -213,7 +219,8 @@ Function_7F_40B9:: ; 7F:40B9
 
 ; ---- data $40F9-$4150 (87 bytes) [PROBABLE] font_row_bank_table: 87 bytes: ROM bank holding JIS row r (index r-1), read at 7F:40C0-40C8 (ld hl,$40F9 ; a=row-1 ; add a,l) (verified structure, layout from engine code)
 
-Data_7F_40F9:: ; 7F:40F9
+GlyphFont_RowBankTable:: ; 7F:40F9
+Data_7F_40F9::
 	db $7E, $7E, $7E, $7E, $7E, $7E, $7E, $7E, $FF, $FF, $FF, $FF, $7E, $FF, $FF, $7D
 	db $7D, $7D, $7D, $7D, $7D, $7D, $7D, $7D, $7C, $7C, $7C, $7C, $7C, $7C, $7C, $7C
 	db $7C, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7B, $7A, $7A, $7A, $7A, $7A, $7A
@@ -223,7 +230,8 @@ Data_7F_40F9:: ; 7F:40F9
 
 ; ---- data $4150-$41A7 (87 bytes) [PROBABLE] font_row_first_table: 87 bytes: first JIS row stored in the bank of row r, read at 7F:40CA-40D6 (ld hl,$4150) (verified structure, layout from engine code)
 
-Data_7F_4150:: ; 7F:4150
+GlyphFont_RowFirstTable:: ; 7F:4150
+Data_7F_4150::
 	db $01, $01, $01, $01, $01, $01, $01, $01, $FF, $FF, $FF, $FF, $05, $FF, $FF, $10
 	db $10, $10, $10, $10, $10, $10, $10, $10, $19, $19, $19, $19, $19, $19, $19, $19
 	db $19, $22, $22, $22, $22, $22, $22, $22, $22, $22, $2B, $2B, $2B, $2B, $2B, $2B
@@ -233,7 +241,8 @@ Data_7F_4150:: ; 7F:4150
 
 ; ---- code $41A7-$41B3 (12 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_41A7:: ; 7F:41A7
+Glyph_IsSjisLeadByte:: ; 7F:41A7
+Function_7F_41A7::
 	push bc
 	push de
 	ld d, a
@@ -272,7 +281,7 @@ Label_7F_41CD:: ; 7F:41CD
 	pop bc
 	ret
 
-Function_7F_41D0:: ; 7F:41D0
+Glyph_Mul16:: ; 7F:41D0
 	push af
 	push bc
 	push de
@@ -295,7 +304,7 @@ Label_7F_41DF:: ; 7F:41DF
 	pop af
 	ret
 
-Function_7F_41EA:: ; 7F:41EA
+Canvas_RemapGlyphColors:: ; 7F:41EA
 	push hl
 	sla c
 	sla c
@@ -305,7 +314,7 @@ Function_7F_41EA:: ; 7F:41EA
 	add a, c
 	ld c, a
 	ld b, $00
-	ld hl, $42A3
+	ld hl, Canvas_RemapTable
 	add hl, bc
 	ld a, [hli]
 	ld b, a
@@ -513,7 +522,8 @@ Label_7F_42A1:: ; 7F:42A1
 
 ; ---- ptrtable $42A3-$42C3 (32 bytes) [PROBABLE] little-endian word table, 16 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $4202..$42A1; referenced by ld r16,$42A3 at 7F:41F8
 
-Table_7F_42A3:: ; 7F:42A3
+Canvas_RemapTable:: ; 7F:42A3
+Table_7F_42A3::
 	dw Label_7F_4202
 	dw Label_7F_4204
 	dw Label_7F_420E
@@ -533,14 +543,15 @@ Table_7F_42A3:: ; 7F:42A3
 
 ; ---- code $42C3-$4354 (145 bytes) [CONFIRMED] 92 insn(s); 92 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_42C3:: ; 7F:42C3
+Canvas_BlitGlyph:: ; 7F:42C3
+Function_7F_42C3::
 	push hl
 	push de
-	call Function_7F_41EA
+	call Canvas_RemapGlyphColors
 	pop de
 	pop hl
 
-Function_7F_42CA:: ; 7F:42CA
+Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	push hl
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -588,11 +599,11 @@ Label_7F_42F9:: ; 7F:42F9
 	push hl
 	ld c, a
 	ld b, $00
-	ld hl, $499C
+	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D0], a
-	ld hl, $49A5
+	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D1], a
@@ -1982,18 +1993,22 @@ Label_7F_499B:: ; 7F:499B
 
 ; ---- data $499C-$49A5 (9 bytes) [PROBABLE] 9-byte mask table 03 81 C0 E0 F0 F8 FC FE FF indexed with c: ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a at 7F:4311 (executed; near-identical clones of this reader in the PROBABLE code at 7F:49FA and 7F:4B03 read the table too; entries 0,2,4,6 = bytes 499C,499E,49A0,49A2 read in 14/18 scenarios); extent 9 = distance to the second table
 
-Table_7F_499C:: ; 7F:499C
+Canvas_BlitMaskCur:: ; 7F:499C
+Table_7F_499C::
 	db $03, $81, $C0, $E0, $F0, $F8, $FC, $FE, $FF
 
 ; ---- data $49A5-$49AE (9 bytes) [PROBABLE] 9-byte mask table FF FF FF 7F 3F 1F 0F 07 03 read as ld hl,$49A5 ; add hl,bc ; ld a,[hl] ; ld [$C0D1],a at 7F:4319 (executed; entries 0,2,4,6 read; clones at 7F:4A02 and 7F:4B0B); pairs with Table_7F_499C
 
-Table_7F_49A5:: ; 7F:49A5
+Canvas_BlitMaskNext:: ; 7F:49A5
+Table_7F_49A5::
 	db $FF, $FF, $FF, $7F, $3F, $1F, $0F, $07, $03
 
 ; ---- code $49AE-$4BBC (526 bytes) [PROBABLE] two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the PROBABLE code 4BBC); they use the mask tables 7F:499C/49A5 like 4956; 4AAF is referenced by no code word/call found, entries unproven [verifier: the absence of a caller is not evidence against: the executed sibling 7F:4956 has no static caller either; 7F:49F6-4A07 is an instruction-level clone of the executed reader 7F:430D-431E (push hl ; ld c,a ; ld b,0 ; ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a ; ld hl,$49A5 ; ... ld [$C0D1],a; verified by decoding both); still no entry, so PROBABLE only through the family evidence]
+
+Function_7F_49AE:: ; 7F:49AE
 	push hl
 	push de
-	call Function_7F_41EA
+	call Canvas_RemapGlyphColors
 	pop de
 	ld a, $02
 	ldh [hWRAMBank], a
@@ -2041,11 +2056,11 @@ Label_7F_49E2:: ; 7F:49E2
 	push hl
 	ld c, a
 	ld b, $00
-	ld hl, $499C
+	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D0], a
-	ld hl, $49A5
+	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D1], a
@@ -2180,9 +2195,10 @@ Label_7F_4AAA:: ; 7F:4AAA
 	jp nz, Label_7F_4A0E
 	ret
 
+Function_7F_4AAF:: ; 7F:4AAF
 	push hl
 	push de
-	call Function_7F_41EA
+	call Canvas_RemapGlyphColors
 	pop de
 	ld a, d
 	push af
@@ -2237,11 +2253,11 @@ Label_7F_4AEB:: ; 7F:4AEB
 	push hl
 	ld c, a
 	ld b, $00
-	ld hl, $499C
+	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D0], a
-	ld hl, $49A5
+	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
 	ld [wRam_C0D1], a
@@ -2384,7 +2400,7 @@ Label_7F_4BB6:: ; 7F:4BB6
 
 ; ---- code $4BBC-$4C42 (134 bytes) [PROBABLE] 65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6; entered by call from 7F:4D77 (PROBABLE code)
 
-Function_7F_4BBC:: ; 7F:4BBC
+Canvas_UploadToVram:: ; 7F:4BBC
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2393,15 +2409,15 @@ Function_7F_4BBC:: ; 7F:4BBC
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ld hl, $D800
 	ld de, $8800
 	ld c, $6F
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ld c, $77
 	dec a
 	jr nz, Label_7F_4C0C
@@ -2413,11 +2429,11 @@ Function_7F_4BBC:: ; 7F:4BBC
 	ldh [rVBK], a
 	ld hl, $D000
 	ld de, $9000
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ld c, $0F
 	ld hl, $D540
 	ld de, $9540
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ret
 
 Label_7F_4C0C:: ; 7F:4C0C
@@ -2428,10 +2444,10 @@ Label_7F_4C0C:: ; 7F:4C0C
 	ldh [rVBK], a
 	ld hl, $D000
 	ld de, $9000
-	call Function_7F_4C20
+	call Gfx_GdmaAtVBlank
 	ret
 
-Function_7F_4C20:: ; 7F:4C20
+Gfx_GdmaAtVBlank:: ; 7F:4C20
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -2461,11 +2477,12 @@ Label_7F_4C37:: ; 7F:4C37
 
 ; ---- code $4C42-$4C57 (21 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_4C42:: ; 7F:4C42
+Glyph_LoadDottedLine:: ; 7F:4C42
+Function_7F_4C42::
 	push bc
 	push de
 	push hl
-	ld hl, $4C57
+	ld hl, Glyph_DottedLineData
 	ld de, $C0A0
 	ld b, $20
 
@@ -2482,7 +2499,8 @@ Label_7F_4C4D:: ; 7F:4C4D
 
 ; ---- data $4C57-$4C77 (32 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown
 
-Data_7F_4C57:: ; 7F:4C57
+Glyph_DottedLineData:: ; 7F:4C57
+Data_7F_4C57::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $33, $CC, $00, $00, $00, $00, $00, $00, $00, $00
 
@@ -2492,22 +2510,24 @@ Data_7F_4C77:: ; 7F:4C77
 	db $C9
 
 ; ---- code $4C78-$4D50 (216 bytes) [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+
+Function_7F_4C78:: ; 7F:4C78
 	farcall Function_00_09B6
-	call Function_7F_4CA9
+	call Canvas_InitScreen
 	call Function_7F_4E85
 
 Label_7F_4C84:: ; 7F:4C84
 	call Function_7F_4D95
 
 Label_7F_4C87:: ; 7F:4C87
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_7F_4C87
 	call Function_7F_4E0D
 
 Label_7F_4C96:: ; 7F:4C96
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $02
 	ret nz
@@ -2516,7 +2536,7 @@ Label_7F_4C96:: ; 7F:4C96
 	jr z, Label_7F_4C96
 	jr Label_7F_4C84
 
-Function_7F_4CA9:: ; 7F:4CA9
+Canvas_InitScreen:: ; 7F:4CA9
 	ldh a, [rLCDC]
 	push af
 	and a, $80
@@ -2627,7 +2647,7 @@ Label_7F_4D36:: ; 7F:4D36
 	jr nz, Label_7F_4D36
 	ld a, $80
 	ldh [rBCPS], a
-	ld hl, $4D50
+	ld hl, Palette_7F_4D50
 	ld b, $08
 
 Label_7F_4D46:: ; 7F:4D46
@@ -2656,14 +2676,14 @@ Label_7F_4D5E:: ; 7F:4D5E
 	push de
 	ld b, a
 	ld de, $C0A0
-	call Function_7F_4007
+	call Glyph_LoadAscii
 	pop de
 	push de
 	ld hl, $C0A0
 	ld b, $03
 	ld c, $00
-	farcall Function_7F_42C3
-	call Function_7F_4BBC
+	farcall Canvas_BlitGlyph
+	call Canvas_UploadToVram
 	pop de
 	inc e
 	inc e
@@ -2680,7 +2700,7 @@ Label_7F_4D5E:: ; 7F:4D5E
 ; ---- text $4D88-$4D95 (13 bytes) [PROBABLE] ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
 
 String_7F_4D88:: ; 7F:4D88
-	db $53, $61, $6D, $70, $6C, $65, $20, $44, $41, $54, $41, $2E, $00
+	db $53, $61, $6D, $70, $6C, $65, $20, $44, $41, $54, $41, $2E, $00 ; "Sample DATA."
 
 ; ---- code $4D95-$4DF2 (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C84 (PROBABLE code)
 
@@ -2692,7 +2712,7 @@ Label_7F_4D9A:: ; 7F:4D9A
 	push bc
 	push de
 	ld e, $00
-	ld hl, $4DF2
+	ld hl, String_7F_4DF2
 
 Label_7F_4DA1:: ; 7F:4DA1
 	ld a, [hli]
@@ -2706,13 +2726,13 @@ Label_7F_4DA1:: ; 7F:4DA1
 	ld a, $00
 	ld de, $C0B8
 	ld bc, $C0A0
-	call Function_7F_405F
+	call Glyph_LoadWide
 	pop de
 	push de
 	ld hl, $C0A0
 	ld b, $03
 	ld c, $00
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop de
 	inc e
 	inc e
@@ -2724,7 +2744,7 @@ Label_7F_4DA1:: ; 7F:4DA1
 	ld hl, $C0B8
 	ld b, $03
 	ld c, $00
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop de
 	inc e
 	inc e
@@ -2743,14 +2763,13 @@ Label_7F_4DA1:: ; 7F:4DA1
 	ld d, a
 	dec b
 	jr nz, Label_7F_4D9A
-	call Function_7F_4BBC
+	call Canvas_UploadToVram
 	ret
 
 ; ---- text $4DF2-$4E0D (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_7F_4DF2:: ; 7F:4DF2
-	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5
-	db $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00
+	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
 ; ---- code $4E0D-$4E6A (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C93 (PROBABLE code)
 
@@ -2762,7 +2781,7 @@ Label_7F_4E12:: ; 7F:4E12
 	push bc
 	push de
 	ld e, $00
-	ld hl, $4E6A
+	ld hl, String_7F_4E6A
 
 Label_7F_4E19:: ; 7F:4E19
 	ld a, [hli]
@@ -2776,13 +2795,13 @@ Label_7F_4E19:: ; 7F:4E19
 	ld a, $00
 	ld de, $C0B8
 	ld bc, $C0A0
-	call Function_7F_405F
+	call Glyph_LoadWide
 	pop de
 	push de
 	ld hl, $C0A0
 	ld b, $00
 	ld c, $03
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop de
 	inc e
 	inc e
@@ -2794,7 +2813,7 @@ Label_7F_4E19:: ; 7F:4E19
 	ld hl, $C0B8
 	ld b, $00
 	ld c, $03
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop de
 	inc e
 	inc e
@@ -2813,24 +2832,24 @@ Label_7F_4E19:: ; 7F:4E19
 	ld d, a
 	dec b
 	jr nz, Label_7F_4E12
-	call Function_7F_4BBC
+	call Canvas_UploadToVram
 	ret
 
 ; ---- text $4E6A-$4E85 (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_7F_4E6A:: ; 7F:4E6A
-	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5
-	db $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00
+	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
 ; ---- code $4E85-$4E89 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1; entered by call from 7F:4C81 (PROBABLE code)
 
 Function_7F_4E85:: ; 7F:4E85
-	call Function_7F_4BBC
+	call Canvas_UploadToVram
 	ret
 
 ; ---- ptrtable $4E89-$4E95 (12 bytes) [PROBABLE] 6 x dw string pointers (4E95, 4EA8, 4EC1, 4ED0, 4EE1, 4EE8); every target is a string start of the text below (Japanese/ASCII page names); 7F:4E85 (call $4BBC ; ret) precedes it; no ld hl,$4E89 found, so the reader is unlocated
 
-Table_7F_4E89:: ; 7F:4E89
+Sample_PageNamePtrs:: ; 7F:4E89
+Table_7F_4E89::
 	dw String_7F_4E95
 	dw $4EA8
 	dw $4EC1
@@ -2841,20 +2860,20 @@ Table_7F_4E89:: ; 7F:4E89
 ; ---- text $4E95-$4ED0 (59 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_7F_4E95:: ; 7F:4E95
-	db $94, $43, $93, $56, $93, $B0, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B
-	db $83, $57, $00, $83, $7C, $83, $50, $83, $62, $83, $67, $83, $82, $83, $93, $83
-	db $58, $83, $5E, $81, $5B, $81, $63, $81, $49, $81, $48, $00, $47, $41, $4D, $45
-	db $46, $52, $45, $41, $4B, $20, $48, $4F, $4D, $45, $00
+	db $94, $43, $93, $56, $93, $B0, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "任天堂ホームページ"
+	db $83, $7C, $83, $50, $83, $62, $83, $67, $83, $82, $83, $93, $83, $58, $83, $5E, $81, $5B, $81, $63, $81, $49, $81, $48, $00 ; "ポケットモンスター…！？"
+	db $47, $41, $4D, $45, $46, $52, $45, $41, $4B, $20, $48, $4F, $4D, $45, $00 ; "GAMEFREAK HOME"
 
 ; ---- text $4ED0-$4EF0 (32 bytes) [PROBABLE] ASCII "MissingLink_HOME" + $07 (control byte) + "sample" + NUL, followed by "sample" and "sample2" strings that are the last targets (4EE1, 4EE8) of the table 7F:4E89
 
 String_7F_4ED0:: ; 7F:4ED0
-	db $4D, $69, $73, $73, $69, $6E, $67, $4C, $69, $6E, $6B, $5F, $48, $4F, $4D, $45
-	db $07, $73, $61, $6D, $70, $6C, $65, $00, $73, $61, $6D, $70, $6C, $65, $32, $00
+	db $4D, $69, $73, $73, $69, $6E, $67, $4C, $69, $6E, $6B, $5F, $48, $4F, $4D, $45, $07, $73, $61, $6D, $70, $6C, $65, $00 ; "MissingLink_HOME<$07>sample"
+	db $73, $61, $6D, $70, $6C, $65, $32, $00 ; "sample2"
 
 ; ---- ptrtable $4EF0-$4EFC (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $4EFC..$4F79; regular record stride between targets; verifier: truncated from 8 to 6 entries: entry 0 = 4EFC is where the table ends
 
-Table_7F_4EF0:: ; 7F:4EF0
+Sample_PageUrlPtrs:: ; 7F:4EF0
+Table_7F_4EF0::
 	dw String_7F_4EFC
 	dw String_7F_4F15
 	dw $4F2F
@@ -2865,35 +2884,35 @@ Table_7F_4EF0:: ; 7F:4EF0
 ; ---- text $4EFC-$4F15 (25 bytes) [PROBABLE] ASCII URL "http://www.nintendo.com/" + NUL = first target (4EFC) of the pointer table 7F:4EF0
 
 String_7F_4EFC:: ; 7F:4EFC
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6E, $69, $6E, $74, $65
-	db $6E, $64, $6F, $2E, $63, $6F, $6D, $2F, $00
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6E, $69, $6E, $74, $65, $6E, $64, $6F, $2E, $63, $6F, $6D, $2F, $00 ; "http://www.nintendo.com/"
 
 ; ---- text $4F15-$4FC3 (174 bytes) [PROBABLE] text: 8 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_7F_4F15:: ; 7F:4F15
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $70, $6F, $6B, $65, $6D
-	db $6F, $6E, $2E, $63, $6F, $2E, $6A, $70, $2F, $00, $68, $74, $74, $70, $3A, $2F
-	db $2F, $77, $77, $77, $2E, $67, $61, $6D, $65, $66, $72, $65, $65, $6B, $2E, $6E
-	db $65, $74, $2F, $00, $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6D
-	db $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70
-	db $2F, $00, $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C, $65, $2E
-	db $74, $6F, $2F, $00, $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C
-	db $65, $32, $2E, $74, $6F, $2F, $00, $83, $65, $83, $58, $83, $67, $83, $79, $81
-	db $5B, $83, $57, $00, $68, $74, $70, $70, $3A, $2F, $2F, $77, $6F, $72, $6B, $2E
-	db $64, $61, $6D, $6D, $79, $2E, $63, $6F, $2E, $6A, $70, $2F, $00, $8D, $7C, $83
-	db $7C, $83, $50, $83, $82, $83, $93, $82, $C9, $90, $69, $89, $BB, $00
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $70, $6F, $6B, $65, $6D, $6F, $6E, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "http://www.pokemon.co.jp/"
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $61, $6D, $65, $66, $72, $65, $65, $6B, $2E, $6E, $65, $74, $2F, $00 ; "http://www.gamefreek.net/"
+	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6D, $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "http://www.missinglink.co.jp/"
+	db $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C, $65, $2E, $74, $6F, $2F, $00 ; "http://sample.to/"
+	db $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C, $65, $32, $2E, $74, $6F, $2F, $00 ; "http://sample2.to/"
+	db $83, $65, $83, $58, $83, $67, $83, $79, $81, $5B, $83, $57, $00 ; "テストページ"
+	db $68, $74, $70, $70, $3A, $2F, $2F, $77, $6F, $72, $6B, $2E, $64, $61, $6D, $6D, $79, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "htpp://work.dammy.co.jp/"
+	db $8D, $7C, $83, $7C, $83, $50, $83, $82, $83, $93, $82, $C9, $90, $69, $89, $BB, $00 ; "鋼ポケモンに進化"
 
 ; ---- words $4FC3-$4FCF (12 bytes) [PROBABLE] 6 words = SRAM addresses A084,A184,A284,A384,A484,A584 (not text although the bytes 84 A0.. are valid Shift-JIS): read by 7 code sites as ld hl,$4FC3 ; ld a,[hli] ; ld e,a ; ld a,[hli] ; ld d,a ; ld a,[de] (7F:5386 ...) and by ld hl,$4FC5/$4FC7/... (entries)
 
-Table_7F_4FC3:: ; 7F:4FC3
+PageListProto_UrlSlotTable:: ; 7F:4FC3
+Table_7F_4FC3::
 	dw $A084, $A184, $A284, $A384, $A484, $A584
 
 ; ---- words $4FCF-$4FDB (12 bytes) [PROBABLE] 6 words = SRAM addresses A000,A016,A02C,A042,A058,A06E (stride $16), read via ld hl,$4FCF at 7 code sites (7F:5709, 5731, 579A, 57C2, 5F2E, 5F87, 61B5)
 
-Table_7F_4FCF:: ; 7F:4FCF
+PageListProto_TitleSlotTable:: ; 7F:4FCF
+Table_7F_4FCF::
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
 ; ---- code $4FDB-$4FF5 (26 bytes) [PROBABLE] function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call 7F:7271, an executed function); starts right after the word table above; no caller found, entry unproven
+
+Function_7F_4FDB:: ; 7F:4FDB
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -2910,7 +2929,7 @@ Table_7F_4FCF:: ; 7F:4FCF
 	pop af
 
 ; ---- code $4FF5-$51ED (504 bytes) [PROBABLE] 221 insn(s) reached by static flow only; seeds: site x221; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2924,7 +2943,7 @@ Label_7F_500C:: ; 7F:500C
 	call Function_7F_51EE
 	ld c, $00
 
-Label_7F_5011:: ; 7F:5011
+Function_7F_5011:: ; 7F:5011
 	push bc
 	farcall Function_00_0956
 	ld a, [wRam_C2CC]
@@ -2934,7 +2953,7 @@ Label_7F_5011:: ; 7F:5011
 	bit 1, a
 	jr z, Label_7F_503A
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -2998,17 +3017,17 @@ Label_7F_5091:: ; 7F:5091
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
-	farcall Function_72_402A
-	farcall Function_72_461A
-	farcall Function_72_444F
-	farcall Function_7F_72B0
+	farcall Dialog_Open
+	farcall Dialog_WaitInputMonitored
+	farcall Dialog_Close
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -3029,17 +3048,17 @@ Label_7F_5091:: ; 7F:5091
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	call Function_7F_51EE
-	farcall Function_7F_627C
+	farcall Sprites_RestoreSlotsFromBank3
 	farcall Function_00_0956
 	call Function_00_044B
 	pop bc
-	jp Label_7F_5011
+	jp Function_7F_5011
 
 Label_7F_5115:: ; 7F:5115
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -3048,7 +3067,7 @@ Label_7F_5115:: ; 7F:5115
 
 Label_7F_5128:: ; 7F:5128
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -3098,7 +3117,7 @@ Label_7F_516A:: ; 7F:516A
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -3162,7 +3181,7 @@ Label_7F_51E3:: ; 7F:51E3
 	call Function_7F_5306
 
 Label_7F_51EA:: ; 7F:51EA
-	jp Label_7F_5011
+	jp Function_7F_5011
 
 ; ---- data $51ED-$51EE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
 
@@ -3199,23 +3218,23 @@ Label_7F_520E:: ; 7F:520E
 	ld a, b
 	or a, c
 	jr nz, Label_7F_520E
-	farcall Function_7F_4BBC
+	farcall Canvas_UploadToVram
 	farcall LCDOff
 	farcall Function_00_09B6
 	ld de, $9001
-	ld hl, $62B0
+	ld hl, Data_7F_62B0
 	ld a, $7F
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $66B0
+	ld hl, Data_7F_66B0
 	ld a, $7F
 	ld b, $97
 	ld c, $12
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $6AE0
+	ld hl, Data_7F_6AE0
 	ld a, $7F
 	ld b, $94
 	ld c, $29
@@ -3230,7 +3249,7 @@ Label_7F_520E:: ; 7F:520E
 	call Function_00_0A65
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $67D0
+	ld hl, Data_7F_67D0
 	ld a, $7F
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
@@ -3238,14 +3257,14 @@ Label_7F_520E:: ; 7F:520E
 	di
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $6D70
+	ld hl, Palette_7F_6D70
 	ld a, $7F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6AA0
+	ld hl, Palette_7F_6AA0
 	ld a, $7F
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ei
 	farcall LCDOn
 	call Function_7F_577D
@@ -3262,9 +3281,9 @@ Label_7F_520E:: ; 7F:520E
 	call Function_00_20E8
 	pop af
 	ldh [rSVBK], a
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -3279,7 +3298,7 @@ Label_7F_520E:: ; 7F:520E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	pop bc
 	ret
 
@@ -3333,7 +3352,7 @@ Function_7F_530F:: ; 7F:530F
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3466,7 +3485,7 @@ Function_7F_546A:: ; 7F:546A
 	xor a, a
 	cp a, c
 	jr nz, Label_7F_54CB
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3694,7 +3713,7 @@ Function_7F_5647:: ; 7F:5647
 	ld e, c
 	sla e
 	ld d, $00
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -3817,7 +3836,7 @@ Function_7F_56F1:: ; 7F:56F1
 	ld e, a
 	sla e
 	ld d, $00
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -3847,7 +3866,7 @@ Label_7F_5720:: ; 7F:5720
 	ld e, c
 	sla e
 	ld d, $00
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -3917,7 +3936,7 @@ Label_7F_5791:: ; 7F:5791
 	ld e, a
 	sla e
 	ld d, $00
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -3948,7 +3967,7 @@ Label_7F_57B1:: ; 7F:57B1
 	inc a
 	dec d
 	jr nz, Label_7F_5791
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	ld a, [hli]
 	ld e, a
 	ld a, [hl]
@@ -3997,7 +4016,7 @@ Label_7F_580A:: ; 7F:580A
 	cp a, $00
 	jr z, Label_7F_5885
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_7F_5860
 	pop af
@@ -4011,7 +4030,7 @@ Label_7F_580A:: ; 7F:580A
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
@@ -4021,7 +4040,7 @@ Label_7F_580A:: ; 7F:580A
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -4045,7 +4064,7 @@ Label_7F_5860:: ; 7F:5860
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -4065,7 +4084,7 @@ Label_7F_5885:: ; 7F:5885
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -4084,7 +4103,7 @@ Function_7F_58A5:: ; 7F:58A5
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -4167,7 +4186,7 @@ Function_7F_591E:: ; 7F:591E
 
 Label_7F_5931:: ; 7F:5931
 	ld de, $9581
-	ld hl, $4080
+	ld hl, Tiles_52_4080
 	ld a, $52
 	ld b, $95
 	ld c, $28
@@ -4222,7 +4241,7 @@ Label_7F_5991:: ; 7F:5991
 	bit 1, a
 	jr z, Label_7F_59BA
 	pop bc
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ld de, $0000
@@ -4283,7 +4302,7 @@ Label_7F_5A09:: ; 7F:5A09
 Label_7F_5A11:: ; 7F:5A11
 	xor a, a
 	ld [wRam_C2CA], a
-	farcall Function_7F_624F
+	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
@@ -4299,9 +4318,9 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_402A
-	farcall Function_72_461A
-	farcall Function_72_444F
+	farcall Dialog_Open
+	farcall Dialog_WaitInputMonitored
+	farcall Dialog_Close
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -4314,14 +4333,14 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
 	ld [wRam_C2C0], a
 	ld [wRam_C2C3], a
-	farcall Function_51_4000
+	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
@@ -4342,9 +4361,9 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	call Function_7F_51EE
-	farcall Function_7F_627C
+	farcall Sprites_RestoreSlotsFromBank3
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
@@ -4360,7 +4379,7 @@ Label_7F_5AC4:: ; 7F:5AC4
 
 Label_7F_5ACF:: ; 7F:5ACF
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
 	call nz, Function_7F_61E6
@@ -4395,7 +4414,7 @@ Label_7F_5B09:: ; 7F:5B09
 	jp nz, Label_7F_5991
 	call Function_7F_5C13
 	push bc
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
@@ -4404,7 +4423,7 @@ Label_7F_5B1A:: ; 7F:5B1A
 	call Function_7F_5F5D
 	inc a
 	jp nz, Label_7F_5991
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ret
@@ -4427,7 +4446,7 @@ Label_7F_5B2D:: ; 7F:5B2D
 	pop bc
 	call Function_7F_5C13
 	push bc
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
@@ -4514,7 +4533,7 @@ Function_7F_5BB5:: ; 7F:5BB5
 	ld a, $1F
 	ld [wSpriteSlots + 129], a
 	ld hl, $DA70
-	ld de, $6DB0
+	ld de, Table_7F_6DB0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
@@ -4723,7 +4742,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld e, c
 	ld d, $00
 	sla e
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -4763,7 +4782,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -4786,7 +4805,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	sub a, $10
 	ld [wSpriteSlots + 128], a
 	ld hl, $DA70
-	ld de, $6DB0
+	ld de, Table_7F_6DB0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
@@ -4970,7 +4989,7 @@ Label_7F_5F22:: ; 7F:5F22
 	ld e, c
 	ld d, $00
 	sla e
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
@@ -5031,13 +5050,13 @@ Label_7F_5F6C:: ; 7F:5F6C
 	sla c
 	ld e, c
 	ld d, $00
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, de
 	ld a, [hli]
 	ld e, a
 	ld a, [hl]
 	ld d, a
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -5083,7 +5102,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -5138,7 +5157,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_72_4015
+	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -5161,7 +5180,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	sub a, $10
 	ld [wSpriteSlots + 128], a
 	ld hl, $DA70
-	ld de, $6DB0
+	ld de, Table_7F_6DB0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
@@ -5323,7 +5342,7 @@ Label_7F_6190:: ; 7F:6190
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $4FCF
+	ld hl, PageListProto_TitleSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -5337,7 +5356,7 @@ Label_7F_6190:: ; 7F:6190
 	push bc
 	sla c
 	ld b, $00
-	ld hl, $4FC3
+	ld hl, PageListProto_UrlSlotTable
 	add hl, bc
 	ld a, [hli]
 	ld c, a
@@ -5378,12 +5397,13 @@ Function_7F_61E7:: ; 7F:61E7
 
 ; ---- code $61FC-$620C (16 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_61FC:: ; 7F:61FC
+Stub_Nop_7F_61FC:: ; 7F:61FC
+Function_7F_61FC::
 	push af
 	pop af
 	ret
 
-Function_7F_61FF:: ; 7F:61FF
+Timer_ResetClockB:: ; 7F:61FF
 	push af
 	xor a, a
 	ld [wTimerBFrames], a
@@ -5412,7 +5432,7 @@ Function_7F_6218:: ; 7F:6218
 	ld [wRam_C1D0], a
 	xor a, a
 	ld [wRam_C1D1], a
-	farcall Function_50_4000
+	farcall CommNotice_ShowDialog
 	cp a, $00
 	jr z, Label_7F_6233
 	ld a, $FF
@@ -5429,14 +5449,15 @@ Function_7F_6235:: ; 7F:6235
 	ld [wRam_C1D0], a
 	xor a, a
 	ld [wRam_C1D1], a
-	farcall Function_50_4000
+	farcall CommNotice_ShowDialog
 	ld a, $FF
-	call Function_7F_61FC
+	call Stub_Nop_7F_61FC
 	ret
 
 ; ---- code $624F-$62A9 (90 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_624F:: ; 7F:624F
+Sprites_SaveSlotsToBank3:: ; 7F:624F
+Function_7F_624F::
 	push af
 	push bc
 	push de
@@ -5470,7 +5491,7 @@ Label_7F_625E:: ; 7F:625E
 	pop af
 	ret
 
-Function_7F_627C:: ; 7F:627C
+Sprites_RestoreSlotsFromBank3:: ; 7F:627C
 	push af
 	push bc
 	push de
@@ -5770,7 +5791,8 @@ Data_7F_6E50:: ; 7F:6E50
 
 ; ---- code $70FD-$710D (16 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_70FD:: ; 7F:70FD
+KbdSlide_InPrepMode6:: ; 7F:70FD
+Function_7F_70FD::
 	push af
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -5794,14 +5816,14 @@ Label_7F_7112:: ; 7F:7112
 	pop af
 	ret
 
-Function_7F_7116:: ; 7F:7116
-	farcall Function_7F_733A
+KbdSlide_InStepMode6:: ; 7F:7116
+	farcall ScrollSplit_StepUp3
 	push de
 	farcall Function_00_0956
 	pop de
 	ret
 
-Function_7F_7125:: ; 7F:7125
+KbdSlide_OutPrepMode6:: ; 7F:7125
 	push af
 	ld d, $00
 	ld a, [wRam_C0D3]
@@ -5823,14 +5845,14 @@ Label_7F_7136:: ; 7F:7136
 	pop af
 	ret
 
-Function_7F_713A:: ; 7F:713A
-	farcall Function_7F_7578
+KbdSlide_OutStepMode6:: ; 7F:713A
+	farcall ScrollSplit_StepDown3
 	push de
 	farcall Function_00_0956
 	pop de
 	ret
 
-Function_7F_7149:: ; 7F:7149
+KbdSlide_InPrepMode8:: ; 7F:7149
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5855,18 +5877,18 @@ Label_7F_7163:: ; 7F:7163
 	pop af
 	ret
 
-Function_7F_7165:: ; 7F:7165
+KbdSlide_InStepMode8:: ; 7F:7165
 	push af
 	push de
 	pop de
-	farcall Function_7F_7425
+	farcall ScrollSplit_StepUp4
 	push de
 	farcall Function_00_0956
 	pop de
 	pop af
 	ret
 
-Function_7F_7178:: ; 7F:7178
+KbdSlide_OutPrepMode8:: ; 7F:7178
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5891,18 +5913,18 @@ Label_7F_7192:: ; 7F:7192
 	pop af
 	ret
 
-Function_7F_7194:: ; 7F:7194
+KbdSlide_OutStepMode8:: ; 7F:7194
 	push af
 	push de
 	pop de
-	farcall Function_7F_76C4
+	farcall ScrollSplit_StepDown4
 	push de
 	farcall Function_00_0956
 	pop de
 	pop af
 	ret
 
-Function_7F_71A7:: ; 7F:71A7
+KbdSlide_InPrepMode9:: ; 7F:71A7
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5923,18 +5945,18 @@ Label_7F_71C1:: ; 7F:71C1
 	pop af
 	ret
 
-Function_7F_71C3:: ; 7F:71C3
+KbdSlide_InStepMode9:: ; 7F:71C3
 	push af
 	push de
 	pop de
-	farcall Function_7F_7425
+	farcall ScrollSplit_StepUp4
 	push de
 	farcall Function_00_0956
 	pop de
 	pop af
 	ret
 
-Function_7F_71D6:: ; 7F:71D6
+KbdSlide_OutPrepMode9:: ; 7F:71D6
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5955,43 +5977,43 @@ Label_7F_71F0:: ; 7F:71F0
 	pop af
 	ret
 
-Function_7F_71F2:: ; 7F:71F2
+KbdSlide_OutStepMode9:: ; 7F:71F2
 	push af
 	push de
 	pop de
-	farcall Function_7F_76C4
-	push de
-	farcall Function_00_0956
-	pop de
-	pop af
-	ret
-
-Function_7F_7205:: ; 7F:7205
-	push af
-	ld e, $00
-	ld d, $08
-	pop af
-	ret
-
-Function_7F_720C:: ; 7F:720C
-	push af
-	farcall Function_7F_7425
+	farcall ScrollSplit_StepDown4
 	push de
 	farcall Function_00_0956
 	pop de
 	pop af
 	ret
 
-Function_7F_721D:: ; 7F:721D
+KbdSlide_InPrepMode7:: ; 7F:7205
 	push af
 	ld e, $00
 	ld d, $08
 	pop af
 	ret
 
-Function_7F_7224:: ; 7F:7224
+KbdSlide_InStepMode7:: ; 7F:720C
 	push af
-	farcall Function_7F_76C4
+	farcall ScrollSplit_StepUp4
+	push de
+	farcall Function_00_0956
+	pop de
+	pop af
+	ret
+
+KbdSlide_OutPrepMode7:: ; 7F:721D
+	push af
+	ld e, $00
+	ld d, $08
+	pop af
+	ret
+
+KbdSlide_OutStepMode7:: ; 7F:7224
+	push af
+	farcall ScrollSplit_StepDown4
 	push de
 	farcall Function_00_0956
 	pop de
@@ -6008,7 +6030,7 @@ Function_7F_7224:: ; 7F:7224
 	push af
 
 ; ---- code $723D-$7253 (22 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: site x7; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_7F_7425
+	farcall ScrollSplit_StepUp4
 	push de
 	farcall Function_7F_7817
 	farcall Function_00_0956
@@ -6026,7 +6048,7 @@ Function_7F_7224:: ; 7F:7224
 	push af
 
 ; ---- code $725B-$7271 (22 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: site x7; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_7F_76C4
+	farcall ScrollSplit_StepDown4
 	push de
 	farcall Function_7F_7817
 	farcall Function_00_0956
@@ -6036,7 +6058,8 @@ Function_7F_7224:: ; 7F:7224
 
 ; ---- code $7271-$72E2 (113 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_7271:: ; 7F:7271
+Stat_EnableScrollSplit:: ; 7F:7271
+Function_7F_7271::
 	push af
 	push bc
 	push de
@@ -6076,7 +6099,7 @@ Label_7F_7297:: ; 7F:7297
 	ldh [rIE], a
 	ret
 
-Function_7F_72B0:: ; 7F:72B0
+Stat_DisableScrollSplit:: ; 7F:72B0
 	ldh a, [rIE]
 	push af
 	di
@@ -6089,7 +6112,7 @@ Function_7F_72B0:: ; 7F:72B0
 	ldh [rIE], a
 	ret
 
-Function_7F_72C2:: ; 7F:72C2
+Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -6177,9 +6200,10 @@ Label_7F_732A:: ; 7F:732A
 
 ; ---- code $733A-$7375 (59 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_733A:: ; 7F:733A
+ScrollSplit_StepUp3:: ; 7F:733A
+Function_7F_733A::
 	push bc
-	ld hl, $7375
+	ld hl, ScrollSplit_StepUp3Ptrs
 	ld c, d
 	sla c
 	ld b, $00
@@ -6216,12 +6240,14 @@ Function_7F_733A:: ; 7F:733A
 
 ; ---- words $7375-$7385 (16 bytes) [PROBABLE] 8 x dw row pointers (7385, 7399, 73AD, 73C1, 73D5, 73E9, 73FD, 7411) of the executed function 7F:733A (ld hl,$7375 ; c=2*d ; add hl,bc ; ld a,[hli] ; ld c,a ; ld b,[hl]); the first entry is CONFIRMED read data
 
-Table_7F_7375:: ; 7F:7375
-	dw Data_7F_7385, $7399, $73AD, $73C1, $73D5, $73E9, $73FD, $7411
+ScrollSplit_StepUp3Ptrs:: ; 7F:7375
+Table_7F_7375::
+	dw ScrollSplit_StepUp3Deltas, $7399, $73AD, $73C1, $73D5, $73E9, $73FD, $7411
 
 ; ---- data $7385-$7425 (160 bytes) [PROBABLE] 8 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:733A (ld hl,$7375 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; 8 x 20 = 160 bytes end exactly at the next function 7F:7425
 
-Data_7F_7385:: ; 7F:7385
+ScrollSplit_StepUp3Deltas:: ; 7F:7385
+Data_7F_7385::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -6235,9 +6261,10 @@ Data_7F_7385:: ; 7F:7385
 
 ; ---- code $7425-$7467 (66 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_7425:: ; 7F:7425
+ScrollSplit_StepUp4:: ; 7F:7425
+Function_7F_7425::
 	push bc
-	ld hl, $7467
+	ld hl, ScrollSplit_StepUp4Ptrs
 	ld c, d
 	sla c
 	ld b, $00
@@ -6277,8 +6304,9 @@ Function_7F_7425:: ; 7F:7425
 
 ; ---- ptrtable $7467-$747F (24 bytes) [PROBABLE] little-endian word table, 12 entries, monotone=1.00, 75% of targets on string start/after NUL, targets $747F..$7564; referenced by ld r16,$7467 at 7F:7426
 
-Table_7F_7467:: ; 7F:7467
-	dw Data_7F_747F
+ScrollSplit_StepUp4Ptrs:: ; 7F:7467
+Table_7F_7467::
+	dw ScrollSplit_StepUp4Deltas
 	dw $7493
 	dw $74A7
 	dw $74BB
@@ -6293,7 +6321,8 @@ Table_7F_7467:: ; 7F:7467
 
 ; ---- data $747F-$7578 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7425 (ld hl,$7467 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function (rows at 747F,7493,...,7533,7550,7564: the pointers of Table_7F_7467; 12 rows x 20 + a 9-byte gap between 7547 and 7550) ending exactly at the executed function 7F:7578
 
-Data_7F_747F:: ; 7F:747F
+ScrollSplit_StepUp4Deltas:: ; 7F:747F
+Data_7F_747F::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -6313,9 +6342,10 @@ Data_7F_747F:: ; 7F:747F
 
 ; ---- code $7578-$75B3 (59 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_7578:: ; 7F:7578
+ScrollSplit_StepDown3:: ; 7F:7578
+Function_7F_7578::
 	push bc
-	ld hl, $75B3
+	ld hl, ScrollSplit_StepDown3Ptrs
 	ld c, d
 	sla c
 	ld b, $00
@@ -6352,8 +6382,9 @@ Function_7F_7578:: ; 7F:7578
 
 ; ---- ptrtable $75B3-$75CB (24 bytes) [PROBABLE] 12 x dw row pointers (75CB, 75DF, ..., 767F, 769C, 76B0) of the executed function 7F:7578 (ld hl,$75B3 ; c=2*d ...); the first word is CONFIRMED read data
 
-Table_7F_75B3:: ; 7F:75B3
-	dw Data_7F_75CB
+ScrollSplit_StepDown3Ptrs:: ; 7F:75B3
+Table_7F_75B3::
+	dw ScrollSplit_StepDown3Deltas
 	dw $75DF
 	dw $75F3
 	dw $7607
@@ -6368,7 +6399,8 @@ Table_7F_75B3:: ; 7F:75B3
 
 ; ---- data $75CB-$76C4 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:7578 (ld hl,$75B3 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; rows end exactly at the next function 7F:76C4
 
-Data_7F_75CB:: ; 7F:75CB
+ScrollSplit_StepDown3Deltas:: ; 7F:75CB
+Data_7F_75CB::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01
@@ -6388,9 +6420,10 @@ Data_7F_75CB:: ; 7F:75CB
 
 ; ---- code $76C4-$7706 (66 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7F_76C4:: ; 7F:76C4
+ScrollSplit_StepDown4:: ; 7F:76C4
+Function_7F_76C4::
 	push bc
-	ld hl, $7706
+	ld hl, ScrollSplit_StepDown4Ptrs
 	ld c, d
 	sla c
 	ld b, $00
@@ -6430,8 +6463,9 @@ Function_7F_76C4:: ; 7F:76C4
 
 ; ---- ptrtable $7706-$771E (24 bytes) [PROBABLE] little-endian word table, 12 entries, monotone=1.00, 75% of targets on string start/after NUL, targets $771E..$7803; referenced by ld r16,$7706 at 7F:76C5
 
-Table_7F_7706:: ; 7F:7706
-	dw Data_7F_771E
+ScrollSplit_StepDown4Ptrs:: ; 7F:7706
+Table_7F_7706::
+	dw ScrollSplit_StepDown4Deltas
 	dw $7732
 	dw $7746
 	dw $775A
@@ -6446,7 +6480,8 @@ Table_7F_7706:: ; 7F:7706
 
 ; ---- data $771E-$7817 (249 bytes) [PROBABLE] 12 rows of 20 bytes (stride $14) of per-step values indexed [row d][column e] by the scroll-step function 7F:76C4 (ld hl,$7706 ; c=2*d ; ... ld a,[hli] ; ld c,a ; ld b,[hl] ; ld l,e ; ld h,0 ; add hl,bc ; ld a,[hl] ; b = value subtracted from [$DA10/DA20/DA30/DA40] and added to [$C0D3]); the 12/8 row pointers of the table partition the block exactly up to the next function; the pointers of Table_7F_7706 (771E .. 77D2, 77EF, 7803) end exactly at the code region 7817
 
-Data_7F_771E:: ; 7F:771E
+ScrollSplit_StepDown4Deltas:: ; 7F:771E
+Data_7F_771E::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $02, $01, $01

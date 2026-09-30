@@ -9,7 +9,8 @@ SECTION "Bank7E", ROMX[$4000], BANK[$7E]
 
 ; ---- gfx $4000-$7B7C (15228 bytes) [PROBABLE] font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 1,2,3,4,5,6,7,8,13, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code)
 
-Data_7E_4000:: ; 7E:4000
+GlyphFont_Jis12x12_7E:: ; 7E:4000
+Data_7E_4000::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $40, $02
 	db $00, $10, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $03, $00
@@ -965,7 +966,7 @@ Data_7E_4000:: ; 7E:4000
 
 ; ---- code $7B7C-$7D19 (413 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 1; entered by call from 7E:7BDA (PROBABLE code)
 
-Function_7E_7B7C:: ; 7E:7B7C
+Charset_JisToSjis:: ; 7E:7B7C
 	ld a, b
 	cp a, $5F
 	jr c, Label_7E_7B84
@@ -1001,7 +1002,7 @@ Label_7E_7B97:: ; 7E:7B97
 Label_7E_7BA2:: ; 7E:7BA2
 	ret
 
-Function_7E_7BA3:: ; 7E:7BA3
+Charset_SjisToJis:: ; 7E:7BA3
 	ld b, h
 	ld c, l
 	ld a, b
@@ -1047,30 +1048,30 @@ Label_7E_7BCF:: ; 7E:7BCF
 	ld l, c
 	ret
 
-Function_7E_7BD6:: ; 7E:7BD6
+Charset_EucJpToSjis:: ; 7E:7BD6
 	res 7, b
 	res 7, c
-	call Function_7E_7B7C
+	call Charset_JisToSjis
 	ret
 
-Function_7E_7BDE:: ; 7E:7BDE
-	call Function_7E_7C2A
+Charset_DetectEncoding:: ; 7E:7BDE
+	call Charset_ReadByteCounted
 	or a, a
 	jr z, Label_7E_7C27
 	cp a, $1B
 	jr z, Label_7E_7BF2
 	cp a, $A1
-	jr nc, Function_7E_7BDE
+	jr nc, Charset_DetectEncoding
 	cp a, $80
-	jr c, Function_7E_7BDE
+	jr c, Charset_DetectEncoding
 	jr Label_7E_7C21
 
 Label_7E_7BF2:: ; 7E:7BF2
-	call Function_7E_7C2A
+	call Charset_ReadByteCounted
 	or a, a
 	jr z, Label_7E_7C27
 	ld d, a
-	call Function_7E_7C2A
+	call Charset_ReadByteCounted
 	or a, a
 	jr z, Label_7E_7C27
 	ld e, a
@@ -1079,7 +1080,7 @@ Label_7E_7BF2:: ; 7E:7BF2
 	jr z, Label_7E_7C0B
 	cp a, $28
 	jr z, Label_7E_7C16
-	jr Function_7E_7BDE
+	jr Charset_DetectEncoding
 
 Label_7E_7C0B:: ; 7E:7C0B
 	ld a, e
@@ -1087,7 +1088,7 @@ Label_7E_7C0B:: ; 7E:7C0B
 	jr z, Label_7E_7C24
 	cp a, $40
 	jr z, Label_7E_7C24
-	jr Function_7E_7BDE
+	jr Charset_DetectEncoding
 
 Label_7E_7C16:: ; 7E:7C16
 	ld a, e
@@ -1095,7 +1096,7 @@ Label_7E_7C16:: ; 7E:7C16
 	jr z, Label_7E_7C24
 	cp a, $42
 	jr z, Label_7E_7C24
-	jr Function_7E_7BDE
+	jr Charset_DetectEncoding
 
 Label_7E_7C21:: ; 7E:7C21
 	ld a, $01
@@ -1109,7 +1110,7 @@ Label_7E_7C27:: ; 7E:7C27
 	ld a, $03
 	ret
 
-Function_7E_7C2A:: ; 7E:7C2A
+Charset_ReadByteCounted:: ; 7E:7C2A
 	ld a, b
 	or a, c
 	jp z, Label_7E_7C32
@@ -1121,7 +1122,7 @@ Label_7E_7C32:: ; 7E:7C32
 	xor a, a
 	ret
 
-Function_7E_7C34:: ; 7E:7C34
+Charset_SjisToIso2022Jp:: ; 7E:7C34
 	ld a, e
 	ldh [hRam_FFB3], a
 	ld a, d
@@ -1230,7 +1231,7 @@ Label_7E_7CBF:: ; 7E:7CBF
 	ld l, a
 	push bc
 	push de
-	call Function_7E_7BA3
+	call Charset_SjisToJis
 	pop de
 	pop bc
 	ld a, h
@@ -1297,7 +1298,8 @@ Label_7E_7D0A:: ; 7E:7D0A
 
 ; ---- code $7D19-$7D1D (4 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_7E_7D19:: ; 7E:7D19
+Charset_ConvertPage:: ; 7E:7D19
+Function_7E_7D19::
 	ld a, b
 	or a, a
 	jr nz, Label_7E_7D26
@@ -1334,7 +1336,7 @@ Label_7E_7D26:: ; 7E:7D26
 	inc hl
 	ld b, [hl]
 	inc hl
-	call Function_7E_7BDE
+	call Charset_DetectEncoding
 	pop hl
 	pop de
 	pop bc
@@ -1354,7 +1356,7 @@ Label_7E_7D50:: ; 7E:7D50
 	ret
 
 Label_7E_7D56:: ; 7E:7D56
-	call Function_7E_7E68
+	call Charset_EucJpToSjisStream
 	ret
 
 ; ---- code $7D5A-$7D62 (8 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -1366,7 +1368,7 @@ Label_7E_7D5A:: ; 7E:7D5A
 
 ; ---- code $7D62-$7D66 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 14; entered by far from 54:4A73 (PROBABLE code) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 
-Function_7E_7D62:: ; 7E:7D62
+Charset_Iso2022JpToSjis:: ; 7E:7D62
 	xor a, a
 	ld [wRam_C282], a
 
@@ -1404,7 +1406,8 @@ Label_7E_7D75:: ; 7E:7D75
 
 ; ---- words $7D8F-$7D99 (10 bytes) [PROBABLE] 5-entry jump table (7D99, 7DB0, 7DE5, 7E05, 7E1E) of the executed dispatcher at 7E:7D7B-7D8E (ldh a,[$FFB1] ; add a,a ; add a,$8F ; ... ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl); entry 0 is CONFIRMED read data, entries 1-4 are the starts of the handlers 7DB0/7DE5/7E05/7E1E (each begins with pop hl)
 
-Table_7E_7D8F:: ; 7E:7D8F
+Charset_Iso2022JpStates:: ; 7E:7D8F
+Table_7E_7D8F::
 	dw $7D99, $7DB0, $7DE5, $7E05, $7E1E
 
 ; ---- code $7D99-$7DAA (17 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
@@ -1438,7 +1441,7 @@ Label_7E_7DAA:: ; 7E:7DAA
 	ld c, a
 	ldh a, [hRam_FFB0]
 	ld b, a
-	call Function_7E_7B7C
+	call Charset_JisToSjis
 	ld a, c
 	ldh [hRam_FFB2], a
 	ld a, b
@@ -1567,7 +1570,7 @@ Label_7E_7E4C:: ; 7E:7E4C
 
 ; ---- code $7E68-$7EB3 (75 bytes) [PROBABLE] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 2; entered by call from 7E:7D56 (PROBABLE code)
 
-Function_7E_7E68:: ; 7E:7E68
+Charset_EucJpToSjisStream:: ; 7E:7E68
 	ld a, [hli]
 	or a, a
 	jr z, Label_7E_7EAA
@@ -1584,7 +1587,7 @@ Label_7E_7E76:: ; 7E:7E76
 	ld a, c
 	or a, b
 	jp z, Label_7E_7EAA
-	jr Function_7E_7E68
+	jr Charset_EucJpToSjisStream
 
 Label_7E_7E80:: ; 7E:7E80
 	ldh [hRam_FFB0], a
@@ -1594,7 +1597,7 @@ Label_7E_7E80:: ; 7E:7E80
 	ld c, a
 	ldh a, [hRam_FFB0]
 	ld b, a
-	call Function_7E_7BD6
+	call Charset_EucJpToSjis
 	ld a, c
 	ldh [hRam_FFB2], a
 	ld a, b
@@ -1615,7 +1618,7 @@ Label_7E_7E80:: ; 7E:7E80
 	ld a, c
 	or a, b
 	jp z, Label_7E_7EAA
-	jr Function_7E_7E68
+	jr Charset_EucJpToSjisStream
 
 Label_7E_7EAA:: ; 7E:7EAA
 	ld a, [sSram_B000]

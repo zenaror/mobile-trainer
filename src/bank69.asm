@@ -9,7 +9,8 @@ SECTION "Bank69", ROMX[$4000], BANK[$69]
 
 ; ---- code $4000-$4008 (8 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_69_4000:: ; 69:4000
+ConnIcon_Init:: ; 69:4000
+Function_69_4000::
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jp nz, Label_69_4013
@@ -19,7 +20,7 @@ Function_69_4000:: ; 69:4000
 	ld [wRam_C2CE], a
 	xor a, a
 	ld [wRam_C2CF], a
-	jr Function_69_401A
+	jr ConnIcon_Refresh
 
 ; ---- code $4013-$4045 (50 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 
@@ -28,7 +29,7 @@ Label_69_4013:: ; 69:4013
 	ld [wRam_C2CE], a
 	ld [wRam_C2CF], a
 
-Function_69_401A:: ; 69:401A
+ConnIcon_Refresh:: ; 69:401A
 	xor a, a
 	ld [wRam_C2D0], a
 	ld a, $07
@@ -37,10 +38,10 @@ Function_69_401A:: ; 69:401A
 	xor a, a
 	ld [wSpriteSlots + 143], a
 	ld hl, $DA80
-	farcall Function_69_4034
-	jp Function_69_40D1
+	farcall ConnIcon_UpdateState
+	jp ConnIcon_LoadGraphicsIfRequested
 
-Function_69_4034:: ; 69:4034
+ConnIcon_UpdateState:: ; 69:4034
 	ld bc, $000F
 	add hl, bc
 	ld a, [hl]
@@ -55,7 +56,8 @@ Label_69_403F:: ; 69:403F
 
 ; ---- ptrtable $4045-$4051 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051
 
-Table_69_4045:: ; 69:4045
+ConnIcon_StateTable:: ; 69:4045
+Table_69_4045::
 	dw Label_69_4051
 	dw Label_69_406D
 	dw Label_69_407F
@@ -78,7 +80,7 @@ Label_69_4051:: ; 69:4051
 Label_69_4062:: ; 69:4062
 	ld a, $01
 	ld b, $01
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 Label_69_406D:: ; 69:406D
@@ -89,7 +91,7 @@ Label_69_406D:: ; 69:406D
 ; ---- code $4074-$40D1 (93 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed)
 	ld a, $02
 	ld b, $02
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 Label_69_407F:: ; 69:407F
@@ -100,7 +102,7 @@ Label_69_407F:: ; 69:407F
 Label_69_4086:: ; 69:4086
 	ld a, $02
 	ld b, $06
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 Label_69_4091:: ; 69:4091
@@ -116,7 +118,7 @@ Label_69_4091:: ; 69:4091
 Label_69_40A2:: ; 69:40A2
 	ld a, $04
 	ld b, $04
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 Label_69_40AD:: ; 69:40AD
@@ -125,7 +127,7 @@ Label_69_40AD:: ; 69:40AD
 	jr nz, Label_69_40A2
 	ld a, $05
 	ld b, $05
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 Label_69_40BF:: ; 69:40BF
@@ -136,12 +138,13 @@ Label_69_40BF:: ; 69:40BF
 Label_69_40C6:: ; 69:40C6
 	ld a, $05
 	ld b, $05
-	farcall Function_4E_604C
+	farcall ConnIcon_StartSprite
 	ret
 
 ; ---- code $40D1-$40DA (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_69_40D1:: ; 69:40D1
+ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
+Function_69_40D1::
 	ld a, [wRam_C2CF]
 	cp a, $FF
 	ret z
@@ -149,7 +152,8 @@ Function_69_40D1:: ; 69:40D1
 
 ; ---- ptrtable $40DA-$40E0 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 69:40D7: 3 entries; end = first entry target
 
-Table_69_40DA:: ; 69:40DA
+ConnIcon_GfxTable:: ; 69:40DA
+Table_69_40DA::
 	dw Label_69_414D
 	dw Label_69_4118
 	dw Label_69_40E0
@@ -158,44 +162,44 @@ Table_69_40DA:: ; 69:40DA
 
 Label_69_40E0:: ; 69:40E0
 	ld de, $8200
-	ld hl, $58C0
+	ld hl, Data_51_58C0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8600
-	ld hl, $5CC0
+	ld hl, Data_51_5CC0
 	ld a, $51
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld bc, $0020
 	ld de, $D860
-	ld hl, $5EC0
+	ld hl, Data_51_5EC0
 	ld a, $51
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	jp Label_69_414D
 
 ; ---- code $4118-$4152 (58 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 
 Label_69_4118:: ; 69:4118
 	ld de, $8200
-	ld hl, $4160
+	ld hl, ConnIcon_Tiles0
 	ld a, $69
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8600
-	ld hl, $4560
+	ld hl, ConnIcon_Tiles1
 	ld a, $69
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld bc, $0018
 	ld de, $D860
-	ld hl, $4760
+	ld hl, ConnIcon_Palettes
 	ld a, $69
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 
 Label_69_414D:: ; 69:414D
 	xor a, a
@@ -209,7 +213,8 @@ Data_69_4152:: ; 69:4152
 
 ; ---- gfx $4160-$4560 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4124: hl=$4160 a=$69 c=$40 de=$8200 (dest VRAM $8200, vbank=0)
 
-Data_69_4160:: ; 69:4160
+ConnIcon_Tiles0:: ; 69:4160
+Data_69_4160::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $1E, $1E, $21, $3F, $40, $7F, $40, $7F, $40, $7F, $61, $5E, $3F, $21, $1E, $12
 	db $00, $00, $00, $00, $80, $80, $80, $80, $80, $80, $80, $80, $00, $00, $00, $00
@@ -277,7 +282,8 @@ Data_69_4160:: ; 69:4160
 
 ; ---- gfx $4560-$4760 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:4136: hl=$4560 a=$69 c=$20 de=$8600 (dest VRAM $8600, vbank=0)
 
-Data_69_4560:: ; 69:4560
+ConnIcon_Tiles1:: ; 69:4560
+Data_69_4560::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -313,13 +319,15 @@ Data_69_4560:: ; 69:4560
 
 ; ---- data $4760-$4778 (24 bytes) [PROBABLE] 3 RGB555 palettes of 4 colours (00 00 4A 29 B5 56 FF 7F = grey ramp; bit15 clear). Previous 168-word palette claim for 4760-48B0 was wrong beyond 4778: the bytes from 4778 are the animation table below
 
-Palette_69_4760:: ; 69:4760
+ConnIcon_Palettes:: ; 69:4760
+Palette_69_4760::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $7C, $B7, $00, $DF, $02, $00, $00
 	db $00, $7C, $E0, $01, $8B, $03, $00, $00
 
 ; ---- ptrtable $4778-$4794 (28 bytes) [PROBABLE] 7 entries x 4 bytes = 2 pointers each, table passed as DE to init_object_from_table (00:0A82) at 4E:6057 (a=$69): entry index B&7F is read by 00:0AB8, word0 -> slot+2/3 (pointer list of frames), word1 -> slot+8/9 (count + 2-byte pairs). Every target lands on a record boundary of the parse below (tiles 4778-4C46 exactly)
 
-Table_69_4778:: ; 69:4778
+ConnIcon_ObjTable:: ; 69:4778
+Table_69_4778::
 	dw Table_69_4794
 	dw Data_69_48AC
 	dw Table_69_4794

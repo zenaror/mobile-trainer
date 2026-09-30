@@ -9,15 +9,16 @@ SECTION "Bank28", ROMX[$4000], BANK[$28]
 
 ; ---- code $4000-$4020 (32 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
-Function_28_4000:: ; 28:4000
-	farcall Function_7F_7271
-	call Function_28_404E
+MailBody_ViewScreen:: ; 28:4000
+Function_28_4000::
+	farcall Stat_EnableScrollSplit
+	call MailBody_InitScreen
 
-Label_28_4009:: ; 28:4009
+MailBody_ViewScreen_Loop:: ; 28:4009
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
-	farcall Function_7D_7BB7
+	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -39,51 +40,51 @@ Label_28_4030:: ; 28:4030
 	jr c, Label_28_4030
 	cp a, $5A
 	jr nc, Label_28_4030
-	farcall Function_7F_72B0
+	farcall Stat_DisableScrollSplit
 	call Function_00_0464
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
 ; ---- code $404C-$422B (479 bytes) [CONFIRMED] 179 insn(s); 179 executed (in up to 1/18 scenarios)
 
 Label_28_404C:: ; 28:404C
-	jr Label_28_4009
+	jr MailBody_ViewScreen_Loop
 
-Function_28_404E:: ; 28:404E
+MailBody_InitScreen:: ; 28:404E
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4AF0
+	ld hl, MailBody_BgPalette
 	ld a, $28
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $4B30
 	ld a, $28
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, $42C0
+	ld hl, MailBody_Tiles_42C0
 	ld a, $28
 	ld b, $95
 	ld c, $21
 	farcall Function_00_0787
 	ld de, $8000
-	ld hl, $44D0
+	ld hl, MailBody_Tiles_44D0
 	ld a, $28
 	ld b, $98
 	ld c, $08
 	farcall Function_00_0787
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4820
+	ld hl, MailBody_Tilemap
 	ld a, $28
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA10
-	ld de, $4B70
+	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
@@ -91,64 +92,64 @@ Function_28_404E:: ; 28:404E
 	ld hl, $DA10
 	call Function_00_0A65
 	ld b, $00
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld de, $0008
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $01
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $0C
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $02
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $18
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $03
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $24
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $04
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $30
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $05
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $3C
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $06
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $48
 	ld e, $08
-	farcall Function_28_41CB
+	farcall MailBody_DrawTextLine
 	ld b, $07
-	farcall Function_2D_4EC0
+	farcall MailBody_GetRowPtr
 	ld b, $03
 	ld c, $00
 	ld d, $54
 	ld e, $08
-	farcall Function_28_41CB
-	farcall Function_2D_5016
-	farcall Function_7F_72B0
+	farcall MailBody_DrawTextLine
+	farcall TextTiles_UploadBuffers
+	farcall Stat_DisableScrollSplit
 	call Function_00_044B
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -163,7 +164,7 @@ Function_28_404E:: ; 28:404E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	pop af
-	farcall Function_7F_7271
+	farcall Stat_EnableScrollSplit
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -179,7 +180,7 @@ Function_28_404E:: ; 28:404E
 	ld bc, $0000
 	ret
 
-Function_28_41CB:: ; 28:41CB
+MailBody_DrawTextLine:: ; 28:41CB
 	ld a, $18
 	ld [wRam_C2EE], a
 
@@ -193,7 +194,7 @@ Label_28_41D0:: ; 28:41D0
 	cp a, $0D
 	jr z, Label_28_4250
 	push af
-	farcall Function_7F_41A7
+	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_28_422B
 	pop af
@@ -207,17 +208,17 @@ Label_28_41D0:: ; 28:41D0
 	ld h, a
 	ld bc, $C0A0
 	ld de, $C0B8
-	farcall Function_7F_405F
+	farcall Glyph_LoadWide
 	pop hl
 	pop de
 	pop bc
 	inc hl
-	call Function_28_428B
+	call MailBody_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
 	ld hl, $C0B8
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -243,11 +244,11 @@ Label_28_422B:: ; 28:422B
 	push hl
 	ld b, a
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
-	call Function_28_428B
+	call MailBody_BlitGlyphAdvance
 	ld a, [wRam_C2EE]
 	dec a
 	ld [wRam_C2EE], a
@@ -263,7 +264,7 @@ Label_28_4250:: ; 28:4250
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -280,7 +281,7 @@ Label_28_426B:: ; 28:426B
 	push hl
 	ld b, $20
 	ld de, $C0A0
-	farcall Function_7F_4007
+	farcall Glyph_LoadAscii
 	pop hl
 	pop de
 	pop bc
@@ -294,12 +295,12 @@ Label_28_427C:: ; 28:427C
 	call Function_28_429F
 	jr Label_28_427C
 
-Function_28_428B:: ; 28:428B
+MailBody_BlitGlyphAdvance:: ; 28:428B
 	push bc
 	push de
 	push hl
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -315,7 +316,7 @@ Function_28_429F:: ; 28:429F
 	ld b, $02
 	ld c, $00
 	ld hl, $C0A0
-	farcall Function_7F_42C3
+	farcall Canvas_BlitGlyph
 	pop hl
 	pop de
 	pop bc
@@ -329,7 +330,8 @@ Function_28_429F:: ; 28:429F
 
 ; ---- gfx $42C0-$44D0 (528 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 28:4088: hl=$42C0 a=$28 c=$21 de=$9301 (dest VRAM $9300, vbank=1)
 
-Data_28_42C0:: ; 28:42C0
+MailBody_Tiles_42C0:: ; 28:42C0
+Data_28_42C0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $03, $03, $04, $04, $08, $08, $08, $08
 	db $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $00, $00, $00, $00, $00, $00
 	db $00, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $FF, $00, $00, $00, $00, $00, $00
@@ -366,7 +368,8 @@ Data_28_42C0:: ; 28:42C0
 
 ; ---- gfx $44D0-$4550 (128 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 28:409A: hl=$44D0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_28_44D0:: ; 28:44D0
+MailBody_Tiles_44D0:: ; 28:44D0
+Data_28_44D0::
 	db $0B, $07, $34, $18, $75, $25, $65, $45, $80, $50, $50, $90, $80, $80, $AF, $BF
 	db $A0, $C0, $58, $30, $5C, $48, $0C, $44, $12, $14, $14, $12, $02, $02, $7A, $FA
 	db $5A, $3C, $67, $43, $01, $00, $00, $00, $7E, $3C, $65, $43, $01, $00, $00, $00
@@ -427,7 +430,8 @@ Data_28_4550:: ; 28:4550
 
 ; ---- data $4820-$4AF0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 28:40AB: hl=$4820 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_28_4820:: ; 28:4820
+MailBody_Tilemap:: ; 28:4820
+Data_28_4820::
 	db $30, $32, $31, $33, $31, $32, $31, $33, $31, $32, $31, $33, $31, $32, $31, $33
 	db $31, $32, $31, $34, $36, $00, $00, $00, $00, $38, $38, $38, $38, $38, $38, $38
 	db $38, $38, $38, $38, $38, $38, $38, $37, $37, $00, $00, $00, $00, $00, $00, $00
@@ -476,11 +480,14 @@ Data_28_4820:: ; 28:4820
 
 ; ---- data $4AF0-$4B70 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80 bytes, all bit15 clear) directly after the tilemap 4820-4AF0; read by executed code in 1/18 scenarios
 
-Palette_28_4AF0:: ; 28:4AF0
+MailBody_BgPalette:: ; 28:4AF0
+Palette_28_4AF0::
 	db $FF, $7F, $B5, $56, $1F, $01, $00, $00, $FF, $7F, $7F, $02, $1F, $00, $00, $00
 	db $FF, $7F, $20, $6B, $00, $7C, $00, $00, $FF, $7F, $9F, $02, $F7, $00, $00, $00
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+MailBody_ObjPalette:: ; 28:4B30
 	db $E0, $7F, $BF, $2E, $DF, $11, $BC, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -488,7 +495,8 @@ Palette_28_4AF0:: ; 28:4AF0
 
 ; ---- words $4B70-$4B80 (16 bytes) [PROBABLE] 1 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 4B70-4BA6 (28:4B70-4BA6); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 4B74-4B78 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_28_4B70:: ; 28:4B70
+MailBody_ObjTable:: ; 28:4B70
+Table_28_4B70::
 	dw Data_28_4B80, $4BA3, Data_28_4B80, $4BA3, Data_28_4B80, $4BA3, Data_28_4B80, $4BA3
 
 ; ---- data $4B80-$4BA6 (38 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 1 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:4B70-4BA6 [v4: bytes 4B80-4BA6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
@@ -671,7 +679,8 @@ Data_28_5280:: ; 28:5280
 
 ; ---- gfx $54B0-$58B0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:45EB 23:44DA); first: hdma_rom_to_vram at 22:45EB: hl=$54B0 a=$28 c=$40 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_54B0:: ; 28:54B0
+MailServerDeleteAll_Tiles_54B0:: ; 28:54B0
+Data_28_54B0::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $33, $CC
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $10, $10, $92, $92
 	db $54, $54, $38, $38, $38, $38, $54, $54, $92, $92, $10, $10, $00, $00, $00, $00
@@ -739,7 +748,8 @@ Data_28_54B0:: ; 28:54B0
 
 ; ---- gfx $58B0-$5B50 (672 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:4600 23:44EF); first: hdma_rom_to_vram at 22:4600: hl=$58B0 a=$28 c=$2A de=$9701 (dest VRAM $9700, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_58B0:: ; 28:58B0
+MailServerDeleteAll_Tiles_58B0:: ; 28:58B0
+Data_28_58B0::
 	db $FF, $FF, $00, $FF, $FF, $00, $FF, $00, $F3, $0C, $F3, $0C, $F3, $0C, $F3, $0C
 	db $FE, $FF, $03, $FD, $FF, $01, $FF, $01, $CF, $31, $C7, $39, $E7, $19, $E7, $19
 	db $B3, $CC, $B2, $CD, $B2, $CD, $B2, $CD, $B3, $CD, $BF, $CC, $FF, $80, $7F, $FF
@@ -785,7 +795,8 @@ Data_28_58B0:: ; 28:58B0
 
 ; ---- gfx $5B50-$5BD0 (128 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:4615 23:4504); first: hdma_rom_to_vram at 22:4615: hl=$5B50 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_5B50:: ; 28:5B50
+MailServerDeleteAll_Tiles_5B50:: ; 28:5B50
+Data_28_5B50::
 	db $F8, $F8, $F8, $88, $F0, $B0, $E0, $A0, $C0, $C0, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
@@ -797,7 +808,8 @@ Data_28_5B50:: ; 28:5B50
 
 ; ---- data $5BD0-$5EA0 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (22:4629 23:4518); first: copy_tilemap_rect_pair at 22:4629: hl=$5BD0 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_5BD0:: ; 28:5BD0
+MailServerDeleteAll_Tilemap:: ; 28:5BD0
+Data_28_5BD0::
 	db $39, $3A, $3B, $3C, $3D, $3E, $3F, $50, $51, $52, $53, $54, $55, $56, $57, $58
 	db $59, $5A, $5B, $48, $6C, $4A, $4B, $4C, $4D, $4E, $4F, $60, $61, $62, $63, $64
 	db $65, $66, $67, $68, $69, $6A, $6B, $49, $44, $45, $45, $45, $45, $45, $45, $45
@@ -846,11 +858,14 @@ Data_28_5BD0:: ; 28:5BD0
 
 ; ---- data $5EA0-$5F20 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80 bytes, all bit15 clear; 5EC0-5ED0 are two all-zero palettes) directly after the tilemap 5BD0-5EA0
 
-Palette_28_5EA0:: ; 28:5EA0
+MailServerDeleteAll_BgPalette:: ; 28:5EA0
+Palette_28_5EA0::
 	db $FF, $7F, $6C, $7F, $E0, $6C, $00, $00, $FF, $7F, $5F, $07, $31, $05, $00, $00
 	db $FF, $7F, $D7, $01, $2D, $21, $00, $00, $FF, $7F, $5F, $07, $91, $09, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $5F, $2E, $55, $11, $FF, $7F, $00, $00, $1C, $21, $8C, $6D, $FF, $7F, $00, $00
+
+MailServerDeleteAll_ObjPalette:: ; 28:5EE0
 	db $E0, $7F, $FF, $7F, $EF, $57, $00, $00, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -858,7 +873,8 @@ Palette_28_5EA0:: ; 28:5EA0
 
 ; ---- gfx $5F20-$6150 (560 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:4277 23:4226); first: hdma_rom_to_vram at 22:4277: hl=$5F20 a=$28 c=$23 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_5F20:: ; 28:5F20
+MailServerDeleteMethod_Tiles_5F20:: ; 28:5F20
+Data_28_5F20::
 	db $07, $FF, $08, $08, $08, $0B, $38, $3B, $40, $43, $40, $5F, $40, $5F, $48, $47
 	db $83, $FF, $64, $44, $64, $45, $7C, $7D, $00, $01, $00, $3D, $00, $BD, $00, $81
 	db $F8, $FF, $04, $04, $05, $B5, $06, $B6, $00, $B0, $00, $B6, $00, $B6, $00, $B6
@@ -897,7 +913,8 @@ Data_28_5F20:: ; 28:5F20
 
 ; ---- gfx $6150-$6550 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:428C 23:423B); first: hdma_rom_to_vram at 22:428C: hl=$6150 a=$28 c=$40 de=$8800 (dest VRAM $8800, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_6150:: ; 28:6150
+MailServerDeleteMethod_Tiles_6150:: ; 28:6150
+Data_28_6150::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $FC, $03, $F9, $06, $FA, $05, $FA, $05
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $00, $00, $FF, $08, $EE
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $FF, $FF, $00, $00, $FF, $80, $FE
@@ -965,7 +982,8 @@ Data_28_6150:: ; 28:6150
 
 ; ---- gfx $6550-$67E0 (656 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:42A1 23:4250); first: hdma_rom_to_vram at 22:42A1: hl=$6550 a=$28 c=$29 de=$8C00 (dest VRAM $8C00, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_6550:: ; 28:6550
+MailServerDeleteMethod_Tiles_6550:: ; 28:6550
+Data_28_6550::
 	db $FA, $05, $FA, $05, $FA, $05, $FA, $05, $F8, $07, $FA, $07, $FB, $07, $FD, $03
 	db $04, $F7, $04, $F7, $02, $F3, $08, $F8, $07, $FF, $00, $FF, $FF, $FF, $FF, $FF
 	db $12, $DB, $12, $DB, $10, $99, $24, $3C, $C3, $FF, $00, $FF, $FF, $FF, $FF, $FF
@@ -1010,7 +1028,8 @@ Data_28_6550:: ; 28:6550
 
 ; ---- gfx $67E0-$6860 (128 bytes) [PROBABLE] tiles-vram: 2 call site(s) (22:42B6 23:4265); first: hdma_rom_to_vram at 22:42B6: hl=$67E0 a=$28 c=$08 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_67E0:: ; 28:67E0
+MailServerDeleteMethod_Tiles_67E0:: ; 28:67E0
+Data_28_67E0::
 	db $00, $0E, $0E, $1F, $1F, $3E, $1F, $3C, $1F, $20, $0E, $11, $1F, $30, $3F, $7C
 	db $00, $00, $00, $00, $00, $80, $00, $80, $00, $80, $00, $00, $00, $FE, $FC, $FA
 	db $6E, $DD, $6E, $D5, $36, $49, $06, $39, $0C, $1B, $0A, $1D, $0B, $1C, $1D, $3B
@@ -1022,7 +1041,8 @@ Data_28_67E0:: ; 28:67E0
 
 ; ---- data $6860-$6B30 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (23:4172 23:4279); first: copy_tilemap_rect_pair at 23:4172: hl=$6860 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_6860:: ; 28:6860
+MailServerDeleteMethod_Tilemap_First:: ; 28:6860
+Data_28_6860::
 	db $8D, $8F, $3E, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B, $3C
 	db $3D, $3E, $8F, $8D, $AF, $9F, $4E, $40, $41, $42, $43, $44, $45, $46, $47, $48
 	db $49, $4A, $4B, $4C, $4D, $4E, $9F, $AF, $50, $8E, $8E, $8E, $8E, $8E, $8E, $8E
@@ -1071,7 +1091,8 @@ Data_28_6860:: ; 28:6860
 
 ; ---- data $6B30-$6E00 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (23:41AD 23:42D0); first: copy_tilemap_rect_pair at 23:41AD: hl=$6B30 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_6B30:: ; 28:6B30
+MailServerDeleteMethod_Tilemap_Second:: ; 28:6B30
+Data_28_6B30::
 	db $8D, $8F, $3E, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B, $3C
 	db $3D, $3E, $8F, $8D, $AF, $9F, $4E, $40, $41, $42, $43, $44, $45, $46, $47, $48
 	db $49, $4A, $4B, $4C, $4D, $4E, $9F, $AF, $50, $8E, $8E, $8E, $8E, $8E, $8E, $8E
@@ -1120,11 +1141,14 @@ Data_28_6B30:: ; 28:6B30
 
 ; ---- data $6E00-$6E80 (128 bytes) [PROBABLE] 16 palettes x 4 RGB555 words (0x80 bytes, all words bit15 clear) directly after the tilemap 6B30-6E00 (same tilemap 2D0 + palette 80 layout as bank 45); the mapper heuristic had extended it over the object table words at 6E80-6EA0 [v4: bytes 6E00-6E08 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Palette_28_6E00:: ; 28:6E00
+MailServerDeleteMethod_BgPalette:: ; 28:6E00
+Palette_28_6E00::
 	db $FF, $7F, $6C, $7F, $FF, $7F, $00, $00, $FF, $7F, $5F, $02, $F7, $00, $00, $00
 	db $ED, $13, $FF, $7F, $F7, $00, $06, $00, $FF, $7F, $FF, $7F, $88, $7D, $20, $1C
 	db $FF, $7F, $FF, $7F, $71, $7E, $49, $51, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+MailServerDeleteMethod_ObjPalette:: ; 28:6E40
 	db $27, $7E, $9F, $02, $00, $00, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
@@ -1150,7 +1174,8 @@ Data_28_6EA0:: ; 28:6EA0
 
 ; ---- words $6F20-$7040 (288 bytes) [PROBABLE] 18 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 6F24-6F28, 6F34-6F38, 7024-7028, 7034-7038 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_28_6F20:: ; 28:6F20
+MailSession_ObjTable_6F20:: ; 28:6F20
+Table_28_6F20::
 	dw Data_28_7040, $7066, Data_28_7040, $7066, Data_28_7040, $7066, Data_28_7040, $7066
 	dw $72AF, $72D5, $72AF, $72D5, $72AF, $72D5, $72AF, $72D5
 	dw $706B, $70A4, $706B, $70A4, $706B, $70A4, $706B, $70A4
@@ -1220,7 +1245,8 @@ Data_28_7040:: ; 28:7040
 
 ; ---- words $72FB-$758B (656 bytes) [PROBABLE] 41 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 732F-7333, 733F-7343, 734F-7353, 737F-7383, 738F-7393, 739F-73A3 ... were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_28_72FB:: ; 28:72FB
+MailSession_ObjTable_72FB:: ; 28:72FB
+Table_28_72FB::
 	dw Data_28_758B, $759E, Data_28_758B, $759E, Data_28_758B, $759E, Data_28_758B, $759E
 	dw $75A1, $75B4, $75A1, $75B4, $75A1, $75B4, $75A1, $75B4
 	dw $75B7, $75DD, $75B7, $75DD, $75B7, $75DD, $75B7, $75DD

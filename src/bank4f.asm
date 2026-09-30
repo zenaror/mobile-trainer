@@ -9,7 +9,8 @@ SECTION "Bank4F", ROMX[$4000], BANK[$4F]
 
 ; ---- code $4000-$4194 (404 bytes) [CONFIRMED] 247 insn(s); 247 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4F_4000:: ; 4F:4000
+Palette_LoadToBuffer:: ; 4F:4000
+Function_4F_4000::
 	ldh [hFarBank], a
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -18,18 +19,18 @@ Function_4F_4000:: ; 4F:4000
 	dw $050C
 	ret
 
-Function_4F_400E:: ; 4F:400E
+Palette_ReadHardwareToBuffer:: ; 4F:400E
 	push hl
 	ld bc, $2000
-	call Function_4F_4021
+	call Palette_ReadHardwareBlock
 	pop hl
 	ld bc, $0040
 	add hl, bc
 	ld bc, $2080
-	call Function_4F_4021
+	call Palette_ReadHardwareBlock
 	ret
 
-Function_4F_4021:: ; 4F:4021
+Palette_ReadHardwareBlock:: ; 4F:4021
 	bit 7, c
 	jr nz, Label_4F_4037
 
@@ -66,18 +67,18 @@ Label_4F_4039:: ; 4F:4039
 	jr nz, Label_4F_4039
 	ret
 
-Function_4F_404B:: ; 4F:404B
+Palette_UploadBuffer:: ; 4F:404B
 	push hl
 	ld bc, $0800
-	call Function_4F_405E
+	call Palette_UploadBlock
 	pop hl
 	ld bc, $0040
 	add hl, bc
 	ld bc, $0880
-	call Function_4F_405E
+	call Palette_UploadBlock
 	ret
 
-Function_4F_405E:: ; 4F:405E
+Palette_UploadBlock:: ; 4F:405E
 	ld a, c
 	or a, $80
 	bit 7, c
@@ -111,7 +112,7 @@ Label_4F_406F:: ; 4F:406F
 	jr nz, Label_4F_406F
 	ret
 
-Function_4F_4083:: ; 4F:4083
+PalFade_BlendColor:: ; 4F:4083
 	ld hl, $D980
 	add hl, de
 	ld a, [hli]
@@ -169,7 +170,7 @@ Function_4F_4083:: ; 4F:4083
 	ldh a, [hRam_FFB3]
 	ld b, a
 	ldh a, [hRam_FFB0]
-	call Function_4F_4146
+	call PalFade_ScaledDelta
 	ldh a, [hRam_FFB0]
 	sub a, h
 	and a, $1F
@@ -177,7 +178,7 @@ Function_4F_4083:: ; 4F:4083
 	ldh a, [hRam_FFB4]
 	ld b, a
 	ldh a, [hRam_FFB1]
-	call Function_4F_4146
+	call PalFade_ScaledDelta
 	ldh a, [hRam_FFB1]
 	sub a, h
 	ld h, a
@@ -196,7 +197,7 @@ Function_4F_4083:: ; 4F:4083
 	ldh a, [hRam_FFB5]
 	ld b, a
 	ldh a, [hRam_FFB2]
-	call Function_4F_4146
+	call PalFade_ScaledDelta
 	ldh a, [hRam_FFB2]
 	sub a, h
 	and a, $1F
@@ -242,19 +243,19 @@ Label_4F_4131:: ; 4F:4131
 	ld [hli], a
 	ret
 
-Function_4F_4146:: ; 4F:4146
+PalFade_ScaledDelta:: ; 4F:4146
 	sub a, b
-	jr nc, Function_4F_4153
+	jr nc, PalFade_Mul8x8
 	cpl
 	inc a
-	call Function_4F_4153
+	call PalFade_Mul8x8
 	ld a, h
 	cpl
 	inc a
 	ld h, a
 	ret
 
-Function_4F_4153:: ; 4F:4153
+PalFade_Mul8x8:: ; 4F:4153
 	ld hl, $0000
 	ld e, c
 	ld d, l
@@ -272,7 +273,7 @@ Label_4F_415E:: ; 4F:415E
 	jr nz, Label_4F_415A
 	ret
 
-Function_4F_4166:: ; 4F:4166
+PalFade_Start:: ; 4F:4166
 	ld [wRam_C2F2], a
 	bit 7, a
 	jr nz, Label_4F_417E
@@ -353,7 +354,7 @@ Label_4F_41CA:: ; 4F:41CA
 	jr nz, Label_4F_41CA
 	ret
 
-Function_4F_41E0:: ; 4F:41E0
+PalFade_Step:: ; 4F:41E0
 	ld a, [wRam_C2F2]
 	or a, a
 	ret z
@@ -462,7 +463,7 @@ Label_4F_4273:: ; 4F:4273
 	call Function_00_0392
 
 Label_4F_427F:: ; 4F:427F
-	call Function_4F_4083
+	call PalFade_BlendColor
 	inc de
 	inc de
 	call Function_00_0392
@@ -473,6 +474,8 @@ Label_4F_427F:: ; 4F:427F
 	ret
 
 ; ---- code $428E-$42A1 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_428E:: ; 4F:428E
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -484,7 +487,7 @@ Label_4F_427F:: ; 4F:427F
 	ld hl, $D800
 
 ; ---- code $42A1-$42B4 (19 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_400E
+	farcall Palette_ReadHardwareToBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -495,7 +498,8 @@ Label_4F_427F:: ; 4F:427F
 
 ; ---- code $42B4-$434A (150 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4F_42B4:: ; 4F:42B4
+Palette_FadeInFromWhite:: ; 4F:42B4
+Function_4F_42B4::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -511,17 +515,17 @@ Function_4F_42B4:: ; 4F:42B4
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $E0
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 	call LCDOn
 
 Label_4F_42E0:: ; 4F:42E0
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_42E0
 	ldh [hScratchA], a
 	pop af
@@ -530,7 +534,7 @@ Label_4F_42E0:: ; 4F:42E0
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_42FF:: ; 4F:42FF
+Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -546,17 +550,17 @@ Function_4F_42FF:: ; 4F:42FF
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $F0
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 	call LCDOn
 
 Label_4F_432B:: ; 4F:432B
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_432B
 	ldh [hScratchA], a
 	pop af
@@ -566,6 +570,8 @@ Label_4F_432B:: ; 4F:432B
 	ret
 
 ; ---- code $434A-$435D (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_434A:: ; 4F:434A
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -577,7 +583,7 @@ Label_4F_432B:: ; 4F:432B
 	ld hl, $D800
 
 ; ---- code $435D-$4370 (19 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_400E
+	farcall Palette_ReadHardwareToBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -588,7 +594,8 @@ Label_4F_432B:: ; 4F:432B
 
 ; ---- code $4370-$4400 (144 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4F_4370:: ; 4F:4370
+Palette_FadeOutToWhite:: ; 4F:4370
+Function_4F_4370::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -604,16 +611,16 @@ Function_4F_4370:: ; 4F:4370
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $20
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 
 Label_4F_4399:: ; 4F:4399
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_4399
 	ldh [hScratchA], a
 	pop af
@@ -622,7 +629,7 @@ Label_4F_4399:: ; 4F:4399
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_43B8:: ; 4F:43B8
+Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -638,16 +645,16 @@ Function_4F_43B8:: ; 4F:43B8
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $10
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 
 Label_4F_43E1:: ; 4F:43E1
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_43E1
 	ldh [hScratchA], a
 	pop af
@@ -657,6 +664,8 @@ Label_4F_43E1:: ; 4F:43E1
 	ret
 
 ; ---- code $4400-$4413 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_4400:: ; 4F:4400
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -668,7 +677,7 @@ Label_4F_43E1:: ; 4F:43E1
 	ld hl, $D800
 
 ; ---- code $4413-$4471 (94 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_400E
+	farcall Palette_ReadHardwareToBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -676,6 +685,8 @@ Label_4F_43E1:: ; 4F:43E1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
+
+Function_4F_4426:: ; 4F:4426
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -691,17 +702,17 @@ Label_4F_43E1:: ; 4F:43E1
 	ld [wRam_C2ED], a
 	ld bc, $0000
 	ld a, $F0
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 	call LCDOn
 
 Label_4F_4452:: ; 4F:4452
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_4452
 	ldh [hScratchA], a
 	pop af
@@ -711,6 +722,8 @@ Label_4F_4452:: ; 4F:4452
 	ret
 
 ; ---- code $4471-$4484 (19 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_4471:: ; 4F:4471
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -722,7 +735,7 @@ Label_4F_4452:: ; 4F:4452
 	ld hl, $D800
 
 ; ---- code $4484-$44DF (91 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: site x38; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_4F_400E
+	farcall Palette_ReadHardwareToBuffer
 	ei
 	call Function_00_0392
 	ldh [hScratchA], a
@@ -730,6 +743,8 @@ Label_4F_4452:: ; 4F:4452
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
+
+Function_4F_4497:: ; 4F:4497
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -745,16 +760,16 @@ Label_4F_4452:: ; 4F:4452
 	ld [wRam_C2ED], a
 	ld bc, $0000
 	ld a, $10
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 
 Label_4F_44C0:: ; 4F:44C0
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_44C0
 	ldh [hScratchA], a
 	pop af
@@ -764,6 +779,8 @@ Label_4F_44C0:: ; 4F:44C0
 	ret
 
 ; ---- code $44DF-$450B (44 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_44DF:: ; 4F:44DF
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -779,8 +796,8 @@ Label_4F_44C0:: ; 4F:44C0
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $F0
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 	call LCDOn
 
 ; ---- code $450B-$452A (31 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:451E (PROBABLE code)
@@ -788,10 +805,10 @@ Label_4F_44C0:: ; 4F:44C0
 Label_4F_450B:: ; 4F:450B
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_450B
 	ldh [hScratchA], a
 	pop af
@@ -801,6 +818,8 @@ Label_4F_450B:: ; 4F:450B
 	ret
 
 ; ---- code $452A-$4553 (41 bytes) [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the previous byte is a ret (function boundary) and the decode chain ends exactly at the next region (site-validated inline far call `call $06D1`); no caller/table entry found (searched far pointers, call/jp operands), so entry unproven
+
+Function_4F_452A:: ; 4F:452A
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -816,18 +835,18 @@ Label_4F_450B:: ; 4F:450B
 	ld [wRam_C2ED], a
 	ld bc, $7FFF
 	ld a, $10
-	call Function_4F_4166
-	call Function_4F_41E0
+	call PalFade_Start
+	call PalFade_Step
 
 ; ---- code $4553-$4572 (31 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; entered by jrcc from 4F:4566 (PROBABLE code)
 
 Label_4F_4553:: ; 4F:4553
 	call Function_00_047A
 	ld hl, $D800
-	farcall Function_4F_404B
+	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
-	call Function_4F_41E0
+	call PalFade_Step
 	jr nz, Label_4F_4553
 	ldh [hScratchA], a
 	pop af
@@ -838,7 +857,8 @@ Label_4F_4553:: ; 4F:4553
 
 ; ---- code $4572-$4671 (255 bytes) [CONFIRMED] 184 insn(s); 184 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4F_4572:: ; 4F:4572
+TileCanvas_UploadRect:: ; 4F:4572
+Function_4F_4572::
 	push bc
 	ld b, $FF
 	ld a, c
@@ -907,7 +927,7 @@ Label_4F_4595:: ; 4F:4595
 	jr nz, Label_4F_4583
 	ret
 
-Function_4F_45C6:: ; 4F:45C6
+Tilemap_FillAscendingWithAttr:: ; 4F:45C6
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -956,7 +976,7 @@ Label_4F_45E6:: ; 4F:45E6
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_4604:: ; 4F:4604
+TileCanvas_FillRect:: ; 4F:4604
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1043,45 +1063,45 @@ Label_4F_4635:: ; 4F:4635
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_4668:: ; 4F:4668
-	farcall Function_4E_46CF
+Browser_Entry:: ; 4F:4668
+	farcall SaveCheck_Verify
 	or a, a
 	jr z, Label_4F_4677
 
 ; ---- code $4671-$4677 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:466F (executed)
-	farcall Function_4E_4749
+	farcall SaveCheck_ResetBlock
 
 ; ---- code $4677-$4689 (18 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 
 Label_4F_4677:: ; 4F:4677
-	farcall Function_48_498C
+	farcall Tutorial_GateHomepage
 	xor a, a
 	or a, b
 	ret nz
 
-Label_4F_4680:: ; 4F:4680
-	farcall Function_4E_46CF
+Browser_StartMenuLoop:: ; 4F:4680
+	farcall SaveCheck_Verify
 	or a, a
 	jr z, Label_4F_468F
 
 ; ---- code $4689-$468F (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4F:4687 (executed)
-	farcall Function_4E_4749
+	farcall SaveCheck_ResetBlock
 
 ; ---- code $468F-$4698 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 
 Label_4F_468F:: ; 4F:468F
-	farcall Function_73_5F17
+	farcall Browser_StartChoiceScreen
 	call JumpTableInline
 
 ; ---- ptrtable $4698-$46A4 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4695: 6 entries; end = first entry target
 
 Table_4F_4698:: ; 4F:4698
 	dw Label_4F_46A4
-	dw Label_4F_46A5
-	dw Label_4F_46BA
-	dw Function_4F_4717
-	dw Function_4F_4717
-	dw Function_4F_4717
+	dw Browser_StartHomePage
+	dw Browser_StartPageListEntry
+	dw Boot_ClearAndInit
+	dw Boot_ClearAndInit
+	dw Boot_ClearAndInit
 
 ; ---- code $46A4-$46A5 (1 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 4F:4695 (executed) [executed in 3 scenarios]
 
@@ -1090,17 +1110,17 @@ Label_4F_46A4:: ; 4F:46A4
 
 ; ---- code $46A5-$46B7 (18 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 
-Label_4F_46A5:: ; 4F:46A5
-	farcall Function_4E_46A3
+Browser_StartHomePage:: ; 4F:46A5
+	farcall Browser_BeginSession
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
-	farcall Function_4E_48CB
+	farcall Browser_LoadHomePage
 
 ; ---- code $46B7-$4717 (96 bytes) [CONFIRMED] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded [executed in 1 scenarios]
-	jp Label_4F_4680
+	jp Browser_StartMenuLoop
 
-Label_4F_46BA:: ; 4F:46BA
-	farcall Function_4E_46A3
+Browser_StartPageListEntry:: ; 4F:46BA
+	farcall Browser_BeginSession
 	ld a, [wTimerEnable]
 	ld [wRam_C2CC], a
 	ld a, $06
@@ -1109,13 +1129,13 @@ Label_4F_46BA:: ; 4F:46BA
 	xor a, a
 	ld [wRam_D3C0], a
 	ld [wRam_D500], a
-	farcall Function_24_4018
+	farcall PageList_Main
 	push bc
 	push de
 	push hl
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	farcall Function_4E_4795
+	farcall SaveCheck_Update
 	pop hl
 	pop de
 	pop bc
@@ -1123,7 +1143,7 @@ Label_4F_46BA:: ; 4F:46BA
 	or a, d
 	or a, l
 	or a, h
-	jp z, Label_4F_4680
+	jp z, Browser_StartMenuLoop
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -1133,12 +1153,13 @@ Label_4F_46BA:: ; 4F:46BA
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_4E_493B
-	jp Label_4F_4680
+	farcall Browser_LoadStagedUrl
+	jp Browser_StartMenuLoop
 
 ; ---- code $4717-$47FD (230 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
-Function_4F_4717:: ; 4F:4717
+Boot_ClearAndInit:: ; 4F:4717
+Function_4F_4717::
 	di
 	nop
 	xor a, a
@@ -1197,7 +1218,7 @@ Label_4F_4754:: ; 4F:4754
 	call Function_00_059F
 	xor a, a
 	ld [wOAMDMASuppress], a
-	farcall Function_7D_7BF0
+	farcall Joypad_Init
 	call Function_00_0331
 	ld a, $83
 	ldh [rLCDC], a
@@ -1210,7 +1231,7 @@ Label_4F_4754:: ; 4F:4754
 	nop
 	ret
 
-Function_4F_47A5:: ; 4F:47A5
+Boot_ReinitRuntime:: ; 4F:47A5
 	ld a, $83
 	ldh [rLCDC], a
 	call Function_00_0331
@@ -1251,7 +1272,7 @@ Label_4F_47DE:: ; 4F:47DE
 	jr nz, Label_4F_47DE
 	xor a, a
 	ld [wOAMDMASuppress], a
-	farcall Function_7D_7BF0
+	farcall Joypad_Init
 	ret
 
 ; ---- zero $47FD-$8000 (14339 bytes) [PROBABLE] trailing 0x00 padding to end of bank

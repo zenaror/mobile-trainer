@@ -9,7 +9,8 @@ SECTION "Bank1F", ROMX[$4000], BANK[$1F]
 
 ; ---- code $4000-$41E9 (489 bytes) [CONFIRMED] 170 insn(s); 170 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1F_4000:: ; 1F:4000
+TopMenu_Run:: ; 1F:4000
+Function_1F_4000::
 	call Function_00_0392
 	xor a, a
 	ld bc, $00FC
@@ -44,69 +45,69 @@ Label_1F_4020:: ; 1F:4020
 	ldh [rWY], a
 	farcall Function_00_09B6
 	ld de, $8000
-	ld hl, $49A0
+	ld hl, Data_1E_49A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8400
-	ld hl, $4DA0
+	ld hl, Data_1E_4DA0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $51A0
+	ld hl, Data_1E_51A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $55A0
+	ld hl, Data_1E_55A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9000
-	ld hl, $59A0
+	ld hl, Data_1E_59A0
 	ld a, $1E
 	ld b, $95
 	ld c, $20
 	farcall Function_00_0787
 	ld de, $9001
-	ld hl, $5BA0
+	ld hl, Data_1E_5BA0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5FA0
+	ld hl, Data_1E_5FA0
 	ld a, $1E
 	ld b, $94
 	ld c, $30
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $62A0
+	ld hl, Palette_1E_62A0
 	ld a, $1E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1014
 	ld de, $D000
-	ld hl, $40D7
+	ld hl, Data_1E_40D7
 	ld a, $1E
 	farcall Function_00_08EA
 	ld hl, $DA50
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $85
 	farcall Function_00_0A82
 	ld bc, $0040
 	ld de, $D840
-	ld hl, $62E0
+	ld hl, Palette_1E_62E0
 	ld a, $1E
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld hl, $DA10
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $01
 	farcall Function_00_0A82
@@ -114,7 +115,7 @@ Label_1F_4020:: ; 1F:4020
 	ld hl, $DA10
 	call Function_00_0A65
 	ld hl, $DA20
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $02
 	farcall Function_00_0A82
@@ -128,12 +129,12 @@ Label_1F_4020:: ; 1F:4020
 	ld [wSpriteSlots + 38], a
 	ld [wSpriteSlots + 39], a
 	ld [wSpriteSlots + 40], a
-	call Function_1F_43F7
+	call TopMenu_InitItemSprites
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
 	ld hl, $D200
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -162,13 +163,13 @@ Label_1F_4020:: ; 1F:4020
 	ldh a, [rLCDC]
 	or a, $04
 	ldh [rLCDC], a
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld a, [wRam_C0E5]
 	dec a
 	ld b, a
-	ld hl, $4000
+	ld hl, Data_1E_4000
 	ld a, $1E
-	farcall Function_48_42D4
+	farcall Ticker_Start
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -178,40 +179,41 @@ Label_1F_4020:: ; 1F:4020
 	pop af
 	ldh [rSVBK], a
 
-Label_1F_41D1:: ; 1F:41D1
+TopMenu_Loop:: ; 1F:41D1
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41E9-$41F3 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1F:41E6: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
-Table_1F_41E9:: ; 1F:41E9
-	dw Label_1F_4217
-	dw Label_1F_425A
+Table_TopMenu_Buttons:: ; 1F:41E9
+Table_1F_41E9::
+	dw TopMenu_OnA
+	dw TopMenu_OnB
 	dw Label_1F_428E
 	dw Label_1F_428B
-	dw Label_1F_41F3
+	dw TopMenu_Idle
 
 ; ---- code $41F3-$4252 (95 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 11/18 scenarios)
 
-Label_1F_41F3:: ; 1F:41F3
-	farcall Function_48_4223
-	call Function_1F_4561
+TopMenu_Idle:: ; 1F:41F3
+	farcall Ticker_Update
+	call TopMenu_UpdateCursorMove
 	ldh a, [hJoyPressed]
 	and a, $F0
-	call nz, Function_1F_4291
-	call Function_1F_44D5
+	call nz, TopMenu_HandleDpad
+	call TopMenu_AnimatePanel
 	ld a, [wRam_C0E2]
 	or a, a
-	jp nz, Label_1F_41D1
+	jp nz, TopMenu_Loop
 	ld a, [wRam_C0E3]
 	or a, a
 	jp nz, Label_1F_421D
-	jp Label_1F_41D1
+	jp TopMenu_Loop
 
-Label_1F_4217:: ; 1F:4217
+TopMenu_OnA:: ; 1F:4217
 	ld a, [wRam_C0E2]
 	or a, a
 	jr nz, Label_1F_4252
@@ -225,8 +227,8 @@ Label_1F_421D:: ; 1F:421D
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -234,7 +236,7 @@ Label_1F_421D:: ; 1F:421D
 	ld b, a
 	ld a, $01
 	ld hl, $A8B9
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld a, [wRam_C0E5]
 	ret
 
@@ -243,11 +245,11 @@ Label_1F_421D:: ; 1F:421D
 Label_1F_4252:: ; 1F:4252
 	ld a, $01
 	ld [wRam_C0E3], a
-	jp Label_1F_41D1
+	jp TopMenu_Loop
 
 ; ---- code $425A-$434B (241 bytes) [CONFIRMED] 111 insn(s); 111 executed (in up to 5/18 scenarios)
 
-Label_1F_425A:: ; 1F:425A
+TopMenu_OnB:: ; 1F:425A
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -256,25 +258,25 @@ Label_1F_425A:: ; 1F:425A
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
 	ld b, $00
 	ld a, $01
 	ld hl, $A8B9
-	farcall Function_48_4616
+	farcall WriteByteFar
 	xor a, a
 	ret
 
 Label_1F_428B:: ; 1F:428B
-	jp Label_1F_41D1
+	jp TopMenu_Loop
 
 Label_1F_428E:: ; 1F:428E
-	jp Label_1F_41D1
+	jp TopMenu_Loop
 
-Function_1F_4291:: ; 1F:4291
+TopMenu_HandleDpad:: ; 1F:4291
 	ld b, a
 	ld a, [wRam_C0E2]
 	or a, a
@@ -297,9 +299,9 @@ Function_1F_4291:: ; 1F:4291
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1F_4351
+	call TopMenu_LoadPanel
 	ld a, $01
-	jp Label_1F_4325
+	jp TopMenu_SelectItem
 
 Label_1F_42C5:: ; 1F:42C5
 	ld a, [wRam_C0E5]
@@ -314,9 +316,9 @@ Label_1F_42C5:: ; 1F:42C5
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1F_4351
+	call TopMenu_LoadPanel
 	ld a, $02
-	jr Label_1F_4325
+	jr TopMenu_SelectItem
 
 Label_1F_42E5:: ; 1F:42E5
 	ld a, [wRam_C0E5]
@@ -334,9 +336,9 @@ Label_1F_42E5:: ; 1F:42E5
 	ld b, [hl]
 	ld [hl], a
 	push bc
-	call Function_1F_4351
+	call TopMenu_LoadPanel
 	pop af
-	jr Label_1F_4325
+	jr TopMenu_SelectItem
 
 Label_1F_4307:: ; 1F:4307
 	ld a, [wRam_C0E5]
@@ -351,12 +353,12 @@ Label_1F_4307:: ; 1F:4307
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	call Function_1F_4351
+	call TopMenu_LoadPanel
 	ld a, $03
 
-Label_1F_4325:: ; 1F:4325
+TopMenu_SelectItem:: ; 1F:4325
 	ld [wRam_C0E5], a
-	ld hl, $434B
+	ld hl, Table_TopMenu_CursorTargets
 	dec a
 	sla a
 	add a, l
@@ -368,29 +370,31 @@ Label_1F_4325:: ; 1F:4325
 	ld [wRam_C0DC], a
 	ld a, [hl]
 	ld [wRam_C0DB], a
-	call Function_1F_45CA
+	call TopMenu_StartCursorMove
 	ld a, $01
 	ld [wRam_C0E2], a
-	farcall Function_48_4460
+	farcall Ticker_Stop
 	ret
 
 ; ---- data $434B-$4351 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_1F_434B:: ; 1F:434B
+Table_TopMenu_CursorTargets:: ; 1F:434B
+Data_1F_434B::
 	db $28, $0B, $28, $51, $60, $2E
 
 ; ---- code $4351-$455C (523 bytes) [CONFIRMED] 196 insn(s); 196 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1F_4351:: ; 1F:4351
+TopMenu_LoadPanel:: ; 1F:4351
+Function_1F_4351::
 	ld bc, $1014
 	ld de, $D000
-	ld hl, $40D7
+	ld hl, Data_1E_40D7
 	ld a, $1E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ld hl, $DA40
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $04
 	farcall Function_00_0A82
@@ -410,7 +414,7 @@ Function_1F_4351:: ; 1F:4351
 
 Label_1F_4396:: ; 1F:4396
 	ld hl, $DA10
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $01
 	farcall Function_00_0A82
@@ -425,7 +429,7 @@ Label_1F_4396:: ; 1F:4396
 
 Label_1F_43BA:: ; 1F:43BA
 	ld hl, $DA20
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $02
 	farcall Function_00_0A82
@@ -433,7 +437,7 @@ Label_1F_43BA:: ; 1F:43BA
 	ld hl, $DA20
 	call Function_00_0A65
 	ld hl, $DA30
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $03
 	farcall Function_00_0A82
@@ -446,12 +450,12 @@ Label_1F_43BA:: ; 1F:43BA
 	ld [wSpriteSlots + 40], a
 	ret
 
-Function_1F_43F7:: ; 1F:43F7
+TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, [wRam_C0E5]
 	cp a, $03
 	jr z, Label_1F_4417
 	ld hl, $DA40
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $06
 	farcall Function_00_0A82
@@ -466,7 +470,7 @@ Label_1F_4417:: ; 1F:4417
 	jr c, Label_1F_444F
 	jp z, Label_1F_447C
 	ld hl, $DA40
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $84
 	farcall Function_00_0A82
@@ -485,7 +489,7 @@ Label_1F_4417:: ; 1F:4417
 
 Label_1F_444F:: ; 1F:444F
 	ld hl, $DA10
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $81
 	farcall Function_00_0A82
@@ -504,7 +508,7 @@ Label_1F_444F:: ; 1F:444F
 
 Label_1F_447C:: ; 1F:447C
 	ld hl, $DA20
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $82
 	farcall Function_00_0A82
@@ -512,7 +516,7 @@ Label_1F_447C:: ; 1F:447C
 	ld hl, $DA20
 	call Function_00_0A65
 	ld hl, $DA30
-	ld de, $656F
+	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $83
 	farcall Function_00_0A82
@@ -535,10 +539,10 @@ Label_1F_44C0:: ; 1F:44C0
 	inc a
 	ld [wRam_C0E7], a
 	farcall Function_00_0956
-	call Function_1F_44D5
+	call TopMenu_AnimatePanel
 	ret
 
-Function_1F_44D5:: ; 1F:44D5
+TopMenu_AnimatePanel:: ; 1F:44D5
 	ld a, [wRam_C0E2]
 	or a, a
 	ret nz
@@ -553,7 +557,7 @@ Function_1F_44D5:: ; 1F:44D5
 	jp z, Label_1F_4532
 	ld bc, $090C
 	ld de, $D0E4
-	ld hl, $48C1
+	ld hl, Data_1E_48C1
 	ld a, $1E
 	farcall Function_00_08EA
 	ldh a, [rLCDC]
@@ -606,20 +610,21 @@ Label_1F_4532:: ; 1F:4532
 
 ; ---- code $4561-$4603 (162 bytes) [CONFIRMED] 82 insn(s); 82 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1F_4561:: ; 1F:4561
+TopMenu_UpdateCursorMove:: ; 1F:4561
+Function_1F_4561::
 	ld a, [wRam_C0E1]
 	or a, a
 	ret z
 	dec a
 	ld [wRam_C0E1], a
 	jr nz, Label_1F_458F
-	call Function_1F_43F7
+	call TopMenu_InitItemSprites
 	ld a, [wRam_C0E5]
 	dec a
 	ld b, a
-	ld hl, $4000
+	ld hl, Data_1E_4000
 	ld a, $1E
-	farcall Function_48_42D4
+	farcall Ticker_Start
 	ld a, [wRam_C0DB]
 	ld [wRam_C0D4], a
 	ld e, a
@@ -663,7 +668,7 @@ Label_1F_45C3:: ; 1F:45C3
 	call Function_00_0A65
 	ret
 
-Function_1F_45CA:: ; 1F:45CA
+TopMenu_StartCursorMove:: ; 1F:45CA
 	xor a, a
 	ld [wRam_C10E], a
 	ld a, [wRam_C0D4]
@@ -709,7 +714,7 @@ Label_1F_4605:: ; 1F:4605
 	ld l, a
 	ld [wRam_C0E1], a
 	ld c, l
-	farcall Function_48_4000
+	farcall Divide8
 	ld a, b
 	ld [wRam_C0DD], a
 	push hl
@@ -734,7 +739,7 @@ Label_1F_4637:: ; 1F:4637
 	pop hl
 	ld b, h
 	ld c, l
-	farcall Function_48_4000
+	farcall Divide8
 	ld a, b
 	ld [wRam_C0DF], a
 	ld e, l

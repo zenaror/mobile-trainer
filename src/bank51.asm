@@ -9,9 +9,9 @@ SECTION "Bank51", ROMX[$4000], BANK[$51]
 
 ; ---- code $4000-$404A (74 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by far from 24:4168 (PROBABLE code) [executed in 4 scenarios]
 
-Function_51_4000:: ; 51:4000
-	call Function_51_404A
-	call Function_51_425F
+CommTime_ShowSummary:: ; 51:4000
+	call CommTime_DrawSummaryScreen
+	call CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
 	ld [wRam_C2D8], a
 	ldh a, [hRam_FFB1]
@@ -45,7 +45,8 @@ Function_51_4000:: ; 51:4000
 
 ; ---- code $404A-$40BF (117 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
-Function_51_404A:: ; 51:404A
+CommTime_DrawSummaryScreen:: ; 51:404A
+Function_51_404A::
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -59,32 +60,32 @@ Function_51_404A:: ; 51:404A
 	ldh [rWY], a
 	farcall Function_00_09B6
 	call LCDOn
-	call Function_51_4239
+	call CommTime_TimerAIsNonZero
 	or a, a
 	jp z, Label_51_41D3
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_51_40BF
 	ld de, $9001
-	ld hl, $4DB0
+	ld hl, Data_51_4DB0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $51B0
+	ld hl, Data_51_51B0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $5880
+	ld hl, Data_51_5880
 	ld a, $51
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $55B0
+	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
 	farcall Function_00_08EA
 	jr Label_51_4105
@@ -93,25 +94,25 @@ Function_51_404A:: ; 51:404A
 
 Label_51_40BF:: ; 51:40BF
 	ld de, $9001
-	ld hl, $42A0
+	ld hl, Data_51_42A0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $46A0
+	ld hl, Data_51_46A0
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $4D70
+	ld hl, Data_51_4D70
 	ld a, $51
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $4AA0
+	ld hl, Tilemap_CommTime_SummaryA
 	ld a, $51
 	farcall Function_00_08EA
 
@@ -150,11 +151,11 @@ Label_51_4128:: ; 51:4128
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FF9C
-	call Function_51_41D8
+	call CommTime_DrawNumber
 	ld bc, $FFF6
-	call Function_51_41D8
+	call CommTime_DrawNumber
 	ld a, l
-	call Function_51_41FE
+	call CommTime_PutDigit
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_51_4147
@@ -175,13 +176,13 @@ Label_51_414A:: ; 51:414A
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FFF6
-	call Function_51_41D8
+	call CommTime_DrawNumber
 	ld a, l
-	call Function_51_41FE
+	call CommTime_PutDigit
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld a, [wRam_C2C3]
 	cp a, $01
 	jr z, Label_51_4186
@@ -216,8 +217,8 @@ Label_51_4196:: ; 51:4196
 Label_51_4199:: ; 51:4199
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41B1-$41BB (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 51:41AE: 5 entries; fixed length (5 words) by the routine
@@ -248,7 +249,7 @@ Label_51_41C4:: ; 51:41C4
 ; ---- code $41C7-$41E6 (31 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 
 Label_51_41C7:: ; 51:41C7
-	farcall Function_4F_4370
+	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 
 Label_51_41D3:: ; 51:41D3
@@ -256,11 +257,11 @@ Label_51_41D3:: ; 51:41D3
 	ldh a, [hRam_FFF6]
 	ret
 
-Function_51_41D8:: ; 51:41D8
+CommTime_DrawNumber:: ; 51:41D8
 	inc a
 	add hl, bc
 	bit 7, h
-	jr z, Function_51_41D8
+	jr z, CommTime_DrawNumber
 	dec a
 	jr nz, Label_51_41E8
 	ldh a, [hRam_FFB4]
@@ -273,7 +274,7 @@ Function_51_41D8:: ; 51:41D8
 Label_51_41E8:: ; 51:41E8
 	push bc
 	push hl
-	call Function_51_41FE
+	call CommTime_PutDigit
 	pop hl
 	pop bc
 	ld a, $FF
@@ -294,7 +295,7 @@ Label_51_41F3:: ; 51:41F3
 	xor a, a
 	ret
 
-Function_51_41FE:: ; 51:41FE
+CommTime_PutDigit:: ; 51:41FE
 	push bc
 	push de
 	ld h, d
@@ -326,13 +327,15 @@ Function_51_41FE:: ; 51:41FE
 
 ; ---- data $4225-$4239 (20 bytes) [PROBABLE] byte_pair_table: 10 x 2 bytes, indexed by the code at 51:4200-4224 (de = $4225 + 2*a via add a,a / add a,$25 / adc a,$42, two ld a,[de] reads); end = start of the next function at 51:4239; meaning of the values unknown (verified structure, layout from engine code)
 
-Data_51_4225:: ; 51:4225
+Table_CommTime_DigitTiles:: ; 51:4225
+Data_51_4225::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 
 ; ---- code $4239-$426C (51 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 
-Function_51_4239:: ; 51:4239
+CommTime_TimerAIsNonZero:: ; 51:4239
+Function_51_4239::
 	push hl
 	ld hl, $C2D4
 	ld a, [hli]
@@ -344,7 +347,7 @@ Function_51_4239:: ; 51:4239
 	pop hl
 	ret
 
-Function_51_4245:: ; 51:4245
+CommTime_Reset:: ; 51:4245
 	xor a, a
 	ld [wRam_C2D8], a
 	ld [wRam_C2D9], a
@@ -356,7 +359,7 @@ Function_51_4245:: ; 51:4245
 	ld [wRam_C2D7], a
 	ret
 
-Function_51_425F:: ; 51:425F
+CommTime_AddTimerA:: ; 51:425F
 	ld hl, $C2D8
 	ld a, [wTimerAFrames]
 	add a, [hl]
@@ -552,7 +555,8 @@ Data_51_46A0:: ; 51:46A0
 
 ; ---- data $4AA0-$4D70 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 51:40FF: hl=$4AA0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_4AA0:: ; 51:4AA0
+Tilemap_CommTime_SummaryA:: ; 51:4AA0
+Data_51_4AA0::
 	db $00, $01, $02, $03, $04, $05, $06, $06, $06, $06, $06, $06, $06, $06, $05, $04
 	db $03, $02, $01, $00, $10, $11, $12, $13, $13, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $13, $13, $12, $11, $10, $20, $21, $22, $23, $23, $23, $23, $23
@@ -745,7 +749,8 @@ Data_51_51B0:: ; 51:51B0
 
 ; ---- data $55B0-$5880 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (27:4F51 51:40B7); first: copy_tilemap_rect_pair at 27:4F51: hl=$55B0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_55B0:: ; 51:55B0
+Tilemap_CommTime_SummaryB:: ; 51:55B0
+Data_51_55B0::
 	db $00, $01, $02, $03, $04, $05, $06, $06, $06, $06, $06, $06, $06, $06, $05, $04
 	db $03, $02, $01, $00, $10, $11, $12, $13, $13, $12, $12, $12, $12, $12, $12, $12
 	db $12, $12, $12, $13, $13, $12, $11, $10, $20, $21, $22, $23, $23, $23, $23, $23
@@ -1207,20 +1212,20 @@ Data_51_5EE1:: ; 51:5EE1
 
 ; ---- code $70E0-$73D1 (753 bytes) [PROBABLE] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 1; entered by far from 4C:4E56 (PROBABLE code)
 
-Function_51_70E0:: ; 51:70E0
+Bmp_Validate:: ; 51:70E0
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_51_70F4
+	call Bmp_ParseHeader
 	or a, a
 	ret z
-	call Function_51_7161
+	call Bmp_CheckSize
 	or a, a
 	ret z
 	ld a, $01
 	ret
 
-Function_51_70F4:: ; 51:70F4
+Bmp_ParseHeader:: ; 51:70F4
 	push hl
 	ld a, [hli]
 	cp a, $42
@@ -1306,7 +1311,7 @@ Label_51_7157:: ; 51:7157
 	pop hl
 	ret
 
-Function_51_7161:: ; 51:7161
+Bmp_CheckSize:: ; 51:7161
 	ldh a, [hRam_FFD6]
 	cp a, $91
 	jr nc, Label_51_7175
@@ -1324,13 +1329,13 @@ Label_51_7175:: ; 51:7175
 	xor a, a
 	ret
 
-Function_51_7177:: ; 51:7177
+Bmp_ConvertToTiles:: ; 51:7177
 	ld a, l
 	ld [wRam_C337], a
 	ld a, h
 	ld [wRam_C338], a
 	push hl
-	call Function_51_70E0
+	call Bmp_Validate
 	pop de
 	or a, a
 	ret z
@@ -1350,9 +1355,9 @@ Function_51_7177:: ; 51:7177
 	ld a, [hld]
 	ld d, a
 	add hl, de
-	call Function_51_73DA
+	call Bmp_ColorSum
 	push de
-	call Function_51_73DA
+	call Bmp_ColorSum
 	pop hl
 	dec hl
 	ld a, l
@@ -1389,11 +1394,11 @@ Function_51_7177:: ; 51:7177
 	and a, $FC
 	ld [wRam_C335], a
 	ldh a, [hRam_FFD7]
-	call Function_51_73F2
+	call Bmp_RoundUpToTextRow
 	ld [wRam_C333], a
 	ld e, a
 	ldh a, [hRam_FFD6]
-	call Function_51_73F2
+	call Bmp_RoundUpToTextRow
 	ld [wRam_C332], a
 	add a, $07
 	jp c, Label_51_73CE
@@ -1487,7 +1492,7 @@ Label_51_7276:: ; 51:7276
 	dec de
 	ld c, a
 	ld b, $00
-	ld hl, $73D1
+	ld hl, Table_Bmp_RowEndMask
 	add hl, bc
 	ld a, [de]
 	or a, [hl]
@@ -1753,12 +1758,13 @@ Label_51_73CE:: ; 51:73CE
 
 ; ---- data $73D1-$73DA (9 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [boundary trimmed 73D1-73E9 -> 73D1-73DA against proven code]
 
-Data_51_73D1:: ; 51:73D1
+Table_Bmp_RowEndMask:: ; 51:73D1
+Data_51_73D1::
 	db $FF, $7F, $3F, $1F, $0F, $07, $03, $01, $00
 
 ; ---- code $73DA-$740C (50 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 2; entered by call from 51:719C (PROBABLE code) [executed in 1 scenarios]
 
-Function_51_73DA:: ; 51:73DA
+Bmp_ColorSum:: ; 51:73DA
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -1782,7 +1788,7 @@ Function_51_73DA:: ; 51:73DA
 	pop hl
 	ret
 
-Function_51_73F2:: ; 51:73F2
+Bmp_RoundUpToTextRow:: ; 51:73F2
 	push de
 	ld e, a
 	ld hl, $000C
@@ -1814,12 +1820,12 @@ Data_51_740C:: ; 51:740C
 
 ; ---- code $740D-$7900 (1267 bytes) [PROBABLE] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1; entered by far from 4E:5B5C (PROBABLE code)
 
-Function_51_740D:: ; 51:740D
+Image_BlitToTileCanvas:: ; 51:740D
 	ldh [hRam_FFD0], a
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	call Function_51_74E6
+	call Image_MakeEdgeMasks
 	call Function_00_0392
 	push bc
 	ld a, d
@@ -1949,7 +1955,7 @@ Label_51_74AF:: ; 51:74AF
 	push de
 	push hl
 	push bc
-	call Function_51_7517
+	call Image_BlitEdgeStrip
 	pop bc
 	pop hl
 	pop de
@@ -1989,7 +1995,7 @@ Label_51_74E1:: ; 51:74E1
 	jr nz, Label_51_74AF
 	ret
 
-Function_51_74E6:: ; 51:74E6
+Image_MakeEdgeMasks:: ; 51:74E6
 	push bc
 	ld a, d
 	and a, $07
@@ -2036,7 +2042,7 @@ Label_51_7513:: ; 51:7513
 	pop bc
 	ret
 
-Function_51_7517:: ; 51:7517
+Image_BlitEdgeStrip:: ; 51:7517
 	ldh a, [hRam_FFD4]
 	ld c, a
 	cp a, $02
@@ -2250,21 +2256,21 @@ Label_51_75F8:: ; 51:75F8
 	jr nz, Label_51_7614
 	bit 0, a
 	jr nz, Label_51_760F
-	call Function_51_76AB
+	call Image_BlitStripShift0
 	jr Label_51_7640
 
 Label_51_760F:: ; 51:760F
-	call Function_51_76EF
+	call Image_BlitStripShift1
 	jr Label_51_7640
 
 Label_51_7614:: ; 51:7614
 	bit 0, a
 	jr nz, Label_51_761D
-	call Function_51_7737
+	call Image_BlitStripShift2
 	jr Label_51_7640
 
 Label_51_761D:: ; 51:761D
-	call Function_51_7782
+	call Image_BlitStripShift3
 	jr Label_51_7640
 
 Label_51_7622:: ; 51:7622
@@ -2272,21 +2278,21 @@ Label_51_7622:: ; 51:7622
 	jr nz, Label_51_7634
 	bit 0, a
 	jr nz, Label_51_762F
-	call Function_51_77D0
+	call Image_BlitStripShift4
 	jr Label_51_7640
 
 Label_51_762F:: ; 51:762F
-	call Function_51_781D
+	call Image_BlitStripShift5
 	jr Label_51_7640
 
 Label_51_7634:: ; 51:7634
 	bit 0, a
 	jr nz, Label_51_763D
-	call Function_51_786B
+	call Image_BlitStripShift6
 	jr Label_51_7640
 
 Label_51_763D:: ; 51:763D
-	call Function_51_78B7
+	call Image_BlitStripShift7
 
 Label_51_7640:: ; 51:7640
 	ldh a, [hRam_FFD2]
@@ -2385,7 +2391,7 @@ Label_51_769C:: ; 51:769C
 Label_51_76AA:: ; 51:76AA
 	ret
 
-Function_51_76AB:: ; 51:76AB
+Image_BlitStripShift0:: ; 51:76AB
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2445,10 +2451,10 @@ Label_51_76E3:: ; 51:76E3
 
 Label_51_76EB:: ; 51:76EB
 	dec c
-	jr nz, Function_51_76AB
+	jr nz, Image_BlitStripShift0
 	ret
 
-Function_51_76EF:: ; 51:76EF
+Image_BlitStripShift1:: ; 51:76EF
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2511,10 +2517,10 @@ Label_51_772B:: ; 51:772B
 
 Label_51_7733:: ; 51:7733
 	dec c
-	jr nz, Function_51_76EF
+	jr nz, Image_BlitStripShift1
 	ret
 
-Function_51_7737:: ; 51:7737
+Image_BlitStripShift2:: ; 51:7737
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2579,10 +2585,10 @@ Label_51_7776:: ; 51:7776
 
 Label_51_777E:: ; 51:777E
 	dec c
-	jr nz, Function_51_7737
+	jr nz, Image_BlitStripShift2
 	ret
 
-Function_51_7782:: ; 51:7782
+Image_BlitStripShift3:: ; 51:7782
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2649,10 +2655,10 @@ Label_51_77C4:: ; 51:77C4
 
 Label_51_77CC:: ; 51:77CC
 	dec c
-	jr nz, Function_51_7782
+	jr nz, Image_BlitStripShift3
 	ret
 
-Function_51_77D0:: ; 51:77D0
+Image_BlitStripShift4:: ; 51:77D0
 	ld a, [de]
 	and a, $0F
 	ld b, a
@@ -2718,10 +2724,10 @@ Label_51_7811:: ; 51:7811
 
 Label_51_7819:: ; 51:7819
 	dec c
-	jr nz, Function_51_77D0
+	jr nz, Image_BlitStripShift4
 	ret
 
-Function_51_781D:: ; 51:781D
+Image_BlitStripShift5:: ; 51:781D
 	ld a, [de]
 	and a, $07
 	ld b, a
@@ -2789,10 +2795,10 @@ Label_51_785F:: ; 51:785F
 
 Label_51_7867:: ; 51:7867
 	dec c
-	jr nz, Function_51_781D
+	jr nz, Image_BlitStripShift5
 	ret
 
-Function_51_786B:: ; 51:786B
+Image_BlitStripShift6:: ; 51:786B
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2858,10 +2864,10 @@ Label_51_78AB:: ; 51:78AB
 
 Label_51_78B3:: ; 51:78B3
 	dec c
-	jr nz, Function_51_786B
+	jr nz, Image_BlitStripShift6
 	ret
 
-Function_51_78B7:: ; 51:78B7
+Image_BlitStripShift7:: ; 51:78B7
 	ld a, [de]
 	ld b, a
 	inc de
@@ -2925,7 +2931,7 @@ Label_51_78F4:: ; 51:78F4
 
 Label_51_78FC:: ; 51:78FC
 	dec c
-	jr nz, Function_51_78B7
+	jr nz, Image_BlitStripShift7
 	ret
 
 ; ---- zero $7900-$8000 (1792 bytes) [PROBABLE] trailing 0x00 padding to end of bank

@@ -9,7 +9,8 @@ SECTION "Bank1D", ROMX[$4000], BANK[$1D]
 
 ; ---- code $4000-$41A0 (416 bytes) [CONFIRMED] 145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1D_4000:: ; 1D:4000
+MailMenu_Run:: ; 1D:4000
+Function_1D_4000::
 	call Function_00_044B
 	xor a, a
 	ld bc, $00FC
@@ -40,25 +41,25 @@ Label_1D_4023:: ; 1D:4023
 	ldh [rWY], a
 	farcall Function_00_09B6
 	ld de, $8000
-	ld hl, $4D20
+	ld hl, Gfx_MailMenu_Tiles0
 	ld a, $1D
 	ld b, $96
 	ld c, $19
 	farcall Function_00_0787
 	ld de, $8800
-	ld hl, $4EB0
+	ld hl, Gfx_MailMenu_Tiles1
 	ld a, $1D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $8C00
-	ld hl, $52B0
+	ld hl, Gfx_MailMenu_Tiles2
 	ld a, $1D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9000
-	ld hl, $56B0
+	ld hl, Gfx_MailMenu_Tiles3
 	ld a, $1D
 	ld b, $92
 	ld c, $40
@@ -70,19 +71,19 @@ Label_1D_4023:: ; 1D:4023
 	ld c, $40
 	farcall Function_00_0787
 	ld de, $9401
-	ld hl, $5E30
+	ld hl, Gfx_MailMenu_Tiles5
 	ld a, $1D
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
 	ld bc, $0040
 	ld de, $D800
-	ld hl, $6230
+	ld hl, Palette_MailMenu_Bg
 	ld a, $1D
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, $45C1
+	ld hl, Tilemap_MailMenu_Screen
 	ld a, $1D
 	farcall Function_00_08EA
 	ld hl, $DA10
@@ -97,12 +98,12 @@ Label_1D_4023:: ; 1D:4023
 	ld de, $D840
 	ld hl, $6270
 	ld a, $1D
-	farcall Function_4F_4000
+	farcall Palette_LoadToBuffer
 	ld a, $40
 	ld bc, $0220
 	ld de, $8000
 	ld hl, $D200
-	farcall Function_48_4679
+	farcall Tilemap_FillRectSequential
 	call Function_00_044B
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -128,22 +129,22 @@ Label_1D_4023:: ; 1D:4023
 	ldh a, [hScratchA]
 	ld a, $02
 	ld [wRam_C0E6], a
-	call Function_1D_42AF
+	call MailMenu_DrawItemNormal
 	ld a, $01
 	ld [wRam_C0E6], a
-	call Function_1D_4325
+	call MailMenu_DrawItemSelected
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall Function_00_0956
-	farcall Function_4F_42B4
+	farcall Palette_FadeInFromWhite
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
-	call z, Function_1D_421A
+	call z, MailMenu_GetLabelIndexA
 	ld b, a
-	ld hl, $43FA
+	ld hl, Data_MailMenu_StringIndexBank
 	ld a, $1D
-	farcall Function_48_42D4
+	farcall Ticker_Start
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -153,33 +154,34 @@ Label_1D_4023:: ; 1D:4023
 	pop af
 	ldh [rSVBK], a
 
-Label_1D_4188:: ; 1D:4188
+MailMenu_Loop:: ; 1D:4188
 	farcall Function_00_0956
 	call Function_00_044B
-	farcall Function_7D_7BA4
-	farcall Function_7D_7BC1
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41A0-$41AA (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 1D:419D: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
-Table_1D_41A0:: ; 1D:41A0
-	dw Label_1D_41BD
-	dw Label_1D_41EC
-	dw Label_1D_4217
-	dw Label_1D_4217
-	dw Label_1D_41AA
+Table_MailMenu_Buttons:: ; 1D:41A0
+Table_1D_41A0::
+	dw MailMenu_OnA
+	dw MailMenu_OnB
+	dw MailMenu_Ignore
+	dw MailMenu_Ignore
+	dw MailMenu_Idle
 
 ; ---- code $41AA-$423B (145 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios)
 
-Label_1D_41AA:: ; 1D:41AA
-	farcall Function_48_4223
+MailMenu_Idle:: ; 1D:41AA
+	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
-	call nz, Function_1D_4229
-	call Function_1D_439B
-	jp Label_1D_4188
+	call nz, MailMenu_HandleDpad
+	call MailMenu_AnimateIcon
+	jp MailMenu_Loop
 
-Label_1D_41BD:: ; 1D:41BD
+MailMenu_OnA:: ; 1D:41BD
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -188,17 +190,17 @@ Label_1D_41BD:: ; 1D:41BD
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld a, [wRam_C0E5]
 	ld b, a
 	ld a, $01
 	ld hl, $A8B8
-	farcall Function_48_4616
+	farcall WriteByteFar
 	ld a, [wRam_C0E5]
 	ret
 
-Label_1D_41EC:: ; 1D:41EC
+MailMenu_OnB:: ; 1D:41EC
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -207,19 +209,19 @@ Label_1D_41EC:: ; 1D:41EC
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	farcall Function_48_46C6
-	farcall Function_48_4460
+	farcall Palette_FadeOutWithTicker
+	farcall Ticker_Stop
 	ld b, $00
 	ld a, $01
 	ld hl, $A8B8
-	farcall Function_48_4616
+	farcall WriteByteFar
 	xor a, a
 	ret
 
-Label_1D_4217:: ; 1D:4217
-	jp Label_1D_4188
+MailMenu_Ignore:: ; 1D:4217
+	jp MailMenu_Loop
 
-Function_1D_421A:: ; 1D:421A
+MailMenu_GetLabelIndexA:: ; 1D:421A
 	ld a, $00
 	ld hl, $A000
 	call ReadByteFar
@@ -229,7 +231,7 @@ Function_1D_421A:: ; 1D:421A
 	ld a, $06
 	ret
 
-Function_1D_4229:: ; 1D:4229
+MailMenu_HandleDpad:: ; 1D:4229
 	bit 6, a
 	jr nz, Label_1D_4232
 	bit 7, a
@@ -249,13 +251,13 @@ Label_1D_4232:: ; 1D:4232
 
 Label_1D_423D:: ; 1D:423D
 	ld [wRam_C0E5], a
-	call Function_1D_42AF
-	call Function_1D_4325
+	call MailMenu_DrawItemNormal
+	call MailMenu_DrawItemSelected
 	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call Function_1D_439B
-	jr Label_1D_427A
+	call MailMenu_AnimateIcon
+	jr MailMenu_AfterMove
 
 Label_1D_4256:: ; 1D:4256
 	ld a, [wRam_C0E5]
@@ -271,14 +273,14 @@ Label_1D_4256:: ; 1D:4256
 
 Label_1D_4263:: ; 1D:4263
 	ld [wRam_C0E5], a
-	call Function_1D_42AF
-	call Function_1D_4325
+	call MailMenu_DrawItemNormal
+	call MailMenu_DrawItemSelected
 	farcall Function_00_0956
 	ldh a, [rLCDC]
 	call Function_00_082C
-	call Function_1D_439B
+	call MailMenu_AnimateIcon
 
-Label_1D_427A:: ; 1D:427A
+MailMenu_AfterMove:: ; 1D:427A
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -290,14 +292,14 @@ Label_1D_427A:: ; 1D:427A
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
-	call z, Function_1D_42A0
+	call z, MailMenu_GetLabelIndexB
 	ld b, a
-	ld hl, $43FA
+	ld hl, Data_MailMenu_StringIndexBank
 	ld a, $1D
-	farcall Function_48_42D4
+	farcall Ticker_Start
 	ret
 
-Function_1D_42A0:: ; 1D:42A0
+MailMenu_GetLabelIndexB:: ; 1D:42A0
 	ld a, $00
 	ld hl, $A000
 	call ReadByteFar
@@ -307,18 +309,18 @@ Function_1D_42A0:: ; 1D:42A0
 	ld a, $06
 	ret
 
-Function_1D_42AF:: ; 1D:42AF
+MailMenu_DrawItemNormal:: ; 1D:42AF
 	ld a, [wRam_C0E6]
 	dec a
 	cp a, $01
-	call z, Function_1D_42FE
+	call z, MailMenu_GetPlateIndexA
 	ld b, $03
 	ld c, a
 	and a, $01
 	xor a, $01
 	add a, b
 	ld b, a
-	ld hl, $430D
+	ld hl, Table_MailMenu_PlateBufferOffsets
 	ld a, c
 	sla a
 	add a, l
@@ -333,7 +335,7 @@ Function_1D_42AF:: ; 1D:42AF
 	add hl, de
 	ld d, h
 	ld e, l
-	ld hl, $431D
+	ld hl, Data_MailMenu_PlateOffsets
 	ld a, c
 	add a, l
 	ld l, a
@@ -358,7 +360,7 @@ Function_1D_42AF:: ; 1D:42AF
 	call Function_00_16A2
 	ret
 
-Function_1D_42FE:: ; 1D:42FE
+MailMenu_GetPlateIndexA:: ; 1D:42FE
 	ld a, $00
 	ld hl, $A000
 	call ReadByteFar
@@ -370,28 +372,31 @@ Function_1D_42FE:: ; 1D:42FE
 
 ; ---- words $430D-$431D (16 bytes) [PROBABLE] 8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$430D at 1D:42C1, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
 
-Table_1D_430D:: ; 1D:430D
+Table_MailMenu_PlateBufferOffsets:: ; 1D:430D
+Table_1D_430D::
 	dw $0009, $0069, $00A9, $0109, $0149, $01A9, $0000, $0069
 
 ; ---- data $431D-$4325 (8 bytes) [PROBABLE] byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$431D' at 1D:42D6 (executed reads)
 
-Data_1D_431D:: ; 1D:431D
+Data_MailMenu_PlateOffsets:: ; 1D:431D
+Data_1D_431D::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 ; ---- code $4325-$4383 (94 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1D_4325:: ; 1D:4325
+MailMenu_DrawItemSelected:: ; 1D:4325
+Function_1D_4325::
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
-	call z, Function_1D_4374
+	call z, MailMenu_GetPlateIndexB
 	ld b, $03
 	ld c, a
 	and a, $01
 	xor a, $01
 	add a, b
 	ld b, a
-	ld hl, $4383
+	ld hl, Table_MailMenu_SelectedBufferOffsets
 	ld a, c
 	sla a
 	add a, l
@@ -406,7 +411,7 @@ Function_1D_4325:: ; 1D:4325
 	add hl, de
 	ld d, h
 	ld e, l
-	ld hl, $4393
+	ld hl, Data_MailMenu_SelectedPlateOffsets
 	ld a, c
 	add a, l
 	ld l, a
@@ -431,7 +436,7 @@ Function_1D_4325:: ; 1D:4325
 	call Function_00_16A2
 	ret
 
-Function_1D_4374:: ; 1D:4374
+MailMenu_GetPlateIndexB:: ; 1D:4374
 	ld a, $00
 	ld hl, $A000
 	call ReadByteFar
@@ -443,17 +448,20 @@ Function_1D_4374:: ; 1D:4374
 
 ; ---- words $4383-$4393 (16 bytes) [PROBABLE] 8 words: first 6 = WRAM tile-buffer offsets ($09,$69,$A9,$109,$149,$1A9 = row*32+9 for rows 0,3,5,8,10,13) that the code adds to $D000 (ld hl,$4383 at 1D:4337, index*2, ld hl,[hl]); words 7-8 ($0000,$0069) not exercised; the never-read gap bytes are folded in
 
-Table_1D_4383:: ; 1D:4383
+Table_MailMenu_SelectedBufferOffsets:: ; 1D:4383
+Table_1D_4383::
 	dw $0009, $0069, $00A9, $0109, $0149, $01A9, $0000, $0069
 
 ; ---- data $4393-$439B (8 bytes) [PROBABLE] byte table indexed by c (00 28 46 6e 8c b4 00 d2), read via 'ld hl,$4393' at 1D:434C (executed reads)
 
-Data_1D_4393:: ; 1D:4393
+Data_MailMenu_SelectedPlateOffsets:: ; 1D:4393
+Data_1D_4393::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
 ; ---- code $439B-$43FA (95 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
 
-Function_1D_439B:: ; 1D:439B
+MailMenu_AnimateIcon:: ; 1D:439B
+Function_1D_439B::
 	ld hl, $C0E7
 	dec [hl]
 	ret nz
@@ -468,7 +476,7 @@ Function_1D_439B:: ; 1D:439B
 	ld [wRam_C10F], a
 	ld bc, $0608
 	ld de, $D0C1
-	ld hl, $4C51
+	ld hl, Tilemap_MailMenu_IconFrames
 	ld a, $1D
 	farcall Function_00_16A2
 	farcall Function_00_0956
@@ -493,13 +501,15 @@ Label_1D_43D3:: ; 1D:43D3
 
 ; ---- data $43FA-$43FB (1 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 43FA-4945 by higher-priority evidence]
 
-Data_1D_43FA:: ; 1D:43FA
+Data_MailMenu_StringIndexBank:: ; 1D:43FA
+Data_1D_43FA::
 	db $1D
 
 ; ---- ptrtable $43FB-$4413 (24 bytes) [PROBABLE] little-endian word table, 14 entries, monotone=1.00, 93% of targets on string start/after NUL, targets $4417..$4592 [clipped from 43FB-4417 by higher-priority proposals]
 
-Table_1D_43FB:: ; 1D:43FB
-	dw $4417
+Table_MailMenu_Strings:: ; 1D:43FB
+Table_1D_43FB::
+	dw String_MailMenu_Items
 	dw $4428
 	dw $4467
 	dw $4474
@@ -514,38 +524,36 @@ Table_1D_43FB:: ; 1D:43FB
 
 ; ---- text $4413-$45C1 (430 bytes) [PROBABLE] text: 14 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_1D_4413:: ; 1D:4413
-	db $81, $45, $92, $45, $82, $A8, $82, $AD, $82, $E9, $81, $5E, $82, $A4, $82, $AF
-	db $82, $C6, $82, $E9, $00, $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83
-	db $62, $83, $67, $82, $F0, $82, $C2, $82, $A9, $82, $C1, $82, $C4, $81, $40, $83
-	db $81, $81, $5B, $83, $8B, $82, $CC, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82
-	db $C6, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $AA, $82, $C5, $82, $AB, $82
-	db $DC, $82, $B7, $00, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AD
-	db $00, $82, $A0, $82, $BD, $82, $E7, $82, $B5, $82, $AD, $81, $40, $83, $81, $81
-	db $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AB, $82, $DC, $82, $B7, $00, $83, $81
-	db $81, $5B, $83, $8B, $83, $7B, $83, $62, $83, $4E, $83, $58, $00, $82, $E0, $82
-	db $E7, $82, $C1, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82
-	db $DD, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82
-	db $B7, $00, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4
-	db $00, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $82
-	db $C9, $81, $40, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82
-	db $A9, $82, $AB, $82, $B1, $82, $DD, $82, $DC, $82, $B7, $00, $83, $76, $83, $8D
-	db $83, $74, $83, $42, $81, $5B, $83, $8B, $00, $82, $B6, $82, $D4, $82, $F1, $82
-	db $CC, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $82, $DD, $82, $BD, $82
-	db $E8, $81, $40, $83, $6A, $83, $62, $83, $4E, $83, $6C, $81, $5B, $83, $80, $82
-	db $F0, $82, $A9, $82, $A6, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82
-	db $AB, $82, $DC, $82, $B7, $00, $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B
-	db $83, $6F, $00, $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82
-	db $C9, $82, $A0, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82
-	db $B9, $82, $A2, $82, $E8, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00, $83, $81
-	db $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AD, $82, $C9, $82, $F1, $00, $82
-	db $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82
-	db $A9, $82, $AD, $82, $C9, $82, $F1, $82, $C6, $82, $B5, $82, $E3, $82, $A4, $82
-	db $B9, $82, $A2, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00
+Table_MailMenu_StringsTail:: ; 1D:4413
+String_1D_4413::
+	db $81, $45, $92, $45 ; "・脱"
+
+String_MailMenu_Items:: ; 1D:4417
+	db $82, $A8, $82, $AD, $82, $E9, $81, $5E, $82, $A4, $82, $AF, $82, $C6, $82, $E9, $00 ; "おくる／うけとる"
+	db $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $82, $F0, $82, $C2, $82, $A9, $82, $C1, $82, $C4, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CC ; "インターネットをつかって　メールの"
+	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $C6, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "そうしんとじゅしんができます"
+	db $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AD, $00 ; "メールをかく"
+	db $82, $A0, $82, $BD, $82, $E7, $82, $B5, $82, $AD, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AB, $82, $DC, $82, $B7, $00 ; "あたらしく　メールをかきます"
+	db $83, $81, $81, $5B, $83, $8B, $83, $7B, $83, $62, $83, $4E, $83, $58, $00 ; "メールボックス"
+	db $82, $E0, $82, $E7, $82, $C1, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $DD, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC ; "もらったメールを　みることができま"
+	db $82, $B7, $00 ; "す"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00 ; "アドレスちょう"
+	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $82, $C9, $81, $40, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82, $A9, $82, $AB ; "アドレスちょうに　アドレスを　かき"
+	db $82, $B1, $82, $DD, $82, $DC, $82, $B7, $00 ; "こみます"
+	db $83, $76, $83, $8D, $83, $74, $83, $42, $81, $5B, $83, $8B, $00 ; "プロフィール"
+	db $82, $B6, $82, $D4, $82, $F1, $82, $CC, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $82, $DD, $82, $BD, $82, $E8, $81, $40, $83, $6A, $83, $62, $83, $4E, $83, $6C ; "じぶんのアドレスをみたり　ニックネ"
+	db $81, $5B, $83, $80, $82, $F0, $82, $A9, $82, $A6, $82, $E9, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "ームをかえることができます"
+	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $00 ; "メールサーバ"
+	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $B9, $82, $A2, $82, $E8 ; "メールサーバにあるメールを　せいり"
+	db $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "できます"
+	db $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A9, $82, $AD, $82, $C9, $82, $F1, $00 ; "メールをかくにん"
+	db $82, $A9, $82, $A2, $82, $BD, $83, $81, $81, $5B, $83, $8B, $82, $CC, $81, $40, $82, $A9, $82, $AD, $82, $C9, $82, $F1, $82, $C6, $82, $B5, $82, $E3, $82, $A4, $82, $B9 ; "かいたメールの　かくにんとしゅうせ"
+	db $82, $A2, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $00 ; "いができます"
 
 ; ---- data $45C1-$4891 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 1D:40CC: hl=$45C1 a=$1D b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_1D_45C1:: ; 1D:45C1
+Tilemap_MailMenu_Screen:: ; 1D:45C1
+Data_1D_45C1::
 	db $08, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $18, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $1B, $40, $41
 	db $42, $43, $44, $45, $46, $47, $1B, $1B, $00, $01, $02, $03, $04, $05, $06, $07
@@ -594,7 +602,8 @@ Data_1D_45C1:: ; 1D:45C1
 
 ; ---- data $4891-$4981 (240 bytes) [PROBABLE] 10 columns x 24 rows tile-id map (tiles half of a 240+240 byte pair). base $4891 is base loaded by 'ld hl,$4891' at 1D:42E1 (then + index, ld c,$0A); executed reads in mail_*/monkey traces walk it in 10-byte rows (e.g. 4963-49C7). Attribute half follows at 4981. Covers the former unresolved span 4945-4963 (3 map rows).
 
-Tilemap_1D_4891:: ; 1D:4891
+Tilemap_MailMenu_PlatesNormal:: ; 1D:4891
+Tilemap_1D_4891::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $1B, $40, $41, $42, $43, $44
 	db $45, $46, $47, $1B, $1B, $50, $51, $52, $53, $54, $55, $56, $57, $1B, $1B, $35
 	db $36, $36, $36, $36, $36, $36, $35, $1B, $1B, $35, $36, $36, $36, $36, $36, $36
@@ -613,7 +622,8 @@ Tilemap_1D_4891:: ; 1D:4891
 
 ; ---- data $4981-$4A71 (240 bytes) [PROBABLE] attribute half (10x24) paired with Tilemap_1D_4891: values 01/02/09/29 (CGB BG attributes: palette 1/2/1, xflip 0x20); executed reads begin exactly at 4981 in mail_/monkey traces
 
-Attrmap_1D_4981:: ; 1D:4981
+Attrmap_MailMenu_PlatesNormal:: ; 1D:4981
+Attrmap_1D_4981::
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $09, $09, $29, $09, $09, $09, $09, $09, $09, $09, $09, $09
@@ -632,7 +642,8 @@ Attrmap_1D_4981:: ; 1D:4981
 
 ; ---- data $4A71-$4B61 (240 bytes) [PROBABLE] 10x24 tile-id map (frame border 36 37.. 36 in first row); base loaded by 'ld hl,$4A71' at 1D:4357 (+ index, ld c,$0A); executed reads in 10-byte rows from 4A71. the former unresolved span 4A35-4A53 belongs to the preceding attr map, see Attrmap_1D_4981
 
-Tilemap_1D_4A71:: ; 1D:4A71
+Tilemap_MailMenu_PlatesSelected:: ; 1D:4A71
+Tilemap_1D_4A71::
 	db $36, $37, $37, $37, $37, $37, $37, $37, $37, $36, $31, $80, $81, $82, $83, $84
 	db $85, $86, $87, $31, $32, $90, $91, $92, $93, $94, $95, $96, $97, $32, $33, $1E
 	db $1D, $1D, $1D, $1D, $1D, $1D, $1E, $33, $0A, $AF, $AA, $AB, $AC, $F2, $AD, $AE
@@ -651,7 +662,8 @@ Tilemap_1D_4A71:: ; 1D:4A71
 
 ; ---- data $4B61-$4C51 (240 bytes) [PROBABLE] attribute half (10x24) paired with Tilemap_1D_4A71; executed reads begin at 4B61
 
-Attrmap_1D_4B61:: ; 1D:4B61
+Attrmap_MailMenu_PlatesSelected:: ; 1D:4B61
+Attrmap_1D_4B61::
 	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $21, $09, $02, $02, $02, $02, $02
 	db $02, $02, $02, $29, $09, $02, $02, $02, $02, $02, $02, $02, $02, $29, $09, $29
 	db $09, $09, $09, $09, $09, $09, $09, $29, $09, $01, $01, $01, $01, $01, $01, $01
@@ -670,7 +682,8 @@ Attrmap_1D_4B61:: ; 1D:4B61
 
 ; ---- data $4C51-$4CB1 (96 bytes) [PROBABLE] tile-id map half of a 96+96 byte pair loaded at 1D:43BC 'ld hl,$4C51' (with 'ld bc,$0608 ; ld de,$D0C1') then Function_00_16A2 (far); executed reads at 4C51-4D11 and second halves 4C81-4CB1 / 4CE1-4D11 (48 bytes each)
 
-Tilemap_1D_4C51:: ; 1D:4C51
+Tilemap_MailMenu_IconFrames:: ; 1D:4C51
+Tilemap_1D_4C51::
 	db $C1, $1B, $C2, $D5, $D6, $D7, $1B, $1B, $C3, $C4, $C5, $D8, $D9, $DA, $DB, $DC
 	db $C6, $C7, $C8, $DD, $DE, $DF, $DF, $E0, $C9, $CA, $CB, $D2, $D3, $D4, $DF, $E0
 	db $1B, $1B, $F0, $F1, $E8, $E9, $DF, $E0, $1B, $1B, $E7, $E8, $E9, $EC, $EC, $ED
@@ -680,7 +693,8 @@ Tilemap_1D_4C51:: ; 1D:4C51
 
 ; ---- data $4CB1-$4D11 (96 bytes) [PROBABLE] attribute half (values 01/03/09) paired with Tilemap_1D_4C51; ends exactly at padding 4D11
 
-Attrmap_1D_4CB1:: ; 1D:4CB1
+Attrmap_MailMenu_IconFrames:: ; 1D:4CB1
+Attrmap_1D_4CB1::
 	db $03, $09, $03, $01, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01, $01, $01
 	db $03, $03, $03, $01, $01, $01, $01, $01, $03, $03, $03, $03, $03, $03, $01, $01
 	db $09, $09, $03, $03, $03, $03, $01, $01, $09, $09, $03, $03, $03, $01, $01, $01
@@ -693,7 +707,8 @@ Attrmap_1D_4CB1:: ; 1D:4CB1
 
 ; ---- gfx $4D20-$4EB0 (400 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4050: hl=$4D20 a=$1D c=$19 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_1D_4D20:: ; 1D:4D20
+Gfx_MailMenu_Tiles0:: ; 1D:4D20
+Data_1D_4D20::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $01, $01, $03
 	db $00, $01, $01, $07, $07, $1F, $19, $3F, $21, $7F, $4F, $F2, $8F, $FC, $3F, $C3
 	db $00, $C0, $C0, $E0, $E0, $30, $E0, $30, $E0, $F0, $C0, $60, $80, $C0, $00, $80
@@ -722,7 +737,8 @@ Data_1D_4D20:: ; 1D:4D20
 
 ; ---- gfx $4EB0-$52B0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4062: hl=$4EB0 a=$1D c=$40 de=$8800 (dest VRAM $8800, vbank=0)
 
-Data_1D_4EB0:: ; 1D:4EB0
+Gfx_MailMenu_Tiles1:: ; 1D:4EB0
+Data_1D_4EB0::
 	db $FF, $00, $00, $00, $FF, $FF, $F7, $E6, $7D, $80, $11, $80, $10, $E6, $3E, $C0
 	db $FF, $00, $00, $00, $FF, $FF, $7E, $78, $0C, $70, $18, $63, $30, $47, $30, $C7
 	db $FF, $00, $00, $00, $FF, $FF, $FF, $C0, $02, $C0, $1C, $E1, $22, $C0, $59, $84
@@ -790,7 +806,8 @@ Data_1D_4EB0:: ; 1D:4EB0
 
 ; ---- gfx $52B0-$56B0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4074: hl=$52B0 a=$1D c=$40 de=$8C00 (dest VRAM $8C00, vbank=0)
 
-Data_1D_52B0:: ; 1D:52B0
+Gfx_MailMenu_Tiles2:: ; 1D:52B0
+Data_1D_52B0::
 	db $FF, $00, $00, $00, $FF, $FF, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F3, $FF, $F5, $FB
 	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FF, $FC, $FE
@@ -858,7 +875,8 @@ Data_1D_52B0:: ; 1D:52B0
 
 ; ---- gfx $56B0-$5AB0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4086: hl=$56B0 a=$1D c=$40 de=$9000 (dest VRAM $9000, vbank=0)
 
-Data_1D_56B0:: ; 1D:56B0
+Gfx_MailMenu_Tiles3:: ; 1D:56B0
+Data_1D_56B0::
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $00, $FF, $00, $FF, $00, $FF, $00, $FF
 	db $00, $FF, $FF, $00, $00, $00, $00, $FF, $10, $E0, $17, $CF, $17, $B8, $68, $B0
 	db $FC, $01, $48, $93, $F0, $07, $28, $03, $48, $93, $40, $93, $3C, $81, $00, $C1
@@ -926,7 +944,8 @@ Data_1D_56B0:: ; 1D:56B0
 
 ; ---- gfx $5AB0-$5E30 (896 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:4098: hl=$5A30 a=$1D c=$40 de=$9001 (dest VRAM $9000, vbank=1) [clipped from 5A30-5E30 by higher-priority evidence]
 
-Data_1D_5AB0:: ; 1D:5AB0
+Gfx_MailMenu_Tiles4:: ; 1D:5AB0
+Data_1D_5AB0::
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $02, $FC
 	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $00
 	db $FF, $FF, $FA, $FC, $F9, $F3, $E6, $E7, $E9, $CE, $8A, $DC, $D5, $98, $BA, $91
@@ -986,7 +1005,8 @@ Data_1D_5AB0:: ; 1D:5AB0
 
 ; ---- gfx $5E30-$6230 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 1D:40AA: hl=$5E30 a=$1D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_1D_5E30:: ; 1D:5E30
+Gfx_MailMenu_Tiles5:: ; 1D:5E30
+Data_1D_5E30::
 	db $F0, $E0, $DF, $CF, $97, $B8, $E8, $30, $33, $67, $37, $64, $34, $64, $33, $66
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $6E, $F1, $D5, $1B, $AB, $0E, $D6, $04
 	db $00, $00, $FF, $FF, $FF, $00, $00, $00, $DF, $FF, $BE, $20, $6C, $60, $F2, $E0
@@ -1054,7 +1074,8 @@ Data_1D_5E30:: ; 1D:5E30
 
 ; ---- data $6230-$6238 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
 
-Data_1D_6230:: ; 1D:6230
+Palette_MailMenu_Bg:: ; 1D:6230
+Data_1D_6230::
 	db $00, $00, $00, $00, $00, $00, $9F, $02
 
 ; ---- data $6238-$6250 (24 bytes) [PROBABLE] palette-rgb555: heuristic: 12 RGB555 words as 3 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
@@ -1072,7 +1093,10 @@ Data_1D_6250:: ; 1D:6250
 
 Data_1D_6258:: ; 1D:6258
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $11, $3A, $3F, $53, $00, $00
+	db $00, $00, $4A, $29, $B5, $56, $FF, $7F
+
+Palette_MailMenu_Obj:: ; 1D:6270
+	db $00, $00, $11, $3A, $3F, $53, $00, $00
 
 ; ---- data $6278-$6280 (8 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
 
@@ -1100,7 +1124,8 @@ Data_1D_62AC:: ; 1D:62AC
 
 ; ---- data $6320-$63BA (154 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 4D20-63BA by higher-priority evidence]
 
-Data_1D_6320:: ; 1D:6320
+Data_MailMenu_ObjectRecords:: ; 1D:6320
+Data_1D_6320::
 	db $11, $00, $F8, $20, $12, $00, $06, $F2, $14, $03, $00, $F2, $1C, $04, $00, $F2
 	db $24, $05, $00, $FA, $14, $13, $00, $FA, $1C, $14, $00, $FA, $24, $15, $00, $06
 	db $F0, $18, $06, $00, $F0, $20, $07, $00, $F0, $28, $08, $00, $F8, $18, $16, $00
@@ -1110,7 +1135,10 @@ Data_1D_6320:: ; 1D:6320
 	db $13, $00, $F8, $28, $14, $00, $F8, $30, $15, $00, $06, $F2, $24, $06, $00, $F2
 	db $2C, $07, $00, $F2, $34, $08, $00, $FA, $24, $16, $00, $FA, $2C, $17, $00, $FA
 	db $34, $18, $00, $09, $00, $08, $01, $08, $02, $08, $03, $08, $04, $08, $05, $08
-	db $06, $08, $07, $08, $08, $08, $B0, $62, $A3, $63
+	db $06, $08, $07, $08, $08, $08
+
+Table_MailMenu_Objects:: ; 1D:63B6
+	db $B0, $62, $A3, $63
 
 ; ---- zero $63BA-$8000 (7238 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $1C46, $00

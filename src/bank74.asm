@@ -9,20 +9,23 @@ SECTION "Bank74", ROMX[$4000], BANK[$74]
 
 ; ---- ptrtable $4000-$4006 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4006, $400A. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4000:: ; 74:4000
-	dw Data_74_4006
+Html_ResultCodePtrs:: ; 74:4000
+Table_74_4000::
+	dw Html_ResultCodeNames
 	dw $400A
 	dw $0000
 
 ; ---- data $4006-$400E (8 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4006 "ng" -> $01; $400A "ok" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4006:: ; 74:4006
+Html_ResultCodeNames:: ; 74:4006
+Data_74_4006::
 	db $6E, $67, $00, $01, $6F, $6B, $00, $02
 
 ; ---- ptrtable $400E-$401A (12 bytes) [PROBABLE] pointer list (5 entries + $0000 terminator): $401A, $401E, $4022, $4027, $402D. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_400E:: ; 74:400E
-	dw Data_74_401A
+Html_EntityPtrs:: ; 74:400E
+Table_74_400E::
+	dw Html_EntityNames
 	dw $401E
 	dw $4022
 	dw $4027
@@ -31,107 +34,124 @@ Table_74_400E:: ; 74:400E
 
 ; ---- data $401A-$4033 (25 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $401A "lt" -> $3C; $401E "gt" -> $3E; $4022 "amp" -> $26; $4027 "quot" -> $22; $402D "nbsp" -> $20. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_401A:: ; 74:401A
+Html_EntityNames:: ; 74:401A
+Data_74_401A::
 	db $6C, $74, $00, $3C, $67, $74, $00, $3E, $61, $6D, $70, $00, $26, $71, $75, $6F
 	db $74, $00, $22, $6E, $62, $73, $70, $00, $20
 
 ; ---- ptrtable $4033-$403B (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $403B, $4043, $404B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4033:: ; 74:4033
-	dw Data_74_403B
+Html_MetaAttrPtrs:: ; 74:4033
+Table_74_4033::
+	dw Html_MetaAttrNames
 	dw $4043
 	dw $404B
 	dw $0000
 
 ; ---- data $403B-$4053 (24 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $403B "ppp_id" -> $01; $4043 "r_code" -> $02; $404B "d_code" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_403B:: ; 74:403B
+Html_MetaAttrNames:: ; 74:403B
+Data_74_403B::
 	db $70, $70, $70, $5F, $69, $64, $00, $01, $72, $5F, $63, $6F, $64, $65, $00, $02
 	db $64, $5F, $63, $6F, $64, $65, $00, $03
 
 ; ---- ptrtable $4053-$4057 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4118. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4053:: ; 74:4053
+Html_TitleTagPtrs:: ; 74:4053
+Table_74_4053::
 	dw $4118
 	dw $0000
 
 ; ---- ptrtable $4057-$405B (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $405B. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4057:: ; 74:4057
-	dw Data_74_405B
+Html_BrAttrPtrs:: ; 74:4057
+Table_74_4057::
+	dw Html_BrAttrNames
 	dw $0000
 
 ; ---- data $405B-$4062 (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $405B "clear" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_405B:: ; 74:405B
+Html_BrAttrNames:: ; 74:405B
+Data_74_405B::
 	db $63, $6C, $65, $61, $72, $00, $01
 
 ; ---- ptrtable $4062-$4066 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4066. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4062:: ; 74:4062
-	dw Data_74_4066
+Html_HrAttrPtrs:: ; 74:4062
+Table_74_4062::
+	dw Html_HrAttrNames
 	dw $0000
 
 ; ---- data $4066-$406D (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4066 "width" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4066:: ; 74:4066
+Html_HrAttrNames:: ; 74:4066
+Data_74_4066::
 	db $77, $69, $64, $74, $68, $00, $01
 
 ; ---- ptrtable $406D-$4071 (4 bytes) [PROBABLE] pointer list (1 entries + $0000 terminator): $4071. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_406D:: ; 74:406D
-	dw Data_74_4071
+Html_AlignAttrPtrs:: ; 74:406D
+Table_74_406D::
+	dw Html_AlignAttrNames
 	dw $0000
 
 ; ---- data $4071-$4078 (7 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4071 "align" -> $01. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4071:: ; 74:4071
+Html_AlignAttrNames:: ; 74:4071
+Data_74_4071::
 	db $61, $6C, $69, $67, $6E, $00, $01
 
 ; ---- ptrtable $4078-$407E (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $407E, $4084. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_4078:: ; 74:4078
-	dw Data_74_407E
+Html_AnchorAttrPtrs:: ; 74:4078
+Table_74_4078::
+	dw Html_AnchorAttrNames
 	dw $4084
 	dw $0000
 
 ; ---- data $407E-$408A (12 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $407E "href" -> $01; $4084 "name" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_407E:: ; 74:407E
+Html_AnchorAttrNames:: ; 74:407E
+Data_74_407E::
 	db $68, $72, $65, $66, $00, $01, $6E, $61, $6D, $65, $00, $02
 
 ; ---- ptrtable $408A-$4090 (6 bytes) [PROBABLE] pointer list (2 entries + $0000 terminator): $4090, $4095. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_408A:: ; 74:408A
-	dw Data_74_4090
+Html_ImgAttrPtrs:: ; 74:408A
+Table_74_408A::
+	dw Html_ImgAttrNames
 	dw $4095
 	dw $0000
 
 ; ---- data $4090-$409C (12 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4090 "src" -> $01; $4095 "align" -> $02. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4090:: ; 74:4090
+Html_ImgAttrNames:: ; 74:4090
+Data_74_4090::
 	db $73, $72, $63, $00, $01, $61, $6C, $69, $67, $6E, $00, $02
 
 ; ---- ptrtable $409C-$40A4 (8 bytes) [PROBABLE] pointer list (3 entries + $0000 terminator): $40A4, $40AA, $40B1. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_409C:: ; 74:409C
-	dw Data_74_40A4
+Html_ClearValuePtrs:: ; 74:409C
+Table_74_409C::
+	dw Html_ClearValueNames
 	dw $40AA
 	dw $40B1
 	dw $0000
 
 ; ---- data $40A4-$40B6 (18 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $40A4 "left" -> $01; $40AA "right" -> $02; $40B1 "all" -> $03. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_40A4:: ; 74:40A4
+Html_ClearValueNames:: ; 74:40A4
+Data_74_40A4::
 	db $6C, $65, $66, $74, $00, $01, $72, $69, $67, $68, $74, $00, $02, $61, $6C, $6C
 	db $00, $03
 
 ; ---- ptrtable $40B6-$40C4 (14 bytes) [PROBABLE] pointer list (6 entries + $0000 terminator): $40D0, $40E0, $40C4, $40E6, $40CB, $40D8. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_40B6:: ; 74:40B6
+Html_AlignValuePtrs:: ; 74:40B6
+Table_74_40B6::
 	dw $40D0
 	dw $40E0
-	dw Data_74_40C4
+	dw Html_AlignValueNames
 	dw $40E6
 	dw $40CB
 	dw $40D8
@@ -139,14 +159,16 @@ Table_74_40B6:: ; 74:40B6
 
 ; ---- data $40C4-$40EE (42 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $40C4 "right" -> $04; $40CB "top" -> $10; $40D0 "center" -> $08; $40D8 "middle" -> $20; $40E0 "left" -> $0C; $40E6 "bottom" -> $30. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_40C4:: ; 74:40C4
+Html_AlignValueNames:: ; 74:40C4
+Data_74_40C4::
 	db $72, $69, $67, $68, $74, $00, $04, $74, $6F, $70, $00, $10, $63, $65, $6E, $74
 	db $65, $72, $00, $08, $6D, $69, $64, $64, $6C, $65, $00, $20, $6C, $65, $66, $74
 	db $00, $0C, $62, $6F, $74, $74, $6F, $6D, $00, $30
 
 ; ---- ptrtable $40EE-$4112 (36 bytes) [PROBABLE] pointer list (17 entries + $0000 terminator): $4157, $4138, $4145, $4140, $413C, $412B, $4133, $414B, $414F, $4153, $4148, $415A, $4160, $4125, $411F, $4118, $4112. Followed by the NUL-terminated name items it points at (or, for a lone pointer, an item elsewhere). Part of the HTML tag/attribute lookup tables of the home-page renderer (bank 74, homepage/monkey traces read these bytes as data); format decoded by hand: every target is an item start and the items tile the area exactly up to the code at 74:4165
 
-Table_74_40EE:: ; 74:40EE
+Html_TagPtrs:: ; 74:40EE
+Table_74_40EE::
 	dw $4157
 	dw $4138
 	dw $4145
@@ -163,12 +185,15 @@ Table_74_40EE:: ; 74:40EE
 	dw $4125
 	dw $411F
 	dw $4118
-	dw Data_74_4112
+	dw Html_TagNames
+
+Html_NoKeywords:: ; 74:4110
 	dw $0000
 
 ; ---- data $4112-$4165 (83 bytes) [PROBABLE] items [ASCII name][NUL][value byte]: $4112 "html" -> $01; $4118 "title" -> $02; $411F "head" -> $03; $4125 "body" -> $04; $412B "center" -> $05; $4133 "div" -> $06; $4138 "br" -> $07; $413C "hr" -> $08; $4140 "img" -> $09; $4145 "a" -> $0A; $4148 "b" -> $0B; $414B "ul" -> $0C; $414F "ol" -> $0D; $4153 "li" -> $0E; $4157 "!" -> $0F; $415A "meta" -> $10; $4160 "pre" -> $11. (Value byte follows the name: e.g. tags html=1..pre=$11, entities lt->'<', gt->'>', amp->'&', quot->'"', nbsp->' '). Pointer list precedes it.
 
-Data_74_4112:: ; 74:4112
+Html_TagNames:: ; 74:4112
+Data_74_4112::
 	db $68, $74, $6D, $6C, $00, $01, $74, $69, $74, $6C, $65, $00, $02, $68, $65, $61
 	db $64, $00, $03, $62, $6F, $64, $79, $00, $04, $63, $65, $6E, $74, $65, $72, $00
 	db $05, $64, $69, $76, $00, $06, $62, $72, $00, $07, $68, $72, $00, $08, $69, $6D
@@ -178,12 +203,13 @@ Data_74_4112:: ; 74:4112
 
 ; ---- code $4165-$417F (26 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_4165:: ; 74:4165
+Html_MetaResultToError:: ; 74:4165
+Function_74_4165::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D340
-	ld bc, $4000
+	ld bc, Html_ResultCodePtrs
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -202,22 +228,22 @@ Function_74_4165:: ; 74:4165
 	ldh [hRam_FFB2], a
 	ldh [hRam_FFB3], a
 
-Label_74_4190:: ; 74:4190
+Html_MetaResultToError_HexLoop:: ; 74:4190
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_41F2
 	cp a, $30
-	jr c, Label_74_4190
+	jr c, Html_MetaResultToError_HexLoop
 	cp a, $3A
 	jr c, Label_74_41B5
 	cp a, $41
-	jr c, Label_74_4190
+	jr c, Html_MetaResultToError_HexLoop
 	cp a, $47
 	jr c, Label_74_41B1
 	cp a, $61
-	jr c, Label_74_4190
+	jr c, Html_MetaResultToError_HexLoop
 	cp a, $67
-	jr nc, Label_74_4190
+	jr nc, Html_MetaResultToError_HexLoop
 	sub a, $61
 	jr Label_74_41B7
 
@@ -263,7 +289,7 @@ Label_74_41B7:: ; 74:41B7
 	and a, $F0
 	or a, c
 	ldh [hRam_FFB3], a
-	jp Label_74_4190
+	jp Html_MetaResultToError_HexLoop
 
 ; ---- code $41EF-$41F2 (3 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 
@@ -286,13 +312,14 @@ Label_74_41F2:: ; 74:41F2
 
 ; ---- code $4207-$4326 (287 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_4207:: ; 74:4207
+Html_ParsePage:: ; 74:4207
+Function_74_4207::
 	ld bc, $0000
 	ld de, $0000
-	farcall Function_4E_5423
+	farcall Browser_SetScroll
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	xor a, a
 	ld [wRam_C335], a
 	ld a, $00
@@ -309,18 +336,18 @@ Function_74_4207:: ; 74:4207
 	ldh [hTextX], a
 	ld hl, $B000
 	ld a, $03
-	farcall Function_74_4296
-	farcall Function_74_537D
-	farcall Function_74_4165
+	farcall Html_ParseSource
+	farcall Html_LoadPageImages
+	farcall Html_MetaResultToError
 	ret
 
-Function_74_4254:: ; 74:4254
+Html_ScanPage:: ; 74:4254
 	ld bc, $0000
 	ld de, $0000
-	farcall Function_4E_5423
+	farcall Browser_SetScroll
 	ld bc, $0090
 	ld de, $0060
-	farcall Function_4E_5435
+	farcall Browser_SetViewport
 	ld a, $FF
 	ld [wRam_C335], a
 	ld a, $00
@@ -337,10 +364,10 @@ Function_74_4254:: ; 74:4254
 	ldh [hTextX], a
 	ld hl, $B000
 	ld a, $03
-	farcall Function_74_4296
+	farcall Html_ParseSource
 	ret
 
-Function_74_4296:: ; 74:4296
+Html_ParseSource:: ; 74:4296
 	ldh [hRam_FFB5], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -378,30 +405,30 @@ Function_74_4296:: ; 74:4296
 	xor a, a
 	call FillBytes
 	call Function_00_0392
-	farcall Function_74_4F4F
-	farcall Function_74_5A96
-	farcall Function_74_53E3
+	farcall Html_InitParser
+	farcall Html_LinkTable_Init
+	farcall Html_Layout_Init
 	pop hl
 	push de
 	ldh a, [hRam_FFB5]
-	farcall Function_74_5B4F
+	farcall Html_NextResourceRecord
 	pop de
 	ldh a, [hTextX]
 	call BankSwitch_D
 	ld a, $20
 	ldh [hRam_FFB3], a
 
-Label_74_4307:: ; 74:4307
+Html_ParseSource_Loop:: ; 74:4307
 	call Function_00_0392
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $21
 	jr c, Label_74_4359
 	cp a, $3C
-	jp z, Label_74_4406
+	jp z, Html_ParseSource_Tag
 	cp a, $26
-	jr z, Label_74_4392
+	jr z, Html_ParseSource_Entity
 	ldh [hRam_FFB3], a
 	cp a, $81
 	jr c, Label_74_4336
@@ -431,14 +458,14 @@ Label_74_4337:: ; 74:4337
 	cp a, d
 	dec de
 	dec de
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	ldh a, [hRam_FFB3]
 	ld [de], a
 	inc de
 	ld a, [hli]
 	ld [de], a
 	inc de
-	jr Label_74_4307
+	jr Html_ParseSource_Loop
 
 ; ---- code $434C-$4359 (13 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 74:4337 (executed) [executed in 4 scenarios]
 
@@ -447,11 +474,11 @@ Label_74_434C:: ; 74:434C
 	ld a, $E0
 	cp a, d
 	dec de
-	jr z, Label_74_43C4
+	jr z, Html_ParseSource_End
 	ldh a, [hRam_FFB3]
 	ld [de], a
 	inc de
-	jr Label_74_4307
+	jr Html_ParseSource_Loop
 
 ; ---- code $4359-$4361 (8 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 
@@ -464,7 +491,7 @@ Label_74_4359:: ; 74:4359
 ; ---- code $4361-$4374 (19 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 74:435F (executed) [executed in 1 scenarios]
 	ld a, c
 	cp a, $0D
-	jp z, Label_74_4C6B
+	jp z, Html_ParseSource_PreCR
 	cp a, $0A
 	jp z, Label_74_4C71
 	cp a, $09
@@ -477,13 +504,13 @@ Label_74_4359:: ; 74:4359
 Label_74_4374:: ; 74:4374
 	ld a, [hli]
 	or a, a
-	jr z, Label_74_43C4
+	jr z, Html_ParseSource_End
 	cp a, $21
 	jr c, Label_74_4374
 	dec hl
 	ldh a, [hRam_FFB3]
 	cp a, $20
-	jr z, Label_74_4307
+	jr z, Html_ParseSource_Loop
 	ld c, $20
 
 Label_74_4385:: ; 74:4385
@@ -491,20 +518,20 @@ Label_74_4385:: ; 74:4385
 	ld a, $E0
 	cp a, d
 	dec de
-	jr z, Label_74_43C4
+	jr z, Html_ParseSource_End
 	ld a, c
 	ld [de], a
 	inc de
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 ; ---- code $4392-$43C3 (49 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1; entered by jrcc from 74:431A (executed)
 
-Label_74_4392:: ; 74:4392
+Html_ParseSource_Entity:: ; 74:4392
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	ld bc, $400E
+	ld bc, Html_EntityPtrs
 	push de
 	call Function_00_10E9
 	pop de
@@ -515,32 +542,32 @@ Label_74_4392:: ; 74:4392
 	ld a, $E0
 	cp a, d
 	dec de
-	jr z, Label_74_43C4
+	jr z, Html_ParseSource_End
 	ldh a, [hRam_FFB3]
 	ld [de], a
 	inc de
 	ld a, [hli]
 	cp a, $3B
-	jp z, Label_74_4307
+	jp z, Html_ParseSource_Loop
 	dec hl
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 Label_74_43BA:: ; 74:43BA
 	ldh a, [hRam_FFB0]
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 ; ---- code $43C3-$43C4 (1 bytes) [HYPOTHESIS] single 'pop hl' (e1) after the unconditional 'jp $4307' at 74:43C0; no branch/pointer targets 43C3 (tgt scan of all code regions + word scan), so unreachable; falls into the executed 43C4 (target of 13 jz/jp)
 	pop hl
 
 ; ---- code $43C4-$445B (151 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios)
 
-Label_74_43C4:: ; 74:43C4
+Html_ParseSource_End:: ; 74:43C4
 	call Function_00_0392
-	farcall Function_74_5440
-	farcall Function_74_5252
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_ClearAllFloats
 	ldh a, [hRam_FFB8]
 	ld l, a
 	ldh a, [hRam_FFB9]
@@ -573,7 +600,7 @@ Label_74_43FF:: ; 74:43FF
 	ldh [hRam_FFEC], a
 	ret
 
-Label_74_4406:: ; 74:4406
+Html_ParseSource_Tag:: ; 74:4406
 	dec de
 	ld a, [de]
 	cp a, $20
@@ -596,20 +623,20 @@ Label_74_4415:: ; 74:4415
 	ld a, $E0
 	cp a, d
 	dec de
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	xor a, a
 	ld [de], a
 	ldh a, [hRam_FFB6]
 	ld c, a
 	ldh a, [hRam_FFB7]
 	or a, c
-	jp nz, Label_74_44D4
-	ld bc, $40EE
+	jp nz, Html_ParseSource_TitleTag
+	ld bc, Html_TagPtrs
 	push de
 	call Function_00_10E9
 	pop de
 	or a, a
-	jr nz, Label_74_4481
+	jr nz, Html_DispatchTag
 
 Label_74_4439:: ; 74:4439
 	ldh a, [hRam_FFB0]
@@ -630,9 +657,9 @@ Label_74_4449:: ; 74:4449
 Label_74_444D:: ; 74:444D
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $3E
-	jp z, Label_74_4307
+	jp z, Html_ParseSource_Loop
 	cp a, $81
 	jr c, Label_74_446F
 
@@ -668,7 +695,7 @@ Label_74_4477:: ; 74:4477
 	call Function_00_1119
 	jp Label_74_444D
 
-Label_74_4481:: ; 74:4481
+Html_DispatchTag:: ; 74:4481
 	cp a, $0F
 	jr z, Label_74_4490
 	ld b, a
@@ -698,29 +725,30 @@ Label_74_4490:: ; 74:4490
 
 ; ---- ptrtable $44A0-$44C4 (36 bytes) [CONFIRMED] 18-word jump table indexed by the HTML tag id: dispatcher at 74:4490-449F (add a,a; add a,$A0; ld l,a; adc a,$44; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; push bc; ret) - executed in the homepage/monkey traces, which read entries 44A2-44BE as data; all 18 targets are instruction starts of code regions: $4439, $4623, $44C4, $462E, $464A, $4718, $472E, $4B98, $4CA6, $4DF9, $4A91, $4A32, $47AA, $4867, $493F, $45D9, $4698, $4666
 
-Table_74_44A0:: ; 74:44A0
+Html_TagHandlerTable:: ; 74:44A0
+Table_74_44A0::
 	dw Label_74_4439
-	dw Label_74_4623
-	dw Label_74_44C4
-	dw Label_74_462E
-	dw Label_74_464A
-	dw Label_74_4718
-	dw Label_74_472E
-	dw Label_74_4B98
-	dw Label_74_4CA6
-	dw Label_74_4DF9
-	dw Label_74_4A91
-	dw Label_74_4A32
-	dw Label_74_47AA
-	dw Label_74_4867
-	dw Label_74_493F
-	dw Label_74_45D9
-	dw Label_74_4698
-	dw Label_74_4666
+	dw Html_Tag_Html
+	dw Html_Tag_Title
+	dw Html_Tag_Head
+	dw Html_Tag_Body
+	dw Html_Tag_Center
+	dw Html_Tag_Div
+	dw Html_Tag_Br
+	dw Html_Tag_Hr
+	dw Html_Tag_Img
+	dw Html_Tag_A
+	dw Html_Tag_B
+	dw Html_Tag_Ul
+	dw Html_Tag_Ol
+	dw Html_Tag_Li
+	dw Html_Tag_Comment
+	dw Html_Tag_Meta
+	dw Html_Tag_Pre
 
 ; ---- code $44C4-$44EB (39 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 
-Label_74_44C4:: ; 74:44C4
+Html_Tag_Title:: ; 74:44C4
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jp z, Label_74_4439
@@ -730,8 +758,8 @@ Label_74_44C4:: ; 74:44C4
 	ldh [hRam_FFB7], a
 	jp Label_74_4439
 
-Label_74_44D4:: ; 74:44D4
-	ld bc, $4053
+Html_ParseSource_TitleTag:: ; 74:44D4
+	ld bc, Html_TitleTagPtrs
 	push de
 	call Function_00_10E9
 	pop de
@@ -740,7 +768,7 @@ Label_74_44D4:: ; 74:44D4
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_44EB
-	call Function_74_4530
+	call Html_StoreTitle
 	jp Label_74_4439
 
 ; ---- code $44EB-$4530 (69 bytes) [PROBABLE] 40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 1; entered by jrcc from 74:44DD (executed)
@@ -762,14 +790,14 @@ Label_74_44F5:: ; 74:44F5
 	cp a, d
 	dec de
 	dec de
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	ld a, [hli]
 	ld [de], a
 	inc de
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $3E
-	jp z, Label_74_4307
+	jp z, Html_ParseSource_Loop
 	cp a, $81
 	jr c, Label_74_4526
 	cp a, $A0
@@ -795,7 +823,8 @@ Label_74_4527:: ; 74:4527
 
 ; ---- code $4530-$455B (43 bytes) [CONFIRMED] 28 insn(s); 28 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_4530:: ; 74:4530
+Html_StoreTitle:: ; 74:4530
+Function_74_4530::
 	ldh a, [hRam_FFB8]
 	ld l, a
 	ldh a, [hRam_FFB9]
@@ -934,12 +963,12 @@ Label_74_45B9:: ; 74:45B9
 
 ; ---- code $45D9-$4623 (74 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: table x39; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
 
-Label_74_45D9:: ; 74:45D9
+Html_Tag_Comment:: ; 74:45D9
 	ld a, [hli]
 
 Label_74_45DA:: ; 74:45DA
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $2D
 	jr z, Label_74_4604
 	cp a, $3E
@@ -961,9 +990,9 @@ Label_74_45FE:: ; 74:45FE
 	or a, a
 
 Label_74_45FF:: ; 74:45FF
-	jr nc, Label_74_45D9
+	jr nc, Html_Tag_Comment
 	ld a, [hli]
-	jr Label_74_45D9
+	jr Html_Tag_Comment
 
 Label_74_4604:: ; 74:4604
 	ld a, [hli]
@@ -974,28 +1003,28 @@ Label_74_4609:: ; 74:4609
 	call Function_00_0392
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $2D
 	jr nz, Label_74_4609
 	ld a, [hli]
 	cp a, $2D
 	jr nz, Label_74_4609
-	jr Label_74_45D9
+	jr Html_Tag_Comment
 
 Label_74_461C:: ; 74:461C
 	ld a, $20
 	ldh [hRam_FFB3], a
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 ; ---- code $4623-$464A (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
 
-Label_74_4623:: ; 74:4623
+Html_Tag_Html:: ; 74:4623
 	ld a, [wRam_C2C1]
 	or a, $01
 	ld [wRam_C2C1], a
 	jp Label_74_4439
 
-Label_74_462E:: ; 74:462E
+Html_Tag_Head:: ; 74:462E
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_463F
@@ -1012,7 +1041,7 @@ Label_74_463F:: ; 74:463F
 
 ; ---- code $464A-$4718 (206 bytes) [PROBABLE] 83 insn(s) reached by static flow only; seeds: site x72, table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
 
-Label_74_464A:: ; 74:464A
+Html_Tag_Body:: ; 74:464A
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_465B
@@ -1027,12 +1056,12 @@ Label_74_465B:: ; 74:465B
 	ld [wRam_C2C1], a
 	jp Label_74_4439
 
-Label_74_4666:: ; 74:4666
-	farcall Function_74_5440
+Html_Tag_Pre:: ; 74:4666
+	farcall Html_Layout_WrapRun
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4683
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 	ld a, [wRam_C2C1]
 	or a, $08
 	ld [wRam_C2C1], a
@@ -1041,15 +1070,15 @@ Label_74_4666:: ; 74:4666
 Label_74_4683:: ; 74:4683
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 	ld a, [wRam_C2C1]
 	and a, $F7
 	ld [wRam_C2C1], a
 	jp Label_74_443F
 
-Label_74_4698:: ; 74:4698
-	farcall Function_74_5440
-	farcall Function_74_5417
+Html_Tag_Meta:: ; 74:4698
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	ld a, [wRam_C2C1]
 	and a, $02
 	jp z, Label_74_443F
@@ -1113,9 +1142,9 @@ Label_74_46FB:: ; 74:46FB
 
 ; ---- code $4718-$472E (22 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 
-Label_74_4718:: ; 74:4718
-	farcall Function_74_5440
-	farcall Function_74_5417
+Html_Tag_Center:: ; 74:4718
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4740
@@ -1124,9 +1153,9 @@ Label_74_4718:: ; 74:4718
 
 ; ---- code $472E-$4740 (18 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 2 scenarios]
 
-Label_74_472E:: ; 74:472E
-	farcall Function_74_5440
-	farcall Function_74_5417
+Html_Tag_Div:: ; 74:472E
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4761
@@ -1162,7 +1191,7 @@ Label_74_4761:: ; 74:4761
 	push de
 	push hl
 	ld hl, $C380
-	ld bc, $40B6
+	ld bc, Html_AlignValuePtrs
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -1197,7 +1226,7 @@ Label_74_4788:: ; 74:4788
 	pop hl
 	jp Label_74_443F
 
-Label_74_47AA:: ; 74:47AA
+Html_Tag_Ul:: ; 74:47AA
 	farcall Function_74_4F97
 	farcall Function_74_4FBE
 	ldh a, [hRam_FFB4]
@@ -1311,7 +1340,7 @@ Label_74_4853:: ; 74:4853
 	jr nz, Label_74_4863
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 
 Label_74_4863:: ; 74:4863
 	pop hl
@@ -1319,13 +1348,13 @@ Label_74_4863:: ; 74:4863
 
 ; ---- code $4867-$493F (216 bytes) [PROBABLE] 104 insn(s) reached by static flow only; seeds: site x104; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 
-Label_74_4867:: ; 74:4867
+Html_Tag_Ol:: ; 74:4867
 	farcall Function_74_4F97
 	farcall Function_74_4FBE
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_48D0
-	farcall Function_74_4FF2
+	farcall Html_CountListItems
 	push hl
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -1441,7 +1470,7 @@ Label_74_492B:: ; 74:492B
 	jr nz, Label_74_493B
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 
 Label_74_493B:: ; 74:493B
 	pop hl
@@ -1449,7 +1478,7 @@ Label_74_493B:: ; 74:493B
 
 ; ---- code $493F-$4987 (72 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
 
-Label_74_493F:: ; 74:493F
+Html_Tag_Li:: ; 74:493F
 	farcall Function_74_4F97
 	ldh a, [hRam_FFB4]
 	cp a, $2F
@@ -1510,7 +1539,8 @@ Label_74_4987:: ; 74:4987
 
 ; ---- data $4995-$4997 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_74_4995:: ; 74:4995
+Html_ListBullet:: ; 74:4995
+Data_74_4995::
 	db $81, $45
 
 ; ---- code $4997-$4A32 (155 bytes) [PROBABLE] 94 insn(s) reached by static flow only; seeds: exec x94; min discovery hops 1; entered by jrcc from 74:4957 (executed)
@@ -1635,8 +1665,8 @@ Label_74_4A27:: ; 74:4A27
 
 ; ---- code $4A32-$4AA4 (114 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios)
 
-Label_74_4A32:: ; 74:4A32
-	farcall Function_74_5440
+Html_Tag_B:: ; 74:4A32
+	farcall Html_Layout_WrapRun
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4A6D
@@ -1678,7 +1708,7 @@ Label_74_4A6D:: ; 74:4A6D
 	ldh [hRam_FFB2], a
 	jp Label_74_443F
 
-Label_74_4A91:: ; 74:4A91
+Html_Tag_A:: ; 74:4A91
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4AD5
@@ -1708,7 +1738,7 @@ Label_74_4A91:: ; 74:4A91
 ; ---- code $4AB8-$4AE5 (45 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 2/18 scenarios)
 
 Label_74_4AB8:: ; 74:4AB8
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 
 Label_74_4ABE:: ; 74:4ABE
 	ldh a, [hRam_FFB2]
@@ -1724,7 +1754,7 @@ Label_74_4ABE:: ; 74:4ABE
 	jp Label_74_443F
 
 Label_74_4AD5:: ; 74:4AD5
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 	ld bc, $4078
 	call Function_00_1119
 	cp a, $01
@@ -1748,7 +1778,7 @@ Label_74_4AD5:: ; 74:4AD5
 	ld [de], a
 	ld hl, $DFFE
 	ld bc, $D600
-	farcall Function_74_5AAE
+	farcall Html_StringTable_Add
 	or a, a
 	jr nz, Label_74_4B6D
 	ldh a, [hRam_FFC8]
@@ -1782,7 +1812,7 @@ Label_74_4B21:: ; 74:4B21
 	push bc
 	push de
 	ld hl, $C380
-	farcall Function_74_5969
+	farcall HtmlUrl_GetSchemeId
 	pop de
 	pop bc
 	cp a, $FF
@@ -1794,7 +1824,7 @@ Label_74_4B21:: ; 74:4B21
 	ld [de], a
 	ld hl, $DFFE
 	ld bc, $D600
-	farcall Function_74_5AAE
+	farcall Html_StringTable_Add
 	or a, a
 	jr nz, Label_74_4B6D
 	ld a, l
@@ -1835,7 +1865,7 @@ Label_74_4B81:: ; 74:4B81
 
 ; ---- code $4B98-$4BA1 (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 
-Label_74_4B98:: ; 74:4B98
+Html_Tag_Br:: ; 74:4B98
 	ld bc, $4057
 	call Function_00_1119
 	or a, a
@@ -1845,7 +1875,7 @@ Label_74_4B98:: ; 74:4B98
 	push de
 	push hl
 	ld hl, $C380
-	ld bc, $409C
+	ld bc, Html_ClearValuePtrs
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -1885,10 +1915,10 @@ Label_74_4BB9:: ; 74:4BB9
 ; ---- code $4BD8-$4BEC (20 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 
 Label_74_4BD8:: ; 74:4BD8
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 
 Label_74_4BDE:: ; 74:4BDE
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 	push de
 	push hl
 	ld a, [wRam_C330]
@@ -1896,7 +1926,8 @@ Label_74_4BDE:: ; 74:4BDE
 
 ; ---- ptrtable $4BEC-$4BF4 (8 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 74:4BE9: 4 entries; end = first entry target
 
-Table_74_4BEC:: ; 74:4BEC
+Html_BrClearJumpTable:: ; 74:4BEC
+Table_74_4BEC::
 	dw Label_74_4C2E
 	dw Label_74_4BF4
 	dw Label_74_4C12
@@ -1909,7 +1940,7 @@ Label_74_4BF4:: ; 74:4BF4
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	farcall Function_74_586E
+	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -1927,7 +1958,7 @@ Label_74_4C12:: ; 74:4C12
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	farcall Function_74_586E
+	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFE5]
 	ld e, a
 	ldh a, [hRam_FFE6]
@@ -1953,7 +1984,7 @@ Label_74_4C33:: ; 74:4C33
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	farcall Function_74_586E
+	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -1984,7 +2015,7 @@ Label_74_4C5F:: ; 74:4C5F
 	ldh [hRam_FFC6], a
 	jp Label_74_4BDE
 
-Label_74_4C6B:: ; 74:4C6B
+Html_ParseSource_PreCR:: ; 74:4C6B
 	ld a, [hl]
 	cp a, $0A
 	jr nz, Label_74_4C71
@@ -2015,19 +2046,19 @@ Label_74_4C71:: ; 74:4C71
 	jr Label_74_4C99
 
 Label_74_4C93:: ; 74:4C93
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 
 Label_74_4C99:: ; 74:4C99
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 	ld a, $20
 	ldh [hRam_FFB3], a
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 ; ---- code $4CA6-$4CD1 (43 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 2/18 scenarios)
 
-Label_74_4CA6:: ; 74:4CA6
-	farcall Function_74_5440
-	farcall Function_74_5417
+Html_Tag_Hr:: ; 74:4CA6
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	ld a, [wRam_C33C]
 	push af
 	ldh a, [hRam_FFE1]
@@ -2052,7 +2083,7 @@ Label_74_4CA6:: ; 74:4CA6
 ; ---- code $4CD1-$4CF2 (33 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 0; fall-through of the jrcc at 74:4CCF (executed)
 	push bc
 	ld hl, $C380
-	farcall Function_74_5B5C
+	farcall Html_ParseDecimal
 	inc c
 	dec c
 	pop bc
@@ -2079,7 +2110,7 @@ Label_74_4CF2:: ; 74:4CF2
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	farcall Function_74_586E
+	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFC4]
 	ld c, a
 	ldh a, [hRam_FFC2]
@@ -2204,8 +2235,8 @@ Label_74_4D8E:: ; 74:4D8E
 	push af
 	and a, $FC
 	ldh [hRam_FFB2], a
-	farcall Function_74_5440
-	farcall Function_74_5417
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	xor a, a
 	ldh [hRam_FFDA], a
 	ldh [hRam_FFDB], a
@@ -2219,7 +2250,7 @@ Label_74_4D8E:: ; 74:4D8E
 Label_74_4DB5:: ; 74:4DB5
 	ld a, [hli]
 	or a, a
-	jp z, Label_74_43C4
+	jp z, Html_ParseSource_End
 	cp a, $3E
 	jr z, Label_74_4DE8
 
@@ -2262,13 +2293,13 @@ Label_74_4DE8:: ; 74:4DE8
 
 Label_74_4DF0:: ; 74:4DF0
 	cp a, $0A
-	jp nz, Label_74_4307
+	jp nz, Html_ParseSource_Loop
 	inc hl
-	jp Label_74_4307
+	jp Html_ParseSource_Loop
 
 ; ---- code $4DF9-$4F4F (342 bytes) [PROBABLE] 180 insn(s) reached by static flow only; seeds: site x164, table x16; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
 
-Label_74_4DF9:: ; 74:4DF9
+Html_Tag_Img:: ; 74:4DF9
 	ld a, [wRam_C335]
 	or a, a
 	jp nz, Label_74_4F09
@@ -2301,13 +2332,13 @@ Label_74_4E14:: ; 74:4E14
 	or a, l
 	jp z, Label_74_4ECD
 	ldh a, [hRam_FFD4]
-	farcall Function_74_5B4F
-	farcall Function_51_70E0
+	farcall Html_NextResourceRecord
+	farcall Bmp_Validate
 	or a, a
 	jp z, Label_74_4ECD
 	pop hl
 	pop de
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 	push de
 	push hl
 	ldh a, [hRam_FFB2]
@@ -2321,7 +2352,7 @@ Label_74_4E14:: ; 74:4E14
 	ldh [hRam_FFB2], a
 
 Label_74_4E5D:: ; 74:4E5D
-	farcall Function_74_529F
+	farcall Html_Layout_PlaceImage
 	pop af
 	ldh [hRam_FFB2], a
 	pop hl
@@ -2335,7 +2366,7 @@ Label_74_4E6B:: ; 74:4E6B
 
 Label_74_4E70:: ; 74:4E70
 	ld a, $03
-	farcall Function_74_5B4F
+	farcall Html_NextResourceRecord
 	inc de
 	inc de
 	ld a, [de]
@@ -2385,7 +2416,7 @@ Label_74_4EB1:: ; 74:4EB1
 	push hl
 	push de
 	ld hl, $C380
-	ld bc, $40B6
+	ld bc, Html_AlignValuePtrs
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -2401,7 +2432,7 @@ Label_74_4EB1:: ; 74:4EB1
 Label_74_4ECD:: ; 74:4ECD
 	pop hl
 	pop de
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 	ldh a, [hTextX]
 	call BankSwitch_D
 	inc de
@@ -2433,7 +2464,7 @@ Label_74_4EEF:: ; 74:4EEF
 	ldh [hRam_FFB2], a
 
 Label_74_4EFD:: ; 74:4EFD
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 	pop af
 	ldh [hRam_FFB2], a
 	jp Label_74_443F
@@ -2463,7 +2494,7 @@ Label_74_4F10:: ; 74:4F10
 	ld [de], a
 	ld hl, $DCFE
 	ld bc, $DE00
-	farcall Function_74_5AAE
+	farcall Html_StringTable_Add
 	or a, a
 	jr nz, Label_74_4F45
 	ld a, l
@@ -2484,7 +2515,8 @@ Label_74_4F4A:: ; 74:4F4A
 
 ; ---- code $4F4F-$4FA6 (87 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_4F4F:: ; 74:4F4F
+Html_InitParser:: ; 74:4F4F
+Function_74_4F4F::
 	xor a, a
 	ldh [hRam_FFB6], a
 	ldh [hRam_FFB7], a
@@ -2537,8 +2569,8 @@ Function_74_4F97:: ; 74:4F97
 ; ---- code $4FAA-$4FF2 (72 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 
 Label_74_4FAA:: ; 74:4FAA
-	farcall Function_74_5440
-	farcall Function_74_5417
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 
 Label_74_4FB6:: ; 74:4FB6
 	xor a, a
@@ -2562,20 +2594,20 @@ Function_74_4FBE:: ; 74:4FBE
 	ldh a, [hRam_FFC7]
 	or a, c
 	jr nz, Label_74_4FDB
-	farcall Function_74_5440
+	farcall Html_Layout_WrapRun
 	ret
 
 Label_74_4FDB:: ; 74:4FDB
-	farcall Function_74_5440
-	farcall Function_74_5417
+	farcall Html_Layout_WrapRun
+	farcall Html_Layout_EndLine
 	ld a, $0C
 	ldh [hRam_FFC7], a
-	farcall Function_74_5417
+	farcall Html_Layout_EndLine
 	ret
 
 ; ---- code $4FF2-$511A (296 bytes) [PROBABLE] 164 insn(s) reached by static flow only; seeds: site x164; min discovery hops 1; entered by far from 74:4879 (PROBABLE code)
 
-Function_74_4FF2:: ; 74:4FF2
+Html_CountListItems:: ; 74:4FF2
 	push bc
 	push de
 	push hl
@@ -2660,7 +2692,7 @@ Label_74_5067:: ; 74:5067
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	ld bc, $400E
+	ld bc, Html_EntityPtrs
 	push de
 	call Function_00_10E9
 	pop de
@@ -2703,7 +2735,7 @@ Label_74_5099:: ; 74:5099
 	ldh a, [hRam_FFB7]
 	or a, c
 	jp nz, Label_74_514E
-	ld bc, $40EE
+	ld bc, Html_TagPtrs
 	push de
 	call Function_00_10E9
 	pop de
@@ -2789,7 +2821,8 @@ Label_74_510A:: ; 74:510A
 
 ; ---- ptrtable $511A-$513E (36 bytes) [PROBABLE] 18-word jump table: dispatcher at 74:510A-5119 (add a,a; push hl; add a,$1A; ld l,a; ld a,0; adc a,$51; ld h,a; ld a,[hli]; ld b,[hl]; ld c,a; pop hl; push bc; ret), same idiom as Table_74_44A0; the dispatcher is executed: traces/detail/*/dataaccess.tsv (browser scenarios) list rom_read 74 512E-5130 and 5134-5138, i.e. entries 10 ($50B3), 13 ($521B) and 14 ($5238) were fetched by 74:5114; the table extent (18 words) is by analogy with Table_74_44A0, hence PROBABLE; all 18 targets are code instruction starts: $50B3, $50B3, $513E, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $50B3, $51FE, $521B, $5238, $519A, $50B3, $51E4
 
-Table_74_511A:: ; 74:511A
+Html_CountPassTagTable:: ; 74:511A
+Table_74_511A::
 	dw Label_74_50B3
 	dw Label_74_50B3
 	dw Label_74_513E
@@ -2822,7 +2855,7 @@ Label_74_513E:: ; 74:513E
 	jp Label_74_50B3
 
 Label_74_514E:: ; 74:514E
-	ld bc, $4053
+	ld bc, Html_TitleTagPtrs
 	push de
 	call Function_00_10E9
 	pop de
@@ -2993,15 +3026,16 @@ Label_74_5238:: ; 74:5238
 
 ; ---- code $5252-$5293 (65 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5252:: ; 74:5252
-	farcall Function_74_5417
+Html_Layout_ClearAllFloats:: ; 74:5252
+Function_74_5252::
+	farcall Html_Layout_EndLine
 	push de
 	push hl
 	ldh a, [hRam_FFC8]
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	farcall Function_74_586E
+	farcall Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFE1]
 	ld e, a
 	ldh a, [hRam_FFE2]
@@ -3039,9 +3073,9 @@ Label_74_5293:: ; 74:5293
 	ldh [hRam_FFC7], a
 	xor a, a
 	ldh [hRam_FFC6], a
-	jp Function_74_5252
+	jp Html_Layout_ClearAllFloats
 
-Function_74_529F:: ; 74:529F
+Html_Layout_PlaceImage:: ; 74:529F
 	ld a, [wRam_C335]
 	or a, a
 	ret nz
@@ -3127,7 +3161,7 @@ Label_74_52E7:: ; 74:52E7
 	ld a, b
 	adc a, $00
 	ld b, a
-	call Function_74_5663
+	call Html_Layout_PlaceLine
 	ld a, c
 	or a, b
 	jp nz, Label_74_52E7
@@ -3138,7 +3172,7 @@ Label_74_531D:: ; 74:531D
 	or a, c
 	jr nz, Label_74_5326
 	call Function_74_532A
-	jp Function_74_5663
+	jp Html_Layout_PlaceLine
 
 Label_74_5326:: ; 74:5326
 	call Function_74_532A
@@ -3161,7 +3195,7 @@ Function_74_532A:: ; 74:532A
 	ld a, $04
 	ldh [hRam_FFB0], a
 	ldh a, [hRam_FFD4]
-	call Function_74_5548
+	call Html_Layout_AppendRecord
 	pop bc
 	ret
 
@@ -3197,12 +3231,13 @@ Label_74_5369:: ; 74:5369
 	adc a, $00
 	ldh [hRam_FFC9], a
 	ld d, a
-	call Function_74_586E
+	call Html_Layout_GetLimitsAtY
 	jp Function_74_5348
 
 ; ---- code $537D-$53A6 (41 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_537D:: ; 74:537D
+Html_LoadPageImages:: ; 74:537D
+Function_74_537D::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -3239,8 +3274,8 @@ Label_74_5393:: ; 74:5393
 	ld h, [hl]
 	ld l, a
 	ld a, $03
-	farcall Function_74_5B4F
-	farcall Function_51_7177
+	farcall Html_NextResourceRecord
+	farcall Bmp_ConvertToTiles
 	or a, a
 	jr z, Label_74_53D1
 	ld d, h
@@ -3273,7 +3308,7 @@ Label_74_53DC:: ; 74:53DC
 	ld [rRAMG], a
 	ret
 
-Function_74_53E3:: ; 74:53E3
+Html_Layout_Init:: ; 74:53E3
 	xor a, a
 	ldh [hRam_FFC6], a
 	ldh [hRam_FFC7], a
@@ -3302,7 +3337,7 @@ Function_74_53E3:: ; 74:53E3
 	ldh [hRam_FFC5], a
 	ret
 
-Function_74_5417:: ; 74:5417
+Html_Layout_EndLine:: ; 74:5417
 	ld a, [wRam_C335]
 	or a, a
 	ret nz
@@ -3320,7 +3355,7 @@ Function_74_5417:: ; 74:5417
 	ld b, a
 	ldh a, [hTextX]
 	call BankSwitch_H
-	call Function_74_5663
+	call Html_Layout_PlaceLine
 	pop hl
 	pop de
 	ldh a, [hRam_FFB5]
@@ -3328,7 +3363,7 @@ Function_74_5417:: ; 74:5417
 	ldh a, [hTextX]
 	jp BankSwitch_D
 
-Function_74_5440:: ; 74:5440
+Html_Layout_WrapRun:: ; 74:5440
 	ld a, [wRam_C335]
 	or a, a
 	ret nz
@@ -3349,7 +3384,7 @@ Label_74_5447:: ; 74:5447
 	or a, a
 	jp z, Label_74_54F4
 	ldh a, [hTextX]
-	call Function_74_5548
+	call Html_Layout_AppendRecord
 	ldh a, [hRam_FFC4]
 	ld c, a
 	ldh a, [hRam_FFC5]
@@ -3487,7 +3522,7 @@ Label_74_5502:: ; 74:5502
 	call Function_74_5528
 	call Function_74_55BE
 	ld bc, $0000
-	call Function_74_5663
+	call Html_Layout_PlaceLine
 	ldh a, [hRam_FFBB]
 	ld e, a
 	ldh a, [hTextY]
@@ -3533,7 +3568,7 @@ Function_74_5528:: ; 74:5528
 	pop hl
 	ret
 
-Function_74_5548:: ; 74:5548
+Html_Layout_AppendRecord:: ; 74:5548
 	ldh [hRam_FFB1], a
 	ldh a, [hRam_FFCA]
 	ld l, a
@@ -3750,13 +3785,14 @@ Label_74_5643:: ; 74:5643
 	ret
 
 Label_74_565C:: ; 74:565C
-	call Function_74_5663
+	call Html_Layout_PlaceLine
 	pop hl
 	jp Function_74_55BE
 
 ; ---- code $5663-$5686 (35 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5663:: ; 74:5663
+Html_Layout_PlaceLine:: ; 74:5663
+Function_74_5663::
 	ldh a, [hRam_FFC6]
 	ld e, a
 	ldh a, [hRam_FFC7]
@@ -3767,7 +3803,7 @@ Function_74_5663:: ; 74:5663
 	ldh a, [hRam_FFC9]
 	ld d, a
 	push bc
-	call Function_74_586E
+	call Html_Layout_GetLimitsAtY
 	pop bc
 	ld a, c
 	or a, b
@@ -4013,7 +4049,7 @@ Function_74_57AD:: ; 74:57AD
 	ld e, a
 	ldh a, [hRam_FFC9]
 	ld d, a
-	call Function_74_586E
+	call Html_Layout_GetLimitsAtY
 	ldh a, [hRam_FFCE]
 	ld c, a
 	ldh a, [hRam_FFCF]
@@ -4140,7 +4176,7 @@ Label_74_584A:: ; 74:584A
 	adc a, d
 	ld d, a
 	ldh [hRam_FFC9], a
-	call Function_74_586E
+	call Html_Layout_GetLimitsAtY
 
 ; ---- code $5861-$58C2 (97 bytes) [CONFIRMED] 63 insn(s); 63 executed (in up to 2/18 scenarios)
 
@@ -4155,7 +4191,7 @@ Label_74_5861:: ; 74:5861
 	jp nz, Label_74_57C9
 	ret
 
-Function_74_586E:: ; 74:586E
+Html_Layout_GetLimitsAtY:: ; 74:586E
 	ldh a, [hRam_FFE5]
 	ldh [hRam_FFC2], a
 	ldh a, [hRam_FFE6]
@@ -4267,8 +4303,9 @@ Label_74_5900:: ; 74:5900
 
 ; ---- ptrtable $5905-$591D (24 bytes) [PROBABLE] URL scheme pointer list (11 entries + $0000): $591D, $5923, $592A, $5938, $5930, $593D, $5945, $594B, $5951, $5959, $595F. Items follow at 591D, tile exactly to the code at 74:5969; bytes 5905-591D... were read as data by executed code in 5/18 scenarios
 
-Table_74_5905:: ; 74:5905
-	dw Data_74_591D
+HtmlUrl_SchemeTable:: ; 74:5905
+Table_74_5905::
+	dw HtmlUrl_SchemeNames
 	dw $5923
 	dw $592A
 	dw $5938
@@ -4283,7 +4320,8 @@ Table_74_5905:: ; 74:5905
 
 ; ---- data $591D-$5969 (76 bytes) [PROBABLE] URL scheme name items [ASCII NUL][value byte]: $591D "http" -> $01; $5923 "https" -> $FF; $592A "file" -> $FF; $5930 "mailto" -> $FF; $5938 "ftp" -> $FF; $593D "gopher" -> $FF; $5945 "news" -> $FF; $594B "nntp" -> $FF; $5951 "telnet" -> $FF; $5959 "wais" -> $FF; $595F "prospero" -> $FF (value $01 for http, $FF for the others). (Value byte follows the name as in the tag/attribute tables at 74:4000.)
 
-Data_74_591D:: ; 74:591D
+HtmlUrl_SchemeNames:: ; 74:591D
+Data_74_591D::
 	db $68, $74, $74, $70, $00, $01, $68, $74, $74, $70, $73, $00, $FF, $66, $69, $6C
 	db $65, $00, $FF, $6D, $61, $69, $6C, $74, $6F, $00, $FF, $66, $74, $70, $00, $FF
 	db $67, $6F, $70, $68, $65, $72, $00, $FF, $6E, $65, $77, $73, $00, $FF, $6E, $6E
@@ -4292,7 +4330,8 @@ Data_74_591D:: ; 74:591D
 
 ; ---- code $5969-$598D (36 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5969:: ; 74:5969
+HtmlUrl_GetSchemeId:: ; 74:5969
+Function_74_5969::
 	push hl
 
 Label_74_596A:: ; 74:596A
@@ -4306,14 +4345,14 @@ Label_74_596A:: ; 74:596A
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	ld bc, $5905
+	ld bc, HtmlUrl_SchemeTable
 	jp Function_00_10E9
 
 Label_74_597F:: ; 74:597F
 	pop hl
 	ret
 
-Function_74_5981:: ; 74:5981
+HtmlUrl_Resolve:: ; 74:5981
 	call Function_00_0392
 	push hl
 
@@ -4332,7 +4371,7 @@ Label_74_5985:: ; 74:5985
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	ld bc, $5905
+	ld bc, HtmlUrl_SchemeTable
 	call Function_00_10E9
 	or a, a
 	jr z, Label_74_59B3
@@ -4369,7 +4408,7 @@ Label_74_59B6:: ; 74:59B6
 	ldh [hRam_FFB0], a
 	ld a, d
 	ldh [hRam_FFB1], a
-	ld bc, $5905
+	ld bc, HtmlUrl_SchemeTable
 	call Function_00_10E9
 	ld bc, $0100
 	ld de, $C380
@@ -4381,8 +4420,9 @@ Label_74_59B6:: ; 74:59B6
 
 ; ---- text $59D8-$59E0 (8 bytes) [PROBABLE] 'http://' NUL: copied byte-by-byte to $C380 until NUL by the loop at 74:59E7 (ld hl,$59D8 ; ld a,[hli] ; ld [de],a ; inc de ; dec bc ; or a ; jr nz)
 
-String_74_59D8:: ; 74:59D8
-	db $68, $74, $74, $70, $3A, $2F, $2F, $00
+HtmlUrl_HttpPrefix:: ; 74:59D8
+String_74_59D8::
+	db $68, $74, $74, $70, $3A, $2F, $2F, $00 ; "http://"
 
 ; ---- code $59E0-$59F1 (17 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 74:59B8 (executed)
 
@@ -4392,7 +4432,7 @@ Label_74_59E0:: ; 74:59E0
 	ld de, $C380
 
 Label_74_59E7:: ; 74:59E7
-	ld hl, $59D8
+	ld hl, HtmlUrl_HttpPrefix
 
 Label_74_59EA:: ; 74:59EA
 	ld a, [hli]
@@ -4438,7 +4478,7 @@ Label_74_5A13:: ; 74:5A13
 Label_74_5A15:: ; 74:5A15
 	push hl
 	ld hl, $C380
-	call Function_74_5A76
+	call HtmlUrl_FindLastSegmentDelimiter
 	dec hl
 	ld a, b
 	ld [hli], a
@@ -4528,7 +4568,8 @@ Label_74_5A6F:: ; 74:5A6F
 
 ; ---- code $5A76-$5A8F (25 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5A76:: ; 74:5A76
+HtmlUrl_FindLastSegmentDelimiter:: ; 74:5A76
+Function_74_5A76::
 	xor a, a
 	ld d, a
 	ld e, a
@@ -4566,7 +4607,8 @@ Label_74_5A8F:: ; 74:5A8F
 
 ; ---- code $5A96-$5AD0 (58 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5A96:: ; 74:5A96
+Html_LinkTable_Init:: ; 74:5A96
+Function_74_5A96::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4579,11 +4621,11 @@ Function_74_5A96:: ; 74:5A96
 	ld [wRam_D601], a
 	ret
 
-Function_74_5AAE:: ; 74:5AAE
+Html_StringTable_Add:: ; 74:5AAE
 	push hl
 	ld hl, $C380
 	push de
-	call Function_74_5AF8
+	call Html_StringTable_Find
 	pop hl
 	or a, a
 	jr nz, Label_74_5AF6
@@ -4659,7 +4701,8 @@ Label_74_5AF6:: ; 74:5AF6
 
 ; ---- code $5AF8-$5B21 (41 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5AF8:: ; 74:5AF8
+Html_StringTable_Find:: ; 74:5AF8
+Function_74_5AF8::
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -4760,7 +4803,8 @@ Label_74_5B4B:: ; 74:5B4B
 
 ; ---- code $5B4F-$5B5C (13 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5B4F:: ; 74:5B4F
+Html_NextResourceRecord:: ; 74:5B4F
+Function_74_5B4F::
 	call BankSwitch_H
 	ld a, [hli]
 	ld e, a
@@ -4775,7 +4819,7 @@ Function_74_5B4F:: ; 74:5B4F
 
 ; ---- code $5B5C-$5BA0 (68 bytes) [PROBABLE] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by far from 74:4CD5 (PROBABLE code)
 
-Function_74_5B5C:: ; 74:5B5C
+Html_ParseDecimal:: ; 74:5B5C
 	ld bc, $0000
 	ld de, $0000
 
@@ -4824,7 +4868,8 @@ Label_74_5B62:: ; 74:5B62
 
 ; ---- code $5BA0-$5BBB (27 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
-Function_74_5BA0:: ; 74:5BA0
+HtmlUrl_NormalizePath:: ; 74:5BA0
+Function_74_5BA0::
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
