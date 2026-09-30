@@ -1,0 +1,332 @@
+; engine/settings/confirm_screen.asm
+; bank 67, $510A-$53DC (722 bytes); pinned by layout.link
+; phone settings confirm screen
+
+SECTION "engine/settings/confirm_screen", ROMX
+
+; ---- code $510A-$5221 (279 bytes) [CONFIRMED] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5; entered by far from 67:40B9 (PROBABLE code) | 95 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
+
+SettingsPhone_ConfirmScreen:: ; 67:510A
+	ld [wRam_C27E], a
+	call SettingsPhone_ConfirmScreen_Setup
+	farcall Palette_FadeInFromWhite
+	call SettingsPhone_ConfirmScreen_Loop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
+	ld a, [wRam_C27C]
+	ret
+
+SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	farcall Function_00_09B6
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, Data_4B_6A90
+	ld a, $4B
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_4B_6E90
+	ld a, $4B
+	ld b, $95
+	ld c, $22
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, $7090
+	ld a, $4B
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8001
+	ld hl, Data_5F_49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $73B0
+	ld a, $4B
+	farcall Palette_LoadToBuffer
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	farcall Palette_LoadToBuffer
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $73F0
+	ld a, $4B
+	farcall Function_00_08EA
+	call SettingsPhone_ConfirmScreen_LoadSlotTilemap
+	call SettingsPhone_ConfirmScreen_PrintFields
+	call SettingsPhone_ConfirmScreen_UploadTextTiles
+	call SettingsPhone_ConfirmScreen_BuildTextMap
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, Table_4A_4000
+	ld a, $4A
+	ld b, $81
+	farcall Function_00_0A82
+	call SettingsPhone_ConfirmScreen_PlaceCursor
+	ret
+
+SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_Update
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_67_5205
+	bit 1, a
+	jr nz, Label_67_5227
+	bit 5, a
+	jr nz, Label_67_523C
+	bit 4, a
+	jr nz, Label_67_523C
+	jr SettingsPhone_ConfirmScreen_Loop
+
+Label_67_5205:: ; 67:5205
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_67_5221
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $5221-$525D (60 bytes) [CONFIRMED] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_5221:: ; 67:5221
+	ld a, $02
+	ld [wRam_C27C], a
+	ret
+
+Label_67_5227:: ; 67:5227
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_67_523C:: ; 67:523C
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call SettingsPhone_ConfirmScreen_PlaceCursor
+	jr Label_67_525A
+
+Label_67_525A:: ; 67:525A
+	jp SettingsPhone_ConfirmScreen_Loop
+
+; ---- code $525D-$5275 (24 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
+
+SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, SettingsPhone_ConfirmScreen_CursorPos
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $5275-$5279 (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 68 / 58 68), indexed by [$C27D]*2 (ld hl,$5275 at 67:5261), stored into sprite slot $DA00 by call $0A65 (coordinates)
+
+SettingsPhone_ConfirmScreen_CursorPos:: ; 67:5275
+Data_67_5275::
+	db $28, $68, $58, $68
+
+; ---- code $5279-$53D6 (349 bytes) [CONFIRMED] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 7; entered by call from 67:51C6 (PROBABLE code) [executed in 1 scenarios]
+
+SettingsPhone_ConfirmScreen_BuildTextMap:: ; 67:5279
+	ld hl, $D0A7
+	ld de, $0000
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D0E7
+	ld de, $0020
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D126
+	ld de, $0040
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
+	ld de, $FFFF
+	ld hl, $0507
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $2A
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $28
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $38
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEDD
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0707
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $3A
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $38
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $48
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEEE
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0906
+	ld bc, $020D
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $4A
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $58
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEFF
+	call Function_00_0ED3
+	ret
+
+SettingsPhone_ConfirmScreen_UploadTextTiles:: ; 67:5389
+	ld de, $9000
+	ld hl, $0507
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $9200
+	ld hl, $0707
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $9400
+	ld hl, $0906
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ret
+
+SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
+	ld a, [wRam_C27E]
+	ld hl, SettingsPhone_ConfirmScreen_SlotTilemapTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D066
+	ld a, $4B
+	farcall Function_00_08EA
+	ret
+
+; ---- words $53D6-$53DC (6 bytes) [PROBABLE] 3 words $76C0,$76C4,$76C8 indexed by (ld hl,$53D6 at 67:53BA); hl=[table], ld a,$4B, far call 00:08EA (tilemap loader) at 67:53CD-53D1: source addresses in bank 4B (dw kept numeric)
+
+SettingsPhone_ConfirmScreen_SlotTilemapTable:: ; 67:53D6
+Table_67_53D6::
+	dw $76C0, $76C4, $76C8

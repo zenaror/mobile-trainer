@@ -1,0 +1,839 @@
+; layout.link -- rgblink linker script.  Every section is pinned to the address of its original position: `org` + section name.
+; A new section that is not listed here floats (rgblink places it in free space of any bank); pin it here to fix its address.
+; (RGBDS 1.0.x linker script: `ROM0` / `ROMX $bank` select the bank, `org $addr` places the sections that follow it.)
+
+ROM0
+	org $0000
+	"home/header"
+	org $0150
+	"home/mobile"
+	org $0278
+	"home/init"
+	org $0392
+	"home/vblank"
+	org $04D8
+	"home/copy"
+	org $0540
+	"home/jump_table"
+	org $059F
+	"home/lcd"
+	org $0602
+	"home/double_speed"
+	org $0622
+	"home/bank_switch"
+	org $06B7
+	"home/farcall"
+	org $0749
+	"home/gfx_upload"
+	org $0956
+	"home/sprites"
+	org $0BD4
+	"home/multiply"
+	org $0C0E
+	"home/random"
+	org $0D34
+	"home/multiply_divide"
+	org $0DB9
+	"home/glyph_data"
+	org $0E93
+	"home/stat_handler"
+	org $0ED3
+	"home/text"
+	org $10E9
+	"home/keyword_scan"
+	org $131A
+	"home/html_store"
+	org $1408
+	"home/text_measure"
+	org $14BF
+	"home/string"
+	org $153D
+	"home/far_string"
+	org $1620
+	"home/far_read"
+	org $16A2
+	"home/tilemap_copy"
+	org $16C4
+	"home/interrupt_handlers"
+	org $1711
+	"home/far_helpers"
+	org $20A0
+	"home/audio"
+
+ROMX $04
+	org $4000
+	"audio/engine"
+	org $5044
+	"audio/notes"
+	org $51DD
+	"audio/instruments"
+	org $547D
+	"audio/wave_samples"
+	org $551D
+	"audio/music_pointers"
+	org $574D
+	"audio/music/music_01"
+	org $58C6
+	"audio/music/music_02"
+	org $5CD9
+	"audio/music/music_03"
+	org $5F0E
+	"audio/music/music_04"
+	org $6102
+	"audio/music/music_05"
+	org $683C
+	"audio/music/music_06"
+	org $6B54
+	"audio/music/music_07"
+	org $7093
+	"audio/music/music_08"
+	org $745F
+	"audio/music/music_09"
+	org $77E9
+	"audio/music/music_0a"
+	org $79A4
+	"audio/music/music_0b"
+	org $7BF3
+	"audio/music/music_0c"
+	org $7DBC
+	"audio/music/music_0d"
+
+ROMX $05
+	org $4000
+	"audio/music/music_0e"
+	org $4232
+	"audio/music/music_0f"
+	org $455A
+	"audio/music/music_10"
+	org $4700
+	"audio/music/music_11"
+	org $4A2F
+	"audio/music/music_12"
+	org $4CA1
+	"audio/music/music_13"
+	org $4D80
+	"audio/music/music_14"
+	org $50BC
+	"audio/music/music_15"
+	org $5174
+	"audio/music/music_16"
+	org $54E3
+	"audio/music/music_17"
+	org $5AF6
+	"audio/music/music_18"
+	org $5B06
+	"audio/music/music_19"
+	org $5DCF
+	"audio/music/music_1a"
+	org $60E9
+	"audio/music/music_1b"
+	org $60F9
+	"audio/music/music_1c"
+	org $62D0
+	"audio/music/music_1d"
+	org $631A
+	"audio/sfx"
+
+ROMX $0E
+	org $4000
+	"engine/title/title_screen"
+	org $43C0
+	"gfx/title/title_screen"
+	org $60A0
+	"gfx/title/logo"
+
+ROMX $0F
+	org $4000
+	"lib/mobile/mail"
+
+ROMX $19
+	org $4000
+	"engine/debug/debug_flags"
+	org $4980
+	"engine/debug/error_screen_test"
+
+ROMX $1A
+	org $4000
+	"engine/help/mobile_dictionary"
+	org $47B5
+	"gfx/help/mobile_dictionary"
+
+ROMX $1B
+	org $4000
+	"engine/debug/sound_test"
+
+ROMX $1C
+	org $4000
+	"engine/main/main_program"
+
+ROMX $1D
+	org $4000
+	"engine/menus/mail_menu"
+	org $45C1
+	"gfx/mail_menu/mail_menu"
+
+ROMX $1E
+	org $4000
+	"data/text/top_menu_ticker"
+	org $40D7
+	"gfx/top_menu/top_menu"
+
+ROMX $1F
+	org $4000
+	"engine/menus/top_menu"
+
+ROMX $22
+	org $4000
+	"engine/mail_server/delete_hidden"
+	org $4EF0
+	"engine/sram/integrity_check"
+	org $5110
+	"gfx/mail_server/delete_menu_hidden"
+	org $5980
+	"gfx/mail/comm_progress_scene"
+	org $5CD0
+	"gfx/address_book/list_tiles_bank22"
+
+ROMX $23
+	org $4000
+	"engine/mail_server/delete_menu"
+	org $4A06
+	"engine/mail_server/delete_flows"
+	org $55C3
+	"engine/mail_server/delete_progress"
+	org $58C4
+	"engine/mail_server/delete_sprite_counters"
+	org $6D61
+	"engine/mail_server/delete_messages"
+	org $6FD7
+	"gfx/mail_server/delete_progress"
+
+ROMX $24
+	org $4000
+	"engine/browser/page_list"
+	org $5400
+	"gfx/browser/page_list"
+	org $6BF0
+	"gfx/mail/comm_result"
+
+ROMX $25
+	org $4000
+	"engine/mail/mailbox"
+	org $4B0D
+	"engine/mail/mailbox_screen"
+	org $5A10
+	"gfx/mailbox/mailbox"
+	org $6F30
+	"gfx/mail/server_status"
+
+ROMX $26
+	org $4000
+	"engine/mail/mail_session"
+	org $5067
+	"engine/mail/mail_session_screen"
+	org $59D8
+	"gfx/mail/session_scenery"
+	org $7420
+	"gfx/mail/server_status_bank26"
+	org $7AB0
+	"gfx/mailbox/objects"
+
+ROMX $27
+	org $4000
+	"engine/mail/send_receive"
+	org $5060
+	"gfx/mail/connect_screen"
+
+ROMX $28
+	org $4000
+	"engine/mail/body_view"
+	org $42C0
+	"gfx/mail/body_view"
+	org $4BD0
+	"gfx/address_book/shared_tiles_bank28"
+	org $54B0
+	"gfx/mail_server/delete_all_screen"
+	org $5F20
+	"gfx/mail_server/delete_method_screen"
+	org $6F20
+	"gfx/mail/session_objects"
+
+ROMX $29
+	org $4000
+	"engine/mail/result_screens"
+	org $5090
+	"engine/gfx/unreferenced_palette_library"
+	org $5376
+	"gfx/mail/connect_screen_bank29"
+	org $5B10
+	"gfx/address_book/entry_screen_bank29"
+	org $6290
+	"gfx/mail/compose_objects"
+
+ROMX $2A
+	org $4000
+	"engine/address_book/save_sender_address"
+	org $4AA0
+	"gfx/address_book/save_sender_address"
+	org $5495
+	"engine/profile/profile_editor"
+	org $6300
+	"gfx/profile/profile_editor"
+	org $6F95
+	"engine/address_book/save_confirm"
+	org $75A0
+	"gfx/address_book/save_confirm"
+	org $7CF0
+	"gfx/address_book/entry_screen_bank2a"
+
+ROMX $2B
+	org $4000
+	"engine/mail/draft_menu"
+	org $4880
+	"gfx/mail/draft_menu"
+	org $53C3
+	"engine/mail/received_mail_grid"
+	org $59C0
+	"gfx/mail/received_mail_grid"
+	org $6482
+	"engine/mail/mail_viewer_sender"
+	org $6DD0
+	"gfx/mail/mail_viewer"
+	org $7B02
+	"engine/mail/mail_viewer_body"
+
+ROMX $2C
+	org $4000
+	"engine/mail/mail_title_entry"
+	org $4A30
+	"gfx/mail/mail_title_entry"
+	org $56F2
+	"engine/address_book/address_picker"
+	org $6730
+	"gfx/address_book/address_picker"
+	org $741C
+	"engine/address_book/unreferenced_confirm_screen"
+	org $7740
+	"gfx/address_book/unreferenced_confirm_screen"
+
+ROMX $2D
+	org $4000
+	"engine/mail/compose"
+	org $4195
+	"engine/mail/sample_data"
+	org $4686
+	"engine/mail/staging"
+	org $4722
+	"engine/mail/body_editor"
+	org $5AC0
+	"gfx/mail/body_editor"
+	org $65B0
+	"engine/mail/address_editor"
+	org $7120
+	"gfx/mail/address_editor"
+	org $7E60
+	"engine/sram/clear_all_banks"
+
+ROMX $2E
+	org $4000
+	"engine/mail_server/tidy"
+	org $4B2E
+	"engine/mail_server/tidy_screen"
+	org $56E0
+	"gfx/mail_server/tidy_screen"
+
+ROMX $2F
+	org $4000
+	"engine/address_book/list"
+	org $4D40
+	"gfx/address_book/list"
+	org $5098
+	"engine/address_book/view"
+	org $57F2
+	"engine/address_book/name_editor"
+	org $61F0
+	"gfx/address_book/name_editor"
+	org $6D00
+	"engine/address_book/address_editor"
+	org $77D0
+	"gfx/address_book/address_editor"
+	org $7EBF
+	"engine/address_book/address_book"
+
+ROMX $3D
+	org $4000
+	"data/html/pages_saport_to_tu_error"
+	org $48D1
+	"data/html/pages_cdmaone_to_www"
+
+ROMX $3E
+	org $4000
+	"data/html/pages_a_mark_to_download"
+	org $4D27
+	"data/html/pages_email_to_m_home"
+	org $5B9F
+	"data/html/pages_m_sys_to_offline"
+	org $6C4F
+	"data/html/pages_online_to_receive"
+
+ROMX $3F
+	org $4000
+	"data/html/index"
+
+ROMX $41
+	org $4000
+	"gfx/bank41"
+
+ROMX $42
+	org $4000
+	"gfx/bank42"
+
+ROMX $43
+	org $4000
+	"gfx/bank43"
+
+ROMX $44
+	org $4000
+	"gfx/bank44"
+
+ROMX $45
+	org $4000
+	"gfx/bank45"
+
+ROMX $46
+	org $4000
+	"gfx/bank46"
+
+ROMX $47
+	org $4000
+	"gfx/browser/frames_0_1"
+	org $5BA0
+	"gfx/browser/frames_2_3"
+
+ROMX $48
+	org $4000
+	"engine/text/text_tiles"
+	org $4223
+	"engine/menus/ticker"
+	org $44E0
+	"engine/gfx/palette_fade_masked"
+	org $4616
+	"engine/sram/write_byte_far"
+	org $4679
+	"engine/gfx/tilemap_fill"
+	org $46C6
+	"engine/gfx/palette_fade_ticker"
+	org $4728
+	"engine/text/font_8x16"
+	org $4899
+	"engine/sram/checksum3"
+	org $498C
+	"engine/tutorial/gates"
+	org $4AAB
+	"engine/sram/menu_cursor_memory"
+	org $4ADB
+	"data/fonts/font_8x16"
+	org $69AB
+	"zero_labels"
+
+ROMX $4A
+	org $4000
+	"gfx/account/screens_bank4a"
+	org $5F80
+	"gfx/settings/screens_bank4a"
+
+ROMX $4B
+	org $4000
+	"gfx/registration/screen_bank4b"
+	org $42D0
+	"gfx/account/screens_bank4b"
+	org $5B90
+	"gfx/settings/screens_bank4b"
+
+ROMX $4C
+	org $4000
+	"engine/browser/page_loader"
+	org $46B8
+	"engine/browser/comm_disconnect"
+	org $4840
+	"engine/browser/inline_images"
+	org $4B54
+	"engine/browser/history_cache"
+	org $4DB2
+	"engine/browser/page_results"
+	org $4F56
+	"engine/help/mobile_dictionary_view"
+
+ROMX $4D
+	org $4000
+	"gfx/settings/screens_bank4d"
+
+ROMX $4E
+	org $4000
+	"engine/browser/frame_style_chooser"
+	org $4658
+	"engine/sram/save_block_check"
+	org $488D
+	"engine/browser/session_start"
+	org $49A1
+	"engine/browser/page_view"
+	org $5204
+	"engine/browser/page_render"
+	org $5B69
+	"engine/browser/scrollbar"
+	org $5FB9
+	"engine/browser/status_sprites"
+	org $60A6
+	"engine/browser/canvas"
+	org $6196
+	"engine/browser/frame_graphics"
+
+ROMX $4F
+	org $4000
+	"engine/gfx/palette"
+	org $4572
+	"engine/gfx/tile_canvas"
+	org $4668
+	"engine/browser/entry"
+	org $4717
+	"engine/startup/boot_stage2"
+
+ROMX $50
+	org $4000
+	"engine/comm/notice_dialog"
+	org $439A
+	"gfx/comm/notice_dialog"
+
+ROMX $51
+	org $4000
+	"engine/comm/time_summary"
+	org $42A0
+	"gfx/comm/time_summary"
+	org $70E0
+	"engine/browser/inline_image_blit"
+
+ROMX $52
+	org $4000
+	"gfx/bank52"
+
+ROMX $53
+	org $4000
+	"data/text/pokemon_names_bank53"
+
+ROMX $54
+	org $4000
+	"engine/mobile/connection"
+	org $4288
+	"engine/mobile/http"
+	org $44FE
+	"engine/mobile/smtp"
+	org $485C
+	"engine/mobile/pop3_top"
+	org $4C47
+	"engine/mobile/text_truncate"
+	org $4CB0
+	"engine/mobile/pop3_retr"
+	org $5168
+	"engine/mobile/mail_date"
+	org $5386
+	"engine/mobile/pop3_dele"
+
+ROMX $55
+	org $4000
+	"data/keyboard/pages"
+	org $5BA2
+	"engine/keyboard/keyboard"
+	org $6CC6
+	"engine/text/half_to_full_width"
+	org $6E94
+	"engine/keyboard/type_helpers"
+
+ROMX $56
+	org $4000
+	"data/text/connect_dialog"
+	org $418A
+	"gfx/comm/connect_dialog_bank56"
+
+ROMX $57
+	org $4000
+	"engine/comm/connect_dialog"
+	org $47A6
+	"engine/comm/connect_dialog_screen"
+
+ROMX $58
+	org $4000
+	"gfx/registration/screens_bank58"
+
+ROMX $5B
+	org $4000
+	"gfx/bank5b"
+
+ROMX $5C
+	org $4000
+	"data/text/comm_error_messages"
+	org $5150
+	"engine/error/comm_error_screen"
+	org $5516
+	"gfx/error/comm_error_screen"
+
+ROMX $5D
+	org $4000
+	"gfx/keyboard/panels_bank5d"
+	org $4800
+	"gfx/account/screens_bank5d"
+	org $7360
+	"gfx/settings/screens_bank5d"
+
+ROMX $5E
+	org $4000
+	"gfx/settings/screens_bank5e"
+	org $4800
+	"gfx/account/screens_bank5e"
+
+ROMX $5F
+	org $4000
+	"gfx/keyboard/panels_bank5f"
+
+ROMX $60
+	org $4000
+	"gfx/bank60"
+
+ROMX $61
+	org $4000
+	"gfx/bank61"
+
+ROMX $62
+	org $4000
+	"gfx/keyboard/tiles_bank62"
+
+ROMX $63
+	org $4000
+	"engine/text/sjis_validity"
+	org $407A
+	"data/fonts/sjis_valid_bitmap"
+	org $6080
+	"gfx/error/no_adapter"
+	org $732F
+	"engine/error/no_adapter"
+
+ROMX $65
+	org $4000
+	"engine/startup/startup"
+	org $4123
+	"engine/startup/registration"
+	org $487C
+	"engine/startup/notice_pages"
+	org $4C6E
+	"data/text/registration_notices"
+	org $567F
+	"data/text/registration_prompts"
+
+ROMX $66
+	org $4000
+	"gfx/keyboard/tiles_bank66"
+
+ROMX $67
+	org $4000
+	"engine/settings/phone_number_entry"
+	org $4631
+	"engine/settings/choice_menu"
+	org $4924
+	"engine/settings/phone_comment_entry"
+	org $4C73
+	"engine/settings/slot_menu"
+	org $510A
+	"engine/settings/confirm_screen"
+	org $53DC
+	"engine/settings/adapter_config"
+	org $570C
+	"engine/settings/continue_prompt"
+	org $58CD
+	"engine/settings/password_change"
+	org $5F66
+	"engine/settings/http_redirect"
+	org $60BA
+	"engine/settings/usage_time"
+	org $626F
+	"engine/settings/usage_fee"
+	org $6369
+	"engine/settings/adapter_check"
+	org $6536
+	"engine/settings/password_save_confirm"
+	org $6731
+	"engine/settings/text_buffer"
+
+ROMX $68
+	org $4000
+	"engine/account/helpers"
+	org $4785
+	"engine/account/settings_page"
+	org $4DB4
+	"engine/account/dev_test_config"
+	org $4F9E
+	"engine/account/settings_menu"
+	org $5296
+	"engine/account/login_id_entry"
+	org $571D
+	"engine/account/mail_address_entry"
+	org $5D00
+	"engine/account/password_entry"
+	org $61F7
+	"engine/account/confirm_screens"
+	org $67E0
+	"data/account/default_config_images"
+	org $6AE0
+	"engine/account/register_config"
+	org $6E1A
+	"engine/account/action_confirm"
+	org $7019
+	"engine/account/registration_verify"
+	org $733C
+	"engine/account/comm_panel"
+	org $766E
+	"engine/account/result_page"
+	org $7951
+	"engine/account/delete_registration"
+
+ROMX $69
+	org $4000
+	"engine/comm/connection_icon"
+	org $4152
+	"gfx/comm/connection_icon"
+
+ROMX $6A
+	org $4000
+	"gfx/help/help_screens_a"
+	org $64B1
+	"data/text/help_menu_ticker"
+	org $6716
+	"gfx/help/help_screens_b"
+
+ROMX $6B
+	org $4000
+	"gfx/error/non_cgb_screen"
+	org $4C80
+	"engine/error/non_cgb_screen"
+
+ROMX $6C
+	org $4000
+	"engine/help/help_menu"
+	org $4809
+	"data/text/help_script"
+	org $5987
+	"engine/help/help_script"
+
+ROMX $70
+	org $4000
+	"engine/comm/comm_scene"
+	org $4822
+	"gfx/comm/comm_scene"
+
+ROMX $71
+	org $4000
+	"gfx/account/screens_bank71"
+	org $6F44
+	"gfx/settings/screens_bank71"
+
+ROMX $72
+	org $4000
+	"engine/dialog/dialog"
+	org $48C0
+	"gfx/dialog/dialog_window"
+	org $502B
+	"data/text/dialog_messages"
+	org $63D8
+	"engine/browser/menus"
+	org $6C10
+	"gfx/browser/menus"
+
+ROMX $73
+	org $4000
+	"data/text/browser_start_ticker"
+	org $4097
+	"gfx/browser/start_choice"
+	org $5F17
+	"engine/browser/start_choice"
+
+ROMX $74
+	org $4000
+	"data/html/keywords"
+	org $4165
+	"engine/html/parser"
+	org $44A0
+	"engine/html/tags"
+	org $4F4F
+	"engine/html/count_pass"
+	org $5252
+	"engine/html/layout"
+	org $5905
+	"engine/html/url"
+	org $5A96
+	"engine/html/link_tables"
+
+ROMX $75
+	org $4000
+	"lib/mobile/main"
+
+ROMX $76
+	org $4000
+	"data/fonts/jis12x12_rows_79_84"
+	org $67A8
+	"data/fonts/ascii_6x12"
+
+ROMX $77
+	org $4000
+	"data/fonts/jis12x12_rows_70_78"
+
+ROMX $78
+	org $4000
+	"data/fonts/jis12x12_rows_61_69"
+
+ROMX $79
+	org $4000
+	"data/fonts/jis12x12_rows_52_60"
+
+ROMX $7A
+	org $4000
+	"data/fonts/jis12x12_rows_43_51"
+
+ROMX $7B
+	org $4000
+	"data/fonts/jis12x12_rows_34_42"
+
+ROMX $7C
+	org $4000
+	"data/fonts/jis12x12_rows_25_33"
+	org $7B7C
+	"engine/main/navigation"
+
+ROMX $7D
+	org $4000
+	"data/fonts/jis12x12_rows_16_24"
+	org $7B7C
+	"engine/input/joypad"
+
+ROMX $7E
+	org $4000
+	"data/fonts/jis12x12_rows_01_08_13"
+	org $7B7C
+	"engine/text/charset_convert"
+
+ROMX $7F
+	org $4000
+	"engine/text/glyph"
+	org $41EA
+	"engine/text/canvas"
+	org $4C78
+	"engine/unreferenced/page_list_prototype"
+	org $61FC
+	"engine/comm/time_hooks"
+	org $624F
+	"engine/sprites/slot_backup"
+	org $62B0
+	"gfx/unreferenced/page_list_prototype"
+	org $70FD
+	"engine/keyboard/slide_helpers"
+	org $7271
+	"engine/gfx/scroll_split"
+	org $7830
+	"gfx/unreferenced/page_list_prototype_objects"

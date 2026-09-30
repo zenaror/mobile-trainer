@@ -1,0 +1,5580 @@
+; lib/mobile/mail.asm
+; bank 0F, $4000-$5DAE (7598 bytes); pinned by layout.link
+; SDK mail library (= Crystal bank 45 lib/mobile/mail.asm) with its header strings and selector tables
+
+SECTION "lib/mobile/mail", ROMX
+
+; ---- text $4000-$4004 (4 bytes) [PROBABLE] ASCII string "---" + NUL (mail-header/text helper strings of this bank; neighbour of the CONFIRMED-style string table entries)
+
+MailStr_Boundary:: ; 0F:4000
+String_0F_4000::
+	db $2D, $2D, $2D, $00 ; "---"
+
+; ---- text $4004-$4010 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_GameCodeAllowList:: ; 0F:4004
+String_0F_4004::
+	db $43, $47, $42, $2D, $41, $41, $41, $41, $2D, $30, $30, $00 ; "CGB-AAAA-00"
+
+; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
+	ds $1, $00
+
+; ---- ptrtable $4011-$4033 (34 bytes) [PROBABLE] 17 x dw string pointers: 4033 "From: ", 403A "Sender: ", 4043 "Reply-To: ", 404E "To: ", 4053 "Cc: ", 4058 "Subject: ", ... 4164 "--", 4167 "."; every target is a NUL-terminated ASCII string start (mail header field names of the message composer/parser); table starts at an odd address
+
+Mail_HeaderStringTable:: ; 0F:4011
+Table_0F_4011::
+	dw MailStr_HdrFrom
+	dw MailStr_HdrSender
+	dw MailStr_HdrReplyTo
+	dw MailStr_HdrTo
+	dw MailStr_HdrCc
+	dw MailStr_HdrSubject
+	dw MailStr_HdrMimeVersion
+	dw MailStr_HdrXGameTitle
+	dw MailStr_HdrXGameCode
+	dw MailStr_HdrXGBmailType
+	dw MailStr_HdrContentTypeText
+	dw MailStr_HdrContentTypeMultipart
+	dw MailStr_HdrContentTypeOctet
+	dw MailStr_HdrTransferEncodingBase64
+	dw MailStr_DashDash
+	dw MailStr_DashDash
+	dw MailStr_Dot
+
+; ---- text $4033-$403A (7 bytes) [PROBABLE] ASCII string "From: " + NUL, entry 0 of the pointer table 0F:4011
+
+MailStr_HdrFrom:: ; 0F:4033
+String_0F_4033::
+	db $46, $72, $6F, $6D, $3A, $20, $00 ; "From: "
+
+; ---- text $403A-$404E (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_HdrSender:: ; 0F:403A
+String_0F_403A::
+	db $53, $65, $6E, $64, $65, $72, $3A, $20, $00 ; "Sender: "
+
+MailStr_HdrReplyTo:: ; 0F:4043
+	db $52, $65, $70, $6C, $79, $2D, $54, $6F, $3A, $20, $00 ; "Reply-To: "
+
+; ---- text $404E-$4058 (10 bytes) [PROBABLE] ASCII strings "To: " and "Cc: " (entries 3 and 4 of the pointer table 0F:4011 = 404E, 4053)
+
+MailStr_HdrTo:: ; 0F:404E
+String_0F_404E::
+	db $54, $6F, $3A, $20, $00 ; "To: "
+
+MailStr_HdrCc:: ; 0F:4053
+	db $43, $63, $3A, $20, $00 ; "Cc: "
+
+; ---- text $4058-$4164 (268 bytes) [PROBABLE] text: 9 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_HdrSubject:: ; 0F:4058
+String_0F_4058::
+	db $53, $75, $62, $6A, $65, $63, $74, $3A, $20, $00 ; "Subject: "
+
+MailStr_HdrMimeVersion:: ; 0F:4062
+	db $4D, $49, $4D, $45, $2D, $56, $65, $72, $73, $69, $6F, $6E, $3A, $20, $31, $2E, $30, $00 ; "MIME-Version: 1.0"
+
+MailStr_HdrXGameTitle:: ; 0F:4074
+	db $58, $2D, $47, $61, $6D, $65, $2D, $74, $69, $74, $6C, $65, $3A, $20, $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "X-Game-title: MOBILE TRAINER"
+
+MailStr_HdrXGameCode:: ; 0F:4091
+	db $58, $2D, $47, $61, $6D, $65, $2D, $63, $6F, $64, $65, $3A, $20, $43, $47, $42, $2D, $00 ; "X-Game-code: CGB-"
+
+MailStr_HdrXGBmailType:: ; 0F:40A3
+	db $58, $2D, $47, $42, $6D, $61, $69, $6C, $2D, $74, $79, $70, $65, $3A, $20, $65, $78, $63, $6C, $75, $73, $69, $76, $65, $00 ; "X-GBmail-type: exclusive"
+
+MailStr_HdrContentTypeText:: ; 0F:40BC
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $74, $65, $78, $74, $2F, $70, $6C, $61, $69, $6E, $3B, $20, $63, $68, $61, $72, $73, $65, $74, $3D ; "Content-Type: text/plain; charset="
+	db $69, $73, $6F, $2D, $32, $30, $32, $32, $2D, $6A, $70, $00 ; "iso-2022-jp"
+
+MailStr_HdrContentTypeMultipart:: ; 0F:40EA
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $6D, $75, $6C, $74, $69, $70, $61, $72, $74, $2F, $6D, $69, $78, $65, $64, $3B, $20, $62, $6F, $75 ; "Content-Type: multipart/mixed; bou"
+	db $6E, $64, $61, $72, $79, $3D, $22, $00 ; "ndary=\""
+
+MailStr_HdrContentTypeOctet:: ; 0F:4114
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $41, $70, $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $4F, $63, $74, $65, $74, $2D, $53, $74 ; "Content-Type: Application/Octet-St"
+	db $72, $65, $61, $6D, $3B, $20, $6E, $61, $6D, $65, $3D, $22, $00 ; "ream; name=\""
+
+MailStr_HdrTransferEncodingBase64:: ; 0F:4143
+	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $72, $61, $6E, $73, $66, $65, $72, $2D, $45, $6E, $63, $6F, $64, $69, $6E, $67, $3A, $42, $61, $73, $65, $36, $34, $00 ; "Content-Transfer-Encoding:Base64"
+
+; ---- text $4164-$4167 (3 bytes) [PROBABLE] ASCII string "--" + NUL (entry 14/15 of the pointer table 0F:4011 = 4164)
+
+MailStr_DashDash:: ; 0F:4164
+String_0F_4164::
+	db $2D, $2D, $00 ; "--"
+
+; ---- text $4167-$4169 (2 bytes) [PROBABLE] ASCII string "." + NUL (entry 16 of the pointer table 0F:4011 = 4167)
+
+MailStr_Dot:: ; 0F:4167
+String_0F_4167::
+	db $2E, $00 ; "."
+
+; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
+
+Mail_SelectorTable:: ; 0F:4169
+Table_0F_4169::
+	dw Mail_SelectorNop, Mail_ScanHeaders, Mail_CheckGameMail, Mail_LocateHeader, Mail_ParseBody, Mail_IndexHeaders, Mail_GetDecodedHeader, Mail_GetAddressList
+	dw Mail_ComposeNext, Function_0F_52BC, Function_0F_54D8, Function_0F_56E1, Function_0F_5A10
+
+; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
+
+Mail_HeaderKeywordTable:: ; 0F:4183
+Table_0F_4183::
+	dw MailStr_KwFrom
+	dw MailStr_KwSender
+	dw MailStr_KwReplyTo
+	dw MailStr_KwTo
+	dw MailStr_KwCc
+	dw MailStr_KwSubject
+	dw MailStr_KwDate
+	dw MailStr_KwContentType
+	dw MailStr_KwMimeVersion
+	dw MailStr_KwXMailer
+	dw MailStr_KwXGameTitle
+	dw MailStr_KwXGameCode
+	dw MailStr_KwXGBmailType
+
+; ---- text $419D-$41AB (14 bytes) [PROBABLE] ASCII strings "FROM:" and "SENDER:" + NULs (entries 0-1 of the pointer table 0F:4183)
+
+MailStr_KwFrom:: ; 0F:419D
+String_0F_419D::
+	db $46, $52, $4F, $4D, $3A, $00 ; "FROM:"
+
+MailStr_KwSender:: ; 0F:41A3
+	db $53, $45, $4E, $44, $45, $52, $3A, $00 ; "SENDER:"
+
+; ---- text $41AB-$41B5 (10 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_KwReplyTo:: ; 0F:41AB
+String_0F_41AB::
+	db $52, $45, $50, $4C, $59, $2D, $54, $4F, $3A, $00 ; "REPLY-TO:"
+
+; ---- text $41B5-$41BD (8 bytes) [PROBABLE] ASCII strings "TO:" and "CC:" (entries of the pointer table 0F:4183)
+
+MailStr_KwTo:: ; 0F:41B5
+String_0F_41B5::
+	db $54, $4F, $3A, $00 ; "TO:"
+
+MailStr_KwCc:: ; 0F:41B9
+	db $43, $43, $3A, $00 ; "CC:"
+
+; ---- text $41BD-$41C6 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_KwSubject:: ; 0F:41BD
+String_0F_41BD::
+	db $53, $55, $42, $4A, $45, $43, $54, $3A, $00 ; "SUBJECT:"
+
+; ---- text $41C6-$41CC (6 bytes) [PROBABLE] ASCII string "DATE:" + NUL (entry 6 of the pointer table 0F:4183)
+
+MailStr_KwDate:: ; 0F:41C6
+String_0F_41C6::
+	db $44, $41, $54, $45, $3A, $00 ; "DATE:"
+
+; ---- text $41CC-$421C (80 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_KwContentType:: ; 0F:41CC
+String_0F_41CC::
+	db $43, $4F, $4E, $54, $45, $4E, $54, $2D, $54, $59, $50, $45, $3A, $00 ; "CONTENT-TYPE:"
+
+MailStr_KwMimeVersion:: ; 0F:41DA
+	db $4D, $49, $4D, $45, $2D, $56, $45, $52, $53, $49, $4F, $4E, $3A, $00 ; "MIME-VERSION:"
+
+MailStr_KwXMailer:: ; 0F:41E8
+	db $58, $2D, $4D, $41, $49, $4C, $45, $52, $3A, $00 ; "X-MAILER:"
+
+MailStr_KwXGameTitle:: ; 0F:41F2
+	db $58, $2D, $47, $41, $4D, $45, $2D, $54, $49, $54, $4C, $45, $3A, $00 ; "X-GAME-TITLE:"
+
+MailStr_KwXGameCode:: ; 0F:4200
+	db $58, $2D, $47, $41, $4D, $45, $2D, $43, $4F, $44, $45, $3A, $00 ; "X-GAME-CODE:"
+
+MailStr_KwXGBmailType:: ; 0F:420D
+	db $58, $2D, $47, $42, $4D, $41, $49, $4C, $2D, $54, $59, $50, $45, $3A, $00 ; "X-GBMAIL-TYPE:"
+
+; ---- text $421C-$4222 (6 bytes) [PROBABLE] ASCII string "NAME=" + NUL (MIME parameter, referenced by ld hl in the parser)
+
+MailStr_KwName:: ; 0F:421C
+String_0F_421C::
+	db $4E, $41, $4D, $45, $3D, $00 ; "NAME="
+
+; ---- text $4222-$4236 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+MailStr_KwMultipart:: ; 0F:4222
+String_0F_4222::
+	db $4D, $55, $4C, $54, $49, $50, $41, $52, $54, $00 ; "MULTIPART"
+
+MailStr_KwBoundary:: ; 0F:422C
+	db $42, $4F, $55, $4E, $44, $41, $52, $59, $3D, $00 ; "BOUNDARY="
+
+; ---- text $4236-$4247 (17 bytes) [PROBABLE] ASCII string "=?ISO-2022-JP?B?" + NUL (MIME encoded-word prefix), copied by 0F:5104 (ld hl,$4236 ; ld a,[hli] ; and a ; jr z ; ld [de],a)
+
+MailStr_EncodedWordPrefix:: ; 0F:4236
+String_0F_4236::
+	db $3D, $3F, $49, $53, $4F, $2D, $32, $30, $32, $32, $2D, $4A, $50, $3F, $42, $3F, $00 ; "=?ISO-2022-JP?B?"
+
+; ---- code $4247-$426C (37 bytes) [CONFIRMED] 795 insn(s) reached by static flow only; seeds: exec x16, mobile x779; min discovery hops 0; entered by call from 00:0262 (PROBABLE code) | 22 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 18 scenarios]
+
+Mail_Dispatch:: ; 0F:4247
+	ld a, $0A
+	ld [rRAMG], a
+	ldh a, [hSRAMBank]
+	push af
+	push de
+	ld a, [wMail_Selector]
+	add a, a
+	ld e, a
+	ld d, $00
+	ld hl, Mail_SelectorTable
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop de
+	jp hl
+
+Mail_Return:: ; 0F:4260
+	ld [wMail_Selector], a
+	pop af
+	ldh [hSRAMBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ret
+
+; ---- code $426C-$426D (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Mail_SelectorNop:: ; 0F:426C
+	ret
+
+; ---- code $426D-$42A8 (59 bytes) [CONFIRMED] 37 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+
+Mail_ScanHeaders:: ; 0F:426D
+	ld h, d
+	ld l, e
+	xor a, a
+	ld [wMail_Selector], a
+	ld [wBank4DeferredCall], a
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+
+Label_0F_4286:: ; 0F:4286
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_42A8
+	ld h, a
+	ld a, [wBank4DeferredCall]
+	and a, a
+	jr nz, Label_0F_4296
+	ld a, h
+	cp a, $80
+	jr nc, Label_0F_42B2
+
+Label_0F_4296:: ; 0F:4296
+	ld a, h
+	cp a, $0D
+	jr z, Label_0F_42BF
+	xor a, a
+	ld [wMail_Selector], a
+
+Label_0F_429F:: ; 0F:429F
+	inc e
+	call z, Mail_ScanHeaders_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_4286
+
+; ---- code $42A8-$42B2 (10 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_42A8:: ; 0F:42A8
+	ld a, [wBank4DeferredCall]
+	and a, a
+	jr nz, Label_0F_4307
+	ld b, $80
+	jr Label_0F_42B4
+
+; ---- code $42B2-$4307 (85 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_42B2:: ; 0F:42B2
+	ld b, $81
+
+Label_0F_42B4:: ; 0F:42B4
+	ld a, [wMail_InputBank]
+	ld c, a
+	ld a, $01
+	ld h, d
+	ld l, e
+	jp Mail_Return
+
+Label_0F_42BF:: ; 0F:42BF
+	and a, a
+	jr z, Label_0F_42A8
+	inc e
+	call z, Mail_ScanHeaders_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_42A8
+	ld a, [de]
+	ld h, a
+	ld a, [wBank4DeferredCall]
+	and a, a
+	jr nz, Label_0F_42D8
+	ld a, h
+	cp a, $80
+	jr nc, Label_0F_42B2
+
+Label_0F_42D8:: ; 0F:42D8
+	ld a, h
+	cp a, $0A
+	jr nz, Label_0F_42B2
+	ld a, [wBank4DeferredCall]
+	and a, a
+	jr nz, Label_0F_4311
+	ld a, [wMail_Selector]
+	and a, a
+	jr nz, Label_0F_430D
+	ld a, $01
+	ld [wMail_Selector], a
+	inc e
+	call z, Mail_ScanHeaders_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_42A8
+	ld a, [de]
+	cp a, $20
+	jr z, Label_0F_429F
+	cp a, $09
+	jr z, Label_0F_429F
+	jr Label_0F_4286
+
+Label_0F_4302:: ; 0F:4302
+	xor a, a
+	ld b, a
+	jp Mail_Return
+
+; ---- code $4307-$430D (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_4307:: ; 0F:4307
+	xor a, a
+	ld b, $01
+	jp Mail_Return
+
+; ---- code $430D-$435B (78 bytes) [CONFIRMED] 44 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+
+Label_0F_430D:: ; 0F:430D
+	xor a, a
+	ld [wMail_Selector], a
+
+Label_0F_4311:: ; 0F:4311
+	ld a, [wMail_Selector]
+	and a, a
+	jr nz, Label_0F_4302
+	ld a, $01
+	ld [wBank4DeferredCall], a
+	inc e
+	call z, Mail_ScanHeaders_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_42A8
+	ld a, [de]
+	and a, a
+	jp z, Label_0F_42A8
+	cp a, $2E
+	jp nz, Label_0F_4286
+	ld a, $01
+	ld [wMail_Selector], a
+	jp Label_0F_429F
+
+Mail_ScanHeaders_NextPage:: ; 0F:4337
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_CheckGameMail:: ; 0F:4340
+	push de
+	ld h, d
+	ld l, e
+	ld c, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld b, $0B
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_435C
+	and a, a
+	jr z, Label_0F_4364
+	pop hl
+
+Label_0F_4355:: ; 0F:4355
+	xor a, a
+	ld b, $03
+	jp Mail_Return
+
+; ---- code $435B-$4364 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_435B:: ; 0F:435B
+	pop hl
+
+Label_0F_435C:: ; 0F:435C
+	pop hl
+	ld a, $01
+	ld b, $82
+	jp Mail_Return
+
+; ---- code $4364-$437D (25 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 14 scenarios]
+
+Label_0F_4364:: ; 0F:4364
+	ld a, h
+	ld [wBank4DeferredCall], a
+	pop hl
+	push bc
+	push de
+	ld c, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	ld b, $0C
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_435B
+	and a, a
+	jr z, Label_0F_4385
+
+; ---- code $437D-$4385 (8 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+	xor a, a
+	ld b, $02
+	pop hl
+	pop hl
+	jp Mail_Return
+
+; ---- code $4385-$43BB (54 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_4385:: ; 0F:4385
+	pop de
+	pop bc
+	ld a, [wBank4DeferredCall]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Mail_UnfoldHeader
+	ld hl, MailStr_GameCodeAllowList
+
+Label_0F_4398:: ; 0F:4398
+	ld de, $D024
+
+Label_0F_439B:: ; 0F:439B
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_43B1
+	ld b, a
+	ld a, [de]
+	inc de
+	cp a, b
+	jr z, Label_0F_439B
+
+Label_0F_43A5:: ; 0F:43A5
+	ld a, [hli]
+	and a, a
+	jr nz, Label_0F_43A5
+	ld a, [hl]
+	and a, a
+	jr nz, Label_0F_4398
+	ld b, a
+	jp Mail_Return
+
+Label_0F_43B1:: ; 0F:43B1
+	ld a, [de]
+	and a, a
+	jr nz, Label_0F_4355
+	xor a, a
+	ld b, $01
+	jp Mail_Return
+
+; ---- code $43BB-$43F7 (60 bytes) [PROBABLE] 44 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Mail_LocateHeader:: ; 0F:43BB
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	ld c, a
+	inc de
+	ld a, [de]
+	ld h, a
+	inc de
+	ld a, [de]
+	inc de
+	push de
+	ld d, a
+	ld e, h
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_43EF
+	and a, a
+	jr nz, Label_0F_43F1
+	ld a, h
+	pop hl
+	push af
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	jp Mail_Return
+
+Label_0F_43EF:: ; 0F:43EF
+	ld b, $82
+
+Label_0F_43F1:: ; 0F:43F1
+	ld a, $01
+	pop hl
+	jp Mail_Return
+
+; ---- code $43F7-$4406 (15 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+
+Mail_FindHeader:: ; 0F:43F7
+	call Function_0F_4416
+	and a, a
+	jr nz, Label_0F_4411
+	ld a, $04
+	cp a, b
+	jr c, Label_0F_440B
+	jr z, Label_0F_4406
+
+Label_0F_4404:: ; 0F:4404
+	xor a, a
+	ret
+
+; ---- code $4406-$4411 (11 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_4406:: ; 0F:4406
+	ld a, $00
+	cp a, c
+	jr nc, Label_0F_4404
+
+Label_0F_440B:: ; 0F:440B
+	ld bc, $0400
+	ld a, $02
+	ret
+
+; ---- code $4411-$447F (110 bytes) [CONFIRMED] 65 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 14 scenarios]
+
+Label_0F_4411:: ; 0F:4411
+	ld a, $01
+	ld b, $84
+	ret
+
+Function_0F_4416:: ; 0F:4416
+	ld a, c
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, Mail_HeaderKeywordTable
+	ld a, b
+	add a, a
+	ld c, a
+	ld b, $00
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld c, $00
+	jr Label_0F_444E
+
+Label_0F_442F:: ; 0F:442F
+	ld a, [de]
+	and a, a
+	jp z, Label_0F_44C6
+	inc e
+	call z, Mail_FindHeader_NextPage
+	cp a, $0D
+	jr nz, Label_0F_442F
+	ld a, [de]
+	inc e
+	call z, Mail_FindHeader_NextPage
+	cp a, $0A
+	jr nz, Label_0F_442F
+	ld a, [de]
+	cp a, $2E
+	jr z, Label_0F_44B2
+	cp a, $0D
+	jr z, Label_0F_44BC
+
+Label_0F_444E:: ; 0F:444E
+	ld a, [wMail_InputBank]
+	ld [wMail_Selector], a
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_44C6
+	inc e
+	call z, Mail_FindHeader_NextPage
+	cp a, $61
+	jr c, Label_0F_4466
+	cp a, $7B
+	jr nc, Label_0F_4466
+	sub a, $20
+
+Label_0F_4466:: ; 0F:4466
+	ld b, a
+	ld a, [hl]
+	and a, a
+	jr z, Label_0F_447A
+	cp a, b
+	jr nz, Label_0F_4472
+	inc c
+	inc hl
+	jr Label_0F_444E
+
+Label_0F_4472:: ; 0F:4472
+	ld a, c
+	and a, a
+	jr z, Label_0F_442F
+	dec c
+	dec hl
+	jr Label_0F_4472
+
+Label_0F_447A:: ; 0F:447A
+	ld a, $20
+	cp a, b
+	jr z, Label_0F_4485
+
+; ---- code $447F-$4485 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+	ld a, $0A
+	cp a, b
+	jr z, Label_0F_4485
+	dec de
+
+; ---- code $4485-$44B2 (45 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+
+Label_0F_4485:: ; 0F:4485
+	ld h, d
+	ld l, e
+	ld bc, $0000
+
+Label_0F_448A:: ; 0F:448A
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_44C6
+	inc bc
+	inc e
+	call z, Mail_FindHeader_NextPage
+	cp a, $0D
+	jr nz, Label_0F_448A
+	ld a, [de]
+	inc bc
+	inc e
+	call z, Mail_FindHeader_NextPage
+	cp a, $0A
+	jr nz, Label_0F_448A
+	ld a, [de]
+	cp a, $20
+	jr z, Label_0F_448A
+	cp a, $09
+	jr z, Label_0F_448A
+	ld d, h
+	ld e, l
+	ld a, [wMail_Selector]
+	ld h, a
+	xor a, a
+	ret
+
+; ---- code $44B2-$44BC (10 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_44B2:: ; 0F:44B2
+	inc e
+	call z, Mail_FindHeader_NextPage
+	ld a, [de]
+	cp a, $0D
+	jp nz, Label_0F_442F
+
+; ---- code $44BC-$4539 (125 bytes) [CONFIRMED] 74 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_44BC:: ; 0F:44BC
+	inc e
+	call z, Mail_FindHeader_NextPage
+	ld a, [de]
+	cp a, $0A
+	jp nz, Label_0F_442F
+
+Label_0F_44C6:: ; 0F:44C6
+	ld a, $00
+	ld [hl], a
+	ld a, $01
+	ret
+
+Mail_FindHeader_NextPage:: ; 0F:44CC
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_ParseBody:: ; 0F:44D5
+	call Mail_LoadArgs
+	dec de
+	dec de
+	push de
+	inc de
+	inc de
+	inc de
+	inc hl
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc hl
+	ld a, [de]
+	ld [hld], a
+	dec de
+	ld a, [de]
+	ld [hl], a
+	xor a, a
+	ld [wRam_D016], a
+	ld [wMail_ErrorFlag], a
+	ld a, $02
+	ld [wMail_ItemListPointer + 1], a
+	ld hl, $D003
+	ld c, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	call Mail_ParseContentType
+	cp a, $02
+	jr z, Label_0F_455F
+	and a, a
+	jr z, Label_0F_4515
+	ld a, $01
+	ld [wMail_ItemListPointer], a
+	call Mail_ParseMultipart
+	and a, a
+	jr nz, Label_0F_455F
+	jr Label_0F_4520
+
+Label_0F_4515:: ; 0F:4515
+	call Mail_ParseSinglePart
+	and a, a
+	jr nz, Label_0F_455F
+	ld a, $02
+	ld [wMail_ItemListPointer], a
+
+Label_0F_4520:: ; 0F:4520
+	pop hl
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, [wMail_ItemListPointer]
+	ld [de], a
+	ld b, $00
+	ld a, [wRam_D016]
+	and a, a
+	jr z, Label_0F_453B
+
+; ---- code $4539-$453B (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+	ld b, $01
+
+; ---- code $453B-$455D (34 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_453B:: ; 0F:453B
+	ld hl, $D006
+	ld a, [hl]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $D009
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	dec de
+	ld a, d
+	or a, e
+	jr z, Label_0F_455D
+	ld hl, $D007
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	xor a, a
+	ld [de], a
+	jp Mail_Return
+
+; ---- code $455D-$4565 (8 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_455D:: ; 0F:455D
+	ld b, $83
+
+Label_0F_455F:: ; 0F:455F
+	pop hl
+	ld a, $01
+	jp Mail_Return
+
+; ---- code $4565-$45BA (85 bytes) [CONFIRMED] 53 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 6 scenarios]
+
+Mail_LoadArgs:: ; 0F:4565
+	ld hl, $D003
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hl], a
+	ret
+
+Mail_ParseContentType:: ; 0F:457A
+	xor a, a
+	ld [wRam_D00F], a
+	ld b, $07
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_45BA
+	and a, a
+	jr nz, Label_0F_45B8
+	ld a, h
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	push hl
+	push de
+	push bc
+	ld hl, $D024
+	call Mail_CopyFromSram
+	call Mail_ParseMultipartBoundary
+	pop bc
+	pop de
+	pop hl
+	and a, a
+	jr z, Label_0F_45C3
+	ld a, b
+	and a, a
+	jr nz, Label_0F_45BE
+	ld a, h
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $421C
+	call Mail_FindKeywordValue
+
+Label_0F_45B8:: ; 0F:45B8
+	xor a, a
+	ret
+
+; ---- code $45BA-$45C3 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_45BA:: ; 0F:45BA
+	ld b, $82
+	jr Label_0F_45C0
+
+Label_0F_45BE:: ; 0F:45BE
+	ld b, $81
+
+Label_0F_45C0:: ; 0F:45C0
+	ld a, $02
+	ret
+
+; ---- code $45C3-$45F3 (48 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_45C3:: ; 0F:45C3
+	ld a, $01
+	ld [wRam_D00F], a
+	ret
+
+Mail_ParseMultipartBoundary:: ; 0F:45C9
+	ld hl, $D024
+	ld de, MailStr_KwMultipart
+	ld c, $00
+
+Label_0F_45D1:: ; 0F:45D1
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_45F3
+	cp a, $20
+	jr z, Label_0F_45D1
+	cp a, $0D
+	jr z, Label_0F_45FC
+	cp a, $61
+	jr c, Label_0F_45E7
+	cp a, $7B
+	jr nc, Label_0F_45E7
+	sub a, $20
+
+Label_0F_45E7:: ; 0F:45E7
+	ld b, a
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4612
+	inc de
+	cp a, b
+	jr z, Label_0F_45D1
+	dec de
+	jr Label_0F_45D1
+
+; ---- code $45F3-$45F7 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_45F3:: ; 0F:45F3
+	ld b, $00
+	jr Label_0F_45F9
+
+; ---- code $45F7-$460C (21 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_45F7:: ; 0F:45F7
+	ld b, $81
+
+Label_0F_45F9:: ; 0F:45F9
+	ld a, $01
+	ret
+
+Label_0F_45FC:: ; 0F:45FC
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_45F7
+	cp a, $0A
+	jr nz, Label_0F_45F7
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_45F7
+	cp a, $20
+	jr z, Label_0F_45D1
+
+; ---- code $460C-$4612 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+	cp a, $09
+	jr z, Label_0F_45D1
+	jr Label_0F_45F7
+
+; ---- code $4612-$468E (124 bytes) [CONFIRMED] 73 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_4612:: ; 0F:4612
+	ld a, c
+	and a, a
+	jr nz, Label_0F_461D
+	ld c, $01
+	ld de, $422C
+	jr Label_0F_45D1
+
+Label_0F_461D:: ; 0F:461D
+	dec hl
+	ld a, [hl]
+	cp a, $22
+	jr nz, Label_0F_4624
+	inc hl
+
+Label_0F_4624:: ; 0F:4624
+	ld de, $D625
+	ld b, $00
+	ld c, $40
+
+Label_0F_462B:: ; 0F:462B
+	ld a, [hli]
+	cp a, $22
+	jr z, Label_0F_463A
+	cp a, $0D
+	jr z, Label_0F_463A
+	ld [de], a
+	inc de
+	inc b
+	dec c
+	jr nz, Label_0F_462B
+
+Label_0F_463A:: ; 0F:463A
+	ld a, b
+	ld [wRam_D624], a
+	xor a, a
+	ret
+
+Mail_MatchBoundary:: ; 0F:4640
+	ld a, [wMail_InputBank]
+	push af
+	push de
+	ld hl, $D625
+	ld a, [wRam_D624]
+	ld b, a
+
+Label_0F_464C:: ; 0F:464C
+	ld a, [de]
+	ld c, a
+	ld a, [hli]
+	cp a, c
+	jr nz, Label_0F_468E
+	inc e
+	call z, Mail_MatchBoundary_NextPage
+	dec b
+	jr nz, Label_0F_464C
+	ld a, [de]
+	cp a, $2D
+	jr z, Label_0F_4677
+	cp a, $0D
+	jr nz, Label_0F_468E
+	xor a, a
+	ld [wRam_D010], a
+
+Label_0F_4666:: ; 0F:4666
+	inc e
+	call z, Mail_MatchBoundary_NextPage
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_468E
+	inc e
+	call z, Mail_MatchBoundary_NextPage
+	xor a, a
+	pop hl
+	pop hl
+	ret
+
+Label_0F_4677:: ; 0F:4677
+	inc e
+	call z, Mail_MatchBoundary_NextPage
+	ld a, [de]
+	cp a, $2D
+	jr nz, Label_0F_468E
+	inc e
+	call z, Mail_MatchBoundary_NextPage
+	ld a, $01
+	ld [wRam_D010], a
+	ld a, [de]
+	cp a, $0D
+	jr z, Label_0F_4666
+
+; ---- code $468E-$469F (17 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_468E:: ; 0F:468E
+	pop de
+	pop af
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld [wRam_D010], a
+	ld a, $01
+	ret
+
+; ---- code $469F-$46E8 (73 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 3 scenarios]
+
+Mail_MatchBoundary_NextPage:: ; 0F:469F
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_ParseSinglePart:: ; 0F:46A8
+	call Function_0F_486B
+	and a, a
+	jr nz, Label_0F_46E8
+	ld hl, $D003
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	call Mail_SkipHeaderBlock
+	and a, a
+	jr nz, Label_0F_46EC
+	call Function_0F_48C6
+	and a, a
+	jr nz, Label_0F_46E8
+	ld hl, $D003
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	call Mail_FindMessageEnd
+	and a, a
+	jr nz, Label_0F_46EC
+
+Label_0F_46DE:: ; 0F:46DE
+	dec bc
+	dec bc
+	call Function_0F_49D0
+	and a, a
+	jr nz, Label_0F_46E8
+	xor a, a
+	ret
+
+; ---- code $46E8-$46FE (22 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_46E8:: ; 0F:46E8
+	ld b, $83
+	jr Label_0F_46FB
+
+Label_0F_46EC:: ; 0F:46EC
+	ld a, [wMail_ErrorFlag]
+	and a, a
+	jr z, Label_0F_46F9
+	ld a, $01
+	ld [wRam_D016], a
+	jr Label_0F_46DE
+
+Label_0F_46F9:: ; 0F:46F9
+	ld b, $81
+
+Label_0F_46FB:: ; 0F:46FB
+	ld a, $01
+	ret
+
+; ---- code $46FE-$4742 (68 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Mail_ParseMultipart:: ; 0F:46FE
+	call Function_0F_486B
+	and a, a
+	jp nz, Label_0F_478E
+	ld hl, $D003
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	call Mail_SkipHeaderBlock
+	and a, a
+	jp nz, Label_0F_4792
+	call Function_0F_49D0
+	and a, a
+	jp nz, Label_0F_478E
+	ld a, $01
+	ld [wMail_ItemListPointer + 1], a
+	ld a, [wMail_InputBank]
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $01
+	ld [wRam_D015], a
+	call Mail_FindBoundary
+	and a, a
+	jp nz, Label_0F_47BB
+
+Label_0F_473B:: ; 0F:473B
+	call Mail_FindPartName
+	cp a, $01
+	jr nz, Label_0F_474D
+
+; ---- code $4742-$474D (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+	ld a, [wMail_ErrorFlag]
+	and a, a
+	jr z, Label_0F_4798
+	ld a, $01
+	ld [wRam_D016], a
+
+; ---- code $474D-$478A (61 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_474D:: ; 0F:474D
+	call Function_0F_4951
+	and a, a
+	jr nz, Label_0F_478E
+	ld a, [wRam_D016]
+	and a, a
+	jr nz, Label_0F_478A
+	ld hl, $D003
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	call Mail_FindBoundary
+	and a, a
+	jr nz, Label_0F_47BB
+	ld a, [wMail_ItemListPointer + 1]
+	cp a, $03
+	jr nz, Label_0F_4777
+	dec bc
+	dec bc
+
+Label_0F_4777:: ; 0F:4777
+	call Function_0F_49D0
+	and a, a
+	jr nz, Label_0F_478E
+	ld a, [wMail_ItemListPointer]
+	inc a
+	ld [wMail_ItemListPointer], a
+	ld a, [wRam_D016]
+	and a, a
+	jr z, Label_0F_479D
+
+; ---- code $478A-$479D (19 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+
+Label_0F_478A:: ; 0F:478A
+	ld b, $01
+	jr Label_0F_47CF
+
+Label_0F_478E:: ; 0F:478E
+	ld b, $83
+	jr Label_0F_479A
+
+Label_0F_4792:: ; 0F:4792
+	ld a, [wMail_ErrorFlag]
+	and a, a
+	jr nz, Label_0F_479A
+
+Label_0F_4798:: ; 0F:4798
+	ld b, $81
+
+Label_0F_479A:: ; 0F:479A
+	ld a, $01
+	ret
+
+; ---- code $479D-$47A5 (8 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_479D:: ; 0F:479D
+	ld a, [wRam_D010]
+	and a, a
+	jr z, Label_0F_473B
+	jr Label_0F_47CF
+
+; ---- code $47A5-$47BB (22 bytes) [HYPOTHESIS] 10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid start; it directly follows the unconditional jr $47CF at 47A3, so it must be a branch/jump-table target that was not found; entry unproven
+	ld hl, $D003
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Mail_FindMessageEnd
+	and a, a
+	jr z, Label_0F_47CF
+	xor a, a
+	ld [wRam_D016], a
+
+; ---- code $47BB-$47CF (20 bytes) [PROBABLE] 722 insn(s) reached by static flow only; seeds: mobile x722; min discovery hops 0; entered by jpcc from 0F:4738 (PROBABLE code) | 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_47BB:: ; 0F:47BB
+	ld a, [wMail_ErrorFlag]
+	and a, a
+	jr z, Label_0F_4798
+	ld a, $01
+	ld [wRam_D016], a
+	ld a, [wMail_ItemListPointer]
+	cp a, $01
+	jr nz, Label_0F_4777
+	ld b, $01
+
+; ---- code $47CF-$480F (64 bytes) [CONFIRMED] 37 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_47CF:: ; 0F:47CF
+	xor a, a
+	ret
+
+Mail_FindBoundary:: ; 0F:47D1
+	ld bc, $0000
+	ld a, [wRam_D015]
+	and a, a
+	jr nz, Label_0F_4810
+
+Label_0F_47DA:: ; 0F:47DA
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4833
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	inc bc
+	cp a, $0D
+	jr nz, Label_0F_47DA
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4833
+
+Label_0F_47EC:: ; 0F:47EC
+	inc bc
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	ld a, [de]
+	cp a, $20
+	jr z, Label_0F_482B
+	cp a, $09
+	jr z, Label_0F_482B
+	cp a, $0D
+	jr nz, Label_0F_482F
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4833
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	ld a, h
+	and a, a
+	jr z, Label_0F_4810
+
+; ---- code $480F-$4810 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+	dec bc
+
+; ---- code $4810-$482B (27 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_4810:: ; 0F:4810
+	ld a, [de]
+	cp a, $2D
+	jr nz, Label_0F_47DA
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	ld a, [de]
+	cp a, $2D
+	jr nz, Label_0F_47DA
+	inc e
+	call z, Mail_FindBoundary_NextPage
+	push bc
+	call Mail_MatchBoundary
+	pop bc
+	and a, a
+	jr nz, Label_0F_47DA
+	ret
+
+; ---- code $482B-$482F (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_482B:: ; 0F:482B
+	ld h, $01
+	jr Label_0F_47EC
+
+; ---- code $482F-$4833 (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+
+Label_0F_482F:: ; 0F:482F
+	ld h, $00
+	jr Label_0F_4810
+
+; ---- code $4833-$483E (11 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4833:: ; 0F:4833
+	and a, a
+	jr nz, Label_0F_483B
+	ld a, $01
+	ld [wMail_ErrorFlag], a
+
+Label_0F_483B:: ; 0F:483B
+	ld a, $01
+	ret
+
+; ---- code $483E-$4863 (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 3 scenarios]
+
+Mail_FindBoundary_NextPage:: ; 0F:483E
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_FindPartName:: ; 0F:4847
+	ld a, [wMail_InputBank]
+	push af
+	push de
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Mail_SkipHeaderBlock
+	and a, a
+	jr nz, Label_0F_4863
+	pop de
+	pop af
+	ld [wMail_InputBank], a
+	ld hl, $421C
+	call Mail_FindKeywordValue
+	ret
+
+; ---- code $4863-$486B (8 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4863:: ; 0F:4863
+	pop de
+	pop af
+	ld [wMail_InputBank], a
+	ld a, $01
+	ret
+
+; ---- code $486B-$48BA (79 bytes) [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Function_0F_486B:: ; 0F:486B
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, $02
+	ld [de], a
+	inc e
+	call z, Function_0F_48BD
+	ld a, $01
+	ld [de], a
+	inc e
+	call z, Function_0F_48BD
+	ld hl, $D003
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_48BD
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_48BD
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_48BD
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld d, $05
+
+Label_0F_48AD:: ; 0F:48AD
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_48BA
+	dec d
+	jr nz, Label_0F_48AD
+	ld [hl], b
+	dec hl
+	ld [hl], c
+	xor a, a
+	ret
+
+; ---- code $48BA-$48C6 (12 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_48BA:: ; 0F:48BA
+	ld a, $01
+	ret
+
+Function_0F_48BD:: ; 0F:48BD
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $48C6-$48ED (39 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Function_0F_48C6:: ; 0F:48C6
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, c
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, b
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [wMail_ItemListPointer + 1]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	cp a, $03
+	jr nz, Label_0F_4908
+
+; ---- code $48ED-$4908 (27 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+	ld hl, $D011
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+
+; ---- code $4908-$4936 (46 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4908:: ; 0F:4908
+	ld hl, $D003
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_4948
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld a, [wMail_ItemListPointer + 1]
+	cp a, $03
+	jr z, Label_0F_4936
+	ld d, $06
+	jr Label_0F_4938
+
+; ---- code $4936-$4938 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4936:: ; 0F:4936
+	ld d, $0A
+
+; ---- code $4938-$4945 (13 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4938:: ; 0F:4938
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4945
+	dec d
+	jr nz, Label_0F_4938
+	ld [hl], b
+	dec hl
+	ld [hl], c
+	xor a, a
+	ret
+
+; ---- code $4945-$4951 (12 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4945:: ; 0F:4945
+	ld a, $01
+	ret
+
+Function_0F_4948:: ; 0F:4948
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $4951-$49C4 (115 bytes) [CONFIRMED] 71 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+
+Function_0F_4951:: ; 0F:4951
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, [wMail_ItemListPointer + 1]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	cp a, $03
+	jr nz, Label_0F_4987
+	ld hl, $D011
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+
+Label_0F_4987:: ; 0F:4987
+	ld hl, $D003
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Function_0F_49C7
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld a, [wMail_ItemListPointer + 1]
+	cp a, $03
+	jr z, Label_0F_49B5
+	ld d, $04
+	jr Label_0F_49B7
+
+Label_0F_49B5:: ; 0F:49B5
+	ld d, $08
+
+Label_0F_49B7:: ; 0F:49B7
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_49C4
+	dec d
+	jr nz, Label_0F_49B7
+	ld [hl], b
+	dec hl
+	ld [hl], c
+	xor a, a
+	ret
+
+; ---- code $49C4-$49D0 (12 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_49C4:: ; 0F:49C4
+	ld a, $01
+	ret
+
+Function_0F_49C7:: ; 0F:49C7
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $49D0-$4A0F (63 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Function_0F_49D0:: ; 0F:49D0
+	ld hl, $D006
+	ld a, [hl]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	push de
+	ld hl, $D009
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	dec de
+	ld a, d
+	or a, e
+	jr z, Label_0F_4A0F
+	dec de
+	ld a, d
+	or a, e
+	jr z, Label_0F_4A0F
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	ld hl, $D007
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, c
+	ld [de], a
+	inc e
+	call z, Function_0F_4A13
+	ld a, b
+	ld [de], a
+	inc e
+	call z, Function_0F_4A13
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	pop de
+	xor a, a
+	ret
+
+; ---- code $4A0F-$4A1C (13 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4A0F:: ; 0F:4A0F
+	pop de
+	ld a, $01
+	ret
+
+Function_0F_4A13:: ; 0F:4A13
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $4A1C-$4A55 (57 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Mail_SkipHeaderBlock:: ; 0F:4A1C
+	ld bc, $0000
+	ld h, b
+
+Label_0F_4A20:: ; 0F:4A20
+	inc bc
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4A6A
+	inc e
+	call z, Mail_SkipHeaderBlock_NextPage
+	cp a, $0D
+	jr nz, Label_0F_4A20
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4A6A
+
+Label_0F_4A32:: ; 0F:4A32
+	inc bc
+	inc e
+	call z, Mail_SkipHeaderBlock_NextPage
+	ld a, [de]
+	cp a, $20
+	jr z, Label_0F_4A62
+	cp a, $09
+	jr z, Label_0F_4A62
+	cp a, $0D
+	jr nz, Label_0F_4A66
+	inc e
+	call z, Mail_SkipHeaderBlock_NextPage
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4A6A
+	inc e
+	call z, Mail_SkipHeaderBlock_NextPage
+	ld a, h
+	and a, a
+	jr z, Label_0F_4A56
+
+; ---- code $4A55-$4A56 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+	dec bc
+
+; ---- code $4A56-$4A6A (20 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_4A56:: ; 0F:4A56
+	ld hl, $D003
+	ld a, [wMail_InputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	xor a, a
+	ret
+
+Label_0F_4A62:: ; 0F:4A62
+	ld h, $01
+	jr Label_0F_4A32
+
+Label_0F_4A66:: ; 0F:4A66
+	ld h, $00
+	jr Label_0F_4A20
+
+; ---- code $4A6A-$4A75 (11 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4A6A:: ; 0F:4A6A
+	and a, a
+	jr nz, Label_0F_4A72
+	ld a, $01
+	ld [wMail_ErrorFlag], a
+
+Label_0F_4A72:: ; 0F:4A72
+	ld a, $01
+	ret
+
+; ---- code $4A75-$4ABF (74 bytes) [CONFIRMED] 43 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+
+Mail_SkipHeaderBlock_NextPage:: ; 0F:4A75
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_FindMessageEnd:: ; 0F:4A7E
+	ld bc, $0000
+
+Label_0F_4A81:: ; 0F:4A81
+	inc bc
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4ABF
+	inc e
+	call z, Mail_FindMessageEnd_NextPage
+	cp a, $0D
+	jr nz, Label_0F_4A81
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4ABF
+	inc e
+	call z, Mail_FindMessageEnd_NextPage
+	inc bc
+	ld a, [de]
+	cp a, $2E
+	jr nz, Label_0F_4A81
+	inc e
+	call z, Mail_FindMessageEnd_NextPage
+	ld a, [de]
+	cp a, $0D
+	jr nz, Label_0F_4A81
+	inc e
+	call z, Mail_FindMessageEnd_NextPage
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_4ABF
+	inc e
+	call z, Mail_FindMessageEnd_NextPage
+	ld hl, $D003
+	ld a, [wMail_InputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	xor a, a
+	ret
+
+; ---- code $4ABF-$4ACA (11 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4ABF:: ; 0F:4ABF
+	and a, a
+	jr nz, Label_0F_4AC7
+	ld a, $01
+	ld [wMail_ErrorFlag], a
+
+Label_0F_4AC7:: ; 0F:4AC7
+	ld a, $01
+	ret
+
+; ---- code $4ACA-$4B17 (77 bytes) [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+
+Mail_FindMessageEnd_NextPage:: ; 0F:4ACA
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_FindKeywordValue:: ; 0F:4AD3
+	push hl
+	push bc
+
+Label_0F_4AD5:: ; 0F:4AD5
+	ld a, [hl]
+	ld b, a
+	ld a, [de]
+	inc e
+	call z, Mail_FindKeywordValue_NextPage
+	cp a, $61
+	jr c, Label_0F_4AE6
+	cp a, $7B
+	jr nc, Label_0F_4AE6
+	sub a, $20
+
+Label_0F_4AE6:: ; 0F:4AE6
+	cp a, b
+	jr z, Label_0F_4AF8
+	pop bc
+	dec bc
+	push bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_4AD5
+
+Label_0F_4AF0:: ; 0F:4AF0
+	ld a, $02
+	ld [wMail_ItemListPointer + 1], a
+	pop bc
+	pop hl
+	ret
+
+Label_0F_4AF8:: ; 0F:4AF8
+	inc hl
+
+Label_0F_4AF9:: ; 0F:4AF9
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4B1D
+	ld b, a
+	ld a, [de]
+	inc e
+	call z, Mail_FindKeywordValue_NextPage
+	cp a, $61
+	jr c, Label_0F_4B0D
+	cp a, $7B
+	jr nc, Label_0F_4B0D
+	sub a, $20
+
+Label_0F_4B0D:: ; 0F:4B0D
+	cp a, b
+	jr nz, Label_0F_4B19
+	pop bc
+	dec bc
+	push bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_4AF9
+
+; ---- code $4B17-$4B19 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+	jr Label_0F_4AF0
+
+; ---- code $4B19-$4B59 (64 bytes) [CONFIRMED] 39 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 2 scenarios]
+
+Label_0F_4B19:: ; 0F:4B19
+	pop bc
+	pop hl
+	jr Mail_FindKeywordValue
+
+Label_0F_4B1D:: ; 0F:4B1D
+	ld b, $00
+	ld c, $40
+	ld a, [de]
+	cp a, $22
+	jr nz, Label_0F_4B2A
+	inc e
+	call z, Mail_FindKeywordValue_NextPage
+
+Label_0F_4B2A:: ; 0F:4B2A
+	ld hl, $D011
+	ld a, [wMail_InputBank]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+
+Label_0F_4B35:: ; 0F:4B35
+	ld a, [de]
+	cp a, $22
+	jr z, Label_0F_4B46
+	cp a, $0D
+	jr z, Label_0F_4B46
+	inc e
+	call z, Mail_FindKeywordValue_NextPage
+	inc b
+	dec c
+	jr nz, Label_0F_4B35
+
+Label_0F_4B46:: ; 0F:4B46
+	ld [hl], b
+	pop bc
+	pop hl
+	ld a, $03
+	ld [wMail_ItemListPointer + 1], a
+	xor a, a
+	ret
+
+Mail_FindKeywordValue_NextPage:: ; 0F:4B50
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $4B59-$4BC0 (103 bytes) [PROBABLE] 67 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Mail_IndexHeaders:: ; 0F:4B59
+	call Mail_LoadArgs
+	ld b, $00
+	ld hl, $D003
+	ld c, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D024
+
+Label_0F_4B69:: ; 0F:4B69
+	push de
+	push bc
+	push hl
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_4BB6
+	and a, a
+	jr nz, Label_0F_4B90
+	ld a, h
+	pop hl
+	inc hl
+	ld [hld], a
+	ld a, $01
+	ld [hli], a
+	inc hl
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	ld [hl], c
+	inc hl
+	ld [hl], b
+	inc hl
+
+Label_0F_4B86:: ; 0F:4B86
+	pop bc
+	pop de
+	inc b
+	ld a, b
+	cp a, $0D
+	jr z, Label_0F_4B9A
+	jr Label_0F_4B69
+
+Label_0F_4B90:: ; 0F:4B90
+	pop hl
+	xor a, a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	jr Label_0F_4B86
+
+Label_0F_4B9A:: ; 0F:4B9A
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	ld bc, $004E
+	ld hl, $D024
+	call Mail_CopyToSram
+	jp Mail_Return
+
+Label_0F_4BB6:: ; 0F:4BB6
+	ld a, $01
+	pop bc
+	pop bc
+	pop bc
+	ld b, $82
+	jp Mail_Return
+
+; ---- code $4BC0-$4C07 (71 bytes) [CONFIRMED] 41 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 7 scenarios]
+
+Mail_GetDecodedHeader:: ; 0F:4BC0
+	ld h, d
+	ld l, e
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	inc hl
+	push hl
+	call Mail_FindHeader
+	cp a, $02
+	jr z, Label_0F_4C07
+	and a, a
+	jr nz, Label_0F_4C03
+	ld a, h
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	call Mail_UnfoldHeader
+	ld hl, $D024
+	call Mail_DecodeEncodedWords
+	ld a, b
+	or a, c
+	jr z, Label_0F_4C03
+	pop hl
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	ld hl, $D024
+	push bc
+	call Mail_CopyToSram
+	pop hl
+	jp Mail_Return
+
+Label_0F_4C03:: ; 0F:4C03
+	ld b, $84
+	jr Label_0F_4C09
+
+; ---- code $4C07-$4C09 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+
+Label_0F_4C07:: ; 0F:4C07
+	ld b, $82
+
+; ---- code $4C09-$4C50 (71 bytes) [CONFIRMED] 46 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_4C09:: ; 0F:4C09
+	ld a, $01
+	pop hl
+	jp Mail_Return
+
+Mail_UnfoldHeader:: ; 0F:4C0F
+	ld hl, $D024
+	push bc
+	call Mail_CopyFromSram
+	pop bc
+	ld hl, $D024
+	ld d, h
+	ld e, l
+
+Label_0F_4C1C:: ; 0F:4C1C
+	ld a, [hli]
+	cp a, $0D
+	jr z, Label_0F_4C38
+	ld [de], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_4C1C
+
+Label_0F_4C28:: ; 0F:4C28
+	xor a, a
+	ld [de], a
+	ld hl, $D024
+	ld bc, $0000
+
+Label_0F_4C30:: ; 0F:4C30
+	ld a, [hli]
+	inc bc
+	and a, a
+	jr nz, Label_0F_4C30
+	dec bc
+	xor a, a
+	ret
+
+Label_0F_4C38:: ; 0F:4C38
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4C28
+	ld a, [hli]
+	cp a, $0A
+	jr nz, Label_0F_4C1C
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4C28
+	ld a, [hli]
+	cp a, $20
+	jr z, Label_0F_4C52
+	cp a, $09
+	jr z, Label_0F_4C52
+
+; ---- code $4C50-$4C52 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+	jr Label_0F_4C28
+
+; ---- code $4C52-$4C59 (7 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+
+Label_0F_4C52:: ; 0F:4C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4C28
+	jr Label_0F_4C1C
+
+; ---- code $4C59-$4C62 (9 bytes) [HYPOTHESIS] complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret) between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no caller/pointer found, entry unproven
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $4C62-$4CDD (123 bytes) [CONFIRMED] 137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0; entered by call from 0F:4BE4 (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE region 4C62-4D35 by apply_coverage --split [executed in 1 scenarios]
+
+Mail_DecodeEncodedWords:: ; 0F:4C62
+	ld de, $D624
+	push hl
+
+Label_0F_4C66:: ; 0F:4C66
+	ld a, [hli]
+	ld [de], a
+	inc de
+	and a, a
+	jr z, Label_0F_4CCA
+	cp a, $3D
+	jr nz, Label_0F_4C66
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $3F
+	jr nz, Label_0F_4C66
+	dec de
+	dec de
+
+Label_0F_4C79:: ; 0F:4C79
+	ld a, [hli]
+	cp a, $3F
+	jr nz, Label_0F_4C79
+	ld a, [hli]
+	cp a, $42
+	jr nz, Label_0F_4CBC
+	inc hl
+	ld bc, $0000
+	push hl
+
+Label_0F_4C88:: ; 0F:4C88
+	inc bc
+	ld a, [hli]
+	cp a, $3F
+	jr nz, Label_0F_4C88
+	inc bc
+	ld a, [hli]
+	cp a, $3D
+	jr nz, Label_0F_4C88
+	dec bc
+	dec bc
+	ld a, l
+	ld [wBank4DeferredCall], a
+	ld a, h
+	ld [wBank4DeferredCall + 1], a
+	pop hl
+	push de
+	call Mail_Base64Decode
+	pop de
+	ld h, d
+	ld l, e
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+
+Label_0F_4CAA:: ; 0F:4CAA
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_4CAA
+	ld a, [wBank4DeferredCall]
+	ld l, a
+	ld a, [wBank4DeferredCall + 1]
+	ld h, a
+	jr Label_0F_4C66
+
+Label_0F_4CBC:: ; 0F:4CBC
+	ld a, $3D
+	ld [de], a
+	inc de
+	ld a, $3F
+	ld [de], a
+	inc de
+
+Label_0F_4CC4:: ; 0F:4CC4
+	ld a, [hli]
+	ld [de], a
+	inc de
+	and a, a
+	jr nz, Label_0F_4CC4
+
+Label_0F_4CCA:: ; 0F:4CCA
+	ld [de], a
+	pop hl
+	ld de, $D624
+	ld bc, $0000
+
+Label_0F_4CD2:: ; 0F:4CD2
+	inc bc
+	ld a, [de]
+	ld [hli], a
+	inc de
+	and a, a
+	jr z, Label_0F_4CDB
+	jr Label_0F_4CD2
+
+Label_0F_4CDB:: ; 0F:4CDB
+	dec bc
+	ret
+
+; ---- code $4CDD-$4D35 (88 bytes) [PROBABLE] 52 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C62-4D35 by apply_coverage --split
+
+Mail_GetAddressList:: ; 0F:4CDD
+	ld h, d
+	ld l, e
+	ld b, [hl]
+	inc hl
+	ld c, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	push hl
+	call Mail_FindHeader
+	and a, a
+	jr nz, Label_0F_4D37
+	ld [wBank4DeferredCall], a
+	ld [wBank4DeferredCall + 1], a
+	ld a, h
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $D024
+	call Mail_StripCommentsAndSpaces
+	ld hl, $D024
+	call Mail_ExtractAddresses
+	pop hl
+	push hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, [hld]
+	cp a, b
+	jr c, Label_0F_4D31
+	jr z, Label_0F_4D2D
+
+Label_0F_4D15:: ; 0F:4D15
+	pop hl
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld hl, $D624
+	call Mail_CopyToSram
+	xor a, a
+	jp Mail_Return
+
+Label_0F_4D2D:: ; 0F:4D2D
+	ld a, [hli]
+	cp a, c
+	jr nc, Label_0F_4D15
+
+Label_0F_4D31:: ; 0F:4D31
+	ld b, $83
+	jr Label_0F_4D37
+
+; ---- code $4D35-$4D37 (2 bytes) [HYPOTHESIS] ld b,$82 : third variant of the result setter at 0F:4D31 (ld b,$83 ; jr $4D37) falling into 4D37 (pop hl ; ld a,1 ; jp $4260); the branch that targets 4D35 was not found in the decoded code
+	ld b, $82
+
+; ---- code $4D37-$4E66 (303 bytes) [PROBABLE] 2592 insn(s) reached by static flow only; seeds: mobile x2592; min discovery hops 0; entered by jrcc from 0F:4CEC (PROBABLE code) | 179 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4D37:: ; 0F:4D37
+	pop hl
+	ld a, $01
+	jp Mail_Return
+
+Mail_StripCommentsAndSpaces:: ; 0F:4D3D
+	ld a, [wBank4DeferredCall + 1]
+	and a, a
+	jr nz, Label_0F_4D4E
+	ld a, [de]
+	cp a, $28
+	jr z, Label_0F_4D59
+	cp a, $22
+	jr z, Label_0F_4D59
+	jr Label_0F_4D83
+
+Label_0F_4D4E:: ; 0F:4D4E
+	ld a, [de]
+	cp a, $29
+	jr z, Label_0F_4D63
+	cp a, $22
+	jr z, Label_0F_4D73
+	jr Label_0F_4D88
+
+Label_0F_4D59:: ; 0F:4D59
+	ld [wBank4DeferredCall], a
+	ld a, $01
+	ld [wBank4DeferredCall + 1], a
+	jr Label_0F_4D88
+
+Label_0F_4D63:: ; 0F:4D63
+	ld a, [wBank4DeferredCall]
+	cp a, $28
+	jr nz, Label_0F_4D88
+	xor a, a
+	ld [wBank4DeferredCall], a
+	ld [wBank4DeferredCall + 1], a
+	jr Label_0F_4D88
+
+Label_0F_4D73:: ; 0F:4D73
+	ld a, [wBank4DeferredCall]
+	cp a, $22
+	jr nz, Label_0F_4D88
+	xor a, a
+	ld [wBank4DeferredCall], a
+	ld [wBank4DeferredCall + 1], a
+	jr Label_0F_4D88
+
+Label_0F_4D83:: ; 0F:4D83
+	cp a, $20
+	jr z, Label_0F_4D88
+	ld [hli], a
+
+Label_0F_4D88:: ; 0F:4D88
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4D9A
+	inc e
+	jr nz, Mail_StripCommentsAndSpaces
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	jr Mail_StripCommentsAndSpaces
+
+Label_0F_4D9A:: ; 0F:4D9A
+	xor a, a
+	ld [hli], a
+	ret
+
+Mail_ExtractAddresses:: ; 0F:4D9D
+	ld de, $D624
+	xor a, a
+	ld [de], a
+
+Label_0F_4DA2:: ; 0F:4DA2
+	ld a, [hli]
+	call Mail_SkipJisEscape
+	and a, a
+	jr z, Label_0F_4DE2
+	cp a, $40
+	jr nz, Label_0F_4DA2
+	dec hl
+
+Label_0F_4DAE:: ; 0F:4DAE
+	dec hl
+	ld a, [hl]
+	call Mail_ClassifyAddressChar
+	and a, a
+	jr z, Label_0F_4DAE
+	inc hl
+	push hl
+	ld b, $00
+
+Label_0F_4DBA:: ; 0F:4DBA
+	ld a, [hli]
+	cp a, $40
+	jr z, Label_0F_4DC5
+	call Mail_ClassifyAddressChar
+	and a, a
+	jr nz, Label_0F_4DC8
+
+Label_0F_4DC5:: ; 0F:4DC5
+	inc b
+	jr Label_0F_4DBA
+
+Label_0F_4DC8:: ; 0F:4DC8
+	pop hl
+	ld a, [wRam_D624]
+	and a, a
+	jr z, Label_0F_4DD6
+	ld a, $2C
+	inc de
+	ld [de], a
+	ld a, [wRam_D624]
+
+Label_0F_4DD6:: ; 0F:4DD6
+	inc a
+	ld [wRam_D624], a
+
+Label_0F_4DDA:: ; 0F:4DDA
+	inc de
+	ld a, [hli]
+	ld [de], a
+	dec b
+	jr nz, Label_0F_4DDA
+	jr Label_0F_4DA2
+
+Label_0F_4DE2:: ; 0F:4DE2
+	inc de
+	xor a, a
+	ld [de], a
+	ld a, $D6
+	cpl
+	ld h, a
+	ld a, $25
+	cpl
+	ld l, a
+	inc hl
+	add hl, de
+	ld b, h
+	ld c, l
+	inc bc
+	inc bc
+	xor a, a
+	ret
+
+Mail_SkipJisEscape:: ; 0F:4DF5
+	cp a, $1B
+	ret nz
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4E2F
+	cp a, $24
+	jr nz, Label_0F_4E0D
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4E2F
+	cp a, $42
+	jr z, Label_0F_4E0F
+	cp a, $40
+	jr z, Label_0F_4E0F
+	dec hl
+
+Label_0F_4E0D:: ; 0F:4E0D
+	dec hl
+	ret
+
+Label_0F_4E0F:: ; 0F:4E0F
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4E2F
+	cp a, $1B
+	jr nz, Label_0F_4E0F
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4E2F
+	cp a, $28
+	jr nz, Label_0F_4E0F
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_4E2F
+	cp a, $42
+	jr z, Label_0F_4E2D
+	cp a, $4A
+	jr z, Label_0F_4E2D
+	jr Label_0F_4E0F
+
+Label_0F_4E2D:: ; 0F:4E2D
+	ld a, [hli]
+	ret
+
+Label_0F_4E2F:: ; 0F:4E2F
+	xor a, a
+	ret
+
+Mail_ClassifyAddressChar:: ; 0F:4E31
+	cp a, $30
+	jr c, Label_0F_4E49
+	cp a, $40
+	jr c, Label_0F_4E5C
+	cp a, $41
+	jr c, Label_0F_4E49
+	cp a, $5B
+	jr c, Label_0F_4E5C
+	cp a, $61
+	jr c, Label_0F_4E49
+	cp a, $7B
+	jr c, Label_0F_4E5C
+
+Label_0F_4E49:: ; 0F:4E49
+	cp a, $20
+	jr z, Label_0F_4E5C
+	cp a, $2D
+	jr z, Label_0F_4E5C
+	cp a, $2E
+	jr z, Label_0F_4E5C
+	cp a, $5F
+	jr z, Label_0F_4E5C
+
+Label_0F_4E59:: ; 0F:4E59
+	ld a, $01
+	ret
+
+Label_0F_4E5C:: ; 0F:4E5C
+	cp a, $3C
+	jr z, Label_0F_4E59
+	cp a, $3E
+	jr z, Label_0F_4E59
+	xor a, a
+	ret
+
+; ---- code $4E66-$4E6A (4 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Mail_ComposeNext:: ; 0F:4E66
+	ld a, c
+	and a, a
+	jr nz, Label_0F_4E73
+
+; ---- code $4E6A-$4E73 (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	ld a, [wMail_ComposeState]
+	and a, a
+	jp z, Mail_Return
+	jr Label_0F_4E7A
+
+; ---- code $4E73-$4E9D (42 bytes) [CONFIRMED] 25 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4E73:: ; 0F:4E73
+	xor a, a
+	ld [wMail_ComposeState], a
+	call Mail_ComposeInit
+
+Label_0F_4E7A:: ; 0F:4E7A
+	call Mail_ComposeStep
+	cp a, $FF
+	jp z, Mail_Return
+	and a, a
+	jr nz, Label_0F_4E9D
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_4E9D
+	ld hl, $D009
+	ld a, [hli]
+	cpl
+	ld e, a
+	ld a, [hli]
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	xor a, a
+	jp Mail_Return
+
+; ---- code $4E9D-$4EA4 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4E9D:: ; 0F:4E9D
+	ld a, $01
+	ld b, $83
+	jp Mail_Return
+
+; ---- code $4EA4-$4EDF (59 bytes) [CONFIRMED] 39 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Mail_EmitCrLf:: ; 0F:4EA4
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	ld a, $0D
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_4EDF
+	inc e
+	call z, Mail_EmitCrLf_NextPage
+	ld a, $0A
+	ld [de], a
+	dec bc
+	inc e
+	call z, Mail_EmitCrLf_NextPage
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	ld [wMail_ComposeState], a
+	ret
+
+; ---- code $4EDF-$4EE4 (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4EDF:: ; 0F:4EDF
+	ld a, $01
+	ld b, $83
+	ret
+
+; ---- code $4EE4-$4F27 (67 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 1 scenarios]
+
+Mail_EmitCrLf_NextPage:: ; 0F:4EE4
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_ComposeInit:: ; 0F:4EED
+	ld hl, $D003
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hli], a
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld c, a
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld b, a
+	ld [hli], a
+	inc de
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ret
+
+Mail_ComposeStep:: ; 0F:4F0E
+	call Mail_FetchComposeItem
+	and a, a
+	jr nz, Label_0F_4F2A
+	ld a, [wBank4DeferredCall]
+	cp a, $06
+	jr c, Label_0F_4F25
+	cp a, $0C
+	jr z, Label_0F_4F27
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_4F27
+
+Label_0F_4F25:: ; 0F:4F25
+	xor a, a
+	ret
+
+; ---- code $4F27-$4F2A (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4F27:: ; 0F:4F27
+	ld a, $01
+	ret
+
+; ---- code $4F2A-$4F3A (16 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4F2A:: ; 0F:4F2A
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_4F27
+	ld hl, $D00D
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4F25
+
+; ---- code $4F3A-$4F3D (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	ld a, $FF
+	ret
+
+; ---- code $4F3D-$4F93 (86 bytes) [CONFIRMED] 54 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Mail_FetchComposeItem:: ; 0F:4F3D
+	ld hl, $D00D
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	ld a, [de]
+	and a, a
+	jr z, Label_0F_4F5C
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld hl, $D00D
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld a, $01
+	ret
+
+Label_0F_4F5C:: ; 0F:4F5C
+	ret
+
+Mail_EmitHeaderField:: ; 0F:4F5D
+	ld a, [wMail_ComposeState]
+	and a, a
+	jr nz, Label_0F_4F80
+	ld a, [wBank4DeferredCall]
+	cp a, $11
+	jr z, Label_0F_4FAB
+	add a, a
+	ld e, a
+	ld d, $00
+	ld hl, Mail_HeaderStringTable
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call Mail_EmitString
+	and a, a
+	jr nz, Label_0F_4FEB
+	ld a, $01
+	ld [wMail_ComposeState], a
+
+Label_0F_4F80:: ; 0F:4F80
+	ld a, [wBank4DeferredCall]
+	cp a, $05
+	jr c, Label_0F_4FCD
+	jr z, Label_0F_4FF0
+	cp a, $08
+	jr c, Label_0F_4FA9
+	jr z, Label_0F_4FF8
+	cp a, $0B
+	jr c, Label_0F_4FA9
+
+; ---- code $4F93-$4FA9 (22 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	jr z, Label_0F_5000
+	cp a, $0C
+	jr z, Label_0F_500B
+	cp a, $0D
+	jr z, Label_0F_4FA9
+	cp a, $10
+	jr c, Label_0F_5019
+	jr z, Label_0F_4FA9
+	cp a, $12
+	jr c, Label_0F_4FA9
+	jr Label_0F_4FEB
+
+; ---- code $4FA9-$4FAB (2 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4FA9:: ; 0F:4FA9
+	xor a, a
+	ret
+
+; ---- code $4FAB-$4FCD (34 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4FAB:: ; 0F:4FAB
+	ld hl, $D00F
+	ld c, [hl]
+	inc hl
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D024
+	call Mail_CopyFromSram
+	ld hl, $D024
+	call Mail_EmitString
+	and a, a
+	jr nz, Label_0F_4FEB
+	jr Label_0F_5022
+
+; ---- code $4FCD-$4FDD (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4FCD:: ; 0F:4FCD
+	call Mail_EmitAddressListItem
+	and a, a
+	jr nz, Label_0F_4FEB
+	ld a, [wBank4DeferredCall + 1]
+	dec a
+	ld [wBank4DeferredCall + 1], a
+	and a, a
+	jr z, Label_0F_4FE3
+
+; ---- code $4FDD-$4FE3 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	call Mail_FetchComposeItem
+	and a, a
+	jr nz, Label_0F_4FCD
+
+; ---- code $4FE3-$4FEB (8 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4FE3:: ; 0F:4FE3
+	ld a, [wRam_D005]
+	ld [wBank4DeferredCall + 1], a
+	jr Label_0F_5022
+
+; ---- code $4FEB-$4FF0 (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_4FEB:: ; 0F:4FEB
+	ld a, $01
+	ld b, $83
+	ret
+
+; ---- code $4FF0-$5000 (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_4FF0:: ; 0F:4FF0
+	call Mail_EmitAddressListItem
+	and a, a
+	jr nz, Label_0F_4FEB
+	jr Label_0F_5022
+
+Label_0F_4FF8:: ; 0F:4FF8
+	call Mail_EmitGameCodeValue
+	and a, a
+	jr nz, Label_0F_4FEB
+	jr Label_0F_5022
+
+; ---- code $5000-$5022 (34 bytes) [PROBABLE] 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5000:: ; 0F:5000
+	ld hl, $4000
+	call Mail_EmitStringAndSuffix
+	and a, a
+	jr nz, Label_0F_4FEB
+	jr Label_0F_5022
+
+Label_0F_500B:: ; 0F:500B
+	call Mail_CopyItemToBuffer
+	ld hl, $D024
+	call Mail_EmitStringAndSuffix
+	and a, a
+	jr nz, Label_0F_4FEB
+	jr Label_0F_5022
+
+Label_0F_5019:: ; 0F:5019
+	ld hl, $4000
+	call Mail_EmitStringAndSuffix
+	and a, a
+	jr nz, Label_0F_4FEB
+
+; ---- code $5022-$505A (56 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_5022:: ; 0F:5022
+	xor a, a
+	ret
+
+Mail_EmitString:: ; 0F:5024
+	push hl
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	pop hl
+
+Label_0F_503A:: ; 0F:503A
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_504A
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_505A
+	inc e
+	call z, Mail_EmitString_NextPage
+	jr Label_0F_503A
+
+Label_0F_504A:: ; 0F:504A
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	ret
+
+; ---- code $505A-$505D (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_505A:: ; 0F:505A
+	ld a, $01
+	ret
+
+; ---- code $505D-$5086 (41 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 4 scenarios]
+
+Mail_EmitString_NextPage:: ; 0F:505D
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_EmitAddressListItem:: ; 0F:5066
+	ld hl, $D00F
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_50B2
+	ld c, a
+	ld a, [hli]
+	ld [wMail_InputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld b, $00
+	ld hl, $D024
+	ld a, [wMail_ComposeState]
+	cp a, $01
+	jr z, Label_0F_509F
+
+; ---- code $5086-$509F (25 bytes) [PROBABLE] 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	cp a, $02
+	jr z, Label_0F_509C
+	cp a, $03
+	jr nz, Label_0F_50B6
+	ld a, $2C
+	ld [hli], a
+	ld a, $0D
+	ld [hli], a
+	ld a, $0A
+	ld [hli], a
+	ld a, $09
+	ld [hli], a
+	jr Label_0F_509F
+
+Label_0F_509C:: ; 0F:509C
+	ld a, $2C
+	ld [hli], a
+
+; ---- code $509F-$50B0 (17 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_509F:: ; 0F:509F
+	call Mail_CopyFromSram
+	call Mail_EncodeHeaderWords
+	call Mail_EmitBufferToOutput
+	ld a, [wMail_ComposeState]
+	inc a
+	cp a, $04
+	jr nz, Label_0F_50B2
+
+; ---- code $50B0-$50B2 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	ld a, $02
+
+; ---- code $50B2-$50DA (40 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_50B2:: ; 0F:50B2
+	ld [wMail_ComposeState], a
+	xor a, a
+
+Label_0F_50B6:: ; 0F:50B6
+	ret
+
+Mail_EncodeHeaderWords:: ; 0F:50B7
+	ld hl, $D024
+	ld de, $D624
+	ld b, $00
+
+Label_0F_50BF:: ; 0F:50BF
+	ld c, $00
+	ld a, [hli]
+	cp a, $1B
+	jr z, Label_0F_50CD
+	ld [de], a
+	inc de
+	and a, a
+	jr z, Label_0F_5137
+	jr Label_0F_50BF
+
+Label_0F_50CD:: ; 0F:50CD
+	inc c
+	ld a, [hl]
+	cp a, $24
+	jr nz, Label_0F_50BF
+	inc hl
+	inc c
+	ld a, [hl]
+	cp a, $42
+	jr z, Label_0F_50E0
+
+; ---- code $50DA-$50E0 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	cp a, $40
+	jr z, Label_0F_50E0
+	jr Label_0F_50BF
+
+; ---- code $50E0-$50F6 (22 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_50E0:: ; 0F:50E0
+	push hl
+
+Label_0F_50E1:: ; 0F:50E1
+	inc c
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_5137
+	cp a, $1B
+	jr nz, Label_0F_50E1
+	inc c
+	ld a, [hli]
+	cp a, $28
+	jr nz, Label_0F_50E1
+	inc c
+	ld a, [hli]
+	cp a, $42
+	jr z, Label_0F_50FC
+
+; ---- code $50F6-$50FC (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	cp a, $4A
+	jr z, Label_0F_50FC
+	jr Label_0F_50E1
+
+; ---- code $50FC-$5171 (117 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_50FC:: ; 0F:50FC
+	ld a, l
+	ld [wMail_KeywordValue + 2], a
+	ld a, h
+	ld [wMail_KeywordValue + 3], a
+	ld hl, MailStr_EncodedWordPrefix
+
+Label_0F_5107:: ; 0F:5107
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_510F
+	ld [de], a
+	inc de
+	jr Label_0F_5107
+
+Label_0F_510F:: ; 0F:510F
+	pop hl
+	dec hl
+	dec hl
+	push de
+	call Mail_Base64Encode
+	pop de
+	ld h, d
+	ld l, e
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	inc hl
+
+Label_0F_511D:: ; 0F:511D
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_511D
+	ld a, $3F
+	ld [de], a
+	inc de
+	ld a, $3D
+	ld [de], a
+	inc de
+	ld a, [wMail_KeywordValue + 2]
+	ld l, a
+	ld a, [wMail_KeywordValue + 3]
+	ld h, a
+	jr Label_0F_50BF
+
+Label_0F_5137:: ; 0F:5137
+	xor a, a
+	ld [de], a
+	ret
+
+Mail_EmitBufferToOutput:: ; 0F:513A
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	ld hl, $D624
+
+Label_0F_5151:: ; 0F:5151
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_5161
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5171
+	inc e
+	call z, Mail_EmitBufferToOutput_NextPage
+	jr Label_0F_5151
+
+Label_0F_5161:: ; 0F:5161
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	ret
+
+; ---- code $5171-$517D (12 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5171:: ; 0F:5171
+	ld a, $01
+	ret
+
+Mail_EmitBufferToOutput_NextPage:: ; 0F:5174
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $517D-$51DC (95 bytes) [CONFIRMED] 62 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Mail_EmitGameCodeValue:: ; 0F:517D
+	ld hl, $D006
+	ld a, [hli]
+	ld [wMail_OutputBank], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	ld hl, $013F
+	ld a, [hli]
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, [hli]
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, [hli]
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, [hli]
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, $2D
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, [$014C]
+	ld h, a
+	and a, $F0
+	swap a
+	cp a, $0A
+	jr nc, Label_0F_51DC
+	add a, $30
+	jr Label_0F_51DE
+
+; ---- code $51DC-$51DE (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_51DC:: ; 0F:51DC
+	add a, $37
+
+; ---- code $51DE-$51F3 (21 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_51DE:: ; 0F:51DE
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld a, h
+	and a, $0F
+	cp a, $0A
+	jr nc, Label_0F_51F6
+	add a, $30
+	jr Label_0F_51F8
+
+; ---- code $51F3-$51F8 (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_51F3:: ; 0F:51F3
+	ld a, $01
+	ret
+
+Label_0F_51F6:: ; 0F:51F6
+	add a, $37
+
+; ---- code $51F8-$5212 (26 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+
+Label_0F_51F8:: ; 0F:51F8
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_51F3
+	inc e
+	call z, Mail_EmitGameCodeValue_NextPage
+	ld hl, $D006
+	ld a, [wMail_OutputBank]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	ret
+
+; ---- code $5212-$58D7 (1733 bytes) [PROBABLE] 1043 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Mail_EmitGameCodeValue_NextPage:: ; 0F:5212
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_EmitStringAndSuffix:: ; 0F:521B
+	push hl
+	ld hl, $D006
+	ld a, [hli]
+	ld [wBank4SavedBankLo], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	pop hl
+
+Label_0F_5231:: ; 0F:5231
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_5241
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5266
+	inc e
+	call z, Mail_EmitStringAndSuffix_NextPage
+	jr Label_0F_5231
+
+Label_0F_5241:: ; 0F:5241
+	ld a, [wBank4DeferredCall]
+	cp a, $0B
+	jr z, Label_0F_527C
+	cp a, $0C
+	jr z, Label_0F_527C
+	cp a, $0E
+	jr z, Label_0F_5256
+	cp a, $0F
+	jr z, Label_0F_5269
+	jr Label_0F_5266
+
+Label_0F_5256:: ; 0F:5256
+	ld hl, $D006
+	ld a, [wBank4SavedBankLo]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld a, d
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	xor a, a
+	ret
+
+Label_0F_5266:: ; 0F:5266
+	ld a, $01
+	ret
+
+Label_0F_5269:: ; 0F:5269
+	ld h, $02
+
+Label_0F_526B:: ; 0F:526B
+	ld a, $2D
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5266
+	inc e
+	call z, Mail_EmitStringAndSuffix_NextPage
+	dec h
+	jr nz, Label_0F_526B
+	jr Label_0F_5256
+
+Label_0F_527C:: ; 0F:527C
+	ld a, $22
+	ld [de], a
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5266
+	inc e
+	call z, Mail_EmitStringAndSuffix_NextPage
+	jr Label_0F_5256
+
+Mail_EmitStringAndSuffix_NextPage:: ; 0F:528A
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_CopyItemToBuffer:: ; 0F:5293
+	ld hl, $D00F
+	ld c, [hl]
+	inc hl
+	ld a, [hli]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld hl, $D024
+
+Label_0F_52A8:: ; 0F:52A8
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Mail_CopyItemToBuffer_NextPage
+	dec c
+	jr nz, Label_0F_52A8
+	ld [hl], c
+	ret
+
+Mail_CopyItemToBuffer_NextPage:: ; 0F:52B3
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Function_0F_52BC:: ; 0F:52BC
+	push bc
+	call Function_0F_5381
+	push de
+	ld h, d
+	ld l, e
+	ld a, [hli]
+	ld b, a
+	ld c, $01
+	call Function_0F_53D6
+	pop de
+	and a, a
+	jr nz, Label_0F_52FD
+
+Label_0F_52CE:: ; 0F:52CE
+	ld hl, $D00D
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+
+Label_0F_52D4:: ; 0F:52D4
+	ld a, [wBank4DeferredCall]
+	cp a, $03
+	jr nz, Label_0F_52DC
+	push de
+
+Label_0F_52DC:: ; 0F:52DC
+	cp a, $05
+	jr nz, Label_0F_52EB
+	pop hl
+	ld a, [hli]
+	ld b, a
+	ld c, $03
+	call Function_0F_53D6
+	and a, a
+	jr nz, Label_0F_52FD
+
+Label_0F_52EB:: ; 0F:52EB
+	ld a, [de]
+	inc de
+	and a, a
+	jr nz, Label_0F_5305
+	ld a, [wBank4DeferredCall]
+	cp a, $06
+	jr z, Label_0F_5339
+	inc a
+	ld [wBank4DeferredCall], a
+	jr Label_0F_52D4
+
+Label_0F_52FD:: ; 0F:52FD
+	pop hl
+	ld a, $01
+	ld b, $83
+	jp Mail_Return
+
+Label_0F_5305:: ; 0F:5305
+	ld hl, $D00D
+	ld [hl], e
+	inc hl
+	ld [hl], d
+
+Label_0F_530B:: ; 0F:530B
+	ld [wRam_D005], a
+	ld a, $01
+	ld [wBank4DeferredCall + 1], a
+	call Function_0F_53B9
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_52FD
+	ld a, [wRam_D005]
+	dec a
+	jr nz, Label_0F_530B
+	ld a, [wBank4DeferredCall]
+	inc a
+	ld [wBank4DeferredCall], a
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_52FD
+	ld [wRam_D023], a
+	ld a, [wBank4DeferredCall]
+	cp a, $06
+	jr nz, Label_0F_52CE
+
+Label_0F_5339:: ; 0F:5339
+	call Function_0F_53B9
+	xor a, a
+	ld [wRam_D023], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_52FD
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_52FD
+	ld a, [wBank4DeferredCall]
+	inc a
+	ld [wBank4DeferredCall], a
+	cp a, $09
+	jr nz, Label_0F_5339
+	pop bc
+	ld a, b
+	and a, a
+	jr z, Label_0F_536F
+	call Function_0F_53B9
+	xor a, a
+	ld [wRam_D023], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_52FD
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_52FD
+
+Label_0F_536F:: ; 0F:536F
+	ld hl, $D009
+	ld a, [hli]
+	cpl
+	ld e, a
+	ld a, [hli]
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	xor a, a
+	jp Mail_Return
+
+Function_0F_5381:: ; 0F:5381
+	ld hl, $D006
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	ld b, a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc hl
+	ld a, [de]
+	ld [hld], a
+	ld a, b
+	ld [hli], a
+	inc de
+	ld hl, $D015
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld hl, $D00D
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	xor a, a
+	ld [wBank4DeferredCall], a
+	ld [wRam_D023], a
+	ret
+
+Function_0F_53B9:: ; 0F:53B9
+	ld hl, $D00D
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	inc hl
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hl], a
+	inc de
+	ld a, [de]
+	ld [wRam_D00F], a
+	inc de
+	ld hl, $D00D
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ret
+
+Function_0F_53D6:: ; 0F:53D6
+	ld a, [wBank4DeferredCall]
+	ld d, a
+	ld a, [wBank4DeferredCall + 1]
+	ld e, a
+	push de
+	xor a, a
+	ld [wBank4DeferredCall], a
+	ld [wBank4DeferredCall + 1], a
+	ld a, $24
+	ld [wRam_D013], a
+	ld a, $D0
+	ld [wRam_D014], a
+	push bc
+	jr Label_0F_53F8
+
+Label_0F_53F3:: ; 0F:53F3
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_542A
+	ld b, a
+
+Label_0F_53F8:: ; 0F:53F8
+	push bc
+
+Label_0F_53F9:: ; 0F:53F9
+	ld a, [hli]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+	ld c, [hl]
+	inc hl
+	push hl
+	ld a, [wRam_D013]
+	ld l, a
+	ld a, [wRam_D014]
+	ld h, a
+	push bc
+	ld b, $00
+	call Mail_CopyFromSram
+	inc hl
+	ld [hl], a
+	pop bc
+	ld a, l
+	ld e, a
+	ld [wRam_D013], a
+	ld a, h
+	ld d, a
+	ld [wRam_D014], a
+	dec b
+	jr z, Label_0F_542F
+	pop hl
+	jr Label_0F_53F9
+
+Label_0F_542A:: ; 0F:542A
+	dec c
+	jr nz, Label_0F_53F3
+	jr Label_0F_5434
+
+Label_0F_542F:: ; 0F:542F
+	pop hl
+	pop bc
+	dec c
+	jr nz, Label_0F_53F3
+
+Label_0F_5434:: ; 0F:5434
+	ld a, l
+	ld [wRam_D013], a
+	ld a, h
+	ld [wRam_D014], a
+	xor a, a
+	ld [de], a
+	ld hl, $D024
+
+Label_0F_5441:: ; 0F:5441
+	ld a, [hli]
+	and a, a
+	jr nz, Label_0F_5441
+	ld a, [hl]
+	and a, a
+	jr z, Label_0F_545B
+	dec hl
+	ld a, $2C
+	ld [hli], a
+	jr Label_0F_5441
+
+Label_0F_544F:: ; 0F:544F
+	pop hl
+	ld a, h
+	ld [wBank4DeferredCall], a
+	ld a, l
+	ld [wBank4DeferredCall + 1], a
+	ld a, $01
+	ret
+
+Label_0F_545B:: ; 0F:545B
+	ld hl, $D024
+	call Mail_ExtractAddresses
+	ld hl, $D625
+
+Label_0F_5464:: ; 0F:5464
+	ld a, [hli]
+	and a, a
+	jr z, Label_0F_5471
+	cp a, $2C
+	jr nz, Label_0F_5464
+	dec hl
+	xor a, a
+	ld [hli], a
+	jr Label_0F_5464
+
+Label_0F_5471:: ; 0F:5471
+	pop de
+	ld a, e
+	cp a, $01
+	jr z, Label_0F_547B
+	xor a, a
+	ld [hli], a
+	jr Label_0F_547C
+
+Label_0F_547B:: ; 0F:547B
+	dec bc
+
+Label_0F_547C:: ; 0F:547C
+	ld hl, $D018
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, b
+	cp a, h
+	jr c, Label_0F_5490
+	jr nz, Label_0F_544F
+	ld a, c
+	cp a, l
+	jr c, Label_0F_5490
+	jr z, Label_0F_5490
+	jr Label_0F_544F
+
+Label_0F_5490:: ; 0F:5490
+	ld hl, $D018
+	ld a, c
+	cpl
+	ld e, a
+	ld a, b
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	ld de, $D018
+	ld a, l
+	ld [de], a
+	inc de
+	ld a, h
+	ld [de], a
+	ld hl, $D015
+	ld a, [hli]
+	ld [wBank4SavedBankLo], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D625
+	call Mail_CopyToSram
+	ld hl, $D015
+	ld a, [wBank4SavedBankLo]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld a, [wRam_D013]
+	ld e, a
+	ld a, [wRam_D014]
+	ld d, a
+	pop hl
+	ld a, h
+	ld [wBank4DeferredCall], a
+	ld a, l
+	ld [wBank4DeferredCall + 1], a
+	xor a, a
+	ret
+
+Function_0F_54D8:: ; 0F:54D8
+	xor a, a
+	ld [wRam_D023], a
+	call Function_0F_55C4
+	call Function_0F_561F
+	and a, a
+	jr nz, Label_0F_5541
+	call Function_0F_55E6
+	ld a, [wRam_D015]
+	dec a
+	ld [wRam_D015], a
+	and a, a
+	jp z, Label_0F_558C
+	cp a, $01
+	jr nz, Label_0F_5546
+	xor a, a
+	ld [wRam_D01C], a
+
+Label_0F_54FB:: ; 0F:54FB
+	ld a, [wRam_D016]
+	cp a, $02
+	jr z, Label_0F_5506
+	cp a, $03
+	jr z, Label_0F_5513
+
+Label_0F_5506:: ; 0F:5506
+	ld a, $0A
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr z, Label_0F_552F
+	jr Label_0F_5541
+
+Label_0F_5513:: ; 0F:5513
+	ld a, $0C
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	ld a, $0D
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+
+Label_0F_552F:: ; 0F:552F
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	call Function_0F_561F
+	and a, a
+	jr z, Label_0F_55B5
+
+Label_0F_5541:: ; 0F:5541
+	ld a, $01
+	jp Mail_Return
+
+Label_0F_5546:: ; 0F:5546
+	ld a, $01
+	ld [wRam_D01C], a
+	ld a, $0B
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+
+Label_0F_555C:: ; 0F:555C
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	ld a, $0E
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	jr Label_0F_54FB
+
+Label_0F_5575:: ; 0F:5575
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	ld a, [wRam_D01C]
+	and a, a
+	jr z, Label_0F_5592
+	ld a, $0F
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+
+Label_0F_558C:: ; 0F:558C
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+
+Label_0F_5592:: ; 0F:5592
+	ld a, $10
+	ld [wBank4DeferredCall], a
+	call Mail_EmitHeaderField
+	and a, a
+	jr nz, Label_0F_5541
+	call Mail_EmitCrLf
+	and a, a
+	jr nz, Label_0F_5541
+	ld hl, $D009
+	ld a, [hli]
+	cpl
+	ld e, a
+	ld a, [hli]
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	xor a, a
+	jp Mail_Return
+
+Label_0F_55B5:: ; 0F:55B5
+	ld a, [wRam_D015]
+	dec a
+	ld [wRam_D015], a
+	and a, a
+	jr z, Label_0F_5575
+	call Function_0F_55E6
+	jr Label_0F_555C
+
+Function_0F_55C4:: ; 0F:55C4
+	ld hl, $D006
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	ld b, a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	ld [hl], b
+	inc hl
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [wRam_D015], a
+	inc de
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	call Function_0F_55E6
+	ret
+
+Function_0F_55E6:: ; 0F:55E6
+	ld a, [wRam_D00D]
+	ld l, a
+	ld a, [wRam_D00E]
+	ld h, a
+	ld a, [hli]
+	ld [wRam_D016], a
+	cp a, $03
+	jr nz, Label_0F_5605
+	ld de, $D010
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	ld a, [hli]
+	ld [wRam_D00F], a
+
+Label_0F_5605:: ; 0F:5605
+	ld de, $D017
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	ld a, l
+	ld [wRam_D00D], a
+	ld a, h
+	ld [wRam_D00E], a
+	ret
+
+Function_0F_561F:: ; 0F:561F
+	ld a, [wRam_D006]
+	ld [wBank4SavedBankLo], a
+	ld a, [wRam_D017]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $D01A
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld a, [wRam_D00A]
+	cp a, b
+	jp c, Label_0F_56C6
+	jr nz, Label_0F_5646
+	ld a, [wRam_D009]
+	cp a, c
+	jp c, Label_0F_56C6
+
+Label_0F_5646:: ; 0F:5646
+	ld a, b
+	or a, c
+	jr z, Label_0F_56BE
+	ld a, [wRam_D009]
+	ld l, a
+	ld a, [wRam_D00A]
+	ld h, a
+	ld a, c
+	cpl
+	ld e, a
+	ld a, b
+	cpl
+	ld d, a
+	inc de
+	add hl, de
+	ld a, l
+	ld [wRam_D009], a
+	ld a, h
+	ld [wRam_D00A], a
+
+Label_0F_5662:: ; 0F:5662
+	ld a, $0E
+	cp a, b
+	jr c, Label_0F_56CB
+	jr nz, Label_0F_566E
+	ld a, $00
+	cp a, c
+	jr c, Label_0F_56CB
+
+Label_0F_566E:: ; 0F:566E
+	ld a, [wRam_D01A]
+	ld e, a
+	ld a, [wRam_D01B]
+	ld d, a
+	ld a, c
+	cpl
+	ld l, a
+	ld a, b
+	cpl
+	ld h, a
+	inc hl
+	add hl, de
+	ld a, l
+	ld [wRam_D01A], a
+	ld a, h
+	ld [wRam_D01B], a
+	push bc
+	ld hl, $D018
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D024
+	call Mail_CopyFromSram
+	ld hl, $D018
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	pop bc
+	ld a, [wBank4SavedBankLo]
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $D007
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D024
+	call Mail_CopyToSram
+	ld hl, $D007
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld hl, $D01A
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	ld a, b
+	or a, c
+	jr nz, Label_0F_5662
+
+Label_0F_56BE:: ; 0F:56BE
+	ld a, [wBank4SavedBankLo]
+	ld [wRam_D006], a
+	xor a, a
+	ret
+
+Label_0F_56C6:: ; 0F:56C6
+	ld a, $01
+	ld b, $83
+	ret
+
+Label_0F_56CB:: ; 0F:56CB
+	ld a, $0E
+	cpl
+	ld h, a
+	ld a, $00
+	cpl
+	ld l, a
+	add hl, bc
+	ld de, $D01A
+	ld a, l
+	ld [de], a
+	inc de
+	ld a, h
+	ld [de], a
+	ld bc, $0E00
+	jr Label_0F_566E
+
+Function_0F_56E1:: ; 0F:56E1
+	ld a, [wMail_ComposeState]
+	and a, a
+	jp z, Mail_Return
+	cp a, $02
+	jr z, Label_0F_570F
+	cp a, $03
+	jr z, Label_0F_5712
+	cp a, $04
+	jr z, Label_0F_5712
+	cp a, $05
+	jr z, Label_0F_572B
+	cp a, $FF
+	jr z, Label_0F_5740
+	cp a, $01
+	jp nz, Mail_Return
+	call Function_0F_5747
+	call Function_0F_5771
+	ld a, h
+	ld [wMail_KeywordValue + 1], a
+	ld a, l
+	ld [wMail_KeywordValue], a
+
+Label_0F_570F:: ; 0F:570F
+	call Function_0F_57E5
+
+Label_0F_5712:: ; 0F:5712
+	call Function_0F_5833
+	and a, a
+	jr nz, Label_0F_5740
+	ld a, [wMail_ComposeState]
+	cp a, $05
+	jr z, Label_0F_572B
+	ld a, [wMail_KeywordValue + 1]
+	ld h, a
+	ld a, [wMail_KeywordValue]
+	ld l, a
+	xor a, a
+	jp Mail_Return
+
+Label_0F_572B:: ; 0F:572B
+	ld hl, $D00A
+	ld a, [hli]
+	cpl
+	ld e, a
+	ld a, [hli]
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	xor a, a
+	ld [wMail_ComposeState], a
+	jp Mail_Return
+
+Label_0F_5740:: ; 0F:5740
+	ld a, $01
+	ld b, $83
+	jp Mail_Return
+
+Function_0F_5747:: ; 0F:5747
+	ld hl, $D002
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	dec de
+	ld a, [de]
+	ld [hli], a
+	inc de
+	ld a, [de]
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	ret
+
+Function_0F_5771:: ; 0F:5771
+	ld hl, $D005
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld e, $10
+	ld b, $00
+	ld c, b
+	ld d, b
+	ld a, $03
+
+Label_0F_577F:: ; 0F:577F
+	rl l
+	rl h
+	rl d
+	cp a, d
+	jr c, Label_0F_5791
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_577F
+	jr Label_0F_579F
+
+Label_0F_5791:: ; 0F:5791
+	ld a, d
+	sub a, $03
+	ld d, a
+	ld a, $03
+	scf
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_577F
+
+Label_0F_579F:: ; 0F:579F
+	ld a, d
+	and a, a
+	jr z, Label_0F_57A4
+	inc bc
+
+Label_0F_57A4:: ; 0F:57A4
+	sla c
+	rl b
+	sla c
+	rl b
+	ld h, b
+	ld l, c
+	push hl
+	ld e, $10
+	ld b, $00
+	ld c, b
+	ld d, b
+	ld a, $40
+
+Label_0F_57B7:: ; 0F:57B7
+	rl l
+	rl h
+	rl d
+	cp a, d
+	jr c, Label_0F_57C9
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_57B7
+	jr Label_0F_57D8
+
+Label_0F_57C9:: ; 0F:57C9
+	ld a, d
+	sub a, $40
+	ld d, a
+	ld a, $40
+	scf
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_57B7
+	inc bc
+
+Label_0F_57D8:: ; 0F:57D8
+	and a, a
+	sla c
+	rl b
+	pop hl
+	add hl, bc
+	ld a, $02
+	ld [wRam_D023], a
+	ret
+
+Function_0F_57E5:: ; 0F:57E5
+	ld hl, $D005
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_D00E]
+	ld c, a
+	ld a, [wRam_D00F]
+	ld b, a
+	cp a, h
+	jr c, Label_0F_5800
+	jr nz, Label_0F_57FE
+	ld a, c
+	cp a, l
+	jr c, Label_0F_5800
+	jr z, Label_0F_5800
+
+Label_0F_57FE:: ; 0F:57FE
+	ld b, h
+	ld c, l
+
+Label_0F_5800:: ; 0F:5800
+	push bc
+	ld a, b
+	cpl
+	ld b, a
+	ld a, c
+	cpl
+	ld c, a
+	inc bc
+	add hl, bc
+	ld a, l
+	ld [wRam_D005], a
+	ld a, h
+	ld [wRam_D006], a
+	ld a, h
+	or a, l
+	jr nz, Label_0F_5824
+	pop bc
+	ld a, c
+	ld [wRam_D00E], a
+	ld a, b
+	ld [wRam_D00F], a
+	ld a, $04
+	ld [wRam_D023], a
+	ret
+
+Label_0F_5824:: ; 0F:5824
+	pop bc
+	ld a, c
+	ld [wRam_D00E], a
+	ld a, b
+	ld [wRam_D00F], a
+	ld a, $03
+	ld [wRam_D023], a
+	ret
+
+Function_0F_5833:: ; 0F:5833
+	ld a, [wRam_D023]
+	and a, a
+	ret z
+	ld a, [wRam_D00E]
+	ld c, a
+	ld a, [wRam_D00F]
+	ld b, a
+	ld hl, $D002
+	ld a, [hli]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D024
+	push bc
+	call Mail_CopyFromSram
+	pop bc
+	ld hl, $D002
+	ld a, [wBank4State]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld hl, $D024
+	ld de, $D624
+	call Mail_Base64Encode
+	ld hl, $D624
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	inc hl
+	push hl
+	ld a, [wRam_D00A]
+	ld l, a
+	ld a, [wRam_D00B]
+	ld h, a
+	cp a, b
+	jr c, Label_0F_58D0
+	jr nz, Label_0F_5883
+	ld a, l
+	cp a, c
+	jr c, Label_0F_58D0
+
+Label_0F_5883:: ; 0F:5883
+	push bc
+	ld a, b
+	cpl
+	ld b, a
+	ld a, c
+	cpl
+	ld c, a
+	inc bc
+	add hl, bc
+	ld a, l
+	ld [wRam_D00A], a
+	ld a, h
+	ld [wRam_D00B], a
+	pop bc
+	pop hl
+	ld hl, $D007
+	ld a, [hli]
+	ld [wBank4SavedBankLo], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D626
+	call Mail_CopyToSram
+	ld hl, $D007
+	ld a, [wBank4SavedBankLo]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld a, [wRam_D023]
+	cp a, $03
+	jr z, Label_0F_58C9
+	cp a, $04
+	jr z, Label_0F_58C2
+	jr Label_0F_58D1
+
+Label_0F_58C2:: ; 0F:58C2
+	ld a, $05
+	ld [wRam_D023], a
+	jr Label_0F_58CE
+
+Label_0F_58C9:: ; 0F:58C9
+	ld a, $02
+	ld [wRam_D023], a
+
+Label_0F_58CE:: ; 0F:58CE
+	xor a, a
+	ret
+
+Label_0F_58D0:: ; 0F:58D0
+	pop hl
+
+Label_0F_58D1:: ; 0F:58D1
+	ld a, $FF
+	ld [wRam_D023], a
+	ret
+
+; ---- code $58D7-$5993 (188 bytes) [CONFIRMED] 133 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 5 scenarios]
+
+Mail_Base64Encode:: ; 0F:58D7
+	ld a, e
+	ld [wRam_D020], a
+	ld a, d
+	ld [wRam_D021], a
+	xor a, a
+	ld [wRam_D022], a
+	xor a, a
+	ld [de], a
+	inc de
+	ld [de], a
+	inc de
+	ld a, c
+	ld [wRam_D019], a
+	ld a, b
+	ld [wRam_D01A], a
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld l, c
+	ld h, b
+	xor a, a
+	ld [wRam_D01F], a
+
+Label_0F_58FA:: ; 0F:58FA
+	ld b, $03
+	push hl
+	ld hl, $D01B
+
+Label_0F_5900:: ; 0F:5900
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec b
+	jr nz, Label_0F_5900
+	ld a, [wRam_D019]
+	ld c, a
+	ld a, [wRam_D01A]
+	ld b, a
+	xor a, a
+	or a, b
+	jr nz, Label_0F_5929
+	ld a, $02
+	cp a, c
+	jr c, Label_0F_5929
+	push hl
+	dec hl
+	ld a, c
+	ld [wRam_D01F], a
+
+Label_0F_591D:: ; 0F:591D
+	xor a, a
+	ld [hld], a
+	inc c
+	ld a, $03
+	cp a, c
+	jr nz, Label_0F_591D
+	pop hl
+	ld bc, $0003
+
+Label_0F_5929:: ; 0F:5929
+	dec bc
+	dec bc
+	dec bc
+	ld a, c
+	ld [wRam_D019], a
+	ld a, b
+	ld [wRam_D01A], a
+	push de
+	push hl
+	ld hl, $D020
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc de
+	inc de
+	inc de
+	inc de
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	pop hl
+	dec hl
+	ld c, [hl]
+	dec hl
+	ld b, [hl]
+	dec hl
+	ld a, [hl]
+	ld d, a
+	srl a
+	srl a
+	ld [hli], a
+	ld a, $03
+	and a, d
+	ld d, a
+	ld a, $F0
+	and a, b
+	or a, d
+	swap a
+	ld [hli], a
+	ld a, $0F
+	and a, b
+	ld d, a
+	ld a, c
+	and a, $C0
+	or a, d
+	rlca
+	rlca
+	ld [hli], a
+	ld a, $3F
+	and a, c
+	ld [hld], a
+	dec hl
+	dec hl
+	pop de
+	ld b, h
+	ld c, l
+	pop hl
+	ld a, [bc]
+	inc bc
+	call Mail_Base64EncodeChar
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Mail_Base64EncodeChar
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Mail_Base64EncodeChar
+	ld [hli], a
+	ld a, [bc]
+	inc bc
+	call Mail_Base64EncodeChar
+	ld [hli], a
+	ld a, [wRam_D022]
+	inc a
+	cp a, $10
+	jr nz, Label_0F_59C6
+
+; ---- code $5993-$59C6 (51 bytes) [PROBABLE] 36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	push af
+	push bc
+	ld a, [wRam_D019]
+	ld b, a
+	ld a, [wRam_D01A]
+	or a, b
+	jr nz, Label_0F_59AD
+	ld a, [wRam_D005]
+	ld b, a
+	ld a, [wMail_OutputBankVar]
+	or a, b
+	jr nz, Label_0F_59AD
+	pop bc
+	pop af
+	jr Label_0F_59D9
+
+Label_0F_59AD:: ; 0F:59AD
+	pop bc
+	pop af
+	ld a, $0D
+	ld [hli], a
+	ld a, $0A
+	ld [hli], a
+	push hl
+	ld hl, $D020
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [hli]
+	ld c, a
+	ld b, [hl]
+	inc bc
+	inc bc
+	ld a, b
+	ld [hld], a
+	ld [hl], c
+	pop hl
+	xor a, a
+
+; ---- code $59C6-$59FD (55 bytes) [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 2 scenarios]
+
+Label_0F_59C6:: ; 0F:59C6
+	ld [wRam_D022], a
+	ld a, [wRam_D019]
+	cp a, $00
+	jp nz, Label_0F_58FA
+	ld a, [wRam_D01A]
+	cp a, $00
+	jp nz, Label_0F_58FA
+
+Label_0F_59D9:: ; 0F:59D9
+	ld a, [wRam_D01F]
+	cp a, $00
+	jr z, Label_0F_59ED
+	push hl
+	dec hl
+	ld b, a
+
+Label_0F_59E3:: ; 0F:59E3
+	ld a, $3D
+	ld [hld], a
+	inc b
+	ld a, $03
+	cp a, b
+	jr nz, Label_0F_59E3
+	pop hl
+
+Label_0F_59ED:: ; 0F:59ED
+	ld a, $00
+	ld [hl], a
+	ret
+
+Mail_Base64EncodeChar:: ; 0F:59F1
+	cp a, $1A
+	jr c, Label_0F_5A04
+	cp a, $34
+	jr c, Label_0F_5A07
+	cp a, $3E
+	jr c, Label_0F_5A0A
+
+; ---- code $59FD-$5A04 (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+	cp a, $3E
+	jr z, Label_0F_5A0D
+	ld a, $2F
+	ret
+
+; ---- code $5A04-$5A0D (9 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 2 scenarios]
+
+Label_0F_5A04:: ; 0F:5A04
+	add a, $41
+	ret
+
+Label_0F_5A07:: ; 0F:5A07
+	add a, $47
+	ret
+
+Label_0F_5A0A:: ; 0F:5A0A
+	sub a, $04
+	ret
+
+; ---- code $5A0D-$5C5E (593 bytes) [PROBABLE] 356 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5A0D:: ; 0F:5A0D
+	ld a, $2B
+	ret
+
+Function_0F_5A10:: ; 0F:5A10
+	ld a, [wRam_D023]
+	and a, a
+	jp z, Mail_Return
+	cp a, $02
+	jr z, Label_0F_5A3E
+	cp a, $03
+	jr z, Label_0F_5A41
+	cp a, $04
+	jr z, Label_0F_5A41
+	cp a, $05
+	jr z, Label_0F_5A5A
+	cp a, $FF
+	jr z, Label_0F_5A6F
+	cp a, $01
+	jp nz, Mail_Return
+	call Function_0F_5747
+	call Function_0F_5A74
+	ld a, h
+	ld [wRam_D011], a
+	ld a, l
+	ld [wRam_D012], a
+
+Label_0F_5A3E:: ; 0F:5A3E
+	call Function_0F_5AC5
+
+Label_0F_5A41:: ; 0F:5A41
+	call Function_0F_5B15
+	and a, a
+	jr nz, Label_0F_5A6F
+	ld a, [wRam_D023]
+	cp a, $05
+	jr z, Label_0F_5A5A
+	ld a, [wRam_D012]
+	ld h, a
+	ld a, [wRam_D011]
+	ld l, a
+	xor a, a
+	jp Mail_Return
+
+Label_0F_5A5A:: ; 0F:5A5A
+	ld hl, $D00A
+	ld a, [hli]
+	cpl
+	ld e, a
+	ld a, [hli]
+	cpl
+	ld d, a
+	inc de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	add hl, de
+	xor a, a
+	ld [wRam_D023], a
+	jp Mail_Return
+
+Label_0F_5A6F:: ; 0F:5A6F
+	ld a, $01
+	jp Mail_Return
+
+Function_0F_5A74:: ; 0F:5A74
+	ld hl, $D005
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	push hl
+	ld e, $10
+	ld b, $00
+	ld c, b
+	ld d, b
+	ld a, $42
+
+Label_0F_5A83:: ; 0F:5A83
+	rl l
+	rl h
+	rl d
+	cp a, d
+	jr c, Label_0F_5A95
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_5A83
+	jr Label_0F_5AA3
+
+Label_0F_5A95:: ; 0F:5A95
+	ld a, d
+	sub a, $42
+	ld d, a
+	ld a, $42
+	scf
+	rl c
+	rl b
+	dec e
+	jr nz, Label_0F_5A83
+
+Label_0F_5AA3:: ; 0F:5AA3
+	sla c
+	rl b
+	pop hl
+	ld a, b
+	cpl
+	ld b, a
+	ld a, c
+	cpl
+	ld c, a
+	inc bc
+	add hl, bc
+	srl h
+	rr l
+	srl h
+	rr l
+	ld b, h
+	ld c, l
+	sla c
+	rl b
+	add hl, bc
+	ld a, $02
+	ld [wRam_D023], a
+	ret
+
+Function_0F_5AC5:: ; 0F:5AC5
+	ld hl, $D005
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wRam_D00E]
+	ld c, a
+	ld a, [wRam_D00F]
+	ld b, a
+	cp a, h
+	jr c, Label_0F_5AE0
+	jr nz, Label_0F_5ADE
+	ld a, c
+	cp a, l
+	jr c, Label_0F_5AE0
+	jr z, Label_0F_5AE0
+
+Label_0F_5ADE:: ; 0F:5ADE
+	ld b, h
+	ld c, l
+
+Label_0F_5AE0:: ; 0F:5AE0
+	push bc
+	ld a, b
+	cpl
+	ld b, a
+	ld a, c
+	cpl
+	ld c, a
+	inc bc
+	add hl, bc
+	ld a, l
+	ld [wRam_D005], a
+	ld a, h
+	ld [wRam_D006], a
+	ld a, h
+	or a, l
+	jr nz, Label_0F_5B05
+	pop bc
+	ld a, c
+	ld [wRam_D00E], a
+	ld a, b
+	ld [wRam_D00F], a
+	ld a, $04
+	ld [wRam_D023], a
+	xor a, a
+	ret
+
+Label_0F_5B05:: ; 0F:5B05
+	pop bc
+	ld a, c
+	ld [wRam_D00E], a
+	ld a, b
+	ld [wRam_D00F], a
+	ld a, $03
+	ld [wRam_D023], a
+	xor a, a
+	ret
+
+Function_0F_5B15:: ; 0F:5B15
+	ld a, [wRam_D023]
+	and a, a
+	ret z
+	ld a, [wRam_D00E]
+	ld c, a
+	ld a, [wRam_D00F]
+	ld b, a
+	ld hl, $D002
+	ld a, [hli]
+	ld [wBank4State], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D624
+	push bc
+	call Function_0F_5BDD
+	pop hl
+	and a, a
+	jr z, Label_0F_5B58
+	cp a, $02
+	jr z, Label_0F_5B50
+	ld a, [wRam_D023]
+	cp a, $04
+	jr z, Label_0F_5B58
+	inc hl
+	inc hl
+	jr Label_0F_5B58
+
+Label_0F_5B4B:: ; 0F:5B4B
+	pop hl
+	ld b, $83
+	jr Label_0F_5B52
+
+Label_0F_5B50:: ; 0F:5B50
+	ld b, $81
+
+Label_0F_5B52:: ; 0F:5B52
+	ld a, $FF
+	ld [wRam_D023], a
+	ret
+
+Label_0F_5B58:: ; 0F:5B58
+	ld a, [wRam_D010]
+	add a, a
+	cpl
+	ld c, a
+	ld b, $FF
+	inc bc
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld hl, $D002
+	ld a, [wBank4State]
+	ld [hli], a
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld hl, $D624
+	ld de, $D024
+	call Mail_Base64Decode
+	ld hl, $D024
+	ld c, [hl]
+	inc hl
+	ld b, [hl]
+	inc hl
+	push hl
+	ld a, [wRam_D00A]
+	ld l, a
+	ld a, [wRam_D00B]
+	ld h, a
+	cp a, b
+	jr c, Label_0F_5B4B
+	jr nz, Label_0F_5B90
+	ld a, l
+	cp a, c
+	jr c, Label_0F_5B4B
+
+Label_0F_5B90:: ; 0F:5B90
+	push bc
+	ld a, b
+	cpl
+	ld b, a
+	ld a, c
+	cpl
+	ld c, a
+	inc bc
+	add hl, bc
+	ld a, l
+	ld [wRam_D00A], a
+	ld a, h
+	ld [wRam_D00B], a
+	pop bc
+	pop hl
+	ld hl, $D007
+	ld a, [hli]
+	ld [wBank4SavedBankLo], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld hl, $D026
+	call Mail_CopyToSram
+	ld hl, $D007
+	ld a, [wBank4SavedBankLo]
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld a, [wRam_D023]
+	cp a, $03
+	jr z, Label_0F_5BD6
+	cp a, $04
+	jr z, Label_0F_5BCF
+	jr Label_0F_5B50
+
+Label_0F_5BCF:: ; 0F:5BCF
+	ld a, $05
+	ld [wRam_D023], a
+	jr Label_0F_5BDB
+
+Label_0F_5BD6:: ; 0F:5BD6
+	ld a, $02
+	ld [wRam_D023], a
+
+Label_0F_5BDB:: ; 0F:5BDB
+	xor a, a
+	ret
+
+Function_0F_5BDD:: ; 0F:5BDD
+	xor a, a
+	ld [wRam_D010], a
+
+Label_0F_5BE1:: ; 0F:5BE1
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5C5B
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5C30
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5C5B
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5C4F
+	ld a, [de]
+	cp a, $0D
+	jr nz, Label_0F_5BE1
+	inc e
+	call z, Function_0F_5C52
+	ld a, [de]
+	cp a, $0A
+	jr nz, Label_0F_5C5B
+	inc e
+	call z, Function_0F_5C52
+	dec bc
+	ld a, b
+	or a, c
+	jr z, Label_0F_5C5B
+	ld a, [wRam_D010]
+	inc a
+	ld [wRam_D010], a
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_0F_5BE1
+
+Label_0F_5C30:: ; 0F:5C30
+	ld a, [wRam_D023]
+	cp a, $04
+	jr z, Label_0F_5C48
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Function_0F_5C52
+	xor a, a
+	ld [hl], a
+	ld a, $01
+	ret
+
+Label_0F_5C48:: ; 0F:5C48
+	dec hl
+	dec hl
+	xor a, a
+	ld [hl], a
+	ld a, $01
+	ret
+
+Label_0F_5C4F:: ; 0F:5C4F
+	xor a, a
+	ld [hl], a
+	ret
+
+Function_0F_5C52:: ; 0F:5C52
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Label_0F_5C5B:: ; 0F:5C5B
+	ld a, $02
+	ret
+
+; ---- code $5C5E-$5CAA (76 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 12 scenarios]
+
+Mail_Base64Decode:: ; 0F:5C5E
+	ld a, e
+	ld [wRam_D01F], a
+	ld a, d
+	ld [wRam_D020], a
+	xor a, a
+	ld [de], a
+	inc de
+	ld [de], a
+	inc de
+	ld a, c
+	ld [wRam_D019], a
+	ld a, b
+	ld [wRam_D01A], a
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld l, c
+	ld h, b
+
+Label_0F_5C79:: ; 0F:5C79
+	ld a, [wRam_D01A]
+	or a, a
+	jr nz, Label_0F_5C86
+	ld a, [wRam_D019]
+	cp a, $04
+	jr c, Label_0F_5CAE
+
+Label_0F_5C86:: ; 0F:5C86
+	ld b, $04
+	push hl
+	ld hl, $D01B
+
+Label_0F_5C8C:: ; 0F:5C8C
+	ld a, [de]
+	inc de
+	call Mail_Base64DecodeChar
+	ld [hli], a
+	dec b
+	jr nz, Label_0F_5C8C
+	ld a, [wRam_D019]
+	ld c, a
+	ld a, [wRam_D01A]
+	ld b, a
+	dec bc
+	dec bc
+	dec bc
+	dec bc
+
+Label_0F_5CA1:: ; 0F:5CA1
+	ld a, [de]
+	cp a, $0D
+	jr z, Label_0F_5CAA
+	cp a, $0A
+	jr nz, Label_0F_5CB4
+
+; ---- code $5CAA-$5CB4 (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5CAA:: ; 0F:5CAA
+	inc de
+	dec bc
+	jr Label_0F_5CA1
+
+Label_0F_5CAE:: ; 0F:5CAE
+	ld a, $FF
+	ld [wRam_D023], a
+	ret
+
+; ---- code $5CB4-$5D3C (136 bytes) [CONFIRMED] 91 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 12 scenarios]
+
+Label_0F_5CB4:: ; 0F:5CB4
+	ld a, c
+	ld [wRam_D019], a
+	ld a, b
+	ld [wRam_D01A], a
+	push de
+	push hl
+	ld hl, $D01F
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc de
+	inc de
+	inc de
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	pop hl
+	dec hl
+	ld d, [hl]
+	dec hl
+	ld c, [hl]
+	dec hl
+	ld b, [hl]
+	dec hl
+	ld a, [hl]
+	sla b
+	sla b
+	sla b
+	rla
+	sla b
+	rla
+	ld [hli], a
+	ld [hl], b
+	inc hl
+	rrc c
+	rrc c
+	ld [hl], c
+	dec hl
+	ld a, $0F
+	and a, c
+	or a, [hl]
+	ld [hli], a
+	ld a, [hli]
+	and a, $C0
+	or a, [hl]
+	dec hl
+	ld [hld], a
+	dec hl
+	pop de
+	ld b, h
+	ld c, l
+	pop hl
+	ld a, [bc]
+	ld [hli], a
+	inc bc
+	ld a, [bc]
+	ld [hli], a
+	inc bc
+	ld a, [bc]
+	ld [hli], a
+	ld a, [wRam_D019]
+	cp a, $00
+	jp nz, Label_0F_5C79
+	ld a, [wRam_D01A]
+	cp a, $00
+	jp nz, Label_0F_5C79
+	ret
+
+Mail_Base64DecodeChar:: ; 0F:5D12
+	cp a, $2B
+	jr c, Label_0F_5D3C
+	jr z, Label_0F_5D44
+	cp a, $2F
+	jr c, Label_0F_5D3C
+	jr z, Label_0F_5D47
+	cp a, $30
+	jr c, Label_0F_5D3C
+	cp a, $3A
+	jr c, Label_0F_5D4A
+	cp a, $3D
+	jr c, Label_0F_5D3C
+	jr z, Label_0F_5D4D
+	cp a, $41
+	jr c, Label_0F_5D3C
+	cp a, $5B
+	jr c, Label_0F_5D62
+	cp a, $61
+	jr c, Label_0F_5D3C
+	cp a, $7B
+	jr c, Label_0F_5D65
+
+; ---- code $5D3C-$5D4A (14 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5D3C:: ; 0F:5D3C
+	pop hl
+	pop hl
+	ld a, $FF
+	ld [wMail_ComposeState], a
+	ret
+
+Label_0F_5D44:: ; 0F:5D44
+	ld a, $3E
+	ret
+
+Label_0F_5D47:: ; 0F:5D47
+	ld a, $3F
+	ret
+
+; ---- code $5D4A-$5D8C (66 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 10 scenarios]
+
+Label_0F_5D4A:: ; 0F:5D4A
+	add a, $04
+	ret
+
+Label_0F_5D4D:: ; 0F:5D4D
+	push de
+	push hl
+	ld a, [wRam_D01F]
+	ld l, a
+	ld a, [wRam_D020]
+	ld h, a
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	dec de
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	pop hl
+	pop de
+	xor a, a
+	ret
+
+Label_0F_5D62:: ; 0F:5D62
+	sub a, $41
+	ret
+
+Label_0F_5D65:: ; 0F:5D65
+	sub a, $47
+	ret
+
+Mail_CopyFromSram:: ; 0F:5D68
+	ld a, [de]
+	ld [hli], a
+	inc e
+	call z, Mail_CopyFromSram_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Mail_CopyFromSram
+	xor a, a
+	ld [hl], a
+	ret
+
+Mail_CopyFromSram_NextPage:: ; 0F:5D76
+	push bc
+	ld bc, $D000
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+Mail_CopyToSram:: ; 0F:5D7F
+	ld a, [hli]
+	ld [de], a
+	inc e
+	call z, Mail_CopyToSram_NextPage
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Mail_CopyToSram
+	xor a, a
+	ret
+
+; ---- code $5D8C-$5D95 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Mail_CopyToSram_NextPage:: ; 0F:5D8C
+	push bc
+	ld bc, $D001
+	call Mail_NextSramPage
+	pop bc
+	ret
+
+; ---- code $5D95-$5DA0 (11 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 17 scenarios]
+
+Mail_NextSramPage:: ; 0F:5D95
+	ld e, a
+	ld a, d
+	cp a, $BF
+	jr z, Label_0F_5DA0
+	inc d
+	ld a, e
+	ld e, $00
+	ret
+
+; ---- code $5DA0-$5DAE (14 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+
+Label_0F_5DA0:: ; 0F:5DA0
+	ld a, [bc]
+	inc a
+	ld [bc], a
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, e
+	ld d, $A0
+	ld e, $00
+	ret

@@ -1,9 +1,7 @@
-; Presentation macros used by the generated sources (tools/gen_asm.py; docs/FORMATS.md "Macros").
-; They only spell out byte sequences the ROM already contains; every expansion is asserted byte-identical
-; by `gen_asm.py verify` (generate with --no-macros to get the plain `call` / `dw` / `db` form).
+; constants/macros.inc -- the far-call macros used throughout the source (pre-included through includes.asm).
+; Both only spell out the three inline bytes that the far-call routine at 00:06D1 (label FarCall) reads after the call.
 ;
-; FARCALL_FN is an EQUS defined in the generated ram.inc: the name of the label at the far-call convention entry
-; (config/conventions.tsv, layout farptr; 00:06D1 today), so the callee name is never hard-coded here.
+; FARCALL_FN is an EQUS defined in ram.asm: the name of the far-call entry label, so the callee name is never hard-coded here.
 
 ; farcall Label : call FARCALL_FN ; dw Label ; db BANK(Label)      (BANK() of a ROM0 label is 0, as in the ROM)
 MACRO farcall

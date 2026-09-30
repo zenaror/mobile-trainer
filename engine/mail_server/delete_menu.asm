@@ -1,0 +1,1170 @@
+; engine/mail_server/delete_menu.asm
+; bank 23, $4000-$4A06 (2566 bytes); pinned by layout.link
+; mail-server delete menu (2 buttons): run/select/init, descriptions, confirm dialog, text tiles
+
+SECTION "engine/mail_server/delete_menu", ROMX
+
+; ---- code $4000-$4064 (100 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+MailSrvDel_MenuRun:: ; 23:4000
+Function_23_4000::
+	call Function_00_044B
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	call Function_00_0464
+	ld c, $01
+	call MailSrvDel_MenuInit
+	ld de, $0227
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wStatIrqServiceFlag], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	push de
+	pop de
+	farcall Dialog_Show
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wStatIrqServiceFlag], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	ld c, $01
+	dec a
+	jr z, MailSrvDel_MenuLoop
+
+; ---- code $4064-$4076 (18 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ret
+
+; ---- code $4076-$40A4 (46 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
+
+MailSrvDel_MenuLoop:: ; 23:4076
+	push bc
+	farcall Function_00_0956
+	call Function_00_0464
+	farcall Joypad_Update
+	pop bc
+	ldh a, [hJoyPressed]
+	and a, $01
+	jr z, Label_23_40EA
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	dec c
+	jr z, Label_23_40AB
+
+; ---- code $40A4-$40AB (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
+	call MailSrvDel_DeleteAll
+	ld c, $00
+	jr Label_23_40B0
+
+; ---- code $40AB-$40AE (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
+
+Label_23_40AB:: ; 23:40AB
+	call MailSrvDel_CheckAndDelete
+
+; ---- code $40AE-$40EA (60 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed) [executed in 5 scenarios]
+	ld c, $01
+
+Label_23_40B0:: ; 23:40B0
+	push bc
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	push bc
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0010
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	pop bc
+	call MailSrvDel_MenuInit
+	pop bc
+	jp MailSrvDel_MenuLoop
+
+; ---- code $40EA-$40F0 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_23_40EA:: ; 23:40EA
+	ldh a, [hJoyPressed]
+	and a, $02
+	jr z, Label_23_4116
+
+; ---- code $40F0-$4116 (38 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ret
+
+; ---- code $4116-$411C (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_23_4116:: ; 23:4116
+	ldh a, [hJoyPressedRepeat]
+	and a, $40
+	jr z, Label_23_413A
+
+; ---- code $411C-$413A (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed) [executed in 5 scenarios]
+	push bc
+	push de
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop de
+	pop bc
+	ld a, c
+	inc a
+	and a, $01
+	ld c, a
+	call MailSrvDel_MenuSelect
+
+; ---- code $413A-$4140 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
+
+Label_23_413A:: ; 23:413A
+	ldh a, [hJoyPressedRepeat]
+	and a, $80
+	jr z, Label_23_415E
+
+; ---- code $4140-$415E (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
+	push bc
+	push de
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop de
+	pop bc
+	ld a, c
+	inc a
+	and a, $01
+	ld c, a
+	call MailSrvDel_MenuSelect
+
+; ---- code $415E-$4161 (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
+
+Label_23_415E:: ; 23:415E
+	jp MailSrvDel_MenuLoop
+
+; ---- code $4161-$41DC (123 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code) [executed in 5 scenarios]
+
+MailSrvDel_MenuSelect:: ; 23:4161
+	ld a, c
+	cp a, $01
+	jr nz, Label_23_41A1
+	push bc
+	ld bc, $1214
+	ld de, $D000
+	ld hl, MailServerDeleteMethod_Tilemap_First
+	ld a, $28
+	farcall Function_00_08EA
+	ldh a, [rLCDC]
+	call Function_00_085B
+	ld hl, $DA10
+	ld de, $6E90
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $FC00
+	ld hl, $DA10
+	call Function_00_0A65
+	farcall Function_00_0956
+	call MailSrvDel_ShowDescCheck
+	pop bc
+	ret
+
+Label_23_41A1:: ; 23:41A1
+	push bc
+	ld bc, $1214
+	ld de, $D000
+	ld hl, MailServerDeleteMethod_Tilemap_Second
+	ld a, $28
+	farcall Function_00_08EA
+	ldh a, [rLCDC]
+	call Function_00_085B
+	ld hl, $DA10
+	ld de, $6E90
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $1800
+	ld hl, $DA10
+	call Function_00_0A65
+	farcall Function_00_0956
+	call MailSrvDel_ShowDescDeleteAll
+	pop bc
+	ret
+
+; ---- code $41DC-$42C2 (230 bytes) [CONFIRMED] 80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+MailSrvDel_MenuInit:: ; 23:41DC
+Function_23_41DC::
+	push bc
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall TextTiles_ClearBuffers
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D800
+	ld hl, MailServerDeleteMethod_BgPalette
+	ld a, $28
+	farcall Palette_LoadToBuffer
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D840
+	ld hl, $6E40
+	ld a, $28
+	farcall Palette_LoadToBuffer
+	call Function_00_0464
+	ld de, $9301
+	ld hl, MailServerDeleteMethod_Tiles_5F20
+	ld a, $28
+	ld b, $95
+	ld c, $23
+	farcall Function_00_0787
+	call Function_00_0464
+	ld de, $8800
+	ld hl, MailServerDeleteMethod_Tiles_6150
+	ld a, $28
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	call Function_00_0464
+	ld de, $8C00
+	ld hl, MailServerDeleteMethod_Tiles_6550
+	ld a, $28
+	ld b, $94
+	ld c, $29
+	farcall Function_00_0787
+	call Function_00_0464
+	ld de, $8000
+	ld hl, MailServerDeleteMethod_Tiles_67E0
+	ld a, $28
+	ld b, $98
+	ld c, $08
+	farcall Function_00_0787
+	call Function_00_0464
+	ld bc, $1214
+	ld de, $D000
+	ld hl, MailServerDeleteMethod_Tilemap_First
+	ld a, $28
+	farcall Function_00_08EA
+	call Function_00_0464
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call Function_00_0464
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $0F00
+
+Label_23_4296:: ; 23:4296
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_23_4296
+	pop bc
+	push bc
+	ld a, c
+	cp a, $00
+	jr z, Label_23_42C2
+	call MailSrvDel_ShowDescCheck
+	ld hl, $DA10
+	ld de, $6E90
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $FC00
+	ld hl, $DA10
+	call Function_00_0A65
+	jr MailSrvDel_MenuStart
+
+; ---- code $42C2-$42F4 (50 bytes) [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
+
+Label_23_42C2:: ; 23:42C2
+	call MailSrvDel_ShowDescDeleteAll
+	ld bc, $1214
+	ld de, $D000
+	ld hl, MailServerDeleteMethod_Tilemap_Second
+	ld a, $28
+	farcall Function_00_08EA
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA10
+	ld de, $6E90
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $1800
+	ld hl, $DA10
+	call Function_00_0A65
+
+; ---- code $42F4-$433C (72 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
+
+MailSrvDel_MenuStart:: ; 23:42F4
+	call Function_00_0464
+	farcall Stat_DisableScrollSplit
+	call Function_00_044B
+	farcall Palette_FadeInFromWhite
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $15
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	push bc
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0010
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop bc
+	pop bc
+	ret
+
+; ---- code $433C-$4357 (27 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code) [executed in 6 scenarios]
+
+MailSrvDel_ShowDescDeleteAll:: ; 23:433C
+	ld hl, String_MailSrvDel_DescDeleteAll
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D000
+	ld de, $D360
+	farcall TextTiles_RenderLine
+	call MailSrvDel_UploadTextTiles
+	ret
+
+; ---- text $4357-$43C4 (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_MailSrvDel_DescDeleteAll:: ; 23:4357
+String_23_4357::
+	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC ; "メールサーバにのこっているすべての"
+	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $41, $82, $B6, $82, $C7, $82, $A4, $82, $C5, $82, $BA, $82, $F1, $82, $D4, $82, $AF, $82, $B5, $82, $DC, $82, $B7 ; "　メールを、じどうでぜんぶけします"
+	db $81, $40, $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $CD, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $E7, $82, $EA, $82, $DC, $82, $B9, $82, $F1 ; "　　じょうほうはたしかめられません"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+; ---- code $43C4-$43DF (27 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+MailSrvDel_ShowDescCheck:: ; 23:43C4
+Function_23_43C4::
+	ld hl, String_MailSrvDel_DescCheck
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D000
+	ld de, $D360
+	farcall TextTiles_RenderLine
+	call MailSrvDel_UploadTextTiles
+	ret
+
+; ---- text $43DF-$4404 (37 bytes) [PROBABLE] 18 ideographic spaces (81 40) + NUL: clean NUL-terminated Shift-JIS blank line placed right after a ret (23:43DE)
+
+String_23_43DF:: ; 23:43DF
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
+	db $81, $40, $00 ; "　"
+
+; ---- text $4404-$4471 (109 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_MailSrvDel_DescCheck:: ; 23:4404
+String_23_4404::
+	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $CC ; "メールサーバにのこっているメールの"
+	db $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $F0, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $C4, $81, $41, $82, $50, $82, $C2, $82, $A4, $82, $B8 ; "　じょうほうをたしかめて、１つうず"
+	db $82, $C2, $81, $40, $82, $B6, $82, $D4, $82, $F1, $82, $C5, $82, $AF, $82, $B7, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "つ　じぶんでけすことができます　　"
+	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+
+; ---- code $4471-$46CC (603 bytes) [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code) [executed in 3 scenarios]
+
+MailSrvDel_Confirm:: ; 23:4471
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall TextTiles_ClearBuffers
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D800
+	ld hl, MailServerDeleteAll_BgPalette
+	ld a, $28
+	farcall Palette_LoadToBuffer
+	call Function_00_0464
+	ld bc, $0040
+	ld de, $D840
+	ld hl, $5EE0
+	ld a, $28
+	farcall Palette_LoadToBuffer
+	call Function_00_0464
+	ld de, $9301
+	ld hl, MailServerDeleteAll_Tiles_54B0
+	ld a, $28
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	call Function_00_0464
+	ld de, $9701
+	ld hl, MailServerDeleteAll_Tiles_58B0
+	ld a, $28
+	ld b, $94
+	ld c, $2A
+	farcall Function_00_0787
+	call Function_00_0464
+	ld de, $8000
+	ld hl, MailServerDeleteAll_Tiles_5B50
+	ld a, $28
+	ld b, $98
+	ld c, $08
+	farcall Function_00_0787
+	call Function_00_0464
+	ld bc, $1214
+	ld de, $D000
+	ld hl, MailServerDeleteAll_Tilemap
+	ld a, $28
+	farcall Function_00_08EA
+	call Function_00_0464
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call Function_00_0464
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D000
+	ld bc, $0F00
+
+Label_23_4535:: ; 23:4535
+	xor a, a
+	ld [hli], a
+	dec bc
+	ld a, b
+	or a, c
+	jr nz, Label_23_4535
+	ld hl, $DA10
+	ld de, Table_28_6E80
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $6858
+	ld hl, $DA10
+	call Function_00_0A65
+	ld hl, String_MailSrvDel_Confirm
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D000
+	ld de, $D100
+	farcall TextTiles_RenderLine
+	call Function_00_0464
+	ld hl, $472B
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D200
+	ld de, $D300
+	farcall TextTiles_RenderLine
+	call Function_00_0464
+	ld hl, $474C
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D400
+	ld de, $D500
+	farcall TextTiles_RenderLine
+	call Function_00_0464
+	ld hl, $476D
+	ld a, $02
+	ldh [rVBK], a
+	ldh [hRam_FFB0], a
+	ld a, $23
+	ld bc, $D600
+	ld de, $D700
+	farcall TextTiles_RenderLine
+	call Function_00_0464
+	call MailSrvDel_UploadTextTiles
+	call Function_00_0464
+	push bc
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0010
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ei
+	pop bc
+	farcall Stat_DisableScrollSplit
+	call Function_00_044B
+	farcall Palette_FadeInFromWhite
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $15
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	ld c, $01
+
+Label_23_4608:: ; 23:4608
+	push bc
+	farcall Function_00_0956
+	call Function_00_0464
+	farcall Joypad_Update
+	pop bc
+	ldh a, [hJoyPressed]
+	and a, $01
+	jr z, Label_23_4659
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	dec c
+	jr z, Label_23_4647
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	xor a, a
+	ret
+
+Label_23_4647:: ; 23:4647
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ret
+
+Label_23_4659:: ; 23:4659
+	ldh a, [hJoyPressed]
+	and a, $02
+	jr z, Label_23_4685
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ret
+
+Label_23_4685:: ; 23:4685
+	ldh a, [hJoyPressedRepeat]
+	and a, $20
+	jr z, Label_23_46A7
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	ld a, c
+	inc a
+	and a, $01
+	ld c, a
+	call MailSrvDel_ConfirmSelect
+
+Label_23_46A7:: ; 23:46A7
+	ldh a, [hJoyPressedRepeat]
+	and a, $10
+	jr z, Label_23_46C9
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	ld a, c
+	inc a
+	and a, $01
+	ld c, a
+	call MailSrvDel_ConfirmSelect
+
+Label_23_46C9:: ; 23:46C9
+	jp Label_23_4608
+
+; ---- data $46CC-$46CD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+
+Data_23_46CC:: ; 23:46CC
+	db $C9
+
+; ---- code $46CD-$470A (61 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code) [executed in 2 scenarios]
+
+MailSrvDel_ConfirmSelect:: ; 23:46CD
+	ld a, c
+	cp a, $00
+	jr nz, Label_23_46EE
+	push bc
+	ld hl, $DA10
+	ld de, Table_28_6E80
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $6828
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_23_46EE:: ; 23:46EE
+	push bc
+	ld hl, $DA10
+	ld de, Table_28_6E80
+	ld a, $28
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $6858
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+; ---- text $470A-$478E (132 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_MailSrvDel_Confirm:: ; 23:470A
+String_23_470A::
+	db $82, $B1, $82, $CC, $82, $B5, $82, $E5, $82, $E8, $82, $F0, $82, $A8, $82, $B1, $82, $C8, $82, $A4, $82, $C6, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "このしょりをおこなうと　　　　　"
+	db $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $81, $40, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $00 ; "サーバにある　すべてのメールが　"
+	db $82, $AB, $82, $A6, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "きえてしまいます　　　　　　　　"
+	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
+
+; ---- code $478E-$47BC (46 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+MailSrvDel_UploadTextTiles:: ; 23:478E
+Function_23_478E::
+	ldh a, [rSVBK]
+	push af
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, $D000
+	ld de, $9000
+	ld c, $3F
+	farcall Gfx_StartHDMAAtVBlank
+	ld hl, $D400
+	ld de, $9400
+	ld c, $3F
+	farcall Gfx_StartHDMAAtVBlank
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+; ---- code $47BC-$47ED (49 bytes) [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS] | forced execution: 31/31 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+
+Function_23_47BC:: ; 23:47BC
+	push af
+	push bc
+	push de
+	push hl
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $C2D7
+	ld a, [de]
+	ld l, a
+	inc de
+	ld a, [de]
+	xor a, a
+	ld h, a
+	push hl
+	call Function_23_4864
+	pop hl
+	push hl
+	call Function_23_4986
+	ld hl, $D800
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld a, $02
+	ldh [hRam_FFB0], a
+	ld a, $01
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, $D524
+
+; ---- code $47ED-$497B (398 bytes) [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 125/243 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+	farcall TextTiles_RenderLine
+	pop hl
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $C2D6
+	ld a, [de]
+	ld l, a
+	inc de
+	ld a, [de]
+	xor a, a
+	ld h, a
+	push hl
+	call Function_23_4864
+	pop hl
+	push hl
+	call Function_23_4986
+	ld hl, $D830
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld a, $02
+	ldh [hRam_FFB0], a
+	ld a, $01
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, $D524
+	farcall TextTiles_RenderLine
+	pop hl
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, $C2D5
+	ld a, [de]
+	ld l, a
+	inc de
+	ld a, [de]
+	xor a, a
+	ld h, a
+	push hl
+	call Function_23_4864
+	pop hl
+	push hl
+	call Function_23_4986
+	ld hl, $D860
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld a, $02
+	ldh [hRam_FFB0], a
+	ld a, $01
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, $D524
+	farcall TextTiles_RenderLine
+	pop hl
+	call Function_23_49E6
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
+
+Function_23_4864:: ; 23:4864
+	push hl
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, String_23_497B
+	ld de, $D524
+
+Label_23_4872:: ; 23:4872
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $00
+	jr nz, Label_23_4872
+	pop bc
+	pop hl
+	push bc
+	ld bc, $D525
+	ld de, $2710
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, Label_23_48D5
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $05
+	jp Label_23_4979
+
+Label_23_48D5:: ; 23:48D5
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, Label_23_491B
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $04
+	jp Label_23_4979
+
+Label_23_491B:: ; 23:491B
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, Label_23_494F
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $03
+	jp Label_23_4979
+
+Label_23_494F:: ; 23:494F
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, Label_23_4971
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $02
+	jp Label_23_4979
+
+Label_23_4971:: ; 23:4971
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $01
+
+Label_23_4979:: ; 23:4979
+	pop bc
+	ret
+
+; ---- text $497B-$4986 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$497B at 23:486C
+
+String_23_497B:: ; 23:497B
+	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+
+; ---- code $4986-$4A06 (128 bytes) [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4986-4AA4 by apply_coverage --split | forced execution: 48/56 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+
+Function_23_4986:: ; 23:4986
+	push de
+	push hl
+	ld de, $2710
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, Label_23_499C
+	ld bc, $0000
+	jp Label_23_49E3
+
+Label_23_499C:: ; 23:499C
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, Label_23_49B2
+	ld bc, $0000
+	jp Label_23_49E3
+
+Label_23_49B2:: ; 23:49B2
+	ld h, d
+	ld l, e
+	ld de, $0064
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, Label_23_49C8
+	ld bc, $0000
+	jp Label_23_49E3
+
+Label_23_49C8:: ; 23:49C8
+	ld h, d
+	ld l, e
+	ld de, $000A
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, Label_23_49DE
+	ld bc, $0000
+	jp Label_23_49E3
+
+Label_23_49DE:: ; 23:49DE
+	ld bc, $0010
+	ld a, $01
+
+Label_23_49E3:: ; 23:49E3
+	pop hl
+	pop de
+	ret
+
+Function_23_49E6:: ; 23:49E6
+	ldh a, [rSVBK]
+	push af
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, $D800
+	ld de, $8800
+	ld c, $27
+	farcall Gfx_GdmaAtVBlankNoDi
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret

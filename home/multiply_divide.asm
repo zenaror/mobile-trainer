@@ -1,0 +1,137 @@
+; home/multiply_divide.asm
+; bank 00, $0D34-$0DB9 (133 bytes); pinned by layout.link
+; 32-bit multiply/divide (and the odd 0D34 routine)
+
+SECTION "home/multiply_divide", ROM0
+
+; ---- code $0D34-$0D4D (25 bytes) [PROBABLE] push af; ld d,$C2; writes ROM bank $F0 (FF8A/[2100]); ld a,[de] = the WRAM byte at $C200+E (NOT a ROM read: $C2xx is WRAM, so the ROM bank write has no effect on the load; $F0 would wrap to bank $70 on a 128-bank cart); DE = sign-extended byte; restores the ROM bank from the A given at entry. No static caller found
+
+Function_00_0D34:: ; 00:0D34
+	push af
+	ld d, $C2
+	ld a, $F0
+	ldh [hROMBankLo], a
+	ld [$2100], a
+	ld a, [de]
+	ld e, a
+	ld d, $00
+	rla
+	jr nc, Label_00_0D46
+	dec d
+
+Label_00_0D46:: ; 00:0D46
+	pop af
+	ldh [hROMBankLo], a
+	ld [$2100], a
+	ret
+
+; ---- code $0D4D-$0D61 (20 bytes) [CONFIRMED] BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4] | 13 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
+
+Multiply16x16to32:: ; 00:0D4D
+	push af
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld hl, $0000
+	ld a, $10
+
+Label_00_0D57:: ; 00:0D57
+	add hl, hl
+	rl c
+	rl b
+	jr nc, Label_00_0D62
+	add hl, de
+	jr nc, Label_00_0D62
+
+; ---- code $0D61-$0D62 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split
+	inc bc
+
+; ---- code $0D62-$0D67 (5 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
+
+Label_00_0D62:: ; 00:0D62
+	dec a
+	jr nz, Label_00_0D57
+	pop af
+	ret
+
+; ---- code $0D67-$0D92 (43 bytes) [CONFIRMED] HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12] [executed in 18 scenarios]
+
+Divide16:: ; 00:0D67
+	ld c, e
+	ld b, d
+	ld e, l
+	ld d, h
+	ld hl, $0000
+	ld a, $10
+
+Label_00_0D70:: ; 00:0D70
+	push af
+	sla e
+	rl d
+	ld a, l
+	adc a, a
+	ld l, a
+	ld a, h
+	adc a, a
+	ld h, a
+	ld a, l
+	sub a, c
+	ld l, a
+	ld a, h
+	sbc a, b
+	ld h, a
+	jr nc, Label_00_0D86
+	add hl, bc
+	jr Label_00_0D87
+
+Label_00_0D86:: ; 00:0D86
+	inc de
+
+Label_00_0D87:: ; 00:0D87
+	pop af
+	dec a
+	jr nz, Label_00_0D70
+	ld a, e
+	ld e, l
+	ld l, a
+	ld a, d
+	ld d, h
+	ld h, a
+	ret
+
+; ---- code $0D92-$0DB9 (39 bytes) [CONFIRMED] BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6] [executed in 9 scenarios]
+
+Divide32by15:: ; 00:0D92
+	ld a, $10
+	or a, a
+
+Label_00_0D95:: ; 00:0D95
+	ldh [hRam_FFF7], a
+	rl e
+	rl d
+	rl c
+	rl b
+	ld a, c
+	sub a, l
+	ld c, a
+	ld a, b
+	sbc a, h
+	ld b, a
+	jr nc, Label_00_0DAE
+	ld a, c
+	add a, l
+	ld c, a
+	ld a, b
+	adc a, h
+	ld b, a
+	scf
+
+Label_00_0DAE:: ; 00:0DAE
+	ccf
+	ldh a, [hRam_FFF7]
+	dec a
+	jr nz, Label_00_0D95
+	rl e
+	rl d
+	ret

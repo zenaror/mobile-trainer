@@ -1,4 +1,4 @@
-# Original commercial ROM is the reference of truth but is NOT versioned.
+# Original commercial ROM is the reference of truth but is NOT versioned (neither is the built mobile_trainer.gbc).
 # Its identity is recorded in roms.sha256 / docs/ROM_INFO.md.
 *.gbc
 *.cgb
@@ -6,7 +6,7 @@
 *.sav
 *.rtc
 *.ss?
-# build products
+# build products (mobile_trainer.gbc is covered by *.gbc above; objects, .map, .sym and .d files live in build/)
 build/
 *.o
 *.pyc

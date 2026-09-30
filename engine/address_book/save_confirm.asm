@@ -1,0 +1,840 @@
+; engine/address_book/save_confirm.asm
+; bank 2A, $6F95-$75A0 (1547 bytes); pinned by layout.link
+; address-book 'save entry?' confirmation screen
+
+SECTION "engine/address_book/save_confirm", ROMX
+
+; ---- code $6F95-$709F (266 bytes) [CONFIRMED] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code) [executed in 1 scenarios]
+
+AddrBook_SaveConfirm:: ; 2A:6F95
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $10
+	ld [wStatSplitLine], a
+	ld a, $0B
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	call AddrBook_SaveConfirm_InitScreen
+	ld d, $0F
+
+Label_2A_6FBA:: ; 2A:6FBA
+	push bc
+	push de
+	farcall Function_00_0956
+	call Function_00_0464
+	farcall Joypad_Update
+	pop de
+	pop bc
+	dec d
+	jp nz, Label_2A_7048
+	push bc
+	ld de, $020B
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wStatIrqServiceFlag], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	push de
+	pop de
+	farcall Dialog_Show
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ld [wStatIrqServiceFlag], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	pop bc
+	dec a
+	jr nz, Label_2A_7034
+	push bc
+	push de
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0032
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	pop de
+	pop bc
+	push bc
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	pop bc
+	call AddrBook_StoreEditBufferToSlot
+	xor a, a
+	ret
+
+Label_2A_7034:: ; 2A:7034
+	push bc
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeOutToWhite
+	pop bc
+	ld a, $FF
+	ret
+
+Label_2A_7048:: ; 2A:7048
+	jp Label_2A_6FBA
+
+AddrBook_StoreEditBufferToSlot:: ; 2A:704B
+	push af
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, $D726
+	ld a, [hl]
+	ld c, a
+	ld b, $00
+	sla c
+	ld hl, Table_AddrBook_SlotAddrs_Store
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld h, d
+	ld l, e
+	push hl
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld b, $10
+	ld de, $D514
+
+Label_2A_7080:: ; 2A:7080
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec b
+	jr nz, Label_2A_7080
+	pop hl
+	ld de, $0010
+	add hl, de
+	ld b, $40
+	ld de, $D4C0
+
+Label_2A_7090:: ; 2A:7090
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec b
+	jr nz, Label_2A_7090
+	farcall SramCheck_Bank1Commit
+	pop bc
+	pop af
+	ret
+
+; ---- words $709F-$70AB (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$709F at 2A:705B. Values are SRAM addresses, not ROM pointers
+
+Table_AddrBook_SlotAddrs_Store:: ; 2A:709F
+Table_2A_709F::
+	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
+
+; ---- code $70AB-$7121 (118 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
+
+AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
+	push bc
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall TextTiles_ClearBuffers
+	farcall LCDOff
+	xor a, a
+	ldh [rSCY], a
+	ld bc, $0040
+	ld de, $D800
+	ld hl, Palette_AddrSaveConfirm_Bg
+	ld a, $2A
+	farcall Palette_LoadToBuffer
+	ld de, $9301
+	ld hl, Gfx_AddrSaveConfirm_Tiles9300
+	ld a, $2A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9701
+	ld hl, Gfx_AddrSaveConfirm_Tiles9700
+	ld a, $2A
+	ld b, $98
+	ld c, $04
+	farcall Function_00_0787
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_AddrSaveConfirm_TilemapAttr
+	ld a, $2A
+	farcall Function_00_08EA
+	ldh a, [rLCDC]
+	call Function_00_082C
+	farcall LCDOn
+	ld bc, $0000
+	pop bc
+	ld a, b
+	cp a, $FF
+	jr nz, Label_2A_7154
+
+; ---- code $7121-$7154 (51 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
+	call AddrBook_SaveConfirm_DrawSlot
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeInFromWhite
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $10
+	ld [wStatSplitLine], a
+	ld a, $0B
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	ret
+
+; ---- code $7154-$7187 (51 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
+
+Label_2A_7154:: ; 2A:7154
+	call AddrBook_SaveConfirm_DrawEditBuffer
+	farcall Stat_DisableScrollSplit
+	call Function_00_0464
+	farcall Palette_FadeInFromWhite
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $10
+	ld [wStatSplitLine], a
+	ld a, $0B
+	ld [wRam_D725], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	ret
+
+; ---- code $7187-$7221 (154 bytes) [PROBABLE] 71 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
+
+AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
+	push bc
+	ld b, $00
+	sla c
+	ld hl, Table_AddrBook_SlotAddrs_SaveConfirm
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld h, d
+	ld l, e
+	push hl
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld b, $10
+	ld de, $D514
+
+Label_2A_71B0:: ; 2A:71B0
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_2A_71B0
+	pop hl
+	ld de, $0010
+	add hl, de
+	ld b, $40
+	ld de, $D4C0
+
+Label_2A_71C0:: ; 2A:71C0
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_2A_71C0
+	pop bc
+	push bc
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $0438
+	ld hl, $D514
+	call AddrBook_SaveConfirm_DrawTextLine16
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $1438
+	ld hl, $D4C0
+	farcall AbookView_DrawAddrLine1
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $2008
+	ld hl, $D4D0
+	farcall AbookView_DrawAddrLine2
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $2C08
+	ld hl, $D4E8
+	farcall AbookView_DrawAddrLine3
+	farcall AddrBook_UploadEntryTextTiles
+	pop bc
+	ret
+
+; ---- words $7221-$722D (12 bytes) [PROBABLE] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$7221 at 2A:718B. Values are SRAM addresses, not ROM pointers
+
+Table_AddrBook_SlotAddrs_SaveConfirm:: ; 2A:7221
+Table_2A_7221::
+	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
+
+; ---- code $722D-$7287 (90 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5; entered by call from 2A:7154 (PROBABLE code) [executed in 1 scenarios]
+
+AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
+	push bc
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $0438
+	ld hl, $D514
+	call AddrBook_SaveConfirm_DrawTextLine16
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $1438
+	ld hl, $D4C0
+	farcall AbookView_DrawAddrLine1
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $2008
+	ld hl, $D4D0
+	farcall AbookView_DrawAddrLine2
+	ld a, $14
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld bc, $0300
+	ld de, $2C08
+	ld hl, $D4E8
+	farcall AbookView_DrawAddrLine3
+	farcall AddrBook_UploadEntryTextTiles
+	pop bc
+	ret
+
+; ---- words $7287-$7293 (12 bytes) [HYPOTHESIS] SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); no reference found (identical bytes to the referenced sibling tables 4274/4306/445F/483B/709F/7221 that the compiler emits after each function). Values are SRAM addresses, not ROM pointers
+
+Table_2A_7287:: ; 2A:7287
+	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
+
+; ---- code $7293-$732F (156 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
+
+AddrBook_UploadEntryTextTiles:: ; 2A:7293
+	ldh a, [rSVBK]
+	push af
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, $D000
+	ld de, $9000
+	ld c, $3F
+	farcall Gfx_StartHDMAAtVBlank_2A_5C3B
+	ld hl, $D400
+	ld de, $9400
+	ld c, $3F
+	farcall Gfx_StartHDMAAtVBlank_2A_5C3B
+	ld hl, $D800
+	ld de, $8800
+	ld c, $0F
+	farcall Gfx_StartHDMAAtVBlank_2A_5C3B
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
+	ld a, $10
+	ld [wTextCellsLeft], a
+
+Label_2A_72D4:: ; 2A:72D4
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hli]
+	cp a, $00
+	jp z, Label_2A_736F
+	cp a, $0D
+	jr z, Label_2A_7354
+	push af
+	farcall Glyph_IsSjisLeadByte
+	dec a
+	jr nz, Label_2A_732F
+	pop af
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [hli]
+	ld l, a
+	pop af
+	ld h, a
+	ld bc, $C0A0
+	ld de, $C0B8
+	farcall Glyph_LoadWide
+	pop hl
+	pop de
+	pop bc
+	inc hl
+	call AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance
+	push bc
+	push de
+	push hl
+	ld hl, $C0B8
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ld a, [wTextCellsLeft]
+	dec a
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_736F
+	cp a, $01
+	jr z, Label_2A_736F
+	jr Label_2A_72D4
+
+; ---- code $732F-$736F (64 bytes) [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7293-73BB by apply_coverage --split
+
+Label_2A_732F:: ; 2A:732F
+	pop af
+	push bc
+	push de
+	push hl
+	ld b, a
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	call AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_736F
+	cp a, $01
+	jr z, Label_2A_736F
+	jr Label_2A_72D4
+
+Label_2A_7354:: ; 2A:7354
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
+
+; ---- code $736F-$73BB (76 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
+
+Label_2A_736F:: ; 2A:736F
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+
+Label_2A_7380:: ; 2A:7380
+	ld a, [wTextCellsLeft]
+	cp a, $00
+	ret z
+	dec a
+	ld [wTextCellsLeft], a
+	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
+	jr Label_2A_7380
+
+AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance:: ; 2A:738F
+	push bc
+	push de
+	push hl
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance:: ; 2A:73A3
+	push bc
+	push de
+	push hl
+	ld b, $02
+	ld c, $00
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+; ---- code $73BB-$73C0 (5 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:73BA
+
+Function_2A_73BB:: ; 2A:73BB
+	ld a, $11
+	ld [wTextCellsLeft], a
+
+; ---- code $73C0-$74A7 (231 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7419 (PROBABLE code)
+
+Label_2A_73C0:: ; 2A:73C0
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hli]
+	cp a, $00
+	jp z, Label_2A_745B
+	cp a, $0D
+	jr z, Label_2A_7440
+	push af
+	farcall Glyph_IsSjisLeadByte
+	dec a
+	jr nz, Label_2A_741B
+	pop af
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [hli]
+	ld l, a
+	pop af
+	ld h, a
+	ld bc, $C0A0
+	ld de, $C0B8
+	farcall Glyph_LoadWide
+	pop hl
+	pop de
+	pop bc
+	inc hl
+	call Function_2A_747B
+	push bc
+	push de
+	push hl
+	ld hl, $C0B8
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ld a, [wTextCellsLeft]
+	dec a
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_745B
+	cp a, $01
+	jr z, Label_2A_745B
+	jr Label_2A_73C0
+
+Label_2A_741B:: ; 2A:741B
+	pop af
+	push bc
+	push de
+	push hl
+	ld b, a
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	call Function_2A_747B
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_745B
+	cp a, $01
+	jr z, Label_2A_745B
+	jr Label_2A_73C0
+
+Label_2A_7440:: ; 2A:7440
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	call Function_2A_748F
+
+Label_2A_745B:: ; 2A:745B
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+
+Label_2A_746C:: ; 2A:746C
+	ld a, [wTextCellsLeft]
+	cp a, $00
+	ret z
+	dec a
+	ld [wTextCellsLeft], a
+	call Function_2A_748F
+	jr Label_2A_746C
+
+Function_2A_747B:: ; 2A:747B
+	push bc
+	push de
+	push hl
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+Function_2A_748F:: ; 2A:748F
+	push bc
+	push de
+	push hl
+	ld b, $02
+	ld c, $00
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+; ---- code $74A7-$74AC (5 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:74A6
+
+Function_2A_74A7:: ; 2A:74A7
+	ld a, $19
+	ld [wTextCellsLeft], a
+
+; ---- code $74AC-$7593 (231 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7505 (PROBABLE code)
+
+Label_2A_74AC:: ; 2A:74AC
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hli]
+	cp a, $00
+	jp z, Label_2A_7547
+	cp a, $0D
+	jr z, Label_2A_752C
+	push af
+	farcall Glyph_IsSjisLeadByte
+	dec a
+	jr nz, Label_2A_7507
+	pop af
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [hli]
+	ld l, a
+	pop af
+	ld h, a
+	ld bc, $C0A0
+	ld de, $C0B8
+	farcall Glyph_LoadWide
+	pop hl
+	pop de
+	pop bc
+	inc hl
+	call Function_2A_7567
+	push bc
+	push de
+	push hl
+	ld hl, $C0B8
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ld a, [wTextCellsLeft]
+	dec a
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_7547
+	cp a, $01
+	jr z, Label_2A_7547
+	jr Label_2A_74AC
+
+Label_2A_7507:: ; 2A:7507
+	pop af
+	push bc
+	push de
+	push hl
+	ld b, a
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	call Function_2A_7567
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2A_7547
+	cp a, $01
+	jr z, Label_2A_7547
+	jr Label_2A_74AC
+
+Label_2A_752C:: ; 2A:752C
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	call Function_2A_757B
+
+Label_2A_7547:: ; 2A:7547
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+
+Label_2A_7558:: ; 2A:7558
+	ld a, [wTextCellsLeft]
+	cp a, $00
+	ret z
+	dec a
+	ld [wTextCellsLeft], a
+	call Function_2A_757B
+	jr Label_2A_7558
+
+Function_2A_7567:: ; 2A:7567
+	push bc
+	push de
+	push hl
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+Function_2A_757B:: ; 2A:757B
+	push bc
+	push de
+	push hl
+	ld b, $02
+	ld c, $00
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+; ---- zero $7593-$75A0 (13 bytes) [PROBABLE] 13 bytes of $00 padding after the ret at 7592, before the palette at 75A0
+	ds $D, $00

@@ -1,15 +1,26 @@
 # Reverse engineering status
 
 Evidence levels: **CONFIRMED** (demonstrated), **PROBABLE** (strong evidence, not conclusive),
-**HYPOTHESIS** (unverified). Generic names (`Function_<bank>_<addr>`) are kept until evidence exists.
-Detailed, per-topic notes live in `docs/research/`; machine-generated progress metrics in `docs/PROGRESS.md`.
+**HYPOTHESIS** (unverified). Generic names (`Function_<bank>_<addr>`) are kept until evidence exists (`STYLE.md`).
+Detailed, per-topic notes live in `docs/research/`; metrics of the frozen classification in `docs/PROGRESS.md`.
+
+## Source state: frozen, hand-maintained
+
+The source tree (`home/ engine/ data/ gfx/ audio/ lib/`, `ram.asm`, `ram/`, `consts.asm`, `zero_labels.asm`, `includes.asm`, `layout.link`, `constants/`) was produced once by the
+bootstrap generator (`tools/gen_asm.py`, tables `config/`, layout `analysis/layout/layout.tsv`, all kept unchanged as history) and is now the **maintained source of truth**: future
+work edits the `.asm` files directly.  `make` needs only RGBDS 1.0.3 and GNU make (no `INCBIN`, no reference ROM, no generation step); `make regen` refuses to run.  How to work on it: `README.md`, `STYLE.md`, `INSTALL.md`.
+
+Where evidence lives now: the status and note of every region are in its header comment in the source, RAM names and constants carry status + evidence after the value,
+the per-symbol tables are frozen in `config/`, the reasoning is in `docs/research/*.md`, dynamic evidence in `traces/` and `analysis/`.  **New findings are recorded in `docs/research/*.md` and in comments at the code**;
+`config/` and `docs/PROGRESS.md` are not updated any more (they describe the state at the freeze).
 
 ## Build / comparison state
 
-* `make` assembles the committed `src/` (no INCBIN, no reference ROM needed) and the result has SHA-256 `6d802e66…6570`, identical to the reference; with the reference ROM present it also compares byte-for-byte: **IDENTICAL**. CONFIRMED (`make`, `make verify`, `make test`, `tools/selftest_gen.py`; a clean clone rebuilds the hash)
-* 100% of the ROM is classified into regions: code 221,783 B (105,600 CONFIRMED = executed in 41 mGBA scenarios; 112,738 PROBABLE = statically reached; 3,445 HYPOTHESIS), gfx 491 KB, data 196 KB, text 45 KB (Shift-JIS, one string per line with decoded comments), words/ptrtable 9 KB, zero 1.13 MB. Only ~1.8 KB remain UNCLASSIFIED (HYPOTHESIS data).
-* ~3,000 symbol rows (1,405 CONFIRMED, 1,395 PROBABLE, 220 generic-name HYPOTHESIS notes), ~1,150 xrefs, ~1,080 RAM names (44 CONFIRMED, 213 PROBABLE, 827 neutral/HYPOTHESIS; banked WRAM/SRAM addresses stay neutral because the generator cannot see the bank).
-* Far calls are `farcall <Label>` macros (5,274 sites), config drives `tools/gen_asm.py` (`docs/FORMATS.md`); the header (logo, checksums) is part of the reproduced bytes, `rgbfix` is not used. Current numbers: `docs/PROGRESS.md`.
+* `make` assembles the tree (334 objects, one per file, `rgbasm -P includes.asm`), links with `layout.link` (`rgblink -p 0x00`) and the result has SHA-256 `6d802e66…6570`, identical to the reference; with the reference ROM present it also compares byte-for-byte: **IDENTICAL**. CONFIRMED (`make`, `make compare`, `make sym-check`; a clean copy of the source without any ROM rebuilds the hash; the source contains no `INCBIN`).
+* `build/mobile_trainer.sym` lists all 11,991 labels with bank:address; `tools/sym_check.py` cross-checks them against the source (every label defined exactly once, comments give the linker's address).
+* 100% of the ROM is classified into regions (frozen tables `config/regions`): code 221,784 B (**162,635 CONFIRMED** = 73.3%, executed in the 64 mGBA scenarios of `analysis/coverage_union.tsv` (77,979 executed instruction starts) or otherwise proven; 55,704 PROBABLE = statically reached; 3,445 HYPOTHESIS), gfx 491 KB (149,600 B CONFIRMED), data 196 KB, text 45 KB (Shift-JIS, one string per line with decoded comments), words/ptrtable 9 KB, zero 1.13 MB.  Bytes still HYPOTHESIS: data 1,959, gfx 2,235, text 37, words 14, zero 4,694 (the region status is per region, `docs/PROGRESS.md`).
+* 3,020 symbol rows (1,405 CONFIRMED, 1,395 PROBABLE, 220 generic-name HYPOTHESIS notes), 1,155 xrefs, 1,084 RAM names (44 CONFIRMED, 213 PROBABLE, 827 neutral/HYPOTHESIS; banked WRAM/SRAM addresses stay neutral unless a bank-qualified name exists in `ram/banked.asm`).
+* Far calls are `farcall <Label>` macros (5,274 sites, `constants/macros.inc`); the cartridge header (logo, checksums) is part of the source bytes, `rgbfix` is not used.
 
 ## Reference ROM (CONFIRMED, `docs/ROM_INFO.md`)
 
@@ -37,9 +48,9 @@ Detailed, per-topic notes live in `docs/research/`; machine-generated progress m
 
 ## What remains
 
-1. Promote PROBABLE code to CONFIRMED with more traces (`tools/apply_coverage.py` after new scenarios); ~1 KB of PROBABLE/HYPOTHESIS code has no proven entry (reached only through RAM pointers / unresolved `jp hl`).
-2. More semantic names (`docs/research/naming_g*.md`, `naming_sdk.md` list HYPOTHESES and open questions); bank-aware WRAM/SRAM names need generator support for banked names.
-3. Replace `db` graphics/text blocks by extracted assets + INCBIN only if byte-identity is preserved (not started; current form is exact and self-contained).
-4. Optional presentation refinement: more macros, constants for magic numbers, local labels.
+1. Promote PROBABLE code to CONFIRMED with more traces (`tools/apply_coverage.py`, frozen tables) or by disassembly reasoning recorded in `docs/research/`; ~1 KB of PROBABLE/HYPOTHESIS code has no proven entry (reached only through RAM pointers / unresolved `jp hl`).
+2. More semantic names in the source (`docs/research/naming_g*.md`, `naming_sdk.md` list HYPOTHESES and open questions); bank-qualified WRAM/SRAM names for the many neutral `wRam_XXXX`/`sSram_XXXX`.
+3. Presentation refinement of the maintained source: local labels, constants for magic numbers, more macros, comments, splitting `code` blocks where evidence shows data, replacing `db` graphics/text blocks by extracted assets + `INCBIN` only if the bytes stay identical (not started; the current form is exact and self-contained).
+4. Keep the address comments honest after edits (`tools/sym_check.py --fix`) and record new evidence at the code.
 
 Every claim above has an evidence trail in the linked documents; anything not listed there is not established.
