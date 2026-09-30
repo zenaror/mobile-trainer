@@ -1,7 +1,13 @@
 # Formats and usage of the source generator
 
+> **Status: frozen bootstrap pipeline (history / evidence, not needed to build).**  This document describes the generator `tools/gen_asm.py` and the tables in `config/`
+> that produced the source tree once.  The generated tree (tree mode, `analysis/layout/layout.tsv`) has been committed as the hand-maintained source
+> (`home/ engine/ data/ gfx/ audio/ lib/ ram.asm ram/ consts.asm zero_labels.asm includes.asm layout.link`); `make` assembles it directly and reads neither `config/` nor the original ROM.
+> Do not run the generator over the source: `make regen`, `make verify` and `make tree*` refuse to run (`make legacy-check` runs it in a temp dir).  Wherever this
+> text says "generated", "DO NOT EDIT", `src/` or `make tree`, read it as the state of the pipeline at the freeze; the maintained source has no such header.  See `README.md`, `STYLE.md`, `config/README.md`.
+
 `tools/gen_asm.py` turns **ROM bytes + `config/` tables** into one RGBDS file per bank (`src/bankNN.asm`)
-plus `src/ram.inc`.  Every stage of the reverse engineering rebuilds the ROM **byte-identically**: a table
+plus `src/ram.inc` (or, in *tree mode*, into a tree of files organised by subsystem, see "Tree mode").  Every stage of the reverse engineering rebuilds the ROM **byte-identically**: a table
 entry can only change *how* bytes are written (`db`, an instruction, a label), never *which* bytes.
 
 ```
@@ -390,12 +396,15 @@ make verify          python3 tools/gen_asm.py verify       (temp build + compare
 make test            tools/selftest_gen.py + tools/test_sm83.py + tools/test_cfg.py
 make conventions-check   python3 tools/conventions_check.py   (far pointers / inline sites vs config/regions)
 make progress        python3 tools/progress.py             (writes docs/PROGRESS.md)
+make tree | tree-build | tree-verify | tree-check      tree mode (see "Tree mode")
 python3 tools/rambank_observe.py       replay the scenarios with `--bank-obs` -> analysis/rambank/observed_banks.tsv (minutes, needs the built tracer)
 python3 tools/rambank_infer.py         derive config/ram_context.tsv from the code + the observations (seconds)
 python3 tools/build_ram_config.py      merge the naming proposals into config/ram/*.tsv and config/ram_banked/named.tsv (needs config/ram_context.tsv)
 
 tools/gen_asm.py [regen|verify|check] [--config DIR] [--out DIR] [--rom FILE] [--fast] [--strict] [--no-macros]
                  [--xrefs FILE ...] [--keep DIR] [-q]
+                 [--tree OUTDIR [--layout FILE] [--header data|rgbfix] [--tree-no-addr-comments] [--onefile]]   (tree mode)
+tools/tree_check.py [--layout FILE] [--config DIR] [--rom FILE] [--tree DIR] [--header data|rgbfix] [--no-onefile]
 tools/compare_rom.py REFERENCE BUILT [--max-runs N] [--config DIR]
 tools/progress.py [--config DIR] [--rom FILE] [--out FILE | --no-write]
 tools/conventions_check.py [--regions DIR] [--conventions FILE] [--xrefs FILE ...] [--rom FILE] [--max N] [--strict]
@@ -421,6 +430,125 @@ Function_05_4000:: ; 05:4000
 
 Bank 00 uses `ROM0[$0000]`.  Sections are fixed-address, one per bank, so offsets can never drift.
 
+## Tree mode
+
+Tree mode writes the same bytes, labels, names and macros as the per-bank mode, but the source is organised **by subsystem** (as in
+pokecrystal: `home/…`, `engine/…`, `data/…`, `gfx/…`) instead of by bank, and no source line carries a ROM address: every file holds
+**floating** sections that an rgblink linker script (`layout.link`) pins to their exact original positions, so offsets are preserved and
+the ROM stays byte-identical.  The per-bank mode (`src/bankNN.asm`) is unchanged and keeps working.
+
+```
+baserom.gbc + config/ ─┐
+layout.tsv ────────────┴─► gen_asm.py --tree OUTDIR ─► OUTDIR/<path>.asm ...      floating `SECTION "<path without .asm>", ROMX`
+                                                       OUTDIR/layout.link          `ROMX $NN / org $addr / "<section name>"` for EVERY section
+                                                       OUTDIR/includes.asm ram.asm ram/*.asm consts.asm main.asm tree.mk [padding.asm]
+                             rgbasm -P includes.asm (one object per file) + rgblink -p 0x00 -l layout.link ─► ROM == baserom.gbc
+```
+
+```
+python3 tools/gen_asm.py [regen|verify|check] --tree OUTDIR [--layout FILE] [--header data|rgbfix] [--tree-no-addr-comments] [--onefile]
+make tree | tree-build | tree-verify | tree-check          (LAYOUT=file.tsv TREEDIR=dir TREE_HEADER=rgbfix)
+python3 tools/tree_check.py [--layout FILE] [--tree DIR] [--header data|rgbfix] [--no-onefile]
+```
+
+* `regen --tree OUTDIR`: generate, run the structural round trip, assemble+link in a temp dir and compare with the ROM (unless `--fast`);
+  the files are written to OUTDIR only if that passes (unchanged files are not rewritten; files that a *previous* run wrote, listed in
+  `OUTDIR/.tree_manifest`, and that are no longer generated are removed together with their empty directories; nothing else is ever deleted).
+* `verify --tree OUTDIR`: temp build + compare, OUTDIR untouched (OUTDIR is only accepted for symmetry).  `check --tree`: structural checks only.
+* `--layout` defaults to `analysis/layout/layout.tsv`.  `--onefile` makes regen/verify check by assembling `main.asm` as one object.
+* `--tree-no-addr-comments` drops the ROM addresses from comments (region headers, label cites, `; ROM 05:4000-...`); generic names such as
+  `Function_05_4000` still contain them, they are names.
+
+### The layout table
+
+```
+bank	start	end	path	[note]
+```
+
+TAB-separated, UTF-8, `#` comment lines / blank lines ignored, a header line starting with `bank` skipped; `bank` hex, `start`/`end` CPU addresses in
+hex (`end` exclusive, `$`/`0x` optional), `path` relative to the tree root (`engine/mail/compose.asm`), `note` (rest of the line) is copied above the
+row's content as a comment (repeated identical notes of consecutive rows are printed once).  Paths: components of `[A-Za-z0-9_.+-]`, ending in `.asm`,
+no leading `/`, no `..`, no spaces, not one of the generated names (`main.asm includes.asm ram.asm consts.asm padding.asm zero_labels.asm`, anything under `ram/`),
+no two paths that differ only in letter case.
+
+* **Coverage.**  Every byte of every bank is covered by exactly one row, or is 0x00 and uncovered (the linker pads it with `-p 0x00`).  A non-zero
+  byte that no row covers is an error naming the first such byte.  A `ramcode` region inside an uncovered range is an error (its `LOAD` block would be lost).
+  A **label** inside an uncovered zero range (config symbol, region label, or a generic `Data_BB_AAAA` created by an xref/far pointer, e.g. the zero island
+  `Data_48_69AB`) is not an error: the generator writes it into `zero_labels.asm`, one tiny pinned section per label holding only the zero bytes from the label to
+  the next label / the end of its config region / the end of the uncovered range (so the ROM is unchanged and every reference still resolves); give the range to a
+  layout row to move the label into a real file.  Consts (`type const` symbols) are not in the ROM and live in `consts.asm`.
+* **Cuts.**  Rows may cut config regions.  Every row boundary must be a legal cut, otherwise the error names the boundary, the reason and the
+  nearest legal cuts (all problems are reported together):
+  * `code`: on an instruction start (never mid-instruction);
+  * never inside the inline bytes of a convention call (`farcall`, `call X ; dw ...`), never between the call and its bytes, never between a call
+    and an "adopted" `data` region right after it (a farcall and its data stay in one file);
+  * never inside a `ramcode` region (RAM code stays a region-level `LOAD` block; a cut exactly at its start or end is fine);
+  * `words`/`ptrtable`: even offset from the region start;
+  * `data`/`gfx`/`text`/`raw`/`zero`: anywhere (a text cut inside a string ends the last line early, like a label inside a string; a cut in a `raw`
+    region splits its `INCBIN`).
+  A cut piece of a region gets its own `; ---- kind $a-$z (n bytes) [STATUS] note (part of region $s-$e)` header; labels stay attached to the byte they
+  name.
+* **Sections.**  Rows of one file that touch (`end == next start`, same bank) form one section; a file with several sections (a file may span banks:
+  one section per bank; rows of one bank that are not adjacent give several sections) is written in `(bank, address)` order.  Section name = the file
+  path without `.asm` (`SECTION "engine/mail/compose", ROMX`; `ROM0` for bank 00; the same names as the `section` column of the layout plan of
+  `tools/check_layout.py`); files with several sections use `"engine/mail/compose (bank0F)"`, or `"engine/mail/compose (bank0F #2)"` when one bank has several.  No `[$addr]`/`BANK[]` in the source: the sections are floating.  Names are unique (checked).
+
+### Generated files
+
+| file | content |
+|---|---|
+| `<path>.asm` (per layout file) | `SECTION` + regions in address order, same content rules as `src/bankNN.asm`: labels (`Name::`), `farcall` macro lines, xref/banked/RAM/hardware names, text comments, `LOAD` blocks for ramcode.  No `INCLUDE` (everything comes from `includes.asm`, pre-included) |
+| `layout.link` | for each bank in ascending order `ROM0` / `ROMX $NN`, then for every section in address order `org $addr` + `"section name"`: **every** section is pinned, nothing floats |
+| `includes.asm` | `INCLUDE "constants/hardware.inc"`, `"ram.asm"`, `"constants/macros.inc"` (macros only when the far-call convention exists); resolved through `-I OUTDIR -I <repo root>`, so `constants/` stays the repo's one copy |
+| `ram.asm`, `ram/vram.asm sram.asm wram.asm hram.asm banked.asm` | exactly the `DEF name EQU $addr ; ...` lines of `ram.inc` (same names, same values, `config/ram` + `config/ram_banked`), grouped by memory area, plus `DEF FARCALL_FN EQUS ...`; equates only, no section, no bytes |
+| `zero_labels.asm` | only when a label lies in an uncovered zero range (see "Coverage"): floating sections `"zero_labels"` / `"zero_labels (bank48)"` (numbered `#k` when a bank has several), pinned like all others |
+| `consts.asm` | the `type const` symbols (`DEF` + `EXPORT`), only if there are any |
+| `padding.asm` | only when the **last ROM bank has no section**: `SECTION "padding", ROMX` with one explicit `ds 1, $00`, pinned at `$7FFF` of the last bank.  rgblink sizes the ROM by the highest bank holding a section (padding that bank to its end), so without this byte an all-zero tail would shorten the ROM (proven by `tree_conv`: the ROM shrinks without it) |
+| `main.asm` | `INCLUDE "includes.asm"` + `INCLUDE` of every source in (bank, address) order: the whole tree as **one** object |
+| `tree.mk` | `TREE_SRCS` (object-producing files) / `TREE_COMMON` (files every object depends on) for make; `TREE_RGBFIX` with `--header rgbfix` |
+| `.tree_manifest` | the generated paths (for stale-file removal) |
+
+Assembly (choice made): every source is assembled **separately** with `rgbasm -P includes.asm -I OUTDIR -I .` (as the reference repo does) because that is
+incremental (only changed files are re-assembled; a change of `includes.asm`/`ram*.asm`/macros rebuilds all) and parallel; `main.asm` is the
+equivalent one-object build (`rgbasm -I OUTDIR -I . -o main.o main.asm && rgblink -p 0x00 -l layout.link ...`).  Both give the same ROM
+(`tree_check.py` and the selftest build both ways; this works because the files contain no `INCLUDE` of their own).  All labels are global (`::`), the linker
+resolves cross-file references, `BANK(Label)` and far-call bytes.  RGBDS 1.0.3 linker-script syntax: `ROM0` / `ROMX $bank` select the bank, `org $addr`
+sets the address of the sections named after it, a section name is a quoted string.
+
+### Cartridge header (`--header`)
+
+* `data` (default): the header bytes (`0104-014F`) are ordinary data in whatever file the layout puts them; no rgbfix step; the ROM is byte-identical
+  straight from rgblink.
+* `rgbfix`: the range `0104-014F` is emitted as one `ds $4C, $00` (label `Header::` kept) and `rgbfix` writes it after linking.  The options are **decoded from
+  the header bytes of the ROM** (CGB flag, title, game id, new/old licensee, SGB flag, cartridge type, RAM size, destination, version; `-v` = logo + header
+  checksum + global checksum; ROM size and checksums are computed by rgbfix) and the generator **proves** them before using them: rgbfix is run over a
+  header-blanked copy of the ROM and the result must equal the ROM byte for byte (else an error names the first differing offset).  For this ROM the options are
+  `-v -C -t M-TRAINER -i B9AJ -k 01 -m 0x1B -r 3 -l 0x33 -n 0 -p 0` (verified: the rebuilt ROM is IDENTICAL, SHA-256 `6d802e66...6570`).  Only `data`/`raw`/`zero`/`gfx`
+  regions may cover the header (they are cut at its edges), `0100-0103` (`nop ; jp`) stays code.  Make: `make tree-build TREE_HEADER=rgbfix` (the Makefile runs
+  `$(RGBFIX) $(TREE_RGBFIX)` after linking; `TREE_HEADER` participates in the regeneration stamp).  Per-bank mode never uses rgbfix.
+
+### Build and checks
+
+```
+make tree          python3 tools/gen_asm.py regen --tree build/tree_src --layout analysis/layout/layout.tsv   (stamp: build/tree_src/.tree_stamp)
+make tree-build    tree + per-file rgbasm (build/tree_obj/, -M dependency files) + rgblink -p 0x00 -l layout.link -> build/tree/mobile_trainer.gbc
+                   + SHA-256 against roms.sha256 + tools/compare_rom.py
+make tree-verify   gen_asm.py verify --tree     (temp build + compare, nothing written)
+make tree-check    tools/tree_check.py          (generate twice: deterministic; build per file AND as one object; both must equal the reference ROM and its SHA-256)
+```
+
+`tools/tree_check.py --tree DIR` checks an existing tree on disk: it must equal what the generator would write now (a stale tree is reported) and
+must rebuild the ROM both ways.  Internal checks: every emitted line is asserted against the ROM bytes exactly as in per-bank mode, each section must emit exactly its
+row range, the whole layout is validated before anything is generated, and the assemble+link+compare of `regen`/`verify` proves the ROM.  The linker script is
+also a check of its own: a section that is missing or misplaced fails at link time or shows up as a byte difference.
+
+### Tree mode limitations
+
+* Layout rows cannot cut a `ramcode` region or inline far-call data (by design, see "Cuts"), and cannot leave a `ramcode` region uncovered.
+* Nothing in the tree records *why* a file has its path: that is the layout table's job (and `tools/check_layout.py`'s).
+* `INCBIN "baserom.gbc"` (`raw` regions) needs the ROM in an include path (`-I .` in the Makefile, the ROM's directory in the tools).
+* The tree is generated: edits belong to `config/` and the layout table (the tree carries `DO NOT EDIT` headers); ROM-address comments are on by default.
+
 ## Self test (`tools/selftest_gen.py`, all in a temp dir; the real config/src are not touched)
 
 `sweep_code` marks every non-zero range of every bank of the real ROM as `code` (plus sampled symbols, RAM names and
@@ -438,6 +566,14 @@ its context claim).  `text` (unit tests of
 `lib/textfmt.py` on random and crafted input incl. malformed strings, a region not ending at NUL, a lone lead byte at the end;
 every comment is parsed back to the bytes; the generator on a synthetic ROM with all charsets/layouts and labels inside strings
 and html bodies, `--no-text-comments`, the 8 `text_charsets.tsv` errors, every real text region tiles).
+
+Tree mode: `tree_kinds` (synthetic ROM, multi-file layout: cuts inside code/data/words/text, ROM0 and ROMX files, a file spanning banks, non-contiguous rows of
+one file, ramcode `LOAD` blocks and overlays in different files, uncovered zero ranges; per-file and one-object builds equal the ROM and define the same labels as the
+per-bank build; `ram*.asm` define exactly the names of `ram.inc`; unique floating section names; linker script; deterministic; `--tree-no-addr-comments`), `tree_errors`
+(39 rejected layouts: cuts mid-instruction / inside ramcode / odd in words, uncovered non-zero bytes, labels in uncovered ranges, overlaps, bad/reserved/case-clashing
+paths, syntax), `tree_conv` (cuts around `farptr`/`jp`/`inline_dw`/`inline_db` sites and adopted data, `padding.asm` needed and sufficient), `tree_cli` (regen/verify/check,
+idempotence, stale removal, atomic failure, `tree_check.py`), `tree_header` (`--header rgbfix` for several header shapes, refusals), `tree_real` (the real config with a
+per-bank layout and two random fine layouts) and `tree_sweep` (the real ROM as code with random legal cuts).
 
 Inline-data conventions: `conv_kinds` (synthetic 4-bank ROM: `farptr`/`inline_dw`/`inline_db`, `call` and `jp`, ROM0 vs ROMX
 entries and bank resolution by `branch` xref, a caller in `ramcode`, labels found / missing / at another bank / numeric
