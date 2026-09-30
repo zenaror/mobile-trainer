@@ -8,7 +8,7 @@ SECTION "gfx/mail/session_objects", ROMX
 
 MailSession_ObjTable_6F20:: ; 28:6F20
 Table_28_6F20::
-	dw Data_28_7040, $7066, Data_28_7040, $7066, Data_28_7040, $7066, Data_28_7040, $7066
+	dw MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066
 	dw $72AF, $72D5, $72AF, $72D5, $72AF, $72D5, $72AF, $72D5
 	dw $706B, $70A4, $706B, $70A4, $706B, $70A4, $706B, $70A4
 	dw $71BE, $71F7, $71BE, $71F7, $71BE, $71F7, $71BE, $71F7
@@ -29,7 +29,8 @@ Table_28_6F20::
 
 ; ---- data $7040-$72FB (699 bytes) [PROBABLE] 18 object record(s): 18 frame tables, 33 frames, 18 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 7040-7042, 7044-7055, 7067-7069, 72AF-72FB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_28_7040:: ; 28:7040
+MailSession_6F20_ObjAnimData:: ; 28:7040
+Data_28_7040::
 	db $44, $70, $55, $70, $04, $03, $00, $08, $00, $03, $08, $0A, $00, $13, $00, $28
 	db $00, $13, $08, $2A, $00, $04, $03, $00, $0C, $00, $03, $08, $0E, $00, $13, $00
 	db $2C, $00, $13, $08, $2E, $00, $02, $00, $0A, $01, $0A, $71, $70, $82, $70, $93
@@ -79,7 +80,7 @@ Data_28_7040:: ; 28:7040
 
 MailSession_ObjTable_72FB:: ; 28:72FB
 Table_28_72FB::
-	dw Data_28_758B, $759E, Data_28_758B, $759E, Data_28_758B, $759E, Data_28_758B, $759E
+	dw MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E
 	dw $75A1, $75B4, $75A1, $75B4, $75A1, $75B4, $75A1, $75B4
 	dw $75B7, $75DD, $75B7, $75DD, $75B7, $75DD, $75B7, $75DD
 	dw $75E2, $7608, $75E2, $7608, $75E2, $7608, $75E2, $7608
@@ -123,7 +124,8 @@ Table_28_72FB::
 
 ; ---- data $758B-$7A5D (1234 bytes) [PROBABLE] 41 object record(s): 41 frame tables, 53 frames, 41 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 75E2-7678, 76EE-7823, 783F-784D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_28_758B:: ; 28:758B
+MailSession_72FB_ObjAnimData:: ; 28:758B
+Data_28_758B::
 	db $8D, $75, $04, $2A, $40, $10, $00, $2A, $48, $12, $00, $3A, $40, $30, $00, $3A
 	db $48, $22, $00, $01, $00, $08, $A3, $75, $04, $2B, $48, $10, $20, $2B, $40, $12
 	db $20, $3B, $48, $30, $20, $3B, $40, $22, $20, $01, $00, $08, $BB, $75, $CC, $75

@@ -8,9 +8,9 @@ MailSrvDel_DeleteAll:: ; 23:4A06
 	; [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 4986-4AA4 by apply_coverage
 	; --split [executed in 3 scenarios]
 	ld a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -26,7 +26,7 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, Data_23_4B4A
+	ld de, Data_MailSrvDel_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
 .loop ; 23:4A34
 	ld a, [de]
@@ -189,7 +189,8 @@ MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
 
 ; ---- data $4B4A-$4B51 (7 bytes) [PROBABLE] 7-byte block copied to $D624 (WRAM1) by the loop at 23:4A2F (ld de,$4B4A ; ld b,$07 ; ld a,[de] ; ld [hli],a ...); the fields are not decoded
 
-Data_23_4B4A:: ; 23:4B4A
+Data_MailSrvDel_DeleteAll_Confirm_SessionBlockTemplate:: ; 23:4B4A
+Data_23_4B4A::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_CheckAndDelete:: ; 23:4B51
@@ -197,9 +198,9 @@ Function_23_4B51::
 	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -207,7 +208,7 @@ Function_23_4B51::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, Data_23_4C8D
+	ld de, Data_MailSrvDel_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
 .loop ; 23:4B76
 	ld a, [de]
@@ -369,7 +370,8 @@ Function_23_4B51::
 
 ; ---- data $4C8D-$4C94 (7 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_23_4C8D:: ; 23:4C8D
+Data_MailSrvDel_CheckAndDelete_SessionBlockTemplate:: ; 23:4C8D
+Data_23_4C8D::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDel_DeleteAllRun:: ; 23:4C94
@@ -468,7 +470,7 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4D82
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -481,7 +483,7 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 	cp a, $1E
 	jr c, .l4D81
 .l4D5D ; 23:4D5D
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4D6D
 	ld hl, $C26F
@@ -719,7 +721,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4F0B
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -732,7 +734,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	cp a, $1E
 	jr c, .l4F0A
 .l4EE6 ; 23:4EE6
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4EF6
 	ld hl, $C26F
@@ -1375,7 +1377,7 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l5378
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1388,7 +1390,7 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	cp a, $1E
 	jr c, .l5377
 .l5353 ; 23:5353
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5363
 	ld hl, $C26F

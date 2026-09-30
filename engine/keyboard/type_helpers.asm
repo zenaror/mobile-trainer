@@ -8,7 +8,7 @@ Kbd_TypeHasPages:: ; 55:6E94
 Function_55_6E94::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, Data_55_6E9F
+	ld hl, Table_Kbd_TypeHasPages_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -19,7 +19,8 @@ Function_55_6E94::
 
 ; ---- data $6E9F-$6EAA (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6E9F-6EAA that executed code reads piecewise [split by classify_g2]
 
-Data_55_6E9F:: ; 55:6E9F
+Table_Kbd_TypeHasPages_ByType:: ; 55:6E9F
+Data_55_6E9F::
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $00, $00
 
 Function_55_6EAA:: ; 55:6EAA
@@ -60,7 +61,7 @@ Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
 Function_55_6ED6::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, Data_55_6EE1
+	ld hl, Table_Kbd_TypeNeedsExtraPalette_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -71,7 +72,8 @@ Function_55_6ED6::
 
 ; ---- data $6EE1-$6EEC (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6EE1-6EEC that executed code reads piecewise [split by classify_g2]
 
-Data_55_6EE1:: ; 55:6EE1
+Table_Kbd_TypeNeedsExtraPalette_ByType:: ; 55:6EE1
+Data_55_6EE1::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01
 
 Function_55_6EEC:: ; 55:6EEC
@@ -99,7 +101,7 @@ Kbd_TypeHidesOnKey82:: ; 55:6F02
 Function_55_6F02::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, Data_55_6F0D
+	ld hl, Table_Kbd_TypeHidesOnKey82_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -110,14 +112,15 @@ Function_55_6F02::
 
 ; ---- data $6F0D-$6F18 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F0D-6F18 that executed code reads piecewise [split by classify_g2]
 
-Data_55_6F0D:: ; 55:6F0D
+Table_Kbd_TypeHidesOnKey82_ByType:: ; 55:6F0D
+Data_55_6F0D::
 	db $00, $00, $00, $00, $00, $01, $01, $00, $01, $01, $00
 
 Kbd_TypeHidesOnKey83:: ; 55:6F18
 Function_55_6F18::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld hl, Data_55_6F23
+	ld hl, Table_Kbd_TypeHidesOnKey83_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -128,7 +131,8 @@ Function_55_6F18::
 
 ; ---- data $6F23-$6F2E (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F23-6F2E that executed code reads piecewise [split by classify_g2]
 
-Data_55_6F23:: ; 55:6F23
+Table_Kbd_TypeHidesOnKey83_ByType:: ; 55:6F23
+Data_55_6F23::
 	db $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $00
 
 Kbd_TypeWaitsWithService:: ; 55:6F2E
@@ -136,7 +140,7 @@ Function_55_6F2E::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push hl
-	ld hl, Data_55_6F3B
+	ld hl, Table_Kbd_TypeWaitsWithService_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -148,7 +152,8 @@ Function_55_6F2E::
 
 ; ---- data $6F3B-$6F46 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6F3B-6F46 that executed code reads piecewise [split by classify_g2]
 
-Data_55_6F3B:: ; 55:6F3B
+Table_Kbd_TypeWaitsWithService_ByType:: ; 55:6F3B
+Data_55_6F3B::
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
 	; [HYPOTHESIS] ret-terminated routine (decodes cleanly through 6F94): decrements [$C2B1], else
@@ -217,7 +222,7 @@ Function_55_6FA1::
 	ld a, [wKeyboardCharLo]
 	ld b, a
 	ld c, $00
-	ld hl, Data_55_6FC7
+	ld hl, Table_Kbd_RejectSymbol_Chars
 .loop ; 55:6FAA
 	ld a, [hli]
 	or a, a
@@ -241,7 +246,8 @@ Function_55_6FA1::
 
 ; ---- data $6FC7-$6FCD (6 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-Data_55_6FC7:: ; 55:6FC7
+Table_Kbd_RejectSymbol_Chars:: ; 55:6FC7
+Data_55_6FC7::
 	db $40, $2E, $2D, $5F, $2B, $00
 
 Kbd_ShowMarkerSprite:: ; 55:6FCD
@@ -254,7 +260,7 @@ Function_55_6FCD::
 	ld b, $81
 	farcall Sprite_InitSlot
 	ld a, [wKbdType]
-	ld hl, Data_55_6FF4
+	ld hl, Table_Kbd_MarkerSpritePositions
 	add a, a
 	add a, l
 	ld l, a
@@ -270,7 +276,8 @@ Function_55_6FCD::
 
 ; ---- data $6FF4-$7000 (12 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6FF4-7000 that executed code reads piecewise [split by classify_g2]
 
-Data_55_6FF4:: ; 55:6FF4
+Table_Kbd_MarkerSpritePositions:: ; 55:6FF4
+Data_55_6FF4::
 	db $88, $50, $88, $60, $88, $60, $88, $68, $88, $68, $88, $68
 
 Kbd_HideMarkerSprite:: ; 55:7000

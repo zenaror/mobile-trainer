@@ -13,19 +13,19 @@ Function_67_6369::
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Data_4A_5F80
+	ld hl, Gfx_AdapterCheck_Tiles8000
 	ld a, $4A
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_4A_6080
+	ld hl, Gfx_AdapterCheck_Tiles9000Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_4A_6480
+	ld hl, Gfx_AdapterCheck_Tiles9400Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
@@ -46,7 +46,7 @@ Function_67_6369::
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA00
-	ld de, Data_4A_68D0
+	ld de, AdapterCheck_ObjTableAndAnimData
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot

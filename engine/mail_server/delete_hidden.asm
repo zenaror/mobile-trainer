@@ -607,7 +607,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	or a, c
 	jr nz, .l4646
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -808,7 +808,7 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	jr nz, .l47FF
 	push bc
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -823,7 +823,7 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	; 47DE-481B by apply_coverage --split
 	push bc
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -1247,9 +1247,9 @@ MailSrvDelHidden_DeleteAll:: ; 22:4B17
 	; [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -1265,7 +1265,7 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, Data_22_4C5B
+	ld de, Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4B45
 	ld a, [de]
@@ -1427,7 +1427,8 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 
 ; ---- data $4C5B-$4C62 (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied by the loop 'ld hl,$D624 ; ld de,$4C5B ; ld b,$07' at 22:4B3D-4B4A
 
-Data_22_4C5B:: ; 22:4C5B
+Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate:: ; 22:4C5B
+Data_22_4C5B::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
@@ -1435,9 +1436,9 @@ MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
 	; entered by call from 22:40ED (PROBABLE code) | 60 insn(s) executed; cut out of the PROBABLE
 	; region 4C62-4D00 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -1453,7 +1454,7 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, Data_22_4DA6
+	ld de, Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4C90
 	ld a, [de]
@@ -1615,7 +1616,8 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 
 ; ---- data $4DA6-$4DAD (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4DA6 ; ld b,$07' loop at 22:4C8B
 
-Data_22_4DA6:: ; 22:4DA6
+Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate:: ; 22:4DA6
+Data_22_4DA6::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
@@ -1623,9 +1625,9 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	; entered by call from 22:40AE (PROBABLE code) | 55 insn(s) executed; cut out of the PROBABLE
 	; region 4DAD-4E41 by apply_coverage --split [executed in 1 scenarios]
 	xor a, a
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
@@ -1633,7 +1635,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D624
-	ld de, Data_22_4EE9
+	ld de, Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
 .loop ; 22:4DD2
 	ld a, [de]
@@ -1796,5 +1798,6 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 
 ; ---- data $4EE9-$4EF0 (7 bytes) [PROBABLE] 7-byte template (03 00 00 01 24 d5 00) copied to $D624 by the 'ld de,$4EE9 ; ld b,$07' loop at 22:4DCD
 
-Data_22_4EE9:: ; 22:4EE9
+Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate:: ; 22:4EE9
+Data_22_4EE9::
 	db $03, $00, $00, $01, $24, $D5, $00

@@ -39,44 +39,44 @@ Label_6C_401D:: ; 6C:401D
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Data_6A_4E90
+	ld hl, Gfx_HelpMenu_Tiles8000
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, Data_6A_5290
+	ld hl, Gfx_HelpMenu_Tiles8800
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, Data_6A_5690
+	ld hl, Gfx_HelpMenu_Tiles8C00
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, Data_6A_5A90
+	ld hl, Gfx_HelpMenu_Tiles9000
 	ld a, $6A
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_6A_5AB0
+	ld hl, Gfx_HelpMenu_Tiles9000Vb1
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_6A_5EB0
+	ld hl, Gfx_HelpMenu_Tiles9400Vb1
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_6A_62B0
+	ld hl, Palette_HelpMenu_Bg
 	ld a, $6A
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0D8]
@@ -86,7 +86,7 @@ Label_6C_401D:: ; 6C:401D
 	jr z, .l4101
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_6A_4000
+	ld hl, Tilemap_HelpMenu_6A_4000
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
@@ -99,7 +99,7 @@ Label_6C_401D:: ; 6C:401D
 .l40E6 ; 6C:40E6
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_6A_42D0
+	ld hl, Tilemap_HelpMenu_6A_42D0
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
@@ -112,7 +112,7 @@ Label_6C_401D:: ; 6C:401D
 	; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_6A_45A0
+	ld hl, Tilemap_HelpMenu_6A_45A0
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
@@ -945,7 +945,7 @@ Function_6C_4763::
 	ld hl, $64B2
 	or a, a
 	jr z, .skip
-	ld hl, Data_6A_6651
+	ld hl, Data_HelpMenu_ItemStringBank
 .skip ; 6C:4789
 	ld a, [wRam_C0E5]
 	dec a

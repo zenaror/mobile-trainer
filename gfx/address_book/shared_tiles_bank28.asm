@@ -6,23 +6,27 @@ SECTION "gfx/address_book/shared_tiles_bank28", ROMX
 
 ; ---- gfx $4BD0-$4FD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5931: hl=$4BD0 a=$28 c=$40 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_28_4BD0:: ; 28:4BD0
+Gfx_AddrBookShared_Tiles8000:: ; 28:4BD0
+Data_28_4BD0::
 	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp"
 
 ; ---- gfx $4FD0-$51D0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:5946: hl=$4FD0 a=$28 c=$20 de=$8400 (dest VRAM $8400, vbank=0)
 
-Data_28_4FD0:: ; 28:4FD0
+Gfx_AddrBookShared_Tiles8400:: ; 28:4FD0
+Data_28_4FD0::
 	INCBIN "gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp"
 
 ; ---- data $51D0-$5210 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (0x40 bytes, all bit15 clear; partly read by executed code) right before the object tables at 5210
 
-Palette_28_51D0:: ; 28:51D0
+Palette_AbookList_Bg:: ; 28:51D0
+Palette_28_51D0::
 	INCLUDE "gfx/address_book/shared_tiles_bank28/palette_51d0.pal"
 
 ; ---- words $5210-$5280 (112 bytes) [PROBABLE] 7 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 5210-54B0 (28:5210-54B0); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 5214-5218, 5224-5228, 5244-5248 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Table_28_5210:: ; 28:5210
-	dw Data_28_5280, $52A6, Data_28_5280, $52A6, Data_28_5280, $52A6, Data_28_5280, $52A6
+AddrBookShared_ObjTable:: ; 28:5210
+Table_28_5210::
+	dw AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6
 	dw $52AB, $52BE, $52AB, $52BE, $52AB, $52BE, $52AB, $52BE
 	dw $52C1, $52D4, $52C1, $52D4, $52C1, $52D4, $52C1, $52D4
 	dw $52D7, $536E, $52D7, $536E, $52D7, $536E, $52D7, $536E
@@ -32,7 +36,8 @@ Table_28_5210:: ; 28:5210
 
 ; ---- data $5280-$54B0 (560 bytes) [PROBABLE] 7 object record(s): 7 frame tables, 18 frames, 8 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:5210-54B0 [v4: bytes 5280-52C1, 52D7-5379 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_28_5280:: ; 28:5280
+AddrBookShared_ObjAnimData:: ; 28:5280
+Data_28_5280::
 	db $84, $52, $95, $52, $04, $0A, $FE, $00, $42, $0A, $0A, $00, $62, $FE, $FE, $00
 	db $02, $FE, $0A, $00, $22, $04, $0B, $FD, $00, $42, $0B, $0B, $00, $62, $FD, $FD
 	db $00, $02, $FD, $0B, $00, $22, $02, $00, $40, $01, $08, $AD, $52, $04, $00, $08

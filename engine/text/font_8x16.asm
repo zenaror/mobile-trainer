@@ -166,57 +166,57 @@ Function_48_4748::
 Font_GlyphRunTable:: ; 48:4810
 Table_48_4810::
 	db $BF, $83, $48
-	dw Font_48_5D7B
+	dw Font_GlyphRun_83BF
 	db $40, $83, $48
-	dw Font_48_53EB
+	dw Font_GlyphRun_8340
 	db $9F, $82, $48
-	dw Font_48_4EBB
+	dw Font_GlyphRun_829F
 	db $81, $82, $48
-	dw Font_48_4D1B
+	dw Font_GlyphRun_8281
 	db $60, $82, $48
-	dw Font_48_4B7B
+	dw Font_GlyphRun_8260
 	db $4F, $82, $48
-	dw Font_48_4ADB
+	dw Font_GlyphRun_824F
 	db $F4, $81, $48
-	dw Font_48_5D5B
+	dw Font_GlyphRun_81F4
 	db $A6, $81, $48
-	dw Font_48_5CFB
+	dw Font_GlyphRun_81A6
 	db $9E, $81, $48
-	dw Font_48_5C9B
+	dw Font_GlyphRun_819E
 	db $99, $81, $48
-	dw Font_48_5C5B
+	dw Font_GlyphRun_8199
 	db $93, $81, $48
-	dw Font_48_5C0B
+	dw Font_GlyphRun_8193
 	db $8F, $81, $48
-	dw Font_48_5BEB
+	dw Font_GlyphRun_818F
 	db $89, $81, $48
-	dw Font_48_5BCB
+	dw Font_GlyphRun_8189
 	db $83, $81, $48
-	dw Font_48_5BAB
+	dw Font_GlyphRun_8183
 	db $80, $81, $48
-	dw Font_48_5B8B
+	dw Font_GlyphRun_8180
 	db $7E, $81, $48
-	dw Font_48_5B7B
+	dw Font_GlyphRun_817E
 	db $75, $81, $48
-	dw Font_48_5AFB
+	dw Font_GlyphRun_8175
 	db $6D, $81, $48
-	dw Font_48_5ABB
+	dw Font_GlyphRun_816D
 	db $69, $81, $48
-	dw Font_48_5A9B
+	dw Font_GlyphRun_8169
 	db $68, $81, $48
-	dw Font_48_5A8B
+	dw Font_GlyphRun_8168
 	db $65, $81, $48
-	dw Font_48_5A6B
+	dw Font_GlyphRun_8165
 	db $62, $81, $48
-	dw Font_48_5A4B
+	dw Font_GlyphRun_8162
 	db $60, $81, $48
-	dw Font_48_5A3B
+	dw Font_GlyphRun_8160
 	db $5E, $81, $48
-	dw Font_48_5A2B
+	dw Font_GlyphRun_815E
 	db $5B, $81, $48
-	dw Font_48_5D6B
+	dw Font_GlyphRun_815B
 	db $4F, $81, $48
-	dw Font_48_59FB
+	dw Font_GlyphRun_814F
 	db $40, $81, $48
-	dw Font_48_593B
+	dw Font_GlyphRun_8140
 	db $FF, $FF

@@ -131,7 +131,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh a, [rWY]
 	cp a, $60
 	jr z, .l6515
-	ld hl, Data_72_6556
+	ld hl, Data_BrowserMenu_OpenTwoItem_SlideScript
 	farcall Dialog_SlideIn
 .l6515 ; 72:6515
 	ld hl, $D200
@@ -147,9 +147,9 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ei
 	call Sound_FrameService
 	ld a, [wJoyRepeatInterval]
-	ld [wRam_C2E4], a
+	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
-	ld [wRam_C2E3], a
+	ld [wJoySavedRepeatDelay], a
 	ld b, $14
 	ld c, $04
 	farcall Joypad_SetRepeatTiming
@@ -162,7 +162,8 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 
 ; ---- data $6556-$6563 (13 bytes) [PROBABLE] 13-byte script: 12 x $04 then terminator $80; read via ld hl,$6556 at 72:650C followed by the far call to the script reader at 72:4824 (same reader/format as the CONFIRMED read script at 72:6ADF: bytes until $80)
 
-Data_72_6556:: ; 72:6556
+Data_BrowserMenu_OpenTwoItem_SlideScript:: ; 72:6556
+Data_72_6556::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 BrowserMenu_RunTwoItem:: ; 72:6563
@@ -191,7 +192,7 @@ Label_72_656D:: ; 72:656D
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l65C8
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -204,7 +205,7 @@ Label_72_656D:: ; 72:656D
 	cp a, $1E
 	jr c, .l65C7
 .l65A3 ; 72:65A3
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l65B3
 	ld hl, $C26F
@@ -468,7 +469,7 @@ Function_72_6712::
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, $D830
-	ld hl, Data_72_7200
+	ld hl, Palette_BrowserMenu_Bg6
 	ld a, $72
 	farcall Palette_LoadToBuffer
 	ld bc, $0614
@@ -570,7 +571,7 @@ Function_72_6712::
 	ldh a, [rWY]
 	cp a, $60
 	jr z, .l6851
-	ld hl, Data_72_6892
+	ld hl, Data_BrowserMenu_OpenThreeItem_SlideScript
 	farcall Dialog_SlideIn
 .l6851 ; 72:6851
 	ld hl, $D200
@@ -586,9 +587,9 @@ Function_72_6712::
 	ei
 	call Sound_FrameService
 	ld a, [wJoyRepeatInterval]
-	ld [wRam_C2E4], a
+	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
-	ld [wRam_C2E3], a
+	ld [wJoySavedRepeatDelay], a
 	ld b, $14
 	ld c, $04
 	farcall Joypad_SetRepeatTiming
@@ -601,7 +602,8 @@ Function_72_6712::
 
 ; ---- data $6892-$689F (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_72_6892:: ; 72:6892
+Data_BrowserMenu_OpenThreeItem_SlideScript:: ; 72:6892
+Data_72_6892::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 BrowserMenu_RunThreeItem:: ; 72:689F
@@ -630,7 +632,7 @@ Label_72_68A9:: ; 72:68A9
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l6904
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -643,7 +645,7 @@ Label_72_68A9:: ; 72:68A9
 	cp a, $1E
 	jr c, .l6903
 .l68DF ; 72:68DF
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l68EF
 	ld hl, $C26F
@@ -920,7 +922,7 @@ BrowserMenu_Close:: ; 72:6A6B
 	ldh a, [rWY]
 	cp a, $90
 	jr z, .l6AB4
-	ld hl, Data_72_6ADF
+	ld hl, Data_BrowserMenu_Close_SlideScript
 	farcall Dialog_SlideOut
 .l6AB4 ; 72:6AB4
 	call VBlank_WaitStartDI
@@ -931,9 +933,9 @@ BrowserMenu_Close:: ; 72:6A6B
 	call Sound_FrameService
 	ld hl, $DAC0
 	call Sprite_ClearSlot
-	ld a, [wRam_C2E4]
+	ld a, [wJoySavedRepeatInterval]
 	ld b, a
-	ld a, [wRam_C2E3]
+	ld a, [wJoySavedRepeatDelay]
 	ld c, a
 	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
@@ -945,7 +947,8 @@ BrowserMenu_Close:: ; 72:6A6B
 
 ; ---- data $6ADF-$6AEC (13 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_72_6ADF:: ; 72:6ADF
+Data_BrowserMenu_Close_SlideScript:: ; 72:6ADF
+Data_72_6ADF::
 	db $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $04, $80
 
 ; ---- data $6AEC-$6AFA (14 bytes) [PROBABLE] 2 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6AEC at 72:669F-66AB (ld de,$6AEC); word1 -> call 00:0A65, byte -> b for init_object_from_table (00:0A82), word2 = pointer; last word of each record points at the strings 72:6AFA / 72:6B23

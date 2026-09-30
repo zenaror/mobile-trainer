@@ -102,7 +102,7 @@ Function_55_5BA2::
 	ld a, $01
 	call Kbd_LoadPageGraphics
 	ld hl, $DAB0
-	ld de, Table_5F_4CF8
+	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -113,9 +113,9 @@ Function_55_5BA2::
 
 Kbd_Run:: ; 55:5C8F
 	ld a, c
-	ld [wRam_C2B4], a
+	ld [wKbdRunArgC], a
 	ld a, $01
-	ld [wRam_C2B3], a
+	ld [wKbdRunArgB], a
 	ld a, [wKbdType]
 	cp a, $05
 	jr nz, .skip
@@ -123,7 +123,7 @@ Kbd_Run:: ; 55:5C8F
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:5C9D (executed) [executed in 4 scenarios]
 	ld a, b
-	ld [wRam_C2B3], a
+	ld [wKbdRunArgB], a
 
 .skip ; 55:5CA3
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
@@ -162,7 +162,7 @@ Kbd_Run:: ; 55:5C8F
 	call Function_55_6EC0
 	or a, a
 	jr z, .l5D05
-	ld a, [wRam_C2B4]
+	ld a, [wKbdRunArgC]
 	or a, a
 	jr z, .l5D05
 	ld a, [wKbdType]
@@ -184,7 +184,7 @@ Kbd_Run:: ; 55:5C8F
 	ld a, [wKbdType]
 	cp a, $07
 	jr nz, .l5D36
-	ld a, [wRam_C2B4]
+	ld a, [wKbdRunArgC]
 	or a, a
 	jr z, .l5D36
 	ld hl, $DAD0
@@ -203,7 +203,7 @@ Kbd_Run:: ; 55:5C8F
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 55:5D3B (executed) [executed in 4 scenarios]
 	call Kbd_HideMarkerSprite
-	ld a, [wRam_C2B3]
+	ld a, [wKbdRunArgB]
 	or a, a
 	jr nz, Kbd_Run_Loop
 	call Kbd_ShowMarkerSprite
@@ -348,7 +348,7 @@ Kbd_Run_Loop:: ; 55:5D49
 .l5E42 ; 55:5E42
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 55:5E07 (executed) [executed in 4 scenarios]
-	ld a, [wRam_C2B3]
+	ld a, [wKbdRunArgB]
 	or a, a
 	jr nz, .l5E4B
 	jp Kbd_Run_Loop
@@ -440,7 +440,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 
 .l5EB9 ; 55:5EB9
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 9/18 scenarios)
-	ld a, [wRam_C2B3]
+	ld a, [wKbdRunArgB]
 	or a, a
 	jp nz, .l5ED3
 
@@ -474,7 +474,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 55:5EEC (executed) [executed in 1 scenarios]
-	ld a, [wRam_C2B4]
+	ld a, [wKbdRunArgC]
 	or a, a
 	jp nz, Kbd_Run_Loop
 
@@ -620,9 +620,9 @@ Kbd_MoveCursor:: ; 55:5F66
 	adc a, $00
 	ld h, a
 	ld a, [hli]
-	ld [wRam_C2B7], a
+	ld [wKbdNeighbourFlagsA], a
 	ld a, [hl]
-	ld [wRam_C2B8], a
+	ld [wKbdNeighbourFlagsB], a
 	pop hl
 	pop af
 	push af
@@ -632,7 +632,7 @@ Kbd_MoveCursor:: ; 55:5F66
 	adc a, $00
 	ld h, a
 	ld a, [hl]
-	ld [wRam_C2B6], a
+	ld [wKbdNeighbourCell], a
 	pop af
 	add a, a
 	add a, $C8
@@ -652,14 +652,14 @@ Table_55_5FC8::
 	dw $5FD0, $5FF4, $5FFD, $6020
 
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 8/18 scenarios)
-	ld a, [wRam_C2B7]
+	ld a, [wKbdNeighbourFlagsA]
 	bit 7, a
 	jp z, .l602E
 .l5FD8 ; 55:5FD8
 	ld a, [wKbdStickyRow]
 	cp a, $FF
 	jr z, .l602E
-	ld a, [wRam_C2B6]
+	ld a, [wKbdNeighbourCell]
 	call Kbd_IndexToColRow
 	call Function_55_6041
 	ld a, [wKbdStickyRow]
@@ -668,19 +668,19 @@ Table_55_5FC8::
 	ld [wKbdCursorCell], a
 	jr .l6029
 
-	ld a, [wRam_C2B7]
+	ld a, [wKbdNeighbourFlagsA]
 	bit 6, a
 	jr z, .l602E
 	jr .l5FD8
 
-	ld a, [wRam_C2B7]
+	ld a, [wKbdNeighbourFlagsA]
 	bit 5, a
 	jr z, .l602E
 .l6004 ; 55:6004
 	ld a, [wKbdStickyCol]
 	cp a, $FF
 	jr z, .l602E
-	ld a, [wRam_C2B6]
+	ld a, [wKbdNeighbourCell]
 	call Kbd_IndexToColRow
 	call Function_55_6041
 	ld a, [wKbdStickyCol]
@@ -689,7 +689,7 @@ Table_55_5FC8::
 	ld [wKbdCursorCell], a
 	jr .l6029
 
-	ld a, [wRam_C2B7]
+	ld a, [wKbdNeighbourFlagsA]
 	bit 4, a
 	jr z, .l602E
 	jr .l6004
@@ -700,7 +700,7 @@ Table_55_5FC8::
 	ld a, [wKbdCursorCell]
 	call Kbd_SplitCursorIndex
 	call Kbd_UpdateSticky
-	ld a, [wRam_C2B6]
+	ld a, [wKbdNeighbourCell]
 	ld [wKbdCursorCell], a
 .l603D ; 55:603D
 	call Kbd_FetchCell
@@ -768,34 +768,34 @@ Table_55_6087::
 	dw $608F, $60A0, $60B1, $60C2
 
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 7/18 scenarios)
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 7, a
 	call nz, Kbd_StoreStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 3, a
 	call nz, Kbd_StoreStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 6, a
 	call nz, Kbd_StoreStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 2, a
 	call nz, Kbd_StoreStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 5, a
 	call nz, Kbd_StoreStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 1, a
 	call nz, Kbd_StoreStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 4, a
 	call nz, Kbd_StoreStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 0, a
 	call nz, Kbd_StoreStickyRow
 	ret
@@ -832,34 +832,34 @@ Table_55_60F1::
 	dw $60F9, $610A, $611B, $612C
 
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 7, a
 	call z, Kbd_ClearStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 3, a
 	call z, Kbd_ClearStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 6, a
 	call z, Kbd_ClearStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 2, a
 	call z, Kbd_ClearStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 5, a
 	call z, Kbd_ClearStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 1, a
 	call z, Kbd_ClearStickyRow
 	ret
 
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 4, a
 	call z, Kbd_ClearStickyCol
-	ld a, [wRam_C2B8]
+	ld a, [wKbdNeighbourFlagsB]
 	bit 0, a
 	call z, Kbd_ClearStickyRow
 	ret
@@ -939,7 +939,7 @@ Function_55_6190::
 	; executed call/far call
 	call Kbd_SplitCursorIndex
 	ld a, [wKbdType]
-	ld hl, Data_55_62A0
+	ld hl, Table_Kbd_CursorSpriteOrigin
 	add a, a
 	add a, l
 	ld l, a
@@ -955,7 +955,7 @@ Function_55_6190::
 	jr z, .l61BF
 	push bc
 	ld hl, $DAB0
-	ld de, Table_5F_4CF8
+	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -964,13 +964,13 @@ Function_55_6190::
 .l61BF ; 55:61BF
 	push bc
 	ld hl, $DAB0
-	ld de, Table_5F_4CF8
+	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $82
 	farcall Sprite_InitSlot
 	pop bc
 	ld a, [wKbdType]
-	ld hl, Table_55_62B4
+	ld hl, Table_Kbd_CursorSpriteCharOffsetPtrs
 	add a, a
 	add a, l
 	ld l, a
@@ -1090,13 +1090,15 @@ Function_55_6190::
 
 ; ---- data $62A0-$62B4 (20 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 62A0-62B4 that executed code reads piecewise [split by classify_g2]
 
-Data_55_62A0:: ; 55:62A0
+Table_Kbd_CursorSpriteOrigin:: ; 55:62A0
+Data_55_62A0::
 	db $34, $07, $34, $07, $34, $07, $2C, $07, $2C, $07, $2C, $07, $3C, $07, $3C, $07
 	db $3C, $07, $3C, $07
 
 ; ---- ptrtable $62B4-$62C8 (20 bytes) [PROBABLE] little-endian word table, 10 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $62C8..$6310; referenced by ld r16,$62B4 at 55:61D4
 
-Table_55_62B4:: ; 55:62B4
+Table_Kbd_CursorSpriteCharOffsetPtrs:: ; 55:62B4
+Table_55_62B4::
 	dw Data_55_62C8
 	dw $62D0
 	dw $62D8
@@ -1259,7 +1261,7 @@ Kbd_ShowInstant:: ; 55:63E7
 
 Kbd_GetSlideTargetY:: ; 55:640E
 	ld a, [wKbdType]
-	ld hl, Data_55_641C
+	ld hl, Table_Kbd_GetSlideTargetY_ByType
 	add a, l
 	ld l, a
 	ld a, $00
@@ -1270,7 +1272,8 @@ Kbd_GetSlideTargetY:: ; 55:640E
 
 ; ---- data $641C-$6427 (11 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 641C-6427 that executed code reads piecewise [split by classify_g2]
 
-Data_55_641C:: ; 55:641C
+Table_Kbd_GetSlideTargetY_ByType:: ; 55:641C
+Data_55_641C::
 	db $28, $28, $28, $28, $28, $28, $38, $38, $38, $38, $38
 
 Kbd_SlideOut:: ; 55:6427
@@ -1523,7 +1526,7 @@ Function_55_65DA::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, $DAB0
-	ld de, Table_5F_4CF8
+	ld de, Kbd_ObjTable
 	ld a, $5F
 	ld b, $82
 	farcall Sprite_InitSlot
@@ -1618,7 +1621,7 @@ Function_55_65DA::
 	ret
 
 Kbd_UpdatePickerSprites:: ; 55:667B
-	ld hl, Data_55_66C0
+	ld hl, Table_Kbd_PickerSpritePositions
 	ld a, [wKbdInputMode]
 	add a, l
 	ld l, a
@@ -1655,7 +1658,8 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 
 ; ---- data $66C0-$66C6 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
-Data_55_66C0:: ; 55:66C0
+Table_Kbd_PickerSpritePositions:: ; 55:66C0
+Data_55_66C0::
 	db $1E, $46, $6E, $1C, $44, $6C
 
 Kbd_LoadPageGraphics:: ; 55:66C6
@@ -1696,7 +1700,7 @@ Label_55_66EF:: ; 55:66EF
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 3/18 scenarios)
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_4ECB
+	ld hl, Tilemap_Kbd_T0
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1704,14 +1708,14 @@ Label_55_66EF:: ; 55:66EF
 
 Label_55_6704:: ; 55:6704
 	ld de, $8800
-	ld hl, Data_5E_57E0
+	ld hl, Gfx_Kbd_T1_Tiles8800
 	ld a, $5E
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_50D3
+	ld hl, Tilemap_Kbd_T1
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1722,7 +1726,7 @@ Label_55_672B:: ; 55:672B
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 1 scenarios]
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_54E3
+	ld hl, Tilemap_Kbd_T2
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1731,7 +1735,7 @@ Label_55_672B:: ; 55:672B
 Label_55_6740:: ; 55:6740
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_56EB
+	ld hl, Tilemap_Kbd_T3
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1740,13 +1744,13 @@ Label_55_6740:: ; 55:6740
 Label_55_6755:: ; 55:6755
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 7/18 scenarios)
 	ld de, $8801
-	ld hl, Data_5D_4000
+	ld hl, Gfx_Kbd_T4_Tiles8800Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5D_4400
+	ld hl, Gfx_Kbd_T4_Tiles8C00Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
@@ -1758,7 +1762,7 @@ Label_55_6755:: ; 55:6755
 	farcall Palette_LoadToBuffer
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_52DB
+	ld hl, Tilemap_Kbd_T4
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1768,26 +1772,26 @@ Label_55_679F:: ; 55:679F
 	; [CONFIRMED] 69 insn(s) reached by static flow only; seeds: site x64, table x5; min discovery
 	; hops 0; run starts at an entry of the code-pointer table at 55:66D9 [executed in 4 scenarios]
 	ld de, $8801
-	ld hl, Data_5F_5900
+	ld hl, Gfx_Kbd_T5_Tiles8800Vb1
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5F_5D00
+	ld hl, Gfx_Kbd_T5_Tiles8C00Vb1
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5F_6100
+	ld hl, Gfx_Kbd_T5_Tiles9000Vb1
 	ld a, $5F
 	ld b, $97
 	ld c, $10
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0008
 	ld de, $D808
-	ld hl, Data_5F_6BB8
+	ld hl, Palette_Kbd_T5_Bg1
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld bc, $0010
@@ -1831,7 +1835,7 @@ Label_55_679F:: ; 55:679F
 	ldh a, [hScratchA]
 	ld bc, $0D14
 	ld de, $D240
-	ld hl, Data_5F_69B0
+	ld hl, Tilemap_Kbd_T5
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
@@ -1840,7 +1844,7 @@ Label_55_679F:: ; 55:679F
 Label_55_6858:: ; 55:6858
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 	ld a, [wKbdPage]
-	ld hl, Table_55_6869
+	ld hl, Table_Kbd_T6_PageLoaders
 	add a, a
 	add a, l
 	ld l, a
@@ -1854,32 +1858,34 @@ Label_55_6858:: ; 55:6858
 
 ; ---- ptrtable $6869-$686F (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
 
-Table_55_6869:: ; 55:6869
+Table_Kbd_T6_PageLoaders:: ; 55:6869
+Table_55_6869::
 	dw Label_55_6871
 	dw Label_55_68AA
 	dw Label_55_68E3
 
 ; ---- ptrtable $686F-$6871 (2 bytes) [PROBABLE] one more code pointer ($691C) at the end of the dispatch table that precedes it; target = the code classified at 691C
 
-Table_55_686F:: ; 55:686F
+Table_Kbd_T6_PageLoaders_Page3:: ; 55:686F
+Table_55_686F::
 	dw Label_55_691C
 
 Label_55_6871:: ; 55:6871
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios)
 	ld de, $8801
-	ld hl, Data_66_4000
+	ld hl, Gfx_Kbd_T6_Page0_Tiles8800Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_66_4400
+	ld hl, Gfx_Kbd_T6_Page0_Tiles8C00Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_66_4800
+	ld hl, Gfx_Kbd_T6_Page0_Tiles9000Vb1
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -1888,19 +1894,19 @@ Label_55_6871:: ; 55:6871
 
 Label_55_68AA:: ; 55:68AA
 	ld de, $8801
-	ld hl, Data_66_4A40
+	ld hl, Gfx_Kbd_T6_Page1_Tiles8800Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_66_4E40
+	ld hl, Gfx_Kbd_T6_Page1_Tiles8C00Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_66_5240
+	ld hl, Gfx_Kbd_T6_Page1_Tiles9000Vb1
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -1909,19 +1915,19 @@ Label_55_68AA:: ; 55:68AA
 
 Label_55_68E3:: ; 55:68E3
 	ld de, $8801
-	ld hl, Data_66_5480
+	ld hl, Gfx_Kbd_T6_Page2_Tiles8800Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_66_5880
+	ld hl, Gfx_Kbd_T6_Page2_Tiles8C00Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_66_5C80
+	ld hl, Gfx_Kbd_T6_Page2_Tiles9000Vb1
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -1943,13 +1949,13 @@ Label_55_691C:: ; 55:691C
 	; [executed in 2 scenarios]
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_66_62C0
+	ld hl, Gfx_Kbd_T6_Page3_Tiles8C00Vb1
 	ld a, $66
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_66_66C0
+	ld hl, Gfx_Kbd_T6_Page3_Tiles9000Vb1
 	ld a, $66
 	ld b, $95
 	ld c, $24
@@ -1962,7 +1968,7 @@ Label_55_6952:: ; 55:6952
 	ret z
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, Data_66_7210
+	ld hl, Tilemap_Kbd_T6And78_PageTail
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
@@ -1970,7 +1976,7 @@ Label_55_6952:: ; 55:6952
 
 Label_55_696B:: ; 55:696B
 	ld a, [wKbdPage]
-	ld hl, Table_55_697C
+	ld hl, Table_Kbd_T78_PageLoaders
 	add a, a
 	add a, l
 	ld l, a
@@ -1984,32 +1990,34 @@ Label_55_696B:: ; 55:696B
 
 ; ---- ptrtable $697C-$6982 (6 bytes) [CONFIRMED] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 3/3 targets executed; every byte read as data in a trace
 
-Table_55_697C:: ; 55:697C
+Table_Kbd_T78_PageLoaders:: ; 55:697C
+Table_55_697C::
 	dw Label_55_6984
 	dw Label_55_69BD
 	dw Label_55_69F6
 
 ; ---- ptrtable $6982-$6984 (2 bytes) [PROBABLE] one more code pointer ($6A2F) at the end of the dispatch table that precedes it
 
-Table_55_6982:: ; 55:6982
+Table_Kbd_T78_PageLoaders_Page3:: ; 55:6982
+Table_55_6982::
 	dw Label_55_6A2F
 
 Label_55_6984:: ; 55:6984
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 4/18 scenarios)
 	ld de, $8801
-	ld hl, Data_62_4000
+	ld hl, Gfx_Kbd_T78_Page0_Tiles8800Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_62_4400
+	ld hl, Gfx_Kbd_T78_Page0_Tiles8C00Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_62_4800
+	ld hl, Gfx_Kbd_T78_Page0_Tiles9000Vb1
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2018,19 +2026,19 @@ Label_55_6984:: ; 55:6984
 
 Label_55_69BD:: ; 55:69BD
 	ld de, $8801
-	ld hl, Data_62_4B00
+	ld hl, Gfx_Kbd_T78_Page1_Tiles8800Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_62_4F00
+	ld hl, Gfx_Kbd_T78_Page1_Tiles8C00Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_62_5300
+	ld hl, Gfx_Kbd_T78_Page1_Tiles9000Vb1
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2039,19 +2047,19 @@ Label_55_69BD:: ; 55:69BD
 
 Label_55_69F6:: ; 55:69F6
 	ld de, $8801
-	ld hl, Data_62_5600
+	ld hl, Gfx_Kbd_T78_Page2_Tiles8800Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_62_5A00
+	ld hl, Gfx_Kbd_T78_Page2_Tiles8C00Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_62_5E00
+	ld hl, Gfx_Kbd_T78_Page2_Tiles9000Vb1
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2073,13 +2081,13 @@ Label_55_6A2F:: ; 55:6A2F
 	; [executed in 4 scenarios]
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_62_6500
+	ld hl, Gfx_Kbd_T78_Page3_Tiles8C00Vb1
 	ld a, $62
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_62_6900
+	ld hl, Gfx_Kbd_T78_Page3_Tiles9000Vb1
 	ld a, $62
 	ld b, $95
 	ld c, $24
@@ -2092,7 +2100,7 @@ Label_55_6A65:: ; 55:6A65
 	ret z
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, Data_66_7210
+	ld hl, Tilemap_Kbd_T6And78_PageTail
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
@@ -2100,26 +2108,26 @@ Label_55_6A65:: ; 55:6A65
 
 Label_55_6A7E:: ; 55:6A7E
 	ld de, $8801
-	ld hl, Data_5F_4000
+	ld hl, Gfx_Kbd_T9_Tiles8800Vb1
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5F_4400
+	ld hl, Gfx_Kbd_T9_Tiles8C00Vb1
 	ld a, $5F
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5F_4800
+	ld hl, Gfx_Kbd_T9_Tiles9000Vb1
 	ld a, $5F
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0B14
 	ld de, $D240
-	ld hl, Data_5F_4810
+	ld hl, Tilemap_Kbd_T9
 	ld a, $5F
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
@@ -2127,14 +2135,14 @@ Label_55_6A7E:: ; 55:6A7E
 
 Label_55_6AC9:: ; 55:6AC9
 	ld de, $8A81
-	ld hl, Data_66_6900
+	ld hl, Gfx_Kbd_T10_Tiles8A80Vb1
 	ld a, $66
 	ld b, $96
 	ld c, $19
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0614
 	ld de, $D240
-	ld hl, Data_66_73C8
+	ld hl, Tilemap_Kbd_T10
 	ld a, $66
 	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
@@ -2275,7 +2283,7 @@ Kbd_ShowPageIndicator:: ; 55:6BB2
 
 Kbd_LoadPickerTabTiles:: ; 55:6BD7
 	ld a, [wKbdInputMode]
-	ld hl, Data_55_6C0A
+	ld hl, Table_Kbd_PickerTabTilePtrs
 	add a, a
 	add a, l
 	ld l, a
@@ -2308,7 +2316,8 @@ Kbd_LoadPickerTabTiles:: ; 55:6BD7
 
 ; ---- data $6C0A-$6C10 (6 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown
 
-Data_55_6C0A:: ; 55:6C0A
+Table_Kbd_PickerTabTilePtrs:: ; 55:6C0A
+Data_55_6C0A::
 	db $90, $6A, $10, $6D, $90, $6F
 
 Kbd_RequestGlyphRedraw:: ; 55:6C10

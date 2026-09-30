@@ -163,7 +163,7 @@ Dialog_Open:: ; 72:402A
 	ldh a, [rWY]
 	cp a, $48
 	jr z, .l4196
-	ld hl, Data_72_43A1
+	ld hl, Data_Dialog_Open_SlideScripts
 	farcall Dialog_SlideIn
 .l4196 ; 72:4196
 	ldh a, [rLCDC]
@@ -183,9 +183,9 @@ Dialog_Open:: ; 72:402A
 	pop af
 	ldh [rSVBK], a
 	ld a, [wJoyRepeatInterval]
-	ld [wRam_C2E4], a
+	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
-	ld [wRam_C2E3], a
+	ld [wJoySavedRepeatDelay], a
 	ld b, $14
 	ld c, $04
 	farcall Joypad_SetRepeatTiming
@@ -355,9 +355,9 @@ Dialog_OpenTall:: ; 72:41D8
 	pop af
 	ldh [rSVBK], a
 	ld a, [wJoyRepeatInterval]
-	ld [wRam_C2E4], a
+	ld [wJoySavedRepeatInterval], a
 	ld a, [wJoyRepeatDelay]
-	ld [wRam_C2E3], a
+	ld [wJoySavedRepeatDelay], a
 	ld b, $14
 	ld c, $04
 	farcall Joypad_SetRepeatTiming
@@ -370,7 +370,8 @@ Dialog_OpenTall:: ; 72:41D8
 
 ; ---- data $43A1-$43A7 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_72_43A1:: ; 72:43A1
+Data_Dialog_Open_SlideScripts:: ; 72:43A1
+Data_72_43A1::
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_SetupCursorByType:: ; 72:43A7
@@ -537,7 +538,7 @@ Dialog_Close:: ; 72:444F
 	ldh a, [rWY]
 	cp a, $90
 	jr z, .l44BB
-	ld hl, Data_72_4572
+	ld hl, Data_Dialog_Close_SlideScripts
 	farcall Dialog_SlideOut
 .l44BB ; 72:44BB
 	call VBlank_WaitStartDI
@@ -548,9 +549,9 @@ Dialog_Close:: ; 72:444F
 	call Sound_FrameService
 	ld hl, $DAC0
 	call Sprite_ClearSlot
-	ld a, [wRam_C2E4]
+	ld a, [wJoySavedRepeatInterval]
 	ld c, a
-	ld a, [wRam_C2E3]
+	ld a, [wJoySavedRepeatDelay]
 	ld b, a
 	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
@@ -606,9 +607,9 @@ Dialog_CloseTall:: ; 72:44E6
 	call Sound_FrameService
 	ld hl, $DAC0
 	call Sprite_ClearSlot
-	ld a, [wRam_C2E4]
+	ld a, [wJoySavedRepeatInterval]
 	ld c, a
-	ld a, [wRam_C2E3]
+	ld a, [wJoySavedRepeatDelay]
 	ld b, a
 	farcall Joypad_SetRepeatTiming
 	ldh [hScratchA], a
@@ -620,7 +621,8 @@ Dialog_CloseTall:: ; 72:44E6
 
 ; ---- data $4572-$4578 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_72_4572:: ; 72:4572
+Data_Dialog_Close_SlideScripts:: ; 72:4572
+Data_72_4572::
 	db $48, $00, $80, $58, $00, $80
 
 Dialog_WaitInput:: ; 72:4578
@@ -734,7 +736,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4675
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -748,7 +750,7 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	cp a, $1E
 	jr c, .l4674
 .l4650 ; 72:4650
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4660
 
@@ -1068,9 +1070,9 @@ Dialog_SlideIn:: ; 72:4824
 
 .l4848 ; 72:4848
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
-	ldh a, [hRam_FFF1]
+	ldh a, [hSpriteSlideOffsetY]
 	sub a, d
-	ldh [hRam_FFF1], a
+	ldh [hSpriteSlideOffsetY], a
 	ld d, b
 	push hl
 	push bc
@@ -1136,9 +1138,9 @@ Dialog_SlideOut:: ; 72:4872
 
 .l4896 ; 72:4896
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 4/18 scenarios)
-	ldh a, [hRam_FFF1]
+	ldh a, [hSpriteSlideOffsetY]
 	add a, d
-	ldh [hRam_FFF1], a
+	ldh [hSpriteSlideOffsetY], a
 	ld d, b
 	push hl
 	push bc

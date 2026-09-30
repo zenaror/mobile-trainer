@@ -541,7 +541,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	or a, c
 	jr nz, .l4535
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -730,7 +730,7 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	jr nz, .l46EE
 	push bc
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -742,7 +742,7 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 .l46EE ; 23:46EE
 	push bc
 	ld hl, $DA10
-	ld de, Table_28_6E80
+	ld de, MailServerDeleteMethod_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot

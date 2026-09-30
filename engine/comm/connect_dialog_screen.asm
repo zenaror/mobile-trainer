@@ -36,29 +36,29 @@ Function_57_47A6::
 ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	; [CONFIRMED] 144 insn(s); 144 executed (in up to 6/18 scenarios)
 	ld de, $9001
-	ld hl, Data_56_52C0
+	ld hl, Gfx_ConnectDialog_ConnectConfirm_Tiles9000Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_56_56C0
+	ld hl, Gfx_ConnectDialog_ConnectConfirm_Tiles9400Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_4F9A
+	ld hl, Tilemap_ConnectDialog_ConnectConfirm_56_4F9A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_56_77C0
+	ld hl, Palette_ConnectDialog_Bg
 	ld a, $56
 	farcall Palette_LoadToBuffer
 	ld hl, $DA40
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -147,7 +147,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld [wRam_C10F], a
 	ld bc, $0214
 	ld de, $D200
-	ld hl, Data_56_526A
+	ld hl, Tilemap_ConnectDialog_ConnectConfirm_56_526A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttrPtr
 	jp ConnectDialog_Draw_Finish
@@ -190,7 +190,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	cp a, $06
 	jp z, .l4AA3
 	ld de, $8800
-	ld hl, Data_56_5AC0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
 	ld a, $56
 	ld b, $94
 	ld c, $30
@@ -202,13 +202,13 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $9101
-	ld hl, Data_56_5DC0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_56_60C0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
@@ -216,7 +216,7 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_418A
+	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
@@ -296,12 +296,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld [wRam_D522], a
 	ld [wRam_D542], a
 	ld hl, $DA30
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld hl, $DA20
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -309,12 +309,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	jp ConnectDialog_Draw_Finish
 .l4AA3 ; 57:4AA3
 	ld hl, $DA30
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $80
 	farcall Sprite_InitSlot
 	ld hl, $DA20
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -326,7 +326,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	cp a, $08
 	jp nz, .l4BF3
 	ld de, $8800
-	ld hl, Data_56_5AC0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles8800
 	ld a, $56
 	ld b, $94
 	ld c, $30
@@ -338,13 +338,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $9101
-	ld hl, Data_56_5DC0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9100Vb1
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_56_60C0
+	ld hl, Gfx_ConnectDialog_PasswordEntryAndSaveConfirm_Tiles9400Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
@@ -352,7 +352,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_418A
+	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
@@ -436,7 +436,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 .l4BF3 ; 57:4BF3
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_49FA
+	ld hl, Tilemap_ConnectDialog_56_49FA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
@@ -563,20 +563,20 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	; [CONFIRMED] 99 insn(s) reached by static flow only; seeds: exec x99; min discovery hops 1;
 	; entered by jpcc from 57:47C5 (executed) [executed in 3 scenarios]
 	ld de, $9101
-	ld hl, Data_56_6EC0
+	ld hl, Gfx_ConnectDialog_PasswordSaved_Tiles9100Vb1
 	ld a, $56
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_56_71C0
+	ld hl, Gfx_ConnectDialog_PasswordSaved_Tiles9400Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_4CCA
+	ld hl, Tilemap_ConnectDialog_56_4CCA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
@@ -665,7 +665,7 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 5/18 scenarios)
 	ld de, $8800
-	ld hl, Data_56_64C0
+	ld hl, Gfx_ConnectDialog_StoredPassword_Tiles8800
 	ld a, $56
 	ld b, $92
 	ld c, $40
@@ -677,14 +677,14 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_56_6AC0
+	ld hl, Gfx_ConnectDialog_StoredPassword_Tiles9400Vb1
 	ld a, $56
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_445A
+	ld hl, Tilemap_ConnectDialog_56_445A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
@@ -770,7 +770,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	; entered by jpcc from 57:47CD (PROBABLE code) [executed in 4 scenarios]
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_472A
+	ld hl, Tilemap_ConnectDialog_56_472A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
@@ -878,7 +878,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 ConnectDialog_Draw_Finish:: ; 57:5077
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 6/18 scenarios)
 	ld de, $8000
-	ld hl, Data_56_75C0
+	ld hl, Gfx_ConnectDialog_Finish_Tiles8000
 	ld a, $56
 	ld b, $95
 	ld c, $20
@@ -922,7 +922,7 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 
 Label_57_50D8:: ; 57:50D8
 	ld de, $8000
-	ld hl, Data_56_75C0
+	ld hl, Gfx_ConnectDialog_Finish_Tiles8000
 	ld a, $56
 	ld b, $95
 	ld c, $20
@@ -977,7 +977,7 @@ Function_57_510F::
 	; --split [executed in 3 scenarios]
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_418A
+	ld hl, Tilemap_ConnectDialog_56_418A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
@@ -989,14 +989,14 @@ Function_57_510F::
 .l5160 ; 57:5160
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_49FA
+	ld hl, Tilemap_ConnectDialog_56_49FA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	jp .l520D
 .l5174 ; 57:5174
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_4CCA
+	ld hl, Tilemap_ConnectDialog_56_4CCA
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	jr .l51BC
@@ -1005,7 +1005,7 @@ Function_57_510F::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_445A
+	ld hl, Tilemap_ConnectDialog_56_445A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
@@ -1020,7 +1020,7 @@ Function_57_510F::
 	; entered by jpcc from 57:5136 (PROBABLE code) [executed in 4 scenarios]
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_56_472A
+	ld hl, Tilemap_ConnectDialog_56_472A
 	ld a, $56
 	farcall Tilemap_CopyRectAndAttr
 

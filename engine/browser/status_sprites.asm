@@ -41,7 +41,7 @@ Function_4E_5FB9::
 	add a, $10
 	ld d, a
 	ld b, $00
-	ld a, [wRam_C2F3]
+	ld a, [wShadowOAMNextOffset]
 	ld h, $C0
 	ld l, a
 	ld a, [wBrowserTimerSecToggle]

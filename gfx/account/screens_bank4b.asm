@@ -6,12 +6,14 @@ SECTION "gfx/account/screens_bank4b", ROMX
 
 ; ---- gfx $42D0-$46D0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:76AA: hl=$42D0 a=$4B c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_4B_42D0:: ; 4B:42D0
+Gfx_Account_ResultPage_Tiles8800Vb1:: ; 4B:42D0
+Data_4B_42D0::
 	INCBIN "gfx/account/screens_bank4b/tiles_42d0.2bpp"
 
 ; ---- gfx $46D0-$4AD0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:76BC: hl=$46D0 a=$4B c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_4B_46D0:: ; 4B:46D0
+Gfx_Account_ResultPage_Tiles8C00Vb1:: ; 4B:46D0
+Data_4B_46D0::
 	INCBIN "gfx/account/screens_bank4b/tiles_46d0.2bpp"
 
 ; ---- data $4AD0-$5080 (1456 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4000-50F0 by higher-priority evidence]
@@ -133,7 +135,8 @@ Data_4B_5878:: ; 4B:5878
 
 ; ---- data $5898-$5B68 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:76E1: hl=$5898 a=$4B b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_4B_5898:: ; 4B:5898
+Tilemap_Account_ResultPage:: ; 4B:5898
+Data_4B_5898::
 	INCBIN "gfx/account/screens_bank4b/tilemap_5898.tilemap"
 	INCBIN "gfx/account/screens_bank4b/tilemap_5898.attrmap"
 

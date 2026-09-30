@@ -105,13 +105,13 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_4A_6920
+	ld hl, Gfx_PhoneKeypadAndComment_Tiles9000Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_4A_6D20
+	ld hl, Gfx_PhoneKeypadAndComment_Tiles9400Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
@@ -123,7 +123,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, $D000
-	ld hl, Data_4A_72B0
+	ld hl, Tilemap_PhoneComment
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03

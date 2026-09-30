@@ -18,7 +18,8 @@ Data_28_44D0::
 
 ; ---- data $4550-$4820 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:7C08: hl=$4550 a=$28 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_28_4550:: ; 28:4550
+Tilemap_MailView_BodyPage:: ; 28:4550
+Data_28_4550::
 	INCBIN "gfx/mail/body_view/tilemap_4550.tilemap"
 	INCBIN "gfx/mail/body_view/tilemap_4550.attrmap"
 
@@ -42,11 +43,12 @@ MailBody_ObjPalette:: ; 28:4B30
 
 MailBody_ObjTable:: ; 28:4B70
 Table_28_4B70::
-	dw Data_28_4B80, $4BA3, Data_28_4B80, $4BA3, Data_28_4B80, $4BA3, Data_28_4B80, $4BA3
+	dw MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3
 
 ; ---- data $4B80-$4BA6 (38 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 1 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:4B70-4BA6 [v4: bytes 4B80-4BA6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_28_4B80:: ; 28:4B80
+MailBody_28_ObjAnimData:: ; 28:4B80
+Data_28_4B80::
 	db $82, $4B, $08, $00, $00, $00, $00, $00, $08, $01, $00, $00, $10, $02, $00, $00
 	db $18, $03, $00, $08, $00, $04, $00, $08, $08, $05, $00, $08, $10, $06, $00, $08
 	db $18, $07, $00, $01, $00, $04

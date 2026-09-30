@@ -491,7 +491,7 @@ Function_7F_5011::
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l5089
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -501,7 +501,7 @@ Function_7F_5011::
 	cp a, $1E
 	jr c, .l5088
 .l5064 ; 7F:5064
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5074
 	ld hl, $C26F
@@ -544,7 +544,7 @@ Function_7F_5011::
 	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	pop bc
@@ -1665,7 +1665,7 @@ Function_7F_591E::
 	jr z, .l5931
 .l5931 ; 7F:5931
 	ld de, $9581
-	ld hl, Tiles_52_4080
+	ld hl, Gfx_PageListProto_Tiles9580Vb1
 	ld a, $52
 	ld b, $95
 	ld c, $28
@@ -1733,7 +1733,7 @@ Function_7F_5989::
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l5A09
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1743,7 +1743,7 @@ Function_7F_5989::
 	cp a, $1E
 	jr c, .l5A08
 .l59E4 ; 7F:59E4
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l59F4
 	ld hl, $C26F
@@ -1811,7 +1811,7 @@ Function_7F_5989::
 	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	pop bc
@@ -2837,5 +2837,5 @@ Function_7F_61E7:: ; 7F:61E7
 	ld [wTimerAFrames], a
 	ld [wTimerASeconds], a
 	ld [wTimerAMinutes], a
-	ld [wRam_C2D7], a
+	ld [wTimerAExtra], a
 	ret

@@ -28,13 +28,13 @@ Function_68_766E::
 	farcall Sprite_ResetAll
 	call Sound_FrameService
 	ld de, $8801
-	ld hl, Data_4B_42D0
+	ld hl, Gfx_Account_ResultPage_Tiles8800Vb1
 	ld a, $4B
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_4B_46D0
+	ld hl, Gfx_Account_ResultPage_Tiles8C00Vb1
 	ld a, $4B
 	ld b, $92
 	ld c, $40
@@ -47,7 +47,7 @@ Function_68_766E::
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_4B_5898
+	ld hl, Tilemap_Account_ResultPage
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ResultPage_DrawTimeDigits

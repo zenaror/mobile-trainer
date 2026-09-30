@@ -115,7 +115,7 @@ Function_2E_4000::
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4108
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -128,7 +128,7 @@ Function_2E_4000::
 	cp a, $1E
 	jr c, .l4107
 .l40E3 ; 2E:40E3
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l40F3
 	ld hl, $C26F
@@ -696,7 +696,7 @@ Label_2E_4298:: ; 2E:4298
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l44C4
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -706,7 +706,7 @@ Label_2E_4298:: ; 2E:4298
 	cp a, $1E
 	jr c, .l44C3
 .l449F ; 2E:449F
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l44AF
 

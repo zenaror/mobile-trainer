@@ -24,7 +24,7 @@ Http_StartGet:: ; 54:4288
 	ld [wMobileTaskKind], a
 	xor a, a
 	ld [wMobileTaskStep], a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	push de
 	push hl
 	call Url_EnsurePath
@@ -96,7 +96,7 @@ Function_54_42FB::
 	ld [wMobileTaskKind], a
 	xor a, a
 	ld [wMobileTaskStep], a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	push de
 	push hl
 	call Url_EnsurePath
@@ -239,7 +239,7 @@ Http_Poll:: ; 54:4357
 	ld a, $2A
 	farcall MobileAPI
 	ld a, $01
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ret
 
 .l4409 ; 54:4409
@@ -248,7 +248,7 @@ Http_Poll:: ; 54:4357
 	ld a, $2C
 	farcall MobileAPI
 	ld a, $01
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ret
 
 Url_ResolveLocation:: ; 54:4417

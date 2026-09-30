@@ -1350,17 +1350,18 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 
 Table_MailServerMgr_HelpStrings:: ; 2E:54F8
 Table_2E_54F8::
-	dw String_2E_5504
+	dw String_MailServerMgr_HelpBlank0
 	dw String_MailServerMgr_HelpDeleteThis
 	dw String_MailServerMgr_HelpLoadNext
 	dw String_MailServerMgr_HelpStopTidy
-	dw String_2E_55A8
-	dw String_2E_55D1
+	dw String_MailServerMgr_HelpBlank4
+	dw String_MailServerMgr_HelpBlank5
 
 ; ---- text $5504-$552D (41 bytes) [PROBABLE] string 0 of the table 2E:54F8 (40 bytes of full-width spaces + NUL); 41-byte record like the CONFIRMED strings 552D-55A8
 
 PUSHC sjis
-String_2E_5504:: ; 2E:5504
+String_MailServerMgr_HelpBlank0:: ; 2E:5504
+String_2E_5504::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 
@@ -1381,9 +1382,11 @@ POPC
 ; ---- text $55A8-$55FA (82 bytes) [PROBABLE] strings 4 and 5 of the table 2E:54F8 (55A8, 55D1: full-width spaces, 41 bytes each incl. NUL); cp932-valid, ends where the executed function 2E:55FA starts
 
 PUSHC sjis
-String_2E_55A8:: ; 2E:55A8
+String_MailServerMgr_HelpBlank4:: ; 2E:55A8
+String_2E_55A8::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
-String_2E_55D1:: ; 2E:55D1
+String_MailServerMgr_HelpBlank5:: ; 2E:55D1
+String_2E_55D1::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 

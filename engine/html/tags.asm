@@ -539,11 +539,11 @@ Html_Tag_Ul:: ; 74:47AA
 	ld [wHtmlListCounter], a
 	ld a, $3F
 	ld [wHtmlListCounter + 1], a
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	add a, $0C
 	jp c, Label_74_443F
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	jp Label_74_443F
 .l47F9 ; 74:47F9
 	push hl
@@ -574,13 +574,13 @@ Html_Tag_Ul:: ; 74:47AA
 	jr z, .l4822
 	ld c, $12
 .l4822 ; 74:4822
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	sub a, c
 	jr nc, .l4828
 	xor a, a
 .l4828 ; 74:4828
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
@@ -588,8 +588,8 @@ Html_Tag_Ul:: ; 74:47AA
 	ld a, $01
 	ld [wHtmlListDepth], a
 	ld a, c
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	jr .l4853
 
 .l4840 ; 74:4840
@@ -598,7 +598,7 @@ Html_Tag_Ul:: ; 74:47AA
 	ld [wHtmlListCounter], a
 	ld a, b
 	ld [wHtmlListCounter + 1], a
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	sub a, $0C
 	jr nc, .l484F
 
@@ -608,8 +608,8 @@ Html_Tag_Ul:: ; 74:47AA
 
 .l484F ; 74:484F
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 .l4853 ; 74:4853
 	ld a, [wHtmlListDepth]
 	or a, a
@@ -670,11 +670,11 @@ Html_Tag_Ol:: ; 74:4867
 	ld [wHtmlListCounter], a
 	ld a, $00
 	ld [wHtmlListCounter + 1], a
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	add a, c
 	jp c, Label_74_443F
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	jp Label_74_443F
 .l48D0 ; 74:48D0
 	push hl
@@ -700,13 +700,13 @@ Html_Tag_Ol:: ; 74:4867
 
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4867-493F by apply_coverage --split
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	sub a, $0C
 	jr nc, .l48F8
 	xor a, a
 .l48F8 ; 74:48F8
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
@@ -714,8 +714,8 @@ Html_Tag_Ol:: ; 74:4867
 	ld a, $01
 	ld [wHtmlListDepth], a
 	ld a, $0C
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 	jr .l492B
 
 .l4911 ; 74:4911
@@ -730,13 +730,13 @@ Html_Tag_Ol:: ; 74:4867
 	jr z, .l4921
 	ld c, $12
 .l4921 ; 74:4921
-	ldh a, [hRam_FFD9]
+	ldh a, [hHtmlListIndent]
 	sub a, c
 	jr nc, .l4927
 	xor a, a
 .l4927 ; 74:4927
-	ldh [hRam_FFD9], a
-	ldh [hRam_FFD8], a
+	ldh [hHtmlListIndent], a
+	ldh [hHtmlLineIndent], a
 .l492B ; 74:492B
 	ld a, [wHtmlListDepth]
 	or a, a
@@ -784,12 +784,12 @@ Label_74_4959:: ; 74:4959
 	ld [de], a
 	inc de
 .l4973 ; 74:4973
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	sub a, $0C
 	jr nc, .skip
 	xor a, a
 .skip ; 74:497A
-	ldh [hRam_FFD8], a
+	ldh [hHtmlLineIndent], a
 	ld a, e
 	ld [wRam_C331], a
 	ld a, d
@@ -799,8 +799,8 @@ Label_74_4959:: ; 74:4959
 Label_74_4987:: ; 74:4987
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 74:4949 (executed)
-	ldh a, [hRam_FFD9]
-	ldh [hRam_FFD8], a
+	ldh a, [hHtmlListIndent]
+	ldh [hHtmlLineIndent], a
 	xor a, a
 	ld [wRam_C331], a
 	ld [wRam_C331], a
@@ -863,12 +863,12 @@ Label_74_4997:: ; 74:4997
 	add a, $30
 	ld [de], a
 	inc de
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	sub a, $06
 	jr nc, .l49DD
 	xor a, a
 .l49DD ; 74:49DD
-	ldh [hRam_FFD8], a
+	ldh [hHtmlLineIndent], a
 	ld bc, $FFF6
 	ld a, $FF
 .l49E4 ; 74:49E4
@@ -885,12 +885,12 @@ Label_74_4997:: ; 74:4997
 	add a, $30
 	ld [de], a
 	inc de
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	sub a, $06
 	jr nc, .l49F9
 	xor a, a
 .l49F9 ; 74:49F9
-	ldh [hRam_FFD8], a
+	ldh [hHtmlLineIndent], a
 .l49FB ; 74:49FB
 	ld a, l
 	add a, $30
@@ -900,12 +900,12 @@ Label_74_4997:: ; 74:4997
 	ld [de], a
 	inc de
 	pop hl
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	sub a, $0C
 	jr nc, .l4A0C
 	xor a, a
 .l4A0C ; 74:4A0C
-	ldh [hRam_FFD8], a
+	ldh [hHtmlLineIndent], a
 	pop bc
 	ld a, c
 	cp a, $63
@@ -981,9 +981,9 @@ Html_Tag_A:: ; 74:4A91
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, .l4AD5
-	ldh a, [hRam_FFDC]
+	ldh a, [hHtmlLinkTextStart]
 	ld c, a
-	ldh a, [hRam_FFDD]
+	ldh a, [hHtmlLinkTextStartHi]
 	ld b, a
 	or a, c
 	jr z, .l4AB8
@@ -1017,8 +1017,8 @@ Html_Tag_A:: ; 74:4A91
 	and a, $FC
 	ldh [hRam_FFB2], a
 	xor a, a
-	ldh [hRam_FFDC], a
-	ldh [hRam_FFDD], a
+	ldh [hHtmlLinkTextStart], a
+	ldh [hHtmlLinkTextStartHi], a
 	jp Label_74_443F
 .l4AD5 ; 74:4AD5
 	farcall Html_Layout_WrapRun
@@ -1107,9 +1107,9 @@ Html_Tag_A:: ; 74:4A91
 	pop hl
 	pop de
 	ldh a, [hRam_FFBB]
-	ldh [hRam_FFDC], a
+	ldh [hHtmlLinkTextStart], a
 	ldh a, [hTextY]
-	ldh [hRam_FFDD], a
+	ldh [hHtmlLinkTextStartHi], a
 	jp Label_74_443F
 
 .l4B81 ; 74:4B81
@@ -1125,8 +1125,8 @@ Html_Tag_A:: ; 74:4A91
 	ldh [hRam_FFDF], a
 	xor a, a
 	ldh [hRam_FFE0], a
-	ldh [hRam_FFDC], a
-	ldh [hRam_FFDD], a
+	ldh [hHtmlLinkTextStart], a
+	ldh [hHtmlLinkTextStartHi], a
 	jp Label_74_443F
 
 Html_Tag_Br:: ; 74:4B98
@@ -1442,10 +1442,10 @@ Html_Tag_Hr:: ; 74:4CA6
 	dec hl
 	ld a, l
 	cpl
-	ldh [hRam_FFDA], a
+	ldh [hHtmlAlignAdjust], a
 	ld a, h
 	cpl
-	ldh [hRam_FFDB], a
+	ldh [hHtmlAlignAdjustHi], a
 .l4D4D ; 74:4D4D
 	pop hl
 	ld de, $83E6
@@ -1507,8 +1507,8 @@ Html_Tag_Hr:: ; 74:4CA6
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
 	xor a, a
-	ldh [hRam_FFDA], a
-	ldh [hRam_FFDB], a
+	ldh [hHtmlAlignAdjust], a
+	ldh [hHtmlAlignAdjustHi], a
 	pop af
 	ldh [hRam_FFB2], a
 	pop af

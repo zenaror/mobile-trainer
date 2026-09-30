@@ -6,7 +6,8 @@ SECTION "gfx/address_book/address_editor", ROMX
 
 ; ---- data $77D0-$7AC0 (752 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 77D0-7DD0 by higher-priority evidence]
 
-Data_2F_77D0:: ; 2F:77D0
+Gfx_AbookAddr_Tiles8800:: ; 2F:77D0
+Data_2F_77D0::
 	db $00, $00, $FF, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00
 	db $FF, $FF, $FF, $00, $01, $03, $03, $06, $06, $0D, $0C, $0A, $0F, $0A, $0F, $0A

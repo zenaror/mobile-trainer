@@ -120,13 +120,13 @@ Function_68_57B6::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5E_5800
+	ld hl, Gfx_Account_MailAddressEntry_Tiles9000Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5E_5C00
+	ld hl, Gfx_Account_MailAddressEntry_Tiles9400Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
@@ -138,7 +138,7 @@ Function_68_57B6::
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, $D000
-	ld hl, Data_5E_6000
+	ld hl, Tilemap_Account_MailAddressEntry
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
@@ -602,13 +602,13 @@ Account_MailIntro_Draw:: ; 68:5C12
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	ld de, $9001
-	ld hl, Data_5E_60D0
+	ld hl, Gfx_Account_MailIntro_Tiles9000Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5E_64D0
+	ld hl, Gfx_Account_MailIntro_Tiles9400Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
@@ -620,7 +620,7 @@ Account_MailIntro_Draw:: ; 68:5C12
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_5E_68D0
+	ld hl, Tilemap_Account_MailIntro
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	call Account_MailIntro_PrintMessage

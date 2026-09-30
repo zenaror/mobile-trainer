@@ -47,7 +47,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 
 .l4A05 ; 4E:4A05
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C1DC]
+	ld a, [wBrowserPendingMessage]
 	or a, a
 	jr z, Label_4E_4A43
 
@@ -60,7 +60,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	call Sprite_SetPosition
 	ld hl, $DAB0
 	call Sprite_ClearSlot
-	ld a, [wRam_C1DC]
+	ld a, [wBrowserPendingMessage]
 	ld d, $01
 	ld e, a
 	farcall Dialog_ShowMonitored
@@ -85,7 +85,7 @@ Label_4E_4A43:: ; 4E:4A43
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ldh [hDialogResult], a
 	ld a, $01
 	ld [wHtmlFlags], a
@@ -106,7 +106,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4AB3
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -120,7 +120,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	cp a, $1E
 	jr c, .l4AB2
 .l4A8E ; 4E:4A8E
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4A9E
 
@@ -516,7 +516,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4E12
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -529,7 +529,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	cp a, $1E
 	jr c, .l4E11
 .l4DED ; 4E:4DED
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4DFD
 	ld hl, $C26F
@@ -718,7 +718,7 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 	farcall Dialog_Close
 	farcall CommTime_ShowSummary
 	ld a, $0B
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter
@@ -827,9 +827,9 @@ Browser_Leave_OnError:: ; 4E:5018
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	jr Browser_Leave_Summary
 
 Label_4E_5040:: ; 4E:5040
@@ -852,9 +852,9 @@ Label_4E_5040:: ; 4E:5040
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	jr .l506E
 
 .l5068 ; 4E:5068
@@ -870,12 +870,12 @@ Label_4E_5040:: ; 4E:5040
 	bit 4, a
 	jr z, Label_4E_5082
 	ld a, $10
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	jr Label_4E_509D
 
 Label_4E_5082:: ; 4E:5082
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	jr Label_4E_509D
 
 Label_4E_5088:: ; 4E:5088
@@ -885,11 +885,11 @@ Label_4E_5088:: ; 4E:5088
 	bit 4, a
 	jr z, .l5096
 	ld a, $11
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	jr Label_4E_509D
 .l5096 ; 4E:5096
 	ld a, $10
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	jr Label_4E_509D
 
 Label_4E_509D:: ; 4E:509D
@@ -910,9 +910,9 @@ Browser_ConnectionNotice:: ; 4E:50BE
 	farcall Sprite_ResetAll
 	ld a, [wCommSessionKind]
 	xor a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	ld hl, $C26F
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
@@ -921,15 +921,15 @@ Browser_ConnectionNotice:: ; 4E:50BE
 	farcall CommTime_ShowSummary
 .l50EC ; 4E:50EC
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	bit 4, a
 	jp nz, .l5104
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 .l5104 ; 4E:5104
 	jp Browser_PageView_Enter
 
@@ -937,12 +937,12 @@ Label_4E_5107:: ; 4E:5107
 	; [PROBABLE] 79 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 501F-5204 by apply_coverage --split
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wCommSessionKind]
 	xor a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	ld hl, $C26F
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
@@ -963,17 +963,17 @@ Label_4E_5107:: ; 4E:5107
 	bit 4, a
 	jp nz, .l515F
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 .l515F ; 4E:515F
 	jp Browser_PageView_Enter
 
 Browser_Menu_LinkLost:: ; 4E:5162
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld de, $18A0
@@ -987,7 +987,7 @@ Browser_Menu_LinkLost:: ; 4E:5162
 	farcall Sprite_ResetAll
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter
@@ -995,29 +995,29 @@ Browser_Menu_LinkLost:: ; 4E:5162
 Browser_Menu_AdapterError:: ; 4E:51A6
 	farcall Mobile_FetchResult
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld a, [wCommSessionKind]
 	xor a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	farcall Sram_CountMobileError12Or26
 	farcall Mobile_ShowLastError
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter

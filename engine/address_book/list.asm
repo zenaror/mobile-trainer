@@ -204,7 +204,7 @@ Function_2F_4109::
 Label_2F_4131:: ; 2F:4131
 	push bc
 	ld hl, $DA80
-	ld de, Table_28_5210
+	ld de, AddrBookShared_ObjTable
 	ld a, $28
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -888,13 +888,13 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld c, $10
 	farcall Gfx_StartHDMA
 	ld de, $8000
-	ld hl, Data_28_4BD0
+	ld hl, Gfx_AddrBookShared_Tiles8000
 	ld a, $28
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $8400
-	ld hl, Data_28_4FD0
+	ld hl, Gfx_AddrBookShared_Tiles8400
 	ld a, $28
 	ld b, $95
 	ld c, $20
@@ -911,7 +911,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_28_51D0
+	ld hl, Palette_AbookList_Bg
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
@@ -1822,13 +1822,14 @@ Function_2F_4CA7::
 
 Table_Abook_HelpBoxAttrs:: ; 2F:4CFD
 Table_2F_4CFD::
-	dw Data_2F_4D03
+	dw Data_Abook_HelpBoxAttrBlocks
 	dw $4D17
 	dw $4D2B
 
 ; ---- data $4D03-$4D3F (60 bytes) [PROBABLE] 3 blocks of 20 BG attribute bytes ($09/$0B/$0C/$29) copied 20 bytes per row by the loader at 2F:4CAF; blocks addressed through Table_2F_4CFD
 
-Data_2F_4D03:: ; 2F:4D03
+Data_Abook_HelpBoxAttrBlocks:: ; 2F:4D03
+Data_2F_4D03::
 	db $09, $09, $09, $0B, $0B, $09, $09, $0B, $0B, $09, $09, $0B, $0B, $09, $09, $0B
 	db $0B, $09, $09, $29, $09, $09, $09, $0C, $0C, $09, $09, $0B, $0B, $09, $09, $0B
 	db $0B, $09, $09, $0B, $0B, $09, $09, $29, $09, $09, $09, $0B, $0B, $09, $09, $0C

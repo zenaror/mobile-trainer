@@ -8,10 +8,10 @@ CommNotice_ShowDialog:: ; 50:4000
 	; [CONFIRMED] 217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1;
 	; entered by far from 4E:50DD (PROBABLE code) | 99 insn(s) executed; cut out of the PROBABLE
 	; region 4000-4244 by apply_coverage --split [executed in 2 scenarios]
-	ld a, [wRam_C1D0]
+	ld a, [wCommNoticeMode]
 	inc a
 	ld b, a
-	ld a, [wRam_C1D1]
+	ld a, [wCommNoticeGfxSet]
 	inc a
 	ld c, a
 	ldh a, [rLCDC]
@@ -124,11 +124,11 @@ CommNotice_RunDialog:: ; 50:4061
 	cp a, $3C
 	jr c, .l4121
 	ld a, $01
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jp CommNotice_DrawScreenAndLoop
 .l4121 ; 50:4121
 	ld a, $03
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jp CommNotice_DrawScreenAndLoop
 
 .l4129 ; 50:4129
@@ -148,14 +148,14 @@ CommNotice_RunDialog:: ; 50:4061
 	cp a, $3C
 	jr c, .l4148
 	ld a, $02
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jr .l414F
 
 .l4148 ; 50:4148
 	; [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld a, $04
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jr .l414F
 .l414F ; 50:414F
 	ld hl, $DA10
@@ -216,11 +216,11 @@ CommNotice_RunDialog:: ; 50:4061
 	cp a, $3C
 	jr c, .l41F2
 	ld a, $05
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jp CommNotice_DrawScreenAndLoop
 .l41F2 ; 50:41F2
 	ld a, $07
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jp CommNotice_DrawScreenAndLoop
 .l41FA ; 50:41FA
 	ld a, $F0
@@ -234,11 +234,11 @@ CommNotice_RunDialog:: ; 50:4061
 	cp a, $3C
 	jr c, .l4219
 	ld a, $06
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jr .l4220
 .l4219 ; 50:4219
 	ld a, $08
-	ld [wRam_C1CD], a
+	ld [wCommNoticeScreen], a
 	jr .l4220
 .l4220 ; 50:4220
 	ld hl, $DA10
@@ -269,7 +269,7 @@ Table_50_4244::
 CommNotice_DrawScreenAndLoop:: ; 50:4254
 	; [CONFIRMED] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 3;
 	; entered by jp from 50:411E (PROBABLE code) [executed in 1 scenarios]
-	ld a, [wRam_C1CD]
+	ld a, [wCommNoticeScreen]
 	dec a
 	add a, a
 	ld hl, Table_CommNotice_Screens
@@ -323,16 +323,16 @@ Label_50_42B6:: ; 50:42B6
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
 	call nz, CommNotice_HandleLeftRight
-	ld a, [wRam_C14E]
+	ld a, [wCommNoticeFrames]
 	inc a
-	ld [wRam_C14E], a
+	ld [wCommNoticeFrames], a
 	cp a, $3C
 	jp nz, Label_50_429A
 	xor a, a
-	ld [wRam_C14E], a
-	ld a, [wRam_C14F]
+	ld [wCommNoticeFrames], a
+	ld a, [wCommNoticeSeconds]
 	inc a
-	ld [wRam_C14F], a
+	ld [wCommNoticeSeconds], a
 	ld b, a
 	ld a, [wRam_C0D8]
 	or a, a
@@ -431,7 +431,7 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 CommNotice_DrawMinuteDigit:: ; 50:4352
 	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage
 	; --split [executed in 4 scenarios]
-	ld a, [wRam_C1CD]
+	ld a, [wCommNoticeScreen]
 	dec a
 	add a, a
 	ld hl, Table_CommNotice_DigitCells
@@ -467,7 +467,7 @@ CommNotice_DrawMinuteDigit:: ; 50:4352
 	ld [hl], a
 	ret
 
-; ---- words $438A-$439A (16 bytes) [PROBABLE] 8 WRAM tilemap-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) indexed by (wRam_C1CD-1)*2 at 50:4352 (ld hl,$438A; word read); the code writes a tile id ($26+n) through it and the row below (+$20). Values are WRAM addresses, not ROM pointers.
+; ---- words $438A-$439A (16 bytes) [PROBABLE] 8 WRAM tilemap-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) indexed by (wCommNoticeScreen-1)*2 at 50:4352 (ld hl,$438A; word read); the code writes a tile id ($26+n) through it and the row below (+$20). Values are WRAM addresses, not ROM pointers.
 
 Table_CommNotice_DigitCells:: ; 50:438A
 Table_50_438A::

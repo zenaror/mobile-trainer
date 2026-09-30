@@ -11,7 +11,7 @@ SettingsMenu_Run:: ; 68:4F9E
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
 	ld a, $01
-	ld [wRam_C27A], a
+	ld [wSavePasswordFlag], a
 	xor a, a
 	ld [wCommSessionActive], a
 	ld hl, $C2D2
@@ -41,9 +41,9 @@ SettingsMenu_Run:: ; 68:4F9E
 	xor a, a
 	ld [wRam_C28E], a
 	ld a, $00
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, $01
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	call SettingsMenu_RunLoop
 	ld a, [wRam_C27C]
 	ld hl, $BF01
@@ -152,31 +152,31 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld a, b
 	ld [wRam_C27C], a
 	ld de, $8801
-	ld hl, Data_4A_4240
+	ld hl, Gfx_SettingsMenu_Tiles8800Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_4A_4640
+	ld hl, Gfx_SettingsMenu_Tiles8C00Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_4A_4A40
+	ld hl, Gfx_SettingsMenu_Tiles9000Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_4A_4E40
+	ld hl, Gfx_SettingsMenu_Tiles9400Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_4A_4040
+	ld hl, Gfx_SettingsMenu_Tiles8000Vb1
 	ld a, $4A
 	ld b, $95
 	ld c, $20
@@ -195,7 +195,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
-	ld de, Table_4A_5838
+	ld de, SettingsMenu_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -345,7 +345,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_4A_54A0
+	ld hl, Tilemap_SettingsMenu
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 

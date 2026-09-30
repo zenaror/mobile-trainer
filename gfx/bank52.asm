@@ -9,5 +9,6 @@ SECTION "gfx/bank52", ROMX
 
 ; ---- gfx $4080-$4C00 (2944 bytes) [PROBABLE] 184 x 2bpp tiles at 16-byte alignment (4080-4C00 ends exactly where the zero padding starts): rows are (ff,xx) byte pairs = 2bpp text-image tiles; rendered, they show Japanese UI text (e.g. ボールをえらんでください, メモリーボール); the mapper heuristic used parity 1 (4071) which splits every row pair; no reference to this block found
 
-Tiles_52_4080:: ; 52:4080
+Gfx_PageListProto_Tiles9580Vb1:: ; 52:4080
+Tiles_52_4080::
 	INCBIN "gfx/bank52/tiles_4080.2bpp"

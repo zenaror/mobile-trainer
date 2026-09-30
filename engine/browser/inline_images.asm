@@ -180,7 +180,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l49C7
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -193,7 +193,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	cp a, $1E
 	jr c, .l49C6
 .l49A2 ; 4C:49A2
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l49B2
 	ld hl, $C26F
@@ -229,7 +229,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4A16
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -242,7 +242,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	cp a, $1E
 	jr c, .l4A15
 .l49F1 ; 4C:49F1
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4A01
 	ld hl, $C26F
@@ -269,7 +269,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	pop hl
 	or a, a
 	jp nz, .l4B4E
-	ld a, [wRam_C1DC]
+	ld a, [wBrowserPendingMessage]
 	or a, a
 	jp nz, .l4AD6
 	jp .l4878
@@ -323,7 +323,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4ABC
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -336,7 +336,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	cp a, $1E
 	jr c, .l4ABB
 .l4A97 ; 4C:4A97
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4AA7
 	ld hl, $C26F
@@ -380,7 +380,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld a, $00
 	ld [wBrowserFetchResult], a
 	ld a, $01
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	jr .l4AE7
 
 .l4AE2 ; 4C:4AE2
@@ -412,7 +412,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4B4B
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -425,7 +425,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	cp a, $1E
 	jr c, .l4B4A
 .l4B26 ; 4C:4B26
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4B36
 	ld hl, $C26F
@@ -457,5 +457,5 @@ Browser_FetchInlineImages:: ; 4C:4840
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 48B6-4B54 by apply_coverage --split
 	ld a, $06
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ret

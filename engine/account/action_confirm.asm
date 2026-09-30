@@ -27,13 +27,13 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $9001
-	ld hl, Data_5E_6BA0
+	ld hl, Gfx_Account_ActionConfirmPage_Tiles9000Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5E_6FA0
+	ld hl, Gfx_Account_ActionConfirmPage_Tiles9400Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
@@ -59,7 +59,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	jr z, .l6EC3
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_5E_75D0
+	ld hl, Tilemap_Account_ActionConfirmPage
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
@@ -76,7 +76,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot

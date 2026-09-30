@@ -24,19 +24,19 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $8801
-	ld hl, Data_5D_5DF0
+	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5D_61F0
+	ld hl, Gfx_Account_ConfirmScreens_Tiles8C00Vb1
 	ld a, $5D
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5D_63F0
+	ld hl, Gfx_Account_ConfirmScreen_Tiles9000Vb1
 	ld a, $5D
 	ld b, $95
 	ld c, $20
@@ -49,7 +49,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_5D_65F0
+	ld hl, Palette_Account_ConfirmScreen_Bg
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
@@ -59,7 +59,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_5D_6630
+	ld hl, Tilemap_Account_ConfirmScreen
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmScreen_PrintAccount
@@ -68,7 +68,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -282,19 +282,19 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $8801
-	ld hl, Data_5D_5DF0
+	ld hl, Gfx_Account_ConfirmScreens_Tiles8800Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_5D_61F0
+	ld hl, Gfx_Account_ConfirmScreens_Tiles8C00Vb1
 	ld a, $5D
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_4A_5870
+	ld hl, Gfx_Account_ConfirmManualScreen_Tiles9000Vb1
 	ld a, $4A
 	ld b, $92
 	ld c, $40
@@ -307,7 +307,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_4A_5C70
+	ld hl, Palette_Account_ConfirmManualScreen_Bg
 	ld a, $4A
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
@@ -317,7 +317,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_4A_5CB0
+	ld hl, Tilemap_Account_ConfirmManualScreen
 	ld a, $4A
 	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmManualScreen_PrintAccount
@@ -326,7 +326,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot

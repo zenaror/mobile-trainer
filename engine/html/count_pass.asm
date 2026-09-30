@@ -17,17 +17,17 @@ Function_74_4F4F::
 	ldh [hRam_FFE0], a
 	ld [wHtmlAlign], a
 	ld [wHtmlAlignSp], a
-	ldh [hRam_FFDA], a
-	ldh [hRam_FFDB], a
+	ldh [hHtmlAlignAdjust], a
+	ldh [hHtmlAlignAdjustHi], a
 	ld [wHtmlListDepth], a
-	ldh [hRam_FFD8], a
-	ldh [hRam_FFD9], a
+	ldh [hHtmlLineIndent], a
+	ldh [hHtmlListIndent], a
 	ld [wHtmlListCounter], a
 	ld [wHtmlListCounter + 1], a
 	ld [wHtmlBoldCount], a
 	ld [wHtmlBoldCount + 1], a
-	ldh [hRam_FFDC], a
-	ldh [hRam_FFDD], a
+	ldh [hHtmlLinkTextStart], a
+	ldh [hHtmlLinkTextStartHi], a
 	ld [wRam_C331], a
 	ld [wRam_C332], a
 	ld [wHtmlFlags], a

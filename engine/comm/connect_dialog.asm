@@ -379,7 +379,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA20
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $03
 	farcall Sprite_InitSlot
@@ -476,7 +476,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	dec a
 	ld [wConnectDialogTextLen], a
 	ld hl, $DA20
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $02
 	farcall Sprite_InitSlot
@@ -501,7 +501,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	xor a, a
 	ld [wRam_C0E8], a
 	ld hl, $DA20
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -764,7 +764,7 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 
 Label_57_4566:: ; 57:4566
 	ld hl, $DA40
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -811,7 +811,7 @@ Label_57_45BC:: ; 57:45BC
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 	ld hl, $DA40
-	ld de, Table_56_79B8
+	ld de, ConnectDialog_ObjTable
 	ld a, $56
 	ld b, $85
 	farcall Sprite_InitSlot

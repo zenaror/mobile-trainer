@@ -1157,7 +1157,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4988
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1170,7 +1170,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	cp a, $1E
 	jr c, .l4987
 .l4963 ; 26:4963
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4973
 	ld hl, $C26F
@@ -1827,7 +1827,7 @@ Function_26_4EC3::
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4F0E
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1840,7 +1840,7 @@ Function_26_4EC3::
 	cp a, $1E
 	jr c, .l4F0D
 .l4EE9 ; 26:4EE9
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4EF9
 	ld hl, $C26F
@@ -1934,7 +1934,7 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4FC6
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1947,7 +1947,7 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	cp a, $1E
 	jr c, .l4FC5
 .l4FA1 ; 26:4FA1
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4FB1
 	ld hl, $C26F

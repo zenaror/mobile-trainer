@@ -145,7 +145,7 @@ Pop3_StartTop:: ; 54:4914
 	ld [wMobileTaskStep], a
 	ld [wRam_C240], a
 	ldh a, [hSRAMBank]
-	ld [wRam_C25E], a
+	ld [wPop3SavedSramBank], a
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -451,7 +451,7 @@ Label_54_4BC6:: ; 54:4BC6
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
-	ld a, [wRam_C25E]
+	ld a, [wPop3SavedSramBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh [hScratchA], a

@@ -6,7 +6,8 @@ SECTION "gfx/account/screens_bank4a", ROMX
 
 ; ---- words $4000-$4004 (4 bytes) [PROBABLE] entry 0 (all zero, unused) of the 4-byte-entry object table at 4A:4000 read by init_object_from_table (00:0A82; entry 1 at 4004 = 4008,402E is the CONFIRMED read data right after); same family as 72:4E40/72:7828 [verifier: the original text said 4E:4E40, which is code; the sibling table is 72:4E40]
 
-Table_4A_4000:: ; 4A:4000
+ConfirmPages_ObjTable:: ; 4A:4000
+Table_4A_4000::
 	dw $0000, $0000
 
 ; ---- data $4004-$4033 (47 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
@@ -21,27 +22,32 @@ Data_4A_4004:: ; 4A:4004
 
 ; ---- gfx $4040-$4240 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5107: hl=$4040 a=$4A c=$20 de=$8001 (dest VRAM $8000, vbank=1)
 
-Data_4A_4040:: ; 4A:4040
+Gfx_SettingsMenu_Tiles8000Vb1:: ; 4A:4040
+Data_4A_4040::
 	INCBIN "gfx/account/screens_bank4a/tiles_4040.2bpp"
 
 ; ---- gfx $4240-$4640 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50BF: hl=$4240 a=$4A c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_4A_4240:: ; 4A:4240
+Gfx_SettingsMenu_Tiles8800Vb1:: ; 4A:4240
+Data_4A_4240::
 	INCBIN "gfx/account/screens_bank4a/tiles_4240.2bpp"
 
 ; ---- gfx $4640-$4A40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50D1: hl=$4640 a=$4A c=$40 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_4A_4640:: ; 4A:4640
+Gfx_SettingsMenu_Tiles8C00Vb1:: ; 4A:4640
+Data_4A_4640::
 	INCBIN "gfx/account/screens_bank4a/tiles_4640.2bpp"
 
 ; ---- gfx $4A40-$4E40 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50E3: hl=$4A40 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_4A_4A40:: ; 4A:4A40
+Gfx_SettingsMenu_Tiles9000Vb1:: ; 4A:4A40
+Data_4A_4A40::
 	INCBIN "gfx/account/screens_bank4a/tiles_4a40.2bpp"
 
 ; ---- gfx $4E40-$5240 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:50F5: hl=$4E40 a=$4A c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_4A_4E40:: ; 4A:4E40
+Gfx_SettingsMenu_Tiles9400Vb1:: ; 4A:4E40
+Data_4A_4E40::
 	INCBIN "gfx/account/screens_bank4a/tiles_4e40.2bpp"
 
 ; ---- data $5240-$54A0 (608 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:523D: hl=$51D0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 51D0-54A0 by higher-priority evidence]
@@ -88,7 +94,8 @@ Data_4A_5240:: ; 4A:5240
 
 ; ---- data $54A0-$5770 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:5250: hl=$54A0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_4A_54A0:: ; 4A:54A0
+Tilemap_SettingsMenu:: ; 4A:54A0
+Data_4A_54A0::
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_54a0.attrmap"
 
@@ -115,7 +122,8 @@ Data_4A_5810:: ; 4A:5810
 
 ; ---- words $5838-$583C (4 bytes) [PROBABLE] entry 0 (4 x 00, unused) of the object table at 4A:5838: ld de,$5838 ; a=$4A ; b=$81 ; init_object_from_table (00:0A82) at 68:513A-5145; entry 1 (583C, CONFIRMED read) follows
 
-Table_4A_5838:: ; 4A:5838
+SettingsMenu_ObjTable:: ; 4A:5838
+Table_4A_5838::
 	dw $0000, $0000
 
 ; ---- data $583C-$5860 (36 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
@@ -132,16 +140,19 @@ Data_4A_5860:: ; 4A:5860
 
 ; ---- gfx $5870-$5C70 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:649A: hl=$5870 a=$4A c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_4A_5870:: ; 4A:5870
+Gfx_Account_ConfirmManualScreen_Tiles9000Vb1:: ; 4A:5870
+Data_4A_5870::
 	INCBIN "gfx/account/screens_bank4a/tiles_5870.2bpp"
 
 ; ---- gfx $5C70-$5CB0 (64 bytes) [PROBABLE] tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
 
-Data_4A_5C70:: ; 4A:5C70
+Palette_Account_ConfirmManualScreen_Bg:: ; 4A:5C70
+Data_4A_5C70::
 	INCBIN "gfx/account/screens_bank4a/tiles_5c70.2bpp"
 
 ; ---- data $5CB0-$5F80 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:64DF: hl=$5CB0 a=$4A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_4A_5CB0:: ; 4A:5CB0
+Tilemap_Account_ConfirmManualScreen:: ; 4A:5CB0
+Data_4A_5CB0::
 	INCBIN "gfx/account/screens_bank4a/tilemap_5cb0.tilemap"
 	INCBIN "gfx/account/screens_bank4a/tilemap_5cb0.attrmap"

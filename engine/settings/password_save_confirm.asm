@@ -30,17 +30,17 @@ PwSaveConfirm_Setup:: ; 67:6565
 	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
-	ld a, [wRam_C27A]
+	ld a, [wSavePasswordFlag]
 	xor a, $01
 	ld [wRam_C27D], a
 	ld de, $9001
-	ld hl, Data_5D_7360
+	ld hl, Gfx_PwSaveConfirm_Tiles9000Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5D_7760
+	ld hl, Gfx_PwSaveConfirm_Tiles9400Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
@@ -53,7 +53,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_5D_7B60
+	ld hl, Palette_PwSaveConfirm_Bg
 	ld a, $5D
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
@@ -66,7 +66,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	jr nz, .l65F2
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_5D_7BA0
+	ld hl, Tilemap_PwSaveConfirm_5D_7BA0
 	ld a, $5D
 	farcall Tilemap_CopyRectAndAttr
 	jr .l6603
@@ -76,7 +76,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	; entered by jrcc from 67:65DD (executed)
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_71_6F6F
+	ld hl, Tilemap_PwSaveConfirm_71_6F6F
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 
@@ -88,7 +88,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot
