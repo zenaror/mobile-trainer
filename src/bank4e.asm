@@ -7,12 +7,12 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank4E", ROMX[$4000], BANK[$4E]
 
-; ---- code $4000-$4002 (2 bytes) [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven
+; ---- code $4000-$4002 (2 bytes) [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_4E_4000:: ; 4E:4000
 	ldh [hRam_FFD2], a
 
-; ---- code $4002-$4172 (368 bytes) [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $4002-$4172 (368 bytes) [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 160/160 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	farcall Function_4E_6291
 	ld de, $18A0
 	ld hl, $DA90
@@ -189,7 +189,7 @@ Table_4E_4172:: ; 4E:4172
 	dw Label_4E_41C5
 	dw Label_4E_4154
 
-; ---- code $417C-$41E0 (100 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; entered by table from 4E:416F (PROBABLE code)
+; ---- code $417C-$41E0 (100 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; entered by table from 4E:416F (PROBABLE code) | forced execution: 23/39 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Label_4E_417C:: ; 4E:417C
 	ld a, $0A
@@ -310,7 +310,7 @@ Data_4E_41E0:: ; 4E:41E0
 	dw $0273, $0292, $FFFF, $0001, $0274, $0293, $FFFF, $0001
 	dw $0294, $FFFF, $0001, $FFFF, $0000, $FFFF, $FFFF
 
-; ---- code $45FE-$4658 (90 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2; entered by far from 4E:40A5 (PROBABLE code)
+; ---- code $45FE-$4658 (90 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2; entered by far from 4E:40A5 (PROBABLE code) | forced execution: 54/54 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_4E_45FE:: ; 4E:45FE
 	ld a, $0A
@@ -901,7 +901,7 @@ Browser_PageView_Loop:: ; 4E:4A58
 	cp a, b
 	jr c, Label_4E_4AB2
 
-; ---- code $4A85-$4AB2 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4E:4A83 (executed)
+; ---- code $4A85-$4A95 (16 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4E:4A83 (executed) | 7 insn(s) executed; cut out of the PROBABLE region 4A85-4AB2 by apply_coverage --split [executed in 1 scenarios]
 	jr nz, Label_4E_4A8E
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -911,10 +911,14 @@ Label_4E_4A8E:: ; 4E:4A8E
 	ld a, [wRam_C26E]
 	cp a, $45
 	jr nz, Label_4E_4A9E
+
+; ---- code $4A95-$4A9E (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A85-4AB2 by apply_coverage --split
 	ld hl, $C26F
 	bit 1, [hl]
 	jr nz, Label_4E_4AB2
 	set 1, [hl]
+
+; ---- code $4A9E-$4AB2 (20 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4A85-4AB2 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_4A9E:: ; 4E:4A9E
 	ld hl, $C26F
@@ -1044,7 +1048,7 @@ Table_4E_4B7E:: ; 4E:4B7E
 	dw Label_4E_5088
 	dw Label_4E_5107
 
-; ---- code $4B8C-$4BAA (30 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by table from 4E:4B7B (executed)
+; ---- code $4B8C-$4BAA (30 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by table from 4E:4B7B (executed) [executed in 2 scenarios]
 
 Label_4E_4B8C:: ; 4E:4B8C
 	ld de, $C380
@@ -1264,7 +1268,7 @@ Table_4E_4D6D:: ; 4E:4D6D
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-; ---- code $4D7B-$4E60 (229 bytes) [PROBABLE] 92 insn(s) reached by static flow only; seeds: exec x92; min discovery hops 1; entered by table from 4E:4D6A (executed)
+; ---- code $4D7B-$4DE4 (105 bytes) [CONFIRMED] 92 insn(s) reached by static flow only; seeds: exec x92; min discovery hops 1; entered by table from 4E:4D6A (executed) | 39 insn(s) executed; cut out of the PROBABLE region 4D7B-4E60 by apply_coverage --split [executed in 2 scenarios]
 
 Browser_Menu_PageList:: ; 4E:4D7B
 	farcall Palette_FadeOutToWhite
@@ -1306,6 +1310,8 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4E_4E11
+
+; ---- code $4DE4-$4E11 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D7B-4E60 by apply_coverage --split
 	jr nz, Label_4E_4DED
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -1331,6 +1337,8 @@ Label_4E_4DFD:: ; 4E:4DFD
 	ld [hl], a
 	ld a, $FF
 	jr Label_4E_4E12
+
+; ---- code $4E11-$4E60 (79 bytes) [CONFIRMED] 32 insn(s) executed; cut out of the PROBABLE region 4D7B-4E60 by apply_coverage --split [executed in 2 scenarios]
 
 Label_4E_4E11:: ; 4E:4E11
 	xor a, a
@@ -1381,7 +1389,7 @@ Table_4E_4E60:: ; 4E:4E60
 	dw Label_4E_5088
 	dw Label_4E_5107
 
-; ---- code $4E6E-$4F1A (172 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by table from 4E:4E5D (PROBABLE code)
+; ---- code $4E6E-$4E8C (30 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by table from 4E:4E5D (PROBABLE code) | 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split
 
 Label_4E_4E6E:: ; 4E:4E6E
 	ld de, $C380
@@ -1392,6 +1400,8 @@ Label_4E_4E6E:: ; 4E:4E6E
 	ld a, $03
 	farcall PageCache_Pop
 	farcall Html_ParsePage
+
+; ---- code $4E8C-$4ED6 (74 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_4E8C:: ; 4E:4E8C
 	jp Browser_PageView_Enter
@@ -1419,6 +1429,8 @@ Label_4E_4E8F:: ; 4E:4E8F
 	ldh [rSVBK], a
 	jr Label_4E_4EE6
 
+; ---- code $4ED6-$4EE6 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split
+
 Label_4E_4ED6:: ; 4E:4ED6
 	ldh a, [hWRAMBank]
 	push af
@@ -1428,6 +1440,8 @@ Label_4E_4ED6:: ; 4E:4ED6
 	call Function_00_20E8
 	pop af
 	ldh [rSVBK], a
+
+; ---- code $4EE6-$4F1A (52 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4E6E-4F1A by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_4EE6:: ; 4E:4EE6
 	ld a, $00
@@ -1459,7 +1473,7 @@ Table_4E_4F1A:: ; 4E:4F1A
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-; ---- code $4F26-$4FB7 (145 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by table from 4E:4F17 (PROBABLE code)
+; ---- code $4F26-$4F32 (12 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by table from 4E:4F17 (PROBABLE code) | 5 insn(s) executed; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_4F26:: ; 4E:4F26
 	ld a, $01
@@ -1467,9 +1481,13 @@ Label_4E_4F26:: ; 4E:4F26
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jp nz, Label_4E_4CEE
+
+; ---- code $4F32-$4F39 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage --split
 	ld a, $00
 	ldh [hDialogResult], a
 	jp Label_4E_4CEE
+
+; ---- code $4F39-$4F9A (97 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage --split [executed in 1 scenarios]
 
 Browser_Menu_DisconnectDo:: ; 4E:4F39
 	xor a, a
@@ -1502,7 +1520,11 @@ Browser_Menu_EndPrompt:: ; 4E:4F81
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr nz, Label_4E_4F9C
+
+; ---- code $4F9A-$4F9C (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage --split
 	ld e, $14
+
+; ---- code $4F9C-$4FB7 (27 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4F26-4FB7 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_4F9C:: ; 4E:4F9C
 	farcall Dialog_ShowMonitored
@@ -1523,7 +1545,7 @@ Table_4E_4FB7:: ; 4E:4FB7
 	dw Browser_ConnectionNotice
 	dw Browser_Menu_AdapterError
 
-; ---- code $4FC3-$4FF6 (51 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 2; entered by table from 4E:4FB4 (PROBABLE code)
+; ---- code $4FC3-$4FD6 (19 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 2; entered by table from 4E:4FB4 (PROBABLE code) | 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FC3-4FF6 by apply_coverage --split
 
 Label_4E_4FC3:: ; 4E:4FC3
 	ld a, $02
@@ -1535,6 +1557,8 @@ Label_4E_4FC3:: ; 4E:4FC3
 	ldh [hDialogResult], a
 	jp Label_4E_4CEE
 
+; ---- code $4FD6-$4FEE (24 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FC3-4FF6 by apply_coverage --split [executed in 1 scenarios]
+
 Browser_Menu_EndDo:: ; 4E:4FD6
 	xor a, a
 	ld [wBrowserFetchResult], a
@@ -1543,6 +1567,8 @@ Browser_Menu_EndDo:: ; 4E:4FD6
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp nz, Label_4E_4FF6
+
+; ---- code $4FEE-$4FF6 (8 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FC3-4FF6 by apply_coverage --split
 	farcall Comm_EndOffline
 	jr Browser_Leave_Summary
 
@@ -1574,7 +1600,7 @@ Browser_Leave_OnError:: ; 4E:5018
 	bit 4, a
 	jr nz, Label_4E_4FF6
 
-; ---- code $501F-$5204 (485 bytes) [PROBABLE] 157 insn(s) reached by static flow only; seeds: exec x157; min discovery hops 0; fall-through of the jrcc at 4E:501D (executed)
+; ---- code $501F-$5040 (33 bytes) [PROBABLE] 157 insn(s) reached by static flow only; seeds: exec x157; min discovery hops 0; fall-through of the jrcc at 4E:501D (executed) | 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 501F-5204 by apply_coverage --split
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, Label_4E_502D
@@ -1589,6 +1615,8 @@ Label_4E_502D:: ; 4E:502D
 	ld [wRam_C26F], a
 	jr Browser_Leave_Summary
 
+; ---- code $5040-$504F (15 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage --split [executed in 1 scenarios]
+
 Label_4E_5040:: ; 4E:5040
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -1596,7 +1624,11 @@ Label_4E_5040:: ; 4E:5040
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, Label_4E_5055
+
+; ---- code $504F-$5055 (6 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 501F-5204 by apply_coverage --split
 	farcall Mobile_FetchResult
+
+; ---- code $5055-$5068 (19 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5055:: ; 4E:5055
 	ld a, $36
@@ -1607,8 +1639,12 @@ Label_4E_5055:: ; 4E:5055
 	ld [wRam_C26F], a
 	jr Label_4E_506E
 
+; ---- code $5068-$506E (6 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 501F-5204 by apply_coverage --split
+
 Label_4E_5068:: ; 4E:5068
 	farcall Comm_DisconnectWithProgress
+
+; ---- code $506E-$5088 (26 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_506E:: ; 4E:506E
 	farcall CommTime_ShowSummary
@@ -1624,6 +1660,8 @@ Label_4E_5082:: ; 4E:5082
 	ld [wRam_C1DC], a
 	jr Label_4E_509D
 
+; ---- code $5088-$509D (21 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 501F-5204 by apply_coverage --split
+
 Label_4E_5088:: ; 4E:5088
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -1636,6 +1674,8 @@ Label_4E_5096:: ; 4E:5096
 	ld a, $10
 	ld [wRam_C1DC], a
 	jr Label_4E_509D
+
+; ---- code $509D-$5107 (106 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 501F-5204 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_509D:: ; 4E:509D
 	ld de, $C380
@@ -1677,6 +1717,8 @@ Label_4E_50EC:: ; 4E:50EC
 
 Label_4E_5104:: ; 4E:5104
 	jp Browser_PageView_Enter
+
+; ---- code $5107-$5204 (253 bytes) [PROBABLE] 79 insn(s) never executed in the traced runs; cut out of the PROBABLE region 501F-5204 by apply_coverage --split
 
 Label_4E_5107:: ; 4E:5107
 	xor a, a
@@ -1828,7 +1870,7 @@ Label_4E_522E:: ; 4E:522E
 	farcall Browser_UploadTitleCanvas
 	ret
 
-; ---- code $5274-$52E7 (115 bytes) [PROBABLE] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by far from 4E:521D (PROBABLE code)
+; ---- code $5274-$5282 (14 bytes) [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by far from 4E:521D (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split [executed in 2 scenarios]
 
 Browser_MakeShortTitle:: ; 4E:5274
 	push hl
@@ -1844,6 +1886,8 @@ Label_4E_527A:: ; 4E:527A
 	jr z, Label_4E_52D5
 	cp a, $81
 	jr c, Label_4E_5296
+
+; ---- code $5282-$5296 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split
 	cp a, $A0
 	jr c, Label_4E_5297
 	cp a, $E0
@@ -1854,6 +1898,8 @@ Label_4E_527A:: ; 4E:527A
 	jr c, Label_4E_5296
 	cp a, $FA
 	jr c, Label_4E_5297
+
+; ---- code $5296-$52A5 (15 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split [executed in 2 scenarios]
 
 Label_4E_5296:: ; 4E:5296
 	or a, a
@@ -1869,6 +1915,8 @@ Label_4E_5297:: ; 4E:5297
 	inc c
 	jr Label_4E_527A
 
+; ---- code $52A5-$52B2 (13 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split
+
 Label_4E_52A5:: ; 4E:52A5
 	ld a, c
 	cp a, $13
@@ -1881,14 +1929,20 @@ Label_4E_52A5:: ; 4E:52A5
 	inc c
 	jr Label_4E_527A
 
+; ---- code $52B2-$52B7 (5 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split [executed in 2 scenarios]
+
 Label_4E_52B2:: ; 4E:52B2
 	ld a, b
 	cp a, $13
 	jr c, Label_4E_52BD
+
+; ---- code $52B7-$52BD (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split
 	ld a, e
 	cp a, $13
 	jr c, Label_4E_52BD
 	ld a, d
+
+; ---- code $52BD-$52D5 (24 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split [executed in 2 scenarios]
 
 Label_4E_52BD:: ; 4E:52BD
 	ld de, $C340
@@ -1908,6 +1962,8 @@ Label_4E_52BD:: ; 4E:52BD
 	inc bc
 	jr Label_4E_52E4
 
+; ---- code $52D5-$52E4 (15 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split
+
 Label_4E_52D5:: ; 4E:52D5
 	ld de, $C340
 	pop hl
@@ -1918,6 +1974,8 @@ Label_4E_52D5:: ; 4E:52D5
 	push bc
 	call CopyBytes
 	pop bc
+
+; ---- code $52E4-$52E7 (3 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 5274-52E7 by apply_coverage --split [executed in 2 scenarios]
 
 Label_4E_52E4:: ; 4E:52E4
 	xor a, a
@@ -1943,7 +2001,7 @@ Label_4E_52FC:: ; 4E:52FC
 	jr nz, Label_4E_52FC
 	jr Label_4E_532B
 
-; ---- code $5306-$532B (37 bytes) [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 4E:52FF (executed)
+; ---- code $5306-$531C (22 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 4E:52FF (executed) | 12 insn(s) executed; cut out of the PROBABLE region 5306-532B by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5306:: ; 4E:5306
 	ld de, $C380
@@ -1960,6 +2018,8 @@ Label_4E_530A:: ; 4E:530A
 	call Browser_FindAnchor
 	or a, a
 	jr z, Label_4E_532B
+
+; ---- code $531C-$532B (15 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5306-532B by apply_coverage --split
 	ld hl, $D602
 	add hl, de
 	add hl, de
@@ -1984,7 +2044,7 @@ Label_4E_532B:: ; 4E:532B
 	call Function_00_07CB
 	jp Browser_DrawScrollIndicators
 
-; ---- code $534B-$5390 (69 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 2; entered by call from 4E:5316 (PROBABLE code)
+; ---- code $534B-$536F (36 bytes) [CONFIRMED] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 2; entered by call from 4E:5316 (PROBABLE code) | 26 insn(s) executed; cut out of the PROBABLE region 534B-5390 by apply_coverage --split [executed in 1 scenarios]
 
 Browser_FindAnchor:: ; 4E:534B
 	ld a, l
@@ -2017,9 +2077,13 @@ Label_4E_5366:: ; 4E:5366
 	inc de
 	cp a, $41
 	jr c, Label_4E_5375
+
+; ---- code $536F-$5375 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 534B-5390 by apply_coverage --split
 	cp a, $5B
 	jr nc, Label_4E_5375
 	add a, $20
+
+; ---- code $5375-$537E (9 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 534B-5390 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5375:: ; 4E:5375
 	ld c, a
@@ -2028,15 +2092,21 @@ Label_4E_5375:: ; 4E:5375
 	jr z, Label_4E_538A
 	cp a, $41
 	jr c, Label_4E_5384
+
+; ---- code $537E-$5384 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 534B-5390 by apply_coverage --split
 	cp a, $5B
 	jr nc, Label_4E_5384
 	add a, $20
+
+; ---- code $5384-$538A (6 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 534B-5390 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5384:: ; 4E:5384
 	cp a, c
 	jr z, Label_4E_5366
 	pop bc
 	jr Label_4E_5391
+
+; ---- code $538A-$5390 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 534B-5390 by apply_coverage --split
 
 Label_4E_538A:: ; 4E:538A
 	sub a, c
@@ -2049,7 +2119,7 @@ Label_4E_538A:: ; 4E:538A
 Data_4E_5390:: ; 4E:5390
 	db $C1
 
-; ---- code $5391-$53A1 (16 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3; entered by jrcc from 4E:5367 (PROBABLE code)
+; ---- code $5391-$539A (9 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 3; entered by jrcc from 4E:5367 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5391:: ; 4E:5391
 	pop de
@@ -2059,12 +2129,18 @@ Label_4E_5391:: ; 4E:5391
 	ld h, a
 	jr Label_4E_5354
 
+; ---- code $539A-$539B (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5391-53A1 by apply_coverage --split
+
 Label_4E_539A:: ; 4E:539A
 	inc a
+
+; ---- code $539B-$539D (2 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5391-53A1 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_539B:: ; 4E:539B
 	pop de
 	ret
+
+; ---- code $539D-$53A1 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5391-53A1 by apply_coverage --split
 
 Label_4E_539D:: ; 4E:539D
 	ld de, $FFFF
@@ -2608,7 +2684,7 @@ Label_4E_56BC:: ; 4E:56BC
 	cp a, b
 	jr nz, Label_4E_56CC
 
-; ---- code $56C9-$56CC (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4E:5699 (executed)
+; ---- code $56C9-$56CC (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4E:5699 (executed) [executed in 1 scenarios]
 
 Label_4E_56C9:: ; 4E:56C9
 	xor a, a
@@ -3276,7 +3352,7 @@ Label_4E_59F9:: ; 4E:59F9
 Label_4E_5A6C:: ; 4E:5A6C
 	ret
 
-; ---- code $5A6D-$5CB6 (585 bytes) [PROBABLE] 416 insn(s) reached by static flow only; seeds: exec x265, site x5, table x146; min discovery hops 0; run starts at an entry of the code-pointer table at 4E:589B
+; ---- code $5A6D-$5A9A (45 bytes) [CONFIRMED] 416 insn(s) reached by static flow only; seeds: exec x265, site x5, table x146; min discovery hops 0; run starts at an entry of the code-pointer table at 4E:589B | 28 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios]
 
 Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ld h, d
@@ -3308,6 +3384,8 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ldh [hRam_FFC3], a
 	jr Label_4E_5AB8
 
+; ---- code $5A9A-$5AB8 (30 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split
+
 Label_4E_5A9A:: ; 4E:5A9A
 	ldh a, [hBrowserSelectedLink]
 	ld b, a
@@ -3329,6 +3407,8 @@ Label_4E_5AB2:: ; 4E:5AB2
 	ld a, $01
 	ldh [hRam_FFC2], a
 	ldh [hRam_FFC3], a
+
+; ---- code $5AB8-$5B26 (110 bytes) [CONFIRMED] 67 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5AB8:: ; 4E:5AB8
 	ldh a, [hBrowserDrawYOffset]
@@ -3401,6 +3481,8 @@ Label_4E_5B22:: ; 4E:5B22
 	ldh [hRam_FFD7], a
 	jr Label_4E_5B35
 
+; ---- code $5B26-$5B35 (15 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split
+
 Label_4E_5B26:: ; 4E:5B26
 	ld e, $00
 	ldh a, [hRam_FFCA]
@@ -3415,6 +3497,8 @@ Label_4E_5B26:: ; 4E:5B26
 Label_4E_5B33:: ; 4E:5B33
 	ldh [hRam_FFD7], a
 
+; ---- code $5B35-$5B45 (16 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios]
+
 Label_4E_5B35:: ; 4E:5B35
 	ldh a, [hRam_FFC9]
 	or a, a
@@ -3426,11 +3510,17 @@ Label_4E_5B35:: ; 4E:5B35
 	sub a, d
 	cp a, l
 	jr c, Label_4E_5B46
+
+; ---- code $5B45-$5B46 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split
 	ld a, l
+
+; ---- code $5B46-$5B4A (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5B46:: ; 4E:5B46
 	ldh [hRam_FFD6], a
 	jr Label_4E_5B59
+
+; ---- code $5B4A-$5B59 (15 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split
 
 Label_4E_5B4A:: ; 4E:5B4A
 	ld d, $00
@@ -3445,6 +3535,8 @@ Label_4E_5B4A:: ; 4E:5B4A
 
 Label_4E_5B57:: ; 4E:5B57
 	ldh [hRam_FFD6], a
+
+; ---- code $5B59-$5CB6 (349 bytes) [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4E_5B59:: ; 4E:5B59
 	pop hl
@@ -4561,7 +4653,7 @@ Function_4E_6196::
 	ld [wBrowserTimerLastSec], a
 	ret
 
-; ---- code $6291-$6543 (690 bytes) [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0; entered by far from 4E:4002 (PROBABLE code)
+; ---- code $6291-$6543 (690 bytes) [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0; entered by far from 4E:4002 (PROBABLE code) | forced execution: 346/346 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_4E_6291:: ; 4E:6291
 	call LCDOff

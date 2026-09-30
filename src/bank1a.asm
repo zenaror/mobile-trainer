@@ -224,10 +224,14 @@ MobileDict_HandleDpad:: ; 1A:41E5
 	bit 4, a
 	jp nz, MobileDict_NextCategory
 
-; ---- code $41F2-$4238 (70 bytes) [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed)
+; ---- code $41F2-$41F7 (5 bytes) [CONFIRMED] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed) | 2 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 5 scenarios]
 	bit 5, a
 	jp nz, MobileDict_PrevCategory
+
+; ---- code $41F7-$41F8 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split
 	ret
+
+; ---- code $41F8-$4238 (64 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 1 scenarios]
 
 MobileDict_CursorUp:: ; 1A:41F8
 	ld a, [wRam_C0D6]
@@ -291,7 +295,7 @@ MobileDict_CursorDown:: ; 1A:4238
 	call MobileDict_DrawRowHighlight
 	ret
 
-; ---- code $4263-$4281 (30 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed)
+; ---- code $4263-$4281 (30 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
 
 MobileDict_ScrollDown:: ; 1A:4263
 	ld hl, $C0E5
@@ -424,7 +428,7 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	or a, a
 	jr z, Label_1A_4351
 
-; ---- code $4346-$4351 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed)
+; ---- code $4346-$4351 (11 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
 	ld de, $2048
 	ld hl, $DA20
 	call Function_00_0A65

@@ -7,7 +7,7 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank50", ROMX[$4000], BANK[$50]
 
-; ---- code $4000-$4244 (580 bytes) [PROBABLE] 217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code)
+; ---- code $4000-$4101 (257 bytes) [CONFIRMED] 217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code) | 99 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 2 scenarios]
 
 CommNotice_ShowDialog:: ; 50:4000
 	ld a, [wRam_C1D0]
@@ -113,6 +113,8 @@ CommNotice_RunDialog:: ; 50:4061
 	ld a, [wRam_C0D8]
 	or a, a
 	jr nz, Label_50_4129
+
+; ---- code $4101-$4129 (40 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
 	ld a, $F0
 	ld hl, $C26E
 	call ReadByteFar
@@ -132,12 +134,16 @@ Label_50_4121:: ; 50:4121
 	ld [wRam_C1CD], a
 	jp CommNotice_DrawScreenAndLoop
 
+; ---- code $4129-$4135 (12 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 4 scenarios]
+
 Label_50_4129:: ; 50:4129
 	ld a, $F0
 	ld hl, $C26E
 	call ReadByteFar
 	cp a, $3C
 	jr c, Label_50_4148
+
+; ---- code $4135-$4148 (19 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
 	ld a, $F0
 	ld hl, $C2D6
 	call ReadByteFar
@@ -146,6 +152,8 @@ Label_50_4129:: ; 50:4129
 	ld a, $02
 	ld [wRam_C1CD], a
 	jr Label_50_414F
+
+; ---- code $4148-$4173 (43 bytes) [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 4 scenarios]
 
 Label_50_4148:: ; 50:4148
 	ld a, $04
@@ -164,6 +172,8 @@ Label_50_414F:: ; 50:414F
 	ld a, $50
 	farcall Palette_LoadToBuffer
 	jp CommNotice_DrawScreenAndLoop
+
+; ---- code $4173-$4244 (209 bytes) [PROBABLE] 75 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
 
 Label_50_4173:: ; 50:4173
 	ld de, $9000
@@ -312,7 +322,7 @@ Table_50_42AC:: ; 50:42AC
 	dw Label_50_430A
 	dw Label_50_42B6
 
-; ---- code $42B6-$438A (212 bytes) [PROBABLE] 109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4; entered by table from 50:42A9 (PROBABLE code)
+; ---- code $42B6-$42DD (39 bytes) [CONFIRMED] 109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4; entered by table from 50:42A9 (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
 
 Label_50_42B6:: ; 50:42B6
 	ldh a, [hJoyPressedRepeat]
@@ -333,9 +343,13 @@ Label_50_42B6:: ; 50:42B6
 	or a, a
 	ld a, b
 	jp nz, Label_50_42E4
+
+; ---- code $42DD-$42E4 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
 	cp a, $0A
 	jr z, Label_50_42EB
 	jp Label_50_429A
+
+; ---- code $42E4-$430A (38 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 2 scenarios]
 
 Label_50_42E4:: ; 50:42E4
 	cp a, $0A
@@ -364,8 +378,12 @@ Label_50_4304:: ; 50:4304
 	xor a, $01
 	ret
 
+; ---- code $430A-$430C (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+
 Label_50_430A:: ; 50:430A
 	jr Label_50_429A
+
+; ---- code $430C-$431C (16 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 1 scenarios]
 
 CommNotice_HandleLeftRight:: ; 50:430C
 	ld a, [wRam_C0D8]
@@ -377,6 +395,8 @@ CommNotice_HandleLeftRight:: ; 50:430C
 	bit 5, a
 	jr nz, Label_50_431C
 	ret
+
+; ---- code $431C-$4338 (28 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
 
 Label_50_431C:: ; 50:431C
 	ld a, [wRam_C0D4]
@@ -393,6 +413,8 @@ Label_50_431C:: ; 50:431C
 	ldh [rSVBK], a
 	ret
 
+; ---- code $4338-$4348 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
+
 CommNotice_DrawChoiceCursor:: ; 50:4338
 	ld a, [wRam_C0D4]
 	or a, a
@@ -402,11 +424,15 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 	call Function_00_0A65
 	ret
 
+; ---- code $4348-$4352 (10 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+
 Label_50_4348:: ; 50:4348
 	ld de, $6757
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
+
+; ---- code $4352-$438A (56 bytes) [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
 
 CommNotice_DrawMinuteDigit:: ; 50:4352
 	ld a, [wRam_C1CD]

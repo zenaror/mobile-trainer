@@ -66,10 +66,12 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	and a, $80
 	jr z, Label_4C_40D3
 
-; ---- code $406F-$40D3 (100 bytes) [PROBABLE] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 0; fall-through of the jrcc at 4C:406D (executed)
+; ---- code $406F-$4076 (7 bytes) [CONFIRMED] 31 insn(s) reached by static flow only; seeds: exec x31; min discovery hops 0; fall-through of the jrcc at 4C:406D (executed) | 3 insn(s) executed; cut out of the PROBABLE region 406F-40D3 by apply_coverage --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_4C_40B4
+
+; ---- code $4076-$40B4 (62 bytes) [PROBABLE] 18 insn(s) never executed in the traced runs; cut out of the PROBABLE region 406F-40D3 by apply_coverage --split
 	farcall Mobile_BeginDisconnect
 
 Label_4C_407C:: ; 4C:407C
@@ -95,11 +97,17 @@ Label_4C_409B:: ; 4C:409B
 	farcall CommProgress_Step
 	jp Label_4C_409B
 
+; ---- code $40B4-$40BC (8 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 406F-40D3 by apply_coverage --split [executed in 1 scenarios]
+
 Label_4C_40B4:: ; 4C:40B4
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp z, Label_4C_40C2
+
+; ---- code $40BC-$40C2 (6 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 406F-40D3 by apply_coverage --split
 	farcall Mobile_FetchResult
+
+; ---- code $40C2-$40D3 (17 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 406F-40D3 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4C_40C2:: ; 4C:40C2
 	ld a, $36
@@ -157,12 +165,14 @@ Label_4C_4123:: ; 4C:4123
 	ld [wBrowserFetchResult], a
 	ret
 
-; ---- code $4132-$4251 (287 bytes) [PROBABLE] 110 insn(s) reached by static flow only; seeds: exec x110; min discovery hops 1; entered by jrcc from 4C:411D (PROBABLE code)
+; ---- code $4132-$4138 (6 bytes) [PROBABLE] 110 insn(s) reached by static flow only; seeds: exec x110; min discovery hops 1; entered by jrcc from 4C:411D (PROBABLE code) | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4132-4251 by apply_coverage --split
 
 Label_4C_4132:: ; 4C:4132
 	ld a, $00
 	ld [wBrowserFetchResult], a
 	ret
+
+; ---- code $4138-$41D4 (156 bytes) [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage --split [executed in 3 scenarios]
 
 Label_4C_4138:: ; 4C:4138
 	farcall Mobile_BeginCancel
@@ -233,6 +243,8 @@ Label_4C_41BB:: ; 4C:41BB
 	farcall CommProgress_Step
 	jp Label_4C_41BB
 
+; ---- code $41D4-$41FB (39 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4132-4251 by apply_coverage --split
+
 Label_4C_41D4:: ; 4C:41D4
 	farcall Mobile_BeginCancel
 
@@ -249,6 +261,8 @@ Label_4C_41DA:: ; 4C:41DA
 Label_4C_41F3:: ; 4C:41F3
 	ld a, $36
 	farcall MobileAPI
+
+; ---- code $41FB-$421F (36 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage --split [executed in 2 scenarios]
 
 Label_4C_41FB:: ; 4C:41FB
 	ld a, $01
@@ -267,6 +281,8 @@ Label_4C_41FB:: ; 4C:41FB
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_424C
+
+; ---- code $421F-$424C (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4132-4251 by apply_coverage --split
 	jr nz, Label_4C_4228
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -292,6 +308,8 @@ Label_4C_4238:: ; 4C:4238
 	ld [hl], a
 	ld a, $FF
 	jr Label_4C_424D
+
+; ---- code $424C-$4251 (5 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4132-4251 by apply_coverage --split [executed in 3 scenarios]
 
 Label_4C_424C:: ; 4C:424C
 	xor a, a
@@ -624,11 +642,13 @@ Label_4C_44E8:: ; 4C:44E8
 	cp a, b
 	jr c, Label_4C_452E
 
-; ---- code $4501-$452E (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:44FF (executed)
+; ---- code $4501-$450A (9 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:44FF (executed) | 4 insn(s) executed; cut out of the PROBABLE region 4501-452E by apply_coverage --split [executed in 2 scenarios]
 	jr nz, Label_4C_450A
 	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_452E
+
+; ---- code $450A-$452E (36 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4501-452E by apply_coverage --split
 
 Label_4C_450A:: ; 4C:450A
 	ld a, [wRam_C26E]
@@ -812,11 +832,13 @@ Label_4C_463A:: ; 4C:463A
 	cp a, b
 	jr c, Label_4C_4684
 
-; ---- code $4657-$4684 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:4655 (executed)
+; ---- code $4657-$4660 (9 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:4655 (executed) | 4 insn(s) executed; cut out of the PROBABLE region 4657-4684 by apply_coverage --split [executed in 2 scenarios]
 	jr nz, Label_4C_4660
 	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_4684
+
+; ---- code $4660-$4684 (36 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4657-4684 by apply_coverage --split
 
 Label_4C_4660:: ; 4C:4660
 	ld a, [wRam_C26E]
@@ -936,7 +958,7 @@ Label_4C_46EB:: ; 4C:46EB
 	farcall CommPanel_Step
 	ret
 
-; ---- code $46F4-$47C4 (208 bytes) [PROBABLE] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 2; entered by far from 4E:4F55 (PROBABLE code)
+; ---- code $46F4-$472B (55 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 2; entered by far from 4E:4F55 (PROBABLE code) | 16 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split [executed in 4 scenarios]
 
 Comm_Disconnect:: ; 4C:46F4
 	ld a, $FF
@@ -957,6 +979,8 @@ Label_4C_4706:: ; 4C:4706
 	call Function_00_044B
 	farcall Joypad_UpdateIdleFrames
 	jp Label_4C_4706
+
+; ---- code $472B-$476D (66 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split
 
 Label_4C_472B:: ; 4C:472B
 	farcall Mobile_BeginCancel
@@ -983,6 +1007,8 @@ Label_4C_4765:: ; 4C:4765
 	ld a, $36
 	farcall MobileAPI
 
+; ---- code $476D-$477E (17 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split [executed in 4 scenarios]
+
 Label_4C_476D:: ; 4C:476D
 	ld a, $09
 	ld [wRam_C26E], a
@@ -992,6 +1018,8 @@ Label_4C_476D:: ; 4C:476D
 	ld [wConnIconGfxRequest], a
 	ld [wCommSessionActive], a
 	ret
+
+; ---- code $477E-$47C4 (70 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split
 
 Comm_EndOffline:: ; 4C:477E
 	ld a, $02
@@ -1151,7 +1179,7 @@ Label_4C_4878:: ; 4C:4878
 	or a, e
 	ret z
 
-; ---- code $48B6-$4B54 (670 bytes) [PROBABLE] 314 insn(s) reached by static flow only; seeds: exec x314; min discovery hops 0; fall-through of the retcc at 4C:48B5 (executed)
+; ---- code $48B6-$497A (196 bytes) [CONFIRMED] 314 insn(s) reached by static flow only; seeds: exec x314; min discovery hops 0; fall-through of the retcc at 4C:48B5 (executed) | 90 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
 	ld a, l
 	ldh [hRam_FFD2], a
 	ld a, h
@@ -1247,8 +1275,12 @@ Label_4C_4952:: ; 4C:4952
 	xor a, a
 	jr Label_4C_497C
 
+; ---- code $497A-$497C (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
+
 Label_4C_497A:: ; 4C:497A
 	ld a, $FF
+
+; ---- code $497C-$4999 (29 bytes) [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
 
 Label_4C_497C:: ; 4C:497C
 	or a, a
@@ -1267,6 +1299,8 @@ Label_4C_4980:: ; 4C:4980
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_49C6
+
+; ---- code $4999-$49C6 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 	jr nz, Label_4C_49A2
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -1293,6 +1327,8 @@ Label_4C_49B2:: ; 4C:49B2
 	ld a, $FF
 	jr Label_4C_49C7
 
+; ---- code $49C6-$49E8 (34 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 2 scenarios]
+
 Label_4C_49C6:: ; 4C:49C6
 	xor a, a
 
@@ -1315,6 +1351,8 @@ Label_4C_49CF:: ; 4C:49CF
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4A15
+
+; ---- code $49E8-$4A15 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 	jr nz, Label_4C_49F1
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -1341,6 +1379,8 @@ Label_4C_4A01:: ; 4C:4A01
 	ld a, $FF
 	jr Label_4C_4A16
 
+; ---- code $4A15-$4A25 (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 2 scenarios]
+
 Label_4C_4A15:: ; 4C:4A15
 	xor a, a
 
@@ -1352,6 +1392,8 @@ Label_4C_4A16:: ; 4C:4A16
 	or a, a
 	jp nz, Label_4C_4AD6
 	jp Label_4C_4878
+
+; ---- code $4A25-$4A58 (51 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 
 Label_4C_4A25:: ; 4C:4A25
 	ld a, [wTimerEnable]
@@ -1375,6 +1417,8 @@ Label_4C_4A4C:: ; 4C:4A4C
 	xor a, a
 	ld [wMobileResultDetail], a
 	ld [wMobileResultDetail + 1], a
+
+; ---- code $4A58-$4A8E (54 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4C_4A58:: ; 4C:4A58
 	ldh a, [hRam_FFD0]
@@ -1405,6 +1449,8 @@ Label_4C_4A58:: ; 4C:4A58
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4ABB
+
+; ---- code $4A8E-$4ABB (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 	jr nz, Label_4C_4A97
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -1431,6 +1477,8 @@ Label_4C_4AA7:: ; 4C:4AA7
 	ld a, $FF
 	jr Label_4C_4ABC
 
+; ---- code $4ABB-$4ACE (19 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
+
 Label_4C_4ABB:: ; 4C:4ABB
 	xor a, a
 
@@ -1443,6 +1491,8 @@ Label_4C_4ABC:: ; 4C:4ABC
 	jp z, Label_4C_4878
 	cp a, $32
 	jp z, Label_4C_4878
+
+; ---- code $4ACE-$4AE2 (20 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 	ld a, $03
 	ld [wBrowserFetchResult], a
 	jr Label_4C_4AE7
@@ -1456,6 +1506,8 @@ Label_4C_4AD6:: ; 4C:4AD6
 	ld a, $01
 	ld [wRam_C1DC], a
 	jr Label_4C_4AE7
+
+; ---- code $4AE2-$4B1D (59 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4C_4AE2:: ; 4C:4AE2
 	ld a, $02
@@ -1490,6 +1542,8 @@ Label_4C_4AE7:: ; 4C:4AE7
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4B4A
+
+; ---- code $4B1D-$4B4A (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 	jr nz, Label_4C_4B26
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -1516,6 +1570,8 @@ Label_4C_4B36:: ; 4C:4B36
 	ld a, $FF
 	jr Label_4C_4B4B
 
+; ---- code $4B4A-$4B4E (4 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
+
 Label_4C_4B4A:: ; 4C:4B4A
 	xor a, a
 
@@ -1523,6 +1579,8 @@ Label_4C_4B4B:: ; 4C:4B4B
 	pop hl
 	or a, a
 	ret z
+
+; ---- code $4B4E-$4B54 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
 
 Label_4C_4B4E:: ; 4C:4B4E
 	ld a, $06
@@ -1976,7 +2034,7 @@ Label_4C_4E0A:: ; 4C:4E0A
 	cp a, $62
 	jr nz, Label_4C_4E0A
 
-; ---- code $4E1E-$4F06 (232 bytes) [PROBABLE] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0; entered by jrcc from 4C:4E18 (executed)
+; ---- code $4E1E-$4E40 (34 bytes) [CONFIRMED] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0; entered by jrcc from 4C:4E18 (executed) | 22 insn(s) executed; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4C_4E1E:: ; 4C:4E1E
 	inc bc
@@ -2007,7 +2065,11 @@ Label_4C_4E36:: ; 4C:4E36
 	ld a, c
 	or a, b
 	jr nz, Label_4C_4E36
+
+; ---- code $4E40-$4E42 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split
 	jr Label_4C_4E44
+
+; ---- code $4E42-$4F06 (196 bytes) [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split [executed in 1 scenarios]
 
 Label_4C_4E42:: ; 4C:4E42
 	inc hl

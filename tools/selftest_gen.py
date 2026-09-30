@@ -113,9 +113,9 @@ class Env:
         return files, data, sym
 
 
-def expect_error(env, needle, what):
+def expect_error(env, needle, what, strict=False):
     try:
-        env.model()
+        env.model(strict=strict)
     except GenError as e:
         check(needle in str(e), '%s: error did not mention %r:\n%s' % (what, needle, e))
         return
@@ -1499,14 +1499,420 @@ def test_text(tmp):
     return '%d comment round-trips, %d real text regions tile, 4 layouts/charsets rebuilt identically, %d config errors' % (nl, n, 8)
 
 
+# ------------------------------------------------------------------ bank-aware RAM names (contexts)
+
+def ctx_rom():
+    """bank 1: banked accesses D000/D001/A000/A002 + an unbanked C100 access; bank 0 empty."""
+    code = bytes_of(
+        'fa00d0',    # 4000 ld a, [$D000]
+        'ea01d0',    # 4003 ld [$D001], a
+        'fa00a0',    # 4006 ld a, [$A000]
+        'ea02a0',    # 4009 ld [$A002], a
+        'fa00c1',    # 400C ld a, [$C100]
+        '00',        # 400F nop
+        'c9',        # 4010 ret
+    )
+    return rom_of(2, {1: code + bytes(0x10) + bytes_of('01', '02', '03', '04')})     # 4011-4020 zero, 4021.. data
+
+
+CTX_HDR = '# bank\tstart\tend\twram_bank\tsram_bank\tstatus\tevidence\n'
+
+
+def ctx_env(tmp, name, ctx_rows, banked_rows=None, ram_rows=None):
+    env = Env(tmp, name, ctx_rom())
+    env.regions(1, [('4000', '4011', 'code', '', 'CONFIRMED', 'ctx code'), ('4011', '4021', 'zero', '', 'CONFIRMED', ''),
+                    ('4021', '4025', 'data', '', 'CONFIRMED', '')])
+    env.ram(ram_rows if ram_rows is not None else [('D000', 'wNeutD000', 4, 'array', 'HYPOTHESIS', 'neutral'),
+                                                  ('A000', 'sNeutA000', 4, 'array', 'HYPOTHESIS', 'neutral'),
+                                                  ('C100', 'wNeutC100', 1, 'byte', 'HYPOTHESIS', 'neutral')])
+    if banked_rows is not None:
+        env.write('ram_banked/x.tsv', '# bank\taddr\tname\tsize\ttype\tstatus\tevidence\n'
+                  + ''.join('\t'.join(str(x) for x in r) + '\n' for r in banked_rows))
+    if ctx_rows is not None:
+        env.write('ram_context.tsv', CTX_HDR + ''.join('\t'.join(str(x) for x in r) + '\n' for r in ctx_rows))
+    return env
+
+
+BANKED_OK = [('W1', 'D000', 'wOne', 2, 'array', 'PROBABLE', 't'), ('W2', 'D000', 'wTwo', 1, 'byte', 'PROBABLE', 't'),
+             ('S1', 'A000', 'sOne', 4, 'array', 'CONFIRMED', 't'), ('S0', 'A000', 'sZero', 1, 'byte', 'CONFIRMED', 't')]
+
+
+def test_ramctx(tmp):
+    """Bank-aware names: a banked name is used only inside a context range declaring that bank (boundaries exact),
+    conflicting contexts and malformed rows are errors, a missing context keeps the neutral name, bytes never change."""
+    n = 0
+    rej = 0
+    rows = [('01', '4000', '4003', 1, '-', 'CONFIRMED', 'W1 for the first load'),
+            ('01', '4003', '4006', 2, '-', 'PROBABLE', 'W2 for the store: wTwo does not cover D001, neutral name stays'),
+            ('01', '4006', '4009', '-', 1, 'CONFIRMED', 'S1'),
+            ('01', '4009', '400C', '-', 0, 'PROBABLE', 'S0: sZero does not cover A002')]
+    env = ctx_env(tmp, 'ctx_ok', rows, BANKED_OK)
+    model = env.model(strict=True)
+    files, built, sym = env.build_all(model)
+    check(built == env.rom, 'banked names changed bytes')
+    b1 = files['bank01.asm']
+    for txt in ('ld a, [wOne]', 'ld [wNeutD000 + 1], a', 'ld a, [sOne]', 'ld [sNeutA000 + 2], a', 'ld a, [wNeutC100]'):
+        check('\t' + txt + '\n' in b1, 'expected %r in the bank source:\n%s' % (txt, b1[:800]))
+    check(model.stats['banked_names'] == 2 and model.stats['banked_names_confirmed'] == 2, 'stats %r' % dict(model.stats))
+    ram = files['ram.inc']
+    check('DEF wOne EQU $D000 ; bank W1' in ram and 'DEF sZero EQU $A000 ; bank S0' in ram, 'ram.inc lacks the banked names')
+    n += 1
+    # size > 1 banked row gives name + k inside the extent; the range end is exclusive (4003 is not covered by 4000-4003)
+    env = ctx_env(tmp, 'ctx_k', [('01', '4000', '4006', 1, '-', 'CONFIRMED', 'both W accesses under W1')], BANKED_OK)
+    files, built, sym = env.build_all()
+    check(built == env.rom, 'bytes changed (k)')
+    check('ld [wOne + 1], a' in files['bank01.asm'], 'expected wOne + 1')
+    n += 1
+    # no contexts file, no banked file, banked file only, contexts only: neutral names everywhere
+    for label, ctx, bk in (('none', None, None), ('banked_only', None, BANKED_OK), ('ctx_only', rows, None)):
+        env = ctx_env(tmp, 'ctx_' + label, ctx, bk)
+        files, built, sym = env.build_all()
+        check(built == env.rom, 'bytes changed (%s)' % label)
+        s = files['bank01.asm']
+        check('ld a, [wNeutD000]' in s and 'ld [wNeutD000 + 1], a' in s and 'ld a, [sNeutA000]' in s and 'wOne' not in s and 'sOne' not in s,
+              'neutral names expected (%s)' % label)
+        n += 1
+    # a context of another bank never applies a name of this one; a range declaring both dimensions works
+    env = ctx_env(tmp, 'ctx_both', [('01', '4000', '4011', 1, 1, 'PROBABLE', 'both')], BANKED_OK)
+    files, built, sym = env.build_all()
+    s = files['bank01.asm']
+    check('ld a, [wOne]' in s and 'ld a, [sOne]' in s and 'ld [sNeutA000 + 2], a' not in s and 'ld [sOne + 2], a' in s, 'both dims: %s' % s[:400])
+    check(built == env.rom, 'bytes changed (both)')
+    n += 1
+    # errors
+    def bad(name, needle, ctx, banked=BANKED_OK, ram=None, stale=False):
+        nonlocal n, rej
+        e = ctx_env(tmp, 'ctxbad_' + name, ctx, banked, ram)
+        if stale:
+            # a stale row (range no longer instruction aligned / covers non-code) only warns, is ignored and names nothing; --strict refuses it
+            m = e.model()
+            check(any(needle in w for w in m.diag.warnings) and not m.ctx_at, '%s: stale row must warn and be ignored' % name)
+            expect_error(e, needle, name, strict=True)
+        else:
+            expect_error(e, needle, name)
+        n += 1
+        rej += 1
+    ok1 = ('01', '4000', '4003', 1, '-', 'CONFIRMED', 'x')
+    bad('conflict', 'conflicting contexts', [ok1, ('01', '4000', '4006', 2, '-', 'PROBABLE', 'y')])
+    bad('conflict_sram', 'conflicting contexts', [('01', '4006', '400C', '-', 1, 'PROBABLE', 'a'), ('01', '4009', '4010', '-', 2, 'PROBABLE', 'b')])
+    bad('midstart', 'instruction boundary', [('01', '4001', '4003', 1, '-', 'CONFIRMED', 'x')], stale=True)
+    bad('midend', 'instruction boundary', [('01', '4000', '4004', 1, '-', 'CONFIRMED', 'x')], stale=True)
+    bad('noncode', 'covers the zero region', [('01', '400C', '4013', 1, '-', 'CONFIRMED', 'x')], stale=True)
+    bad('outside_window', 'not inside the bank', [('01', '3F00', '4003', 1, '-', 'CONFIRMED', 'x')])
+    bad('nobank', 'does not exist', [('09', '4000', '4003', 1, '-', 'CONFIRMED', 'x')])
+    bad('wram0', 'wram_bank must be 1-7', [('01', '4000', '4003', 0, '-', 'CONFIRMED', 'x')])
+    bad('wram8', 'wram_bank must be 1-7', [('01', '4000', '4003', 8, '-', 'CONFIRMED', 'x')])
+    bad('sram4', 'sram_bank must be 0-3', [('01', '4006', '4009', '-', 4, 'CONFIRMED', 'x')])
+    bad('nodim', 'neither a wram_bank nor a sram_bank', [('01', '4000', '4003', '-', '-', 'CONFIRMED', 'x')])
+    bad('noevidence', 'needs evidence', [('01', '4000', '4003', 1, '-', 'CONFIRMED', '')])
+    bad('nostatus', 'must be one of', [('01', '4000', '4003', 1, '-', 'MAYBE', 'x')])
+    bad('short', 'need:', [('01', '4000', '4003')])
+    bad('hex', 'must be hex', [('01', 'zz', '4003', 1, '-', 'CONFIRMED', 'x')])
+    bad('banked_token', 'bank must be W1-W7', [ok1], [('W0', 'D000', 'wBad', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_token_s', 'bank must be W1-W7', [ok1], [('S4', 'A000', 'sBad', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_space', 'must lie inside', [ok1], [('W1', 'C000', 'wBad', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_space2', 'must lie inside', [ok1], [('S1', 'D000', 'wBad', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_edge', 'must lie inside', [ok1], [('W1', 'DFFF', 'wBad', 2, 'byte', 'PROBABLE', 't')])
+    bad('banked_overlap', 'overlaps', [ok1], [('W1', 'D000', 'wA', 4, 'array', 'PROBABLE', 't'), ('W1', 'D002', 'wB', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_dup_name', 'already defined', [ok1], [('W1', 'D000', 'wA', 1, 'byte', 'PROBABLE', 't'), ('W2', 'D000', 'wA', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_vs_neutral', 'already defined', [ok1], [('W1', 'D000', 'wNeutD000', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_hw', 'hardware.inc', [ok1], [('W1', 'D000', 'rLCDC', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_kw', 'keyword', [ok1], [('W1', 'D000', 'nop', 1, 'byte', 'PROBABLE', 't')])
+    bad('banked_short', 'need at least', [ok1], [('W1', 'D000')])
+    # different banks may reuse an address; same-bank overlap is the error above
+    e = ctx_env(tmp, 'ctx_reuse', [ok1], [('W1', 'D000', 'wA', 4, 'array', 'PROBABLE', 't'), ('W2', 'D001', 'wB', 1, 'byte', 'PROBABLE', 't'),
+                                        ('S1', 'D000'.replace('D', 'A'), 'sA', 1, 'byte', 'PROBABLE', 't')])
+    e.model(strict=True)
+    n += 1
+    # an equal claim by two overlapping rows is only a warning: --strict refuses it
+    e = ctx_env(tmp, 'ctx_same', [ok1, ('01', '4000', '4006', 1, '-', 'PROBABLE', 'y')], BANKED_OK)
+    e.model()
+    try:
+        e.model(strict=True)
+        raise Fail('--strict accepted a repeated context claim')
+    except GenError as ex:
+        check('repeats' in str(ex), 'message %s' % ex)
+    n += 1
+    # the inference tool must be able to load a config whose context/banked files are broken (it rewrites them)
+    e = ctx_env(tmp, 'ctx_broken', [('01', '4001', '4003', 1, '-', 'CONFIRMED', 'x')], [('W0', 'D000', 'wBad', 1, 'byte', 'PROBABLE', 't')])
+    m2, _d = gen_asm.load_model(e.rom_path, e.cfg, contexts=False, banked=False)
+    check(not m2.cfg.ram_context and not m2.cfg.ram_banked, 'contexts=False must skip the files')
+    n += 1
+    return '%d cases (names inside/outside context ranges, k offsets, both dimensions, %d rejected inputs)' % (n, rej)
+
+
+def accessors_of(chunk, base, s, e):
+    """(start, end, address) of every `ld [a16]` on a banked address in chunk[s:e]."""
+    out = []
+    p = s
+    while p < e:
+        ins = sm83.decode(chunk[:e], p, base + p)
+        if ins.imm16_kind == 'mem' and ins.imm16 is not None and (0xD000 <= ins.imm16 < 0xE000 or 0xA000 <= ins.imm16 < 0xC000):
+            out.append((p, p + ins.length, ins.imm16))
+        p += ins.length
+    return out
+
+
+def test_sweep_ctx(tmp):
+    """Whole real ROM as code with random banked names in every bank and random context ranges (instruction aligned):
+    names never change bytes, banked substitutions happen, --strict clean."""
+    check(os.path.exists(BASEROM), 'baserom.gbc missing')
+    rom = open(BASEROM, 'rb').read()
+    env = Env(tmp, 'sweepctx', rom)
+    rng = random.Random(4242)
+    hot = {}
+    ctx_rows = []
+    per_insn = []
+    for b in range(len(rom) // 0x4000):
+        base = 0 if b == 0 else 0x4000
+        chunk = rom[b * 0x4000:(b + 1) * 0x4000]
+        regs = sweep_regions(chunk, base)
+        env.regions(b, [('%04X' % (base + s), '%04X' % (base + e), k, '', 'HYPOTHESIS', 'selftest sweep') for s, e, k in regs])
+        for s, e, k in regs:
+            if k != 'code':
+                continue
+            p = s
+            starts = []
+            while p < e:
+                ins = sm83.decode(chunk[:e], p, base + p)
+                if ins.imm16_kind == 'mem' and ins.imm16 is not None and (0xD000 <= ins.imm16 < 0xE000 or 0xA000 <= ins.imm16 < 0xC000):
+                    hot[ins.imm16] = hot.get(ins.imm16, 0) + 1
+                starts.append((p, p + ins.length))
+                p += ins.length
+            # single-instruction ranges around banked accesses (so names get substituted), then a few random longer ranges
+            for (a0, a1, acc) in [(x, y, z) for x, y, z in accessors_of(chunk, base, s, e)]:
+                if rng.random() < 0.5:
+                    bk = rng.choice(range(1, 8)) if acc >= 0xD000 else rng.choice(range(0, 4))
+                    ctx_rows.append((b, base + a0, base + a1, bk if acc >= 0xD000 else '-', bk if acc < 0xD000 else '-'))
+            for _ in range(min(3, 1 + len(starts) // 20)):
+                i = rng.randrange(len(starts))
+                j = min(len(starts), i + rng.randrange(1, 40))
+                w = rng.choice(['-', 1, 2, 3, 4, 5, 6, 7])
+                sr = rng.choice(['-', 0, 1, 2, 3])
+                if w == '-' and sr == '-':
+                    w = 1
+                ctx_rows.append(((b, base + starts[i][0], base + starts[j - 1][1], w, sr)))
+    # de-overlap: keep rows of a bank that do not overlap an earlier row of the same bank
+    keep, last = [], {}
+    for r in sorted(ctx_rows, key=lambda r: (r[0], r[1])):
+        if r[0] in last and r[1] < last[r[0]]:
+            continue
+        last[r[0]] = r[2]
+        keep.append(r)
+    env.write('ram_context.tsv', ''.join('%02X\t%04X\t%04X\t%s\t%s\tHYPOTHESIS\tselftest\n' % r for r in keep))
+    banked = []
+    used = set()
+    for a in sorted(hot, key=lambda a: (-hot[a], a))[:200]:
+        for bk in rng.sample(range(1, 8) if a >= 0xD000 else range(0, 4), 3):
+            tok = ('W%d' if a >= 0xD000 else 'S%d') % bk
+            banked.append((tok, '%04X' % a, 'bSelf_%s_%04X' % (tok, a), rng.choice([1, 1, 2, 4]), 'byte', 'HYPOTHESIS', 'selftest'))
+    # extents must not overlap inside one bank
+    banked.sort(key=lambda r: (r[0], r[1]))
+    ok, lastend = [], {}
+    for r in banked:
+        a = int(r[1], 16)
+        if r[0] in lastend and a < lastend[r[0]]:
+            continue
+        lastend[r[0]] = a + r[3]
+        ok.append(r)
+    env.write('ram_banked/x.tsv', ''.join('\t'.join(str(x) for x in r) + '\n' for r in ok))
+    env.ram([('C0A0', 'wSelfBlob', 8, 'array', 'HYPOTHESIS', 'selftest')] + [('D%03X' % (a & 0xFFF), 'wSelfN_%04X' % a, 1, 'byte', 'HYPOTHESIS', 'selftest')
+                                                                          for a in sorted(hot)[:0]])
+    t0 = time.time()
+    model = env.model(strict=True)
+    files, built, sym = env.build_all(model)
+    check(built == rom, 'context/banked sweep rebuild differs from baserom')
+    check(model.stats.get('banked_names', 0) > 0, 'no banked substitution happened in the sweep: %r' % dict(model.stats))
+    return '%d context rows, %d banked names, %d substituted operands, %.0fs' % (len(keep), len(ok), model.stats['banked_names'], time.time() - t0)
+
+
+def infer_rom():
+    """bank 0 (+ an empty bank 1); offsets are relied upon by test_rambank_infer."""
+    b0 = bytearray(0x4000)
+
+    def put(off, data):
+        b0[off:off + len(data)] = data
+    put(0x00, bytes_of(
+        '3e01', 'e070',        # 0000 ld a,1 ; ldh [rSVBK],a          -> W=1
+        'cd2000',              # 0004 call $0020 (no bank effect)
+        'fa00d0',              # 0007 ld a,[$D000]                    -> W=1 static
+        '3e03', 'e070',        # 000A ld a,3 ; ldh [rSVBK],a          -> W=3
+        'cd3000',              # 000E call $0030 (sets W=5)
+        'fa01d0',              # 0011 ld a,[$D001]                    -> W=5 static
+        'cd4000',              # 0014 call $0040 (W from unknown)
+        'fa02d0',              # 0017 ld a,[$D002]                    -> unknown
+        'c9',                  # 001A ret
+    ))
+    put(0x20, bytes_of('c9'))
+    put(0x30, bytes_of('3e05', 'e070', 'c9'))
+    put(0x40, bytes_of('fa00c0', 'e070', 'c9'))
+    put(0x50, bytes_of('fa10d0', 'fa11d0', 'c9'))                     # entered by nobody: unknown callers, F-class from observations
+    put(0x60, bytes_of('cd4000', 'fa20d0', 'c9'))                     # unknown W after the call; I-class from an observation
+    put(0x70, bytes_of('3e02', 'ea0040', 'fa00a0', 'c9'))             # ld a,2 ; ld [$4000],a ; ld a,[$A000] -> S=2
+    return bytes(b0) + bytes(0x4000)
+
+
+def test_rambank_infer(tmp):
+    """tools/rambank_infer.py on a synthetic ROM: static constants through neutral / setting / unknown callees, routine-level and
+    instruction-level observations, conflicts with observations, output accepted by the generator."""
+    import rambank_infer as ri
+    rom = infer_rom()
+    env = Env(tmp, 'infer', rom)
+    env.regions(0, [('0000', '001B', 'code', '', 'CONFIRMED', 'main'), ('0020', '0021', 'code', '', 'CONFIRMED', 'neutral callee'),
+                    ('0030', '0035', 'code', '', 'CONFIRMED', 'sets W=5'), ('0040', '0046', 'code', '', 'CONFIRMED', 'unknown W'),
+                    ('0050', '0057', 'code', '', 'CONFIRMED', 'orphan'), ('0060', '0067', 'code', '', 'CONFIRMED', 'calls unknown'),
+                    ('0070', '0079', 'code', '', 'CONFIRMED', 'RAMB=2')])
+    env.ram([])
+
+    def obs_file(rows, name):
+        p = os.path.join(tmp, name)
+        with open(p, 'w') as f:
+            f.write('# bank\taddr\twram_mask\tsram_mask\tsram_enabled\tjoint_mask\tnscen\n')
+            for (a, w, s) in rows:
+                f.write('00\t%04X\t%02X\t%04X\t3\t0\t1\n' % (a, w, s))
+        return p
+
+    def run(obs_path, extra=()):
+        out = os.path.join(tmp, 'infer_ctx.tsv')
+        args = ['--config', env.cfg, '--rom', env.rom_path, '--obs', obs_path, '--out', out, '--report', os.path.join(tmp, 'infer_rep.md'),
+                '--conflicts', os.path.join(tmp, 'infer_conf.tsv')] + list(extra)
+        with contextlib.redirect_stdout(io.StringIO()):
+            rc = ri.main(args)
+        rows = mtcfg.load_ram_context(os.path.join(tmp, 'infer_dir'), 1, mtcfg.Diag()) if False else None
+        d = os.path.join(tmp, 'infer_cfg')
+        os.makedirs(d, exist_ok=True)
+        shutil.copy(out, os.path.join(d, 'ram_context.tsv'))
+        diag = mtcfg.Diag(True)
+        rows = mtcfg.load_ram_context(d, 2, diag)
+        return rc, rows, open(os.path.join(tmp, 'infer_conf.tsv')).read()
+
+    def find(rows, addr, dim):
+        for r in rows:
+            if r.start <= addr < r.end and getattr(r, dim) is not None:
+                return r
+        return None
+    # observations: 0007 executed under W1 (matches), 0011 not executed, 0050/0053/0056 routine entered under W4, 0063 under W2, 0075 S=2
+    obs = obs_file([(0x0007, 1 << 1, 1), (0x0050, 1 << 4, 1), (0x0053, 1 << 4, 1), (0x0056, 1 << 4, 1), (0x0063, 1 << 2, 1), (0x0075, 2, 1 << 2)], 'obs1.tsv')
+    rc, rows, conf = run(obs)
+    check(rc == 0, 'unexpected exit code %s' % rc)
+    r = find(rows, 0x0007, 'wram')
+    check(r is not None and r.wram == 1 and r.status == 'CONFIRMED', 'static W=1 executed -> CONFIRMED expected, got %r' % (r,))
+    r = find(rows, 0x0011, 'wram')
+    check(r is not None and r.wram == 5 and r.status == 'PROBABLE', 'static W=5 never executed -> PROBABLE expected, got %r' % (r,))
+    check(find(rows, 0x0017, 'wram') is None, 'W after an unknown callee must stay unknown')
+    r = find(rows, 0x0050, 'wram')
+    check(r is not None and r.wram == 4 and r.status == 'PROBABLE' and 'routine observation' in r.evidence, 'F-class row expected, got %r' % (r,))
+    r = find(rows, 0x0063, 'wram')
+    check(r is not None and r.wram == 2 and r.status == 'PROBABLE' and 'instruction observation' in r.evidence, 'I-class row expected, got %r' % (r,))
+    r = find(rows, 0x0075, 'sram')
+    check(r is not None and r.sram == 2 and r.status == 'CONFIRMED', 'static RAMB=2 executed -> CONFIRMED expected, got %r' % (r,))
+    check(conf.count('\n') == 1, 'unexpected conflicts:\n' + conf)
+    # a contradicting observation drops the claim (and its routine) and is reported
+    obs2 = obs_file([(0x0007, 1 << 2, 1)], 'obs2.tsv')
+    rc, rows2, conf2 = run(obs2)
+    check(rc == 2 and find(rows2, 0x0007, 'wram') is None and 'contradicted' in conf2, 'a conflicting observation must be reported and dropped (rc=%s)\n%s' % (rc, conf2))
+    rc, rows2, conf2 = run(obs2, ['--allow-conflicts'])
+    check(rc == 0, '--allow-conflicts must exit 0')
+    # no observations at all: static claims stay PROBABLE, no observation-only rows
+    obs3 = obs_file([], 'obs3.tsv')
+    rc, rows3, _c = run(obs3)
+    r = find(rows3, 0x0007, 'wram')
+    check(r is not None and r.status == 'PROBABLE' and find(rows3, 0x0050, 'wram') is None and find(rows3, 0x0063, 'wram') is None,
+          'without observations only PROBABLE static claims remain')
+    # --check is a pure comparison: 0 when the files on disk are current, 1 (and nothing written) when they are stale
+    def chk(obs_path):
+        with contextlib.redirect_stdout(io.StringIO()):
+            return ri.main(['--config', env.cfg, '--rom', env.rom_path, '--obs', obs_path, '--out', os.path.join(tmp, 'infer_ctx.tsv'),
+                            '--report', os.path.join(tmp, 'infer_rep.md'), '--conflicts', os.path.join(tmp, 'infer_conf.tsv'), '--check'])
+    run(obs3)                                                       # writes the outputs for obs3
+    before = open(os.path.join(tmp, 'infer_ctx.tsv')).read()
+    check(chk(obs3) == 0, '--check must succeed when the outputs are current')
+    check(chk(obs) == 1, '--check must fail when the outputs would change')
+    check(open(os.path.join(tmp, 'infer_ctx.tsv')).read() == before, '--check must not write')
+    return 'static W/S constants, callee summaries, F/I observation classes, conflict handling, --check'
+
+
+def test_banked_names(tmp):
+    """tools/build_ram_config.py: held-back banked proposals become bank-qualified names only where a context row makes the bank
+    unambiguous (stated bank == context bank at an `ld [a16]`; unstated bank derived only if unique and complete)."""
+    import build_ram_config as brc
+    rows = [('01', '4000', '4003', 1, '-', 'CONFIRMED', 'W1'), ('01', '4003', '4006', 2, '-', 'PROBABLE', 'W2'),
+            ('01', '4006', '4009', '-', 1, 'PROBABLE', 'S1')]
+    env = ctx_env(tmp, 'brc', rows, None)
+    model, _d = gen_asm.load_model(env.rom_path, env.cfg, None, False, banked=False)
+
+    def prop(grp, addr, name, size, ev, status='PROBABLE'):
+        return dict(grp=grp, line=1, addr=addr, name=name, size=size, type='byte', status=status, ev=ev)
+    props = [
+        prop('g1', 0xD000, 'wStated1', 1, 'WRAM bank 1: read at 01:4000 and 01:4003'),                   # W1 context at 4000 -> adopted
+        prop('g2', 0xD001, 'wStatedWrong', 1, 'WRAM bank 5 only role, code 01:4003'),                     # accessed only under W2 -> held
+        prop('g1', 0xA000, 'sStated1', 1, 'SRAM bank 1 flag, code 01:4006', 'CONFIRMED'),                 # S1 context -> adopted, status capped by context
+        prop('g3', 0xA002, 'sUnstated', 1, 'flag at 01:4009 without a bank'),                             # only access has no S context -> held
+        prop('g3', 0xD000, 'wStated1', 1, 'WRAM bank1 again, 01:4000'),                                   # second namer, same name -> merged
+        prop('g4', 0xD001, 'wUnstated', 1, 'buffer at 01:4003 (bank not stated)'),                        # single access, all under W2 -> derived
+    ]
+    inp = dict(rom0=[])
+    base = dict(taken={}, names={}, emitted={}, rom0=[])
+    out, held, adopted, lg = brc.resolve_banked(props, inp, base, model)
+    got = {(r['space'], r['bank'], r['addr']): r for r in out}
+    check(('w', 1, 0xD000) in got and got[('w', 1, 0xD000)]['name'] == 'wStated1' and got[('w', 1, 0xD000)]['groups'] == ['g1', 'g3'],
+          'stated W1 proposal of two namers must merge into one adopted row: %r' % (sorted(got),))
+    check(('s', 1, 0xA000) in got and got[('s', 1, 0xA000)]['status'] == 'PROBABLE', 'status must be capped by the PROBABLE S1 context: %r' % got.get(('s', 1, 0xA000)))
+    check(('w', 2, 0xD001) in got and 'bank derived' in got[('w', 2, 0xD001)]['ev'], 'unstated bank with a unique complete context must be derived')
+    check(('w', 5, 0xD001) not in got and any(p['name'] == 'wStatedWrong' for p, why in held), 'a stated bank without any access under it must stay held')
+    check(any(p['name'] == 'sUnstated' for p, why in held), 'an unstated bank with an access outside every context must stay held')
+    check(len(out) == 3, 'expected exactly 3 adopted rows, got %d' % len(out))
+    # stated_bank parsing
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'WRAM BANK 1: ...')) == ('w', 1), 'WRAM BANK 1')
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'WRAM1 buffer')) == ('w', 1), 'WRAM1')
+    check(brc.stated_bank(prop('g', 0xA100, 'x', 1, 'SRAM bank 2 only')) == ('s', 2), 'SRAM bank 2')
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'WRAM bank 1-3')) is None, 'a bank range is ambiguous')
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'WRAM bank 1 and WRAM bank 5')) is None, 'two banks are ambiguous')
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'SRAM bank 1')) is None, 'an SRAM bank for a WRAM address is rejected')
+    check(brc.stated_bank(prop('g', 0xD100, 'x', 1, 'WRAM bank 9')) is None, 'WRAM bank 9 does not exist')
+    return '%d adopted / %d held, stated_bank parsing' % (len(out), len(held))
+
+
+def test_ctx_real(tmp):
+    """The real config: contexts load (strict), no observation of the traces contradicts a context claim, every substituted operand
+    lies inside a range of the matching bank, and the generator still tiles the ROM."""
+    real, _diag = gen_asm.load_model(BASEROM, os.path.join(ROOT, 'config'), None, True)
+    files = real.generate()
+    obs_path = os.path.join(ROOT, 'analysis', 'rambank', 'observed_banks.tsv')
+    info = '%d context rows, %d banked names, %d instructions in contexts' % (len(real.cfg.ram_context), len(real.cfg.ram_banked), len(real.ctx_at))
+    if os.path.exists(obs_path):
+        n = bad = 0
+        with open(obs_path) as f:
+            for ln in f:
+                if ln.startswith('#') or not ln.strip():
+                    continue
+                c = ln.rstrip('\n').split('\t')
+                if not re.fullmatch(r'[0-9A-F]{2}', c[0]):
+                    continue
+                cx = real.ctx_at.get((int(c[0], 16), int(c[1], 16)))
+                if cx is None:
+                    continue
+                n += 1
+                if cx[0] is not None and int(c[2], 16) & ~(1 << cx[0]):
+                    bad += 1
+                if cx[1] is not None and int(c[3], 16) & ~(1 << cx[1]):
+                    bad += 1
+        check(bad == 0, '%d executed instructions were observed under a bank different from their context claim' % bad)
+        info += ', %d executed instructions consistent with the observations' % n
+    check(real.stats.get('banked_names', 0) == real.stats.get('banked_names_confirmed', 0) + real.stats.get('banked_names_probable', 0)
+          + real.stats.get('banked_names_hypothesis', 0), 'banked name statistics inconsistent')
+    return info + ', %d operands named by bank-qualified names' % real.stats.get('banked_names', 0)
+
+
+
 def unicodedata_cat(ch):
     import unicodedata
     return unicodedata.category(ch)
 
 
-TESTS = [('text', test_text), ('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
+TESTS = [('text', test_text), ('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('ramctx', test_ramctx), ('banked_names', test_banked_names), ('rambank_infer', test_rambank_infer), ('ctx_real', test_ctx_real), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
          ('determinism', test_determinism), ('compare_rom', test_compare_rom), ('progress', test_progress),
-         ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_conv', test_sweep_conv),
+         ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_ctx', test_sweep_ctx), ('sweep_conv', test_sweep_conv),
          ('sweep_conv_cuts', test_sweep_conv_cuts)]
 
 

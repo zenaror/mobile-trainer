@@ -1,21 +1,27 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4214	code	-	PROBABLE	231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code)
+4000	4214	code	-	CONFIRMED	231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code) [executed in 1 scenarios]
 4214	422C	words	Table_2A_4214	PROBABLE	SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4214 at 2A:41A3 (index = c*2, ld hl,[hl]; then + $00C9). Values are SRAM addresses, not ROM pointers
 422C	4274	code	-	CONFIRMED	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 11; entered by call from 2A:4046 (PROBABLE code) [executed in 1 scenarios]
 4274	4280	words	Table_2A_4274	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4274 at 2A:4246 (index e*2 then ld e,[hl]; ld h,[hl]). Values are SRAM addresses, not ROM pointers
-4280	4306	code	-	PROBABLE	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code)
+4280	4306	code	-	CONFIRMED	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code) [executed in 4 scenarios]
 4306	4312	words	Table_2A_4306	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$4306 at 2A:429B and 2A:42CD. Values are SRAM addresses, not ROM pointers
-4312	445F	code	-	PROBABLE	189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code)
+4312	445F	code	-	CONFIRMED	189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code) [executed in 4 scenarios]
 445F	446B	words	Table_2A_445F	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$445F at 2A:4324, 43D2, 4425. Values are SRAM addresses, not ROM pointers
 446B	4483	words	Table_2A_446B	PROBABLE	SRAM address table (12 words $A124..$AE13 (step $12D)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$446B at 2A:43BE and 2A:4411. Values are SRAM addresses, not ROM pointers
-4483	483B	code	-	PROBABLE	432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code)
+4483	44A9	code	-	CONFIRMED	432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
+44A9	44AD	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
+44AD	44EA	code	-	CONFIRMED	35 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
+44EA	4527	code	-	PROBABLE	30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
+4527	483B	code	-	CONFIRMED	348 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 1 scenarios]
 483B	4847	words	Table_2A_483B	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$483B at 2A:4821. Values are SRAM addresses, not ROM pointers
-4847	4A3D	code	-	PROBABLE	187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code)
+4847	4988	code	-	CONFIRMED	187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code) | 118 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 1 scenarios]
+4988	4998	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split
+4998	4A3D	code	-	CONFIRMED	64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 4 scenarios]
 4A3D	4A66	text	String_2A_4A3D	PROBABLE	text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
 4A66	4A6C	ptrtable	Table_2A_4A66	PROBABLE	code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 0/3 targets executed
 4A6C	4A93	text	String_2A_4A6C	PROBABLE	text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
 4A93	4AA0	zero	-	PROBABLE	13 bytes of $00 between the last string and the tiles at 4AA0 (padding)
-4AA0	4CD0	gfx	Tiles_2A_4AA0	PROBABLE	35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments
+4AA0	4CD0	gfx	Tiles_2A_4AA0	CONFIRMED	35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments [every byte read as data in 6 scenario(s)]
 4CD0	4FA0	data	Data_2A_4CD0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2A:417B: hl=$4CD0 a=$2A b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 4FA0	4FE0	data	Palette_2A_4FA0	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear), 8 palette groups: loaded by 'ld bc,$0040 ; ld de,$D800 ; ld hl,$4FA0 ; ld a,$2A ; far call 4F:4000' at 2A:4129-4139
 4FE0	51E0	gfx	Tiles_2A_4FE0	PROBABLE	32 tiles (512 bytes) 2bpp: rendered as coherent sprite/tile art; no HDMA call site found (the block sits between the palette 4FA0-4FE0 that is loaded via 4F:4000 and the palette 51E0-5220); bounds fixed by the neighbouring palettes
@@ -60,16 +66,18 @@
 5504	554B	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 2/18 scenarios)
 554B	55AD	code	-	PROBABLE	52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 0; fall-through of the jrcc at 2A:5549 (executed)
 55AD	55B6	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
-55B6	563D	code	-	PROBABLE	72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0; entered by jrcc from 2A:55AF (executed)
+55B6	563D	code	-	CONFIRMED	72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0; entered by jrcc from 2A:55AF (executed) [executed in 1 scenarios]
 563D	564B	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
-564B	569E	code	-	PROBABLE	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed)
+564B	569E	code	-	CONFIRMED	45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed) [executed in 1 scenarios]
 569E	56C8	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
 56C8	56CB	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 2A:56C5 (executed) [executed in 5 scenarios]
 56CB	56EC	code	-	HYPOTHESIS	no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: call chain (call $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after the unconditional 'jp $54FD' at 2A:56C8
 56EC	56F2	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 56F2	5706	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
 5706	5744	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 1/18 scenarios)
-5744	577F	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed)
+5744	575F	code	-	CONFIRMED	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed) | 18 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 1 scenarios]
+575F	5765	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5744-577F by apply_coverage --split
+5765	577F	code	-	CONFIRMED	16 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 2 scenarios]
 577F	5781	code	Function_2A_577F	CONFIRMED	1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 5781	578A	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5781-$578A was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,b; cp 7; jr nz; ld a,c; cp 9; ret z - skipped by the unconditional 'jr $578A' at 2A:577F, falls into 578A
 578A	57A5	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
@@ -107,31 +115,39 @@
 5E11	5E1B	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
 5E1B	5E22	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2A:5E19 (executed)
 5E22	5E58	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 2/18 scenarios)
-5E58	5E60	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2A:5E56 (executed)
+5E58	5E5D	code	-	CONFIRMED	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2A:5E56 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split [executed in 4 scenarios]
+5E5D	5E60	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split
 5E60	5E9E	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios)
-5E9E	5EA9	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2A:5E9C (executed)
+5E9E	5EA2	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2A:5E9C (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split [executed in 4 scenarios]
+5EA2	5EA9	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split
 5EA9	5EC6	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 1/18 scenarios)
 5EC6	5EC8	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5EC4 (executed)
 5EC8	5EF4	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
-5EF4	5F69	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code)
+5EF4	5F42	code	-	CONFIRMED	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
+5F42	5F54	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split
+5F54	5F69	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
 5F69	5F71	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5F69-$5F71 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5F0E' at 2A:5F67
-5F71	5F82	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code)
+5F71	5F82	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code) [executed in 1 scenarios]
 5F82	5FD3	text	String_2A_5F82	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 5FD3	5FD4	code	-	HYPOTHESIS	no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string that follows the function ending before it
-5FD4	6048	code	-	PROBABLE	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code)
+5FD4	6021	code	-	CONFIRMED	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code) | 48 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
+6021	6033	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split
+6033	6048	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
 6048	6050	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6048-$6050 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5FEE'
-6050	6081	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code)
+6050	6081	code	-	CONFIRMED	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code) [executed in 1 scenarios]
 6081	6086	text	String_2A_6081	PROBABLE	Shift-JIS NUL-terminated string (2 x 82 A4 = full-width 'う' x2); address loaded by 'ld de,$6081' at 2A:5FEA
 6086	6087	code	-	HYPOTHESIS	lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087; nothing branches to it
-6087	60F9	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code)
+6087	60D2	code	-	CONFIRMED	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code) | 49 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
+60D2	60E4	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split
+60E4	60F9	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
 60F9	6101	code	-	HYPOTHESIS	no branch/call/pointer to any address in $60F9-$6101 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $60A1'
-6101	6132	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code)
+6101	6132	code	-	CONFIRMED	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code) [executed in 1 scenarios]
 6132	6147	text	String_2A_6132	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 6147	6148	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6147-$6148 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string
 6148	61E3	code	Function_2A_6148	CONFIRMED	78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 61E3	61FA	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2A:61E1 (executed) [executed in 1 scenarios]
 61FA	6201	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
-6201	620E	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed)
+6201	620E	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed) [executed in 2 scenarios]
 620E	6222	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
 6222	6223	code	-	HYPOTHESIS	no branch/call/pointer to any address in $6222-$6223 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) after the unconditional 'jp $617B' at 2A:621F
 6223	6253	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 2A:61DA (executed)
@@ -162,13 +178,18 @@
 6F80	6F91	data	Data_2A_6F80	PROBABLE	OAM frame: count=4 then 4 x (y,x,tile,attr) = 17 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 6F91	6F92	data	Data_2A_6F91	PROBABLE	OAM frame: count=0 then 0 x (y,x,tile,attr) = 1 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 6F92	6F95	data	Data_2A_6F92	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
-6F95	709F	code	-	PROBABLE	135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code)
+6F95	709F	code	-	CONFIRMED	135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code) [executed in 1 scenarios]
 709F	70AB	words	Table_2A_709F	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$709F at 2A:705B. Values are SRAM addresses, not ROM pointers
-70AB	7221	code	-	PROBABLE	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code)
+70AB	7121	code	-	CONFIRMED	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
+7121	7154	code	-	PROBABLE	20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
+7154	7187	code	-	CONFIRMED	20 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
+7187	7221	code	-	PROBABLE	71 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
 7221	722D	words	Table_2A_7221	PROBABLE	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); ld hl,$7221 at 2A:718B. Values are SRAM addresses, not ROM pointers
 722D	7287	code	-	CONFIRMED	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5; entered by call from 2A:7154 (PROBABLE code) [executed in 1 scenarios]
 7287	7293	words	Table_2A_7287	HYPOTHESIS	SRAM address table (6 words $A69D..$A82D (step $50)): the code indexes it by 2*n and loads hl=[table+2n] as the base of a save/record slot in SRAM ($A000-$BFFF); no reference found (identical bytes to the referenced sibling tables 4274/4306/445F/483B/709F/7221 that the compiler emits after each function). Values are SRAM addresses, not ROM pointers
-7293	73BB	code	-	PROBABLE	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code)
+7293	732F	code	-	CONFIRMED	148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
+732F	736F	code	-	PROBABLE	32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7293-73BB by apply_coverage --split
+736F	73BB	code	-	CONFIRMED	42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
 73BB	73C0	code	-	HYPOTHESIS	no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:73BA
 73C0	74A7	code	-	PROBABLE	123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7419 (PROBABLE code)
 74A7	74AC	code	-	HYPOTHESIS	no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:74A6

@@ -20,11 +20,135 @@
 421C	4222	text	String_0F_421C	PROBABLE	ASCII string "NAME=" + NUL (MIME parameter, referenced by ld hl in the parser)
 4222	4236	text	String_0F_4222	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4236	4247	text	String_0F_4236	PROBABLE	ASCII string "=?ISO-2022-JP?B?" + NUL (MIME encoded-word prefix), copied by 0F:5104 (ld hl,$4236 ; ld a,[hli] ; and a ; jr z ; ld [de],a)
-4247	47A5	code	-	PROBABLE	795 insn(s) reached by static flow only; seeds: exec x16, mobile x779; min discovery hops 0; entered by call from 00:0262 (PROBABLE code)
+4247	426C	code	-	CONFIRMED	795 insn(s) reached by static flow only; seeds: exec x16, mobile x779; min discovery hops 0; entered by call from 00:0262 (PROBABLE code) | 22 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 18 scenarios]
+426C	426D	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+426D	42A8	code	-	CONFIRMED	37 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+42A8	42B2	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+42B2	4307	code	-	CONFIRMED	49 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+4307	430D	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+430D	435B	code	-	CONFIRMED	44 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+435B	4364	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4364	437D	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 14 scenarios]
+437D	4385	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4385	43BB	code	-	CONFIRMED	31 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+43BB	43F7	code	-	PROBABLE	44 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+43F7	4406	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+4406	4411	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4411	447F	code	-	CONFIRMED	65 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 14 scenarios]
+447F	4485	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4485	44B2	code	-	CONFIRMED	28 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 16 scenarios]
+44B2	44BC	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+44BC	4539	code	-	CONFIRMED	74 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+4539	453B	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+453B	455D	code	-	CONFIRMED	20 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 6 scenarios]
+455D	4565	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4565	45BA	code	-	CONFIRMED	53 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 6 scenarios]
+45BA	45C3	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+45C3	45F3	code	-	CONFIRMED	27 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+45F3	45F7	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+45F7	460C	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 1 scenarios]
+460C	4612	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+4612	468E	code	-	CONFIRMED	73 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+468E	469F	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+469F	46E8	code	-	CONFIRMED	40 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 3 scenarios]
+46E8	46FE	code	-	PROBABLE	11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+46FE	4742	code	-	CONFIRMED	30 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+4742	474D	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+474D	478A	code	-	CONFIRMED	31 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
+478A	479D	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split
+479D	47A5	code	-	CONFIRMED	4 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage --split [executed in 4 scenarios]
 47A5	47BB	code	-	HYPOTHESIS	10 insn (ld hl,$D003 ; ld a,[hli] ; ld [$D000],a ; ldh [$FF8C],a ; ld [$4000],a ; call $4A7E ; and a ; jr z,$47CF ; xor a ; ld [$D016],a) flowing straight into the PROBABLE code at 47BB; call target 4A7E is called elsewhere (0F:46D8) and the jr target is a valid start; it directly follows the unconditional jr $47CF at 47A3, so it must be a branch/jump-table target that was not found; entry unproven
-47BB	4C59	code	-	PROBABLE	722 insn(s) reached by static flow only; seeds: mobile x722; min discovery hops 0; entered by jpcc from 0F:4738 (PROBABLE code)
+47BB	47CF	code	-	PROBABLE	722 insn(s) reached by static flow only; seeds: mobile x722; min discovery hops 0; entered by jpcc from 0F:4738 (PROBABLE code) | 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+47CF	480F	code	-	CONFIRMED	37 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+480F	4810	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4810	482B	code	-	CONFIRMED	16 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+482B	482F	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+482F	4833	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+4833	483E	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+483E	4863	code	-	CONFIRMED	19 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 3 scenarios]
+4863	486B	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+486B	48BA	code	-	CONFIRMED	51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+48BA	48C6	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+48C6	48ED	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+48ED	4908	code	-	PROBABLE	17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4908	4936	code	-	CONFIRMED	28 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+4936	4938	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4938	4945	code	-	CONFIRMED	11 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+4945	4951	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4951	49C4	code	-	CONFIRMED	71 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+49C4	49D0	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+49D0	4A0F	code	-	CONFIRMED	42 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+4A0F	4A1C	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4A1C	4A55	code	-	CONFIRMED	33 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+4A55	4A56	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4A56	4A6A	code	-	CONFIRMED	12 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+4A6A	4A75	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4A75	4ABF	code	-	CONFIRMED	43 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 6 scenarios]
+4ABF	4ACA	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4ACA	4B17	code	-	CONFIRMED	51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 4 scenarios]
+4B17	4B19	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4B19	4B59	code	-	CONFIRMED	39 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 2 scenarios]
+4B59	4BC0	code	-	PROBABLE	67 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4BC0	4C07	code	-	CONFIRMED	41 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 7 scenarios]
+4C07	4C09	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4C09	4C50	code	-	CONFIRMED	46 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
+4C50	4C52	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split
+4C52	4C59	code	-	CONFIRMED	5 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage --split [executed in 1 scenarios]
 4C59	4C62	code	-	HYPOTHESIS	complete small function (push bc ; ld bc,$D000 ; call $5D95 ; pop bc ; ret) between the code regions 4C57 and 4C62; call target 5D95 is a code start of this bank; no caller/pointer found, entry unproven
-4C62	4D35	code	-	PROBABLE	137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0; entered by call from 0F:4BE4 (PROBABLE code)
+4C62	4CDD	code	-	CONFIRMED	137 insn(s) reached by static flow only; seeds: mobile x137; min discovery hops 0; entered by call from 0F:4BE4 (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE region 4C62-4D35 by apply_coverage --split [executed in 1 scenarios]
+4CDD	4D35	code	-	PROBABLE	52 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C62-4D35 by apply_coverage --split
 4D35	4D37	code	-	HYPOTHESIS	ld b,$82 : third variant of the result setter at 0F:4D31 (ld b,$83 ; jr $4D37) falling into 4D37 (pop hl ; ld a,1 ; jp $4260); the branch that targets 4D35 was not found in the decoded code
-4D37	5DAE	code	-	PROBABLE	2592 insn(s) reached by static flow only; seeds: mobile x2592; min discovery hops 0; entered by jrcc from 0F:4CEC (PROBABLE code)
+4D37	4E66	code	-	PROBABLE	2592 insn(s) reached by static flow only; seeds: mobile x2592; min discovery hops 0; entered by jrcc from 0F:4CEC (PROBABLE code) | 179 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4E66	4E6A	code	-	CONFIRMED	3 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4E6A	4E73	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4E73	4E9D	code	-	CONFIRMED	25 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4E9D	4EA4	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4EA4	4EDF	code	-	CONFIRMED	39 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4EDF	4EE4	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4EE4	4F27	code	-	CONFIRMED	49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 1 scenarios]
+4F27	4F2A	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4F2A	4F3A	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4F3A	4F3D	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4F3D	4F93	code	-	CONFIRMED	54 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4F93	4FA9	code	-	PROBABLE	11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4FA9	4FAB	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4FAB	4FCD	code	-	PROBABLE	17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4FCD	4FDD	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4FDD	4FE3	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4FE3	4FEB	code	-	CONFIRMED	3 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+4FEB	4FF0	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+4FF0	5000	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+5000	5022	code	-	PROBABLE	15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5022	505A	code	-	CONFIRMED	40 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+505A	505D	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+505D	5086	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 4 scenarios]
+5086	509F	code	-	PROBABLE	15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+509F	50B0	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+50B0	50B2	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+50B2	50DA	code	-	CONFIRMED	24 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+50DA	50E0	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+50E0	50F6	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+50F6	50FC	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+50FC	5171	code	-	CONFIRMED	81 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+5171	517D	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+517D	51DC	code	-	CONFIRMED	62 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+51DC	51DE	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+51DE	51F3	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+51F3	51F8	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+51F8	5212	code	-	CONFIRMED	19 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 6 scenarios]
+5212	58D7	code	-	PROBABLE	1043 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+58D7	5993	code	-	CONFIRMED	133 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 5 scenarios]
+5993	59C6	code	-	PROBABLE	36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+59C6	59FD	code	-	CONFIRMED	29 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 2 scenarios]
+59FD	5A04	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5A04	5A0D	code	-	CONFIRMED	6 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 2 scenarios]
+5A0D	5C5E	code	-	PROBABLE	356 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5C5E	5CAA	code	-	CONFIRMED	47 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 12 scenarios]
+5CAA	5CB4	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5CB4	5D3C	code	-	CONFIRMED	91 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 12 scenarios]
+5D3C	5D4A	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5D4A	5D8C	code	-	CONFIRMED	49 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 10 scenarios]
+5D8C	5D95	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
+5D95	5DA0	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split [executed in 17 scenarios]
+5DA0	5DAE	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D37-5DAE by apply_coverage --split
 5DAE	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

@@ -964,14 +964,18 @@ Data_7E_4000::
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $7B7C-$7D19 (413 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 1; entered by call from 7E:7BDA (PROBABLE code)
+; ---- code $7B7C-$7B81 (5 bytes) [CONFIRMED] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 1; entered by call from 7E:7BDA (PROBABLE code) | 3 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 12 scenarios]
 
 Charset_JisToSjis:: ; 7E:7B7C
 	ld a, b
 	cp a, $5F
 	jr c, Label_7E_7B84
+
+; ---- code $7B81-$7B84 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
 	add a, $80
 	ld b, a
+
+; ---- code $7B84-$7BAE (42 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
 
 Label_7E_7B84:: ; 7E:7B84
 	srl a
@@ -1010,9 +1014,13 @@ Charset_SjisToJis:: ; 7E:7BA3
 	jr c, Label_7E_7BCF
 	cp a, $A0
 	jr c, Label_7E_7BB4
+
+; ---- code $7BAE-$7BB4 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
 	cp a, $E0
 	jr c, Label_7E_7BCF
 	sub a, $40
+
+; ---- code $7BB4-$7BC8 (20 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 2 scenarios]
 
 Label_7E_7BB4:: ; 7E:7BB4
 	sub a, $70
@@ -1029,7 +1037,11 @@ Label_7E_7BBD:: ; 7E:7BBD
 	inc d
 	cp a, $80
 	jr c, Label_7E_7BC9
+
+; ---- code $7BC8-$7BC9 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
 	dec a
+
+; ---- code $7BC9-$7BD6 (13 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 2 scenarios]
 
 Label_7E_7BC9:: ; 7E:7BC9
 	add a, $5F
@@ -1048,11 +1060,15 @@ Label_7E_7BCF:: ; 7E:7BCF
 	ld l, c
 	ret
 
+; ---- code $7BD6-$7BDE (8 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+
 Charset_EucJpToSjis:: ; 7E:7BD6
 	res 7, b
 	res 7, c
 	call Charset_JisToSjis
 	ret
+
+; ---- code $7BDE-$7BF0 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 1 scenarios]
 
 Charset_DetectEncoding:: ; 7E:7BDE
 	call Charset_ReadByteCounted
@@ -1064,6 +1080,8 @@ Charset_DetectEncoding:: ; 7E:7BDE
 	jr nc, Charset_DetectEncoding
 	cp a, $80
 	jr c, Charset_DetectEncoding
+
+; ---- code $7BF0-$7C27 (55 bytes) [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
 	jr Label_7E_7C21
 
 Label_7E_7BF2:: ; 7E:7BF2
@@ -1106,6 +1124,8 @@ Label_7E_7C24:: ; 7E:7C24
 	ld a, $02
 	ret
 
+; ---- code $7C27-$7C52 (43 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 1 scenarios]
+
 Label_7E_7C27:: ; 7E:7C27
 	ld a, $03
 	ret
@@ -1142,6 +1162,8 @@ Label_7E_7C43:: ; 7E:7C43
 	jr c, Label_7E_7C62
 	cp a, $A0
 	jr c, Label_7E_7C63
+
+; ---- code $7C52-$7C62 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
 	cp a, $E0
 	jr c, Label_7E_7C62
 	cp a, $F0
@@ -1150,6 +1172,8 @@ Label_7E_7C43:: ; 7E:7C43
 	jr c, Label_7E_7C62
 	cp a, $FA
 	jr c, Label_7E_7C63
+
+; ---- code $7C62-$7CE4 (130 bytes) [CONFIRMED] 90 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
 
 Label_7E_7C62:: ; 7E:7C62
 	or a, a
@@ -1251,9 +1275,13 @@ Label_7E_7CBF:: ; 7E:7CBF
 	pop hl
 	jp Label_7E_7C43
 
+; ---- code $7CE4-$7CE7 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+
 Label_7E_7CE4:: ; 7E:7CE4
 	pop hl
 	jr Label_7E_7D0A
+
+; ---- code $7CE7-$7D19 (50 bytes) [CONFIRMED] 37 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
 
 Label_7E_7CE7:: ; 7E:7CE7
 	ldh a, [hRam_FFB0]
@@ -1326,7 +1354,7 @@ Label_7E_7D26:: ; 7E:7D26
 	cp a, $01
 	jr nz, Label_7E_7D5A
 
-; ---- code $7D35-$7D5A (37 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jrcc at 7E:7D33 (executed)
+; ---- code $7D35-$7D50 (27 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jrcc at 7E:7D33 (executed) | 19 insn(s) executed; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
 	push hl
@@ -1347,6 +1375,8 @@ Label_7E_7D26:: ; 7E:7D26
 	cp a, $03
 	jr z, Label_7E_7D56
 
+; ---- code $7D50-$7D56 (6 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split
+
 Label_7E_7D50:: ; 7E:7D50
 	dec hl
 	dec hl
@@ -1354,6 +1384,8 @@ Label_7E_7D50:: ; 7E:7D50
 	inc hl
 	ld b, [hl]
 	ret
+
+; ---- code $7D56-$7D5A (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split [executed in 1 scenarios]
 
 Label_7E_7D56:: ; 7E:7D56
 	call Charset_EucJpToSjisStream
@@ -1469,16 +1501,20 @@ Label_7E_7DAA:: ; 7E:7DAA
 	ldh [hRam_FFB1], a
 	jr Label_7E_7D75
 
-; ---- code $7DE5-$7E37 (82 bytes) [PROBABLE] handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends with jp $7D75 exactly at the executed code 7E37
+; ---- code $7DE5-$7DF0 (11 bytes) [CONFIRMED] handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends with jp $7D75 exactly at the executed code 7E37 | 6 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 	pop hl
 	ldh a, [hRam_FFB0]
 	cp a, $28
 	jr z, Label_7E_7DF7
 	cp a, $24
 	jr z, Label_7E_7DFE
+
+; ---- code $7DF0-$7DF7 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hRam_FFB1], a
 	jp Label_7E_7D75
+
+; ---- code $7DF7-$7E10 (25 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 
 Label_7E_7DF7:: ; 7E:7DF7
 	ld a, $03
@@ -1496,9 +1532,13 @@ Label_7E_7DFE:: ; 7E:7DFE
 	jr z, Label_7E_7E17
 	cp a, $42
 	jr z, Label_7E_7E17
+
+; ---- code $7E10-$7E17 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hRam_FFB1], a
 	jp Label_7E_7D75
+
+; ---- code $7E17-$7E29 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 
 Label_7E_7E17:: ; 7E:7E17
 	ld a, $00
@@ -1511,9 +1551,13 @@ Label_7E_7E17:: ; 7E:7E17
 	jr z, Label_7E_7E30
 	cp a, $42
 	jr z, Label_7E_7E30
+
+; ---- code $7E29-$7E30 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
 	ld a, $00
 	ldh [hRam_FFB1], a
 	jp Label_7E_7D75
+
+; ---- code $7E30-$7E37 (7 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 
 Label_7E_7E30:: ; 7E:7E30
 	ld a, $01
@@ -1568,7 +1612,7 @@ Label_7E_7E4C:: ; 7E:7E4C
 	ld [sSram_B001], a
 	ret
 
-; ---- code $7E68-$7EB3 (75 bytes) [PROBABLE] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 2; entered by call from 7E:7D56 (PROBABLE code)
+; ---- code $7E68-$7E74 (12 bytes) [CONFIRMED] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 2; entered by call from 7E:7D56 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
 
 Charset_EucJpToSjisStream:: ; 7E:7E68
 	ld a, [hli]
@@ -1578,7 +1622,11 @@ Charset_EucJpToSjisStream:: ; 7E:7E68
 	jr z, Label_7E_7E76
 	cp a, $A1
 	jr c, Label_7E_7E76
+
+; ---- code $7E74-$7E76 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split
 	jr Label_7E_7E80
+
+; ---- code $7E76-$7E80 (10 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
 
 Label_7E_7E76:: ; 7E:7E76
 	ld [de], a
@@ -1588,6 +1636,8 @@ Label_7E_7E76:: ; 7E:7E76
 	or a, b
 	jp z, Label_7E_7EAA
 	jr Charset_EucJpToSjisStream
+
+; ---- code $7E80-$7EAA (42 bytes) [PROBABLE] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split
 
 Label_7E_7E80:: ; 7E:7E80
 	ldh [hRam_FFB0], a
@@ -1619,6 +1669,8 @@ Label_7E_7E80:: ; 7E:7E80
 	or a, b
 	jp z, Label_7E_7EAA
 	jr Charset_EucJpToSjisStream
+
+; ---- code $7EAA-$7EB3 (9 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
 
 Label_7E_7EAA:: ; 7E:7EAA
 	ld a, [sSram_B000]

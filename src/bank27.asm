@@ -31,9 +31,9 @@ Label_27_4017:: ; 27:4017
 	farcall Mailbox_CountRecords
 	ld a, $0C
 	sub a, d
-	ld [wRam_D62A], a
+	ld [wMailSessionBlock + 6], a
 	xor a, a
-	ld [wRam_D62B], a
+	ld [wMailSessionBlock + 7], a
 	ld d, $01
 	ld bc, $D624
 	farcall ConnectDialog_Run
@@ -184,25 +184,25 @@ Label_27_411E:: ; 27:411E
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D625]
+	ld a, [wMailSessionBlock + 1]
 	cp a, $FF
 	jr z, Label_27_4156
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D62E]
+	ld a, [wMailCountAtStart]
 	ld c, a
 	ld a, d
 	sub a, c
-	ld [wRam_D625], a
+	ld [wMailSessionBlock + 1], a
 	cp a, b
 	jr z, Label_27_4156
 
 ; ---- code $414F-$4156 (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:414D (executed) [executed in 1 scenarios]
-	ld a, [wRam_D627]
+	ld a, [wMailSessionBlock + 3]
 	inc a
-	ld [wRam_D627], a
+	ld [wMailSessionBlock + 3], a
 
 ; ---- code $4156-$4166 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 
@@ -212,7 +212,7 @@ Label_27_4156:: ; 27:4156
 	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 
-; ---- code $4166-$417A (20 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
+; ---- code $4166-$417A (20 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded [executed in 2 scenarios]
 	cp a, $FF
 	ret z
 	ld bc, $0000
@@ -763,11 +763,13 @@ Label_27_4599:: ; 27:4599
 	call Function_00_0A65
 	jr Label_27_45DC
 
-; ---- code $45A4-$45DC (56 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 27:456F (executed)
+; ---- code $45A4-$45A8 (4 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 27:456F (executed) | 2 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
 
 Label_27_45A4:: ; 27:45A4
 	cp a, $01
 	jr nz, Label_27_45C3
+
+; ---- code $45A8-$45C3 (27 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split
 	ld hl, $DA40
 	ld de, $7AB0
 	ld a, $27
@@ -777,6 +779,8 @@ Label_27_45A4:: ; 27:45A4
 	ld hl, $DA40
 	call Function_00_0A65
 	jr Label_27_45DC
+
+; ---- code $45C3-$45DC (25 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
 
 Label_27_45C3:: ; 27:45C3
 	ld hl, $DA30
@@ -1281,7 +1285,7 @@ Label_27_495E:: ; 27:495E
 	xor a, a
 	ret
 
-; ---- code $49B0-$4B95 (485 bytes) [PROBABLE] 199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code)
+; ---- code $49B0-$49C0 (16 bytes) [CONFIRMED] 199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
 
 MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, [wTimerEnable]
@@ -1292,16 +1296,24 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, b
 	cp a, $00
 	jr nz, Label_27_49C6
+
+; ---- code $49C0-$49C6 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
 	xor a, a
 	ld [wMailScreenMode], a
 	jr Label_27_49D6
 
+; ---- code $49C6-$49CA (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+
 Label_27_49C6:: ; 27:49C6
 	cp a, $01
 	jr nz, Label_27_49D1
+
+; ---- code $49CA-$49D1 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
 	ld a, $01
 	ld [wMailScreenMode], a
 	jr Label_27_49D6
+
+; ---- code $49D1-$4A3E (109 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
 
 Label_27_49D1:: ; 27:49D1
 	ld a, $02
@@ -1346,6 +1358,8 @@ Label_27_49D6:: ; 27:49D6
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_27_4A81
+
+; ---- code $4A3E-$4A81 (67 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
 	call Mail_OutboxIsEmpty
 	inc a
 	jr nz, Label_27_4A66
@@ -1377,9 +1391,13 @@ Label_27_4A76:: ; 27:4A76
 	call Function_00_0A65
 	jr Label_27_4AB9
 
+; ---- code $4A81-$4A85 (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+
 Label_27_4A81:: ; 27:4A81
 	cp a, $01
 	jr nz, Label_27_4AA0
+
+; ---- code $4A85-$4AA0 (27 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
 	ld hl, $DA40
 	ld de, $7AB0
 	ld a, $27
@@ -1389,6 +1407,8 @@ Label_27_4A81:: ; 27:4A81
 	ld hl, $DA40
 	call Function_00_0A65
 	jr Label_27_4AB9
+
+; ---- code $4AA0-$4B95 (245 bytes) [CONFIRMED] 106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
 
 Label_27_4AA0:: ; 27:4AA0
 	ld hl, $DA30

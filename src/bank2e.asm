@@ -18,7 +18,7 @@ Function_2E_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -77,7 +77,7 @@ Label_2E_4067:: ; 2E:4067
 	cp a, $FF
 	jr nz, Label_2E_4099
 
-; ---- code $4090-$4099 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed)
+; ---- code $4090-$4099 (9 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed) [executed in 1 scenarios]
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
@@ -104,7 +104,7 @@ Label_2E_4099:: ; 2E:4099
 	or a, e
 	jp z, Label_2E_417F
 
-; ---- code $40B9-$417F (198 bytes) [PROBABLE] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0; fall-through of the jpcc at 2E:40B6 (executed)
+; ---- code $40B9-$40DA (33 bytes) [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0; fall-through of the jpcc at 2E:40B6 (executed) | 16 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
 	ld bc, $0000
 	ld hl, $0001
 
@@ -123,6 +123,8 @@ Label_2E_40BF:: ; 2E:40BF
 	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_2E_4107
+
+; ---- code $40DA-$4107 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
 	jr nz, Label_2E_40E3
 	ld a, [wTimerASeconds]
 	cp a, $1E
@@ -148,6 +150,8 @@ Label_2E_40F3:: ; 2E:40F3
 	ld [hl], a
 	ld a, $FF
 	jr Label_2E_4108
+
+; ---- code $4107-$4145 (62 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
 
 Label_2E_4107:: ; 2E:4107
 	xor a, a
@@ -185,8 +189,12 @@ Label_2E_4125:: ; 2E:4125
 	ldh a, [hJoyHeld]
 	and a, $02
 	jr z, Label_2E_4149
+
+; ---- code $4145-$4149 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
 	pop de
 	jp Label_2E_4A47
+
+; ---- code $4149-$4169 (32 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_4149:: ; 2E:4149
 	push bc
@@ -208,9 +216,13 @@ Label_2E_415C:: ; 2E:415C
 	pop de
 	pop bc
 	farcall MailSession_ShowCommError
+
+; ---- code $4169-$416D (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
 	pop de
 	ld a, $80
 	ret
+
+; ---- code $416D-$4175 (8 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
 
 Label_2E_416D:: ; 2E:416D
 	ld a, b
@@ -219,7 +231,11 @@ Label_2E_416D:: ; 2E:416D
 	pop bc
 	cp a, $02
 	jr nz, Label_2E_4176
+
+; ---- code $4175-$4176 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
 	inc bc
+
+; ---- code $4176-$417F (9 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 7 scenarios]
 
 Label_2E_4176:: ; 2E:4176
 	inc hl
@@ -326,7 +342,7 @@ Label_2E_417F:: ; 2E:417F
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -359,7 +375,7 @@ Label_2E_4255:: ; 2E:4255
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -379,7 +395,7 @@ Label_2E_4279:: ; 2E:4279
 	xor a, a
 	ret
 
-; ---- code $4292-$488A (1528 bytes) [PROBABLE] 762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5; entered by jpcc from 2E:41E2 (executed)
+; ---- code $4292-$4341 (175 bytes) [CONFIRMED] 762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5; entered by jpcc from 2E:41E2 (executed) | 89 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_4292:: ; 2E:4292
 	ld bc, $0000
@@ -477,11 +493,15 @@ Label_2E_4332:: ; 2E:4332
 	jr z, Label_2E_430D
 	cp a, $FF
 	jr nz, Label_2E_434C
+
+; ---- code $4341-$434C (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	pop hl
 	pop bc
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
+
+; ---- code $434C-$438E (66 bytes) [CONFIRMED] 44 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 5 scenarios]
 
 Label_2E_434C:: ; 2E:434C
 	ld a, b
@@ -528,6 +548,8 @@ Label_2E_434C:: ; 2E:434C
 	jr z, Label_2E_43AF
 	cp a, $01
 	jr z, Label_2E_43AF
+
+; ---- code $438E-$43AF (33 bytes) [PROBABLE] 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	cp a, $02
 	jr z, Label_2E_4394
 
@@ -555,6 +577,8 @@ Label_2E_4394:: ; 2E:4394
 	pop hl
 	pop bc
 	jp Label_2E_477E
+
+; ---- code $43AF-$4468 (185 bytes) [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 7 scenarios]
 
 Label_2E_43AF:: ; 2E:43AF
 	push af
@@ -660,6 +684,8 @@ Label_2E_4458:: ; 2E:4458
 	ld a, [wTimerEnable]
 	bit 1, a
 	jr z, Label_2E_447A
+
+; ---- code $4468-$447A (18 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	farcall Mobile_FetchResult
 	farcall MailSession_ShowCommError
 	pop bc
@@ -667,6 +693,8 @@ Label_2E_4458:: ; 2E:4458
 	pop bc
 	ld a, $80
 	ret
+
+; ---- code $447A-$44A6 (44 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_447A:: ; 2E:447A
 	call MailServerMgr_UpdateTimerDisplay
@@ -691,10 +719,14 @@ Label_2E_449F:: ; 2E:449F
 	ld a, [wRam_C26E]
 	cp a, $45
 	jr nz, Label_2E_44AF
+
+; ---- code $44A6-$44AF (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	ld hl, $C26F
 	bit 1, [hl]
 	jr nz, Label_2E_44C3
 	set 1, [hl]
+
+; ---- code $44AF-$4516 (103 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_44AF:: ; 2E:44AF
 	ld hl, $C26F
@@ -759,7 +791,11 @@ Label_2E_44F6:: ; 2E:44F6
 	ld a, c
 	cp a, $03
 	jr nz, Label_2E_4518
+
+; ---- code $4516-$4518 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	ld c, $00
+
+; ---- code $4518-$4726 (526 bytes) [CONFIRMED] 244 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_4518:: ; 2E:4518
 	ldh a, [hJoyHeld]
@@ -853,7 +889,7 @@ Label_2E_458E:: ; 2E:458E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -868,7 +904,7 @@ Label_2E_458E:: ; 2E:458E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1020,11 +1056,15 @@ Label_2E_4717:: ; 2E:4717
 	jr z, Label_2E_46F8
 	cp a, $FF
 	jr nz, Label_2E_4731
+
+; ---- code $4726-$4731 (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	farcall MailSession_ShowCommError
 	pop hl
 	pop bc
 	ld a, $80
 	ret
+
+; ---- code $4731-$4853 (290 bytes) [CONFIRMED] 138 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_4731:: ; 2E:4731
 	pop hl
@@ -1154,7 +1194,7 @@ Label_2E_477E:: ; 2E:477E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1171,9 +1211,13 @@ Label_2E_4843:: ; 2E:4843
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, Label_2E_4857
+
+; ---- code $4853-$4857 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
 	pop af
 	ld a, $01
 	push af
+
+; ---- code $4857-$488A (51 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_4857:: ; 2E:4857
 	pop af
@@ -1188,7 +1232,7 @@ Label_2E_4857:: ; 2E:4857
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1207,7 +1251,7 @@ Label_2E_4887:: ; 2E:4887
 	push de
 	push hl
 
-; ---- code $488E-$4B2E (672 bytes) [PROBABLE] 298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $488E-$4A47 (441 bytes) [PROBABLE] 298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 195 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
 	call Function_00_044B
@@ -1227,7 +1271,7 @@ Label_2E_4887:: ; 2E:4887
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1279,7 +1323,7 @@ Function_2E_48F8:: ; 2E:48F8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1422,6 +1466,8 @@ Label_2E_4A31:: ; 2E:4A31
 	xor a, a
 	ret
 
+; ---- code $4A47-$4AB2 (107 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
+
 Label_2E_4A47:: ; 2E:4A47
 	ld a, $04
 	call MailServerMgr_ShowChoiceHelp
@@ -1474,6 +1520,8 @@ Function_2E_4A7D:: ; 2E:4A7D
 	pop bc
 	inc a
 	jr z, Label_2E_4AE2
+
+; ---- code $4AB2-$4AE2 (48 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -1482,7 +1530,7 @@ Function_2E_4A7D:: ; 2E:4A7D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1499,6 +1547,8 @@ Function_2E_4A7D:: ; 2E:4A7D
 	pop af
 	ret
 
+; ---- code $4AE2-$4AED (11 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
+
 Label_2E_4AE2:: ; 2E:4AE2
 	pop hl
 	pop de
@@ -1511,6 +1561,7 @@ Label_2E_4AE2:: ; 2E:4AE2
 	ld a, $80
 	ret
 
+; ---- code $4AED-$4B2E (65 bytes) [PROBABLE] 22 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218
@@ -1521,7 +1572,7 @@ Label_2E_4AE2:: ; 2E:4AE2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1629,7 +1680,7 @@ Function_2E_4B2E::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1639,7 +1690,7 @@ Function_2E_4B2E::
 	farcall Stat_EnableScrollSplit
 	ret
 
-; ---- code $4C58-$4EB2 (602 bytes) [PROBABLE] 260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code)
+; ---- code $4C58-$4DBF (359 bytes) [PROBABLE] 260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code) | 138 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
 
 MailServerMgr_RedrawScreen:: ; 2E:4C58
 	push bc
@@ -1771,7 +1822,7 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1780,6 +1831,8 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	pop af
 	farcall Stat_EnableScrollSplit
 	ret
+
+; ---- code $4DBF-$4E3F (128 bytes) [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 5 scenarios]
 
 MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	push bc
@@ -1855,6 +1908,8 @@ Label_2E_4E14:: ; 2E:4E14
 	pop bc
 	ret
 
+; ---- code $4E3F-$4EB1 (114 bytes) [PROBABLE] 55 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
+
 Label_2E_4E3F:: ; 2E:4E3F
 	ld a, e
 	dec e
@@ -1918,6 +1973,8 @@ Label_2E_4E86:: ; 2E:4E86
 	pop bc
 	ret
 
+; ---- code $4EB1-$4EB2 (1 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 7 scenarios]
+
 Function_2E_4EB1:: ; 2E:4EB1
 	ret
 
@@ -1934,7 +1991,7 @@ Label_2E_4EB4:: ; 2E:4EB4
 	jr nz, Label_2E_4EB4
 	ret
 
-; ---- code $4EBD-$4F9A (221 bytes) [PROBABLE] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code)
+; ---- code $4EBD-$4F25 (104 bytes) [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code) | 40 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
 
 MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ld a, $01
@@ -1981,8 +2038,12 @@ Label_2E_4F09:: ; 2E:4F09
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2E_4F29
+
+; ---- code $4F25-$4F29 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split
 	pop af
 	jp Label_2E_4F88
+
+; ---- code $4F29-$4F9A (113 bytes) [CONFIRMED] 62 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
 
 Label_2E_4F29:: ; 2E:4F29
 	pop af
@@ -2065,7 +2126,7 @@ Function_2E_4F9A:: ; 2E:4F9A
 	call MailServerMgr_DrawFieldText_Glyph
 	jr Label_2E_4F99
 
-; ---- code $4FA9-$533C (915 bytes) [PROBABLE] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code)
+; ---- code $4FA9-$519A (497 bytes) [CONFIRMED] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code) | 325 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
 
 MailServerMgr_DrawFieldText_Glyph:: ; 2E:4FA9
 	push bc
@@ -2409,6 +2470,8 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld a, h
 	or a, l
 	jp z, Label_2E_51FD
+
+; ---- code $519A-$51FD (99 bytes) [PROBABLE] 45 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
 	ld a, l
 	add a, $D0
 	ld [wRam_D041], a
@@ -2455,6 +2518,8 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld e, $28
 	jp Label_2E_52DC
 
+; ---- code $51FD-$520D (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
+
 Label_2E_51FD:: ; 2E:51FD
 	ld l, e
 	ld h, d
@@ -2463,6 +2528,8 @@ Label_2E_51FD:: ; 2E:51FD
 	ld a, h
 	or a, l
 	jp z, Label_2E_525A
+
+; ---- code $520D-$525A (77 bytes) [PROBABLE] 36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
 	ld a, l
 	ld a, l
 	add a, $D0
@@ -2500,6 +2567,8 @@ Label_2E_51FD:: ; 2E:51FD
 	ld e, $20
 	jp Label_2E_52DC
 
+; ---- code $525A-$526A (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
+
 Label_2E_525A:: ; 2E:525A
 	ld l, e
 	ld h, d
@@ -2508,6 +2577,8 @@ Label_2E_525A:: ; 2E:525A
 	ld a, h
 	or a, l
 	jp z, Label_2E_52A0
+
+; ---- code $526A-$52A0 (54 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
 	ld a, l
 	ld a, l
 	add a, $D0
@@ -2534,6 +2605,8 @@ Label_2E_525A:: ; 2E:525A
 	ld [wRam_D063], a
 	ld e, $18
 	jp Label_2E_52DC
+
+; ---- code $52A0-$5300 (96 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 1 scenarios]
 
 Label_2E_52A0:: ; 2E:52A0
 	ld l, e
@@ -2590,6 +2663,8 @@ Label_2E_52F7:: ; 2E:52F7
 	ld hl, $D043
 	jr Label_2E_5315
 
+; ---- code $5300-$5315 (21 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+
 Label_2E_5300:: ; 2E:5300
 	cp a, $18
 	jr nz, Label_2E_5309
@@ -2604,6 +2679,8 @@ Label_2E_5309:: ; 2E:5309
 
 Label_2E_5312:: ; 2E:5312
 	ld hl, $D046
+
+; ---- code $5315-$533C (39 bytes) [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
 
 Label_2E_5315:: ; 2E:5315
 	push hl
@@ -2902,7 +2979,7 @@ Function_2E_55FA::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D624]
+	ld a, [wMailSessionBlock]
 	cp a, b
 	jr nz, Label_2E_5636
 	pop hl
@@ -2928,13 +3005,13 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D624]
+	ld a, [wMailSessionBlock]
 
 ; ---- code $5636-$5641 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 
 Label_2E_5636:: ; 2E:5636
 	ld a, b
-	ld [wRam_D624], a
+	ld [wMailSessionBlock], a
 	ld a, [wTimerAMinutes]
 	cp a, $3C
 	jr c, Label_2E_5683

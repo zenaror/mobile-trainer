@@ -6,9 +6,9 @@
 4616	4629	code	Function_48_4616	CONFIRMED	10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
 4629	462A	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 48:4627 (executed)
 462A	4744	code	-	CONFIRMED	141 insn(s); 141 executed (in up to 14/18 scenarios)
-4744	4748	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 48:4729 (executed)
+4744	4748	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 48:4729 (executed) [executed in 1 scenarios]
 4748	480F	code	Function_48_4748	CONFIRMED	118 insn(s); 118 executed (in up to 15/18 scenarios); entry proven: target of an executed call/far call
-480F	4810	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jpcc from 48:477C (executed)
+480F	4810	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jpcc from 48:477C (executed) | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 4810	4899	data	Table_48_4810	CONFIRMED	27 five-byte records (key16 little-endian = SJIS code where a glyph run starts, bank byte $48, glyph-run pointer16) sorted by descending key + $FFFF terminator (ends 4899). Read by the executed glyph fetcher Function_48_4748 (loop at 48:4777: ld c,[hl]; ld b,[hli]; inc a; jp z end; stride 5 via 3 x inc hl); entry keys $83BF,$8340,$829F,$8281,$8260,$824F,$81F4,... $8140; pointers $5D7B,$53EB,$4EBB,$4D1B,$4B7B,$4ADB,... Unread 3-byte gaps folded in.
 4899	48B8	code	Function_48_4899	CONFIRMED	19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
 48B8	48BB	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the retcc at 48:48B7 (executed) [executed in 1 scenarios]

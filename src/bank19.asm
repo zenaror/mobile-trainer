@@ -7,7 +7,7 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank19", ROMX[$4000], BANK[$19]
 
-; ---- code $4000-$400A (10 bytes) [PROBABLE] start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at 400A; entry unproven (no caller found)
+; ---- code $4000-$400A (10 bytes) [PROBABLE] start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at 400A; entry unproven (no caller found) | forced execution: 4/4 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugFlags_Run:: ; 19:4000
 	xor a, a
@@ -15,7 +15,7 @@ DebugFlags_Run:: ; 19:4000
 	ld hl, $C0D4
 	call FillBytes
 
-; ---- code $400A-$41B1 (423 bytes) [PROBABLE] 142 insn(s) reached by static flow only; seeds: site x142; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $400A-$41B1 (423 bytes) [PROBABLE] 142 insn(s) reached by static flow only; seeds: site x142; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 142/142 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	farcall Function_48_48BB
 	ld a, $02
 	ld [wRam_C0D8], a
@@ -171,7 +171,7 @@ Table_19_41B1::
 	dw DebugFlags_OnStart
 	dw DebugFlags_Idle
 
-; ---- code $41BB-$447C (705 bytes) [PROBABLE] 330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0; entered by table from 19:41AE (PROBABLE code)
+; ---- code $41BB-$447C (705 bytes) [PROBABLE] 330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0; entered by table from 19:41AE (PROBABLE code) | forced execution: 235/330 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugFlags_Idle:: ; 19:41BB
 	call DebugFlags_PlaceCursor
@@ -585,7 +585,7 @@ String_19_447C::
 String_19_452F:: ; 19:452F
 	db $81, $A3, $00 ; "▲"
 
-; ---- code $4532-$47AE (636 bytes) [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4; entered by call from 19:417F (PROBABLE code)
+; ---- code $4532-$47AE (636 bytes) [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4; entered by call from 19:417F (PROBABLE code) | forced execution: 202/365 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugFlags_DrawEntryName:: ; 19:4532
 	ldh [hScratchA], a
@@ -985,7 +985,7 @@ String_19_47AE::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $81, $7C ; "０１２３４５６７８９ＡＢＣＤＥＦ－"
 	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $79, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $81, $7A, $00 ; "－－－－－－－【０００００】"
 
-; ---- code $47ED-$481D (48 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2; entered by call from 19:41BB (PROBABLE code)
+; ---- code $47ED-$481D (48 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2; entered by call from 19:41BB (PROBABLE code) | forced execution: 25/26 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugFlags_PlaceCursor:: ; 19:47ED
 	ld a, [wRam_C0D8]
@@ -1030,7 +1030,7 @@ Table_19_481D::
 Data_19_4821:: ; 19:4821
 	db $23, $48, $01, $00, $00, $00, $01, $01, $00, $04
 
-; ---- code $482B-$490E (227 bytes) [PROBABLE] 121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0; entered by call from 19:4196 (PROBABLE code)
+; ---- code $482B-$490E (227 bytes) [PROBABLE] 121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0; entered by call from 19:4196 (PROBABLE code) | forced execution: 115/121 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugFlags_SlideIn:: ; 19:482B
 	ld a, $99
@@ -1201,7 +1201,7 @@ Data_19_4940::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- code $4980-$498A (10 bytes) [PROBABLE] function start after a palette block: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same as 19:4000), chain ends exactly at the site-validated far call at 498A; entry unproven
+; ---- code $4980-$498A (10 bytes) [PROBABLE] function start after a palette block: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same as 19:4000), chain ends exactly at the site-validated far call at 498A; entry unproven | forced execution: 4/4 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 Debug_ErrorScreenTest:: ; 19:4980
 	xor a, a
@@ -1209,7 +1209,7 @@ Debug_ErrorScreenTest:: ; 19:4980
 	ld hl, $C0D4
 	call FillBytes
 
-; ---- code $498A-$4AFD (371 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $498A-$4AFD (371 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 123/123 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	farcall Function_48_48BB
 
 Label_19_4990:: ; 19:4990
@@ -1348,7 +1348,7 @@ Table_19_4AFD::
 	dw Label_19_4B47
 	dw DebugErrorTest_Idle
 
-; ---- code $4B07-$4C1F (280 bytes) [PROBABLE] 119 insn(s) reached by static flow only; seeds: site x119; min discovery hops 0; entered by table from 19:4AFA (PROBABLE code)
+; ---- code $4B07-$4C1F (280 bytes) [PROBABLE] 119 insn(s) reached by static flow only; seeds: site x119; min discovery hops 0; entered by table from 19:4AFA (PROBABLE code) | forced execution: 100/119 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugErrorTest_Idle:: ; 19:4B07
 	call DebugErrorTest_UpdateHoldTimer
@@ -1507,7 +1507,7 @@ String_19_4C1F::
 	db $81, $40, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $0D, $0A, $81, $40, $81, $AA, $81, $AB, $81, $69, $81, $A9, $81, $A8 ; "　　　Ｓｅｌ：ＥＮＤ<$0D><$0A>　↑↓（←→"
 	db $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "）：Ｎｕｍｂｅｒ"
 
-; ---- code $4C74-$4D5E (234 bytes) [PROBABLE] 147 insn(s) reached by static flow only; seeds: site x147; min discovery hops 4; entered by call from 19:4AD7 (PROBABLE code)
+; ---- code $4C74-$4D5E (234 bytes) [PROBABLE] 147 insn(s) reached by static flow only; seeds: site x147; min discovery hops 4; entered by call from 19:4AD7 (PROBABLE code) | forced execution: 147/147 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugErrorTest_DrawValues:: ; 19:4C74
 	ldh [hScratchA], a
@@ -1665,7 +1665,7 @@ Data_19_4D5E::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56
 	db $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65
 
-; ---- code $4D7E-$4D99 (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 19:4B07 (PROBABLE code)
+; ---- code $4D7E-$4D99 (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 19:4B07 (PROBABLE code) | forced execution: 14/14 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 DebugErrorTest_UpdateHoldTimer:: ; 19:4D7E
 	ld a, [wRam_C0E8]

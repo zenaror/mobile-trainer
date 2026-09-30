@@ -409,7 +409,7 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	or a, d
 	jr nz, Label_6C_436C
 
-; ---- code $4344-$436C (40 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed)
+; ---- code $4344-$436C (40 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed) [executed in 1 scenarios]
 	ld hl, $49CE
 	ld a, l
 	ld [wRam_C10E], a
@@ -583,7 +583,7 @@ Label_6C_4446:: ; 6C:4446
 	farcall Function_00_0956
 	ret
 
-; ---- code $4498-$4525 (141 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed)
+; ---- code $4498-$4525 (141 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed) [executed in 2 scenarios]
 
 Label_6C_4498:: ; 6C:4498
 	ld a, [wRam_C0E6]
@@ -860,7 +860,7 @@ Label_6C_4668:: ; 6C:4668
 	farcall Function_00_0956
 	ret
 
-; ---- code $46BA-$4747 (141 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed)
+; ---- code $46BA-$4747 (141 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed) [executed in 2 scenarios]
 
 Label_6C_46BA:: ; 6C:46BA
 	ld a, [wRam_C0E5]
@@ -1037,7 +1037,7 @@ Label_6C_47DF:: ; 6C:47DF
 	ld a, $FF
 	ret
 
-; ---- code $47F3-$4807 (20 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed)
+; ---- code $47F3-$4807 (20 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed) [executed in 2 scenarios]
 
 Label_6C_47F3:: ; 6C:47F3
 	ld a, c

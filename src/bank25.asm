@@ -22,7 +22,7 @@ Function_25_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -36,7 +36,7 @@ Function_25_4000::
 	inc a
 	jr nz, Label_25_403F
 
-; ---- code $402E-$403F (17 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed)
+; ---- code $402E-$403F (17 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed) [executed in 3 scenarios]
 	push bc
 	dec h
 	call z, Mailbox_LoadScreen
@@ -87,7 +87,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $FF
 	ret
 
-; ---- code $408A-$446B (993 bytes) [PROBABLE] 466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1; entered by jrcc from 25:405A (executed)
+; ---- code $408A-$4310 (646 bytes) [CONFIRMED] 466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1; entered by jrcc from 25:405A (executed) | 307 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 3 scenarios]
 
 Label_25_408A:: ; 25:408A
 	ldh a, [hJoyPressed]
@@ -326,7 +326,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -341,7 +341,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -419,8 +419,12 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	xor a, a
 	cp a, d
 	jr nz, Label_25_4315
+
+; ---- code $4310-$4315 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
+
+; ---- code $4315-$4341 (44 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_4315:: ; 25:4315
 	call Mailbox_UploadTextTiles
@@ -447,8 +451,12 @@ Label_25_433B:: ; 25:433B
 	call Mailbox_UpdateScrollArrows
 	jr Label_25_4344
 
+; ---- code $4341-$4344 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+
 Label_25_4341:: ; 25:4341
 	call Mailbox_ShowEmptyList
+
+; ---- code $4344-$4365 (33 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 4 scenarios]
 
 Label_25_4344:: ; 25:4344
 	push bc
@@ -466,9 +474,13 @@ Label_25_4344:: ; 25:4344
 	pop de
 	cp a, $00
 	jr nz, Label_25_436D
+
+; ---- code $4365-$436D (8 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
 	call Mailbox_UploadTextTiles
+
+; ---- code $436D-$437E (17 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 2 scenarios]
 
 Label_25_436D:: ; 25:436D
 	ld a, [wMailScreenMode]
@@ -480,9 +492,13 @@ Label_25_436D:: ; 25:436D
 	pop de
 	cp a, $00
 	jr nz, Label_25_4386
+
+; ---- code $437E-$4386 (8 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
 	jp Label_25_4454
+
+; ---- code $4386-$4447 (193 bytes) [CONFIRMED] 93 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_4386:: ; 25:4386
 	push bc
@@ -516,7 +532,7 @@ Label_25_4386:: ; 25:4386
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -531,7 +547,7 @@ Label_25_4386:: ; 25:4386
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -578,8 +594,12 @@ Label_25_4386:: ; 25:4386
 	xor a, a
 	cp a, d
 	jr nz, Label_25_444C
+
+; ---- code $4447-$444C (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
+
+; ---- code $444C-$446B (31 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_444C:: ; 25:444C
 	call Mailbox_UploadTextTiles
@@ -602,7 +622,7 @@ Label_25_4454:: ; 25:4454
 Data_25_446B:: ; 25:446B
 	db $C3, $43, $40
 
-; ---- code $446E-$4659 (491 bytes) [PROBABLE] 223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code)
+; ---- code $446E-$4594 (294 bytes) [CONFIRMED] 223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code) | 139 insn(s) executed; cut out of the PROBABLE region 446E-4659 by apply_coverage --split [executed in 1 scenarios]
 
 Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	cp a, $01
@@ -676,7 +696,7 @@ Label_25_4490:: ; 25:4490
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -691,7 +711,7 @@ Label_25_4490:: ; 25:4490
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -748,6 +768,8 @@ Mailbox_ReplyStart:: ; 25:4564
 	push bc
 	farcall Sprites_SaveSlotsToBank3
 	call Mailbox_ReplyToRecord
+
+; ---- code $4594-$4659 (197 bytes) [PROBABLE] 84 insn(s) never executed in the traced runs; cut out of the PROBABLE region 446E-4659 by apply_coverage --split
 	push af
 	push af
 	ldh a, [rSVBK]
@@ -756,7 +778,7 @@ Mailbox_ReplyStart:: ; 25:4564
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -844,7 +866,7 @@ Label_25_4601:: ; 25:4601
 Data_25_4659:: ; 25:4659
 	db $C3, $1E, $41
 
-; ---- code $465C-$47F8 (412 bytes) [PROBABLE] 202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code)
+; ---- code $465C-$46D8 (124 bytes) [CONFIRMED] 202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code) | 62 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
 
 Mailbox_ReadMail:: ; 25:465C
 	push bc
@@ -909,7 +931,11 @@ Mailbox_ReadMail:: ; 25:465C
 	ld de, $021E
 	cp a, $01
 	jr z, Label_25_46DB
+
+; ---- code $46D8-$46DB (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split
 	ld de, $022B
+
+; ---- code $46DB-$47F8 (285 bytes) [CONFIRMED] 139 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_46DB:: ; 25:46DB
 	push af
@@ -919,7 +945,7 @@ Label_25_46DB:: ; 25:46DB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -934,7 +960,7 @@ Label_25_46DB:: ; 25:46DB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -988,7 +1014,7 @@ Label_25_473D:: ; 25:473D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1067,7 +1093,7 @@ Label_25_47F3:: ; 25:47F3
 Data_25_47F8:: ; 25:47F8
 	db $26, $01, $C3, $00, $40
 
-; ---- code $47FD-$4A15 (536 bytes) [PROBABLE] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code)
+; ---- code $47FD-$491B (286 bytes) [CONFIRMED] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_47FD:: ; 25:47FD
 	ld h, $01
@@ -1234,6 +1260,8 @@ Mailbox_CursorDown:: ; 25:4907
 	ld a, d
 	cp a, $01
 	jr z, Label_25_4929
+
+; ---- code $491B-$4929 (14 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split
 	cp a, $02
 	jr z, Label_25_4929
 	cp a, $03
@@ -1241,6 +1269,8 @@ Mailbox_CursorDown:: ; 25:4907
 	cp a, $04
 	jr z, Label_25_4929
 	jr Label_25_4929
+
+; ---- code $4929-$4A15 (236 bytes) [CONFIRMED] 117 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 2 scenarios]
 
 Label_25_4929:: ; 25:4929
 	ld b, $00
@@ -1384,7 +1414,7 @@ Table_25_4A15::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4A2D-$4A90 (99 bytes) [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code)
+; ---- code $4A2D-$4A68 (59 bytes) [CONFIRMED] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split [executed in 1 scenarios]
 
 Mailbox_RedrawAfterDelete:: ; 25:4A2D
 	ld a, b
@@ -1426,6 +1456,8 @@ Label_25_4A3C:: ; 25:4A3C
 	pop bc
 	ret
 
+; ---- code $4A68-$4A90 (40 bytes) [PROBABLE] 18 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split
+
 Mailbox_ShowEmptyList:: ; 25:4A68
 	push bc
 	ld a, $02
@@ -1459,53 +1491,53 @@ Function_25_4A90::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld d, $00
-	ld a, [sSram_A124]
+	ld a, [sSram_MailRecords]
 	cp a, $00
 	ret z
 
-; ---- code $4AA6-$4AF5 (79 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed)
+; ---- code $4AA6-$4AF5 (79 bytes) [CONFIRMED] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed) [executed in 5 scenarios]
 	inc d
-	ld a, [sSram_A251]
+	ld a, [sSram_MailRecords + 301]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A37E]
+	ld a, [sSram_MailRecords + 602]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A4AB]
+	ld a, [sSram_MailRecords + 903]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A5D8]
+	ld a, [sSram_MailRecords + 1204]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A705]
+	ld a, [sSram_MailRecords + 1505]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A832]
+	ld a, [sSram_MailRecords + 1806]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_A95F]
+	ld a, [sSram_MailRecords + 2107]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_AA8C]
+	ld a, [sSram_MailRecords + 2408]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_ABB9]
+	ld a, [sSram_MailRecords + 2709]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_ACE6]
+	ld a, [sSram_MailRecords + 3010]
 	cp a, $00
 	ret z
 	inc d
-	ld a, [sSram_AE13]
+	ld a, [sSram_MailRecords + 3311]
 	cp a, $00
 	ret z
 	inc d
@@ -1585,7 +1617,7 @@ Function_25_4B0D::
 	call Function_00_0464
 	jp Label_25_4C75
 
-; ---- code $4BD0-$4C75 (165 bytes) [PROBABLE] 53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1; entered by jpcc from 25:4B25 (executed)
+; ---- code $4BD0-$4C75 (165 bytes) [CONFIRMED] 53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1; entered by jpcc from 25:4B25 (executed) [executed in 3 scenarios]
 
 Label_25_4BD0:: ; 25:4BD0
 	ld bc, $0040
@@ -1740,7 +1772,7 @@ Label_25_4D03:: ; 25:4D03
 	cp a, d
 	jr z, Label_25_4D4D
 
-; ---- code $4D0E-$4D4D (63 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed)
+; ---- code $4D0E-$4D4D (63 bytes) [CONFIRMED] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed) [executed in 4 scenarios]
 	push bc
 	call Mailbox_ShowRowNumbers
 	call Mailbox_ShowRowStatusIcons
@@ -1792,7 +1824,7 @@ Label_25_4D4D:: ; 25:4D4D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1813,7 +1845,7 @@ Label_25_4D4D:: ; 25:4D4D
 	pop bc
 	ret
 
-; ---- code $4D99-$4E2B (146 bytes) [PROBABLE] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code)
+; ---- code $4D99-$4E2B (146 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code) [executed in 4 scenarios]
 
 Mailbox_UpdateScrollArrows_B:: ; 25:4D99
 	push bc
@@ -2573,7 +2605,7 @@ Table_25_5228::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $5240-$534C (268 bytes) [PROBABLE] 145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
+; ---- code $5240-$5267 (39 bytes) [CONFIRMED] 145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 9 scenarios]
 
 Mailbox_DrawTextLine:: ; 25:5240
 	ld [wTextCellsLeft], a
@@ -2595,8 +2627,12 @@ Label_25_5243:: ; 25:5243
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_25_526B
+
+; ---- code $5267-$526B (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5240-534C by apply_coverage --split
 	pop af
 	jp Label_25_52CA
+
+; ---- code $526B-$531C (177 bytes) [CONFIRMED] 96 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 3 scenarios]
 
 Label_25_526B:: ; 25:526B
 	pop af
@@ -2709,9 +2745,13 @@ Label_25_530E:: ; 25:530E
 Label_25_5318:: ; 25:5318
 	cp a, $0A
 	jr nz, Label_25_5322
+
+; ---- code $531C-$5322 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5240-534C by apply_coverage --split
 	ld b, $01
 	ld c, $00
 	jr Label_25_5325
+
+; ---- code $5322-$534C (42 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 4 scenarios]
 
 Label_25_5322:: ; 25:5322
 	ld b, $00
@@ -2860,7 +2900,7 @@ Mailbox_Hint_NoMail:: ; 25:547E
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $81, $40, $81, $40 ; "　　　　　メールが　ありません　　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $54A7-$5569 (194 bytes) [PROBABLE] 105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code)
+; ---- code $54A7-$5534 (141 bytes) [CONFIRMED] 105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code) | 80 insn(s) executed; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split [executed in 1 scenarios]
 
 Mailbox_ReplyToRecord:: ; 25:54A7
 	ld a, c
@@ -2935,7 +2975,7 @@ Label_25_5506:: ; 25:5506
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $03
-	ld [wRam_D524], a
+	ld [wMailComposeMode], a
 	ld a, b
 	ld [wRam_D525], a
 	ld a, b
@@ -2954,8 +2994,12 @@ Label_25_5527:: ; 25:5527
 	xor a, a
 	jr Label_25_5536
 
+; ---- code $5534-$5536 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split
+
 Label_25_5534:: ; 25:5534
 	ld a, $01
+
+; ---- code $5536-$555C (38 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split [executed in 1 scenarios]
 
 Label_25_5536:: ; 25:5536
 	farcall MailTitle_Entry
@@ -2975,6 +3019,8 @@ Label_25_5536:: ; 25:5536
 	ld a, [wRam_D526]
 	ld c, a
 	ret
+
+; ---- code $555C-$5569 (13 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split
 
 Label_25_555C:: ; 25:555C
 	ld a, $01

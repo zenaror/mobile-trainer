@@ -2,7 +2,8 @@
 4000	401A	code	Function_70_4000	CONFIRMED	11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 401A	401D	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 70:4018 (executed)
 401D	4043	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 1/18 scenarios)
-4043	406A	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed)
+4043	404A	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4043-406A by apply_coverage --split [executed in 5 scenarios]
+404A	406A	code	-	PROBABLE	11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4043-406A by apply_coverage --split
 406A	4071	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 4071	407B	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
 407B	40AD	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 1/18 scenarios)
@@ -14,13 +15,19 @@
 40E3	417E	code	-	CONFIRMED	64 insn(s); 64 executed (in up to 1/18 scenarios)
 417E	41BB	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
 41BB	4215	code	-	CONFIRMED	39 insn(s); 39 executed (in up to 1/18 scenarios)
-4215	4275	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
+4215	423F	code	-	CONFIRMED	44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
+423F	4241	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4215-4275 by apply_coverage --split
+4241	4275	code	-	CONFIRMED	24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 4 scenarios]
 4275	4285	code	Function_70_4275	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 4285	428D	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
 428D	4316	code	-	CONFIRMED	55 insn(s); 55 executed (in up to 1/18 scenarios)
-4316	4353	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed)
+4316	4353	code	-	CONFIRMED	24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
 4353	43AD	code	-	CONFIRMED	39 insn(s); 39 executed (in up to 1/18 scenarios)
-43AD	44B0	code	-	PROBABLE	112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
+43AD	43DA	code	-	CONFIRMED	112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
+43DA	43DC	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
+43DC	4462	code	-	CONFIRMED	57 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
+4462	4464	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
+4464	44B0	code	-	CONFIRMED	33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 5 scenarios]
 44B0	46A6	code	Function_70_44B0	CONFIRMED	203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 46A6	4704	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
 4704	472A	code	-	HYPOTHESIS	SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven

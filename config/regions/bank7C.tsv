@@ -9,9 +9,9 @@
 7BC9	7BD7	ptrtable	Table_7C_7BC9	PROBABLE	inline table of `call $0545` (JumpTableInline) at 7C:7BC6: 7 entries; end is a heuristic guess (words stay plausible code pointers); every byte read as data in a trace
 7BD7	7BDA	code	-	PROBABLE	jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7BC0 (loop head)
 7BDA	7BFA	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 4/18 scenarios)
-7BFA	7C6A	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed)
+7BFA	7C6A	code	-	CONFIRMED	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed) [executed in 2 scenarios]
 7C6A	7C73	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 4/18 scenarios)
-7C73	7C7C	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code)
+7C73	7C7C	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code) [executed in 2 scenarios]
 7C7C	7CDF	code	-	CONFIRMED	32 insn(s); 32 executed (in up to 2/18 scenarios)
 7CDF	7CE2	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 2 scenarios]
 7CE2	7CF3	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios)

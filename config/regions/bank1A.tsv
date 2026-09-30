@@ -2,15 +2,17 @@
 4000	4163	code	Function_1A_4000	CONFIRMED	121 insn(s); 121 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 4163	416D	ptrtable	Table_1A_4163	CONFIRMED	inline table of `call $056A` (JoypadDispatch) at 1A:4160: 5 entries; fixed length (5 words) by the routine
 416D	41F2	code	-	CONFIRMED	65 insn(s); 65 executed (in up to 1/18 scenarios)
-41F2	4238	code	-	PROBABLE	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed)
+41F2	41F7	code	-	CONFIRMED	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed) | 2 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 5 scenarios]
+41F7	41F8	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split
+41F8	4238	code	-	CONFIRMED	31 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 1 scenarios]
 4238	4263	code	-	CONFIRMED	23 insn(s); 23 executed (in up to 1/18 scenarios)
-4263	4281	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed)
+4263	4281	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
 4281	4288	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 4288	4289	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1A:4286 (executed) [executed in 3 scenarios]
 4289	42B0	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 1/18 scenarios)
 42B0	42DE	code	-	CONFIRMED	21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
 42DE	4346	code	Function_1A_42DE	CONFIRMED	49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4346	4351	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed)
+4346	4351	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
 4351	437B	code	-	CONFIRMED	17 insn(s); 17 executed (in up to 1/18 scenarios)
 437B	4391	data	Data_1A_437B	PROBABLE	11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before Function_1A_4391; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
 4391	4439	code	Function_1A_4391	CONFIRMED	83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call

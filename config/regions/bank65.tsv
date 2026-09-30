@@ -9,15 +9,17 @@
 4078	408E	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 12/18 scenarios)
 408E	4093	code	-	PROBABLE	code entry 408E = word of Table_65_40C5 (dispatcher 4078-408B, jp hl); ld a,$F0 ; ld hl,$0110 falls into the far-call site 4093
 4093	40A6	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-40A6	40B3	code	-	PROBABLE	entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9
+40A6	40B3	code	-	PROBABLE	entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9 | forced execution: 4/5 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 40B3	40BC	code	-	PROBABLE	entry 40B3 = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
 40BC	40C5	code	-	PROBABLE	entry 40BC = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
 40C5	40CF	ptrtable	Table_65_40C5	PROBABLE	5 code pointers (40A6 408E 40B3 40BC 408B) indexed by the dispatcher 4078-408B (add a,a ; add a,$C5 ; ... jp hl); 40CD-40CF read in traces; all targets decode cleanly
 40CF	40E2	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 5/18 scenarios)
 40E2	40E7	code	-	CONFIRMED	code entry 40E2 = word of Table_65_4119 (dispatcher 40CF-40E2, jp hl); ld a,$F0 ; ld hl,$0100 falls into the far-call site 40E7 [executed in 1 scenarios]
-40E7	40FA	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+40E7	40F7	code	-	CONFIRMED	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 5 insn(s) executed; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split [executed in 1 scenarios]
+40F7	40FA	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split
 40FA	4107	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 4/18 scenarios)
-4107	4110	code	-	PROBABLE	code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9
+4107	410D	code	-	CONFIRMED	code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9 | 2 insn(s) executed; cut out of the PROBABLE region 4107-4110 by apply_coverage --split [executed in 3 scenarios]
+410D	4110	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4107-4110 by apply_coverage --split
 4110	4119	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 4119	4123	ptrtable	Table_65_4119	PROBABLE	5 code pointers (40FA 40E2 4107 4110 40E2) indexed by the dispatcher 40CF-40E2 (add a,a ; add a,$19 ; ... jp hl); 4119-411B and 411F-4121 read in traces; targets decode cleanly
 4123	4164	code	Function_65_4123	CONFIRMED	34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
@@ -27,15 +29,20 @@
 41A7	41AA	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 14/18 scenarios)
 41AA	41DA	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 41DA	4293	code	Function_65_41DA	CONFIRMED	65 insn(s); 65 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-4293	42A3	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 65:4290 (executed)
+4293	429A	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 65:4290 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4293-42A3 by apply_coverage --split [executed in 1 scenarios]
+429A	42A3	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4293-42A3 by apply_coverage --split
 42A3	42BB	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 4/18 scenarios)
-42BB	42E3	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 65:42B9 (executed)
+42BB	42DB	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 65:42B9 (executed) | 11 insn(s) executed; cut out of the PROBABLE region 42BB-42E3 by apply_coverage --split [executed in 2 scenarios]
+42DB	42E3	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42BB-42E3 by apply_coverage --split
 42E3	4378	code	-	CONFIRMED	50 insn(s); 50 executed (in up to 4/18 scenarios)
 4378	4384	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 65:4376 (executed) [executed in 1 scenarios]
 4384	4423	code	-	CONFIRMED	52 insn(s); 52 executed (in up to 3/18 scenarios)
 4423	4424	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 65:441D (executed)
 4424	444B	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 3/18 scenarios)
-444B	4642	code	-	PROBABLE	164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1; entered by jrcc from 65:446C (PROBABLE code)
+444B	4455	code	-	PROBABLE	164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1; entered by jrcc from 65:446C (PROBABLE code) | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 444B-4642 by apply_coverage --split
+4455	461A	code	-	CONFIRMED	147 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage --split [executed in 1 scenarios]
+461A	461B	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 444B-4642 by apply_coverage --split
+461B	4642	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage --split [executed in 2 scenarios]
 4642	46E5	code	-	CONFIRMED	46 insn(s); 46 executed (in up to 3/18 scenarios)
 46E5	46FF	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
 46FF	471F	code	-	HYPOTHESIS	sibling of the executed Function_65_473F (same 32-byte shape: save FFF2/FF8D, switch WRAM bank 3, call $14BF with hl=$DECB de=$DEB9, restore); clean decode to ret; no caller or table entry found in the ROM (raw far-call/call/word scan), so entry unproven

@@ -50,10 +50,12 @@ CommScene_Step:: ; 70:4023
 	or a, a
 	jr nz, Label_70_406A
 
-; ---- code $4043-$406A (39 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed)
+; ---- code $4043-$404A (7 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4043-406A by apply_coverage --split [executed in 5 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_70_407B
+
+; ---- code $404A-$406A (32 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4043-406A by apply_coverage --split
 	ld hl, $DA30
 	ld de, CommScene_ObjTable
 	ld a, $70
@@ -325,7 +327,7 @@ Label_70_4202:: ; 70:4202
 	ld [wRam_C27F], a
 	ret
 
-; ---- code $4215-$4275 (96 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
+; ---- code $4215-$423F (42 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
 
 Label_70_4215:: ; 70:4215
 	ld a, [wRam_C282]
@@ -351,7 +353,11 @@ Label_70_4235:: ; 70:4235
 	jr z, Label_70_4258
 	cp a, $01
 	jr z, Label_70_4241
+
+; ---- code $423F-$4241 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4215-4275 by apply_coverage --split
 	jr Label_70_4258
+
+; ---- code $4241-$4275 (52 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 4 scenarios]
 
 Label_70_4241:: ; 70:4241
 	ldh a, [hWRAMBank]
@@ -473,7 +479,7 @@ Label_70_42DC:: ; 70:42DC
 	ld [wRam_C27C], a
 	jr Label_70_4353
 
-; ---- code $4316-$4353 (61 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed)
+; ---- code $4316-$4353 (61 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
 
 Label_70_4316:: ; 70:4316
 	ldh a, [hWRAMBank]
@@ -554,7 +560,7 @@ Label_70_439A:: ; 70:439A
 	ld [wRam_C27F], a
 	ret
 
-; ---- code $43AD-$44B0 (259 bytes) [PROBABLE] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3
+; ---- code $43AD-$43DA (45 bytes) [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
 
 Label_70_43AD:: ; 70:43AD
 	ld a, [wRam_C282]
@@ -581,7 +587,11 @@ Label_70_43D0:: ; 70:43D0
 	jr z, Label_70_43F8
 	cp a, $01
 	jr z, Label_70_43DC
+
+; ---- code $43DA-$43DC (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
 	jr Label_70_43F8
+
+; ---- code $43DC-$4462 (134 bytes) [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
 
 Label_70_43DC:: ; 70:43DC
 	ld a, $01
@@ -653,7 +663,11 @@ Label_70_4458:: ; 70:4458
 	jr z, Label_70_4480
 	cp a, $01
 	jr z, Label_70_4464
+
+; ---- code $4462-$4464 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
 	jr Label_70_4480
+
+; ---- code $4464-$44B0 (76 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_70_4464:: ; 70:4464
 	ldh a, [hWRAMBank]

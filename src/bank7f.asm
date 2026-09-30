@@ -2398,7 +2398,7 @@ Label_7F_4BB6:: ; 7F:4BB6
 	jp nz, Label_7F_4B2B
 	ret
 
-; ---- code $4BBC-$4C42 (134 bytes) [PROBABLE] 65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6; entered by call from 7F:4D77 (PROBABLE code)
+; ---- code $4BBC-$4C42 (134 bytes) [PROBABLE] 65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6; entered by call from 7F:4D77 (PROBABLE code) | forced execution: 51/65 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Canvas_UploadToVram:: ; 7F:4BBC
 	ld a, $02
@@ -2509,7 +2509,7 @@ Data_7F_4C57::
 Data_7F_4C77:: ; 7F:4C77
 	db $C9
 
-; ---- code $4C78-$4D50 (216 bytes) [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $4C78-$4D50 (216 bytes) [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 115/116 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_7F_4C78:: ; 7F:4C78
 	farcall Function_00_09B6
@@ -2702,7 +2702,7 @@ Label_7F_4D5E:: ; 7F:4D5E
 String_7F_4D88:: ; 7F:4D88
 	db $53, $61, $6D, $70, $6C, $65, $20, $44, $41, $54, $41, $2E, $00 ; "Sample DATA."
 
-; ---- code $4D95-$4DF2 (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C84 (PROBABLE code)
+; ---- code $4D95-$4DF2 (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C84 (PROBABLE code) | forced execution: 56/56 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_7F_4D95:: ; 7F:4D95
 	ld b, $0C
@@ -2771,7 +2771,7 @@ Label_7F_4DA1:: ; 7F:4DA1
 String_7F_4DF2:: ; 7F:4DF2
 	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
-; ---- code $4E0D-$4E6A (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C93 (PROBABLE code)
+; ---- code $4E0D-$4E6A (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C93 (PROBABLE code) | forced execution: 56/56 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_7F_4E0D:: ; 7F:4E0D
 	ld b, $0C
@@ -2840,7 +2840,7 @@ Label_7F_4E19:: ; 7F:4E19
 String_7F_4E6A:: ; 7F:4E6A
 	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
-; ---- code $4E85-$4E89 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1; entered by call from 7F:4C81 (PROBABLE code)
+; ---- code $4E85-$4E89 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1; entered by call from 7F:4C81 (PROBABLE code) | forced execution: 2/2 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Function_7F_4E85:: ; 7F:4E85
 	call Canvas_UploadToVram
@@ -2920,7 +2920,7 @@ Function_7F_4FDB:: ; 7F:4FDB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -3041,7 +3041,7 @@ Label_7F_5091:: ; 7F:5091
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -3291,7 +3291,7 @@ Label_7F_520E:: ; 7F:520E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -4313,7 +4313,7 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4328,7 +4328,7 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4354,7 +4354,7 @@ Label_7F_5A11:: ; 7F:5A11
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -4777,7 +4777,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4790,7 +4790,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5152,7 +5152,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5165,7 +5165,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5423,7 +5423,7 @@ Label_7F_6216:: ; 7F:6216
 	xor a, a
 	ret
 
-; ---- code $6218-$624F (55 bytes) [PROBABLE] 23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery hops 0; entered by far from 23:50E5 (PROBABLE code)
+; ---- code $6218-$6233 (27 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery hops 0; entered by far from 23:50E5 (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE region 6218-624F by apply_coverage --split [executed in 1 scenarios]
 
 Function_7F_6218:: ; 7F:6218
 	ld hl, $C26F
@@ -5437,6 +5437,8 @@ Function_7F_6218:: ; 7F:6218
 	jr z, Label_7F_6233
 	ld a, $FF
 	ret
+
+; ---- code $6233-$624F (28 bytes) [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6218-624F by apply_coverage --split
 
 Label_7F_6233:: ; 7F:6233
 	xor a, a
@@ -6081,7 +6083,7 @@ Function_7F_7271::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 
 Label_7F_7297:: ; 7F:7297
 	ldh a, [rLY]

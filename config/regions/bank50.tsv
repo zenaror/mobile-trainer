@@ -1,9 +1,22 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
-4000	4244	code	-	PROBABLE	217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code)
+4000	4101	code	-	CONFIRMED	217 insn(s) reached by static flow only; seeds: exec x217; min discovery hops 1; entered by far from 4E:50DD (PROBABLE code) | 99 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 2 scenarios]
+4101	4129	code	-	PROBABLE	16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
+4129	4135	code	-	CONFIRMED	5 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 4 scenarios]
+4135	4148	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
+4148	4173	code	-	CONFIRMED	14 insn(s) executed; cut out of the PROBABLE region 4000-4244 by apply_coverage --split [executed in 4 scenarios]
+4173	4244	code	-	PROBABLE	75 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4244 by apply_coverage --split
 4244	4254	ptrtable	Table_50_4244	PROBABLE	little-endian word table, 8 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $439A..$574A; referenced by ld r16,$4244 at 50:4259; verifier: dropped first entry (operand of the preceding jp/call at 4241)
 4254	42AC	code	-	CONFIRMED	34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 3; entered by jp from 50:411E (PROBABLE code) [executed in 1 scenarios]
 42AC	42B6	ptrtable	Table_50_42AC	PROBABLE	inline table of `call $056A` (JoypadDispatch) at 50:42A9: 5 entries; fixed length (5 words) by the routine
-42B6	438A	code	-	PROBABLE	109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4; entered by table from 50:42A9 (PROBABLE code)
+42B6	42DD	code	-	CONFIRMED	109 insn(s) reached by static flow only; seeds: exec x109; min discovery hops 4; entered by table from 50:42A9 (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
+42DD	42E4	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+42E4	430A	code	-	CONFIRMED	19 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 2 scenarios]
+430A	430C	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+430C	431C	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 1 scenarios]
+431C	4338	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+4338	4348	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
+4348	4352	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42B6-438A by apply_coverage --split
+4352	438A	code	-	CONFIRMED	35 insn(s) executed; cut out of the PROBABLE region 42B6-438A by apply_coverage --split [executed in 4 scenarios]
 438A	439A	words	Table_50_438A	PROBABLE	8 WRAM tilemap-buffer addresses ($D0A3,$D083,$D0E4,$D0C4 twice) indexed by (wRam_C1CD-1)*2 at 50:4352 (ld hl,$438A; word read); the code writes a tile id ($26+n) through it and the row below (+$20). Values are WRAM addresses, not ROM pointers.
 439A	4502	data	Tilemap_50_439A	PROBABLE	screen 1 of 8: 20x18 tile-id map (360 bytes); block address is entry 0 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 4502	466A	data	Attrmap_50_4502	PROBABLE	attribute map paired with Tilemap_50_439A: 08EA's second call copies the following 20x18 block to dest+$0400 (=$D400); values ($08,$28,...) look like CGB BG attributes (bit3 tile VRAM bank, bit5 xflip) - meaning of the buffers HYPOTHESIS

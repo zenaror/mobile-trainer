@@ -1,6 +1,6 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	409F	code	-	CONFIRMED	81 insn(s); 81 executed (in up to 18/18 scenarios)
-409F	40AC	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 04:409D (executed)
+409F	40AC	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 04:409D (executed) | forced execution: 5/5 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 40AC	415A	code	-	CONFIRMED	86 insn(s); 86 executed (in up to 18/18 scenarios)
 415A	415F	code	-	HYPOTHESIS	sibling of the executed entries 414C/4153 (ld de,imm ; ld a,imm ; shared tail 415F): decodes to ld de,$D040 ; ld a,$08 and lands exactly on the executed tail 415F; no caller or table entry found anywhere in the ROM, so entry unproven
 415F	41CF	code	-	CONFIRMED	67 insn(s); 67 executed (in up to 18/18 scenarios)
@@ -14,9 +14,9 @@
 42D6	42EC	code	-	CONFIRMED	10 insn(s); 10 executed (in up to 18/18 scenarios)
 42EC	430A	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 04:42E7 (executed)
 430A	4313	code	Function_04_430A	CONFIRMED	5 insn(s); 5 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-4313	4319	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 04:4311 (executed)
+4313	4319	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 04:4311 (executed) | forced execution: 3/3 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 4319	43DC	code	-	CONFIRMED	135 insn(s); 135 executed (in up to 18/18 scenarios)
-43DC	4429	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: exec x10, site x29; min discovery hops 1; entered by jp from 00:20C1 (PROBABLE code)
+43DC	4429	code	-	PROBABLE	39 insn(s) reached by static flow only; seeds: exec x10, site x29; min discovery hops 1; entered by jp from 00:20C1 (PROBABLE code) | forced execution: 13/39 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 4429	442F	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 18/18 scenarios)
 442F	4433	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 04:454D (PROBABLE code)
 4433	444B	code	Function_04_4433	CONFIRMED	11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
@@ -66,7 +66,11 @@
 4A27	4A5C	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 18/18 scenarios)
 4A5C	4A69	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 04:4A5A (executed)
 4A69	4B66	code	-	CONFIRMED	155 insn(s); 155 executed (in up to 18/18 scenarios)
-4B66	4BC9	code	-	PROBABLE	53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
+4B66	4B79	code	-	CONFIRMED	53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8 | 9 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
+4B79	4B7F	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split
+4B7F	4B96	code	-	CONFIRMED	11 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
+4B96	4B98	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split
+4B98	4BC9	code	-	CONFIRMED	28 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
 4BC9	4C5C	code	Function_04_4BC9	CONFIRMED	90 insn(s); 90 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 4C5C	4C5F	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 04:4C59 (executed)
 4C5F	4CD2	code	-	CONFIRMED	66 insn(s); 66 executed (in up to 17/18 scenarios)

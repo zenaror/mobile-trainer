@@ -18,7 +18,7 @@ Function_29_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -151,7 +151,7 @@ MailResult_InitScreen:: ; 29:407A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -283,9 +283,11 @@ Function_29_4286::
 	cp a, $0C
 	jr nz, Label_29_42AF
 
-; ---- code $429A-$42AF (21 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 29:4298 (executed)
+; ---- code $429A-$429F (5 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 29:4298 (executed) | 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 429A-42AF by apply_coverage --split
 	ld hl, $4357
 	jr Label_29_42AF
+
+; ---- code $429F-$42AF (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 429A-42AF by apply_coverage --split [executed in 5 scenarios]
 
 Label_29_429F:: ; 29:429F
 	inc de
@@ -363,7 +365,7 @@ MailResult_Txt_ArrivedCount:: ; 29:433C
 MailResult_Txt_CannotReceive:: ; 29:4357
 	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはうけとれませんでした"
 
-; ---- code $4374-$44F6 (386 bytes) [PROBABLE] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3; entered by call from 29:42AC (PROBABLE code)
+; ---- code $4374-$439D (41 bytes) [CONFIRMED] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3; entered by call from 29:42AC (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
 
 MailResult_SetReceivedSprite:: ; 29:4374
 	push bc
@@ -386,6 +388,8 @@ MailResult_SetReceivedSprite:: ; 29:4374
 Label_29_4399:: ; 29:4399
 	cp a, $02
 	jr nz, Label_29_43B9
+
+; ---- code $439D-$43B9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B50
 	ld a, $24
@@ -395,6 +399,8 @@ Label_29_4399:: ; 29:4399
 	ld hl, $DA30
 	call Function_00_0A65
 	jp Label_29_44F2
+
+; ---- code $43B9-$43FD (68 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_29_43B9:: ; 29:43B9
 	cp a, $03
@@ -425,6 +431,8 @@ Label_29_43D9:: ; 29:43D9
 Label_29_43F9:: ; 29:43F9
 	cp a, $05
 	jr nz, Label_29_4419
+
+; ---- code $43FD-$4419 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B80
 	ld a, $24
@@ -435,9 +443,13 @@ Label_29_43F9:: ; 29:43F9
 	call Function_00_0A65
 	jp Label_29_44F2
 
+; ---- code $4419-$441D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
+
 Label_29_4419:: ; 29:4419
 	cp a, $06
 	jr nz, Label_29_4439
+
+; ---- code $441D-$4439 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B90
 	ld a, $24
@@ -448,9 +460,13 @@ Label_29_4419:: ; 29:4419
 	call Function_00_0A65
 	jp Label_29_44F2
 
+; ---- code $4439-$443D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
+
 Label_29_4439:: ; 29:4439
 	cp a, $07
 	jr nz, Label_29_4459
+
+; ---- code $443D-$4459 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BA0
 	ld a, $24
@@ -460,6 +476,8 @@ Label_29_4439:: ; 29:4439
 	ld hl, $DA30
 	call Function_00_0A65
 	jp Label_29_44F2
+
+; ---- code $4459-$447D (36 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_29_4459:: ; 29:4459
 	cp a, $08
@@ -477,6 +495,8 @@ Label_29_4459:: ; 29:4459
 Label_29_4479:: ; 29:4479
 	cp a, $09
 	jr nz, Label_29_4499
+
+; ---- code $447D-$4499 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BC0
 	ld a, $24
@@ -487,9 +507,13 @@ Label_29_4479:: ; 29:4479
 	call Function_00_0A65
 	jp Label_29_44F2
 
+; ---- code $4499-$449D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
+
 Label_29_4499:: ; 29:4499
 	cp a, $0A
 	jr nz, Label_29_44B9
+
+; ---- code $449D-$44B9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BD0
 	ld a, $24
@@ -500,9 +524,13 @@ Label_29_4499:: ; 29:4499
 	call Function_00_0A65
 	jp Label_29_44F2
 
+; ---- code $44B9-$44BD (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
+
 Label_29_44B9:: ; 29:44B9
 	cp a, $0B
 	jr nz, Label_29_44D9
+
+; ---- code $44BD-$44D9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BE0
 	ld a, $24
@@ -512,6 +540,8 @@ Label_29_44B9:: ; 29:44B9
 	ld hl, $DA30
 	call Function_00_0A65
 	jp Label_29_44F2
+
+; ---- code $44D9-$44F6 (29 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_29_44D9:: ; 29:44D9
 	ld hl, $DA30
@@ -540,7 +570,7 @@ Function_29_44F6::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -577,7 +607,7 @@ Label_29_4519:: ; 29:4519
 	cp a, $00
 	jp nz, Label_29_45E2
 
-; ---- code $454E-$45E2 (148 bytes) [PROBABLE] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 0; fall-through of the jpcc at 29:454B (executed)
+; ---- code $454E-$4588 (58 bytes) [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 0; fall-through of the jpcc at 29:454B (executed) | 42 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -620,6 +650,8 @@ Label_29_4519:: ; 29:4519
 	jr z, Label_29_45A9
 	cp a, $03
 	jr z, Label_29_45A9
+
+; ---- code $4588-$45A9 (33 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split
 	cp a, $04
 	jr z, Label_29_45AE
 	cp a, $05
@@ -637,12 +669,18 @@ Label_29_4519:: ; 29:4519
 	ld de, $0226
 	jr Label_29_45B1
 
+; ---- code $45A9-$45AE (5 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 3 scenarios]
+
 Label_29_45A9:: ; 29:45A9
 	ld de, $0224
 	jr Label_29_45B1
 
+; ---- code $45AE-$45B1 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split
+
 Label_29_45AE:: ; 29:45AE
 	ld de, $0225
+
+; ---- code $45B1-$45E2 (49 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 1 scenarios]
 
 Label_29_45B1:: ; 29:45B1
 	push de
@@ -654,7 +692,7 @@ Label_29_45B1:: ; 29:45B1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -667,7 +705,7 @@ Label_29_45B1:: ; 29:45B1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -825,7 +863,7 @@ Label_29_4701:: ; 29:4701
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1250,7 +1288,7 @@ Label_29_49AE:: ; 29:49AE
 	cp a, $00
 	jr z, Label_29_49D0
 
-; ---- code $49C0-$49D0 (16 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:49BE (executed)
+; ---- code $49C0-$49D0 (16 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:49BE (executed) [executed in 2 scenarios]
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1342,7 +1380,7 @@ Label_29_4A27:: ; 29:4A27
 	cp a, $00
 	jr z, Label_29_4A3D
 
-; ---- code $4A37-$4A3D (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A35 (executed)
+; ---- code $4A37-$4A3D (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A35 (executed) [executed in 2 scenarios]
 	ld bc, $0030
 	jp Label_29_4A42
 
@@ -1374,7 +1412,7 @@ MailServerStatus_UploadNumberTiles_M0:: ; 29:4A45
 	ldh [rSVBK], a
 	ret
 
-; ---- code $4A65-$4AC4 (95 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by call from 29:46F9 (PROBABLE code)
+; ---- code $4A65-$4A7D (24 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by call from 29:46F9 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 4A65-4AC4 by apply_coverage --split [executed in 4 scenarios]
 
 MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	push af
@@ -1394,6 +1432,8 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	ld a, h
 	or a, l
 	jp nz, Label_29_4ACF
+
+; ---- code $4A7D-$4AC4 (71 bytes) [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A65-4AC4 by apply_coverage --split
 
 Label_29_4A7D:: ; 29:4A7D
 	ld a, $02
@@ -1429,7 +1469,7 @@ Label_29_4A7D:: ; 29:4A7D
 String_29_4AC4:: ; 29:4AC4
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
-; ---- code $4ACF-$4C96 (455 bytes) [PROBABLE] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code)
+; ---- code $4ACF-$4B48 (121 bytes) [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code) | 71 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4ACF:: ; 29:4ACF
 	dec hl
@@ -1503,11 +1543,15 @@ Label_29_4ACF:: ; 29:4ACF
 	ld a, h
 	cp a, $FF
 	jr nz, Label_29_4B51
+
+; ---- code $4B48-$4B51 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
 	ld a, l
 	cp a, $FF
 	jr nz, Label_29_4B51
 	pop hl
 	jp Label_29_4A7D
+
+; ---- code $4B51-$4BAA (89 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4B51:: ; 29:4B51
 	pop hl
@@ -1563,6 +1607,8 @@ Label_29_4B8D:: ; 29:4B8D
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4BF0
+
+; ---- code $4BAA-$4BF0 (70 bytes) [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1610,6 +1656,8 @@ Label_29_4B8D:: ; 29:4B8D
 	ld a, $05
 	jp Label_29_4C94
 
+; ---- code $4BF0-$4C02 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
+
 Label_29_4BF0:: ; 29:4BF0
 	ld h, d
 	ld l, e
@@ -1620,6 +1668,8 @@ Label_29_4BF0:: ; 29:4BF0
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4C36
+
+; ---- code $4C02-$4C36 (52 bytes) [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1656,6 +1706,8 @@ Label_29_4BF0:: ; 29:4BF0
 	ld a, $04
 	jp Label_29_4C94
 
+; ---- code $4C36-$4C48 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
+
 Label_29_4C36:: ; 29:4C36
 	ld h, d
 	ld l, e
@@ -1666,6 +1718,8 @@ Label_29_4C36:: ; 29:4C36
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4C6A
+
+; ---- code $4C48-$4C6A (34 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1691,6 +1745,8 @@ Label_29_4C36:: ; 29:4C36
 	ld a, $03
 	jp Label_29_4C94
 
+; ---- code $4C6A-$4C7C (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
+
 Label_29_4C6A:: ; 29:4C6A
 	ld h, d
 	ld l, e
@@ -1701,6 +1757,8 @@ Label_29_4C6A:: ; 29:4C6A
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4C8C
+
+; ---- code $4C7C-$4C8C (16 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1714,6 +1772,8 @@ Label_29_4C6A:: ; 29:4C6A
 	ld [bc], a
 	ld a, $02
 	jp Label_29_4C94
+
+; ---- code $4C8C-$4C96 (10 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4C8C:: ; 29:4C8C
 	ld a, [bc]
@@ -1733,7 +1793,7 @@ Label_29_4C94:: ; 29:4C94
 String_29_4C96:: ; 29:4C96
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $4CA1-$4D21 (128 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code)
+; ---- code $4CA1-$4CB1 (16 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 
 MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	push de
@@ -1743,8 +1803,12 @@ MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CB7
+
+; ---- code $4CB1-$4CB7 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
 	ld bc, $0000
 	jp Label_29_4CFE
+
+; ---- code $4CB7-$4CC7 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4CB7:: ; 29:4CB7
 	ld h, d
@@ -1754,8 +1818,12 @@ Label_29_4CB7:: ; 29:4CB7
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CCD
+
+; ---- code $4CC7-$4CCD (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
 	ld bc, $0010
 	jp Label_29_4CFE
+
+; ---- code $4CCD-$4CDD (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4CCD:: ; 29:4CCD
 	ld h, d
@@ -1765,8 +1833,12 @@ Label_29_4CCD:: ; 29:4CCD
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CE3
+
+; ---- code $4CDD-$4CE3 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
 	ld bc, $0020
 	jp Label_29_4CFE
+
+; ---- code $4CE3-$4CF3 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4CE3:: ; 29:4CE3
 	ld h, d
@@ -1776,8 +1848,12 @@ Label_29_4CE3:: ; 29:4CE3
 	ld a, l
 	cp a, $00
 	jr z, Label_29_4CF9
+
+; ---- code $4CF3-$4CF9 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
 	ld bc, $0030
 	jp Label_29_4CFE
+
+; ---- code $4CF9-$4D21 (40 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 
 Label_29_4CF9:: ; 29:4CF9
 	ld bc, $0040
@@ -2169,7 +2245,7 @@ Label_29_4F40:: ; 29:4F40
 	cp a, $00
 	jr z, Label_29_4F62
 
-; ---- code $4F52-$4F62 (16 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:4F50 (executed)
+; ---- code $4F52-$4F62 (16 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:4F50 (executed) [executed in 1 scenarios]
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -2261,7 +2337,7 @@ Label_29_4FB9:: ; 29:4FB9
 	cp a, $00
 	jr z, Label_29_4FCF
 
-; ---- code $4FC9-$4FCF (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FC7 (executed)
+; ---- code $4FC9-$4FCF (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FC7 (executed) [executed in 1 scenarios]
 	ld bc, $0030
 	jp Label_29_4FD4
 
@@ -2373,7 +2449,7 @@ Data_29_5060::
 	db $00, $08, $05, $02, $00, $05, $14, $93, $38, $10, $EF, $FF, $00, $FF, $FF, $00
 	db $17, $58, $17, $58, $17, $58, $37, $98, $67, $38, $CF, $F0, $1F, $E0, $FF, $00
 
-; ---- code $5090-$5376 (742 bytes) [HYPOTHESIS] self-contained routine library that decodes cleanly (460 legal instructions, internal calls/jumps all land on instruction starts inside the span, idioms: LCDC bit2 toggles 5090/5097, OAM copy/clear, PRNG hl=hl*5+$3711 mixed with LY at 50DA, wait LY=$90 at 5117, ROM bank write $2000/$3000 at 510F, CGB palette fade routines through rBCPS/BCPD $FF68-6B with the $DBD0 buffer at 520D-52xx). NO caller/pointer/far pointer to any address inside was found in the ROM (top-level entries 5159 and 517D are uncalled), and 'call $7BB7' at 5120 lands in this bank's zero padding (so it cannot be running in place in bank 29). Kept as code HYPOTHESIS; could be dead code or an image meant for another bank/RAM [verifier: additional evidence against a live routine in place: the PRNG uses ld a,[$0C0E]/ld [$0C0E],a (a ROM address, an MBC RAM-enable write area) and the internal 'call $7BB7' lands in this bank's zero padding; the library is unique in the ROM (no 24-byte window of it appears elsewhere); no word/call/jp/ld r16/far pointer to any of its 460 instruction starts exists outside it; stays HYPOTHESIS]
+; ---- code $5090-$5376 (742 bytes) [HYPOTHESIS] self-contained routine library that decodes cleanly (460 legal instructions, internal calls/jumps all land on instruction starts inside the span, idioms: LCDC bit2 toggles 5090/5097, OAM copy/clear, PRNG hl=hl*5+$3711 mixed with LY at 50DA, wait LY=$90 at 5117, ROM bank write $2000/$3000 at 510F, CGB palette fade routines through rBCPS/BCPD $FF68-6B with the $DBD0 buffer at 520D-52xx). NO caller/pointer/far pointer to any address inside was found in the ROM (top-level entries 5159 and 517D are uncalled), and 'call $7BB7' at 5120 lands in this bank's zero padding (so it cannot be running in place in bank 29). Kept as code HYPOTHESIS; could be dead code or an image meant for another bank/RAM [verifier: additional evidence against a live routine in place: the PRNG uses ld a,[$0C0E]/ld [$0C0E],a (a ROM address, an MBC RAM-enable write area) and the internal 'call $7BB7' lands in this bank's zero padding; the library is unique in the ROM (no 24-byte window of it appears elsewhere); no word/call/jp/ld r16/far pointer to any of its 460 instruction starts exists outside it; stays HYPOTHESIS] | forced execution: 187/460 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 
 Function_29_5090:: ; 29:5090
 	ldh a, [rLCDC]

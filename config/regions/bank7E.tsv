@@ -1,10 +1,26 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	7B7C	gfx	Data_7E_4000	PROBABLE	font12x12: JIS X 0208 12x12 1bpp glyphs, 18 bytes/glyph (2 rows of 12 bits per 3 bytes), JIS rows 1,2,3,4,5,6,7,8,13, 94 cols/row; layout from 7F:400E/4072/40B9 + tables 7F:40F9/7F:4150 (verified structure, layout from engine code)
-7B7C	7D19	code	-	PROBABLE	268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 1; entered by call from 7E:7BDA (PROBABLE code)
+7B7C	7B81	code	-	CONFIRMED	268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 1; entered by call from 7E:7BDA (PROBABLE code) | 3 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 12 scenarios]
+7B81	7B84	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7B84	7BAE	code	-	CONFIRMED	28 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
+7BAE	7BB4	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7BB4	7BC8	code	-	CONFIRMED	12 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 2 scenarios]
+7BC8	7BC9	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7BC9	7BD6	code	-	CONFIRMED	11 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 2 scenarios]
+7BD6	7BDE	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7BDE	7BF0	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 1 scenarios]
+7BF0	7C27	code	-	PROBABLE	31 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7C27	7C52	code	-	CONFIRMED	27 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 1 scenarios]
+7C52	7C62	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7C62	7CE4	code	-	CONFIRMED	90 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
+7CE4	7CE7	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split
+7CE7	7D19	code	-	CONFIRMED	37 insn(s) executed; cut out of the PROBABLE region 7B7C-7D19 by apply_coverage --split [executed in 6 scenarios]
 7D19	7D1D	code	Function_7E_7D19	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 7D1D	7D26	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7E:7D1B (executed)
 7D26	7D35	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 1/18 scenarios)
-7D35	7D5A	code	-	PROBABLE	27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jrcc at 7E:7D33 (executed)
+7D35	7D50	code	-	CONFIRMED	27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jrcc at 7E:7D33 (executed) | 19 insn(s) executed; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split [executed in 1 scenarios]
+7D50	7D56	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split
+7D56	7D5A	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 7D35-7D5A by apply_coverage --split [executed in 1 scenarios]
 7D5A	7D62	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 7D62	7D66	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 14; entered by far from 54:4A73 (PROBABLE code) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 7D66	7D8F	code	-	CONFIRMED	26 insn(s); 26 executed (in up to 1/18 scenarios)
@@ -13,9 +29,19 @@
 7DAA	7DB0	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 7E:7D9E (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 7DB0	7DDF	code	-	CONFIRMED	handler 7DB0 (entry 1 of the jump table 7E:7D8F, each handler starts with pop hl); 7DB0-7DDF decodes to jp/jr targets on instruction starts, ends with jr $7D75 [executed in 6 scenarios]
 7DDF	7DE5	code	-	HYPOTHESIS	ld a,2 ; ldh [$FFB1],a ; jr $7D75 (same body as the executed 7E:7DAA): no decoded branch, table word or call targets 7DDF (checked by the verifier), it follows the unconditional jr $7D75 at 7DDD, so its entry is unproven
-7DE5	7E37	code	-	PROBABLE	handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends with jp $7D75 exactly at the executed code 7E37
+7DE5	7DF0	code	-	CONFIRMED	handlers 7DE5, 7E05, 7E1E (entries 2-4 of the jump table 7E:7D8F: words 7DE5/7E05/7E1E, each starts with pop hl; verified instruction starts); 19 direct targets of the whole 7DB0-7E37 block land on instruction starts (7D75, 7DAA, 7E37, ...), decoding ends with jp $7D75 exactly at the executed code 7E37 | 6 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
+7DF0	7DF7	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
+7DF7	7E10	code	-	CONFIRMED	12 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
+7E10	7E17	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
+7E17	7E29	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
+7E29	7E30	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split
+7E30	7E37	code	-	CONFIRMED	3 insn(s) executed; cut out of the PROBABLE region 7DE5-7E37 by apply_coverage --split [executed in 12 scenarios]
 7E37	7E3D	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 7E3D	7E4C	code	-	CONFIRMED	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 7E:7E3B (executed) [upgraded PROBABLE->CONFIRMED by the classify_g1 pass: every instruction start of the region appears in analysis/coverage_union.tsv]
 7E4C	7E68	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 1/18 scenarios)
-7E68	7EB3	code	-	PROBABLE	49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 2; entered by call from 7E:7D56 (PROBABLE code)
+7E68	7E74	code	-	CONFIRMED	49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 2; entered by call from 7E:7D56 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
+7E74	7E76	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split
+7E76	7E80	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
+7E80	7EAA	code	-	PROBABLE	29 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split
+7EAA	7EB3	code	-	CONFIRMED	5 insn(s) executed; cut out of the PROBABLE region 7E68-7EB3 by apply_coverage --split [executed in 1 scenarios]
 7EB3	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank
