@@ -39,22 +39,31 @@ Palette_2C_7C00::
 
 Table_AddrScreenUnused_Objects:: ; 2C:7C40
 Table_2C_7C40::
-	dw AddrScreenUnused_ObjAnimData
-	dw $7C77
-	dw AddrScreenUnused_ObjAnimData
-	dw $7C77
-	dw AddrScreenUnused_ObjAnimData
-	dw $7C77
-	dw AddrScreenUnused_ObjAnimData
-	dw $7C77
+	sprite_object_entry AddrScreenUnused_ObjAnimData, SpriteScript_2C_7C77 ; entry 0
+	sprite_object_entry AddrScreenUnused_ObjAnimData, SpriteScript_2C_7C77 ; entry 1
+	sprite_object_entry AddrScreenUnused_ObjAnimData, SpriteScript_2C_7C77 ; entry 2
+	sprite_object_entry AddrScreenUnused_ObjAnimData, SpriteScript_2C_7C77 ; entry 3
 
 ; ---- data $7C50-$7C80 (48 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 7C40 table (7C50, 7C77)
 
 AddrScreenUnused_ObjAnimData:: ; 2C:7C50
 Data_2C_7C50::
-	db $52, $7C, $09, $00, $00, $00, $0A, $00, $08, $01, $0A, $00, $10, $02, $0A, $08
-	db $00, $03, $0A, $08, $08, $04, $0A, $08, $10, $05, $0A, $10, $00, $06, $0A, $10
-	db $08, $07, $0A, $10, $10, $08, $0A, $01, $00, $04, $00, $00, $00, $00, $00, $00
+	sprite_frame_table SpriteFrame_2C_7C52
+SpriteFrame_2C_7C52:: ; 2C:7C52
+	sprite_frame 9
+	sprite_oam 0, 0, $00, OAMF_BANK1 | 2
+	sprite_oam 0, 8, $01, OAMF_BANK1 | 2
+	sprite_oam 0, 16, $02, OAMF_BANK1 | 2
+	sprite_oam 8, 0, $03, OAMF_BANK1 | 2
+	sprite_oam 8, 8, $04, OAMF_BANK1 | 2
+	sprite_oam 8, 16, $05, OAMF_BANK1 | 2
+	sprite_oam 16, 0, $06, OAMF_BANK1 | 2
+	sprite_oam 16, 8, $07, OAMF_BANK1 | 2
+	sprite_oam 16, 16, $08, OAMF_BANK1 | 2
+SpriteScript_2C_7C77:: ; 2C:7C77
+	sprite_anim 1
+	sprite_anim_step 0, 4
+	db $00, $00, $00, $00, $00, $00
 
 ; ---- data $7C80-$7F50 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2F:524F: hl=$7C80 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 

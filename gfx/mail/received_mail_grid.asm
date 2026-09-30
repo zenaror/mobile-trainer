@@ -45,25 +45,41 @@ Palette_2B_63F0::
 
 Table_MailGrid_Anims:: ; 2B:6430
 Table_2B_6430::
-	dw MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script
+	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 0
+	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 1
+	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 2
+	sprite_object_entry MailGrid_Anim0Frames, MailGrid_Anim0Script ; entry 3
 
 ; ---- words $6440-$6442 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $6442 to OAM frames (extent = lowest target); referenced by an animation entry
 
 MailGrid_Anim0Frames:: ; 2B:6440
 Table_2B_6440::
-	dw MailGrid_Anim0Frame0
+	sprite_frame_table MailGrid_Anim0Frame0
 
 ; ---- data $6442-$647F (61 bytes) [PROBABLE] OAM frame: count=15 then 15 x (y,x,tile,attr) = 61 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
 MailGrid_Anim0Frame0:: ; 2B:6442
 Data_2B_6442::
-	db $0F, $02, $04, $00, $00, $02, $0C, $01, $00, $02, $14, $02, $00, $0A, $04, $03
-	db $00, $0A, $0C, $04, $00, $0A, $14, $05, $00, $0A, $1C, $06, $00, $12, $04, $07
-	db $00, $12, $0C, $08, $00, $12, $14, $09, $00, $12, $1C, $0A, $00, $1A, $04, $0B
-	db $00, $1A, $0C, $0C, $00, $1A, $14, $0D, $00, $1A, $1C, $0E, $00
+	sprite_frame 15
+	sprite_oam 2, 4, $00, 0
+	sprite_oam 2, 12, $01, 0
+	sprite_oam 2, 20, $02, 0
+	sprite_oam 10, 4, $03, 0
+	sprite_oam 10, 12, $04, 0
+	sprite_oam 10, 20, $05, 0
+	sprite_oam 10, 28, $06, 0
+	sprite_oam 18, 4, $07, 0
+	sprite_oam 18, 12, $08, 0
+	sprite_oam 18, 20, $09, 0
+	sprite_oam 18, 28, $0A, 0
+	sprite_oam 26, 4, $0B, 0
+	sprite_oam 26, 12, $0C, 0
+	sprite_oam 26, 20, $0D, 0
+	sprite_oam 26, 28, $0E, 0
 
 ; ---- data $647F-$6482 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
 MailGrid_Anim0Script:: ; 2B:647F
 Data_2B_647F::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4

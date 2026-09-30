@@ -73,7 +73,12 @@ CommErr_ObjAnim:: ; 5C:6410
 ; ---- data $6420-$642F (15 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 5D90-642F by higher-priority evidence]
 
 Data_5C_6420:: ; 5C:6420
-	db $08, $08, $08, $11, $08, $00, $02, $00, $0C, $01, $0C
-
+	db $08, $08, $08, $11, $08 ; not reached by any walked sprite chain
+SpriteFrame_5C_6425:: ; 5C:6425
+	sprite_frame 0
+SpriteScript_5C_6426:: ; 5C:6426
+	sprite_anim 2
+	sprite_anim_step 0, 12
+	sprite_anim_step 1, 12
 CommErr_ObjTable:: ; 5C:642B
-	db $10, $64, $26, $64
+	sprite_object_entry CommErr_ObjAnim, SpriteScript_5C_6426 ; entry 0

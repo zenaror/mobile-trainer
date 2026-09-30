@@ -106,11 +106,22 @@ NoAdapter_Palette_Obj:: ; 63:72D0
 
 NoAdapter_ObjTable:: ; 63:7310
 Table_63_7310::
-	dw $0000, $0000, NoAdapter_ObjAnim, $732A
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry NoAdapter_ObjAnim, SpriteScript_63_732A ; entry 1
 
 ; ---- data $7318-$732F (23 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 63:7318-732F [v4: bytes 7318-732F were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 NoAdapter_ObjAnim:: ; 63:7318
 Data_63_7318::
-	db $1C, $73, $25, $73, $02, $00, $00, $00, $00, $00, $08, $01, $00, $01, $08, $08
-	db $02, $00, $02, $00, $1E, $01, $1E
+	sprite_frame_table SpriteFrame_63_731C, SpriteFrame_63_7325
+SpriteFrame_63_731C:: ; 63:731C
+	sprite_frame 2
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+SpriteFrame_63_7325:: ; 63:7325
+	sprite_frame 1
+	sprite_oam 8, 8, $02, 0
+SpriteScript_63_732A:: ; 63:732A
+	sprite_anim 2
+	sprite_anim_step 0, 30
+	sprite_anim_step 1, 30

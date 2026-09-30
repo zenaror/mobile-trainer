@@ -165,11 +165,33 @@ Data_5D_7200:: ; 5D:7200
 ; ---- data $731C-$735D (65 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Data_5D_731C:: ; 5D:731C
-	db $20, $73, $54, $73, $28, $73, $31, $73, $3A, $73, $53, $73, $02, $05, $0C, $00
-	db $00, $06, $1E, $01, $00, $02, $05, $05, $02, $00, $06, $1E, $03, $00, $06, $13
-	db $05, $04, $40, $13, $0D, $05, $40, $06, $1E, $09, $00, $0B, $05, $06, $40, $0B
-	db $0D, $07, $40, $03, $05, $08, $40, $00, $04, $00, $14, $01, $14, $02, $14, $03
-	db $14
+	sprite_object_entry SpriteFrameTable_5D_7320, SpriteScript_5D_7354 ; entry 1
+SpriteFrameTable_5D_7320:: ; 5D:7320
+	sprite_frame_table SpriteFrame_5D_7328, SpriteFrame_5D_7331, SpriteFrame_5D_733A, SpriteFrame_5D_7353
+SpriteFrame_5D_7328:: ; 5D:7328
+	sprite_frame 2
+	sprite_oam 5, 12, $00, 0
+	sprite_oam 6, 30, $01, 0
+SpriteFrame_5D_7331:: ; 5D:7331
+	sprite_frame 2
+	sprite_oam 5, 5, $02, 0
+	sprite_oam 6, 30, $03, 0
+SpriteFrame_5D_733A:: ; 5D:733A
+	sprite_frame 6
+	sprite_oam 19, 5, $04, OAMF_YFLIP
+	sprite_oam 19, 13, $05, OAMF_YFLIP
+	sprite_oam 6, 30, $09, 0
+	sprite_oam 11, 5, $06, OAMF_YFLIP
+	sprite_oam 11, 13, $07, OAMF_YFLIP
+	sprite_oam 3, 5, $08, OAMF_YFLIP
+SpriteFrame_5D_7353:: ; 5D:7353
+	sprite_frame 0
+SpriteScript_5D_7354:: ; 5D:7354
+	sprite_anim 4
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 20
+	sprite_anim_step 2, 20
+	sprite_anim_step 3, 20
 
 ; ---- zero $735D-$7360 (3 bytes) [PROBABLE] 3 x 00 (all bytes zero) between two read-data blocks
 	ds $3, $00

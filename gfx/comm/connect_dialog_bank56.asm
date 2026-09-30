@@ -128,30 +128,136 @@ Palette_56_77C0::
 
 ConnectDialog_ObjAnimData:: ; 56:7880
 Data_56_7880::
-	db $84, $78, $8D, $78, $02, $02, $FF, $00, $00, $0A, $FF, $01, $00, $01, $00, $00
-	db $1E, $00, $02, $00, $14, $01, $14, $9F, $78, $B0, $78, $C1, $78, $D2, $78, $04
-	db $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE, $0B, $00, $0A, $06, $0C, $00
-	db $04, $02, $FE, $0D, $00, $02, $06, $0E, $00, $0A, $FE, $0F, $00, $0A, $06, $10
-	db $00, $04, $02, $FE, $11, $00, $02, $06, $12, $00, $0A, $FE, $13, $00, $0A, $06
-	db $14, $00, $04, $02, $FE, $0D, $00, $02, $06, $0E, $00, $0A, $FE, $0F, $00, $0A
-	db $06, $10, $00, $04, $00, $0C, $01, $0A, $02, $0F, $03, $0A, $F4, $78, $01, $79
-	db $16, $79, $2B, $79, $03, $0A, $FE, $16, $00, $0A, $06, $17, $00, $02, $06, $15
-	db $00, $05, $01, $06, $18, $00, $09, $FE, $19, $00, $09, $06, $1A, $00, $02, $FD
-	db $07, $00, $0B, $07, $08, $00, $05, $02, $04, $1B, $00, $0A, $FC, $1C, $00, $0A
-	db $04, $02, $00, $01, $FC, $07, $00, $0B, $08, $08, $00, $06, $04, $FB, $03, $00
-	db $04, $03, $04, $00, $0C, $FB, $05, $00, $0C, $03, $06, $00, $00, $FB, $07, $00
-	db $0B, $09, $08, $00, $04, $00, $0A, $01, $0A, $02, $05, $03, $0A, $53, $79, $64
-	db $79, $75, $79, $04, $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE, $0B, $00
-	db $0A, $06, $0C, $00, $04, $FE, $FE, $09, $00, $FE, $06, $0A, $00, $06, $FE, $0B
-	db $00, $06, $06, $0C, $00, $04, $02, $FE, $09, $00, $02, $06, $0A, $00, $0A, $FE
-	db $0B, $00, $0A, $06, $0C, $00, $03, $00, $05, $01, $08, $02, $0A, $91, $79, $A2
-	db $79, $04, $FE, $FE, $1D, $00, $FE, $1A, $1D, $20, $0A, $FE, $1D, $40, $0A, $1A
-	db $1D, $60, $04, $FD, $FD, $1D, $00, $FD, $1B, $1D, $20, $0B, $FD, $1D, $40, $0B
-	db $1B, $1D, $60, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_56_7884, SpriteFrame_56_788D
+SpriteFrame_56_7884:: ; 56:7884
+	sprite_frame 2
+	sprite_oam 2, -1, $00, 0
+	sprite_oam 10, -1, $01, 0
+SpriteFrame_56_788D:: ; 56:788D
+	sprite_frame 1
+	sprite_oam 0, 0, $1E, 0
+SpriteScript_56_7892:: ; 56:7892
+	sprite_anim 2
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 20
+SpriteFrameTable_56_7897:: ; 56:7897
+	sprite_frame_table SpriteFrame_56_789F, SpriteFrame_56_78B0, SpriteFrame_56_78C1, SpriteFrame_56_78D2
+SpriteFrame_56_789F:: ; 56:789F
+	sprite_frame 4
+	sprite_oam 2, -2, $09, 0
+	sprite_oam 2, 6, $0A, 0
+	sprite_oam 10, -2, $0B, 0
+	sprite_oam 10, 6, $0C, 0
+SpriteFrame_56_78B0:: ; 56:78B0
+	sprite_frame 4
+	sprite_oam 2, -2, $0D, 0
+	sprite_oam 2, 6, $0E, 0
+	sprite_oam 10, -2, $0F, 0
+	sprite_oam 10, 6, $10, 0
+SpriteFrame_56_78C1:: ; 56:78C1
+	sprite_frame 4
+	sprite_oam 2, -2, $11, 0
+	sprite_oam 2, 6, $12, 0
+	sprite_oam 10, -2, $13, 0
+	sprite_oam 10, 6, $14, 0
+SpriteFrame_56_78D2:: ; 56:78D2
+	sprite_frame 4
+	sprite_oam 2, -2, $0D, 0
+	sprite_oam 2, 6, $0E, 0
+	sprite_oam 10, -2, $0F, 0
+	sprite_oam 10, 6, $10, 0
+SpriteScript_56_78E3:: ; 56:78E3
+	sprite_anim 4
+	sprite_anim_step 0, 12
+	sprite_anim_step 1, 10
+	sprite_anim_step 2, 15
+	sprite_anim_step 3, 10
+SpriteFrameTable_56_78EC:: ; 56:78EC
+	sprite_frame_table SpriteFrame_56_78F4, SpriteFrame_56_7901, SpriteFrame_56_7916, SpriteFrame_56_792B
+SpriteFrame_56_78F4:: ; 56:78F4
+	sprite_frame 3
+	sprite_oam 10, -2, $16, 0
+	sprite_oam 10, 6, $17, 0
+	sprite_oam 2, 6, $15, 0
+SpriteFrame_56_7901:: ; 56:7901
+	sprite_frame 5
+	sprite_oam 1, 6, $18, 0
+	sprite_oam 9, -2, $19, 0
+	sprite_oam 9, 6, $1A, 0
+	sprite_oam 2, -3, $07, 0
+	sprite_oam 11, 7, $08, 0
+SpriteFrame_56_7916:: ; 56:7916
+	sprite_frame 5
+	sprite_oam 2, 4, $1B, 0
+	sprite_oam 10, -4, $1C, 0
+	sprite_oam 10, 4, $02, 0
+	sprite_oam 1, -4, $07, 0
+	sprite_oam 11, 8, $08, 0
+SpriteFrame_56_792B:: ; 56:792B
+	sprite_frame 6
+	sprite_oam 4, -5, $03, 0
+	sprite_oam 4, 3, $04, 0
+	sprite_oam 12, -5, $05, 0
+	sprite_oam 12, 3, $06, 0
+	sprite_oam 0, -5, $07, 0
+	sprite_oam 11, 9, $08, 0
+SpriteScript_56_7944:: ; 56:7944
+	sprite_anim 4
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+	sprite_anim_step 2, 5
+	sprite_anim_step 3, 10
+SpriteFrameTable_56_794D:: ; 56:794D
+	sprite_frame_table SpriteFrame_56_7953, SpriteFrame_56_7964, SpriteFrame_56_7975
+SpriteFrame_56_7953:: ; 56:7953
+	sprite_frame 4
+	sprite_oam 2, -2, $09, 0
+	sprite_oam 2, 6, $0A, 0
+	sprite_oam 10, -2, $0B, 0
+	sprite_oam 10, 6, $0C, 0
+SpriteFrame_56_7964:: ; 56:7964
+	sprite_frame 4
+	sprite_oam -2, -2, $09, 0
+	sprite_oam -2, 6, $0A, 0
+	sprite_oam 6, -2, $0B, 0
+	sprite_oam 6, 6, $0C, 0
+SpriteFrame_56_7975:: ; 56:7975
+	sprite_frame 4
+	sprite_oam 2, -2, $09, 0
+	sprite_oam 2, 6, $0A, 0
+	sprite_oam 10, -2, $0B, 0
+	sprite_oam 10, 6, $0C, 0
+SpriteScript_56_7986:: ; 56:7986
+	sprite_anim 3
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 10
+SpriteFrameTable_56_798D:: ; 56:798D
+	sprite_frame_table SpriteFrame_56_7991, SpriteFrame_56_79A2
+SpriteFrame_56_7991:: ; 56:7991
+	sprite_frame 4
+	sprite_oam -2, -2, $1D, 0
+	sprite_oam -2, 26, $1D, OAMF_XFLIP
+	sprite_oam 10, -2, $1D, OAMF_YFLIP
+	sprite_oam 10, 26, $1D, OAMF_YFLIP | OAMF_XFLIP
+SpriteFrame_56_79A2:: ; 56:79A2
+	sprite_frame 4
+	sprite_oam -3, -3, $1D, 0
+	sprite_oam -3, 27, $1D, OAMF_XFLIP
+	sprite_oam 11, -3, $1D, OAMF_YFLIP
+	sprite_oam 11, 27, $1D, OAMF_YFLIP | OAMF_XFLIP
+SpriteScript_56_79B3:: ; 56:79B3
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- words $79B8-$79D0 (24 bytes) [PROBABLE] 6 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$79B8 a=$56 is loaded before init_object_from_table at 57:42BA and 10 more sites; all 6 entries hit frame-table/script starts of the sweep 7880-79B8; object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 79CC-79D0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 ConnectDialog_ObjTable:: ; 56:79B8
 Table_56_79B8::
-	dw ConnectDialog_ObjAnimData, $7892, $7897, $78E3, $78EC, $7944, $794D, $7986
-	dw $0000, $0000, $798D, $79B3
+	sprite_object_entry ConnectDialog_ObjAnimData, SpriteScript_56_7892 ; entry 0
+	sprite_object_entry SpriteFrameTable_56_7897, SpriteScript_56_78E3 ; entry 1
+	sprite_object_entry SpriteFrameTable_56_78EC, SpriteScript_56_7944 ; entry 2
+	sprite_object_entry SpriteFrameTable_56_794D, SpriteScript_56_7986 ; entry 3
+	sprite_object_entry 0, 0 ; entry 4
+	sprite_object_entry SpriteFrameTable_56_798D, SpriteScript_56_79B3 ; entry 5

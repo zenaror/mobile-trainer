@@ -170,149 +170,216 @@ Palette_1E_62E0::
 
 TopMenu_Anim1Frames:: ; 1E:6320
 Table_1E_6320::
-	dw TopMenu_Anim1Frame0, TopMenu_Anim1Frame1, TopMenu_Anim1Frame2, TopMenu_Anim1Frame3, TopMenu_Anim1Frame4, TopMenu_Anim1Frame5, TopMenu_Anim1Frame6, TopMenu_Anim1Frame7
-	dw TopMenu_Anim1Frame8
+	sprite_frame_table TopMenu_Anim1Frame0, TopMenu_Anim1Frame1, TopMenu_Anim1Frame2, TopMenu_Anim1Frame3
+	sprite_frame_table TopMenu_Anim1Frame4, TopMenu_Anim1Frame5, TopMenu_Anim1Frame6, TopMenu_Anim1Frame7
+	sprite_frame_table TopMenu_Anim1Frame8
 
 ; ---- data $6332-$633F (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame0:: ; 1E:6332
 Data_1E_6332::
-	db $03, $00, $00, $00, $02, $00, $08, $02, $02, $00, $10, $04, $02
+	sprite_frame 3
+	sprite_oam 0, 0, $00, 2
+	sprite_oam 0, 8, $02, 2
+	sprite_oam 0, 16, $04, 2
 
 ; ---- data $633F-$634C (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame1:: ; 1E:633F
 Data_1E_633F::
-	db $03, $00, $00, $06, $02, $00, $08, $08, $02, $00, $10, $0A, $02
+	sprite_frame 3
+	sprite_oam 0, 0, $06, 2
+	sprite_oam 0, 8, $08, 2
+	sprite_oam 0, 16, $0A, 2
 
 ; ---- data $634C-$6359 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame2:: ; 1E:634C
 Data_1E_634C::
-	db $03, $00, $00, $0C, $02, $00, $08, $0E, $02, $00, $10, $10, $02
+	sprite_frame 3
+	sprite_oam 0, 0, $0C, 2
+	sprite_oam 0, 8, $0E, 2
+	sprite_oam 0, 16, $10, 2
 
 ; ---- data $6359-$6366 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame3:: ; 1E:6359
 Data_1E_6359::
-	db $03, $F2, $10, $00, $02, $F2, $18, $02, $02, $F2, $20, $04, $02
+	sprite_frame 3
+	sprite_oam -14, 16, $00, 2
+	sprite_oam -14, 24, $02, 2
+	sprite_oam -14, 32, $04, 2
 
 ; ---- data $6366-$6373 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame4:: ; 1E:6366
 Data_1E_6366::
-	db $03, $F4, $14, $06, $02, $F4, $1C, $08, $02, $F4, $24, $0A, $02
+	sprite_frame 3
+	sprite_oam -12, 20, $06, 2
+	sprite_oam -12, 28, $08, 2
+	sprite_oam -12, 36, $0A, 2
 
 ; ---- data $6373-$6380 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame5:: ; 1E:6373
 Data_1E_6373::
-	db $03, $F2, $18, $0C, $02, $F2, $20, $0E, $02, $F2, $28, $10, $02
+	sprite_frame 3
+	sprite_oam -14, 24, $0C, 2
+	sprite_oam -14, 32, $0E, 2
+	sprite_oam -14, 40, $10, 2
 
 ; ---- data $6380-$638D (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame6:: ; 1E:6380
 Data_1E_6380::
-	db $03, $F4, $1C, $00, $02, $F4, $24, $02, $02, $F4, $2C, $04, $02
+	sprite_frame 3
+	sprite_oam -12, 28, $00, 2
+	sprite_oam -12, 36, $02, 2
+	sprite_oam -12, 44, $04, 2
 
 ; ---- data $638D-$639A (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame7:: ; 1E:638D
 Data_1E_638D::
-	db $03, $F2, $20, $06, $02, $F2, $28, $08, $02, $F2, $30, $0A, $02
+	sprite_frame 3
+	sprite_oam -14, 32, $06, 2
+	sprite_oam -14, 40, $08, 2
+	sprite_oam -14, 48, $0A, 2
 
 ; ---- data $639A-$63A7 (13 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 3 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim1Frame8:: ; 1E:639A
 Data_1E_639A::
-	db $03, $F4, $24, $0C, $02, $F4, $2C, $0E, $02, $F4, $34, $10, $02
+	sprite_frame 3
+	sprite_oam -12, 36, $0C, 2
+	sprite_oam -12, 44, $0E, 2
+	sprite_oam -12, 52, $10, 2
 
 ; ---- data $63A7-$63BA (19 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 9 step(s), (frame,delay) pairs: 0:8 1:8 2:8 3:8 4:8 5:8 6:8 7:8 8:8
 
 TopMenu_Anim1Script:: ; 1E:63A7
 Data_1E_63A7::
-	db $09, $00, $08, $01, $08, $02, $08, $03, $08, $04, $08, $05, $08, $06, $08, $07
-	db $08, $08, $08
+	sprite_anim 9
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 8
+	sprite_anim_step 3, 8
+	sprite_anim_step 4, 8
+	sprite_anim_step 5, 8
+	sprite_anim_step 6, 8
+	sprite_anim_step 7, 8
+	sprite_anim_step 8, 8
 
 ; ---- words $63BA-$63BE (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim2Frames:: ; 1E:63BA
 Table_1E_63BA::
-	dw TopMenu_Anim2Frame0, TopMenu_Anim2Frame1
+	sprite_frame_table TopMenu_Anim2Frame0, TopMenu_Anim2Frame1
 
 ; ---- data $63BE-$63DB (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim2Frame0:: ; 1E:63BE
 Data_1E_63BE::
-	db $07, $00, $00, $12, $03, $00, $08, $14, $03, $00, $10, $16, $03, $00, $18, $18
-	db $03, $10, $08, $34, $03, $10, $10, $36, $03, $10, $18, $38, $03
+	sprite_frame 7
+	sprite_oam 0, 0, $12, 3
+	sprite_oam 0, 8, $14, 3
+	sprite_oam 0, 16, $16, 3
+	sprite_oam 0, 24, $18, 3
+	sprite_oam 16, 8, $34, 3
+	sprite_oam 16, 16, $36, 3
+	sprite_oam 16, 24, $38, 3
 
 ; ---- data $63DB-$63F8 (29 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 7 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim2Frame1:: ; 1E:63DB
 Data_1E_63DB::
-	db $07, $FF, $00, $12, $03, $FF, $08, $14, $03, $FF, $10, $16, $03, $FF, $18, $18
-	db $03, $0F, $08, $34, $03, $0F, $10, $36, $03, $0F, $18, $38, $03
+	sprite_frame 7
+	sprite_oam -1, 0, $12, 3
+	sprite_oam -1, 8, $14, 3
+	sprite_oam -1, 16, $16, 3
+	sprite_oam -1, 24, $18, 3
+	sprite_oam 15, 8, $34, 3
+	sprite_oam 15, 16, $36, 3
+	sprite_oam 15, 24, $38, 3
 
 ; ---- data $63F8-$63FD (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:20 1:20
 
 TopMenu_Anim2Script:: ; 1E:63F8
 Data_1E_63F8::
-	db $02, $00, $14, $01, $14
+	sprite_anim 2
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 20
 
 ; ---- words $63FD-$640B (14 bytes) [PROBABLE] sprite frame table: 7 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim3Frames:: ; 1E:63FD
 Table_1E_63FD::
-	dw TopMenu_Anim3Frame0, TopMenu_Anim3Frame1, TopMenu_Anim3Frame2, TopMenu_Anim3Frame3, TopMenu_Anim3Frame4, TopMenu_Anim3Frame5, TopMenu_Anim3Frame6
+	sprite_frame_table TopMenu_Anim3Frame0, TopMenu_Anim3Frame1, TopMenu_Anim3Frame2, TopMenu_Anim3Frame3
+	sprite_frame_table TopMenu_Anim3Frame4, TopMenu_Anim3Frame5, TopMenu_Anim3Frame6
 
 ; ---- data $640B-$6414 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame0:: ; 1E:640B
 Data_1E_640B::
-	db $02, $00, $00, $3A, $05, $00, $08, $3C, $05
+	sprite_frame 2
+	sprite_oam 0, 0, $3A, 5
+	sprite_oam 0, 8, $3C, 5
 
 ; ---- data $6414-$641D (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame1:: ; 1E:6414
 Data_1E_6414::
-	db $02, $00, $F8, $5A, $05, $00, $00, $5C, $05
+	sprite_frame 2
+	sprite_oam 0, -8, $5A, 5
+	sprite_oam 0, 0, $5C, 5
 
 ; ---- data $641D-$6422 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame2:: ; 1E:641D
 Data_1E_641D::
-	db $01, $00, $F8, $58, $05
+	sprite_frame 1
+	sprite_oam 0, -8, $58, 5
 
 ; ---- data $6422-$642B (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame3:: ; 1E:6422
 Data_1E_6422::
-	db $02, $F8, $F0, $54, $05, $F8, $F8, $56, $05
+	sprite_frame 2
+	sprite_oam -8, -16, $54, 5
+	sprite_oam -8, -8, $56, 5
 
 ; ---- data $642B-$6430 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame4:: ; 1E:642B
 Data_1E_642B::
-	db $01, $F8, $E8, $5E, $05
+	sprite_frame 1
+	sprite_oam -8, -24, $5E, 5
 
 ; ---- data $6430-$6435 (5 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 1 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame5:: ; 1E:6430
 Data_1E_6430::
-	db $01, $F2, $E8, $3E, $05
+	sprite_frame 1
+	sprite_oam -14, -24, $3E, 5
 
 ; ---- data $6435-$6436 (1 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 0 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim3Frame6:: ; 1E:6435
 Data_1E_6435::
-	db $00
+	sprite_frame 0
 
 ; ---- data $6436-$6445 (15 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 7 step(s), (frame,delay) pairs: 0:6 1:6 2:6 3:6 4:6 5:6 6:30
 
 TopMenu_Anim3Script:: ; 1E:6436
 Data_1E_6436::
-	db $07, $00, $06, $01, $06, $02, $06, $03, $06, $04, $06, $05, $06, $06, $1E
+	sprite_anim 7
+	sprite_anim_step 0, 6
+	sprite_anim_step 1, 6
+	sprite_anim_step 2, 6
+	sprite_anim_step 3, 6
+	sprite_anim_step 4, 6
+	sprite_anim_step 5, 6
+	sprite_anim_step 6, 30
 
 ; ---- data $6445-$6450 (11 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 5 step(s), (frame,delay) pairs: 0:5 1:5 2:5 3:5 4:5; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
 
@@ -323,105 +390,154 @@ Data_1E_6445:: ; 1E:6445
 
 TopMenu_Anim4Frames:: ; 1E:6450
 Table_1E_6450::
-	dw TopMenu_Anim4Frame0, TopMenu_Anim4Frame1, TopMenu_Anim4Frame2, TopMenu_Anim4Frame3, TopMenu_Anim4Frame4, TopMenu_Anim4Frame5, TopMenu_Anim4Frame6, TopMenu_Anim4Frame7
-	dw TopMenu_Anim4Frame8
+	sprite_frame_table TopMenu_Anim4Frame0, TopMenu_Anim4Frame1, TopMenu_Anim4Frame2, TopMenu_Anim4Frame3
+	sprite_frame_table TopMenu_Anim4Frame4, TopMenu_Anim4Frame5, TopMenu_Anim4Frame6, TopMenu_Anim4Frame7
+	sprite_frame_table TopMenu_Anim4Frame8
 
 ; ---- data $6462-$6473 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame0:: ; 1E:6462
 Data_1E_6462::
-	db $04, $00, $00, $20, $04, $00, $08, $22, $04, $10, $00, $40, $04, $10, $08, $42
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $20, 4
+	sprite_oam 0, 8, $22, 4
+	sprite_oam 16, 0, $40, 4
+	sprite_oam 16, 8, $42, 4
 
 ; ---- data $6473-$6484 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame1:: ; 1E:6473
 Data_1E_6473::
-	db $04, $00, $00, $24, $04, $00, $08, $26, $04, $10, $00, $44, $04, $10, $08, $46
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $24, 4
+	sprite_oam 0, 8, $26, 4
+	sprite_oam 16, 0, $44, 4
+	sprite_oam 16, 8, $46, 4
 
 ; ---- data $6484-$6495 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame2:: ; 1E:6484
 Data_1E_6484::
-	db $04, $00, $00, $28, $04, $00, $08, $2A, $04, $10, $00, $48, $04, $10, $08, $4A
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $28, 4
+	sprite_oam 0, 8, $2A, 4
+	sprite_oam 16, 0, $48, 4
+	sprite_oam 16, 8, $4A, 4
 
 ; ---- data $6495-$64A6 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame3:: ; 1E:6495
 Data_1E_6495::
-	db $04, $00, $00, $2C, $04, $00, $08, $2E, $04, $10, $00, $4C, $04, $10, $08, $4E
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $2C, 4
+	sprite_oam 0, 8, $2E, 4
+	sprite_oam 16, 0, $4C, 4
+	sprite_oam 16, 8, $4E, 4
 
 ; ---- data $64A6-$64B7 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame4:: ; 1E:64A6
 Data_1E_64A6::
-	db $04, $00, $00, $24, $04, $00, $08, $26, $04, $10, $00, $44, $04, $10, $08, $46
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $24, 4
+	sprite_oam 0, 8, $26, 4
+	sprite_oam 16, 0, $44, 4
+	sprite_oam 16, 8, $46, 4
 
 ; ---- data $64B7-$64C8 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame5:: ; 1E:64B7
 Data_1E_64B7::
-	db $04, $00, $00, $30, $04, $00, $08, $32, $04, $10, $00, $50, $04, $10, $08, $52
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $30, 4
+	sprite_oam 0, 8, $32, 4
+	sprite_oam 16, 0, $50, 4
+	sprite_oam 16, 8, $52, 4
 
 ; ---- data $64C8-$64D9 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame6:: ; 1E:64C8
 Data_1E_64C8::
-	db $04, $00, $00, $20, $04, $00, $08, $22, $04, $10, $00, $40, $04, $10, $08, $42
-	db $04
+	sprite_frame 4
+	sprite_oam 0, 0, $20, 4
+	sprite_oam 0, 8, $22, 4
+	sprite_oam 16, 0, $40, 4
+	sprite_oam 16, 8, $42, 4
 
 ; ---- data $64D9-$64F2 (25 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 6 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame7:: ; 1E:64D9
 Data_1E_64D9::
-	db $06, $00, $10, $1E, $04, $00, $F8, $1E, $04, $00, $00, $20, $04, $00, $08, $22
-	db $04, $10, $00, $40, $04, $10, $08, $42, $04
+	sprite_frame 6
+	sprite_oam 0, 16, $1E, 4
+	sprite_oam 0, -8, $1E, 4
+	sprite_oam 0, 0, $20, 4
+	sprite_oam 0, 8, $22, 4
+	sprite_oam 16, 0, $40, 4
+	sprite_oam 16, 8, $42, 4
 
 ; ---- data $64F2-$6513 (33 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 8 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim4Frame8:: ; 1E:64F2
 Data_1E_64F2::
-	db $08, $00, $10, $1E, $04, $00, $F8, $1E, $04, $03, $F0, $1E, $04, $03, $18, $1E
-	db $04, $00, $00, $20, $04, $00, $08, $22, $04, $10, $00, $40, $04, $10, $08, $42
-	db $04
+	sprite_frame 8
+	sprite_oam 0, 16, $1E, 4
+	sprite_oam 0, -8, $1E, 4
+	sprite_oam 3, -16, $1E, 4
+	sprite_oam 3, 24, $1E, 4
+	sprite_oam 0, 0, $20, 4
+	sprite_oam 0, 8, $22, 4
+	sprite_oam 16, 0, $40, 4
+	sprite_oam 16, 8, $42, 4
 
 ; ---- data $6513-$6526 (19 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 9 step(s), (frame,delay) pairs: 0:5 1:5 2:5 3:5 4:5 5:5 6:5 7:10 8:10
 
 TopMenu_Anim4Script:: ; 1E:6513
 Data_1E_6513::
-	db $09, $00, $05, $01, $05, $02, $05, $03, $05, $04, $05, $05, $05, $06, $05, $07
-	db $0A, $08, $0A
+	sprite_anim 9
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 5
+	sprite_anim_step 2, 5
+	sprite_anim_step 3, 5
+	sprite_anim_step 4, 5
+	sprite_anim_step 5, 5
+	sprite_anim_step 6, 5
+	sprite_anim_step 7, 10
+	sprite_anim_step 8, 10
 
 ; ---- words $6526-$652A (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 TopMenu_Anim5Frames:: ; 1E:6526
 Table_1E_6526::
-	dw TopMenu_Anim5Frame0, TopMenu_Anim5Frame1
+	sprite_frame_table TopMenu_Anim5Frame0, TopMenu_Anim5Frame1
 
 ; ---- data $652A-$653B (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim5Frame0:: ; 1E:652A
 Data_1E_652A::
-	db $04, $FD, $FF, $1A, $01, $0C, $FF, $1A, $41, $FD, $3D, $1A, $21, $0C, $3D, $1A
-	db $61
+	sprite_frame 4
+	sprite_oam -3, -1, $1A, 1
+	sprite_oam 12, -1, $1A, OAMF_YFLIP | 1
+	sprite_oam -3, 61, $1A, OAMF_XFLIP | 1
+	sprite_oam 12, 61, $1A, OAMF_YFLIP | OAMF_XFLIP | 1
 
 ; ---- data $653B-$654C (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim5Frame1:: ; 1E:653B
 Data_1E_653B::
-	db $04, $FC, $FE, $1C, $01, $0C, $FE, $1C, $41, $FC, $3E, $1C, $21, $0C, $3E, $1C
-	db $61
+	sprite_frame 4
+	sprite_oam -4, -2, $1C, 1
+	sprite_oam 12, -2, $1C, OAMF_YFLIP | 1
+	sprite_oam -4, 62, $1C, OAMF_XFLIP | 1
+	sprite_oam 12, 62, $1C, OAMF_YFLIP | OAMF_XFLIP | 1
 
 ; ---- data $654C-$6551 (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:10 1:10
 
 TopMenu_Anim5Script:: ; 1E:654C
 Data_1E_654C::
-	db $02, $00, $0A, $01, $0A
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
 
 ; ---- data $6551-$6554 (3 bytes) [HYPOTHESIS] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4; not named by a known object-table row: found because the gap between neighbours equals exactly this script (+ pad)
 
@@ -437,24 +553,33 @@ Data_1E_6554:: ; 1E:6554
 
 TopMenu_Anim6Frames:: ; 1E:6559
 Table_1E_6559::
-	dw TopMenu_Anim6Frame0
+	sprite_frame_table TopMenu_Anim6Frame0
 
 ; ---- data $655B-$656C (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 TopMenu_Anim6Frame0:: ; 1E:655B
 Data_1E_655B::
-	db $04, $08, $00, $40, $04, $08, $08, $42, $04, $00, $00, $60, $04, $00, $08, $62
-	db $04
+	sprite_frame 4
+	sprite_oam 8, 0, $40, 4
+	sprite_oam 8, 8, $42, 4
+	sprite_oam 0, 0, $60, 4
+	sprite_oam 0, 8, $62, 4
 
 ; ---- data $656C-$656F (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 TopMenu_Anim6Script:: ; 1E:656C
 Data_1E_656C::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $656F-$658B (28 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; entry 0 is unused (zero); base $656F is passed as de with a=$1E at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 0000/0000 6320/63A7 63BA/63F8 63FD/6436 6450/6513 6526/654C 6559/656C
 
 TopMenu_ObjTable:: ; 1E:656F
 Table_1E_656F::
-	dw $0000, $0000, TopMenu_Anim1Frames, TopMenu_Anim1Script, TopMenu_Anim2Frames, TopMenu_Anim2Script, TopMenu_Anim3Frames, TopMenu_Anim3Script
-	dw TopMenu_Anim4Frames, TopMenu_Anim4Script, TopMenu_Anim5Frames, TopMenu_Anim5Script, TopMenu_Anim6Frames, TopMenu_Anim6Script
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry TopMenu_Anim1Frames, TopMenu_Anim1Script ; entry 1
+	sprite_object_entry TopMenu_Anim2Frames, TopMenu_Anim2Script ; entry 2
+	sprite_object_entry TopMenu_Anim3Frames, TopMenu_Anim3Script ; entry 3
+	sprite_object_entry TopMenu_Anim4Frames, TopMenu_Anim4Script ; entry 4
+	sprite_object_entry TopMenu_Anim5Frames, TopMenu_Anim5Script ; entry 5
+	sprite_object_entry TopMenu_Anim6Frames, TopMenu_Anim6Script ; entry 6

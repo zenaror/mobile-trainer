@@ -31,325 +31,532 @@ Palette_69_4760::
 
 ConnIcon_ObjTable:: ; 69:4778
 Table_69_4778::
-	dw ConnIcon_Anim1Frames
-	dw ConnIcon_Anim1Script
-	dw ConnIcon_Anim1Frames
-	dw ConnIcon_Anim1Script
-	dw ConnIcon_Anim2Frames
-	dw ConnIcon_Anim2Script
-	dw ConnIcon_Anim3Frames
-	dw ConnIcon_Anim3Script
-	dw ConnIcon_Anim4Frames
-	dw ConnIcon_ObjAnimData
-	dw ConnIcon_Anim5Frames
-	dw ConnIcon_Anim5Script
-	dw ConnIcon_Anim6Frames
-	dw ConnIcon_Anim6Script
+	sprite_object_entry ConnIcon_Anim1Frames, ConnIcon_Anim1Script ; entry 0
+	sprite_object_entry ConnIcon_Anim1Frames, ConnIcon_Anim1Script ; entry 1
+	sprite_object_entry ConnIcon_Anim2Frames, ConnIcon_Anim2Script ; entry 2
+	sprite_object_entry ConnIcon_Anim3Frames, ConnIcon_Anim3Script ; entry 3
+	sprite_object_entry ConnIcon_Anim4Frames, ConnIcon_ObjAnimData ; entry 4
+	sprite_object_entry ConnIcon_Anim5Frames, ConnIcon_Anim5Script ; entry 5
+	sprite_object_entry ConnIcon_Anim6Frames, ConnIcon_Anim6Script ; entry 6
 
 ; ---- ptrtable $4794-$47A4 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim1Frames:: ; 69:4794
 Table_69_4794::
-	dw ConnIcon_Anim1Frame0
-	dw ConnIcon_Anim1Frame1
-	dw ConnIcon_Anim1Frame2
-	dw ConnIcon_Anim1Frame3
-	dw ConnIcon_Anim1Frame4
-	dw ConnIcon_Anim1Frame5
-	dw ConnIcon_Anim1Frame6
-	dw ConnIcon_Anim1Frame7
+	sprite_frame_table ConnIcon_Anim1Frame0, ConnIcon_Anim1Frame1, ConnIcon_Anim1Frame2, ConnIcon_Anim1Frame3
+	sprite_frame_table ConnIcon_Anim1Frame4, ConnIcon_Anim1Frame5, ConnIcon_Anim1Frame6, ConnIcon_Anim1Frame7
 
 ; ---- data $47A4-$47C1 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame0:: ; 69:47A4
 Data_69_47A4::
-	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+	sprite_frame 7
+	sprite_oam 1, 8, $21, 5
+	sprite_oam 1, 16, $22, 6
+	sprite_oam 9, 8, $31, 5
+	sprite_oam 9, 16, $32, 6
+	sprite_oam 17, 0, $40, 6
+	sprite_oam 17, 8, $41, 6
+	sprite_oam 17, 16, $42, 6
 
 ; ---- data $47C1-$47E2 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame1:: ; 69:47C1
 Data_69_47C1::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
-	db $05, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 8, $34, 5
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
 
 ; ---- data $47E2-$4803 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame2:: ; 69:47E2
 Data_69_47E2::
-	db $08, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09, $08, $37
-	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $27, 5
+	sprite_oam 1, 16, $28, 5
+	sprite_oam 9, 0, $36, 5
+	sprite_oam 9, 8, $37, 5
+	sprite_oam 9, 16, $38, 5
+	sprite_oam 17, 0, $46, 6
+	sprite_oam 17, 8, $47, 6
+	sprite_oam 17, 16, $48, 6
 
 ; ---- data $4803-$4824 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame3:: ; 69:4803
 Data_69_4803::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
-	db $05, $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06, $11, $10, $4B
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 8, $34, 5
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $49, 6
+	sprite_oam 17, 8, $4A, 6
+	sprite_oam 17, 16, $4B, 6
 
 ; ---- data $4824-$4841 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame4:: ; 69:4824
 Data_69_4824::
-	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+	sprite_frame 7
+	sprite_oam 1, 8, $21, 5
+	sprite_oam 1, 16, $22, 6
+	sprite_oam 9, 8, $31, 5
+	sprite_oam 9, 16, $32, 6
+	sprite_oam 17, 0, $40, 6
+	sprite_oam 17, 8, $41, 6
+	sprite_oam 17, 16, $42, 6
 
 ; ---- data $4841-$4862 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame5:: ; 69:4841
 Data_69_4841::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35
-	db $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F
-	db $05
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
+	sprite_oam 9, 8, $2F, 5
 
 ; ---- data $4862-$4887 (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame6:: ; 69:4862
 Data_69_4862::
-	db $09, $01, $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36
-	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
-	db $06, $09, $08, $3F, $05
+	sprite_frame 9
+	sprite_oam 1, 0, $26, 5
+	sprite_oam 1, 8, $27, 5
+	sprite_oam 1, 16, $28, 5
+	sprite_oam 9, 0, $36, 5
+	sprite_oam 9, 16, $38, 5
+	sprite_oam 17, 0, $46, 6
+	sprite_oam 17, 8, $47, 6
+	sprite_oam 17, 16, $48, 6
+	sprite_oam 9, 8, $3F, 5
 
 ; ---- data $4887-$48AC (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim1Frame7:: ; 69:4887
 Data_69_4887::
-	db $09, $01, $00, $23, $05, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33
-	db $06, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
-	db $06, $09, $08, $2F, $05
+	sprite_frame 9
+	sprite_oam 1, 0, $23, 5
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
+	sprite_oam 9, 8, $2F, 5
 
 ; ---- data $48AC-$48B5 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
 
 ConnIcon_Anim1Script:: ; 69:48AC
 Data_69_48AC::
-	db $04, $00, $08, $01, $08, $02, $08, $03, $08
+	sprite_anim 4
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 8
+	sprite_anim_step 3, 8
 
 ; ---- ptrtable $48B5-$48C5 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim2Frames:: ; 69:48B5
 Table_69_48B5::
-	dw ConnIcon_Anim2Frame0
-	dw ConnIcon_Anim2Frame1
-	dw ConnIcon_Anim2Frame2
-	dw ConnIcon_Anim2Frame3
-	dw ConnIcon_Anim2Frame4
-	dw ConnIcon_Anim2Frame5
-	dw ConnIcon_Anim2Frame6
-	dw ConnIcon_Anim2Frame7
+	sprite_frame_table ConnIcon_Anim2Frame0, ConnIcon_Anim2Frame1, ConnIcon_Anim2Frame2, ConnIcon_Anim2Frame3
+	sprite_frame_table ConnIcon_Anim2Frame4, ConnIcon_Anim2Frame5, ConnIcon_Anim2Frame6, ConnIcon_Anim2Frame7
 
 ; ---- data $48C5-$48E2 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame0:: ; 69:48C5
 Data_69_48C5::
-	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+	sprite_frame 7
+	sprite_oam 1, 8, $21, 5
+	sprite_oam 1, 16, $22, 6
+	sprite_oam 9, 8, $31, 5
+	sprite_oam 9, 16, $32, 6
+	sprite_oam 17, 0, $40, 6
+	sprite_oam 17, 8, $41, 6
+	sprite_oam 17, 16, $42, 6
 
 ; ---- data $48E2-$4903 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame1:: ; 69:48E2
 Data_69_48E2::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
-	db $05, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 8, $34, 5
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
 
 ; ---- data $4903-$4924 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame2:: ; 69:4903
 Data_69_4903::
-	db $08, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36, $05, $09, $08, $37
-	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $27, 5
+	sprite_oam 1, 16, $28, 5
+	sprite_oam 9, 0, $36, 5
+	sprite_oam 9, 8, $37, 5
+	sprite_oam 9, 16, $38, 5
+	sprite_oam 17, 0, $46, 6
+	sprite_oam 17, 8, $47, 6
+	sprite_oam 17, 16, $48, 6
 
 ; ---- data $4924-$4945 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame3:: ; 69:4924
 Data_69_4924::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $08, $34
-	db $05, $09, $10, $35, $05, $11, $00, $49, $06, $11, $08, $4A, $06, $11, $10, $4B
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 8, $34, 5
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $49, 6
+	sprite_oam 17, 8, $4A, 6
+	sprite_oam 17, 16, $4B, 6
 
 ; ---- data $4945-$4962 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame4:: ; 69:4945
 Data_69_4945::
-	db $07, $01, $08, $21, $05, $01, $10, $22, $06, $09, $08, $31, $05, $09, $10, $32
-	db $06, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42, $06
+	sprite_frame 7
+	sprite_oam 1, 8, $21, 5
+	sprite_oam 1, 16, $22, 6
+	sprite_oam 9, 8, $31, 5
+	sprite_oam 9, 16, $32, 6
+	sprite_oam 17, 0, $40, 6
+	sprite_oam 17, 8, $41, 6
+	sprite_oam 17, 16, $42, 6
 
 ; ---- data $4962-$4983 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame5:: ; 69:4962
 Data_69_4962::
-	db $08, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33, $06, $09, $10, $35
-	db $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45, $06, $09, $08, $2F
-	db $05
+	sprite_frame 8
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
+	sprite_oam 9, 8, $2F, 5
 
 ; ---- data $4983-$49A8 (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame6:: ; 69:4983
 Data_69_4983::
-	db $09, $01, $00, $26, $05, $01, $08, $27, $05, $01, $10, $28, $05, $09, $00, $36
-	db $05, $09, $10, $38, $05, $11, $00, $46, $06, $11, $08, $47, $06, $11, $10, $48
-	db $06, $09, $08, $3F, $05
+	sprite_frame 9
+	sprite_oam 1, 0, $26, 5
+	sprite_oam 1, 8, $27, 5
+	sprite_oam 1, 16, $28, 5
+	sprite_oam 9, 0, $36, 5
+	sprite_oam 9, 16, $38, 5
+	sprite_oam 17, 0, $46, 6
+	sprite_oam 17, 8, $47, 6
+	sprite_oam 17, 16, $48, 6
+	sprite_oam 9, 8, $3F, 5
 
 ; ---- data $49A8-$49CD (37 bytes) [PROBABLE] sprite frame record: count=9 then 9 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim2Frame7:: ; 69:49A8
 Data_69_49A8::
-	db $09, $01, $00, $23, $05, $01, $08, $24, $05, $01, $10, $25, $05, $09, $00, $33
-	db $06, $09, $10, $35, $05, $11, $00, $43, $06, $11, $08, $44, $06, $11, $10, $45
-	db $06, $09, $08, $2F, $05
+	sprite_frame 9
+	sprite_oam 1, 0, $23, 5
+	sprite_oam 1, 8, $24, 5
+	sprite_oam 1, 16, $25, 5
+	sprite_oam 9, 0, $33, 6
+	sprite_oam 9, 16, $35, 5
+	sprite_oam 17, 0, $43, 6
+	sprite_oam 17, 8, $44, 6
+	sprite_oam 17, 16, $45, 6
+	sprite_oam 9, 8, $2F, 5
 
 ; ---- data $49CD-$49DE (17 bytes) [PROBABLE] count=8 then 8 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
 
 ConnIcon_Anim2Script:: ; 69:49CD
 Data_69_49CD::
-	db $08, $00, $08, $01, $08, $02, $08, $03, $08, $00, $08, $05, $08, $06, $08, $07
-	db $08
+	sprite_anim 8
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 8
+	sprite_anim_step 3, 8
+	sprite_anim_step 0, 8
+	sprite_anim_step 5, 8
+	sprite_anim_step 6, 8
+	sprite_anim_step 7, 8
 
 ; ---- ptrtable $49DE-$49E0 (2 bytes) [PROBABLE] list of 1 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim3Frames:: ; 69:49DE
 Table_69_49DE::
-	dw ConnIcon_Anim3Frame0
+	sprite_frame_table ConnIcon_Anim3Frame0
 
 ; ---- data $49E0-$4A01 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim3Frame0:: ; 69:49E0
 Data_69_49E0::
-	db $08, $01, $00, $2C, $05, $01, $08, $2D, $05, $09, $00, $3C, $05, $09, $08, $3D
-	db $05, $09, $10, $3E, $05, $11, $00, $40, $06, $11, $08, $41, $06, $11, $10, $42
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 0, $2C, 5
+	sprite_oam 1, 8, $2D, 5
+	sprite_oam 9, 0, $3C, 5
+	sprite_oam 9, 8, $3D, 5
+	sprite_oam 9, 16, $3E, 5
+	sprite_oam 17, 0, $40, 6
+	sprite_oam 17, 8, $41, 6
+	sprite_oam 17, 16, $42, 6
 
 ; ---- data $4A01-$4A05 (4 bytes) [PROBABLE] count=1 then 1 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..) (+1 unreferenced trailing byte(s) 00 kept with this record)
 
 ConnIcon_Anim3Script:: ; 69:4A01
 Data_69_4A01::
-	db $01, $00, $05, $00
+	sprite_anim 1
+	sprite_anim_step 0, 5
+	db $00
 
 ; ---- ptrtable $4A05-$4A0B (6 bytes) [PROBABLE] list of 3 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim6Frames:: ; 69:4A05
 Table_69_4A05::
-	dw ConnIcon_Anim6Frame0
-	dw ConnIcon_Anim6Frame1
-	dw ConnIcon_Anim6Frame2
+	sprite_frame_table ConnIcon_Anim6Frame0, ConnIcon_Anim6Frame1, ConnIcon_Anim6Frame2
 
 ; ---- data $4A0B-$4A2C (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim6Frame0:: ; 69:4A0B
 Data_69_4A0B::
-	db $08, $01, $00, $2C, $05, $01, $08, $2D, $05, $09, $00, $3C, $05, $09, $08, $3D
-	db $05, $09, $10, $3E, $05, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E
-	db $06
+	sprite_frame 8
+	sprite_oam 1, 0, $2C, 5
+	sprite_oam 1, 8, $2D, 5
+	sprite_oam 9, 0, $3C, 5
+	sprite_oam 9, 8, $3D, 5
+	sprite_oam 9, 16, $3E, 5
+	sprite_oam 17, 0, $4C, 6
+	sprite_oam 17, 8, $4D, 6
+	sprite_oam 17, 16, $4E, 6
 
 ; ---- data $4A2C-$4A49 (29 bytes) [PROBABLE] sprite frame record: count=7 then 7 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim6Frame1:: ; 69:4A2C
 Data_69_4A2C::
-	db $07, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E, $06, $01, $08, $4F
-	db $05, $09, $00, $55, $05, $09, $08, $56, $05, $09, $10, $57, $05
+	sprite_frame 7
+	sprite_oam 17, 0, $4C, 6
+	sprite_oam 17, 8, $4D, 6
+	sprite_oam 17, 16, $4E, 6
+	sprite_oam 1, 8, $4F, 5
+	sprite_oam 9, 0, $55, 5
+	sprite_oam 9, 8, $56, 5
+	sprite_oam 9, 16, $57, 5
 
 ; ---- data $4A49-$4A6A (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim6Frame2:: ; 69:4A49
 Data_69_4A49::
-	db $08, $11, $00, $4C, $06, $11, $08, $4D, $06, $11, $10, $4E, $06, $01, $00, $50
-	db $05, $01, $08, $51, $05, $09, $00, $58, $05, $09, $08, $59, $05, $09, $10, $5A
-	db $05
+	sprite_frame 8
+	sprite_oam 17, 0, $4C, 6
+	sprite_oam 17, 8, $4D, 6
+	sprite_oam 17, 16, $4E, 6
+	sprite_oam 1, 0, $50, 5
+	sprite_oam 1, 8, $51, 5
+	sprite_oam 9, 0, $58, 5
+	sprite_oam 9, 8, $59, 5
+	sprite_oam 9, 16, $5A, 5
 
 ; ---- data $4A6A-$4A73 (9 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
 
 ConnIcon_Anim6Script:: ; 69:4A6A
 Data_69_4A6A::
-	db $04, $00, $08, $01, $14, $00, $08, $02, $14
+	sprite_anim 4
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 20
+	sprite_anim_step 0, 8
+	sprite_anim_step 2, 20
 
 ; ---- ptrtable $4A73-$4A7B (8 bytes) [PROBABLE] list of 4 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim4Frames:: ; 69:4A73
 Table_69_4A73::
-	dw ConnIcon_Anim4Frame0
-	dw ConnIcon_Anim4Frame1
-	dw ConnIcon_Anim4Frame2
-	dw ConnIcon_Anim4Frame3
+	sprite_frame_table ConnIcon_Anim4Frame0, ConnIcon_Anim4Frame1, ConnIcon_Anim4Frame2, ConnIcon_Anim4Frame3
 
 ; ---- data $4A7B-$4AC4 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim4Frame0:: ; 69:4A7B
 Data_69_4A7B::
-	db $12, $00, $00, $20, $05, $00, $08, $21, $05, $00, $10, $22, $05, $08, $00, $30
-	db $05, $08, $08, $31, $05, $08, $10, $32, $05, $10, $00, $40, $05, $10, $08, $41
-	db $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
-	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
-	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 0, 0, $20, 5
+	sprite_oam 0, 8, $21, 5
+	sprite_oam 0, 16, $22, 5
+	sprite_oam 8, 0, $30, 5
+	sprite_oam 8, 8, $31, 5
+	sprite_oam 8, 16, $32, 5
+	sprite_oam 16, 0, $40, 5
+	sprite_oam 16, 8, $41, 5
+	sprite_oam 16, 16, $42, 5
+	sprite_oam 0, 0, $2C, 6
+	sprite_oam 0, 8, $2D, 6
+	sprite_oam 0, 16, $2E, 6
+	sprite_oam 8, 0, $3C, 6
+	sprite_oam 8, 8, $3D, 6
+	sprite_oam 8, 16, $3E, 6
+	sprite_oam 16, 0, $4C, 6
+	sprite_oam 16, 8, $4D, 6
+	sprite_oam 16, 16, $4E, 6
 
 ; ---- data $4AC4-$4B0D (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim4Frame1:: ; 69:4AC4
 Data_69_4AC4::
-	db $12, $00, $00, $23, $05, $00, $08, $24, $05, $00, $10, $25, $05, $08, $00, $33
-	db $05, $08, $08, $34, $05, $08, $10, $35, $05, $10, $00, $43, $05, $10, $08, $44
-	db $05, $10, $10, $45, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
-	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
-	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 0, 0, $23, 5
+	sprite_oam 0, 8, $24, 5
+	sprite_oam 0, 16, $25, 5
+	sprite_oam 8, 0, $33, 5
+	sprite_oam 8, 8, $34, 5
+	sprite_oam 8, 16, $35, 5
+	sprite_oam 16, 0, $43, 5
+	sprite_oam 16, 8, $44, 5
+	sprite_oam 16, 16, $45, 5
+	sprite_oam 0, 0, $2C, 6
+	sprite_oam 0, 8, $2D, 6
+	sprite_oam 0, 16, $2E, 6
+	sprite_oam 8, 0, $3C, 6
+	sprite_oam 8, 8, $3D, 6
+	sprite_oam 8, 16, $3E, 6
+	sprite_oam 16, 0, $4C, 6
+	sprite_oam 16, 8, $4D, 6
+	sprite_oam 16, 16, $4E, 6
 
 ; ---- data $4B0D-$4B56 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim4Frame2:: ; 69:4B0D
 Data_69_4B0D::
-	db $12, $00, $00, $26, $05, $00, $08, $27, $05, $00, $10, $28, $05, $08, $00, $36
-	db $05, $08, $08, $37, $05, $08, $10, $38, $05, $10, $00, $46, $05, $10, $08, $47
-	db $05, $10, $10, $48, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
-	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
-	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 0, 0, $26, 5
+	sprite_oam 0, 8, $27, 5
+	sprite_oam 0, 16, $28, 5
+	sprite_oam 8, 0, $36, 5
+	sprite_oam 8, 8, $37, 5
+	sprite_oam 8, 16, $38, 5
+	sprite_oam 16, 0, $46, 5
+	sprite_oam 16, 8, $47, 5
+	sprite_oam 16, 16, $48, 5
+	sprite_oam 0, 0, $2C, 6
+	sprite_oam 0, 8, $2D, 6
+	sprite_oam 0, 16, $2E, 6
+	sprite_oam 8, 0, $3C, 6
+	sprite_oam 8, 8, $3D, 6
+	sprite_oam 8, 16, $3E, 6
+	sprite_oam 16, 0, $4C, 6
+	sprite_oam 16, 8, $4D, 6
+	sprite_oam 16, 16, $4E, 6
 
 ; ---- data $4B56-$4B9F (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim4Frame3:: ; 69:4B56
 Data_69_4B56::
-	db $12, $00, $00, $29, $05, $00, $08, $2A, $05, $00, $10, $2B, $05, $08, $00, $39
-	db $05, $08, $08, $3A, $05, $08, $10, $3B, $05, $10, $00, $49, $05, $10, $08, $4A
-	db $05, $10, $10, $4B, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
-	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
-	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 0, 0, $29, 5
+	sprite_oam 0, 8, $2A, 5
+	sprite_oam 0, 16, $2B, 5
+	sprite_oam 8, 0, $39, 5
+	sprite_oam 8, 8, $3A, 5
+	sprite_oam 8, 16, $3B, 5
+	sprite_oam 16, 0, $49, 5
+	sprite_oam 16, 8, $4A, 5
+	sprite_oam 16, 16, $4B, 5
+	sprite_oam 0, 0, $2C, 6
+	sprite_oam 0, 8, $2D, 6
+	sprite_oam 0, 16, $2E, 6
+	sprite_oam 8, 0, $3C, 6
+	sprite_oam 8, 8, $3D, 6
+	sprite_oam 8, 16, $3E, 6
+	sprite_oam 16, 0, $4C, 6
+	sprite_oam 16, 8, $4D, 6
+	sprite_oam 16, 16, $4E, 6
 
 ; ---- data $4B9F-$4BAB (12 bytes) [PROBABLE] count=4 then 4 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..) (+3 unreferenced trailing byte(s) 010004 kept with this record)
 
 ConnIcon_ObjAnimData:: ; 69:4B9F
 Data_69_4B9F::
-	db $04, $00, $0C, $01, $0C, $02, $0C, $03, $0C, $01, $00, $04
+	sprite_anim 4
+	sprite_anim_step 0, 12
+	sprite_anim_step 1, 12
+	sprite_anim_step 2, 12
+	sprite_anim_step 3, 12
+	db $01, $00, $04 ; not reached by any walked sprite chain
 
 ; ---- ptrtable $4BAB-$4BAF (4 bytes) [PROBABLE] list of 2 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
 ConnIcon_Anim5Frames:: ; 69:4BAB
 Table_69_4BAB::
-	dw ConnIcon_Anim5Frame0
-	dw ConnIcon_Anim5Frame1
+	sprite_frame_table ConnIcon_Anim5Frame0, ConnIcon_Anim5Frame1
 
 ; ---- data $4BAF-$4BF8 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim5Frame0:: ; 69:4BAF
 Data_69_4BAF::
-	db $12, $01, $00, $20, $05, $01, $08, $21, $05, $01, $10, $22, $05, $09, $00, $30
-	db $05, $09, $08, $31, $05, $09, $10, $32, $05, $11, $00, $40, $05, $11, $08, $41
-	db $05, $11, $10, $42, $05, $01, $00, $2C, $06, $01, $08, $2D, $06, $01, $10, $2E
-	db $06, $09, $00, $3C, $06, $09, $08, $3D, $06, $09, $10, $3E, $06, $11, $00, $4C
-	db $06, $11, $08, $4D, $06, $11, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 1, 0, $20, 5
+	sprite_oam 1, 8, $21, 5
+	sprite_oam 1, 16, $22, 5
+	sprite_oam 9, 0, $30, 5
+	sprite_oam 9, 8, $31, 5
+	sprite_oam 9, 16, $32, 5
+	sprite_oam 17, 0, $40, 5
+	sprite_oam 17, 8, $41, 5
+	sprite_oam 17, 16, $42, 5
+	sprite_oam 1, 0, $2C, 6
+	sprite_oam 1, 8, $2D, 6
+	sprite_oam 1, 16, $2E, 6
+	sprite_oam 9, 0, $3C, 6
+	sprite_oam 9, 8, $3D, 6
+	sprite_oam 9, 16, $3E, 6
+	sprite_oam 17, 0, $4C, 6
+	sprite_oam 17, 8, $4D, 6
+	sprite_oam 17, 16, $4E, 6
 
 ; ---- data $4BF8-$4C41 (73 bytes) [PROBABLE] sprite frame record: count=18 then 18 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
 
 ConnIcon_Anim5Frame1:: ; 69:4BF8
 Data_69_4BF8::
-	db $12, $00, $00, $20, $05, $00, $08, $21, $05, $00, $10, $22, $05, $08, $00, $30
-	db $05, $08, $08, $31, $05, $08, $10, $32, $05, $10, $00, $40, $05, $10, $08, $41
-	db $05, $10, $10, $42, $05, $00, $00, $2C, $06, $00, $08, $2D, $06, $00, $10, $2E
-	db $06, $08, $00, $3C, $06, $08, $08, $3D, $06, $08, $10, $3E, $06, $10, $00, $4C
-	db $06, $10, $08, $4D, $06, $10, $10, $4E, $06
+	sprite_frame 18
+	sprite_oam 0, 0, $20, 5
+	sprite_oam 0, 8, $21, 5
+	sprite_oam 0, 16, $22, 5
+	sprite_oam 8, 0, $30, 5
+	sprite_oam 8, 8, $31, 5
+	sprite_oam 8, 16, $32, 5
+	sprite_oam 16, 0, $40, 5
+	sprite_oam 16, 8, $41, 5
+	sprite_oam 16, 16, $42, 5
+	sprite_oam 0, 0, $2C, 6
+	sprite_oam 0, 8, $2D, 6
+	sprite_oam 0, 16, $2E, 6
+	sprite_oam 8, 0, $3C, 6
+	sprite_oam 8, 8, $3D, 6
+	sprite_oam 8, 16, $3E, 6
+	sprite_oam 16, 0, $4C, 6
+	sprite_oam 16, 8, $4D, 6
+	sprite_oam 16, 16, $4E, 6
 
 ; ---- data $4C41-$4C46 (5 bytes) [PROBABLE] count=2 then 2 x 2-byte pairs; word1 of an entry of Table_69_4778 (read via 00:0AB8 at +1..)
 
 ConnIcon_Anim5Script:: ; 69:4C41
 Data_69_4C41::
-	db $02, $00, $14, $01, $14
+	sprite_anim 2
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 20

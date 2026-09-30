@@ -48,10 +48,21 @@ Palette_6A_7220::
 ; ---- data $72A0-$72BB (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 6A:72A0-72BB [v4: bytes 72B8-72BB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Data_6A_72A0:: ; 6A:72A0
-	db $A4, $72, $AD, $72, $02, $00, $00, $00, $00, $00, $08, $01, $00, $02, $01, $00
-	db $00, $00, $01, $08, $01, $00, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_6A_72A4, SpriteFrame_6A_72AD
+SpriteFrame_6A_72A4:: ; 6A:72A4
+	sprite_frame 2
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+SpriteFrame_6A_72AD:: ; 6A:72AD
+	sprite_frame 2
+	sprite_oam 1, 0, $00, 0
+	sprite_oam 1, 8, $01, 0
+SpriteScript_6A_72B6:: ; 6A:72B6
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- words $72BB-$72BF (4 bytes) [PROBABLE] 1 object-table entries of 4 bytes (ptr to frame table, ptr to script; 0000 = unused); de=$72BB a=$6A at 6C:5D1E (1 entry: 72A0/72B6); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 72BB-72BF were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_6A_72BB:: ; 6A:72BB
-	dw Data_6A_72A0, $72B6
+	sprite_object_entry Data_6A_72A0, SpriteScript_6A_72B6 ; entry 0

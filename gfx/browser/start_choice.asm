@@ -156,11 +156,43 @@ Data_73_5E38:: ; 73:5E38
 ; ---- data $5EC0-$5F17 (87 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4DE0-5F17 by higher-priority evidence]
 
 Data_73_5EC0:: ; 73:5EC0
-	db $14, $01, $14, $D1, $5E, $DA, $5E, $E3, $5E, $E8, $5E, $F5, $5E, $FA, $5E, $FF
-	db $5E, $02, $00, $00, $0B, $01, $00, $08, $0C, $01, $02, $00, $F8, $0D, $01, $00
-	db $00, $0E, $01, $01, $00, $F8, $0F, $01, $03, $F8, $F0, $10, $01, $F8, $F8, $11
-	db $01, $00, $F0, $12, $01, $01, $F8, $E9, $13, $01, $01, $F3, $E9, $14, $01, $00
-	db $07, $00, $06, $01, $06, $02, $06, $03, $06, $04, $06, $05, $06, $06, $1E
-
+	db $14, $01, $14 ; not reached by any walked sprite chain
+SpriteFrameTable_73_5EC3:: ; 73:5EC3
+	sprite_frame_table SpriteFrame_73_5ED1, SpriteFrame_73_5EDA, SpriteFrame_73_5EE3, SpriteFrame_73_5EE8
+	sprite_frame_table SpriteFrame_73_5EF5, SpriteFrame_73_5EFA, SpriteFrame_73_5EFF
+SpriteFrame_73_5ED1:: ; 73:5ED1
+	sprite_frame 2
+	sprite_oam 0, 0, $0B, 1
+	sprite_oam 0, 8, $0C, 1
+SpriteFrame_73_5EDA:: ; 73:5EDA
+	sprite_frame 2
+	sprite_oam 0, -8, $0D, 1
+	sprite_oam 0, 0, $0E, 1
+SpriteFrame_73_5EE3:: ; 73:5EE3
+	sprite_frame 1
+	sprite_oam 0, -8, $0F, 1
+SpriteFrame_73_5EE8:: ; 73:5EE8
+	sprite_frame 3
+	sprite_oam -8, -16, $10, 1
+	sprite_oam -8, -8, $11, 1
+	sprite_oam 0, -16, $12, 1
+SpriteFrame_73_5EF5:: ; 73:5EF5
+	sprite_frame 1
+	sprite_oam -8, -23, $13, 1
+SpriteFrame_73_5EFA:: ; 73:5EFA
+	sprite_frame 1
+	sprite_oam -13, -23, $14, 1
+SpriteFrame_73_5EFF:: ; 73:5EFF
+	sprite_frame 0
+SpriteScript_73_5F00:: ; 73:5F00
+	sprite_anim 7
+	sprite_anim_step 0, 6
+	sprite_anim_step 1, 6
+	sprite_anim_step 2, 6
+	sprite_anim_step 3, 6
+	sprite_anim_step 4, 6
+	sprite_anim_step 5, 6
+	sprite_anim_step 6, 30
 BrowserStart_ObjTable:: ; 73:5F0F
-	db $60, $5E, $BE, $5E, $C3, $5E, $00, $5F
+	db $60, $5E, $BE, $5E ; sprite object-table entry kept as db: pointer target 73:5E60 has no label
+	sprite_object_entry SpriteFrameTable_73_5EC3, SpriteScript_73_5F00 ; entry 1

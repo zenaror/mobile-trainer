@@ -50,43 +50,67 @@ Data_71_4F68::
 
 CommPanel_ObjTable:: ; 71:4FB8
 Table_71_4FB8::
-	dw $0000, $0000, CommPanel_Anim1Frames, CommPanel_Anim1Script
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry CommPanel_Anim1Frames, CommPanel_Anim1Script ; entry 1
 
 ; ---- words $4FC0-$4FC6 (6 bytes) [PROBABLE] sprite frame table: 3 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 CommPanel_Anim1Frames:: ; 71:4FC0
 Table_71_4FC0::
-	dw CommPanel_Anim1Frame0, CommPanel_Anim1Frame1, CommPanel_Anim1Frame2
+	sprite_frame_table CommPanel_Anim1Frame0, CommPanel_Anim1Frame1, CommPanel_Anim1Frame2
 
 ; ---- data $4FC6-$4FE7 (33 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 8 piece(s); length tiles exactly against the frame-table pointers
 
 CommPanel_Anim1Frame0:: ; 71:4FC6
 Data_71_4FC6::
-	db $08, $00, $00, $00, $00, $00, $08, $01, $00, $00, $10, $02, $00, $08, $00, $03
-	db $00, $08, $08, $04, $00, $08, $10, $05, $00, $10, $08, $06, $00, $10, $10, $07
-	db $00
+	sprite_frame 8
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 0, 16, $02, 0
+	sprite_oam 8, 0, $03, 0
+	sprite_oam 8, 8, $04, 0
+	sprite_oam 8, 16, $05, 0
+	sprite_oam 16, 8, $06, 0
+	sprite_oam 16, 16, $07, 0
 
 ; ---- data $4FE7-$500C (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
 CommPanel_Anim1Frame1:: ; 71:4FE7
 Data_71_4FE7::
-	db $09, $00, $00, $08, $00, $00, $08, $09, $00, $00, $10, $0A, $00, $08, $00, $0B
-	db $00, $08, $08, $0C, $00, $08, $10, $0D, $00, $10, $00, $0E, $00, $10, $08, $0F
-	db $00, $10, $10, $10, $00
+	sprite_frame 9
+	sprite_oam 0, 0, $08, 0
+	sprite_oam 0, 8, $09, 0
+	sprite_oam 0, 16, $0A, 0
+	sprite_oam 8, 0, $0B, 0
+	sprite_oam 8, 8, $0C, 0
+	sprite_oam 8, 16, $0D, 0
+	sprite_oam 16, 0, $0E, 0
+	sprite_oam 16, 8, $0F, 0
+	sprite_oam 16, 16, $10, 0
 
 ; ---- data $500C-$5031 (37 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 9 piece(s); length tiles exactly against the frame-table pointers
 
 CommPanel_Anim1Frame2:: ; 71:500C
 Data_71_500C::
-	db $09, $00, $00, $11, $00, $00, $08, $12, $00, $00, $10, $13, $00, $08, $00, $14
-	db $00, $08, $08, $15, $00, $08, $10, $16, $00, $10, $00, $17, $00, $10, $08, $18
-	db $00, $10, $10, $19, $00
+	sprite_frame 9
+	sprite_oam 0, 0, $11, 0
+	sprite_oam 0, 8, $12, 0
+	sprite_oam 0, 16, $13, 0
+	sprite_oam 8, 0, $14, 0
+	sprite_oam 8, 8, $15, 0
+	sprite_oam 8, 16, $16, 0
+	sprite_oam 16, 0, $17, 0
+	sprite_oam 16, 8, $18, 0
+	sprite_oam 16, 16, $19, 0
 
 ; ---- data $5031-$5038 (7 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 3 step(s), (frame,delay) pairs: 0:30 1:30 2:30
 
 CommPanel_Anim1Script:: ; 71:5031
 Data_71_5031::
-	db $03, $00, $1E, $01, $1E, $02, $1E
+	sprite_anim 3
+	sprite_anim_step 0, 30
+	sprite_anim_step 1, 30
+	sprite_anim_step 2, 30
 
 ; ---- data $5038-$5098 (96 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [range trimmed from 4FBC-5098 by classify_g2]
 
@@ -232,10 +256,11 @@ Data_71_6C68::
 
 Registration_DeleteExecute_ObjTable:: ; 71:6F38
 Table_71_6F38::
-	dw $0000, $0000, Registration_DeleteExecute_Anim1Frames, Registration_DeleteExecute_Anim1Script
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry Registration_DeleteExecute_Anim1Frames, Registration_DeleteExecute_Anim1Script ; entry 1
 
 ; ---- words $6F40-$6F44 (4 bytes) [PROBABLE] sprite frame table: 2 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record ($6F44, $6F69); extent = (first record - table)/2
 
 Registration_DeleteExecute_Anim1Frames:: ; 71:6F40
 Table_71_6F40::
-	dw Registration_DeleteExecute_Anim1Frame0, Registration_DeleteExecute_Anim1Frame1
+	sprite_frame_table Registration_DeleteExecute_Anim1Frame0, Registration_DeleteExecute_Anim1Frame1

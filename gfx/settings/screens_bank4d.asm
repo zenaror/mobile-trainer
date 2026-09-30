@@ -94,16 +94,31 @@ Tilemap_4D_5C84::
 
 SettingsPhone_ChoiceMenu_ObjTable:: ; 4D:5D10
 Table_4D_5D10::
-	dw $0000, $0000, SettingsPhone_ChoiceMenu_ObjAnimData, $5D3E
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry SettingsPhone_ChoiceMenu_ObjAnimData, SpriteScript_4D_5D3E ; entry 1
 
 ; ---- data $5D18-$5D50 (56 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:5D18-5D50 (ends with zero padding to the tile block)
 
 SettingsPhone_ChoiceMenu_ObjAnimData:: ; 4D:5D18
 Data_4D_5D18::
-	db $1C, $5D, $2D, $5D, $04, $00, $00, $00, $08, $08, $00, $10, $08, $00, $78, $00
-	db $28, $08, $78, $10, $28, $04, $00, $FF, $00, $08, $08, $FF, $10, $08, $00, $79
-	db $00, $28, $08, $79, $10, $28, $02, $00, $1E, $01, $05, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $00, $00
+	sprite_frame_table SpriteFrame_4D_5D1C, SpriteFrame_4D_5D2D
+SpriteFrame_4D_5D1C:: ; 4D:5D1C
+	sprite_frame 4
+	sprite_oam 0, 0, $00, OAMF_BANK1
+	sprite_oam 8, 0, $10, OAMF_BANK1
+	sprite_oam 0, 120, $00, OAMF_XFLIP | OAMF_BANK1
+	sprite_oam 8, 120, $10, OAMF_XFLIP | OAMF_BANK1
+SpriteFrame_4D_5D2D:: ; 4D:5D2D
+	sprite_frame 4
+	sprite_oam 0, -1, $00, OAMF_BANK1
+	sprite_oam 8, -1, $10, OAMF_BANK1
+	sprite_oam 0, 121, $00, OAMF_XFLIP | OAMF_BANK1
+	sprite_oam 8, 121, $10, OAMF_XFLIP | OAMF_BANK1
+SpriteScript_4D_5D3E:: ; 4D:5D3E
+	sprite_anim 2
+	sprite_anim_step 0, 30
+	sprite_anim_step 1, 5
+	ds $D, $00
 
 ; ---- gfx $5D50-$5D70 (32 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 67:4DBC: hl=$5D50 a=$4D c=$02 de=$8001 (dest VRAM $8000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
@@ -181,11 +196,23 @@ Tilemap_4D_7910::
 
 SettingsPhone_SlotMenu_ObjTable:: ; 4D:7960
 Table_4D_7960::
-	dw $0000, $0000, SettingsPhone_SlotMenu_ObjAnimData, $797E
+	sprite_object_entry 0, 0 ; entry 0
+	sprite_object_entry SettingsPhone_SlotMenu_ObjAnimData, SpriteScript_4D_797E ; entry 1
 
 ; ---- data $7968-$7983 (27 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 2 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 4D:7968-7983
 
 SettingsPhone_SlotMenu_ObjAnimData:: ; 4D:7968
 Data_4D_7968::
-	db $6C, $79, $75, $79, $02, $00, $00, $00, $08, $00, $08, $01, $08, $02, $FF, $00
-	db $00, $08, $FF, $08, $01, $08, $02, $00, $1E, $01, $05
+	sprite_frame_table SpriteFrame_4D_796C, SpriteFrame_4D_7975
+SpriteFrame_4D_796C:: ; 4D:796C
+	sprite_frame 2
+	sprite_oam 0, 0, $00, OAMF_BANK1
+	sprite_oam 0, 8, $01, OAMF_BANK1
+SpriteFrame_4D_7975:: ; 4D:7975
+	sprite_frame 2
+	sprite_oam -1, 0, $00, OAMF_BANK1
+	sprite_oam -1, 8, $01, OAMF_BANK1
+SpriteScript_4D_797E:: ; 4D:797E
+	sprite_anim 2
+	sprite_anim_step 0, 30
+	sprite_anim_step 1, 5

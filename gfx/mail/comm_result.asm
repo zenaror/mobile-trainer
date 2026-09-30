@@ -57,279 +57,386 @@ Palette_24_7AE0::
 
 MailResult_ObjTable:: ; 24:7B20
 Table_24_7B20::
-	dw MailResult_Anim0Frames, MailResult_Anim0Script, MailResult_Anim0Frames, MailResult_Anim0Script, MailResult_Anim0Frames, MailResult_Anim0Script, MailResult_Anim0Frames, MailResult_Anim0Script
-	dw MailResult_Anim4Frames, MailResult_Anim4Script, MailResult_Anim4Frames, MailResult_Anim4Script, MailResult_Anim4Frames, MailResult_Anim4Script, MailResult_Anim4Frames, MailResult_Anim4Script
-	dw MailResult_Anim8Frames, MailResult_Anim8Script, MailResult_Anim8Frames, MailResult_Anim8Script, MailResult_Anim8Frames, MailResult_Anim8Script, MailResult_Anim8Frames, MailResult_Anim8Script
-	dw MailResult_Anim12Frames, MailResult_Anim12Script, MailResult_Anim12Frames, MailResult_Anim12Script, MailResult_Anim12Frames, MailResult_Anim12Script, MailResult_Anim12Frames, MailResult_Anim12Script
-	dw MailResult_Anim16Frames, MailResult_Anim16Script, MailResult_Anim16Frames, MailResult_Anim16Script, MailResult_Anim16Frames, MailResult_Anim16Script, MailResult_Anim16Frames, MailResult_Anim16Script
-	dw MailResult_Anim20Frames, MailResult_Anim20Script, MailResult_Anim20Frames, MailResult_Anim20Script, MailResult_Anim20Frames, MailResult_Anim20Script, MailResult_Anim20Frames, MailResult_Anim20Script
-	dw MailResult_Anim24Frames, MailResult_Anim24Script, MailResult_Anim24Frames, MailResult_Anim24Script, MailResult_Anim24Frames, MailResult_Anim24Script, MailResult_Anim24Frames, MailResult_Anim24Script
-	dw MailResult_Anim28Frames, MailResult_Anim28Script, MailResult_Anim28Frames, MailResult_Anim28Script, MailResult_Anim28Frames, MailResult_Anim28Script, MailResult_Anim28Frames, MailResult_Anim28Script
-	dw MailResult_Anim32Frames, MailResult_Anim32Script, MailResult_Anim32Frames, MailResult_Anim32Script, MailResult_Anim32Frames, MailResult_Anim32Script, MailResult_Anim32Frames, MailResult_Anim32Script
-	dw MailResult_Anim36Frames, MailResult_Anim36Script, MailResult_Anim36Frames, MailResult_Anim36Script, MailResult_Anim36Frames, MailResult_Anim36Script, MailResult_Anim36Frames, MailResult_Anim36Script
-	dw MailResult_Anim40Frames, MailResult_Anim40Script, MailResult_Anim40Frames, MailResult_Anim40Script, MailResult_Anim40Frames, MailResult_Anim40Script, MailResult_Anim40Frames, MailResult_Anim40Script
-	dw MailResult_Anim44Frames, MailResult_Anim44Script, MailResult_Anim44Frames, MailResult_Anim44Script, MailResult_Anim44Frames, MailResult_Anim44Script, MailResult_Anim44Frames, MailResult_Anim44Script
-	dw MailResult_Anim48Frames, MailResult_Anim48Script, MailResult_Anim48Frames, MailResult_Anim48Script, MailResult_Anim48Frames, MailResult_Anim48Script, MailResult_Anim48Frames, MailResult_Anim48Script
-	dw MailResult_Anim52Frames, MailResult_Anim52Script, MailResult_Anim52Frames, MailResult_Anim52Script, MailResult_Anim52Frames, MailResult_Anim52Script, MailResult_Anim52Frames, MailResult_Anim52Script
+	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 0
+	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 1
+	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 2
+	sprite_object_entry MailResult_Anim0Frames, MailResult_Anim0Script ; entry 3
+	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 4
+	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 5
+	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 6
+	sprite_object_entry MailResult_Anim4Frames, MailResult_Anim4Script ; entry 7
+	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 8
+	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 9
+	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 10
+	sprite_object_entry MailResult_Anim8Frames, MailResult_Anim8Script ; entry 11
+	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 12
+	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 13
+	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 14
+	sprite_object_entry MailResult_Anim12Frames, MailResult_Anim12Script ; entry 15
+	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 16
+	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 17
+	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 18
+	sprite_object_entry MailResult_Anim16Frames, MailResult_Anim16Script ; entry 19
+	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 20
+	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 21
+	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 22
+	sprite_object_entry MailResult_Anim20Frames, MailResult_Anim20Script ; entry 23
+	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 24
+	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 25
+	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 26
+	sprite_object_entry MailResult_Anim24Frames, MailResult_Anim24Script ; entry 27
+	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 28
+	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 29
+	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 30
+	sprite_object_entry MailResult_Anim28Frames, MailResult_Anim28Script ; entry 31
+	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 32
+	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 33
+	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 34
+	sprite_object_entry MailResult_Anim32Frames, MailResult_Anim32Script ; entry 35
+	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 36
+	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 37
+	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 38
+	sprite_object_entry MailResult_Anim36Frames, MailResult_Anim36Script ; entry 39
+	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 40
+	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 41
+	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 42
+	sprite_object_entry MailResult_Anim40Frames, MailResult_Anim40Script ; entry 43
+	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 44
+	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 45
+	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 46
+	sprite_object_entry MailResult_Anim44Frames, MailResult_Anim44Script ; entry 47
+	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 48
+	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 49
+	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 50
+	sprite_object_entry MailResult_Anim48Frames, MailResult_Anim48Script ; entry 51
+	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 52
+	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 53
+	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 54
+	sprite_object_entry MailResult_Anim52Frames, MailResult_Anim52Script ; entry 55
 
 ; ---- words $7C00-$7C02 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim0Frames:: ; 24:7C00
 Table_24_7C00::
-	dw MailResult_Anim0Frame0
+	sprite_frame_table MailResult_Anim0Frame0
 
 ; ---- data $7C02-$7C33 (49 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 12 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim0Frame0:: ; 24:7C02
 Data_24_7C02::
-	db $0C, $50, $38, $0A, $01, $50, $40, $0B, $01, $50, $48, $0C, $01, $50, $50, $0D
-	db $01, $50, $58, $0E, $01, $50, $60, $0F, $01, $58, $38, $1A, $01, $58, $40, $1B
-	db $01, $58, $48, $1C, $01, $58, $50, $1D, $01, $58, $58, $1E, $01, $58, $60, $1F
-	db $01
+	sprite_frame 12
+	sprite_oam 80, 56, $0A, 1
+	sprite_oam 80, 64, $0B, 1
+	sprite_oam 80, 72, $0C, 1
+	sprite_oam 80, 80, $0D, 1
+	sprite_oam 80, 88, $0E, 1
+	sprite_oam 80, 96, $0F, 1
+	sprite_oam 88, 56, $1A, 1
+	sprite_oam 88, 64, $1B, 1
+	sprite_oam 88, 72, $1C, 1
+	sprite_oam 88, 80, $1D, 1
+	sprite_oam 88, 88, $1E, 1
+	sprite_oam 88, 96, $1F, 1
 
 ; ---- data $7C33-$7C36 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim0Script:: ; 24:7C33
 Data_24_7C33::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7C36-$7C38 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim4Frames:: ; 24:7C36
 Table_24_7C36::
-	dw MailResult_Anim4Frame0
+	sprite_frame_table MailResult_Anim4Frame0
 
 ; ---- data $7C38-$7C85 (77 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 19 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim4Frame0:: ; 24:7C38
 Data_24_7C38::
-	db $13, $F0, $28, $20, $02, $F0, $30, $21, $02, $F0, $38, $22, $03, $F0, $40, $23
-	db $03, $F8, $28, $24, $02, $F8, $30, $25, $02, $F8, $38, $26, $03, $F8, $40, $27
-	db $03, $00, $28, $28, $02, $00, $30, $29, $02, $27, $28, $2A, $02, $27, $30, $2B
-	db $02, $27, $38, $2C, $02, $27, $40, $2D, $02, $2F, $30, $2E, $02, $2F, $38, $2F
-	db $02, $1F, $2B, $20, $03, $1F, $33, $21, $03, $1F, $3B, $22, $03
+	sprite_frame 19
+	sprite_oam -16, 40, $20, 2
+	sprite_oam -16, 48, $21, 2
+	sprite_oam -16, 56, $22, 3
+	sprite_oam -16, 64, $23, 3
+	sprite_oam -8, 40, $24, 2
+	sprite_oam -8, 48, $25, 2
+	sprite_oam -8, 56, $26, 3
+	sprite_oam -8, 64, $27, 3
+	sprite_oam 0, 40, $28, 2
+	sprite_oam 0, 48, $29, 2
+	sprite_oam 39, 40, $2A, 2
+	sprite_oam 39, 48, $2B, 2
+	sprite_oam 39, 56, $2C, 2
+	sprite_oam 39, 64, $2D, 2
+	sprite_oam 47, 48, $2E, 2
+	sprite_oam 47, 56, $2F, 2
+	sprite_oam 31, 43, $20, 3
+	sprite_oam 31, 51, $21, 3
+	sprite_oam 31, 59, $22, 3
 
 ; ---- data $7C85-$7C88 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim4Script:: ; 24:7C85
 Data_24_7C85::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7C88-$7C8A (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim8Frames:: ; 24:7C88
 Table_24_7C88::
-	dw MailResult_Anim8Frame0
+	sprite_frame_table MailResult_Anim8Frame0
 
 ; ---- data $7C8A-$7C93 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim8Frame0:: ; 24:7C8A
 Data_24_7C8A::
-	db $02, $38, $E8, $01, $00, $40, $E8, $11, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $01, 0
+	sprite_oam 64, -24, $11, 0
 
 ; ---- data $7C93-$7C96 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim8Script:: ; 24:7C93
 Data_24_7C93::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7C96-$7C98 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim12Frames:: ; 24:7C96
 Table_24_7C96::
-	dw MailResult_Anim12Frame0
+	sprite_frame_table MailResult_Anim12Frame0
 
 ; ---- data $7C98-$7CA1 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim12Frame0:: ; 24:7C98
 Data_24_7C98::
-	db $02, $38, $E8, $02, $00, $40, $E8, $12, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $02, 0
+	sprite_oam 64, -24, $12, 0
 
 ; ---- data $7CA1-$7CA4 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim12Script:: ; 24:7CA1
 Data_24_7CA1::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CA4-$7CA6 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim16Frames:: ; 24:7CA4
 Table_24_7CA4::
-	dw MailResult_Anim16Frame0
+	sprite_frame_table MailResult_Anim16Frame0
 
 ; ---- data $7CA6-$7CAF (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim16Frame0:: ; 24:7CA6
 Data_24_7CA6::
-	db $02, $38, $E8, $03, $00, $40, $E8, $13, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $03, 0
+	sprite_oam 64, -24, $13, 0
 
 ; ---- data $7CAF-$7CB2 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim16Script:: ; 24:7CAF
 Data_24_7CAF::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CB2-$7CB4 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim20Frames:: ; 24:7CB2
 Table_24_7CB2::
-	dw MailResult_Anim20Frame0
+	sprite_frame_table MailResult_Anim20Frame0
 
 ; ---- data $7CB4-$7CBD (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim20Frame0:: ; 24:7CB4
 Data_24_7CB4::
-	db $02, $38, $E8, $04, $00, $40, $E8, $14, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $04, 0
+	sprite_oam 64, -24, $14, 0
 
 ; ---- data $7CBD-$7CC0 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim20Script:: ; 24:7CBD
 Data_24_7CBD::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CC0-$7CC2 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim24Frames:: ; 24:7CC0
 Table_24_7CC0::
-	dw MailResult_Anim24Frame0
+	sprite_frame_table MailResult_Anim24Frame0
 
 ; ---- data $7CC2-$7CCB (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim24Frame0:: ; 24:7CC2
 Data_24_7CC2::
-	db $02, $38, $E8, $05, $00, $40, $E8, $15, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $05, 0
+	sprite_oam 64, -24, $15, 0
 
 ; ---- data $7CCB-$7CCE (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim24Script:: ; 24:7CCB
 Data_24_7CCB::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CCE-$7CD0 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim28Frames:: ; 24:7CCE
 Table_24_7CCE::
-	dw MailResult_Anim28Frame0
+	sprite_frame_table MailResult_Anim28Frame0
 
 ; ---- data $7CD0-$7CD9 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim28Frame0:: ; 24:7CD0
 Data_24_7CD0::
-	db $02, $38, $E8, $06, $00, $40, $E8, $16, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $06, 0
+	sprite_oam 64, -24, $16, 0
 
 ; ---- data $7CD9-$7CDC (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim28Script:: ; 24:7CD9
 Data_24_7CD9::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CDC-$7CDE (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim32Frames:: ; 24:7CDC
 Table_24_7CDC::
-	dw MailResult_Anim32Frame0
+	sprite_frame_table MailResult_Anim32Frame0
 
 ; ---- data $7CDE-$7CE7 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim32Frame0:: ; 24:7CDE
 Data_24_7CDE::
-	db $02, $38, $E8, $07, $00, $40, $E8, $17, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $07, 0
+	sprite_oam 64, -24, $17, 0
 
 ; ---- data $7CE7-$7CEA (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim32Script:: ; 24:7CE7
 Data_24_7CE7::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CEA-$7CEC (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim36Frames:: ; 24:7CEA
 Table_24_7CEA::
-	dw MailResult_Anim36Frame0
+	sprite_frame_table MailResult_Anim36Frame0
 
 ; ---- data $7CEC-$7CF5 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim36Frame0:: ; 24:7CEC
 Data_24_7CEC::
-	db $02, $38, $E8, $08, $00, $40, $E8, $18, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $08, 0
+	sprite_oam 64, -24, $18, 0
 
 ; ---- data $7CF5-$7CF8 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim36Script:: ; 24:7CF5
 Data_24_7CF5::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7CF8-$7CFA (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim40Frames:: ; 24:7CF8
 Table_24_7CF8::
-	dw MailResult_Anim40Frame0
+	sprite_frame_table MailResult_Anim40Frame0
 
 ; ---- data $7CFA-$7D03 (9 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 2 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim40Frame0:: ; 24:7CFA
 Data_24_7CFA::
-	db $02, $38, $E8, $09, $00, $40, $E8, $19, $00
+	sprite_frame 2
+	sprite_oam 56, -24, $09, 0
+	sprite_oam 64, -24, $19, 0
 
 ; ---- data $7D03-$7D06 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim40Script:: ; 24:7D03
 Data_24_7D03::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7D06-$7D08 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim44Frames:: ; 24:7D06
 Table_24_7D06::
-	dw MailResult_Anim44Frame0
+	sprite_frame_table MailResult_Anim44Frame0
 
 ; ---- data $7D08-$7D19 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim44Frame0:: ; 24:7D08
 Data_24_7D08::
-	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $00, $00, $40, $E8, $10
-	db $00
+	sprite_frame 4
+	sprite_oam 56, -32, $01, 0
+	sprite_oam 64, -32, $11, 0
+	sprite_oam 56, -24, $00, 0
+	sprite_oam 64, -24, $10, 0
 
 ; ---- data $7D19-$7D1C (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim44Script:: ; 24:7D19
 Data_24_7D19::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7D1C-$7D1E (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim48Frames:: ; 24:7D1C
 Table_24_7D1C::
-	dw MailResult_Anim48Frame0
+	sprite_frame_table MailResult_Anim48Frame0
 
 ; ---- data $7D1E-$7D2F (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim48Frame0:: ; 24:7D1E
 Data_24_7D1E::
-	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $01, $00, $40, $E8, $11
-	db $00
+	sprite_frame 4
+	sprite_oam 56, -32, $01, 0
+	sprite_oam 64, -32, $11, 0
+	sprite_oam 56, -24, $01, 0
+	sprite_oam 64, -24, $11, 0
 
 ; ---- data $7D2F-$7D32 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim48Script:: ; 24:7D2F
 Data_24_7D2F::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- words $7D32-$7D34 (2 bytes) [PROBABLE] sprite frame table: 1 frame(s), word table indexed by the script frame number (00:0B23: hl=idx*2+base); each word points at a frame record; extent = (first record - table)/2
 
 MailResult_Anim52Frames:: ; 24:7D32
 Table_24_7D32::
-	dw MailResult_Anim52Frame0
+	sprite_frame_table MailResult_Anim52Frame0
 
 ; ---- data $7D34-$7D45 (17 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces (00:0B9D loop adds y+16 / x+8 and copies 4 bytes to shadow OAM); 4 piece(s); length tiles exactly against the frame-table pointers
 
 MailResult_Anim52Frame0:: ; 24:7D34
 Data_24_7D34::
-	db $04, $38, $E0, $01, $00, $40, $E0, $11, $00, $38, $E8, $02, $00, $40, $E8, $12
-	db $00
+	sprite_frame 4
+	sprite_oam 56, -32, $01, 0
+	sprite_oam 64, -32, $11, 0
+	sprite_oam 56, -24, $02, 0
+	sprite_oam 64, -24, $12, 0
 
 ; ---- data $7D45-$7D48 (3 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 1 step(s), (frame,delay) pairs: 0:4
 
 MailResult_Anim52Script:: ; 24:7D45
 Data_24_7D45::
-	db $01, $00, $04
+	sprite_anim 1
+	sprite_anim_step 0, 4

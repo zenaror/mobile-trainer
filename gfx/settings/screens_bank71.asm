@@ -8,21 +8,30 @@ SECTION "gfx/settings/screens_bank71", ROMX
 
 Registration_DeleteExecute_Anim1Frame0:: ; 71:6F44
 Data_71_6F44::
-	db $09, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $02, $00, $08, $08, $03
-	db $00, $00, $10, $00, $20, $08, $10, $02, $20, $10, $00, $00, $40, $10, $08, $01
-	db $40, $10, $10, $00, $60
+	sprite_frame 9
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 8, 0, $02, 0
+	sprite_oam 8, 8, $03, 0
+	sprite_oam 0, 16, $00, OAMF_XFLIP
+	sprite_oam 8, 16, $02, OAMF_XFLIP
+	sprite_oam 16, 0, $00, OAMF_YFLIP
+	sprite_oam 16, 8, $01, OAMF_YFLIP
+	sprite_oam 16, 16, $00, OAMF_YFLIP | OAMF_XFLIP
 
 ; ---- data $6F69-$6F6A (1 bytes) [PROBABLE] sprite frame record: count byte + count x (y offset, x offset, tile, attribute) OAM pieces; 0 piece(s) = an empty frame (1 byte); length tiles exactly against the frame-table pointers
 
 Registration_DeleteExecute_Anim1Frame1:: ; 71:6F69
 Data_71_6F69::
-	db $00
+	sprite_frame 0
 
 ; ---- data $6F6A-$6F6F (5 bytes) [PROBABLE] sprite animation script: count byte + count x (frame index, delay) pairs (00:0B02-0B23 reads count, then idx*2+1 pairs into slot+4/+5); 2 step(s), (frame,delay) pairs: 0:30 1:30; ends exactly at the tilemap block 6F6F
 
 Registration_DeleteExecute_Anim1Script:: ; 71:6F6A
 Data_71_6F6A::
-	db $02, $00, $1E, $01, $1E
+	sprite_anim 2
+	sprite_anim_step 0, 30
+	sprite_anim_step 1, 30
 
 ; ---- data $6F6F-$723F (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 67:65FD: hl=$6F6F a=$71 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 

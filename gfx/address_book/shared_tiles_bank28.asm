@@ -26,50 +26,234 @@ Palette_28_51D0::
 
 AddrBookShared_ObjTable:: ; 28:5210
 Table_28_5210::
-	dw AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6, AddrBookShared_ObjAnimData, $52A6
-	dw $52AB, $52BE, $52AB, $52BE, $52AB, $52BE, $52AB, $52BE
-	dw $52C1, $52D4, $52C1, $52D4, $52C1, $52D4, $52C1, $52D4
-	dw $52D7, $536E, $52D7, $536E, $52D7, $536E, $52D7, $536E
-	dw $5379, $5428, $5379, $5428, $5379, $5428, $5379, $5428
-	dw $5436, $546C, $5436, $546C, $5436, $546C, $5436, $546C
-	dw $546F, $54A5, $546F, $54A5, $546F, $54A5, $546F, $54A5
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 0
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 1
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 2
+	sprite_object_entry AddrBookShared_ObjAnimData, SpriteScript_28_52A6 ; entry 3
+	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 4
+	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 5
+	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 6
+	sprite_object_entry SpriteFrameTable_28_52AB, SpriteScript_28_52BE ; entry 7
+	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 8
+	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 9
+	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 10
+	sprite_object_entry SpriteFrameTable_28_52C1, SpriteScript_28_52D4 ; entry 11
+	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 12
+	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 13
+	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 14
+	sprite_object_entry SpriteFrameTable_28_52D7, SpriteScript_28_536E ; entry 15
+	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 16
+	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 17
+	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 18
+	sprite_object_entry SpriteFrameTable_28_5379, SpriteScript_28_5428 ; entry 19
+	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 20
+	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 21
+	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 22
+	sprite_object_entry SpriteFrameTable_28_5436, SpriteScript_28_546C ; entry 23
+	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 24
+	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 25
+	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 26
+	sprite_object_entry SpriteFrameTable_28_546F, SpriteScript_28_54A5 ; entry 27
 
 ; ---- data $5280-$54B0 (560 bytes) [PROBABLE] 7 object record(s): 7 frame tables, 18 frames, 8 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:5210-54B0 [v4: bytes 5280-52C1, 52D7-5379 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 AddrBookShared_ObjAnimData:: ; 28:5280
 Data_28_5280::
-	db $84, $52, $95, $52, $04, $0A, $FE, $00, $42, $0A, $0A, $00, $62, $FE, $FE, $00
-	db $02, $FE, $0A, $00, $22, $04, $0B, $FD, $00, $42, $0B, $0B, $00, $62, $FD, $FD
-	db $00, $02, $FD, $0B, $00, $22, $02, $00, $40, $01, $08, $AD, $52, $04, $00, $08
-	db $0D, $00, $00, $10, $0E, $00, $08, $08, $2E, $00, $08, $10, $2F, $00, $01, $00
-	db $04, $C3, $52, $04, $00, $08, $01, $00, $00, $10, $02, $00, $08, $08, $03, $00
-	db $08, $10, $04, $00, $01, $00, $04, $E1, $52, $F2, $52, $13, $53, $34, $53, $55
-	db $53, $04, $00, $08, $0D, $00, $00, $10, $0E, $00, $08, $08, $2E, $00, $08, $10
-	db $2F, $00, $08, $01, $08, $22, $00, $01, $10, $23, $00, $09, $10, $1F, $00, $09
-	db $08, $0F, $00, $03, $08, $42, $02, $03, $10, $42, $02, $0B, $08, $43, $02, $0B
-	db $10, $43, $02, $08, $F9, $09, $24, $02, $F9, $11, $25, $02, $01, $09, $26, $02
-	db $01, $11, $27, $02, $03, $09, $42, $02, $03, $11, $42, $02, $04, $09, $42, $02
-	db $04, $11, $42, $02, $08, $FB, $05, $28, $02, $FB, $0D, $29, $02, $FB, $15, $2A
-	db $02, $03, $05, $2B, $02, $03, $0D, $2C, $02, $03, $15, $2D, $02, $04, $08, $42
-	db $02, $04, $10, $42, $02, $06, $FD, $05, $19, $02, $FD, $0D, $1A, $02, $FD, $15
-	db $1B, $02, $05, $05, $1C, $02, $05, $0D, $1D, $02, $05, $15, $1E, $02, $05, $00
-	db $05, $01, $05, $02, $05, $03, $03, $04, $12, $83, $53, $94, $53, $B5, $53, $D6
-	db $53, $03, $54, $04, $00, $08, $01, $00, $00, $10, $02, $00, $08, $08, $03, $00
-	db $08, $10, $04, $00, $08, $01, $08, $05, $00, $01, $10, $06, $00, $09, $08, $07
-	db $00, $09, $10, $08, $00, $03, $08, $42, $02, $03, $10, $42, $02, $0B, $08, $43
-	db $02, $0B, $10, $43, $02, $08, $01, $09, $26, $02, $01, $11, $27, $02, $F9, $09
-	db $20, $02, $F9, $11, $21, $02, $03, $09, $42, $02, $03, $11, $42, $02, $04, $09
-	db $42, $02, $04, $11, $42, $02, $0B, $03, $05, $2B, $02, $03, $0D, $2C, $02, $03
-	db $15, $2D, $02, $FB, $05, $30, $02, $FB, $0D, $31, $02, $FB, $15, $32, $02, $F3
-	db $05, $33, $02, $F3, $0D, $34, $02, $F3, $15, $35, $02, $04, $08, $42, $02, $04
-	db $10, $42, $02, $09, $F6, $05, $10, $02, $F6, $0D, $11, $02, $F6, $15, $12, $02
-	db $FE, $05, $13, $02, $FE, $0D, $14, $02, $FE, $15, $15, $02, $06, $05, $16, $02
-	db $06, $0D, $17, $02, $06, $15, $18, $02, $05, $00, $05, $01, $05, $02, $05, $03
-	db $03, $04, $12, $01, $00, $04, $3A, $54, $4B, $54, $04, $00, $08, $0D, $00, $00
-	db $10, $0E, $00, $08, $08, $2E, $00, $08, $10, $2F, $00, $08, $FB, $08, $36, $00
-	db $FB, $10, $37, $00, $03, $08, $38, $00, $03, $10, $39, $00, $01, $08, $42, $02
-	db $01, $10, $42, $02, $09, $08, $43, $02, $09, $10, $43, $02, $01, $00, $04, $73
-	db $54, $94, $54, $08, $FB, $08, $09, $00, $FB, $10, $0A, $00, $03, $08, $0B, $00
-	db $03, $10, $0C, $00, $01, $08, $42, $02, $01, $10, $42, $02, $09, $08, $43, $02
-	db $09, $10, $43, $02, $04, $00, $08, $01, $00, $00, $10, $02, $00, $08, $08, $03
-	db $00, $08, $10, $04, $00, $02, $00, $05, $01, $14, $00, $00, $00, $00, $00, $00
+	sprite_frame_table SpriteFrame_28_5284, SpriteFrame_28_5295
+SpriteFrame_28_5284:: ; 28:5284
+	sprite_frame 4
+	sprite_oam 10, -2, $00, OAMF_YFLIP | 2
+	sprite_oam 10, 10, $00, OAMF_YFLIP | OAMF_XFLIP | 2
+	sprite_oam -2, -2, $00, 2
+	sprite_oam -2, 10, $00, OAMF_XFLIP | 2
+SpriteFrame_28_5295:: ; 28:5295
+	sprite_frame 4
+	sprite_oam 11, -3, $00, OAMF_YFLIP | 2
+	sprite_oam 11, 11, $00, OAMF_YFLIP | OAMF_XFLIP | 2
+	sprite_oam -3, -3, $00, 2
+	sprite_oam -3, 11, $00, OAMF_XFLIP | 2
+SpriteScript_28_52A6:: ; 28:52A6
+	sprite_anim 2
+	sprite_anim_step 0, 64
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_52AB:: ; 28:52AB
+	sprite_frame_table SpriteFrame_28_52AD
+SpriteFrame_28_52AD:: ; 28:52AD
+	sprite_frame 4
+	sprite_oam 0, 8, $0D, 0
+	sprite_oam 0, 16, $0E, 0
+	sprite_oam 8, 8, $2E, 0
+	sprite_oam 8, 16, $2F, 0
+SpriteScript_28_52BE:: ; 28:52BE
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_52C1:: ; 28:52C1
+	sprite_frame_table SpriteFrame_28_52C3
+SpriteFrame_28_52C3:: ; 28:52C3
+	sprite_frame 4
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 0, 16, $02, 0
+	sprite_oam 8, 8, $03, 0
+	sprite_oam 8, 16, $04, 0
+SpriteScript_28_52D4:: ; 28:52D4
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_52D7:: ; 28:52D7
+	sprite_frame_table SpriteFrame_28_52E1, SpriteFrame_28_52F2, SpriteFrame_28_5313, SpriteFrame_28_5334
+	sprite_frame_table SpriteFrame_28_5355
+SpriteFrame_28_52E1:: ; 28:52E1
+	sprite_frame 4
+	sprite_oam 0, 8, $0D, 0
+	sprite_oam 0, 16, $0E, 0
+	sprite_oam 8, 8, $2E, 0
+	sprite_oam 8, 16, $2F, 0
+SpriteFrame_28_52F2:: ; 28:52F2
+	sprite_frame 8
+	sprite_oam 1, 8, $22, 0
+	sprite_oam 1, 16, $23, 0
+	sprite_oam 9, 16, $1F, 0
+	sprite_oam 9, 8, $0F, 0
+	sprite_oam 3, 8, $42, 2
+	sprite_oam 3, 16, $42, 2
+	sprite_oam 11, 8, $43, 2
+	sprite_oam 11, 16, $43, 2
+SpriteFrame_28_5313:: ; 28:5313
+	sprite_frame 8
+	sprite_oam -7, 9, $24, 2
+	sprite_oam -7, 17, $25, 2
+	sprite_oam 1, 9, $26, 2
+	sprite_oam 1, 17, $27, 2
+	sprite_oam 3, 9, $42, 2
+	sprite_oam 3, 17, $42, 2
+	sprite_oam 4, 9, $42, 2
+	sprite_oam 4, 17, $42, 2
+SpriteFrame_28_5334:: ; 28:5334
+	sprite_frame 8
+	sprite_oam -5, 5, $28, 2
+	sprite_oam -5, 13, $29, 2
+	sprite_oam -5, 21, $2A, 2
+	sprite_oam 3, 5, $2B, 2
+	sprite_oam 3, 13, $2C, 2
+	sprite_oam 3, 21, $2D, 2
+	sprite_oam 4, 8, $42, 2
+	sprite_oam 4, 16, $42, 2
+SpriteFrame_28_5355:: ; 28:5355
+	sprite_frame 6
+	sprite_oam -3, 5, $19, 2
+	sprite_oam -3, 13, $1A, 2
+	sprite_oam -3, 21, $1B, 2
+	sprite_oam 5, 5, $1C, 2
+	sprite_oam 5, 13, $1D, 2
+	sprite_oam 5, 21, $1E, 2
+SpriteScript_28_536E:: ; 28:536E
+	sprite_anim 5
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 5
+	sprite_anim_step 2, 5
+	sprite_anim_step 3, 3
+	sprite_anim_step 4, 18
+SpriteFrameTable_28_5379:: ; 28:5379
+	sprite_frame_table SpriteFrame_28_5383, SpriteFrame_28_5394, SpriteFrame_28_53B5, SpriteFrame_28_53D6
+	sprite_frame_table SpriteFrame_28_5403
+SpriteFrame_28_5383:: ; 28:5383
+	sprite_frame 4
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 0, 16, $02, 0
+	sprite_oam 8, 8, $03, 0
+	sprite_oam 8, 16, $04, 0
+SpriteFrame_28_5394:: ; 28:5394
+	sprite_frame 8
+	sprite_oam 1, 8, $05, 0
+	sprite_oam 1, 16, $06, 0
+	sprite_oam 9, 8, $07, 0
+	sprite_oam 9, 16, $08, 0
+	sprite_oam 3, 8, $42, 2
+	sprite_oam 3, 16, $42, 2
+	sprite_oam 11, 8, $43, 2
+	sprite_oam 11, 16, $43, 2
+SpriteFrame_28_53B5:: ; 28:53B5
+	sprite_frame 8
+	sprite_oam 1, 9, $26, 2
+	sprite_oam 1, 17, $27, 2
+	sprite_oam -7, 9, $20, 2
+	sprite_oam -7, 17, $21, 2
+	sprite_oam 3, 9, $42, 2
+	sprite_oam 3, 17, $42, 2
+	sprite_oam 4, 9, $42, 2
+	sprite_oam 4, 17, $42, 2
+SpriteFrame_28_53D6:: ; 28:53D6
+	sprite_frame 11
+	sprite_oam 3, 5, $2B, 2
+	sprite_oam 3, 13, $2C, 2
+	sprite_oam 3, 21, $2D, 2
+	sprite_oam -5, 5, $30, 2
+	sprite_oam -5, 13, $31, 2
+	sprite_oam -5, 21, $32, 2
+	sprite_oam -13, 5, $33, 2
+	sprite_oam -13, 13, $34, 2
+	sprite_oam -13, 21, $35, 2
+	sprite_oam 4, 8, $42, 2
+	sprite_oam 4, 16, $42, 2
+SpriteFrame_28_5403:: ; 28:5403
+	sprite_frame 9
+	sprite_oam -10, 5, $10, 2
+	sprite_oam -10, 13, $11, 2
+	sprite_oam -10, 21, $12, 2
+	sprite_oam -2, 5, $13, 2
+	sprite_oam -2, 13, $14, 2
+	sprite_oam -2, 21, $15, 2
+	sprite_oam 6, 5, $16, 2
+	sprite_oam 6, 13, $17, 2
+	sprite_oam 6, 21, $18, 2
+SpriteScript_28_5428:: ; 28:5428
+	sprite_anim 5
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 5
+	sprite_anim_step 2, 5
+	sprite_anim_step 3, 3
+	sprite_anim_step 4, 18
+	db $01, $00, $04 ; not reached by any walked sprite chain
+SpriteFrameTable_28_5436:: ; 28:5436
+	sprite_frame_table SpriteFrame_28_543A, SpriteFrame_28_544B
+SpriteFrame_28_543A:: ; 28:543A
+	sprite_frame 4
+	sprite_oam 0, 8, $0D, 0
+	sprite_oam 0, 16, $0E, 0
+	sprite_oam 8, 8, $2E, 0
+	sprite_oam 8, 16, $2F, 0
+SpriteFrame_28_544B:: ; 28:544B
+	sprite_frame 8
+	sprite_oam -5, 8, $36, 0
+	sprite_oam -5, 16, $37, 0
+	sprite_oam 3, 8, $38, 0
+	sprite_oam 3, 16, $39, 0
+	sprite_oam 1, 8, $42, 2
+	sprite_oam 1, 16, $42, 2
+	sprite_oam 9, 8, $43, 2
+	sprite_oam 9, 16, $43, 2
+SpriteScript_28_546C:: ; 28:546C
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_546F:: ; 28:546F
+	sprite_frame_table SpriteFrame_28_5473, SpriteFrame_28_5494
+SpriteFrame_28_5473:: ; 28:5473
+	sprite_frame 8
+	sprite_oam -5, 8, $09, 0
+	sprite_oam -5, 16, $0A, 0
+	sprite_oam 3, 8, $0B, 0
+	sprite_oam 3, 16, $0C, 0
+	sprite_oam 1, 8, $42, 2
+	sprite_oam 1, 16, $42, 2
+	sprite_oam 9, 8, $43, 2
+	sprite_oam 9, 16, $43, 2
+SpriteFrame_28_5494:: ; 28:5494
+	sprite_frame 4
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 0, 16, $02, 0
+	sprite_oam 8, 8, $03, 0
+	sprite_oam 8, 16, $04, 0
+SpriteScript_28_54A5:: ; 28:54A5
+	sprite_anim 2
+	sprite_anim_step 0, 5
+	sprite_anim_step 1, 20
+	db $00, $00, $00, $00, $00, $00

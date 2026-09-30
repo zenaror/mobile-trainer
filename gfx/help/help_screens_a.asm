@@ -134,10 +134,35 @@ Data_6A_6300:: ; 6A:6300
 ; ---- data $6448-$64B1 (105 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 4E90-64BB by higher-priority evidence]
 
 Data_6A_6448:: ; 6A:6448
-	db $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08, $10
-	db $1A, $00, $10, $00, $00, $00, $00, $00, $08, $01, $00, $08, $00, $10, $00, $08
-	db $08, $11, $00, $10, $00, $20, $00, $10, $08, $21, $00, $18, $00, $30, $00, $18
-	db $08, $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08
-	db $10, $1A, $00, $04, $F0, $0A, $00, $0C, $F0, $1A, $00, $04, $18, $0A, $00, $0C
-	db $18, $1A, $00, $09, $00, $04, $01, $04, $02, $04, $03, $04, $04, $04, $05, $04
-	db $06, $06, $07, $0C, $08, $0C, $30, $63, $9B
+	db $31, $00, $00, $F8, $0A, $00, $08, $F8, $1A, $00, $00, $10, $0A, $00, $08, $10 ; not reached by any walked sprite chain
+	db $1A, $00 ; not reached by any walked sprite chain
+SpriteFrame_6A_645A:: ; 6A:645A
+	sprite_frame 16
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 8, 0, $10, 0
+	sprite_oam 8, 8, $11, 0
+	sprite_oam 16, 0, $20, 0
+	sprite_oam 16, 8, $21, 0
+	sprite_oam 24, 0, $30, 0
+	sprite_oam 24, 8, $31, 0
+	sprite_oam 0, -8, $0A, 0
+	sprite_oam 8, -8, $1A, 0
+	sprite_oam 0, 16, $0A, 0
+	sprite_oam 8, 16, $1A, 0
+	sprite_oam 4, -16, $0A, 0
+	sprite_oam 12, -16, $1A, 0
+	sprite_oam 4, 24, $0A, 0
+	sprite_oam 12, 24, $1A, 0
+SpriteScript_6A_649B:: ; 6A:649B
+	sprite_anim 9
+	sprite_anim_step 0, 4
+	sprite_anim_step 1, 4
+	sprite_anim_step 2, 4
+	sprite_anim_step 3, 4
+	sprite_anim_step 4, 4
+	sprite_anim_step 5, 4
+	sprite_anim_step 6, 6
+	sprite_anim_step 7, 12
+	sprite_anim_step 8, 12
+	db $30, $63, $9B ; sprite object-table entry kept as db: the item crosses the end of its block

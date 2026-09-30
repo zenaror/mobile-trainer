@@ -43,15 +43,29 @@ MailBody_ObjPalette:: ; 28:4B30
 
 MailBody_ObjTable:: ; 28:4B70
 Table_28_4B70::
-	dw MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3, MailBody_28_ObjAnimData, $4BA3
+	sprite_object_entry MailBody_28_ObjAnimData, SpriteScript_28_4BA3 ; entry 0
+	sprite_object_entry MailBody_28_ObjAnimData, SpriteScript_28_4BA3 ; entry 1
+	sprite_object_entry MailBody_28_ObjAnimData, SpriteScript_28_4BA3 ; entry 2
+	sprite_object_entry MailBody_28_ObjAnimData, SpriteScript_28_4BA3 ; entry 3
 
 ; ---- data $4B80-$4BA6 (38 bytes) [PROBABLE] 1 object record(s): 1 frame tables, 1 frames, 1 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:4B70-4BA6 [v4: bytes 4B80-4BA6 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailBody_28_ObjAnimData:: ; 28:4B80
 Data_28_4B80::
-	db $82, $4B, $08, $00, $00, $00, $00, $00, $08, $01, $00, $00, $10, $02, $00, $00
-	db $18, $03, $00, $08, $00, $04, $00, $08, $08, $05, $00, $08, $10, $06, $00, $08
-	db $18, $07, $00, $01, $00, $04
+	sprite_frame_table SpriteFrame_28_4B82
+SpriteFrame_28_4B82:: ; 28:4B82
+	sprite_frame 8
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+	sprite_oam 0, 16, $02, 0
+	sprite_oam 0, 24, $03, 0
+	sprite_oam 8, 0, $04, 0
+	sprite_oam 8, 8, $05, 0
+	sprite_oam 8, 16, $06, 0
+	sprite_oam 8, 24, $07, 0
+SpriteScript_28_4BA3:: ; 28:4BA3
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- data $4BA6-$4BC2 (28 bytes) [HYPOTHESIS] UNCLASSIFIED 28 bytes: decodes to a clean routine (ld b,$90 / ld hl,$C000 / clear / ld a,7 ldh [8D],a ldh [70],a / ld hl,$DA00 fill $FF x256 / ret) but no call/jp/far-pointer/table reference to 28:4BA6 was found; follows the object script at 4BA3-4BA6 [g4: left unclassified]
 

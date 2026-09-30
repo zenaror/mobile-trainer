@@ -98,11 +98,26 @@ Palette_MailServerMgr_Obj:: ; 2E:75D0
 
 Table_MailServerMgr_ObjAnims:: ; 2E:76C0
 Table_2E_76C0::
-	dw $77FA, $7838, $77FA, $7838, $77FA, $7838, $77FA, $7838
-	dw $783D, $787B, $783D, $787B, $783D, $787B, $783D, $787B
-	dw $7880, $78BE, $7880, $78BE, $7880, $78BE, $7880, $78BE
-	dw $78C3, $7919, $78C3, $7919, $78C3, $7919, $78C3, $7919
-	dw MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957
+	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 0
+	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 1
+	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 2
+	sprite_object_entry SpriteFrameTable_2E_77FA, SpriteScript_2E_7838 ; entry 3
+	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 4
+	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 5
+	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 6
+	sprite_object_entry SpriteFrameTable_2E_783D, SpriteScript_2E_787B ; entry 7
+	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 8
+	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 9
+	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 10
+	sprite_object_entry SpriteFrameTable_2E_7880, SpriteScript_2E_78BE ; entry 11
+	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 12
+	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 13
+	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 14
+	sprite_object_entry SpriteFrameTable_2E_78C3, SpriteScript_2E_7919 ; entry 15
+	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 16
+	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 17
+	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 18
+	sprite_object_entry MailServerMgr_ObjAnimData_2E_7921, SpriteScript_2E_7957 ; entry 19
 
 ; ---- data $7710-$7720 (16 bytes) [PROBABLE] animation descriptors / sprite lists (same format as bank 72:786C-7A1F: count + count*(y,x,tile,attr) and descriptors 01 00 04 dw / 02 .. dw dw) reached from the object tables 2E:76C0
 
@@ -113,45 +128,129 @@ Data_2E_7710:: ; 2E:7710
 
 MailServerMgr_ObjAnimData_2E_7720:: ; 2E:7720
 Data_2E_7720::
-	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0B, $00, $08, $00, $1B
-	db $00, $01, $00, $04, $36, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00
-	db $00, $0C, $00, $08, $00, $1C, $00, $01, $00, $04, $4C, $77, $04, $E0, $D0, $0A
-	db $00, $E8, $D0, $1A, $00, $00, $00, $0D, $00, $08, $00, $1D, $00, $01, $00, $04
-	db $62, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0E, $00, $08
-	db $00, $1E, $00, $01, $00, $04, $78, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A
-	db $00, $00, $00, $0F, $00, $08, $00, $1F, $00, $01, $00, $04, $8E, $77, $04, $E0
-	db $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $10, $00, $08, $00, $14, $00, $01
-	db $00, $04, $A4, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $11
-	db $00, $08, $00, $15, $00, $01, $00, $04, $BA, $77, $04, $E0, $D0, $0A, $00, $E8
-	db $D0, $1A, $00, $00, $00, $12, $00, $08, $00, $16, $00, $01, $00, $04, $D0, $77
-	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $13, $00, $08, $00, $17
-	db $00, $01, $00, $04, $E6, $77, $04, $FE, $FE, $0A, $00, $FE, $0A, $0A, $20, $0A
-	db $FE, $0A, $40, $0A, $0A, $0A, $60, $01, $00, $04, $FE, $77, $1B, $78, $07, $F5
-	db $FC, $10, $00, $F5, $04, $11, $00, $F5, $0C, $12, $00, $FE, $FE, $0A, $00, $FE
-	db $0A, $0A, $20, $0A, $FE, $0A, $40, $0A, $0A, $0A, $60, $07, $F5, $FC, $10, $00
-	db $F5, $04, $11, $00, $F5, $0C, $12, $00, $FD, $FD, $0A, $00, $FD, $0B, $0A, $20
-	db $0B, $FD, $0A, $40, $0B, $0B, $0A, $60, $02, $00, $2E, $01, $08, $41, $78, $5E
-	db $78, $07, $F5, $FC, $13, $00, $F5, $04, $14, $00, $F5, $0C, $15, $00, $FE, $FE
-	db $0A, $00, $FE, $0A, $0A, $20, $0A, $FE, $0A, $40, $0A, $0A, $0A, $60, $07, $F5
-	db $FC, $13, $00, $F5, $04, $14, $00, $F5, $0C, $15, $00, $FD, $FD, $0A, $00, $FD
-	db $0B, $0A, $20, $0B, $FD, $0A, $40, $0B, $0B, $0A, $60, $02, $00, $40, $01, $08
-	db $84, $78, $A1, $78, $07, $F5, $FC, $16, $00, $F5, $04, $17, $00, $F5, $0C, $18
-	db $00, $FE, $FE, $0A, $00, $FE, $0A, $0A, $20, $0A, $FE, $0A, $40, $0A, $0A, $0A
-	db $60, $07, $F5, $FC, $16, $00, $F5, $04, $17, $00, $F5, $0C, $18, $00, $FD, $FD
-	db $0A, $00, $FD, $0B, $0A, $20, $0B, $FD, $0A, $40, $0B, $0B, $0A, $60, $02, $00
-	db $2E, $01, $08, $C7, $78, $F0, $78, $0A, $37, $14, $19, $01, $37, $1C, $1A, $01
-	db $3F, $14, $1B, $01, $3F, $1C, $1C, $01, $47, $14, $1D, $01, $47, $1C, $1E, $01
-	db $2B, $14, $0C, $02, $2B, $1C, $0D, $02, $33, $14, $0E, $02, $33, $1C, $0F, $02
-	db $0A, $37, $14, $19, $01, $37, $1C, $1A, $01, $3F, $14, $1B, $01, $3F, $1C, $1C
-	db $01, $47, $14, $1D, $01, $47, $1C, $1E, $01, $2A, $10, $1F, $02, $32, $10, $0B
-	db $02, $2A, $20, $1F, $22, $32, $20, $0B, $22, $02, $00, $14, $01, $1D, $01, $00
-	db $04
+	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0B, $00, $08, $00, $1B ; not reached by any walked sprite chain
+	db $00, $01, $00, $04, $36, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00 ; not reached by any walked sprite chain
+	db $00, $0C, $00, $08, $00, $1C, $00, $01, $00, $04, $4C, $77, $04, $E0, $D0, $0A ; not reached by any walked sprite chain
+	db $00, $E8, $D0, $1A, $00, $00, $00, $0D, $00, $08, $00, $1D, $00, $01, $00, $04 ; not reached by any walked sprite chain
+	db $62, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0E, $00, $08 ; not reached by any walked sprite chain
+	db $00, $1E, $00, $01, $00, $04, $78, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A ; not reached by any walked sprite chain
+	db $00, $00, $00, $0F, $00, $08, $00, $1F, $00, $01, $00, $04, $8E, $77, $04, $E0 ; not reached by any walked sprite chain
+	db $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $10, $00, $08, $00, $14, $00, $01 ; not reached by any walked sprite chain
+	db $00, $04, $A4, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $11 ; not reached by any walked sprite chain
+	db $00, $08, $00, $15, $00, $01, $00, $04, $BA, $77, $04, $E0, $D0, $0A, $00, $E8 ; not reached by any walked sprite chain
+	db $D0, $1A, $00, $00, $00, $12, $00, $08, $00, $16, $00, $01, $00, $04, $D0, $77 ; not reached by any walked sprite chain
+	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $13, $00, $08, $00, $17 ; not reached by any walked sprite chain
+	db $00, $01, $00, $04, $E6, $77, $04, $FE, $FE, $0A, $00, $FE, $0A, $0A, $20, $0A ; not reached by any walked sprite chain
+	db $FE, $0A, $40, $0A, $0A, $0A, $60, $01, $00, $04 ; not reached by any walked sprite chain
+SpriteFrameTable_2E_77FA:: ; 2E:77FA
+	sprite_frame_table SpriteFrame_2E_77FE, SpriteFrame_2E_781B
+SpriteFrame_2E_77FE:: ; 2E:77FE
+	sprite_frame 7
+	sprite_oam -11, -4, $10, 0
+	sprite_oam -11, 4, $11, 0
+	sprite_oam -11, 12, $12, 0
+	sprite_oam -2, -2, $0A, 0
+	sprite_oam -2, 10, $0A, OAMF_XFLIP
+	sprite_oam 10, -2, $0A, OAMF_YFLIP
+	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteFrame_2E_781B:: ; 2E:781B
+	sprite_frame 7
+	sprite_oam -11, -4, $10, 0
+	sprite_oam -11, 4, $11, 0
+	sprite_oam -11, 12, $12, 0
+	sprite_oam -3, -3, $0A, 0
+	sprite_oam -3, 11, $0A, OAMF_XFLIP
+	sprite_oam 11, -3, $0A, OAMF_YFLIP
+	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteScript_2E_7838:: ; 2E:7838
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_2E_783D:: ; 2E:783D
+	sprite_frame_table SpriteFrame_2E_7841, SpriteFrame_2E_785E
+SpriteFrame_2E_7841:: ; 2E:7841
+	sprite_frame 7
+	sprite_oam -11, -4, $13, 0
+	sprite_oam -11, 4, $14, 0
+	sprite_oam -11, 12, $15, 0
+	sprite_oam -2, -2, $0A, 0
+	sprite_oam -2, 10, $0A, OAMF_XFLIP
+	sprite_oam 10, -2, $0A, OAMF_YFLIP
+	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteFrame_2E_785E:: ; 2E:785E
+	sprite_frame 7
+	sprite_oam -11, -4, $13, 0
+	sprite_oam -11, 4, $14, 0
+	sprite_oam -11, 12, $15, 0
+	sprite_oam -3, -3, $0A, 0
+	sprite_oam -3, 11, $0A, OAMF_XFLIP
+	sprite_oam 11, -3, $0A, OAMF_YFLIP
+	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteScript_2E_787B:: ; 2E:787B
+	sprite_anim 2
+	sprite_anim_step 0, 64
+	sprite_anim_step 1, 8
+SpriteFrameTable_2E_7880:: ; 2E:7880
+	sprite_frame_table SpriteFrame_2E_7884, SpriteFrame_2E_78A1
+SpriteFrame_2E_7884:: ; 2E:7884
+	sprite_frame 7
+	sprite_oam -11, -4, $16, 0
+	sprite_oam -11, 4, $17, 0
+	sprite_oam -11, 12, $18, 0
+	sprite_oam -2, -2, $0A, 0
+	sprite_oam -2, 10, $0A, OAMF_XFLIP
+	sprite_oam 10, -2, $0A, OAMF_YFLIP
+	sprite_oam 10, 10, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteFrame_2E_78A1:: ; 2E:78A1
+	sprite_frame 7
+	sprite_oam -11, -4, $16, 0
+	sprite_oam -11, 4, $17, 0
+	sprite_oam -11, 12, $18, 0
+	sprite_oam -3, -3, $0A, 0
+	sprite_oam -3, 11, $0A, OAMF_XFLIP
+	sprite_oam 11, -3, $0A, OAMF_YFLIP
+	sprite_oam 11, 11, $0A, OAMF_YFLIP | OAMF_XFLIP
+SpriteScript_2E_78BE:: ; 2E:78BE
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_2E_78C3:: ; 2E:78C3
+	sprite_frame_table SpriteFrame_2E_78C7, SpriteFrame_2E_78F0
+SpriteFrame_2E_78C7:: ; 2E:78C7
+	sprite_frame 10
+	sprite_oam 55, 20, $19, 1
+	sprite_oam 55, 28, $1A, 1
+	sprite_oam 63, 20, $1B, 1
+	sprite_oam 63, 28, $1C, 1
+	sprite_oam 71, 20, $1D, 1
+	sprite_oam 71, 28, $1E, 1
+	sprite_oam 43, 20, $0C, 2
+	sprite_oam 43, 28, $0D, 2
+	sprite_oam 51, 20, $0E, 2
+	sprite_oam 51, 28, $0F, 2
+SpriteFrame_2E_78F0:: ; 2E:78F0
+	sprite_frame 10
+	sprite_oam 55, 20, $19, 1
+	sprite_oam 55, 28, $1A, 1
+	sprite_oam 63, 20, $1B, 1
+	sprite_oam 63, 28, $1C, 1
+	sprite_oam 71, 20, $1D, 1
+	sprite_oam 71, 28, $1E, 1
+	sprite_oam 42, 16, $1F, 2
+	sprite_oam 50, 16, $0B, 2
+	sprite_oam 42, 32, $1F, OAMF_XFLIP | 2
+	sprite_oam 50, 32, $0B, OAMF_XFLIP | 2
+SpriteScript_2E_7919:: ; 2E:7919
+	sprite_anim 2
+	sprite_anim_step 0, 20
+	sprite_anim_step 1, 29
+	db $01, $00, $04 ; not reached by any walked sprite chain
 
 ; ---- data $7921-$7923 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 MailServerMgr_ObjAnimData_2E_7921:: ; 2E:7921
 Data_2E_7921::
-	db $25, $79
+	db $25, $79 ; sprite frame table kept as db: the item crosses the end of its block
 
 ; ---- data $7923-$7925 (2 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
 
@@ -161,15 +260,27 @@ Data_2E_7923:: ; 2E:7923
 ; ---- data $7925-$793E (25 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 Data_2E_7925:: ; 2E:7925
-	db $06, $36, $14, $20, $01, $36, $1C, $21, $01, $3E, $14, $22, $01, $3E, $1C, $23
-	db $01, $46, $14, $24, $01, $46, $1C, $25, $01
+	sprite_frame 6
+	sprite_oam 54, 20, $20, 1
+	sprite_oam 54, 28, $21, 1
+	sprite_oam 62, 20, $22, 1
+	sprite_oam 62, 28, $23, 1
+	sprite_oam 70, 20, $24, 1
+	sprite_oam 70, 28, $25, 1
 
 ; ---- data $793E-$7958 (26 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
 
 MailServerMgr_ObjAnimData_2E_793E:: ; 2E:793E
 Data_2E_793E::
-	db $06, $36, $14, $26, $01, $36, $1C, $27, $01, $3E, $14, $28, $01, $3E, $1C, $29
-	db $01, $46, $14, $2A, $01, $46, $1C, $2B, $01, $02
+	sprite_frame 6
+	sprite_oam 54, 20, $26, 1
+	sprite_oam 54, 28, $27, 1
+	sprite_oam 62, 20, $28, 1
+	sprite_oam 62, 28, $29, 1
+	sprite_oam 70, 20, $2A, 1
+	sprite_oam 70, 28, $2B, 1
+SpriteScript_2E_7957:: ; 2E:7957
+	db $02 ; sprite script kept as db: the item crosses the end of its block
 
 ; ---- data $7958-$795A (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
