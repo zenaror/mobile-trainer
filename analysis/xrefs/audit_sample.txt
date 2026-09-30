@@ -1,0 +1,1042 @@
+=== #1 0F:4395  ld hl, $4004  -> 0F:4004 String_0F_4004 [CONFIRMED]
+  0F:4386  pop bc
+  0F:4387  ld a, [$D003]
+  0F:438A  ld [$D000], a
+  0F:438D  ldh [$FF8C], a
+  0F:438F  ld [$4000], a
+  0F:4392  call $4C0F
+>> 0F:4395  ld hl, $4004
+   0F:4398  ld de, $D024
+   0F:439B  ld a, [hli]
+   0F:439C  and a, a
+   0F:439D  jr z, $43B1
+   0F:439F  ld b, a
+   0F:43A0  ld a, [de]
+   0F:43A1  inc de
+   0F:43A2  cp a, b
+
+    evidence: [xref_infer] hl=$4004 is exactly the label String_0F_4004 (text region 0F:4004); read at 0F:439B (ld a, [hli]), pair intact until then; own bank $0F; trace: insn executed, target read (mail_receive,mail_server_full +5). patterns c,a
+
+=== #2 19:4CD0  ld hl, $4D5E  -> 19:4D5E Data_19_4D5E [PROBABLE]
+  19:4CC6  inc de
+  19:4CC7  ld a, [$C0D6]
+  19:4CCA  ld b, a
+  19:4CCB  swap a
+  19:4CCD  and a, $0F
+  19:4CCF  add a, a
+>> 19:4CD0  ld hl, $4D5E
+   19:4CD3  add a, l
+   19:4CD4  ld l, a
+   19:4CD5  ld a, h
+   19:4CD6  adc a, $00
+   19:4CD8  ld h, a
+   19:4CD9  ld a, [hli]
+   19:4CDA  ld [de], a
+   19:4CDB  inc de
+
+    evidence: [xref_infer] hl=$4D5E is exactly the label Data_19_4D5E (data region 19:4D5E); read at 19:4CD9 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $19. patterns c
+
+=== #3 1D:4337  ld hl, $4383  -> 1D:4383 Table_1D_4383 [PROBABLE]
+  1D:432E  ld b, $03
+  1D:4330  ld c, a
+  1D:4331  and a, $01
+  1D:4333  xor a, $01
+  1D:4335  add a, b
+  1D:4336  ld b, a
+>> 1D:4337  ld hl, $4383
+   1D:433A  ld a, c
+   1D:433B  sla a
+   1D:433D  add a, l
+   1D:433E  ld l, a
+   1D:433F  ld a, h
+   1D:4340  adc a, $00
+   1D:4342  ld h, a
+   1D:4343  ld de, $D000
+
+    evidence: [xref_infer] hl=$4383 is exactly the label Table_1D_4383 (words region 1D:4383); read at 1D:4346 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $1D; trace: insn executed, target read (addressbook_full,mail_errors +20). patterns c,a
+
+=== #4 1F:40E3  ld hl, $40D7  -> 1E:40D7 Data_1E_40D7 [CONFIRMED]
+  1F:40DD  ld bc, $1014
+  1F:40E0  ld de, $D000
+>> 1F:40E3  ld hl, $40D7
+   1F:40E6  ld a, $1E
+   1F:40E8  call $06D1
+              (farcall 00:08EA)
+   1F:40EE  ld hl, $DA50
+   1F:40F1  ld de, $656F
+   1F:40F4  ld a, $1E
+   1F:40F6  ld b, $85
+   1F:40F8  call $06D1
+              (farcall 00:0A82)
+   1F:40FE  ld bc, $0040
+
+    evidence: [xref_infer] hl=$40D7 is exactly the label Data_1E_40D7 (data region 1E:40D7); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $1E from the constant loaded into A; trace: insn executed, target read (monkey_1,monkey_2 +26). patterns b,d,a
+
+=== #5 1F:412B  ld de, $656F  -> 1E:656F Table_1E_656F [PROBABLE]
+  1F:411F  ld de, $191D
+  1F:4122  ld hl, $DA10
+  1F:4125  call $0A65
+  1F:4128  ld hl, $DA20
+>> 1F:412B  ld de, $656F
+   1F:412E  ld a, $1E
+   1F:4130  ld b, $02
+   1F:4132  call $06D1
+              (farcall 00:0A82)
+   1F:4138  ld de, $1676
+   1F:413B  ld hl, $DA20
+   1F:413E  call $0A65
+   1F:4141  xor a, a
+   1F:4142  ld [$DA16], a
+
+    evidence: [xref_infer] de=$656F is exactly the label Table_1E_656F (words region 1E:656F); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $1E from the constant loaded into A. patterns b,d
+
+=== #6 24:462B  ld de, $6530  -> 24:6530 Table_24_6530 [PROBABLE]
+  24:4621  ld a, [hli]
+  24:4622  ld d, a
+  24:4623  ld a, [de]
+  24:4624  cp a, $00
+  24:4626  jr z, $4645
+  24:4628  ld hl, $DA50
+>> 24:462B  ld de, $6530
+   24:462E  ld a, $24
+   24:4630  ld b, $01
+   24:4632  call $06D1
+              (farcall 00:0A82)
+   24:4638  ld a, $2F
+   24:463A  ld [$DA50], a
+   24:463D  ld a, $06
+   24:463F  ld [$DA51], a
+   24:4642  jp $478A
+
+    evidence: [xref_infer] de=$6530 is exactly the label Table_24_6530 (words region 24:6530); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $24 from the constant loaded into A. patterns b,d
+
+=== #7 24:4675  ld de, $6530  -> 24:6530 Table_24_6530 [PROBABLE]
+  24:466B  ld a, [hli]
+  24:466C  ld d, a
+  24:466D  ld a, [de]
+  24:466E  cp a, $00
+  24:4670  jr z, $468F
+  24:4672  ld hl, $DA40
+>> 24:4675  ld de, $6530
+   24:4678  ld a, $24
+   24:467A  ld b, $01
+   24:467C  call $06D1
+              (farcall 00:0A82)
+   24:4682  ld a, $3B
+   24:4684  ld [$DA40], a
+   24:4687  ld a, $06
+   24:4689  ld [$DA41], a
+   24:468C  jp $478A
+
+    evidence: [xref_infer] de=$6530 is exactly the label Table_24_6530 (words region 24:6530); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $24 from the constant loaded into A. patterns b,d
+
+=== #8 26:5227  ld hl, $62E0  -> 26:62E0 Data_26_62E0 [CONFIRMED]
+  26:5224  ld de, $9001
+>> 26:5227  ld hl, $62E0
+   26:522A  ld a, $26
+   26:522C  ld b, $92
+   26:522E  ld c, $40
+   26:5230  call $06D1
+              (farcall 00:0787)
+   26:5236  ld de, $9401
+   26:5239  ld hl, $66E0
+   26:523C  ld a, $26
+   26:523E  ld b, $97
+
+    evidence: [xref_infer] hl=$62E0 is exactly the label Data_26_62E0 (gfx region 26:62E0); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $26 from the constant loaded into A; trace: insn executed, target read (mail_errors,mail_receive +7). patterns b,d,a
+
+=== #9 26:544F  ld hl, $5575  -> 26:5575 String_26_5575 [CONFIRMED]
+  26:5446  ret
+  26:5447  push hl
+  26:5448  push bc
+  26:5449  ld a, $01
+  26:544B  ldh [$FF8D], a
+  26:544D  ldh [$FF70], a
+>> 26:544F  ld hl, $5575
+   26:5452  ld de, $D524
+   26:5455  ld a, [hli]
+   26:5456  ld [de], a
+   26:5457  inc de
+   26:5458  cp a, $00
+   26:545A  jr nz, $5455
+   26:545C  pop bc
+   26:545D  pop hl
+
+    evidence: [xref_infer] hl=$5575 is exactly the label String_26_5575 (text region 26:5575); read at 26:5455 (ld a, [hli]), pair intact until then; own bank $26; trace: insn executed, target read (mail_errors,mail_receive +2). patterns c,a
+
+=== #10 27:4BD2  ld hl, $5060  -> 27:5060 Data_27_5060 [CONFIRMED]
+  27:4BCF  ld de, $8001
+>> 27:4BD2  ld hl, $5060
+   27:4BD5  ld a, $27
+   27:4BD7  ld b, $92
+   27:4BD9  ld c, $40
+   27:4BDB  call $06D1
+              (farcall 00:0787)
+   27:4BE1  ld de, $8401
+   27:4BE4  ld hl, $5460
+   27:4BE7  ld a, $27
+   27:4BE9  ld b, $92
+
+    evidence: [xref_infer] hl=$5060 is exactly the label Data_27_5060 (gfx region 27:5060); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $27 from the constant loaded into A; trace: insn executed, target read (mail_errors,mail_receive +13). patterns b,d,a
+
+=== #11 27:4DD8  ld hl, $5800  -> 29:5800 Data_29_5800 [PROBABLE]
+  27:4DD2  ld bc, $1214
+  27:4DD5  ld de, $D000
+>> 27:4DD8  ld hl, $5800
+   27:4DDB  ld a, $29
+   27:4DDD  call $06D1
+              (farcall 00:08EA)
+   27:4DE3  ldh [$FFF2], a
+   27:4DE5  ldh a, [$FF8D]
+   27:4DE7  push af
+   27:4DE8  ldh a, [$FFF2]
+   27:4DEA  ld a, $07
+   27:4DEC  ldh [$FF8D], a
+
+    evidence: [xref_infer] hl=$5800 is exactly the label Data_29_5800 (data region 29:5800); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $29 from the constant loaded into A. patterns b,d
+
+=== #12 29:478C  ld hl, $47B2  -> 29:47B2 String_29_47B2 [CONFIRMED]
+  29:4780  ld a, $02
+  29:4782  ldh [$FFB0], a
+  29:4784  ld a, $29
+  29:4786  ld bc, $D0A0
+  29:4789  ld de, $D0F0
+>> 29:478C  ld hl, $47B2
+   29:478F  call $06D1
+              (farcall 48:403E)
+   29:4795  ld a, $02
+   29:4797  ldh [$FFB0], a
+   29:4799  ld a, $29
+   29:479B  ld bc, $D140
+   29:479E  ld de, $D190
+   29:47A1  ld hl, $47B2
+   29:47A4  call $06D1
+              (farcall 48:403E)
+
+    evidence: [xref_infer] hl=$47B2 is exactly the label String_29_47B2 (text region 29:47B2); read at 48:404E (call $1620) via Function_48_403E -> ReadByteFar; bank $29 from the constant loaded into A; trace: insn executed, target read (monkey_camp_reg,monkey_camp_reg2 +2). patterns b,d,a
+
+=== #13 2B:425C  ld hl, $4880  -> 2B:4880 Data_2B_4880 [CONFIRMED]
+  2B:4259  ld de, $9301
+>> 2B:425C  ld hl, $4880
+   2B:425F  ld a, $2B
+   2B:4261  ld b, $94
+   2B:4263  ld c, $2D
+   2B:4265  call $06D1
+              (farcall 00:0787)
+   2B:426B  ld bc, $1214
+   2B:426E  ld de, $D000
+   2B:4271  ld hl, $4B50
+   2B:4274  ld a, $2B
+
+    evidence: [xref_infer] hl=$4880 is exactly the label Data_2B_4880 (gfx region 2B:4880); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $2B from the constant loaded into A; trace: insn executed, target read (mail_compose,monkey_1 +3). patterns b,d,a
+
+=== #14 2B:54BE  ld hl, $5FF0  -> 2B:5FF0 Data_2B_5FF0 [PROBABLE]
+  2B:54B8  ld bc, $1214
+  2B:54BB  ld de, $D000
+>> 2B:54BE  ld hl, $5FF0
+   2B:54C1  ld a, $2B
+   2B:54C3  call $06D1
+              (farcall 00:08EA)
+   2B:54C9  ldh [$FFF2], a
+   2B:54CB  ldh a, [$FF8D]
+   2B:54CD  push af
+   2B:54CE  ldh a, [$FFF2]
+   2B:54D0  ld a, $07
+   2B:54D2  ldh [$FF8D], a
+
+    evidence: [xref_infer] hl=$5FF0 is exactly the label Data_2B_5FF0 (data region 2B:5FF0); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $2B from the constant loaded into A. patterns b,d
+
+=== #15 2B:54F7  ld de, $6430  -> 2B:6430 Table_2B_6430 [PROBABLE]
+  2B:54E9  ldh [$FF8D], a
+  2B:54EB  ldh [$FF70], a
+  2B:54ED  ldh a, [$FFF2]
+  2B:54EF  ldh a, [$FF40]
+  2B:54F1  call $082C
+  2B:54F4  ld hl, $DA10
+>> 2B:54F7  ld de, $6430
+   2B:54FA  ld a, $2B
+   2B:54FC  ld b, $81
+   2B:54FE  call $06D1
+              (farcall 00:0A82)
+   2B:5504  ld de, $1404
+   2B:5507  ld hl, $DA10
+   2B:550A  call $0A65
+   2B:550D  call $55E1
+   2B:5510  call $06D1
+              (farcall 00:05B6)
+
+    evidence: [xref_infer] de=$6430 is exactly the label Table_2B_6430 (words region 2B:6430); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $2B from the constant loaded into A. patterns b,d
+
+=== #16 2B:7C76  ld hl, $7D7A  -> 2B:7D7A Table_2B_7D7A [PROBABLE]
+  2B:7C6B  ldh [$FFF5], a
+  2B:7C6D  ld [$0000], a
+  2B:7C70  push bc
+  2B:7C71  ld c, b
+  2B:7C72  ld b, $00
+  2B:7C74  sla c
+>> 2B:7C76  ld hl, $7D7A
+   2B:7C79  add hl, bc
+   2B:7C7A  pop bc
+   2B:7C7B  ld a, [hli]
+   2B:7C7C  ld e, a
+   2B:7C7D  ld a, [hl]
+   2B:7C7E  ld h, a
+   2B:7C7F  ld l, e
+   2B:7C80  ld de, $0009
+
+    evidence: [xref_infer] hl=$7D7A is exactly the label Table_2B_7D7A (words region 2B:7D7A); read at 2B:7C7B (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $2B; trace: insn executed, target read (monkey_camp_reg2,mail_inbox). patterns c,a
+
+=== #17 2D:41A3  ld hl, $42B2  -> 2D:42B2 Data_2D_42B2 [PROBABLE]
+  2D:4195  ld a, $00
+  2D:4197  ldh [$FF8C], a
+  2D:4199  ld [$4000], a
+  2D:419C  ld a, $0A
+  2D:419E  ldh [$FFF5], a
+  2D:41A0  ld [$0000], a
+>> 2D:41A3  ld hl, $42B2
+   2D:41A6  ld de, $A124
+   2D:41A9  ld b, $09
+   2D:41AB  ld a, [hli]
+   2D:41AC  ld [de], a
+   2D:41AD  inc de
+   2D:41AE  dec b
+   2D:41AF  jr nz, $41AB
+   2D:41B1  ld hl, $42BB
+
+    evidence: [xref_infer] hl=$42B2 is exactly the label Data_2D_42B2 (data region 2D:42B2); read at 2D:41AB (ld a, [hli]), pair intact until then; own bank $2D. patterns c
+
+=== #18 2D:46F4  ld hl, $470A  -> 2D:470A Table_2D_470A [PROBABLE]
+  2D:46EF  sla d
+  2D:46F1  ld e, d
+  2D:46F2  ld d, $00
+>> 2D:46F4  ld hl, $470A
+   2D:46F7  add hl, de
+   2D:46F8  ld a, [hli]
+   2D:46F9  ld h, [hl]
+   2D:46FA  ld l, a
+   2D:46FB  ld a, $00
+   2D:46FD  ldh [$FF8C], a
+   2D:46FF  ld [$4000], a
+   2D:4702  ld a, $0A
+
+    evidence: [xref_infer] hl=$470A is exactly the label Table_2D_470A (words region 2D:470A); read at 2D:46F8 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $2D; trace: insn executed, target read (monkey_camp_reg2,mail_receive). patterns c,a
+
+=== #19 2D:49B6  ld hl, $5AC0  -> 2D:5AC0 Data_2D_5AC0 [CONFIRMED]
+  2D:49B3  ld de, $9301
+>> 2D:49B6  ld hl, $5AC0
+   2D:49B9  ld a, $2D
+   2D:49BB  ld b, $92
+   2D:49BD  ld c, $40
+   2D:49BF  call $06D1
+              (farcall 00:0749)
+   2D:49C5  ld de, $9701
+   2D:49C8  ld hl, $5EC0
+   2D:49CB  ld a, $2D
+   2D:49CD  ld b, $97
+
+    evidence: [xref_infer] hl=$5AC0 is exactly the label Data_2D_5AC0 (gfx region 2D:5AC0); read at 00:074F (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0749; bank $2D from the constant loaded into A; trace: insn executed, target read (mail_compose,mail_inbox +5). patterns b,d,a
+
+=== #20 2E:4692  ld hl, $6C30  -> 2E:6C30 Data_2E_6C30 [CONFIRMED]
+  2E:4686  pop bc
+  2E:4687  push bc
+  2E:4688  push hl
+  2E:4689  call $533C
+  2E:468C  ld bc, $0614
+  2E:468F  ld de, $D0A0
+>> 2E:4692  ld hl, $6C30
+   2E:4695  ld a, $2E
+   2E:4697  call $06D1
+              (farcall 00:08EA)
+   2E:469D  di
+   2E:469E  ldh a, [$FF40]
+   2E:46A0  call $082C
+   2E:46A3  ei
+   2E:46A4  ld hl, $DAD0
+   2E:46A7  ld de, $76F0
+
+    evidence: [xref_infer] hl=$6C30 is exactly the label Data_2E_6C30 (data region 2E:6C30); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $2E from the constant loaded into A; trace: insn executed, target read (mail_server,mail_server_hidden +4). patterns b,d,a
+
+=== #21 2E:4CC7  ld hl, $5EE0  -> 2E:5EE0 Data_2E_5EE0 [PROBABLE]
+  2E:4CC4  ld de, $8801
+>> 2E:4CC7  ld hl, $5EE0
+   2E:4CCA  ld a, $2E
+   2E:4CCC  ld b, $97
+   2E:4CCE  ld c, $12
+   2E:4CD0  call $06D1
+              (farcall 00:0787)
+   2E:4CD6  ld de, $8000
+   2E:4CD9  ld hl, $6560
+   2E:4CDC  ld a, $2E
+   2E:4CDE  ld b, $92
+
+    evidence: [xref_infer] hl=$5EE0 is exactly the label Data_2E_5EE0 (gfx region 2E:5EE0); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $2E from the constant loaded into A. patterns b,d,a
+
+=== #22 2F:44BA  ld hl, $44E6  -> 2F:44E6 Table_2F_44E6 [PROBABLE]
+  2F:44B2  pop bc
+  2F:44B3  pop af
+  2F:44B4  ret
+  2F:44B5  push bc
+  2F:44B6  ld b, $00
+  2F:44B8  sla c
+>> 2F:44BA  ld hl, $44E6
+   2F:44BD  add hl, bc
+   2F:44BE  ld a, [hli]
+   2F:44BF  ld e, a
+   2F:44C0  ld a, [hl]
+   2F:44C1  ld d, a
+   2F:44C2  ld h, d
+   2F:44C3  ld l, e
+   2F:44C4  push hl
+
+    evidence: [xref_infer] hl=$44E6 is exactly the label Table_2F_44E6 (words region 2F:44E6); read at 2F:44BE (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $2F; trace: insn executed, target read (mail_addressbook,monkey_camp_tut +1). patterns c,a
+
+=== #23 2F:45BE  ld hl, $4BD0  -> 28:4BD0 Data_28_4BD0 [CONFIRMED]
+  2F:45BB  ld de, $8000
+>> 2F:45BE  ld hl, $4BD0
+   2F:45C1  ld a, $28
+   2F:45C3  ld b, $92
+   2F:45C5  ld c, $40
+   2F:45C7  call $06D1
+              (farcall 00:0749)
+   2F:45CD  ld de, $8400
+   2F:45D0  ld hl, $4FD0
+   2F:45D3  ld a, $28
+   2F:45D5  ld b, $95
+
+    evidence: [xref_infer] hl=$4BD0 is exactly the label Data_28_4BD0 (gfx region 28:4BD0); read at 00:074F (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0749; bank $28 from the constant loaded into A; trace: insn executed, target read (mail_inbox,monkey_camp_reg +5). patterns b,d,a
+
+=== #24 2F:51FF  ld hl, $5E50  -> 29:5E50 Data_29_5E50 [CONFIRMED]
+  2F:51FC  ld de, $9301
+>> 2F:51FF  ld hl, $5E50
+   2F:5202  ld a, $29
+   2F:5204  ld b, $92
+   2F:5206  ld c, $40
+   2F:5208  call $06D1
+              (farcall 00:0787)
+   2F:520E  ld de, $9701
+   2F:5211  ld hl, $6250
+   2F:5214  ld a, $29
+   2F:5216  ld b, $98
+
+    evidence: [xref_infer] hl=$5E50 is exactly the label Data_29_5E50 (gfx region 29:5E50); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $29 from the constant loaded into A; trace: insn executed, target read (addressbook_full). patterns b,d,a
+
+=== #25 2F:596F  ld hl, $65F0  -> 2F:65F0 Tiles_2F_65F0 [CONFIRMED]
+  2F:596C  ld de, $9701
+>> 2F:596F  ld hl, $65F0
+   2F:5972  ld a, $2F
+   2F:5974  ld b, $97
+   2F:5976  ld c, $10
+   2F:5978  call $06D1
+              (farcall 00:0749)
+   2F:597E  ld de, $8800
+   2F:5981  ld hl, $66F0
+   2F:5984  ld a, $2F
+   2F:5986  ld b, $94
+
+    evidence: [xref_infer] hl=$65F0 is exactly the label Tiles_2F_65F0 (gfx region 2F:65F0); read at 00:074F (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0749; bank $2F from the constant loaded into A; trace: insn executed, target read (addressbook_full). patterns b,d,a
+
+=== #26 2F:701B  ld hl, $7AC0  -> 2F:7AC0 Data_2F_7AC0 [CONFIRMED]
+  2F:7015  ld bc, $1214
+  2F:7018  ld de, $D000
+>> 2F:701B  ld hl, $7AC0
+   2F:701E  ld a, $2F
+   2F:7020  call $06D1
+              (farcall 00:08EA)
+   2F:7026  ld hl, $DA10
+   2F:7029  ld de, $7B60
+   2F:702C  ld a, $7F
+   2F:702E  ld b, $81
+   2F:7030  call $06D1
+              (farcall 00:0A82)
+   2F:7036  ld hl, $DA20
+
+    evidence: [xref_infer] hl=$7AC0 is exactly the label Data_2F_7AC0 (data region 2F:7AC0); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $2F from the constant loaded into A; trace: insn executed, target read (addressbook_full,mail_addressbook +2). patterns b,d,a
+
+=== #27 4E:64EC  ld hl, $654B  -> 4E:654B Table_4E_654B [PROBABLE]
+  4E:64E3  ld a, [$C2C2]
+  4E:64E6  push bc
+  4E:64E7  and a, $7F
+  4E:64E9  ld c, a
+  4E:64EA  ld b, $00
+>> 4E:64EC  ld hl, $654B
+   4E:64EF  add hl, bc
+   4E:64F0  add hl, bc
+   4E:64F1  ld a, [hli]
+   4E:64F2  ld h, [hl]
+   4E:64F3  ld l, a
+   4E:64F4  ld bc, $0011
+   4E:64F7  add hl, bc
+   4E:64F8  pop bc
+
+    evidence: [xref_infer] hl=$654B is exactly the label Table_4E_654B (ptrtable region 4E:654B); read at 4E:64F1 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $4E. patterns c,a
+
+=== #28 54:4644  ld hl, $4770  -> 54:4770 String_54_4770 [CONFIRMED]
+  54:463B  inc de
+  54:463C  ld a, $28
+  54:463E  ld [de], a
+  54:463F  inc de
+  54:4640  call $4748
+  54:4643  dec de
+>> 54:4644  ld hl, $4770
+   54:4647  call $06D1
+              (farcall 00:14BF)
+   54:464D  ld hl, $C580
+   54:4650  ld de, $C480
+   54:4653  ld bc, $0100
+   54:4656  call $06D1
+              (farcall 7E:7C34)
+   54:465C  ld hl, $C480
+   54:465F  call $4726
+   54:4662  ld c, $01
+
+    evidence: [xref_infer] hl=$4770 is exactly the label String_54_4770 (text region 54:4770); read at 00:14BF (ld a, [hli]) via CopyString; own bank $54; trace: insn executed, target read (mail_errors,mail_send +2). patterns b,a
+
+=== #29 55:5C27  ld hl, $4CD0  -> 5F:4CD0 Palette_5F_4CD0 [CONFIRMED]
+  55:5C17  ld a, [$C2AB]
+  55:5C1A  call $6ED6
+  55:5C1D  or a, a
+  55:5C1E  jp z, $5C5A
+  55:5C21  ld bc, $0010
+  55:5C24  ld de, $D830
+>> 55:5C27  ld hl, $4CD0
+   55:5C2A  ld a, $5F
+   55:5C2C  call $06D1
+              (farcall 4F:4000)
+   55:5C32  ldh [$FFF2], a
+   55:5C34  ldh a, [$FF8D]
+   55:5C36  push af
+   55:5C37  ldh a, [$FFF2]
+   55:5C39  ld a, $07
+   55:5C3B  ldh [$FF8D], a
+
+    evidence: [xref_infer] hl=$4CD0 is exactly the label Palette_5F_4CD0 (data region 5F:4CD0); read at 55:5C2C (call $06D1) via FarCopyBytes_4F_4000 (CopyBytes with source bank in A); bank $5F from the constant loaded into A; trace: insn executed, target read (addressbook_full,mail_addressbook +10). patterns b,d,a
+
+=== #30 55:5C79  ld de, $4CF8  -> 5F:4CF8 Table_5F_4CF8 [PROBABLE]
+  55:5C6B  ldh [$FF40], a
+  55:5C6D  ei
+  55:5C6E  call $0392
+  55:5C71  ld a, $01
+  55:5C73  call $66C6
+  55:5C76  ld hl, $DAB0
+>> 55:5C79  ld de, $4CF8
+   55:5C7C  ld a, $5F
+   55:5C7E  ld b, $81
+   55:5C80  call $06D1
+              (farcall 00:0A82)
+   55:5C86  ld a, $FF
+   55:5C88  ld [$DAB4], a
+   55:5C8B  call $617B
+   55:5C8E  ret
+   55:5C8F  ld a, c
+
+    evidence: [xref_infer] de=$4CF8 is exactly the label Table_5F_4CF8 (words region 5F:4CF8); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $5F from the constant loaded into A. patterns b,d
+
+=== #31 55:61C3  ld de, $4CF8  -> 5F:4CF8 Table_5F_4CF8 [PROBABLE]
+  55:61BC  pop bc
+  55:61BD  jr $61F6
+  55:61BF  push bc
+  55:61C0  ld hl, $DAB0
+>> 55:61C3  ld de, $4CF8
+   55:61C6  ld a, $5F
+   55:61C8  ld b, $82
+   55:61CA  call $06D1
+              (farcall 00:0A82)
+   55:61D0  pop bc
+   55:61D1  ld a, [$C2AB]
+   55:61D4  ld hl, $62B4
+   55:61D7  add a, a
+   55:61D8  add a, l
+
+    evidence: [xref_infer] de=$4CF8 is exactly the label Table_5F_4CF8 (words region 5F:4CF8); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $5F from the constant loaded into A. patterns b,d
+
+=== #32 55:68E6  ld hl, $5480  -> 66:5480 Data_66_5480 [CONFIRMED]
+  55:68E0  jp $6952
+  55:68E3  ld de, $8801
+>> 55:68E6  ld hl, $5480
+   55:68E9  ld a, $66
+   55:68EB  ld b, $92
+   55:68ED  ld c, $40
+   55:68EF  call $06D1
+              (farcall 00:0787)
+   55:68F5  ld de, $8C01
+   55:68F8  ld hl, $5880
+   55:68FB  ld a, $66
+   55:68FD  ld b, $92
+
+    evidence: [xref_infer] hl=$5480 is exactly the label Data_66_5480 (gfx region 66:5480); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $66 from the constant loaded into A; trace: insn executed, target read (monkey_1,monkey_camp_reg2 +1). patterns b,d,a
+
+=== #33 57:4569  ld de, $79B8  -> 56:79B8 Table_56_79B8 [PROBABLE]
+  57:4565  ret
+  57:4566  ld hl, $DA40
+>> 57:4569  ld de, $79B8
+   57:456C  ld a, $56
+   57:456E  ld b, $85
+   57:4570  call $06D1
+              (farcall 00:0A82)
+   57:4576  ld de, $7828
+   57:4579  ld hl, $DA40
+   57:457C  call $0A65
+   57:457F  ldh a, [$FF8D]
+   57:4581  push af
+
+    evidence: [xref_infer] de=$79B8 is exactly the label Table_56_79B8 (words region 56:79B8); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $56 from the constant loaded into A; trace: insn executed, target read (monkey_camp_hid,monkey_camp_reg +2). patterns b,d,a
+
+=== #34 57:481A  ld de, $79B8  -> 56:79B8 Table_56_79B8 [PROBABLE]
+  57:4817  ld hl, $DA40
+>> 57:481A  ld de, $79B8
+   57:481D  ld a, $56
+   57:481F  ld b, $85
+   57:4821  call $06D1
+              (farcall 00:0A82)
+   57:4827  ld de, $6828
+   57:482A  ld hl, $DA40
+   57:482D  call $0A65
+   57:4830  ld a, $00
+   57:4832  ld bc, $0410
+
+    evidence: [xref_infer] de=$79B8 is exactly the label Table_56_79B8 (words region 56:79B8); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $56 from the constant loaded into A; trace: insn executed, target read (monkey_camp_hid,monkey_camp_reg +2). patterns b,d,a
+
+=== #35 57:4906  ld hl, $526A  -> 56:526A Data_56_526A [CONFIRMED]
+  57:48F6  ld a, $92
+  57:48F8  ld [$C10E], a
+  57:48FB  ld a, $52
+  57:48FD  ld [$C10F], a
+  57:4900  ld bc, $0214
+  57:4903  ld de, $D200
+>> 57:4906  ld hl, $526A
+   57:4909  ld a, $56
+   57:490B  call $06D1
+              (farcall 00:16A2)
+   57:4911  jp $5077
+   57:4914  ld a, $07
+   57:4916  ldh [$FF8D], a
+   57:4918  ldh [$FF70], a
+   57:491A  ld a, [$C18B]
+   57:491D  ld l, a
+
+    evidence: [xref_infer] hl=$526A is exactly the label Data_56_526A (gfx region 56:526A); read at 00:0904 (ld a, [hli]) via Function_00_16A2 -> Function_00_0904; bank $56 from the constant loaded into A; trace: insn executed, target read (monkey_camp_hid,monkey_camp_reg +10). patterns b,d,a
+
+=== #36 67:4739  ld hl, $5010  -> 4D:5010 Data_4D_5010 [CONFIRMED]
+  67:4736  ld de, $8C01
+>> 67:4739  ld hl, $5010
+   67:473C  ld a, $4D
+   67:473E  ld b, $97
+   67:4740  ld c, $10
+   67:4742  call $06D1
+              (farcall 00:0787)
+   67:4748  ld de, $9001
+   67:474B  ld hl, $5110
+   67:474E  ld a, $4D
+   67:4750  ld b, $92
+
+    evidence: [xref_infer] hl=$5010 is exactly the label Data_4D_5010 (gfx region 4D:5010); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $4D from the constant loaded into A; trace: insn executed, target read (settings_phone,register_hidden). patterns b,d,a
+
+=== #37 67:4859  ld hl, $486D  -> 67:486D Data_67_486D [PROBABLE]
+  67:484B  ldh a, [$FF40]
+  67:484D  call $082C
+  67:4850  jr $4852
+  67:4852  jp $47DC
+  67:4855  ld a, [$C27D]
+  67:4858  add a, a
+>> 67:4859  ld hl, $486D
+   67:485C  add a, l
+   67:485D  ld l, a
+   67:485E  ld a, h
+   67:485F  adc a, $00
+   67:4861  ld h, a
+   67:4862  ld a, [hli]
+   67:4863  ld e, a
+   67:4864  ld a, [hl]
+
+    evidence: [xref_infer] hl=$486D is exactly the label Data_67_486D (data region 67:486D); read at 67:4862 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $67; trace: insn executed, target read (register_hidden,monkey_camp_reg2 +1). patterns c,a
+
+=== #38 67:4E09  ld de, $7960  -> 4D:7960 Table_4D_7960 [PROBABLE]
+  67:4DF8  call $4F9C
+  67:4DFB  call $50B7
+  67:4DFE  call $4F6E
+  67:4E01  ldh a, [$FF40]
+  67:4E03  call $082C
+  67:4E06  ld hl, $DA00
+>> 67:4E09  ld de, $7960
+   67:4E0C  ld a, $4D
+   67:4E0E  ld b, $81
+   67:4E10  call $06D1
+              (farcall 00:0A82)
+   67:4E16  call $4F50
+   67:4E19  call $06D1
+              (farcall 00:0956)
+   67:4E1F  ret
+   67:4E20  call $06D1
+              (farcall 00:0956)
+   67:4E26  call $044B
+
+    evidence: [xref_infer] de=$7960 is exactly the label Table_4D_7960 (words region 4D:7960); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $4D from the constant loaded into A. patterns b,d
+
+=== #39 68:57FB  ld hl, $4000  -> 5E:4000 Data_5E_4000 [CONFIRMED]
+  68:57E9  call $4127
+  68:57EC  ld hl, $DE94
+  68:57EF  ld de, $DEB4
+  68:57F2  call $4127
+  68:57F5  call $5913
+  68:57F8  ld de, $8801
+>> 68:57FB  ld hl, $4000
+   68:57FE  ld a, $5E
+   68:5800  ld b, $92
+   68:5802  ld c, $40
+   68:5804  call $06D1
+              (farcall 00:0787)
+   68:580A  ld de, $8C01
+   68:580D  ld hl, $4400
+   68:5810  ld a, $5E
+   68:5812  ld b, $92
+
+    evidence: [xref_infer] hl=$4000 is exactly the label Data_5E_4000 (gfx region 5E:4000); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $5E from the constant loaded into A; trace: insn executed, target read (settings_phone,monkey_blank +5). patterns b,d,a
+
+=== #40 68:64B8  ld hl, $5C70  -> 4A:5C70 Data_4A_5C70 [PROBABLE]
+  68:64B2  ld bc, $0040
+  68:64B5  ld de, $D800
+>> 68:64B8  ld hl, $5C70
+   68:64BB  ld a, $4A
+   68:64BD  call $06D1
+              (farcall 4F:4000)
+   68:64C3  ld bc, $0018
+   68:64C6  ld de, $D868
+   68:64C9  ld hl, $4CE0
+   68:64CC  ld a, $5F
+   68:64CE  call $06D1
+              (farcall 4F:4000)
+   68:64D4  ld bc, $1214
+
+    evidence: [xref_infer] hl=$5C70 is exactly the label Data_4A_5C70 (gfx region 4A:5C70); read at 68:64BD (call $06D1) via FarCopyBytes_4F_4000 (CopyBytes with source bank in A); bank $4A from the constant loaded into A. patterns b,d
+
+=== #41 68:7434  ld hl, $7442  -> 68:7442 Table_68_7442 [PROBABLE]
+  68:742A  call $044B
+  68:742D  ld a, [$C28A]
+  68:7430  ret
+  68:7431  ld a, [$C288]
+>> 68:7434  ld hl, $7442
+   68:7437  add a, a
+   68:7438  add a, l
+   68:7439  ld l, a
+   68:743A  ld a, $00
+   68:743C  adc a, h
+   68:743D  ld h, a
+   68:743E  ld a, [hli]
+   68:743F  ld h, [hl]
+
+    evidence: [xref_infer] hl=$7442 is exactly the label Table_68_7442 (ptrtable region 68:7442); read at 68:743E (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $68; trace: insn executed, target read (register,register_errors +9). patterns c,a
+
+=== #42 68:7628  ld hl, $765E  -> 68:765E Table_68_765E [PROBABLE]
+  68:7621  add a, l
+  68:7622  ld l, a
+  68:7623  ld a, $00
+  68:7625  adc a, h
+  68:7626  ld h, a
+  68:7627  ld a, [hl]
+>> 68:7628  ld hl, $765E
+   68:762B  add a, a
+   68:762C  add a, l
+   68:762D  ld l, a
+   68:762E  ld a, $00
+   68:7630  adc a, h
+   68:7631  ld h, a
+   68:7632  ld a, [hli]
+   68:7633  ld h, [hl]
+
+    evidence: [xref_infer] hl=$765E is exactly the label Table_68_765E (words region 68:765E); read at 68:7632 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $68; trace: insn executed, target read (title_settings,monkey_camp_reg +9). patterns c,a
+
+=== #43 68:790E  ld hl, $793D  -> 68:793D Table_68_793D [PROBABLE]
+  68:790B  pop af
+  68:790C  and a, $0F
+>> 68:790E  ld hl, $793D
+   68:7911  add a, a
+   68:7912  add a, l
+   68:7913  ld l, a
+   68:7914  ld a, $00
+   68:7916  adc a, h
+   68:7917  ld h, a
+   68:7918  ld a, [hli]
+   68:7919  ld h, [hl]
+
+    evidence: [xref_infer] hl=$793D is exactly the label Table_68_793D (ptrtable region 68:793D); read at 68:7918 (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $68; trace: insn executed, target read (register,register_errors +5). patterns c,a
+
+=== #44 68:7A42  ld hl, $49D0  -> 5F:49D0 Data_5F_49D0 [CONFIRMED]
+  68:7A3F  ld de, $8001
+>> 68:7A42  ld hl, $49D0
+   68:7A45  ld a, $5F
+   68:7A47  ld b, $94
+   68:7A49  ld c, $30
+   68:7A4B  call $06D1
+              (farcall 00:0787)
+   68:7A51  ld bc, $0040
+   68:7A54  ld de, $D800
+   68:7A57  ld hl, $6680
+   68:7A5A  ld a, $71
+
+    evidence: [xref_infer] hl=$49D0 is exactly the label Data_5F_49D0 (gfx region 5F:49D0); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $5F from the constant loaded into A; trace: insn executed, target read (monkey_2,monkey_3 +22). patterns b,d,a
+
+=== #45 68:7C25  ld hl, $6C68  -> 71:6C68 Data_71_6C68 [CONFIRMED]
+  68:7C1F  ld bc, $1214
+  68:7C22  ld de, $D000
+>> 68:7C25  ld hl, $6C68
+   68:7C28  ld a, $71
+   68:7C2A  call $06D1
+              (farcall 00:08EA)
+   68:7C30  call $7D1C
+   68:7C33  ldh a, [$FF40]
+   68:7C35  call $082C
+   68:7C38  ld hl, $DA00
+   68:7C3B  ld de, $6F38
+   68:7C3E  ld a, $71
+
+    evidence: [xref_infer] hl=$6C68 is exactly the label Data_71_6C68 (data region 71:6C68); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $71 from the constant loaded into A; trace: insn executed, target read (title_settings). patterns b,d,a
+
+=== #46 6C:40EC  ld hl, $42D0  -> 6A:42D0 Data_6A_42D0 [CONFIRMED]
+  6C:40DC  ld a, $03
+  6C:40DE  ld [$C0E6], a
+  6C:40E1  call $431B
+  6C:40E4  jr $411A
+  6C:40E6  ld bc, $1214
+  6C:40E9  ld de, $D000
+>> 6C:40EC  ld hl, $42D0
+   6C:40EF  ld a, $6A
+   6C:40F1  call $06D1
+              (farcall 00:08EA)
+   6C:40F7  ld a, $02
+   6C:40F9  ld [$C0E6], a
+   6C:40FC  call $431B
+   6C:40FF  jr $411A
+
+    evidence: [xref_infer] hl=$42D0 is exactly the label Data_6A_42D0 (data region 6A:42D0); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $6A from the constant loaded into A; trace: insn executed, target read (help,monkey_3 +5). patterns b,d,a
+
+=== #47 6C:5A1A  ld hl, $6A20  -> 6A:6A20 Data_6A_6A20 [CONFIRMED]
+  6C:5A17  ld de, $8B01
+>> 6C:5A1A  ld hl, $6A20
+   6C:5A1D  ld a, $6A
+   6C:5A1F  ld b, $92
+   6C:5A21  ld c, $40
+   6C:5A23  call $06D1
+              (farcall 00:0787)
+   6C:5A29  ld bc, $0040
+   6C:5A2C  ld de, $D800
+   6C:5A2F  ld hl, $7220
+   6C:5A32  ld a, $6A
+
+    evidence: [xref_infer] hl=$6A20 is exactly the label Data_6A_6A20 (gfx region 6A:6A20); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $6A from the constant loaded into A; trace: insn executed, target read (boot_states,browser_bookmarks +19). patterns b,d,a
+
+=== #48 70:450F  ld hl, $6090  -> 70:6090 Data_70_6090 [CONFIRMED]
+  70:450C  ld de, $8C00
+>> 70:450F  ld hl, $6090
+   70:4512  ld a, $70
+   70:4514  ld b, $92
+   70:4516  ld c, $40
+   70:4518  call $06D1
+              (farcall 00:0787)
+   70:451E  ld de, $9000
+   70:4521  ld hl, $6490
+   70:4524  ld a, $70
+   70:4526  ld b, $95
+
+    evidence: [xref_infer] hl=$6090 is exactly the label Data_70_6090 (gfx region 70:6090); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $70 from the constant loaded into A; trace: insn executed, target read (monkey_camp_hid,monkey_camp_rich +4). patterns b,d,a
+
+=== #49 70:47F5  ld de, $53EB  -> 70:53EB Table_70_53EB [PROBABLE]
+  70:47F2  ld hl, $DA50
+>> 70:47F5  ld de, $53EB
+   70:47F8  ld a, $70
+   70:47FA  ld b, $84
+   70:47FC  call $06D1
+              (farcall 00:0A82)
+   70:4802  ret
+
+    evidence: [xref_infer] de=$53EB is exactly the label Table_70_53EB (ptrtable region 70:53EB); read at 00:0AC5 (ld a, [de]) via Function_00_0A82 -> Function_00_0AB8; base pointer (offset added before the read); bank $70 from the constant loaded into A. patterns b,d
+
+=== #50 72:650C  ld hl, $6556  -> 72:6556 Data_72_6556 [CONFIRMED]
+  72:6500  ei
+  72:6501  call $0392
+  72:6504  ld c, $02
+  72:6506  ldh a, [$FF4A]
+  72:6508  cp a, $60
+  72:650A  jr z, $6515
+>> 72:650C  ld hl, $6556
+   72:650F  call $06D1
+              (farcall 72:4824)
+   72:6515  ld hl, $D200
+   72:6518  ld bc, $0214
+   72:651B  ld de, $0EC0
+   72:651E  call $06D1
+              (farcall 4F:45C6)
+   72:6524  ldh a, [$FF40]
+   72:6526  call $07CB
+   72:6529  call $047A
+
+    evidence: [xref_infer] hl=$6556 is exactly the label Data_72_6556 (data region 72:6556); read at 72:4829 (ld a, [hli]) via Function_72_4824; bank $72 = bank of the far callee that reads it; trace: insn executed, target read (settings_cgi). patterns b,d,a
+
+=== #51 72:673C  ld hl, $7010  -> 72:7010 Data_72_7010 [CONFIRMED]
+  72:6739  ld de, $8F01
+>> 72:673C  ld hl, $7010
+   72:673F  ld a, $72
+   72:6741  ld b, $97
+   72:6743  ld c, $10
+   72:6745  call $06D1
+              (farcall 00:0787)
+   72:674B  ld bc, $0010
+   72:674E  ld de, $D830
+   72:6751  ld hl, $7200
+   72:6754  ld a, $72
+
+    evidence: [xref_infer] hl=$7010 is exactly the label Data_72_7010 (gfx region 72:7010); read at 00:078D (ldh [$FF51], a (rHDMA1 = source high byte)) via Function_00_0787; bank $72 from the constant loaded into A; trace: insn executed, target read (browser_bookmarks,browser_pages +1). patterns b,d,a
+
+=== #52 72:6751  ld hl, $7200  -> 72:7200 Data_72_7200 [CONFIRMED]
+  72:674B  ld bc, $0010
+  72:674E  ld de, $D830
+>> 72:6751  ld hl, $7200
+   72:6754  ld a, $72
+   72:6756  call $06D1
+              (farcall 4F:4000)
+   72:675C  ld bc, $0614
+   72:675F  ld de, $D180
+   72:6762  ld hl, $7110
+   72:6765  ld a, $72
+   72:6767  call $06D1
+              (farcall 00:08EA)
+   72:676D  ld bc, $0008
+
+    evidence: [xref_infer] hl=$7200 is exactly the label Data_72_7200 (data region 72:7200); read at 72:6756 (call $06D1) via FarCopyBytes_4F_4000 (CopyBytes with source bank in A); bank $72 from the constant loaded into A; trace: insn executed, target read (browser_bookmarks,browser_pages +1). patterns b,d,a
+
+=== #53 73:5FB2  ld hl, $5DE0  -> 73:5DE0 Data_73_5DE0 [CONFIRMED]
+  73:5FAC  ld bc, $0040
+  73:5FAF  ld de, $D800
+>> 73:5FB2  ld hl, $5DE0
+   73:5FB5  ld a, $73
+   73:5FB7  call $06D1
+              (farcall 4F:4000)
+   73:5FBD  ld bc, $1214
+   73:5FC0  ld de, $D000
+   73:5FC3  ld hl, $4097
+   73:5FC6  ld a, $73
+   73:5FC8  call $06D1
+              (farcall 00:08EA)
+   73:5FCE  call $61D5
+
+    evidence: [xref_infer] hl=$5DE0 is exactly the label Data_73_5DE0 (data region 73:5DE0); read at 73:5FB7 (call $06D1) via FarCopyBytes_4F_4000 (CopyBytes with source bank in A); bank $73 from the constant loaded into A; trace: insn executed, target read (browser_bookmarks,browser_errors +5). patterns b,d,a
+
+=== #54 73:5FC3  ld hl, $4097  -> 73:4097 Data_73_4097 [CONFIRMED]
+  73:5FBD  ld bc, $1214
+  73:5FC0  ld de, $D000
+>> 73:5FC3  ld hl, $4097
+   73:5FC6  ld a, $73
+   73:5FC8  call $06D1
+              (farcall 00:08EA)
+   73:5FCE  call $61D5
+   73:5FD1  ld hl, $DA10
+   73:5FD4  ld de, $5F0F
+   73:5FD7  ld a, $73
+   73:5FD9  ld b, $80
+   73:5FDB  call $06D1
+              (farcall 00:0A82)
+
+    evidence: [xref_infer] hl=$4097 is exactly the label Data_73_4097 (data region 73:4097); read at 00:0904 (ld a, [hli]) via Function_00_08EA -> Function_00_0904; bank $73 from the constant loaded into A; trace: insn executed, target read (browser_bookmarks,monkey_camp_hid +5). patterns b,d,a
+
+=== #55 74:4398  ld bc, $400E  -> 74:400E Table_74_400E [PROBABLE]
+  74:4392  ld a, l
+  74:4393  ldh [$FFB0], a
+  74:4395  ld a, h
+  74:4396  ldh [$FFB1], a
+>> 74:4398  ld bc, $400E
+   74:439B  push de
+   74:439C  call $10E9
+   74:439F  pop de
+   74:43A0  or a, a
+   74:43A1  jr z, $43BA
+   74:43A3  ldh [$FFB3], a
+   74:43A5  inc de
+   74:43A6  ld a, $E0
+
+    evidence: [xref_infer] bc=$400E is exactly the label Table_74_400E (ptrtable region 74:400E); read at 00:10EC (ld a, [bc]) via Function_00_10E9; own bank $74. patterns b
+
+=== #56 75:404A  ld hl, $4070  -> 75:4070 Table_75_4070 [PROBABLE]
+  75:403E  jr z, $4047
+  75:4040  xor a, a
+  75:4041  ld [$C6D4], a
+  75:4044  ld a, [$C825]
+  75:4047  ld d, $00
+  75:4049  ld e, a
+>> 75:404A  ld hl, $4070
+   75:404D  add hl, de
+   75:404E  ld a, [hli]
+   75:404F  ld [$C825], a
+   75:4052  ld a, [hl]
+   75:4053  pop de
+   75:4054  ld hl, $018D
+   75:4057  push hl
+   75:4058  ld h, a
+
+    evidence: [xref_infer] hl=$4070 is exactly the label Table_75_4070 (ptrtable region 75:4070); read at 75:404E (ld a, [hli]), pair intact until then; base pointer (offset added before the read); own bank $75; trace: insn executed, target read (browser_errors,browser_pages +12). patterns c,a
+
+=== #57 75:48C2  ld hl, $606D  -> 75:606D Data_75_606D [CONFIRMED]
+  75:48B3  bit 0, [hl]
+  75:48B5  jp nz, $4225
+  75:48B8  call $673A
+  75:48BB  xor a, a
+  75:48BC  ld [$C70A], a
+  75:48BF  ld de, $CA04
+>> 75:48C2  ld hl, $606D
+   75:48C5  ld b, $06
+   75:48C7  call $4000
+   75:48CA  ld a, [$C70B]
+   75:48CD  ld [de], a
+   75:48CE  inc de
+   75:48CF  ld b, $01
+   75:48D1  call $5F6C
+   75:48D4  ld de, $C9E4
+
+    evidence: [xref_infer] hl=$606D is exactly the label Data_75_606D (data region 75:606D); read at 75:4000 (ld a, [hli]) via Function_75_4000; own bank $75; trace: insn executed, target read (browser_bookmarks,browser_errors +22). patterns b,a
+
+=== #58 75:7040  ld de, $72DE  -> 75:72DE String_75_72DE [CONFIRMED]
+>> 75:7040  ld de, $72DE
+   75:7043  push hl
+   75:7044  call $72AB
+   75:7047  jr nc, $704B
+   75:7049  pop hl
+   75:704A  ret
+
+    evidence: [xref_infer] de=$72DE is exactly the label String_75_72DE (text region 75:72DE); read at 75:72AD (ld a, [de]) via Function_75_72AB; own bank $75; trace: insn executed, target read (browser_bookmarks,browser_errors +5). patterns b,a
+
+=== #59 7F:40CA  ld hl, $4150  -> 7F:4150 Data_7F_4150 [PROBABLE]
+  7F:40C3  ld l, a
+  7F:40C4  ld a, $00
+  7F:40C6  adc a, h
+  7F:40C7  ld h, a
+  7F:40C8  ld a, [hl]
+  7F:40C9  push af
+>> 7F:40CA  ld hl, $4150
+   7F:40CD  ld a, b
+   7F:40CE  dec a
+   7F:40CF  add a, l
+   7F:40D0  ld l, a
+   7F:40D1  ld a, $00
+   7F:40D3  adc a, h
+   7F:40D4  ld h, a
+   7F:40D5  ld a, b
+
+    evidence: [xref_infer] hl=$4150 is exactly the label Data_7F_4150 (data region 7F:4150); read at 7F:40D6 (ld b, [hl]), pair intact until then; base pointer (offset added before the read); own bank $7F; trace: insn executed, target read (boot_states,browser_bookmarks +26). patterns c,a
+
+=== #60 7F:4B03  ld hl, $499C  -> 7F:499C Table_7F_499C [PROBABLE]
+  7F:4AFA  srl e
+  7F:4AFC  swap e
+  7F:4AFE  add hl, de
+  7F:4AFF  push hl
+  7F:4B00  ld c, a
+  7F:4B01  ld b, $00
+>> 7F:4B03  ld hl, $499C
+   7F:4B06  add hl, bc
+   7F:4B07  ld a, [hl]
+   7F:4B08  ld [$C0D0], a
+   7F:4B0B  ld hl, $49A5
+   7F:4B0E  add hl, bc
+   7F:4B0F  ld a, [hl]
+   7F:4B10  ld [$C0D1], a
+   7F:4B13  pop hl
+
+    evidence: [xref_infer] hl=$499C is exactly the label Table_7F_499C (data region 7F:499C); read at 7F:4B07 (ld a, [hl]), pair intact until then; base pointer (offset added before the read); own bank $7F. patterns c,a
+
