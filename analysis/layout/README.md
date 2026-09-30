@@ -1,5 +1,7 @@
 # Source-tree layout (`analysis/layout/`)
 
+> **Historical: this is the design of the file tree, written before the tree existed** (when the source was one generated `src/bankNN.asm` per bank; generic `Label_BB_AAAA` labels now appear as `.lAAAA` local labels inside their functions, `.loop`/`.done`/`.skip` where the role was obvious; addresses (`bank:addr`) remain valid).  What was built from it: the tree `home/ engine/ data/ gfx/ audio/ lib/mobile/` at the repository root (paths relative to the root, not to `src/`), one floating `SECTION "<path>"` per file **without** `BANK[]` and without a `main.asm` that `INCLUDE`s the files (section 3 below lists that as an option), pinned by the root `layout.link` (`analysis/layout/layout.link.draft` is only the draft).  The tree is now the hand-maintained source; `tools/gen_asm.py`, `layout.tsv` and `tools/check_layout.py` belong to the frozen bootstrap pipeline (`README.md`, "History"; `make regen`, `make verify`, `make tree*` refuse to run).  The instructions below are kept as the record of how the layout was designed and checked; the checker still reads `config/` and needs the original ROM.  See `STYLE.md` "Files and sections" for the conventions of the current tree.
+
 This directory designs the file tree that the second generator mode (`tools/gen_asm.py`, tree mode) emits instead of
 one `src/bankNN.asm` per 16 KiB bank.  The tree follows [pokecrystal-mobile-eng](https://github.com/gb-mobile/pokecrystal-mobile-eng)
 (`home/ engine/ data/ gfx/ audio/ lib/mobile/`), every file is a floating section and `layout.link` pins the sections to
@@ -136,7 +138,7 @@ Contents per bank in section order (from `section_order.tsv`): see that file; ro
 * `python3 tools/check_layout.py --selftest` mutates the table in memory (mid-instruction cut, cut inside `call $06D1` inline data, unlabelled instruction start, missing row,
   overlap, a `jr` crossing a boundary, cut inside a string, cut inside an html record, bad/reserved path, non-adjacent rows of one file, multi-bank file without marker) and checks that each is reported.
 * The layout does not depend on generator internals: every row is a plain range; the tool needs only `baserom.gbc` and `config/`.
-* Not verified (needs the tree-mode generator): that each file assembles on its own and that the generated `layout.link` reproduces the ROM; the plan is the input for that step.
+* Not verified (needs the tree-mode generator): that each file assembles on its own and that the generated `layout.link` reproduces the ROM; the plan is the input for that step.  **[Later: done.  `make` assembles every file as its own object, links them with the root `layout.link` and prints `SHA-256 OK`; see `README.md`.]**
 
 ## 5. Uncertain assignments and judgement calls
 

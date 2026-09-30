@@ -1,7 +1,9 @@
 # Installation
 
 To build the ROM you need two things: **RGBDS 1.0.3** and **GNU make**.  Nothing else is required: no Python, no reference ROM, no
-graphics tools (`rgbgfx`, shipped with RGBDS, is only needed if you want to regenerate `.2bpp` files from the PNGs under `gfx/`; the committed `.2bpp` binaries are what the build uses).  (Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the analysis scripts.)
+graphics conversion.  The graphics are committed as binary asset files (`.2bpp`, `.1bpp`, `.tilemap`, `.attrmap`, `.pal`, `.bin` under `gfx/` and `data/fonts/`) that the `.asm` files `INCBIN`/`INCLUDE`;
+`rgbgfx` (shipped with RGBDS) is **optional**: it is only needed if you edit a PNG and want to regenerate its `.2bpp` (`python3 tools/gfx_export.py bin`), the build never runs it.
+(Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the source-form checks, the analysis scripts.)
 
 ## Toolchain
 
@@ -10,7 +12,8 @@ graphics tools (`rgbgfx`, shipped with RGBDS, is only needed if you want to rege
 | [RGBDS](https://rgbds.gbdev.io/) (`rgbasm`, `rgblink`) | **1.0.3** (developed and verified with it; other 1.0.x are expected to work, the Makefile warns when `rgbasm --version` is not `v1.0.x`) | the build |
 | GNU make | 4.x (verified with 4.3) | the build |
 | `sha256sum` (or `shasum -a 256`) | any | the hash check `make` prints |
-| Python | 3.12 (standard library only) | `make compare`, `make sym-check`, `make test`, `tools/*.py` |
+| Python | 3.12 (standard library only) | `make compare`, `make sym-check`, `make test`, `tools/*.py` (optional) |
+| `rgbgfx` (RGBDS) | 1.0.3 | optional: PNG -> `.2bpp` (`tools/gfx_export.py bin` / `check`); not used by `make` |
 
 `rgbfix` is not used: the cartridge header is part of the source (`home/header.asm`).  RGBDS 0.x is **not** supported (the source uses `DEF`, `MACRO`,
 `-P`/`--preinclude`, and the 1.0 linker-script syntax).
@@ -87,4 +90,12 @@ RESULT: IDENTICAL
 make sym-check      # labels of the source vs build/mobile_trainer.sym (needs Python)
 make test           # analysis-tool tests (needs Python and the reference ROM as baserom.gbc)
 make clean          # remove mobile_trainer.gbc and build/
+
+python3 tools/tidy_comments.py --check      # function comments are in the current form (see STYLE.md)
+python3 tools/localize_labels.py --check    # jump targets inside functions are local labels
+python3 tools/gen_sjis_charmap.py --check   # constants/sjis_charmap.asm is current (reads the ROM, or mobile_trainer.gbc)
+python3 tools/gfx_export.py check           # PNGs vs .2bpp (needs rgbgfx), asset sizes, gfx/assets.tsv
 ```
+
+`make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it
+(`make legacy-check`, which needs the reference ROM, runs it in a temp directory).  `make progress` and `make conventions-check` read the frozen `config/` tables, not the source.  See `README.md`, "History".
