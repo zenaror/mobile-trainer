@@ -8,6 +8,7 @@ tools/selftest_gen.py.  The file formats are documented in docs/FORMATS.md:
     config/ram/*.tsv            addr name size type status evidence
     config/xrefs.tsv            bank addr operand_kind target_bank target_addr [status evidence]
     config/conventions.tsv      bank addr layout status note     (inline-data call conventions)
+    config/text_charsets.tsv    bank start end charset [layout [note]]   (optional: how `text` regions are decoded/split)
 
 Nothing in this module knows about the SM83 instruction set or the ROM
 contents; it only parses, validates and normalises the tables.
@@ -166,12 +167,24 @@ class Hardware:
 
 
 @dataclass
+class TextSpec:
+    bank: int
+    start: int
+    end: int                # exclusive
+    charset: str = 'sjis'
+    layout: str = 'nul'
+    note: str = ''
+    loc: str = ''
+
+
+@dataclass
 class Config:
     regions: Dict[int, List[Region]] = field(default_factory=dict)   # gap-filled, sorted
     symbols: Dict[int, List[Symbol]] = field(default_factory=dict)
     ram: List[RamVar] = field(default_factory=list)
     xrefs: List[Xref] = field(default_factory=list)
     conventions: List[Convention] = field(default_factory=list)
+    textspecs: List['TextSpec'] = field(default_factory=list)
 
 
 def window(bank: int) -> Tuple[int, int]:
@@ -553,6 +566,53 @@ def load_conventions_file(path: str, nbanks: int, diag: Diag) -> List[Convention
     return out
 
 
+def load_textspecs(cfgdir: str, nbanks: int, diag: Diag) -> List[TextSpec]:
+    """config/text_charsets.tsv: bank start end charset [layout [note]]  (optional file; end exclusive)."""
+    from . import textfmt
+    path = os.path.join(cfgdir, 'text_charsets.tsv')
+    out: List[TextSpec] = []
+    if not os.path.exists(path):
+        return out
+    for n, f in _rows(path):
+        loc = '%s:%d' % (_rel(path), n)
+        if f[0].strip().lower() == 'bank':
+            continue
+        if len(f) < 4:
+            diag.error(loc, 'need at least: bank start end charset')
+            continue
+        f = f + [''] * (6 - len(f)) if len(f) < 6 else f[:5] + ['\t'.join(f[5:])]
+        try:
+            bank, start, end = parse_hex(f[0]), parse_hex(f[1]), parse_hex(f[2])
+        except ValueError:
+            diag.error(loc, 'bank/start/end must be hex, got %r %r %r' % (f[0], f[1], f[2]))
+            continue
+        charset, layout = f[3].strip(), f[4].strip() or 'nul'
+        ok = True
+        if bank >= nbanks:
+            diag.error(loc, 'bank %02X does not exist (ROM has %d banks)' % (bank, nbanks))
+            ok = False
+        else:
+            lo, hi = window(bank)
+            if not (lo <= start < end <= hi):
+                diag.error(loc, 'range %04X-%04X is not inside the bank %02X window %04X-%04X' % (start, end, bank, lo, hi))
+                ok = False
+        if charset not in textfmt.CHARSETS:
+            diag.error(loc, 'unknown charset %r (valid: %s)' % (charset, ' '.join(textfmt.CHARSETS)))
+            ok = False
+        if layout not in textfmt.LAYOUTS:
+            diag.error(loc, 'unknown layout %r (valid: %s)' % (layout, ' '.join(textfmt.LAYOUTS)))
+            ok = False
+        if ok:
+            for o in out:
+                if o.bank == bank and start < o.end and o.start < end:
+                    diag.error(loc, 'range %02X:%04X-%04X overlaps %s' % (bank, start, end, o.loc))
+                    ok = False
+                    break
+        if ok:
+            out.append(TextSpec(bank, start, end, charset, layout, ' '.join(f[5].split()), loc))
+    return out
+
+
 def load_config(cfgdir: str, nbanks: int, hw: Hardware, diag: Diag, extra_xrefs=()) -> Config:
     cfg = Config()
     cfg.regions = load_regions(cfgdir, nbanks, diag, hw.names)
@@ -560,6 +620,7 @@ def load_config(cfgdir: str, nbanks: int, hw: Hardware, diag: Diag, extra_xrefs=
     cfg.ram = load_ram(cfgdir, diag, hw.names)
     cfg.xrefs = load_xrefs(xref_files(cfgdir, extra_xrefs), nbanks, diag)
     cfg.conventions = load_conventions(cfgdir, nbanks, diag)
+    cfg.textspecs = load_textspecs(cfgdir, nbanks, diag)
     return cfg
 
 
