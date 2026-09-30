@@ -133,3 +133,7 @@ It is a commercial ROM and is **not** in the repository; see [INSTALL.md](INSTAL
 ## Editing images
 
 Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, font sheets `data/fonts/*.png`, or a whole screen through its `*.screen.png` and `tools/screen_png.py import`) and run `make`; it prints `EDITED GRAPHICS` with the list of changed files instead of failing the SHA-256 gate. See `docs/EDITING_IMAGES.md`. Without `rgbgfx` or Python, `make` uses the committed binaries.
+
+## Translation
+
+See `docs/TRANSLATION.md` (text, images, fonts, limits) and `gfx/previews/README.md` (what each screen/sprite preview shows and how it was checked against the emulator).
