@@ -425,7 +425,7 @@ Function_2C_58AC::
 	ld [wTextEditGoalColumn], a
 	ret
 
-SaveSenderAddr_RefreshSlotIcons_2C_5A12:: ; 2C:5A12
+AddrPick_RefreshSlotIcons_2C_5A12:: ; 2C:5A12
 Function_2C_5A12::
 	; [PROBABLE] 10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld
 	; de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction
@@ -449,7 +449,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $00
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A45
 	ld hl, $DA70
@@ -468,7 +468,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $01
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A71
 	ld hl, $DA60
@@ -487,7 +487,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $02
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5A9D
 	ld hl, $DA50
@@ -506,7 +506,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $03
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5AC9
 	ld hl, $DA40
@@ -525,7 +525,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $04
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5AF5
 	ld hl, $DA30
@@ -544,7 +544,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $05
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B21
 	ld hl, $DA20
@@ -580,7 +580,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $00
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B6C
 	ld hl, $DA70
@@ -601,7 +601,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $01
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5B9B
 	ld hl, $DA60
@@ -622,7 +622,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $02
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5BCA
 	ld hl, $DA50
@@ -643,7 +643,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $03
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5BF9
 	ld hl, $DA40
@@ -664,7 +664,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $04
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5C28
 	ld hl, $DA30
@@ -685,7 +685,7 @@ Function_2C_5A12::
 	pop bc
 	push bc
 	ld a, $05
-	call AddrPick_IsSlotUsed_2C_5CA3
+	call AddrPick_TestSlotEmpty_2C_5CA3
 	inc a
 	jr z, .l5C57
 	ld hl, $DA20
@@ -728,7 +728,7 @@ Function_2C_5A12::
 	pop bc
 	ret
 
-AddrPick_IsSlotUsed_2C_5CA3:: ; 2C:5CA3
+AddrPick_TestSlotEmpty_2C_5CA3:: ; 2C:5CA3
 Function_2C_5CA3::
 	push bc
 	push af
@@ -1396,7 +1396,7 @@ Function_2C_5E51::
 	pop af
 	ret
 
-AddrPick_MoveNameHighlight_2C_5FB1:: ; 2C:5FB1
+AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
 Function_2C_5FB1::
 	; [PROBABLE] 80 insn(s): complete SRAM-access routine (push af; ld a,1; ldh [$FF8C],a; ld
 	; [$4000],a; ld a,$0A ... xor a; ldh [$FFF5],a; ld [$0000],a; pop af; ret); well-formed

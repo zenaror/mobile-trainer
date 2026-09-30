@@ -813,7 +813,7 @@ Function_23_47BC::
 	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDel_NumberTileOffset_23_4986
+	call MailSrvDel_NumberOffset_23_4986
 	ld hl, $D800
 	add hl, bc
 	ld b, h
@@ -847,7 +847,7 @@ Function_23_47BC::
 	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDel_NumberTileOffset_23_4986
+	call MailSrvDel_NumberOffset_23_4986
 	ld hl, $D830
 	add hl, bc
 	ld b, h
@@ -876,7 +876,7 @@ Function_23_47BC::
 	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDel_NumberTileOffset_23_4986
+	call MailSrvDel_NumberOffset_23_4986
 	ld hl, $D860
 	add hl, bc
 	ld b, h
@@ -1092,7 +1092,7 @@ String_23_497B::
 	db "０００００", 0
 POPC
 
-MailSrvDel_NumberTileOffset_23_4986:: ; 23:4986
+MailSrvDel_NumberOffset_23_4986:: ; 23:4986
 Function_23_4986::
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced

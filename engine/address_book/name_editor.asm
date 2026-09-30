@@ -250,14 +250,14 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld de, $8000
-	ld hl, Gfx_AbookName_Tiles8000
+	ld hl, Gfx_AbookEdit_Tiles8000
 	ld a, $29
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_AbookName_Obj
+	ld hl, Palette_AbookEdit_Obj
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040

@@ -9,7 +9,7 @@ Function_65_4000::
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Boot_ReinitRuntimeFar
-	farcall Sram_SnapshotBootCounters
+	farcall Sram_SnapshotA9F0PairsAtBoot
 	farcall Sram_ClearMenuCursorMemory
 	farcall Settings_ClearVariableBlock
 	xor a, a

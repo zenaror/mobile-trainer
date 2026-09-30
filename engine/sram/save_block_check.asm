@@ -4,7 +4,7 @@
 
 SECTION "engine/sram/save_block_check", ROMX
 
-Sram_SnapshotBootCounters:: ; 4E:4658
+Sram_SnapshotA9F0PairsAtBoot:: ; 4E:4658
 Function_4E_4658::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
@@ -214,7 +214,7 @@ SaveCheck_Update:: ; 4E:4795
 	ld [rRAMG], a
 	ret
 
-Sram_BuildCounterBlock:: ; 4E:47EB
+Sram_BuildA9F0DeltaBlock:: ; 4E:47EB
 Function_4E_47EB::
 	; [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from
 	; SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct
