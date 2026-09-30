@@ -119,9 +119,11 @@ HtmlUrl_Resolve:: ; 74:5981
 
 ; ---- text $59D8-$59E0 (8 bytes) [PROBABLE] 'http://' NUL: copied byte-by-byte to $C380 until NUL by the loop at 74:59E7 (ld hl,$59D8 ; ld a,[hli] ; ld [de],a ; inc de ; dec bc ; or a ; jr nz)
 
+PUSHC sjis
 HtmlUrl_HttpPrefix:: ; 74:59D8
 String_74_59D8::
-	db $68, $74, $74, $70, $3A, $2F, $2F, $00 ; "http://"
+	db "http://", 0
+POPC
 
 Label_74_59E0:: ; 74:59E0
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;

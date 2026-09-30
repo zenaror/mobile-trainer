@@ -153,24 +153,30 @@ Data_2D_42B2::
 
 ; ---- text $42BB-$42D0 (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSample0_Body:: ; 2D:42BB
 String_2D_42BB::
-	db $82, $B1, $82, $F1, $82, $C7, $81, $41, $82, $DC, $82, $BD, $82, $A0, $82, $BB, $82, $DA, $82, $A4, $00 ; "こんど、またあそぼう"
+	db "こんど、またあそぼう", 0
+POPC
 
 ; ---- text $42D0-$42D7 (7 bytes) [PROBABLE] Shift-JIS text "マリオ" NUL-terminated (83 7D 83 8A 83 49 00); source of a strcpy (ld hl,$42D0 at 2D:41BA)
 
+PUSHC sjis
 MailSample0_Name:: ; 2D:42D0
 String_2D_42D0::
-	db $83, $7D, $83, $8A, $83, $49, $00 ; "マリオ"
+	db "マリオ", 0
+POPC
 
 ; ---- text $42D7-$42F8 (33 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSample0_Subject:: ; 2D:42D7
 String_2D_42D7::
-	db $82, $DC, $82, $BD, $82, $A0, $82, $BB, $82, $DA, $82, $A4, $82, $CB, $00 ; "またあそぼうね"
+	db "またあそぼうね", 0
 
 MailSample0_Address:: ; 2D:42E6
-	db $6D, $61, $72, $69, $6F, $40, $6D, $61, $72, $69, $6F, $2E, $6E, $65, $2E, $6A, $70, $00 ; "mario@mario.ne.jp"
+	db "mario@mario.ne.jp", 0
+POPC
 
 ; ---- data $42F8-$4301 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 06 29 20 46, copied by the ld b,9 loop after ld hl,$42F8 at 2D:41D5
 
@@ -180,19 +186,20 @@ Data_2D_42F8::
 
 ; ---- text $4301-$436A (105 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSample1_Body:: ; 2D:4301
 String_2D_4301::
-	db $82, $56, $82, $AA, $82, $C2, $82, $CC, $82, $B3, $82, $A2, $82, $B5, $82, $E5, $82, $CC, $82, $C9, $82, $BF, $82, $E6, $82, $A4, $82, $D1, $82, $C9, $81, $41, $82, $E2 ; "７がつのさいしょのにちようびに、や"
-	db $82, $AB, $82, $E3, $82, $A4, $82, $F0, $82, $B7, $82, $E9, $82, $A9, $82, $E7, $82, $B1, $82, $A2, $82, $E6, $00 ; "きゅうをするからこいよ"
+	db "７がつのさいしょのにちようびに、やきゅうをするからこいよ", 0
 
 MailSample1_Name:: ; 2D:433A
-	db $83, $4E, $83, $62, $83, $70, $82, $BE, $82, $A2, $82, $A8, $82, $A4, $00 ; "クッパだいおう"
+	db "クッパだいおう", 0
 
 MailSample1_Subject:: ; 2D:4349
-	db $82, $E2, $82, $AB, $82, $E3, $82, $A4, $82, $E2, $82, $E9, $82, $BC, $00 ; "やきゅうやるぞ"
+	db "やきゅうやるぞ", 0
 
 MailSample1_Address:: ; 2D:4358
-	db $6B, $75, $70, $70, $61, $40, $6D, $61, $72, $69, $6F, $2E, $6E, $65, $2E, $6A, $70, $00 ; "kuppa@mario.ne.jp"
+	db "kuppa@mario.ne.jp", 0
+POPC
 
 ; ---- data $436A-$4373 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 10 17 50, copied by the ld b,9 loop after ld hl,$436A at 2D:4207
 
@@ -202,21 +209,20 @@ Data_2D_436A::
 
 ; ---- text $4373-$441B (168 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSample2_Body:: ; 2D:4373
 String_2D_4373::
-	db $82, $C2, $82, $A2, $82, $C9, $83, $7C, $83, $50, $83, $82, $83, $93, $82, $CC, $82, $B3, $82, $A2, $82, $B5, $82, $F1, $82, $B3, $82, $AD, $82, $AA, $82, $C6, $82, $A4 ; "ついにポケモンのさいしんさくがとう"
-	db $82, $B6, $82, $E5, $82, $A4, $82, $B7, $82, $E9, $82, $BC, $81, $49, $81, $75, $83, $7C, $83, $50, $83, $62, $83, $67, $83, $82, $83, $93, $83, $58, $83, $5E, $81, $5B ; "じょうするぞ！「ポケットモンスター"
-	db $91, $DB, $81, $76, $82, $AD, $82, $ED, $82, $B5, $82, $AD, $82, $CD, $82, $C9, $82, $F1, $82, $C4, $82, $F1, $82, $C7, $82, $A4, $82, $CC, $83, $7A, $81, $5B, $83, $80 ; "苔」くわしくはにんてんどうのホーム"
-	db $83, $79, $81, $5B, $83, $57, $82, $D6, $82, $66, $82, $6E, $81, $49, $00 ; "ページへＧＯ！"
+	db "ついにポケモンのさいしんさくがとうじょうするぞ！「ポケットモンスター苔」くわしくはにんてんどうのホームページへＧＯ！", 0
 
 MailSample2_Name:: ; 2D:43E8
-	db $83, $81, $81, $5B, $83, $8B, $83, $7D, $83, $4B, $83, $57, $83, $93, $47, $42, $00 ; "メールマガジンGB"
+	db "メールマガジンGB", 0
 
 MailSample2_Subject:: ; 2D:43F9
-	db $47, $41, $4D, $45, $52, $27, $73, $20, $4C, $69, $66, $65, $00 ; "GAMER's Life"
+	db "GAMER's Life", 0
 
 MailSample2_Address:: ; 2D:4406
-	db $67, $72, $61, $76, $65, $30, $31, $40, $6E, $61, $74, $69, $72, $64, $2E, $61, $64, $2E, $6A, $70, $00 ; "grave01@natird.ad.jp"
+	db "grave01@natird.ad.jp", 0
+POPC
 
 ; ---- data $441B-$4424 (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 11 00 44 (the 9th byte $44 was counted as the first character of the following text run by the mapper), copied by the ld b,9 loop after ld hl,$441B at 2D:4239
 
@@ -226,21 +232,21 @@ Data_2D_441B::
 
 ; ---- text $4424-$44D3 (175 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSample3_Body:: ; 2D:4424
 String_2D_4424::
-	db $83, $81, $81, $5B, $83, $8B, $83, $5A, $83, $93, $83, $5E, $81, $5B, $82, $CC, $83, $81, $83, $93, $83, $65, $83, $69, $83, $93, $83, $58, $82, $CC, $82, $BD, $82, $DF ; "メールセンターのメンテナンスのため"
-	db $81, $41, $37, $2F, $31, $34, $81, $60, $37, $2F, $32, $30, $82, $DC, $82, $C5, $82, $CC, $82, $AB, $82, $A9, $82, $F1, $81, $41, $83, $81, $81, $5B, $83, $8B, $82, $F0 ; "、7/14～7/20までのきかん、メールを"
-	db $83, $60, $83, $46, $83, $62, $83, $4E, $82, $C5, $82, $AB, $82, $C8, $82, $AD, $82, $C8, $82, $E8, $82, $DC, $82, $B7, $0D, $0A, $82, $A0, $82, $E7, $82, $A9, $82, $B6 ; "チェックできなくなります<$0D><$0A>あらかじ"
-	db $82, $DF, $82, $B2, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $E5, $82, $A4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $00 ; "めごりょうしょうください"
+	db "メールセンターのメンテナンスのため、7/14～7/20までのきかん、メールをチェックできなくなります", $0D, $0A
+	db "あらかじめごりょうしょうください", 0
 
 MailSample3_Name:: ; 2D:44A3
-	db $82, $66, $82, $61, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00 ; "ＧＢセンター"
+	db "ＧＢセンター", 0
 
 MailSample3_Subject:: ; 2D:44B0
-	db $82, $BE, $82, $A2, $82, $B6, $82, $C8, $82, $A8, $82, $B5, $82, $E7, $82, $B9, $00 ; "だいじなおしらせ"
+	db "だいじなおしらせ", 0
 
 MailSample3_Address:: ; 2D:44C1
-	db $69, $65, $76, $65, $40, $6D, $61, $6B, $6F, $70, $69, $2E, $6E, $65, $2E, $6A, $70, $00 ; "ieve@makopi.ne.jp"
+	db "ieve@makopi.ne.jp", 0
+POPC
 
 ; ---- data $44D3-$44DC (9 bytes) [PROBABLE] 9-byte default record 01 00 00 20 00 07 12 19 28, copied by the ld b,9 loop after ld hl,$44D3 at 2D:426B
 
@@ -250,18 +256,20 @@ Data_2D_44D3::
 
 ; ---- text $44DC-$44FB (31 bytes) [PROBABLE] 4 NUL-terminated strings: 44DC "くくく・・・", 44E9 "" (empty), 44EA "むだい", 44F1 "p@p.ne.jp"; sources of strcpy calls (ld hl,$44DC ...)
 
+PUSHC sjis
 MailSample4_Body:: ; 2D:44DC
 String_2D_44DC::
-	db $82, $AD, $82, $AD, $82, $AD, $81, $45, $81, $45, $81, $45, $00 ; "くくく・・・"
+	db "くくく・・・", 0
 
 MailSample4_Name:: ; 2D:44E9
-	db $00 ; ""
+	db 0
 
 MailSample4_Subject:: ; 2D:44EA
-	db $82, $DE, $82, $BE, $82, $A2, $00 ; "むだい"
+	db "むだい", 0
 
 MailSample4_Address:: ; 2D:44F1
-	db $70, $40, $70, $2E, $6E, $65, $2E, $6A, $70, $00 ; "p@p.ne.jp"
+	db "p@p.ne.jp", 0
+POPC
 
 Abook_InstallSampleEntries:: ; 2D:44FB
 	; [PROBABLE] second profile-defaults routine: SRAM bank 1 select/enable, 12 strcpy calls (`ld
@@ -375,48 +383,54 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 
 ; ---- text $45A6-$45B7 (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 AbookSample0_Name:: ; 2D:45A6
 String_2D_45A6::
-	db $83, $74, $83, $57, $83, $56, $83, $51, $83, $86, $83, $45, $83, $43, $83, $60, $00 ; "フジシゲユウイチ"
+	db "フジシゲユウイチ", 0
+POPC
 
 ; ---- text $45B7-$462A (115 bytes) [PROBABLE] text block: 6 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 45A6-462A by higher-priority evidence]
 
+PUSHC sjis
 AbookSample1_Name:: ; 2D:45B7
 String_2D_45B7::
-	db $00 ; ""
+	db 0
 
 AbookSample2_Name:: ; 2D:45B8
-	db $83, $6E, $83, $84, $83, $56, $83, $56, $83, $87, $83, $45, $83, $53, $00 ; "ハヤシショウゴ"
+	db "ハヤシショウゴ", 0
 
 AbookSample3_Name:: ; 2D:45C7
-	db $8A, $94, $8E, $AE, $89, $EF, $8E, $D0, $83, $7E, $83, $62, $83, $56, $81, $63, $00 ; "株式会社ミッシ…"
+	db "株式会社ミッシ…", 0
 
 AbookSample4_Name:: ; 2D:45D8
-	db $00 ; ""
+	db 0
 
 AbookSample5_Name:: ; 2D:45D9
-	db $00 ; ""
+	db 0
 
 AbookSample0_Address:: ; 2D:45DA
-	db $66, $75, $6A, $69, $73, $68, $69, $67, $65, $40, $6D, $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70, $00 ; "fujishige@missinglink.co.jp"
+	db "fujishige@missinglink.co.jp", 0
 
 AbookSample1_Address:: ; 2D:45F6
-	db $00 ; ""
+	db 0
 
 AbookSample2_Address:: ; 2D:45F7
-	db $68, $61, $79, $61, $73, $68, $69, $40, $6D, $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70, $00 ; "hayashi@missinglink.co.jp"
+	db "hayashi@missinglink.co.jp", 0
 
 AbookSample3_Address:: ; 2D:4611
-	db $6D, $61, $73, $74, $65, $72, $40, $6D, $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70, $00 ; "master@missinglink.co.jp"
+	db "master@missinglink.co.jp", 0
+POPC
 
 ; ---- text $462A-$4635 (11 bytes) [PROBABLE] strings: 462A "" (empty, second NUL) and 462B "abc@a.b.c"; the mapper counted them as unclassified bytes between two text runs
 
+PUSHC sjis
 AbookSample4_Address:: ; 2D:462A
 String_2D_462A::
-	db $00 ; ""
+	db 0
 
 AbookSample5_Address:: ; 2D:462B
-	db $61, $62, $63, $40, $61, $2E, $62, $2E, $63, $00 ; "abc@a.b.c"
+	db "abc@a.b.c", 0
+POPC
 
 SampleData_InstallNameAddressPair:: ; 2D:4635
 	; [PROBABLE] third profile-defaults routine: SRAM bank select/enable + 2 strcpy calls (ld
@@ -448,9 +462,11 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 
 ; ---- text $465E-$4686 (40 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 SampleData_Name:: ; 2D:465E
 String_2D_465E::
-	db $83, $58, $81, $5B, $83, $70, $81, $5B, $83, $7D, $83, $8A, $83, $49, $00 ; "スーパーマリオ"
+	db "スーパーマリオ", 0
 
 SampleData_Address:: ; 2D:466D
-	db $6E, $69, $6E, $74, $65, $6E, $38, $38, $40, $67, $62, $61, $61, $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; "ninten88@gbaa.dion.ne.jp"
+	db "ninten88@gbaa.dion.ne.jp", 0
+POPC

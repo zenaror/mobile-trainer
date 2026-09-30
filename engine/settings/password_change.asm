@@ -737,12 +737,14 @@ Data_67_5EB4::
 
 ; ---- text $5EBC-$5ED1 (21 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 Net_PasswdKey:: ; 67:5EBC
 String_67_5EBC::
-	db $26, $50, $41, $53, $53, $57, $44, $3D, $00 ; "&PASSWD="
+	db "&PASSWD=", 0
 
 Net_NewPasswdKey:: ; 67:5EC5
-	db $26, $4E, $45, $57, $50, $41, $53, $53, $57, $44, $3D, $00 ; "&NEWPASSWD="
+	db "&NEWPASSWD=", 0
+POPC
 
 Function_67_5ED1:: ; 67:5ED1
 	; [HYPOTHESIS] xor a; ld [$C27C],a; ld [$C27D],a - start of an unreferenced function that

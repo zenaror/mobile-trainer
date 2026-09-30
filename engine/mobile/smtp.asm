@@ -334,9 +334,11 @@ Data_54_4764:: ; 54:4764
 
 ; ---- text $4770-$4772 (2 bytes) [PROBABLE] NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644
 
+PUSHC sjis
 String_Mail_CloseParen:: ; 54:4770
 String_54_4770::
-	db $29, $00 ; ")"
+	db ")", 0
+POPC
 
 Smtp_DataPoll:: ; 54:4772
 	; [CONFIRMED] 112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1;
@@ -481,6 +483,9 @@ Function_54_484A:: ; 54:484A
 
 ; ---- text $4856-$485C (6 bytes) [PROBABLE] NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F
 
+PUSHC sjis
 String_Smtp_EndOfData:: ; 54:4856
 String_54_4856::
-	db $0D, $0A, $2E, $0D, $0A, $00 ; "<$0D><$0A>.<$0D><$0A>"
+	db $0D, $0A
+	db ".", $0D, $0A, 0
+POPC

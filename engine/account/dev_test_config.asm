@@ -57,15 +57,19 @@ Dev_InstallTestConfig:: ; 68:4DB4
 
 ; ---- text $4E37-$4E46 (15 bytes) [PROBABLE] ASCII "test@test.test" NUL, addressed by ld hl,$4E37 (4E40 = its substring ".test") at 68:4DFD / 68:50EC
 
+PUSHC sjis
 Dev_TestMailAddress:: ; 68:4E37
 String_68_4E37::
-	db $74, $65, $73, $74, $40, $74, $65, $73, $74, $2E, $74, $65, $73, $74, $00 ; "test@test.test"
+	db "test@test.test", 0
+POPC
 
 ; ---- text $4E46-$4E51 (11 bytes) [PROBABLE] ASCII "0755311973" NUL, addressed by ld hl,$4E46 at 68:4DE8
 
+PUSHC sjis
 Dev_TestDialNumber:: ; 68:4E46
 String_68_4E46::
-	db $30, $37, $35, $35, $33, $31, $31, $39, $37, $33, $00 ; "0755311973"
+	db "0755311973", 0
+POPC
 
 Mobile_InitAndWait:: ; 68:4E51
 	; [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2;
@@ -128,14 +132,18 @@ Data_68_4EA7::
 
 ; ---- text $4EF1-$4F05 (20 bytes) [PROBABLE] ASCII "211.005.001.117" NUL + NUL padding (IP address-like string) inside the 192-byte record 4EA7-4F67 copied to $D000 by 68:4E51
 
+PUSHC sjis
 String_68_4EF1:: ; 68:4EF1
-	db $32, $31, $31, $2E, $30, $30, $35, $2E, $30, $30, $31, $2E, $31, $31, $37, $00 ; "211.005.001.117"
+	db "211.005.001.117", 0
+POPC
 	ds $4, $00 ; padding
 
 ; ---- text $4F05-$4F17 (18 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_68_4F05:: ; 68:4F05
-	db $70, $6F, $70, $2E, $64, $36, $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; "pop.d6.dion.ne.jp"
+	db "pop.d6.dion.ne.jp", 0
+POPC
 
 ; ---- data $4F17-$4F25 (14 bytes) [PROBABLE] part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 
@@ -144,8 +152,10 @@ Data_68_4F17:: ; 68:4F17
 
 ; ---- text $4F25-$4F35 (16 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_68_4F25:: ; 68:4F25
-	db $4E, $49, $4E, $54, $45, $4E, $44, $4F, $20, $54, $45, $53, $54, $20, $20, $00 ; "NINTENDO TEST  "
+	db "NINTENDO TEST  ", 0
+POPC
 
 ; ---- data $4F35-$4F3D (8 bytes) [PROBABLE] 8 x $FF, part of the 192-byte ($00C0) block 4EA7-4F67 that the routine at 68:4E51 copies to $D000 (ld hl,$4EA7 ; ld de,$D000 ; ld bc,$00C0 ; call $050C); starts with the "MA" signature like the other 192-byte records (67E0, 68A0, 6960, 6A20); fields not decoded
 

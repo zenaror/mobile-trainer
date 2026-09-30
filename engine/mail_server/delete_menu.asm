@@ -428,12 +428,11 @@ MailSrvDel_ShowDescDeleteAll:: ; 23:433C
 
 ; ---- text $4357-$43C4 (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_DescDeleteAll:: ; 23:4357
 String_23_4357::
-	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC ; "メールサーバにのこっているすべての"
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $41, $82, $B6, $82, $C7, $82, $A4, $82, $C5, $82, $BA, $82, $F1, $82, $D4, $82, $AF, $82, $B5, $82, $DC, $82, $B7 ; "　メールを、じどうでぜんぶけします"
-	db $81, $40, $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $CD, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $E7, $82, $EA, $82, $DC, $82, $B9, $82, $F1 ; "　　じょうほうはたしかめられません"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
+POPC
 
 MailSrvDel_ShowDescCheck:: ; 23:43C4
 Function_23_43C4::
@@ -452,18 +451,18 @@ Function_23_43C4::
 
 ; ---- text $43DF-$4404 (37 bytes) [PROBABLE] 18 ideographic spaces (81 40) + NUL: clean NUL-terminated Shift-JIS blank line placed right after a ret (23:43DE)
 
+PUSHC sjis
 String_23_43DF:: ; 23:43DF
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $00 ; "　"
+	db "　　　　　　　　　　　　　　　　　　", 0
+POPC
 
 ; ---- text $4404-$4471 (109 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_DescCheck:: ; 23:4404
 String_23_4404::
-	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $CC ; "メールサーバにのこっているメールの"
-	db $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $F0, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $C4, $81, $41, $82, $50, $82, $C2, $82, $A4, $82, $B8 ; "　じょうほうをたしかめて、１つうず"
-	db $82, $C2, $81, $40, $82, $B6, $82, $D4, $82, $F1, $82, $C5, $82, $AF, $82, $B7, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "つ　じぶんでけすことができます　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
+POPC
 
 MailSrvDel_Confirm:: ; 23:4471
 	; [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2;
@@ -755,12 +754,14 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 
 ; ---- text $470A-$478E (132 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_Confirm:: ; 23:470A
 String_23_470A::
-	db $82, $B1, $82, $CC, $82, $B5, $82, $E5, $82, $E8, $82, $F0, $82, $A8, $82, $B1, $82, $C8, $82, $A4, $82, $C6, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "このしょりをおこなうと　　　　　"
-	db $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $81, $40, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $00 ; "サーバにある　すべてのメールが　"
-	db $82, $AB, $82, $A6, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "きえてしまいます　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
+	db "このしょりをおこなうと　　　　　", 0
+	db "サーバにある　すべてのメールが　", 0
+	db "きえてしまいます　　　　　　　　", 0
+	db "　　　　よろしいですか？　　　　", 0
+POPC
 
 MailSrvDel_UploadTextTiles:: ; 23:478E
 Function_23_478E::
@@ -1083,8 +1084,10 @@ Function_23_4864:: ; 23:4864
 
 ; ---- text $497B-$4986 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$497B at 23:486C
 
+PUSHC sjis
 String_23_497B:: ; 23:497B
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+	db "０００００", 0
+POPC
 
 Function_23_4986:: ; 23:4986
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery

@@ -1329,9 +1329,10 @@ SaveSenderAddr_LoadCaption:: ; 2A:49C5
 
 ; ---- text $4A3D-$4A66 (41 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
 
+PUSHC sjis
 String_2A_4A3D:: ; 2A:4A3D
-	db $81, $40, $81, $40, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82, $B9, $82, $F1, $82, $BD, $82, $AD, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3 ; "　　アドレスを　せんたくしてくださ"
-	db $82, $A2, $81, $40, $81, $40, $00 ; "い　　"
+	db "　　アドレスを　せんたくしてください　　", 0
+POPC
 
 ; ---- ptrtable $4A66-$4A6C (6 bytes) [PROBABLE] code-pointer table, 3 entries: 3/3 words hit own-bank code starts (start is the operand of ld r16); 0/3 targets executed
 
@@ -1343,12 +1344,14 @@ Table_2A_4A66::
 
 ; ---- text $4A6C-$4A93 (39 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated) [clipped from 4A3D-4A93 by higher-priority evidence]
 
+PUSHC sjis
 String_2A_4A6C:: ; 2A:4A6C
-	db $83, $75, $00 ; "ブ"
-	db $82, $B7, $82, $E9, $82, $CE, $82, $B5, $00 ; "するばし"
-	db $82, $E5, $82, $F0, $81, $40, $82, $A6, $00 ; "ょを　え"
-	db $82, $E7, $82, $F1, $82, $C5, $82, $AD, $00 ; "らんでく"
-	db $82, $BE, $82, $B3, $82, $A2, $81, $40, $00 ; "ださい　"
+	db "ブ", 0
+	db "するばし", 0
+	db "ょを　え", 0
+	db "らんでく", 0
+	db "ださい　", 0
+POPC
 
 ; ---- zero $4A93-$4AA0 (13 bytes) [PROBABLE] 13 bytes of $00 between the last string and the tiles at 4AA0 (padding)
 	ds $D, $00

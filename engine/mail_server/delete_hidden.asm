@@ -472,12 +472,11 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 
 ; ---- text $43E0-$444D (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
 String_22_43E0::
-	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC ; "メールサーバにのこっているすべての"
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $41, $82, $B6, $82, $C7, $82, $A4, $82, $C5, $82, $BA, $82, $F1, $82, $D4, $82, $AF, $82, $B5, $82, $DC, $82, $B7 ; "　メールを、じどうでぜんぶけします"
-	db $81, $40, $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $CD, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $E7, $82, $EA, $82, $DC, $82, $B9, $82, $F1 ; "　　じょうほうはたしかめられません"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
+POPC
 
 MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 3;
@@ -495,18 +494,18 @@ MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 
 ; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_22_448D (ld hl,$448D at 22:444D) - probably a blank-line string
 
+PUSHC sjis
 String_22_4468:: ; 22:4468
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $00 ; "　"
+	db "　　　　　　　　　　　　　　　　　　", 0
+POPC
 
 ; ---- text $448D-$44FA (109 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDelHidden_DescCheck:: ; 22:448D
 String_22_448D::
-	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $CC ; "メールサーバにのこっているメールの"
-	db $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $F0, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $C4, $81, $41, $82, $50, $82, $C2, $82, $A4, $82, $B8 ; "　じょうほうをたしかめて、１つうず"
-	db $82, $C2, $81, $40, $82, $B6, $82, $D4, $82, $F1, $82, $C5, $82, $AF, $82, $B7, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "つ　じぶんでけすことができます　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
+POPC
 
 MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 4;
@@ -524,12 +523,11 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 
 ; ---- text $4515-$4582 (109 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
 String_22_4515::
-	db $82, $E0, $82, $F1, $82, $BE, $82, $A2, $82, $CC, $82, $A0, $82, $E9, $83, $81, $81, $5B, $83, $8B, $82, $C6, $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F ; "もんだいのあるメールとメールサーバ"
-	db $82, $C9, $82, $CC, $82, $B1, $82, $C1, $82, $C4, $82, $A2, $82, $E9, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $B6, $82, $C7 ; "にのこっているすべてのメールをじど"
-	db $82, $A4, $82, $C5, $82, $BA, $82, $F1, $82, $D4, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "うでぜんぶけします　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします　　　　　　　　　　　", 0
+POPC
 
 MailSrvDelHidden_Confirm:: ; 22:4582
 	; [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 4;
@@ -837,12 +835,14 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 
 ; ---- text $481B-$489F (132 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDelHidden_Confirm:: ; 22:481B
 String_22_481B::
-	db $82, $B1, $82, $CC, $82, $B5, $82, $E5, $82, $E8, $82, $F0, $82, $A8, $82, $B1, $82, $C8, $82, $A4, $82, $C6, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "このしょりをおこなうと　　　　　"
-	db $83, $54, $81, $5B, $83, $6F, $82, $C9, $82, $A0, $82, $E9, $81, $40, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $AA, $81, $40, $00 ; "サーバにある　すべてのメールが　"
-	db $82, $AB, $82, $A6, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "きえてしまいます　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
+	db "このしょりをおこなうと　　　　　", 0
+	db "サーバにある　すべてのメールが　", 0
+	db "きえてしまいます　　　　　　　　", 0
+	db "　　　　よろしいですか？　　　　", 0
+POPC
 
 MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 4;
@@ -1163,8 +1163,10 @@ Function_22_4975:: ; 22:4975
 
 ; ---- text $4A8C-$4A97 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string 5 x 82 4F (full-width digit zero); copied byte-by-byte to $D524 until NUL by the loop at 22:4983 (ld hl,$4A8C at 22:497D)
 
+PUSHC sjis
 String_22_4A8C:: ; 22:4A8C
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+	db "０００００", 0
+POPC
 
 Function_22_4A97:: ; 22:4A97
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery

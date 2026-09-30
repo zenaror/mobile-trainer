@@ -42,6 +42,8 @@ data/fonts/jis12x12_rows_61_69.bin	font12	15228	data/fonts/jis12x12_rows_61_69.a
 data/fonts/jis12x12_rows_70_78.bin	font12	15228	data/fonts/jis12x12_rows_70_78.asm	77	4000	PROBABLE	view	0		Data_77_4000
 data/fonts/jis12x12_rows_79_84.bin	font12	10152	data/fonts/jis12x12_rows_79_84.asm	76	4000	PROBABLE	view	0		Data_76_4000
 data/fonts/sjis_valid_bitmap.bin	sjisbitmap	8198	data/fonts/sjis_valid_bitmap.asm	63	407A	PROBABLE	view	0		Font_SjisValidBitmap
+gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	tiles	16	engine/comm/connect_dialog_screen.asm	57	4D30	PROBABLE	exact	0		ConnectDialog_BlankTile
+gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp	tiles	48	engine/mail/result_screens.asm	29	5060	CONFIRMED	exact	0		MailServerStatus_Tiles_5060
 gfx/account/screens_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/screens_bank4a.asm	4A	4040	CONFIRMED	exact	0		Data_4A_4040
 gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4240	CONFIRMED	exact	0		Data_4A_4240
 gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Data_4A_4640

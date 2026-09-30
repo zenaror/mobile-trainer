@@ -2497,10 +2497,11 @@ Data_2C_6702::
 
 ; ---- text $6704-$672D (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_AddrPick_Caption:: ; 2C:6704
 String_2C_6704::
-	db $81, $40, $81, $40, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82, $B9, $82, $F1, $82, $BD, $82, $AD, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3 ; "　　アドレスを　せんたくしてくださ"
-	db $82, $A2, $81, $40, $81, $40, $00 ; "い　　"
+	db "　　アドレスを　せんたくしてください　　", 0
+POPC
 
 ; ---- zero $672D-$6730 (3 bytes) [PROBABLE] all-zero padding before an aligned tile/data block (mapper hint: padding-like)
 	ds $3, $00

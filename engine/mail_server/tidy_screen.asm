@@ -1183,14 +1183,18 @@ MailServerMgr_ShowLoadingMsg:: ; 2E:538B
 
 ; ---- text $53A8-$53C1 (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailServerMgr_LoadingMail:: ; 2E:53A8
 String_2E_53A8::
-	db $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $E6, $82, $DD, $82, $B1, $82, $F1, $82, $C5, $82, $A2, $82, $DC, $82, $B7, $00 ; "メールをよみこんでいます"
+	db "メールをよみこんでいます", 0
+POPC
 
 ; ---- text $53C1-$53DA (25 bytes) [PROBABLE] second line of the message record (12 full-width spaces $8140 + NUL), same layout as 2E:5410/545F/55A8: line 1 string, blank line, then the function that far-calls the text drawer
 
+PUSHC sjis
 String_2E_53C1:: ; 2E:53C1
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
+	db "　　　　　　　　　　　　", 0
+POPC
 
 MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	; [PROBABLE] head of the message function (push bc ; push hl ; ld a,2 ; ldh [hFFB0],a ; ld a,$2E
@@ -1216,14 +1220,18 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 
 ; ---- text $53F7-$5410 (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailServerMgr_NoMail:: ; 2E:53F7
 String_2E_53F7::
-	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはありませんでした"
+	db "メールはありませんでした", 0
+POPC
 
 ; ---- text $5410-$5429 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
+PUSHC sjis
 String_2E_5410:: ; 2E:5410
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
+	db "　　　　　　　　　　　　", 0
+POPC
 
 MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 12;
@@ -1244,14 +1252,18 @@ MailServerMgr_ShowDeletingMsg:: ; 2E:5429
 
 ; ---- text $5446-$545F (25 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailServerMgr_DeletingMail:: ; 2E:5446
 String_2E_5446::
-	db $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $40, $00 ; "　メールをけしています　"
+	db "　メールをけしています　", 0
+POPC
 
 ; ---- text $545F-$5478 (25 bytes) [PROBABLE] blank second line of a message record (12 full-width spaces $8140 + NUL) between the string before it and the message function after it (same as 2E:53C1); cp932-valid
 
+PUSHC sjis
 String_2E_545F:: ; 2E:545F
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
+	db "　　　　　　　　　　　　", 0
+POPC
 
 MailServerMgr_UploadMessageTiles:: ; 2E:5478
 Function_2E_5478::
@@ -1343,36 +1355,37 @@ Table_2E_54F8::
 	dw String_MailServerMgr_HelpLoadNext
 	dw String_MailServerMgr_HelpStopTidy
 	dw String_2E_55A8
-	dw $55D1
+	dw String_2E_55D1
 
 ; ---- text $5504-$552D (41 bytes) [PROBABLE] string 0 of the table 2E:54F8 (40 bytes of full-width spaces + NUL); 41-byte record like the CONFIRMED strings 552D-55A8
 
+PUSHC sjis
 String_2E_5504:: ; 2E:5504
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　　　　　　　　　　　　　　　　", 0
+POPC
 
 ; ---- text $552D-$55A8 (123 bytes) [CONFIRMED] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailServerMgr_HelpDeleteThis:: ; 2E:552D
 String_2E_552D::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "　　　　このメールを　けします　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　このメールを　けします　　　　　", 0
 
 String_MailServerMgr_HelpLoadNext:: ; 2E:5556
-	db $81, $40, $81, $40, $81, $40, $82, $C2, $82, $AC, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $81, $40, $82, $E6, $82, $DD, $82, $B1, $82, $DD, $82, $DC, $82, $B7 ; "　　　つぎのメールを　よみこみます"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　つぎのメールを　よみこみます　　　", 0
 
 String_MailServerMgr_HelpStopTidy:: ; 2E:557F
-	db $81, $40, $81, $40, $81, $40, $83, $54, $81, $5B, $83, $6F, $82, $CC, $82, $B9, $82, $A2, $82, $E8, $82, $F0, $81, $40, $82, $E2, $82, $DF, $82, $DC, $82, $B7, $81, $40 ; "　　　サーバのせいりを　やめます　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　サーバのせいりを　やめます　　　　", 0
+POPC
 
 ; ---- text $55A8-$55FA (82 bytes) [PROBABLE] strings 4 and 5 of the table 2E:54F8 (55A8, 55D1: full-width spaces, 41 bytes each incl. NUL); cp932-valid, ends where the executed function 2E:55FA starts
 
+PUSHC sjis
 String_2E_55A8:: ; 2E:55A8
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　　　　　　　　　　　　　　　　", 0
+String_2E_55D1:: ; 2E:55D1
+	db "　　　　　　　　　　　　　　　　　　　　", 0
+POPC
 
 MailServerMgr_UpdateTimerDisplay:: ; 2E:55FA
 Function_2E_55FA::

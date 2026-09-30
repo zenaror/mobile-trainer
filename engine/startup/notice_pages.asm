@@ -431,17 +431,54 @@ Notice_PageTable:: ; 65:4BDE
 ; ---- data $4BE2-$4C6C (138 bytes) [PROBABLE] 23 records x 6 bytes: 16-bit pointer to a dialogue string (6E 4C -> 4C6E, FA 4C -> 4CFA, 50 4D -> 4D50 ... every pointer lands exactly on a string start of analysis/strings.tsv) + 4 bytes (id, 0/1/2 flags..., last byte unread in traces); the 1-byte and 6-byte mapper holes are the unread 6th bytes
 
 Data_65_4BE2:: ; 65:4BE2
-	db $6E, $4C, $02, $01, $01, $03, $FA, $4C, $02, $01, $02, $03, $50, $4D, $02, $01
-	db $03, $03, $0D, $4E, $03, $02, $00, $00, $88, $4E, $04, $00, $01, $02, $D4, $4E
-	db $04, $05, $02, $02, $3E, $4F, $16, $01, $00, $00, $C1, $4F, $0F, $01, $01, $02
-	db $5A, $50, $15, $01, $02, $02, $EE, $50, $06, $06, $00, $00, $57, $51, $07, $02
-	db $00, $00, $79, $51, $10, $01, $00, $00, $02, $52, $11, $06, $00, $00, $A8, $52
-	db $12, $06, $00, $00, $CE, $52, $08, $01, $00, $00, $EE, $52, $14, $01, $00, $00
-	db $89, $53, $0A, $06, $00, $00, $24, $54, $13, $06, $00, $00, $46, $54, $0B, $01
-	db $00, $00, $BA, $54, $0C, $06, $00, $00, $34, $55, $0D, $01, $00, $00, $58, $55
-	db $0E, $06, $00, $00, $02, $56, $17, $00, $00, $00
+	dw NoticeText_RegistrationStart
+	db $02, $01, $01, $03
+	dw NoticeText_HaveManualReady
+	db $02, $01, $02, $03
+	dw NoticeText_AgreeToTerms
+	db $02, $01, $03, $03
+	dw NoticeText_ReadTerms
+	db $03, $02, $00, $00
+	dw NoticeText_RegistrationCancelled
+	db $04, $00, $01, $02
+	dw NoticeText_Welcome
+	db $04, $05, $02, $02
+	dw NoticeText_MailRegistrationForm
+	db $16, $01, $00, $00
+	dw NoticeText_UsageFeeWarning
+	db $0F, $01, $01, $02
+	dw NoticeText_DeleteRegistrationWarning
+	db $15, $01, $02, $02
+	dw NoticeText_DeleteBeforeDisposal
+	db $06, $06, $00, $00
+	dw NoticeText_DeleteCancelled
+	db $07, $02, $00, $00
+	dw NoticeText_DeleteDone
+	db $10, $01, $00, $00
+	dw NoticeText_ManualPhoneEntry
+	db $11, $06, $00, $00
+	dw NoticeText_PhoneChangeDone
+	db $12, $06, $00, $00
+	dw NoticeText_PhoneChangeCancelled
+	db $08, $01, $00, $00
+	dw NoticeText_PasswordChangeIntro
+	db $14, $01, $00, $00
+	dw NoticeText_PasswordRules
+	db $0A, $06, $00, $00
+	dw NoticeText_PasswordChangeCancelled
+	db $13, $06, $00, $00
+	dw NoticeText_PasswordChangeDone
+	db $0B, $01, $00, $00
+	dw NoticeText_UsageTimeIntro
+	db $0C, $06, $00, $00
+	dw NoticeText_UsageTimeCancelled
+	db $0D, $01, $00, $00
+	dw NoticeText_UsageFeeIntro
+	db $0E, $06, $00, $00
+	dw NoticeText_UsageFeeCancelled
+	db $17, $00, $00, $00
 
 ; ---- data $4C6C-$4C6E (2 bytes) [PROBABLE] 24 56 = word 5624, the 24th string pointer of Data_65_4BE2 (string at 5624 exists); the mapper included these two bytes in the text run
 
 Data_65_4C6C:: ; 65:4C6C
-	db $24, $56
+	dw NoticeText_ResumeRegistration

@@ -1,7 +1,7 @@
 # Graphics assets
 
 Every graphics block of the ROM that the analysis identified is a file here, next to the PNG you can open; the `.asm` files under `gfx/`
-(and `data/fonts/`) `INCBIN` the binary instead of spelling it out as `db` rows.  The ROM is unchanged (`make` still prints the same SHA-256).
+(and `data/fonts/`, and the two graphics blocks inside `engine/` code files) `INCBIN` the binary instead of spelling it out as `db` rows.  The ROM is unchanged (`make` still prints the same SHA-256).
 
 ```
 gfx/title/title_screen.asm                     the labels, the region headers (status + evidence), the INCBIN lines
@@ -44,10 +44,10 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | RGB palette (`.pal`) | 133 | 10466 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 169 | 47978 |
-| 2bpp tiles (`.2bpp`) | 407 | 350272 |
-| **all** | **917** | **602858** |
+| 2bpp tiles (`.2bpp`) | 409 | 350336 |
+| **all** | **919** | **602922** |
 
-PNGs: 407 exact round-trip sources (`.png`), 39 view-only sheets (`_view.png`).
+PNGs: 409 exact round-trip sources (`.png`), 39 view-only sheets (`_view.png`).
 
 ## Still `db`
 
@@ -655,6 +655,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `tiles_75c0.2bpp` | 2bpp tiles | 512 | 56:75C0 | CONFIRMED | exact | - | `gfx/comm/connect_dialog_bank56.asm` |
 | `palette_77c0.pal` | RGB palette | 192 | 56:77C0 | PROBABLE | - | - | `gfx/comm/connect_dialog_bank56.asm` |
 
+### `gfx/comm/connect_dialog_screen/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `connect_dialog_blank_tile.2bpp` | 2bpp tiles | 16 | 57:4D30 | PROBABLE | exact | - | `engine/comm/connect_dialog_screen.asm` |
+
 ### `gfx/comm/connection_icon/`
 
 | asset | kind | bytes | bank:addr | status | png | dims | source |
@@ -1045,6 +1051,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `mail_grid_bg.pal` | RGB palette | 64 | 2B:62C0 | PROBABLE | - | - | `gfx/mail/received_mail_grid.asm` |
 | `mail_grid_tiles8000.2bpp` | 2bpp tiles | 240 | 2B:6300 | PROBABLE | exact | - | `gfx/mail/received_mail_grid.asm` |
 | `mail_grid_obj.pal` | RGB palette | 64 | 2B:63F0 | PROBABLE | - | - | `gfx/mail/received_mail_grid.asm` |
+
+### `gfx/mail/result_screens/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `mail_server_status_tiles_5060.2bpp` | 2bpp tiles | 48 | 29:5060 | CONFIRMED | exact | - | `engine/mail/result_screens.asm` |
 
 ### `gfx/mail/server_status/`
 

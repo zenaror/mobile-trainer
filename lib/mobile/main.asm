@@ -2484,34 +2484,42 @@ MobileSDK_HttpConnect:: ; 75:4F0C
 
 ; ---- text $4FB2-$4FDE (44 bytes) [CONFIRMED] "http://gameboy.datacenter.ne.jp/cgb/download" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
+PUSHC sjis
 MobileStr_HttpPrefix:: ; 75:4FB2
 String_75_4FB2::
-	db $68, $74, $74, $70, $3A, $2F, $2F ; "http://"
+	db "http://"
 
 MobileStr_UrlDownload:: ; 75:4FB9
-	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $64, $6F, $77, $6E, $6C ; "gameboy.datacenter.ne.jp/cgb/downl"
-	db $6F, $61, $64 ; "oad"
+	db "gameboy.datacenter.ne.jp/cgb/downl"
+	db "oad"
+POPC
 
 ; ---- text $4FDE-$5001 (35 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/upload" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
+PUSHC sjis
 MobileStr_UrlUpload:: ; 75:4FDE
 String_75_4FDE::
-	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $70, $6C, $6F, $61 ; "gameboy.datacenter.ne.jp/cgb/uploa"
-	db $64 ; "d"
+	db "gameboy.datacenter.ne.jp/cgb/uploa"
+	db "d"
+POPC
 
 ; ---- text $5001-$5025 (36 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/utility" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
+PUSHC sjis
 MobileStr_UrlUtility:: ; 75:5001
 String_75_5001::
-	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $75, $74, $69, $6C, $69 ; "gameboy.datacenter.ne.jp/cgb/utili"
-	db $74, $79 ; "ty"
+	db "gameboy.datacenter.ne.jp/cgb/utili"
+	db "ty"
+POPC
 
 ; ---- text $5025-$5049 (36 bytes) [CONFIRMED] "gameboy.datacenter.ne.jp/cgb/ranking" (ASCII, no terminator, verified by hand); ASCII URL text without terminator (used with fixed lengths); loaded by ld de,imm at 75:4E55/4E66/4E7B/4E91/4EAC and 75:5260/5272/5288; the part after "http://" (4FB9) is also addressed on its own; bytes 4FB2-4FD3, 4FDE-4FFD and 5001-5043 were read as data by executed code
 
+PUSHC sjis
 MobileStr_UrlRanking:: ; 75:5025
 String_75_5025::
-	db $67, $61, $6D, $65, $62, $6F, $79, $2E, $64, $61, $74, $61, $63, $65, $6E, $74, $65, $72, $2E, $6E, $65, $2E, $6A, $70, $2F, $63, $67, $62, $2F, $72, $61, $6E, $6B, $69 ; "gameboy.datacenter.ne.jp/cgb/ranki"
-	db $6E, $67 ; "ng"
+	db "gameboy.datacenter.ne.jp/cgb/ranki"
+	db "ng"
+POPC
 
 MobileSDK_HttpReadBody:: ; 75:5049
 	; [CONFIRMED] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 1;
@@ -5274,60 +5282,68 @@ Data_75_6084::
 
 ; ---- text $6099-$609F (6 bytes) [PROBABLE] NUL-terminated ASCII "HELO " (SMTP command) passed in HL to the string sender 75:4007 at 75:4736 (ld hl,$6099)
 
+PUSHC sjis
 MobileStr_Helo:: ; 75:6099
 String_75_6099::
-	db $48, $45, $4C, $4F, $20, $00 ; "HELO "
+	db "HELO ", 0
+POPC
 
 ; ---- text $609F-$60B5 (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MobileStr_MailFrom:: ; 75:609F
 String_75_609F::
-	db $4D, $41, $49, $4C, $20, $46, $52, $4F, $4D, $3A, $3C, $00 ; "MAIL FROM:<"
+	db "MAIL FROM:<", 0
 
 MobileStr_RcptTo:: ; 75:60AB
-	db $52, $43, $50, $54, $20, $54, $4F, $3A, $3C, $00 ; "RCPT TO:<"
+	db "RCPT TO:<", 0
+POPC
 
 ; ---- text $60B5-$611C (103 bytes) [CONFIRMED] NUL-terminated ASCII POP3/SMTP/HTTP command strings: "DATA" CRLF, "QUIT" CRLF, "USER ", "PASS ", "STAT" CRLF, "LIST 00000" CRLF, "RETR 00000" CRLF, "DELE 00000" CRLF, "TOP 00000 0" CRLF, "GET ", " HTTP/1.0" CRLF; passed to 75:4007 by 75:4878 (DATA), 75:4A3A/4ACE/4C78/4D11 (LIST/RETR/DELE/TOP) ...
 
+PUSHC sjis
 MobileStr_Data:: ; 75:60B5
 String_75_60B5::
-	db $44, $41, $54, $41, $0D, $0A, $00 ; "DATA<$0D><$0A>"
+	db "DATA", $0D, $0A, 0
 
 MobileStr_Quit:: ; 75:60BC
-	db $51, $55, $49, $54, $0D, $0A, $00 ; "QUIT<$0D><$0A>"
+	db "QUIT", $0D, $0A, 0
 
 MobileStr_User:: ; 75:60C3
-	db $55, $53, $45, $52, $20, $00 ; "USER "
+	db "USER ", 0
 
 MobileStr_Pass:: ; 75:60C9
-	db $50, $41, $53, $53, $20, $00 ; "PASS "
+	db "PASS ", 0
 
 MobileStr_Stat:: ; 75:60CF
-	db $53, $54, $41, $54, $0D, $0A, $00 ; "STAT<$0D><$0A>"
+	db "STAT", $0D, $0A, 0
 
 MobileStr_List:: ; 75:60D6
-	db $4C, $49, $53, $54, $20, $30, $30, $30, $30, $30, $0D, $0A, $00 ; "LIST 00000<$0D><$0A>"
+	db "LIST 00000", $0D, $0A, 0
 
 MobileStr_Retr:: ; 75:60E3
-	db $52, $45, $54, $52, $20, $30, $30, $30, $30, $30, $0D, $0A, $00 ; "RETR 00000<$0D><$0A>"
+	db "RETR 00000", $0D, $0A, 0
 
 MobileStr_Dele:: ; 75:60F0
-	db $44, $45, $4C, $45, $20, $30, $30, $30, $30, $30, $0D, $0A, $00 ; "DELE 00000<$0D><$0A>"
+	db "DELE 00000", $0D, $0A, 0
 
 MobileStr_Top:: ; 75:60FD
-	db $54, $4F, $50, $20, $30, $30, $30, $30, $30, $20, $30, $0D, $0A, $00 ; "TOP 00000 0<$0D><$0A>"
+	db "TOP 00000 0", $0D, $0A, 0
 
 MobileStr_HttpGetMethod:: ; 75:610B
-	db $47, $45, $54, $20, $00 ; "GET "
+	db "GET ", 0
 
 MobileStr_HttpVersion:: ; 75:6110
-	db $20, $48, $54, $54, $50, $2F, $31, $2E, $30, $0D, $0A, $00 ; " HTTP/1.0<$0D><$0A>"
+	db " HTTP/1.0", $0D, $0A, 0
+POPC
 
 ; ---- text $611C-$612D (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MobileStr_UserAgent:: ; 75:611C
 String_75_611C::
-	db $55, $73, $65, $72, $2D, $41, $67, $65, $6E, $74, $3A, $20, $43, $47, $42, $2D, $00 ; "User-Agent: CGB-"
+	db "User-Agent: CGB-", 0
+POPC
 
 ; ---- data $612D-$6138 (11 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 610B-6149 by higher-priority evidence]
 
@@ -5340,9 +5356,11 @@ MobileStr_HttpPostMethod:: ; 75:6132
 
 ; ---- text $6138-$6149 (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MobileStr_ContentLength:: ; 75:6138
 String_75_6138::
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $4C, $65, $6E, $67, $74, $68, $3A, $20, $00 ; "Content-Length: "
+	db "Content-Length: ", 0
+POPC
 
 MobileSDK_StateDispatch:: ; 75:6149
 Function_75_6149::
@@ -7885,8 +7903,10 @@ MobileSDK_HttpHdrDate:: ; 75:700D
 
 ; ---- text $7039-$7040 (7 bytes) [PROBABLE] NUL-terminated ASCII "date: " (7 bytes incl. NUL); follows the ret at 75:7038
 
+PUSHC sjis
 String_75_7039:: ; 75:7039
-	db $64, $61, $74, $65, $3A, $20, $00 ; "date: "
+	db "date: ", 0
+POPC
 
 MobileSDK_HttpHdrGbStatus:: ; 75:7040
 Function_75_7040::
@@ -8410,33 +8430,41 @@ MobileSDK_ToLower:: ; 75:72D5
 
 ; ---- text $72DE-$72EA (12 bytes) [PROBABLE] NUL-terminated ASCII "Gb-Status: " (HTTP header name)
 
+PUSHC sjis
 MobileStr_HdrGbStatus:: ; 75:72DE
 String_75_72DE::
-	db $47, $62, $2D, $53, $74, $61, $74, $75, $73, $3A, $20, $00 ; "Gb-Status: "
+	db "Gb-Status: ", 0
+POPC
 
 ; ---- text $72EA-$7315 (43 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MobileStr_HdrGbAuthId:: ; 75:72EA
 String_75_72EA::
-	db $47, $62, $2D, $41, $75, $74, $68, $2D, $49, $44, $3A, $20, $00 ; "Gb-Auth-ID: "
+	db "Gb-Auth-ID: ", 0
 
 MobileStr_HdrWwwAuthenticate:: ; 75:72F7
-	db $57, $57, $57, $2D, $41, $75, $74, $68, $65, $6E, $74, $69, $63, $61, $74, $65, $3A, $20, $47, $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00 ; "WWW-Authenticate: GB00 name=\""
+	db "WWW-Authenticate: GB00 name=\"", 0
+POPC
 
 ; ---- text $7315-$7337 (34 bytes) [PROBABLE] NUL-terminated ASCII "Content-Type: application/x-cgb" CRLF; passed in HL to 75:4007 at 75:7362 (ld hl,$7315)
 
+PUSHC sjis
 MobileStr_HdrContentTypeCgb:: ; 75:7315
 String_75_7315::
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $61, $70, $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $78, $2D, $63, $67, $62, $0D, $0A, $00 ; "Content-Type: application/x-cgb<$0D><$0A>"
+	db "Content-Type: application/x-cgb", $0D, $0A, 0
+POPC
 
 ; ---- text $7337-$734F (24 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MobileStr_HdrUriHeader:: ; 75:7337
 String_75_7337::
-	db $55, $52, $49, $2D, $68, $65, $61, $64, $65, $72, $3A, $20, $00 ; "URI-header: "
+	db "URI-header: ", 0
 
 MobileStr_HdrLocation:: ; 75:7344
-	db $4C, $6F, $63, $61, $74, $69, $6F, $6E, $3A, $20, $00 ; "Location: "
+	db "Location: ", 0
+POPC
 
 MobileSDK_HttpBuildRequest:: ; 75:734F
 	; [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
@@ -8486,9 +8514,11 @@ MobileSDK_HttpBuildRequest:: ; 75:734F
 
 ; ---- text $73AA-$73BE (20 bytes) [PROBABLE] NUL-terminated ASCII "Content-Length: 0" CRLF; ld hl,$73AA at 75:73A2 followed by call $4007
 
+PUSHC sjis
 MobileStr_ContentLengthZero:: ; 75:73AA
 String_75_73AA::
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $4C, $65, $6E, $67, $74, $68, $3A, $20, $30, $0D, $0A, $00 ; "Content-Length: 0<$0D><$0A>"
+	db "Content-Length: 0", $0D, $0A, 0
+POPC
 
 Label_75_73BE:: ; 75:73BE
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
@@ -9541,9 +9571,11 @@ MobileSDK_Md5Rol32:: ; 75:7A02
 
 ; ---- text $7A17-$7A32 (27 bytes) [PROBABLE] NUL-terminated ASCII 'Authorization: GB00 name="' (HTTP header); passed in HL to 75:4007 at 75:77D0 (ld hl,$7A17)
 
+PUSHC sjis
 MobileStr_Authorization:: ; 75:7A17
 String_75_7A17::
-	db $41, $75, $74, $68, $6F, $72, $69, $7A, $61, $74, $69, $6F, $6E, $3A, $20, $47, $42, $30, $30, $20, $6E, $61, $6D, $65, $3D, $22, $00 ; "Authorization: GB00 name=\""
+	db "Authorization: GB00 name=\"", 0
+POPC
 
 ; ---- data $7A32-$7B32 (256 bytes) [PROBABLE] 256 bytes MD5 per-step parameter table: 4-byte records whose first field cycles the RFC 1321 shift amounts 7,12,17,22 / 5,9,14,20 / 4,11,16,23 / 6,10,15,21 (verified), a round/rotation nibble pair ($06/$04/$02/$00 | $10.. | $20.. | $30..) and a message-word offset; exact record framing (starts at 7A35 after 3 zero bytes) not verified; sits right before the MD5 constants
 

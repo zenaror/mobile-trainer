@@ -108,9 +108,11 @@ PhoneNumber_UnpackBcd:: ; 68:4054
 
 ; ---- text $408E-$409A (12 bytes) [PROBABLE] 12 ASCII bytes "0123456789#*" (not NUL-terminated: telephone dial keys), addressed by ld hl,$408E at 68:4066 and 68:407B
 
+PUSHC sjis
 Dial_KeyCharTable:: ; 68:408E
 String_68_408E::
-	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A ; "0123456789#*"
+	db "0123456789#*"
+POPC
 
 PhoneNumber_PackBcd:: ; 68:409A
 	; [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
@@ -352,9 +354,11 @@ Data_68_41DB::
 
 ; ---- text $41DD-$41E9 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 Account_MailDomainSuffix:: ; 68:41DD
 String_68_41DD::
-	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; ".dion.ne.jp"
+	db ".dion.ne.jp", 0
+POPC
 
 Account_CopyMailAddressToFar:: ; 68:41E9
 Function_68_41E9::

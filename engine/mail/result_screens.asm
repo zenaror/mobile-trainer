@@ -246,18 +246,20 @@ MailResult_ShowSentMessage:: ; 29:41AD
 
 ; ---- text $421E-$4286 (104 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailResult_Txt_SendFailed:: ; 29:421E
 String_29_421E::
-	db $82, $A8, $82, $AD, $82, $E9, $82, $CC, $82, $C9, $82, $B5, $82, $C1, $82, $CF, $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "おくるのにしっぱいしました！"
+	db "おくるのにしっぱいしました！", 0
 
 MailResult_Txt_NothingSent:: ; 29:423B
-	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A8, $82, $AD, $82, $C1, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $00 ; "メールはおくっていません"
+	db "メールはおくっていません", 0
 
 MailResult_Txt_SentOk:: ; 29:4254
-	db $82, $BF, $82, $E1, $82, $F1, $82, $C6, $82, $A8, $82, $AD, $82, $EA, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "ちゃんとおくれました！"
+	db "ちゃんとおくれました！", 0
 
 MailResult_Txt_SentUnsure:: ; 29:426B
-	db $82, $A8, $82, $AD, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $82, $A9, $82, $ED, $82, $A9, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $00 ; "おくれているかわかりません"
+	db "おくれているかわかりません", 0
+POPC
 
 MailResult_ShowReceivedMessage:: ; 29:4286
 Function_29_4286::
@@ -341,18 +343,20 @@ Function_29_4286::
 
 ; ---- text $4306-$4374 (110 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailResult_Txt_ReceiveFailed:: ; 29:4306
 String_29_4306::
-	db $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $C9, $82, $B5, $82, $C1, $82, $CF, $82, $A2, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $49, $00 ; "うけとりにしっぱいしました！"
+	db "うけとりにしっぱいしました！", 0
 
 MailResult_Txt_NothingArrived:: ; 29:4323
-	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $C6, $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82, $DC, $82, $B9, $82, $F1, $00 ; "メールはとどいていません"
+	db "メールはとどいていません", 0
 
 MailResult_Txt_ArrivedCount:: ; 29:433C
-	db $81, $40, $81, $40, $82, $C2, $82, $A4, $82, $C6, $82, $C7, $82, $A2, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $49, $81, $49, $00 ; "　　つうとどいています！！"
+	db "　　つうとどいています！！", 0
 
 MailResult_Txt_CannotReceive:: ; 29:4357
-	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはうけとれませんでした"
+	db "メールはうけとれませんでした", 0
+POPC
 
 MailResult_SetReceivedSprite:: ; 29:4374
 	; [CONFIRMED] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3;
@@ -921,9 +925,11 @@ Label_29_476B:: ; 29:476B
 
 ; ---- text $47B2-$47BD (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$47B2 at 29:47A1' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
+PUSHC sjis
 MailServerStatus_Txt_Unknown:: ; 29:47B2
 String_29_47B2::
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
+	db "？？？？？", 0
+POPC
 
 Label_29_47BD:: ; 29:47BD
 	; [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
@@ -1305,6 +1311,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	ret
 
 ; ---- data $49DA-$49E5 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 Data_29_49DA:: ; 29:49DA
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
@@ -1452,8 +1459,10 @@ Label_29_4A7D:: ; 29:4A7D
 
 ; ---- text $4AC4-$4ACF (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4AC4' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
+PUSHC sjis
 String_29_4AC4:: ; 29:4AC4
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
+	db "？？？？？", 0
+POPC
 
 Label_29_4ACF:: ; 29:4ACF
 	; [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2;
@@ -1780,8 +1789,10 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 
 ; ---- text $4C96-$4CA1 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '０' (82 4f) + NUL; address loaded by 'ld hl,$4C96' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
+PUSHC sjis
 String_29_4C96:: ; 29:4C96
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+	db "０００００", 0
+POPC
 
 MailServerStatus_NumberOffset_M1:: ; 29:4CA1
 	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3;
@@ -1930,8 +1941,10 @@ Label_29_4D39:: ; 29:4D39
 
 ; ---- text $4D80-$4D8B (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4D80' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
+PUSHC sjis
 String_29_4D80:: ; 29:4D80
-	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
+	db "？？？？？", 0
+POPC
 
 Label_29_4D8B:: ; 29:4D8B
 	; [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
@@ -2267,6 +2280,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	ret
 
 ; ---- data $4F6C-$4F77 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 Data_29_4F6C:: ; 29:4F6C
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
@@ -2433,6 +2447,4 @@ MailResult_StartHDMAAtVBlank:: ; 29:503F
 
 MailServerStatus_Tiles_5060:: ; 29:5060
 Data_29_5060::
-	db $04, $88, $00, $28, $00, $28, $10, $C7, $38, $10, $EF, $FF, $00, $FF, $FF, $00
-	db $00, $08, $05, $02, $00, $05, $14, $93, $38, $10, $EF, $FF, $00, $FF, $FF, $00
-	db $17, $58, $17, $58, $17, $58, $37, $98, $67, $38, $CF, $F0, $1F, $E0, $FF, $00
+	INCBIN "gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp"

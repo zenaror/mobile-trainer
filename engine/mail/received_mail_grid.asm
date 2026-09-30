@@ -589,9 +589,11 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 
 ; ---- text $57B5-$57CB (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_2B_57B5:: ; 2B:57B5
-	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $E1, $00 ; "そうしんしゃ"
-	db $82, $A0, $82, $BB, $82, $DA, $82, $A4, $00 ; "あそぼう"
+	db "そうしんしゃ", 0
+	db "あそぼう", 0
+POPC
 
 Label_2B_57CB:: ; 2B:57CB
 	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2;
@@ -639,8 +641,10 @@ Label_2B_57CB:: ; 2B:57CB
 
 ; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
 
+PUSHC sjis
 String_2B_5807:: ; 2B:5807
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　"
+	db "　　　　　　", 0
+POPC
 
 ; ---- words $5814-$582C (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
 

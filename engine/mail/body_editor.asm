@@ -2278,11 +2278,11 @@ MailBody_ApplyDakuten:: ; 2D:546D
 
 ; ---- text $54EB-$553C (81 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailBody_DakutenKanaList:: ; 2D:54EB
 String_2D_54EB::
-	db $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $82, $CD, $82, $D0 ; "かきくけこさしすせそたちつてとはひ"
-	db $82, $D3, $82, $D6, $82, $D9, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63, $83, $65 ; "ふへほカキクケコサシスセソタチツテ"
-	db $83, $67, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "トハヒフヘホ"
+	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
+POPC
 
 	; [HYPOTHESIS] single ret between a text run and Function_2D_553D; no reference found
 	ret
@@ -2416,6 +2416,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ret
 
 ; ---- data $55DA-$55DF (5 bytes) [PROBABLE] 2-byte entries terminated by $00: 82 A4 82 A4 00 (Shift-JIS lead/trail pairs); read by the loop of Function_2D_553D (ld de,$55DA ; ld a,[de] ; inc de ; cp $00 ; jr z ...)
+; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 Data_2D_55DA:: ; 2D:55DA
 	db $82, $A4, $82, $A4, $00
@@ -2557,9 +2558,11 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 
 ; ---- text $567B-$5690 (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailBody_HandakutenKanaList:: ; 2D:567B
 String_2D_567B::
-	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "はひふへほハヒフヘホ"
+	db "はひふへほハヒフヘホ", 0
+POPC
 
 	; [HYPOTHESIS] single ret between a text run and Function_2D_5691; no reference found
 	ret

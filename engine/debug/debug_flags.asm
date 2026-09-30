@@ -549,19 +549,20 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 
 ; ---- text $447C-$452F (179 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_DebugFlags_Help:: ; 19:447C
 String_19_447C::
-	db $81, $81, $81, $81, $81, $40, $82, $63, $82, $64, $82, $61, $82, $74, $82, $66, $81, $40, $82, $6C, $82, $6E, $82, $63, $82, $64, $81, $40, $81, $81, $81, $81, $81, $40 ; "＝＝　ＤＥＢＵＧ　ＭＯＤＥ　＝＝　"
-	db $81, $AA, $81, $AB, $81, $46, $82, $A6, $82, $E7, $82, $D4, $81, $40, $81, $40, $81, $A9, $81, $A8, $81, $46, $83, $4A, $81, $5B, $83, $5C, $83, $8B, $81, $40, $81, $40 ; "↑↓：えらぶ　　←→：カーソル　　"
-	db $81, $40, $81, $40, $81, $40, $82, $60, $81, $46, $82, $D6, $82, $F1, $82, $B1, $82, $A4, $0D, $0A, $81, $40, $82, $72, $82, $94, $82, $81, $81, $46, $81, $40, $82, $61 ; "　　　Ａ：へんこう<$0D><$0A>　Ｓｔａ：　Ｂ"
-	db $82, $68, $82, $73, $81, $A9, $81, $A8, $82, $63, $82, $64, $82, $62, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $5E, $82, $61, $81, $46, $82, $B5, $82, $E3 ; "ＩＴ←→ＤＥＣ　　Ｓｅｌ／Ｂ：しゅ"
-	db $82, $A4, $82, $E8, $82, $E5, $82, $A4, $0D, $0A, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C ; "うりょう<$0D><$0A>－－－－－－－－－－－－"
-	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $00 ; "－－－－"
+	db "＝＝　ＤＥＢＵＧ　ＭＯＤＥ　＝＝　↑↓：えらぶ　　←→：カーソル　　　　　Ａ：へんこう", $0D, $0A
+	db "　Ｓｔａ：　ＢＩＴ←→ＤＥＣ　　Ｓｅｌ／Ｂ：しゅうりょう", $0D, $0A
+	db "－－－－－－－－－－－－－－－－", 0
+POPC
 
 ; ---- text $452F-$4532 (3 bytes) [PROBABLE] 2-byte Shift-JIS char 81 A3 + NUL, right after the NUL of String_19_447C and before code at 4532
 
+PUSHC sjis
 String_19_452F:: ; 19:452F
-	db $81, $A3, $00 ; "▲"
+	db "▲", 0
+POPC
 
 DebugFlags_DrawEntryName:: ; 19:4532
 	; [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4;
@@ -948,10 +949,11 @@ DebugFlags_DrawValue:: ; 19:458A
 
 ; ---- text $47AE-$47ED (63 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_DebugFlags_Chars:: ; 19:47AE
 String_19_47AE::
-	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $81, $7C ; "０１２３４５６７８９ＡＢＣＤＥＦ－"
-	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $79, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $81, $7A, $00 ; "－－－－－－－【０００００】"
+	db "０１２３４５６７８９ＡＢＣＤＥＦ－－－－－－－－【０００００】", 0
+POPC
 
 DebugFlags_PlaceCursor:: ; 19:47ED
 	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2;
@@ -1146,9 +1148,11 @@ Data_19_490E::
 
 ; ---- text $4914-$4933 (31 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_DebugFlags_Title:: ; 19:4914
 String_19_4914::
-	db $81, $79, $83, $54, $83, $43, $83, $93, $83, $41, $83, $62, $83, $76, $83, $66, $83, $6F, $83, $62, $83, $4F, $83, $74, $83, $89, $83, $4F, $81, $7A, $00 ; "【サインアップデバッグフラグ】"
+	db "【サインアップデバッグフラグ】", 0
+POPC
 
 ; ---- zero $4933-$4940 (13 bytes) [PROBABLE] zero padding between String_19_4914 and the palette block at 4940
 	ds $D, $00

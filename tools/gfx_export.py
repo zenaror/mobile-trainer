@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Graphics assets: extract the `db` blocks of the graphics regions into asset files, and maintain them.
 
+The graphics blocks that sit between code in engine/ lib/ home/ audio/ files (`; ---- gfx` regions; there are two) are converted the same way;
+their assets go under gfx/ (engine/mail/result_screens.asm -> gfx/mail/result_screens/), every other region of a code file is left alone.
+
 Everything here is deterministic and reads only the repository (the .asm source, gfx/assets.tsv and the asset files); no ROM is needed.
 
     python3 tools/gfx_export.py plan              # what export would convert (table on stdout); writes nothing
@@ -37,6 +40,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
 SCAN_DIRS = ('gfx', 'data/fonts')
+# code files (engine/, lib/, home/, audio/) are scanned only for their `; ---- gfx` regions (a graphics block that sits between code);
+# their assets go under gfx/ : engine/comm/connect_dialog_screen.asm -> gfx/comm/connect_dialog_screen/
+CODE_DIRS = ('engine', 'lib', 'home', 'audio')
 MANIFEST = 'gfx/assets.tsv'
 README = 'gfx/README.md'
 
@@ -350,6 +356,8 @@ class FileInfo:
             if region is None:
                 continue
             m = DBLINE.match(l)
+            if m and is_code_file(self.rel) and region['used'] >= region['size']:
+                continue                             # code file: db bytes after the end of the region are code's own inline data
             if m:
                 vals = bytes(int(x[1:], 16) for x in m.group(1).split(', '))
                 if cur is None or (pending and cur.data):
@@ -502,6 +510,8 @@ def classify(seg, fi, sym):
     data = bytes(seg.data)
     if seg.broken:
         return None, '', 'non-contiguous db lines'
+    if is_code_file(rel) and kind != 'gfx':
+        return None, '', 'code file: only gfx regions are converted'
     if rel.startswith('data/fonts/'):
         if kind != 'gfx':
             return None, '', 'not a gfx region'
@@ -574,9 +584,15 @@ def snake(name):
     return re.sub(r'_+', '_', s).lower()
 
 
+def is_code_file(rel):
+    return rel.split('/', 1)[0] in CODE_DIRS
+
+
 def asset_dir(rel):
     if rel.startswith('data/fonts/'):
         return 'data/fonts'
+    if is_code_file(rel):
+        return 'gfx/' + rel.split('/', 1)[1][:-4]    # engine/mail/result_screens.asm -> gfx/mail/result_screens
     return rel[:-4]                      # gfx/title/title_screen.asm -> gfx/title/title_screen
 
 
@@ -647,6 +663,14 @@ def scan_files():
             for fn in fns:
                 if fn.endswith('.asm'):
                     out.append(os.path.relpath(os.path.join(dp, fn), ROOT))
+    for d in CODE_DIRS:
+        for dp, _, fns in os.walk(os.path.join(ROOT, d)):
+            for fn in fns:
+                if fn.endswith('.asm'):
+                    rel = os.path.relpath(os.path.join(dp, fn), ROOT)
+                    with open(os.path.join(ROOT, rel), encoding='utf-8') as f:
+                        if any(l.startswith('; ---- gfx ') or (l.startswith('\tINCBIN "gfx/') or l.startswith('\tINCLUDE "gfx/')) for l in f):
+                            out.append(rel)
     return sorted(out)
 
 
@@ -878,7 +902,7 @@ TYPE_NAME = {'tiles': '2bpp tiles', 'font8x16': '1bpp 8x16 glyphs', 'font12': 'J
 README_HEAD = """# Graphics assets
 
 Every graphics block of the ROM that the analysis identified is a file here, next to the PNG you can open; the `.asm` files under `gfx/`
-(and `data/fonts/`) `INCBIN` the binary instead of spelling it out as `db` rows.  The ROM is unchanged (`make` still prints the same SHA-256).
+(and `data/fonts/`, and the two graphics blocks inside `engine/` code files) `INCBIN` the binary instead of spelling it out as `db` rows.  The ROM is unchanged (`make` still prints the same SHA-256).
 
 ```
 gfx/title/title_screen.asm                     the labels, the region headers (status + evidence), the INCBIN lines
@@ -920,8 +944,8 @@ def leftovers():
         fi = FileInfo(rel)
         for seg in fi.segs:
             typ, _, why = classify(seg, fi, sym)
-            if typ:
-                continue
+            if typ or why.startswith('code file:'):
+                continue                                   # converted, or a non-gfx region of a code file (not a graphics leftover)
             k = seg.region['kind']
             note = seg.region['note']
             if seg.tail:

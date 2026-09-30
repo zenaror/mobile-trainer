@@ -56,10 +56,11 @@ MailSrvDel_MsgNoMail:: ; 23:6D8C
 
 ; ---- text $6DA7-$6DD0 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_MsgNoMail:: ; 23:6DA7
 String_23_6DA7::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールはありませんでした　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールはありませんでした　　　　", 0
+POPC
 
 MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 17;
@@ -78,10 +79,11 @@ MailSrvDel_MsgAllDeleted:: ; 23:6DD0
 
 ; ---- text $6DEB-$6E14 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_MsgAllDeleted:: ; 23:6DEB
 String_23_6DEB::
-	db $81, $40, $81, $40, $81, $40, $82, $B7, $82, $D7, $82, $C4, $82, $CC, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $AF, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40 ; "　　　すべてのメールをけしました　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　すべてのメールをけしました　　　　", 0
+POPC
 
 MailSrvDel_MsgBlank:: ; 23:6E14
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 8;
@@ -100,10 +102,11 @@ MailSrvDel_MsgBlank:: ; 23:6E14
 
 ; ---- text $6E2F-$6E58 (41 bytes) [PROBABLE] 20 ideographic spaces + NUL, addressed by ld hl,$6E2F at 23:6E21 (code region 6E14-6E2F)
 
+PUSHC sjis
 String_MailSrvDel_MsgBlank:: ; 23:6E2F
 String_23_6E2F::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　　　　　　　　　　　　　　　　", 0
+POPC
 
 Function_23_6E58:: ; 23:6E58
 	; [HYPOTHESIS] first 16 bytes of the twin of the function 6E14-6E2F (push bc ; ld a,2 ; ldh
@@ -128,10 +131,11 @@ Function_23_6E58:: ; 23:6E58
 
 ; ---- text $6E73-$6E9C (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_MsgCancelled:: ; 23:6E73
 String_23_6E73::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $83, $4C, $83, $83, $83, $93, $83, $5A, $83, $8B, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40, $81, $40, $81, $40 ; "　　　　　キャンセルしました　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　キャンセルしました　　　　　　", 0
+POPC
 
 MailSrvDel_MsgReading:: ; 23:6E9C
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 7;
@@ -150,10 +154,11 @@ MailSrvDel_MsgReading:: ; 23:6E9C
 
 ; ---- text $6EB7-$6EE0 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_MsgReading:: ; 23:6EB7
 String_23_6EB7::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $E6, $82, $DD, $82, $B1, $82, $F1, $82, $C5, $82, $A2, $82, $DC, $82, $B7, $81, $40 ; "　　　　メールをよみこんでいます　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールをよみこんでいます　　　　", 0
+POPC
 
 MailSrvDel_UploadMessageTiles:: ; 23:6EE0
 	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 7;
