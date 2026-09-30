@@ -1278,7 +1278,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, Table_MailTitle_ApplyVu_CharPairs
+	ld de, Table_MailTitle_ApplyVu_LoopPairs
 .loop ; 2C:47E5
 	ld a, [de]
 	inc de
@@ -1395,7 +1395,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 ; ---- text $4878-$487D (5 bytes) [PROBABLE] NUL-terminated Shift-JIS string (82 A4 82 A4 00); read byte by byte by 2C:47E2 (ld de,$4878; ld a,[de]; inc de; cp $00; jr z); identical bytes at 2F:6040. The following $C9 (ret) stays unresolved in the next region
 
 PUSHC sjis
-Table_MailTitle_ApplyVu_CharPairs:: ; 2C:4878
+Table_MailTitle_ApplyVu_LoopPairs:: ; 2C:4878
 String_2C_4878::
 	db "うう", 0
 POPC

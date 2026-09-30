@@ -57,7 +57,7 @@ String_6A_65A8:: ; 6A:65A8
 
 ; ---- data $6651-$6652 (1 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-Data_HelpMenu_ItemStringBank:: ; 6A:6651
+Table_HelpMenu_LockedItemTicker:: ; 6A:6651
 Data_6A_6651::
 	db $6A
 

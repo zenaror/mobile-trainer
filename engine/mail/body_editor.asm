@@ -2305,7 +2305,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, Table_MailBody_ApplyDakutenU_CharPairs
+	ld de, Table_MailBody_ApplyDakutenU_LoopPairs
 .loop ; 2D:5557
 	ld a, [de]
 	inc de
@@ -2418,7 +2418,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 ; ---- data $55DA-$55DF (5 bytes) [PROBABLE] 2-byte entries terminated by $00: 82 A4 82 A4 00 (Shift-JIS lead/trail pairs); read by the loop of Function_2D_553D (ld de,$55DA ; ld a,[de] ; inc de ; cp $00 ; jr z ...)
 ; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
-Table_MailBody_ApplyDakutenU_CharPairs:: ; 2D:55DA
+Table_MailBody_ApplyDakutenU_LoopPairs:: ; 2D:55DA
 Data_2D_55DA::
 	db $82, $A4, $82, $A4, $00
 

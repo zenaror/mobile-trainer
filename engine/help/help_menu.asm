@@ -945,7 +945,7 @@ Function_6C_4763::
 	ld hl, $64B2
 	or a, a
 	jr z, .skip
-	ld hl, Data_HelpMenu_ItemStringBank
+	ld hl, Table_HelpMenu_LockedItemTicker
 .skip ; 6C:4789
 	ld a, [wRam_C0E5]
 	dec a

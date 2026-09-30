@@ -613,7 +613,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	cp a, $02
 	jr z, .l5F46
 	ld hl, $DAB0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $86
 	farcall Sprite_InitSlot
@@ -642,7 +642,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
 	; entered by jrcc from 4E:5EFC (executed) [executed in 1 scenarios]
 	ld hl, $DAB0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $89
 	farcall Sprite_InitSlot
@@ -651,7 +651,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 .l5F46 ; 4E:5F46
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld hl, $DAB0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $8B
 	farcall Sprite_InitSlot
@@ -667,7 +667,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	cp a, $02
 	jr z, .l5FA7
 	ld hl, $DAA0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $85
 	farcall Sprite_InitSlot
@@ -693,14 +693,14 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	jp Sprite_SetPosition
 .l5F95 ; 4E:5F95
 	ld hl, $DAA0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $88
 	farcall Sprite_InitSlot
 	jr .loop
 .l5FA7 ; 4E:5FA7
 	ld hl, $DAA0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $8A
 	farcall Sprite_InitSlot

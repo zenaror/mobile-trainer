@@ -163,7 +163,7 @@ Dialog_Open:: ; 72:402A
 	ldh a, [rWY]
 	cp a, $48
 	jr z, .l4196
-	ld hl, Data_Dialog_Open_SlideScripts
+	ld hl, Data_Dialog_OpenAndOpenTall_SlideScripts
 	farcall Dialog_SlideIn
 .l4196 ; 72:4196
 	ldh a, [rLCDC]
@@ -370,7 +370,7 @@ Dialog_OpenTall:: ; 72:41D8
 
 ; ---- data $43A1-$43A7 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_Dialog_Open_SlideScripts:: ; 72:43A1
+Data_Dialog_OpenAndOpenTall_SlideScripts:: ; 72:43A1
 Data_72_43A1::
 	db $48, $00, $80, $58, $00, $80
 
@@ -538,7 +538,7 @@ Dialog_Close:: ; 72:444F
 	ldh a, [rWY]
 	cp a, $90
 	jr z, .l44BB
-	ld hl, Data_Dialog_Close_SlideScripts
+	ld hl, Data_Dialog_CloseAndCloseTall_SlideScripts
 	farcall Dialog_SlideOut
 .l44BB ; 72:44BB
 	call VBlank_WaitStartDI
@@ -621,7 +621,7 @@ Dialog_CloseTall:: ; 72:44E6
 
 ; ---- data $4572-$4578 (6 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_Dialog_Close_SlideScripts:: ; 72:4572
+Data_Dialog_CloseAndCloseTall_SlideScripts:: ; 72:4572
 Data_72_4572::
 	db $48, $00, $80, $58, $00, $80
 
