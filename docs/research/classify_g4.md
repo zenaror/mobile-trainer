@@ -1,5 +1,7 @@
 # Classifier 4/6 - banks 05, 0E, 19, 26, 28, 45, 4D, 4F, 52, 56, 5B, 63, 6A
 
+> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
+
 Scope: the 13 banks whose `config/regions/bank<NN>.tsv` this pass owns.  Starting point: 195 UNCLASSIFIED spans, 19,712 bytes
 (`analysis/mapper/unknown_spans.tsv`).  Result: 89 bytes in 3 spans remain UNCLASSIFIED; 19,623 bytes were resolved.
 Every edit was checked with `python3 tools/gen_asm.py verify` (IDENTICAL) and `tools/conventions_check.py` (0 ERROR), both on a scratch

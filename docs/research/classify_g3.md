@@ -1,5 +1,7 @@
 # Classifier 3/6: resolution of UNCLASSIFIED spans in banks 04 1A 1B 2D 41 58 5E 65 69 6B 6C 70 7C
 
+> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
+
 Scope: `config/regions/bank<NN>.tsv` of exactly these 13 banks.  Input: the UNCLASSIFIED spans (381 spans, 19 712 bytes in these banks) of `analysis/mapper/unknown_spans.tsv`
 (19 712 bytes in these banks).  Result: **0 bytes left UNCLASSIFIED** in these banks; every edit was verified with
 `python3 tools/gen_asm.py verify --config <scratch copy>` (byte-identical rebuild) and `tools/conventions_check.py --strict`

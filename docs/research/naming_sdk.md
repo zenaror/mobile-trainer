@@ -1,5 +1,7 @@
 # Naming of the Mobile Adapter SDK (bank 75) and the mail library (bank 0F)
 
+> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
+
 Scope: names, evidence and subsystem map for Trainer bank **0x75** (Mobile Adapter GB SDK, = Crystal bank 0x44
 `lib/mobile/main.asm`) and bank **0x0F** (SDK mail library, = Crystal bank 0x45 first part `lib/mobile/mail.asm`),
 plus their API table, state table, selector table, packet templates, timing table, strings and WRAM buffers.
