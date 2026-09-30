@@ -11,186 +11,38 @@ SECTION "gfx/mail_server/delete_progress", ROMX
 
 Gfx_MailSrvDelProgress_Tiles0:: ; 23:6FE0
 Data_23_6FE0::
-	db $FF, $00, $FF, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $00, $FF, $FF, $00, $FE, $01, $FC, $03, $F9, $06, $FA, $07, $FA, $07, $FA
-	db $FF, $00, $FF, $FF, $FC, $01, $E2, $F8, $7D, $00, $FA, $F8, $FE, $8C, $FE, $8C
-	db $FF, $00, $FF, $FF, $00, $FF, $03, $F8, $05, $7B, $86, $32, $8E, $26, $98, $28
-	db $FF, $00, $FF, $FF, $00, $FF, $80, $3F, $41, $9E, $FE, $81, $EF, $FF, $37, $37
-	db $FF, $00, $FF, $FF, $00, $FF, $03, $FC, $E5, $0B, $DA, $E6, $1C, $1C, $FE, $FE
-	db $FF, $00, $FF, $FF, $00, $FF, $8F, $30, $75, $8F, $FA, $FA, $1A, $1A, $DA, $DA
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $00, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF, $FF, $00, $00, $00, $00, $00
-	db $05, $FA, $05, $FA, $05, $F8, $05, $F8, $02, $F8, $01, $FC, $00, $FE, $00, $FF
-	db $FA, $F8, $FE, $8C, $FE, $8C, $FA, $F8, $FD, $00, $02, $00, $FC, $00, $00, $01
-	db $9E, $2E, $98, $28, $8F, $27, $87, $31, $02, $3D, $01, $7C, $00, $FE, $00, $FF
-	db $E1, $E1, $35, $35, $77, $77, $77, $55, $AA, $DD, $DD, $00, $00, $00, $00, $FF
-	db $F6, $F6, $F6, $F6, $EA, $EE, $15, $1B, $EA, $F1, $F1, $00, $00, $06, $00, $FF
-	db $FA, $FA, $FA, $FA, $FA, $FA, $16, $16, $E9, $FF, $FF, $00, $00, $00, $00, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FE, $FE, $FC, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD
-	db $00, $00, $FF, $FF, $24, $FF, $24, $FF, $24, $FF, $3F, $FF, $3F, $FF, $39, $FF
-	db $00, $00, $FF, $FF, $92, $FF, $92, $FF, $9F, $FF, $80, $FF, $80, $FF, $1F, $FF
-	db $00, $00, $FF, $FF, $41, $FF, $41, $FF, $FF, $FF, $81, $FF, $80, $FF, $FC, $FB
-	db $00, $00, $FF, $FF, $01, $FF, $01, $FF, $C7, $FF, $8F, $FF, $95, $FA, $95, $FA
-	db $00, $00, $7F, $FF, $92, $FD, $92, $FD, $00, $FF, $00, $FF, $93, $FF, $93, $FF
-	db $03, $01, $FC, $F8, $A7, $7F, $A7, $7F, $A7, $FF, $E1, $FF, $E0, $FF, $E4, $FF
-	db $F8, $F0, $07, $07, $FC, $FF, $FC, $FF, $FF, $FF, $FE, $FF, $FE, $FF, $F3, $FE
-	db $00, $00, $FF, $FF, $56, $EB, $56, $EB, $FE, $FF, $7E, $FF, $7E, $BF, $26, $FF
-	db $21, $00, $DE, $FE, $73, $FF, $41, $FF, $41, $FF, $73, $FF, $73, $FF, $73, $FF
-	db $E1, $C0, $1E, $1E, $F3, $FF, $00, $FF, $00, $FF, $C3, $BF, $92, $FE, $92, $FE
-	db $FF, $FF, $7F, $3F, $BF, $BF, $BF, $BF, $BF, $BF, $BF, $BF, $7F, $3F, $FF, $3F
-	db $C3, $FC, $D1, $FE, $E2, $FD, $D0, $FF, $E8, $FF, $F5, $FF, $FA, $FF, $FF, $FF
-	db $D2, $00, $7F, $80, $BF, $40, $0A, $F5, $00, $FF, $40, $FF, $AA, $FF, $55, $FF
-	db $4B, $00, $FE, $01, $FD, $02, $50, $AF, $00, $FF, $01, $FF, $AA, $FF, $55, $FF
-	db $CB, $3F, $97, $7F, $4B, $BF, $17, $FF, $2F, $FF, $5F, $FF, $BF, $FF, $7F, $FF
-	db $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FD, $FE, $FC, $FF, $FE, $FF, $FF
-	db $39, $FF, $39, $FF, $39, $FF, $01, $FF, $83, $FF, $FE, $FE, $00, $01, $FF, $00
-	db $3F, $FF, $3F, $FF, $3F, $DF, $00, $FF, $80, $FF, $FF, $FF, $00, $00, $FF, $00
-	db $FC, $FF, $FC, $FF, $F8, $FF, $C1, $FE, $C3, $FD, $FF, $FF, $00, $00, $FF, $00
-	db $9F, $FF, $9F, $FF, $8F, $FF, $C3, $FF, $E3, $FF, $3E, $3E, $00, $C1, $FF, $00
-	db $93, $FF, $9F, $FF, $9F, $EF, $81, $FF, $C1, $BF, $FF, $FF, $00, $00, $FF, $00
-	db $E4, $FF, $E4, $FF, $E4, $FF, $E4, $FF, $E6, $FF, $3F, $3F, $00, $C0, $FF, $00
-	db $93, $FF, $93, $FF, $93, $FF, $12, $FF, $32, $FF, $EF, $FF, $00, $00, $FF, $00
-	db $26, $FF, $26, $FF, $26, $FF, $26, $FF, $67, $FF, $FD, $F9, $00, $02, $FF, $00
-	db $73, $FF, $73, $FF, $73, $FF, $33, $FF, $33, $FF, $FE, $FC, $00, $01, $FF, $01
-	db $82, $FE, $C2, $FE, $F2, $FE, $82, $FE, $84, $FD, $F9, $FA, $03, $05, $FF, $83
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $00, $00, $FF, $00, $FF, $00, $55, $AA, $00, $FF, $00, $FF, $AA, $FF, $55, $FF
-	db $AA, $FF, $55, $FF, $AA, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $AA, $FF, $D5, $FF, $FA, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $AA, $FF, $55, $FF, $AF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp"
 
 ; ---- gfx $73E0-$74E0 (256 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:5628: hl=$73E0 a=$23 c=$10 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
 Gfx_MailSrvDelProgress_Tiles1:: ; 23:73E0
 Data_23_73E0::
-	db $3C, $3C, $7E, $66, $77, $66, $77, $66, $77, $66, $77, $66, $3F, $3C, $1E, $00
-	db $18, $18, $7C, $78, $3C, $18, $1C, $18, $1C, $18, $1C, $18, $1C, $18, $0C, $00
-	db $3C, $3C, $7E, $66, $77, $66, $3F, $0C, $1E, $18, $3C, $30, $7F, $7E, $3F, $00
-	db $3C, $3C, $7E, $66, $77, $66, $3F, $0C, $6E, $66, $77, $66, $3F, $3C, $1E, $00
-	db $0C, $0C, $1E, $1C, $3E, $2C, $7E, $6C, $7F, $6C, $7F, $7E, $3E, $0C, $06, $00
-	db $7E, $7E, $7F, $60, $70, $60, $7C, $7C, $3E, $06, $67, $66, $3F, $3C, $1E, $00
-	db $3C, $3C, $7E, $66, $73, $60, $7C, $7C, $7E, $66, $77, $66, $3F, $3C, $1E, $00
-	db $7E, $7E, $7F, $66, $77, $66, $37, $04, $0E, $08, $1C, $18, $1C, $18, $0C, $00
-	db $3C, $3C, $7E, $66, $77, $66, $3F, $3C, $7F, $66, $77, $66, $3F, $3C, $1E, $00
-	db $3C, $3C, $7E, $66, $77, $66, $3F, $3E, $1F, $06, $67, $66, $3F, $3C, $1E, $00
-	db $00, $00, $18, $18, $1C, $18, $0C, $00, $18, $18, $1C, $18, $0C, $00, $00, $00
-	db $FF, $00, $00, $FF, $FF, $FF, $00, $00, $FF, $00, $00, $FF, $00, $00, $00, $00
-	db $FF, $00, $2F, $CF, $08, $E7, $A4, $F3, $54, $79, $6A, $39, $0A, $99, $2A, $99
-	db $32, $99, $32, $99, $32, $99, $32, $99, $32, $99, $32, $99, $32, $99, $32, $99
-	db $FF, $00, $FF, $FF, $00, $FF, $80, $3F, $40, $9F, $C0, $9F, $E0, $8F, $D0, $E7
-	db $B0, $A7, $B0, $A7, $B0, $A7, $50, $67, $A0, $C7, $C0, $0F, $00, $1F, $00, $FF
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp"
 
 ; ---- gfx $74E0-$7640 (352 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 23:563A: hl=$74E0 a=$23 c=$16 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
 Gfx_MailSrvDelProgress_Tiles2:: ; 23:74E0
 Data_23_74E0::
-	db $1C, $22, $36, $00, $36, $00, $36, $00, $36, $00, $36, $00, $1C, $22, $00, $00
-	db $1C, $00, $0C, $10, $0C, $00, $0C, $00, $0C, $00, $0C, $00, $0C, $00, $00, $00
-	db $3C, $02, $02, $00, $1C, $22, $30, $08, $30, $08, $30, $00, $3E, $00, $00, $00
-	db $3C, $02, $06, $00, $1C, $02, $06, $00, $06, $00, $06, $08, $3C, $02, $00, $00
-	db $0E, $00, $16, $08, $36, $00, $36, $00, $36, $00, $3F, $00, $06, $00, $00, $00
-	db $3E, $00, $30, $00, $3C, $02, $06, $00, $06, $00, $06, $08, $3C, $02, $00, $00
-	db $1C, $20, $30, $00, $3C, $02, $36, $00, $36, $00, $36, $00, $1C, $22, $00, $00
-	db $3E, $00, $06, $38, $0C, $02, $18, $04, $18, $04, $18, $00, $18, $00, $00, $00
-	db $1C, $22, $36, $08, $1C, $22, $36, $08, $36, $00, $36, $08, $1C, $22, $00, $00
-	db $1C, $22, $36, $00, $36, $00, $1E, $20, $06, $00, $06, $08, $1C, $02, $00, $00
-	db $00, $00, $63, $63, $F7, $94, $FF, $98, $FF, $98, $BF, $C8, $5B, $6C, $2C, $37
-	db $00, $00, $C6, $C6, $EF, $29, $FF, $19, $DF, $39, $DD, $33, $9A, $76, $34, $EC
-	db $12, $1F, $0B, $0C, $07, $04, $07, $04, $07, $04, $07, $04, $05, $06, $04, $07
-	db $48, $F8, $D0, $30, $E0, $20, $E0, $20, $E0, $20, $E0, $20, $A0, $60, $20, $E0
-	db $04, $07, $0F, $05, $0B, $0D, $1F, $09, $36, $3A, $5E, $62, $42, $7E, $3C, $3C
-	db $20, $E0, $F0, $A0, $D0, $B0, $F8, $90, $6C, $5C, $7A, $46, $42, $7E, $3C, $3C
-	db $00, $00, $00, $00, $FF, $FF, $80, $FF, $B6, $CF, $B0, $CF, $B5, $CF, $80, $FF
-	db $00, $00, $00, $00, $FF, $FF, $01, $FF, $D5, $FF, $01, $FF, $51, $FF, $01, $FF
-	db $80, $FF, $80, $FF, $80, $FF, $80, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00
-	db $01, $FF, $01, $FF, $F1, $FF, $01, $FF, $FF, $FF, $00, $00, $00, $00, $00, $00
-	db $00, $00, $00, $00, $00, $00, $08, $00, $18, $10, $30, $20, $00, $00, $00, $00
-	db $00, $00, $20, $20, $30, $10, $18, $00, $08, $00, $00, $00, $00, $00, $F0, $60
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp"
 
 ; ---- data $7640-$7910 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 23:564B: hl=$7640 a=$23 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
 Tilemap_MailSrvDelProgress_Screen:: ; 23:7640
 Data_23_7640::
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $20, $21, $22, $23
-	db $24, $25, $26, $27, $28, $29, $2A, $2B, $01, $01, $01, $01, $01, $01, $01, $01
-	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $2C, $2D, $3C, $3C, $3C, $3C, $3C, $3C, $3C
-	db $3C, $3C, $3C, $2E, $2F, $01, $01, $01, $01, $01, $01, $01, $3E, $3D, $3D, $3D
-	db $3D, $3D, $3D, $3D, $3D, $3D, $3D, $3F, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $18, $1A, $1B, $1C, $1D, $1E, $1F, $3B, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $19, $09, $0A, $0B, $0C
-	db $0D, $0E, $0F, $01, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11, $11
-	db $11, $11, $11, $11, $11, $11, $11, $11, $00, $01, $02, $03, $04, $05, $06, $07
-	db $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11, $12, $13, $14, $15, $16, $17
-	db $18, $19, $1A, $1B, $1C, $1D, $1E, $1F, $20, $21, $22, $23, $24, $25, $26, $27
-	db $4C, $4B, $4B, $4B, $4B, $4B, $4C, $00, $00, $00, $00, $00, $00, $02, $03, $04
-	db $05, $06, $07, $4E, $4D, $40, $40, $4A, $40, $40, $4D, $10, $10, $10, $10, $10
-	db $10, $12, $13, $14, $15, $16, $17, $4F, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C
-	db $09, $09, $09, $09, $09, $09, $09, $09, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C
-	db $0C, $0C, $0C, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0C, $0C, $0C, $0C
-	db $0C, $0C, $0C, $0C, $0C, $0C, $0C, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0B
-	db $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $09, $09, $09
-	db $09, $09, $09, $09, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B, $0B
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0C
-	db $0C, $0C, $0C, $0C, $0C, $0C, $0C, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $09, $09, $09, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $0C, $09, $09, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01
-	db $01, $01, $01, $01, $01, $01, $01, $01, $29, $29, $29, $29, $29, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $29, $09, $09, $09
-	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap"
+	INCBIN "gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap"
 
 ; ---- data $7910-$7950 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7910 a=$23 bc=$0040 de=$D800) at 23:55F3; call site never executed; replaces the mapper palette guess 7910-7A3F which swallowed the object tables
 
 Palette_MailSrvDelProgress_Bg:: ; 23:7910
 Palette_23_7910::
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $2C, $21, $00, $00, $5F, $03, $FF, $7F
-	db $00, $00, $61, $1D, $22, $47, $FF, $7F, $00, $00, $A5, $02, $EC, $7E, $FF, $7F
-	db $00, $00, $5F, $02, $F7, $00, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal"
 
 ; ---- data $7950-$7990 (64 bytes) [PROBABLE] 64-byte RGB555 palette block copied by Function_4F_4000 (hl=$7950 a=$23 bc=$0040 de=$D840) at 23:5604; call site never executed
 
 Palette_MailSrvDelProgress_Obj:: ; 23:7950
 Palette_23_7950::
-	db $8B, $6F, $00, $00, $B5, $56, $FF, $7F, $8B, $6F, $7F, $02, $B7, $01, $00, $00
-	db $8B, $6F, $40, $02, $FF, $4F, $00, $00, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
-	db $8B, $6F, $4A, $29, $B5, $56, $FF, $7F, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
-	db $8B, $6F, $4A, $29, $B5, $56, $FF, $7F, $8B, $6F, $4A, $29, $B5, $56, $FF, $7F
+	INCLUDE "gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal"
 
 ; ---- words $7990-$7AE0 (336 bytes) [PROBABLE] sprite object table: 4-byte entries (frame-table ptr, animation-script ptr) indexed by B&7F, the layout read by init_object_from_table 00:0A82/00:0AB8; rows of 16 bytes = the same entry repeated 4 times; base $7990 is passed as de with a=$23 at call sites listed in analysis/gfx_candidates.tsv (object-table); entries 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7 7AE0/7AE7
 

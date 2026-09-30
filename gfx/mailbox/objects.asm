@@ -15,10 +15,7 @@ Data_26_7AB0:: ; 26:7AB0
 ; ---- data $7AC0-$7B00 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (all 32 words have bit15 clear; contains 7FFF); the mapper heuristic that extended this palette to 7BE4 swallowed pointer words (0x7Cxx have bit15 clear too)
 
 Palette_26_7AC0:: ; 26:7AC0
-	db $E0, $7F, $FF, $7F, $EF, $57, $00, $00, $E0, $7F, $FF, $7F, $F7, $00, $00, $00
-	db $E0, $7F, $1F, $00, $FF, $7F, $9B, $29, $E0, $7F, $94, $5A, $61, $20, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
-	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
+	INCLUDE "gfx/mailbox/objects/palette_7ac0.pal"
 
 ; ---- words $7B00-$7BE0 (224 bytes) [PROBABLE] 14 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 7B00-7D41 (26:7B00-7D41 (ends at the zero padding)); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 

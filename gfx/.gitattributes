@@ -1,0 +1,9 @@
+# assets are INCBINed: never let git touch line endings or treat a map with no NUL byte as text
+*.2bpp binary
+*.1bpp binary
+*.tilemap binary
+*.attrmap binary
+*.bin binary
+*.png binary
+*.pal text eol=lf
+*.tsv text eol=lf

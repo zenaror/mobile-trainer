@@ -215,94 +215,13 @@ Data_61_4000:: ; 61:4000
 ; ---- gfx $4CC0-$4F63 (675 bytes) [PROBABLE] tile data: heuristic: 70 coherent tiles (hsim2=0.740 vsim2=0.711, 3 blank) parity 0 [clipped from 4CC0-5200 by higher-priority proposals]
 
 Data_61_4CC0:: ; 61:4CC0
-	db $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $57, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF
-	db $DE, $E1, $EF, $F0, $FB, $FC, $FE, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $55, $FF
-	db $FF, $FF, $7F, $FF, $BF, $7F, $FF, $1F, $FC, $F8, $F9, $FB, $FC, $F8, $7F, $FF
-	db $D5, $D5, $DD, $DD, $DD, $DD, $D5, $D5, $18, $1D, $90, $DE, $00, $0F, $F0, $E0
-	db $40, $EF, $84, $E9, $40, $E9, $80, $EF, $04, $E9, $00, $19, $00, $FF, $00, $00
-	db $FF, $FF, $E7, $FF, $F7, $CF, $FF, $CF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $E7, $FF, $F7, $CF, $FF, $CF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $E7, $FF, $F7, $CF, $FF, $CF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $E7, $FF, $F7, $CF, $FF, $CF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $E7, $FF, $F7, $CF, $FF, $CF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FE, $FC, $FD, $F8
-	db $FF, $FF, $E3, $FF, $E3, $C1, $DD, $80, $A2, $1C, $41, $3E, $A2, $41, $41, $80
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $7F, $7F, $3F, $BF, $1F, $5F, $8F
-	db $FF, $FF, $F3, $FF, $FB, $E7, $FF, $E7, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $F3, $FF, $FB, $E7, $FF, $E7, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $F3, $FF, $FB, $E7, $FF, $E7, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $F3, $FF, $FB, $E7, $FF, $E7, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $F3, $F3, $F3, $F3, $C0, $C0, $C0, $C0, $F3, $F3, $F3, $F3, $FF, $FF
-	db $FF, $FF, $FD, $FD, $F5, $F5, $C3, $C3, $F7, $F7, $D5, $D5, $D5, $D5, $FF, $FF
-	db $FF, $FF, $7F, $7F, $42, $42, $DB, $DB, $83, $A3, $FB, $F3, $E2, $E6, $FF, $FF
-	db $FF, $FF, $FF, $FF, $7F, $7F, $EF, $EF, $EC, $EC, $CF, $DF, $1F, $3F, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $03, $03, $FB, $FA, $FA, $FA, $FB, $FA
-	db $FA, $F1, $F5, $E2, $EA, $C4, $D4, $88, $A8, $10, $50, $20, $A0, $41, $01, $C3
-	db $80, $00, $40, $6C, $2C, $5E, $1E, $3F, $3F, $7F, $7F, $FF, $FF, $FF, $FF, $FF
-	db $AF, $47, $57, $23, $2B, $11, $15, $08, $0A, $84, $85, $C2, $C2, $E1, $E1, $F0
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $7F, $7F, $3F, $BF, $1F, $5F, $8F
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $DE, $DE
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F8, $F8
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $5F, $5F
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FE, $FE, $FC, $FD, $F8
-	db $FA, $FB, $FA, $EB, $EA, $CB, $D4, $8F, $A0, $1F, $4D, $32, $92, $60, $10, $E0
-	db $01, $C3, $00, $C1, $00, $C0, $20, $C0, $10, $E0, $88, $70, $44, $38, $42, $3C
+	INCBIN "gfx/bank61/tiles_4cc0.2bpp"
 	db $FF, $FF, $FF
 
 ; ---- gfx $4F63-$5200 (669 bytes) [PROBABLE] tiles-2bpp: heuristic: 70 coherent tiles (hsim2=0.740 vsim2=0.711, 3 blank) parity 0 [clipped from 4CC0-5200 by higher-priority evidence]
 
 Data_61_4F63:: ; 61:4F63
-	db $FF, $7F, $FF, $3F, $7F, $1F, $3F, $0F, $1F, $07, $0F, $03, $07, $F0, $F8, $F8
-	db $FC, $FC, $FE, $FC, $FE, $F8, $FC, $F0, $F8, $E0, $F0, $C1, $E0, $AF, $47, $57
-	db $23, $09, $33, $09, $33, $09, $33, $57, $23, $AF, $47, $5C, $8E, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $3D, $7D, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $5F, $5F, $50, $50, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $9F, $9F, $82, $82, $DA
-	db $DA, $CE, $DE, $E2, $C2, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FB, $FB, $F3
-	db $F7, $DF, $9E, $1C, $3C, $FF, $FF, $EF, $EF, $EF, $EF, $EF, $EF, $5F, $5F, $4F
-	db $4F, $43, $53, $5F, $DF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FA, $F1, $F4
-	db $E3, $E8, $C7, $98, $C7, $90, $CF, $90, $CF, $98, $C7, $E8, $C7, $08, $F0, $10
-	db $E0, $12, $E0, $0D, $F2, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $81, $7E, $40
-	db $3F, $40, $3F, $80, $7F, $00, $FF, $00, $FF, $00, $FF, $00, $FF, $01, $03, $80
-	db $01, $40, $80, $20, $C0, $10, $E0, $08, $F0, $00, $FF, $00, $FF, $82, $C1, $05
-	db $82, $0A, $04, $15, $08, $2B, $11, $57, $23, $2F, $C7, $5F, $8F, $BD, $1D, $7D
-	db $3D, $FC, $7C, $FD, $FD, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $B0, $B0, $BD
-	db $BD, $35, $35, $B5, $B5, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F6, $F6, $E0
-	db $E8, $7E, $7C, $78, $79, $FF, $FF, $FF, $FF, $7F, $7F, $7F, $7F, $FB, $FB, $FB
-	db $FB, $F3, $F7, $87, $8F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $86, $86, $F6, $F6, $E4, $ED, $EF, $EF, $EF
-	db $EF, $E0, $E0, $FF, $FF, $FF, $FF, $1F, $1F, $DF, $DF, $11, $11, $FF, $FF, $FF
-	db $FF, $00, $00, $FF, $FF, $FF, $FF, $7F, $7F, $7F, $7F, $3C, $3C, $CC, $E3, $FF
-	db $FF, $00, $00, $FF, $FF, $F5, $F8, $FA, $FC, $FF, $FF, $00, $00, $20, $9F, $10
-	db $8F, $80, $CF, $00, $FF, $82, $79, $C1, $38, $F8, $FC, $04, $07, $24, $C3, $19
-	db $C2, $00, $C2, $24, $C2, $09, $FE, $14, $F7, $17, $F7, $10, $F0, $00, $FF, $27
-	db $1F, $C8, $18, $07, $1F, $2B, $11, $17, $E3, $FF, $FF, $00, $00, $BF, $1F, $FF
-	db $FF, $00, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $FF, $FF, $FF
-	db $FF, $00, $00, $FF, $FF, $FF, $FF, $FC, $FC, $FD, $FD, $1C, $1C, $FF, $FF, $FF
-	db $FF, $00, $00, $FF, $FF, $FF, $FF, $3D, $7D, $B0, $B0, $7D, $3D, $7F, $7F, $7F
-	db $7F, $7F, $7F, $FF, $FF, $5F, $5F, $50, $50, $F6, $F6, $E0, $E8, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $9F, $9F, $FB, $FB, $FB, $FB, $87, $CF, $B7
-	db $B7, $FF, $FF, $FF, $FF, $CF, $FF, $DF, $E7, $FF, $E7, $FF, $FF, $DF, $9F, $1F
-	db $3F, $FF, $FF, $FF, $FF, $CF, $FF, $DF, $E7, $FF, $E7, $FF, $FF, $0F, $4F, $7F
-	db $7F, $FF, $FF, $FF, $FF, $CF, $FF, $DF, $E7, $FF, $E7, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $CF, $FF, $DF, $E7, $FF, $E7, $FF, $FF, $F8, $FF, $AC
-	db $C3, $D7, $E0, $E9, $F0, $FA, $FC, $FE, $FF, $FF, $FF, $FF, $FF, $1F, $FF, $01
-	db $FE, $02, $FC, $CD, $30, $7B, $01, $87, $03, $87, $FF, $FF, $FF, $FF, $FF, $7F
-	db $3F, $FF, $7F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF, $FD, $FD, $FC
-	db $FC, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF, $B5, $B5, $35
-	db $75, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF, $7E, $7C, $78
-	db $79, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF, $F3, $F7, $87
+	INCBIN "gfx/bank61/tiles_4f63.2bpp"
 	db $8F, $FF, $FF, $FF, $FF, $E7, $FF, $EF, $F3, $FF, $F3, $FF, $FF
 
 ; ---- data $5200-$58B0 (1712 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
@@ -419,47 +338,7 @@ Data_61_5200:: ; 61:5200
 ; ---- gfx $58B0-$5B40 (656 bytes) [PROBABLE] tiles-2bpp: heuristic: 37 coherent tiles (hsim2=0.778 vsim2=0.672, 1 blank) parity 0
 
 Data_61_58B0:: ; 61:58B0
-	db $9F, $BF, $DF, $3F, $3F, $7F, $3F, $7F, $3F, $BF, $5F, $9F, $DF, $1F, $BF, $3F
-	db $FD, $F3, $FF, $F8, $FF, $FF, $FF, $FE, $FF, $E0, $FF, $E0, $E0, $E0, $FF, $FF
-	db $FF, $C0, $F7, $40, $F0, $80, $E7, $07, $C7, $0C, $0F, $19, $3F, $73, $FF, $C7
-	db $A1, $20, $B8, $3C, $3C, $26, $FF, $E3, $FF, $08, $FF, $FF, $FF, $FF, $FF, $FF
-	db $EF, $0C, $EF, $0C, $0F, $0C, $FF, $F8, $FE, $10, $FC, $F0, $F0, $F1, $FF, $FF
-	db $77, $47, $77, $46, $77, $46, $77, $44, $7F, $40, $7E, $C0, $C0, $C0, $FF, $FF
-	db $F9, $FB, $B9, $3D, $BC, $2E, $BE, $2F, $3F, $2F, $3F, $6F, $7F, $CF, $FF, $9F
-	db $F3, $FF, $CF, $FF, $FF, $FF, $7E, $7F, $39, $BF, $9F, $DF, $CF, $EF, $E7, $F7
-	db $FE, $FE, $ED, $FD, $98, $FA, $71, $F5, $E3, $E3, $E7, $E7, $FF, $FF, $3F, $FF
-	db $EC, $EC, $C0, $F6, $00, $00, $F0, $F7, $F8, $F8, $FF, $FF, $E7, $FF, $9F, $FF
-	db $03, $7B, $87, $83, $0F, $EF, $1C, $1D, $FF, $FE, $FF, $FF, $F3, $FF, $CF, $FF
-	db $E8, $E8, $E3, $EC, $F0, $F0, $E3, $CC, $38, $9F, $4E, $3F, $10, $6F, $3F, $40
-	db $5F, $1F, $DF, $1F, $3F, $3F, $DF, $0F, $F7, $07, $1B, $E3, $3B, $C3, $FB, $03
-	db $FF, $F0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $1F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $F0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $3F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $F3, $FB, $F9, $FD, $FC, $FE, $FE, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FE, $FF, $F9, $FF, $E7, $FF, $7F, $7F, $3F, $BF, $9C, $DF, $CF, $EF, $E7, $F7
-	db $7F, $FF, $FC, $FF, $F3, $FF, $CF, $FF, $3E, $FF, $F8, $FC, $E1, $F3, $87, $CF
-	db $3E, $FF, $F9, $FC, $E1, $F3, $87, $CF, $1F, $3F, $7F, $FF, $FF, $FF, $FF, $FF
-	db $3E, $57, $3F, $55, $3F, $55, $3F, $40, $5F, $20, $8F, $90, $C0, $E0, $E0, $FF
-	db $FB, $53, $FB, $63, $FB, $53, $FB, $03, $F9, $03, $E1, $07, $01, $1F, $03, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $C1, $FF, $83, $FF, $07, $FF, $0F, $FF, $1F, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F0, $FF, $E0, $FF, $C1, $FF, $83, $FF, $07
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FC, $7F, $F8, $FF, $F0, $FF, $E0, $FF, $C1, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $1F, $FF, $3F, $FE, $7F, $FC, $FF, $F8, $FF, $F0
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $07, $FF, $0F, $FF, $1F, $FE, $3F, $FC, $7F
-	db $FF, $FF, $FF, $FF, $FF, $FF, $C1, $FF, $83, $FF, $07, $FF, $0F, $FF, $1F, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $F0, $FF, $E0, $FF, $C1, $FF, $83, $FF, $07
-	db $F2, $FB, $F8, $FC, $FF, $FF, $FC, $7F, $F8, $FF, $F0, $FF, $E0, $FF, $C1, $FF
-	db $1F, $3F, $7F, $FF, $FF, $FF, $1F, $FF, $3F, $FE, $7F, $FC, $FF, $F8, $FF, $F0
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $07, $FF, $0F, $FF, $1F, $FE, $3F, $FC, $7F
-	db $F8, $FF, $FF, $FF, $FF, $FF, $C1, $FF, $83, $FF, $07, $FF, $0F, $FF, $1F, $FF
-	db $0F, $FF, $FF, $FF, $FF, $FF, $FF, $F0, $FF, $E0, $FF, $C1, $FF, $83, $FF, $07
-	db $FF, $FF, $80, $C0, $80, $BF, $80, $BF, $80, $BF, $83, $BC, $87, $BB, $8F, $B7
-	db $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $FF, $FF, $FF
-	db $FF, $FF, $00, $00, $00, $FF, $00, $FF, $00, $FF, $FF, $00, $FF, $FF, $FF, $FF
-	db $FF, $FF, $00, $00, $00, $FF, $00, $FC, $00, $FB, $F9, $02, $F9, $FA, $F8, $FB
+	INCBIN "gfx/bank61/tiles_58b0.2bpp"
 
 ; ---- data $5B40-$65C0 (2688 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -636,56 +515,7 @@ Data_61_5B40:: ; 61:5B40
 ; ---- gfx $65C0-$68E0 (800 bytes) [PROBABLE] tiles-2bpp: heuristic: 41 coherent tiles (hsim2=0.736 vsim2=0.713, 5 blank) parity 0
 
 Data_61_65C0:: ; 61:65C0
-	db $FF, $FF, $FF, $FF, $FF, $FF, $00, $FF, $00, $00, $00, $FF, $00, $3C, $00, $B2
-	db $80, $CE, $BC, $82, $3C, $82, $7C, $02, $7C, $02, $7C, $02, $7C, $02, $7C, $02
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $E0, $E0, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $1F, $1F, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $DF, $DF, $BF, $BF, $BF, $BF, $7F, $7F
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $EF, $EF, $EE, $EE, $EF, $EF, $EF, $EF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $07, $07, $FC, $FC, $FF, $FF
-	db $FA, $FC, $FF, $FF, $FF, $FF, $FF, $FF, $BF, $BF, $BF, $BF, $00, $00, $7F, $7F
-	db $90, $8F, $A0, $8F, $A0, $8D, $A0, $88, $A0, $8A, $A0, $8F, $A0, $8F, $A0, $89
-	db $00, $FF, $00, $FF, $00, $98, $00, $A5, $00, $C9, $00, $FF, $00, $FF, $00, $48
-	db $00, $FF, $00, $FF, $00, $30, $00, $7A, $00, $30, $00, $FF, $00, $FF, $00, $38
-	db $00, $FF, $00, $FF, $00, $D8, $00, $12, $00, $89, $00, $FF, $00, $FF, $00, $A7
-	db $00, $FF, $00, $FF, $00, $7F, $00, $72, $00, $3E, $00, $FF, $00, $FF, $00, $3F
-	db $44, $02, $14, $12, $34, $32, $14, $12, $54, $12, $54, $12, $44, $02, $7C, $02
-	db $FF, $FF, $FF, $FF, $FF, $FF, $EF, $EF, $DF, $DF, $DF, $DF, $E0, $E0, $FF, $FF
-	db $FF, $FF, $FE, $FE, $FE, $FE, $FE, $FE, $FD, $FD, $FD, $FD, $0D, $0D, $FF, $FF
-	db $7F, $7F, $8F, $8F, $77, $77, $F7, $F7, $F7, $F7, $F7, $F7, $F8, $F8, $FF, $FF
-	db $EF, $EF, $EF, $EF, $EF, $EF, $6E, $6E, $6D, $6D, $6D, $6D, $EE, $EE, $FF, $FF
-	db $FF, $FF, $FE, $FE, $FE, $FE, $FF, $FF, $FF, $FF, $FF, $FF, $07, $07, $FF, $FF
-	db $7F, $7F, $83, $83, $7D, $7D, $FE, $FE, $FE, $FE, $FD, $FD, $83, $83, $FF, $FF
-	db $A0, $8D, $A0, $89, $A0, $8F, $A0, $8F, $A0, $89, $A0, $8A, $A0, $8A, $A0, $8F
-	db $00, $63, $00, $29, $00, $FF, $00, $FF, $00, $0C, $00, $B3, $00, $AD, $00, $FF
-	db $00, $76, $00, $3B, $00, $FF, $00, $FF, $00, $B2, $00, $73, $00, $3B, $00, $FF
-	db $00, $97, $00, $D6, $00, $FF, $00, $FF, $00, $AA, $00, $A3, $00, $69, $00, $FF
-	db $00, $74, $00, $7F, $00, $FF, $00, $FF, $00, $33, $00, $76, $00, $3C, $00, $FF
-	db $7C, $02, $7C, $02, $7C, $02, $7C, $02, $00, $02, $38, $3A, $08, $0A, $38, $3A
-	db $F8, $F8, $EF, $EF, $EF, $EF, $DF, $DF, $D8, $D8, $D7, $D7, $CF, $CF, $DF, $DF
-	db $7F, $7F, $9D, $9D, $FD, $FD, $FD, $FD, $3D, $3D, $DD, $DD, $ED, $ED, $ED, $ED
-	db $FF, $FF, $FF, $FF, $FD, $FD, $FE, $FE, $FE, $FE, $FF, $FF, $FF, $FF, $DF, $DF
-	db $FF, $FF, $DF, $DF, $DF, $DF, $DF, $DF, $DF, $DF, $5E, $5E, $5E, $5E, $5D, $5D
-	db $FF, $FF, $F0, $F0, $CC, $CF, $B0, $BF, $40, $70, $81, $FD, $83, $C3, $0F, $EF
-	db $FF, $FF, $7F, $7F, $3F, $BF, $3F, $BF, $7F, $7F, $FF, $FF, $FF, $FF, $FF, $FF
-	db $A0, $8F, $90, $8A, $90, $89, $90, $8C, $90, $8F, $90, $80, $80, $C0, $FF, $FF
-	db $00, $FF, $00, $52, $00, $75, $00, $59, $00, $FF, $00, $00, $00, $00, $FF, $FF
-	db $00, $FF, $00, $7A, $00, $B1, $00, $35, $00, $FF, $00, $00, $00, $00, $FF, $FF
-	db $00, $FF, $00, $62, $00, $6E, $00, $26, $00, $FF, $00, $00, $00, $00, $FF, $FF
-	db $00, $FE, $00, $3E, $00, $FE, $00, $7E, $00, $FE, $00, $00, $00, $00, $FF, $FF
-	db $20, $22, $38, $3A, $00, $02, $7C, $02, $7C, $02, $7C, $02, $7C, $02, $7C, $02
-	db $FF, $FF, $FF, $FF, $F8, $F8, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $ED, $ED, $DE, $DE, $3F, $3F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $DF, $DF, $DF, $DF, $3F, $3F, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $5C, $5D, $D8, $DA, $D9, $D9, $D3, $D3, $D3, $C4, $FF, $FF, $FF, $FF, $FF, $FF
-	db $1F, $1F, $FF, $FF, $FF, $FF, $FF, $FF, $33, $CC, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $33, $CC, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	db $FF, $FF, $80, $C0, $80, $BF, $88, $A7, $80, $BF, $80, $9F, $A0, $80, $B7, $87
+	INCBIN "gfx/bank61/tiles_65c0.2bpp"
 
 ; ---- data $68E0-$7A80 (4512 bytes) [CONFIRMED] read as data by executed code (in up to 5/18 scenarios); content class unknown [clipped from 4000-7AE8 by higher-priority evidence]
 
@@ -976,10 +806,4 @@ Data_61_68E0:: ; 61:68E0
 ; ---- data $7A80-$7AE8 (104 bytes) [PROBABLE] palette-rgb555: heuristic: 52 RGB555 words as 13 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
 Data_61_7A80:: ; 61:7A80
-	db $00, $00, $D7, $18, $FF, $35, $FF, $7F, $00, $00, $E1, $3C, $41, $3E, $FF, $7F
-	db $00, $00, $78, $01, $7F, $02, $FF, $7F, $00, $00, $96, $01, $BF, $03, $FF, $7F
-	db $00, $00, $40, $3E, $E6, $73, $FF, $7F, $00, $00, $35, $01, $3F, $02, $FF, $7F
-	db $00, $00, $33, $01, $DF, $02, $FF, $7F, $00, $00, $FE, $08, $5F, $0E, $FF, $7F
-	db $00, $00, $19, $0D, $5F, $0E, $FF, $7F, $00, $00, $19, $0D, $5F, $0E, $FF, $7F
-	db $00, $00, $33, $01, $DF, $02, $FF, $7F, $00, $00, $39, $01, $BF, $26, $FF, $7F
-	db $00, $00, $33, $01, $DF, $02, $FF, $7F
+	INCLUDE "gfx/bank61/palette_7a80.pal"
