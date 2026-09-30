@@ -1,0 +1,201 @@
+# Scenario 'state_full': builds the "everything full" cartridge for the searches of round 3. Starts from 'mail_receive_many' (12 mails in the mailbox); for eight mails in a row it opens
+# the mail (list -> A -> icon bar -> A), presses SELECT on the sender page and saves the sender in the slot list of the address book: the six slots fill up, the seventh and eighth
+# attempts meet used slots ("メールアドレスを うわがきします よろしいですか?", いいえ is the default). Ends in the mailbox list. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A
+waitstable 60 max 600
+shot list
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender0
+tap SELECT
+waitstable 60 max 600
+shot slots0
+tap A
+waitstable 60 max 600
+shot saved0_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved0_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back0
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender1
+tap SELECT
+waitstable 60 max 600
+shot slots1
+tap A
+waitstable 60 max 600
+shot saved1_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved1_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back1
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender2
+tap SELECT
+waitstable 60 max 600
+shot slots2
+tap A
+waitstable 60 max 600
+shot saved2_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved2_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back2
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender3
+tap SELECT
+waitstable 60 max 600
+shot slots3
+tap A
+waitstable 60 max 600
+shot saved3_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved3_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back3
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender4
+tap SELECT
+waitstable 60 max 600
+shot slots4
+tap A
+waitstable 60 max 600
+shot saved4_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved4_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back4
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender5
+tap SELECT
+waitstable 60 max 600
+shot slots5
+tap A
+waitstable 60 max 600
+shot saved5_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved5_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back5
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender6
+tap SELECT
+waitstable 60 max 600
+shot slots6
+tap A
+waitstable 60 max 600
+shot saved6_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved6_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back6
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot sender7
+tap SELECT
+waitstable 60 max 600
+shot slots7
+tap A
+waitstable 60 max 600
+shot saved7_1
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot saved7_3
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back7
+tap DOWN
+wait 40

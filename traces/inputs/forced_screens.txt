@@ -1,0 +1,103 @@
+# recorded by mgba_trace --macro forced_screens.macro (resolved absolute frames)
+0 reset
+460 force 2B:53C3
+700 shot grid1
+700 RIGHT
+704 -
+794 DOWN
+798 -
+888 RIGHT
+892 -
+922 RIGHT
+926 -
+1016 DOWN
+1020 -
+1110 LEFT
+1114 -
+1204 UP
+1208 -
+1298 shot grid2
+1298 A
+1302 -
+1572 shot grid3
+1572 B
+1576 -
+1806 shot grid4
+1806 reset
+2266 force 7F:4C78
+2566 shot canvas1
+2566 A
+2570 -
+2800 shot canvas2
+2800 B
+2804 -
+3034 shot canvas3
+3034 reset
+3494 force 4E:4000 A=03
+3794 shot frame1
+3794 A
+3798 -
+3928 shot frame2
+3928 B
+3932 -
+4062 shot frame3
+4062 reset
+4522 force 2D:4195
+4622 reset
+5082 A
+5086 -
+5716 A
+5720 -
+6350 A
+6354 -
+6984 DOWN
+6988 -
+7018 DOWN
+7022 -
+7082 A
+7086 -
+7716 shot samples_list
+7716 A
+7720 -
+7810 A
+7814 -
+7925 shot samples_sender
+7925 A
+7929 -
+8059 shot samples_body
+8059 reset
+8519 force 2D:44FB
+8619 reset
+9079 A
+9083 -
+9713 A
+9717 -
+10347 A
+10351 -
+10981 DOWN
+10985 -
+11015 DOWN
+11019 -
+11049 DOWN
+11053 -
+11113 A
+11117 -
+11268 shot abook_samples
+11268 A
+11272 -
+11362 RIGHT
+11366 -
+11436 A
+11440 -
+11545 shot abook_sample_view
+11545 reset
+12005 force 2D:7E60
+12105 reset
+12565 shot cleared_1
+12565 A
+12569 -
+12684 shot cleared_2
+12684 A
+12688 -
+12816 shot cleared_3
+# last scripted frame: 12816

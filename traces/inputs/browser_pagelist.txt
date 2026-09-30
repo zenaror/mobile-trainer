@@ -1,0 +1,136 @@
+# recorded by mgba_trace --macro browser_pagelist.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 shot pagelist_tutorial_1
+2736 A
+2740 -
+2800 A
+2804 -
+2898 A
+2902 -
+2973 A
+2977 -
+3407 A
+3411 -
+3493 A
+3497 -
+3927 A
+3931 -
+4361 A
+4365 -
+4795 shot prompt
+4795 A
+4799 -
+5729 A
+5733 -
+6663 A
+6667 -
+7597 A
+7601 -
+9731 shot index
+9731 shot r2_index
+9731 START
+9735 -
+9825 A
+9829 -
+10007 shot list
+10007 A
+10011 -
+10101 RIGHT
+10105 -
+10175 A
+10179 -
+11109 shot q1
+11109 A
+11113 -
+12043 shot after_no
+12043 A
+12047 -
+12977 LEFT
+12981 -
+13051 A
+13055 -
+13188 shot after_yes
+13188 A
+13192 -
+13282 RIGHT
+13286 -
+13316 RIGHT
+13320 -
+13390 A
+13394 -
+14324 shot del_q
+14324 A
+14328 -
+15258 shot del_no
+15258 A
+15262 -
+16192 LEFT
+16196 -
+16266 A
+16270 -
+16406 shot del_yes
+16406 A
+16410 -
+16500 RIGHT
+16504 -
+16534 RIGHT
+16538 -
+16608 A
+16612 -
+17542 shot del_empty
+17542 B
+17546 -
+17636 DOWN
+17640 -
+17670 DOWN
+17674 -
+17704 DOWN
+17708 -
+17838 A
+17842 -
+17932 RIGHT
+17936 -
+18006 A
+18010 -
+18142 shot save_row4
+18142 DOWN
+18146 -
+18236 A
+18240 -
+18330 A
+18334 -
+19264 shot goto_empty
+27264 shot idle_a
+41264 shot idle_b
+41264 A
+41268 -
+42798 shot idle_c0
+42798 A
+42802 -
+44332 shot idle_c1
+44332 A
+44336 -
+45866 shot idle_c2
+45866 A
+45870 -
+47400 shot idle_c3
+47400 A
+47404 -
+48934 shot idle_c4
+48934 A
+48938 -
+50468 shot idle_c5
+50468 A
+50472 -
+52002 shot idle_c6
+52002 A
+52006 -
+53536 shot idle_c7
+# last scripted frame: 53536

@@ -1,0 +1,1354 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f3041] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3041] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3043] gb.mobile DEBUG: >>> 11 End session
+[f3043] gb.mobile DEBUG: <<< 11 End session
+[f3043] gb.mobile DEBUG: 
+[f3167] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3167] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3169] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f3169] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3169] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3169] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3169] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3169] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3169] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3169] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3175] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f3175] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f3175] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3175] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3175] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3175] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3175] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3175] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3181] gb.mobile DEBUG: >>> 11 End session
+[f3181] gb.mobile DEBUG: <<< 11 End session
+[f3181] gb.mobile DEBUG: 
+[f3306] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f3306] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f3308] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f3308] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f3308] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f3308] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f3308] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f3308] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f3308] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f3308] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f3314] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f3314] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f3314] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f3314] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f3314] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f3314] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f3314] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f3314] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f3320] gb.mobile DEBUG: >>> 17 Status
+[f3320] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f3322] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f3322] gb.mobile DEBUG: <<< 12 Call
+[f3325] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f3325] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f3329] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f3329] NET sock_open conn=0 UDP bindport=0
+[f3330] NET udp send to 210.196.3.183:53 (42 bytes)
+[f3330] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f3331] NET sock_close conn=0
+[f3331] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f3333] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f3333] NET sock_open conn=0 TCP bindport=0
+[f3334] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f3334] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f3336] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3336] gb.mobile DEBUG: GET 
+[f3336] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3339] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3339] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f3339] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3342] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3342] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f3342] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f3342] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f3342] NET tcp:80 rx-line ""
+[f3342] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f3342] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3344] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3344] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3344] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f3344] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f3344] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f3344] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f3344] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f3344] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f3344] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f3344] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f3344] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f3344] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f3344] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f3344] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f3344] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f3344] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f3344] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f3344] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f3357] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3357] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3357] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f3357] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f3357] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f3357] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f3357] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f3357] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f3357] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f3357] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f3357] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f3357] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f3357] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f3357] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f3357] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f3357] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f3357] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f3357] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f3370] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3370] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f3370] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f3370] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f3370] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f3374] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f3374] NET sock_close conn=0
+[f3374] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f3430] gb.mobile DEBUG: >>> 17 Status
+[f3430] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3486] gb.mobile DEBUG: >>> 17 Status
+[f3486] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3543] gb.mobile DEBUG: >>> 17 Status
+[f3543] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3599] gb.mobile DEBUG: >>> 17 Status
+[f3599] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3655] gb.mobile DEBUG: >>> 17 Status
+[f3655] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3711] gb.mobile DEBUG: >>> 17 Status
+[f3711] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3767] gb.mobile DEBUG: >>> 17 Status
+[f3767] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3823] gb.mobile DEBUG: >>> 17 Status
+[f3823] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3879] gb.mobile DEBUG: >>> 17 Status
+[f3879] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3935] gb.mobile DEBUG: >>> 17 Status
+[f3935] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f3991] gb.mobile DEBUG: >>> 17 Status
+[f3991] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4047] gb.mobile DEBUG: >>> 17 Status
+[f4047] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4103] gb.mobile DEBUG: >>> 17 Status
+[f4103] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4159] gb.mobile DEBUG: >>> 17 Status
+[f4159] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4215] gb.mobile DEBUG: >>> 17 Status
+[f4215] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4271] gb.mobile DEBUG: >>> 17 Status
+[f4271] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4327] gb.mobile DEBUG: >>> 17 Status
+[f4327] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4383] gb.mobile DEBUG: >>> 17 Status
+[f4383] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4439] gb.mobile DEBUG: >>> 17 Status
+[f4439] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4495] gb.mobile DEBUG: >>> 17 Status
+[f4495] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4551] gb.mobile DEBUG: >>> 17 Status
+[f4551] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4607] gb.mobile DEBUG: >>> 17 Status
+[f4607] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4663] gb.mobile DEBUG: >>> 17 Status
+[f4663] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4719] gb.mobile DEBUG: >>> 17 Status
+[f4719] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4775] gb.mobile DEBUG: >>> 17 Status
+[f4775] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4831] gb.mobile DEBUG: >>> 17 Status
+[f4831] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4887] gb.mobile DEBUG: >>> 17 Status
+[f4887] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4943] gb.mobile DEBUG: >>> 17 Status
+[f4943] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f4999] gb.mobile DEBUG: >>> 17 Status
+[f4999] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5055] gb.mobile DEBUG: >>> 17 Status
+[f5055] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5111] gb.mobile DEBUG: >>> 17 Status
+[f5111] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5167] gb.mobile DEBUG: >>> 17 Status
+[f5167] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5223] gb.mobile DEBUG: >>> 17 Status
+[f5223] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5279] gb.mobile DEBUG: >>> 17 Status
+[f5279] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5335] gb.mobile DEBUG: >>> 17 Status
+[f5335] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5391] gb.mobile DEBUG: >>> 17 Status
+[f5391] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5447] gb.mobile DEBUG: >>> 17 Status
+[f5447] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5503] gb.mobile DEBUG: >>> 17 Status
+[f5503] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5559] gb.mobile DEBUG: >>> 17 Status
+[f5559] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5615] gb.mobile DEBUG: >>> 17 Status
+[f5615] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5671] gb.mobile DEBUG: >>> 17 Status
+[f5671] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5727] gb.mobile DEBUG: >>> 17 Status
+[f5727] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5783] gb.mobile DEBUG: >>> 17 Status
+[f5783] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5839] gb.mobile DEBUG: >>> 17 Status
+[f5839] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5895] gb.mobile DEBUG: >>> 17 Status
+[f5895] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f5951] gb.mobile DEBUG: >>> 17 Status
+[f5951] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6007] gb.mobile DEBUG: >>> 17 Status
+[f6007] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6063] gb.mobile DEBUG: >>> 17 Status
+[f6063] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6119] gb.mobile DEBUG: >>> 17 Status
+[f6119] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6175] gb.mobile DEBUG: >>> 17 Status
+[f6175] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6231] gb.mobile DEBUG: >>> 17 Status
+[f6231] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6287] gb.mobile DEBUG: >>> 17 Status
+[f6287] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6343] gb.mobile DEBUG: >>> 17 Status
+[f6343] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6399] gb.mobile DEBUG: >>> 17 Status
+[f6399] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6455] gb.mobile DEBUG: >>> 17 Status
+[f6455] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6511] gb.mobile DEBUG: >>> 17 Status
+[f6511] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6567] gb.mobile DEBUG: >>> 17 Status
+[f6567] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6623] gb.mobile DEBUG: >>> 17 Status
+[f6623] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6679] gb.mobile DEBUG: >>> 17 Status
+[f6679] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6735] gb.mobile DEBUG: >>> 17 Status
+[f6735] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6791] gb.mobile DEBUG: >>> 17 Status
+[f6791] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6847] gb.mobile DEBUG: >>> 17 Status
+[f6847] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6903] gb.mobile DEBUG: >>> 17 Status
+[f6903] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f6959] gb.mobile DEBUG: >>> 17 Status
+[f6959] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7015] gb.mobile DEBUG: >>> 17 Status
+[f7015] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7071] gb.mobile DEBUG: >>> 17 Status
+[f7071] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7127] gb.mobile DEBUG: >>> 17 Status
+[f7127] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7183] gb.mobile DEBUG: >>> 17 Status
+[f7183] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7239] gb.mobile DEBUG: >>> 17 Status
+[f7239] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7295] gb.mobile DEBUG: >>> 17 Status
+[f7295] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7351] gb.mobile DEBUG: >>> 17 Status
+[f7351] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7407] gb.mobile DEBUG: >>> 17 Status
+[f7407] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7463] gb.mobile DEBUG: >>> 17 Status
+[f7463] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7519] gb.mobile DEBUG: >>> 17 Status
+[f7519] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7575] gb.mobile DEBUG: >>> 17 Status
+[f7575] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7631] gb.mobile DEBUG: >>> 17 Status
+[f7631] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7687] gb.mobile DEBUG: >>> 17 Status
+[f7687] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7743] gb.mobile DEBUG: >>> 17 Status
+[f7743] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7799] gb.mobile DEBUG: >>> 17 Status
+[f7799] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7855] gb.mobile DEBUG: >>> 17 Status
+[f7855] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7911] gb.mobile DEBUG: >>> 17 Status
+[f7911] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7967] gb.mobile DEBUG: >>> 17 Status
+[f7967] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8023] gb.mobile DEBUG: >>> 17 Status
+[f8023] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8079] gb.mobile DEBUG: >>> 17 Status
+[f8079] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8135] gb.mobile DEBUG: >>> 17 Status
+[f8135] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8191] gb.mobile DEBUG: >>> 17 Status
+[f8191] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8247] gb.mobile DEBUG: >>> 17 Status
+[f8247] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8303] gb.mobile DEBUG: >>> 17 Status
+[f8303] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8359] gb.mobile DEBUG: >>> 17 Status
+[f8359] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8415] gb.mobile DEBUG: >>> 17 Status
+[f8415] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8471] gb.mobile DEBUG: >>> 17 Status
+[f8471] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8527] gb.mobile DEBUG: >>> 17 Status
+[f8527] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8583] gb.mobile DEBUG: >>> 17 Status
+[f8583] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8639] gb.mobile DEBUG: >>> 17 Status
+[f8639] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8695] gb.mobile DEBUG: >>> 17 Status
+[f8695] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8751] gb.mobile DEBUG: >>> 17 Status
+[f8751] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8807] gb.mobile DEBUG: >>> 17 Status
+[f8807] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8863] gb.mobile DEBUG: >>> 17 Status
+[f8863] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8919] gb.mobile DEBUG: >>> 17 Status
+[f8919] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8975] gb.mobile DEBUG: >>> 17 Status
+[f8975] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9031] gb.mobile DEBUG: >>> 17 Status
+[f9031] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9087] gb.mobile DEBUG: >>> 17 Status
+[f9087] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9143] gb.mobile DEBUG: >>> 17 Status
+[f9143] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9199] gb.mobile DEBUG: >>> 17 Status
+[f9199] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9255] gb.mobile DEBUG: >>> 17 Status
+[f9255] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9311] gb.mobile DEBUG: >>> 17 Status
+[f9311] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9367] gb.mobile DEBUG: >>> 17 Status
+[f9367] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9423] gb.mobile DEBUG: >>> 17 Status
+[f9423] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9479] gb.mobile DEBUG: >>> 17 Status
+[f9479] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9535] gb.mobile DEBUG: >>> 17 Status
+[f9535] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9591] gb.mobile DEBUG: >>> 17 Status
+[f9591] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9647] gb.mobile DEBUG: >>> 17 Status
+[f9647] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9703] gb.mobile DEBUG: >>> 17 Status
+[f9703] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9761] gb.mobile DEBUG: >>> 17 Status
+[f9761] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9817] gb.mobile DEBUG: >>> 17 Status
+[f9817] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9878] gb.mobile DEBUG: >>> 17 Status
+[f9878] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9943] gb.mobile DEBUG: >>> 17 Status
+[f9943] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10002] gb.mobile DEBUG: >>> 17 Status
+[f10002] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10064] gb.mobile DEBUG: >>> 17 Status
+[f10064] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10125] gb.mobile DEBUG: >>> 17 Status
+[f10125] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10185] gb.mobile DEBUG: >>> 17 Status
+[f10185] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10243] gb.mobile DEBUG: >>> 17 Status
+[f10243] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10299] gb.mobile DEBUG: >>> 17 Status
+[f10299] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10355] gb.mobile DEBUG: >>> 17 Status
+[f10355] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10411] gb.mobile DEBUG: >>> 17 Status
+[f10411] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10467] gb.mobile DEBUG: >>> 17 Status
+[f10467] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10523] gb.mobile DEBUG: >>> 17 Status
+[f10523] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10579] gb.mobile DEBUG: >>> 17 Status
+[f10579] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10635] gb.mobile DEBUG: >>> 17 Status
+[f10635] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10691] gb.mobile DEBUG: >>> 17 Status
+[f10691] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10747] gb.mobile DEBUG: >>> 17 Status
+[f10747] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10803] gb.mobile DEBUG: >>> 17 Status
+[f10803] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10859] gb.mobile DEBUG: >>> 17 Status
+[f10859] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10915] gb.mobile DEBUG: >>> 17 Status
+[f10915] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10971] gb.mobile DEBUG: >>> 17 Status
+[f10971] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11027] gb.mobile DEBUG: >>> 17 Status
+[f11027] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11083] gb.mobile DEBUG: >>> 17 Status
+[f11083] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11143] gb.mobile DEBUG: >>> 17 Status
+[f11143] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11202] gb.mobile DEBUG: >>> 17 Status
+[f11202] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11261] gb.mobile DEBUG: >>> 17 Status
+[f11261] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11321] gb.mobile DEBUG: >>> 17 Status
+[f11321] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11380] gb.mobile DEBUG: >>> 17 Status
+[f11380] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11439] gb.mobile DEBUG: >>> 17 Status
+[f11439] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11498] gb.mobile DEBUG: >>> 17 Status
+[f11498] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11557] gb.mobile DEBUG: >>> 17 Status
+[f11557] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11616] gb.mobile DEBUG: >>> 17 Status
+[f11616] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11675] gb.mobile DEBUG: >>> 17 Status
+[f11675] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11734] gb.mobile DEBUG: >>> 17 Status
+[f11734] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11793] gb.mobile DEBUG: >>> 17 Status
+[f11793] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11852] gb.mobile DEBUG: >>> 17 Status
+[f11852] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11911] gb.mobile DEBUG: >>> 17 Status
+[f11911] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11970] gb.mobile DEBUG: >>> 17 Status
+[f11970] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12029] gb.mobile DEBUG: >>> 17 Status
+[f12029] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12089] gb.mobile DEBUG: >>> 17 Status
+[f12089] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12145] gb.mobile DEBUG: >>> 17 Status
+[f12145] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12201] gb.mobile DEBUG: >>> 17 Status
+[f12201] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12257] gb.mobile DEBUG: >>> 17 Status
+[f12257] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12313] gb.mobile DEBUG: >>> 17 Status
+[f12313] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12369] gb.mobile DEBUG: >>> 17 Status
+[f12369] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12425] gb.mobile DEBUG: >>> 17 Status
+[f12425] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12481] gb.mobile DEBUG: >>> 17 Status
+[f12481] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12537] gb.mobile DEBUG: >>> 17 Status
+[f12537] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12593] gb.mobile DEBUG: >>> 17 Status
+[f12593] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12649] gb.mobile DEBUG: >>> 17 Status
+[f12649] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12705] gb.mobile DEBUG: >>> 17 Status
+[f12705] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12761] gb.mobile DEBUG: >>> 17 Status
+[f12761] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12817] gb.mobile DEBUG: >>> 17 Status
+[f12817] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12873] gb.mobile DEBUG: >>> 17 Status
+[f12873] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12929] gb.mobile DEBUG: >>> 17 Status
+[f12929] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12985] gb.mobile DEBUG: >>> 17 Status
+[f12985] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13041] gb.mobile DEBUG: >>> 17 Status
+[f13041] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13103] gb.mobile DEBUG: >>> 17 Status
+[f13103] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13167] gb.mobile DEBUG: >>> 17 Status
+[f13167] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13229] gb.mobile DEBUG: >>> 17 Status
+[f13229] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13289] gb.mobile DEBUG: >>> 17 Status
+[f13289] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13350] gb.mobile DEBUG: >>> 17 Status
+[f13350] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13411] gb.mobile DEBUG: >>> 17 Status
+[f13411] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13467] gb.mobile DEBUG: >>> 17 Status
+[f13467] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13523] gb.mobile DEBUG: >>> 17 Status
+[f13523] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13579] gb.mobile DEBUG: >>> 17 Status
+[f13579] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13635] gb.mobile DEBUG: >>> 17 Status
+[f13635] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13691] gb.mobile DEBUG: >>> 17 Status
+[f13691] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13747] gb.mobile DEBUG: >>> 17 Status
+[f13747] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13803] gb.mobile DEBUG: >>> 17 Status
+[f13803] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13859] gb.mobile DEBUG: >>> 17 Status
+[f13859] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13915] gb.mobile DEBUG: >>> 17 Status
+[f13915] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13971] gb.mobile DEBUG: >>> 17 Status
+[f13971] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14027] gb.mobile DEBUG: >>> 17 Status
+[f14027] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14083] gb.mobile DEBUG: >>> 17 Status
+[f14083] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14139] gb.mobile DEBUG: >>> 17 Status
+[f14139] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14195] gb.mobile DEBUG: >>> 17 Status
+[f14195] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14251] gb.mobile DEBUG: >>> 17 Status
+[f14251] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14307] gb.mobile DEBUG: >>> 17 Status
+[f14307] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14367] gb.mobile DEBUG: >>> 17 Status
+[f14367] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14426] gb.mobile DEBUG: >>> 17 Status
+[f14426] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14486] gb.mobile DEBUG: >>> 17 Status
+[f14486] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14545] gb.mobile DEBUG: >>> 17 Status
+[f14545] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14604] gb.mobile DEBUG: >>> 17 Status
+[f14604] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14663] gb.mobile DEBUG: >>> 17 Status
+[f14663] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14722] gb.mobile DEBUG: >>> 17 Status
+[f14722] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14781] gb.mobile DEBUG: >>> 17 Status
+[f14781] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14840] gb.mobile DEBUG: >>> 17 Status
+[f14840] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14899] gb.mobile DEBUG: >>> 17 Status
+[f14899] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14958] gb.mobile DEBUG: >>> 17 Status
+[f14958] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15017] gb.mobile DEBUG: >>> 17 Status
+[f15017] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15076] gb.mobile DEBUG: >>> 17 Status
+[f15076] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15136] gb.mobile DEBUG: >>> 17 Status
+[f15136] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15195] gb.mobile DEBUG: >>> 17 Status
+[f15195] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15254] gb.mobile DEBUG: >>> 17 Status
+[f15254] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15313] gb.mobile DEBUG: >>> 17 Status
+[f15313] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15369] gb.mobile DEBUG: >>> 17 Status
+[f15369] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15425] gb.mobile DEBUG: >>> 17 Status
+[f15425] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15481] gb.mobile DEBUG: >>> 17 Status
+[f15481] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15537] gb.mobile DEBUG: >>> 17 Status
+[f15537] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15593] gb.mobile DEBUG: >>> 17 Status
+[f15593] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15649] gb.mobile DEBUG: >>> 17 Status
+[f15649] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15705] gb.mobile DEBUG: >>> 17 Status
+[f15705] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15761] gb.mobile DEBUG: >>> 17 Status
+[f15761] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15817] gb.mobile DEBUG: >>> 17 Status
+[f15817] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15873] gb.mobile DEBUG: >>> 17 Status
+[f15873] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15929] gb.mobile DEBUG: >>> 17 Status
+[f15929] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15985] gb.mobile DEBUG: >>> 17 Status
+[f15985] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16041] gb.mobile DEBUG: >>> 17 Status
+[f16041] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16097] gb.mobile DEBUG: >>> 17 Status
+[f16097] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16153] gb.mobile DEBUG: >>> 17 Status
+[f16153] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16209] gb.mobile DEBUG: >>> 17 Status
+[f16209] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16265] gb.mobile DEBUG: >>> 17 Status
+[f16265] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16327] gb.mobile DEBUG: >>> 17 Status
+[f16327] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16390] gb.mobile DEBUG: >>> 17 Status
+[f16390] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16452] gb.mobile DEBUG: >>> 17 Status
+[f16452] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16513] gb.mobile DEBUG: >>> 17 Status
+[f16513] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16574] gb.mobile DEBUG: >>> 17 Status
+[f16574] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16634] gb.mobile DEBUG: >>> 17 Status
+[f16634] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16694] gb.mobile DEBUG: >>> 17 Status
+[f16694] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16753] gb.mobile DEBUG: >>> 17 Status
+[f16753] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16812] gb.mobile DEBUG: >>> 17 Status
+[f16812] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16872] gb.mobile DEBUG: >>> 17 Status
+[f16872] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16931] gb.mobile DEBUG: >>> 17 Status
+[f16931] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16990] gb.mobile DEBUG: >>> 17 Status
+[f16990] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17049] gb.mobile DEBUG: >>> 17 Status
+[f17049] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17109] gb.mobile DEBUG: >>> 17 Status
+[f17109] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17168] gb.mobile DEBUG: >>> 17 Status
+[f17168] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17227] gb.mobile DEBUG: >>> 17 Status
+[f17227] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17286] gb.mobile DEBUG: >>> 17 Status
+[f17286] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17345] gb.mobile DEBUG: >>> 17 Status
+[f17345] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17404] gb.mobile DEBUG: >>> 17 Status
+[f17404] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17463] gb.mobile DEBUG: >>> 17 Status
+[f17463] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17522] gb.mobile DEBUG: >>> 17 Status
+[f17522] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17584] gb.mobile DEBUG: >>> 17 Status
+[f17584] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17644] gb.mobile DEBUG: >>> 17 Status
+[f17644] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17707] gb.mobile DEBUG: >>> 17 Status
+[f17707] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17768] gb.mobile DEBUG: >>> 17 Status
+[f17768] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17827] gb.mobile DEBUG: >>> 17 Status
+[f17827] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17889] gb.mobile DEBUG: >>> 17 Status
+[f17889] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17950] gb.mobile DEBUG: >>> 17 Status
+[f17950] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18010] gb.mobile DEBUG: >>> 17 Status
+[f18010] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18071] gb.mobile DEBUG: >>> 17 Status
+[f18071] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18134] gb.mobile DEBUG: >>> 17 Status
+[f18134] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18196] gb.mobile DEBUG: >>> 17 Status
+[f18196] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18258] gb.mobile DEBUG: >>> 17 Status
+[f18258] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18318] gb.mobile DEBUG: >>> 17 Status
+[f18318] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18378] gb.mobile DEBUG: >>> 17 Status
+[f18378] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18437] gb.mobile DEBUG: >>> 17 Status
+[f18437] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18497] gb.mobile DEBUG: >>> 17 Status
+[f18497] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18556] gb.mobile DEBUG: >>> 17 Status
+[f18556] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18615] gb.mobile DEBUG: >>> 17 Status
+[f18615] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18674] gb.mobile DEBUG: >>> 17 Status
+[f18674] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18733] gb.mobile DEBUG: >>> 17 Status
+[f18733] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18792] gb.mobile DEBUG: >>> 17 Status
+[f18792] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18851] gb.mobile DEBUG: >>> 17 Status
+[f18851] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18910] gb.mobile DEBUG: >>> 17 Status
+[f18910] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18969] gb.mobile DEBUG: >>> 17 Status
+[f18969] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19028] gb.mobile DEBUG: >>> 17 Status
+[f19028] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19088] gb.mobile DEBUG: >>> 17 Status
+[f19088] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19147] gb.mobile DEBUG: >>> 17 Status
+[f19147] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19206] gb.mobile DEBUG: >>> 17 Status
+[f19206] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19266] gb.mobile DEBUG: >>> 17 Status
+[f19266] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19325] gb.mobile DEBUG: >>> 17 Status
+[f19325] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19384] gb.mobile DEBUG: >>> 17 Status
+[f19384] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19443] gb.mobile DEBUG: >>> 17 Status
+[f19443] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19503] gb.mobile DEBUG: >>> 17 Status
+[f19503] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19562] gb.mobile DEBUG: >>> 17 Status
+[f19562] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19621] gb.mobile DEBUG: >>> 17 Status
+[f19621] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19680] gb.mobile DEBUG: >>> 17 Status
+[f19680] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19739] gb.mobile DEBUG: >>> 17 Status
+[f19739] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19798] gb.mobile DEBUG: >>> 17 Status
+[f19798] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19857] gb.mobile DEBUG: >>> 17 Status
+[f19857] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19916] gb.mobile DEBUG: >>> 17 Status
+[f19916] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19975] gb.mobile DEBUG: >>> 17 Status
+[f19975] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20034] gb.mobile DEBUG: >>> 17 Status
+[f20034] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20094] gb.mobile DEBUG: >>> 17 Status
+[f20094] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20153] gb.mobile DEBUG: >>> 17 Status
+[f20153] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20212] gb.mobile DEBUG: >>> 17 Status
+[f20212] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20272] gb.mobile DEBUG: >>> 17 Status
+[f20272] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20331] gb.mobile DEBUG: >>> 17 Status
+[f20331] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20390] gb.mobile DEBUG: >>> 17 Status
+[f20390] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20449] gb.mobile DEBUG: >>> 17 Status
+[f20449] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20508] gb.mobile DEBUG: >>> 17 Status
+[f20508] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20567] gb.mobile DEBUG: >>> 17 Status
+[f20567] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20626] gb.mobile DEBUG: >>> 17 Status
+[f20626] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20686] gb.mobile DEBUG: >>> 17 Status
+[f20686] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20745] gb.mobile DEBUG: >>> 17 Status
+[f20745] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20804] gb.mobile DEBUG: >>> 17 Status
+[f20804] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20864] gb.mobile DEBUG: >>> 17 Status
+[f20864] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20923] gb.mobile DEBUG: >>> 17 Status
+[f20923] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20982] gb.mobile DEBUG: >>> 17 Status
+[f20982] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21041] gb.mobile DEBUG: >>> 17 Status
+[f21041] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21101] gb.mobile DEBUG: >>> 17 Status
+[f21101] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21160] gb.mobile DEBUG: >>> 17 Status
+[f21160] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21219] gb.mobile DEBUG: >>> 17 Status
+[f21219] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21278] gb.mobile DEBUG: >>> 17 Status
+[f21278] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21337] gb.mobile DEBUG: >>> 17 Status
+[f21337] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21396] gb.mobile DEBUG: >>> 17 Status
+[f21396] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21455] gb.mobile DEBUG: >>> 17 Status
+[f21455] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21514] gb.mobile DEBUG: >>> 17 Status
+[f21514] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21573] gb.mobile DEBUG: >>> 17 Status
+[f21573] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21632] gb.mobile DEBUG: >>> 17 Status
+[f21632] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21692] gb.mobile DEBUG: >>> 17 Status
+[f21692] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21751] gb.mobile DEBUG: >>> 17 Status
+[f21751] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21810] gb.mobile DEBUG: >>> 17 Status
+[f21810] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21869] gb.mobile DEBUG: >>> 17 Status
+[f21869] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21928] gb.mobile DEBUG: >>> 17 Status
+[f21928] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21987] gb.mobile DEBUG: >>> 17 Status
+[f21987] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22046] gb.mobile DEBUG: >>> 17 Status
+[f22046] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22105] gb.mobile DEBUG: >>> 17 Status
+[f22105] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22164] gb.mobile DEBUG: >>> 17 Status
+[f22164] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22223] gb.mobile DEBUG: >>> 17 Status
+[f22223] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22282] gb.mobile DEBUG: >>> 17 Status
+[f22282] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22341] gb.mobile DEBUG: >>> 17 Status
+[f22341] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22400] gb.mobile DEBUG: >>> 17 Status
+[f22400] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22459] gb.mobile DEBUG: >>> 17 Status
+[f22459] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22518] gb.mobile DEBUG: >>> 17 Status
+[f22518] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22577] gb.mobile DEBUG: >>> 17 Status
+[f22577] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22636] gb.mobile DEBUG: >>> 17 Status
+[f22636] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22696] gb.mobile DEBUG: >>> 17 Status
+[f22696] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22755] gb.mobile DEBUG: >>> 17 Status
+[f22755] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22814] gb.mobile DEBUG: >>> 17 Status
+[f22814] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22873] gb.mobile DEBUG: >>> 17 Status
+[f22873] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22932] gb.mobile DEBUG: >>> 17 Status
+[f22932] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22991] gb.mobile DEBUG: >>> 17 Status
+[f22991] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23050] gb.mobile DEBUG: >>> 17 Status
+[f23050] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23110] gb.mobile DEBUG: >>> 17 Status
+[f23110] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23169] gb.mobile DEBUG: >>> 17 Status
+[f23169] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23228] gb.mobile DEBUG: >>> 17 Status
+[f23228] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23288] gb.mobile DEBUG: >>> 17 Status
+[f23288] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23347] gb.mobile DEBUG: >>> 17 Status
+[f23347] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23406] gb.mobile DEBUG: >>> 17 Status
+[f23406] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23465] gb.mobile DEBUG: >>> 17 Status
+[f23465] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23524] gb.mobile DEBUG: >>> 17 Status
+[f23524] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23583] gb.mobile DEBUG: >>> 17 Status
+[f23583] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23642] gb.mobile DEBUG: >>> 17 Status
+[f23642] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23701] gb.mobile DEBUG: >>> 17 Status
+[f23701] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23760] gb.mobile DEBUG: >>> 17 Status
+[f23760] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23819] gb.mobile DEBUG: >>> 17 Status
+[f23819] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23878] gb.mobile DEBUG: >>> 17 Status
+[f23878] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23937] gb.mobile DEBUG: >>> 17 Status
+[f23937] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23996] gb.mobile DEBUG: >>> 17 Status
+[f23996] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24055] gb.mobile DEBUG: >>> 17 Status
+[f24055] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24114] gb.mobile DEBUG: >>> 17 Status
+[f24114] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24173] gb.mobile DEBUG: >>> 17 Status
+[f24173] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24232] gb.mobile DEBUG: >>> 17 Status
+[f24232] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24292] gb.mobile DEBUG: >>> 17 Status
+[f24292] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24351] gb.mobile DEBUG: >>> 17 Status
+[f24351] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24410] gb.mobile DEBUG: >>> 17 Status
+[f24410] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24469] gb.mobile DEBUG: >>> 17 Status
+[f24469] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24528] gb.mobile DEBUG: >>> 17 Status
+[f24528] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24587] gb.mobile DEBUG: >>> 17 Status
+[f24587] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24646] gb.mobile DEBUG: >>> 17 Status
+[f24646] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24705] gb.mobile DEBUG: >>> 17 Status
+[f24705] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24764] gb.mobile DEBUG: >>> 17 Status
+[f24764] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24823] gb.mobile DEBUG: >>> 17 Status
+[f24823] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24883] gb.mobile DEBUG: >>> 17 Status
+[f24883] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24942] gb.mobile DEBUG: >>> 17 Status
+[f24942] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25001] gb.mobile DEBUG: >>> 17 Status
+[f25001] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25060] gb.mobile DEBUG: >>> 17 Status
+[f25060] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25119] gb.mobile DEBUG: >>> 17 Status
+[f25119] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25178] gb.mobile DEBUG: >>> 17 Status
+[f25178] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25237] gb.mobile DEBUG: >>> 17 Status
+[f25237] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25296] gb.mobile DEBUG: >>> 17 Status
+[f25296] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25355] gb.mobile DEBUG: >>> 17 Status
+[f25355] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25414] gb.mobile DEBUG: >>> 17 Status
+[f25414] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25473] gb.mobile DEBUG: >>> 17 Status
+[f25473] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25532] gb.mobile DEBUG: >>> 17 Status
+[f25532] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25591] gb.mobile DEBUG: >>> 17 Status
+[f25591] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25650] gb.mobile DEBUG: >>> 17 Status
+[f25650] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25709] gb.mobile DEBUG: >>> 17 Status
+[f25709] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25768] gb.mobile DEBUG: >>> 17 Status
+[f25768] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25827] gb.mobile DEBUG: >>> 17 Status
+[f25827] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25887] gb.mobile DEBUG: >>> 17 Status
+[f25887] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25946] gb.mobile DEBUG: >>> 17 Status
+[f25946] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26005] gb.mobile DEBUG: >>> 17 Status
+[f26005] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26064] gb.mobile DEBUG: >>> 17 Status
+[f26064] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26123] gb.mobile DEBUG: >>> 17 Status
+[f26123] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26182] gb.mobile DEBUG: >>> 17 Status
+[f26182] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26241] gb.mobile DEBUG: >>> 17 Status
+[f26241] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26300] gb.mobile DEBUG: >>> 17 Status
+[f26300] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26359] gb.mobile DEBUG: >>> 17 Status
+[f26359] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26418] gb.mobile DEBUG: >>> 17 Status
+[f26418] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26478] gb.mobile DEBUG: >>> 17 Status
+[f26478] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26537] gb.mobile DEBUG: >>> 17 Status
+[f26537] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26596] gb.mobile DEBUG: >>> 17 Status
+[f26596] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26655] gb.mobile DEBUG: >>> 17 Status
+[f26655] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26714] gb.mobile DEBUG: >>> 17 Status
+[f26714] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26773] gb.mobile DEBUG: >>> 17 Status
+[f26773] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26832] gb.mobile DEBUG: >>> 17 Status
+[f26832] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26891] gb.mobile DEBUG: >>> 17 Status
+[f26891] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26950] gb.mobile DEBUG: >>> 17 Status
+[f26950] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27009] gb.mobile DEBUG: >>> 17 Status
+[f27009] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27068] gb.mobile DEBUG: >>> 17 Status
+[f27068] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27127] gb.mobile DEBUG: >>> 17 Status
+[f27127] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27186] gb.mobile DEBUG: >>> 17 Status
+[f27186] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27245] gb.mobile DEBUG: >>> 17 Status
+[f27245] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27304] gb.mobile DEBUG: >>> 17 Status
+[f27304] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27363] gb.mobile DEBUG: >>> 17 Status
+[f27363] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27422] gb.mobile DEBUG: >>> 17 Status
+[f27422] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27482] gb.mobile DEBUG: >>> 17 Status
+[f27482] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27541] gb.mobile DEBUG: >>> 17 Status
+[f27541] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27600] gb.mobile DEBUG: >>> 17 Status
+[f27600] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27659] gb.mobile DEBUG: >>> 17 Status
+[f27659] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27718] gb.mobile DEBUG: >>> 17 Status
+[f27718] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27777] gb.mobile DEBUG: >>> 17 Status
+[f27777] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27836] gb.mobile DEBUG: >>> 17 Status
+[f27836] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27895] gb.mobile DEBUG: >>> 17 Status
+[f27895] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27954] gb.mobile DEBUG: >>> 17 Status
+[f27954] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28013] gb.mobile DEBUG: >>> 17 Status
+[f28013] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28073] gb.mobile DEBUG: >>> 17 Status
+[f28073] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28132] gb.mobile DEBUG: >>> 17 Status
+[f28132] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28190] gb.mobile DEBUG: >>> 17 Status
+[f28190] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28249] gb.mobile DEBUG: >>> 17 Status
+[f28249] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28308] gb.mobile DEBUG: >>> 17 Status
+[f28308] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28367] gb.mobile DEBUG: >>> 17 Status
+[f28367] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28426] gb.mobile DEBUG: >>> 17 Status
+[f28426] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28485] gb.mobile DEBUG: >>> 17 Status
+[f28485] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28544] gb.mobile DEBUG: >>> 17 Status
+[f28544] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28603] gb.mobile DEBUG: >>> 17 Status
+[f28603] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28663] gb.mobile DEBUG: >>> 17 Status
+[f28663] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28722] gb.mobile DEBUG: >>> 17 Status
+[f28722] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28781] gb.mobile DEBUG: >>> 17 Status
+[f28781] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28840] gb.mobile DEBUG: >>> 17 Status
+[f28840] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28899] gb.mobile DEBUG: >>> 17 Status
+[f28899] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28958] gb.mobile DEBUG: >>> 17 Status
+[f28958] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29017] gb.mobile DEBUG: >>> 17 Status
+[f29017] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29077] gb.mobile DEBUG: >>> 17 Status
+[f29077] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29136] gb.mobile DEBUG: >>> 17 Status
+[f29136] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29195] gb.mobile DEBUG: >>> 17 Status
+[f29195] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29254] gb.mobile DEBUG: >>> 17 Status
+[f29254] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29313] gb.mobile DEBUG: >>> 17 Status
+[f29313] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29372] gb.mobile DEBUG: >>> 17 Status
+[f29372] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29431] gb.mobile DEBUG: >>> 17 Status
+[f29431] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29490] gb.mobile DEBUG: >>> 17 Status
+[f29490] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29549] gb.mobile DEBUG: >>> 17 Status
+[f29549] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29608] gb.mobile DEBUG: >>> 17 Status
+[f29608] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29668] gb.mobile DEBUG: >>> 17 Status
+[f29668] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29727] gb.mobile DEBUG: >>> 17 Status
+[f29727] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29786] gb.mobile DEBUG: >>> 17 Status
+[f29786] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29845] gb.mobile DEBUG: >>> 17 Status
+[f29845] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29904] gb.mobile DEBUG: >>> 17 Status
+[f29904] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29963] gb.mobile DEBUG: >>> 17 Status
+[f29963] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30022] gb.mobile DEBUG: >>> 17 Status
+[f30022] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30081] gb.mobile DEBUG: >>> 17 Status
+[f30081] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30140] gb.mobile DEBUG: >>> 17 Status
+[f30140] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30199] gb.mobile DEBUG: >>> 17 Status
+[f30199] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30258] gb.mobile DEBUG: >>> 17 Status
+[f30258] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30317] gb.mobile DEBUG: >>> 17 Status
+[f30317] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30376] gb.mobile DEBUG: >>> 17 Status
+[f30376] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30435] gb.mobile DEBUG: >>> 17 Status
+[f30435] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30495] gb.mobile DEBUG: >>> 17 Status
+[f30495] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30554] gb.mobile DEBUG: >>> 17 Status
+[f30554] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30612] gb.mobile DEBUG: >>> 17 Status
+[f30612] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30672] gb.mobile DEBUG: >>> 17 Status
+[f30672] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30731] gb.mobile DEBUG: >>> 17 Status
+[f30731] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30790] gb.mobile DEBUG: >>> 17 Status
+[f30790] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30849] gb.mobile DEBUG: >>> 17 Status
+[f30849] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30908] gb.mobile DEBUG: >>> 17 Status
+[f30908] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30967] gb.mobile DEBUG: >>> 17 Status
+[f30967] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31026] gb.mobile DEBUG: >>> 17 Status
+[f31026] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31086] gb.mobile DEBUG: >>> 17 Status
+[f31086] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31145] gb.mobile DEBUG: >>> 17 Status
+[f31145] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31204] gb.mobile DEBUG: >>> 17 Status
+[f31204] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31264] gb.mobile DEBUG: >>> 17 Status
+[f31264] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31323] gb.mobile DEBUG: >>> 17 Status
+[f31323] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31382] gb.mobile DEBUG: >>> 17 Status
+[f31382] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31441] gb.mobile DEBUG: >>> 17 Status
+[f31441] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31501] gb.mobile DEBUG: >>> 17 Status
+[f31501] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31560] gb.mobile DEBUG: >>> 17 Status
+[f31560] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31619] gb.mobile DEBUG: >>> 17 Status
+[f31619] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31678] gb.mobile DEBUG: >>> 17 Status
+[f31678] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31737] gb.mobile DEBUG: >>> 17 Status
+[f31737] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31796] gb.mobile DEBUG: >>> 17 Status
+[f31796] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31856] gb.mobile DEBUG: >>> 17 Status
+[f31856] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31915] gb.mobile DEBUG: >>> 17 Status
+[f31915] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31974] gb.mobile DEBUG: >>> 17 Status
+[f31974] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32033] gb.mobile DEBUG: >>> 17 Status
+[f32033] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32093] gb.mobile DEBUG: >>> 17 Status
+[f32093] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32152] gb.mobile DEBUG: >>> 17 Status
+[f32152] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32211] gb.mobile DEBUG: >>> 17 Status
+[f32211] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32270] gb.mobile DEBUG: >>> 17 Status
+[f32270] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32329] gb.mobile DEBUG: >>> 17 Status
+[f32329] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32388] gb.mobile DEBUG: >>> 17 Status
+[f32388] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32447] gb.mobile DEBUG: >>> 17 Status
+[f32447] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32506] gb.mobile DEBUG: >>> 17 Status
+[f32506] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32565] gb.mobile DEBUG: >>> 17 Status
+[f32565] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32624] gb.mobile DEBUG: >>> 17 Status
+[f32624] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32683] gb.mobile DEBUG: >>> 17 Status
+[f32683] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32742] gb.mobile DEBUG: >>> 17 Status
+[f32742] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32801] gb.mobile DEBUG: >>> 17 Status
+[f32801] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32861] gb.mobile DEBUG: >>> 17 Status
+[f32861] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32920] gb.mobile DEBUG: >>> 17 Status
+[f32920] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32979] gb.mobile DEBUG: >>> 17 Status
+[f32979] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33038] gb.mobile DEBUG: >>> 17 Status
+[f33038] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33097] gb.mobile DEBUG: >>> 17 Status
+[f33097] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33156] gb.mobile DEBUG: >>> 17 Status
+[f33156] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33215] gb.mobile DEBUG: >>> 17 Status
+[f33215] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33274] gb.mobile DEBUG: >>> 17 Status
+[f33274] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33333] gb.mobile DEBUG: >>> 17 Status
+[f33333] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33392] gb.mobile DEBUG: >>> 17 Status
+[f33392] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33451] gb.mobile DEBUG: >>> 17 Status
+[f33451] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33510] gb.mobile DEBUG: >>> 17 Status
+[f33510] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33569] gb.mobile DEBUG: >>> 17 Status
+[f33569] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33628] gb.mobile DEBUG: >>> 17 Status
+[f33628] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33688] gb.mobile DEBUG: >>> 17 Status
+[f33688] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33747] gb.mobile DEBUG: >>> 17 Status
+[f33747] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33805] gb.mobile DEBUG: >>> 17 Status
+[f33805] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33865] gb.mobile DEBUG: >>> 17 Status
+[f33865] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33924] gb.mobile DEBUG: >>> 17 Status
+[f33924] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33983] gb.mobile DEBUG: >>> 17 Status
+[f33983] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34042] gb.mobile DEBUG: >>> 17 Status
+[f34042] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34101] gb.mobile DEBUG: >>> 17 Status
+[f34101] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34160] gb.mobile DEBUG: >>> 17 Status
+[f34160] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34219] gb.mobile DEBUG: >>> 17 Status
+[f34219] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34279] gb.mobile DEBUG: >>> 17 Status
+[f34279] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34338] gb.mobile DEBUG: >>> 17 Status
+[f34338] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34397] gb.mobile DEBUG: >>> 17 Status
+[f34397] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34457] gb.mobile DEBUG: >>> 17 Status
+[f34457] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34516] gb.mobile DEBUG: >>> 17 Status
+[f34516] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34575] gb.mobile DEBUG: >>> 17 Status
+[f34575] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34634] gb.mobile DEBUG: >>> 17 Status
+[f34634] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34693] gb.mobile DEBUG: >>> 17 Status
+[f34693] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34752] gb.mobile DEBUG: >>> 17 Status
+[f34752] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34811] gb.mobile DEBUG: >>> 17 Status
+[f34811] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34870] gb.mobile DEBUG: >>> 17 Status
+[f34870] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34929] gb.mobile DEBUG: >>> 17 Status
+[f34929] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34988] gb.mobile DEBUG: >>> 17 Status
+[f34988] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35047] gb.mobile DEBUG: >>> 17 Status
+[f35047] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35106] gb.mobile DEBUG: >>> 17 Status
+[f35106] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35165] gb.mobile DEBUG: >>> 17 Status
+[f35165] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35224] gb.mobile DEBUG: >>> 17 Status
+[f35224] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35284] gb.mobile DEBUG: >>> 17 Status
+[f35284] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35343] gb.mobile DEBUG: >>> 17 Status
+[f35343] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35402] gb.mobile DEBUG: >>> 17 Status
+[f35402] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35462] gb.mobile DEBUG: >>> 17 Status
+[f35462] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35521] gb.mobile DEBUG: >>> 17 Status
+[f35521] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35580] gb.mobile DEBUG: >>> 17 Status
+[f35580] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35639] gb.mobile DEBUG: >>> 17 Status
+[f35639] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35698] gb.mobile DEBUG: >>> 17 Status
+[f35698] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35757] gb.mobile DEBUG: >>> 17 Status
+[f35757] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35816] gb.mobile DEBUG: >>> 17 Status
+[f35816] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35876] gb.mobile DEBUG: >>> 17 Status
+[f35876] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35935] gb.mobile DEBUG: >>> 17 Status
+[f35935] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f35994] gb.mobile DEBUG: >>> 17 Status
+[f35994] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36054] gb.mobile DEBUG: >>> 17 Status
+[f36054] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36113] gb.mobile DEBUG: >>> 17 Status
+[f36113] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36172] gb.mobile DEBUG: >>> 17 Status
+[f36172] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36231] gb.mobile DEBUG: >>> 17 Status
+[f36231] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36290] gb.mobile DEBUG: >>> 17 Status
+[f36290] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36349] gb.mobile DEBUG: >>> 17 Status
+[f36349] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36408] gb.mobile DEBUG: >>> 17 Status
+[f36408] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36467] gb.mobile DEBUG: >>> 17 Status
+[f36467] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36526] gb.mobile DEBUG: >>> 17 Status
+[f36526] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36585] gb.mobile DEBUG: >>> 17 Status
+[f36585] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36645] gb.mobile DEBUG: >>> 17 Status
+[f36645] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36704] gb.mobile DEBUG: >>> 17 Status
+[f36704] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36763] gb.mobile DEBUG: >>> 17 Status
+[f36763] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36822] gb.mobile DEBUG: >>> 17 Status
+[f36822] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36882] gb.mobile DEBUG: >>> 17 Status
+[f36882] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36941] gb.mobile DEBUG: >>> 17 Status
+[f36941] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f36999] gb.mobile DEBUG: >>> 17 Status
+[f36999] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37059] gb.mobile DEBUG: >>> 17 Status
+[f37059] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37118] gb.mobile DEBUG: >>> 17 Status
+[f37118] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37177] gb.mobile DEBUG: >>> 17 Status
+[f37177] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37236] gb.mobile DEBUG: >>> 17 Status
+[f37236] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37295] gb.mobile DEBUG: >>> 17 Status
+[f37295] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37354] gb.mobile DEBUG: >>> 17 Status
+[f37354] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37413] gb.mobile DEBUG: >>> 17 Status
+[f37413] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37473] gb.mobile DEBUG: >>> 17 Status
+[f37473] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37532] gb.mobile DEBUG: >>> 17 Status
+[f37532] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37591] gb.mobile DEBUG: >>> 17 Status
+[f37591] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37651] gb.mobile DEBUG: >>> 17 Status
+[f37651] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37710] gb.mobile DEBUG: >>> 17 Status
+[f37710] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37766] gb.mobile DEBUG: >>> 17 Status
+[f37766] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37822] gb.mobile DEBUG: >>> 17 Status
+[f37822] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37878] gb.mobile DEBUG: >>> 17 Status
+[f37878] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37934] gb.mobile DEBUG: >>> 17 Status
+[f37934] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f37990] gb.mobile DEBUG: >>> 17 Status
+[f37990] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38046] gb.mobile DEBUG: >>> 17 Status
+[f38046] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38102] gb.mobile DEBUG: >>> 17 Status
+[f38102] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38158] gb.mobile DEBUG: >>> 17 Status
+[f38158] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38214] gb.mobile DEBUG: >>> 17 Status
+[f38214] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38270] gb.mobile DEBUG: >>> 17 Status
+[f38270] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38326] gb.mobile DEBUG: >>> 17 Status
+[f38326] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f38343] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f38343] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f38344] gb.mobile DEBUG: >>> 13 Disconnect
+[f38344] gb.mobile DEBUG: <<< 13 Disconnect
+[f38345] gb.mobile DEBUG: >>> 11 End session
+[f38345] gb.mobile DEBUG: <<< 11 End session
+[f38345] gb.mobile DEBUG: 

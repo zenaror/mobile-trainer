@@ -1,0 +1,47 @@
+# Scenario 'mail_receive_var': おくる/うけとる with eleven mails of unusual shape on the fake POP3 server (traces/net/mail_*.eml, tools/trace/make_fixtures.py): headers folded
+# over several lines and encoded words split across them, upper-case header names and an upper-case encoded-word prefix, a Q-encoded word and a
+# quoted-printable body, a header containing a byte >= 0x80, two mails whose X-Game-code is not the Trainer's (CGB-AAAA-00 is in the ROM's allow-list
+# 0F:4004, CGB-ZZZZ-99 is not), a three-part multipart message (text + two base64 parts, one with a name) and a multipart message without its closing
+# boundary. The ROM's answer per mail (accepted, refused, "game code" dialogs, limit dialog) is whatever the screens show; the receive loop runs to the end.
+# Round 1 used six mails. Starts from the state left by 'mail_send' (empty mailbox). Screen names = my reading of the screenshots.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+tap A                        # top menu: メール
+waitstable 60 max 600
+tap A                        # おくる/うけとる
+waitstable 60 max 300
+tap A
+waitstable 60 max 600
+tap A                        # はい
+waitstable 60 max 600
+tap A                        # "0でつうしんをはじめる"
+waitstable 60 max 300
+wait 1500
+shot receiving_1
+wait 2500
+shot receiving_2
+wait 2500
+shot receiving_3
+waitstable 120 max 8000
+shot comm_finished
+tap A                        # dismiss
+waitstable 60 max 600
+shot result_1
+tap A
+waitstable 60 max 600
+shot result_2
+tap A                        # mailbox list opens
+waitstable 60 max 600
+shot list
+tap DOWN x3
+wait 100
+shot list_down_3
+tap DOWN x3
+wait 100
+shot list_down_6
+tap DOWN x3
+wait 100
+shot list_down_9

@@ -1,0 +1,886 @@
+# Scenario 'fuzz_browser2': replay of the useful entries of a coverage-guided input search (tools/trace/explore.py, docs/research/dynamic_tracing.md section 11)
+# from the cartridge state left by 'browser_pages'; entries picked by tools/trace/fuzzpack.py (greedy set cover over the exact coverage of each replay).  Every segment starts with a
+# power cycle; the random button sequences are plain macro lines (taps of 4 frames + 14 idle, waits, a few held combinations, sometimes a fake-Internet fault).
+# 13 segments, 282 instruction starts that the scenarios before it had not executed.
+# ---- segment 0: search entry e1643, +88 starts, 3859 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+hold SELECT+START 120
+wait 90
+tap B x6
+wait 180
+tap A
+wait 90
+tap A
+wait 90
+tap RIGHT
+wait 30
+wait 60
+tap UP
+wait 30
+tap UP
+wait 60
+tap A
+wait 60
+tap UP
+wait 30
+tap A
+wait 180
+wait 60
+tap START
+wait 30
+tap LEFT
+wait 30
+tap LEFT
+wait 180
+tap LEFT
+wait 90
+tap A
+wait 180
+wait 60
+tap RIGHT
+wait 30
+hold B+UP 40
+wait 180
+tap A
+wait 180
+wait 60
+tap RIGHT
+wait 45
+tap A
+wait 30
+tap A
+wait 90
+tap A
+wait 30
+tap UP
+wait 60
+wait 60
+# ---- segment 1: search entry e1396, +56 starts, 3208 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap B
+wait 60
+tap A x7
+wait 30
+tap B
+wait 180
+tap RIGHT
+wait 60
+tap DOWN
+wait 45
+tap DOWN
+wait 45
+wait 60
+tap DOWN
+wait 90
+wait 60
+tap A
+wait 60
+tap LEFT
+wait 60
+tap A
+wait 90
+tap DOWN
+wait 30
+tap LEFT
+wait 45
+tap LEFT
+wait 180
+tap A
+wait 45
+tap DOWN
+wait 180
+tap LEFT
+wait 60
+wait 60
+tap B
+wait 60
+tap RIGHT
+wait 30
+tap RIGHT
+wait 30
+tap A
+wait 180
+tap UP
+wait 30
+wait 60
+# ---- segment 2: search entry e337, +16 starts, 3104 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+hold SELECT+START 120
+wait 90
+tap B x6
+wait 180
+tap A
+wait 90
+tap A
+wait 90
+tap RIGHT
+wait 30
+wait 60
+tap UP
+wait 30
+tap UP
+wait 60
+tap A
+wait 60
+tap UP
+wait 30
+tap A
+wait 180
+wait 60
+tap START
+wait 30
+tap LEFT
+wait 30
+tap LEFT
+wait 180
+tap LEFT
+wait 90
+tap A
+wait 180
+wait 60
+hold B+DOWN 40
+wait 60
+tap A
+wait 30
+tap LEFT
+wait 30
+wait 60
+# ---- segment 3: search entry e375, +10 starts, 2631 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap SELECT
+wait 180
+tap A
+wait 90
+tap LEFT
+wait 90
+wait 60
+net tcp=refuse
+tap RIGHT
+wait 90
+tap A x2
+wait 60
+tap START
+wait 90
+hold A+B 120
+wait 30
+wait 60
+tap A
+wait 30
+tap LEFT
+wait 60
+tap A
+wait 180
+tap UP
+wait 45
+tap A
+wait 60
+tap A
+wait 180
+tap B
+wait 180
+wait 60
+# ---- segment 4: search entry e1469, +31 starts, 13038 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap A
+wait 60
+tap START
+wait 180
+tap LEFT
+wait 45
+tap LEFT
+wait 60
+tap A x7
+wait 30
+tap B
+wait 60
+tap LEFT x7
+wait 30
+tap START
+wait 90
+tap RIGHT
+wait 60
+wait 60
+tap A
+wait 45
+tap RIGHT
+wait 60
+hold A+B 40
+wait 90
+tap START
+wait 60
+wait 60
+tap LEFT x7
+wait 45
+hold SELECT+DOWN 40
+wait 60
+tap A
+wait 45
+tap A
+wait 30
+tap B
+wait 45
+tap A
+wait 60
+tap LEFT
+wait 180
+tap RIGHT
+wait 180
+tap B
+wait 180
+wait 60
+# ---- segment 5: search entry e567, +30 starts, 13219 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap SELECT
+wait 90
+tap DOWN
+wait 45
+tap UP
+wait 30
+tap A
+wait 60
+tap LEFT
+wait 180
+wait 60
+tap START
+wait 60
+tap A
+wait 90
+tap RIGHT
+wait 180
+tap UP
+wait 60
+wait 60
+tap START x9
+wait 90
+tap UP
+wait 180
+tap A
+wait 60
+tap A
+wait 45
+tap RIGHT
+wait 60
+tap A
+wait 180
+tap UP
+wait 30
+tap LEFT
+wait 60
+tap START
+wait 60
+wait 60
+tap DOWN
+wait 180
+tap RIGHT
+wait 60
+tap A
+wait 180
+tap DOWN
+wait 45
+tap DOWN
+wait 45
+tap B
+wait 90
+wait 60
+# ---- segment 6: search entry e1391, +20 starts, 12069 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap LEFT
+wait 45
+tap A
+wait 45
+tap DOWN
+wait 45
+tap B
+wait 60
+tap B
+wait 30
+tap START
+wait 180
+tap A
+wait 45
+tap A
+wait 90
+tap UP
+wait 30
+wait 60
+tap A
+wait 90
+wait 60
+tap RIGHT
+wait 60
+tap UP
+wait 180
+tap A
+wait 60
+tap DOWN
+wait 180
+tap B
+wait 180
+tap DOWN x6
+wait 45
+tap RIGHT
+wait 45
+wait 60
+# ---- segment 7: search entry e1656, +8 starts, 5060 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap B
+wait 60
+tap A x7
+wait 30
+tap B
+wait 180
+tap RIGHT
+wait 60
+tap DOWN
+wait 45
+tap DOWN
+wait 45
+wait 60
+tap DOWN
+wait 90
+wait 60
+tap A
+wait 60
+tap LEFT
+wait 60
+tap A
+wait 90
+tap DOWN
+wait 30
+tap LEFT
+wait 45
+tap LEFT
+wait 180
+tap A
+wait 45
+tap DOWN
+wait 180
+tap LEFT
+wait 60
+wait 60
+tap B
+wait 180
+wait 60
+tap B
+wait 90
+hold A+START 120
+wait 180
+tap B
+wait 30
+tap RIGHT
+wait 180
+tap RIGHT
+wait 30
+wait 60
+net http_missing=500
+tap A
+wait 90
+tap RIGHT
+wait 90
+tap A
+wait 30
+tap A
+wait 30
+tap SELECT
+wait 180
+hold A+B 120
+wait 180
+tap B x8
+wait 30
+wait 60
+# ---- segment 8: search entry e1414, +4 starts, 3918 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap B
+wait 60
+tap A x7
+wait 30
+tap B
+wait 180
+tap RIGHT
+wait 60
+tap DOWN
+wait 45
+tap DOWN
+wait 45
+wait 60
+tap DOWN
+wait 90
+wait 60
+tap A
+wait 60
+tap LEFT
+wait 60
+tap A
+wait 90
+tap DOWN
+wait 30
+tap LEFT
+wait 45
+tap LEFT
+wait 180
+tap A
+wait 45
+tap DOWN
+wait 180
+tap LEFT
+wait 60
+wait 60
+tap RIGHT x8
+wait 45
+tap A
+wait 45
+tap START
+wait 90
+tap A
+wait 180
+tap LEFT
+wait 60
+hold SELECT+START 40
+wait 60
+tap START
+wait 30
+tap RIGHT
+wait 30
+tap DOWN
+wait 90
+wait 60
+# ---- segment 9: search entry e1483, +9 starts, 12119 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap A
+wait 60
+tap START
+wait 180
+tap LEFT
+wait 45
+tap LEFT
+wait 60
+tap A x7
+wait 30
+tap B
+wait 60
+tap LEFT x7
+wait 30
+tap START
+wait 90
+tap RIGHT
+wait 60
+wait 60
+tap A
+wait 45
+tap RIGHT
+wait 60
+hold A+B 40
+wait 90
+tap START
+wait 60
+wait 60
+tap RIGHT
+wait 90
+tap A x7
+wait 90
+wait 60
+# ---- segment 10: search entry e1453, +8 starts, 12818 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap A
+wait 60
+tap START
+wait 180
+tap LEFT
+wait 45
+tap LEFT
+wait 60
+tap A x7
+wait 30
+tap B
+wait 60
+tap LEFT x7
+wait 30
+tap START
+wait 90
+tap RIGHT
+wait 60
+wait 60
+tap A
+wait 45
+tap RIGHT
+wait 60
+hold A+B 40
+wait 90
+tap START
+wait 60
+wait 60
+tap A
+wait 60
+hold SELECT+RIGHT 120
+wait 45
+tap UP
+wait 30
+tap A
+wait 30
+tap LEFT
+wait 60
+tap DOWN
+wait 30
+tap B x3
+wait 30
+tap UP
+wait 180
+tap START x5
+wait 60
+wait 60
+# ---- segment 11: search entry e395, +1 starts, 11421 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap START
+wait 180
+wait 60
+net tcp=refuse
+tap START
+wait 60
+tap LEFT
+wait 180
+tap B
+wait 180
+tap A
+wait 180
+tap DOWN
+wait 30
+tap A
+wait 180
+tap RIGHT
+wait 90
+tap B
+wait 90
+tap LEFT
+wait 60
+wait 60
+# ---- segment 12: search entry e481, +1 starts, 12661 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+tap DOWN
+wait 90
+tap A
+wait 180
+tap A
+wait 180
+tap A x10
+wait 30
+tap START
+wait 180
+tap A
+wait 30
+tap DOWN
+wait 180
+hold A+B 40
+wait 45
+tap A
+wait 60
+wait 60
+tap UP
+wait 90
+tap LEFT
+wait 60
+tap A
+wait 60
+tap A
+wait 180
+tap UP
+wait 180
+tap UP
+wait 30
+tap A
+wait 90
+hold A+B 120
+wait 30
+tap SELECT
+wait 45
+wait 60

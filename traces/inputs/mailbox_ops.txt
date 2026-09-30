@@ -1,0 +1,86 @@
+# recorded by mgba_trace --macro mailbox_ops.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 DOWN
+2366 -
+2396 DOWN
+2400 -
+2460 A
+2464 -
+3094 shot list
+3094 A
+3098 -
+3188 A
+3192 -
+3304 shot sender
+3304 SELECT
+3308 -
+3444 shot slots
+3444 DOWN
+3448 -
+3538 shot slots_d1
+3538 DOWN
+3542 -
+3572 DOWN
+3576 -
+3606 DOWN
+3610 -
+3640 DOWN
+3644 -
+3774 shot slots_d5
+3774 UP
+3778 -
+3808 UP
+3812 -
+3922 UP
+3926 -
+3956 UP
+3960 -
+3990 UP
+3994 -
+4104 shot slots_top
+4104 A
+4108 -
+4738 shot overwrite_q
+4738 A
+4742 -
+4832 shot overwrite_no
+4832 SELECT
+4836 -
+4926 A
+4930 -
+5560 LEFT
+5564 -
+5634 shot overwrite_yes
+5634 A
+5638 -
+5840 shot overwrite_done
+5840 A
+5844 -
+5973 B
+5977 -
+6094 shot after_save
+6094 A
+6098 -
+6227 shot body
+6227 A
+6231 -
+6861 shot list_again
+6861 DOWN
+6865 -
+6935 A
+6939 -
+7029 RIGHT
+7033 -
+7103 shot bar_reply
+7103 A
+7107 -
+7737 shot reply_blocked
+7737 A
+7741 -
+8371 shot after_blocked
+# last scripted frame: 8371

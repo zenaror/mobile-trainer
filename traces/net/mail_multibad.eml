@@ -1,0 +1,11 @@
+Date: Fri, 09 Feb 2001 17:00:00 +0900
+From: multibad@example.test
+To: 11111111@1111.dion.ne.jp
+Subject: broken multipart
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_Part_3"
+
+------=_Part_3
+Content-Type: text/plain; charset=iso-2022-jp
+
+とじていない

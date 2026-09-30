@@ -1,0 +1,135 @@
+# Scenario 'forced_screens' (FORCED execution, published under traces/forced/, never part of the natural union): unreferenced screens and helper routines of the mail /
+# address-book / graphics code, entered with the harness directive `force BB:AAAA` (docs/research/dynamic_tracing.md, section 11) after a power cycle and the boot to the logo
+# screen (the machine spins in a WRAM stub once the routine returns, so nothing but the forced code runs):
+#   1. 2B:53C3 MailGrid_Screen: the unused "もらったメール" 4x3 grid of the received mails (records of SRAM bank 0: icons, date, name, title), cursor moves, A on a cell.
+#   2. 7F:4C78 the text-canvas demo: 12 lines of the sample sentence "サンプルデータですからね～" on a 1-bit canvas, A redraws it inverted, B returns.
+#   3. 4E:4000 (A = style) the screen-frame style chooser with its wipe animation (the loader 4E:6291 copies the map to SRAM bank 3 $B000).
+#   4. 2D:4195 MailRecord_InstallSampleMails: writes five sample mails into records 0-4 of the mailbox; after a reset the ordinary メールボックス shows them.
+#   5. 2D:44FB Abook_InstallSampleEntries: writes six sample address-book entries; after a reset the アドレスちょう list shows them.
+#   6. 2D:7E60 Sram_ClearAllBanks: zeroes $A000-$BFFF of SRAM banks 0-3; after a reset the boot sees an all-zero cartridge.
+# Starts from the state left by 'mail_inbox' (mails in the mailbox). Screen names = my reading of the screenshots.
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 2B:53C3
+wait 240
+shot grid1
+tap RIGHT
+wait 60
+tap DOWN
+wait 60
+tap RIGHT x2
+wait 60
+tap DOWN
+wait 60
+tap LEFT
+wait 60
+tap UP
+wait 60
+shot grid2
+tap A
+wait 240
+shot grid3
+tap B
+wait 200
+shot grid4
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 7F:4C78
+wait 300
+shot canvas1
+tap A
+wait 200
+shot canvas2
+tap B
+wait 200
+shot canvas3
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 4E:4000 A=03
+wait 300
+shot frame1
+tap A
+wait 100
+shot frame2
+tap B
+wait 100
+shot frame3
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 2D:4195
+wait 100
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A
+waitstable 60 max 600
+shot samples_list
+tap A
+wait 60
+tap A
+waitstable 60 max 600
+shot samples_sender
+tap A
+waitstable 60 max 600
+shot samples_body
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 2D:44FB
+wait 100
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x3
+wait 30
+tap A
+waitstable 60 max 600
+shot abook_samples
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot abook_sample_view
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+force 2D:7E60
+wait 100
+reset
+wait 400
+waitstable 60 max 900
+shot cleared_1
+tap A
+waitstable 60 max 900
+shot cleared_2
+tap A
+waitstable 60 max 900
+shot cleared_3

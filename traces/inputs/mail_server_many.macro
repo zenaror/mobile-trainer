@@ -1,0 +1,93 @@
+# Scenario 'mail_server_many': メールサーバ "かくにんしてから" with FOURTEEN mails on the fake POP3 server (mail_many01..14): the check screen numbers the mails 1..14 (two-digit
+# numbers: 2E:MailServerMgr_DrawMailNumber, the "n / total" status counters of 29:MailServerStatus_FormatNumber_M2), mails are deleted / skipped (every third) and the run is
+# ended at mail 14. Round 1 used five mails. Starts from the state left by 'mail_inbox'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x5
+wait 30
+tap A                        # メールサーバ
+waitstable 60 max 600
+shot server_notice
+tap A                        # OK (first-use notice)
+waitstable 60 max 600
+shot server_menu
+tap A                        # かくにんしてからけす
+waitstable 60 max 600
+shot check_confirm
+tap A                        # はい
+waitstable 60 max 600
+tap A                        # 0でつうしんをはじめる
+waitstable 60 max 900
+wait 1500
+shot check_mail1
+wait 1200
+shot mail1
+tap A
+wait 900
+shot mail2
+tap A
+wait 900
+shot mail3
+tap RIGHT
+wait 30
+tap A
+wait 900
+shot mail4
+tap A
+wait 900
+shot mail5
+tap A
+wait 900
+shot mail6
+tap RIGHT
+wait 30
+tap A
+wait 900
+shot mail7
+tap A
+wait 900
+shot mail8
+tap A
+wait 900
+shot mail9
+tap RIGHT
+wait 30
+tap A
+wait 900
+shot mail10
+tap A
+wait 900
+shot mail11
+tap A
+wait 900
+shot mail12
+tap RIGHT
+wait 30
+tap A
+wait 900
+shot mail13
+tap RIGHT x2
+wait 30
+tap A
+wait 900
+shot mail_end
+tap A
+wait 900
+shot mail15
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot res1
+tap A
+waitstable 60 max 900
+shot res2
+tap A
+waitstable 60 max 900
+shot menu

@@ -1,0 +1,5 @@
+# frame	pc_bank	pc	reg_addr	value	bank_before	bank_after
+# raw MBC-register write sequence (capped); see mbc_writes_<scenario>.tsv for the aggregate
+0	00	0296	0000	00	01	01
+0	00	0299	4000	00	01	01
+0	00	02A6	2100	6B	01	6B

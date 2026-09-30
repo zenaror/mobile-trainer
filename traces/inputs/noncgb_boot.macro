@@ -1,0 +1,8 @@
+# Scenario 'noncgb_boot': the ROM started with register A = $01 instead of $11 (`--boot-a 01`), the value a DMG hands to the cartridge (the CGB boot ROM
+# leaves A = $11). 00:02A6 tests hBootA and, when it is not $11, jumps to NonCgb_ErrorScreen (6B:4C80: "このカートリッジは ゲームボーイカラー せんようです",
+# BGP fade, halts forever). mGBA cannot run a CGB-only ROM in DMG mode (its `gb.model` is overridden by the header), so only the boot register is changed;
+# the screen stays white because the emulated machine is still a CGB (the routine fades BGP, not the CGB palettes). No adapter, no Internet.
+wait 300
+shot after_boot
+wait 400
+shot later

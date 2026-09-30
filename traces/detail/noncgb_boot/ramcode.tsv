@@ -1,0 +1,4 @@
+# region	addr	wram_bank	bytes(3)	count	first_frame	last_frame
+# distinct 3-byte windows seen at executed RAM instruction starts (self-modifying / relocated code shows several rows per addr).
+# at most 12 windows per address are listed (highest count first); the remainder is one row with bytes '*' (count = executions, first_frame = number of distinct windows).
+WRAM	CBF1	0	C31F4D	698	2	699

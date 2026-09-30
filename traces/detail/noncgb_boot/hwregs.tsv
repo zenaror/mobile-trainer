@@ -1,0 +1,13 @@
+# reg	addr	pc_bank	pc	value	count	first_frame	last_frame
+# writes to selected hardware registers, aggregated by (reg, pc, value). value=* for palette data ports.
+rTAC	FF07	00	0280	00	1	0	0
+rLCDC	FF40	00	05E0	11	1	0	0
+rLCDC	FF40	6B	4C96	11	1	0	0
+rLCDC	FF40	6B	4CCB	81	1	1	1
+rVBK	FF4F	6B	4CAB	00	1	0	0
+rSVBK	FF70	00	03AD	01	1	0	0
+rSVBK	FF70	00	03B3	0C	1	0	0
+rIE	FFFF	00	0284	00	1	0	0
+rIE	FFFF	00	05D0	00	1	0	0
+rIE	FFFF	00	05E6	00	1	0	0
+rIE	FFFF	6B	4CD4	01	1	1	1

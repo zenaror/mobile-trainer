@@ -39,6 +39,8 @@
 #include <string.h>
 #include <strings.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 /* ------------------------------------------------------------------------- */
 /* options                                                                    */
@@ -56,6 +58,8 @@ struct Opts {
 	const char* cfgOut;
 	const char* stateOut;
 	const char* macro;
+	int bootA;        /* --boot-a HEX: value of register A when the ROM starts at 0100 (CGB = 11, DMG = 01, ...); -1 = leave the model's value */
+	const char* model;   /* --model dmg|cgb|agb|sgb (default cgb): console model, i.e. the boot register values the ROM sees */
 	const char* recordInput;
 	int frames;
 	int framesGiven;  /* --frames was passed explicitly (also caps a --macro run) */
@@ -66,12 +70,15 @@ struct Opts {
 	long serialLimit;
 	long seqLimit;
 	int adapterLog;
+	int serve;        /* --serve: after the script, become a fork server (tools/trace/explore.py) */
+	const char* known;/* --known FILE: bitmap (128 banks x 2048 bytes) of ROM instruction starts that a fork-server child does not report */
+	int bankObs;      /* --bank-obs: also write bankobs_<scenario>.tsv (WRAM/SRAM bank in force at every executed instruction start) */
 };
 
 /* ------------------------------------------------------------------------- */
 /* input script                                                               */
 
-enum { EV_SET, EV_TAP, EV_SHOT, EV_MARK, EV_UNPLUG, EV_PLUG, EV_NET, EV_RESET, EV_WIPE, EV_SRAM, EV_SRAMFILL, EV_CFG, EV_CFGFILL };
+enum { EV_SET, EV_TAP, EV_SHOT, EV_MARK, EV_UNPLUG, EV_PLUG, EV_NET, EV_RESET, EV_WIPE, EV_SRAM, EV_SRAMFILL, EV_CFG, EV_CFGFILL, EV_FORCE, EV_RAMSET };
 struct InputEv {
 	int frame;
 	int kind;
@@ -128,6 +135,9 @@ static void addEv(struct InputEv ev) {
  *   <frame> cfg OFF=VV           set one byte of the adapter EEPROM image (offset 000-1FF, hex, effective at the next re-creation of the
  *                                adapter = plug/reset); <frame> cfgfill VV fills the whole image
  *   <frame> wipe                 factory reset: save RAM back to 0xFF, adapter configuration back to blank (zero), then a power cycle
+ *   <frame> force BB:AAAA [A=vv] [BC=vvvv] [DE=vvvv] [HL=vvvv]   FORCED EXECUTION (never a natural path): far-call ROM bank BB address AAAA through the ROM's own
+ *                                far-call helper 00:06D1 with a return stub at C000-CFFF (see forceCall); scenarios that use it are 'forced' scenarios
+ *   <frame> ramset AAAA=vv[,vv..] FORCED: write bytes into WRAM/HRAM (hex) - a poke, not something the ROM did
  *   <frame> reset                power cycle: the console restarts from the ROM entry point with the same save RAM; the adapter is
  *                                re-created from its (kept) configuration, so every session is lost; the tracer's data are kept
  * BUTTONS = A B SELECT START UP DOWN LEFT RIGHT joined by '+'.
@@ -189,6 +199,9 @@ static void loadInput(const char* path) {
 			ev.kind = !strncmp(p, "sramfill", 8) ? EV_SRAMFILL : !strncmp(p, "cfgfill", 7) ? EV_CFGFILL : !strncmp(p, "sram ", 5) ? EV_SRAM : EV_CFG;
 			const char* a = strchr(p, ' ');
 			strncpy(ev.text, a ? a + 1 : "", sizeof(ev.text) - 1);
+		} else if (!strncmp(p, "force ", 6) || !strncmp(p, "ramset ", 7)) {
+			ev.kind = !strncmp(p, "force ", 6) ? EV_FORCE : EV_RAMSET;
+			strncpy(ev.text, strchr(p, ' ') + 1, sizeof(ev.text) - 1);
 		} else if (!strcmp(p, "plug")) {
 			ev.kind = EV_PLUG;
 		} else if (!strncmp(p, "net", 3) && isspace((unsigned char) p[3])) {
@@ -235,6 +248,18 @@ struct Cov {
 #define MAX_BANKS 512
 static struct Cov* romCov[MAX_BANKS];       /* [bank][addr & 0x3FFF] */
 static struct Cov* ramCov[R_COUNT];         /* [addr] for non-ROM regions (indexed by 16-bit address) */
+
+/* --bank-obs: which WRAM bank (SVBK, effective 1-7) and SRAM bank (RAMB) were in force when each instruction started.
+   joint = bit (wram*4 + (sram&3)); wram = bit per effective WRAM bank; sram = bit per RAMB value (0-15); sen = bit0 SRAM disabled seen,
+   bit1 SRAM enabled seen.  Dense arrays, only touched when opt.bankObs is set. */
+struct BankObs {
+	uint32_t joint;
+	uint16_t sram;
+	uint8_t wram;
+	uint8_t sen;
+};
+static struct BankObs* romObs[MAX_BANKS];   /* [bank][addr & 0x3FFF] */
+static struct BankObs* ramObs[R_COUNT];     /* [addr] for RAM code (echo folded) */
 
 /* generic aggregating hash table -------------------------------------------- */
 struct Agg {
@@ -602,6 +627,20 @@ static void resolvePending(void) {
 	pendKind = 0;
 }
 
+/* ---- fork-server support (--serve, tools/trace/explore.py): a child reports the ROM instruction starts that are not in `knownBits` */
+static uint8_t* knownBits[MAX_BANKS];
+static int childMode;
+static uint32_t* newList;
+static size_t newN, newCap;
+static void noteChild(int bank, uint16_t pc) {
+	if (!knownBits[bank]) knownBits[bank] = calloc(0x800, 1);
+	unsigned o = pc & 0x3FFF;
+	if (knownBits[bank][o >> 3] & (1u << (o & 7))) return;
+	knownBits[bank][o >> 3] |= (uint8_t) (1u << (o & 7));
+	if (newN == newCap) { newCap = newCap ? newCap * 2 : 1024; newList = realloc(newList, newCap * sizeof(*newList)); }
+	newList[newN++] = (uint32_t) bank << 16 | pc;
+}
+
 static void recordCoverage(uint16_t pc, int bank) {
 	int region;
 	regionOf(pc, &region);
@@ -610,6 +649,7 @@ static void recordCoverage(uint16_t pc, int bank) {
 		if (bank < 0 || bank >= MAX_BANKS) return;
 		if (!romCov[bank]) romCov[bank] = calloc(0x4000, sizeof(struct Cov));
 		cv = &romCov[bank][pc & 0x3FFF];
+		if (childMode) noteChild(bank, pc);
 	} else {
 		if (!ramCov[region]) ramCov[region] = calloc(0x10000, sizeof(struct Cov));
 		uint16_t a = pc;
@@ -631,6 +671,26 @@ static void recordCoverage(uint16_t pc, int bank) {
 	++cv->count;
 }
 
+static void recordBankObs(uint16_t pc, int bank, int wram, int sram, int sen) {
+	int region;
+	regionOf(pc, &region);
+	struct BankObs* o;
+	if (region == R_ROM) {
+		if (bank < 0 || bank >= MAX_BANKS) return;
+		if (!romObs[bank]) romObs[bank] = calloc(0x4000, sizeof(struct BankObs));
+		o = &romObs[bank][pc & 0x3FFF];
+	} else {
+		if (!ramObs[region]) ramObs[region] = calloc(0x10000, sizeof(struct BankObs));
+		uint16_t a = pc;
+		if (region == R_WRAM && a >= 0xE000) a -= 0x2000;
+		o = &ramObs[region][a];
+	}
+	o->joint |= 1u << ((wram & 7) * 4 + (sram & 3));
+	o->wram |= 1u << (wram & 7);
+	o->sram |= (uint16_t) (1u << (sram & 15));
+	o->sen |= sen ? 2 : 1;
+}
+
 static void traceStep(void) {
 	resolvePending();
 	insPc = cpu->pc;
@@ -639,6 +699,8 @@ static void traceStep(void) {
 	irqThisStep = 0;
 	uint16_t spBefore = cpu->sp;
 	uint8_t scBefore = gb->memory.io[GB_REG_SC];
+	int obsW = 0, obsS = 0, obsEn = 0;
+	if (opt.bankObs) { obsW = gb->memory.wramCurrentBank; obsS = gb->memory.sramCurrentBank; obsEn = gb->memory.sramAccess; }
 
 	core->step(core);
 
@@ -648,6 +710,7 @@ static void traceStep(void) {
 	}
 	++insCount;
 	recordCoverage(insPc, insBank);
+	if (opt.bankObs) recordBankObs(insPc, insBank, obsW, obsS, obsEn);
 
 	/* classify for the call graph */
 	switch (insOp) {
@@ -747,8 +810,9 @@ static int stubSockRecv(void* u, unsigned c, void* d, unsigned s, struct mobile_
  *   http_missing=N   only requests that are not served from --web-map get status N (default 404)
  *   http_nolen=1     200 answers carry no Content-Length (HTTP/1.0 close-delimited body)
  *   http_trunc=N     200 answers announce the full Content-Length but only N body bytes are sent before the close
- *   http_redirect=1  mapped pages are answered with "302 Found" + Location: <absolute URL of the mapped index page>
- *   cgi=S/G/A/T/H    answer requests for paths containing ".cgi" or "/utility" with status S, header Gb-Status: G, WWW-Authenticate: GB00 name="A", Content-Type
+ *   http_redirect=K  mapped pages are answered with a redirect: 1 = "302 Found" + Location: <absolute URL of the mapped index page> (legacy), 2/3 = 302 with a host-relative /
+ *                    path-relative Location, 4/5/6 = the same three forms with 301, 7 = 303, 8 = 307 (absolute); http_redirect_count=N limits how many answers are redirected
+ *   cgi=S/G/A/T/H[/L] answer requests for paths containing ".cgi" or "/utility" with status S, header Gb-Status: G, WWW-Authenticate: GB00 name="A", Content-Type
  *                    T (html|cgb = application/x-cgb) and body H (hex); '-' omits a field; cgi=none clears (the ROM's response format is not
  *                    documented: the scenarios probe it, see docs/research/dynamic_tracing.md)
  *   dns=nx|drop|ok   DNS answers NXDOMAIN (rcode 3), no answer at all, or the normal 10.0.x.y address
@@ -776,13 +840,13 @@ static struct FakeSock fsock[MOBILE_MAX_CONNECTIONS];
 
 /* --web-map URLPATH=FILE : HTTP resources served by the fake Internet (raw bytes, e.g. Shift-JIS HTML) */
 struct WebEntry { char path[256]; unsigned char* data; size_t size; int status; char hdr[512]; };
-static struct WebEntry webMap[64];
+static struct WebEntry webMap[256];
 static int webCount;
 static char httpReqPath[512];
 
 static void addWebMap(const char* spec) {
 	const char* eq = strchr(spec, '=');
-	if (!eq || webCount >= 64) { fprintf(stderr, "bad --web-map %s\n", spec); exit(2); }
+	if (!eq || webCount >= 256) { fprintf(stderr, "bad --web-map %s\n", spec); exit(2); }
 	struct WebEntry* w = &webMap[webCount];
 	size_t pl = (size_t) (eq - spec);
 	if (pl >= sizeof(w->path)) exit(2);
@@ -806,11 +870,11 @@ static void addWebMap(const char* spec) {
 /* ---- fake-Internet options (see the header comment above) ---- */
 static struct {
 	char popFail[16], smtpFail[16];
-	int httpStatus, httpMissing, httpNoLen, httpTrunc, httpRedirect;
+	int httpStatus, httpMissing, httpNoLen, httpTrunc, httpRedirect, redirectLeft;
 	char cgi[160];    /* option cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY: answer for ".cgi" and "/utility" requests ('-' = omit), "" = off */
 	int dns;          /* 0 ok, 1 nx, 2 drop */
 	int tcp;          /* 0 ok, 1 refuse, 2 reset */
-} netCfg = {"", "", 0, 404, 0, -1, 0, "", 0, 0};
+} netCfg = {"", "", 0, 404, 0, -1, 0, -1, "", 0, 0};
 
 struct Mail { unsigned char* data; size_t size; int gone; };
 static struct Mail mails[32];
@@ -1033,9 +1097,14 @@ static void fakeTcpLine(struct FakeSock* f) {
 			if (netCfg.cgi[0] && (strstr(httpReqPath, ".cgi") || strstr(httpReqPath, "/utility"))) {
 				/* cgi=STATUS/GBSTATUS/AUTH/CTYPE/HEXBODY (fields separated by '/'; '-' = omit): CTYPE is html|cgb|-;
 				   GBSTATUS becomes "Gb-Status: <n>", AUTH becomes 'WWW-Authenticate: GB00 name="<AUTH>"'; HEXBODY is the body in hex */
-				char spec[160], *fld[5] = {0, 0, 0, 0, 0};
+				char spec[160], *fld[5] = {0, 0, 0, 0, 0}, locbuf[160];
 				snprintf(spec, sizeof(spec), "%s", netCfg.cgi);
 				int nf = 0;
+				locbuf[0] = 0;
+				{   /* everything after the fifth '/' is the value of a Location: header (round 2; it may contain '/') */
+					int slashes = 0;
+					for (char* q = spec; *q; ++q) if (*q == '/' && ++slashes == 5) { snprintf(locbuf, sizeof(locbuf), "%s", q + 1); *q = 0; break; }
+				}
 				for (char* q = strtok(spec, "/"); q && nf < 5; q = strtok(NULL, "/")) fld[nf++] = q;
 				for (int i = nf; i < 5; ++i) fld[i] = "-";
 				char hdr[600];
@@ -1044,6 +1113,7 @@ static void fakeTcpLine(struct FakeSock* f) {
 				if (strcmp(fld[2], "-")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "WWW-Authenticate: GB00 name=\"%s\"\r\n", fld[2]);
 				if (!strcmp(fld[3], "cgb")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Type: application/x-cgb\r\n");
 				else if (!strcmp(fld[3], "html")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Content-Type: text/html\r\n");
+				if (locbuf[0] && strcmp(locbuf, "-")) n += snprintf(hdr + n, sizeof(hdr) - (size_t) n, "Location: %s\r\n", locbuf);
 				unsigned char body[64];
 				size_t bl = 0;
 				if (strcmp(fld[4], "-")) for (const char* h = fld[4]; h[0] && h[1] && bl < sizeof(body); h += 2) { char t[3] = {h[0], h[1], 0}; body[bl++] = (unsigned char) strtol(t, NULL, 16); }
@@ -1056,9 +1126,18 @@ static void fakeTcpLine(struct FakeSock* f) {
 				snprintf(hdr, sizeof(hdr), "HTTP/1.0 %d Simulated\r\nContent-Length: 0\r\n\r\n", netCfg.httpStatus);
 				fqueue(f, hdr);
 				netlog("http %d (http_status) for %s", netCfg.httpStatus, httpReqPath);
-			} else if (hit && netCfg.httpRedirect) {
-				fqueue(f, "HTTP/1.0 302 Found\r\nLocation: http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html\r\nContent-Length: 0\r\n\r\n");
-				netlog("http 302 for %s", httpReqPath);
+			} else if (hit && netCfg.httpRedirect && netCfg.redirectLeft != 0) {
+				/* http_redirect=K: 1 302 + absolute Location (legacy), 2 302 + host-relative, 3 302 + path-relative; 4/5/6 the same with 301; 7 = 303 and 8 = 307 with an absolute Location.
+				   http_redirect_count=N limits the number of redirected answers (default: every mapped page) */
+				static const int st[9] = {0, 302, 302, 302, 301, 301, 301, 303, 307};
+				static const int form[9] = {0, 0, 1, 2, 0, 1, 2, 0, 0};
+				int k = netCfg.httpRedirect < 1 || netCfg.httpRedirect > 8 ? 1 : netCfg.httpRedirect;
+				const char* loc = form[k] == 0 ? "http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html" : form[k] == 1 ? "/01/CGB-B9AJ/index.html" : "index.html";
+				char rh[256];
+				snprintf(rh, sizeof(rh), "HTTP/1.0 %d Found\r\nLocation: %s\r\nContent-Length: 0\r\n\r\n", st[k], loc);
+				fqueue(f, rh);
+				if (netCfg.redirectLeft > 0) --netCfg.redirectLeft;
+				netlog("http %d for %s (Location %s)", st[k], httpReqPath, loc);
 			} else if (hit) {
 				char hdr[1024];
 				const char* ctype = strstr(httpReqPath, ".bmp") ? "image/bmp" : "text/html";
@@ -1174,7 +1253,7 @@ static int fakeSockRecv(void* u, unsigned c, void* d, unsigned sz, struct mobile
 }
 
 static void netSetOpt(const char* kv) {
-	char k[48], v[48];
+	char k[48], v[200];
 	const char* eq = strchr(kv, '=');
 	if (!eq || (size_t) (eq - kv) >= sizeof(k) || strlen(eq + 1) >= sizeof(v)) { fprintf(stderr, "bad net option '%s' (KEY=VALUE)\n", kv); exit(2); }
 	memcpy(k, kv, (size_t) (eq - kv));
@@ -1187,6 +1266,7 @@ static void netSetOpt(const char* kv) {
 	else if (!strcmp(k, "http_nolen")) netCfg.httpNoLen = atoi(v);
 	else if (!strcmp(k, "http_trunc")) netCfg.httpTrunc = atoi(v);
 	else if (!strcmp(k, "http_redirect")) netCfg.httpRedirect = atoi(v);
+	else if (!strcmp(k, "http_redirect_count")) netCfg.redirectLeft = atoi(v);
 	else if (!strcmp(k, "latency")) netLatency = atoi(v);
 	else if (!strcmp(k, "trace_recv")) netTraceRecv = atoi(v);
 	else if (!strcmp(k, "cgi")) snprintf(netCfg.cgi, sizeof(netCfg.cgi), "%.159s", !strcmp(v, "none") ? "" : v);
@@ -1258,6 +1338,33 @@ static void writeCoverage(void) {
 			if (!c->count) continue;
 			fprintf(f, "%s\t%04X\t%u\t%u\t%02X%02X%02X\t%u\t%d\n", regionName[r], a, c->count, c->firstFrame,
 			        c->first[0], c->first[1], c->first[2], c->changed, c->wbank);
+		}
+	}
+	fclose(f);
+}
+
+static void writeBankObs(void) {
+	FILE* f = openOut("bankobs", "tsv");
+	fprintf(f, "# bank\taddr\twram_mask\tsram_mask\tsram_enabled\tjoint_mask\n");
+	fprintf(f, "# bank = ROM bank mapped at the instruction start (2 hex digits) or WRAM/HRAM/...; addr = CPU address of an executed instruction start\n");
+	fprintf(f, "# wram_mask (hex, bit n = effective WRAM bank n, SVBK 0 counts as 1) and sram_mask (hex, bit n = RAMB value n) list every bank seen in force\n");
+	fprintf(f, "# when the instruction started; sram_enabled: 1 = only SRAM-disabled seen, 2 = only enabled, 3 = both (value of the RAM-enable state);\n");
+	fprintf(f, "# joint_mask (hex) bit (wram*4 + (sram&3)) = that (wram, sram) pair was in force together.  Only written with --bank-obs.\n");
+	for (int b = 0; b < MAX_BANKS; ++b) {
+		if (!romObs[b]) continue;
+		for (int a = 0; a < 0x4000; ++a) {
+			struct BankObs* o = &romObs[b][a];
+			if (!o->joint) continue;
+			uint16_t addr = (b == 0 ? 0 : 0x4000) + a;
+			fprintf(f, "%02X\t%04X\t%02X\t%04X\t%u\t%08X\n", b, addr, o->wram, o->sram, o->sen, o->joint);
+		}
+	}
+	for (int r = R_VRAM; r < R_COUNT; ++r) {
+		if (!ramObs[r]) continue;
+		for (int a = 0; a < 0x10000; ++a) {
+			struct BankObs* o = &ramObs[r][a];
+			if (!o->joint) continue;
+			fprintf(f, "%s\t%04X\t%02X\t%04X\t%u\t%08X\n", regionName[r], a, o->wram, o->sram, o->sen, o->joint);
 		}
 	}
 	fclose(f);
@@ -1522,6 +1629,7 @@ static void plugMobile(void) {
 static void resetConsole(void) {
 	extern int shadowN;
 	core->reset(core);
+	if (opt.bootA >= 0) cpu->a = (uint8_t) opt.bootA;
 	shadowN = 0;
 	alog("[f%d] HARNESS console reset (power cycle)\n", curFrame);
 }
@@ -1543,6 +1651,54 @@ static void stateDirective(int kind, const char* arg) {
 		mobileDrv.m.config[a] = (uint8_t) v;
 	}
 	alog("[f%d] HARNESS state directive %d %s\n", curFrame, kind, arg);
+}
+
+/* macro/frame directive `force BB:AAAA [A=..] [BC=..] [DE=..] [HL=..]`: FORCED execution of code that no natural path reaches.  At the current
+   instruction boundary the ROM's far-call helper 00:06D1 is entered as if `call $06D1 ; dw AAAA ; db BB` stood in WRAM at $CE00: the three
+   inline bytes and a `jr $` (endless loop) are written there and $CE00 is pushed as the return address, so the helper selects the bank,
+   calls the routine (registers as given) and, when it returns, the machine spins in the stub (interrupts keep running, the screen stays):
+   the interrupted code is never resumed, so nothing but the forced routine and what it calls is executed.  Coverage of such runs must never be mixed with the natural union (run_trace.py writes 'forced' scenarios to traces/forced/). */
+static void forceCall(const char* arg) {
+	unsigned bank, addr;
+	int n = 0;
+	if (sscanf(arg, "%x:%x%n", &bank, &addr, &n) < 2) { fprintf(stderr, "force BB:AAAA [A=..] [BC=..] [DE=..] [HL=..]\n"); exit(2); }
+	uint16_t oldpc = cpu->pc;
+	const uint8_t stub[5] = {(uint8_t) addr, (uint8_t) (addr >> 8), (uint8_t) bank, 0x18, 0xFE};   /* after the routine returns: `jr $` (the run stays frozen, no chaos) */
+	(void) oldpc;
+	for (int i = 0; i < 5; ++i) cpu->memory.store8(cpu, (uint16_t) (0xCE00 + i), (int8_t) stub[i]);
+	const char* p = arg + n;
+	while (*p) {
+		while (*p == ' ') ++p;
+		unsigned v;
+		int k = 0;
+		if (!strncmp(p, "A=", 2) && sscanf(p + 2, "%x%n", &v, &k) == 1) cpu->a = (uint8_t) v;
+		else if (!strncmp(p, "BC=", 3) && sscanf(p + 3, "%x%n", &v, &k) == 1) cpu->bc = (uint16_t) v;
+		else if (!strncmp(p, "DE=", 3) && sscanf(p + 3, "%x%n", &v, &k) == 1) cpu->de = (uint16_t) v;
+		else if (!strncmp(p, "HL=", 3) && sscanf(p + 3, "%x%n", &v, &k) == 1) cpu->hl = (uint16_t) v;
+		else if (*p) { fprintf(stderr, "force: bad register spec '%s'\n", p); exit(2); }
+		p += (*p == 'A' ? 2 : 3) + k;
+	}
+	uint16_t sp = (uint16_t) (cpu->sp - 2);
+	cpu->memory.store8(cpu, sp, 0x00);
+	cpu->memory.store8(cpu, (uint16_t) (sp + 1), (int8_t) 0xCE);
+	cpu->sp = sp;
+	cpu->pc = 0x06D1;
+	cpu->memory.setActiveRegion(cpu, cpu->pc);
+	alog("[f%d] HARNESS FORCED far call %02X:%04X (interrupted pc %04X)\n", curFrame, bank, addr, oldpc);
+}
+
+/* macro/frame directive `ramset AAAA=vv[,vv,..]` (hex): FORCED poke of WRAM/HRAM bytes */
+static void ramSet(const char* arg) {
+	unsigned a, v;
+	int n = 0;
+	if (sscanf(arg, "%x=%x%n", &a, &v, &n) < 2 || a < 0xC000) { fprintf(stderr, "ramset AAAA=vv[,vv..] (C000-FFFF)\n"); exit(2); }
+	cpu->memory.store8(cpu, (uint16_t) a, (int8_t) v);
+	const char* p = arg + n;
+	while (*p == ',' && sscanf(p + 1, "%x%n", &v, &n) == 1) {
+		cpu->memory.store8(cpu, (uint16_t) ++a, (int8_t) v);
+		p += 1 + n;
+	}
+	alog("[f%d] HARNESS FORCED ramset %s\n", curFrame, arg);
 }
 
 /* macro/frame directive `wipe`: a fresh cartridge and a blank adapter (SRAM 0xFF, adapter EEPROM image zero), then a power cycle */
@@ -1696,6 +1852,9 @@ static void runMacro(const char* path) {
 			int k = !strcmp(cmd, "sram") ? EV_SRAM : !strcmp(cmd, "sramfill") ? EV_SRAMFILL : !strcmp(cmd, "cfg") ? EV_CFG : EV_CFGFILL;
 			stateDirective(k, p);
 			if (recFile) fprintf(recFile, "%d %s %s\n", curFrame, cmd, p);
+		} else if (!strcmp(cmd, "force") || !strcmp(cmd, "ramset")) {
+			if (!strcmp(cmd, "force")) forceCall(p); else ramSet(p);
+			if (recFile) fprintf(recFile, "%d %s %s\n", curFrame, cmd, p);
 		} else if (!strcmp(cmd, "wipe")) {
 			wipeConsole();
 			if (recFile) fprintf(recFile, "%d wipe\n", curFrame);
@@ -1741,6 +1900,86 @@ static void runMacro(const char* path) {
 	if (recFile) fprintf(recFile, "# last scripted frame: %d\n", curFrame);
 }
 
+/* ------------------------------------------------------------------------- */
+/* fork server (--serve): the process that has just replayed a prefix script answers JOB lines on stdin, forking one child per job;
+   the child runs a suffix macro from exactly that machine state and writes the ROM instruction starts that are not in the known
+   bitmap (--known FILE / KNOWN FILE command) to a result file.  Used by tools/trace/explore.py (coverage-guided input search).
+   Protocol (stdin -> stdout):  KNOWN <file> -> OK | JOB <max_frames> <macro> <result> [<record>] -> DONE <result> | QUIT.
+   The result file: "frames N", "lcd HEX", "bg HEX" (hash of both BG tile-map pages), then one "BB AAAA" line per new start. */
+static uint64_t bgHash(void) {
+	uint64_t hh = 1469598103934665603ull;
+	if (gb->video.vram) {
+		hh ^= fnv(gb->video.vram + 0x1800, 0x800); hh *= 1099511628211ull;
+		hh ^= fnv(gb->video.vram + 0x3800, 0x800); hh *= 1099511628211ull;
+	}
+	return hh;
+}
+
+static void loadKnown(const char* path) {
+	FILE* f = fopen(path, "rb");
+	if (!f) return;
+	uint8_t buf[0x800];
+	for (int b = 0; b < 128; ++b) {
+		if (fread(buf, 1, sizeof(buf), f) != sizeof(buf)) break;
+		if (!knownBits[b]) knownBits[b] = calloc(0x800, 1);
+		for (int i = 0; i < 0x800; ++i) knownBits[b][i] |= buf[i];
+	}
+	fclose(f);
+}
+
+static void serveLoop(void) {
+	char line[2048];
+	/* everything the prefix run executed is known to the children */
+	for (int b = 0; b < MAX_BANKS; ++b) {
+		if (!romCov[b]) continue;
+		if (!knownBits[b]) knownBits[b] = calloc(0x800, 1);
+		for (int a = 0; a < 0x4000; ++a) if (romCov[b][a].count) knownBits[b][a >> 3] |= (uint8_t) (1u << (a & 7));
+	}
+	if (opt.known) loadKnown(opt.known);
+	printf("READY %d\n", curFrame);
+	fflush(stdout);
+	while (fgets(line, sizeof(line), stdin)) {
+		if (!strncmp(line, "QUIT", 4)) break;
+		if (!strncmp(line, "KNOWN ", 6)) {
+			line[strcspn(line, "\r\n")] = 0;
+			loadKnown(line + 6);
+			printf("OK\n");
+			fflush(stdout);
+			continue;
+		}
+		if (strncmp(line, "JOB ", 4)) continue;
+		int maxf = 0;
+		char mac[900], res[900], rec[900];
+		rec[0] = 0;
+		if (sscanf(line + 4, "%d %899s %899s %899s", &maxf, mac, res, rec) < 3) continue;
+		fflush(stdout);
+		pid_t pid = fork();
+		if (pid == 0) {
+			childMode = 1;
+			newN = 0;
+			opt.frames = curFrame + maxf;
+			opt.framesGiven = 1;
+			if (recFile) { fclose(recFile); recFile = NULL; }
+			if (rec[0]) recFile = fopen(rec, "w");
+			int start = curFrame;
+			runMacro(mac);
+			FILE* rf = fopen(res, "w");
+			if (rf) {
+				fprintf(rf, "frames %d\nlcd %016llx\nbg %016llx\n", curFrame - start, (unsigned long long) curHash, (unsigned long long) bgHash());
+				for (size_t i = 0; i < newN; ++i) fprintf(rf, "%02X %04X\n", newList[i] >> 16, newList[i] & 0xFFFF);
+				fclose(rf);
+			}
+			if (recFile) fclose(recFile);
+			_exit(0);
+		}
+		int st;
+		waitpid(pid, &st, 0);
+		printf("DONE %s\n", res);
+		fflush(stdout);
+	}
+	_exit(0);
+}
+
 static void usage(void) {
 	fprintf(stderr,
 	        "usage: mgba_trace --rom ROM --scenario NAME --outdir DIR --frames N [options]\n"
@@ -1762,12 +2001,14 @@ static void usage(void) {
 	        "  --mail FILE         put FILE (an RFC 822 message) into the fake POP3 mailbox (repeatable)\n"
 	        "  --net-opt KEY=VALUE fake-Internet option, see the comment above the fake net (repeatable)\n"
 	        "  --serial-limit N    max raw serial events logged (default 3000)\n"
-	        "  --seq-limit N       max raw MBC/IRQ events logged (default 600)\n");
+	        "  --seq-limit N       max raw MBC/IRQ events logged (default 600)\n"
+	        "  --bank-obs          also write bankobs_<scenario>.tsv: WRAM (SVBK) / SRAM (RAMB) banks in force at every executed instruction\n");
 	exit(2);
 }
 
 int main(int argc, char** argv) {
 	opt.sramFill = 0xFF;
+	opt.bootA = -1;
 	opt.serialLimit = 3000;
 	opt.seqLimit = 600;
 	opt.frames = 600;
@@ -1807,6 +2048,11 @@ int main(int argc, char** argv) {
 		else if (ARG("--mobile-config-out")) opt.cfgOut = argv[++i];
 		else if (ARG("--serial-limit")) opt.serialLimit = atol(argv[++i]);
 		else if (ARG("--seq-limit")) opt.seqLimit = atol(argv[++i]);
+		else if (!strcmp(a, "--bank-obs")) opt.bankObs = 1;
+		else if (!strcmp(a, "--serve")) opt.serve = 1;
+		else if (ARG("--boot-a")) opt.bootA = (int) strtol(argv[++i], NULL, 16);
+		else if (ARG("--model")) opt.model = !strcasecmp(argv[i + 1], "dmg") ? "DMG" : !strcasecmp(argv[i + 1], "agb") ? "AGB" : !strcasecmp(argv[i + 1], "sgb") ? "SGB" : "CGB", ++i;
+		else if (ARG("--known")) opt.known = argv[++i];
 		else if (ARG("--mobile")) opt.mobile = !strcmp(argv[++i], "on");
 		else if (ARG("--mobile-at")) { opt.mobile = 1; opt.mobileAt = atoi(argv[++i]); }
 		else if (ARG("--net")) { const char* nm = argv[++i]; opt.netMode = !strcmp(nm, "real") ? 1 : !strcmp(nm, "fake") ? 2 : 0; }
@@ -1833,7 +2079,8 @@ int main(int argc, char** argv) {
 	mCoreInitConfig(core, NULL);
 	/* deterministic defaults; nothing is read from the user's config dir */
 	mCoreConfigSetDefaultValue(&core->config, "idleOptimization", "ignore");
-	mCoreConfigSetDefaultValue(&core->config, "gb.model", "CGB");
+	mCoreConfigSetDefaultValue(&core->config, "gb.model", opt.model ? opt.model : "CGB");
+	if (opt.model) mCoreConfigSetDefaultValue(&core->config, "cgb.model", opt.model);
 	mCoreConfigSetDefaultIntValue(&core->config, "useBios", 0);
 	mCoreConfigSetDefaultIntValue(&core->config, "skipBios", 1);
 	mCoreConfigSetDefaultIntValue(&core->config, "sgb.borders", 0);
@@ -1866,6 +2113,7 @@ int main(int argc, char** argv) {
 
 	gb = core->board;
 	cpu = core->cpu;
+	if (opt.bootA >= 0) cpu->a = (uint8_t) opt.bootA;
 	for (int i = 0; i < sramPokeCount; ++i) {
 		size_t off = (size_t) sramPokes[i].bank * 0x2000 + (sramPokes[i].addr - 0xA000);
 		if (gb->memory.sram && off < gb->sramSize) gb->memory.sram[off] = sramPokes[i].val;
@@ -1909,6 +2157,8 @@ int main(int argc, char** argv) {
 				case EV_RESET: resetConsole(); break;
 				case EV_WIPE: wipeConsole(); break;
 				case EV_SRAM: case EV_SRAMFILL: case EV_CFG: case EV_CFGFILL: stateDirective(e->kind, e->text); break;
+				case EV_FORCE: forceCall(e->text); break;
+				case EV_RAMSET: ramSet(e->text); break;
 				case EV_UNPLUG: unplugMobile(); break;
 				case EV_PLUG: plugMobile(); break;
 				case EV_NET: netSetOpt(e->text); break;
@@ -1923,6 +2173,7 @@ int main(int argc, char** argv) {
 			if (e->kind == EV_SHOT) shot(e->text, e->frame);
 		}
 	}
+	if (opt.serve) serveLoop();
 	int framesRun = curFrame;
 	resolvePending();
 
@@ -1930,6 +2181,7 @@ int main(int argc, char** argv) {
 	if (recFile) fclose(recFile);
 	flushSerial();
 	writeCoverage();
+	if (opt.bankObs) writeBankObs();
 	writeAgg();
 	writeDataAccess();
 	writeRamVariants();

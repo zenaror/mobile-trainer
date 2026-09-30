@@ -1,0 +1,449 @@
+# Scenario 'settings_redirect': モバイルせってい -> パスワードの変更 against a CGI server that answers the POST with a redirect (`net cgi=STATUS/-/-/-/-/LOCATION`, the
+# sixth field is a Location: header added in round 2). Attempts (power cycle each): 302 with an absolute non-CGI URL, 301 with a host-relative "/cgb/other", 302 with the
+# relative "other.txt", 302 with "again.cgi" (the redirect target is a CGI again: a redirect chain until the retry limit), 303 and 307 with an absolute URL. The password
+# flow follows the redirect with 67:PasswordChange_FollowRedirect / HttpRedirect_ResolveUrl (absolute, host-relative, path-relative joins, NormalizePath).
+# Round 1 ('settings_cgi') never sent a Location header. Starts from the state left by 'tutorial_profile' (password aZ01). Screen names = my reading of the screenshots.
+# --- attempt r302abs: cgi=302/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=302/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r302abs_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt r301host: cgi=301/-/-/-/-//cgb/other
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=301/-/-/-/-//cgb/other
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r301host_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt r302rel: cgi=302/-/-/-/-/other.txt
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=302/-/-/-/-/other.txt
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r302rel_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt r302cgi: cgi=302/-/-/-/-/again.cgi
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=302/-/-/-/-/again.cgi
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r302cgi_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt r303: cgi=303/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=303/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r303_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu
+# --- attempt r307: cgi=307/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A
+waitstable 60 max 600
+net cgi=307/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+# --- 1. change password
+tap A
+waitstable 60 max 600
+shot pw_change_explain
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot pw_current_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_keyboard
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_new_confirm
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x2
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot pw_change_confirm_dial
+tap A
+waitstable 60 max 900
+wait 900
+shot r307_pw_change
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 90
+shot cgb_empty_menu

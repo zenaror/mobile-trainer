@@ -1,0 +1,57 @@
+# recorded by mgba_trace --macro forced_dead.macro (resolved absolute frames)
+0 reset
+460 force 23:58C5 HL=0007
+700 shot f_23_58C5
+700 reset
+1160 force 23:5FA3 A=FF HL=0005
+1400 shot f_23_5FA3
+1400 reset
+1860 force 23:669A HL=0009
+2100 shot f_23_669A
+2100 reset
+2560 force 22:48CD
+2800 shot f_22_48CD
+2800 reset
+3260 force 23:47BC
+3500 shot f_23_47BC
+3500 reset
+3960 force 2C:741C
+4200 shot f_2C_741C
+4200 A
+4204 -
+4334 shot f_2C_741C_b
+4334 RIGHT
+4338 -
+4408 A
+4412 -
+4542 reset
+5002 force 2B:6CF5
+5242 shot f_2B_6CF5
+5242 reset
+5702 force 67:424A
+5942 shot f_67_424A
+5942 reset
+6402 force 29:5117
+6642 shot f_29_5117
+6642 reset
+7102 force 29:5145
+7342 shot f_29_5145
+7342 reset
+7802 force 29:514F A=01
+8042 shot f_29_514F
+8042 reset
+8502 force 29:520D
+8742 shot f_29_520D
+8742 reset
+9202 force 29:523F
+9442 shot f_29_523F
+9442 reset
+9902 force 29:529F
+10142 shot f_29_529F
+10142 reset
+10602 force 29:52ED
+10842 shot f_29_52ED
+10842 reset
+11302 force 29:5335
+11542 shot f_29_5335
+# last scripted frame: 11542

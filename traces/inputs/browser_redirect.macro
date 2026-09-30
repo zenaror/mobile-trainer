@@ -1,0 +1,146 @@
+# Scenario 'browser_redirect': the browser meets HTTP redirects. `net http_redirect=K` (harness option, mgba_trace.c) answers the next mapped page request with
+# 302/301 and a Location that is absolute (K=1, 4), host-relative "/01/CGB-B9AJ/index.html" (2, 5) or path-relative "index.html" (3, 6), 303 (7) or 307 (8);
+# `net http_redirect_count=1` limits it to one answer, so the ROM's retry (54:Http_Poll: error $32 with H=3, L=1/2 -> Url_ResolveLocation, at most three retries) fetches
+# the target normally. Round 1 only used the absolute form (and it looked as if a 302 was never followed: it is, see the screenshots: the round-2 site's index page comes
+# back for every 301/302 form). 303 ends in the error 32-303, 307 is followed like 302. The last visit redirects without limit: after the third retry the
+# ROM gives up. Site: traces/web/r2 (web=r2). Starts from the state left by 'browser_bookmarks'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot r2_index
+net http_redirect=1
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir1
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=2
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir2
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=3
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir3
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=4
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir4
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=5
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir5
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=6
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir6
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=7
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir7
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=8
+net http_redirect_count=1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir8
+tap B
+wait 160
+net http_redirect=0
+net http_redirect=1
+net http_redirect_count=-1
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot redir_loop
+tap B
+wait 160
+net http_redirect=0
+shot end

@@ -1,0 +1,199 @@
+# recorded by mgba_trace --macro state_full.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2362 DOWN
+2366 -
+2396 DOWN
+2400 -
+2460 A
+2464 -
+3094 shot list
+3094 A
+3098 -
+3188 A
+3192 -
+3304 shot sender0
+3304 SELECT
+3308 -
+3442 shot slots0
+3442 A
+3446 -
+3639 shot saved0_1
+3639 A
+3643 -
+3772 B
+3776 -
+3892 shot saved0_3
+3892 A
+3896 -
+4025 A
+4029 -
+4659 shot back0
+4659 DOWN
+4663 -
+4733 A
+4737 -
+4827 A
+4831 -
+4944 shot sender1
+4944 SELECT
+4948 -
+5082 shot slots1
+5082 A
+5086 -
+5716 shot saved1_1
+5716 A
+5720 -
+5810 B
+5814 -
+5933 shot saved1_3
+5933 A
+5937 -
+6066 A
+6070 -
+6700 shot back1
+6700 DOWN
+6704 -
+6774 A
+6778 -
+6868 A
+6872 -
+6986 shot sender2
+6986 SELECT
+6990 -
+7124 shot slots2
+7124 A
+7128 -
+7758 shot saved2_1
+7758 A
+7762 -
+7852 B
+7856 -
+7969 shot saved2_3
+7969 A
+7973 -
+8102 A
+8106 -
+8736 shot back2
+8736 DOWN
+8740 -
+8810 A
+8814 -
+8904 A
+8908 -
+9022 shot sender3
+9022 SELECT
+9026 -
+9160 shot slots3
+9160 A
+9164 -
+9794 shot saved3_1
+9794 A
+9798 -
+9888 B
+9892 -
+10007 shot saved3_3
+10007 A
+10011 -
+10140 A
+10144 -
+10774 shot back3
+10774 DOWN
+10778 -
+10848 A
+10852 -
+10942 A
+10946 -
+11060 shot sender4
+11060 SELECT
+11064 -
+11198 shot slots4
+11198 A
+11202 -
+11832 shot saved4_1
+11832 A
+11836 -
+11926 B
+11930 -
+12044 shot saved4_3
+12044 A
+12048 -
+12177 A
+12181 -
+12811 shot back4
+12811 DOWN
+12815 -
+12885 A
+12889 -
+12979 A
+12983 -
+13097 shot sender5
+13097 SELECT
+13101 -
+13235 shot slots5
+13235 A
+13239 -
+13869 shot saved5_1
+13869 A
+13873 -
+13963 B
+13967 -
+14080 shot saved5_3
+14080 A
+14084 -
+14213 A
+14217 -
+14847 shot back5
+14847 DOWN
+14851 -
+14921 A
+14925 -
+15015 A
+15019 -
+15133 shot sender6
+15133 SELECT
+15137 -
+15271 shot slots6
+15271 A
+15275 -
+15905 shot saved6_1
+15905 A
+15909 -
+15999 B
+16003 -
+16117 shot saved6_3
+16117 A
+16121 -
+16250 A
+16254 -
+16884 shot back6
+16884 DOWN
+16888 -
+16958 A
+16962 -
+17052 A
+17056 -
+17170 shot sender7
+17170 SELECT
+17174 -
+17308 shot slots7
+17308 A
+17312 -
+17942 shot saved7_1
+17942 A
+17946 -
+18036 B
+18040 -
+18155 shot saved7_3
+18155 A
+18159 -
+18288 A
+18292 -
+18922 shot back7
+18922 DOWN
+18926 -
+# last scripted frame: 18996

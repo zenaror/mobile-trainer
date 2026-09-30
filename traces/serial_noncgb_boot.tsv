@@ -1,0 +1,2 @@
+# frame	pc_bank	pc	reg	kind	value	repeat
+# kind: W=CPU write, R=CPU read (consecutive identical reads from one pc are folded into repeat), X=transfer completed (value = SB after the transfer, pc = instruction during which it completed). pc_bank is a ROM bank, WRAM/HRAM, or - (n/a)

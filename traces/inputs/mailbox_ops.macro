@@ -1,0 +1,80 @@
+# Scenario 'mailbox_ops': メールボックス operations that 'mail_inbox' skipped. Sender page of mail 1 -> SELECT (save the sender): the slot list of the address book
+# is walked with DOWN x5 / UP x5 (cursor sprites and name highlight moves, 2A:SaveSenderAddr_*), slot 1 is already used, so A asks "メールアドレスを うわがきします
+# よろしいですか?": いいえ (default) first, then はい (LEFT+A). Then the reply icon of mail 2 is pressed while the outbox still holds the reply saved by
+# 'mail_inbox' ([A000] != 0): the dialog "おくってないメールがあります。へんじをかくことが できません。" (25:44AC). Starts from the state left by 'mail_inbox'.
+# Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x2
+wait 30
+tap A                        # メールボックス
+waitstable 60 max 600
+shot list
+# --- sender page of mail 1 -> SELECT (save sender) -> slot list with cursor moves
+tap A
+wait 60
+tap A                        # read
+waitstable 60 max 600
+shot sender
+tap SELECT
+waitstable 60 max 600
+shot slots
+tap DOWN
+wait 60
+shot slots_d1
+tap DOWN x4
+wait 100
+shot slots_d5
+tap UP x2
+wait 80
+tap UP x3
+wait 80
+shot slots_top
+tap A                        # slot 1 is used (the sender saved by mail_inbox): overwrite question
+waitstable 60 max 600
+shot overwrite_q
+tap A                        # いいえ (default)
+waitstable 60 max 600
+shot overwrite_no
+tap SELECT
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+shot overwrite_yes
+tap A                        # はい
+waitstable 60 max 600
+shot overwrite_done
+tap A
+waitstable 60 max 600
+tap B
+waitstable 60 max 600
+shot after_save
+tap A                        # body page
+waitstable 60 max 600
+shot body
+tap A                        # back to the list
+waitstable 60 max 600
+shot list_again
+# --- reply while the outbox still holds a mail: "おくってないメールがあります。へんじをかくことが できません。"
+tap DOWN
+wait 40
+tap A
+wait 60
+tap RIGHT
+wait 40
+shot bar_reply
+tap A
+waitstable 60 max 600
+shot reply_blocked
+tap A
+waitstable 60 max 600
+shot after_blocked

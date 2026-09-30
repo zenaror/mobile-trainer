@@ -1,0 +1,4 @@
+# recorded by mgba_trace --macro noncgb_boot.macro (resolved absolute frames)
+300 shot after_boot
+700 shot later
+# last scripted frame: 700

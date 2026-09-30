@@ -1,0 +1,475 @@
+# Scenario 'browser_r2': ホームページ against the round-2 synthetic site (traces/web/r2, web=r2), written to reach renderer paths that the round-1 pages
+# never used: title longer than 19 bytes (cut with "…"), <hr width=N / N%>, <div align=..>, <br clear=..>, entities (&lt; &gt; &amp; &quot; &nbsp; and broken ones),
+# comments (including unterminated ones), nested <ul>/<ol> with more than nine items, <pre> with CR LF, <meta r_code=ng d_code=..> (page result error), links
+# with the schemes ftp/mailto and paths ../ ./ /, and 27 one-image pages (image widths 1-15 as plain / <center> / <div align=right> / align=left|right|top|middle|bottom,
+# each page holds ONE image: two different images on one page crashed the ROM in the harness, the PC runs into the zero bank 03, see docs/research/dynamic_tracing.md
+# section 11), plus two pages larger than the renderer's limit ("ホームページがおおきすぎて すべてひょうじ できませんでした"). B on the first page shows
+# "もどれるページが ありません". Keep-alive note: the adapter session times out (libmobile `End session (timeout)`) when the ROM is not polling for ~240 frames, so key bursts are
+# at most 6 taps followed by an idle gap. One connection lasts less than the 9:30 connection-time notice. Starts from the state left by 'browser_bookmarks'.
+# Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot r2_index
+tap B
+wait 200
+shot no_previous_page
+tap A
+wait 200
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot t1
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+shot t1_bottom
+tap B
+wait 160
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot t3
+tap B
+wait 160
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot t4
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+shot t4_bottom
+tap B
+wait 160
+tap DOWN x5
+wait 80
+wait 20
+tap A
+wait 380
+shot t5
+tap B
+wait 160
+tap DOWN x6
+wait 80
+wait 20
+tap A
+wait 380
+shot t6
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot t5ng
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot s4200
+tap B
+wait 160
+tap DOWN x3
+wait 100
+shot s4200_c
+tap DOWN x6
+wait 80
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot s12000
+tap B
+wait 160
+tap DOWN x3
+wait 100
+shot s12000_c
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot im_list
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i1p
+tap B
+wait 160
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i3p
+tap B
+wait 160
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i5p
+tap B
+wait 160
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i7p
+tap B
+wait 160
+tap DOWN x5
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i9p
+tap B
+wait 160
+tap DOWN x6
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i12p
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i13p
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i15p
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i2c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i3c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x5
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i5c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i6c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i10c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i11c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i14c
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i1r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x5
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i2r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i3r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i5r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i6r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i7r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i10r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x5
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i13r
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i5l
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x1
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i7f
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x2
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i6g
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x3
+wait 80
+wait 20
+tap A
+wait 380
+shot img_i8t
+tap B
+wait 160
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x6
+wait 80
+tap DOWN x4
+wait 80
+wait 20
+tap A
+wait 380
+shot img_index
+tap B
+wait 160
+shot end

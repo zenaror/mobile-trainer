@@ -1,0 +1,246 @@
+# Scenario 'kbd_abook': address book editing with every keyboard key that the round-1 scenarios never pressed.
+# Entry 1 (saved by mail_inbox) is edited: the address keyboard (ASCII, type 9) gets characters, then B (backspace with text), the name keyboard
+# (kana, type 8) gets dakuten, handakuten, katakana page, katakana ウ+゛ (ヴ), backspace, and a name longer than the field.
+# Then a new entry (slot 2) is created with a 46-character address (three address lines) and an 8-character name and viewed. Keyboard routes are computed by
+# tools/trace/kbdnav.py from the ROM's neighbour tables. Starts from the state left by 'mail_inbox'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # top menu -> メール
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x3
+wait 30
+tap A                        # アドレスちょう
+waitstable 60 max 600
+shot list
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot view
+tap B
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot edit_address
+# address keyboard (type 9): type two characters, then B deletes with text present (the round-1 runs pressed B on an empty field only)
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap B x3
+shot addr_after_bs
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot name_intro
+tap A
+waitstable 60 max 600
+shot name_kbd
+tap DOWN
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+shot name_dakuten
+tap B
+tap SELECT
+wait 30
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+shot name_katakana
+tap B x2
+# fill the field beyond its 8 characters
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+shot name_full
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot edit_confirm
+tap A
+waitstable 60 max 600
+shot edit_done
+# --- new entry in slot 2: a 46-character address (three address lines) and an 8-character name
+tap DOWN
+wait 40
+tap A
+wait 60
+tap A                        # slot 2 intro
+waitstable 60 max 600
+tap A                        # address keyboard
+waitstable 60 max 600
+# OK on the still empty address: dialog $0205 'メールアドレスは からっぽでいけません'
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot slot2_ok_empty
+tap A                        # dialog OK
+waitstable 60 max 600
+tap A x46
+shot slot2_long_addr
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+tap A                        # name intro -> name keyboard
+waitstable 60 max 600
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+tap A                        # save confirm: はい
+waitstable 60 max 600
+shot slot2_saved
+# view entry 2 (long address lines)
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 600
+shot slot2_view
+tap B
+waitstable 60 max 600

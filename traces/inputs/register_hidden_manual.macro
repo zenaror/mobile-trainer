@@ -1,0 +1,139 @@
+# Scenario 'register_hidden_manual': initial registration with B+SELECT+RIGHT held on the first A (as 'register_hidden') but the hidden step
+# 電話番号入力方法選択 is answered with the SECOND entry 手動で入力する: explanation page, Internet phone number keypad (digits 1 2 5), pager
+# number keypad, comment keyboard (typed 'A'; B backspaces with text on each of the three input screens, and B on the empty first keypad goes back to the explanation page), then the normal password / summary / dial / POP3 check / welcome sequence. 'register_hidden'
+# took the automatic entry, so 65:44EA -> 65:44ED (Registration_ManualPhoneEntry) and the keypad/comment screens were never entered
+# during registration. Blank cartridge and blank adapter, fake Internet. Screen names = my reading of the screenshots.
+wait 400                     # boot: adapter check ("モバイルアダプタGBをチェックしています")
+gap 20
+taplen 30
+tap A+B+SELECT+RIGHT         # "初期登録開始" with the hidden combination held
+taplen 4
+waitstable 40 max 200
+tap A                        # "初期登録のご注意" 1/3
+waitstable 40 max 200
+tap A                        # 2/3
+waitstable 40 max 200
+tap A                        # 3/3
+waitstable 40 max 200
+tap A                        # "料金のご注意"
+waitstable 40 max 200
+tap A                        # "ログインID入力" example screen
+waitstable 40 max 200
+shot login_id_keypad
+tap A x10                    # 10 digits '1' -> field full, auto-advances to mail address
+waitstable 40 max 200
+shot mail_intro
+tap A
+waitstable 40 max 100
+tap A x8                     # local part (8 chars) ...
+tap A x4                     # ... then sub-domain part (4 chars) -> cursor jumps to OK
+tap A                        # OK
+waitstable 40 max 200
+shot phone_method
+tap DOWN
+wait 40
+tap A                        # 手動で入力する
+waitstable 40 max 200
+tap A                        # explanation
+waitstable 40 max 200
+shot manual_keypad_1
+tap A
+tap RIGHT
+tap A
+tap B                        # backspace with a digit on the line, twice (the second one empties the line)
+tap B
+tap B                        # B on the empty line: back to the explanation page
+waitstable 40 max 200
+shot manual_keypad_back
+tap A
+waitstable 40 max 200
+tap A
+tap RIGHT
+tap A
+tap DOWN
+tap A
+tap START
+wait 40
+tap A
+waitstable 40 max 200
+shot manual_keypad_2
+tap A
+tap DOWN
+tap RIGHT
+tap A
+tap B
+tap B
+tap A
+tap START
+wait 40
+tap A
+waitstable 40 max 200
+shot manual_comment_intro
+tap A
+waitstable 40 max 200
+shot manual_comment_kb
+tap A x2
+tap B                        # backspace with text in the comment field
+tap A
+tap START
+wait 40
+tap A
+waitstable 40 max 200
+shot manual_password_intro
+shot password_intro
+tap A
+waitstable 40 max 100
+# password "aZ01": a, Z, 0, 1
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START                    # jump to OK
+wait 20
+tap A
+waitstable 60 max 300
+shot password_confirm
+# re-enter the same password
+tap RIGHT x5
+tap A
+tap RIGHT x5
+tap A
+tap RIGHT x1
+tap A
+tap RIGHT x1
+tap A
+tap START
+wait 20
+tap A
+waitstable 60 max 300
+shot password_save_confirm
+tap A                        # "はい" (save password)
+waitstable 60 max 600
+shot register_summary
+tap A                        # "はい"
+waitstable 60 max 600
+shot connect_confirm
+tap A                        # "はい": dial DION (#9677), PPP, DNS, POP3 login check
+wait 600
+waitstable 60 max 900
+shot registration_result
+wait 300
+tap A
+waitstable 60 max 900
+shot welcome_1
+tap A
+waitstable 60 max 600
+shot welcome_2
+tap A
+waitstable 60 max 600
+shot after_welcome_1
+tap A
+waitstable 60 max 600
+shot after_welcome_2
+tap A
+waitstable 60 max 600
+shot after_welcome_3
