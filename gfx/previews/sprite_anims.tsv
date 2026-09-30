@@ -1,0 +1,904 @@
+# written by tools/render_sprites.py.  Object entries of every root: frame table / script addresses (same bank as the root), number of frames, script steps as frame:delay.
+root	bank:addr	entry	frame_table	script	frames	steps
+Objects_Title	0E:5FB0	1	5FBC	6008	4	0:4 1:4 2:4 3:4 3:4 2:4 1:4 0:4
+Objects_Title	0E:5FB0	2	6019	6098	1	0:4
+Table_DebugFlags_Objects	19:481D	0	4821	4828	1	0:4
+Objects_MobileDict	1A:55A0	0	5410	5426	2	0:46 1:8
+Objects_MobileDict	1A:55A0	1	542B	5441	2	0:46 1:8
+Objects_MobileDict	1A:55A0	2	5446	5461	1	0:4
+Objects_MobileDict	1A:55A0	3	5464	547F	1	0:4
+Objects_MobileDict	1A:55A0	4	5482	549D	1	0:4
+Objects_MobileDict	1A:55A0	5	54A0	54BB	1	0:4
+Objects_MobileDict	1A:55A0	6	54BE	54D9	1	0:4
+Objects_MobileDict	1A:55A0	7	54DC	54F7	1	0:4
+Objects_MobileDict	1A:55A0	8	54FA	5515	1	0:4
+Objects_MobileDict	1A:55A0	9	5518	5533	1	0:4
+Objects_MobileDict	1A:55A0	10	5536	5551	1	0:4
+Objects_MobileDict	1A:55A0	11	5554	556F	1	0:4
+Objects_MobileDict	1A:55A0	12	5572	559D	1	0:4
+Table_MailMenu_Objects	1D:63B6	0	62B0	63A3	9	0:8 1:8 2:8 3:8 4:8 5:8 6:8 7:8 8:8
+TopMenu_ObjTable	1E:656F	1	6320	63A7	9	0:8 1:8 2:8 3:8 4:8 5:8 6:8 7:8 8:8
+TopMenu_ObjTable	1E:656F	2	63BA	63F8	2	0:20 1:20
+TopMenu_ObjTable	1E:656F	3	63FD	6436	7	0:6 1:6 2:6 3:6 4:6 5:6 6:30
+TopMenu_ObjTable	1E:656F	4	6450	6513	9	0:5 1:5 2:5 3:5 4:5 5:5 6:5 7:10 8:10
+TopMenu_ObjTable	1E:656F	5	6526	654C	2	0:10 1:10
+TopMenu_ObjTable	1E:656F	6	6559	656C	1	0:4
+Table_SpriteCounter_Digits	23:7990	0	7AE0	7AE7	1	0:4
+Table_SpriteCounter_Digits	23:7990	1	7AE0	7AE7	1	0:4
+Table_SpriteCounter_Digits	23:7990	2	7AE0	7AE7	1	0:4
+Table_SpriteCounter_Digits	23:7990	3	7AE0	7AE7	1	0:4
+Table_SpriteCounter_Digits	23:7990	4	7AEA	7AF1	1	0:4
+Table_SpriteCounter_Digits	23:7990	5	7AEA	7AF1	1	0:4
+Table_SpriteCounter_Digits	23:7990	6	7AEA	7AF1	1	0:4
+Table_SpriteCounter_Digits	23:7990	7	7AEA	7AF1	1	0:4
+Table_SpriteCounter_Digits	23:7990	8	7AF4	7AFB	1	0:4
+Table_SpriteCounter_Digits	23:7990	9	7AF4	7AFB	1	0:4
+Table_SpriteCounter_Digits	23:7990	10	7AF4	7AFB	1	0:4
+Table_SpriteCounter_Digits	23:7990	11	7AF4	7AFB	1	0:4
+Table_SpriteCounter_Digits	23:7990	12	7AFE	7B05	1	0:4
+Table_SpriteCounter_Digits	23:7990	13	7AFE	7B05	1	0:4
+Table_SpriteCounter_Digits	23:7990	14	7AFE	7B05	1	0:4
+Table_SpriteCounter_Digits	23:7990	15	7AFE	7B05	1	0:4
+Table_SpriteCounter_Digits	23:7990	16	7B08	7B0F	1	0:4
+Table_SpriteCounter_Digits	23:7990	17	7B08	7B0F	1	0:4
+Table_SpriteCounter_Digits	23:7990	18	7B08	7B0F	1	0:4
+Table_SpriteCounter_Digits	23:7990	19	7B08	7B0F	1	0:4
+Table_SpriteCounter_Digits	23:7990	20	7B12	7B19	1	0:4
+Table_SpriteCounter_Digits	23:7990	21	7B12	7B19	1	0:4
+Table_SpriteCounter_Digits	23:7990	22	7B12	7B19	1	0:4
+Table_SpriteCounter_Digits	23:7990	23	7B12	7B19	1	0:4
+Table_SpriteCounter_Digits	23:7990	24	7B1C	7B23	1	0:4
+Table_SpriteCounter_Digits	23:7990	25	7B1C	7B23	1	0:4
+Table_SpriteCounter_Digits	23:7990	26	7B1C	7B23	1	0:4
+Table_SpriteCounter_Digits	23:7990	27	7B1C	7B23	1	0:4
+Table_SpriteCounter_Digits	23:7990	28	7B26	7B2D	1	0:4
+Table_SpriteCounter_Digits	23:7990	29	7B26	7B2D	1	0:4
+Table_SpriteCounter_Digits	23:7990	30	7B26	7B2D	1	0:4
+Table_SpriteCounter_Digits	23:7990	31	7B26	7B2D	1	0:4
+Table_SpriteCounter_Digits	23:7990	32	7B30	7B37	1	0:4
+Table_SpriteCounter_Digits	23:7990	33	7B30	7B37	1	0:4
+Table_SpriteCounter_Digits	23:7990	34	7B30	7B37	1	0:4
+Table_SpriteCounter_Digits	23:7990	35	7B30	7B37	1	0:4
+Table_SpriteCounter_Digits	23:7990	36	7B3A	7B41	1	0:4
+Table_SpriteCounter_Digits	23:7990	37	7B3A	7B41	1	0:4
+Table_SpriteCounter_Digits	23:7990	38	7B3A	7B41	1	0:4
+Table_SpriteCounter_Digits	23:7990	39	7B3A	7B41	1	0:4
+Table_SpriteCounter_Digits	23:7990	40	7B44	7B4B	1	0:4
+Table_SpriteCounter_Digits	23:7990	41	7B44	7B4B	1	0:4
+Table_SpriteCounter_Digits	23:7990	42	7B44	7B4B	1	0:4
+Table_SpriteCounter_Digits	23:7990	43	7B44	7B4B	1	0:4
+Table_SpriteCounter_Digits	23:7990	44	7B4E	7B55	1	0:4
+Table_SpriteCounter_Digits	23:7990	45	7B4E	7B55	1	0:4
+Table_SpriteCounter_Digits	23:7990	46	7B4E	7B55	1	0:4
+Table_SpriteCounter_Digits	23:7990	47	7B4E	7B55	1	0:4
+Table_SpriteCounter_Digits	23:7990	48	7B58	7B5F	1	0:4
+Table_SpriteCounter_Digits	23:7990	49	7B58	7B5F	1	0:4
+Table_SpriteCounter_Digits	23:7990	50	7B58	7B5F	1	0:4
+Table_SpriteCounter_Digits	23:7990	51	7B58	7B5F	1	0:4
+Table_SpriteCounter_Digits	23:7990	52	7B62	7B69	1	0:4
+Table_SpriteCounter_Digits	23:7990	53	7B62	7B69	1	0:4
+Table_SpriteCounter_Digits	23:7990	54	7B62	7B69	1	0:4
+Table_SpriteCounter_Digits	23:7990	55	7B62	7B69	1	0:4
+Table_SpriteCounter_Digits	23:7990	56	7B6C	7B73	1	0:4
+Table_SpriteCounter_Digits	23:7990	57	7B6C	7B73	1	0:4
+Table_SpriteCounter_Digits	23:7990	58	7B6C	7B73	1	0:4
+Table_SpriteCounter_Digits	23:7990	59	7B6C	7B73	1	0:4
+Table_SpriteCounter_Digits	23:7990	60	7B76	7B7D	1	0:4
+Table_SpriteCounter_Digits	23:7990	61	7B76	7B7D	1	0:4
+Table_SpriteCounter_Digits	23:7990	62	7B76	7B7D	1	0:4
+Table_SpriteCounter_Digits	23:7990	63	7B76	7B7D	1	0:4
+Table_SpriteCounter_Digits	23:7990	64	7B80	7B87	1	0:4
+Table_SpriteCounter_Digits	23:7990	65	7B80	7B87	1	0:4
+Table_SpriteCounter_Digits	23:7990	66	7B80	7B87	1	0:4
+Table_SpriteCounter_Digits	23:7990	67	7B80	7B87	1	0:4
+Table_SpriteCounter_Digits	23:7990	68	7B8A	7B91	1	0:4
+Table_SpriteCounter_Digits	23:7990	69	7B8A	7B91	1	0:4
+Table_SpriteCounter_Digits	23:7990	70	7B8A	7B91	1	0:4
+Table_SpriteCounter_Digits	23:7990	71	7B8A	7B91	1	0:4
+Table_SpriteCounter_Digits	23:7990	72	7B94	7B9B	1	0:4
+Table_SpriteCounter_Digits	23:7990	73	7B94	7B9B	1	0:4
+Table_SpriteCounter_Digits	23:7990	74	7B94	7B9B	1	0:4
+Table_SpriteCounter_Digits	23:7990	75	7B94	7B9B	1	0:4
+Table_SpriteCounter_Digits	23:7990	76	7B9E	7BA5	1	0:4
+Table_SpriteCounter_Digits	23:7990	77	7B9E	7BA5	1	0:4
+Table_SpriteCounter_Digits	23:7990	78	7B9E	7BA5	1	0:4
+Table_SpriteCounter_Digits	23:7990	79	7B9E	7BA5	1	0:4
+Table_MailSrvDel_ProgressObject	23:7AD0	0	7BA8	7BFE	2	0:20 1:29
+Table_MailSrvDel_ProgressObject	23:7AD0	1	7BA8	7BFE	2	0:20 1:29
+Table_MailSrvDel_ProgressObject	23:7AD0	2	7BA8	7BFE	2	0:20 1:29
+Table_MailSrvDel_ProgressObject	23:7AD0	3	7BA8	7BFE	2	0:20 1:29
+PageList_ObjTable	24:6530	0	65C0	667A	6	0:5 1:2 2:4 3:5 4:5
+PageList_ObjTable	24:6530	1	65C0	667A	6	0:5 1:2 2:4 3:5 4:5
+PageList_ObjTable	24:6530	2	65C0	667A	6	0:5 1:2 2:4 3:5 4:5
+PageList_ObjTable	24:6530	3	65C0	667A	6	0:5 1:2 2:4 3:5 4:5
+PageList_ObjTable	24:6530	4	6698	6752	6	0:5 1:3 2:5 3:3 4:5
+PageList_ObjTable	24:6530	5	6698	6752	6	0:5 1:3 2:5 3:3 4:5
+PageList_ObjTable	24:6530	6	6698	6752	6	0:5 1:3 2:5 3:3 4:5
+PageList_ObjTable	24:6530	7	6698	6752	6	0:5 1:3 2:5 3:3 4:5
+PageList_ObjTable	24:6530	8	6686	6695	1	0:4
+PageList_ObjTable	24:6530	9	6686	6695	1	0:4
+PageList_ObjTable	24:6530	10	6686	6695	1	0:4
+PageList_ObjTable	24:6530	11	6686	6695	1	0:4
+PageList_ObjTable	24:6530	12	675E	676D	1	0:4
+PageList_ObjTable	24:6530	13	675E	676D	1	0:4
+PageList_ObjTable	24:6530	14	675E	676D	1	0:4
+PageList_ObjTable	24:6530	15	675E	676D	1	0:4
+PageList_ObjTable	24:6530	16	6B19	6B57	2	0:46 1:8
+PageList_ObjTable	24:6530	17	6B19	6B57	2	0:46 1:8
+PageList_ObjTable	24:6530	18	6B19	6B57	2	0:46 1:8
+PageList_ObjTable	24:6530	19	6B19	6B57	2	0:46 1:8
+PageList_ObjTable	24:6530	20	6B5C	6B9A	2	0:46 1:8
+PageList_ObjTable	24:6530	21	6B5C	6B9A	2	0:46 1:8
+PageList_ObjTable	24:6530	22	6B5C	6B9A	2	0:46 1:8
+PageList_ObjTable	24:6530	23	6B5C	6B9A	2	0:46 1:8
+PageList_ObjTable	24:6530	24	6B9F	6BDD	2	0:46 1:8
+PageList_ObjTable	24:6530	25	6B9F	6BDD	2	0:46 1:8
+PageList_ObjTable	24:6530	26	6B9F	6BDD	2	0:46 1:8
+PageList_ObjTable	24:6530	27	6B9F	6BDD	2	0:46 1:8
+PageList_ObjTable	24:6530	28	6770	685D	7	0:5 1:8 2:10 3:8 4:8 5:8 6:5
+PageList_ObjTable	24:6530	29	6770	685D	7	0:5 1:8 2:10 3:8 4:8 5:8 6:5
+PageList_ObjTable	24:6530	30	6770	685D	7	0:5 1:8 2:10 3:8 4:8 5:8 6:5
+PageList_ObjTable	24:6530	31	6770	685D	7	0:5 1:8 2:10 3:8 4:8 5:8 6:5
+PageList_ObjTable	24:6530	32	686D	6975	8	0:5 1:8 2:8 3:10 4:8 5:8 6:8 7:5
+PageList_ObjTable	24:6530	33	686D	6975	8	0:5 1:8 2:8 3:10 4:8 5:8 6:8 7:5
+PageList_ObjTable	24:6530	34	686D	6975	8	0:5 1:8 2:8 3:10 4:8 5:8 6:8 7:5
+PageList_ObjTable	24:6530	35	686D	6975	8	0:5 1:8 2:8 3:10 4:8 5:8 6:8 7:5
+MailResult_ObjTable	24:7B20	0	7C00	7C33	1	0:4
+MailResult_ObjTable	24:7B20	1	7C00	7C33	1	0:4
+MailResult_ObjTable	24:7B20	2	7C00	7C33	1	0:4
+MailResult_ObjTable	24:7B20	3	7C00	7C33	1	0:4
+MailResult_ObjTable	24:7B20	4	7C36	7C85	1	0:4
+MailResult_ObjTable	24:7B20	5	7C36	7C85	1	0:4
+MailResult_ObjTable	24:7B20	6	7C36	7C85	1	0:4
+MailResult_ObjTable	24:7B20	7	7C36	7C85	1	0:4
+MailResult_ObjTable	24:7B20	8	7C88	7C93	1	0:4
+MailResult_ObjTable	24:7B20	9	7C88	7C93	1	0:4
+MailResult_ObjTable	24:7B20	10	7C88	7C93	1	0:4
+MailResult_ObjTable	24:7B20	11	7C88	7C93	1	0:4
+MailResult_ObjTable	24:7B20	12	7C96	7CA1	1	0:4
+MailResult_ObjTable	24:7B20	13	7C96	7CA1	1	0:4
+MailResult_ObjTable	24:7B20	14	7C96	7CA1	1	0:4
+MailResult_ObjTable	24:7B20	15	7C96	7CA1	1	0:4
+MailResult_ObjTable	24:7B20	16	7CA4	7CAF	1	0:4
+MailResult_ObjTable	24:7B20	17	7CA4	7CAF	1	0:4
+MailResult_ObjTable	24:7B20	18	7CA4	7CAF	1	0:4
+MailResult_ObjTable	24:7B20	19	7CA4	7CAF	1	0:4
+MailResult_ObjTable	24:7B20	20	7CB2	7CBD	1	0:4
+MailResult_ObjTable	24:7B20	21	7CB2	7CBD	1	0:4
+MailResult_ObjTable	24:7B20	22	7CB2	7CBD	1	0:4
+MailResult_ObjTable	24:7B20	23	7CB2	7CBD	1	0:4
+MailResult_ObjTable	24:7B20	24	7CC0	7CCB	1	0:4
+MailResult_ObjTable	24:7B20	25	7CC0	7CCB	1	0:4
+MailResult_ObjTable	24:7B20	26	7CC0	7CCB	1	0:4
+MailResult_ObjTable	24:7B20	27	7CC0	7CCB	1	0:4
+MailResult_ObjTable	24:7B20	28	7CCE	7CD9	1	0:4
+MailResult_ObjTable	24:7B20	29	7CCE	7CD9	1	0:4
+MailResult_ObjTable	24:7B20	30	7CCE	7CD9	1	0:4
+MailResult_ObjTable	24:7B20	31	7CCE	7CD9	1	0:4
+MailResult_ObjTable	24:7B20	32	7CDC	7CE7	1	0:4
+MailResult_ObjTable	24:7B20	33	7CDC	7CE7	1	0:4
+MailResult_ObjTable	24:7B20	34	7CDC	7CE7	1	0:4
+MailResult_ObjTable	24:7B20	35	7CDC	7CE7	1	0:4
+MailResult_ObjTable	24:7B20	36	7CEA	7CF5	1	0:4
+MailResult_ObjTable	24:7B20	37	7CEA	7CF5	1	0:4
+MailResult_ObjTable	24:7B20	38	7CEA	7CF5	1	0:4
+MailResult_ObjTable	24:7B20	39	7CEA	7CF5	1	0:4
+MailResult_ObjTable	24:7B20	40	7CF8	7D03	1	0:4
+MailResult_ObjTable	24:7B20	41	7CF8	7D03	1	0:4
+MailResult_ObjTable	24:7B20	42	7CF8	7D03	1	0:4
+MailResult_ObjTable	24:7B20	43	7CF8	7D03	1	0:4
+MailResult_ObjTable	24:7B20	44	7D06	7D19	1	0:4
+MailResult_ObjTable	24:7B20	45	7D06	7D19	1	0:4
+MailResult_ObjTable	24:7B20	46	7D06	7D19	1	0:4
+MailResult_ObjTable	24:7B20	47	7D06	7D19	1	0:4
+MailResult_ObjTable	24:7B20	48	7D1C	7D2F	1	0:4
+MailResult_ObjTable	24:7B20	49	7D1C	7D2F	1	0:4
+MailResult_ObjTable	24:7B20	50	7D1C	7D2F	1	0:4
+MailResult_ObjTable	24:7B20	51	7D1C	7D2F	1	0:4
+MailResult_ObjTable	24:7B20	52	7D32	7D45	1	0:4
+MailResult_ObjTable	24:7B20	53	7D32	7D45	1	0:4
+MailResult_ObjTable	24:7B20	54	7D32	7D45	1	0:4
+MailResult_ObjTable	24:7B20	55	7D32	7D45	1	0:4
+Mailbox_ObjTable	26:7B00	0	7BE0	7C06	2	0:46 1:8
+Mailbox_ObjTable	26:7B00	1	7BE0	7C06	2	0:46 1:8
+Mailbox_ObjTable	26:7B00	2	7BE0	7C06	2	0:46 1:8
+Mailbox_ObjTable	26:7B00	3	7BE0	7C06	2	0:46 1:8
+Mailbox_ObjTable	26:7B00	4	7C0B	7C1A	1	0:64
+Mailbox_ObjTable	26:7B00	5	7C0B	7C1A	1	0:64
+Mailbox_ObjTable	26:7B00	6	7C0B	7C1A	1	0:64
+Mailbox_ObjTable	26:7B00	7	7C0B	7C1A	1	0:64
+Mailbox_ObjTable	26:7B00	8	7C1D	7C2C	1	0:64
+Mailbox_ObjTable	26:7B00	9	7C1D	7C2C	1	0:64
+Mailbox_ObjTable	26:7B00	10	7C1D	7C2C	1	0:64
+Mailbox_ObjTable	26:7B00	11	7C1D	7C2C	1	0:64
+Mailbox_ObjTable	26:7B00	12	7C2F	7C3E	1	0:64
+Mailbox_ObjTable	26:7B00	13	7C2F	7C3E	1	0:64
+Mailbox_ObjTable	26:7B00	14	7C2F	7C3E	1	0:64
+Mailbox_ObjTable	26:7B00	15	7C2F	7C3E	1	0:64
+Mailbox_ObjTable	26:7B00	16	7C41	7C67	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	17	7C41	7C67	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	18	7C41	7C67	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	19	7C41	7C67	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	20	7C6C	7C92	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	21	7C6C	7C92	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	22	7C6C	7C92	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	23	7C6C	7C92	2	0:20 1:20
+Mailbox_ObjTable	26:7B00	24	7C97	7C9E	1	0:4
+Mailbox_ObjTable	26:7B00	25	7C97	7C9E	1	0:4
+Mailbox_ObjTable	26:7B00	26	7C97	7C9E	1	0:4
+Mailbox_ObjTable	26:7B00	27	7C97	7C9E	1	0:4
+Mailbox_ObjTable	26:7B00	28	7CA1	7CA8	1	0:4
+Mailbox_ObjTable	26:7B00	29	7CA1	7CA8	1	0:4
+Mailbox_ObjTable	26:7B00	30	7CA1	7CA8	1	0:4
+Mailbox_ObjTable	26:7B00	31	7CA1	7CA8	1	0:4
+Mailbox_ObjTable	26:7B00	32	7CAB	7CB2	1	0:4
+Mailbox_ObjTable	26:7B00	33	7CAB	7CB2	1	0:4
+Mailbox_ObjTable	26:7B00	34	7CAB	7CB2	1	0:4
+Mailbox_ObjTable	26:7B00	35	7CAB	7CB2	1	0:4
+Mailbox_ObjTable	26:7B00	36	7CB5	7CBC	1	0:4
+Mailbox_ObjTable	26:7B00	37	7CB5	7CBC	1	0:4
+Mailbox_ObjTable	26:7B00	38	7CB5	7CBC	1	0:4
+Mailbox_ObjTable	26:7B00	39	7CB5	7CBC	1	0:4
+Mailbox_ObjTable	26:7B00	40	7CBF	7CD2	1	0:4
+Mailbox_ObjTable	26:7B00	41	7CBF	7CD2	1	0:4
+Mailbox_ObjTable	26:7B00	42	7CBF	7CD2	1	0:4
+Mailbox_ObjTable	26:7B00	43	7CBF	7CD2	1	0:4
+Mailbox_ObjTable	26:7B00	44	7CD5	7CE8	1	0:4
+Mailbox_ObjTable	26:7B00	45	7CD5	7CE8	1	0:4
+Mailbox_ObjTable	26:7B00	46	7CD5	7CE8	1	0:4
+Mailbox_ObjTable	26:7B00	47	7CD5	7CE8	1	0:4
+Mailbox_ObjTable	26:7B00	48	7CEB	7D11	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	49	7CEB	7D11	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	50	7CEB	7D11	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	51	7CEB	7D11	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	52	7D16	7D3C	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	53	7D16	7D3C	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	54	7D16	7D3C	2	0:29 1:19
+Mailbox_ObjTable	26:7B00	55	7D16	7D3C	2	0:29 1:19
+MailConnect_ObjTable	27:7A10	0	7AF0	7B2B	1	0:4
+MailConnect_ObjTable	27:7A10	1	7AF0	7B2B	1	0:4
+MailConnect_ObjTable	27:7A10	2	7AF0	7B2B	1	0:4
+MailConnect_ObjTable	27:7A10	3	7AF0	7B2B	1	0:4
+MailConnect_ObjTable	27:7A10	4	7B2E	7B69	1	0:4
+MailConnect_ObjTable	27:7A10	5	7B2E	7B69	1	0:4
+MailConnect_ObjTable	27:7A10	6	7B2E	7B69	1	0:4
+MailConnect_ObjTable	27:7A10	7	7B2E	7B69	1	0:4
+MailConnect_ObjTable	27:7A10	8	7B6C	7B92	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	9	7B6C	7B92	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	10	7B6C	7B92	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	11	7B6C	7B92	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	12	7B97	7BA2	1	0:8
+MailConnect_ObjTable	27:7A10	13	7B97	7BA2	1	0:8
+MailConnect_ObjTable	27:7A10	14	7B97	7BA2	1	0:8
+MailConnect_ObjTable	27:7A10	15	7B97	7BA2	1	0:8
+MailConnect_ObjTable	27:7A10	16	7BA5	7BB0	1	0:8
+MailConnect_ObjTable	27:7A10	17	7BA5	7BB0	1	0:8
+MailConnect_ObjTable	27:7A10	18	7BA5	7BB0	1	0:8
+MailConnect_ObjTable	27:7A10	19	7BA5	7BB0	1	0:8
+MailConnect_ObjTable	27:7A10	20	7BB3	7BBE	1	0:8
+MailConnect_ObjTable	27:7A10	21	7BB3	7BBE	1	0:8
+MailConnect_ObjTable	27:7A10	22	7BB3	7BBE	1	0:8
+MailConnect_ObjTable	27:7A10	23	7BB3	7BBE	1	0:8
+MailConnect_ObjTable	27:7A10	24	7BC1	7BCC	1	0:4
+MailConnect_ObjTable	27:7A10	25	7BC1	7BCC	1	0:4
+MailConnect_ObjTable	27:7A10	26	7BC1	7BCC	1	0:4
+MailConnect_ObjTable	27:7A10	27	7BC1	7BCC	1	0:4
+MailConnect_ObjTable	27:7A10	28	7BCF	7BDA	1	0:4
+MailConnect_ObjTable	27:7A10	29	7BCF	7BDA	1	0:4
+MailConnect_ObjTable	27:7A10	30	7BCF	7BDA	1	0:4
+MailConnect_ObjTable	27:7A10	31	7BCF	7BDA	1	0:4
+MailConnect_ObjTable	27:7A10	32	7BDD	7BF0	1	0:4
+MailConnect_ObjTable	27:7A10	33	7BDD	7BF0	1	0:4
+MailConnect_ObjTable	27:7A10	34	7BDD	7BF0	1	0:4
+MailConnect_ObjTable	27:7A10	35	7BDD	7BF0	1	0:4
+MailConnect_ObjTable	27:7A10	36	7BF3	7BFE	1	0:8
+MailConnect_ObjTable	27:7A10	37	7BF3	7BFE	1	0:8
+MailConnect_ObjTable	27:7A10	38	7BF3	7BFE	1	0:8
+MailConnect_ObjTable	27:7A10	39	7BF3	7BFE	1	0:8
+MailConnect_ObjTable	27:7A10	40	7C01	7C0C	1	0:8
+MailConnect_ObjTable	27:7A10	41	7C01	7C0C	1	0:8
+MailConnect_ObjTable	27:7A10	42	7C01	7C0C	1	0:8
+MailConnect_ObjTable	27:7A10	43	7C01	7C0C	1	0:8
+MailConnect_ObjTable	27:7A10	44	7C0F	7C5B	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	45	7C0F	7C5B	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	46	7C0F	7C5B	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	47	7C0F	7C5B	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	48	7C64	7CB0	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	49	7C64	7CB0	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	50	7C64	7CB0	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	51	7C64	7CB0	4	0:8 1:8 2:8 3:8
+MailConnect_ObjTable	27:7A10	52	7CB9	7CDF	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	53	7CB9	7CDF	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	54	7CB9	7CDF	2	0:8 1:8
+MailConnect_ObjTable	27:7A10	55	7CB9	7CDF	2	0:8 1:8
+MailBody_ObjTable	28:4B70	0	4B80	4BA3	1	0:4
+MailBody_ObjTable	28:4B70	1	4B80	4BA3	1	0:4
+MailBody_ObjTable	28:4B70	2	4B80	4BA3	1	0:4
+MailBody_ObjTable	28:4B70	3	4B80	4BA3	1	0:4
+AddrBookShared_ObjTable	28:5210	0	5280	52A6	2	0:64 1:8
+AddrBookShared_ObjTable	28:5210	1	5280	52A6	2	0:64 1:8
+AddrBookShared_ObjTable	28:5210	2	5280	52A6	2	0:64 1:8
+AddrBookShared_ObjTable	28:5210	3	5280	52A6	2	0:64 1:8
+AddrBookShared_ObjTable	28:5210	4	52AB	52BE	1	0:4
+AddrBookShared_ObjTable	28:5210	5	52AB	52BE	1	0:4
+AddrBookShared_ObjTable	28:5210	6	52AB	52BE	1	0:4
+AddrBookShared_ObjTable	28:5210	7	52AB	52BE	1	0:4
+AddrBookShared_ObjTable	28:5210	8	52C1	52D4	1	0:4
+AddrBookShared_ObjTable	28:5210	9	52C1	52D4	1	0:4
+AddrBookShared_ObjTable	28:5210	10	52C1	52D4	1	0:4
+AddrBookShared_ObjTable	28:5210	11	52C1	52D4	1	0:4
+AddrBookShared_ObjTable	28:5210	12	52D7	536E	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	13	52D7	536E	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	14	52D7	536E	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	15	52D7	536E	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	16	5379	5428	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	17	5379	5428	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	18	5379	5428	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	19	5379	5428	5	0:5 1:5 2:5 3:3 4:18
+AddrBookShared_ObjTable	28:5210	20	5436	546C	2	0:4
+AddrBookShared_ObjTable	28:5210	21	5436	546C	2	0:4
+AddrBookShared_ObjTable	28:5210	22	5436	546C	2	0:4
+AddrBookShared_ObjTable	28:5210	23	5436	546C	2	0:4
+AddrBookShared_ObjTable	28:5210	24	546F	54A5	2	0:5 1:20
+AddrBookShared_ObjTable	28:5210	25	546F	54A5	2	0:5 1:20
+AddrBookShared_ObjTable	28:5210	26	546F	54A5	2	0:5 1:20
+AddrBookShared_ObjTable	28:5210	27	546F	54A5	2	0:5 1:20
+MailServerDeleteMethod_ObjTable	28:6E80	0	6EA0	6EC6	2	0:46 1:8
+MailServerDeleteMethod_ObjTable	28:6E80	1	6EA0	6EC6	2	0:46 1:8
+MailServerDeleteMethod_ObjTable	28:6E80	2	6EA0	6EC6	2	0:46 1:8
+MailServerDeleteMethod_ObjTable	28:6E80	3	6EA0	6EC6	2	0:46 1:8
+MailServerDeleteMethod_ObjTable	28:6E80	4	6ECB	6F09	2	1:7 0:7 1:7 0:120
+MailServerDeleteMethod_ObjTable	28:6E80	5	6ECB	6F09	2	1:7 0:7 1:7 0:120
+MailServerDeleteMethod_ObjTable	28:6E80	6	6ECB	6F09	2	1:7 0:7 1:7 0:120
+MailServerDeleteMethod_ObjTable	28:6E80	7	6ECB	6F09	2	1:7 0:7 1:7 0:120
+MailSession_ObjTable_6F20	28:6F20	0	7040	7066	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	1	7040	7066	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	2	7040	7066	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	3	7040	7066	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	4	72AF	72D5	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	5	72AF	72D5	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	6	72AF	72D5	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	7	72AF	72D5	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	8	706B	70A4	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	9	706B	70A4	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	10	706B	70A4	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	11	706B	70A4	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	12	71BE	71F7	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	13	71BE	71F7	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	14	71BE	71F7	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	15	71BE	71F7	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	16	71FE	7234	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	17	71FE	7234	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	18	71FE	7234	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	19	71FE	7234	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	20	70AB	70D1	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	21	70AB	70D1	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	22	70AB	70D1	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	23	70AB	70D1	2	0:8 1:8
+MailSession_ObjTable_6F20	28:6F20	24	70D6	710F	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	25	70D6	710F	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	26	70D6	710F	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	27	70D6	710F	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	28	7116	7129	1	0:8
+MailSession_ObjTable_6F20	28:6F20	29	7116	7129	1	0:8
+MailSession_ObjTable_6F20	28:6F20	30	7116	7129	1	0:8
+MailSession_ObjTable_6F20	28:6F20	31	7116	7129	1	0:8
+MailSession_ObjTable_6F20	28:6F20	32	713A	7173	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	33	713A	7173	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	34	713A	7173	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	35	713A	7173	3	0:8 1:8 2:24
+MailSession_ObjTable_6F20	28:6F20	36	7239	726F	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	37	7239	726F	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	38	7239	726F	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	39	7239	726F	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	40	7274	72AA	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	41	7274	72AA	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	42	7274	72AA	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	43	7274	72AA	2	0:10 1:10
+MailSession_ObjTable_6F20	28:6F20	44	712C	7137	1	0:4
+MailSession_ObjTable_6F20	28:6F20	45	712C	7137	1	0:4
+MailSession_ObjTable_6F20	28:6F20	46	712C	7137	1	0:4
+MailSession_ObjTable_6F20	28:6F20	47	712C	7137	1	0:4
+MailSession_ObjTable_6F20	28:6F20	48	717A	7185	1	0:4
+MailSession_ObjTable_6F20	28:6F20	49	717A	7185	1	0:4
+MailSession_ObjTable_6F20	28:6F20	50	717A	7185	1	0:4
+MailSession_ObjTable_6F20	28:6F20	51	717A	7185	1	0:4
+MailSession_ObjTable_6F20	28:6F20	52	7188	7197	1	0:4
+MailSession_ObjTable_6F20	28:6F20	53	7188	7197	1	0:4
+MailSession_ObjTable_6F20	28:6F20	54	7188	7197	1	0:4
+MailSession_ObjTable_6F20	28:6F20	55	7188	7197	1	0:4
+MailSession_ObjTable_6F20	28:6F20	56	719A	71A9	1	0:4
+MailSession_ObjTable_6F20	28:6F20	57	719A	71A9	1	0:4
+MailSession_ObjTable_6F20	28:6F20	58	719A	71A9	1	0:4
+MailSession_ObjTable_6F20	28:6F20	59	719A	71A9	1	0:4
+MailSession_ObjTable_6F20	28:6F20	60	71AC	71BB	1	0:4
+MailSession_ObjTable_6F20	28:6F20	61	71AC	71BB	1	0:4
+MailSession_ObjTable_6F20	28:6F20	62	71AC	71BB	1	0:4
+MailSession_ObjTable_6F20	28:6F20	63	71AC	71BB	1	0:4
+MailSession_ObjTable_6F20	28:6F20	64	72DA	72E5	1	0:8
+MailSession_ObjTable_6F20	28:6F20	65	72DA	72E5	1	0:8
+MailSession_ObjTable_6F20	28:6F20	66	72DA	72E5	1	0:8
+MailSession_ObjTable_6F20	28:6F20	67	72DA	72E5	1	0:8
+MailSession_ObjTable_6F20	28:6F20	68	72E8	72F6	2	0:12 1:12
+MailSession_ObjTable_6F20	28:6F20	69	72E8	72F6	2	0:12 1:12
+MailSession_ObjTable_6F20	28:6F20	70	72E8	72F6	2	0:12 1:12
+MailSession_ObjTable_6F20	28:6F20	71	72E8	72F6	2	0:12 1:12
+MailSession_ObjTable_72FB	28:72FB	0	758B	759E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	1	758B	759E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	2	758B	759E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	3	758B	759E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	4	75A1	75B4	1	0:8
+MailSession_ObjTable_72FB	28:72FB	5	75A1	75B4	1	0:8
+MailSession_ObjTable_72FB	28:72FB	6	75A1	75B4	1	0:8
+MailSession_ObjTable_72FB	28:72FB	7	75A1	75B4	1	0:8
+MailSession_ObjTable_72FB	28:72FB	8	75B7	75DD	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	9	75B7	75DD	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	10	75B7	75DD	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	11	75B7	75DD	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	12	75E2	7608	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	13	75E2	7608	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	14	75E2	7608	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	15	75E2	7608	2	0:8 1:8
+MailSession_ObjTable_72FB	28:72FB	16	760D	7633	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	17	760D	7633	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	18	760D	7633	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	19	760D	7633	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	20	7638	7671	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	21	7638	7671	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	22	7638	7671	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	23	7638	7671	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	24	7678	76C9	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	25	7678	76C9	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	26	7678	76C9	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	27	7678	76C9	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	28	76D0	76EB	1	0:8
+MailSession_ObjTable_72FB	28:72FB	29	76D0	76EB	1	0:8
+MailSession_ObjTable_72FB	28:72FB	30	76D0	76EB	1	0:8
+MailSession_ObjTable_72FB	28:72FB	31	76D0	76EB	1	0:8
+MailSession_ObjTable_72FB	28:72FB	32	76EE	773F	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	33	76EE	773F	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	34	76EE	773F	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	35	76EE	773F	3	0:8 1:8 2:24
+MailSession_ObjTable_72FB	28:72FB	36	7746	778C	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	37	7746	778C	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	38	7746	778C	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	39	7746	778C	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	40	7791	77C7	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	41	7791	77C7	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	42	7791	77C7	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	43	7791	77C7	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	44	77CC	7802	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	45	77CC	7802	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	46	77CC	7802	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	47	77CC	7802	2	0:10 1:10
+MailSession_ObjTable_72FB	28:72FB	48	7807	7812	1	0:8
+MailSession_ObjTable_72FB	28:72FB	49	7807	7812	1	0:8
+MailSession_ObjTable_72FB	28:72FB	50	7807	7812	1	0:8
+MailSession_ObjTable_72FB	28:72FB	51	7807	7812	1	0:8
+MailSession_ObjTable_72FB	28:72FB	52	7815	7820	1	0:8
+MailSession_ObjTable_72FB	28:72FB	53	7815	7820	1	0:8
+MailSession_ObjTable_72FB	28:72FB	54	7815	7820	1	0:8
+MailSession_ObjTable_72FB	28:72FB	55	7815	7820	1	0:8
+MailSession_ObjTable_72FB	28:72FB	56	7823	782E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	57	7823	782E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	58	7823	782E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	59	7823	782E	1	0:8
+MailSession_ObjTable_72FB	28:72FB	60	7831	783C	1	0:8
+MailSession_ObjTable_72FB	28:72FB	61	7831	783C	1	0:8
+MailSession_ObjTable_72FB	28:72FB	62	7831	783C	1	0:8
+MailSession_ObjTable_72FB	28:72FB	63	7831	783C	1	0:8
+MailSession_ObjTable_72FB	28:72FB	64	783F	784A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	65	783F	784A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	66	783F	784A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	67	783F	784A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	68	784D	7864	1	0:4
+MailSession_ObjTable_72FB	28:72FB	69	784D	7864	1	0:4
+MailSession_ObjTable_72FB	28:72FB	70	784D	7864	1	0:4
+MailSession_ObjTable_72FB	28:72FB	71	784D	7864	1	0:4
+MailSession_ObjTable_72FB	28:72FB	72	7867	787E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	73	7867	787E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	74	7867	787E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	75	7867	787E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	76	7881	7898	1	0:4
+MailSession_ObjTable_72FB	28:72FB	77	7881	7898	1	0:4
+MailSession_ObjTable_72FB	28:72FB	78	7881	7898	1	0:4
+MailSession_ObjTable_72FB	28:72FB	79	7881	7898	1	0:4
+MailSession_ObjTable_72FB	28:72FB	80	789B	78B2	1	0:4
+MailSession_ObjTable_72FB	28:72FB	81	789B	78B2	1	0:4
+MailSession_ObjTable_72FB	28:72FB	82	789B	78B2	1	0:4
+MailSession_ObjTable_72FB	28:72FB	83	789B	78B2	1	0:4
+MailSession_ObjTable_72FB	28:72FB	84	78B5	78CC	1	0:4
+MailSession_ObjTable_72FB	28:72FB	85	78B5	78CC	1	0:4
+MailSession_ObjTable_72FB	28:72FB	86	78B5	78CC	1	0:4
+MailSession_ObjTable_72FB	28:72FB	87	78B5	78CC	1	0:4
+MailSession_ObjTable_72FB	28:72FB	88	78CF	78E6	1	0:4
+MailSession_ObjTable_72FB	28:72FB	89	78CF	78E6	1	0:4
+MailSession_ObjTable_72FB	28:72FB	90	78CF	78E6	1	0:4
+MailSession_ObjTable_72FB	28:72FB	91	78CF	78E6	1	0:4
+MailSession_ObjTable_72FB	28:72FB	92	78E9	7900	1	0:4
+MailSession_ObjTable_72FB	28:72FB	93	78E9	7900	1	0:4
+MailSession_ObjTable_72FB	28:72FB	94	78E9	7900	1	0:4
+MailSession_ObjTable_72FB	28:72FB	95	78E9	7900	1	0:4
+MailSession_ObjTable_72FB	28:72FB	96	7903	791A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	97	7903	791A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	98	7903	791A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	99	7903	791A	1	0:4
+MailSession_ObjTable_72FB	28:72FB	100	791D	7934	1	0:4
+MailSession_ObjTable_72FB	28:72FB	101	791D	7934	1	0:4
+MailSession_ObjTable_72FB	28:72FB	102	791D	7934	1	0:4
+MailSession_ObjTable_72FB	28:72FB	103	791D	7934	1	0:4
+MailSession_ObjTable_72FB	28:72FB	104	7937	794E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	105	7937	794E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	106	7937	794E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	107	7937	794E	1	0:4
+MailSession_ObjTable_72FB	28:72FB	108	7951	7968	1	0:4
+MailSession_ObjTable_72FB	28:72FB	109	7951	7968	1	0:4
+MailSession_ObjTable_72FB	28:72FB	110	7951	7968	1	0:4
+MailSession_ObjTable_72FB	28:72FB	111	7951	7968	1	0:4
+MailSession_ObjTable_72FB	28:72FB	112	796B	7982	1	0:4
+MailSession_ObjTable_72FB	28:72FB	113	796B	7982	1	0:4
+MailSession_ObjTable_72FB	28:72FB	114	796B	7982	1	0:4
+MailSession_ObjTable_72FB	28:72FB	115	796B	7982	1	0:4
+MailSession_ObjTable_72FB	28:72FB	116	7985	7994	1	0:8
+MailSession_ObjTable_72FB	28:72FB	117	7985	7994	1	0:8
+MailSession_ObjTable_72FB	28:72FB	118	7985	7994	1	0:8
+MailSession_ObjTable_72FB	28:72FB	119	7985	7994	1	0:8
+MailSession_ObjTable_72FB	28:72FB	120	7997	79A6	1	0:8
+MailSession_ObjTable_72FB	28:72FB	121	7997	79A6	1	0:8
+MailSession_ObjTable_72FB	28:72FB	122	7997	79A6	1	0:8
+MailSession_ObjTable_72FB	28:72FB	123	7997	79A6	1	0:8
+MailSession_ObjTable_72FB	28:72FB	124	79A9	79B8	1	0:8
+MailSession_ObjTable_72FB	28:72FB	125	79A9	79B8	1	0:8
+MailSession_ObjTable_72FB	28:72FB	126	79A9	79B8	1	0:8
+MailSession_ObjTable_72FB	28:72FB	127	79A9	79B8	1	0:8
+MailSession_ObjTable_72FB	28:72FB	128	79BB	79CA	1	0:8
+MailSession_ObjTable_72FB	28:72FB	129	79BB	79CA	1	0:8
+MailSession_ObjTable_72FB	28:72FB	130	79BB	79CA	1	0:8
+MailSession_ObjTable_72FB	28:72FB	131	79BB	79CA	1	0:8
+MailSession_ObjTable_72FB	28:72FB	132	79CD	79DC	1	0:8
+MailSession_ObjTable_72FB	28:72FB	133	79CD	79DC	1	0:8
+MailSession_ObjTable_72FB	28:72FB	134	79CD	79DC	1	0:8
+MailSession_ObjTable_72FB	28:72FB	135	79CD	79DC	1	0:8
+MailSession_ObjTable_72FB	28:72FB	136	79DF	79EE	1	0:8
+MailSession_ObjTable_72FB	28:72FB	137	79DF	79EE	1	0:8
+MailSession_ObjTable_72FB	28:72FB	138	79DF	79EE	1	0:8
+MailSession_ObjTable_72FB	28:72FB	139	79DF	79EE	1	0:8
+MailSession_ObjTable_72FB	28:72FB	140	79F1	7A00	1	0:8
+MailSession_ObjTable_72FB	28:72FB	141	79F1	7A00	1	0:8
+MailSession_ObjTable_72FB	28:72FB	142	79F1	7A00	1	0:8
+MailSession_ObjTable_72FB	28:72FB	143	79F1	7A00	1	0:8
+MailSession_ObjTable_72FB	28:72FB	144	7A03	7A12	1	0:8
+MailSession_ObjTable_72FB	28:72FB	145	7A03	7A12	1	0:8
+MailSession_ObjTable_72FB	28:72FB	146	7A03	7A12	1	0:8
+MailSession_ObjTable_72FB	28:72FB	147	7A03	7A12	1	0:8
+MailSession_ObjTable_72FB	28:72FB	148	7A15	7A24	1	0:8
+MailSession_ObjTable_72FB	28:72FB	149	7A15	7A24	1	0:8
+MailSession_ObjTable_72FB	28:72FB	150	7A15	7A24	1	0:8
+MailSession_ObjTable_72FB	28:72FB	151	7A15	7A24	1	0:8
+MailSession_ObjTable_72FB	28:72FB	152	7A27	7A36	1	0:8
+MailSession_ObjTable_72FB	28:72FB	153	7A27	7A36	1	0:8
+MailSession_ObjTable_72FB	28:72FB	154	7A27	7A36	1	0:8
+MailSession_ObjTable_72FB	28:72FB	155	7A27	7A36	1	0:8
+MailSession_ObjTable_72FB	28:72FB	156	7A39	7A48	1	0:8
+MailSession_ObjTable_72FB	28:72FB	157	7A39	7A48	1	0:8
+MailSession_ObjTable_72FB	28:72FB	158	7A39	7A48	1	0:8
+MailSession_ObjTable_72FB	28:72FB	159	7A39	7A48	1	0:8
+MailSession_ObjTable_72FB	28:72FB	160	7A4B	7A5A	1	0:8
+MailSession_ObjTable_72FB	28:72FB	161	7A4B	7A5A	1	0:8
+MailSession_ObjTable_72FB	28:72FB	162	7A4B	7A5A	1	0:8
+MailSession_ObjTable_72FB	28:72FB	163	7A4B	7A5A	1	0:8
+Table_MailBody_ObjectEntries	29:6350	0	6406	6414	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	1	6406	6414	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	2	6406	6414	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	3	6406	6414	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	4	6419	6427	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	5	6419	6427	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	6	6419	6427	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	7	6419	6427	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	8	642C	643A	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	9	642C	643A	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	10	642C	643A	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	11	642C	643A	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	12	643F	644D	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	13	643F	644D	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	14	643F	644D	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	15	643F	644D	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	16	6452	6460	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	17	6452	6460	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	18	6452	6460	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	19	6452	6460	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	20	6465	6473	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	21	6465	6473	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	22	6465	6473	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	23	6465	6473	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	24	6478	6486	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	25	6478	6486	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	26	6478	6486	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	27	6478	6486	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	28	648B	6499	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	29	648B	6499	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	30	648B	6499	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	31	648B	6499	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	32	649E	64C4	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	33	649E	64C4	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	34	649E	64C4	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	35	649E	64C4	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	36	64C9	64EF	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	37	64C9	64EF	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	38	64C9	64EF	2	0:46 1:8
+Table_MailBody_ObjectEntries	29:6350	39	64C9	64EF	2	0:46 1:8
+Table_Profile_Anims	2A:6E50	0	6EA0	6ECE	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	1	6EA0	6ECE	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	2	6EA0	6ECE	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	3	6EA0	6ECE	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	4	6ED3	6F01	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	5	6ED3	6F01	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	6	6ED3	6F01	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	7	6ED3	6F01	2	0:42 1:8
+Table_Profile_Anims	2A:6E50	8	6F06	6F3C	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	9	6F06	6F3C	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	10	6F06	6F3C	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	11	6F06	6F3C	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	12	6F41	6F77	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	13	6F41	6F77	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	14	6F41	6F77	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	15	6F41	6F77	2	0:8 1:35
+Table_Profile_Anims	2A:6E50	16	6F7C	6F92	2	0:4
+Table_Profile_Anims	2A:6E50	17	6F7C	6F92	2	0:4
+Table_Profile_Anims	2A:6E50	18	6F7C	6F92	2	0:4
+Table_Profile_Anims	2A:6E50	19	6F7C	6F92	2	0:4
+Table_MailDraftMenu_Anims	2B:51D0	0	5301	5367	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	1	5301	5367	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	2	5301	5367	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	3	5301	5367	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	4	536A	53C0	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	5	536A	53C0	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	6	536A	53C0	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	7	536A	53C0	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	8	526D	5293	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	9	526D	5293	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	10	526D	5293	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	11	526D	5293	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	12	5298	52B6	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	13	5298	52B6	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	14	5298	52B6	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	15	5298	52B6	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	16	52BB	52D9	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	17	52BB	52D9	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	18	52BB	52D9	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	19	52BB	52D9	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	20	52DE	52FC	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	21	52DE	52FC	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	22	52DE	52FC	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	23	52DE	52FC	2	0:46 1:8
+Table_MailDraftMenu_Anims	2B:51D0	24	5240	526A	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	25	5240	526A	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	26	5240	526A	2	0:46
+Table_MailDraftMenu_Anims	2B:51D0	27	5240	526A	2	0:46
+Table_MailGrid_Anims	2B:6430	0	6440	647F	1	0:4
+Table_MailGrid_Anims	2B:6430	1	6440	647F	1	0:4
+Table_MailGrid_Anims	2B:6430	2	6440	647F	1	0:4
+Table_MailGrid_Anims	2B:6430	3	6440	647F	1	0:4
+Table_MailView_Anims	2B:78A0	0	7920	7986	2	0:46
+Table_MailView_Anims	2B:78A0	1	7920	7986	2	0:46
+Table_MailView_Anims	2B:78A0	2	7920	7986	2	0:46
+Table_MailView_Anims	2B:78A0	3	7920	7986	2	0:46
+Table_MailView_Anims	2B:78A0	4	7989	79A7	2	0:46
+Table_MailView_Anims	2B:78A0	5	7989	79A7	2	0:46
+Table_MailView_Anims	2B:78A0	6	7989	79A7	2	0:46
+Table_MailView_Anims	2B:78A0	7	7989	79A7	2	0:46
+Table_MailView_Anims	2B:78A0	8	7A4B	7A71	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	9	7A4B	7A71	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	10	7A4B	7A71	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	11	7A4B	7A71	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	12	79AA	79D0	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	13	79AA	79D0	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	14	79AA	79D0	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	15	79AA	79D0	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	16	79D5	7A0B	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	17	79D5	7A0B	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	18	79D5	7A0B	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	19	79D5	7A0B	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	20	7A10	7A46	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	21	7A10	7A46	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	22	7A10	7A46	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	23	7A10	7A46	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	24	7A76	7A94	2	0:46
+Table_MailView_Anims	2B:78A0	25	7A76	7A94	2	0:46
+Table_MailView_Anims	2B:78A0	26	7A76	7A94	2	0:46
+Table_MailView_Anims	2B:78A0	27	7A76	7A94	2	0:46
+Table_MailView_Anims	2B:78A0	28	7A97	7AFD	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	29	7A97	7AFD	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	30	7A97	7AFD	2	0:46 1:8
+Table_MailView_Anims	2B:78A0	31	7A97	7AFD	2	0:46 1:8
+Table_AddrSlotIcon_Anims	2C:7210	0	7260	728E	2	0:4
+Table_AddrSlotIcon_Anims	2C:7210	1	7260	728E	2	0:4
+Table_AddrSlotIcon_Anims	2C:7210	2	7260	728E	2	0:4
+Table_AddrSlotIcon_Anims	2C:7210	3	7260	728E	2	0:4
+Table_AddrSlotIcon_Anims	2C:7210	4	7291	72A4	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	5	7291	72A4	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	6	7291	72A4	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	7	7291	72A4	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	8	72A7	72BA	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	9	72A7	72BA	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	10	72A7	72BA	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	11	72A7	72BA	1	0:4
+Table_AddrSlotIcon_Anims	2C:7210	12	72BD	7354	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	13	72BD	7354	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	14	72BD	7354	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	15	72BD	7354	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	16	735F	740E	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	17	735F	740E	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	18	735F	740E	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrSlotIcon_Anims	2C:7210	19	735F	740E	5	0:5 1:5 2:5 3:3 4:18
+Table_AddrScreenUnused_Objects	2C:7C40	0	7C50	7C77	1	0:4
+Table_AddrScreenUnused_Objects	2C:7C40	1	7C50	7C77	1	0:4
+Table_AddrScreenUnused_Objects	2C:7C40	2	7C50	7C77	1	0:4
+Table_AddrScreenUnused_Objects	2C:7C40	3	7C50	7C77	1	0:4
+Table_MailServerMgr_ObjAnims	2E:76C0	0	77FA	7838	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	1	77FA	7838	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	2	77FA	7838	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	3	77FA	7838	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	4	783D	787B	2	0:64 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	5	783D	787B	2	0:64 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	6	783D	787B	2	0:64 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	7	783D	787B	2	0:64 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	8	7880	78BE	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	9	7880	78BE	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	10	7880	78BE	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	11	7880	78BE	2	0:46 1:8
+Table_MailServerMgr_ObjAnims	2E:76C0	12	78C3	7919	2	0:20 1:29
+Table_MailServerMgr_ObjAnims	2E:76C0	13	78C3	7919	2	0:20 1:29
+Table_MailServerMgr_ObjAnims	2E:76C0	14	78C3	7919	2	0:20 1:29
+Table_MailServerMgr_ObjAnims	2E:76C0	15	78C3	7919	2	0:20 1:29
+Table_MailServerMgr_ObjAnims	2E:76C0	16	7921	7957	2	0:28 1:25
+Table_MailServerMgr_ObjAnims	2E:76C0	17	7921	7957	2	0:28 1:25
+Table_MailServerMgr_ObjAnims	2E:76C0	18	7921	7957	2	0:28 1:25
+Table_MailServerMgr_ObjAnims	2E:76C0	19	7921	7957	2	0:28 1:25
+Table_Abook_ButtonCursorAnims	2F:5010	0	5050	505F	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	1	5050	505F	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	2	5050	505F	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	3	5050	505F	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	4	5062	5071	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	5	5062	5071	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	6	5062	5071	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	7	5062	5071	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	8	5074	5083	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	9	5074	5083	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	10	5074	5083	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	11	5074	5083	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	12	5086	5095	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	13	5086	5095	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	14	5086	5095	1	0:64
+Table_Abook_ButtonCursorAnims	2F:5010	15	5086	5095	1	0:64
+Table_Abook_ViewCursorAnims	2F:57B0	0	57C0	57EF	1	0:4
+Table_Abook_ViewCursorAnims	2F:57B0	1	57C0	57EF	1	0:4
+Table_Abook_ViewCursorAnims	2F:57B0	2	57C0	57EF	1	0:4
+Table_Abook_ViewCursorAnims	2F:57B0	3	57C0	57EF	1	0:4
+ConfirmPages_ObjTable	4A:4000	1	4008	402E	2	0:46 1:8
+SettingsMenu_ObjTable	4A:5838	1	5840	5866	2	0:30 1:5
+AdapterCheck_ObjTableAndAnimData	4A:68D0	1	68D8	690C	4	0:20 1:20 2:20 3:20
+SettingsPhone_ChoiceMenu_ObjTable	4D:5D10	1	5D18	5D3E	2	0:30 1:5
+SettingsPhone_SlotMenu_ObjTable	4D:7960	1	7968	797E	2	0:30 1:5
+CommNotice_ObjTable	50:6D16	0	6CC0	6CE6	2	0:46 1:8
+CommNotice_ObjTable	50:6D16	1	6CEB	6D11	2	0:46 1:8
+ConnectDialog_ObjTable	56:79B8	0	7880	7892	2	0:20 1:20
+ConnectDialog_ObjTable	56:79B8	1	7897	78E3	4	0:12 1:10 2:15 3:10
+ConnectDialog_ObjTable	56:79B8	2	78EC	7944	4	0:10 1:10 2:5 3:10
+ConnectDialog_ObjTable	56:79B8	3	794D	7986	3	0:5 1:8 2:10
+ConnectDialog_ObjTable	56:79B8	5	798D	79B3	2	0:46 1:8
+CommErr_ObjTable	5C:642B	0	6410	6426	2	0:12 1:12
+Kbd_ObjTable	5F:4CF8	1	4D48	4D7E	2	0:46 1:8
+Kbd_ObjTable	5F:4CF8	2	4D9A	4DC0	2	0:46 1:8
+Kbd_ObjTable	5F:4CF8	4	4DE3	4DFE	1	0:4
+Kbd_ObjTable	5F:4CF8	5	4E01	4E20	1	0:4
+Kbd_ObjTable	5F:4CF8	6	4E23	4E42	1	0:4
+Kbd_ObjTable	5F:4CF8	7	4DC5	4DE0	1	0:4
+Kbd_ObjTable	5F:4CF8	9	4E45	4E54	1	0:8
+Kbd_ObjTable	5F:4CF8	10	4E57	4E66	1	0:8
+Kbd_ObjTable	5F:4CF8	11	4E69	4E78	1	0:8
+Kbd_ObjTable	5F:4CF8	12	4E7B	4E8A	1	0:4
+Kbd_ObjTable	5F:4CF8	13	4E8D	4E9C	1	0:4
+Kbd_ObjTable	5F:4CF8	15	4D83	4D95	2	0:20 1:20
+Kbd_ObjTable	5F:4CF8	17	4E9F	4EB2	1	0:4
+Kbd_ObjTable	5F:4CF8	19	4EB5	4EC8	1	0:4
+NoAdapter_ObjTable	63:7310	1	7318	732A	2	0:30 1:30
+ConnIcon_ObjTable	69:4778	0	4794	48AC	8	0:8 1:8 2:8 3:8
+ConnIcon_ObjTable	69:4778	1	4794	48AC	8	0:8 1:8 2:8 3:8
+ConnIcon_ObjTable	69:4778	2	48B5	49CD	8	0:8 1:8 2:8 3:8 0:8 5:8 6:8 7:8
+ConnIcon_ObjTable	69:4778	3	49DE	4A01	1	0:5
+ConnIcon_ObjTable	69:4778	4	4A73	4B9F	4	0:12 1:12 2:12 3:12
+ConnIcon_ObjTable	69:4778	5	4BAB	4C41	2	0:20 1:20
+ConnIcon_ObjTable	69:4778	6	4A05	4A6A	3	0:8 1:20 0:8 2:20
+Table_6A_72BB	6A:72BB	0	72A0	72B6	2	0:46 1:8
+CommScene_ObjTable	70:534C	1	535C	5397	1	0:4
+CommScene_ObjTable	70:534C	2	539A	53D5	1	0:4
+CommScene_ObjTable	70:534C	3	53D8	53E6	2	0:12 1:12
+CommScene_TextObjTable	70:53EB	1	5403	5429	2	0:8 1:8
+CommScene_TextObjTable	70:53EB	2	542E	5454	2	0:8 1:8
+CommScene_TextObjTable	70:53EB	3	5459	5464	1	0:8
+CommScene_TextObjTable	70:53EB	4	5467	5472	1	0:8
+CommScene_TextObjTable	70:53EB	5	5475	5480	1	0:4
+CommPanel_ObjTable	71:4FB8	1	4FC0	5031	3	0:30 1:30 2:30
+Registration_DeleteExecute_ObjTable	71:6F38	1	6F40	6F6A	2	0:30 1:30
+Dialog_CursorObjTable	72:4E40	0	4E48	4E6E	2	0:46 1:8
+Dialog_CursorObjTable	72:4E40	1	4E48	4E6E	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	0	78CA	78F0	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	1	78CA	78F0	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	2	7976	799D	1	0:4
+BrowserShared_ObjTable	72:7828	3	79A0	79BF	1	0:4
+BrowserShared_ObjTable	72:7828	4	79C3	79E6	1	0:4
+BrowserShared_ObjTable	72:7828	5	7940	7956	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	6	795B	7971	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	7	78F5	793B	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	8	7894	78AA	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	9	78AF	78C5	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	10	79E9	79FF	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	11	7A04	7A1A	2	0:46 1:8
+BrowserShared_ObjTable	72:7828	12	786C	7873	1	0:4
+BrowserShared_ObjTable	72:7828	13	786C	7873	1	0:4
+BrowserShared_ObjTable	72:7828	14	7876	787D	1	0:4
+BrowserShared_ObjTable	72:7828	15	7880	7887	1	0:4
+BrowserShared_ObjTable	72:7828	16	788A	7891	1	0:4
+BrowserStart_ObjTable	73:5F0F	0	5E60	5EBE	2	0:20 1:20
+BrowserStart_ObjTable	73:5F0F	1	5EC3	5F00	7	0:6 1:6 2:6 3:6 4:6 5:6 6:30
+PageListProto_ObjTable	7F:6DB0	0	6E50	6E76	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	1	6E50	6E76	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	2	6E50	6E76	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	3	6E50	6E76	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	4	6E7B	6EC7	4	0:8 1:8 2:8 3:8
+PageListProto_ObjTable	7F:6DB0	5	6E7B	6EC7	4	0:8 1:8 2:8 3:8
+PageListProto_ObjTable	7F:6DB0	6	6E7B	6EC7	4	0:8 1:8 2:8 3:8
+PageListProto_ObjTable	7F:6DB0	7	6E7B	6EC7	4	0:8 1:8 2:8 3:8
+PageListProto_ObjTable	7F:6DB0	8	6ED0	6EF6	2	0:23 1:23
+PageListProto_ObjTable	7F:6DB0	9	6ED0	6EF6	2	0:23 1:23
+PageListProto_ObjTable	7F:6DB0	10	6ED0	6EF6	2	0:23 1:23
+PageListProto_ObjTable	7F:6DB0	11	6ED0	6EF6	2	0:23 1:23
+PageListProto_ObjTable	7F:6DB0	12	6EFB	6F0E	1	0:4
+PageListProto_ObjTable	7F:6DB0	13	6EFB	6F0E	1	0:4
+PageListProto_ObjTable	7F:6DB0	14	6EFB	6F0E	1	0:4
+PageListProto_ObjTable	7F:6DB0	15	6EFB	6F0E	1	0:4
+PageListProto_ObjTable	7F:6DB0	16	6F11	6F24	1	0:4
+PageListProto_ObjTable	7F:6DB0	17	6F11	6F24	1	0:4
+PageListProto_ObjTable	7F:6DB0	18	6F11	6F24	1	0:4
+PageListProto_ObjTable	7F:6DB0	19	6F11	6F24	1	0:4
+PageListProto_ObjTable	7F:6DB0	20	6F27	6F5D	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	21	6F27	6F5D	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	22	6F27	6F5D	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	23	6F27	6F5D	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	24	6F62	6F98	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	25	6F62	6F98	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	26	6F62	6F98	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	27	6F62	6F98	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	28	6F9D	6FC3	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	29	6F9D	6FC3	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	30	6F9D	6FC3	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	31	6F9D	6FC3	2	0:46 1:8
+PageListProto_ObjTable	7F:6DB0	32	6FC8	704D	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	33	6FC8	704D	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	34	6FC8	704D	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	35	6FC8	704D	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	36	705C	70E1	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	37	705C	70E1	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	38	705C	70E1	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+PageListProto_ObjTable	7F:6DB0	39	705C	70E1	7	0:8 1:8 2:8 3:8 4:8 5:8 6:8
+Table_TextCursor_ObjTables	7F:7B40	0	7B90	7BA6	2	0:80 1:8
+Table_TextCursor_ObjTables	7F:7B40	1	7B90	7BA6	2	0:80 1:8
+Table_TextCursor_ObjTables	7F:7B40	2	7B90	7BA6	2	0:80 1:8
+Table_TextCursor_ObjTables	7F:7B40	3	7B90	7BA6	2	0:80 1:8
+Table_TextCursor_ObjTables	7F:7B40	4	7BB0	7BC2	2	0:20 1:20
+Table_TextCursor_ObjTables	7F:7B40	5	7BB0	7BC2	2	0:20 1:20
+Table_TextCursor_ObjTables	7F:7B40	6	7BB0	7BC2	2	0:20 1:20
+Table_TextCursor_ObjTables	7F:7B40	7	7BB0	7BC2	2	0:20 1:20
+Table_TextCursor_ObjTables	7F:7B40	8	7BCF	7C1B	4	0:12 1:10 2:15 3:10
+Table_TextCursor_ObjTables	7F:7B40	9	7BCF	7C1B	4	0:12 1:10 2:15 3:10
+Table_TextCursor_ObjTables	7F:7B40	10	7BCF	7C1B	4	0:12 1:10 2:15 3:10
+Table_TextCursor_ObjTables	7F:7B40	11	7BCF	7C1B	4	0:12 1:10 2:15 3:10
+Table_TextCursor_ObjTables	7F:7B40	12	7C24	7C5D	3	0:5 1:8 2:10
+Table_TextCursor_ObjTables	7F:7B40	13	7C24	7C5D	3	0:5 1:8 2:10
+Table_TextCursor_ObjTables	7F:7B40	14	7C24	7C5D	3	0:5 1:8 2:10
+Table_TextCursor_ObjTables	7F:7B40	15	7C24	7C5D	3	0:5 1:8 2:10
+Table_TextCursor_ObjTables	7F:7B40	16	7C64	7CBC	4	0:10 1:10 2:5 3:10
+Table_TextCursor_ObjTables	7F:7B40	17	7C64	7CBC	4	0:10 1:10 2:5 3:10
+Table_TextCursor_ObjTables	7F:7B40	18	7C64	7CBC	4	0:10 1:10 2:5 3:10
+Table_TextCursor_ObjTables	7F:7B40	19	7C64	7CBC	4	0:10 1:10 2:5 3:10

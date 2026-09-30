@@ -93,3 +93,10 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 
 * `audio_format.md` - sound stream/song format, driver-verified (reference, current).
 * `naming2_ram2.md`, `naming2_data2.md` - RAM and data-label naming passes; `naming2_verify_ram2.md`, `naming2_verify_data2a.md`, `naming2_verify_data2b.md` - their adversarial verification (status corrections live there).
+
+## Translation and previews
+
+* `TRANSLATION.md` - practical guide for translating the game (text strings, images, fonts, length limits, what was tested).
+* `EDITING_IMAGES.md` - how to edit the PNG sources and rebuild.
+* `research/image_text_inventory.md` - which graphics contain Japanese text, per asset and per screen.
+* `research/sprite_format.md` - sprite object tables, frames, scripts; previews in `gfx/previews/` (screens checked against emulator captures, sprite sheets).

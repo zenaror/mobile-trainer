@@ -1,0 +1,25 @@
+--- a/tools/trace/mgba_trace.c
++++ b/tools/trace/mgba_trace.c
+@@ -1576,6 +1576,22 @@
+ 	mCoreTakeScreenshotVF(core, vf);
+ 	vf->close(vf);
+ 	fprintf(stderr, "screenshot %s\n", path);
++	/* MT_SHOT_STATE=1: also write <shot>.vstate = "MTVS1" + regs(9: LCDC SCX SCY WX WY VBK BGP OBP0 OBP1) + VRAM 2x8K + palette RAM 64 x 2 B (BG 32, OBJ 32; BGR555 little endian) + OAM 160 B */
++	if (getenv("MT_SHOT_STATE")) {
++		char p2[1100];
++		snprintf(p2, sizeof(p2), "%.*s.vstate", (int) strlen(path) - 4, path);
++		FILE* f = fopen(p2, "wb");
++		if (f) {
++			uint8_t regs[9] = {gb->memory.io[0x40], gb->memory.io[0x43], gb->memory.io[0x42], gb->memory.io[0x4B], gb->memory.io[0x4A],
++			                   (uint8_t) gb->video.vramCurrentBank, gb->memory.io[0x47], gb->memory.io[0x48], gb->memory.io[0x49]};
++			fwrite("MTVS1", 1, 5, f);
++			fwrite(regs, 1, 9, f);
++			fwrite(gb->video.vram, 1, 0x4000, f);
++			for (int i = 0; i < 64; ++i) { uint8_t b[2] = {gb->video.palette[i] & 0xFF, gb->video.palette[i] >> 8}; fwrite(b, 1, 2, f); }
++			fwrite(gb->video.oam.raw, 1, 160, f);
++			fclose(f);
++		}
++	}
+ }
+ 
+ 
