@@ -15,6 +15,11 @@ call pushes, return pops).  Then 30 hand-made streams check the constructs that 
 bytes, optional-byte order and duplicates, $CE/$CF, the counted loop $B5, $CD sub-commands, opcodes without handler, call depth,
 running status interplay) the same way.
 
+A second part (section "effects", see check_effects) runs the whole frame tick SoundDrv_FrameTick (04:4082) on synthetic songs
+with the hardware-register writes recorded, to show what the commands $C0-$CF, the instrument fields, the note bytes and the tables do to
+the APU registers, and compares the register values with small models written from the driver code (docs/research/audio_format.md
+sections 5-8).  `--no-effects` skips it.
+
 Conditions and limits: the emulation starts from a freshly initialised driver (all other tracks inactive, music/effect state
 ignored), it proves how a track's bytes are CONSUMED and which command addresses are reached, not what the sound is.  The
 SM83 interpreter implements the instructions this code path needs (everything but DAA/HALT) and is itself only tested by the
@@ -96,7 +101,9 @@ class CPU:
     def f(self, v): self.zf, self.nf, self.hf, self.cf = (v >> 7) & 1, (v >> 6) & 1, (v >> 5) & 1, (v >> 4) & 1
 
     def getr(self, i):
-        return [self.b, self.c, self.d, self.e, self.h, self.l, self.rd(self.hl), self.a][i]
+        if i == 6:
+            return self.rd(self.hl)
+        return [self.b, self.c, self.d, self.e, self.h, self.l, 0, self.a][i]
 
     def setr(self, i, v):
         v &= 0xFF
@@ -479,12 +486,392 @@ def check_vectors(rom, dur):
     return bad
 
 
+# --------------------------------------------------------------------------------------------------------------------
+# effects: the whole frame tick on synthetic songs, hardware-register writes recorded, compared with small models
+# --------------------------------------------------------------------------------------------------------------------
+
+APU = {0x10: 'NR10', 0x11: 'NR11', 0x12: 'NR12', 0x13: 'NR13', 0x14: 'NR14', 0x16: 'NR21', 0x17: 'NR22', 0x18: 'NR23', 0x19: 'NR24',
+       0x1A: 'NR30', 0x1B: 'NR31', 0x1C: 'NR32', 0x1D: 'NR33', 0x1E: 'NR34', 0x20: 'NR41', 0x21: 'NR42', 0x22: 'NR43', 0x23: 'NR44',
+       0x25: 'NR51'}
+SONG_ID = 0x46                   # the synthetic song replaces the record of id $46 in the in-memory ROM copy
+HDR = [0xBF, 0x7F, 0xBD, 0x00, 0xBC, 0x4A]      # volume $7F, pitch add 0, tempo $4A (= one tick per frame with the initial tempo scale)
+INSTR0 = [0xBE, 0x00]                            # instrument 0: pulse 2, duty 3
+NOTE_TABLE_ADDR, INSTR_TABLE_ADDR, WAVE_TABLE_ADDR = 0x5075, 0x51DD, 0x547D
+
+
+class Sim:
+    """SoundDrv_PlaySfx on a synthetic song, then SoundDrv_FrameTick per frame; `log` holds the (register, value) writes of a frame."""
+
+    def __init__(self, rom_bytes, tracks, patch=None):
+        img = bytearray(rom_bytes)
+        base, addr, starts = 6 * 0x4000, 0x4000, []
+        for t in tracks:
+            img[base + addr - 0x4000:base + addr - 0x4000 + len(t)] = bytes(t)
+            starts.append(addr)
+            addr += len(t) + 4
+        hb = [len(tracks), 0] + [v for st in starts for v in (st & 0xFF, st >> 8)]
+        img[base + 0x3000:base + 0x3000 + len(hb)] = bytes(hb)
+        rec = 4 * 0x4000 + 0x5515 + 8 * SONG_ID - 0x4000
+        img[rec:rec + 8] = bytes([0x00, 0x70, 6, 0, 0xC8, 0xFF, len(tracks), 0])
+        for off, val in (patch or {}).items():                  # (bank 04 address, bytes) of the in-memory copy
+            img[4 * 0x4000 + off - 0x4000:4 * 0x4000 + off - 0x4000 + len(val)] = bytes(val)
+        self.cpu = make_cpu(bytes(img))
+        leave = lambda c: setattr(c, 'pc', c.pop())              # Bank4_GateLeave / Bank4_RestoreCallerBank: back to the caller
+        self.cpu.hooks[0x2141] = leave
+        self.cpu.hooks[0x210B] = leave
+        self.log = []
+        raw = self.cpu.wr
+
+        def wr(a, v):
+            a &= 0xFFFF
+            if 0xFF10 <= a <= 0xFF3F:
+                self.log.append((a & 0xFF, v & 0xFF))
+            raw(a, v)
+        self.cpu.wr = wr
+        call(self.cpu, 0x4000)                                   # SoundDrv_Init
+        self.cpu.b, self.cpu.c = 0, SONG_ID
+        call(self.cpu, 0x41C0)                                   # SoundDrv_PlaySfx: all tracks of the song start
+
+    def frames(self, n):
+        out = []
+        for _ in range(n):
+            self.log = []
+            call(self.cpu, 0x4082, maxsteps=3000000)             # SoundDrv_FrameTick
+            out.append(list(self.log))
+        return out
+
+
+def regs(frames_, reg):
+    """[(frame, value)] of the writes to one register."""
+    return [(f, v) for f, l in enumerate(frames_) for a, v in l if a == reg]
+
+
+def run_song(rom_bytes, stream, n, patch=None):
+    return Sim(rom_bytes, [stream], patch).frames(n)
+
+
+def mulnib(b, c):                                                # SoundDrv_MulNibbles 04:502B
+    c = (c & 0xF0) >> 4
+    a = b & 0xF0
+    for _ in range(4):
+        carry, a = a >> 7, (a << 1) & 0xFF
+        if carry:
+            a = (a + c) & 0xFF
+    return a
+
+
+def vol_out(v):                                                  # sound_volume v -> track+$2F (04:492A, 04:46BF)
+    b = ((v << 1) | (v >> 7)) & 0xFF
+    a = (mulnib(b, 0x40) + 0x0F) & 0xF0
+    a = 0xFF if a >= 0x40 else a
+    return ((a << 2) | (a >> 6)) & 0xFF
+
+
+def target_nib(v, m):                                            # volume nibble of the channel register at a note start (04:4DDF)
+    return ((mulnib(vol_out(v), ((m << 3) | 7) & 0xFF) + 0x0F) & 0xF0) >> 4
+
+
+def sustain_nib(v, m, b4):                                       # 04:4E04
+    a1 = (mulnib(b4, ((m << 3) | 7) & 0xFF) + 0x0F) & 0xFF
+    return ((mulnib(vol_out(v), a1) + 0x0F) & 0xF0) >> 4
+
+
+class Effects:
+    def __init__(self, rom):
+        self.rom = rom
+        self.raw = rom.data
+        self.nf = [(rom.w(4, NOTE_TABLE_ADDR + 3 * i), rom.b(4, NOTE_TABLE_ADDR + 3 * i + 2)) for i in range(120)]
+        self.inst = [[rom.b(4, INSTR_TABLE_ADDR + 6 * i + k) for k in range(6)] for i in range(112)]
+        self.results = []
+
+    def report(self, name, ok, detail=''):
+        self.results.append(ok)
+        print('  %-70s %s%s' % (name, 'ok' if ok else 'MISMATCH', (' ' + detail) if detail and not ok else ''))
+
+    def predict(self, pitch, off16):                             # SoundDrv_WriteChannelPitch 04:4ECA, pulse channels
+        hi, lo = (off16 >> 8) & 0xFF, off16 & 0xFF
+        idx = min(max(((pitch + hi) & 0xFF) - 0x24, 0), 0x77)
+        base, step = self.nf[idx]
+        return base + ((step * lo + 0xFF) >> 8)
+
+    def freq_series(self, cmds, n, pitch=0x40, instr=INSTR0):
+        """Period after every frame (pulse 2) for a held note."""
+        fr = run_song(self.raw, HDR + instr + cmds + [0xCE, pitch, 0x1F, 0xB0, 0xB1], n)
+        cur, lo, out = None, None, []
+        for l in fr:
+            for a, v in l:
+                if a == 0x18:
+                    lo = v
+                elif a == 0x19 and lo is not None:
+                    cur, lo = lo | (v & 7) << 8, None
+            out.append(cur)
+        return out
+
+    def run(self):
+        self.volume()
+        self.gate()
+        self.note_off()
+        self.pan()
+        self.pitch()
+        self.vibrato()
+        self.instruments()
+        self.instrument_fields()
+        self.wave_patterns()
+        self.ext_commands()
+        self.field_reads()
+        return self.results.count(False)
+
+    # -- track volume and note volume -> channel volume nibble
+    def volume(self):
+        bad = []
+        for v in (0x7F, 0x60, 0x40, 0x20, 0x10, 0x00):
+            for m in (0x00, 0x04, 0x08, 0x0F, 0x10, 0x1F):
+                fr = run_song(self.raw, [0xBF, v, 0xBD, 0x00, 0xBC, 0x4A, 0xBE, 0, 0xD5, 0x40, m, 0xB0, 0xB1], 4)
+                w = [x for _, x in regs(fr, 0x17) if x != 0x08]
+                if not w or w[0] != (target_nib(v, m) << 4 | 2):
+                    bad.append((v, m, w[:1], target_nib(v, m)))
+        self.report('sound_volume x note volume -> NR22 volume nibble (36 combinations)', not bad, str(bad[:3]))
+
+    # -- duration = gate time
+    def gate(self):
+        bad = []
+        for d in (3, 6, 12, 16, 24, 32, 40):
+            idx = m.DUR_VALUES.index(d)
+            fr = run_song(self.raw, HDR + INSTR0 + [0xCF + idx, 0x40, 0x1F, 0xB0, 0xB1], 60)
+            sil = [f for f, l in enumerate(fr) if f > 0 and (0x17, 0x08) in l and (0x19, 0x80) in l]
+            if sil != [d]:
+                bad.append((d, sil))
+        self.report('note duration = ticks until the channel is released (instrument 0, release 0)', not bad, str(bad))
+
+    def note_off(self):
+        def release_frame(cmds):
+            fr = run_song(self.raw, HDR + INSTR0 + cmds, 60)
+            sil = [f for f, l in enumerate(fr) if f > 0 and (0x17, 0x08) in l and (0x19, 0x80) in l]
+            return sil[0] if sil else None
+        held = [0xCE, 0x40, 0x1F, 0x8C]                          # held note (duration 0), wait 12 ticks
+        bad = []
+        if release_frame(held + [0xCF, 0xB0, 0xB1]) != 12:
+            bad.append('bare $CF')
+        if release_frame(held + [0xCF, 0x40, 0xB0, 0xB1]) != 12:
+            bad.append('$CF with the same pitch')
+        r = release_frame(held + [0xCF, 0x42, 0xB0, 0xB1])
+        if r is not None and r <= 12:
+            bad.append('$CF with another pitch released the note')
+        r = release_frame(held + [0xB0, 0xB1])                     # no $CF: the note only ends with the track (after 12 + 96 ticks)
+        if r is not None and r <= 12:
+            bad.append('held note without $CF ended early')
+        self.report('$CE note is held; $CF releases it only for the same pitch (bare $CF = last pitch)', not bad, str(bad))
+
+    def pan(self):
+        bad = []
+        for v in range(0, 0x80, 4):
+            fr = run_song(self.raw, HDR + INSTR0 + [0xC0, v, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3)
+            w = [x for _, x in regs(fr, 0x25)]
+            want = 0xFD if v < 0x20 else (0xDF if v >= 0x60 else 0xFF)
+            if not w or w[-1] != want:
+                bad.append((v, w))
+        self.report('$C0 pan: NR51 bits of pulse 2 (left only < $20, both, right only >= $60), 32 values', not bad, str(bad[:3]))
+
+    def pitch(self):
+        def rotl(b):
+            return ((b << 1) | (b >> 7)) & 0xFF
+        bad = []
+        for v in (0x00, 0x10, 0x28, 0x3F, 0x40, 0x41, 0x50, 0x60, 0x70, 0x7F):
+            for sc in (None, 0, 1, 2, 4, 8):
+                vp = (rotl(v) - 0x80) & 0xFF
+                b = (vp << 1) & 0xFF
+                scale = 2 if sc is None else sc
+                if vp << 1 & 0x100:                               # negative: SoundDrv at 04:48B9
+                    off = (~(((b ^ 0xFF) * scale) - 1)) & 0xFFFF
+                else:
+                    off = b * scale & 0xFFFF
+                cmds = [0xC1, v] + ([] if sc is None else [0xC2, sc])
+                got = self.freq_series(cmds, 1)[0]
+                if got != self.predict(0x40, off):
+                    bad.append(('C1', v, sc, got, self.predict(0x40, off)))
+        self.report('$C1 pitch bend x $C2 scale: period = table + step * offset / 256 (60 combinations)', not bad, str(bad[:3]))
+        bad = []
+        for v in (0x00, 0x20, 0x40, 0x50, 0x60, 0x7F):
+            vp = (rotl(v) - 0x80) & 0xFF
+            off = ((0xFF if vp & 0x80 else 0) << 8) | ((vp << 1) & 0xFF)
+            got = self.freq_series([0xC9, v], 1)[0]
+            if got != self.predict(0x40, off):
+                bad.append((v, got, self.predict(0x40, off)))
+        self.report('$C9 detune: (value - $40) / 64 semitones (6 values)', not bad, str(bad))
+        bad = []
+        for a in (0x00, 0x01, 0x0C, 0xF4):
+            fr = run_song(self.raw, [0xBF, 0x7F, 0xBD, a, 0xBC, 0x4A, 0xBE, 0, 0xCE, 0x40, 0x1F, 0xB0, 0xB1], 1)
+            lo, hi = regs(fr, 0x18)[0][1], [x for _, x in regs(fr, 0x19) if x & 0x7F][0]
+            if (lo | (hi & 7) << 8) != self.predict((0x40 + a) & 0xFF, 0):
+                bad.append(a)
+        self.report('sound_pitch_add: one semitone per unit ($0C up an octave, $F4 down one) (4 values)', not bad, str(bad))
+
+    def vib_model(self, rate, depth, delay, n):
+        P, d, out = (0x40 if rate == 0 else 0), delay, []        # $C3 with $00 starts the phase at $40 (04:48FF), with $80 at $00
+        for _ in range(n):
+            if d:
+                d, P = d - 1, 0x40
+            else:
+                P = (P + rate) & 0xFF
+            w = (P << 1) & 0xFF
+            if P & 0x80:
+                w = ~w & 0xFF
+            if depth == 0:
+                off = 0
+            else:
+                scaled = w * depth >> 8
+                a = (scaled - (depth >> 1)) & 0xFF
+                off = ((((0xFF if scaled < depth >> 1 else 0) << 8) | a) << 3) & 0xFFFF
+            out.append(self.predict(0x40, off))
+        return out
+
+    def vibrato(self):
+        bad = []
+        for rate, depth, delay in ((0x17, 0x20, 0), (0x30, 0x20, 0), (0x17, 0x20, 10), (0x10, 0x60, 0), (0x80, 0x40, 3), (0x00, 0x40, 0)):
+            cmds = [0xC5, depth] + ([0xC3, rate] if rate != 0x17 else []) + ([0xC4, delay] if delay else [])
+            got = self.freq_series(cmds, 40)
+            want = self.vib_model(rate, depth, delay, 40)
+            if got != want:
+                bad.append((rate, depth, delay))
+        self.report('$C3 rate / $C4 delay / $C5 depth: vibrato period series = LFO model (6 settings x 40 ticks)', not bad, str(bad))
+        a = self.freq_series([0xC5, 0x20], 12)
+        b = self.freq_series([0xC5, 0x20, 0xC6, 0x01], 12)
+        self.report('$C6 nonzero: the vibrato is left out of the pitch', len(set(a)) > 1 and len(set(b)) == 1)
+
+    # -- instrument table
+    def instruments(self):
+        bad, n = [], 0
+        for i, r in enumerate(self.inst[:0x64]):
+            ch = 1 if r[0] < 8 else 2 if r[0] < 0x10 else 3 if r[0] < 0x40 else 4
+            if ch == 3:
+                continue
+            reg = {1: 0x12, 2: 0x17, 4: 0x21}[ch]
+            att, dec, sus_b, rel = (~r[3] >> 5) & 7, (~r[3] >> 1) & 7, r[4] >> 4, (~r[4] >> 1) & 7
+            fr = run_song(self.raw, HDR + [0xBE, i, 0xCE, 0x40, 0x1F, 0xB0, 0xB1], 110)   # held note until the track ends (96 ticks)
+            w = [x for _, x in regs(fr, reg)]
+            first = (0x08 | att) if att else (target_nib(0x7F, 0x1F) << 4 | dec)
+            n += 1
+            ok = len(w) >= 2 and w[0] == 0x08 and w[1] == first
+            s = sustain_nib(0x7F, 0x1F, r[4])
+            if ok and att == 0 and dec and 0 < s < target_nib(0x7F, 0x1F):
+                ok = (s << 4) in w[2:]
+            if ok:                                                # release at the end of the track: first the level, then silence
+                ok = w[-1] == 0x08
+            if not ok:
+                bad.append((i, att, dec, sus_b, rel, [hex(x) for x in w[:4]]))
+        self.report('instruments $00-$63 (pulse/noise): NRx2 = attack / decay / sustain fields of bytes 3-4 (%d records)' % n, not bad, str(bad[:3]))
+        bad = []
+        for i, r in enumerate(self.inst[:0x64]):
+            if r[4] >> 4 and (~r[4] >> 1) & 7 and r[0] < 0x10 and (~r[3] >> 5) & 7 == 0:
+                rel = (~r[4] >> 1) & 7
+                fr = run_song(self.raw, HDR + [0xBE, i, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 80)   # 16-tick note, then the release phase
+                reg = 0x12 if r[0] < 8 else 0x17
+                w = [x for _, x in regs(fr, reg)]
+                if not any(x & 7 == rel and x >> 4 for x in w[2:]):
+                    bad.append((i, rel, [hex(x) for x in w]))
+        self.report('instruments with a release field: the release write (level | period) follows the note end', not bad, str(bad[:3]))
+
+    def instrument_fields(self):
+        """Synthetic records in the unused id $6E: byte 0 class and duty / width, byte 1 length, byte 2 sweep."""
+        bad = []
+        for rec, reg, want in (
+                ([0x02, 0x10, 0x5A, 0xFB, 0x7F, 0x3C], {0x11: 0x80 | (-0x10 & 0x3F), 0x10: 0x5A, 0x14: None}, 'pulse 1: duty 2, length 16, sweep $5A'),
+                ([0x0B, 0x01, 0x00, 0xFB, 0x7F, 0x3C], {0x16: 0xC0 | (-1 & 0x3F)}, 'pulse 2: duty 3, length 1'),
+                ([0x41, 0x08, 0x00, 0xFB, 0x7F, 0x3C], {0x20: -8 & 0xFF, 0x22: None}, 'noise: width 1, length 8')):
+            patch = {INSTR_TABLE_ADDR + 6 * 0x6E: rec}
+            fr = run_song(self.raw, HDR + [0xBE, 0x6E, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3, patch)
+            wr = {}
+            for l in fr:
+                for a, v in l:
+                    wr[a] = v
+            for r_, w_ in reg.items():
+                if w_ is not None and wr.get(r_) != w_:
+                    bad.append((want, APU.get(r_), wr.get(r_), w_))
+            if rec[1] and rec[0] >= 8 and rec[0] < 0x10 and wr.get(0x19, 0) & 0x40 == 0:
+                bad.append((want, 'NR24 bit 6 (length enable)'))
+            if rec[1] and rec[0] < 8 and wr.get(0x14, 0) & 0x40 == 0:
+                bad.append((want, 'NR14 bit 6 (length enable)'))
+            if rec[1] and rec[0] >= 0x40 and wr.get(0x23, 0) & 0x40 == 0:
+                bad.append((want, 'NR44 bit 6 (length enable)'))
+        fr = run_song(self.raw, HDR + [0xBE, 0x6E, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3, {INSTR_TABLE_ADDR + 6 * 0x6E: [0x41, 0, 0, 0xFB, 0x7F, 0x3C]})
+        w43 = [x for _, x in regs(fr, 0x22)]
+        fr0 = run_song(self.raw, HDR + [0xBE, 0x6E, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3, {INSTR_TABLE_ADDR + 6 * 0x6E: [0x40, 0, 0, 0xFB, 0x7F, 0x3C]})
+        w43b = [x for _, x in regs(fr0, 0x22)]
+        if not (w43 and w43b and (w43[0] ^ w43b[0]) & 0x08 and not (w43[0] ^ w43b[0]) & 0xF7):
+            bad.append(('noise width bit', w43, w43b))
+        self.report('instrument byte 0 (class, duty, width), byte 1 (length), byte 2 (NR10) reach their registers (synthetic records)', not bad, str(bad[:3]))
+
+    def wave_patterns(self):
+        bad, seen = [], 0
+        for i, r in enumerate(self.inst[:0x64]):
+            if 0x10 <= r[0] < 0x40:
+                fr = run_song(self.raw, HDR + [0xBE, i, 0xCE, 0x40, 0x1F, 0xB0, 0xB1], 3)
+                got = [0] * 16
+                for l in fr:
+                    for a, v in l:
+                        if 0x30 <= a <= 0x3F:
+                            got[a - 0x30] = v
+                want = [self.rom.b(4, WAVE_TABLE_ADDR + 16 * (r[0] - 0x10) + k) for k in range(16)]
+                seen += 1
+                if got != want:
+                    bad.append((i, r[0]))
+        self.report('wave instruments: pattern (byte 0 - $10) is copied to $FF30-$FF3F (%d records)' % seen, not bad and seen > 0, str(bad))
+
+    def ext_commands(self):
+        bad = []
+        # sub 1: byte 0 of the instrument copy (duty 3 -> 1), sub 10: byte 1 (length), sub 11: byte 2
+        fr = run_song(self.raw, HDR + INSTR0 + [0xCD, 1, 0x09, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3)
+        if [x for _, x in regs(fr, 0x16)][:1] != [0x40]:
+            bad.append('sub 1')
+        fr = run_song(self.raw, HDR + INSTR0 + [0xCD, 10, 0x04, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3)
+        if [x for _, x in regs(fr, 0x16)][:1] != [0xC0 | (-4 & 0x3F)] or not any(x & 0x40 for _, x in regs(fr, 0x19)):
+            bad.append('sub 10')
+        # sub 2 / 3: nibbles of byte 3 (instrument 0: $FB -> decay field): $FB -> with high nibble $A and low nibble 3
+        fr = run_song(self.raw, HDR + INSTR0 + [0xCD, 2, 0x0A, 0xCD, 3, 0x03, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 3)
+        w = [x for _, x in regs(fr, 0x17) if x != 0x08]
+        b3 = 0xA3
+        if not w or w[0] != (0x08 | ((~b3 >> 5) & 7)):
+            bad.append(('sub 2/3', w[:2]))
+        fr = run_song(self.raw, HDR + INSTR0 + [0xCD, 4, 0x00, 0xCD, 5, 0x0F, 0xDF, 0x40, 0x1F, 0xB0, 0xB1], 40)
+        w = [x for _, x in regs(fr, 0x17)]
+        if 0x08 not in w[-1:]:
+            bad.append(('sub 4/5', w))
+        self.report('$CD sub-commands 1, 10, 2/3 patch the instrument copy of the track (4 probes)', not bad, str(bad))
+
+    def field_reads(self):
+        """Which bytes of a track record does any instruction read while every field command is in use?  (watch on CPU.rd)"""
+        seen = set()
+        for cmds in ([0xC0, 0x10, 0xC1, 0x30, 0xC2, 0x03, 0xC3, 0x20, 0xC4, 0x05, 0xC5, 0x10, 0xC9, 0x30, 0xCA, 0x55, 0xC6, 0x01],
+                     [0xCD, 1, 2, 0xCD, 10, 5, 0xCD, 11, 6, 0xCD, 2, 7, 0xCD, 3, 5, 0xCD, 4, 6, 0xCD, 5, 4, 0xCD, 6, 0x33, 0xCD, 7, 0x44],
+                     [0xB3, 0x0D, 0x40, 0xA0, 0xB1, 0xCE, 0x40, 0x1F, 0x8C, 0xB4]):        # a call; the subroutine starts at 06:400D (byte 13)
+            sim = Sim(self.raw, [HDR + INSTR0 + cmds + [0xDF, 0x40, 0x1F, 0xA0, 0xCE, 0x41, 0xA0, 0xCF, 0xB0, 0xB1]])
+            raw_rd = sim.cpu.rd
+
+            def rd(a, _o=raw_rd):
+                a &= 0xFFFF
+                if 0xD040 <= a < 0xD040 + 0x3C:
+                    seen.add(a - 0xD040)
+                return _o(a)
+            sim.cpu.rd = rd
+            sim.frames(120)
+        self.report('track+$1E (written by $CA) is never read while the field commands run', 0x1E not in seen)
+        self.report('the return address of $B3 is kept at track+$32.. and read back by $B4', {0x32, 0x33} <= seen)
+        self.unread = sorted(set(range(0x3C)) - seen)
+        print('    track bytes never read in these runs: ' + ' '.join('%02X' % o for o in self.unread))
+
+
+def check_effects(rom):
+    print('effects (whole frame tick, synthetic songs, APU writes recorded):')
+    return Effects(rom).run()
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--rom')
     ap.add_argument('--root', default=ROOT)
     ap.add_argument('--calls', type=int, default=1500, help='StepTrack calls per track (each decodes at least one command)')
     ap.add_argument('--quick', action='store_true', help='--calls 300')
+    ap.add_argument('--no-effects', action='store_true', help='skip the effects section')
     a = ap.parse_args(argv)
     rom_path = a.rom
     if rom_path is None:
@@ -520,7 +907,8 @@ def main(argv=None):
     print('synthetic streams:')
     bad = check_vectors(rom, dur)
     print('synthetic streams with a mismatch: %d' % bad)
-    return 0 if good == tot and bad == 0 else 1
+    bad_fx = 0 if a.no_effects else check_effects(rom)
+    return 0 if good == tot and bad == 0 and bad_fx == 0 else 1
 
 
 if __name__ == '__main__':

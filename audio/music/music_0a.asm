@@ -6,13 +6,14 @@ SECTION "audio/music/music_0a", ROMX
 
 ; ---- data $77E9-$79A4 (443 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; command semantics not decoded (part of region $574D-$7E8C)
 
-Data_04_77E9:: ; 04:77E9
+SoundSong0A_Track0:: ; 04:77E9
+Data_04_77E9::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_tempo $42
 	sound_instrument $4D
-	sound_cmd_C5 $18
-	sound_cmd_C4 $28
+	sound_vibrato_depth $18
+	sound_vibrato_delay $28
 	sound_note 48, $45, $1A
 	sound_wait 48
 	sound_note 24, $48
@@ -66,7 +67,8 @@ Data_04_7808:: ; 04:7808
 	sound_jump Data_04_77FC
 Data_04_7844:: ; 04:7844
 	sound_end
-Data_04_7845:: ; 04:7845
+SoundSong0A_Track1:: ; 04:7845
+Data_04_7845::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $2B
@@ -186,7 +188,8 @@ Data_04_788C:: ; 04:788C
 	sound_jump Data_04_7859
 Data_04_78DB:: ; 04:78DB
 	sound_end
-Data_04_78DC:: ; 04:78DC
+SoundSong0A_Track2:: ; 04:78DC
+Data_04_78DC::
 	sound_volume $7F
 	sound_pitch_add $00
 	sound_instrument $37
@@ -340,8 +343,9 @@ Data_04_7937:: ; 04:7937
 	sound_jump Data_04_78EF
 Data_04_798F:: ; 04:798F
 	sound_end
-Data_04_7990:: ; 04:7990
+SoundSong0A_Header:: ; 04:7990
+Data_04_7990::
 	sound_stream_header 3, 2
-	dw Data_04_77E9, Data_04_7845, Data_04_78DC ; track stream pointers (read by the driver)
+	dw SoundSong0A_Track0, SoundSong0A_Track1, SoundSong0A_Track2 ; track stream pointers (read by the driver)
 	dw Data_04_77FC, Data_04_7859, Data_04_78EF ; not read by the driver: target of each track's final sound_jump
 	dw Data_04_7844, Data_04_78DB, Data_04_798F ; not read by the driver: address after each track's final sound_jump

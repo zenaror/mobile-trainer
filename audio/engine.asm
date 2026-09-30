@@ -811,11 +811,11 @@ Data_04_449B::
 Table_SoundDrv_ParamHandlers:: ; 04:44A3
 Table_04_44A3::
 	dw SoundDrv_ParamTempoScale
-	dw Label_04_4840
+	dw SoundDrv_ParamPitchOffset
 	dw SoundDrv_ParamVolumeScale
-	dw Label_04_4962
-	dw Label_04_4991
-	dw Label_04_4908
+	dw SoundDrv_ParamPanOffset
+	dw SoundDrv_ParamVibratoDepth
+	dw SoundDrv_ParamVibratoRate
 	dw Label_04_49CD
 
 SoundDrv_SetTrackParam:: ; 04:44B1
@@ -982,7 +982,7 @@ SoundDrv_StepTrack:: ; 04:456C
 	jr z, .l458E
 	dec [hl]
 	inc hl
-	jr Label_04_45E6
+	jr SoundDrv_TickVibrato
 .l458E ; 04:458E
 	inc hl
 	ld a, [hli]
@@ -1020,7 +1020,7 @@ SoundDrv_ReadNextCommand:: ; 04:459B
 	cp a, $D0
 	jp nc, SoundDrv_CmdNote
 	sub a, $B1
-	jp c, SoundDrv_CmdRest
+	jp c, SoundDrv_CmdWait
 	ld bc, Table_SoundDrv_Commands
 
 SoundDrv_JumpTable:: ; 04:45CD
@@ -1046,7 +1046,8 @@ SoundDrv_CmdEnd:: ; 04:45DB
 	ld [hli], a
 	ret
 
-Label_04_45E6:: ; 04:45E6
+SoundDrv_TickVibrato:: ; 04:45E6
+Label_04_45E6::
 	ld bc, $0029
 	add hl, bc
 	ld a, [hl]
@@ -1247,49 +1248,49 @@ Table_04_46E8::
 	dw SoundDrv_CmdCall
 	dw SoundDrv_CmdReturn
 	dw SoundDrv_CmdRepeat
-	dw Label_04_4A24
-	dw Label_04_4A24
-	dw Label_04_4A24
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdUnassigned
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdSetTempo
-	dw Label_04_483A
+	dw SoundDrv_CmdSetPitchAdd
 	dw SoundDrv_CmdSetInstrument
 	dw SoundDrv_CmdSetVolume
-	dw Label_04_4955
-	dw Label_04_4896
-	dw Label_04_48D5
-	dw Label_04_48EC
-	dw Label_04_4925
-	dw Label_04_4970
-	dw Label_04_4984
-	dw Label_04_4A24
-	dw Label_04_4A24
-	dw Label_04_4997
+	dw SoundDrv_CmdPan
+	dw SoundDrv_CmdPitchBend
+	dw SoundDrv_CmdPitchBendScale
+	dw SoundDrv_CmdVibratoRate
+	dw SoundDrv_CmdVibratoDelay
+	dw SoundDrv_CmdVibratoDepth
+	dw SoundDrv_CmdVibratoDisable
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdDetune
 	dw Label_04_49B6
-	dw Label_04_4A24
+	dw SoundDrv_CmdUnassigned
 	dw SoundDrv_CmdEnd
 	dw SoundDrv_CmdExtended
-	dw Label_04_4A27
-	dw Label_04_4B66
+	dw SoundDrv_CmdNoteHeld
+	dw SoundDrv_CmdNoteOff
 
 ; ---- ptrtable $4726-$473E (24 bytes) [PROBABLE] 12 code pointers, base ld bc,$4726 at 04:4750 then jp 45CD; ends at the code region 473E; targets 45DB 49D3 49E2 49FF 4A1A 4A1F 49C3 49C8 4A24 4A24 49D8 49DD all decode cleanly
 
 Table_SoundDrv_ExtCommands:: ; 04:4726
 Table_04_4726::
 	dw SoundDrv_CmdEnd
-	dw Label_04_49D3
-	dw Label_04_49E2
-	dw Label_04_49FF
-	dw Label_04_4A1A
-	dw Label_04_4A1F
-	dw Label_04_49C3
-	dw Label_04_49C8
-	dw Label_04_4A24
-	dw Label_04_4A24
-	dw Label_04_49D8
-	dw Label_04_49DD
+	dw SoundDrv_ExtSetInstrByte0
+	dw SoundDrv_ExtSetInstrByte3Hi
+	dw SoundDrv_ExtSetInstrByte3Lo
+	dw SoundDrv_ExtSetInstrByte4Hi
+	dw SoundDrv_ExtSetInstrByte4Lo
+	dw SoundDrv_ExtSetTrack27
+	dw SoundDrv_ExtSetTrack28
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_CmdUnassigned
+	dw SoundDrv_ExtSetInstrByte1
+	dw SoundDrv_ExtSetInstrByte2
 
 SoundDrv_CmdExtended:: ; 04:473E
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: table x11; min discovery hops 0; run
@@ -1306,7 +1307,7 @@ SoundDrv_CmdExtended:: ; 04:473E
 	ld bc, Table_SoundDrv_ExtCommands
 	jp SoundDrv_JumpTable
 
-SoundDrv_CmdRest:: ; 04:4756
+SoundDrv_CmdWait:: ; 04:4756
 	; [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios)
 	add a, $31
 	jp z, SoundDrv_ReadNextCommand
@@ -1328,7 +1329,7 @@ SoundDrv_CmdRest:: ; 04:4756
 	ld [hli], a
 	ld a, d
 	ld [hld], a
-	jp Label_04_45E6
+	jp SoundDrv_TickVibrato
 
 SoundDrv_CmdCall:: ; 04:4777
 	ld a, [wSoundDrv_TrackPtr]
@@ -1477,12 +1478,14 @@ SoundDrv_ParamTempoScale:: ; 04:4819
 .done ; 04:4839
 	ret
 
-Label_04_483A:: ; 04:483A
+SoundDrv_CmdSetPitchAdd:: ; 04:483A
+Label_04_483A::
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 18/18 scenarios)
 	ld bc, $0012
-	jp Label_04_4973
+	jp SoundDrv_CmdStoreTrackByte
 
-Label_04_4840:: ; 04:4840
+SoundDrv_ParamPitchOffset:: ; 04:4840
+Label_04_4840::
 	; [PROBABLE] validated entry 4840 of jump table Table_04_44A3 (index 1); clean decode to a
 	; terminator
 	ld a, [wRam_D03C]
@@ -1540,7 +1543,8 @@ SoundDrv_GetInstrumentPtr:: ; 04:4889
 	add hl, bc
 	ret
 
-Label_04_4896:: ; 04:4896
+SoundDrv_CmdPitchBend:: ; 04:4896
+Label_04_4896::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1556,7 +1560,8 @@ Label_04_4896:: ; 04:4896
 	ld a, [hli]
 	ld c, a
 
-Label_04_48AD:: ; 04:48AD
+SoundDrv_PitchBendProduct:: ; 04:48AD
+Label_04_48AD::
 	push hl
 	sla b
 	jr c, .l48B9
@@ -1586,7 +1591,8 @@ Label_04_48AD:: ; 04:48AD
 	ld [wSoundDrv_UpdateFlags], a
 	jp SoundDrv_ReadNextCommand
 
-Label_04_48D5:: ; 04:48D5
+SoundDrv_CmdPitchBendScale:: ; 04:48D5
+Label_04_48D5::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1600,9 +1606,10 @@ Label_04_48D5:: ; 04:48D5
 	ld a, [hli]
 	ld b, a
 	inc hl
-	jr Label_04_48AD
+	jr SoundDrv_PitchBendProduct
 
-Label_04_48EC:: ; 04:48EC
+SoundDrv_CmdVibratoRate:: ; 04:48EC
+Label_04_48EC::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1626,7 +1633,8 @@ Label_04_48EC:: ; 04:48EC
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 17/18 scenarios)
 	jp SoundDrv_ReadNextCommand
 
-Label_04_4908:: ; 04:4908
+SoundDrv_ParamVibratoRate:: ; 04:4908
+Label_04_4908::
 	; [PROBABLE] validated entry 4908 of jump table Table_04_44A3; clean decode to a terminator
 	ld a, [wRam_D039]
 	sla a
@@ -1642,10 +1650,11 @@ Label_04_4908:: ; 04:4908
 	ld bc, $001F
 	jp SoundDrv_SetTrackFieldWord
 
-Label_04_4925:: ; 04:4925
+SoundDrv_CmdVibratoDelay:: ; 04:4925
+Label_04_4925::
 	; [CONFIRMED] 16 insn(s); 16 executed (in up to 18/18 scenarios)
 	ld bc, $002A
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
 SoundDrv_CmdSetVolume:: ; 04:492A
 	ld a, [wSoundDrv_UpdateFlags]
@@ -1671,16 +1680,18 @@ SoundDrv_ParamVolumeScale:: ; 04:4947
 	ld bc, $0016
 	jp SoundDrv_SetTrackFieldByte
 
-Label_04_4955:: ; 04:4955
+SoundDrv_CmdPan:: ; 04:4955
+Label_04_4955::
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wRam_D019]
 	set 0, a
 	ld [wRam_D019], a
 	ld bc, $0017
-	jr Label_04_49A2
+	jr SoundDrv_CmdStoreTrackSigned
 
-Label_04_4962:: ; 04:4962
+SoundDrv_ParamPanOffset:: ; 04:4962
+Label_04_4962::
 	; [PROBABLE] validated entry 4962 of jump table Table_04_44A3; clean decode to a terminator
 	ld a, [wRam_D03C]
 	set 0, a
@@ -1688,11 +1699,13 @@ Label_04_4962:: ; 04:4962
 	ld bc, $0018
 	jp SoundDrv_SetTrackFieldByte
 
-Label_04_4970:: ; 04:4970
+SoundDrv_CmdVibratoDepth:: ; 04:4970
+Label_04_4970::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
 	ld bc, $0021
 
-Label_04_4973:: ; 04:4973
+SoundDrv_CmdStoreTrackByte:: ; 04:4973
+Label_04_4973::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -1703,21 +1716,24 @@ Label_04_4973:: ; 04:4973
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
 
-Label_04_4984:: ; 04:4984
+SoundDrv_CmdVibratoDisable:: ; 04:4984
+Label_04_4984::
 	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wSoundDrv_UpdateFlags]
 	or a, $07
 	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $0023
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_4991:: ; 04:4991
+SoundDrv_ParamVibratoDepth:: ; 04:4991
+Label_04_4991::
 	; [PROBABLE] validated entry 4991 of jump table Table_04_44A3; clean decode to a terminator
 	ld bc, $0022
 	jp SoundDrv_SetTrackFieldByte
 
-Label_04_4997:: ; 04:4997
+SoundDrv_CmdDetune:: ; 04:4997
+Label_04_4997::
 	; [PROBABLE] 20 insn(s) reached by static flow only; seeds: table x20; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	ld a, [wRam_D019]
@@ -1725,7 +1741,8 @@ Label_04_4997:: ; 04:4997
 	ld [wRam_D019], a
 	ld bc, $001D
 
-Label_04_49A2:: ; 04:49A2
+SoundDrv_CmdStoreTrackSigned:: ; 04:49A2
+Label_04_49A2::
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1743,38 +1760,45 @@ Label_04_49B6:: ; 04:49B6
 	set 2, a
 	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $001E
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_49C3:: ; 04:49C3
+SoundDrv_ExtSetTrack27:: ; 04:49C3
+Label_04_49C3::
 	; [PROBABLE] entries 49C3/49C8/49CD/49D3/49D8/49DD/49E2/49FF/4A1A/4A1F are words of the jump
 	; tables Table_04_44A3 and Table_04_46E8/4726; clean decode to a terminator at 4A24
 	ld bc, $0027
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_49C8:: ; 04:49C8
+SoundDrv_ExtSetTrack28:: ; 04:49C8
+Label_04_49C8::
 	ld bc, $0028
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
 Label_04_49CD:: ; 04:49CD
 	ld bc, $0027
 	jp SoundDrv_SetTrackFieldWord
 
-Label_04_49D3:: ; 04:49D3
+SoundDrv_ExtSetInstrByte0:: ; 04:49D3
+Label_04_49D3::
 	ld bc, $000C
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_49D8:: ; 04:49D8
+SoundDrv_ExtSetInstrByte1:: ; 04:49D8
+Label_04_49D8::
 	ld bc, $000D
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_49DD:: ; 04:49DD
+SoundDrv_ExtSetInstrByte2:: ; 04:49DD
+Label_04_49DD::
 	ld bc, $000E
-	jr Label_04_4973
+	jr SoundDrv_CmdStoreTrackByte
 
-Label_04_49E2:: ; 04:49E2
+SoundDrv_ExtSetInstrByte3Hi:: ; 04:49E2
+Label_04_49E2::
 	ld bc, $000F
 
-Label_04_49E5:: ; 04:49E5
+SoundDrv_StoreHighNibble:: ; 04:49E5
+Label_04_49E5::
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1791,10 +1815,12 @@ Label_04_49E5:: ; 04:49E5
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
 
-Label_04_49FF:: ; 04:49FF
+SoundDrv_ExtSetInstrByte3Lo:: ; 04:49FF
+Label_04_49FF::
 	ld bc, $000F
 
-Label_04_4A02:: ; 04:4A02
+SoundDrv_StoreLowNibble:: ; 04:4A02
+Label_04_4A02::
 	ld a, [wRam_D010]
 	ld l, a
 	ld a, [wRam_D011]
@@ -1810,23 +1836,27 @@ Label_04_4A02:: ; 04:4A02
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
 
-Label_04_4A1A:: ; 04:4A1A
+SoundDrv_ExtSetInstrByte4Hi:: ; 04:4A1A
+Label_04_4A1A::
 	ld bc, $0010
-	jr Label_04_49E5
+	jr SoundDrv_StoreHighNibble
 
-Label_04_4A1F:: ; 04:4A1F
+SoundDrv_ExtSetInstrByte4Lo:: ; 04:4A1F
+Label_04_4A1F::
 	ld bc, $0010
-	jr Label_04_4A02
+	jr SoundDrv_StoreLowNibble
 
-Label_04_4A24:: ; 04:4A24
+SoundDrv_CmdUnassigned:: ; 04:4A24
+Label_04_4A24::
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: table x1; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 04:46E8
 	jp SoundDrv_CmdEnd
 
-Label_04_4A27:: ; 04:4A27
+SoundDrv_CmdNoteHeld:: ; 04:4A27
+Label_04_4A27::
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 18/18 scenarios)
 	ld b, $00
-	jr Label_04_4A36
+	jr SoundDrv_ReadNoteBytes
 
 SoundDrv_CmdNote:: ; 04:4A2B
 	sub a, $CF
@@ -1837,7 +1867,8 @@ SoundDrv_CmdNote:: ; 04:4A2B
 	ld h, a
 	ld b, [hl]
 
-Label_04_4A36:: ; 04:4A36
+SoundDrv_ReadNoteBytes:: ; 04:4A36
+Label_04_4A36::
 	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
 	ld a, [wSoundDrv_TrackPtr + 1]
@@ -2042,7 +2073,8 @@ SoundDrv_StartNote:: ; 04:4A81
 	pop de
 	jp SoundDrv_ReadNextCommand
 
-Label_04_4B66:: ; 04:4B66
+SoundDrv_CmdNoteOff:: ; 04:4B66
+Label_04_4B66::
 	; [CONFIRMED] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0;
 	; run starts at an entry of the code-pointer table at 04:46E8 | 9 insn(s) executed; cut out of
 	; the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
@@ -2131,7 +2163,7 @@ Function_04_4BC9::
 	inc hl
 	bit 7, [hl]
 	ret z
-	jr Label_04_4BEB
+	jr SoundDrv_ServiceChannelGate
 
 SoundDrv_ServiceChannelMusic:: ; 04:4BDB
 	ld a, [wSoundDrv_ChannelPtr]
@@ -2145,7 +2177,8 @@ SoundDrv_ServiceChannelMusic:: ; 04:4BDB
 	bit 7, [hl]
 	ret nz
 
-Label_04_4BEB:: ; 04:4BEB
+SoundDrv_ServiceChannelGate:: ; 04:4BEB
+Label_04_4BEB::
 	inc hl
 	inc hl
 	ld a, [hli]
@@ -2154,7 +2187,7 @@ Label_04_4BEB:: ; 04:4BEB
 	ld d, a
 	ld a, [de]
 	cp a, $C0
-	jr c, Label_04_4C0B
+	jr c, SoundDrv_StopChannelTrackEnded
 	inc hl
 	ld a, [hl]
 	and a, a
@@ -2167,17 +2200,19 @@ SoundDrv_NoteGateExpired:: ; 04:4BFC
 	add hl, bc
 	ld a, [hl]
 	bit 6, a
-	jr nz, Label_04_4C0F
+	jr nz, SoundDrv_StopChannel
 	or a, $50
 	and a, $DF
 	ld [hl], a
 	ret
 
-Label_04_4C0B:: ; 04:4C0B
+SoundDrv_StopChannelTrackEnded:: ; 04:4C0B
+Label_04_4C0B::
 	ld bc, $FFFA
 	add hl, bc
 
-Label_04_4C0F:: ; 04:4C0F
+SoundDrv_StopChannel:: ; 04:4C0F
+Label_04_4C0F::
 	xor a, a
 	ld [hl], a
 	jp SoundDrv_SilenceChannel
@@ -2204,7 +2239,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	cp a, $C0
 	jr nc, .l4C38
 	pop hl
-	jr Label_04_4C0F
+	jr SoundDrv_StopChannel
 .l4C38 ; 04:4C38
 	ld [wSoundDrv_UpdateFlags], a
 	bit 6, b
@@ -2243,7 +2278,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld a, [wSoundDrv_UpdateFlags]
 	or a, $07
 	ld [wSoundDrv_UpdateFlags], a
-	call Function_04_4DDF
+	call SoundDrv_ComputeTargetVolume
 	ld bc, $000B
 	add hl, bc
 	ld a, [hl]
@@ -2282,7 +2317,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 .l4CAE ; 04:4CAE
 	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
-	call nz, Function_04_4DDF
+	call nz, SoundDrv_ComputeTargetVolume
 	ld bc, $0011
 	add hl, bc
 	ld a, [hli]
@@ -2295,7 +2330,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld a, [hl]
 	add a, $10
 	jr c, .l4CD3
-	call Function_04_4E34
+	call SoundDrv_WaveLevelChanged
 	ld [hli], a
 .l4CCC ; 04:4CCC
 	dec hl
@@ -2319,7 +2354,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld bc, $FFF0
 	add hl, bc
 	res 4, [hl]
-	call Function_04_4E04
+	call SoundDrv_ComputeSustainVolume
 	ld d, a
 	ld bc, $0011
 	add hl, bc
@@ -2329,7 +2364,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	rrca
 	and a, $07
 	jr nz, .l4CFB
-	call Function_04_4DD3
+	call SoundDrv_LoadSustainField
 	jr z, .l4D54
 	ld a, d
 	ld c, d
@@ -2342,7 +2377,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 .l4D02 ; 04:4D02
 	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
-	call nz, Function_04_4E04
+	call nz, SoundDrv_ComputeSustainVolume
 	ld bc, $0011
 	add hl, bc
 	ld a, [hli]
@@ -2356,7 +2391,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld a, [hl]
 	sub a, $10
 	jr c, .l4D2A
-	call Function_04_4E34
+	call SoundDrv_WaveLevelChanged
 	ld [hli], a
 .l4D22 ; 04:4D22
 	dec hl
@@ -2366,7 +2401,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	cp a, [hl]
 	jr c, .l4D9D
 .l4D2A ; 04:4D2A
-	call Function_04_4DD3
+	call SoundDrv_LoadSustainField
 	jr z, .l4D54
 	dec hl
 .loop ; 04:4D30
@@ -2392,7 +2427,7 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld a, [hl]
 	sub a, $10
 	jr c, .l4D54
-	call Function_04_4E34
+	call SoundDrv_WaveLevelChanged
 	ld [hl], a
 	jr .l4D9D
 
@@ -2483,7 +2518,8 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ret z
 	jp SoundDrv_WriteChannelVolume
 
-Function_04_4DD3:: ; 04:4DD3
+SoundDrv_LoadSustainField:: ; 04:4DD3
+Function_04_4DD3::
 	ld bc, $FFFB
 	add hl, bc
 	ld a, [hl]
@@ -2492,7 +2528,8 @@ Function_04_4DD3:: ; 04:4DD3
 	and a, $F0
 	ret
 
-Function_04_4DDF:: ; 04:4DDF
+SoundDrv_ComputeTargetVolume:: ; 04:4DDF
+Function_04_4DDF::
 	push hl
 	ld bc, $0006
 	add hl, bc
@@ -2515,7 +2552,8 @@ Function_04_4DDF:: ; 04:4DDF
 	add hl, de
 	ret
 
-Function_04_4E04:: ; 04:4E04
+SoundDrv_ComputeSustainVolume:: ; 04:4E04
+Function_04_4E04::
 	push hl
 	ld bc, $000C
 	add hl, bc
@@ -2544,7 +2582,8 @@ Function_04_4E04:: ; 04:4E04
 	add hl, de
 	ret
 
-Function_04_4E34:: ; 04:4E34
+SoundDrv_WaveLevelChanged:: ; 04:4E34
+Function_04_4E34::
 	ld b, a
 	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C

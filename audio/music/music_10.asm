@@ -6,30 +6,31 @@ SECTION "audio/music/music_10", ROMX
 
 ; ---- data $455A-$45A4 (74 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_05_455A:: ; 05:455A
+SoundSong10_Track0:: ; 05:455A
+Data_05_455A::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_455E:: ; 05:455E
 	sound_tempo $48
 	sound_instrument $27
-	sound_cmd_C5 $0E
-	sound_cmd_C3 $20
-	sound_cmd_C4 $10
+	sound_vibrato_depth $0E
+	sound_vibrato_rate $20
+	sound_vibrato_delay $10
 	sound_wait 24
-	sound_cmd_C1 $2C
+	sound_pitch_bend $2C
 	sound_note 16, $4C, $15
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 15
 	sound_note 8, $45
 	sound_wait 8
 	sound_rs sound_note 8, $4C
 	sound_wait 48
 	sound_wait 24
-	sound_cmd_C1 $2C
+	sound_pitch_bend $2C
 	sound_note 16, $4E
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 15
 	sound_note 8, $44
 	sound_wait 8
@@ -44,10 +45,10 @@ Data_05_455E:: ; 05:455E
 	sound_wait 8
 	sound_note 16, $50
 	sound_wait 16
-	sound_cmd_C1 $2C
+	sound_pitch_bend $2C
 	sound_note 8, $51
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_wait 16
 	sound_note 8, $50
@@ -65,7 +66,8 @@ Data_05_45A4:: ; 05:45A4
 
 ; ---- data $45A5-$461A (117 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_05_45A5:: ; 05:45A5
+SoundSong10_Track1:: ; 05:45A5
+Data_05_45A5::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_45A9:: ; 05:45A9
@@ -76,7 +78,7 @@ Data_05_45A9:: ; 05:45A9
 	sound_note 8, $3D, $15
 	sound_wait 16
 	sound_instrument $06
-	sound_note_mod 6, $0E
+	sound_note_vol 6, $0E
 	sound_wait 8
 	sound_note 6, $49
 	sound_wait 16
@@ -92,7 +94,7 @@ Data_05_45A9:: ; 05:45A9
 	sound_note 8, $3F, $15
 	sound_wait 16
 	sound_instrument $06
-	sound_note_mod 6, $0E
+	sound_note_vol 6, $0E
 	sound_wait 8
 	sound_note 6, $48
 	sound_wait 16
@@ -105,7 +107,7 @@ Data_05_45A9:: ; 05:45A9
 	sound_note 6, $44, $0E
 	sound_wait 24
 	sound_instrument $04
-	sound_note_mod 8, $15
+	sound_note_vol 8, $15
 	sound_wait 16
 	sound_instrument $06
 	sound_note 6, $40, $0E
@@ -121,7 +123,7 @@ Data_05_45A9:: ; 05:45A9
 	sound_note 6, $42, $0E
 	sound_wait 24
 	sound_instrument $04
-	sound_note_mod 8, $15
+	sound_note_vol 8, $15
 	sound_wait 16
 	sound_instrument $06
 	sound_note 6, $3E, $0E
@@ -142,7 +144,8 @@ Data_05_461A:: ; 05:461A
 
 ; ---- data $461B-$466C (81 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_05_461B:: ; 05:461B
+SoundSong10_Track2:: ; 05:461B
+Data_05_461B::
 	sound_volume $7F
 	sound_pitch_add $F4
 Data_05_461F:: ; 05:461F
@@ -204,7 +207,8 @@ Data_05_466C:: ; 05:466C
 
 ; ---- data $466D-$46E5 (120 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_05_466D:: ; 05:466D
+SoundSong10_Track3:: ; 05:466D
+Data_05_466D::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_05_4671:: ; 05:4671
@@ -278,12 +282,13 @@ Data_05_46E5:: ; 05:46E5
 
 ; ---- data $46E6-$46E8 (2 bytes) [PROBABLE] header NN=04 KK=02 of the channel-pointer table at 46E8 (12 words = NN*(KK+1)); the byte before (46E5) is $B1
 
-Data_05_46E6:: ; 05:46E6
+SoundSong10_Header:: ; 05:46E6
+Data_05_46E6::
 	sound_stream_header 4, 2
 
 ; ---- words $46E8-$4700 (24 bytes) [PROBABLE] 12 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 46E6 [v4: bytes 46E8-46F0 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_46E8:: ; 05:46E8
-	dw Data_05_455A, Data_05_45A5, Data_05_461B, Data_05_466D ; track stream pointers (read by the driver)
+	dw SoundSong10_Track0, SoundSong10_Track1, SoundSong10_Track2, SoundSong10_Track3 ; track stream pointers (read by the driver)
 	dw Data_05_455E, Data_05_45A9, Data_05_461F, Data_05_4671 ; not read by the driver: target of each track's final sound_jump
 	dw Data_05_45A4, Data_05_461A, Data_05_466C, Data_05_46E5 ; not read by the driver: address after each track's final sound_jump

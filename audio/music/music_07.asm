@@ -6,15 +6,16 @@ SECTION "audio/music/music_07", ROMX
 
 ; ---- data $6B54-$7093 (1343 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; command semantics not decoded (part of region $574D-$7E8C)
 
-Data_04_6B54:: ; 04:6B54
+SoundSong07_Track0:: ; 04:6B54
+Data_04_6B54::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_6B58:: ; 04:6B58
 	sound_tempo $24
 	sound_instrument $00
-	sound_cmd_C5 $18
-	sound_cmd_C3 $30
-	sound_cmd_C4 $10
+	sound_vibrato_depth $18
+	sound_vibrato_rate $30
+	sound_vibrato_delay $10
 	sound_wait 12
 	sound_note 8, $46, $16
 	sound_wait 8
@@ -155,7 +156,8 @@ Data_04_6B74:: ; 04:6B74
 	sound_jump Data_04_6B58
 Data_04_6C16:: ; 04:6C16
 	sound_end
-Data_04_6C17:: ; 04:6C17
+SoundSong07_Track1:: ; 04:6C17
+Data_04_6C17::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_6C1B:: ; 04:6C1B
@@ -430,7 +432,8 @@ Data_04_6C63:: ; 04:6C63
 	sound_jump Data_04_6C1B
 Data_04_6DF2:: ; 04:6DF2
 	sound_end
-Data_04_6DF3:: ; 04:6DF3
+SoundSong07_Track2:: ; 04:6DF3
+Data_04_6DF3::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_6DF7:: ; 04:6DF7
@@ -591,81 +594,82 @@ Data_04_6E1E:: ; 04:6E1E
 	sound_jump Data_04_6DF7
 Data_04_6F07:: ; 04:6F07
 	sound_end
-Data_04_6F08:: ; 04:6F08
+SoundSong07_Track3:: ; 04:6F08
+Data_04_6F08::
 	sound_volume $7F
 	sound_pitch_add $00
 Data_04_6F0C:: ; 04:6F0C
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_note_mod 12, $0D
+	sound_note_vol 12, $0D
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 Data_04_6F51:: ; 04:6F51
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
@@ -673,68 +677,68 @@ Data_04_6F51:: ; 04:6F51
 	sound_call Data_04_6F51
 	sound_note 4, $27, $11
 	sound_wait 60
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_instrument SOUND_INSTRUMENT_PER_NOTE
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 3
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
@@ -742,57 +746,58 @@ Data_04_6F51:: ; 04:6F51
 	sound_call Data_04_6F51
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 12
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 7
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_note 3, $24, $0B
 	sound_wait 4
 	sound_note 4, $27, $11
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_note 3, $24, $0B
 	sound_wait 4
-	sound_cmd_C1 $28
+	sound_pitch_bend $28
 	sound_note 4, $25, $0F
 	sound_wait 1
-	sound_cmd_C1 $40
+	sound_pitch_bend $40
 	sound_wait 3
 	sound_jump Data_04_6F0C
 Data_04_7078:: ; 04:7078
 	sound_end
-Data_04_7079:: ; 04:7079
+SoundSong07_Header:: ; 04:7079
+Data_04_7079::
 	sound_stream_header 4, 2
-	dw Data_04_6B54, Data_04_6C17, Data_04_6DF3, Data_04_6F08 ; track stream pointers (read by the driver)
+	dw SoundSong07_Track0, SoundSong07_Track1, SoundSong07_Track2, SoundSong07_Track3 ; track stream pointers (read by the driver)
 	dw Data_04_6B58, Data_04_6C1B, Data_04_6DF7, Data_04_6F0C ; not read by the driver: target of each track's final sound_jump
 	dw Data_04_6C16, Data_04_6DF2, Data_04_6F07, Data_04_7078 ; not read by the driver: address after each track's final sound_jump

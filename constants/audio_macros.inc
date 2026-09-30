@@ -1,8 +1,9 @@
 ; constants/audio_macros.inc -- macros for the sound data of banks 04 and 05 (pre-included through includes.asm).
 ;
 ; Every macro emits exactly the bytes that the sound driver (bank 04, audio/engine.asm) reads; nothing here adds or reorders a
-; byte.  Names are taken from the driver code only where the code demonstrates the behaviour; all other commands keep their
-; opcode in the name (sound_cmd_C1 ...) and their argument is the raw byte.  The full evidence is in docs/research/audio_format.md
+; byte.  Names are taken from the driver code only where the code demonstrates the behaviour (by reading it and by running the
+; driver code on synthetic streams, tools/audio_driver_check.py); a command whose effect is not demonstrated keeps its opcode in
+; the name (sound_cmd_CA, sound_cmd_CD) and its argument is the raw byte.  The full evidence is in docs/research/audio_format.md
 ; (status: CONFIRMED / PROBABLE / HYPOTHESIS per construct), the generator of the macro form is tools/audio_to_macros.py.
 ;
 ; Stream (one per track), decoded by SoundDrv_ReadNextCommand (04:459B):
@@ -12,17 +13,19 @@
 ;   $B3 dw       sound_call      push the return address (5 levels at most), continue at the address
 ;   $B4          sound_ret       pop the return address (a no-op when nothing was pushed)
 ;   $B5 db dw    sound_loop      counted loop, never used by the data
-;   $BC-$CA db   one-byte commands
+;   $BC-$CA db   one-byte commands (tempo, pitch add, instrument, volume, pan, pitch bend, vibrato, detune ...)
 ;   $CD db db    extended command (sub-command, argument), never used by the data
 ;   $CE, $D0-$FF sound_note      note with duration (0 for $CE, else the table value of index opcode-$CF) followed by up to
-;                                three optional bytes: pitch ($24-$7F), modifier ($00-$1F), adjust ($20-$23)
-;   $CF          sound_cmd_CF    optional pitch byte ($24-$7F)
+;                                three optional bytes: pitch ($24-$7F), volume ($00-$1F), adjust ($20-$23)
+;   $CF          sound_note_off  release of the held note of a pitch; optional pitch byte ($24-$7F)
 ;   a byte < $80 where a command is expected repeats the last opcode >= $BE ("running status"): sound_rs (below)
 ;
 ; Duration table: the operand of sound_wait / sound_note is the VALUE of Table_SoundDrv_Durations, not its index.  The 49 values
-; below are the table bytes (audio/notes.asm); an operand that is not a table value is an assembly error.
+; below are the table bytes (audio/notes.asm, written with sound_durations, which checks every entry against this list); an
+; operand that is not a table value is an assembly error.
 
 DEF _sound_dur_idx = 0
+DEF _sound_dur_pos = 0
 DEF _sound_rs = 0
 
 MACRO _sound_dur_def
@@ -106,11 +109,14 @@ MACRO _sound_note_op
 ENDM
 
 ; sound_note duration                 : note with no optional byte
-; sound_note duration, pitch          : + pitch byte ($24-$7F, minus $24 is an index into Table_SoundDrv_NoteFreq)
-; sound_note duration, pitch, mod     : + modifier byte (<$20, kept in track+$0A as (mod << 3) | 7)
-; sound_note_mod duration, mod        : modifier without pitch
+; sound_note duration, pitch          : + pitch byte ($24-$7F; minus $24 is an index into Table_SoundDrv_NoteFreq, one semitone per step)
+; sound_note duration, pitch, vol     : + volume byte (<$20, kept in track+$0A as (vol << 3) | 7)
+; sound_note_vol duration, vol        : volume without pitch
+; `duration` is the gate time: the note is released that many ticks after it starts (duration 0 = held until sound_note_off
+; or the end of the track).  It does NOT delay the next command (only sound_wait does).  `vol` is multiplied with the track
+; volume (sound_volume) to give the volume nibble of the channel's NRx2 register and stays in force for the following notes.
 ; The optional bytes may appear in any order in the stream and each class at most once (04:4A36-4A81); the data only
-; contains pitch then modifier, the adjust bytes ($20-$23, added to the duration) are not used.
+; contains pitch then volume, the adjust bytes ($20-$23, added to the duration) are not used.
 MACRO sound_note
 	_sound_note_op \1
 	IF _NARG > 1
@@ -121,16 +127,17 @@ MACRO sound_note
 	ENDC
 ENDM
 
-MACRO sound_note_mod
-	ASSERT _NARG == 2, "sound_note_mod duration, mod"
+MACRO sound_note_vol
+	ASSERT _NARG == 2, "sound_note_vol duration, vol"
 	_sound_note_op \1
 	db \2
 ENDM
 
-; sound_cmd_CF [pitch] : opcode $CF, with an optional pitch byte ($24-$7F) like a note (SoundDrv_CmdNote entry 04:4B66, which
-; calls SoundDrv_NoteGateExpired for the hardware channels of this track; used twice: bare in a reachable track of song $1A,
-; with a pitch in an unreachable coda of song $11)
-MACRO sound_cmd_CF
+; sound_note_off [pitch] : opcode $CF, with an optional pitch byte ($24-$7F) like a note (SoundDrv_CmdNote entry 04:4B66).  It
+; releases (SoundDrv_NoteGateExpired) every channel of this track that plays a held note (duration 0) of that pitch; without the
+; byte the pitch of the last note is used.  Used twice: bare in a reachable track of song $1A, with a pitch in an unreachable
+; coda of song $11.
+MACRO sound_note_off
 	_sound_op $CF
 	IF _NARG > 0
 		db \1
@@ -200,63 +207,160 @@ MACRO sound_volume
 	db \1
 ENDM
 
-; sound_cmd_C0 .. sound_cmd_CA value : the other one-byte commands.  Every handler stores the byte in a field of the track
-; record (see docs/research/audio_format.md); what the fields mean is not proven, so the macros only name the opcode.
-; $C7, $C8, $CB and $CC have no handler (they end the track) and $B6-$BB neither, so there is no macro for them.
+; The other one-byte commands set a field of the track record that SoundDrv_ComputeTrackOutput / SoundDrv_UpdateChannel turn into
+; channel registers.  $C7, $C8, $CB and $CC have no handler (they end the track) and $B6-$BB neither, so there is no macro for them.
+; Status and evidence of every one of them: docs/research/audio_format.md section 5.
 MACRO _sound_cmd_1
 	_sound_op \1
 	db \2
 ENDM
 
-MACRO sound_cmd_C0
-	ASSERT _NARG == 1, "sound_cmd_C0 value"
+; sound_pan value       $C0  0-$7F, $40 = centre: the sound of this track goes to the left terminal only (0-$1F), both (<= $5F) or the
+;                            right terminal only ($60-$7F); written to the channel's bits of NR51
+MACRO sound_pan
+	ASSERT _NARG == 1, "sound_pan value"
 	_sound_cmd_1 $C0, \1
 ENDM
 
-MACRO sound_cmd_C1
-	ASSERT _NARG == 1, "sound_cmd_C1 value"
+; sound_pitch_bend value        $C1  0-$7F, $40 = none: pitch offset of (value - $40) * scale / 64 semitones (scale: sound_pitch_bend_scale, 2 at start)
+; sound_pitch_bend_scale scale  $C2  the factor of the pitch bend (byte, $00-$7F in the data)
+MACRO sound_pitch_bend
+	ASSERT _NARG == 1, "sound_pitch_bend value"
 	_sound_cmd_1 $C1, \1
 ENDM
 
-MACRO sound_cmd_C2
-	ASSERT _NARG == 1, "sound_cmd_C2 value"
+MACRO sound_pitch_bend_scale
+	ASSERT _NARG == 1, "sound_pitch_bend_scale scale"
 	_sound_cmd_1 $C2, \1
 ENDM
 
-MACRO sound_cmd_C3
-	ASSERT _NARG == 1, "sound_cmd_C3 value"
+; sound_vibrato_rate value   $C3  phase step per tick of the triangle wave that drives the vibrato ($17 at start)
+; sound_vibrato_delay ticks  $C4  ticks after every note start during which the vibrato is held back (0 at start)
+; sound_vibrato_depth value  $C5  depth: peak-to-peak deviation of value * 8 / 256 semitones (0 = no vibrato, at start)
+; sound_vibrato_disable v    $C6  a nonzero value leaves the vibrato out of the pitch (0 at start = vibrato applied)
+MACRO sound_vibrato_rate
+	ASSERT _NARG == 1, "sound_vibrato_rate value"
 	_sound_cmd_1 $C3, \1
 ENDM
 
-MACRO sound_cmd_C4
-	ASSERT _NARG == 1, "sound_cmd_C4 value"
+MACRO sound_vibrato_delay
+	ASSERT _NARG == 1, "sound_vibrato_delay ticks"
 	_sound_cmd_1 $C4, \1
 ENDM
 
-MACRO sound_cmd_C5
-	ASSERT _NARG == 1, "sound_cmd_C5 value"
+MACRO sound_vibrato_depth
+	ASSERT _NARG == 1, "sound_vibrato_depth value"
 	_sound_cmd_1 $C5, \1
 ENDM
 
-MACRO sound_cmd_C6
-	ASSERT _NARG == 1, "sound_cmd_C6 value"
+MACRO sound_vibrato_disable
+	ASSERT _NARG == 1, "sound_vibrato_disable value"
 	_sound_cmd_1 $C6, \1
 ENDM
 
-MACRO sound_cmd_C9
-	ASSERT _NARG == 1, "sound_cmd_C9 value"
+; sound_detune value  $C9  0-$7F, $40 = none: pitch offset of (value - $40) / 64 semitones, added to the bend
+MACRO sound_detune
+	ASSERT _NARG == 1, "sound_detune value"
 	_sound_cmd_1 $C9, \1
 ENDM
 
+; sound_cmd_CA value  $CA  stores the byte in track+$1E and marks the pitch as changed; nothing reads track+$1E (effect not demonstrated)
 MACRO sound_cmd_CA
 	ASSERT _NARG == 1, "sound_cmd_CA value"
 	_sound_cmd_1 $CA, \1
 ENDM
 
-; sound_cmd_CD sub, value : extended command (SoundDrv_CmdExtended, 04:473E); sub-commands 1-7, 10 and 11 store `value` in a
-; track field (Table_SoundDrv_ExtCommands, 04:4726), every other sub-command ends the track.  Never used by the data.
+; sound_cmd_CD sub, value : extended command (SoundDrv_CmdExtended, 04:473E).  Sub-commands 1-7, 10 and 11 store `value` in a field of
+; the track record (Table_SoundDrv_ExtCommands, 04:4726), every other sub-command ends the track.  Never used by the data.
+;   sub 1, 10, 11   the bytes 0, 1, 2 of the instrument copy in the track (track+$0C..$0E: channel class + duty / wave / noise width,
+;                   length, sweep), as sound_instrument would have copied them, for the notes that follow
+;   sub 2, 3        high / low nibble of byte 3 of the instrument copy (track+$0F); sub 4, 5: the same for byte 4 (track+$10)
+;   sub 6, 7        track+$27 / track+$28, read by the channel code when a note has run out (SoundDrv_UpdateChannel, 04:4D54)
 MACRO sound_cmd_CD
 	ASSERT _NARG == 2, "sound_cmd_CD sub, value"
 	_sound_op $CD
 	db \1, \2
+ENDM
+
+; ---- tables read by the driver (audio/notes.asm, audio/instruments.asm, audio/wave_samples.asm) ---------------------------
+
+; sound_durations v, ... : entries of Table_SoundDrv_Durations (04:5044, 49 bytes), the ticks of a wait / the gate time of a note; every entry
+; is checked against the index list of _sound_dur_def above, so the two cannot drift apart
+MACRO sound_durations
+	REPT _NARG
+		DEF _sound_t = \1
+		ASSERT DEF(_SOUND_DUR_{d:_sound_t}), "not a value of the duration list"
+		ASSERT _SOUND_DUR_{d:_sound_t} == _sound_dur_pos, "duration table entry out of order"
+		db \1
+		DEF _sound_dur_pos += 1
+		SHIFT
+	ENDR
+ENDM
+
+; sound_note_freq period, step : a 3-byte record of Table_SoundDrv_NoteFreq (04:5075, 120 records, index = pitch byte - $24, one semitone per
+; record).  `period` is the 11-bit period value of the note (low byte NRx3, high 3 bits NRx4); `step` is the per-semitone increment that
+; SoundDrv_WriteChannelPitch multiplies with the fractional part (1/256 semitone) of the pitch offset and adds to the period.  All 120 periods are
+; within 1 of the equal-tempered value for MIDI note 36 + index (A4 = 440 Hz), and step is the next record's period minus this one's, within 1.
+MACRO sound_note_freq
+	ASSERT _NARG == 2, "sound_note_freq period, step"
+	ASSERT (\1) >= 0 && (\1) <= $7FF, "a period is 11 bits"
+	dw \1
+	db \2
+ENDM
+
+; The 6-byte records of Table_SoundDrv_Instruments (04:51DD, 112 records; the id of sound_instrument indexes it).  sound_instrument copies
+; bytes 0-4 to the track; the first note that follows moves them to the hardware channel; byte 0 selects the channel:
+; byte 0 < $08 pulse 1 (bits 0-1 duty), $08-$0F pulse 2 (bits 0-1 duty), $10-$3F wave (byte - $10 = pattern of Table_SoundDrv_WavePatterns),
+; >= $40 noise (bit 0 = NR43 bit 3, the 7-bit counter).  Byte 1 is the length (0 = none, else NRx1 gets -length and NRx4 bit 6 is set), byte 2
+; goes to NR10 (pulse 1; no other channel reads it, $00 in all 112 records).  Bytes 3 and 4 are the volume envelope (`env_a`, `env_b`; bits:
+; env_a 7-5 attack, 3-1 decay, env_b 7-4 sustain, 3-1 release, see docs/research/audio_format.md section 7).  Byte 5 is read only by the
+; per-note mode (sound_instrument SOUND_INSTRUMENT_PER_NOTE: record $40 + pitch, records $64-$6F): it replaces the pitch of the note.
+MACRO _sound_instr
+	db \1, \2, \3, \4, \5, \6
+ENDM
+
+; sound_instr_pulse1 duty, length, sweep, env_a, env_b, pitch
+MACRO sound_instr_pulse1
+	ASSERT _NARG == 6, "sound_instr_pulse1 duty, length, sweep, env_a, env_b, pitch"
+	ASSERT (\1) >= 0 && (\1) <= 3, "duty is 2 bits"
+	_sound_instr \1, \2, \3, \4, \5, \6
+ENDM
+
+; sound_instr_pulse2 duty, length, env_a, env_b, pitch   (byte 2 is $00)
+MACRO sound_instr_pulse2
+	ASSERT _NARG == 5, "sound_instr_pulse2 duty, length, env_a, env_b, pitch"
+	ASSERT (\1) >= 0 && (\1) <= 3, "duty is 2 bits"
+	_sound_instr $08 | (\1), \2, $00, \3, \4, \5
+ENDM
+
+; sound_instr_wave wave, length, env_a, env_b, pitch     (byte 2 is $00; wave = index in Table_SoundDrv_WavePatterns)
+MACRO sound_instr_wave
+	ASSERT _NARG == 5, "sound_instr_wave wave, length, env_a, env_b, pitch"
+	ASSERT (\1) >= 0 && (\1) <= $2F, "wave channel class is $10-$3F"
+	_sound_instr $10 + (\1), \2, $00, \3, \4, \5
+ENDM
+
+; sound_instr_noise width, length, env_a, env_b, pitch   (byte 2 is $00; width = bit 0 of byte 0: 1 = 7-bit counter)
+MACRO sound_instr_noise
+	ASSERT _NARG == 5, "sound_instr_noise width, length, env_a, env_b, pitch"
+	ASSERT (\1) >= 0 && (\1) <= 1, "width is 1 bit"
+	_sound_instr $40 | (\1), \2, $00, \3, \4, \5
+ENDM
+
+; sound_instr_raw b0, b1, b2, b3, b4, b5 : a record that none of the four forms above writes exactly (none at present)
+MACRO sound_instr_raw
+	ASSERT _NARG == 6, "sound_instr_raw b0, b1, b2, b3, b4, b5"
+	_sound_instr \1, \2, \3, \4, \5, \6
+ENDM
+
+; sound_wave_pattern s0 .. s31 : one 16-byte pattern of Table_SoundDrv_WavePatterns (04:547D, 10 patterns), copied unchanged to wave RAM
+; ($FF30-$FF3F) when a wave-channel instrument needs it.  Each byte holds two 4-bit samples, the high nibble first in the hardware,
+; so the macro takes the 32 samples in playing order and packs them in pairs.
+MACRO sound_wave_pattern
+	ASSERT _NARG == 32, "sound_wave_pattern takes 32 samples"
+	REPT 16
+		ASSERT (\1) >= 0 && (\1) <= 15 && (\2) >= 0 && (\2) <= 15, "a wave sample is 4 bits"
+		db ((\1) << 4) | (\2)
+		SHIFT 2
+	ENDR
 ENDM
