@@ -4,10 +4,10 @@
 
 SECTION "engine/html/count_pass", ROMX
 
-; ---- code $4F4F-$4FA6 (87 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Html_InitParser:: ; 74:4F4F
 Function_74_4F4F::
+	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	xor a, a
 	ldh [hRam_FFB6], a
 	ldh [hRam_FFB7], a
@@ -47,23 +47,22 @@ Function_74_4F97:: ; 74:4F97
 	ld a, [wRam_C332]
 	ld b, a
 	or a, c
-	jr z, Label_74_4FB6
+	jr z, .l4FB6
 	ld a, e
 	cp a, c
-	jr nz, Label_74_4FAA
+	jr nz, .l4FAA
 
-; ---- code $4FA6-$4FAA (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 74:4FA4 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 74:4FA4 (executed)
 	ld a, d
 	cp a, b
-	jr z, Label_74_4FB6
+	jr z, .l4FB6
 
-; ---- code $4FAA-$4FF2 (72 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
-
-Label_74_4FAA:: ; 74:4FAA
+.l4FAA ; 74:4FAA
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
-
-Label_74_4FB6:: ; 74:4FB6
+.l4FB6 ; 74:4FB6
 	xor a, a
 	ld [wRam_C331], a
 	ld [wRam_C332], a
@@ -76,19 +75,18 @@ Function_74_4FBE:: ; 74:4FBE
 	ld b, a
 	ld a, e
 	cp a, c
-	jr nz, Label_74_4FDB
+	jr nz, .l4FDB
 	ld a, d
 	cp a, b
-	jr nz, Label_74_4FDB
+	jr nz, .l4FDB
 	ldh a, [hRam_FFC6]
 	ld c, a
 	ldh a, [hRam_FFC7]
 	or a, c
-	jr nz, Label_74_4FDB
+	jr nz, .l4FDB
 	farcall Html_Layout_WrapRun
 	ret
-
-Label_74_4FDB:: ; 74:4FDB
+.l4FDB ; 74:4FDB
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
 	ld a, $0C
@@ -96,9 +94,10 @@ Label_74_4FDB:: ; 74:4FDB
 	farcall Html_Layout_EndLine
 	ret
 
-; ---- code $4FF2-$5019 (39 bytes) [CONFIRMED] 164 insn(s) reached by static flow only; seeds: site x164; min discovery hops 1; entered by far from 74:4879 (PROBABLE code) | 21 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 5 scenarios]
-
 Html_CountListItems:: ; 74:4FF2
+	; [CONFIRMED] 164 insn(s) reached by static flow only; seeds: site x164; min discovery hops 1;
+	; entered by far from 74:4879 (PROBABLE code) | 21 insn(s) executed; cut out of the PROBABLE
+	; region 4FF2-511A by apply_coverage --split [executed in 5 scenarios]
 	push bc
 	push de
 	push hl
@@ -112,83 +111,80 @@ Label_74_4FFA:: ; 74:4FFA
 	or a, a
 	jp z, Label_74_508D
 	cp a, $21
-	jr c, Label_74_502F
+	jr c, .l502F
 	cp a, $3C
 	jp z, Label_74_5091
 	cp a, $26
-	jr z, Label_74_5067
+	jr z, .l5067
 	ldh [hRam_FFB3], a
 	cp a, $81
-	jr c, Label_74_5029
+	jr c, .l5029
 	cp a, $A0
-	jr c, Label_74_502A
+	jr c, .l502A
 
-; ---- code $5019-$5029 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FF2-511A by apply_coverage --split
 	cp a, $E0
-	jr c, Label_74_5029
+	jr c, .l5029
 	cp a, $F0
-	jr c, Label_74_502A
+	jr c, .l502A
 	cp a, $F8
-	jr c, Label_74_5029
+	jr c, .l5029
 	cp a, $FA
-	jr c, Label_74_502A
+	jr c, .l502A
 
-; ---- code $5029-$5037 (14 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 5 scenarios]
-
-Label_74_5029:: ; 74:5029
+.l5029 ; 74:5029
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
+	; --split [executed in 5 scenarios]
 	or a, a
-
-Label_74_502A:: ; 74:502A
+.l502A ; 74:502A
 	jr nc, Label_74_4FFA
 	ld a, [hli]
 	jr Label_74_4FFA
-
-Label_74_502F:: ; 74:502F
+.l502F ; 74:502F
 	ld c, a
 	ld a, [wHtmlFlags]
 	and a, $08
-	jr z, Label_74_504A
+	jr z, .l504A
 
-; ---- code $5037-$504A (19 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FF2-511A by apply_coverage --split
 	ld a, c
 	cp a, $0D
-	jp z, Label_74_505E
+	jp z, .l505E
 	cp a, $0A
-	jp z, Label_74_5064
+	jp z, .l5064
 	cp a, $09
-	jr z, Label_74_505B
+	jr z, .l505B
 	ld c, $20
-	jr Label_74_505B
+	jr .l505B
 
-; ---- code $504A-$505E (20 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 5 scenarios]
-
-Label_74_504A:: ; 74:504A
+.l504A ; 74:504A
+	; [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld a, [hli]
 	or a, a
 	jr z, Label_74_508D
 	cp a, $21
-	jr c, Label_74_504A
+	jr c, .l504A
 	dec hl
 	ldh a, [hRam_FFB3]
 	cp a, $20
 	jr z, Label_74_4FFA
 	ld c, $20
-
-Label_74_505B:: ; 74:505B
+.l505B ; 74:505B
 	jp Label_74_4FFA
 
-; ---- code $505E-$508D (47 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split
-
-Label_74_505E:: ; 74:505E
+.l505E ; 74:505E
+	; [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FF2-511A by apply_coverage --split
 	ld a, [hl]
 	cp a, $0A
-	jr nz, Label_74_5064
+	jr nz, .l5064
 	inc hl
-
-Label_74_5064:: ; 74:5064
+.l5064 ; 74:5064
 	jp Label_74_4FFA
-
-Label_74_5067:: ; 74:5067
+.l5067 ; 74:5067
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -198,24 +194,23 @@ Label_74_5067:: ; 74:5067
 	call Function_00_10E9
 	pop de
 	or a, a
-	jr z, Label_74_5084
+	jr z, .l5084
 	ldh [hRam_FFB3], a
 	ld a, [hli]
 	cp a, $3B
 	jp z, Label_74_4FFA
 	dec hl
 	jp Label_74_4FFA
-
-Label_74_5084:: ; 74:5084
+.l5084 ; 74:5084
 	ldh a, [hRam_FFB0]
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
 	jp Label_74_4FFA
 
-; ---- code $508D-$50D5 (72 bytes) [CONFIRMED] 41 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 4 scenarios]
-
 Label_74_508D:: ; 74:508D
+	; [CONFIRMED] 41 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
+	; --split [executed in 4 scenarios]
 	pop hl
 	pop de
 	pop bc
@@ -225,10 +220,9 @@ Label_74_5091:: ; 74:5091
 	ld a, [hl]
 	ldh [hRam_FFB4], a
 	cp a, $2F
-	jr nz, Label_74_5099
+	jr nz, .skip
 	inc hl
-
-Label_74_5099:: ; 74:5099
+.skip ; 74:5099
 	ld a, l
 	ldh [hRam_FFB0], a
 	ld a, h
@@ -260,62 +254,60 @@ Label_74_50B9:: ; 74:50B9
 Label_74_50C3:: ; 74:50C3
 	ld a, $20
 	ldh [hRam_FFB3], a
-
-Label_74_50C7:: ; 74:50C7
+.loop ; 74:50C7
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_508D
 	cp a, $3E
 	jp z, Label_74_4FFA
 	cp a, $81
-	jr c, Label_74_50E9
+	jr c, .l50E9
 
-; ---- code $50D5-$50E9 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split
+	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FF2-511A by apply_coverage --split
 	cp a, $A0
-	jr c, Label_74_50EA
+	jr c, .l50EA
 	cp a, $E0
-	jr c, Label_74_50E9
+	jr c, .l50E9
 	cp a, $F0
-	jr c, Label_74_50EA
+	jr c, .l50EA
 	cp a, $F8
-	jr c, Label_74_50E9
+	jr c, .l50E9
 	cp a, $FA
-	jr c, Label_74_50EA
+	jr c, .l50EA
 
-; ---- code $50E9-$50ED (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 4 scenarios]
-
-Label_74_50E9:: ; 74:50E9
+.l50E9 ; 74:50E9
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
+	; --split [executed in 4 scenarios]
 	or a, a
+.l50EA ; 74:50EA
+	jp nc, .l50F1
 
-Label_74_50EA:: ; 74:50EA
-	jp nc, Label_74_50F1
-
-; ---- code $50ED-$50F1 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FF2-511A by apply_coverage --split
 	ld a, [hli]
-	jp Label_74_50C7
+	jp .loop
 
-; ---- code $50F1-$511A (41 bytes) [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage --split [executed in 4 scenarios]
-
-Label_74_50F1:: ; 74:50F1
+.l50F1 ; 74:50F1
+	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FF2-511A by apply_coverage
+	; --split [executed in 4 scenarios]
 	dec hl
 	ld bc, $4110
 	call Function_00_1119
-	jp Label_74_50C7
+	jp .loop
 
 Label_74_50FB:: ; 74:50FB
 	cp a, $0F
-	jr z, Label_74_510A
+	jr z, .l510A
 	ld b, a
 	ld a, [hl]
 	cp a, $3E
-	jr z, Label_74_5109
+	jr z, .l5109
 	cp a, $21
 	jr nc, Label_74_50C3
-
-Label_74_5109:: ; 74:5109
+.l5109 ; 74:5109
 	ld a, b
-
-Label_74_510A:: ; 74:510A
+.l510A ; 74:510A
 	add a, a
 	push hl
 	add a, $1A
@@ -353,9 +345,9 @@ Table_74_511A::
 	dw Label_74_50B3
 	dw Label_74_51E4
 
-; ---- code $513E-$51E4 (166 bytes) [PROBABLE] 86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
-
 Label_74_513E:: ; 74:513E
+	; [PROBABLE] 86 insn(s) reached by static flow only; seeds: site x39, table x47; min discovery
+	; hops 0; run starts at an entry of the code-pointer table at 74:511A
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jp z, Label_74_50B3
@@ -371,22 +363,20 @@ Label_74_514E:: ; 74:514E
 	call Function_00_10E9
 	pop de
 	or a, a
-	jr z, Label_74_5167
+	jr z, .l5167
 	ldh a, [hRam_FFB4]
 	cp a, $2F
-	jr nz, Label_74_5167
+	jr nz, .l5167
 	xor a, a
 	ldh [hRam_FFB6], a
 	ldh [hRam_FFB7], a
 	jp Label_74_50B3
-
-Label_74_5167:: ; 74:5167
+.l5167 ; 74:5167
 	ldh a, [hRam_FFB0]
 	ld l, a
 	ldh a, [hRam_FFB1]
 	ld h, a
-
-Label_74_516D:: ; 74:516D
+.loop ; 74:516D
 	call Function_00_0392
 	ld a, [hli]
 	or a, a
@@ -394,108 +384,99 @@ Label_74_516D:: ; 74:516D
 	cp a, $3E
 	jp z, Label_74_4FFA
 	cp a, $81
-	jr c, Label_74_5192
+	jr c, .l5192
 	cp a, $A0
-	jr c, Label_74_5193
+	jr c, .l5193
 	cp a, $E0
-	jr c, Label_74_5192
+	jr c, .l5192
 	cp a, $F0
-	jr c, Label_74_5193
+	jr c, .l5193
 	cp a, $F8
-	jr c, Label_74_5192
+	jr c, .l5192
 	cp a, $FA
-	jr c, Label_74_5193
-
-Label_74_5192:: ; 74:5192
+	jr c, .l5193
+.l5192 ; 74:5192
 	or a, a
-
-Label_74_5193:: ; 74:5193
-	jp nc, Label_74_516D
+.l5193 ; 74:5193
+	jp nc, .loop
 	ld a, [hli]
-	jp Label_74_516D
+	jp .loop
 
 Label_74_519A:: ; 74:519A
 	ld a, [hli]
-
-Label_74_519B:: ; 74:519B
+.l519B ; 74:519B
 	or a, a
 	jp z, Label_74_508D
 	cp a, $2D
-	jr z, Label_74_51C5
+	jr z, .l51C5
 	cp a, $3E
-	jr z, Label_74_51DD
+	jr z, .l51DD
 	cp a, $81
-	jr c, Label_74_51BF
+	jr c, .l51BF
 	cp a, $A0
-	jr c, Label_74_51C0
+	jr c, .l51C0
 	cp a, $E0
-	jr c, Label_74_51BF
+	jr c, .l51BF
 	cp a, $F0
-	jr c, Label_74_51C0
+	jr c, .l51C0
 	cp a, $F8
-	jr c, Label_74_51BF
+	jr c, .l51BF
 	cp a, $FA
-	jr c, Label_74_51C0
-
-Label_74_51BF:: ; 74:51BF
+	jr c, .l51C0
+.l51BF ; 74:51BF
 	or a, a
-
-Label_74_51C0:: ; 74:51C0
+.l51C0 ; 74:51C0
 	jr nc, Label_74_519A
 	ld a, [hli]
 	jr Label_74_519A
-
-Label_74_51C5:: ; 74:51C5
+.l51C5 ; 74:51C5
 	ld a, [hli]
 	cp a, $2D
-	jr nz, Label_74_519B
-
-Label_74_51CA:: ; 74:51CA
+	jr nz, .l519B
+.l51CA ; 74:51CA
 	call Function_00_0392
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_508D
 	cp a, $2D
-	jr nz, Label_74_51CA
+	jr nz, .l51CA
 	ld a, [hli]
 	cp a, $2D
-	jr nz, Label_74_51CA
+	jr nz, .l51CA
 	jr Label_74_519A
-
-Label_74_51DD:: ; 74:51DD
+.l51DD ; 74:51DD
 	ld a, $20
 	ldh [hRam_FFB3], a
 	jp Label_74_4FFA
 
-; ---- code $51E4-$51FE (26 bytes) [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to known code and lands exactly on the next code region 51FE (also a table target)
-
 Label_74_51E4:: ; 74:51E4
+	; [PROBABLE] table entry 18 (last word) of Table_74_511A ($51E4) validated jump-table target;
+	; decode chain cp $2F / jr z / ld a,[$C2C1] / or $08 ... jp $50B9 ends in unconditional jumps to
+	; known code and lands exactly on the next code region 51FE (also a table target)
 	cp a, $2F
-	jr z, Label_74_51F3
+	jr z, .l51F3
 	ld a, [wHtmlFlags]
 	or a, $08
 	ld [wHtmlFlags], a
 	jp Label_74_50B9
-
-Label_74_51F3:: ; 74:51F3
+.l51F3 ; 74:51F3
 	ld a, [wHtmlFlags]
 	and a, $F7
 	ld [wHtmlFlags], a
 	jp Label_74_50B9
 
-; ---- code $51FE-$5252 (84 bytes) [CONFIRMED] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A [executed in 1 scenarios]
-
 Label_74_51FE:: ; 74:51FE
+	; [CONFIRMED] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0;
+	; run starts at an entry of the code-pointer table at 74:511A [executed in 1 scenarios]
 	ldh a, [hRam_FFB4]
 	cp a, $2F
-	jr z, Label_74_520F
+	jr z, .l520F
 	ldh a, [hRam_FFD7]
 	inc a
 	jp z, Label_74_50B9
 	ldh [hRam_FFD7], a
 	jp Label_74_50B9
-
-Label_74_520F:: ; 74:520F
+.l520F ; 74:520F
 	ldh a, [hRam_FFD7]
 	or a, a
 	jp z, Label_74_50B9
@@ -506,14 +487,13 @@ Label_74_520F:: ; 74:520F
 Label_74_521B:: ; 74:521B
 	ldh a, [hRam_FFB4]
 	cp a, $2F
-	jr z, Label_74_522C
+	jr z, .l522C
 	ldh a, [hRam_FFD7]
 	inc a
 	jp z, Label_74_50B9
 	ldh [hRam_FFD7], a
 	jp Label_74_50B9
-
-Label_74_522C:: ; 74:522C
+.l522C ; 74:522C
 	ldh a, [hRam_FFD7]
 	or a, a
 	jp z, Label_74_508D

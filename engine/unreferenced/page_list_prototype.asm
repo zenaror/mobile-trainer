@@ -4,152 +4,140 @@
 
 SECTION "engine/unreferenced/page_list_prototype", ROMX
 
-; ---- code $4C78-$4D50 (216 bytes) [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 115/116 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_7F_4C78:: ; 7F:4C78
+	; [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 115/116 instruction starts ran in forced_screens (traces/forced/, not
+	; natural evidence; status unchanged)
 	farcall Function_00_09B6
 	call Canvas_InitScreen
 	call Function_7F_4E85
-
-Label_7F_4C84:: ; 7F:4C84
+.l4C84 ; 7F:4C84
 	call Function_7F_4D95
-
-Label_7F_4C87:: ; 7F:4C87
+.l4C87 ; 7F:4C87
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_7F_4C87
+	jr z, .l4C87
 	call Function_7F_4E0D
-
-Label_7F_4C96:: ; 7F:4C96
+.l4C96 ; 7F:4C96
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $02
 	ret nz
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_7F_4C96
-	jr Label_7F_4C84
+	jr z, .l4C96
+	jr .l4C84
 
 Canvas_InitScreen:: ; 7F:4CA9
 	ldh a, [rLCDC]
 	push af
 	and a, $80
-	jr z, Label_7F_4CBE
+	jr z, .l4CBE
 	di
-
-Label_7F_4CB1:: ; 7F:4CB1
+.l4CB1 ; 7F:4CB1
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_7F_4CB1
+	jr nz, .l4CB1
 	ldh a, [rLCDC]
 	and a, $7F
 	ldh [rLCDC], a
 	ei
-
-Label_7F_4CBE:: ; 7F:4CBE
+.l4CBE ; 7F:4CBE
 	xor a, a
 	ldh [rVBK], a
 	ld hl, $8800
 	ld bc, $1000
-
-Label_7F_4CC7:: ; 7F:4CC7
+.l4CC7 ; 7F:4CC7
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_4CC7
+	jr nz, .l4CC7
 	ld hl, $9800
 	ld b, $12
 	ld c, $14
 	ld d, $00
-
-Label_7F_4CD7:: ; 7F:4CD7
+.l4CD7 ; 7F:4CD7
 	ld a, d
 	cp a, $F0
-	jr nz, Label_7F_4CDE
+	jr nz, .skip
 	xor a, a
 	ld d, a
-
-Label_7F_4CDE:: ; 7F:4CDE
+.skip ; 7F:4CDE
 	ld [hli], a
 	inc d
 	dec c
-	jr nz, Label_7F_4CD7
+	jr nz, .l4CD7
 	ld c, $14
 	push bc
 	ld bc, $000C
 	add hl, bc
 	pop bc
 	dec b
-	jr nz, Label_7F_4CD7
+	jr nz, .l4CD7
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $8800
 	ld bc, $1000
-
-Label_7F_4CF8:: ; 7F:4CF8
+.l4CF8 ; 7F:4CF8
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_4CF8
+	jr nz, .l4CF8
 	ld hl, $9800
 	ld bc, $0180
-
-Label_7F_4D05:: ; 7F:4D05
+.l4D05 ; 7F:4D05
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_4D05
+	jr nz, .l4D05
 	ld hl, $9980
 	ld b, $C0
-
-Label_7F_4D11:: ; 7F:4D11
+.l4D11 ; 7F:4D11
 	ld a, $08
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_4D11
+	jr nz, .l4D11
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $1000
 	ld hl, $D000
-
-Label_7F_4D23:: ; 7F:4D23
+.l4D23 ; 7F:4D23
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_4D23
+	jr nz, .l4D23
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld bc, $0800
 	ld hl, $D000
-
-Label_7F_4D36:: ; 7F:4D36
+.l4D36 ; 7F:4D36
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_4D36
+	jr nz, .l4D36
 	ld a, $80
 	ldh [rBCPS], a
 	ld hl, Palette_7F_4D50
 	ld b, $08
-
-Label_7F_4D46:: ; 7F:4D46
+.l4D46 ; 7F:4D46
 	ld a, [hli]
 	ldh [rBCPD], a
 	dec b
-	jr nz, Label_7F_4D46
+	jr nz, .l4D46
 	pop af
 	ldh [rLCDC], a
 	ret
@@ -159,13 +147,15 @@ Label_7F_4D46:: ; 7F:4D46
 Palette_7F_4D50:: ; 7F:4D50
 	db $FF, $7F, $00, $7C, $1F, $00, $00, $00
 
-; ---- code $4D58-$4D5E (6 bytes) [PROBABLE] function head ld hl,$4D88 ; ld de,$0000 : the loop that follows (4D5E, PROBABLE, jr nz back at 4D85) prints the string at 7F:4D88 ("Sample DATA.") glyph by glyph; immediate = exact string start; no caller found, entry unproven
+	; [PROBABLE] function head ld hl,$4D88 ; ld de,$0000 : the loop that follows (4D5E, PROBABLE, jr
+	; nz back at 4D85) prints the string at 7F:4D88 ("Sample DATA.") glyph by glyph; immediate =
+	; exact string start; no caller found, entry unproven
 	ld hl, $4D88
 	ld de, $0000
 
-; ---- code $4D5E-$4D88 (42 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: site x25; min discovery hops 0; entered by jrcc from 7F:4D85 (PROBABLE code)
-
-Label_7F_4D5E:: ; 7F:4D5E
+.loop ; 7F:4D5E
+	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: site x25; min discovery hops 0;
+	; entered by jrcc from 7F:4D85 (PROBABLE code)
 	ld a, [hli]
 	push hl
 	push de
@@ -189,7 +179,7 @@ Label_7F_4D5E:: ; 7F:4D5E
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7F_4D5E
+	jr nz, .loop
 	ret
 
 ; ---- text $4D88-$4D95 (13 bytes) [PROBABLE] ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
@@ -197,19 +187,18 @@ Label_7F_4D5E:: ; 7F:4D5E
 String_7F_4D88:: ; 7F:4D88
 	db $53, $61, $6D, $70, $6C, $65, $20, $44, $41, $54, $41, $2E, $00 ; "Sample DATA."
 
-; ---- code $4D95-$4DF2 (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C84 (PROBABLE code) | forced execution: 56/56 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_7F_4D95:: ; 7F:4D95
+	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
+	; entered by call from 7F:4C84 (PROBABLE code) | forced execution: 56/56 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld b, $0C
 	ld de, $0000
-
-Label_7F_4D9A:: ; 7F:4D9A
+.l4D9A ; 7F:4D9A
 	push bc
 	push de
 	ld e, $00
 	ld hl, String_7F_4DF2
-
-Label_7F_4DA1:: ; 7F:4DA1
+.l4DA1 ; 7F:4DA1
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
@@ -250,14 +239,14 @@ Label_7F_4DA1:: ; 7F:4DA1
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7F_4DA1
+	jr nz, .l4DA1
 	pop de
 	pop bc
 	ld a, d
 	add a, $0C
 	ld d, a
 	dec b
-	jr nz, Label_7F_4D9A
+	jr nz, .l4D9A
 	call Canvas_UploadToVram
 	ret
 
@@ -266,19 +255,18 @@ Label_7F_4DA1:: ; 7F:4DA1
 String_7F_4DF2:: ; 7F:4DF2
 	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
-; ---- code $4E0D-$4E6A (93 bytes) [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0; entered by call from 7F:4C93 (PROBABLE code) | forced execution: 56/56 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_7F_4E0D:: ; 7F:4E0D
+	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
+	; entered by call from 7F:4C93 (PROBABLE code) | forced execution: 56/56 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld b, $0C
 	ld de, $0000
-
-Label_7F_4E12:: ; 7F:4E12
+.l4E12 ; 7F:4E12
 	push bc
 	push de
 	ld e, $00
 	ld hl, String_7F_4E6A
-
-Label_7F_4E19:: ; 7F:4E19
+.l4E19 ; 7F:4E19
 	ld a, [hli]
 	ld b, a
 	ld a, [hli]
@@ -319,14 +307,14 @@ Label_7F_4E19:: ; 7F:4E19
 	pop hl
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7F_4E19
+	jr nz, .l4E19
 	pop de
 	pop bc
 	ld a, d
 	add a, $0C
 	ld d, a
 	dec b
-	jr nz, Label_7F_4E12
+	jr nz, .l4E12
 	call Canvas_UploadToVram
 	ret
 
@@ -335,9 +323,10 @@ Label_7F_4E19:: ; 7F:4E19
 String_7F_4E6A:: ; 7F:4E6A
 	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
 
-; ---- code $4E85-$4E89 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1; entered by call from 7F:4C81 (PROBABLE code) | forced execution: 2/2 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_7F_4E85:: ; 7F:4E85
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1;
+	; entered by call from 7F:4C81 (PROBABLE code) | forced execution: 2/2 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	call Canvas_UploadToVram
 	ret
 
@@ -405,9 +394,11 @@ PageListProto_TitleSlotTable:: ; 7F:4FCF
 Table_7F_4FCF::
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
-; ---- code $4FDB-$4FF5 (26 bytes) [PROBABLE] function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call 7F:7271, an executed function); starts right after the word table above; no caller found, entry unproven
-
 Function_7F_4FDB:: ; 7F:4FDB
+	; [PROBABLE] function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld
+	; a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call
+	; 7F:7271, an executed function); starts right after the word table above; no caller found,
+	; entry unproven
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -423,18 +414,18 @@ Function_7F_4FDB:: ; 7F:4FDB
 	ldh [rSVBK], a
 	pop af
 
-; ---- code $4FF5-$51ED (504 bytes) [PROBABLE] 221 insn(s) reached by static flow only; seeds: site x221; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 221 insn(s) reached by static flow only; seeds: site x221; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Stat_EnableScrollSplit
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [wRam_D500]
 	cp a, $00
-	jr nz, Label_7F_500C
+	jr nz, .skip
 	xor a, a
 	ld [wDialogOnlineSnapshot], a
-
-Label_7F_500C:: ; 7F:500C
+.skip ; 7F:500C
 	call Function_7F_51EE
 	ld c, $00
 
@@ -443,10 +434,10 @@ Function_7F_5011:: ; 7F:5011
 	farcall Function_00_0956
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, Label_7F_5128
+	jp z, .l5128
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, Label_7F_503A
+	jr z, .l503A
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -454,59 +445,53 @@ Function_7F_5011:: ; 7F:5011
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_7F_503A:: ; 7F:503A
+.l503A ; 7F:503A
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_7F_5091
+	jp z, .l5091
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_7F_5088
+	jr z, .l5088
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_7F_5089
+	jr nz, .l5089
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_7F_5088
-	jr nz, Label_7F_5064
+	jr c, .l5088
+	jr nz, .l5064
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_7F_5088
-
-Label_7F_5064:: ; 7F:5064
+	jr c, .l5088
+.l5064 ; 7F:5064
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_7F_5074
+	jr nz, .l5074
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_7F_5088
+	jr nz, .l5088
 	set 1, [hl]
-
-Label_7F_5074:: ; 7F:5074
+.l5074 ; 7F:5074
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_7F_5089
+	jr z, .l5089
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_7F_5089
-
-Label_7F_5088:: ; 7F:5088
+	jr .l5089
+.l5088 ; 7F:5088
 	xor a, a
-
-Label_7F_5089:: ; 7F:5089
+.l5089 ; 7F:5089
 	pop hl
 	or a, a
-	jp nz, Label_7F_5115
-	jp Label_7F_5128
-
-Label_7F_5091:: ; 7F:5091
+	jp nz, .l5115
+	jp .l5128
+.l5091 ; 7F:5091
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
@@ -550,8 +535,7 @@ Label_7F_5091:: ; 7F:5091
 	call Function_00_044B
 	pop bc
 	jp Function_7F_5011
-
-Label_7F_5115:: ; 7F:5115
+.l5115 ; 7F:5115
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -559,14 +543,13 @@ Label_7F_5115:: ; 7F:5115
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_7F_5128:: ; 7F:5128
+.l5128 ; 7F:5128
 	call Function_00_0464
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_7F_516A
+	jr z, .l516A
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -595,11 +578,10 @@ Label_7F_5128:: ; 7F:5128
 	ld b, $00
 	call Function_7F_591E
 	pop bc
-
-Label_7F_516A:: ; 7F:516A
+.l516A ; 7F:516A
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_7F_5196
+	jr z, .l5196
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -618,11 +600,10 @@ Label_7F_516A:: ; 7F:516A
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_7F_5196:: ; 7F:5196
+.l5196 ; 7F:5196
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
-	jr z, Label_7F_51C0
+	jr z, .l51C0
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -639,18 +620,16 @@ Label_7F_5196:: ; 7F:5196
 	dec c
 	ld a, $FF
 	cp a, c
-	jr nz, Label_7F_51B9
+	jr nz, .l51B9
 	ld c, $05
-
-Label_7F_51B9:: ; 7F:51B9
+.l51B9 ; 7F:51B9
 	ld a, d
 	call Function_7F_56F1
 	call Function_7F_5306
-
-Label_7F_51C0:: ; 7F:51C0
+.l51C0 ; 7F:51C0
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
-	jr z, Label_7F_51EA
+	jr z, .l51EA
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -667,15 +646,13 @@ Label_7F_51C0:: ; 7F:51C0
 	inc c
 	ld a, $06
 	cp a, c
-	jr nz, Label_7F_51E3
+	jr nz, .l51E3
 	ld c, $00
-
-Label_7F_51E3:: ; 7F:51E3
+.l51E3 ; 7F:51E3
 	ld a, d
 	call Function_7F_56F1
 	call Function_7F_5306
-
-Label_7F_51EA:: ; 7F:51EA
+.l51EA ; 7F:51EA
 	jp Function_7F_5011
 
 ; ---- data $51ED-$51EE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
@@ -683,36 +660,34 @@ Label_7F_51EA:: ; 7F:51EA
 Data_7F_51ED:: ; 7F:51ED
 	db $C9
 
-; ---- code $51EE-$5CB8 (2762 bytes) [PROBABLE] 1292 insn(s) reached by static flow only; seeds: site x1292; min discovery hops 0; entered by call from 7F:500C (PROBABLE code)
-
 Function_7F_51EE:: ; 7F:51EE
+	; [PROBABLE] 1292 insn(s) reached by static flow only; seeds: site x1292; min discovery hops 0;
+	; entered by call from 7F:500C (PROBABLE code)
 	push bc
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $1000
-
-Label_7F_51FB:: ; 7F:51FB
+.l51FB ; 7F:51FB
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_51FB
+	jr nz, .l51FB
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0780
-
-Label_7F_520E:: ; 7F:520E
+.l520E ; 7F:520E
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_7F_520E
+	jr nz, .l520E
 	farcall Canvas_UploadToVram
 	farcall LCDOff
 	farcall Function_00_09B6
@@ -854,14 +829,13 @@ Function_7F_530F:: ; 7F:530F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_53A2
+	jr z, .l53A2
 	ld hl, $DA10
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_53A2:: ; 7F:53A2
+.l53A2 ; 7F:53A2
 	ld hl, $4FC5
 	ld a, [hli]
 	ld e, a
@@ -869,14 +843,13 @@ Label_7F_53A2:: ; 7F:53A2
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_53BE
+	jr z, .l53BE
 	ld hl, $DA20
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_53BE:: ; 7F:53BE
+.l53BE ; 7F:53BE
 	ld hl, $4FC7
 	ld a, [hli]
 	ld e, a
@@ -884,14 +857,13 @@ Label_7F_53BE:: ; 7F:53BE
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_53DA
+	jr z, .l53DA
 	ld hl, $DA30
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_53DA:: ; 7F:53DA
+.l53DA ; 7F:53DA
 	ld hl, $4FC9
 	ld a, [hli]
 	ld e, a
@@ -899,14 +871,13 @@ Label_7F_53DA:: ; 7F:53DA
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_53F6
+	jr z, .l53F6
 	ld hl, $DA40
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_53F6:: ; 7F:53F6
+.l53F6 ; 7F:53F6
 	ld hl, $4FCB
 	ld a, [hli]
 	ld e, a
@@ -914,14 +885,13 @@ Label_7F_53F6:: ; 7F:53F6
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_5412
+	jr z, .l5412
 	ld hl, $DA50
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_5412:: ; 7F:5412
+.l5412 ; 7F:5412
 	ld hl, $4FCD
 	ld a, [hli]
 	ld e, a
@@ -929,14 +899,13 @@ Label_7F_5412:: ; 7F:5412
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_542E
+	jr z, .l542E
 	ld hl, $DA60
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_7F_542E:: ; 7F:542E
+.l542E ; 7F:542E
 	ld a, $16
 	ld [wSpriteSlots + 16], a
 	ld a, $22
@@ -979,7 +948,7 @@ Function_7F_546A:: ; 7F:546A
 	pop af
 	xor a, a
 	cp a, c
-	jr nz, Label_7F_54CB
+	jr nz, .l54CB
 	ld hl, PageListProto_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -987,7 +956,7 @@ Function_7F_546A:: ; 7F:546A
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_54AE
+	jr z, .l54AE
 	ld hl, $DA10
 	ld de, $6DC0
 	ld a, $7F
@@ -997,9 +966,8 @@ Function_7F_546A:: ; 7F:546A
 	ld [wSpriteSlots + 16], a
 	ld a, $05
 	ld [wSpriteSlots + 17], a
-	jp Label_7F_563D
-
-Label_7F_54AE:: ; 7F:54AE
+	jp .l563D
+.l54AE ; 7F:54AE
 	ld hl, $DA10
 	ld de, $6DD0
 	ld a, $7F
@@ -1009,12 +977,11 @@ Label_7F_54AE:: ; 7F:54AE
 	ld [wSpriteSlots + 16], a
 	ld a, $05
 	ld [wSpriteSlots + 17], a
-	jp Label_7F_563D
-
-Label_7F_54CB:: ; 7F:54CB
+	jp .l563D
+.l54CB ; 7F:54CB
 	inc a
 	cp a, c
-	jr nz, Label_7F_5515
+	jr nz, .l5515
 	ld hl, $4FC5
 	ld a, [hli]
 	ld e, a
@@ -1022,7 +989,7 @@ Label_7F_54CB:: ; 7F:54CB
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_54F8
+	jr z, .l54F8
 	ld hl, $DA20
 	ld de, $6DC0
 	ld a, $7F
@@ -1032,9 +999,8 @@ Label_7F_54CB:: ; 7F:54CB
 	ld [wSpriteSlots + 32], a
 	ld a, $05
 	ld [wSpriteSlots + 33], a
-	jp Label_7F_563D
-
-Label_7F_54F8:: ; 7F:54F8
+	jp .l563D
+.l54F8 ; 7F:54F8
 	ld hl, $DA20
 	ld de, $6DD0
 	ld a, $7F
@@ -1044,12 +1010,11 @@ Label_7F_54F8:: ; 7F:54F8
 	ld [wSpriteSlots + 32], a
 	ld a, $05
 	ld [wSpriteSlots + 33], a
-	jp Label_7F_563D
-
-Label_7F_5515:: ; 7F:5515
+	jp .l563D
+.l5515 ; 7F:5515
 	inc a
 	cp a, c
-	jr nz, Label_7F_555F
+	jr nz, .l555F
 	ld hl, $4FC7
 	ld a, [hli]
 	ld e, a
@@ -1057,7 +1022,7 @@ Label_7F_5515:: ; 7F:5515
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_5542
+	jr z, .l5542
 	ld hl, $DA30
 	ld de, $6DC0
 	ld a, $7F
@@ -1067,9 +1032,8 @@ Label_7F_5515:: ; 7F:5515
 	ld [wSpriteSlots + 48], a
 	ld a, $05
 	ld [wSpriteSlots + 49], a
-	jp Label_7F_563D
-
-Label_7F_5542:: ; 7F:5542
+	jp .l563D
+.l5542 ; 7F:5542
 	ld hl, $DA30
 	ld de, $6DD0
 	ld a, $7F
@@ -1079,12 +1043,11 @@ Label_7F_5542:: ; 7F:5542
 	ld [wSpriteSlots + 48], a
 	ld a, $05
 	ld [wSpriteSlots + 49], a
-	jp Label_7F_563D
-
-Label_7F_555F:: ; 7F:555F
+	jp .l563D
+.l555F ; 7F:555F
 	inc a
 	cp a, c
-	jr nz, Label_7F_55A9
+	jr nz, .l55A9
 	ld hl, $4FC9
 	ld a, [hli]
 	ld e, a
@@ -1092,7 +1055,7 @@ Label_7F_555F:: ; 7F:555F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_558C
+	jr z, .l558C
 	ld hl, $DA40
 	ld de, $6DC0
 	ld a, $7F
@@ -1102,9 +1065,8 @@ Label_7F_555F:: ; 7F:555F
 	ld [wSpriteSlots + 64], a
 	ld a, $05
 	ld [wSpriteSlots + 65], a
-	jp Label_7F_563D
-
-Label_7F_558C:: ; 7F:558C
+	jp .l563D
+.l558C ; 7F:558C
 	ld hl, $DA40
 	ld de, $6DD0
 	ld a, $7F
@@ -1114,12 +1076,11 @@ Label_7F_558C:: ; 7F:558C
 	ld [wSpriteSlots + 64], a
 	ld a, $05
 	ld [wSpriteSlots + 65], a
-	jp Label_7F_563D
-
-Label_7F_55A9:: ; 7F:55A9
+	jp .l563D
+.l55A9 ; 7F:55A9
 	inc a
 	cp a, c
-	jr nz, Label_7F_55F3
+	jr nz, .l55F3
 	ld hl, $4FCB
 	ld a, [hli]
 	ld e, a
@@ -1127,7 +1088,7 @@ Label_7F_55A9:: ; 7F:55A9
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_55D6
+	jr z, .l55D6
 	ld hl, $DA50
 	ld de, $6DC0
 	ld a, $7F
@@ -1137,9 +1098,8 @@ Label_7F_55A9:: ; 7F:55A9
 	ld [wSpriteSlots + 80], a
 	ld a, $05
 	ld [wSpriteSlots + 81], a
-	jp Label_7F_563D
-
-Label_7F_55D6:: ; 7F:55D6
+	jp .l563D
+.l55D6 ; 7F:55D6
 	ld hl, $DA50
 	ld de, $6DD0
 	ld a, $7F
@@ -1149,12 +1109,11 @@ Label_7F_55D6:: ; 7F:55D6
 	ld [wSpriteSlots + 80], a
 	ld a, $05
 	ld [wSpriteSlots + 81], a
-	jp Label_7F_563D
-
-Label_7F_55F3:: ; 7F:55F3
+	jp .l563D
+.l55F3 ; 7F:55F3
 	inc a
 	cp a, c
-	jr nz, Label_7F_563D
+	jr nz, .l563D
 	ld hl, $4FCD
 	ld a, [hli]
 	ld e, a
@@ -1162,7 +1121,7 @@ Label_7F_55F3:: ; 7F:55F3
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_7F_5620
+	jr z, .l5620
 	ld hl, $DA60
 	ld de, $6DC0
 	ld a, $7F
@@ -1172,9 +1131,8 @@ Label_7F_55F3:: ; 7F:55F3
 	ld [wSpriteSlots + 96], a
 	ld a, $05
 	ld [wSpriteSlots + 97], a
-	jp Label_7F_563D
-
-Label_7F_5620:: ; 7F:5620
+	jp .l563D
+.l5620 ; 7F:5620
 	ld hl, $DA60
 	ld de, $6DD0
 	ld a, $7F
@@ -1184,9 +1142,8 @@ Label_7F_5620:: ; 7F:5620
 	ld [wSpriteSlots + 96], a
 	ld a, $05
 	ld [wSpriteSlots + 97], a
-	jp Label_7F_563D
-
-Label_7F_563D:: ; 7F:563D
+	jp .l563D
+.l563D ; 7F:563D
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -1216,7 +1173,7 @@ Function_7F_5647:: ; 7F:5647
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr nz, Label_7F_568B
+	jr nz, .l568B
 	ld d, $00
 	ld e, $00
 	push af
@@ -1230,17 +1187,15 @@ Function_7F_5647:: ; 7F:5647
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_7F_5686
+	jr z, .l5686
 	ld a, $01
-
-Label_7F_5686:: ; 7F:5686
+.l5686 ; 7F:5686
 	ld c, a
 	ld a, d
 	ld d, c
 	pop bc
 	ret
-
-Label_7F_568B:: ; 7F:568B
+.l568B ; 7F:568B
 	ld d, $01
 	ld e, $01
 	push af
@@ -1254,11 +1209,10 @@ Label_7F_568B:: ; 7F:568B
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_7F_56A9
+	jr z, .l56A9
 	ld a, $01
 	ld d, $01
-
-Label_7F_56A9:: ; 7F:56A9
+.l56A9 ; 7F:56A9
 	ld c, a
 	ld a, d
 	ld d, c
@@ -1271,17 +1225,15 @@ Function_7F_56AE:: ; 7F:56AE
 	ld b, a
 	ld a, $01
 	ldh [rVBK], a
-
-Label_7F_56B5:: ; 7F:56B5
+.loop ; 7F:56B5
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_7F_56B5
+	jr nz, .loop
 	ld a, $0B
 	dec b
-	jr z, Label_7F_56C2
+	jr z, .l56C2
 	ld a, $0C
-
-Label_7F_56C2:: ; 7F:56C2
+.l56C2 ; 7F:56C2
 	ld hl, $99A4
 	ld [hli], a
 	ld [hl], a
@@ -1290,10 +1242,9 @@ Label_7F_56C2:: ; 7F:56C2
 	ld [hl], a
 	ld a, $0B
 	dec d
-	jr z, Label_7F_56D3
+	jr z, .l56D3
 	ld a, $0C
-
-Label_7F_56D3:: ; 7F:56D3
+.l56D3 ; 7F:56D3
 	ld hl, $99A9
 	ld [hli], a
 	ld [hl], a
@@ -1302,10 +1253,9 @@ Label_7F_56D3:: ; 7F:56D3
 	ld [hl], a
 	ld a, $0B
 	dec e
-	jr z, Label_7F_56E4
+	jr z, .l56E4
 	ld a, $0C
-
-Label_7F_56E4:: ; 7F:56E4
+.l56E4 ; 7F:56E4
 	ld hl, $99AE
 	ld [hli], a
 	ld [hl], a
@@ -1343,14 +1293,12 @@ Function_7F_56F1:: ; 7F:56F1
 	ld b, a
 	xor a, a
 	inc b
-
-Label_7F_5719:: ; 7F:5719
+.l5719 ; 7F:5719
 	dec b
-	jr z, Label_7F_5720
+	jr z, .l5720
 	add a, $0C
-	jr Label_7F_5719
-
-Label_7F_5720:: ; 7F:5720
+	jr .l5719
+.l5720 ; 7F:5720
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1374,14 +1322,12 @@ Label_7F_5720:: ; 7F:5720
 	ld b, c
 	xor a, a
 	inc b
-
-Label_7F_5742:: ; 7F:5742
+.l5742 ; 7F:5742
 	dec b
-	jr z, Label_7F_5749
+	jr z, .l5749
 	add a, $0C
-	jr Label_7F_5742
-
-Label_7F_5749:: ; 7F:5749
+	jr .l5742
+.l5749 ; 7F:5749
 	add a, $10
 	ld d, a
 	ld b, $00
@@ -1422,8 +1368,7 @@ Function_7F_577D:: ; 7F:577D
 	pop af
 	xor a, a
 	ld d, $06
-
-Label_7F_5791:: ; 7F:5791
+.l5791 ; 7F:5791
 	push af
 	push de
 	push bc
@@ -1443,14 +1388,12 @@ Label_7F_5791:: ; 7F:5791
 	ld b, a
 	xor a, a
 	inc b
-
-Label_7F_57AA:: ; 7F:57AA
+.l57AA ; 7F:57AA
 	dec b
-	jr z, Label_7F_57B1
+	jr z, .l57B1
 	add a, $0C
-	jr Label_7F_57AA
-
-Label_7F_57B1:: ; 7F:57B1
+	jr .l57AA
+.l57B1 ; 7F:57B1
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1461,7 +1404,7 @@ Label_7F_57B1:: ; 7F:57B1
 	pop af
 	inc a
 	dec d
-	jr nz, Label_7F_5791
+	jr nz, .l5791
 	ld hl, PageListProto_TitleSlotTable
 	ld a, [hli]
 	ld e, a
@@ -1502,18 +1445,17 @@ Label_7F_57B1:: ; 7F:57B1
 Function_7F_5805:: ; 7F:5805
 	ld a, $14
 	ld [wTextCellsLeft], a
-
-Label_7F_580A:: ; 7F:580A
+.l580A ; 7F:580A
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_7F_5885
+	jr z, .l5885
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_7F_5860
+	jr nz, .l5860
 	pop af
 	push bc
 	push de
@@ -1547,12 +1489,11 @@ Label_7F_580A:: ; 7F:580A
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_7F_5885
+	jr z, .l5885
 	cp a, $01
-	jr z, Label_7F_5885
-	jr Label_7F_580A
-
-Label_7F_5860:: ; 7F:5860
+	jr z, .l5885
+	jr .l580A
+.l5860 ; 7F:5860
 	pop af
 	push bc
 	push de
@@ -1568,12 +1509,11 @@ Label_7F_5860:: ; 7F:5860
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_7F_5885
+	jr z, .l5885
 	cp a, $01
-	jr z, Label_7F_5885
-	jr Label_7F_580A
-
-Label_7F_5885:: ; 7F:5885
+	jr z, .l5885
+	jr .l580A
+.l5885 ; 7F:5885
 	push bc
 	push de
 	push hl
@@ -1583,15 +1523,14 @@ Label_7F_5885:: ; 7F:5885
 	pop hl
 	pop de
 	pop bc
-
-Label_7F_5896:: ; 7F:5896
+.l5896 ; 7F:5896
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_7F_58A5
-	jr Label_7F_5896
+	jr .l5896
 
 Function_7F_58A5:: ; 7F:58A5
 	push bc
@@ -1647,17 +1586,15 @@ Function_7F_58F9:: ; 7F:58F9
 	ldh [rHDMA4], a
 	ld de, $FF44
 	di
-
-Label_7F_5909:: ; 7F:5909
+.l5909 ; 7F:5909
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_7F_5909
+	jr nz, .l5909
 	ld b, $91
-
-Label_7F_5910:: ; 7F:5910
+.l5910 ; 7F:5910
 	ld a, [de]
 	cp a, b
-	jr nz, Label_7F_5910
+	jr nz, .l5910
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1671,51 +1608,46 @@ Function_7F_591E:: ; 7F:591E
 	push de
 	push hl
 	cp a, $00
-	jr z, Label_7F_5946
+	jr z, .l5946
 	cp a, $01
-	jr z, Label_7F_595B
+	jr z, .l595B
 	cp a, $02
-	jr z, Label_7F_5970
+	jr z, .l5970
 	cp a, $03
-	jr z, Label_7F_5931
-
-Label_7F_5931:: ; 7F:5931
+	jr z, .l5931
+.l5931 ; 7F:5931
 	ld de, $9581
 	ld hl, Tiles_52_4080
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Function_00_0749
-	jp Label_7F_5985
-
-Label_7F_5946:: ; 7F:5946
+	jp .l5985
+.l5946 ; 7F:5946
 	ld de, $9581
 	ld hl, $4680
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Function_00_0749
-	jp Label_7F_5985
-
-Label_7F_595B:: ; 7F:595B
+	jp .l5985
+.l595B ; 7F:595B
 	ld de, $9581
 	ld hl, $4380
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Function_00_0749
-	jp Label_7F_5985
-
-Label_7F_5970:: ; 7F:5970
+	jp .l5985
+.l5970 ; 7F:5970
 	ld de, $9581
 	ld hl, $4980
 	ld a, $52
 	ld b, $95
 	ld c, $28
 	farcall Function_00_0749
-	jp Label_7F_5985
-
-Label_7F_5985:: ; 7F:5985
+	jp .l5985
+.l5985 ; 7F:5985
 	pop hl
 	pop de
 	pop bc
@@ -1725,16 +1657,15 @@ Function_7F_5989:: ; 7F:5989
 	call Function_7F_5BB5
 	call Function_7F_61E7
 	ld b, $00
-
-Label_7F_5991:: ; 7F:5991
+.loop ; 7F:5991
 	push bc
 	farcall Function_00_0956
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, Label_7F_5ACF
+	jp z, .l5ACF
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, Label_7F_59BA
+	jr z, .l59BA
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -1742,59 +1673,53 @@ Label_7F_5991:: ; 7F:5991
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_7F_59BA:: ; 7F:59BA
+.l59BA ; 7F:59BA
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_7F_5A11
+	jp z, .l5A11
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_7F_5A08
+	jr z, .l5A08
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_7F_5A09
+	jr nz, .l5A09
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_7F_5A08
-	jr nz, Label_7F_59E4
+	jr c, .l5A08
+	jr nz, .l59E4
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_7F_5A08
-
-Label_7F_59E4:: ; 7F:59E4
+	jr c, .l5A08
+.l59E4 ; 7F:59E4
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_7F_59F4
+	jr nz, .l59F4
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_7F_5A08
+	jr nz, .l5A08
 	set 1, [hl]
-
-Label_7F_59F4:: ; 7F:59F4
+.l59F4 ; 7F:59F4
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_7F_5A09
+	jr z, .l5A09
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_7F_5A09
-
-Label_7F_5A08:: ; 7F:5A08
+	jr .l5A09
+.l5A08 ; 7F:5A08
 	xor a, a
-
-Label_7F_5A09:: ; 7F:5A09
+.l5A09 ; 7F:5A09
 	pop hl
 	or a, a
-	jp nz, Label_7F_5AC4
-	jp Label_7F_5ACF
-
-Label_7F_5A11:: ; 7F:5A11
+	jp nz, .l5AC4
+	jp .l5ACF
+.l5A11 ; 7F:5A11
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
@@ -1862,17 +1787,15 @@ Label_7F_5A11:: ; 7F:5A11
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
-	jp Label_7F_5991
-
-Label_7F_5AC4:: ; 7F:5AC4
+	jp .loop
+.l5AC4 ; 7F:5AC4
 	pop bc
 	pop af
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_7F_5ACF:: ; 7F:5ACF
+.l5ACF ; 7F:5ACF
 	call Function_00_0464
 	farcall Joypad_Update
 	pop bc
@@ -1880,7 +1803,7 @@ Label_7F_5ACF:: ; 7F:5ACF
 	call nz, Function_7F_61E6
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_7F_5B2D
+	jr z, .l5B2D
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1895,38 +1818,34 @@ Label_7F_5ACF:: ; 7F:5ACF
 	pop bc
 	ld a, b
 	cp a, $01
-	jr nz, Label_7F_5B02
+	jr nz, .l5B02
 	call Function_7F_5D0A
-	jr Label_7F_5B09
-
-Label_7F_5B02:: ; 7F:5B02
+	jr .l5B09
+.l5B02 ; 7F:5B02
 	cp a, $02
-	jr nz, Label_7F_5B1A
+	jr nz, .l5B1A
 	call Function_7F_5FBC
-
-Label_7F_5B09:: ; 7F:5B09
+.l5B09 ; 7F:5B09
 	inc a
-	jp nz, Label_7F_5991
+	jp nz, .loop
 	call Function_7F_5C13
 	push bc
 	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
-
-Label_7F_5B1A:: ; 7F:5B1A
+.l5B1A ; 7F:5B1A
 	call Function_7F_5F5D
 	inc a
-	jp nz, Label_7F_5991
+	jp nz, .loop
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	ld a, $FF
 	ret
-
-Label_7F_5B2D:: ; 7F:5B2D
+.l5B2D ; 7F:5B2D
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_7F_5B54
+	jr z, .l5B54
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1945,11 +1864,10 @@ Label_7F_5B2D:: ; 7F:5B2D
 	pop bc
 	xor a, a
 	ret
-
-Label_7F_5B54:: ; 7F:5B54
+.l5B54 ; 7F:5B54
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jr z, Label_7F_5B83
+	jr z, .l5B83
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1966,10 +1884,9 @@ Label_7F_5B54:: ; 7F:5B54
 	dec b
 	ld a, $FF
 	cp a, b
-	jr nz, Label_7F_5B77
+	jr nz, .l5B77
 	ld b, $02
-
-Label_7F_5B77:: ; 7F:5B77
+.l5B77 ; 7F:5B77
 	ld a, d
 	call Function_7F_5CB4
 	ld a, b
@@ -1977,11 +1894,10 @@ Label_7F_5B77:: ; 7F:5B77
 	ld b, $00
 	call Function_7F_591E
 	ld b, d
-
-Label_7F_5B83:: ; 7F:5B83
+.l5B83 ; 7F:5B83
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jr z, Label_7F_5BB2
+	jr z, .l5BB2
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1998,10 +1914,9 @@ Label_7F_5B83:: ; 7F:5B83
 	inc b
 	ld a, $03
 	cp a, b
-	jr nz, Label_7F_5BA6
+	jr nz, .l5BA6
 	ld b, $00
-
-Label_7F_5BA6:: ; 7F:5BA6
+.l5BA6 ; 7F:5BA6
 	ld a, d
 	call Function_7F_5CB4
 	ld a, b
@@ -2009,9 +1924,8 @@ Label_7F_5BA6:: ; 7F:5BA6
 	ld b, $00
 	call Function_7F_591E
 	ld b, d
-
-Label_7F_5BB2:: ; 7F:5BB2
-	jp Label_7F_5991
+.l5BB2 ; 7F:5BB2
+	jp .loop
 
 Function_7F_5BB5:: ; 7F:5BB5
 	push bc
@@ -2039,19 +1953,17 @@ Function_7F_5BB5:: ; 7F:5BB5
 	ld [wSpriteSlots + 113], a
 	ld a, $66
 	ld [wSpriteSlots + 112], a
-
-Label_7F_5BF9:: ; 7F:5BF9
+.loop ; 7F:5BF9
 	ld a, [wSpriteSlots + 113]
 	inc a
 	inc a
 	inc a
 	inc a
 	cp a, $22
-	jr z, Label_7F_5C09
+	jr z, .l5C09
 	ld [wSpriteSlots + 113], a
-	jr Label_7F_5BF9
-
-Label_7F_5C09:: ; 7F:5C09
+	jr .loop
+.l5C09 ; 7F:5C09
 	pop bc
 	xor a, a
 	ld d, b
@@ -2090,7 +2002,7 @@ Function_7F_5C39:: ; 7F:5C39
 	ldh [rSVBK], a
 	ld a, $00
 	cp a, b
-	jr nz, Label_7F_5C66
+	jr nz, .l5C66
 	ld hl, $DA80
 	ld de, $6E00
 	ld a, $7F
@@ -2104,11 +2016,10 @@ Function_7F_5C39:: ; 7F:5C39
 	ld [wSpriteSlots + 113], a
 	pop bc
 	ret
-
-Label_7F_5C66:: ; 7F:5C66
+.l5C66 ; 7F:5C66
 	ld a, $01
 	cp a, b
-	jr nz, Label_7F_5C8C
+	jr nz, .l5C8C
 	ld hl, $DA80
 	ld de, $6E10
 	ld a, $7F
@@ -2122,11 +2033,10 @@ Label_7F_5C66:: ; 7F:5C66
 	ld [wSpriteSlots + 113], a
 	pop bc
 	ret
-
-Label_7F_5C8C:: ; 7F:5C8C
+.l5C8C ; 7F:5C8C
 	ld a, $02
 	cp a, b
-	jr nz, Label_7F_5CB2
+	jr nz, .l5CB2
 	ld hl, $DA80
 	ld de, $6E20
 	ld a, $7F
@@ -2140,8 +2050,7 @@ Label_7F_5C8C:: ; 7F:5C8C
 	ld [wSpriteSlots + 113], a
 	pop bc
 	ret
-
-Label_7F_5CB2:: ; 7F:5CB2
+.l5CB2 ; 7F:5CB2
 	pop bc
 	ret
 
@@ -2149,7 +2058,10 @@ Function_7F_5CB4:: ; 7F:5CB4
 	call Function_7F_5C39
 	ret
 
-; ---- code $5CB8-$5CDC (36 bytes) [PROBABLE] first half of a function (cp a,b ; ret z ; push af ; ld a,$E8 ; ld [$DA81],a ... jr c,$5CE7 ; ... call $5C39 (called from 7F:5CB4) ; push bc ; far call) that continues in the PROBABLE site region 5CDC and, through the jr c target 5CE7, in the second half; all direct targets land on instruction starts (5C39, 5CE7, 0464, 5CCA loop)
+	; [PROBABLE] first half of a function (cp a,b ; ret z ; push af ; ld a,$E8 ; ld [$DA81],a ... jr
+	; c,$5CE7 ; ... call $5C39 (called from 7F:5CB4) ; push bc ; far call) that continues in the
+	; PROBABLE site region 5CDC and, through the jr c target 5CE7, in the second half; all direct
+	; targets land on instruction starts (5C39, 5CE7, 0464, 5CCA loop)
 	cp a, b
 	ret z
 	push af
@@ -2157,12 +2069,11 @@ Function_7F_5CB4:: ; 7F:5CB4
 	ld [wSpriteSlots + 129], a
 	pop af
 	push bc
-	jr c, Label_7F_5CE7
+	jr c, .l5CE7
 	ld a, [wSpriteSlots + 113]
 	sub a, $28
 	ld d, a
-
-Label_7F_5CCA:: ; 7F:5CCA
+.l5CCA ; 7F:5CCA
 	ld a, [wSpriteSlots + 113]
 	dec a
 	dec a
@@ -2170,25 +2081,25 @@ Label_7F_5CCA:: ; 7F:5CCA
 	dec a
 	ld [wSpriteSlots + 113], a
 	cp a, d
-	jr nz, Label_7F_5CCA
+	jr nz, .l5CCA
 	pop bc
 	call Function_7F_5C39
 	push bc
 
-; ---- code $5CDC-$5CE7 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	ret
 
-; ---- code $5CE7-$5CFF (24 bytes) [PROBABLE] second half (jr c target of 5CC2, 5CE7): add a,$28 ... loop ... pop bc ; call $5C39 ; push bc, flowing into the far-call site region at 5CFF; twin of the first half 5CB8-5CE7
-
-Label_7F_5CE7:: ; 7F:5CE7
+.l5CE7 ; 7F:5CE7
+	; [PROBABLE] second half (jr c target of 5CC2, 5CE7): add a,$28 ... loop ... pop bc ; call $5C39
+	; ; push bc, flowing into the far-call site region at 5CFF; twin of the first half 5CB8-5CE7
 	ld a, [wSpriteSlots + 113]
 	add a, $28
 	ld d, a
-
-Label_7F_5CED:: ; 7F:5CED
+.l5CED ; 7F:5CED
 	ld a, [wSpriteSlots + 113]
 	inc a
 	inc a
@@ -2196,12 +2107,13 @@ Label_7F_5CED:: ; 7F:5CED
 	inc a
 	ld [wSpriteSlots + 113], a
 	cp a, d
-	jr nz, Label_7F_5CED
+	jr nz, .l5CED
 	pop bc
 	call Function_7F_5C39
 	push bc
 
-; ---- code $5CFF-$61E8 (1257 bytes) [PROBABLE] 626 insn(s) reached by static flow only; seeds: site x626; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 626 insn(s) reached by static flow only; seeds: site x626; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
@@ -2247,7 +2159,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	push de
 	ld a, [de]
 	cp a, $00
-	jp z, Label_7F_5DFC
+	jp z, .l5DFC
 	push bc
 	push de
 	ld a, $07
@@ -2325,15 +2237,14 @@ Function_7F_5D0A:: ; 7F:5D0A
 	call Function_7F_56AE
 	pop af
 	dec a
-	jr z, Label_7F_5DFC
+	jr z, .l5DFC
 	call Function_7F_5306
 	pop de
 	pop bc
 	xor a, a
 	ldh [hJoyPressed], a
 	ret
-
-Label_7F_5DFC:: ; 7F:5DFC
+.l5DFC ; 7F:5DFC
 	push bc
 	push de
 	call Function_7F_5306
@@ -2345,7 +2256,7 @@ Label_7F_5DFC:: ; 7F:5DFC
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_7F_5E2F
+	jr nz, .l5E2F
 	ld hl, $DA10
 	ld de, $6E30
 	ld a, $7F
@@ -2358,11 +2269,10 @@ Label_7F_5DFC:: ; 7F:5DFC
 	ld [wSpriteSlots + 16], a
 	ld a, $05
 	ld [wSpriteSlots + 17], a
-	jp Label_7F_5EF2
-
-Label_7F_5E2F:: ; 7F:5E2F
+	jp .l5EF2
+.l5E2F ; 7F:5E2F
 	cp a, $01
-	jr nz, Label_7F_5E56
+	jr nz, .l5E56
 	ld hl, $DA20
 	ld de, $6E30
 	ld a, $7F
@@ -2375,11 +2285,10 @@ Label_7F_5E2F:: ; 7F:5E2F
 	ld [wSpriteSlots + 32], a
 	ld a, $05
 	ld [wSpriteSlots + 33], a
-	jp Label_7F_5EF2
-
-Label_7F_5E56:: ; 7F:5E56
+	jp .l5EF2
+.l5E56 ; 7F:5E56
 	cp a, $02
-	jr nz, Label_7F_5E7D
+	jr nz, .l5E7D
 	ld hl, $DA30
 	ld de, $6E30
 	ld a, $7F
@@ -2392,11 +2301,10 @@ Label_7F_5E56:: ; 7F:5E56
 	ld [wSpriteSlots + 48], a
 	ld a, $05
 	ld [wSpriteSlots + 49], a
-	jp Label_7F_5EF2
-
-Label_7F_5E7D:: ; 7F:5E7D
+	jp .l5EF2
+.l5E7D ; 7F:5E7D
 	cp a, $03
-	jr nz, Label_7F_5EA4
+	jr nz, .l5EA4
 	ld hl, $DA40
 	ld de, $6E30
 	ld a, $7F
@@ -2409,11 +2317,10 @@ Label_7F_5E7D:: ; 7F:5E7D
 	ld [wSpriteSlots + 64], a
 	ld a, $05
 	ld [wSpriteSlots + 65], a
-	jp Label_7F_5EF2
-
-Label_7F_5EA4:: ; 7F:5EA4
+	jp .l5EF2
+.l5EA4 ; 7F:5EA4
 	cp a, $04
-	jr nz, Label_7F_5ECB
+	jr nz, .l5ECB
 	ld hl, $DA50
 	ld de, $6E30
 	ld a, $7F
@@ -2426,11 +2333,10 @@ Label_7F_5EA4:: ; 7F:5EA4
 	ld [wSpriteSlots + 80], a
 	ld a, $05
 	ld [wSpriteSlots + 81], a
-	jp Label_7F_5EF2
-
-Label_7F_5ECB:: ; 7F:5ECB
+	jp .l5EF2
+.l5ECB ; 7F:5ECB
 	cp a, $05
-	jr nz, Label_7F_5EF2
+	jr nz, .l5EF2
 	ld hl, $DA60
 	ld de, $6E30
 	ld a, $7F
@@ -2443,13 +2349,11 @@ Label_7F_5ECB:: ; 7F:5ECB
 	ld [wSpriteSlots + 96], a
 	ld a, $05
 	ld [wSpriteSlots + 97], a
-	jp Label_7F_5EF2
-
-Label_7F_5EF2:: ; 7F:5EF2
+	jp .l5EF2
+.l5EF2 ; 7F:5EF2
 	pop bc
 	ld e, $32
-
-Label_7F_5EF5:: ; 7F:5EF5
+.l5EF5 ; 7F:5EF5
 	push bc
 	push de
 	farcall Function_00_0956
@@ -2457,7 +2361,7 @@ Label_7F_5EF5:: ; 7F:5EF5
 	pop de
 	pop bc
 	dec e
-	jr nz, Label_7F_5EF5
+	jr nz, .l5EF5
 	pop de
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2473,13 +2377,12 @@ Label_7F_5EF5:: ; 7F:5EF5
 	push bc
 	ld hl, $D500
 	ld c, $00
-
-Label_7F_5F22:: ; 7F:5F22
+.l5F22 ; 7F:5F22
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_7F_5F22
+	jr nz, .l5F22
 	pop bc
 	ld e, c
 	ld d, $00
@@ -2494,18 +2397,16 @@ Label_7F_5F22:: ; 7F:5F22
 	ld hl, $D3C0
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7F_5F42
+	jr nz, .skip
 	ld hl, $D500
-
-Label_7F_5F42:: ; 7F:5F42
+.skip ; 7F:5F42
 	ld c, $16
-
-Label_7F_5F44:: ; 7F:5F44
+.l5F44 ; 7F:5F44
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_7F_5F44
+	jr nz, .l5F44
 	pop bc
 	push af
 	xor a, a
@@ -2526,9 +2427,8 @@ Function_7F_5F5D:: ; 7F:5F5D
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7F_5F6C
-
-Label_7F_5F6C:: ; 7F:5F6C
+	jr nz, .l5F6C
+.l5F6C ; 7F:5F6C
 	push bc
 	push de
 	pop de
@@ -2699,12 +2599,11 @@ Function_7F_5FBC:: ; 7F:5FBC
 	call Function_7F_56AE
 	pop af
 	dec a
-	jr z, Label_7F_609A
+	jr z, .l609A
 	xor a, a
 	ldh [hJoyPressed], a
 	ret
-
-Label_7F_609A:: ; 7F:609A
+.l609A ; 7F:609A
 	push bc
 	push de
 	call Function_7F_5306
@@ -2713,7 +2612,7 @@ Label_7F_609A:: ; 7F:609A
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_7F_60CA
+	jr nz, .l60CA
 	ld hl, $DA10
 	ld de, $6E40
 	ld a, $7F
@@ -2726,11 +2625,10 @@ Label_7F_609A:: ; 7F:609A
 	ld [wSpriteSlots + 16], a
 	ld a, $05
 	ld [wSpriteSlots + 17], a
-	jp Label_7F_618D
-
-Label_7F_60CA:: ; 7F:60CA
+	jp .l618D
+.l60CA ; 7F:60CA
 	cp a, $01
-	jr nz, Label_7F_60F1
+	jr nz, .l60F1
 	ld hl, $DA20
 	ld de, $6E40
 	ld a, $7F
@@ -2743,11 +2641,10 @@ Label_7F_60CA:: ; 7F:60CA
 	ld [wSpriteSlots + 32], a
 	ld a, $05
 	ld [wSpriteSlots + 33], a
-	jp Label_7F_618D
-
-Label_7F_60F1:: ; 7F:60F1
+	jp .l618D
+.l60F1 ; 7F:60F1
 	cp a, $02
-	jr nz, Label_7F_6118
+	jr nz, .l6118
 	ld hl, $DA30
 	ld de, $6E40
 	ld a, $7F
@@ -2760,11 +2657,10 @@ Label_7F_60F1:: ; 7F:60F1
 	ld [wSpriteSlots + 48], a
 	ld a, $05
 	ld [wSpriteSlots + 49], a
-	jp Label_7F_618D
-
-Label_7F_6118:: ; 7F:6118
+	jp .l618D
+.l6118 ; 7F:6118
 	cp a, $03
-	jr nz, Label_7F_613F
+	jr nz, .l613F
 	ld hl, $DA40
 	ld de, $6E40
 	ld a, $7F
@@ -2777,11 +2673,10 @@ Label_7F_6118:: ; 7F:6118
 	ld [wSpriteSlots + 64], a
 	ld a, $05
 	ld [wSpriteSlots + 65], a
-	jp Label_7F_618D
-
-Label_7F_613F:: ; 7F:613F
+	jp .l618D
+.l613F ; 7F:613F
 	cp a, $04
-	jr nz, Label_7F_6166
+	jr nz, .l6166
 	ld hl, $DA50
 	ld de, $6E40
 	ld a, $7F
@@ -2794,11 +2689,10 @@ Label_7F_613F:: ; 7F:613F
 	ld [wSpriteSlots + 80], a
 	ld a, $05
 	ld [wSpriteSlots + 81], a
-	jp Label_7F_618D
-
-Label_7F_6166:: ; 7F:6166
+	jp .l618D
+.l6166 ; 7F:6166
 	cp a, $05
-	jr nz, Label_7F_618D
+	jr nz, .l618D
 	ld hl, $DA60
 	ld de, $6E40
 	ld a, $7F
@@ -2811,13 +2705,11 @@ Label_7F_6166:: ; 7F:6166
 	ld [wSpriteSlots + 96], a
 	ld a, $05
 	ld [wSpriteSlots + 97], a
-	jp Label_7F_618D
-
-Label_7F_618D:: ; 7F:618D
+	jp .l618D
+.l618D ; 7F:618D
 	pop bc
 	ld e, $32
-
-Label_7F_6190:: ; 7F:6190
+.loop ; 7F:6190
 	push bc
 	push de
 	farcall Function_00_0956
@@ -2825,7 +2717,7 @@ Label_7F_6190:: ; 7F:6190
 	pop de
 	pop bc
 	dec e
-	jr nz, Label_7F_6190
+	jr nz, .loop
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2879,7 +2771,9 @@ Function_7F_61E6:: ; 7F:61E6
 Function_7F_61E7:: ; 7F:61E7
 	ret
 
-; ---- code $61E8-$61FC (20 bytes) [HYPOTHESIS] complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld [$C2D4..$C2D7],a ; ret) directly before the executed function 7F:61FC; no caller/pointer found, entry unproven
+	; [HYPOTHESIS] complete small function (ld a,7 ; ldh [hFF8D],a ; ldh [hFF70],a ; xor a ; ld
+	; [$C2D4..$C2D7],a ; ret) directly before the executed function 7F:61FC; no caller/pointer
+	; found, entry unproven
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

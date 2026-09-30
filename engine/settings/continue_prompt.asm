@@ -4,9 +4,10 @@
 
 SECTION "engine/settings/continue_prompt", ROMX
 
-; ---- code $570C-$5807 (251 bytes) [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 5; entered by far from 67:411E (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE region 570C-580C by apply_coverage --split [executed in 1 scenarios]
-
 SettingsPhone_ContinuePrompt:: ; 67:570C
+	; [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 5;
+	; entered by far from 67:411E (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE
+	; region 570C-580C by apply_coverage --split [executed in 1 scenarios]
 	call SettingsPhone_ContinuePrompt_Setup
 	farcall Palette_FadeInFromWhite
 	call SettingsPhone_ContinuePrompt_Loop
@@ -76,14 +77,13 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_67_57EB
+	jr nz, .l57EB
 	bit 5, a
-	jr nz, Label_67_5821
+	jr nz, .l5821
 	bit 4, a
-	jr nz, Label_67_5821
+	jr nz, .l5821
 	jr SettingsPhone_ContinuePrompt_Loop
-
-Label_67_57EB:: ; 67:57EB
+.l57EB ; 67:57EB
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -94,19 +94,22 @@ Label_67_57EB:: ; 67:57EB
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_67_5807
+	jr nz, .l5807
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5807-$580C (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 570C-580C by apply_coverage --split
-
-Label_67_5807:: ; 67:5807
+.l5807 ; 67:5807
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 570C-580C by apply_coverage --split
 	xor a, a
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $580C-$5821 (21 bytes) [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $580C anywhere in the ROM); linear decode is legal ($580C-$5821), all direct targets are known code starts, saves rSVBK, bank 1, call $20AC (bc=$002E), restores; clears [$C27C]; ends with ret. Sits after a ret between PROBABLE/CONFIRMED functions of the same style
+	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $580C
+	; anywhere in the ROM); linear decode is legal ($580C-$5821), all direct targets are known code
+	; starts, saves rSVBK, bank 1, call $20AC (bc=$002E), restores; clears [$C27C]; ends with ret.
+	; Sits after a ret between PROBABLE/CONFIRMED functions of the same style
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -119,9 +122,10 @@ Label_67_5807:: ; 67:5807
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5821-$5842 (33 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 67:57E3 (PROBABLE code) | 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5821-585A by apply_coverage --split
-
-Label_67_5821:: ; 67:5821
+.l5821 ; 67:5821
+	; [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7;
+	; entered by jrcc from 67:57E3 (PROBABLE code) | 15 insn(s) never executed in the traced runs;
+	; cut out of the PROBABLE region 5821-585A by apply_coverage --split
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -135,14 +139,13 @@ Label_67_5821:: ; 67:5821
 	xor a, b
 	ld [wRam_C27D], a
 	call SettingsPhone_ContinuePrompt_PlaceCursor
-	jr Label_67_583F
-
-Label_67_583F:: ; 67:583F
+	jr .l583F
+.l583F ; 67:583F
 	jp SettingsPhone_ContinuePrompt_Loop
 
-; ---- code $5842-$585A (24 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5821-585A by apply_coverage --split [executed in 1 scenarios]
-
 SettingsPhone_ContinuePrompt_PlaceCursor:: ; 67:5842
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5821-585A by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, [wRam_C27D]
 	add a, a
 	ld hl, SettingsPhone_ContinuePrompt_CursorPos
@@ -165,9 +168,9 @@ SettingsPhone_ContinuePrompt_CursorPos:: ; 67:585A
 Data_67_585A::
 	db $28, $30, $58, $30
 
-; ---- code $585E-$58CD (111 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 7; entered by call from 67:57B0 (PROBABLE code) [executed in 1 scenarios]
-
 SettingsPhone_ContinuePrompt_BuildTextMap:: ; 67:585E
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 7;
+	; entered by call from 67:57B0 (PROBABLE code) [executed in 1 scenarios]
 	ld hl, $D121
 	ld de, $0000
 	ld bc, $0612

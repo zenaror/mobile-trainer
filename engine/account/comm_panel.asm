@@ -4,9 +4,8 @@
 
 SECTION "engine/account/comm_panel", ROMX
 
-; ---- code $733C-$734D (17 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios) (part of region $7313-$734D)
-
 CommPanel_WaitClose:: ; 68:733C
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios) (part of region $7313-$734D)
 	ld a, $01
 	farcall CommPanel_Step
 	or a, a
@@ -15,9 +14,9 @@ CommPanel_WaitClose:: ; 68:733C
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $734D-$7372 (37 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jpcc from 68:7213 (executed)
-
 Registration_Verify_OnTimeLimit:: ; 68:734D
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
+	; entered by jpcc from 68:7213 (executed)
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
@@ -35,43 +34,40 @@ Registration_Verify_OnTimeout:: ; 68:7364
 	ld [wRam_C274], a
 	jr Registration_Verify_Abort
 
-; ---- code $7372-$7391 (31 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-
 Registration_Verify_OnAdapterError:: ; 68:7372
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	call Function_68_4101
 	farcall Mobile_SaveLastResult
 
 Registration_Verify_Abort:: ; 68:737B
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_68_73B1
+	jr z, .l73B1
 	ld a, $02
 	farcall CommPanel_DrawCaption
 	ld a, [wTimerEnable]
 	bit 0, a
-	jr z, Label_68_7398
+	jr z, .l7398
 
-; ---- code $7391-$7398 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:738F (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 68:738F (executed)
 	ld a, $34
 	call MobileAPI
-	jr Label_68_739D
+	jr .l739D
 
-; ---- code $7398-$7442 (170 bytes) [CONFIRMED] 69 insn(s); 69 executed (in up to 6/18 scenarios)
-
-Label_68_7398:: ; 68:7398
+.l7398 ; 68:7398
+	; [CONFIRMED] 69 insn(s); 69 executed (in up to 6/18 scenarios)
 	ld a, $0A
 	call MobileAPI
-
-Label_68_739D:: ; 68:739D
+.l739D ; 68:739D
 	xor a, a
 	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_73B1
+	jp nz, .l73B1
 	bit 0, a
-	jp nz, Label_68_739D
-
-Label_68_73B1:: ; 68:73B1
+	jp nz, .l739D
+.l73B1 ; 68:73B1
 	call CommPanel_WaitClose
 	farcall Palette_FadeOutToWhite
 	farcall Mobile_ShowLastError
@@ -157,9 +153,8 @@ Table_68_7442::
 Table_68_744A:: ; 68:744A
 	dw Label_68_7594
 
-; ---- code $744C-$755B (271 bytes) [CONFIRMED] 94 insn(s); 94 executed (in up to 4/18 scenarios)
-
 CommPanel_StateDraw:: ; 68:744C
+	; [CONFIRMED] 94 insn(s); 94 executed (in up to 4/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -207,19 +202,17 @@ CommPanel_StateDraw:: ; 68:744C
 	call CommPanel_DrawCaption
 	ld a, [wCommPanelPhase]
 	cp a, $02
-	jr z, Label_68_74EA
+	jr z, .l74EA
 	ld a, [wCommPanelVariant]
 	or a, a
-	jr nz, Label_68_74FB
-
-Label_68_74EA:: ; 68:74EA
+	jr nz, .l74FB
+.l74EA ; 68:74EA
 	ld bc, $0214
 	ld de, $D200
 	ld hl, Data_71_4F68
 	ld a, $71
 	farcall Function_00_08EA
-
-Label_68_74FB:: ; 68:74FB
+.l74FB ; 68:74FB
 	call CommPanel_PrintWarningText
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -253,27 +246,26 @@ CommPanel_StateScreenOn:: ; 68:7522
 CommPanel_StateWait:: ; 68:7544
 	ldh a, [hJoyHeld]
 	bit 1, a
-	jr nz, Label_68_755B
+	jr nz, .l755B
 	ld a, [wCommPanelArg]
 	or a, a
-	jr z, Label_68_7582
+	jr z, .done
 	cp a, $01
-	jr z, Label_68_7554
-
-Label_68_7554:: ; 68:7554
+	jr z, .l7554
+.l7554 ; 68:7554
 	ld a, $03
 	ld [wCommPanelState], a
-	jr Label_68_7582
+	jr .done
 
-; ---- code $755B-$7582 (39 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by jrcc from 68:7548 (executed) [executed in 4 scenarios]
-
-Label_68_755B:: ; 68:755B
+.l755B ; 68:755B
+	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
+	; entered by jrcc from 68:7548 (executed) [executed in 4 scenarios]
 	ld a, [wCommPanelVariant]
 	or a, a
-	jr z, Label_68_7582
+	jr z, .done
 	ld a, [wCommPanelPhase]
 	cp a, $02
-	jr z, Label_68_7582
+	jr z, .done
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -287,9 +279,8 @@ Label_68_755B:: ; 68:755B
 	ld a, $04
 	ld [wCommPanelState], a
 
-; ---- code $7582-$7594 (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
-
-Label_68_7582:: ; 68:7582
+.done ; 68:7582
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
 	ret
 
 CommPanel_StateHide:: ; 68:7583
@@ -299,26 +290,24 @@ CommPanel_StateHide:: ; 68:7583
 	ld [wCommPanelBusy], a
 	ret
 
-; ---- code $7594-$75A4 (16 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
-
 Label_68_7594:: ; 68:7594
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run
+	; starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 	ld a, [wCommPanelArg]
 	or a, a
-	jr z, Label_68_75A3
+	jr z, .done
 	cp a, $01
-	jr z, Label_68_759E
-
-Label_68_759E:: ; 68:759E
+	jr z, .l759E
+.l759E ; 68:759E
 	ld a, $03
 	ld [wCommPanelState], a
-
-Label_68_75A3:: ; 68:75A3
+.done ; 68:75A3
 	ret
-
-; ---- code $75A4-$764C (168 bytes) [CONFIRMED] 77 insn(s); 77 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
 CommPanel_PrintWarningText:: ; 68:75A4
 Function_68_75A4::
+	; [CONFIRMED] 77 insn(s); 77 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612

@@ -4,9 +4,10 @@
 
 SECTION "engine/browser/inline_image_blit", ROMX
 
-; ---- code $70E0-$7157 (119 bytes) [CONFIRMED] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 1; entered by far from 4C:4E56 (PROBABLE code) | 83 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
-
 Bmp_Validate:: ; 51:70E0
+	; [CONFIRMED] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 1;
+	; entered by far from 4C:4E56 (PROBABLE code) | 83 insn(s) executed; cut out of the PROBABLE
+	; region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -23,10 +24,10 @@ Bmp_ParseHeader:: ; 51:70F4
 	push hl
 	ld a, [hli]
 	cp a, $42
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld a, [hli]
 	cp a, $4D
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld de, $0008
 	add hl, de
 	ld a, [hli]
@@ -35,7 +36,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	ld b, a
 	ld a, [hli]
 	or a, [hl]
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld de, $0005
 	add hl, de
 	ld a, [hli]
@@ -46,7 +47,7 @@ Bmp_ParseHeader:: ; 51:70F4
 	or a, e
 	ld a, [hli]
 	or a, e
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld a, [hli]
 	ldh [hRam_FFD7], a
 	ld a, [hli]
@@ -55,26 +56,24 @@ Bmp_ParseHeader:: ; 51:70F4
 	and a, e
 	ld a, [hli]
 	and a, e
-	jr z, Label_51_712E
+	jr z, .l712E
 	cp a, $FF
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld [wRam_C33F], a
-	jr Label_51_7132
-
-Label_51_712E:: ; 51:712E
+	jr .l7132
+.l712E ; 51:712E
 	xor a, a
 	ld [wRam_C33F], a
-
-Label_51_7132:: ; 51:7132
+.l7132 ; 51:7132
 	ld a, [hli]
 	dec a
 	or a, [hl]
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	inc hl
 	ld a, [hli]
 	dec a
 	or a, [hl]
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	inc hl
 	ld a, [hli]
 	or a, [hl]
@@ -82,7 +81,7 @@ Label_51_7132:: ; 51:7132
 	or a, [hl]
 	inc hl
 	or a, [hl]
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	ld de, $000D
 	add hl, de
 	ld a, [hli]
@@ -91,15 +90,15 @@ Label_51_7132:: ; 51:7132
 	or a, [hl]
 	inc hl
 	or a, [hl]
-	jr nz, Label_51_7157
+	jr nz, .l7157
 	pop hl
 	add hl, bc
 	ld a, $01
 	ret
 
-; ---- code $7157-$7161 (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
-
-Label_51_7157:: ; 51:7157
+.l7157 ; 51:7157
+	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	xor a, a
 	ldh [hRam_FFD6], a
 	ldh [hRam_FFD7], a
@@ -107,23 +106,22 @@ Label_51_7157:: ; 51:7157
 	pop hl
 	ret
 
-; ---- code $7161-$7268 (263 bytes) [CONFIRMED] 155 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
-
 Bmp_CheckSize:: ; 51:7161
+	; [CONFIRMED] 155 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hRam_FFD6]
 	cp a, $91
-	jr nc, Label_51_7175
+	jr nc, .l7175
 	ld d, a
 	ldh a, [hRam_FFD7]
 	or a, a
-	jr z, Label_51_7175
+	jr z, .l7175
 	cp a, $61
-	jr nc, Label_51_7175
+	jr nc, .l7175
 	ld e, a
 	ld a, $01
 	ret
-
-Label_51_7175:: ; 51:7175
+.l7175 ; 51:7175
 	xor a, a
 	ret
 
@@ -143,7 +141,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	dec hl
 	ld a, [wRam_C33F]
 	or a, a
-	jp nz, Label_51_73CB
+	jp nz, .l73CB
 	push hl
 	push de
 	ld hl, $000E
@@ -181,14 +179,14 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [rRAMB], a
 	ldh a, [hRam_FFD6]
 	add a, $07
-	jp c, Label_51_73CE
+	jp c, .l73CE
 	and a, $F8
 	rrca
 	rrca
 	rrca
 	ld [wBrowserNavigating], a
 	add a, $03
-	jp c, Label_51_73CE
+	jp c, .l73CE
 	and a, $FC
 	ld [wHtmlScanOnly], a
 	ldh a, [hRam_FFD7]
@@ -199,13 +197,13 @@ Bmp_ConvertToTiles:: ; 51:7177
 	call Bmp_RoundUpToTextRow
 	ld [wRam_C332], a
 	add a, $07
-	jp c, Label_51_73CE
+	jp c, .l73CE
 	and a, $F8
 	rrca
 	rrca
 	rrca
 	add a, $03
-	jp c, Label_51_73CE
+	jp c, .l73CE
 	and a, $FC
 	ldh [hRam_FFD4], a
 	ld d, $00
@@ -257,8 +255,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld e, l
 	ld d, h
 	pop hl
-
-Label_51_7251:: ; 51:7251
+.l7251 ; 51:7251
 	call Function_00_0392
 	ld a, [wBrowserNavigating]
 	ld c, a
@@ -270,29 +267,30 @@ Label_51_7251:: ; 51:7251
 	pop hl
 	ld a, [wRam_C331]
 	bit 7, a
-	jr z, Label_51_7276
+	jr z, .l7276
 
-; ---- code $7268-$7276 (14 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	ld a, [wBrowserNavigating]
 	or a, a
-	jr z, Label_51_7276
+	jr z, .l7276
 	ld c, a
-
-Label_51_726F:: ; 51:726F
+.l726F ; 51:726F
 	ld a, [hl]
 	xor a, $FF
 	ld [hli], a
 	dec c
-	jr nz, Label_51_726F
+	jr nz, .l726F
 
-; ---- code $7276-$727C (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 2 scenarios]
-
-Label_51_7276:: ; 51:7276
+.l7276 ; 51:7276
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ldh a, [hRam_FFD6]
 	and a, $07
-	jr z, Label_51_7287
+	jr z, .l7287
 
-; ---- code $727C-$7287 (11 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	dec de
 	ld c, a
 	ld b, $00
@@ -302,9 +300,9 @@ Label_51_7276:: ; 51:7276
 	or a, [hl]
 	ld [de], a
 
-; ---- code $7287-$72C4 (61 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 2 scenarios]
-
-Label_51_7287:: ; 51:7287
+.l7287 ; 51:7287
+	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
+	; --split [executed in 2 scenarios]
 	pop de
 	pop hl
 	ld a, [wHtmlScanOnly]
@@ -320,7 +318,7 @@ Label_51_7287:: ; 51:7287
 	sbc a, $00
 	ld d, a
 	cp a, $D0
-	jr nc, Label_51_7251
+	jr nc, .l7251
 	call Function_00_0392
 	pop de
 	pop bc
@@ -346,9 +344,10 @@ Label_51_7287:: ; 51:7287
 	ld a, h
 	pop hl
 	cp a, $C0
-	jr c, Label_51_72D4
+	jr c, .l72D4
 
-; ---- code $72C4-$72D4 (16 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	dec de
 	dec de
 	xor a, a
@@ -362,11 +361,11 @@ Label_51_7287:: ; 51:7287
 	inc de
 	pop hl
 	pop de
-	jp Label_51_73CE
+	jp .l73CE
 
-; ---- code $72D4-$7344 (112 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_72D4:: ; 51:72D4
+.l72D4 ; 51:72D4
+	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
+	; --split [executed in 1 scenarios]
 	dec de
 	dec de
 	push bc
@@ -399,32 +398,30 @@ Label_51_72D4:: ; 51:72D4
 	push bc
 	ld e, c
 	ld d, b
-
-Label_51_72F8:: ; 51:72F8
+.l72F8 ; 51:72F8
 	ld a, [wHtmlListCounter + 1]
 	add a, c
 	ld a, [wHtmlAlign]
 	adc a, b
 	cp a, $C0
-	jr nc, Label_51_7383
+	jr nc, .l7383
 	ld a, b
 	cp a, $10
-	jp nc, Label_51_7383
+	jp nc, .l7383
 	ld e, c
 	ld d, b
 	ld a, [hli]
 	ld a, [hli]
 	ld a, [hli]
 	or a, a
-	jp z, Label_51_7383
+	jp z, .l7383
 	inc bc
 	inc bc
-
-Label_51_7315:: ; 51:7315
+.l7315 ; 51:7315
 	inc bc
 	ld a, [hli]
 	or a, a
-	jr nz, Label_51_7315
+	jr nz, .l7315
 	push bc
 	push de
 	push hl
@@ -438,13 +435,12 @@ Label_51_7315:: ; 51:7315
 	ldh a, [hRam_FFCF]
 	ld b, a
 	or a, c
-	jr z, Label_51_7365
+	jr z, .l7365
 	ldh a, [hRam_FFCC]
 	ld l, a
 	ldh a, [hRam_FFCD]
 	ld h, a
-
-Label_51_7334:: ; 51:7334
+.l7334 ; 51:7334
 	ldh a, [hRam_FFBA]
 	call BankSwitch_H
 	push bc
@@ -453,17 +449,18 @@ Label_51_7334:: ; 51:7334
 	add hl, bc
 	ld a, [hl]
 	cp a, $04
-	jr nz, Label_51_735A
+	jr nz, .l735A
 
-; ---- code $7344-$735A (22 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	ld bc, $0003
 	add hl, bc
 	ld a, [hli]
 	cp a, e
-	jr nz, Label_51_735A
+	jr nz, .l735A
 	ld a, [hld]
 	cp a, d
-	jr nz, Label_51_735A
+	jr nz, .l735A
 	ld a, [wHtmlBoldCount + 1]
 	add a, e
 	ld [hli], a
@@ -471,9 +468,9 @@ Label_51_7334:: ; 51:7334
 	adc a, d
 	ld [hli], a
 
-; ---- code $735A-$73CE (116 bytes) [CONFIRMED] 82 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_735A:: ; 51:735A
+.l735A ; 51:735A
+	; [CONFIRMED] 82 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop hl
 	ld bc, $0010
 	add hl, bc
@@ -481,9 +478,8 @@ Label_51_735A:: ; 51:735A
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_51_7334
-
-Label_51_7365:: ; 51:7365
+	jr nz, .l7334
+.l7365 ; 51:7365
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -508,9 +504,8 @@ Label_51_7365:: ; 51:7365
 	pop de
 	inc hl
 	inc hl
-	jp Label_51_72F8
-
-Label_51_7383:: ; 51:7383
+	jp .l72F8
+.l7383 ; 51:7383
 	ld c, e
 	ld b, d
 	pop de
@@ -536,10 +531,9 @@ Label_51_7383:: ; 51:7383
 	adc a, b
 	ld b, a
 	or a, c
-	jr z, Label_51_73AB
+	jr z, .l73AB
 	call CopyBytes
-
-Label_51_73AB:: ; 51:73AB
+.l73AB ; 51:73AB
 	pop bc
 	call Function_00_0392
 	pop de
@@ -560,14 +554,13 @@ Label_51_73AB:: ; 51:73AB
 	ld a, [wHtmlLinkHeapPtr]
 	ldh [hRam_FFD6], a
 	pop hl
-
-Label_51_73CB:: ; 51:73CB
+.l73CB ; 51:73CB
 	ld a, $01
 	ret
 
-; ---- code $73CE-$73D1 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
-
-Label_51_73CE:: ; 51:73CE
+.l73CE ; 51:73CE
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70E0-73D1 by apply_coverage --split
 	pop hl
 	xor a, a
 	ret
@@ -578,9 +571,9 @@ Table_Bmp_RowEndMask:: ; 51:73D1
 Data_51_73D1::
 	db $FF, $7F, $3F, $1F, $0F, $07, $03, $01, $00
 
-; ---- code $73DA-$740C (50 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 2; entered by call from 51:719C (PROBABLE code) [executed in 1 scenarios]
-
 Bmp_ColorSum:: ; 51:73DA
+	; [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 2;
+	; entered by call from 51:719C (PROBABLE code) [executed in 1 scenarios]
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -614,10 +607,9 @@ Bmp_RoundUpToTextRow:: ; 51:73F2
 	call Divide32by15
 	ld a, c
 	or a, c
-	jr z, Label_51_7402
+	jr z, .skip
 	inc de
-
-Label_51_7402:: ; 51:7402
+.skip ; 51:7402
 	ld l, e
 	ld h, d
 	add hl, hl
@@ -634,9 +626,10 @@ Label_51_7402:: ; 51:7402
 Data_51_740C:: ; 51:740C
 	db $FF
 
-; ---- code $740D-$7430 (35 bytes) [CONFIRMED] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1; entered by far from 4E:5B5C (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
 Image_BlitToTileCanvas:: ; 51:740D
+	; [CONFIRMED] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1;
+	; entered by far from 4E:5B5C (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE
+	; region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 	ldh [hRam_FFD0], a
 	ld a, $03
 	ldh [hSRAMBank], a
@@ -655,14 +648,15 @@ Image_BlitToTileCanvas:: ; 51:740D
 	ld b, $00
 	ld a, c
 	and a, $07
-	jr z, Label_51_7431
+	jr z, .l7431
 
-; ---- code $7430-$7431 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	inc b
 
-; ---- code $7431-$7451 (32 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7431:: ; 51:7431
+.l7431 ; 51:7431
+	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld c, a
 	ldh a, [hRam_FFD6]
 	sub a, c
@@ -686,24 +680,24 @@ Label_51_7431:: ; 51:7431
 	inc hl
 	ld a, c
 	or a, a
-	jr z, Label_51_745D
+	jr z, .l745D
 
-; ---- code $7451-$745D (12 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	push de
 	ldh a, [hRam_FFD3]
 	ld e, a
 	ld d, $00
 	ld a, c
-
-Label_51_7458:: ; 51:7458
+.l7458 ; 51:7458
 	add hl, de
 	dec a
-	jr nz, Label_51_7458
+	jr nz, .l7458
 	pop de
 
-; ---- code $745D-$7473 (22 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_745D:: ; 51:745D
+.l745D ; 51:745D
+	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push de
 	ld a, d
 	and a, $07
@@ -711,7 +705,7 @@ Label_51_745D:: ; 51:745D
 	ld a, b
 	sub a, d
 	cp a, $F9
-	jr nc, Label_51_7473
+	jr nc, .l7473
 	and a, $F8
 	rrca
 	rrca
@@ -719,16 +713,16 @@ Label_51_745D:: ; 51:745D
 	ld e, a
 	ld d, $00
 	add hl, de
-	jr Label_51_7474
+	jr .l7474
 
-; ---- code $7473-$7474 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
-
-Label_51_7473:: ; 51:7473
+.l7473 ; 51:7473
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	dec hl
 
-; ---- code $7474-$7481 (13 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7474:: ; 51:7474
+.l7474 ; 51:7474
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop de
 	push hl
 	ld h, e
@@ -738,20 +732,20 @@ Label_51_7474:: ; 51:7474
 	push hl
 	ld a, e
 	cp a, $60
-	jr c, Label_51_7487
+	jr c, .l7487
 
-; ---- code $7481-$7487 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ld a, $03
 	ld h, $C1
-	jr Label_51_748B
+	jr .l748B
 
-; ---- code $7487-$74EC (101 bytes) [CONFIRMED] 68 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7487:: ; 51:7487
+.l7487 ; 51:7487
+	; [CONFIRMED] 68 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $02
 	ld h, $D0
-
-Label_51_748B:: ; 51:748B
+.l748B ; 51:748B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, e
@@ -760,18 +754,16 @@ Label_51_748B:: ; 51:748B
 	ld l, a
 	ld a, e
 	and a, $F8
-	jr z, Label_51_74A3
+	jr z, .l74A3
 	rrca
 	rrca
 	rrca
 	ld bc, $0140
-
-Label_51_749F:: ; 51:749F
+.l749F ; 51:749F
 	add hl, bc
 	dec a
-	jr nz, Label_51_749F
-
-Label_51_74A3:: ; 51:74A3
+	jr nz, .l749F
+.l74A3 ; 51:74A3
 	ld a, d
 	and a, $F8
 	ld b, $00
@@ -781,8 +773,7 @@ Label_51_74A3:: ; 51:74A3
 	add hl, bc
 	pop bc
 	pop de
-
-Label_51_74AF:: ; 51:74AF
+.l74AF ; 51:74AF
 	call Function_00_0392
 	push de
 	push hl
@@ -794,7 +785,7 @@ Label_51_74AF:: ; 51:74AF
 	inc b
 	ld a, b
 	and a, $07
-	jr nz, Label_51_74D8
+	jr nz, .l74D8
 	ld a, l
 	add a, $32
 	ld l, a
@@ -802,82 +793,77 @@ Label_51_74AF:: ; 51:74AF
 	adc a, $01
 	ld h, a
 	cp a, $DF
-	jr c, Label_51_74DA
+	jr c, .l74DA
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	jr Label_51_74DA
-
-Label_51_74D8:: ; 51:74D8
+	jr .l74DA
+.l74D8 ; 51:74D8
 	inc l
 	inc l
-
-Label_51_74DA:: ; 51:74DA
+.l74DA ; 51:74DA
 	ldh a, [hRam_FFD3]
 	add a, e
 	ld e, a
-	jr nc, Label_51_74E1
+	jr nc, .l74E1
 	inc d
-
-Label_51_74E1:: ; 51:74E1
+.l74E1 ; 51:74E1
 	ld a, c
 	cp a, b
-	jr nz, Label_51_74AF
+	jr nz, .l74AF
 	ret
 
 Image_MakeEdgeMasks:: ; 51:74E6
 	push bc
 	ld a, d
 	and a, $07
-	jr z, Label_51_74F9
+	jr z, .l74F9
 
-; ---- code $74EC-$74F9 (13 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	xor a, $07
 	inc a
 	ld b, a
 	ld a, $01
-
-Label_51_74F2:: ; 51:74F2
+.l74F2 ; 51:74F2
 	rlca
 	dec b
-	jr nz, Label_51_74F2
+	jr nz, .l74F2
 	dec a
-	jr Label_51_74FB
+	jr .l74FB
 
-; ---- code $74F9-$7506 (13 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_74F9:: ; 51:74F9
+.l74F9 ; 51:74F9
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $FF
-
-Label_51_74FB:: ; 51:74FB
+.l74FB ; 51:74FB
 	ldh [hRam_FFD1], a
 	ldh a, [hRam_FFD6]
 	ld b, a
 	ld a, d
 	add a, b
 	and a, $07
-	jr z, Label_51_7511
+	jr z, .l7511
 
-; ---- code $7506-$7511 (11 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ld b, a
 	ld a, $01
-
-Label_51_7509:: ; 51:7509
+.l7509 ; 51:7509
 	rrca
 	dec b
-	jr nz, Label_51_7509
+	jr nz, .l7509
 	dec a
 	cpl
-	jr Label_51_7513
+	jr .l7513
 
-; ---- code $7511-$751E (13 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7511:: ; 51:7511
+.l7511 ; 51:7511
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $FF
-
-Label_51_7513:: ; 51:7513
+.l7513 ; 51:7513
 	ldh [hRam_FFD2], a
 	pop bc
 	ret
@@ -886,9 +872,10 @@ Image_BlitEdgeStrip:: ; 51:7517
 	ldh a, [hRam_FFD4]
 	ld c, a
 	cp a, $02
-	jr nc, Label_51_7584
+	jr nc, .l7584
 
-; ---- code $751E-$7584 (102 bytes) [PROBABLE] 70 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 70 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ldh a, [hRam_FFD5]
 	ld c, a
 	ld a, [de]
@@ -897,15 +884,13 @@ Image_BlitEdgeStrip:: ; 51:7517
 	ld a, [de]
 	dec c
 	inc c
-	jr z, Label_51_752F
-
-Label_51_7529:: ; 51:7529
+	jr z, .l752F
+.l7529 ; 51:7529
 	rla
 	rl b
 	dec c
-	jr nz, Label_51_7529
-
-Label_51_752F:: ; 51:752F
+	jr nz, .l7529
+.l752F ; 51:752F
 	push de
 	ldh a, [hRam_FFD1]
 	ld d, a
@@ -916,27 +901,23 @@ Label_51_752F:: ; 51:752F
 	ld e, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_7549
+	jr nz, .l7549
 	bit 4, a
-	jr nz, Label_51_7546
+	jr nz, .l7546
 	xor a, a
-	jr Label_51_7553
-
-Label_51_7546:: ; 51:7546
+	jr .l7553
+.l7546 ; 51:7546
 	ld a, b
-	jr Label_51_7553
-
-Label_51_7549:: ; 51:7549
+	jr .l7553
+.l7549 ; 51:7549
 	bit 4, a
-	jr nz, Label_51_7551
+	jr nz, .l7551
 	ld a, b
 	cpl
-	jr Label_51_7553
-
-Label_51_7551:: ; 51:7551
+	jr .l7553
+.l7551 ; 51:7551
 	ld a, $01
-
-Label_51_7553:: ; 51:7553
+.l7553 ; 51:7553
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -945,27 +926,23 @@ Label_51_7553:: ; 51:7553
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_7569
+	jr nz, .l7569
 	bit 5, a
-	jr nz, Label_51_7566
+	jr nz, .l7566
 	xor a, a
-	jr Label_51_7573
-
-Label_51_7566:: ; 51:7566
+	jr .l7573
+.l7566 ; 51:7566
 	ld a, b
-	jr Label_51_7573
-
-Label_51_7569:: ; 51:7569
+	jr .l7573
+.l7569 ; 51:7569
 	bit 5, a
-	jr nz, Label_51_7571
+	jr nz, .l7571
 	ld a, b
 	cpl
-	jr Label_51_7573
-
-Label_51_7571:: ; 51:7571
+	jr .l7573
+.l7571 ; 51:7571
 	ld a, $01
-
-Label_51_7573:: ; 51:7573
+.l7573 ; 51:7573
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -976,20 +953,20 @@ Label_51_7573:: ; 51:7573
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_7581
+	jr nc, .l7581
 	inc h
+.l7581 ; 51:7581
+	jp .done
 
-Label_51_7581:: ; 51:7581
-	jp Label_51_76AA
-
-; ---- code $7584-$758A (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7584:: ; 51:7584
+.l7584 ; 51:7584
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hRam_FFD1]
 	cp a, $FF
-	jr z, Label_51_75F1
+	jr z, .l75F1
 
-; ---- code $758A-$75F1 (103 bytes) [PROBABLE] 72 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 72 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	push bc
 	ldh a, [hRam_FFD5]
 	ld c, a
@@ -999,15 +976,13 @@ Label_51_7584:: ; 51:7584
 	ld a, [de]
 	dec c
 	inc c
-	jr z, Label_51_759C
-
-Label_51_7596:: ; 51:7596
+	jr z, .l759C
+.l7596 ; 51:7596
 	rla
 	rl b
 	dec c
-	jr nz, Label_51_7596
-
-Label_51_759C:: ; 51:759C
+	jr nz, .l7596
+.l759C ; 51:759C
 	push de
 	ldh a, [hRam_FFD1]
 	ld d, a
@@ -1018,27 +993,23 @@ Label_51_759C:: ; 51:759C
 	ld e, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_75B7
+	jr nz, .l75B7
 	bit 4, a
-	jr nz, Label_51_75B4
+	jr nz, .l75B4
 	xor a, a
-	jr Label_51_75C1
-
-Label_51_75B4:: ; 51:75B4
+	jr .l75C1
+.l75B4 ; 51:75B4
 	ld a, b
-	jr Label_51_75C1
-
-Label_51_75B7:: ; 51:75B7
+	jr .l75C1
+.l75B7 ; 51:75B7
 	bit 4, a
-	jr nz, Label_51_75BF
+	jr nz, .l75BF
 	ld a, b
 	cpl
-	jr Label_51_75C1
-
-Label_51_75BF:: ; 51:75BF
+	jr .l75C1
+.l75BF ; 51:75BF
 	ld a, $01
-
-Label_51_75C1:: ; 51:75C1
+.l75C1 ; 51:75C1
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -1047,27 +1018,23 @@ Label_51_75C1:: ; 51:75C1
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_75D7
+	jr nz, .l75D7
 	bit 5, a
-	jr nz, Label_51_75D4
+	jr nz, .l75D4
 	xor a, a
-	jr Label_51_75E1
-
-Label_51_75D4:: ; 51:75D4
+	jr .l75E1
+.l75D4 ; 51:75D4
 	ld a, b
-	jr Label_51_75E1
-
-Label_51_75D7:: ; 51:75D7
+	jr .l75E1
+.l75D7 ; 51:75D7
 	bit 5, a
-	jr nz, Label_51_75DF
+	jr nz, .l75DF
 	ld a, b
 	cpl
-	jr Label_51_75E1
-
-Label_51_75DF:: ; 51:75DF
+	jr .l75E1
+.l75DF ; 51:75DF
 	ld a, $01
-
-Label_51_75E1:: ; 51:75E1
+.l75E1 ; 51:75E1
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -1078,84 +1045,79 @@ Label_51_75E1:: ; 51:75E1
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_75EF
+	jr nc, .l75EF
 	inc h
-
-Label_51_75EF:: ; 51:75EF
+.l75EF ; 51:75EF
 	pop bc
 	dec c
 
-; ---- code $75F1-$75F7 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_75F1:: ; 51:75F1
+.l75F1 ; 51:75F1
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hRam_FFD2]
 	cp a, $FF
-	jr z, Label_51_75F8
+	jr z, .l75F8
 
-; ---- code $75F7-$75F8 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	dec c
 
-; ---- code $75F8-$760F (23 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_75F8:: ; 51:75F8
+.l75F8 ; 51:75F8
+	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, c
 	or a, a
-	jr z, Label_51_7640
+	jr z, .l7640
 	ldh a, [hRam_FFD5]
 	bit 2, a
-	jr nz, Label_51_7622
+	jr nz, .l7622
 	bit 1, a
-	jr nz, Label_51_7614
+	jr nz, .l7614
 	bit 0, a
-	jr nz, Label_51_760F
+	jr nz, .l760F
 	call Image_BlitStripShift0
-	jr Label_51_7640
+	jr .l7640
 
-; ---- code $760F-$7640 (49 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
-
-Label_51_760F:: ; 51:760F
+.l760F ; 51:760F
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	call Image_BlitStripShift1
-	jr Label_51_7640
-
-Label_51_7614:: ; 51:7614
+	jr .l7640
+.l7614 ; 51:7614
 	bit 0, a
-	jr nz, Label_51_761D
+	jr nz, .l761D
 	call Image_BlitStripShift2
-	jr Label_51_7640
-
-Label_51_761D:: ; 51:761D
+	jr .l7640
+.l761D ; 51:761D
 	call Image_BlitStripShift3
-	jr Label_51_7640
-
-Label_51_7622:: ; 51:7622
+	jr .l7640
+.l7622 ; 51:7622
 	bit 1, a
-	jr nz, Label_51_7634
+	jr nz, .l7634
 	bit 0, a
-	jr nz, Label_51_762F
+	jr nz, .l762F
 	call Image_BlitStripShift4
-	jr Label_51_7640
-
-Label_51_762F:: ; 51:762F
+	jr .l7640
+.l762F ; 51:762F
 	call Image_BlitStripShift5
-	jr Label_51_7640
-
-Label_51_7634:: ; 51:7634
+	jr .l7640
+.l7634 ; 51:7634
 	bit 0, a
-	jr nz, Label_51_763D
+	jr nz, .l763D
 	call Image_BlitStripShift6
-	jr Label_51_7640
-
-Label_51_763D:: ; 51:763D
+	jr .l7640
+.l763D ; 51:763D
 	call Image_BlitStripShift7
 
-; ---- code $7640-$7646 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_7640:: ; 51:7640
+.l7640 ; 51:7640
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hRam_FFD2]
 	cp a, $FF
-	jr z, Label_51_76AA
+	jr z, .done
 
-; ---- code $7646-$76AA (100 bytes) [PROBABLE] 69 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 69 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ldh a, [hRam_FFD5]
 	ld c, a
 	ld a, [de]
@@ -1164,15 +1126,13 @@ Label_51_7640:: ; 51:7640
 	ld a, [de]
 	dec c
 	inc c
-	jr z, Label_51_7657
-
-Label_51_7651:: ; 51:7651
+	jr z, .l7657
+.l7651 ; 51:7651
 	rla
 	rl b
 	dec c
-	jr nz, Label_51_7651
-
-Label_51_7657:: ; 51:7657
+	jr nz, .l7651
+.l7657 ; 51:7657
 	push de
 	ldh a, [hRam_FFD2]
 	ld d, a
@@ -1183,27 +1143,23 @@ Label_51_7657:: ; 51:7657
 	ld e, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_7672
+	jr nz, .l7672
 	bit 4, a
-	jr nz, Label_51_766F
+	jr nz, .l766F
 	xor a, a
-	jr Label_51_767C
-
-Label_51_766F:: ; 51:766F
+	jr .l767C
+.l766F ; 51:766F
 	ld a, b
-	jr Label_51_767C
-
-Label_51_7672:: ; 51:7672
+	jr .l767C
+.l7672 ; 51:7672
 	bit 4, a
-	jr nz, Label_51_767A
+	jr nz, .l767A
 	ld a, b
 	cpl
-	jr Label_51_767C
-
-Label_51_767A:: ; 51:767A
+	jr .l767C
+.l767A ; 51:767A
 	ld a, $01
-
-Label_51_767C:: ; 51:767C
+.l767C ; 51:767C
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -1212,27 +1168,23 @@ Label_51_767C:: ; 51:767C
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_7692
+	jr nz, .l7692
 	bit 5, a
-	jr nz, Label_51_768F
+	jr nz, .l768F
 	xor a, a
-	jr Label_51_769C
-
-Label_51_768F:: ; 51:768F
+	jr .l769C
+.l768F ; 51:768F
 	ld a, b
-	jr Label_51_769C
-
-Label_51_7692:: ; 51:7692
+	jr .l769C
+.l7692 ; 51:7692
 	bit 5, a
-	jr nz, Label_51_769A
+	jr nz, .l769A
 	ld a, b
 	cpl
-	jr Label_51_769C
-
-Label_51_769A:: ; 51:769A
+	jr .l769C
+.l769A ; 51:769A
 	ld a, $01
-
-Label_51_769C:: ; 51:769C
+.l769C ; 51:769C
 	and a, d
 	ld c, a
 	ld a, [hl]
@@ -1243,12 +1195,12 @@ Label_51_769C:: ; 51:769C
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_76AA
+	jr nc, .done
 	inc h
 
-; ---- code $76AA-$76B4 (10 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_76AA:: ; 51:76AA
+.done ; 51:76AA
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ret
 
 Image_BlitStripShift0:: ; 51:76AB
@@ -1257,82 +1209,81 @@ Image_BlitStripShift0:: ; 51:76AB
 	inc de
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_76BE
+	jr nz, .l76BE
 
-; ---- code $76B4-$76BE (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	bit 4, a
-	jr nz, Label_51_76BB
+	jr nz, .l76BB
 	xor a, a
-	jr Label_51_76C8
-
-Label_51_76BB:: ; 51:76BB
+	jr .l76C8
+.l76BB ; 51:76BB
 	ld a, b
-	jr Label_51_76C8
+	jr .l76C8
 
-; ---- code $76BE-$76C6 (8 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_76BE:: ; 51:76BE
+.l76BE ; 51:76BE
+	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	bit 4, a
-	jr nz, Label_51_76C6
+	jr nz, .l76C6
 	ld a, b
 	cpl
-	jr Label_51_76C8
+	jr .l76C8
 
-; ---- code $76C6-$76C8 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
-
-Label_51_76C6:: ; 51:76C6
+.l76C6 ; 51:76C6
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ld a, $01
 
-; ---- code $76C8-$76CF (7 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_76C8:: ; 51:76C8
+.l76C8 ; 51:76C8
+	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_76D9
+	jr nz, .l76D9
 
-; ---- code $76CF-$76D9 (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	bit 5, a
-	jr nz, Label_51_76D6
+	jr nz, .l76D6
 	xor a, a
-	jr Label_51_76E3
-
-Label_51_76D6:: ; 51:76D6
+	jr .l76E3
+.l76D6 ; 51:76D6
 	ld a, b
-	jr Label_51_76E3
+	jr .l76E3
 
-; ---- code $76D9-$76E1 (8 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_76D9:: ; 51:76D9
+.l76D9 ; 51:76D9
+	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	bit 5, a
-	jr nz, Label_51_76E1
+	jr nz, .l76E1
 	ld a, b
 	cpl
-	jr Label_51_76E3
+	jr .l76E3
 
-; ---- code $76E1-$76E3 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
-
-Label_51_76E1:: ; 51:76E1
+.l76E1 ; 51:76E1
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ld a, $01
 
-; ---- code $76E3-$76EF (12 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
-
-Label_51_76E3:: ; 51:76E3
+.l76E3 ; 51:76E3
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_76EB
+	jr nc, .skip
 	inc h
-
-Label_51_76EB:: ; 51:76EB
+.skip ; 51:76EB
 	dec c
 	jr nz, Image_BlitStripShift0
 	ret
 
-; ---- code $76EF-$7900 (529 bytes) [PROBABLE] 340 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
-
 Image_BlitStripShift1:: ; 51:76EF
+	; [PROBABLE] 340 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 740D-7900 by apply_coverage --split
 	ld a, [de]
 	ld b, a
 	inc de
@@ -1341,59 +1292,50 @@ Image_BlitStripShift1:: ; 51:76EF
 	rl b
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_7706
+	jr nz, .l7706
 	bit 4, a
-	jr nz, Label_51_7703
+	jr nz, .l7703
 	xor a, a
-	jr Label_51_7710
-
-Label_51_7703:: ; 51:7703
+	jr .l7710
+.l7703 ; 51:7703
 	ld a, b
-	jr Label_51_7710
-
-Label_51_7706:: ; 51:7706
+	jr .l7710
+.l7706 ; 51:7706
 	bit 4, a
-	jr nz, Label_51_770E
+	jr nz, .l770E
 	ld a, b
 	cpl
-	jr Label_51_7710
-
-Label_51_770E:: ; 51:770E
+	jr .l7710
+.l770E ; 51:770E
 	ld a, $01
-
-Label_51_7710:: ; 51:7710
+.l7710 ; 51:7710
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_7721
+	jr nz, .l7721
 	bit 5, a
-	jr nz, Label_51_771E
+	jr nz, .l771E
 	xor a, a
-	jr Label_51_772B
-
-Label_51_771E:: ; 51:771E
+	jr .l772B
+.l771E ; 51:771E
 	ld a, b
-	jr Label_51_772B
-
-Label_51_7721:: ; 51:7721
+	jr .l772B
+.l7721 ; 51:7721
 	bit 5, a
-	jr nz, Label_51_7729
+	jr nz, .l7729
 	ld a, b
 	cpl
-	jr Label_51_772B
-
-Label_51_7729:: ; 51:7729
+	jr .l772B
+.l7729 ; 51:7729
 	ld a, $01
-
-Label_51_772B:: ; 51:772B
+.l772B ; 51:772B
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_7733
+	jr nc, .skip
 	inc h
-
-Label_51_7733:: ; 51:7733
+.skip ; 51:7733
 	dec c
 	jr nz, Image_BlitStripShift1
 	ret
@@ -1409,59 +1351,50 @@ Image_BlitStripShift2:: ; 51:7737
 	rl b
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_7751
+	jr nz, .l7751
 	bit 4, a
-	jr nz, Label_51_774E
+	jr nz, .l774E
 	xor a, a
-	jr Label_51_775B
-
-Label_51_774E:: ; 51:774E
+	jr .l775B
+.l774E ; 51:774E
 	ld a, b
-	jr Label_51_775B
-
-Label_51_7751:: ; 51:7751
+	jr .l775B
+.l7751 ; 51:7751
 	bit 4, a
-	jr nz, Label_51_7759
+	jr nz, .l7759
 	ld a, b
 	cpl
-	jr Label_51_775B
-
-Label_51_7759:: ; 51:7759
+	jr .l775B
+.l7759 ; 51:7759
 	ld a, $01
-
-Label_51_775B:: ; 51:775B
+.l775B ; 51:775B
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_776C
+	jr nz, .l776C
 	bit 5, a
-	jr nz, Label_51_7769
+	jr nz, .l7769
 	xor a, a
-	jr Label_51_7776
-
-Label_51_7769:: ; 51:7769
+	jr .l7776
+.l7769 ; 51:7769
 	ld a, b
-	jr Label_51_7776
-
-Label_51_776C:: ; 51:776C
+	jr .l7776
+.l776C ; 51:776C
 	bit 5, a
-	jr nz, Label_51_7774
+	jr nz, .l7774
 	ld a, b
 	cpl
-	jr Label_51_7776
-
-Label_51_7774:: ; 51:7774
+	jr .l7776
+.l7774 ; 51:7774
 	ld a, $01
-
-Label_51_7776:: ; 51:7776
+.l7776 ; 51:7776
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_777E
+	jr nc, .skip
 	inc h
-
-Label_51_777E:: ; 51:777E
+.skip ; 51:777E
 	dec c
 	jr nz, Image_BlitStripShift2
 	ret
@@ -1479,59 +1412,50 @@ Image_BlitStripShift3:: ; 51:7782
 	rl b
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_779F
+	jr nz, .l779F
 	bit 4, a
-	jr nz, Label_51_779C
+	jr nz, .l779C
 	xor a, a
-	jr Label_51_77A9
-
-Label_51_779C:: ; 51:779C
+	jr .l77A9
+.l779C ; 51:779C
 	ld a, b
-	jr Label_51_77A9
-
-Label_51_779F:: ; 51:779F
+	jr .l77A9
+.l779F ; 51:779F
 	bit 4, a
-	jr nz, Label_51_77A7
+	jr nz, .l77A7
 	ld a, b
 	cpl
-	jr Label_51_77A9
-
-Label_51_77A7:: ; 51:77A7
+	jr .l77A9
+.l77A7 ; 51:77A7
 	ld a, $01
-
-Label_51_77A9:: ; 51:77A9
+.l77A9 ; 51:77A9
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_77BA
+	jr nz, .l77BA
 	bit 5, a
-	jr nz, Label_51_77B7
+	jr nz, .l77B7
 	xor a, a
-	jr Label_51_77C4
-
-Label_51_77B7:: ; 51:77B7
+	jr .l77C4
+.l77B7 ; 51:77B7
 	ld a, b
-	jr Label_51_77C4
-
-Label_51_77BA:: ; 51:77BA
+	jr .l77C4
+.l77BA ; 51:77BA
 	bit 5, a
-	jr nz, Label_51_77C2
+	jr nz, .l77C2
 	ld a, b
 	cpl
-	jr Label_51_77C4
-
-Label_51_77C2:: ; 51:77C2
+	jr .l77C4
+.l77C2 ; 51:77C2
 	ld a, $01
-
-Label_51_77C4:: ; 51:77C4
+.l77C4 ; 51:77C4
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_77CC
+	jr nc, .skip
 	inc h
-
-Label_51_77CC:: ; 51:77CC
+.skip ; 51:77CC
 	dec c
 	jr nz, Image_BlitStripShift3
 	ret
@@ -1548,59 +1472,50 @@ Image_BlitStripShift4:: ; 51:77D0
 	ld b, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_77EC
+	jr nz, .l77EC
 	bit 4, a
-	jr nz, Label_51_77E9
+	jr nz, .l77E9
 	xor a, a
-	jr Label_51_77F6
-
-Label_51_77E9:: ; 51:77E9
+	jr .l77F6
+.l77E9 ; 51:77E9
 	ld a, b
-	jr Label_51_77F6
-
-Label_51_77EC:: ; 51:77EC
+	jr .l77F6
+.l77EC ; 51:77EC
 	bit 4, a
-	jr nz, Label_51_77F4
+	jr nz, .l77F4
 	ld a, b
 	cpl
-	jr Label_51_77F6
-
-Label_51_77F4:: ; 51:77F4
+	jr .l77F6
+.l77F4 ; 51:77F4
 	ld a, $01
-
-Label_51_77F6:: ; 51:77F6
+.l77F6 ; 51:77F6
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_7807
+	jr nz, .l7807
 	bit 5, a
-	jr nz, Label_51_7804
+	jr nz, .l7804
 	xor a, a
-	jr Label_51_7811
-
-Label_51_7804:: ; 51:7804
+	jr .l7811
+.l7804 ; 51:7804
 	ld a, b
-	jr Label_51_7811
-
-Label_51_7807:: ; 51:7807
+	jr .l7811
+.l7807 ; 51:7807
 	bit 5, a
-	jr nz, Label_51_780F
+	jr nz, .l780F
 	ld a, b
 	cpl
-	jr Label_51_7811
-
-Label_51_780F:: ; 51:780F
+	jr .l7811
+.l780F ; 51:780F
 	ld a, $01
-
-Label_51_7811:: ; 51:7811
+.l7811 ; 51:7811
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_7819
+	jr nc, .skip
 	inc h
-
-Label_51_7819:: ; 51:7819
+.skip ; 51:7819
 	dec c
 	jr nz, Image_BlitStripShift4
 	ret
@@ -1619,59 +1534,50 @@ Image_BlitStripShift5:: ; 51:781D
 	ld b, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_783A
+	jr nz, .l783A
 	bit 4, a
-	jr nz, Label_51_7837
+	jr nz, .l7837
 	xor a, a
-	jr Label_51_7844
-
-Label_51_7837:: ; 51:7837
+	jr .l7844
+.l7837 ; 51:7837
 	ld a, b
-	jr Label_51_7844
-
-Label_51_783A:: ; 51:783A
+	jr .l7844
+.l783A ; 51:783A
 	bit 4, a
-	jr nz, Label_51_7842
+	jr nz, .l7842
 	ld a, b
 	cpl
-	jr Label_51_7844
-
-Label_51_7842:: ; 51:7842
+	jr .l7844
+.l7842 ; 51:7842
 	ld a, $01
-
-Label_51_7844:: ; 51:7844
+.l7844 ; 51:7844
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_7855
+	jr nz, .l7855
 	bit 5, a
-	jr nz, Label_51_7852
+	jr nz, .l7852
 	xor a, a
-	jr Label_51_785F
-
-Label_51_7852:: ; 51:7852
+	jr .l785F
+.l7852 ; 51:7852
 	ld a, b
-	jr Label_51_785F
-
-Label_51_7855:: ; 51:7855
+	jr .l785F
+.l7855 ; 51:7855
 	bit 5, a
-	jr nz, Label_51_785D
+	jr nz, .l785D
 	ld a, b
 	cpl
-	jr Label_51_785F
-
-Label_51_785D:: ; 51:785D
+	jr .l785F
+.l785D ; 51:785D
 	ld a, $01
-
-Label_51_785F:: ; 51:785F
+.l785F ; 51:785F
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_7867
+	jr nc, .skip
 	inc h
-
-Label_51_7867:: ; 51:7867
+.skip ; 51:7867
 	dec c
 	jr nz, Image_BlitStripShift5
 	ret
@@ -1688,59 +1594,50 @@ Image_BlitStripShift6:: ; 51:786B
 	ld b, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_7886
+	jr nz, .l7886
 	bit 4, a
-	jr nz, Label_51_7883
+	jr nz, .l7883
 	xor a, a
-	jr Label_51_7890
-
-Label_51_7883:: ; 51:7883
+	jr .l7890
+.l7883 ; 51:7883
 	ld a, b
-	jr Label_51_7890
-
-Label_51_7886:: ; 51:7886
+	jr .l7890
+.l7886 ; 51:7886
 	bit 4, a
-	jr nz, Label_51_788E
+	jr nz, .l788E
 	ld a, b
 	cpl
-	jr Label_51_7890
-
-Label_51_788E:: ; 51:788E
+	jr .l7890
+.l788E ; 51:788E
 	ld a, $01
-
-Label_51_7890:: ; 51:7890
+.l7890 ; 51:7890
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_78A1
+	jr nz, .l78A1
 	bit 5, a
-	jr nz, Label_51_789E
+	jr nz, .l789E
 	xor a, a
-	jr Label_51_78AB
-
-Label_51_789E:: ; 51:789E
+	jr .l78AB
+.l789E ; 51:789E
 	ld a, b
-	jr Label_51_78AB
-
-Label_51_78A1:: ; 51:78A1
+	jr .l78AB
+.l78A1 ; 51:78A1
 	bit 5, a
-	jr nz, Label_51_78A9
+	jr nz, .l78A9
 	ld a, b
 	cpl
-	jr Label_51_78AB
-
-Label_51_78A9:: ; 51:78A9
+	jr .l78AB
+.l78A9 ; 51:78A9
 	ld a, $01
-
-Label_51_78AB:: ; 51:78AB
+.l78AB ; 51:78AB
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_78B3
+	jr nc, .skip
 	inc h
-
-Label_51_78B3:: ; 51:78B3
+.skip ; 51:78B3
 	dec c
 	jr nz, Image_BlitStripShift6
 	ret
@@ -1755,59 +1652,50 @@ Image_BlitStripShift7:: ; 51:78B7
 	ld b, a
 	ldh a, [hRam_FFD0]
 	bit 0, a
-	jr nz, Label_51_78CF
+	jr nz, .l78CF
 	bit 4, a
-	jr nz, Label_51_78CC
+	jr nz, .l78CC
 	xor a, a
-	jr Label_51_78D9
-
-Label_51_78CC:: ; 51:78CC
+	jr .l78D9
+.l78CC ; 51:78CC
 	ld a, b
-	jr Label_51_78D9
-
-Label_51_78CF:: ; 51:78CF
+	jr .l78D9
+.l78CF ; 51:78CF
 	bit 4, a
-	jr nz, Label_51_78D7
+	jr nz, .l78D7
 	ld a, b
 	cpl
-	jr Label_51_78D9
-
-Label_51_78D7:: ; 51:78D7
+	jr .l78D9
+.l78D7 ; 51:78D7
 	ld a, $01
-
-Label_51_78D9:: ; 51:78D9
+.l78D9 ; 51:78D9
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
-	jr nz, Label_51_78EA
+	jr nz, .l78EA
 	bit 5, a
-	jr nz, Label_51_78E7
+	jr nz, .l78E7
 	xor a, a
-	jr Label_51_78F4
-
-Label_51_78E7:: ; 51:78E7
+	jr .l78F4
+.l78E7 ; 51:78E7
 	ld a, b
-	jr Label_51_78F4
-
-Label_51_78EA:: ; 51:78EA
+	jr .l78F4
+.l78EA ; 51:78EA
 	bit 5, a
-	jr nz, Label_51_78F2
+	jr nz, .l78F2
 	ld a, b
 	cpl
-	jr Label_51_78F4
-
-Label_51_78F2:: ; 51:78F2
+	jr .l78F4
+.l78F2 ; 51:78F2
 	ld a, $01
-
-Label_51_78F4:: ; 51:78F4
+.l78F4 ; 51:78F4
 	ld [hli], a
 	ld a, $0E
 	add a, l
 	ld l, a
-	jr nc, Label_51_78FC
+	jr nc, .skip
 	inc h
-
-Label_51_78FC:: ; 51:78FC
+.skip ; 51:78FC
 	dec c
 	jr nz, Image_BlitStripShift7
 	ret

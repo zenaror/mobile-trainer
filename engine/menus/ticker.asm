@@ -4,35 +4,32 @@
 
 SECTION "engine/menus/ticker", ROMX
 
-; ---- code $4223-$44E0 (701 bytes) [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
-
 Ticker_Update:: ; 48:4223
+	; [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
 	ld a, [wTickerPauseFrames]
 	or a, a
-	jr z, Label_48_422E
+	jr z, .l422E
 	dec a
 	ld [wTickerPauseFrames], a
 	ret
-
-Label_48_422E:: ; 48:422E
+.l422E ; 48:422E
 	ld hl, $C0F5
 	dec [hl]
 	ret nz
 	ld [hl], $02
 	ld a, [wTickerScrollX]
 	and a, $01
-	jr z, Label_48_424F
+	jr z, .l424F
 	ld hl, $C0F4
 	dec [hl]
-	jr nz, Label_48_424F
+	jr nz, .l424F
 	ld a, [wTickerColumnCount]
 	sla a
 	sla a
 	ld [hl], a
 	ld a, $B4
 	ld [wTickerPauseFrames], a
-
-Label_48_424F:: ; 48:424F
+.l424F ; 48:424F
 	ld a, [wTickerScrollX]
 	inc a
 	ld [wTickerScrollX], a
@@ -137,20 +134,18 @@ Ticker_Start:: ; 48:42D4
 	ld c, $00
 	ld a, [wTickerTextBank]
 	ld e, a
-
-Label_48_4309:: ; 48:4309
+.l4309 ; 48:4309
 	ld a, e
 	call ReadByteFar
 	or a, a
-	jr z, Label_48_431A
+	jr z, .l431A
 	ld a, e
 	call ReadByteFar
 	or a, a
-	jr z, Label_48_431A
+	jr z, .l431A
 	inc c
-	jr Label_48_4309
-
-Label_48_431A:: ; 48:431A
+	jr .l4309
+.l431A ; 48:431A
 	ld a, c
 	sla a
 	sla a
@@ -173,20 +168,18 @@ Label_48_431A:: ; 48:431A
 	ld c, $00
 	ld a, [wTickerTextBank]
 	ld e, a
-
-Label_48_4343:: ; 48:4343
+.l4343 ; 48:4343
 	ld a, e
 	call ReadByteFar
 	or a, a
-	jr z, Label_48_4354
+	jr z, .l4354
 	ld a, e
 	call ReadByteFar
 	or a, a
-	jr z, Label_48_4354
+	jr z, .l4354
 	inc c
-	jr Label_48_4343
-
-Label_48_4354:: ; 48:4354
+	jr .l4343
+.l4354 ; 48:4354
 	ld a, c
 	add a, $15
 	ld [wTickerColumnCount], a
@@ -334,7 +327,7 @@ Ticker_Stop:: ; 48:4460
 	farcall Function_00_0787
 	ldh a, [rIE]
 	and a, $02
-	jr z, Label_48_44D6
+	jr z, .l44D6
 	di
 	ldh a, [rSTAT]
 	and a, $87
@@ -359,8 +352,7 @@ Ticker_Stop:: ; 48:4460
 	xor a, a
 	ldh [rIF], a
 	ei
-
-Label_48_44D6:: ; 48:44D6
+.l44D6 ; 48:44D6
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

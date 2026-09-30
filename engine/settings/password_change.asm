@@ -4,58 +4,54 @@
 
 SECTION "engine/settings/password_change", ROMX
 
-; ---- code $58CD-$5931 (100 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 PasswordChange_Run:: ; 67:58CD
 Function_67_58CD::
+	; [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Function_68_4282
-
-Label_67_58D3:: ; 67:58D3
+.l58D3 ; 67:58D3
 	ld a, $0F
 	farcall Notice_ShowPage
 	or a, a
 	ret z
-
-Label_67_58DD:: ; 67:58DD
+.l58DD ; 67:58DD
 	ld a, $10
 	farcall Notice_ShowPage
 	or a, a
-	jr z, Label_67_58D3
-
-Label_67_58E8:: ; 67:58E8
+	jr z, .l58D3
+.l58E8 ; 67:58E8
 	ld hl, $DED4
 	farcall Wram3_ClearByte
 	ld a, $02
 	farcall Account_PasswordEntryScreen
 	or a, a
-	jr z, Label_67_58DD
+	jr z, .l58DD
 	ld hl, $DED4
 	ld de, $DEB9
 	farcall Wram3_CopyString
-
-Label_67_5908:: ; 67:5908
+.l5908 ; 67:5908
 	ld hl, $DED4
 	farcall Wram3_ClearByte
 	ld a, $03
 	farcall Account_PasswordEntryScreen
 	or a, a
-	jr z, Label_67_58E8
+	jr z, .l58E8
 	ld hl, $DED4
 	ld de, $DECB
 	farcall Wram3_CopyString
 	farcall Password_CompareEntries
 	or a, a
-	jr nz, Label_67_593E
+	jr nz, .l593E
 
-; ---- code $5931-$593E (13 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:592F (executed)
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 67:592F (executed)
 	ld a, $F0
 	ld hl, $0010
 	farcall CommErr_ShowScreen
-	jr Label_67_58E8
+	jr .l58E8
 
-; ---- code $593E-$5973 (53 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios)
-
-Label_67_593E:: ; 67:593E
+.l593E ; 67:593E
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios)
 	ld hl, $DED4
 	ld de, $DEC2
 	farcall Wram3_CopyString
@@ -64,63 +60,61 @@ Label_67_593E:: ; 67:593E
 	ld a, $01
 	farcall Account_PasswordEntryScreen
 	or a, a
-	jr z, Label_67_5908
+	jr z, .l5908
 	ld hl, $DED4
 	ld de, $DECB
 	farcall Wram3_CopyString
 	farcall Password_CompareNewAndConfirm
 	or a, a
-	jr z, Label_67_5980
+	jr z, .l5980
 
-; ---- code $5973-$5980 (13 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:5971 (executed) [executed in 3 scenarios]
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 67:5971 (executed) [executed in 3 scenarios]
 	ld a, $F0
 	ld hl, $0010
 	farcall CommErr_ShowScreen
-	jr Label_67_5908
+	jr .l5908
 
-; ---- code $5980-$5996 (22 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_67_5980:: ; 67:5980
+.l5980 ; 67:5980
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld a, $01
 	farcall Account_ActionConfirmPage
 	or a, a
-	jp z, Label_67_5908
+	jp z, .l5908
 	cp a, $02
-	jr z, Label_67_59E7
+	jr z, .l59E7
 	call PasswordChange_Communicate
 	or a, a
-	jr z, Label_67_59CB
+	jr z, .l59CB
 
-; ---- code $5996-$59CB (53 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 67:5994 (executed)
+	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
+	; fall-through of the jrcc at 67:5994 (executed)
 	cp a, $02
-	jr z, Label_67_59F0
+	jr z, .l59F0
 	ld a, $01
 	ld b, $00
 	farcall Account_ResultPage
 	ld a, $01
 	farcall PwSaveConfirm_Run
 	cp a, $01
-	jr z, Label_67_59BF
+	jr z, .l59BF
 	ld b, $00
 	ld a, $01
 	ld hl, $A880
 	farcall WriteByteFar
-	jr Label_67_59C2
-
-Label_67_59BF:: ; 67:59BF
+	jr .l59C2
+.l59BF ; 67:59BF
 	call PasswordChange_SaveNewPassword
-
-Label_67_59C2:: ; 67:59C2
+.l59C2 ; 67:59C2
 	ld a, $12
 	farcall Notice_ShowPage
 	ret
 
-; ---- code $59CB-$59E7 (28 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_67_59CB:: ; 67:59CB
+.l59CB ; 67:59CB
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	farcall OnlineTimer_HasElapsed
 	or a, a
-	jr z, Label_67_59E7
+	jr z, .l59E7
 	ld a, $01
 	ld b, $01
 	farcall Account_ResultPage
@@ -128,24 +122,23 @@ Label_67_59CB:: ; 67:59CB
 	farcall Notice_ShowPage
 	ret
 
-; ---- code $59E7-$5A3E (87 bytes) [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 1; entered by jrcc from 67:598E (executed)
-
-Label_67_59E7:: ; 67:59E7
+.l59E7 ; 67:59E7
+	; [PROBABLE] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 1;
+	; entered by jrcc from 67:598E (executed)
 	ld a, $11
 	farcall Notice_ShowPage
 	ret
-
-Label_67_59F0:: ; 67:59F0
+.l59F0 ; 67:59F0
 	farcall OnlineTimer_HasElapsed
 	or a, a
-	jr z, Label_67_59E7
+	jr z, .l59E7
 	farcall OnlineTimer_HasElapsed
 	or a, a
-	jr z, Label_67_59E7
+	jr z, .l59E7
 	ld a, $01
 	ld b, $02
 	farcall Account_ResultPage
-	jr Label_67_59E7
+	jr .l59E7
 
 PasswordChange_SaveNewPassword:: ; 67:5A0E
 	ldh [hScratchA], a
@@ -170,10 +163,10 @@ PasswordChange_SaveNewPassword:: ; 67:5A0E
 	farcall SavedPassword_Store
 	ret
 
-; ---- code $5A3E-$5A9E (96 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 PasswordChange_Communicate:: ; 67:5A3E
 Function_67_5A3E::
+	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call PasswordChange_Communicate_Setup
 	call PasswordChange_Communicate_Poll
 	farcall Palette_FadeOutToWhite
@@ -234,9 +227,8 @@ Table_67_5A9E::
 	dw PasswordChange_State_WaitResponse
 	dw PasswordChange_State_Finish
 
-; ---- code $5AAA-$5BFD (339 bytes) [CONFIRMED] 140 insn(s); 140 executed (in up to 1/18 scenarios)
-
 PasswordChange_State_Init:: ; 67:5AAA
+	; [CONFIRMED] 140 insn(s); 140 executed (in up to 1/18 scenarios)
 	xor a, a
 	ld b, $01
 	farcall CommPanel_Step
@@ -376,49 +368,46 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_67_5C2A
+	jr z, .l5C2A
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_67_5C2B
+	jr nz, .l5C2B
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_67_5C2A
+	jr c, .l5C2A
 
-; ---- code $5BFD-$5C2A (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 67:5BFB (executed)
-	jr nz, Label_67_5C06
+	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
+	; fall-through of the jrcc at 67:5BFB (executed)
+	jr nz, .l5C06
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_67_5C2A
-
-Label_67_5C06:: ; 67:5C06
+	jr c, .l5C2A
+.l5C06 ; 67:5C06
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_67_5C16
+	jr nz, .l5C16
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_67_5C2A
+	jr nz, .l5C2A
 	set 1, [hl]
-
-Label_67_5C16:: ; 67:5C16
+.l5C16 ; 67:5C16
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_67_5C2B
+	jr z, .l5C2B
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_67_5C2B
+	jr .l5C2B
 
-; ---- code $5C2A-$5C3D (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
-
-Label_67_5C2A:: ; 67:5C2A
+.l5C2A ; 67:5C2A
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	xor a, a
-
-Label_67_5C2B:: ; 67:5C2B
+.l5C2B ; 67:5C2B
 	pop hl
 	or a, a
 	jp nz, Label_67_5D00
@@ -426,18 +415,17 @@ Label_67_5C2B:: ; 67:5C2B
 	ld b, a
 	ld a, [wTimerBMinutes]
 	cp a, b
-	jr z, Label_67_5C3D
+	jr z, .l5C3D
 	xor a, a
-	jr Label_67_5C3F
+	jr .l5C3F
 
-; ---- code $5C3D-$5C3F (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 67:5C38 (executed)
-
-Label_67_5C3D:: ; 67:5C3D
+.l5C3D ; 67:5C3D
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 67:5C38 (executed)
 	ld a, $FF
 
-; ---- code $5C3F-$5C50 (17 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_67_5C3F:: ; 67:5C3F
+.l5C3F ; 67:5C3F
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	or a, a
 	jp nz, Label_67_5D18
 	ld a, [wTimerEnable]
@@ -446,7 +434,9 @@ Label_67_5C3F:: ; 67:5C3F
 	bit 0, a
 	jp nz, Label_67_5A8E
 
-; ---- code $5C50-$5C81 (49 bytes) [CONFIRMED] 70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min discovery hops 0; fall-through of the jpcc at 67:5C4D (executed) | 18 insn(s) executed; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min
+	; discovery hops 0; fall-through of the jpcc at 67:5C4D (executed) | 18 insn(s) executed; cut
+	; out of the PROBABLE region 5C50-5CF4 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -464,17 +454,18 @@ Label_67_5C3F:: ; 67:5C3F
 	ld hl, $D340
 	ld a, [hli]
 	cp a, $4F
-	jr nz, Label_67_5C88
+	jr nz, .l5C88
 
-; ---- code $5C81-$5C88 (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5C50-5CF4 by apply_coverage --split
 	ld a, [hl]
 	cp a, $4B
-	jr nz, Label_67_5C88
-	jr Label_67_5CAD
+	jr nz, .l5C88
+	jr .l5CAD
 
-; ---- code $5C88-$5CAD (37 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split [executed in 1 scenarios]
-
-Label_67_5C88:: ; 67:5C88
+.l5C88 ; 67:5C88
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $40
 	ld [wMobileErrorCode], a
 	ld hl, $D380
@@ -496,9 +487,9 @@ Label_67_5C88:: ; 67:5C88
 	ld [wRam_C273], a
 	jp PasswordChange_Cleanup
 
-; ---- code $5CAD-$5CF4 (71 bytes) [PROBABLE] 28 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split
-
-Label_67_5CAD:: ; 67:5CAD
+.l5CAD ; 67:5CAD
+	; [PROBABLE] 28 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5C50-5CF4 by apply_coverage --split
 	ld a, $0A
 	call MobileAPI
 	ld a, $05
@@ -530,18 +521,18 @@ PasswordChange_State_Finish:: ; 67:5CC2
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5CF4-$5D00 (12 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Function_67_5CF4:: ; 67:5CF4
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $01
 	farcall CommPanel_Step
 	or a, a
 	jr nz, Function_67_5CF4
 	ret
 
-; ---- code $5D00-$5D26 (38 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jpcc from 67:5C2D (executed)
-
 Label_67_5D00:: ; 67:5D00
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
+	; entered by jpcc from 67:5C2D (executed)
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
@@ -559,9 +550,8 @@ Label_67_5D18:: ; 67:5D18
 	ld [wRam_C274], a
 	jr PasswordChange_Cleanup
 
-; ---- code $5D26-$5D3A (20 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
 PasswordChange_HandleHttpStatus:: ; 67:5D26
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	farcall Mobile_SaveLastResult
 	ld a, [wMobileErrorCode]
 	cp a, $32
@@ -570,7 +560,9 @@ PasswordChange_HandleHttpStatus:: ; 67:5D26
 	cp a, $03
 	jr nz, PasswordChange_Cleanup
 
-; ---- code $5D3A-$5D8D (83 bytes) [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 67:5D38 (executed) | 43 insn(s) executed; cut out of the PROBABLE region 5D3A-5D99 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0;
+	; fall-through of the jrcc at 67:5D38 (executed) | 43 insn(s) executed; cut out of the PROBABLE
+	; region 5D3A-5D99 by apply_coverage --split [executed in 1 scenarios]
 	ld a, [wRam_C273]
 	dec a
 	jr z, PasswordChange_FollowRedirect
@@ -617,45 +609,42 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	call MobileAPI
 	jp Label_67_5A8E
 
-; ---- code $5D8D-$5D99 (12 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5D3A-5D99 by apply_coverage --split
-
 Label_67_5D8D:: ; 67:5D8D
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5D3A-5D99 by apply_coverage --split
 	farcall Function_68_4101
 	farcall Mobile_SaveLastResult
 
-; ---- code $5D99-$5DAF (22 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
-
 PasswordChange_Cleanup:: ; 67:5D99
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_67_5DCF
+	jr z, .l5DCF
 	ld a, $02
 	farcall CommPanel_DrawCaption
 	ld a, [wTimerEnable]
 	bit 0, a
-	jr z, Label_67_5DB6
+	jr z, .l5DB6
 
-; ---- code $5DAF-$5DB6 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 2; fall-through of the jrcc at 67:5DAD (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 2;
+	; fall-through of the jrcc at 67:5DAD (executed)
 	ld a, $34
 	call MobileAPI
-	jr Label_67_5DBB
+	jr .l5DBB
 
-; ---- code $5DB6-$5DFE (72 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
-
-Label_67_5DB6:: ; 67:5DB6
+.l5DB6 ; 67:5DB6
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	ld a, $0A
 	call MobileAPI
-
-Label_67_5DBB:: ; 67:5DBB
+.l5DBB ; 67:5DBB
 	xor a, a
 	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5DCF
+	jp nz, .l5DCF
 	bit 0, a
-	jp nz, Label_67_5DBB
-
-Label_67_5DCF:: ; 67:5DCF
+	jp nz, .l5DBB
+.l5DCF ; 67:5DCF
 	call Function_67_5CF4
 	farcall Palette_FadeOutToWhite
 	farcall Mobile_ShowLastError
@@ -674,20 +663,19 @@ Label_67_5DCF:: ; 67:5DCF
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5DFE-$5E43 (69 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 1; entered by jpcc from 67:5AB5 (executed)
-
 PasswordChange_Abort:: ; 67:5DFE
+	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 1;
+	; entered by jpcc from 67:5AB5 (executed)
 	ld a, $34
 	call MobileAPI
-
-Label_67_5E03:: ; 67:5E03
+.loop ; 67:5E03
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_67_5D8D
 	bit 0, a
-	jp nz, Label_67_5E03
+	jp nz, .loop
 	call Function_67_5CF4
 	farcall Palette_FadeOutToWhite
 	farcall Config_ClearSramMirror
@@ -717,10 +705,10 @@ Data_67_5E43::
 Net_GuestString:: ; 67:5E77
 	db $67, $75, $65, $73, $74, $00
 
-; ---- code $5E7D-$5EB4 (55 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 PasswordChange_BuildRequestBody:: ; 67:5E7D
 Function_67_5E7D::
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, Net_PppIdKey
 	ld de, $A363
 	call CopyString
@@ -756,14 +744,16 @@ String_67_5EBC::
 Net_NewPasswdKey:: ; 67:5EC5
 	db $26, $4E, $45, $57, $50, $41, $53, $53, $57, $44, $3D, $00 ; "&NEWPASSWD="
 
-; ---- code $5ED1-$5ED8 (7 bytes) [HYPOTHESIS] xor a; ld [$C27C],a; ld [$C27D],a - start of an unreferenced function that follows the strings at 5EB4-5ED1 and runs into the far-call site at 5ED8 (PROBABLE code); no entry found
-
 Function_67_5ED1:: ; 67:5ED1
+	; [HYPOTHESIS] xor a; ld [$C27C],a; ld [$C27D],a - start of an unreferenced function that
+	; follows the strings at 5EB4-5ED1 and runs into the far-call site at 5ED8 (PROBABLE code); no
+	; entry found
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
 
-; ---- code $5ED8-$5F0A (50 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: site x19; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 19 insn(s) reached by static flow only; seeds: site x19; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall AdapterCheck_DrawScreen
 	farcall Palette_FadeInFromWhite
 	call Function_67_5EF1
@@ -792,9 +782,10 @@ Table_67_5F0A:: ; 67:5F0A
 	dw Label_67_5F0E
 	dw Label_67_5F20
 
-; ---- code $5F0E-$5F38 (42 bytes) [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not executed in traces
-
 Label_67_5F0E:: ; 67:5F0E
+	; [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain
+	; legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not
+	; executed in traces
 	ld de, $C271
 	ld hl, $0067
 	ld a, $02
@@ -806,7 +797,7 @@ Label_67_5F0E:: ; 67:5F0E
 Label_67_5F20:: ; 67:5F20
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5F38
+	jp nz, .l5F38
 	bit 0, a
 	jp nz, Function_67_5EF1
 	ld a, $36
@@ -815,9 +806,9 @@ Label_67_5F20:: ; 67:5F20
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5F38-$5F54 (28 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-
-Label_67_5F38:: ; 67:5F38
+.l5F38 ; 67:5F38
+	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Mobile_SaveLastResult
 	farcall Palette_FadeOutToWhite
 	ld a, $36
@@ -827,10 +818,10 @@ Label_67_5F38:: ; 67:5F38
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5F54-$5F5E (10 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Net_CopyDefaultDnsPair:: ; 67:5F54
 Function_67_5F54::
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, Net_DefaultDnsPair
 	ld bc, $0008
 	call CopyBytes

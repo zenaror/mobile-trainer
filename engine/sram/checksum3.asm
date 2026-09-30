@@ -4,10 +4,10 @@
 
 SECTION "engine/sram/checksum3", ROMX
 
-; ---- code $4899-$48B8 (31 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
-
 Sram_VerifyChecksum3:: ; 48:4899
 Function_48_4899::
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Sram_ComputeChecksum3
 	ld a, $01
 	ld hl, $A8B5
@@ -28,18 +28,21 @@ Function_48_4899::
 	or a, l
 	ret z
 
-; ---- code $48B8-$48BB (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the retcc at 48:48B7 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the retcc at 48:48B7 (executed) [executed in 1 scenarios]
 	ld a, $FF
 	ret
 
-; ---- code $48BB-$48BC (1 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an executed call/far call
-
 Function_48_48BB:: ; 48:48BB
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 15/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ret
 
-; ---- code $48BC-$48E1 (37 bytes) [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets (48E1, 1620, 4920) are known code starts
-
 Function_48_48BC:: ; 48:48BC
+	; [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed
+	; one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare
+	; 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets
+	; (48E1, 1620, 4920) are known code starts
 	call Sram_ComputeChecksum3
 	ld a, $01
 	ld hl, $A8B5
@@ -63,53 +66,50 @@ Function_48_48BC:: ; 48:48BC
 	ld a, $FF
 	ret
 
-; ---- code $48E1-$48F7 (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
-
 Sram_ComputeChecksum3:: ; 48:48E1
 Function_48_48E1::
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 17/18 scenarios); entry proven: target of an
+	; executed call/far call
 	xor a, a
 	ld [wSramChecksum3Carries], a
 	ld hl, $A684
 	ld d, $01
 	ld c, $10
 	ld e, $00
-
-Label_48_48EE:: ; 48:48EE
+.l48EE ; 48:48EE
 	ld a, d
 	call ReadByteFar
 	ld b, a
 	add a, e
 	ld e, a
-	jr nc, Label_48_48FE
+	jr nc, .l48FE
 
-; ---- code $48F7-$48FE (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:48F5 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 48:48F5 (executed) [executed in 1 scenarios]
 	ld a, [wSramChecksum3Carries]
 	inc a
 	ld [wSramChecksum3Carries], a
 
-; ---- code $48FE-$498C (142 bytes) [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios) (part of region $48FE-$49A3)
-
-Label_48_48FE:: ; 48:48FE
+.l48FE ; 48:48FE
+	; [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios) (part of region $48FE-$49A3)
 	dec c
-	jr nz, Label_48_48EE
+	jr nz, .l48EE
 	ld hl, $A87D
 	ld d, $01
 	ld c, $38
-
-Label_48_4908:: ; 48:4908
+.l4908 ; 48:4908
 	ld a, d
 	call ReadByteFar
 	ld b, a
 	add a, e
 	ld e, a
-	jr nc, Label_48_4918
+	jr nc, .l4918
 	ld a, [wSramChecksum3Carries]
 	inc a
 	ld [wSramChecksum3Carries], a
-
-Label_48_4918:: ; 48:4918
+.l4918 ; 48:4918
 	dec c
-	jr nz, Label_48_4908
+	jr nz, .l4908
 	ld a, [wSramChecksum3Carries]
 	ld d, a
 	ret
@@ -128,18 +128,16 @@ Sram_ResetChecksum3Areas:: ; 48:4920
 	ld hl, $A684
 	xor a, a
 	ld c, $10
-
-Label_48_493B:: ; 48:493B
+.l493B ; 48:493B
 	ld [hli], a
 	dec c
-	jr nz, Label_48_493B
+	jr nz, .l493B
 	ld hl, $A87D
 	ld c, $38
-
-Label_48_4944:: ; 48:4944
+.l4944 ; 48:4944
 	ld [hli], a
 	dec c
-	jr nz, Label_48_4944
+	jr nz, .l4944
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

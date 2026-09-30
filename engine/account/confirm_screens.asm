@@ -4,9 +4,8 @@
 
 SECTION "engine/account/confirm_screens", ROMX
 
-; ---- code $61F7-$6308 (273 bytes) [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
-
 Account_ConfirmScreen:: ; 68:61F7
+	; [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
 	call Account_ConfirmScreen_Setup
 	farcall Palette_FadeInFromWhite
 	call Account_ConfirmScreen_InputLoop
@@ -82,16 +81,15 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_62EC
+	jr nz, .l62EC
 	bit 1, a
-	jr nz, Label_68_630E
+	jr nz, .l630E
 	bit 5, a
-	jr nz, Label_68_6323
+	jr nz, .l6323
 	bit 4, a
-	jr nz, Label_68_6323
+	jr nz, .l6323
 	jr Account_ConfirmScreen_InputLoop
-
-Label_68_62EC:: ; 68:62EC
+.l62EC ; 68:62EC
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -102,19 +100,18 @@ Label_68_62EC:: ; 68:62EC
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_6308
+	jr nz, .l6308
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $6308-$6344 (60 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1; entered by jrcc from 68:6300 (executed)
-
-Label_68_6308:: ; 68:6308
+.l6308 ; 68:6308
+	; [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1;
+	; entered by jrcc from 68:6300 (executed)
 	ld a, $02
 	ld [wRam_C27C], a
 	ret
-
-Label_68_630E:: ; 68:630E
+.l630E ; 68:630E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -126,8 +123,7 @@ Label_68_630E:: ; 68:630E
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_68_6323:: ; 68:6323
+.l6323 ; 68:6323
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -141,15 +137,14 @@ Label_68_6323:: ; 68:6323
 	xor a, b
 	ld [wRam_C27D], a
 	call Account_ConfirmScreen_UpdateCursor
-	jr Label_68_6341
-
-Label_68_6341:: ; 68:6341
+	jr .l6341
+.l6341 ; 68:6341
 	jp Account_ConfirmScreen_InputLoop
-
-; ---- code $6344-$635C (24 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 
 Account_ConfirmScreen_UpdateCursor:: ; 68:6344
 Function_68_6344::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C27D]
 	add a, a
 	ld hl, Account_ConfirmCursorPositions
@@ -172,10 +167,10 @@ Account_ConfirmCursorPositions:: ; 68:635C
 Table_68_635C::
 	dw $6828, $6858
 
-; ---- code $6360-$6435 (213 bytes) [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ConfirmScreen_BuildTextMap:: ; 68:6360
 Function_68_6360::
+	; [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $D0A6
 	ld de, $0000
 	ld bc, $0208
@@ -266,9 +261,9 @@ Account_ConfirmScreen_UploadTextTiles:: ; 68:6416
 	farcall TileCanvas_UploadRect
 	ret
 
-; ---- code $6435-$659A (357 bytes) [CONFIRMED] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code) [executed in 1 scenarios]
-
 Account_ConfirmManualScreen:: ; 68:6435
+	; [CONFIRMED] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5;
+	; entered by far from 65:462C (PROBABLE code) [executed in 1 scenarios]
 	call Account_ConfirmManualScreen_Setup
 	farcall Palette_FadeInFromWhite
 	call Account_ConfirmManualScreen_InputLoop
@@ -344,16 +339,15 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_652A
+	jr nz, .l652A
 	bit 1, a
-	jr nz, Label_68_654C
+	jr nz, .l654C
 	bit 5, a
-	jr nz, Label_68_6561
+	jr nz, .l6561
 	bit 4, a
-	jr nz, Label_68_6561
+	jr nz, .l6561
 	jr Account_ConfirmManualScreen_InputLoop
-
-Label_68_652A:: ; 68:652A
+.l652A ; 68:652A
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -364,17 +358,15 @@ Label_68_652A:: ; 68:652A
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_6546
+	jr nz, .l6546
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
-
-Label_68_6546:: ; 68:6546
+.l6546 ; 68:6546
 	ld a, $02
 	ld [wRam_C27C], a
 	ret
-
-Label_68_654C:: ; 68:654C
+.l654C ; 68:654C
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -386,8 +378,7 @@ Label_68_654C:: ; 68:654C
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_68_6561:: ; 68:6561
+.l6561 ; 68:6561
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -401,9 +392,8 @@ Label_68_6561:: ; 68:6561
 	xor a, b
 	ld [wRam_C27D], a
 	call Account_ConfirmManualScreen_UpdateCursor
-	jr Label_68_657F
-
-Label_68_657F:: ; 68:657F
+	jr .l657F
+.l657F ; 68:657F
 	jp Account_ConfirmManualScreen_InputLoop
 
 Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
@@ -429,9 +419,9 @@ Account_ConfirmManualCursorPositions:: ; 68:659A
 Table_68_659A::
 	dw $7058, $7080
 
-; ---- code $659E-$67AE (528 bytes) [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
-
 Function_68_659E:: ; 68:659E
+	; [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7;
+	; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
 	ld hl, $D048
 	ld de, $0000
 	ld bc, $0208

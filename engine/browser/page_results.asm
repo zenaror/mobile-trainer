@@ -4,27 +4,27 @@
 
 SECTION "engine/browser/page_results", ROMX
 
-; ---- code $4DB2-$4DBE (12 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_MapErrorToResult:: ; 4C:4DB2
 Function_4C_4DB2::
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	cp a, $10
-	jr c, Label_4C_4DD3
+	jr c, .l4DD3
 	cp a, $34
-	jr nc, Label_4C_4DD3
+	jr nc, .l4DD3
 	cp a, $26
-	jr nz, Label_4C_4DC7
+	jr nz, .l4DC7
 
-; ---- code $4DBE-$4DC7 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 4C:4DBC (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4DBC (executed)
 	ld l, a
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_4C_4DD3
+	jr z, .l4DD3
 	ld a, l
 
-; ---- code $4DC7-$4DD3 (12 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
-
-Label_4C_4DC7:: ; 4C:4DC7
+.l4DC7 ; 4C:4DC7
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 	sub a, $10
 	add a, $D6
 	ld l, a
@@ -34,9 +34,9 @@ Label_4C_4DC7:: ; 4C:4DC7
 	ld a, [hl]
 	ret
 
-; ---- code $4DD3-$4DD6 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 4C:4DB4 (executed)
-
-Label_4C_4DD3:: ; 4C:4DD3
+.l4DD3 ; 4C:4DD3
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by jrcc from 4C:4DB4 (executed)
 	ld a, $84
 	ret
 
@@ -48,73 +48,70 @@ Table_4C_4DD6::
 	db $84, $84, $84, $84, $03, $84, $05, $84, $84, $84, $84, $84, $84, $84, $84, $84
 	db $03, $03, $03, $03, $84
 
-; ---- code $4DFB-$4E1E (35 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_WrapImageInHtml:: ; 4C:4DFB
 Function_4C_4DFB::
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_0392
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D500
 	ld bc, $FFFF
-
-Label_4C_4E0A:: ; 4C:4E0A
+.l4E0A ; 4C:4E0A
 	inc bc
 	ld a, [hli]
 	or a, a
-	jp z, Label_4C_4F06
+	jp z, .l4F06
 	cp a, $2E
-	jr nz, Label_4C_4E0A
+	jr nz, .l4E0A
 	inc bc
 	ld a, [hli]
 	cp a, $42
-	jr z, Label_4C_4E1E
+	jr z, .l4E1E
 	cp a, $62
-	jr nz, Label_4C_4E0A
+	jr nz, .l4E0A
 
-; ---- code $4E1E-$4E40 (34 bytes) [CONFIRMED] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0; entered by jrcc from 4C:4E18 (executed) | 22 insn(s) executed; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4E1E:: ; 4C:4E1E
+.l4E1E ; 4C:4E1E
+	; [CONFIRMED] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0;
+	; entered by jrcc from 4C:4E18 (executed) | 22 insn(s) executed; cut out of the PROBABLE region
+	; 4E1E-4F06 by apply_coverage --split [executed in 1 scenarios]
 	inc bc
 	ld a, [hli]
 	cp a, $4D
-	jr z, Label_4C_4E28
+	jr z, .l4E28
 	cp a, $6D
-	jr nz, Label_4C_4E0A
-
-Label_4C_4E28:: ; 4C:4E28
+	jr nz, .l4E0A
+.l4E28 ; 4C:4E28
 	inc bc
 	ld a, [hli]
 	cp a, $50
-	jr z, Label_4C_4E32
+	jr z, .l4E32
 	cp a, $70
-	jr nz, Label_4C_4E0A
-
-Label_4C_4E32:: ; 4C:4E32
+	jr nz, .l4E0A
+.l4E32 ; 4C:4E32
 	ld a, [hld]
 	or a, a
-	jr nz, Label_4C_4E0A
-
-Label_4C_4E36:: ; 4C:4E36
+	jr nz, .l4E0A
+.l4E36 ; 4C:4E36
 	ld a, [hld]
 	cp a, $2F
-	jr z, Label_4C_4E42
+	jr z, .l4E42
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, Label_4C_4E36
+	jr nz, .l4E36
 
-; ---- code $4E40-$4E42 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split
-	jr Label_4C_4E44
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4E1E-4F06 by apply_coverage --split
+	jr .l4E44
 
-; ---- code $4E42-$4F06 (196 bytes) [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4E42:: ; 4C:4E42
+.l4E42 ; 4C:4E42
+	; [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4E1E-4F06 by apply_coverage
+	; --split [executed in 1 scenarios]
 	inc hl
 	inc hl
-
-Label_4C_4E44:: ; 4C:4E44
+.l4E44 ; 4C:4E44
 	push hl
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -125,7 +122,7 @@ Label_4C_4E44:: ; 4C:4E44
 	ld hl, $B002
 	farcall Bmp_Validate
 	or a, a
-	jp z, Label_4C_4F05
+	jp z, .l4F05
 	ld de, $C382
 	ld hl, String_Html_PageHead
 	farcall CopyString
@@ -156,12 +153,11 @@ Label_4C_4E44:: ; 4C:4E44
 	dec de
 	ld bc, $0001
 	ld hl, $C382
-
-Label_4C_4EAC:: ; 4C:4EAC
+.l4EAC ; 4C:4EAC
 	inc bc
 	ld a, [hli]
 	or a, a
-	jr nz, Label_4C_4EAC
+	jr nz, .l4EAC
 	ld a, c
 	ld [wAttrUrlBuf], a
 	ld a, b
@@ -174,12 +170,11 @@ Label_4C_4EAC:: ; 4C:4EAC
 	inc hl
 	inc hl
 	inc hl
-
-Label_4C_4EC1:: ; 4C:4EC1
+.l4EC1 ; 4C:4EC1
 	inc bc
 	ld a, [hli]
 	or a, a
-	jr nz, Label_4C_4EC1
+	jr nz, .l4EC1
 	inc bc
 	call Function_00_0392
 	ld a, [sSram_B000]
@@ -193,7 +188,7 @@ Label_4C_4EC1:: ; 4C:4EC1
 	add hl, bc
 	ld a, h
 	cp a, $10
-	jr nc, Label_4C_4F06
+	jr nc, .l4F06
 	push bc
 	ld c, e
 	ld b, d
@@ -217,13 +212,11 @@ Label_4C_4EC1:: ; 4C:4EC1
 	call Function_00_0392
 	ld a, $01
 	ret
-
-Label_4C_4F05:: ; 4C:4F05
+.l4F05 ; 4C:4F05
 	pop hl
 
-; ---- code $4F06-$4F11 (11 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-
-Label_4C_4F06:: ; 4C:4F06
+.l4F06 ; 4C:4F06
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	call Function_00_0392
 	xor a, a
 	ldh [hSRAMEnable], a

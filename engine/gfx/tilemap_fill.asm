@@ -4,9 +4,8 @@
 
 SECTION "engine/gfx/tilemap_fill", ROMX
 
-; ---- code $4679-$46C6 (77 bytes) [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
-
 Tilemap_FillRectSequential:: ; 48:4679
+	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
 	ld [wRam_C10F], a
 	ld a, $07
 	ld [wRam_C10E], a
@@ -23,15 +22,13 @@ Tilemap_FillRectSequential:: ; 48:4679
 	push hl
 	ld a, [wRam_C10F]
 	ld d, b
-
-Label_48_469B:: ; 48:469B
+.l469B ; 48:469B
 	ld e, c
-
-Label_48_469C:: ; 48:469C
+.l469C ; 48:469C
 	ld [hli], a
 	inc a
 	dec e
-	jr nz, Label_48_469C
+	jr nz, .l469C
 	push af
 	ld a, $20
 	sub a, c
@@ -42,7 +39,7 @@ Label_48_469C:: ; 48:469C
 	ld h, a
 	pop af
 	dec d
-	jr nz, Label_48_469B
+	jr nz, .l469B
 	pop hl
 	ld de, $0400
 	add hl, de

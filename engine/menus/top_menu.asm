@@ -4,10 +4,10 @@
 
 SECTION "engine/menus/top_menu", ROMX
 
-; ---- code $4000-$41E9 (489 bytes) [CONFIRMED] 170 insn(s); 170 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-
 TopMenu_Run:: ; 1F:4000
 Function_1F_4000::
+	; [CONFIRMED] 170 insn(s); 170 executed (in up to 11/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_0392
 	xor a, a
 	ld bc, $00FC
@@ -18,10 +18,9 @@ Function_1F_4000::
 	ld hl, $A8B9
 	call ReadByteFar
 	or a, a
-	jr nz, Label_1F_4020
+	jr nz, .skip
 	ld a, $01
-
-Label_1F_4020:: ; 1F:4020
+.skip ; 1F:4020
 	ld [wRam_C0E5], a
 	ld a, $01
 	ld [wRam_C0E6], a
@@ -193,9 +192,8 @@ Table_1F_41E9::
 	dw Label_1F_428B
 	dw TopMenu_Idle
 
-; ---- code $41F3-$4252 (95 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 11/18 scenarios)
-
 TopMenu_Idle:: ; 1F:41F3
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 11/18 scenarios)
 	farcall Ticker_Update
 	call TopMenu_UpdateCursorMove
 	ldh a, [hJoyPressed]
@@ -237,16 +235,15 @@ Label_1F_421D:: ; 1F:421D
 	ld a, [wRam_C0E5]
 	ret
 
-; ---- code $4252-$425A (8 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 1F:421B (executed) [executed in 5 scenarios]
-
 Label_1F_4252:: ; 1F:4252
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jrcc from 1F:421B (executed) [executed in 5 scenarios]
 	ld a, $01
 	ld [wRam_C0E3], a
 	jp TopMenu_Loop
 
-; ---- code $425A-$434B (241 bytes) [CONFIRMED] 111 insn(s); 111 executed (in up to 5/18 scenarios)
-
 TopMenu_OnB:: ; 1F:425A
+	; [CONFIRMED] 111 insn(s); 111 executed (in up to 5/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -279,11 +276,11 @@ TopMenu_HandleDpad:: ; 1F:4291
 	or a, a
 	ret nz
 	bit 4, b
-	jr nz, Label_1F_42C5
+	jr nz, .l42C5
 	bit 6, b
-	jr nz, Label_1F_42E5
+	jr nz, .l42E5
 	bit 7, b
-	jp nz, Label_1F_4307
+	jp nz, .l4307
 	ld a, [wRam_C0E5]
 	cp a, $01
 	ret z
@@ -299,8 +296,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	call TopMenu_LoadPanel
 	ld a, $01
 	jp TopMenu_SelectItem
-
-Label_1F_42C5:: ; 1F:42C5
+.l42C5 ; 1F:42C5
 	ld a, [wRam_C0E5]
 	cp a, $02
 	ret z
@@ -316,8 +312,7 @@ Label_1F_42C5:: ; 1F:42C5
 	call TopMenu_LoadPanel
 	ld a, $02
 	jr TopMenu_SelectItem
-
-Label_1F_42E5:: ; 1F:42E5
+.l42E5 ; 1F:42E5
 	ld a, [wRam_C0E5]
 	cp a, $03
 	ret nz
@@ -336,8 +331,7 @@ Label_1F_42E5:: ; 1F:42E5
 	call TopMenu_LoadPanel
 	pop af
 	jr TopMenu_SelectItem
-
-Label_1F_4307:: ; 1F:4307
+.l4307 ; 1F:4307
 	ld a, [wRam_C0E5]
 	cp a, $03
 	ret z
@@ -379,10 +373,10 @@ Table_TopMenu_CursorTargets:: ; 1F:434B
 Data_1F_434B::
 	db $28, $0B, $28, $51, $60, $2E
 
-; ---- code $4351-$455C (523 bytes) [CONFIRMED] 196 insn(s); 196 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-
 TopMenu_LoadPanel:: ; 1F:4351
 Function_1F_4351::
+	; [CONFIRMED] 196 insn(s); 196 executed (in up to 11/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld bc, $1014
 	ld de, $D000
 	ld hl, Data_1E_40D7
@@ -405,11 +399,10 @@ Function_1F_4351::
 	ld a, [wRam_C0E6]
 	dec a
 	cp a, $01
-	jr c, Label_1F_4396
-	jp z, Label_1F_43BA
+	jr c, .l4396
+	jp z, .l43BA
 	ret
-
-Label_1F_4396:: ; 1F:4396
+.l4396 ; 1F:4396
 	ld hl, $DA10
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -423,8 +416,7 @@ Label_1F_4396:: ; 1F:4396
 	ld [wSpriteSlots + 23], a
 	ld [wSpriteSlots + 24], a
 	ret
-
-Label_1F_43BA:: ; 1F:43BA
+.l43BA ; 1F:43BA
 	ld hl, $DA20
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -450,7 +442,7 @@ Label_1F_43BA:: ; 1F:43BA
 TopMenu_InitItemSprites:: ; 1F:43F7
 	ld a, [wRam_C0E5]
 	cp a, $03
-	jr z, Label_1F_4417
+	jr z, .l4417
 	ld hl, $DA40
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -459,13 +451,12 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld de, $4848
 	ld hl, $DA40
 	call Function_00_0A65
-
-Label_1F_4417:: ; 1F:4417
+.l4417 ; 1F:4417
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
-	jr c, Label_1F_444F
-	jp z, Label_1F_447C
+	jr c, .l444F
+	jp z, .l447C
 	ld hl, $DA40
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -482,9 +473,8 @@ Label_1F_4417:: ; 1F:4417
 	ld [wRam_C0D6], a
 	ld hl, $DA50
 	call Function_00_0A65
-	jr Label_1F_44C0
-
-Label_1F_444F:: ; 1F:444F
+	jr .l44C0
+.l444F ; 1F:444F
 	ld hl, $DA10
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -501,9 +491,8 @@ Label_1F_444F:: ; 1F:444F
 	ld [wRam_C0D6], a
 	ld hl, $DA50
 	call Function_00_0A65
-	jr Label_1F_44C0
-
-Label_1F_447C:: ; 1F:447C
+	jr .l44C0
+.l447C ; 1F:447C
 	ld hl, $DA20
 	ld de, Table_1E_656F
 	ld a, $1E
@@ -528,8 +517,7 @@ Label_1F_447C:: ; 1F:447C
 	ld [wRam_C0D6], a
 	ld hl, $DA50
 	call Function_00_0A65
-
-Label_1F_44C0:: ; 1F:44C0
+.l44C0 ; 1F:44C0
 	xor a, a
 	ld [wRam_C0E8], a
 	ld [wRam_C0E2], a
@@ -550,8 +538,8 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
-	jr c, Label_1F_4503
-	jp z, Label_1F_4532
+	jr c, .l4503
+	jp z, .l4532
 	ld bc, $090C
 	ld de, $D0E4
 	ld hl, Data_1E_48C1
@@ -560,8 +548,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
-
-Label_1F_4503:: ; 1F:4503
+.l4503 ; 1F:4503
 	ld a, [wRam_C0E8]
 	ld de, $00C6
 	call Multiply8x16
@@ -581,8 +568,7 @@ Label_1F_4503:: ; 1F:4503
 	xor a, a
 	ld [wRam_C0E8], a
 	ret
-
-Label_1F_4532:: ; 1F:4532
+.l4532 ; 1F:4532
 	ld a, [wRam_C0E8]
 	ld de, $00C6
 	call Multiply8x16
@@ -600,21 +586,22 @@ Label_1F_4532:: ; 1F:4532
 	cp a, $05
 	ret nz
 
-; ---- code $455C-$4561 (5 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the retcc at 1F:455B (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the retcc at 1F:455B (executed) [executed in 2 scenarios]
 	xor a, a
 	ld [wRam_C0E8], a
 	ret
 
-; ---- code $4561-$4603 (162 bytes) [CONFIRMED] 82 insn(s); 82 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
-
 TopMenu_UpdateCursorMove:: ; 1F:4561
 Function_1F_4561::
+	; [CONFIRMED] 82 insn(s); 82 executed (in up to 11/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0E1]
 	or a, a
 	ret z
 	dec a
 	ld [wRam_C0E1], a
-	jr nz, Label_1F_458F
+	jr nz, .l458F
 	call TopMenu_InitItemSprites
 	ld a, [wRam_C0E5]
 	dec a
@@ -628,9 +615,8 @@ Function_1F_4561::
 	ld a, [wRam_C0DC]
 	ld [wRam_C0D6], a
 	ld d, a
-	jr Label_1F_45C3
-
-Label_1F_458F:: ; 1F:458F
+	jr .l45C3
+.l458F ; 1F:458F
 	ld a, [wRam_C0DD]
 	ld b, a
 	ld a, [wRam_C0DE]
@@ -659,8 +645,7 @@ Label_1F_458F:: ; 1F:458F
 	ld a, l
 	ld [wRam_C0D7], a
 	ld d, h
-
-Label_1F_45C3:: ; 1F:45C3
+.l45C3 ; 1F:45C3
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
@@ -673,41 +658,39 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	ld a, [wRam_C0DB]
 	sub a, b
 	ld b, a
-	jr nc, Label_1F_45E2
+	jr nc, .l45E2
 	xor a, $FF
 	inc a
 	ld b, a
 	ld a, $01
 	ld [wRam_C10E], a
-
-Label_1F_45E2:: ; 1F:45E2
+.l45E2 ; 1F:45E2
 	ld a, [wRam_C0D6]
 	ld h, a
 	ld a, [wRam_C0DC]
 	sub a, h
 	ld h, a
-	jr nc, Label_1F_45F9
+	jr nc, .l45F9
 	xor a, $FF
 	inc a
 	ld h, a
 	ld a, [wRam_C10E]
 	or a, $02
 	ld [wRam_C10E], a
-
-Label_1F_45F9:: ; 1F:45F9
+.l45F9 ; 1F:45F9
 	ld a, h
 	add a, b
 	rr a
 	srl a
 	srl a
-	jr nz, Label_1F_4605
+	jr nz, .skip
 
-; ---- code $4603-$4605 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1F:4601 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 1F:4601 (executed)
 	ld a, $01
 
-; ---- code $4605-$4667 (98 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 5/18 scenarios)
-
-Label_1F_4605:: ; 1F:4605
+.skip ; 1F:4605
+	; [CONFIRMED] 46 insn(s); 46 executed (in up to 5/18 scenarios)
 	ld l, a
 	ld [wRam_C0E1], a
 	ld c, l
@@ -724,15 +707,14 @@ Label_1F_4605:: ; 1F:4605
 	bit 0, a
 	ld a, l
 	ld [wRam_C0DE], a
-	jr z, Label_1F_4637
+	jr z, .l4637
 	xor a, $FF
 	inc a
 	ld [wRam_C0DE], a
 	ld a, [wRam_C0DD]
 	xor a, $FF
 	ld [wRam_C0DD], a
-
-Label_1F_4637:: ; 1F:4637
+.l4637 ; 1F:4637
 	pop hl
 	ld b, h
 	ld c, l
@@ -748,13 +730,12 @@ Label_1F_4637:: ; 1F:4637
 	bit 1, a
 	ld a, l
 	ld [wRam_C0E0], a
-	jr z, Label_1F_4666
+	jr z, .done
 	xor a, $FF
 	inc a
 	ld [wRam_C0E0], a
 	ld a, [wRam_C0DF]
 	xor a, $FF
 	ld [wRam_C0DF], a
-
-Label_1F_4666:: ; 1F:4666
+.done ; 1F:4666
 	ret

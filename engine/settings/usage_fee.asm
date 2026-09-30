@@ -4,68 +4,68 @@
 
 SECTION "engine/settings/usage_fee", ROMX
 
-; ---- code $626F-$628B (28 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 UsageFee_Run:: ; 67:626F
 Function_67_626F::
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $01
 	ld [wManualNumbersFlag], a
-
-Label_67_6274:: ; 67:6274
+.loop ; 67:6274
 	ld a, $15
 	farcall Notice_ShowPage
 	or a, a
 	ret z
 	farcall UsageFee_Request
 	or a, a
-	jr z, Label_67_6296
+	jr z, .l6296
 	cp a, $02
-	jr z, Label_67_62B2
+	jr z, .l62B2
 
-; ---- code $628B-$6296 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 67:6289 (executed)
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 67:6289 (executed)
 	ld a, $03
 	ld b, $00
 	farcall Account_ResultPage
 	ret
 
-; ---- code $6296-$62B8 (34 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-
-Label_67_6296:: ; 67:6296
+.l6296 ; 67:6296
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	farcall OnlineTimer_HasElapsed
 	or a, a
-	jr z, Label_67_62B8
+	jr z, .l62B8
 	ld a, $03
 	ld b, $01
 	farcall Account_ResultPage
 	ld a, $16
 	farcall Notice_ShowPage
 	ret
-
-Label_67_62B2:: ; 67:62B2
+.l62B2 ; 67:62B2
 	ld a, [wRam_C28E]
 	or a, a
-	jr z, Label_67_6274
+	jr z, .loop
 
-; ---- code $62B8-$62C1 (9 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery hops 0; entered by jrcc from 67:629D (executed) | 3 insn(s) executed; cut out of the PROBABLE region 62B8-62D5 by apply_coverage --split [executed in 5 scenarios]
-
-Label_67_62B8:: ; 67:62B8
+.l62B8 ; 67:62B8
+	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery
+	; hops 0; entered by jrcc from 67:629D (executed) | 3 insn(s) executed; cut out of the PROBABLE
+	; region 62B8-62D5 by apply_coverage --split [executed in 5 scenarios]
 	ld a, $16
 	farcall Notice_ShowPage
 	ret
 
-; ---- code $62C1-$62D5 (20 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 62B8-62D5 by apply_coverage --split
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 62B8-62D5 by apply_coverage --split
 	farcall OnlineTimer_HasElapsed
 	or a, a
-	jr z, Label_67_62B8
+	jr z, .l62B8
 	ld a, $03
 	ld b, $02
 	farcall Account_ResultPage
 	ret
 
-; ---- code $62D5-$6325 (80 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 UsageFee_Request:: ; 67:62D5
 Function_67_62D5::
+	; [CONFIRMED] 30 insn(s); 30 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Browser_BeginSession
 	ld a, $03
 	ldh [hSRAMBank], a
@@ -93,21 +93,20 @@ Function_67_62D5::
 	farcall Browser_LoadUrlFromSramBank3
 	ld a, [wBrowserFetchResult]
 	cp a, $02
-	jr z, Label_67_632A
+	jr z, .l632A
 	or a, a
-	jr nz, Label_67_6328
+	jr nz, .l6328
 
-; ---- code $6325-$6328 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 67:6323 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 67:6323 (executed)
 	ld a, $01
 	ret
 
-; ---- code $6328-$632D (5 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
-
-Label_67_6328:: ; 67:6328
+.l6328 ; 67:6328
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	xor a, a
 	ret
-
-Label_67_632A:: ; 67:632A
+.l632A ; 67:632A
 	ld a, $02
 	ret
 

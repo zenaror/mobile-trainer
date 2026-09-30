@@ -4,59 +4,57 @@
 
 SECTION "engine/account/delete_registration", ROMX
 
-; ---- code $7951-$7990 (63 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Registration_DeleteFlow:: ; 68:7951
 Function_68_7951::
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $08
 	farcall Notice_ShowPage
 	or a, a
-	jr z, Label_68_798F
-
-Label_68_795C:: ; 68:795C
+	jr z, .l798F
+.l795C ; 68:795C
 	ld a, $09
 	farcall Notice_ShowPage
 	or a, a
 	jr z, Registration_DeleteFlow
-
-Label_68_7967:: ; 68:7967
+.l7967 ; 68:7967
 	xor a, a
 	call Registration_DeleteConfirmPage
 	or a, a
-	jr z, Label_68_795C
+	jr z, .l795C
 	cp a, $02
-	jr z, Label_68_7990
+	jr z, .l7990
 	ld a, $01
 	call Registration_DeleteConfirmPage
 	or a, a
-	jr z, Label_68_7967
+	jr z, .l7967
 	cp a, $02
-	jr z, Label_68_7990
+	jr z, .l7990
 	farcall Registration_DeleteExecute
 	or a, a
-	jr z, Label_68_7999
+	jr z, .l7999
 	ld a, $0B
 	farcall Notice_ShowPage
-
-Label_68_798F:: ; 68:798F
+.l798F ; 68:798F
 	ret
 
-; ---- code $7990-$7999 (9 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 7990-799A by apply_coverage --split [executed in 7 scenarios]
-
-Label_68_7990:: ; 68:7990
+.l7990 ; 68:7990
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
+	; entered by jrcc from 68:7970 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
+	; 7990-799A by apply_coverage --split [executed in 7 scenarios]
 	ld a, $0A
 	farcall Notice_ShowPage
 	ret
 
-; ---- code $7999-$799A (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7990-799A by apply_coverage --split
-
-Label_68_7999:: ; 68:7999
+.l7999 ; 68:7999
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 7990-799A by apply_coverage --split
 	ret
-
-; ---- code $799A-$7ACB (305 bytes) [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
 Registration_DeleteConfirmPage:: ; 68:799A
 Function_68_799A::
+	; [CONFIRMED] 105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C27C], a
 	call Registration_DeleteConfirm_Setup
 	farcall Palette_FadeInFromWhite
@@ -76,7 +74,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld [wRam_C27D], a
 	ld a, [wRam_C27C]
 	or a, a
-	jr nz, Label_68_7A0A
+	jr nz, .l7A0A
 	ld de, $9001
 	ld hl, Data_71_5340
 	ld a, $71
@@ -94,9 +92,8 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld hl, Data_71_66C8
 	ld a, $71
 	farcall Function_00_08EA
-	jr Label_68_7A3F
-
-Label_68_7A0A:: ; 68:7A0A
+	jr .l7A3F
+.l7A0A ; 68:7A0A
 	ld de, $9001
 	ld hl, $59C0
 	ld a, $71
@@ -114,8 +111,7 @@ Label_68_7A0A:: ; 68:7A0A
 	ld hl, Data_71_6998
 	ld a, $71
 	farcall Function_00_08EA
-
-Label_68_7A3F:: ; 68:7A3F
+.l7A3F ; 68:7A3F
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
@@ -149,16 +145,15 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	call Function_00_044B
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_7AB2
+	jr nz, .l7AB2
 	bit 1, a
-	jr nz, Label_68_7ACE
+	jr nz, .l7ACE
 	bit 5, a
-	jr nz, Label_68_7AE0
+	jr nz, .l7AE0
 	bit 4, a
-	jr nz, Label_68_7AE0
+	jr nz, .l7AE0
 	jr Registration_DeleteConfirm_InputLoop
-
-Label_68_7AB2:: ; 68:7AB2
+.l7AB2 ; 68:7AB2
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -169,17 +164,16 @@ Label_68_7AB2:: ; 68:7AB2
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_7ACB
+	jr nz, .l7ACB
 	ld a, $01
 	ret
 
-; ---- code $7ACB-$7AE0 (21 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 68:7AC6 (executed) [executed in 3 scenarios]
-
-Label_68_7ACB:: ; 68:7ACB
+.l7ACB ; 68:7ACB
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
+	; entered by jrcc from 68:7AC6 (executed) [executed in 3 scenarios]
 	ld a, $02
 	ret
-
-Label_68_7ACE:: ; 68:7ACE
+.l7ACE ; 68:7ACE
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -191,9 +185,8 @@ Label_68_7ACE:: ; 68:7ACE
 	xor a, a
 	ret
 
-; ---- code $7AE0-$7B19 (57 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
-
-Label_68_7AE0:: ; 68:7AE0
+.l7AE0 ; 68:7AE0
+	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -207,9 +200,8 @@ Label_68_7AE0:: ; 68:7AE0
 	xor a, b
 	ld [wRam_C27D], a
 	call Registration_DeleteConfirm_UpdateCursor
-	jr Label_68_7AFE
-
-Label_68_7AFE:: ; 68:7AFE
+	jr .l7AFE
+.l7AFE ; 68:7AFE
 	jp Registration_DeleteConfirm_InputLoop
 
 Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
@@ -235,10 +227,10 @@ Registration_DeleteCursorPositions:: ; 68:7B19
 Data_68_7B19::
 	db $28, $30, $58, $30
 
-; ---- code $7B1D-$7C6B (334 bytes) [CONFIRMED] 119 insn(s); 119 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Registration_DeleteConfirm_PrintMessage:: ; 68:7B1D
 Function_68_7B1D::
+	; [CONFIRMED] 119 insn(s); 119 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
@@ -271,16 +263,14 @@ Function_68_7B1D::
 	ldh [hRam_FFC7], a
 	ld a, [wRam_C27C]
 	or a, a
-	jr nz, Label_68_7B70
+	jr nz, .l7B70
 	ld a, $06
 	farcall Function_00_153D
-	jr Label_68_7B78
-
-Label_68_7B70:: ; 68:7B70
+	jr .l7B78
+.l7B70 ; 68:7B70
 	ld a, $07
 	farcall Function_00_153D
-
-Label_68_7B78:: ; 68:7B78
+.l7B78 ; 68:7B78
 	call Function_00_0ED3
 	ld de, $9000
 	ld hl, $0901
@@ -375,7 +365,7 @@ Registration_DeleteExecute_StateTable:: ; 68:7C6B
 Table_68_7C6B::
 	dw $7C71, $7C86, $7CBD
 
-; ---- code $7C71-$7CE8 (119 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
+	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios)
 	call Config_ClearSramMirror
 	ld de, $C271
 	ld hl, $0068
@@ -387,7 +377,7 @@ Table_68_7C6B::
 
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7CE8
+	jp nz, .l7CE8
 	bit 0, a
 	jp nz, Registration_DeleteExecute_RunState
 	ld a, $0A
@@ -411,7 +401,7 @@ Table_68_7C6B::
 
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_68_7CE8
+	jp nz, .l7CE8
 	bit 0, a
 	jp nz, Registration_DeleteExecute_RunState
 	ldh [hScratchA], a
@@ -429,9 +419,9 @@ Table_68_7C6B::
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $7CE8-$7D1C (52 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by jpcc from 68:7C8B (executed)
-
-Label_68_7CE8:: ; 68:7CE8
+.l7CE8 ; 68:7CE8
+	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
+	; entered by jpcc from 68:7C8B (executed)
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -451,10 +441,10 @@ Label_68_7CE8:: ; 68:7CE8
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $7D1C-$7D8D (113 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Registration_DeleteExecute_PrintMessage:: ; 68:7D1C
 Function_68_7D1C::
+	; [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $03
 	farcall Function_00_153D
 	push hl

@@ -4,10 +4,10 @@
 
 SECTION "engine/startup/notice_pages", ROMX
 
-; ---- code $487C-$494E (210 bytes) [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 Notice_ShowPage:: ; 65:487C
 Function_65_487C::
+	; [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C27C], a
 	ld b, $15
 	ld c, $03
@@ -56,22 +56,20 @@ Function_65_487C::
 	ld h, a
 	ld a, [hl]
 	cp a, $04
-	jr z, Label_65_4908
+	jr z, .l4908
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_58_7B78
 	ld a, $58
 	farcall Function_00_08EA
-	jr Label_65_4919
-
-Label_65_4908:: ; 65:4908
+	jr .l4919
+.l4908 ; 65:4908
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_4B_4000
 	ld a, $4B
 	farcall Function_00_08EA
-
-Label_65_4919:: ; 65:4919
+.l4919 ; 65:4919
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Notice_LoadHeaderGfx
@@ -101,9 +99,8 @@ Table_65_494E::
 	dw Label_65_499B
 	dw Label_65_4958
 
-; ---- code $4958-$4A81 (297 bytes) [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
-
 Label_65_4958:: ; 65:4958
+	; [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
 	jp Notice_ShowPage_InputLoop
 
 Notice_ShowPage_ButtonA:: ; 65:495B
@@ -122,12 +119,11 @@ Notice_ShowPage_ButtonA:: ; 65:495B
 Notice_ShowPage_ButtonB:: ; 65:4974
 	ld a, [wRam_C280]
 	cp a, $01
-	jr z, Label_65_4981
+	jr z, .l4981
 	cp a, $05
-	jr z, Label_65_4981
+	jr z, .l4981
 	jr Notice_ShowPage_InputLoop
-
-Label_65_4981:: ; 65:4981
+.l4981 ; 65:4981
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -272,26 +268,24 @@ Data_65_4A81::
 Notice_FooterGfxTable:: ; 65:4AC9
 	db $D0, $69, $50, $6C, $D0, $6E, $50, $71, $D0, $73, $50, $76, $D0, $78
 
-; ---- code $4AD7-$4B78 (161 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 Notice_DrawPageCounter:: ; 65:4AD7
 Function_65_4AD7::
+	; [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C27E]
 	ld l, a
 	ld a, [wRam_C27F]
 	ld h, a
 	ld a, [hl]
 	cp a, $04
-	jr nz, Label_65_4AEB
+	jr nz, .l4AEB
 	ld a, $01
 	ld [wRam_C281], a
-	jr Label_65_4AEF
-
-Label_65_4AEB:: ; 65:4AEB
+	jr .l4AEF
+.l4AEB ; 65:4AEB
 	xor a, a
 	ld [wRam_C281], a
-
-Label_65_4AEF:: ; 65:4AEF
+.l4AEF ; 65:4AEF
 	inc hl
 	inc hl
 	ld a, [hli]
@@ -401,10 +395,10 @@ Table_65_4B92::
 	dw $7E74, $7E78, $7E7C, $7E80, $7E84, $7E88, $7E8C, $7E90
 	dw $7E94, $7E98, $7E9C
 
-; ---- code $4BA8-$4BC6 (30 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 Notice_RequestPageSound:: ; 65:4BA8
 Function_65_4BA8::
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, Notice_PageSoundTable
 	ld a, [wRam_C27C]
 	add a, l

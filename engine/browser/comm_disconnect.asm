@@ -4,9 +4,9 @@
 
 SECTION "engine/browser/comm_disconnect", ROMX
 
-; ---- code $46B8-$46C0 (8 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call (part of region $46A6-$46C0)
-
 CommProgress_Init:: ; 4C:46B8
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $46A6-$46C0)
 	ldh [hRam_FFB0], a
 	ld a, [wCommSessionKind]
 	call JumpTableInline
@@ -17,9 +17,8 @@ Table_4C_46C0:: ; 4C:46C0
 	dw Label_4C_46C4
 	dw Label_4C_46CD
 
-; ---- code $46C4-$46DE (26 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
-
 Label_4C_46C4:: ; 4C:46C4
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
 	ldh a, [hRam_FFB0]
 	farcall CommScene_Init
 	ret
@@ -40,9 +39,8 @@ Table_4C_46DE:: ; 4C:46DE
 	dw Label_4C_46E2
 	dw Label_4C_46EB
 
-; ---- code $46E2-$46F4 (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
 Label_4C_46E2:: ; 4C:46E2
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hRam_FFB0]
 	farcall CommScene_Step
 	ret
@@ -52,58 +50,55 @@ Label_4C_46EB:: ; 4C:46EB
 	farcall CommPanel_Step
 	ret
 
-; ---- code $46F4-$472B (55 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 2; entered by far from 4E:4F55 (PROBABLE code) | 16 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split [executed in 4 scenarios]
-
 Comm_Disconnect:: ; 4C:46F4
+	; [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 2;
+	; entered by far from 4E:4F55 (PROBABLE code) | 16 insn(s) executed; cut out of the PROBABLE
+	; region 46F4-47C4 by apply_coverage --split [executed in 4 scenarios]
 	ld a, $FF
 	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_4C_4757
+	jr z, .l4757
 	farcall Mobile_BeginDisconnect
-
-Label_4C_4706:: ; 4C:4706
+.l4706 ; 4C:4706
 	farcall Mobile_DisconnectPoll
 	or a, a
-	jr z, Label_4C_476D
+	jr z, .l476D
 	cp a, $FF
-	jr z, Label_4C_472B
+	jr z, .l472B
 	farcall Function_00_0956
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
 	farcall Joypad_UpdateIdleFrames
-	jp Label_4C_4706
+	jp .l4706
 
-; ---- code $472B-$476D (66 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split
-
-Label_4C_472B:: ; 4C:472B
+.l472B ; 4C:472B
+	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 46F4-47C4 by apply_coverage --split
 	farcall Mobile_BeginCancel
-
-Label_4C_4731:: ; 4C:4731
+.l4731 ; 4C:4731
 	farcall Mobile_CancelPoll
 	or a, a
-	jr z, Label_4C_476D
+	jr z, .l476D
 	cp a, $FF
-	jp z, Label_4C_476D
+	jp z, .l476D
 	farcall Function_00_0956
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
 	farcall Joypad_UpdateIdleFrames
-	jp Label_4C_4731
-
-Label_4C_4757:: ; 4C:4757
+	jp .l4731
+.l4757 ; 4C:4757
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp z, Label_4C_4765
+	jp z, .l4765
 	farcall Mobile_FetchResult
-
-Label_4C_4765:: ; 4C:4765
+.l4765 ; 4C:4765
 	ld a, $36
 	farcall MobileAPI
 
-; ---- code $476D-$477E (17 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split [executed in 4 scenarios]
-
-Label_4C_476D:: ; 4C:476D
+.l476D ; 4C:476D
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld a, $09
 	ld [wRam_C26E], a
 	xor a, a
@@ -113,32 +108,29 @@ Label_4C_476D:: ; 4C:476D
 	ld [wCommSessionActive], a
 	ret
 
-; ---- code $477E-$47C4 (70 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46F4-47C4 by apply_coverage --split
-
 Comm_EndOffline:: ; 4C:477E
+	; [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 46F4-47C4 by apply_coverage --split
 	ld a, $02
 	farcall CommProgress_Init
 	ld b, $96
-
-Label_4C_4788:: ; 4C:4788
+.l4788 ; 4C:4788
 	push bc
 	ld a, $00
 	farcall CommProgress_Step
 	pop bc
 	dec b
-	jr nz, Label_4C_4788
-
-Label_4C_4795:: ; 4C:4795
+	jr nz, .l4788
+.l4795 ; 4C:4795
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, Label_4C_4795
+	jr nz, .l4795
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp z, Label_4C_47AE
+	jp z, .l47AE
 	farcall Mobile_FetchResult
-
-Label_4C_47AE:: ; 4C:47AE
+.l47AE ; 4C:47AE
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
@@ -149,58 +141,55 @@ Label_4C_47AE:: ; 4C:47AE
 	ld [wCommSessionActive], a
 	ret
 
-; ---- code $47C4-$47F2 (46 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Comm_DisconnectWithProgress:: ; 4C:47C4
 Function_4C_47C4::
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $02
 	farcall CommProgress_Init
 	ld a, $00
 	farcall CommProgress_Step
 	farcall Mobile_BeginDisconnect
-
-Label_4C_47DA:: ; 4C:47DA
+.l47DA ; 4C:47DA
 	farcall Mobile_DisconnectPoll
 	or a, a
-	jr z, Label_4C_4811
+	jr z, .l4811
 	cp a, $FF
-	jr z, Label_4C_47F2
+	jr z, .l47F2
 	ld a, $00
 	farcall CommProgress_Step
-	jp Label_4C_47DA
+	jp .l47DA
 
-; ---- code $47F2-$4811 (31 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 4C:47E5 (executed)
-
-Label_4C_47F2:: ; 4C:47F2
+.l47F2 ; 4C:47F2
+	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
+	; entered by jrcc from 4C:47E5 (executed)
 	farcall Mobile_BeginCancel
-
-Label_4C_47F8:: ; 4C:47F8
+.l47F8 ; 4C:47F8
 	farcall Mobile_CancelPoll
 	or a, a
-	jr z, Label_4C_4811
+	jr z, .l4811
 	cp a, $FF
-	jp z, Label_4C_4811
+	jp z, .l4811
 	ld a, $00
 	farcall CommProgress_Step
-	jp Label_4C_47F8
+	jp .l47F8
 
-; ---- code $4811-$4824 (19 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_4C_4811:: ; 4C:4811
+.l4811 ; 4C:4811
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld a, $01
 	farcall CommProgress_Step
 	or a, a
-	jr nz, Label_4C_4811
+	jr nz, .l4811
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp z, Label_4C_482A
+	jp z, .l482A
 
-; ---- code $4824-$482A (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 4C:4821 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jpcc at 4C:4821 (executed)
 	farcall Mobile_FetchResult
 
-; ---- code $482A-$4840 (22 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios) (part of region $482A-$48B6)
-
-Label_4C_482A:: ; 4C:482A
+.l482A ; 4C:482A
+	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios) (part of region $482A-$48B6)
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09

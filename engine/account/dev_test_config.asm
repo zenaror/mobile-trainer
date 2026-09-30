@@ -4,9 +4,9 @@
 
 SECTION "engine/account/dev_test_config", ROMX
 
-; ---- code $4DB4-$4E37 (131 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 1; entered by far from 65:46E5 (PROBABLE code)
-
 Dev_InstallTestConfig:: ; 68:4DB4
+	; [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 1;
+	; entered by far from 65:46E5 (PROBABLE code)
 	call Account_ClearWorkBuffers
 	call Config_ClearSramMirror
 	call Sram_WipeAllBanks
@@ -16,10 +16,10 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	ldh [rSVBK], a
 	call Mobile_InitAndWait
 	or a, a
-	jr nz, Label_68_4E35
+	jr nz, .l4E35
 	call Dev_WriteTestConfigImage
 	or a, a
-	jr nz, Label_68_4E35
+	jr nz, .l4E35
 	ld a, $36
 	call MobileAPI
 	ld a, $01
@@ -52,9 +52,8 @@ Dev_InstallTestConfig:: ; 68:4DB4
 	farcall Sram_ResetChecksum3Areas
 	farcall SaveCheck_ResetBlock
 	ret
-
-Label_68_4E35:: ; 68:4E35
-	jr Label_68_4E35
+.l4E35 ; 68:4E35
+	jr .l4E35
 
 ; ---- text $4E37-$4E46 (15 bytes) [PROBABLE] ASCII "test@test.test" NUL, addressed by ld hl,$4E37 (4E40 = its substring ".test") at 68:4DFD / 68:50EC
 
@@ -68,20 +67,19 @@ Dev_TestDialNumber:: ; 68:4E46
 String_68_4E46::
 	db $30, $37, $35, $35, $33, $31, $31, $39, $37, $33, $00 ; "0755311973"
 
-; ---- code $4E51-$4EA7 (86 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2; entered by call from 68:4DC9 (PROBABLE code)
-
 Mobile_InitAndWait:: ; 68:4E51
+	; [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 2;
+	; entered by call from 68:4DC9 (PROBABLE code)
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
 	call MobileAPI
-
-Label_68_4E5C:: ; 68:4E5C
+.loop ; 68:4E5C
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Mobile_ReportLastError
 	bit 0, a
-	jr nz, Label_68_4E5C
+	jr nz, .loop
 	xor a, a
 	ret
 
@@ -93,8 +91,7 @@ Dev_WriteTestConfigImage:: ; 68:4E6A
 	ld hl, $D000
 	ld de, $0000
 	ld b, $BE
-
-Label_68_4E7E:: ; 68:4E7E
+.l4E7E ; 68:4E7E
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -102,7 +99,7 @@ Label_68_4E7E:: ; 68:4E7E
 	adc a, d
 	ld d, a
 	dec b
-	jp nz, Label_68_4E7E
+	jp nz, .l4E7E
 	ld a, d
 	ld [hli], a
 	ld [hl], e
@@ -111,13 +108,12 @@ Label_68_4E7E:: ; 68:4E7E
 	ld de, $0000
 	ld a, $04
 	call MobileAPI
-
-Label_68_4E99:: ; 68:4E99
+.l4E99 ; 68:4E99
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Mobile_ReportLastError
 	bit 0, a
-	jr nz, Label_68_4E99
+	jr nz, .l4E99
 	xor a, a
 	ret
 
@@ -167,17 +163,17 @@ Data_68_4F4D:: ; 68:4F4D
 ; ---- zero $4F55-$4F67 (18 bytes) [HYPOTHESIS] padding? run of 18 x $00 in unclassified bytes
 	ds $12, $00
 
-; ---- code $4F67-$4F71 (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 3; entered by jpcc from 68:4E61 (PROBABLE code)
-
 Mobile_ReportLastError:: ; 68:4F67
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 3;
+	; entered by jpcc from 68:4E61 (PROBABLE code)
 	call Mobile_SaveLastResult
 	farcall Mobile_ShowLastError
 	ret
 
-; ---- code $4F71-$4F9E (45 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call (part of region $4F71-$4FC8)
-
 Mobile_SaveLastResult:: ; 68:4F71
 Function_68_4F71::
+	; [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $4F71-$4FC8)
 	ld a, $00
 	call MobileAPI
 	ld [wMobileErrorCode], a

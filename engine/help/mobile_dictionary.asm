@@ -4,10 +4,10 @@
 
 SECTION "engine/help/mobile_dictionary", ROMX
 
-; ---- code $4000-$4163 (355 bytes) [CONFIRMED] 121 insn(s); 121 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MobileDict_Run:: ; 1A:4000
 Function_1A_4000::
+	; [CONFIRMED] 121 insn(s); 121 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -144,9 +144,8 @@ Table_1A_4163::
 	dw Label_1A_41E2
 	dw MobileDict_Idle
 
-; ---- code $416D-$41F2 (133 bytes) [CONFIRMED] 65 insn(s); 65 executed (in up to 1/18 scenarios)
-
 MobileDict_Idle:: ; 1A:416D
+	; [CONFIRMED] 65 insn(s); 65 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
 	call nz, MobileDict_HandleDpad
@@ -221,16 +220,19 @@ MobileDict_HandleDpad:: ; 1A:41E5
 	bit 4, a
 	jp nz, MobileDict_NextCategory
 
-; ---- code $41F2-$41F7 (5 bytes) [CONFIRMED] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0; fall-through of the jpcc at 1A:41EF (executed) | 2 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 5 scenarios]
+	; [CONFIRMED] 34 insn(s) reached by static flow only; seeds: exec x34; min discovery hops 0;
+	; fall-through of the jpcc at 1A:41EF (executed) | 2 insn(s) executed; cut out of the PROBABLE
+	; region 41F2-4238 by apply_coverage --split [executed in 5 scenarios]
 	bit 5, a
 	jp nz, MobileDict_PrevCategory
 
-; ---- code $41F7-$41F8 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 41F2-4238 by apply_coverage --split
 	ret
 
-; ---- code $41F8-$4238 (64 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage --split [executed in 1 scenarios]
-
 MobileDict_CursorUp:: ; 1A:41F8
+	; [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 41F2-4238 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, [wRam_C0D6]
 	dec a
 	jr z, MobileDict_ScrollUp
@@ -265,9 +267,8 @@ MobileDict_ScrollUp:: ; 1A:4215
 	call MobileDict_UpdateTabSprites
 	ret
 
-; ---- code $4238-$4263 (43 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
-
 MobileDict_CursorDown:: ; 1A:4238
+	; [CONFIRMED] 23 insn(s); 23 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C0D8]
 	ld b, a
 	ld a, [wRam_C0D6]
@@ -292,9 +293,9 @@ MobileDict_CursorDown:: ; 1A:4238
 	call MobileDict_DrawRowHighlight
 	ret
 
-; ---- code $4263-$4281 (30 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
-
 MobileDict_ScrollDown:: ; 1A:4263
+	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
+	; entered by jrcc from 1A:4249 (executed) [executed in 1 scenarios]
 	ld hl, $C0E5
 	inc [hl]
 	ldh a, [hWRAMBank]
@@ -310,19 +311,18 @@ MobileDict_ScrollDown:: ; 1A:4263
 	call MobileDict_UpdateTabSprites
 	ret
 
-; ---- code $4281-$4288 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
 MobileDict_NextCategory:: ; 1A:4281
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C0D4]
 	cp a, $0B
-	jr nz, Label_1A_4289
+	jr nz, .skip
 
-; ---- code $4288-$4289 (1 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1A:4286 (executed) [executed in 3 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 1A:4286 (executed) [executed in 3 scenarios]
 	xor a, a
 
-; ---- code $4289-$42B0 (39 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
-
-Label_1A_4289:: ; 1A:4289
+.skip ; 1A:4289
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
 	inc a
 	ld [wRam_C0D4], a
 	ld a, $01
@@ -342,15 +342,14 @@ Label_1A_4289:: ; 1A:4289
 	ldh [rSVBK], a
 	ret
 
-; ---- code $42B0-$42DE (46 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
-
 MobileDict_PrevCategory:: ; 1A:42B0
+	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1;
+	; entered by jpcc from 1A:41F4 (PROBABLE code) [executed in 3 scenarios]
 	ld a, [wRam_C0D4]
 	dec a
-	jr nz, Label_1A_42B8
+	jr nz, .skip
 	ld a, $0B
-
-Label_1A_42B8:: ; 1A:42B8
+.skip ; 1A:42B8
 	ld [wRam_C0D4], a
 	ld a, $01
 	ld [wRam_C0D6], a
@@ -369,10 +368,10 @@ Label_1A_42B8:: ; 1A:42B8
 	ldh [rSVBK], a
 	ret
 
-; ---- code $42DE-$4346 (104 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MobileDict_DrawRowHighlight:: ; 1A:42DE
 Function_1A_42DE::
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $D4A1
 	ld bc, $0A10
 	ld de, $F800
@@ -423,39 +422,36 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld [wSpriteSlots + 64], a
 	ld a, [wRam_C0E5]
 	or a, a
-	jr z, Label_1A_4351
+	jr z, .l4351
 
-; ---- code $4346-$4351 (11 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
 	ld de, $2048
 	ld hl, $DA20
 	call Function_00_0A65
-	jr Label_1A_435A
+	jr .l435A
 
-; ---- code $4351-$437B (42 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
-
-Label_1A_4351:: ; 1A:4351
+.l4351 ; 1A:4351
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ld de, $00A0
 	ld hl, $DA20
 	call Function_00_0A65
-
-Label_1A_435A:: ; 1A:435A
+.l435A ; 1A:435A
 	ld a, [wRam_C0D8]
 	ld b, a
 	ld a, [wRam_C0E5]
 	add a, $05
 	cp a, b
-	jr nc, Label_1A_4371
+	jr nc, .l4371
 	ld de, $7848
 	ld hl, $DA30
 	call Function_00_0A65
-	jr Label_1A_437A
-
-Label_1A_4371:: ; 1A:4371
+	jr .done
+.l4371 ; 1A:4371
 	ld de, $00A0
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_1A_437A:: ; 1A:437A
+.done ; 1A:437A
 	ret
 
 ; ---- data $437B-$4391 (22 bytes) [PROBABLE] 11 pairs (index,value): 00 08 / 01 14 / 02 20 / 03 2C ... 0A 80 (value = 8 + 12*index), right after the ret of the preceding routine and before Function_1A_4391; first 4 bytes read in a trace; the 18-byte mapper hole is the rest of this table
@@ -465,10 +461,10 @@ Data_1A_437B::
 	db $00, $08, $01, $14, $02, $20, $03, $2C, $04, $38, $05, $44, $06, $50, $07, $5C
 	db $08, $68, $09, $74, $0A, $80
 
-; ---- code $4391-$4439 (168 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MobileDict_LoadPage:: ; 1A:4391
 Function_1A_4391::
+	; [CONFIRMED] 83 insn(s); 83 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -481,8 +477,7 @@ Function_1A_4391::
 	ld hl, $D000
 	call FillBytes
 	ld d, $00
-
-Label_1A_43AA:: ; 1A:43AA
+.loop ; 1A:43AA
 	ld a, [wRam_C0D4]
 	ld hl, Table_MobileDict_Categories
 	dec a
@@ -525,13 +520,12 @@ Label_1A_43AA:: ; 1A:43AA
 	inc d
 	ld a, d
 	cp a, $05
-	jr z, Label_1A_43F9
+	jr z, .l43F9
 	ld b, a
 	ld a, [wRam_C0D8]
 	cp a, b
-	jr nz, Label_1A_43AA
-
-Label_1A_43F9:: ; 1A:43F9
+	jr nz, .loop
+.l43F9 ; 1A:43F9
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00

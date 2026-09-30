@@ -28,6 +28,8 @@ SRCDIRS = ('home', 'engine', 'data', 'gfx', 'audio', 'lib')
 EXTRA = ('consts.asm', 'zero_labels.asm')
 
 LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::(?P<rest>.*)$')
+LOCAL = re.compile(r'^\.([A-Za-z_][A-Za-z0-9_]*)(?P<rest>(?:\s.*)?)$')     # `.name ; BB:AAAA`, scoped to the last global label
+BARRIER = re.compile(r'^\s*(SECTION|LOAD|ENDL|ENDSECTION|PUSHS|POPS)\b')
 COMMENT_ADDR = re.compile(r'^(?P<pre>\s*;\s*)(?P<bank>[0-9A-Fa-f]{2}):(?P<addr>[0-9A-Fa-f]{4})(?P<post>\b.*)$')
 EXPORT = re.compile(r'^EXPORT\s+([A-Za-z_][A-Za-z0-9_]*)\s*$')
 
@@ -79,14 +81,24 @@ def main():
         nfiles += 1
         with open(path, encoding='utf-8', newline='') as f:
             lines = f.read().split('\n')
+        scope = None       # global label that scopes the local labels that follow
         for i, line in enumerate(lines):
             m = EXPORT.match(line)
             if m:
                 exports.append(m.group(1))
+            if BARRIER.match(line):
+                scope = None
             m = LABEL.match(line)
-            if not m:
-                continue
-            name = m.group(1)
+            sep = '::'
+            if m:
+                name = m.group(1)
+                scope = name
+            else:
+                m = LOCAL.match(line)
+                if not m or scope is None:
+                    continue
+                name = '%s.%s' % (scope, m.group(1))
+                sep = ''
             defs.setdefault(name, []).append((rel, i + 1))
             cm = re.match(r'^\s*(;.*)$', m.group('rest'))
             if cm and name in sym:
@@ -95,7 +107,7 @@ def main():
                     got = (int(am.group('bank'), 16), int(am.group('addr'), 16))
                     if got != sym[name]:
                         stale.append((rel, i + 1, name, '%02X:%04X' % got, '%02X:%04X' % sym[name]))
-                        new = '%s:: ; %02X:%04X%s' % (name, sym[name][0], sym[name][1], am.group('post'))
+                        new = '%s%s ; %02X:%04X%s' % (('.' + m.group(1)) if not sep else name, sep, sym[name][0], sym[name][1], am.group('post'))
                         edits.setdefault(path, {})[i] = new
 
     missing = sorted(n for n in defs if n not in sym)

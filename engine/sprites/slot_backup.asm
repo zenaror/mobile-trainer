@@ -4,10 +4,10 @@
 
 SECTION "engine/sprites/slot_backup", ROMX
 
-; ---- code $624F-$62A9 (90 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Sprites_SaveSlotsToBank3:: ; 7F:624F
 Function_7F_624F::
+	; [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	push de
@@ -17,8 +17,7 @@ Function_7F_624F::
 	ld hl, $DA00
 	ld de, $D900
 	ld b, $00
-
-Label_7F_625E:: ; 7F:625E
+.loop ; 7F:625E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -31,7 +30,7 @@ Label_7F_625E:: ; 7F:625E
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_7F_625E
+	jr nz, .loop
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -51,8 +50,7 @@ Sprites_RestoreSlotsFromBank3:: ; 7F:627C
 	ld de, $DA00
 	ld hl, $D900
 	ld b, $00
-
-Label_7F_628B:: ; 7F:628B
+.loop ; 7F:628B
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -65,7 +63,7 @@ Label_7F_628B:: ; 7F:628B
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_7F_628B
+	jr nz, .loop
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

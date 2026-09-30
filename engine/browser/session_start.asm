@@ -4,9 +4,8 @@
 
 SECTION "engine/browser/session_start", ROMX
 
-; ---- code $488D-$4904 (119 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
-
 Browser_LoadUrlFromSramBank3:: ; 4E:488D
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
 	ld a, c
 	ld [wRam_C2C5], a
 	ld a, b
@@ -63,9 +62,9 @@ Data_4E_4904::
 	db $30, $31, $2F, $43, $47, $42, $2D, $42, $39, $41, $4A, $2F, $69, $6E, $64, $65
 	db $78, $2E, $68, $74, $6D, $6C, $00
 
-; ---- code $493B-$4962 (39 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 2; entered by far from 4F:470E (PROBABLE code) [executed in 1 scenarios]
-
 Browser_LoadStagedUrl:: ; 4E:493B
+	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 2;
+	; entered by far from 4F:470E (PROBABLE code) [executed in 1 scenarios]
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
@@ -82,9 +81,8 @@ Browser_LoadStagedUrl:: ; 4E:493B
 	ld [wBrowserScrollbarEnable], a
 	jp Browser_LoadAndDispatch
 
-; ---- code $4962-$4993 (49 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios)
-
 Browser_LoadAndDispatch:: ; 4E:4962
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios)
 	farcall Browser_ClearCaches
 	farcall Browser_HistoryReset
 	xor a, a

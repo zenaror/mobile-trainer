@@ -4,10 +4,10 @@
 
 SECTION "engine/browser/start_choice", ROMX
 
-; ---- code $5F17-$6096 (383 bytes) [CONFIRMED] 133 insn(s); 133 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_StartChoiceScreen:: ; 73:5F17
 Function_73_5F17::
+	; [CONFIRMED] 133 insn(s); 133 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -28,10 +28,9 @@ Function_73_5F17::
 	ld hl, $A8B7
 	call ReadByteFar
 	or a, a
-	jr nz, Label_73_5F4A
+	jr nz, .skip
 	ld a, $01
-
-Label_73_5F4A:: ; 73:5F4A
+.skip ; 73:5F4A
 	ld [wRam_C0E5], a
 	ld a, $01
 	ld [wRam_C0E7], a
@@ -156,44 +155,42 @@ Table_73_6096::
 	dw Label_73_617D
 	dw Label_73_60A0
 
-; ---- code $60A0-$60A6 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
 Label_73_60A0:: ; 73:60A0
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C0E4]
 	or a, a
-	jr z, Label_73_60D7
+	jr z, .l60D7
 
-; ---- code $60A6-$60D7 (49 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 73:60A4 (executed)
+	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
+	; fall-through of the jrcc at 73:60A4 (executed)
 	ld hl, $C0E4
 	ld a, [hl]
 	dec a
 	ld [hl], a
-	jr nz, Label_73_60D7
+	jr nz, .l60D7
 	inc a
 	ld [hl], a
 	ld a, [wSpriteSlots + 47]
 	or a, a
-	jr nz, Label_73_60D7
+	jr nz, .l60D7
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr z, Label_73_60EA
+	jr z, .l60EA
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld a, [wRam_C0E5]
 	ld b, $00
 	or a, a
 	ret z
-
-Label_73_60D0:: ; 73:60D0
+.loop ; 73:60D0
 	inc b
 	srl a
-	jr nc, Label_73_60D0
+	jr nc, .loop
 	ld a, b
 	ret
 
-; ---- code $60D7-$60EA (19 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
-Label_73_60D7:: ; 73:60D7
+.l60D7 ; 73:60D7
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
@@ -201,9 +198,9 @@ Label_73_60D7:: ; 73:60D7
 	call BrowserStart_AnimateFrame
 	jp Label_73_607E
 
-; ---- code $60EA-$6114 (42 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 73:60BB (PROBABLE code)
-
-Label_73_60EA:: ; 73:60EA
+.l60EA ; 73:60EA
+	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
+	; entered by jrcc from 73:60BB (PROBABLE code)
 	farcall Palette_FadeOutWithTicker
 	farcall Ticker_Stop
 	ld b, $01
@@ -218,9 +215,8 @@ Label_73_60EA:: ; 73:60EA
 	ld a, $01
 	ret
 
-; ---- code $6114-$6143 (47 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
-
 Label_73_6114:: ; 73:6114
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -239,9 +235,14 @@ Label_73_6114:: ; 73:6114
 	ld a, [wRam_C0E5]
 	ret
 
-; ---- code $6143-$614F (12 bytes) [HYPOTHESIS] 6 insn(s): two consecutive tiny functions (ld a,[$C0F8] ; xor $01 ; ret) and (ld a,[$C0F9] ; xor $01 ; ret) falling into the code at 614F; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
-
 Function_73_6143:: ; 73:6143
+	; [HYPOTHESIS] 6 insn(s): two consecutive tiny functions (ld a,[$C0F8] ; xor $01 ; ret) and (ld
+	; a,[$C0F9] ; xor $01 ; ret) falling into the code at 614F; well-formed instruction chain (clean
+	; decode, all direct targets land on instruction starts, lands exactly on the next code region);
+	; no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no
+	; direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the
+	; address word) and it is not a fall-through of proven code, so it is only bytes that decode
+	; cleanly
 	ld a, [wRam_C0F8]
 	xor a, $01
 	ret
@@ -250,9 +251,9 @@ Function_73_6143:: ; 73:6143
 	xor a, $01
 	ret
 
-; ---- code $614F-$61D5 (134 bytes) [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1; entered by table from 73:6093 (executed) [executed in 3 scenarios]
-
 Label_73_614F:: ; 73:614F
+	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1;
+	; entered by table from 73:6093 (executed) [executed in 3 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -282,16 +283,14 @@ BrowserStart_HandleDpad:: ; 73:6180
 	or a, a
 	ret nz
 	bit 4, b
-	jr nz, Label_73_6192
+	jr nz, .done
 	bit 6, b
-	jr nz, Label_73_6193
+	jr nz, .l6193
 	bit 7, b
-	jr nz, Label_73_61B4
-
-Label_73_6192:: ; 73:6192
+	jr nz, .l61B4
+.done ; 73:6192
 	ret
-
-Label_73_6193:: ; 73:6193
+.l6193 ; 73:6193
 	ld a, [wRam_C0E5]
 	dec a
 	xor a, $01
@@ -308,8 +307,7 @@ Label_73_6193:: ; 73:6193
 	pop af
 	ldh [rSVBK], a
 	ret
-
-Label_73_61B4:: ; 73:61B4
+.l61B4 ; 73:61B4
 	ld a, [wRam_C0E5]
 	dec a
 	xor a, $01
@@ -326,14 +324,14 @@ Label_73_61B4:: ; 73:61B4
 	pop af
 	ldh [rSVBK], a
 	ret
-
-; ---- code $61D5-$6220 (75 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 
 BrowserStart_DrawButtons:: ; 73:61D5
 Function_73_61D5::
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_73_6220
+	jr nz, .l6220
 	ld a, $D5
 	ld [wRam_C10E], a
 	ld a, $43
@@ -358,9 +356,9 @@ Function_73_61D5::
 	call Function_00_082C
 	ret
 
-; ---- code $6220-$6265 (69 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1; entered by jrcc from 73:61D9 (executed) [executed in 4 scenarios]
-
-Label_73_6220:: ; 73:6220
+.l6220 ; 73:6220
+	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 1;
+	; entered by jrcc from 73:61D9 (executed) [executed in 4 scenarios]
 	ld a, $AD
 	ld [wRam_C10E], a
 	ld a, $43
@@ -385,10 +383,10 @@ Label_73_6220:: ; 73:6220
 	call Function_00_082C
 	ret
 
-; ---- code $6265-$62D2 (109 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 BrowserStart_AnimateFrame:: ; 73:6265
 Function_73_6265::
+	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $C0E7
 	dec [hl]
 	ret nz
@@ -397,14 +395,12 @@ Function_73_6265::
 	ld hl, $447F
 	ld de, $0023
 	or a, a
-	jr z, Label_73_627C
-
-Label_73_6278:: ; 73:6278
+	jr z, .l627C
+.loop ; 73:6278
 	add hl, de
 	dec a
-	jr nz, Label_73_6278
-
-Label_73_627C:: ; 73:627C
+	jr nz, .loop
+.l627C ; 73:627C
 	ld a, $AF
 	add a, l
 	ld [wRam_C10E], a
@@ -429,11 +425,10 @@ Label_73_627C:: ; 73:627C
 BrowserStart_ShowDescription:: ; 73:62AA
 	ld a, [wRam_C0E5]
 	ld b, $FF
-
-Label_73_62AF:: ; 73:62AF
+.loop ; 73:62AF
 	inc b
 	srl a
-	jr nc, Label_73_62AF
+	jr nc, .loop
 	ld a, b
 	cp a, $01
 	call z, Function_73_62D2
@@ -448,14 +443,16 @@ Label_73_62AF:: ; 73:62AF
 	farcall Ticker_Start
 	ret
 
-; ---- code $62D2-$62D7 (5 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
-
 Function_73_62D2:: ; 73:62D2
+	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
+	; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
+	; 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
 	ld a, [wRam_C0F8]
 	or a, a
 	ret z
 
-; ---- code $62D7-$62EF (24 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 62D2-62EF by apply_coverage --split
+	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 62D2-62EF by apply_coverage --split
 	ld b, $05
 	ret
 

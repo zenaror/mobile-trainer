@@ -4,10 +4,10 @@
 
 SECTION "engine/input/joypad", ROMX
 
-; ---- code $7B7C-$7BE0 (100 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Joypad_ReadRaw:: ; 7D:7B7C
 Function_7D_7B7C::
+	; [CONFIRMED] 57 insn(s); 57 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $20
 	ldh [rP1], a
 	ldh a, [rP1]
@@ -34,17 +34,15 @@ Function_7D_7B7C::
 Joypad_UpdateIdleFrames:: ; 7D:7BA4
 	ldh a, [hJoyHeld]
 	or a, a
-	jr z, Label_7D_7BAD
+	jr z, .skip
 	xor a, a
 	ld [wJoyIdleFrames], a
-
-Label_7D_7BAD:: ; 7D:7BAD
+.skip ; 7D:7BAD
 	ld a, [wJoyIdleFrames]
 	inc a
-	jr z, Label_7D_7BB6
+	jr z, .done
 	ld [wJoyIdleFrames], a
-
-Label_7D_7BB6:: ; 7D:7BB6
+.done ; 7D:7BB6
 	ret
 
 Joypad_Update:: ; 7D:7BB7
@@ -68,27 +66,26 @@ Joypad_UpdateUnsaved:: ; 7D:7BC1
 	ld hl, $C2E5
 	ld c, $08
 	ld e, $00
-
-Label_7D_7BD4:: ; 7D:7BD4
+.loop ; 7D:7BD4
 	ld a, [wJoyRepeatDelay]
 	rl b
-	jr nc, Label_7D_7BE4
+	jr nc, .l7BE4
 	ccf
 	ld a, [hl]
 	dec a
-	jr nz, Label_7D_7BE4
+	jr nz, .l7BE4
 
-; ---- code $7BE0-$7BE4 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7D:7BDE (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 7D:7BDE (executed) [executed in 1 scenarios]
 	scf
 	ld a, [wJoyRepeatInterval]
 
-; ---- code $7BE4-$7C12 (46 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 18/18 scenarios)
-
-Label_7D_7BE4:: ; 7D:7BE4
+.l7BE4 ; 7D:7BE4
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 18/18 scenarios)
 	ld [hli], a
 	rl e
 	dec c
-	jr nz, Label_7D_7BD4
+	jr nz, .loop
 	ldh a, [hJoyPressed]
 	or a, e
 	ldh [hJoyPressedRepeat], a
@@ -111,9 +108,8 @@ Joypad_SetRepeatTiming:: ; 7D:7C00
 	ld [wJoyRepeatDelay], a
 	ld hl, $C2E5
 	ld b, $08
-
-Label_7D_7C0D:: ; 7D:7C0D
+.loop ; 7D:7C0D
 	ld [hli], a
 	dec b
-	jr nz, Label_7D_7C0D
+	jr nz, .loop
 	ret

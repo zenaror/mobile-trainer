@@ -4,10 +4,10 @@
 
 SECTION "engine/main/main_program", ROMX
 
-; ---- code $4000-$4010 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Main_Run:: ; 1C:4000
 Function_1C_4000::
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Startup_Run
 	xor a, a
 
@@ -28,9 +28,9 @@ Table_1C_4010::
 Data_1C_4016:: ; 1C:4016
 	db $C3, $07, $40
 
-; ---- code $4019-$401C (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 1C:400D (executed)
-
 Main_TitleChoiceNone:: ; 1C:4019
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by table from 1C:400D (executed)
 	jp Main_TitleLoop
 
 ; ---- data $401C-$401D (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -38,9 +38,8 @@ Main_TitleChoiceNone:: ; 1C:4019
 Data_1C_401C:: ; 1C:401C
 	db $C9
 
-; ---- code $401D-$4033 (22 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios)
-
 Main_TitleChoiceStart:: ; 1C:401D
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios)
 	farcall Nav_TitleStart
 	ld a, $01
 	jp Main_TitleLoop

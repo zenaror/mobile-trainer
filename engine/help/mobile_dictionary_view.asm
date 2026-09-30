@@ -4,10 +4,10 @@
 
 SECTION "engine/help/mobile_dictionary_view", ROMX
 
-; ---- code $4F56-$4FF5 (159 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MobileDictView_Show:: ; 4C:4F56
 Function_4C_4F56::
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C2DC], a
 	call Url_StripFragment
 	ld hl, $C380
@@ -70,21 +70,18 @@ Table_4C_4FF5:: ; 4C:4FF5
 	dw Label_4C_50DD
 	dw Label_4C_4FFF
 
-; ---- code $4FFF-$520C (525 bytes) [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
-
 Label_4C_4FFF:: ; 4C:4FFF
+	; [CONFIRMED] 215 insn(s); 215 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	bit 6, a
-	jr nz, Label_4C_500C
+	jr nz, .l500C
 	bit 7, a
-	jr nz, Label_4C_5015
+	jr nz, .l5015
 	jp Label_4C_4FDD
-
-Label_4C_500C:: ; 4C:500C
+.l500C ; 4C:500C
 	farcall Browser_SelectPrevLink
 	jp Label_4C_4FDD
-
-Label_4C_5015:: ; 4C:5015
+.l5015 ; 4C:5015
 	farcall Browser_SelectNextLink
 	jp Label_4C_4FDD
 
@@ -219,10 +216,9 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	call Function_00_0392
 	ld a, [wBrowserNavigating]
 	or a, a
-	jr z, Label_4C_5147
+	jr z, .l5147
 	farcall MobileDictView_HistoryPush
-
-Label_4C_5147:: ; 4C:5147
+.l5147 ; 4C:5147
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -243,14 +239,13 @@ Label_4C_5147:: ; 4C:5147
 	call Function_00_0392
 	farcall Browser_WrapImageInHtml
 	or a, a
-	jr nz, Label_4C_5194
+	jr nz, .l5194
 	farcall Html_ScanPage
 	ld a, [wHtmlFlags]
 	and a, $01
-	jr z, Label_4C_5194
+	jr z, .l5194
 	farcall MobileDictView_LoadImages
-
-Label_4C_5194:: ; 4C:5194
+.l5194 ; 4C:5194
 	farcall Html_ParsePage
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -278,8 +273,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
-
-Label_4C_51D1:: ; 4C:51D1
+.l51D1 ; 4C:51D1
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -315,7 +309,8 @@ Label_4C_51D1:: ; 4C:51D1
 	or a, e
 	ret z
 
-; ---- code $520C-$5274 (104 bytes) [PROBABLE] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 0; fall-through of the retcc at 4C:520B (executed)
+	; [PROBABLE] 49 insn(s) reached by static flow only; seeds: exec x49; min discovery hops 0;
+	; fall-through of the retcc at 4C:520B (executed)
 	ld a, l
 	ldh [hRam_FFD2], a
 	ld a, h
@@ -331,13 +326,12 @@ Label_4C_51D1:: ; 4C:51D1
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-
-Label_4C_5227:: ; 4C:5227
+.l5227 ; 4C:5227
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, Label_4C_5227
+	jr nz, .l5227
 	ld a, l
 	ld [wBrowserRxPtr], a
 	ld a, h
@@ -366,12 +360,12 @@ Label_4C_5227:: ; 4C:5227
 	ld b, a
 	ld a, [wBrowserRxBank]
 	farcall Function_00_1354
-	jp Label_4C_51D1
-
-; ---- code $5274-$52A3 (47 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+	jp .l51D1
 
 MobileDictView_HistoryPush:: ; 4C:5274
 Function_4C_5274::
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $D500
 	ld a, $06
 	call BankSwitch_H
@@ -387,22 +381,21 @@ Function_4C_5274::
 	call CopyBytes
 	ld a, [wDictHistoryCount]
 	cp a, $06
-	jr nc, Label_4C_5298
+	jr nc, .l5298
 	inc a
-
-Label_4C_5298:: ; 4C:5298
+.l5298 ; 4C:5298
 	ld [wDictHistoryCount], a
 	ld a, [wDictHistoryHead]
 	inc a
 	cp a, $06
-	jr c, Label_4C_52A4
+	jr c, .l52A4
 
-; ---- code $52A3-$52A4 (1 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:52A1 (executed) [executed in 3 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:52A1 (executed) [executed in 3 scenarios]
 	xor a, a
 
-; ---- code $52A4-$52C0 (28 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
-
-Label_4C_52A4:: ; 4C:52A4
+.l52A4 ; 4C:52A4
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld [wDictHistoryHead], a
 	ret
 
@@ -413,20 +406,20 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 	ld [de], a
 	ld a, [wDictHistoryCount]
 	or a, a
-	jr z, Label_4C_52DC
+	jr z, .l52DC
 	dec a
 	ld [wDictHistoryCount], a
 	ld a, [wDictHistoryHead]
 	dec a
 	cp a, $06
-	jr c, Label_4C_52C2
+	jr c, .skip
 
-; ---- code $52C0-$52C2 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:52BE (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:52BE (executed) [executed in 2 scenarios]
 	ld a, $05
 
-; ---- code $52C2-$52DF (29 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
-
-Label_4C_52C2:: ; 4C:52C2
+.skip ; 4C:52C2
+	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
 	ld [wDictHistoryHead], a
 	ld h, a
 	ld l, $00
@@ -440,8 +433,7 @@ Label_4C_52C2:: ; 4C:52C2
 	ldh [rSVBK], a
 	ld bc, $0080
 	call CopyBytes
-
-Label_4C_52DC:: ; 4C:52DC
+.l52DC ; 4C:52DC
 	pop de
 	ld a, [de]
 	ret

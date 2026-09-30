@@ -4,10 +4,10 @@
 
 SECTION "engine/gfx/scroll_split", ROMX
 
-; ---- code $7271-$72E2 (113 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-
 Stat_EnableScrollSplit:: ; 7F:7271
 Function_7F_7271::
+	; [CONFIRMED] 67 insn(s); 67 executed (in up to 7/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	push de
@@ -30,11 +30,10 @@ Function_7F_7271::
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wStatIrqServiceFlag], a
-
-Label_7F_7297:: ; 7F:7297
+.loop ; 7F:7297
 	ldh a, [rLY]
 	cp a, $64
-	jr nz, Label_7F_7297
+	jr nz, .loop
 	ld a, $44
 	ldh [rSTAT], a
 	xor a, a
@@ -70,23 +69,23 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_7F_72D1:: ; 7F:72D1
+.l72D1 ; 7F:72D1
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_7F_72D1
+	jr nz, .l72D1
 	ld b, $91
-
-Label_7F_72D8:: ; 7F:72D8
+.l72D8 ; 7F:72D8
 	ld a, [de]
 	cp a, b
-	jr nz, Label_7F_72D8
+	jr nz, .l72D8
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
 	ret
 
-; ---- code $72E2-$7306 (36 bytes) [PROBABLE] function 72E2-730D (push bc ; ldh a,[$FF70] ... step [$DA31] toward d by 8 ... far call 00:0956 ; pop bc ; ret) whose tail is the validated far-call site region 7306; entry unproven
+	; [PROBABLE] function 72E2-730D (push bc ; ldh a,[$FF70] ... step [$DA31] toward d by 8 ... far
+	; call 00:0956 ; pop bc ; ret) whose tail is the validated far-call site region 7306; entry
+	; unproven
 	push bc
 	ldh a, [rSVBK]
 	push af
@@ -97,26 +96,26 @@ Label_7F_72D8:: ; 7F:72D8
 	ld [wSpriteSlots + 48], a
 	ld a, [wSpriteSlots + 49]
 	cp a, d
-	jr z, Label_7F_72FE
-	jr c, Label_7F_72FC
+	jr z, .l72FE
+	jr c, .l72FC
 	sub a, $08
-	jr Label_7F_72FE
-
-Label_7F_72FC:: ; 7F:72FC
+	jr .l72FE
+.l72FC ; 7F:72FC
 	add a, $08
-
-Label_7F_72FE:: ; 7F:72FE
+.l72FE ; 7F:72FE
 	ld [wSpriteSlots + 49], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $7306-$730E (8 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0956
 	pop bc
 	ret
 
-; ---- code $730E-$7332 (36 bytes) [PROBABLE] twin of 7F:72E2 with step 12 and [$DA51]: function 730E-7339, tail = validated far-call site region 7332; entry unproven
+	; [PROBABLE] twin of 7F:72E2 with step 12 and [$DA51]: function 730E-7339, tail = validated
+	; far-call site region 7332; entry unproven
 	push bc
 	ldh a, [rSVBK]
 	push af
@@ -127,29 +126,28 @@ Label_7F_72FE:: ; 7F:72FE
 	ld [wSpriteSlots + 80], a
 	ld a, [wSpriteSlots + 81]
 	cp a, d
-	jr z, Label_7F_732A
-	jr c, Label_7F_7328
+	jr z, .l732A
+	jr c, .l7328
 	sub a, $0C
-	jr Label_7F_732A
-
-Label_7F_7328:: ; 7F:7328
+	jr .l732A
+.l7328 ; 7F:7328
 	add a, $0C
-
-Label_7F_732A:: ; 7F:732A
+.l732A ; 7F:732A
 	ld [wSpriteSlots + 81], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $7332-$733A (8 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0956
 	pop bc
 	ret
 
-; ---- code $733A-$7375 (59 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 ScrollSplit_StepUp3:: ; 7F:733A
 Function_7F_733A::
+	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld hl, ScrollSplit_StepUp3Ptrs
 	ld c, d
@@ -207,10 +205,10 @@ Data_7F_7385::
 	db $05, $06, $05, $00, $00, $00, $00, $00, $00, $00, $00, $00, $05, $06, $05, $06
 	db $05, $06, $05, $06, $05, $06, $05, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $7425-$7467 (66 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-
 ScrollSplit_StepUp4:: ; 7F:7425
 Function_7F_7425::
+	; [CONFIRMED] 38 insn(s); 38 executed (in up to 5/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld hl, ScrollSplit_StepUp4Ptrs
 	ld c, d
@@ -288,10 +286,10 @@ Data_7F_747F::
 	db $00, $00, $00, $00, $00, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $7578-$75B3 (59 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 ScrollSplit_StepDown3:: ; 7F:7578
 Function_7F_7578::
+	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld hl, ScrollSplit_StepDown3Ptrs
 	ld c, d
@@ -366,10 +364,10 @@ Data_7F_75CB::
 	db $00, $00, $00, $00, $00, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $76C4-$7706 (66 bytes) [CONFIRMED] 38 insn(s); 38 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 ScrollSplit_StepDown4:: ; 7F:76C4
 Function_7F_76C4::
+	; [CONFIRMED] 38 insn(s); 38 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld hl, ScrollSplit_StepDown4Ptrs
 	ld c, d
@@ -447,9 +445,9 @@ Data_7F_771E::
 	db $00, $00, $00, $00, $00, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $7817-$7830 (25 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 1; entered by far from 7F:7244 (PROBABLE code)
-
 Function_7F_7817:: ; 7F:7817
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 1;
+	; entered by far from 7F:7244 (PROBABLE code)
 	push bc
 	ld b, $00
 	ld a, $07

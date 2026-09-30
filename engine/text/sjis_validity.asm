@@ -4,10 +4,10 @@
 
 SECTION "engine/text/sjis_validity", ROMX
 
-; ---- code $4000-$402D (45 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 13/18 scenarios); entry proven: target of an executed call/far call
-
 Font_ValidateSjisCode:: ; 63:4000
 Function_63_4000::
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 13/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	push de
@@ -55,9 +55,8 @@ Table_63_402D::
 	dw Label_63_4061
 	dw Label_63_4067
 
-; ---- code $403D-$4072 (53 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 13/18 scenarios)
-
 Label_63_403D:: ; 63:403D
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 13/18 scenarios)
 	bit 0, c
 	jr z, Font_ValidateSjisCode_Invalid
 	jr Font_ValidateSjisCode_Valid
@@ -104,9 +103,9 @@ Font_ValidateSjisCode_Valid:: ; 63:406D
 	pop af
 	ret
 
-; ---- code $4072-$407A (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 63:403F (executed) [executed in 1 scenarios]
-
 Font_ValidateSjisCode_Invalid:: ; 63:4072
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
+	; entered by jrcc from 63:403F (executed) [executed in 1 scenarios]
 	pop hl
 	pop de
 	pop bc

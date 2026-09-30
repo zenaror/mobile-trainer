@@ -4,9 +4,9 @@
 
 SECTION "engine/sram/save_block_check", ROMX
 
-; ---- code $4658-$4685 (45 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Function_4E_4658:: ; 4E:4658
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -23,14 +23,14 @@ Function_4E_4658:: ; 4E:4658
 	ld [sSram_A9F5], a
 	ld a, [sSram_A9EF]
 	and a, $7F
-	jr nz, Label_4E_4687
+	jr nz, .skip
 
-; ---- code $4685-$4687 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:4683 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4E:4683 (executed) [executed in 1 scenarios]
 	ld a, $01
 
-; ---- code $4687-$46B8 (49 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 18/18 scenarios)
-
-Label_4E_4687:: ; 4E:4687
+.skip ; 4E:4687
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 18/18 scenarios)
 	ld [sSram_A9EF], a
 	xor a, a
 	ld [sSram_A9E3], a
@@ -52,14 +52,14 @@ Browser_BeginSession:: ; 4E:46A3
 	ld [rRAMB], a
 	ld a, [sSram_A9EF]
 	and a, $7F
-	jr nz, Label_4E_46BA
+	jr nz, .skip
 
-; ---- code $46B8-$46BA (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4E:46B6 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4E:46B6 (executed)
 	ld a, $01
 
-; ---- code $46BA-$4730 (118 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 12/18 scenarios)
-
-Label_4E_46BA:: ; 4E:46BA
+.skip ; 4E:46BA
+	; [CONFIRMED] 50 insn(s); 50 executed (in up to 12/18 scenarios)
 	ld [sSram_A9EF], a
 	ld [wBrowserFrameStyle], a
 	xor a, a
@@ -81,10 +81,10 @@ SaveCheck_Verify:: ; 4E:46CF
 	call SaveCheck_Sum16
 	ld a, [sSram_A9EA]
 	cp a, e
-	jr nz, Label_4E_4730
+	jr nz, .l4730
 	ld a, [sSram_A9EB]
 	cp a, d
-	jr nz, Label_4E_4730
+	jr nz, .l4730
 	ld de, $0000
 	ld hl, $A000
 	ld bc, $0684
@@ -94,41 +94,40 @@ SaveCheck_Verify:: ; 4E:46CF
 	call SaveCheck_Sum16
 	ld a, [sSram_A9E6]
 	cp a, e
-	jr nz, Label_4E_4730
+	jr nz, .l4730
 	ld a, [sSram_A9E7]
 	cp a, d
-	jr nz, Label_4E_4730
+	jr nz, .l4730
 	ld a, [sSram_A9EF]
 	and a, $7F
 	or a, a
-	jr z, Label_4E_4730
+	jr z, .l4730
 	cp a, $1B
-	jr nc, Label_4E_4730
+	jr nc, .l4730
 	ld a, [sSram_A9EC]
 	or a, a
-	jr z, Label_4E_4730
+	jr z, .l4730
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
 	ret
 
-; ---- code $4730-$4739 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 4E:46ED (executed)
-
-Label_4E_4730:: ; 4E:4730
+.l4730 ; 4E:4730
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 4E:46ED (executed)
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $FF
 	ret
 
-; ---- code $4739-$47EB (178 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 SaveCheck_Sum16:: ; 4E:4739
 Function_4E_4739::
+	; [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_0392
-
-Label_4E_473C:: ; 4E:473C
+.loop ; 4E:473C
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -138,7 +137,7 @@ Label_4E_473C:: ; 4E:473C
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_4E_473C
+	jr nz, .loop
 	ret
 
 SaveCheck_ResetBlock:: ; 4E:4749
@@ -214,9 +213,12 @@ SaveCheck_Update:: ; 4E:4795
 	ld [rRAMG], a
 	ret
 
-; ---- code $47EB-$4866 (123 bytes) [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct target (jr) lands on an instruction start, ends exactly at the executed function 4E:4866 right after the CONFIRMED function 4E:4739; same SRAM-record style as 4E:417C; no caller/pointer found in the ROM (search for far calls, ld r16 and words), entry unproven
-
 Function_4E_47EB:: ; 4E:47EB
+	; [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from
+	; SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct
+	; target (jr) lands on an instruction start, ends exactly at the executed function 4E:4866 right
+	; after the CONFIRMED function 4E:4739; same SRAM-record style as 4E:417C; no caller/pointer
+	; found in the ROM (search for far calls, ld r16 and words), entry unproven
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -286,9 +288,9 @@ Function_4E_47EB:: ; 4E:47EB
 	ld [rRAMG], a
 	ret
 
-; ---- code $4866-$487F (25 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Function_4E_4866:: ; 4E:4866
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -297,20 +299,19 @@ Function_4E_4866:: ; 4E:4866
 	ld [rRAMB], a
 	ld a, [wMobileErrorCode]
 	cp a, $12
-	jr z, Label_4E_487F
+	jr z, .l487F
 	cp a, $26
-	jr nz, Label_4E_4886
+	jr nz, .l4886
 
-; ---- code $487F-$4886 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; entered by jrcc from 4E:4879 (executed)
-
-Label_4E_487F:: ; 4E:487F
+.l487F ; 4E:487F
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; entered by jrcc from 4E:4879 (executed)
 	ld a, [sSram_A9E3]
 	inc a
 	ld [sSram_A9E3], a
 
-; ---- code $4886-$488D (7 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
-
-Label_4E_4886:: ; 4E:4886
+.l4886 ; 4E:4886
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios) (part of region $4886-$4904)
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

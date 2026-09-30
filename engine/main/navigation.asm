@@ -4,10 +4,10 @@
 
 SECTION "engine/main/navigation", ROMX
 
-; ---- code $7B7C-$7B8E (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
-
 Nav_TitleStart:: ; 7C:7B7C
 Function_7C_7B7C::
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 12/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Tutorial_GateTopMenu
 	xor a, a
 	or a, b
@@ -26,12 +26,14 @@ Table_7C_7B8E::
 	dw Nav_TopMenu_Homepage
 	dw Nav_TopMenu_Help
 
-; ---- code $7B96-$7B99 (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7B85 (loop head)
+	; [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp
+	; head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9
+	; and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp
+	; $7B85 (loop head)
 	jp Nav_TopMenuLoop
 
-; ---- code $7B99-$7BC9 (48 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 9/18 scenarios)
-
 Nav_TopMenu_Back:: ; 7C:7B99
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 9/18 scenarios)
 	ret
 
 Nav_TopMenu_Mail:: ; 7C:7B9A
@@ -69,24 +71,27 @@ Table_7C_7BC9::
 	dw Nav_MailMenu_Profile
 	dw Nav_MailMenu_MailServer
 
-; ---- code $7BD7-$7BDA (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7BC0 (loop head)
+	; [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp
+	; head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9
+	; and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp
+	; $7BC0 (loop head)
 	jp Nav_MailMenuLoop
 
-; ---- code $7BDA-$7BFA (32 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
-
 Nav_MailMenu_SendReceive:: ; 7C:7BDA
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
 	farcall Mail_OutboxIsEmpty
 	inc a
-	jp nz, Label_7C_7C6A
+	jp nz, .l7C6A
 	farcall Mailbox_CountRecords
 	ld a, d
 	cp a, $0C
-	jp nz, Label_7C_7C6A
+	jp nz, .l7C6A
 
-; ---- code $7BFA-$7C6A (112 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0;
+	; fall-through of the jpcc at 7C:7BF7 (executed) [executed in 2 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -124,7 +129,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	pop de
 	farcall Dialog_Show
 	dec a
-	jp nz, Label_7C_7C73
+	jp nz, .l7C73
 	ld a, $FF
 	ld [wMailScreenMode], a
 	ld bc, $0000
@@ -132,21 +137,19 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	farcall Mailbox_Main
 	jp Nav_MailMenuLoop
 
-; ---- code $7C6A-$7C73 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
-
-Label_7C_7C6A:: ; 7C:7C6A
+.l7C6A ; 7C:7C6A
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
 	farcall MailSendRecv_Main
 	jp Nav_MailMenuLoop
 
-; ---- code $7C73-$7C7C (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code) [executed in 2 scenarios]
-
-Label_7C_7C73:: ; 7C:7C73
+.l7C73 ; 7C:7C73
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by jpcc from 7C:7C54 (PROBABLE code) [executed in 2 scenarios]
 	farcall Palette_FadeOutToWhite
 	jp Nav_MailMenuLoop
 
-; ---- code $7C7C-$7CDF (99 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
-
 Nav_MailMenu_WriteMail:: ; 7C:7C7C
+	; [CONFIRMED] 32 insn(s); 32 executed (in up to 2/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -159,11 +162,10 @@ Nav_MailMenu_WriteMail:: ; 7C:7C7C
 	ld hl, $A000
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_7C_7CA5
+	jr nz, .l7CA5
 	farcall MailCompose_Run
 	jp Nav_MailMenuLoop
-
-Label_7C_7CA5:: ; 7C:7CA5
+.l7CA5 ; 7C:7CA5
 	ld c, $00
 	farcall MailDraft_Menu
 	jp Nav_MailMenuLoop
@@ -186,39 +188,39 @@ Nav_MailMenu_AddressBook:: ; 7C:7CCD
 	ld a, $00
 	farcall Abook_Run
 
-; ---- code $7CDF-$7CE2 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 2 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry
+	; not recorded [executed in 2 scenarios]
 	jp Nav_MailMenuLoop
 
-; ---- code $7CE2-$7CF3 (17 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
 Nav_MailMenu_Profile:: ; 7C:7CE2
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
 	xor a, a
 	farcall Profile_Edit
 
-; ---- code $7CF3-$7CF6 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry not recorded [executed in 5 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; entry
+	; not recorded [executed in 5 scenarios]
 	jp Nav_MailMenuLoop
 
-; ---- code $7CF6-$7D0C (22 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
 Nav_MailMenu_MailServer:: ; 7C:7CF6
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
 	xor a, $24
-	jr nz, Label_7C_7D15
+	jr nz, .l7D15
 
-; ---- code $7D0C-$7D15 (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7C:7D0A (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 7C:7D0A (executed) [executed in 1 scenarios]
 	farcall MailSrvDelHidden_MenuRun
 	jp Nav_MailMenuLoop
 
-; ---- code $7D15-$7D60 (75 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
-
-Label_7C_7D15:: ; 7C:7D15
+.l7D15 ; 7C:7D15
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
 	farcall MailSrvDel_MenuRun
 	jp Nav_MailMenuLoop
 
@@ -270,12 +272,14 @@ Table_7C_7D60::
 	dw Nav_MobileSettings_DeleteRegistration
 	dw Nav_MobileSettings_PhoneNumber
 
-; ---- code $7D6C-$7D6F (3 bytes) [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9 and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp $7D57 (loop head); its operand high byte 7D at 7D6E was the 1-byte hole
+	; [PROBABLE] jp back to the head of the dispatch loop (call JumpTableInline ; inline table ; jp
+	; head) placed right after the inline table, same shape after the inline tables at 7B8E, 7BC9
+	; and 7D60 (call $0545 never returns, so the jp is reached only as default/after-table code): jp
+	; $7D57 (loop head); its operand high byte 7D at 7D6E was the 1-byte hole
 	jp Nav_MobileSettingsLoop
 
-; ---- code $7D6F-$7D8B (28 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 4/18 scenarios)
-
 Nav_MobileSettings_Back:: ; 7C:7D6F
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 4/18 scenarios)
 	ret
 
 Nav_MobileSettings_ChangePassword:: ; 7C:7D70
@@ -290,81 +294,72 @@ Nav_MobileSettings_UsageFee:: ; 7C:7D82
 	farcall UsageFee_Run
 	jp Nav_MobileSettingsLoop
 
-; ---- code $7D8B-$7D8D (2 bytes) [HYPOTHESIS] ld a,$00 falling into the raw far-call site at 7D8D (PROBABLE); the previous region ends with jp $7D57 so no path enters here; no reference found
+	; [HYPOTHESIS] ld a,$00 falling into the raw far-call site at 7D8D (PROBABLE); the previous
+	; region ends with jp $7D57 so no path enters here; no reference found
 	ld a, $00
-
-; ---- code $7D8D-$7DFC (111 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 
 Function_7C_7D8D:: ; 7C:7D8D
+	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall CommScene_Init
-
-Label_7C_7D93:: ; 7C:7D93
+.l7D93 ; 7C:7D93
 	ld a, $00
 	farcall CommScene_Step
 	cp a, $02
-	jr z, Label_7C_7DB0
+	jr z, .l7DB0
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr z, Label_7C_7D93
-
-Label_7C_7DA5:: ; 7C:7DA5
+	jr z, .l7D93
+.l7DA5 ; 7C:7DA5
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, Label_7C_7DA5
-
-Label_7C_7DB0:: ; 7C:7DB0
+	jr nz, .l7DA5
+.l7DB0 ; 7C:7DB0
 	ld a, $01
 	farcall CommScene_Init
-
-Label_7C_7DB8:: ; 7C:7DB8
+.l7DB8 ; 7C:7DB8
 	ld a, $00
 	farcall CommScene_Step
 	cp a, $02
-	jr z, Label_7C_7DD5
+	jr z, .l7DD5
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr z, Label_7C_7DB8
-
-Label_7C_7DCA:: ; 7C:7DCA
+	jr z, .l7DB8
+.l7DCA ; 7C:7DCA
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, Label_7C_7DCA
-
-Label_7C_7DD5:: ; 7C:7DD5
+	jr nz, .l7DCA
+.l7DD5 ; 7C:7DD5
 	ld a, $02
 	farcall CommScene_Init
-
-Label_7C_7DDD:: ; 7C:7DDD
+.l7DDD ; 7C:7DDD
 	ld a, $00
 	farcall CommScene_Step
 	cp a, $02
-	jr z, Label_7C_7DFA
+	jr z, .l7DFA
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr z, Label_7C_7DDD
-
-Label_7C_7DEF:: ; 7C:7DEF
+	jr z, .l7DDD
+.l7DEF ; 7C:7DEF
 	ld a, $01
 	farcall CommScene_Step
 	or a, a
-	jr nz, Label_7C_7DEF
-
-Label_7C_7DFA:: ; 7C:7DFA
+	jr nz, .l7DEF
+.l7DFA ; 7C:7DFA
 	jr Nav_MobileSettings_UsageFee
 
-; ---- code $7DFC-$7DFF (3 bytes) [HYPOTHESIS] jp $7D57 after an unconditional jr; no reference found
+	; [HYPOTHESIS] jp $7D57 after an unconditional jr; no reference found
 	jp Nav_MobileSettingsLoop
 
-; ---- code $7DFF-$7E08 (9 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
-
 Nav_MobileSettings_DeleteRegistration:: ; 7C:7DFF
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	farcall Registration_DeleteFlow
 	jp Nav_MobileSettingsLoop
 
-; ---- code $7E08-$7E11 (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 7C:7D5D (executed) [executed in 2 scenarios]
-
 Nav_MobileSettings_PhoneNumber:: ; 7C:7E08
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by table from 7C:7D5D (executed) [executed in 2 scenarios]
 	farcall SettingsPhone_Run
 	jp Nav_MobileSettingsLoop

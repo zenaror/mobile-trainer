@@ -4,9 +4,9 @@
 
 SECTION "home/far_string", ROM0
 
-; ---- code $153D-$1586 (73 bytes) [CONFIRMED] A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5), returns HL=$D000, A=5 [reached via inferred links; raw refs 11] [executed in 17 scenarios]
-
 Function_00_153D:: ; 00:153D
+	; [CONFIRMED] A=index: copies the string from 65:567F[A] (word table) to D000 (WRAM bank 5),
+	; returns HL=$D000, A=5 [reached via inferred links; raw refs 11] [executed in 17 scenarios]
 	ld b, a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -49,17 +49,18 @@ Function_00_153D:: ; 00:153D
 	ld a, $05
 	ret
 
-; ---- code $1586-$158D (7 bytes) [CONFIRMED] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
-
 Function_00_1586:: ; 00:1586
+	; [CONFIRMED] far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes
+	; the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred
+	; links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ;
+	; db $68 -> 68:44FC
 	push de
 	farcall Settings_GetHiddenModeFlag
 
-; ---- code $158D-$161A (141 bytes) [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
-
 Function_00_158D:: ; 00:158D
+	; [CONFIRMED] continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 	or a, a
-	jr nz, Label_00_15BD
+	jr nz, .l15BD
 	pop de
 	ldh [hScratchA], a
 	ldh a, [hROMBankLo]
@@ -86,8 +87,7 @@ Function_00_158D:: ; 00:158D
 	ld [$2100], a
 	ldh a, [hScratchA]
 	ret
-
-Label_00_15BD:: ; 00:15BD
+.l15BD ; 00:15BD
 	pop de
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]

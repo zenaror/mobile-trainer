@@ -4,9 +4,8 @@
 
 SECTION "engine/text/half_to_full_width", ROMX
 
-; ---- code $6CC6-$6CD4 (14 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 11/18 scenarios) (part of region $6C3B-$6CD4)
-
 Text_HalfToFullWidth:: ; 55:6CC6
+	; [CONFIRMED] 72 insn(s); 72 executed (in up to 11/18 scenarios) (part of region $6C3B-$6CD4)
 	sub a, $20
 	ld h, $00
 	ld l, a

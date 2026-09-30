@@ -4,10 +4,10 @@
 
 SECTION "engine/account/login_id_entry", ROMX
 
-; ---- code $5296-$52B2 (28 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Account_LoginIdEntryScreen:: ; 68:5296
 Function_68_5296::
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Account_LoginIdEntry_Setup
 	farcall Palette_FadeInFromWhite
 	call Account_LoginIdEntry_InputLoop
@@ -16,9 +16,11 @@ Function_68_5296::
 	ld a, [wRam_C27C]
 	ret
 
-; ---- code $52B2-$531A (104 bytes) [HYPOTHESIS] complete ret-terminated function (51 insn): SRAM enable/bank-1 select, copies with call $14EA / $1509 and clears a flag bit in [$C278] (xor $FF/and); the routine at 5739 is its twin; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
-
 Function_68_52B2:: ; 68:52B2
+	; [HYPOTHESIS] complete ret-terminated function (51 insn): SRAM enable/bank-1 select, copies
+	; with call $14EA / $1509 and clears a flag bit in [$C278] (xor $FF/and); the routine at 5739 is
+	; its twin; entry not proven [verifier: no entry proven (no caller, no valid table word, never
+	; executed): decode chain alone is not proof -> HYPOTHESIS]
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -47,15 +49,14 @@ Function_68_52B2:: ; 68:52B2
 	ld de, $DEA0
 	call CompareString
 	or a, a
-	jr z, Label_68_52FC
+	jr z, .l52FC
 	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $01
 	xor a, $FF
 	and a, b
 	ld [wSettingsFieldMask], a
-
-Label_68_52FC:: ; 68:52FC
+.l52FC ; 68:52FC
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -73,10 +74,10 @@ Label_68_52FC:: ; 68:52FC
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $531A-$5404 (234 bytes) [CONFIRMED] 74 insn(s); 74 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Account_LoginIdEntry_Setup:: ; 68:531A
 Function_68_531A::
+	; [CONFIRMED] 74 insn(s); 74 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -146,42 +147,40 @@ Function_68_531A::
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr c, Label_68_53F7
+	jr c, .l53F7
 	ret
-
-Label_68_53F7:: ; 68:53F7
+.l53F7 ; 68:53F7
 	farcall Kbd_ShowMarkerSprite
 	farcall Function_00_0956
 	ret
 
-; ---- code $5404-$5417 (19 bytes) [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 -> [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
-
 Function_68_5404:: ; 68:5404
+	; [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 ->
+	; [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never
+	; executed): decode chain alone is not proof -> HYPOTHESIS]
 	ld a, [wSettingsFieldMask]
 	and a, $01
-	jr nz, Label_68_5411
+	jr nz, .l5411
 	ld a, $00
 	ld [wRam_C27D], a
 	ret
-
-Label_68_5411:: ; 68:5411
+.l5411 ; 68:5411
 	ld a, $01
 	ld [wRam_C27D], a
 	ret
 
-; ---- code $5417-$5451 (58 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Account_LoginIdEntry_UpdateOkState:: ; 68:5417
 Function_68_5417::
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $DE80
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, Label_68_5429
+	jr z, .l5429
 	ld a, $00
 	ld [wRam_C27D], a
 	ret
-
-Label_68_5429:: ; 68:5429
+.l5429 ; 68:5429
 	ld a, $01
 	ld [wRam_C27D], a
 	ret
@@ -192,26 +191,26 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
-	jr z, Label_68_5454
+	jr z, .l5454
 	cp a, $02
-	jr z, Label_68_54A5
+	jr z, .l54A5
 	cp a, $07
-	jp z, Label_68_54DE
+	jp z, .l54DE
 	cp a, $08
-	jp z, Label_68_5516
+	jp z, .l5516
 
-; ---- code $5451-$5454 (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 68:544E (executed)
-	jp Label_68_5549
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jpcc at 68:544E (executed)
+	jp .l5549
 
-; ---- code $5454-$54CE (122 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
-
-Label_68_5454:: ; 68:5454
+.l5454 ; 68:5454
+	; [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, Label_68_5476
+	jr nz, .l5476
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -220,9 +219,8 @@ Label_68_5454:: ; 68:5454
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jr Label_68_5486
-
-Label_68_5476:: ; 68:5476
+	jr .l5486
+.l5476 ; 68:5476
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -231,24 +229,21 @@ Label_68_5476:: ; 68:5476
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-
-Label_68_5486:: ; 68:5486
+.l5486 ; 68:5486
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr c, Label_68_549C
+	jr c, .l549C
 	farcall Kbd_HideMarkerSprite
-	jp Label_68_552E
-
-Label_68_549C:: ; 68:549C
+	jp .l552E
+.l549C ; 68:549C
 	farcall Kbd_ShowMarkerSprite
-	jp Label_68_552E
-
-Label_68_54A5:: ; 68:54A5
+	jp .l552E
+.l54A5 ; 68:54A5
 	ld hl, $DE80
 	farcall TextBuf_DeleteLast
 	or a, a
-	jr nz, Label_68_5516
+	jr nz, .l5516
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -260,23 +255,22 @@ Label_68_54A5:: ; 68:54A5
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr c, Label_68_54D6
+	jr c, .l54D6
 
-; ---- code $54CE-$54D6 (8 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:54CC (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 68:54CC (executed)
 	farcall Kbd_HideMarkerSprite
-	jr Label_68_552E
+	jr .l552E
 
-; ---- code $54D6-$571D (583 bytes) [CONFIRMED] 239 insn(s); 239 executed (in up to 3/18 scenarios) (part of region $54D6-$5739)
-
-Label_68_54D6:: ; 68:54D6
+.l54D6 ; 68:54D6
+	; [CONFIRMED] 239 insn(s); 239 executed (in up to 3/18 scenarios) (part of region $54D6-$5739)
 	farcall Kbd_ShowMarkerSprite
-	jr Label_68_552E
-
-Label_68_54DE:: ; 68:54DE
+	jr .l552E
+.l54DE ; 68:54DE
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $09
-	jr nc, Label_68_54FD
+	jr nc, .l54FD
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -285,9 +279,8 @@ Label_68_54DE:: ; 68:54DE
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jr Label_68_5549
-
-Label_68_54FD:: ; 68:54FD
+	jr .l5549
+.l54FD ; 68:54FD
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -300,8 +293,7 @@ Label_68_54FD:: ; 68:54FD
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
-
-Label_68_5516:: ; 68:5516
+.l5516 ; 68:5516
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -314,8 +306,7 @@ Label_68_5516:: ; 68:5516
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_68_552E:: ; 68:552E
+.l552E ; 68:552E
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
@@ -325,8 +316,7 @@ Label_68_552E:: ; 68:552E
 	call Account_LoginId_PrintField
 	call Account_LoginId_UploadTextTiles
 	call Account_LoginIdEntry_UpdateOkState
-
-Label_68_5549:: ; 68:5549
+.l5549 ; 68:5549
 	jp Account_LoginIdEntry_InputLoop
 
 Account_CommitLoginId:: ; 68:554C
@@ -405,18 +395,16 @@ Account_LoginId_UploadTextTiles:: ; 68:55D1
 Account_LoginIdIntroPage:: ; 68:55E1
 	call Account_LoginIdIntro_Draw
 	farcall Palette_FadeInFromWhite
-
-Label_68_55EA:: ; 68:55EA
+.loop ; 68:55EA
 	call Function_00_044B
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_55FF
+	jr nz, .l55FF
 	bit 1, a
-	jr nz, Label_68_5613
-	jr Label_68_55EA
-
-Label_68_55FF:: ; 68:55FF
+	jr nz, .l5613
+	jr .loop
+.l55FF ; 68:55FF
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -426,9 +414,8 @@ Label_68_55FF:: ; 68:55FF
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	jr Label_68_5626
-
-Label_68_5613:: ; 68:5613
+	jr .l5626
+.l5613 ; 68:5613
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -438,9 +425,8 @@ Label_68_5613:: ; 68:5613
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	jr Label_68_5626
-
-Label_68_5626:: ; 68:5626
+	jr .l5626
+.l5626 ; 68:5626
 	push af
 	farcall Palette_FadeOutToWhite
 	pop af

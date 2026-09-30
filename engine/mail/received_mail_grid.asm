@@ -4,14 +4,17 @@
 
 SECTION "engine/mail/received_mail_grid", ROMX
 
-; ---- code $53C3-$53C6 (3 bytes) [HYPOTHESIS] 'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 MailGrid_Screen:: ; 2B:53C3
+	; [HYPOTHESIS] 'call $5448' (cd 48 54) directly after the animation block, falling into the
+	; PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction
+	; start | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not
+	; natural evidence; status unchanged)
 	call MailGrid_InitScreen
 
-; ---- code $53C6-$562B (613 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
-Label_2B_53C6:: ; 2B:53C6
+.loop ; 2B:53C6
+	; [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0;
+	; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	push bc
 	farcall Function_00_0956
 	call Function_00_044B
@@ -20,7 +23,7 @@ Label_2B_53C6:: ; 2B:53C6
 	call MailGrid_PlaceCursorSprite
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2B_53F3
+	jr z, .l53F3
 	push bc
 	farcall Palette_FadeOutToWhite
 	pop bc
@@ -28,16 +31,14 @@ Label_2B_53C6:: ; 2B:53C6
 	farcall MailView_SenderPage
 	pop bc
 	jp MailDraft_Menu
-
-Label_2B_53F3:: ; 2B:53F3
+.l53F3 ; 2B:53F3
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2B_5402
+	jr z, .l5402
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-
-Label_2B_5402:: ; 2B:5402
+.l5402 ; 2B:5402
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
 	call nz, MailGrid_CursorLeft
@@ -50,7 +51,7 @@ Label_2B_5402:: ; 2B:5402
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
 	call nz, MailGrid_CursorDown
-	jr Label_2B_53C6
+	jr .loop
 
 MailGrid_CursorLeft:: ; 2B:5420
 	ld a, c
@@ -165,120 +166,107 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	ldh [rSVBK], a
 	ld a, c
 	cp a, $00
-	jr nz, Label_2B_553A
+	jr nz, .l553A
 	ld de, $1404
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_553A:: ; 2B:553A
+.l553A ; 2B:553A
 	cp a, $01
-	jr nz, Label_2B_5549
+	jr nz, .l5549
 	ld de, $142C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5549:: ; 2B:5549
+.l5549 ; 2B:5549
 	cp a, $02
-	jr nz, Label_2B_5558
+	jr nz, .l5558
 	ld de, $1454
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5558:: ; 2B:5558
+.l5558 ; 2B:5558
 	cp a, $03
-	jr nz, Label_2B_5567
+	jr nz, .l5567
 	ld de, $147C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5567:: ; 2B:5567
+.l5567 ; 2B:5567
 	cp a, $04
-	jr nz, Label_2B_5576
+	jr nz, .l5576
 	ld de, $3404
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5576:: ; 2B:5576
+.l5576 ; 2B:5576
 	cp a, $05
-	jr nz, Label_2B_5585
+	jr nz, .l5585
 	ld de, $342C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5585:: ; 2B:5585
+.l5585 ; 2B:5585
 	cp a, $06
-	jr nz, Label_2B_5594
+	jr nz, .l5594
 	ld de, $3454
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_5594:: ; 2B:5594
+.l5594 ; 2B:5594
 	cp a, $07
-	jr nz, Label_2B_55A3
+	jr nz, .l55A3
 	ld de, $347C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_55A3:: ; 2B:55A3
+.l55A3 ; 2B:55A3
 	cp a, $08
-	jr nz, Label_2B_55B2
+	jr nz, .l55B2
 	ld de, $5404
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_55B2:: ; 2B:55B2
+.l55B2 ; 2B:55B2
 	cp a, $09
-	jr nz, Label_2B_55C1
+	jr nz, .l55C1
 	ld de, $542C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_55C1:: ; 2B:55C1
+.l55C1 ; 2B:55C1
 	cp a, $0A
-	jr nz, Label_2B_55D0
+	jr nz, .l55D0
 	ld de, $5454
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_55D0:: ; 2B:55D0
+.l55D0 ; 2B:55D0
 	cp a, $0B
-	jr nz, Label_2B_55DF
+	jr nz, .l55DF
 	ld de, $547C
 	ld hl, $DA10
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_2B_55DF:: ; 2B:55DF
+.l55DF ; 2B:55DF
 	pop bc
 	ret
 
 MailGrid_DrawCellIcons:: ; 2B:55E1
 	ld c, $00
-
-Label_2B_55E3:: ; 2B:55E3
+.loop ; 2B:55E3
 	push bc
 	sla c
 	ld b, $00
@@ -311,22 +299,20 @@ Label_2B_55E3:: ; 2B:55E3
 	pop af
 	pop hl
 	cp a, $01
-	jr nz, Label_2B_561B
+	jr nz, .l561B
 	call MailGrid_DrawCellIcon_Flag1
 	xor a, a
-
-Label_2B_561B:: ; 2B:561B
+.l561B ; 2B:561B
 	cp a, $02
-	jr nz, Label_2B_5623
+	jr nz, .l5623
 	call MailGrid_DrawCellIcon_Flag2
 	xor a, a
-
-Label_2B_5623:: ; 2B:5623
+.l5623 ; 2B:5623
 	pop bc
 	inc c
 	ld a, c
 	cp a, $0C
-	jr nz, Label_2B_55E3
+	jr nz, .loop
 	ret
 
 ; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
@@ -343,9 +329,10 @@ Table_2B_5643::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $565B-$57B5 (346 bytes) [PROBABLE] 246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code) | forced execution: 197/246 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 MailGrid_DrawCellIcon_Flag1:: ; 2B:565B
+	; [PROBABLE] 246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1;
+	; entered by call from 2B:5617 (PROBABLE code) | forced execution: 197/246 instruction starts
+	; ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	xor a, a
 	ldh [rVBK], a
 	ld de, $0020
@@ -467,12 +454,11 @@ MailGrid_ShowCellDetails:: ; 2B:56CB
 	ld l, e
 	ld a, [hl]
 	dec a
-	jr z, Label_2B_56F2
+	jr z, .l56F2
 	dec a
-	jr z, Label_2B_56F2
+	jr z, .l56F2
 	jp Label_2B_57CB
-
-Label_2B_56F2:: ; 2B:56F2
+.l56F2 ; 2B:56F2
 	push bc
 	ld b, $00
 	sla c
@@ -491,8 +477,7 @@ Label_2B_56F2:: ; 2B:56F2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $06
-
-Label_2B_5710:: ; 2B:5710
+.l5710 ; 2B:5710
 	ld a, [hl]
 	swap a
 	and a, $0F
@@ -505,17 +490,16 @@ Label_2B_5710:: ; 2B:5710
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_5710
+	jr nz, .l5710
 	ld de, $99E1
 	ld hl, $D524
 	xor a, a
 	ldh [rVBK], a
 	di
-
-Label_2B_572D:: ; 2B:572D
+.l572D ; 2B:572D
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2B_572D
+	jr nz, .l572D
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -609,16 +593,16 @@ String_2B_57B5:: ; 2B:57B5
 	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $E1, $00 ; "そうしんしゃ"
 	db $82, $A0, $82, $BB, $82, $DA, $82, $A4, $00 ; "あそぼう"
 
-; ---- code $57CB-$5806 (59 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Label_2B_57CB:: ; 2B:57CB
+	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2;
+	; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld hl, $99E1
 	di
-
-Label_2B_57CF:: ; 2B:57CF
+.loop ; 2B:57CF
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2B_57CF
+	jr nz, .loop
 	ld a, $46
 	ld [hli], a
 	ld [hli], a
@@ -650,7 +634,7 @@ Label_2B_57CF:: ; 2B:57CF
 	pop bc
 	ret
 
-; ---- code $5806-$5807 (1 bytes) [HYPOTHESIS] lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
+	; [HYPOTHESIS] lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
 	ret
 
 ; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
@@ -665,41 +649,39 @@ Table_2B_5814::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $582C-$59B4 (392 bytes) [PROBABLE] 225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code) | forced execution: 204/225 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 MailGrid_CopyTextEllipsis:: ; 2B:582C
+	; [PROBABLE] 225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0;
+	; entered by call from 2B:5776 (PROBABLE code) | forced execution: 204/225 instruction starts
+	; ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	push hl
 	push de
 	ld c, $00
 	ld b, $0D
-
-Label_2B_5832:: ; 2B:5832
+.l5832 ; 2B:5832
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr z, Label_2B_583E
+	jr z, .l583E
 	dec b
-	jr nz, Label_2B_5832
+	jr nz, .l5832
 	ld c, $01
-
-Label_2B_583E:: ; 2B:583E
+.l583E ; 2B:583E
 	pop hl
 	pop de
 	dec c
 	ret nz
 	ld b, $00
-
-Label_2B_5844:: ; 2B:5844
+.l5844 ; 2B:5844
 	ld a, [hli]
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_5876
+	jr nz, .l5876
 	pop af
 	ld a, b
 	cp a, $08
-	jr nz, Label_2B_5860
+	jr nz, .l5860
 	inc hl
 	ld a, $81
 	ld [hli], a
@@ -707,12 +689,11 @@ Label_2B_5844:: ; 2B:5844
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr Label_2B_588A
-
-Label_2B_5860:: ; 2B:5860
+	jr .done
+.l5860 ; 2B:5860
 	ld a, b
 	cp a, $09
-	jr nz, Label_2B_5873
+	jr nz, .l5873
 	dec hl
 	ld a, $81
 	ld [hli], a
@@ -722,18 +703,16 @@ Label_2B_5860:: ; 2B:5860
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr Label_2B_588A
-
-Label_2B_5873:: ; 2B:5873
+	jr .done
+.l5873 ; 2B:5873
 	inc b
 	inc hl
 	push af
-
-Label_2B_5876:: ; 2B:5876
+.l5876 ; 2B:5876
 	pop af
 	ld a, b
 	cp a, $0A
-	jr nz, Label_2B_5887
+	jr nz, .l5887
 	dec hl
 	ld a, $81
 	ld [hli], a
@@ -741,32 +720,29 @@ Label_2B_5876:: ; 2B:5876
 	ld [hli], a
 	xor a, a
 	ld [hl], a
-	jr Label_2B_588A
-
-Label_2B_5887:: ; 2B:5887
+	jr .done
+.l5887 ; 2B:5887
 	inc b
-	jr Label_2B_5844
-
-Label_2B_588A:: ; 2B:588A
+	jr .l5844
+.done ; 2B:588A
 	ret
 
 MailGrid_DrawTextLine12:: ; 2B:588B
 	ld a, $0C
 	ld [wTextCellsLeft], a
-
-Label_2B_5890:: ; 2B:5890
+.l5890 ; 2B:5890
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2B_592B
+	jp z, .l592B
 	cp a, $0D
-	jr z, Label_2B_5910
+	jr z, .l5910
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_58EB
+	jr nz, .l58EB
 	pop af
 	push bc
 	push de
@@ -800,12 +776,11 @@ Label_2B_5890:: ; 2B:5890
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_592B
+	jr z, .l592B
 	cp a, $01
-	jr z, Label_2B_592B
-	jr Label_2B_5890
-
-Label_2B_58EB:: ; 2B:58EB
+	jr z, .l592B
+	jr .l5890
+.l58EB ; 2B:58EB
 	pop af
 	push bc
 	push de
@@ -821,12 +796,11 @@ Label_2B_58EB:: ; 2B:58EB
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_592B
+	jr z, .l592B
 	cp a, $01
-	jr z, Label_2B_592B
-	jr Label_2B_5890
-
-Label_2B_5910:: ; 2B:5910
+	jr z, .l592B
+	jr .l5890
+.l5910 ; 2B:5910
 	push bc
 	push de
 	push hl
@@ -840,8 +814,7 @@ Label_2B_5910:: ; 2B:5910
 	dec a
 	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
-
-Label_2B_592B:: ; 2B:592B
+.l592B ; 2B:592B
 	push bc
 	push de
 	push hl
@@ -851,15 +824,14 @@ Label_2B_592B:: ; 2B:592B
 	pop hl
 	pop de
 	pop bc
-
-Label_2B_593C:: ; 2B:593C
+.l593C ; 2B:593C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
-	jr Label_2B_593C
+	jr .l593C
 
 MailGrid_DrawTextLine12_BlitGlyphAdvance:: ; 2B:594B
 	push bc
@@ -918,17 +890,15 @@ Gfx_StartHDMAAtVBlank_2B_5994:: ; 2B:5994
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2B_59A3:: ; 2B:59A3
+.l59A3 ; 2B:59A3
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2B_59A3
+	jr nz, .l59A3
 	ld b, $91
-
-Label_2B_59AA:: ; 2B:59AA
+.l59AA ; 2B:59AA
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2B_59AA
+	jr nz, .l59AA
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

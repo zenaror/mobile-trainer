@@ -4,9 +4,8 @@
 
 SECTION "engine/settings/password_save_confirm", ROMX
 
-; ---- code $6536-$65F2 (188 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 18/18 scenarios) (part of region $64B4-$65F2)
-
 PwSaveConfirm_Run:: ; 67:6536
+	; [CONFIRMED] 114 insn(s); 114 executed (in up to 18/18 scenarios) (part of region $64B4-$65F2)
 	ld [wRam_C27E], a
 	call PwSaveConfirm_Setup
 	farcall Palette_FadeInFromWhite
@@ -64,26 +63,25 @@ PwSaveConfirm_Setup:: ; 67:6565
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_65F2
+	jr nz, .l65F2
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_5D_7BA0
 	ld a, $5D
 	farcall Function_00_08EA
-	jr Label_67_6603
+	jr .l6603
 
-; ---- code $65F2-$6603 (17 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 67:65DD (executed)
-
-Label_67_65F2:: ; 67:65F2
+.l65F2 ; 67:65F2
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 67:65DD (executed)
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_71_6F6F
 	ld a, $71
 	farcall Function_00_08EA
 
-; ---- code $6603-$6664 (97 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
-
-Label_67_6603:: ; 67:6603
+.l6603 ; 67:6603
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
 	call PwSaveConfirm_PrintPrompt
 	call PwSaveConfirm_UploadTextTiles
 	call PwSaveConfirm_BuildTextMap
@@ -103,16 +101,15 @@ PwSaveConfirm_Loop:: ; 67:6625
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_67_6648
+	jr nz, .l6648
 	bit 1, a
-	jr nz, Label_67_666A
+	jr nz, .l666A
 	bit 5, a
-	jr nz, Label_67_6685
+	jr nz, .l6685
 	bit 4, a
-	jr nz, Label_67_6685
+	jr nz, .l6685
 	jr PwSaveConfirm_Loop
-
-Label_67_6648:: ; 67:6648
+.l6648 ; 67:6648
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -123,19 +120,18 @@ Label_67_6648:: ; 67:6648
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_67_6664
+	jr nz, .l6664
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $6664-$66A6 (66 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 67:665C (executed)
-
-Label_67_6664:: ; 67:6664
+.l6664 ; 67:6664
+	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
+	; entered by jrcc from 67:665C (executed)
 	ld a, $02
 	ld [wRam_C27C], a
 	ret
-
-Label_67_666A:: ; 67:666A
+.l666A ; 67:666A
 	ld a, [wRam_C27E]
 	or a, a
 	jr nz, PwSaveConfirm_Loop
@@ -150,8 +146,7 @@ Label_67_666A:: ; 67:666A
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_67_6685:: ; 67:6685
+.l6685 ; 67:6685
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -165,15 +160,14 @@ Label_67_6685:: ; 67:6685
 	xor a, b
 	ld [wRam_C27D], a
 	call PwSaveConfirm_PlaceCursor
-	jr Label_67_66A3
-
-Label_67_66A3:: ; 67:66A3
+	jr .l66A3
+.l66A3 ; 67:66A3
 	jp PwSaveConfirm_Loop
-
-; ---- code $66A6-$66BE (24 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 PwSaveConfirm_PlaceCursor:: ; 67:66A6
 Function_67_66A6::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C27D]
 	add a, a
 	ld hl, PwSaveConfirm_CursorPos
@@ -196,10 +190,10 @@ PwSaveConfirm_CursorPos:: ; 67:66BE
 Data_67_66BE::
 	db $28, $30, $58, $30
 
-; ---- code $66C2-$6731 (111 bytes) [CONFIRMED] 166 insn(s); 166 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call (part of region $66C2-$67DB)
-
 PwSaveConfirm_BuildTextMap:: ; 67:66C2
 Function_67_66C2::
+	; [CONFIRMED] 166 insn(s); 166 executed (in up to 7/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $66C2-$67DB)
 	ld hl, $D121
 	ld de, $0000
 	ld bc, $0612

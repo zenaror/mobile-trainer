@@ -4,10 +4,10 @@
 
 SECTION "engine/help/help_menu", ROMX
 
-; ---- code $4000-$4101 (257 bytes) [CONFIRMED] 95 insn(s); 95 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 HelpMenu_ShowPage:: ; 6C:4000
 Function_6C_4000::
+	; [CONFIRMED] 95 insn(s); 95 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	xor a, a
 	ld bc, $00FC
@@ -81,9 +81,9 @@ Label_6C_401D:: ; 6C:401D
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr z, Label_6C_40E6
+	jr z, .l40E6
 	cp a, $03
-	jr z, Label_6C_4101
+	jr z, .l4101
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_6A_4000
@@ -95,9 +95,8 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $03
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
-	jr Label_6C_411A
-
-Label_6C_40E6:: ; 6C:40E6
+	jr .l411A
+.l40E6 ; 6C:40E6
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_6A_42D0
@@ -106,11 +105,11 @@ Label_6C_40E6:: ; 6C:40E6
 	ld a, $02
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
-	jr Label_6C_411A
+	jr .l411A
 
-; ---- code $4101-$411A (25 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
-
-Label_6C_4101:: ; 6C:4101
+.l4101 ; 6C:4101
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
+	; entered by jrcc from 6C:40C1 (executed) [executed in 2 scenarios]
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_6A_45A0
@@ -120,9 +119,8 @@ Label_6C_4101:: ; 6C:4101
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
 
-; ---- code $411A-$41CB (177 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 3/18 scenarios)
-
-Label_6C_411A:: ; 6C:411A
+.l411A ; 6C:411A
+	; [CONFIRMED] 61 insn(s); 61 executed (in up to 3/18 scenarios)
 	ld a, $01
 	ld [wRam_C0E6], a
 	ld hl, $DA10
@@ -197,9 +195,8 @@ Table_6C_41CB::
 	dw Label_6C_429C
 	dw Label_6C_41D5
 
-; ---- code $41D5-$422E (89 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
-
 Label_6C_41D5:: ; 6C:41D5
+	; [CONFIRMED] 35 insn(s); 35 executed (in up to 3/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
@@ -210,7 +207,7 @@ Label_6C_41E5:: ; 6C:41E5
 	ld a, [wRam_C0E5]
 	call HelpMenu_ItemIsLocked
 	or a, a
-	jp nz, Label_6C_4247
+	jp nz, .l4247
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -223,49 +220,46 @@ Label_6C_41E5:: ; 6C:41E5
 	farcall Ticker_Stop
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr z, Label_6C_423B
+	jr z, .l423B
 	cp a, $03
-	jr z, Label_6C_4241
+	jr z, .l4241
 	ld a, [wRam_C0E5]
 	cp a, $02
-	jr z, Label_6C_4222
+	jr z, .l4222
 	cp a, $03
-	jr z, Label_6C_422E
+	jr z, .l422E
 	ret
-
-Label_6C_4222:: ; 6C:4222
+.l4222 ; 6C:4222
 	ld a, $02
 	ld [wRam_C0D8], a
 	dec a
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $422E-$423B (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
-
-Label_6C_422E:: ; 6C:422E
+.l422E ; 6C:422E
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 6C:421F (executed) [executed in 2 scenarios]
 	ld a, $03
 	ld [wRam_C0D8], a
 	ld a, $01
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $423B-$4241 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-
-Label_6C_423B:: ; 6C:423B
+.l423B ; 6C:423B
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, [wRam_C0E5]
 	add a, $08
 	ret
 
-; ---- code $4241-$4247 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 6C:4214 (executed) [executed in 2 scenarios]
-
-Label_6C_4241:: ; 6C:4241
+.l4241 ; 6C:4241
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jrcc from 6C:4214 (executed) [executed in 2 scenarios]
 	ld a, [wRam_C0E5]
 	add a, $10
 	ret
 
-; ---- code $4247-$428F (72 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 3/18 scenarios)
-
-Label_6C_4247:: ; 6C:4247
+.l4247 ; 6C:4247
+	; [CONFIRMED] 31 insn(s); 31 executed (in up to 3/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -289,55 +283,50 @@ Label_6C_425A:: ; 6C:425A
 	farcall Ticker_Stop
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr z, Label_6C_4283
+	jr z, .l4283
 	cp a, $03
-	jr z, Label_6C_428F
+	jr z, .l428F
 	xor a, a
 	ret
-
-Label_6C_4283:: ; 6C:4283
+.l4283 ; 6C:4283
 	ld a, $01
 	ld [wRam_C0D8], a
 	inc a
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $428F-$429C (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
-
-Label_6C_428F:: ; 6C:428F
+.l428F ; 6C:428F
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
 	ld a, $01
 	ld [wRam_C0D8], a
 	ld a, $03
 	ld [wRam_C0E5], a
 	jp Label_6C_401D
 
-; ---- code $429C-$4344 (168 bytes) [CONFIRMED] 75 insn(s); 75 executed (in up to 3/18 scenarios)
-
 Label_6C_429C:: ; 6C:429C
+	; [CONFIRMED] 75 insn(s); 75 executed (in up to 3/18 scenarios)
 	jp Label_6C_41B3
 
 HelpMenu_HandleDpad:: ; 6C:429F
 	bit 6, a
-	jr nz, Label_6C_42A8
+	jr nz, .l42A8
 	bit 7, a
-	jr nz, Label_6C_42DB
+	jr nz, .l42DB
 	ret
-
-Label_6C_42A8:: ; 6C:42A8
+.l42A8 ; 6C:42A8
 	ld a, [wRam_C0E5]
 	ld [wRam_C0E6], a
 	dec a
-	jr nz, Label_6C_42BE
+	jr nz, .l42BE
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jr nz, Label_6C_42BC
+	jr nz, .l42BC
 	ld a, $04
-	jr Label_6C_42BE
-
-Label_6C_42BC:: ; 6C:42BC
+	jr .l42BE
+.l42BC ; 6C:42BC
 	ld a, $02
-
-Label_6C_42BE:: ; 6C:42BE
+.l42BE ; 6C:42BE
 	ld [wRam_C0E5], a
 	ldh a, [hWRAMBank]
 	push af
@@ -351,28 +340,25 @@ Label_6C_42BE:: ; 6C:42BE
 	call HelpMenu_DrawItemSelected
 	call HelpMenu_ShowItemText
 	ret
-
-Label_6C_42DB:: ; 6C:42DB
+.l42DB ; 6C:42DB
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jr nz, Label_6C_42F1
+	jr nz, .l42F1
 	ld a, [wRam_C0E5]
 	ld [wRam_C0E6], a
 	inc a
 	cp a, $05
-	jr nz, Label_6C_42FE
+	jr nz, .l42FE
 	ld a, $01
-	jr Label_6C_42FE
-
-Label_6C_42F1:: ; 6C:42F1
+	jr .l42FE
+.l42F1 ; 6C:42F1
 	ld a, [wRam_C0E5]
 	ld [wRam_C0E6], a
 	inc a
 	cp a, $03
-	jr nz, Label_6C_42FE
+	jr nz, .l42FE
 	ld a, $01
-
-Label_6C_42FE:: ; 6C:42FE
+.l42FE ; 6C:42FE
 	ld [wRam_C0E5], a
 	ldh a, [hWRAMBank]
 	push af
@@ -390,12 +376,12 @@ Label_6C_42FE:: ; 6C:42FE
 HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jp z, Label_6C_440B
+	jp z, .l440B
 	cp a, $03
-	jp z, Label_6C_4498
+	jp z, .l4498
 	ld a, [wRam_C0E6]
 	cp a, $02
-	jp nz, Label_6C_436C
+	jp nz, .l436C
 	ld a, $01
 	ld hl, $A686
 	call ReadByteFar
@@ -404,9 +390,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld hl, $A687
 	call ReadByteFar
 	or a, d
-	jr nz, Label_6C_436C
+	jr nz, .l436C
 
-; ---- code $4344-$436C (40 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; fall-through of the jrcc at 6C:4342 (executed) [executed in 1 scenarios]
 	ld hl, $49CE
 	ld a, l
 	ld [wRam_C10E], a
@@ -422,12 +409,11 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	farcall Function_00_0956
 	ret
 
-; ---- code $436C-$4498 (300 bytes) [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
-
-Label_6C_436C:: ; 6C:436C
+.l436C ; 6C:436C
+	; [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
 	ld a, [wRam_C0E6]
 	cp a, $03
-	jr nz, Label_6C_43AF
+	jr nz, .l43AF
 	ld a, $01
 	ld hl, $A688
 	call ReadByteFar
@@ -436,7 +422,7 @@ Label_6C_436C:: ; 6C:436C
 	ld hl, $A689
 	call ReadByteFar
 	or a, d
-	jr nz, Label_6C_43AF
+	jr nz, .l43AF
 	ld hl, $49EC
 	ld a, l
 	ld [wRam_C10E], a
@@ -451,8 +437,7 @@ Label_6C_436C:: ; 6C:436C
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_43AF:: ; 6C:43AF
+.l43AF ; 6C:43AF
 	ld a, [wRam_C0E6]
 	dec a
 	ld c, a
@@ -507,16 +492,15 @@ Label_6C_43AF:: ; 6C:43AF
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_440B:: ; 6C:440B
+.l440B ; 6C:440B
 	ld a, [wRam_C0E6]
 	cp a, $02
-	jp nz, Label_6C_4446
+	jp nz, .l4446
 	ld a, $01
 	ld hl, $A687
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_4446
+	jr nz, .l4446
 	ld hl, $4AAA
 	ld a, l
 	ld [wRam_C10E], a
@@ -531,8 +515,7 @@ Label_6C_440B:: ; 6C:440B
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_4446:: ; 6C:4446
+.l4446 ; 6C:4446
 	ld a, [wRam_C0E6]
 	dec a
 	ld c, a
@@ -580,17 +563,17 @@ Label_6C_4446:: ; 6C:4446
 	farcall Function_00_0956
 	ret
 
-; ---- code $4498-$4525 (141 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed) [executed in 2 scenarios]
-
-Label_6C_4498:: ; 6C:4498
+.l4498 ; 6C:4498
+	; [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1;
+	; entered by jpcc from 6C:4325 (executed) [executed in 2 scenarios]
 	ld a, [wRam_C0E6]
 	cp a, $02
-	jp nz, Label_6C_44D3
+	jp nz, .l44D3
 	ld a, $01
 	ld hl, $A689
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_44D3
+	jr nz, .l44D3
 	ld hl, $4B5E
 	ld a, l
 	ld [wRam_C10E], a
@@ -605,8 +588,7 @@ Label_6C_4498:: ; 6C:4498
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_44D3:: ; 6C:44D3
+.l44D3 ; 6C:44D3
 	ld a, [wRam_C0E6]
 	dec a
 	ld c, a
@@ -661,18 +643,18 @@ Data_6C_4525::
 	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E
 
-; ---- code $453D-$4566 (41 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 HelpMenu_DrawItemSelected:: ; 6C:453D
 Function_6C_453D::
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jp z, Label_6C_462D
+	jp z, .l462D
 	cp a, $03
-	jp z, Label_6C_46BA
+	jp z, .l46BA
 	ld a, [wRam_C0E5]
 	cp a, $02
-	jp nz, Label_6C_458E
+	jp nz, .l458E
 	ld a, $01
 	ld hl, $A686
 	call ReadByteFar
@@ -681,9 +663,10 @@ Function_6C_453D::
 	ld hl, $A687
 	call ReadByteFar
 	or a, d
-	jr nz, Label_6C_458E
+	jr nz, .l458E
 
-; ---- code $4566-$458E (40 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4564 (executed)
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; fall-through of the jrcc at 6C:4564 (executed)
 	ld hl, $4CDA
 	ld a, l
 	ld [wRam_C10E], a
@@ -699,12 +682,11 @@ Function_6C_453D::
 	farcall Function_00_0956
 	ret
 
-; ---- code $458E-$46BA (300 bytes) [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
-
-Label_6C_458E:: ; 6C:458E
+.l458E ; 6C:458E
+	; [CONFIRMED] 148 insn(s); 148 executed (in up to 3/18 scenarios)
 	ld a, [wRam_C0E5]
 	cp a, $03
-	jr nz, Label_6C_45D1
+	jr nz, .l45D1
 	ld a, $01
 	ld hl, $A688
 	call ReadByteFar
@@ -713,7 +695,7 @@ Label_6C_458E:: ; 6C:458E
 	ld hl, $A689
 	call ReadByteFar
 	or a, d
-	jr nz, Label_6C_45D1
+	jr nz, .l45D1
 	ld hl, $4CF8
 	ld a, l
 	ld [wRam_C10E], a
@@ -728,8 +710,7 @@ Label_6C_458E:: ; 6C:458E
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_45D1:: ; 6C:45D1
+.l45D1 ; 6C:45D1
 	ld a, [wRam_C0E5]
 	dec a
 	ld c, a
@@ -784,16 +765,15 @@ Label_6C_45D1:: ; 6C:45D1
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_462D:: ; 6C:462D
+.l462D ; 6C:462D
 	ld a, [wRam_C0E5]
 	cp a, $02
-	jp nz, Label_6C_4668
+	jp nz, .l4668
 	ld a, $01
 	ld hl, $A687
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_4668
+	jr nz, .l4668
 	ld hl, $4DB6
 	ld a, l
 	ld [wRam_C10E], a
@@ -808,8 +788,7 @@ Label_6C_462D:: ; 6C:462D
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_4668:: ; 6C:4668
+.l4668 ; 6C:4668
 	ld a, [wRam_C0E5]
 	dec a
 	ld c, a
@@ -857,17 +836,17 @@ Label_6C_4668:: ; 6C:4668
 	farcall Function_00_0956
 	ret
 
-; ---- code $46BA-$4747 (141 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed) [executed in 2 scenarios]
-
-Label_6C_46BA:: ; 6C:46BA
+.l46BA ; 6C:46BA
+	; [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1;
+	; entered by jpcc from 6C:4547 (executed) [executed in 2 scenarios]
 	ld a, [wRam_C0E5]
 	cp a, $02
-	jp nz, Label_6C_46F5
+	jp nz, .l46F5
 	ld a, $01
 	ld hl, $A689
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_46F5
+	jr nz, .l46F5
 	ld hl, $4E6A
 	ld a, l
 	ld [wRam_C10E], a
@@ -882,8 +861,7 @@ Label_6C_46BA:: ; 6C:46BA
 	call Function_00_082C
 	farcall Function_00_0956
 	ret
-
-Label_6C_46F5:: ; 6C:46F5
+.l46F5 ; 6C:46F5
 	ld a, [wRam_C0E5]
 	dec a
 	ld c, a
@@ -938,40 +916,37 @@ Data_6C_4747::
 	db $49, $00, $A9, $00, $E9, $00, $49, $01, $89, $00, $09, $01, $89, $00, $09, $01
 	db $00, $28, $46, $6E, $00, $1E, $00, $1E, $8C, $AA, $3C, $3C
 
-; ---- code $4763-$4776 (19 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 HelpMenu_ShowItemText:: ; 6C:4763
 Function_6C_4763::
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0D8]
 	ld b, $00
 	cp a, $02
-	jr z, Label_6C_4772
+	jr z, .l4772
 	cp a, $03
-	jr z, Label_6C_4776
-	jr Label_6C_4778
-
-Label_6C_4772:: ; 6C:4772
+	jr z, .l4776
+	jr .l4778
+.l4772 ; 6C:4772
 	ld b, $04
-	jr Label_6C_4778
+	jr .l4778
 
-; ---- code $4776-$4778 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed) [executed in 2 scenarios]
-
-Label_6C_4776:: ; 6C:4776
+.l4776 ; 6C:4776
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 6C:476E (executed) [executed in 2 scenarios]
 	ld b, $06
 
-; ---- code $4778-$47C0 (72 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 3/18 scenarios)
-
-Label_6C_4778:: ; 6C:4778
+.l4778 ; 6C:4778
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 3/18 scenarios)
 	ld a, [wRam_C0E5]
 	push bc
 	call HelpMenu_ItemIsLocked
 	pop bc
 	ld hl, $64B2
 	or a, a
-	jr z, Label_6C_4789
+	jr z, .skip
 	ld hl, Data_6A_6651
-
-Label_6C_4789:: ; 6C:4789
+.skip ; 6C:4789
 	ld a, [wRam_C0E5]
 	dec a
 	add a, b
@@ -984,12 +959,12 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	ld c, a
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jp z, Label_6C_47DF
+	jp z, .l47DF
 	cp a, $03
-	jp z, Label_6C_47F3
+	jp z, .l47F3
 	ld a, c
 	cp a, $02
-	jp nz, Label_6C_47C3
+	jp nz, .l47C3
 	ld a, $01
 	ld hl, $A686
 	call ReadByteFar
@@ -998,18 +973,18 @@ HelpMenu_ItemIsLocked:: ; 6C:4798
 	ld hl, $A687
 	call ReadByteFar
 	or a, b
-	jr nz, Label_6C_4807
+	jr nz, .l4807
 
-; ---- code $47C0-$47C3 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 6C:47BE (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 6C:47BE (executed)
 	ld a, $FF
 	ret
 
-; ---- code $47C3-$47F3 (48 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios)
-
-Label_6C_47C3:: ; 6C:47C3
+.l47C3 ; 6C:47C3
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 3/18 scenarios)
 	ld a, c
 	cp a, $03
-	jr nz, Label_6C_4807
+	jr nz, .l4807
 	ld a, $01
 	ld hl, $A688
 	call ReadByteFar
@@ -1018,38 +993,36 @@ Label_6C_47C3:: ; 6C:47C3
 	ld hl, $A689
 	call ReadByteFar
 	or a, d
-	jr nz, Label_6C_4807
+	jr nz, .l4807
 	ld a, $FF
 	ret
-
-Label_6C_47DF:: ; 6C:47DF
+.l47DF ; 6C:47DF
 	ld a, c
 	cp a, $02
-	jp nz, Label_6C_4807
+	jp nz, .l4807
 	ld a, $01
 	ld hl, $A687
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_4807
+	jr nz, .l4807
 	ld a, $FF
 	ret
 
-; ---- code $47F3-$4807 (20 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed) [executed in 2 scenarios]
-
-Label_6C_47F3:: ; 6C:47F3
+.l47F3 ; 6C:47F3
+	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1;
+	; entered by jpcc from 6C:47A3 (executed) [executed in 2 scenarios]
 	ld a, c
 	cp a, $02
-	jp nz, Label_6C_4807
+	jp nz, .l4807
 	ld a, $01
 	ld hl, $A689
 	call ReadByteFar
 	or a, a
-	jr nz, Label_6C_4807
+	jr nz, .l4807
 	ld a, $FF
 	ret
 
-; ---- code $4807-$4809 (2 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 3/18 scenarios)
-
-Label_6C_4807:: ; 6C:4807
+.l4807 ; 6C:4807
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 3/18 scenarios)
 	xor a, a
 	ret

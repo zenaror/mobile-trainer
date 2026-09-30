@@ -4,9 +4,9 @@
 
 SECTION "engine/settings/adapter_config", ROMX
 
-; ---- code $53DC-$546C (144 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 3; entered by far from 67:4019 (PROBABLE code) [executed in 2 scenarios]
-
 SettingsPhone_ReadAdapterConfig:: ; 67:53DC
+	; [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 3;
+	; entered by far from 67:4019 (PROBABLE code) [executed in 2 scenarios]
 	call SettingsPhone_ReadAdapterConfig_Setup
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
@@ -48,12 +48,12 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, Label_67_5458
+	jr z, .l5458
 	cp a, $02
-	jr nz, Label_67_545C
+	jr nz, .l545C
 	ld a, [wRam_C286]
 	or a, a
-	jr nz, Label_67_545C
+	jr nz, .l545C
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -64,13 +64,11 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wRam_C286], a
-	jr Label_67_545C
-
-Label_67_5458:: ; 67:5458
+	jr .l545C
+.l5458 ; 67:5458
 	xor a, a
 	ld [wRam_C286], a
-
-Label_67_545C:: ; 67:545C
+.l545C ; 67:545C
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $6C
@@ -91,9 +89,10 @@ Table_67_546C::
 	dw Label_67_5484
 	dw Label_67_54B9
 
-; ---- code $5472-$54DB (105 bytes) [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not executed in traces [executed in 2 scenarios]
-
 Label_67_5472:: ; 67:5472
+	; [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain
+	; legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not
+	; executed in traces [executed in 2 scenarios]
 	ld de, $C271
 	ld hl, $0067
 	ld a, $02
@@ -143,17 +142,20 @@ Label_67_54B9:: ; 67:54B9
 	ld a, $36
 	call MobileAPI
 
-; ---- code $54DB-$54ED (18 bytes) [CONFIRMED] 92 insn(s) reached by static flow only; seeds: exec x60, site x32; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 6 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 2 scenarios]
+	; [CONFIRMED] 92 insn(s) reached by static flow only; seeds: exec x60, site x32; min discovery
+	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
+	; decoded code | 6 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
+	; --split [executed in 2 scenarios]
 	farcall Config_MirrorChecksumOk
 	or a, a
-	jr z, Label_67_54ED
+	jr z, .l54ED
 	farcall Config_MirrorIsRegistered
 	or a, a
-	jr nz, Label_67_5503
+	jr nz, .l5503
 
-; ---- code $54ED-$5503 (22 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split
-
-Label_67_54ED:: ; 67:54ED
+.l54ED ; 67:54ED
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 54DB-55B8 by apply_coverage --split
 	farcall Palette_FadeOutToWhite
 	ld a, $F0
 	ld hl, $0100
@@ -162,16 +164,16 @@ Label_67_54ED:: ; 67:54ED
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5503-$5509 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 2 scenarios]
-
-Label_67_5503:: ; 67:5503
+.l5503 ; 67:5503
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5509-$5535 (44 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split
-
 Label_67_5509:: ; 67:5509
+	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 54DB-55B8 by apply_coverage --split
 	farcall Mobile_SaveLastResult
 	farcall Palette_FadeOutToWhite
 	ldh [hScratchA], a
@@ -189,9 +191,9 @@ Label_67_5509:: ; 67:5509
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5535-$55B8 (131 bytes) [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 1 scenarios]
-
 SettingsPhone_WriteAdapterConfig:: ; 67:5535
+	; [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld [wRam_C27E], a
 	farcall Registration_WriteConfig_Setup
 	call SettingsPhone_WriteAdapterConfig_Setup
@@ -226,12 +228,12 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, Label_67_55A4
+	jr z, .l55A4
 	cp a, $02
-	jr nz, Label_67_55A8
+	jr nz, .l55A8
 	ld a, [wRam_C286]
 	or a, a
-	jr nz, Label_67_55A8
+	jr nz, .l55A8
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -242,13 +244,11 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wRam_C286], a
-	jr Label_67_55A8
-
-Label_67_55A4:: ; 67:55A4
+	jr .l55A8
+.l55A4 ; 67:55A4
 	xor a, a
 	ld [wRam_C286], a
-
-Label_67_55A8:: ; 67:55A8
+.l55A8 ; 67:55A8
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $B8
@@ -269,9 +269,10 @@ Table_67_55B8::
 	dw Label_67_55D0
 	dw Label_67_560A
 
-; ---- code $55BE-$562C (110 bytes) [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain legal, all 3 table targets are instruction starts, ends in known code region at 562C; not executed in traces [executed in 1 scenarios]
-
 Label_67_55BE:: ; 67:55BE
+	; [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain
+	; legal, all 3 table targets are instruction starts, ends in known code region at 562C; not
+	; executed in traces [executed in 1 scenarios]
 	ld de, $C271
 	ld hl, $0067
 	ld a, $02
@@ -323,15 +324,18 @@ Label_67_560A:: ; 67:560A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 
-; ---- code $562C-$5638 (12 bytes) [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 4 insn(s) executed; cut out of the PROBABLE region 562C-5664 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 4
+	; insn(s) executed; cut out of the PROBABLE region 562C-5664 by apply_coverage --split [executed
+	; in 1 scenarios]
 	farcall Settings_UpdateChecksumAndBackup
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5638-$5664 (44 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 562C-5664 by apply_coverage --split
-
 Label_67_5638:: ; 67:5638
+	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 562C-5664 by apply_coverage --split
 	farcall Mobile_SaveLastResult
 	farcall Palette_FadeOutToWhite
 	farcall Mobile_ShowLastError
@@ -349,9 +353,10 @@ Label_67_5638:: ; 67:5638
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5664-$568C (40 bytes) [CONFIRMED] function called by 'call $5664' at 67:55F2 (inside the table-entered PROBABLE code of Table_67_55B8); reads Table_67_56FA (ld hl,$56FA, index [$C27E]) and falls into the far-call site at 568C (PROBABLE code) [executed in 1 scenarios]
-
 SettingsPhone_PatchConfigImage:: ; 67:5664
+	; [CONFIRMED] function called by 'call $5664' at 67:55F2 (inside the table-entered PROBABLE code
+	; of Table_67_55B8); reads Table_67_56FA (ld hl,$56FA, index [$C27E]) and falls into the
+	; far-call site at 568C (PROBABLE code) [executed in 1 scenarios]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -361,9 +366,8 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ldh [rSVBK], a
 	ld a, [wManualNumbersFlag]
 	or a, a
-	jr nz, Label_67_5677
-
-Label_67_5677:: ; 67:5677
+	jr nz, .l5677
+.l5677 ; 67:5677
 	ld a, [wRam_C27E]
 	ld hl, SettingsPhone_ConfigNumberAddrs
 	add a, a
@@ -379,7 +383,9 @@ Label_67_5677:: ; 67:5677
 	ld e, l
 	ld hl, $DEDD
 
-; ---- code $568C-$56FA (110 bytes) [CONFIRMED] 62 insn(s) reached by static flow only; seeds: site x62; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 1 scenarios]
+	; [CONFIRMED] 62 insn(s) reached by static flow only; seeds: site x62; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [executed in 1 scenarios]
 	farcall PhoneNumber_PackBcd
 	ld a, [wRam_C27E]
 	ld hl, $5706
@@ -425,8 +431,7 @@ Label_67_5677:: ; 67:5677
 	ld hl, $A000
 	ld de, $0000
 	ld b, $BE
-
-Label_67_56E3:: ; 67:56E3
+.loop ; 67:56E3
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -434,7 +439,7 @@ Label_67_56E3:: ; 67:56E3
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, Label_67_56E3
+	jr nz, .loop
 	ld a, d
 	ld [hli], a
 	ld [hl], e

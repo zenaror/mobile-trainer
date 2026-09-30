@@ -4,9 +4,9 @@
 
 SECTION "engine/mail_server/delete_progress", ROMX
 
-; ---- code $55C3-$571B (344 bytes) [CONFIRMED] 150 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage --split [executed in 5 scenarios]
-
 MailSrvDel_ProgressInit:: ; 23:55C3
+	; [CONFIRMED] 150 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
@@ -145,13 +145,12 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDel_NumberTemplate
 	ld de, $D524
-
-Label_23_56FE:: ; 23:56FE
+.loop ; 23:56FE
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_23_56FE
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -162,9 +161,10 @@ Label_23_56FE:: ; 23:56FE
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_5761
+	jr z, .l5761
 
-; ---- code $571B-$5761 (70 bytes) [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5424-581E by apply_coverage --split
+	; [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -210,11 +210,11 @@ Label_23_56FE:: ; 23:56FE
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_23_5805
+	jp .l5805
 
-; ---- code $5761-$5773 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_5761:: ; 23:5761
+.l5761 ; 23:5761
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -223,9 +223,10 @@ Label_23_5761:: ; 23:5761
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_57A7
+	jr z, .l57A7
 
-; ---- code $5773-$57A7 (52 bytes) [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5424-581E by apply_coverage --split
+	; [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -260,11 +261,11 @@ Label_23_5761:: ; 23:5761
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_23_5805
+	jp .l5805
 
-; ---- code $57A7-$57B9 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_57A7:: ; 23:57A7
+.l57A7 ; 23:57A7
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -273,9 +274,10 @@ Label_23_57A7:: ; 23:57A7
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_57DB
+	jr z, .l57DB
 
-; ---- code $57B9-$57DB (34 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5424-581E by apply_coverage --split
+	; [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -299,11 +301,11 @@ Label_23_57A7:: ; 23:57A7
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_23_5805
+	jp .l5805
 
-; ---- code $57DB-$57ED (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_57DB:: ; 23:57DB
+.l57DB ; 23:57DB
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -312,9 +314,10 @@ Label_23_57DB:: ; 23:57DB
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_57FD
+	jr z, .l57FD
 
-; ---- code $57ED-$57FD (16 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5424-581E by apply_coverage --split
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -327,11 +330,11 @@ Label_23_57DB:: ; 23:57DB
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_23_5805
+	jp .l5805
 
-; ---- code $57FD-$581E (33 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_57FD:: ; 23:57FD
+.l57FD ; 23:57FD
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -339,8 +342,7 @@ Label_23_57FD:: ; 23:57FD
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_23_5805:: ; 23:5805
+.l5805 ; 23:5805
 	pop bc
 	push af
 	ld a, $02
@@ -361,73 +363,77 @@ String_MailSrvDel_NumberTemplate:: ; 23:581E
 String_23_581E::
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $5829-$5839 (16 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15; entered by call from 23:56BE (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
-
 MailSrvDel_NumberTileOffset:: ; 23:5829
+	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15;
+	; entered by call from 23:56BE (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE
+	; region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_583F
+	jr z, .l583F
 
-; ---- code $5839-$583F (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
 	ld bc, $D010
-	jp Label_23_5886
+	jp .l5886
 
-; ---- code $583F-$584F (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_583F:: ; 23:583F
+.l583F ; 23:583F
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_5855
+	jr z, .l5855
 
-; ---- code $584F-$5855 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
 	ld bc, $D010
-	jp Label_23_5886
+	jp .l5886
 
-; ---- code $5855-$5865 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_5855:: ; 23:5855
+.l5855 ; 23:5855
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_586B
+	jr z, .l586B
 
-; ---- code $5865-$586B (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
 	ld bc, $D020
-	jp Label_23_5886
+	jp .l5886
 
-; ---- code $586B-$587B (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_586B:: ; 23:586B
+.l586B ; 23:586B
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_5881
+	jr z, .l5881
 
-; ---- code $587B-$5881 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
 	ld bc, $D030
-	jp Label_23_5886
+	jp .l5886
 
-; ---- code $5881-$58A9 (40 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
-
-Label_23_5881:: ; 23:5881
+.l5881 ; 23:5881
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld bc, $D030
 	ld a, $01
-
-Label_23_5886:: ; 23:5886
+.l5886 ; 23:5886
 	pop hl
 	pop de
 	ret

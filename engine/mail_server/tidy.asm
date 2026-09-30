@@ -4,10 +4,10 @@
 
 SECTION "engine/mail_server/tidy", ROMX
 
-; ---- code $4000-$4090 (144 bytes) [CONFIRMED] 63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerMgr_Run:: ; 2E:4000
 Function_2E_4000::
+	; [CONFIRMED] 63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -57,8 +57,7 @@ Function_2E_4000::
 	call Function_00_0A65
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
-
-Label_2E_4067:: ; 2E:4067
+.l4067 ; 2E:4067
 	di
 	farcall Function_00_0956
 	ei
@@ -70,18 +69,18 @@ Label_2E_4067:: ; 2E:4067
 	jp nz, Label_2E_4A47
 	farcall Pop3_LoginStatPoll
 	cp a, $01
-	jr z, Label_2E_4067
+	jr z, .l4067
 	cp a, $FF
-	jr nz, Label_2E_4099
+	jr nz, .l4099
 
-; ---- code $4090-$4099 (9 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 2E:408E (executed) [executed in 1 scenarios]
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
-; ---- code $4099-$40B9 (32 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
-
-Label_2E_4099:: ; 2E:4099
+.l4099 ; 2E:4099
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios)
 	push bc
 	push de
 	push hl
@@ -99,61 +98,60 @@ Label_2E_4099:: ; 2E:4099
 	push de
 	ld a, d
 	or a, e
-	jp z, Label_2E_417F
+	jp z, .l417F
 
-; ---- code $40B9-$40DA (33 bytes) [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0; fall-through of the jpcc at 2E:40B6 (executed) | 16 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
+	; [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0;
+	; fall-through of the jpcc at 2E:40B6 (executed) | 16 insn(s) executed; cut out of the PROBABLE
+	; region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
 	ld bc, $0000
 	ld hl, $0001
-
-Label_2E_40BF:: ; 2E:40BF
+.l40BF ; 2E:40BF
 	push bc
 	push hl
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_2E_4107
+	jr z, .l4107
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_2E_4108
+	jr nz, .l4108
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_2E_4107
+	jr c, .l4107
 
-; ---- code $40DA-$4107 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
-	jr nz, Label_2E_40E3
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 40B9-417F by apply_coverage --split
+	jr nz, .l40E3
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_2E_4107
-
-Label_2E_40E3:: ; 2E:40E3
+	jr c, .l4107
+.l40E3 ; 2E:40E3
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_2E_40F3
+	jr nz, .l40F3
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_2E_4107
+	jr nz, .l4107
 	set 1, [hl]
-
-Label_2E_40F3:: ; 2E:40F3
+.l40F3 ; 2E:40F3
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_2E_4108
+	jr z, .l4108
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_2E_4108
+	jr .l4108
 
-; ---- code $4107-$4145 (62 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
-
-Label_2E_4107:: ; 2E:4107
+.l4107 ; 2E:4107
+	; [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage
+	; --split [executed in 8 scenarios]
 	xor a, a
-
-Label_2E_4108:: ; 2E:4108
+.l4108 ; 2E:4108
 	pop hl
 	cp a, $00
 	call nz, Function_2E_48F8
@@ -169,8 +167,7 @@ Label_2E_4108:: ; 2E:4108
 	pop hl
 	pop de
 	pop bc
-
-Label_2E_4125:: ; 2E:4125
+.l4125 ; 2E:4125
 	push bc
 	push de
 	push hl
@@ -185,67 +182,68 @@ Label_2E_4125:: ; 2E:4125
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jr z, Label_2E_4149
+	jr z, .l4149
 
-; ---- code $4145-$4149 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 40B9-417F by apply_coverage --split
 	pop de
 	jp Label_2E_4A47
 
-; ---- code $4149-$4169 (32 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4149:: ; 2E:4149
+.l4149 ; 2E:4149
+	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	push de
 	push hl
 	xor a, a
 	farcall Pop3_TopPoll
 	cp a, $01
-	jr nz, Label_2E_415C
+	jr nz, .l415C
 	pop hl
 	pop de
 	pop bc
-	jr Label_2E_4125
-
-Label_2E_415C:: ; 2E:415C
+	jr .l4125
+.l415C ; 2E:415C
 	cp a, $FF
-	jr nz, Label_2E_416D
+	jr nz, .l416D
 	pop hl
 	pop de
 	pop bc
 	farcall MailSession_ShowCommError
 
-; ---- code $4169-$416D (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 40B9-417F by apply_coverage --split
 	pop de
 	ld a, $80
 	ret
 
-; ---- code $416D-$4175 (8 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
-
-Label_2E_416D:: ; 2E:416D
+.l416D ; 2E:416D
+	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage
+	; --split [executed in 8 scenarios]
 	ld a, b
 	pop hl
 	pop de
 	pop bc
 	cp a, $02
-	jr nz, Label_2E_4176
+	jr nz, .l4176
 
-; ---- code $4175-$4176 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 40B9-417F by apply_coverage --split
 	inc bc
 
-; ---- code $4176-$417F (9 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_4176:: ; 2E:4176
+.l4176 ; 2E:4176
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage
+	; --split [executed in 7 scenarios]
 	inc hl
 	dec de
 	ld a, d
 	or a, e
-	jp nz, Label_2E_40BF
+	jp nz, .l40BF
 	ld e, c
 	ld d, b
 
-; ---- code $417F-$4292 (275 bytes) [CONFIRMED] 139 insn(s); 139 executed (in up to 1/18 scenarios)
-
-Label_2E_417F:: ; 2E:417F
+.l417F ; 2E:417F
+	; [CONFIRMED] 139 insn(s); 139 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -313,7 +311,7 @@ Label_2E_417F:: ; 2E:417F
 	ld d, h
 	ld a, d
 	or a, e
-	jp nz, Label_2E_4292
+	jp nz, .l4292
 	ld hl, $0000
 	ld a, $05
 	farcall SpriteCounter_StubA
@@ -348,22 +346,20 @@ Label_2E_417F:: ; 2E:417F
 	pop de
 	farcall Dialog_Open
 	ld a, $78
-
-Label_2E_4241:: ; 2E:4241
+.l4241 ; 2E:4241
 	push af
 	call Function_00_044B
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2E_4255
+	jr z, .l4255
 	pop af
 	ld a, $01
 	push af
-
-Label_2E_4255:: ; 2E:4255
+.l4255 ; 2E:4255
 	pop af
 	dec a
-	jr nz, Label_2E_4241
+	jr nz, .l4241
 	farcall Dialog_Close
 	push af
 	ldh a, [rSVBK]
@@ -379,22 +375,22 @@ Label_2E_4255:: ; 2E:4255
 	pop af
 	call MailServerMgr_UpdateTimerDisplay
 	ld a, $01
-
-Label_2E_4279:: ; 2E:4279
+.l4279 ; 2E:4279
 	push af
 	call Function_00_0464
 	pop af
 	dec a
-	jr nz, Label_2E_4279
+	jr nz, .l4279
 	call MailServerMgr_UpdateTimerDisplay
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-; ---- code $4292-$4341 (175 bytes) [CONFIRMED] 762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5; entered by jpcc from 2E:41E2 (executed) | 89 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4292:: ; 2E:4292
+.l4292 ; 2E:4292
+	; [CONFIRMED] 762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5;
+	; entered by jpcc from 2E:41E2 (executed) | 89 insn(s) executed; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split [executed in 1 scenarios]
 	ld bc, $0000
 	ld hl, $0000
 
@@ -462,8 +458,7 @@ Label_2E_4298:: ; 2E:4298
 	xor a, a
 	ld c, $01
 	farcall Pop3_StartTop
-
-Label_2E_430D:: ; 2E:430D
+.l430D ; 2E:430D
 	push bc
 	push de
 	push hl
@@ -478,29 +473,29 @@ Label_2E_430D:: ; 2E:430D
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $02
-	jr z, Label_2E_4332
+	jr z, .l4332
 	pop hl
 	pop bc
 	jp Label_2E_4A47
-
-Label_2E_4332:: ; 2E:4332
+.l4332 ; 2E:4332
 	xor a, a
 	farcall Pop3_TopPoll
 	cp a, $01
-	jr z, Label_2E_430D
+	jr z, .l430D
 	cp a, $FF
-	jr nz, Label_2E_434C
+	jr nz, .l434C
 
-; ---- code $4341-$434C (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	pop hl
 	pop bc
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
-; ---- code $434C-$438E (66 bytes) [CONFIRMED] 44 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 5 scenarios]
-
-Label_2E_434C:: ; 2E:434C
+.l434C ; 2E:434C
+	; [CONFIRMED] 44 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 5 scenarios]
 	ld a, b
 	ld d, c
 	ld e, b
@@ -542,18 +537,17 @@ Label_2E_434C:: ; 2E:434C
 	push bc
 	push hl
 	cp a, $00
-	jr z, Label_2E_43AF
+	jr z, .l43AF
 	cp a, $01
-	jr z, Label_2E_43AF
+	jr z, .l43AF
 
-; ---- code $438E-$43AF (33 bytes) [PROBABLE] 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	cp a, $02
-	jr z, Label_2E_4394
-
-Label_2E_4392:: ; 2E:4392
-	jr Label_2E_4392
-
-Label_2E_4394:: ; 2E:4394
+	jr z, .l4394
+.l4392 ; 2E:4392
+	jr .l4392
+.l4394 ; 2E:4394
 	pop hl
 	pop bc
 	push bc
@@ -573,11 +567,11 @@ Label_2E_4394:: ; 2E:4394
 	ld [hl], a
 	pop hl
 	pop bc
-	jp Label_2E_477E
+	jp .l477E
 
-; ---- code $43AF-$4468 (185 bytes) [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_43AF:: ; 2E:43AF
+.l43AF ; 2E:43AF
+	; [CONFIRMED] 101 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 7 scenarios]
 	push af
 	push bc
 	push de
@@ -672,17 +666,17 @@ Label_2E_43AF:: ; 2E:43AF
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $00
-
-Label_2E_4458:: ; 2E:4458
+.l4458 ; 2E:4458
 	push bc
 	di
 	farcall Function_00_0956
 	ei
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, Label_2E_447A
+	jr z, .l447A
 
-; ---- code $4468-$447A (18 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	farcall Mobile_FetchResult
 	farcall MailSession_ShowCommError
 	pop bc
@@ -691,56 +685,54 @@ Label_2E_4458:: ; 2E:4458
 	ld a, $80
 	ret
 
-; ---- code $447A-$44A6 (44 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_447A:: ; 2E:447A
+.l447A ; 2E:447A
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 1 scenarios]
 	call MailServerMgr_UpdateTimerDisplay
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_2E_44C3
+	jr z, .l44C3
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_2E_44C4
+	jr nz, .l44C4
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_2E_44C3
-	jr nz, Label_2E_449F
+	jr c, .l44C3
+	jr nz, .l449F
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_2E_44C3
-
-Label_2E_449F:: ; 2E:449F
+	jr c, .l44C3
+.l449F ; 2E:449F
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_2E_44AF
+	jr nz, .l44AF
 
-; ---- code $44A6-$44AF (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_2E_44C3
+	jr nz, .l44C3
 	set 1, [hl]
 
-; ---- code $44AF-$4516 (103 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_44AF:: ; 2E:44AF
+.l44AF ; 2E:44AF
+	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_2E_44C4
+	jr z, .l44C4
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_2E_44C4
-
-Label_2E_44C3:: ; 2E:44C3
+	jr .l44C4
+.l44C3 ; 2E:44C3
 	xor a, a
-
-Label_2E_44C4:: ; 2E:44C4
+.l44C4 ; 2E:44C4
 	pop hl
 	cp a, $00
 	call nz, Function_2E_4A7D
@@ -749,7 +741,7 @@ Label_2E_44C4:: ; 2E:44C4
 	pop bc
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jr z, Label_2E_44F6
+	jr z, .l44F6
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -765,13 +757,12 @@ Label_2E_44C4:: ; 2E:44C4
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, Label_2E_44F6
+	jr nz, .l44F6
 	ld c, $02
-
-Label_2E_44F6:: ; 2E:44F6
+.l44F6 ; 2E:44F6
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jr z, Label_2E_4518
+	jr z, .l4518
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -787,20 +778,21 @@ Label_2E_44F6:: ; 2E:44F6
 	inc c
 	ld a, c
 	cp a, $03
-	jr nz, Label_2E_4518
+	jr nz, .l4518
 
-; ---- code $4516-$4518 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	ld c, $00
 
-; ---- code $4518-$4726 (526 bytes) [CONFIRMED] 244 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4518:: ; 2E:4518
+.l4518 ; 2E:4518
+	; [CONFIRMED] 244 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hJoyHeld]
 	and a, $FF
-	jp z, Label_2E_4458
+	jp z, .l4458
 	ld a, c
 	cp a, $00
-	jr nz, Label_2E_4544
+	jr nz, .l4544
 	push bc
 	ld hl, $DA00
 	ld de, Table_MailServerMgr_ObjAnims
@@ -813,11 +805,10 @@ Label_2E_4518:: ; 2E:4518
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-
-Label_2E_4544:: ; 2E:4544
+.l4544 ; 2E:4544
 	ld a, c
 	cp a, $01
-	jr nz, Label_2E_4569
+	jr nz, .l4569
 	push bc
 	ld hl, $DA00
 	ld de, $76D0
@@ -830,11 +821,10 @@ Label_2E_4544:: ; 2E:4544
 	ld a, $01
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-
-Label_2E_4569:: ; 2E:4569
+.l4569 ; 2E:4569
 	ld a, c
 	cp a, $02
-	jr nz, Label_2E_458E
+	jr nz, .l458E
 	push bc
 	ld hl, $DA00
 	ld de, $76E0
@@ -847,11 +837,10 @@ Label_2E_4569:: ; 2E:4569
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
-
-Label_2E_458E:: ; 2E:458E
+.l458E ; 2E:458E
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2E_4458
+	jp z, .l4458
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -868,9 +857,9 @@ Label_2E_458E:: ; 2E:458E
 	pop hl
 	pop bc
 	cp a, $00
-	jp z, Label_2E_467A
+	jp z, .l467A
 	cp a, $01
-	jp z, Label_2E_4736
+	jp z, .l4736
 	push bc
 	push hl
 	di
@@ -909,13 +898,12 @@ Label_2E_458E:: ; 2E:458E
 	pop hl
 	pop bc
 	dec a
-	jp nz, Label_2E_4611
+	jp nz, .l4611
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-
-Label_2E_4611:: ; 2E:4611
+.l4611 ; 2E:4611
 	push bc
 	push hl
 	push hl
@@ -964,9 +952,8 @@ Label_2E_4611:: ; 2E:4611
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $02
-	jp Label_2E_4458
-
-Label_2E_467A:: ; 2E:467A
+	jp .l4458
+.l467A ; 2E:467A
 	push bc
 	push hl
 	ld de, $D010
@@ -1031,8 +1018,7 @@ Label_2E_467A:: ; 2E:467A
 	farcall Timer_ResetClockB
 	xor a, a
 	farcall Pop3_StartDele
-
-Label_2E_46F8:: ; 2E:46F8
+.l46F8 ; 2E:46F8
 	call Function_00_0464
 	di
 	farcall Function_00_0956
@@ -1041,34 +1027,33 @@ Label_2E_46F8:: ; 2E:46F8
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2E_4717
+	jr z, .l4717
 	pop hl
 	pop bc
 	jp Label_2E_4A47
-
-Label_2E_4717:: ; 2E:4717
+.l4717 ; 2E:4717
 	xor a, a
 	farcall Pop3_DelePoll
 	cp a, $01
-	jr z, Label_2E_46F8
+	jr z, .l46F8
 	cp a, $FF
-	jr nz, Label_2E_4731
+	jr nz, .l4731
 
-; ---- code $4726-$4731 (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	farcall MailSession_ShowCommError
 	pop hl
 	pop bc
 	ld a, $80
 	ret
 
-; ---- code $4731-$4853 (290 bytes) [CONFIRMED] 138 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4731:: ; 2E:4731
+.l4731 ; 2E:4731
+	; [CONFIRMED] 138 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop hl
 	pop bc
-	jp Label_2E_477E
-
-Label_2E_4736:: ; 2E:4736
+	jp .l477E
+.l4736 ; 2E:4736
 	push bc
 	push hl
 	ld de, $D010
@@ -1099,8 +1084,7 @@ Label_2E_4736:: ; 2E:4736
 	call MailServerMgr_ShowLoadingMsg
 	pop hl
 	pop bc
-
-Label_2E_477E:: ; 2E:477E
+.l477E ; 2E:477E
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1125,12 +1109,12 @@ Label_2E_477E:: ; 2E:477E
 	ld de, $D633
 	ld a, [de]
 	cp a, $00
-	jp nz, Label_2E_4887
+	jp nz, .l4887
 	inc de
 	ld a, [de]
 	cp a, $00
 	inc de
-	jp nz, Label_2E_4887
+	jp nz, .l4887
 	call MailServerMgr_ClearTextTiles
 	push af
 	push bc
@@ -1200,26 +1184,26 @@ Label_2E_477E:: ; 2E:477E
 	pop de
 	farcall Dialog_Open
 	ld a, $78
-
-Label_2E_4843:: ; 2E:4843
+.l4843 ; 2E:4843
 	push af
 	call Function_00_044B
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2E_4857
+	jr z, .skip
 
-; ---- code $4853-$4857 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4292-488A by apply_coverage --split
 	pop af
 	ld a, $01
 	push af
 
-; ---- code $4857-$488A (51 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4857:: ; 2E:4857
+.skip ; 2E:4857
+	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop af
 	dec a
-	jr nz, Label_2E_4843
+	jr nz, .l4843
 	farcall Dialog_Close
 	call MailServerMgr_DrawTimer
 	push af
@@ -1238,17 +1222,21 @@ Label_2E_4857:: ; 2E:4857
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-
-Label_2E_4887:: ; 2E:4887
+.l4887 ; 2E:4887
 	jp Label_2E_4298
 
-; ---- code $488A-$488E (4 bytes) [HYPOTHESIS] function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887 and directly before the far-call site region at 488E; the matching pop sequence was not proven, no caller/pointer found, entry unproven
+	; [HYPOTHESIS] function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887
+	; and directly before the far-call site region at 488E; the matching pop sequence was not
+	; proven, no caller/pointer found, entry unproven
 	push af
 	push bc
 	push de
 	push hl
 
-; ---- code $488E-$4A47 (441 bytes) [PROBABLE] 298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 195 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
+	; [PROBABLE] 298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery
+	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
+	; decoded code | 195 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 488E-4B2E by apply_coverage --split
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
 	call Function_00_044B
@@ -1260,7 +1248,7 @@ Label_2E_4887:: ; 2E:4887
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
-	jr z, Label_2E_48EE
+	jr z, .l48EE
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1284,8 +1272,7 @@ Label_2E_4887:: ; 2E:4887
 	pop bc
 	pop af
 	ret
-
-Label_2E_48EE:: ; 2E:48EE
+.l48EE ; 2E:48EE
 	pop hl
 	pop de
 	pop bc
@@ -1312,7 +1299,7 @@ Function_2E_48F8:: ; 2E:48F8
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
-	jr z, Label_2E_495C
+	jr z, .l495C
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1336,8 +1323,7 @@ Function_2E_48F8:: ; 2E:48F8
 	pop bc
 	pop af
 	ret
-
-Label_2E_495C:: ; 2E:495C
+.l495C ; 2E:495C
 	pop hl
 	pop de
 	pop bc
@@ -1357,8 +1343,7 @@ Label_2E_495C:: ; 2E:495C
 	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
-
-Label_2E_4988:: ; 2E:4988
+.l4988 ; 2E:4988
 	push hl
 	di
 	farcall Function_00_0956
@@ -1368,13 +1353,12 @@ Label_2E_4988:: ; 2E:4988
 	inc hl
 	ld a, $B8
 	call MailServerMgr_DrawMailNumber
-	jr Label_2E_4988
+	jr .l4988
 
 	farcall Timer_ResetClockB
 	xor a, a
 	farcall Pop3_StartDele
-
-Label_2E_49AA:: ; 2E:49AA
+.l49AA ; 2E:49AA
 	di
 	farcall Function_00_0956
 	ei
@@ -1382,7 +1366,7 @@ Label_2E_49AA:: ; 2E:49AA
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2E_49DA
+	jr z, .l49DA
 	pop hl
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1401,19 +1385,17 @@ Label_2E_49AA:: ; 2E:49AA
 	ld a, d
 	ld [bc], a
 	jp Label_2E_4A47
-
-Label_2E_49DA:: ; 2E:49DA
+.l49DA ; 2E:49DA
 	xor a, a
 	farcall Pop3_DelePoll
 	cp a, $01
-	jr z, Label_2E_49AA
+	jr z, .l49AA
 	cp a, $FF
-	jr nz, Label_2E_49F2
+	jr nz, .l49F2
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
-
-Label_2E_49F2:: ; 2E:49F2
+.l49F2 ; 2E:49F2
 	pop hl
 	push hl
 	ld a, $01
@@ -1451,32 +1433,30 @@ Label_2E_49F2:: ; 2E:49F2
 	ei
 	call $6DD0
 	ld a, $78
-
-Label_2E_4A31:: ; 2E:4A31
+.l4A31 ; 2E:4A31
 	push af
 	call Function_00_0464
 	pop af
 	dec a
-	jr nz, Label_2E_4A31
+	jr nz, .l4A31
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-; ---- code $4A47-$4AB2 (107 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
-
 Label_2E_4A47:: ; 2E:4A47
+	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $04
 	call MailServerMgr_ShowChoiceHelp
 	ld a, $78
 	ld a, $01
-
-Label_2E_4A50:: ; 2E:4A50
+.loop ; 2E:4A50
 	push af
 	call Function_00_0464
 	pop af
 	dec a
-	jr nz, Label_2E_4A50
+	jr nz, .loop
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1516,9 +1496,10 @@ Function_2E_4A7D:: ; 2E:4A7D
 	pop af
 	pop bc
 	inc a
-	jr z, Label_2E_4AE2
+	jr z, .l4AE2
 
-; ---- code $4AB2-$4AE2 (48 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
+	; [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 488E-4B2E by apply_coverage --split
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -1544,9 +1525,9 @@ Function_2E_4A7D:: ; 2E:4A7D
 	pop af
 	ret
 
-; ---- code $4AE2-$4AED (11 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_4AE2:: ; 2E:4AE2
+.l4AE2 ; 2E:4AE2
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop hl
 	pop de
 	pop bc
@@ -1558,7 +1539,8 @@ Label_2E_4AE2:: ; 2E:4AE2
 	ld a, $80
 	ret
 
-; ---- code $4AED-$4B2E (65 bytes) [PROBABLE] 22 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
+	; [PROBABLE] 22 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 488E-4B2E by apply_coverage --split
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	farcall Function_7F_6218

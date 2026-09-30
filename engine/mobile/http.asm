@@ -4,9 +4,8 @@
 
 SECTION "engine/mobile/http", ROMX
 
-; ---- code $4288-$42F5 (109 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios) (part of region $427A-$42F5)
-
 Http_StartGet:: ; 54:4288
+	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios) (part of region $427A-$42F5)
 	ld a, l
 	ld [wMobileTaskArgs + 4], a
 	ld a, h
@@ -54,32 +53,31 @@ Http_StartGet:: ; 54:4288
 
 Url_EnsurePath:: ; 54:42E4
 	ld e, $00
-
-Label_54_42E6:: ; 54:42E6
+.loop ; 54:42E6
 	ld a, [hli]
 	or a, a
-	jr z, Label_54_42F1
+	jr z, .l42F1
 	cp a, $2F
-	jr nz, Label_54_42E6
+	jr nz, .loop
 	inc e
-	jr Label_54_42E6
-
-Label_54_42F1:: ; 54:42F1
+	jr .loop
+.l42F1 ; 54:42F1
 	ld a, e
 	cp a, $03
 	ret nc
 
-; ---- code $42F5-$42FB (6 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the retcc at 54:42F4 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the retcc at 54:42F4 (executed)
 	xor a, a
 	ld [hld], a
 	ld a, $2F
 	ld [hl], a
 	ret
 
-; ---- code $42FB-$437C (129 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Http_StartPost:: ; 54:42FB
 Function_54_42FB::
+	; [CONFIRMED] 60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, l
 	ld [wMobileTaskArgs + 4], a
 	ld a, h
@@ -128,36 +126,34 @@ Function_54_42FB::
 Http_Poll:: ; 54:4357
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_54_436B
+	jr nz, .l436B
 	bit 2, a
-	jp nz, Label_54_43F1
+	jp nz, .l43F1
 	bit 0, a
-	jp z, Label_54_43EE
+	jp z, .l43EE
 	ld a, $01
 	ret
-
-Label_54_436B:: ; 54:436B
+.l436B ; 54:436B
 	ld a, $00
 	farcall MobileAPI
 	cp a, $32
-	jr nz, Label_54_4385
+	jr nz, .l4385
 	ld a, $03
 	cp a, h
-	jr nz, Label_54_4383
+	jr nz, .l4383
 
-; ---- code $437C-$4383 (7 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 54:437A (executed) [executed in 1 scenarios]
 	ld a, l
 	dec a
-	jr z, Label_54_4393
+	jr z, .l4393
 	dec a
-	jr z, Label_54_4393
+	jr z, .l4393
 
-; ---- code $4383-$4393 (16 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
-
-Label_54_4383:: ; 54:4383
+.l4383 ; 54:4383
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios)
 	ld a, $32
-
-Label_54_4385:: ; 54:4385
+.l4385 ; 54:4385
 	ld [wMobileResultCode], a
 	ld a, l
 	ld [wMobileResultDetail], a
@@ -166,25 +162,27 @@ Label_54_4385:: ; 54:4385
 	ld a, $FF
 	ret
 
-; ---- code $4393-$43A3 (16 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
-
-Label_54_4393:: ; 54:4393
+.l4393 ; 54:4393
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1;
+	; entered by jrcc from 54:437E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE
+	; region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
 	ld a, [wMobileRetriesLeft]
 	or a, a
-	jr z, Label_54_4383
+	jr z, .l4383
 	ld hl, $C1DB
 	dec [hl]
 	ld a, [wCommSessionKind]
 	or a, a
-	jr z, Label_54_43A8
+	jr z, .skip
 
-; ---- code $43A3-$43A8 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4393-43EE by apply_coverage --split
 	ld a, $07
 	ld [wMobileTaskKind], a
 
-; ---- code $43A8-$43CF (39 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
-
-Label_54_43A8:: ; 54:43A8
+.skip ; 54:43A8
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage
+	; --split [executed in 2 scenarios]
 	call Url_ResolveLocation
 	ld hl, $C1D2
 	ld a, [hli]
@@ -198,23 +196,22 @@ Label_54_43A8:: ; 54:43A8
 	ld hl, $C240
 	ld a, [wMobileTaskKind]
 	cp a, $03
-	jr z, Label_54_43CF
+	jr z, .l43CF
 	cp a, $07
-	jr z, Label_54_43DA
+	jr z, .l43DA
 	ld a, $2A
 	farcall MobileAPI
 	ld a, $01
 	ret
 
-; ---- code $43CF-$43EE (31 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
-
-Label_54_43CF:: ; 54:43CF
+.l43CF ; 54:43CF
+	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4393-43EE by apply_coverage --split
 	ld a, $2C
 	farcall MobileAPI
 	ld a, $01
 	ret
-
-Label_54_43DA:: ; 54:43DA
+.l43DA ; 54:43DA
 	ld a, $01
 	ld [wMobileTaskKind], a
 	inc hl
@@ -226,60 +223,60 @@ Label_54_43DA:: ; 54:43DA
 	ld a, $01
 	ret
 
-; ---- code $43EE-$43F1 (3 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
-
-Label_54_43EE:: ; 54:43EE
+.l43EE ; 54:43EE
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	ld a, $00
 	ret
 
-; ---- code $43F1-$4409 (24 bytes) [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed) | 9 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 2 scenarios]
-
-Label_54_43F1:: ; 54:43F1
+.l43F1 ; 54:43F1
+	; [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1;
+	; entered by jpcc from 54:4360 (executed) | 9 insn(s) executed; cut out of the PROBABLE region
+	; 43F1-44AC by apply_coverage --split [executed in 2 scenarios]
 	ld bc, $0000
 	ld a, [wMobileTaskKind]
 	cp a, $03
-	jr z, Label_54_4409
+	jr z, .l4409
 	ld a, $2A
 	farcall MobileAPI
 	ld a, $01
 	ld [wRam_C1DC], a
 	ret
 
-; ---- code $4409-$4417 (14 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
-
-Label_54_4409:: ; 54:4409
+.l4409 ; 54:4409
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 43F1-44AC by apply_coverage --split
 	ld a, $2C
 	farcall MobileAPI
 	ld a, $01
 	ld [wRam_C1DC], a
 	ret
 
-; ---- code $4417-$44A0 (137 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 1 scenarios]
-
 Url_ResolveLocation:: ; 54:4417
+	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld l, c
 	ld h, b
 	ld a, [hli]
 	cp a, $68
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $74
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $74
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $70
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $3A
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $2F
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld a, [hli]
 	cp a, $2F
-	jr nz, Label_54_444B
+	jr nz, .l444B
 	ld hl, $C1D6
 	ld a, [hli]
 	ld d, [hl]
@@ -288,55 +285,49 @@ Url_ResolveLocation:: ; 54:4417
 	ld h, b
 	farcall CopyString
 	ret
-
-Label_54_444B:: ; 54:444B
+.l444B ; 54:444B
 	ld l, c
 	ld h, b
 	ld a, [hl]
 	cp a, $2F
-	jr z, Label_54_446F
+	jr z, .l446F
 	ld hl, $C1D6
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-
-Label_54_4458:: ; 54:4458
+.l4458 ; 54:4458
 	ld a, [hli]
 	or a, a
-	jr nz, Label_54_4458
+	jr nz, .l4458
 	dec hl
-
-Label_54_445D:: ; 54:445D
+.l445D ; 54:445D
 	ld a, [hld]
 	cp a, $2F
-	jr nz, Label_54_445D
+	jr nz, .l445D
 	inc hl
 	inc hl
 	ld e, l
 	ld d, h
-
-Label_54_4466:: ; 54:4466
+.l4466 ; 54:4466
 	ld l, c
 	ld h, b
 	farcall CopyString
 	ret
-
-Label_54_446F:: ; 54:446F
+.l446F ; 54:446F
 	ld hl, $C1D6
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	ld de, $0007
 	add hl, de
-
-Label_54_4479:: ; 54:4479
+.l4479 ; 54:4479
 	ld a, [hli]
 	cp a, $2F
-	jr nz, Label_54_4479
+	jr nz, .l4479
 	dec hl
 	ld e, l
 	ld d, h
-	jr Label_54_4466
+	jr .l4466
 
 Mobile_BeginStop:: ; 54:4483
 	ld a, [wMobileSDK_State]
@@ -349,54 +340,55 @@ Mobile_BeginStop:: ; 54:4483
 Mobile_StopPoll:: ; 54:4492
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_54_44A0
+	jr nz, .l44A0
 	bit 0, a
-	jr z, Label_54_44A6
+	jr z, .l44A6
 	ld a, $01
 	ret
 
-; ---- code $44A0-$44A6 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
-
-Label_54_44A0:: ; 54:44A0
+.l44A0 ; 54:44A0
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 43F1-44AC by apply_coverage --split
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
-; ---- code $44A6-$44AC (6 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 4 scenarios]
-
-Label_54_44A6:: ; 54:44A6
+.l44A6 ; 54:44A6
+	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
 	ret
 
-; ---- code $44AC-$44BF (19 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Mobile_CheckTimeout:: ; 54:44AC
 Function_54_44AC::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wMobileTimeoutIssued]
 	or a, a
-	jr nz, Label_54_44D7
+	jr nz, .l44D7
 	ld a, [wCommTimeoutMinutes]
 	ld b, a
 	ld a, [wTimerBMinutes]
 	cp a, b
-	jr z, Label_54_44BF
+	jr z, .l44BF
 	xor a, a
-	jr Label_54_44C1
+	jr .l44C1
 
-; ---- code $44BF-$44C1 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed) [executed in 1 scenarios]
-
-Label_54_44BF:: ; 54:44BF
+.l44BF ; 54:44BF
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 54:44BA (executed) [executed in 1 scenarios]
 	ld a, $FF
 
-; ---- code $44C1-$44C3 (2 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
-
-Label_54_44C1:: ; 54:44C1
+.l44C1 ; 54:44C1
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	or a, a
 	ret z
 
-; ---- code $44C3-$44F8 (53 bytes) [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed) | 27 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0;
+	; fall-through of the retcc at 54:44C2 (executed) | 27 insn(s) executed; cut out of the PROBABLE
+	; region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
 	pop hl
 	xor a, a
 	ld [wMobileTaskStep], a
@@ -406,18 +398,16 @@ Label_54_44C1:: ; 54:44C1
 	farcall MobileAPI
 	ld a, $01
 	ret
-
-Label_54_44D7:: ; 54:44D7
+.l44D7 ; 54:44D7
 	pop hl
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_54_44F8
+	jr nz, .l44F8
 	bit 0, a
-	jr z, Label_54_44E6
+	jr z, .l44E6
 	ld a, $01
 	ret
-
-Label_54_44E6:: ; 54:44E6
+.l44E6 ; 54:44E6
 	ld a, $26
 	ld [wMobileResultCode], a
 	xor a, a
@@ -429,9 +419,9 @@ Label_54_44E6:: ; 54:44E6
 	ld a, $FF
 	ret
 
-; ---- code $44F8-$44FE (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
-
-Label_54_44F8:: ; 54:44F8
+.l44F8 ; 54:44F8
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 44C3-475A by apply_coverage --split
 	call Mobile_FetchResult
 	ld a, $FF
 	ret

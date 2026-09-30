@@ -4,10 +4,10 @@
 
 SECTION "engine/comm/connect_dialog", ROMX
 
-; ---- code $4000-$4126 (294 bytes) [CONFIRMED] 124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-
 ConnectDialog_Run:: ; 57:4000
 Function_57_4000::
+	; [CONFIRMED] 124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	xor a, a
@@ -72,10 +72,9 @@ ConnectDialog_Run_ModeChanged:: ; 57:4068
 	cp a, $10
 	jr z, ConnectDialog_Run_Accept
 	cp a, $05
-	jr nc, Label_57_4082
+	jr nc, .l4082
 	jp ConnectDialog_Run_LoadMode
-
-Label_57_4082:: ; 57:4082
+.l4082 ; 57:4082
 	ld a, [wRam_C0E6]
 	cp a, $05
 	jp nc, ConnectDialog_Run_EnterMode
@@ -109,15 +108,14 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	ld de, $C1B2
 	ld a, [wConnectDialogTextLen]
 	ld c, a
-
-Label_57_40C3:: ; 57:40C3
+.loop ; 57:40C3
 	ld a, [de]
 	inc de
 	ld b, a
 	ld a, [wRam_C10E]
 	farcall WriteByteFar
 	dec c
-	jr nz, Label_57_40C3
+	jr nz, .loop
 	ld b, $00
 	ld a, [wRam_C10E]
 	farcall WriteByteFar
@@ -138,8 +136,8 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	ld b, a
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr c, Label_57_412A
-	jp z, Label_57_4189
+	jr c, .l412A
+	jp z, .l4189
 	cp a, $04
 	jp c, ConnectDialog_Input_ConnectConfirm
 	jp z, ConnectDialog_Input_ConnectConfirm
@@ -151,53 +149,51 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	cp a, $0A
 	jp c, ConnectDialog_Input_StoredPassword
 
-; ---- code $4126-$4129 (3 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4126-41CA by apply_coverage --split [executed in 6 scenarios]
+	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0;
+	; fall-through of the jpcc at 57:4123 (executed) | 1 insn(s) executed; cut out of the PROBABLE
+	; region 4126-41CA by apply_coverage --split [executed in 6 scenarios]
 	jp z, ConnectDialog_Input_ForgetConfirm
 
-; ---- code $4129-$41CA (161 bytes) [PROBABLE] 77 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4126-41CA by apply_coverage --split
+	; [PROBABLE] 77 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4126-41CA by apply_coverage --split
 	ret
-
-Label_57_412A:: ; 57:412A
+.l412A ; 57:412A
 	bit 5, b
-	jr nz, Label_57_415C
+	jr nz, .l415C
 	bit 4, b
-	jr nz, Label_57_415C
+	jr nz, .l415C
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_413E
+	jr nz, .l413E
 	bit 1, a
-	jr nz, Label_57_4150
+	jr nz, .l4150
 	xor a, a
 	ret
-
-Label_57_413E:: ; 57:413E
+.l413E ; 57:413E
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr nz, Label_57_4150
+	jr nz, .l4150
 	ld a, $02
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_4150:: ; 57:4150
+.l4150 ; 57:4150
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	xor a, a
 	ld [wRam_C0D6], a
 	ld a, $01
 	ret
-
-Label_57_415C:: ; 57:415C
+.l415C ; 57:415C
 	ld a, [wRam_C0E5]
 	xor a, $03
 	ld [wRam_C0E5], a
 	ld de, $7828
 	cp a, $01
-	jr z, Label_57_416E
+	jr z, .l416E
 	ld de, $7858
-
-Label_57_416E:: ; 57:416E
+.l416E ; 57:416E
 	ld hl, $DA40
 	farcall Function_00_0A65
 	ldh a, [hWRAMBank]
@@ -210,101 +206,90 @@ Label_57_416E:: ; 57:416E
 	ldh [rSVBK], a
 	xor a, a
 	ret
-
-Label_57_4189:: ; 57:4189
+.l4189 ; 57:4189
 	bit 5, b
-	jr nz, Label_57_415C
+	jr nz, .l415C
 	bit 4, b
-	jr nz, Label_57_415C
+	jr nz, .l415C
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_419D
+	jr nz, .l419D
 	bit 1, a
-	jr nz, Label_57_41BF
+	jr nz, .l41BF
 	xor a, a
 	ret
-
-Label_57_419D:: ; 57:419D
+.l419D ; 57:419D
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr nz, Label_57_41BF
+	jr nz, .l41BF
 	ld a, $01
 	ld hl, $A880
 	call ReadByteFar
 	ld b, $05
 	or a, a
-	jr z, Label_57_41B8
+	jr z, .l41B8
 	ld b, $09
-
-Label_57_41B8:: ; 57:41B8
+.l41B8 ; 57:41B8
 	ld a, b
 	ld [wRam_C0D6], a
 	ld a, $01
 	ret
-
-Label_57_41BF:: ; 57:41BF
+.l41BF ; 57:41BF
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $01
 	ld [wRam_C0D6], a
 	ret
-
-; ---- code $41CA-$4237 (109 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 6/18 scenarios)
 
 ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
+	; [CONFIRMED] 51 insn(s); 51 executed (in up to 6/18 scenarios)
 	bit 5, b
-	jr nz, Label_57_420A
+	jr nz, .l420A
 	bit 4, b
-	jr nz, Label_57_420A
+	jr nz, .l420A
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_41DE
+	jr nz, .l41DE
 	bit 1, a
-	jr nz, Label_57_41FE
+	jr nz, .l41FE
 	xor a, a
 	ret
-
-Label_57_41DE:: ; 57:41DE
+.l41DE ; 57:41DE
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr nz, Label_57_4203
+	jr nz, .l4203
 	ld a, $01
 	ld hl, $A880
 	call ReadByteFar
 	ld b, $05
 	or a, a
-	jr z, Label_57_41F9
+	jr z, .l41F9
 	ld b, $09
-
-Label_57_41F9:: ; 57:41F9
+.l41F9 ; 57:41F9
 	ld a, b
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_41FE:: ; 57:41FE
+.l41FE ; 57:41FE
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
-
-Label_57_4203:: ; 57:4203
+.l4203 ; 57:4203
 	xor a, a
 	ld [wRam_C0D6], a
 	ld a, $01
 	ret
-
-Label_57_420A:: ; 57:420A
+.l420A ; 57:420A
 	ld a, [wRam_C0E5]
 	xor a, $03
 	ld [wRam_C0E5], a
 	ld de, $6828
 	cp a, $01
-	jr z, Label_57_421C
+	jr z, .l421C
 	ld de, $6858
-
-Label_57_421C:: ; 57:421C
+.l421C ; 57:421C
 	ld hl, $DA40
 	farcall Function_00_0A65
 	ldh a, [hWRAMBank]
@@ -318,25 +303,24 @@ Label_57_421C:: ; 57:421C
 	xor a, a
 	ret
 
-; ---- code $4237-$4265 (46 bytes) [CONFIRMED] 238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed) | 22 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
-
 ConnectDialog_Input_PasswordPrompt:: ; 57:4237
+	; [CONFIRMED] 238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1;
+	; entered by jpcc from 57:4116 (executed) | 22 insn(s) executed; cut out of the PROBABLE region
+	; 4237-4443 by apply_coverage --split [executed in 4 scenarios]
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_4243
+	jr nz, .l4243
 	bit 1, a
-	jr nz, Label_57_424E
+	jr nz, .l424E
 	xor a, a
 	ret
-
-Label_57_4243:: ; 57:4243
+.l4243 ; 57:4243
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $06
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_424E:: ; 57:424E
+.l424E ; 57:424E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialogArgPtr]
@@ -346,14 +330,15 @@ Label_57_424E:: ; 57:424E
 	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
-	jr nc, Label_57_4267
+	jr nc, .skip
 
-; ---- code $4265-$4267 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4237-4443 by apply_coverage --split
 	ld a, $02
 
-; ---- code $4267-$4297 (48 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
-
-Label_57_4267:: ; 57:4267
+.skip ; 57:4267
+	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld [wRam_C0D6], a
 	ret
 
@@ -374,16 +359,17 @@ ConnectDialog_Input_Keyboard:: ; 57:426B
 	cp a, $08
 	jp z, Label_57_4339
 
-; ---- code $4297-$4299 (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4237-4443 by apply_coverage --split
 	xor a, a
 	ret
 
-; ---- code $4299-$4443 (426 bytes) [CONFIRMED] 196 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 1 scenarios]
-
 ConnectDialog_Keyboard_AppendChar:: ; 57:4299
+	; [CONFIRMED] 196 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, [wConnectDialogTextLen]
 	cp a, $08
-	jr z, Label_57_430D
+	jr z, .l430D
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -436,8 +422,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	call ConnectDialog_RenderTypedChars
 	xor a, a
 	ret
-
-Label_57_430D:: ; 57:430D
+.l430D ; 57:430D
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -477,7 +462,7 @@ Label_57_4339:: ; 57:4339
 ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, [wConnectDialogTextLen]
 	or a, a
-	jr z, Label_57_438E
+	jr z, .l438E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -511,8 +496,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld [hl], $00
 	xor a, a
 	ret
-
-Label_57_438E:: ; 57:438E
+.l438E ; 57:438E
 	call ConnectDialog_DrawPasswordField
 	xor a, a
 	ld [wRam_C0E8], a
@@ -531,28 +515,26 @@ Label_57_438E:: ; 57:438E
 
 ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	bit 5, b
-	jr nz, Label_57_43F4
+	jr nz, .l43F4
 	bit 4, b
-	jr nz, Label_57_43F4
+	jr nz, .l43F4
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_43D0
+	jr nz, .l43D0
 	bit 1, a
-	jr nz, Label_57_43E2
+	jr nz, .l43E2
 	xor a, a
 	ret
-
-Label_57_43D0:: ; 57:43D0
+.l43D0 ; 57:43D0
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr nz, Label_57_43E2
+	jr nz, .l43E2
 	ld a, $08
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_43E2:: ; 57:43E2
+.l43E2 ; 57:43E2
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $02
@@ -561,17 +543,15 @@ Label_57_43E2:: ; 57:43E2
 	ld [wRam_C0D6], a
 	ld a, $01
 	ret
-
-Label_57_43F4:: ; 57:43F4
+.l43F4 ; 57:43F4
 	ld a, [wRam_C0E5]
 	xor a, $03
 	ld [wRam_C0E5], a
 	ld de, $7828
 	cp a, $01
-	jr z, Label_57_4406
+	jr z, .skip
 	ld de, $7858
-
-Label_57_4406:: ; 57:4406
+.skip ; 57:4406
 	ld hl, $DA40
 	farcall Function_00_0A65
 	ldh a, [hWRAMBank]
@@ -588,47 +568,42 @@ Label_57_4406:: ; 57:4406
 ConnectDialog_Input_PasswordSaved:: ; 57:4421
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_442D
+	jr nz, .l442D
 	bit 1, a
-	jr nz, Label_57_4438
+	jr nz, .l4438
 	xor a, a
 	ret
-
-Label_57_442D:: ; 57:442D
+.l442D ; 57:442D
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_4438:: ; 57:4438
+.l4438 ; 57:4438
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $07
 	ld [wRam_C0D6], a
 	ret
 
-; ---- code $4443-$4475 (50 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 5/18 scenarios)
-
 ConnectDialog_Input_StoredPassword:: ; 57:4443
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 5/18 scenarios)
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_4453
+	jr nz, .l4453
 	bit 1, a
-	jr nz, Label_57_445E
+	jr nz, .l445E
 	bit 2, a
-	jr nz, Label_57_447B
+	jr nz, .l447B
 	xor a, a
 	ret
-
-Label_57_4453:: ; 57:4453
+.l4453 ; 57:4453
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, $10
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_445E:: ; 57:445E
+.l445E ; 57:445E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wConnectDialogArgPtr]
@@ -638,48 +613,46 @@ Label_57_445E:: ; 57:445E
 	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
-	jr nc, Label_57_4477
+	jr nc, .skip
 
-; ---- code $4475-$4477 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 57:4473 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 57:4473 (executed)
 	ld a, $02
 
-; ---- code $4477-$447B (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
-
-Label_57_4477:: ; 57:4477
+.skip ; 57:4477
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	ld [wRam_C0D6], a
 	ret
 
-; ---- code $447B-$44E4 (105 bytes) [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 1; entered by jrcc from 57:444F (executed) [executed in 1 scenarios]
-
-Label_57_447B:: ; 57:447B
+.l447B ; 57:447B
+	; [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 1;
+	; entered by jrcc from 57:444F (executed) [executed in 1 scenarios]
 	ld a, $0A
 	ld [wRam_C0D6], a
 	ret
 
 ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	bit 5, b
-	jr nz, Label_57_44B7
+	jr nz, .l44B7
 	bit 4, b
-	jr nz, Label_57_44B7
+	jr nz, .l44B7
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jr nz, Label_57_4495
+	jr nz, .l4495
 	bit 1, a
-	jr nz, Label_57_44A7
+	jr nz, .l44A7
 	xor a, a
 	ret
-
-Label_57_4495:: ; 57:4495
+.l4495 ; 57:4495
 	ld a, $00
 	call ConnectDialog_PlayButtonSfx
 	ld a, [wRam_C0E5]
 	cp a, $01
-	jr nz, Label_57_44A7
+	jr nz, .l44A7
 	ld a, $05
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_44A7:: ; 57:44A7
+.l44A7 ; 57:44A7
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
 	ld a, $02
@@ -687,17 +660,15 @@ Label_57_44A7:: ; 57:44A7
 	ld a, $09
 	ld [wRam_C0D6], a
 	ret
-
-Label_57_44B7:: ; 57:44B7
+.l44B7 ; 57:44B7
 	ld a, [wRam_C0E5]
 	xor a, $03
 	ld [wRam_C0E5], a
 	ld de, $7828
 	cp a, $01
-	jr z, Label_57_44C9
+	jr z, .skip
 	ld de, $7858
-
-Label_57_44C9:: ; 57:44C9
+.skip ; 57:44C9
 	ld hl, $DA40
 	farcall Function_00_0A65
 	ldh a, [hWRAMBank]
@@ -711,19 +682,19 @@ Label_57_44C9:: ; 57:44C9
 	xor a, a
 	ret
 
-; ---- code $44E4-$450B (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-
 ConnectDialog_EnterMode:: ; 57:44E4
 Function_57_44E4::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0D8]
 	cp a, $02
-	jr c, Label_57_450F
-	jp z, Label_57_4510
+	jr c, .l450F
+	jp z, .l4510
 	cp a, $04
-	jp c, Label_57_4511
-	jp z, Label_57_4512
+	jp c, .l4511
+	jp z, .l4512
 	cp a, $06
-	jp c, Label_57_4513
+	jp c, .l4513
 	jp z, ConnectDialog_Enter_Keyboard
 	cp a, $08
 	jp c, Label_57_4566
@@ -731,29 +702,28 @@ Function_57_44E4::
 	cp a, $0A
 	jp c, ConnectDialog_Enter_StoredPassword
 
-; ---- code $450B-$450E (3 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 450B-4511 by apply_coverage --split [executed in 6 scenarios]
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jpcc at 57:4508 (executed) | 1 insn(s) executed; cut out of the PROBABLE
+	; region 450B-4511 by apply_coverage --split [executed in 6 scenarios]
 	jp z, Label_57_45BC
 
-; ---- code $450E-$4511 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 450B-4511 by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 450B-4511 by apply_coverage --split
+	ret
+.l450F ; 57:450F
+	ret
+.l4510 ; 57:4510
 	ret
 
-Label_57_450F:: ; 57:450F
+.l4511 ; 57:4511
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
+	ret
+.l4512 ; 57:4512
 	ret
 
-Label_57_4510:: ; 57:4510
-	ret
-
-; ---- code $4511-$4513 (2 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
-
-Label_57_4511:: ; 57:4511
-	ret
-
-Label_57_4512:: ; 57:4512
-	ret
-
-; ---- code $4513-$459A (135 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1; entered by jpcc from 57:44F8 (executed) [executed in 3 scenarios]
-
-Label_57_4513:: ; 57:4513
+.l4513 ; 57:4513
+	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1;
+	; entered by jpcc from 57:44F8 (executed) [executed in 3 scenarios]
 	call ConnectDialog_DrawPasswordField
 	ret
 
@@ -817,9 +787,8 @@ ConnectDialog_Enter_PasswordSaved:: ; 57:4590
 	call SavedPassword_Store
 	ret
 
-; ---- code $459A-$45BC (34 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 5/18 scenarios)
-
 ConnectDialog_Enter_StoredPassword:: ; 57:459A
+	; [CONFIRMED] 16 insn(s); 16 executed (in up to 5/18 scenarios)
 	ld a, $01
 	ld hl, $A880
 	call ReadByteFar
@@ -827,21 +796,20 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ld c, a
 	ld hl, $A88D
 	ld de, $C1B2
-
-Label_57_45AC:: ; 57:45AC
+.loop ; 57:45AC
 	ld a, $01
 	call ReadByteFar
 	xor a, $5A
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_57_45AC
+	jr nz, .loop
 	call ConnectDialog_DrawPasswordField
 	ret
 
-; ---- code $45BC-$45E6 (42 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
-
 Label_57_45BC:: ; 57:45BC
+	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
+	; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 	ld hl, $DA40
 	ld de, Table_56_79B8
 	ld a, $56
@@ -860,10 +828,10 @@ Label_57_45BC:: ; 57:45BC
 	ldh [rSVBK], a
 	ret
 
-; ---- code $45E6-$4618 (50 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-
 ConnectDialog_LeaveMode:: ; 57:45E6
 Function_57_45E6::
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0D8]
 	ld [wRam_C0E6], a
 	ld b, a
@@ -871,13 +839,13 @@ Function_57_45E6::
 	ld [wRam_C0D8], a
 	ld a, b
 	cp a, $02
-	jr c, Label_57_461C
-	jp z, Label_57_4642
+	jr c, .l461C
+	jp z, .l4642
 	cp a, $04
-	jp c, Label_57_4668
-	jp z, Label_57_468E
+	jp c, .l4668
+	jp z, .l468E
 	cp a, $06
-	jp c, Label_57_46B4
+	jp c, .l46B4
 	jp z, ConnectDialog_Leave_Keyboard
 	cp a, $08
 	jp c, Label_57_4738
@@ -885,92 +853,88 @@ Function_57_45E6::
 	cp a, $0A
 	jp c, Label_57_4771
 
-; ---- code $4618-$461B (3 bytes) [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4618-4668 by apply_coverage --split [executed in 6 scenarios]
+	; [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0;
+	; fall-through of the jpcc at 57:4615 (executed) | 1 insn(s) executed; cut out of the PROBABLE
+	; region 4618-4668 by apply_coverage --split [executed in 6 scenarios]
 	jp z, ConnectDialog_Leave_ForgetConfirm
 
-; ---- code $461B-$4668 (77 bytes) [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4618-4668 by apply_coverage --split
+	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4618-4668 by apply_coverage --split
 	ret
-
-Label_57_461C:: ; 57:461C
+.l461C ; 57:461C
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_57_4632
+	jr nz, .l4632
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_57_4632:: ; 57:4632
+.l4632 ; 57:4632
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_57_4642:: ; 57:4642
+.l4642 ; 57:4642
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_57_4658
+	jr nz, .l4658
+	farcall Palette_FadeOutToWhite
+	ld de, $00B4
+	ld hl, $DA40
+	call Function_00_0A65
+	ret
+.l4658 ; 57:4658
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
-Label_57_4658:: ; 57:4658
-	farcall Palette_FadeOutToWhite
-	ld de, $00B4
-	ld hl, $DA40
-	call Function_00_0A65
-	ret
-
-; ---- code $4668-$467E (22 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
-
-Label_57_4668:: ; 57:4668
+.l4668 ; 57:4668
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_57_467E
+	jr nz, .l467E
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
-; ---- code $467E-$468E (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 57:466C (executed) [executed in 5 scenarios]
-
-Label_57_467E:: ; 57:467E
+.l467E ; 57:467E
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 57:466C (executed) [executed in 5 scenarios]
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
-; ---- code $468E-$46B4 (38 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
-
-Label_57_468E:: ; 57:468E
+.l468E ; 57:468E
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_57_46A4
+	jr nz, .l46A4
+	farcall Palette_FadeOutToWhite
+	ld de, $00B4
+	ld hl, $DA40
+	call Function_00_0A65
+	ret
+.l46A4 ; 57:46A4
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
 
-Label_57_46A4:: ; 57:46A4
-	farcall Palette_FadeOutToWhite
-	ld de, $00B4
-	ld hl, $DA40
-	call Function_00_0A65
-	ret
-
-; ---- code $46B4-$4771 (189 bytes) [CONFIRMED] 73 insn(s) reached by static flow only; seeds: exec x73; min discovery hops 1; entered by jpcc from 57:4605 (executed) [executed in 1 scenarios]
-
-Label_57_46B4:: ; 57:46B4
+.l46B4 ; 57:46B4
+	; [CONFIRMED] 73 insn(s) reached by static flow only; seeds: exec x73; min discovery hops 1;
+	; entered by jpcc from 57:4605 (executed) [executed in 1 scenarios]
 	ld a, [wRam_C0D8]
 	cp a, $06
-	jr z, Label_57_46DF
+	jr z, .done
 	ld de, $00B4
 	ld hl, $DA20
 	call Function_00_0A65
@@ -983,8 +947,7 @@ Label_57_46B4:: ; 57:46B4
 	call Function_00_0A65
 	farcall Palette_FadeOutToWhite
 	ret
-
-Label_57_46DF:: ; 57:46DF
+.done ; 57:46DF
 	ret
 
 ConnectDialog_Leave_Keyboard:: ; 57:46E0
@@ -1032,21 +995,19 @@ Label_57_4738:: ; 57:4738
 	call Function_00_0A65
 	ld a, [wRam_C0E5]
 	dec a
-	jr nz, Label_57_474E
+	jr nz, .done
 	farcall Palette_FadeOutToWhite
 	ret
-
-Label_57_474E:: ; 57:474E
+.done ; 57:474E
 	ret
 
 ConnectDialog_Leave_PasswordSaved:: ; 57:474F
 	ld a, [wRam_C0D8]
 	cp a, $07
-	jr z, Label_57_475D
+	jr z, .l475D
 	farcall Palette_FadeOutToWhite
 	ret
-
-Label_57_475D:: ; 57:475D
+.l475D ; 57:475D
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ld a, $01
@@ -1054,24 +1015,23 @@ Label_57_475D:: ; 57:475D
 	farcall WriteByteFar
 	ret
 
-; ---- code $4771-$477E (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
-
 Label_57_4771:: ; 57:4771
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
 	ld a, [wRam_C0D8]
 	cp a, $0A
 	ret z
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- code $477E-$47A6 (40 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
-
 ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
+	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1;
+	; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
 	ld de, $00B4
 	ld hl, $DA40
 	call Function_00_0A65
 	ld a, [wRam_C0D8]
 	cp a, $09
-	jr z, Label_57_47A5
+	jr z, .done
 	xor a, a
 	ld [wConnectDialogTextLen], a
 	ld b, a
@@ -1080,6 +1040,5 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	farcall WriteByteFar
 	farcall Palette_FadeOutToWhite
 	ret
-
-Label_57_47A5:: ; 57:47A5
+.done ; 57:47A5
 	ret

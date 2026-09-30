@@ -4,9 +4,8 @@
 
 SECTION "engine/gfx/palette_fade_ticker", ROMX
 
-; ---- code $46C6-$4728 (98 bytes) [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
-
 Palette_FadeOutWithTicker:: ; 48:46C6
+	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -26,8 +25,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ld a, $30
 	farcall PalFade_Start
 	farcall PalFade_Step
-
-Label_48_46FA:: ; 48:46FA
+.loop ; 48:46FA
 	call Function_00_047A
 	ld hl, $D800
 	farcall Palette_UploadBuffer
@@ -36,11 +34,11 @@ Label_48_46FA:: ; 48:46FA
 	call Ticker_Update
 	ld hl, $C10E
 	dec [hl]
-	jr nz, Label_48_46FA
+	jr nz, .loop
 	ld [hl], $04
 	farcall PalFade_Step
 	or a, a
-	jr nz, Label_48_46FA
+	jr nz, .loop
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

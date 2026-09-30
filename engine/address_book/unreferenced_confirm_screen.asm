@@ -4,22 +4,24 @@
 
 SECTION "engine/address_book/unreferenced_confirm_screen", ROMX
 
-; ---- code $741C-$7421 (5 bytes) [PROBABLE] 2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421; follows the frame data terminator 01 00 04; no direct entry found | forced execution: 2/2 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_2C_741C:: ; 2C:741C
+	; [PROBABLE] 2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421;
+	; follows the frame data terminator 01 00 04; no direct entry found | forced execution: 2/2
+	; instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	call Function_2C_746F
 	ld b, $3C
 
-; ---- code $7421-$7450 (47 bytes) [PROBABLE] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; entered by jrcc from 2C:7433 (PROBABLE code) | forced execution: 18/20 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
-Label_2C_7421:: ; 2C:7421
+.loop ; 2C:7421
+	; [PROBABLE] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0;
+	; entered by jrcc from 2C:7433 (PROBABLE code) | forced execution: 18/20 instruction starts ran
+	; in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	push bc
 	farcall Function_00_0956
 	call Function_00_044B
 	farcall Joypad_Update
 	pop bc
 	dec b
-	jr nz, Label_2C_7421
+	jr nz, .loop
 	ld de, $0204
 	push de
 	pop de
@@ -28,44 +30,49 @@ Label_2C_7421:: ; 2C:7421
 	farcall Palette_FadeOutToWhite
 	pop af
 	dec a
-	jr z, Label_2C_744E
+	jr z, .l744E
 	ld a, $FF
 	ret
-
-Label_2C_744E:: ; 2C:744E
+.l744E ; 2C:744E
 	xor a, a
 	ret
 
-; ---- code $7450-$7456 (6 bytes) [PROBABLE] 3 insn(s) (ldh a,[$FFA5] ; and $01 ; jr z,$745E): button test whose sibling tests 745E/746D are its jr z targets; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	; [PROBABLE] 3 insn(s) (ldh a,[$FFA5] ; and $01 ; jr z,$745E): button test whose sibling tests
+	; 745E/746D are its jr z targets; well-formed instruction chain (clean decode, all direct
+	; targets land on instruction starts, lands exactly on the next code region); no direct
+	; caller/table entry found: entry HYPOTHESIS
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2C_745E
+	jr z, .l745E
 
-; ---- code $7456-$745E (8 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-; ---- code $745E-$7464 (6 bytes) [PROBABLE] 3 insn(s) (ldh a,[$FFA5] ; and $02 ; jr z,$746D); entered by jr z from 2C:7454 (this classification)
-
-Label_2C_745E:: ; 2C:745E
+.l745E ; 2C:745E
+	; [PROBABLE] 3 insn(s) (ldh a,[$FFA5] ; and $02 ; jr z,$746D); entered by jr z from 2C:7454
+	; (this classification)
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2C_746D
+	jr z, .l746D
 
-; ---- code $7464-$746D (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
-; ---- code $746D-$746F (2 bytes) [PROBABLE] 1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
-
-Label_2C_746D:: ; 2C:746D
-	jr Label_2C_7421
-
-; ---- code $746F-$7734 (709 bytes) [PROBABLE] 325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 151/325 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+.l746D ; 2C:746D
+	; [PROBABLE] 1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
+	jr .loop
 
 Function_2C_746F:: ; 2C:746F
+	; [PROBABLE] 325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 151/325 instruction starts ran in forced_dead (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
@@ -145,20 +152,19 @@ Function_2C_746F:: ; 2C:746F
 Function_2C_755C:: ; 2C:755C
 	ld a, $15
 	ld [wTextCellsLeft], a
-
-Label_2C_7561:: ; 2C:7561
+.l7561 ; 2C:7561
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2C_75FC
+	jp z, .l75FC
 	cp a, $0D
-	jr z, Label_2C_75E1
+	jr z, .l75E1
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2C_75BC
+	jr nz, .l75BC
 	pop af
 	push bc
 	push de
@@ -192,12 +198,11 @@ Label_2C_7561:: ; 2C:7561
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2C_75FC
+	jr z, .l75FC
 	cp a, $01
-	jr z, Label_2C_75FC
-	jr Label_2C_7561
-
-Label_2C_75BC:: ; 2C:75BC
+	jr z, .l75FC
+	jr .l7561
+.l75BC ; 2C:75BC
 	pop af
 	push bc
 	push de
@@ -213,12 +218,11 @@ Label_2C_75BC:: ; 2C:75BC
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2C_75FC
+	jr z, .l75FC
 	cp a, $01
-	jr z, Label_2C_75FC
-	jr Label_2C_7561
-
-Label_2C_75E1:: ; 2C:75E1
+	jr z, .l75FC
+	jr .l7561
+.l75E1 ; 2C:75E1
 	push bc
 	push de
 	push hl
@@ -232,8 +236,7 @@ Label_2C_75E1:: ; 2C:75E1
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2C_7630
-
-Label_2C_75FC:: ; 2C:75FC
+.l75FC ; 2C:75FC
 	push bc
 	push de
 	push hl
@@ -243,15 +246,14 @@ Label_2C_75FC:: ; 2C:75FC
 	pop hl
 	pop de
 	pop bc
-
-Label_2C_760D:: ; 2C:760D
+.l760D ; 2C:760D
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2C_7630
-	jr Label_2C_760D
+	jr .l760D
 
 Function_2C_761C:: ; 2C:761C
 	push bc
@@ -286,20 +288,19 @@ Function_2C_7630:: ; 2C:7630
 Function_2C_7648:: ; 2C:7648
 	ld a, $19
 	ld [wTextCellsLeft], a
-
-Label_2C_764D:: ; 2C:764D
+.l764D ; 2C:764D
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2C_76E8
+	jp z, .l76E8
 	cp a, $0D
-	jr z, Label_2C_76CD
+	jr z, .l76CD
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2C_76A8
+	jr nz, .l76A8
 	pop af
 	push bc
 	push de
@@ -333,12 +334,11 @@ Label_2C_764D:: ; 2C:764D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2C_76E8
+	jr z, .l76E8
 	cp a, $01
-	jr z, Label_2C_76E8
-	jr Label_2C_764D
-
-Label_2C_76A8:: ; 2C:76A8
+	jr z, .l76E8
+	jr .l764D
+.l76A8 ; 2C:76A8
 	pop af
 	push bc
 	push de
@@ -354,12 +354,11 @@ Label_2C_76A8:: ; 2C:76A8
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2C_76E8
+	jr z, .l76E8
 	cp a, $01
-	jr z, Label_2C_76E8
-	jr Label_2C_764D
-
-Label_2C_76CD:: ; 2C:76CD
+	jr z, .l76E8
+	jr .l764D
+.l76CD ; 2C:76CD
 	push bc
 	push de
 	push hl
@@ -373,8 +372,7 @@ Label_2C_76CD:: ; 2C:76CD
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2C_771C
-
-Label_2C_76E8:: ; 2C:76E8
+.l76E8 ; 2C:76E8
 	push bc
 	push de
 	push hl
@@ -384,15 +382,14 @@ Label_2C_76E8:: ; 2C:76E8
 	pop hl
 	pop de
 	pop bc
-
-Label_2C_76F9:: ; 2C:76F9
+.l76F9 ; 2C:76F9
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2C_771C
-	jr Label_2C_76F9
+	jr .l76F9
 
 Function_2C_7708:: ; 2C:7708
 	push bc

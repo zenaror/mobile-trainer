@@ -4,9 +4,8 @@
 
 SECTION "engine/text/canvas", ROMX
 
-; ---- code $41EA-$4202 (24 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios) (part of region $41C5-$4202)
-
 Canvas_RemapGlyphColors:: ; 7F:41EA
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios) (part of region $41C5-$4202)
 	push hl
 	sla c
 	sla c
@@ -25,36 +24,33 @@ Canvas_RemapGlyphColors:: ; 7F:41EA
 	ld l, b
 	jp hl
 
-; ---- code $4202-$4204 (2 bytes) [PROBABLE] entry 0 of the 16-word jump table 7F:42A3 (target $4202): pop hl ; ret (handler that only cleans the stack)
-
 Label_7F_4202:: ; 7F:4202
+	; [PROBABLE] entry 0 of the 16-word jump table 7F:42A3 (target $4202): pop hl ; ret (handler
+	; that only cleans the stack)
 	pop hl
 	ret
 
-; ---- code $4204-$422B (39 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 6/18 scenarios)
-
 Label_7F_4204:: ; 7F:4204
+	; [CONFIRMED] 32 insn(s); 32 executed (in up to 6/18 scenarios)
 	ld b, $0C
 	pop hl
 	xor a, a
-
-Label_7F_4208:: ; 7F:4208
+.loop ; 7F:4208
 	inc hl
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_4208
+	jr nz, .loop
 	ret
 
 Label_7F_420E:: ; 7F:420E
 	ld b, $0C
 	pop hl
 	xor a, a
-
-Label_7F_4212:: ; 7F:4212
+.loop ; 7F:4212
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, Label_7F_4212
+	jr nz, .loop
 	ret
 
 Label_7F_4218:: ; 7F:4218
@@ -65,8 +61,7 @@ Label_7F_421A:: ; 7F:421A
 	ld b, $0C
 	pop hl
 	xor a, a
-
-Label_7F_421E:: ; 7F:421E
+.loop ; 7F:421E
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -76,12 +71,12 @@ Label_7F_421E:: ; 7F:421E
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_421E
+	jr nz, .loop
 	ret
 
-; ---- code $422B-$424A (31 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: table x24; min discovery hops 0; run starts at an entry of the code-pointer table at 7F:42A5
-
 Label_7F_422B:: ; 7F:422B
+	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: table x24; min discovery hops 0; run
+	; starts at an entry of the code-pointer table at 7F:42A5
 	pop hl
 	ret
 
@@ -89,8 +84,7 @@ Label_7F_422D:: ; 7F:422D
 	ld b, $0C
 	pop hl
 	xor a, a
-
-Label_7F_4231:: ; 7F:4231
+.loop ; 7F:4231
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -100,28 +94,25 @@ Label_7F_4231:: ; 7F:4231
 	ld a, $FC
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_4231
+	jr nz, .loop
 	ret
 
 Label_7F_423F:: ; 7F:423F
 	ld b, $0C
 	pop hl
 	ld a, $FC
-
-Label_7F_4244:: ; 7F:4244
+.loop ; 7F:4244
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, Label_7F_4244
+	jr nz, .loop
 	ret
 
-; ---- code $424A-$425A (16 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
 Label_7F_424A:: ; 7F:424A
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	ld b, $0C
 	pop hl
-
-Label_7F_424D:: ; 7F:424D
+.loop ; 7F:424D
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -131,16 +122,15 @@ Label_7F_424D:: ; 7F:424D
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, Label_7F_424D
+	jr nz, .loop
 	ret
 
-; ---- code $425A-$4275 (27 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: table x21; min discovery hops 0; run starts at an entry of the code-pointer table at 7F:42A5
-
 Label_7F_425A:: ; 7F:425A
+	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: table x21; min discovery hops 0; run
+	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
 	pop hl
-
-Label_7F_425D:: ; 7F:425D
+.loop ; 7F:425D
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -148,7 +138,7 @@ Label_7F_425D:: ; 7F:425D
 	xor a, c
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_425D
+	jr nz, .loop
 	ret
 
 Label_7F_4268:: ; 7F:4268
@@ -159,21 +149,18 @@ Label_7F_426A:: ; 7F:426A
 	ld b, $0C
 	pop hl
 	ld a, $FC
-
-Label_7F_426F:: ; 7F:426F
+.loop ; 7F:426F
 	inc hl
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_426F
+	jr nz, .loop
 	ret
 
-; ---- code $4275-$4284 (15 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
-
 Label_7F_4275:: ; 7F:4275
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 	ld b, $0C
 	pop hl
-
-Label_7F_4278:: ; 7F:4278
+.loop ; 7F:4278
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -182,16 +169,15 @@ Label_7F_4278:: ; 7F:4278
 	ld [hli], a
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_4278
+	jr nz, .loop
 	ret
 
-; ---- code $4284-$42A3 (31 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: table x25; min discovery hops 0; run starts at an entry of the code-pointer table at 7F:42A5
-
 Label_7F_4284:: ; 7F:4284
+	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: table x25; min discovery hops 0; run
+	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
 	pop hl
-
-Label_7F_4287:: ; 7F:4287
+.loop ; 7F:4287
 	ld a, $FC
 	ld [hli], a
 	ld c, a
@@ -199,14 +185,13 @@ Label_7F_4287:: ; 7F:4287
 	xor a, c
 	ld [hli], a
 	dec b
-	jr nz, Label_7F_4287
+	jr nz, .loop
 	ret
 
 Label_7F_4292:: ; 7F:4292
 	ld b, $0C
 	pop hl
-
-Label_7F_4295:: ; 7F:4295
+.loop ; 7F:4295
 	ld a, [hli]
 	ld c, a
 	ld a, $FC
@@ -215,7 +200,7 @@ Label_7F_4295:: ; 7F:4295
 	ld [hli], a
 	inc hl
 	dec b
-	jr nz, Label_7F_4295
+	jr nz, .loop
 	ret
 
 Label_7F_42A1:: ; 7F:42A1
@@ -243,10 +228,10 @@ Table_7F_42A3::
 	dw Label_7F_4292
 	dw Label_7F_42A1
 
-; ---- code $42C3-$4354 (145 bytes) [CONFIRMED] 92 insn(s); 92 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 Canvas_BlitGlyph:: ; 7F:42C3
 Function_7F_42C3::
+	; [CONFIRMED] 92 insn(s); 92 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push hl
 	push de
 	call Canvas_RemapGlyphColors
@@ -266,27 +251,24 @@ Canvas_BlitGlyphNoRemap:: ; 7F:42CA
 	inc d
 	ld hl, $D000
 	ld bc, $0140
-
-Label_7F_42E1:: ; 7F:42E1
+.l42E1 ; 7F:42E1
 	dec d
-	jr z, Label_7F_42E7
+	jr z, .l42E7
 	add hl, bc
-	jr Label_7F_42E1
-
-Label_7F_42E7:: ; 7F:42E7
+	jr .l42E1
+.l42E7 ; 7F:42E7
 	sla a
 	add a, l
 	ld l, a
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_42F9
+	jr c, .l42F9
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_42F9:: ; 7F:42F9
+.l42F9 ; 7F:42F9
 	ld a, e
 	and a, $07
 	ld d, $00
@@ -321,15 +303,13 @@ Label_7F_42F9:: ; 7F:42F9
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4330:: ; 7F:4330
+.l4330 ; 7F:4330
 	dec c
-	jr z, Label_7F_4339
+	jr z, .l4339
 	srl a
 	rr b
-	jr Label_7F_4330
-
-Label_7F_4339:: ; 7F:4339
+	jr .l4330
+.l4339 ; 7F:4339
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -350,25 +330,25 @@ Label_7F_4339:: ; 7F:4339
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4368
+	jr nz, .l4368
 
-; ---- code $4354-$4368 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4352 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4352 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4368
+	jr c, .l4368
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4368-$4399 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_4368:: ; 7F:4368
+.l4368 ; 7F:4368
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -379,15 +359,13 @@ Label_7F_4368:: ; 7F:4368
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4375:: ; 7F:4375
+.l4375 ; 7F:4375
 	dec c
-	jr z, Label_7F_437E
+	jr z, .l437E
 	srl a
 	rr b
-	jr Label_7F_4375
-
-Label_7F_437E:: ; 7F:437E
+	jr .l4375
+.l437E ; 7F:437E
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -408,25 +386,25 @@ Label_7F_437E:: ; 7F:437E
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_43AD
+	jr nz, .l43AD
 
-; ---- code $4399-$43AD (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4397 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4397 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_43AD
+	jr c, .l43AD
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $43AD-$43DE (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_43AD:: ; 7F:43AD
+.l43AD ; 7F:43AD
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -437,15 +415,13 @@ Label_7F_43AD:: ; 7F:43AD
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_43BA:: ; 7F:43BA
+.l43BA ; 7F:43BA
 	dec c
-	jr z, Label_7F_43C3
+	jr z, .l43C3
 	srl a
 	rr b
-	jr Label_7F_43BA
-
-Label_7F_43C3:: ; 7F:43C3
+	jr .l43BA
+.l43C3 ; 7F:43C3
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -466,25 +442,25 @@ Label_7F_43C3:: ; 7F:43C3
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_43F2
+	jr nz, .l43F2
 
-; ---- code $43DE-$43F2 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:43DC (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:43DC (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_43F2
+	jr c, .l43F2
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $43F2-$4423 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_43F2:: ; 7F:43F2
+.l43F2 ; 7F:43F2
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -495,15 +471,13 @@ Label_7F_43F2:: ; 7F:43F2
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_43FF:: ; 7F:43FF
+.l43FF ; 7F:43FF
 	dec c
-	jr z, Label_7F_4408
+	jr z, .l4408
 	srl a
 	rr b
-	jr Label_7F_43FF
-
-Label_7F_4408:: ; 7F:4408
+	jr .l43FF
+.l4408 ; 7F:4408
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -524,25 +498,25 @@ Label_7F_4408:: ; 7F:4408
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4437
+	jr nz, .l4437
 
-; ---- code $4423-$4437 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4421 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4421 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4437
+	jr c, .l4437
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4437-$4468 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_4437:: ; 7F:4437
+.l4437 ; 7F:4437
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -553,15 +527,13 @@ Label_7F_4437:: ; 7F:4437
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4444:: ; 7F:4444
+.l4444 ; 7F:4444
 	dec c
-	jr z, Label_7F_444D
+	jr z, .l444D
 	srl a
 	rr b
-	jr Label_7F_4444
-
-Label_7F_444D:: ; 7F:444D
+	jr .l4444
+.l444D ; 7F:444D
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -582,25 +554,25 @@ Label_7F_444D:: ; 7F:444D
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_447C
+	jr nz, .l447C
 
-; ---- code $4468-$447C (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4466 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4466 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_447C
+	jr c, .l447C
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $447C-$44B8 (60 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
-
-Label_7F_447C:: ; 7F:447C
+.l447C ; 7F:447C
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -611,15 +583,13 @@ Label_7F_447C:: ; 7F:447C
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4489:: ; 7F:4489
+.l4489 ; 7F:4489
 	dec c
-	jr z, Label_7F_4492
+	jr z, .l4492
 	srl a
 	rr b
-	jr Label_7F_4489
-
-Label_7F_4492:: ; 7F:4492
+	jr .l4489
+.l4492 ; 7F:4492
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -640,25 +610,25 @@ Label_7F_4492:: ; 7F:4492
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_44C1
+	jr nz, .l44C1
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_44C1
+	jr c, .l44C1
 
-; ---- code $44B8-$44C1 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:44B6 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 7F:44B6 (executed)
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $44C1-$44F2 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_44C1:: ; 7F:44C1
+.l44C1 ; 7F:44C1
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -669,15 +639,13 @@ Label_7F_44C1:: ; 7F:44C1
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_44CE:: ; 7F:44CE
+.l44CE ; 7F:44CE
 	dec c
-	jr z, Label_7F_44D7
+	jr z, .l44D7
 	srl a
 	rr b
-	jr Label_7F_44CE
-
-Label_7F_44D7:: ; 7F:44D7
+	jr .l44CE
+.l44D7 ; 7F:44D7
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -698,25 +666,25 @@ Label_7F_44D7:: ; 7F:44D7
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4506
+	jr nz, .l4506
 
-; ---- code $44F2-$4506 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:44F0 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:44F0 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4506
+	jr c, .l4506
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4506-$457C (118 bytes) [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
-
-Label_7F_4506:: ; 7F:4506
+.l4506 ; 7F:4506
+	; [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -727,15 +695,13 @@ Label_7F_4506:: ; 7F:4506
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4513:: ; 7F:4513
+.l4513 ; 7F:4513
 	dec c
-	jr z, Label_7F_451C
+	jr z, .l451C
 	srl a
 	rr b
-	jr Label_7F_4513
-
-Label_7F_451C:: ; 7F:451C
+	jr .l4513
+.l451C ; 7F:451C
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -756,21 +722,20 @@ Label_7F_451C:: ; 7F:451C
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_454B
+	jr nz, .l454B
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_454B
+	jr c, .l454B
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_454B:: ; 7F:454B
+.l454B ; 7F:454B
 	ld a, [de]
 	inc de
 	push bc
@@ -781,15 +746,13 @@ Label_7F_454B:: ; 7F:454B
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4558:: ; 7F:4558
+.l4558 ; 7F:4558
 	dec c
-	jr z, Label_7F_4561
+	jr z, .l4561
 	srl a
 	rr b
-	jr Label_7F_4558
-
-Label_7F_4561:: ; 7F:4561
+	jr .l4558
+.l4561 ; 7F:4561
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -810,25 +773,25 @@ Label_7F_4561:: ; 7F:4561
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4590
+	jr nz, .l4590
 
-; ---- code $457C-$4590 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:457A (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:457A (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4590
+	jr c, .l4590
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4590-$45CC (60 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
-
-Label_7F_4590:: ; 7F:4590
+.l4590 ; 7F:4590
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -839,15 +802,13 @@ Label_7F_4590:: ; 7F:4590
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_459D:: ; 7F:459D
+.l459D ; 7F:459D
 	dec c
-	jr z, Label_7F_45A6
+	jr z, .l45A6
 	srl a
 	rr b
-	jr Label_7F_459D
-
-Label_7F_45A6:: ; 7F:45A6
+	jr .l459D
+.l45A6 ; 7F:45A6
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -868,25 +829,25 @@ Label_7F_45A6:: ; 7F:45A6
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_45D5
+	jr nz, .l45D5
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_45D5
+	jr c, .l45D5
 
-; ---- code $45CC-$45D5 (9 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:45CA (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 7F:45CA (executed) [executed in 2 scenarios]
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $45D5-$4606 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_45D5:: ; 7F:45D5
+.l45D5 ; 7F:45D5
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -897,15 +858,13 @@ Label_7F_45D5:: ; 7F:45D5
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_45E2:: ; 7F:45E2
+.l45E2 ; 7F:45E2
 	dec c
-	jr z, Label_7F_45EB
+	jr z, .l45EB
 	srl a
 	rr b
-	jr Label_7F_45E2
-
-Label_7F_45EB:: ; 7F:45EB
+	jr .l45E2
+.l45EB ; 7F:45EB
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -926,25 +885,25 @@ Label_7F_45EB:: ; 7F:45EB
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_461A
+	jr nz, .l461A
 
-; ---- code $4606-$461A (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4604 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4604 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_461A
+	jr c, .l461A
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $461A-$4656 (60 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
-
-Label_7F_461A:: ; 7F:461A
+.l461A ; 7F:461A
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -955,15 +914,13 @@ Label_7F_461A:: ; 7F:461A
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4627:: ; 7F:4627
+.l4627 ; 7F:4627
 	dec c
-	jr z, Label_7F_4630
+	jr z, .l4630
 	srl a
 	rr b
-	jr Label_7F_4627
-
-Label_7F_4630:: ; 7F:4630
+	jr .l4627
+.l4630 ; 7F:4630
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -984,25 +941,25 @@ Label_7F_4630:: ; 7F:4630
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_465F
+	jr nz, .l465F
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_465F
+	jr c, .l465F
 
-; ---- code $4656-$465F (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:4654 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4654 (executed)
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $465F-$4690 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_465F:: ; 7F:465F
+.l465F ; 7F:465F
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1013,15 +970,13 @@ Label_7F_465F:: ; 7F:465F
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_466C:: ; 7F:466C
+.l466C ; 7F:466C
 	dec c
-	jr z, Label_7F_4675
+	jr z, .l4675
 	srl a
 	rr b
-	jr Label_7F_466C
-
-Label_7F_4675:: ; 7F:4675
+	jr .l466C
+.l4675 ; 7F:4675
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1042,25 +997,25 @@ Label_7F_4675:: ; 7F:4675
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_46A4
+	jr nz, .l46A4
 
-; ---- code $4690-$46A4 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:468E (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:468E (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_46A4
+	jr c, .l46A4
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $46A4-$46D5 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_46A4:: ; 7F:46A4
+.l46A4 ; 7F:46A4
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1071,15 +1026,13 @@ Label_7F_46A4:: ; 7F:46A4
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_46B1:: ; 7F:46B1
+.l46B1 ; 7F:46B1
 	dec c
-	jr z, Label_7F_46BA
+	jr z, .l46BA
 	srl a
 	rr b
-	jr Label_7F_46B1
-
-Label_7F_46BA:: ; 7F:46BA
+	jr .l46B1
+.l46BA ; 7F:46BA
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1100,25 +1053,25 @@ Label_7F_46BA:: ; 7F:46BA
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_46E9
+	jr nz, .l46E9
 
-; ---- code $46D5-$46E9 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:46D3 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:46D3 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_46E9
+	jr c, .l46E9
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $46E9-$471A (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_46E9:: ; 7F:46E9
+.l46E9 ; 7F:46E9
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1129,15 +1082,13 @@ Label_7F_46E9:: ; 7F:46E9
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_46F6:: ; 7F:46F6
+.l46F6 ; 7F:46F6
 	dec c
-	jr z, Label_7F_46FF
+	jr z, .l46FF
 	srl a
 	rr b
-	jr Label_7F_46F6
-
-Label_7F_46FF:: ; 7F:46FF
+	jr .l46F6
+.l46FF ; 7F:46FF
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1158,25 +1109,25 @@ Label_7F_46FF:: ; 7F:46FF
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_472E
+	jr nz, .l472E
 
-; ---- code $471A-$472E (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4718 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4718 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_472E
+	jr c, .l472E
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $472E-$47A4 (118 bytes) [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
-
-Label_7F_472E:: ; 7F:472E
+.l472E ; 7F:472E
+	; [CONFIRMED] 84 insn(s); 84 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1187,15 +1138,13 @@ Label_7F_472E:: ; 7F:472E
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_473B:: ; 7F:473B
+.l473B ; 7F:473B
 	dec c
-	jr z, Label_7F_4744
+	jr z, .l4744
 	srl a
 	rr b
-	jr Label_7F_473B
-
-Label_7F_4744:: ; 7F:4744
+	jr .l473B
+.l4744 ; 7F:4744
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1216,21 +1165,20 @@ Label_7F_4744:: ; 7F:4744
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4773
+	jr nz, .l4773
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4773
+	jr c, .l4773
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4773:: ; 7F:4773
+.l4773 ; 7F:4773
 	ld a, [de]
 	inc de
 	push bc
@@ -1241,15 +1189,13 @@ Label_7F_4773:: ; 7F:4773
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4780:: ; 7F:4780
+.l4780 ; 7F:4780
 	dec c
-	jr z, Label_7F_4789
+	jr z, .l4789
 	srl a
 	rr b
-	jr Label_7F_4780
-
-Label_7F_4789:: ; 7F:4789
+	jr .l4780
+.l4789 ; 7F:4789
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1270,25 +1216,25 @@ Label_7F_4789:: ; 7F:4789
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_47B8
+	jr nz, .l47B8
 
-; ---- code $47A4-$47B8 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:47A2 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:47A2 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_47B8
+	jr c, .l47B8
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $47B8-$47E9 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_47B8:: ; 7F:47B8
+.l47B8 ; 7F:47B8
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1299,15 +1245,13 @@ Label_7F_47B8:: ; 7F:47B8
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_47C5:: ; 7F:47C5
+.l47C5 ; 7F:47C5
 	dec c
-	jr z, Label_7F_47CE
+	jr z, .l47CE
 	srl a
 	rr b
-	jr Label_7F_47C5
-
-Label_7F_47CE:: ; 7F:47CE
+	jr .l47C5
+.l47CE ; 7F:47CE
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1328,25 +1272,25 @@ Label_7F_47CE:: ; 7F:47CE
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_47FD
+	jr nz, .l47FD
 
-; ---- code $47E9-$47FD (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:47E7 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:47E7 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_47FD
+	jr c, .l47FD
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $47FD-$482E (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_47FD:: ; 7F:47FD
+.l47FD ; 7F:47FD
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1357,15 +1301,13 @@ Label_7F_47FD:: ; 7F:47FD
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_480A:: ; 7F:480A
+.l480A ; 7F:480A
 	dec c
-	jr z, Label_7F_4813
+	jr z, .l4813
 	srl a
 	rr b
-	jr Label_7F_480A
-
-Label_7F_4813:: ; 7F:4813
+	jr .l480A
+.l4813 ; 7F:4813
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1386,25 +1328,25 @@ Label_7F_4813:: ; 7F:4813
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4842
+	jr nz, .l4842
 
-; ---- code $482E-$4842 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:482C (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:482C (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4842
+	jr c, .l4842
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4842-$4873 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_4842:: ; 7F:4842
+.l4842 ; 7F:4842
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1415,15 +1357,13 @@ Label_7F_4842:: ; 7F:4842
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_484F:: ; 7F:484F
+.l484F ; 7F:484F
 	dec c
-	jr z, Label_7F_4858
+	jr z, .l4858
 	srl a
 	rr b
-	jr Label_7F_484F
-
-Label_7F_4858:: ; 7F:4858
+	jr .l484F
+.l4858 ; 7F:4858
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1444,25 +1384,25 @@ Label_7F_4858:: ; 7F:4858
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4887
+	jr nz, .l4887
 
-; ---- code $4873-$4887 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4871 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4871 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4887
+	jr c, .l4887
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4887-$48B8 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_4887:: ; 7F:4887
+.l4887 ; 7F:4887
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1473,15 +1413,13 @@ Label_7F_4887:: ; 7F:4887
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4894:: ; 7F:4894
+.l4894 ; 7F:4894
 	dec c
-	jr z, Label_7F_489D
+	jr z, .l489D
 	srl a
 	rr b
-	jr Label_7F_4894
-
-Label_7F_489D:: ; 7F:489D
+	jr .l4894
+.l489D ; 7F:489D
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1502,25 +1440,25 @@ Label_7F_489D:: ; 7F:489D
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_48CC
+	jr nz, .l48CC
 
-; ---- code $48B8-$48CC (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:48B6 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:48B6 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_48CC
+	jr c, .l48CC
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $48CC-$4908 (60 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
-
-Label_7F_48CC:: ; 7F:48CC
+.l48CC ; 7F:48CC
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1531,15 +1469,13 @@ Label_7F_48CC:: ; 7F:48CC
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_48D9:: ; 7F:48D9
+.l48D9 ; 7F:48D9
 	dec c
-	jr z, Label_7F_48E2
+	jr z, .l48E2
 	srl a
 	rr b
-	jr Label_7F_48D9
-
-Label_7F_48E2:: ; 7F:48E2
+	jr .l48D9
+.l48E2 ; 7F:48E2
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1560,25 +1496,25 @@ Label_7F_48E2:: ; 7F:48E2
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4911
+	jr nz, .l4911
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4911
+	jr c, .l4911
 
-; ---- code $4908-$4911 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 7F:4906 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4906 (executed)
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4911-$4942 (49 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
-
-Label_7F_4911:: ; 7F:4911
+.l4911 ; 7F:4911
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1589,15 +1525,13 @@ Label_7F_4911:: ; 7F:4911
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_491E:: ; 7F:491E
+.l491E ; 7F:491E
 	dec c
-	jr z, Label_7F_4927
+	jr z, .l4927
 	srl a
 	rr b
-	jr Label_7F_491E
-
-Label_7F_4927:: ; 7F:4927
+	jr .l491E
+.l4927 ; 7F:4927
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1618,25 +1552,25 @@ Label_7F_4927:: ; 7F:4927
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4956
+	jr nz, .l4956
 
-; ---- code $4942-$4956 (20 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 7F:4940 (executed)
+	; [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 7F:4940 (executed)
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4956
+	jr c, .l4956
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 
-; ---- code $4956-$499C (70 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 14/18 scenarios)
-
-Label_7F_4956:: ; 7F:4956
+.l4956 ; 7F:4956
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 14/18 scenarios)
 	ld a, [de]
 	inc de
 	push bc
@@ -1647,15 +1581,13 @@ Label_7F_4956:: ; 7F:4956
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4963:: ; 7F:4963
+.l4963 ; 7F:4963
 	dec c
-	jr z, Label_7F_496C
+	jr z, .l496C
 	srl a
 	rr b
-	jr Label_7F_4963
-
-Label_7F_496C:: ; 7F:496C
+	jr .l4963
+.l496C ; 7F:496C
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1676,21 +1608,20 @@ Label_7F_496C:: ; 7F:496C
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_499B
+	jr nz, .done
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_499B
+	jr c, .done
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_499B:: ; 7F:499B
+.done ; 7F:499B
 	ret
 
 ; ---- data $499C-$49A5 (9 bytes) [PROBABLE] 9-byte mask table 03 81 C0 E0 F0 F8 FC FE FF indexed with c: ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a at 7F:4311 (executed; near-identical clones of this reader in the PROBABLE code at 7F:49FA and 7F:4B03 read the table too; entries 0,2,4,6 = bytes 499C,499E,49A0,49A2 read in 14/18 scenarios); extent 9 = distance to the second table
@@ -1705,9 +1636,16 @@ Canvas_BlitMaskNext:: ; 7F:49A5
 Table_7F_49A5::
 	db $FF, $FF, $FF, $7F, $3F, $1F, $0F, $07, $03
 
-; ---- code $49AE-$4BBC (526 bytes) [PROBABLE] two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the PROBABLE code 4BBC); they use the mask tables 7F:499C/49A5 like 4956; 4AAF is referenced by no code word/call found, entries unproven [verifier: the absence of a caller is not evidence against: the executed sibling 7F:4956 has no static caller either; 7F:49F6-4A07 is an instruction-level clone of the executed reader 7F:430D-431E (push hl ; ld c,a ; ld b,0 ; ld hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a ; ld hl,$49A5 ; ... ld [$C0D1],a; verified by decoding both); still no entry, so PROBABLE only through the family evidence]
-
 Function_7F_49AE:: ; 7F:49AE
+	; [PROBABLE] two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE
+	; and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with
+	; ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the
+	; PROBABLE code 4BBC); they use the mask tables 7F:499C/49A5 like 4956; 4AAF is referenced by no
+	; code word/call found, entries unproven [verifier: the absence of a caller is not evidence
+	; against: the executed sibling 7F:4956 has no static caller either; 7F:49F6-4A07 is an
+	; instruction-level clone of the executed reader 7F:430D-431E (push hl ; ld c,a ; ld b,0 ; ld
+	; hl,$499C ; add hl,bc ; ld a,[hl] ; ld [$C0D0],a ; ld hl,$49A5 ; ... ld [$C0D1],a; verified by
+	; decoding both); still no entry, so PROBABLE only through the family evidence]
 	push hl
 	push de
 	call Canvas_RemapGlyphColors
@@ -1723,27 +1661,24 @@ Function_7F_49AE:: ; 7F:49AE
 	inc d
 	ld hl, $D000
 	ld bc, $0140
-
-Label_7F_49CA:: ; 7F:49CA
+.l49CA ; 7F:49CA
 	dec d
-	jr z, Label_7F_49D0
+	jr z, .l49D0
 	add hl, bc
-	jr Label_7F_49CA
-
-Label_7F_49D0:: ; 7F:49D0
+	jr .l49CA
+.l49D0 ; 7F:49D0
 	sla a
 	add a, l
 	ld l, a
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_49E2
+	jr c, .l49E2
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_49E2:: ; 7F:49E2
+.l49E2 ; 7F:49E2
 	ld a, e
 	and a, $07
 	ld d, $00
@@ -1769,8 +1704,7 @@ Label_7F_49E2:: ; 7F:49E2
 	pop hl
 	pop de
 	ld b, $0C
-
-Label_7F_4A0E:: ; 7F:4A0E
+.l4A0E ; 7F:4A0E
 	push bc
 	ld a, [de]
 	inc de
@@ -1782,15 +1716,13 @@ Label_7F_4A0E:: ; 7F:4A0E
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4A1C:: ; 7F:4A1C
+.l4A1C ; 7F:4A1C
 	dec c
-	jr z, Label_7F_4A25
+	jr z, .l4A25
 	srl a
 	rr b
-	jr Label_7F_4A1C
-
-Label_7F_4A25:: ; 7F:4A25
+	jr .l4A1C
+.l4A25 ; 7F:4A25
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1811,21 +1743,20 @@ Label_7F_4A25:: ; 7F:4A25
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4A54
+	jr nz, .l4A54
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4A54
+	jr c, .l4A54
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4A54:: ; 7F:4A54
+.l4A54 ; 7F:4A54
 	ld a, [de]
 	inc de
 	push bc
@@ -1836,15 +1767,13 @@ Label_7F_4A54:: ; 7F:4A54
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4A61:: ; 7F:4A61
+.l4A61 ; 7F:4A61
 	dec c
-	jr z, Label_7F_4A6A
+	jr z, .l4A6A
 	srl a
 	rr b
-	jr Label_7F_4A61
-
-Label_7F_4A6A:: ; 7F:4A6A
+	jr .l4A61
+.l4A6A ; 7F:4A6A
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -1865,36 +1794,34 @@ Label_7F_4A6A:: ; 7F:4A6A
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4A99
+	jr nz, .l4A99
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4A99
+	jr c, .l4A99
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4A99:: ; 7F:4A99
+.l4A99 ; 7F:4A99
 	pop bc
 	ldh a, [rSVBK]
 	dec a
-	jr z, Label_7F_4AAA
+	jr z, .l4AAA
 	ld a, $D7
 	cp a, h
-	jr nz, Label_7F_4AAA
+	jr nz, .l4AAA
 	ld a, $80
 	cp a, l
-	jr nz, Label_7F_4AAA
+	jr nz, .l4AAA
 	ret
-
-Label_7F_4AAA:: ; 7F:4AAA
+.l4AAA ; 7F:4AAA
 	dec b
-	jp nz, Label_7F_4A0E
+	jp nz, .l4A0E
 	ret
 
 Function_7F_4AAF:: ; 7F:4AAF
@@ -1905,10 +1832,9 @@ Function_7F_4AAF:: ; 7F:4AAF
 	ld a, d
 	push af
 	cp a, $F0
-	jr c, Label_7F_4ABD
+	jr c, .skip
 	ld d, $00
-
-Label_7F_4ABD:: ; 7F:4ABD
+.skip ; 7F:4ABD
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1920,27 +1846,24 @@ Label_7F_4ABD:: ; 7F:4ABD
 	inc d
 	ld hl, $D000
 	ld bc, $0140
-
-Label_7F_4AD3:: ; 7F:4AD3
+.l4AD3 ; 7F:4AD3
 	dec d
-	jr z, Label_7F_4AD9
+	jr z, .l4AD9
 	add hl, bc
-	jr Label_7F_4AD3
-
-Label_7F_4AD9:: ; 7F:4AD9
+	jr .l4AD3
+.l4AD9 ; 7F:4AD9
 	sla a
 	add a, l
 	ld l, a
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4AEB
+	jr c, .l4AEB
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4AEB:: ; 7F:4AEB
+.l4AEB ; 7F:4AEB
 	ld a, e
 	and a, $07
 	ld d, $00
@@ -1968,24 +1891,22 @@ Label_7F_4AEB:: ; 7F:4AEB
 	ld b, $0C
 	pop af
 	cp a, $F0
-	jr c, Label_7F_4B2B
+	jr c, .l4B2B
 	ld b, a
 	xor a, a
 	sub a, b
 	push af
-
-Label_7F_4B20:: ; 7F:4B20
+.l4B20 ; 7F:4B20
 	inc de
 	inc de
 	dec a
-	jr nz, Label_7F_4B20
+	jr nz, .l4B20
 	pop af
 	ld b, a
 	ld a, $0C
 	sub a, b
 	ld b, a
-
-Label_7F_4B2B:: ; 7F:4B2B
+.l4B2B ; 7F:4B2B
 	push bc
 	ld a, [de]
 	inc de
@@ -1997,15 +1918,13 @@ Label_7F_4B2B:: ; 7F:4B2B
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4B39:: ; 7F:4B39
+.l4B39 ; 7F:4B39
 	dec c
-	jr z, Label_7F_4B42
+	jr z, .l4B42
 	srl a
 	rr b
-	jr Label_7F_4B39
-
-Label_7F_4B42:: ; 7F:4B42
+	jr .l4B39
+.l4B42 ; 7F:4B42
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -2026,21 +1945,20 @@ Label_7F_4B42:: ; 7F:4B42
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4B71
+	jr nz, .l4B71
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4B71
+	jr c, .l4B71
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4B71:: ; 7F:4B71
+.l4B71 ; 7F:4B71
 	ld a, [de]
 	inc de
 	push bc
@@ -2051,15 +1969,13 @@ Label_7F_4B71:: ; 7F:4B71
 	ld b, $00
 	inc c
 	ld e, c
-
-Label_7F_4B7E:: ; 7F:4B7E
+.l4B7E ; 7F:4B7E
 	dec c
-	jr z, Label_7F_4B87
+	jr z, .l4B87
 	srl a
 	rr b
-	jr Label_7F_4B7E
-
-Label_7F_4B87:: ; 7F:4B87
+	jr .l4B7E
+.l4B87 ; 7F:4B87
 	ld c, a
 	ld a, [wGlyphMaskNext]
 	ld d, a
@@ -2080,29 +1996,29 @@ Label_7F_4B87:: ; 7F:4B87
 	ld [hli], a
 	ld a, l
 	and a, $0F
-	jr nz, Label_7F_4BB6
+	jr nz, .l4BB6
 	push de
 	ld de, $0130
 	add hl, de
 	pop de
 	ld a, h
 	cp a, $DF
-	jr c, Label_7F_4BB6
+	jr c, .l4BB6
 	sub a, $0F
 	ld h, a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_7F_4BB6:: ; 7F:4BB6
+.l4BB6 ; 7F:4BB6
 	pop bc
 	dec b
-	jp nz, Label_7F_4B2B
+	jp nz, .l4B2B
 	ret
 
-; ---- code $4BBC-$4C42 (134 bytes) [PROBABLE] 65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6; entered by call from 7F:4D77 (PROBABLE code) | forced execution: 51/65 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Canvas_UploadToVram:: ; 7F:4BBC
+	; [PROBABLE] 65 insn(s) reached by static flow only; seeds: site x65; min discovery hops 6;
+	; entered by call from 7F:4D77 (PROBABLE code) | forced execution: 51/65 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2122,7 +2038,7 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	call Gfx_GdmaAtVBlank
 	ld c, $77
 	dec a
-	jr nz, Label_7F_4C0C
+	jr nz, .l4C0C
 	ld c, $53
 	ld a, $03
 	ldh [hWRAMBank], a
@@ -2137,8 +2053,7 @@ Canvas_UploadToVram:: ; 7F:4BBC
 	ld de, $9540
 	call Gfx_GdmaAtVBlank
 	ret
-
-Label_7F_4C0C:: ; 7F:4C0C
+.l4C0C ; 7F:4C0C
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2159,41 +2074,38 @@ Gfx_GdmaAtVBlank:: ; 7F:4C20
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_7F_4C2F:: ; 7F:4C2F
+.l4C2F ; 7F:4C2F
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_7F_4C2F
+	jr nz, .l4C2F
 	di
 	ld b, $91
-
-Label_7F_4C37:: ; 7F:4C37
+.l4C37 ; 7F:4C37
 	ld a, [de]
 	cp a, b
-	jr nz, Label_7F_4C37
+	jr nz, .l4C37
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
 	ei
 	ret
 
-; ---- code $4C42-$4C57 (21 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-
 Glyph_LoadDottedLine:: ; 7F:4C42
 Function_7F_4C42::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	push hl
 	ld hl, Glyph_DottedLineData
 	ld de, $C0A0
 	ld b, $20
-
-Label_7F_4C4D:: ; 7F:4C4D
+.loop ; 7F:4C4D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_7F_4C4D
+	jr nz, .loop
 	pop hl
 	pop de
 	pop bc

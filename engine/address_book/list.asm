@@ -4,10 +4,10 @@
 
 SECTION "engine/address_book/list", ROMX
 
-; ---- code $4000-$4032 (50 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_Run:: ; 2F:4000
 Function_2F_4000::
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	call Function_00_044B
@@ -33,27 +33,25 @@ Function_2F_4000::
 	cp a, $00
 	jp z, Label_2F_4049
 
-; ---- code $4032-$4049 (23 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jpcc at 2F:402F (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jpcc at 2F:402F (executed) [executed in 1 scenarios]
 	push bc
 	push de
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, Label_2F_403F
+	jr z, .l403F
 	ld a, $02
-	jr Label_2F_4041
-
-Label_2F_403F:: ; 2F:403F
+	jr .l4041
+.l403F ; 2F:403F
 	ld a, $01
-
-Label_2F_4041:: ; 2F:4041
+.l4041 ; 2F:4041
 	call AbookList_SetHelpBoxAttr
 	pop de
 	pop bc
 	jp Label_2F_4131
 
-; ---- code $4049-$4069 (32 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
 Label_2F_4049:: ; 2F:4049
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -66,18 +64,18 @@ Label_2F_4049:: ; 2F:4049
 	push de
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, Label_2F_406D
+	jr z, .l406D
 
-; ---- code $4069-$406D (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2F:4067 (executed) | upgraded by classifier 6: all 2 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4067 (executed) | upgraded by classifier 6: all 2 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld a, $02
-	jr Label_2F_406F
+	jr .l406F
 
-; ---- code $406D-$4094 (39 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
-
-Label_2F_406D:: ; 2F:406D
+.l406D ; 2F:406D
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld a, $01
-
-Label_2F_406F:: ; 2F:406F
+.l406F ; 2F:406F
 	call AbookList_SetHelpBoxAttr
 	ldh a, [hWRAMBank]
 	push af
@@ -103,14 +101,14 @@ Label_2F_406F:: ; 2F:406F
 Data_2F_4094:: ; 2F:4094
 	db $C3, $00, $40
 
-; ---- code $4097-$409D (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-
 Label_2F_4097:: ; 2F:4097
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2F_40D0
+	jr z, .l40D0
 
-; ---- code $409D-$40D0 (51 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; fall-through of the jrcc at 2F:409B (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0;
+	; fall-through of the jrcc at 2F:409B (executed) [executed in 2 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -137,9 +135,8 @@ Label_2F_4097:: ; 2F:4097
 	ld a, $FF
 	ret
 
-; ---- code $40D0-$40E1 (17 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-
-Label_2F_40D0:: ; 2F:40D0
+.l40D0 ; 2F:40D0
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
 	call nz, AbookList_CursorUp
@@ -148,9 +145,9 @@ Label_2F_40D0:: ; 2F:40D0
 	call nz, AbookList_CursorDown
 	jp Label_2F_4049
 
-; ---- code $40E1-$4109 (40 bytes) [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by callcc from 2F:40DB (executed) [executed in 1 scenarios]
-
 AbookList_CursorDown:: ; 2F:40E1
+	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
+	; entered by callcc from 2F:40DB (executed) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -167,19 +164,18 @@ AbookList_CursorDown:: ; 2F:40E1
 	inc c
 	ld a, c
 	cp a, $06
-	jr nz, Label_2F_40FE
+	jr nz, .skip
 	ld c, $00
-
-Label_2F_40FE:: ; 2F:40FE
+.skip ; 2F:40FE
 	ld a, d
 	farcall AbookList_UpdateRowHighlight
 	call AbookList_UpdateRowMarkers
 	ret
 
-; ---- code $4109-$414C (67 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_CursorUp:: ; 2F:4109
 Function_2F_4109::
+	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -196,10 +192,9 @@ Function_2F_4109::
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, Label_2F_4126
+	jr nz, .skip
 	ld c, $05
-
-Label_2F_4126:: ; 2F:4126
+.skip ; 2F:4126
 	ld a, d
 	farcall AbookList_UpdateRowHighlight
 	call AbookList_UpdateRowMarkers
@@ -217,51 +212,52 @@ Label_2F_4131:: ; 2F:4131
 	push bc
 	ld a, b
 	cp a, $00
-	jr z, Label_2F_4158
+	jr z, .l4158
 
-; ---- code $414C-$4154 (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:414A (executed) | 4 insn(s) executed; cut out of the PROBABLE region 414C-4158 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
+	; fall-through of the jrcc at 2F:414A (executed) | 4 insn(s) executed; cut out of the PROBABLE
+	; region 414C-4158 by apply_coverage --split [executed in 1 scenarios]
 	cp a, $01
-	jr z, Label_2F_4163
+	jr z, .l4163
 	cp a, $02
-	jr z, Label_2F_416E
+	jr z, .l416E
 
-; ---- code $4154-$4158 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 414C-4158 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 414C-4158 by apply_coverage --split
 	cp a, $03
-	jr z, Label_2F_4179
+	jr z, .l4179
 
-; ---- code $4158-$4163 (11 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
-
-Label_2F_4158:: ; 2F:4158
+.l4158 ; 2F:4158
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	ld de, $7018
 	ld hl, $DA80
 	call Function_00_0A65
-	jr Label_2F_4184
+	jr .l4184
 
-; ---- code $4163-$4179 (22 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 2F:414E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
-
-Label_2F_4163:: ; 2F:4163
+.l4163 ; 2F:4163
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
+	; entered by jrcc from 2F:414E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE
+	; region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
 	ld de, $7038
 	ld hl, $DA80
 	call Function_00_0A65
-	jr Label_2F_4184
-
-Label_2F_416E:: ; 2F:416E
+	jr .l4184
+.l416E ; 2F:416E
 	ld de, $7058
 	ld hl, $DA80
 	call Function_00_0A65
-	jr Label_2F_4184
+	jr .l4184
 
-; ---- code $4179-$4184 (11 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4163-4184 by apply_coverage --split
-
-Label_2F_4179:: ; 2F:4179
+.l4179 ; 2F:4179
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4163-4184 by apply_coverage --split
 	ld de, $7078
 	ld hl, $DA80
 	call Function_00_0A65
-	jr Label_2F_4184
+	jr .l4184
 
-; ---- code $4184-$41AE (42 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
-
-Label_2F_4184:: ; 2F:4184
+.l4184 ; 2F:4184
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	pop bc
 	push bc
 	pop bc
@@ -271,8 +267,7 @@ Label_2F_4184:: ; 2F:4184
 	call AbookList_DrawHelpText
 	farcall AddrBook_UploadTextTiles
 	pop bc
-
-Label_2F_4196:: ; 2F:4196
+.loop ; 2F:4196
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -280,9 +275,11 @@ Label_2F_4196:: ; 2F:4196
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jp z, Label_2F_41E4
+	jp z, .l41E4
 
-; ---- code $41AE-$41E4 (54 bytes) [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0; fall-through of the jpcc at 2F:41AB (executed) | upgraded by classifier 6: all 26 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0;
+	; fall-through of the jpcc at 2F:41AB (executed) | upgraded by classifier 6: all 26 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -310,20 +307,20 @@ Label_2F_4196:: ; 2F:4196
 	pop bc
 	jp Label_2F_4049
 
-; ---- code $41E4-$41F1 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
-Label_2F_41E4:: ; 2F:41E4
+.l41E4 ; 2F:41E4
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $01
-	jp z, Label_2F_43D8
+	jp z, .l43D8
 	ld a, b
 	cp a, $03
-	jp nz, Label_2F_42DA
+	jp nz, .l42DA
 
-; ---- code $41F1-$42DA (233 bytes) [CONFIRMED] 121 insn(s) reached by static flow only; seeds: exec x121; min discovery hops 0; fall-through of the jpcc at 2F:41EE (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 121 insn(s) reached by static flow only; seeds: exec x121; min discovery hops 0;
+	; fall-through of the jpcc at 2F:41EE (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, Label_2F_420E
+	jr nz, .l420E
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -336,9 +333,8 @@ Label_2F_41E4:: ; 2F:41E4
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jr Label_2F_4196
-
-Label_2F_420E:: ; 2F:420E
+	jr .loop
+.l420E ; 2F:420E
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -395,18 +391,17 @@ Label_2F_420E:: ; 2F:420E
 	push bc
 	push af
 	dec a
-	jr z, Label_2F_4286
+	jr z, .l4286
 	ld a, $80
 	ldh [hJoyPressed], a
 	call AbookList_UpdateRowMarkers
 	ld b, $03
 	call AbookList_PlaceButtonCursor
-
-Label_2F_4286:: ; 2F:4286
+.l4286 ; 2F:4286
 	pop af
 	pop bc
 	dec a
-	jp nz, Label_2F_4196
+	jp nz, .loop
 	push bc
 	call Abook_ClearSlot
 	push bc
@@ -447,16 +442,16 @@ Label_2F_4286:: ; 2F:4286
 	ld [wSpriteSlots], a
 	jp Label_2F_4049
 
-; ---- code $42DA-$42DE (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
-
-Label_2F_42DA:: ; 2F:42DA
+.l42DA ; 2F:42DA
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	cp a, $02
-	jr nz, Label_2F_432E
+	jr nz, .l432E
 
-; ---- code $42DE-$432E (80 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jrcc at 2F:42DC (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0;
+	; fall-through of the jrcc at 2F:42DC (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, Label_2F_42FC
+	jr nz, .l42FC
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -469,9 +464,8 @@ Label_2F_42DA:: ; 2F:42DA
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jp Label_2F_4196
-
-Label_2F_42FC:: ; 2F:42FC
+	jp .loop
+.l42FC ; 2F:42FC
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -499,18 +493,18 @@ Label_2F_42FC:: ; 2F:42FC
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	jp Label_2F_43C5
+	jp .l43C5
 
-; ---- code $432E-$4339 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
-Label_2F_432E:: ; 2F:432E
+.l432E ; 2F:432E
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	cp a, $00
-	jr nz, Label_2F_4383
+	jr nz, .l4383
 	call Abook_ProbeSlot
 	cp a, $00
-	jr z, Label_2F_4350
+	jr z, .l4350
 
-; ---- code $4339-$4350 (23 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2F:4337 (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4337 (executed) [executed in 2 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -523,11 +517,10 @@ Label_2F_432E:: ; 2F:432E
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jp Label_2F_4196
+	jp .loop
 
-; ---- code $4350-$4383 (51 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
-
-Label_2F_4350:: ; 2F:4350
+.l4350 ; 2F:4350
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	call Function_2F_4496
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -556,14 +549,14 @@ Label_2F_4350:: ; 2F:4350
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-	jr Label_2F_43C5
+	jr .l43C5
 
-; ---- code $4383-$43C5 (66 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by jrcc from 2F:4330 (executed) [executed in 1 scenarios]
-
-Label_2F_4383:: ; 2F:4383
+.l4383 ; 2F:4383
+	; [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
+	; entered by jrcc from 2F:4330 (executed) [executed in 1 scenarios]
 	call Abook_ProbeSlot
 	cp a, $00
-	jr nz, Label_2F_43A1
+	jr nz, .l43A1
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -576,9 +569,8 @@ Label_2F_4383:: ; 2F:4383
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	jp Label_2F_4196
-
-Label_2F_43A1:: ; 2F:43A1
+	jp .loop
+.l43A1 ; 2F:43A1
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -602,9 +594,8 @@ Label_2F_43A1:: ; 2F:43A1
 	pop de
 	pop bc
 
-; ---- code $43C5-$43DF (26 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-
-Label_2F_43C5:: ; 2F:43C5
+.l43C5 ; 2F:43C5
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -612,13 +603,13 @@ Label_2F_43C5:: ; 2F:43C5
 	pop bc
 	ld a, b
 	ret
-
-Label_2F_43D8:: ; 2F:43D8
+.l43D8 ; 2F:43D8
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jp z, Label_2F_440A
+	jp z, .l440A
 
-; ---- code $43DF-$440A (43 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0; fall-through of the jpcc at 2F:43DC (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
+	; fall-through of the jpcc at 2F:43DC (executed) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -634,10 +625,9 @@ Label_2F_43D8:: ; 2F:43D8
 	dec b
 	ld a, b
 	cp a, $FF
-	jr nz, Label_2F_43FB
+	jr nz, .l43FB
 	ld b, $03
-
-Label_2F_43FB:: ; 2F:43FB
+.l43FB ; 2F:43FB
 	push bc
 	ld d, b
 	call AbookList_DrawHelpText
@@ -645,14 +635,14 @@ Label_2F_43FB:: ; 2F:43FB
 	pop bc
 	call AbookList_PlaceButtonCursor
 
-; ---- code $440A-$4411 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
-Label_2F_440A:: ; 2F:440A
+.l440A ; 2F:440A
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jp z, Label_2F_443C
+	jp z, .l443C
 
-; ---- code $4411-$443C (43 bytes) [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0; fall-through of the jpcc at 2F:440E (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x23; min discovery hops 0;
+	; fall-through of the jpcc at 2F:440E (executed) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -668,10 +658,9 @@ Label_2F_440A:: ; 2F:440A
 	inc b
 	ld a, b
 	cp a, $04
-	jr nz, Label_2F_442D
+	jr nz, .l442D
 	ld b, $00
-
-Label_2F_442D:: ; 2F:442D
+.l442D ; 2F:442D
 	push bc
 	ld d, b
 	call AbookList_DrawHelpText
@@ -679,9 +668,8 @@ Label_2F_442D:: ; 2F:442D
 	pop bc
 	call AbookList_PlaceButtonCursor
 
-; ---- code $443C-$4455 (25 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-
-Label_2F_443C:: ; 2F:443C
+.l443C ; 2F:443C
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -693,11 +681,12 @@ Label_2F_443C:: ; 2F:443C
 	ld [wSpriteSlots + 129], a
 	ld a, $70
 	ld [wSpriteSlots + 128], a
-	jp Label_2F_4196
-
-; ---- code $4455-$4496 (65 bytes) [CONFIRMED] 40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 2; entered by call from 2F:428D (PROBABLE code) | upgraded by classifier 6: all 40 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	jp .loop
 
 Abook_ClearSlot:: ; 2F:4455
+	; [CONFIRMED] 40 insn(s) reached by static flow only; seeds: exec x40; min discovery hops 2;
+	; entered by call from 2F:428D (PROBABLE code) | upgraded by classifier 6: all 40 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push af
 	push bc
 	ld b, $00
@@ -722,30 +711,28 @@ Abook_ClearSlot:: ; 2F:4455
 	ld [rRAMG], a
 	ld b, $10
 	ld de, $D514
-
-Label_2F_447F:: ; 2F:447F
+.l447F ; 2F:447F
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2F_447F
+	jr nz, .l447F
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, $D4C0
-
-Label_2F_448E:: ; 2F:448E
+.l448E ; 2F:448E
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2F_448E
+	jr nz, .l448E
 	pop bc
 	pop af
 	ret
 
-; ---- code $4496-$44E6 (80 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Function_2F_4496:: ; 2F:4496
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	ld a, $01
@@ -753,20 +740,18 @@ Function_2F_4496:: ; 2F:4496
 	ldh [rSVBK], a
 	ld b, $10
 	ld de, $D514
-
-Label_2F_44A3:: ; 2F:44A3
+.l44A3 ; 2F:44A3
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2F_44A3
+	jr nz, .l44A3
 	ld b, $40
 	ld hl, $D4C0
-
-Label_2F_44AD:: ; 2F:44AD
+.l44AD ; 2F:44AD
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2F_44AD
+	jr nz, .l44AD
 	pop bc
 	pop af
 	ret
@@ -808,26 +793,27 @@ Abook_SlotAddrTable0:: ; 2F:44E6
 Table_2F_44E6::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $44F2-$44F8 (6 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_PlaceButtonCursor:: ; 2F:44F2
 Function_2F_44F2::
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, b
 	cp a, $00
-	jr z, Label_2F_4504
+	jr z, .l4504
 
-; ---- code $44F8-$4504 (12 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:44F6 (executed) | upgraded by classifier 6: all 6 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
+	; fall-through of the jrcc at 2F:44F6 (executed) | upgraded by classifier 6: all 6 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	cp a, $01
-	jr z, Label_2F_451F
+	jr z, .l451F
 	cp a, $02
-	jr z, Label_2F_453A
+	jr z, .l453A
 	cp a, $03
-	jr z, Label_2F_4555
+	jr z, .l4555
 
-; ---- code $4504-$451F (27 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_2F_4504:: ; 2F:4504
+.l4504 ; 2F:4504
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, $DA00
 	ld de, Table_Abook_ButtonCursorAnims
 	ld a, $2F
@@ -836,11 +822,12 @@ Label_2F_4504:: ; 2F:4504
 	ld de, $7018
 	ld hl, $DA00
 	call Function_00_0A65
-	jr Label_2F_4570
+	jr .l4570
 
-; ---- code $451F-$4570 (81 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1; entered by jrcc from 2F:44FA (PROBABLE code) | upgraded by classifier 6: all 27 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-
-Label_2F_451F:: ; 2F:451F
+.l451F ; 2F:451F
+	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 1;
+	; entered by jrcc from 2F:44FA (PROBABLE code) | upgraded by classifier 6: all 27 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA00
 	ld de, $5020
 	ld a, $2F
@@ -849,9 +836,8 @@ Label_2F_451F:: ; 2F:451F
 	ld de, $7038
 	ld hl, $DA00
 	call Function_00_0A65
-	jr Label_2F_4570
-
-Label_2F_453A:: ; 2F:453A
+	jr .l4570
+.l453A ; 2F:453A
 	ld hl, $DA00
 	ld de, $5030
 	ld a, $2F
@@ -860,9 +846,8 @@ Label_2F_453A:: ; 2F:453A
 	ld de, $7058
 	ld hl, $DA00
 	call Function_00_0A65
-	jr Label_2F_4570
-
-Label_2F_4555:: ; 2F:4555
+	jr .l4570
+.l4555 ; 2F:4555
 	ld hl, $DA00
 	ld de, $5040
 	ld a, $2F
@@ -871,11 +856,10 @@ Label_2F_4555:: ; 2F:4555
 	ld de, $7078
 	ld hl, $DA00
 	call Function_00_0A65
-	jr Label_2F_4570
+	jr .l4570
 
-; ---- code $4570-$469C (300 bytes) [CONFIRMED] 115 insn(s); 115 executed (in up to 2/18 scenarios)
-
-Label_2F_4570:: ; 2F:4570
+.l4570 ; 2F:4570
+	; [CONFIRMED] 115 insn(s); 115 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
 
@@ -994,18 +978,19 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_46AC
+	jr z, .l46AC
 
-; ---- code $469C-$46AC (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:469A (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:469A (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA70
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $46AC-$46C8 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_2F_46AC:: ; 2F:46AC
+.l46AC ; 2F:46AC
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
 	ld hl, $DA60
@@ -1018,18 +1003,19 @@ Label_2F_46AC:: ; 2F:46AC
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_46D8
+	jr z, .l46D8
 
-; ---- code $46C8-$46D8 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:46C6 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:46C6 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA60
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $46D8-$46F4 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_2F_46D8:: ; 2F:46D8
+.l46D8 ; 2F:46D8
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
 	ld hl, $DA50
@@ -1042,18 +1028,19 @@ Label_2F_46D8:: ; 2F:46D8
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4704
+	jr z, .l4704
 
-; ---- code $46F4-$4704 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:46F2 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:46F2 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA50
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4704-$4720 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_2F_4704:: ; 2F:4704
+.l4704 ; 2F:4704
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
 	ld hl, $DA40
@@ -1066,18 +1053,19 @@ Label_2F_4704:: ; 2F:4704
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4730
+	jr z, .l4730
 
-; ---- code $4720-$4730 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:471E (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:471E (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA40
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4730-$474C (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_2F_4730:: ; 2F:4730
+.l4730 ; 2F:4730
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
 	ld hl, $DA30
@@ -1090,18 +1078,19 @@ Label_2F_4730:: ; 2F:4730
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_475C
+	jr z, .l475C
 
-; ---- code $474C-$475C (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:474A (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:474A (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA30
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $475C-$4778 (28 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_2F_475C:: ; 2F:475C
+.l475C ; 2F:475C
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	pop bc
 	push bc
 	ld hl, $DA20
@@ -1114,37 +1103,37 @@ Label_2F_475C:: ; 2F:475C
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4788
+	jr z, .l4788
 
-; ---- code $4778-$4788 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:4776 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4776 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA20
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4788-$47C3 (59 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios)
-
-Label_2F_4788:: ; 2F:4788
+.l4788 ; 2F:4788
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios)
 	pop bc
 	pop bc
 	ld a, c
 	cp a, $00
-	jp z, Label_2F_48C2
+	jp z, .l48C2
 	dec a
-	jp z, Label_2F_47A8
+	jp z, .l47A8
 	dec a
-	jp z, Label_2F_47D7
+	jp z, .l47D7
 	dec a
-	jp z, Label_2F_4806
+	jp z, .l4806
 	dec a
-	jp z, Label_2F_4835
+	jp z, .l4835
 	dec a
-	jp z, Label_2F_4864
+	jp z, .l4864
 	dec a
-	jp z, Label_2F_4893
-
-Label_2F_47A8:: ; 2F:47A8
+	jp z, .l4893
+.l47A8 ; 2F:47A8
 	push bc
 	ld hl, $DA70
 	ld de, $7240
@@ -1156,24 +1145,26 @@ Label_2F_47A8:: ; 2F:47A8
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_47D3
+	jr z, .l47D3
 
-; ---- code $47C3-$47D3 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:47C1 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:47C1 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA70
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $47D3-$47D7 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
-
-Label_2F_47D3:: ; 2F:47D3
+.l47D3 ; 2F:47D3
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
 	pop bc
-	jp Label_2F_48C2
+	jp .l48C2
 
-; ---- code $47D7-$4893 (188 bytes) [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by jpcc from 2F:4795 (executed) | upgraded by classifier 6: all 76 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-
-Label_2F_47D7:: ; 2F:47D7
+.l47D7 ; 2F:47D7
+	; [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1;
+	; entered by jpcc from 2F:4795 (executed) | upgraded by classifier 6: all 76 instruction starts
+	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	push bc
 	ld hl, $DA60
 	ld de, $7240
@@ -1185,18 +1176,16 @@ Label_2F_47D7:: ; 2F:47D7
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4802
+	jr z, .l4802
 	ld hl, $DA60
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_4802:: ; 2F:4802
+.l4802 ; 2F:4802
 	pop bc
-	jp Label_2F_48C2
-
-Label_2F_4806:: ; 2F:4806
+	jp .l48C2
+.l4806 ; 2F:4806
 	push bc
 	ld hl, $DA50
 	ld de, $7240
@@ -1208,18 +1197,16 @@ Label_2F_4806:: ; 2F:4806
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4831
+	jr z, .l4831
 	ld hl, $DA50
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_4831:: ; 2F:4831
+.l4831 ; 2F:4831
 	pop bc
-	jp Label_2F_48C2
-
-Label_2F_4835:: ; 2F:4835
+	jp .l48C2
+.l4835 ; 2F:4835
 	push bc
 	ld hl, $DA40
 	ld de, $7240
@@ -1231,18 +1218,16 @@ Label_2F_4835:: ; 2F:4835
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4860
+	jr z, .l4860
 	ld hl, $DA40
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_4860:: ; 2F:4860
+.l4860 ; 2F:4860
 	pop bc
-	jp Label_2F_48C2
-
-Label_2F_4864:: ; 2F:4864
+	jp .l48C2
+.l4864 ; 2F:4864
 	push bc
 	ld hl, $DA30
 	ld de, $7240
@@ -1254,20 +1239,18 @@ Label_2F_4864:: ; 2F:4864
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_488F
+	jr z, .l488F
 	ld hl, $DA30
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_488F:: ; 2F:488F
+.l488F ; 2F:488F
 	pop bc
-	jp Label_2F_48C2
+	jp .l48C2
 
-; ---- code $4893-$48AE (27 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-
-Label_2F_4893:: ; 2F:4893
+.l4893 ; 2F:4893
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push bc
 	ld hl, $DA20
 	ld de, $7240
@@ -1279,22 +1262,22 @@ Label_2F_4893:: ; 2F:4893
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_48BE
+	jr z, .l48BE
 
-; ---- code $48AE-$48BE (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:48AC (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:48AC (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA20
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $48BE-$492E (112 bytes) [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
-
-Label_2F_48BE:: ; 2F:48BE
+.l48BE ; 2F:48BE
+	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
 	pop bc
-	jp Label_2F_48C2
-
-Label_2F_48C2:: ; 2F:48C2
+	jp .l48C2
+.l48C2 ; 2F:48C2
 	ld a, $20
 	ld [wSpriteSlots + 112], a
 	ld a, $10
@@ -1348,16 +1331,17 @@ Abook_TestSlotEmpty:: ; 2F:4907
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2F_4932
+	jr z, .l4932
 
-; ---- code $492E-$4932 (4 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2F:492C (executed) | upgraded by classifier 6: all 3 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 2F:492C (executed) | upgraded by classifier 6: all 3 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld a, $00
 	pop bc
 	ret
 
-; ---- code $4932-$4936 (4 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-
-Label_2F_4932:: ; 2F:4932
+.l4932 ; 2F:4932
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	pop bc
 	ret
@@ -1368,26 +1352,25 @@ Abook_SlotAddrTable1:: ; 2F:4936
 Table_2F_4936::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4942-$497A (56 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_FlashSelectedMarker:: ; 2F:4942
 Function_2F_4942::
+	; [CONFIRMED] 23 insn(s); 23 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, c
 	cp a, $00
-	jp z, Label_2F_4962
+	jp z, .l4962
 	cp a, $01
-	jp z, Label_2F_4997
+	jp z, .l4997
 	cp a, $02
-	jp z, Label_2F_49CC
+	jp z, .l49CC
 	cp a, $03
-	jp z, Label_2F_4A01
+	jp z, .l4A01
 	cp a, $04
-	jp z, Label_2F_4A36
+	jp z, .l4A36
 	cp a, $05
-	jp z, Label_2F_4A6B
-
-Label_2F_4962:: ; 2F:4962
+	jp z, .l4A6B
+.l4962 ; 2F:4962
 	ld hl, $DA70
 	ld de, $5240
 	ld a, $28
@@ -1396,27 +1379,29 @@ Label_2F_4962:: ; 2F:4962
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_498A
+	jr z, .l498A
 
-; ---- code $497A-$498A (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:4978 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4978 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA70
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $498A-$4997 (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
-
-Label_2F_498A:: ; 2F:498A
+.l498A ; 2F:498A
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	ld a, $20
 	ld [wSpriteSlots + 112], a
 	ld a, $10
 	ld [wSpriteSlots + 113], a
-	jp Label_2F_4AA0
+	jp .l4AA0
 
-; ---- code $4997-$4A6B (212 bytes) [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1; entered by jpcc from 2F:494B (executed) | upgraded by classifier 6: all 76 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-
-Label_2F_4997:: ; 2F:4997
+.l4997 ; 2F:4997
+	; [CONFIRMED] 76 insn(s) reached by static flow only; seeds: exec x76; min discovery hops 1;
+	; entered by jpcc from 2F:494B (executed) | upgraded by classifier 6: all 76 instruction starts
+	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA60
 	ld de, $5240
 	ld a, $28
@@ -1425,21 +1410,19 @@ Label_2F_4997:: ; 2F:4997
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_49BF
+	jr z, .l49BF
 	ld hl, $DA60
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_49BF:: ; 2F:49BF
+.l49BF ; 2F:49BF
 	ld a, $2C
 	ld [wSpriteSlots + 96], a
 	ld a, $10
 	ld [wSpriteSlots + 97], a
-	jp Label_2F_4AA0
-
-Label_2F_49CC:: ; 2F:49CC
+	jp .l4AA0
+.l49CC ; 2F:49CC
 	ld hl, $DA50
 	ld de, $5240
 	ld a, $28
@@ -1448,21 +1431,19 @@ Label_2F_49CC:: ; 2F:49CC
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_49F4
+	jr z, .l49F4
 	ld hl, $DA50
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_49F4:: ; 2F:49F4
+.l49F4 ; 2F:49F4
 	ld a, $38
 	ld [wSpriteSlots + 80], a
 	ld a, $10
 	ld [wSpriteSlots + 81], a
-	jp Label_2F_4AA0
-
-Label_2F_4A01:: ; 2F:4A01
+	jp .l4AA0
+.l4A01 ; 2F:4A01
 	ld hl, $DA40
 	ld de, $5240
 	ld a, $28
@@ -1471,21 +1452,19 @@ Label_2F_4A01:: ; 2F:4A01
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4A29
+	jr z, .l4A29
 	ld hl, $DA40
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_4A29:: ; 2F:4A29
+.l4A29 ; 2F:4A29
 	ld a, $44
 	ld [wSpriteSlots + 64], a
 	ld a, $10
 	ld [wSpriteSlots + 65], a
-	jp Label_2F_4AA0
-
-Label_2F_4A36:: ; 2F:4A36
+	jp .l4AA0
+.l4A36 ; 2F:4A36
 	ld hl, $DA30
 	ld de, $5240
 	ld a, $28
@@ -1494,23 +1473,21 @@ Label_2F_4A36:: ; 2F:4A36
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4A5E
+	jr z, .l4A5E
 	ld hl, $DA30
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2F_4A5E:: ; 2F:4A5E
+.l4A5E ; 2F:4A5E
 	ld a, $50
 	ld [wSpriteSlots + 48], a
 	ld a, $10
 	ld [wSpriteSlots + 49], a
-	jp Label_2F_4AA0
+	jp .l4AA0
 
-; ---- code $4A6B-$4A83 (24 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_2F_4A6B:: ; 2F:4A6B
+.l4A6B ; 2F:4A6B
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld hl, $DA20
 	ld de, $5240
 	ld a, $28
@@ -1519,29 +1496,28 @@ Label_2F_4A6B:: ; 2F:4A6B
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
-	jr z, Label_2F_4A93
+	jr z, .l4A93
 
-; ---- code $4A83-$4A93 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2F:4A81 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4A81 (executed) | upgraded by classifier 6: all 5 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA20
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4A93-$4AEF (92 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
-
-Label_2F_4A93:: ; 2F:4A93
+.l4A93 ; 2F:4A93
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	ld a, $5C
 	ld [wSpriteSlots + 32], a
 	ld a, $10
 	ld [wSpriteSlots + 33], a
-	jp Label_2F_4AA0
-
-Label_2F_4AA0:: ; 2F:4AA0
+	jp .l4AA0
+.l4AA0 ; 2F:4AA0
 	ld b, $1E
 	ld b, $01
-
-Label_2F_4AA4:: ; 2F:4AA4
+.loop ; 2F:4AA4
 	push bc
 	farcall Function_00_0956
 	farcall Joypad_Update
@@ -1549,11 +1525,10 @@ Label_2F_4AA4:: ; 2F:4AA4
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $C0
-	jr nz, Label_2F_4ABE
+	jr nz, .l4ABE
 	dec b
-	jr nz, Label_2F_4AA4
-
-Label_2F_4ABE:: ; 2F:4ABE
+	jr nz, .loop
+.l4ABE ; 2F:4ABE
 	pop bc
 	ret
 
@@ -1568,7 +1543,7 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 	pop af
 	push bc
 	cp a, $FF
-	jr z, Label_2F_4B01
+	jr z, .l4B01
 	push bc
 	push af
 	ld e, a
@@ -1586,29 +1561,28 @@ AbookList_UpdateRowHighlight:: ; 2F:4AC0
 	ld b, a
 	xor a, a
 	inc b
-
-Label_2F_4AEC:: ; 2F:4AEC
+.l4AEC ; 2F:4AEC
 	dec b
-	jr z, Label_2F_4AF3
+	jr z, .l4AF3
 
-; ---- code $4AEF-$4AF3 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2F:4AED (executed) | upgraded by classifier 6: all 2 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 2F:4AED (executed) | upgraded by classifier 6: all 2 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	add a, $0C
-	jr Label_2F_4AEC
+	jr .l4AEC
 
-; ---- code $4AF3-$4B42 (79 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
-
-Label_2F_4AF3:: ; 2F:4AF3
+.l4AF3 ; 2F:4AF3
+	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios)
 	ld d, a
 	ld b, $03
 	ld c, $00
 	farcall AddrBook_DrawSlotName
 	pop bc
-	jr Label_2F_4B01
-
-Label_2F_4B01:: ; 2F:4B01
+	jr .l4B01
+.l4B01 ; 2F:4B01
 	ld a, c
 	cp a, $FF
-	jr z, Label_2F_4B32
+	jr z, .l4B32
 	push bc
 	ld e, c
 	sla e
@@ -1626,22 +1600,19 @@ Label_2F_4B01:: ; 2F:4B01
 	ld b, c
 	xor a, a
 	inc b
-
-Label_2F_4B1D:: ; 2F:4B1D
+.l4B1D ; 2F:4B1D
 	dec b
-	jr z, Label_2F_4B24
+	jr z, .l4B24
 	add a, $0C
-	jr Label_2F_4B1D
-
-Label_2F_4B24:: ; 2F:4B24
+	jr .l4B1D
+.l4B24 ; 2F:4B24
 	ld d, a
 	ld b, $00
 	ld c, $01
 	farcall AddrBook_DrawSlotName
 	pop hl
-	jr Label_2F_4B32
-
-Label_2F_4B32:: ; 2F:4B32
+	jr .l4B32
+.l4B32 ; 2F:4B32
 	farcall AddrBook_UploadTextTiles
 	pop bc
 	push af
@@ -1657,10 +1628,10 @@ Abook_SlotAddrTable2:: ; 2F:4B42
 Table_2F_4B42::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4B4E-$4B9E (80 bytes) [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_DrawNames:: ; 2F:4B4E
 Function_2F_4B4E::
+	; [CONFIRMED] 51 insn(s); 51 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push af
 	ld a, $01
@@ -1672,8 +1643,7 @@ Function_2F_4B4E::
 	pop af
 	xor a, a
 	ld d, $06
-
-Label_2F_4B62:: ; 2F:4B62
+.l4B62 ; 2F:4B62
 	push af
 	push de
 	push bc
@@ -1693,14 +1663,12 @@ Label_2F_4B62:: ; 2F:4B62
 	ld b, a
 	xor a, a
 	inc b
-
-Label_2F_4B7B:: ; 2F:4B7B
+.l4B7B ; 2F:4B7B
 	dec b
-	jr z, Label_2F_4B82
+	jr z, .l4B82
 	add a, $0C
-	jr Label_2F_4B7B
-
-Label_2F_4B82:: ; 2F:4B82
+	jr .l4B7B
+.l4B82 ; 2F:4B82
 	ld d, a
 	ld b, $03
 	ld c, $00
@@ -1710,7 +1678,7 @@ Label_2F_4B82:: ; 2F:4B82
 	pop af
 	inc a
 	dec d
-	jr nz, Label_2F_4B62
+	jr nz, .l4B62
 	pop bc
 	push af
 	xor a, a
@@ -1725,10 +1693,10 @@ Abook_SlotAddrTable3:: ; 2F:4B9E
 Table_2F_4B9E::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4BAA-$4BD0 (38 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_DrawHelpText:: ; 2F:4BAA
 Function_2F_4BAA::
+	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	inc d
@@ -1784,10 +1752,10 @@ String_Abook_HelpDelete:: ; 2F:4C7E
 	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $B1, $82, $CC, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $F0, $81, $40, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40 ; "　　　　このアドレスを　けします　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $4CA7-$4CFD (86 bytes) [CONFIRMED] 58 insn(s); 58 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 AbookList_SetHelpBoxAttr:: ; 2F:4CA7
 Function_2F_4CA7::
+	; [CONFIRMED] 58 insn(s); 58 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	push hl
@@ -1805,29 +1773,26 @@ Function_2F_4CA7::
 	ld c, $14
 	ld a, $01
 	ldh [rVBK], a
-
-Label_2F_4CC1:: ; 2F:4CC1
+.l4CC1 ; 2F:4CC1
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2F_4CC1
-
-Label_2F_4CC7:: ; 2F:4CC7
+	jr nz, .l4CC1
+.l4CC7 ; 2F:4CC7
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_2F_4CC7
+	jr nz, .l4CC7
 	pop hl
 	push hl
 	ld de, $99E0
 	ld c, $14
-
-Label_2F_4CD4:: ; 2F:4CD4
+.l4CD4 ; 2F:4CD4
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_2F_4CD4
+	jr nz, .l4CD4
 	pop hl
 	push hl
 	ld de, $D5C0
@@ -1835,23 +1800,21 @@ Label_2F_4CD4:: ; 2F:4CD4
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_2F_4CE7:: ; 2F:4CE7
+.l4CE7 ; 2F:4CE7
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_2F_4CE7
+	jr nz, .l4CE7
 	pop hl
 	ld de, $D5E0
 	ld c, $14
-
-Label_2F_4CF3:: ; 2F:4CF3
+.l4CF3 ; 2F:4CF3
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_2F_4CF3
+	jr nz, .l4CF3
 	pop hl
 	pop de
 	pop bc

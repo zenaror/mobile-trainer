@@ -4,10 +4,10 @@
 
 SECTION "engine/startup/boot_stage2", ROMX
 
-; ---- code $4717-$47FD (230 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Boot_ClearAndInit:: ; 4F:4717
 Function_4F_4717::
+	; [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	di
 	nop
 	xor a, a
@@ -37,8 +37,7 @@ Function_4F_4717::
 	call FillBytes
 	ld d, $06
 	ld e, $02
-
-Label_4F_4754:: ; 4F:4754
+.loop ; 4F:4754
 	ld a, e
 	ldh [rSVBK], a
 	ld hl, $D000
@@ -47,7 +46,7 @@ Label_4F_4754:: ; 4F:4754
 	call FillBytes
 	inc e
 	dec d
-	jr nz, Label_4F_4754
+	jr nz, .loop
 	xor a, a
 	ldh [rSVBK], a
 	ldh [rVBK], a
@@ -106,8 +105,7 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	nop
 	ld d, $06
 	ld e, $02
-
-Label_4F_47DE:: ; 4F:47DE
+.loop ; 4F:47DE
 	ld a, e
 	ldh [rSVBK], a
 	xor a, a
@@ -117,7 +115,7 @@ Label_4F_47DE:: ; 4F:47DE
 	call Function_00_0392
 	inc e
 	dec d
-	jr nz, Label_4F_47DE
+	jr nz, .loop
 	xor a, a
 	ld [wOAMDMASuppress], a
 	farcall Joypad_Init

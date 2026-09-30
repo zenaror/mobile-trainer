@@ -4,10 +4,10 @@
 
 SECTION "engine/settings/adapter_check", ROMX
 
-; ---- code $6369-$64AE (325 bytes) [CONFIRMED] 126 insn(s); 126 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 AdapterCheck_DrawScreen:: ; 67:6369
 Function_67_6369::
+	; [CONFIRMED] 126 insn(s); 126 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -112,12 +112,12 @@ Label_67_6452:: ; 67:6452
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, Label_67_649A
+	jr z, .l649A
 	cp a, $02
-	jr nz, Label_67_649E
+	jr nz, .l649E
 	ld a, [wRam_C286]
 	or a, a
-	jr nz, Label_67_649E
+	jr nz, .l649E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -128,13 +128,11 @@ Label_67_6452:: ; 67:6452
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wRam_C286], a
-	jr Label_67_649E
-
-Label_67_649A:: ; 67:649A
+	jr .l649E
+.l649A ; 67:649A
 	xor a, a
 	ld [wRam_C286], a
-
-Label_67_649E:: ; 67:649E
+.l649E ; 67:649E
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $AE
@@ -153,9 +151,8 @@ AdapterCheck_StateTable:: ; 67:64AE
 Data_67_64AE::
 	db $B4, $64, $C7, $64, $F5, $64
 
-; ---- code $64B4-$6536 (130 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 18/18 scenarios) (part of region $64B4-$65F2)
-
 AdapterCheck_State_Init:: ; 67:64B4
+	; [CONFIRMED] 114 insn(s); 114 executed (in up to 18/18 scenarios) (part of region $64B4-$65F2)
 	ld de, $C271
 	ld hl, $0067
 	ld a, $02
@@ -197,14 +194,12 @@ AdapterCheck_State_Finish:: ; 67:64F5
 	call MobileAPI
 	farcall Config_MirrorIsRegistered
 	or a, a
-	jr z, Label_67_651A
+	jr z, .l651A
 	ld a, $01
-	jr Label_67_651C
-
-Label_67_651A:: ; 67:651A
+	jr .l651C
+.l651A ; 67:651A
 	ld a, $02
-
-Label_67_651C:: ; 67:651C
+.l651C ; 67:651C
 	ld [wRam_C27C], a
 	ret
 

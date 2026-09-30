@@ -4,9 +4,9 @@
 
 SECTION "engine/mail/mail_viewer_body", ROMX
 
-; ---- code $7B02-$7D7A (632 bytes) [CONFIRMED] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8; entered by far from 2B:64E4 (PROBABLE code) [executed in 2 scenarios]
-
 MailView_BodyPage:: ; 2B:7B02
+	; [CONFIRMED] 268 insn(s) reached by static flow only; seeds: exec x268; min discovery hops 8;
+	; entered by far from 2B:64E4 (PROBABLE code) [executed in 2 scenarios]
 	push bc
 	push bc
 	push af
@@ -37,7 +37,7 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2B_7B68
+	jr z, .l7B68
 	push bc
 	push bc
 	push de
@@ -57,11 +57,10 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	pop bc
 	xor a, a
 	ret
-
-Label_2B_7B68:: ; 2B:7B68
+.l7B68 ; 2B:7B68
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2B_7B99
+	jr z, .l7B99
 	push bc
 	push bc
 	push de
@@ -82,8 +81,7 @@ Label_2B_7B68:: ; 2B:7B68
 	pop bc
 	ld a, $FF
 	ret
-
-Label_2B_7B99:: ; 2B:7B99
+.l7B99 ; 2B:7B99
 	jr MailView_BodyPage_Loop
 
 MailView_BodyPage_InitScreen:: ; 2B:7B9B
@@ -182,13 +180,12 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	add hl, de
 	ld de, $D400
 	ld b, $C0
-
-Label_2B_7C89:: ; 2B:7C89
+.loop ; 2B:7C89
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_7C89
+	jr nz, .loop
 	call Function_00_0464
 	ld b, $00
 	call MailView_BodyPage_FindLine
@@ -293,9 +290,9 @@ Table_2B_7D7A::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $7D92-$7F44 (434 bytes) [CONFIRMED] 235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10; entered by far from 2B:7D29 (PROBABLE code) [executed in 1 scenarios]
-
 MailView_BodyPage_UploadTextTiles:: ; 2B:7D92
+	; [CONFIRMED] 235 insn(s) reached by static flow only; seeds: exec x235; min discovery hops 10;
+	; entered by far from 2B:7D29 (PROBABLE code) [executed in 1 scenarios]
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -334,18 +331,16 @@ Gfx_StartHDMAAtVBlank_2B_7DD0:: ; 2B:7DD0
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2B_7DDF:: ; 2B:7DDF
+.l7DDF ; 2B:7DDF
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2B_7DDF
+	jr nz, .l7DDF
 	di
 	ld b, $91
-
-Label_2B_7DE7:: ; 2B:7DE7
+.l7DE7 ; 2B:7DE7
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2B_7DE7
+	jr nz, .l7DE7
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -355,23 +350,22 @@ Label_2B_7DE7:: ; 2B:7DE7
 MailView_BodyPage_DrawTextLine24:: ; 2B:7DF2
 	ld a, $18
 	ld [wTextCellsLeft], a
-
-Label_2B_7DF7:: ; 2B:7DF7
+.l7DF7 ; 2B:7DF7
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2B_7E94
+	jp z, .l7E94
 	cp a, $0D
-	jr z, Label_2B_7E79
+	jr z, .l7E79
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_7E57
+	jr nz, .l7E57
 	ld a, [wTextCellsLeft]
 	dec a
-	jr z, Label_2B_7E54
+	jr z, .l7E54
 	pop af
 	push bc
 	push de
@@ -405,14 +399,12 @@ Label_2B_7DF7:: ; 2B:7DF7
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_7E94
-	jr Label_2B_7DF7
-
-Label_2B_7E54:: ; 2B:7E54
+	jr z, .l7E94
+	jr .l7DF7
+.l7E54 ; 2B:7E54
 	pop af
-	jr Label_2B_7E94
-
-Label_2B_7E57:: ; 2B:7E57
+	jr .l7E94
+.l7E57 ; 2B:7E57
 	pop af
 	push bc
 	push de
@@ -428,10 +420,9 @@ Label_2B_7E57:: ; 2B:7E57
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_7E94
-	jp Label_2B_7DF7
-
-Label_2B_7E79:: ; 2B:7E79
+	jr z, .l7E94
+	jp .l7DF7
+.l7E79 ; 2B:7E79
 	push bc
 	push de
 	push hl
@@ -445,8 +436,7 @@ Label_2B_7E79:: ; 2B:7E79
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
-
-Label_2B_7E94:: ; 2B:7E94
+.l7E94 ; 2B:7E94
 	push bc
 	push de
 	push hl
@@ -456,15 +446,14 @@ Label_2B_7E94:: ; 2B:7E94
 	pop hl
 	pop de
 	pop bc
-
-Label_2B_7EA5:: ; 2B:7EA5
+.l7EA5 ; 2B:7EA5
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
-	jr Label_2B_7EA5
+	jr .l7EA5
 
 MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance:: ; 2B:7EB4
 	push bc
@@ -503,70 +492,63 @@ MailView_BodyPage_FindLine:: ; 2B:7EE0
 	ldh [rSVBK], a
 	ld hl, $D400
 	inc b
-
-Label_2B_7EEB:: ; 2B:7EEB
+.l7EEB ; 2B:7EEB
 	ld d, $00
 	ld e, $18
 	dec b
-	jr z, Label_2B_7F25
-
-Label_2B_7EF2:: ; 2B:7EF2
+	jr z, .l7F25
+.l7EF2 ; 2B:7EF2
 	ld d, $FF
 	ld a, [hl]
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr z, Label_2B_7F0F
+	jr z, .l7F0F
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2B_7F25
+	jr z, .l7F25
 	inc hl
 	inc hl
 	cp a, $0D
-	jr z, Label_2B_7EEB
+	jr z, .l7EEB
 	dec hl
 	dec e
-	jr nz, Label_2B_7EF2
-	jr Label_2B_7EEB
-
-Label_2B_7F0F:: ; 2B:7F0F
+	jr nz, .l7EF2
+	jr .l7EEB
+.l7F0F ; 2B:7F0F
 	ld a, e
 	cp a, $01
-	jr z, Label_2B_7EEB
+	jr z, .l7EEB
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2B_7F25
+	jr z, .l7F25
 	inc hl
 	inc hl
 	cp a, $0D
-	jr z, Label_2B_7EEB
+	jr z, .l7EEB
 	dec e
 	dec e
-	jr nz, Label_2B_7EF2
-	jr Label_2B_7EEB
-
-Label_2B_7F25:: ; 2B:7F25
+	jr nz, .l7EF2
+	jr .l7EEB
+.l7F25 ; 2B:7F25
 	ld a, $FF
 	cp a, d
-	jr z, Label_2B_7F3E
+	jr z, .l7F3E
 	ld e, $00
 	push hl
-
-Label_2B_7F2D:: ; 2B:7F2D
+.l7F2D ; 2B:7F2D
 	ld a, [hli]
 	inc hl
 	cp a, $00
-	jr z, Label_2B_7F3D
+	jr z, .l7F3D
 	cp a, $0D
-	jr z, Label_2B_7F3D
+	jr z, .l7F3D
 	inc e
 	ld a, $0B
 	cp a, e
-	jr nz, Label_2B_7F2D
-
-Label_2B_7F3D:: ; 2B:7F3D
+	jr nz, .l7F2D
+.l7F3D ; 2B:7F3D
 	pop hl
-
-Label_2B_7F3E:: ; 2B:7F3E
+.l7F3E ; 2B:7F3E
 	xor a, a
 	ld [rRAMG], a
 	pop bc

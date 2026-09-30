@@ -4,10 +4,10 @@
 
 SECTION "engine/dialog/dialog", ROMX
 
-; ---- code $4000-$43A1 (929 bytes) [CONFIRMED] 351 insn(s); 351 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Dialog_ShowMonitored:: ; 72:4000
 Function_72_4000::
+	; [CONFIRMED] 351 insn(s); 351 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Dialog_Open
 	farcall Dialog_WaitInputMonitored
 	farcall Dialog_Close
@@ -162,11 +162,10 @@ Dialog_Open:: ; 72:402A
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $48
-	jr z, Label_72_4196
+	jr z, .l4196
 	ld hl, Data_72_43A1
 	farcall Dialog_SlideIn
-
-Label_72_4196:: ; 72:4196
+.l4196 ; 72:4196
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -335,11 +334,10 @@ Dialog_OpenTall:: ; 72:41D8
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $38
-	jr z, Label_72_435F
+	jr z, .l435F
 	ld hl, $43A4
 	farcall Dialog_SlideIn
-
-Label_72_435F:: ; 72:435F
+.l435F ; 72:435F
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	call Function_00_047A
@@ -375,10 +373,10 @@ Label_72_435F:: ; 72:435F
 Data_72_43A1:: ; 72:43A1
 	db $48, $00, $80, $58, $00, $80
 
-; ---- code $43A7-$43AA (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Dialog_SetupCursorByType:: ; 72:43A7
 Function_72_43A7::
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call JumpTableInline
 
 ; ---- ptrtable $43AA-$43B6 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:43A7: 6 entries; end pinned by the executed instruction at 43B6
@@ -391,48 +389,47 @@ Table_72_43AA:: ; 72:43AA
 	dw Label_72_4407
 	dw Label_72_43C1
 
-; ---- code $43B6-$43C1 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
 Label_72_43B6:: ; 72:43B6
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld hl, $DAC0
 	call Function_00_09E6
 	ld a, $00
 	ldh [hDialogResult], a
 	ret
 
-; ---- code $43C1-$43C6 (5 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by table from 72:43A7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 43C1-43DC by apply_coverage --split [executed in 3 scenarios]
-
 Label_72_43C1:: ; 72:43C1
+	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
+	; entered by table from 72:43A7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region
+	; 43C1-43DC by apply_coverage --split [executed in 3 scenarios]
 	ldh a, [hDialogResult]
 	or a, a
-	jr z, Label_72_43D1
+	jr z, .l43D1
 
-; ---- code $43C6-$43D1 (11 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43C1-43DC by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 43C1-43DC by apply_coverage --split
 	ld de, $D058
 	ld hl, $DAC0
 	call Function_00_0A65
 	jr Label_72_43F7
 
-; ---- code $43D1-$43DC (11 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43C1-43DC by apply_coverage --split [executed in 3 scenarios]
-
-Label_72_43D1:: ; 72:43D1
+.l43D1 ; 72:43D1
+	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43C1-43DC by apply_coverage
+	; --split [executed in 3 scenarios]
 	ld de, $D028
 	ld hl, $DAC0
 	call Function_00_0A65
 	jr Label_72_43F7
 
-; ---- code $43DC-$4572 (406 bytes) [CONFIRMED] 177 insn(s); 177 executed (in up to 4/18 scenarios)
-
 Label_72_43DC:: ; 72:43DC
+	; [CONFIRMED] 177 insn(s); 177 executed (in up to 4/18 scenarios)
 	ldh a, [hDialogResult]
 	or a, a
-	jr z, Label_72_43EC
+	jr z, .l43EC
 	ld de, $C058
 	ld hl, $DAC0
 	call Function_00_0A65
 	jr Label_72_43F7
-
-Label_72_43EC:: ; 72:43EC
+.l43EC ; 72:43EC
 	ld de, $C028
 	ld hl, $DAC0
 	call Function_00_0A65
@@ -538,11 +535,10 @@ Dialog_Close:: ; 72:444F
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
-	jr z, Label_72_44BB
+	jr z, .l44BB
 	ld hl, Data_72_4572
 	farcall Dialog_SlideOut
-
-Label_72_44BB:: ; 72:44BB
+.l44BB ; 72:44BB
 	call Function_00_047A
 	ldh a, [rLCDC]
 	and a, $DF
@@ -597,11 +593,10 @@ Dialog_CloseTall:: ; 72:44E6
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
-	jr z, Label_72_4547
+	jr z, .l4547
 	ld hl, $4575
 	farcall Dialog_SlideOut
-
-Label_72_4547:: ; 72:4547
+.l4547 ; 72:4547
 	call Function_00_047A
 	ldh a, [rLCDC]
 	and a, $DF
@@ -627,10 +622,10 @@ Label_72_4547:: ; 72:4547
 Data_72_4572:: ; 72:4572
 	db $48, $00, $80, $58, $00, $80
 
-; ---- code $4578-$4596 (30 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Dialog_WaitInput:: ; 72:4578
 Function_72_4578::
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Function_00_0956
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
@@ -648,24 +643,21 @@ Table_72_4596::
 	dw Label_72_4603
 	dw Label_72_45A0
 
-; ---- code $45A0-$4603 (99 bytes) [CONFIRMED] 45 insn(s); 45 executed (in up to 3/18 scenarios)
-
 Label_72_45A0:: ; 72:45A0
+	; [CONFIRMED] 45 insn(s); 45 executed (in up to 3/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
-	jr z, Label_72_45AC
+	jr z, .l45AC
 	cp a, $02
 	jp nz, Dialog_WaitInput
-
-Label_72_45AC:: ; 72:45AC
+.l45AC ; 72:45AC
 	ldh a, [hJoyPressedRepeat]
 	bit 4, a
-	jr nz, Label_72_45B9
+	jr nz, .l45B9
 	bit 5, a
-	jr nz, Label_72_45B9
+	jr nz, .l45B9
 	jp Dialog_WaitInput
-
-Label_72_45B9:: ; 72:45B9
+.l45B9 ; 72:45B9
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -678,13 +670,12 @@ Label_72_45B9:: ; 72:45B9
 	xor a, $01
 	ldh [hDialogResult], a
 	or a, a
-	jr nz, Label_72_45DE
+	jr nz, .l45DE
 	ld de, $7828
 	ld hl, $DAC0
 	call Function_00_0A65
 	jp Dialog_WaitInput
-
-Label_72_45DE:: ; 72:45DE
+.l45DE ; 72:45DE
 	ld de, $7858
 	ld hl, $DAC0
 	call Function_00_0A65
@@ -707,14 +698,13 @@ Label_72_45EA:: ; 72:45EA
 Label_72_4600:: ; 72:4600
 	jp Dialog_WaitInput
 
-; ---- code $4603-$4606 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 72:4593 (executed) [executed in 4 scenarios]
-
 Label_72_4603:: ; 72:4603
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by table from 72:4593 (executed) [executed in 4 scenarios]
 	jp Dialog_WaitInput
 
-; ---- code $4606-$4647 (65 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
-
 Label_72_4606:: ; 72:4606
+	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -730,7 +720,7 @@ Label_72_4606:: ; 72:4606
 Dialog_WaitInputMonitored:: ; 72:461A
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jr z, Label_72_467A
+	jr z, .l467A
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, Label_72_4726
@@ -739,58 +729,57 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_72_4674
+	jr z, .l4674
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_72_4675
+	jr nz, .l4675
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_72_4674
+	jr c, .l4674
 
-; ---- code $4647-$4657 (16 bytes) [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 72:4645 (executed) | 7 insn(s) executed; cut out of the PROBABLE region 4647-4674 by apply_coverage --split [executed in 1 scenarios]
-	jr nz, Label_72_4650
+	; [CONFIRMED] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
+	; fall-through of the jrcc at 72:4645 (executed) | 7 insn(s) executed; cut out of the PROBABLE
+	; region 4647-4674 by apply_coverage --split [executed in 1 scenarios]
+	jr nz, .l4650
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_72_4674
-
-Label_72_4650:: ; 72:4650
+	jr c, .l4674
+.l4650 ; 72:4650
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_72_4660
+	jr nz, .l4660
 
-; ---- code $4657-$4660 (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4647-4674 by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4647-4674 by apply_coverage --split
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_72_4674
+	jr nz, .l4674
 	set 1, [hl]
 
-; ---- code $4660-$4674 (20 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4647-4674 by apply_coverage --split [executed in 1 scenarios]
-
-Label_72_4660:: ; 72:4660
+.l4660 ; 72:4660
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4647-4674 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_72_4675
+	jr z, .l4675
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_72_4675
+	jr .l4675
 
-; ---- code $4674-$4698 (36 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-
-Label_72_4674:: ; 72:4674
+.l4674 ; 72:4674
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	xor a, a
-
-Label_72_4675:: ; 72:4675
+.l4675 ; 72:4675
 	pop hl
 	or a, a
 	jp nz, Label_72_4721
-
-Label_72_467A:: ; 72:467A
+.l467A ; 72:467A
 	farcall Function_00_0956
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
@@ -808,26 +797,24 @@ Table_72_4698::
 	dw Label_72_4705
 	dw Label_72_46A2
 
-; ---- code $46A2-$46AE (12 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
 Label_72_46A2:: ; 72:46A2
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, [wDialogType]
 	cp a, $05
-	jr z, Label_72_46AE
+	jr z, .l46AE
 	cp a, $02
 	jp nz, Dialog_WaitInputMonitored
 
-; ---- code $46AE-$4708 (90 bytes) [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 0; entered by jrcc from 72:46A7 (executed) [executed in 1 scenarios]
-
-Label_72_46AE:: ; 72:46AE
+.l46AE ; 72:46AE
+	; [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 0;
+	; entered by jrcc from 72:46A7 (executed) [executed in 1 scenarios]
 	ldh a, [hJoyPressedRepeat]
 	bit 4, a
-	jr nz, Label_72_46BB
+	jr nz, .l46BB
 	bit 5, a
-	jr nz, Label_72_46BB
+	jr nz, .l46BB
 	jp Dialog_WaitInputMonitored
-
-Label_72_46BB:: ; 72:46BB
+.l46BB ; 72:46BB
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -840,13 +827,12 @@ Label_72_46BB:: ; 72:46BB
 	xor a, $01
 	ldh [hDialogResult], a
 	or a, a
-	jr nz, Label_72_46E0
+	jr nz, .l46E0
 	ld de, $7828
 	ld hl, $DAC0
 	call Function_00_0A65
 	jp Dialog_WaitInputMonitored
-
-Label_72_46E0:: ; 72:46E0
+.l46E0 ; 72:46E0
 	ld de, $7858
 	ld hl, $DAC0
 	call Function_00_0A65
@@ -872,9 +858,8 @@ Label_72_4702:: ; 72:4702
 Label_72_4705:: ; 72:4705
 	jp Dialog_WaitInputMonitored
 
-; ---- code $4708-$471C (20 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
-
 Label_72_4708:: ; 72:4708
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -887,31 +872,32 @@ Label_72_4708:: ; 72:4708
 	ldh [hDialogResult], a
 	ret
 
-; ---- code $471C-$4721 (5 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jpcc from 72:462B (executed) | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 471C-472B by apply_coverage --split
-
 Label_72_471C:: ; 72:471C
+	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
+	; entered by jpcc from 72:462B (executed) | 3 insn(s) never executed in the traced runs; cut out
+	; of the PROBABLE region 471C-472B by apply_coverage --split
 	ld a, $03
 	ldh [hDialogResult], a
 	ret
 
-; ---- code $4721-$4726 (5 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 471C-472B by apply_coverage --split [executed in 1 scenarios]
-
 Label_72_4721:: ; 72:4721
+	; [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 471C-472B by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $04
 	ldh [hDialogResult], a
 	ret
 
-; ---- code $4726-$472B (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 471C-472B by apply_coverage --split
-
 Label_72_4726:: ; 72:4726
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 471C-472B by apply_coverage --split
 	ld a, $05
 	ldh [hDialogResult], a
 	ret
 
-; ---- code $472B-$4836 (267 bytes) [CONFIRMED] 123 insn(s); 123 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Dialog_SaveBackground:: ; 72:472B
 Function_72_472B::
+	; [CONFIRMED] 123 insn(s); 123 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1042,47 +1028,45 @@ Dialog_InitWindowRegs:: ; 72:4805
 Dialog_SlideIn:: ; 72:4824
 	ld a, $FF
 	ld [wConnIconGfxRequest], a
-
-Label_72_4829:: ; 72:4829
+.loop ; 72:4829
 	ld a, [hli]
 	cp a, $80
-	jr z, Label_72_486D
+	jr z, .l486D
 	ld de, $0000
 	ld b, a
 	bit 0, c
-	jr z, Label_72_4837
+	jr z, .l4837
 
-; ---- code $4836-$4837 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 72:4834 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 72:4834 (executed)
 	ld e, a
 
-; ---- code $4837-$4840 (9 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
-
-Label_72_4837:: ; 72:4837
+.l4837 ; 72:4837
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
 	bit 1, c
-	jr z, Label_72_483C
+	jr z, .l483C
 	ld d, a
-
-Label_72_483C:: ; 72:483C
+.l483C ; 72:483C
 	bit 2, c
-	jr z, Label_72_4842
+	jr z, .l4842
 
-; ---- code $4840-$4842 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 72:483E (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 72:483E (executed)
 	ld a, [hli]
 	ld e, a
 
-; ---- code $4842-$4846 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
-
-Label_72_4842:: ; 72:4842
+.l4842 ; 72:4842
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
 	bit 3, c
-	jr z, Label_72_4848
+	jr z, .l4848
 
-; ---- code $4846-$4848 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 72:4844 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 72:4844 (executed)
 	ld a, [hli]
 	ld d, a
 
-; ---- code $4848-$4884 (60 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
-
-Label_72_4848:: ; 72:4848
+.l4848 ; 72:4848
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 4/18 scenarios)
 	ldh a, [hRam_FFF1]
 	sub a, d
 	ldh [hRam_FFF1], a
@@ -1103,9 +1087,8 @@ Label_72_4848:: ; 72:4848
 	pop hl
 	ei
 	call Function_00_0392
-	jr Label_72_4829
-
-Label_72_486D:: ; 72:486D
+	jr .loop
+.l486D ; 72:486D
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret
@@ -1113,47 +1096,45 @@ Label_72_486D:: ; 72:486D
 Dialog_SlideOut:: ; 72:4872
 	ld a, $FF
 	ld [wConnIconGfxRequest], a
-
-Label_72_4877:: ; 72:4877
+.loop ; 72:4877
 	ld a, [hli]
 	cp a, $80
-	jr z, Label_72_48BB
+	jr z, .l48BB
 	ld de, $0000
 	ld b, a
 	bit 0, c
-	jr z, Label_72_4885
+	jr z, .l4885
 
-; ---- code $4884-$4885 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 72:4882 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 72:4882 (executed)
 	ld e, a
 
-; ---- code $4885-$488E (9 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
-
-Label_72_4885:: ; 72:4885
+.l4885 ; 72:4885
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
 	bit 1, c
-	jr z, Label_72_488A
+	jr z, .l488A
 	ld d, a
-
-Label_72_488A:: ; 72:488A
+.l488A ; 72:488A
 	bit 2, c
-	jr z, Label_72_4890
+	jr z, .l4890
 
-; ---- code $488E-$4890 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 72:488C (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 72:488C (executed)
 	ld a, [hli]
 	ld e, a
 
-; ---- code $4890-$4894 (4 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
-
-Label_72_4890:: ; 72:4890
+.l4890 ; 72:4890
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 4/18 scenarios)
 	bit 3, c
-	jr z, Label_72_4896
+	jr z, .l4896
 
-; ---- code $4894-$4896 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 72:4892 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 72:4892 (executed)
 	ld a, [hli]
 	ld d, a
 
-; ---- code $4896-$48C0 (42 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 4/18 scenarios)
-
-Label_72_4896:: ; 72:4896
+.l4896 ; 72:4896
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 4/18 scenarios)
 	ldh a, [hRam_FFF1]
 	add a, d
 	ldh [hRam_FFF1], a
@@ -1174,9 +1155,8 @@ Label_72_4896:: ; 72:4896
 	pop hl
 	ei
 	call Function_00_0392
-	jr Label_72_4877
-
-Label_72_48BB:: ; 72:48BB
+	jr .loop
+.l48BB ; 72:48BB
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ret

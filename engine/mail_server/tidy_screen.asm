@@ -4,10 +4,10 @@
 
 SECTION "engine/mail_server/tidy_screen", ROMX
 
-; ---- code $4B2E-$4C58 (298 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerMgr_SetupScreen:: ; 2E:4B2E
 Function_2E_4B2E::
+	; [CONFIRMED] 100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
@@ -109,9 +109,10 @@ Function_2E_4B2E::
 	farcall Stat_EnableScrollSplit
 	ret
 
-; ---- code $4C58-$4DBF (359 bytes) [PROBABLE] 260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code) | 138 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
-
 MailServerMgr_RedrawScreen:: ; 2E:4C58
+	; [PROBABLE] 260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9;
+	; entered by call from 2E:4AD4 (PROBABLE code) | 138 insn(s) never executed in the traced runs;
+	; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
@@ -251,9 +252,9 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	farcall Stat_EnableScrollSplit
 	ret
 
-; ---- code $4DBF-$4E3F (128 bytes) [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 5 scenarios]
-
 MailServerMgr_DrawMailInfo:: ; 2E:4DBF
+	; [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage
+	; --split [executed in 5 scenarios]
 	push bc
 	push de
 	push hl
@@ -264,23 +265,22 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	push bc
 	push hl
 	dec d
-	jr z, Label_2E_4E3F
+	jr z, .l4E3F
 	ld a, e
 	dec e
-	jr z, Label_2E_4E08
+	jr z, .l4E08
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0800
-
-Label_2E_4DDD:: ; 2E:4DDD
+.l4DDD ; 2E:4DDD
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_2E_4DDD
+	jr nz, .l4DDD
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
@@ -296,21 +296,19 @@ Label_2E_4DDD:: ; 2E:4DDD
 	pop hl
 	pop bc
 	ret
-
-Label_2E_4E08:: ; 2E:4E08
+.l4E08 ; 2E:4E08
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0800
-
-Label_2E_4E14:: ; 2E:4E14
+.l4E14 ; 2E:4E14
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_2E_4E14
+	jr nz, .l4E14
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
@@ -327,25 +325,24 @@ Label_2E_4E14:: ; 2E:4E14
 	pop bc
 	ret
 
-; ---- code $4E3F-$4EB1 (114 bytes) [PROBABLE] 55 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
-
-Label_2E_4E3F:: ; 2E:4E3F
+.l4E3F ; 2E:4E3F
+	; [PROBABLE] 55 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4C58-4EB2 by apply_coverage --split
 	ld a, e
 	dec e
-	jr z, Label_2E_4E7A
+	jr z, .l4E7A
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0800
-
-Label_2E_4E4F:: ; 2E:4E4F
+.l4E4F ; 2E:4E4F
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_2E_4E4F
+	jr nz, .l4E4F
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
@@ -361,21 +358,19 @@ Label_2E_4E4F:: ; 2E:4E4F
 	pop hl
 	pop bc
 	ret
-
-Label_2E_4E7A:: ; 2E:4E7A
+.l4E7A ; 2E:4E7A
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0800
-
-Label_2E_4E86:: ; 2E:4E86
+.l4E86 ; 2E:4E86
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_2E_4E86
+	jr nz, .l4E86
 	call MailServerMgr_UploadTextTiles
 	ld bc, $1214
 	ld de, $D000
@@ -392,27 +387,30 @@ Label_2E_4E86:: ; 2E:4E86
 	pop bc
 	ret
 
-; ---- code $4EB1-$4EB2 (1 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 7 scenarios]
-
 Function_2E_4EB1:: ; 2E:4EB1
+	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage
+	; --split [executed in 7 scenarios]
 	ret
 
-; ---- code $4EB2-$4EBD (11 bytes) [HYPOTHESIS] complete 11-byte function (ld b,$3C ; loop: push bc ; call $0464 ; pop bc ; dec b ; jr nz ; ret): waits 60 x the 00:0464 routine (executed 21685 times, 13 scenarios); jr lands on its own instruction start; no caller found (entry unproven) [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
-
 Function_2E_4EB2:: ; 2E:4EB2
+	; [HYPOTHESIS] complete 11-byte function (ld b,$3C ; loop: push bc ; call $0464 ; pop bc ; dec b
+	; ; jr nz ; ret): waits 60 x the 00:0464 routine (executed 21685 times, 13 scenarios); jr lands
+	; on its own instruction start; no caller found (entry unproven) [verifier: downgraded
+	; PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow
+	; from/into proven code; "decodes cleanly" is not an entry]
 	ld b, $3C
-
-Label_2E_4EB4:: ; 2E:4EB4
+.loop ; 2E:4EB4
 	push bc
 	call Function_00_0464
 	pop bc
 	dec b
-	jr nz, Label_2E_4EB4
+	jr nz, .loop
 	ret
 
-; ---- code $4EBD-$4F25 (104 bytes) [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code) | 40 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
-
 MailServerMgr_DrawMailFields:: ; 2E:4EBD
+	; [CONFIRMED] 104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9;
+	; entered by call from 2E:43D3 (PROBABLE code) | 40 insn(s) executed; cut out of the PROBABLE
+	; region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -442,29 +440,29 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 
 MailServerMgr_DrawFieldText:: ; 2E:4F06
 	ld [wTextCellsLeft], a
-
-Label_2E_4F09:: ; 2E:4F09
+.loop ; 2E:4F09
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_2E_4F88
+	jr z, .l4F88
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2E_4F66
+	jr nz, .l4F66
 	ld a, [wTextCellsLeft]
 	cp a, $01
-	jr nz, Label_2E_4F29
+	jr nz, .l4F29
 
-; ---- code $4F25-$4F29 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4EBD-4F9A by apply_coverage --split
 	pop af
-	jp Label_2E_4F88
+	jp .l4F88
 
-; ---- code $4F29-$4F9A (113 bytes) [CONFIRMED] 62 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_4F29:: ; 2E:4F29
+.l4F29 ; 2E:4F29
+	; [CONFIRMED] 62 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage
+	; --split [executed in 7 scenarios]
 	pop af
 	push bc
 	push de
@@ -498,10 +496,9 @@ Label_2E_4F29:: ; 2E:4F29
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2E_4F88
-	jr Label_2E_4F09
-
-Label_2E_4F66:: ; 2E:4F66
+	jr z, .l4F88
+	jr .loop
+.l4F66 ; 2E:4F66
 	pop af
 	push bc
 	push de
@@ -517,10 +514,9 @@ Label_2E_4F66:: ; 2E:4F66
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2E_4F88
-	jp Label_2E_4F09
-
-Label_2E_4F88:: ; 2E:4F88
+	jr z, .l4F88
+	jp .loop
+.l4F88 ; 2E:4F88
 	push bc
 	push de
 	push hl
@@ -534,9 +530,12 @@ Label_2E_4F88:: ; 2E:4F88
 Label_2E_4F99:: ; 2E:4F99
 	ret
 
-; ---- code $4F9A-$4FA9 (15 bytes) [HYPOTHESIS] complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9 ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
-
 Function_2E_4F9A:: ; 2E:4F9A
+	; [HYPOTHESIS] complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9
+	; ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry
+	; (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller
+	; of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no
+	; caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
@@ -545,9 +544,10 @@ Function_2E_4F9A:: ; 2E:4F9A
 	call MailServerMgr_DrawFieldText_Glyph
 	jr Label_2E_4F99
 
-; ---- code $4FA9-$519A (497 bytes) [CONFIRMED] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code) | 325 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
-
 MailServerMgr_DrawFieldText_Glyph:: ; 2E:4FA9
+	; [CONFIRMED] 528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6;
+	; entered by call from 2E:4F42 (PROBABLE code) | 325 insn(s) executed; cut out of the PROBABLE
+	; region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
 	push bc
 	push de
 	push hl
@@ -592,17 +592,15 @@ MailServerMgr_HdmaBlock:: ; 2E:4FE5
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2E_4FF4:: ; 2E:4FF4
+.l4FF4 ; 2E:4FF4
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2E_4FF4
+	jr nz, .l4FF4
 	ld b, $91
-
-Label_2E_4FFB:: ; 2E:4FFB
+.l4FFB ; 2E:4FFB
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2E_4FFB
+	jr nz, .l4FFB
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -619,8 +617,7 @@ MailServerMgr_DrawMailDate:: ; 2E:5005
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $06
-
-Label_2E_501A:: ; 2E:501A
+.l501A ; 2E:501A
 	push af
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -653,17 +650,16 @@ Label_2E_501A:: ; 2E:501A
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2E_501A
+	jr nz, .l501A
 	ld de, $9881
 	ld hl, $D524
 	xor a, a
 	ldh [rVBK], a
 	di
-
-Label_2E_5057:: ; 2E:5057
+.l5057 ; 2E:5057
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2E_5057
+	jr nz, .l5057
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -888,9 +884,10 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_2E_51FD
+	jp z, .l51FD
 
-; ---- code $519A-$51FD (99 bytes) [PROBABLE] 45 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+	; [PROBABLE] 45 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FA9-533C by apply_coverage --split
 	ld a, l
 	add a, $D0
 	ld [wRam_D041], a
@@ -935,20 +932,21 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	add a, $10
 	ld [wRam_D065], a
 	ld e, $28
-	jp Label_2E_52DC
+	jp .l52DC
 
-; ---- code $51FD-$520D (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_51FD:: ; 2E:51FD
+.l51FD ; 2E:51FD
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_2E_525A
+	jp z, .l525A
 
-; ---- code $520D-$525A (77 bytes) [PROBABLE] 36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+	; [PROBABLE] 36 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FA9-533C by apply_coverage --split
 	ld a, l
 	ld a, l
 	add a, $D0
@@ -984,20 +982,21 @@ Label_2E_51FD:: ; 2E:51FD
 	add a, $10
 	ld [wRam_D064], a
 	ld e, $20
-	jp Label_2E_52DC
+	jp .l52DC
 
-; ---- code $525A-$526A (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_525A:: ; 2E:525A
+.l525A ; 2E:525A
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_2E_52A0
+	jp z, .l52A0
 
-; ---- code $526A-$52A0 (54 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+	; [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FA9-533C by apply_coverage --split
 	ld a, l
 	ld a, l
 	add a, $D0
@@ -1023,18 +1022,18 @@ Label_2E_525A:: ; 2E:525A
 	add a, $10
 	ld [wRam_D063], a
 	ld e, $18
-	jp Label_2E_52DC
+	jp .l52DC
 
-; ---- code $52A0-$5300 (96 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 1 scenarios]
-
-Label_2E_52A0:: ; 2E:52A0
+.l52A0 ; 2E:52A0
+	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_2E_52CF
+	jp z, .l52CF
 	ld a, l
 	ld a, l
 	add a, $D0
@@ -1050,17 +1049,15 @@ Label_2E_52A0:: ; 2E:52A0
 	add a, $10
 	ld [wRam_D062], a
 	ld e, $10
-	jp Label_2E_52DC
-
-Label_2E_52CF:: ; 2E:52CF
+	jp .l52DC
+.l52CF ; 2E:52CF
 	ld a, e
 	add a, $D0
 	ld [wRam_D041], a
 	add a, $10
 	ld [wRam_D061], a
 	ld e, $08
-
-Label_2E_52DC:: ; 2E:52DC
+.l52DC ; 2E:52DC
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1072,36 +1069,33 @@ Label_2E_52DC:: ; 2E:52DC
 	add a, $08
 	add a, $08
 	cp a, $08
-	jr nz, Label_2E_52F7
+	jr nz, .l52F7
 	ld hl, $D042
-	jr Label_2E_5315
-
-Label_2E_52F7:: ; 2E:52F7
+	jr .l5315
+.l52F7 ; 2E:52F7
 	cp a, $10
-	jr nz, Label_2E_5300
+	jr nz, .l5300
 	ld hl, $D043
-	jr Label_2E_5315
+	jr .l5315
 
-; ---- code $5300-$5315 (21 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
-
-Label_2E_5300:: ; 2E:5300
+.l5300 ; 2E:5300
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4FA9-533C by apply_coverage --split
 	cp a, $18
-	jr nz, Label_2E_5309
+	jr nz, .l5309
 	ld hl, $D044
-	jr Label_2E_5315
-
-Label_2E_5309:: ; 2E:5309
+	jr .l5315
+.l5309 ; 2E:5309
 	cp a, $20
-	jr nz, Label_2E_5312
+	jr nz, .l5312
 	ld hl, $D045
-	jr Label_2E_5315
-
-Label_2E_5312:: ; 2E:5312
+	jr .l5315
+.l5312 ; 2E:5312
 	ld hl, $D046
 
-; ---- code $5315-$533C (39 bytes) [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
-
-Label_2E_5315:: ; 2E:5315
+.l5315 ; 2E:5315
+	; [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage
+	; --split [executed in 7 scenarios]
 	push hl
 	ld a, $DA
 	ld [hli], a
@@ -1129,10 +1123,10 @@ Label_2E_5315:: ; 2E:5315
 	pop hl
 	ret
 
-; ---- code $533C-$53A8 (108 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerMgr_ClearTextTiles:: ; 2E:533C
 Function_2E_533C::
+	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push de
 	push hl
@@ -1143,14 +1137,13 @@ Function_2E_533C::
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $1000
-
-Label_2E_534E:: ; 2E:534E
+.loop ; 2E:534E
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_2E_534E
+	jr nz, .loop
 	xor a, a
 	ldh [rVBK], a
 	ld hl, $D000
@@ -1199,9 +1192,11 @@ String_2E_53A8::
 String_2E_53C1:: ; 2E:53C1
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
-; ---- code $53DA-$53EB (17 bytes) [PROBABLE] head of the message function (push bc ; push hl ; ld a,2 ; ldh [hFFB0],a ; ld a,$2E ; ld bc,$D000 ; ld de,$D0C0 ; ld hl,$53F7) continuing into the far-call site at 53EB and ending with ret at 53F6 before the string 2E:53F7; identical to the executed sibling 2E:5429; no caller found (entry unproven)
-
 MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
+	; [PROBABLE] head of the message function (push bc ; push hl ; ld a,2 ; ldh [hFFB0],a ; ld a,$2E
+	; ; ld bc,$D000 ; ld de,$D0C0 ; ld hl,$53F7) continuing into the far-call site at 53EB and
+	; ending with ret at 53F6 before the string 2E:53F7; identical to the executed sibling 2E:5429;
+	; no caller found (entry unproven)
 	push bc
 	push hl
 	ld a, $02
@@ -1211,7 +1206,8 @@ MailServerMgr_ShowNoMailMsg:: ; 2E:53DA
 	ld de, $D0C0
 	ld hl, $53F7
 
-; ---- code $53EB-$53F7 (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: site x5; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall TextTiles_RenderLine
 	call MailServerMgr_UploadMessageTiles
 	pop hl
@@ -1229,9 +1225,9 @@ String_2E_53F7::
 String_2E_5410:: ; 2E:5410
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
-; ---- code $5429-$5446 (29 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 12; entered by call from 2E:46BD (PROBABLE code) [executed in 3 scenarios]
-
 MailServerMgr_ShowDeletingMsg:: ; 2E:5429
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 12;
+	; entered by call from 2E:46BD (PROBABLE code) [executed in 3 scenarios]
 	push bc
 	push hl
 	ld a, $02
@@ -1257,10 +1253,10 @@ String_2E_5446::
 String_2E_545F:: ; 2E:545F
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　　　　　　　"
 
-; ---- code $5478-$5498 (32 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerMgr_UploadMessageTiles:: ; 2E:5478
 Function_2E_5478::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1277,9 +1273,9 @@ Function_2E_5478::
 	ldh [rSVBK], a
 	ret
 
-; ---- code $5498-$54F8 (96 bytes) [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 2; entered by call from 2E:4453 (PROBABLE code) [executed in 3 scenarios]
-
 MailServerMgr_ShowChoiceHelp:: ; 2E:5498
+	; [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 2;
+	; entered by call from 2E:4453 (PROBABLE code) [executed in 3 scenarios]
 	push bc
 	push hl
 	inc a
@@ -1317,18 +1313,16 @@ MailServerMgr_ShowChoiceHelp:: ; 2E:5498
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2E_54DE:: ; 2E:54DE
+.l54DE ; 2E:54DE
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2E_54DE
+	jr nz, .l54DE
 	di
 	ld b, $91
-
-Label_2E_54E6:: ; 2E:54E6
+.l54E6 ; 2E:54E6
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2E_54E6
+	jr nz, .l54E6
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1380,10 +1374,10 @@ String_2E_55A8:: ; 2E:55A8
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "　　　　　　　　　　　　　　　　　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $55FA-$561C (34 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerMgr_UpdateTimerDisplay:: ; 2E:55FA
 Function_2E_55FA::
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	push de
@@ -1407,9 +1401,9 @@ Function_2E_55FA::
 	pop af
 	ret
 
-; ---- code $561C-$5636 (26 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 10; entered by call from 2E:481F (PROBABLE code) [executed in 3 scenarios]
-
 MailServerMgr_DrawTimer:: ; 2E:561C
+	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 10;
+	; entered by call from 2E:481F (PROBABLE code) [executed in 3 scenarios]
 	push af
 	push bc
 	push de
@@ -1426,18 +1420,17 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 	ldh [rSVBK], a
 	ld a, [wMailSessionBlock]
 
-; ---- code $5636-$5641 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
 Label_2E_5636:: ; 2E:5636
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld a, b
 	ld [wMailSessionBlock], a
 	ld a, [wTimerAMinutes]
 	cp a, $3C
-	jr c, Label_2E_5683
+	jr c, .l5683
 
-; ---- code $5641-$565A (25 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 2E:563F (executed)
-
-Label_2E_5641:: ; 2E:5641
+.loop ; 2E:5641
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; fall-through of the jrcc at 2E:563F (executed)
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1451,18 +1444,22 @@ Label_2E_5641:: ; 2E:5641
 	ld [hli], a
 	ld a, $F9
 	ld [hl], a
-	jp Label_2E_56C5
+	jp .l56C5
 
-; ---- code $565A-$5669 (15 bytes) [PROBABLE] first block of a twin of the executed block at 2E:5683: a=[C2D6]+$3C ; cp $64 ; jr nc,$5641 ; l=a ; h=0 ; de=$000A leading into the far-call site 5669 (00:0D67 with hl,de as in 5683); the jr target 5641 is a valid code start; reached only by a branch not found in the decoded code (follows the unconditional jp $56C5 at 5657)
+	; [PROBABLE] first block of a twin of the executed block at 2E:5683: a=[C2D6]+$3C ; cp $64 ; jr
+	; nc,$5641 ; l=a ; h=0 ; de=$000A leading into the far-call site 5669 (00:0D67 with hl,de as in
+	; 5683); the jr target 5641 is a valid code start; reached only by a branch not found in the
+	; decoded code (follows the unconditional jp $56C5 at 5657)
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, Label_2E_5641
+	jr nc, .loop
 	ld l, a
 	ld h, $00
 	ld de, $000A
 
-; ---- code $5669-$5683 (26 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Divide16
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1473,11 +1470,10 @@ Label_2E_5641:: ; 2E:5641
 	ld a, e
 	add a, $F0
 	ld [wRam_D1EF], a
-	jr Label_2E_56A4
+	jr .l56A4
 
-; ---- code $5683-$56D1 (78 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 1/18 scenarios)
-
-Label_2E_5683:: ; 2E:5683
+.l5683 ; 2E:5683
+	; [CONFIRMED] 37 insn(s); 37 executed (in up to 1/18 scenarios)
 	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
@@ -1492,8 +1488,7 @@ Label_2E_5683:: ; 2E:5683
 	ld a, e
 	add a, $F0
 	ld [wRam_D1EF], a
-
-Label_2E_56A4:: ; 2E:56A4
+.l56A4 ; 2E:56A4
 	ld a, [wTimerASeconds]
 	ld l, a
 	ld h, $00
@@ -1508,8 +1503,7 @@ Label_2E_56A4:: ; 2E:56A4
 	ld a, e
 	add a, $F0
 	ld [wRam_D1F2], a
-
-Label_2E_56C5:: ; 2E:56C5
+.l56C5 ; 2E:56C5
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C

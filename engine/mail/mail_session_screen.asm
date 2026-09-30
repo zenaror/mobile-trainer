@@ -4,9 +4,9 @@
 
 SECTION "engine/mail/mail_session_screen", ROMX
 
-; ---- code $5067-$50AC (69 bytes) [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 7; entered by jpcc from 26:46B7 (executed) [executed in 4 scenarios]
-
 MailSession_ShowCommError:: ; 26:5067
+	; [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 7;
+	; entered by jpcc from 26:46B7 (executed) [executed in 4 scenarios]
 	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
 	ld a, [wMobileResultDetail + 1]
@@ -36,20 +36,21 @@ MailSession_ShowCommError:: ; 26:5067
 	pop bc
 	ret
 
-; ---- code $50AC-$50B6 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_PollAdapterError:: ; 26:50AC
 Function_26_50AC::
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_26_50B6
+	jr nz, .l50B6
 	xor a, a
 	inc a
 	ret
 
-; ---- code $50B6-$50C6 (16 bytes) [PROBABLE] 106 insn(s) reached by static flow only; seeds: exec x106; min discovery hops 1; entered by jrcc from 26:50B1 (executed) | 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 50B6-5168 by apply_coverage --split
-
-Label_26_50B6:: ; 26:50B6
+.l50B6 ; 26:50B6
+	; [PROBABLE] 106 insn(s) reached by static flow only; seeds: exec x106; min discovery hops 1;
+	; entered by jrcc from 26:50B1 (executed) | 10 insn(s) never executed in the traced runs; cut
+	; out of the PROBABLE region 50B6-5168 by apply_coverage --split
 	push bc
 	push de
 	push hl
@@ -61,9 +62,9 @@ Label_26_50B6:: ; 26:50B6
 	inc a
 	ret
 
-; ---- code $50C6-$514D (135 bytes) [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 50B6-5168 by apply_coverage --split [executed in 2 scenarios]
-
 MailSession_ShowCommErrorNoWindow:: ; 26:50C6
+	; [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 50B6-5168 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
 	ld a, [wMobileResultDetail + 1]
@@ -136,16 +137,16 @@ Function_26_5106:: ; 26:5106
 	add hl, bc
 	ld a, h
 	or a, l
-	jr z, Label_26_514D
+	jr z, .l514D
 	pop hl
 	pop de
 	pop bc
 	xor a, a
 	ret
 
-; ---- code $514D-$5168 (27 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 50B6-5168 by apply_coverage --split
-
-Label_26_514D:: ; 26:514D
+.l514D ; 26:514D
+	; [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 50B6-5168 by apply_coverage --split
 	ld hl, $D62F
 	ld de, $D631
 	ld a, [hli]
@@ -167,10 +168,10 @@ Label_26_514D:: ; 26:514D
 	ld a, $01
 	ret
 
-; ---- code $5168-$52AB (323 bytes) [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_InitScreen:: ; 26:5168
 Function_26_5168::
+	; [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push af
 	farcall Function_00_09B6
@@ -192,39 +193,36 @@ Function_26_5168::
 	ldh [rVBK], a
 	ld hl, $8000
 	ld bc, $1800
-
-Label_26_519E:: ; 26:519E
+.l519E ; 26:519E
 	ld a, $00
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_26_519E
+	jr nz, .l519E
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $8000
 	ld bc, $1800
-
-Label_26_51B0:: ; 26:51B0
+.l51B0 ; 26:51B0
 	ld a, $00
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_26_51B0
+	jr nz, .l51B0
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0F00
-
-Label_26_51C4:: ; 26:51C4
+.l51C4 ; 26:51C4
 	ld a, $00
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_26_51C4
+	jr nz, .l51C4
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_CommProgress_Bg
@@ -298,9 +296,11 @@ Label_26_51C4:: ; 26:51C4
 	call Function_00_082C
 	ei
 	pop bc
-	jp Label_26_52D8
+	jp .l52D8
 
-; ---- code $52AB-$52BF (20 bytes) [PROBABLE] function prologue (di / ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh [$FF8D],a / ldh [$FF70],a / call $047A / ld hl,$D800) identical in shape to 4F:42B4; chain falls through into the site-validated far call at 52BF; entry unproven
+	; [PROBABLE] function prologue (di / ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 /
+	; ldh [$FF8D],a / ldh [$FF70],a / call $047A / ld hl,$D800) identical in shape to 4F:42B4; chain
+	; falls through into the site-validated far call at 52BF; entry unproven
 	di
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -312,7 +312,8 @@ Label_26_51C4:: ; 26:51C4
 	call Function_00_047A
 	ld hl, $D800
 
-; ---- code $52BF-$52D8 (25 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
@@ -325,20 +326,18 @@ Label_26_51C4:: ; 26:51C4
 	call Function_00_082C
 	ei
 
-; ---- code $52D8-$5344 (108 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
-
-Label_26_52D8:: ; 26:52D8
+.l52D8 ; 26:52D8
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
 	xor a, a
 	ldh [rVBK], a
 	ld hl, $9960
 	ld b, $40
 	xor a, a
-
-Label_26_52E1:: ; 26:52E1
+.l52E1 ; 26:52E1
 	ld [hli], a
 	inc a
 	dec b
-	jr nz, Label_26_52E1
+	jr nz, .l52E1
 	farcall LCDOn
 	call MailSession_UpdateTimerDisplay
 	ldh a, [rLCDC]
@@ -389,9 +388,10 @@ Data_26_5344:: ; 26:5344
 	db $60, $D1, $06, $40, $AF, $22, $3C, $05, $20, $FB, $D1, $15, $20, $DB, $7B, $E0
 	db $8D, $E0, $70, $E1, $D1, $C1, $F1, $C9
 
-; ---- code $537C-$5472 (246 bytes) [CONFIRMED] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5; entered by call from 26:4798 (PROBABLE code) | 153 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage --split [executed in 7 scenarios]
-
 MailSession_DrawMailCounts:: ; 26:537C
+	; [CONFIRMED] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5;
+	; entered by call from 26:4798 (PROBABLE code) | 153 insn(s) executed; cut out of the PROBABLE
+	; region 537C-5575 by apply_coverage --split [executed in 7 scenarios]
 	push af
 	push bc
 	push de
@@ -531,13 +531,12 @@ MailSession_DrawNumber:: ; 26:5447
 	ldh [rSVBK], a
 	ld hl, MailSession_NumberTemplate
 	ld de, $D524
-
-Label_26_5455:: ; 26:5455
+.loop ; 26:5455
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_26_5455
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -548,9 +547,10 @@ Label_26_5455:: ; 26:5455
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_26_54B8
+	jr z, .l54B8
 
-; ---- code $5472-$54B8 (70 bytes) [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region 537C-5575 by apply_coverage --split
+	; [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 537C-5575 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -596,11 +596,11 @@ Label_26_5455:: ; 26:5455
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_26_555C
+	jp .l555C
 
-; ---- code $54B8-$54CA (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_54B8:: ; 26:54B8
+.l54B8 ; 26:54B8
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -609,9 +609,10 @@ Label_26_54B8:: ; 26:54B8
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_26_54FE
+	jr z, .l54FE
 
-; ---- code $54CA-$54FE (52 bytes) [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region 537C-5575 by apply_coverage --split
+	; [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 537C-5575 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -646,11 +647,11 @@ Label_26_54B8:: ; 26:54B8
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_26_555C
+	jp .l555C
 
-; ---- code $54FE-$5510 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_54FE:: ; 26:54FE
+.l54FE ; 26:54FE
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -659,9 +660,10 @@ Label_26_54FE:: ; 26:54FE
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_26_5532
+	jr z, .l5532
 
-; ---- code $5510-$5532 (34 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 537C-5575 by apply_coverage --split
+	; [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 537C-5575 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -685,11 +687,11 @@ Label_26_54FE:: ; 26:54FE
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_26_555C
+	jp .l555C
 
-; ---- code $5532-$5575 (67 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage --split [executed in 2 scenarios]
-
-Label_26_5532:: ; 26:5532
+.l5532 ; 26:5532
+	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 537C-5575 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -698,7 +700,7 @@ Label_26_5532:: ; 26:5532
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_26_5554
+	jr z, .l5554
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -711,9 +713,8 @@ Label_26_5532:: ; 26:5532
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_26_555C
-
-Label_26_5554:: ; 26:5554
+	jp .l555C
+.l5554 ; 26:5554
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -721,8 +722,7 @@ Label_26_5554:: ; 26:5554
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_26_555C:: ; 26:555C
+.l555C ; 26:555C
 	pop bc
 	push af
 	ld a, $02
@@ -743,69 +743,71 @@ MailSession_NumberTemplate:: ; 26:5575
 String_26_5575::
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $5580-$5590 (16 bytes) [CONFIRMED] 101 insn(s) reached by static flow only; seeds: exec x101; min discovery hops 6; entered by call from 26:53A2 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 7 scenarios]
-
 MailSession_TotalNumberBuffer:: ; 26:5580
+	; [CONFIRMED] 101 insn(s) reached by static flow only; seeds: exec x101; min discovery hops 6;
+	; entered by call from 26:53A2 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE
+	; region 5580-566E by apply_coverage --split [executed in 7 scenarios]
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_5596
+	jr z, .l5596
 
-; ---- code $5590-$5596 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D070
-	jp Label_26_55DD
+	jp .l55DD
 
-; ---- code $5596-$55A6 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_5596:: ; 26:5596
+.l5596 ; 26:5596
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_55AC
+	jr z, .l55AC
 
-; ---- code $55A6-$55AC (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D080
-	jp Label_26_55DD
+	jp .l55DD
 
-; ---- code $55AC-$55BC (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_55AC:: ; 26:55AC
+.l55AC ; 26:55AC
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_55C2
+	jr z, .l55C2
 
-; ---- code $55BC-$55C2 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D090
-	jp Label_26_55DD
+	jp .l55DD
 
-; ---- code $55C2-$55F0 (46 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 2 scenarios]
-
-Label_26_55C2:: ; 26:55C2
+.l55C2 ; 26:55C2
+	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_55D8
+	jr z, .l55D8
 	ld bc, $D0A0
-	jp Label_26_55DD
-
-Label_26_55D8:: ; 26:55D8
+	jp .l55DD
+.l55D8 ; 26:55D8
 	ld bc, $D0B0
 	ld a, $01
-
-Label_26_55DD:: ; 26:55DD
+.l55DD ; 26:55DD
 	pop hl
 	pop de
 	ret
@@ -817,60 +819,61 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_55F6
+	jr z, .l55F6
 
-; ---- code $55F0-$55F6 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D420
-	jp Label_26_563D
+	jp .l563D
 
-; ---- code $55F6-$5606 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_55F6:: ; 26:55F6
+.l55F6 ; 26:55F6
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_560C
+	jr z, .l560C
 
-; ---- code $5606-$560C (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D420
-	jp Label_26_563D
+	jp .l563D
 
-; ---- code $560C-$561C (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 7 scenarios]
-
-Label_26_560C:: ; 26:560C
+.l560C ; 26:560C
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_5622
+	jr z, .l5622
 
-; ---- code $561C-$5622 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5580-566E by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5580-566E by apply_coverage --split
 	ld bc, $D420
-	jp Label_26_563D
+	jp .l563D
 
-; ---- code $5622-$566E (76 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage --split [executed in 2 scenarios]
-
-Label_26_5622:: ; 26:5622
+.l5622 ; 26:5622
+	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_26_5638
+	jr z, .l5638
 	ld bc, $D420
-	jp Label_26_563D
-
-Label_26_5638:: ; 26:5638
+	jp .l563D
+.l5638 ; 26:5638
 	ld bc, $D430
 	ld a, $01
-
-Label_26_563D:: ; 26:563D
+.l563D ; 26:563D
 	pop hl
 	pop de
 	ret
@@ -914,9 +917,9 @@ MailSession_Txt_Checking:: ; 26:567C
 String_26_567C::
 	db $82, $C2, $82, $A4, $82, $DF, $82, $F0, $83, $60, $83, $46, $83, $62, $83, $4E, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $00 ; "つうめをチェックしています"
 
-; ---- code $5697-$56B2 (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by call from 26:403E (PROBABLE code) [executed in 5 scenarios]
-
 MailSession_ShowMsgSending:: ; 26:5697
+	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
+	; entered by call from 26:403E (PROBABLE code) [executed in 5 scenarios]
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -936,10 +939,10 @@ String_26_56B2::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをそうしんしています"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $56DB-$56F6 (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_ShowMsgReceiving:: ; 26:56DB
 Function_26_56DB::
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -959,9 +962,10 @@ String_26_56F6::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをじゅしんしています"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $571F-$572F (16 bytes) [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls through into that site-validated far call; entry unproven
-
 Function_26_571F:: ; 26:571F
+	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
+	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
+	; through into that site-validated far call; entry unproven
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -970,7 +974,8 @@ Function_26_571F:: ; 26:571F
 	ld de, $D600
 	ld hl, $573A
 
-; ---- code $572F-$573A (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
 	pop bc
@@ -983,9 +988,9 @@ String_26_573A::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールをそうしんしました　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $5763-$5773 (16 bytes) [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far call at 5773; entry unproven
-
 Function_26_5763:: ; 26:5763
+	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
+	; call at 5773; entry unproven
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -994,7 +999,8 @@ Function_26_5763:: ; 26:5763
 	ld de, $D600
 	ld hl, $577E
 
-; ---- code $5773-$577E (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall TextTiles_RenderLine
 	call MailSession_UploadMsgTiles
 	pop bc
@@ -1007,10 +1013,10 @@ String_26_577E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $A9, $82, $F1, $82, $E8, $82, $E5, $82, $A4, $81, $40 ; "　　　　メールじゅしんかんりょう　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $57A7-$57C2 (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_ShowMsgNoMail:: ; 26:57A7
 Function_26_57A7::
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -1030,9 +1036,9 @@ String_26_57C2::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールはありませんでした　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $57EB-$5806 (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by call from 26:4A99 (PROBABLE code)
-
 MailSession_ShowMsgCannotReceive:: ; 26:57EB
+	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
+	; entered by call from 26:4A99 (PROBABLE code)
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -1052,9 +1058,9 @@ String_26_5806::
 	db $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD ; "　　　メールはうけとれませんでした"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $582F-$584A (27 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 11; entered by call from 26:4A1E (PROBABLE code) [executed in 2 scenarios]
-
 MailSession_ShowMsgReceived:: ; 26:582F
+	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 11;
+	; entered by call from 26:4A1E (PROBABLE code) [executed in 2 scenarios]
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -1074,10 +1080,10 @@ String_26_584A::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $40, $81, $40 ; "　　　　メールをうけとりました　　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $5873-$588E (27 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_ClearMsg:: ; 26:5873
 Function_26_5873::
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, $02
 	ldh [hRam_FFB0], a
@@ -1098,10 +1104,10 @@ Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
-; ---- code $58B7-$5926 (111 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 MailSession_UploadMsgTiles:: ; 26:58B7
 Function_26_58B7::
+	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1141,7 +1147,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ldh [rSVBK], a
 	ld a, [wMailSessionBlock + 7]
 	cp a, b
-	jr nz, Label_26_5909
+	jr nz, .l5909
 	ld a, c
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1150,8 +1156,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	pop bc
 	pop af
 	ret
-
-Label_26_5909:: ; 26:5909
+.l5909 ; 26:5909
 	ld a, b
 	ld [wMailSessionBlock + 7], a
 	ld de, $9401
@@ -1162,11 +1167,11 @@ Label_26_5909:: ; 26:5909
 	farcall Function_00_0787
 	ld a, [wTimerAMinutes]
 	cp a, $3C
-	jr c, Label_26_5968
+	jr c, .l5968
 
-; ---- code $5926-$593F (25 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 26:5924 (executed)
-
-Label_26_5926:: ; 26:5926
+.loop ; 26:5926
+	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; fall-through of the jrcc at 26:5924 (executed)
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1180,18 +1185,21 @@ Label_26_5926:: ; 26:5926
 	ld [hli], a
 	ld a, $49
 	ld [hl], a
-	jp Label_26_59AA
+	jp .l59AA
 
-; ---- code $593F-$594E (15 bytes) [PROBABLE] ld a,[$C2D6] / add a,$3C / cp a,$64 / jr nc,$5926 / ld l,a / ld h,$00 / ld de,$000A: chain falls into the site-validated far call at 594E and jr nc targets the accepted code at 5926; previous instruction is jp $59AA; entry unproven
+	; [PROBABLE] ld a,[$C2D6] / add a,$3C / cp a,$64 / jr nc,$5926 / ld l,a / ld h,$00 / ld
+	; de,$000A: chain falls into the site-validated far call at 594E and jr nc targets the accepted
+	; code at 5926; previous instruction is jp $59AA; entry unproven
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, Label_26_5926
+	jr nc, .loop
 	ld l, a
 	ld h, $00
 	ld de, $000A
 
-; ---- code $594E-$5968 (26 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Divide16
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1202,11 +1210,10 @@ Label_26_5926:: ; 26:5926
 	ld a, e
 	add a, $40
 	ld [wRam_D222], a
-	jr Label_26_5989
+	jr .l5989
 
-; ---- code $5968-$59D8 (112 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 2/18 scenarios)
-
-Label_26_5968:: ; 26:5968
+.l5968 ; 26:5968
+	; [CONFIRMED] 59 insn(s); 59 executed (in up to 2/18 scenarios)
 	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
@@ -1221,8 +1228,7 @@ Label_26_5968:: ; 26:5968
 	ld a, e
 	add a, $40
 	ld [wRam_D222], a
-
-Label_26_5989:: ; 26:5989
+.l5989 ; 26:5989
 	ld a, [wTimerASeconds]
 	ld l, a
 	ld h, $00
@@ -1237,8 +1243,7 @@ Label_26_5989:: ; 26:5989
 	ld a, e
 	add a, $40
 	ld [wRam_D225], a
-
-Label_26_59AA:: ; 26:59AA
+.l59AA ; 26:59AA
 	di
 	ldh a, [rLCDC]
 	call Function_00_082C
@@ -1260,17 +1265,15 @@ MailSession_StartHDMAAtVBlank:: ; 26:59B6
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_26_59C6:: ; 26:59C6
+.l59C6 ; 26:59C6
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_26_59C6
+	jr nz, .l59C6
 	ld b, $91
-
-Label_26_59CD:: ; 26:59CD
+.l59CD ; 26:59CD
 	ld a, [de]
 	cp a, b
-	jr nz, Label_26_59CD
+	jr nz, .l59CD
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

@@ -4,10 +4,10 @@
 
 SECTION "engine/mail/result_screens", ROMX
 
-; ---- code $4000-$41B6 (438 bytes) [CONFIRMED] 167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailResult_Screen:: ; 29:4000
 Function_29_4000::
+	; [CONFIRMED] 167 insn(s); 167 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -32,8 +32,7 @@ Function_29_4000::
 	ld de, $3038
 	ld hl, $DA20
 	call Function_00_0A65
-
-Label_29_403C:: ; 29:403C
+.loop ; 29:403C
 	push bc
 	push hl
 	farcall Function_00_0956
@@ -43,7 +42,7 @@ Label_29_403C:: ; 29:403C
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_29_403C
+	jr z, .loop
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -178,47 +177,42 @@ MailResult_InitScreen:: ; 29:407A
 MailResult_ShowSentMessage:: ; 29:41AD
 	ld a, d
 	or a, e
-	jr nz, Label_29_41B6
+	jr nz, .l41B6
 	ld hl, $423B
-	jr Label_29_41CD
+	jr .l41CD
 
-; ---- code $41B6-$41CD (23 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 29:41AF (executed) [executed in 1 scenarios]
-
-Label_29_41B6:: ; 29:41B6
+.l41B6 ; 29:41B6
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
+	; entered by jrcc from 29:41AF (executed) [executed in 1 scenarios]
 	inc de
 	ld a, d
 	or a, e
-	jr nz, Label_29_41C0
+	jr nz, .l41C0
 	ld hl, MailResult_Txt_SendFailed
-	jr Label_29_41CD
-
-Label_29_41C0:: ; 29:41C0
+	jr .l41CD
+.l41C0 ; 29:41C0
 	ld a, $03
 	cp a, e
-	jr nz, Label_29_41CA
+	jr nz, .l41CA
 	ld hl, $426B
-	jr Label_29_41CD
-
-Label_29_41CA:: ; 29:41CA
+	jr .l41CD
+.l41CA ; 29:41CA
 	ld hl, $4254
 
-; ---- code $41CD-$421E (81 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
-
-Label_29_41CD:: ; 29:41CD
+.l41CD ; 29:41CD
+	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D524
-
-Label_29_41D6:: ; 29:41D6
+.l41D6 ; 29:41D6
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_29_41D6
+	jr nz, .l41D6
 	ld hl, $D526
-
-Label_29_41E0:: ; 29:41E0
+.l41E0 ; 29:41E0
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -247,7 +241,7 @@ Label_29_41E0:: ; 29:41E0
 	ld [hli], a
 	inc hl
 	cp a, $00
-	jr nz, Label_29_41E0
+	jr nz, .l41E0
 	ret
 
 ; ---- text $421E-$4286 (104 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -265,56 +259,54 @@ MailResult_Txt_SentOk:: ; 29:4254
 MailResult_Txt_SentUnsure:: ; 29:426B
 	db $82, $A8, $82, $AD, $82, $EA, $82, $C4, $82, $A2, $82, $E9, $82, $A9, $82, $ED, $82, $A9, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $00 ; "おくれているかわかりません"
 
-; ---- code $4286-$429A (20 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailResult_ShowReceivedMessage:: ; 29:4286
 Function_29_4286::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, d
 	or a, e
-	jr nz, Label_29_429F
+	jr nz, .l429F
 	ld hl, $4323
 	push de
 	farcall Mailbox_CountRecords
 	ld a, d
 	pop de
 	cp a, $0C
-	jr nz, Label_29_42AF
+	jr nz, .l42AF
 
-; ---- code $429A-$429F (5 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 29:4298 (executed) | 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 429A-42AF by apply_coverage --split
+	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
+	; fall-through of the jrcc at 29:4298 (executed) | 2 insn(s) never executed in the traced runs;
+	; cut out of the PROBABLE region 429A-42AF by apply_coverage --split
 	ld hl, $4357
-	jr Label_29_42AF
+	jr .l42AF
 
-; ---- code $429F-$42AF (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 429A-42AF by apply_coverage --split [executed in 5 scenarios]
-
-Label_29_429F:: ; 29:429F
+.l429F ; 29:429F
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 429A-42AF by apply_coverage
+	; --split [executed in 5 scenarios]
 	inc de
 	ld a, d
 	or a, e
-	jr nz, Label_29_42A9
+	jr nz, .l42A9
 	ld hl, MailResult_Txt_ReceiveFailed
-	jr Label_29_42AF
-
-Label_29_42A9:: ; 29:42A9
+	jr .l42AF
+.l42A9 ; 29:42A9
 	ld hl, $433C
 	call MailResult_SetReceivedSprite
 
-; ---- code $42AF-$4306 (87 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
-
-Label_29_42AF:: ; 29:42AF
+.l42AF ; 29:42AF
+	; [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D524
-
-Label_29_42B8:: ; 29:42B8
+.l42B8 ; 29:42B8
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_29_42B8
+	jr nz, .l42B8
 	ld hl, $D526
-
-Label_29_42C2:: ; 29:42C2
+.l42C2 ; 29:42C2
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -344,7 +336,7 @@ Label_29_42C2:: ; 29:42C2
 	ld [hli], a
 	inc hl
 	cp a, $00
-	jr nz, Label_29_42C2
+	jr nz, .l42C2
 	ret
 
 ; ---- text $4306-$4374 (110 bytes) [PROBABLE] text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -362,16 +354,17 @@ MailResult_Txt_ArrivedCount:: ; 29:433C
 MailResult_Txt_CannotReceive:: ; 29:4357
 	db $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $00 ; "メールはうけとれませんでした"
 
-; ---- code $4374-$439D (41 bytes) [CONFIRMED] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3; entered by call from 29:42AC (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
-
 MailResult_SetReceivedSprite:: ; 29:4374
+	; [CONFIRMED] 138 insn(s) reached by static flow only; seeds: exec x138; min discovery hops 3;
+	; entered by call from 29:42AC (PROBABLE code) | 18 insn(s) executed; cut out of the PROBABLE
+	; region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
 	push bc
 	push de
 	push hl
 	ld a, e
 	dec a
 	cp a, $01
-	jr nz, Label_29_4399
+	jr nz, .l4399
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $24
@@ -380,13 +373,13 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
-
-Label_29_4399:: ; 29:4399
+	jp .l44F2
+.l4399 ; 29:4399
 	cp a, $02
-	jr nz, Label_29_43B9
+	jr nz, .l43B9
 
-; ---- code $439D-$43B9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B50
 	ld a, $24
@@ -395,13 +388,13 @@ Label_29_4399:: ; 29:4399
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $43B9-$43FD (68 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_43B9:: ; 29:43B9
+.l43B9 ; 29:43B9
+	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $03
-	jr nz, Label_29_43D9
+	jr nz, .l43D9
 	ld hl, $DA30
 	ld de, $7B60
 	ld a, $24
@@ -410,11 +403,10 @@ Label_29_43B9:: ; 29:43B9
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
-
-Label_29_43D9:: ; 29:43D9
+	jp .l44F2
+.l43D9 ; 29:43D9
 	cp a, $04
-	jr nz, Label_29_43F9
+	jr nz, .l43F9
 	ld hl, $DA30
 	ld de, $7B70
 	ld a, $24
@@ -423,13 +415,13 @@ Label_29_43D9:: ; 29:43D9
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
-
-Label_29_43F9:: ; 29:43F9
+	jp .l44F2
+.l43F9 ; 29:43F9
 	cp a, $05
-	jr nz, Label_29_4419
+	jr nz, .l4419
 
-; ---- code $43FD-$4419 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B80
 	ld a, $24
@@ -438,15 +430,16 @@ Label_29_43F9:: ; 29:43F9
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $4419-$441D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
-
-Label_29_4419:: ; 29:4419
+.l4419 ; 29:4419
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 2 scenarios]
 	cp a, $06
-	jr nz, Label_29_4439
+	jr nz, .l4439
 
-; ---- code $441D-$4439 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7B90
 	ld a, $24
@@ -455,15 +448,16 @@ Label_29_4419:: ; 29:4419
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $4439-$443D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 2 scenarios]
-
-Label_29_4439:: ; 29:4439
+.l4439 ; 29:4439
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 2 scenarios]
 	cp a, $07
-	jr nz, Label_29_4459
+	jr nz, .l4459
 
-; ---- code $443D-$4459 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BA0
 	ld a, $24
@@ -472,13 +466,13 @@ Label_29_4439:: ; 29:4439
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $4459-$447D (36 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_4459:: ; 29:4459
+.l4459 ; 29:4459
+	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $08
-	jr nz, Label_29_4479
+	jr nz, .l4479
 	ld hl, $DA30
 	ld de, $7BB0
 	ld a, $24
@@ -487,13 +481,13 @@ Label_29_4459:: ; 29:4459
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
-
-Label_29_4479:: ; 29:4479
+	jp .l44F2
+.l4479 ; 29:4479
 	cp a, $09
-	jr nz, Label_29_4499
+	jr nz, .l4499
 
-; ---- code $447D-$4499 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BC0
 	ld a, $24
@@ -502,15 +496,16 @@ Label_29_4479:: ; 29:4479
 	ld de, $3035
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $4499-$449D (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_4499:: ; 29:4499
+.l4499 ; 29:4499
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $0A
-	jr nz, Label_29_44B9
+	jr nz, .l44B9
 
-; ---- code $449D-$44B9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BD0
 	ld a, $24
@@ -519,15 +514,16 @@ Label_29_4499:: ; 29:4499
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $44B9-$44BD (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_44B9:: ; 29:44B9
+.l44B9 ; 29:44B9
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $0B
-	jr nz, Label_29_44D9
+	jr nz, .l44D9
 
-; ---- code $44BD-$44D9 (28 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4374-44F6 by apply_coverage --split
 	ld hl, $DA30
 	ld de, $7BE0
 	ld a, $24
@@ -536,11 +532,11 @@ Label_29_44B9:: ; 29:44B9
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
-	jp Label_29_44F2
+	jp .l44F2
 
-; ---- code $44D9-$44F6 (29 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_44D9:: ; 29:44D9
+.l44D9 ; 29:44D9
+	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 4374-44F6 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $DA30
 	ld de, $7BF0
 	ld a, $24
@@ -549,17 +545,16 @@ Label_29_44D9:: ; 29:44D9
 	ld de, $3037
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_29_44F2:: ; 29:44F2
+.l44F2 ; 29:44F2
 	pop hl
 	pop de
 	pop bc
 	ret
 
-; ---- code $44F6-$454E (88 bytes) [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerStatus_Screen:: ; 29:44F6
 Function_29_44F6::
+	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -576,8 +571,7 @@ Function_29_44F6::
 	pop af
 	farcall Stat_EnableScrollSplit
 	call MailServerStatus_InitScreen
-
-Label_29_4519:: ; 29:4519
+.loop ; 29:4519
 	push bc
 	push hl
 	farcall Function_00_0956
@@ -587,7 +581,7 @@ Label_29_4519:: ; 29:4519
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_29_4519
+	jr z, .loop
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -602,9 +596,11 @@ Label_29_4519:: ; 29:4519
 	pop bc
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jp nz, Label_29_45E2
+	jp nz, .l45E2
 
-; ---- code $454E-$4588 (58 bytes) [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 0; fall-through of the jpcc at 29:454B (executed) | 42 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 0;
+	; fall-through of the jpcc at 29:454B (executed) | 42 insn(s) executed; cut out of the PROBABLE
+	; region 454E-45E2 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -639,47 +635,48 @@ Label_29_4519:: ; 29:4519
 	add hl, bc
 	ld a, h
 	or a, l
-	jr z, Label_29_45E2
+	jr z, .l45E2
 	ld a, l
 	cp a, $01
-	jr z, Label_29_45A9
+	jr z, .l45A9
 	cp a, $02
-	jr z, Label_29_45A9
+	jr z, .l45A9
 	cp a, $03
-	jr z, Label_29_45A9
+	jr z, .l45A9
 
-; ---- code $4588-$45A9 (33 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split
+	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 454E-45E2 by apply_coverage --split
 	cp a, $04
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $05
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $06
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $07
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $08
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $09
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	cp a, $0A
-	jr z, Label_29_45AE
+	jr z, .l45AE
 	ld de, $0226
-	jr Label_29_45B1
+	jr .l45B1
 
-; ---- code $45A9-$45AE (5 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 3 scenarios]
-
-Label_29_45A9:: ; 29:45A9
+.l45A9 ; 29:45A9
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage
+	; --split [executed in 3 scenarios]
 	ld de, $0224
-	jr Label_29_45B1
+	jr .l45B1
 
-; ---- code $45AE-$45B1 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split
-
-Label_29_45AE:: ; 29:45AE
+.l45AE ; 29:45AE
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 454E-45E2 by apply_coverage --split
 	ld de, $0225
 
-; ---- code $45B1-$45E2 (49 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage --split [executed in 1 scenarios]
-
-Label_29_45B1:: ; 29:45B1
+.l45B1 ; 29:45B1
+	; [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 454E-45E2 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push de
 	pop de
 	push af
@@ -708,9 +705,8 @@ Label_29_45B1:: ; 29:45B1
 	ldh [rSVBK], a
 	pop af
 
-; ---- code $45E2-$45FF (29 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-
-Label_29_45E2:: ; 29:45E2
+.l45E2 ; 29:45E2
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
@@ -720,17 +716,17 @@ Label_29_45E2:: ; 29:45E2
 	ld de, $D625
 	ld a, [de]
 	cp a, $00
-	jr z, Label_29_4605
+	jr z, .l4605
 
-; ---- code $45FF-$4605 (6 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; fall-through of the jrcc at 29:45FD (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
+	; fall-through of the jrcc at 29:45FD (executed) [executed in 2 scenarios]
 	cp a, $FF
-	jr z, Label_29_4605
+	jr z, .l4605
 	xor a, a
 	ret
 
-; ---- code $4605-$46A1 (156 bytes) [CONFIRMED] 53 insn(s); 53 executed (in up to 2/18 scenarios)
-
-Label_29_4605:: ; 29:4605
+.l4605 ; 29:4605
+	; [CONFIRMED] 53 insn(s); 53 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	ret
 
@@ -778,66 +774,62 @@ MailServerStatus_InitScreen:: ; 29:4608
 	farcall Function_00_0787
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_29_46CD
+	jr nz, .l46CD
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D625
 	ld a, [de]
 	cp a, $00
-	jr z, Label_29_46B9
+	jr z, .l46B9
 
-; ---- code $46A1-$46B9 (24 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 29:469F (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
+	; fall-through of the jrcc at 29:469F (executed) [executed in 2 scenarios]
 	cp a, $FF
-	jr z, Label_29_46B9
+	jr z, .l46B9
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_Received
 	ld a, $25
 	farcall Function_00_08EA
-	jp Label_29_46DE
+	jp .l46DE
 
-; ---- code $46B9-$46F9 (64 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
-
-Label_29_46B9:: ; 29:46B9
+.l46B9 ; 29:46B9
+	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_NoneReceived
 	ld a, $25
 	farcall Function_00_08EA
-	jp Label_29_46DE
-
-Label_29_46CD:: ; 29:46CD
+	jp .l46DE
+.l46CD ; 29:46CD
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_ServerMgmt
 	ld a, $25
 	farcall Function_00_08EA
-
-Label_29_46DE:: ; 29:46DE
+.l46DE ; 29:46DE
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall LCDOn
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_29_46F5
+	jr nz, .l46F5
 	call MailServerStatus_DrawCounts_Mode0
-	jr Label_29_4701
-
-Label_29_46F5:: ; 29:46F5
+	jr .l4701
+.l46F5 ; 29:46F5
 	cp a, $01
-	jr nz, Label_29_46FE
+	jr nz, .l46FE
 
-; ---- code $46F9-$46FE (5 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:46F7 (executed) [executed in 3 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:46F7 (executed) [executed in 3 scenarios]
 	call MailServerStatus_DrawCounts_Mode1
-	jr Label_29_4701
+	jr .l4701
 
-; ---- code $46FE-$476B (109 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
-
-Label_29_46FE:: ; 29:46FE
+.l46FE ; 29:46FE
+	; [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
 	call MailServerStatus_DrawCounts_Mode2
-
-Label_29_4701:: ; 29:4701
+.l4701 ; 29:4701
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -896,9 +888,9 @@ MailServerStatus_DrawCounts_Mode0:: ; 29:4745
 	or a, l
 	jp nz, Label_29_47BD
 
-; ---- code $476B-$47B2 (71 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
-
 Label_29_476B:: ; 29:476B
+	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
+	; entered by jrcc from 29:4755 (executed) [executed in 4 scenarios]
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
@@ -933,9 +925,8 @@ MailServerStatus_Txt_Unknown:: ; 29:47B2
 String_29_47B2::
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
-; ---- code $47BD-$4873 (182 bytes) [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
-
 Label_29_47BD:: ; 29:47BD
+	; [CONFIRMED] 116 insn(s); 116 executed (in up to 1/18 scenarios)
 	push bc
 	push de
 	ld a, $01
@@ -1051,18 +1042,18 @@ Label_29_47BD:: ; 29:47BD
 	push hl
 	ld a, h
 	cp a, $FF
-	jr nz, Label_29_487C
+	jr nz, .l487C
 
-; ---- code $4873-$487C (9 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4871 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 29:4871 (executed) [executed in 1 scenarios]
 	ld a, l
 	cp a, $FF
-	jr nz, Label_29_487C
+	jr nz, .l487C
 	pop hl
 	jp Label_29_476B
 
-; ---- code $487C-$48EE (114 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios)
-
-Label_29_487C:: ; 29:487C
+.l487C ; 29:487C
+	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios)
 	pop hl
 	add hl, bc
 	push bc
@@ -1116,13 +1107,12 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	ldh [rSVBK], a
 	ld hl, Data_29_49DA
 	ld de, $D524
-
-Label_29_48D1:: ; 29:48D1
+.loop ; 29:48D1
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_29_48D1
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -1133,9 +1123,10 @@ Label_29_48D1:: ; 29:48D1
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4934
+	jr z, .l4934
 
-; ---- code $48EE-$4934 (70 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the jrcc at 29:48EC (executed)
+	; [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0;
+	; fall-through of the jrcc at 29:48EC (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1181,11 +1172,10 @@ Label_29_48D1:: ; 29:48D1
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_29_49D8
+	jp .l49D8
 
-; ---- code $4934-$4946 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_4934:: ; 29:4934
+.l4934 ; 29:4934
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -1194,9 +1184,10 @@ Label_29_4934:: ; 29:4934
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_497A
+	jr z, .l497A
 
-; ---- code $4946-$497A (52 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0; fall-through of the jrcc at 29:4944 (executed)
+	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0;
+	; fall-through of the jrcc at 29:4944 (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1231,11 +1222,10 @@ Label_29_4934:: ; 29:4934
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_29_49D8
+	jp .l49D8
 
-; ---- code $497A-$498C (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_497A:: ; 29:497A
+.l497A ; 29:497A
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -1244,9 +1234,10 @@ Label_29_497A:: ; 29:497A
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_49AE
+	jr z, .l49AE
 
-; ---- code $498C-$49AE (34 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 29:498A (executed)
+	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
+	; fall-through of the jrcc at 29:498A (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1270,11 +1261,10 @@ Label_29_497A:: ; 29:497A
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_29_49D8
+	jp .l49D8
 
-; ---- code $49AE-$49C0 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_49AE:: ; 29:49AE
+.l49AE ; 29:49AE
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -1283,9 +1273,10 @@ Label_29_49AE:: ; 29:49AE
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_49D0
+	jr z, .l49D0
 
-; ---- code $49C0-$49D0 (16 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:49BE (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
+	; fall-through of the jrcc at 29:49BE (executed) [executed in 2 scenarios]
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1298,11 +1289,10 @@ Label_29_49AE:: ; 29:49AE
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_29_49D8
+	jp .l49D8
 
-; ---- code $49D0-$49DA (10 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_49D0:: ; 29:49D0
+.l49D0 ; 29:49D0
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -1310,8 +1300,7 @@ Label_29_49D0:: ; 29:49D0
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_29_49D8:: ; 29:49D8
+.l49D8 ; 29:49D8
 	pop bc
 	ret
 
@@ -1320,74 +1309,73 @@ Label_29_49D8:: ; 29:49D8
 Data_29_49DA:: ; 29:49DA
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
-; ---- code $49E5-$49F5 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
 Function_29_49E5::
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_49FB
+	jr z, .l49FB
 
-; ---- code $49F5-$49FB (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:49F3 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:49F3 (executed)
 	ld bc, $0000
-	jp Label_29_4A42
+	jp .l4A42
 
-; ---- code $49FB-$4A0B (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_49FB:: ; 29:49FB
+.l49FB ; 29:49FB
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4A11
+	jr z, .l4A11
 
-; ---- code $4A0B-$4A11 (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A09 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4A09 (executed)
 	ld bc, $0010
-	jp Label_29_4A42
+	jp .l4A42
 
-; ---- code $4A11-$4A21 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_4A11:: ; 29:4A11
+.l4A11 ; 29:4A11
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4A27
+	jr z, .l4A27
 
-; ---- code $4A21-$4A27 (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A1F (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4A1F (executed)
 	ld bc, $0020
-	jp Label_29_4A42
+	jp .l4A42
 
-; ---- code $4A27-$4A37 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_4A27:: ; 29:4A27
+.l4A27 ; 29:4A27
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4A3D
+	jr z, .l4A3D
 
-; ---- code $4A37-$4A3D (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4A35 (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4A35 (executed) [executed in 2 scenarios]
 	ld bc, $0030
-	jp Label_29_4A42
+	jp .l4A42
 
-; ---- code $4A3D-$4A65 (40 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
-
-Label_29_4A3D:: ; 29:4A3D
+.l4A3D ; 29:4A3D
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld bc, $0040
 	ld a, $01
-
-Label_29_4A42:: ; 29:4A42
+.l4A42 ; 29:4A42
 	pop hl
 	pop de
 	ret
@@ -1409,9 +1397,10 @@ MailServerStatus_UploadNumberTiles_M0:: ; 29:4A45
 	ldh [rSVBK], a
 	ret
 
-; ---- code $4A65-$4A7D (24 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by call from 29:46F9 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 4A65-4AC4 by apply_coverage --split [executed in 4 scenarios]
-
 MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1;
+	; entered by call from 29:46F9 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE
+	; region 4A65-4AC4 by apply_coverage --split [executed in 4 scenarios]
 	push af
 	push bc
 	push de
@@ -1430,9 +1419,9 @@ MailServerStatus_DrawCounts_Mode1:: ; 29:4A65
 	or a, l
 	jp nz, Label_29_4ACF
 
-; ---- code $4A7D-$4AC4 (71 bytes) [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A65-4AC4 by apply_coverage --split
-
 Label_29_4A7D:: ; 29:4A7D
+	; [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4A65-4AC4 by apply_coverage --split
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
@@ -1466,9 +1455,10 @@ Label_29_4A7D:: ; 29:4A7D
 String_29_4AC4:: ; 29:4AC4
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
-; ---- code $4ACF-$4B48 (121 bytes) [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2; entered by jpcc from 29:4A7A (PROBABLE code) | 71 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
 Label_29_4ACF:: ; 29:4ACF
+	; [CONFIRMED] 279 insn(s) reached by static flow only; seeds: exec x279; min discovery hops 2;
+	; entered by jpcc from 29:4A7A (PROBABLE code) | 71 insn(s) executed; cut out of the PROBABLE
+	; region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
 	dec hl
 	push hl
 	call MailServerStatus_FormatNumber_M1
@@ -1539,18 +1529,19 @@ Label_29_4ACF:: ; 29:4ACF
 	push hl
 	ld a, h
 	cp a, $FF
-	jr nz, Label_29_4B51
+	jr nz, .l4B51
 
-; ---- code $4B48-$4B51 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4ACF-4C96 by apply_coverage --split
 	ld a, l
 	cp a, $FF
-	jr nz, Label_29_4B51
+	jr nz, .l4B51
 	pop hl
 	jp Label_29_4A7D
 
-; ---- code $4B51-$4BAA (89 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4B51:: ; 29:4B51
+.l4B51 ; 29:4B51
+	; [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
+	; --split [executed in 4 scenarios]
 	pop hl
 	push hl
 	call MailServerStatus_FormatNumber_M1
@@ -1586,13 +1577,12 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	ldh [rSVBK], a
 	ld hl, String_29_4C96
 	ld de, $D524
-
-Label_29_4B8D:: ; 29:4B8D
+.loop ; 29:4B8D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_29_4B8D
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -1603,9 +1593,10 @@ Label_29_4B8D:: ; 29:4B8D
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4BF0
+	jr z, .l4BF0
 
-; ---- code $4BAA-$4BF0 (70 bytes) [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
+	; [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1651,11 +1642,11 @@ Label_29_4B8D:: ; 29:4B8D
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_29_4C94
+	jp .l4C94
 
-; ---- code $4BF0-$4C02 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4BF0:: ; 29:4BF0
+.l4BF0 ; 29:4BF0
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -1664,9 +1655,10 @@ Label_29_4BF0:: ; 29:4BF0
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4C36
+	jr z, .l4C36
 
-; ---- code $4C02-$4C36 (52 bytes) [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
+	; [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1701,11 +1693,11 @@ Label_29_4BF0:: ; 29:4BF0
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_29_4C94
+	jp .l4C94
 
-; ---- code $4C36-$4C48 (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4C36:: ; 29:4C36
+.l4C36 ; 29:4C36
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -1714,9 +1706,10 @@ Label_29_4C36:: ; 29:4C36
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4C6A
+	jr z, .l4C6A
 
-; ---- code $4C48-$4C6A (34 bytes) [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
+	; [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1740,11 +1733,11 @@ Label_29_4C36:: ; 29:4C36
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_29_4C94
+	jp .l4C94
 
-; ---- code $4C6A-$4C7C (18 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4C6A:: ; 29:4C6A
+.l4C6A ; 29:4C6A
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -1753,9 +1746,10 @@ Label_29_4C6A:: ; 29:4C6A
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4C8C
+	jr z, .l4C8C
 
-; ---- code $4C7C-$4C8C (16 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4ACF-4C96 by apply_coverage --split
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1768,11 +1762,11 @@ Label_29_4C6A:: ; 29:4C6A
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_29_4C94
+	jp .l4C94
 
-; ---- code $4C8C-$4C96 (10 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4C8C:: ; 29:4C8C
+.l4C8C ; 29:4C8C
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4ACF-4C96 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -1780,8 +1774,7 @@ Label_29_4C8C:: ; 29:4C8C
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_29_4C94:: ; 29:4C94
+.l4C94 ; 29:4C94
 	pop bc
 	ret
 
@@ -1790,73 +1783,77 @@ Label_29_4C94:: ; 29:4C94
 String_29_4C96:: ; 29:4C96
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $4CA1-$4CB1 (16 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3; entered by call from 29:4AD6 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
-
 MailServerStatus_NumberOffset_M1:: ; 29:4CA1
+	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 3;
+	; entered by call from 29:4AD6 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE
+	; region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4CB7
+	jr z, .l4CB7
 
-; ---- code $4CB1-$4CB7 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0000
-	jp Label_29_4CFE
+	jp .l4CFE
 
-; ---- code $4CB7-$4CC7 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4CB7:: ; 29:4CB7
+.l4CB7 ; 29:4CB7
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4CCD
+	jr z, .l4CCD
 
-; ---- code $4CC7-$4CCD (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0010
-	jp Label_29_4CFE
+	jp .l4CFE
 
-; ---- code $4CCD-$4CDD (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4CCD:: ; 29:4CCD
+.l4CCD ; 29:4CCD
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4CE3
+	jr z, .l4CE3
 
-; ---- code $4CDD-$4CE3 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0020
-	jp Label_29_4CFE
+	jp .l4CFE
 
-; ---- code $4CE3-$4CF3 (16 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4CE3:: ; 29:4CE3
+.l4CE3 ; 29:4CE3
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4CF9
+	jr z, .l4CF9
 
-; ---- code $4CF3-$4CF9 (6 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4CA1-4D21 by apply_coverage --split
 	ld bc, $0030
-	jp Label_29_4CFE
+	jp .l4CFE
 
-; ---- code $4CF9-$4D21 (40 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage --split [executed in 4 scenarios]
-
-Label_29_4CF9:: ; 29:4CF9
+.l4CF9 ; 29:4CF9
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4CA1-4D21 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld bc, $0040
 	ld a, $01
-
-Label_29_4CFE:: ; 29:4CFE
+.l4CFE ; 29:4CFE
 	pop hl
 	pop de
 	ret
@@ -1878,10 +1875,10 @@ MailServerStatus_UploadNumberTiles_M1:: ; 29:4D01
 	ldh [rSVBK], a
 	ret
 
-; ---- code $4D21-$4D39 (24 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerStatus_DrawCounts_Mode2:: ; 29:4D21
 Function_29_4D21::
+	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push bc
 	push de
@@ -1900,9 +1897,9 @@ Function_29_4D21::
 	or a, l
 	jp nz, Label_29_4D8B
 
-; ---- code $4D39-$4D80 (71 bytes) [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
-
 Label_29_4D39:: ; 29:4D39
+	; [CONFIRMED] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0;
+	; fall-through of the jpcc at 29:4D36 (executed) [executed in 2 scenarios]
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
@@ -1936,9 +1933,8 @@ Label_29_4D39:: ; 29:4D39
 String_29_4D80:: ; 29:4D80
 	db $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $00 ; "？？？？？"
 
-; ---- code $4D8B-$4E1E (147 bytes) [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
-
 Label_29_4D8B:: ; 29:4D8B
+	; [CONFIRMED] 88 insn(s); 88 executed (in up to 1/18 scenarios)
 	dec hl
 	push bc
 	push de
@@ -2026,18 +2022,18 @@ Label_29_4D8B:: ; 29:4D8B
 	push hl
 	ld a, h
 	cp a, $FF
-	jr nz, Label_29_4E27
+	jr nz, .l4E27
 
-; ---- code $4E1E-$4E27 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 29:4E1C (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 29:4E1C (executed)
 	ld a, l
 	cp a, $FF
-	jr nz, Label_29_4E27
+	jr nz, .l4E27
 	pop hl
 	jp Label_29_4D39
 
-; ---- code $4E27-$4E80 (89 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios)
-
-Label_29_4E27:: ; 29:4E27
+.l4E27 ; 29:4E27
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 1/18 scenarios)
 	pop hl
 	push hl
 	call MailServerStatus_FormatNumber_M2
@@ -2073,13 +2069,12 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	ldh [rSVBK], a
 	ld hl, Data_29_4F6C
 	ld de, $D524
-
-Label_29_4E63:: ; 29:4E63
+.loop ; 29:4E63
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_29_4E63
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -2090,9 +2085,10 @@ Label_29_4E63:: ; 29:4E63
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4EC6
+	jr z, .l4EC6
 
-; ---- code $4E80-$4EC6 (70 bytes) [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the jrcc at 29:4E7E (executed)
+	; [PROBABLE] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0;
+	; fall-through of the jrcc at 29:4E7E (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -2138,11 +2134,10 @@ Label_29_4E63:: ; 29:4E63
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_29_4F6A
+	jp .l4F6A
 
-; ---- code $4EC6-$4ED8 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_4EC6:: ; 29:4EC6
+.l4EC6 ; 29:4EC6
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -2151,9 +2146,10 @@ Label_29_4EC6:: ; 29:4EC6
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4F0C
+	jr z, .l4F0C
 
-; ---- code $4ED8-$4F0C (52 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0; fall-through of the jrcc at 29:4ED6 (executed)
+	; [PROBABLE] 35 insn(s) reached by static flow only; seeds: exec x35; min discovery hops 0;
+	; fall-through of the jrcc at 29:4ED6 (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -2188,11 +2184,10 @@ Label_29_4EC6:: ; 29:4EC6
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_29_4F6A
+	jp .l4F6A
 
-; ---- code $4F0C-$4F1E (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_4F0C:: ; 29:4F0C
+.l4F0C ; 29:4F0C
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -2201,9 +2196,10 @@ Label_29_4F0C:: ; 29:4F0C
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4F40
+	jr z, .l4F40
 
-; ---- code $4F1E-$4F40 (34 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 29:4F1C (executed)
+	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0;
+	; fall-through of the jrcc at 29:4F1C (executed)
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -2227,11 +2223,10 @@ Label_29_4F0C:: ; 29:4F0C
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_29_4F6A
+	jp .l4F6A
 
-; ---- code $4F40-$4F52 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_4F40:: ; 29:4F40
+.l4F40 ; 29:4F40
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -2240,9 +2235,10 @@ Label_29_4F40:: ; 29:4F40
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4F62
+	jr z, .l4F62
 
-; ---- code $4F52-$4F62 (16 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 29:4F50 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
+	; fall-through of the jrcc at 29:4F50 (executed) [executed in 1 scenarios]
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -2255,11 +2251,10 @@ Label_29_4F40:: ; 29:4F40
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_29_4F6A
+	jp .l4F6A
 
-; ---- code $4F62-$4F6C (10 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
-
-Label_29_4F62:: ; 29:4F62
+.l4F62 ; 29:4F62
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 1/18 scenarios)
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -2267,8 +2262,7 @@ Label_29_4F62:: ; 29:4F62
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_29_4F6A:: ; 29:4F6A
+.l4F6A ; 29:4F6A
 	pop bc
 	ret
 
@@ -2277,74 +2271,73 @@ Label_29_4F6A:: ; 29:4F6A
 Data_29_4F6C:: ; 29:4F6C
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
-; ---- code $4F77-$4F87 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailServerStatus_NumberOffset_M2:: ; 29:4F77
 Function_29_4F77::
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4F8D
+	jr z, .l4F8D
 
-; ---- code $4F87-$4F8D (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4F85 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4F85 (executed)
 	ld bc, $0000
-	jp Label_29_4FD4
+	jp .l4FD4
 
-; ---- code $4F8D-$4F9D (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_4F8D:: ; 29:4F8D
+.l4F8D ; 29:4F8D
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4FA3
+	jr z, .l4FA3
 
-; ---- code $4F9D-$4FA3 (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4F9B (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4F9B (executed)
 	ld bc, $0010
-	jp Label_29_4FD4
+	jp .l4FD4
 
-; ---- code $4FA3-$4FB3 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_4FA3:: ; 29:4FA3
+.l4FA3 ; 29:4FA3
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4FB9
+	jr z, .l4FB9
 
-; ---- code $4FB3-$4FB9 (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FB1 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4FB1 (executed)
 	ld bc, $0020
-	jp Label_29_4FD4
+	jp .l4FD4
 
-; ---- code $4FB9-$4FC9 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_29_4FB9:: ; 29:4FB9
+.l4FB9 ; 29:4FB9
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_29_4FCF
+	jr z, .l4FCF
 
-; ---- code $4FC9-$4FCF (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 29:4FC7 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 29:4FC7 (executed) [executed in 1 scenarios]
 	ld bc, $0030
-	jp Label_29_4FD4
+	jp .l4FD4
 
-; ---- code $4FCF-$4FF7 (40 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
-
-Label_29_4FCF:: ; 29:4FCF
+.l4FCF ; 29:4FCF
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 1/18 scenarios)
 	ld bc, $0040
 	ld a, $01
-
-Label_29_4FD4:: ; 29:4FD4
+.l4FD4 ; 29:4FD4
 	pop hl
 	pop de
 	ret
@@ -2366,9 +2359,9 @@ MailServerStatus_UploadNumberTiles_M2:: ; 29:4FD7
 	ldh [rSVBK], a
 	ret
 
-; ---- code $4FF7-$5017 (32 bytes) [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by call from 29:47AA (PROBABLE code) [executed in 5 scenarios]
-
 MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
+	; [CONFIRMED] 15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1;
+	; entered by call from 29:47AA (PROBABLE code) [executed in 5 scenarios]
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2385,10 +2378,10 @@ MailServerStatus_UploadNumberTiles_Blank:: ; 29:4FF7
 	ldh [rSVBK], a
 	ret
 
-; ---- code $5017-$505F (72 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailResult_UploadTextTiles:: ; 29:5017
 Function_29_5017::
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -2419,17 +2412,15 @@ MailResult_StartHDMAAtVBlank:: ; 29:503F
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_29_504E:: ; 29:504E
+.l504E ; 29:504E
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_29_504E
+	jr nz, .l504E
 	ld b, $91
-
-Label_29_5055:: ; 29:5055
+.l5055 ; 29:5055
 	ld a, [de]
 	cp a, b
-	jr nz, Label_29_5055
+	jr nz, .l5055
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
