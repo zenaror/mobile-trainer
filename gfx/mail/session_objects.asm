@@ -8,199 +8,1107 @@ SECTION "gfx/mail/session_objects", ROMX
 
 MailSession_ObjTable_6F20:: ; 28:6F20
 Table_28_6F20::
-	dw MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066, MailSession_6F20_ObjAnimData, $7066
-	dw $72AF, $72D5, $72AF, $72D5, $72AF, $72D5, $72AF, $72D5
-	dw $706B, $70A4, $706B, $70A4, $706B, $70A4, $706B, $70A4
-	dw $71BE, $71F7, $71BE, $71F7, $71BE, $71F7, $71BE, $71F7
-	dw $71FE, $7234, $71FE, $7234, $71FE, $7234, $71FE, $7234
-	dw $70AB, $70D1, $70AB, $70D1, $70AB, $70D1, $70AB, $70D1
-	dw $70D6, $710F, $70D6, $710F, $70D6, $710F, $70D6, $710F
-	dw $7116, $7129, $7116, $7129, $7116, $7129, $7116, $7129
-	dw $713A, $7173, $713A, $7173, $713A, $7173, $713A, $7173
-	dw $7239, $726F, $7239, $726F, $7239, $726F, $7239, $726F
-	dw $7274, $72AA, $7274, $72AA, $7274, $72AA, $7274, $72AA
-	dw $712C, $7137, $712C, $7137, $712C, $7137, $712C, $7137
-	dw $717A, $7185, $717A, $7185, $717A, $7185, $717A, $7185
-	dw $7188, $7197, $7188, $7197, $7188, $7197, $7188, $7197
-	dw $719A, $71A9, $719A, $71A9, $719A, $71A9, $719A, $71A9
-	dw $71AC, $71BB, $71AC, $71BB, $71AC, $71BB, $71AC, $71BB
-	dw $72DA, $72E5, $72DA, $72E5, $72DA, $72E5, $72DA, $72E5
-	dw $72E8, $72F6, $72E8, $72F6, $72E8, $72F6, $72E8, $72F6
+	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 0
+	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 1
+	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 2
+	sprite_object_entry MailSession_6F20_ObjAnimData, SpriteScript_28_7066 ; entry 3
+	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 4
+	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 5
+	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 6
+	sprite_object_entry SpriteFrameTable_28_72AF, SpriteScript_28_72D5 ; entry 7
+	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 8
+	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 9
+	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 10
+	sprite_object_entry SpriteFrameTable_28_706B, SpriteScript_28_70A4 ; entry 11
+	sprite_object_entry SpriteFrameTable_28_71BE, SpriteScript_28_71F7 ; entry 12
+	sprite_object_entry SpriteFrameTable_28_71BE, SpriteScript_28_71F7 ; entry 13
+	sprite_object_entry SpriteFrameTable_28_71BE, SpriteScript_28_71F7 ; entry 14
+	sprite_object_entry SpriteFrameTable_28_71BE, SpriteScript_28_71F7 ; entry 15
+	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 16
+	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 17
+	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 18
+	sprite_object_entry SpriteFrameTable_28_71FE, SpriteScript_28_7234 ; entry 19
+	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 20
+	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 21
+	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 22
+	sprite_object_entry SpriteFrameTable_28_70AB, SpriteScript_28_70D1 ; entry 23
+	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 24
+	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 25
+	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 26
+	sprite_object_entry SpriteFrameTable_28_70D6, SpriteScript_28_710F ; entry 27
+	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 28
+	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 29
+	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 30
+	sprite_object_entry SpriteFrameTable_28_7116, SpriteScript_28_7129 ; entry 31
+	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 32
+	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 33
+	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 34
+	sprite_object_entry SpriteFrameTable_28_713A, SpriteScript_28_7173 ; entry 35
+	sprite_object_entry SpriteFrameTable_28_7239, SpriteScript_28_726F ; entry 36
+	sprite_object_entry SpriteFrameTable_28_7239, SpriteScript_28_726F ; entry 37
+	sprite_object_entry SpriteFrameTable_28_7239, SpriteScript_28_726F ; entry 38
+	sprite_object_entry SpriteFrameTable_28_7239, SpriteScript_28_726F ; entry 39
+	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 40
+	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 41
+	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 42
+	sprite_object_entry SpriteFrameTable_28_7274, SpriteScript_28_72AA ; entry 43
+	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 44
+	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 45
+	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 46
+	sprite_object_entry SpriteFrameTable_28_712C, SpriteScript_28_7137 ; entry 47
+	sprite_object_entry SpriteFrameTable_28_717A, SpriteScript_28_7185 ; entry 48
+	sprite_object_entry SpriteFrameTable_28_717A, SpriteScript_28_7185 ; entry 49
+	sprite_object_entry SpriteFrameTable_28_717A, SpriteScript_28_7185 ; entry 50
+	sprite_object_entry SpriteFrameTable_28_717A, SpriteScript_28_7185 ; entry 51
+	sprite_object_entry SpriteFrameTable_28_7188, SpriteScript_28_7197 ; entry 52
+	sprite_object_entry SpriteFrameTable_28_7188, SpriteScript_28_7197 ; entry 53
+	sprite_object_entry SpriteFrameTable_28_7188, SpriteScript_28_7197 ; entry 54
+	sprite_object_entry SpriteFrameTable_28_7188, SpriteScript_28_7197 ; entry 55
+	sprite_object_entry SpriteFrameTable_28_719A, SpriteScript_28_71A9 ; entry 56
+	sprite_object_entry SpriteFrameTable_28_719A, SpriteScript_28_71A9 ; entry 57
+	sprite_object_entry SpriteFrameTable_28_719A, SpriteScript_28_71A9 ; entry 58
+	sprite_object_entry SpriteFrameTable_28_719A, SpriteScript_28_71A9 ; entry 59
+	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 60
+	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 61
+	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 62
+	sprite_object_entry SpriteFrameTable_28_71AC, SpriteScript_28_71BB ; entry 63
+	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 64
+	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 65
+	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 66
+	sprite_object_entry SpriteFrameTable_28_72DA, SpriteScript_28_72E5 ; entry 67
+	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 68
+	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 69
+	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 70
+	sprite_object_entry SpriteFrameTable_28_72E8, SpriteScript_28_72F6 ; entry 71
 
 ; ---- data $7040-$72FB (699 bytes) [PROBABLE] 18 object record(s): 18 frame tables, 33 frames, 18 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 7040-7042, 7044-7055, 7067-7069, 72AF-72FB were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_6F20_ObjAnimData:: ; 28:7040
 Data_28_7040::
-	db $44, $70, $55, $70, $04, $03, $00, $08, $00, $03, $08, $0A, $00, $13, $00, $28
-	db $00, $13, $08, $2A, $00, $04, $03, $00, $0C, $00, $03, $08, $0E, $00, $13, $00
-	db $2C, $00, $13, $08, $2E, $00, $02, $00, $0A, $01, $0A, $71, $70, $82, $70, $93
-	db $70, $04, $03, $00, $10, $00, $03, $08, $12, $00, $13, $00, $30, $00, $13, $08
-	db $22, $00, $04, $03, $00, $40, $00, $03, $08, $42, $00, $13, $00, $60, $00, $13
-	db $08, $62, $00, $04, $03, $00, $34, $00, $03, $08, $36, $00, $13, $08, $2A, $00
-	db $13, $00, $60, $00, $03, $00, $08, $01, $08, $02, $18, $AF, $70, $C0, $70, $04
-	db $03, $00, $08, $09, $03, $08, $0A, $09, $13, $00, $22, $21, $13, $08, $30, $21
-	db $04, $03, $00, $0C, $09, $03, $08, $0E, $09, $13, $00, $2C, $09, $13, $08, $2E
-	db $09, $02, $00, $08, $01, $08, $DC, $70, $ED, $70, $FE, $70, $04, $03, $00, $08
-	db $09, $03, $08, $0A, $09, $13, $08, $30, $21, $13, $00, $22, $21, $04, $03, $00
-	db $4C, $09, $03, $08, $4E, $09, $13, $08, $60, $21, $13, $00, $62, $21, $04, $03
-	db $00, $40, $09, $03, $08, $42, $09, $13, $00, $2A, $21, $13, $08, $20, $21, $03
-	db $00, $08, $01, $08, $02, $18, $18, $71, $04, $03, $00, $08, $09, $03, $08, $0A
-	db $09, $13, $00, $22, $21, $13, $08, $30, $21, $01, $00, $08, $2E, $71, $02, $FE
-	db $00, $5C, $04, $FE, $08, $5E, $04, $01, $00, $04, $40, $71, $51, $71, $62, $71
-	db $04, $03, $00, $40, $09, $03, $08, $42, $09, $13, $00, $2A, $21, $13, $08, $60
-	db $21, $04, $03, $00, $44, $09, $03, $08, $46, $09, $13, $08, $64, $21, $13, $00
-	db $66, $21, $04, $03, $00, $48, $09, $03, $08, $4A, $09, $13, $08, $68, $21, $13
-	db $00, $6A, $21, $03, $00, $08, $01, $08, $02, $18, $7C, $71, $02, $00, $04, $5C
-	db $0D, $00, $0C, $5E, $0D, $01, $00, $04, $8A, $71, $03, $00, $00, $30, $0D, $00
-	db $08, $58, $0D, $00, $10, $5A, $0D, $01, $00, $04, $9C, $71, $03, $00, $08, $58
-	db $0D, $00, $10, $5A, $0D, $00, $00, $32, $0D, $01, $00, $04, $AE, $71, $03, $00
-	db $08, $58, $0D, $00, $10, $5A, $0D, $00, $00, $34, $0D, $01, $00, $04, $C4, $71
-	db $D5, $71, $E6, $71, $04, $13, $00, $64, $00, $03, $00, $34, $00, $03, $08, $36
-	db $00, $13, $08, $2A, $00, $04, $13, $00, $64, $00, $13, $08, $66, $00, $03, $00
-	db $44, $00, $03, $08, $46, $00, $04, $03, $00, $48, $00, $03, $08, $4A, $00, $13
-	db $00, $68, $00, $13, $08, $6A, $00, $03, $00, $08, $01, $08, $02, $18, $02, $72
-	db $1B, $72, $06, $F9, $FB, $1C, $24, $F9, $F3, $1E, $24, $13, $00, $64, $00, $03
-	db $00, $4C, $00, $03, $08, $4E, $00, $13, $08, $2A, $00, $06, $F8, $FB, $1C, $24
-	db $F8, $F3, $1E, $24, $13, $00, $64, $00, $13, $08, $2A, $00, $03, $00, $6C, $00
-	db $03, $08, $6E, $00, $02, $00, $0A, $01, $0A, $3D, $72, $56, $72, $06, $F9, $0D
-	db $20, $0C, $F9, $15, $22, $0C, $03, $00, $1C, $09, $03, $08, $1E, $09, $13, $00
-	db $2A, $21, $13, $08, $60, $21, $06, $F8, $0E, $20, $0C, $F8, $16, $22, $0C, $03
-	db $00, $18, $09, $03, $08, $1A, $09, $13, $00, $2A, $21, $13, $08, $60, $21, $02
-	db $00, $0A, $01, $0A, $78, $72, $91, $72, $06, $03, $00, $14, $09, $03, $08, $16
-	db $09, $F8, $0B, $24, $0D, $FD, $15, $26, $0D, $13, $00, $2A, $21, $13, $08, $30
-	db $21, $06, $F9, $0A, $24, $0D, $FC, $14, $26, $0D, $03, $00, $28, $09, $03, $08
-	db $2A, $09, $13, $00, $2A, $21, $13, $08, $30, $21, $02, $00, $0A, $01, $0A, $B3
-	db $72, $C4, $72, $04, $03, $08, $00, $20, $03, $00, $02, $20, $13, $08, $20, $20
-	db $13, $00, $22, $20, $04, $03, $08, $04, $20, $03, $00, $06, $20, $13, $08, $24
-	db $20, $13, $00, $26, $20, $02, $00, $08, $01, $08, $DC, $72, $02, $0B, $08, $58
-	db $22, $0B, $00, $5A, $22, $01, $00, $08, $EC, $72, $F5, $72, $02, $00, $00, $74
-	db $05, $00, $08, $76, $05, $00, $02, $00, $0C, $01, $0C
+	sprite_frame_table SpriteFrame_28_7044, SpriteFrame_28_7055
+SpriteFrame_28_7044:: ; 28:7044
+	sprite_frame 4
+	sprite_oam 3, 0, $08, 0
+	sprite_oam 3, 8, $0A, 0
+	sprite_oam 19, 0, $28, 0
+	sprite_oam 19, 8, $2A, 0
+SpriteFrame_28_7055:: ; 28:7055
+	sprite_frame 4
+	sprite_oam 3, 0, $0C, 0
+	sprite_oam 3, 8, $0E, 0
+	sprite_oam 19, 0, $2C, 0
+	sprite_oam 19, 8, $2E, 0
+SpriteScript_28_7066:: ; 28:7066
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_706B:: ; 28:706B
+	sprite_frame_table SpriteFrame_28_7071, SpriteFrame_28_7082, SpriteFrame_28_7093
+SpriteFrame_28_7071:: ; 28:7071
+	sprite_frame 4
+	sprite_oam 3, 0, $10, 0
+	sprite_oam 3, 8, $12, 0
+	sprite_oam 19, 0, $30, 0
+	sprite_oam 19, 8, $22, 0
+SpriteFrame_28_7082:: ; 28:7082
+	sprite_frame 4
+	sprite_oam 3, 0, $40, 0
+	sprite_oam 3, 8, $42, 0
+	sprite_oam 19, 0, $60, 0
+	sprite_oam 19, 8, $62, 0
+SpriteFrame_28_7093:: ; 28:7093
+	sprite_frame 4
+	sprite_oam 3, 0, $34, 0
+	sprite_oam 3, 8, $36, 0
+	sprite_oam 19, 8, $2A, 0
+	sprite_oam 19, 0, $60, 0
+SpriteScript_28_70A4:: ; 28:70A4
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_70AB:: ; 28:70AB
+	sprite_frame_table SpriteFrame_28_70AF, SpriteFrame_28_70C0
+SpriteFrame_28_70AF:: ; 28:70AF
+	sprite_frame 4
+	sprite_oam 3, 0, $08, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $0A, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $22, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $30, OAMF_XFLIP | 1
+SpriteFrame_28_70C0:: ; 28:70C0
+	sprite_frame 4
+	sprite_oam 3, 0, $0C, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $0E, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2C, OAMF_BANK1 | 1
+	sprite_oam 19, 8, $2E, OAMF_BANK1 | 1
+SpriteScript_28_70D1:: ; 28:70D1
+	sprite_anim 2
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_70D6:: ; 28:70D6
+	sprite_frame_table SpriteFrame_28_70DC, SpriteFrame_28_70ED, SpriteFrame_28_70FE
+SpriteFrame_28_70DC:: ; 28:70DC
+	sprite_frame 4
+	sprite_oam 3, 0, $08, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $0A, OAMF_BANK1 | 1
+	sprite_oam 19, 8, $30, OAMF_XFLIP | 1
+	sprite_oam 19, 0, $22, OAMF_XFLIP | 1
+SpriteFrame_28_70ED:: ; 28:70ED
+	sprite_frame 4
+	sprite_oam 3, 0, $4C, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $4E, OAMF_BANK1 | 1
+	sprite_oam 19, 8, $60, OAMF_XFLIP | 1
+	sprite_oam 19, 0, $62, OAMF_XFLIP | 1
+SpriteFrame_28_70FE:: ; 28:70FE
+	sprite_frame 4
+	sprite_oam 3, 0, $40, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $42, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $20, OAMF_XFLIP | 1
+SpriteScript_28_710F:: ; 28:710F
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_7116:: ; 28:7116
+	sprite_frame_table SpriteFrame_28_7118
+SpriteFrame_28_7118:: ; 28:7118
+	sprite_frame 4
+	sprite_oam 3, 0, $08, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $0A, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $22, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $30, OAMF_XFLIP | 1
+SpriteScript_28_7129:: ; 28:7129
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_712C:: ; 28:712C
+	sprite_frame_table SpriteFrame_28_712E
+SpriteFrame_28_712E:: ; 28:712E
+	sprite_frame 2
+	sprite_oam -2, 0, $5C, 4
+	sprite_oam -2, 8, $5E, 4
+SpriteScript_28_7137:: ; 28:7137
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_713A:: ; 28:713A
+	sprite_frame_table SpriteFrame_28_7140, SpriteFrame_28_7151, SpriteFrame_28_7162
+SpriteFrame_28_7140:: ; 28:7140
+	sprite_frame 4
+	sprite_oam 3, 0, $40, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $42, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $60, OAMF_XFLIP | 1
+SpriteFrame_28_7151:: ; 28:7151
+	sprite_frame 4
+	sprite_oam 3, 0, $44, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $46, OAMF_BANK1 | 1
+	sprite_oam 19, 8, $64, OAMF_XFLIP | 1
+	sprite_oam 19, 0, $66, OAMF_XFLIP | 1
+SpriteFrame_28_7162:: ; 28:7162
+	sprite_frame 4
+	sprite_oam 3, 0, $48, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $4A, OAMF_BANK1 | 1
+	sprite_oam 19, 8, $68, OAMF_XFLIP | 1
+	sprite_oam 19, 0, $6A, OAMF_XFLIP | 1
+SpriteScript_28_7173:: ; 28:7173
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_717A:: ; 28:717A
+	sprite_frame_table SpriteFrame_28_717C
+SpriteFrame_28_717C:: ; 28:717C
+	sprite_frame 2
+	sprite_oam 0, 4, $5C, OAMF_BANK1 | 5
+	sprite_oam 0, 12, $5E, OAMF_BANK1 | 5
+SpriteScript_28_7185:: ; 28:7185
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7188:: ; 28:7188
+	sprite_frame_table SpriteFrame_28_718A
+SpriteFrame_28_718A:: ; 28:718A
+	sprite_frame 3
+	sprite_oam 0, 0, $30, OAMF_BANK1 | 5
+	sprite_oam 0, 8, $58, OAMF_BANK1 | 5
+	sprite_oam 0, 16, $5A, OAMF_BANK1 | 5
+SpriteScript_28_7197:: ; 28:7197
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_719A:: ; 28:719A
+	sprite_frame_table SpriteFrame_28_719C
+SpriteFrame_28_719C:: ; 28:719C
+	sprite_frame 3
+	sprite_oam 0, 8, $58, OAMF_BANK1 | 5
+	sprite_oam 0, 16, $5A, OAMF_BANK1 | 5
+	sprite_oam 0, 0, $32, OAMF_BANK1 | 5
+SpriteScript_28_71A9:: ; 28:71A9
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_71AC:: ; 28:71AC
+	sprite_frame_table SpriteFrame_28_71AE
+SpriteFrame_28_71AE:: ; 28:71AE
+	sprite_frame 3
+	sprite_oam 0, 8, $58, OAMF_BANK1 | 5
+	sprite_oam 0, 16, $5A, OAMF_BANK1 | 5
+	sprite_oam 0, 0, $34, OAMF_BANK1 | 5
+SpriteScript_28_71BB:: ; 28:71BB
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_71BE:: ; 28:71BE
+	sprite_frame_table SpriteFrame_28_71C4, SpriteFrame_28_71D5, SpriteFrame_28_71E6
+SpriteFrame_28_71C4:: ; 28:71C4
+	sprite_frame 4
+	sprite_oam 19, 0, $64, 0
+	sprite_oam 3, 0, $34, 0
+	sprite_oam 3, 8, $36, 0
+	sprite_oam 19, 8, $2A, 0
+SpriteFrame_28_71D5:: ; 28:71D5
+	sprite_frame 4
+	sprite_oam 19, 0, $64, 0
+	sprite_oam 19, 8, $66, 0
+	sprite_oam 3, 0, $44, 0
+	sprite_oam 3, 8, $46, 0
+SpriteFrame_28_71E6:: ; 28:71E6
+	sprite_frame 4
+	sprite_oam 3, 0, $48, 0
+	sprite_oam 3, 8, $4A, 0
+	sprite_oam 19, 0, $68, 0
+	sprite_oam 19, 8, $6A, 0
+SpriteScript_28_71F7:: ; 28:71F7
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_71FE:: ; 28:71FE
+	sprite_frame_table SpriteFrame_28_7202, SpriteFrame_28_721B
+SpriteFrame_28_7202:: ; 28:7202
+	sprite_frame 6
+	sprite_oam -7, -5, $1C, OAMF_XFLIP | 4
+	sprite_oam -7, -13, $1E, OAMF_XFLIP | 4
+	sprite_oam 19, 0, $64, 0
+	sprite_oam 3, 0, $4C, 0
+	sprite_oam 3, 8, $4E, 0
+	sprite_oam 19, 8, $2A, 0
+SpriteFrame_28_721B:: ; 28:721B
+	sprite_frame 6
+	sprite_oam -8, -5, $1C, OAMF_XFLIP | 4
+	sprite_oam -8, -13, $1E, OAMF_XFLIP | 4
+	sprite_oam 19, 0, $64, 0
+	sprite_oam 19, 8, $2A, 0
+	sprite_oam 3, 0, $6C, 0
+	sprite_oam 3, 8, $6E, 0
+SpriteScript_28_7234:: ; 28:7234
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_7239:: ; 28:7239
+	sprite_frame_table SpriteFrame_28_723D, SpriteFrame_28_7256
+SpriteFrame_28_723D:: ; 28:723D
+	sprite_frame 6
+	sprite_oam -7, 13, $20, OAMF_BANK1 | 4
+	sprite_oam -7, 21, $22, OAMF_BANK1 | 4
+	sprite_oam 3, 0, $1C, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $1E, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $60, OAMF_XFLIP | 1
+SpriteFrame_28_7256:: ; 28:7256
+	sprite_frame 6
+	sprite_oam -8, 14, $20, OAMF_BANK1 | 4
+	sprite_oam -8, 22, $22, OAMF_BANK1 | 4
+	sprite_oam 3, 0, $18, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $1A, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $60, OAMF_XFLIP | 1
+SpriteScript_28_726F:: ; 28:726F
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_7274:: ; 28:7274
+	sprite_frame_table SpriteFrame_28_7278, SpriteFrame_28_7291
+SpriteFrame_28_7278:: ; 28:7278
+	sprite_frame 6
+	sprite_oam 3, 0, $14, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $16, OAMF_BANK1 | 1
+	sprite_oam -8, 11, $24, OAMF_BANK1 | 5
+	sprite_oam -3, 21, $26, OAMF_BANK1 | 5
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $30, OAMF_XFLIP | 1
+SpriteFrame_28_7291:: ; 28:7291
+	sprite_frame 6
+	sprite_oam -7, 10, $24, OAMF_BANK1 | 5
+	sprite_oam -4, 20, $26, OAMF_BANK1 | 5
+	sprite_oam 3, 0, $28, OAMF_BANK1 | 1
+	sprite_oam 3, 8, $2A, OAMF_BANK1 | 1
+	sprite_oam 19, 0, $2A, OAMF_XFLIP | 1
+	sprite_oam 19, 8, $30, OAMF_XFLIP | 1
+SpriteScript_28_72AA:: ; 28:72AA
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_72AF:: ; 28:72AF
+	sprite_frame_table SpriteFrame_28_72B3, SpriteFrame_28_72C4
+SpriteFrame_28_72B3:: ; 28:72B3
+	sprite_frame 4
+	sprite_oam 3, 8, $00, OAMF_XFLIP
+	sprite_oam 3, 0, $02, OAMF_XFLIP
+	sprite_oam 19, 8, $20, OAMF_XFLIP
+	sprite_oam 19, 0, $22, OAMF_XFLIP
+SpriteFrame_28_72C4:: ; 28:72C4
+	sprite_frame 4
+	sprite_oam 3, 8, $04, OAMF_XFLIP
+	sprite_oam 3, 0, $06, OAMF_XFLIP
+	sprite_oam 19, 8, $24, OAMF_XFLIP
+	sprite_oam 19, 0, $26, OAMF_XFLIP
+SpriteScript_28_72D5:: ; 28:72D5
+	sprite_anim 2
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_72DA:: ; 28:72DA
+	sprite_frame_table SpriteFrame_28_72DC
+SpriteFrame_28_72DC:: ; 28:72DC
+	sprite_frame 2
+	sprite_oam 11, 8, $58, OAMF_XFLIP | 2
+	sprite_oam 11, 0, $5A, OAMF_XFLIP | 2
+SpriteScript_28_72E5:: ; 28:72E5
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_72E8:: ; 28:72E8
+	sprite_frame_table SpriteFrame_28_72EC, SpriteFrame_28_72F5
+SpriteFrame_28_72EC:: ; 28:72EC
+	sprite_frame 2
+	sprite_oam 0, 0, $74, 5
+	sprite_oam 0, 8, $76, 5
+SpriteFrame_28_72F5:: ; 28:72F5
+	sprite_frame 0
+SpriteScript_28_72F6:: ; 28:72F6
+	sprite_anim 2
+	sprite_anim_step 0, 12
+	sprite_anim_step 1, 12
 
 ; ---- words $72FB-$758B (656 bytes) [PROBABLE] 41 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs [v4: bytes 732F-7333, 733F-7343, 734F-7353, 737F-7383, 738F-7393, 739F-73A3 ... were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_ObjTable_72FB:: ; 28:72FB
 Table_28_72FB::
-	dw MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E, MailSession_72FB_ObjAnimData, $759E
-	dw $75A1, $75B4, $75A1, $75B4, $75A1, $75B4, $75A1, $75B4
-	dw $75B7, $75DD, $75B7, $75DD, $75B7, $75DD, $75B7, $75DD
-	dw $75E2, $7608, $75E2, $7608, $75E2, $7608, $75E2, $7608
-	dw $760D, $7633, $760D, $7633, $760D, $7633, $760D, $7633
-	dw $7638, $7671, $7638, $7671, $7638, $7671, $7638, $7671
-	dw $7678, $76C9, $7678, $76C9, $7678, $76C9, $7678, $76C9
-	dw $76D0, $76EB, $76D0, $76EB, $76D0, $76EB, $76D0, $76EB
-	dw $76EE, $773F, $76EE, $773F, $76EE, $773F, $76EE, $773F
-	dw $7746, $778C, $7746, $778C, $7746, $778C, $7746, $778C
-	dw $7791, $77C7, $7791, $77C7, $7791, $77C7, $7791, $77C7
-	dw $77CC, $7802, $77CC, $7802, $77CC, $7802, $77CC, $7802
-	dw $7807, $7812, $7807, $7812, $7807, $7812, $7807, $7812
-	dw $7815, $7820, $7815, $7820, $7815, $7820, $7815, $7820
-	dw $7823, $782E, $7823, $782E, $7823, $782E, $7823, $782E
-	dw $7831, $783C, $7831, $783C, $7831, $783C, $7831, $783C
-	dw $783F, $784A, $783F, $784A, $783F, $784A, $783F, $784A
-	dw $784D, $7864, $784D, $7864, $784D, $7864, $784D, $7864
-	dw $7867, $787E, $7867, $787E, $7867, $787E, $7867, $787E
-	dw $7881, $7898, $7881, $7898, $7881, $7898, $7881, $7898
-	dw $789B, $78B2, $789B, $78B2, $789B, $78B2, $789B, $78B2
-	dw $78B5, $78CC, $78B5, $78CC, $78B5, $78CC, $78B5, $78CC
-	dw $78CF, $78E6, $78CF, $78E6, $78CF, $78E6, $78CF, $78E6
-	dw $78E9, $7900, $78E9, $7900, $78E9, $7900, $78E9, $7900
-	dw $7903, $791A, $7903, $791A, $7903, $791A, $7903, $791A
-	dw $791D, $7934, $791D, $7934, $791D, $7934, $791D, $7934
-	dw $7937, $794E, $7937, $794E, $7937, $794E, $7937, $794E
-	dw $7951, $7968, $7951, $7968, $7951, $7968, $7951, $7968
-	dw $796B, $7982, $796B, $7982, $796B, $7982, $796B, $7982
-	dw $7985, $7994, $7985, $7994, $7985, $7994, $7985, $7994
-	dw $7997, $79A6, $7997, $79A6, $7997, $79A6, $7997, $79A6
-	dw $79A9, $79B8, $79A9, $79B8, $79A9, $79B8, $79A9, $79B8
-	dw $79BB, $79CA, $79BB, $79CA, $79BB, $79CA, $79BB, $79CA
-	dw $79CD, $79DC, $79CD, $79DC, $79CD, $79DC, $79CD, $79DC
-	dw $79DF, $79EE, $79DF, $79EE, $79DF, $79EE, $79DF, $79EE
-	dw $79F1, $7A00, $79F1, $7A00, $79F1, $7A00, $79F1, $7A00
-	dw $7A03, $7A12, $7A03, $7A12, $7A03, $7A12, $7A03, $7A12
-	dw $7A15, $7A24, $7A15, $7A24, $7A15, $7A24, $7A15, $7A24
-	dw $7A27, $7A36, $7A27, $7A36, $7A27, $7A36, $7A27, $7A36
-	dw $7A39, $7A48, $7A39, $7A48, $7A39, $7A48, $7A39, $7A48
-	dw $7A4B, $7A5A, $7A4B, $7A5A, $7A4B, $7A5A, $7A4B, $7A5A
+	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 0
+	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 1
+	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 2
+	sprite_object_entry MailSession_72FB_ObjAnimData, SpriteScript_28_759E ; entry 3
+	sprite_object_entry SpriteFrameTable_28_75A1, SpriteScript_28_75B4 ; entry 4
+	sprite_object_entry SpriteFrameTable_28_75A1, SpriteScript_28_75B4 ; entry 5
+	sprite_object_entry SpriteFrameTable_28_75A1, SpriteScript_28_75B4 ; entry 6
+	sprite_object_entry SpriteFrameTable_28_75A1, SpriteScript_28_75B4 ; entry 7
+	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 8
+	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 9
+	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 10
+	sprite_object_entry SpriteFrameTable_28_75B7, SpriteScript_28_75DD ; entry 11
+	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 12
+	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 13
+	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 14
+	sprite_object_entry SpriteFrameTable_28_75E2, SpriteScript_28_7608 ; entry 15
+	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 16
+	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 17
+	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 18
+	sprite_object_entry SpriteFrameTable_28_760D, SpriteScript_28_7633 ; entry 19
+	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 20
+	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 21
+	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 22
+	sprite_object_entry SpriteFrameTable_28_7638, SpriteScript_28_7671 ; entry 23
+	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 24
+	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 25
+	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 26
+	sprite_object_entry SpriteFrameTable_28_7678, SpriteScript_28_76C9 ; entry 27
+	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 28
+	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 29
+	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 30
+	sprite_object_entry SpriteFrameTable_28_76D0, SpriteScript_28_76EB ; entry 31
+	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 32
+	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 33
+	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 34
+	sprite_object_entry SpriteFrameTable_28_76EE, SpriteScript_28_773F ; entry 35
+	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 36
+	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 37
+	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 38
+	sprite_object_entry SpriteFrameTable_28_7746, SpriteScript_28_778C ; entry 39
+	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 40
+	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 41
+	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 42
+	sprite_object_entry SpriteFrameTable_28_7791, SpriteScript_28_77C7 ; entry 43
+	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 44
+	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 45
+	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 46
+	sprite_object_entry SpriteFrameTable_28_77CC, SpriteScript_28_7802 ; entry 47
+	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 48
+	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 49
+	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 50
+	sprite_object_entry SpriteFrameTable_28_7807, SpriteScript_28_7812 ; entry 51
+	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 52
+	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 53
+	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 54
+	sprite_object_entry SpriteFrameTable_28_7815, SpriteScript_28_7820 ; entry 55
+	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 56
+	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 57
+	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 58
+	sprite_object_entry SpriteFrameTable_28_7823, SpriteScript_28_782E ; entry 59
+	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 60
+	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 61
+	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 62
+	sprite_object_entry SpriteFrameTable_28_7831, SpriteScript_28_783C ; entry 63
+	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 64
+	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 65
+	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 66
+	sprite_object_entry SpriteFrameTable_28_783F, SpriteScript_28_784A ; entry 67
+	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 68
+	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 69
+	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 70
+	sprite_object_entry SpriteFrameTable_28_784D, SpriteScript_28_7864 ; entry 71
+	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 72
+	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 73
+	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 74
+	sprite_object_entry SpriteFrameTable_28_7867, SpriteScript_28_787E ; entry 75
+	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 76
+	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 77
+	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 78
+	sprite_object_entry SpriteFrameTable_28_7881, SpriteScript_28_7898 ; entry 79
+	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 80
+	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 81
+	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 82
+	sprite_object_entry SpriteFrameTable_28_789B, SpriteScript_28_78B2 ; entry 83
+	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 84
+	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 85
+	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 86
+	sprite_object_entry SpriteFrameTable_28_78B5, SpriteScript_28_78CC ; entry 87
+	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 88
+	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 89
+	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 90
+	sprite_object_entry SpriteFrameTable_28_78CF, SpriteScript_28_78E6 ; entry 91
+	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 92
+	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 93
+	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 94
+	sprite_object_entry SpriteFrameTable_28_78E9, SpriteScript_28_7900 ; entry 95
+	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 96
+	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 97
+	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 98
+	sprite_object_entry SpriteFrameTable_28_7903, SpriteScript_28_791A ; entry 99
+	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 100
+	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 101
+	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 102
+	sprite_object_entry SpriteFrameTable_28_791D, SpriteScript_28_7934 ; entry 103
+	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 104
+	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 105
+	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 106
+	sprite_object_entry SpriteFrameTable_28_7937, SpriteScript_28_794E ; entry 107
+	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 108
+	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 109
+	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 110
+	sprite_object_entry SpriteFrameTable_28_7951, SpriteScript_28_7968 ; entry 111
+	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 112
+	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 113
+	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 114
+	sprite_object_entry SpriteFrameTable_28_796B, SpriteScript_28_7982 ; entry 115
+	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 116
+	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 117
+	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 118
+	sprite_object_entry SpriteFrameTable_28_7985, SpriteScript_28_7994 ; entry 119
+	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 120
+	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 121
+	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 122
+	sprite_object_entry SpriteFrameTable_28_7997, SpriteScript_28_79A6 ; entry 123
+	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 124
+	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 125
+	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 126
+	sprite_object_entry SpriteFrameTable_28_79A9, SpriteScript_28_79B8 ; entry 127
+	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 128
+	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 129
+	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 130
+	sprite_object_entry SpriteFrameTable_28_79BB, SpriteScript_28_79CA ; entry 131
+	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 132
+	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 133
+	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 134
+	sprite_object_entry SpriteFrameTable_28_79CD, SpriteScript_28_79DC ; entry 135
+	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 136
+	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 137
+	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 138
+	sprite_object_entry SpriteFrameTable_28_79DF, SpriteScript_28_79EE ; entry 139
+	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 140
+	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 141
+	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 142
+	sprite_object_entry SpriteFrameTable_28_79F1, SpriteScript_28_7A00 ; entry 143
+	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 144
+	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 145
+	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 146
+	sprite_object_entry SpriteFrameTable_28_7A03, SpriteScript_28_7A12 ; entry 147
+	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 148
+	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 149
+	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 150
+	sprite_object_entry SpriteFrameTable_28_7A15, SpriteScript_28_7A24 ; entry 151
+	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 152
+	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 153
+	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 154
+	sprite_object_entry SpriteFrameTable_28_7A27, SpriteScript_28_7A36 ; entry 155
+	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 156
+	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 157
+	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 158
+	sprite_object_entry SpriteFrameTable_28_7A39, SpriteScript_28_7A48 ; entry 159
+	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 160
+	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 161
+	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 162
+	sprite_object_entry SpriteFrameTable_28_7A4B, SpriteScript_28_7A5A ; entry 163
 
 ; ---- data $758B-$7A5D (1234 bytes) [PROBABLE] 41 object record(s): 41 frame tables, 53 frames, 41 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 75E2-7678, 76EE-7823, 783F-784D were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailSession_72FB_ObjAnimData:: ; 28:758B
 Data_28_758B::
-	db $8D, $75, $04, $2A, $40, $10, $00, $2A, $48, $12, $00, $3A, $40, $30, $00, $3A
-	db $48, $22, $00, $01, $00, $08, $A3, $75, $04, $2B, $48, $10, $20, $2B, $40, $12
-	db $20, $3B, $48, $30, $20, $3B, $40, $22, $20, $01, $00, $08, $BB, $75, $CC, $75
-	db $04, $2A, $40, $00, $00, $2A, $48, $02, $00, $3A, $40, $20, $00, $3A, $48, $22
-	db $00, $04, $2A, $40, $04, $00, $2A, $48, $06, $00, $3A, $40, $24, $00, $3A, $48
-	db $26, $00, $02, $00, $08, $01, $08, $E6, $75, $F7, $75, $04, $2A, $48, $00, $20
-	db $2A, $40, $02, $20, $3A, $48, $20, $20, $3A, $40, $22, $20, $04, $2A, $48, $04
-	db $20, $2A, $40, $06, $20, $3A, $48, $24, $20, $3A, $40, $26, $20, $02, $00, $08
-	db $01, $08, $11, $76, $22, $76, $04, $2B, $40, $08, $00, $2B, $48, $0A, $00, $3B
-	db $40, $28, $00, $3B, $48, $2A, $00, $04, $2B, $40, $0C, $00, $2B, $48, $0E, $00
-	db $3B, $40, $2C, $00, $3B, $48, $2E, $00, $02, $00, $0A, $01, $0A, $3E, $76, $4F
-	db $76, $60, $76, $04, $2B, $40, $10, $00, $2B, $48, $12, $00, $3B, $40, $30, $00
-	db $3B, $48, $22, $00, $04, $2B, $40, $40, $00, $2B, $48, $42, $00, $3B, $40, $60
-	db $00, $3B, $48, $62, $00, $04, $2B, $40, $34, $00, $2B, $48, $36, $00, $3B, $48
-	db $2A, $00, $3B, $40, $60, $00, $03, $00, $08, $01, $08, $02, $18, $7E, $76, $97
-	db $76, $B0, $76, $06, $3B, $40, $64, $00, $2B, $40, $34, $00, $2B, $48, $36, $00
-	db $3B, $48, $2A, $00, $20, $4C, $5C, $04, $20, $54, $5E, $04, $06, $3B, $3E, $64
-	db $00, $3B, $46, $66, $00, $2B, $3E, $44, $00, $2B, $46, $46, $00, $20, $45, $5C
-	db $04, $20, $4D, $5E, $04, $06, $2B, $3D, $48, $00, $2B, $45, $4A, $00, $3B, $3D
-	db $68, $00, $3B, $45, $6A, $00, $20, $3D, $5C, $04, $20, $45, $5E, $04, $03, $00
-	db $08, $01, $08, $02, $18, $D2, $76, $06, $2B, $58, $08, $09, $2B, $60, $0A, $09
-	db $3B, $58, $22, $21, $3B, $60, $30, $21, $33, $68, $50, $00, $33, $70, $52, $00
-	db $01, $00, $08, $F4, $76, $0D, $77, $26, $77, $06, $2B, $58, $08, $09, $2B, $60
-	db $0A, $09, $3B, $60, $30, $21, $3B, $58, $22, $21, $33, $68, $50, $00, $33, $70
-	db $52, $00, $06, $2B, $58, $4C, $09, $2B, $60, $4E, $09, $3B, $60, $60, $21, $3B
-	db $58, $62, $21, $33, $68, $50, $00, $33, $70, $52, $00, $06, $2B, $58, $40, $09
-	db $2B, $60, $42, $09, $3B, $58, $2A, $21, $3B, $60, $20, $21, $33, $68, $50, $00
-	db $33, $70, $52, $00, $03, $00, $08, $01, $08, $02, $18, $4A, $77, $6B, $77, $08
-	db $2B, $58, $14, $09, $2B, $60, $16, $09, $20, $63, $24, $0D, $25, $6D, $26, $0D
-	db $3B, $58, $2A, $21, $3B, $60, $30, $21, $33, $68, $50, $00, $33, $70, $52, $00
-	db $08, $21, $62, $24, $0D, $24, $6C, $26, $0D, $2B, $58, $28, $09, $2B, $60, $2A
-	db $09, $3B, $58, $2A, $21, $3B, $60, $30, $21, $33, $68, $50, $00, $33, $70, $52
-	db $00, $02, $00, $0A, $01, $0A, $95, $77, $AE, $77, $06, $2A, $60, $68, $09, $2A
-	db $68, $6A, $09, $3A, $60, $88, $09, $3A, $68, $8A, $09, $32, $68, $54, $00, $32
-	db $70, $56, $00, $06, $2A, $60, $6C, $09, $2A, $68, $6E, $09, $3A, $60, $8C, $09
-	db $3A, $68, $8E, $09, $32, $68, $7C, $00, $32, $70, $7E, $00, $02, $00, $0A, $01
-	db $0A, $D0, $77, $E9, $77, $06, $33, $68, $70, $00, $33, $70, $72, $00, $2B, $58
-	db $64, $09, $2B, $60, $66, $09, $3B, $60, $20, $21, $3B, $58, $22, $21, $06, $2B
-	db $58, $60, $09, $2B, $60, $62, $09, $3B, $60, $24, $21, $3B, $58, $26, $21, $33
-	db $67, $70, $00, $33, $6F, $72, $00, $02, $00, $0A, $01, $0A, $09, $78, $02, $33
-	db $30, $58, $02, $33, $38, $5A, $02, $01, $00, $08, $17, $78, $02, $32, $38, $58
-	db $22, $32, $30, $5A, $22, $01, $00, $08, $25, $78, $02, $0B, $30, $78, $02, $0B
-	db $38, $7A, $02, $01, $00, $08, $33, $78, $02, $33, $38, $78, $22, $33, $30, $7A
-	db $22, $01, $00, $08, $41, $78, $02, $11, $4C, $5C, $0D, $11, $54, $5E, $0D, $01
-	db $00, $04, $4F, $78, $05, $12, $48, $30, $0D, $12, $50, $58, $0D, $12, $58, $5A
-	db $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04, $69, $78, $05, $12
-	db $48, $32, $0D, $12, $50, $58, $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20
-	db $54, $5E, $04, $01, $00, $04, $83, $78, $05, $12, $48, $34, $0D, $12, $50, $58
-	db $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04
-	db $9D, $78, $05, $12, $48, $36, $0D, $12, $50, $58, $0D, $12, $58, $5A, $0D, $20
-	db $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04, $B7, $78, $05, $12, $48, $38
-	db $0D, $12, $50, $58, $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20, $54, $5E
-	db $04, $01, $00, $04, $D1, $78, $05, $12, $48, $3A, $0D, $12, $50, $58, $0D, $12
-	db $58, $5A, $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04, $EB, $78
-	db $05, $12, $48, $3C, $0D, $12, $50, $58, $0D, $12, $58, $5A, $0D, $20, $4C, $5C
-	db $04, $20, $54, $5E, $04, $01, $00, $04, $05, $79, $05, $12, $48, $3E, $0D, $12
-	db $50, $58, $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01
-	db $00, $04, $1F, $79, $05, $12, $48, $50, $0D, $12, $50, $58, $0D, $12, $58, $5A
-	db $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04, $39, $79, $05, $12
-	db $48, $52, $0D, $12, $50, $58, $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20
-	db $54, $5E, $04, $01, $00, $04, $53, $79, $05, $12, $48, $54, $0D, $12, $50, $58
-	db $0D, $12, $58, $5A, $0D, $20, $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04
-	db $6D, $79, $05, $12, $50, $58, $0D, $12, $58, $5A, $0D, $12, $48, $56, $0D, $20
-	db $4C, $5C, $04, $20, $54, $5E, $04, $01, $00, $04, $87, $79, $03, $26, $34, $30
-	db $0D, $33, $30, $78, $02, $33, $38, $7A, $02, $01, $00, $08, $99, $79, $03, $33
-	db $30, $78, $02, $33, $38, $7A, $02, $26, $34, $32, $0D, $01, $00, $08, $AB, $79
-	db $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26, $34, $34, $0D, $01, $00, $08
-	db $BD, $79, $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26, $34, $36, $0D, $01
-	db $00, $08, $CF, $79, $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26, $34, $38
-	db $0D, $01, $00, $08, $E1, $79, $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26
-	db $34, $3A, $0D, $01, $00, $08, $F3, $79, $03, $33, $30, $78, $02, $33, $38, $7A
-	db $02, $26, $34, $3C, $0D, $01, $00, $08, $05, $7A, $03, $33, $30, $78, $02, $33
-	db $38, $7A, $02, $26, $34, $3E, $0D, $01, $00, $08, $17, $7A, $03, $33, $30, $78
-	db $02, $33, $38, $7A, $02, $26, $34, $50, $0D, $01, $00, $08, $29, $7A, $03, $33
-	db $30, $78, $02, $33, $38, $7A, $02, $26, $34, $52, $0D, $01, $00, $08, $3B, $7A
-	db $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26, $34, $54, $0D, $01, $00, $08
-	db $4D, $7A, $03, $33, $30, $78, $02, $33, $38, $7A, $02, $26, $34, $56, $0D, $01
-	db $00, $08
+	sprite_frame_table SpriteFrame_28_758D
+SpriteFrame_28_758D:: ; 28:758D
+	sprite_frame 4
+	sprite_oam 42, 64, $10, 0
+	sprite_oam 42, 72, $12, 0
+	sprite_oam 58, 64, $30, 0
+	sprite_oam 58, 72, $22, 0
+SpriteScript_28_759E:: ; 28:759E
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_75A1:: ; 28:75A1
+	sprite_frame_table SpriteFrame_28_75A3
+SpriteFrame_28_75A3:: ; 28:75A3
+	sprite_frame 4
+	sprite_oam 43, 72, $10, OAMF_XFLIP
+	sprite_oam 43, 64, $12, OAMF_XFLIP
+	sprite_oam 59, 72, $30, OAMF_XFLIP
+	sprite_oam 59, 64, $22, OAMF_XFLIP
+SpriteScript_28_75B4:: ; 28:75B4
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_75B7:: ; 28:75B7
+	sprite_frame_table SpriteFrame_28_75BB, SpriteFrame_28_75CC
+SpriteFrame_28_75BB:: ; 28:75BB
+	sprite_frame 4
+	sprite_oam 42, 64, $00, 0
+	sprite_oam 42, 72, $02, 0
+	sprite_oam 58, 64, $20, 0
+	sprite_oam 58, 72, $22, 0
+SpriteFrame_28_75CC:: ; 28:75CC
+	sprite_frame 4
+	sprite_oam 42, 64, $04, 0
+	sprite_oam 42, 72, $06, 0
+	sprite_oam 58, 64, $24, 0
+	sprite_oam 58, 72, $26, 0
+SpriteScript_28_75DD:: ; 28:75DD
+	sprite_anim 2
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_75E2:: ; 28:75E2
+	sprite_frame_table SpriteFrame_28_75E6, SpriteFrame_28_75F7
+SpriteFrame_28_75E6:: ; 28:75E6
+	sprite_frame 4
+	sprite_oam 42, 72, $00, OAMF_XFLIP
+	sprite_oam 42, 64, $02, OAMF_XFLIP
+	sprite_oam 58, 72, $20, OAMF_XFLIP
+	sprite_oam 58, 64, $22, OAMF_XFLIP
+SpriteFrame_28_75F7:: ; 28:75F7
+	sprite_frame 4
+	sprite_oam 42, 72, $04, OAMF_XFLIP
+	sprite_oam 42, 64, $06, OAMF_XFLIP
+	sprite_oam 58, 72, $24, OAMF_XFLIP
+	sprite_oam 58, 64, $26, OAMF_XFLIP
+SpriteScript_28_7608:: ; 28:7608
+	sprite_anim 2
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_760D:: ; 28:760D
+	sprite_frame_table SpriteFrame_28_7611, SpriteFrame_28_7622
+SpriteFrame_28_7611:: ; 28:7611
+	sprite_frame 4
+	sprite_oam 43, 64, $08, 0
+	sprite_oam 43, 72, $0A, 0
+	sprite_oam 59, 64, $28, 0
+	sprite_oam 59, 72, $2A, 0
+SpriteFrame_28_7622:: ; 28:7622
+	sprite_frame 4
+	sprite_oam 43, 64, $0C, 0
+	sprite_oam 43, 72, $0E, 0
+	sprite_oam 59, 64, $2C, 0
+	sprite_oam 59, 72, $2E, 0
+SpriteScript_28_7633:: ; 28:7633
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_7638:: ; 28:7638
+	sprite_frame_table SpriteFrame_28_763E, SpriteFrame_28_764F, SpriteFrame_28_7660
+SpriteFrame_28_763E:: ; 28:763E
+	sprite_frame 4
+	sprite_oam 43, 64, $10, 0
+	sprite_oam 43, 72, $12, 0
+	sprite_oam 59, 64, $30, 0
+	sprite_oam 59, 72, $22, 0
+SpriteFrame_28_764F:: ; 28:764F
+	sprite_frame 4
+	sprite_oam 43, 64, $40, 0
+	sprite_oam 43, 72, $42, 0
+	sprite_oam 59, 64, $60, 0
+	sprite_oam 59, 72, $62, 0
+SpriteFrame_28_7660:: ; 28:7660
+	sprite_frame 4
+	sprite_oam 43, 64, $34, 0
+	sprite_oam 43, 72, $36, 0
+	sprite_oam 59, 72, $2A, 0
+	sprite_oam 59, 64, $60, 0
+SpriteScript_28_7671:: ; 28:7671
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_7678:: ; 28:7678
+	sprite_frame_table SpriteFrame_28_767E, SpriteFrame_28_7697, SpriteFrame_28_76B0
+SpriteFrame_28_767E:: ; 28:767E
+	sprite_frame 6
+	sprite_oam 59, 64, $64, 0
+	sprite_oam 43, 64, $34, 0
+	sprite_oam 43, 72, $36, 0
+	sprite_oam 59, 72, $2A, 0
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteFrame_28_7697:: ; 28:7697
+	sprite_frame 6
+	sprite_oam 59, 62, $64, 0
+	sprite_oam 59, 70, $66, 0
+	sprite_oam 43, 62, $44, 0
+	sprite_oam 43, 70, $46, 0
+	sprite_oam 32, 69, $5C, 4
+	sprite_oam 32, 77, $5E, 4
+SpriteFrame_28_76B0:: ; 28:76B0
+	sprite_frame 6
+	sprite_oam 43, 61, $48, 0
+	sprite_oam 43, 69, $4A, 0
+	sprite_oam 59, 61, $68, 0
+	sprite_oam 59, 69, $6A, 0
+	sprite_oam 32, 61, $5C, 4
+	sprite_oam 32, 69, $5E, 4
+SpriteScript_28_76C9:: ; 28:76C9
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_76D0:: ; 28:76D0
+	sprite_frame_table SpriteFrame_28_76D2
+SpriteFrame_28_76D2:: ; 28:76D2
+	sprite_frame 6
+	sprite_oam 43, 88, $08, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $0A, OAMF_BANK1 | 1
+	sprite_oam 59, 88, $22, OAMF_XFLIP | 1
+	sprite_oam 59, 96, $30, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteScript_28_76EB:: ; 28:76EB
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_76EE:: ; 28:76EE
+	sprite_frame_table SpriteFrame_28_76F4, SpriteFrame_28_770D, SpriteFrame_28_7726
+SpriteFrame_28_76F4:: ; 28:76F4
+	sprite_frame 6
+	sprite_oam 43, 88, $08, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $0A, OAMF_BANK1 | 1
+	sprite_oam 59, 96, $30, OAMF_XFLIP | 1
+	sprite_oam 59, 88, $22, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteFrame_28_770D:: ; 28:770D
+	sprite_frame 6
+	sprite_oam 43, 88, $4C, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $4E, OAMF_BANK1 | 1
+	sprite_oam 59, 96, $60, OAMF_XFLIP | 1
+	sprite_oam 59, 88, $62, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteFrame_28_7726:: ; 28:7726
+	sprite_frame 6
+	sprite_oam 43, 88, $40, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $42, OAMF_BANK1 | 1
+	sprite_oam 59, 88, $2A, OAMF_XFLIP | 1
+	sprite_oam 59, 96, $20, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteScript_28_773F:: ; 28:773F
+	sprite_anim 3
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 24
+SpriteFrameTable_28_7746:: ; 28:7746
+	sprite_frame_table SpriteFrame_28_774A, SpriteFrame_28_776B
+SpriteFrame_28_774A:: ; 28:774A
+	sprite_frame 8
+	sprite_oam 43, 88, $14, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $16, OAMF_BANK1 | 1
+	sprite_oam 32, 99, $24, OAMF_BANK1 | 5
+	sprite_oam 37, 109, $26, OAMF_BANK1 | 5
+	sprite_oam 59, 88, $2A, OAMF_XFLIP | 1
+	sprite_oam 59, 96, $30, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteFrame_28_776B:: ; 28:776B
+	sprite_frame 8
+	sprite_oam 33, 98, $24, OAMF_BANK1 | 5
+	sprite_oam 36, 108, $26, OAMF_BANK1 | 5
+	sprite_oam 43, 88, $28, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $2A, OAMF_BANK1 | 1
+	sprite_oam 59, 88, $2A, OAMF_XFLIP | 1
+	sprite_oam 59, 96, $30, OAMF_XFLIP | 1
+	sprite_oam 51, 104, $50, 0
+	sprite_oam 51, 112, $52, 0
+SpriteScript_28_778C:: ; 28:778C
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_7791:: ; 28:7791
+	sprite_frame_table SpriteFrame_28_7795, SpriteFrame_28_77AE
+SpriteFrame_28_7795:: ; 28:7795
+	sprite_frame 6
+	sprite_oam 42, 96, $68, OAMF_BANK1 | 1
+	sprite_oam 42, 104, $6A, OAMF_BANK1 | 1
+	sprite_oam 58, 96, $88, OAMF_BANK1 | 1
+	sprite_oam 58, 104, $8A, OAMF_BANK1 | 1
+	sprite_oam 50, 104, $54, 0
+	sprite_oam 50, 112, $56, 0
+SpriteFrame_28_77AE:: ; 28:77AE
+	sprite_frame 6
+	sprite_oam 42, 96, $6C, OAMF_BANK1 | 1
+	sprite_oam 42, 104, $6E, OAMF_BANK1 | 1
+	sprite_oam 58, 96, $8C, OAMF_BANK1 | 1
+	sprite_oam 58, 104, $8E, OAMF_BANK1 | 1
+	sprite_oam 50, 104, $7C, 0
+	sprite_oam 50, 112, $7E, 0
+SpriteScript_28_77C7:: ; 28:77C7
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_77CC:: ; 28:77CC
+	sprite_frame_table SpriteFrame_28_77D0, SpriteFrame_28_77E9
+SpriteFrame_28_77D0:: ; 28:77D0
+	sprite_frame 6
+	sprite_oam 51, 104, $70, 0
+	sprite_oam 51, 112, $72, 0
+	sprite_oam 43, 88, $64, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $66, OAMF_BANK1 | 1
+	sprite_oam 59, 96, $20, OAMF_XFLIP | 1
+	sprite_oam 59, 88, $22, OAMF_XFLIP | 1
+SpriteFrame_28_77E9:: ; 28:77E9
+	sprite_frame 6
+	sprite_oam 43, 88, $60, OAMF_BANK1 | 1
+	sprite_oam 43, 96, $62, OAMF_BANK1 | 1
+	sprite_oam 59, 96, $24, OAMF_XFLIP | 1
+	sprite_oam 59, 88, $26, OAMF_XFLIP | 1
+	sprite_oam 51, 103, $70, 0
+	sprite_oam 51, 111, $72, 0
+SpriteScript_28_7802:: ; 28:7802
+	sprite_anim 2
+	sprite_anim_step 0, 10
+	sprite_anim_step 1, 10
+SpriteFrameTable_28_7807:: ; 28:7807
+	sprite_frame_table SpriteFrame_28_7809
+SpriteFrame_28_7809:: ; 28:7809
+	sprite_frame 2
+	sprite_oam 51, 48, $58, 2
+	sprite_oam 51, 56, $5A, 2
+SpriteScript_28_7812:: ; 28:7812
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7815:: ; 28:7815
+	sprite_frame_table SpriteFrame_28_7817
+SpriteFrame_28_7817:: ; 28:7817
+	sprite_frame 2
+	sprite_oam 50, 56, $58, OAMF_XFLIP | 2
+	sprite_oam 50, 48, $5A, OAMF_XFLIP | 2
+SpriteScript_28_7820:: ; 28:7820
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7823:: ; 28:7823
+	sprite_frame_table SpriteFrame_28_7825
+SpriteFrame_28_7825:: ; 28:7825
+	sprite_frame 2
+	sprite_oam 11, 48, $78, 2
+	sprite_oam 11, 56, $7A, 2
+SpriteScript_28_782E:: ; 28:782E
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7831:: ; 28:7831
+	sprite_frame_table SpriteFrame_28_7833
+SpriteFrame_28_7833:: ; 28:7833
+	sprite_frame 2
+	sprite_oam 51, 56, $78, OAMF_XFLIP | 2
+	sprite_oam 51, 48, $7A, OAMF_XFLIP | 2
+SpriteScript_28_783C:: ; 28:783C
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_783F:: ; 28:783F
+	sprite_frame_table SpriteFrame_28_7841
+SpriteFrame_28_7841:: ; 28:7841
+	sprite_frame 2
+	sprite_oam 17, 76, $5C, OAMF_BANK1 | 5
+	sprite_oam 17, 84, $5E, OAMF_BANK1 | 5
+SpriteScript_28_784A:: ; 28:784A
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_784D:: ; 28:784D
+	sprite_frame_table SpriteFrame_28_784F
+SpriteFrame_28_784F:: ; 28:784F
+	sprite_frame 5
+	sprite_oam 18, 72, $30, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7864:: ; 28:7864
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7867:: ; 28:7867
+	sprite_frame_table SpriteFrame_28_7869
+SpriteFrame_28_7869:: ; 28:7869
+	sprite_frame 5
+	sprite_oam 18, 72, $32, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_787E:: ; 28:787E
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7881:: ; 28:7881
+	sprite_frame_table SpriteFrame_28_7883
+SpriteFrame_28_7883:: ; 28:7883
+	sprite_frame 5
+	sprite_oam 18, 72, $34, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7898:: ; 28:7898
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_789B:: ; 28:789B
+	sprite_frame_table SpriteFrame_28_789D
+SpriteFrame_28_789D:: ; 28:789D
+	sprite_frame 5
+	sprite_oam 18, 72, $36, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_78B2:: ; 28:78B2
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_78B5:: ; 28:78B5
+	sprite_frame_table SpriteFrame_28_78B7
+SpriteFrame_28_78B7:: ; 28:78B7
+	sprite_frame 5
+	sprite_oam 18, 72, $38, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_78CC:: ; 28:78CC
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_78CF:: ; 28:78CF
+	sprite_frame_table SpriteFrame_28_78D1
+SpriteFrame_28_78D1:: ; 28:78D1
+	sprite_frame 5
+	sprite_oam 18, 72, $3A, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_78E6:: ; 28:78E6
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_78E9:: ; 28:78E9
+	sprite_frame_table SpriteFrame_28_78EB
+SpriteFrame_28_78EB:: ; 28:78EB
+	sprite_frame 5
+	sprite_oam 18, 72, $3C, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7900:: ; 28:7900
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7903:: ; 28:7903
+	sprite_frame_table SpriteFrame_28_7905
+SpriteFrame_28_7905:: ; 28:7905
+	sprite_frame 5
+	sprite_oam 18, 72, $3E, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_791A:: ; 28:791A
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_791D:: ; 28:791D
+	sprite_frame_table SpriteFrame_28_791F
+SpriteFrame_28_791F:: ; 28:791F
+	sprite_frame 5
+	sprite_oam 18, 72, $50, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7934:: ; 28:7934
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7937:: ; 28:7937
+	sprite_frame_table SpriteFrame_28_7939
+SpriteFrame_28_7939:: ; 28:7939
+	sprite_frame 5
+	sprite_oam 18, 72, $52, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_794E:: ; 28:794E
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7951:: ; 28:7951
+	sprite_frame_table SpriteFrame_28_7953
+SpriteFrame_28_7953:: ; 28:7953
+	sprite_frame 5
+	sprite_oam 18, 72, $54, OAMF_BANK1 | 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7968:: ; 28:7968
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_796B:: ; 28:796B
+	sprite_frame_table SpriteFrame_28_796D
+SpriteFrame_28_796D:: ; 28:796D
+	sprite_frame 5
+	sprite_oam 18, 80, $58, OAMF_BANK1 | 5
+	sprite_oam 18, 88, $5A, OAMF_BANK1 | 5
+	sprite_oam 18, 72, $56, OAMF_BANK1 | 5
+	sprite_oam 32, 76, $5C, 4
+	sprite_oam 32, 84, $5E, 4
+SpriteScript_28_7982:: ; 28:7982
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_28_7985:: ; 28:7985
+	sprite_frame_table SpriteFrame_28_7987
+SpriteFrame_28_7987:: ; 28:7987
+	sprite_frame 3
+	sprite_oam 38, 52, $30, OAMF_BANK1 | 5
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+SpriteScript_28_7994:: ; 28:7994
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7997:: ; 28:7997
+	sprite_frame_table SpriteFrame_28_7999
+SpriteFrame_28_7999:: ; 28:7999
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $32, OAMF_BANK1 | 5
+SpriteScript_28_79A6:: ; 28:79A6
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_79A9:: ; 28:79A9
+	sprite_frame_table SpriteFrame_28_79AB
+SpriteFrame_28_79AB:: ; 28:79AB
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $34, OAMF_BANK1 | 5
+SpriteScript_28_79B8:: ; 28:79B8
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_79BB:: ; 28:79BB
+	sprite_frame_table SpriteFrame_28_79BD
+SpriteFrame_28_79BD:: ; 28:79BD
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $36, OAMF_BANK1 | 5
+SpriteScript_28_79CA:: ; 28:79CA
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_79CD:: ; 28:79CD
+	sprite_frame_table SpriteFrame_28_79CF
+SpriteFrame_28_79CF:: ; 28:79CF
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $38, OAMF_BANK1 | 5
+SpriteScript_28_79DC:: ; 28:79DC
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_79DF:: ; 28:79DF
+	sprite_frame_table SpriteFrame_28_79E1
+SpriteFrame_28_79E1:: ; 28:79E1
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $3A, OAMF_BANK1 | 5
+SpriteScript_28_79EE:: ; 28:79EE
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_79F1:: ; 28:79F1
+	sprite_frame_table SpriteFrame_28_79F3
+SpriteFrame_28_79F3:: ; 28:79F3
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $3C, OAMF_BANK1 | 5
+SpriteScript_28_7A00:: ; 28:7A00
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7A03:: ; 28:7A03
+	sprite_frame_table SpriteFrame_28_7A05
+SpriteFrame_28_7A05:: ; 28:7A05
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $3E, OAMF_BANK1 | 5
+SpriteScript_28_7A12:: ; 28:7A12
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7A15:: ; 28:7A15
+	sprite_frame_table SpriteFrame_28_7A17
+SpriteFrame_28_7A17:: ; 28:7A17
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $50, OAMF_BANK1 | 5
+SpriteScript_28_7A24:: ; 28:7A24
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7A27:: ; 28:7A27
+	sprite_frame_table SpriteFrame_28_7A29
+SpriteFrame_28_7A29:: ; 28:7A29
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $52, OAMF_BANK1 | 5
+SpriteScript_28_7A36:: ; 28:7A36
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7A39:: ; 28:7A39
+	sprite_frame_table SpriteFrame_28_7A3B
+SpriteFrame_28_7A3B:: ; 28:7A3B
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $54, OAMF_BANK1 | 5
+SpriteScript_28_7A48:: ; 28:7A48
+	sprite_anim 1
+	sprite_anim_step 0, 8
+SpriteFrameTable_28_7A4B:: ; 28:7A4B
+	sprite_frame_table SpriteFrame_28_7A4D
+SpriteFrame_28_7A4D:: ; 28:7A4D
+	sprite_frame 3
+	sprite_oam 51, 48, $78, 2
+	sprite_oam 51, 56, $7A, 2
+	sprite_oam 38, 52, $56, OAMF_BANK1 | 5
+SpriteScript_28_7A5A:: ; 28:7A5A
+	sprite_anim 1
+	sprite_anim_step 0, 8

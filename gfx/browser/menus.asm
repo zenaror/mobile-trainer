@@ -71,86 +71,262 @@ Palette_72_7810::
 
 BrowserShared_ObjTable:: ; 72:7828
 Table_72_7828::
-	dw BrowserMenu_Cursor_ObjAnimData_72_78CA, $78F0, BrowserMenu_Cursor_ObjAnimData_72_78CA, $78F0, $7976, $799D, BrowserShared_ObjAnimData_72_79A0, $79BF
-	dw $79C3, $79E6, $7940, $7956, BrowserShared_ObjAnimData_72_795B, $7971, BrowserShared_ObjAnimData_72_78F5, $793B
-	dw BrowserShared_ObjAnimData_72_7894, $78AA, $78AF, $78C5, $79E9, $79FF, BrowserShared_ObjAnimData_72_7A04, $7A1A
-	dw BrowserShared_Anim12Frames, $7873, BrowserShared_Anim12Frames, $7873, $7876, $787D, BrowserShared_ObjAnimData_72_7880, $7887
-	dw $788A, $7891
+	sprite_object_entry BrowserMenu_Cursor_ObjAnimData_72_78CA, SpriteScript_72_78F0 ; entry 0
+	sprite_object_entry BrowserMenu_Cursor_ObjAnimData_72_78CA, SpriteScript_72_78F0 ; entry 1
+	sprite_object_entry SpriteFrameTable_72_7976, SpriteScript_72_799D ; entry 2
+	sprite_object_entry BrowserShared_ObjAnimData_72_79A0, SpriteScript_72_79BF ; entry 3
+	sprite_object_entry SpriteFrameTable_72_79C3, SpriteScript_72_79E6 ; entry 4
+	sprite_object_entry SpriteFrameTable_72_7940, SpriteScript_72_7956 ; entry 5
+	sprite_object_entry BrowserShared_ObjAnimData_72_795B, SpriteScript_72_7971 ; entry 6
+	sprite_object_entry BrowserShared_ObjAnimData_72_78F5, SpriteScript_72_793B ; entry 7
+	sprite_object_entry BrowserShared_ObjAnimData_72_7894, SpriteScript_72_78AA ; entry 8
+	sprite_object_entry SpriteFrameTable_72_78AF, SpriteScript_72_78C5 ; entry 9
+	sprite_object_entry SpriteFrameTable_72_79E9, SpriteScript_72_79FF ; entry 10
+	sprite_object_entry BrowserShared_ObjAnimData_72_7A04, SpriteScript_72_7A1A ; entry 11
+	sprite_object_entry BrowserShared_Anim12Frames, SpriteScript_72_7873 ; entry 12
+	sprite_object_entry BrowserShared_Anim12Frames, SpriteScript_72_7873 ; entry 13
+	sprite_object_entry SpriteFrameTable_72_7876, SpriteScript_72_787D ; entry 14
+	sprite_object_entry BrowserShared_ObjAnimData_72_7880, SpriteScript_72_7887 ; entry 15
+	sprite_object_entry SpriteFrameTable_72_788A, SpriteScript_72_7891 ; entry 16
 
 ; ---- data $786C-$786E (2 bytes) [PROBABLE] descriptor $786C = dw $786E (first word of the animation/sprite data block; target of table entry words)
 
 BrowserShared_Anim12Frames:: ; 72:786C
 Data_72_786C::
-	db $6E, $78
+	sprite_frame_table BrowserShared_ObjAnimData_72_786E
 
 ; ---- data $786E-$7880 (18 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_786E:: ; 72:786E
 Data_72_786E::
-	db $01, $00, $00, $FF, $07, $01, $00, $04, $78, $78, $01, $00, $00, $FF, $07, $01
-	db $00, $04
+	sprite_frame 1
+	sprite_oam 0, 0, $FF, 7
+SpriteScript_72_7873:: ; 72:7873
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_72_7876:: ; 72:7876
+	sprite_frame_table SpriteFrame_72_7878
+SpriteFrame_72_7878:: ; 72:7878
+	sprite_frame 1
+	sprite_oam 0, 0, $FF, 7
+SpriteScript_72_787D:: ; 72:787D
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- data $7880-$7894 (20 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_7880:: ; 72:7880
 Data_72_7880::
-	db $82, $78, $01, $00, $00, $FF, $07, $01, $00, $04, $8C, $78, $01, $00, $00, $FF
-	db $07, $01, $00, $04
+	sprite_frame_table SpriteFrame_72_7882
+SpriteFrame_72_7882:: ; 72:7882
+	sprite_frame 1
+	sprite_oam 0, 0, $FF, 7
+SpriteScript_72_7887:: ; 72:7887
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_72_788A:: ; 72:788A
+	sprite_frame_table SpriteFrame_72_788C
+SpriteFrame_72_788C:: ; 72:788C
+	sprite_frame 1
+	sprite_oam 0, 0, $FF, 7
+SpriteScript_72_7891:: ; 72:7891
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- data $7894-$78CA (54 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_7894:: ; 72:7894
 Data_72_7894::
-	db $98, $78, $A1, $78, $02, $00, $00, $0B, $07, $00, $08, $0C, $07, $02, $FF, $00
-	db $0B, $07, $FF, $08, $0C, $07, $02, $00, $2E, $01, $08, $B3, $78, $BC, $78, $02
-	db $00, $00, $0B, $47, $00, $08, $0C, $47, $02, $01, $00, $0B, $47, $01, $08, $0C
-	db $47, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_72_7898, SpriteFrame_72_78A1
+SpriteFrame_72_7898:: ; 72:7898
+	sprite_frame 2
+	sprite_oam 0, 0, $0B, 7
+	sprite_oam 0, 8, $0C, 7
+SpriteFrame_72_78A1:: ; 72:78A1
+	sprite_frame 2
+	sprite_oam -1, 0, $0B, 7
+	sprite_oam -1, 8, $0C, 7
+SpriteScript_72_78AA:: ; 72:78AA
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_72_78AF:: ; 72:78AF
+	sprite_frame_table SpriteFrame_72_78B3, SpriteFrame_72_78BC
+SpriteFrame_72_78B3:: ; 72:78B3
+	sprite_frame 2
+	sprite_oam 0, 0, $0B, OAMF_YFLIP | 7
+	sprite_oam 0, 8, $0C, OAMF_YFLIP | 7
+SpriteFrame_72_78BC:: ; 72:78BC
+	sprite_frame 2
+	sprite_oam 1, 0, $0B, OAMF_YFLIP | 7
+	sprite_oam 1, 8, $0C, OAMF_YFLIP | 7
+SpriteScript_72_78C5:: ; 72:78C5
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- data $78CA-$78F5 (43 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserMenu_Cursor_ObjAnimData_72_78CA:: ; 72:78CA
 Data_72_78CA::
-	db $CE, $78, $DF, $78, $04, $FE, $FE, $81, $0C, $FE, $0A, $81, $2C, $0A, $FE, $81
-	db $4C, $0A, $0A, $81, $6C, $04, $FD, $FD, $81, $0C, $FD, $0B, $81, $2C, $0B, $FD
-	db $81, $4C, $0B, $0B, $81, $6C, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_72_78CE, SpriteFrame_72_78DF
+SpriteFrame_72_78CE:: ; 72:78CE
+	sprite_frame 4
+	sprite_oam -2, -2, $81, OAMF_BANK1 | 4
+	sprite_oam -2, 10, $81, OAMF_XFLIP | OAMF_BANK1 | 4
+	sprite_oam 10, -2, $81, OAMF_YFLIP | OAMF_BANK1 | 4
+	sprite_oam 10, 10, $81, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 4
+SpriteFrame_72_78DF:: ; 72:78DF
+	sprite_frame 4
+	sprite_oam -3, -3, $81, OAMF_BANK1 | 4
+	sprite_oam -3, 11, $81, OAMF_XFLIP | OAMF_BANK1 | 4
+	sprite_oam 11, -3, $81, OAMF_YFLIP | OAMF_BANK1 | 4
+	sprite_oam 11, 11, $81, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 4
+SpriteScript_72_78F0:: ; 72:78F0
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- data $78F5-$795B (102 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_78F5:: ; 72:78F5
 Data_72_78F5::
-	db $F9, $78, $1A, $79, $08, $ED, $F8, $F8, $0C, $ED, $00, $F9, $0C, $ED, $08, $FA
-	db $0C, $ED, $10, $FB, $0C, $F5, $F8, $FC, $0C, $F5, $00, $FD, $0C, $F5, $08, $FE
-	db $0C, $F5, $10, $FF, $0C, $08, $EC, $F8, $F8, $0C, $EC, $00, $F9, $0C, $EC, $08
-	db $FA, $0C, $EC, $10, $FB, $0C, $F4, $F8, $FC, $0C, $F4, $00, $FD, $0C, $F4, $08
-	db $FE, $0C, $F4, $10, $FF, $0C, $02, $00, $2E, $01, $08, $44, $79, $4D, $79, $02
-	db $00, $00, $0B, $07, $00, $08, $0C, $07, $02, $FF, $00, $0B, $07, $FF, $08, $0C
-	db $07, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_72_78F9, SpriteFrame_72_791A
+SpriteFrame_72_78F9:: ; 72:78F9
+	sprite_frame 8
+	sprite_oam -19, -8, $F8, OAMF_BANK1 | 4
+	sprite_oam -19, 0, $F9, OAMF_BANK1 | 4
+	sprite_oam -19, 8, $FA, OAMF_BANK1 | 4
+	sprite_oam -19, 16, $FB, OAMF_BANK1 | 4
+	sprite_oam -11, -8, $FC, OAMF_BANK1 | 4
+	sprite_oam -11, 0, $FD, OAMF_BANK1 | 4
+	sprite_oam -11, 8, $FE, OAMF_BANK1 | 4
+	sprite_oam -11, 16, $FF, OAMF_BANK1 | 4
+SpriteFrame_72_791A:: ; 72:791A
+	sprite_frame 8
+	sprite_oam -20, -8, $F8, OAMF_BANK1 | 4
+	sprite_oam -20, 0, $F9, OAMF_BANK1 | 4
+	sprite_oam -20, 8, $FA, OAMF_BANK1 | 4
+	sprite_oam -20, 16, $FB, OAMF_BANK1 | 4
+	sprite_oam -12, -8, $FC, OAMF_BANK1 | 4
+	sprite_oam -12, 0, $FD, OAMF_BANK1 | 4
+	sprite_oam -12, 8, $FE, OAMF_BANK1 | 4
+	sprite_oam -12, 16, $FF, OAMF_BANK1 | 4
+SpriteScript_72_793B:: ; 72:793B
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_72_7940:: ; 72:7940
+	sprite_frame_table SpriteFrame_72_7944, SpriteFrame_72_794D
+SpriteFrame_72_7944:: ; 72:7944
+	sprite_frame 2
+	sprite_oam 0, 0, $0B, 7
+	sprite_oam 0, 8, $0C, 7
+SpriteFrame_72_794D:: ; 72:794D
+	sprite_frame 2
+	sprite_oam -1, 0, $0B, 7
+	sprite_oam -1, 8, $0C, 7
+SpriteScript_72_7956:: ; 72:7956
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- data $795B-$79A0 (69 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_795B:: ; 72:795B
 Data_72_795B::
-	db $5F, $79, $68, $79, $02, $00, $00, $0B, $47, $00, $08, $0C, $47, $02, $01, $00
-	db $0B, $47, $01, $08, $0C, $47, $02, $00, $2E, $01, $08, $78, $79, $09, $ED, $F8
-	db $82, $0C, $ED, $00, $83, $0C, $ED, $08, $84, $0C, $ED, $10, $85, $0C, $F5, $F8
-	db $92, $0C, $F5, $00, $93, $0C, $F5, $08, $94, $0C, $F5, $10, $95, $0C, $F5, $18
-	db $96, $0C, $01, $00, $04
+	sprite_frame_table SpriteFrame_72_795F, SpriteFrame_72_7968
+SpriteFrame_72_795F:: ; 72:795F
+	sprite_frame 2
+	sprite_oam 0, 0, $0B, OAMF_YFLIP | 7
+	sprite_oam 0, 8, $0C, OAMF_YFLIP | 7
+SpriteFrame_72_7968:: ; 72:7968
+	sprite_frame 2
+	sprite_oam 1, 0, $0B, OAMF_YFLIP | 7
+	sprite_oam 1, 8, $0C, OAMF_YFLIP | 7
+SpriteScript_72_7971:: ; 72:7971
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_72_7976:: ; 72:7976
+	sprite_frame_table SpriteFrame_72_7978
+SpriteFrame_72_7978:: ; 72:7978
+	sprite_frame 9
+	sprite_oam -19, -8, $82, OAMF_BANK1 | 4
+	sprite_oam -19, 0, $83, OAMF_BANK1 | 4
+	sprite_oam -19, 8, $84, OAMF_BANK1 | 4
+	sprite_oam -19, 16, $85, OAMF_BANK1 | 4
+	sprite_oam -11, -8, $92, OAMF_BANK1 | 4
+	sprite_oam -11, 0, $93, OAMF_BANK1 | 4
+	sprite_oam -11, 8, $94, OAMF_BANK1 | 4
+	sprite_oam -11, 16, $95, OAMF_BANK1 | 4
+	sprite_oam -11, 24, $96, OAMF_BANK1 | 4
+SpriteScript_72_799D:: ; 72:799D
+	sprite_anim 1
+	sprite_anim_step 0, 4
 
 ; ---- data $79A0-$7A04 (100 bytes) [PROBABLE] animation-descriptor / sprite-list block reached from the object table 72:7828: sprite lists = count + count*(y,x,tile,attr) (e.g. 72:78CE 04 fe fe 81 0c ...) and descriptors (01 00 04 dw / 02 00 2e 01 08 dw dw); the table words partition 786C-7A1F exactly at descriptor starts; other bytes of this block are CONFIRMED read by executed code (1/18)
 
 BrowserShared_ObjAnimData_72_79A0:: ; 72:79A0
 Data_72_79A0::
-	db $A2, $79, $07, $ED, $F9, $87, $0C, $ED, $01, $88, $0C, $ED, $09, $89, $0C, $F5
-	db $F9, $97, $0C, $F5, $01, $98, $0C, $F5, $09, $99, $0C, $F5, $11, $86, $0C, $01
-	db $00, $04, $00, $C5, $79, $08, $ED, $F8, $8A, $0C, $ED, $00, $8B, $0C, $ED, $08
-	db $8C, $0C, $ED, $10, $8D, $0C, $F5, $F8, $9A, $0C, $F5, $00, $9B, $0C, $F5, $08
-	db $9C, $0C, $F5, $10, $9D, $0C, $01, $00, $04, $ED, $79, $F6, $79, $02, $00, $00
-	db $00, $00, $00, $08, $01, $00, $02, $FF, $00, $00, $00, $FF, $08, $01, $00, $02
-	db $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_72_79A2
+SpriteFrame_72_79A2:: ; 72:79A2
+	sprite_frame 7
+	sprite_oam -19, -7, $87, OAMF_BANK1 | 4
+	sprite_oam -19, 1, $88, OAMF_BANK1 | 4
+	sprite_oam -19, 9, $89, OAMF_BANK1 | 4
+	sprite_oam -11, -7, $97, OAMF_BANK1 | 4
+	sprite_oam -11, 1, $98, OAMF_BANK1 | 4
+	sprite_oam -11, 9, $99, OAMF_BANK1 | 4
+	sprite_oam -11, 17, $86, OAMF_BANK1 | 4
+SpriteScript_72_79BF:: ; 72:79BF
+	sprite_anim 1
+	sprite_anim_step 0, 4
+	db $00
+SpriteFrameTable_72_79C3:: ; 72:79C3
+	sprite_frame_table SpriteFrame_72_79C5
+SpriteFrame_72_79C5:: ; 72:79C5
+	sprite_frame 8
+	sprite_oam -19, -8, $8A, OAMF_BANK1 | 4
+	sprite_oam -19, 0, $8B, OAMF_BANK1 | 4
+	sprite_oam -19, 8, $8C, OAMF_BANK1 | 4
+	sprite_oam -19, 16, $8D, OAMF_BANK1 | 4
+	sprite_oam -11, -8, $9A, OAMF_BANK1 | 4
+	sprite_oam -11, 0, $9B, OAMF_BANK1 | 4
+	sprite_oam -11, 8, $9C, OAMF_BANK1 | 4
+	sprite_oam -11, 16, $9D, OAMF_BANK1 | 4
+SpriteScript_72_79E6:: ; 72:79E6
+	sprite_anim 1
+	sprite_anim_step 0, 4
+SpriteFrameTable_72_79E9:: ; 72:79E9
+	sprite_frame_table SpriteFrame_72_79ED, SpriteFrame_72_79F6
+SpriteFrame_72_79ED:: ; 72:79ED
+	sprite_frame 2
+	sprite_oam 0, 0, $00, 0
+	sprite_oam 0, 8, $01, 0
+SpriteFrame_72_79F6:: ; 72:79F6
+	sprite_frame 2
+	sprite_oam -1, 0, $00, 0
+	sprite_oam -1, 8, $01, 0
+SpriteScript_72_79FF:: ; 72:79FF
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- data $7A04-$7A1F (27 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
 BrowserShared_ObjAnimData_72_7A04:: ; 72:7A04
 Data_72_7A04::
-	db $08, $7A, $11, $7A, $02, $00, $00, $00, $40, $00, $08, $01, $40, $02, $01, $00
-	db $00, $40, $01, $08, $01, $40, $02, $00, $2E, $01, $08
+	sprite_frame_table SpriteFrame_72_7A08, SpriteFrame_72_7A11
+SpriteFrame_72_7A08:: ; 72:7A08
+	sprite_frame 2
+	sprite_oam 0, 0, $00, OAMF_YFLIP
+	sprite_oam 0, 8, $01, OAMF_YFLIP
+SpriteFrame_72_7A11:: ; 72:7A11
+	sprite_frame 2
+	sprite_oam 1, 0, $00, OAMF_YFLIP
+	sprite_oam 1, 8, $01, OAMF_YFLIP
+SpriteScript_72_7A1A:: ; 72:7A1A
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8

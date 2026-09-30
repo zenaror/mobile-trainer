@@ -55,6 +55,11 @@ class Rom:
         return self.d[o] | (self.d[o + 1] << 8)
 
 
+# labels that tools/sprite_to_macros.py adds (one per pointer target that had no label): they are role labels inside the groups that the
+# names cover, so they must not cut the extent of a group (`ObjAnimData` blocks, `Frame<k>To<m>` records); the walk ignores them
+GENERATED_LABEL = re.compile(r'^Sprite(FrameTable|Frame|Script)_[0-9A-F]{2}_[0-9A-F]{4}$')
+
+
 def load_sym(path):
     names = collections.defaultdict(list)     # (bank, addr) -> [names]
     by_name = {}
@@ -63,7 +68,7 @@ def load_sym(path):
         if not m:
             continue
         bank, addr, nm = int(m.group(1), 16), int(m.group(2), 16), m.group(3)
-        if '.' in nm or addr >= 0x8000:
+        if '.' in nm or addr >= 0x8000 or GENERATED_LABEL.match(nm):
             continue
         names[(bank, addr)].append(nm)
         by_name[nm] = (bank, addr)

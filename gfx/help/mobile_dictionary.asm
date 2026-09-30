@@ -52,7 +52,17 @@ Palette_MobileDict_Obj:: ; 1A:53D0
 
 Objects_MobileDict:: ; 1A:55A0
 Data_1A_55A0::
-	db $10, $54, $26, $54, $2B, $54, $41, $54, $46, $54, $61, $54, $64, $54, $7F, $54
-	db $82, $54, $9D, $54, $A0, $54, $BB, $54, $BE, $54, $D9, $54, $DC, $54, $F7, $54
-	db $FA, $54, $15, $55, $18, $55, $33, $55, $36, $55, $51, $55, $54, $55, $6F, $55
-	db $72, $55, $9D, $55, $00, $00, $00, $00, $00, $00
+	db $10, $54, $26, $54 ; sprite object-table entry kept as db: pointer target 1A:5410 has no label
+	db $2B, $54, $41, $54 ; sprite object-table entry kept as db: pointer target 1A:542B has no label
+	db $46, $54, $61, $54 ; sprite object-table entry kept as db: pointer target 1A:5446 has no label
+	db $64, $54, $7F, $54 ; sprite object-table entry kept as db: pointer target 1A:5464 has no label
+	db $82, $54, $9D, $54 ; sprite object-table entry kept as db: pointer target 1A:5482 has no label
+	db $A0, $54, $BB, $54 ; sprite object-table entry kept as db: pointer target 1A:54A0 has no label
+	db $BE, $54, $D9, $54 ; sprite object-table entry kept as db: pointer target 1A:54BE has no label
+	db $DC, $54, $F7, $54 ; sprite object-table entry kept as db: pointer target 1A:54DC has no label
+	db $FA, $54, $15, $55 ; sprite object-table entry kept as db: pointer target 1A:54FA has no label
+	db $18, $55, $33, $55 ; sprite object-table entry kept as db: pointer target 1A:5518 has no label
+	db $36, $55, $51, $55 ; sprite object-table entry kept as db: pointer target 1A:5536 has no label
+	db $54, $55, $6F, $55 ; sprite object-table entry kept as db: pointer target 1A:5554 has no label
+	db $72, $55, $9D, $55 ; sprite object-table entry kept as db: pointer target 1A:5572 has no label
+	db $00, $00, $00, $00, $00, $00

@@ -55,18 +55,61 @@ MailServerDeleteMethod_ObjPalette:: ; 28:6E40
 
 MailServerDeleteMethod_ObjTable:: ; 28:6E80
 Table_28_6E80::
-	dw MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6
-	dw $6ECB, $6F09, $6ECB, $6F09, $6ECB, $6F09, $6ECB, $6F09
+	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 0
+	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 1
+	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 2
+	sprite_object_entry MailServerDeleteMethod_ObjAnimData, SpriteScript_28_6EC6 ; entry 3
+	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 4
+	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 5
+	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 6
+	sprite_object_entry SpriteFrameTable_28_6ECB, SpriteScript_28_6F09 ; entry 7
 
 ; ---- data $6EA0-$6F20 (128 bytes) [PROBABLE] 2 object record(s): 2 frame tables, 4 frames, 3 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 6ECB-6F12 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 MailServerDeleteMethod_ObjAnimData:: ; 28:6EA0
 Data_28_6EA0::
-	db $A4, $6E, $B5, $6E, $04, $FE, $FE, $00, $00, $FE, $1A, $00, $20, $0A, $FE, $00
-	db $40, $0A, $1A, $00, $60, $04, $FD, $FD, $00, $00, $FD, $1B, $00, $20, $0B, $FD
-	db $00, $40, $0B, $1B, $00, $60, $02, $00, $2E, $01, $08, $CF, $6E, $EC, $6E, $07
-	db $1D, $13, $00, $00, $1D, $1B, $01, $00, $25, $13, $02, $00, $25, $1B, $03, $00
-	db $2D, $13, $04, $00, $2D, $1B, $05, $00, $1E, $20, $06, $00, $07, $1D, $13, $00
-	db $00, $1D, $1B, $01, $00, $25, $13, $02, $00, $25, $1B, $03, $00, $2D, $13, $04
-	db $00, $2D, $1B, $05, $00, $1D, $20, $07, $00, $04, $01, $07, $00, $07, $01, $07
-	db $00, $78, $01, $00, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	sprite_frame_table SpriteFrame_28_6EA4, SpriteFrame_28_6EB5
+SpriteFrame_28_6EA4:: ; 28:6EA4
+	sprite_frame 4
+	sprite_oam -2, -2, $00, 0
+	sprite_oam -2, 26, $00, OAMF_XFLIP
+	sprite_oam 10, -2, $00, OAMF_YFLIP
+	sprite_oam 10, 26, $00, OAMF_YFLIP | OAMF_XFLIP
+SpriteFrame_28_6EB5:: ; 28:6EB5
+	sprite_frame 4
+	sprite_oam -3, -3, $00, 0
+	sprite_oam -3, 27, $00, OAMF_XFLIP
+	sprite_oam 11, -3, $00, OAMF_YFLIP
+	sprite_oam 11, 27, $00, OAMF_YFLIP | OAMF_XFLIP
+SpriteScript_28_6EC6:: ; 28:6EC6
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
+SpriteFrameTable_28_6ECB:: ; 28:6ECB
+	sprite_frame_table SpriteFrame_28_6ECF, SpriteFrame_28_6EEC
+SpriteFrame_28_6ECF:: ; 28:6ECF
+	sprite_frame 7
+	sprite_oam 29, 19, $00, 0
+	sprite_oam 29, 27, $01, 0
+	sprite_oam 37, 19, $02, 0
+	sprite_oam 37, 27, $03, 0
+	sprite_oam 45, 19, $04, 0
+	sprite_oam 45, 27, $05, 0
+	sprite_oam 30, 32, $06, 0
+SpriteFrame_28_6EEC:: ; 28:6EEC
+	sprite_frame 7
+	sprite_oam 29, 19, $00, 0
+	sprite_oam 29, 27, $01, 0
+	sprite_oam 37, 19, $02, 0
+	sprite_oam 37, 27, $03, 0
+	sprite_oam 45, 19, $04, 0
+	sprite_oam 45, 27, $05, 0
+	sprite_oam 29, 32, $07, 0
+SpriteScript_28_6F09:: ; 28:6F09
+	sprite_anim 4
+	sprite_anim_step 1, 7
+	sprite_anim_step 0, 7
+	sprite_anim_step 1, 7
+	sprite_anim_step 0, 120
+	db $01, $00, $04 ; not reached by any walked sprite chain
+	ds $B, $00

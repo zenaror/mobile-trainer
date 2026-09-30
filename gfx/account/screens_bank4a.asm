@@ -8,14 +8,30 @@ SECTION "gfx/account/screens_bank4a", ROMX
 
 ConfirmPages_ObjTable:: ; 4A:4000
 Table_4A_4000::
-	dw $0000, $0000
+	sprite_object_entry 0, 0 ; entry 0
 
 ; ---- data $4004-$4033 (47 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
 
 Data_4A_4004:: ; 4A:4004
-	db $08, $40, $2E, $40, $0C, $40, $1D, $40, $04, $00, $00, $00, $0F, $08, $00, $00
-	db $4F, $00, $18, $00, $2F, $08, $18, $00, $6F, $04, $FF, $FF, $00, $0F, $09, $FF
-	db $00, $4F, $FF, $19, $00, $2F, $09, $19, $00, $6F, $02, $00, $2E, $01, $08
+	sprite_object_entry SpriteFrameTable_4A_4008, SpriteScript_4A_402E ; entry 1
+SpriteFrameTable_4A_4008:: ; 4A:4008
+	sprite_frame_table SpriteFrame_4A_400C, SpriteFrame_4A_401D
+SpriteFrame_4A_400C:: ; 4A:400C
+	sprite_frame 4
+	sprite_oam 0, 0, $00, OAMF_BANK1 | 7
+	sprite_oam 8, 0, $00, OAMF_YFLIP | OAMF_BANK1 | 7
+	sprite_oam 0, 24, $00, OAMF_XFLIP | OAMF_BANK1 | 7
+	sprite_oam 8, 24, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 7
+SpriteFrame_4A_401D:: ; 4A:401D
+	sprite_frame 4
+	sprite_oam -1, -1, $00, OAMF_BANK1 | 7
+	sprite_oam 9, -1, $00, OAMF_YFLIP | OAMF_BANK1 | 7
+	sprite_oam -1, 25, $00, OAMF_XFLIP | OAMF_BANK1 | 7
+	sprite_oam 9, 25, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 7
+SpriteScript_4A_402E:: ; 4A:402E
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- zero $4033-$4040 (13 bytes) [PROBABLE] 13 x 00 between the descriptor data ending at 4033 and the tile block at 4A:4040
 	ds $D, $00
@@ -124,14 +140,22 @@ Data_4A_5810:: ; 4A:5810
 
 SettingsMenu_ObjTable:: ; 4A:5838
 Table_4A_5838::
-	dw $0000, $0000
+	sprite_object_entry 0, 0 ; entry 0
 
 ; ---- data $583C-$5860 (36 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 583C-586B by higher-priority evidence]
 
 Data_4A_583C:: ; 4A:583C
-	db $40, $58, $66, $58, $44, $58, $55, $58, $04, $00, $FF, $00, $08, $08, $FF, $10
-	db $08, $00, $59, $00, $28, $08, $59, $10, $28, $04, $00, $FE, $00, $08, $08, $FE
-	db $10, $08, $00, $5A
+	db $40, $58, $66, $58 ; sprite object-table entry kept as db: pointer target 4A:5866 has no label
+SpriteFrameTable_4A_5840:: ; 4A:5840
+	sprite_frame_table SpriteFrame_4A_5844, SpriteFrame_4A_5855
+SpriteFrame_4A_5844:: ; 4A:5844
+	sprite_frame 4
+	sprite_oam 0, -1, $00, OAMF_BANK1
+	sprite_oam 8, -1, $10, OAMF_BANK1
+	sprite_oam 0, 89, $00, OAMF_XFLIP | OAMF_BANK1
+	sprite_oam 8, 89, $10, OAMF_XFLIP | OAMF_BANK1
+SpriteFrame_4A_5855:: ; 4A:5855
+	db $04, $00, $FE, $00, $08, $08, $FE, $10, $08, $00, $5A ; sprite frame record kept as db: the item crosses the end of its block
 
 ; ---- gfx $5860-$5870 (16 bytes) [PROBABLE] tiles-2bpp: heuristic: 56 coherent tiles (hsim2=0.705 vsim2=0.733, 10 blank) parity 0; 1024/1104 bytes also covered by call-site blocks [clipped from 5860-5CB0 by higher-priority evidence]
 

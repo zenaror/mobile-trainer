@@ -129,16 +129,57 @@ Data_1D_62AC:: ; 1D:62AC
 
 Data_MailMenu_ObjectRecords:: ; 1D:6320
 Data_1D_6320::
-	db $11, $00, $F8, $20, $12, $00, $06, $F2, $14, $03, $00, $F2, $1C, $04, $00, $F2
-	db $24, $05, $00, $FA, $14, $13, $00, $FA, $1C, $14, $00, $FA, $24, $15, $00, $06
-	db $F0, $18, $06, $00, $F0, $20, $07, $00, $F0, $28, $08, $00, $F8, $18, $16, $00
-	db $F8, $20, $17, $00, $F8, $28, $18, $00, $06, $F2, $1C, $00, $00, $F2, $24, $01
-	db $00, $F2, $2C, $02, $00, $FA, $1C, $10, $00, $FA, $24, $11, $00, $FA, $2C, $12
-	db $00, $06, $F0, $20, $03, $00, $F0, $28, $04, $00, $F0, $30, $05, $00, $F8, $20
-	db $13, $00, $F8, $28, $14, $00, $F8, $30, $15, $00, $06, $F2, $24, $06, $00, $F2
-	db $2C, $07, $00, $F2, $34, $08, $00, $FA, $24, $16, $00, $FA, $2C, $17, $00, $FA
-	db $34, $18, $00, $09, $00, $08, $01, $08, $02, $08, $03, $08, $04, $08, $05, $08
-	db $06, $08, $07, $08, $08, $08
-
+	db $11, $00, $F8, $20, $12, $00 ; not reached by any walked sprite chain
+SpriteFrame_1D_6326:: ; 1D:6326
+	sprite_frame 6
+	sprite_oam -14, 20, $03, 0
+	sprite_oam -14, 28, $04, 0
+	sprite_oam -14, 36, $05, 0
+	sprite_oam -6, 20, $13, 0
+	sprite_oam -6, 28, $14, 0
+	sprite_oam -6, 36, $15, 0
+SpriteFrame_1D_633F:: ; 1D:633F
+	sprite_frame 6
+	sprite_oam -16, 24, $06, 0
+	sprite_oam -16, 32, $07, 0
+	sprite_oam -16, 40, $08, 0
+	sprite_oam -8, 24, $16, 0
+	sprite_oam -8, 32, $17, 0
+	sprite_oam -8, 40, $18, 0
+SpriteFrame_1D_6358:: ; 1D:6358
+	sprite_frame 6
+	sprite_oam -14, 28, $00, 0
+	sprite_oam -14, 36, $01, 0
+	sprite_oam -14, 44, $02, 0
+	sprite_oam -6, 28, $10, 0
+	sprite_oam -6, 36, $11, 0
+	sprite_oam -6, 44, $12, 0
+SpriteFrame_1D_6371:: ; 1D:6371
+	sprite_frame 6
+	sprite_oam -16, 32, $03, 0
+	sprite_oam -16, 40, $04, 0
+	sprite_oam -16, 48, $05, 0
+	sprite_oam -8, 32, $13, 0
+	sprite_oam -8, 40, $14, 0
+	sprite_oam -8, 48, $15, 0
+SpriteFrame_1D_638A:: ; 1D:638A
+	sprite_frame 6
+	sprite_oam -14, 36, $06, 0
+	sprite_oam -14, 44, $07, 0
+	sprite_oam -14, 52, $08, 0
+	sprite_oam -6, 36, $16, 0
+	sprite_oam -6, 44, $17, 0
+	sprite_oam -6, 52, $18, 0
+SpriteScript_1D_63A3:: ; 1D:63A3
+	sprite_anim 9
+	sprite_anim_step 0, 8
+	sprite_anim_step 1, 8
+	sprite_anim_step 2, 8
+	sprite_anim_step 3, 8
+	sprite_anim_step 4, 8
+	sprite_anim_step 5, 8
+	sprite_anim_step 6, 8
+	sprite_anim_step 7, 8
+	sprite_anim_step 8, 8
 Table_MailMenu_Objects:: ; 1D:63B6
-	db $B0, $62, $A3, $63
+	db $B0, $62, $A3, $63 ; sprite object-table entry kept as db: pointer target 1D:62B0 has no label

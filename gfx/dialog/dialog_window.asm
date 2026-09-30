@@ -30,14 +30,30 @@ Dialog_ObjPalette:: ; 72:4E38
 
 Dialog_CursorObjTable:: ; 72:4E40
 Table_72_4E40::
-	dw $4E48, $4E6E
+	sprite_object_entry SpriteFrameTable_72_4E48, SpriteScript_72_4E6E ; entry 0
 
 ; ---- data $4E44-$4E73 (47 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 4E44-502B by higher-priority evidence]
 
 Data_72_4E44:: ; 72:4E44
-	db $48, $4E, $6E, $4E, $4C, $4E, $5D, $4E, $04, $FE, $FE, $81, $0C, $0A, $FE, $81
-	db $4C, $FE, $1A, $81, $2C, $0A, $1A, $81, $6C, $04, $FD, $FD, $81, $0C, $0B, $FD
-	db $81, $4C, $FD, $1B, $81, $2C, $0B, $1B, $81, $6C, $02, $00, $2E, $01, $08
+	sprite_object_entry SpriteFrameTable_72_4E48, SpriteScript_72_4E6E ; entry 1
+SpriteFrameTable_72_4E48:: ; 72:4E48
+	sprite_frame_table SpriteFrame_72_4E4C, SpriteFrame_72_4E5D
+SpriteFrame_72_4E4C:: ; 72:4E4C
+	sprite_frame 4
+	sprite_oam -2, -2, $81, OAMF_BANK1 | 4
+	sprite_oam 10, -2, $81, OAMF_YFLIP | OAMF_BANK1 | 4
+	sprite_oam -2, 26, $81, OAMF_XFLIP | OAMF_BANK1 | 4
+	sprite_oam 10, 26, $81, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 4
+SpriteFrame_72_4E5D:: ; 72:4E5D
+	sprite_frame 4
+	sprite_oam -3, -3, $81, OAMF_BANK1 | 4
+	sprite_oam 11, -3, $81, OAMF_YFLIP | OAMF_BANK1 | 4
+	sprite_oam -3, 27, $81, OAMF_XFLIP | OAMF_BANK1 | 4
+	sprite_oam 11, 27, $81, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1 | 4
+SpriteScript_72_4E6E:: ; 72:4E6E
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- data $4E73-$502B (440 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 72:4212: hl=$4E73 a=$72 b=11 rows c=20 cols (tiles then attrs) de=$D140
 

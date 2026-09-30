@@ -161,44 +161,65 @@ Palette_50_6BC0::
 
 CommNotice_Anim0Frames:: ; 50:6CC0
 Table_50_6CC0::
-	dw CommNotice_Anim0Frame0To1, $6CD5
+	sprite_frame_table CommNotice_Anim0Frame0To1, SpriteFrame_50_6CD5
 
 ; ---- data $6CC4-$6CE6 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each): count=4 then 4x(y,x,tile,attr), e.g. ff ff 00 08 / 0b ff 00 48 / 0b 1b 00 68 / ff 1b 00 28 (attr bit6/5 = flips); matches the (Y,X,tile,attr) tuples the engine at 00:0AE8 emits
 
 CommNotice_Anim0Frame0To1:: ; 50:6CC4
 Data_50_6CC4::
-	db $04, $FF, $FF, $00, $08, $0B, $FF, $00, $48, $0B, $1B, $00, $68, $FF, $1B, $00
-	db $28, $04, $FE, $FE, $00, $08, $0C, $FE, $00, $48, $0C, $1C, $00, $68, $FE, $1C
-	db $00, $28
+	sprite_frame 4
+	sprite_oam -1, -1, $00, OAMF_BANK1
+	sprite_oam 11, -1, $00, OAMF_YFLIP | OAMF_BANK1
+	sprite_oam 11, 27, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
+	sprite_oam -1, 27, $00, OAMF_XFLIP | OAMF_BANK1
+SpriteFrame_50_6CD5:: ; 50:6CD5
+	sprite_frame 4
+	sprite_oam -2, -2, $00, OAMF_BANK1
+	sprite_oam 12, -2, $00, OAMF_YFLIP | OAMF_BANK1
+	sprite_oam 12, 28, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
+	sprite_oam -2, 28, $00, OAMF_XFLIP | OAMF_BANK1
 
-; ---- data $6CE6-$6CEB (5 bytes) [HYPOTHESIS] 5-byte record referenced as 2nd word of animation entry 0 (Table_50_6D16); read through slot[6..7] by 00:0AB8 (bytes 1,2 copied to slot[9..A]); assumed animation script (02 00 2e 01 08)
+; ---- data $6CE6-$6CEB (5 bytes) [HYPOTHESIS] 5-byte record referenced as 2nd word of animation entry 0 (Table_50_6D16); read through slot[6..7] by 00:0AB8 (bytes 1,2 = first frame index and delay, copied to slot[4..5] by 00:0ADA-0AE0; the earlier text said slot[9..A], which is wrong: docs/research/sprite_format.md); assumed animation script (02 00 2e 01 08)
 
 CommNotice_Anim0Script:: ; 50:6CE6
 Data_50_6CE6::
-	db $02, $00, $2E, $01, $08
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- words $6CEB-$6CEF (4 bytes) [PROBABLE] animation entry B frame-table: pointers $6CEF/$6D00
 
 CommNotice_Anim1Frames:: ; 50:6CEB
 Table_50_6CEB::
-	dw CommNotice_Anim1Frame0To1, $6D00
+	sprite_frame_table CommNotice_Anim1Frame0To1, SpriteFrame_50_6D00
 
 ; ---- data $6CEF-$6D11 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each), same format as 6CC4 (count + 4x y,x,tile,attr)
 
 CommNotice_Anim1Frame0To1:: ; 50:6CEF
 Data_50_6CEF::
-	db $04, $FF, $FF, $00, $08, $0B, $FF, $00, $48, $0B, $1B, $00, $68, $FF, $1B, $00
-	db $28, $04, $FE, $FE, $00, $08, $0C, $FE, $00, $48, $0C, $1C, $00, $68, $FE, $1C
-	db $00, $28
+	sprite_frame 4
+	sprite_oam -1, -1, $00, OAMF_BANK1
+	sprite_oam 11, -1, $00, OAMF_YFLIP | OAMF_BANK1
+	sprite_oam 11, 27, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
+	sprite_oam -1, 27, $00, OAMF_XFLIP | OAMF_BANK1
+SpriteFrame_50_6D00:: ; 50:6D00
+	sprite_frame 4
+	sprite_oam -2, -2, $00, OAMF_BANK1
+	sprite_oam 12, -2, $00, OAMF_YFLIP | OAMF_BANK1
+	sprite_oam 12, 28, $00, OAMF_YFLIP | OAMF_XFLIP | OAMF_BANK1
+	sprite_oam -2, 28, $00, OAMF_XFLIP | OAMF_BANK1
 
 ; ---- data $6D11-$6D16 (5 bytes) [HYPOTHESIS] 5-byte record, 2nd word of animation entry 1 (Table_50_6D16): 02 00 2e 01 08 identical to 6CE6
 
 CommNotice_Anim1Script:: ; 50:6D11
 Data_50_6D11::
-	db $02, $00, $2E, $01, $08
+	sprite_anim 2
+	sprite_anim_step 0, 46
+	sprite_anim_step 1, 8
 
 ; ---- words $6D16-$6D1E (8 bytes) [PROBABLE] animation table of 2 four-byte entries (frame-table ptr, script ptr): $6CC0,$6CE6 / $6CEB,$6D11; used as DE of 00:0A82 (sprite slot init: 4*(A&7F) indexed) at 50:4150 (ld de,$6D16 with b=$80) [00:0AB8 layout verified from ROM0 disassembly]
 
 CommNotice_ObjTable:: ; 50:6D16
 Table_50_6D16::
-	dw CommNotice_Anim0Frames, CommNotice_Anim0Script, CommNotice_Anim1Frames, CommNotice_Anim1Script
+	sprite_object_entry CommNotice_Anim0Frames, CommNotice_Anim0Script ; entry 0
+	sprite_object_entry CommNotice_Anim1Frames, CommNotice_Anim1Script ; entry 1
