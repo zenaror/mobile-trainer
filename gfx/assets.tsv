@@ -1,0 +1,922 @@
+# gfx/assets.tsv -- written by tools/gfx_export.py (do not edit by hand)
+# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette
+# png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); view = picture for reading only (*_view.png); - = none
+# bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note
+path	type	size	asm	bank	addr	status	png	pad	dims	label
+data/fonts/ascii_6x12.bin	font6x12	1152	data/fonts/ascii_6x12.asm	76	67A8	PROBABLE	view	0		Data_76_67A8
+data/fonts/font_8x16_4adb.1bpp	font8x16	160	data/fonts/font_8x16.asm	48	4ADB	PROBABLE	view	0		Font_48_4ADB
+data/fonts/font_8x16_4b7b.1bpp	font8x16	416	data/fonts/font_8x16.asm	48	4B7B	PROBABLE	view	0		Font_48_4B7B
+data/fonts/font_8x16_4d1b.1bpp	font8x16	416	data/fonts/font_8x16.asm	48	4D1B	PROBABLE	view	0		Font_48_4D1B
+data/fonts/font_8x16_4ebb.1bpp	font8x16	1328	data/fonts/font_8x16.asm	48	4EBB	PROBABLE	view	0		Font_48_4EBB
+data/fonts/font_8x16_53eb.1bpp	font8x16	1360	data/fonts/font_8x16.asm	48	53EB	PROBABLE	view	0		Font_48_53EB
+data/fonts/font_8x16_593b.1bpp	font8x16	192	data/fonts/font_8x16.asm	48	593B	PROBABLE	view	0		Font_48_593B
+data/fonts/font_8x16_59fb.1bpp	font8x16	48	data/fonts/font_8x16.asm	48	59FB	PROBABLE	view	0		Font_48_59FB
+data/fonts/font_8x16_5a2b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5A2B	PROBABLE	view	0		Font_48_5A2B
+data/fonts/font_8x16_5a3b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5A3B	PROBABLE	view	0		Font_48_5A3B
+data/fonts/font_8x16_5a4b.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5A4B	PROBABLE	view	0		Font_48_5A4B
+data/fonts/font_8x16_5a6b.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5A6B	PROBABLE	view	0		Font_48_5A6B
+data/fonts/font_8x16_5a8b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5A8B	PROBABLE	view	0		Font_48_5A8B
+data/fonts/font_8x16_5a9b.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5A9B	PROBABLE	view	0		Font_48_5A9B
+data/fonts/font_8x16_5abb.1bpp	font8x16	64	data/fonts/font_8x16.asm	48	5ABB	PROBABLE	view	0		Font_48_5ABB
+data/fonts/font_8x16_5afb.1bpp	font8x16	128	data/fonts/font_8x16.asm	48	5AFB	PROBABLE	view	0		Font_48_5AFB
+data/fonts/font_8x16_5b7b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5B7B	PROBABLE	view	0		Font_48_5B7B
+data/fonts/font_8x16_5b8b.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5B8B	PROBABLE	view	0		Font_48_5B8B
+data/fonts/font_8x16_5bab.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5BAB	PROBABLE	view	0		Font_48_5BAB
+data/fonts/font_8x16_5bcb.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5BCB	PROBABLE	view	0		Font_48_5BCB
+data/fonts/font_8x16_5beb.1bpp	font8x16	32	data/fonts/font_8x16.asm	48	5BEB	PROBABLE	view	0		Font_48_5BEB
+data/fonts/font_8x16_5c0b.1bpp	font8x16	80	data/fonts/font_8x16.asm	48	5C0B	PROBABLE	view	0		Font_48_5C0B
+data/fonts/font_8x16_5c5b.1bpp	font8x16	64	data/fonts/font_8x16.asm	48	5C5B	PROBABLE	view	0		Font_48_5C5B
+data/fonts/font_8x16_5c9b.1bpp	font8x16	96	data/fonts/font_8x16.asm	48	5C9B	PROBABLE	view	0		Font_48_5C9B
+data/fonts/font_8x16_5cfb.1bpp	font8x16	96	data/fonts/font_8x16.asm	48	5CFB	PROBABLE	view	0		Font_48_5CFB
+data/fonts/font_8x16_5d5b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5D5B	PROBABLE	view	0		Font_48_5D5B
+data/fonts/font_8x16_5d6b.1bpp	font8x16	16	data/fonts/font_8x16.asm	48	5D6B	PROBABLE	view	0		Font_48_5D6B
+data/fonts/font_8x16_5d7b.1bpp	font8x16	80	data/fonts/font_8x16.asm	48	5D7B	PROBABLE	view	0		Font_48_5D7B
+data/fonts/jis12x12_rows_01_08_13.bin	font12	15228	data/fonts/jis12x12_rows_01_08_13.asm	7E	4000	PROBABLE	view	0		GlyphFont_Jis12x12_7E
+data/fonts/jis12x12_rows_16_24.bin	font12	15228	data/fonts/jis12x12_rows_16_24.asm	7D	4000	PROBABLE	view	0		GlyphFont_Jis12x12_7D
+data/fonts/jis12x12_rows_25_33_4000.bin	font12	6083	data/fonts/jis12x12_rows_25_33.asm	7C	4000	PROBABLE	view	0		GlyphFont_Jis12x12_7C
+data/fonts/jis12x12_rows_25_33_57cd.bin	font12	9135	data/fonts/jis12x12_rows_25_33.asm	7C	57CD	PROBABLE	view	0		Data_7C_57CD
+data/fonts/jis12x12_rows_34_42.bin	font12	15228	data/fonts/jis12x12_rows_34_42.asm	7B	4000	PROBABLE	view	0		Data_7B_4000
+data/fonts/jis12x12_rows_43_51.bin	font12	15228	data/fonts/jis12x12_rows_43_51.asm	7A	4000	PROBABLE	view	0		Data_7A_4000
+data/fonts/jis12x12_rows_52_60.bin	font12	15228	data/fonts/jis12x12_rows_52_60.asm	79	4000	PROBABLE	view	0		Data_79_4000
+data/fonts/jis12x12_rows_61_69.bin	font12	15228	data/fonts/jis12x12_rows_61_69.asm	78	4000	PROBABLE	view	0		Data_78_4000
+data/fonts/jis12x12_rows_70_78.bin	font12	15228	data/fonts/jis12x12_rows_70_78.asm	77	4000	PROBABLE	view	0		Data_77_4000
+data/fonts/jis12x12_rows_79_84.bin	font12	10152	data/fonts/jis12x12_rows_79_84.asm	76	4000	PROBABLE	view	0		Data_76_4000
+data/fonts/sjis_valid_bitmap.bin	sjisbitmap	8198	data/fonts/sjis_valid_bitmap.asm	63	407A	PROBABLE	view	0		Font_SjisValidBitmap
+gfx/account/screens_bank4a/tiles_4040.2bpp	tiles	512	gfx/account/screens_bank4a.asm	4A	4040	CONFIRMED	exact	0		Data_4A_4040
+gfx/account/screens_bank4a/tiles_4240.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4240	CONFIRMED	exact	0		Data_4A_4240
+gfx/account/screens_bank4a/tiles_4640.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4640	CONFIRMED	exact	0		Data_4A_4640
+gfx/account/screens_bank4a/tiles_4a40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4A40	CONFIRMED	exact	0		Data_4A_4A40
+gfx/account/screens_bank4a/tiles_4e40.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	4E40	CONFIRMED	exact	0		Data_4A_4E40
+gfx/account/screens_bank4a/tilemap_54a0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	54A0	PROBABLE	-	0	20x18	Data_4A_54A0
+gfx/account/screens_bank4a/tilemap_54a0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5608	PROBABLE	-	0	20x18	Data_4A_54A0
+gfx/account/screens_bank4a/tiles_5860.2bpp	tiles	16	gfx/account/screens_bank4a.asm	4A	5860	PROBABLE	exact	0		Data_4A_5860
+gfx/account/screens_bank4a/tiles_5870.2bpp	tiles	1024	gfx/account/screens_bank4a.asm	4A	5870	PROBABLE	exact	0		Data_4A_5870
+gfx/account/screens_bank4a/tiles_5c70.2bpp	tiles	64	gfx/account/screens_bank4a.asm	4A	5C70	PROBABLE	exact	0		Data_4A_5C70
+gfx/account/screens_bank4a/tilemap_5cb0.tilemap	tilemap	360	gfx/account/screens_bank4a.asm	4A	5CB0	PROBABLE	-	0	20x18	Data_4A_5CB0
+gfx/account/screens_bank4a/tilemap_5cb0.attrmap	attrmap	360	gfx/account/screens_bank4a.asm	4A	5E18	PROBABLE	-	0	20x18	Data_4A_5CB0
+gfx/account/screens_bank4b/tiles_42d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	42D0	CONFIRMED	exact	0		Data_4B_42D0
+gfx/account/screens_bank4b/tiles_46d0.2bpp	tiles	1024	gfx/account/screens_bank4b.asm	4B	46D0	CONFIRMED	exact	0		Data_4B_46D0
+gfx/account/screens_bank4b/tiles_5080.2bpp	tiles	896	gfx/account/screens_bank4b.asm	4B	5080	PROBABLE	exact	0		Data_4B_5080
+gfx/account/screens_bank4b/tiles_5420.2bpp	tiles	1104	gfx/account/screens_bank4b.asm	4B	5420	PROBABLE	exact	11		Data_4B_5420
+gfx/account/screens_bank4b/tiles_5878.2bpp	tiles	32	gfx/account/screens_bank4b.asm	4B	5878	PROBABLE	exact	0		Data_4B_5878
+gfx/account/screens_bank4b/tilemap_5898.tilemap	tilemap	360	gfx/account/screens_bank4b.asm	4B	5898	CONFIRMED	-	0	20x18	Data_4B_5898
+gfx/account/screens_bank4b/tilemap_5898.attrmap	attrmap	360	gfx/account/screens_bank4b.asm	4B	5A00	CONFIRMED	-	0	20x18	Data_4B_5898
+gfx/account/screens_bank5d/tiles_4800.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	4800	CONFIRMED	exact	0		Data_5D_4800
+gfx/account/screens_bank5d/tiles_4c00.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	4C00	CONFIRMED	exact	0		Data_5D_4C00
+gfx/account/screens_bank5d/tiles_5320.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5320	CONFIRMED	exact	0		Data_5D_5320
+gfx/account/screens_bank5d/tiles_5720.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5720	CONFIRMED	exact	0		Data_5D_5720
+gfx/account/screens_bank5d/tilemap_5b20.tilemap	tilemap	360	gfx/account/screens_bank5d.asm	5D	5B20	CONFIRMED	-	0	20x18	Data_5D_5B20
+gfx/account/screens_bank5d/tilemap_5b20.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	5C88	CONFIRMED	-	0	20x18	Data_5D_5B20
+gfx/account/screens_bank5d/tiles_5df0.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	5DF0	CONFIRMED	exact	0		Data_5D_5DF0
+gfx/account/screens_bank5d/tiles_61f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	61F0	CONFIRMED	exact	0		Data_5D_61F0
+gfx/account/screens_bank5d/tiles_63f0.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	63F0	CONFIRMED	exact	0		Data_5D_63F0
+gfx/account/screens_bank5d/tiles_65f0.2bpp	tiles	64	gfx/account/screens_bank5d.asm	5D	65F0	PROBABLE	exact	0		Data_5D_65F0
+gfx/account/screens_bank5d/tilemap_6630.tilemap	tilemap	360	gfx/account/screens_bank5d.asm	5D	6630	CONFIRMED	-	0	20x18	Data_5D_6630
+gfx/account/screens_bank5d/tilemap_6630.attrmap	attrmap	360	gfx/account/screens_bank5d.asm	5D	6798	CONFIRMED	-	0	20x18	Data_5D_6630
+gfx/account/screens_bank5d/tiles_6900.2bpp	tiles	768	gfx/account/screens_bank5d.asm	5D	6900	CONFIRMED	exact	0		Data_5D_6900
+gfx/account/screens_bank5d/tiles_6c00.2bpp	tiles	512	gfx/account/screens_bank5d.asm	5D	6C00	CONFIRMED	exact	0		Data_5D_6C00
+gfx/account/screens_bank5d/tiles_6e00.2bpp	tiles	1024	gfx/account/screens_bank5d.asm	5D	6E00	CONFIRMED	exact	0		Data_5D_6E00
+gfx/account/screens_bank5e/tiles_4800.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	4800	CONFIRMED	exact	0		Data_5E_4800
+gfx/account/screens_bank5e/tiles_4c00.2bpp	tiles	256	gfx/account/screens_bank5e.asm	5E	4C00	CONFIRMED	exact	0		Data_5E_4C00
+gfx/account/screens_bank5e/tilemap_4d40.tilemap	tilemap	100	gfx/account/screens_bank5e.asm	5E	4D40	CONFIRMED	-	0	20x5	Data_5E_4D40
+gfx/account/screens_bank5e/tilemap_4d40.attrmap	attrmap	100	gfx/account/screens_bank5e.asm	5E	4DA4	CONFIRMED	-	0	20x5	Data_5E_4D40
+gfx/account/screens_bank5e/tiles_4e10.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	4E10	CONFIRMED	exact	0		Data_5E_4E10
+gfx/account/screens_bank5e/tiles_5210.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	5210	CONFIRMED	exact	0		Data_5E_5210
+gfx/account/screens_bank5e/tiles_57e0.2bpp	tiles	32	gfx/account/screens_bank5e.asm	5E	57E0	CONFIRMED	exact	0		Data_5E_57E0
+gfx/account/screens_bank5e/tiles_5800.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	5800	CONFIRMED	exact	0		Data_5E_5800
+gfx/account/screens_bank5e/tiles_5c00.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	5C00	CONFIRMED	exact	0		Data_5E_5C00
+gfx/account/screens_bank5e/tilemap_6000.tilemap	tilemap	100	gfx/account/screens_bank5e.asm	5E	6000	CONFIRMED	-	0	20x5	Data_5E_6000
+gfx/account/screens_bank5e/tilemap_6000.attrmap	attrmap	100	gfx/account/screens_bank5e.asm	5E	6064	CONFIRMED	-	0	20x5	Data_5E_6000
+gfx/account/screens_bank5e/tiles_60d0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	60D0	CONFIRMED	exact	0		Data_5E_60D0
+gfx/account/screens_bank5e/tiles_64d0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	64D0	CONFIRMED	exact	0		Data_5E_64D0
+gfx/account/screens_bank5e/tilemap_68d0.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	68D0	CONFIRMED	-	0	20x18	Data_5E_68D0
+gfx/account/screens_bank5e/tilemap_68d0.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	6A38	CONFIRMED	-	0	20x18	Data_5E_68D0
+gfx/account/screens_bank5e/tiles_6ba0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	6BA0	CONFIRMED	exact	0		Data_5E_6BA0
+gfx/account/screens_bank5e/tiles_6fa0.2bpp	tiles	1024	gfx/account/screens_bank5e.asm	5E	6FA0	CONFIRMED	exact	0		Data_5E_6FA0
+gfx/account/screens_bank5e/tilemap_75d0.tilemap	tilemap	360	gfx/account/screens_bank5e.asm	5E	75D0	CONFIRMED	-	0	20x18	Data_5E_75D0
+gfx/account/screens_bank5e/tilemap_75d0.attrmap	attrmap	360	gfx/account/screens_bank5e.asm	5E	7738	CONFIRMED	-	0	20x18	Data_5E_75D0
+gfx/account/screens_bank71/tiles_4000.2bpp	tiles	768	gfx/account/screens_bank71.asm	71	4000	CONFIRMED	exact	0		Data_71_4000
+gfx/account/screens_bank71/tiles_4300.2bpp	tiles	512	gfx/account/screens_bank71.asm	71	4300	CONFIRMED	exact	0		Data_71_4300
+gfx/account/screens_bank71/tiles_4500.2bpp	tiles	912	gfx/account/screens_bank71.asm	71	4500	CONFIRMED	exact	7		Data_71_4500
+gfx/account/screens_bank71/tiles_4890.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	4890	CONFIRMED	exact	0		Data_71_4890
+gfx/account/screens_bank71/tilemap_4c98.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	4C98	CONFIRMED	-	0	20x18	Data_71_4C98
+gfx/account/screens_bank71/tilemap_4c98.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	4E00	CONFIRMED	-	0	20x18	Data_71_4C98
+gfx/account/screens_bank71/tilemap_4f68.tilemap	tilemap	40	gfx/account/screens_bank71.asm	71	4F68	CONFIRMED	-	0	20x2	Data_71_4F68
+gfx/account/screens_bank71/tilemap_4f68.attrmap	attrmap	40	gfx/account/screens_bank71.asm	71	4F90	CONFIRMED	-	0	20x2	Data_71_4F68
+gfx/account/screens_bank71/tiles_5340.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5340	CONFIRMED	exact	0		Data_71_5340
+gfx/account/screens_bank71/tiles_5740.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5740	CONFIRMED	exact	0		Data_71_5740
+gfx/account/screens_bank71/tiles_5b40.2bpp	tiles	640	gfx/account/screens_bank71.asm	71	5B40	CONFIRMED	exact	0		Data_71_5B40
+gfx/account/screens_bank71/tiles_5dc0.2bpp	tiles	1024	gfx/account/screens_bank71.asm	71	5DC0	CONFIRMED	exact	0		Data_71_5DC0
+gfx/account/screens_bank71/tiles_61c0.2bpp	tiles	640	gfx/account/screens_bank71.asm	71	61C0	CONFIRMED	exact	0		Data_71_61C0
+gfx/account/screens_bank71/tiles_6440.2bpp	tiles	320	gfx/account/screens_bank71.asm	71	6440	CONFIRMED	exact	0		Data_71_6440
+gfx/account/screens_bank71/tiles_6580.2bpp	tiles	256	gfx/account/screens_bank71.asm	71	6580	CONFIRMED	exact	0		Data_71_6580
+gfx/account/screens_bank71/palette_6688.pal	palette	24	gfx/account/screens_bank71.asm	71	6688	PROBABLE	-	0		Data_71_6688
+gfx/account/screens_bank71/tilemap_66c8.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	66C8	CONFIRMED	-	0	20x18	Data_71_66C8
+gfx/account/screens_bank71/tilemap_66c8.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6830	CONFIRMED	-	0	20x18	Data_71_66C8
+gfx/account/screens_bank71/tilemap_6998.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	6998	CONFIRMED	-	0	20x18	Data_71_6998
+gfx/account/screens_bank71/tilemap_6998.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6B00	CONFIRMED	-	0	20x18	Data_71_6998
+gfx/account/screens_bank71/tilemap_6c68.tilemap	tilemap	360	gfx/account/screens_bank71.asm	71	6C68	CONFIRMED	-	0	20x18	Data_71_6C68
+gfx/account/screens_bank71/tilemap_6c68.attrmap	attrmap	360	gfx/account/screens_bank71.asm	71	6DD0	CONFIRMED	-	0	20x18	Data_71_6C68
+gfx/address_book/address_editor/abook_addr.tilemap	tilemap	360	gfx/address_book/address_editor.asm	2F	7AC0	CONFIRMED	-	0	20x18	Tilemap_AbookAddr
+gfx/address_book/address_editor/abook_addr.attrmap	attrmap	360	gfx/address_book/address_editor.asm	2F	7C28	CONFIRMED	-	0	20x18	Tilemap_AbookAddr
+gfx/address_book/address_editor/abook_addr_bg.pal	palette	14	gfx/address_book/address_editor.asm	2F	7D90	CONFIRMED	-	0		Palette_AbookAddr_Bg
+gfx/address_book/address_editor/palette_7d9e.pal	palette	32	gfx/address_book/address_editor.asm	2F	7D9E	PROBABLE	-	0		Data_2F_7D9E
+gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	tiles	1024	gfx/address_book/address_picker.asm	2C	6730	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9300
+gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	tiles	256	gfx/address_book/address_picker.asm	2C	6B30	CONFIRMED	exact	0		Gfx_AddrPick_Tiles9700
+gfx/address_book/address_picker/addr_book_tiles8f00.2bpp	tiles	144	gfx/address_book/address_picker.asm	2C	6C30	CONFIRMED	exact	0		Gfx_AddrBook_Tiles8F00
+gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	tilemap	360	gfx/address_book/address_picker.asm	2C	6CC0	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
+gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	attrmap	360	gfx/address_book/address_picker.asm	2C	6E28	CONFIRMED	-	0	20x18	Data_AddrPick_TilemapAttr
+gfx/address_book/address_picker/addr_pick_bg.pal	palette	14	gfx/address_book/address_picker.asm	2C	6F90	CONFIRMED	-	0		Palette_AddrPick_Bg
+gfx/address_book/address_picker/palette_6f9e.pal	palette	48	gfx/address_book/address_picker.asm	2C	6F9E	PROBABLE	-	0		Data_2C_6F9E
+gfx/address_book/address_picker/tiles_6fd0.2bpp	tiles	512	gfx/address_book/address_picker.asm	2C	6FD0	PROBABLE	exact	0		Tiles_2C_6FD0
+gfx/address_book/address_picker/addr_book_obj.pal	palette	64	gfx/address_book/address_picker.asm	2C	71D0	CONFIRMED	-	0		Palette_AddrBook_Obj
+gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	tiles	768	gfx/address_book/entry_screen_bank29.asm	29	5B10	CONFIRMED	exact	0		Data_29_5B10
+gfx/address_book/entry_screen_bank29/palette_5e10.pal	palette	64	gfx/address_book/entry_screen_bank29.asm	29	5E10	CONFIRMED	-	0		Palette_29_5E10
+gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	tiles	1024	gfx/address_book/entry_screen_bank29.asm	29	5E50	PROBABLE	exact	0		Data_29_5E50
+gfx/address_book/entry_screen_bank29/tiles_6250.2bpp	tiles	64	gfx/address_book/entry_screen_bank29.asm	29	6250	PROBABLE	exact	0		Data_29_6250
+gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp	tiles	224	gfx/address_book/entry_screen_bank2a.asm	2A	7CF0	PROBABLE	exact	0		Gfx_AddrBookEntry_Tiles8F00
+gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp	tiles	176	gfx/address_book/entry_screen_bank2a.asm	2A	7DD0	PROBABLE	exact	0		Gfx_AddrBookEntry_Tiles8000
+gfx/address_book/list/abook_list.tilemap	tilemap	360	gfx/address_book/list.asm	2F	4D40	CONFIRMED	-	0	20x18	Tilemap_Abook_List
+gfx/address_book/list/abook_list.attrmap	attrmap	360	gfx/address_book/list.asm	2F	4EA8	CONFIRMED	-	0	20x18	Tilemap_Abook_List
+gfx/address_book/name_editor/tiles_61f0.2bpp	tiles	1024	gfx/address_book/name_editor.asm	2F	61F0	CONFIRMED	exact	0		Tiles_2F_61F0
+gfx/address_book/name_editor/tiles_65f0.2bpp	tiles	256	gfx/address_book/name_editor.asm	2F	65F0	CONFIRMED	exact	0		Tiles_2F_65F0
+gfx/address_book/name_editor/tiles_66f0.2bpp	tiles	768	gfx/address_book/name_editor.asm	2F	66F0	CONFIRMED	exact	0		Tiles_2F_66F0
+gfx/address_book/name_editor/abook_name.tilemap	tilemap	360	gfx/address_book/name_editor.asm	2F	69F0	PROBABLE	-	0	20x18	Tilemap_AbookName
+gfx/address_book/name_editor/abook_name.attrmap	attrmap	360	gfx/address_book/name_editor.asm	2F	6B58	PROBABLE	-	0	20x18	Tilemap_AbookName
+gfx/address_book/name_editor/palette_6cc0.pal	palette	64	gfx/address_book/name_editor.asm	2F	6CC0	CONFIRMED	-	0		Palette_2F_6CC0
+gfx/address_book/save_confirm/addr_save_confirm_bg.pal	palette	64	gfx/address_book/save_confirm.asm	2A	75A0	PROBABLE	-	0		Palette_AddrSaveConfirm_Bg
+gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	tiles	1024	gfx/address_book/save_confirm.asm	2A	75E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9300
+gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	tiles	64	gfx/address_book/save_confirm.asm	2A	79E0	PROBABLE	exact	0		Gfx_AddrSaveConfirm_Tiles9700
+gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_confirm.asm	2A	7A20	PROBABLE	-	0	20x18	Data_AddrSaveConfirm_TilemapAttr
+gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.attrmap	attrmap	360	gfx/address_book/save_confirm.asm	2A	7B88	PROBABLE	-	0	20x18	Data_AddrSaveConfirm_TilemapAttr
+gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	tiles	560	gfx/address_book/save_sender_address.asm	2A	4AA0	CONFIRMED	exact	13		Gfx_SaveSenderAddr_Tiles9300
+gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.tilemap	tilemap	360	gfx/address_book/save_sender_address.asm	2A	4CD0	PROBABLE	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
+gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap	attrmap	360	gfx/address_book/save_sender_address.asm	2A	4E38	PROBABLE	-	0	20x18	Data_SaveSenderAddr_TilemapAttr
+gfx/address_book/save_sender_address/save_sender_addr_bg.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	4FA0	PROBABLE	-	0		Palette_SaveSenderAddr_Bg
+gfx/address_book/save_sender_address/tiles_4fe0.2bpp	tiles	512	gfx/address_book/save_sender_address.asm	2A	4FE0	PROBABLE	exact	0		Tiles_2A_4FE0
+gfx/address_book/save_sender_address/palette_51e0.pal	palette	64	gfx/address_book/save_sender_address.asm	2A	51E0	PROBABLE	-	0		Palette_2A_51E0
+gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	tiles	1024	gfx/address_book/shared_tiles_bank28.asm	28	4BD0	CONFIRMED	exact	0		Data_28_4BD0
+gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	tiles	512	gfx/address_book/shared_tiles_bank28.asm	28	4FD0	CONFIRMED	exact	0		Data_28_4FD0
+gfx/address_book/shared_tiles_bank28/palette_51d0.pal	palette	64	gfx/address_book/shared_tiles_bank28.asm	28	51D0	PROBABLE	-	0		Palette_28_51D0
+gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp	tiles	288	gfx/address_book/unreferenced_confirm_screen.asm	2C	7740	PROBABLE	exact	0		Data_2C_7740
+gfx/address_book/unreferenced_confirm_screen/tilemap_7860.tilemap	tilemap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7860	PROBABLE	-	0	20x18	Data_2C_7860
+gfx/address_book/unreferenced_confirm_screen/tilemap_7860.attrmap	attrmap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	79C8	PROBABLE	-	0	20x18	Data_2C_7860
+gfx/address_book/unreferenced_confirm_screen/palette_7b30.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7B30	PROBABLE	-	0		Data_2C_7B30
+gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp	tiles	144	gfx/address_book/unreferenced_confirm_screen.asm	2C	7B70	PROBABLE	exact	0		Data_2C_7B70
+gfx/address_book/unreferenced_confirm_screen/palette_7c00.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7C00	PROBABLE	-	0		Palette_2C_7C00
+gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.tilemap	tilemap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7C80	PROBABLE	-	0	20x18	Data_AddrBookEntry_TilemapAttr
+gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.attrmap	attrmap	360	gfx/address_book/unreferenced_confirm_screen.asm	2C	7DE8	PROBABLE	-	0	20x18	Data_AddrBookEntry_TilemapAttr
+gfx/address_book/unreferenced_confirm_screen/addr_book_entry_bg.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F50	CONFIRMED	-	0		Palette_AddrBookEntry_Bg
+gfx/address_book/unreferenced_confirm_screen/addr_book_entry_obj.pal	palette	64	gfx/address_book/unreferenced_confirm_screen.asm	2C	7F90	CONFIRMED	-	0		Palette_AddrBookEntry_Obj
+gfx/bank41/tiles_4000.2bpp	tiles	2560	gfx/bank41.asm	41	4000	PROBABLE	exact	0		Tiles_41_4000
+gfx/bank41/tilemap_4a00.tilemap	tilemap	360	gfx/bank41.asm	41	4A00	PROBABLE	-	0	20x18	Tilemap_41_4A00
+gfx/bank41/tilemap_4a00.attrmap	attrmap	360	gfx/bank41.asm	41	4B68	PROBABLE	-	0	20x18	Tilemap_41_4A00
+gfx/bank41/palette_4cd0.pal	palette	128	gfx/bank41.asm	41	4CD0	PROBABLE	-	0		Palette_41_4CD0
+gfx/bank41/tiles_4d50.2bpp	tiles	2560	gfx/bank41.asm	41	4D50	PROBABLE	exact	0		Tiles_41_4D50
+gfx/bank41/tilemap_5750.tilemap	tilemap	360	gfx/bank41.asm	41	5750	PROBABLE	-	0	20x18	Tilemap_41_5750
+gfx/bank41/tilemap_5750.attrmap	attrmap	360	gfx/bank41.asm	41	58B8	PROBABLE	-	0	20x18	Tilemap_41_5750
+gfx/bank41/palette_5a20.pal	palette	128	gfx/bank41.asm	41	5A20	PROBABLE	-	0		Palette_41_5A20
+gfx/bank41/tiles_5aa0.2bpp	tiles	2560	gfx/bank41.asm	41	5AA0	PROBABLE	exact	0		Tiles_41_5AA0
+gfx/bank41/tilemap_64a0.tilemap	tilemap	360	gfx/bank41.asm	41	64A0	PROBABLE	-	0	20x18	Tilemap_41_64A0
+gfx/bank41/tilemap_64a0.attrmap	attrmap	360	gfx/bank41.asm	41	6608	PROBABLE	-	0	20x18	Tilemap_41_64A0
+gfx/bank41/palette_6770.pal	palette	128	gfx/bank41.asm	41	6770	PROBABLE	-	0		Palette_41_6770
+gfx/bank41/tiles_67f0.2bpp	tiles	2560	gfx/bank41.asm	41	67F0	PROBABLE	exact	0		Tiles_41_67F0
+gfx/bank41/tilemap_71f0.tilemap	tilemap	360	gfx/bank41.asm	41	71F0	PROBABLE	-	0	20x18	Tilemap_41_71F0
+gfx/bank41/tilemap_71f0.attrmap	attrmap	360	gfx/bank41.asm	41	7358	PROBABLE	-	0	20x18	Tilemap_41_71F0
+gfx/bank41/palette_74c0.pal	palette	128	gfx/bank41.asm	41	74C0	PROBABLE	-	0		Palette_41_74C0
+gfx/bank42/tiles_4000.2bpp	tiles	1344	gfx/bank42.asm	42	4000	PROBABLE	exact	0		Tiles_42_4000
+gfx/bank42/tiles_4802.2bpp	tiles	160	gfx/bank42.asm	42	4802	HYPOTHESIS	exact	0		Data_42_4802
+gfx/bank42/tiles_4900.2bpp	tiles	176	gfx/bank42.asm	42	4900	HYPOTHESIS	exact	0		Data_42_4900
+gfx/bank42/tilemap_4a00.tilemap	tilemap	360	gfx/bank42.asm	42	4A00	PROBABLE	-	0	20x18	Tilemap_42_4A00
+gfx/bank42/tilemap_4a00.attrmap	attrmap	360	gfx/bank42.asm	42	4B68	PROBABLE	-	0	20x18	Tilemap_42_4A00
+gfx/bank42/palette_4cd0.pal	palette	128	gfx/bank42.asm	42	4CD0	PROBABLE	-	0		Palette_42_4CD0
+gfx/bank42/tiles_4d50.2bpp	tiles	432	gfx/bank42.asm	42	4D50	PROBABLE	exact	0		Tiles_42_4D50
+gfx/bank42/tiles_4f00.2bpp	tiles	960	gfx/bank42.asm	42	4F00	PROBABLE	exact	0		Data_42_4F00
+gfx/bank42/tiles_52c0.2bpp	tiles	32	gfx/bank42.asm	42	52C0	HYPOTHESIS	exact	0		Data_42_52C0
+gfx/bank42/tiles_52e0.2bpp	tiles	1136	gfx/bank42.asm	42	52E0	PROBABLE	exact	9		Data_42_52E0
+gfx/bank42/tilemap_5750.tilemap	tilemap	360	gfx/bank42.asm	42	5750	PROBABLE	-	0	20x18	Tilemap_42_5750
+gfx/bank42/tilemap_5750.attrmap	attrmap	360	gfx/bank42.asm	42	58B8	PROBABLE	-	0	20x18	Tilemap_42_5750
+gfx/bank42/palette_5a20.pal	palette	128	gfx/bank42.asm	42	5A20	PROBABLE	-	0		Palette_42_5A20
+gfx/bank42/tiles_5aa0.2bpp	tiles	944	gfx/bank42.asm	42	5AA0	PROBABLE	exact	5		Tiles_42_5AA0
+gfx/bank42/tiles_5e90.2bpp	tiles	208	gfx/bank42.asm	42	5E90	HYPOTHESIS	exact	0		Data_42_5E90
+gfx/bank42/tiles_5f92.2bpp	tiles	416	gfx/bank42.asm	42	5F92	PROBABLE	exact	0		Tiles_42_5F92
+gfx/bank42/tiles_62a0.2bpp	tiles	160	gfx/bank42.asm	42	62A0	HYPOTHESIS	exact	0		Data_42_62A0
+gfx/bank42/tiles_63a0.2bpp	tiles	16	gfx/bank42.asm	42	63A0	HYPOTHESIS	exact	0		Data_42_63A0
+gfx/bank42/tiles_63b0.2bpp	tiles	240	gfx/bank42.asm	42	63B0	PROBABLE	exact	0		Data_42_63B0
+gfx/bank42/tilemap_64a0.tilemap	tilemap	360	gfx/bank42.asm	42	64A0	PROBABLE	-	0	20x18	Tilemap_42_64A0
+gfx/bank42/tilemap_64a0.attrmap	attrmap	360	gfx/bank42.asm	42	6608	PROBABLE	-	0	20x18	Tilemap_42_64A0
+gfx/bank42/palette_6770.pal	palette	128	gfx/bank42.asm	42	6770	PROBABLE	-	0		Palette_42_6770
+gfx/bank42/tiles_67f0.2bpp	tiles	16	gfx/bank42.asm	42	67F0	HYPOTHESIS	exact	0		Data_42_67F0
+gfx/bank42/tiles_6810.2bpp	tiles	400	gfx/bank42.asm	42	6810	PROBABLE	exact	7		Tiles_42_6810
+gfx/bank42/tiles_69b0.2bpp	tiles	784	gfx/bank42.asm	42	69B0	HYPOTHESIS	exact	15		Data_42_69B0
+gfx/bank42/tiles_6ff2.2bpp	tiles	160	gfx/bank42.asm	42	6FF2	HYPOTHESIS	exact	0		Data_42_6FF2
+gfx/bank42/tiles_70f0.2bpp	tiles	160	gfx/bank42.asm	42	70F0	HYPOTHESIS	exact	0		Data_42_70F0
+gfx/bank42/tilemap_71f0.tilemap	tilemap	360	gfx/bank42.asm	42	71F0	PROBABLE	-	0	20x18	Tilemap_42_71F0
+gfx/bank42/tilemap_71f0.attrmap	attrmap	360	gfx/bank42.asm	42	7358	PROBABLE	-	0	20x18	Tilemap_42_71F0
+gfx/bank42/palette_74c0.pal	palette	128	gfx/bank42.asm	42	74C0	PROBABLE	-	0		Palette_42_74C0
+gfx/bank43/tiles_4000.2bpp	tiles	2560	gfx/bank43.asm	43	4000	PROBABLE	exact	0		Tiles_43_4000
+gfx/bank43/tilemap_4a00.tilemap	tilemap	360	gfx/bank43.asm	43	4A00	PROBABLE	-	0	20x18	Tilemap_43_4A00
+gfx/bank43/attrmap_4b68.attrmap	attrmap	360	gfx/bank43.asm	43	4B68	PROBABLE	-	0	20x18	Attrmap_43_4B68
+gfx/bank43/palette_4cd0.pal	palette	128	gfx/bank43.asm	43	4CD0	PROBABLE	-	0		Palette_43_4CD0
+gfx/bank43/tiles_4d50.2bpp	tiles	2560	gfx/bank43.asm	43	4D50	PROBABLE	exact	0		Tiles_43_4D50
+gfx/bank43/tilemap_5750.tilemap	tilemap	360	gfx/bank43.asm	43	5750	PROBABLE	-	0	20x18	Tilemap_43_5750
+gfx/bank43/attrmap_58b8.attrmap	attrmap	360	gfx/bank43.asm	43	58B8	PROBABLE	-	0	20x18	Attrmap_43_58B8
+gfx/bank43/palette_5a20.pal	palette	128	gfx/bank43.asm	43	5A20	PROBABLE	-	0		Palette_43_5A20
+gfx/bank43/tiles_5aa0.2bpp	tiles	2560	gfx/bank43.asm	43	5AA0	PROBABLE	exact	0		Tiles_43_5AA0
+gfx/bank43/tilemap_64a0.tilemap	tilemap	360	gfx/bank43.asm	43	64A0	PROBABLE	-	0	20x18	Tilemap_43_64A0
+gfx/bank43/attrmap_6608.attrmap	attrmap	360	gfx/bank43.asm	43	6608	PROBABLE	-	0	20x18	Attrmap_43_6608
+gfx/bank43/palette_6770.pal	palette	128	gfx/bank43.asm	43	6770	PROBABLE	-	0		Palette_43_6770
+gfx/bank43/tiles_67f0.2bpp	tiles	2560	gfx/bank43.asm	43	67F0	PROBABLE	exact	0		Tiles_43_67F0
+gfx/bank43/tilemap_71f0.tilemap	tilemap	360	gfx/bank43.asm	43	71F0	PROBABLE	-	0	20x18	Tilemap_43_71F0
+gfx/bank43/attrmap_7358.attrmap	attrmap	360	gfx/bank43.asm	43	7358	PROBABLE	-	0	20x18	Attrmap_43_7358
+gfx/bank43/palette_74c0.pal	palette	128	gfx/bank43.asm	43	74C0	PROBABLE	-	0		Palette_43_74C0
+gfx/bank44/tiles_4000.2bpp	tiles	2560	gfx/bank44.asm	44	4000	PROBABLE	exact	0		Tiles_44_4000
+gfx/bank44/tilemap_4a00.tilemap	tilemap	360	gfx/bank44.asm	44	4A00	PROBABLE	-	0	20x18	Tilemap_44_4A00
+gfx/bank44/attrmap_4b68.attrmap	attrmap	360	gfx/bank44.asm	44	4B68	PROBABLE	-	0	20x18	Data_44_4B68
+gfx/bank44/palette_4cd0.pal	palette	128	gfx/bank44.asm	44	4CD0	PROBABLE	-	0		Palette_44_4CD0
+gfx/bank44/tiles_4d50.2bpp	tiles	2560	gfx/bank44.asm	44	4D50	PROBABLE	exact	0		Tiles_44_4D50
+gfx/bank44/tilemap_5750.tilemap	tilemap	360	gfx/bank44.asm	44	5750	PROBABLE	-	0	20x18	Tilemap_44_5750
+gfx/bank44/attrmap_58b8.attrmap	attrmap	360	gfx/bank44.asm	44	58B8	PROBABLE	-	0	20x18	Data_44_58B8
+gfx/bank44/palette_5a20.pal	palette	128	gfx/bank44.asm	44	5A20	PROBABLE	-	0		Palette_44_5A20
+gfx/bank44/tiles_5aa0.2bpp	tiles	2560	gfx/bank44.asm	44	5AA0	PROBABLE	exact	0		Tiles_44_5AA0
+gfx/bank44/tilemap_64a0.tilemap	tilemap	360	gfx/bank44.asm	44	64A0	PROBABLE	-	0	20x18	Tilemap_44_64A0
+gfx/bank44/attrmap_6608.attrmap	attrmap	360	gfx/bank44.asm	44	6608	PROBABLE	-	0	20x18	Data_44_6608
+gfx/bank44/palette_6770.pal	palette	128	gfx/bank44.asm	44	6770	PROBABLE	-	0		Palette_44_6770
+gfx/bank44/tiles_67f0.2bpp	tiles	2560	gfx/bank44.asm	44	67F0	PROBABLE	exact	0		Tiles_44_67F0
+gfx/bank44/tilemap_71f0.tilemap	tilemap	360	gfx/bank44.asm	44	71F0	PROBABLE	-	0	20x18	Tilemap_44_71F0
+gfx/bank44/attrmap_7358.attrmap	attrmap	360	gfx/bank44.asm	44	7358	PROBABLE	-	0	20x18	Data_44_7358
+gfx/bank44/palette_74c0.pal	palette	128	gfx/bank44.asm	44	74C0	PROBABLE	-	0		Palette_44_74C0
+gfx/bank45/tiles_4000.2bpp	tiles	2560	gfx/bank45.asm	45	4000	PROBABLE	exact	0		Tiles_45_4000
+gfx/bank45/tilemap_4a00.tilemap	tilemap	360	gfx/bank45.asm	45	4A00	PROBABLE	-	0	20x18	Tilemap_45_4A00
+gfx/bank45/tilemap_4a00.attrmap	attrmap	360	gfx/bank45.asm	45	4B68	PROBABLE	-	0	20x18	Tilemap_45_4A00
+gfx/bank45/palette_4cd0.pal	palette	128	gfx/bank45.asm	45	4CD0	PROBABLE	-	0		Palette_45_4CD0
+gfx/bank45/tiles_4d50.2bpp	tiles	2560	gfx/bank45.asm	45	4D50	PROBABLE	exact	0		Tiles_45_4D50
+gfx/bank45/tilemap_5750.tilemap	tilemap	360	gfx/bank45.asm	45	5750	PROBABLE	-	0	20x18	Tilemap_45_5750
+gfx/bank45/tilemap_5750.attrmap	attrmap	360	gfx/bank45.asm	45	58B8	PROBABLE	-	0	20x18	Tilemap_45_5750
+gfx/bank45/palette_5a20.pal	palette	128	gfx/bank45.asm	45	5A20	PROBABLE	-	0		Palette_45_5A20
+gfx/bank45/tiles_5aa0.2bpp	tiles	2560	gfx/bank45.asm	45	5AA0	PROBABLE	exact	0		Tiles_45_5AA0
+gfx/bank45/tilemap_64a0.tilemap	tilemap	360	gfx/bank45.asm	45	64A0	PROBABLE	-	0	20x18	Tilemap_45_64A0
+gfx/bank45/tilemap_64a0.attrmap	attrmap	360	gfx/bank45.asm	45	6608	PROBABLE	-	0	20x18	Tilemap_45_64A0
+gfx/bank45/palette_6770.pal	palette	128	gfx/bank45.asm	45	6770	PROBABLE	-	0		Palette_45_6770
+gfx/bank45/tiles_67f0.2bpp	tiles	2560	gfx/bank45.asm	45	67F0	PROBABLE	exact	0		Tiles_45_67F0
+gfx/bank45/tilemap_71f0.tilemap	tilemap	360	gfx/bank45.asm	45	71F0	PROBABLE	-	0	20x18	Tilemap_45_71F0
+gfx/bank45/tilemap_71f0.attrmap	attrmap	360	gfx/bank45.asm	45	7358	PROBABLE	-	0	20x18	Tilemap_45_71F0
+gfx/bank45/palette_74c0.pal	palette	128	gfx/bank45.asm	45	74C0	PROBABLE	-	0		Palette_45_74C0
+gfx/bank46/tiles_4000.2bpp	tiles	2560	gfx/bank46.asm	46	4000	PROBABLE	exact	0		Tiles_46_4000
+gfx/bank46/tilemap_4a00.tilemap	tilemap	360	gfx/bank46.asm	46	4A00	PROBABLE	-	0	20x18	Tilemap_46_4A00
+gfx/bank46/tilemap_4a00.attrmap	attrmap	360	gfx/bank46.asm	46	4B68	PROBABLE	-	0	20x18	Tilemap_46_4A00
+gfx/bank46/palette_4cd0.pal	palette	128	gfx/bank46.asm	46	4CD0	PROBABLE	-	0		Palette_46_4CD0
+gfx/bank46/tiles_4d50.2bpp	tiles	2560	gfx/bank46.asm	46	4D50	PROBABLE	exact	0		Tiles_46_4D50
+gfx/bank46/tilemap_5750.tilemap	tilemap	360	gfx/bank46.asm	46	5750	PROBABLE	-	0	20x18	Tilemap_46_5750
+gfx/bank46/tilemap_5750.attrmap	attrmap	360	gfx/bank46.asm	46	58B8	PROBABLE	-	0	20x18	Tilemap_46_5750
+gfx/bank46/palette_5a20.pal	palette	128	gfx/bank46.asm	46	5A20	PROBABLE	-	0		Palette_46_5A20
+gfx/bank46/tiles_5aa0.2bpp	tiles	2560	gfx/bank46.asm	46	5AA0	PROBABLE	exact	0		Tiles_46_5AA0
+gfx/bank46/tilemap_64a0.tilemap	tilemap	360	gfx/bank46.asm	46	64A0	PROBABLE	-	0	20x18	Tilemap_46_64A0
+gfx/bank46/tilemap_64a0.attrmap	attrmap	360	gfx/bank46.asm	46	6608	PROBABLE	-	0	20x18	Tilemap_46_64A0
+gfx/bank46/palette_6770.pal	palette	128	gfx/bank46.asm	46	6770	PROBABLE	-	0		Palette_46_6770
+gfx/bank46/tiles_67f0.2bpp	tiles	2560	gfx/bank46.asm	46	67F0	PROBABLE	exact	0		Tiles_46_67F0
+gfx/bank46/tilemap_71f0.tilemap	tilemap	360	gfx/bank46.asm	46	71F0	PROBABLE	-	0	20x18	Tilemap_46_71F0
+gfx/bank46/tilemap_71f0.attrmap	attrmap	360	gfx/bank46.asm	46	7358	PROBABLE	-	0	20x18	Tilemap_46_71F0
+gfx/bank46/palette_74c0.pal	palette	128	gfx/bank46.asm	46	74C0	PROBABLE	-	0		Palette_46_74C0
+gfx/bank52/tiles_4080.2bpp	tiles	2944	gfx/bank52.asm	52	4080	PROBABLE	exact	0		Tiles_52_4080
+gfx/bank5b/tiles_4000.2bpp	tiles	4608	gfx/bank5b.asm	5B	4000	PROBABLE	exact	0		Tiles_5B_4000
+gfx/bank5b/tiles_5200.2bpp	tiles	1152	gfx/bank5b.asm	5B	5200	PROBABLE	exact	0		Tiles_5B_5200
+gfx/bank5b/palette_5680.pal	palette	96	gfx/bank5b.asm	5B	5680	PROBABLE	-	0		Palette_5B_5680
+gfx/bank60/tiles_4360.2bpp	tiles	240	gfx/bank60.asm	60	4360	PROBABLE	exact	0		Data_60_4360
+gfx/bank60/tiles_4455.2bpp	tiles	1136	gfx/bank60.asm	60	4455	PROBABLE	exact	9		Data_60_4455
+gfx/bank60/tiles_4b50.2bpp	tiles	560	gfx/bank60.asm	60	4B50	PROBABLE	exact	13		Data_60_4B50
+gfx/bank60/tiles_4dd0.2bpp	tiles	1184	gfx/bank60.asm	60	4DD0	PROBABLE	exact	6		Tiles_60_4DD0
+gfx/bank60/tiles_52c0.2bpp	tiles	16	gfx/bank60.asm	60	52C0	HYPOTHESIS	exact	0		Tiles_60_52C0
+gfx/bank60/tiles_52d0.2bpp	tiles	880	gfx/bank60.asm	60	52D0	PROBABLE	exact	0		Data_60_52D0
+gfx/bank60/tiles_5640.2bpp	tiles	176	gfx/bank60.asm	60	5640	PROBABLE	exact	0		Tiles_60_5640
+gfx/bank60/tiles_5740.2bpp	tiles	112	gfx/bank60.asm	60	5740	HYPOTHESIS	exact	0		Tiles_60_5740
+gfx/bank60/tiles_5800.2bpp	tiles	768	gfx/bank60.asm	60	5800	PROBABLE	exact	0		Tiles_60_5800
+gfx/bank60/tiles_5d50.2bpp	tiles	704	gfx/bank60.asm	60	5D50	PROBABLE	exact	0		Data_60_5D50
+gfx/bank60/tiles_6010.2bpp	tiles	80	gfx/bank60.asm	60	6010	HYPOTHESIS	exact	0		Tiles_60_6010
+gfx/bank60/tiles_6060.2bpp	tiles	592	gfx/bank60.asm	60	6060	PROBABLE	exact	11		Data_60_6060
+gfx/bank60/tiles_62b0.2bpp	tiles	448	gfx/bank60.asm	60	62B0	PROBABLE	exact	0		Tiles_60_62B0
+gfx/bank60/tiles_64c0.2bpp	tiles	112	gfx/bank60.asm	60	64C0	HYPOTHESIS	exact	0		Tiles_60_64C0
+gfx/bank60/tiles_6580.2bpp	tiles	128	gfx/bank60.asm	60	6580	PROBABLE	exact	0		Tiles_60_6580
+gfx/bank60/tiles_6640.2bpp	tiles	2656	gfx/bank60.asm	60	6640	PROBABLE	exact	10		Tiles_60_6640
+gfx/bank60/tiles_70a0.2bpp	tiles	1616	gfx/bank60.asm	60	70A0	PROBABLE	exact	11		Data_60_70A0
+gfx/bank60/tiles_76f0.2bpp	tiles	912	gfx/bank60.asm	60	76F0	PROBABLE	exact	7		Tiles_60_76F0
+gfx/bank60/palette_7a80.pal	palette	104	gfx/bank60.asm	60	7A80	PROBABLE	-	0		Data_60_7A80
+gfx/bank61/tiles_4cc0.2bpp	tiles	672	gfx/bank61.asm	61	4CC0	PROBABLE	exact	0		Data_61_4CC0
+gfx/bank61/tiles_4f63.2bpp	tiles	656	gfx/bank61.asm	61	4F63	PROBABLE	exact	7		Data_61_4F63
+gfx/bank61/tiles_58b0.2bpp	tiles	656	gfx/bank61.asm	61	58B0	PROBABLE	exact	7		Data_61_58B0
+gfx/bank61/tiles_65c0.2bpp	tiles	800	gfx/bank61.asm	61	65C0	PROBABLE	exact	0		Data_61_65C0
+gfx/bank61/palette_7a80.pal	palette	104	gfx/bank61.asm	61	7A80	PROBABLE	-	0		Data_61_7A80
+gfx/browser/frames_0_1/tiles_4000.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4000	PROBABLE	exact	0		Data_47_4000
+gfx/browser/frames_0_1/tiles_4010.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4010	PROBABLE	exact	0		Data_47_4010
+gfx/browser/frames_0_1/tiles_4040.2bpp	tiles	64	gfx/browser/frames_0_1.asm	47	4040	PROBABLE	exact	0		Data_47_4040
+gfx/browser/frames_0_1/tiles_4080.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	4080	CONFIRMED	exact	0		Data_47_4080
+gfx/browser/frames_0_1/tiles_4090.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	4090	CONFIRMED	exact	0		Data_47_4090
+gfx/browser/frames_0_1/tiles_40c0.2bpp	tiles	16	gfx/browser/frames_0_1.asm	47	40C0	CONFIRMED	exact	0		Data_47_40C0
+gfx/browser/frames_0_1/tiles_40d0.2bpp	tiles	48	gfx/browser/frames_0_1.asm	47	40D0	CONFIRMED	exact	0		Data_47_40D0
+gfx/browser/frames_0_1/tiles_4100.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4100	PROBABLE	exact	0		Tiles_47_4100
+gfx/browser/frames_0_1/tilemap_4b00.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	4B00	PROBABLE	-	0	20x18	Tilemap_47_4B00
+gfx/browser/frames_0_1/tilemap_4b00.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	4C68	PROBABLE	-	0	20x18	Tilemap_47_4B00
+gfx/browser/frames_0_1/palette_4dd0.pal	palette	128	gfx/browser/frames_0_1.asm	47	4DD0	PROBABLE	-	0		Palette_47_4DD0
+gfx/browser/frames_0_1/tiles_4e50.2bpp	tiles	2560	gfx/browser/frames_0_1.asm	47	4E50	PROBABLE	exact	0		Tiles_47_4E50
+gfx/browser/frames_0_1/tilemap_5850.tilemap	tilemap	360	gfx/browser/frames_0_1.asm	47	5850	PROBABLE	-	0	20x18	Tilemap_47_5850
+gfx/browser/frames_0_1/tilemap_5850.attrmap	attrmap	360	gfx/browser/frames_0_1.asm	47	59B8	PROBABLE	-	0	20x18	Tilemap_47_5850
+gfx/browser/frames_0_1/palette_5b20.pal	palette	128	gfx/browser/frames_0_1.asm	47	5B20	PROBABLE	-	0		Palette_47_5B20
+gfx/browser/frames_2_3/tiles_5ba0.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	5BA0	PROBABLE	exact	0		Tiles_47_5BA0
+gfx/browser/frames_2_3/tilemap_65a0.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	65A0	PROBABLE	-	0	20x18	Tilemap_47_65A0
+gfx/browser/frames_2_3/tilemap_65a0.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	6708	PROBABLE	-	0	20x18	Tilemap_47_65A0
+gfx/browser/frames_2_3/palette_6870.pal	palette	128	gfx/browser/frames_2_3.asm	47	6870	PROBABLE	-	0		Palette_47_6870
+gfx/browser/frames_2_3/tiles_68f0.2bpp	tiles	2560	gfx/browser/frames_2_3.asm	47	68F0	PROBABLE	exact	0		Tiles_47_68F0
+gfx/browser/frames_2_3/tilemap_72f0.tilemap	tilemap	360	gfx/browser/frames_2_3.asm	47	72F0	PROBABLE	-	0	20x18	Tilemap_47_72F0
+gfx/browser/frames_2_3/tilemap_72f0.attrmap	attrmap	360	gfx/browser/frames_2_3.asm	47	7458	PROBABLE	-	0	20x18	Tilemap_47_72F0
+gfx/browser/frames_2_3/palette_75c0.pal	palette	128	gfx/browser/frames_2_3.asm	47	75C0	PROBABLE	-	0		Palette_47_75C0
+gfx/browser/menus/browser_menu3_tiles0.2bpp	tiles	1024	gfx/browser/menus.asm	72	6C10	CONFIRMED	exact	0		BrowserMenu3_Tiles0
+gfx/browser/menus/browser_menu3_tiles1.2bpp	tiles	256	gfx/browser/menus.asm	72	7010	CONFIRMED	exact	0		BrowserMenu3_Tiles1
+gfx/browser/menus/browser_menu3_map.tilemap	tilemap	120	gfx/browser/menus.asm	72	7110	CONFIRMED	-	0	20x6	BrowserMenu3_Map
+gfx/browser/menus/browser_menu3_map.attrmap	attrmap	120	gfx/browser/menus.asm	72	7188	CONFIRMED	-	0	20x6	BrowserMenu3_Map
+gfx/browser/menus/palette_7206.pal	palette	16	gfx/browser/menus.asm	72	7206	PROBABLE	-	0		Data_72_7206
+gfx/browser/menus/browser_menu2_tiles0.2bpp	tiles	1024	gfx/browser/menus.asm	72	7220	PROBABLE	exact	0		BrowserMenu2_Tiles0
+gfx/browser/menus/browser_menu2_tiles1.2bpp	tiles	256	gfx/browser/menus.asm	72	7620	PROBABLE	exact	0		BrowserMenu2_Tiles1
+gfx/browser/menus/browser_menu2_map.tilemap	tilemap	120	gfx/browser/menus.asm	72	7720	PROBABLE	-	0	20x6	BrowserMenu2_Map
+gfx/browser/menus/browser_menu2_map.attrmap	attrmap	120	gfx/browser/menus.asm	72	7798	PROBABLE	-	0	20x6	BrowserMenu2_Map
+gfx/browser/menus/browser_menu2_palette.pal	palette	24	gfx/browser/menus.asm	72	7810	PROBABLE	-	0		BrowserMenu2_Palette
+gfx/browser/page_list/page_list_tiles_5400.2bpp	tiles	464	gfx/browser/page_list.asm	24	5400	PROBABLE	exact	3		PageList_Tiles_5400
+gfx/browser/page_list/tiles_55d0.2bpp	tiles	560	gfx/browser/page_list.asm	24	55D0	PROBABLE	exact	13		Data_24_55D0
+gfx/browser/page_list/page_list_tiles_5800.2bpp	tiles	16	gfx/browser/page_list.asm	24	5800	PROBABLE	exact	0		PageList_Tiles_5800
+gfx/browser/page_list/tiles_5810.2bpp	tiles	160	gfx/browser/page_list.asm	24	5810	PROBABLE	exact	0		Tiles_24_5810
+gfx/browser/page_list/page_list_tilemap_5900.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5900	PROBABLE	-	0	20x18	PageList_Tilemap_5900
+gfx/browser/page_list/page_list_tilemap_5900.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5A68	PROBABLE	-	0	20x18	PageList_Tilemap_5900
+gfx/browser/page_list/page_list_tilemap_5bd0.tilemap	tilemap	360	gfx/browser/page_list.asm	24	5BD0	PROBABLE	-	0	20x18	PageList_Tilemap_5BD0
+gfx/browser/page_list/page_list_tilemap_5bd0.attrmap	attrmap	360	gfx/browser/page_list.asm	24	5D38	PROBABLE	-	0	20x18	PageList_Tilemap_5BD0
+gfx/browser/page_list/page_list_bg_palette.pal	palette	64	gfx/browser/page_list.asm	24	5EA0	PROBABLE	-	0		PageList_BgPalette
+gfx/browser/page_list/tiles_5ef1.2bpp	tiles	992	gfx/browser/page_list.asm	24	5EF1	PROBABLE	exact	2		Data_24_5EF1
+gfx/browser/page_list/tiles_6301.2bpp	tiles	192	gfx/browser/page_list.asm	24	6301	PROBABLE	exact	0		Tiles_24_6301
+gfx/browser/page_list/tiles_63e0.2bpp	tiles	256	gfx/browser/page_list.asm	24	63E0	PROBABLE	exact	0		Tiles_24_63E0
+gfx/browser/page_list/page_list_obj_palette.pal	palette	64	gfx/browser/page_list.asm	24	64E0	PROBABLE	-	0		PageList_ObjPalette
+gfx/browser/start_choice/browser_start_map.tilemap	tilemap	360	gfx/browser/start_choice.asm	73	4097	CONFIRMED	-	0	20x18	BrowserStart_Map
+gfx/browser/start_choice/browser_start_map.attrmap	attrmap	360	gfx/browser/start_choice.asm	73	41FF	CONFIRMED	-	0	20x18	BrowserStart_Map
+gfx/browser/start_choice/browser_start_top_map_normal.tilemap	tilemap	40	gfx/browser/start_choice.asm	73	4367	PROBABLE	-	0	10x4	BrowserStart_TopMapNormal
+gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	attrmap	40	gfx/browser/start_choice.asm	73	43AD	PROBABLE	-	0		BrowserStart_TopAttrNormal
+gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	tilemap	30	gfx/browser/start_choice.asm	73	441B	PROBABLE	-	0	10x3	BrowserStart_BottomMapSelected
+gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	attrmap	30	gfx/browser/start_choice.asm	73	4461	PROBABLE	-	0		BrowserStart_BottomAttrSelected
+gfx/browser/start_choice/tiles_4530.2bpp	tiles	176	gfx/browser/start_choice.asm	73	4530	PROBABLE	exact	0		Data_73_4530
+gfx/browser/start_choice/browser_start_tiles0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	45E0	CONFIRMED	exact	0		BrowserStart_Tiles0
+gfx/browser/start_choice/tiles_49e0.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	49E0	PROBABLE	exact	0		Data_73_49E0
+gfx/browser/start_choice/browser_start_tiles1.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	4DE0	CONFIRMED	exact	0		BrowserStart_Tiles1
+gfx/browser/start_choice/browser_start_tiles2.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	51E0	CONFIRMED	exact	0		BrowserStart_Tiles2
+gfx/browser/start_choice/browser_start_tiles3.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	55E0	CONFIRMED	exact	0		BrowserStart_Tiles3
+gfx/browser/start_choice/browser_start_tiles4.2bpp	tiles	1024	gfx/browser/start_choice.asm	73	59E0	CONFIRMED	exact	0		BrowserStart_Tiles4
+gfx/browser/start_choice/browser_start_palettes.pal	palette	8	gfx/browser/start_choice.asm	73	5DE0	CONFIRMED	-	0		BrowserStart_Palettes
+gfx/browser/start_choice/palette_5de8.pal	palette	24	gfx/browser/start_choice.asm	73	5DE8	PROBABLE	-	0		Data_73_5DE8
+gfx/browser/start_choice/palette_5e08.pal	palette	24	gfx/browser/start_choice.asm	73	5E08	PROBABLE	-	0		Data_73_5E08
+gfx/browser/start_choice/browser_start_obj_palettes.pal	palette	16	gfx/browser/start_choice.asm	73	5E20	PROBABLE	-	0		BrowserStart_ObjPalettes
+gfx/browser/start_choice/palette_5e38.pal	palette	136	gfx/browser/start_choice.asm	73	5E38	PROBABLE	-	0		Data_73_5E38
+gfx/comm/comm_scene/tiles_5490.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5490	CONFIRMED	exact	0		Data_70_5490
+gfx/comm/comm_scene/tiles_5890.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5890	CONFIRMED	exact	0		Data_70_5890
+gfx/comm/comm_scene/tiles_5c90.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	5C90	CONFIRMED	exact	0		Data_70_5C90
+gfx/comm/comm_scene/tiles_6090.2bpp	tiles	1024	gfx/comm/comm_scene.asm	70	6090	CONFIRMED	exact	0		Data_70_6090
+gfx/comm/comm_scene/tiles_6490.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6490	CONFIRMED	exact	0		Data_70_6490
+gfx/comm/comm_scene/tiles_6690.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6690	CONFIRMED	exact	0		Data_70_6690
+gfx/comm/comm_scene/tiles_6890.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6890	CONFIRMED	exact	0		Data_70_6890
+gfx/comm/comm_scene/tiles_6a90.2bpp	tiles	512	gfx/comm/comm_scene.asm	70	6A90	CONFIRMED	exact	0		Tiles_70_6A90
+gfx/comm/comm_scene/palette_6c90.pal	palette	64	gfx/comm/comm_scene.asm	70	6C90	PROBABLE	-	0		Palette_70_6C90
+gfx/comm/comm_scene/palette_6cd0.pal	palette	64	gfx/comm/comm_scene.asm	70	6CD0	PROBABLE	-	0		Palette_70_6CD0
+gfx/comm/comm_scene/tilemap_6d10.tilemap	tilemap	448	gfx/comm/comm_scene.asm	70	6D10	CONFIRMED	-	0	32x14	Tilemap_70_6D10
+gfx/comm/comm_scene/tilemap_6d10.attrmap	attrmap	448	gfx/comm/comm_scene.asm	70	6ED0	CONFIRMED	-	0	32x14	Tilemap_70_6D10
+gfx/comm/comm_scene/tilemap_7090.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7090	CONFIRMED	-	0	20x4	Tilemap_70_7090
+gfx/comm/comm_scene/tilemap_7090.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	70E0	CONFIRMED	-	0	20x4	Tilemap_70_7090
+gfx/comm/comm_scene/tilemap_7130.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7130	CONFIRMED	-	0	20x4	Tilemap_70_7130
+gfx/comm/comm_scene/tilemap_7130.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7180	CONFIRMED	-	0	20x4	Tilemap_70_7130
+gfx/comm/comm_scene/tilemap_71d0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	71D0	CONFIRMED	-	0	20x4	Tilemap_70_71D0
+gfx/comm/comm_scene/tilemap_71d0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7220	CONFIRMED	-	0	20x4	Tilemap_70_71D0
+gfx/comm/comm_scene/tilemap_7270.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7270	CONFIRMED	-	0	20x4	Tilemap_70_7270
+gfx/comm/comm_scene/tilemap_7270.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	72C0	CONFIRMED	-	0	20x4	Tilemap_70_7270
+gfx/comm/comm_scene/tilemap_7310.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7310	PROBABLE	-	0	20x4	Tilemap_70_7310
+gfx/comm/comm_scene/tilemap_7310.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7360	PROBABLE	-	0	20x4	Tilemap_70_7310
+gfx/comm/comm_scene/tilemap_73b0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	73B0	PROBABLE	-	0	20x4	Tilemap_70_73B0
+gfx/comm/comm_scene/tilemap_73b0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7400	PROBABLE	-	0	20x4	Tilemap_70_73B0
+gfx/comm/comm_scene/tilemap_7450.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	7450	PROBABLE	-	0	20x4	Tilemap_70_7450
+gfx/comm/comm_scene/tilemap_7450.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	74A0	PROBABLE	-	0	20x4	Tilemap_70_7450
+gfx/comm/comm_scene/tilemap_74f0.tilemap	tilemap	80	gfx/comm/comm_scene.asm	70	74F0	PROBABLE	-	0	20x4	Tilemap_70_74F0
+gfx/comm/comm_scene/tilemap_74f0.attrmap	attrmap	80	gfx/comm/comm_scene.asm	70	7540	PROBABLE	-	0	20x4	Tilemap_70_74F0
+gfx/comm/connect_dialog_bank56/tilemap_418a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	418A	PROBABLE	-	0	20x18	Data_56_418A
+gfx/comm/connect_dialog_bank56/tilemap_418a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	42F2	PROBABLE	-	0	20x18	Data_56_418A
+gfx/comm/connect_dialog_bank56/tilemap_445a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	445A	CONFIRMED	-	0	20x18	Data_56_445A
+gfx/comm/connect_dialog_bank56/tilemap_445a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	45C2	CONFIRMED	-	0	20x18	Data_56_445A
+gfx/comm/connect_dialog_bank56/tilemap_472a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	472A	PROBABLE	-	0	20x18	Data_56_472A
+gfx/comm/connect_dialog_bank56/tilemap_472a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	4892	PROBABLE	-	0	20x18	Data_56_472A
+gfx/comm/connect_dialog_bank56/tilemap_49fa.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	49FA	PROBABLE	-	0	20x18	Data_56_49FA
+gfx/comm/connect_dialog_bank56/tilemap_49fa.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	4B62	PROBABLE	-	0	20x18	Data_56_49FA
+gfx/comm/connect_dialog_bank56/tilemap_4cca.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	4CCA	PROBABLE	-	0	20x18	Data_56_4CCA
+gfx/comm/connect_dialog_bank56/tilemap_4cca.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	4E32	PROBABLE	-	0	20x18	Data_56_4CCA
+gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap	tilemap	360	gfx/comm/connect_dialog_bank56.asm	56	4F9A	CONFIRMED	-	0	20x18	Data_56_4F9A
+gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap	attrmap	360	gfx/comm/connect_dialog_bank56.asm	56	5102	CONFIRMED	-	0	20x18	Data_56_4F9A
+gfx/comm/connect_dialog_bank56/tiles_526a.2bpp	tiles	80	gfx/comm/connect_dialog_bank56.asm	56	526A	PROBABLE	exact	0		Data_56_526A
+gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	52C0	CONFIRMED	exact	0		Data_56_52C0
+gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	56C0	CONFIRMED	exact	0		Data_56_56C0
+gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5AC0	PROBABLE	exact	0		Data_56_5AC0
+gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	5DC0	PROBABLE	exact	0		Data_56_5DC0
+gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	60C0	PROBABLE	exact	0		Data_56_60C0
+gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	64C0	CONFIRMED	exact	0		Data_56_64C0
+gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	68C0	CONFIRMED	exact	0		Data_56_68C0
+gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	6AC0	CONFIRMED	exact	0		Data_56_6AC0
+gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp	tiles	768	gfx/comm/connect_dialog_bank56.asm	56	6EC0	PROBABLE	exact	0		Data_56_6EC0
+gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp	tiles	1024	gfx/comm/connect_dialog_bank56.asm	56	71C0	PROBABLE	exact	0		Data_56_71C0
+gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp	tiles	512	gfx/comm/connect_dialog_bank56.asm	56	75C0	CONFIRMED	exact	0		Data_56_75C0
+gfx/comm/connect_dialog_bank56/palette_77c0.pal	palette	192	gfx/comm/connect_dialog_bank56.asm	56	77C0	PROBABLE	-	0		Palette_56_77C0
+gfx/comm/connection_icon/conn_icon_tiles0.2bpp	tiles	1024	gfx/comm/connection_icon.asm	69	4160	CONFIRMED	exact	0		ConnIcon_Tiles0
+gfx/comm/connection_icon/conn_icon_tiles1.2bpp	tiles	512	gfx/comm/connection_icon.asm	69	4560	CONFIRMED	exact	0		ConnIcon_Tiles1
+gfx/comm/connection_icon/conn_icon_palettes.pal	palette	24	gfx/comm/connection_icon.asm	69	4760	PROBABLE	-	0		ConnIcon_Palettes
+gfx/comm/notice_dialog/comm_notice_a_cut_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	439A	PROBABLE	-	0	20x18	Tilemap_CommNotice_A_CutOver60
+gfx/comm/notice_dialog/attrmap_4502.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4502	PROBABLE	-	0		Attrmap_50_4502
+gfx/comm/notice_dialog/comm_notice_a_ask_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	466A	PROBABLE	-	0	20x18	Tilemap_CommNotice_A_AskOver60
+gfx/comm/notice_dialog/attrmap_47d2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	47D2	PROBABLE	-	0		Attrmap_50_47D2
+gfx/comm/notice_dialog/comm_notice_a_cut_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	493A	PROBABLE	-	0	20x18	Tilemap_CommNotice_A_CutSoon
+gfx/comm/notice_dialog/attrmap_4aa2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4AA2	PROBABLE	-	0		Attrmap_50_4AA2
+gfx/comm/notice_dialog/comm_notice_a_ask_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	4C0A	CONFIRMED	-	0	20x18	Tilemap_CommNotice_A_AskSoon
+gfx/comm/notice_dialog/attrmap_4d72.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	4D72	CONFIRMED	-	0		Attrmap_50_4D72
+gfx/comm/notice_dialog/comm_notice_b_cut_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	4EDA	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_CutOver60
+gfx/comm/notice_dialog/attrmap_5042.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5042	PROBABLE	-	0		Attrmap_50_5042
+gfx/comm/notice_dialog/comm_notice_b_ask_over60.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	51AA	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_AskOver60
+gfx/comm/notice_dialog/attrmap_5312.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	5312	PROBABLE	-	0		Attrmap_50_5312
+gfx/comm/notice_dialog/comm_notice_b_cut_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	547A	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_CutSoon
+gfx/comm/notice_dialog/attrmap_55e2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	55E2	PROBABLE	-	0		Attrmap_50_55E2
+gfx/comm/notice_dialog/comm_notice_b_ask_soon.tilemap	tilemap	360	gfx/comm/notice_dialog.asm	50	574A	PROBABLE	-	0	20x18	Tilemap_CommNotice_B_AskSoon
+gfx/comm/notice_dialog/attrmap_58b2.attrmap	attrmap	360	gfx/comm/notice_dialog.asm	50	58B2	PROBABLE	-	0		Attrmap_50_58B2
+gfx/comm/notice_dialog/tiles_5a20.2bpp	tiles	1024	gfx/comm/notice_dialog.asm	50	5A20	PROBABLE	exact	0		Data_50_5A20
+gfx/comm/notice_dialog/tiles_5e20.2bpp	tiles	416	gfx/comm/notice_dialog.asm	50	5E20	PROBABLE	exact	0		Data_50_5E20
+gfx/comm/notice_dialog/tiles_5fc0.2bpp	tiles	16	gfx/comm/notice_dialog.asm	50	5FC0	PROBABLE	exact	0		Data_50_5FC0
+gfx/comm/notice_dialog/tiles_5fd0.2bpp	tiles	800	gfx/comm/notice_dialog.asm	50	5FD0	PROBABLE	exact	0		Data_50_5FD0
+gfx/comm/notice_dialog/tiles_62f0.2bpp	tiles	1024	gfx/comm/notice_dialog.asm	50	62F0	PROBABLE	exact	0		Data_50_62F0
+gfx/comm/notice_dialog/tiles_66f0.2bpp	tiles	416	gfx/comm/notice_dialog.asm	50	66F0	PROBABLE	exact	0		Data_50_66F0
+gfx/comm/notice_dialog/tiles_6890.2bpp	tiles	16	gfx/comm/notice_dialog.asm	50	6890	PROBABLE	exact	0		Data_50_6890
+gfx/comm/notice_dialog/tiles_68a0.2bpp	tiles	800	gfx/comm/notice_dialog.asm	50	68A0	PROBABLE	exact	0		Data_50_68A0
+gfx/comm/notice_dialog/palette_6bc0.pal	palette	256	gfx/comm/notice_dialog.asm	50	6BC0	PROBABLE	-	0		Palette_50_6BC0
+gfx/comm/time_summary/tiles_42a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	42A0	PROBABLE	exact	0		Data_51_42A0
+gfx/comm/time_summary/tiles_46a0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	PROBABLE	exact	0		Data_51_46A0
+gfx/comm/time_summary/comm_time_summary_a.tilemap	tilemap	360	gfx/comm/time_summary.asm	51	4AA0	PROBABLE	-	0	20x18	Tilemap_CommTime_SummaryA
+gfx/comm/time_summary/comm_time_summary_a.attrmap	attrmap	360	gfx/comm/time_summary.asm	51	4C08	PROBABLE	-	0	20x18	Tilemap_CommTime_SummaryA
+gfx/comm/time_summary/palette_4d70.pal	palette	64	gfx/comm/time_summary.asm	51	4D70	PROBABLE	-	0		Data_51_4D70
+gfx/comm/time_summary/tiles_4db0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	PROBABLE	exact	0		Data_51_4DB0
+gfx/comm/time_summary/tiles_51b0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	PROBABLE	exact	0		Data_51_51B0
+gfx/comm/time_summary/comm_time_summary_b.tilemap	tilemap	360	gfx/comm/time_summary.asm	51	55B0	PROBABLE	-	0	20x18	Tilemap_CommTime_SummaryB
+gfx/comm/time_summary/comm_time_summary_b.attrmap	attrmap	360	gfx/comm/time_summary.asm	51	5718	PROBABLE	-	0	20x18	Tilemap_CommTime_SummaryB
+gfx/comm/time_summary/tiles_58c0.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	58C0	PROBABLE	exact	0		Data_51_58C0
+gfx/comm/time_summary/tiles_5cc0.2bpp	tiles	512	gfx/comm/time_summary.asm	51	5CC0	PROBABLE	exact	0		Data_51_5CC0
+gfx/comm/time_summary/palette_5ec0.pal	palette	32	gfx/comm/time_summary.asm	51	5EC0	PROBABLE	-	0		Data_51_5EC0
+gfx/comm/time_summary/tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		Data_51_5EE1
+gfx/dialog/dialog_window/dialog_window_tiles.2bpp	tiles	1024	gfx/dialog/dialog_window.asm	72	48C0	CONFIRMED	exact	0		Dialog_WindowTiles
+gfx/dialog/dialog_window/dialog_window_map.tilemap	tilemap	180	gfx/dialog/dialog_window.asm	72	4CC0	CONFIRMED	-	0	20x9	Dialog_WindowMap
+gfx/dialog/dialog_window/dialog_window_map.attrmap	attrmap	180	gfx/dialog/dialog_window.asm	72	4D74	CONFIRMED	-	0	20x9	Dialog_WindowMap
+gfx/dialog/dialog_window/dialog_palette.pal	palette	16	gfx/dialog/dialog_window.asm	72	4E28	CONFIRMED	-	0		Dialog_Palette
+gfx/dialog/dialog_window/dialog_obj_palette.pal	palette	8	gfx/dialog/dialog_window.asm	72	4E38	CONFIRMED	-	0		Dialog_ObjPalette
+gfx/dialog/dialog_window/dialog_window_map_tall.tilemap	tilemap	220	gfx/dialog/dialog_window.asm	72	4E73	CONFIRMED	-	0	20x11	Dialog_WindowMapTall
+gfx/dialog/dialog_window/dialog_window_map_tall.attrmap	attrmap	220	gfx/dialog/dialog_window.asm	72	4F4F	CONFIRMED	-	0	20x11	Dialog_WindowMapTall
+gfx/error/comm_error_screen/comm_err_tilemap_comm.tilemap	tilemap	360	gfx/error/comm_error_screen.asm	5C	5516	CONFIRMED	-	0	20x18	CommErr_Tilemap_Comm
+gfx/error/comm_error_screen/comm_err_tilemap_comm.attrmap	attrmap	360	gfx/error/comm_error_screen.asm	5C	567E	CONFIRMED	-	0	20x18	CommErr_Tilemap_Comm
+gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.tilemap	tilemap	360	gfx/error/comm_error_screen.asm	5C	57E6	CONFIRMED	-	0	20x18	CommErr_Tilemap_CommTimer
+gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.attrmap	attrmap	360	gfx/error/comm_error_screen.asm	5C	594E	CONFIRMED	-	0	20x18	CommErr_Tilemap_CommTimer
+gfx/error/comm_error_screen/comm_err_tilemap_plain.tilemap	tilemap	360	gfx/error/comm_error_screen.asm	5C	5AB6	CONFIRMED	-	0	20x18	CommErr_Tilemap_Plain
+gfx/error/comm_error_screen/comm_err_tilemap_plain.attrmap	attrmap	360	gfx/error/comm_error_screen.asm	5C	5C1E	CONFIRMED	-	0	20x18	CommErr_Tilemap_Plain
+gfx/error/comm_error_screen/comm_err_gfx_obj8000.2bpp	tiles	32	gfx/error/comm_error_screen.asm	5C	5D90	CONFIRMED	exact	0		CommErr_Gfx_Obj8000
+gfx/error/comm_error_screen/comm_err_gfx_obj8100.2bpp	tiles	32	gfx/error/comm_error_screen.asm	5C	5DB0	CONFIRMED	exact	0		CommErr_Gfx_Obj8100
+gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp	tiles	1024	gfx/error/comm_error_screen.asm	5C	5DD0	CONFIRMED	exact	0		CommErr_Gfx_Bg9000
+gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp	tiles	384	gfx/error/comm_error_screen.asm	5C	61D0	CONFIRMED	exact	0		CommErr_Gfx_Bg9400
+gfx/error/comm_error_screen/comm_err_palette_bg_timer.pal	palette	64	gfx/error/comm_error_screen.asm	5C	6350	PROBABLE	-	0		CommErr_Palette_BgTimer
+gfx/error/comm_error_screen/comm_err_palette_bg.pal	palette	64	gfx/error/comm_error_screen.asm	5C	6390	PROBABLE	-	0		CommErr_Palette_Bg
+gfx/error/comm_error_screen/comm_err_palette_obj.pal	palette	64	gfx/error/comm_error_screen.asm	5C	63D0	PROBABLE	-	0		CommErr_Palette_Obj
+gfx/error/no_adapter/no_adapter_gfx_8000.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6080	CONFIRMED	exact	0		NoAdapter_Gfx_8000
+gfx/error/no_adapter/no_adapter_gfx_8800.2bpp	tiles	960	gfx/error/no_adapter.asm	63	60C0	CONFIRMED	exact	0		NoAdapter_Gfx_8800
+gfx/error/no_adapter/tiles_6480.2bpp	tiles	64	gfx/error/no_adapter.asm	63	6480	CONFIRMED	exact	0		Data_63_6480
+gfx/error/no_adapter/no_adapter_gfx_8c00.2bpp	tiles	1024	gfx/error/no_adapter.asm	63	64C0	CONFIRMED	exact	0		NoAdapter_Gfx_8C00
+gfx/error/no_adapter/no_adapter_gfx_9000.2bpp	tiles	1024	gfx/error/no_adapter.asm	63	68C0	CONFIRMED	exact	0		NoAdapter_Gfx_9000
+gfx/error/no_adapter/no_adapter_gfx_9400.2bpp	tiles	768	gfx/error/no_adapter.asm	63	6CC0	CONFIRMED	exact	0		NoAdapter_Gfx_9400
+gfx/error/no_adapter/no_adapter_palette_bg.pal	palette	40	gfx/error/no_adapter.asm	63	7290	PROBABLE	-	0		NoAdapter_Palette_Bg
+gfx/error/no_adapter/no_adapter_palette_obj.pal	palette	64	gfx/error/no_adapter.asm	63	72D0	CONFIRMED	-	0		NoAdapter_Palette_Obj
+gfx/error/non_cgb_screen/tiles_4060.2bpp	tiles	1056	gfx/error/non_cgb_screen.asm	6B	4060	PROBABLE	exact	0		Data_6B_4060
+gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	tiles	1968	gfx/error/non_cgb_screen.asm	6B	4480	PROBABLE	exact	5		NonCgb_Tiles
+gfx/help/help_screens_a/tilemap_4000.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	4000	CONFIRMED	-	0	20x18	Data_6A_4000
+gfx/help/help_screens_a/tilemap_4000.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4168	CONFIRMED	-	0	20x18	Data_6A_4000
+gfx/help/help_screens_a/tilemap_42d0.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	42D0	CONFIRMED	-	0	20x18	Data_6A_42D0
+gfx/help/help_screens_a/tilemap_42d0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4438	CONFIRMED	-	0	20x18	Data_6A_42D0
+gfx/help/help_screens_a/tilemap_45a0.tilemap	tilemap	360	gfx/help/help_screens_a.asm	6A	45A0	PROBABLE	-	0	20x18	Data_6A_45A0
+gfx/help/help_screens_a/tilemap_45a0.attrmap	attrmap	360	gfx/help/help_screens_a.asm	6A	4708	PROBABLE	-	0	20x18	Data_6A_45A0
+gfx/help/help_screens_a/tilemap_4870.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4870	PROBABLE	-	0	10x21	Tilemap_6A_4870
+gfx/help/help_screens_a/tilemap_4870.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4942	PROBABLE	-	0	10x21	Tilemap_6A_4870
+gfx/help/help_screens_a/tilemap_4a14.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4A14	PROBABLE	-	0	10x9	Tilemap_6A_4A14
+gfx/help/help_screens_a/tilemap_4a14.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4A6E	PROBABLE	-	0	10x9	Tilemap_6A_4A14
+gfx/help/help_screens_a/tilemap_4ac8.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4AC8	PROBABLE	-	0	10x9	Tilemap_6A_4AC8
+gfx/help/help_screens_a/tilemap_4ac8.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4B22	PROBABLE	-	0	10x9	Tilemap_6A_4AC8
+gfx/help/help_screens_a/tilemap_4b7c.tilemap	tilemap	210	gfx/help/help_screens_a.asm	6A	4B7C	PROBABLE	-	0	10x21	Tilemap_6A_4B7C
+gfx/help/help_screens_a/tilemap_4b7c.attrmap	attrmap	210	gfx/help/help_screens_a.asm	6A	4C4E	PROBABLE	-	0	10x21	Tilemap_6A_4B7C
+gfx/help/help_screens_a/tilemap_4d20.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4D20	PROBABLE	-	0	10x9	Tilemap_6A_4D20
+gfx/help/help_screens_a/tilemap_4d20.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4D7A	PROBABLE	-	0	10x9	Tilemap_6A_4D20
+gfx/help/help_screens_a/tilemap_4dd4.tilemap	tilemap	90	gfx/help/help_screens_a.asm	6A	4DD4	PROBABLE	-	0	10x9	Tilemap_6A_4DD4
+gfx/help/help_screens_a/tilemap_4dd4.attrmap	attrmap	90	gfx/help/help_screens_a.asm	6A	4E2E	PROBABLE	-	0	10x9	Tilemap_6A_4DD4
+gfx/help/help_screens_a/tiles_4e90.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	4E90	CONFIRMED	exact	0		Data_6A_4E90
+gfx/help/help_screens_a/tiles_5290.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5290	CONFIRMED	exact	0		Data_6A_5290
+gfx/help/help_screens_a/tiles_5690.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5690	CONFIRMED	exact	0		Data_6A_5690
+gfx/help/help_screens_a/tiles_5a90.2bpp	tiles	32	gfx/help/help_screens_a.asm	6A	5A90	CONFIRMED	exact	0		Data_6A_5A90
+gfx/help/help_screens_a/tiles_5ab0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5AB0	CONFIRMED	exact	0		Data_6A_5AB0
+gfx/help/help_screens_a/tiles_5eb0.2bpp	tiles	1024	gfx/help/help_screens_a.asm	6A	5EB0	CONFIRMED	exact	0		Data_6A_5EB0
+gfx/help/help_screens_a/palette_62b8.pal	palette	24	gfx/help/help_screens_a.asm	6A	62B8	PROBABLE	-	0		Data_6A_62B8
+gfx/help/help_screens_a/palette_62d8.pal	palette	32	gfx/help/help_screens_a.asm	6A	62D8	PROBABLE	-	0		Data_6A_62D8
+gfx/help/help_screens_a/palette_6300.pal	palette	328	gfx/help/help_screens_a.asm	6A	6300	PROBABLE	-	0		Data_6A_6300
+gfx/help/help_screens_b/tilemap_6716.tilemap	tilemap	360	gfx/help/help_screens_b.asm	6A	6716	CONFIRMED	-	0	20x18	Data_6A_6716
+gfx/help/help_screens_b/tilemap_6716.attrmap	attrmap	360	gfx/help/help_screens_b.asm	6A	687E	CONFIRMED	-	0	20x18	Data_6A_6716
+gfx/help/help_screens_b/tiles_69f0.2bpp	tiles	32	gfx/help/help_screens_b.asm	6A	69F0	CONFIRMED	exact	0		Data_6A_69F0
+gfx/help/help_screens_b/tiles_6a10.2bpp	tiles	16	gfx/help/help_screens_b.asm	6A	6A10	CONFIRMED	exact	0		Data_6A_6A10
+gfx/help/help_screens_b/tiles_6a20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6A20	CONFIRMED	exact	0		Data_6A_6A20
+gfx/help/help_screens_b/tiles_6e20.2bpp	tiles	1024	gfx/help/help_screens_b.asm	6A	6E20	PROBABLE	exact	0		Tiles_6A_6E20
+gfx/help/help_screens_b/palette_7220.pal	palette	128	gfx/help/help_screens_b.asm	6A	7220	PROBABLE	-	0		Palette_6A_7220
+gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	tilemap	360	gfx/help/mobile_dictionary.asm	1A	47B5	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen
+gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	attrmap	360	gfx/help/mobile_dictionary.asm	1A	491D	CONFIRMED	-	0	20x18	Tilemap_MobileDict_Screen
+gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	tiles	512	gfx/help/mobile_dictionary.asm	1A	4A90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles0
+gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	tiles	1024	gfx/help/mobile_dictionary.asm	1A	4C90	CONFIRMED	exact	0		Gfx_MobileDict_Tiles1
+gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	tiles	768	gfx/help/mobile_dictionary.asm	1A	5090	CONFIRMED	exact	0		Gfx_MobileDict_Tiles2
+gfx/help/mobile_dictionary/mobile_dict_bg.pal	palette	10	gfx/help/mobile_dictionary.asm	1A	5390	CONFIRMED	-	0		Palette_MobileDict_Bg
+gfx/help/mobile_dictionary/palette_539a.pal	palette	54	gfx/help/mobile_dictionary.asm	1A	539A	PROBABLE	-	0		Data_1A_539A
+gfx/help/mobile_dictionary/mobile_dict_obj.pal	palette	464	gfx/help/mobile_dictionary.asm	1A	53D0	PROBABLE	-	0		Palette_MobileDict_Obj
+gfx/keyboard/panels_bank5d/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4000	CONFIRMED	exact	0		Data_5D_4000
+gfx/keyboard/panels_bank5d/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5d.asm	5D	4400	CONFIRMED	exact	0		Data_5D_4400
+gfx/keyboard/panels_bank5f/tiles_4000.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4000	CONFIRMED	exact	0		Data_5F_4000
+gfx/keyboard/panels_bank5f/tiles_4400.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	4400	CONFIRMED	exact	0		Data_5F_4400
+gfx/keyboard/panels_bank5f/tiles_4800.2bpp	tiles	16	gfx/keyboard/panels_bank5f.asm	5F	4800	CONFIRMED	exact	0		Data_5F_4800
+gfx/keyboard/panels_bank5f/tilemap_4810.tilemap	tilemap	220	gfx/keyboard/panels_bank5f.asm	5F	4810	CONFIRMED	-	0	20x11	Data_5F_4810
+gfx/keyboard/panels_bank5f/tilemap_4810.attrmap	attrmap	220	gfx/keyboard/panels_bank5f.asm	5F	48EC	CONFIRMED	-	0	20x11	Data_5F_4810
+gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	tiles	768	gfx/keyboard/panels_bank5f.asm	5F	49D0	CONFIRMED	exact	0		Data_5F_49D0
+gfx/keyboard/panels_bank5f/palette_4cd0.pal	palette	40	gfx/keyboard/panels_bank5f.asm	5F	4CD0	PROBABLE	-	0		Palette_5F_4CD0
+gfx/keyboard/panels_bank5f/tilemap_4ecb.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	4ECB	CONFIRMED	-	0	20x13	Data_5F_4ECB
+gfx/keyboard/panels_bank5f/tilemap_4ecb.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	4FCF	CONFIRMED	-	0	20x13	Data_5F_4ECB
+gfx/keyboard/panels_bank5f/tilemap_50d3.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	50D3	CONFIRMED	-	0	20x13	Data_5F_50D3
+gfx/keyboard/panels_bank5f/tilemap_50d3.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	51D7	CONFIRMED	-	0	20x13	Data_5F_50D3
+gfx/keyboard/panels_bank5f/tilemap_52db.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	52DB	CONFIRMED	-	0	20x13	Data_5F_52DB
+gfx/keyboard/panels_bank5f/tilemap_52db.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	53DF	CONFIRMED	-	0	20x13	Data_5F_52DB
+gfx/keyboard/panels_bank5f/tilemap_54e3.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	54E3	PROBABLE	-	0	20x13	Data_5F_54E3
+gfx/keyboard/panels_bank5f/tilemap_54e3.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	55E7	PROBABLE	-	0	20x13	Data_5F_54E3
+gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	56EB	PROBABLE	-	0	20x13	Data_5F_56EB
+gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	57EF	PROBABLE	-	0	20x13	Data_5F_56EB
+gfx/keyboard/panels_bank5f/tiles_5900.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5900	PROBABLE	exact	0		Data_5F_5900
+gfx/keyboard/panels_bank5f/tiles_5d00.2bpp	tiles	1024	gfx/keyboard/panels_bank5f.asm	5F	5D00	PROBABLE	exact	0		Data_5F_5D00
+gfx/keyboard/panels_bank5f/tiles_6100.2bpp	tiles	256	gfx/keyboard/panels_bank5f.asm	5F	6100	PROBABLE	exact	0		Data_5F_6100
+gfx/keyboard/panels_bank5f/tilemap_69b0.tilemap	tilemap	260	gfx/keyboard/panels_bank5f.asm	5F	69B0	PROBABLE	-	0	20x13	Data_5F_69B0
+gfx/keyboard/panels_bank5f/tilemap_69b0.attrmap	attrmap	260	gfx/keyboard/panels_bank5f.asm	5F	6AB4	PROBABLE	-	0	20x13	Data_5F_69B0
+gfx/keyboard/panels_bank5f/palette_6bb8.pal	palette	24	gfx/keyboard/panels_bank5f.asm	5F	6BB8	PROBABLE	-	0		Data_5F_6BB8
+gfx/keyboard/tiles_bank62/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4000	CONFIRMED	exact	0		Data_62_4000
+gfx/keyboard/tiles_bank62/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4400	CONFIRMED	exact	0		Data_62_4400
+gfx/keyboard/tiles_bank62/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	4800	CONFIRMED	exact	0		Data_62_4800
+gfx/keyboard/tiles_bank62/tiles_4a40.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	4A40	PROBABLE	exact	0		Data_62_4A40
+gfx/keyboard/tiles_bank62/tiles_4b00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4B00	CONFIRMED	exact	0		Data_62_4B00
+gfx/keyboard/tiles_bank62/tiles_4f00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	4F00	CONFIRMED	exact	0		Data_62_4F00
+gfx/keyboard/tiles_bank62/tiles_5300.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	5300	CONFIRMED	exact	0		Data_62_5300
+gfx/keyboard/tiles_bank62/tiles_5540.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	5540	PROBABLE	exact	0		Data_62_5540
+gfx/keyboard/tiles_bank62/tiles_5600.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	5600	CONFIRMED	exact	0		Data_62_5600
+gfx/keyboard/tiles_bank62/tiles_5a00.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	5A00	CONFIRMED	exact	0		Data_62_5A00
+gfx/keyboard/tiles_bank62/tiles_5e00.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	5E00	CONFIRMED	exact	0		Data_62_5E00
+gfx/keyboard/tiles_bank62/tiles_6040.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	6040	PROBABLE	exact	0		Data_62_6040
+gfx/keyboard/tiles_bank62/tiles_6100.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	6100	PROBABLE	exact	0		Data_62_6100
+gfx/keyboard/tiles_bank62/tiles_6500.2bpp	tiles	1024	gfx/keyboard/tiles_bank62.asm	62	6500	PROBABLE	exact	0		Data_62_6500
+gfx/keyboard/tiles_bank62/tiles_6900.2bpp	tiles	576	gfx/keyboard/tiles_bank62.asm	62	6900	PROBABLE	exact	0		Data_62_6900
+gfx/keyboard/tiles_bank62/tiles_6b40.2bpp	tiles	192	gfx/keyboard/tiles_bank62.asm	62	6B40	PROBABLE	exact	0		Data_62_6B40
+gfx/keyboard/tiles_bank66/tiles_4000.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4000	CONFIRMED	exact	0		Data_66_4000
+gfx/keyboard/tiles_bank66/tiles_4400.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4400	CONFIRMED	exact	0		Data_66_4400
+gfx/keyboard/tiles_bank66/tiles_4800.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	4800	CONFIRMED	exact	0		Data_66_4800
+gfx/keyboard/tiles_bank66/tiles_4a40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4A40	CONFIRMED	exact	0		Data_66_4A40
+gfx/keyboard/tiles_bank66/tiles_4e40.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	4E40	CONFIRMED	exact	0		Data_66_4E40
+gfx/keyboard/tiles_bank66/tiles_5240.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5240	CONFIRMED	exact	0		Data_66_5240
+gfx/keyboard/tiles_bank66/tiles_5480.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5480	CONFIRMED	exact	0		Data_66_5480
+gfx/keyboard/tiles_bank66/tiles_5880.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5880	CONFIRMED	exact	0		Data_66_5880
+gfx/keyboard/tiles_bank66/tiles_5c80.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	5C80	CONFIRMED	exact	0		Data_66_5C80
+gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	5EC0	PROBABLE	exact	0		Data_66_5EC0
+gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	tiles	1024	gfx/keyboard/tiles_bank66.asm	66	62C0	PROBABLE	exact	0		Data_66_62C0
+gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	tiles	576	gfx/keyboard/tiles_bank66.asm	66	66C0	PROBABLE	exact	0		Data_66_66C0
+gfx/keyboard/tiles_bank66/tiles_6900.2bpp	tiles	400	gfx/keyboard/tiles_bank66.asm	66	6900	CONFIRMED	exact	7		Data_66_6900
+gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	tiles	1792	gfx/keyboard/tiles_bank66.asm	66	6A90	PROBABLE	exact	0		Data_66_6A90
+gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	tilemap	220	gfx/keyboard/tiles_bank66.asm	66	7210	CONFIRMED	-	0	20x11	Data_66_7210
+gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	attrmap	220	gfx/keyboard/tiles_bank66.asm	66	72EC	CONFIRMED	-	0	20x11	Data_66_7210
+gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap	tilemap	120	gfx/keyboard/tiles_bank66.asm	66	73C8	CONFIRMED	-	0	20x6	Data_66_73C8
+gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	attrmap	120	gfx/keyboard/tiles_bank66.asm	66	7440	CONFIRMED	-	0	20x6	Data_66_73C8
+gfx/mail/address_editor/mail_addr_tiles.2bpp	tiles	1024	gfx/mail/address_editor.asm	2D	7120	CONFIRMED	exact	0		Gfx_MailAddr_Tiles
+gfx/mail/address_editor/mail_addr_tiles2.2bpp	tiles	176	gfx/mail/address_editor.asm	2D	7520	CONFIRMED	exact	0		Gfx_MailAddr_Tiles2
+gfx/mail/address_editor/mail_addr_tiles3.2bpp	tiles	688	gfx/mail/address_editor.asm	2D	75D0	CONFIRMED	exact	5		Gfx_MailAddr_Tiles3
+gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	tiles	192	gfx/mail/address_editor.asm	2D	7880	CONFIRMED	exact	0		Gfx_MailAddr_ObjTiles
+gfx/mail/address_editor/tiles_7940.2bpp	tiles	528	gfx/mail/address_editor.asm	2D	7940	PROBABLE	exact	0		Data_2D_7940
+gfx/mail/address_editor/mail_addr.tilemap	tilemap	360	gfx/mail/address_editor.asm	2D	7B50	CONFIRMED	-	0	20x18	Tilemap_MailAddr
+gfx/mail/address_editor/mail_addr.attrmap	attrmap	360	gfx/mail/address_editor.asm	2D	7CB8	CONFIRMED	-	0	20x18	Tilemap_MailAddr
+gfx/mail/address_editor/mail_addr_bg.pal	palette	64	gfx/mail/address_editor.asm	2D	7E20	PROBABLE	-	0		Palette_MailAddr_Bg
+gfx/mail/body_editor/mail_body_tiles.2bpp	tiles	960	gfx/mail/body_editor.asm	2D	5AC0	PROBABLE	exact	0		Gfx_MailBody_Tiles
+gfx/mail/body_editor/mail_body_tiles2.2bpp	tiles	256	gfx/mail/body_editor.asm	2D	5EC0	CONFIRMED	exact	0		Gfx_MailBody_Tiles2
+gfx/mail/body_editor/mail_body.tilemap	tilemap	360	gfx/mail/body_editor.asm	2D	5FC0	CONFIRMED	-	0	20x18	Tilemap_MailBody
+gfx/mail/body_editor/mail_body.attrmap	attrmap	360	gfx/mail/body_editor.asm	2D	6128	CONFIRMED	-	0	20x18	Tilemap_MailBody
+gfx/mail/body_editor/mail_body_bg.pal	palette	64	gfx/mail/body_editor.asm	2D	6290	PROBABLE	-	0		Palette_MailBody_Bg
+gfx/mail/body_editor/mail_body_obj_tiles.2bpp	tiles	672	gfx/mail/body_editor.asm	2D	62D0	PROBABLE	exact	0		Gfx_MailBody_ObjTiles
+gfx/mail/body_editor/mail_body_obj.pal	palette	64	gfx/mail/body_editor.asm	2D	6570	CONFIRMED	-	0		Palette_MailBody_Obj
+gfx/mail/body_view/mail_body_tiles_42c0.2bpp	tiles	528	gfx/mail/body_view.asm	28	42C0	CONFIRMED	exact	0		MailBody_Tiles_42C0
+gfx/mail/body_view/mail_body_tiles_44d0.2bpp	tiles	128	gfx/mail/body_view.asm	28	44D0	CONFIRMED	exact	0		MailBody_Tiles_44D0
+gfx/mail/body_view/tilemap_4550.tilemap	tilemap	360	gfx/mail/body_view.asm	28	4550	PROBABLE	-	0	20x18	Data_28_4550
+gfx/mail/body_view/tilemap_4550.attrmap	attrmap	360	gfx/mail/body_view.asm	28	46B8	PROBABLE	-	0	20x18	Data_28_4550
+gfx/mail/body_view/mail_body_tilemap.tilemap	tilemap	360	gfx/mail/body_view.asm	28	4820	CONFIRMED	-	0	20x18	MailBody_Tilemap
+gfx/mail/body_view/mail_body_tilemap.attrmap	attrmap	360	gfx/mail/body_view.asm	28	4988	CONFIRMED	-	0	20x18	MailBody_Tilemap
+gfx/mail/body_view/mail_body_bg_palette.pal	palette	64	gfx/mail/body_view.asm	28	4AF0	PROBABLE	-	0		MailBody_BgPalette
+gfx/mail/body_view/mail_body_obj_palette.pal	palette	64	gfx/mail/body_view.asm	28	4B30	PROBABLE	-	0		MailBody_ObjPalette
+gfx/mail/comm_progress_scene/comm_progress_screen.tilemap	tilemap	360	gfx/mail/comm_progress_scene.asm	22	5980	CONFIRMED	-	0	20x18	Tilemap_CommProgress_Screen
+gfx/mail/comm_progress_scene/comm_progress_screen.attrmap	attrmap	360	gfx/mail/comm_progress_scene.asm	22	5AE8	CONFIRMED	-	0	20x18	Tilemap_CommProgress_Screen
+gfx/mail/comm_progress_scene/comm_progress_bg.pal	palette	2	gfx/mail/comm_progress_scene.asm	22	5C50	CONFIRMED	-	0		Palette_CommProgress_Bg
+gfx/mail/comm_progress_scene/palette_5c52.pal	palette	62	gfx/mail/comm_progress_scene.asm	22	5C52	PROBABLE	-	0		Data_22_5C52
+gfx/mail/comm_progress_scene/comm_progress_obj.pal	palette	64	gfx/mail/comm_progress_scene.asm	22	5C90	PROBABLE	-	0		Palette_CommProgress_Obj
+gfx/mail/comm_result/mail_result_tiles_6bf0.2bpp	tiles	1024	gfx/mail/comm_result.asm	24	6BF0	CONFIRMED	exact	0		MailResult_Tiles_6BF0
+gfx/mail/comm_result/mail_result_tiles_6ff0.2bpp	tiles	1024	gfx/mail/comm_result.asm	24	6FF0	CONFIRMED	exact	0		MailResult_Tiles_6FF0
+gfx/mail/comm_result/mail_result_tiles_73f0.2bpp	tiles	160	gfx/mail/comm_result.asm	24	73F0	CONFIRMED	exact	0		MailResult_Tiles_73F0
+gfx/mail/comm_result/mail_result_tiles_7490.2bpp	tiles	768	gfx/mail/comm_result.asm	24	7490	CONFIRMED	exact	0		MailResult_Tiles_7490
+gfx/mail/comm_result/mail_result_tilemap.tilemap	tilemap	360	gfx/mail/comm_result.asm	24	7790	CONFIRMED	-	0	20x18	MailResult_Tilemap
+gfx/mail/comm_result/mail_result_tilemap.attrmap	attrmap	360	gfx/mail/comm_result.asm	24	78F8	CONFIRMED	-	0	20x18	MailResult_Tilemap
+gfx/mail/comm_result/mail_result_bg_palette.pal	palette	64	gfx/mail/comm_result.asm	24	7A60	PROBABLE	-	0		MailResult_BgPalette
+gfx/mail/comm_result/mail_result_obj_palette.pal	palette	64	gfx/mail/comm_result.asm	24	7AA0	PROBABLE	-	0		MailResult_ObjPalette
+gfx/mail/comm_result/mail_server_status_bg_palette.pal	palette	64	gfx/mail/comm_result.asm	24	7AE0	PROBABLE	-	0		MailServerStatus_BgPalette
+gfx/mail/connect_screen/mail_connect_tiles_5060.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	5060	CONFIRMED	exact	0		MailConnect_Tiles_5060
+gfx/mail/connect_screen/mail_connect_tiles_5460.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	5460	CONFIRMED	exact	0		MailConnect_Tiles_5460
+gfx/mail/connect_screen/mail_connect_tiles_5860.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	5860	CONFIRMED	exact	0		MailConnect_Tiles_5860
+gfx/mail/connect_screen/mail_connect_tiles_5c60.2bpp	tiles	512	gfx/mail/connect_screen.asm	27	5C60	CONFIRMED	exact	0		MailConnect_Tiles_5C60
+gfx/mail/connect_screen/mail_connect_tiles_5e60.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	5E60	CONFIRMED	exact	0		MailConnect_Tiles_5E60
+gfx/mail/connect_screen/mail_connect_tiles_6260.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	6260	CONFIRMED	exact	0		MailConnect_Tiles_6260
+gfx/mail/connect_screen/mail_connect_tiles_6660.2bpp	tiles	512	gfx/mail/connect_screen.asm	27	6660	CONFIRMED	exact	0		MailConnect_Tiles_6660
+gfx/mail/connect_screen/mail_connect_tiles_6860.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	6860	CONFIRMED	exact	0		MailConnect_Tiles_6860
+gfx/mail/connect_screen/mail_connect_tiles_6c60.2bpp	tiles	1024	gfx/mail/connect_screen.asm	27	6C60	CONFIRMED	exact	0		MailConnect_Tiles_6C60
+gfx/mail/connect_screen/mail_connect_tilemap.tilemap	tilemap	576	gfx/mail/connect_screen.asm	27	7060	CONFIRMED	-	0	32x18	MailConnect_Tilemap
+gfx/mail/connect_screen/mail_connect_tilemap.attrmap	attrmap	576	gfx/mail/connect_screen.asm	27	72A0	CONFIRMED	-	0	32x18	MailConnect_Tilemap
+gfx/mail/connect_screen/mail_connect_bg_palette.pal	palette	56	gfx/mail/connect_screen.asm	27	74E0	PROBABLE	-	0		MailConnect_BgPalette
+gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	palette	64	gfx/mail/connect_screen.asm	27	7520	CONFIRMED	-	0		MailScreens_ObjPalette_7520
+gfx/mail/connect_screen/mail_connect_win_msg_cancelling.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	7560	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Cancelling
+gfx/mail/connect_screen/mail_connect_win_msg_cancelling.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	75C4	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Cancelling
+gfx/mail/connect_screen/mail_connect_win_msg_cancelled.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	7628	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Cancelled
+gfx/mail/connect_screen/mail_connect_win_msg_cancelled.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	768C	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Cancelled
+gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	76F0	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ending
+gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	7754	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ending
+gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	77B8	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ended
+gfx/mail/connect_screen/mail_disconnect_win_msg_ended.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	781C	CONFIRMED	-	0	20x5	MailDisconnect_WinMsg_Ended
+gfx/mail/connect_screen/mail_connect_win_msg_connecting.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	7880	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Connecting
+gfx/mail/connect_screen/mail_connect_win_msg_connecting.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	78E4	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Connecting
+gfx/mail/connect_screen/mail_connect_win_msg_connected.tilemap	tilemap	100	gfx/mail/connect_screen.asm	27	7948	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Connected
+gfx/mail/connect_screen/mail_connect_win_msg_connected.attrmap	attrmap	100	gfx/mail/connect_screen.asm	27	79AC	CONFIRMED	-	0	20x5	MailConnect_WinMsg_Connected
+gfx/mail/connect_screen_bank29/palette_5376.pal	palette	128	gfx/mail/connect_screen_bank29.asm	29	5376	PROBABLE	-	0		Data_29_5376
+gfx/mail/connect_screen_bank29/tiles_5400.2bpp	tiles	1024	gfx/mail/connect_screen_bank29.asm	29	5400	PROBABLE	exact	0		Data_29_5400
+gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	tilemap	360	gfx/mail/connect_screen_bank29.asm	29	5800	PROBABLE	-	0	20x18	Data_29_5800
+gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	attrmap	360	gfx/mail/connect_screen_bank29.asm	29	5968	PROBABLE	-	0	20x18	Data_29_5800
+gfx/mail/connect_screen_bank29/palette_5ad0.pal	palette	64	gfx/mail/connect_screen_bank29.asm	29	5AD0	PROBABLE	-	0		Palette_29_5AD0
+gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp	tiles	720	gfx/mail/draft_menu.asm	2B	4880	CONFIRMED	exact	0		Gfx_MailDraftMenu_Tiles9300
+gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.tilemap	tilemap	360	gfx/mail/draft_menu.asm	2B	4B50	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
+gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.attrmap	attrmap	360	gfx/mail/draft_menu.asm	2B	4CB8	CONFIRMED	-	0	20x18	Data_MailDraftMenu_TilemapAttr
+gfx/mail/draft_menu/mail_draft_menu_bg.pal	palette	64	gfx/mail/draft_menu.asm	2B	4E20	PROBABLE	-	0		Palette_MailDraftMenu_Bg
+gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp	tiles	816	gfx/mail/draft_menu.asm	2B	4E60	CONFIRMED	exact	13		Gfx_MailDraftMenu_Tiles8000
+gfx/mail/draft_menu/mail_draft_menu_obj.pal	palette	64	gfx/mail/draft_menu.asm	2B	5190	CONFIRMED	-	0		Palette_MailDraftMenu_Obj
+gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	tiles	1024	gfx/mail/mail_title_entry.asm	2C	4A30	CONFIRMED	exact	0		Gfx_MailTitle_Tiles9300
+gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.tilemap	tilemap	360	gfx/mail/mail_title_entry.asm	2C	4E30	CONFIRMED	-	0	20x18	Data_MailTitle_TilemapAttr
+gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_title_entry.asm	2C	4F98	CONFIRMED	-	0	20x18	Data_MailTitle_TilemapAttr
+gfx/mail/mail_title_entry/mail_title_bg.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5100	PROBABLE	-	0		Palette_MailTitle_Bg
+gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	tiles	16	gfx/mail/mail_title_entry.asm	2C	5140	PROBABLE	exact	0		Gfx_MailTitle_Tiles8000
+gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	tiles	592	gfx/mail/mail_title_entry.asm	2C	5410	CONFIRMED	exact	11		Gfx_MailTitle_Tiles8800
+gfx/mail/mail_title_entry/mail_title_obj.pal	palette	64	gfx/mail/mail_title_entry.asm	2C	5670	CONFIRMED	-	0		Palette_MailTitle_Obj
+gfx/mail/mail_viewer/mail_view_tiles9000.2bpp	tiles	1024	gfx/mail/mail_viewer.asm	2B	6DD0	CONFIRMED	exact	0		Gfx_MailView_Tiles9000
+gfx/mail/mail_viewer/mail_view_tiles9400.2bpp	tiles	512	gfx/mail/mail_viewer.asm	2B	71D0	PROBABLE	exact	0		Gfx_MailView_Tiles9400
+gfx/mail/mail_viewer/data_mail_view_tilemap_attr.tilemap	tilemap	360	gfx/mail/mail_viewer.asm	2B	73D0	PROBABLE	-	0	20x18	Data_MailView_TilemapAttr
+gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	attrmap	360	gfx/mail/mail_viewer.asm	2B	7538	PROBABLE	-	0	20x18	Data_MailView_TilemapAttr
+gfx/mail/mail_viewer/mail_view_bg.pal	palette	64	gfx/mail/mail_viewer.asm	2B	76A0	PROBABLE	-	0		Palette_MailView_Bg
+gfx/mail/mail_viewer/mail_view_tiles8000.2bpp	tiles	384	gfx/mail/mail_viewer.asm	2B	76E0	PROBABLE	exact	0		Gfx_MailView_Tiles8000
+gfx/mail/mail_viewer/mail_view_obj.pal	palette	64	gfx/mail/mail_viewer.asm	2B	7860	PROBABLE	-	0		Palette_MailView_Obj
+gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp	tiles	1024	gfx/mail/received_mail_grid.asm	2B	59C0	PROBABLE	exact	0		Gfx_MailGrid_Tiles9000
+gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp	tiles	560	gfx/mail/received_mail_grid.asm	2B	5DC0	PROBABLE	exact	13		Gfx_MailGrid_Tiles9400
+gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.tilemap	tilemap	360	gfx/mail/received_mail_grid.asm	2B	5FF0	PROBABLE	-	0	20x18	Data_MailGrid_TilemapAttr
+gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.attrmap	attrmap	360	gfx/mail/received_mail_grid.asm	2B	6158	PROBABLE	-	0	20x18	Data_MailGrid_TilemapAttr
+gfx/mail/received_mail_grid/mail_grid_bg.pal	palette	64	gfx/mail/received_mail_grid.asm	2B	62C0	PROBABLE	-	0		Palette_MailGrid_Bg
+gfx/mail/received_mail_grid/mail_grid_tiles8000.2bpp	tiles	240	gfx/mail/received_mail_grid.asm	2B	6300	PROBABLE	exact	0		Gfx_MailGrid_Tiles8000
+gfx/mail/received_mail_grid/mail_grid_obj.pal	palette	64	gfx/mail/received_mail_grid.asm	2B	63F0	PROBABLE	-	0		Palette_MailGrid_Obj
+gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp	tiles	1024	gfx/mail/server_status.asm	25	6F30	CONFIRMED	exact	0		MailServerStatus_Tiles_6F30
+gfx/mail/server_status/mail_server_status_tiles_7330.2bpp	tiles	1024	gfx/mail/server_status.asm	25	7330	CONFIRMED	exact	0		MailServerStatus_Tiles_7330
+gfx/mail/server_status/mail_server_status_tilemap_received.tilemap	tilemap	360	gfx/mail/server_status.asm	25	7730	PROBABLE	-	0	20x18	MailServerStatus_Tilemap_Received
+gfx/mail/server_status/mail_server_status_tilemap_received.attrmap	attrmap	360	gfx/mail/server_status.asm	25	7898	PROBABLE	-	0	20x18	MailServerStatus_Tilemap_Received
+gfx/mail/server_status/mail_server_status_tilemap_none_received.tilemap	tilemap	360	gfx/mail/server_status.asm	25	7A00	CONFIRMED	-	0	20x18	MailServerStatus_Tilemap_NoneReceived
+gfx/mail/server_status/mail_server_status_tilemap_none_received.attrmap	attrmap	360	gfx/mail/server_status.asm	25	7B68	CONFIRMED	-	0	20x18	MailServerStatus_Tilemap_NoneReceived
+gfx/mail/server_status/mail_server_status_tilemap_server_mgmt.tilemap	tilemap	360	gfx/mail/server_status.asm	25	7CD0	CONFIRMED	-	0	20x18	MailServerStatus_Tilemap_ServerMgmt
+gfx/mail/server_status/mail_server_status_tilemap_server_mgmt.attrmap	attrmap	360	gfx/mail/server_status.asm	25	7E38	CONFIRMED	-	0	20x18	MailServerStatus_Tilemap_ServerMgmt
+gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp	tiles	1024	gfx/mail/server_status_bank26.asm	26	7420	CONFIRMED	exact	0		MailServerStatus_Tiles_7420
+gfx/mail/server_status_bank26/tiles_7840.2bpp	tiles	624	gfx/mail/server_status_bank26.asm	26	7840	PROBABLE	exact	0		Data_26_7840
+gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	59E0	CONFIRMED	exact	0		MailSession_Tiles_59E0
+gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	5DE0	CONFIRMED	exact	0		MailSession_Tiles_5DE0
+gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp	tiles	256	gfx/mail/session_scenery.asm	26	61E0	CONFIRMED	exact	0		MailSession_Tiles_61E0
+gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	62E0	CONFIRMED	exact	0		MailSession_Tiles_62E0
+gfx/mail/session_scenery/mail_session_tiles_66e0.2bpp	tiles	16	gfx/mail/session_scenery.asm	26	66E0	CONFIRMED	exact	0		MailSession_Tiles_66E0
+gfx/mail/session_scenery/tiles_66f0.2bpp	tiles	240	gfx/mail/session_scenery.asm	26	66F0	CONFIRMED	exact	0		Data_26_66F0
+gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	67E0	CONFIRMED	exact	0		MailSession_Tiles_67E0
+gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	6BE0	CONFIRMED	exact	0		MailSession_Tiles_6BE0
+gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp	tiles	1024	gfx/mail/session_scenery.asm	26	6FE0	CONFIRMED	exact	0		MailSession_Tiles_6FE0
+gfx/mail/session_scenery/palette_73e0.pal	palette	64	gfx/mail/session_scenery.asm	26	73E0	PROBABLE	-	0		Data_26_73E0
+gfx/mail_menu/mail_menu/mail_menu_screen.tilemap	tilemap	360	gfx/mail_menu/mail_menu.asm	1D	45C1	CONFIRMED	-	0	20x18	Tilemap_MailMenu_Screen
+gfx/mail_menu/mail_menu/mail_menu_screen.attrmap	attrmap	360	gfx/mail_menu/mail_menu.asm	1D	4729	CONFIRMED	-	0	20x18	Tilemap_MailMenu_Screen
+gfx/mail_menu/mail_menu/mail_menu_plates_normal.tilemap	tilemap	240	gfx/mail_menu/mail_menu.asm	1D	4891	PROBABLE	-	0	10x24	Tilemap_MailMenu_PlatesNormal
+gfx/mail_menu/mail_menu/mail_menu_plates_normal.attrmap	attrmap	240	gfx/mail_menu/mail_menu.asm	1D	4981	PROBABLE	-	0	10x24	Attrmap_MailMenu_PlatesNormal
+gfx/mail_menu/mail_menu/mail_menu_plates_selected.tilemap	tilemap	240	gfx/mail_menu/mail_menu.asm	1D	4A71	PROBABLE	-	0	10x24	Tilemap_MailMenu_PlatesSelected
+gfx/mail_menu/mail_menu/mail_menu_plates_selected.attrmap	attrmap	240	gfx/mail_menu/mail_menu.asm	1D	4B61	PROBABLE	-	0	10x24	Attrmap_MailMenu_PlatesSelected
+gfx/mail_menu/mail_menu/mail_menu_icon_frames.tilemap	tilemap	96	gfx/mail_menu/mail_menu.asm	1D	4C51	PROBABLE	-	0		Tilemap_MailMenu_IconFrames
+gfx/mail_menu/mail_menu/mail_menu_icon_frames.attrmap	attrmap	96	gfx/mail_menu/mail_menu.asm	1D	4CB1	PROBABLE	-	0		Attrmap_MailMenu_IconFrames
+gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp	tiles	400	gfx/mail_menu/mail_menu.asm	1D	4D20	CONFIRMED	exact	7		Gfx_MailMenu_Tiles0
+gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	4EB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles1
+gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	52B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles2
+gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	56B0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles3
+gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	tiles	896	gfx/mail_menu/mail_menu.asm	1D	5AB0	CONFIRMED	exact	0		Gfx_MailMenu_Tiles4
+gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	tiles	1024	gfx/mail_menu/mail_menu.asm	1D	5E30	CONFIRMED	exact	0		Gfx_MailMenu_Tiles5
+gfx/mail_menu/mail_menu/mail_menu_bg.pal	palette	8	gfx/mail_menu/mail_menu.asm	1D	6230	CONFIRMED	-	0		Palette_MailMenu_Bg
+gfx/mail_menu/mail_menu/palette_6238.pal	palette	24	gfx/mail_menu/mail_menu.asm	1D	6238	PROBABLE	-	0		Data_1D_6238
+gfx/mail_menu/mail_menu/palette_6258.pal	palette	24	gfx/mail_menu/mail_menu.asm	1D	6258	PROBABLE	-	0		Data_1D_6258
+gfx/mail_menu/mail_menu/mail_menu_obj.pal	palette	8	gfx/mail_menu/mail_menu.asm	1D	6270	PROBABLE	-	0		Palette_MailMenu_Obj
+gfx/mail_menu/mail_menu/palette_6280.pal	palette	44	gfx/mail_menu/mail_menu.asm	1D	6280	PROBABLE	-	0		Data_1D_6280
+gfx/mail_menu/mail_menu/palette_62ac.pal	palette	116	gfx/mail_menu/mail_menu.asm	1D	62AC	PROBABLE	-	0		Data_1D_62AC
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_54b0.2bpp	tiles	1024	gfx/mail_server/delete_all_screen.asm	28	54B0	PROBABLE	exact	0		MailServerDeleteAll_Tiles_54B0
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_58b0.2bpp	tiles	672	gfx/mail_server/delete_all_screen.asm	28	58B0	PROBABLE	exact	0		MailServerDeleteAll_Tiles_58B0
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_5b50.2bpp	tiles	128	gfx/mail_server/delete_all_screen.asm	28	5B50	PROBABLE	exact	0		MailServerDeleteAll_Tiles_5B50
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.tilemap	tilemap	360	gfx/mail_server/delete_all_screen.asm	28	5BD0	PROBABLE	-	0	20x18	MailServerDeleteAll_Tilemap
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	attrmap	360	gfx/mail_server/delete_all_screen.asm	28	5D38	PROBABLE	-	0	20x18	MailServerDeleteAll_Tilemap
+gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EA0	PROBABLE	-	0		MailServerDeleteAll_BgPalette
+gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	palette	64	gfx/mail_server/delete_all_screen.asm	28	5EE0	PROBABLE	-	0		MailServerDeleteAll_ObjPalette
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button1.tilemap	tilemap	360	gfx/mail_server/delete_menu_hidden.asm	22	5110	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button1
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button1.attrmap	attrmap	360	gfx/mail_server/delete_menu_hidden.asm	22	5278	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button1
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button0.tilemap	tilemap	360	gfx/mail_server/delete_menu_hidden.asm	22	53E0	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button0
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button0.attrmap	attrmap	360	gfx/mail_server/delete_menu_hidden.asm	22	5548	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button0
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button2.tilemap	tilemap	360	gfx/mail_server/delete_menu_hidden.asm	22	56B0	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button2
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button2.attrmap	attrmap	360	gfx/mail_server/delete_menu_hidden.asm	22	5818	PROBABLE	-	0	20x18	Tilemap_MailSrvDelHidden_Button2
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_5f20.2bpp	tiles	560	gfx/mail_server/delete_method_screen.asm	28	5F20	PROBABLE	exact	13		MailServerDeleteMethod_Tiles_5F20
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.2bpp	tiles	1024	gfx/mail_server/delete_method_screen.asm	28	6150	PROBABLE	exact	0		MailServerDeleteMethod_Tiles_6150
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp	tiles	656	gfx/mail_server/delete_method_screen.asm	28	6550	PROBABLE	exact	7		MailServerDeleteMethod_Tiles_6550
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.2bpp	tiles	128	gfx/mail_server/delete_method_screen.asm	28	67E0	PROBABLE	exact	0		MailServerDeleteMethod_Tiles_67E0
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.tilemap	tilemap	360	gfx/mail_server/delete_method_screen.asm	28	6860	PROBABLE	-	0	20x18	MailServerDeleteMethod_Tilemap_First
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.attrmap	attrmap	360	gfx/mail_server/delete_method_screen.asm	28	69C8	PROBABLE	-	0	20x18	MailServerDeleteMethod_Tilemap_First
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.tilemap	tilemap	360	gfx/mail_server/delete_method_screen.asm	28	6B30	PROBABLE	-	0	20x18	MailServerDeleteMethod_Tilemap_Second
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.attrmap	attrmap	360	gfx/mail_server/delete_method_screen.asm	28	6C98	PROBABLE	-	0	20x18	MailServerDeleteMethod_Tilemap_Second
+gfx/mail_server/delete_method_screen/mail_server_delete_method_bg_palette.pal	palette	64	gfx/mail_server/delete_method_screen.asm	28	6E00	PROBABLE	-	0		MailServerDeleteMethod_BgPalette
+gfx/mail_server/delete_method_screen/mail_server_delete_method_obj_palette.pal	palette	64	gfx/mail_server/delete_method_screen.asm	28	6E40	PROBABLE	-	0		MailServerDeleteMethod_ObjPalette
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp	tiles	1024	gfx/mail_server/delete_progress.asm	23	6FE0	PROBABLE	exact	0		Gfx_MailSrvDelProgress_Tiles0
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp	tiles	256	gfx/mail_server/delete_progress.asm	23	73E0	PROBABLE	exact	0		Gfx_MailSrvDelProgress_Tiles1
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp	tiles	352	gfx/mail_server/delete_progress.asm	23	74E0	PROBABLE	exact	0		Gfx_MailSrvDelProgress_Tiles2
+gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap	tilemap	360	gfx/mail_server/delete_progress.asm	23	7640	PROBABLE	-	0	20x18	Tilemap_MailSrvDelProgress_Screen
+gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap	attrmap	360	gfx/mail_server/delete_progress.asm	23	77A8	PROBABLE	-	0	20x18	Tilemap_MailSrvDelProgress_Screen
+gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal	palette	64	gfx/mail_server/delete_progress.asm	23	7910	PROBABLE	-	0		Palette_MailSrvDelProgress_Bg
+gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal	palette	64	gfx/mail_server/delete_progress.asm	23	7950	PROBABLE	-	0		Palette_MailSrvDelProgress_Obj
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	56E0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles0
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp	tiles	16	gfx/mail_server/tidy_screen.asm	2E	5AE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles1
+gfx/mail_server/tidy_screen/tiles_5af0.2bpp	tiles	1008	gfx/mail_server/tidy_screen.asm	2E	5AF0	CONFIRMED	exact	0		Data_2E_5AF0
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp	tiles	288	gfx/mail_server/tidy_screen.asm	2E	5EE0	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles2
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6000	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles3
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp	tiles	352	gfx/mail_server/tidy_screen.asm	2E	6400	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles4
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp	tiles	1024	gfx/mail_server/tidy_screen.asm	2E	6560	CONFIRMED	exact	0		Gfx_MailServerMgr_Tiles5
+gfx/mail_server/tidy_screen/mail_server_mgr_main.tilemap	tilemap	360	gfx/mail_server/tidy_screen.asm	2E	6960	CONFIRMED	-	0	20x18	Tilemap_MailServerMgr_Main
+gfx/mail_server/tidy_screen/mail_server_mgr_main.attrmap	attrmap	360	gfx/mail_server/tidy_screen.asm	2E	6AC8	CONFIRMED	-	0	20x18	Tilemap_MailServerMgr_Main
+gfx/mail_server/tidy_screen/mail_server_mgr_footer.tilemap	tilemap	120	gfx/mail_server/tidy_screen.asm	2E	6C30	PROBABLE	-	0	20x6	Tilemap_MailServerMgr_Footer
+gfx/mail_server/tidy_screen/mail_server_mgr_footer.attrmap	attrmap	120	gfx/mail_server/tidy_screen.asm	2E	6CA8	PROBABLE	-	0	20x6	Tilemap_MailServerMgr_Footer
+gfx/mail_server/tidy_screen/mail_server_mgr_info_b.tilemap	tilemap	360	gfx/mail_server/tidy_screen.asm	2E	6D20	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoB
+gfx/mail_server/tidy_screen/mail_server_mgr_info_b.attrmap	attrmap	360	gfx/mail_server/tidy_screen.asm	2E	6E88	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoB
+gfx/mail_server/tidy_screen/mail_server_mgr_info_c.tilemap	tilemap	360	gfx/mail_server/tidy_screen.asm	2E	6FF0	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoC
+gfx/mail_server/tidy_screen/mail_server_mgr_info_c.attrmap	attrmap	360	gfx/mail_server/tidy_screen.asm	2E	7158	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoC
+gfx/mail_server/tidy_screen/mail_server_mgr_info_d.tilemap	tilemap	360	gfx/mail_server/tidy_screen.asm	2E	72C0	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoD
+gfx/mail_server/tidy_screen/mail_server_mgr_info_d.attrmap	attrmap	360	gfx/mail_server/tidy_screen.asm	2E	7428	PROBABLE	-	0	20x18	Tilemap_MailServerMgr_InfoD
+gfx/mail_server/tidy_screen/mail_server_mgr_bg.pal	palette	48	gfx/mail_server/tidy_screen.asm	2E	7590	CONFIRMED	-	0		Palette_MailServerMgr_Bg
+gfx/mail_server/tidy_screen/palette_75c0.pal	palette	16	gfx/mail_server/tidy_screen.asm	2E	75C0	PROBABLE	-	0		Data_2E_75C0
+gfx/mail_server/tidy_screen/mail_server_mgr_obj.pal	palette	240	gfx/mail_server/tidy_screen.asm	2E	75D0	PROBABLE	-	0		Palette_MailServerMgr_Obj
+gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp	tiles	1024	gfx/mailbox/mailbox.asm	25	5A10	CONFIRMED	exact	0		Mailbox_Tiles_5A10
+gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25	5E10	CONFIRMED	exact	0		Mailbox_Tiles_5E10
+gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp	tiles	1024	gfx/mailbox/mailbox.asm	25	5F10	PROBABLE	exact	0		Mailbox_Tiles_5F10
+gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25	6310	PROBABLE	exact	0		Mailbox_Tiles_6310
+gfx/mailbox/mailbox/mailbox_tilemap_normal.tilemap	tilemap	360	gfx/mailbox/mailbox.asm	25	6410	CONFIRMED	-	0	20x18	Mailbox_Tilemap_Normal
+gfx/mailbox/mailbox/mailbox_tilemap_normal.attrmap	attrmap	360	gfx/mailbox/mailbox.asm	25	6578	CONFIRMED	-	0	20x18	Mailbox_Tilemap_Normal
+gfx/mailbox/mailbox/mailbox_tilemap_delete_select.tilemap	tilemap	360	gfx/mailbox/mailbox.asm	25	66E0	PROBABLE	-	0	20x18	Mailbox_Tilemap_DeleteSelect
+gfx/mailbox/mailbox/mailbox_tilemap_delete_select.attrmap	attrmap	360	gfx/mailbox/mailbox.asm	25	6848	PROBABLE	-	0	20x18	Mailbox_Tilemap_DeleteSelect
+gfx/mailbox/mailbox/mailbox_bg_palette.pal	palette	48	gfx/mailbox/mailbox.asm	25	69B0	CONFIRMED	-	0		Mailbox_BgPalette
+gfx/mailbox/mailbox/palette_69e0.pal	palette	16	gfx/mailbox/mailbox.asm	25	69E0	PROBABLE	-	0		Data_25_69E0
+gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	tiles	208	gfx/mailbox/mailbox.asm	25	69F0	PROBABLE	exact	0		Mailbox_Tiles_69F0
+gfx/mailbox/mailbox/tiles_6bd1.2bpp	tiles	272	gfx/mailbox/mailbox.asm	25	6BD1	PROBABLE	exact	15		Data_25_6BD1
+gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	384	gfx/mailbox/mailbox.asm	25	6CF0	PROBABLE	exact	0		Mailbox_Tiles_6CF0
+gfx/mailbox/mailbox/mailbox_obj_palette.pal	palette	6	gfx/mailbox/mailbox.asm	25	6EF0	CONFIRMED	-	0		Mailbox_ObjPalette
+gfx/mailbox/mailbox/palette_6ef6.pal	palette	56	gfx/mailbox/mailbox.asm	25	6EF6	PROBABLE	-	0		Data_25_6EF6
+gfx/mailbox/objects/palette_7ac0.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_26_7AC0
+gfx/profile/profile_editor/profile_tiles9300.2bpp	tiles	1024	gfx/profile/profile_editor.asm	2A	6300	CONFIRMED	exact	0		Gfx_Profile_Tiles9300
+gfx/profile/profile_editor/profile_tiles9700.2bpp	tiles	256	gfx/profile/profile_editor.asm	2A	6700	CONFIRMED	exact	0		Gfx_Profile_Tiles9700
+gfx/profile/profile_editor/profile_tiles8800.2bpp	tiles	832	gfx/profile/profile_editor.asm	2A	6800	CONFIRMED	exact	0		Gfx_Profile_Tiles8800
+gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	tilemap	360	gfx/profile/profile_editor.asm	2A	6B40	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
+gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	attrmap	360	gfx/profile/profile_editor.asm	2A	6CA8	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
+gfx/profile/profile_editor/profile_bg.pal	palette	64	gfx/profile/profile_editor.asm	2A	6E10	PROBABLE	-	0		Palette_Profile_Bg
+gfx/registration/screen_bank4b/tilemap_4000.tilemap	tilemap	360	gfx/registration/screen_bank4b.asm	4B	4000	CONFIRMED	-	0	20x18	Data_4B_4000
+gfx/registration/screen_bank4b/tilemap_4000.attrmap	attrmap	360	gfx/registration/screen_bank4b.asm	4B	4168	CONFIRMED	-	0	20x18	Data_4B_4000
+gfx/registration/screens_bank58/tiles_4000.2bpp	tiles	464	gfx/registration/screens_bank58.asm	58	4000	CONFIRMED	exact	3		Tiles_58_4000
+gfx/registration/screens_bank58/tiles_41d0.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	41D0	PROBABLE	exact	0		Tiles_58_41D0
+gfx/registration/screens_bank58/tiles_4450.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	4450	PROBABLE	exact	0		Tiles_58_4450
+gfx/registration/screens_bank58/tiles_46d0.2bpp	tiles	1920	gfx/registration/screens_bank58.asm	58	46D0	PROBABLE	exact	0		Tiles_58_46D0
+gfx/registration/screens_bank58/tiles_4e50.2bpp	tiles	1280	gfx/registration/screens_bank58.asm	58	4E50	PROBABLE	exact	0		Tiles_58_4E50
+gfx/registration/screens_bank58/tiles_5350.2bpp	tiles	1280	gfx/registration/screens_bank58.asm	58	5350	PROBABLE	exact	0		Tiles_58_5350
+gfx/registration/screens_bank58/tiles_5850.2bpp	tiles	640	gfx/registration/screens_bank58.asm	58	5850	PROBABLE	exact	0		Tiles_58_5850
+gfx/registration/screens_bank58/tiles_5ad0.2bpp	tiles	4720	gfx/registration/screens_bank58.asm	58	5AD0	PROBABLE	exact	9		Tiles_58_5AD0
+gfx/registration/screens_bank58/tiles_6d40.2bpp	tiles	1824	gfx/registration/screens_bank58.asm	58	6D40	PROBABLE	exact	14		Tiles_58_6D40
+gfx/registration/screens_bank58/tiles_7460.2bpp	tiles	496	gfx/registration/screens_bank58.asm	58	7460	PROBABLE	exact	1		Tiles_58_7460
+gfx/registration/screens_bank58/tiles_7650.2bpp	tiles	320	gfx/registration/screens_bank58.asm	58	7650	PROBABLE	exact	0		Tiles_58_7650
+gfx/registration/screens_bank58/tiles_7790.2bpp	tiles	960	gfx/registration/screens_bank58.asm	58	7790	PROBABLE	exact	0		Tiles_58_7790
+gfx/registration/screens_bank58/palette_7b50.pal	palette	40	gfx/registration/screens_bank58.asm	58	7B50	PROBABLE	-	0		Palette_58_7B50
+gfx/registration/screens_bank58/tilemap_7b78.tilemap	tilemap	360	gfx/registration/screens_bank58.asm	58	7B78	CONFIRMED	-	0	20x18	Data_58_7B78
+gfx/registration/screens_bank58/tilemap_7b78.attrmap	attrmap	360	gfx/registration/screens_bank58.asm	58	7CE0	CONFIRMED	-	0	20x18	Data_58_7B78
+gfx/settings/screens_bank4a/tiles_5f80.2bpp	tiles	256	gfx/settings/screens_bank4a.asm	4A	5F80	CONFIRMED	exact	0		Data_4A_5F80
+gfx/settings/screens_bank4a/tiles_6080.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6080	CONFIRMED	exact	0		Data_4A_6080
+gfx/settings/screens_bank4a/tiles_6480.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6480	CONFIRMED	exact	0		Data_4A_6480
+gfx/settings/screens_bank4a/tiles_68d0.2bpp	tiles	80	gfx/settings/screens_bank4a.asm	4A	68D0	PROBABLE	exact	0		Data_4A_68D0
+gfx/settings/screens_bank4a/tiles_6920.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6920	PROBABLE	exact	0		Data_4A_6920
+gfx/settings/screens_bank4a/tiles_6d20.2bpp	tiles	1024	gfx/settings/screens_bank4a.asm	4A	6D20	PROBABLE	exact	0		Data_4A_6D20
+gfx/settings/screens_bank4a/tilemap_7120.tilemap	tilemap	100	gfx/settings/screens_bank4a.asm	4A	7120	PROBABLE	-	0	20x5	Data_4A_7120
+gfx/settings/screens_bank4a/tilemap_7120.attrmap	attrmap	100	gfx/settings/screens_bank4a.asm	4A	7184	PROBABLE	-	0	20x5	Data_4A_7120
+gfx/settings/screens_bank4a/tilemap_71e8.tilemap	tilemap	100	gfx/settings/screens_bank4a.asm	4A	71E8	PROBABLE	-	0	20x5	Data_4A_71E8
+gfx/settings/screens_bank4a/tilemap_71e8.attrmap	attrmap	100	gfx/settings/screens_bank4a.asm	4A	724C	PROBABLE	-	0	20x5	Data_4A_71E8
+gfx/settings/screens_bank4a/tilemap_72b0.tilemap	tilemap	100	gfx/settings/screens_bank4a.asm	4A	72B0	PROBABLE	-	0	20x5	Data_4A_72B0
+gfx/settings/screens_bank4a/tilemap_72b0.attrmap	attrmap	100	gfx/settings/screens_bank4a.asm	4A	7314	PROBABLE	-	0	20x5	Data_4A_72B0
+gfx/settings/screens_bank4b/tiles_5b90.2bpp	tiles	2560	gfx/settings/screens_bank4b.asm	4B	5B90	PROBABLE	exact	0		Tiles_4B_5B90
+gfx/settings/screens_bank4b/tiles_6a90.2bpp	tiles	1024	gfx/settings/screens_bank4b.asm	4B	6A90	PROBABLE	exact	0		Data_4B_6A90
+gfx/settings/screens_bank4b/tiles_6e90.2bpp	tiles	544	gfx/settings/screens_bank4b.asm	4B	6E90	PROBABLE	exact	14		Data_4B_6E90
+gfx/settings/screens_bank4b/tiles_70b0.2bpp	tiles	992	gfx/settings/screens_bank4b.asm	4B	70B0	PROBABLE	exact	2		Data_4B_70B0
+gfx/settings/screens_bank4b/tiles_76d0.2bpp	tiles	1024	gfx/settings/screens_bank4b.asm	4B	76D0	PROBABLE	exact	0		Data_4B_76D0
+gfx/settings/screens_bank4b/tiles_7ad0.2bpp	tiles	768	gfx/settings/screens_bank4b.asm	4B	7AD0	PROBABLE	exact	0		Data_4B_7AD0
+gfx/settings/screens_bank4d/tiles_4000.2bpp	tiles	512	gfx/settings/screens_bank4d.asm	4D	4000	PROBABLE	exact	0		Data_4D_4000
+gfx/settings/screens_bank4d/tiles_4200.2bpp	tiles	784	gfx/settings/screens_bank4d.asm	4D	4200	PROBABLE	exact	15		Data_4D_4200
+gfx/settings/screens_bank4d/tiles_4510.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	4510	PROBABLE	exact	0		Data_4D_4510
+gfx/settings/screens_bank4d/tiles_4610.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	4610	PROBABLE	exact	0		Data_4D_4610
+gfx/settings/screens_bank4d/tiles_4a10.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	4A10	PROBABLE	exact	0		Data_4D_4A10
+gfx/settings/screens_bank4d/tiles_4d10.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	4D10	PROBABLE	exact	0		Data_4D_4D10
+gfx/settings/screens_bank4d/tiles_5010.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	5010	PROBABLE	exact	0		Data_4D_5010
+gfx/settings/screens_bank4d/tiles_5110.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5110	PROBABLE	exact	0		Data_4D_5110
+gfx/settings/screens_bank4d/tiles_5510.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	5510	PROBABLE	exact	0		Data_4D_5510
+gfx/settings/screens_bank4d/tilemap_5810.tilemap	tilemap	360	gfx/settings/screens_bank4d.asm	4D	5810	PROBABLE	-	0	20x18	Data_4D_5810
+gfx/settings/screens_bank4d/tilemap_5810.attrmap	attrmap	360	gfx/settings/screens_bank4d.asm	4D	5978	PROBABLE	-	0	20x18	Data_4D_5810
+gfx/settings/screens_bank4d/tilemap_5ae0.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5AE0	PROBABLE	-	0	14x5	Tilemap_4D_5AE0
+gfx/settings/screens_bank4d/tilemap_5ae0.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5B26	PROBABLE	-	0	14x5	Tilemap_4D_5AE0
+gfx/settings/screens_bank4d/tilemap_5b6c.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5B6C	PROBABLE	-	0	14x5	Tilemap_4D_5B6C
+gfx/settings/screens_bank4d/tilemap_5b6c.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5BB2	PROBABLE	-	0	14x5	Tilemap_4D_5B6C
+gfx/settings/screens_bank4d/tilemap_5bf8.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5BF8	PROBABLE	-	0	14x5	Tilemap_4D_5BF8
+gfx/settings/screens_bank4d/tilemap_5bf8.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5C3E	PROBABLE	-	0	14x5	Tilemap_4D_5BF8
+gfx/settings/screens_bank4d/tilemap_5c84.tilemap	tilemap	70	gfx/settings/screens_bank4d.asm	4D	5C84	PROBABLE	-	0	14x5	Tilemap_4D_5C84
+gfx/settings/screens_bank4d/tilemap_5c84.attrmap	attrmap	70	gfx/settings/screens_bank4d.asm	4D	5CCA	PROBABLE	-	0	14x5	Tilemap_4D_5C84
+gfx/settings/screens_bank4d/tiles_5d50.2bpp	tiles	32	gfx/settings/screens_bank4d.asm	4D	5D50	PROBABLE	exact	0		Data_4D_5D50
+gfx/settings/screens_bank4d/tiles_5d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	5D70	PROBABLE	exact	0		Data_4D_5D70
+gfx/settings/screens_bank4d/tiles_6170.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6170	PROBABLE	exact	0		Data_4D_6170
+gfx/settings/screens_bank4d/tiles_6570.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	6570	PROBABLE	exact	0		Data_4D_6570
+gfx/settings/screens_bank4d/tiles_6870.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6870	PROBABLE	exact	0		Data_4D_6870
+gfx/settings/screens_bank4d/tiles_6c70.2bpp	tiles	256	gfx/settings/screens_bank4d.asm	4D	6C70	PROBABLE	exact	0		Data_4D_6C70
+gfx/settings/screens_bank4d/tiles_6d70.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	6D70	PROBABLE	exact	0		Data_4D_6D70
+gfx/settings/screens_bank4d/tiles_7170.2bpp	tiles	768	gfx/settings/screens_bank4d.asm	4D	7170	PROBABLE	exact	0		Data_4D_7170
+gfx/settings/screens_bank4d/tiles_7470.2bpp	tiles	1024	gfx/settings/screens_bank4d.asm	4D	7470	PROBABLE	exact	0		Data_4D_7470
+gfx/settings/screens_bank4d/tilemap_7870.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7870	PROBABLE	-	0	20x2	Tilemap_4D_7870
+gfx/settings/screens_bank4d/tilemap_7870.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7898	PROBABLE	-	0	20x2	Tilemap_4D_7870
+gfx/settings/screens_bank4d/tilemap_78c0.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	78C0	PROBABLE	-	0	20x2	Tilemap_4D_78C0
+gfx/settings/screens_bank4d/tilemap_78c0.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	78E8	PROBABLE	-	0	20x2	Tilemap_4D_78C0
+gfx/settings/screens_bank4d/tilemap_7910.tilemap	tilemap	40	gfx/settings/screens_bank4d.asm	4D	7910	PROBABLE	-	0	20x2	Tilemap_4D_7910
+gfx/settings/screens_bank4d/tilemap_7910.attrmap	attrmap	40	gfx/settings/screens_bank4d.asm	4D	7938	PROBABLE	-	0	20x2	Tilemap_4D_7910
+gfx/settings/screens_bank5d/tiles_7360.2bpp	tiles	1024	gfx/settings/screens_bank5d.asm	5D	7360	CONFIRMED	exact	0		Data_5D_7360
+gfx/settings/screens_bank5d/tiles_7760.2bpp	tiles	1024	gfx/settings/screens_bank5d.asm	5D	7760	CONFIRMED	exact	0		Data_5D_7760
+gfx/settings/screens_bank5d/tilemap_7ba0.tilemap	tilemap	360	gfx/settings/screens_bank5d.asm	5D	7BA0	CONFIRMED	-	0	20x18	Data_5D_7BA0
+gfx/settings/screens_bank5d/tilemap_7ba0.attrmap	attrmap	360	gfx/settings/screens_bank5d.asm	5D	7D08	CONFIRMED	-	0	20x18	Data_5D_7BA0
+gfx/settings/screens_bank5e/tiles_4000.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4000	PROBABLE	exact	0		Data_5E_4000
+gfx/settings/screens_bank5e/tiles_4400.2bpp	tiles	1024	gfx/settings/screens_bank5e.asm	5E	4400	PROBABLE	exact	0		Data_5E_4400
+gfx/settings/screens_bank71/tilemap_6f6f.tilemap	tilemap	360	gfx/settings/screens_bank71.asm	71	6F6F	PROBABLE	-	0	20x18	Data_71_6F6F
+gfx/settings/screens_bank71/tilemap_6f6f.attrmap	attrmap	360	gfx/settings/screens_bank71.asm	71	70D7	PROBABLE	-	0	20x18	Data_71_6F6F
+gfx/title/logo/title_logo_tiles0.2bpp	tiles	1024	gfx/title/logo.asm	0E	60A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles0
+gfx/title/logo/title_logo_tiles1.2bpp	tiles	1024	gfx/title/logo.asm	0E	64A0	CONFIRMED	exact	0		Gfx_TitleLogo_Tiles1
+gfx/title/logo/title_logo_screen.tilemap	tilemap	360	gfx/title/logo.asm	0E	68A0	CONFIRMED	-	0	20x18	Tilemap_TitleLogo_Screen
+gfx/title/logo/title_logo_screen.attrmap	attrmap	360	gfx/title/logo.asm	0E	6A08	CONFIRMED	-	0	20x18	Tilemap_TitleLogo_Screen
+gfx/title/logo/title_logo.pal	palette	64	gfx/title/logo.asm	0E	6B70	PROBABLE	-	0		Palette_TitleLogo
+gfx/title/title_screen/title_tiles0.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	43C0	CONFIRMED	exact	0		Gfx_Title_Tiles0
+gfx/title/title_screen/title_tiles1.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	47C0	CONFIRMED	exact	0		Gfx_Title_Tiles1
+gfx/title/title_screen/title_tiles2.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4BC0	CONFIRMED	exact	0		Gfx_Title_Tiles2
+gfx/title/title_screen/title_tiles3.2bpp	tiles	512	gfx/title/title_screen.asm	0E	4DC0	CONFIRMED	exact	0		Gfx_Title_Tiles3
+gfx/title/title_screen/title_tiles4.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	4FC0	CONFIRMED	exact	0		Gfx_Title_Tiles4
+gfx/title/title_screen/title_tiles5.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	53C0	CONFIRMED	exact	0		Gfx_Title_Tiles5
+gfx/title/title_screen/title_tiles6.2bpp	tiles	1024	gfx/title/title_screen.asm	0E	57C0	CONFIRMED	exact	0		Gfx_Title_Tiles6
+gfx/title/title_screen/title_screen.tilemap	tilemap	360	gfx/title/title_screen.asm	0E	5BC0	CONFIRMED	-	0	20x18	Tilemap_Title_Screen
+gfx/title/title_screen/title_screen.attrmap	attrmap	360	gfx/title/title_screen.asm	0E	5D28	CONFIRMED	-	0	20x18	Tilemap_Title_Screen
+gfx/title/title_screen/title_highlight_start.tilemap	tilemap	40	gfx/title/title_screen.asm	0E	5E90	PROBABLE	-	0		Tilemap_Title_HighlightStart
+gfx/title/title_screen/title_highlight_start.attrmap	attrmap	40	gfx/title/title_screen.asm	0E	5EB8	PROBABLE	-	0		Tilemap_Title_HighlightStart
+gfx/title/title_screen/title_highlight_settings.tilemap	tilemap	40	gfx/title/title_screen.asm	0E	5EE0	PROBABLE	-	0		Tilemap_Title_HighlightSettings
+gfx/title/title_screen/title_highlight_settings.attrmap	attrmap	40	gfx/title/title_screen.asm	0E	5F08	PROBABLE	-	0		Tilemap_Title_HighlightSettings
+gfx/title/title_screen/title_bg.pal	palette	64	gfx/title/title_screen.asm	0E	5F30	PROBABLE	-	0		Palette_Title_Bg
+gfx/title/title_screen/title_obj.pal	palette	64	gfx/title/title_screen.asm	0E	5F70	PROBABLE	-	0		Palette_Title_Obj
+gfx/top_menu/top_menu/tilemap_40d7.tilemap	tilemap	320	gfx/top_menu/top_menu.asm	1E	40D7	CONFIRMED	-	0	20x16	Data_1E_40D7
+gfx/top_menu/top_menu/tilemap_40d7.attrmap	attrmap	320	gfx/top_menu/top_menu.asm	1E	4217	CONFIRMED	-	0	20x16	Data_1E_40D7
+gfx/top_menu/top_menu/tilemap_48c1.tilemap	tilemap	108	gfx/top_menu/top_menu.asm	1E	48C1	CONFIRMED	-	0	12x9	Data_1E_48C1
+gfx/top_menu/top_menu/tilemap_48c1.attrmap	attrmap	108	gfx/top_menu/top_menu.asm	1E	492D	CONFIRMED	-	0	12x9	Data_1E_48C1
+gfx/top_menu/top_menu/tiles_49a0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	49A0	CONFIRMED	exact	0		Data_1E_49A0
+gfx/top_menu/top_menu/tiles_4da0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	4DA0	CONFIRMED	exact	0		Data_1E_4DA0
+gfx/top_menu/top_menu/tiles_51a0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	51A0	CONFIRMED	exact	0		Data_1E_51A0
+gfx/top_menu/top_menu/tiles_55a0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	55A0	CONFIRMED	exact	0		Data_1E_55A0
+gfx/top_menu/top_menu/tiles_59a0.2bpp	tiles	512	gfx/top_menu/top_menu.asm	1E	59A0	CONFIRMED	exact	0		Data_1E_59A0
+gfx/top_menu/top_menu/tiles_5ba0.2bpp	tiles	1024	gfx/top_menu/top_menu.asm	1E	5BA0	CONFIRMED	exact	0		Data_1E_5BA0
+gfx/top_menu/top_menu/tiles_5fa0.2bpp	tiles	768	gfx/top_menu/top_menu.asm	1E	5FA0	CONFIRMED	exact	0		Data_1E_5FA0
+gfx/top_menu/top_menu/palette_62a0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62A0	PROBABLE	-	0		Palette_1E_62A0
+gfx/top_menu/top_menu/palette_62e0.pal	palette	64	gfx/top_menu/top_menu.asm	1E	62E0	PROBABLE	-	0		Palette_1E_62E0
+gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp	tiles	1024	gfx/unreferenced/page_list_prototype.asm	7F	62B0	PROBABLE	exact	0		Data_7F_62B0
+gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp	tiles	288	gfx/unreferenced/page_list_prototype.asm	7F	66B0	PROBABLE	exact	0		Data_7F_66B0
+gfx/unreferenced/page_list_prototype/tilemap_67d0.tilemap	tilemap	360	gfx/unreferenced/page_list_prototype.asm	7F	67D0	PROBABLE	-	0	20x18	Data_7F_67D0
+gfx/unreferenced/page_list_prototype/tilemap_67d0.attrmap	attrmap	360	gfx/unreferenced/page_list_prototype.asm	7F	6938	PROBABLE	-	0	20x18	Data_7F_67D0
+gfx/unreferenced/page_list_prototype/palette_6aa0.pal	palette	64	gfx/unreferenced/page_list_prototype.asm	7F	6AA0	PROBABLE	-	0		Palette_7F_6AA0
+gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp	tiles	656	gfx/unreferenced/page_list_prototype.asm	7F	6AE0	PROBABLE	exact	7		Data_7F_6AE0
+gfx/unreferenced/page_list_prototype/palette_6d70.pal	palette	64	gfx/unreferenced/page_list_prototype.asm	7F	6D70	PROBABLE	-	0		Palette_7F_6D70
+gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	tiles	720	gfx/unreferenced/page_list_prototype_objects.asm	7F	7830	PROBABLE	exact	0		Tiles_7F_7830
+gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	palette	64	gfx/unreferenced/page_list_prototype_objects.asm	7F	7B00	PROBABLE	-	0		Palette_7F_7B00

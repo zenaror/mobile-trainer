@@ -67,7 +67,7 @@ is its own object (`rgbasm -P includes.asm`, dependency files `-M -MP`), so an e
 | `zero_labels.asm` | labels that point into all-zero padding (tiny pinned sections) |
 | `includes.asm` | pre-included into every file: hardware names, RAM names, macros |
 | `layout.link` | rgblink script: pins every section to its original bank and address |
-| `constants/` | `hardware.inc` (register names), `macros.inc` (`farcall`), `charmap.asm` (analysis output, not used by the build) |
+| `constants/` | `hardware.inc` (register names), `macros.inc` (`farcall`), `sjis_charmap.asm` (Shift-JIS charmap used for the readable strings in `data/`), `gfx_macros.inc` (`RGB` palette macro), `charmap.asm` (analysis output, not used by the build) |
 | `tools/` | analysis scripts, ROM comparison, `sym_check.py`, and the frozen generator |
 | `config/`, `analysis/` | frozen bootstrap tables and analysis evidence (history, see below) |
 | `docs/` | ROM identification, formats, per-topic research notes (`docs/research/`), progress metrics |

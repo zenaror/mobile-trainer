@@ -1,7 +1,7 @@
 # Installation
 
 To build the ROM you need two things: **RGBDS 1.0.3** and **GNU make**.  Nothing else is required: no Python, no reference ROM, no
-graphics tools.  (Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the analysis scripts.)
+graphics tools (`rgbgfx`, shipped with RGBDS, is only needed if you want to regenerate `.2bpp` files from the PNGs under `gfx/`; the committed `.2bpp` binaries are what the build uses).  (Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the analysis scripts.)
 
 ## Toolchain
 
