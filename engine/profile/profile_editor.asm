@@ -9,7 +9,7 @@ Function_2A_5495::
 	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld [wMailScreenMode], a
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -25,7 +25,7 @@ Function_2A_5495::
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	push bc
 	ld a, $00
 	ld hl, $AF50
@@ -62,8 +62,8 @@ Profile_Edit_Loop:: ; 2A:54FD
 .skip ; 2A:5504
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call Profile_PlaceTextCursor
@@ -81,7 +81,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	call Profile_KeyboardLoop
@@ -89,7 +89,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	cp a, $09
@@ -108,7 +108,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	push bc
@@ -145,7 +145,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	jp Label_2A_552A
@@ -171,7 +171,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	push bc
@@ -208,7 +208,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	jp Label_2A_552A
@@ -217,7 +217,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	push bc
@@ -227,7 +227,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	dec a
@@ -250,7 +250,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	push bc
@@ -287,7 +287,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	jp Label_2A_552A
@@ -298,7 +298,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $40D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	push bc
@@ -308,7 +308,7 @@ Label_2A_552A:: ; 2A:552A
 	push bc
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	pop af
 	dec a
@@ -354,7 +354,7 @@ Label_2A_56EC:: ; 2A:56EC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -363,16 +363,16 @@ Label_2A_56EC:: ; 2A:56EC
 Label_2A_5706:: ; 2A:5706
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	ld a, $FF
 	ret
 
@@ -397,7 +397,7 @@ Profile_CursorLeft:: ; 2A:5744
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -432,7 +432,7 @@ Profile_CursorRight:: ; 2A:576B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -502,89 +502,89 @@ Profile_InitScreen:: ; 2A:57BD
 Function_2A_57BD::
 	; [CONFIRMED] 123 insn(s); 123 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld de, $9301
 	ld hl, Gfx_Profile_Tiles9300
 	ld a, $2A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, $6700
 	ld a, $2A
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8800
 	ld hl, $6800
 	ld a, $2A
 	ld b, $93
 	ld c, $34
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, Data_26_7820
 	ld a, $26
 	ld b, $94
 	ld c, $2A
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_26_7AC0
 	ld a, $26
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_Profile_Bg
 	ld a, $2A
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_Profile_TilemapAttr
 	ld a, $2A
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA30
 	ld de, $6E70
 	ld a, $2A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA60
 	ld de, $6E80
 	ld a, $2A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld bc, $0000
 	call Profile_PlaceTextCursor
 	call Profile_LoadAndDraw
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -607,7 +607,7 @@ Function_2A_57BD::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000F
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -1276,7 +1276,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1294,7 +1294,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1304,15 +1304,15 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call Profile_PlaceTextCursor
 	ld d, $14
 .l5D22 ; 2A:5D22
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1327,11 +1327,11 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	call Profile_PlaceTextCursor
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	pop de
 	push de
@@ -1387,7 +1387,7 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1503,7 +1503,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1513,7 +1513,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	dec b
@@ -1548,8 +1548,8 @@ Profile_DeleteChar:: ; 2A:5E23
 .loop ; 2A:5E67
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1564,7 +1564,7 @@ Profile_DeleteChar:: ; 2A:5E23
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	inc c
 	dec c
@@ -1689,7 +1689,7 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -1816,7 +1816,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1873,7 +1873,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1891,7 +1891,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1954,7 +1954,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2011,7 +2011,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2029,7 +2029,7 @@ Profile_ApplyHandakuten:: ; 2A:6087
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2087,7 +2087,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	push bc
 	call Profile_PlaceTextCursor
 	ld d, $70
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wMailScreenMode]
 	ld c, a
 	ld b, $01
@@ -2113,7 +2113,7 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Profile_SaveToSram
@@ -2196,10 +2196,10 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	ld de, $6E70
 	ld a, $2A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	call Profile_PlaceTextCursor
 	pop af

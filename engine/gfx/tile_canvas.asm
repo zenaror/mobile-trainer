@@ -21,7 +21,7 @@ Function_4F_4572::
 	ldh [hRam_FFB1], a
 	pop bc
 .l4583 ; 4F:4583
-	call Function_00_0392
+	call Sound_FrameService
 	push hl
 	push de
 	push bc
@@ -55,7 +55,7 @@ Function_4F_4572::
 	ldh a, [hRam_FFB1]
 	ld b, a
 	ldh a, [hRam_FFB0]
-	call Function_00_0787
+	call Gfx_StartHDMAWithService
 	pop bc
 	pop de
 	ld l, c
@@ -82,7 +82,7 @@ Tilemap_FillAscendingWithAttr:: ; 4F:45C6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 .l45D3 ; 4F:45D3
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 .l45D7 ; 4F:45D7
 	ld a, h
@@ -155,7 +155,7 @@ TileCanvas_FillRect:: ; 4F:4604
 	ld a, b
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_0392
+	call Sound_FrameService
 .l4635 ; 4F:4635
 	ld a, e
 	ld [hli], a

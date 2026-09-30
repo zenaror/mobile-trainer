@@ -16,8 +16,8 @@ MailGrid_Screen:: ; 2B:53C3
 	; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	push bc
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	pop bc
 	call MailGrid_PlaceCursorSprite
@@ -88,8 +88,8 @@ MailGrid_CursorDown:: ; 2B:543D
 	ret
 
 MailGrid_InitScreen:: ; 2B:5448
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	ld bc, $0040
@@ -102,19 +102,19 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld a, $2B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailGrid_Tiles9400
 	ld a, $2B
 	ld b, $95
 	ld c, $23
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailGrid_Tiles8000
 	ld a, $2B
 	ld b, $97
 	ld c, $0F
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailGrid_Obj
@@ -124,7 +124,7 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld de, $D000
 	ld hl, Data_MailGrid_TilemapAttr
 	ld a, $2B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -132,26 +132,26 @@ MailGrid_InitScreen:: ; 2B:5448
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, Table_MailGrid_Anims
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1404
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailGrid_DrawCellIcons
 	farcall LCDOn
 	farcall TextTiles_UploadBuffers
@@ -169,7 +169,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l553A
 	ld de, $1404
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l553A ; 2B:553A
@@ -177,7 +177,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5549
 	ld de, $142C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5549 ; 2B:5549
@@ -185,7 +185,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5558
 	ld de, $1454
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5558 ; 2B:5558
@@ -193,7 +193,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5567
 	ld de, $147C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5567 ; 2B:5567
@@ -201,7 +201,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5576
 	ld de, $3404
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5576 ; 2B:5576
@@ -209,7 +209,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5585
 	ld de, $342C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5585 ; 2B:5585
@@ -217,7 +217,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l5594
 	ld de, $3454
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l5594 ; 2B:5594
@@ -225,7 +225,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l55A3
 	ld de, $347C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l55A3 ; 2B:55A3
@@ -233,7 +233,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l55B2
 	ld de, $5404
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l55B2 ; 2B:55B2
@@ -241,7 +241,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l55C1
 	ld de, $542C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l55C1 ; 2B:55C1
@@ -249,7 +249,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l55D0
 	ld de, $5454
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l55D0 ; 2B:55D0
@@ -257,7 +257,7 @@ MailGrid_PlaceCursorSprite:: ; 2B:5523
 	jr nz, .l55DF
 	ld de, $547C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l55DF ; 2B:55DF

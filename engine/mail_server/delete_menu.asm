@@ -8,7 +8,7 @@ MailSrvDel_MenuRun:: ; 23:4000
 Function_23_4000::
 	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,7 +24,7 @@ Function_23_4000::
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld c, $01
 	call MailSrvDel_MenuInit
 	ld de, $0227
@@ -62,7 +62,7 @@ Function_23_4000::
 	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
 	; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -70,8 +70,8 @@ Function_23_4000::
 MailSrvDel_MenuLoop:: ; 23:4076
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -84,7 +84,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -128,7 +128,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -151,13 +151,13 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -178,7 +178,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -206,7 +206,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -233,18 +233,18 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	ld de, $D000
 	ld hl, MailServerDeleteMethod_Tilemap_First
 	ld a, $28
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $FC00
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	call MailSrvDel_ShowDescCheck
 	pop bc
 	ret
@@ -254,18 +254,18 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	ld de, $D000
 	ld hl, MailServerDeleteMethod_Tilemap_Second
 	ld a, $28
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1800
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	call MailSrvDel_ShowDescDeleteAll
 	pop bc
 	ret
@@ -275,59 +275,59 @@ Function_23_41DC::
 	; [CONFIRMED] 80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailServerDeleteMethod_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6E40
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteMethod_Tiles_5F20
 	ld a, $28
 	ld b, $95
 	ld c, $23
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8800
 	ld hl, MailServerDeleteMethod_Tiles_6150
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8C00
 	ld hl, MailServerDeleteMethod_Tiles_6550
 	ld a, $28
 	ld b, $94
 	ld c, $29
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteMethod_Tiles_67E0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerDeleteMethod_Tilemap_First
 	ld a, $28
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -350,10 +350,10 @@ Function_23_41DC::
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $FC00
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr MailSrvDel_MenuStart
 
 .l42C2 ; 23:42C2
@@ -364,23 +364,23 @@ Function_23_41DC::
 	ld de, $D000
 	ld hl, MailServerDeleteMethod_Tilemap_Second
 	ld a, $28
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1800
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 MailSrvDel_MenuStart:: ; 23:42F4
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -404,7 +404,7 @@ MailSrvDel_MenuStart:: ; 23:42F4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -482,52 +482,52 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailServerDeleteAll_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5EE0
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteAll_Tiles_54B0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, MailServerDeleteAll_Tiles_58B0
 	ld a, $28
 	ld b, $94
 	ld c, $2A
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteAll_Tiles_5B50
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerDeleteAll_Tilemap
 	ld a, $28
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -544,10 +544,10 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6858
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, String_MailSrvDel_Confirm
 	ld a, $02
 	ldh [rVBK], a
@@ -556,7 +556,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $D000
 	ld de, $D100
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $472B
 	ld a, $02
 	ldh [rVBK], a
@@ -565,7 +565,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $D200
 	ld de, $D300
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $474C
 	ld a, $02
 	ldh [rVBK], a
@@ -574,7 +574,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $D400
 	ld de, $D500
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $476D
 	ld a, $02
 	ldh [rVBK], a
@@ -583,9 +583,9 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld bc, $D600
 	ld de, $D700
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSrvDel_UploadTextTiles
-	call Function_00_0464
+	call VBlank_Wait
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -593,13 +593,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -619,8 +619,8 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld c, $01
 .l4608 ; 23:4608
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -633,7 +633,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -641,13 +641,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	dec c
 	jr z, .l4647
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 .l4647 ; 23:4647
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -662,13 +662,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -683,7 +683,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -704,7 +704,7 @@ MailSrvDel_Confirm:: ; 23:4471
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -733,10 +733,10 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6828
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l46EE ; 23:46EE
@@ -745,10 +745,10 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6858
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -787,7 +787,8 @@ Function_23_478E::
 	ldh [rSVBK], a
 	ret
 
-Function_23_47BC:: ; 23:47BC
+MailSrvDel_DrawTimerNumbers:: ; 23:47BC
+Function_23_47BC::
 	; [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB
 	; and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on
 	; the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller,
@@ -809,10 +810,10 @@ Function_23_47BC:: ; 23:47BC
 	xor a, a
 	ld h, a
 	push hl
-	call Function_23_4864
+	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_23_4986
+	call MailSrvDel_NumberTileOffset_23_4986
 	ld hl, $D800
 	add hl, bc
 	ld b, h
@@ -843,10 +844,10 @@ Function_23_47BC:: ; 23:47BC
 	xor a, a
 	ld h, a
 	push hl
-	call Function_23_4864
+	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_23_4986
+	call MailSrvDel_NumberTileOffset_23_4986
 	ld hl, $D830
 	add hl, bc
 	ld b, h
@@ -872,10 +873,10 @@ Function_23_47BC:: ; 23:47BC
 	xor a, a
 	ld h, a
 	push hl
-	call Function_23_4864
+	call MailSrvDel_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_23_4986
+	call MailSrvDel_NumberTileOffset_23_4986
 	ld hl, $D860
 	add hl, bc
 	ld b, h
@@ -890,20 +891,21 @@ Function_23_47BC:: ; 23:47BC
 	ld hl, $D524
 	farcall TextTiles_RenderLine
 	pop hl
-	call Function_23_49E6
+	call MailSrvDel_UploadDecimalTiles
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-Function_23_4864:: ; 23:4864
+MailSrvDel_FormatDecimalStr:: ; 23:4864
+Function_23_4864::
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, String_23_497B
+	ld hl, String_MailSrvDel_NumberTemplate_23_497B
 	ld de, $D524
 .loop ; 23:4872
 	ld a, [hli]
@@ -1085,11 +1087,13 @@ Function_23_4864:: ; 23:4864
 ; ---- text $497B-$4986 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$497B at 23:486C
 
 PUSHC sjis
-String_23_497B:: ; 23:497B
+String_MailSrvDel_NumberTemplate_23_497B:: ; 23:497B
+String_23_497B::
 	db "０００００", 0
 POPC
 
-Function_23_4986:: ; 23:4986
+MailSrvDel_NumberTileOffset_23_4986:: ; 23:4986
+Function_23_4986::
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4986-4AA4 by apply_coverage --split | forced execution:
@@ -1142,7 +1146,8 @@ Function_23_4986:: ; 23:4986
 	pop de
 	ret
 
-Function_23_49E6:: ; 23:49E6
+MailSrvDel_UploadDecimalTiles:: ; 23:49E6
+Function_23_49E6::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02

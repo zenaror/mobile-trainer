@@ -27,8 +27,8 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 .loop ; 2A:6FBA
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -73,14 +73,14 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0032
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	call AddrBook_StoreEditBufferToSlot
@@ -89,7 +89,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 .l7034 ; 2A:7034
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -161,8 +161,8 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE
 	; region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	xor a, a
@@ -177,20 +177,20 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld a, $2A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9701
 	ld hl, Gfx_AddrSaveConfirm_Tiles9700
 	ld a, $2A
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_AddrSaveConfirm_TilemapAttr
 	ld a, $2A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld bc, $0000
 	pop bc
@@ -202,7 +202,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	; 70AB-7221 by apply_coverage --split
 	call AddrBook_SaveConfirm_DrawSlot
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -226,7 +226,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	; --split [executed in 4 scenarios]
 	call AddrBook_SaveConfirm_DrawEditBuffer
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -539,7 +539,8 @@ AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance:: ; 2A:73A3
 	ld e, a
 	ret
 
-Function_2A_73BB:: ; 2A:73BB
+AddrBook_SaveConfirm_DrawTextLine17:: ; 2A:73BB
+Function_2A_73BB::
 	; [HYPOTHESIS] no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld
@@ -579,7 +580,7 @@ Function_2A_73BB:: ; 2A:73BB
 	pop de
 	pop bc
 	inc hl
-	call Function_2A_747B
+	call AddrBook_SaveConfirm_DrawTextLine17_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
@@ -611,7 +612,7 @@ Function_2A_73BB:: ; 2A:73BB
 	pop hl
 	pop de
 	pop bc
-	call Function_2A_747B
+	call AddrBook_SaveConfirm_DrawTextLine17_BlitGlyphAdvance
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
@@ -633,7 +634,7 @@ Function_2A_73BB:: ; 2A:73BB
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_2A_748F
+	call AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance
 .l745B ; 2A:745B
 	push bc
 	push de
@@ -650,10 +651,11 @@ Function_2A_73BB:: ; 2A:73BB
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_2A_748F
+	call AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance
 	jr .l746C
 
-Function_2A_747B:: ; 2A:747B
+AddrBook_SaveConfirm_DrawTextLine17_BlitGlyphAdvance:: ; 2A:747B
+Function_2A_747B::
 	push bc
 	push de
 	push hl
@@ -667,7 +669,8 @@ Function_2A_747B:: ; 2A:747B
 	ld e, a
 	ret
 
-Function_2A_748F:: ; 2A:748F
+AddrBook_SaveConfirm_DrawTextLine17_BlitBlankAdvance:: ; 2A:748F
+Function_2A_748F::
 	push bc
 	push de
 	push hl
@@ -683,7 +686,8 @@ Function_2A_748F:: ; 2A:748F
 	ld e, a
 	ret
 
-Function_2A_74A7:: ; 2A:74A7
+AddrBook_SaveConfirm_DrawTextLine25:: ; 2A:74A7
+Function_2A_74A7::
 	; [HYPOTHESIS] no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
 	; code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld
@@ -723,7 +727,7 @@ Function_2A_74A7:: ; 2A:74A7
 	pop de
 	pop bc
 	inc hl
-	call Function_2A_7567
+	call AddrBook_SaveConfirm_DrawTextLine25_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
@@ -755,7 +759,7 @@ Function_2A_74A7:: ; 2A:74A7
 	pop hl
 	pop de
 	pop bc
-	call Function_2A_7567
+	call AddrBook_SaveConfirm_DrawTextLine25_BlitGlyphAdvance
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
@@ -777,7 +781,7 @@ Function_2A_74A7:: ; 2A:74A7
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_2A_757B
+	call AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance
 .l7547 ; 2A:7547
 	push bc
 	push de
@@ -794,10 +798,11 @@ Function_2A_74A7:: ; 2A:74A7
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_2A_757B
+	call AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance
 	jr .l7558
 
-Function_2A_7567:: ; 2A:7567
+AddrBook_SaveConfirm_DrawTextLine25_BlitGlyphAdvance:: ; 2A:7567
+Function_2A_7567::
 	push bc
 	push de
 	push hl
@@ -811,7 +816,8 @@ Function_2A_7567:: ; 2A:7567
 	ld e, a
 	ret
 
-Function_2A_757B:: ; 2A:757B
+AddrBook_SaveConfirm_DrawTextLine25_BlitBlankAdvance:: ; 2A:757B
+Function_2A_757B::
 	push bc
 	push de
 	push hl

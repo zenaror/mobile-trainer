@@ -36,7 +36,7 @@ Registration_Verify_OnTimeout:: ; 68:7364
 
 Registration_Verify_OnAdapterError:: ; 68:7372
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-	call Function_68_4101
+	call Comm_ClearSessionActive
 	farcall Mobile_SaveLastResult
 
 Registration_Verify_Abort:: ; 68:737B
@@ -86,20 +86,21 @@ Registration_Verify_Abort:: ; 68:737B
 	ld [wRam_C27C], a
 	ret
 
-Function_68_73DD:: ; 68:73DD
+Screen_FadeOutAndResetObjWindow:: ; 68:73DD
+Function_68_73DD::
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
-	call Function_00_044B
+	farcall Sprite_ResetAll
+	call VBlank_WaitAndService
 	ld hl, $FF40
 	ld a, [hl]
 	and a, $FB
 	ld [hl], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 CommPanel_SetVariant:: ; 68:7401
@@ -120,8 +121,8 @@ CommPanel_Step:: ; 68:7413
 	ld [wCommPanelBusy], a
 	farcall Joypad_Update
 	call CommPanel_RunState
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wCommPanelBusy]
 	ret
 
@@ -158,31 +159,31 @@ CommPanel_StateDraw:: ; 68:744C
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8801
 	ld hl, $4200
 	ld a, $71
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $4490
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_71_4890
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Data_71_4000
 	ld a, $71
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $4C50
@@ -197,7 +198,7 @@ CommPanel_StateDraw:: ; 68:744C
 	ld de, $D000
 	ld hl, Data_71_4C98
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, [wCommPanelPhase]
 	call CommPanel_DrawCaption
 	ld a, [wCommPanelPhase]
@@ -211,32 +212,32 @@ CommPanel_StateDraw:: ; 68:744C
 	ld de, $D200
 	ld hl, Data_71_4F68
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l74FB ; 68:74FB
 	call CommPanel_PrintWarningText
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_71_4FB8
 	ld a, $71
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1C14
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $01
 	ld [wCommPanelState], a
 	ret
 
 CommPanel_StateScreenOn:: ; 68:7522
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000A
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -271,7 +272,7 @@ CommPanel_StateWait:: ; 68:7544
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -285,7 +286,7 @@ CommPanel_StateWait:: ; 68:7544
 
 CommPanel_StateHide:: ; 68:7583
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wCommPanelBusy], a
 	ret
@@ -339,8 +340,8 @@ Function_68_75A4::
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $03
-	farcall Function_00_153D
-	call Function_00_0ED3
+	farcall PromptText_Load
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
@@ -382,10 +383,10 @@ CommPanel_DrawCaption:: ; 68:7611
 	ld bc, $040C
 	ld de, $D067
 	ld a, $71
-	farcall Function_00_08EA
-	call Function_00_044B
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_WaitAndService
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	ret
 
 ; ---- words $764C-$7652 (6 bytes) [PROBABLE] 3 words $7652,$7656,$765A = the starts of the three 4-byte records below

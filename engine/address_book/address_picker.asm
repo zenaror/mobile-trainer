@@ -33,8 +33,8 @@ Function_2C_56FE::
 
 AddrPick_Menu_Loop:: ; 2C:5721
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -53,7 +53,7 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	cp a, $00
 	jr z, .l5757
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ret
@@ -62,7 +62,7 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5738-5768 by apply_coverage --split
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
@@ -79,13 +79,13 @@ AddrPick_Menu_Loop:: ; 2C:5721
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -110,7 +110,7 @@ AddrPick_CursorDown:: ; 2C:57A7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -135,7 +135,7 @@ AddrPick_CursorUp:: ; 2C:57CC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -213,7 +213,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -283,7 +283,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -295,103 +295,103 @@ AddrPick_InitScreen:: ; 2C:58AC
 Function_2C_58AC::
 	; [CONFIRMED] 129 insn(s); 129 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_AddrBook_Obj
 	ld a, $2C
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_AddrPick_Bg
 	ld a, $2C
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $8F00
 	ld hl, Gfx_AddrBook_Tiles8F00
 	ld a, $2C
 	ld b, $98
 	ld c, $09
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, Gfx_AddrPick_Tiles9300
 	ld a, $2C
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, Gfx_AddrPick_Tiles9700
 	ld a, $2C
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, Data_28_4BD0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8400
 	ld hl, Data_28_4FD0
 	ld a, $28
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_AddrPick_TilemapAttr
 	ld a, $2C
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	call AddrPick_LoadCaption
-	call Function_00_0464
+	call VBlank_Wait
 	call AddrBook_UploadTextTiles
-	call Function_00_0464
+	call VBlank_Wait
 	call AddrPick_InitListAttrs
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0000
 	ld a, $02
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $03
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $04
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $05
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $06
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $01
 	ld c, $01
 	call AddrPick_MoveNameHighlight
-	call Function_00_0464
+	call VBlank_Wait
 	ld c, $01
 	ld a, $80
 	ldh [hJoyPressed], a
 	call AddrPick_RefreshSlotIcons
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -415,7 +415,7 @@ Function_2C_58AC::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -425,7 +425,8 @@ Function_2C_58AC::
 	ld [wTextEditGoalColumn], a
 	ret
 
-Function_2C_5A12:: ; 2C:5A12
+SaveSenderAddr_RefreshSlotIcons_2C_5A12:: ; 2C:5A12
+Function_2C_5A12::
 	; [PROBABLE] 10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld
 	; de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction
 	; chain (clean decode, all direct targets land on instruction starts, lands exactly on the next
@@ -444,18 +445,18 @@ Function_2C_5A12:: ; 2C:5A12
 	; [PROBABLE] 619 insn(s) reached by static flow only; seeds: exec x327, site x292; min discovery
 	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
 	; decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5A45
 	ld hl, $DA70
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5A45 ; 2C:5A45
 	pop bc
 	push bc
@@ -463,18 +464,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5A71
 	ld hl, $DA60
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5A71 ; 2C:5A71
 	pop bc
 	push bc
@@ -482,18 +483,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5A9D
 	ld hl, $DA50
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5A9D ; 2C:5A9D
 	pop bc
 	push bc
@@ -501,18 +502,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5AC9
 	ld hl, $DA40
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5AC9 ; 2C:5AC9
 	pop bc
 	push bc
@@ -520,18 +521,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5AF5
 	ld hl, $DA30
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5AF5 ; 2C:5AF5
 	pop bc
 	push bc
@@ -539,18 +540,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7220
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5B21
 	ld hl, $DA20
 	ld de, $7230
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5B21 ; 2C:5B21
 	pop bc
 	pop bc
@@ -575,18 +576,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5B6C
 	ld hl, $DA70
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5B6C ; 2C:5B6C
 	pop bc
 	jp .l5C5B
@@ -596,18 +597,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5B9B
 	ld hl, $DA60
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5B9B ; 2C:5B9B
 	pop bc
 	jp .l5C5B
@@ -617,18 +618,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5BCA
 	ld hl, $DA50
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5BCA ; 2C:5BCA
 	pop bc
 	jp .l5C5B
@@ -638,18 +639,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5BF9
 	ld hl, $DA40
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5BF9 ; 2C:5BF9
 	pop bc
 	jp .l5C5B
@@ -659,18 +660,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5C28
 	ld hl, $DA30
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5C28 ; 2C:5C28
 	pop bc
 	jp .l5C5B
@@ -680,18 +681,18 @@ Function_2C_5A12:: ; 2C:5A12
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
-	call Function_2C_5CA3
+	call AddrPick_IsSlotUsed_2C_5CA3
 	inc a
 	jr z, .l5C57
 	ld hl, $DA20
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5C57 ; 2C:5C57
 	pop bc
 	jp .l5C5B
@@ -727,7 +728,8 @@ Function_2C_5A12:: ; 2C:5A12
 	pop bc
 	ret
 
-Function_2C_5CA3:: ; 2C:5CA3
+AddrPick_IsSlotUsed_2C_5CA3:: ; 2C:5CA3
+Function_2C_5CA3::
 	push bc
 	push af
 	ld a, $01
@@ -1394,7 +1396,8 @@ Function_2C_5E51::
 	pop af
 	ret
 
-Function_2C_5FB1:: ; 2C:5FB1
+AddrPick_MoveNameHighlight_2C_5FB1:: ; 2C:5FB1
+Function_2C_5FB1::
 	; [PROBABLE] 80 insn(s): complete SRAM-access routine (push af; ld a,1; ldh [$FF8C],a; ld
 	; [$4000],a; ld a,$0A ... xor a; ldh [$FFF5],a; ld [$0000],a; pop af; ret); well-formed
 	; instruction chain (clean decode, all direct targets land on instruction starts, lands exactly
@@ -1848,7 +1851,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -1862,7 +1865,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l6240 ; 2C:6240
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
@@ -1872,7 +1875,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -1886,7 +1889,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l626C ; 2C:626C
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
@@ -1896,7 +1899,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -1910,7 +1913,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l6298 ; 2C:6298
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
@@ -1920,7 +1923,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -1934,7 +1937,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l62C4 ; 2C:62C4
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
@@ -1944,7 +1947,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -1958,7 +1961,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l62F0 ; 2C:62F0
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios)
@@ -1968,7 +1971,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -1982,7 +1985,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l631C ; 2C:631C
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
@@ -2014,7 +2017,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -2028,7 +2031,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l6367 ; 2C:6367
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
@@ -2043,7 +2046,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -2054,7 +2057,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6396 ; 2C:6396
 	pop bc
 	jp .l6456
@@ -2064,7 +2067,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -2075,7 +2078,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l63C5 ; 2C:63C5
 	pop bc
 	jp .l6456
@@ -2085,7 +2088,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -2096,7 +2099,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l63F4 ; 2C:63F4
 	pop bc
 	jp .l6456
@@ -2106,7 +2109,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -2117,7 +2120,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6423 ; 2C:6423
 	pop bc
 	jp .l6456
@@ -2127,7 +2130,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -2138,7 +2141,7 @@ AddrPick_RefreshSlotIcons:: ; 2C:620D
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6452 ; 2C:6452
 	pop bc
 	jp .l6456
@@ -2251,7 +2254,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $00
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2263,7 +2266,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l6529 ; 2C:6529
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
@@ -2280,7 +2283,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $01
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2289,7 +2292,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l655E ; 2C:655E
 	ld a, $34
 	ld [wSpriteSlots + 96], a
@@ -2301,7 +2304,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $02
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2310,7 +2313,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6593 ; 2C:6593
 	ld a, $40
 	ld [wSpriteSlots + 80], a
@@ -2322,7 +2325,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $03
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2331,7 +2334,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l65C8 ; 2C:65C8
 	ld a, $4C
 	ld [wSpriteSlots + 64], a
@@ -2343,7 +2346,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $04
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2352,7 +2355,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l65FD ; 2C:65FD
 	ld a, $58
 	ld [wSpriteSlots + 48], a
@@ -2364,7 +2367,7 @@ Function_2C_64E0::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $05
 	call AddrPick_IsSlotUsed
 	inc a
@@ -2373,7 +2376,7 @@ Function_2C_64E0::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6632 ; 2C:6632
 	ld a, $64
 	ld [wSpriteSlots + 32], a
@@ -2387,9 +2390,9 @@ Function_2C_64E0::
 	ld b, $01
 .loop ; 2C:6643
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Joypad_Update
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $C0

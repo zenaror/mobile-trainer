@@ -51,7 +51,7 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld hl, $BF03
@@ -91,25 +91,25 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4D_6170
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $6470
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4D_6870
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l4DB0
 .l4D68 ; 67:4D68
 	ld de, $8801
@@ -117,32 +117,32 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4D_6D70
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $7070
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4D_7470
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 .l4DB0 ; 67:4DB0
 	ld de, $8001
 	ld hl, Data_4D_5D50
 	ld a, $4D
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7570
@@ -157,25 +157,25 @@ SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
 	ld de, $D000
 	ld hl, $75A0
 	ld a, $4D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_SlotMenu_LoadTabTilemap
 	call SettingsPhone_SlotMenu_PrintSlotFields
 	call SettingsPhone_SlotMenu_UploadTextTiles
 	call SettingsPhone_SlotMenu_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4D_7960
 	ld a, $4D
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call SettingsPhone_SlotMenu_PlaceCursor
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
 SettingsPhone_SlotMenu_Loop:: ; 67:4E20
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -203,7 +203,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp .l4F4D
@@ -216,7 +216,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -229,7 +229,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -241,7 +241,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27E]
@@ -292,7 +292,7 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27E]
@@ -341,10 +341,10 @@ SettingsPhone_SlotMenu_Loop:: ; 67:4E20
 	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage
 	; --split [executed in 1 scenarios]
 	call SettingsPhone_SlotMenu_PlaceCursor
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	call SettingsPhone_SlotMenu_LoadTabTilemap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call SettingsPhone_SlotMenu_PrintSlotFields
 	call SettingsPhone_SlotMenu_UploadTextTiles
 .l4F4D ; 67:4F4D
@@ -364,7 +364,7 @@ SettingsPhone_SlotMenu_PlaceCursor:: ; 67:4F50
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $4F68-$4F6E (6 bytes) [PROBABLE] 3 entries x 2 bytes (18 2F / 47 2F / 77 2F) indexed by [$C27D]*2 (ld hl,$4F68 at 67:4F54), e=[hl], d=[hl+1], stored into sprite slot $DA00 by call $0A65 (coordinates)
@@ -433,7 +433,7 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld h, [hl]
 	ld l, a
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0B07
 	ld bc, $020C
@@ -476,7 +476,7 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld h, [hl]
 	ld l, a
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0D06
 	ld bc, $0212
@@ -519,7 +519,7 @@ SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
 	ld h, [hl]
 	ld l, a
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 ; ---- words $50A5-$50B7 (18 bytes) [PROBABLE] 9 words $DF10, $DF43, $DF76, $DF21, $DF54, $DF87, $DF32, $DF65, $DF98 = WRAM buffer addresses (3 groups of 3, step $11 / $33); used as hl=[table+2*idx] (ld hl,$50A5 at 67:4FE2) then ld a,$03 ; call $0ED3 (text interpreter) at 67:4FEF-4FF1, i.e. text-buffer pointers, not ROM pointers
@@ -561,7 +561,7 @@ SettingsPhone_SlotMenu_LoadTabTilemap:: ; 67:50E5
 	ld h, [hl]
 	ld l, a
 	ld a, $4D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- words $5104-$510A (6 bytes) [PROBABLE] 3 words $7870,$78C0,$7910 indexed by [$C27D]*2 (ld hl,$5104 at 67:50EE); hl=[table], ld a,$4D, far call 00:08EA (tilemap loader): source addresses in bank 4D (dw kept numeric)

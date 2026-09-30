@@ -447,7 +447,7 @@ Label_7E_7D66:: ; 7E:7D66
 	ldh [hRam_FFB1], a
 
 Label_7E_7D75:: ; 7E:7D75
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Label_7E_7E37

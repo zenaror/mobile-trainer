@@ -21,7 +21,7 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
@@ -31,19 +31,19 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5E_6FA0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $72C0
@@ -61,31 +61,31 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	ld de, $D000
 	ld hl, Data_5E_75D0
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l6ED4
 .l6EC3 ; 68:6EC3
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7300
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l6ED4 ; 68:6ED4
 	call Account_ActionConfirmPage_PrintMessage
 	call Account_ActionConfirmPage_UploadTextTiles
 	call Account_ActionConfirmPage_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call Account_ActionConfirmPage_UpdateCursor
 	ret
 
 Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -103,7 +103,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -127,7 +127,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -140,7 +140,7 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -166,7 +166,7 @@ Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $6F97-$6F9B (4 bytes) [CONFIRMED] read as data by executed code (in up to 6/18 scenarios); content class unknown
@@ -224,8 +224,8 @@ Account_ActionConfirmPage_PrintMessage:: ; 68:6FAB
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	farcall Function_00_153D
-	call Function_00_0ED3
+	farcall PromptText_Load
+	call TextEngine_Run
 	ret
 
 ; ---- data $7005-$7009 (4 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown

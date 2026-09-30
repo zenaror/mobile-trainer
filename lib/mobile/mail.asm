@@ -128,7 +128,7 @@ POPC
 Mail_SelectorTable:: ; 0F:4169
 Table_0F_4169::
 	dw Mail_SelectorNop, Mail_ScanHeaders, Mail_CheckGameMail, Mail_LocateHeader, Mail_ParseBody, Mail_IndexHeaders, Mail_GetDecodedHeader, Mail_GetAddressList
-	dw Mail_ComposeNext, Function_0F_52BC, Function_0F_54D8, Function_0F_56E1, Function_0F_5A10
+	dw Mail_ComposeNext, Mail_ComposeHeaderBlock, Mail_ComposeMimeBody, Mail_Base64EncodeStream, Mail_Base64DecodeStream
 
 ; ---- ptrtable $4183-$419D (26 bytes) [PROBABLE] 13 x dw pointers to the ASCII header-name strings 419D "FROM:", 41A3 "SENDER:", 41AB "REPLY-TO:", 41B5 "TO:", 41B9 "CC:", 41BD "SUBJECT:", 41C6 "DATE:", 41CC "CONTENT-TYPE:", ... 420D "X-GBMAIL-TYPE:" (parallel to the 13-entry jump table 0F:4169; every target is a string start)
 
@@ -580,7 +580,7 @@ Mail_LocateHeader:: ; 0F:43BB
 Mail_FindHeader:: ; 0F:43F7
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 16 scenarios]
-	call Function_0F_4416
+	call Mail_FindHeader_Scan
 	and a, a
 	jr nz, .l4411
 	ld a, $04
@@ -609,7 +609,8 @@ Mail_FindHeader:: ; 0F:43F7
 	ld b, $84
 	ret
 
-Function_0F_4416:: ; 0F:4416
+Mail_FindHeader_Scan:: ; 0F:4416
+Function_0F_4416::
 	ld a, c
 	ld [wMail_InputBank], a
 	ldh [hSRAMBank], a
@@ -1095,7 +1096,7 @@ Mail_MatchBoundary_NextPage:: ; 0F:469F
 	ret
 
 Mail_ParseSinglePart:: ; 0F:46A8
-	call Function_0F_486B
+	call Mail_PartRec_EmitHeaderBlock
 	and a, a
 	jr nz, .l46E8
 	ld hl, $D003
@@ -1109,7 +1110,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 	call Mail_SkipHeaderBlock
 	and a, a
 	jr nz, .l46EC
-	call Function_0F_48C6
+	call Mail_PartRec_EmitLengthAndPart
 	and a, a
 	jr nz, .l46E8
 	ld hl, $D003
@@ -1126,7 +1127,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 .loop ; 0F:46DE
 	dec bc
 	dec bc
-	call Function_0F_49D0
+	call Mail_PartRec_EmitLength
 	and a, a
 	jr nz, .l46E8
 	xor a, a
@@ -1153,7 +1154,7 @@ Mail_ParseSinglePart:: ; 0F:46A8
 Mail_ParseMultipart:: ; 0F:46FE
 	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 4 scenarios]
-	call Function_0F_486B
+	call Mail_PartRec_EmitHeaderBlock
 	and a, a
 	jp nz, .l478E
 	ld hl, $D003
@@ -1167,7 +1168,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	call Mail_SkipHeaderBlock
 	and a, a
 	jp nz, .l4792
-	call Function_0F_49D0
+	call Mail_PartRec_EmitLength
 	and a, a
 	jp nz, .l478E
 	ld a, $01
@@ -1196,7 +1197,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 .l474D ; 0F:474D
 	; [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 4247-47A5 by apply_coverage
 	; --split [executed in 4 scenarios]
-	call Function_0F_4951
+	call Mail_PartRec_EmitPart
 	and a, a
 	jr nz, .l478E
 	ld a, [wRam_D016]
@@ -1219,7 +1220,7 @@ Mail_ParseMultipart:: ; 0F:46FE
 	dec bc
 	dec bc
 .l4777 ; 0F:4777
-	call Function_0F_49D0
+	call Mail_PartRec_EmitLength
 	and a, a
 	jr nz, .l478E
 	ld a, [wMail_ItemListPointer]
@@ -1411,7 +1412,8 @@ Mail_FindPartName:: ; 0F:4847
 	ld a, $01
 	ret
 
-Function_0F_486B:: ; 0F:486B
+Mail_PartRec_EmitHeaderBlock:: ; 0F:486B
+Function_0F_486B::
 	; [CONFIRMED] 51 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, $D006
@@ -1425,24 +1427,24 @@ Function_0F_486B:: ; 0F:486B
 	ld a, $02
 	ld [de], a
 	inc e
-	call z, Function_0F_48BD
+	call z, Mail_PartRec_EmitHeaderBlock_NextPage
 	ld a, $01
 	ld [de], a
 	inc e
-	call z, Function_0F_48BD
+	call z, Mail_PartRec_EmitHeaderBlock_NextPage
 	ld hl, $D003
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_48BD
+	call z, Mail_PartRec_EmitHeaderBlock_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_48BD
+	call z, Mail_PartRec_EmitHeaderBlock_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_48BD
+	call z, Mail_PartRec_EmitHeaderBlock_NextPage
 	ld hl, $D006
 	ld a, [wMail_OutputBank]
 	ld [hli], a
@@ -1473,14 +1475,16 @@ Function_0F_486B:: ; 0F:486B
 	ld a, $01
 	ret
 
-Function_0F_48BD:: ; 0F:48BD
+Mail_PartRec_EmitHeaderBlock_NextPage:: ; 0F:48BD
+Function_0F_48BD::
 	push bc
 	ld bc, $D001
 	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_48C6:: ; 0F:48C6
+Mail_PartRec_EmitLengthAndPart:: ; 0F:48C6
+Function_0F_48C6::
 	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, $D006
@@ -1494,15 +1498,15 @@ Function_0F_48C6:: ; 0F:48C6
 	ld a, c
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, b
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [wMail_ItemListPointer + 1]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	cp a, $03
 	jr nz, .l4908
 
@@ -1512,19 +1516,19 @@ Function_0F_48C6:: ; 0F:48C6
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 
 .l4908 ; 0F:4908
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
@@ -1533,15 +1537,15 @@ Function_0F_48C6:: ; 0F:48C6
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_4948
+	call z, Mail_PartRec_EmitLengthAndPart_NextPage
 	ld hl, $D006
 	ld a, [wMail_OutputBank]
 	ld [hli], a
@@ -1584,14 +1588,16 @@ Function_0F_48C6:: ; 0F:48C6
 	ld a, $01
 	ret
 
-Function_0F_4948:: ; 0F:4948
+Mail_PartRec_EmitLengthAndPart_NextPage:: ; 0F:4948
+Function_0F_4948::
 	push bc
 	ld bc, $D001
 	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_4951:: ; 0F:4951
+Mail_PartRec_EmitPart:: ; 0F:4951
+Function_0F_4951::
 	; [CONFIRMED] 71 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld hl, $D006
@@ -1605,40 +1611,40 @@ Function_0F_4951:: ; 0F:4951
 	ld a, [wMail_ItemListPointer + 1]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	cp a, $03
 	jr nz, .l4987
 	ld hl, $D011
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 .l4987 ; 0F:4987
 	ld hl, $D003
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld a, [hli]
 	ld [de], a
 	inc e
-	call z, Function_0F_49C7
+	call z, Mail_PartRec_EmitPart_NextPage
 	ld hl, $D006
 	ld a, [wMail_OutputBank]
 	ld [hli], a
@@ -1675,14 +1681,16 @@ Function_0F_4951:: ; 0F:4951
 	ld a, $01
 	ret
 
-Function_0F_49C7:: ; 0F:49C7
+Mail_PartRec_EmitPart_NextPage:: ; 0F:49C7
+Function_0F_49C7::
 	push bc
 	ld bc, $D001
 	call Mail_NextSramPage
 	pop bc
 	ret
 
-Function_0F_49D0:: ; 0F:49D0
+Mail_PartRec_EmitLength:: ; 0F:49D0
+Function_0F_49D0::
 	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 47BB-4C59 by apply_coverage
 	; --split [executed in 6 scenarios]
 	ld hl, $D006
@@ -1713,11 +1721,11 @@ Function_0F_49D0:: ; 0F:49D0
 	ld a, c
 	ld [de], a
 	inc e
-	call z, Function_0F_4A13
+	call z, Mail_PartRec_EmitLength_NextPage
 	ld a, b
 	ld [de], a
 	inc e
-	call z, Function_0F_4A13
+	call z, Mail_PartRec_EmitLength_NextPage
 	ld hl, $D006
 	ld a, [wMail_OutputBank]
 	ld [hli], a
@@ -1735,7 +1743,8 @@ Function_0F_49D0:: ; 0F:49D0
 	ld a, $01
 	ret
 
-Function_0F_4A13:: ; 0F:4A13
+Mail_PartRec_EmitLength_NextPage:: ; 0F:4A13
+Function_0F_4A13::
 	push bc
 	ld bc, $D001
 	call Mail_NextSramPage
@@ -3458,16 +3467,17 @@ Mail_CopyItemToBuffer_NextPage:: ; 0F:52B3
 	pop bc
 	ret
 
-Function_0F_52BC:: ; 0F:52BC
+Mail_ComposeHeaderBlock:: ; 0F:52BC
+Function_0F_52BC::
 	push bc
-	call Function_0F_5381
+	call Mail_ComposeHeaderBlock_LoadArgs
 	push de
 	ld h, d
 	ld l, e
 	ld a, [hli]
 	ld b, a
 	ld c, $01
-	call Function_0F_53D6
+	call Mail_ComposeHeaderBlock_BuildAddressList
 	pop de
 	and a, a
 	jr nz, .l52FD
@@ -3488,7 +3498,7 @@ Function_0F_52BC:: ; 0F:52BC
 	ld a, [hli]
 	ld b, a
 	ld c, $03
-	call Function_0F_53D6
+	call Mail_ComposeHeaderBlock_BuildAddressList
 	and a, a
 	jr nz, .l52FD
 .l52EB ; 0F:52EB
@@ -3516,7 +3526,7 @@ Function_0F_52BC:: ; 0F:52BC
 	ld [wRam_D005], a
 	ld a, $01
 	ld [wBank4DeferredCall + 1], a
-	call Function_0F_53B9
+	call Mail_ComposeHeaderBlock_FetchItem
 	call Mail_EmitHeaderField
 	and a, a
 	jr nz, .l52FD
@@ -3534,7 +3544,7 @@ Function_0F_52BC:: ; 0F:52BC
 	cp a, $06
 	jr nz, .l52CE
 .l5339 ; 0F:5339
-	call Function_0F_53B9
+	call Mail_ComposeHeaderBlock_FetchItem
 	xor a, a
 	ld [wRam_D023], a
 	call Mail_EmitHeaderField
@@ -3552,7 +3562,7 @@ Function_0F_52BC:: ; 0F:52BC
 	ld a, b
 	and a, a
 	jr z, .l536F
-	call Function_0F_53B9
+	call Mail_ComposeHeaderBlock_FetchItem
 	xor a, a
 	ld [wRam_D023], a
 	call Mail_EmitHeaderField
@@ -3577,7 +3587,8 @@ Function_0F_52BC:: ; 0F:52BC
 	xor a, a
 	jp Mail_Return
 
-Function_0F_5381:: ; 0F:5381
+Mail_ComposeHeaderBlock_LoadArgs:: ; 0F:5381
+Function_0F_5381::
 	ld hl, $D006
 	ld a, [de]
 	ld [hli], a
@@ -3625,7 +3636,8 @@ Function_0F_5381:: ; 0F:5381
 	ld [wRam_D023], a
 	ret
 
-Function_0F_53B9:: ; 0F:53B9
+Mail_ComposeHeaderBlock_FetchItem:: ; 0F:53B9
+Function_0F_53B9::
 	ld hl, $D00D
 	ld e, [hl]
 	inc hl
@@ -3650,7 +3662,8 @@ Function_0F_53B9:: ; 0F:53B9
 	ld [hl], d
 	ret
 
-Function_0F_53D6:: ; 0F:53D6
+Mail_ComposeHeaderBlock_BuildAddressList:: ; 0F:53D6
+Function_0F_53D6::
 	ld a, [wBank4DeferredCall]
 	ld d, a
 	ld a, [wBank4DeferredCall + 1]
@@ -3825,14 +3838,15 @@ Function_0F_53D6:: ; 0F:53D6
 	xor a, a
 	ret
 
-Function_0F_54D8:: ; 0F:54D8
+Mail_ComposeMimeBody:: ; 0F:54D8
+Function_0F_54D8::
 	xor a, a
 	ld [wRam_D023], a
-	call Function_0F_55C4
-	call Function_0F_561F
+	call Mail_ComposeMimeBody_LoadArgs
+	call Mail_ComposeMimeBody_CopyData
 	and a, a
 	jr nz, .l5541
-	call Function_0F_55E6
+	call Mail_ComposeMimeBody_NextPart
 	ld a, [wRam_D015]
 	dec a
 	ld [wRam_D015], a
@@ -3876,7 +3890,7 @@ Function_0F_54D8:: ; 0F:54D8
 	call Mail_EmitCrLf
 	and a, a
 	jr nz, .l5541
-	call Function_0F_561F
+	call Mail_ComposeMimeBody_CopyData
 	and a, a
 	jr z, .l55B5
 .l5541 ; 0F:5541
@@ -3951,10 +3965,11 @@ Function_0F_54D8:: ; 0F:54D8
 	ld [wRam_D015], a
 	and a, a
 	jr z, .l5575
-	call Function_0F_55E6
+	call Mail_ComposeMimeBody_NextPart
 	jr .l555C
 
-Function_0F_55C4:: ; 0F:55C4
+Mail_ComposeMimeBody_LoadArgs:: ; 0F:55C4
+Function_0F_55C4::
 	ld hl, $D006
 	ld a, [de]
 	ld [hli], a
@@ -3981,10 +3996,11 @@ Function_0F_55C4:: ; 0F:55C4
 	ld a, e
 	ld [hli], a
 	ld [hl], d
-	call Function_0F_55E6
+	call Mail_ComposeMimeBody_NextPart
 	ret
 
-Function_0F_55E6:: ; 0F:55E6
+Mail_ComposeMimeBody_NextPart:: ; 0F:55E6
+Function_0F_55E6::
 	ld a, [wRam_D00D]
 	ld l, a
 	ld a, [wRam_D00E]
@@ -4026,7 +4042,8 @@ Function_0F_55E6:: ; 0F:55E6
 	ld [wRam_D00E], a
 	ret
 
-Function_0F_561F:: ; 0F:561F
+Mail_ComposeMimeBody_CopyData:: ; 0F:561F
+Function_0F_561F::
 	ld a, [wRam_D006]
 	ld [wBank4SavedBankLo], a
 	ld a, [wRam_D017]
@@ -4147,7 +4164,8 @@ Function_0F_561F:: ; 0F:561F
 	ld bc, $0E00
 	jr .l566E
 
-Function_0F_56E1:: ; 0F:56E1
+Mail_Base64EncodeStream:: ; 0F:56E1
+Function_0F_56E1::
 	ld a, [wMail_ComposeState]
 	and a, a
 	jp z, Mail_Return
@@ -4163,16 +4181,16 @@ Function_0F_56E1:: ; 0F:56E1
 	jr z, .l5740
 	cp a, $01
 	jp nz, Mail_Return
-	call Function_0F_5747
-	call Function_0F_5771
+	call Mail_Base64Stream_LoadArgs
+	call Mail_CalcBase64EncodedSize
 	ld a, h
 	ld [wMail_KeywordValue + 1], a
 	ld a, l
 	ld [wMail_KeywordValue], a
 .l570F ; 0F:570F
-	call Function_0F_57E5
+	call Mail_Base64EncodeStream_ClampChunk
 .l5712 ; 0F:5712
-	call Function_0F_5833
+	call Mail_Base64EncodeStream_Step
 	and a, a
 	jr nz, .l5740
 	ld a, [wMail_ComposeState]
@@ -4205,7 +4223,8 @@ Function_0F_56E1:: ; 0F:56E1
 	ld b, $83
 	jp Mail_Return
 
-Function_0F_5747:: ; 0F:5747
+Mail_Base64Stream_LoadArgs:: ; 0F:5747
+Function_0F_5747::
 	ld hl, $D002
 	ld a, [de]
 	ld [hli], a
@@ -4247,7 +4266,8 @@ Function_0F_5747:: ; 0F:5747
 	ld [hl], b
 	ret
 
-Function_0F_5771:: ; 0F:5771
+Mail_CalcBase64EncodedSize:: ; 0F:5771
+Function_0F_5771::
 	ld hl, $D005
 	ld a, [hli]
 	ld h, [hl]
@@ -4328,7 +4348,8 @@ Function_0F_5771:: ; 0F:5771
 	ld [wRam_D023], a
 	ret
 
-Function_0F_57E5:: ; 0F:57E5
+Mail_Base64EncodeStream_ClampChunk:: ; 0F:57E5
+Function_0F_57E5::
 	ld hl, $D005
 	ld a, [hli]
 	ld h, [hl]
@@ -4382,7 +4403,8 @@ Function_0F_57E5:: ; 0F:57E5
 	ld [wRam_D023], a
 	ret
 
-Function_0F_5833:: ; 0F:5833
+Mail_Base64EncodeStream_Step:: ; 0F:5833
+Function_0F_5833::
 	ld a, [wRam_D023]
 	and a, a
 	ret z
@@ -4726,7 +4748,8 @@ Mail_Base64EncodeChar:: ; 0F:59F1
 	ld a, $2B
 	ret
 
-Function_0F_5A10:: ; 0F:5A10
+Mail_Base64DecodeStream:: ; 0F:5A10
+Function_0F_5A10::
 	ld a, [wRam_D023]
 	and a, a
 	jp z, Mail_Return
@@ -4742,16 +4765,16 @@ Function_0F_5A10:: ; 0F:5A10
 	jr z, .l5A6F
 	cp a, $01
 	jp nz, Mail_Return
-	call Function_0F_5747
-	call Function_0F_5A74
+	call Mail_Base64Stream_LoadArgs
+	call Mail_CalcBase64DecodedSize
 	ld a, h
 	ld [wRam_D011], a
 	ld a, l
 	ld [wRam_D012], a
 .l5A3E ; 0F:5A3E
-	call Function_0F_5AC5
+	call Mail_Base64DecodeStream_ClampChunk
 .l5A41 ; 0F:5A41
-	call Function_0F_5B15
+	call Mail_Base64DecodeStream_Step
 	and a, a
 	jr nz, .l5A6F
 	ld a, [wRam_D023]
@@ -4783,7 +4806,8 @@ Function_0F_5A10:: ; 0F:5A10
 	ld a, $01
 	jp Mail_Return
 
-Function_0F_5A74:: ; 0F:5A74
+Mail_CalcBase64DecodedSize:: ; 0F:5A74
+Function_0F_5A74::
 	ld hl, $D005
 	ld a, [hli]
 	ld h, [hl]
@@ -4840,7 +4864,8 @@ Function_0F_5A74:: ; 0F:5A74
 	ld [wRam_D023], a
 	ret
 
-Function_0F_5AC5:: ; 0F:5AC5
+Mail_Base64DecodeStream_ClampChunk:: ; 0F:5AC5
+Function_0F_5AC5::
 	ld hl, $D005
 	ld a, [hli]
 	ld h, [hl]
@@ -4896,7 +4921,8 @@ Function_0F_5AC5:: ; 0F:5AC5
 	xor a, a
 	ret
 
-Function_0F_5B15:: ; 0F:5B15
+Mail_Base64DecodeStream_Step:: ; 0F:5B15
+Function_0F_5B15::
 	ld a, [wRam_D023]
 	and a, a
 	ret z
@@ -4914,7 +4940,7 @@ Function_0F_5B15:: ; 0F:5B15
 	ld d, [hl]
 	ld hl, $D624
 	push bc
-	call Function_0F_5BDD
+	call Mail_CopyBase64StripLineBreaks
 	pop hl
 	and a, a
 	jr z, .l5B58
@@ -5020,14 +5046,15 @@ Function_0F_5B15:: ; 0F:5B15
 	xor a, a
 	ret
 
-Function_0F_5BDD:: ; 0F:5BDD
+Mail_CopyBase64StripLineBreaks:: ; 0F:5BDD
+Function_0F_5BDD::
 	xor a, a
 	ld [wRam_D010], a
 .loop ; 0F:5BE1
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -5035,7 +5062,7 @@ Function_0F_5BDD:: ; 0F:5BDD
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -5043,7 +5070,7 @@ Function_0F_5BDD:: ; 0F:5BDD
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -5051,7 +5078,7 @@ Function_0F_5BDD:: ; 0F:5BDD
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -5060,12 +5087,12 @@ Function_0F_5BDD:: ; 0F:5BDD
 	cp a, $0D
 	jr nz, .loop
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	ld a, [de]
 	cp a, $0A
 	jr nz, Label_0F_5C5B
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	dec bc
 	ld a, b
 	or a, c
@@ -5084,11 +5111,11 @@ Function_0F_5BDD:: ; 0F:5BDD
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	ld a, [de]
 	ld [hli], a
 	inc e
-	call z, Function_0F_5C52
+	call z, Mail_CopyBase64StripLineBreaks_NextPage
 	xor a, a
 	ld [hl], a
 	ld a, $01
@@ -5105,7 +5132,8 @@ Function_0F_5BDD:: ; 0F:5BDD
 	ld [hl], a
 	ret
 
-Function_0F_5C52:: ; 0F:5C52
+Mail_CopyBase64StripLineBreaks_NextPage:: ; 0F:5C52
+Function_0F_5C52::
 	push bc
 	ld bc, $D000
 	call Mail_NextSramPage

@@ -69,8 +69,8 @@ Ticker_Update:: ; 48:4223
 	ld a, $00
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
-	call Function_00_0392
+	farcall Gfx_StartHDMAWithService
+	call Sound_FrameService
 	pop de
 	pop hl
 	ld a, d
@@ -82,7 +82,7 @@ Ticker_Update:: ; 48:4223
 	ld a, $00
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -240,20 +240,20 @@ Ticker_Start:: ; 48:42D4
 	call z, Ticker_InstallRasterIrq
 	xor a, a
 	ld [wRam_C0F6], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $97
 	ld c, $14
-	farcall Function_00_0787
-	call Function_00_0392
+	farcall Gfx_StartHDMAWithService
+	call Sound_FrameService
 	ld de, $9600
 	ld hl, $D400
 	ld a, $00
 	ld b, $97
 	ld c, $14
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -311,20 +311,20 @@ Ticker_Stop:: ; 48:4460
 	ld bc, $0800
 	ld hl, $D000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
-	call Function_00_0392
+	farcall Gfx_StartHDMAWithService
+	call Sound_FrameService
 	ld de, $9600
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh a, [rIE]
 	and a, $02
 	jr z, .l44D6

@@ -18,8 +18,8 @@ Function_73_5F17::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	call Function_00_044B
+	farcall Sprite_ResetAll
+	call VBlank_WaitAndService
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -39,31 +39,31 @@ Function_73_5F17::
 	ld a, $73
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, BrowserStart_Tiles1
 	ld a, $73
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, BrowserStart_Tiles2
 	ld a, $73
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, BrowserStart_Tiles3
 	ld a, $73
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, BrowserStart_Tiles4
 	ld a, $73
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, BrowserStart_Palettes
@@ -73,24 +73,24 @@ Function_73_5F17::
 	ld de, $D000
 	ld hl, BrowserStart_Map
 	ld a, $73
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call BrowserStart_DrawButtons
 	ld hl, $DA10
 	ld de, $5F0F
 	ld a, $73
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3D2C
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $5F0F
 	ld a, $73
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4122
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5E20
@@ -101,7 +101,7 @@ Function_73_5F17::
 	ld de, $8000
 	ld hl, $D200
 	farcall Tilemap_FillRectSequential
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -118,15 +118,15 @@ Function_73_5F17::
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	call BrowserStart_ShowDescription
 	ldh a, [hWRAMBank]
@@ -134,13 +134,14 @@ Function_73_5F17::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0011
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
-Label_73_607E:: ; 73:607E
-	farcall Function_00_0956
-	call Function_00_044B
+BrowserStart_InputLoop:: ; 73:607E
+Label_73_607E::
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -149,13 +150,14 @@ Label_73_607E:: ; 73:607E
 
 BrowserStart_InputTable:: ; 73:6096
 Table_73_6096::
-	dw Label_73_6114
-	dw Label_73_614F
-	dw Label_73_617A
-	dw Label_73_617D
-	dw Label_73_60A0
+	dw BrowserStart_OnA
+	dw BrowserStart_OnB
+	dw BrowserStart_IgnoreSelect
+	dw BrowserStart_IgnoreStart
+	dw BrowserStart_Idle
 
-Label_73_60A0:: ; 73:60A0
+BrowserStart_Idle:: ; 73:60A0
+Label_73_60A0::
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C0E4]
 	or a, a
@@ -196,7 +198,7 @@ Label_73_60A0:: ; 73:60A0
 	and a, $F0
 	call nz, BrowserStart_HandleDpad
 	call BrowserStart_AnimateFrame
-	jp Label_73_607E
+	jp BrowserStart_InputLoop
 
 .l60EA ; 73:60EA
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
@@ -215,14 +217,15 @@ Label_73_60A0:: ; 73:60A0
 	ld a, $01
 	ret
 
-Label_73_6114:: ; 73:6114
+BrowserStart_OnA:: ; 73:6114
+Label_73_6114::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -251,7 +254,8 @@ Function_73_6143:: ; 73:6143
 	xor a, $01
 	ret
 
-Label_73_614F:: ; 73:614F
+BrowserStart_OnB:: ; 73:614F
+Label_73_614F::
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 1;
 	; entered by table from 73:6093 (executed) [executed in 3 scenarios]
 	ldh a, [hWRAMBank]
@@ -259,7 +263,7 @@ Label_73_614F:: ; 73:614F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -271,11 +275,13 @@ Label_73_614F:: ; 73:614F
 	xor a, a
 	ret
 
-Label_73_617A:: ; 73:617A
-	jp Label_73_607E
+BrowserStart_IgnoreSelect:: ; 73:617A
+Label_73_617A::
+	jp BrowserStart_InputLoop
 
-Label_73_617D:: ; 73:617D
-	jp Label_73_607E
+BrowserStart_IgnoreStart:: ; 73:617D
+Label_73_617D::
+	jp BrowserStart_InputLoop
 
 BrowserStart_HandleDpad:: ; 73:6180
 	ld b, a
@@ -303,7 +309,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -320,7 +326,7 @@ BrowserStart_HandleDpad:: ; 73:6180
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -340,7 +346,7 @@ Function_73_61D5::
 	ld de, $D129
 	ld hl, BrowserStart_BottomMapNormal
 	ld a, $73
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $39
 	ld [wRam_C10E], a
 	ld a, $44
@@ -349,11 +355,11 @@ Function_73_61D5::
 	ld de, $D089
 	ld hl, $43F3
 	ld a, $73
-	farcall Function_00_16A2
-	farcall Function_00_0956
+	farcall Tilemap_CopyRectAndAttrPtr
+	farcall Sprite_UpdateAll
 	call BrowserStart_AnimateFrame
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 .l6220 ; 73:6220
@@ -367,7 +373,7 @@ Function_73_61D5::
 	ld de, $D089
 	ld hl, BrowserStart_TopMapNormal
 	ld a, $73
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ld a, $61
 	ld [wRam_C10E], a
 	ld a, $44
@@ -376,11 +382,11 @@ Function_73_61D5::
 	ld de, $D129
 	ld hl, BrowserStart_BottomMapSelected
 	ld a, $73
-	farcall Function_00_16A2
-	farcall Function_00_0956
+	farcall Tilemap_CopyRectAndAttrPtr
+	farcall Sprite_UpdateAll
 	call BrowserStart_AnimateFrame
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 BrowserStart_AnimateFrame:: ; 73:6265
@@ -410,9 +416,9 @@ Function_73_6265::
 	ld bc, $0507
 	ld de, $D0C1
 	ld a, $73
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, [wRam_C0E8]
 	inc a
 	ld [wRam_C0E8], a
@@ -438,7 +444,7 @@ BrowserStart_ShowDescription:: ; 73:62AA
 	ld a, b
 	cp a, $03
 	call z, Function_73_62E2
-	ld hl, Data_73_4000
+	ld hl, Data_BrowserStart_StringIndexBank
 	ld a, $73
 	farcall Ticker_Start
 	ret

@@ -117,7 +117,7 @@ UsageTime_Request:: ; 67:6171
 	ld de, $A100
 	call CopyString
 	ld de, $C28F
-	farcall Function_00_1586
+	farcall Dial_CopySelectedNumber
 	ld a, $02
 	farcall CommPanel_SetVariant
 	ld bc, $0001
@@ -170,13 +170,13 @@ Function_67_6205::
 	call CopyString
 	ld hl, $C1E0
 	ld de, $A000
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $624E
 	ld de, $A000
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DECB
 	ld de, $A000
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $A000
 	call StringLength
 	ldh [hScratchA], a

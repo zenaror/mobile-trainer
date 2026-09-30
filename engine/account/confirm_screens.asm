@@ -18,7 +18,7 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
@@ -28,25 +28,25 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5D_61F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5D_63F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5D_65F0
@@ -61,23 +61,23 @@ Account_ConfirmScreen_Setup:: ; 68:6213
 	ld de, $D000
 	ld hl, Data_5D_6630
 	ld a, $5D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmScreen_PrintAccount
 	call Account_ConfirmScreen_UploadTextTiles
 	call Account_ConfirmScreen_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call Account_ConfirmScreen_UpdateCursor
 	ret
 
 Account_ConfirmScreen_InputLoop:: ; 68:62C9
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -95,7 +95,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -117,7 +117,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -129,7 +129,7 @@ Account_ConfirmScreen_InputLoop:: ; 68:62C9
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -158,7 +158,7 @@ Function_68_6344::
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- words $635C-$6360 (4 bytes) [PROBABLE] 2 words $6828,$6858 (configuration record addresses) read as ld a,[hli]/ld e,a/ld d,[hl] with base $635C by the code at 6344-635C (index [$C27D]*2); extent bounded by the code at 6360
@@ -214,7 +214,7 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEA0
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0212
@@ -247,7 +247,7 @@ Account_ConfirmScreen_PrintAccount:: ; 68:637F
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DFAA
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 Account_ConfirmScreen_UploadTextTiles:: ; 68:6416
@@ -276,7 +276,7 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
@@ -286,25 +286,25 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5D_61F0
 	ld a, $5D
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4A_5870
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_4A_5C70
@@ -319,23 +319,23 @@ Account_ConfirmManualScreen_Setup:: ; 68:6451
 	ld de, $D000
 	ld hl, Data_4A_5CB0
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_ConfirmManualScreen_PrintAccount
-	call Function_68_6762
-	call Function_68_659E
+	call Account_ConfirmManualScreen_UploadTextTiles
+	call Account_ConfirmManualScreen_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call Account_ConfirmManualScreen_UpdateCursor
 	ret
 
 Account_ConfirmManualScreen_InputLoop:: ; 68:6507
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -353,7 +353,7 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -372,7 +372,7 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -384,7 +384,7 @@ Account_ConfirmManualScreen_InputLoop:: ; 68:6507
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -410,7 +410,7 @@ Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- words $659A-$659E (4 bytes) [PROBABLE] 2 words $7058,$7080 addressed by ld hl,$659A at 68:6586 (word read + call $0A65); extent bounded by the code at 659E
@@ -419,7 +419,8 @@ Account_ConfirmManualCursorPositions:: ; 68:659A
 Table_68_659A::
 	dw $7058, $7080
 
-Function_68_659E:: ; 68:659E
+Account_ConfirmManualScreen_BuildTextMap:: ; 68:659E
+Function_68_659E::
 	; [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7;
 	; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
 	ld hl, $D048
@@ -477,7 +478,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEA0
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0601
 	ld bc, $0212
@@ -510,7 +511,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DFAA
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0807
 	ld bc, $020C
@@ -543,7 +544,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEDD
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0A07
 	ld bc, $020C
@@ -576,7 +577,7 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEEE
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0C06
 	ld bc, $020D
@@ -609,10 +610,11 @@ Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEFF
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
-Function_68_6762:: ; 68:6762
+Account_ConfirmManualScreen_UploadTextTiles:: ; 68:6762
+Function_68_6762::
 	ld de, $9000
 	ld hl, $0208
 	ld bc, $0208

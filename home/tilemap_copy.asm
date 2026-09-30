@@ -4,7 +4,8 @@
 
 SECTION "home/tilemap_copy", ROM0
 
-Function_00_16A2:: ; 00:16A2
+Tilemap_CopyRectAndAttrPtr:: ; 00:16A2
+Function_00_16A2::
 	; [CONFIRMED] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred
 	; links; raw refs 3] [executed in 27 scenarios]
 	call BankSwitch_H
@@ -14,7 +15,7 @@ Function_00_16A2:: ; 00:16A2
 	ldh [hRam_FFB0], a
 	push bc
 	push de
-	call Function_00_0904
+	call Tilemap_CopyRect
 	pop de
 	pop bc
 	ld a, [wRam_C10E]
@@ -24,5 +25,5 @@ Function_00_16A2:: ; 00:16A2
 	ld a, d
 	add a, $04
 	ld d, a
-	call Function_00_0904
+	call Tilemap_CopyRect
 	ret

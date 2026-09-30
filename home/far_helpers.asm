@@ -4,7 +4,8 @@
 
 SECTION "home/far_helpers", ROM0
 
-Function_00_1711:: ; 00:1711
+Boot_ReinitRuntimeFar:: ; 00:1711
+Function_00_1711::
 	; [CONFIRMED] wrapper: preserves A, switches ROM bank to $4F, call 4F:47A5, restores
 	ldh [hScratchA], a
 	ldh a, [hROMBankLo]
@@ -21,7 +22,8 @@ Function_00_1711:: ; 00:1711
 	ldh a, [hScratchA]
 	ret
 
-Function_00_172D:: ; 00:172D
+CopyBytesFarToFar:: ; 00:172D
+Function_00_172D::
 	; [PROBABLE] far-to-far copy of BC bytes: source (bank A, HL), destination bank in [C10E], DE;
 	; staged through a 16-byte buffer at C10E [candidate; raw refs 7]
 	ldh [hRam_FFB1], a

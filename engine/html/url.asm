@@ -48,13 +48,13 @@ Function_74_5969::
 	ld a, h
 	ldh [hRam_FFB1], a
 	ld bc, HtmlUrl_SchemeTable
-	jp Function_00_10E9
+	jp Html_MatchKeyword
 .l597F ; 74:597F
 	pop hl
 	ret
 
 HtmlUrl_Resolve:: ; 74:5981
-	call Function_00_0392
+	call Sound_FrameService
 	push hl
 .l5985 ; 74:5985
 	ld a, [hli]
@@ -73,7 +73,7 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld a, h
 	ldh [hRam_FFB1], a
 	ld bc, HtmlUrl_SchemeTable
-	call Function_00_10E9
+	call Html_MatchKeyword
 	or a, a
 	jr z, .l59B3
 	pop de
@@ -107,7 +107,7 @@ HtmlUrl_Resolve:: ; 74:5981
 	ld a, d
 	ldh [hRam_FFB1], a
 	ld bc, HtmlUrl_SchemeTable
-	call Function_00_10E9
+	call Html_MatchKeyword
 	ld bc, $0100
 	ld de, $C380
 	or a, a

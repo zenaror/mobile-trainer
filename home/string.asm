@@ -72,7 +72,8 @@ DecodeXorA5:: ; 00:14EA
 	jr nz, DecodeXorA5
 	ret
 
-Function_00_14F3:: ; 00:14F3
+StringAppend:: ; 00:14F3
+Function_00_14F3::
 	; [CONFIRMED] string append: finds the first byte equal to A in the string at DE and copies the
 	; string at HL there (A=0: strcat) [reached via inferred links; raw refs 19] [executed in 10
 	; scenarios]

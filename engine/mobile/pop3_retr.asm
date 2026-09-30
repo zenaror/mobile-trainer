@@ -97,7 +97,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_54_511D
+	call Mail_ScanAndCheckGameMail
 	or a, a
 	jp nz, .l4FA4
 	ld de, $C240
@@ -109,7 +109,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [rSVBK], a
 	ld a, $04
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jp nz, .l4FA4
 	ld de, $C240
@@ -121,7 +121,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4D9A
 
@@ -151,7 +151,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	pop hl
 	ld bc, $00ED
 	add hl, bc
-	call Function_54_4FD2
+	call Mail_SplitFromHeader
 	ld hl, $C252
 	ld a, [hli]
 	ld h, [hl]
@@ -173,7 +173,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4DF5
 
@@ -233,7 +233,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr z, .l4E67
 
@@ -471,7 +471,8 @@ Data_54_4FC3:: ; 54:4FC3
 Data_54_4FCB:: ; 54:4FCB
 	db $00, $03, $02, $A0, $03, $80, $C4
 
-Function_54_4FD2:: ; 54:4FD2
+Mail_SplitFromHeader:: ; 54:4FD2
+Function_54_4FD2::
 	; [CONFIRMED] 203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14;
 	; entered by call from 54:4A7F (PROBABLE code) | 36 insn(s) executed; cut out of the PROBABLE
 	; region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
@@ -500,7 +501,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld d, a
 	ld hl, $C580
 	ld b, $40
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 	ld hl, $C250
 	ld a, [wMobileTaskStep]
 	or a, a
@@ -510,7 +511,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld e, a
 	ld hl, $C580
 	ld b, $10
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 	jr .l5081
 
 .l501B ; 54:501B
@@ -527,7 +528,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld d, a
 	ld hl, $C580
 	ld b, $10
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 	pop hl
 	push hl
 	ld bc, $FFFF
@@ -546,7 +547,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld d, a
 	pop hl
 	ld b, $40
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 	jr .l5081
 
 .l504F ; 54:504F
@@ -563,7 +564,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld d, a
 	ld hl, $C580
 	ld b, $40
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 	pop hl
 	push hl
 	ld bc, $FFFF
@@ -582,7 +583,7 @@ Function_54_4FD2:: ; 54:4FD2
 	ld d, a
 	pop hl
 	ld b, $10
-	call Function_54_50FC
+	call Mail_CopyClampedEllipsis
 .l5081 ; 54:5081
 	ld hl, $C250
 	ld a, [hli]
@@ -693,14 +694,15 @@ Function_54_4FD2:: ; 54:4FD2
 	jr nz, .l50A5
 	ret
 
-Function_54_50FC:: ; 54:50FC
+Mail_CopyClampedEllipsis:: ; 54:50FC
+Function_54_50FC::
 	ld a, [hli]
 	ld [de], a
 	inc de
 	or a, a
 	ret z
 	dec b
-	jr nz, Function_54_50FC
+	jr nz, Mail_CopyClampedEllipsis
 	ld a, [hl]
 	or a, a
 	ret z
@@ -719,7 +721,8 @@ Data_Text_Ellipsis2:: ; 54:511B
 Data_54_511B::
 	db $81, $63
 
-Function_54_511D:: ; 54:511D
+Mail_ScanAndCheckGameMail:: ; 54:511D
+Function_54_511D::
 	; [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12;
 	; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE
 	; region 511D-5343 by apply_coverage --split [executed in 3 scenarios] (part of region
@@ -740,7 +743,7 @@ Function_54_511D:: ; 54:511D
 	ldh [rSVBK], a
 	ld a, $01
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	ld e, $00
 	or a, a
 	ret nz
@@ -751,6 +754,6 @@ Function_54_511D:: ; 54:511D
 	ldh [rSVBK], a
 	ld a, $02
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	ld e, $01
 	ret

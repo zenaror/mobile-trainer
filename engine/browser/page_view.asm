@@ -6,7 +6,7 @@ SECTION "engine/browser/page_view", ROMX
 
 Browser_PageView_Enter:: ; 4E:49A1
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall Browser_LoadFrameGraphics
 	ld a, $00
 	ldh [hBrowserSelectedLink], a
@@ -18,7 +18,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	farcall ConnIcon_Init
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
@@ -28,7 +28,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0014
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	jr .l4A05
@@ -41,7 +41,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
@@ -57,9 +57,9 @@ Browser_PageView_Enter:: ; 4E:49A1
 	ld [wDialogOnlineSnapshot], a
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wRam_C1DC]
 	ld d, $01
 	ld e, a
@@ -70,7 +70,8 @@ Browser_PageView_Enter:: ; 4E:49A1
 
 ; ---- ptrtable $4A37-$4A43 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4A34: 6 entries; end pinned by the executed instruction at 4A43
 
-Table_4E_4A37:: ; 4E:4A37
+Browser_PageView_Enter_DialogResultTable:: ; 4E:4A37
+Table_4E_4A37::
 	dw Label_4E_4A43
 	dw Label_4E_4A43
 	dw Label_4E_4A43
@@ -154,17 +155,18 @@ Browser_PageView_Loop:: ; 4E:4A58
 .l4AB8 ; 4E:4AB8
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Browser_DrawCommTimer
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4AE2-$4AEC (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 4E:4ADF: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
-Table_4E_4AE2:: ; 4E:4AE2
+Browser_PageView_InputTable:: ; 4E:4AE2
+Table_4E_4AE2::
 	dw Browser_PageView_FollowLink
 	dw Browser_PageView_GoBack
 	dw Label_4E_4B0B
@@ -203,7 +205,7 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	farcall Browser_FindLinkElement
 	or a, a
 	jp z, Browser_PageView_Loop
-	call Function_00_0392
+	call Sound_FrameService
 	ld bc, $000E
 	add hl, bc
 	ldh a, [hPageHeaderPtr + 2]
@@ -233,7 +235,7 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wTimerEnable]
@@ -246,7 +248,8 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 
 ; ---- ptrtable $4B7E-$4B8C (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4B7B: 7 entries; end = first entry target
 
-Table_4E_4B7E:: ; 4E:4B7E
+Browser_PageView_FollowLink_ResultTable:: ; 4E:4B7E
+Table_4E_4B7E::
 	dw Label_4E_4BAA
 	dw Label_4E_4B8C
 	dw Label_4E_4B8C
@@ -272,7 +275,7 @@ Label_4E_4BAA:: ; 4E:4BAA
 	jp Browser_PageView_Enter
 
 Browser_PageView_GoBack:: ; 4E:4BAD
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -290,7 +293,7 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld bc, $1000
@@ -311,10 +314,10 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	call CopyBytes
 	ld hl, $D500
 	ld a, $06
-	farcall Function_4C_4B81
+	farcall Browser_HistoryPushFrom
 	ld hl, $D400
 	ld a, $06
-	farcall Function_4C_4B81
+	farcall Browser_HistoryPushFrom
 	farcall PageCache_Push
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -333,7 +336,8 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 
 ; ---- ptrtable $4C49-$4C57 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4C46: 7 entries; end = first entry target
 
-Table_4E_4C49:: ; 4E:4C49
+Browser_PageView_GoBack_ResultTable:: ; 4E:4C49
+Table_4E_4C49::
 	dw Label_4E_4C78
 	dw Label_4E_4C57
 	dw Label_4E_4C57
@@ -359,13 +363,13 @@ Label_4E_4C78:: ; 4E:4C78
 	ld de, $C380
 	xor a, a
 	farcall Browser_HistoryPop
-	farcall Function_4C_4D6F
+	farcall Browser_HistoryUndoPush
 	jp Browser_PageView_Enter
 
 Label_4E_4C8B:: ; 4E:4C8B
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -379,9 +383,9 @@ Label_4E_4C8B:: ; 4E:4C8B
 Label_4E_4CB2:: ; 4E:4CB2
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0113
 	farcall Dialog_ShowMonitored
 	ld b, $14
@@ -393,7 +397,8 @@ Label_4E_4CB2:: ; 4E:4CB2
 
 ; ---- ptrtable $4CDF-$4CEB (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4CDC: 6 entries; end pinned by the executed instruction at 4CEB
 
-Table_4E_4CDF:: ; 4E:4CDF
+Browser_PageView_GoBack_DialogResultTable:: ; 4E:4CDF
+Table_4E_4CDF::
 	dw Browser_PageView_Loop
 	dw Browser_PageView_Loop
 	dw Browser_PageView_Loop
@@ -409,9 +414,9 @@ Browser_PageView_OpenMenu:: ; 4E:4CEB
 Label_4E_4CEE:: ; 4E:4CEE
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wCommSessionKind]
 	cp a, $01
 	jr nz, .l4D24
@@ -423,7 +428,7 @@ Label_4E_4CEE:: ; 4E:4CEE
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0034
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -438,7 +443,7 @@ Label_4E_4CEE:: ; 4E:4CEE
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0034
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -450,7 +455,7 @@ Label_4E_4CEE:: ; 4E:4CEE
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0035
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall BrowserMenu_Close
@@ -463,7 +468,8 @@ Label_4E_4CEE:: ; 4E:4CEE
 
 ; ---- ptrtable $4D6D-$4D7B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4D6A: 7 entries; end = first entry target
 
-Table_4E_4D6D:: ; 4E:4D6D
+Browser_PageView_OpenMenu_DialogResultTable:: ; 4E:4D6D
+Table_4E_4D6D::
 	dw Browser_PageView_Loop
 	dw Browser_Menu_PageList
 	dw Browser_Menu_DisconnectPrompt
@@ -477,7 +483,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	; entered by table from 4E:4D6A (executed) | 39 insn(s) executed; cut out of the PROBABLE region
 	; 4D7B-4E60 by apply_coverage --split [executed in 2 scenarios]
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $04
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -556,7 +562,7 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	push de
 	push hl
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall SaveCheck_Update
 	pop hl
 	pop de
@@ -582,7 +588,8 @@ Browser_Menu_PageList:: ; 4E:4D7B
 
 ; ---- ptrtable $4E60-$4E6E (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4E5D: 7 entries; end = first entry target
 
-Table_4E_4E60:: ; 4E:4E60
+Browser_Menu_PageList_ResultTable:: ; 4E:4E60
+Table_4E_4E60::
 	dw Label_4E_4E8C
 	dw Label_4E_4E6E
 	dw Label_4E_4E6E
@@ -610,11 +617,11 @@ Label_4E_4E8C:: ; 4E:4E8C
 	jp Browser_PageView_Enter
 
 Label_4E_4E8F:: ; 4E:4E8F
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall Browser_LoadFrameGraphics
 	farcall Browser_RenderPage
 	farcall ConnIcon_Init
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ld b, $14
 	ld c, $01
@@ -627,7 +634,7 @@ Label_4E_4E8F:: ; 4E:4E8F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0014
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	jr .l4EE6
@@ -640,7 +647,7 @@ Label_4E_4E8F:: ; 4E:4E8F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
@@ -654,9 +661,9 @@ Label_4E_4E8F:: ; 4E:4E8F
 Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0101
 	farcall Dialog_ShowMonitored
 	ld b, $14
@@ -668,7 +675,8 @@ Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 
 ; ---- ptrtable $4F1A-$4F26 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4F17: 6 entries; end = first entry target
 
-Table_4E_4F1A:: ; 4E:4F1A
+Browser_Menu_DisconnectPrompt_DialogResultTable:: ; 4E:4F1A
+Table_4E_4F1A::
 	dw Label_4E_4F26
 	dw Browser_Menu_DisconnectDo
 	dw Label_4E_4F26
@@ -699,14 +707,14 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 	ld [wBrowserFetchResult], a
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $010F
 	farcall Dialog_Open
 	farcall Comm_Disconnect
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall Dialog_Close
 	farcall CommTime_ShowSummary
 	ld a, $0B
@@ -718,9 +726,9 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 Browser_Menu_EndPrompt:: ; 4E:4F81
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0105
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -743,7 +751,8 @@ Browser_Menu_EndPrompt:: ; 4E:4F81
 
 ; ---- ptrtable $4FB7-$4FC3 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4FB4: 6 entries; end = first entry target
 
-Table_4E_4FB7:: ; 4E:4FB7
+Browser_Menu_EndPrompt_DialogResultTable:: ; 4E:4FB7
+Table_4E_4FB7::
 	dw Label_4E_4FC3
 	dw Browser_Menu_EndDo
 	dw Label_4E_4FC3
@@ -770,7 +779,7 @@ Browser_Menu_EndDo:: ; 4E:4FD6
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp nz, Label_4E_4FF6
@@ -795,7 +804,7 @@ Browser_Leave_Summary:: ; 4E:4FFC
 
 Browser_Leave_Return:: ; 4E:5009
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 3/18 scenarios)
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wBrowserNavigating], a
 	ldh [hRam_FFA7], a
@@ -898,7 +907,7 @@ Label_4E_509D:: ; 4E:509D
 
 Browser_ConnectionNotice:: ; 4E:50BE
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
@@ -969,13 +978,13 @@ Browser_Menu_LinkLost:: ; 4E:5162
 	ld [wBrowserFetchResult], a
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0110
 	farcall Dialog_ShowMonitored
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
@@ -999,8 +1008,8 @@ Browser_Menu_AdapterError:: ; 4E:51A6
 	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
-	farcall Function_4E_4866
+	farcall Sprite_ResetAll
+	farcall Sram_CountMobileError12Or26
 	farcall Mobile_ShowLastError
 	ld a, $09
 	ld [wRam_C26E], a

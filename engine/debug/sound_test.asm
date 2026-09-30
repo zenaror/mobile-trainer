@@ -41,7 +41,7 @@ SoundTest_Run:: ; 1B:4040
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -54,73 +54,73 @@ SoundTest_Run:: ; 1B:4040
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -137,7 +137,7 @@ SoundTest_Run:: ; 1B:4040
 	ld bc, $1214
 	ld de, $0009
 	xor a, a
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ld a, $80
 	ld bc, $0810
 	ld de, $F001
@@ -146,13 +146,13 @@ SoundTest_Run:: ; 1B:4040
 	call SoundTest_LoadHelpText
 	call SoundTest_DrawNumber
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	call LCDOn
 	farcall Palette_FadeInFromWhite
 
 SoundTest_Loop:: ; 1B:41B1
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -185,7 +185,7 @@ SoundTest_OnA:: ; 1B:41D8
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20B2
+	call Sound_PlayMusic
 	pop af
 	ldh [rSVBK], a
 	jp SoundTest_Loop
@@ -199,7 +199,7 @@ SoundTest_OnB:: ; 1B:41F0
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp SoundTest_Loop
@@ -210,7 +210,7 @@ SoundTest_OnSelect:: ; 1B:4208
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20C4
+	call Sound_PauseMusic
 	pop af
 	ldh [rSVBK], a
 	ld bc, $0000
@@ -218,14 +218,14 @@ SoundTest_OnSelect:: ; 1B:4208
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20BE
+	call Sound_StopSfxById
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -238,7 +238,7 @@ SoundTest_OnStart:: ; 1B:423E
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20C4
+	call Sound_PauseMusic
 	pop af
 	ldh [rSVBK], a
 	ld bc, $0000
@@ -246,7 +246,7 @@ SoundTest_OnStart:: ; 1B:423E
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20BE
+	call Sound_StopSfxById
 	pop af
 	ldh [rSVBK], a
 	jp SoundTest_Loop
@@ -324,13 +324,13 @@ SoundTest_LoadHelpText:: ; 1B:42C4
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -458,7 +458,7 @@ SoundTest_DrawNumber:: ; 1B:4371
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

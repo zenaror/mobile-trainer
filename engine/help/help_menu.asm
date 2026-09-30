@@ -37,43 +37,43 @@ Label_6C_401D:: ; 6C:401D
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Data_6A_4E90
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Data_6A_5290
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Data_6A_5690
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Data_6A_5A90
 	ld a, $6A
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_6A_5AB0
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_6A_5EB0
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_6A_62B0
@@ -88,7 +88,7 @@ Label_6C_401D:: ; 6C:401D
 	ld de, $D000
 	ld hl, Data_6A_4000
 	ld a, $6A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
@@ -101,7 +101,7 @@ Label_6C_401D:: ; 6C:401D
 	ld de, $D000
 	ld hl, Data_6A_42D0
 	ld a, $6A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
@@ -114,7 +114,7 @@ Label_6C_401D:: ; 6C:401D
 	ld de, $D000
 	ld hl, Data_6A_45A0
 	ld a, $6A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $02
 	ld [wRam_C0E6], a
 	call HelpMenu_DrawItemNormal
@@ -127,10 +127,10 @@ Label_6C_401D:: ; 6C:401D
 	ld de, $64AE
 	ld a, $6A
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $371F
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $62F0
@@ -158,15 +158,15 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	call HelpMenu_ShowItemText
 	ldh a, [hWRAMBank]
@@ -174,13 +174,13 @@ Label_6C_401D:: ; 6C:401D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0016
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
 Label_6C_41B3:: ; 6C:41B3
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -213,7 +213,7 @@ Label_6C_41E5:: ; 6C:41E5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -265,7 +265,7 @@ Label_6C_41E5:: ; 6C:41E5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Label_6C_41B3
@@ -276,7 +276,7 @@ Label_6C_425A:: ; 6C:425A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -333,7 +333,7 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call HelpMenu_DrawItemNormal
@@ -365,7 +365,7 @@ HelpMenu_HandleDpad:: ; 6C:429F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call HelpMenu_DrawItemNormal
@@ -403,10 +403,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld de, $D0A9
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 .l436C ; 6C:436C
@@ -432,10 +432,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld de, $D0E9
 	ld bc, $040A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l43AF ; 6C:43AF
 	ld a, [wRam_C0E6]
@@ -487,10 +487,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	pop hl
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l440B ; 6C:440B
 	ld a, [wRam_C0E6]
@@ -510,10 +510,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l4446 ; 6C:4446
 	ld a, [wRam_C0E6]
@@ -557,10 +557,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 .l4498 ; 6C:4498
@@ -583,10 +583,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l44D3 ; 6C:44D3
 	ld a, [wRam_C0E6]
@@ -630,10 +630,10 @@ HelpMenu_DrawItemNormal:: ; 6C:431B
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 ; ---- data $4525-$453D (24 bytes) [PROBABLE] 24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before Function_6C_453D; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
@@ -676,10 +676,10 @@ Function_6C_453D::
 	ld de, $D0A9
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 .l458E ; 6C:458E
@@ -705,10 +705,10 @@ Function_6C_453D::
 	ld de, $D0E9
 	ld bc, $040A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l45D1 ; 6C:45D1
 	ld a, [wRam_C0E5]
@@ -760,10 +760,10 @@ Function_6C_453D::
 	pop hl
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l462D ; 6C:462D
 	ld a, [wRam_C0E5]
@@ -783,10 +783,10 @@ Function_6C_453D::
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l4668 ; 6C:4668
 	ld a, [wRam_C0E5]
@@ -830,10 +830,10 @@ Function_6C_453D::
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 .l46BA ; 6C:46BA
@@ -856,10 +856,10 @@ Function_6C_453D::
 	ld de, $D109
 	ld bc, $030A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 .l46F5 ; 6C:46F5
 	ld a, [wRam_C0E5]
@@ -903,10 +903,10 @@ Function_6C_453D::
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $6A
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ret
 
 ; ---- data $4747-$4763 (28 bytes) [PROBABLE] same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before Function_6C_4763; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)

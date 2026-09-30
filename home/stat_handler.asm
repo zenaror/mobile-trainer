@@ -4,7 +4,8 @@
 
 SECTION "home/stat_handler", ROM0
 
-Function_00_0E93:: ; 00:0E93
+Stat_ScrollSplitHandler:: ; 00:0E93
+Function_00_0E93::
 	; [CONFIRMED] alternative STAT interrupt handler (installed into RAM vector CBF4 by 7F:727D): if
 	; LY==0: LYC=[D724], SCY=0; else SCY=[C0D3], LYC=0 and, if [D824]!=0, call 0392; saves/restores
 	; rSVBK (uses WRAM bank 1) [candidate; raw refs 1] [executed in 21 scenarios]
@@ -39,7 +40,7 @@ Function_00_0E93:: ; 00:0E93
 	ld a, [wStatIrqServiceFlag]
 	or a, a
 	jr z, .l0ECC
-	call Function_00_0392
+	call Sound_FrameService
 .l0ECC ; 00:0ECC
 	pop af
 	ldh [hWRAMBank], a

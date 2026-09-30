@@ -111,7 +111,7 @@ Html_Layout_PlaceImage:: ; 74:529F
 	call Function_74_57AD
 	pop hl
 .l52E7 ; 74:52E7
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hRam_FFC4]
 	ld c, a
 	ldh a, [hRam_FFC5]
@@ -146,7 +146,7 @@ Html_Layout_PlaceImage:: ; 74:529F
 	ld a, c
 	or a, b
 	jp nz, .l52E7
-	call Function_74_5348
+	call Html_Layout_SkipPastFloats
 	jp .l52E7
 
 .l531D ; 74:531D
@@ -154,13 +154,14 @@ Html_Layout_PlaceImage:: ; 74:529F
 	; --split [executed in 1 scenarios]
 	or a, c
 	jr nz, .l5326
-	call Function_74_532A
+	call Html_Layout_AppendImageRecord
 	jp Html_Layout_PlaceLine
 .l5326 ; 74:5326
-	call Function_74_532A
+	call Html_Layout_AppendImageRecord
 	ret
 
-Function_74_532A:: ; 74:532A
+Html_Layout_AppendImageRecord:: ; 74:532A
+Function_74_532A::
 	ldh a, [hRam_FFCA]
 	ld l, a
 	ldh a, [hRam_FFCB]
@@ -181,7 +182,8 @@ Function_74_532A:: ; 74:532A
 	pop bc
 	ret
 
-Function_74_5348:: ; 74:5348
+Html_Layout_SkipPastFloats:: ; 74:5348
+Function_74_5348::
 	; [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5293-537D by apply_coverage --split
 	ldh a, [hViewX]
@@ -215,7 +217,7 @@ Function_74_5348:: ; 74:5348
 	ldh [hRam_FFC9], a
 	ld d, a
 	call Html_Layout_GetLimitsAtY
-	jp Function_74_5348
+	jp Html_Layout_SkipPastFloats
 
 Html_LoadPageImages:: ; 74:537D
 Function_74_537D::
@@ -235,7 +237,7 @@ Function_74_537D::
 	ldh a, [hRam_FFCD]
 	ld h, a
 .loop ; 74:5393
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hRam_FFBA]
 	call BankSwitch_H
 	push bc
@@ -388,7 +390,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	ldh a, [hTextX]
 	call BankSwitch_H
 .l5486 ; 74:5486
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	cp a, $20
 	jr nc, .l54AA
@@ -496,7 +498,7 @@ Html_Layout_WrapRun:: ; 74:5440
 
 .l54EE ; 74:54EE
 	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
-	call Function_74_5528
+	call Html_Layout_CloseRunRecord
 	call Function_74_55BE
 .l54F4 ; 74:54F4
 	pop de
@@ -511,7 +513,7 @@ Html_Layout_WrapRun:: ; 74:5440
 	or a, c
 	jp nz, .l5486
 .l5502 ; 74:5502
-	call Function_74_5528
+	call Html_Layout_CloseRunRecord
 	call Function_74_55BE
 	ld bc, $0000
 	call Html_Layout_PlaceLine
@@ -537,7 +539,8 @@ Html_Layout_WrapRun:: ; 74:5440
 	; [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
 	jp .l5447
 
-Function_74_5528:: ; 74:5528
+Html_Layout_CloseRunRecord:: ; 74:5528
+Function_74_5528::
 	ld a, l
 	ldh [hRam_FFBB], a
 	ld a, h
@@ -653,7 +656,7 @@ Function_74_55BE:: ; 74:55BE
 	call Function_74_57AD
 	pop hl
 .l55CB ; 74:55CB
-	call Function_00_0392
+	call Sound_FrameService
 	push hl
 	ld bc, $0009
 	add hl, bc
@@ -857,7 +860,7 @@ Function_74_5663::
 	ldh a, [hRam_FFBA]
 	call BankSwitch_H
 .loop ; 74:56D3
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld bc, $0009
@@ -1041,7 +1044,7 @@ Function_74_57AD:: ; 74:57AD
 	ldh a, [hRam_FFBA]
 	call BankSwitch_H
 .loop ; 74:57C9
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld bc, $0009
@@ -1196,7 +1199,7 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	call BankSwitch_H
 	inc de
 .loop ; 74:58A1
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld a, [hli]

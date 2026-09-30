@@ -4,7 +4,8 @@
 
 SECTION "engine/text/glyph", ROMX
 
-Function_7F_4000:: ; 7F:4000
+Glyph_LoadAsciiSinglePlane:: ; 7F:4000
+Function_7F_4000::
 	; [HYPOTHESIS] complete 3-insn function (call $400E ; call $0DCE ; ret): twin of the executed
 	; 7F:4007 (call $400E ; call $0DB9 ; ret); both callees are proven (400E executed 12/18; 00:0DCE
 	; = the non-duplicating variant of 00:0DB9); no caller/pointer to 7F:4000 found in the ROM
@@ -12,7 +13,7 @@ Function_7F_4000:: ; 7F:4000
 	; PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow
 	; from/into proven code; "decodes cleanly" is not an entry]
 	call Glyph_AsciiAddr
-	call Function_00_0DCE
+	call Glyph_CopyAsciiRowsSingle
 	ret
 
 Glyph_LoadAscii:: ; 7F:4007
@@ -20,7 +21,7 @@ Function_7F_4007::
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
 	call Glyph_AsciiAddr
-	call Function_00_0DB9
+	call Glyph_CopyAsciiRowsDoubled
 	ret
 
 Glyph_AsciiAddr:: ; 7F:400E
@@ -66,7 +67,8 @@ Glyph_AsciiAddr:: ; 7F:400E
 	ld c, $7F
 	ret
 
-Function_7F_4042:: ; 7F:4042
+Glyph_LoadWideSinglePlane:: ; 7F:4042
+Function_7F_4042::
 	; [PROBABLE] head of the function that contains the validated far-call site at 404C: push bc ;
 	; ld b,d ; ld c,e ; ld hl,$000C ; add hl,de ; ld d,h ; ld e,l ; pop hl (argument set-up),
 	; starting right after the ret at 4041 of the executed glyph routine; no caller found, entry
@@ -86,7 +88,7 @@ Function_7F_4042:: ; 7F:4042
 	call Glyph_SjisToJis
 	call Glyph_JisToKuTen
 	call Glyph_KuTenAddr
-	call Function_00_0E32
+	call Glyph_UnpackWideHalves
 	ret
 
 Glyph_LoadWide:: ; 7F:405F
@@ -97,7 +99,7 @@ Function_7F_405F::
 	call Glyph_SjisToJis
 	call Glyph_JisToKuTen
 	call Glyph_KuTenAddr
-	call Function_00_0DE2
+	call Glyph_UnpackWideHalvesDoubled
 	ret
 
 Glyph_SjisToJis:: ; 7F:4072

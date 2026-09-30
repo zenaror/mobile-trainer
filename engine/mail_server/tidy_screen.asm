@@ -8,8 +8,8 @@ MailServerMgr_SetupScreen:: ; 2E:4B2E
 Function_2E_4B2E::
 	; [CONFIRMED] 100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -32,51 +32,51 @@ Function_2E_4B2E::
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailServerMgr_Tiles1
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_MailServerMgr_Tiles2
 	ld a, $2E
 	ld b, $97
 	ld c, $12
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailServerMgr_Tiles5
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
 	ld hl, Gfx_MailServerMgr_Tiles3
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
 	ld hl, Gfx_MailServerMgr_Tiles4
 	ld a, $2E
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
 	ld de, $D0A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	call MailServerMgr_UpdateTimerDisplay
 	di
@@ -85,12 +85,12 @@ Function_2E_4B2E::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -114,8 +114,8 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	; entered by call from 2E:4AD4 (PROBABLE code) | 138 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -138,51 +138,51 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailServerMgr_Tiles1
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_MailServerMgr_Tiles2
 	ld a, $2E
 	ld b, $97
 	ld c, $12
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailServerMgr_Tiles5
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8A80
 	ld hl, Gfx_MailServerMgr_Tiles3
 	ld a, $2E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8E80
 	ld hl, Gfx_MailServerMgr_Tiles4
 	ld a, $2E
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld bc, $0614
 	ld de, $D0A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	call MailServerMgr_UpdateTimerDisplay
 	ld a, $01
@@ -228,12 +228,12 @@ MailServerMgr_RedrawScreen:: ; 2E:4C58
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -286,11 +286,11 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	call Function_2E_4EB1
 	pop hl
@@ -314,11 +314,11 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_InfoB
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	call Function_2E_4EB1
 	pop hl
@@ -348,11 +348,11 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_InfoC
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	call Function_2E_4EB1
 	pop hl
@@ -376,11 +376,11 @@ MailServerMgr_DrawMailInfo:: ; 2E:4DBF
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_InfoD
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	call Function_2E_4EB1
 	pop hl
@@ -401,7 +401,7 @@ Function_2E_4EB2:: ; 2E:4EB2
 	ld b, $3C
 .loop ; 2E:4EB4
 	push bc
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	dec b
 	jr nz, .loop
@@ -1118,7 +1118,7 @@ MailServerMgr_DrawMailNumber:: ; 2E:5184
 	ld [hl], a
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	pop hl
 	ret
@@ -1519,7 +1519,7 @@ Label_2E_5636:: ; 2E:5636
 .l56C5 ; 2E:56C5
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	pop hl
 	pop de

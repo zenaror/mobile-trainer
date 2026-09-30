@@ -71,7 +71,7 @@ Boot:: ; 00:0278
 	ld bc, $007E
 	xor a, a
 	call FillBytes
-	call Function_00_059F
+	call OAMDMA_CopyToHram
 	xor a, a
 	ldh [hFramesWithoutService], a
 	ld [wFrameServiceRan], a
@@ -79,7 +79,7 @@ Boot:: ; 00:0278
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A0
+	call Sound_Init
 	pop af
 	ldh [rSVBK], a
 	ld a, $4F
@@ -96,30 +96,33 @@ Boot:: ; 00:0278
 	ld [rROMB1], a
 	ei
 
-Label_00_0328:: ; 00:0328
+Boot_MainLoop:: ; 00:0328
+Label_00_0328::
 	farcall Main_Run
 
 Function_00_032E:: ; 00:032E
 	; [CONFIRMED] continuation
-	jp Label_00_0328
+	jp Boot_MainLoop
 
-Function_00_0331:: ; 00:0331
+Palette_SetAllWhite:: ; 00:0331
+Function_00_0331::
 	; [CONFIRMED] writes 64 bytes of $7FFF x32 (Data_00_0352) into BG palette RAM (rBCPS=$80
 	; auto-inc) and OBJ palette RAM (rOCPS=$80): all 16 palettes white [reached via inferred links;
 	; raw refs 8] [executed in 41 scenarios]
 	ld a, $80
 	ldh [rBCPS], a
-	ld hl, Data_00_0352
+	ld hl, Palette_AllWhite
 	ld c, $69
-	call Function_00_034A
+	call Palette_WritePort64
 	ld a, $80
 	ldh [rOCPS], a
-	ld hl, Data_00_0352
+	ld hl, Palette_AllWhite
 	ld c, $6B
-	call Function_00_034A
+	call Palette_WritePort64
 	ret
 
-Function_00_034A:: ; 00:034A
+Palette_WritePort64:: ; 00:034A
+Function_00_034A::
 	; [CONFIRMED] copies 64 bytes from [HL] to the I/O port at $FF00+C (palette data port helper)
 	; [reached via inferred links; raw refs 4] [executed in 41 scenarios]
 	ld b, $40
@@ -132,7 +135,8 @@ Function_00_034A:: ; 00:034A
 
 ; ---- data $0352-$0392 (64 bytes) [CONFIRMED] 32 x $7FFF (white) = 64 bytes, source for Function_00_0331 (ld hl,$0352 at 0335/0341)
 
-Data_00_0352:: ; 00:0352
+Palette_AllWhite:: ; 00:0352
+Data_00_0352::
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F
 	db $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F, $FF, $7F

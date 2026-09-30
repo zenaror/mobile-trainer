@@ -4,14 +4,16 @@
 
 SECTION "home/farcall", ROM0
 
-Function_00_06B7:: ; 00:06B7
+FarCall_IdleLoop:: ; 00:06B7
+Function_00_06B7::
 	; [PROBABLE] default target of the trampoline (jp $06B7 written by 0684 to FFAD-FFAF): forever
 	; call 044B (wait for VBlank + frame service). Reached only if the trampoline is entered without
 	; a patched target; never executed in mGBA (20 M instructions)
-	call Function_00_044B
-	jr Function_00_06B7
+	call VBlank_WaitAndService
+	jr FarCall_IdleLoop
 
-Function_00_06BC:: ; 00:06BC
+FarCall_Inline16:: ; 00:06BC
+Function_00_06BC::
 	; [CONFIRMED] far call with inline 16-bit address (2 bytes after the call); bank comes from
 	; hFFF3. Entry to the common far-call path (06EE). One caller: `call $06BC` at 4F:4008 (inline
 	; word at 4F:400B = 00:050C CopyBytes, with hFFF3=A and WRAM bank 7 selected)
@@ -87,7 +89,8 @@ FarCall_Common:: ; 00:06EE
 	ldh [hFarCallTarget + 1], a
 	jp $FFA8
 
-Function_00_0716:: ; 00:0716
+FarJump_Inline16:: ; 00:0716
+Function_00_0716::
 	; [PROBABLE] far JUMP (tail call, no return) with inline 16-bit address and bank from hFFF3; no
 	; static caller found [candidate; raw refs 6]
 	ldh [hFarCallA], a

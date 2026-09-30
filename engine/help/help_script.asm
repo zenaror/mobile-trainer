@@ -52,25 +52,25 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Data_6A_69F0
 	ld a, $6A
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8AF1
 	ld hl, Data_6A_6A10
 	ld a, $6A
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
 	ld hl, Data_6A_6A20
 	ld a, $6A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_6A_7220
@@ -80,7 +80,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld de, $D000
 	ld hl, Data_6A_6716
 	ld a, $6A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7260
@@ -115,7 +115,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld bc, $0400
 	ld hl, $D000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -126,28 +126,28 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $03
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -156,11 +156,11 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_ReadHardwareToBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -171,7 +171,7 @@ HelpScript_Run:: ; 6C:59B2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0017
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
@@ -325,7 +325,7 @@ Label_6C_5B47:: ; 6C:5B47
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -358,7 +358,7 @@ Label_6C_5B47:: ; 6C:5B47
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0041
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop hl
@@ -386,13 +386,13 @@ Label_6C_5B47:: ; 6C:5B47
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ldh [hScratchA], a
 	pop af
@@ -410,8 +410,8 @@ Label_6C_5B47:: ; 6C:5B47
 	ld [wHelpScriptPtr + 1], a
 
 Label_6C_5CC5:: ; 6C:5CC5
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C0E2]
 	or a, a
 	jr z, .l5CEE
@@ -434,7 +434,8 @@ Label_6C_5CC5:: ; 6C:5CC5
 
 ; ---- ptrtable $5CFD-$5D07 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 6C:5CFA: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
-Table_6C_5CFD:: ; 6C:5CFD
+HelpScript_InputTable:: ; 6C:5CFD
+Table_6C_5CFD::
 	dw Label_6C_5D09
 	dw Label_6C_5D30
 	dw Label_6C_5D5A
@@ -455,10 +456,10 @@ Label_6C_5D09:: ; 6C:5D09
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $00AA
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Label_6C_5E03
 
 Label_6C_5D30:: ; 6C:5D30
@@ -471,10 +472,10 @@ Label_6C_5D30:: ; 6C:5D30
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $00AA
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Label_6C_5E03
 .l5D57 ; 6C:5D57
 	jp Label_6C_5CC5
@@ -485,7 +486,7 @@ Label_6C_5D5A:: ; 6C:5D5A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	push hl
@@ -522,10 +523,10 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld de, Table_6A_72BB
 	ld a, $6A
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7880
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Label_6C_5CC5
 .l5DC6 ; 6C:5DC6
 	ldh [hScratchA], a
@@ -540,13 +541,13 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -563,7 +564,7 @@ Label_6C_5E03:: ; 6C:5E03
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0040
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Label_6C_5B47
@@ -598,7 +599,7 @@ HelpScript_RenderCaption:: ; 6C:5E25
 	ld a, $00
 	ld b, $96
 	ld c, $18
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ldh [hScratchA], a
 	pop af
@@ -655,13 +656,13 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9080
 	ld hl, $D880
 	ld a, $00
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -696,9 +697,9 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld bc, $060C
 	ld de, $F806
 	xor a, a
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	pop hl
 	ld a, [hli]
 	ld h, [hl]
@@ -715,14 +716,14 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld b, $92
 	ld c, $40
 	ld a, [wRam_C110]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0400
 	add hl, bc
 	ld de, $8C00
 	ld b, $98
 	ld c, $08
 	ld a, [wRam_C110]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, $40
 	farcall Palette_FadeInMasked
 	ld a, [wRam_C10E]
@@ -978,7 +979,7 @@ Function_6C_6009::
 	ld b, $97
 	ld c, $11
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1033,5 +1034,5 @@ Function_6C_61AC:: ; 6C:61AC
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ret

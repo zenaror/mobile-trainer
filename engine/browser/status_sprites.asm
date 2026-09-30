@@ -103,11 +103,11 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld hl, $DA80
 	ld de, ConnIcon_ObjTable
 	ld a, $69
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA8B
 	ld de, $4034
 	ld a, $69
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -126,9 +126,10 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld e, a
 	ld d, [hl]
 	ld hl, $DA80
-	jp Function_00_0A65
+	jp Sprite_SetPosition
 
-Function_4E_6087:: ; 4E:6087
+ConnIcon_GetFramePos:: ; 4E:6087
+Function_4E_6087::
 	; [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the
 	; screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed
 	; 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer

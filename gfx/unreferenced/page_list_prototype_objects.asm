@@ -11,13 +11,15 @@ Tiles_7F_7830:: ; 7F:7830
 
 ; ---- data $7B00-$7B40 (64 bytes) [PROBABLE] 8 RGB555 palettes of 4 colours (64 bytes, all words < $8000; the last five are 0000 294A 56B5 7FFF); the mapper heuristic that made 7B10-7BA0 one 18-group palette ran over the object tables that follow (7B40-7B90)
 
-Palette_7F_7B00:: ; 7F:7B00
+Palette_TextCursor_Obj:: ; 7F:7B00
+Palette_7F_7B00::
 	INCLUDE "gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal"
 
 ; ---- words $7B40-$7B90 (80 bytes) [PROBABLE] 5 object tables of 4 entries x 2 words (7B40, 7B50, 7B60, 7B70, 7B80; 16 bytes each, every entry repeated) read by init_object_from_table (00:0A82, de=$7B50/$7B60/$7B70/$7B80, a=$7F, callers in banks 2A, 2C, 2D, 2F, 65); all words point into 7B90-7CC5
 
-Table_7F_7B40:: ; 7F:7B40
-	dw Data_7F_7B90, $7BA6, Data_7F_7B90, $7BA6, Data_7F_7B90, $7BA6, Data_7F_7B90, $7BA6
+Table_TextCursor_ObjTables:: ; 7F:7B40
+Table_7F_7B40::
+	dw Data_TextCursor_ObjAnimData, $7BA6, Data_TextCursor_ObjAnimData, $7BA6, Data_TextCursor_ObjAnimData, $7BA6, Data_TextCursor_ObjAnimData, $7BA6
 	dw $7BB0, $7BC2, $7BB0, $7BC2, $7BB0, $7BC2, $7BB0, $7BC2
 	dw $7BCF, $7C1B, $7BCF, $7C1B, $7BCF, $7C1B, $7BCF, $7C1B
 	dw $7C24, $7C5D, $7C24, $7C5D, $7C24, $7C5D, $7C24, $7C5D
@@ -25,7 +27,8 @@ Table_7F_7B40:: ; 7F:7B40
 
 ; ---- data $7B90-$7CC5 (309 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 7F:7B40-7B90 (format as in bank 72:786C-7A1F); parts of it are CONFIRMED read by executed code (5/18 scenarios)
 
-Data_7F_7B90:: ; 7F:7B90
+Data_TextCursor_ObjAnimData:: ; 7F:7B90
+Data_7F_7B90::
 	db $94, $7B, $9D, $7B, $02, $00, $18, $08, $21, $00, $00, $08, $01, $02, $00, $19
 	db $08, $21, $00, $FF, $08, $01, $02, $00, $50, $01, $08, $02, $00, $2E, $01, $08
 	db $B4, $7B, $BD, $7B, $02, $00, $00, $27, $00, $08, $00, $28, $00, $01, $00, $00

@@ -177,7 +177,7 @@ PasswordChange_Communicate_Setup:: ; 67:5A4E
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -203,7 +203,8 @@ PasswordChange_Communicate_Poll:: ; 67:5A75
 	xor a, a
 	ld [wRam_C26F], a
 
-Label_67_5A8E:: ; 67:5A8E
+PasswordChange_Communicate_Dispatch:: ; 67:5A8E
+Label_67_5A8E::
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $9E
@@ -240,7 +241,7 @@ PasswordChange_State_Init:: ; 67:5AAA
 	call MobileAPI
 	ld a, $01
 	ld [wRam_C27D], a
-	jr Label_67_5A8E
+	jr PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_ReadLoginId:: ; 67:5ACA
 	xor a, a
@@ -249,9 +250,9 @@ PasswordChange_State_ReadLoginId:: ; 67:5ACA
 	jp z, PasswordChange_Abort
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5D8D
+	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
-	jp nz, Label_67_5A8E
+	jp nz, PasswordChange_Communicate_Dispatch
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -270,7 +271,7 @@ PasswordChange_State_ReadLoginId:: ; 67:5ACA
 	call MobileAPI
 	ld a, $02
 	ld [wRam_C27D], a
-	jp Label_67_5A8E
+	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_Connect:: ; 67:5B0E
 	xor a, a
@@ -279,11 +280,11 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	jp z, PasswordChange_Abort
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5D8D
+	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
-	jp nz, Label_67_5A8E
+	jp nz, PasswordChange_Communicate_Dispatch
 	ld de, $DEEE
-	farcall Function_00_1586
+	farcall Dial_CopySelectedNumber
 	ld de, $A100
 	call Net_CopyDefaultDnsPair
 	ld hl, $DEEE
@@ -298,7 +299,7 @@ PasswordChange_State_Connect:: ; 67:5B0E
 	call MobileAPI
 	ld a, $03
 	ld [wRam_C27D], a
-	jp Label_67_5A8E
+	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_SendRequest:: ; 67:5B5B
 	xor a, a
@@ -307,9 +308,9 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	jp z, PasswordChange_Abort
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5D8D
+	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
-	jp nz, Label_67_5A8E
+	jp nz, PasswordChange_Communicate_Dispatch
 	xor a, a
 	ld hl, $B000
 	ld bc, $1000
@@ -358,7 +359,7 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	ld [wRam_C27D], a
 	ld a, $01
 	farcall CommPanel_DrawCaption
-	jp Label_67_5A8E
+	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_WaitResponse:: ; 67:5BD8
 	xor a, a
@@ -410,7 +411,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 .l5C2B ; 67:5C2B
 	pop hl
 	or a, a
-	jp nz, Label_67_5D00
+	jp nz, PasswordChange_ConnectionNotice
 	ld a, [wCommTimeoutMinutes]
 	ld b, a
 	ld a, [wTimerBMinutes]
@@ -427,12 +428,12 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 .l5C3F ; 67:5C3F
 	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	or a, a
-	jp nz, Label_67_5D18
+	jp nz, PasswordChange_TimeoutError
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, PasswordChange_HandleHttpStatus
 	bit 0, a
-	jp nz, Label_67_5A8E
+	jp nz, PasswordChange_Communicate_Dispatch
 
 	; [CONFIRMED] 70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min
 	; discovery hops 0; fall-through of the jpcc at 67:5C4D (executed) | 18 insn(s) executed; cut
@@ -496,19 +497,19 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld [wRam_C27D], a
 	ld a, $02
 	farcall CommPanel_DrawCaption
-	jp Label_67_5A8E
+	jp PasswordChange_Communicate_Dispatch
 
 PasswordChange_State_Finish:: ; 67:5CC2
 	xor a, a
 	farcall CommPanel_Step
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5D8D
+	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
-	jp nz, Label_67_5A8E
+	jp nz, PasswordChange_Communicate_Dispatch
 	ld a, $36
 	call MobileAPI
-	call Function_67_5CF4
+	call PasswordChange_WaitCommPanelClose
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -521,16 +522,18 @@ PasswordChange_State_Finish:: ; 67:5CC2
 	ld [wRam_C27C], a
 	ret
 
-Function_67_5CF4:: ; 67:5CF4
+PasswordChange_WaitCommPanelClose:: ; 67:5CF4
+Function_67_5CF4::
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
 	farcall CommPanel_Step
 	or a, a
-	jr nz, Function_67_5CF4
+	jr nz, PasswordChange_WaitCommPanelClose
 	ret
 
-Label_67_5D00:: ; 67:5D00
+PasswordChange_ConnectionNotice:: ; 67:5D00
+Label_67_5D00::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
 	; entered by jpcc from 67:5C2D (executed)
 	ld hl, $C26F
@@ -542,7 +545,8 @@ Label_67_5D00:: ; 67:5D00
 	farcall CommNotice_ShowDialog
 	jp PasswordChange_Cleanup
 
-Label_67_5D18:: ; 67:5D18
+PasswordChange_TimeoutError:: ; 67:5D18
+Label_67_5D18::
 	ld a, $26
 	ld [wMobileErrorCode], a
 	xor a, a
@@ -607,12 +611,13 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld bc, $1000
 	ld a, $2A
 	call MobileAPI
-	jp Label_67_5A8E
+	jp PasswordChange_Communicate_Dispatch
 
-Label_67_5D8D:: ; 67:5D8D
+PasswordChange_OnAdapterError:: ; 67:5D8D
+Label_67_5D8D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5D3A-5D99 by apply_coverage --split
-	farcall Function_68_4101
+	farcall Comm_ClearSessionActive
 	farcall Mobile_SaveLastResult
 
 PasswordChange_Cleanup:: ; 67:5D99
@@ -645,7 +650,7 @@ PasswordChange_Cleanup:: ; 67:5D99
 	bit 0, a
 	jp nz, .l5DBB
 .l5DCF ; 67:5DCF
-	call Function_67_5CF4
+	call PasswordChange_WaitCommPanelClose
 	farcall Palette_FadeOutToWhite
 	farcall Mobile_ShowLastError
 	farcall Config_ClearSramMirror
@@ -669,14 +674,14 @@ PasswordChange_Abort:: ; 67:5DFE
 	ld a, $34
 	call MobileAPI
 .loop ; 67:5E03
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5D8D
+	jp nz, PasswordChange_OnAdapterError
 	bit 0, a
 	jp nz, .loop
-	call Function_67_5CF4
+	call PasswordChange_WaitCommPanelClose
 	farcall Palette_FadeOutToWhite
 	farcall Config_ClearSramMirror
 	ldh [hScratchA], a
@@ -714,19 +719,19 @@ Function_67_5E7D::
 	call CopyString
 	ld hl, $A200
 	ld de, $A363
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $5EBC
 	ld de, $A363
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DEB9
 	ld de, $A363
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $5EC5
 	ld de, $A363
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DEC2
 	ld de, $A363
-	call Function_00_14F3
+	call StringAppend
 	ret
 
 ; ---- data $5EB4-$5EBC (8 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 5EB4-5ED1 by higher-priority evidence]
@@ -746,7 +751,8 @@ Net_NewPasswdKey:: ; 67:5EC5
 	db "&NEWPASSWD=", 0
 POPC
 
-Function_67_5ED1:: ; 67:5ED1
+AdapterCheck_RunInitOnly:: ; 67:5ED1
+Function_67_5ED1::
 	; [HYPOTHESIS] xor a; ld [$C27C],a; ld [$C27D],a - start of an unreferenced function that
 	; follows the strings at 5EB4-5ED1 and runs into the far-call site at 5ED8 (PROBABLE code); no
 	; entry found
@@ -758,14 +764,15 @@ Function_67_5ED1:: ; 67:5ED1
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall AdapterCheck_DrawScreen
 	farcall Palette_FadeInFromWhite
-	call Function_67_5EF1
+	call AdapterCheck_InitOnly_Poll
 	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	ret
 
-Function_67_5EF1:: ; 67:5EF1
-	farcall Function_00_0956
-	call Function_00_044B
+AdapterCheck_InitOnly_Poll:: ; 67:5EF1
+Function_67_5EF1::
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $0A
@@ -780,11 +787,13 @@ Function_67_5EF1:: ; 67:5EF1
 
 ; ---- ptrtable $5F0A-$5F0E (4 bytes) [PROBABLE] jump table of 2 words right after the 'jp hl' dispatcher (ld a,[$C27D]; add a,a; add a,$0A; ... ld a,[hli]; ld h,[hl]; ld l,a; jp hl) at 67:5F:5EFA-5F09; extent = first target (5F0E); targets $5F0E, $5F20 are instruction starts of the code that follows
 
-Table_67_5F0A:: ; 67:5F0A
-	dw Label_67_5F0E
-	dw Label_67_5F20
+AdapterCheck_InitOnly_StateTable:: ; 67:5F0A
+Table_67_5F0A::
+	dw AdapterCheck_InitOnly_State_Init
+	dw AdapterCheck_InitOnly_State_Finish
 
-Label_67_5F0E:: ; 67:5F0E
+AdapterCheck_InitOnly_State_Init:: ; 67:5F0E
+Label_67_5F0E::
 	; [PROBABLE] entered through Table_67_5F0A (state handlers indexed by [$C27D]); decode chain
 	; legal, all 2 table targets are instruction starts, ends in known code region at 5F38; not
 	; executed in traces
@@ -794,14 +803,15 @@ Label_67_5F0E:: ; 67:5F0E
 	call MobileAPI
 	ld a, $01
 	ld [wRam_C27D], a
-	jr Function_67_5EF1
+	jr AdapterCheck_InitOnly_Poll
 
-Label_67_5F20:: ; 67:5F20
+AdapterCheck_InitOnly_State_Finish:: ; 67:5F20
+Label_67_5F20::
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, .l5F38
 	bit 0, a
-	jp nz, Function_67_5EF1
+	jp nz, AdapterCheck_InitOnly_Poll
 	ld a, $36
 	call MobileAPI
 	ld a, $01

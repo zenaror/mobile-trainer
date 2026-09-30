@@ -31,24 +31,25 @@ Palette_69_4760::
 
 ConnIcon_ObjTable:: ; 69:4778
 Table_69_4778::
-	dw Table_69_4794
+	dw ConnIcon_Anim1Frames
 	dw Data_69_48AC
-	dw Table_69_4794
+	dw ConnIcon_Anim1Frames
 	dw Data_69_48AC
-	dw Table_69_48B5
+	dw ConnIcon_Anim2Frames
 	dw Data_69_49CD
-	dw Table_69_49DE
+	dw ConnIcon_Anim3Frames
 	dw Data_69_4A01
-	dw Table_69_4A73
+	dw ConnIcon_Anim4Frames
 	dw Data_69_4B9F
-	dw Table_69_4BAB
+	dw ConnIcon_Anim5Frames
 	dw Data_69_4C41
-	dw Table_69_4A05
+	dw ConnIcon_Anim6Frames
 	dw Data_69_4A6A
 
 ; ---- ptrtable $4794-$47A4 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_4794:: ; 69:4794
+ConnIcon_Anim1Frames:: ; 69:4794
+Table_69_4794::
 	dw Data_69_47A4
 	dw Data_69_47C1
 	dw Data_69_47E2
@@ -119,7 +120,8 @@ Data_69_48AC:: ; 69:48AC
 
 ; ---- ptrtable $48B5-$48C5 (16 bytes) [PROBABLE] list of 8 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_48B5:: ; 69:48B5
+ConnIcon_Anim2Frames:: ; 69:48B5
+Table_69_48B5::
 	dw Data_69_48C5
 	dw Data_69_48E2
 	dw Data_69_4903
@@ -191,7 +193,8 @@ Data_69_49CD:: ; 69:49CD
 
 ; ---- ptrtable $49DE-$49E0 (2 bytes) [PROBABLE] list of 1 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_49DE:: ; 69:49DE
+ConnIcon_Anim3Frames:: ; 69:49DE
+Table_69_49DE::
 	dw Data_69_49E0
 
 ; ---- data $49E0-$4A01 (33 bytes) [PROBABLE] sprite frame record: count=8 then 8 x 4 bytes (y,x,tile,attr-like: 3rd/4th byte e.g. 21 05); referenced from a Table_69 frame list
@@ -208,7 +211,8 @@ Data_69_4A01:: ; 69:4A01
 
 ; ---- ptrtable $4A05-$4A0B (6 bytes) [PROBABLE] list of 3 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_4A05:: ; 69:4A05
+ConnIcon_Anim6Frames:: ; 69:4A05
+Table_69_4A05::
 	dw Data_69_4A0B
 	dw Data_69_4A2C
 	dw Data_69_4A49
@@ -240,7 +244,8 @@ Data_69_4A6A:: ; 69:4A6A
 
 ; ---- ptrtable $4A73-$4A7B (8 bytes) [PROBABLE] list of 4 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_4A73:: ; 69:4A73
+ConnIcon_Anim4Frames:: ; 69:4A73
+Table_69_4A73::
 	dw Data_69_4A7B
 	dw Data_69_4AC4
 	dw Data_69_4B0D
@@ -289,7 +294,8 @@ Data_69_4B9F:: ; 69:4B9F
 
 ; ---- ptrtable $4BAB-$4BAF (4 bytes) [PROBABLE] list of 2 frame pointers (word0 of Table_69_4778 entries); each target is a count-prefixed OAM record
 
-Table_69_4BAB:: ; 69:4BAB
+ConnIcon_Anim5Frames:: ; 69:4BAB
+Table_69_4BAB::
 	dw Data_69_4BAF
 	dw Data_69_4BF8
 

@@ -6,33 +6,39 @@ SECTION "gfx/address_book/unreferenced_confirm_screen", ROMX
 
 ; ---- gfx $7740-$7860 (288 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2C_7740:: ; 2C:7740
+Gfx_AddrScreenUnused_Tiles9300:: ; 2C:7740
+Data_2C_7740::
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp"
 
 ; ---- data $7860-$7B30 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:74CD: hl=$7860 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2C_7860:: ; 2C:7860
+Tilemap_AddrScreenUnused_Screen:: ; 2C:7860
+Data_2C_7860::
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tilemap_7860.tilemap"
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tilemap_7860.attrmap"
 
 ; ---- data $7B30-$7B70 (64 bytes) [PROBABLE] CGB palette data (RGB555 words): heuristic: 40 RGB555 words as 10 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance) [clipped from 7B30-7B80 by higher-priority proposals]
 
-Data_2C_7B30:: ; 2C:7B30
+Palette_AddrScreenUnused_Bg:: ; 2C:7B30
+Data_2C_7B30::
 	INCLUDE "gfx/address_book/unreferenced_confirm_screen/palette_7b30.pal"
 
 ; ---- gfx $7B70-$7C00 (144 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:74AB: hl=$7B70 a=$2C c=$09 de=$8000 (dest VRAM $8000, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_2C_7B70:: ; 2C:7B70
+Gfx_AddrScreenUnused_Tiles8000:: ; 2C:7B70
+Data_2C_7B70::
 	INCBIN "gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp"
 
 ; ---- data $7C00-$7C40 (64 bytes) [PROBABLE] 64-byte CGB palette block (8 x 4 RGB555 words): FarCall 4F:4000 (bc=$40) to WRAM $D840 at 2C:74DE
 
-Palette_2C_7C00:: ; 2C:7C00
+Palette_AddrScreenUnused_Obj:: ; 2C:7C00
+Palette_2C_7C00::
 	INCLUDE "gfx/address_book/unreferenced_confirm_screen/palette_7c00.pal"
 
 ; ---- ptrtable $7C40-$7C50 (16 bytes) [PROBABLE] 8 words, all inside $7C50-$7C80 of the same bank (animation/OAM frame data); tables of 4-byte entries (2 words) addressed by ld de,imm before FarCall 00:0A82 (init_object_from_table: reads the 4-byte entry number B&$7F of the table at DE); each 16-byte table = 4 identical-pair entries; caller 2C:74E7 ld de,$7C40 (a=$2C b=$81)
 
-Table_2C_7C40:: ; 2C:7C40
+Table_AddrScreenUnused_Objects:: ; 2C:7C40
+Table_2C_7C40::
 	dw Data_2C_7C50
 	dw $7C77
 	dw Data_2C_7C50

@@ -41,7 +41,7 @@ ConnectDialog_Run_LoadMode:: ; 57:4029
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 
 ConnectDialog_Run_EnterMode:: ; 57:4044
 	ld a, $01
@@ -53,7 +53,7 @@ ConnectDialog_Run_EnterMode:: ; 57:4044
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0012
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
@@ -65,7 +65,7 @@ ConnectDialog_Run_FrameLoop:: ; 57:405F
 
 ConnectDialog_Run_ModeChanged:: ; 57:4068
 	call ConnectDialog_LeaveMode
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C0D8]
 	or a, a
 	jr z, ConnectDialog_Run_Cancel
@@ -126,8 +126,8 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	ld a, [wRam_C0D8]
 	cp a, $06
 	jp z, ConnectDialog_Input_Keyboard
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	ldh a, [hJoyPressedRepeat]
@@ -195,13 +195,13 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	ld de, $7858
 .l416E ; 57:416E
 	ld hl, $DA40
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -291,13 +291,13 @@ ConnectDialog_Input_ConnectConfirm:: ; 57:41CA
 	ld de, $6858
 .l421C ; 57:421C
 	ld hl, $DA40
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -343,7 +343,7 @@ ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	ret
 
 ConnectDialog_Input_Keyboard:: ; 57:426B
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	call ConnectDialog_ValidatePassword
 	farcall Kbd_Run
 	cp a, $01
@@ -375,18 +375,18 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA20
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $03
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA2B
 	ld de, $52D8
 	ld a, $57
-	call Function_00_0A45
+	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	call ConnectDialog_DrawPasswordField
 	ld a, $F0
@@ -428,7 +428,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -468,7 +468,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call ConnectDialog_DrawPasswordField
@@ -479,11 +479,11 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $02
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA2B
 	ld de, $52D8
 	ld a, $57
-	call Function_00_0A45
+	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	ld hl, $C1BA
 	ld a, [wConnectDialogTextLen]
@@ -504,11 +504,11 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA2B
 	ld de, $531E
 	ld a, $57
-	call Function_00_0A45
+	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	farcall Kbd_Hide
 	jp Label_57_431F
@@ -553,13 +553,13 @@ ConnectDialog_Input_SaveConfirm:: ; 57:43BC
 	ld de, $7858
 .skip ; 57:4406
 	ld hl, $DA40
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -670,13 +670,13 @@ ConnectDialog_Input_ForgetConfirm:: ; 57:4481
 	ld de, $7858
 .skip ; 57:44C9
 	ld hl, $DA40
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -756,7 +756,7 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ld hl, $DA2B
 	ld de, $531E
 	ld a, $57
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld a, $05
 	ld b, $00
 	farcall Kbd_Open
@@ -767,16 +767,16 @@ Label_57_4566:: ; 57:4566
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7828
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0030
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -814,16 +814,16 @@ Label_57_45BC:: ; 57:45BC
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7828
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0030
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -868,13 +868,13 @@ Function_57_45E6::
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 .l4632 ; 57:4632
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 .l4642 ; 57:4642
 	ld a, [wRam_C0E5]
@@ -883,13 +883,13 @@ Function_57_45E6::
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 .l4658 ; 57:4658
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l4668 ; 57:4668
@@ -900,7 +900,7 @@ Function_57_45E6::
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l467E ; 57:467E
@@ -909,7 +909,7 @@ Function_57_45E6::
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l468E ; 57:468E
@@ -920,13 +920,13 @@ Function_57_45E6::
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 .l46A4 ; 57:46A4
 	farcall Palette_FadeOutToWhite
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l46B4 ; 57:46B4
@@ -937,14 +937,14 @@ Function_57_45E6::
 	jr z, .done
 	ld de, $00B4
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA2B
 	ld de, $0000
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld de, $00A0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	farcall Palette_FadeOutToWhite
 	ret
 .done ; 57:46DF
@@ -975,14 +975,14 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	ret z
 	ld de, $00B4
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA2B
 	ld de, $0000
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld de, $00B4
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wRam_C0D8]
 	cp a, $10
 	ret nz
@@ -992,7 +992,7 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 Label_57_4738:: ; 57:4738
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wRam_C0E5]
 	dec a
 	jr nz, .done
@@ -1028,7 +1028,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
 	ld de, $00B4
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wRam_C0D8]
 	cp a, $09
 	jr z, .done

@@ -26,11 +26,11 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	farcall PalFade_Start
 	farcall PalFade_Step
 .loop ; 48:46FA
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call Ticker_Update
 	ld hl, $C10E
 	dec [hl]

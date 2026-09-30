@@ -16,7 +16,8 @@ Function_4C_4000::
 
 ; ---- ptrtable $4010-$4016 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4C:400D: 3 entries; end = first entry target
 
-Table_4C_4010:: ; 4C:4010
+Browser_LoadPage_SchemeTable:: ; 4C:4010
+Table_4C_4010::
 	dw Browser_LoadPage_Fail
 	dw Browser_LoadPage_Http
 	dw Label_4C_4016
@@ -44,7 +45,7 @@ Label_4C_401D:: ; 4C:401D
 	xor a, a
 	ld [wRam_C26F], a
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	jp Label_4C_40E4
 
 Browser_LoadPage_Fail:: ; 4C:404D
@@ -129,15 +130,15 @@ Browser_LoadPage_Fail:: ; 4C:404D
 
 Label_4C_40E4:: ; 4C:40E4
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-	farcall Function_68_73DD
+	farcall Screen_FadeOutAndResetObjWindow
 	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
 	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	farcall Mobile_ShowLastError
-	farcall Function_4E_4866
-	farcall Function_00_09B6
+	farcall Sram_CountMobileError12Or26
+	farcall Sprite_ResetAll
 	ld a, [wMobileErrorCode]
 	cp a, $33
 	jr nz, .l4123
@@ -194,7 +195,7 @@ Label_4C_4138:: ; 4C:4138
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $02
 	ld [wBrowserFetchResult], a
 	ret
@@ -320,7 +321,7 @@ Label_4C_4251:: ; 4C:4251
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $02
 	ld [wBrowserFetchResult], a
 	ret
@@ -337,7 +338,7 @@ Label_4C_427F:: ; 4C:427F
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $06
 	ld [wBrowserFetchResult], a
 	ret
@@ -363,7 +364,7 @@ Browser_LoadPage_Http:: ; 4C:4291
 	bit 1, a
 	jp nz, Label_4C_4017
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $01
 	farcall CommProgress_Init
 	ld a, $00
@@ -371,13 +372,14 @@ Browser_LoadPage_Http:: ; 4C:4291
 	jp Browser_LoadPage_Request
 .l42E1 ; 4C:42E1
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, [wCommSessionKind]
 	call JumpTableInline
 
 ; ---- ptrtable $42F3-$42F7 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:42F0: 2 entries; end pinned by the executed instruction at 42F7; every byte read as data in a trace
 
-Table_4C_42F3:: ; 4C:42F3
+Browser_LoadPage_SessionKindTable:: ; 4C:42F3
+Table_4C_42F3::
 	dw Label_4C_42F7
 	dw Label_4C_4312
 
@@ -454,7 +456,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	or a, a
 	jr nz, .l439B
 	ld de, $C240
-	farcall Function_00_1586
+	farcall Dial_CopySelectedNumber
 .l439B ; 4C:439B
 	ld hl, $C220
 	farcall Mobile_BeginConnect
@@ -476,7 +478,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld [wDialogOnlineSnapshot], a
 
 Browser_LoadPage_Request:: ; 4C:43CD
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -488,7 +490,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld hl, $D400
 	ld bc, $0100
 	call CopyBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wRam_C2C5]
 	ld c, a
 	ld a, [wRam_C2C6]
@@ -499,7 +501,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld [wRam_C240], a
 	ld a, $A0
 	ld [wRam_C241], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -509,7 +511,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	call BankSwitch_H
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Net_BuildLoginPostBody
 	ld a, c
 	ld [wRam_C242], a
@@ -539,7 +541,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld [rRAMG], a
 	jp Browser_LoadPage_WaitReply
 .l4467 ; 4C:4467
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -549,7 +551,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	call BankSwitch_H
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	call Url_StripFragment
 	ld a, $05
 	ld [wCommTimeoutMinutes], a
@@ -683,7 +685,8 @@ Label_4C_4537:: ; 4C:4537
 
 ; ---- ptrtable $457D-$458B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4C:457A: 7 entries; end is a heuristic guess (words stay plausible code pointers)
 
-Table_4C_457D:: ; 4C:457D
+Browser_LoadPage_WaitReply_ResultTable:: ; 4C:457D
+Table_4C_457D::
 	dw Label_4C_460D
 	dw Label_4C_417D
 	dw Label_4C_417D
@@ -860,7 +863,7 @@ Url_StripFragment:: ; 4C:46A6
 Function_4C_46A6::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call (part of region $46A6-$46C0)
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $C380
 .loop ; 4C:46AC
 	ld a, [hli]

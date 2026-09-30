@@ -19,7 +19,7 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -28,19 +28,19 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5D_6E00
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Data_5D_6900
 	ld a, $5D
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7000
@@ -55,23 +55,23 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld de, $D000
 	ld hl, $7048
 	ld a, $5D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Registration_DoNotUnplugMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, $7318
 	ld a, $5D
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1838
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 Registration_WriteConfig_RunState:: ; 68:6B98
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -99,7 +99,7 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -194,7 +194,7 @@ Function_68_6C7F::
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03
-	farcall Function_00_153D
+	farcall PromptText_Load
 	push hl
 	push af
 	ld de, $FFFF
@@ -229,7 +229,7 @@ Function_68_6C7F::
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0B01
 	ld bc, $0612
@@ -275,10 +275,10 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	call CopyString
 	ld hl, $DEB4
 	ld de, $DFC3
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $6E0E
 	ld de, $DFC3
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DFC3
 	ld de, $A05E
 	ld bc, $0014
@@ -288,10 +288,10 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	call CopyString
 	ld hl, $DEB4
 	ld de, $DFC3
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $6E0E
 	ld de, $DFC3
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DFC3
 	ld de, $A04A
 	ld bc, $0014

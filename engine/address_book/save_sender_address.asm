@@ -30,8 +30,8 @@ SaveSenderAddr_Menu:: ; 2A:4000
 
 SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -49,13 +49,13 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	ld b, $3C
 .loop ; 2A:4058
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	dec b
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld c, b
@@ -74,14 +74,14 @@ Label_2A_4081:: ; 2A:4081
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld c, b
@@ -106,7 +106,7 @@ SaveSenderAddr_CursorDown:: ; 2A:40BB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -131,7 +131,7 @@ SaveSenderAddr_CursorUp:: ; 2A:40E0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -150,8 +150,8 @@ SaveSenderAddr_CursorUp:: ; 2A:40E0
 
 SaveSenderAddr_InitScreen:: ; 2A:4105
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld bc, $0040
 	ld de, $D840
@@ -168,26 +168,26 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld a, $2A
 	ld b, $95
 	ld c, $23
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Data_28_4BD0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8400
 	ld hl, Data_28_4FD0
 	ld a, $28
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_SaveSenderAddr_TilemapAttr
 	ld a, $2A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call SaveSenderAddr_DrawSlotNames
 	ld a, $40
 	ldh [hJoyPressed], a
@@ -224,7 +224,7 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	push bc
 	farcall AddrBook_UploadTextTiles
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -247,7 +247,7 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -499,7 +499,7 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0032
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -788,7 +788,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -799,7 +799,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l45A7 ; 2A:45A7
 	pop bc
 	push bc
@@ -807,7 +807,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -818,7 +818,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l45D3 ; 2A:45D3
 	pop bc
 	push bc
@@ -826,7 +826,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -837,7 +837,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l45FF ; 2A:45FF
 	pop bc
 	push bc
@@ -845,7 +845,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -856,7 +856,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l462B ; 2A:462B
 	pop bc
 	push bc
@@ -864,7 +864,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -875,7 +875,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4657 ; 2A:4657
 	pop bc
 	push bc
@@ -883,7 +883,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -894,7 +894,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4683 ; 2A:4683
 	pop bc
 	pop bc
@@ -919,7 +919,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -930,7 +930,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l46CE ; 2A:46CE
 	pop bc
 	jp .l47BD
@@ -940,7 +940,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -951,7 +951,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l46FD ; 2A:46FD
 	pop bc
 	jp .l47BD
@@ -961,7 +961,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -972,7 +972,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l472C ; 2A:472C
 	pop bc
 	jp .l47BD
@@ -982,7 +982,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -993,7 +993,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l475B ; 2A:475B
 	pop bc
 	jp .l47BD
@@ -1003,7 +1003,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -1014,7 +1014,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l478A ; 2A:478A
 	pop bc
 	jp .l47BD
@@ -1024,7 +1024,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -1035,7 +1035,7 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l47B9 ; 2A:47B9
 	pop bc
 	jp .l47BD
@@ -1135,7 +1135,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $00
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1144,7 +1144,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l488F ; 2A:488F
 	ld a, $28
 	ld [wSpriteSlots + 112], a
@@ -1156,7 +1156,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $01
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1165,7 +1165,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l48C4 ; 2A:48C4
 	ld a, $34
 	ld [wSpriteSlots + 96], a
@@ -1177,7 +1177,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $02
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1186,7 +1186,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l48F9 ; 2A:48F9
 	ld a, $40
 	ld [wSpriteSlots + 80], a
@@ -1198,7 +1198,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $03
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1207,7 +1207,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l492E ; 2A:492E
 	ld a, $4C
 	ld [wSpriteSlots + 64], a
@@ -1219,7 +1219,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $04
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1228,7 +1228,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4963 ; 2A:4963
 	ld a, $58
 	ld [wSpriteSlots + 48], a
@@ -1240,7 +1240,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $05
 	call SaveSenderAddr_IsSlotUsed
 	inc a
@@ -1252,7 +1252,7 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4998 ; 2A:4998
 	; [CONFIRMED] 64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage
@@ -1267,9 +1267,9 @@ SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	ld b, $01
 .loop ; 2A:49A9
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Joypad_Update
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $C0

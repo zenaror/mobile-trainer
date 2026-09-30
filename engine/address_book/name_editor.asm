@@ -60,8 +60,8 @@ Label_2F_5832:: ; 2F:5832
 	; [CONFIRMED] 77 insn(s) executed; cut out of the PROBABLE region 5832-590B by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call AbookName_PlaceCursorSprites
@@ -75,7 +75,7 @@ Label_2F_5857:: ; 2F:5857
 	jr nz, Label_2F_5876
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	farcall Palette_FadeOutToWhite
 	ld a, $07
@@ -96,22 +96,22 @@ Label_2F_5876:: ; 2F:5876
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	ld a, $FF
 	ret
 .l58BB ; 2F:58BB
@@ -132,7 +132,7 @@ AbookName_CursorLeft:: ; 2F:58CE
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -167,7 +167,7 @@ AbookName_CursorRight:: ; 2F:58F5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -226,62 +226,62 @@ AbookName_SetupScreen:: ; 2F:593B
 	; [CONFIRMED] 152 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage
 	; --split [executed in 1 scenarios]
 	push af
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
 	ld de, $9301
-	ld hl, Tiles_2F_61F0
+	ld hl, Gfx_AbookName_Tiles9300
 	ld a, $2F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9701
-	ld hl, Tiles_2F_65F0
+	ld hl, Gfx_AbookName_Tiles9700
 	ld a, $2F
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8800
-	ld hl, Tiles_2F_66F0
+	ld hl, Gfx_AbookName_Tiles8800
 	ld a, $2F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
-	ld hl, Data_29_5B10
+	ld hl, Gfx_AbookName_Tiles8000
 	ld a, $29
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_29_5E10
+	ld hl, Palette_AbookName_Obj
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_2F_6CC0
+	ld hl, Palette_AbookName_Bg
 	ld a, $2F
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_AbookName
 	ld a, $2F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	pop af
 	push af
 	dec a
@@ -335,11 +335,11 @@ AbookName_SetupScreen:: ; 2F:593B
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -348,7 +348,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	jr .l5AB0
 .l5A81 ; 2F:5A81
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -714,7 +714,7 @@ AbookName_InsertChar:: ; 2F:5C85
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -769,7 +769,7 @@ Label_2F_5CDD:: ; 2F:5CDD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -788,7 +788,7 @@ Label_2F_5CF4:: ; 2F:5CF4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -802,15 +802,15 @@ Label_2F_5CF4:: ; 2F:5CF4
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call AbookName_PlaceCursorSprites
 	ld d, $14
 .l5D23 ; 2F:5D23
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -828,11 +828,11 @@ Label_2F_5CF4:: ; 2F:5CF4
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	call AbookName_PlaceCursorSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	pop de
 	push de
@@ -941,7 +941,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -951,7 +951,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	dec b
@@ -983,8 +983,8 @@ AbookName_Backspace:: ; 2F:5DDC
 .loop ; 2F:5E20
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1002,7 +1002,7 @@ AbookName_Backspace:: ; 2F:5DDC
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	inc c
 	dec c
@@ -1122,7 +1122,7 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -1250,7 +1250,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1314,7 +1314,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1335,7 +1335,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1399,7 +1399,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1460,7 +1460,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1481,7 +1481,7 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1537,7 +1537,7 @@ AbookName_KeyboardLoop:: ; 2F:613A
 	push bc
 	call AbookName_PlaceCursorSprites
 	ld d, $70
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld b, $01
 	ld c, $00
 	farcall Kbd_Run

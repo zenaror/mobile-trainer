@@ -4,7 +4,8 @@
 
 SECTION "home/lcd", ROM0
 
-Function_00_059F:: ; 00:059F
+OAMDMA_CopyToHram:: ; 00:059F
+Function_00_059F::
 	; [CONFIRMED] copies the 10-byte OAM DMA routine from 05AC to HRAM $FF80 (ld bc,$0A80: B=count,
 	; C=dest)
 	ld hl, $05AC
@@ -68,7 +69,7 @@ LCDOff:: ; 00:05BD
 	ld a, b
 	ldh [rIE], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 .l05ED ; 00:05ED
 	ldh a, [rLY]
@@ -80,5 +81,5 @@ LCDOff:: ; 00:05BD
 	and a, $7F
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret

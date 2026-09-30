@@ -4,22 +4,23 @@
 
 SECTION "engine/unreferenced/page_list_prototype", ROMX
 
-Function_7F_4C78:: ; 7F:4C78
+Canvas_RunSampleDemo:: ; 7F:4C78
+Function_7F_4C78::
 	; [PROBABLE] 116 insn(s) reached by static flow only; seeds: site x116; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 115/116 instruction starts ran in forced_screens (traces/forced/, not
 	; natural evidence; status unchanged)
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	call Canvas_InitScreen
 	call Function_7F_4E85
 .l4C84 ; 7F:4C84
-	call Function_7F_4D95
+	call Canvas_DrawSampleRows
 .l4C87 ; 7F:4C87
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
 	jr z, .l4C87
-	call Function_7F_4E0D
+	call Canvas_DrawSampleRowsInverted
 .l4C96 ; 7F:4C96
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
@@ -131,7 +132,7 @@ Canvas_InitScreen:: ; 7F:4CA9
 	jr nz, .l4D36
 	ld a, $80
 	ldh [rBCPS], a
-	ld hl, Palette_7F_4D50
+	ld hl, Palette_Canvas_Bg
 	ld b, $08
 .l4D46 ; 7F:4D46
 	ld a, [hli]
@@ -144,7 +145,8 @@ Canvas_InitScreen:: ; 7F:4CA9
 
 ; ---- data $4D50-$4D58 (8 bytes) [PROBABLE] 8 bytes = one RGB555 palette (7FFF 7C00 001F 0000) written to the palette port with ld hl,$4D50 ; ld b,8 ; ld a,[hli] ; ldh [$69],a at 7F:4D41-4D49
 
-Palette_7F_4D50:: ; 7F:4D50
+Palette_Canvas_Bg:: ; 7F:4D50
+Palette_7F_4D50::
 	db $FF, $7F, $00, $7C, $1F, $00, $00, $00
 
 	; [PROBABLE] function head ld hl,$4D88 ; ld de,$0000 : the loop that follows (4D5E, PROBABLE, jr
@@ -185,11 +187,13 @@ Palette_7F_4D50:: ; 7F:4D50
 ; ---- text $4D88-$4D95 (13 bytes) [PROBABLE] ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
 
 PUSHC sjis
-String_7F_4D88:: ; 7F:4D88
+String_Canvas_SampleAscii:: ; 7F:4D88
+String_7F_4D88::
 	db "Sample DATA.", 0
 POPC
 
-Function_7F_4D95:: ; 7F:4D95
+Canvas_DrawSampleRows:: ; 7F:4D95
+Function_7F_4D95::
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
 	; entered by call from 7F:4C84 (PROBABLE code) | forced execution: 56/56 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -199,7 +203,7 @@ Function_7F_4D95:: ; 7F:4D95
 	push bc
 	push de
 	ld e, $00
-	ld hl, String_7F_4DF2
+	ld hl, String_Canvas_SampleSentence_7F_4DF2
 .l4DA1 ; 7F:4DA1
 	ld a, [hli]
 	ld b, a
@@ -255,11 +259,13 @@ Function_7F_4D95:: ; 7F:4D95
 ; ---- text $4DF2-$4E0D (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_7F_4DF2:: ; 7F:4DF2
+String_Canvas_SampleSentence_7F_4DF2:: ; 7F:4DF2
+String_7F_4DF2::
 	db "サンプルデータですからね～", 0
 POPC
 
-Function_7F_4E0D:: ; 7F:4E0D
+Canvas_DrawSampleRowsInverted:: ; 7F:4E0D
+Function_7F_4E0D::
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
 	; entered by call from 7F:4C93 (PROBABLE code) | forced execution: 56/56 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -269,7 +275,7 @@ Function_7F_4E0D:: ; 7F:4E0D
 	push bc
 	push de
 	ld e, $00
-	ld hl, String_7F_4E6A
+	ld hl, String_Canvas_SampleSentence_7F_4E6A
 .l4E19 ; 7F:4E19
 	ld a, [hli]
 	ld b, a
@@ -325,7 +331,8 @@ Function_7F_4E0D:: ; 7F:4E0D
 ; ---- text $4E6A-$4E85 (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_7F_4E6A:: ; 7F:4E6A
+String_Canvas_SampleSentence_7F_4E6A:: ; 7F:4E6A
+String_7F_4E6A::
 	db "サンプルデータですからね～", 0
 POPC
 
@@ -340,17 +347,18 @@ Function_7F_4E85:: ; 7F:4E85
 
 Sample_PageNamePtrs:: ; 7F:4E89
 Table_7F_4E89::
-	dw String_7F_4E95
+	dw String_Sample_PageNames_0_2
 	dw $4EA8
 	dw $4EC1
-	dw String_7F_4ED0
+	dw String_Sample_PageNames_3_5
 	dw $4EE1
 	dw $4EE8
 
 ; ---- text $4E95-$4ED0 (59 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_7F_4E95:: ; 7F:4E95
+String_Sample_PageNames_0_2:: ; 7F:4E95
+String_7F_4E95::
 	db "任天堂ホームページ", 0
 	db "ポケットモンスター…！？", 0
 	db "GAMEFREAK HOME", 0
@@ -359,7 +367,8 @@ POPC
 ; ---- text $4ED0-$4EF0 (32 bytes) [PROBABLE] ASCII "MissingLink_HOME" + $07 (control byte) + "sample" + NUL, followed by "sample" and "sample2" strings that are the last targets (4EE1, 4EE8) of the table 7F:4E89
 
 PUSHC sjis
-String_7F_4ED0:: ; 7F:4ED0
+String_Sample_PageNames_3_5:: ; 7F:4ED0
+String_7F_4ED0::
 	db "MissingLink_HOME", $07, "sample", 0
 	db "sample2", 0
 POPC
@@ -368,32 +377,38 @@ POPC
 
 Sample_PageUrlPtrs:: ; 7F:4EF0
 Table_7F_4EF0::
-	dw String_7F_4EFC
-	dw String_7F_4F15
-	dw String_7F_4F2F
-	dw String_7F_4F49
-	dw String_7F_4F67
-	dw String_7F_4F79
+	dw String_Sample_PageUrl0
+	dw String_Sample_PageUrl1
+	dw String_Sample_PageUrl2
+	dw String_Sample_PageUrl3
+	dw String_Sample_PageUrl4
+	dw String_Sample_PageUrl5
 
 ; ---- text $4EFC-$4F15 (25 bytes) [PROBABLE] ASCII URL "http://www.nintendo.com/" + NUL = first target (4EFC) of the pointer table 7F:4EF0
 
 PUSHC sjis
-String_7F_4EFC:: ; 7F:4EFC
+String_Sample_PageUrl0:: ; 7F:4EFC
+String_7F_4EFC::
 	db "http://www.nintendo.com/", 0
 POPC
 
 ; ---- text $4F15-$4FC3 (174 bytes) [PROBABLE] text: 8 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_7F_4F15:: ; 7F:4F15
+String_Sample_PageUrl1:: ; 7F:4F15
+String_7F_4F15::
 	db "http://www.pokemon.co.jp/", 0
-String_7F_4F2F:: ; 7F:4F2F
+String_Sample_PageUrl2:: ; 7F:4F2F
+String_7F_4F2F::
 	db "http://www.gamefreek.net/", 0
-String_7F_4F49:: ; 7F:4F49
+String_Sample_PageUrl3:: ; 7F:4F49
+String_7F_4F49::
 	db "http://www.missinglink.co.jp/", 0
-String_7F_4F67:: ; 7F:4F67
+String_Sample_PageUrl4:: ; 7F:4F67
+String_7F_4F67::
 	db "http://sample.to/", 0
-String_7F_4F79:: ; 7F:4F79
+String_Sample_PageUrl5:: ; 7F:4F79
+String_7F_4F79::
 	db "http://sample2.to/", 0
 	db "テストページ", 0
 	db "htpp://work.dammy.co.jp/", 0
@@ -412,7 +427,8 @@ PageListProto_TitleSlotTable:: ; 7F:4FCF
 Table_7F_4FCF::
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
-Function_7F_4FDB:: ; 7F:4FDB
+PageListProto_Main:: ; 7F:4FDB
+Function_7F_4FDB::
 	; [PROBABLE] function head (push af ; ldh a,[$FF70] ; push af ; ld a,1 ; ... ld [$D724],a ; ld
 	; a,0 ; ld [$D725],a ; pop af ... pop af) flowing into the validated far-call site at 4FF5 (call
 	; 7F:7271, an executed function); starts right after the word table above; no caller found,
@@ -444,12 +460,13 @@ Function_7F_4FDB:: ; 7F:4FDB
 	xor a, a
 	ld [wDialogOnlineSnapshot], a
 .skip ; 7F:500C
-	call Function_7F_51EE
+	call PageListProto_InitScreen
 	ld c, $00
 
-Function_7F_5011:: ; 7F:5011
+PageListProto_Main_Loop:: ; 7F:5011
+Function_7F_5011::
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, .l5128
@@ -458,7 +475,7 @@ Function_7F_5011:: ; 7F:5011
 	jr z, .l503A
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -513,15 +530,15 @@ Function_7F_5011:: ; 7F:5011
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0110
 	farcall Dialog_Open
 	farcall Dialog_WaitInputMonitored
 	farcall Dialog_Close
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
@@ -547,22 +564,22 @@ Function_7F_5011:: ; 7F:5011
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_7F_51EE
+	call PageListProto_InitScreen
 	farcall Sprites_RestoreSlotsFromBank3
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	pop bc
-	jp Function_7F_5011
+	jp PageListProto_Main_Loop
 .l5115 ; 7F:5115
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
 	ret
 .l5128 ; 7F:5128
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -575,26 +592,26 @@ Function_7F_5011:: ; 7F:5011
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
-	call Function_7F_5647
-	call Function_7F_56AE
+	call PageListProto_GetActionAvailability
+	call PageListProto_SetActionIcons
 	pop bc
-	call Function_7F_5989
+	call PageListProto_ActionMenu
 	inc a
 	ret z
 	push bc
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_7F_56AE
+	call PageListProto_SetActionIcons
 	ld a, $03
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	pop bc
 .l516A ; 7F:516A
 	ldh a, [hJoyPressed]
@@ -607,13 +624,13 @@ Function_7F_5011:: ; 7F:5011
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0048
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -629,7 +646,7 @@ Function_7F_5011:: ; 7F:5011
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -642,8 +659,8 @@ Function_7F_5011:: ; 7F:5011
 	ld c, $05
 .l51B9 ; 7F:51B9
 	ld a, d
-	call Function_7F_56F1
-	call Function_7F_5306
+	call PageListProto_RedrawSelection
+	call PageListProto_UpdateRowSprites
 .l51C0 ; 7F:51C0
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
@@ -655,7 +672,7 @@ Function_7F_5011:: ; 7F:5011
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -668,17 +685,18 @@ Function_7F_5011:: ; 7F:5011
 	ld c, $00
 .l51E3 ; 7F:51E3
 	ld a, d
-	call Function_7F_56F1
-	call Function_7F_5306
+	call PageListProto_RedrawSelection
+	call PageListProto_UpdateRowSprites
 .l51EA ; 7F:51EA
-	jp Function_7F_5011
+	jp PageListProto_Main_Loop
 
 ; ---- data $51ED-$51EE (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $C9 (ret) after the unconditional jp $5011 at 51EA and before the function 51EE; no branch/call to 51ED found; left unclassified
 
 Data_7F_51ED:: ; 7F:51ED
 	db $C9
 
-Function_7F_51EE:: ; 7F:51EE
+PageListProto_InitScreen:: ; 7F:51EE
+Function_7F_51EE::
 	; [PROBABLE] 1292 insn(s) reached by static flow only; seeds: site x1292; min discovery hops 0;
 	; entered by call from 7F:500C (PROBABLE code)
 	push bc
@@ -708,69 +726,69 @@ Function_7F_51EE:: ; 7F:51EE
 	jr nz, .l520E
 	farcall Canvas_UploadToVram
 	farcall LCDOff
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
-	ld hl, Data_7F_62B0
+	ld hl, PageListProto_Tiles_62B0
 	ld a, $7F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_7F_66B0
+	ld hl, PageListProto_Tiles_66B0
 	ld a, $7F
 	ld b, $97
 	ld c, $12
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Data_7F_6AE0
+	ld hl, PageListProto_Tiles_6AE0
 	ld a, $7F
 	ld b, $94
 	ld c, $29
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld hl, $DA10
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6000
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_7F_67D0
+	ld hl, PageListProto_Tilemap_67D0
 	ld a, $7F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	di
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_7F_6D70
+	ld hl, PageListProto_ObjPalette
 	ld a, $7F
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_7F_6AA0
+	ld hl, PageListProto_BgPalette
 	ld a, $7F
 	farcall Palette_LoadToBuffer
 	ei
 	farcall LCDOn
-	call Function_7F_577D
+	call PageListProto_DrawAllTitles
 	ld c, $00
-	call Function_7F_5306
+	call PageListProto_UpdateRowSprites
 	ld a, $03
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001A
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -790,14 +808,16 @@ Function_7F_51EE:: ; 7F:51EE
 	pop bc
 	ret
 
-Function_7F_5306:: ; 7F:5306
+PageListProto_UpdateRowSprites:: ; 7F:5306
+Function_7F_5306::
 	push bc
-	call Function_7F_530F
-	call Function_7F_546A
+	call PageListProto_InitRowSprites
+	call PageListProto_HighlightRowSprite
 	pop bc
 	ret
 
-Function_7F_530F:: ; 7F:530F
+PageListProto_InitRowSprites:: ; 7F:530F
+Function_7F_530F::
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -814,32 +834,32 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA30
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA40
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA50
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA60
 	ld de, $6DF0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, PageListProto_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -852,7 +872,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l53A2 ; 7F:53A2
 	ld hl, $4FC5
 	ld a, [hli]
@@ -866,7 +886,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l53BE ; 7F:53BE
 	ld hl, $4FC7
 	ld a, [hli]
@@ -880,7 +900,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l53DA ; 7F:53DA
 	ld hl, $4FC9
 	ld a, [hli]
@@ -894,7 +914,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l53F6 ; 7F:53F6
 	ld hl, $4FCB
 	ld a, [hli]
@@ -908,7 +928,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5412 ; 7F:5412
 	ld hl, $4FCD
 	ld a, [hli]
@@ -922,7 +942,7 @@ Function_7F_530F:: ; 7F:530F
 	ld de, $6DE0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l542E ; 7F:542E
 	ld a, $16
 	ld [wSpriteSlots + 16], a
@@ -951,7 +971,8 @@ Function_7F_530F:: ; 7F:530F
 	pop bc
 	ret
 
-Function_7F_546A:: ; 7F:546A
+PageListProto_HighlightRowSprite:: ; 7F:546A
+Function_7F_546A::
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -979,7 +1000,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $16
 	ld [wSpriteSlots + 16], a
 	ld a, $05
@@ -990,7 +1011,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $16
 	ld [wSpriteSlots + 16], a
 	ld a, $05
@@ -1012,7 +1033,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $22
 	ld [wSpriteSlots + 32], a
 	ld a, $05
@@ -1023,7 +1044,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $22
 	ld [wSpriteSlots + 32], a
 	ld a, $05
@@ -1045,7 +1066,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $2E
 	ld [wSpriteSlots + 48], a
 	ld a, $05
@@ -1056,7 +1077,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $2E
 	ld [wSpriteSlots + 48], a
 	ld a, $05
@@ -1078,7 +1099,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $3A
 	ld [wSpriteSlots + 64], a
 	ld a, $05
@@ -1089,7 +1110,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $3A
 	ld [wSpriteSlots + 64], a
 	ld a, $05
@@ -1111,7 +1132,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $46
 	ld [wSpriteSlots + 80], a
 	ld a, $05
@@ -1122,7 +1143,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $46
 	ld [wSpriteSlots + 80], a
 	ld a, $05
@@ -1144,7 +1165,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DC0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $52
 	ld [wSpriteSlots + 96], a
 	ld a, $05
@@ -1155,7 +1176,7 @@ Function_7F_546A:: ; 7F:546A
 	ld de, $6DD0
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $52
 	ld [wSpriteSlots + 96], a
 	ld a, $05
@@ -1170,7 +1191,8 @@ Function_7F_546A:: ; 7F:546A
 	pop bc
 	ret
 
-Function_7F_5647:: ; 7F:5647
+PageListProto_GetActionAvailability:: ; 7F:5647
+Function_7F_5647::
 	push bc
 	push af
 	ld a, $01
@@ -1237,7 +1259,8 @@ Function_7F_5647:: ; 7F:5647
 	pop bc
 	ret
 
-Function_7F_56AE:: ; 7F:56AE
+PageListProto_SetActionIcons:: ; 7F:56AE
+Function_7F_56AE::
 	push bc
 	di
 	ld b, a
@@ -1284,7 +1307,8 @@ Function_7F_56AE:: ; 7F:56AE
 	pop bc
 	ret
 
-Function_7F_56F1:: ; 7F:56F1
+PageListProto_RedrawSelection:: ; 7F:56F1
+Function_7F_56F1::
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -1321,7 +1345,7 @@ Function_7F_56F1:: ; 7F:56F1
 	ld d, a
 	ld b, $03
 	ld c, $00
-	call Function_7F_5805
+	call PageListProto_DrawTextLine
 	pop bc
 	push bc
 	ld e, c
@@ -1350,7 +1374,7 @@ Function_7F_56F1:: ; 7F:56F1
 	ld d, a
 	ld b, $00
 	ld c, $01
-	call Function_7F_5805
+	call PageListProto_DrawTextLine
 	pop hl
 	pop bc
 	push bc
@@ -1358,8 +1382,8 @@ Function_7F_56F1:: ; 7F:56F1
 	ld c, $00
 	ld de, $0218
 	ld hl, $D3C0
-	call Function_7F_5805
-	farcall Function_7F_58B9
+	call PageListProto_DrawTextLine
+	farcall PageListProto_UploadTextTiles
 	pop bc
 	push af
 	xor a, a
@@ -1370,11 +1394,12 @@ Function_7F_56F1:: ; 7F:56F1
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_7F_56AE
+	call PageListProto_SetActionIcons
 	pop bc
 	ret
 
-Function_7F_577D:: ; 7F:577D
+PageListProto_DrawAllTitles:: ; 7F:577D
+Function_7F_577D::
 	push bc
 	push af
 	ld a, $01
@@ -1416,7 +1441,7 @@ Function_7F_577D:: ; 7F:577D
 	ld d, a
 	ld b, $03
 	ld c, $00
-	call Function_7F_5805
+	call PageListProto_DrawTextLine
 	pop bc
 	pop de
 	pop af
@@ -1433,7 +1458,7 @@ Function_7F_577D:: ; 7F:577D
 	ld de, $1018
 	ld b, $00
 	ld c, $01
-	call Function_7F_5805
+	call PageListProto_DrawTextLine
 	pop hl
 	pop bc
 	push bc
@@ -1444,8 +1469,8 @@ Function_7F_577D:: ; 7F:577D
 	ld c, $00
 	ld de, $0218
 	ld hl, $D3C0
-	call Function_7F_5805
-	farcall Function_7F_58B9
+	call PageListProto_DrawTextLine
+	farcall PageListProto_UploadTextTiles
 	pop bc
 	push af
 	xor a, a
@@ -1456,11 +1481,12 @@ Function_7F_577D:: ; 7F:577D
 	xor a, a
 	ld d, $00
 	ld e, $00
-	call Function_7F_56AE
+	call PageListProto_SetActionIcons
 	pop bc
 	ret
 
-Function_7F_5805:: ; 7F:5805
+PageListProto_DrawTextLine:: ; 7F:5805
+Function_7F_5805::
 	ld a, $14
 	ld [wTextCellsLeft], a
 .l580A ; 7F:580A
@@ -1490,7 +1516,7 @@ Function_7F_5805:: ; 7F:5805
 	pop de
 	pop bc
 	inc hl
-	call Function_7F_58A5
+	call PageListProto_BlitGlyphAdvance
 	push bc
 	push de
 	push hl
@@ -1522,7 +1548,7 @@ Function_7F_5805:: ; 7F:5805
 	pop hl
 	pop de
 	pop bc
-	call Function_7F_58A5
+	call PageListProto_BlitGlyphAdvance
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
@@ -1547,10 +1573,11 @@ Function_7F_5805:: ; 7F:5805
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_7F_58A5
+	call PageListProto_BlitGlyphAdvance
 	jr .l5896
 
-Function_7F_58A5:: ; 7F:58A5
+PageListProto_BlitGlyphAdvance:: ; 7F:58A5
+Function_7F_58A5::
 	push bc
 	push de
 	push hl
@@ -1564,7 +1591,8 @@ Function_7F_58A5:: ; 7F:58A5
 	ld e, a
 	ret
 
-Function_7F_58B9:: ; 7F:58B9
+PageListProto_UploadTextTiles:: ; 7F:58B9
+Function_7F_58B9::
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1573,27 +1601,28 @@ Function_7F_58B9:: ; 7F:58B9
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_7F_58F9
-	call Function_00_0392
+	call PageListProto_StartHDMAAtVBlank
+	call Sound_FrameService
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_7F_58F9
-	call Function_00_0392
+	call PageListProto_StartHDMAAtVBlank
+	call Sound_FrameService
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D800
 	ld de, $8800
 	ld c, $6F
-	call Function_7F_58F9
-	call Function_00_0392
+	call PageListProto_StartHDMAAtVBlank
+	call Sound_FrameService
 	ret
 
-Function_7F_58F9:: ; 7F:58F9
+PageListProto_StartHDMAAtVBlank:: ; 7F:58F9
+Function_7F_58F9::
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -1621,7 +1650,8 @@ Function_7F_58F9:: ; 7F:58F9
 	ei
 	ret
 
-Function_7F_591E:: ; 7F:591E
+PageListProto_ShowMessage:: ; 7F:591E
+Function_7F_591E::
 	push bc
 	push de
 	push hl
@@ -1639,7 +1669,7 @@ Function_7F_591E:: ; 7F:591E
 	ld a, $52
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	jp .l5985
 .l5946 ; 7F:5946
 	ld de, $9581
@@ -1647,7 +1677,7 @@ Function_7F_591E:: ; 7F:591E
 	ld a, $52
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	jp .l5985
 .l595B ; 7F:595B
 	ld de, $9581
@@ -1655,7 +1685,7 @@ Function_7F_591E:: ; 7F:591E
 	ld a, $52
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	jp .l5985
 .l5970 ; 7F:5970
 	ld de, $9581
@@ -1663,7 +1693,7 @@ Function_7F_591E:: ; 7F:591E
 	ld a, $52
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	jp .l5985
 .l5985 ; 7F:5985
 	pop hl
@@ -1671,13 +1701,14 @@ Function_7F_591E:: ; 7F:591E
 	pop bc
 	ret
 
-Function_7F_5989:: ; 7F:5989
-	call Function_7F_5BB5
+PageListProto_ActionMenu:: ; 7F:5989
+Function_7F_5989::
+	call PageListProto_ActionMenuInit
 	call Function_7F_61E7
 	ld b, $00
 .loop ; 7F:5991
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, .l5ACF
@@ -1686,7 +1717,7 @@ Function_7F_5989:: ; 7F:5989
 	jr z, .l59BA
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -1742,7 +1773,7 @@ Function_7F_5989:: ; 7F:5989
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0110
 	push af
 	ldh a, [rSVBK]
@@ -1772,9 +1803,9 @@ Function_7F_5989:: ; 7F:5989
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
@@ -1800,10 +1831,10 @@ Function_7F_5989:: ; 7F:5989
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_7F_51EE
+	call PageListProto_InitScreen
 	farcall Sprites_RestoreSlotsFromBank3
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	jp .loop
 .l5AC4 ; 7F:5AC4
@@ -1814,7 +1845,7 @@ Function_7F_5989:: ; 7F:5989
 	ld hl, $0000
 	ret
 .l5ACF ; 7F:5ACF
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
@@ -1829,7 +1860,7 @@ Function_7F_5989:: ; 7F:5989
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1837,27 +1868,27 @@ Function_7F_5989:: ; 7F:5989
 	ld a, b
 	cp a, $01
 	jr nz, .l5B02
-	call Function_7F_5D0A
+	call PageListProto_SaveCurrentPage
 	jr .l5B09
 .l5B02 ; 7F:5B02
 	cp a, $02
 	jr nz, .l5B1A
-	call Function_7F_5FBC
+	call PageListProto_DeleteSlot
 .l5B09 ; 7F:5B09
 	inc a
 	jp nz, .loop
-	call Function_7F_5C13
+	call PageListProto_HideActionCursor
 	push bc
 	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
 .l5B1A ; 7F:5B1A
-	call Function_7F_5F5D
+	call PageListProto_GoToSlot
 	inc a
 	jp nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ret
 .l5B2D ; 7F:5B2D
@@ -1871,12 +1902,12 @@ Function_7F_5989:: ; 7F:5989
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0048
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	call Function_7F_5C13
+	call PageListProto_HideActionCursor
 	push bc
 	farcall Joypad_Update
 	pop bc
@@ -1893,7 +1924,7 @@ Function_7F_5989:: ; 7F:5989
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1906,11 +1937,11 @@ Function_7F_5989:: ; 7F:5989
 	ld b, $02
 .l5B77 ; 7F:5B77
 	ld a, d
-	call Function_7F_5CB4
+	call PageListProto_MoveActionCursor
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 .l5B83 ; 7F:5B83
 	ldh a, [hJoyPressedRepeat]
@@ -1923,7 +1954,7 @@ Function_7F_5989:: ; 7F:5989
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1936,16 +1967,17 @@ Function_7F_5989:: ; 7F:5989
 	ld b, $00
 .l5BA6 ; 7F:5BA6
 	ld a, d
-	call Function_7F_5CB4
+	call PageListProto_MoveActionCursor
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 .l5BB2 ; 7F:5BB2
 	jp .loop
 
-Function_7F_5BB5:: ; 7F:5BB5
+PageListProto_ActionMenuInit:: ; 7F:5BB5
+Function_7F_5BB5::
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1954,19 +1986,19 @@ Function_7F_5BB5:: ; 7F:5BB5
 	ld de, $6E00
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $57
 	ld [wSpriteSlots + 128], a
 	ld a, $1F
 	ld [wSpriteSlots + 129], a
 	ld hl, $DA70
-	ld de, Table_7F_6DB0
+	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6000
 	ld hl, $DA70
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $F2
 	ld [wSpriteSlots + 113], a
 	ld a, $66
@@ -1986,18 +2018,19 @@ Function_7F_5BB5:: ; 7F:5BB5
 	xor a, a
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 	ret
 
-Function_7F_5C13:: ; 7F:5C13
+PageListProto_HideActionCursor:: ; 7F:5C13
+Function_7F_5C13::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	push bc
 	ld a, $E8
 	ld [wSpriteSlots + 129], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wSpriteSlots + 113]
 	inc a
 	inc a
@@ -2013,7 +2046,8 @@ Function_7F_5C13:: ; 7F:5C13
 	pop bc
 	ret
 
-Function_7F_5C39:: ; 7F:5C39
+PageListProto_SetActionCursor:: ; 7F:5C39
+Function_7F_5C39::
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2025,7 +2059,7 @@ Function_7F_5C39:: ; 7F:5C39
 	ld de, $6E00
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $57
 	ld [wSpriteSlots + 128], a
 	ld a, $1F
@@ -2042,7 +2076,7 @@ Function_7F_5C39:: ; 7F:5C39
 	ld de, $6E10
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $57
 	ld [wSpriteSlots + 128], a
 	ld a, $46
@@ -2059,7 +2093,7 @@ Function_7F_5C39:: ; 7F:5C39
 	ld de, $6E20
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $57
 	ld [wSpriteSlots + 128], a
 	ld a, $71
@@ -2072,8 +2106,9 @@ Function_7F_5C39:: ; 7F:5C39
 	pop bc
 	ret
 
-Function_7F_5CB4:: ; 7F:5CB4
-	call Function_7F_5C39
+PageListProto_MoveActionCursor:: ; 7F:5CB4
+Function_7F_5CB4::
+	call PageListProto_SetActionCursor
 	ret
 
 	; [PROBABLE] first half of a function (cp a,b ; ret z ; push af ; ld a,$E8 ; ld [$DA81],a ... jr
@@ -2101,13 +2136,13 @@ Function_7F_5CB4:: ; 7F:5CB4
 	cp a, d
 	jr nz, .l5CCA
 	pop bc
-	call Function_7F_5C39
+	call PageListProto_SetActionCursor
 	push bc
 
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	ret
 
@@ -2127,17 +2162,18 @@ Function_7F_5CB4:: ; 7F:5CB4
 	cp a, d
 	jr nz, .l5CED
 	pop bc
-	call Function_7F_5C39
+	call PageListProto_SetActionCursor
 	push bc
 
 	; [PROBABLE] 626 insn(s) reached by static flow only; seeds: site x626; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	ret
 
-Function_7F_5D0A:: ; 7F:5D0A
+PageListProto_SaveCurrentPage:: ; 7F:5D0A
+Function_7F_5D0A::
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2154,7 +2190,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 	push af
 	ld a, $01
@@ -2230,15 +2266,15 @@ Function_7F_5D0A:: ; 7F:5D0A
 	sub a, $10
 	ld [wSpriteSlots + 128], a
 	ld hl, $DA70
-	ld de, Table_7F_6DB0
+	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA80
 	ld de, $6E10
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $57
 	ld [wSpriteSlots + 128], a
 	ld a, $46
@@ -2251,12 +2287,12 @@ Function_7F_5D0A:: ; 7F:5D0A
 	pop de
 	pop bc
 	push af
-	call Function_7F_5647
-	call Function_7F_56AE
+	call PageListProto_GetActionAvailability
+	call PageListProto_SetActionIcons
 	pop af
 	dec a
 	jr z, .l5DFC
-	call Function_7F_5306
+	call PageListProto_UpdateRowSprites
 	pop de
 	pop bc
 	xor a, a
@@ -2265,7 +2301,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 .l5DFC ; 7F:5DFC
 	push bc
 	push de
-	call Function_7F_5306
+	call PageListProto_UpdateRowSprites
 	pop de
 	pop bc
 	pop de
@@ -2279,7 +2315,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2295,7 +2331,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2311,7 +2347,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2327,7 +2363,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2343,7 +2379,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2359,7 +2395,7 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld de, $6E30
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2374,8 +2410,8 @@ Function_7F_5D0A:: ; 7F:5D0A
 .l5EF5 ; 7F:5EF5
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop de
 	pop bc
 	dec e
@@ -2432,12 +2468,13 @@ Function_7F_5D0A:: ; 7F:5D0A
 	ld [rRAMG], a
 	pop af
 	ld a, c
-	call Function_7F_56F1
-	call Function_7F_546A
+	call PageListProto_RedrawSelection
+	call PageListProto_HighlightRowSprite
 	ld a, $FF
 	ret
 
-Function_7F_5F5D:: ; 7F:5F5D
+PageListProto_GoToSlot:: ; 7F:5F5D
+Function_7F_5F5D::
 	push bc
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2497,13 +2534,14 @@ Function_7F_5F5D:: ; 7F:5F5D
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 	pop de
 	ld a, $FF
 	ret
 
-Function_7F_5FBC:: ; 7F:5FBC
+PageListProto_DeleteSlot:: ; 7F:5FBC
+Function_7F_5FBC::
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2539,7 +2577,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld a, b
 	ld d, b
 	ld b, $00
-	call Function_7F_591E
+	call PageListProto_ShowMessage
 	ld b, d
 	push bc
 	push de
@@ -2593,10 +2631,10 @@ Function_7F_5FBC:: ; 7F:5FBC
 	sub a, $10
 	ld [wSpriteSlots + 128], a
 	ld hl, $DA70
-	ld de, Table_7F_6DB0
+	ld de, PageListProto_ObjTable
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2608,13 +2646,13 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld [wSpriteSlots + 112], a
 	ld a, $6E
 	ld [wSpriteSlots + 113], a
-	call Function_7F_5306
+	call PageListProto_UpdateRowSprites
 	pop af
 	pop de
 	pop bc
 	push af
-	call Function_7F_5647
-	call Function_7F_56AE
+	call PageListProto_GetActionAvailability
+	call PageListProto_SetActionIcons
 	pop af
 	dec a
 	jr z, .l609A
@@ -2624,7 +2662,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 .l609A ; 7F:609A
 	push bc
 	push de
-	call Function_7F_5306
+	call PageListProto_UpdateRowSprites
 	pop de
 	pop bc
 	push bc
@@ -2635,7 +2673,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2651,7 +2689,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2667,7 +2705,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2683,7 +2721,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2699,7 +2737,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2715,7 +2753,7 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld de, $6E40
 	ld a, $7F
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2730,8 +2768,8 @@ Function_7F_5FBC:: ; 7F:5FBC
 .loop ; 7F:6190
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop de
 	pop bc
 	dec e
@@ -2778,8 +2816,8 @@ Function_7F_5FBC:: ; 7F:5FBC
 	ld [rRAMG], a
 	pop af
 	ld a, c
-	call Function_7F_56F1
-	call Function_7F_546A
+	call PageListProto_RedrawSelection
+	call PageListProto_HighlightRowSprite
 	ld a, $FF
 	ret
 

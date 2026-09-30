@@ -17,7 +17,7 @@ Function_74_4165::
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	call Function_00_10E9
+	call Html_MatchKeyword
 	cp a, $00
 	jp z, Label_74_41EF
 
@@ -180,7 +180,7 @@ Html_ParseSource:: ; 74:4296
 	ldh [rSVBK], a
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hRam_FFB8]
 	ld l, a
 	ldh a, [hRam_FFB9]
@@ -190,7 +190,7 @@ Html_ParseSource:: ; 74:4296
 	ld bc, $1000
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	pop hl
 	ld a, e
 	ldh [hRam_FFBB], a
@@ -204,7 +204,7 @@ Html_ParseSource:: ; 74:4296
 	ld bc, $1000
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Html_InitParser
 	farcall Html_LinkTable_Init
 	farcall Html_Layout_Init
@@ -219,7 +219,7 @@ Html_ParseSource:: ; 74:4296
 	ldh [hRam_FFB3], a
 
 Html_ParseSource_Loop:: ; 74:4307
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Html_ParseSource_End
@@ -334,7 +334,7 @@ Html_ParseSource_Entity:: ; 74:4392
 	ldh [hRam_FFB1], a
 	ld bc, Html_EntityPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr z, .l43BA
@@ -366,7 +366,7 @@ Html_ParseSource_Entity:: ; 74:4392
 
 Html_ParseSource_End:: ; 74:43C4
 	; [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios)
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_ClearAllFloats
 	ldh a, [hRam_FFB8]
@@ -431,7 +431,7 @@ Html_ParseSource_Tag:: ; 74:4406
 	jp nz, Html_ParseSource_TitleTag
 	ld bc, Html_TagPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr nz, Html_DispatchTag
@@ -488,7 +488,7 @@ Label_74_4449:: ; 74:4449
 	; [CONFIRMED] 26 insn(s); 26 executed (in up to 2/18 scenarios)
 	dec hl
 	ld bc, $4110
-	call Function_00_1119
+	call Html_ScanAttributes
 	jp .loop
 
 Html_DispatchTag:: ; 74:4481

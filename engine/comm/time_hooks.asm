@@ -32,7 +32,8 @@ Timer_ResetClockB:: ; 7F:61FF
 	xor a, a
 	ret
 
-Function_7F_6218:: ; 7F:6218
+CommNotice_ShowDialogMode1:: ; 7F:6218
+Function_7F_6218::
 	; [CONFIRMED] 23 insn(s) reached by static flow only; seeds: exec x13, site x10; min discovery
 	; hops 0; entered by far from 23:50E5 (PROBABLE code) | 11 insn(s) executed; cut out of the
 	; PROBABLE region 6218-624F by apply_coverage --split [executed in 1 scenarios]
@@ -54,7 +55,8 @@ Function_7F_6218:: ; 7F:6218
 	xor a, a
 	ret
 
-Function_7F_6235:: ; 7F:6235
+CommNotice_ShowDialogMode0:: ; 7F:6235
+Function_7F_6235::
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00

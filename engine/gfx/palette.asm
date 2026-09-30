@@ -12,7 +12,7 @@ Function_4F_4000::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_06BC
+	call FarCall_Inline16
 	dw $050C
 	ret
 
@@ -287,7 +287,8 @@ PalFade_Start:: ; 4F:4166
 
 ; ---- ptrtable $4194-$41A4 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4191: 8 entries; end = first entry target
 
-Table_4F_4194:: ; 4F:4194
+PalFade_Start_ModeTable:: ; 4F:4194
+Table_4F_4194::
 	dw Label_4F_41C2
 	dw Label_4F_41B8
 	dw Label_4F_41AE
@@ -385,7 +386,8 @@ PalFade_Step:: ; 4F:41E0
 
 ; ---- ptrtable $4233-$4243 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4230: 8 entries; end = first entry target
 
-Table_4F_4233:: ; 4F:4233
+PalFade_Step_ModeTable:: ; 4F:4233
+Table_4F_4233::
 	dw Label_4F_4261
 	dw Label_4F_4257
 	dw Label_4F_424D
@@ -437,19 +439,20 @@ Label_4F_4269:: ; 4F:4269
 	jr nz, .l4273
 	pop de
 	pop bc
-	call Function_00_0392
+	call Sound_FrameService
 .l427F ; 4F:427F
 	call PalFade_BlendColor
 	inc de
 	inc de
-	call Function_00_0392
+	call Sound_FrameService
 	dec b
 	jr nz, .l427F
 	ld a, $FF
 	or a, a
 	ret
 
-Function_4F_428E:: ; 4F:428E
+Palette_CaptureAndFadeInFromWhite:: ; 4F:428E
+Function_4F_428E::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -462,14 +465,14 @@ Function_4F_428E:: ; 4F:428E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_ReadHardwareToBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -499,11 +502,11 @@ Function_4F_42B4::
 	call PalFade_Step
 	call LCDOn
 .loop ; 4F:42E0
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -533,11 +536,11 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	call PalFade_Step
 	call LCDOn
 .loop ; 4F:432B
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -547,7 +550,8 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_434A:: ; 4F:434A
+Palette_CaptureAndFadeOutToWhite:: ; 4F:434A
+Function_4F_434A::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -560,14 +564,14 @@ Function_4F_434A:: ; 4F:434A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: site x8; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_ReadHardwareToBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -596,11 +600,11 @@ Function_4F_4370::
 	call PalFade_Start
 	call PalFade_Step
 .loop ; 4F:4399
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -629,11 +633,11 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	call PalFade_Start
 	call PalFade_Step
 .loop ; 4F:43E1
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -643,7 +647,8 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_4400:: ; 4F:4400
+Palette_CaptureAndFadeInFromBlackSlow:: ; 4F:4400
+Function_4F_4400::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -656,21 +661,22 @@ Function_4F_4400:: ; 4F:4400
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_ReadHardwareToBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 
-Function_4F_4426:: ; 4F:4426
+Palette_FadeInFromBlackSlow:: ; 4F:4426
+Function_4F_4426::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -690,11 +696,11 @@ Function_4F_4426:: ; 4F:4426
 	call PalFade_Step
 	call LCDOn
 .loop ; 4F:4452
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -704,7 +710,8 @@ Function_4F_4426:: ; 4F:4426
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_4471:: ; 4F:4471
+Palette_CaptureAndFadeOutToBlackSlow:: ; 4F:4471
+Function_4F_4471::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -717,21 +724,22 @@ Function_4F_4471:: ; 4F:4471
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 38 insn(s) reached by static flow only; seeds: site x38; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_ReadHardwareToBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 
-Function_4F_4497:: ; 4F:4497
+Palette_FadeOutToBlackSlow:: ; 4F:4497
+Function_4F_4497::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -750,11 +758,11 @@ Function_4F_4497:: ; 4F:4497
 	call PalFade_Start
 	call PalFade_Step
 .loop ; 4F:44C0
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -764,7 +772,8 @@ Function_4F_4497:: ; 4F:4497
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_44DF:: ; 4F:44DF
+Palette_FadeInFromWhiteObjPalSlow:: ; 4F:44DF
+Function_4F_44DF::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -792,11 +801,11 @@ Function_4F_44DF:: ; 4F:44DF
 .loop ; 4F:450B
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:451E (PROBABLE code)
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a
@@ -806,7 +815,8 @@ Function_4F_44DF:: ; 4F:44DF
 	ldh a, [hScratchA]
 	ret
 
-Function_4F_452A:: ; 4F:452A
+Palette_FadeOutToWhiteObjPalSlow:: ; 4F:452A
+Function_4F_452A::
 	; [PROBABLE] function prologue (ldh [$FFF2],a / ldh a,[$FF8D] / push af / ... ld a,$07 / ldh
 	; [$FF8D],a / ldh [$FF70],a ...), identical to the executed functions 4F:42B4/4370/4572; the
 	; previous byte is a ret (function boundary) and the decode chain ends exactly at the next
@@ -833,11 +843,11 @@ Function_4F_452A:: ; 4F:452A
 .loop ; 4F:4553
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0;
 	; entered by jrcc from 4F:4566 (PROBABLE code)
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call PalFade_Step
 	jr nz, .loop
 	ldh [hScratchA], a

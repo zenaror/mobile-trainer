@@ -314,7 +314,8 @@ PhoneKeypad_Run:: ; 67:422B
 	ld a, [wRam_C27C]
 	ret
 
-Function_67_424A:: ; 67:424A
+PhoneKeypad_ClearStoredBitsIfEdited:: ; 67:424A
+Function_67_424A::
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $424A
 	; anywhere in the ROM); linear decode is legal ($424A-$431F), all direct targets are known code
 	; starts, reads SRAM $B08B/$B09C via ROM0 helpers 14EA/1509 (bank/SRAM enable idiom ldh
@@ -440,7 +441,7 @@ PhoneKeypad_Setup:: ; 67:431F
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27E], a
@@ -465,25 +466,25 @@ PhoneKeypad_Setup:: ; 67:431F
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4A_6920
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4A_6D20
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -496,14 +497,14 @@ PhoneKeypad_Setup:: ; 67:431F
 	ld de, $D000
 	ld hl, Data_4A_7120
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l43E7
 .l43D6 ; 67:43D6
 	ld bc, $0514
 	ld de, $D000
 	ld hl, Data_4A_71E8
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l43E7 ; 67:43E7
 	ld a, $03
 	ld hl, $DE83
@@ -511,7 +512,7 @@ PhoneKeypad_Setup:: ; 67:431F
 	call PhoneKeypad_UploadTextTiles
 	call PhoneKeypad_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $02
 	ld b, $02
 	farcall Kbd_Open
@@ -519,7 +520,7 @@ PhoneKeypad_Setup:: ; 67:431F
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld d, $20
 	ld e, $10
 	ld hl, $DE80
@@ -531,11 +532,11 @@ PhoneKeypad_Setup:: ; 67:431F
 	ret
 .l442F ; 67:442F
 	farcall Kbd_ShowMarkerSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
 PhoneKeypad_Loop:: ; 67:443C
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C27E]
 	ld c, a
 	farcall Kbd_Run
@@ -566,7 +567,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l4493
@@ -579,7 +580,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 
@@ -611,7 +612,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -633,7 +634,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l4556
@@ -643,7 +644,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call PhoneKeypad_StoreResult
@@ -656,7 +657,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call PhoneKeypad_StoreResult
@@ -689,7 +690,8 @@ PhoneKeypad_StoreResult:: ; 67:4559
 	farcall TextEntry_CopyText
 	ret
 
-Function_67_4571:: ; 67:4571
+PhoneKeypad_UpdateStoredFlag:: ; 67:4571
+Function_67_4571::
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4571
 	; anywhere in the ROM); linear decode is legal ($4571-$4593), all direct targets are known code
 	; starts, tests [$C27D] and [$C278] bits $08/$10 and sets [$C27E]=0/1; ends with ret. Sits after
@@ -791,7 +793,7 @@ PhoneKeypad_PrintText:: ; 67:45D4
 	pop af
 	pop hl
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 PhoneKeypad_UploadTextTiles:: ; 67:4621

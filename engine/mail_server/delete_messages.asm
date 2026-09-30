@@ -108,7 +108,8 @@ String_23_6E2F::
 	db "　　　　　　　　　　　　　　　　　　　　", 0
 POPC
 
-Function_23_6E58:: ; 23:6E58
+MailSrvDel_MsgCancelled:: ; 23:6E58
+Function_23_6E58::
 	; [HYPOTHESIS] first 16 bytes of the twin of the function 6E14-6E2F (push bc ; ld a,2 ; ldh
 	; [$B0],a ; ld a,$23 ; ld bc,$D000 ; ld de,$D140 ; ld hl,$6E73 ...) - falls into the
 	; CONFIRMED-flow tail at 6E68; its ld hl,$6E73 points at the next text string [verifier: no
@@ -311,7 +312,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 .l6FCB ; 23:6FCB
 	di
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ei
 	pop hl
 	pop de

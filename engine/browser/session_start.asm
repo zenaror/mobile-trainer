@@ -101,7 +101,8 @@ Browser_LoadAndDispatch:: ; 4E:4962
 
 ; ---- ptrtable $4993-$49A1 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4990: 7 entries; end pinned by the executed instruction at 49A1
 
-Table_4E_4993:: ; 4E:4993
+Browser_LoadAndDispatch_ResultTable:: ; 4E:4993
+Table_4E_4993::
 	dw Browser_PageView_Enter
 	dw Browser_Leave_Return
 	dw Browser_Leave_Return

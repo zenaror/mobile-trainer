@@ -13,8 +13,8 @@ Function_28_4000::
 
 MailBody_ViewScreen_Loop:: ; 28:4009
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -28,7 +28,7 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 .loop ; 28:4030
@@ -38,7 +38,7 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	cp a, $5A
 	jr nc, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -48,8 +48,8 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	jr MailBody_ViewScreen_Loop
 
 MailBody_InitScreen:: ; 28:404E
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailBody_BgPalette
@@ -65,28 +65,28 @@ MailBody_InitScreen:: ; 28:404E
 	ld a, $28
 	ld b, $95
 	ld c, $21
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailBody_Tiles_44D0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailBody_Tilemap
 	ld a, $28
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0808
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld b, $00
 	farcall MailBody_GetRowPtr
 	ld b, $03
@@ -144,7 +144,7 @@ MailBody_InitScreen:: ; 28:404E
 	farcall MailBody_DrawTextLine
 	farcall TextTiles_UploadBuffers
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -168,7 +168,7 @@ MailBody_InitScreen:: ; 28:404E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -269,7 +269,7 @@ MailBody_DrawTextLine:: ; 28:41CB
 	ld a, [wTextCellsLeft]
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_28_429F
+	call MailBody_BlitBlankCellAdvance
 
 .l426B ; 28:426B
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios)
@@ -288,7 +288,7 @@ MailBody_DrawTextLine:: ; 28:41CB
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
-	call Function_28_429F
+	call MailBody_BlitBlankCellAdvance
 	jr .l427C
 
 MailBody_BlitGlyphAdvance:: ; 28:428B
@@ -305,7 +305,8 @@ MailBody_BlitGlyphAdvance:: ; 28:428B
 	ld e, a
 	ret
 
-Function_28_429F:: ; 28:429F
+MailBody_BlitBlankCellAdvance:: ; 28:429F
+Function_28_429F::
 	push bc
 	push de
 	push hl

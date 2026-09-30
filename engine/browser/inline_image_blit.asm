@@ -237,7 +237,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld [wHtmlListCounter + 1], a
 	ld a, h
 	ld [wHtmlAlign], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -256,7 +256,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld d, h
 	pop hl
 .l7251 ; 51:7251
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wBrowserNavigating]
 	ld c, a
 	ld b, $00
@@ -319,7 +319,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	ld d, a
 	cp a, $D0
 	jr nc, .l7251
-	call Function_00_0392
+	call Sound_FrameService
 	pop de
 	pop bc
 	inc hl
@@ -535,7 +535,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	call CopyBytes
 .l73AB ; 51:73AB
 	pop bc
-	call Function_00_0392
+	call Sound_FrameService
 	pop de
 	ld hl, $D000
 	call CopyBytes
@@ -635,7 +635,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	call Image_MakeEdgeMasks
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	ld a, d
 	and a, $07
@@ -774,7 +774,7 @@ Image_BlitToTileCanvas:: ; 51:740D
 	pop bc
 	pop de
 .l74AF ; 51:74AF
-	call Function_00_0392
+	call Sound_FrameService
 	push de
 	push hl
 	push bc

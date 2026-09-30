@@ -20,13 +20,13 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld a, $72
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, BrowserMenu2_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, $D830
 	ld hl, BrowserMenu2_Palette
@@ -36,13 +36,13 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld de, $D180
 	ld hl, BrowserMenu2_Map
 	ld a, $72
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7820
 	ld a, $72
 	farcall Palette_LoadToBuffer
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -91,11 +91,11 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -107,11 +107,11 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ldh a, [hDialogResult]
 	farcall BrowserMenu_DrawItemTwo
 	ld a, $07
@@ -120,13 +120,13 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld a, $98
 	ld [wSpriteSlots + 192], a
 	ld hl, $DAD0
-	call Function_00_09E6
-	call Function_00_047A
+	call Sprite_ClearSlot
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $60
@@ -139,13 +139,13 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	call Function_00_047A
+	call Gfx_UploadBgMapBuffersDi
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
 	ld a, [wJoyRepeatDelay]
@@ -232,16 +232,17 @@ Label_72_656D:: ; 72:656D
 	or a, a
 	jp nz, Label_72_6695
 .l65CD ; 72:65CD
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $65EB-$65F5 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 72:65E8: 5 entries; fixed length (5 words) by the routine
 
-Table_72_65EB:: ; 72:65EB
+BrowserMenu_RunTwoItem_InputTable:: ; 72:65EB
+Table_72_65EB::
 	dw Label_72_663E
 	dw Label_72_6677
 	dw Label_72_663B
@@ -267,7 +268,7 @@ Label_72_65F5:: ; 72:65F5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -282,7 +283,7 @@ Label_72_65F5:: ; 72:65F5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -303,7 +304,8 @@ Label_72_663E:: ; 72:663E
 
 ; ---- ptrtable $6643-$6647 (4 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:6640: 2 entries; end is a heuristic guess (words stay plausible code pointers)
 
-Table_72_6643:: ; 72:6643
+BrowserMenu_RunTwoItem_DialogResultTable:: ; 72:6643
+Table_72_6643::
 	dw Label_72_665A
 	dw Label_72_667B
 
@@ -316,7 +318,7 @@ Label_72_6647:: ; 72:6647
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Label_72_656D
@@ -332,7 +334,7 @@ Label_72_665A:: ; 72:665A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -352,7 +354,7 @@ Label_72_667B:: ; 72:667B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
@@ -393,7 +395,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld d, a
 	push hl
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	ld a, [hli]
 	ld b, a
@@ -401,7 +403,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld hl, $DAD0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -409,8 +411,8 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld d, a
 	push hl
 	ld hl, $DAD0
-	call Function_00_0A65
-	call Function_00_0392
+	call Sprite_SetPosition
+	call Sound_FrameService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -433,7 +435,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld a, $00
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 ; ---- data $6711-$6712 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: single $AF (xor a) after the ret at 6710 and directly before the executed function 72:6712; no entry at 6711 found; left unclassified
@@ -457,13 +459,13 @@ Function_72_6712::
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
 	ld hl, BrowserMenu3_Tiles1
 	ld a, $72
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, $D830
 	ld hl, Data_72_7200
@@ -473,13 +475,13 @@ Function_72_6712::
 	ld de, $D180
 	ld hl, BrowserMenu3_Map
 	ld a, $72
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $7210
 	ld a, $72
 	farcall Palette_LoadToBuffer
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -528,11 +530,11 @@ Function_72_6712::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -544,11 +546,11 @@ Function_72_6712::
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ldh a, [hDialogResult]
 	farcall BrowserMenu_DrawItemThree
 	ld a, $07
@@ -557,13 +559,13 @@ Function_72_6712::
 	ld a, $98
 	ld [wSpriteSlots + 192], a
 	ld hl, $DAD0
-	call Function_00_09E6
-	call Function_00_047A
+	call Sprite_ClearSlot
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $60
@@ -576,13 +578,13 @@ Function_72_6712::
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	call Function_00_047A
+	call Gfx_UploadBgMapBuffersDi
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
 	ld a, [wJoyRepeatDelay]
@@ -668,16 +670,17 @@ Label_72_68A9:: ; 72:68A9
 	or a, a
 	jp nz, Label_72_69E9
 .l6909 ; 72:6909
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $6927-$6931 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 72:6924: 5 entries; fixed length (5 words) by the routine
 
-Table_72_6927:: ; 72:6927
+BrowserMenu_RunThreeItem_InputTable:: ; 72:6927
+Table_72_6927::
 	dw Label_72_697A
 	dw Label_72_69CA
 	dw Label_72_6977
@@ -701,7 +704,7 @@ Label_72_6931:: ; 72:6931
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -716,7 +719,7 @@ Label_72_6931:: ; 72:6931
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -735,7 +738,8 @@ Label_72_697A:: ; 72:697A
 
 ; ---- ptrtable $697F-$6985 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:697C: 3 entries; end is a heuristic guess (words stay plausible code pointers)
 
-Table_72_697F:: ; 72:697F
+BrowserMenu_RunThreeItem_DialogResultTable:: ; 72:697F
+Table_72_697F::
 	dw Label_72_6998
 	dw Label_72_69AD
 	dw Label_72_69CE
@@ -749,7 +753,7 @@ Label_72_6985:: ; 72:6985
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Label_72_68A9
@@ -762,7 +766,7 @@ Label_72_6998:: ; 72:6998
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -778,7 +782,7 @@ Label_72_69AD:: ; 72:69AD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -800,7 +804,7 @@ Label_72_69CE:: ; 72:69CE
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -845,7 +849,7 @@ Function_72_69F3::
 	ld d, a
 	push hl
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	ld a, [hli]
 	ld b, a
@@ -853,7 +857,7 @@ Function_72_69F3::
 	ld hl, $DAD0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -861,8 +865,8 @@ Function_72_69F3::
 	ld d, a
 	push hl
 	ld hl, $DAD0
-	call Function_00_0A65
-	call Function_00_0392
+	call Sprite_SetPosition
+	call Sound_FrameService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -871,7 +875,7 @@ Function_72_69F3::
 	xor a, a
 	call FillBytes
 	pop hl
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -881,13 +885,13 @@ Function_72_69F3::
 	ldh [hRam_FFB0], a
 	ld a, $72
 	farcall TextTiles_RenderLine
-	call Function_00_0392
+	call Sound_FrameService
 	ld de, $8C01
 	ld hl, $DC00
 	ld a, $00
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 BrowserMenu_Close:: ; 72:6A6B
@@ -898,20 +902,20 @@ BrowserMenu_Close:: ; 72:6A6B
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
 	ld hl, $DAD0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
-	call Function_00_047A
+	call Sprite_SetHook
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Dialog_RestoreBackground
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
@@ -919,14 +923,14 @@ BrowserMenu_Close:: ; 72:6A6B
 	ld hl, Data_72_6ADF
 	farcall Dialog_SlideOut
 .l6AB4 ; 72:6AB4
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wRam_C2E4]
 	ld b, a
 	ld a, [wRam_C2E3]

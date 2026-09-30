@@ -71,7 +71,7 @@ SoundDrv_Init:: ; 04:4000
 	ldh [rNR50], a
 	ld a, $00
 	ld [wBank4State], a
-	jp Function_00_210B
+	jp Bank4_RestoreCallerBank
 
 SoundDrv_FrameTick:: ; 04:4082
 	push bc
@@ -198,7 +198,7 @@ SoundDrv_ChannelPhase:: ; 04:4119
 	ld [wSoundDrv_ActiveMask], a
 	pop de
 	pop bc
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_SelectSfxTracks:: ; 04:414C
 	ld de, $D040
@@ -210,7 +210,8 @@ SoundDrv_SelectMusicTracks:: ; 04:4153
 	ld a, $04
 	jr SoundDrv_SetTrackIterator
 
-Function_04_415A:: ; 04:415A
+SoundDrv_SelectAllTracks:: ; 04:415A
+Function_04_415A::
 	; [HYPOTHESIS] sibling of the executed entries 414C/4153 (ld de,imm ; ld a,imm ; shared tail
 	; 415F): decodes to ld de,$D040 ; ld a,$08 and lands exactly on the executed tail 415F; no
 	; caller or table entry found anywhere in the ROM, so entry unproven
@@ -350,7 +351,7 @@ SoundDrv_PlaySfx:: ; 04:41C0
 	call SoundDrv_NextTrack
 	jr nz, .l41F1
 .l4216 ; 04:4216
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_PlaySfxAllTracks:: ; 04:4219
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 17/18 scenarios)
@@ -411,7 +412,7 @@ SoundDrv_PlaySfxAllTracks:: ; 04:4219
 
 .l4284 ; 04:4284
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 18/18 scenarios)
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_PlayMusic:: ; 04:4287
 	ld a, b
@@ -449,7 +450,7 @@ SoundDrv_PlayMusic:: ; 04:4287
 	call SoundDrv_NextTrack
 	jr nz, .l42AE
 .l42BD ; 04:42BD
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
 	; [PROBABLE] entry: ROM0 stub 00:20B8 (call 2116 ; jp 04:42C0). Adversarial check: no
@@ -467,7 +468,7 @@ SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
 	ld a, [wRam_D024]
 	and a, $F0
 	jr z, SoundDrv_PlayMusic
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_PlayMusicOrResume:: ; 04:42D6
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
@@ -480,7 +481,7 @@ SoundDrv_PlayMusicOrResume:: ; 04:42D6
 	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	jr z, SoundDrv_ResumeMusic
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_ResumeMusic:: ; 04:42EC
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 1;
@@ -500,7 +501,7 @@ SoundDrv_ResumeMusic:: ; 04:42EC
 .skip ; 04:4302
 	call SoundDrv_NextTrack
 	jr nz, .loop
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_LoadSongHeader:: ; 04:430A
 Function_04_430A::
@@ -518,7 +519,7 @@ Function_04_430A::
 	jr c, .l431D
 .loop ; 04:4315
 	pop hl
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 .l4319 ; 04:4319
 	; [CONFIRMED] 135 insn(s); 135 executed (in up to 18/18 scenarios)
@@ -606,7 +607,7 @@ SoundDrv_InitTrackRuntime:: ; 04:4386
 	ld a, [hld]
 	ld [wBank4ReadBank + 1], a
 	dec hl
-	call Function_00_216F
+	call SoundDrv_ReadStreamWord
 	ld a, b
 	ld [hld], a
 	ld [hl], c
@@ -699,7 +700,7 @@ SoundDrv_StopSfxById:: ; 04:43DC
 .l440C ; 04:440C
 	call SoundDrv_NextTrack
 	jr nz, .loop
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_StopAllSfx:: ; 04:4414
 	call SoundDrv_SelectSfxTracks
@@ -712,12 +713,12 @@ SoundDrv_StopAllSfx:: ; 04:4414
 	ld [hl], a
 	call SoundDrv_NextTrack
 	jr nz, .loop
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_PauseMusic:: ; 04:4429
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 18/18 scenarios)
 	call SoundDrv_PauseMusicCore
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_FadeFinished:: ; 04:442F
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
@@ -752,7 +753,7 @@ SoundDrv_GetActiveMasks:: ; 04:444B
 	and a, $F0
 	swap a
 	ld e, a
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_GetPlayingId:: ; 04:445C
 	; [PROBABLE] entry: ROM0 stub 00:20E2 (call 2116 ; jp 04:445C; no call/jp to $20E2 found in the
@@ -797,7 +798,7 @@ SoundDrv_GetPlayingId:: ; 04:445C
 	ld a, [hli]
 	ld b, a
 .l4498 ; 04:4498
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 ; ---- words $449B-$44A3 (8 bytes) [PROBABLE] 4 WRAM record addresses D040,D07C,D0B8,D0F4 (stride $3C = the 8 x $3C-byte records cleared at D040 by 04:4000); read by the code at 4479 (ld bc,$4499 ; sla a ; add a,c ; ld a,[bc]) with index 1-4 (index 0 would be the operand of the jp $2141 at 4498)
 
@@ -821,7 +822,7 @@ SoundDrv_SetTrackParam:: ; 04:44B1
 	; [PROBABLE] entry: ROM0 stub 00:20D6 (call 2116 ; jp 04:44B1; no call/jp to $20D6 found in the
 	; ROM, stub has no known caller): call 44B7 ; jp 2141
 	call SoundDrv_SetTrackParamCore
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_SetTrackParamCore:: ; 04:44B7
 	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
@@ -917,7 +918,7 @@ SoundDrv_StartFadeOut:: ; 04:452C
 	ld [wRam_D021], a
 	ld a, $40
 	ld [wRam_D022], a
-	jp Function_00_2141
+	jp Bank4_GateLeave
 
 SoundDrv_UpdateFade:: ; 04:453A
 Function_04_453A::
@@ -1000,7 +1001,7 @@ SoundDrv_ReadNextCommand:: ; 04:459B
 	ld h, a
 	ld bc, $0011
 	add hl, bc
-	call Function_00_216F
+	call SoundDrv_ReadStreamWord
 	bit 7, c
 	jr nz, .l45B6
 	ld a, c
@@ -1298,7 +1299,7 @@ SoundDrv_CmdExtended:: ; 04:473E
 	cp a, $0C
 	jp nc, SoundDrv_CmdEnd
 	ld b, a
-	call Function_00_215E
+	call SoundDrv_ReadStreamByte
 	ld a, c
 	ld [wSoundDrv_StreamByte], a
 	ld a, b
@@ -1356,7 +1357,7 @@ SoundDrv_CmdCall:: ; 04:4777
 	dec de
 
 SoundDrv_CmdJump:: ; 04:479B
-	call Function_00_216F
+	call SoundDrv_ReadStreamWord
 	ld e, c
 	ld d, b
 	jp SoundDrv_ReadNextCommand
@@ -1850,7 +1851,7 @@ Label_04_4A36:: ; 04:4A36
 	jr .l4A50
 .loop ; 04:4A4B
 	inc de
-	call Function_00_215E
+	call SoundDrv_ReadStreamByte
 	ld a, c
 .l4A50 ; 04:4A50
 	bit 7, a

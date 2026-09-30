@@ -16,16 +16,19 @@ Data_29_53F6:: ; 29:53F6
 
 ; ---- gfx $5400-$5800 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 27:4DCC: hl=$5400 a=$29 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_29_5400:: ; 29:5400
+Gfx_CommTimeHMS_Tiles9000:: ; 29:5400
+Data_29_5400::
 	INCBIN "gfx/mail/connect_screen_bank29/tiles_5400.2bpp"
 
 ; ---- data $5800-$5AD0 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 27:4DDD: hl=$5800 a=$29 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_29_5800:: ; 29:5800
+Tilemap_CommTimeHMS_Screen:: ; 29:5800
+Data_29_5800::
 	INCBIN "gfx/mail/connect_screen_bank29/tilemap_5800.tilemap"
 	INCBIN "gfx/mail/connect_screen_bank29/tilemap_5800.attrmap"
 
 ; ---- data $5AD0-$5B10 (64 bytes) [PROBABLE] verifier: 64-byte palette upload (ld bc,$0040 ; ld hl,$5AD0 ; ld a,$29 ; far call 4F:4000, far-call site at 27:4DA9, found by a ROM scan): first group $0000,$294A,$56B5,$7FFF (bit15 clear, grey ramp; same group repeated in 29:5E30-5E50 and 2A:51F8-5220), the other 56 bytes are all-zero (black) palette entries loaded with it. Was: 8-byte palette + 56-byte zero region
 
-Palette_29_5AD0:: ; 29:5AD0
+Palette_CommTimeHMS_Bg:: ; 29:5AD0
+Palette_29_5AD0::
 	INCLUDE "gfx/mail/connect_screen_bank29/palette_5ad0.pal"

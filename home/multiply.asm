@@ -4,7 +4,8 @@
 
 SECTION "home/multiply", ROM0
 
-Function_00_0BD4:: ; 00:0BD4
+Multiply8x8:: ; 00:0BD4
+Function_00_0BD4::
 	; [PROBABLE] HL = A*E (calls 0BFC with D=0), preserves AF and DE [candidate; no static referrer]
 	push af
 	push de
@@ -14,7 +15,8 @@ Function_00_0BD4:: ; 00:0BD4
 	pop af
 	ret
 
-Function_00_0BDE:: ; 00:0BDE
+Multiply16Preserve:: ; 00:0BDE
+Function_00_0BDE::
 	; [PROBABLE] HL = BC*DE (calls 0BE8), preserves AF, BC, DE [candidate; raw refs 3]
 	push af
 	push bc

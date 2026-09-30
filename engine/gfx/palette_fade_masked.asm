@@ -30,11 +30,11 @@ Palette_FadeInMasked:: ; 48:44E0
 	farcall PalFade_Step
 	call LCDOn
 .loop ; 48:451D
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	farcall PalFade_Step
 	or a, a
 	jr nz, .loop
@@ -69,11 +69,11 @@ Palette_FadeOutMasked:: ; 48:4540
 	call Palette_SetFadeTargetMasked
 	farcall PalFade_Step
 .loop ; 48:457A
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	farcall PalFade_Step
 	or a, a
 	jr nz, .loop

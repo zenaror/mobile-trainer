@@ -10,7 +10,7 @@ Function_2F_4000::
 	; executed call/far call
 	push af
 	push bc
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -26,12 +26,12 @@ Function_2F_4000::
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	call AbookList_SetupScreen
 	pop bc
 	pop af
 	cp a, $00
-	jp z, Label_2F_4049
+	jp z, AbookList_Run_Loop
 
 	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
 	; fall-through of the jpcc at 2F:402F (executed) [executed in 1 scenarios]
@@ -50,11 +50,12 @@ Function_2F_4000::
 	pop bc
 	jp Label_2F_4131
 
-Label_2F_4049:: ; 2F:4049
+AbookList_Run_Loop:: ; 2F:4049
+Label_2F_4049::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -82,7 +83,7 @@ Label_2F_4049:: ; 2F:4049
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -116,7 +117,7 @@ Label_2F_4097:: ; 2F:4097
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -129,7 +130,7 @@ Label_2F_4097:: ; 2F:4097
 	ld [hl], a
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -143,7 +144,7 @@ Label_2F_4097:: ; 2F:4097
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
 	call nz, AbookList_CursorDown
-	jp Label_2F_4049
+	jp AbookList_Run_Loop
 
 AbookList_CursorDown:: ; 2F:40E1
 	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
@@ -155,7 +156,7 @@ AbookList_CursorDown:: ; 2F:40E1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -183,7 +184,7 @@ Function_2F_4109::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -206,7 +207,7 @@ Label_2F_4131:: ; 2F:4131
 	ld de, Table_28_5210
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call AbookList_PlaceButtonCursor
 	push bc
@@ -231,7 +232,7 @@ Label_2F_4131:: ; 2F:4131
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	ld de, $7018
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4184
 
 .l4163 ; 2F:4163
@@ -240,12 +241,12 @@ Label_2F_4131:: ; 2F:4131
 	; region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
 	ld de, $7038
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4184
 .l416E ; 2F:416E
 	ld de, $7058
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4184
 
 .l4179 ; 2F:4179
@@ -253,7 +254,7 @@ Label_2F_4131:: ; 2F:4131
 	; 4163-4184 by apply_coverage --split
 	ld de, $7078
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4184
 
 .l4184 ; 2F:4184
@@ -269,8 +270,8 @@ Label_2F_4131:: ; 2F:4131
 	pop bc
 .loop ; 2F:4196
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -296,7 +297,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -305,7 +306,7 @@ Label_2F_4131:: ; 2F:4131
 	call AbookList_DrawHelpText
 	farcall AddrBook_UploadTextTiles
 	pop bc
-	jp Label_2F_4049
+	jp AbookList_Run_Loop
 
 .l41E4 ; 2F:41E4
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
@@ -328,7 +329,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -342,7 +343,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -355,7 +356,7 @@ Label_2F_4131:: ; 2F:4131
 	ld [wSpriteSlots], a
 	ld [wSpriteSlots + 128], a
 	ld hl, $DA40
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld [wSpriteSlots + 65], a
 	ld [wSpriteSlots + 49], a
 	ld [wSpriteSlots + 33], a
@@ -411,7 +412,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0033
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -440,7 +441,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $E0
 	ld [wSpriteSlots + 128], a
 	ld [wSpriteSlots], a
-	jp Label_2F_4049
+	jp AbookList_Run_Loop
 
 .l42DA ; 2F:42DA
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
@@ -459,7 +460,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -473,7 +474,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -512,7 +513,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -534,7 +535,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -564,7 +565,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -588,7 +589,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -598,7 +599,7 @@ Label_2F_4131:: ; 2F:4131
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, b
@@ -617,7 +618,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -650,7 +651,7 @@ Label_2F_4131:: ; 2F:4131
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -818,10 +819,10 @@ Function_2F_44F2::
 	ld de, Table_Abook_ButtonCursorAnims
 	ld a, $2F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7018
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4570
 
 .l451F ; 2F:451F
@@ -832,30 +833,30 @@ Function_2F_44F2::
 	ld de, $5020
 	ld a, $2F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7038
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4570
 .l453A ; 2F:453A
 	ld hl, $DA00
 	ld de, $5030
 	ld a, $2F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7058
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4570
 .l4555 ; 2F:4555
 	ld hl, $DA00
 	ld de, $5040
 	ld a, $2F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7078
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4570
 
 .l4570 ; 2F:4570
@@ -865,44 +866,44 @@ Function_2F_44F2::
 
 AbookList_SetupScreen:: ; 2F:4572
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld de, $8F00
 	ld hl, Gfx_AddrBook_Tiles8F00
 	ld a, $2C
 	ld b, $98
 	ld c, $09
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9301
 	ld hl, $5CD0
 	ld a, $22
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9701
 	ld hl, $60D0
 	ld a, $22
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Data_28_4BD0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8400
 	ld hl, Data_28_4FD0
 	ld a, $28
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_Abook_List
 	ld a, $2F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_AddrBook_Obj
@@ -914,7 +915,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld a, $28
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call AbookList_DrawNames
 	ld d, $FF
 	call AbookList_DrawHelpText
@@ -928,9 +929,9 @@ AbookList_SetupScreen:: ; 2F:4572
 	ldh [hJoyPressed], a
 	call AbookList_UpdateRowMarkers
 	push bc
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -953,7 +954,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -972,7 +973,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -987,7 +988,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l46AC ; 2F:46AC
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -997,7 +998,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -1012,7 +1013,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l46D8 ; 2F:46D8
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -1022,7 +1023,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -1037,7 +1038,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4704 ; 2F:4704
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -1047,7 +1048,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -1062,7 +1063,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4730 ; 2F:4730
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -1072,7 +1073,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -1087,7 +1088,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l475C ; 2F:475C
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
@@ -1097,7 +1098,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5220
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -1112,7 +1113,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $5230
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4788 ; 2F:4788
 	; [CONFIRMED] 29 insn(s); 29 executed (in up to 2/18 scenarios)
@@ -1139,7 +1140,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
@@ -1154,7 +1155,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l47D3 ; 2F:47D3
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 2/18 scenarios)
@@ -1170,7 +1171,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
@@ -1181,7 +1182,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4802 ; 2F:4802
 	pop bc
 	jp .l48C2
@@ -1191,7 +1192,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
@@ -1202,7 +1203,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4831 ; 2F:4831
 	pop bc
 	jp .l48C2
@@ -1212,7 +1213,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
@@ -1223,7 +1224,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4860 ; 2F:4860
 	pop bc
 	jp .l48C2
@@ -1233,7 +1234,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $04
@@ -1244,7 +1245,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l488F ; 2F:488F
 	pop bc
 	jp .l48C2
@@ -1256,7 +1257,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7240
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $05
@@ -1271,7 +1272,7 @@ AbookList_UpdateRowMarkers:: ; 2F:4678
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l48BE ; 2F:48BE
 	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
@@ -1375,7 +1376,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $00
 	call Abook_TestSlotEmpty
 	inc a
@@ -1388,7 +1389,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l498A ; 2F:498A
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
@@ -1406,7 +1407,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $01
 	call Abook_TestSlotEmpty
 	inc a
@@ -1415,7 +1416,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l49BF ; 2F:49BF
 	ld a, $2C
 	ld [wSpriteSlots + 96], a
@@ -1427,7 +1428,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $02
 	call Abook_TestSlotEmpty
 	inc a
@@ -1436,7 +1437,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l49F4 ; 2F:49F4
 	ld a, $38
 	ld [wSpriteSlots + 80], a
@@ -1448,7 +1449,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $03
 	call Abook_TestSlotEmpty
 	inc a
@@ -1457,7 +1458,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4A29 ; 2F:4A29
 	ld a, $44
 	ld [wSpriteSlots + 64], a
@@ -1469,7 +1470,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $04
 	call Abook_TestSlotEmpty
 	inc a
@@ -1478,7 +1479,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4A5E ; 2F:4A5E
 	ld a, $50
 	ld [wSpriteSlots + 48], a
@@ -1492,7 +1493,7 @@ Function_2F_4942::
 	ld de, $5240
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $05
 	call Abook_TestSlotEmpty
 	inc a
@@ -1505,7 +1506,7 @@ Function_2F_4942::
 	ld de, $5250
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4A93 ; 2F:4A93
 	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
@@ -1519,9 +1520,9 @@ Function_2F_4942::
 	ld b, $01
 .loop ; 2F:4AA4
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Joypad_Update
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $C0

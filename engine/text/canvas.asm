@@ -24,13 +24,15 @@ Canvas_RemapGlyphColors:: ; 7F:41EA
 	ld l, b
 	jp hl
 
-Label_7F_4202:: ; 7F:4202
+Canvas_Remap_B0C0:: ; 7F:4202
+Label_7F_4202::
 	; [PROBABLE] entry 0 of the 16-word jump table 7F:42A3 (target $4202): pop hl ; ret (handler
 	; that only cleans the stack)
 	pop hl
 	ret
 
-Label_7F_4204:: ; 7F:4204
+Canvas_Remap_B1C0:: ; 7F:4204
+Label_7F_4204::
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 6/18 scenarios)
 	ld b, $0C
 	pop hl
@@ -42,7 +44,8 @@ Label_7F_4204:: ; 7F:4204
 	jr nz, .loop
 	ret
 
-Label_7F_420E:: ; 7F:420E
+Canvas_Remap_B2C0:: ; 7F:420E
+Label_7F_420E::
 	ld b, $0C
 	pop hl
 	xor a, a
@@ -53,11 +56,13 @@ Label_7F_420E:: ; 7F:420E
 	jr nz, .loop
 	ret
 
-Label_7F_4218:: ; 7F:4218
+Canvas_Remap_B3C0:: ; 7F:4218
+Label_7F_4218::
 	pop hl
 	ret
 
-Label_7F_421A:: ; 7F:421A
+Canvas_Remap_B0C1:: ; 7F:421A
+Label_7F_421A::
 	ld b, $0C
 	pop hl
 	xor a, a
@@ -74,13 +79,15 @@ Label_7F_421A:: ; 7F:421A
 	jr nz, .loop
 	ret
 
-Label_7F_422B:: ; 7F:422B
+Canvas_Remap_B1C1:: ; 7F:422B
+Label_7F_422B::
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: table x24; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 7F:42A5
 	pop hl
 	ret
 
-Label_7F_422D:: ; 7F:422D
+Canvas_Remap_B2C1:: ; 7F:422D
+Label_7F_422D::
 	ld b, $0C
 	pop hl
 	xor a, a
@@ -97,7 +104,8 @@ Label_7F_422D:: ; 7F:422D
 	jr nz, .loop
 	ret
 
-Label_7F_423F:: ; 7F:423F
+Canvas_Remap_B3C1:: ; 7F:423F
+Label_7F_423F::
 	ld b, $0C
 	pop hl
 	ld a, $FC
@@ -108,7 +116,8 @@ Label_7F_423F:: ; 7F:423F
 	jr nz, .loop
 	ret
 
-Label_7F_424A:: ; 7F:424A
+Canvas_Remap_B0C2:: ; 7F:424A
+Label_7F_424A::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	ld b, $0C
 	pop hl
@@ -125,7 +134,8 @@ Label_7F_424A:: ; 7F:424A
 	jr nz, .loop
 	ret
 
-Label_7F_425A:: ; 7F:425A
+Canvas_Remap_B1C2:: ; 7F:425A
+Label_7F_425A::
 	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: table x21; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
@@ -141,11 +151,13 @@ Label_7F_425A:: ; 7F:425A
 	jr nz, .loop
 	ret
 
-Label_7F_4268:: ; 7F:4268
+Canvas_Remap_B2C2:: ; 7F:4268
+Label_7F_4268::
 	pop hl
 	ret
 
-Label_7F_426A:: ; 7F:426A
+Canvas_Remap_B3C2:: ; 7F:426A
+Label_7F_426A::
 	ld b, $0C
 	pop hl
 	ld a, $FC
@@ -156,7 +168,8 @@ Label_7F_426A:: ; 7F:426A
 	jr nz, .loop
 	ret
 
-Label_7F_4275:: ; 7F:4275
+Canvas_Remap_B0C3:: ; 7F:4275
+Label_7F_4275::
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 	ld b, $0C
 	pop hl
@@ -172,7 +185,8 @@ Label_7F_4275:: ; 7F:4275
 	jr nz, .loop
 	ret
 
-Label_7F_4284:: ; 7F:4284
+Canvas_Remap_B1C3:: ; 7F:4284
+Label_7F_4284::
 	; [PROBABLE] 25 insn(s) reached by static flow only; seeds: table x25; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 7F:42A5
 	ld b, $0C
@@ -188,7 +202,8 @@ Label_7F_4284:: ; 7F:4284
 	jr nz, .loop
 	ret
 
-Label_7F_4292:: ; 7F:4292
+Canvas_Remap_B2C3:: ; 7F:4292
+Label_7F_4292::
 	ld b, $0C
 	pop hl
 .loop ; 7F:4295
@@ -203,7 +218,8 @@ Label_7F_4292:: ; 7F:4292
 	jr nz, .loop
 	ret
 
-Label_7F_42A1:: ; 7F:42A1
+Canvas_Remap_B3C3:: ; 7F:42A1
+Label_7F_42A1::
 	pop hl
 	ret
 
@@ -211,22 +227,22 @@ Label_7F_42A1:: ; 7F:42A1
 
 Canvas_RemapTable:: ; 7F:42A3
 Table_7F_42A3::
-	dw Label_7F_4202
-	dw Label_7F_4204
-	dw Label_7F_420E
-	dw Label_7F_4218
-	dw Label_7F_421A
-	dw Label_7F_422B
-	dw Label_7F_422D
-	dw Label_7F_423F
-	dw Label_7F_424A
-	dw Label_7F_425A
-	dw Label_7F_4268
-	dw Label_7F_426A
-	dw Label_7F_4275
-	dw Label_7F_4284
-	dw Label_7F_4292
-	dw Label_7F_42A1
+	dw Canvas_Remap_B0C0
+	dw Canvas_Remap_B1C0
+	dw Canvas_Remap_B2C0
+	dw Canvas_Remap_B3C0
+	dw Canvas_Remap_B0C1
+	dw Canvas_Remap_B1C1
+	dw Canvas_Remap_B2C1
+	dw Canvas_Remap_B3C1
+	dw Canvas_Remap_B0C2
+	dw Canvas_Remap_B1C2
+	dw Canvas_Remap_B2C2
+	dw Canvas_Remap_B3C2
+	dw Canvas_Remap_B0C3
+	dw Canvas_Remap_B1C3
+	dw Canvas_Remap_B2C3
+	dw Canvas_Remap_B3C3
 
 Canvas_BlitGlyph:: ; 7F:42C3
 Function_7F_42C3::
@@ -1636,7 +1652,8 @@ Canvas_BlitMaskNext:: ; 7F:49A5
 Table_7F_49A5::
 	db $FF, $FF, $FF, $7F, $3F, $1F, $0F, $07, $03
 
-Function_7F_49AE:: ; 7F:49AE
+Canvas_BlitGlyphLooped:: ; 7F:49AE
+Function_7F_49AE::
 	; [PROBABLE] two complete glyph-blit functions of the family of the executed 7F:4956: 49AE-4AAE
 	; and 4AAF-4BBB (both start with push hl ; push de ; call $41EA (executed helper) and end with
 	; ret; 343 insn, 32 direct targets all land on instruction starts, decoding ends exactly at the
@@ -1824,7 +1841,8 @@ Function_7F_49AE:: ; 7F:49AE
 	jp nz, .l4A0E
 	ret
 
-Function_7F_4AAF:: ; 7F:4AAF
+Canvas_BlitGlyphLoopedClipY:: ; 7F:4AAF
+Function_7F_4AAF::
 	push hl
 	push de
 	call Canvas_RemapGlyphColors

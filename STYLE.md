@@ -361,6 +361,12 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
 | `python3 tools/gen_sjis_charmap.py --check`, `python3 tools/text_to_strings.py --dry-run` | the charmap is current / no numeric text block is left to convert |
 | `python3 tools/gfx_export.py check` | the PNGs, `.2bpp` files, sizes and `gfx/assets.tsv` agree (needs `rgbgfx`) |
 
+**Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
+It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
+non-unique or alias old names, conflicting rows), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first, `--annotate` to add a
+`; name evidence:` line.  The manifests that produced the current names are `analysis/naming2/*_renames.tsv` (evidence per row) with notes in `docs/research/naming2_*.md`.  Tests:
+`python3 tools/test_apply_renames.py`.
+
 ## 11. Git and commits
 
 * Small commits, one topic each; `make` must print `SHA-256 OK` (unless the commit is a deliberate ROM change, which says so).

@@ -26,7 +26,7 @@ MailSession_ShowCommError:: ; 26:5067
 	ld a, $07
 	ldh [rWX], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $DB
@@ -81,7 +81,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	xor a, a
 	ldh [rWX], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $DB
@@ -174,8 +174,8 @@ Function_26_5168::
 	; executed call/far call
 	push bc
 	push af
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	xor a, a
@@ -238,49 +238,49 @@ Function_26_5168::
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, MailSession_Tiles_5DE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, MailSession_Tiles_61E0
 	ld a, $26
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailSession_Tiles_62E0
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, MailSession_Tiles_66E0
 	ld a, $26
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailSession_Tiles_67E0
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, MailSession_Tiles_6BE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailSession_Tiles_6FE0
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7520
@@ -290,10 +290,10 @@ Function_26_5168::
 	ld de, $D000
 	ld hl, Tilemap_CommProgress_Screen
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	pop bc
 	jp .l52D8
@@ -309,21 +309,21 @@ Function_26_5168::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: site x11; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 
 .l52D8 ; 26:52D8
@@ -352,12 +352,12 @@ Function_26_5168::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -972,7 +972,8 @@ String_26_56F6::
 	db "　　　　メールをじゅしんしています　　　", 0
 POPC
 
-Function_26_571F:: ; 26:571F
+MailSession_ShowMsgSent:: ; 26:571F
+Function_26_571F::
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
 	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
 	; through into that site-validated far call; entry unproven
@@ -999,7 +1000,8 @@ String_26_573A::
 	db "　　　　メールをそうしんしました　　　　", 0
 POPC
 
-Function_26_5763:: ; 26:5763
+MailSession_ShowMsgReceiveDone:: ; 26:5763
+Function_26_5763::
 	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
 	; call at 5773; entry unproven
 	push bc
@@ -1180,7 +1182,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld a, $26
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, [wTimerAMinutes]
 	cp a, $3C
 	jr c, .l5968
@@ -1262,7 +1264,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 .l59AA ; 26:59AA
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	pop hl
 	pop de

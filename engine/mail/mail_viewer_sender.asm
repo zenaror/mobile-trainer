@@ -28,8 +28,8 @@ MailView_SenderPage:: ; 2B:6482
 
 MailView_SenderPage_Loop:: ; 2B:64A7
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -42,14 +42,14 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	farcall MailView_BodyPage
@@ -74,7 +74,7 @@ Function_2B_64F1:: ; 2B:64F1
 	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
 	; decoded code | 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6500-6863 by apply_coverage --split
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld de, $0206
 	push de
 	pop de
@@ -83,7 +83,7 @@ Function_2B_64F1:: ; 2B:64F1
 	ld a, $68
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop af
 	pop bc
 	dec a
@@ -92,9 +92,9 @@ Function_2B_64F1:: ; 2B:64F1
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ret
 
@@ -111,13 +111,13 @@ Label_2B_6548:: ; 2B:6548
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -132,14 +132,14 @@ Label_2B_6548:: ; 2B:6548
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	farcall SaveSenderAddr_Menu
@@ -149,11 +149,11 @@ Label_2B_6548:: ; 2B:6548
 
 MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -164,68 +164,68 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld [hli], a
 	dec b
 	jr nz, .l65D2
-	call Function_00_0464
+	call VBlank_Wait
 	farcall MailDraft_LoadFromSram
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_MailView_Bg
 	ld a, $2B
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, Gfx_MailView_Tiles8000
 	ld a, $2B
 	ld b, $96
 	ld c, $18
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailView_Obj
 	ld a, $2B
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9001
 	ld hl, Gfx_MailView_Tiles9000
 	ld a, $2B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $9401
 	ld hl, Gfx_MailView_Tiles9400
 	ld a, $2B
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_MailView_TilemapAttr
 	ld a, $2B
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld hl, $DA30
 	ld de, Table_MailView_Anims
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
-	call Function_00_0464
+	farcall Sprite_InitSlot
+	call VBlank_Wait
 	ld de, $1808
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA10
 	ld de, $78C0
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6810
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	ldh [rVBK], a
 	ld a, $AF
@@ -234,7 +234,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ldh [rVBK], a
 	ld a, $02
 	ld [$998F], a
-	call Function_00_0464
+	call VBlank_Wait
 	farcall LCDOn
 	pop bc
 	push bc
@@ -265,17 +265,17 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld de, $7900
 	ld a, $2B
 	ld b, $00
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0868
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l66F9 ; 2B:66F9
 	pop bc
 	push bc
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -301,7 +301,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -312,7 +312,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -344,7 +344,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -377,7 +377,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -395,7 +395,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -421,7 +421,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -429,7 +429,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -454,7 +454,7 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	push bc
 	push de
 	push hl
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -464,12 +464,12 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -513,7 +513,7 @@ Function_2B_687C:: ; 2B:687C
 	jr nz, .l68A6
 	ld de, $6810
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $78D0
 	ld a, $2B
@@ -521,10 +521,10 @@ Function_2B_687C:: ; 2B:687C
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6810
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -538,7 +538,7 @@ Function_2B_687C:: ; 2B:687C
 	jr nz, .l68CE
 	ld de, $6830
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $7910
 	ld a, $2B
@@ -546,10 +546,10 @@ Function_2B_687C:: ; 2B:687C
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6830
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -563,7 +563,7 @@ Function_2B_687C:: ; 2B:687C
 	jr nz, .l68F6
 	ld de, $6850
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $78E0
 	ld a, $2B
@@ -571,10 +571,10 @@ Function_2B_687C:: ; 2B:687C
 
 	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6850
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -586,7 +586,7 @@ Function_2B_687C:: ; 2B:687C
 	; has no caller/pointer in the ROM
 	ld de, $6870
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $78F0
 	ld a, $2B
@@ -596,10 +596,10 @@ Function_2B_687C:: ; 2B:687C
 	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
 	; decoded code | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6909-69AD by apply_coverage --split
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6870
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 

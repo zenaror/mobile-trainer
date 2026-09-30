@@ -16,7 +16,8 @@ Function_68_5296::
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_52B2:: ; 68:52B2
+Account_LoginId_ClearFlagIfChanged:: ; 68:52B2
+Function_68_52B2::
 	; [HYPOTHESIS] complete ret-terminated function (51 insn): SRAM enable/bank-1 select, copies
 	; with call $14EA / $1509 and clears a flag bit in [$C278] (xor $FF/and); the routine at 5739 is
 	; its twin; entry not proven [verifier: no entry proven (no caller, no valid table word, never
@@ -81,7 +82,7 @@ Function_68_531A::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld hl, $DE80
@@ -96,25 +97,25 @@ Function_68_531A::
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5E_4800
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5E_4C00
 	ld a, $5E
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -124,14 +125,14 @@ Function_68_531A::
 	ld de, $D000
 	ld hl, Data_5E_4D40
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, $DE83
 	call Account_LoginId_PrintField
 	call Account_LoginId_UploadTextTiles
 	call Account_LoginId_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $00
 	ld b, $02
 	farcall Kbd_Open
@@ -139,7 +140,7 @@ Function_68_531A::
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
@@ -151,10 +152,11 @@ Function_68_531A::
 	ret
 .l53F7 ; 68:53F7
 	farcall Kbd_ShowMarkerSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
-Function_68_5404:: ; 68:5404
+Account_LoginIdEntry_OkStateFromMask:: ; 68:5404
+Function_68_5404::
 	; [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 ->
 	; [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never
 	; executed): decode chain alone is not proof -> HYPOTHESIS]
@@ -186,7 +188,7 @@ Function_68_5417::
 	ret
 
 Account_LoginIdEntry_InputLoop:: ; 68:542F
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C27D]
 	ld c, a
 	farcall Kbd_Run
@@ -216,7 +218,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l5486
@@ -226,7 +228,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 .l5486 ; 68:5486
@@ -249,7 +251,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -276,7 +278,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l5549
@@ -286,7 +288,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Account_CommitLoginId
@@ -299,7 +301,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Account_CommitLoginId
@@ -382,7 +384,7 @@ Account_LoginId_PrintField:: ; 68:5584
 	pop af
 	pop hl
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 Account_LoginId_UploadTextTiles:: ; 68:55D1
@@ -396,7 +398,7 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	call Account_LoginIdIntro_Draw
 	farcall Palette_FadeInFromWhite
 .loop ; 68:55EA
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -410,7 +412,7 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -421,7 +423,7 @@ Account_LoginIdIntroPage:: ; 68:55E1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -436,19 +438,19 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Data_5E_4E10
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5E_5210
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -458,15 +460,15 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	ld de, $D000
 	ld hl, $5510
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_LoginIdIntro_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ld a, $00
-	farcall Function_00_153D
+	farcall PromptText_Load
 	push hl
 	push af
 	ld de, $FFFF
@@ -501,7 +503,7 @@ Account_LoginIdIntro_PrintMessage:: ; 68:568E
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712

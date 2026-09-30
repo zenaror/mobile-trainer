@@ -14,7 +14,7 @@ Function_68_766E::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -25,20 +25,20 @@ Function_68_766E::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	call Function_00_0392
+	farcall Sprite_ResetAll
+	call Sound_FrameService
 	ld de, $8801
 	ld hl, Data_4B_42D0
 	ld a, $4B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4B_46D0
 	ld a, $4B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	call Account_ResultPage_LoadBanner
 	ld bc, $0028
 	ld de, $D800
@@ -49,30 +49,31 @@ Function_68_766E::
 	ld de, $D000
 	ld hl, Data_4B_5898
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_ResultPage_DrawTimeDigits
 	call Account_ResultPage_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0013
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
 Label_68_7708:: ; 68:7708
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $771A-$7724 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 68:7717: 5 entries; fixed length (5 words) by the routine
 
-Table_68_771A:: ; 68:771A
+Account_ResultPage_InputTable:: ; 68:771A
+Table_68_771A::
 	dw Label_68_7727
 	dw Label_68_773E
 	dw Label_68_7741
@@ -89,7 +90,7 @@ Label_68_7727:: ; 68:7727
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -171,8 +172,8 @@ Function_68_7745::
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	farcall Function_00_153D
-	call Function_00_0ED3
+	farcall PromptText_Load
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
@@ -213,7 +214,7 @@ Function_68_77D6::
 	ld de, $9001
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, [wRam_C27D]
 	or a, a
 	jr nz, .l780E
@@ -248,7 +249,7 @@ Function_68_77D6::
 	ld de, $9281
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 ; ---- data $7831-$784E (29 bytes) [PROBABLE] contiguous data block 7831-784E: 22 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 7831-7840,7843-784A) and 7 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 4 regions by classify_g2]
@@ -308,7 +309,7 @@ Function_68_784E::
 	ld bc, $0201
 	ld de, $D0A8
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop af
 	and a, $0F
 	ld hl, Account_DigitTilemapTable
@@ -324,7 +325,7 @@ Function_68_784E::
 	ld bc, $0201
 	ld de, $D0A9
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, [wRam_C27C]
 	cp a, $02
 	jr z, .l78D6
@@ -365,7 +366,7 @@ Function_68_784E::
 	ld bc, $0201
 	ld de, $D0AB
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop af
 	and a, $0F
 	ld hl, Account_DigitTilemapTable
@@ -381,7 +382,7 @@ Function_68_784E::
 	ld bc, $0201
 	ld de, $D0AC
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 Byte_ToPackedBcd:: ; 68:792A

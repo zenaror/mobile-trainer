@@ -11,7 +11,7 @@ Function_25_4000::
 	push bc
 	push hl
 	push de
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -52,8 +52,8 @@ Function_25_4000::
 
 Mailbox_Main_Loop:: ; 25:4043
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call Mailbox_CountRecords
@@ -70,14 +70,14 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -97,7 +97,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wMailScreenMode]
@@ -121,10 +121,10 @@ Mailbox_Main_Loop:: ; 25:4043
 	call Mailbox_SetIconBarAttrs
 	ld de, $68D0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $30D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	jp Label_25_411E
@@ -139,14 +139,14 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -166,18 +166,18 @@ Label_25_411E:: ; 25:411E
 	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7020
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7020
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld d, $00
 	call Mailbox_ShowHint
 	call Mailbox_UploadTextTiles
@@ -187,8 +187,8 @@ Label_25_411E:: ; 25:411E
 Mailbox_IconMenu_Loop:: ; 25:415C
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -202,23 +202,23 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld de, $6848
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	ld de, $70D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $70D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	call Mailbox_SetIconBarAttrs
 	push bc
@@ -240,7 +240,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -263,7 +263,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -288,10 +288,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	farcall Sprites_SaveSlotsToBank3
 	ld de, $70D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $70D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -385,7 +385,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0033
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -430,10 +430,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l433B ; 25:433B
 	pop bc
 	call Mailbox_UpdateScrollArrows
@@ -450,10 +450,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	push bc
 	ld de, $70D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $70D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	call Mailbox_DrawMailCount
 	push de
@@ -495,10 +495,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	push de
 	ld de, $70D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $70D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -572,10 +572,10 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	jp nz, .l4454
 	ld de, $D020
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $D020
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	push bc
 	push de
 	ld d, $FF
@@ -601,7 +601,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	push bc
 	call Mailbox_UploadTextTiles
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -628,7 +628,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -653,7 +653,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -677,7 +677,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 	ld [wSpriteSlots + 64], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld de, $0213
 	push af
 	ldh a, [rSVBK]
@@ -725,7 +725,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	ld a, $70
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop af
 	pop de
 	pop bc
@@ -744,7 +744,7 @@ Mailbox_ReplyStart:: ; 25:4564
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -752,7 +752,7 @@ Mailbox_ReplyStart:: ; 25:4564
 	push de
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	push bc
@@ -782,7 +782,7 @@ Mailbox_ReplyStart:: ; 25:4564
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop af
@@ -811,33 +811,33 @@ Mailbox_ReplyStart:: ; 25:4564
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4601 ; 25:4601
 	ld hl, $DA10
 	ld de, Mailbox_ObjTable
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld d, $01
 	call Mailbox_ShowHint
 	call Mailbox_UploadTextTiles
 	ld de, $7020
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $68D0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $30D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld d, $01
 	call Mailbox_SetActionCursor
 	ld a, $07
@@ -865,7 +865,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -915,7 +915,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 	ld [wSpriteSlots + 64], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop af
 	ld de, $021E
 	cp a, $01
@@ -974,7 +974,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld a, $70
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop af
 .l473D ; 25:473D
 	pop de
@@ -991,7 +991,7 @@ Mailbox_ReadMail:: ; 25:465C
 	ld c, a
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	farcall MailView_SenderPage
@@ -1025,10 +1025,10 @@ Mailbox_ReadMail:: ; 25:465C
 	push hl
 	ld de, $68D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $68D0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	pop de
 	pop bc
@@ -1064,10 +1064,10 @@ Mailbox_ReadMail:: ; 25:465C
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l47F3 ; 25:47F3
 	pop bc
 	pop de
@@ -1109,10 +1109,10 @@ Mailbox_SetActionCursor:: ; 25:4804
 	ld de, $7B10
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7020
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4878
 .l483A ; 25:483A
 	cp a, $01
@@ -1121,10 +1121,10 @@ Mailbox_SetActionCursor:: ; 25:4804
 	ld de, $7B20
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7048
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4878
 .l4859 ; 25:4859
 	cp a, $02
@@ -1133,10 +1133,10 @@ Mailbox_SetActionCursor:: ; 25:4804
 	ld de, $7B30
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7070
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4878
 .l4878 ; 25:4878
 	pop de
@@ -1189,7 +1189,7 @@ Mailbox_CursorUp:: ; 25:4885
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1215,10 +1215,10 @@ Mailbox_CursorUp:: ; 25:4885
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4902 ; 25:4902
 	pop bc
 	call Mailbox_UpdateScrollArrows
@@ -1267,7 +1267,7 @@ Mailbox_CursorDown:: ; 25:4907
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1293,10 +1293,10 @@ Mailbox_CursorDown:: ; 25:4907
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4982 ; 25:4982
 	pop bc
 	call Mailbox_UpdateScrollArrows
@@ -1321,28 +1321,28 @@ Mailbox_UpdateScrollArrows:: ; 25:4987
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6848
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
 .l49D6 ; 25:49D6
 	ld de, $68D0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $30D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
@@ -1408,7 +1408,7 @@ Mailbox_RedrawAfterDelete:: ; 25:4A2D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1444,8 +1444,8 @@ Mailbox_ShowEmptyList:: ; 25:4A68
 	jr nz, .loop
 	call Mailbox_DrawTimestamp
 	call Mailbox_UploadTextTiles
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	pop bc
 	ret
 

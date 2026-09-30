@@ -12,7 +12,7 @@ MailSrvDel_DeleteAll:: ; 23:4A06
 	xor a, a
 	ld [wRam_C1D1], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 
 MailSrvDel_DeleteAll_Confirm:: ; 23:4A1E
@@ -201,7 +201,7 @@ Function_23_4B51::
 	xor a, a
 	ld [wRam_C1D1], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -416,19 +416,19 @@ MailSrvDel_DeleteAllRun:: ; 23:4C94
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailSrvDel_MsgReading
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
 
 MailSrvDel_DeleteAllRun_WaitLogin:: ; 23:4CF9
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyHeld]
@@ -507,7 +507,7 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 .l4D82 ; 23:4D82
 	pop hl
 	cp a, $00
-	call nz, Function_23_5137
+	call nz, MailSrvDel_DeleteAllRun_TimeWarningPopupReading
 	pop hl
 	pop bc
 	push bc
@@ -526,9 +526,9 @@ MailSrvDel_DeleteAllRun_CheckPoll:: ; 23:4DA0
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSrvDel_DrawElapsedTime
 	farcall Joypad_Update
 	pop hl
@@ -668,17 +668,17 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:4E80
 	push af
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
@@ -698,7 +698,7 @@ MailSrvDel_DeleteAllRun_CheckDone:: ; 23:4DFB
 	dec a
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
@@ -709,9 +709,9 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	push bc
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -758,7 +758,7 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 .l4F0B ; 23:4F0B
 	pop hl
 	cp a, $00
-	call nz, Function_23_50CC
+	call nz, MailSrvDel_DeleteAllRun_TimeWarningPopup
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	pop hl
@@ -789,9 +789,9 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 
 MailSrvDel_DeleteAllRun_TopPoll:: ; 23:4F4B
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSrvDel_DrawElapsedTime
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
@@ -856,7 +856,7 @@ MailSrvDel_DeleteAllRun_SendDele:: ; 23:4F9C
 	ld b, $3C
 .loop ; 23:4FA0
 	push bc
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSrvDel_DrawElapsedTime
 	pop bc
 	dec b
@@ -871,9 +871,9 @@ MailSrvDel_DeleteAllRun_SendDele:: ; 23:4F9C
 MailSrvDel_DeleteAllRun_DelePoll:: ; 23:4FBC
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	pop hl
@@ -1013,23 +1013,23 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	ld hl, $0000
 	ld a, $FF
 	call SpriteCounter_StubB
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, $DAB0
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:5098
 	push af
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
@@ -1049,12 +1049,13 @@ MailSrvDel_DeleteAllRun_NextMail:: ; 23:5063
 	dec a
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-Function_23_50CC:: ; 23:50CC
+MailSrvDel_DeleteAllRun_TimeWarningPopup:: ; 23:50CC
+Function_23_50CC::
 	; [PROBABLE] 104 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 503F-540D by apply_coverage --split
 	push af
@@ -1063,12 +1064,12 @@ Function_23_50CC:: ; 23:50CC
 	push hl
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
@@ -1106,19 +1107,20 @@ Function_23_50CC:: ; 23:50CC
 	ld a, $80
 	ret
 
-Function_23_5137:: ; 23:5137
+MailSrvDel_DeleteAllRun_TimeWarningPopupReading:: ; 23:5137
+Function_23_5137::
 	push af
 	push bc
 	push de
 	push hl
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
@@ -1160,9 +1162,9 @@ Function_23_5137:: ; 23:5137
 
 	farcall Timer_ResetClockB
 	ld de, $C0A9
-	farcall Function_7F_6235
+	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
@@ -1210,19 +1212,19 @@ MailSrvDel_DeleteCompletelyRun:: ; 23:51C7
 	ld de, $7AD0
 	ld a, $23
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailSrvDel_MsgReading
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
 
 MailSrvDel_DeleteCompletelyRun_WaitLogin:: ; 23:522C
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyHeld]
@@ -1325,17 +1327,17 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:52ED
 	push af
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
@@ -1349,7 +1351,7 @@ MailSrvDel_DeleteCompletelyRun_GotMailCount:: ; 23:525E
 	dec a
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
@@ -1363,9 +1365,9 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	push bc
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -1412,7 +1414,7 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 .l5378 ; 23:5378
 	pop hl
 	cp a, $00
-	call nz, Function_23_54B1
+	call nz, MailSrvDel_DeleteCompletelyRun_TimeWarningPopup
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	pop hl
@@ -1430,9 +1432,9 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 MailSrvDel_DeleteCompletelyRun_DelePoll:: ; 23:53A1
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	pop hl
@@ -1567,23 +1569,23 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	ld hl, $0000
 	ld a, $FF
 	call SpriteCounter_StubB
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	call MailSrvDel_MsgAllDeleted
 	ld hl, $DAB0
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $78
 .loop ; 23:547D
 	push af
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSrvDel_DrawElapsedTime
 	ldh a, [hJoyPressed]
@@ -1603,12 +1605,13 @@ MailSrvDel_DeleteCompletelyRun_NextMail:: ; 23:5424
 	dec a
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-Function_23_54B1:: ; 23:54B1
+MailSrvDel_DeleteCompletelyRun_TimeWarningPopup:: ; 23:54B1
+Function_23_54B1::
 	; [PROBABLE] 119 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5424-581E by apply_coverage --split
 	push af
@@ -1617,12 +1620,12 @@ Function_23_54B1:: ; 23:54B1
 	push hl
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
@@ -1662,9 +1665,9 @@ Function_23_54B1:: ; 23:54B1
 
 	farcall Timer_ResetClockB
 	ld de, $C0A9
-	farcall Function_7F_6235
+	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
@@ -1674,8 +1677,8 @@ MailSrvDel_Cancelled:: ; 23:553D
 	push de
 	push hl
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
 	pop hl
 	pop de
@@ -1713,10 +1716,10 @@ MailSrvDel_Cancelled:: ; 23:553D
 	ld de, $7AD0
 	ld a, $23
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	farcall Timer_ResetClockB
 	ld de, $C0A9
 	ld a, $B4
@@ -1724,14 +1727,14 @@ MailSrvDel_Cancelled:: ; 23:553D
 .loop ; 23:55A1
 	push af
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	dec a
 	jr nz, .loop
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
