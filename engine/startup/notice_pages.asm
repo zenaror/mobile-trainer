@@ -1,0 +1,453 @@
+; engine/startup/notice_pages.asm
+; bank 65, $487C-$4C6E (1010 bytes); pinned by layout.link
+; full-screen notice pages
+
+SECTION "engine/startup/notice_pages", ROMX
+
+; ---- code $487C-$494E (210 bytes) [CONFIRMED] 76 insn(s); 76 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
+
+Notice_ShowPage:: ; 65:487C
+Function_65_487C::
+	ld [wRam_C27C], a
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	call Function_00_044B
+	ldh a, [rLCDC]
+	and a, $9F
+	ldh [rLCDC], a
+	xor a, a
+	ldh [rSCX], a
+	ldh [rSCY], a
+	ld a, $07
+	ldh [rWX], a
+	ld a, $90
+	ldh [rWY], a
+	farcall Function_00_09B6
+	call Function_00_0392
+	ld a, [wRam_C27C]
+	ld b, $00
+	ld c, a
+	ld de, $0006
+	call Multiply16
+	ld de, $4BDE
+	add hl, de
+	ld a, l
+	ld [wRam_C27E], a
+	ld a, h
+	ld [wRam_C27F], a
+	inc hl
+	ld a, [hl]
+	ld [wRam_C280], a
+	ld de, $9001
+	ld hl, Tiles_58_4000
+	ld a, $58
+	ld b, $96
+	ld c, $1D
+	farcall Function_00_0787
+	ld bc, $0028
+	ld de, $D800
+	ld hl, Palette_58_7B50
+	ld a, $58
+	farcall Palette_LoadToBuffer
+	ld a, [wRam_C27E]
+	ld l, a
+	ld a, [wRam_C27F]
+	ld h, a
+	ld a, [hl]
+	cp a, $04
+	jr z, Label_65_4908
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_58_7B78
+	ld a, $58
+	farcall Function_00_08EA
+	jr Label_65_4919
+
+Label_65_4908:: ; 65:4908
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_4B_4000
+	ld a, $4B
+	farcall Function_00_08EA
+
+Label_65_4919:: ; 65:4919
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call Notice_LoadHeaderGfx
+	call Notice_DrawPageCounter
+	call Notice_DrawBodyText
+	ldh a, [rLCDC]
+	call Function_00_082C
+	farcall Palette_FadeInFromWhite
+	call Notice_RequestPageSound
+	ld a, [wRam_C280]
+	cp a, $02
+	jr z, Notice_ShowPage_Locked
+
+Notice_ShowPage_InputLoop:: ; 65:493C
+	call Function_00_044B
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
+	call JoypadDispatch
+
+; ---- ptrtable $494E-$4958 (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 65:494B: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
+
+Notice_JoypadTable:: ; 65:494E
+Table_65_494E::
+	dw Notice_ShowPage_ButtonA
+	dw Notice_ShowPage_ButtonB
+	dw Label_65_4999
+	dw Label_65_499B
+	dw Label_65_4958
+
+; ---- code $4958-$4A81 (297 bytes) [CONFIRMED] 138 insn(s); 138 executed (in up to 9/18 scenarios)
+
+Label_65_4958:: ; 65:4958
+	jp Notice_ShowPage_InputLoop
+
+Notice_ShowPage_ButtonA:: ; 65:495B
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	farcall Palette_FadeOutToWhite
+	ld a, $01
+	ret
+
+Notice_ShowPage_ButtonB:: ; 65:4974
+	ld a, [wRam_C280]
+	cp a, $01
+	jr z, Label_65_4981
+	cp a, $05
+	jr z, Label_65_4981
+	jr Notice_ShowPage_InputLoop
+
+Label_65_4981:: ; 65:4981
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	farcall Palette_FadeOutToWhite
+	xor a, a
+	ret
+
+Label_65_4999:: ; 65:4999
+	jr Notice_ShowPage_InputLoop
+
+Label_65_499B:: ; 65:499B
+	jr Notice_ShowPage_InputLoop
+
+Notice_ShowPage_Locked:: ; 65:499D
+	call Function_00_044B
+	jr Notice_ShowPage_Locked
+
+Notice_DrawBodyText:: ; 65:49A2
+	ld de, $FFFF
+	ld hl, $0301
+	ld bc, $0C12
+	farcall TileCanvas_FillRect
+	ld a, [wRam_C27E]
+	ld l, a
+	ld a, [wRam_C27F]
+	ld h, a
+	ld de, $0004
+	add hl, de
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld h, a
+	ld l, b
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $18
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $18
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	xor a, a
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0301
+	ld bc, $0712
+	farcall TileCanvas_UploadRect
+	ld de, $8800
+	ld hl, $0A01
+	ld bc, $0512
+	farcall TileCanvas_UploadRect
+	ld hl, $D061
+	ld bc, $0712
+	ld de, $0000
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D141
+	ld bc, $0512
+	ld de, $0080
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+Notice_LoadHeaderGfx:: ; 65:4A37
+	ld a, [wRam_C27E]
+	ld l, a
+	ld a, [wRam_C27F]
+	ld h, a
+	push hl
+	ld a, [hl]
+	ld hl, $4A81
+	ld b, a
+	add a, a
+	add a, b
+	ld d, $00
+	ld e, a
+	add hl, de
+	ld d, h
+	ld e, l
+	ld a, [de]
+	inc de
+	ld l, a
+	ld a, [de]
+	inc de
+	ld h, a
+	ld a, [de]
+	ld de, $9301
+	ld b, $95
+	ld c, $28
+	farcall Function_00_0787
+	pop hl
+	inc hl
+	ld a, [hl]
+	ld hl, $4AC9
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $9581
+	ld a, $58
+	ld b, $95
+	ld c, $28
+	farcall Function_00_0787
+	ret
+
+; ---- data $4A81-$4AD7 (86 bytes) [PROBABLE] descriptor table read by the executed code (up to 9 scenarios), 86 bytes: repeating groups of a flag byte (D0/50/90/10/40/C0) + 16-bit address (5841 5844 5846 ... = bank-58 tile sources; 4B5B 4B5E 4B60 ... and 7172 7174 = bank-65 / other addresses); exact record layout not decoded; the mapper 1-6 byte holes (4A84 4A90 4A9C 4AB1 4ACF) were unread bytes of this same table
+
+Notice_HeaderGfxTable:: ; 65:4A81
+Data_65_4A81::
+	db $D0, $41, $58, $50, $44, $58, $D0, $46, $58, $50, $49, $58, $D0, $4B, $58, $50
+	db $4E, $58, $D0, $50, $58, $50, $53, $58, $D0, $55, $58, $50, $58, $58, $D0, $5A
+	db $58, $50, $5D, $58, $D0, $5F, $58, $50, $62, $58, $D0, $64, $58, $50, $67, $58
+	db $90, $5B, $4B, $10, $5E, $4B, $90, $60, $4B, $10, $63, $4B, $90, $65, $4B, $10
+	db $68, $4B, $40, $72, $71, $C0, $74, $71
+
+Notice_FooterGfxTable:: ; 65:4AC9
+	db $D0, $69, $50, $6C, $D0, $6E, $50, $71, $D0, $73, $50, $76, $D0, $78
+
+; ---- code $4AD7-$4B78 (161 bytes) [CONFIRMED] 100 insn(s); 100 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
+
+Notice_DrawPageCounter:: ; 65:4AD7
+Function_65_4AD7::
+	ld a, [wRam_C27E]
+	ld l, a
+	ld a, [wRam_C27F]
+	ld h, a
+	ld a, [hl]
+	cp a, $04
+	jr nz, Label_65_4AEB
+	ld a, $01
+	ld [wRam_C281], a
+	jr Label_65_4AEF
+
+Label_65_4AEB:: ; 65:4AEB
+	xor a, a
+	ld [wRam_C281], a
+
+Label_65_4AEF:: ; 65:4AEF
+	inc hl
+	inc hl
+	ld a, [hli]
+	or a, a
+	ret z
+	push hl
+	push af
+	ld a, [wRam_C281]
+	ld hl, Notice_DigitRecordLists
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D210
+	ld a, $58
+	farcall Function_00_08EA
+	pop hl
+	ld a, [hl]
+	push af
+	ld a, [wRam_C281]
+	ld hl, Notice_DigitRecordLists
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D212
+	ld a, $58
+	farcall Function_00_08EA
+	ld a, $0A
+	push af
+	ld a, [wRam_C281]
+	ld hl, Notice_DigitRecordLists
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld bc, $0201
+	ld de, $D211
+	ld a, $58
+	farcall Function_00_08EA
+	ret
+
+; ---- words $4B78-$4B7C (4 bytes) [PROBABLE] 2 pointers to the two lists below (4B7C, 4B92), read by the executed function 4AD7
+
+Notice_DigitRecordLists:: ; 65:4B78
+Table_65_4B78::
+	dw Notice_DigitRecords_Normal, Notice_DigitRecords_Variant
+
+; ---- words $4B7C-$4B92 (22 bytes) [PROBABLE] 11 words 7E48 7E4C ... 7E70 = addresses of the first 11 four-byte digit-glyph records (top tile, bottom tile, attr, attr) at 58:7E48 (bank 58 table 7E48-7EA0, 22 records); bank-58 addresses, not bank 65
+
+Notice_DigitRecords_Normal:: ; 65:4B7C
+Table_65_4B7C::
+	dw $7E48, $7E4C, $7E50, $7E54, $7E58, $7E5C, $7E60, $7E64
+	dw $7E68, $7E6C, $7E70
+
+; ---- words $4B92-$4BA8 (22 bytes) [PROBABLE] 11 words 7E74 7E78 ... 7E9C = addresses of the other 11 four-byte records (attr 0A variant) at 58:7E74-7E9C; bank-58 addresses, not bank 65
+
+Notice_DigitRecords_Variant:: ; 65:4B92
+Table_65_4B92::
+	dw $7E74, $7E78, $7E7C, $7E80, $7E84, $7E88, $7E8C, $7E90
+	dw $7E94, $7E98, $7E9C
+
+; ---- code $4BA8-$4BC6 (30 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
+
+Notice_RequestPageSound:: ; 65:4BA8
+Function_65_4BA8::
+	ld hl, Notice_PageSoundTable
+	ld a, [wRam_C27C]
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	ld b, $00
+	ld c, a
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ret
+
+; ---- data $4BC6-$4BE2 (28 bytes) [PROBABLE] 28 bytes read by the executed function 4BA8 (ld hl,$4BC6 ; indexed by [C27C]): 09 09 09 09 09 19 19 09 09 09 09 13 09 x12 then 00 00 00 00 (attribute-like/byte table); 1-byte unread holes at 4BD0 4BD2 4BD8 4BE1 merged
+
+Notice_PageSoundTable:: ; 65:4BC6
+Data_65_4BC6::
+	db $09, $09, $09, $09, $09, $19, $19, $09, $09, $09, $09, $13, $09, $09, $09, $09
+	db $09, $09, $09, $09, $09, $09, $09, $09
+
+Notice_PageTable:: ; 65:4BDE
+	db $00, $00, $00, $00
+
+; ---- data $4BE2-$4C6C (138 bytes) [PROBABLE] 23 records x 6 bytes: 16-bit pointer to a dialogue string (6E 4C -> 4C6E, FA 4C -> 4CFA, 50 4D -> 4D50 ... every pointer lands exactly on a string start of analysis/strings.tsv) + 4 bytes (id, 0/1/2 flags..., last byte unread in traces); the 1-byte and 6-byte mapper holes are the unread 6th bytes
+
+Data_65_4BE2:: ; 65:4BE2
+	db $6E, $4C, $02, $01, $01, $03, $FA, $4C, $02, $01, $02, $03, $50, $4D, $02, $01
+	db $03, $03, $0D, $4E, $03, $02, $00, $00, $88, $4E, $04, $00, $01, $02, $D4, $4E
+	db $04, $05, $02, $02, $3E, $4F, $16, $01, $00, $00, $C1, $4F, $0F, $01, $01, $02
+	db $5A, $50, $15, $01, $02, $02, $EE, $50, $06, $06, $00, $00, $57, $51, $07, $02
+	db $00, $00, $79, $51, $10, $01, $00, $00, $02, $52, $11, $06, $00, $00, $A8, $52
+	db $12, $06, $00, $00, $CE, $52, $08, $01, $00, $00, $EE, $52, $14, $01, $00, $00
+	db $89, $53, $0A, $06, $00, $00, $24, $54, $13, $06, $00, $00, $46, $54, $0B, $01
+	db $00, $00, $BA, $54, $0C, $06, $00, $00, $34, $55, $0D, $01, $00, $00, $58, $55
+	db $0E, $06, $00, $00, $02, $56, $17, $00, $00, $00
+
+; ---- data $4C6C-$4C6E (2 bytes) [PROBABLE] 24 56 = word 5624, the 24th string pointer of Data_65_4BE2 (string at 5624 exists); the mapper included these two bytes in the text run
+
+Data_65_4C6C:: ; 65:4C6C
+	db $24, $56

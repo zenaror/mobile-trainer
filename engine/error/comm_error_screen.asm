@@ -1,0 +1,515 @@
+; engine/error/comm_error_screen.asm
+; bank 5C, $5150-$5516 (966 bytes); pinned by layout.link
+; communication error screen
+
+SECTION "engine/error/comm_error_screen", ROMX
+
+; ---- code $5150-$5231 (225 bytes) [CONFIRMED] 78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+CommErr_ShowScreen:: ; 5C:5150
+Function_5C_5150::
+	push af
+	push hl
+	xor a, a
+	ld bc, $00FC
+	ld hl, $C0D4
+	call FillBytes
+	farcall Function_48_48BB
+	pop hl
+	ld a, h
+	ld [wCommErrCodeHi], a
+	ld a, l
+	ld [wCommErrCodeLo], a
+	pop af
+	ld [wCommErrCategory], a
+	ldh a, [rLCDC]
+	and a, $9F
+	ldh [rLCDC], a
+	xor a, a
+	ldh [rSCX], a
+	ldh [rSCY], a
+	ld a, $07
+	ldh [rWX], a
+	ld a, $90
+	ldh [rWY], a
+	farcall Function_00_09B6
+	ld de, $8001
+	ld hl, CommErr_Gfx_Obj8000
+	ld a, $5C
+	ld b, $98
+	ld c, $02
+	farcall Function_00_0787
+	ld de, $8101
+	ld hl, CommErr_Gfx_Obj8100
+	ld a, $5C
+	ld b, $98
+	ld c, $02
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, CommErr_Gfx_Bg9000
+	ld a, $5C
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9401
+	ld hl, CommErr_Gfx_Bg9400
+	ld a, $5C
+	ld b, $96
+	ld c, $18
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $6390
+	ld a, $5C
+	farcall Palette_LoadToBuffer
+	ld bc, $0040
+	ld de, $D840
+	ld hl, $63D0
+	ld a, $5C
+	farcall Palette_LoadToBuffer
+	call CommErr_DrawMessage
+	call CommErr_DrawErrorNumber
+	ldh a, [rLCDC]
+	call Function_00_082C
+	farcall Function_00_0956
+	farcall Palette_FadeInFromWhite
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0015
+	call Function_00_20B2
+	pop af
+	ldh [rSVBK], a
+
+CommErr_ShowScreen_FrameLoop:: ; 5C:5219
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_UpdateIdleFrames
+	farcall Joypad_UpdateUnsaved
+	call JoypadDispatch
+
+; ---- ptrtable $5231-$523B (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 5C:522E: 5 entries; fixed length (5 words) by the routine
+
+CommErr_JoypadTable:: ; 5C:5231
+Table_5C_5231::
+	dw CommErr_ShowScreen_ButtonA
+	dw Label_5C_5264
+	dw Label_5C_5264
+	dw Label_5C_5264
+	dw CommErr_ShowScreen_Idle
+
+; ---- code $523B-$53A1 (358 bytes) [CONFIRMED] 155 insn(s); 155 executed (in up to 3/18 scenarios)
+
+CommErr_ShowScreen_Idle:: ; 5C:523B
+	ld a, [wRam_C0D8]
+	or a, a
+	call nz, CommErr_UpdateCommFooter
+	ldh a, [hJoyPressedRepeat]
+	and a, $F0
+	call nz, Function_5C_5266
+	jp CommErr_ShowScreen_FrameLoop
+
+CommErr_ShowScreen_ButtonA:: ; 5C:524C
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	farcall Palette_FadeOutToWhite
+	xor a, a
+	ret
+
+Label_5C_5264:: ; 5C:5264
+	jr CommErr_ShowScreen_FrameLoop
+
+Function_5C_5266:: ; 5C:5266
+	ret
+
+CommErr_DrawMessage:: ; 5C:5267
+	ld de, $FFFF
+	ld hl, $0301
+	ld bc, $0C12
+	farcall TileCanvas_FillRect
+	ld a, [wCommErrCategory]
+	ld b, a
+	ld hl, CommErr_RecordTable
+
+CommErr_FindRecord:: ; 5C:527D
+	ld a, [hli]
+	cp a, $FF
+	jp z, Label_5C_53A1
+	cp a, b
+	jr z, Label_5C_528B
+	inc hl
+	inc hl
+	inc hl
+	jr CommErr_FindRecord
+
+Label_5C_528B:: ; 5C:528B
+	ld a, [hli]
+	dec a
+	jr nz, CommErr_DrawMessage_PlainVariant
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr nz, CommErr_DrawMessage_TimerVariant
+	push hl
+	ld bc, $1214
+	ld de, $D000
+	ld hl, CommErr_Tilemap_Comm
+	ld a, $5C
+	farcall Function_00_08EA
+	pop hl
+	jr CommErr_LookupTriple
+
+CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
+	push hl
+	ld bc, $1214
+	ld de, $D000
+	ld hl, CommErr_Tilemap_CommTimer
+	ld a, $5C
+	farcall Function_00_08EA
+	ld hl, $DA10
+	ld de, $642B
+	ld a, $5C
+	ld b, $80
+	farcall Function_00_0A82
+	ld de, $8010
+	ld hl, $DA10
+	call Function_00_0A65
+	ld bc, $0040
+	ld de, $D800
+	ld hl, CommErr_Palette_BgTimer
+	ld a, $5C
+	farcall Palette_LoadToBuffer
+	pop hl
+	ld a, $01
+	ld [wRam_C0D8], a
+	jr CommErr_LookupTriple
+
+CommErr_DrawMessage_PlainVariant:: ; 5C:52EF
+	push hl
+	ld bc, $1214
+	ld de, $D000
+	ld hl, CommErr_Tilemap_Plain
+	ld a, $5C
+	farcall Function_00_08EA
+	pop hl
+
+CommErr_LookupTriple:: ; 5C:5302
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wCommErrCodeHi]
+	ld d, a
+	ld a, [wCommErrCodeLo]
+	ld e, a
+
+Label_5C_530D:: ; 5C:530D
+	ld a, [hli]
+	cp a, $FF
+	jp z, CommErr_PrintMessage
+	cp a, d
+	jr nz, Label_5C_531A
+	ld a, [hl]
+	cp a, e
+	jr z, CommErr_PrintMessage
+
+Label_5C_531A:: ; 5C:531A
+	inc hl
+	inc hl
+	jr Label_5C_530D
+
+CommErr_PrintMessage:: ; 5C:531E
+	inc hl
+	ld a, [hl]
+	ld hl, CommErr_MessagePointers
+	add a, a
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $18
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	xor a, a
+	ldh [hTextX + 1], a
+	ld a, $18
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	xor a, a
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $5C
+	call Function_00_0ED3
+	ld de, $9000
+	ld hl, $0301
+	ld bc, $0712
+	farcall TileCanvas_UploadRect
+	ld de, $8800
+	ld hl, $0A01
+	ld bc, $0512
+	farcall TileCanvas_UploadRect
+	ld hl, $D061
+	ld bc, $0712
+	ld de, $0000
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D141
+	ld bc, $0512
+	ld de, $0080
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+; ---- code $53A1-$53B3 (18 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
+
+Label_5C_53A1:: ; 5C:53A1
+	ld bc, $1214
+	ld de, $D000
+	ld hl, CommErr_Tilemap_Plain
+	ld a, $5C
+	farcall Function_00_08EA
+	ret
+
+; ---- code $53B3-$5403 (80 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+CommErr_DrawErrorNumber:: ; 5C:53B3
+Function_5C_53B3::
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wCommErrCategory]
+	ld d, a
+	swap a
+	and a, $0F
+	ld hl, $D00C
+	call CommErr_DrawDigit
+	inc hl
+	ld a, d
+	and a, $0F
+	call CommErr_DrawDigit
+	ld a, [wCommErrCategory]
+	cp a, $F0
+	jr nz, Label_5C_53E1
+	push hl
+	call CommErr_DrawFCategoryGlyph
+	pop hl
+
+Label_5C_53E1:: ; 5C:53E1
+	inc hl
+	ld a, $1A
+	ld [hl], a
+	ld a, $20
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, $44
+	ld [hl], a
+	ld a, [wCommErrCodeHi]
+	ld d, a
+	swap a
+	and a, $0F
+	ld hl, $D00F
+	ld b, a
+	ld a, [wCommErrCategory]
+	cp a, $40
+	jr nz, Label_5C_5407
+
+; ---- code $5403-$5407 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 5C:5401 (executed) [executed in 1 scenarios]
+	ld a, b
+	call CommErr_DrawDigit
+
+; ---- code $5407-$545B (84 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios)
+
+Label_5C_5407:: ; 5C:5407
+	inc hl
+	ld a, d
+	and a, $0F
+	call CommErr_DrawDigit
+	inc hl
+	ld a, [wCommErrCodeLo]
+	ld d, a
+	swap a
+	and a, $0F
+	call CommErr_DrawDigit
+	inc hl
+	ld a, d
+	and a, $0F
+	call CommErr_DrawDigit
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld hl, $D40C
+	ld bc, $0208
+	ld de, $F008
+	ld a, $07
+	farcall Function_00_091C
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ret
+
+CommErr_DrawDigit:: ; 5C:5441
+	push hl
+	add a, a
+	ld bc, CommErr_DigitTilePairs
+	add a, c
+	ld c, a
+	ld a, b
+	adc a, $00
+	ld b, a
+	ld a, [bc]
+	inc bc
+	ld [hl], a
+	ld a, $20
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [bc]
+	ld [hl], a
+	pop hl
+	ret
+
+; ---- data $545B-$546F (20 bytes) [PROBABLE] 20 bytes = 10 pairs of tile numbers ($27,$37 ; $28,$38 ; ... $2F,$3F ; $40,$50) for the digits 0-9 (two-tile-high glyphs): read by the code at 5C:5440-5455 (ld bc,$545B ; add hl,bc, 2 bytes per digit); the first 10 bytes are CONFIRMED read data
+
+CommErr_DigitTilePairs:: ; 5C:545B
+Table_5C_545B::
+	db $27, $37, $28, $38, $29, $39, $2A, $3A, $2B, $3B, $2C, $3C, $2D, $3D, $2E, $3E
+	db $2F, $3F, $40, $50
+
+; ---- code $546F-$5476 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+CommErr_UpdateCommFooter:: ; 5C:546F
+Function_5C_546F::
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr nz, Label_5C_54A5
+
+; ---- code $5476-$54A5 (47 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 5C:5474 (executed)
+	ld a, $BE
+	ld [wRam_C10E], a
+	ld a, $57
+	ld [wRam_C10F], a
+	ld bc, $0214
+	ld de, $D200
+	ld hl, $5656
+	ld a, $5C
+	farcall Function_00_16A2
+	ld de, $80A0
+	ld hl, $DA10
+	call Function_00_0A65
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld a, $00
+	ld [wRam_C0D8], a
+	ret
+
+; ---- code $54A5-$54BE (25 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
+
+Label_5C_54A5:: ; 5C:54A5
+	push hl
+	ld a, [wTimerEnable]
+	bit 4, a
+	jr z, Label_5C_54EB
+	ld hl, $C26F
+	bit 0, [hl]
+	jr nz, Label_5C_54EC
+	ld a, [wRam_C26E]
+	ld b, a
+	ld a, [wTimerAMinutes]
+	cp a, b
+	jr c, Label_5C_54EB
+
+; ---- code $54BE-$54EB (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 5C:54BC (executed)
+	jr nz, Label_5C_54C7
+	ld a, [wTimerASeconds]
+	cp a, $1E
+	jr c, Label_5C_54EB
+
+Label_5C_54C7:: ; 5C:54C7
+	ld a, [wRam_C26E]
+	cp a, $45
+	jr nz, Label_5C_54D7
+	ld hl, $C26F
+	bit 1, [hl]
+	jr nz, Label_5C_54EB
+	set 1, [hl]
+
+Label_5C_54D7:: ; 5C:54D7
+	ld hl, $C26F
+	set 0, [hl]
+	ld hl, $C26E
+	ld a, [hl]
+	cp a, $45
+	jr z, Label_5C_54EC
+	add a, $0A
+	ld [hl], a
+	ld a, $FF
+	jr Label_5C_54EC
+
+; ---- code $54EB-$54EF (4 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
+
+Label_5C_54EB:: ; 5C:54EB
+	xor a, a
+
+Label_5C_54EC:: ; 5C:54EC
+	pop hl
+	or a, a
+	ret z
+
+; ---- code $54EF-$5504 (21 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the retcc at 5C:54EE (executed)
+	ld hl, $C26F
+	res 0, [hl]
+	farcall CommNotice_ShowDialog
+	pop bc
+	push af
+	farcall Palette_FadeOutToWhite
+	pop af
+	ret
+
+; ---- code $5504-$5516 (18 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
+
+CommErr_DrawFCategoryGlyph:: ; 5C:5504
+Function_5C_5504::
+	ld a, $40
+	ld hl, $D00C
+	ld [hli], a
+	inc a
+	ld [hl], a
+	ld bc, $001F
+	add hl, bc
+	add a, $0F
+	ld [hli], a
+	inc a
+	ld [hl], a
+	ret

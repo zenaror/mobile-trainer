@@ -1,0 +1,577 @@
+; engine/settings/slot_menu.asm
+; bank 67, $4C73-$510A (1175 bytes); pinned by layout.link
+; phone slot menu
+
+SECTION "engine/settings/slot_menu", ROMX
+
+; ---- code $4C73-$4E56 (483 bytes) [CONFIRMED] 370 insn(s) reached by static flow only; seeds: exec x370; min discovery hops 4; entered by call from 67:4BAF (PROBABLE code) | 246 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios] (part of region $4BD5-$4E56)
+
+SettingsPhone_SlotMenu:: ; 67:4C73
+	ld [wRam_C27E], a
+	call SettingsPhone_SlotMenu_Setup
+	farcall Palette_FadeInFromWhite
+	call SettingsPhone_SlotMenu_Loop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
+	ld a, [wRam_C27D]
+	ld hl, $BF03
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, [wRam_C27C]
+	ret
+
+SettingsPhone_SlotMenu_Setup:: ; 67:4CCB
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	farcall Function_00_09B6
+	xor a, a
+	ld [wRam_C27C], a
+	ld hl, $BF03
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	ld [wRam_C27D], a
+	ld a, [wRam_C27E]
+	or a, a
+	jr z, Label_67_4D68
+	ld de, $8801
+	ld hl, Data_4D_5D70
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_4D_6170
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, $6470
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9401
+	ld hl, Data_4D_6870
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	jr Label_67_4DB0
+
+Label_67_4D68:: ; 67:4D68
+	ld de, $8801
+	ld hl, $6970
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_4D_6D70
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, $7070
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9401
+	ld hl, Data_4D_7470
+	ld a, $4D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+
+Label_67_4DB0:: ; 67:4DB0
+	ld de, $8001
+	ld hl, Data_4D_5D50
+	ld a, $4D
+	ld b, $98
+	ld c, $02
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D800
+	ld hl, $7570
+	ld a, $4D
+	farcall Palette_LoadToBuffer
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $7598
+	ld a, $4D
+	farcall Palette_LoadToBuffer
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $75A0
+	ld a, $4D
+	farcall Function_00_08EA
+	call SettingsPhone_SlotMenu_LoadTabTilemap
+	call SettingsPhone_SlotMenu_PrintSlotFields
+	call SettingsPhone_SlotMenu_UploadTextTiles
+	call SettingsPhone_SlotMenu_BuildTextMap
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, Table_4D_7960
+	ld a, $4D
+	ld b, $81
+	farcall Function_00_0A82
+	call SettingsPhone_SlotMenu_PlaceCursor
+	farcall Function_00_0956
+	ret
+
+SettingsPhone_SlotMenu_Loop:: ; 67:4E20
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_Update
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_67_4E44
+	bit 1, a
+	jr nz, Label_67_4E81
+	bit 5, a
+	jr nz, Label_67_4E96
+	bit 4, a
+	jp nz, Label_67_4EE4
+	jr SettingsPhone_SlotMenu_Loop
+
+Label_67_4E44:: ; 67:4E44
+	ld a, [wRam_C27E]
+	or a, a
+	jr z, Label_67_4E69
+	ld a, [wRam_C27D]
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr nz, Label_67_4E69
+
+; ---- code $4E56-$4E69 (19 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0031
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	jp Label_67_4F4D
+
+; ---- code $4E69-$4EAC (67 bytes) [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_4E69:: ; 67:4E69
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	inc a
+	ld [wRam_C27C], a
+	ret
+
+Label_67_4E81:: ; 67:4E81
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_67_4E96:: ; 67:4E96
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27E]
+	or a, a
+	jr nz, Label_67_4ECC
+
+; ---- code $4EAC-$4ECC (32 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+	ld a, $01
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr nz, Label_67_4EC1
+
+Label_67_4EB7:: ; 67:4EB7
+	ld a, [wRam_C27D]
+	xor a, $01
+	ld [wRam_C27D], a
+	jr Label_67_4F36
+
+Label_67_4EC1:: ; 67:4EC1
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_67_4EC9
+	ld a, $03
+
+Label_67_4EC9:: ; 67:4EC9
+	dec a
+	jr Label_67_4F33
+
+; ---- code $4ECC-$4ED7 (11 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_4ECC:: ; 67:4ECC
+	ld a, $01
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr z, Label_67_4F4D
+
+; ---- code $4ED7-$4EE4 (13 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+	ld a, $02
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr z, Label_67_4EB7
+	jr Label_67_4EC1
+
+; ---- code $4EE4-$4F0F (43 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_4EE4:: ; 67:4EE4
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27E]
+	or a, a
+	jr nz, Label_67_4F1B
+	ld a, $01
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr nz, Label_67_4F0F
+
+Label_67_4F05:: ; 67:4F05
+	ld a, [wRam_C27D]
+	xor a, $01
+	ld [wRam_C27D], a
+	jr Label_67_4F36
+
+; ---- code $4F0F-$4F1B (12 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+
+Label_67_4F0F:: ; 67:4F0F
+	ld a, [wRam_C27D]
+	cp a, $02
+	jr nz, Label_67_4F18
+	ld a, $FF
+
+Label_67_4F18:: ; 67:4F18
+	inc a
+	jr Label_67_4F33
+
+; ---- code $4F1B-$4F31 (22 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_4F1B:: ; 67:4F1B
+	ld a, $01
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr z, Label_67_4F4D
+	ld a, $02
+	farcall Dial_EntryHasNumber
+	or a, a
+	jr z, Label_67_4F05
+
+; ---- code $4F31-$4F36 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+	jr Label_67_4F0F
+
+Label_67_4F33:: ; 67:4F33
+	ld [wRam_C27D], a
+
+; ---- code $4F36-$4F68 (50 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
+Label_67_4F36:: ; 67:4F36
+	call SettingsPhone_SlotMenu_PlaceCursor
+	farcall Function_00_0956
+	call SettingsPhone_SlotMenu_LoadTabTilemap
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call SettingsPhone_SlotMenu_PrintSlotFields
+	call SettingsPhone_SlotMenu_UploadTextTiles
+
+Label_67_4F4D:: ; 67:4F4D
+	jp SettingsPhone_SlotMenu_Loop
+
+SettingsPhone_SlotMenu_PlaceCursor:: ; 67:4F50
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, SettingsPhone_SlotMenu_CursorPos
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- data $4F68-$4F6E (6 bytes) [PROBABLE] 3 entries x 2 bytes (18 2F / 47 2F / 77 2F) indexed by [$C27D]*2 (ld hl,$4F68 at 67:4F54), e=[hl], d=[hl+1], stored into sprite slot $DA00 by call $0A65 (coordinates)
+
+SettingsPhone_SlotMenu_CursorPos:: ; 67:4F68
+Data_67_4F68::
+	db $18, $2F, $47, $2F, $77, $2F
+
+; ---- code $4F6E-$50A5 (311 bytes) [CONFIRMED] 143 insn(s) reached by static flow only; seeds: exec x143; min discovery hops 7; entered by call from 67:4DFE (PROBABLE code) [executed in 2 scenarios]
+
+SettingsPhone_SlotMenu_BuildTextMap:: ; 67:4F6E
+	ld hl, $D127
+	ld de, $0000
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D167
+	ld de, $0020
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D1A6
+	ld de, $0040
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+SettingsPhone_SlotMenu_PrintSlotFields:: ; 67:4F9C
+	ld de, $FFFF
+	ld hl, $0907
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $4B
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $58
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27D]
+	ld hl, SettingsPhone_SlotMenu_FieldTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $03
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0B07
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $5B
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $38
+	ldh [hRam_FFC0], a
+	ld a, $58
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $68
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27D]
+	ld hl, $50AB
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $03
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0D06
+	ld bc, $0212
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $6B
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $68
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $78
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, [wRam_C27D]
+	ld hl, $50B1
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $03
+	call Function_00_0ED3
+	ret
+
+; ---- words $50A5-$50B7 (18 bytes) [PROBABLE] 9 words $DF10, $DF43, $DF76, $DF21, $DF54, $DF87, $DF32, $DF65, $DF98 = WRAM buffer addresses (3 groups of 3, step $11 / $33); used as hl=[table+2*idx] (ld hl,$50A5 at 67:4FE2) then ld a,$03 ; call $0ED3 (text interpreter) at 67:4FEF-4FF1, i.e. text-buffer pointers, not ROM pointers
+
+SettingsPhone_SlotMenu_FieldTable:: ; 67:50A5
+Table_67_50A5::
+	dw $DF10, $DF43, $DF76, $DF21, $DF54, $DF87, $DF32, $DF65
+	dw $DF98
+
+; ---- code $50B7-$5104 (77 bytes) [CONFIRMED] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 8; entered by call from 67:4DFB (PROBABLE code) [executed in 2 scenarios]
+
+SettingsPhone_SlotMenu_UploadTextTiles:: ; 67:50B7
+	ld de, $9000
+	ld hl, $0907
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $9200
+	ld hl, $0B07
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $9400
+	ld hl, $0D06
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ret
+
+SettingsPhone_SlotMenu_LoadTabTilemap:: ; 67:50E5
+	ld de, $D0E0
+	ld bc, $0214
+	ld a, [wRam_C27D]
+	ld hl, SettingsPhone_SlotMenu_TabTilemapTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $4D
+	farcall Function_00_08EA
+	ret
+
+; ---- words $5104-$510A (6 bytes) [PROBABLE] 3 words $7870,$78C0,$7910 indexed by [$C27D]*2 (ld hl,$5104 at 67:50EE); hl=[table], ld a,$4D, far call 00:08EA (tilemap loader): source addresses in bank 4D (dw kept numeric)
+
+SettingsPhone_SlotMenu_TabTilemapTable:: ; 67:5104
+Table_67_5104::
+	dw $7870, $78C0, $7910

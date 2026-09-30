@@ -1,0 +1,682 @@
+; engine/account/confirm_screens.asm
+; bank 68, $61F7-$67E0 (1513 bytes); pinned by layout.link
+; account confirm screens (automatic and manual) with default dial number strings
+
+SECTION "engine/account/confirm_screens", ROMX
+
+; ---- code $61F7-$6308 (273 bytes) [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
+
+Account_ConfirmScreen:: ; 68:61F7
+	call Account_ConfirmScreen_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_ConfirmScreen_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
+	ld a, [wRam_C27C]
+	ret
+
+Account_ConfirmScreen_Setup:: ; 68:6213
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	farcall Function_00_09B6
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, Data_5D_5DF0
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_5D_61F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, Data_5D_63F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	farcall Function_00_0787
+	ld de, $8001
+	ld hl, Data_5F_49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D800
+	ld hl, Data_5D_65F0
+	ld a, $5D
+	farcall Palette_LoadToBuffer
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	farcall Palette_LoadToBuffer
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_5D_6630
+	ld a, $5D
+	farcall Function_00_08EA
+	call Account_ConfirmScreen_PrintAccount
+	call Account_ConfirmScreen_UploadTextTiles
+	call Account_ConfirmScreen_BuildTextMap
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, Table_4A_4000
+	ld a, $4A
+	ld b, $81
+	farcall Function_00_0A82
+	call Account_ConfirmScreen_UpdateCursor
+	ret
+
+Account_ConfirmScreen_InputLoop:: ; 68:62C9
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_Update
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_62EC
+	bit 1, a
+	jr nz, Label_68_630E
+	bit 5, a
+	jr nz, Label_68_6323
+	bit 4, a
+	jr nz, Label_68_6323
+	jr Account_ConfirmScreen_InputLoop
+
+Label_68_62EC:: ; 68:62EC
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_6308
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+; ---- code $6308-$6344 (60 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 1; entered by jrcc from 68:6300 (executed)
+
+Label_68_6308:: ; 68:6308
+	ld a, $02
+	ld [wRam_C27C], a
+	ret
+
+Label_68_630E:: ; 68:630E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6323:: ; 68:6323
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Account_ConfirmScreen_UpdateCursor
+	jr Label_68_6341
+
+Label_68_6341:: ; 68:6341
+	jp Account_ConfirmScreen_InputLoop
+
+; ---- code $6344-$635C (24 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Account_ConfirmScreen_UpdateCursor:: ; 68:6344
+Function_68_6344::
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, Account_ConfirmCursorPositions
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- words $635C-$6360 (4 bytes) [PROBABLE] 2 words $6828,$6858 (configuration record addresses) read as ld a,[hli]/ld e,a/ld d,[hl] with base $635C by the code at 6344-635C (index [$C27D]*2); extent bounded by the code at 6360
+
+Account_ConfirmCursorPositions:: ; 68:635C
+Table_68_635C::
+	dw $6828, $6858
+
+; ---- code $6360-$6435 (213 bytes) [CONFIRMED] 85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Account_ConfirmScreen_BuildTextMap:: ; 68:6360
+Function_68_6360::
+	ld hl, $D0A6
+	ld de, $0000
+	ld bc, $0208
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D121
+	ld de, $0010
+	ld bc, $0212
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+Account_ConfirmScreen_PrintAccount:: ; 68:637F
+	ld de, $FFFF
+	ld hl, $0506
+	ld bc, $0208
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $2B
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $28
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $38
+	ldh [hRam_FFC3], a
+	ld a, $70
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEA0
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0901
+	ld bc, $0212
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $4B
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $48
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $58
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DFAA
+	call Function_00_0ED3
+	ret
+
+Account_ConfirmScreen_UploadTextTiles:: ; 68:6416
+	ld de, $9000
+	ld hl, $0506
+	ld bc, $0208
+	farcall TileCanvas_UploadRect
+	ld de, $9100
+	ld hl, $0901
+	ld bc, $0212
+	farcall TileCanvas_UploadRect
+	ret
+
+; ---- code $6435-$659A (357 bytes) [CONFIRMED] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code) [executed in 1 scenarios]
+
+Account_ConfirmManualScreen:: ; 68:6435
+	call Account_ConfirmManualScreen_Setup
+	farcall Palette_FadeInFromWhite
+	call Account_ConfirmManualScreen_InputLoop
+	farcall Palette_FadeOutToWhite
+	farcall Kbd_HideInstant
+	ld a, [wRam_C27C]
+	ret
+
+Account_ConfirmManualScreen_Setup:: ; 68:6451
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	farcall Function_00_09B6
+	xor a, a
+	ld [wRam_C27C], a
+	ld a, $00
+	ld [wRam_C27D], a
+	ld de, $8801
+	ld hl, Data_5D_5DF0
+	ld a, $5D
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_5D_61F0
+	ld a, $5D
+	ld b, $95
+	ld c, $20
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, Data_4A_5870
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8001
+	ld hl, Data_5F_49D0
+	ld a, $5F
+	ld b, $94
+	ld c, $30
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D800
+	ld hl, Data_4A_5C70
+	ld a, $4A
+	farcall Palette_LoadToBuffer
+	ld bc, $0018
+	ld de, $D868
+	ld hl, $4CE0
+	ld a, $5F
+	farcall Palette_LoadToBuffer
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_4A_5CB0
+	ld a, $4A
+	farcall Function_00_08EA
+	call Account_ConfirmManualScreen_PrintAccount
+	call Function_68_6762
+	call Function_68_659E
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA00
+	ld de, Table_4A_4000
+	ld a, $4A
+	ld b, $81
+	farcall Function_00_0A82
+	call Account_ConfirmManualScreen_UpdateCursor
+	ret
+
+Account_ConfirmManualScreen_InputLoop:: ; 68:6507
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_Update
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_652A
+	bit 1, a
+	jr nz, Label_68_654C
+	bit 5, a
+	jr nz, Label_68_6561
+	bit 4, a
+	jr nz, Label_68_6561
+	jr Account_ConfirmManualScreen_InputLoop
+
+Label_68_652A:: ; 68:652A
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	or a, a
+	jr nz, Label_68_6546
+	ld a, $01
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6546:: ; 68:6546
+	ld a, $02
+	ld [wRam_C27C], a
+	ret
+
+Label_68_654C:: ; 68:654C
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	xor a, a
+	ld [wRam_C27C], a
+	ret
+
+Label_68_6561:: ; 68:6561
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, [wRam_C27D]
+	ld b, $01
+	xor a, b
+	ld [wRam_C27D], a
+	call Account_ConfirmManualScreen_UpdateCursor
+	jr Label_68_657F
+
+Label_68_657F:: ; 68:657F
+	jp Account_ConfirmManualScreen_InputLoop
+
+Account_ConfirmManualScreen_UpdateCursor:: ; 68:6582
+	ld a, [wRam_C27D]
+	add a, a
+	ld hl, Account_ConfirmManualCursorPositions
+	add a, l
+	ld l, a
+	ld a, h
+	adc a, $00
+	ld h, a
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+; ---- words $659A-$659E (4 bytes) [PROBABLE] 2 words $7058,$7080 addressed by ld hl,$659A at 68:6586 (word read + call $0A65); extent bounded by the code at 659E
+
+Account_ConfirmManualCursorPositions:: ; 68:659A
+Table_68_659A::
+	dw $7058, $7080
+
+; ---- code $659E-$67AE (528 bytes) [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
+
+Function_68_659E:: ; 68:659E
+	ld hl, $D048
+	ld de, $0000
+	ld bc, $0208
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D0C1
+	ld de, $0010
+	ld bc, $0212
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D107
+	ld de, $0040
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D147
+	ld de, $0060
+	ld bc, $020C
+	farcall Tilemap_FillAscendingWithAttr
+	ld hl, $D186
+	ld de, $0080
+	ld bc, $020D
+	farcall Tilemap_FillAscendingWithAttr
+	ret
+
+Account_ConfirmManualScreen_PrintAccount:: ; 68:65EA
+	ld de, $FFFF
+	ld hl, $0208
+	ld bc, $0208
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $13
+	ldh [hTextY], a
+	ld a, $40
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $10
+	ldh [hRam_FFC0], a
+	ld a, $40
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $20
+	ldh [hRam_FFC3], a
+	ld a, $80
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEA0
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0601
+	ld bc, $0212
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $33
+	ldh [hTextY], a
+	ld a, $08
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $30
+	ldh [hRam_FFC0], a
+	ld a, $08
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $40
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DFAA
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0807
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $43
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $40
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $50
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEDD
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0A07
+	ld bc, $020C
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $53
+	ldh [hTextY], a
+	ld a, $38
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $50
+	ldh [hRam_FFC0], a
+	ld a, $38
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $60
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEEE
+	call Function_00_0ED3
+	ld de, $FFFF
+	ld hl, $0C06
+	ld bc, $020D
+	farcall TileCanvas_FillRect
+	ld a, $00
+	ldh [hRam_FFBA], a
+	ld a, $03
+	ldh [hRam_FFBB], a
+	ld a, $63
+	ldh [hTextY], a
+	ld a, $30
+	ldh [hTextX], a
+	ld a, $00
+	ldh [hTextX + 1], a
+	ld a, $68
+	ldh [hRam_FFC0], a
+	ld a, $30
+	ldh [hRam_FFC1], a
+	ld a, $00
+	ldh [hRam_FFC2], a
+	ld a, $70
+	ldh [hRam_FFC3], a
+	ld a, $98
+	ldh [hRam_FFC4], a
+	ld a, $00
+	ldh [hRam_FFC5], a
+	ld a, $0C
+	ldh [hRam_FFC6], a
+	ld a, $0C
+	ldh [hRam_FFC7], a
+	ld a, $03
+	ld hl, $DEFF
+	call Function_00_0ED3
+	ret
+
+Function_68_6762:: ; 68:6762
+	ld de, $9000
+	ld hl, $0208
+	ld bc, $0208
+	farcall TileCanvas_UploadRect
+	ld de, $9100
+	ld hl, $0601
+	ld bc, $0212
+	farcall TileCanvas_UploadRect
+	ld de, $9400
+	ld hl, $0807
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $9600
+	ld hl, $0A07
+	ld bc, $020C
+	farcall TileCanvas_UploadRect
+	ld de, $8800
+	ld hl, $0C06
+	ld bc, $020D
+	farcall TileCanvas_UploadRect
+	ret
+
+; ---- words $67AE-$67B6 (8 bytes) [PROBABLE] 4 words $67B6,$67BC,$67C2,$67CD = the four dial-string addresses below (each word points exactly at a NUL-terminated ASCII string)
+
+Dial_DefaultNumberTable:: ; 68:67AE
+Table_68_67AE::
+	dw Dial_DefaultNumber0, Dial_DefaultNumber1, Dial_DefaultNumber2, Dial_DefaultNumber3
+
+; ---- text $67B6-$67BC (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67AE)
+
+Dial_DefaultNumber0:: ; 68:67B6
+String_68_67B6::
+	db $23, $39, $34, $37, $37, $00 ; "#9477"
+
+; ---- text $67BC-$67C2 (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67B0)
+
+Dial_DefaultNumber1:: ; 68:67BC
+String_68_67BC::
+	db $23, $39, $34, $37, $37, $00 ; "#9477"
+
+; ---- text $67C2-$67CD (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B2)
+
+Dial_DefaultNumber2:: ; 68:67C2
+String_68_67C2::
+	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
+
+; ---- text $67CD-$67D8 (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B4)
+
+Dial_DefaultNumber3:: ; 68:67CD
+String_68_67CD::
+	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
+
+; ---- words $67D8-$67E0 (8 bytes) [PROBABLE] 4 words $67E0,$68A0,$6960,$6A20 = the starts of the four 192-byte "MA" records (each word points exactly at a block that starts with "MA 01 00")
+
+Config_DefaultImageTable:: ; 68:67D8
+Table_68_67D8::
+	dw Config_DefaultImage0, Config_DefaultImage1, Config_DefaultImage2, Config_DefaultImage3

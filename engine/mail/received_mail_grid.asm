@@ -1,0 +1,938 @@
+; engine/mail/received_mail_grid.asm
+; bank 2B, $53C3-$59C0 (1533 bytes); pinned by layout.link
+; 12-cell received-mail grid screen (unused)
+
+SECTION "engine/mail/received_mail_grid", ROMX
+
+; ---- code $53C3-$53C6 (3 bytes) [HYPOTHESIS] 'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+
+MailGrid_Screen:: ; 2B:53C3
+	call MailGrid_InitScreen
+
+; ---- code $53C6-$562B (613 bytes) [PROBABLE] 268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+
+Label_2B_53C6:: ; 2B:53C6
+	push bc
+	farcall Function_00_0956
+	call Function_00_044B
+	farcall Joypad_Update
+	pop bc
+	call MailGrid_PlaceCursorSprite
+	ldh a, [hJoyPressed]
+	and a, $01
+	jr z, Label_2B_53F3
+	push bc
+	farcall Palette_FadeOutToWhite
+	pop bc
+	push bc
+	farcall MailView_SenderPage
+	pop bc
+	jp MailDraft_Menu
+
+Label_2B_53F3:: ; 2B:53F3
+	ldh a, [hJoyPressed]
+	and a, $02
+	jr z, Label_2B_5402
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ret
+
+Label_2B_5402:: ; 2B:5402
+	ldh a, [hJoyPressedRepeat]
+	and a, $20
+	call nz, MailGrid_CursorLeft
+	ldh a, [hJoyPressedRepeat]
+	and a, $10
+	call nz, MailGrid_CursorRight
+	ldh a, [hJoyPressedRepeat]
+	and a, $40
+	call nz, MailGrid_CursorUp
+	ldh a, [hJoyPressedRepeat]
+	and a, $80
+	call nz, MailGrid_CursorDown
+	jr Label_2B_53C6
+
+MailGrid_CursorLeft:: ; 2B:5420
+	ld a, c
+	cp a, $00
+	ret z
+	dec c
+	call MailGrid_ShowCellDetails
+	ret
+
+MailGrid_CursorRight:: ; 2B:5429
+	ld a, c
+	cp a, $0B
+	ret z
+	inc c
+	call MailGrid_ShowCellDetails
+	ret
+
+MailGrid_CursorUp:: ; 2B:5432
+	ld a, c
+	cp a, $04
+	ret c
+	sub a, $04
+	ld c, a
+	call MailGrid_ShowCellDetails
+	ret
+
+MailGrid_CursorDown:: ; 2B:543D
+	ld a, c
+	cp a, $08
+	ret nc
+	add a, $04
+	ld c, a
+	call MailGrid_ShowCellDetails
+	ret
+
+MailGrid_InitScreen:: ; 2B:5448
+	farcall Function_00_09B6
+	farcall Function_00_0956
+	farcall TextTiles_ClearBuffers
+	farcall LCDOff
+	ld bc, $0040
+	ld de, $D800
+	ld hl, Palette_MailGrid_Bg
+	ld a, $2B
+	farcall Palette_LoadToBuffer
+	ld de, $9001
+	ld hl, Gfx_MailGrid_Tiles9000
+	ld a, $2B
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9401
+	ld hl, Gfx_MailGrid_Tiles9400
+	ld a, $2B
+	ld b, $95
+	ld c, $23
+	farcall Function_00_0787
+	ld de, $8000
+	ld hl, Gfx_MailGrid_Tiles8000
+	ld a, $2B
+	ld b, $97
+	ld c, $0F
+	farcall Function_00_0787
+	ld bc, $0040
+	ld de, $D840
+	ld hl, Palette_MailGrid_Obj
+	ld a, $2B
+	farcall Palette_LoadToBuffer
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_MailGrid_TilemapAttr
+	ld a, $2B
+	farcall Function_00_08EA
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call Function_00_047A
+	ld hl, $D800
+	farcall Palette_UploadBuffer
+	ei
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA10
+	ld de, Table_MailGrid_Anims
+	ld a, $2B
+	ld b, $81
+	farcall Function_00_0A82
+	ld de, $1404
+	ld hl, $DA10
+	call Function_00_0A65
+	call MailGrid_DrawCellIcons
+	farcall LCDOn
+	farcall TextTiles_UploadBuffers
+	ld bc, $0000
+	call MailGrid_ShowCellDetails
+	ret
+
+MailGrid_PlaceCursorSprite:: ; 2B:5523
+	push bc
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, c
+	cp a, $00
+	jr nz, Label_2B_553A
+	ld de, $1404
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_553A:: ; 2B:553A
+	cp a, $01
+	jr nz, Label_2B_5549
+	ld de, $142C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5549:: ; 2B:5549
+	cp a, $02
+	jr nz, Label_2B_5558
+	ld de, $1454
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5558:: ; 2B:5558
+	cp a, $03
+	jr nz, Label_2B_5567
+	ld de, $147C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5567:: ; 2B:5567
+	cp a, $04
+	jr nz, Label_2B_5576
+	ld de, $3404
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5576:: ; 2B:5576
+	cp a, $05
+	jr nz, Label_2B_5585
+	ld de, $342C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5585:: ; 2B:5585
+	cp a, $06
+	jr nz, Label_2B_5594
+	ld de, $3454
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_5594:: ; 2B:5594
+	cp a, $07
+	jr nz, Label_2B_55A3
+	ld de, $347C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_55A3:: ; 2B:55A3
+	cp a, $08
+	jr nz, Label_2B_55B2
+	ld de, $5404
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_55B2:: ; 2B:55B2
+	cp a, $09
+	jr nz, Label_2B_55C1
+	ld de, $542C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_55C1:: ; 2B:55C1
+	cp a, $0A
+	jr nz, Label_2B_55D0
+	ld de, $5454
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_55D0:: ; 2B:55D0
+	cp a, $0B
+	jr nz, Label_2B_55DF
+	ld de, $547C
+	ld hl, $DA10
+	call Function_00_0A65
+	pop bc
+	ret
+
+Label_2B_55DF:: ; 2B:55DF
+	pop bc
+	ret
+
+MailGrid_DrawCellIcons:: ; 2B:55E1
+	ld c, $00
+
+Label_2B_55E3:: ; 2B:55E3
+	push bc
+	sla c
+	ld b, $00
+	ld hl, Table_MailGrid_CellTilemapAddrs
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	push hl
+	ld a, $00
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, Table_MailGrid_RecAddrs_Cells
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	ld a, [hl]
+	push af
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	pop af
+	pop hl
+	cp a, $01
+	jr nz, Label_2B_561B
+	call MailGrid_DrawCellIcon_Flag1
+	xor a, a
+
+Label_2B_561B:: ; 2B:561B
+	cp a, $02
+	jr nz, Label_2B_5623
+	call MailGrid_DrawCellIcon_Flag2
+	xor a, a
+
+Label_2B_5623:: ; 2B:5623
+	pop bc
+	inc c
+	ld a, c
+	cp a, $0C
+	jr nz, Label_2B_55E3
+	ret
+
+; ---- words $562B-$5643 (24 bytes) [PROBABLE] 12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
+
+Table_MailGrid_CellTilemapAddrs:: ; 2B:562B
+Table_2B_562B::
+	dw $9861, $9866, $986B, $9870, $98E1, $98E6, $98EB, $98F0
+	dw $9961, $9966, $996B, $9970
+
+; ---- words $5643-$565B (24 bytes) [PROBABLE] 12 words $A124..$AE13 (step $12D) = SRAM record base addresses; ld hl,$5643 at 2B:5600 (index by 2*c)
+
+Table_MailGrid_RecAddrs_Cells:: ; 2B:5643
+Table_2B_5643::
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
+
+; ---- code $565B-$57B5 (346 bytes) [PROBABLE] 246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code) | forced execution: 197/246 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+
+MailGrid_DrawCellIcon_Flag1:: ; 2B:565B
+	xor a, a
+	ldh [rVBK], a
+	ld de, $0020
+	push hl
+	push hl
+	ld a, $47
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	add hl, de
+	push hl
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	add hl, de
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	ld a, $01
+	ldh [rVBK], a
+	push hl
+	ld a, $0B
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	pop hl
+	add hl, de
+	push hl
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	pop hl
+	add hl, de
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ret
+
+MailGrid_DrawCellIcon_Flag2:: ; 2B:5693
+	xor a, a
+	ldh [rVBK], a
+	ld de, $0020
+	push hl
+	push hl
+	ld a, $50
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	add hl, de
+	push hl
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	add hl, de
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc a
+	pop hl
+	ld a, $01
+	ldh [rVBK], a
+	push hl
+	ld a, $0B
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	pop hl
+	add hl, de
+	push hl
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	pop hl
+	add hl, de
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ret
+
+MailGrid_ShowCellDetails:: ; 2B:56CB
+	ld a, $00
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	push bc
+	ld b, $00
+	sla c
+	ld hl, Table_MailGrid_RecAddrs_Details
+	add hl, bc
+	pop bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	ld a, [hl]
+	dec a
+	jr z, Label_2B_56F2
+	dec a
+	jr z, Label_2B_56F2
+	jp Label_2B_57CB
+
+Label_2B_56F2:: ; 2B:56F2
+	push bc
+	ld b, $00
+	sla c
+	ld hl, Table_MailGrid_RecAddrs_Details
+	add hl, bc
+	pop bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	ld de, $0003
+	add hl, de
+	ld de, $D524
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, $06
+
+Label_2B_5710:: ; 2B:5710
+	ld a, [hl]
+	swap a
+	and a, $0F
+	add a, $59
+	ld [de], a
+	inc de
+	ld a, [hli]
+	and a, $0F
+	add a, $59
+	ld [de], a
+	inc de
+	dec b
+	jr nz, Label_2B_5710
+	ld de, $99E1
+	ld hl, $D524
+	xor a, a
+	ldh [rVBK], a
+	di
+
+Label_2B_572D:: ; 2B:572D
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Label_2B_572D
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	ei
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, $00
+	sla c
+	ld hl, Table_MailGrid_RecAddrs_Details
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	ld de, $00C9
+	add hl, de
+	ld de, $D524
+	call MailGrid_CopyTextEllipsis
+	ld bc, $0200
+	ld de, $0408
+	ld hl, $D524
+	call MailGrid_DrawTextLine12
+	pop bc
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, $00
+	sla c
+	ld hl, Table_MailGrid_RecAddrs_Details
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld h, a
+	ld l, e
+	ld de, $00D9
+	add hl, de
+	ld de, $D524
+	call MailGrid_CopyTextEllipsis
+	ld bc, $0200
+	ld de, $0458
+	ld hl, $D524
+	call MailGrid_DrawTextLine12
+	call MailGrid_UploadTextTiles
+	pop bc
+	ret
+
+; ---- text $57B5-$57CB (22 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+String_2B_57B5:: ; 2B:57B5
+	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $E1, $00 ; "そうしんしゃ"
+	db $82, $A0, $82, $BB, $82, $DA, $82, $A4, $00 ; "あそぼう"
+
+; ---- code $57CB-$5806 (59 bytes) [PROBABLE] 35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+
+Label_2B_57CB:: ; 2B:57CB
+	ld hl, $99E1
+	di
+
+Label_2B_57CF:: ; 2B:57CF
+	ldh a, [rLY]
+	cp a, $90
+	jr nz, Label_2B_57CF
+	ld a, $46
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	inc hl
+	ld [hli], a
+	ld [hli], a
+	inc hl
+	ld [hli], a
+	ld [hli], a
+	inc hl
+	ld [hli], a
+	ld [hli], a
+	inc hl
+	ld [hli], a
+	ld [hli], a
+	ei
+	push bc
+	ld bc, $0200
+	ld de, $0408
+	ld hl, String_2B_5807
+	call MailGrid_DrawTextLine12
+	ld bc, $0200
+	ld de, $0458
+	ld hl, String_2B_5807
+	call MailGrid_DrawTextLine12
+	call MailGrid_UploadTextTiles
+	pop bc
+	ret
+
+; ---- code $5806-$5807 (1 bytes) [HYPOTHESIS] lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
+	ret
+
+; ---- text $5807-$5814 (13 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
+
+String_2B_5807:: ; 2B:5807
+	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　　　"
+
+; ---- words $5814-$582C (24 bytes) [PROBABLE] 12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
+
+Table_MailGrid_RecAddrs_Details:: ; 2B:5814
+Table_2B_5814::
+	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
+	dw $AA8C, $ABB9, $ACE6, $AE13
+
+; ---- code $582C-$59B4 (392 bytes) [PROBABLE] 225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code) | forced execution: 204/225 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+
+MailGrid_CopyTextEllipsis:: ; 2B:582C
+	push hl
+	push de
+	ld c, $00
+	ld b, $0D
+
+Label_2B_5832:: ; 2B:5832
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $00
+	jr z, Label_2B_583E
+	dec b
+	jr nz, Label_2B_5832
+	ld c, $01
+
+Label_2B_583E:: ; 2B:583E
+	pop hl
+	pop de
+	dec c
+	ret nz
+	ld b, $00
+
+Label_2B_5844:: ; 2B:5844
+	ld a, [hli]
+	push af
+	farcall Glyph_IsSjisLeadByte
+	dec a
+	jr nz, Label_2B_5876
+	pop af
+	ld a, b
+	cp a, $08
+	jr nz, Label_2B_5860
+	inc hl
+	ld a, $81
+	ld [hli], a
+	ld a, $63
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	jr Label_2B_588A
+
+Label_2B_5860:: ; 2B:5860
+	ld a, b
+	cp a, $09
+	jr nz, Label_2B_5873
+	dec hl
+	ld a, $81
+	ld [hli], a
+	ld a, $63
+	ld [hli], a
+	ld a, $20
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	jr Label_2B_588A
+
+Label_2B_5873:: ; 2B:5873
+	inc b
+	inc hl
+	push af
+
+Label_2B_5876:: ; 2B:5876
+	pop af
+	ld a, b
+	cp a, $0A
+	jr nz, Label_2B_5887
+	dec hl
+	ld a, $81
+	ld [hli], a
+	ld a, $63
+	ld [hli], a
+	xor a, a
+	ld [hl], a
+	jr Label_2B_588A
+
+Label_2B_5887:: ; 2B:5887
+	inc b
+	jr Label_2B_5844
+
+Label_2B_588A:: ; 2B:588A
+	ret
+
+MailGrid_DrawTextLine12:: ; 2B:588B
+	ld a, $0C
+	ld [wTextCellsLeft], a
+
+Label_2B_5890:: ; 2B:5890
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [hli]
+	cp a, $00
+	jp z, Label_2B_592B
+	cp a, $0D
+	jr z, Label_2B_5910
+	push af
+	farcall Glyph_IsSjisLeadByte
+	dec a
+	jr nz, Label_2B_58EB
+	pop af
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [hli]
+	ld l, a
+	pop af
+	ld h, a
+	ld bc, $C0A0
+	ld de, $C0B8
+	farcall Glyph_LoadWide
+	pop hl
+	pop de
+	pop bc
+	inc hl
+	call MailGrid_DrawTextLine12_BlitGlyphAdvance
+	push bc
+	push de
+	push hl
+	ld hl, $C0B8
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ld a, [wTextCellsLeft]
+	dec a
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2B_592B
+	cp a, $01
+	jr z, Label_2B_592B
+	jr Label_2B_5890
+
+Label_2B_58EB:: ; 2B:58EB
+	pop af
+	push bc
+	push de
+	push hl
+	ld b, a
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	call MailGrid_DrawTextLine12_BlitGlyphAdvance
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	cp a, $00
+	jr z, Label_2B_592B
+	cp a, $01
+	jr z, Label_2B_592B
+	jr Label_2B_5890
+
+Label_2B_5910:: ; 2B:5910
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+	ld a, [wTextCellsLeft]
+	dec a
+	ld [wTextCellsLeft], a
+	call MailGrid_DrawTextLine12_BlitBlankAdvance
+
+Label_2B_592B:: ; 2B:592B
+	push bc
+	push de
+	push hl
+	ld b, $20
+	ld de, $C0A0
+	farcall Glyph_LoadAscii
+	pop hl
+	pop de
+	pop bc
+
+Label_2B_593C:: ; 2B:593C
+	ld a, [wTextCellsLeft]
+	cp a, $00
+	ret z
+	dec a
+	ld [wTextCellsLeft], a
+	call MailGrid_DrawTextLine12_BlitBlankAdvance
+	jr Label_2B_593C
+
+MailGrid_DrawTextLine12_BlitGlyphAdvance:: ; 2B:594B
+	push bc
+	push de
+	push hl
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+MailGrid_DrawTextLine12_BlitBlankAdvance:: ; 2B:595F
+	push bc
+	push de
+	push hl
+	ld b, $02
+	ld c, $00
+	ld hl, $C0A0
+	farcall Canvas_BlitGlyph
+	pop hl
+	pop de
+	pop bc
+	ld a, $06
+	add a, e
+	ld e, a
+	ret
+
+MailGrid_UploadTextTiles:: ; 2B:5977
+	ldh a, [rSVBK]
+	push af
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, $D000
+	ld de, $9000
+	ld c, $27
+	call Gfx_StartHDMAAtVBlank_2B_5994
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+Gfx_StartHDMAAtVBlank_2B_5994:: ; 2B:5994
+	ld a, h
+	ldh [rHDMA1], a
+	ld a, l
+	ldh [rHDMA2], a
+	ld a, d
+	ldh [rHDMA3], a
+	ld a, e
+	ldh [rHDMA4], a
+	ld de, $FF44
+
+Label_2B_59A3:: ; 2B:59A3
+	ld a, [de]
+	cp a, $8F
+	jr nz, Label_2B_59A3
+	ld b, $91
+
+Label_2B_59AA:: ; 2B:59AA
+	ld a, [de]
+	cp a, b
+	jr nz, Label_2B_59AA
+	ld a, c
+	and a, $7F
+	ldh [rHDMA5], a
+	ret
+
+; ---- zero $59B4-$59C0 (12 bytes) [PROBABLE] 12 bytes of $00 padding before the tiles at 59C0
+	ds $C, $00

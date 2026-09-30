@@ -1,0 +1,1219 @@
+; engine/account/helpers.asm
+; bank 68, $4000-$4785 (1925 bytes); pinned by layout.link
+; session counters, phone number BCD, text entry helpers, mail address building, config mirror and dial entry helpers
+
+SECTION "engine/account/helpers", ROMX
+
+; ---- data $4000-$4010 (16 bytes) [CONFIRMED] read as data by executed code (in up to 18/18 scenarios); content class unknown
+
+Settings_MagicString:: ; 68:4000
+Data_68_4000::
+	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $30, $30
+
+; ---- code $4010-$4054 (68 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+Session_ResetCounters:: ; 68:4010
+Function_68_4010::
+	xor a, a
+	ld [wCommSessionActive], a
+	ld hl, $C2D2
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C2D4
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ret
+
+Wram3_CopyString:: ; 68:4021
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Wram3_ClearByte:: ; 68:403B
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4054-$408E (58 bytes) [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 6; entered by call from 68:4666 (PROBABLE code) [executed in 2 scenarios]
+
+PhoneNumber_UnpackBcd:: ; 68:4054
+	ld b, $00
+
+Label_68_4056:: ; 68:4056
+	ld a, b
+	cp a, $08
+	jr z, Label_68_408B
+	ld a, [hli]
+	ld c, a
+	swap a
+	and a, $0F
+	cp a, $0F
+	jr z, Label_68_408B
+	push hl
+	ld hl, Dial_KeyCharTable
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	pop hl
+	ld [de], a
+	inc de
+	ld a, c
+	and a, $0F
+	cp a, $0F
+	jr z, Label_68_408B
+	push hl
+	ld hl, Dial_KeyCharTable
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hl]
+	pop hl
+	ld [de], a
+	inc de
+	inc b
+	jr Label_68_4056
+
+Label_68_408B:: ; 68:408B
+	xor a, a
+	ld [de], a
+	ret
+
+; ---- text $408E-$409A (12 bytes) [PROBABLE] 12 ASCII bytes "0123456789#*" (not NUL-terminated: telephone dial keys), addressed by ld hl,$408E at 68:4066 and 68:407B
+
+Dial_KeyCharTable:: ; 68:408E
+String_68_408E::
+	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A ; "0123456789#*"
+
+; ---- code $409A-$40B5 (27 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code) | 15 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 1 scenarios]
+
+PhoneNumber_PackBcd:: ; 68:409A
+	ld b, $00
+
+Label_68_409C:: ; 68:409C
+	ld a, [hli]
+	or a, a
+	jr z, Label_68_40AD
+	cp a, $23
+	jr z, Label_68_40B1
+	cp a, $2A
+	jr z, Label_68_40B5
+	sub a, $30
+	ld c, a
+	jr Label_68_40B7
+
+Label_68_40AD:: ; 68:40AD
+	ld c, $0F
+	jr Label_68_40B7
+
+Label_68_40B1:: ; 68:40B1
+	ld c, $0A
+	jr Label_68_40B7
+
+; ---- code $40B5-$40B7 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split
+
+Label_68_40B5:: ; 68:40B5
+	ld c, $0B
+
+; ---- code $40B7-$40D8 (33 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 3 scenarios]
+
+Label_68_40B7:: ; 68:40B7
+	ld a, b
+	or a, a
+	jr nz, Label_68_40CA
+	ld b, $01
+	ld a, c
+	swap a
+	and a, $F0
+	ld [de], a
+	ld a, c
+	cp a, $0F
+	jr z, Label_68_40D7
+	jr Label_68_409C
+
+Label_68_40CA:: ; 68:40CA
+	ld b, $00
+	ld a, [de]
+	or a, c
+	ld [de], a
+	inc de
+	ld a, c
+	cp a, $0F
+	jr z, Label_68_40D7
+	jr Label_68_409C
+
+Label_68_40D7:: ; 68:40D7
+	ret
+
+; ---- code $40D8-$4152 (122 bytes) [CONFIRMED] 72 insn(s); 72 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+TextEntry_UpdateCursorSprite:: ; 68:40D8
+Function_68_40D8::
+	farcall TextBuf_GetCount
+	push de
+	ld de, $0006
+	call Multiply8x16
+	pop de
+	ld a, d
+	add a, l
+	ld d, e
+	ld e, a
+	ld hl, $DA00
+	call Function_00_0A65
+	ret
+
+OnlineTimer_HasElapsed:: ; 68:40F1
+	xor a, a
+	ld hl, $C2D4
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	inc hl
+	or a, b
+	ld b, [hl]
+	or a, b
+	ret
+
+Function_68_4101:: ; 68:4101
+	xor a, a
+	ld [wCommSessionActive], a
+	ret
+
+Account_ClearWorkBuffers:: ; 68:4106
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld bc, $0163
+	ld hl, $DE80
+	call FillBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+TextEntry_InsertString:: ; 68:4127
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, d
+	ld c, e
+
+Label_68_4136:: ; 68:4136
+	ld a, [bc]
+	or a, a
+	jr z, Label_68_4148
+	inc bc
+	push bc
+	push hl
+	ld d, a
+	farcall TextBuf_AppendChar
+	pop hl
+	pop bc
+	jr Label_68_4136
+
+Label_68_4148:: ; 68:4148
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4152-$4161 (15 bytes) [HYPOTHESIS] function body after the ret at 4151 (ldh [$F2],a ; ldh a,[$8D] ; push af ; ... ld a,3 ; ldh [$8D],a ; ldh [$70],a ; ld b,d ; ld c,e) that falls into the code at 4161 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4152:: ; 68:4152
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld b, d
+	ld c, e
+
+; ---- code $4161-$417F (30 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0; entered by jr from 68:4173 (PROBABLE code)
+
+Label_68_4161:: ; 68:4161
+	ld a, [bc]
+	or a, a
+	jr z, Label_68_4175
+	inc bc
+	push bc
+	push hl
+	ld a, $2A
+	ld d, a
+	farcall TextBuf_AppendChar
+	pop hl
+	pop bc
+	jr Label_68_4161
+
+Label_68_4175:: ; 68:4175
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $417F-$41DB (92 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
+
+TextEntry_CopyText:: ; 68:417F
+Function_68_417F::
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	inc hl
+	inc hl
+	inc hl
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Account_BuildMailAddress:: ; 68:419C
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ld [wAcctMailAddress], a
+	ld hl, $DEAB
+	ld de, $DFAA
+	call CopyString
+	ld hl, $41DB
+	ld de, $DFAA
+	call Function_00_14F3
+	ld hl, $DEB4
+	ld de, $DFAA
+	call Function_00_14F3
+	ld hl, $41DD
+	ld de, $DFAA
+	call Function_00_14F3
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- data $41DB-$41DD (2 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [clipped from 41DB-41E9 by higher-priority evidence]
+
+Account_MailAtSign:: ; 68:41DB
+Data_68_41DB::
+	db $40, $00
+
+; ---- text $41DD-$41E9 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+Account_MailDomainSuffix:: ; 68:41DD
+String_68_41DD::
+	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; ".dion.ne.jp"
+
+; ---- code $41E9-$4241 (88 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Account_CopyMailAddressToFar:: ; 68:41E9
+Function_68_41E9::
+	ld [wRam_C27C], a
+	ld a, l
+	ld [wRam_C27D], a
+	ld a, h
+	ld [wRam_C27E], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $B047
+	ld de, $C27F
+	call DecodeXorA5
+	ld a, [wRam_C27D]
+	ld l, a
+	ld a, [wRam_C27E]
+	ld h, a
+	ld a, [wRam_C27C]
+	call BankSwitch_H_Local
+	ld hl, $C27F
+	ld a, [wRam_C27D]
+	ld e, a
+	ld a, [wRam_C27E]
+	ld d, a
+	call CopyString
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+BankSwitch_H_Local:: ; 68:4239
+	bit 7, h
+	jr z, Label_68_424C
+	bit 6, h
+	jr z, Label_68_4246
+
+; ---- code $4241-$4246 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:423F (executed)
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+; ---- code $4246-$424C (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
+
+Label_68_4246:: ; 68:4246
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ret
+
+; ---- code $424C-$4252 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 68:423B (executed)
+
+Label_68_424C:: ; 68:424C
+	ldh [hROMBankLo], a
+	ld [$2100], a
+	ret
+
+; ---- code $4252-$4283 (49 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
+
+Config_ClearSramMirror:: ; 68:4252
+Function_68_4252::
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld bc, $0100
+	ld hl, $A000
+	call FillBytes
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+Function_68_4282:: ; 68:4282
+	ret
+
+; ---- code $4283-$42E4 (97 bytes) [HYPOTHESIS] complete ret-terminated function (42 insn): enables SRAM ($0A to $0000 / hFFF5), selects SRAM bank 2 then 3 ($4000 register) and clears $A000-$AFFF and $B000-$BFFF with call $04D8 / $0392, then restores the banks; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4283:: ; 68:4283
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld hl, $A000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	xor a, a
+	ld hl, $B000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	ld a, $03
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld hl, $A000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	xor a, a
+	ld hl, $B000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+; ---- code $42E4-$4377 (147 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 17/18 scenarios); entry proven: target of an executed call/far call
+
+Sram_WipeAllBanks:: ; 68:42E4
+Function_68_42E4::
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld d, $00
+
+Label_68_42ED:: ; 68:42ED
+	ld a, d
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	xor a, a
+	ld hl, $A000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	xor a, a
+	ld hl, $B000
+	ld bc, $1000
+	call FillBytes
+	call Function_00_0392
+	inc d
+	ld a, d
+	cp a, $04
+	jr c, Label_68_42ED
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+Config_MirrorIsRegistered:: ; 68:431A
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [sSram_A000]
+	cp a, $4D
+	jr nz, Label_68_4365
+	ld a, [sSram_A001]
+	cp a, $41
+	jr nz, Label_68_4365
+	ld a, [sSram_A002]
+	cp a, $81
+	jp nz, Label_68_4365
+	ld a, [sSram_A003]
+	cp a, $00
+	jr nz, Label_68_4365
+	call Config_MirrorChecksumOk
+	or a, a
+	jr z, Label_68_4365
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ret
+
+Label_68_4365:: ; 68:4365
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ret
+
+; ---- code $4377-$43B9 (66 bytes) [HYPOTHESIS] complete ret-terminated function (34 insn): enables SRAM, selects bank 1, reads [$B010] xor $A5 and returns 1 or 0 (SRAM validity check); entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4377:: ; 68:4377
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, [sSram_B010]
+	xor a, $A5
+	or a, a
+	jr z, Label_68_43A7
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ret
+
+Label_68_43A7:: ; 68:43A7
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ret
+
+; ---- code $43B9-$4430 (119 bytes) [CONFIRMED] 62 insn(s); 62 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
+
+Settings_SetProgressState3:: ; 68:43B9
+Function_68_43B9::
+	ld hl, $B010
+	ld a, $03
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Settings_StoreAdapterType:: ; 68:43F4
+	ld hl, $B011
+	ld a, [wMobileAdapterType]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4430-$4469 (57 bytes) [HYPOTHESIS] complete ret-terminated function (30 insn): ld hl,$B011 ... reads one SRAM byte from bank 1 with the enable/bank save-restore sequence, returns b xor $A5; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+
+Function_68_4430:: ; 68:4430
+	ld hl, $B011
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	xor a, $A5
+	ret
+
+; ---- code $4469-$446E (5 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Dial_SelectEntryFromList:: ; 68:4469
+Function_68_4469::
+	ld b, a
+	ld d, h
+	ld e, l
+	or a, a
+	ret z
+
+; ---- code $446E-$4499 (43 bytes) [PROBABLE] 27 insn(s) reached by static flow only; seeds: exec x27; min discovery hops 0; fall-through of the retcc at 68:446D (executed)
+	call Function_68_4495
+	call Function_68_4495
+	ld a, b
+	dec a
+	jr z, Label_68_4484
+	dec a
+	jr z, Label_68_447E
+	ld a, $FF
+	ret
+
+Label_68_447E:: ; 68:447E
+	call Function_68_4495
+	call Function_68_4495
+
+Label_68_4484:: ; 68:4484
+	ld a, [hl]
+	or a, a
+	jr z, Label_68_448A
+	ld a, b
+	ret
+
+Label_68_448A:: ; 68:448A
+	ld h, d
+	ld l, e
+	push hl
+	ld b, $00
+	call Settings_SetSelectedDialEntry
+	pop hl
+	xor a, a
+	ret
+
+Function_68_4495:: ; 68:4495
+	ld a, [hli]
+	or a, a
+	jr nz, Function_68_4495
+
+; ---- code $4499-$44F9 (96 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Settings_SetSelectedDialEntry:: ; 68:4499
+Function_68_4499::
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, b
+	xor a, $A5
+	ld [sSettingsSelectedDialEntry], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ret
+
+Settings_GetSelectedDialEntry:: ; 68:44D0
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [sSettingsSelectedDialEntry]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ld a, b
+	cp a, $03
+	ret c
+
+; ---- code $44F9-$44FC (3 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the retcc at 68:44F8 (executed)
+	xor a, a
+	ld b, a
+	ret
+
+; ---- code $44FC-$4536 (58 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
+
+Settings_GetHiddenModeFlag:: ; 68:44FC
+Function_68_44FC::
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [sSettingsHiddenMode]
+	xor a, $A5
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	or a, a
+	jr z, Label_68_4539
+
+; ---- code $4536-$4539 (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:4534 (executed) [executed in 2 scenarios]
+	ld a, $01
+	ld b, a
+
+; ---- code $4539-$4568 (47 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 4/18 scenarios)
+
+Label_68_4539:: ; 68:4539
+	ld a, b
+	ret
+
+Settings_SetHiddenModeFlag:: ; 68:453B
+	ld b, a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, b
+	xor a, $A5
+	ld [sSettingsHiddenMode], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ret
+
+; ---- code $4568-$4594 (44 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by far from 67:4E4D (PROBABLE code) [executed in 2 scenarios]
+
+Dial_EntryHasNumber:: ; 68:4568
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, b
+	ld hl, Dial_EntryNumberBuffers
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld b, [hl]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ld a, b
+	or a, a
+	ret z
+	ld a, $01
+	ret
+
+; ---- words $4594-$459A (6 bytes) [PROBABLE] 3 words $DF10,$DF43,$DF76 (stride $33, WRAM1 addresses) addressed by ld hl,$4594 at 68:4577; extent bounded by the next code region
+
+Dial_EntryNumberBuffers:: ; 68:4594
+Table_68_4594::
+	dw $DF10, $DF43, $DF76
+
+; ---- code $459A-$45DF (69 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
+
+Config_MirrorChecksumOk:: ; 68:459A
+Function_68_459A::
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $A000
+	ld de, $0000
+	ld b, $BE
+
+Label_68_45B7:: ; 68:45B7
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jr nz, Label_68_45B7
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ld a, b
+	cp a, d
+	jr nz, Label_68_45DF
+	ld a, c
+	cp a, e
+	jr nz, Label_68_45DF
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, $01
+	ret
+
+; ---- code $45DF-$45F1 (18 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jrcc from 68:45C6 (executed)
+
+Label_68_45DF:: ; 68:45DF
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	xor a, a
+	ret
+
+; ---- code $45F1-$4608 (23 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
+
+Config_MirrorUpdateChecksum:: ; 68:45F1
+Function_68_45F1::
+	ld hl, $A000
+	ld de, $0000
+	ld b, $BE
+
+Label_68_45F9:: ; 68:45F9
+	ld a, [hli]
+	add a, e
+	ld e, a
+	ld a, $00
+	adc a, d
+	ld d, a
+	dec b
+	jp nz, Label_68_45F9
+	ld a, d
+	ld [hli], a
+	ld [hl], e
+	ret
+
+; ---- code $4608-$4735 (301 bytes) [CONFIRMED] 136 insn(s) reached by static flow only; seeds: exec x136; min discovery hops 3; entered by far from 67:4023 (PROBABLE code) [executed in 1 scenarios]
+
+Config_LoadMirrorToWram:: ; 68:4608
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $02
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $A00C
+	ld de, $DEA0
+	call CopyString
+	ld hl, $A02C
+	ld de, $DFAA
+	call CopyString
+	ld hl, $A07E
+	ld de, $DF32
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A096
+	ld de, $DF65
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A0AE
+	ld de, $DF98
+	ld bc, $0010
+	call Function_00_14D1
+	ld hl, $A076
+	ld de, $DF10
+	call PhoneNumber_UnpackBcd
+	ld hl, $A08E
+	ld de, $DF43
+	call PhoneNumber_UnpackBcd
+	ld hl, $A0A6
+	ld de, $DF76
+	call PhoneNumber_UnpackBcd
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld hl, $B014
+	ld de, $DF21
+	call DecodeXorA5
+	ld hl, $B025
+	ld de, $DF54
+	call DecodeXorA5
+	ld hl, $B036
+	ld de, $DF87
+	call DecodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	xor a, a
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+Dial_LoadDefaultsForAdapterType:: ; 68:46C8
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, [wMobileAdapterType]
+	ld hl, Config_DefaultImageTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $0076
+	add hl, de
+	ld de, $DEDD
+	farcall PhoneNumber_UnpackBcd
+	ld a, [wMobileAdapterType]
+	ld hl, Dial_DefaultNumberTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $DEEE
+	farcall CopyString
+	ld a, [wMobileAdapterType]
+	ld hl, Config_DefaultImageTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, $007E
+	add hl, de
+	ld de, $DEFF
+	ld bc, $0010
+	farcall Function_00_14D1
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret
+
+; ---- code $4735-$4785 (80 bytes) [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call (part of region $4735-$4842)
+
+Settings_StoreMailAddress:: ; 68:4735
+Function_68_4735::
+	ldh [hScratchA], a
+	ldh a, [hWRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $03
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld hl, $DFAA
+	ld de, $B047
+	call EncodeXorA5
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ldh a, [hScratchA]
+	ret

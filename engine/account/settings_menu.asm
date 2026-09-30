@@ -1,0 +1,405 @@
+; engine/account/settings_menu.asm
+; bank 68, $4F9E-$5296 (760 bytes); pinned by layout.link
+; settings menu (Mobile Settings) run loop, cursor, item drawing
+
+SECTION "engine/account/settings_menu", ROMX
+
+; ---- code $4F9E-$4FC8 (42 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call (part of region $4F71-$4FC8)
+
+SettingsMenu_Run:: ; 68:4F9E
+	xor a, a
+	ld [wRam_C279], a
+	ld [wRam_C27B], a
+	ld a, $01
+	ld [wRam_C27A], a
+	xor a, a
+	ld [wCommSessionActive], a
+	ld hl, $C2D2
+	ld [hli], a
+	ld [hl], a
+	ld hl, $C2D4
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	farcall Joypad_Update
+	ldh a, [hJoyHeld]
+	and a, $16
+	cp a, $16
+	jr nz, Label_68_4FD6
+
+; ---- code $4FC8-$4FD6 (14 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4FC6 (executed) [executed in 1 scenarios]
+	ld a, $01
+	farcall Settings_SetHiddenModeFlag
+	farcall Settings_UpdateChecksumAndBackup
+
+; ---- code $4FD6-$505E (136 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 4/18 scenarios)
+
+Label_68_4FD6:: ; 68:4FD6
+	farcall Settings_GetHiddenModeFlag
+	ld [wHiddenModeFlag], a
+	xor a, a
+	ld [wRam_C28E], a
+	ld a, $00
+	ld [wRam_C1D0], a
+	ld a, $01
+	ld [wRam_C1D1], a
+	call SettingsMenu_RunLoop
+	ld a, [wRam_C27C]
+	ld hl, $BF01
+	ld b, a
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, b
+	ld [hl], a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, [wRam_C27D]
+	dec a
+	ret z
+	ld a, [wRam_C27C]
+	inc a
+	ret
+
+SettingsMenu_RunLoop:: ; 68:5033
+	farcall Joypad_Update
+	call SettingsMenu_Dispatch
+	farcall Function_00_0956
+	call Function_00_044B
+	ld a, [wRam_C28E]
+	cp a, $FF
+	jr nz, SettingsMenu_RunLoop
+	ret
+
+SettingsMenu_Dispatch:: ; 68:504D
+	ld a, [wRam_C28E]
+	ld hl, SettingsMenu_StateTable
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	jp hl
+
+; ---- ptrtable $505E-$5066 (8 bytes) [CONFIRMED] code-pointer table, 4 entries: 4/4 words hit own-bank code starts (start is the operand of ld r16); 4/4 targets executed; every byte read as data in a trace
+
+SettingsMenu_StateTable:: ; 68:505E
+Table_68_505E::
+	dw SettingsMenu_StateInit
+	dw SettingsMenu_StateFadeIn
+	dw SettingsMenu_StateInput
+	dw SettingsMenu_StateExit
+
+; ---- code $5066-$5220 (442 bytes) [CONFIRMED] 183 insn(s); 183 executed (in up to 4/18 scenarios)
+
+SettingsMenu_StateInit:: ; 68:5066
+	ld b, $15
+	ld c, $03
+	farcall Joypad_SetRepeatTiming
+	farcall Function_00_09B6
+	xor a, a
+	ld [wRam_C27D], a
+	ld hl, $BF01
+	ldh [hScratchA], a
+	ldh a, [hSRAMEnable]
+	push af
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	ldh a, [hSRAMBank]
+	push af
+	ldh a, [hScratchA]
+	ld a, $01
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ld a, $0A
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ld a, [hl]
+	ld b, a
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMBank], a
+	ld [rRAMB], a
+	ldh a, [hScratchA]
+	ldh [hScratchA], a
+	pop af
+	ldh [hSRAMEnable], a
+	ld [rRAMG], a
+	ldh a, [hScratchA]
+	ld a, b
+	ld [wRam_C27C], a
+	ld de, $8801
+	ld hl, Data_4A_4240
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8C01
+	ld hl, Data_4A_4640
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9001
+	ld hl, Data_4A_4A40
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $9401
+	ld hl, Data_4A_4E40
+	ld a, $4A
+	ld b, $92
+	ld c, $40
+	farcall Function_00_0787
+	ld de, $8001
+	ld hl, Data_4A_4040
+	ld a, $4A
+	ld b, $95
+	ld c, $20
+	farcall Function_00_0787
+	ld bc, $0028
+	ld de, $D800
+	ld hl, $5180
+	ld a, $4A
+	farcall Palette_LoadToBuffer
+	ld bc, $0008
+	ld de, $D840
+	ld hl, $51A8
+	ld a, $4A
+	farcall Palette_LoadToBuffer
+	call SettingsMenu_DrawItems
+	ldh a, [rLCDC]
+	call Function_00_082C
+	ld hl, $DA10
+	ld de, Table_4A_5838
+	ld a, $4A
+	ld b, $81
+	farcall Function_00_0A82
+	call SettingsMenu_UpdateCursorSprite
+	farcall Function_00_0956
+	ld a, $01
+	ld [wRam_C28E], a
+	ret
+
+SettingsMenu_StateFadeIn:: ; 68:5156
+	farcall Palette_FadeInFromWhite
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0008
+	call Function_00_20E8
+	pop af
+	ldh [rSVBK], a
+	ld a, $02
+	ld [wRam_C28E], a
+	ret
+
+SettingsMenu_StateInput:: ; 68:5172
+	ldh a, [hJoyPressedRepeat]
+	bit 0, a
+	jr nz, Label_68_5187
+	bit 1, a
+	jr nz, Label_68_519E
+	bit 6, a
+	jr nz, Label_68_51BA
+	bit 7, a
+	jr nz, Label_68_51CF
+	jp Label_68_51FC
+
+Label_68_5187:: ; 68:5187
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002C
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $03
+	ld [wRam_C28E], a
+	jr Label_68_51FC
+
+Label_68_519E:: ; 68:519E
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $002E
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	ld a, $03
+	ld [wRam_C28E], a
+	ld a, $01
+	ld [wRam_C27D], a
+	jr Label_68_51FC
+
+Label_68_51BA:: ; 68:51BA
+	ld a, [wRam_C27C]
+	or a, a
+	jr nz, Label_68_51C9
+	ld a, [wHiddenModeFlag]
+	xor a, $01
+	ld b, a
+	ld a, $05
+	sub a, b
+
+Label_68_51C9:: ; 68:51C9
+	dec a
+	ld [wRam_C27C], a
+	jr Label_68_51E1
+
+Label_68_51CF:: ; 68:51CF
+	ld a, [wHiddenModeFlag]
+	add a, $03
+	ld b, a
+	ld a, [wRam_C27C]
+	cp a, b
+	jr nz, Label_68_51DD
+	ld a, $FF
+
+Label_68_51DD:: ; 68:51DD
+	inc a
+	ld [wRam_C27C], a
+
+Label_68_51E1:: ; 68:51E1
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $0029
+	call Function_00_20AC
+	pop af
+	ldh [rSVBK], a
+	call SettingsMenu_DrawItems
+	ldh a, [rLCDC]
+	call Function_00_082C
+	call SettingsMenu_UpdateCursorSprite
+
+Label_68_51FC:: ; 68:51FC
+	ret
+
+SettingsMenu_StateExit:: ; 68:51FD
+	farcall Palette_FadeOutToWhite
+	ld a, $FF
+	ld [wRam_C28E], a
+	ret
+
+SettingsMenu_UpdateCursorSprite:: ; 68:5209
+	ld a, [wRam_C27C]
+	sla a
+	sla a
+	sla a
+	sla a
+	ld b, a
+	ld a, [wHiddenModeFlag]
+	or a, a
+	jr nz, Label_68_5220
+	ld a, b
+	add a, $30
+	jr Label_68_5223
+
+; ---- code $5220-$5223 (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:5219 (executed) [executed in 2 scenarios]
+
+Label_68_5220:: ; 68:5220
+	ld a, b
+	add a, $28
+
+; ---- code $5223-$5245 (34 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
+
+Label_68_5223:: ; 68:5223
+	ld [wSpriteSlots + 16], a
+	ld a, $20
+	ld [wSpriteSlots + 17], a
+	ret
+
+SettingsMenu_DrawItems:: ; 68:522C
+	ld a, [wHiddenModeFlag]
+	or a, a
+	jr nz, Label_68_5245
+	ld bc, $1214
+	ld de, $D000
+	ld hl, $51D0
+	ld a, $4A
+	farcall Function_00_08EA
+	jr Label_68_5256
+
+; ---- code $5245-$5256 (17 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
+
+Label_68_5245:: ; 68:5245
+	ld bc, $1214
+	ld de, $D000
+	ld hl, Data_4A_54A0
+	ld a, $4A
+	farcall Function_00_08EA
+
+; ---- code $5256-$526A (20 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
+
+Label_68_5256:: ; 68:5256
+	ld a, [wRam_C27C]
+	ld de, $0040
+	call Multiply8x16
+	ld a, [wHiddenModeFlag]
+	or a, a
+	jr nz, Label_68_526A
+	ld de, $D0C5
+	jr Label_68_526D
+
+; ---- code $526A-$526D (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:5263 (executed) [executed in 2 scenarios]
+
+Label_68_526A:: ; 68:526A
+	ld de, $D0A5
+
+; ---- code $526D-$528C (31 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
+
+Label_68_526D:: ; 68:526D
+	add hl, de
+	ld d, h
+	ld e, l
+	ld bc, $020A
+	ld a, [wRam_C27C]
+	ld hl, SettingsMenu_ItemHighlightMaps
+	add a, a
+	add a, l
+	ld l, a
+	ld a, $00
+	adc a, h
+	ld h, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, $4A
+	farcall Function_00_08EA
+	ret
+
+; ---- words $528C-$5296 (10 bytes) [PROBABLE] 5 words $5770,$5798,$57C0,$57E8,$5810 (stride $28) read with `ld hl,$528C ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5276 and passed as HL to the far call `ld a,$4A ; farcall 00:08EA` (68:5283, copy_tilemap_rect_pair, bc=$050A): the words are therefore pointers into BANK 4A data, NOT into bank 68 code [verifier: retyped ptrtable->words; as a ptrtable the generator emitted `dw Label_68_5798`, a false symbolic reference to code of this bank]
+
+SettingsMenu_ItemHighlightMaps:: ; 68:528C
+Table_68_528C::
+	dw $5770, $5798, $57C0, $57E8, $5810

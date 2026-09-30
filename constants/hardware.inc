@@ -4,15 +4,13 @@
 ; I/O registers, XXXF_* for bit masks, XXXB_* for bit numbers).  Every value is
 ; a documented hardware fact (Pan Docs), not a reverse-engineering finding.
 ;
-; tools/gen_asm.py PARSES this file: every `DEF rNAME EQU $FFxx` line in the
-; range $FF00-$FF7F / $FFFF becomes a register name that generated code uses in
-; place of the numeric operand of ldh / ld [a16].  Keep one DEF per line and
-; keep the `DEF <name> EQU $<hex>` shape for anything that is an address.
+; The frozen bootstrap generator (tools/gen_asm.py, reference only) PARSED this file: every `DEF rNAME EQU $FFxx`
+; line in the range $FF00-$FF7F / $FFFF became a register name used in place of the numeric operand of
+; ldh / ld [a16].  The shape (one DEF per line, `DEF <name> EQU $<hex>`) is kept so that the legacy tools still run.
 ;
 ; The last block defines the MBC5 register write addresses.  MBC5 is what the cartridge
 ; header declares (type $1B, docs/ROM_INFO.md); the header is the only evidence so far.
-; These are *write* addresses; the generator substitutes them only for `ld [$addr], a`
-; whose address equals the constant exactly (never for reads or `ld [$addr], sp`).
+; These are *write* addresses (the legacy generator substituted them only for `ld [$addr], a`).
 
 IF !DEF(HARDWARE_INC)
 DEF HARDWARE_INC EQU 1
