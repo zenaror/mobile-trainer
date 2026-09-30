@@ -99,3 +99,5 @@ python3 tools/gfx_export.py check           # PNGs vs .2bpp (needs rgbgfx), asse
 
 `make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it
 (`make legacy-check`, which needs the reference ROM, runs it in a temp directory).  `make progress` and `make conventions-check` read the frozen `config/` tables, not the source.  See `README.md`, "History".
+
+`rgbgfx` (part of RGBDS 1.0.x; tested with 1.0.3) is needed only to rebuild PNG-sourced graphics. Without it, or without python3, `make` uses the committed `.2bpp`, `.1bpp` and `.bin` files.

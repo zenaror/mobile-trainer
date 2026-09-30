@@ -9,7 +9,8 @@ Everything here is deterministic and reads only the repository (the .asm source,
     python3 tools/gfx_export.py plan              # what export would convert (table on stdout); writes nothing
     python3 tools/gfx_export.py export            # write asset files + PNGs, rewrite the converted `db` blocks as INCBIN / INCLUDE
                                                   #   (idempotent: a block that is already INCBIN is skipped), update gfx/assets.tsv
-    python3 tools/gfx_export.py png               # regenerate every PNG from the binary assets listed in gfx/assets.tsv
+    python3 tools/gfx_export.py png               # regenerate the PNGs from the binaries (= tools/png_rules.py export: tile sheets, font sheets; a PNG
+                                                  #   that holds edits not built yet is never overwritten) + the validity-bitmap view
     python3 tools/gfx_export.py bin               # regenerate the binary of every exact PNG source with rgbgfx (PNG -> .2bpp)
     python3 tools/gfx_export.py check             # PNG -> rgbgfx -> .2bpp byte-identical?  view sheets decode back?  INCBIN sizes and
                                                   #   region headers consistent?  assets.tsv complete?
@@ -18,7 +19,8 @@ Everything here is deterministic and reads only the repository (the .asm source,
 The ROM bytes come from the binary asset (`.2bpp`, `.1bpp`, `.bin`, `.tilemap`, `.attrmap`) or the `.pal` file that the `.asm`
 INCBINs / INCLUDEs.  A `.png` next to a `.2bpp` is an *exact source*: `rgbgfx -c embedded [-x <pad>] -o x.2bpp x.png` rebuilds the
 `.2bpp` byte for byte (`<pad>` = blank tiles that complete the last PNG row, column `pad` of gfx/assets.tsv; 0 = no -x).  A
-`*_view.png` is a picture for reading only (fonts, bitmaps): its layout is not a tile layout rgbgfx can read.
+`*_view.png` is a picture for reading only (the Shift-JIS validity bitmap).  Font glyph banks are `sheet` PNGs (`name.png`, png column
+`sheet`): editable sources built by tools/font_png.py, see docs/EDITING_IMAGES.md; gfx/png_rules.tsv is the manifest of every PNG -> binary rule.
 
 A block is converted only when its region header note, its label name or the frozen symbol table (config/symbols) says what it is
 *and* the bytes fit that kind (palette: even size, every word < $8000; tilemap: size = width x height stated in the note; ...).
@@ -54,6 +56,8 @@ GENERIC = re.compile(r'^(Data|Tiles|Tilemap|Attrmap|Palette|Font|Table|String)_(
 SHADES = [(255, 255, 255), (170, 170, 170), (85, 85, 85), (0, 0, 0)]
 
 COLS = ['path', 'type', 'size', 'asm', 'bank', 'addr', 'status', 'png', 'pad', 'dims', 'label']
+
+FONT_TYPES = ('font12', 'font8x16', 'font6x12')
 
 EXT = {'tiles': '.2bpp', 'font8x16': '.1bpp', 'tilemap': '.tilemap', 'attrmap': '.attrmap', 'palette': '.pal',
        'font12': '.bin', 'font6x12': '.bin', 'sjisbitmap': '.bin'}
@@ -642,7 +646,7 @@ def write_manifest(rows):
     with open(os.path.join(ROOT, MANIFEST), 'w', encoding='utf-8') as f:
         f.write('# gfx/assets.tsv -- written by tools/gfx_export.py (do not edit by hand)\n')
         f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette\n')
-        f.write('# png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); view = picture for reading only (*_view.png); - = none\n')
+        f.write('# png: exact = rgbgfx source of path (rgbgfx -c embedded -x pad); sheet = font glyph sheet (tools/font_png.py), editable; view = picture for reading only (*_view.png); - = none\n')
         f.write('# bank / addr: original ROM position of the first byte (hex); status: evidence status of the block header; dims: width x height in tiles as stated in the note\n')
         f.write('\t'.join(COLS) + '\n')
         for r in sorted(rows.values(), key=key):
@@ -651,6 +655,8 @@ def write_manifest(rows):
 
 def png_path_of(path, mode):
     stem = os.path.splitext(path)[0]
+    if mode == 'sheet':                       # the two bank-7C font spans share one sheet
+        return re.sub(r'_(4000|57cd)$', '', stem) + '.png'
     return stem + ('.png' if mode == 'exact' else '_view.png')
 
 
@@ -780,9 +786,13 @@ def do_png(manifest_rows=None):
         if typ == 'tiles':
             n = len(data) // 16
             per_row, pad = tiles_geometry(n)
-            w, h, img = render_tiles(data)
-            write_png(os.path.join(ROOT, png_path_of(path, 'exact')), w, h, img)
             r['png'], r['pad'] = 'exact', str(pad)
+            png_full = os.path.join(ROOT, png_path_of(path, 'exact'))
+            if not os.path.exists(png_full):             # a new asset; an existing PNG is the source and is never overwritten here
+                w, h, img = render_tiles(data)
+                write_png(png_full, w, h, img)
+        elif typ in FONT_TYPES:
+            r['png'], r['pad'] = 'sheet', '0'          # written by tools/png_rules.py export (font_png sheets)
         else:
             write_view(typ, data, int(r['addr'], 16), os.path.join(ROOT, png_path_of(path, 'view')))
             r['png'], r['pad'] = 'view', '0'
@@ -834,6 +844,36 @@ def do_bin(rows):
     return 0
 
 
+def font_cells(rows):
+    """png path of a font sheet -> glyph slots.  A font12 sheet covers the furthest byte of every binary that shares it."""
+    cells = {}
+    for r in rows.values():
+        if r['type'] not in FONT_TYPES:
+            continue
+        png = png_path_of(r['path'], 'sheet')
+        if r['type'] == 'font12':
+            n = -(-(int(r['addr'], 16) - 0x4000 + int(r['size'])) // 18)
+        else:
+            n = int(r['size']) // {'font8x16': 16, 'font6x12': 12}[r['type']]
+        cells[png] = max(cells.get(png, 0), n)
+    return cells
+
+
+def check_sheet(rows, path, data, png_path):
+    """Decode a font sheet back to the bytes of `path` and compare.  Returns an error string or ''."""
+    import font_png
+    import pnglib
+    r = rows[path]
+    try:
+        png = pnglib.read_png(png_path)
+    except pnglib.PngError as e:
+        return str(e)
+    got, errs = font_png.decode(r['type'], png, font_cells(rows)[png_path_of(path, 'sheet')], int(r['addr'], 16), len(data))
+    if errs:
+        return errs[0]
+    return '' if got == data else 'font sheet does not decode to the asset bytes (PNG edited, binary not rebuilt: run make)'
+
+
 # ------------------------------------------------------------------------------------------------ check
 
 def do_check():
@@ -869,7 +909,15 @@ def do_check():
             errors.append('%s: size %d, listed %s' % (p, len(data), r['size']))
         if r['type'] == 'tiles' and len(data) % 16:
             errors.append('%s: size not a multiple of 16' % p)
-        if r['png'] == 'view':
+        if r['png'] == 'sheet':
+            png = os.path.join(ROOT, png_path_of(p, 'sheet'))
+            if not os.path.exists(png):
+                errors.append('%s: font sheet PNG missing' % p)
+            else:
+                e = check_sheet(rows, p, data, png)
+                if e:
+                    errors.append('%s: %s' % (p, e))
+        elif r['png'] == 'view':
             png = os.path.join(ROOT, png_path_of(p, 'view'))
             if not os.path.exists(png):
                 errors.append('%s: view PNG missing' % p)
@@ -886,7 +934,8 @@ def do_check():
     # region headers: the bytes of a converted block are the ones its header counts (sum per region compared with the header size)
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
-    print('%d assets (%d exact PNG sources, %d view-only PNGs, %d without PNG)' % (len(rows), ex, vw, len(rows) - ex - vw))
+    sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
+    print('%d assets (%d exact tile PNG sources, %d font sheets, %d view-only PNGs, %d without PNG)' % (len(rows), ex, sh, vw, len(rows) - ex - sh - vw))
     for e in errors:
         print('ERROR', e)
     print('gfx_export check:', 'FAILED (%d)' % len(errors) if errors else 'OK')
@@ -911,7 +960,7 @@ gfx/title/title_screen/title_tiles0.png        the same tiles as a picture, 16 p
 gfx/title/title_screen/title_screen.tilemap    20x18 tile indices          (INCBIN)
 gfx/title/title_screen/title_screen.attrmap    20x18 CGB attribute bytes   (INCBIN)
 gfx/title/title_screen/title_bg.pal            `RGB r, g, b` lines         (INCLUDE; macro in constants/gfx_macros.inc)
-data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  ..._view.png = glyph sheet for reading only
+data/fonts/jis12x12_rows_01_08_13.bin          font bytes;  jis12x12_rows_01_08_13.png = editable glyph sheet
 gfx/assets.tsv                                 one line per asset: kind, size, bank:addr, status, PNG mode  (machine readable)
 ```
 
@@ -925,15 +974,99 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 * **Exact PNG** (`name.png`): 4-shade indexed PNG (index 0 white ... 3 black; these are tile *indices*, not the game's colours), 16 tiles per row
   (fewer when the block is smaller; a divisor of the tile count between 8 and 15 when 16 does not divide it, else the last row is padded and
   `pad` in `assets.tsv` blank tiles are trimmed).  `rgbgfx -c embedded [-x pad] -o name.2bpp name.png` gives back the `.2bpp` byte for byte
-  (`python3 tools/gfx_export.py check` runs that for every PNG).  Edit the PNG, run `python3 tools/gfx_export.py bin`, then `make`.
-* **View-only PNG** (`name_view.png`): fonts and the bitmap; their bytes are not tile data (JIS glyphs are 12-bit rows packed 3 bytes per 2 rows), so the
-  PNG is a picture (JIS: one JIS row per line, 94 glyphs; 8x16 / 6x12: glyph grid; bitmap: 256x256, row = high byte, column = low byte).
-  The `.bin` / `.1bpp` is the source; `check` decodes each sheet back to the bytes to prove the picture is faithful.
+  (`python3 tools/gfx_export.py check` runs that for every PNG).  Edit the PNG, then `make` (it runs rgbgfx itself).
+* **Font sheets** (`name.png` next to `name.bin` / `name.1bpp`; png column `sheet`): editable glyph sheets, see "Editing images" below; the packing is not tile data
+  (JIS glyphs are 12-bit rows packed 3 bytes per 2 rows), so they are built by `tools/font_png.py`.  The only view-only PNG left is the Shift-JIS validity bitmap
+  (`name_view.png`: 256x256, row = high byte, column = low byte); `check` decodes it back to the bytes.
 * **Status** is the status word of the region header in the `.asm` (`CONFIRMED` / `PROBABLE` / `HYPOTHESIS`, see STYLE.md).  A `tiles-2bpp: heuristic` block is a
   *guess* by pixel coherence: it may contain tilemap or other bytes; the file is still exactly the ROM bytes of that region.
 * **Regenerate everything** from the sources: `python3 tools/gfx_export.py png` (binary -> PNG), `bin` (exact PNG -> binary through rgbgfx), `check`, `readme`.
-  The ROM build needs none of it: rgbgfx is only for editing PNGs.  `INCBIN` / `INCLUDE` paths are relative to the repository root (`rgbasm -I .`).
+  `make` rebuilds a binary from its PNG by itself (gfx/png.mk); without rgbgfx the committed binaries are used.  `INCBIN` / `INCLUDE` paths are relative to the repository root (`rgbasm -I .`).
 """
+
+
+EDIT_SECTION = r'''
+## Editing images
+
+PNG is the editable source of the graphics: `make` rebuilds the binary that the `.asm` INCBINs from its PNG (short form: `docs/EDITING_IMAGES.md`).
+(Font sheets and screen PNGs, described here, supersede the "view-only PNG" wording above: the font rows marked `view` in the tables are now editable
+`name.png` sheets; only `sjis_valid_bitmap_view.png` is still a picture.)
+
+### Workflow
+
+```
+edit the PNG (indexed mode, same size, same palette)   ->   make   ->   mobile_trainer.gbc has the new image
+make png-check        every editable PNG checked, errors explained in plain words
+make png-bins         rebuild only the graphics binaries (no ROM)
+make png-export       (maintainers) PNGs regenerated from the binaries; never over a PNG with edits not built yet (FORCE=1 overrides)
+```
+
+* `make` runs `rgbgfx` (tile sheets) and `tools/font_png.py` (font sheets) for every PNG newer than its binary, checks that the result has exactly
+  the size of the binary (the ROM layout is pinned by `layout.link`), then assembles and links.  The rules are generated from `gfx/png_rules.tsv`
+  into `gfx/png.mk` (one line per binary: PNG, kind, rgbgfx padding, glyph counts, size, hash in the original state; `python3 tools/png_rules.py rules`).
+  A fresh git checkout has arbitrary file times, so the rules may rebuild every binary; they are deterministic and reproduce the committed bytes
+  (an unedited checkout still prints `SHA-256 OK`).  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.
+* With edited graphics the ROM is meant to differ from the original: `make` then prints `EDITED GRAPHICS` and the list of changed files instead of
+  `SHA-256 MISMATCH` (a difference that no edited graphics file explains is still a mismatch).  `python3 tools/compare_rom.py "Mobile Trainer (Japan).gbc" mobile_trainer.gbc`
+  shows the changed bytes (an edit to one tile changes only that tile's 16 bytes, at that tile's offset in its `.2bpp`).
+* **Constraints**: do not resize or crop an image; do not add or remove tiles or glyphs (every binary keeps its size); save as indexed PNG and keep the
+  palette / its order (the tile sheets use the palette position as the colour number); draw with hard pixels (no anti-aliasing).
+
+### Which assets are editable PNGs
+
+| kind | PNG source | files | notes |
+|---|---|---:|---|
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 409 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
+| 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
+| 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
+| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 83 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
+| palettes | `name.pal` (text, `RGB r, g, b`) | 133 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+
+Not PNG-editable (binary only): the 169 `.tilemap` and 169 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
+in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code: 38 are
+loaded through a pointer / table or as sub-rectangles (no immediate address at the call), 37 have a loader call whose routine loads too few of their tiles
+(tiles arrive by another routine), 11 belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
+still editable through the tile sheets.
+
+### Font sheets (`tools/font_png.py`)
+
+Indexed PNG, 4 colours: white = paper, black = ink (draw only pure black / white inside glyph cells), light grey = the 1 px grid between cells, pink = a pixel
+whose byte is not stored in this file (only around the two glyphs cut by the gap of bank 7C; ignored).  Sheet cell = glyph + 1 px grid line; sheet row r of a
+JIS sheet is glyph-slot row r of the bank (JIS rows: 7E 1-8 and 13, 7D 16-24, 7C 25-33, 7B 34-42, 7A 43-51, 79 52-60, 78 61-69, 77 70-78, 76 79-84), column c is
+JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: one byte per row, MSB left) is in the docstring of `tools/font_png.py` and in
+`docs/research/text_encoding.md`; `check` proves for every sheet that the pixels decode to exactly the binary bytes.
+
+### Screen PNGs (`tools/screen_png.py`, `gfx/screens.tsv`)
+
+A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
+to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
+more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (18 screens); HYPOTHESIS = part of the cells
+resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
+VRAM bank 1) (65 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
+real screens.  `export` writes the PNGs, `import` reads them back:
+
+```
+python3 tools/screen_png.py export [NAME]                       # from the current tile sheets and palettes (only needed when stale)
+python3 tools/screen_png.py import [--dry-run] [--palette] [NAME]   # screen PNG -> edits of the TILE SHEET PNGs (+ .pal files with --palette)
+python3 tools/screen_png.py check                                # render -> import must be the identity (make png-check runs it)
+```
+
+Pixel value = `4 * palette + shade` (palette = the cell's attribute bits 0-2, shade 0-3), PLTE = the eight palettes of the screen in their real colours (greys
+tinted per palette where the palette load is not known: 25 screens), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
+tilemap and attribute map**: each cell is written back into the tile it shows (flips undone), and the result lands in the tile sheet PNG (the source), then
+`make`.  Errors in plain words: a cell may use only the colours of its own palette; a tile shown by several cells must look the same in all of them (editing
+one of them alone is refused, because the tilemap cannot give it another tile); other screens showing an edited tile change too (import lists them).  Re-laying out
+a screen needs the tilemap / attribute bytes, which stay binary.  The unedited screen PNG imports to "no change" for every screen, and the tile bytes
+reached through every cell are exactly the `.2bpp` bytes (proved by `make png-check`).
+
+### Tools
+
+`tools/png_rules.py` (rules manifest / png.mk / export / edited-asset detection), `tools/png_check.py` (guard rails), `tools/font_png.py`, `tools/screen_png.py`,
+`tools/pnglib.py` (PNG reader for 1-16 bit indexed / gray / RGB files, writer), `tools/gfx_export.py` (asset extraction and manifest, unchanged role),
+`tools/test_png.py` (tests, run by `make test`).
+'''
 
 
 def leftovers():
@@ -993,7 +1126,8 @@ def do_readme():
     out.append('| **all** | **%d** | **%d** |' % (sum(k[0] for k in kinds.values()), sum(k[1] for k in kinds.values())))
     ex = sum(1 for r in rows.values() if r['png'] == 'exact')
     vw = sum(1 for r in rows.values() if r['png'] == 'view')
-    out += ['', 'PNGs: %d exact round-trip sources (`.png`), %d view-only sheets (`_view.png`).' % (ex, vw), '',
+    sh = sum(1 for r in rows.values() if r['png'] == 'sheet')
+    out += ['', 'PNGs: %d exact rgbgfx sources (`.png`), %d font binaries with an editable sheet PNG (`.png`), %d view-only picture (`_view.png`).' % (ex, sh, vw), '',
             '## Still `db`', '',
             'Blocks of the graphics regions that are not converted (the note / label does not say they are palettes, maps or tile data, or they are too small to be tiles):', '',
             '| what | blocks | bytes |', '|---|---:|---:|']
@@ -1002,7 +1136,7 @@ def do_readme():
     out += ['',
             '## Assets by directory', '',
             'Columns: `bank:addr` is the original ROM position of the first byte; `status` is the evidence status of the region header in the '
-            '`.asm`; `png` is `exact` (rgbgfx source), `view` (reading only) or `-`.  `dims` = width x height in tiles where a note states it.', '']
+            '`.asm`; `png` is `exact` (rgbgfx source), `sheet` (font glyph sheet, editable), `view` (reading only) or `-`.  `dims` = width x height in tiles where a note states it.', '']
     for d in sorted(by_dir):
         rs = sorted(by_dir[d], key=lambda r: (r['asm'], int(r['addr'], 16), r['path']))
         out += ['### `%s/`' % d, '', '| asset | kind | bytes | bank:addr | status | png | dims | source |', '|---|---|---:|---|---|---|---|---|']
@@ -1011,7 +1145,7 @@ def do_readme():
                 os.path.basename(r['path']), TYPE_NAME[r['type']], int(r['size']), r['bank'], r['addr'], r['status'], r['png'],
                 r['dims'] or '-', r['asm']))
         out.append('')
-    open(os.path.join(ROOT, README), 'w', encoding='utf-8').write('\n'.join(out))
+    open(os.path.join(ROOT, README), 'w', encoding='utf-8').write('\n'.join(out) + '\n' + EDIT_SECTION)
     return 0
 
 
@@ -1044,10 +1178,12 @@ def main(argv):
         do_export(True)
         return 0
     if a.cmd == 'png':
-        rows = do_png()
-        check_rgbgfx_roundtrip(rows, fix=True)
+        rows = do_png()                                   # manifest: png column of the fonts = sheet; validity-bitmap view written
         write_manifest(rows)
-        return 0
+        import png_rules                                  # tile sheets + font sheets, never over unbuilt edits
+        png_rules.set_root(ROOT)
+        png_rules.cmd_rules(argparse.Namespace(rebaseline=False))
+        return png_rules.cmd_export(argparse.Namespace(force=False))
     if a.cmd == 'bin':
         return do_bin(read_manifest())
     if a.cmd == 'check':

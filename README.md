@@ -42,6 +42,9 @@ is its own object (`rgbasm -P includes.asm`, dependency files `-M -MP`), so an e
 | `make` | build `mobile_trainer.gbc`, SHA-256 check against `roms.sha256`, byte compare when the original ROM is present |
 | `make compare` | byte-for-byte comparison with the original ROM (`tools/compare_rom.py`, reports the first differing regions) |
 | `make sym-check` | every label of the source is in `build/mobile_trainer.sym`, at the bank:address its `; BB:AAAA` comment gives (`tools/sym_check.py --fix` refreshes stale comments) |
+make png-check       # verify every editable PNG (graphics) and explain problems in plain words
+make png-bins        # rebuild only the graphics binaries from their PNGs
+make png-export      # regenerate PNGs from the binaries (maintainers)
 | `make test` | tests of the analysis tools (SM83 decoder, config loader, legacy generator self test; needs the original ROM as `baserom.gbc`) |
 | `make clean` / `make tidy` | delete `mobile_trainer.gbc` and `build/` (the original ROM is never touched) |
 | `make regen` (and `verify`, `tree*`) | refuse to run: the generator must not be run over the maintained source, see "History" |
@@ -126,3 +129,7 @@ needed to build and must not be run over the source** (`make regen` refuses).  `
 
 `docs/ROM_INFO.md` identifies the original: 2 MiB, MBC5+RAM+BATTERY, CGB only, 128 banks (85 hold data, 43 are entirely `$00`), Japan, header and global checksums valid.
 It is a commercial ROM and is **not** in the repository; see [INSTALL.md](INSTALL.md) for how it is used.
+
+## Editing images
+
+Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, font sheets `data/fonts/*.png`, or a whole screen through its `*.screen.png` and `tools/screen_png.py import`) and run `make`; it prints `EDITED GRAPHICS` with the list of changed files instead of failing the SHA-256 gate. See `docs/EDITING_IMAGES.md`. Without `rgbgfx` or Python, `make` uses the committed binaries.
