@@ -184,8 +184,10 @@ Palette_7F_4D50:: ; 7F:4D50
 
 ; ---- text $4D88-$4D95 (13 bytes) [PROBABLE] ASCII string "Sample DATA." + NUL, address loaded by ld hl,$4D88 at 7F:4D58
 
+PUSHC sjis
 String_7F_4D88:: ; 7F:4D88
-	db $53, $61, $6D, $70, $6C, $65, $20, $44, $41, $54, $41, $2E, $00 ; "Sample DATA."
+	db "Sample DATA.", 0
+POPC
 
 Function_7F_4D95:: ; 7F:4D95
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
@@ -252,8 +254,10 @@ Function_7F_4D95:: ; 7F:4D95
 
 ; ---- text $4DF2-$4E0D (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_7F_4DF2:: ; 7F:4DF2
-	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
+	db "サンプルデータですからね～", 0
+POPC
 
 Function_7F_4E0D:: ; 7F:4E0D
 	; [PROBABLE] 56 insn(s) reached by static flow only; seeds: site x56; min discovery hops 0;
@@ -320,8 +324,10 @@ Function_7F_4E0D:: ; 7F:4E0D
 
 ; ---- text $4E6A-$4E85 (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_7F_4E6A:: ; 7F:4E6A
-	db $83, $54, $83, $93, $83, $76, $83, $8B, $83, $66, $81, $5B, $83, $5E, $82, $C5, $82, $B7, $82, $A9, $82, $E7, $82, $CB, $81, $60, $00 ; "サンプルデータですからね～"
+	db "サンプルデータですからね～", 0
+POPC
 
 Function_7F_4E85:: ; 7F:4E85
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 1;
@@ -343,16 +349,20 @@ Table_7F_4E89::
 
 ; ---- text $4E95-$4ED0 (59 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_7F_4E95:: ; 7F:4E95
-	db $94, $43, $93, $56, $93, $B0, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "任天堂ホームページ"
-	db $83, $7C, $83, $50, $83, $62, $83, $67, $83, $82, $83, $93, $83, $58, $83, $5E, $81, $5B, $81, $63, $81, $49, $81, $48, $00 ; "ポケットモンスター…！？"
-	db $47, $41, $4D, $45, $46, $52, $45, $41, $4B, $20, $48, $4F, $4D, $45, $00 ; "GAMEFREAK HOME"
+	db "任天堂ホームページ", 0
+	db "ポケットモンスター…！？", 0
+	db "GAMEFREAK HOME", 0
+POPC
 
 ; ---- text $4ED0-$4EF0 (32 bytes) [PROBABLE] ASCII "MissingLink_HOME" + $07 (control byte) + "sample" + NUL, followed by "sample" and "sample2" strings that are the last targets (4EE1, 4EE8) of the table 7F:4E89
 
+PUSHC sjis
 String_7F_4ED0:: ; 7F:4ED0
-	db $4D, $69, $73, $73, $69, $6E, $67, $4C, $69, $6E, $6B, $5F, $48, $4F, $4D, $45, $07, $73, $61, $6D, $70, $6C, $65, $00 ; "MissingLink_HOME<$07>sample"
-	db $73, $61, $6D, $70, $6C, $65, $32, $00 ; "sample2"
+	db "MissingLink_HOME", $07, "sample", 0
+	db "sample2", 0
+POPC
 
 ; ---- ptrtable $4EF0-$4EFC (12 bytes) [PROBABLE] little-endian word table, 6 entries, monotone=1.00, 83% of targets on string start/after NUL, targets $4EFC..$4F79; regular record stride between targets; verifier: truncated from 8 to 6 entries: entry 0 = 4EFC is where the table ends
 
@@ -360,27 +370,35 @@ Sample_PageUrlPtrs:: ; 7F:4EF0
 Table_7F_4EF0::
 	dw String_7F_4EFC
 	dw String_7F_4F15
-	dw $4F2F
-	dw $4F49
-	dw $4F67
-	dw $4F79
+	dw String_7F_4F2F
+	dw String_7F_4F49
+	dw String_7F_4F67
+	dw String_7F_4F79
 
 ; ---- text $4EFC-$4F15 (25 bytes) [PROBABLE] ASCII URL "http://www.nintendo.com/" + NUL = first target (4EFC) of the pointer table 7F:4EF0
 
+PUSHC sjis
 String_7F_4EFC:: ; 7F:4EFC
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6E, $69, $6E, $74, $65, $6E, $64, $6F, $2E, $63, $6F, $6D, $2F, $00 ; "http://www.nintendo.com/"
+	db "http://www.nintendo.com/", 0
+POPC
 
 ; ---- text $4F15-$4FC3 (174 bytes) [PROBABLE] text: 8 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_7F_4F15:: ; 7F:4F15
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $70, $6F, $6B, $65, $6D, $6F, $6E, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "http://www.pokemon.co.jp/"
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $61, $6D, $65, $66, $72, $65, $65, $6B, $2E, $6E, $65, $74, $2F, $00 ; "http://www.gamefreek.net/"
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $6D, $69, $73, $73, $69, $6E, $67, $6C, $69, $6E, $6B, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "http://www.missinglink.co.jp/"
-	db $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C, $65, $2E, $74, $6F, $2F, $00 ; "http://sample.to/"
-	db $68, $74, $74, $70, $3A, $2F, $2F, $73, $61, $6D, $70, $6C, $65, $32, $2E, $74, $6F, $2F, $00 ; "http://sample2.to/"
-	db $83, $65, $83, $58, $83, $67, $83, $79, $81, $5B, $83, $57, $00 ; "テストページ"
-	db $68, $74, $70, $70, $3A, $2F, $2F, $77, $6F, $72, $6B, $2E, $64, $61, $6D, $6D, $79, $2E, $63, $6F, $2E, $6A, $70, $2F, $00 ; "htpp://work.dammy.co.jp/"
-	db $8D, $7C, $83, $7C, $83, $50, $83, $82, $83, $93, $82, $C9, $90, $69, $89, $BB, $00 ; "鋼ポケモンに進化"
+	db "http://www.pokemon.co.jp/", 0
+String_7F_4F2F:: ; 7F:4F2F
+	db "http://www.gamefreek.net/", 0
+String_7F_4F49:: ; 7F:4F49
+	db "http://www.missinglink.co.jp/", 0
+String_7F_4F67:: ; 7F:4F67
+	db "http://sample.to/", 0
+String_7F_4F79:: ; 7F:4F79
+	db "http://sample2.to/", 0
+	db "テストページ", 0
+	db "htpp://work.dammy.co.jp/", 0
+	db "鋼ポケモンに進化", 0
+POPC
 
 ; ---- words $4FC3-$4FCF (12 bytes) [PROBABLE] 6 words = SRAM addresses A084,A184,A284,A384,A484,A584 (not text although the bytes 84 A0.. are valid Shift-JIS): read by 7 code sites as ld hl,$4FC3 ; ld a,[hli] ; ld e,a ; ld a,[hli] ; ld d,a ; ld a,[de] (7F:5386 ...) and by ld hl,$4FC5/$4FC7/... (entries)
 

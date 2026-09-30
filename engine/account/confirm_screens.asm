@@ -643,27 +643,35 @@ Table_68_67AE::
 
 ; ---- text $67B6-$67BC (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67AE)
 
+PUSHC sjis
 Dial_DefaultNumber0:: ; 68:67B6
 String_68_67B6::
-	db $23, $39, $34, $37, $37, $00 ; "#9477"
+	db "#9477", 0
+POPC
 
 ; ---- text $67BC-$67C2 (6 bytes) [PROBABLE] ASCII "#9477" NUL (dial string pointed to by the word at 67B0)
 
+PUSHC sjis
 Dial_DefaultNumber1:: ; 68:67BC
 String_68_67BC::
-	db $23, $39, $34, $37, $37, $00 ; "#9477"
+	db "#9477", 0
+POPC
 
 ; ---- text $67C2-$67CD (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B2)
 
+PUSHC sjis
 Dial_DefaultNumber2:: ; 68:67C2
 String_68_67C2::
-	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
+	db "0077487752", 0
+POPC
 
 ; ---- text $67CD-$67D8 (11 bytes) [PROBABLE] ASCII "0077487752" NUL (dial string pointed to by the word at 67B4)
 
+PUSHC sjis
 Dial_DefaultNumber3:: ; 68:67CD
 String_68_67CD::
-	db $30, $30, $37, $37, $34, $38, $37, $37, $35, $32, $00 ; "0077487752"
+	db "0077487752", 0
+POPC
 
 ; ---- words $67D8-$67E0 (8 bytes) [PROBABLE] 4 words $67E0,$68A0,$6960,$6A20 = the starts of the four 192-byte "MA" records (each word points exactly at a block that starts with "MA 01 00")
 

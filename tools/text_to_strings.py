@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turn the numeric `db $83, $81, ...` text blocks of data/ into readable strings:  db "メール", 0
+"""Turn the numeric `db $83, $81, ...` text blocks of data/ and of the code files into readable strings:  db "メール", 0
 
     python3 tools/text_to_strings.py             # convert, then assemble the whole ROM and check the SHA-256 (restores on failure)
     python3 tools/text_to_strings.py --dry-run   # report what would change, write nothing
@@ -20,6 +20,15 @@ Rules (see also STYLE.md, "Text"):
     comments (`; "メール"`) are dropped, the string is the text now.
   * `dw` lines, labels, comments and region headers are kept.  Each converted file gets `PUSHC sjis` (or `sjis_hw` for bank 6C)
     after its SECTION line and `POPC` at the end, so the charmap never reaches code.
+  * Text blocks INSIDE code files (engine/, lib/, home/, audio/; ~180 blocks between code): only `; ---- text ...` regions are
+    converted, and only when the numeric `db` lines that follow the header add up to exactly the header's byte count (a block
+    that does not is reported and left alone).  These files mix code and data, so the charmap is pushed per block, not per file:
+    `PUSHC sjis` directly before the first label/`db` line of the block and `POPC` directly after its last `db` line; no
+    instruction, and no line of code, is ever between them.  Every code file is audited afterwards (--audit): PUSHC/POPC balanced,
+    and no `"` in any code line outside a PUSHC..POPC pair, INCBIN/INCLUDE/SECTION/LOAD or a comment.  In code files a CR LF
+    that is followed by more text also ends a line (as for data/text), which matters for the protocol strings of the SDK.
+    A run of several db rows without any NUL (a table of characters such as Table_Text_HalfToFullWidth, not a string) keeps the
+    source's rows (one `db "..."` per original row) instead of becoming one very long line.
   * Idempotent: a second run finds nothing left to convert.
 """
 import argparse
@@ -39,6 +48,8 @@ SECTION_RE = re.compile(r'^SECTION "([^"]+)", (\w+)')
 HTML_NAME = re.compile(r'^[a-z0-9_]+\.htm$')
 KEEP_NOTE = ('; kept as raw bytes: text-like bytes mixed with header/control bytes, executed-read data of unknown content class, '
              'so not provably a string')
+KEEP_NOTE_CODE = ('; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, '
+                  'or unclassified), so not provably a string')
 HW_NOTE_OLD = '; text comments (halfwidth): display only, A1-DF shown as half-width katakana, glyphs unproven (text_encoding.md section 6)'
 HW_NOTE_NEW = ('; written with the sjis_hw charmap: single bytes A1-DF appear as half-width katakana (JIS X 0201 order), '
                'other single bytes as $xx; glyphs unproven (text_encoding.md section 6)')
@@ -248,6 +259,157 @@ class Conv:
         return True
 
 
+LABEL_RE = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*::?(?: ;.*)?$')
+DS_ZERO = re.compile(r'^\tds (\$[0-9A-F]+|\d+), \$00(?: ;.*)?$')   # NUL padding inside a text block ("211.005.001.117", 0 + 4 x 0)
+
+
+class CodeConv(Conv):
+    """Text blocks inside a code file: per-block PUSHC/POPC, only for blocks whose numeric db lines add up to the header size."""
+
+    def convert(self):
+        lines = self.lines
+        bank = None
+        for l in lines:
+            m = G.BANK_RE.match(l)
+            if m:
+                bank = int(m.group(1), 16)
+                break
+        before = {}   # line index -> lines inserted before it
+        after = {}    # line index -> lines inserted after it
+        replace = {}  # line index -> replacement lines
+        for hi, line in enumerate(lines):
+            m = G.REGION_RE.match(line)
+            if not m or m.group(1) not in ('text', 'data'):
+                continue
+            reg = G.Region(self.path, bank, m.group(1), int(m.group(2), 16), int(m.group(3), 16), line, m.group(5))
+            # the block: labels, blank lines, comments at column 0 and numeric db lines, up to the header's byte count
+            idxs, data = [], bytearray()
+            have = 0       # bytes of the block seen: numeric db lines + `ds n, $00` padding lines (which stay as they are)
+            j = hi + 1
+            while j < len(lines) and have < reg.size:
+                l = lines[j]
+                d = DB_NUM.match(l)
+                z = DS_ZERO.match(l)
+                if G.REGION_RE.match(l):
+                    break
+                if d:
+                    idxs.append(j)
+                    b = bytes(int(x[1:], 16) for x in d.group(1).split(', '))
+                    data += b
+                    have += len(b)
+                elif z:
+                    have += int(z.group(1).replace('$', '0x'), 0)
+                elif not (l == '' or l.startswith(';') or LABEL_RE.match(l)):
+                    break
+                j += 1
+            if reg.kind == 'data':
+                # a data region that only looks like text stays raw (its header does not say text); say so, as for data/text
+                toks = G.tokenize(bytes(data), reg.hw, False)
+                nchar = sum(t[2] for t in toks if t[0] == 'c')
+                if idxs and have == reg.size and G.strict_text(toks) and nchar >= 2 and nchar * 10 >= len(data) * 6 \
+                        and lines[hi + 1] != KEEP_NOTE_CODE:
+                    after.setdefault(hi, []).append(KEEP_NOTE_CODE)
+                    self.kept.append((reg.where, 'data region left as db (not provably text)'))
+                continue
+            if not idxs:
+                continue      # already converted (a second run) or a block without numeric lines
+            if have != reg.size:
+                self.kept.append((reg.where, 'text block left as db: %d bytes after the header, header says %d' % (have, reg.size)))
+                continue
+            # runs of consecutive numeric db lines whose comment is empty or the auto decode
+            runs, run = [], []
+            for i in idxs:
+                d = DB_NUM.match(lines[i])
+                auto = d.group(2) is None or AUTO_COMMENT.match(d.group(2))
+                if auto and run and run[-1] == i - 1:
+                    run.append(i)
+                elif auto:
+                    if run:
+                        runs.append(run)
+                    run = [i]
+                else:
+                    if run:
+                        runs.append(run)
+                    run = []
+                    self.log.append('kept %s line %d: %s' % (reg.where, i + 1, lines[i].strip()))
+            if run:
+                runs.append(run)
+            if not runs:
+                continue
+            self.n_regions += 1
+            for run in runs:
+                blob = bytearray()
+                for i in run:
+                    blob += bytes(int(x[1:], 16) for x in DB_NUM.match(lines[i]).group(1).split(', '))
+                blob = bytes(blob)
+                toks = G.tokenize(blob, reg.hw, False)
+                parts = split_strings(toks, True)
+                if len(run) > 1 and ('b', 0, 1) not in toks:
+                    # several rows and no NUL: a table of characters, not a string; keep the source's rows when each row is whole characters
+                    rows = [G.tokenize(bytes(int(x[1:], 16) for x in DB_NUM.match(lines[i]).group(1).split(', ')), reg.hw, False)
+                            for i in run]
+                    if [t for r in rows for t in r] == toks:
+                        parts = rows
+                new = []
+                for ln in parts:
+                    ends = ln[-1] == ('b', 0, 1)
+                    new.append(render_line(ln, ends))
+                    self.n_strings += 1 if ends else 0
+                    self.chars.add((reg.hw, text_of(ln)))
+                assert b''.join(to_bytes(l) for l in parts) == blob, (reg.where, 'tokenizer round trip')
+                replace[run[0]] = new
+                for i in run[1:]:
+                    replace[i] = []
+                self.n_lines += len(new)
+            # the charmap only around this block: before its first label/db line, after its last converted line
+            first = next(k for k in range(hi + 1, runs[-1][-1] + 1) if lines[k] and not lines[k].startswith(';'))
+            before.setdefault(first, []).append('PUSHC %s' % ('sjis_hw' if reg.hw else 'sjis'))
+            after.setdefault(runs[-1][-1], []).append('POPC')
+        if not replace and not after:
+            return False
+        out = []
+        for i, line in enumerate(lines):
+            out += before.get(i, [])
+            out += replace[i] if i in replace else [line]
+            out += after.get(i, [])
+        self.new_text = '\n'.join(out)
+        return True
+
+
+def audit_code(root, files):
+    """(problems, counts): PUSHC/POPC balanced and never around an instruction; no quote in code outside a pair."""
+    problems = []
+    n_pairs = n_quote_lines = 0
+    ok_prefix = ('SECTION ', 'INCBIN ', 'INCLUDE ', 'LOAD ', 'PUSHC', 'POPC', 'ASSERT ', 'DEF ', 'NEWCHARMAP', 'CHARMAP')
+    for path in files:
+        rel = os.path.relpath(path, root).replace(os.sep, '/')
+        depth = 0
+        for n, line in enumerate(open(path, encoding='utf-8').read().split('\n'), 1):
+            st = line.strip()
+            if st.startswith('PUSHC'):
+                depth += 1
+                n_pairs += 1
+                if depth > 1:
+                    problems.append('%s:%d nested PUSHC' % (rel, n))
+                continue
+            if st == 'POPC':
+                depth -= 1
+                if depth < 0:
+                    problems.append('%s:%d POPC without PUSHC' % (rel, n))
+                    depth = 0
+                continue
+            code = line.split(';', 1)[0]
+            if depth and st and not st.startswith(';') and not (LABEL_RE.match(st) and not line.startswith('\t')) \
+                    and not re.match(r'^\t(db|dw|ds) ', line):
+                problems.append('%s:%d instruction or directive inside PUSHC..POPC: %s' % (rel, n, st[:60]))
+            if '"' in code and not depth and not st.startswith(ok_prefix):
+                n_quote_lines += 1
+                problems.append('%s:%d quote in code outside PUSHC..POPC: %s' % (rel, n, st[:60]))
+        if depth != 0:
+            problems.append('%s: unbalanced PUSHC/POPC at end of file' % rel)
+    return problems, n_pairs
+
+
 def charmap_entries(path):
     """({charmap name: set of characters}) parsed from constants/sjis_charmap.asm (own copy of RGBDS' inheritance)."""
     cur = None
@@ -288,6 +450,7 @@ def main():
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--no-verify', action='store_true', help='do not run make afterwards')
     ap.add_argument('-v', '--verbose', action='store_true')
+    ap.add_argument('--audit', action='store_true', help='only audit the code files (PUSHC/POPC pairs, quotes in code) and exit')
     ap.add_argument('--jobs', type=int, default=8)
     args = ap.parse_args()
 
@@ -296,10 +459,17 @@ def main():
         sys.exit('constants/sjis_charmap.asm is missing: run tools/gen_sjis_charmap.py first')
     maps = charmap_entries(cmpath)
 
+    code_files = [p for p in G.source_files() if G.is_code_file(p)]
+    if args.audit:
+        problems, n_pairs = audit_code(ROOT, code_files)
+        print('\n'.join(problems[:50]))
+        print('audit: %d code files, %d PUSHC..POPC pairs, %d problems' % (len(code_files), n_pairs, len(problems)))
+        return 1 if problems else 0
+
     changed = {}
     total = dict(files=0, regions=0, strings=0, lines=0)
     for path in G.source_files():
-        c = Conv(path)
+        c = (CodeConv if G.is_code_file(path) else Conv)(path)
         if not c.convert():
             continue
         # every character must have a charmap entry
@@ -317,12 +487,18 @@ def main():
         total['strings'] += c.n_strings
         total['lines'] += c.n_lines
         print('%-42s %3d regions -> %4d string lines (%d strings)' % (c.rel, c.n_regions, c.n_lines, c.n_strings))
+        for where, why in c.kept:
+            if isinstance(c, CodeConv):
+                print('    %s %s: %s' % ('NOT converted' if why.startswith('text') else 'kept raw', where, why))
         if args.verbose:
             for l in c.log + ['left as db: %s %s' % k for k in c.kept]:
                 print('    ' + l)
     if not changed:
         print('nothing to convert (already done)')
-        return 0
+        problems, n_pairs = audit_code(ROOT, code_files)
+        print('\n'.join(problems[:50]))
+        print('audit: %d code files, %d PUSHC..POPC pairs, %d problems' % (len(code_files), n_pairs, len(problems)))
+        return 1 if problems else 0
     print('total: %(files)d files, %(regions)d regions, %(lines)d lines, %(strings)d NUL-terminated strings' % total)
     if args.dry_run:
         return 0
@@ -330,6 +506,14 @@ def main():
     incl_added = ensure_include(ROOT)
     for path, (old, c) in changed.items():
         open(path, 'w', encoding='utf-8').write(c.new_text)
+    problems, n_pairs = audit_code(ROOT, code_files)
+    print('audit: %d code files, %d PUSHC..POPC pairs, %d problems' % (len(code_files), n_pairs, len(problems)))
+    if problems:
+        print('\n'.join(problems[:50]))
+        for path, (old, c) in changed.items():
+            open(path, 'w', encoding='utf-8').write(old)
+        print('AUDIT FAILED: restored the original files')
+        return 1
     if args.no_verify:
         return 0
     print('verifying: make -j%d ...' % args.jobs)

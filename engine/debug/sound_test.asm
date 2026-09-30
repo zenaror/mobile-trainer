@@ -340,11 +340,11 @@ SoundTest_LoadHelpText:: ; 1B:42C4
 
 ; ---- text $4314-$4371 (93 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_SoundTest_Help:: ; 1B:4314
 String_1B_4314::
-	db $81, $40, $82, $60, $81, $46, $82, $6C, $82, $74, $82, $72, $82, $68, $82, $62, $81, $40, $82, $61, $81, $46, $82, $72, $82, $6E, $82, $74, $82, $6D, $82, $63, $82, $72 ; "　Ａ：ＭＵＳＩＣ　Ｂ：ＳＯＵＮＤＳ"
-	db $82, $94, $82, $81, $81, $46, $82, $72, $82, $73, $82, $6E, $82, $6F, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $81, $40, $81, $AA ; "ｔａ：ＳＴＯＰ　Ｓｅｌ：ＥＮＤ　↑"
-	db $81, $AB, $81, $69, $81, $A9, $81, $A8, $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "↓（←→）：Ｎｕｍｂｅｒ"
+	db "　Ａ：ＭＵＳＩＣ　Ｂ：ＳＯＵＮＤＳｔａ：ＳＴＯＰ　Ｓｅｌ：ＥＮＤ　↑↓（←→）：Ｎｕｍｂｅｒ", 0
+POPC
 
 SoundTest_DrawNumber:: ; 1B:4371
 	; [PROBABLE] 115 insn(s) reached by static flow only; seeds: site x115; min discovery hops 4;
@@ -468,9 +468,11 @@ SoundTest_DrawNumber:: ; 1B:4371
 
 ; ---- text $4430-$4450 (32 bytes) [PROBABLE] 16 fullwidth Shift-JIS characters "０１２３４５６７８９ＡＢＣＤＥＦ" (82 4F..82 58, 82 60..82 65), 2 bytes each, no NUL: hex-digit glyph table loaded by many `ld hl,$4430` (1B:43A2, 43B5, 43CD, 43E0 ...) in the preceding routine
 
+PUSHC sjis
 String_SoundTest_HexChars:: ; 1B:4430
 String_1B_4430::
-	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65 ; "０１２３４５６７８９ＡＢＣＤＥＦ"
+	db "０１２３４５６７８９ＡＢＣＤＥＦ"
+POPC
 
 SoundTest_UpdateHoldTimer:: ; 1B:4450
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2;

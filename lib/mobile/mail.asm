@@ -6,15 +6,19 @@ SECTION "lib/mobile/mail", ROMX
 
 ; ---- text $4000-$4004 (4 bytes) [PROBABLE] ASCII string "---" + NUL (mail-header/text helper strings of this bank; neighbour of the CONFIRMED-style string table entries)
 
+PUSHC sjis
 MailStr_Boundary:: ; 0F:4000
 String_0F_4000::
-	db $2D, $2D, $2D, $00 ; "---"
+	db "---", 0
+POPC
 
 ; ---- text $4004-$4010 (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_GameCodeAllowList:: ; 0F:4004
 String_0F_4004::
-	db $43, $47, $42, $2D, $41, $41, $41, $41, $2D, $30, $30, $00 ; "CGB-AAAA-00"
+	db "CGB-AAAA-00", 0
+POPC
 
 ; ---- zero $4010-$4011 (1 bytes) [PROBABLE] 1 x 00 pad byte between the string ending at 4010 (String_0F_4004 ends at its NUL 400F) and the table at 4011
 	ds $1, $00
@@ -43,72 +47,81 @@ Table_0F_4011::
 
 ; ---- text $4033-$403A (7 bytes) [PROBABLE] ASCII string "From: " + NUL, entry 0 of the pointer table 0F:4011
 
+PUSHC sjis
 MailStr_HdrFrom:: ; 0F:4033
 String_0F_4033::
-	db $46, $72, $6F, $6D, $3A, $20, $00 ; "From: "
+	db "From: ", 0
+POPC
 
 ; ---- text $403A-$404E (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_HdrSender:: ; 0F:403A
 String_0F_403A::
-	db $53, $65, $6E, $64, $65, $72, $3A, $20, $00 ; "Sender: "
+	db "Sender: ", 0
 
 MailStr_HdrReplyTo:: ; 0F:4043
-	db $52, $65, $70, $6C, $79, $2D, $54, $6F, $3A, $20, $00 ; "Reply-To: "
+	db "Reply-To: ", 0
+POPC
 
 ; ---- text $404E-$4058 (10 bytes) [PROBABLE] ASCII strings "To: " and "Cc: " (entries 3 and 4 of the pointer table 0F:4011 = 404E, 4053)
 
+PUSHC sjis
 MailStr_HdrTo:: ; 0F:404E
 String_0F_404E::
-	db $54, $6F, $3A, $20, $00 ; "To: "
+	db "To: ", 0
 
 MailStr_HdrCc:: ; 0F:4053
-	db $43, $63, $3A, $20, $00 ; "Cc: "
+	db "Cc: ", 0
+POPC
 
 ; ---- text $4058-$4164 (268 bytes) [PROBABLE] text: 9 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_HdrSubject:: ; 0F:4058
 String_0F_4058::
-	db $53, $75, $62, $6A, $65, $63, $74, $3A, $20, $00 ; "Subject: "
+	db "Subject: ", 0
 
 MailStr_HdrMimeVersion:: ; 0F:4062
-	db $4D, $49, $4D, $45, $2D, $56, $65, $72, $73, $69, $6F, $6E, $3A, $20, $31, $2E, $30, $00 ; "MIME-Version: 1.0"
+	db "MIME-Version: 1.0", 0
 
 MailStr_HdrXGameTitle:: ; 0F:4074
-	db $58, $2D, $47, $61, $6D, $65, $2D, $74, $69, $74, $6C, $65, $3A, $20, $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "X-Game-title: MOBILE TRAINER"
+	db "X-Game-title: MOBILE TRAINER", 0
 
 MailStr_HdrXGameCode:: ; 0F:4091
-	db $58, $2D, $47, $61, $6D, $65, $2D, $63, $6F, $64, $65, $3A, $20, $43, $47, $42, $2D, $00 ; "X-Game-code: CGB-"
+	db "X-Game-code: CGB-", 0
 
 MailStr_HdrXGBmailType:: ; 0F:40A3
-	db $58, $2D, $47, $42, $6D, $61, $69, $6C, $2D, $74, $79, $70, $65, $3A, $20, $65, $78, $63, $6C, $75, $73, $69, $76, $65, $00 ; "X-GBmail-type: exclusive"
+	db "X-GBmail-type: exclusive", 0
 
 MailStr_HdrContentTypeText:: ; 0F:40BC
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $74, $65, $78, $74, $2F, $70, $6C, $61, $69, $6E, $3B, $20, $63, $68, $61, $72, $73, $65, $74, $3D ; "Content-Type: text/plain; charset="
-	db $69, $73, $6F, $2D, $32, $30, $32, $32, $2D, $6A, $70, $00 ; "iso-2022-jp"
+	db "Content-Type: text/plain; charset=iso-2022-jp", 0
 
 MailStr_HdrContentTypeMultipart:: ; 0F:40EA
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $6D, $75, $6C, $74, $69, $70, $61, $72, $74, $2F, $6D, $69, $78, $65, $64, $3B, $20, $62, $6F, $75 ; "Content-Type: multipart/mixed; bou"
-	db $6E, $64, $61, $72, $79, $3D, $22, $00 ; "ndary=\""
+	db "Content-Type: multipart/mixed; boundary=\"", 0
 
 MailStr_HdrContentTypeOctet:: ; 0F:4114
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $79, $70, $65, $3A, $20, $41, $70, $70, $6C, $69, $63, $61, $74, $69, $6F, $6E, $2F, $4F, $63, $74, $65, $74, $2D, $53, $74 ; "Content-Type: Application/Octet-St"
-	db $72, $65, $61, $6D, $3B, $20, $6E, $61, $6D, $65, $3D, $22, $00 ; "ream; name=\""
+	db "Content-Type: Application/Octet-Stream; name=\"", 0
 
 MailStr_HdrTransferEncodingBase64:: ; 0F:4143
-	db $43, $6F, $6E, $74, $65, $6E, $74, $2D, $54, $72, $61, $6E, $73, $66, $65, $72, $2D, $45, $6E, $63, $6F, $64, $69, $6E, $67, $3A, $42, $61, $73, $65, $36, $34, $00 ; "Content-Transfer-Encoding:Base64"
+	db "Content-Transfer-Encoding:Base64", 0
+POPC
 
 ; ---- text $4164-$4167 (3 bytes) [PROBABLE] ASCII string "--" + NUL (entry 14/15 of the pointer table 0F:4011 = 4164)
 
+PUSHC sjis
 MailStr_DashDash:: ; 0F:4164
 String_0F_4164::
-	db $2D, $2D, $00 ; "--"
+	db "--", 0
+POPC
 
 ; ---- text $4167-$4169 (2 bytes) [PROBABLE] ASCII string "." + NUL (entry 16 of the pointer table 0F:4011 = 4167)
 
+PUSHC sjis
 MailStr_Dot:: ; 0F:4167
 String_0F_4167::
-	db $2E, $00 ; "."
+	db ".", 0
+POPC
 
 ; ---- words $4169-$4183 (26 bytes) [PROBABLE] 13-entry jump table: the dispatcher at 0F:4250-425F reads [D002]*2 + $4169 (ld hl,$4169 ; add hl,de ; ld a,[hli] ; ld h,[hl] ; ld l,a ; ... jp hl); all 13 targets (426C 426D 4340 43BB 44D5 4B59 4BC0 4CDD 4E66 52BC 54D8 56E1 5A10) are instruction starts of the PROBABLE code regions of this bank
 
@@ -137,81 +150,99 @@ Table_0F_4183::
 
 ; ---- text $419D-$41AB (14 bytes) [PROBABLE] ASCII strings "FROM:" and "SENDER:" + NULs (entries 0-1 of the pointer table 0F:4183)
 
+PUSHC sjis
 MailStr_KwFrom:: ; 0F:419D
 String_0F_419D::
-	db $46, $52, $4F, $4D, $3A, $00 ; "FROM:"
+	db "FROM:", 0
 
 MailStr_KwSender:: ; 0F:41A3
-	db $53, $45, $4E, $44, $45, $52, $3A, $00 ; "SENDER:"
+	db "SENDER:", 0
+POPC
 
 ; ---- text $41AB-$41B5 (10 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_KwReplyTo:: ; 0F:41AB
 String_0F_41AB::
-	db $52, $45, $50, $4C, $59, $2D, $54, $4F, $3A, $00 ; "REPLY-TO:"
+	db "REPLY-TO:", 0
+POPC
 
 ; ---- text $41B5-$41BD (8 bytes) [PROBABLE] ASCII strings "TO:" and "CC:" (entries of the pointer table 0F:4183)
 
+PUSHC sjis
 MailStr_KwTo:: ; 0F:41B5
 String_0F_41B5::
-	db $54, $4F, $3A, $00 ; "TO:"
+	db "TO:", 0
 
 MailStr_KwCc:: ; 0F:41B9
-	db $43, $43, $3A, $00 ; "CC:"
+	db "CC:", 0
+POPC
 
 ; ---- text $41BD-$41C6 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_KwSubject:: ; 0F:41BD
 String_0F_41BD::
-	db $53, $55, $42, $4A, $45, $43, $54, $3A, $00 ; "SUBJECT:"
+	db "SUBJECT:", 0
+POPC
 
 ; ---- text $41C6-$41CC (6 bytes) [PROBABLE] ASCII string "DATE:" + NUL (entry 6 of the pointer table 0F:4183)
 
+PUSHC sjis
 MailStr_KwDate:: ; 0F:41C6
 String_0F_41C6::
-	db $44, $41, $54, $45, $3A, $00 ; "DATE:"
+	db "DATE:", 0
+POPC
 
 ; ---- text $41CC-$421C (80 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_KwContentType:: ; 0F:41CC
 String_0F_41CC::
-	db $43, $4F, $4E, $54, $45, $4E, $54, $2D, $54, $59, $50, $45, $3A, $00 ; "CONTENT-TYPE:"
+	db "CONTENT-TYPE:", 0
 
 MailStr_KwMimeVersion:: ; 0F:41DA
-	db $4D, $49, $4D, $45, $2D, $56, $45, $52, $53, $49, $4F, $4E, $3A, $00 ; "MIME-VERSION:"
+	db "MIME-VERSION:", 0
 
 MailStr_KwXMailer:: ; 0F:41E8
-	db $58, $2D, $4D, $41, $49, $4C, $45, $52, $3A, $00 ; "X-MAILER:"
+	db "X-MAILER:", 0
 
 MailStr_KwXGameTitle:: ; 0F:41F2
-	db $58, $2D, $47, $41, $4D, $45, $2D, $54, $49, $54, $4C, $45, $3A, $00 ; "X-GAME-TITLE:"
+	db "X-GAME-TITLE:", 0
 
 MailStr_KwXGameCode:: ; 0F:4200
-	db $58, $2D, $47, $41, $4D, $45, $2D, $43, $4F, $44, $45, $3A, $00 ; "X-GAME-CODE:"
+	db "X-GAME-CODE:", 0
 
 MailStr_KwXGBmailType:: ; 0F:420D
-	db $58, $2D, $47, $42, $4D, $41, $49, $4C, $2D, $54, $59, $50, $45, $3A, $00 ; "X-GBMAIL-TYPE:"
+	db "X-GBMAIL-TYPE:", 0
+POPC
 
 ; ---- text $421C-$4222 (6 bytes) [PROBABLE] ASCII string "NAME=" + NUL (MIME parameter, referenced by ld hl in the parser)
 
+PUSHC sjis
 MailStr_KwName:: ; 0F:421C
 String_0F_421C::
-	db $4E, $41, $4D, $45, $3D, $00 ; "NAME="
+	db "NAME=", 0
+POPC
 
 ; ---- text $4222-$4236 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailStr_KwMultipart:: ; 0F:4222
 String_0F_4222::
-	db $4D, $55, $4C, $54, $49, $50, $41, $52, $54, $00 ; "MULTIPART"
+	db "MULTIPART", 0
 
 MailStr_KwBoundary:: ; 0F:422C
-	db $42, $4F, $55, $4E, $44, $41, $52, $59, $3D, $00 ; "BOUNDARY="
+	db "BOUNDARY=", 0
+POPC
 
 ; ---- text $4236-$4247 (17 bytes) [PROBABLE] ASCII string "=?ISO-2022-JP?B?" + NUL (MIME encoded-word prefix), copied by 0F:5104 (ld hl,$4236 ; ld a,[hli] ; and a ; jr z ; ld [de],a)
 
+PUSHC sjis
 MailStr_EncodedWordPrefix:: ; 0F:4236
 String_0F_4236::
-	db $3D, $3F, $49, $53, $4F, $2D, $32, $30, $32, $32, $2D, $4A, $50, $3F, $42, $3F, $00 ; "=?ISO-2022-JP?B?"
+	db "=?ISO-2022-JP?B?", 0
+POPC
 
 Mail_Dispatch:: ; 0F:4247
 	; [CONFIRMED] 795 insn(s) reached by static flow only; seeds: exec x16, mobile x779; min

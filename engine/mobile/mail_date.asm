@@ -339,10 +339,11 @@ Function_54_5240:: ; 54:5240
 
 ; ---- text $5343-$5368 (37 bytes) [PROBABLE] ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
 
+PUSHC sjis
 String_Mail_Months:: ; 54:5343
 String_54_5343::
-	db $6A, $61, $6E, $66, $65, $62, $6D, $61, $72, $61, $70, $72, $6D, $61, $79, $6A, $75, $6E, $6A, $75, $6C, $61, $75, $67, $73, $65, $70, $6F, $63, $74, $6E, $6F, $76, $64 ; "janfebmaraprmayjunjulaugsepoctnovd"
-	db $65, $63, $00 ; "ec"
+	db "janfebmaraprmayjunjulaugsepoctnovdec", 0
+POPC
 
 ; ---- data $5368-$5374 (12 bytes) [PROBABLE] 12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
 

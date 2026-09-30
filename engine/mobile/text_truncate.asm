@@ -98,6 +98,7 @@ Text_TruncateSjis:: ; 54:4C47
 	ret
 
 ; ---- data $4CAD-$4CB0 (3 bytes) [HYPOTHESIS] UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 String_Text_Ellipsis:: ; 54:4CAD
 Data_54_4CAD::

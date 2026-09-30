@@ -359,9 +359,11 @@ MailSrvDel_FormatNumber:: ; 23:56F0
 
 ; ---- text $581E-$5829 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$581E at 23:56F8; twin of 497B
 
+PUSHC sjis
 String_MailSrvDel_NumberTemplate:: ; 23:581E
 String_23_581E::
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+	db "０００００", 0
+POPC
 
 MailSrvDel_NumberTileOffset:: ; 23:5829
 	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15;
@@ -457,6 +459,8 @@ MailSrvDel_UploadNumberTiles:: ; 23:5889
 
 ; ---- text $58A9-$58C4 (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_MailSrvDel_ProgressText:: ; 23:58A9
 String_23_58A9::
-	db $82, $C2, $82, $A4, $82, $DF, $82, $F0, $83, $60, $83, $46, $83, $62, $83, $4E, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $00 ; "つうめをチェックしています"
+	db "つうめをチェックしています", 0
+POPC

@@ -374,6 +374,8 @@ Data_68_6E03::
 
 ; ---- text $6E0E-$6E1A (12 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 Config_DionDomainSuffix:: ; 68:6E0E
 String_68_6E0E::
-	db $2E, $64, $69, $6F, $6E, $2E, $6E, $65, $2E, $6A, $70, $00 ; ".dion.ne.jp"
+	db ".dion.ne.jp", 0
+POPC

@@ -739,9 +739,11 @@ MailSession_DrawNumber:: ; 26:5447
 
 ; ---- text $5575-$5580 (11 bytes) [PROBABLE] Shift-JIS full-width "00000" (5 x 82 4F) + NUL
 
+PUSHC sjis
 MailSession_NumberTemplate:: ; 26:5575
 String_26_5575::
-	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
+	db "０００００", 0
+POPC
 
 MailSession_TotalNumberBuffer:: ; 26:5580
 	; [CONFIRMED] 101 insn(s) reached by static flow only; seeds: exec x101; min discovery hops 6;
@@ -901,21 +903,27 @@ MailSession_UploadNumberTiles:: ; 26:5640
 
 ; ---- text $566E-$5677 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Txt_Total:: ; 26:566E
 String_26_566E::
-	db $82, $BA, $82, $F1, $82, $D4, $82, $C5, $00 ; "ぜんぶで"
+	db "ぜんぶで", 0
+POPC
 
 ; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between String_26_566E chunks (566E holds ぜんぶで / つう / つうめをチェックしています as consecutive NUL-terminated strings)
 
+PUSHC sjis
 MailSession_Txt_Counter:: ; 26:5677
 String_26_5677::
-	db $82, $C2, $82, $A4, $00 ; "つう"
+	db "つう", 0
+POPC
 
 ; ---- text $567C-$5697 (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Txt_Checking:: ; 26:567C
 String_26_567C::
-	db $82, $C2, $82, $A4, $82, $DF, $82, $F0, $83, $60, $83, $46, $83, $62, $83, $4E, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $00 ; "つうめをチェックしています"
+	db "つうめをチェックしています", 0
+POPC
 
 MailSession_ShowMsgSending:: ; 26:5697
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
@@ -934,10 +942,11 @@ MailSession_ShowMsgSending:: ; 26:5697
 
 ; ---- text $56B2-$56DB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_Sending:: ; 26:56B2
 String_26_56B2::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをそうしんしています"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールをそうしんしています　　　", 0
+POPC
 
 MailSession_ShowMsgReceiving:: ; 26:56DB
 Function_26_56DB::
@@ -957,10 +966,11 @@ Function_26_56DB::
 
 ; ---- text $56F6-$571F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_Receiving:: ; 26:56F6
 String_26_56F6::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $B5, $82, $C4, $82, $A2, $82, $DC, $82, $B7 ; "　　　　メールをじゅしんしています"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールをじゅしんしています　　　", 0
+POPC
 
 Function_26_571F:: ; 26:571F
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
@@ -983,10 +993,11 @@ Function_26_571F:: ; 26:571F
 
 ; ---- text $573A-$5763 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_Sent:: ; 26:573A
 String_26_573A::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $BB, $82, $A4, $82, $B5, $82, $F1, $82, $B5, $82, $DC, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールをそうしんしました　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールをそうしんしました　　　　", 0
+POPC
 
 Function_26_5763:: ; 26:5763
 	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
@@ -1008,10 +1019,11 @@ Function_26_5763:: ; 26:5763
 
 ; ---- text $577E-$57A7 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_ReceiveDone:: ; 26:577E
 String_26_577E::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $B6, $82, $E3, $82, $B5, $82, $F1, $82, $A9, $82, $F1, $82, $E8, $82, $E5, $82, $A4, $81, $40 ; "　　　　メールじゅしんかんりょう　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールじゅしんかんりょう　　　　", 0
+POPC
 
 MailSession_ShowMsgNoMail:: ; 26:57A7
 Function_26_57A7::
@@ -1031,10 +1043,11 @@ Function_26_57A7::
 
 ; ---- text $57C2-$57EB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_NoMail:: ; 26:57C2
 String_26_57C2::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A0, $82, $E8, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD, $81, $40 ; "　　　　メールはありませんでした　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールはありませんでした　　　　", 0
+POPC
 
 MailSession_ShowMsgCannotReceive:: ; 26:57EB
 	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
@@ -1053,10 +1066,11 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 
 ; ---- text $5806-$582F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_CannotReceive:: ; 26:5806
 String_26_5806::
-	db $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $CD, $82, $A4, $82, $AF, $82, $C6, $82, $EA, $82, $DC, $82, $B9, $82, $F1, $82, $C5, $82, $B5, $82, $BD ; "　　　メールはうけとれませんでした"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　メールはうけとれませんでした　　　", 0
+POPC
 
 MailSession_ShowMsgReceived:: ; 26:582F
 	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 11;
@@ -1075,10 +1089,11 @@ MailSession_ShowMsgReceived:: ; 26:582F
 
 ; ---- text $584A-$5873 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 MailSession_Msg_Received:: ; 26:584A
 String_26_584A::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $83, $81, $81, $5B, $83, $8B, $82, $F0, $82, $A4, $82, $AF, $82, $C6, $82, $E8, $82, $DC, $82, $B5, $82, $BD, $81, $40, $81, $40 ; "　　　　メールをうけとりました　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　メールをうけとりました　　　　　", 0
+POPC
 
 MailSession_ClearMsg:: ; 26:5873
 Function_26_5873::
@@ -1097,6 +1112,7 @@ Function_26_5873::
 	ret
 
 ; ---- data $588E-$58B7 (41 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
+; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
 MailSession_Msg_Blank:: ; 26:588E
 Data_26_588E::

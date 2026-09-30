@@ -226,18 +226,24 @@ Function_4C_4DFB::
 
 ; ---- text $4F11-$4F25 (20 bytes) [PROBABLE] ASCII "<html><head><title>" NUL, loaded by ld hl,$4F11 at 4C:4E63 (HTML page template pieces)
 
+PUSHC sjis
 String_Html_PageHead:: ; 4C:4F11
 String_4C_4F11::
-	db $3C, $68, $74, $6D, $6C, $3E, $3C, $68, $65, $61, $64, $3E, $3C, $74, $69, $74, $6C, $65, $3E, $00 ; "<html><head><title>"
+	db "<html><head><title>", 0
+POPC
 
 ; ---- text $4F25-$4F45 (32 bytes) [PROBABLE] ASCII "</title></head><body><img src=\"" NUL, loaded by ld hl,$4F25 at 4C:4E75
 
+PUSHC sjis
 String_Html_TitleToImg:: ; 4C:4F25
 String_4C_4F25::
-	db $3C, $2F, $74, $69, $74, $6C, $65, $3E, $3C, $2F, $68, $65, $61, $64, $3E, $3C, $62, $6F, $64, $79, $3E, $3C, $69, $6D, $67, $20, $73, $72, $63, $3D, $22, $00 ; "</title></head><body><img src=\""
+	db "</title></head><body><img src=\"", 0
+POPC
 
 ; ---- text $4F45-$4F56 (17 bytes) [PROBABLE] ASCII "\"></body></html>" NUL, loaded by ld hl,$4F45 at 4C:4E89
 
+PUSHC sjis
 String_Html_ImgTail:: ; 4C:4F45
 String_4C_4F45::
-	db $22, $3E, $3C, $2F, $62, $6F, $64, $79, $3E, $3C, $2F, $68, $74, $6D, $6C, $3E, $00 ; "\"></body></html>"
+	db "\"></body></html>", 0
+POPC

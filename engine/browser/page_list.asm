@@ -391,14 +391,18 @@ Function_24_42B0:: ; 24:42B0
 
 ; ---- text $42D1-$42E7 (22 bytes) [PROBABLE] ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
 
+PUSHC sjis
 Url_GooNeJp:: ; 24:42D1
 String_24_42D1::
-	db $68, $74, $74, $70, $3A, $2F, $2F, $77, $77, $77, $2E, $67, $6F, $6F, $2E, $6E, $65, $2E, $6A, $70, $2F, $00 ; "http://www.goo.ne.jp/"
+	db "http://www.goo.ne.jp/", 0
+POPC
 
 ; ---- text $42E7-$42F0 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated string (ぐーぐー), addressed by ld hl,$42E7 at 24:42C6
 
+PUSHC sjis
 String_24_42E7:: ; 24:42E7
-	db $82, $AD, $81, $5B, $82, $AD, $81, $5B, $00 ; "くーくー"
+	db "くーくー", 0
+POPC
 
 PageList_InitScreen:: ; 24:42F0
 	; [CONFIRMED] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3;
@@ -1518,66 +1522,84 @@ Table_24_4B10::
 
 ; ---- text $4B18-$4B21 (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
+PUSHC sjis
 PageList_Msg_GoToPage:: ; 24:4B18
 String_24_4B18::
-	db $81, $40, $81, $40, $81, $40, $82, $B1, $00 ; "　　　こ"
+	db "　　　こ", 0
+POPC
 
 ; ---- text $4B21-$4B3C (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_24_4B21:: ; 24:4B21
-	db $82, $CC, $83, $79, $81, $5B, $83, $57, $00 ; "のページ"
-	db $82, $C9, $81, $40, $82, $A2, $82, $C7, $00 ; "に　いど"
-	db $82, $A4, $82, $B5, $82, $DC, $82, $B7, $00 ; "うします"
+	db "のページ", 0
+	db "に　いど", 0
+	db "うします", 0
+POPC
 
 ; ---- text $4B3C-$4B4E (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
+PUSHC sjis
 String_24_4B3C:: ; 24:4B3C
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
+	db "　　　　", 0
 
 PageList_Msg_SavePage:: ; 24:4B45
-	db $81, $40, $81, $40, $81, $40, $82, $A2, $00 ; "　　　い"
+	db "　　　い", 0
+POPC
 
 ; ---- text $4B4E-$4B69 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_24_4B4E:: ; 24:4B4E
-	db $82, $DC, $82, $CC, $83, $79, $81, $5B, $00 ; "まのペー"
-	db $83, $57, $82, $F0, $81, $40, $83, $5A, $00 ; "ジを　セ"
-	db $81, $5B, $83, $75, $82, $B5, $82, $DC, $00 ; "ーブしま"
+	db "まのペー", 0
+	db "ジを　セ", 0
+	db "ーブしま", 0
+POPC
 
 ; ---- text $4B69-$4B7B (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
+PUSHC sjis
 String_24_4B69:: ; 24:4B69
-	db $82, $B7, $81, $40, $81, $40, $81, $40, $00 ; "す　　　"
+	db "す　　　", 0
 
 PageList_Msg_DeletePage:: ; 24:4B72
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
+	db "　　　　", 0
+POPC
 
 ; ---- text $4B7B-$4B96 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_24_4B7B:: ; 24:4B7B
-	db $82, $B1, $82, $CC, $83, $79, $81, $5B, $00 ; "このペー"
-	db $83, $57, $82, $F0, $81, $40, $82, $AF, $00 ; "ジを　け"
-	db $82, $B5, $82, $DC, $82, $B7, $81, $40, $00 ; "します　"
+	db "このペー", 0
+	db "ジを　け", 0
+	db "します　", 0
+POPC
 
 ; ---- text $4B96-$4BA8 (18 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
+PUSHC sjis
 String_24_4B96:: ; 24:4B96
-	db $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　"
+	db "　　　　", 0
 
 PageList_Msg_SelectPage:: ; 24:4B9F
-	db $81, $40, $81, $40, $83, $79, $81, $5B, $00 ; "　　ペー"
+	db "　　ペー", 0
+POPC
 
 ; ---- text $4BA8-$4BC3 (27 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_24_4BA8:: ; 24:4BA8
-	db $83, $57, $82, $F0, $81, $40, $82, $B9, $00 ; "ジを　せ"
-	db $82, $F1, $82, $BD, $82, $AD, $82, $B5, $00 ; "んたくし"
-	db $82, $C4, $82, $AD, $82, $BE, $82, $B3, $00 ; "てくださ"
+	db "ジを　せ", 0
+	db "んたくし", 0
+	db "てくださ", 0
+POPC
 
 ; ---- text $4BC3-$4BCC (9 bytes) [PROBABLE] Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 
+PUSHC sjis
 String_24_4BC3:: ; 24:4BC3
-	db $82, $A2, $81, $40, $81, $40, $81, $40, $00 ; "い　　　"
+	db "い　　　", 0
+POPC
 
 ; ---- data $4BCC-$4BCD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
 

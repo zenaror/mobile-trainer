@@ -302,11 +302,12 @@ DebugErrorTest_LoadHelpText:: ; 19:4BCF
 
 ; ---- text $4C1F-$4C74 (85 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_DebugErrorTest_Help:: ; 19:4C1F
 String_19_4C1F::
-	db $82, $60, $81, $46, $83, $47, $83, $89, $81, $5B, $81, $40, $82, $61, $81, $7B, $81, $AA, $81, $AB, $81, $46, $82, $B5, $82, $E3, $82, $E9, $82, $A2, $81, $40, $81, $40 ; "Ａ：エラー　Ｂ＋↑↓：しゅるい　　"
-	db $81, $40, $81, $40, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $0D, $0A, $81, $40, $81, $AA, $81, $AB, $81, $69, $81, $A9, $81, $A8 ; "　　　Ｓｅｌ：ＥＮＤ<$0D><$0A>　↑↓（←→"
-	db $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "）：Ｎｕｍｂｅｒ"
+	db "Ａ：エラー　Ｂ＋↑↓：しゅるい　　　　　Ｓｅｌ：ＥＮＤ", $0D, $0A
+	db "　↑↓（←→）：Ｎｕｍｂｅｒ", 0
+POPC
 
 DebugErrorTest_DrawValues:: ; 19:4C74
 	; [PROBABLE] 147 insn(s) reached by static flow only; seeds: site x147; min discovery hops 4;

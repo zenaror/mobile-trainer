@@ -1195,11 +1195,11 @@ AbookName_ApplyDakuten:: ; 2F:5EB3
 
 ; ---- text $5F41-$5F92 (81 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Abook_DakutenKanaList:: ; 2F:5F41
 String_2F_5F41::
-	db $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $82, $CD, $82, $D0 ; "かきくけこさしすせそたちつてとはひ"
-	db $82, $D3, $82, $D6, $82, $D9, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63, $83, $65 ; "ふへほカキクケコサシスセソタチツテ"
-	db $83, $67, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "トハヒフヘホ"
+	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
+POPC
 
 ; ---- data $5F92-$5F93 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
@@ -1344,8 +1344,10 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 
 ; ---- text $6040-$6045 (5 bytes) [PROBABLE] NUL-terminated Shift-JIS string (82 A4 82 A4 00); read byte by byte by 2F:5FAA (ld de,$6040; ld a,[de]; inc de; cp $00); identical bytes at 2C:4878. The following $C9 (ret) stays unresolved in the next region
 
+PUSHC sjis
 String_2F_6040:: ; 2F:6040
-	db $82, $A4, $82, $A4, $00 ; "うう"
+	db "うう", 0
+POPC
 
 ; ---- data $6045-$6046 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 byte $C9 (ret) between a string and code; no entry found
 
@@ -1488,9 +1490,11 @@ AbookName_ApplyHandakuten:: ; 2F:6046
 
 ; ---- text $60F1-$6106 (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Abook_HandakutenKanaList:: ; 2F:60F1
 String_2F_60F1::
-	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "はひふへほハヒフヘホ"
+	db "はひふへほハヒフヘホ", 0
+POPC
 
 ; ---- data $6106-$6107 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 

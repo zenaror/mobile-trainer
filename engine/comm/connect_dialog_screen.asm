@@ -557,7 +557,7 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 
 ConnectDialog_BlankTile:: ; 57:4D30
 Data_57_4D30::
-	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	INCBIN "gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp"
 
 ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	; [CONFIRMED] 99 insn(s) reached by static flow only; seeds: exec x99; min discovery hops 1;

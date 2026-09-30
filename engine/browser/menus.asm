@@ -948,41 +948,53 @@ Data_72_6ADF:: ; 72:6ADF
 
 BrowserMenu_TwoItemRecords:: ; 72:6AEC
 Table_72_6AEC::
-	db $30, $68, $83, $30, $68, $FA, $6A, $60, $68, $84, $60, $68, $23, $6B
+	db $30, $68, $83, $30, $68
+	dw BrowserMenu_TwoItemTexts
+	db $60, $68, $84, $60, $68
+	dw String_72_6B23
 
 ; ---- text $6AFA-$6B4C (82 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 BrowserMenu_TwoItemTexts:: ; 72:6AFA
 String_72_6AFA::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40 ; "　　　　　でんわを　きります　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
-	db $81, $40, $81, $40, $81, $40, $83, $67, $83, $62, $83, $76, $83, $81, $83, $6A, $83, $85, $81, $5B, $82, $C9, $81, $40, $82, $E0, $82, $C7, $82, $E8, $82, $DC, $82, $B7 ; "　　　トップメニューに　もどります"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　でんわを　きります　　　　　　", 0
+String_72_6B23:: ; 72:6B23
+	db "　　　トップメニューに　もどります　　　", 0
+POPC
 
 ; ---- data $6B4C-$6B68 (28 bytes) [PROBABLE] 4 records of 7 bytes (dw, db, dw, dw): indexed with hl=7*a+$6B4C at 72:69F3-69FF (ld de,$6B4C); record 0 (6B4C-6B53) is CONFIRMED read by executed code; last word of every record points into the strings at 72:6B68.. (6B68, 6B91, 6BBA, 6BE3 = record starts); extent = 4 records up to the String region at 72:6B68
 
 BrowserMenu_ThreeItemRecords:: ; 72:6B4C
 Table_72_6B4C::
-	db $20, $68, $82, $20, $68, $68, $6B, $48, $68, $83, $48, $68, $91, $6B, $70, $68
-	db $84, $70, $68, $BA, $6B, $20, $68, $87, $20, $68, $E3, $6B
+	db $20, $68, $82, $20, $68
+	dw BrowserMenu_ThreeItemTexts
+	db $48, $68, $83, $48, $68
+	dw String_72_6B91
+	db $70, $68, $84, $70, $68
+	dw String_72_6BBA
+	db $20, $68, $87, $20, $68
+	dw BrowserMenu_PlaceholderText
 
 ; ---- text $6B68-$6BE3 (123 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 BrowserMenu_ThreeItemTexts:: ; 72:6B68
 String_72_6B68::
-	db $81, $40, $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $82, $D6, $82, $CC, $81, $40, $82, $A9, $82, $AB, $82, $B1, $82, $DD, $82, $AA, $82, $C5, $82, $AB ; "　ページリストへの　かきこみができ"
-	db $82, $DC, $82, $B7, $81, $40, $00 ; "ます　"
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $82, $C5, $82, $F1, $82, $ED, $82, $F0, $81, $40, $82, $AB, $82, $E8, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40 ; "　　　　　でんわを　きります　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
-	db $81, $40, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $82, $F0, $81, $40, $82, $B5, $82, $E3, $82, $A4, $82, $E8, $82, $E5, $82, $A4, $82, $B5, $82, $DC ; "　ホームページを　しゅうりょうしま"
-	db $82, $B7, $81, $40, $81, $40, $00 ; "す　　"
+	db "　ページリストへの　かきこみができます　", 0
+String_72_6B91:: ; 72:6B91
+	db "　　　　　でんわを　きります　　　　　　", 0
+String_72_6BBA:: ; 72:6BBA
+	db "　ホームページを　しゅうりょうします　　", 0
+POPC
 
 ; ---- text $6BE3-$6C0C (41 bytes) [PROBABLE] text: 20 full-width characters line (blanks and ？ placeholders) + NUL, same 32-byte-line record style as 72:6B68 (String region right before, decodes as cp932); no table pointer found
 
+PUSHC sjis
 BrowserMenu_PlaceholderText:: ; 72:6BE3
 String_72_6BE3::
-	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $48, $81, $40, $81, $40, $81, $40 ; "　　　　　　？？？？？？？？　　　"
-	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
+	db "　　　　　　？？？？？？？？　　　　　　", 0
+POPC
 
 ; ---- zero $6C0C-$6C10 (4 bytes) [PROBABLE] 4 x 00 padding before the tile block at 72:6C10
 	ds $4, $00

@@ -194,9 +194,11 @@ Data_67_6246::
 
 ; ---- text $624E-$626F (33 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 Net_PasswdKeyDup:: ; 67:624E
 String_67_624E::
-	db $26, $50, $41, $53, $53, $57, $44, $3D, $00 ; "&PASSWD="
+	db "&PASSWD=", 0
 
 Net_DebugLoginBody:: ; 67:6257
-	db $50, $50, $50, $5F, $49, $44, $3D, $31, $30, $30, $32, $26, $50, $41, $53, $53, $57, $44, $3D, $69, $74, $6F, $68, $00 ; "PPP_ID=1002&PASSWD=itoh"
+	db "PPP_ID=1002&PASSWD=itoh", 0
+POPC

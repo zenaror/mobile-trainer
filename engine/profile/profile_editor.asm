@@ -1760,11 +1760,11 @@ Profile_ApplyDakuten:: ; 2A:5EF4
 
 ; ---- text $5F82-$5FD3 (81 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Profile_DakutenKana:: ; 2A:5F82
 String_2A_5F82::
-	db $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $82, $CD, $82, $D0 ; "かきくけこさしすせそたちつてとはひ"
-	db $82, $D3, $82, $D6, $82, $D9, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63, $83, $65 ; "ふへほカキクケコサシスセソタチツテ"
-	db $83, $67, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "トハヒフヘホ"
+	db "かきくけこさしすせそたちつてとはひふへほカキクケコサシスセソタチツテトハヒフヘホ", 0
+POPC
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
@@ -1900,8 +1900,10 @@ Profile_ApplyVu:: ; 2A:5FD4
 
 ; ---- text $6081-$6086 (5 bytes) [PROBABLE] Shift-JIS NUL-terminated string (2 x 82 A4 = full-width 'う' x2); address loaded by 'ld de,$6081' at 2A:5FEA
 
+PUSHC sjis
 String_2A_6081:: ; 2A:6081
-	db $82, $A4, $82, $A4, $00 ; "うう"
+	db "うう", 0
+POPC
 
 	; [HYPOTHESIS] lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087;
 	; nothing branches to it
@@ -2036,9 +2038,11 @@ Profile_ApplyHandakuten:: ; 2A:6087
 
 ; ---- text $6132-$6147 (21 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Profile_HandakutenKana:: ; 2A:6132
 String_2A_6132::
-	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "はひふへほハヒフヘホ"
+	db "はひふへほハヒフヘホ", 0
+POPC
 
 	; [HYPOTHESIS] no branch/call/pointer to any address in $6147-$6148 was found (tgt scan of all
 	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen

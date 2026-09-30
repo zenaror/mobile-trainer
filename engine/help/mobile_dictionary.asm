@@ -578,35 +578,47 @@ Data_1A_444F::
 Table_MobileDict_Cat01Strings:: ; 1A:4450
 Table_1A_4450::
 	dw String_1A_4462
-	dw $446D
-	dw $4476
-	dw $447F
-	dw $448E
+	dw String_1A_446D
+	dw String_1A_4476
+	dw String_1A_447F
+	dw String_1A_448E
 	dw String_1A_449D
 	dw String_1A_44A4
-	dw $44B1
-	dw $44BC
+	dw String_1A_44B1
+	dw String_1A_44BC
 
 ; ---- text $4462-$449D (59 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_4462:: ; 1A:4462
-	db $83, $41, $83, $4A, $83, $45, $83, $93, $83, $67, $00 ; "アカウント"
-	db $82, $A0, $82, $C4, $82, $B3, $82, $AB, $00 ; "あてさき"
-	db $83, $41, $83, $68, $83, $8C, $83, $58, $00 ; "アドレス"
-	db $83, $41, $83, $68, $83, $8C, $83, $58, $82, $BF, $82, $E5, $82, $A4, $00 ; "アドレスちょう"
-	db $83, $43, $83, $93, $83, $5E, $81, $5B, $83, $6C, $83, $62, $83, $67, $00 ; "インターネット"
+	db "アカウント", 0
+String_1A_446D:: ; 1A:446D
+	db "あてさき", 0
+String_1A_4476:: ; 1A:4476
+	db "アドレス", 0
+String_1A_447F:: ; 1A:447F
+	db "アドレスちょう", 0
+String_1A_448E:: ; 1A:448E
+	db "インターネット", 0
+POPC
 
 ; ---- text $449D-$44A4 (7 bytes) [PROBABLE] Shift-JIS "ウェブ" NUL-terminated; target of the pointer at 445A (group 444F entry 5)
 
+PUSHC sjis
 String_1A_449D:: ; 1A:449D
-	db $83, $45, $83, $46, $83, $75, $00 ; "ウェブ"
+	db "ウェブ", 0
+POPC
 
 ; ---- text $44A4-$44C7 (35 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_44A4:: ; 1A:44A4
-	db $83, $45, $83, $46, $83, $75, $83, $54, $83, $43, $83, $67, $00 ; "ウェブサイト"
-	db $83, $49, $83, $74, $83, $89, $83, $43, $83, $93, $00 ; "オフライン"
-	db $83, $49, $83, $93, $83, $89, $83, $43, $83, $93, $00 ; "オンライン"
+	db "ウェブサイト", 0
+String_1A_44B1:: ; 1A:44B1
+	db "オフライン", 0
+String_1A_44BC:: ; 1A:44BC
+	db "オンライン", 0
+POPC
 
 ; ---- data $44C7-$44CC (5 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 44C7-44E0 by higher-priority evidence]
 
@@ -619,9 +631,11 @@ Table_MobileDict_Cat02Strings:: ; 1A:44C8
 
 ; ---- text $44CC-$44E0 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_44CC:: ; 1A:44CC
-	db $82, $A9, $82, $A8, $82, $E0, $82, $B6, $00 ; "かおもじ"
-	db $83, $52, $83, $93, $83, $65, $83, $93, $83, $63, $00 ; "コンテンツ"
+	db "かおもじ", 0
+	db "コンテンツ", 0
+POPC
 
 ; ---- data $44E0-$44E1 (1 bytes) [PROBABLE] group count byte = 08 (group header, see Table_1A_4439)
 
@@ -634,29 +648,39 @@ Data_1A_44E0::
 Table_MobileDict_Cat03Strings:: ; 1A:44E1
 Table_1A_44E1::
 	dw String_1A_44F1
-	dw $44F8
+	dw String_1A_44F8
 	dw String_1A_44FF
-	dw $4508
-	dw $4511
-	dw $4520
-	dw $452D
-	dw $4536
+	dw String_1A_4508
+	dw String_1A_4511
+	dw String_1A_4520
+	dw String_1A_452D
+	dw String_1A_4536
 
 ; ---- text $44F1-$44FF (14 bytes) [PROBABLE] 2 strings: "サーバ" (83 54 81 5B 83 6F 00) and "サイト" (83 54 83 43 83 67 00) - targets of the pointers 44F1/44F8
 
+PUSHC sjis
 String_1A_44F1:: ; 1A:44F1
-	db $83, $54, $81, $5B, $83, $6F, $00 ; "サーバ"
-	db $83, $54, $83, $43, $83, $67, $00 ; "サイト"
+	db "サーバ", 0
+String_1A_44F8:: ; 1A:44F8
+	db "サイト", 0
+POPC
 
 ; ---- text $44FF-$453F (64 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_44FF:: ; 1A:44FF
-	db $83, $57, $83, $83, $83, $93, $83, $76, $00 ; "ジャンプ"
-	db $82, $B6, $82, $E3, $82, $B5, $82, $F1, $00 ; "じゅしん"
-	db $82, $B5, $82, $E5, $82, $AB, $82, $C6, $82, $A4, $82, $EB, $82, $AD, $00 ; "しょきとうろく"
-	db $83, $5A, $83, $4C, $83, $85, $83, $8A, $83, $65, $83, $42, $00 ; "セキュリティ"
-	db $82, $B9, $82, $C2, $82, $BC, $82, $AD, $00 ; "せつぞく"
-	db $82, $BB, $82, $A4, $82, $B5, $82, $F1, $00 ; "そうしん"
+	db "ジャンプ", 0
+String_1A_4508:: ; 1A:4508
+	db "じゅしん", 0
+String_1A_4511:: ; 1A:4511
+	db "しょきとうろく", 0
+String_1A_4520:: ; 1A:4520
+	db "セキュリティ", 0
+String_1A_452D:: ; 1A:452D
+	db "せつぞく", 0
+String_1A_4536:: ; 1A:4536
+	db "そうしん", 0
+POPC
 
 ; ---- data $453F-$4540 (1 bytes) [PROBABLE] group count byte = 03
 
@@ -669,15 +693,19 @@ Data_1A_453F::
 Table_MobileDict_Cat04Strings:: ; 1A:4540
 Table_1A_4540::
 	dw String_1A_4546
-	dw $454F
-	dw $455C
+	dw String_1A_454F
+	dw String_1A_455C
 
 ; ---- text $4546-$456B (37 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_4546:: ; 1A:4546
-	db $83, $5E, $83, $43, $83, $67, $83, $8B, $00 ; "タイトル"
-	db $83, $5F, $83, $45, $83, $93, $83, $8D, $81, $5B, $83, $68, $00 ; "ダウンロード"
-	db $82, $C2, $82, $A4, $82, $B5, $82, $F1, $83, $47, $83, $89, $81, $5B, $00 ; "つうしんエラー"
+	db "タイトル", 0
+String_1A_454F:: ; 1A:454F
+	db "ダウンロード", 0
+String_1A_455C:: ; 1A:455C
+	db "つうしんエラー", 0
+POPC
 
 ; ---- data $456B-$456C (1 bytes) [PROBABLE] group count byte = 04 (group header of Table_1A_4439)
 
@@ -690,17 +718,22 @@ Data_1A_456B::
 Table_MobileDict_Cat05Strings:: ; 1A:456C
 Table_1A_456C::
 	dw String_1A_4574
-	dw $4581
-	dw $458C
-	dw $4597
+	dw String_1A_4581
+	dw String_1A_458C
+	dw String_1A_4597
 
 ; ---- text $4574-$45A8 (52 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4546-45A8 by higher-priority evidence]
 
+PUSHC sjis
 String_1A_4574:: ; 1A:4574
-	db $83, $6A, $83, $62, $83, $4E, $83, $6C, $81, $5B, $83, $80, $00 ; "ニックネーム"
-	db $82, $C9, $82, $F1, $82, $B5, $82, $E5, $82, $A4, $00 ; "にんしょう"
-	db $83, $6C, $83, $60, $83, $50, $83, $62, $83, $67, $00 ; "ネチケット"
-	db $83, $6C, $83, $62, $83, $67, $83, $54, $81, $5B, $83, $74, $83, $42, $83, $93, $00 ; "ネットサーフィン"
+	db "ニックネーム", 0
+String_1A_4581:: ; 1A:4581
+	db "にんしょう", 0
+String_1A_458C:: ; 1A:458C
+	db "ネチケット", 0
+String_1A_4597:: ; 1A:4597
+	db "ネットサーフィン", 0
+POPC
 
 ; ---- data $45A8-$45A9 (1 bytes) [PROBABLE] group count byte = 07
 
@@ -713,23 +746,31 @@ Data_1A_45A8::
 Table_MobileDict_Cat06Strings:: ; 1A:45A9
 Table_1A_45A9::
 	dw String_1A_45B7
-	dw $45C2
-	dw $45D1
-	dw $45DA
-	dw $45E5
-	dw $45F2
-	dw $45FB
+	dw String_1A_45C2
+	dw String_1A_45D1
+	dw String_1A_45DA
+	dw String_1A_45E5
+	dw String_1A_45F2
+	dw String_1A_45FB
 
 ; ---- text $45B7-$4608 (81 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_45B7:: ; 1A:45B7
-	db $83, $70, $83, $58, $83, $8F, $81, $5B, $83, $68, $00 ; "パスワード"
-	db $83, $74, $83, $46, $83, $43, $83, $58, $83, $7D, $81, $5B, $83, $4E, $00 ; "フェイスマーク"
-	db $83, $75, $83, $89, $83, $45, $83, $55, $00 ; "ブラウザ"
-	db $83, $76, $83, $8D, $83, $6F, $83, $43, $83, $5F, $00 ; "プロバイダ"
-	db $83, $79, $81, $5B, $83, $57, $83, $8A, $83, $58, $83, $67, $00 ; "ページリスト"
-	db $82, $D6, $82, $F1, $82, $B5, $82, $F1, $00 ; "へんしん"
-	db $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "ホームページ"
+	db "パスワード", 0
+String_1A_45C2:: ; 1A:45C2
+	db "フェイスマーク", 0
+String_1A_45D1:: ; 1A:45D1
+	db "ブラウザ", 0
+String_1A_45DA:: ; 1A:45DA
+	db "プロバイダ", 0
+String_1A_45E5:: ; 1A:45E5
+	db "ページリスト", 0
+String_1A_45F2:: ; 1A:45F2
+	db "へんしん", 0
+String_1A_45FB:: ; 1A:45FB
+	db "ホームページ", 0
+POPC
 
 ; ---- data $4608-$4609 (1 bytes) [PROBABLE] group count byte = 0E, followed by Table_1A_4609 (14 pointers)
 
@@ -742,45 +783,62 @@ Data_1A_4608::
 Table_MobileDict_Cat07Strings:: ; 1A:4609
 Table_1A_4609::
 	dw String_1A_4625
-	dw $462E
+	dw String_1A_462E
 	dw String_1A_4637
 	dw String_1A_463E
-	dw $464D
-	dw $465A
-	dw $4667
-	dw $4674
-	dw $467D
-	dw $4692
-	dw $46AB
-	dw $46C0
-	dw $46D1
-	dw $46E4
+	dw String_1A_464D
+	dw String_1A_465A
+	dw String_1A_4667
+	dw String_1A_4674
+	dw String_1A_467D
+	dw String_1A_4692
+	dw String_1A_46AB
+	dw String_1A_46C0
+	dw String_1A_46D1
+	dw String_1A_46E4
 
 ; ---- text $4625-$4637 (18 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_4625:: ; 1A:4625
-	db $83, $81, $81, $5B, $83, $89, $81, $5B, $00 ; "メーラー"
-	db $83, $81, $83, $8B, $82, $C6, $82, $E0, $00 ; "メルとも"
+	db "メーラー", 0
+String_1A_462E:: ; 1A:462E
+	db "メルとも", 0
+POPC
 
 ; ---- text $4637-$463E (7 bytes) [PROBABLE] Shift-JIS "メール" NUL-terminated; target of a pointer of Table_1A_4609 (463E-.. list, 4637)
 
+PUSHC sjis
 String_1A_4637:: ; 1A:4637
-	db $83, $81, $81, $5B, $83, $8B, $00 ; "メール"
+	db "メール", 0
+POPC
 
 ; ---- text $463E-$46F9 (187 bytes) [PROBABLE] text: 11 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_463E:: ; 1A:463E
-	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $00 ; "メールアドレス"
-	db $83, $81, $81, $5B, $83, $8B, $83, $54, $81, $5B, $83, $6F, $00 ; "メールサーバ"
-	db $83, $81, $81, $5B, $83, $8B, $83, $5C, $83, $74, $83, $67, $00 ; "メールソフト"
-	db $83, $81, $83, $93, $83, $65, $83, $69, $83, $93, $83, $58, $00 ; "メンテナンス"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $00 ; "モバイル"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $41, $83, $5F, $83, $76, $83, $5E, $82, $66, $82, $61, $00 ; "モバイルアダプタＧＢ"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $54, $83, $7C, $81, $5B, $83, $67, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00 ; "モバイルサポートセンター"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $56, $83, $58, $83, $65, $83, $80, $82, $66, $82, $61, $00 ; "モバイルシステムＧＢ"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $5A, $83, $93, $83, $5E, $81, $5B, $00 ; "モバイルセンター"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69, $81, $5B, $00 ; "モバイルトレーナー"
-	db $83, $82, $83, $6F, $83, $43, $83, $8B, $83, $7A, $81, $5B, $83, $80, $83, $79, $81, $5B, $83, $57, $00 ; "モバイルホームページ"
+	db "メールアドレス", 0
+String_1A_464D:: ; 1A:464D
+	db "メールサーバ", 0
+String_1A_465A:: ; 1A:465A
+	db "メールソフト", 0
+String_1A_4667:: ; 1A:4667
+	db "メンテナンス", 0
+String_1A_4674:: ; 1A:4674
+	db "モバイル", 0
+String_1A_467D:: ; 1A:467D
+	db "モバイルアダプタＧＢ", 0
+String_1A_4692:: ; 1A:4692
+	db "モバイルサポートセンター", 0
+String_1A_46AB:: ; 1A:46AB
+	db "モバイルシステムＧＢ", 0
+String_1A_46C0:: ; 1A:46C0
+	db "モバイルセンター", 0
+String_1A_46D1:: ; 1A:46D1
+	db "モバイルトレーナー", 0
+String_1A_46E4:: ; 1A:46E4
+	db "モバイルホームページ", 0
+POPC
 
 ; ---- data $46F9-$46FA (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
 
@@ -796,8 +854,10 @@ Table_1A_46FA::
 
 ; ---- text $46FC-$4705 (9 bytes) [PROBABLE] text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
 
+PUSHC sjis
 String_1A_46FC:: ; 1A:46FC
-	db $83, $86, $81, $5B, $83, $55, $81, $5B, $00 ; "ユーザー"
+	db "ユーザー", 0
+POPC
 
 ; ---- data $4705-$4706 (1 bytes) [PROBABLE] group count byte = 02
 
@@ -814,13 +874,17 @@ Table_1A_4706::
 
 ; ---- text $470A-$4711 (7 bytes) [PROBABLE] Shift-JIS "リンク" NUL-terminated (target of the pointer 470A)
 
+PUSHC sjis
 String_1A_470A:: ; 1A:470A
-	db $83, $8A, $83, $93, $83, $4E, $00 ; "リンク"
+	db "リンク", 0
+POPC
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_4711:: ; 1A:4711
-	db $83, $8D, $83, $4F, $83, $43, $83, $93, $82, $68, $82, $63, $00 ; "ログインＩＤ"
+	db "ログインＩＤ", 0
+POPC
 
 ; ---- data $471E-$471F (1 bytes) [PROBABLE] group count byte = 01 (group header of Table_1A_4439)
 
@@ -836,8 +900,10 @@ Table_1A_471F::
 
 ; ---- text $4721-$4736 (21 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
 
+PUSHC sjis
 String_1A_4721:: ; 1A:4721
-	db $83, $8F, $81, $5B, $83, $8B, $83, $68, $83, $8F, $83, $43, $83, $68, $83, $45, $83, $46, $83, $75, $00 ; "ワールドワイドウェブ"
+	db "ワールドワイドウェブ", 0
+POPC
 
 ; ---- data $4736-$4737 (1 bytes) [PROBABLE] group count byte = 0A, followed by Table_1A_4737 (10 pointers)
 
@@ -853,39 +919,54 @@ Table_1A_4737::
 	dw String_1A_475A
 	dw String_1A_4763
 	dw String_1A_477E
-	dw $4785
-	dw $478C
-	dw $4793
-	dw $479A
-	dw $47A1
+	dw String_1A_4785
+	dw String_1A_478C
+	dw String_1A_4793
+	dw String_1A_479A
+	dw String_1A_47A1
 	dw String_1A_47A4
 
 ; ---- text $474B-$475A (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_474B:: ; 1A:474B
-	db $82, $83, $82, $84, $82, $8D, $82, $81, $82, $6E, $82, $8E, $82, $85, $00 ; "ｃｄｍａＯｎｅ"
+	db "ｃｄｍａＯｎｅ", 0
+POPC
 
 ; ---- text $475A-$4763 (9 bytes) [PROBABLE] text block: 3 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 474B-477E by higher-priority evidence]
 
+PUSHC sjis
 String_1A_475A:: ; 1A:475A
-	db $82, $63, $82, $68, $82, $6E, $82, $6D, $00 ; "ＤＩＯＮ"
+	db "ＤＩＯＮ", 0
+POPC
 
 ; ---- text $4763-$477E (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_4763:: ; 1A:4763
-	db $82, $63, $82, $68, $82, $6E, $82, $6D, $83, $82, $83, $6F, $83, $43, $83, $8B, $82, $66, $82, $61, $83, $52, $81, $5B, $83, $58, $00 ; "ＤＩＯＮモバイルＧＢコース"
+	db "ＤＩＯＮモバイルＧＢコース", 0
+POPC
 
 ; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 7 NUL-terminated strings "ＩＤＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "※" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
 
+PUSHC sjis
 String_1A_477E:: ; 1A:477E
-	db $82, $68, $82, $72, $82, $6F, $00 ; "ＩＳＰ"
-	db $82, $6F, $82, $63, $82, $62, $00 ; "ＰＤＣ"
-	db $82, $6F, $82, $67, $82, $72, $00 ; "ＰＨＳ"
-	db $82, $76, $82, $85, $82, $82, $00 ; "Ｗｅｂ"
-	db $82, $76, $82, $76, $82, $76, $00 ; "ＷＷＷ"
-	db $81, $97, $00 ; "＠"
+	db "ＩＳＰ", 0
+String_1A_4785:: ; 1A:4785
+	db "ＰＤＣ", 0
+String_1A_478C:: ; 1A:478C
+	db "ＰＨＳ", 0
+String_1A_4793:: ; 1A:4793
+	db "Ｗｅｂ", 0
+String_1A_479A:: ; 1A:479A
+	db "ＷＷＷ", 0
+String_1A_47A1:: ; 1A:47A1
+	db "＠", 0
+POPC
 
 ; ---- text $47A4-$47B5 (17 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_1A_47A4:: ; 1A:47A4
-	db $82, $AB, $82, $B2, $82, $A4, $82, $CC, $82, $E6, $82, $DD, $82, $A9, $82, $BD, $00 ; "きごうのよみかた"
+	db "きごうのよみかた", 0
+POPC

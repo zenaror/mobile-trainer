@@ -220,12 +220,14 @@ Pop3_TopPoll:: ; 54:4969
 
 ; ---- text $49E0-$4A12 (50 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Mail_DataCorrupt:: ; 54:49E0
 String_54_49E0::
-	db $83, $81, $81, $5B, $83, $8B, $82, $CC, $83, $66, $81, $5B, $83, $5E, $82, $AA, $82, $B1, $82, $ED, $82, $EA, $82, $C4, $82, $A2, $82, $DC, $82, $B7, $81, $42, $00 ; "メールのデータがこわれています。"
+	db "メールのデータがこわれています。", 0
 
 String_Mail_PleaseDelete:: ; 54:4A01
-	db $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00 ; "けしてください。"
+	db "けしてください。", 0
+POPC
 
 Label_54_4A12:: ; 54:4A12
 	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12;
@@ -319,15 +321,19 @@ Label_54_4A12:: ; 54:4A12
 
 ; ---- text $4AD0-$4AD7 (7 bytes) [PROBABLE] NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 
+PUSHC sjis
 String_Mail_DefaultSource:: ; 54:4AD0
 String_54_4AD0::
-	db $83, $81, $81, $5B, $83, $8B, $00 ; "メール"
+	db "メール", 0
+POPC
 
 ; ---- text $4AD7-$4AE6 (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
+PUSHC sjis
 String_Mail_GameTitle:: ; 54:4AD7
 String_54_4AD7::
-	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "MOBILE TRAINER"
+	db "MOBILE TRAINER", 0
+POPC
 
 Label_54_4AE6:: ; 54:4AE6
 	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12;
@@ -499,9 +505,11 @@ Label_54_4BEC:: ; 54:4BEC
 
 ; ---- text $4C2A-$4C35 (11 bytes) [PROBABLE] 11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
 
+PUSHC sjis
 String_Mail_GameCodeCrystal:: ; 54:4C2A
 String_54_4C2A::
-	db $43, $47, $42, $2D, $42, $58, $54, $4A, $2D, $30, $30 ; "CGB-BXTJ-00"
+	db "CGB-BXTJ-00"
+POPC
 
 ; ---- data $4C35-$4C3D (8 bytes) [PROBABLE] 8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
 
