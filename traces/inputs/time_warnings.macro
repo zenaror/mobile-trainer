@@ -1,0 +1,451 @@
+# Scenario 'time_warnings': the connection-time notice ("つうしんじかんが まもなく 10ぷんに なります"). Timer A counts the seconds of a connection; the
+# session loops compare it with the minute of the next notice ([C26E], first 9:30) and open the notice dialog (50:4000 family) once it is reached.
+# Round 1 never stayed connected that long. Each segment starts with a power cycle (`reset`) from the state of 'mail_inbox' and keeps one session
+# open for more than ten minutes of emulated time: (1) メールサーバ "かくにんしてから": idle on the first mail's icon bar; (2) じどうでぜんぶけす
+# with a slow fake POP3 server (`net latency=3000`: every server answer is readable 3000 frames = 50 s after the request); (3) the same through
+# the hidden variant (SELECT+LEFT), second button; (4) おくる/うけとる with latency 3000, the notice answered with A (はい); (5) おくる/うけとる with
+# latency 1800, the notice answered RIGHT+A (いいえ), which hangs up. A is pressed every 1500 frames from minute 8 on to answer whichever dialog is
+# up. Screen names = my reading of the screenshots. Starts from the state left by 'mail_inbox' (five mails on the fake POP3 server).
+net latency=2
+# ---- check idle (notice while waiting on the icon bar)
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x5
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net latency=2
+tap A
+waitstable 60 max 900
+wait 30000
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+shot end
+net latency=2
+# ---- delete-all with a slow server (notice inside the loops of 23:4D00..4F00)
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x5
+wait 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x1
+wait 40
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 600
+net latency=3000
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 30000
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+shot end
+net latency=2
+# ---- hidden delete-all with a slow server
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x5
+wait 30
+taplen 2
+gap 0
+tap A
+hold SELECT+LEFT 120
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+gap 30
+taplen 4
+tap DOWN x1
+wait 40
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 600
+net latency=3000
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 30000
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+shot end
+net latency=2
+# ---- send/receive with a slow server, notice answered はい
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 300
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net latency=3000
+tap A
+waitstable 60 max 300
+wait 30000
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+tap A
+wait 1500
+shot end
+net latency=2
+# ---- send/receive with a slow server, notice answered いいえ
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 300
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+net latency=1800
+tap A
+waitstable 60 max 300
+wait 20000
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+tap RIGHT
+wait 30
+tap A
+wait 1500
+shot end
+net latency=2

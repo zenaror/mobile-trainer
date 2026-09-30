@@ -6,6 +6,7 @@ with CPU addresses (bank 00 = 0000-3FFF, banks 01-7F = 4000-7FFF; file offset = 
 Names in this document are *descriptions*, never symbol names: unknown code stays `Function_<bank>_<addr>`.
 
 Sections 0-8 describe the first round (18 scenarios); **section 9 onwards documents the second round (41 scenarios, 72 224 executed ROM instruction starts, hidden inputs, new harness features)**.
+**Section 11 documents the third round (directed scenarios, a fork-server input search, forced execution; numbers in 11.7).**
 
 Everything below was produced by `tools/trace/run_trace.py` from `baserom.gbc`
 (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); numbers come from `traces/summary.md`,
@@ -71,7 +72,8 @@ Outputs (all small text, committed):
 | `traces/detail/<s>/` | `callgraph.tsv irq.tsv irqsum.tsv hwregs.tsv ramcode.tsv dataaccess.tsv serialsum.tsv mbc_seq.tsv marks.tsv adapter.log stats.txt` |
 | `traces/inputs/<s>.macro/.txt` | scenario source (readable) and its resolved frame script (what is replayed) |
 | `traces/scenarios.tsv`, `traces/web/` | scenario table, synthetic web pages of the fake Internet |
-| `analysis/coverage_union.tsv` | union over all scenarios with decode of each executed instruction |
+| `analysis/coverage_union.tsv` | union over all natural scenarios with decode of each executed instruction (columns `bank addr count scenarios first_scenario first_frame len flow insn flags`; since round 3 `first_scenario` is an index into the scenario list of the first header line) |
+| `analysis/coverage_forced.tsv`, `traces/forced/` | FORCED scenarios (round 3, 11.4): only addresses that no natural scenario executed; never part of the union |
 | `analysis/ram_code_dump.bin` | WRAM/HRAM image at the end of the `register` scenario (layout in 4.5) |
 
 ---------------------------------------------------------------------------------------------------------------
@@ -490,6 +492,8 @@ six address entries (`addressbook_full`), bookmarks (`browser_bookmarks`), chang
 
 ### 9.5 What is still not executed, and what the map says about it (PROBABLE unless stated)
 
+(Round-3 update: the numbers in this section are those of the end of round 2; after round 3, 55 627 bytes of code remain unexecuted (11.7, 11.8). The debug / sound-test / unused-screen entries listed below were executed by *forced* scenarios (11.4): they run, but still have no caller.)
+
 `analysis/coverage_report.md` lists (D4) the largest regions with unexecuted instructions; `tools/trace/frontier.py` ranks the gates. After 41 scenarios about 67 000 instruction bytes of code regions never ran.
 Largest groups and the evidence for their status:
 * **Banks 19 and 1B (3 600 bytes): debug/sound-test screens without any caller.** Strings `＝＝ ＤＥＢＵＧ ＭＯＤＥ ＝＝ ↑↓：えらぶ ←→：カーソル` (19:447C), `【サインアップデバッグフラグ】` (19:4914), `Ａ：エラー Ｂ＋↑↓：しゅるい Ｓｅｌ：ＥＮＤ` (19:4C1F), `Ａ：ＭＵＳＩＣ Ｂ：ＳＯＵＮＤ Ｓｔａ：ＳＴＯＰ` (1B:4314). A byte scan finds **no**
@@ -502,6 +506,8 @@ Not reached at all: anything that needs a real CGI success response, other playe
 
 ## 10. `tools/apply_coverage.py` (coverage vs the region map)
 
+(Round 3 added `--split`, `--data-reads`, `--forced-notes` and section F/G of the report: see 11.6.)
+
 Reads `analysis/coverage_union.tsv` and `<config>/regions/bank*.tsv` (+ conventions/xrefs of the same dir, so the inline bytes after `call $06D1` are not instruction starts) and writes
 `analysis/coverage_report.md`: (A) per-bank counts, (B) executed starts outside code regions or off instruction boundaries of their region, (C) not-CONFIRMED code regions whose every instruction start ran
 (candidates), (D) informational lists (CONFIRMED regions with unexecuted instructions, ramcode regions, largest never-executed regions), (E) executed WRAM/HRAM rows that no `ramcode` region explains (the far-call thunk `FFA8`, the interrupt
@@ -510,3 +516,193 @@ trampolines `CBF1-CBFA`, `C133`) with their `config/ram` symbol, and rows of any
 `config/`. A region is promoted only if it is `code`, not CONFIRMED yet, has no scan trouble, has **every** instruction start executed and no executed address inside it off its instruction boundaries (the last case is listed as withheld).
 Verifier tests (all passed): with one instruction start removed from each of the 309 candidates (first, last or middle start, three runs) no candidate remains; a synthetic executed start in a data region and one inside an instruction are reported in section B; a synthetic off-boundary start inside a candidate withholds it; `--apply` on a copy changes exactly the 309 status/note fields and nothing else, a second `--apply` changes nothing, and refuses the repository config given as a relative path or through a symlink. Dry-run result on the current config: **0 executed starts outside code regions** (the earlier hole 7E:7DB0-7E34 was reclassified by the classifiers meanwhile: it was listed as 62 starts in 5 runs
 inside an UNCLASSIFIED data region in the intermediate union), **309 candidate regions (13 585 bytes)**; applying them to a copy of the config keeps `gen_asm.py verify` at `RESULT: IDENTICAL` and `conventions_check` clean.
+
+---------------------------------------------------------------------------------------------------------------
+
+## 11. Round 3: directed scenarios, a fork-server input search, forced execution
+
+Sections 0-10 describe the first two rounds. This round started from 41 scenarios / 72 224 executed ROM instruction starts / 105 600 bytes of CONFIRMED code and ends at **67 scenarios**
+(64 natural + 3 forced) / **77 979 executed ROM instruction starts** (+5 755, 48 banks: `6B` is new) / **162 635 bytes of CONFIRMED code** (numbers of `analysis/coverage_report.md`, 11.7).
+The rule of the document is unchanged: **coverage is evidence that code exists and runs; absence proves nothing**. *Forced* coverage (11.4) is evidence about what a routine does once it
+runs, never about how (or whether) the ROM reaches it, and is kept out of the union and out of every CONFIRMED upgrade.
+
+### 11.1 What was added to the harness and the tools
+
+All additions are opt-in. The 41 round-1/2 scenarios were re-run after the harness changes: every `coverage_`, `mbc_writes_`, `serial_` file, every `detail/` file and the union rows
+are byte-identical, except that `traces/detail/browser_errors/adapter.log` and `browser_redirect`'s log carry the new wording of the fake server's redirect line ("http 302 for X (Location ...)").
+`run_trace.py --verify-determinism` (macro run vs replay of its recording, whole chain twice) was run for `kbd_compose` (8 scenarios, 264 output files) and `forced_screens` (7 scenarios incl. `force` directives, 233 files): identical.
+A full replay of the 63 natural scenarios that existed at that point (`fuzz_register` was added afterwards) from the recorded `traces/inputs/*.txt` reproduced the files written when each scenario was first run (same exception).
+
+| addition | syntax / file | notes |
+|---|---|---|
+| fork server | `mgba_trace --serve [--known FILE]` (after the `--macro`/`--input` script) | the process that has just replayed a *prefix* answers `JOB <max_frames> <macro> <result> [<record>]` lines on stdin, forks one child per job; the child runs the suffix macro from exactly that machine state (memory, adapter, fake Internet) and writes the ROM instruction starts that are not in the *known* bitmap (`--known FILE` / `KNOWN FILE`: 128 x 2048 bytes; everything the prefix executed is known too), the frame count and a hash of the BG tile maps; `QUIT` ends it. About 30 jobs per second per core. |
+| input search | `tools/trace/explore.py` | AFL style: a corpus entry is a macro script from power-on; a *suffix* of 1-9 random taps (single, or up to 12 repeated), held combinations (SELECT+LEFT, B+SELECT+RIGHT, ...) and occasional fake-Internet faults is forked from the replayed entry; kept when it finds new starts (strong) or a new BG-map picture (weak, capped). Seeds: the boot, plus optional seed macros (connect to the browser, open the mail menu, open the settings menu). |
+| packing | `tools/trace/fuzzpack.py` | replays the strong entries through the ordinary tracer command line, keeps the exact coverage of each and picks a minimal set by greedy set cover; the result is a plain scenario macro (`fuzz_*`, segments separated by `reset`). Only the output of running that scenario counts as evidence. |
+| forced execution | macro / frame-script directives `force BB:AAAA [A=..] [BC=..] [DE=..] [HL=..]`, `ramset AAAA=vv[,vv..]` | `force` enters the ROM's own far-call helper `00:06D1` as if `call $06D1 ; dw AAAA ; db BB` stood in WRAM at `$CE00` (the inline bytes plus a `jr $` are written there, `$CE00` is pushed as the return address): the helper switches the bank, calls the routine with the given registers and, when it returns, the machine spins in the stub, so nothing but the forced code and what it calls runs. Scenarios that use it carry the flag `forced` in the 7th column of `scenarios.tsv`; their outputs go to `traces/forced/`, `merge_coverage.py` writes the addresses that no natural scenario executed to `analysis/coverage_forced.tsv`. |
+| boot register | `--boot-a HEX` (also a `--model dmg\|cgb\|agb\|sgb` option) | value of register A when the ROM starts (a DMG hands over `01`, the CGB boot ROM `11`). mGBA cannot run a CGB-only ROM in DMG mode (the header overrides `gb.model`; an `agb` run reached no new instruction), so this is the only way to reach the non-CGB error screen. |
+| web site `r2` | scenarios.tsv `web=r2`, files `traces/web/r2/*` | own index page and pages first, then everything of `web=all`; `NAME.meta` next to a page holds `status N` / `hdr Header: value` lines (`--web-status`, `--web-hdr`). The harness accepts 256 web-map entries (was 64). |
+| redirects, CGI `Location` | net options `http_redirect=K`, `http_redirect_count=N`, `cgi=S/G/A/T/H/LOCATION` | K = 1 302 + absolute Location (legacy), 2 / 3 host-relative / path-relative Location, 4-6 the same with 301, 7 = 303, 8 = 307; N limits the number of redirected answers; the sixth field of `cgi=` (everything after the fifth `/`) becomes a `Location:` header. Net option values may be 199 characters long. |
+| runner | `run_trace.py --reuse-state` | with `--only`, do not rerun a parent whose saved state is in `.cache/trace/state` |
+| union format | `first_scenario` column = index into the scenario list on the first header line | keeps `analysis/coverage_union.tsv` at 3.3 MB (the scenario names were 1 MB of it) |
+| fixtures | `make_fixtures.py` | `img_w1..img_w16.bmp` (8-pixel-high images of every width), mails `many01..14` (short), `folded`, `upper`, `qenc`, `nonascii`, `gamecode`, `gamecode2`, `multi3`, `multibad`; the older fixtures are byte-identical (`make_fixtures.py --check`) |
+| keyboards | `kbdnav.py`, `make_round2.py` | the on-screen keyboards are one engine (bank 55, `Kbd_Run`): 10 keyboard types, pages of 5 x 18 cells, per-type 6-byte neighbour records (`55:4A42`). `kbdnav.py` reads the tables from the ROM and finds the shortest D-pad route between two keys (plain steps only: the wrap-around moves and the sticky-column moves of the wide OK/back keys are avoided); `make_round2.py` turns "type these keys" into macro lines (`kbd_abook`, `kbd_compose`, `kbd_profile`). |
+| region tool | `tools/apply_coverage.py --apply --split --data-reads --forced-notes` | 11.6 |
+
+### 11.2 Scenarios added
+
+Method: `tools/trace/frontier.py` lists executed branches / calls whose other side never ran ("gates"), ranked by the unexecuted code behind them; for each gate of the top of the list the
+code around it was read (an address-annotated listing of the region map with symbol names and coverage marks; the evidence text of the function symbol usually names the condition) to find the
+input that flips it, the scenario was written, run in a scratch directory with its screenshots read, and installed only when it added coverage. "+starts" = instruction starts that no
+scenario earlier in `traces/scenarios.tsv` executed (`traces/growth.md`; the sum of the column is the +5 755 of the union).
+
+| scenario | starts from | what it does | +starts |
+|---|---|---|---:|
+| `register_hidden_manual` | blank | initial registration through the hidden step (B+SELECT+RIGHT), answering 手動で入力する: explanation page, Internet / pager phone keypads, comment keyboard, backspace with text on every input screen, B on the empty keypad, then the normal wizard end | 485 |
+| `kbd_abook` | `mail_inbox` | address book: B (backspace) with text on the address and name keyboards, dakuten / handakuten / katakana page / ウ+゛ (ヴ), name longer than the field, OK on an empty address (dialog), a new entry with a 46-character address (three lines), view | 404 |
+| `kbd_compose` | `kbd_abook` | メールをかく with the address picked from the address book (6-slot list, cursor moves, an empty slot refused), title keyboard keys (dakuten, handakuten, ヴ, the four pages, overflow), body keyboard keys (dakuten, handakuten, ヴ, space, newline, backspace), END dialog (いいえ / はい) | 351 |
+| `kbd_profile` | `tutorial_profile` | the profile nickname keyboard (dakuten, handakuten, ヴ, katakana page, backspace, overflow) | 121 |
+| `mail_server_hidden2` | `mail_inbox` | the hidden メールサーバ menu (SELECT+LEFT), buttons 1 (check then delete, icon bar per mail) and 2 (delete all, confirmation refused then accepted) | 188 |
+| `mail_server_many` | `mail_inbox` | check screen with 14 mails on the server: two-digit numbers and counters | 35 |
+| `time_warnings` | `mail_inbox` | the ten-minute connection notice in five session types (server check idle, slow-server delete-all normal / hidden, send/receive answered はい and いいえ) | 397 |
+| `mail_receive_many` | `mail_send` | 14 short mails on the server: the mailbox fills at 12, count sprites, scrolling list with wrap, read, receive again with a full box | 320 |
+| `mail_receive_var` | `mail_send` | eleven unusual mails (folded / upper-case / Q-encoded headers, 8-bit header, foreign game codes, 3-part multipart, unterminated multipart) | 80 |
+| `mailbox_ops` | `mail_inbox` | save-sender slot list (DOWN x5 / UP x5, overwrite question no / yes), reply refused while the outbox is occupied | 352 |
+| `noncgb_boot` | blank | `--boot-a 01`: `NonCgb_ErrorScreen` | 80 |
+| `browser_r2` | `browser_bookmarks` | the round-2 site: long title, `<hr width>`, `<div align>`, `<br clear>`, entities, comments, lists > 9 items, `<pre>` CRLF, ftp / mailto / relative links, 27 one-image pages, over-size pages, B on the first page | 377 |
+| `browser_redirect` | `browser_bookmarks` | 301 / 302 / 303 / 307 with absolute, host-relative, path-relative `Location`, redirect chain | 40 |
+| `browser_pagelist` | `browser_pages` | page list: overwrite / delete questions (no then yes), empty rows, save into an empty row, ten-minute notice while idle in the list | 139 |
+| `settings_redirect` | `tutorial_profile` | password change against a CGI answering with 301 / 302 / 303 / 307 + `Location` (absolute, host-relative, relative, chain) | 186 |
+| `state_full` | `mail_receive_many` | builds the "everything full" cartridge (12 mails + 6 address entries) used as start state | 0 |
+| `fuzz_browser` | `browser_errors` | input search, 31 useful segments (cartridge with mails, address book, bookmarks) | 1 263 |
+| `fuzz_browser2` | `browser_pages` | input search inside a browser session on the `r2` site (seeded with the connect sequence), 13 segments | 217 |
+| `fuzz_mailfull` | `mail_receive_many` | input search from the full-mailbox cartridge (seeded with title -> menu -> メール), 5 segments | 73 |
+| `fuzz_register` | `register` | input search from the freshly registered cartridge, 2 segments | 48 |
+| `monkey_camp_full` | `mail_receive_many` | blind monkey campaign (20 segments of 6 000 frames, faults) from the full-mailbox cartridge | 316 |
+| `monkey_camp_hidman` | `register_hidden_manual` | blind campaign (20 segments) from the cartridge registered through the manual-phone wizard | 101 |
+| `monkey_camp_allfull` | `state_full` | blind campaign (24 segments) from the full mailbox + full address book cartridge | 182 |
+
+Forced (never part of the union): `forced_debug`, `forced_screens`, `forced_dead` (11.4).
+
+Search effort: about 196 000 fork-server trials in 15 searches from 14 cartridge states; a search ended with 0-73 strong entries (73 for the first browser_errors search, 28 for the browser-session search);
+only the corpora that still added starts when packed became the `fuzz_*` rows above. The search and blind monkeys are not a controlled comparison (order of installation matters), but the numbers say: blind campaigns started from a
+*new kind of cartridge state* (full mailbox, full address book, blank-ish wizard) found 100-330 starts each, the same campaigns started from states that round 1/2 had already mashed found 0-60;
+guided search inside one long connected session (browser) found the most (1 263 + 217); the search stalls quickly (the first search from a rich state found 1 419 new starts in 12 minutes, later ones 0-450 in 7-14 minutes on 10-14 workers) because deep, valid input
+sequences (a keyboard route, a dialog answer, a ten-minute wait) are exactly what a random suffix rarely produces: those had to be written by hand.
+
+### 11.3 Findings (evidence read from the traces, logs and screenshots of this round; names are descriptions, not symbols)
+
+1. **Connection-time notice (CONFIRMED by execution).** The session loops (mail-server check `2E:MailServerMgr_Run` and its fetch loop, the delete-all loops of bank 23, mail send/receive of bank 26, the
+   browser page view and the page list of bank 24) compare timer A with the minute of the next notice `[C26E]` (first: 9:30). At that moment the dialog family of `50:4000` shows
+   "つうしんじかんが まもなく 10ぷんに なります". The server and page-list flows continue with "でんわが きれました" (the ROM hangs up; communication summary "こんかいのつうしんじかんは 9ふん40びょうでした"),
+   the delete-all and receive loops ask "このまま つづけますか?" (はい / いいえ; いいえ hangs up with "でんわを きっています"). Reached with `wait`s of 30-45 k frames (ten minutes = 36 000 frames) and, in the
+   automatic sessions, a slow fake server (`net latency=3000`: every answer readable 50 s after the request).
+2. **Adapter session time-out (CONFIRMED observation, cause PROBABLE).** libmobile ends the session (`End session (timeout)` in `adapter.log`) when the ROM sends nothing for ~240 frames; the next request then
+   fails with the error screen `10-000`. The ROM's idle poll (`17 Status`, every 56 frames) is not sent while it is busy with input, so bursts of more than ~12 taps at 18 frames each starve it; the browser scenarios
+   therefore use bursts of at most 6 taps followed by an idle gap.
+3. **Two different images on one page crash the ROM in this environment (CONFIRMED observation, cause HYPOTHESIS).** With two `<img>` of different files the PC runs into the all-zero bank `03` (a NOP sled: 9 390
+   instruction starts at `03:4000-7FFF` in the discarded run) after `Html_LoadPageImages -> 51:Bmp_ConvertToTiles` for the second image; one image per page, or the same image twice, is fine (img_a+img_b, w2+w3,
+   w12+w13 all crash). The runs were discarded (coverage in a zero bank is not code evidence) and the `r2` site has one image per page. HYPOTHESIS: the resource record list of the second image, or the way the fake
+   server answers image requests (`Content-Type: image/bmp`, `Content-Length`).
+4. **Page-size limit (CONFIRMED observation).** A 3 500-byte page (as served) is shown; pages of 4 200 and 12 000 bytes show their first screenful and then, on scrolling, "ホームページがおおきすぎて すべてひょうじ
+   できませんでした" (section 9.3 item 7 said the dialog had never been displayed: it is, once the page is longer than the limit). The limit lies between 3 500 and 4 200 bytes; HYPOTHESIS: the 4 KiB source buffer at SRAM bank 3 `$B000-$BFFF`.
+5. **Image positions are multiples of 4 pixels (PROBABLE).** With images of widths 1-15 placed plain, centred, right-aligned, floated left/right and top / middle / bottom aligned, only the shift-0 and shift-4 loops of
+   `51:Image_BlitToTileCanvas` ran (`Image_BlitStripShift4` is new); the layout reserves 12-pixel units, so `[FFD5]` (x mod 8) is 0 or 4 and `Image_BlitStripShift1-3,5-7` (and the matching edge-strip branches, ~650
+   bytes) are dead in practice.
+6. **Redirects (CONFIRMED by execution).** 301 and 302 with an absolute, a host-relative or a path-relative Location are followed (`54:Http_Poll`: error `$32` with H=3, L=1/2 -> `Url_ResolveLocation` -> retry, at most
+   three), 303 ends in the error screen `32-303`, 307 ends on the target page like 302; the password change (`67:PasswordChange_FollowRedirect`, `HttpRedirect_ResolveUrl`, `NormalizePath`) handles the same
+   Location forms. (Section 9.3 said a 302 "is not followed": with `http_redirect=1` left on, every retry is redirected again, the ROM gives up after the retries and the previous page stays on the screen - the last visit of `browser_redirect` shows exactly that, which looks like a redirect that was not followed.)
+7. **Mailbox capacity (CONFIRMED).** The receive loop stops when 12 mails are stored: with 14 mails on the server 12 arrive ("12つう とどいています!!"), 2 stay; the list shows 4 rows and wraps at both ends;
+   the received-count sprite has twelve object rows (`29:MailResult_SetReceivedSprite`, `26:4C94/4DAB`). Bodies of 300-2 880 bytes were all received (`RETR`; scratch runs, those fixtures are not committed), so the `Pop3RxBodyChunk` continuation was not triggered by size.
+8. **What the receive path does with unusual mails (CONFIRMED by the POP3 transcript).** Folded headers, upper-case header names and encoded-word prefix, a Q-encoded subject with a quoted-printable body, a
+   three-part multipart mail and one without its closing boundary are accepted (TOP, RETR, DELE); the mail with a header byte >= 0x80 is only TOPed (consistent with `Mail_ScanHeaders` error `$81`);
+   `X-Game-code: CGB-AAAA-00` (in the allow-list `0F:4004`) is stored, `CGB-ZZZZ-99` is only TOPed, the Trainer's own `CGB-B9AJ-00` game mail is only TOPed (as in round 1).
+9. **Server-mail management (CONFIRMED).** Hidden menu button order: first "かくにんしてから" (`22:MailSrvDelHidden_CheckAndDelete`), second "じどうでぜんぶけす" (DeleteAll), third "かんぜんにけす"
+   (DeleteCompletely); UP from the first wraps to the third. In round 1 both runs of `mail_server_hidden` had run the third button. With 14 mails the check screen numbers them 1-14.
+10. **Non-CGB boot (CONFIRMED, boot register).** `--boot-a 01` -> `00:02A6` -> `6B:NonCgb_ErrorScreen` (76 instruction starts, then it halts). The screen stays white: the emulated machine is a CGB and the routine
+    fades the DMG register BGP. This also fixed the one executed start outside every code region (`6B:4D1F`, 11.6).
+11. **Keyboards (CONFIRMED by execution).** Ten keyboard types share bank 55; the kana keyboards (types 6-8) have four pages (hiragana, katakana, full-width alphanumerics, symbols; SELECT cycles them); the dakuten /
+    handakuten keys (`$814A` / `$814B`) after a voiceable kana rewrite the previous character (the profile, address-book, mail-title and mail-body editors each have their own copy: `*_ApplyDakuten`,
+    `*_ApplyHandakuten`), after the katakana ウ the dakuten key makes ヴ (`*_ApplyDakutenU`, `Profile_ApplyVu`). Name and nickname fields hold 8 full-width characters, address fields 64 bytes over three lines
+    (16 / 24 / 24). The body keyboard opens by itself on the first A of the body editor, and a keyboard may open with the cursor on the OK key instead of the first key (so routes must not assume the start cell).
+12. **Search for hidden inputs.** No new multi-button test was found: the byte scan of section 9.3 is unchanged (three `hJoyHeld` comparisons), the 255 power-on combinations added nothing, and the roughly 4 % of the random actions of the searches that held a random combination (`SELECT+LEFT`, `B+SELECT+RIGHT`, `A+B`, `SELECT+START`, ... on every screen the searches reached) executed no instruction of the debug banks.
+    The dictionary (ヘルプ -> モバイルじてん) and help entries unlock once mail and browser were used; walking every tab and page added no instruction that the other scenarios had not executed.
+
+### 11.4 Forced execution (`traces/forced/`, `analysis/coverage_forced.tsv`: 4 530 addresses that no natural scenario executed)
+
+Code that no static caller reaches (region notes "unreferenced", "no caller", "dead body after ret") cannot be executed by any input. Three scenarios flagged `forced` jump into it with the harness directive
+`force` after a power cycle and the boot to the logo screen; they are published apart and never take part in the union or in any CONFIRMED upgrade. What they show (screenshots in `.cache/trace/shots/forced_*`,
+not committed):
+
+* `forced_debug` (1 528 forced-only starts). `19:4000` DebugFlags_Run: a black screen "== DEBUG MODE ==  ↑↓:えらぶ ←→:カーソル A:へんこう  Sta:BIT←→DEC  Sel/B:しゅうりょう" with one entry
+  【サインアップデバッグフラグ】 and a five-digit value (initial `00165` = `$A5`): D-pad / A change the value (the symbol notes say it is written back with `WriteByteFar` to SRAM bank 1 `$B0BF`), START cycles DEC / BIT / hex, holding a
+  direction auto-repeats, B / SELECT leave (the run then ends in a white screen: the interrupted screen is gone). `19:4980` Debug_ErrorScreenTest: "A:エラー B+↑↓:しゅるい Sel:END ↑↓(←→):Number" with `【KKNNNN】` (kind and number); A opens the
+  ROM's error screen `5C:5150` with header "エラー No.KK-NNN" (kinds 00, 02, 04, ... and numbers 000, 101, ... were shown; the message box stayed empty for them); B+UP held for about 25 frames or more changes the kind (a shorter press changed nothing). `1B:4040` SoundTest_Run: a four-hex-digit id, A plays it as music, B as a sound effect, START stops, SELECT leaves; it is the only run that
+  executes `04:SoundDrv_LoadSongHeader`, `SoundDrv_StopAllSfx` and `StopSfxById`.
+* `forced_screens` (1 853). `2B:53C3` MailGrid_Screen: the unused "もらったメール" 4x3 grid (icons of the mailbox records, date, name and title of the selected cell); `7F:4C78`: the text-canvas demo (12 lines of
+  "サンプルデータですからね～", A redraws inverted); `4E:4000` (A = style): the screen-frame style chooser with its wipe animation and the map copy to SRAM bank 3; `2D:4195` MailRecord_InstallSampleMails: after a
+  reset the ordinary メールボックス shows five sample mails (sender "マリオ", "またあそぼうよ", ...); `2D:44FB` Abook_InstallSampleEntries: after a reset the アドレスちょう list shows six entries (フジシゲユウイチ,
+  fujishige@missinglink.co.jp, ...); `2D:7E60` Sram_ClearAllBanks: after a reset the boot sees an all-zero cartridge and starts the registration wizard.
+* `forced_dead` (1 149). The dead bodies of the three disabled sprite counters (`23:58C5`, `23:5FA3`, `23:669A`: digit sprites of HL), the two time read-out twins (`22:48CD`, `23:47BC`), the unused address-book screen
+  `2C:741C` ("みる < START > かく" header and a yes/no dialog for the message id `$0204`: the dialog shows just the number 204), `2B:6CF5`, `67:424A`, and the entries of the palette-fade library `29:5117-5335`.
+  All of them ran without an illegal opcode (no `bad` flow among the 4 530 forced-only rows). `65:481A` (dead variant of Startup_VerifySaveData) was tried and dropped: its `call $21A0` lands in the zero padding of bank 0 and the run executes 7 776 NOPs.
+
+The forced runs did not reveal any caller: in the union of the 50 published `callgraph.tsv` files (2 921 `jphl` rows plus every call edge) there is no edge to `19:4000`, `19:4980`, `1B:4040`, `2B:53C3`, `7F:4C78`,
+`4E:4000`, `2D:4195` or `2D:44FB`, and a scan of the ROM finds no `call` / `jp` / far pointer / table word that targets them (unchanged from section 9.5). The SRAM byte edited by the flag editor
+(`1:B0BF`, `$A5` on the registered test cartridge) lies inside the 32-byte phone-comment field `B0AD-B0CC` that the registration wizard writes (`65:4563`, XOR `A5` encoded), so the "sign-up debug flag" is at least
+also a byte of that record; no code was found that reads it as a flag (HYPOTHESIS, unchanged). `Region notes` of 64 not-CONFIRMED code regions now record which of their instruction starts ran under `force`
+(status unchanged).
+
+### 11.5 Reaching the hidden / debug code without forcing
+
+Searched and not found: no input combination, no SRAM value and no RAM function pointer reaches `19:4000`, `19:4980`, `1B:4040` or the other unreferenced entries above. The evidence is negative and limited: the byte scan
+of section 9.3 finds direct `hJoyHeld` tests only (a joypad byte copied elsewhere or tested through a pointer is invisible to it), and the executed `jphl` targets (2 921 rows over the 50 scenarios that publish a `callgraph.tsv`) contain none of them. The
+hidden inputs that do exist (section 9.3 item 1) all sit on the mail / settings / registration menus and were reached in round 2.
+
+### 11.6 `tools/apply_coverage.py`: promotion, splitting, data reads, forced notes
+
+* `--apply` promotes fully executed code regions (as in section 10): 94 regions / 6 191 bytes in the first pass, 4 more small ones after `fuzz_register`.
+* `--apply --split` cuts every partly executed PROBABLE / HYPOTHESIS `code` region at the boundaries of its maximal runs of executed instruction starts: each executed run becomes a CONFIRMED region ("N insn(s)
+  executed; cut out of the PROBABLE region A-B by apply_coverage --split [executed in K scenarios]"), each run of never-executed instructions stays a region with the original status. Rationale: an executed
+  instruction start is direct evidence that the bytes are code *at that address*; the old unit (a function-sized region, CONFIRMED only when *every* instruction ran) threw away most executed bytes (150 332 executed
+  instruction bytes against 105 601 CONFIRMED). This round: 269 regions were cut into 1 425 pieces (+50 729 CONFIRMED bytes in the first pass). Cuts are made only at instruction starts (the inline bytes of a far-call convention stay with
+  their call), the first piece keeps the label and the evidence note, bytes and kinds are untouched, so `python3 tools/gen_asm.py verify` still reports IDENTICAL and `tools/conventions_check.py --strict` stays clean.
+  Regions with scan trouble, `ramcode` regions and CONFIRMED regions are never touched; a second `--apply --split` changes nothing (checked).
+* `--data-reads`: `UNCLASSIFIED` data regions whose every byte the CPU read as data (`traces/detail/*/dataaccess.tsv`) become CONFIRMED (`[every byte read as data in N scenario(s)]`): `2A:4AA0` and `2B:6DD0` (tile sets), `54:511B`.
+* `--forced-notes`: regions with instruction starts executed only by forced scenarios get ` | forced execution: K/N instruction starts ran in <scenarios> (traces/forced/, not natural evidence; status unchanged)`
+  (54 PROBABLE and 10 HYPOTHESIS regions); the report lists them in section F.
+* Executed start outside every code region: `6B:4D1F` (the `reti` at the last byte of the 5-byte table `Data_6B_4D1B`, executed by `noncgb_boot`) was fixed by hand: `4D1B-4D1F` stays data (BGP fade table
+  `00 40 90 E4`), `4D1F-4D20` is a one-byte CONFIRMED code region (`reti`, the target of the VBlank stub `jp $4D1F` that `NonCgb_ErrorScreen` installs), as the symbol note already said. It is the only such start.
+* Unclassified spans (the 46 one-to-56-byte `UNCLASSIFIED` data regions, 1 801 bytes): only three were read as data by any natural run (above); none was executed as code (no start outside code regions), so the other
+  43 keep their HYPOTHESIS status. No HYPOTHESIS *code* region (3 445 bytes) got natural entry evidence: 10 of them have forced-run notes.
+
+### 11.7 Numbers (`analysis/coverage_report.md`, `traces/summary.md`, `traces/growth.md`)
+
+| | end of round 2 | end of round 3 |
+|---|---:|---:|
+| scenarios (natural + forced) | 41 | 64 + 3 |
+| executed ROM instruction starts (union) | 72 224 | 77 979 |
+| ROM banks that executed code | 47 | 48 |
+| executed instruction bytes (round-2 region map) | 139 091 | 150 437 |
+| code bytes, CONFIRMED | 105 600 | 162 635 |
+| code bytes, PROBABLE | 112 738 | 55 704 |
+| code bytes, HYPOTHESIS | 3 445 | 3 445 |
+| code regions | 2 703 | 3 860 |
+| `coverage_union.tsv` | 3.85 MB | 3.26 MB |
+| `traces/` | 21 MB | 35 MB |
+
+Static frontier after the round (`frontier.py`): 55 627 bytes of code never executed; only 9 650 bytes of them hang behind an executed branch / call (624 gates), the other ~46 000 bytes have no executed predecessor.
+
+### 11.8 What remains unexecuted, and why
+
+* **Dead or unreferenced code (about 46 000 bytes, no natural gate).** 8 543 bytes of it ran under `force` (11.4). Never-executed bytes per bank, whatever the reason (most of the big ones belong here): `23` 6 582 (three 1 550-byte bodies behind `ret`-patched sprite counters, twin
+  read-out routines), `7F` 6 101 (sample / dummy-data loaders and the canvas demo library), `75` 4 312 (Mobile Adapter SDK API entries that the Trainer never calls: `Pop3List`, `PeerSend`, `PeerReceive`, ...), `0F` 3 517 (mail
+  library selectors 3, 5 and 7 - `Mail_LocateHeader`, `Mail_IndexHeaders`, `Mail_GetAddressList` / `ExtractAddresses` - have no caller in the Trainer), `19` 2 749 and `1B` 851 (debug screens, forced), `2C` 2 441, `2D` 2 400, `4E` 2 308,
+  `2B` 2 079, `29` 1 528 (unused screens, sample installers, the HYPOTHESIS fade library, forced), `04` 935 (sound-driver parameter functions), `00` 1 225 (control-code handlers `$01-$07`, `$1C-$1F` of the text interpreter
+  and helpers).
+* **Behind a gate but never flipped (9 650 bytes).** Some are dead by argument: `2C:AddrPick_MoveNameHighlight` (386 bytes) is entered with a new slot 0, which only the "clear" path `AddrPick_LoadSelection C=0` (itself dead)
+  produces; `51:Image_BlitStripShift1-3,5-7` and their edge-strip branches (~650 bytes, finding 5); the POP3 / HTTP body-continuation states (`75:MobileSDK_Pop3RxBodyChunk`, `HttpReadBody`, `Function_75_5164`, `54:Pop3_RetrPoll`:
+  ~1 000 bytes; not triggered by mails up to 2 880 bytes or pages up to 12 000 bytes); the mailbox "delete mode" (`wMailScreenMode = $FF`, 276 bytes in `25:Mailbox_IconMenu_PressA`; the value is stored only by the state code `7C:7BFA-7C79`, which no executed dispatcher entry reaches);
+  the "answered, continue" branch of the connection-time popup in the server check screen (`2E:Function_2E_4A7D`, 344 bytes: the popup returned "hang up" in every run); the other branches of the notice / keyboard / dialog
+  families that a longer blind search may still reach. `frontier.py` lists them in order.
+* **Not modelled by the harness.** A real CGI success format (`daa_gb_*.cgi`, section 9.3), other players / cartridges, audio-only paths (music playback exists only in the forced sound test), the real clock, a real DMG
+  (only its boot register).

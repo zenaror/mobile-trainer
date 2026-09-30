@@ -1,0 +1,2682 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f0] HARNESS console reset (power cycle)
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f1792] NET option cgi=302/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other
+[f6231] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6231] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6233] gb.mobile DEBUG: >>> 11 End session
+[f6233] gb.mobile DEBUG: <<< 11 End session
+[f6233] gb.mobile DEBUG: 
+[f6357] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6357] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6359] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6359] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6359] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6359] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6359] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6359] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6359] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6359] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6365] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6365] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6365] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6365] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6365] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6365] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6365] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6365] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6371] gb.mobile DEBUG: >>> 11 End session
+[f6371] gb.mobile DEBUG: <<< 11 End session
+[f6371] gb.mobile DEBUG: 
+[f6496] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6496] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6498] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6498] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6498] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6498] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6498] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6498] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6498] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6498] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6504] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6504] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6504] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6504] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6504] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6504] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6504] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6504] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6510] gb.mobile DEBUG: >>> 17 Status
+[f6510] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f6512] gb.mobile DEBUG: >>> 12 Call (prot 0): #9477
+[f6512] gb.mobile DEBUG: <<< 12 Call
+[f6514] gb.mobile DEBUG: >>> 21 PPP connect (id: guest; dns1: 192.168.40.2; dns2: 192.168.40.2)
+[f6514] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f6518] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f6518] NET sock_open conn=0 UDP bindport=0
+[f6519] NET udp send to 192.168.40.2:53 (32 bytes)
+[f6519] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f6520] NET sock_close conn=0
+[f6520] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f6522] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f6522] NET sock_open conn=0 TCP bindport=0
+[f6523] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f6523] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f6525] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6525] gb.mobile DEBUG: POST 
+[f6525] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6528] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6528] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f6528] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6532] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6532] gb.mobile DEBUG:  HTTP/1.0
+Content-Length: 45
+User-Agent: CGB-B9AJ-00
+
+
+[f6532] NET tcp:80 rx-line "POST /cgi-bin/mgb/daa_gb_pwdchg.cgi HTTP/1.0"
+[f6532] NET tcp:80 rx-line "Content-Length: 45"
+[f6532] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f6532] NET tcp:80 rx-line ""
+[f6532] NET http cgi answer "302/-/-/-/-/http://gameboy.datacenter.ne.jp/cgb/other" for /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f6532] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6536] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6536] gb.mobile DEBUG: PPP_ID=g111111111&PASSWD=AaZ01&NEWPASSWD=aZ02
+[f6536] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6536] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: http://gameboy.datacenter.ne.jp/cgb/other
+Co
+[f6542] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6542] NET sock_close conn=0
+[f6542] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f6546] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f6546] NET sock_open conn=0 UDP bindport=0
+[f6547] NET udp send to 192.168.40.2:53 (42 bytes)
+[f6547] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f6548] NET sock_close conn=0
+[f6548] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f6550] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f6550] NET sock_open conn=0 TCP bindport=0
+[f6551] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f6551] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f6553] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6553] gb.mobile DEBUG: GET 
+[f6553] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6555] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6555] gb.mobile DEBUG: /cgb/other
+[f6555] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6558] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6558] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f6558] NET tcp:80 rx-line "GET /cgb/other HTTP/1.0"
+[f6558] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f6558] NET tcp:80 rx-line ""
+[f6558] NET http 404 for /cgb/other
+[f6558] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6560] gb.mobile DEBUG: HTTP/1.0 404 Not Found
+Content-Length: 0
+
+
+[f6564] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6564] NET sock_close conn=0
+[f6564] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f6568] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f6568] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f6569] gb.mobile DEBUG: >>> 13 Disconnect
+[f6569] gb.mobile DEBUG: <<< 13 Disconnect
+[f6570] gb.mobile DEBUG: >>> 11 End session
+[f6570] gb.mobile DEBUG: <<< 11 End session
+[f6570] gb.mobile DEBUG: 
+[f8993] HARNESS console reset (power cycle)
+[f9044] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9044] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9046] gb.mobile DEBUG: >>> 11 End session
+[f9046] gb.mobile DEBUG: <<< 11 End session
+[f9046] gb.mobile DEBUG: 
+[f9170] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f9170] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f9172] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f9172] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f9172] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f9172] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f9172] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f9172] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f9172] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f9172] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f9172] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f9172] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f9179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f9179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f9179] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f9179] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f9179] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f9179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f9183] gb.mobile DEBUG: >>> 11 End session
+[f9183] gb.mobile DEBUG: <<< 11 End session
+[f9183] gb.mobile DEBUG: 
+[f10785] NET option cgi=301/-/-/-/-//cgb/other
+[f15224] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15224] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15226] gb.mobile DEBUG: >>> 11 End session
+[f15226] gb.mobile DEBUG: <<< 11 End session
+[f15226] gb.mobile DEBUG: 
+[f15350] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15350] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15352] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f15352] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f15352] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f15352] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f15352] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f15352] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f15352] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f15352] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f15358] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f15358] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f15358] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f15358] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f15358] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f15358] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f15358] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f15358] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f15364] gb.mobile DEBUG: >>> 11 End session
+[f15364] gb.mobile DEBUG: <<< 11 End session
+[f15364] gb.mobile DEBUG: 
+[f15489] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f15489] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f15491] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f15491] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f15491] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f15491] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f15491] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f15491] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f15491] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f15491] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f15497] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f15497] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f15497] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f15497] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f15497] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f15497] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f15497] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f15497] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f15503] gb.mobile DEBUG: >>> 17 Status
+[f15503] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f15505] gb.mobile DEBUG: >>> 12 Call (prot 0): #9477
+[f15505] gb.mobile DEBUG: <<< 12 Call
+[f15507] gb.mobile DEBUG: >>> 21 PPP connect (id: guest; dns1: 192.168.40.2; dns2: 192.168.40.2)
+[f15507] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f15511] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f15511] NET sock_open conn=0 UDP bindport=0
+[f15512] NET udp send to 192.168.40.2:53 (32 bytes)
+[f15512] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f15513] NET sock_close conn=0
+[f15513] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f15515] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f15515] NET sock_open conn=0 TCP bindport=0
+[f15516] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f15516] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f15518] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15518] gb.mobile DEBUG: POST 
+[f15518] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15521] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15521] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f15521] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15525] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15525] gb.mobile DEBUG:  HTTP/1.0
+Content-Length: 45
+User-Agent: CGB-B9AJ-00
+
+
+[f15525] NET tcp:80 rx-line "POST /cgi-bin/mgb/daa_gb_pwdchg.cgi HTTP/1.0"
+[f15525] NET tcp:80 rx-line "Content-Length: 45"
+[f15525] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f15525] NET tcp:80 rx-line ""
+[f15525] NET http cgi answer "301/-/-/-/-//cgb/other" for /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f15525] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15529] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15529] gb.mobile DEBUG: PPP_ID=g111111111&PASSWD=AaZ01&NEWPASSWD=aZ02
+[f15529] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15529] gb.mobile DEBUG: HTTP/1.0 301 Simulated
+Location: /cgb/other
+Content-Length: 0
+
+
+[f15533] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15533] NET sock_close conn=0
+[f15533] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f15537] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f15537] NET sock_open conn=0 UDP bindport=0
+[f15538] NET udp send to 192.168.40.2:53 (32 bytes)
+[f15538] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f15539] NET sock_close conn=0
+[f15539] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f15541] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f15541] NET sock_open conn=0 TCP bindport=0
+[f15542] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f15542] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f15544] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15544] gb.mobile DEBUG: GET 
+[f15544] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15546] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15546] gb.mobile DEBUG: /cgb/other
+[f15546] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15549] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15549] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f15549] NET tcp:80 rx-line "GET /cgb/other HTTP/1.0"
+[f15549] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f15549] NET tcp:80 rx-line ""
+[f15549] NET http 404 for /cgb/other
+[f15549] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15551] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15551] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15551] gb.mobile DEBUG: HTTP/1.0 404 Not Found
+Content-Length: 0
+
+
+[f15555] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15555] NET sock_close conn=0
+[f15555] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f15559] gb.mobile DEBUG: >>> 22 PPP disconnect
+[f15559] gb.mobile DEBUG: <<< 22 PPP disconnect
+[f15560] gb.mobile DEBUG: >>> 13 Disconnect
+[f15560] gb.mobile DEBUG: <<< 13 Disconnect
+[f15561] gb.mobile DEBUG: >>> 11 End session
+[f15561] gb.mobile DEBUG: <<< 11 End session
+[f15561] gb.mobile DEBUG: 
+[f17984] HARNESS console reset (power cycle)
+[f18035] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18035] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18037] gb.mobile DEBUG: >>> 11 End session
+[f18037] gb.mobile DEBUG: <<< 11 End session
+[f18037] gb.mobile DEBUG: 
+[f18161] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f18161] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f18163] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f18163] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f18163] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f18163] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f18163] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f18163] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f18163] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f18163] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f18163] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f18163] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f18170] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f18170] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f18170] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f18170] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f18170] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f18170] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f18174] gb.mobile DEBUG: >>> 11 End session
+[f18174] gb.mobile DEBUG: <<< 11 End session
+[f18174] gb.mobile DEBUG: 
+[f19776] NET option cgi=302/-/-/-/-/other.txt
+[f24215] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24215] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24217] gb.mobile DEBUG: >>> 11 End session
+[f24217] gb.mobile DEBUG: <<< 11 End session
+[f24217] gb.mobile DEBUG: 
+[f24341] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24341] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24343] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f24343] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f24343] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f24343] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f24343] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f24343] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f24343] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f24343] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f24349] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f24349] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f24349] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f24349] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f24349] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f24349] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f24349] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f24349] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f24355] gb.mobile DEBUG: >>> 11 End session
+[f24355] gb.mobile DEBUG: <<< 11 End session
+[f24355] gb.mobile DEBUG: 
+[f24480] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f24480] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f24482] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f24482] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f24482] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f24482] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f24482] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f24482] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f24482] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f24482] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f24488] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f24488] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f24488] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f24488] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f24488] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f24488] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f24488] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f24488] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f24494] gb.mobile DEBUG: >>> 17 Status
+[f24494] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f24496] gb.mobile DEBUG: >>> 12 Call (prot 0): #9477
+[f24496] gb.mobile DEBUG: <<< 12 Call
+[f24498] gb.mobile DEBUG: >>> 21 PPP connect (id: guest; dns1: 192.168.40.2; dns2: 192.168.40.2)
+[f24498] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f24502] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24502] NET sock_open conn=0 UDP bindport=0
+[f24503] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24503] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24504] NET sock_close conn=0
+[f24504] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24506] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24506] NET sock_open conn=0 TCP bindport=0
+[f24507] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24507] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24509] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24509] gb.mobile DEBUG: POST 
+[f24509] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24512] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24512] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f24512] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24516] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24516] gb.mobile DEBUG:  HTTP/1.0
+Content-Length: 45
+User-Agent: CGB-B9AJ-00
+
+
+[f24516] NET tcp:80 rx-line "POST /cgi-bin/mgb/daa_gb_pwdchg.cgi HTTP/1.0"
+[f24516] NET tcp:80 rx-line "Content-Length: 45"
+[f24516] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24516] NET tcp:80 rx-line ""
+[f24516] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi
+[f24516] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24520] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24520] gb.mobile DEBUG: PPP_ID=g111111111&PASSWD=AaZ01&NEWPASSWD=aZ02
+[f24520] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24520] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24524] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24524] NET sock_close conn=0
+[f24524] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24528] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24528] NET sock_open conn=0 UDP bindport=0
+[f24529] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24529] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24530] NET sock_close conn=0
+[f24530] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24532] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24532] NET sock_open conn=0 TCP bindport=0
+[f24533] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24533] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24535] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24535] gb.mobile DEBUG: GET 
+[f24535] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24538] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24538] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt
+[f24538] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24541] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24541] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24541] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt HTTP/1.0"
+[f24541] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24541] NET tcp:80 rx-line ""
+[f24541] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt
+[f24541] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24543] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24543] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24543] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24547] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24547] NET sock_close conn=0
+[f24547] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24551] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24551] NET sock_open conn=0 UDP bindport=0
+[f24552] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24552] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24553] NET sock_close conn=0
+[f24553] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24555] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24555] NET sock_open conn=0 TCP bindport=0
+[f24556] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24556] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24558] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24558] gb.mobile DEBUG: GET 
+[f24558] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24562] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24562] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt
+[f24562] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24565] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24565] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24565] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt HTTP/1.0"
+[f24565] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24565] NET tcp:80 rx-line ""
+[f24565] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt
+[f24565] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24567] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24567] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24567] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24571] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24571] NET sock_close conn=0
+[f24571] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24575] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24575] NET sock_open conn=0 UDP bindport=0
+[f24576] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24576] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24577] NET sock_close conn=0
+[f24577] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24579] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24579] NET sock_open conn=0 TCP bindport=0
+[f24580] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24580] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24582] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24582] gb.mobile DEBUG: GET 
+[f24582] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24586] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24586] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt
+[f24586] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24589] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24589] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24589] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt HTTP/1.0"
+[f24589] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24589] NET tcp:80 rx-line ""
+[f24589] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt
+[f24589] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24591] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24591] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24591] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24595] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24595] NET sock_close conn=0
+[f24595] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24599] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24599] NET sock_open conn=0 UDP bindport=0
+[f24600] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24600] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24601] NET sock_close conn=0
+[f24601] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24603] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24603] NET sock_open conn=0 TCP bindport=0
+[f24604] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24604] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24606] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24606] gb.mobile DEBUG: GET 
+[f24606] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24611] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24611] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt
+[f24611] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24614] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24614] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24614] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24614] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24614] NET tcp:80 rx-line ""
+[f24614] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt
+[f24614] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24616] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24616] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24616] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24620] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24620] NET sock_close conn=0
+[f24620] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24624] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24624] NET sock_open conn=0 UDP bindport=0
+[f24625] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24625] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24626] NET sock_close conn=0
+[f24626] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24628] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24628] NET sock_open conn=0 TCP bindport=0
+[f24629] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24629] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24631] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24631] gb.mobile DEBUG: GET 
+[f24631] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24636] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24636] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24636] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24639] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24639] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24639] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24639] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24639] NET tcp:80 rx-line ""
+[f24639] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24639] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24641] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24641] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24641] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24645] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24645] NET sock_close conn=0
+[f24645] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24649] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24649] NET sock_open conn=0 UDP bindport=0
+[f24650] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24650] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24651] NET sock_close conn=0
+[f24651] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24653] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24653] NET sock_open conn=0 TCP bindport=0
+[f24654] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24654] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24656] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24656] gb.mobile DEBUG: GET 
+[f24656] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24662] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24662] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24662] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24665] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24665] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24665] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24665] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24665] NET tcp:80 rx-line ""
+[f24665] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24665] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24667] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24667] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24667] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24671] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24671] NET sock_close conn=0
+[f24671] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24675] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24675] NET sock_open conn=0 UDP bindport=0
+[f24676] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24676] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24677] NET sock_close conn=0
+[f24677] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24679] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24679] NET sock_open conn=0 TCP bindport=0
+[f24680] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24680] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24682] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24682] gb.mobile DEBUG: GET 
+[f24682] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24688] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24688] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24688] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24691] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24691] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24691] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24691] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24691] NET tcp:80 rx-line ""
+[f24691] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24691] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24693] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24693] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24693] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24697] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24697] NET sock_close conn=0
+[f24697] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24701] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24701] NET sock_open conn=0 UDP bindport=0
+[f24702] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24702] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24703] NET sock_close conn=0
+[f24703] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24705] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24705] NET sock_open conn=0 TCP bindport=0
+[f24706] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24706] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24708] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24708] gb.mobile DEBUG: GET 
+[f24708] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24714] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24714] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24714] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24717] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24717] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24717] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24717] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24717] NET tcp:80 rx-line ""
+[f24717] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24717] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24719] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24719] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24719] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24723] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24723] NET sock_close conn=0
+[f24723] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24727] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24727] NET sock_open conn=0 UDP bindport=0
+[f24728] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24728] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24729] NET sock_close conn=0
+[f24729] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24731] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24731] NET sock_open conn=0 TCP bindport=0
+[f24732] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24732] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24734] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24734] gb.mobile DEBUG: GET 
+[f24734] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24741] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24741] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24741] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24744] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24744] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24744] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24744] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24744] NET tcp:80 rx-line ""
+[f24744] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24744] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24746] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24746] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24746] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24750] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24750] NET sock_close conn=0
+[f24750] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24754] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24754] NET sock_open conn=0 UDP bindport=0
+[f24755] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24755] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24756] NET sock_close conn=0
+[f24756] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24758] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24758] NET sock_open conn=0 TCP bindport=0
+[f24759] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24759] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24761] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24761] gb.mobile DEBUG: GET 
+[f24761] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24768] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24768] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24768] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24771] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24771] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24771] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24771] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24771] NET tcp:80 rx-line ""
+[f24771] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24771] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24773] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24773] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24773] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24777] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24777] NET sock_close conn=0
+[f24777] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24781] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24781] NET sock_open conn=0 UDP bindport=0
+[f24782] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24782] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24783] NET sock_close conn=0
+[f24783] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24785] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24785] NET sock_open conn=0 TCP bindport=0
+[f24786] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24786] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24788] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24788] gb.mobile DEBUG: GET 
+[f24788] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24796] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24796] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24796] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24799] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24799] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24799] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24799] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24799] NET tcp:80 rx-line ""
+[f24799] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24799] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24801] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24801] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24801] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24805] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24805] NET sock_close conn=0
+[f24805] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24809] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24809] NET sock_open conn=0 UDP bindport=0
+[f24810] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24810] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24811] NET sock_close conn=0
+[f24811] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24813] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24813] NET sock_open conn=0 TCP bindport=0
+[f24814] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24814] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24816] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24816] gb.mobile DEBUG: GET 
+[f24816] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24824] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24824] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24824] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24827] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24827] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24827] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24827] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24827] NET tcp:80 rx-line ""
+[f24827] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24827] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24829] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24829] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24829] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24833] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24833] NET sock_close conn=0
+[f24833] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24837] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24837] NET sock_open conn=0 UDP bindport=0
+[f24838] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24838] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24839] NET sock_close conn=0
+[f24839] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24841] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24841] NET sock_open conn=0 TCP bindport=0
+[f24842] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24842] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24844] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24844] gb.mobile DEBUG: GET 
+[f24844] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24853] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24853] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24853] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24856] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24856] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24856] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24856] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24856] NET tcp:80 rx-line ""
+[f24856] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24856] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24858] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24858] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24858] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24862] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24862] NET sock_close conn=0
+[f24862] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24866] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24866] NET sock_open conn=0 UDP bindport=0
+[f24867] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24867] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24868] NET sock_close conn=0
+[f24868] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24870] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24870] NET sock_open conn=0 TCP bindport=0
+[f24871] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24871] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24873] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24873] gb.mobile DEBUG: GET 
+[f24873] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24882] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24882] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24882] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24885] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24885] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24885] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24885] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24885] NET tcp:80 rx-line ""
+[f24885] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24885] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24887] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24887] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24887] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24891] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24891] NET sock_close conn=0
+[f24891] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24895] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24895] NET sock_open conn=0 UDP bindport=0
+[f24896] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24896] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24897] NET sock_close conn=0
+[f24897] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24899] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24899] NET sock_open conn=0 TCP bindport=0
+[f24900] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24900] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24902] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24902] gb.mobile DEBUG: GET 
+[f24902] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24911] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24911] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24911] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24914] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24914] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24914] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24914] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24914] NET tcp:80 rx-line ""
+[f24914] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24914] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24916] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24916] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24916] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24920] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24920] NET sock_close conn=0
+[f24920] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24924] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24924] NET sock_open conn=0 UDP bindport=0
+[f24925] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24925] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24926] NET sock_close conn=0
+[f24926] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24928] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24928] NET sock_open conn=0 TCP bindport=0
+[f24929] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24929] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24931] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24931] gb.mobile DEBUG: GET 
+[f24931] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24941] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24941] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24941] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24944] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24944] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24944] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24944] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24944] NET tcp:80 rx-line ""
+[f24944] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24944] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24946] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24946] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24946] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24950] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24950] NET sock_close conn=0
+[f24950] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24954] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24954] NET sock_open conn=0 UDP bindport=0
+[f24955] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24955] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24956] NET sock_close conn=0
+[f24956] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24958] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24958] NET sock_open conn=0 TCP bindport=0
+[f24959] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24959] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24961] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24961] gb.mobile DEBUG: GET 
+[f24961] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24971] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24971] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f24971] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24974] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24974] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24974] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f24974] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24974] NET tcp:80 rx-line ""
+[f24974] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f24974] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24976] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24976] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24976] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f24980] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24980] NET sock_close conn=0
+[f24980] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24984] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f24984] NET sock_open conn=0 UDP bindport=0
+[f24985] NET udp send to 192.168.40.2:53 (32 bytes)
+[f24985] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f24986] NET sock_close conn=0
+[f24986] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f24988] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f24988] NET sock_open conn=0 TCP bindport=0
+[f24989] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f24989] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24991] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24991] gb.mobile DEBUG: GET 
+[f24991] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25002] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25002] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25002] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25005] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25005] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25005] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25005] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25005] NET tcp:80 rx-line ""
+[f25005] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25005] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25007] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25007] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25007] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25011] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25011] NET sock_close conn=0
+[f25011] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25015] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25015] NET sock_open conn=0 UDP bindport=0
+[f25016] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25016] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25017] NET sock_close conn=0
+[f25017] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25019] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25019] NET sock_open conn=0 TCP bindport=0
+[f25020] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25020] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25022] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25022] gb.mobile DEBUG: GET 
+[f25022] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25033] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25033] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25033] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25036] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25036] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25036] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25036] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25036] NET tcp:80 rx-line ""
+[f25036] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25036] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25038] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25038] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25038] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25042] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25042] NET sock_close conn=0
+[f25042] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25046] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25046] NET sock_open conn=0 UDP bindport=0
+[f25047] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25047] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25048] NET sock_close conn=0
+[f25048] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25050] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25050] NET sock_open conn=0 TCP bindport=0
+[f25051] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25051] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25053] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25053] gb.mobile DEBUG: GET 
+[f25053] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25065] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25065] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25065] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25068] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25068] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25068] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25068] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25068] NET tcp:80 rx-line ""
+[f25068] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25068] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25070] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25070] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25070] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25074] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25074] NET sock_close conn=0
+[f25074] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25078] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25078] NET sock_open conn=0 UDP bindport=0
+[f25079] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25079] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25080] NET sock_close conn=0
+[f25080] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25082] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25082] NET sock_open conn=0 TCP bindport=0
+[f25083] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25083] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25085] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25085] gb.mobile DEBUG: GET 
+[f25085] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25097] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25097] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25097] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25100] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25100] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25100] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25100] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25100] NET tcp:80 rx-line ""
+[f25100] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25100] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25102] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25102] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25102] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25106] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25106] NET sock_close conn=0
+[f25106] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25110] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25110] NET sock_open conn=0 UDP bindport=0
+[f25111] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25111] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25112] NET sock_close conn=0
+[f25112] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25114] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25114] NET sock_open conn=0 TCP bindport=0
+[f25115] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25115] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25117] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25117] gb.mobile DEBUG: GET 
+[f25117] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25130] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25130] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25130] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25133] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25133] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25133] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25133] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25133] NET tcp:80 rx-line ""
+[f25133] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25133] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25135] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25135] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25135] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25139] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25139] NET sock_close conn=0
+[f25139] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25143] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25143] NET sock_open conn=0 UDP bindport=0
+[f25144] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25144] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25145] NET sock_close conn=0
+[f25145] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25147] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25147] NET sock_open conn=0 TCP bindport=0
+[f25148] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25148] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25150] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25150] gb.mobile DEBUG: GET 
+[f25150] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25163] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25163] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25163] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25165] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25165] gb.mobile DEBUG: er.txt
+[f25165] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25168] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25168] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25168] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25168] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25168] NET tcp:80 rx-line ""
+[f25168] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25168] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25170] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25170] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25170] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25174] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25174] NET sock_close conn=0
+[f25174] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25178] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25178] NET sock_open conn=0 UDP bindport=0
+[f25179] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25179] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25180] NET sock_close conn=0
+[f25180] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25182] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25182] NET sock_open conn=0 TCP bindport=0
+[f25183] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25183] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25185] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25185] gb.mobile DEBUG: GET 
+[f25185] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25198] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25198] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25198] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25200] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25200] gb.mobile DEBUG: er.txt/other.txt
+[f25200] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25203] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25203] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25203] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25203] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25203] NET tcp:80 rx-line ""
+[f25203] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25203] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25205] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25205] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25205] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25209] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25209] NET sock_close conn=0
+[f25209] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25213] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25213] NET sock_open conn=0 UDP bindport=0
+[f25214] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25214] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25215] NET sock_close conn=0
+[f25215] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25217] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25217] NET sock_open conn=0 TCP bindport=0
+[f25218] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25218] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25220] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25220] gb.mobile DEBUG: GET 
+[f25220] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25233] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25233] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25233] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25236] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25236] gb.mobile DEBUG: er.txt/other.txt/other.txt
+[f25236] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25239] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25239] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25239] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25239] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25239] NET tcp:80 rx-line ""
+[f25239] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25239] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25241] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25241] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25241] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25245] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25245] NET sock_close conn=0
+[f25245] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25249] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25249] NET sock_open conn=0 UDP bindport=0
+[f25250] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25250] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25251] NET sock_close conn=0
+[f25251] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25253] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25253] NET sock_open conn=0 TCP bindport=0
+[f25254] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25254] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25256] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25256] gb.mobile DEBUG: GET 
+[f25256] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25269] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25269] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25269] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25272] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25272] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt
+[f25272] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25275] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25275] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25275] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25275] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25275] NET tcp:80 rx-line ""
+[f25275] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25275] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25277] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25277] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25277] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25281] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25281] NET sock_close conn=0
+[f25281] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25285] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25285] NET sock_open conn=0 UDP bindport=0
+[f25286] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25286] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25287] NET sock_close conn=0
+[f25287] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25289] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25289] NET sock_open conn=0 TCP bindport=0
+[f25290] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25290] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25292] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25292] gb.mobile DEBUG: GET 
+[f25292] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25305] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25305] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25305] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25309] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25309] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt
+[f25309] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25312] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25312] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25312] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25312] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25312] NET tcp:80 rx-line ""
+[f25312] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25312] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25314] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25314] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25314] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25318] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25318] NET sock_close conn=0
+[f25318] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25322] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25322] NET sock_open conn=0 UDP bindport=0
+[f25323] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25323] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25324] NET sock_close conn=0
+[f25324] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25326] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25326] NET sock_open conn=0 TCP bindport=0
+[f25327] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25327] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25329] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25329] gb.mobile DEBUG: GET 
+[f25329] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25342] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25342] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25342] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25346] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25346] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25346] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25349] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25349] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25349] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25349] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25349] NET tcp:80 rx-line ""
+[f25349] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25349] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25351] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25351] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25351] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25355] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25355] NET sock_close conn=0
+[f25355] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25359] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25359] NET sock_open conn=0 UDP bindport=0
+[f25360] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25360] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25361] NET sock_close conn=0
+[f25361] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25363] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25363] NET sock_open conn=0 TCP bindport=0
+[f25364] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25364] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25366] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25366] gb.mobile DEBUG: GET 
+[f25366] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25379] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25379] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25379] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25383] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25383] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25383] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25386] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25386] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25386] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25386] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25386] NET tcp:80 rx-line ""
+[f25386] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25386] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25388] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25388] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25388] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25392] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25392] NET sock_close conn=0
+[f25392] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25396] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25396] NET sock_open conn=0 UDP bindport=0
+[f25397] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25397] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25398] NET sock_close conn=0
+[f25398] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25400] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25400] NET sock_open conn=0 TCP bindport=0
+[f25401] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25401] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25403] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25403] gb.mobile DEBUG: GET 
+[f25403] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25416] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25416] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25416] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25421] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25421] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25421] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25424] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25424] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25424] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25424] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25424] NET tcp:80 rx-line ""
+[f25424] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25424] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25426] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25426] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25426] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25430] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25430] NET sock_close conn=0
+[f25430] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25435] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25435] NET sock_open conn=0 UDP bindport=0
+[f25436] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25436] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25437] NET sock_close conn=0
+[f25437] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25439] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25439] NET sock_open conn=0 TCP bindport=0
+[f25440] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25440] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25442] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25442] gb.mobile DEBUG: GET 
+[f25442] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25455] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25455] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25455] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25460] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25460] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25460] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25463] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25463] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25463] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25463] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25463] NET tcp:80 rx-line ""
+[f25463] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25463] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25465] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25465] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25465] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25469] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25469] NET sock_close conn=0
+[f25469] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25474] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25474] NET sock_open conn=0 UDP bindport=0
+[f25475] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25475] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25476] NET sock_close conn=0
+[f25476] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25478] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25478] NET sock_open conn=0 TCP bindport=0
+[f25479] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25479] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25481] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25481] gb.mobile DEBUG: GET 
+[f25481] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25494] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25494] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25494] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25500] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25500] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25500] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25503] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25503] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25503] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25503] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25503] NET tcp:80 rx-line ""
+[f25503] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25503] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25505] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25505] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25505] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25509] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25509] NET sock_close conn=0
+[f25509] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25514] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25514] NET sock_open conn=0 UDP bindport=0
+[f25515] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25515] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25516] NET sock_close conn=0
+[f25516] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25518] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25518] NET sock_open conn=0 TCP bindport=0
+[f25519] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25519] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25521] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25521] gb.mobile DEBUG: GET 
+[f25521] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25534] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25534] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25534] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25540] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25540] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25540] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25543] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25543] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25543] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25543] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25543] NET tcp:80 rx-line ""
+[f25543] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25543] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25545] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25545] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25545] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25549] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25549] NET sock_close conn=0
+[f25549] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25554] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25554] NET sock_open conn=0 UDP bindport=0
+[f25555] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25555] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25556] NET sock_close conn=0
+[f25556] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25558] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25558] NET sock_open conn=0 TCP bindport=0
+[f25559] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25559] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25561] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25561] gb.mobile DEBUG: GET 
+[f25561] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25574] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25574] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25574] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25581] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25581] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25581] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25584] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25584] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25584] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25584] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25584] NET tcp:80 rx-line ""
+[f25584] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25584] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25586] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25586] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25586] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25590] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25590] NET sock_close conn=0
+[f25590] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25595] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25595] NET sock_open conn=0 UDP bindport=0
+[f25596] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25596] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25597] NET sock_close conn=0
+[f25597] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25599] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25599] NET sock_open conn=0 TCP bindport=0
+[f25600] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25600] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25602] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25602] gb.mobile DEBUG: GET 
+[f25602] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25615] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25615] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25615] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25622] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25622] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25622] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25625] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25625] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25625] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25625] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25625] NET tcp:80 rx-line ""
+[f25625] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25625] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25627] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25627] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25627] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25631] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25631] NET sock_close conn=0
+[f25631] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25636] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25636] NET sock_open conn=0 UDP bindport=0
+[f25637] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25637] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25638] NET sock_close conn=0
+[f25638] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25640] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25640] NET sock_open conn=0 TCP bindport=0
+[f25641] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25641] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25643] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25643] gb.mobile DEBUG: GET 
+[f25643] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25656] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25656] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25656] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25664] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25664] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25664] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25667] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25667] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25667] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25667] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25667] NET tcp:80 rx-line ""
+[f25667] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25667] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25669] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25669] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25669] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25673] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25673] NET sock_close conn=0
+[f25673] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25678] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25678] NET sock_open conn=0 UDP bindport=0
+[f25679] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25679] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25680] NET sock_close conn=0
+[f25680] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25682] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25682] NET sock_open conn=0 TCP bindport=0
+[f25683] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25683] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25685] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25685] gb.mobile DEBUG: GET 
+[f25685] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25698] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25698] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25698] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25706] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25706] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25706] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25709] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25709] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25709] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25709] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25709] NET tcp:80 rx-line ""
+[f25709] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25709] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25711] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25711] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25711] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25715] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25715] NET sock_close conn=0
+[f25715] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25720] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25720] NET sock_open conn=0 UDP bindport=0
+[f25721] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25721] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25722] NET sock_close conn=0
+[f25722] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25724] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25724] NET sock_open conn=0 TCP bindport=0
+[f25725] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25725] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25727] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25727] gb.mobile DEBUG: GET 
+[f25727] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25740] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25740] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25740] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25748] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25748] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25748] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25751] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25751] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25751] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25751] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25751] NET tcp:80 rx-line ""
+[f25751] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25751] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25753] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25753] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25753] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25757] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25757] NET sock_close conn=0
+[f25757] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25762] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25762] NET sock_open conn=0 UDP bindport=0
+[f25763] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25763] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25764] NET sock_close conn=0
+[f25764] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25766] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25766] NET sock_open conn=0 TCP bindport=0
+[f25767] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25767] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25769] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25769] gb.mobile DEBUG: GET 
+[f25769] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25782] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25782] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25782] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25791] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25791] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25791] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25794] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25794] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25794] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25794] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25794] NET tcp:80 rx-line ""
+[f25794] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25794] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25796] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25796] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25796] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25800] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25800] NET sock_close conn=0
+[f25800] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25805] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25805] NET sock_open conn=0 UDP bindport=0
+[f25806] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25806] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25807] NET sock_close conn=0
+[f25807] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25809] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25809] NET sock_open conn=0 TCP bindport=0
+[f25810] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25810] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25812] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25812] gb.mobile DEBUG: GET 
+[f25812] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25825] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25825] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25825] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25834] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25834] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25834] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25837] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25837] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25837] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25837] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25837] NET tcp:80 rx-line ""
+[f25837] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25837] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25839] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25839] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25839] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25843] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25843] NET sock_close conn=0
+[f25843] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25848] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25848] NET sock_open conn=0 UDP bindport=0
+[f25849] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25849] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25850] NET sock_close conn=0
+[f25850] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25852] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25852] NET sock_open conn=0 TCP bindport=0
+[f25853] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25853] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25855] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25855] gb.mobile DEBUG: GET 
+[f25855] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25868] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25868] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25868] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25878] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25878] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25878] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25881] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25881] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25881] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25881] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25881] NET tcp:80 rx-line ""
+[f25881] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25881] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25883] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25883] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25883] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25887] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25887] NET sock_close conn=0
+[f25887] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25892] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25892] NET sock_open conn=0 UDP bindport=0
+[f25893] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25893] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25894] NET sock_close conn=0
+[f25894] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25896] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25896] NET sock_open conn=0 TCP bindport=0
+[f25897] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25897] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25899] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25899] gb.mobile DEBUG: GET 
+[f25899] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25912] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25912] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25912] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25922] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25922] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25922] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25925] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25925] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25925] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25925] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25925] NET tcp:80 rx-line ""
+[f25925] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25925] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25927] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25927] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25927] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25931] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25931] NET sock_close conn=0
+[f25931] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25936] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25936] NET sock_open conn=0 UDP bindport=0
+[f25937] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25937] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25938] NET sock_close conn=0
+[f25938] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25940] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25940] NET sock_open conn=0 TCP bindport=0
+[f25941] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25941] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25943] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25943] gb.mobile DEBUG: GET 
+[f25943] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25956] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25956] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f25956] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25967] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25967] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f25967] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25970] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25970] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25970] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f25970] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25970] NET tcp:80 rx-line ""
+[f25970] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f25970] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25972] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25972] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25972] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f25976] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25976] NET sock_close conn=0
+[f25976] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25981] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f25981] NET sock_open conn=0 UDP bindport=0
+[f25982] NET udp send to 192.168.40.2:53 (32 bytes)
+[f25982] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f25983] NET sock_close conn=0
+[f25983] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f25985] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f25985] NET sock_open conn=0 TCP bindport=0
+[f25986] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f25986] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25988] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25988] gb.mobile DEBUG: GET 
+[f25988] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26001] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26001] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26001] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26012] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26012] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26012] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26015] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26015] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26015] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26015] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26015] NET tcp:80 rx-line ""
+[f26015] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26015] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26017] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26017] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26017] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26021] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26021] NET sock_close conn=0
+[f26021] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26026] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26026] NET sock_open conn=0 UDP bindport=0
+[f26027] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26027] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26028] NET sock_close conn=0
+[f26028] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26030] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26030] NET sock_open conn=0 TCP bindport=0
+[f26031] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26031] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26033] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26033] gb.mobile DEBUG: GET 
+[f26033] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26046] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26046] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26046] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26058] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26058] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26058] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26061] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26061] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26061] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26061] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26061] NET tcp:80 rx-line ""
+[f26061] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26061] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26063] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26063] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26063] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26067] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26067] NET sock_close conn=0
+[f26067] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26072] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26072] NET sock_open conn=0 UDP bindport=0
+[f26073] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26073] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26074] NET sock_close conn=0
+[f26074] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26076] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26076] NET sock_open conn=0 TCP bindport=0
+[f26077] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26077] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26079] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26079] gb.mobile DEBUG: GET 
+[f26079] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26092] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26092] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26092] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26104] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26104] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26104] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26107] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26107] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26107] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26107] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26107] NET tcp:80 rx-line ""
+[f26107] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26107] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26109] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26109] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26109] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26113] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26113] NET sock_close conn=0
+[f26113] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26118] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26118] NET sock_open conn=0 UDP bindport=0
+[f26119] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26119] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26120] NET sock_close conn=0
+[f26120] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26122] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26122] NET sock_open conn=0 TCP bindport=0
+[f26123] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26123] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26125] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26125] gb.mobile DEBUG: GET 
+[f26125] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26138] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26138] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26138] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26150] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26150] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26150] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26153] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26153] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26153] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26153] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26153] NET tcp:80 rx-line ""
+[f26153] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26153] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26155] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26155] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26155] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26159] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26159] NET sock_close conn=0
+[f26159] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26164] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26164] NET sock_open conn=0 UDP bindport=0
+[f26165] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26165] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26166] NET sock_close conn=0
+[f26166] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26168] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26168] NET sock_open conn=0 TCP bindport=0
+[f26169] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26169] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26171] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26171] gb.mobile DEBUG: GET 
+[f26171] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26184] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26184] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26184] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26197] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26197] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26197] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26199] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26199] gb.mobile DEBUG: xt
+[f26199] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26202] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26202] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26202] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26202] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26202] NET tcp:80 rx-line ""
+[f26202] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26202] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26204] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26204] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26204] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26208] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26208] NET sock_close conn=0
+[f26208] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26213] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26213] NET sock_open conn=0 UDP bindport=0
+[f26214] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26214] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26215] NET sock_close conn=0
+[f26215] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26217] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26217] NET sock_open conn=0 TCP bindport=0
+[f26218] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26218] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26220] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26220] gb.mobile DEBUG: GET 
+[f26220] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26233] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26233] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26233] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26246] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26246] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26246] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26248] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26248] gb.mobile DEBUG: xt/other.txt
+[f26248] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26251] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26251] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26251] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26251] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26251] NET tcp:80 rx-line ""
+[f26251] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26251] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26253] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26253] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26253] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26257] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26257] NET sock_close conn=0
+[f26257] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26262] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26262] NET sock_open conn=0 UDP bindport=0
+[f26263] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26263] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26264] NET sock_close conn=0
+[f26264] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26266] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26266] NET sock_open conn=0 TCP bindport=0
+[f26267] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26267] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26269] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26269] gb.mobile DEBUG: GET 
+[f26269] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26282] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26282] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26282] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26295] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26295] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26295] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26298] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26298] gb.mobile DEBUG: xt/other.txt/other.txt
+[f26298] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26301] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26301] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26301] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26301] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26301] NET tcp:80 rx-line ""
+[f26301] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26301] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26303] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26303] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26303] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26307] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26307] NET sock_close conn=0
+[f26307] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26312] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26312] NET sock_open conn=0 UDP bindport=0
+[f26313] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26313] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26314] NET sock_close conn=0
+[f26314] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26316] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26316] NET sock_open conn=0 TCP bindport=0
+[f26317] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26317] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26319] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26319] gb.mobile DEBUG: GET 
+[f26319] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26332] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26332] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26332] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26345] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26345] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26345] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26348] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26348] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt
+[f26348] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26351] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26351] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26351] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26351] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26351] NET tcp:80 rx-line ""
+[f26351] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26351] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26353] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26353] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26353] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26357] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26357] NET sock_close conn=0
+[f26357] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26362] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26362] NET sock_open conn=0 UDP bindport=0
+[f26363] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26363] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26364] NET sock_close conn=0
+[f26364] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26366] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26366] NET sock_open conn=0 TCP bindport=0
+[f26367] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26367] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26369] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26369] gb.mobile DEBUG: GET 
+[f26369] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26382] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26382] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26382] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26395] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26395] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26395] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26398] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26398] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt
+[f26398] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26401] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26401] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26401] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26401] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26401] NET tcp:80 rx-line ""
+[f26401] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26401] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26403] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26403] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26403] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26407] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26407] NET sock_close conn=0
+[f26407] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26412] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26412] NET sock_open conn=0 UDP bindport=0
+[f26413] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26413] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26414] NET sock_close conn=0
+[f26414] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26416] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26416] NET sock_open conn=0 TCP bindport=0
+[f26417] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26417] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26419] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26419] gb.mobile DEBUG: GET 
+[f26419] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26432] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26432] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26432] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26445] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26445] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26445] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26449] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26449] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26449] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26452] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26452] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26452] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26452] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26452] NET tcp:80 rx-line ""
+[f26452] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26452] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26454] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26454] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26454] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26458] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26458] NET sock_close conn=0
+[f26458] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26463] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26463] NET sock_open conn=0 UDP bindport=0
+[f26464] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26464] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26465] NET sock_close conn=0
+[f26465] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26467] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26467] NET sock_open conn=0 TCP bindport=0
+[f26468] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26468] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26470] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26470] gb.mobile DEBUG: GET 
+[f26470] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26483] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26483] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26483] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26496] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26496] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26496] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26500] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26500] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26500] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26503] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26503] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26503] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26503] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26503] NET tcp:80 rx-line ""
+[f26503] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26503] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26505] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26505] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26505] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26509] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26509] NET sock_close conn=0
+[f26509] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26514] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26514] NET sock_open conn=0 UDP bindport=0
+[f26515] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26515] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26516] NET sock_close conn=0
+[f26516] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26518] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26518] NET sock_open conn=0 TCP bindport=0
+[f26519] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26519] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26521] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26521] gb.mobile DEBUG: GET 
+[f26521] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26534] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26534] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26534] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26547] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26547] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26547] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26552] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26552] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt
+[f26552] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26555] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26555] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26555] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26555] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26555] NET tcp:80 rx-line ""
+[f26555] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26555] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26557] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26557] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26557] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26561] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26561] NET sock_close conn=0
+[f26561] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26566] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26566] NET sock_open conn=0 UDP bindport=0
+[f26567] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26567] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26568] NET sock_close conn=0
+[f26568] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26570] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26570] NET sock_open conn=0 TCP bindport=0
+[f26571] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26571] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26573] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26573] gb.mobile DEBUG: GET 
+[f26573] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26586] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26586] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26586] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26599] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26599] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26599] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26604] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26604] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.
+[f26604] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26607] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26607] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26607] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26607] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26607] NET tcp:80 rx-line ""
+[f26607] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26607] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26609] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26609] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26609] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26613] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26613] NET sock_close conn=0
+[f26613] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26618] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26618] NET sock_open conn=0 UDP bindport=0
+[f26619] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26619] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26620] NET sock_close conn=0
+[f26620] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26622] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26622] NET sock_open conn=0 TCP bindport=0
+[f26623] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26623] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26625] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26625] gb.mobile DEBUG: GET 
+[f26625] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26638] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26638] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26638] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26651] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26651] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26651] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26657] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26657] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.
+[f26657] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26660] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26660] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26660] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26660] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26660] NET tcp:80 rx-line ""
+[f26660] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26660] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26662] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26662] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26662] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26666] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26666] NET sock_close conn=0
+[f26666] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26671] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26671] NET sock_open conn=0 UDP bindport=0
+[f26672] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26672] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26673] NET sock_close conn=0
+[f26673] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26675] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26675] NET sock_open conn=0 TCP bindport=0
+[f26676] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26676] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26678] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26678] gb.mobile DEBUG: GET 
+[f26678] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26691] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26691] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26691] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26704] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26704] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26704] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26710] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26710] gb.mobile DEBUG: xt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.
+[f26710] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26713] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26713] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26713] NET tcp:80 rx-line "GET /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt HTTP/1.0"
+[f26713] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26713] NET tcp:80 rx-line ""
+[f26713] NET http cgi answer "302/-/-/-/-/other.txt" for /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/
+[f26713] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26715] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26715] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26715] gb.mobile DEBUG: HTTP/1.0 302 Simulated
+Location: other.txt
+Content-Length: 0
+
+
+[f26719] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26719] NET sock_close conn=0
+[f26719] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26724] gb.mobile DEBUG: >>> 28 DNS request: mgb.dion.ne.jp
+[f26724] NET sock_open conn=0 UDP bindport=0
+[f26725] NET udp send to 192.168.40.2:53 (32 bytes)
+[f26725] NET dns query "mgb.dion.ne.jp" -> 10.0.34.61
+[f26726] NET sock_close conn=0
+[f26726] gb.mobile DEBUG: <<< 28 DNS request: 10.0.34.61
+[f26728] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.34.61:80
+[f26728] NET sock_open conn=0 TCP bindport=0
+[f26729] NET sock_connect conn=0 TCP 10.0.34.61:80
+[f26729] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26731] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26731] gb.mobile DEBUG: GET 
+[f26731] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26744] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26744] gb.mobile DEBUG: /cgi-bin/mgb/daa_gb_pwdchg.cgi/other.txt/other.txt/other.txt/other.txt/other.tx
+[f26744] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26757] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26757] gb.mobile DEBUG: er.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/other.txt/ot
+[f26757] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)[f26757] HARNESS log truncated (size cap reached)

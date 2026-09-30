@@ -30,7 +30,7 @@ def word(s):
 
 def eml(headers, body):
     """headers: list of (name, value) ; body: bytes -> CRLF message"""
-    h = "".join("%s: %s\r\n" % kv for kv in headers).encode("ascii")
+    h = "".join("%s: %s\r\n" % kv for kv in headers).encode("latin-1")
     return h + b"\r\n" + body.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
 
 
@@ -91,6 +91,98 @@ def mails():
         ("Content-Type", "text/plain; charset=iso-2022-jp"),
     ], jis(long_body))
     m["nohdr"] = b"Subject: bare\r\n\r\nno other headers, ascii only\r\n"
+    # ---- round 2: fourteen short mails (mailbox capacity / scrolling / received-count sprites) and header/MIME variants
+    for i in range(1, 15):
+        name = "many%02d" % i
+        if i % 3 == 0:
+            m[name] = eml([
+                ("Date", "Thu, %02d Feb 2001 09:%02d:00 +0900" % (i, i)),
+                ("From", "sender%02d@example.test (%s)" % (i, word("そうしん%02d" % i))),
+                ("To", "11111111@1111.dion.ne.jp"),
+                ("Subject", word("メール%02d" % i)),
+                ("MIME-Version", "1.0"),
+                ("Content-Type", "text/plain; charset=iso-2022-jp"),
+            ], jis("ほんぶん %02d ばんめ" % i) + b"\n")
+        else:
+            m[name] = eml([
+                ("Date", "Thu, %02d Feb 2001 09:%02d:00 +0900" % (i, i)),
+                ("From", "sender%02d@example.test" % i),
+                ("To", "11111111@1111.dion.ne.jp"),
+                ("Subject", "mail number %02d" % i),
+                ("MIME-Version", "1.0"),
+                ("Content-Type", "text/plain; charset=us-ascii"),
+            ], ("Body of mail %02d.\n" % i).encode())
+    m["folded"] = eml([
+        ("Date", "Fri, 02 Feb 2001 10:00:00 +0900"),
+        ("From", "folded@example.test (" + word("ながい") + "\r\n " + word("なまえ") + ")"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", word("いちぎょうめ") + "\r\n\t" + word("にぎょうめ") + "\r\n " + word("さんぎょうめ")),
+        ("MIME-Version", "1.0"),
+        ("Content-Type", "text/plain;\r\n charset=iso-2022-jp"),
+    ], jis("おりたたみヘッダのてすと") + b"\n")
+    m["upper"] = eml([
+        ("DATE", "Sat, 03 Feb 2001 11:00:00 +0900"),
+        ("FROM", "UPPER@EXAMPLE.TEST"),
+        ("SUBJECT", "=?iso-2022-jp?b?" + base64.b64encode(jis("おおもじ")).decode() + "?="),
+        ("TO", "11111111@1111.dion.ne.jp"),
+        ("CONTENT-TYPE", "TEXT/PLAIN; CHARSET=ISO-2022-JP"),
+    ], jis("ヘッダめいがすべておおもじ") + b"\n")
+    m["qenc"] = eml([
+        ("Date", "Sun, 04 Feb 2001 12:00:00 +0900"),
+        ("From", "q@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "=?ISO-2022-JP?Q?abc=1B$B$3$s=1B(B?= plain"),
+        ("Content-Type", "text/plain; charset=iso-2022-jp"),
+        ("Content-Transfer-Encoding", "quoted-printable"),
+    ], b"line with =3D equals and soft=\nbreak\n")
+    m["nonascii"] = eml([
+        ("Date", "Mon, 05 Feb 2001 13:00:00 +0900"),
+        ("From", "raw@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "caf\xe9 raw 8bit header"),
+    ], b"body after a header with a byte >= 0x80\n")
+    m["gamecode"] = eml([
+        ("Date", "Tue, 06 Feb 2001 14:00:00 +0900"),
+        ("From", "aaaa@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "game code AAAA"),
+        ("X-Game-title", "OTHER GAME"),
+        ("X-Game-code", "CGB-AAAA-00"),
+        ("X-GBmail-type", "exclusive"),
+        ("Content-Type", "text/plain; charset=us-ascii"),
+    ], b"a mail that claims another game's code\n")
+    m["gamecode2"] = eml([
+        ("Date", "Wed, 07 Feb 2001 15:00:00 +0900"),
+        ("From", "zzzz@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "game code ZZZZ"),
+        ("X-Game-title", "OTHER GAME"),
+        ("X-Game-code", "CGB-ZZZZ-99"),
+        ("X-GBmail-type", "exclusive"),
+        ("Content-Type", "text/plain; charset=us-ascii"),
+    ], b"a mail with an unknown game code\n")
+    b3 = "----=_Part_3"
+    def part(ct, body, extra=""):
+        return ("--%s\r\nContent-Type: %s\r\n%s\r\n" % (b3, ct, extra)).encode() + body + b"\r\n"
+    m["multi3"] = eml([
+        ("Date", "Thu, 08 Feb 2001 16:00:00 +0900"),
+        ("From", "multi@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "three parts"),
+        ("MIME-Version", "1.0"),
+        ("Content-Type", 'multipart/mixed; boundary="%s"' % b3),
+    ], part("text/plain; charset=iso-2022-jp", jis("だいいちぶ"))
+       + part("Application/Octet-Stream; name=\"a.bin\"", base64.b64encode(bytes(range(64))), "Content-Transfer-Encoding:Base64\r\n")
+       + part("Application/Octet-Stream", base64.b64encode(bytes(range(64, 128))), "Content-Transfer-Encoding:Base64\r\n")
+       + ("--%s--\r\n" % b3).encode())
+    m["multibad"] = eml([
+        ("Date", "Fri, 09 Feb 2001 17:00:00 +0900"),
+        ("From", "multibad@example.test"),
+        ("To", "11111111@1111.dion.ne.jp"),
+        ("Subject", "broken multipart"),
+        ("MIME-Version", "1.0"),
+        ("Content-Type", 'multipart/mixed; boundary="%s"' % b3),
+    ], part("text/plain; charset=iso-2022-jp", jis("とじていない")))
     return m
 
 
@@ -117,6 +209,8 @@ def images():
         "img_b.bmp": bmp(144, 48, lambda x, y: (x + y) % 9 == 0 or x in (0, 143) or y in (0, 47)),
         "img_tall.bmp": bmp(40, 96, lambda x, y: (x * y) % 7 < 3),
         "img_big.bmp": bmp(160, 120, lambda x, y: x % 5 == 0),   # exceeds 144x96: exercises the size-limit rejection
+        # round 2: 8-pixel-high images of width 1..16 (every width modulo 8 -> every edge shift of Image_BlitToTileCanvas)
+        **{"img_w%d.bmp" % w: bmp(w, 8, lambda x, y, w=w: (x + y) % 3 != 0 or x == w - 1) for w in range(1, 17)},
     }
 
 

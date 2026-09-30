@@ -1,0 +1,138 @@
+# Scenario 'browser_pagelist': the browser's page list (START -> ページリスト) with the round-2 site loaded: the icon bar of a row (1 go there, 2 save the current page,
+# 3 delete): save into a USED row -> "セーブされているデータを うわがきします。よろしいですか?" first いいえ (the bar stays open), then はい (row selection again);
+# delete a used row -> "ページのないようを けします。よろしいですか?" いいえ then はい; delete on an already empty row (nothing); save into an empty row (no question);
+# go to an empty row (nothing). Then the session idles in the list for more than ten minutes without a key (the connection-time notice of PageList_Main_Loop),
+# then A is pressed every 1500 frames. Starts from the state left by 'browser_pages'; site traces/web/r2 (web=r2). Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu (the first A is swallowed by the logo)
+waitstable 60 max 600
+tap RIGHT
+wait 40
+tap A                        # ホームページ
+waitstable 60 max 900
+shot pagelist_tutorial_1
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+tap A
+waitstable 30 max 400
+shot prompt
+tap A                        # ホームページ
+waitstable 60 max 900
+tap A                        # はい
+waitstable 60 max 900
+tap A                        # password screen
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+wait 1200
+shot index
+shot r2_index
+tap START
+wait 60
+tap A
+waitstable 60 max 900
+shot list
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 900
+shot q1
+tap A
+waitstable 60 max 900
+shot after_no
+tap A
+waitstable 60 max 900
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 900
+shot after_yes
+tap A
+wait 60
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 900
+shot del_q
+tap A
+waitstable 60 max 900
+shot del_no
+tap A
+waitstable 60 max 900
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 900
+shot del_yes
+tap A
+wait 60
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 900
+shot del_empty
+tap B
+wait 60
+tap DOWN x3
+wait 100
+tap A
+wait 60
+tap RIGHT
+wait 40
+tap A
+waitstable 60 max 900
+shot save_row4
+tap DOWN
+wait 60
+tap A
+wait 60
+tap A
+waitstable 60 max 900
+shot goto_empty
+# --- idle in the page list until the ten-minute notice (no key for 22000 frames, then A every 1500 frames)
+wait 8000
+shot idle_a
+wait 14000
+shot idle_b
+tap A
+wait 1500
+shot idle_c0
+tap A
+wait 1500
+shot idle_c1
+tap A
+wait 1500
+shot idle_c2
+tap A
+wait 1500
+shot idle_c3
+tap A
+wait 1500
+shot idle_c4
+tap A
+wait 1500
+shot idle_c5
+tap A
+wait 1500
+shot idle_c6
+tap A
+wait 1500
+shot idle_c7

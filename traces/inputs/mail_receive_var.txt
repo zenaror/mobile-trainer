@@ -1,0 +1,48 @@
+# recorded by mgba_trace --macro mail_receive_var.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 A
+1732 -
+2062 A
+2066 -
+2696 A
+2700 -
+2801 A
+2805 -
+4635 shot receiving_1
+7135 shot receiving_2
+9635 shot receiving_3
+9755 shot comm_finished
+9755 A
+9759 -
+9918 shot result_1
+9918 A
+9922 -
+10018 shot result_2
+10018 A
+10022 -
+10652 shot list
+10652 DOWN
+10656 -
+10686 DOWN
+10690 -
+10720 DOWN
+10724 -
+10854 shot list_down_3
+10854 DOWN
+10858 -
+10888 DOWN
+10892 -
+10922 DOWN
+10926 -
+11056 shot list_down_6
+11056 DOWN
+11060 -
+11090 DOWN
+11094 -
+11124 DOWN
+11128 -
+11258 shot list_down_9
+# last scripted frame: 11258

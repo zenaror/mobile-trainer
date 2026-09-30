@@ -1,0 +1,9 @@
+Date: Sun, 04 Feb 2001 12:00:00 +0900
+From: q@example.test
+To: 11111111@1111.dion.ne.jp
+Subject: =?ISO-2022-JP?Q?abc=1B$B$3$s=1B(B?= plain
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+
+line with =3D equals and soft=
+break

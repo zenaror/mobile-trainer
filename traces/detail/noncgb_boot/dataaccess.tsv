@@ -1,0 +1,5 @@
+# kind	bank	start	end_exclusive
+# ranges of ROM bytes read as DATA (not instruction fetch) and SRAM bytes read/written, merged when contiguous.
+rom_read	6B	4000	4240
+rom_read	6B	4480	4C80
+rom_read	6B	4D1B	4D1F

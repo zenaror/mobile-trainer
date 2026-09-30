@@ -1,0 +1,6 @@
+# vector	count	first_frame	last_frame
+# interrupts actually taken, per vector. First raw events (with interrupted pc) in irq.tsv.
+0040	128690	17	129395
+0048	2650815	550	129395
+0050	319050	44	123243
+0058	29275	44	123127

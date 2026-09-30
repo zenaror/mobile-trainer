@@ -1,0 +1,240 @@
+# Scenario 'fuzz_mailfull': replay of the useful entries of a coverage-guided input search (tools/trace/explore.py, docs/research/dynamic_tracing.md section 11)
+# from the cartridge state left by 'mail_receive_many'; entries picked by tools/trace/fuzzpack.py (greedy set cover over the exact coverage of each replay).  Every segment starts with a
+# power cycle; the random button sequences are plain macro lines (taps of 4 frames + 14 idle, waits, a few held combinations, sometimes a fake-Internet fault).
+# 5 segments, 77 instruction starts that the scenarios before it had not executed.
+# ---- segment 0: search entry e846, +40 starts, 5365 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap DOWN x3
+wait 30
+tap A x11
+wait 90
+hold A+START 120
+wait 180
+wait 60
+tap A
+wait 30
+tap A
+wait 45
+tap START
+wait 90
+tap START x3
+wait 90
+tap B
+wait 90
+tap A
+wait 60
+tap A
+wait 30
+tap SELECT
+wait 45
+tap RIGHT x9
+wait 45
+wait 60
+tap UP
+wait 30
+tap A
+wait 60
+wait 60
+tap DOWN x5
+wait 90
+tap LEFT
+wait 90
+tap A
+wait 90
+wait 60
+# ---- segment 1: search entry e369, +29 starts, 5132 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 45
+hold SELECT+RIGHT 120
+wait 45
+tap LEFT
+wait 180
+hold SELECT+DOWN 40
+wait 180
+tap A x9
+wait 30
+wait 60
+tap DOWN x6
+wait 30
+tap DOWN
+wait 30
+wait 60
+tap A
+wait 90
+hold SELECT+RIGHT 120
+wait 60
+tap RIGHT x6
+wait 90
+tap A
+wait 90
+tap LEFT
+wait 30
+tap A
+wait 30
+tap A
+wait 180
+tap A
+wait 90
+wait 60
+# ---- segment 2: search entry e1367, +4 starts, 3683 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap UP
+wait 30
+tap A x12
+wait 60
+tap A
+wait 180
+tap UP
+wait 45
+tap B
+wait 45
+wait 60
+net tcp=reset
+tap RIGHT
+wait 90
+tap LEFT
+wait 60
+tap UP
+wait 45
+wait 60
+# ---- segment 3: search entry e689, +3 starts, 6752 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 45
+hold SELECT+RIGHT 120
+wait 45
+tap LEFT
+wait 180
+hold SELECT+DOWN 40
+wait 180
+tap A x9
+wait 30
+wait 60
+tap DOWN x6
+wait 30
+tap DOWN
+wait 30
+wait 60
+tap A
+wait 90
+hold SELECT+RIGHT 120
+wait 60
+tap RIGHT x6
+wait 90
+tap A
+wait 90
+tap LEFT
+wait 30
+tap A
+wait 30
+tap A
+wait 180
+tap A
+wait 90
+wait 60
+tap RIGHT
+wait 90
+tap DOWN
+wait 180
+tap RIGHT
+wait 60
+tap A
+wait 60
+tap LEFT
+wait 45
+hold SELECT+DOWN 120
+wait 60
+tap A x8
+wait 180
+tap DOWN
+wait 45
+tap A
+wait 180
+wait 60
+# ---- segment 4: search entry e1022, +1 starts, 5451 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+wait 60
+tap A
+wait 180
+tap B
+wait 45
+tap RIGHT
+wait 60
+wait 60
+tap UP
+wait 180
+hold UP+SELECT 120
+wait 180
+tap A
+wait 90
+tap DOWN
+wait 30
+tap UP
+wait 180
+wait 60
+tap B
+wait 30
+tap A
+wait 30
+tap DOWN
+wait 90
+tap A x12
+wait 30
+hold A+B 120
+wait 180
+tap B
+wait 30
+tap LEFT
+wait 30
+tap LEFT
+wait 90
+hold B+UP 120
+wait 60
+wait 60

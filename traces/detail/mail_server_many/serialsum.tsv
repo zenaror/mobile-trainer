@@ -1,0 +1,14 @@
+# pc_bank	pc	reg	kind	count	first_frame	last_frame
+# every distinct (pc, register, access kind) touching SB/SC, un-capped (raw sequence in serial_<scenario>.tsv). kind R/W/X as there.
+-	023C	SB	X	18505	44	20214
+00	0207	SC	R	310090	44	20349
+75	56F6	SB	R	649	44	20213
+75	5811	SB	R	4468	51	20214
+75	5884	SB	R	322	52	20214
+75	589E	SB	R	1288	52	20214
+75	58CE	SB	R	8973	52	20214
+75	5A4C	SB	W	14729	51	20214
+75	5B32	SB	W	3776	44	20213
+75	5B3F	SC	W	18505	44	20214
+75	5B43	SC	W	18505	44	20214
+75	5F20	SC	R	327	44	20212

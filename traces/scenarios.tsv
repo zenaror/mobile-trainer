@@ -8,6 +8,8 @@
 # description : one line
 # extra (optional 7th column, space separated): `lite` = publish only coverage/mbc_writes + small detail files (dataaccess, ramcode, serialsum, irqsum,
 #               stats, marks, adapter.log; no serial/callgraph/hwregs/mbc_seq/irq), or raw harness args such as `--sram-fill 00`, `--sram-poke 0:A000=12`, `--cfg-poke 2=00`
+#               `forced` = FORCED execution (macro directives `force`/`ramset`): outputs go to traces/forced/ and analysis/coverage_forced.tsv, never into the union;
+#               `--boot-a 01` = register A at start (DMG-style boot); the web column also accepts `r2` (traces/web/r2, own index page + pages, then everything of `all`)
 # net accepts `:key=value,...` after the mode (fake-Internet options of mgba_trace.c, e.g. `fake:latency=2,pop_fail=pass`); the key `mail=a+b` selects traces/net/mail_a.eml ... for the POP3 mailbox
 # web accepts `all` = every traces/web file served under its own name
 name	mobile	net	from	web	description
@@ -52,3 +54,29 @@ register_errors	on	fake:latency=2	-	0	Initial registration under faults (wipe pe
 monkey_camp_hid	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_server_hidden	all	Monkey campaign (32 segments) from the state after the hidden mail-server run	lite
 monkey_camp_reg2	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register_hidden	all	Monkey campaign (28 segments) from the cartridge registered through the hidden wizard variant	lite
 boot_states	on	fake:latency=2	tutorial_profile	0	Boot with damaged save RAM (each checksum area, zero/FF fill) and damaged adapter EEPROM image (magic, sum, zero/FF fill): power cycle per attempt
+time_warnings	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_inbox	0	Connection-time notice (10 minutes): idle on the server check screen, slow-server delete-all (normal and hidden), send/receive answered yes and no
+browser_r2	on	fake:latency=2	browser_bookmarks	r2	Browser against the round-2 site (traces/web/r2): title cut, hr width, div align, br clear, entities, comments, lists, pre CRLF, ftp/mailto/relative links, 27 one-image pages (edge strips), pages over the size limit
+mail_server_hidden2	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_inbox	0	Hidden variant of メールサーバ, buttons 1 and 2: check-then-delete (icon bar per mail) and delete-all (confirmation refused then accepted), 22:4000 family
+mail_receive_many	on	fake:latency=2,mail=many01+many02+many03+many04+many05+many06+many07+many08+many09+many10+many11+many12+many13+many14	mail_send	0	Receive with 14 short mails on the server: mailbox fills at 12 (count sprites, full box), scrolling list with wrap, read, receive again with a full mailbox
+mail_receive_var	on	fake:latency=2,mail=folded+upper+qenc+nonascii+gamecode+gamecode2+multi3+multibad+jp+ascii+game	mail_send	0	Receive with eleven unusual mails: folded/uppercase/Q-encoded headers, 8-bit header, foreign game codes, 3-part multipart, unterminated multipart
+noncgb_boot	off	stub	-	0	Boot with A=$01 (DMG-style boot register, --boot-a 01): CGB-only error screen 6B:4C80	--boot-a 01
+mailbox_ops	on	fake:latency=2	mail_inbox	0	Mailbox: save-sender slot list cursor moves + overwrite question (no/yes), reply refused while the outbox is occupied
+forced_debug	on	fake	tutorial_profile	0	FORCED: the three unreferenced debug screens (19:4000 flag editor, 19:4980 error-screen tester, 1B:4040 sound test) entered with the harness directive force	forced
+forced_screens	on	fake:latency=2	mail_inbox	0	FORCED: unreferenced mail grid screen, text-canvas demo, frame-style chooser, sample mail / address-book installers (then shown by the ordinary screens), SRAM clear	forced
+forced_dead	on	fake	tutorial_profile	0	FORCED: dead sprite-counter bodies, time read-out twins, unused address screen, palette-fade library entries (harness directive force)	forced
+browser_redirect	on	fake:latency=2	browser_bookmarks	r2	Browser: 301/302/303/307 redirects with absolute, host-relative and path-relative Location (harness option http_redirect=K), redirect loop
+settings_redirect	on	fake:latency=2	tutorial_profile	0	Password change against a CGI answering with 301/302/303/307 + Location (absolute, host-relative, relative, chain)
+fuzz_browser	on	fake:latency=2,mail=jp+ascii+game+multipart+long	browser_errors	all	Coverage-guided input search (explore.py, fork server) from the cartridge with mails, address book and bookmarks: 31 useful random-input segments, power cycle each	lite
+browser_pagelist	on	fake:latency=2	browser_pages	r2	Browser page list: overwrite/delete questions (no then yes), empty rows, save into an empty row, ten-minute notice while idle in the list
+kbd_compose	on	fake:latency=2	kbd_abook	0	Compose with the address picked from the address book (cursor moves, empty slot refused), title keyboard keys (dakuten, handakuten, ヴ, pages, overflow), body keyboard keys (dakuten, handakuten, ヴ, space, newline, backspace), END dialog
+kbd_profile	on	fake:latency=2	tutorial_profile	0	Profile nickname keyboard: dakuten, handakuten, ヴ, katakana page, backspace, overflow
+register_hidden_manual	on	fake	-	-	Initial registration through the hidden wizard step, answering 手動で入力する: manual phone-number keypads, comment keyboard (backspace paths), then the normal wizard end
+mail_server_many	on	fake:latency=2,mail=many01+many02+many03+many04+many05+many06+many07+many08+many09+many10+many11+many12+many13+many14	mail_inbox	0	Server mail check with 14 mails: two-digit mail numbers and counters
+fuzz_browser2	on	fake:latency=2	browser_pages	r2	Coverage-guided input search inside a browser session on the round-2 site (seeded with the connect sequence): 13 useful random-input segments	lite
+kbd_abook	on	fake:latency=2	mail_inbox	0	Address book editing with the keyboard keys round 1 never pressed: B backspace with text (address and name), dakuten/handakuten/katakana page/ヴ, name field overflow, OK on an empty address (dialog), new entry with a 46-character address, view
+monkey_camp_full	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_receive_many	all	Monkey campaign (20 segments, seeded random taps, faults) from the cartridge whose mailbox is full (12 mails)	lite
+monkey_camp_hidman	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register_hidden_manual	all	Monkey campaign (20 segments) from the cartridge registered through the hidden manual-phone wizard	lite
+fuzz_mailfull	on	fake:latency=2,mail=jp+ascii+game+multipart+long	mail_receive_many	all	Coverage-guided input search from the full-mailbox cartridge (seeded with title -> top menu -> メール): 5 useful random-input segments	lite
+state_full	on	fake:latency=2	mail_receive_many	0	Cartridge with a full mailbox (12) and a full address book (6): sender of eight mails saved in a row
+monkey_camp_allfull	on	fake:latency=2,mail=jp+ascii+game+multipart+long	state_full	r2	Monkey campaign (24 segments) from the cartridge with a full mailbox AND a full address book	lite
+fuzz_register	on	fake:latency=2,mail=jp+ascii+game+multipart+long	register	all	Coverage-guided input search from the freshly registered cartridge (tutorial pending): 2 useful random-input segments	lite

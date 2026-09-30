@@ -10,3 +10,9 @@ web=all:               a request whose path contains "/<file name>" of a file in
                        everything else is a 404 (or the status set with the net option http_missing).
 Pages: index (3 links + a page link), a (ol/ul/pre/div/img/comment/meta), b (60 lines, scrolling, image), c (links: 404, ../di/*.htm
 help pages of the ROM, absolute URL, bmp-only URLs, fragment, mailto, other host), d (body attributes, div/center).
+
+Round 3 additions:
+img_w1.bmp .. img_w16.bmp   8-pixel-high 1 bpp images of width 1..16 (tools/trace/make_fixtures.py), used by the r2 site.
+web=r2 (scenarios.tsv):     traces/web/r2/* first (its own index.html, t1/t3-t6/t5ng pages, im.html + 27 one-image pages i<w><p|c|r|l|f|g|t>.html, s4200/s12000 = pages of ~4.2 KB / ~12 KB served),
+                            then everything of web=all. t6.htm is written with CR LF (the .html files are converted to cp932 with LF only). NAME.meta next to a page holds `status N` /
+                            `hdr Header: value` lines. Do NOT put two different images on one page: the ROM crashes in this environment (docs/research/dynamic_tracing.md 11.3, item 3).

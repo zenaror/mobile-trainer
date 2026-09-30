@@ -1,0 +1,2800 @@
+[f0] HARNESS Mobile Adapter attached to the link port
+[f51] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f51] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f53] gb.mobile DEBUG: >>> 11 End session
+[f53] gb.mobile DEBUG: <<< 11 End session
+[f53] gb.mobile DEBUG: 
+[f177] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f177] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f179] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 80)
+[f179] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f179] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f179] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f179] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f179] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f179] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f179] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f179] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f186] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 80; size: 40)
+[f186] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 80)
+[f186] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f186] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f186] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f190] gb.mobile DEBUG: >>> 11 End session
+[f190] gb.mobile DEBUG: <<< 11 End session
+[f190] gb.mobile DEBUG: 
+[f6554] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6554] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6556] gb.mobile DEBUG: >>> 11 End session
+[f6556] gb.mobile DEBUG: <<< 11 End session
+[f6556] gb.mobile DEBUG: 
+[f6680] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6680] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6682] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6682] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6682] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6682] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6682] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6682] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6682] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6682] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6688] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6688] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6688] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6688] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6688] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6688] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6688] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6688] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6694] gb.mobile DEBUG: >>> 11 End session
+[f6694] gb.mobile DEBUG: <<< 11 End session
+[f6694] gb.mobile DEBUG: 
+[f6819] gb.mobile DEBUG: >>> 10 Start session: NINTENDO
+[f6819] gb.mobile DEBUG: <<< 10 Start session: NINTENDO
+[f6821] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 00; size: 60)
+[f6821] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 00)
+[f6821] gb.mobile DEBUG:     4D 41 81 00 D2 C4 03 B7 D2 8D 70 A3 67 31 31 31 
+[f6821] gb.mobile DEBUG:     31 31 31 31 31 31 00 00 00 00 00 00 00 00 00 00 
+[f6821] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 31 31 31 31 
+[f6821] gb.mobile DEBUG:     31 31 31 31 40 31 31 31 31 2E 64 69 6F 6E 2E 6E 
+[f6821] gb.mobile DEBUG:     65 2E 6A 70 00 00 00 00 00 00 6D 61 69 6C 2E 31 
+[f6821] gb.mobile DEBUG:     31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 70 70 6F 
+[f6827] gb.mobile DEBUG: >>> 19 Read EEPROM (offset: 60; size: 60)
+[f6827] gb.mobile DEBUG: <<< 19 Read EEPROM (offset: 60)
+[f6827] gb.mobile DEBUG:     70 2E 31 31 31 31 2E 64 69 6F 6E 2E 6E 65 2E 6A 
+[f6827] gb.mobile DEBUG:     70 00 00 00 00 00 A9 67 7F 00 00 F0 00 00 44 49 
+[f6827] gb.mobile DEBUG:     4F 4E 20 50 44 43 2F 43 44 4D 41 4F 4E 45 FF FF 
+[f6827] gb.mobile DEBUG:     FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 
+[f6827] gb.mobile DEBUG:     00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 
+[f6827] gb.mobile DEBUG:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 AC 
+[f6833] gb.mobile DEBUG: >>> 17 Status
+[f6833] gb.mobile DEBUG: <<< 17 Status: 00 4D 00
+[f6835] gb.mobile DEBUG: >>> 12 Call (prot 0): #9677
+[f6835] gb.mobile DEBUG: <<< 12 Call
+[f6838] gb.mobile DEBUG: >>> 21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)
+[f6838] gb.mobile DEBUG: <<< 21 PPP connect (ip: 127.0.0.1; dns1: 0.0.0.0; dns2: 0.0.0.0)
+[f6842] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f6842] NET sock_open conn=0 UDP bindport=0
+[f6843] NET udp send to 210.196.3.183:53 (42 bytes)
+[f6843] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f6844] NET sock_close conn=0
+[f6844] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f6846] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f6846] NET sock_open conn=0 TCP bindport=0
+[f6847] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f6847] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f6849] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6849] gb.mobile DEBUG: GET 
+[f6849] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6852] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6852] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f6852] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6855] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6855] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f6855] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f6855] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f6855] NET tcp:80 rx-line ""
+[f6855] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f6855] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6857] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6857] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6857] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f6857] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f6857] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f6857] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f6857] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f6857] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f6857] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f6857] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f6857] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f6857] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f6857] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f6857] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f6857] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f6857] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f6857] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f6857] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f6870] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6870] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6870] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f6870] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f6870] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f6870] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f6870] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f6870] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f6870] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f6870] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f6870] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f6870] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f6870] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f6870] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f6870] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f6870] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f6870] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f6870] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f6883] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6883] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f6883] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f6883] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f6883] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f6887] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f6887] NET sock_close conn=0
+[f6887] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f6944] gb.mobile DEBUG: >>> 17 Status
+[f6944] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7001] gb.mobile DEBUG: >>> 17 Status
+[f7001] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7059] gb.mobile DEBUG: >>> 17 Status
+[f7059] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7115] gb.mobile DEBUG: >>> 17 Status
+[f7115] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7171] gb.mobile DEBUG: >>> 17 Status
+[f7171] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7227] gb.mobile DEBUG: >>> 17 Status
+[f7227] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7283] gb.mobile DEBUG: >>> 17 Status
+[f7283] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7339] gb.mobile DEBUG: >>> 17 Status
+[f7339] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7395] gb.mobile DEBUG: >>> 17 Status
+[f7395] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7451] gb.mobile DEBUG: >>> 17 Status
+[f7451] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7507] gb.mobile DEBUG: >>> 17 Status
+[f7507] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7563] gb.mobile DEBUG: >>> 17 Status
+[f7563] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7619] gb.mobile DEBUG: >>> 17 Status
+[f7619] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7675] gb.mobile DEBUG: >>> 17 Status
+[f7675] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7731] gb.mobile DEBUG: >>> 17 Status
+[f7731] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7787] gb.mobile DEBUG: >>> 17 Status
+[f7787] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7843] gb.mobile DEBUG: >>> 17 Status
+[f7843] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7899] gb.mobile DEBUG: >>> 17 Status
+[f7899] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f7955] gb.mobile DEBUG: >>> 17 Status
+[f7955] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8011] gb.mobile DEBUG: >>> 17 Status
+[f8011] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8067] gb.mobile DEBUG: >>> 17 Status
+[f8067] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8123] gb.mobile DEBUG: >>> 17 Status
+[f8123] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8179] gb.mobile DEBUG: >>> 17 Status
+[f8179] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8235] gb.mobile DEBUG: >>> 17 Status
+[f8235] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8291] gb.mobile DEBUG: >>> 17 Status
+[f8291] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8347] gb.mobile DEBUG: >>> 17 Status
+[f8347] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8403] gb.mobile DEBUG: >>> 17 Status
+[f8403] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8459] gb.mobile DEBUG: >>> 17 Status
+[f8459] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8515] gb.mobile DEBUG: >>> 17 Status
+[f8515] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8571] gb.mobile DEBUG: >>> 17 Status
+[f8571] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8627] gb.mobile DEBUG: >>> 17 Status
+[f8627] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8683] gb.mobile DEBUG: >>> 17 Status
+[f8683] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8739] gb.mobile DEBUG: >>> 17 Status
+[f8739] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8795] gb.mobile DEBUG: >>> 17 Status
+[f8795] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8851] gb.mobile DEBUG: >>> 17 Status
+[f8851] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8907] gb.mobile DEBUG: >>> 17 Status
+[f8907] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f8963] gb.mobile DEBUG: >>> 17 Status
+[f8963] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9019] gb.mobile DEBUG: >>> 17 Status
+[f9019] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9075] gb.mobile DEBUG: >>> 17 Status
+[f9075] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9131] gb.mobile DEBUG: >>> 17 Status
+[f9131] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9189] gb.mobile DEBUG: >>> 17 Status
+[f9189] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9245] gb.mobile DEBUG: >>> 17 Status
+[f9245] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9301] gb.mobile DEBUG: >>> 17 Status
+[f9301] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9357] gb.mobile DEBUG: >>> 17 Status
+[f9357] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9414] gb.mobile DEBUG: >>> 17 Status
+[f9414] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9470] gb.mobile DEBUG: >>> 17 Status
+[f9470] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9526] gb.mobile DEBUG: >>> 17 Status
+[f9526] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9582] gb.mobile DEBUG: >>> 17 Status
+[f9582] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9638] gb.mobile DEBUG: >>> 17 Status
+[f9638] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9694] gb.mobile DEBUG: >>> 17 Status
+[f9694] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9750] gb.mobile DEBUG: >>> 17 Status
+[f9750] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9808] gb.mobile DEBUG: >>> 17 Status
+[f9808] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9826] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f9826] NET sock_open conn=0 UDP bindport=0
+[f9827] NET udp send to 210.196.3.183:53 (42 bytes)
+[f9827] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f9828] NET sock_close conn=0
+[f9828] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f9830] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f9830] NET sock_open conn=0 TCP bindport=0
+[f9831] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f9831] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f9833] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9833] gb.mobile DEBUG: GET 
+[f9833] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9835] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9835] gb.mobile DEBUG: /01/CGB-B9AJ/t1.html
+[f9835] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9838] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9838] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f9838] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t1.html HTTP/1.0"
+[f9838] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f9838] NET tcp:80 rx-line ""
+[f9838] NET http 200 for /01/CGB-B9AJ/t1.html (791 bytes)
+[f9838] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9840] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9840] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9840] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f9840] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f9840] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f9840] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 37 39 31 0D 0A 0D 
+[f9840] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f9840] gb.mobile DEBUG:     69 74 6C 65 3E 83 5E 83 4F 3C 2F 74 69 74 6C 65 
+[f9840] gb.mobile DEBUG:     3E 3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 79 3E 0A 
+[f9840] gb.mobile DEBUG:     3C 63 65 6E 74 65 72 3E 82 BF 82 E3 82 A4 82 A8 
+[f9840] gb.mobile DEBUG:     82 A4 3C 62 3E 82 D3 82 C6 82 B6 3C 2F 62 3E 3C 
+[f9840] gb.mobile DEBUG:     2F 63 65 6E 74 65 72 3E 0A 3C 64 69 76 20 61 6C 
+[f9840] gb.mobile DEBUG:     69 67 6E 3D 72 69 67 68 74 3E 82 DD 82 AC 82 E6 
+[f9840] gb.mobile DEBUG:     82 B9 3C 62 72 3E 82 AC 82 E5 82 A4 82 51 3C 2F 
+[f9840] gb.mobile DEBUG:     64 69 76 3E 0A 3C 64 69 76 20 61 6C 69 67 6E 3D 
+[f9840] gb.mobile DEBUG:     63 65 6E 74 65 72 3E 82 DC 82 F1 82 C8 82 A9 3C 
+[f9840] gb.mobile DEBUG:     2F 64 69 76 3E 0A 3C 64 69 76 20 61 6C 69 67 6E 
+[f9840] gb.mobile DEBUG:     3D 6C 65 66 74 3E 82 D0 82 BE 82 E8 3C 2F 
+[f9853] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9853] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9853] gb.mobile DEBUG:     64 69 76 3E 0A 3C 64 69 76 20 61 6C 69 67 6E 3D 
+[f9853] gb.mobile DEBUG:     62 6F 67 75 73 3E 82 D3 82 DF 82 A2 3C 2F 64 69 
+[f9853] gb.mobile DEBUG:     76 3E 0A 3C 64 69 76 3E 82 BB 82 CC 82 DC 82 DC 
+[f9853] gb.mobile DEBUG:     3C 2F 64 69 76 3E 0A 3C 68 72 20 77 69 64 74 68 
+[f9853] gb.mobile DEBUG:     3D 33 30 3E 0A 3C 68 72 20 77 69 64 74 68 3D 31 
+[f9853] gb.mobile DEBUG:     30 30 25 3E 0A 3C 68 72 20 77 69 64 74 68 3D 32 
+[f9853] gb.mobile DEBUG:     35 25 3E 0A 3C 68 72 20 77 69 64 74 68 3D 34 30 
+[f9853] gb.mobile DEBUG:     30 3E 0A 3C 68 72 3E 0A 82 DC 82 A6 3C 62 72 20 
+[f9853] gb.mobile DEBUG:     63 6C 65 61 72 3D 6C 65 66 74 3E 82 A0 82 C6 3C 
+[f9853] gb.mobile DEBUG:     62 72 20 63 6C 65 61 72 3D 72 69 67 68 74 3E 82 
+[f9853] gb.mobile DEBUG:     C2 82 AC 3C 62 72 20 63 6C 65 61 72 3D 61 6C 6C 
+[f9853] gb.mobile DEBUG:     3E 82 B3 82 A2 82 B2 3C 62 72 20 63 6C 65 61 72 
+[f9853] gb.mobile DEBUG:     3D 6E 6F 6E 65 3E 0A 3C 61 20 6E 61 6D 65 3D 22 
+[f9853] gb.mobile DEBUG:     74 6F 70 22 3E 83 41 83 93 83 4A 81 5B 3C 2F 61 
+[f9853] gb.mobile DEBUG:     3E 20 3C 61 20 68 72 65 66 3D 22 69 6D 2E 68 74 
+[f9853] gb.mobile DEBUG:     6D 6C 22 3E 83 8A 83 93 83 4E 82 51 3C 2F 
+[f9866] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9866] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9866] gb.mobile DEBUG:     61 3E 20 3C 61 20 68 72 65 66 3D 22 6D 61 69 6C 
+[f9866] gb.mobile DEBUG:     74 6F 3A 61 40 62 2E 63 22 3E 82 DF 81 5B 82 E9 
+[f9866] gb.mobile DEBUG:     3C 2F 61 3E 20 3C 61 20 68 72 65 66 3D 22 66 74 
+[f9866] gb.mobile DEBUG:     70 3A 2F 2F 68 2F 78 22 3E 82 A6 82 D3 82 C4 82 
+[f9866] gb.mobile DEBUG:     A1 82 D2 81 5B 3C 2F 61 3E 20 3C 61 20 68 72 65 
+[f9866] gb.mobile DEBUG:     66 3D 22 2E 2E 2F 74 33 2E 68 74 6D 6C 22 3E 82 
+[f9866] gb.mobile DEBUG:     A4 82 A6 3C 2F 61 3E 0A 3C 61 20 68 72 65 66 3D 
+[f9866] gb.mobile DEBUG:     22 2F 61 62 73 2E 68 74 6D 6C 22 3E 82 BA 82 C1 
+[f9866] gb.mobile DEBUG:     82 BD 82 A2 3C 2F 61 3E 20 3C 61 20 68 72 65 66 
+[f9866] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 23 66 72 61 67 22 3E 
+[f9866] gb.mobile DEBUG:     82 D3 82 E7 82 AE 3C 2F 61 3E 20 3C 61 20 68 72 
+[f9866] gb.mobile DEBUG:     65 66 3D 22 74 32 61 2E 68 74 6D 6C 3F 71 3D 31 
+[f9866] gb.mobile DEBUG:     22 3E 82 AD 82 A6 82 E8 3C 2F 61 3E 20 3C 61 20 
+[f9866] gb.mobile DEBUG:     68 72 65 66 3D 22 2E 2F 74 34 2E 68 74 6D 6C 22 
+[f9866] gb.mobile DEBUG:     3E 82 C7 82 C1 82 C6 3C 2F 61 3E 0A 3C 62 3E 82 
+[f9866] gb.mobile DEBUG:     D3 82 C6 3C 62 3E 82 D3 82 C6 82 51 3C 2F 
+[f9879] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9879] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f9879] gb.mobile DEBUG:     62 3E 82 E0 82 C7 82 E8 3C 2F 62 3E 0A 3C 61 20 
+[f9879] gb.mobile DEBUG:     68 72 65 66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 
+[f9879] gb.mobile DEBUG:     B6 82 D4 82 F1 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 
+[f9879] gb.mobile DEBUG:     20 68 72 65 66 3D 22 69 6E 64 65 78 2E 68 74 6D 
+[f9879] gb.mobile DEBUG:     6C 22 3E 82 E0 82 C7 82 E9 3C 2F 61 3E 0A 3C 2F 
+[f9879] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f9885] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f9885] NET sock_close conn=0
+[f9885] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f9941] gb.mobile DEBUG: >>> 17 Status
+[f9941] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f9998] gb.mobile DEBUG: >>> 17 Status
+[f9998] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10056] gb.mobile DEBUG: >>> 17 Status
+[f10056] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10112] gb.mobile DEBUG: >>> 17 Status
+[f10112] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10168] gb.mobile DEBUG: >>> 17 Status
+[f10168] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10224] gb.mobile DEBUG: >>> 17 Status
+[f10224] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10280] gb.mobile DEBUG: >>> 17 Status
+[f10280] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10336] gb.mobile DEBUG: >>> 17 Status
+[f10336] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10392] gb.mobile DEBUG: >>> 17 Status
+[f10392] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10448] gb.mobile DEBUG: >>> 17 Status
+[f10448] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10504] gb.mobile DEBUG: >>> 17 Status
+[f10504] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10560] gb.mobile DEBUG: >>> 17 Status
+[f10560] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10616] gb.mobile DEBUG: >>> 17 Status
+[f10616] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10672] gb.mobile DEBUG: >>> 17 Status
+[f10672] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10728] gb.mobile DEBUG: >>> 17 Status
+[f10728] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10784] gb.mobile DEBUG: >>> 17 Status
+[f10784] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10842] gb.mobile DEBUG: >>> 17 Status
+[f10842] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10898] gb.mobile DEBUG: >>> 17 Status
+[f10898] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f10954] gb.mobile DEBUG: >>> 17 Status
+[f10954] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11010] gb.mobile DEBUG: >>> 17 Status
+[f11010] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11066] gb.mobile DEBUG: >>> 17 Status
+[f11066] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11122] gb.mobile DEBUG: >>> 17 Status
+[f11122] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11178] gb.mobile DEBUG: >>> 17 Status
+[f11178] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11206] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f11206] NET sock_open conn=0 UDP bindport=0
+[f11207] NET udp send to 210.196.3.183:53 (42 bytes)
+[f11207] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f11208] NET sock_close conn=0
+[f11208] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f11210] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f11210] NET sock_open conn=0 TCP bindport=0
+[f11211] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f11211] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f11213] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11213] gb.mobile DEBUG: GET 
+[f11213] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11215] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11215] gb.mobile DEBUG: /01/CGB-B9AJ/t3.html
+[f11215] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11218] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11218] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f11218] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t3.html HTTP/1.0"
+[f11218] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f11218] NET tcp:80 rx-line ""
+[f11218] NET http 200 for /01/CGB-B9AJ/t3.html (407 bytes)
+[f11218] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11220] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11220] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11220] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f11220] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f11220] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f11220] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 30 37 0D 0A 0D 
+[f11220] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f11220] gb.mobile DEBUG:     69 74 6C 65 3E 82 A6 82 F1 82 C4 82 A1 82 C4 82 
+[f11220] gb.mobile DEBUG:     A1 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f11220] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 26 6C 74 3B 62 26 67 74 
+[f11220] gb.mobile DEBUG:     3B 20 26 61 6D 70 3B 20 26 71 75 6F 74 3B 82 D0 
+[f11220] gb.mobile DEBUG:     82 AB 82 E6 82 A4 26 71 75 6F 74 3B 20 26 6E 62 
+[f11220] gb.mobile DEBUG:     73 70 3B 82 A0 82 AB 20 26 6C 74 20 26 67 74 3B 
+[f11220] gb.mobile DEBUG:     20 26 61 6D 70 26 6E 62 73 70 20 26 62 6F 67 75 
+[f11220] gb.mobile DEBUG:     73 3B 20 26 23 36 35 3B 20 26 0A 3C 62 72 3E 0A 
+[f11220] gb.mobile DEBUG:     3C 21 2D 2D 20 83 52 83 81 83 93 83 67 20 2D 2D 
+[f11220] gb.mobile DEBUG:     20 82 BF 82 E3 82 A4 20 2D 2D 3E 20 82 A0 82 C6 
+[f11220] gb.mobile DEBUG:     82 CC 82 D4 82 F1 20 3C 21 44 4F 43 54 59 
+[f11233] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11233] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f11233] gb.mobile DEBUG:     50 45 20 78 3E 20 3C 21 2D 2D 20 75 6E 74 65 72 
+[f11233] gb.mobile DEBUG:     6D 69 6E 61 74 65 64 20 3F 20 2D 2D 20 3E 20 73 
+[f11233] gb.mobile DEBUG:     74 69 6C 6C 20 63 6F 6D 6D 65 6E 74 20 2D 2D 3E 
+[f11233] gb.mobile DEBUG:     0A 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 3B 26 6C 74 
+[f11233] gb.mobile DEBUG:     3B 26 6C 74 3B 26 6C 74 3B 0A 3C 61 20 68 72 65 
+[f11233] gb.mobile DEBUG:     66 3D 22 69 6E 64 65 78 2E 68 74 6D 6C 22 3E 82 
+[f11233] gb.mobile DEBUG:     E0 82 C7 82 E9 3C 2F 61 3E 0A 3C 2F 62 6F 64 79 
+[f11233] gb.mobile DEBUG:     3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f11244] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f11244] NET sock_close conn=0
+[f11244] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f11300] gb.mobile DEBUG: >>> 17 Status
+[f11300] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11357] gb.mobile DEBUG: >>> 17 Status
+[f11357] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11415] gb.mobile DEBUG: >>> 17 Status
+[f11415] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11471] gb.mobile DEBUG: >>> 17 Status
+[f11471] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11527] gb.mobile DEBUG: >>> 17 Status
+[f11527] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11583] gb.mobile DEBUG: >>> 17 Status
+[f11583] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11640] gb.mobile DEBUG: >>> 17 Status
+[f11640] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11697] gb.mobile DEBUG: >>> 17 Status
+[f11697] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11753] gb.mobile DEBUG: >>> 17 Status
+[f11753] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11809] gb.mobile DEBUG: >>> 17 Status
+[f11809] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11865] gb.mobile DEBUG: >>> 17 Status
+[f11865] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11921] gb.mobile DEBUG: >>> 17 Status
+[f11921] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f11977] gb.mobile DEBUG: >>> 17 Status
+[f11977] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12035] gb.mobile DEBUG: >>> 17 Status
+[f12035] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12049] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f12049] NET sock_open conn=0 UDP bindport=0
+[f12050] NET udp send to 210.196.3.183:53 (42 bytes)
+[f12050] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f12051] NET sock_close conn=0
+[f12051] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f12053] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f12053] NET sock_open conn=0 TCP bindport=0
+[f12054] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f12054] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f12056] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12056] gb.mobile DEBUG: GET 
+[f12056] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12058] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12058] gb.mobile DEBUG: /01/CGB-B9AJ/t4.html
+[f12058] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12061] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12061] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f12061] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t4.html HTTP/1.0"
+[f12061] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f12061] NET tcp:80 rx-line ""
+[f12061] NET http 200 for /01/CGB-B9AJ/t4.html (615 bytes)
+[f12061] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12063] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12063] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12063] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f12063] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f12063] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f12063] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 36 31 35 0D 0A 0D 
+[f12063] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f12063] gb.mobile DEBUG:     69 74 6C 65 3E 82 E8 82 B7 82 C6 3C 2F 74 69 74 
+[f12063] gb.mobile DEBUG:     6C 65 3E 3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 79 
+[f12063] gb.mobile DEBUG:     3E 0A 3C 6F 6C 3E 0A 3C 6C 69 3E 82 B1 82 A4 82 
+[f12063] gb.mobile DEBUG:     E0 82 AD 31 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 
+[f12063] gb.mobile DEBUG:     AD 32 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 AD 33 
+[f12063] gb.mobile DEBUG:     0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 AD 34 0A 3C 
+[f12063] gb.mobile DEBUG:     6C 69 3E 82 B1 82 A4 82 E0 82 AD 35 0A 3C 6C 69 
+[f12063] gb.mobile DEBUG:     3E 82 B1 82 A4 82 E0 82 AD 36 0A 3C 6C 69 3E 82 
+[f12063] gb.mobile DEBUG:     B1 82 A4 82 E0 82 AD 37 0A 3C 6C 69 3E 82 B1 82 
+[f12063] gb.mobile DEBUG:     A4 82 E0 82 AD 38 0A 3C 6C 69 3E 82 B1 82 A4 82 
+[f12063] gb.mobile DEBUG:     E0 82 AD 39 0A 3C 6C 69 3E 82 B1 82 A4 82 
+[f12076] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12076] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12076] gb.mobile DEBUG:     E0 82 AD 31 30 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 
+[f12076] gb.mobile DEBUG:     82 AD 31 31 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 
+[f12076] gb.mobile DEBUG:     AD 31 32 0A 3C 2F 6F 6C 3E 0A 3C 75 6C 3E 0A 3C 
+[f12076] gb.mobile DEBUG:     6C 69 3E 82 B1 82 A4 82 E0 82 AD 31 0A 3C 6C 69 
+[f12076] gb.mobile DEBUG:     3E 82 B1 82 A4 82 E0 82 AD 32 0A 3C 6C 69 3E 82 
+[f12076] gb.mobile DEBUG:     B1 82 A4 82 E0 82 AD 33 0A 3C 6C 69 3E 82 B1 82 
+[f12076] gb.mobile DEBUG:     A4 82 E0 82 AD 34 0A 3C 6C 69 3E 82 B1 82 A4 82 
+[f12076] gb.mobile DEBUG:     E0 82 AD 35 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 
+[f12076] gb.mobile DEBUG:     AD 36 0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 AD 37 
+[f12076] gb.mobile DEBUG:     0A 3C 6C 69 3E 82 B1 82 A4 82 E0 82 AD 38 0A 3C 
+[f12076] gb.mobile DEBUG:     6C 69 3E 82 B1 82 A4 82 E0 82 AD 39 0A 3C 6C 69 
+[f12076] gb.mobile DEBUG:     3E 82 B1 82 A4 82 E0 82 AD 31 30 0A 3C 6C 69 3E 
+[f12076] gb.mobile DEBUG:     82 B1 82 A4 82 E0 82 AD 31 31 0A 3C 6C 69 3E 82 
+[f12076] gb.mobile DEBUG:     B1 82 A4 82 E0 82 AD 31 32 0A 3C 2F 75 6C 3E 0A 
+[f12076] gb.mobile DEBUG:     3C 75 6C 3E 3C 6C 69 3E 82 A2 82 50 3C 6C 69 3E 
+[f12076] gb.mobile DEBUG:     82 A2 82 51 3C 6F 6C 3E 3C 6C 69 3E 82 A2 
+[f12089] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12089] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f12089] gb.mobile DEBUG:     82 52 3C 6C 69 3E 82 A2 82 53 3C 2F 6F 6C 3E 3C 
+[f12089] gb.mobile DEBUG:     2F 75 6C 3E 0A 3C 6F 6C 3E 3C 6C 69 3E 82 D0 82 
+[f12089] gb.mobile DEBUG:     C6 82 C2 82 BE 82 AF 3C 2F 6F 6C 3E 0A 3C 6F 6C 
+[f12089] gb.mobile DEBUG:     3E 3C 2F 6F 6C 3E 3C 75 6C 3E 3C 2F 75 6C 3E 0A 
+[f12089] gb.mobile DEBUG:     3C 6C 69 3E 82 A8 82 E2 82 C8 82 B5 82 CC 82 E8 
+[f12089] gb.mobile DEBUG:     0A 3C 6F 6C 3E 3C 6C 69 3E 61 3C 75 6C 3E 3C 6C 
+[f12089] gb.mobile DEBUG:     69 3E 62 3C 6F 6C 3E 3C 6C 69 3E 63 3C 2F 6F 6C 
+[f12089] gb.mobile DEBUG:     3E 3C 2F 75 6C 3E 3C 2F 6F 6C 3E 0A 3C 61 20 68 
+[f12089] gb.mobile DEBUG:     72 65 66 3D 22 69 6E 64 65 78 2E 68 74 6D 6C 22 
+[f12089] gb.mobile DEBUG:     3E 82 E0 82 C7 82 E9 3C 2F 61 3E 0A 3C 2F 62 6F 
+[f12089] gb.mobile DEBUG:     64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f12098] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f12098] NET sock_close conn=0
+[f12098] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f12154] gb.mobile DEBUG: >>> 17 Status
+[f12154] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12210] gb.mobile DEBUG: >>> 17 Status
+[f12210] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12268] gb.mobile DEBUG: >>> 17 Status
+[f12268] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12324] gb.mobile DEBUG: >>> 17 Status
+[f12324] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12380] gb.mobile DEBUG: >>> 17 Status
+[f12380] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12436] gb.mobile DEBUG: >>> 17 Status
+[f12436] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12492] gb.mobile DEBUG: >>> 17 Status
+[f12492] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12548] gb.mobile DEBUG: >>> 17 Status
+[f12548] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12604] gb.mobile DEBUG: >>> 17 Status
+[f12604] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12660] gb.mobile DEBUG: >>> 17 Status
+[f12660] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12716] gb.mobile DEBUG: >>> 17 Status
+[f12716] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12772] gb.mobile DEBUG: >>> 17 Status
+[f12772] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12828] gb.mobile DEBUG: >>> 17 Status
+[f12828] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12884] gb.mobile DEBUG: >>> 17 Status
+[f12884] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12940] gb.mobile DEBUG: >>> 17 Status
+[f12940] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f12996] gb.mobile DEBUG: >>> 17 Status
+[f12996] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13053] gb.mobile DEBUG: >>> 17 Status
+[f13053] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13110] gb.mobile DEBUG: >>> 17 Status
+[f13110] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13166] gb.mobile DEBUG: >>> 17 Status
+[f13166] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13222] gb.mobile DEBUG: >>> 17 Status
+[f13222] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13278] gb.mobile DEBUG: >>> 17 Status
+[f13278] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13334] gb.mobile DEBUG: >>> 17 Status
+[f13334] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13390] gb.mobile DEBUG: >>> 17 Status
+[f13390] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13446] gb.mobile DEBUG: >>> 17 Status
+[f13446] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13495] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f13495] NET sock_open conn=0 UDP bindport=0
+[f13496] NET udp send to 210.196.3.183:53 (42 bytes)
+[f13496] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f13497] NET sock_close conn=0
+[f13497] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f13499] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f13499] NET sock_open conn=0 TCP bindport=0
+[f13500] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f13500] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f13502] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13502] gb.mobile DEBUG: GET 
+[f13502] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f13504] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13504] gb.mobile DEBUG: /01/CGB-B9AJ/t5.html
+[f13504] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f13507] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13507] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f13507] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t5.html HTTP/1.0"
+[f13507] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f13507] NET tcp:80 rx-line ""
+[f13507] NET http 200 for /01/CGB-B9AJ/t5.html (253 bytes)
+[f13507] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f13509] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13509] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f13509] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f13509] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f13509] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f13509] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 32 35 33 0D 0A 0D 
+[f13509] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f13509] gb.mobile DEBUG:     69 74 6C 65 3E 82 DF 82 BD 3C 2F 74 69 74 6C 65 
+[f13509] gb.mobile DEBUG:     3E 0A 3C 6D 65 74 61 20 6E 61 6D 65 3D 22 70 70 
+[f13509] gb.mobile DEBUG:     70 5F 69 64 22 20 63 6F 6E 74 65 6E 74 3D 22 61 
+[f13509] gb.mobile DEBUG:     62 63 22 3E 0A 3C 6D 65 74 61 20 6E 61 6D 65 3D 
+[f13509] gb.mobile DEBUG:     22 72 5F 63 6F 64 65 22 20 63 6F 6E 74 65 6E 74 
+[f13509] gb.mobile DEBUG:     3D 22 6F 6B 22 3E 0A 3C 6D 65 74 61 20 6E 61 6D 
+[f13509] gb.mobile DEBUG:     65 3D 22 64 5F 63 6F 64 65 22 20 63 6F 6E 74 65 
+[f13509] gb.mobile DEBUG:     6E 74 3D 22 31 32 33 34 22 3E 0A 3C 6D 65 74 61 
+[f13509] gb.mobile DEBUG:     20 6E 61 6D 65 3D 22 6F 74 68 65 72 22 20 63 6F 
+[f13509] gb.mobile DEBUG:     6E 74 65 6E 74 3D 22 78 22 3E 0A 3C 6D 65 74 61 
+[f13509] gb.mobile DEBUG:     3E 0A 3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 
+[f13522] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13522] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f13522] gb.mobile DEBUG:     79 3E 0A 82 DF 82 BD 82 CC 82 C4 82 B7 82 C6 0A 
+[f13522] gb.mobile DEBUG:     3C 61 20 68 72 65 66 3D 22 69 6E 64 65 78 2E 68 
+[f13522] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E0 82 C7 82 E9 3C 2F 61 3E 0A 
+[f13522] gb.mobile DEBUG:     3C 2F 62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f13526] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f13526] NET sock_close conn=0
+[f13526] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f13584] gb.mobile DEBUG: >>> 17 Status
+[f13584] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13641] gb.mobile DEBUG: >>> 17 Status
+[f13641] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13698] gb.mobile DEBUG: >>> 17 Status
+[f13698] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13754] gb.mobile DEBUG: >>> 17 Status
+[f13754] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13810] gb.mobile DEBUG: >>> 17 Status
+[f13810] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13866] gb.mobile DEBUG: >>> 17 Status
+[f13866] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13923] gb.mobile DEBUG: >>> 17 Status
+[f13923] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f13980] gb.mobile DEBUG: >>> 17 Status
+[f13980] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14036] gb.mobile DEBUG: >>> 17 Status
+[f14036] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14092] gb.mobile DEBUG: >>> 17 Status
+[f14092] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14148] gb.mobile DEBUG: >>> 17 Status
+[f14148] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14204] gb.mobile DEBUG: >>> 17 Status
+[f14204] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14260] gb.mobile DEBUG: >>> 17 Status
+[f14260] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14316] gb.mobile DEBUG: >>> 17 Status
+[f14316] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14372] gb.mobile DEBUG: >>> 17 Status
+[f14372] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14407] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f14407] NET sock_open conn=0 UDP bindport=0
+[f14408] NET udp send to 210.196.3.183:53 (42 bytes)
+[f14408] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f14409] NET sock_close conn=0
+[f14409] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f14411] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f14411] NET sock_open conn=0 TCP bindport=0
+[f14412] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f14412] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f14414] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14414] gb.mobile DEBUG: GET 
+[f14414] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14416] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14416] gb.mobile DEBUG: /01/CGB-B9AJ/t6.htm
+[f14416] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14419] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14419] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f14419] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t6.htm HTTP/1.0"
+[f14419] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f14419] NET tcp:80 rx-line ""
+[f14419] NET http 200 for /01/CGB-B9AJ/t6.htm (161 bytes)
+[f14419] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14421] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14421] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f14421] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f14421] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f14421] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f14421] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 31 36 31 0D 0A 0D 
+[f14421] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 
+[f14421] gb.mobile DEBUG:     74 69 74 6C 65 3E 82 D5 82 EA 3C 2F 74 69 74 6C 
+[f14421] gb.mobile DEBUG:     65 3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 
+[f14421] gb.mobile DEBUG:     3E 0D 0A 3C 70 72 65 3E 0D 0A 6C 69 6E 65 31 0D 
+[f14421] gb.mobile DEBUG:     0A 20 20 6C 69 6E 65 32 09 74 61 62 20 82 A0 82 
+[f14421] gb.mobile DEBUG:     A2 82 A4 0D 0A 0D 0A 6C 69 6E 65 34 0D 0A 3C 2F 
+[f14421] gb.mobile DEBUG:     70 72 65 3E 0D 0A 61 66 74 65 72 20 70 72 65 0D 
+[f14421] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 69 6E 64 65 78 2E 
+[f14421] gb.mobile DEBUG:     68 74 6D 6C 22 3E 62 61 63 6B 3C 2F 61 3E 0D 0A 
+[f14421] gb.mobile DEBUG:     3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 68 74 6D 6C 3E 
+[f14421] gb.mobile DEBUG:     0D 0A 
+[f14432] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f14432] NET sock_close conn=0
+[f14432] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f14489] gb.mobile DEBUG: >>> 17 Status
+[f14489] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14547] gb.mobile DEBUG: >>> 17 Status
+[f14547] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14604] gb.mobile DEBUG: >>> 17 Status
+[f14604] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14660] gb.mobile DEBUG: >>> 17 Status
+[f14660] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14716] gb.mobile DEBUG: >>> 17 Status
+[f14716] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14772] gb.mobile DEBUG: >>> 17 Status
+[f14772] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14829] gb.mobile DEBUG: >>> 17 Status
+[f14829] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14886] gb.mobile DEBUG: >>> 17 Status
+[f14886] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14942] gb.mobile DEBUG: >>> 17 Status
+[f14942] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f14998] gb.mobile DEBUG: >>> 17 Status
+[f14998] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15054] gb.mobile DEBUG: >>> 17 Status
+[f15054] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15110] gb.mobile DEBUG: >>> 17 Status
+[f15110] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15166] gb.mobile DEBUG: >>> 17 Status
+[f15166] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15222] gb.mobile DEBUG: >>> 17 Status
+[f15222] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15278] gb.mobile DEBUG: >>> 17 Status
+[f15278] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15334] gb.mobile DEBUG: >>> 17 Status
+[f15334] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15390] gb.mobile DEBUG: >>> 17 Status
+[f15390] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15432] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f15432] NET sock_open conn=0 UDP bindport=0
+[f15433] NET udp send to 210.196.3.183:53 (42 bytes)
+[f15433] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f15434] NET sock_close conn=0
+[f15434] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f15436] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f15436] NET sock_open conn=0 TCP bindport=0
+[f15437] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f15437] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f15439] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15439] gb.mobile DEBUG: GET 
+[f15439] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15442] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15442] gb.mobile DEBUG: /01/CGB-B9AJ/t5ng.html
+[f15442] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15445] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15445] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f15445] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t5ng.html HTTP/1.0"
+[f15445] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f15445] NET tcp:80 rx-line ""
+[f15445] NET http 200 for /01/CGB-B9AJ/t5ng.html (147 bytes)
+[f15445] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15447] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15447] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f15447] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f15447] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f15447] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f15447] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 31 34 37 0D 0A 0D 
+[f15447] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f15447] gb.mobile DEBUG:     69 74 6C 65 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f15447] gb.mobile DEBUG:     2F 74 69 74 6C 65 3E 0A 3C 6D 65 74 61 20 6E 61 
+[f15447] gb.mobile DEBUG:     6D 65 3D 22 72 5F 63 6F 64 65 22 20 63 6F 6E 74 
+[f15447] gb.mobile DEBUG:     65 6E 74 3D 22 6E 67 22 3E 0A 3C 6D 65 74 61 20 
+[f15447] gb.mobile DEBUG:     6E 61 6D 65 3D 22 64 5F 63 6F 64 65 22 20 63 6F 
+[f15447] gb.mobile DEBUG:     6E 74 65 6E 74 3D 22 30 30 41 30 42 31 43 32 22 
+[f15447] gb.mobile DEBUG:     3E 0A 3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 79 3E 
+[f15447] gb.mobile DEBUG:     0A 6E 67 0A 3C 2F 62 6F 64 79 3E 0A 3C 2F 68 74 
+[f15447] gb.mobile DEBUG:     6D 6C 3E 0A 
+[f15458] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f15458] NET sock_close conn=0
+[f15458] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f15515] gb.mobile DEBUG: >>> 17 Status
+[f15515] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15572] gb.mobile DEBUG: >>> 17 Status
+[f15572] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15629] gb.mobile DEBUG: >>> 17 Status
+[f15629] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15685] gb.mobile DEBUG: >>> 17 Status
+[f15685] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15741] gb.mobile DEBUG: >>> 17 Status
+[f15741] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15797] gb.mobile DEBUG: >>> 17 Status
+[f15797] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15854] gb.mobile DEBUG: >>> 17 Status
+[f15854] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15911] gb.mobile DEBUG: >>> 17 Status
+[f15911] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f15967] gb.mobile DEBUG: >>> 17 Status
+[f15967] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16023] gb.mobile DEBUG: >>> 17 Status
+[f16023] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16079] gb.mobile DEBUG: >>> 17 Status
+[f16079] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16135] gb.mobile DEBUG: >>> 17 Status
+[f16135] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16191] gb.mobile DEBUG: >>> 17 Status
+[f16191] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16247] gb.mobile DEBUG: >>> 17 Status
+[f16247] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16303] gb.mobile DEBUG: >>> 17 Status
+[f16303] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16359] gb.mobile DEBUG: >>> 17 Status
+[f16359] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16415] gb.mobile DEBUG: >>> 17 Status
+[f16415] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16473] gb.mobile DEBUG: >>> 17 Status
+[f16473] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16492] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f16492] NET sock_open conn=0 UDP bindport=0
+[f16493] NET udp send to 210.196.3.183:53 (42 bytes)
+[f16493] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f16494] NET sock_close conn=0
+[f16494] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f16496] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f16496] NET sock_open conn=0 TCP bindport=0
+[f16497] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f16497] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f16499] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16499] gb.mobile DEBUG: GET 
+[f16499] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16502] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16502] gb.mobile DEBUG: /01/CGB-B9AJ/s4200.html
+[f16502] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16505] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16505] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f16505] NET tcp:80 rx-line "GET /01/CGB-B9AJ/s4200.html HTTP/1.0"
+[f16505] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f16505] NET tcp:80 rx-line ""
+[f16505] NET http 200 for /01/CGB-B9AJ/s4200.html (4230 bytes)
+[f16505] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16507] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16507] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16507] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f16507] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f16507] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f16507] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 32 33 30 0D 0A 
+[f16507] gb.mobile DEBUG:     0D 0A 3C 68 74 6D 6C 3E 3C 68 65 61 64 3E 3C 74 
+[f16507] gb.mobile DEBUG:     69 74 6C 65 3E 73 34 32 30 30 3C 2F 74 69 74 6C 
+[f16507] gb.mobile DEBUG:     65 3E 3C 2F 68 65 61 64 3E 3C 62 6F 64 79 3E 8D 
+[f16507] gb.mobile DEBUG:     73 30 30 31 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16507] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16507] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 30 32 20 82 A0 
+[f16507] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16507] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16507] gb.mobile DEBUG:     0A 8D 73 30 30 33 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16507] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16507] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 30 34 20 
+[f16507] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 
+[f16520] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16520] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16520] gb.mobile DEBUG:     82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 
+[f16520] gb.mobile DEBUG:     3C 62 72 3E 0A 8D 73 30 30 35 20 82 A0 82 A2 82 
+[f16520] gb.mobile DEBUG:     A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 
+[f16520] gb.mobile DEBUG:     B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 
+[f16520] gb.mobile DEBUG:     30 30 36 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16520] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16520] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 30 37 20 82 A0 82 
+[f16520] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16520] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16520] gb.mobile DEBUG:     8D 73 30 30 38 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16520] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16520] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 30 39 20 82 
+[f16520] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16520] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16520] gb.mobile DEBUG:     3E 0A 8D 73 30 31 30 20 82 A0 82 A2 82 A4 82 A6 
+[f16520] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 
+[f16533] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16533] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16533] gb.mobile DEBUG:     82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 
+[f16533] gb.mobile DEBUG:     31 31 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 
+[f16533] gb.mobile DEBUG:     AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 
+[f16533] gb.mobile DEBUG:     BB 3C 62 72 3E 0A 8D 73 30 31 32 20 82 A0 82 A2 
+[f16533] gb.mobile DEBUG:     82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16533] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16533] gb.mobile DEBUG:     73 30 31 33 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16533] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16533] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 31 34 20 82 A0 
+[f16533] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16533] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16533] gb.mobile DEBUG:     0A 8D 73 30 31 35 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16533] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16533] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 31 36 20 
+[f16533] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16533] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 
+[f16546] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16546] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16546] gb.mobile DEBUG:     3C 62 72 3E 0A 8D 73 30 31 37 20 82 A0 82 A2 82 
+[f16546] gb.mobile DEBUG:     A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 
+[f16546] gb.mobile DEBUG:     B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 
+[f16546] gb.mobile DEBUG:     30 31 38 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16546] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16546] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 31 39 20 82 A0 82 
+[f16546] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16546] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16546] gb.mobile DEBUG:     8D 73 30 32 30 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16546] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16546] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 32 31 20 82 
+[f16546] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16546] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16546] gb.mobile DEBUG:     3E 0A 8D 73 30 32 32 20 82 A0 82 A2 82 A4 82 A6 
+[f16546] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16546] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 
+[f16559] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16559] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16559] gb.mobile DEBUG:     32 33 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 
+[f16559] gb.mobile DEBUG:     AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 
+[f16559] gb.mobile DEBUG:     BB 3C 62 72 3E 0A 8D 73 30 32 34 20 82 A0 82 A2 
+[f16559] gb.mobile DEBUG:     82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16559] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16559] gb.mobile DEBUG:     73 30 32 35 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16559] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16559] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 32 36 20 82 A0 
+[f16559] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16559] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16559] gb.mobile DEBUG:     0A 8D 73 30 32 37 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16559] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16559] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 32 38 20 
+[f16559] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16559] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16559] gb.mobile DEBUG:     72 3E 0A 8D 73 30 32 39 20 82 A0 82 A2 82 
+[f16572] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16572] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16572] gb.mobile DEBUG:     A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 
+[f16572] gb.mobile DEBUG:     B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 
+[f16572] gb.mobile DEBUG:     30 33 30 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16572] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16572] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 33 31 20 82 A0 82 
+[f16572] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16572] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16572] gb.mobile DEBUG:     8D 73 30 33 32 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16572] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16572] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 33 33 20 82 
+[f16572] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16572] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16572] gb.mobile DEBUG:     3E 0A 8D 73 30 33 34 20 82 A0 82 A2 82 A4 82 A6 
+[f16572] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16572] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 33 35 
+[f16572] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 
+[f16585] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16585] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16585] gb.mobile DEBUG:     AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 
+[f16585] gb.mobile DEBUG:     BB 3C 62 72 3E 0A 8D 73 30 33 36 20 82 A0 82 A2 
+[f16585] gb.mobile DEBUG:     82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16585] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16585] gb.mobile DEBUG:     73 30 33 37 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16585] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16585] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 33 38 20 82 A0 
+[f16585] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16585] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16585] gb.mobile DEBUG:     0A 8D 73 30 33 39 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16585] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16585] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 34 30 20 
+[f16585] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16585] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16585] gb.mobile DEBUG:     72 3E 0A 8D 73 30 34 31 20 82 A0 82 A2 82 A4 82 
+[f16585] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 
+[f16598] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16598] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16598] gb.mobile DEBUG:     B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 
+[f16598] gb.mobile DEBUG:     30 34 32 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16598] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16598] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 34 33 20 82 A0 82 
+[f16598] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16598] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16598] gb.mobile DEBUG:     8D 73 30 34 34 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16598] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16598] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 34 35 20 82 
+[f16598] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16598] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16598] gb.mobile DEBUG:     3E 0A 8D 73 30 34 36 20 82 A0 82 A2 82 A4 82 A6 
+[f16598] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16598] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 34 37 
+[f16598] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 
+[f16598] gb.mobile DEBUG:     AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 
+[f16611] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16611] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16611] gb.mobile DEBUG:     BB 3C 62 72 3E 0A 8D 73 30 34 38 20 82 A0 82 A2 
+[f16611] gb.mobile DEBUG:     82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16611] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16611] gb.mobile DEBUG:     73 30 34 39 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16611] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16611] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 35 30 20 82 A0 
+[f16611] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16611] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16611] gb.mobile DEBUG:     0A 8D 73 30 35 31 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16611] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16611] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 35 32 20 
+[f16611] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16611] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16611] gb.mobile DEBUG:     72 3E 0A 8D 73 30 35 33 20 82 A0 82 A2 82 A4 82 
+[f16611] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 
+[f16611] gb.mobile DEBUG:     B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 
+[f16624] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16624] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16624] gb.mobile DEBUG:     30 35 34 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16624] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16624] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 35 35 20 82 A0 82 
+[f16624] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16624] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16624] gb.mobile DEBUG:     8D 73 30 35 36 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16624] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16624] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 35 37 20 82 
+[f16624] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16624] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16624] gb.mobile DEBUG:     3E 0A 8D 73 30 35 38 20 82 A0 82 A2 82 A4 82 A6 
+[f16624] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16624] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 35 39 
+[f16624] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 
+[f16624] gb.mobile DEBUG:     AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 
+[f16624] gb.mobile DEBUG:     62 72 3E 0A 8D 73 30 36 30 20 82 A0 82 A2 
+[f16637] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16637] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16637] gb.mobile DEBUG:     82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16637] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16637] gb.mobile DEBUG:     73 30 36 31 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16637] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16637] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 36 32 20 82 A0 
+[f16637] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16637] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16637] gb.mobile DEBUG:     0A 8D 73 30 36 33 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16637] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16637] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 36 34 20 
+[f16637] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16637] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16637] gb.mobile DEBUG:     72 3E 0A 8D 73 30 36 35 20 82 A0 82 A2 82 A4 82 
+[f16637] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 
+[f16637] gb.mobile DEBUG:     B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 36 
+[f16637] gb.mobile DEBUG:     36 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 
+[f16650] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16650] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16650] gb.mobile DEBUG:     82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16650] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 36 37 20 82 A0 82 
+[f16650] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16650] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16650] gb.mobile DEBUG:     8D 73 30 36 38 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16650] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16650] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 36 39 20 82 
+[f16650] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16650] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16650] gb.mobile DEBUG:     3E 0A 8D 73 30 37 30 20 82 A0 82 A2 82 A4 82 A6 
+[f16650] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16650] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 37 31 
+[f16650] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 
+[f16650] gb.mobile DEBUG:     AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 
+[f16650] gb.mobile DEBUG:     62 72 3E 0A 8D 73 30 37 32 20 82 A0 82 A2 82 A4 
+[f16650] gb.mobile DEBUG:     82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 
+[f16663] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16663] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16663] gb.mobile DEBUG:     82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16663] gb.mobile DEBUG:     73 30 37 33 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16663] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16663] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 37 34 20 82 A0 
+[f16663] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16663] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16663] gb.mobile DEBUG:     0A 8D 73 30 37 35 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16663] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16663] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 37 36 20 
+[f16663] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16663] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16663] gb.mobile DEBUG:     72 3E 0A 8D 73 30 37 37 20 82 A0 82 A2 82 A4 82 
+[f16663] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 
+[f16663] gb.mobile DEBUG:     B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 37 
+[f16663] gb.mobile DEBUG:     38 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 
+[f16663] gb.mobile DEBUG:     82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 
+[f16676] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16676] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16676] gb.mobile DEBUG:     82 BB 3C 62 72 3E 0A 8D 73 30 37 39 20 82 A0 82 
+[f16676] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16676] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16676] gb.mobile DEBUG:     8D 73 30 38 30 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16676] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16676] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 38 31 20 82 
+[f16676] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16676] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16676] gb.mobile DEBUG:     3E 0A 8D 73 30 38 32 20 82 A0 82 A2 82 A4 82 A6 
+[f16676] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16676] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 38 33 
+[f16676] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 
+[f16676] gb.mobile DEBUG:     AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 
+[f16676] gb.mobile DEBUG:     62 72 3E 0A 8D 73 30 38 34 20 82 A0 82 A2 82 A4 
+[f16676] gb.mobile DEBUG:     82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 
+[f16676] gb.mobile DEBUG:     82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 
+[f16689] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16689] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16689] gb.mobile DEBUG:     73 30 38 35 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16689] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16689] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 38 36 20 82 A0 
+[f16689] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16689] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16689] gb.mobile DEBUG:     0A 8D 73 30 38 37 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16689] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16689] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 38 38 20 
+[f16689] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16689] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16689] gb.mobile DEBUG:     72 3E 0A 8D 73 30 38 39 20 82 A0 82 A2 82 A4 82 
+[f16689] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 
+[f16689] gb.mobile DEBUG:     B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 39 
+[f16689] gb.mobile DEBUG:     30 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 
+[f16689] gb.mobile DEBUG:     82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 
+[f16689] gb.mobile DEBUG:     3C 62 72 3E 0A 8D 73 30 39 31 20 82 A0 82 
+[f16702] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16702] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16702] gb.mobile DEBUG:     A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 
+[f16702] gb.mobile DEBUG:     B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 
+[f16702] gb.mobile DEBUG:     8D 73 30 39 32 20 82 A0 82 A2 82 A4 82 A6 82 A8 
+[f16702] gb.mobile DEBUG:     82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 
+[f16702] gb.mobile DEBUG:     82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 39 33 20 82 
+[f16702] gb.mobile DEBUG:     A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 
+[f16702] gb.mobile DEBUG:     AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 
+[f16702] gb.mobile DEBUG:     3E 0A 8D 73 30 39 34 20 82 A0 82 A2 82 A4 82 A6 
+[f16702] gb.mobile DEBUG:     82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 
+[f16702] gb.mobile DEBUG:     82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 39 35 
+[f16702] gb.mobile DEBUG:     20 82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 
+[f16702] gb.mobile DEBUG:     AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 
+[f16702] gb.mobile DEBUG:     62 72 3E 0A 8D 73 30 39 36 20 82 A0 82 A2 82 A4 
+[f16702] gb.mobile DEBUG:     82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 
+[f16702] gb.mobile DEBUG:     82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 30 
+[f16702] gb.mobile DEBUG:     39 37 20 82 A0 82 A2 82 A4 82 A6 82 A8 82 
+[f16715] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f16715] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f16715] gb.mobile DEBUG:     A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 B7 82 
+[f16715] gb.mobile DEBUG:     B9 82 BB 3C 62 72 3E 0A 8D 73 30 39 38 20 82 A0 
+[f16715] gb.mobile DEBUG:     82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 82 AF 
+[f16715] gb.mobile DEBUG:     82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 72 3E 
+[f16715] gb.mobile DEBUG:     0A 8D 73 30 39 39 20 82 A0 82 A2 82 A4 82 A6 82 
+[f16715] gb.mobile DEBUG:     A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 B5 82 
+[f16715] gb.mobile DEBUG:     B7 82 B9 82 BB 3C 62 72 3E 0A 8D 73 31 30 30 20 
+[f16715] gb.mobile DEBUG:     82 A0 82 A2 82 A4 82 A6 82 A8 82 A9 82 AB 82 AD 
+[f16715] gb.mobile DEBUG:     82 AF 82 B1 82 B3 82 B5 82 B7 82 B9 82 BB 3C 62 
+[f16715] gb.mobile DEBUG:     72 3E 0A 8D 73 31 30 31 20 82 A0 82 A2 82 A4 82 
+[f16715] gb.mobile DEBUG:     A6 82 A8 82 A9 82 AB 82 AD 82 AF 82 B1 82 B3 82 
+[f16715] gb.mobile DEBUG:     B5 82 B7 82 B9 82 BB 3C 62 72 3E 0A 3C 61 20 68 
+[f16715] gb.mobile DEBUG:     72 65 66 3D 22 69 6E 64 65 78 2E 68 74 6D 6C 22 
+[f16715] gb.mobile DEBUG:     3E 62 61 63 6B 3C 2F 61 3E 3C 2F 62 6F 64 79 3E 
+[f16715] gb.mobile DEBUG:     3C 2F 68 74 6D 6C 3E 0A 
+[f16727] gb.mobile DEBUG: >>> 24 TCP disconnect (conn 0)
+[f16727] NET sock_close conn=0
+[f16727] gb.mobile DEBUG: <<< 24 TCP disconnect (conn 0)
+[f16783] gb.mobile DEBUG: >>> 17 Status
+[f16783] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16839] gb.mobile DEBUG: >>> 17 Status
+[f16839] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16895] gb.mobile DEBUG: >>> 17 Status
+[f16895] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f16951] gb.mobile DEBUG: >>> 17 Status
+[f16951] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17007] gb.mobile DEBUG: >>> 17 Status
+[f17007] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17063] gb.mobile DEBUG: >>> 17 Status
+[f17063] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17119] gb.mobile DEBUG: >>> 17 Status
+[f17119] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17176] gb.mobile DEBUG: >>> 17 Status
+[f17176] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17235] gb.mobile DEBUG: >>> 17 Status
+[f17235] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17291] gb.mobile DEBUG: >>> 17 Status
+[f17291] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17347] gb.mobile DEBUG: >>> 17 Status
+[f17347] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17403] gb.mobile DEBUG: >>> 17 Status
+[f17403] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17459] gb.mobile DEBUG: >>> 17 Status
+[f17459] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17515] gb.mobile DEBUG: >>> 17 Status
+[f17515] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17571] gb.mobile DEBUG: >>> 17 Status
+[f17571] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17627] gb.mobile DEBUG: >>> 17 Status
+[f17627] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17683] gb.mobile DEBUG: >>> 17 Status
+[f17683] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17740] gb.mobile DEBUG: >>> 17 Status
+[f17740] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17796] gb.mobile DEBUG: >>> 17 Status
+[f17796] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17852] gb.mobile DEBUG: >>> 17 Status
+[f17852] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17908] gb.mobile DEBUG: >>> 17 Status
+[f17908] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f17964] gb.mobile DEBUG: >>> 17 Status
+[f17964] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18020] gb.mobile DEBUG: >>> 17 Status
+[f18020] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18076] gb.mobile DEBUG: >>> 17 Status
+[f18076] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18132] gb.mobile DEBUG: >>> 17 Status
+[f18132] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18188] gb.mobile DEBUG: >>> 17 Status
+[f18188] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18246] gb.mobile DEBUG: >>> 17 Status
+[f18246] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18302] gb.mobile DEBUG: >>> 17 Status
+[f18302] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18358] gb.mobile DEBUG: >>> 17 Status
+[f18358] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18414] gb.mobile DEBUG: >>> 17 Status
+[f18414] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18470] gb.mobile DEBUG: >>> 17 Status
+[f18470] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18526] gb.mobile DEBUG: >>> 17 Status
+[f18526] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18582] gb.mobile DEBUG: >>> 17 Status
+[f18582] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18638] gb.mobile DEBUG: >>> 17 Status
+[f18638] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18694] gb.mobile DEBUG: >>> 17 Status
+[f18694] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18752] gb.mobile DEBUG: >>> 17 Status
+[f18752] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18766] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f18766] NET sock_open conn=0 UDP bindport=0
+[f18767] NET udp send to 210.196.3.183:53 (42 bytes)
+[f18767] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f18768] NET sock_close conn=0
+[f18768] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f18770] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f18770] NET sock_open conn=0 TCP bindport=0
+[f18771] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f18771] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f18773] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18773] gb.mobile DEBUG: GET 
+[f18773] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f18775] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18775] gb.mobile DEBUG: /01/CGB-B9AJ/t5.html
+[f18775] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f18778] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18778] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f18778] NET tcp:80 rx-line "GET /01/CGB-B9AJ/t5.html HTTP/1.0"
+[f18778] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f18778] NET tcp:80 rx-line ""
+[f18778] NET http 200 for /01/CGB-B9AJ/t5.html (253 bytes)
+[f18778] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f18780] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18780] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f18780] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f18780] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f18780] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f18780] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 32 35 33 0D 0A 0D 
+[f18780] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f18780] gb.mobile DEBUG:     69 74 6C 65 3E 82 DF 82 BD 3C 2F 74 69 74 6C 65 
+[f18780] gb.mobile DEBUG:     3E 0A 3C 6D 65 74 61 20 6E 61 6D 65 3D 22 70 70 
+[f18780] gb.mobile DEBUG:     70 5F 69 64 22 20 63 6F 6E 74 65 6E 74 3D 22 61 
+[f18780] gb.mobile DEBUG:     62 63 22 3E 0A 3C 6D 65 74 61 20 6E 61 6D 65 3D 
+[f18780] gb.mobile DEBUG:     22 72 5F 63 6F 64 65 22 20 63 6F 6E 74 65 6E 74 
+[f18780] gb.mobile DEBUG:     3D 22 6F 6B 22 3E 0A 3C 6D 65 74 61 20 6E 61 6D 
+[f18780] gb.mobile DEBUG:     65 3D 22 64 5F 63 6F 64 65 22 20 63 6F 6E 74 65 
+[f18780] gb.mobile DEBUG:     6E 74 3D 22 31 32 33 34 22 3E 0A 3C 6D 65 74 61 
+[f18780] gb.mobile DEBUG:     20 6E 61 6D 65 3D 22 6F 74 68 65 72 22 20 63 6F 
+[f18780] gb.mobile DEBUG:     6E 74 65 6E 74 3D 22 78 22 3E 0A 3C 6D 65 74 61 
+[f18780] gb.mobile DEBUG:     3E 0A 3C 2F 68 65 61 64 3E 0A 3C 62 6F 64 
+[f18793] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18793] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f18793] gb.mobile DEBUG:     79 3E 0A 82 DF 82 BD 82 CC 82 C4 82 B7 82 C6 0A 
+[f18793] gb.mobile DEBUG:     3C 61 20 68 72 65 66 3D 22 69 6E 64 65 78 2E 68 
+[f18793] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E0 82 C7 82 E9 3C 2F 61 3E 0A 
+[f18793] gb.mobile DEBUG:     3C 2F 62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f18797] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f18797] NET sock_close conn=0
+[f18797] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f18855] gb.mobile DEBUG: >>> 17 Status
+[f18855] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18912] gb.mobile DEBUG: >>> 17 Status
+[f18912] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f18969] gb.mobile DEBUG: >>> 17 Status
+[f18969] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19025] gb.mobile DEBUG: >>> 17 Status
+[f19025] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19081] gb.mobile DEBUG: >>> 17 Status
+[f19081] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19137] gb.mobile DEBUG: >>> 17 Status
+[f19137] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19193] gb.mobile DEBUG: >>> 17 Status
+[f19193] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19249] gb.mobile DEBUG: >>> 17 Status
+[f19249] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19307] gb.mobile DEBUG: >>> 17 Status
+[f19307] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19314] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f19314] NET sock_open conn=0 UDP bindport=0
+[f19315] NET udp send to 210.196.3.183:53 (42 bytes)
+[f19315] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f19316] NET sock_close conn=0
+[f19316] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f19318] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f19318] NET sock_open conn=0 TCP bindport=0
+[f19319] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f19319] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f19321] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19321] gb.mobile DEBUG: GET 
+[f19321] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19324] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19324] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f19324] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19327] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19327] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f19327] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f19327] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f19327] NET tcp:80 rx-line ""
+[f19327] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f19327] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19329] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19329] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19329] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f19329] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f19329] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f19329] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f19329] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f19329] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f19329] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f19329] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f19329] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f19329] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f19329] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f19329] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f19329] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f19329] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f19329] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f19329] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f19342] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19342] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19342] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f19342] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f19342] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f19342] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f19342] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f19342] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f19342] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f19342] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f19342] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f19342] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f19342] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f19342] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f19342] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f19342] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f19342] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f19342] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f19355] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19355] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f19355] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f19355] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f19355] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f19359] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f19359] NET sock_close conn=0
+[f19359] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f19415] gb.mobile DEBUG: >>> 17 Status
+[f19415] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19472] gb.mobile DEBUG: >>> 17 Status
+[f19472] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19530] gb.mobile DEBUG: >>> 17 Status
+[f19530] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19586] gb.mobile DEBUG: >>> 17 Status
+[f19586] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19642] gb.mobile DEBUG: >>> 17 Status
+[f19642] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19698] gb.mobile DEBUG: >>> 17 Status
+[f19698] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19756] gb.mobile DEBUG: >>> 17 Status
+[f19756] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19812] gb.mobile DEBUG: >>> 17 Status
+[f19812] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19868] gb.mobile DEBUG: >>> 17 Status
+[f19868] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19924] gb.mobile DEBUG: >>> 17 Status
+[f19924] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f19980] gb.mobile DEBUG: >>> 17 Status
+[f19980] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20036] gb.mobile DEBUG: >>> 17 Status
+[f20036] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20090] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f20090] NET sock_open conn=0 UDP bindport=0
+[f20091] NET udp send to 210.196.3.183:53 (42 bytes)
+[f20091] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f20092] NET sock_close conn=0
+[f20092] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f20094] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f20094] NET sock_open conn=0 TCP bindport=0
+[f20095] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f20095] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f20097] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20097] gb.mobile DEBUG: GET 
+[f20097] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20100] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20100] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f20100] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20103] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20103] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f20103] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f20103] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f20103] NET tcp:80 rx-line ""
+[f20103] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f20103] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20105] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20105] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20105] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f20105] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f20105] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f20105] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f20105] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f20105] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f20105] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f20105] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f20105] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f20105] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f20105] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f20105] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f20105] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f20105] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f20105] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f20105] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f20118] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20118] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20118] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f20118] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f20118] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f20118] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f20118] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f20118] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f20118] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f20118] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f20118] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f20118] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f20118] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f20118] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f20118] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f20118] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f20118] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f20118] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f20131] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20131] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20131] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f20131] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f20131] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f20135] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20135] NET sock_close conn=0
+[f20135] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f20191] gb.mobile DEBUG: >>> 17 Status
+[f20191] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20248] gb.mobile DEBUG: >>> 17 Status
+[f20248] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20306] gb.mobile DEBUG: >>> 17 Status
+[f20306] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20362] gb.mobile DEBUG: >>> 17 Status
+[f20362] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20418] gb.mobile DEBUG: >>> 17 Status
+[f20418] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20474] gb.mobile DEBUG: >>> 17 Status
+[f20474] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20532] gb.mobile DEBUG: >>> 17 Status
+[f20532] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20588] gb.mobile DEBUG: >>> 17 Status
+[f20588] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20644] gb.mobile DEBUG: >>> 17 Status
+[f20644] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20700] gb.mobile DEBUG: >>> 17 Status
+[f20700] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20756] gb.mobile DEBUG: >>> 17 Status
+[f20756] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20812] gb.mobile DEBUG: >>> 17 Status
+[f20812] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20868] gb.mobile DEBUG: >>> 17 Status
+[f20868] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f20901] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f20901] NET sock_open conn=0 UDP bindport=0
+[f20902] NET udp send to 210.196.3.183:53 (42 bytes)
+[f20902] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f20903] NET sock_close conn=0
+[f20903] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f20905] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f20905] NET sock_open conn=0 TCP bindport=0
+[f20906] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f20906] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f20908] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20908] gb.mobile DEBUG: GET 
+[f20908] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20911] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20911] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f20911] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20914] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20914] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f20914] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f20914] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f20914] NET tcp:80 rx-line ""
+[f20914] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f20914] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20916] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20916] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20916] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f20916] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f20916] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f20916] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f20916] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f20916] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f20916] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f20916] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f20916] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f20916] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f20916] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f20916] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f20916] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f20916] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f20916] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f20916] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f20929] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20929] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20929] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f20929] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f20929] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f20929] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f20929] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f20929] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f20929] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f20929] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f20929] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f20929] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f20929] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f20929] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f20929] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f20929] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f20929] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f20929] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f20942] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20942] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f20942] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f20942] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f20942] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f20946] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f20946] NET sock_close conn=0
+[f20946] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f21002] gb.mobile DEBUG: >>> 17 Status
+[f21002] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21059] gb.mobile DEBUG: >>> 17 Status
+[f21059] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21117] gb.mobile DEBUG: >>> 17 Status
+[f21117] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21173] gb.mobile DEBUG: >>> 17 Status
+[f21173] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21229] gb.mobile DEBUG: >>> 17 Status
+[f21229] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21285] gb.mobile DEBUG: >>> 17 Status
+[f21285] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21343] gb.mobile DEBUG: >>> 17 Status
+[f21343] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21399] gb.mobile DEBUG: >>> 17 Status
+[f21399] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21455] gb.mobile DEBUG: >>> 17 Status
+[f21455] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21511] gb.mobile DEBUG: >>> 17 Status
+[f21511] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21567] gb.mobile DEBUG: >>> 17 Status
+[f21567] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21623] gb.mobile DEBUG: >>> 17 Status
+[f21623] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21679] gb.mobile DEBUG: >>> 17 Status
+[f21679] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21737] gb.mobile DEBUG: >>> 17 Status
+[f21737] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21744] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f21744] NET sock_open conn=0 UDP bindport=0
+[f21745] NET udp send to 210.196.3.183:53 (42 bytes)
+[f21745] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f21746] NET sock_close conn=0
+[f21746] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f21748] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f21748] NET sock_open conn=0 TCP bindport=0
+[f21749] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f21749] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f21751] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21751] gb.mobile DEBUG: GET 
+[f21751] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21754] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21754] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f21754] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21757] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21757] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f21757] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f21757] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f21757] NET tcp:80 rx-line ""
+[f21757] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f21757] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21759] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21759] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21759] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f21759] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f21759] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f21759] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f21759] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f21759] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f21759] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f21759] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f21759] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f21759] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f21759] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f21759] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f21759] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f21759] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f21759] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f21759] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f21772] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21772] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21772] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f21772] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f21772] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f21772] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f21772] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f21772] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f21772] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f21772] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f21772] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f21772] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f21772] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f21772] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f21772] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f21772] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f21772] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f21772] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f21785] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21785] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f21785] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f21785] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f21785] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f21789] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f21789] NET sock_close conn=0
+[f21789] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f21845] gb.mobile DEBUG: >>> 17 Status
+[f21845] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21902] gb.mobile DEBUG: >>> 17 Status
+[f21902] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f21960] gb.mobile DEBUG: >>> 17 Status
+[f21960] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22016] gb.mobile DEBUG: >>> 17 Status
+[f22016] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22072] gb.mobile DEBUG: >>> 17 Status
+[f22072] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22128] gb.mobile DEBUG: >>> 17 Status
+[f22128] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22186] gb.mobile DEBUG: >>> 17 Status
+[f22186] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22242] gb.mobile DEBUG: >>> 17 Status
+[f22242] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22298] gb.mobile DEBUG: >>> 17 Status
+[f22298] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22354] gb.mobile DEBUG: >>> 17 Status
+[f22354] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22410] gb.mobile DEBUG: >>> 17 Status
+[f22410] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22466] gb.mobile DEBUG: >>> 17 Status
+[f22466] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22522] gb.mobile DEBUG: >>> 17 Status
+[f22522] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22578] gb.mobile DEBUG: >>> 17 Status
+[f22578] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22622] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f22622] NET sock_open conn=0 UDP bindport=0
+[f22623] NET udp send to 210.196.3.183:53 (42 bytes)
+[f22623] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f22624] NET sock_close conn=0
+[f22624] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f22626] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f22626] NET sock_open conn=0 TCP bindport=0
+[f22627] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f22627] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f22629] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22629] gb.mobile DEBUG: GET 
+[f22629] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22632] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22632] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f22632] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22635] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22635] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f22635] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f22635] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f22635] NET tcp:80 rx-line ""
+[f22635] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f22635] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22637] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22637] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22637] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f22637] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f22637] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f22637] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f22637] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f22637] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f22637] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f22637] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f22637] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f22637] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f22637] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f22637] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f22637] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f22637] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f22637] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f22637] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f22650] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22650] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22650] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f22650] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f22650] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f22650] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f22650] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f22650] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f22650] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f22650] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f22650] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f22650] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f22650] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f22650] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f22650] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f22650] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f22650] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f22650] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f22663] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22663] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f22663] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f22663] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f22663] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f22667] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f22667] NET sock_close conn=0
+[f22667] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f22723] gb.mobile DEBUG: >>> 17 Status
+[f22723] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22780] gb.mobile DEBUG: >>> 17 Status
+[f22780] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22838] gb.mobile DEBUG: >>> 17 Status
+[f22838] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22894] gb.mobile DEBUG: >>> 17 Status
+[f22894] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f22950] gb.mobile DEBUG: >>> 17 Status
+[f22950] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23006] gb.mobile DEBUG: >>> 17 Status
+[f23006] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23064] gb.mobile DEBUG: >>> 17 Status
+[f23064] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23120] gb.mobile DEBUG: >>> 17 Status
+[f23120] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23176] gb.mobile DEBUG: >>> 17 Status
+[f23176] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23232] gb.mobile DEBUG: >>> 17 Status
+[f23232] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23288] gb.mobile DEBUG: >>> 17 Status
+[f23288] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23344] gb.mobile DEBUG: >>> 17 Status
+[f23344] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23400] gb.mobile DEBUG: >>> 17 Status
+[f23400] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23456] gb.mobile DEBUG: >>> 17 Status
+[f23456] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23514] gb.mobile DEBUG: >>> 17 Status
+[f23514] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23534] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f23534] NET sock_open conn=0 UDP bindport=0
+[f23535] NET udp send to 210.196.3.183:53 (42 bytes)
+[f23535] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f23536] NET sock_close conn=0
+[f23536] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f23538] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f23538] NET sock_open conn=0 TCP bindport=0
+[f23539] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f23539] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f23541] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23541] gb.mobile DEBUG: GET 
+[f23541] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23544] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23544] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f23544] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23547] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23547] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f23547] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f23547] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f23547] NET tcp:80 rx-line ""
+[f23547] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f23547] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23549] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23549] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23549] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f23549] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f23549] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f23549] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f23549] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f23549] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f23549] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f23549] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f23549] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f23549] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f23549] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f23549] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f23549] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f23549] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f23549] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f23549] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f23562] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23562] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23562] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f23562] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f23562] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f23562] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f23562] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f23562] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f23562] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f23562] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f23562] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f23562] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f23562] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f23562] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f23562] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f23562] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f23562] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f23562] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f23575] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23575] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f23575] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f23575] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f23575] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f23579] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f23579] NET sock_close conn=0
+[f23579] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f23635] gb.mobile DEBUG: >>> 17 Status
+[f23635] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23692] gb.mobile DEBUG: >>> 17 Status
+[f23692] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23750] gb.mobile DEBUG: >>> 17 Status
+[f23750] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23806] gb.mobile DEBUG: >>> 17 Status
+[f23806] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23862] gb.mobile DEBUG: >>> 17 Status
+[f23862] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23918] gb.mobile DEBUG: >>> 17 Status
+[f23918] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f23976] gb.mobile DEBUG: >>> 17 Status
+[f23976] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24032] gb.mobile DEBUG: >>> 17 Status
+[f24032] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24088] gb.mobile DEBUG: >>> 17 Status
+[f24088] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24144] gb.mobile DEBUG: >>> 17 Status
+[f24144] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24200] gb.mobile DEBUG: >>> 17 Status
+[f24200] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24256] gb.mobile DEBUG: >>> 17 Status
+[f24256] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24312] gb.mobile DEBUG: >>> 17 Status
+[f24312] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24368] gb.mobile DEBUG: >>> 17 Status
+[f24368] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24424] gb.mobile DEBUG: >>> 17 Status
+[f24424] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24480] gb.mobile DEBUG: >>> 17 Status
+[f24480] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24537] gb.mobile DEBUG: >>> 17 Status
+[f24537] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24560] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f24560] NET sock_open conn=0 UDP bindport=0
+[f24561] NET udp send to 210.196.3.183:53 (42 bytes)
+[f24561] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f24562] NET sock_close conn=0
+[f24562] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f24564] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f24564] NET sock_open conn=0 TCP bindport=0
+[f24565] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f24565] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f24567] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24567] gb.mobile DEBUG: GET 
+[f24567] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24570] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24570] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f24570] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24573] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24573] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f24573] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f24573] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f24573] NET tcp:80 rx-line ""
+[f24573] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f24573] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24575] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24575] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24575] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f24575] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f24575] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f24575] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f24575] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f24575] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f24575] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f24575] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f24575] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f24575] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f24575] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f24575] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f24575] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f24575] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f24575] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f24575] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f24588] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24588] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24588] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f24588] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f24588] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f24588] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f24588] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f24588] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f24588] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f24588] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f24588] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f24588] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f24588] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f24588] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f24588] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f24588] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f24588] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f24588] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f24601] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24601] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f24601] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f24601] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f24601] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f24605] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f24605] NET sock_close conn=0
+[f24605] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f24661] gb.mobile DEBUG: >>> 17 Status
+[f24661] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24718] gb.mobile DEBUG: >>> 17 Status
+[f24718] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24776] gb.mobile DEBUG: >>> 17 Status
+[f24776] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24832] gb.mobile DEBUG: >>> 17 Status
+[f24832] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24888] gb.mobile DEBUG: >>> 17 Status
+[f24888] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f24944] gb.mobile DEBUG: >>> 17 Status
+[f24944] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25002] gb.mobile DEBUG: >>> 17 Status
+[f25002] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25058] gb.mobile DEBUG: >>> 17 Status
+[f25058] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25114] gb.mobile DEBUG: >>> 17 Status
+[f25114] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25170] gb.mobile DEBUG: >>> 17 Status
+[f25170] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25226] gb.mobile DEBUG: >>> 17 Status
+[f25226] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25282] gb.mobile DEBUG: >>> 17 Status
+[f25282] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25338] gb.mobile DEBUG: >>> 17 Status
+[f25338] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25394] gb.mobile DEBUG: >>> 17 Status
+[f25394] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25450] gb.mobile DEBUG: >>> 17 Status
+[f25450] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25506] gb.mobile DEBUG: >>> 17 Status
+[f25506] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25562] gb.mobile DEBUG: >>> 17 Status
+[f25562] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25620] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f25620] NET sock_open conn=0 UDP bindport=0
+[f25621] NET udp send to 210.196.3.183:53 (42 bytes)
+[f25621] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f25622] NET sock_close conn=0
+[f25622] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f25624] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f25624] NET sock_open conn=0 TCP bindport=0
+[f25625] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f25625] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f25627] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25627] gb.mobile DEBUG: GET 
+[f25627] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25630] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25630] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f25630] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25633] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25633] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f25633] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f25633] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f25633] NET tcp:80 rx-line ""
+[f25633] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f25633] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25635] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25635] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25635] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f25635] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f25635] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f25635] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f25635] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f25635] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f25635] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f25635] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f25635] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f25635] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f25635] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f25635] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f25635] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f25635] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f25635] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f25635] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f25648] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25648] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25648] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f25648] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f25648] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f25648] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f25648] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f25648] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f25648] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f25648] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f25648] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f25648] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f25648] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f25648] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f25648] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f25648] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f25648] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f25648] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f25661] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25661] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f25661] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f25661] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f25661] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f25665] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f25665] NET sock_close conn=0
+[f25665] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f25721] gb.mobile DEBUG: >>> 17 Status
+[f25721] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25778] gb.mobile DEBUG: >>> 17 Status
+[f25778] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25836] gb.mobile DEBUG: >>> 17 Status
+[f25836] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25892] gb.mobile DEBUG: >>> 17 Status
+[f25892] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f25948] gb.mobile DEBUG: >>> 17 Status
+[f25948] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26004] gb.mobile DEBUG: >>> 17 Status
+[f26004] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26062] gb.mobile DEBUG: >>> 17 Status
+[f26062] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26118] gb.mobile DEBUG: >>> 17 Status
+[f26118] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26174] gb.mobile DEBUG: >>> 17 Status
+[f26174] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26230] gb.mobile DEBUG: >>> 17 Status
+[f26230] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26286] gb.mobile DEBUG: >>> 17 Status
+[f26286] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26342] gb.mobile DEBUG: >>> 17 Status
+[f26342] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26398] gb.mobile DEBUG: >>> 17 Status
+[f26398] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26454] gb.mobile DEBUG: >>> 17 Status
+[f26454] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26510] gb.mobile DEBUG: >>> 17 Status
+[f26510] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26566] gb.mobile DEBUG: >>> 17 Status
+[f26566] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26622] gb.mobile DEBUG: >>> 17 Status
+[f26622] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26678] gb.mobile DEBUG: >>> 17 Status
+[f26678] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26714] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f26714] NET sock_open conn=0 UDP bindport=0
+[f26715] NET udp send to 210.196.3.183:53 (42 bytes)
+[f26715] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f26716] NET sock_close conn=0
+[f26716] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f26718] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f26718] NET sock_open conn=0 TCP bindport=0
+[f26719] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f26719] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f26721] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26721] gb.mobile DEBUG: GET 
+[f26721] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26724] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26724] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f26724] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26727] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26727] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f26727] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f26727] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f26727] NET tcp:80 rx-line ""
+[f26727] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f26727] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26729] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26729] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26729] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f26729] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f26729] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f26729] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f26729] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f26729] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f26729] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f26729] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f26729] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f26729] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f26729] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f26729] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f26729] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f26729] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f26729] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f26729] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f26742] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26742] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26742] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f26742] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f26742] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f26742] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f26742] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f26742] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f26742] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f26742] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f26742] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f26742] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f26742] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f26742] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f26742] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f26742] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f26742] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f26742] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f26755] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26755] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f26755] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f26755] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f26755] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f26759] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f26759] NET sock_close conn=0
+[f26759] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f26815] gb.mobile DEBUG: >>> 17 Status
+[f26815] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26872] gb.mobile DEBUG: >>> 17 Status
+[f26872] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26930] gb.mobile DEBUG: >>> 17 Status
+[f26930] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f26986] gb.mobile DEBUG: >>> 17 Status
+[f26986] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27042] gb.mobile DEBUG: >>> 17 Status
+[f27042] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27098] gb.mobile DEBUG: >>> 17 Status
+[f27098] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27156] gb.mobile DEBUG: >>> 17 Status
+[f27156] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27212] gb.mobile DEBUG: >>> 17 Status
+[f27212] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27268] gb.mobile DEBUG: >>> 17 Status
+[f27268] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27324] gb.mobile DEBUG: >>> 17 Status
+[f27324] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27380] gb.mobile DEBUG: >>> 17 Status
+[f27380] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27436] gb.mobile DEBUG: >>> 17 Status
+[f27436] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27492] gb.mobile DEBUG: >>> 17 Status
+[f27492] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27548] gb.mobile DEBUG: >>> 17 Status
+[f27548] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27604] gb.mobile DEBUG: >>> 17 Status
+[f27604] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27660] gb.mobile DEBUG: >>> 17 Status
+[f27660] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27716] gb.mobile DEBUG: >>> 17 Status
+[f27716] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27772] gb.mobile DEBUG: >>> 17 Status
+[f27772] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27830] gb.mobile DEBUG: >>> 17 Status
+[f27830] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f27842] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f27842] NET sock_open conn=0 UDP bindport=0
+[f27843] NET udp send to 210.196.3.183:53 (42 bytes)
+[f27843] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f27844] NET sock_close conn=0
+[f27844] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f27846] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f27846] NET sock_open conn=0 TCP bindport=0
+[f27847] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f27847] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f27849] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27849] gb.mobile DEBUG: GET 
+[f27849] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27852] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27852] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f27852] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27855] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27855] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f27855] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f27855] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f27855] NET tcp:80 rx-line ""
+[f27855] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f27855] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27857] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27857] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27857] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f27857] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f27857] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f27857] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f27857] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f27857] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f27857] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f27857] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f27857] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f27857] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f27857] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f27857] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f27857] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f27857] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f27857] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f27857] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f27870] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27870] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27870] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f27870] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f27870] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f27870] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f27870] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f27870] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f27870] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f27870] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f27870] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f27870] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f27870] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f27870] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f27870] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f27870] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f27870] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f27870] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f27883] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27883] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f27883] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f27883] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f27883] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f27887] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f27887] NET sock_close conn=0
+[f27887] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f27943] gb.mobile DEBUG: >>> 17 Status
+[f27943] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28000] gb.mobile DEBUG: >>> 17 Status
+[f28000] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28058] gb.mobile DEBUG: >>> 17 Status
+[f28058] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28114] gb.mobile DEBUG: >>> 17 Status
+[f28114] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28170] gb.mobile DEBUG: >>> 17 Status
+[f28170] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28226] gb.mobile DEBUG: >>> 17 Status
+[f28226] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28284] gb.mobile DEBUG: >>> 17 Status
+[f28284] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28340] gb.mobile DEBUG: >>> 17 Status
+[f28340] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28396] gb.mobile DEBUG: >>> 17 Status
+[f28396] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28452] gb.mobile DEBUG: >>> 17 Status
+[f28452] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28508] gb.mobile DEBUG: >>> 17 Status
+[f28508] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28564] gb.mobile DEBUG: >>> 17 Status
+[f28564] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28620] gb.mobile DEBUG: >>> 17 Status
+[f28620] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28676] gb.mobile DEBUG: >>> 17 Status
+[f28676] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28732] gb.mobile DEBUG: >>> 17 Status
+[f28732] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28788] gb.mobile DEBUG: >>> 17 Status
+[f28788] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28844] gb.mobile DEBUG: >>> 17 Status
+[f28844] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28900] gb.mobile DEBUG: >>> 17 Status
+[f28900] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f28956] gb.mobile DEBUG: >>> 17 Status
+[f28956] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29004] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f29004] NET sock_open conn=0 UDP bindport=0
+[f29005] NET udp send to 210.196.3.183:53 (42 bytes)
+[f29005] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f29006] NET sock_close conn=0
+[f29006] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f29008] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f29008] NET sock_open conn=0 TCP bindport=0
+[f29009] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f29009] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f29011] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29011] gb.mobile DEBUG: GET 
+[f29011] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29014] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29014] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f29014] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29017] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29017] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f29017] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f29017] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f29017] NET tcp:80 rx-line ""
+[f29017] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f29017] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29019] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29019] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29019] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f29019] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f29019] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f29019] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f29019] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f29019] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f29019] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f29019] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f29019] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f29019] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f29019] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f29019] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f29019] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f29019] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f29019] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f29019] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f29032] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29032] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29032] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f29032] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f29032] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f29032] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f29032] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f29032] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f29032] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f29032] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f29032] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f29032] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f29032] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f29032] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f29032] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f29032] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f29032] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f29032] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f29045] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29045] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f29045] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f29045] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f29045] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f29049] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f29049] NET sock_close conn=0
+[f29049] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f29105] gb.mobile DEBUG: >>> 17 Status
+[f29105] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29162] gb.mobile DEBUG: >>> 17 Status
+[f29162] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29220] gb.mobile DEBUG: >>> 17 Status
+[f29220] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29276] gb.mobile DEBUG: >>> 17 Status
+[f29276] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29332] gb.mobile DEBUG: >>> 17 Status
+[f29332] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29388] gb.mobile DEBUG: >>> 17 Status
+[f29388] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29446] gb.mobile DEBUG: >>> 17 Status
+[f29446] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29502] gb.mobile DEBUG: >>> 17 Status
+[f29502] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29558] gb.mobile DEBUG: >>> 17 Status
+[f29558] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29614] gb.mobile DEBUG: >>> 17 Status
+[f29614] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29670] gb.mobile DEBUG: >>> 17 Status
+[f29670] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29726] gb.mobile DEBUG: >>> 17 Status
+[f29726] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29782] gb.mobile DEBUG: >>> 17 Status
+[f29782] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29838] gb.mobile DEBUG: >>> 17 Status
+[f29838] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29894] gb.mobile DEBUG: >>> 17 Status
+[f29894] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f29950] gb.mobile DEBUG: >>> 17 Status
+[f29950] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30006] gb.mobile DEBUG: >>> 17 Status
+[f30006] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30062] gb.mobile DEBUG: >>> 17 Status
+[f30062] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30118] gb.mobile DEBUG: >>> 17 Status
+[f30118] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30174] gb.mobile DEBUG: >>> 17 Status
+[f30174] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30200] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f30200] NET sock_open conn=0 UDP bindport=0
+[f30201] NET udp send to 210.196.3.183:53 (42 bytes)
+[f30201] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f30202] NET sock_close conn=0
+[f30202] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f30204] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f30204] NET sock_open conn=0 TCP bindport=0
+[f30205] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f30205] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f30207] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30207] gb.mobile DEBUG: GET 
+[f30207] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30210] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30210] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f30210] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30213] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30213] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f30213] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f30213] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f30213] NET tcp:80 rx-line ""
+[f30213] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f30213] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30215] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30215] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30215] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f30215] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f30215] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f30215] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f30215] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f30215] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f30215] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f30215] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f30215] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f30215] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f30215] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f30215] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f30215] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f30215] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f30215] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f30215] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f30228] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30228] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30228] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f30228] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f30228] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f30228] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f30228] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f30228] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f30228] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f30228] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f30228] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f30228] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f30228] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f30228] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f30228] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f30228] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f30228] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f30228] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f30241] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30241] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f30241] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f30241] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f30241] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f30245] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f30245] NET sock_close conn=0
+[f30245] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f30301] gb.mobile DEBUG: >>> 17 Status
+[f30301] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30358] gb.mobile DEBUG: >>> 17 Status
+[f30358] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30416] gb.mobile DEBUG: >>> 17 Status
+[f30416] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30472] gb.mobile DEBUG: >>> 17 Status
+[f30472] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30528] gb.mobile DEBUG: >>> 17 Status
+[f30528] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30584] gb.mobile DEBUG: >>> 17 Status
+[f30584] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30642] gb.mobile DEBUG: >>> 17 Status
+[f30642] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30698] gb.mobile DEBUG: >>> 17 Status
+[f30698] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30754] gb.mobile DEBUG: >>> 17 Status
+[f30754] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30810] gb.mobile DEBUG: >>> 17 Status
+[f30810] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30866] gb.mobile DEBUG: >>> 17 Status
+[f30866] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30922] gb.mobile DEBUG: >>> 17 Status
+[f30922] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f30978] gb.mobile DEBUG: >>> 17 Status
+[f30978] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31034] gb.mobile DEBUG: >>> 17 Status
+[f31034] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31090] gb.mobile DEBUG: >>> 17 Status
+[f31090] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31146] gb.mobile DEBUG: >>> 17 Status
+[f31146] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31202] gb.mobile DEBUG: >>> 17 Status
+[f31202] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31258] gb.mobile DEBUG: >>> 17 Status
+[f31258] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31314] gb.mobile DEBUG: >>> 17 Status
+[f31314] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31370] gb.mobile DEBUG: >>> 17 Status
+[f31370] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31426] gb.mobile DEBUG: >>> 17 Status
+[f31426] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31482] gb.mobile DEBUG: >>> 17 Status
+[f31482] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31510] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f31510] NET sock_open conn=0 UDP bindport=0
+[f31511] NET udp send to 210.196.3.183:53 (42 bytes)
+[f31511] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f31512] NET sock_close conn=0
+[f31512] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f31514] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f31514] NET sock_open conn=0 TCP bindport=0
+[f31515] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f31515] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f31517] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31517] gb.mobile DEBUG: GET 
+[f31517] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31520] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31520] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f31520] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31523] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31523] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f31523] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f31523] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f31523] NET tcp:80 rx-line ""
+[f31523] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f31523] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31525] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31525] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31525] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f31525] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f31525] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f31525] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f31525] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f31525] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f31525] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f31525] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f31525] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f31525] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f31525] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f31525] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f31525] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f31525] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f31525] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f31525] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f31538] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31538] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31538] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f31538] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f31538] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f31538] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f31538] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f31538] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f31538] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f31538] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f31538] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f31538] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f31538] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f31538] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f31538] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f31538] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f31538] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f31538] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f31551] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31551] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f31551] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f31551] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f31551] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f31555] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f31555] NET sock_close conn=0
+[f31555] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f31611] gb.mobile DEBUG: >>> 17 Status
+[f31611] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31668] gb.mobile DEBUG: >>> 17 Status
+[f31668] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31726] gb.mobile DEBUG: >>> 17 Status
+[f31726] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31782] gb.mobile DEBUG: >>> 17 Status
+[f31782] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31838] gb.mobile DEBUG: >>> 17 Status
+[f31838] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31894] gb.mobile DEBUG: >>> 17 Status
+[f31894] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f31952] gb.mobile DEBUG: >>> 17 Status
+[f31952] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32008] gb.mobile DEBUG: >>> 17 Status
+[f32008] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32064] gb.mobile DEBUG: >>> 17 Status
+[f32064] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32120] gb.mobile DEBUG: >>> 17 Status
+[f32120] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32176] gb.mobile DEBUG: >>> 17 Status
+[f32176] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32232] gb.mobile DEBUG: >>> 17 Status
+[f32232] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32288] gb.mobile DEBUG: >>> 17 Status
+[f32288] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32344] gb.mobile DEBUG: >>> 17 Status
+[f32344] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32400] gb.mobile DEBUG: >>> 17 Status
+[f32400] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32456] gb.mobile DEBUG: >>> 17 Status
+[f32456] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32512] gb.mobile DEBUG: >>> 17 Status
+[f32512] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32568] gb.mobile DEBUG: >>> 17 Status
+[f32568] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32624] gb.mobile DEBUG: >>> 17 Status
+[f32624] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32680] gb.mobile DEBUG: >>> 17 Status
+[f32680] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32736] gb.mobile DEBUG: >>> 17 Status
+[f32736] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32792] gb.mobile DEBUG: >>> 17 Status
+[f32792] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32850] gb.mobile DEBUG: >>> 17 Status
+[f32850] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f32854] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f32854] NET sock_open conn=0 UDP bindport=0
+[f32855] NET udp send to 210.196.3.183:53 (42 bytes)
+[f32855] NET dns query "gameboy.datacenter.ne.jp" -> 10.0.123.251
+[f32856] NET sock_close conn=0
+[f32856] gb.mobile DEBUG: <<< 28 DNS request: 10.0.123.251
+[f32858] gb.mobile DEBUG: >>> 23 TCP connect: 10.0.123.251:80
+[f32858] NET sock_open conn=0 TCP bindport=0
+[f32859] NET sock_connect conn=0 TCP 10.0.123.251:80
+[f32859] gb.mobile DEBUG: <<< 23 TCP connect (conn 0)
+[f32861] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32861] gb.mobile DEBUG: GET 
+[f32861] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32864] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32864] gb.mobile DEBUG: /01/CGB-B9AJ/index.html
+[f32864] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32867] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32867] gb.mobile DEBUG:  HTTP/1.0
+User-Agent: CGB-B9AJ-00
+
+
+[f32867] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
+[f32867] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
+[f32867] NET tcp:80 rx-line ""
+[f32867] NET http 200 for /01/CGB-B9AJ/index.html (489 bytes)
+[f32867] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32869] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32869] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32869] gb.mobile DEBUG:     48 54 54 50 2F 31 2E 30 20 32 30 30 20 4F 4B 0D 
+[f32869] gb.mobile DEBUG:     0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 
+[f32869] gb.mobile DEBUG:     65 78 74 2F 68 74 6D 6C 0D 0A 43 6F 6E 74 65 6E 
+[f32869] gb.mobile DEBUG:     74 2D 4C 65 6E 67 74 68 3A 20 34 38 39 0D 0A 0D 
+[f32869] gb.mobile DEBUG:     0A 3C 68 74 6D 6C 3E 0A 3C 68 65 61 64 3E 3C 74 
+[f32869] gb.mobile DEBUG:     69 74 6C 65 3E 83 89 83 45 83 93 83 68 83 63 81 
+[f32869] gb.mobile DEBUG:     5B 82 CC 82 C4 82 B7 82 C6 83 54 83 43 83 67 82 
+[f32869] gb.mobile DEBUG:     CC 83 67 83 62 83 76 83 79 81 5B 83 57 82 C5 82 
+[f32869] gb.mobile DEBUG:     B7 3C 2F 74 69 74 6C 65 3E 3C 2F 68 65 61 64 3E 
+[f32869] gb.mobile DEBUG:     0A 3C 62 6F 64 79 3E 0A 3C 63 65 6E 74 65 72 3E 
+[f32869] gb.mobile DEBUG:     3C 62 3E 83 89 83 45 83 93 83 68 82 51 3C 2F 62 
+[f32869] gb.mobile DEBUG:     3E 3C 2F 63 65 6E 74 65 72 3E 0A 3C 68 72 20 77 
+[f32869] gb.mobile DEBUG:     69 64 74 68 3D 35 30 25 3E 0A 3C 61 20 68 72 65 
+[f32869] gb.mobile DEBUG:     66 3D 22 74 31 2E 68 74 6D 6C 22 3E 82 BD 82 AE 
+[f32869] gb.mobile DEBUG:     3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 
+[f32869] gb.mobile DEBUG:     3D 22 69 6D 2E 68 74 6D 6C 22 3E 82 AA 82 
+[f32882] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32882] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32882] gb.mobile DEBUG:     BC 82 A4 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 
+[f32882] gb.mobile DEBUG:     72 65 66 3D 22 74 33 2E 68 74 6D 6C 22 3E 82 A6 
+[f32882] gb.mobile DEBUG:     82 F1 82 C4 82 A1 82 C4 82 A1 3C 2F 61 3E 3C 62 
+[f32882] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 34 2E 68 
+[f32882] gb.mobile DEBUG:     74 6D 6C 22 3E 82 E8 82 B7 82 C6 3C 2F 61 3E 3C 
+[f32882] gb.mobile DEBUG:     62 72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 35 2E 
+[f32882] gb.mobile DEBUG:     68 74 6D 6C 22 3E 82 DF 82 BD 3C 2F 61 3E 3C 62 
+[f32882] gb.mobile DEBUG:     72 3E 0A 3C 61 20 68 72 65 66 3D 22 74 36 2E 68 
+[f32882] gb.mobile DEBUG:     74 6D 22 3E 82 D5 82 EA 3C 2F 61 3E 3C 62 72 3E 
+[f32882] gb.mobile DEBUG:     0A 3C 61 20 68 72 65 66 3D 22 74 35 6E 67 2E 68 
+[f32882] gb.mobile DEBUG:     74 6D 6C 22 3E 82 DF 82 BD 82 A6 82 E7 81 5B 3C 
+[f32882] gb.mobile DEBUG:     2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 65 66 3D 
+[f32882] gb.mobile DEBUG:     22 73 34 32 30 30 2E 68 74 6D 6C 22 3E 73 34 32 
+[f32882] gb.mobile DEBUG:     30 30 3C 2F 61 3E 3C 62 72 3E 0A 3C 61 20 68 72 
+[f32882] gb.mobile DEBUG:     65 66 3D 22 73 31 32 30 30 30 2E 68 74 6D 6C 22 
+[f32882] gb.mobile DEBUG:     3E 73 31 32 30 30 30 3C 2F 61 3E 3C 62 72 
+[f32895] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32895] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
+[f32895] gb.mobile DEBUG:     3E 0A 3C 61 20 6E 61 6D 65 3D 22 62 6F 74 74 6F 
+[f32895] gb.mobile DEBUG:     6D 22 3E 82 A8 82 ED 82 E8 3C 2F 61 3E 0A 3C 2F 
+[f32895] gb.mobile DEBUG:     62 6F 64 79 3E 0A 3C 2F 68 74 6D 6C 3E 0A 
+[f32899] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
+[f32899] NET sock_close conn=0
+[f32899] gb.mobile DEBUG: <<< 1F Transfer data end (conn 0)
+[f32955] gb.mobile DEBUG: >>> 17 Status
+[f32955] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33012] gb.mobile DEBUG: >>> 17 Status
+[f33012] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33070] gb.mobile DEBUG: >>> 17 Status
+[f33070] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33126] gb.mobile DEBUG: >>> 17 Status
+[f33126] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33182] gb.mobile DEBUG: >>> 17 Status
+[f33182] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33238] gb.mobile DEBUG: >>> 17 Status
+[f33238] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33296] gb.mobile DEBUG: >>> 17 Status
+[f33296] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33352] gb.mobile DEBUG: >>> 17 Status
+[f33352] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33408] gb.mobile DEBUG: >>> 17 Status
+[f33408] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33464] gb.mobile DEBUG: >>> 17 Status
+[f33464] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33520] gb.mobile DEBUG: >>> 17 Status
+[f33520] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33576] gb.mobile DEBUG: >>> 17 Status
+[f33576] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33632] gb.mobile DEBUG: >>> 17 Status
+[f33632] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33688] gb.mobile DEBUG: >>> 17 Status
+[f33688] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33744] gb.mobile DEBUG: >>> 17 Status
+[f33744] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33800] gb.mobile DEBUG: >>> 17 Status
+[f33800] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33856] gb.mobile DEBUG: >>> 17 Status
+[f33856] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33912] gb.mobile DEBUG: >>> 17 Status
+[f33912] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f33968] gb.mobile DEBUG: >>> 17 Status
+[f33968] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34024] gb.mobile DEBUG: >>> 17 Status
+[f34024] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34080] gb.mobile DEBUG: >>> 17 Status
+[f34080] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34136] gb.mobile DEBUG: >>> 17 Status
+[f34136] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34192] gb.mobile DEBUG: >>> 17 Status
+[f34192] gb.mobile DEBUG: <<< 17 Status: 04 4D 00
+[f34232] gb.mobile DEBUG: >>> 28 DNS request: gameboy.datacenter.ne.jp
+[f34232] NET sock_open conn=0 UDP bindport=0[f34232] HARNESS log truncated (size cap reached)

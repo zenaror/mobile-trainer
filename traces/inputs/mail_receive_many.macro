@@ -1,0 +1,82 @@
+# Scenario 'mail_receive_many': おくる/うけとる with FOURTEEN short mails on the fake POP3 server (mail_many01..14: alternating ASCII and ISO-2022-JP).
+# The mailbox holds twelve mails, so the receive loop stops when it is full (D62E + count == 12) and two mails stay on the server: the round-1 runs
+# received at most four mails and never reached the "12 or more" count sprite (29:MailResult_SetReceivedSprite), the twelve object rows chosen by the
+# received count (26:4C94 / 26:4DAB), the scroll arrows of a list longer than the window (25:Mailbox_UpdateScrollArrows) or a full mailbox.
+# After the session the mailbox list opens by itself; it is scrolled down (wrapping at the end) and up, a mail is read, and receive is tried once
+# more with the mailbox full. Starts from the state left by 'mail_send' (outbox empty, empty mailbox). Screen names = my reading of the screenshots.
+wait 400                     # boot
+waitstable 60 max 600
+gap 30
+tap A                        # title "スタート"
+waitstable 60 max 600
+tap A                        # top menu: メール
+waitstable 60 max 600
+tap A                        # おくる/うけとる
+waitstable 60 max 300
+tap A
+waitstable 60 max 600
+tap A                        # はい
+waitstable 60 max 600
+tap A                        # "0でつうしんをはじめる"
+waitstable 60 max 300
+wait 1500
+shot receiving_1
+wait 3000
+shot receiving_2
+waitstable 120 max 8000
+shot comm_finished
+tap A                        # dismiss
+waitstable 60 max 600
+shot result_1
+tap A
+waitstable 60 max 600
+shot result_2
+tap A                        # after the result screens the mailbox list opens by itself
+waitstable 60 max 600
+shot list
+tap DOWN x3
+wait 100
+shot list_down_3
+tap DOWN x3
+wait 100
+tap DOWN x3
+wait 100
+tap DOWN x3
+wait 100
+shot list_wrapped
+tap UP x3
+wait 100
+shot list_up_3
+tap UP x4
+wait 100
+tap A
+wait 60
+tap A                        # icon bar: first icon = read
+waitstable 60 max 600
+shot sender
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+shot back_in_list
+tap B                        # to the mail menu
+waitstable 60 max 600
+shot mail_menu
+# --- receive again with the mailbox full (two mails are still on the server)
+tap UP x8
+wait 30
+tap A                        # おくる/うけとる
+waitstable 60 max 300
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 300
+wait 2500
+shot full_again_1
+waitstable 120 max 4000
+shot full_again_2
+tap A
+waitstable 60 max 600
+shot full_again_3

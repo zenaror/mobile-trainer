@@ -1,0 +1,143 @@
+# Scenario 'kbd_profile': プロフィール -> the nickname keyboard (kana, type 7) with the keys round 1 never pressed: dakuten, handakuten, ウ+゛ (ヴ), katakana page,
+# B backspace with text, a nickname longer than the field, then OK. Keyboard routes: tools/trace/kbdnav.py.
+# Starts from the state left by 'tutorial_profile'. Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # top menu -> メール
+waitstable 60 max 600
+tap A                        # メール (first-use tutorial page)
+waitstable 60 max 600
+tap SELECT
+waitstable 60 max 600
+tap DOWN x4
+wait 30
+tap A                        # プロフィール (tutorial page)
+waitstable 60 max 600
+tap SELECT
+waitstable 60 max 600
+shot profile
+tap A                        # A opens the nickname keyboard
+waitstable 60 max 600
+shot nick_kbd
+tap DOWN
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap B
+tap SELECT
+wait 30
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+shot nick_typed
+tap B x2
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+shot nick_full
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot nick_done

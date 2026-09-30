@@ -486,7 +486,7 @@ User-Agent: CGB-B9AJ-00
 [f11175] NET tcp:80 rx-line "GET /01/CGB-B9AJ/a.html HTTP/1.0"
 [f11175] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
 [f11175] NET tcp:80 rx-line ""
-[f11175] NET http 302 for /01/CGB-B9AJ/a.html
+[f11175] NET http 302 for /01/CGB-B9AJ/a.html (Location http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html)
 [f11175] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
 [f11177] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
 [f11177] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
@@ -519,7 +519,7 @@ User-Agent: CGB-B9AJ-00
 [f11199] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
 [f11199] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
 [f11199] NET tcp:80 rx-line ""
-[f11199] NET http 302 for /01/CGB-B9AJ/index.html
+[f11199] NET http 302 for /01/CGB-B9AJ/index.html (Location http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html)
 [f11199] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
 [f11201] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
 [f11201] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
@@ -552,7 +552,7 @@ User-Agent: CGB-B9AJ-00
 [f11223] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
 [f11223] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
 [f11223] NET tcp:80 rx-line ""
-[f11223] NET http 302 for /01/CGB-B9AJ/index.html
+[f11223] NET http 302 for /01/CGB-B9AJ/index.html (Location http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html)
 [f11223] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
 [f11225] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
 [f11225] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
@@ -585,7 +585,7 @@ User-Agent: CGB-B9AJ-00
 [f11247] NET tcp:80 rx-line "GET /01/CGB-B9AJ/index.html HTTP/1.0"
 [f11247] NET tcp:80 rx-line "User-Agent: CGB-B9AJ-00"
 [f11247] NET tcp:80 rx-line ""
-[f11247] NET http 302 for /01/CGB-B9AJ/index.html
+[f11247] NET http 302 for /01/CGB-B9AJ/index.html (Location http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html)
 [f11247] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)
 [f11249] gb.mobile DEBUG: >>> 15 Transfer data (conn 0)
 [f11249] gb.mobile DEBUG: <<< 15 Transfer data (conn 0)

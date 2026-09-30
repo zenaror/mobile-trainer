@@ -1,0 +1,27 @@
+# kind	from_bank	from_pc	to_bank	to_addr	count	first_frame
+# kind: call | rst | irq (interrupt entry; from = the vector) | jphl (jp hl target) |
+#       ret (normal return: came back to the pushed return address; to = -) |
+#       ret_other (returned to an address different from the one pushed by the matching call/irq; extra = expected) |
+#       ret_unmatched (ret without a matching call/irq on the shadow stack, e.g. push/ret jump trick or stack switch)
+# bank column is a ROM bank or a region name (WRAM/HRAM); calls counted only when actually taken (SP moved).
+call	00	027B	00	05BD	1	0
+call	00	02A9	6B	4C80	1	0
+call	00	03AF	00	20A6	1	0
+call	00	05E9	00	0392	1	0
+call	00	20A6	00	2129	1	0
+call	6B	4C87	00	04D8	1	0
+call	6B	4C8F	00	05BD	1	0
+call	6B	4CB6	00	050C	1	0
+call	6B	4CC2	00	050C	1	1
+call	6B	4CED	6B	4CF6	80	2
+irq	00	0040	00	0040	698	2
+ret	00	03B9	-	-	1	0
+ret	00	04E0	-	-	1	0
+ret	00	0525	-	-	2	1
+ret	00	05C1	-	-	1	0
+ret	00	05EC	-	-	1	0
+ret	00	2128	-	-	1	0
+ret	6B	4CFA	-	-	76	2
+ret	6B	4D17	-	-	1	81
+ret	6B	4D1A	-	-	3	21
+ret	6B	4D1F	-	-	698	2

@@ -1,0 +1,112 @@
+# Scenario 'mail_server_hidden2': the hidden variant of メールサーバ (SELECT+LEFT held, see 'mail_server_hidden') with its other two buttons.
+# Run 1: first button "かくにんしてからけす" (22:4000 -> MailSrvDelHidden_CheckAndDelete): connect, TOP each of the five mails, per-mail icon bar
+# (the check screen of 2E:4000: delete / next / end), result screens. Run 2 (after a power cycle): second button "じどうでぜんぶけす"
+# (MailSrvDelHidden_DeleteAll): confirmation refused ("いいえ" default), accepted with LEFT+A, connect, TOP/DELE of every mail, result screens.
+# Round 1 ('mail_server_hidden') only ran the third button "かんぜんにけす". Starts from the state left by 'mail_inbox'.
+# Screen names = my reading of the screenshots.
+# ---- run 1
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x5
+wait 40
+taplen 2
+gap 0
+tap A                        # メールサーバ
+hold SELECT+LEFT 120         # exactly SELECT+LEFT while the state function runs
+waitstable 60 max 600
+shot notice
+tap A                        # OK
+waitstable 60 max 600
+shot menu
+tap A                        # かくにんしてからけす (hidden variant)
+waitstable 60 max 600
+shot check_confirm
+tap A                        # はい
+waitstable 60 max 600
+tap A                        # 0でつうしんをはじめる
+waitstable 60 max 900
+wait 1500
+shot check_mail1
+tap A                        # delete mail 1
+wait 900
+shot check_mail2
+tap RIGHT
+wait 30
+tap A                        # skip mail 2
+wait 900
+shot check_mail3
+tap A                        # delete mail 3
+wait 900
+shot check_mail4
+tap RIGHT
+wait 30
+tap A                        # skip mail 4
+wait 900
+shot check_mail5
+tap RIGHT x2
+wait 30
+tap A                        # end
+wait 900
+shot check_end
+waitstable 60 max 900
+tap A
+waitstable 60 max 900
+shot check_result_1
+tap A
+waitstable 60 max 900
+shot check_result_2
+tap A
+waitstable 60 max 900
+shot back_in_mail_menu
+# ---- run 2 (power cycle)
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+waitstable 60 max 600
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN x5
+wait 40
+taplen 2
+gap 0
+tap A                        # メールサーバ
+hold SELECT+LEFT 120         # exactly SELECT+LEFT while the state function runs
+waitstable 60 max 600
+shot notice
+tap A                        # OK
+waitstable 60 max 600
+shot menu2
+tap DOWN
+wait 40
+shot menu_down
+tap A
+waitstable 60 max 600
+shot down_confirm
+tap A
+waitstable 60 max 600
+shot down_refused
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A
+waitstable 60 max 600
+shot down_c2
+tap A
+waitstable 60 max 600
+tap A
+waitstable 60 max 900
+wait 1500
+shot down_deleting
+waitstable 60 max 900

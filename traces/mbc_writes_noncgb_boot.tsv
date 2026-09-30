@@ -1,0 +1,5 @@
+# pc_bank	pc	reg_addr	value	count	first_frame	last_frame	bank_before(first)	bank_after(last)
+# One row per distinct (pc_bank, pc, address, value); bank_before/after = mapped ROMX bank around the last write.
+00	0296	0000	00	1	0	0	01	01
+00	0299	4000	00	1	0	0	01	01
+00	02A6	2100	6B	1	0	0	01	6B

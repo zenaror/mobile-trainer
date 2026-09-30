@@ -1,0 +1,108 @@
+# Scenario 'fuzz_register': replay of the useful entries of a coverage-guided input search (tools/trace/explore.py, docs/research/dynamic_tracing.md section 11)
+# from the cartridge state left by 'register'; entries picked by tools/trace/fuzzpack.py (greedy set cover over the exact coverage of each replay).  Every segment starts with a
+# power cycle; the random button sequences are plain macro lines (taps of 4 frames + 14 idle, waits, a few held combinations, sometimes a fake-Internet fault).
+# 2 segments, 48 instruction starts that the scenarios before it had not executed.
+# ---- segment 0: search entry e534, +34 starts, 4839 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap A
+wait 60
+tap UP
+wait 45
+tap LEFT
+wait 90
+tap A
+wait 45
+tap UP
+wait 90
+tap LEFT
+wait 30
+tap A
+wait 60
+tap LEFT
+wait 45
+tap DOWN
+wait 180
+wait 60
+tap DOWN x4
+wait 30
+hold B+SELECT+RIGHT 40
+wait 30
+wait 60
+tap B x5
+wait 30
+tap LEFT
+wait 45
+tap LEFT
+wait 45
+tap A
+wait 45
+wait 60
+tap LEFT
+wait 180
+tap UP
+wait 180
+tap A
+wait 90
+tap A
+wait 180
+tap DOWN
+wait 45
+tap A
+wait 30
+tap A
+wait 60
+tap RIGHT
+wait 45
+tap B
+wait 30
+wait 60
+tap A
+wait 60
+tap A
+wait 180
+tap B
+wait 45
+wait 60
+tap A
+wait 180
+tap START
+wait 45
+tap LEFT
+wait 60
+tap A x9
+wait 60
+tap UP
+wait 45
+wait 60
+# ---- segment 1: search entry e48, +14 starts, 2237 frames
+reset
+wait 400
+waitstable 60 max 600
+gap 30
+tap UP
+wait 30
+tap A
+wait 45
+tap B x6
+wait 60
+tap A
+wait 180
+tap UP
+wait 180
+hold SELECT+RIGHT 40
+wait 45
+tap UP
+wait 45
+tap UP
+wait 90
+tap DOWN
+wait 30
+wait 60
+tap A x4
+wait 90
+tap DOWN
+wait 180
+wait 60

@@ -1,0 +1,165 @@
+# recorded by mgba_trace --macro browser_redirect.macro (resolved absolute frames)
+460 A
+464 -
+1094 A
+1098 -
+1728 RIGHT
+1732 -
+1802 A
+1806 -
+2736 shot pagelist_tutorial_1
+2736 A
+2740 -
+3079 A
+3083 -
+3317 A
+3321 -
+3717 A
+3721 -
+4025 A
+4029 -
+4383 A
+4387 -
+4754 A
+4758 -
+5014 A
+5018 -
+5448 shot prompt
+5448 A
+5452 -
+6382 A
+6386 -
+6487 A
+6491 -
+7037 A
+7041 -
+9171 shot index
+9171 shot r2_index
+9171 net http_redirect=1
+9171 net http_redirect_count=1
+9171 DOWN
+9175 -
+9205 DOWN
+9209 -
+9239 DOWN
+9243 -
+9373 A
+9377 -
+9787 shot redir1
+9787 B
+9791 -
+9981 net http_redirect=0
+9981 net http_redirect=2
+9981 net http_redirect_count=1
+9981 DOWN
+9985 -
+10015 DOWN
+10019 -
+10049 DOWN
+10053 -
+10183 A
+10187 -
+10597 shot redir2
+10597 B
+10601 -
+10791 net http_redirect=0
+10791 net http_redirect=3
+10791 net http_redirect_count=1
+10791 DOWN
+10795 -
+10825 DOWN
+10829 -
+10859 DOWN
+10863 -
+10993 A
+10997 -
+11407 shot redir3
+11407 B
+11411 -
+11601 net http_redirect=0
+11601 net http_redirect=4
+11601 net http_redirect_count=1
+11601 DOWN
+11605 -
+11635 DOWN
+11639 -
+11669 DOWN
+11673 -
+11803 A
+11807 -
+12217 shot redir4
+12217 B
+12221 -
+12411 net http_redirect=0
+12411 net http_redirect=5
+12411 net http_redirect_count=1
+12411 DOWN
+12415 -
+12445 DOWN
+12449 -
+12479 DOWN
+12483 -
+12613 A
+12617 -
+13027 shot redir5
+13027 B
+13031 -
+13221 net http_redirect=0
+13221 net http_redirect=6
+13221 net http_redirect_count=1
+13221 DOWN
+13225 -
+13255 DOWN
+13259 -
+13289 DOWN
+13293 -
+13423 A
+13427 -
+13837 shot redir6
+13837 B
+13841 -
+14031 net http_redirect=0
+14031 net http_redirect=7
+14031 net http_redirect_count=1
+14031 DOWN
+14035 -
+14065 DOWN
+14069 -
+14099 DOWN
+14103 -
+14233 A
+14237 -
+14647 shot redir7
+14647 B
+14651 -
+14841 net http_redirect=0
+14841 net http_redirect=8
+14841 net http_redirect_count=1
+14841 DOWN
+14845 -
+14875 DOWN
+14879 -
+14909 DOWN
+14913 -
+15043 A
+15047 -
+15457 shot redir8
+15457 B
+15461 -
+15651 net http_redirect=0
+15651 net http_redirect=1
+15651 net http_redirect_count=-1
+15651 DOWN
+15655 -
+15685 DOWN
+15689 -
+15719 DOWN
+15723 -
+15853 A
+15857 -
+16267 shot redir_loop
+16267 B
+16271 -
+16461 net http_redirect=0
+16461 shot end
+# last scripted frame: 16461

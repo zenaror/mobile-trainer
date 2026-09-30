@@ -1,0 +1,346 @@
+# Scenario 'kbd_compose': メールをかく with the address picked from the address book (SELECT on the address screen: the 6-slot list with cursor moves,
+# an empty slot refused, a used slot chosen), a mail title with every key (dakuten, handakuten, katakana + ウ゛, B backspace with text, title longer than the field), and a
+# mail body typed on the body keyboard (kana, newline key, space key, dakuten/handakuten, katakana page, backspace) with cursor moves in the 8x12 cell grid, then saved and
+# discarded (B -> dialog: いいえ, then はい) in a second attempt. Keyboard routes: tools/trace/kbdnav.py. Starts from the state left by 'kbd_abook' (two address entries,
+# the reply of 'mail_inbox' in the outbox is replaced by nothing: the outbox has room). Screen names = my reading of the screenshots.
+wait 400
+waitstable 60 max 600
+gap 30
+tap A                        # title -> top menu
+waitstable 60 max 600
+tap A                        # top menu -> メール
+waitstable 60 max 600
+tap A                        # メール
+waitstable 60 max 600
+tap DOWN
+wait 30
+tap A                        # メールをかく: the outbox holds a saved mail, its check screen comes first
+waitstable 60 max 600
+shot saved_mail
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A                        # delete the saved mail: はい
+waitstable 60 max 600
+tap A                        # メールをかく again: now the empty address screen
+waitstable 60 max 600
+shot compose_intro
+tap SELECT
+waitstable 60 max 600
+shot pick
+tap DOWN
+wait 60
+shot pick_d1
+tap DOWN x2
+wait 100
+tap UP
+wait 60
+shot pick_empty
+tap A                        # A on an empty slot (refused)
+waitstable 60 max 600
+tap UP x2
+wait 100
+shot pick_top
+tap A                        # A on the used slot: address goes to the address field
+waitstable 60 max 600
+shot addr_filled
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot title_intro
+tap A                        # title keyboard
+waitstable 60 max 600
+tap DOWN
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap B
+tap SELECT
+wait 30
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap B x2
+tap SELECT
+wait 30
+tap A x2
+tap SELECT
+wait 30
+tap A x2
+tap SELECT
+tap SELECT
+wait 30
+# fill the title field beyond its length
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+tap RIGHT
+tap A
+shot title_typed
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot body_intro
+tap A                        # body editor: the keyboard (type 6) opens by itself on the first A
+waitstable 60 max 600
+shot body_kbd
+tap DOWN
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap B
+tap SELECT
+wait 30
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap A
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+# space key (01 20), newline key (01 0D), then B twice (removes the newline, then a character)
+tap RIGHT
+tap RIGHT
+tap UP
+tap A
+tap RIGHT
+tap A
+tap DOWN
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+tap B x3
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap RIGHT
+tap UP
+tap RIGHT
+tap A
+tap A
+tap A
+shot body_typed
+tap START
+wait 40
+tap A
+waitstable 60 max 600
+shot body_after
+# END icon (third): the draft would disappear -> dialog $0200: いいえ (default) keeps it, then again with はい
+tap RIGHT x2
+wait 40
+tap A
+waitstable 60 max 600
+shot end_dialog
+tap A                        # いいえ
+waitstable 60 max 600
+shot end_no
+tap A
+waitstable 60 max 600
+tap LEFT
+wait 40
+tap A                        # はい
+waitstable 60 max 600
+shot end_yes
