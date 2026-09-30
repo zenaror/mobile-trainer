@@ -48,6 +48,7 @@ from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = lambda *a: os.path.join(ROOT, *a)
+sys.path.insert(0, os.path.join(ROOT, 'tools'))
 
 STAT_RANK = {'CONFIRMED': 3, 'PROBABLE': 2, 'HYPOTHESIS': 1, '': 0}
 NEUTRAL = re.compile(r'^(wRam_[0-9A-F]{4}|hRam_FF[0-9A-F]{2}|sSram_[0-9A-F]{4})$')
@@ -436,8 +437,9 @@ def note_text(kind, p, extra=''):
                                                extra, clean_ev(p['ev'])[:110].rstrip())
 
 
-def resolve_named(props, inp, base):
-    """Apply the naming-layer policy.  Returns (named rows, notes {addr: [text]}, log dict)."""
+def resolve_named(props, inp, base, banked_ok=False):
+    """Apply the naming-layer policy.  Returns (named rows, notes {addr: [text]}, log dict).  `banked_ok`: the proposals are already
+    grouped per (WRAM/SRAM bank) and may lie in banked address space (see resolve_banked)."""
     rom0 = inp['rom0']
     lg = defaultdict(list)
     notes = defaultdict(list)
@@ -450,7 +452,7 @@ def resolve_named(props, inp, base):
         if not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', p['name']) or p['size'] < 1 or e > 0x10000:
             lg['invalid'].append(p)
             continue
-        if (a < 0xC000 and e > 0xA000) or (a < 0xE000 and e > 0xD000):     # touches SRAM banks or WRAM banks 1-7
+        if not banked_ok and ((a < 0xC000 and e > 0xA000) or (a < 0xE000 and e > 0xD000)):     # touches SRAM banks or WRAM banks 1-7
             notes[a].append(note_text('bank', p))
             lg['bank'].append(p)
             continue
@@ -462,7 +464,7 @@ def resolve_named(props, inp, base):
             notes[a].append(note_text('weak', p))
             lg['weak'].append(p)
             continue
-        if 0xC000 <= a < 0xD000 and e > 0xD000 or 0xFF80 <= a and e > 0xFFFF:
+        if not banked_ok and (0xC000 <= a < 0xD000 and e > 0xD000 or 0xFF80 <= a and e > 0xFFFF):
             lg['invalid'].append(p)
             continue
         cands.append(p)
@@ -573,6 +575,151 @@ def resolve_named(props, inp, base):
     return final, notes, lg
 
 
+# ----------------------------------------------------------------------------- bank-qualified names
+
+STATED_BANK = re.compile(r'\b(WRAM|SRAM)\s*(?:bank\s*)?(\d)(?:\s*-\s*(\d))?|\bbank\s*(\d)\s+only\b', re.I)
+
+
+def space_of(addr):
+    return 'w' if 0xD000 <= addr < 0xE000 else 's' if 0xA000 <= addr < 0xC000 else None
+
+
+def stated_bank(p):
+    """(space, bank) named in the proposal's evidence, or None when it names none or several (ranges such as `WRAM bank 1-3`)."""
+    sp = space_of(p['addr'])
+    found = set()
+    for m in STATED_BANK.finditer(p['ev']):
+        if m.group(4) is not None:
+            found.add((sp, int(m.group(4))))
+        elif m.group(3) is not None:
+            return None
+        else:
+            found.add(('w' if m.group(1).upper() == 'WRAM' else 's', int(m.group(2))))
+    if len(found) != 1:
+        return None
+    s_, n = next(iter(found))
+    if s_ != sp or not ((sp == 'w' and 1 <= n <= 7) or (sp == 's' and 0 <= n <= 3)):
+        return None
+    return s_, n
+
+
+def banked_accessors(model):
+    """{(space, bank): {addr: [(rom bank, storage addr, status)]}}: every `ld a,[a16]` / `ld [a16],a` / `ld [a16],sp` on a banked address
+    whose instruction lies in a declared config/ram_context.tsv range of that bank (the same rule the generator applies)."""
+    out = defaultdict(lambda: defaultdict(list))
+    for (b, ridx), items in model.insns.items():
+        for sa, it in items:
+            if it.flow == 'inline' or it.imm16_kind != 'mem' or it.imm16 is None:
+                continue
+            a = it.imm16
+            sp = space_of(a)
+            cx = model.ctx_at.get((b, sa))
+            if sp is None or cx is None:
+                continue
+            bank, st = (cx[0], cx[2]) if sp == 'w' else (cx[1], cx[3])
+            if bank is not None:
+                out[(sp, bank)][a].append((b, sa, st))
+    return out
+
+
+def all_banked_accesses(model):
+    """{addr: count} of every banked-address `ld [a16]` access in code regions (with or without a context)."""
+    cnt = Counter()
+    for (b, ridx), items in model.insns.items():
+        for sa, it in items:
+            if it.flow != 'inline' and it.imm16_kind == 'mem' and it.imm16 is not None and space_of(it.imm16):
+                cnt[it.imm16] += 1
+    return cnt
+
+
+def resolve_banked(banked_props, inp, base, model):
+    """Adopt held-back banked proposals as bank-qualified names (config/ram_banked/named.tsv) where config/ram_context.tsv makes the
+    bank unambiguous.  A proposal is adopted only if
+      * its bank is stated in its own evidence (`WRAM bank 5`, `SRAM bank 1`) or, when it states none, every access to its extent in the ROM lies in a
+        declared context of one and the same bank (bank derived, recorded in the evidence);
+      * at least one `ld [a16]` access to its extent lies in a context range that declares exactly that bank (so the name is really used);
+      * it survives the naming-layer conflict rules (evidence strength, overlaps, collisions), applied per bank.
+    Returns (rows, held [(proposal, reason)], adopted proposal ids, log)."""
+    acc = banked_accessors(model)
+    every = all_banked_accesses(model)
+    ctx_status_rank = {'CONFIRMED': 3, 'PROBABLE': 2, 'HYPOTHESIS': 1}
+    held = []
+    groups = defaultdict(list)                       # (space, bank) -> proposals with an assigned bank
+    derived = set()
+    for p in banked_props:
+        sp = space_of(p['addr'])
+        e = p['addr'] + p['size']
+        if space_of(e - 1) != sp:
+            held.append((p, 'extent leaves the banked window'))
+            continue
+        st = stated_bank(p)
+        if st is None:
+            # derive: every access to the extent must be inside a context, all of one bank
+            banks, unclaimed = set(), 0
+            for a in range(p['addr'], e):
+                for k in (bk for bk in acc if bk[0] == sp):
+                    if a in acc[k]:
+                        banks.add(k)
+            tot = sum(v for a, v in every.items() if p['addr'] <= a < e)
+            got = sum(len(acc[k][a]) for k in acc if k[0] == sp for a in acc[k] if p['addr'] <= a < e)
+            if len(banks) == 1 and got == tot and tot > 0:
+                st = next(iter(banks))
+                derived.add(id(p))
+            else:
+                held.append((p, 'bank not stated and not derivable (%d access(es), %d under a declared context of %d bank(s))' % (tot, got, len(banks))))
+                continue
+        groups[st].append(p)
+    rows, adopted = [], set()
+    lg = defaultdict(list)
+    names_used = dict(base['names'])
+    for st in sorted(groups):
+        props = groups[st]
+        supported = []
+        for p in props:
+            sup = [(a, x) for a, lst in acc.get(st, {}).items() if p['addr'] <= a < p['addr'] + p['size'] for x in lst]
+            if sup:
+                supported.append(p)
+            else:
+                held.append((p, 'no access lies in a context range declaring %s%d' % (st[0].upper(), st[1])))
+        loc_base = dict(taken={}, names=names_used, emitted={}, rom0=[])
+        final, notes, l = resolve_named(supported, dict(inp, rom0=[]), loc_base, banked_ok=True)
+        for k, v in l.items():
+            lg[k] += [(st, x) for x in v]
+        for a, ns in notes.items():
+            for t in ns:
+                pr = [p for p in supported if p['addr'] == a]
+                for p in pr:
+                    held.append((p, re.sub(r'^[^:]*: ', '', t)[:120] if False else 'lost the conflict rules (' + t.split(':')[0][:60] + ')'))
+        for w in final:
+            sup = [(a, x) for a, lst in acc[st].items() if w['addr'] <= a < w['addr'] + w['size'] for x in lst]
+            best = max((x[2] for a, x in sup), key=lambda s_: ctx_status_rank.get(s_, 0))
+            status = w['status'] if ctx_status_rank[w['status']] <= ctx_status_rank[best] else best
+            examples = ', '.join('%02X:%04X' % (x[0], x[1]) for a, x in sorted(sup, key=lambda t: (t[1][0], t[1][1]))[:3])
+            src = 'bank stated by the namer' if not any(id(p) in derived for p in supported if p['addr'] == w['addr']) else \
+                'bank derived: every access lies in a declared %s%d context' % (st[0].upper(), st[1])
+            ev = ('%s || context: %d access(es) under a declared %s%d context (e.g. %s; config/ram_context.tsv, context status %s), %s; status = weaker of name and context'
+                  % (w['ev'], len(sup), st[0].upper(), st[1], examples, best, src))
+            rows.append(dict(space=st[0], bank=st[1], addr=w['addr'], name=w['name'], size=w['size'], type=w['type'], status=status, ev=ev,
+                             groups=w['groups'], naccess=len(sup)))
+            names_used[w['name']] = w['addr']
+            for p in supported:
+                if p['addr'] == w['addr'] and p['name'] == w['name'] and p['grp'] in w['groups']:
+                    adopted.add(id(p))
+    held_ids = {id(p) for p, _ in held}
+    for p in banked_props:
+        if id(p) not in adopted and id(p) not in held_ids:
+            held.append((p, 'not adopted by the conflict rules'))
+    seen = set()
+    held2 = []
+    for p, why in held:
+        if id(p) in adopted or (id(p) in seen):
+            continue
+        seen.add(id(p))
+        held2.append((p, why))
+    return rows, held2, adopted, lg
+
+
+
 def apply_notes(res, notes, rom0_addrs):
     """Append the per-bank / conflict notes to the row that starts at the address; returns unattached [(addr, why)]."""
     rows = {}
@@ -609,7 +756,8 @@ def naming_section(res, base, named, props, notes, lost, lg):
           'The tables above describe the earlier three-layer pass and are unchanged.' % (len(props), len({p['addr'] for p in props})), '',
           '### Policy of this layer', '',
           '* A proposal is adopted only when its status is PROBABLE or CONFIRMED, its evidence cites code/bytes (`bank:addr` or a docs/research file) and it is a semantic name (proposals that keep a neutral `wRam_/sSram_` name are no-ops).',
-          '* **Banked addresses** (WRAM `D000-DFFF` = banks 1-7 via SVBK, SRAM `A000-BFFF` = banks 0-3 via RAMB) are never named: `gen_asm.py` cannot see the bank and every namer states that its meaning is bank specific (sound engine `D005-D21F` in WRAM bank 1 vs the bank-5 mail library `D000-D625`, mail editing buffers `D400-D63x` in bank 1 vs bank 5 text buffer `D024-D623` and bank 6 HTML buffers `D300-D7FF`/`D800-DFFD`, bank 3 account fields `DE80-DFC2` vs bank 6 link heap, SRAM banks 0-3 reusing `A000-BFFF` for mail records, settings, browser cache ...).  The neutral row stays (size 1) and the per-bank idea is appended to its evidence column as HYPOTHESIS; the ideas are also listed below.',
+          '* **Banked addresses** (WRAM `D000-DFFF` = banks 1-7 via SVBK, SRAM `A000-BFFF` = banks 0-3 via RAMB) are never named in `config/ram/*.tsv`: the generator sees only the numeric operand and the same CPU address is a different object in every bank (sound engine `D005-D21F` in WRAM bank 1 vs the bank-5 mail library `D000-D625`, mail editing buffers `D400-D63x` in bank 1 vs bank 5 text buffer `D024-D623` and bank 6 HTML buffers `D300-D7FF`/`D800-DFFD`, bank 3 account fields `DE80-DFC2` vs bank 6 link heap, SRAM banks 0-3 reusing `A000-BFFF` for mail records, settings, browser cache ...).  The neutral row stays (size 1) and the per-bank idea is appended to its evidence column as HYPOTHESIS when it is not adopted below.',
+          '* **Bank-qualified names** (`config/ram_banked/named.tsv`, written by this tool): a banked proposal is adopted only when (1) its own evidence states the bank (`WRAM bank 5`, `SRAM bank 1`; a proposal without a stated bank is adopted only if every `ld [a16]` access to its extent lies in a declared context of one and the same bank), (2) at least one `ld [a16]` access to its extent lies in a `config/ram_context.tsv` range that declares exactly that bank (so the name is really used somewhere), and (3) it survives the same conflict rules as above, applied inside each (WRAM/SRAM bank) group (different banks never conflict; `rom0_ram.tsv` rows are global and do not truncate banked rows).  The row status is the weaker of the name status and the best status of the supporting contexts.  The generator substitutes such a name only at an instruction whose context range declares that bank; every other instruction keeps the neutral name.  Proposals whose accesses go through pointers (`ld hl,$D400`) are held: nothing would ever use the name.  Contexts are derived by `tools/rambank_infer.py` (static dataflow + `tools/rambank_observe.py` traces), see `analysis/rambank/inference_report.md`.',
           '* C000-CFFF (WRAM bank 0), FF80-FFFE (HRAM): resolved by evidence strength = (highest status, number of independent namer groups).  A strict winner is adopted; a tie keeps the neutral name and records both ideas as HYPOTHESIS.  Proposals of different namers whose extents overlap without an identical (addr, name, size) are all neutralised.',
           '* A proposal at an address of `rom0_ram.tsv` loses to it; one overlapping it is truncated to the non-overlapping bytes.  Two overlapping rows of the *same* namer (dual use) keep the later start and truncate the earlier extent.',
           '* `rom0_ram.tsv` rows in banked space (`D000-D004`, `D026` = `wBank4*`, `DA00` = `wSpriteSlots`) are bank specific by their own evidence (WRAM bank 1 / bank 7) and are not modified; the bank-5 mail-library ideas of `ram_sdk.tsv` for `D000-D002` (`wMail_InputBank`, `wMail_OutputBank`, `wMail_Selector` CONFIRMED) therefore only appear in the banked table below.',
@@ -641,7 +789,8 @@ def naming_section(res, base, named, props, notes, lost, lg):
            '* of which replaced a non-neutral lower-layer name (Crystal import / census pattern): %d' % len(repl_other),
            '* of which sit at an address without any previous row: %d' % (len(named) - len(repl_neutral) - len(repl_other)),
            '* rows of the three-layer pass dropped because they lie inside a named array/word: %d' % interior,
-           '* proposals not applied because the address is banked (WRAM D000-DFFF / SRAM A000-BFFF): %d' % len(lg['bank']),
+           '* proposals at banked addresses (WRAM D000-DFFF / SRAM A000-BFFF): %d, of which adopted as bank-qualified names: %d proposals -> %d rows (config/ram_banked/named.tsv), held (neutral row + HYPOTHESIS note): %d' % (
+               len(lg['bank']), len(lg['bank']) - len(lg['bank_held']), len(lg['bank_adopted']), len(lg['bank_held'])),
            '* proposals not adopted because HYPOTHESIS or no code citation: %d' % len(lg['weak']),
            '* address clusters neutralised because the namers conflict: %d' % len(lg['conflict']),
            '* conflicts resolved by strictly stronger evidence: %d' % len(lg['resolved']),
@@ -686,12 +835,18 @@ def naming_section(res, base, named, props, notes, lost, lg):
             p['addr'], p['name'], p['size'], p['status'], p['grp'], b['name'], b['file']))
     md.append('')
 
-    md += ['### Banked proposals (not applied; per-bank meanings)', '',
-           '| addr | proposal | namer | bank stated | status | ROM row keeping the idea |', '|---|---|---|---|---|---|']
-    for p in sorted(lg['bank'], key=lambda p: (p['addr'], p['grp'])):
-        why = [w for a, w in lost if a == p['addr']]
-        md.append('| %04X | `%s` size %d | %s | %s | %s | %s |' % (p['addr'], p['name'], p['size'], p['grp'], bank_hint(p), p['status'],
-                                                                 why[0] if why else 'evidence of the neutral row'))
+    md += ['### Bank-qualified names adopted (config/ram_banked/named.tsv)', '',
+           '| bank | addr | name | size | status | namers | accesses under a declared context of that bank |', '|---|---|---|---|---|---|---|']
+    for r in sorted(lg['bank_adopted'], key=lambda r: (r['space'], r['bank'], r['addr'])):
+        md.append('| %s%d | %04X | `%s` | %d | %s | %s | %d |' % (r['space'].upper(), r['bank'], r['addr'], r['name'], r['size'], r['status'], fmt_grp(r['groups']), r['naccess']))
+    md.append('')
+
+    md += ['### Banked proposals held (neutral row kept; per-bank meanings)', '',
+           '| addr | proposal | namer | bank stated | status | why held | ROM row keeping the idea |', '|---|---|---|---|---|---|---|']
+    for p, why in sorted(lg['bank_held'], key=lambda t: (t[0]['addr'], t[0]['grp'])):
+        lw = [w for a, w in lost if a == p['addr']]
+        md.append('| %04X | `%s` size %d | %s | %s | %s | %s | %s |' % (p['addr'], p['name'], p['size'], p['grp'], bank_hint(p), p['status'], why,
+                                                                       lw[0] if lw else 'evidence of the neutral row'))
     md.append('')
 
     md += ['### Ideas not adopted (HYPOTHESIS or no citation)', '', '| addr | proposal | namer | status |', '|---|---|---|---|']
@@ -724,7 +879,7 @@ def old_sections(base):
           '* Neutral names `wRam_<ADDR>`, `hRam_FFxx`, `sSram_<ADDR>` unless a purpose is proven (census rows with a cited code pattern keep their non-neutral names).',
           '* Crystal names: only real `wMobileSDK_*` symbols are imported (PROBABLE at most, evidence says `Crystal name ..., N corroborating matches`).  Crystal address-derived names (`wc805`) and union aliases (`wHallOfFame...`, `wLinkPlayer...`, `w5_dc00`) are not names of this ROM and appear only in evidence text.',
           '* Sizes only when proven: buffers (75:C8CC/C8D9/C9E4 documented sizes), config image C71F ($C0), 16-bit words whose role text says so.  Everything else is 1 byte.',
-          '* SRAM sizes are always 1: the same CPU address is a different object in each SRAM bank and `gen_asm.py` cannot distinguish banks, so `sSram_A124 + k` in bank 1 would be wrong.  Extents (arrays 12 x $12D, 6 x $16, 6 x $100, 6 x $50, checksummed spans) are recorded in the evidence column, from `docs/research/sram_layout.md`.',
+          '* SRAM sizes are always 1: the same CPU address is a different object in each SRAM bank and `gen_asm.py` cannot distinguish banks, so `sSram_A124 + k` in bank 1 would be wrong.  Extents (arrays 12 x $12D, 6 x $16, 6 x $100, 6 x $50, checksummed spans) are recorded in the evidence column, from `docs/research/sram_layout.md`.  Bank-qualified rows (`config/ram_banked/named.tsv`, used only inside a `config/ram_context.tsv` range of that SRAM/WRAM bank) may carry real extents, see the naming layer below.',
           '* WRAM `D000-DFFF` is banked (SVBK): names there describe the bank in use by the cited callers only; census rows are neutral and single-byte.',
           '* Overlaps: a census row strictly inside a sized higher-precedence symbol is dropped (the generator prints `name + k`); a sized census row overlapping a kept symbol is reduced to 1.  Emitted ranges never overlap.',
           '', '## Counts by status (rows emitted, all files)', '', '| file | CONFIRMED | PROBABLE | HYPOTHESIS | total |', '|---|---|---|---|---|']
@@ -748,6 +903,18 @@ def main():
     props = read_naming()
     named, notes, lg = resolve_named(props, inp, base)
     res = build(inp, named)                    # + naming layer
+    # bank-qualified layer: held-back banked proposals adopted where config/ram_context.tsv makes the bank unambiguous
+    import gen_asm
+    model, _diag = gen_asm.load_model(contexts=True, banked=False)
+    brows, bheld, badopted, blg = resolve_banked(lg['bank'], inp, res, model)
+    for p in lg['bank']:
+        if id(p) in badopted:
+            old_t = note_text('bank', p)
+            k = notes[p['addr']].index(old_t)
+            notes[p['addr']][k] = ('naming proposal adopted as bank-qualified name %s (config/ram_banked/named.tsv, %s%d) [%s]'
+                                   % (p['name'], space_of(p['addr']).upper(), next(r['bank'] for r in brows if r['addr'] == p['addr'] and r['name'] == p['name']), p['grp']))
+    lg['bank_adopted'] = brows
+    lg['bank_held'] = bheld
     lost = apply_notes(res, notes, {r['addr'] for r in inp['rom0']})
     emitted, stats = res['emitted'], res['stats']
 
@@ -775,8 +942,21 @@ def main():
     for k in ('named', 'sdk', 'sram', 'census'):
         rows = sorted(emitted[k], key=lambda r: r['addr'])
         outs[k] = hdr[k] + '# addr\tname\tsize\ttype\tstatus\tevidence\n' + ''.join(sym_line(r) + '\n' for r in rows)
+    bhdr = ('# Bank-qualified RAM names (naming proposals held back until now because the address is banked).  Generated by tools/build_ram_config.py - do not edit.\n'
+            '# bank = W1..W7 (WRAM bank, rSVBK) or S0..S3 (SRAM bank, RAMB); a name is substituted only where config/ram_context.tsv declares that bank\n'
+            '# for the instruction (docs/FORMATS.md, docs/research/ram_names_reconciliation.md).  Status = weaker of the name and the context evidence.\n'
+            '# bank\taddr\tname\tsize\ttype\tstatus\tevidence\n')
+    btxt = bhdr + ''.join('%s%d\t%04X\t%s\t%d\t%s\t%s\t%s\n' % (r['space'].upper(), r['bank'], r['addr'], r['name'], r['size'], r['type'], r['status'], r['ev'])
+                          for r in sorted(brows, key=lambda r: (r['space'], r['bank'], r['addr'])))
     mdtxt = '\n'.join(old_sections(base) + naming_section(res, base, named, props, notes, lost, lg)) + '\n'
     changed = False
+    bpath = P('config', 'ram_banked', 'named.tsv')
+    bold = open(bpath, encoding='utf-8').read() if os.path.exists(bpath) else None
+    if bold != btxt:
+        changed = True
+        if not check_only:
+            os.makedirs(os.path.dirname(bpath), exist_ok=True)
+            open(bpath, 'w', encoding='utf-8').write(btxt)
     for k, txt in outs.items():
         path = P('config', 'ram', k + '.tsv')
         old = open(path, encoding='utf-8').read() if os.path.exists(path) else None
@@ -797,6 +977,7 @@ def main():
         print('  %s: %d' % (k, v))
     B = base['taken']
     print('  named rows replacing a neutral row: %d' % sum(1 for w in named if w['addr'] in B and NEUTRAL.match(B[w['addr']]['name'])))
+    print('  banked proposals adopted as bank-qualified names: %d rows (%d proposals), held: %d' % (len(brows), len(badopted), len(bheld)))
     print('  proposals: banked %d, hypothesis/uncited %d, conflict clusters %d, resolved %d, rom0 %d, unchanged %d' % (
         len(lg['bank']), len(lg['weak']), len(lg['conflict']), len(lg['resolved']), len(lg['rom0']), len(lg['same'])))
     if check_only and changed:
