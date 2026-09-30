@@ -4,9 +4,9 @@
 
 SECTION "engine/address_book/save_confirm", ROMX
 
-; ---- code $6F95-$709F (266 bytes) [CONFIRMED] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code) [executed in 1 scenarios]
-
 AddrBook_SaveConfirm:: ; 2A:6F95
+	; [CONFIRMED] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2;
+	; entered by far from 2F:7F2A (PROBABLE code) [executed in 1 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,8 +24,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	farcall Stat_EnableScrollSplit
 	call AddrBook_SaveConfirm_InitScreen
 	ld d, $0F
-
-Label_2A_6FBA:: ; 2A:6FBA
+.loop ; 2A:6FBA
 	push bc
 	push de
 	farcall Function_00_0956
@@ -34,7 +33,7 @@ Label_2A_6FBA:: ; 2A:6FBA
 	pop de
 	pop bc
 	dec d
-	jp nz, Label_2A_7048
+	jp nz, .l7048
 	push bc
 	ld de, $020B
 	push af
@@ -66,7 +65,7 @@ Label_2A_6FBA:: ; 2A:6FBA
 	pop af
 	pop bc
 	dec a
-	jr nz, Label_2A_7034
+	jr nz, .l7034
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -87,8 +86,7 @@ Label_2A_6FBA:: ; 2A:6FBA
 	call AddrBook_StoreEditBufferToSlot
 	xor a, a
 	ret
-
-Label_2A_7034:: ; 2A:7034
+.l7034 ; 2A:7034
 	push bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -96,9 +94,8 @@ Label_2A_7034:: ; 2A:7034
 	pop bc
 	ld a, $FF
 	ret
-
-Label_2A_7048:: ; 2A:7048
-	jp Label_2A_6FBA
+.l7048 ; 2A:7048
+	jp .loop
 
 AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	push af
@@ -131,25 +128,23 @@ AddrBook_StoreEditBufferToSlot:: ; 2A:704B
 	ld [rRAMG], a
 	ld b, $10
 	ld de, $D514
-
-Label_2A_7080:: ; 2A:7080
+.l7080 ; 2A:7080
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, Label_2A_7080
+	jr nz, .l7080
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, $D4C0
-
-Label_2A_7090:: ; 2A:7090
+.l7090 ; 2A:7090
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, Label_2A_7090
+	jr nz, .l7090
 	farcall SramCheck_Bank1Commit
 	pop bc
 	pop af
@@ -161,9 +156,10 @@ Table_AddrBook_SlotAddrs_Store:: ; 2A:709F
 Table_2A_709F::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $70AB-$7121 (118 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
-
 AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
+	; [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3;
+	; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE
+	; region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
@@ -200,9 +196,10 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	pop bc
 	ld a, b
 	cp a, $FF
-	jr nz, Label_2A_7154
+	jr nz, .l7154
 
-; ---- code $7121-$7154 (51 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
+	; [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70AB-7221 by apply_coverage --split
 	call AddrBook_SaveConfirm_DrawSlot
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -224,9 +221,9 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	farcall Stat_EnableScrollSplit
 	ret
 
-; ---- code $7154-$7187 (51 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
-
-Label_2A_7154:: ; 2A:7154
+.l7154 ; 2A:7154
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage
+	; --split [executed in 4 scenarios]
 	call AddrBook_SaveConfirm_DrawEditBuffer
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -248,9 +245,9 @@ Label_2A_7154:: ; 2A:7154
 	farcall Stat_EnableScrollSplit
 	ret
 
-; ---- code $7187-$7221 (154 bytes) [PROBABLE] 71 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
-
 AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
+	; [PROBABLE] 71 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 70AB-7221 by apply_coverage --split
 	push bc
 	ld b, $00
 	sla c
@@ -274,25 +271,23 @@ AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	ld [rRAMG], a
 	ld b, $10
 	ld de, $D514
-
-Label_2A_71B0:: ; 2A:71B0
+.l71B0 ; 2A:71B0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_71B0
+	jr nz, .l71B0
 	pop hl
 	ld de, $0010
 	add hl, de
 	ld b, $40
 	ld de, $D4C0
-
-Label_2A_71C0:: ; 2A:71C0
+.l71C0 ; 2A:71C0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_71C0
+	jr nz, .l71C0
 	pop bc
 	push bc
 	ld a, $14
@@ -333,9 +328,9 @@ Table_AddrBook_SlotAddrs_SaveConfirm:: ; 2A:7221
 Table_2A_7221::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $722D-$7287 (90 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5; entered by call from 2A:7154 (PROBABLE code) [executed in 1 scenarios]
-
 AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
+	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 5;
+	; entered by call from 2A:7154 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	ld a, $14
 	ldh [hWRAMBank], a
@@ -374,9 +369,10 @@ AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
 Table_2A_7287:: ; 2A:7287
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $7293-$732F (156 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
-
 AddrBook_UploadEntryTextTiles:: ; 2A:7293
+	; [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5;
+	; entered by far from 2A:7219 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE
+	; region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -404,20 +400,19 @@ AddrBook_UploadEntryTextTiles:: ; 2A:7293
 AddrBook_SaveConfirm_DrawTextLine16:: ; 2A:72CF
 	ld a, $10
 	ld [wTextCellsLeft], a
-
-Label_2A_72D4:: ; 2A:72D4
+.l72D4 ; 2A:72D4
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_736F
+	jp z, .l736F
 	cp a, $0D
-	jr z, Label_2A_7354
+	jr z, .l7354
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_732F
+	jr nz, .l732F
 	pop af
 	push bc
 	push de
@@ -451,14 +446,14 @@ Label_2A_72D4:: ; 2A:72D4
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_736F
+	jr z, .l736F
 	cp a, $01
-	jr z, Label_2A_736F
-	jr Label_2A_72D4
+	jr z, .l736F
+	jr .l72D4
 
-; ---- code $732F-$736F (64 bytes) [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7293-73BB by apply_coverage --split
-
-Label_2A_732F:: ; 2A:732F
+.l732F ; 2A:732F
+	; [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 7293-73BB by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -474,12 +469,11 @@ Label_2A_732F:: ; 2A:732F
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_736F
+	jr z, .l736F
 	cp a, $01
-	jr z, Label_2A_736F
-	jr Label_2A_72D4
-
-Label_2A_7354:: ; 2A:7354
+	jr z, .l736F
+	jr .l72D4
+.l7354 ; 2A:7354
 	push bc
 	push de
 	push hl
@@ -494,9 +488,9 @@ Label_2A_7354:: ; 2A:7354
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
 
-; ---- code $736F-$73BB (76 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
-
-Label_2A_736F:: ; 2A:736F
+.l736F ; 2A:736F
+	; [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage
+	; --split [executed in 2 scenarios]
 	push bc
 	push de
 	push hl
@@ -506,15 +500,14 @@ Label_2A_736F:: ; 2A:736F
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_7380:: ; 2A:7380
+.l7380 ; 2A:7380
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
-	jr Label_2A_7380
+	jr .l7380
 
 AddrBook_SaveConfirm_DrawTextLine16_BlitGlyphAdvance:: ; 2A:738F
 	push bc
@@ -546,27 +539,30 @@ AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance:: ; 2A:73A3
 	ld e, a
 	ret
 
-; ---- code $73BB-$73C0 (5 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:73BA
-
 Function_2A_73BB:: ; 2A:73BB
+	; [HYPOTHESIS] no branch/call/pointer to any address in $73BB-$73C0 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: ld a,$11 ; ld
+	; [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the
+	; ret at 2A:73BA
 	ld a, $11
 	ld [wTextCellsLeft], a
 
-; ---- code $73C0-$74A7 (231 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7419 (PROBABLE code)
-
-Label_2A_73C0:: ; 2A:73C0
+.l73C0 ; 2A:73C0
+	; [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0;
+	; entered by jr from 2A:7419 (PROBABLE code)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_745B
+	jp z, .l745B
 	cp a, $0D
-	jr z, Label_2A_7440
+	jr z, .l7440
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_741B
+	jr nz, .l741B
 	pop af
 	push bc
 	push de
@@ -600,12 +596,11 @@ Label_2A_73C0:: ; 2A:73C0
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_745B
+	jr z, .l745B
 	cp a, $01
-	jr z, Label_2A_745B
-	jr Label_2A_73C0
-
-Label_2A_741B:: ; 2A:741B
+	jr z, .l745B
+	jr .l73C0
+.l741B ; 2A:741B
 	pop af
 	push bc
 	push de
@@ -621,12 +616,11 @@ Label_2A_741B:: ; 2A:741B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_745B
+	jr z, .l745B
 	cp a, $01
-	jr z, Label_2A_745B
-	jr Label_2A_73C0
-
-Label_2A_7440:: ; 2A:7440
+	jr z, .l745B
+	jr .l73C0
+.l7440 ; 2A:7440
 	push bc
 	push de
 	push hl
@@ -640,8 +634,7 @@ Label_2A_7440:: ; 2A:7440
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2A_748F
-
-Label_2A_745B:: ; 2A:745B
+.l745B ; 2A:745B
 	push bc
 	push de
 	push hl
@@ -651,15 +644,14 @@ Label_2A_745B:: ; 2A:745B
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_746C:: ; 2A:746C
+.l746C ; 2A:746C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2A_748F
-	jr Label_2A_746C
+	jr .l746C
 
 Function_2A_747B:: ; 2A:747B
 	push bc
@@ -691,27 +683,30 @@ Function_2A_748F:: ; 2A:748F
 	ld e, a
 	ret
 
-; ---- code $74A7-$74AC (5 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the ret at 2A:74A6
-
 Function_2A_74A7:: ; 2A:74A7
+	; [HYPOTHESIS] no branch/call/pointer to any address in $74A7-$74AC was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: ld a,$19 ; ld
+	; [$C2EE],a - 2-instruction prologue that falls into the next PROBABLE code region, after the
+	; ret at 2A:74A6
 	ld a, $19
 	ld [wTextCellsLeft], a
 
-; ---- code $74AC-$7593 (231 bytes) [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0; entered by jr from 2A:7505 (PROBABLE code)
-
-Label_2A_74AC:: ; 2A:74AC
+.l74AC ; 2A:74AC
+	; [PROBABLE] 123 insn(s) reached by static flow only; seeds: site x123; min discovery hops 0;
+	; entered by jr from 2A:7505 (PROBABLE code)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_7547
+	jp z, .l7547
 	cp a, $0D
-	jr z, Label_2A_752C
+	jr z, .l752C
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_7507
+	jr nz, .l7507
 	pop af
 	push bc
 	push de
@@ -745,12 +740,11 @@ Label_2A_74AC:: ; 2A:74AC
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_7547
+	jr z, .l7547
 	cp a, $01
-	jr z, Label_2A_7547
-	jr Label_2A_74AC
-
-Label_2A_7507:: ; 2A:7507
+	jr z, .l7547
+	jr .l74AC
+.l7507 ; 2A:7507
 	pop af
 	push bc
 	push de
@@ -766,12 +760,11 @@ Label_2A_7507:: ; 2A:7507
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_7547
+	jr z, .l7547
 	cp a, $01
-	jr z, Label_2A_7547
-	jr Label_2A_74AC
-
-Label_2A_752C:: ; 2A:752C
+	jr z, .l7547
+	jr .l74AC
+.l752C ; 2A:752C
 	push bc
 	push de
 	push hl
@@ -785,8 +778,7 @@ Label_2A_752C:: ; 2A:752C
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2A_757B
-
-Label_2A_7547:: ; 2A:7547
+.l7547 ; 2A:7547
 	push bc
 	push de
 	push hl
@@ -796,15 +788,14 @@ Label_2A_7547:: ; 2A:7547
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_7558:: ; 2A:7558
+.l7558 ; 2A:7558
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_2A_757B
-	jr Label_2A_7558
+	jr .l7558
 
 Function_2A_7567:: ; 2A:7567
 	push bc

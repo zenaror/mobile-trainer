@@ -4,18 +4,17 @@
 
 SECTION "engine/help/help_script", ROMX
 
-; ---- code $5987-$5B79 (498 bytes) [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
-
 HelpMenu_Run:: ; 6C:5987
 Function_6C_5987::
+	; [CONFIRMED] 185 insn(s); 185 executed (in up to 12/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld b, $01
-
-Label_6C_5989:: ; 6C:5989
+.loop ; 6C:5989
 	farcall HelpMenu_ShowPage
 	or a, a
 	ret z
 	cp a, $04
-	jr z, Label_6C_59A8
+	jr z, .l59A8
 	ld b, a
 	ld a, $01
 	ld hl, $A684
@@ -23,12 +22,11 @@ Label_6C_5989:: ; 6C:5989
 	push bc
 	call HelpScript_Run
 	pop bc
-	jr Label_6C_5989
-
-Label_6C_59A8:: ; 6C:59A8
+	jr .loop
+.l59A8 ; 6C:59A8
 	farcall MobileDict_Run
 	ld b, $04
-	jr Label_6C_5989
+	jr .loop
 
 HelpScript_Run:: ; 6C:59B2
 	push bc
@@ -182,68 +180,64 @@ Label_6C_5B47:: ; 6C:5B47
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
 	ld h, a
-
-Label_6C_5B4F:: ; 6C:5B4F
+.loop ; 6C:5B4F
 	ld a, [hli]
 	ld [wRam_C1AC], a
 	cp a, $01
-	jr c, Label_6C_5B7E
-	jp z, Label_6C_5C34
+	jr c, .l5B7E
+	jp z, .l5C34
 	cp a, $03
-	jp c, Label_6C_5C35
-	jp z, Label_6C_5C36
+	jp c, .l5C35
+	jp z, .l5C36
 	cp a, $05
-	jr c, Label_6C_5B81
-	jr z, Label_6C_5B88
+	jr c, .l5B81
+	jr z, .l5B88
 	cp a, $07
-	jr c, Label_6C_5B8F
+	jr c, .l5B8F
 	cp a, $09
-	jp c, Label_6C_5B9D
+	jp c, .l5B9D
 	cp a, $10
-	jr z, Label_6C_5BAF
+	jr z, .l5BAF
 	cp a, $18
-	jr z, Label_6C_5BC7
+	jr z, .l5BC7
 
-; ---- code $5B79-$5B7E (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 6C:5B77 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 6C:5B77 (executed)
 	cp a, $19
-	jr z, Label_6C_5BDF
+	jr z, .l5BDF
 	ret
 
-; ---- code $5B7E-$5B88 (10 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 12/18 scenarios)
-
-Label_6C_5B7E:: ; 6C:5B7E
-	jp Label_6C_5C0B
-
-Label_6C_5B81:: ; 6C:5B81
+.l5B7E ; 6C:5B7E
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 12/18 scenarios)
+	jp .l5C0B
+.l5B81 ; 6C:5B81
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
 	add hl, bc
-	jr Label_6C_5B4F
+	jr .loop
 
-; ---- code $5B88-$5B8F (7 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 6C:5B66 (executed)
-
-Label_6C_5B88:: ; 6C:5B88
+.l5B88 ; 6C:5B88
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
+	; entered by jrcc from 6C:5B66 (executed)
 	ld a, [hli]
 	dec a
 	ld [wRam_C0E6], a
-	jr Label_6C_5B4F
+	jr .loop
 
-; ---- code $5B8F-$5BDF (80 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 12/18 scenarios)
-
-Label_6C_5B8F:: ; 6C:5B8F
+.l5B8F ; 6C:5B8F
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 12/18 scenarios)
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr nz, Label_6C_5B4F
+	jr nz, .loop
 	add hl, bc
-	jr Label_6C_5B4F
-
-Label_6C_5B9D:: ; 6C:5B9D
+	jr .loop
+.l5B9D ; 6C:5B9D
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -255,9 +249,8 @@ Label_6C_5B9D:: ; 6C:5B9D
 	ld a, h
 	ld [wRam_C1B1], a
 	pop hl
-	jp Label_6C_5B4F
-
-Label_6C_5BAF:: ; 6C:5BAF
+	jp .loop
+.l5BAF ; 6C:5BAF
 	ld a, [hli]
 	and a, $0F
 	ld e, a
@@ -270,9 +263,8 @@ Label_6C_5BAF:: ; 6C:5BAF
 	ld a, $01
 	farcall WriteByteFar
 	pop hl
-	jr Label_6C_5B4F
-
-Label_6C_5BC7:: ; 6C:5BC7
+	jr .loop
+.l5BC7 ; 6C:5BC7
 	ld a, [hli]
 	and a, $0F
 	ld e, a
@@ -286,12 +278,12 @@ Label_6C_5BC7:: ; 6C:5BC7
 	ld b, [hl]
 	inc hl
 	cp a, b
-	jr nz, Label_6C_5C06
-	jr Label_6C_5B81
+	jr nz, .l5C06
+	jr .l5B81
 
-; ---- code $5BDF-$5C06 (39 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 6C:5B7B (PROBABLE code)
-
-Label_6C_5BDF:: ; 6C:5BDF
+.l5BDF ; 6C:5BDF
+	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
+	; entered by jrcc from 6C:5B7B (PROBABLE code)
 	ld a, [hli]
 	and a, $0F
 	ld e, a
@@ -312,25 +304,22 @@ Label_6C_5BDF:: ; 6C:5BDF
 	call ReadByteFar
 	pop hl
 	cp a, d
-	jr nz, Label_6C_5C06
-	jp Label_6C_5B81
+	jr nz, .l5C06
+	jp .l5B81
 
-; ---- code $5C06-$5C34 (46 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 12/18 scenarios)
-
-Label_6C_5C06:: ; 6C:5C06
+.l5C06 ; 6C:5C06
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 12/18 scenarios)
 	inc hl
 	inc hl
-	jp Label_6C_5B4F
-
-Label_6C_5C0B:: ; 6C:5C0B
+	jp .loop
+.l5C0B ; 6C:5C0B
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr z, Label_6C_5C1B
+	jr z, .l5C1B
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ret
-
-Label_6C_5C1B:: ; 6C:5C1B
+.l5C1B ; 6C:5C1B
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -343,17 +332,15 @@ Label_6C_5C1B:: ; 6C:5C1B
 	ld b, $FF
 	ret
 
-; ---- code $5C34-$5C36 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 6C:5B57 (executed)
-
-Label_6C_5C34:: ; 6C:5C34
+.l5C34 ; 6C:5C34
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by jpcc from 6C:5B57 (executed)
+	ret
+.l5C35 ; 6C:5C35
 	ret
 
-Label_6C_5C35:: ; 6C:5C35
-	ret
-
-; ---- code $5C36-$5CFD (199 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 12/18 scenarios)
-
-Label_6C_5C36:: ; 6C:5C36
+.l5C36 ; 6C:5C36
+	; [CONFIRMED] 86 insn(s); 86 executed (in up to 12/18 scenarios)
 	ld a, $01
 	ld [wRam_C179], a
 	ld [wRam_C0E2], a
@@ -364,7 +351,7 @@ Label_6C_5C36:: ; 6C:5C36
 	ld [wRam_C1AB], a
 	ld a, [wRam_C0D9]
 	or a, a
-	jr z, Label_6C_5C66
+	jr z, .l5C66
 	push hl
 	ldh a, [hWRAMBank]
 	push af
@@ -377,8 +364,7 @@ Label_6C_5C36:: ; 6C:5C36
 	pop hl
 	xor a, a
 	ld [wRam_C0D9], a
-
-Label_6C_5C66:: ; 6C:5C66
+.l5C66 ; 6C:5C66
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -428,21 +414,20 @@ Label_6C_5CC5:: ; 6C:5CC5
 	call Function_00_044B
 	ld a, [wRam_C0E2]
 	or a, a
-	jr z, Label_6C_5CEE
+	jr z, .l5CEE
 	call HelpScript_StepText
 	or a, a
 	jp nz, Label_6C_5D9F
 	ld a, [wRam_C1AB]
 	cp a, $01
-	jr nz, Label_6C_5CEE
+	jr nz, .l5CEE
 	ldh a, [hJoyHeld]
 	bit 0, a
-	jr nz, Label_6C_5CEE
+	jr nz, .l5CEE
 	xor a, a
 	ld [wRam_C1AB], a
-	jr Label_6C_5CEE
-
-Label_6C_5CEE:: ; 6C:5CEE
+	jr .l5CEE
+.l5CEE ; 6C:5CEE
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -456,9 +441,8 @@ Table_6C_5CFD:: ; 6C:5CFD
 	dw Label_6C_5D9C
 	dw Label_6C_5D07
 
-; ---- code $5D07-$5F6E (615 bytes) [CONFIRMED] 264 insn(s); 264 executed (in up to 12/18 scenarios)
-
 Label_6C_5D07:: ; 6C:5D07
+	; [CONFIRMED] 264 insn(s); 264 executed (in up to 12/18 scenarios)
 	jr Label_6C_5CC5
 
 Label_6C_5D09:: ; 6C:5D09
@@ -482,7 +466,7 @@ Label_6C_5D30:: ; 6C:5D30
 	ld [wRam_C1AB], a
 	ld a, [wRam_C0E2]
 	or a, a
-	jr nz, Label_6C_5D57
+	jr nz, .l5D57
 	ld hl, $DA20
 	ld de, Table_6A_72BB
 	ld a, $6A
@@ -492,8 +476,7 @@ Label_6C_5D30:: ; 6C:5D30
 	ld hl, $DA20
 	call Function_00_0A65
 	jp Label_6C_5E03
-
-Label_6C_5D57:: ; 6C:5D57
+.l5D57 ; 6C:5D57
 	jp Label_6C_5CC5
 
 Label_6C_5D5A:: ; 6C:5D5A
@@ -511,7 +494,7 @@ Label_6C_5D5A:: ; 6C:5D5A
 	call ReadByteFar
 	pop hl
 	bit 7, a
-	jr nz, Label_6C_5D8D
+	jr nz, .l5D8D
 	ld a, [wHelpScriptRestartPtr]
 	ld [wHelpScriptPtr], a
 	ld a, [wHelpScriptRestartPtr + 1]
@@ -519,8 +502,7 @@ Label_6C_5D5A:: ; 6C:5D5A
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ret
-
-Label_6C_5D8D:: ; 6C:5D8D
+.l5D8D ; 6C:5D8D
 	ld a, [wRam_C1B0]
 	ld [wHelpScriptPtr], a
 	ld a, [wRam_C1B1]
@@ -535,7 +517,7 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld [wRam_C0E2], a
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr z, Label_6C_5DC6
+	jr z, .l5DC6
 	ld hl, $DA20
 	ld de, Table_6A_72BB
 	ld a, $6A
@@ -545,8 +527,7 @@ Label_6C_5D9F:: ; 6C:5D9F
 	ld hl, $DA20
 	call Function_00_0A65
 	jp Label_6C_5CC5
-
-Label_6C_5DC6:: ; 6C:5DC6
+.l5DC6 ; 6C:5DC6
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -576,7 +557,7 @@ Label_6C_5DC6:: ; 6C:5DC6
 Label_6C_5E03:: ; 6C:5E03
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr z, Label_6C_5E1D
+	jr z, .l5E1D
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -586,8 +567,7 @@ Label_6C_5E03:: ; 6C:5E03
 	pop af
 	ldh [rSVBK], a
 	jp Label_6C_5B47
-
-Label_6C_5E1D:: ; 6C:5E1D
+.l5E1D ; 6C:5E1D
 	ld a, $01
 	ld [wRam_C0D9], a
 	jp Label_6C_5B47
@@ -639,13 +619,12 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	ld [wRam_C10F], a
 	xor a, a
 	or a, c
-	jr z, Label_6C_5E8B
+	jr z, .l5E8B
 	push bc
 	ld a, $40
 	farcall Palette_FadeOutMasked
 	pop bc
-
-Label_6C_5E8B:: ; 6C:5E8B
+.l5E8B ; 6C:5E8B
 	ld a, b
 	ld [wRam_C177], a
 	dec a
@@ -726,14 +705,12 @@ Label_6C_5E8B:: ; 6C:5E8B
 	ld l, a
 	ldh a, [rLCDC]
 	bit 7, a
-	jr z, Label_6C_5F39
-
-Label_6C_5F33:: ; 6C:5F33
+	jr z, .l5F39
+.loop ; 6C:5F33
 	ldh a, [rLY]
 	cp a, $8E
-	jr nz, Label_6C_5F33
-
-Label_6C_5F39:: ; 6C:5F39
+	jr nz, .loop
+.l5F39 ; 6C:5F39
 	ld de, $8800
 	ld b, $92
 	ld c, $40
@@ -769,10 +746,10 @@ Data_6C_5F6E::
 	db $E0, $7A, $5B, $00, $40, $80, $56, $5B, $80, $44, $88, $56, $5B, $00, $49, $90
 	db $56, $5B, $80, $4D, $98, $56, $5B, $00, $52, $A0, $56
 
-; ---- code $6009-$6036 (45 bytes) [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call
-
 HelpScript_StepText:: ; 6C:6009
 Function_6C_6009::
+	; [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C179]
 	dec a
 	ld [wRam_C179], a
@@ -782,39 +759,37 @@ Function_6C_6009::
 	ld l, a
 	ld a, [wHelpScriptPtr + 1]
 	ld h, a
-
-Label_6C_601B:: ; 6C:601B
+.l601B ; 6C:601B
 	ld a, [hli]
 	ld b, a
 	bit 7, a
-	jp nz, Label_6C_60AF
+	jp nz, .l60AF
 	swap a
 	and a, $07
 	cp a, $01
-	jr c, Label_6C_603A
-	jr z, Label_6C_6045
+	jr c, .l603A
+	jr z, .l6045
 	cp a, $03
-	jr c, Label_6C_605B
-	jr z, Label_6C_6075
+	jr c, .l605B
+	jr z, .l6075
 	cp a, $05
-	jr c, Label_6C_607A
+	jr c, .l607A
 
-; ---- code $6036-$603A (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 6C:6034 (executed)
-	jr z, Label_6C_6090
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 6C:6034 (executed)
+	jr z, .l6090
 	xor a, a
 	ret
 
-; ---- code $603A-$6062 (40 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 11/18 scenarios)
-
-Label_6C_603A:: ; 6C:603A
+.l603A ; 6C:603A
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 11/18 scenarios)
 	ld a, l
 	ld [wHelpScriptPtr], a
 	ld a, h
 	ld [wHelpScriptPtr + 1], a
 	ld a, $FF
 	ret
-
-Label_6C_6045:: ; 6C:6045
+.l6045 ; 6C:6045
 	xor a, a
 	ld [wRam_C1A8], a
 	ld a, [wRam_C1A9]
@@ -824,75 +799,68 @@ Label_6C_6045:: ; 6C:6045
 	inc a
 	inc a
 	ld [wRam_C1AA], a
-	jr Label_6C_601B
-
-Label_6C_605B:: ; 6C:605B
+	jr .l601B
+.l605B ; 6C:605B
 	ld a, b
 	cp a, $21
-	jr c, Label_6C_6068
-	jr z, Label_6C_606E
+	jr c, .l6068
+	jr z, .l606E
 
-; ---- code $6062-$6068 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 6C:6060 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 6C:6060 (executed)
 	ld a, [hli]
 	ld [wRam_C178], a
-	jr Label_6C_601B
+	jr .l601B
 
-; ---- code $6068-$6090 (40 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios)
-
-Label_6C_6068:: ; 6C:6068
+.l6068 ; 6C:6068
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 12/18 scenarios)
 	xor a, a
 	ld [wRam_C17A], a
-	jr Label_6C_601B
-
-Label_6C_606E:: ; 6C:606E
+	jr .l601B
+.l606E ; 6C:606E
 	ld a, $01
 	ld [wRam_C17A], a
-	jr Label_6C_601B
-
-Label_6C_6075:: ; 6C:6075
+	jr .l601B
+.l6075 ; 6C:6075
 	call HelpScript_RenderCaption
-	jr Label_6C_601B
-
-Label_6C_607A:: ; 6C:607A
+	jr .l601B
+.l607A ; 6C:607A
 	ld a, [wRam_C1AB]
 	or a, a
-	jr nz, Label_6C_608C
+	jr nz, .l608C
 	ld a, [wRam_C179]
 	ld b, a
 	ld a, [hli]
 	add a, b
 	ld [wRam_C179], a
-	jp Label_6C_618E
-
-Label_6C_608C:: ; 6C:608C
+	jp .l618E
+.l608C ; 6C:608C
 	inc hl
-	jp Label_6C_601B
+	jp .l601B
 
-; ---- code $6090-$60AF (31 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 6C:6036 (PROBABLE code)
-
-Label_6C_6090:: ; 6C:6090
+.l6090 ; 6C:6090
+	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
+	; entered by jrcc from 6C:6036 (PROBABLE code)
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr z, Label_6C_608C
+	jr z, .l608C
 	ld a, [hli]
 	or a, a
-	jr z, Label_6C_60A9
+	jr z, .l60A9
 	ld [wRam_C17B], a
 	ld [wRam_C17C], a
 	ld a, $01
 	ld [wRam_C176], a
-	jp Label_6C_601B
-
-Label_6C_60A9:: ; 6C:60A9
+	jp .l601B
+.l60A9 ; 6C:60A9
 	ld [wRam_C176], a
-	jp Label_6C_601B
+	jp .l601B
 
-; ---- code $60AF-$60D4 (37 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 12/18 scenarios)
-
-Label_6C_60AF:: ; 6C:60AF
+.l60AF ; 6C:60AF
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 12/18 scenarios)
 	ld a, b
 	cp a, $A0
-	jr c, Label_6C_60C6
+	jr c, .l60C6
 	push hl
 	ld hl, $58C7
 	sub a, $A0
@@ -905,21 +873,20 @@ Label_6C_60AF:: ; 6C:60AF
 	ld b, [hl]
 	inc hl
 	ld c, [hl]
-	jr Label_6C_60C9
-
-Label_6C_60C6:: ; 6C:60C6
+	jr .l60C9
+.l60C6 ; 6C:60C6
 	ld c, [hl]
 	inc hl
 	push hl
-
-Label_6C_60C9:: ; 6C:60C9
+.l60C9 ; 6C:60C9
 	ld a, [wRam_C17A]
 	push af
 	ld a, [wRam_C1A8]
 	cp a, $10
-	jr nz, Label_6C_60EB
+	jr nz, .l60EB
 
-; ---- code $60D4-$60EB (23 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 6C:60D2 (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
+	; fall-through of the jrcc at 6C:60D2 (executed) [executed in 2 scenarios]
 	xor a, a
 	ld [wRam_C1A8], a
 	ld a, [wRam_C1A9]
@@ -931,9 +898,8 @@ Label_6C_60C9:: ; 6C:60C9
 	ld [wRam_C1AA], a
 	ld a, [wRam_C1A8]
 
-; ---- code $60EB-$61AC (193 bytes) [CONFIRMED] 107 insn(s); 107 executed (in up to 12/18 scenarios)
-
-Label_6C_60EB:: ; 6C:60EB
+.l60EB ; 6C:60EB
+	; [CONFIRMED] 107 insn(s); 107 executed (in up to 12/18 scenarios)
 	ld e, a
 	ld a, [wRam_C1A9]
 	add a, e
@@ -983,32 +949,29 @@ Label_6C_60EB:: ; 6C:60EB
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	jr z, Label_6C_6158
+	jr z, .l6158
 	ld c, $08
-
-Label_6C_6142:: ; 6C:6142
+.l6142 ; 6C:6142
 	ld a, [hli]
 	xor a, a
 	ld [hli], a
 	dec c
-	jr nz, Label_6C_6142
+	jr nz, .l6142
 	ld bc, $00F0
 	add hl, bc
 	ld c, $08
-
-Label_6C_614E:: ; 6C:614E
+.l614E ; 6C:614E
 	ld a, [hli]
 	xor a, a
 	ld [hli], a
 	dec c
-	jr nz, Label_6C_614E
+	jr nz, .l614E
 	ld bc, $FEF0
 	add hl, bc
-
-Label_6C_6158:: ; 6C:6158
+.l6158 ; 6C:6158
 	ld a, [wRam_C1AB]
 	cp a, $02
-	jr z, Label_6C_6198
+	jr z, .l6198
 	ld a, $90
 	add a, d
 	ld d, a
@@ -1024,25 +987,22 @@ Label_6C_6158:: ; 6C:6158
 	ld a, [wRam_C1AB]
 	cp a, $01
 	ld a, [wRam_C178]
-	jr nz, Label_6C_6183
+	jr nz, .skip
 	ld a, $01
-
-Label_6C_6183:: ; 6C:6183
+.skip ; 6C:6183
 	ld [wRam_C179], a
 	ld a, [wRam_C1A8]
 	inc a
 	ld [wRam_C1A8], a
 	pop hl
-
-Label_6C_618E:: ; 6C:618E
+.l618E ; 6C:618E
 	ld a, l
 	ld [wHelpScriptPtr], a
 	ld a, h
 	ld [wHelpScriptPtr + 1], a
 	xor a, a
 	ret
-
-Label_6C_6198:: ; 6C:6198
+.l6198 ; 6C:6198
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1052,11 +1012,12 @@ Label_6C_6198:: ; 6C:6198
 	inc a
 	ld [wRam_C1A8], a
 	pop hl
-	jp Label_6C_601B
-
-; ---- code $61AC-$61C4 (24 bytes) [PROBABLE] coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4 (call 00:0A65); previous region ends with jp; entry not located
+	jp .l601B
 
 Function_6C_61AC:: ; 6C:61AC
+	; [PROBABLE] coherent 24-byte routine (ld hl,$C0DA ; dec [hl] ; ret nz ; ld [hl],$23 ; toggle
+	; [C0D9] ; ld d,$78 ; ... ld hl,$DA20) that falls exactly into the raw far-call site at 61C4
+	; (call 00:0A65); previous region ends with jp; entry not located
 	ld hl, $C0DA
 	dec [hl]
 	ret nz
@@ -1070,6 +1031,7 @@ Function_6C_61AC:: ; 6C:61AC
 	ld e, $80
 	ld hl, $DA20
 
-; ---- code $61C4-$61CB (7 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0A65
 	ret

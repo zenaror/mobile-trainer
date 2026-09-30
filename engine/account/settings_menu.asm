@@ -4,9 +4,9 @@
 
 SECTION "engine/account/settings_menu", ROMX
 
-; ---- code $4F9E-$4FC8 (42 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call (part of region $4F71-$4FC8)
-
 SettingsMenu_Run:: ; 68:4F9E
+	; [CONFIRMED] 40 insn(s); 40 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $4F71-$4FC8)
 	xor a, a
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
@@ -26,16 +26,16 @@ SettingsMenu_Run:: ; 68:4F9E
 	ldh a, [hJoyHeld]
 	and a, $16
 	cp a, $16
-	jr nz, Label_68_4FD6
+	jr nz, .l4FD6
 
-; ---- code $4FC8-$4FD6 (14 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4FC6 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 68:4FC6 (executed) [executed in 1 scenarios]
 	ld a, $01
 	farcall Settings_SetHiddenModeFlag
 	farcall Settings_UpdateChecksumAndBackup
 
-; ---- code $4FD6-$505E (136 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 4/18 scenarios)
-
-Label_68_4FD6:: ; 68:4FD6
+.l4FD6 ; 68:4FD6
+	; [CONFIRMED] 64 insn(s); 64 executed (in up to 4/18 scenarios)
 	farcall Settings_GetHiddenModeFlag
 	ld [wHiddenModeFlag], a
 	xor a, a
@@ -114,9 +114,8 @@ Table_68_505E::
 	dw SettingsMenu_StateInput
 	dw SettingsMenu_StateExit
 
-; ---- code $5066-$5220 (442 bytes) [CONFIRMED] 183 insn(s); 183 executed (in up to 4/18 scenarios)
-
 SettingsMenu_StateInit:: ; 68:5066
+	; [CONFIRMED] 183 insn(s); 183 executed (in up to 4/18 scenarios)
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -223,16 +222,15 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_5187
+	jr nz, .l5187
 	bit 1, a
-	jr nz, Label_68_519E
+	jr nz, .l519E
 	bit 6, a
-	jr nz, Label_68_51BA
+	jr nz, .l51BA
 	bit 7, a
-	jr nz, Label_68_51CF
-	jp Label_68_51FC
-
-Label_68_5187:: ; 68:5187
+	jr nz, .l51CF
+	jp .done
+.l5187 ; 68:5187
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -243,9 +241,8 @@ Label_68_5187:: ; 68:5187
 	ldh [rSVBK], a
 	ld a, $03
 	ld [wRam_C28E], a
-	jr Label_68_51FC
-
-Label_68_519E:: ; 68:519E
+	jr .done
+.l519E ; 68:519E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -258,37 +255,32 @@ Label_68_519E:: ; 68:519E
 	ld [wRam_C28E], a
 	ld a, $01
 	ld [wRam_C27D], a
-	jr Label_68_51FC
-
-Label_68_51BA:: ; 68:51BA
+	jr .done
+.l51BA ; 68:51BA
 	ld a, [wRam_C27C]
 	or a, a
-	jr nz, Label_68_51C9
+	jr nz, .l51C9
 	ld a, [wHiddenModeFlag]
 	xor a, $01
 	ld b, a
 	ld a, $05
 	sub a, b
-
-Label_68_51C9:: ; 68:51C9
+.l51C9 ; 68:51C9
 	dec a
 	ld [wRam_C27C], a
-	jr Label_68_51E1
-
-Label_68_51CF:: ; 68:51CF
+	jr .l51E1
+.l51CF ; 68:51CF
 	ld a, [wHiddenModeFlag]
 	add a, $03
 	ld b, a
 	ld a, [wRam_C27C]
 	cp a, b
-	jr nz, Label_68_51DD
+	jr nz, .skip
 	ld a, $FF
-
-Label_68_51DD:: ; 68:51DD
+.skip ; 68:51DD
 	inc a
 	ld [wRam_C27C], a
-
-Label_68_51E1:: ; 68:51E1
+.l51E1 ; 68:51E1
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -301,8 +293,7 @@ Label_68_51E1:: ; 68:51E1
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call SettingsMenu_UpdateCursorSprite
-
-Label_68_51FC:: ; 68:51FC
+.done ; 68:51FC
 	ret
 
 SettingsMenu_StateExit:: ; 68:51FD
@@ -320,20 +311,19 @@ SettingsMenu_UpdateCursorSprite:: ; 68:5209
 	ld b, a
 	ld a, [wHiddenModeFlag]
 	or a, a
-	jr nz, Label_68_5220
+	jr nz, .l5220
 	ld a, b
 	add a, $30
-	jr Label_68_5223
+	jr .l5223
 
-; ---- code $5220-$5223 (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:5219 (executed) [executed in 2 scenarios]
-
-Label_68_5220:: ; 68:5220
+.l5220 ; 68:5220
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by jrcc from 68:5219 (executed) [executed in 2 scenarios]
 	ld a, b
 	add a, $28
 
-; ---- code $5223-$5245 (34 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
-
-Label_68_5223:: ; 68:5223
+.l5223 ; 68:5223
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios)
 	ld [wSpriteSlots + 16], a
 	ld a, $20
 	ld [wSpriteSlots + 17], a
@@ -342,43 +332,41 @@ Label_68_5223:: ; 68:5223
 SettingsMenu_DrawItems:: ; 68:522C
 	ld a, [wHiddenModeFlag]
 	or a, a
-	jr nz, Label_68_5245
+	jr nz, .l5245
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $51D0
 	ld a, $4A
 	farcall Function_00_08EA
-	jr Label_68_5256
+	jr .l5256
 
-; ---- code $5245-$5256 (17 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
-
-Label_68_5245:: ; 68:5245
+.l5245 ; 68:5245
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 68:5230 (executed) [executed in 2 scenarios]
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_4A_54A0
 	ld a, $4A
 	farcall Function_00_08EA
 
-; ---- code $5256-$526A (20 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
-
-Label_68_5256:: ; 68:5256
+.l5256 ; 68:5256
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
 	ld a, [wRam_C27C]
 	ld de, $0040
 	call Multiply8x16
 	ld a, [wHiddenModeFlag]
 	or a, a
-	jr nz, Label_68_526A
+	jr nz, .l526A
 	ld de, $D0C5
-	jr Label_68_526D
+	jr .l526D
 
-; ---- code $526A-$526D (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:5263 (executed) [executed in 2 scenarios]
-
-Label_68_526A:: ; 68:526A
+.l526A ; 68:526A
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 68:5263 (executed) [executed in 2 scenarios]
 	ld de, $D0A5
 
-; ---- code $526D-$528C (31 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
-
-Label_68_526D:: ; 68:526D
+.l526D ; 68:526D
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
 	add hl, de
 	ld d, h
 	ld e, l

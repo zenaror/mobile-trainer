@@ -4,27 +4,27 @@
 
 SECTION "engine/sram/write_byte_far", ROMX
 
-; ---- code $4616-$4629 (19 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 WriteByteFar:: ; 48:4616
 Function_48_4616::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C12E], a
 	ld a, h
 	cp a, $A0
 	ret c
 	cp a, $C0
-	jr c, Label_48_462A
+	jr c, .l462A
 	cp a, $D0
-	jr c, Label_48_465C
+	jr c, .l465C
 	cp a, $E0
-	jr c, Label_48_465F
+	jr c, .l465F
 
-; ---- code $4629-$462A (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 48:4627 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 48:4627 (executed)
 	ret
 
-; ---- code $462A-$4679 (79 bytes) [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
-
-Label_48_462A:: ; 48:462A
+.l462A ; 48:462A
+	; [CONFIRMED] 141 insn(s); 141 executed (in up to 14/18 scenarios) (part of region $462A-$4744)
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -53,13 +53,11 @@ Label_48_462A:: ; 48:462A
 	pop de
 	pop bc
 	ret
-
-Label_48_465C:: ; 48:465C
+.l465C ; 48:465C
 	ld a, b
 	ld [hli], a
 	ret
-
-Label_48_465F:: ; 48:465F
+.l465F ; 48:465F
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

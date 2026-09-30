@@ -4,15 +4,18 @@
 
 SECTION "engine/mail_server/delete_sprite_counters", ROMX
 
-; ---- code $58C4-$58C5 (1 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 SpriteCounter_StubA:: ; 23:58C4
 Function_23_58C4::
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ret
 
-; ---- code $58C5-$58E0 (27 bytes) [HYPOTHESIS] function body starting after ret at 58C4; computes hl += -(word at $D631) (xor $FF / inc bc / add hl,bc) and falls into the far call at 58E0; decode chain lands exactly on the next region [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS] | forced execution: 18/18 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_23_58C5:: ; 23:58C5
+	; [HYPOTHESIS] function body starting after ret at 58C4; computes hl += -(word at $D631) (xor
+	; $FF / inc bc / add hl,bc) and falls into the far call at 58E0; decode chain lands exactly on
+	; the next region [verifier: no entry proven (no caller, no valid table word, never executed):
+	; decode chain alone is not proof -> HYPOTHESIS] | forced execution: 18/18 instruction starts
+	; ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	push hl
 	push af
 	push bc
@@ -32,11 +35,14 @@ Function_23_58C5:: ; 23:58C5
 	pop bc
 	ld de, $2710
 
-; ---- code $58E0-$5FA2 (1730 bytes) [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 74/653 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 74/653 instruction starts ran in forced_dead (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_5925
+	jp z, .l5925
 	ld a, l
 	push de
 	call Function_23_59DA
@@ -61,16 +67,15 @@ Function_23_58C5:: ; 23:58C5
 	pop hl
 	ld a, l
 	call Function_23_5E7A
-	jp Label_23_59AD
-
-Label_23_5925:: ; 23:5925
+	jp .l59AD
+.l5925 ; 23:5925
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_5960
+	jp z, .l5960
 	ld a, l
 	push de
 	call Function_23_5B02
@@ -89,16 +94,15 @@ Label_23_5925:: ; 23:5925
 	pop hl
 	ld a, l
 	call Function_23_5E7A
-	jp Label_23_59AD
-
-Label_23_5960:: ; 23:5960
+	jp .l59AD
+.l5960 ; 23:5960
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_598C
+	jp z, .l598C
 	ld a, l
 	push de
 	call Function_23_5C2A
@@ -111,29 +115,26 @@ Label_23_5960:: ; 23:5960
 	pop hl
 	ld a, l
 	call Function_23_5E7A
-	jp Label_23_59AD
-
-Label_23_598C:: ; 23:598C
+	jp .l59AD
+.l598C ; 23:598C
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_59A9
+	jp z, .l59A9
 	ld a, l
 	push de
 	call Function_23_5D52
 	pop hl
 	ld a, l
 	call Function_23_5E7A
-	jp Label_23_59AD
-
-Label_23_59A9:: ; 23:59A9
+	jp .l59AD
+.l59A9 ; 23:59A9
 	ld a, e
 	call Function_23_5E7A
-
-Label_23_59AD:: ; 23:59AD
+.l59AD ; 23:59AD
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -159,7 +160,7 @@ Label_23_59AD:: ; 23:59AD
 
 Function_23_59DA:: ; 23:59DA
 	cp a, $00
-	jr nz, Label_23_59F8
+	jr nz, .l59F8
 	ld hl, $DA10
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -169,10 +170,9 @@ Function_23_59DA:: ; 23:59DA
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_59F8:: ; 23:59F8
+.l59F8 ; 23:59F8
 	cp a, $01
-	jr nz, Label_23_5A16
+	jr nz, .l5A16
 	ld hl, $DA10
 	ld de, $79A0
 	ld a, $23
@@ -182,10 +182,9 @@ Label_23_59F8:: ; 23:59F8
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5A16:: ; 23:5A16
+.l5A16 ; 23:5A16
 	cp a, $02
-	jr nz, Label_23_5A34
+	jr nz, .l5A34
 	ld hl, $DA10
 	ld de, $79B0
 	ld a, $23
@@ -195,10 +194,9 @@ Label_23_5A16:: ; 23:5A16
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5A34:: ; 23:5A34
+.l5A34 ; 23:5A34
 	cp a, $03
-	jr nz, Label_23_5A52
+	jr nz, .l5A52
 	ld hl, $DA10
 	ld de, $79C0
 	ld a, $23
@@ -208,10 +206,9 @@ Label_23_5A34:: ; 23:5A34
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5A52:: ; 23:5A52
+.l5A52 ; 23:5A52
 	cp a, $04
-	jr nz, Label_23_5A70
+	jr nz, .l5A70
 	ld hl, $DA10
 	ld de, $79D0
 	ld a, $23
@@ -221,10 +218,9 @@ Label_23_5A52:: ; 23:5A52
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5A70:: ; 23:5A70
+.l5A70 ; 23:5A70
 	cp a, $05
-	jr nz, Label_23_5A8E
+	jr nz, .l5A8E
 	ld hl, $DA10
 	ld de, $79E0
 	ld a, $23
@@ -234,10 +230,9 @@ Label_23_5A70:: ; 23:5A70
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5A8E:: ; 23:5A8E
+.l5A8E ; 23:5A8E
 	cp a, $06
-	jr nz, Label_23_5AAC
+	jr nz, .l5AAC
 	ld hl, $DA10
 	ld de, $79F0
 	ld a, $23
@@ -247,10 +242,9 @@ Label_23_5A8E:: ; 23:5A8E
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5AAC:: ; 23:5AAC
+.l5AAC ; 23:5AAC
 	cp a, $07
-	jr nz, Label_23_5ACA
+	jr nz, .l5ACA
 	ld hl, $DA10
 	ld de, $7A00
 	ld a, $23
@@ -260,10 +254,9 @@ Label_23_5AAC:: ; 23:5AAC
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5ACA:: ; 23:5ACA
+.l5ACA ; 23:5ACA
 	cp a, $08
-	jr nz, Label_23_5AE8
+	jr nz, .l5AE8
 	ld hl, $DA10
 	ld de, $7A10
 	ld a, $23
@@ -273,8 +266,7 @@ Label_23_5ACA:: ; 23:5ACA
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_5AE8:: ; 23:5AE8
+.l5AE8 ; 23:5AE8
 	ld hl, $DA10
 	ld de, $7A20
 	ld a, $23
@@ -287,7 +279,7 @@ Label_23_5AE8:: ; 23:5AE8
 
 Function_23_5B02:: ; 23:5B02
 	cp a, $00
-	jr nz, Label_23_5B20
+	jr nz, .l5B20
 	ld hl, $DA20
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -297,10 +289,9 @@ Function_23_5B02:: ; 23:5B02
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5B20:: ; 23:5B20
+.l5B20 ; 23:5B20
 	cp a, $01
-	jr nz, Label_23_5B3E
+	jr nz, .l5B3E
 	ld hl, $DA20
 	ld de, $79A0
 	ld a, $23
@@ -310,10 +301,9 @@ Label_23_5B20:: ; 23:5B20
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5B3E:: ; 23:5B3E
+.l5B3E ; 23:5B3E
 	cp a, $02
-	jr nz, Label_23_5B5C
+	jr nz, .l5B5C
 	ld hl, $DA20
 	ld de, $79B0
 	ld a, $23
@@ -323,10 +313,9 @@ Label_23_5B3E:: ; 23:5B3E
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5B5C:: ; 23:5B5C
+.l5B5C ; 23:5B5C
 	cp a, $03
-	jr nz, Label_23_5B7A
+	jr nz, .l5B7A
 	ld hl, $DA20
 	ld de, $79C0
 	ld a, $23
@@ -336,10 +325,9 @@ Label_23_5B5C:: ; 23:5B5C
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5B7A:: ; 23:5B7A
+.l5B7A ; 23:5B7A
 	cp a, $04
-	jr nz, Label_23_5B98
+	jr nz, .l5B98
 	ld hl, $DA20
 	ld de, $79D0
 	ld a, $23
@@ -349,10 +337,9 @@ Label_23_5B7A:: ; 23:5B7A
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5B98:: ; 23:5B98
+.l5B98 ; 23:5B98
 	cp a, $05
-	jr nz, Label_23_5BB6
+	jr nz, .l5BB6
 	ld hl, $DA20
 	ld de, $79E0
 	ld a, $23
@@ -362,10 +349,9 @@ Label_23_5B98:: ; 23:5B98
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5BB6:: ; 23:5BB6
+.l5BB6 ; 23:5BB6
 	cp a, $06
-	jr nz, Label_23_5BD4
+	jr nz, .l5BD4
 	ld hl, $DA20
 	ld de, $79F0
 	ld a, $23
@@ -375,10 +361,9 @@ Label_23_5BB6:: ; 23:5BB6
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5BD4:: ; 23:5BD4
+.l5BD4 ; 23:5BD4
 	cp a, $07
-	jr nz, Label_23_5BF2
+	jr nz, .l5BF2
 	ld hl, $DA20
 	ld de, $7A00
 	ld a, $23
@@ -388,10 +373,9 @@ Label_23_5BD4:: ; 23:5BD4
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5BF2:: ; 23:5BF2
+.l5BF2 ; 23:5BF2
 	cp a, $08
-	jr nz, Label_23_5C10
+	jr nz, .l5C10
 	ld hl, $DA20
 	ld de, $7A10
 	ld a, $23
@@ -401,8 +385,7 @@ Label_23_5BF2:: ; 23:5BF2
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_5C10:: ; 23:5C10
+.l5C10 ; 23:5C10
 	ld hl, $DA20
 	ld de, $7A20
 	ld a, $23
@@ -415,7 +398,7 @@ Label_23_5C10:: ; 23:5C10
 
 Function_23_5C2A:: ; 23:5C2A
 	cp a, $00
-	jr nz, Label_23_5C48
+	jr nz, .l5C48
 	ld hl, $DA30
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -425,10 +408,9 @@ Function_23_5C2A:: ; 23:5C2A
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5C48:: ; 23:5C48
+.l5C48 ; 23:5C48
 	cp a, $01
-	jr nz, Label_23_5C66
+	jr nz, .l5C66
 	ld hl, $DA30
 	ld de, $79A0
 	ld a, $23
@@ -438,10 +420,9 @@ Label_23_5C48:: ; 23:5C48
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5C66:: ; 23:5C66
+.l5C66 ; 23:5C66
 	cp a, $02
-	jr nz, Label_23_5C84
+	jr nz, .l5C84
 	ld hl, $DA30
 	ld de, $79B0
 	ld a, $23
@@ -451,10 +432,9 @@ Label_23_5C66:: ; 23:5C66
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5C84:: ; 23:5C84
+.l5C84 ; 23:5C84
 	cp a, $03
-	jr nz, Label_23_5CA2
+	jr nz, .l5CA2
 	ld hl, $DA30
 	ld de, $79C0
 	ld a, $23
@@ -464,10 +444,9 @@ Label_23_5C84:: ; 23:5C84
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5CA2:: ; 23:5CA2
+.l5CA2 ; 23:5CA2
 	cp a, $04
-	jr nz, Label_23_5CC0
+	jr nz, .l5CC0
 	ld hl, $DA30
 	ld de, $79D0
 	ld a, $23
@@ -477,10 +456,9 @@ Label_23_5CA2:: ; 23:5CA2
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5CC0:: ; 23:5CC0
+.l5CC0 ; 23:5CC0
 	cp a, $05
-	jr nz, Label_23_5CDE
+	jr nz, .l5CDE
 	ld hl, $DA30
 	ld de, $79E0
 	ld a, $23
@@ -490,10 +468,9 @@ Label_23_5CC0:: ; 23:5CC0
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5CDE:: ; 23:5CDE
+.l5CDE ; 23:5CDE
 	cp a, $06
-	jr nz, Label_23_5CFC
+	jr nz, .l5CFC
 	ld hl, $DA30
 	ld de, $79F0
 	ld a, $23
@@ -503,10 +480,9 @@ Label_23_5CDE:: ; 23:5CDE
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5CFC:: ; 23:5CFC
+.l5CFC ; 23:5CFC
 	cp a, $07
-	jr nz, Label_23_5D1A
+	jr nz, .l5D1A
 	ld hl, $DA30
 	ld de, $7A00
 	ld a, $23
@@ -516,10 +492,9 @@ Label_23_5CFC:: ; 23:5CFC
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5D1A:: ; 23:5D1A
+.l5D1A ; 23:5D1A
 	cp a, $08
-	jr nz, Label_23_5D38
+	jr nz, .l5D38
 	ld hl, $DA30
 	ld de, $7A10
 	ld a, $23
@@ -529,8 +504,7 @@ Label_23_5D1A:: ; 23:5D1A
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_5D38:: ; 23:5D38
+.l5D38 ; 23:5D38
 	ld hl, $DA30
 	ld de, $7A20
 	ld a, $23
@@ -543,7 +517,7 @@ Label_23_5D38:: ; 23:5D38
 
 Function_23_5D52:: ; 23:5D52
 	cp a, $00
-	jr nz, Label_23_5D70
+	jr nz, .l5D70
 	ld hl, $DA40
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -553,10 +527,9 @@ Function_23_5D52:: ; 23:5D52
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5D70:: ; 23:5D70
+.l5D70 ; 23:5D70
 	cp a, $01
-	jr nz, Label_23_5D8E
+	jr nz, .l5D8E
 	ld hl, $DA40
 	ld de, $79A0
 	ld a, $23
@@ -566,10 +539,9 @@ Label_23_5D70:: ; 23:5D70
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5D8E:: ; 23:5D8E
+.l5D8E ; 23:5D8E
 	cp a, $02
-	jr nz, Label_23_5DAC
+	jr nz, .l5DAC
 	ld hl, $DA40
 	ld de, $79B0
 	ld a, $23
@@ -579,10 +551,9 @@ Label_23_5D8E:: ; 23:5D8E
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5DAC:: ; 23:5DAC
+.l5DAC ; 23:5DAC
 	cp a, $03
-	jr nz, Label_23_5DCA
+	jr nz, .l5DCA
 	ld hl, $DA40
 	ld de, $79C0
 	ld a, $23
@@ -592,10 +563,9 @@ Label_23_5DAC:: ; 23:5DAC
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5DCA:: ; 23:5DCA
+.l5DCA ; 23:5DCA
 	cp a, $04
-	jr nz, Label_23_5DE8
+	jr nz, .l5DE8
 	ld hl, $DA40
 	ld de, $79D0
 	ld a, $23
@@ -605,10 +575,9 @@ Label_23_5DCA:: ; 23:5DCA
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5DE8:: ; 23:5DE8
+.l5DE8 ; 23:5DE8
 	cp a, $05
-	jr nz, Label_23_5E06
+	jr nz, .l5E06
 	ld hl, $DA40
 	ld de, $79E0
 	ld a, $23
@@ -618,10 +587,9 @@ Label_23_5DE8:: ; 23:5DE8
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5E06:: ; 23:5E06
+.l5E06 ; 23:5E06
 	cp a, $06
-	jr nz, Label_23_5E24
+	jr nz, .l5E24
 	ld hl, $DA40
 	ld de, $79F0
 	ld a, $23
@@ -631,10 +599,9 @@ Label_23_5E06:: ; 23:5E06
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5E24:: ; 23:5E24
+.l5E24 ; 23:5E24
 	cp a, $07
-	jr nz, Label_23_5E42
+	jr nz, .l5E42
 	ld hl, $DA40
 	ld de, $7A00
 	ld a, $23
@@ -644,10 +611,9 @@ Label_23_5E24:: ; 23:5E24
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5E42:: ; 23:5E42
+.l5E42 ; 23:5E42
 	cp a, $08
-	jr nz, Label_23_5E60
+	jr nz, .l5E60
 	ld hl, $DA40
 	ld de, $7A10
 	ld a, $23
@@ -657,8 +623,7 @@ Label_23_5E42:: ; 23:5E42
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_5E60:: ; 23:5E60
+.l5E60 ; 23:5E60
 	ld hl, $DA40
 	ld de, $7A20
 	ld a, $23
@@ -671,7 +636,7 @@ Label_23_5E60:: ; 23:5E60
 
 Function_23_5E7A:: ; 23:5E7A
 	cp a, $00
-	jr nz, Label_23_5E98
+	jr nz, .l5E98
 	ld hl, $DA50
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -681,10 +646,9 @@ Function_23_5E7A:: ; 23:5E7A
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5E98:: ; 23:5E98
+.l5E98 ; 23:5E98
 	cp a, $01
-	jr nz, Label_23_5EB6
+	jr nz, .l5EB6
 	ld hl, $DA50
 	ld de, $79A0
 	ld a, $23
@@ -694,10 +658,9 @@ Label_23_5E98:: ; 23:5E98
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5EB6:: ; 23:5EB6
+.l5EB6 ; 23:5EB6
 	cp a, $02
-	jr nz, Label_23_5ED4
+	jr nz, .l5ED4
 	ld hl, $DA50
 	ld de, $79B0
 	ld a, $23
@@ -707,10 +670,9 @@ Label_23_5EB6:: ; 23:5EB6
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5ED4:: ; 23:5ED4
+.l5ED4 ; 23:5ED4
 	cp a, $03
-	jr nz, Label_23_5EF2
+	jr nz, .l5EF2
 	ld hl, $DA50
 	ld de, $79C0
 	ld a, $23
@@ -720,10 +682,9 @@ Label_23_5ED4:: ; 23:5ED4
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5EF2:: ; 23:5EF2
+.l5EF2 ; 23:5EF2
 	cp a, $04
-	jr nz, Label_23_5F10
+	jr nz, .l5F10
 	ld hl, $DA50
 	ld de, $79D0
 	ld a, $23
@@ -733,10 +694,9 @@ Label_23_5EF2:: ; 23:5EF2
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5F10:: ; 23:5F10
+.l5F10 ; 23:5F10
 	cp a, $05
-	jr nz, Label_23_5F2E
+	jr nz, .l5F2E
 	ld hl, $DA50
 	ld de, $79E0
 	ld a, $23
@@ -746,10 +706,9 @@ Label_23_5F10:: ; 23:5F10
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5F2E:: ; 23:5F2E
+.l5F2E ; 23:5F2E
 	cp a, $06
-	jr nz, Label_23_5F4C
+	jr nz, .l5F4C
 	ld hl, $DA50
 	ld de, $79F0
 	ld a, $23
@@ -759,10 +718,9 @@ Label_23_5F2E:: ; 23:5F2E
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5F4C:: ; 23:5F4C
+.l5F4C ; 23:5F4C
 	cp a, $07
-	jr nz, Label_23_5F6A
+	jr nz, .l5F6A
 	ld hl, $DA50
 	ld de, $7A00
 	ld a, $23
@@ -772,10 +730,9 @@ Label_23_5F4C:: ; 23:5F4C
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5F6A:: ; 23:5F6A
+.l5F6A ; 23:5F6A
 	cp a, $08
-	jr nz, Label_23_5F88
+	jr nz, .l5F88
 	ld hl, $DA50
 	ld de, $7A10
 	ld a, $23
@@ -785,8 +742,7 @@ Label_23_5F6A:: ; 23:5F6A
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_5F88:: ; 23:5F88
+.l5F88 ; 23:5F88
 	ld hl, $DA50
 	ld de, $7A20
 	ld a, $23
@@ -797,15 +753,18 @@ Label_23_5F88:: ; 23:5F88
 	call Function_00_0A65
 	ret
 
-; ---- code $5FA2-$5FA3 (1 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 SpriteCounter_StubB:: ; 23:5FA2
 Function_23_5FA2::
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ret
 
-; ---- code $5FA3-$5FD7 (52 bytes) [HYPOTHESIS] function starting after the ret pair 5FA1/5FA2; 20 insn (5 x ld de,$D048 ; ld hl,$DAxx ; call $0A65 sprite-slot writes) falling through into the CONFIRMED far call at 5FD7 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS] | forced execution: 20/20 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_23_5FA3:: ; 23:5FA3
+	; [HYPOTHESIS] function starting after the ret pair 5FA1/5FA2; 20 insn (5 x ld de,$D048 ; ld
+	; hl,$DAxx ; call $0A65 sprite-slot writes) falling through into the CONFIRMED far call at 5FD7
+	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
+	; alone is not proof -> HYPOTHESIS] | forced execution: 20/20 instruction starts ran in
+	; forced_dead (traces/forced/, not natural evidence; status unchanged)
 	push hl
 	push af
 	push hl
@@ -827,11 +786,15 @@ Function_23_5FA3:: ; 23:5FA3
 	pop hl
 	ld de, $2710
 
-; ---- code $5FD7-$6699 (1730 bytes) [PROBABLE] 654 insn(s) reached by static flow only; seeds: exec x1, site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 653 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5FD7-669A by apply_coverage --split | forced execution: 70/653 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 654 insn(s) reached by static flow only; seeds: exec x1, site x653; min discovery
+	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
+	; decoded code | 653 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5FD7-669A by apply_coverage --split | forced execution: 70/653 instruction starts ran in
+	; forced_dead (traces/forced/, not natural evidence; status unchanged)
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_601C
+	jp z, .l601C
 	ld a, l
 	push de
 	call Function_23_60D1
@@ -856,16 +819,15 @@ Function_23_5FA3:: ; 23:5FA3
 	pop hl
 	ld a, l
 	call Function_23_6571
-	jp Label_23_60A4
-
-Label_23_601C:: ; 23:601C
+	jp .l60A4
+.l601C ; 23:601C
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_6057
+	jp z, .l6057
 	ld a, l
 	push de
 	call Function_23_61F9
@@ -884,16 +846,15 @@ Label_23_601C:: ; 23:601C
 	pop hl
 	ld a, l
 	call Function_23_6571
-	jp Label_23_60A4
-
-Label_23_6057:: ; 23:6057
+	jp .l60A4
+.l6057 ; 23:6057
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_6083
+	jp z, .l6083
 	ld a, l
 	push de
 	call Function_23_6321
@@ -906,29 +867,26 @@ Label_23_6057:: ; 23:6057
 	pop hl
 	ld a, l
 	call Function_23_6571
-	jp Label_23_60A4
-
-Label_23_6083:: ; 23:6083
+	jp .l60A4
+.l6083 ; 23:6083
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_60A0
+	jp z, .l60A0
 	ld a, l
 	push de
 	call Function_23_6449
 	pop hl
 	ld a, l
 	call Function_23_6571
-	jp Label_23_60A4
-
-Label_23_60A0:: ; 23:60A0
+	jp .l60A4
+.l60A0 ; 23:60A0
 	ld a, e
 	call Function_23_6571
-
-Label_23_60A4:: ; 23:60A4
+.l60A4 ; 23:60A4
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -954,7 +912,7 @@ Label_23_60A4:: ; 23:60A4
 
 Function_23_60D1:: ; 23:60D1
 	cp a, $00
-	jr nz, Label_23_60EF
+	jr nz, .l60EF
 	ld hl, $DA60
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -964,10 +922,9 @@ Function_23_60D1:: ; 23:60D1
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_60EF:: ; 23:60EF
+.l60EF ; 23:60EF
 	cp a, $01
-	jr nz, Label_23_610D
+	jr nz, .l610D
 	ld hl, $DA60
 	ld de, $79A0
 	ld a, $23
@@ -977,10 +934,9 @@ Label_23_60EF:: ; 23:60EF
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_610D:: ; 23:610D
+.l610D ; 23:610D
 	cp a, $02
-	jr nz, Label_23_612B
+	jr nz, .l612B
 	ld hl, $DA60
 	ld de, $79B0
 	ld a, $23
@@ -990,10 +946,9 @@ Label_23_610D:: ; 23:610D
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_612B:: ; 23:612B
+.l612B ; 23:612B
 	cp a, $03
-	jr nz, Label_23_6149
+	jr nz, .l6149
 	ld hl, $DA60
 	ld de, $79C0
 	ld a, $23
@@ -1003,10 +958,9 @@ Label_23_612B:: ; 23:612B
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_6149:: ; 23:6149
+.l6149 ; 23:6149
 	cp a, $04
-	jr nz, Label_23_6167
+	jr nz, .l6167
 	ld hl, $DA60
 	ld de, $79D0
 	ld a, $23
@@ -1016,10 +970,9 @@ Label_23_6149:: ; 23:6149
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_6167:: ; 23:6167
+.l6167 ; 23:6167
 	cp a, $05
-	jr nz, Label_23_6185
+	jr nz, .l6185
 	ld hl, $DA60
 	ld de, $79E0
 	ld a, $23
@@ -1029,10 +982,9 @@ Label_23_6167:: ; 23:6167
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_6185:: ; 23:6185
+.l6185 ; 23:6185
 	cp a, $06
-	jr nz, Label_23_61A3
+	jr nz, .l61A3
 	ld hl, $DA60
 	ld de, $79F0
 	ld a, $23
@@ -1042,10 +994,9 @@ Label_23_6185:: ; 23:6185
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_61A3:: ; 23:61A3
+.l61A3 ; 23:61A3
 	cp a, $07
-	jr nz, Label_23_61C1
+	jr nz, .l61C1
 	ld hl, $DA60
 	ld de, $7A00
 	ld a, $23
@@ -1055,10 +1006,9 @@ Label_23_61A3:: ; 23:61A3
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_61C1:: ; 23:61C1
+.l61C1 ; 23:61C1
 	cp a, $08
-	jr nz, Label_23_61DF
+	jr nz, .l61DF
 	ld hl, $DA60
 	ld de, $7A10
 	ld a, $23
@@ -1068,8 +1018,7 @@ Label_23_61C1:: ; 23:61C1
 	ld hl, $DA60
 	call Function_00_0A65
 	ret
-
-Label_23_61DF:: ; 23:61DF
+.l61DF ; 23:61DF
 	ld hl, $DA60
 	ld de, $7A20
 	ld a, $23
@@ -1082,7 +1031,7 @@ Label_23_61DF:: ; 23:61DF
 
 Function_23_61F9:: ; 23:61F9
 	cp a, $00
-	jr nz, Label_23_6217
+	jr nz, .l6217
 	ld hl, $DA70
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1092,10 +1041,9 @@ Function_23_61F9:: ; 23:61F9
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_6217:: ; 23:6217
+.l6217 ; 23:6217
 	cp a, $01
-	jr nz, Label_23_6235
+	jr nz, .l6235
 	ld hl, $DA70
 	ld de, $79A0
 	ld a, $23
@@ -1105,10 +1053,9 @@ Label_23_6217:: ; 23:6217
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_6235:: ; 23:6235
+.l6235 ; 23:6235
 	cp a, $02
-	jr nz, Label_23_6253
+	jr nz, .l6253
 	ld hl, $DA70
 	ld de, $79B0
 	ld a, $23
@@ -1118,10 +1065,9 @@ Label_23_6235:: ; 23:6235
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_6253:: ; 23:6253
+.l6253 ; 23:6253
 	cp a, $03
-	jr nz, Label_23_6271
+	jr nz, .l6271
 	ld hl, $DA70
 	ld de, $79C0
 	ld a, $23
@@ -1131,10 +1077,9 @@ Label_23_6253:: ; 23:6253
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_6271:: ; 23:6271
+.l6271 ; 23:6271
 	cp a, $04
-	jr nz, Label_23_628F
+	jr nz, .l628F
 	ld hl, $DA70
 	ld de, $79D0
 	ld a, $23
@@ -1144,10 +1089,9 @@ Label_23_6271:: ; 23:6271
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_628F:: ; 23:628F
+.l628F ; 23:628F
 	cp a, $05
-	jr nz, Label_23_62AD
+	jr nz, .l62AD
 	ld hl, $DA70
 	ld de, $79E0
 	ld a, $23
@@ -1157,10 +1101,9 @@ Label_23_628F:: ; 23:628F
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_62AD:: ; 23:62AD
+.l62AD ; 23:62AD
 	cp a, $06
-	jr nz, Label_23_62CB
+	jr nz, .l62CB
 	ld hl, $DA70
 	ld de, $79F0
 	ld a, $23
@@ -1170,10 +1113,9 @@ Label_23_62AD:: ; 23:62AD
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_62CB:: ; 23:62CB
+.l62CB ; 23:62CB
 	cp a, $07
-	jr nz, Label_23_62E9
+	jr nz, .l62E9
 	ld hl, $DA70
 	ld de, $7A00
 	ld a, $23
@@ -1183,10 +1125,9 @@ Label_23_62CB:: ; 23:62CB
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_62E9:: ; 23:62E9
+.l62E9 ; 23:62E9
 	cp a, $08
-	jr nz, Label_23_6307
+	jr nz, .l6307
 	ld hl, $DA70
 	ld de, $7A10
 	ld a, $23
@@ -1196,8 +1137,7 @@ Label_23_62E9:: ; 23:62E9
 	ld hl, $DA70
 	call Function_00_0A65
 	ret
-
-Label_23_6307:: ; 23:6307
+.l6307 ; 23:6307
 	ld hl, $DA70
 	ld de, $7A20
 	ld a, $23
@@ -1210,7 +1150,7 @@ Label_23_6307:: ; 23:6307
 
 Function_23_6321:: ; 23:6321
 	cp a, $00
-	jr nz, Label_23_633F
+	jr nz, .l633F
 	ld hl, $DA80
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1220,10 +1160,9 @@ Function_23_6321:: ; 23:6321
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_633F:: ; 23:633F
+.l633F ; 23:633F
 	cp a, $01
-	jr nz, Label_23_635D
+	jr nz, .l635D
 	ld hl, $DA80
 	ld de, $79A0
 	ld a, $23
@@ -1233,10 +1172,9 @@ Label_23_633F:: ; 23:633F
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_635D:: ; 23:635D
+.l635D ; 23:635D
 	cp a, $02
-	jr nz, Label_23_637B
+	jr nz, .l637B
 	ld hl, $DA80
 	ld de, $79B0
 	ld a, $23
@@ -1246,10 +1184,9 @@ Label_23_635D:: ; 23:635D
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_637B:: ; 23:637B
+.l637B ; 23:637B
 	cp a, $03
-	jr nz, Label_23_6399
+	jr nz, .l6399
 	ld hl, $DA80
 	ld de, $79C0
 	ld a, $23
@@ -1259,10 +1196,9 @@ Label_23_637B:: ; 23:637B
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_6399:: ; 23:6399
+.l6399 ; 23:6399
 	cp a, $04
-	jr nz, Label_23_63B7
+	jr nz, .l63B7
 	ld hl, $DA80
 	ld de, $79D0
 	ld a, $23
@@ -1272,10 +1208,9 @@ Label_23_6399:: ; 23:6399
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_63B7:: ; 23:63B7
+.l63B7 ; 23:63B7
 	cp a, $05
-	jr nz, Label_23_63D5
+	jr nz, .l63D5
 	ld hl, $DA80
 	ld de, $79E0
 	ld a, $23
@@ -1285,10 +1220,9 @@ Label_23_63B7:: ; 23:63B7
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_63D5:: ; 23:63D5
+.l63D5 ; 23:63D5
 	cp a, $06
-	jr nz, Label_23_63F3
+	jr nz, .l63F3
 	ld hl, $DA80
 	ld de, $79F0
 	ld a, $23
@@ -1298,10 +1232,9 @@ Label_23_63D5:: ; 23:63D5
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_63F3:: ; 23:63F3
+.l63F3 ; 23:63F3
 	cp a, $07
-	jr nz, Label_23_6411
+	jr nz, .l6411
 	ld hl, $DA80
 	ld de, $7A00
 	ld a, $23
@@ -1311,10 +1244,9 @@ Label_23_63F3:: ; 23:63F3
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_6411:: ; 23:6411
+.l6411 ; 23:6411
 	cp a, $08
-	jr nz, Label_23_642F
+	jr nz, .l642F
 	ld hl, $DA80
 	ld de, $7A10
 	ld a, $23
@@ -1324,8 +1256,7 @@ Label_23_6411:: ; 23:6411
 	ld hl, $DA80
 	call Function_00_0A65
 	ret
-
-Label_23_642F:: ; 23:642F
+.l642F ; 23:642F
 	ld hl, $DA80
 	ld de, $7A20
 	ld a, $23
@@ -1338,7 +1269,7 @@ Label_23_642F:: ; 23:642F
 
 Function_23_6449:: ; 23:6449
 	cp a, $00
-	jr nz, Label_23_6467
+	jr nz, .l6467
 	ld hl, $DA90
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1348,10 +1279,9 @@ Function_23_6449:: ; 23:6449
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_6467:: ; 23:6467
+.l6467 ; 23:6467
 	cp a, $01
-	jr nz, Label_23_6485
+	jr nz, .l6485
 	ld hl, $DA90
 	ld de, $79A0
 	ld a, $23
@@ -1361,10 +1291,9 @@ Label_23_6467:: ; 23:6467
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_6485:: ; 23:6485
+.l6485 ; 23:6485
 	cp a, $02
-	jr nz, Label_23_64A3
+	jr nz, .l64A3
 	ld hl, $DA90
 	ld de, $79B0
 	ld a, $23
@@ -1374,10 +1303,9 @@ Label_23_6485:: ; 23:6485
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_64A3:: ; 23:64A3
+.l64A3 ; 23:64A3
 	cp a, $03
-	jr nz, Label_23_64C1
+	jr nz, .l64C1
 	ld hl, $DA90
 	ld de, $79C0
 	ld a, $23
@@ -1387,10 +1315,9 @@ Label_23_64A3:: ; 23:64A3
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_64C1:: ; 23:64C1
+.l64C1 ; 23:64C1
 	cp a, $04
-	jr nz, Label_23_64DF
+	jr nz, .l64DF
 	ld hl, $DA90
 	ld de, $79D0
 	ld a, $23
@@ -1400,10 +1327,9 @@ Label_23_64C1:: ; 23:64C1
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_64DF:: ; 23:64DF
+.l64DF ; 23:64DF
 	cp a, $05
-	jr nz, Label_23_64FD
+	jr nz, .l64FD
 	ld hl, $DA90
 	ld de, $79E0
 	ld a, $23
@@ -1413,10 +1339,9 @@ Label_23_64DF:: ; 23:64DF
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_64FD:: ; 23:64FD
+.l64FD ; 23:64FD
 	cp a, $06
-	jr nz, Label_23_651B
+	jr nz, .l651B
 	ld hl, $DA90
 	ld de, $79F0
 	ld a, $23
@@ -1426,10 +1351,9 @@ Label_23_64FD:: ; 23:64FD
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_651B:: ; 23:651B
+.l651B ; 23:651B
 	cp a, $07
-	jr nz, Label_23_6539
+	jr nz, .l6539
 	ld hl, $DA90
 	ld de, $7A00
 	ld a, $23
@@ -1439,10 +1363,9 @@ Label_23_651B:: ; 23:651B
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_6539:: ; 23:6539
+.l6539 ; 23:6539
 	cp a, $08
-	jr nz, Label_23_6557
+	jr nz, .l6557
 	ld hl, $DA90
 	ld de, $7A10
 	ld a, $23
@@ -1452,8 +1375,7 @@ Label_23_6539:: ; 23:6539
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
-
-Label_23_6557:: ; 23:6557
+.l6557 ; 23:6557
 	ld hl, $DA90
 	ld de, $7A20
 	ld a, $23
@@ -1466,7 +1388,7 @@ Label_23_6557:: ; 23:6557
 
 Function_23_6571:: ; 23:6571
 	cp a, $00
-	jr nz, Label_23_658F
+	jr nz, .l658F
 	ld hl, $DAA0
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1476,10 +1398,9 @@ Function_23_6571:: ; 23:6571
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_658F:: ; 23:658F
+.l658F ; 23:658F
 	cp a, $01
-	jr nz, Label_23_65AD
+	jr nz, .l65AD
 	ld hl, $DAA0
 	ld de, $79A0
 	ld a, $23
@@ -1489,10 +1410,9 @@ Label_23_658F:: ; 23:658F
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_65AD:: ; 23:65AD
+.l65AD ; 23:65AD
 	cp a, $02
-	jr nz, Label_23_65CB
+	jr nz, .l65CB
 	ld hl, $DAA0
 	ld de, $79B0
 	ld a, $23
@@ -1502,10 +1422,9 @@ Label_23_65AD:: ; 23:65AD
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_65CB:: ; 23:65CB
+.l65CB ; 23:65CB
 	cp a, $03
-	jr nz, Label_23_65E9
+	jr nz, .l65E9
 	ld hl, $DAA0
 	ld de, $79C0
 	ld a, $23
@@ -1515,10 +1434,9 @@ Label_23_65CB:: ; 23:65CB
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_65E9:: ; 23:65E9
+.l65E9 ; 23:65E9
 	cp a, $04
-	jr nz, Label_23_6607
+	jr nz, .l6607
 	ld hl, $DAA0
 	ld de, $79D0
 	ld a, $23
@@ -1528,10 +1446,9 @@ Label_23_65E9:: ; 23:65E9
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_6607:: ; 23:6607
+.l6607 ; 23:6607
 	cp a, $05
-	jr nz, Label_23_6625
+	jr nz, .l6625
 	ld hl, $DAA0
 	ld de, $79E0
 	ld a, $23
@@ -1541,10 +1458,9 @@ Label_23_6607:: ; 23:6607
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_6625:: ; 23:6625
+.l6625 ; 23:6625
 	cp a, $06
-	jr nz, Label_23_6643
+	jr nz, .l6643
 	ld hl, $DAA0
 	ld de, $79F0
 	ld a, $23
@@ -1554,10 +1470,9 @@ Label_23_6625:: ; 23:6625
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_6643:: ; 23:6643
+.l6643 ; 23:6643
 	cp a, $07
-	jr nz, Label_23_6661
+	jr nz, .l6661
 	ld hl, $DAA0
 	ld de, $7A00
 	ld a, $23
@@ -1567,10 +1482,9 @@ Label_23_6643:: ; 23:6643
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_6661:: ; 23:6661
+.l6661 ; 23:6661
 	cp a, $08
-	jr nz, Label_23_667F
+	jr nz, .l667F
 	ld hl, $DAA0
 	ld de, $7A10
 	ld a, $23
@@ -1580,8 +1494,7 @@ Label_23_6661:: ; 23:6661
 	ld hl, $DAA0
 	call Function_00_0A65
 	ret
-
-Label_23_667F:: ; 23:667F
+.l667F ; 23:667F
 	ld hl, $DAA0
 	ld de, $7A20
 	ld a, $23
@@ -1592,23 +1505,27 @@ Label_23_667F:: ; 23:667F
 	call Function_00_0A65
 	ret
 
-; ---- code $6699-$669A (1 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5FD7-669A by apply_coverage --split [executed in 7 scenarios]
-
 SpriteCounter_StubC:: ; 23:6699
+	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5FD7-669A by apply_coverage
+	; --split [executed in 7 scenarios]
 	ret
 
-; ---- code $669A-$669F (5 bytes) [HYPOTHESIS] push hl ; push af ; ld de,$2710 prologue after the ret pair 6698/6699, falls into the far call at 669F; twin of the longer 5FA3 function | forced execution: 3/3 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_23_669A:: ; 23:669A
+	; [HYPOTHESIS] push hl ; push af ; ld de,$2710 prologue after the ret pair 6698/6699, falls into
+	; the far call at 669F; twin of the longer 5FA3 function | forced execution: 3/3 instruction
+	; starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	push hl
 	push af
 	ld de, $2710
 
-; ---- code $669F-$6D61 (1730 bytes) [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 76/653 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 653 insn(s) reached by static flow only; seeds: site x653; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 76/653 instruction starts ran in forced_dead (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_66E4
+	jp z, .l66E4
 	ld a, l
 	push de
 	call Function_23_6799
@@ -1633,16 +1550,15 @@ Function_23_669A:: ; 23:669A
 	pop hl
 	ld a, l
 	call Function_23_6C39
-	jp Label_23_676C
-
-Label_23_66E4:: ; 23:66E4
+	jp .l676C
+.l66E4 ; 23:66E4
 	ld l, e
 	ld h, d
 	ld de, $03E8
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_671F
+	jp z, .l671F
 	ld a, l
 	push de
 	call Function_23_68C1
@@ -1661,16 +1577,15 @@ Label_23_66E4:: ; 23:66E4
 	pop hl
 	ld a, l
 	call Function_23_6C39
-	jp Label_23_676C
-
-Label_23_671F:: ; 23:671F
+	jp .l676C
+.l671F ; 23:671F
 	ld l, e
 	ld h, d
 	ld de, $0064
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_674B
+	jp z, .l674B
 	ld a, l
 	push de
 	call Function_23_69E9
@@ -1683,29 +1598,26 @@ Label_23_671F:: ; 23:671F
 	pop hl
 	ld a, l
 	call Function_23_6C39
-	jp Label_23_676C
-
-Label_23_674B:: ; 23:674B
+	jp .l676C
+.l674B ; 23:674B
 	ld l, e
 	ld h, d
 	ld de, $000A
 	farcall Divide16
 	ld a, h
 	or a, l
-	jp z, Label_23_6768
+	jp z, .l6768
 	ld a, l
 	push de
 	call Function_23_6B11
 	pop hl
 	ld a, l
 	call Function_23_6C39
-	jp Label_23_676C
-
-Label_23_6768:: ; 23:6768
+	jp .l676C
+.l6768 ; 23:6768
 	ld a, e
 	call Function_23_6C39
-
-Label_23_676C:: ; 23:676C
+.l676C ; 23:676C
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1731,7 +1643,7 @@ Label_23_676C:: ; 23:676C
 
 Function_23_6799:: ; 23:6799
 	cp a, $00
-	jr nz, Label_23_67B7
+	jr nz, .l67B7
 	ld hl, $DA10
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1741,10 +1653,9 @@ Function_23_6799:: ; 23:6799
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_67B7:: ; 23:67B7
+.l67B7 ; 23:67B7
 	cp a, $01
-	jr nz, Label_23_67D5
+	jr nz, .l67D5
 	ld hl, $DA10
 	ld de, $79A0
 	ld a, $23
@@ -1754,10 +1665,9 @@ Label_23_67B7:: ; 23:67B7
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_67D5:: ; 23:67D5
+.l67D5 ; 23:67D5
 	cp a, $02
-	jr nz, Label_23_67F3
+	jr nz, .l67F3
 	ld hl, $DA10
 	ld de, $79B0
 	ld a, $23
@@ -1767,10 +1677,9 @@ Label_23_67D5:: ; 23:67D5
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_67F3:: ; 23:67F3
+.l67F3 ; 23:67F3
 	cp a, $03
-	jr nz, Label_23_6811
+	jr nz, .l6811
 	ld hl, $DA10
 	ld de, $79C0
 	ld a, $23
@@ -1780,10 +1689,9 @@ Label_23_67F3:: ; 23:67F3
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_6811:: ; 23:6811
+.l6811 ; 23:6811
 	cp a, $04
-	jr nz, Label_23_682F
+	jr nz, .l682F
 	ld hl, $DA10
 	ld de, $79D0
 	ld a, $23
@@ -1793,10 +1701,9 @@ Label_23_6811:: ; 23:6811
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_682F:: ; 23:682F
+.l682F ; 23:682F
 	cp a, $05
-	jr nz, Label_23_684D
+	jr nz, .l684D
 	ld hl, $DA10
 	ld de, $79E0
 	ld a, $23
@@ -1806,10 +1713,9 @@ Label_23_682F:: ; 23:682F
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_684D:: ; 23:684D
+.l684D ; 23:684D
 	cp a, $06
-	jr nz, Label_23_686B
+	jr nz, .l686B
 	ld hl, $DA10
 	ld de, $79F0
 	ld a, $23
@@ -1819,10 +1725,9 @@ Label_23_684D:: ; 23:684D
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_686B:: ; 23:686B
+.l686B ; 23:686B
 	cp a, $07
-	jr nz, Label_23_6889
+	jr nz, .l6889
 	ld hl, $DA10
 	ld de, $7A00
 	ld a, $23
@@ -1832,10 +1737,9 @@ Label_23_686B:: ; 23:686B
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_6889:: ; 23:6889
+.l6889 ; 23:6889
 	cp a, $08
-	jr nz, Label_23_68A7
+	jr nz, .l68A7
 	ld hl, $DA10
 	ld de, $7A10
 	ld a, $23
@@ -1845,8 +1749,7 @@ Label_23_6889:: ; 23:6889
 	ld hl, $DA10
 	call Function_00_0A65
 	ret
-
-Label_23_68A7:: ; 23:68A7
+.l68A7 ; 23:68A7
 	ld hl, $DA10
 	ld de, $7A20
 	ld a, $23
@@ -1859,7 +1762,7 @@ Label_23_68A7:: ; 23:68A7
 
 Function_23_68C1:: ; 23:68C1
 	cp a, $00
-	jr nz, Label_23_68DF
+	jr nz, .l68DF
 	ld hl, $DA20
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1869,10 +1772,9 @@ Function_23_68C1:: ; 23:68C1
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_68DF:: ; 23:68DF
+.l68DF ; 23:68DF
 	cp a, $01
-	jr nz, Label_23_68FD
+	jr nz, .l68FD
 	ld hl, $DA20
 	ld de, $79A0
 	ld a, $23
@@ -1882,10 +1784,9 @@ Label_23_68DF:: ; 23:68DF
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_68FD:: ; 23:68FD
+.l68FD ; 23:68FD
 	cp a, $02
-	jr nz, Label_23_691B
+	jr nz, .l691B
 	ld hl, $DA20
 	ld de, $79B0
 	ld a, $23
@@ -1895,10 +1796,9 @@ Label_23_68FD:: ; 23:68FD
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_691B:: ; 23:691B
+.l691B ; 23:691B
 	cp a, $03
-	jr nz, Label_23_6939
+	jr nz, .l6939
 	ld hl, $DA20
 	ld de, $79C0
 	ld a, $23
@@ -1908,10 +1808,9 @@ Label_23_691B:: ; 23:691B
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_6939:: ; 23:6939
+.l6939 ; 23:6939
 	cp a, $04
-	jr nz, Label_23_6957
+	jr nz, .l6957
 	ld hl, $DA20
 	ld de, $79D0
 	ld a, $23
@@ -1921,10 +1820,9 @@ Label_23_6939:: ; 23:6939
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_6957:: ; 23:6957
+.l6957 ; 23:6957
 	cp a, $05
-	jr nz, Label_23_6975
+	jr nz, .l6975
 	ld hl, $DA20
 	ld de, $79E0
 	ld a, $23
@@ -1934,10 +1832,9 @@ Label_23_6957:: ; 23:6957
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_6975:: ; 23:6975
+.l6975 ; 23:6975
 	cp a, $06
-	jr nz, Label_23_6993
+	jr nz, .l6993
 	ld hl, $DA20
 	ld de, $79F0
 	ld a, $23
@@ -1947,10 +1844,9 @@ Label_23_6975:: ; 23:6975
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_6993:: ; 23:6993
+.l6993 ; 23:6993
 	cp a, $07
-	jr nz, Label_23_69B1
+	jr nz, .l69B1
 	ld hl, $DA20
 	ld de, $7A00
 	ld a, $23
@@ -1960,10 +1856,9 @@ Label_23_6993:: ; 23:6993
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_69B1:: ; 23:69B1
+.l69B1 ; 23:69B1
 	cp a, $08
-	jr nz, Label_23_69CF
+	jr nz, .l69CF
 	ld hl, $DA20
 	ld de, $7A10
 	ld a, $23
@@ -1973,8 +1868,7 @@ Label_23_69B1:: ; 23:69B1
 	ld hl, $DA20
 	call Function_00_0A65
 	ret
-
-Label_23_69CF:: ; 23:69CF
+.l69CF ; 23:69CF
 	ld hl, $DA20
 	ld de, $7A20
 	ld a, $23
@@ -1987,7 +1881,7 @@ Label_23_69CF:: ; 23:69CF
 
 Function_23_69E9:: ; 23:69E9
 	cp a, $00
-	jr nz, Label_23_6A07
+	jr nz, .l6A07
 	ld hl, $DA30
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -1997,10 +1891,9 @@ Function_23_69E9:: ; 23:69E9
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A07:: ; 23:6A07
+.l6A07 ; 23:6A07
 	cp a, $01
-	jr nz, Label_23_6A25
+	jr nz, .l6A25
 	ld hl, $DA30
 	ld de, $79A0
 	ld a, $23
@@ -2010,10 +1903,9 @@ Label_23_6A07:: ; 23:6A07
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A25:: ; 23:6A25
+.l6A25 ; 23:6A25
 	cp a, $02
-	jr nz, Label_23_6A43
+	jr nz, .l6A43
 	ld hl, $DA30
 	ld de, $79B0
 	ld a, $23
@@ -2023,10 +1915,9 @@ Label_23_6A25:: ; 23:6A25
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A43:: ; 23:6A43
+.l6A43 ; 23:6A43
 	cp a, $03
-	jr nz, Label_23_6A61
+	jr nz, .l6A61
 	ld hl, $DA30
 	ld de, $79C0
 	ld a, $23
@@ -2036,10 +1927,9 @@ Label_23_6A43:: ; 23:6A43
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A61:: ; 23:6A61
+.l6A61 ; 23:6A61
 	cp a, $04
-	jr nz, Label_23_6A7F
+	jr nz, .l6A7F
 	ld hl, $DA30
 	ld de, $79D0
 	ld a, $23
@@ -2049,10 +1939,9 @@ Label_23_6A61:: ; 23:6A61
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A7F:: ; 23:6A7F
+.l6A7F ; 23:6A7F
 	cp a, $05
-	jr nz, Label_23_6A9D
+	jr nz, .l6A9D
 	ld hl, $DA30
 	ld de, $79E0
 	ld a, $23
@@ -2062,10 +1951,9 @@ Label_23_6A7F:: ; 23:6A7F
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6A9D:: ; 23:6A9D
+.l6A9D ; 23:6A9D
 	cp a, $06
-	jr nz, Label_23_6ABB
+	jr nz, .l6ABB
 	ld hl, $DA30
 	ld de, $79F0
 	ld a, $23
@@ -2075,10 +1963,9 @@ Label_23_6A9D:: ; 23:6A9D
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6ABB:: ; 23:6ABB
+.l6ABB ; 23:6ABB
 	cp a, $07
-	jr nz, Label_23_6AD9
+	jr nz, .l6AD9
 	ld hl, $DA30
 	ld de, $7A00
 	ld a, $23
@@ -2088,10 +1975,9 @@ Label_23_6ABB:: ; 23:6ABB
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6AD9:: ; 23:6AD9
+.l6AD9 ; 23:6AD9
 	cp a, $08
-	jr nz, Label_23_6AF7
+	jr nz, .l6AF7
 	ld hl, $DA30
 	ld de, $7A10
 	ld a, $23
@@ -2101,8 +1987,7 @@ Label_23_6AD9:: ; 23:6AD9
 	ld hl, $DA30
 	call Function_00_0A65
 	ret
-
-Label_23_6AF7:: ; 23:6AF7
+.l6AF7 ; 23:6AF7
 	ld hl, $DA30
 	ld de, $7A20
 	ld a, $23
@@ -2115,7 +2000,7 @@ Label_23_6AF7:: ; 23:6AF7
 
 Function_23_6B11:: ; 23:6B11
 	cp a, $00
-	jr nz, Label_23_6B2F
+	jr nz, .l6B2F
 	ld hl, $DA40
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -2125,10 +2010,9 @@ Function_23_6B11:: ; 23:6B11
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6B2F:: ; 23:6B2F
+.l6B2F ; 23:6B2F
 	cp a, $01
-	jr nz, Label_23_6B4D
+	jr nz, .l6B4D
 	ld hl, $DA40
 	ld de, $79A0
 	ld a, $23
@@ -2138,10 +2022,9 @@ Label_23_6B2F:: ; 23:6B2F
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6B4D:: ; 23:6B4D
+.l6B4D ; 23:6B4D
 	cp a, $02
-	jr nz, Label_23_6B6B
+	jr nz, .l6B6B
 	ld hl, $DA40
 	ld de, $79B0
 	ld a, $23
@@ -2151,10 +2034,9 @@ Label_23_6B4D:: ; 23:6B4D
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6B6B:: ; 23:6B6B
+.l6B6B ; 23:6B6B
 	cp a, $03
-	jr nz, Label_23_6B89
+	jr nz, .l6B89
 	ld hl, $DA40
 	ld de, $79C0
 	ld a, $23
@@ -2164,10 +2046,9 @@ Label_23_6B6B:: ; 23:6B6B
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6B89:: ; 23:6B89
+.l6B89 ; 23:6B89
 	cp a, $04
-	jr nz, Label_23_6BA7
+	jr nz, .l6BA7
 	ld hl, $DA40
 	ld de, $79D0
 	ld a, $23
@@ -2177,10 +2058,9 @@ Label_23_6B89:: ; 23:6B89
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6BA7:: ; 23:6BA7
+.l6BA7 ; 23:6BA7
 	cp a, $05
-	jr nz, Label_23_6BC5
+	jr nz, .l6BC5
 	ld hl, $DA40
 	ld de, $79E0
 	ld a, $23
@@ -2190,10 +2070,9 @@ Label_23_6BA7:: ; 23:6BA7
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6BC5:: ; 23:6BC5
+.l6BC5 ; 23:6BC5
 	cp a, $06
-	jr nz, Label_23_6BE3
+	jr nz, .l6BE3
 	ld hl, $DA40
 	ld de, $79F0
 	ld a, $23
@@ -2203,10 +2082,9 @@ Label_23_6BC5:: ; 23:6BC5
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6BE3:: ; 23:6BE3
+.l6BE3 ; 23:6BE3
 	cp a, $07
-	jr nz, Label_23_6C01
+	jr nz, .l6C01
 	ld hl, $DA40
 	ld de, $7A00
 	ld a, $23
@@ -2216,10 +2094,9 @@ Label_23_6BE3:: ; 23:6BE3
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6C01:: ; 23:6C01
+.l6C01 ; 23:6C01
 	cp a, $08
-	jr nz, Label_23_6C1F
+	jr nz, .l6C1F
 	ld hl, $DA40
 	ld de, $7A10
 	ld a, $23
@@ -2229,8 +2106,7 @@ Label_23_6C01:: ; 23:6C01
 	ld hl, $DA40
 	call Function_00_0A65
 	ret
-
-Label_23_6C1F:: ; 23:6C1F
+.l6C1F ; 23:6C1F
 	ld hl, $DA40
 	ld de, $7A20
 	ld a, $23
@@ -2243,7 +2119,7 @@ Label_23_6C1F:: ; 23:6C1F
 
 Function_23_6C39:: ; 23:6C39
 	cp a, $00
-	jr nz, Label_23_6C57
+	jr nz, .l6C57
 	ld hl, $DA50
 	ld de, Table_SpriteCounter_Digits
 	ld a, $23
@@ -2253,10 +2129,9 @@ Function_23_6C39:: ; 23:6C39
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6C57:: ; 23:6C57
+.l6C57 ; 23:6C57
 	cp a, $01
-	jr nz, Label_23_6C75
+	jr nz, .l6C75
 	ld hl, $DA50
 	ld de, $79A0
 	ld a, $23
@@ -2266,10 +2141,9 @@ Label_23_6C57:: ; 23:6C57
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6C75:: ; 23:6C75
+.l6C75 ; 23:6C75
 	cp a, $02
-	jr nz, Label_23_6C93
+	jr nz, .l6C93
 	ld hl, $DA50
 	ld de, $79B0
 	ld a, $23
@@ -2279,10 +2153,9 @@ Label_23_6C75:: ; 23:6C75
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6C93:: ; 23:6C93
+.l6C93 ; 23:6C93
 	cp a, $03
-	jr nz, Label_23_6CB1
+	jr nz, .l6CB1
 	ld hl, $DA50
 	ld de, $79C0
 	ld a, $23
@@ -2292,10 +2165,9 @@ Label_23_6C93:: ; 23:6C93
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6CB1:: ; 23:6CB1
+.l6CB1 ; 23:6CB1
 	cp a, $04
-	jr nz, Label_23_6CCF
+	jr nz, .l6CCF
 	ld hl, $DA50
 	ld de, $79D0
 	ld a, $23
@@ -2305,10 +2177,9 @@ Label_23_6CB1:: ; 23:6CB1
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6CCF:: ; 23:6CCF
+.l6CCF ; 23:6CCF
 	cp a, $05
-	jr nz, Label_23_6CED
+	jr nz, .l6CED
 	ld hl, $DA50
 	ld de, $79E0
 	ld a, $23
@@ -2318,10 +2189,9 @@ Label_23_6CCF:: ; 23:6CCF
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6CED:: ; 23:6CED
+.l6CED ; 23:6CED
 	cp a, $06
-	jr nz, Label_23_6D0B
+	jr nz, .l6D0B
 	ld hl, $DA50
 	ld de, $79F0
 	ld a, $23
@@ -2331,10 +2201,9 @@ Label_23_6CED:: ; 23:6CED
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6D0B:: ; 23:6D0B
+.l6D0B ; 23:6D0B
 	cp a, $07
-	jr nz, Label_23_6D29
+	jr nz, .l6D29
 	ld hl, $DA50
 	ld de, $7A00
 	ld a, $23
@@ -2344,10 +2213,9 @@ Label_23_6D0B:: ; 23:6D0B
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6D29:: ; 23:6D29
+.l6D29 ; 23:6D29
 	cp a, $08
-	jr nz, Label_23_6D47
+	jr nz, .l6D47
 	ld hl, $DA50
 	ld de, $7A10
 	ld a, $23
@@ -2357,8 +2225,7 @@ Label_23_6D29:: ; 23:6D29
 	ld hl, $DA50
 	call Function_00_0A65
 	ret
-
-Label_23_6D47:: ; 23:6D47
+.l6D47 ; 23:6D47
 	ld hl, $DA50
 	ld de, $7A20
 	ld a, $23

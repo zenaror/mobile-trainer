@@ -4,10 +4,10 @@
 
 SECTION "engine/mail/send_receive", ROMX
 
-; ---- code $4000-$407B (123 bytes) [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 MailSendRecv_Main:: ; 27:4000
 Function_27_4000::
+	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $01
 	ld [wRam_C1D0], a
 	xor a, a
@@ -18,13 +18,12 @@ Function_27_4000::
 	ld hl, $D624
 	ld de, MailSendRecv_RequestTemplate
 	ld b, $07
-
-Label_27_4017:: ; 27:4017
+.loop ; 27:4017
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, Label_27_4017
+	jr nz, .loop
 	farcall Mailbox_CountRecords
 	ld a, $0C
 	sub a, d
@@ -66,15 +65,15 @@ Label_27_4017:: ; 27:4017
 	ld b, $00
 	farcall MailConnect_Screen
 	cp a, $FF
-	jr z, Label_27_407B
+	jr z, .l407B
 	cp a, $20
 	jr z, Label_27_40BB
 	cp a, $80
 	jr nz, Label_27_40D7
 
-; ---- code $407B-$409F (36 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 27:4071 (executed) [executed in 2 scenarios]
-
-Label_27_407B:: ; 27:407B
+.l407B ; 27:407B
+	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; entered by jrcc from 27:4071 (executed) [executed in 2 scenarios]
 	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_27_40A1
@@ -95,37 +94,33 @@ Label_27_407B:: ; 27:407B
 Data_27_409F:: ; 27:409F
 	db $18, $5E
 
-; ---- code $40A1-$40BB (26 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jpcc from 27:4080 (PROBABLE code)
-
 Label_27_40A1:: ; 27:40A1
+	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
+	; entered by jpcc from 27:4080 (PROBABLE code)
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_27_40B3
+	jp z, .l40B3
 	ld b, $00
 	farcall MailDisconnect_Screen
 	jr Label_27_40BB
-
-Label_27_40B3:: ; 27:40B3
+.l40B3 ; 27:40B3
 	ld b, $00
 	farcall MailDisconnect_ScreenNoTimer
 
-; ---- code $40BB-$40F5 (58 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
-
 Label_27_40BB:: ; 27:40BB
+	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	farcall CommTime_TimerAIsNonZero
 	or a, a
-	jr nz, Label_27_40C8
+	jr nz, .l40C8
 	ld a, h
 	or a, l
-	jr z, Label_27_40D6
-
-Label_27_40C8:: ; 27:40C8
+	jr z, .done
+.l40C8 ; 27:40C8
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-
-Label_27_40D6:: ; 27:40D6
+.done ; 27:40D6
 	ret
 
 Label_27_40D7:: ; 27:40D7
@@ -134,42 +129,40 @@ Label_27_40D7:: ; 27:40D7
 	cp a, $7F
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_27_40F5
+	jp z, .l40F5
 	ld a, $01
 	ld b, $00
 	farcall MailDisconnect_Screen
-	jr Label_27_40FF
+	jr .l40FF
 
-; ---- code $40F5-$40FF (10 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jpcc from 27:40E6 (executed)
-
-Label_27_40F5:: ; 27:40F5
+.l40F5 ; 27:40F5
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jpcc from 27:40E6 (executed)
 	ld a, $01
 	ld b, $00
 	farcall MailDisconnect_ScreenNoTimer
 
-; ---- code $40FF-$410C (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
-
-Label_27_40FF:: ; 27:40FF
+.l40FF ; 27:40FF
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	xor a, a
 	ld [wCommSessionActive], a
 	farcall CommTime_TimerAIsNonZero
 	or a, a
-	jr nz, Label_27_4110
+	jr nz, .l4110
 
-; ---- code $410C-$4110 (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:410A (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:410A (executed)
 	ld a, h
 	or a, l
-	jr z, Label_27_411E
+	jr z, .l411E
 
-; ---- code $4110-$414F (63 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
-
-Label_27_4110:: ; 27:4110
+.l4110 ; 27:4110
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-
-Label_27_411E:: ; 27:411E
+.l411E ; 27:411E
 	di
 	xor a, a
 	ldh [rIF], a
@@ -183,7 +176,7 @@ Label_27_411E:: ; 27:411E
 	ldh [rSVBK], a
 	ld a, [wMailSessionBlock + 1]
 	cp a, $FF
-	jr z, Label_27_4156
+	jr z, .l4156
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -194,22 +187,23 @@ Label_27_411E:: ; 27:411E
 	sub a, c
 	ld [wMailSessionBlock + 1], a
 	cp a, b
-	jr z, Label_27_4156
+	jr z, .l4156
 
-; ---- code $414F-$4156 (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:414D (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:414D (executed) [executed in 1 scenarios]
 	ld a, [wMailSessionBlock + 3]
 	inc a
 	ld [wMailSessionBlock + 3], a
 
-; ---- code $4156-$4166 (16 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
-
-Label_27_4156:: ; 27:4156
+.l4156 ; 27:4156
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	farcall MailResult_Screen
 	xor a, a
 	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 
-; ---- code $4166-$417A (20 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded [executed in 2 scenarios]
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry
+	; not recorded [executed in 2 scenarios]
 	cp a, $FF
 	ret z
 	ld bc, $0000
@@ -225,31 +219,28 @@ MailSendRecv_RequestTemplate:: ; 27:417A
 Data_27_417A::
 	db $04, $00, $00, $01, $24, $D5, $04
 
-; ---- code $4181-$41BC (59 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Mobile_BeginCancel
-
-Label_27_4187:: ; 27:4187
+.loop ; 27:4187
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, Label_27_4187
+	jr z, .loop
 	cp a, $FF
-	jr z, Label_27_4195
-
-Label_27_4195:: ; 27:4195
+	jr z, .l4195
+.l4195 ; 27:4195
 	farcall CommTime_TimerAIsNonZero
 	or a, a
-	jr nz, Label_27_41A2
+	jr nz, .l41A2
 	ld a, h
 	or a, l
-	jr z, Label_27_41B0
-
-Label_27_41A2:: ; 27:41A2
+	jr z, .l41B0
+.l41A2 ; 27:41A2
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-
-Label_27_41B0:: ; 27:41B0
+.l41B0 ; 27:41B0
 	di
 	xor a, a
 	ldh [rIF], a
@@ -259,10 +250,10 @@ Label_27_41B0:: ; 27:41B0
 	ei
 	ret
 
-; ---- code $41BC-$41DB (31 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Mail_OutboxIsEmpty:: ; 27:41BC
 Function_27_41BC::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -272,51 +263,50 @@ Function_27_41BC::
 	ld hl, $A000
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_27_41DB
+	jr nz, .l41DB
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $FF
 	ret
 
-; ---- code $41DB-$41E3 (8 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 27:41D0 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-
-Label_27_41DB:: ; 27:41DB
+.l41DB ; 27:41DB
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 27:41D0 (executed) | upgraded by classifier 6: all 5 instruction starts
+	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
 	ret
 
-; ---- code $41E3-$41F5 (18 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 MailConnect_Screen:: ; 27:41E3
 Function_27_41E3::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $00
 	push af
 	ld a, b
 	cp a, $00
-	jr nz, Label_27_41F1
+	jr nz, .l41F1
 	xor a, a
 	ld [wMailScreenMode], a
-	jr Label_27_4201
-
-Label_27_41F1:: ; 27:41F1
+	jr .l4201
+.l41F1 ; 27:41F1
 	cp a, $01
-	jr nz, Label_27_41FC
+	jr nz, .l41FC
 
-; ---- code $41F5-$41FC (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:41F3 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:41F3 (executed)
 	ld a, $01
 	ld [wMailScreenMode], a
-	jr Label_27_4201
+	jr .l4201
 
-; ---- code $41FC-$427C (128 bytes) [CONFIRMED] 53 insn(s); 53 executed (in up to 4/18 scenarios)
-
-Label_27_41FC:: ; 27:41FC
+.l41FC ; 27:41FC
+	; [CONFIRMED] 53 insn(s); 53 executed (in up to 4/18 scenarios)
 	ld a, $02
 	ld [wMailScreenMode], a
-
-Label_27_4201:: ; 27:4201
+.l4201 ; 27:4201
 	pop af
 	call MailConnect_InitScreen
 	push bc
@@ -335,13 +325,12 @@ Label_27_4201:: ; 27:4201
 	ld b, $09
 	ld hl, $D524
 	ld de, $C0A0
-
-Label_27_4225:: ; 27:4225
+.loop ; 27:4225
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_27_4225
+	jr nz, .loop
 	ld hl, $DA80
 	ld de, $7030
 	ld a, $28
@@ -360,39 +349,39 @@ Label_27_4225:: ; 27:4225
 	call Function_00_0A65
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_27_4297
+	jr nz, .l4297
 	call Mail_OutboxIsEmpty
 	inc a
-	jr nz, Label_27_427C
+	jr nz, .l427C
 	ld hl, $DA40
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
-	jr Label_27_428C
+	jr .l428C
 
-; ---- code $427C-$428C (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 27:4268 (executed) | upgraded by classifier 6: all 5 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
-
-Label_27_427C:: ; 27:427C
+.l427C ; 27:427C
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 27:4268 (executed) | upgraded by classifier 6: all 5 instruction starts
+	; of the region are in analysis/coverage_union.tsv (executed in a trace)
 	ld hl, $DA40
 	ld de, $7A50
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
 
-; ---- code $428C-$429B (15 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios)
-
-Label_27_428C:: ; 27:428C
+.l428C ; 27:428C
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios)
 	ld de, $2FD0
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_42CF
-
-Label_27_4297:: ; 27:4297
+	jr .l42CF
+.l4297 ; 27:4297
 	cp a, $01
-	jr nz, Label_27_42B6
+	jr nz, .l42B6
 
-; ---- code $429B-$42B6 (27 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 27:4299 (executed)
+	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
+	; fall-through of the jrcc at 27:4299 (executed)
 	ld hl, $DA40
 	ld de, $7AA0
 	ld a, $27
@@ -401,11 +390,10 @@ Label_27_4297:: ; 27:4297
 	ld de, $2FD0
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_42CF
+	jr .l42CF
 
-; ---- code $42B6-$438A (212 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 4/18 scenarios)
-
-Label_27_42B6:: ; 27:42B6
+.l42B6 ; 27:42B6
+	; [CONFIRMED] 86 insn(s); 86 executed (in up to 4/18 scenarios)
 	ld hl, $DA30
 	ld de, $7AC0
 	ld a, $27
@@ -414,8 +402,7 @@ Label_27_42B6:: ; 27:42B6
 	ld de, $2FE0
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_27_42CF:: ; 27:42CF
+.l42CF ; 27:42CF
 	farcall Session_ResetCounters
 	farcall Timer_ResetClockB
 	farcall Stub_Nop_7F_61FC
@@ -456,20 +443,18 @@ MailConnect_Screen_Loop:: ; 27:4305
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_27_4334
+	jr z, .l4334
 	ld b, $01
-
-Label_27_4334:: ; 27:4334
+.l4334 ; 27:4334
 	call MailConnect_PollAdapterError
 	jp z, MailConnect_ShowError
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
 	jr nz, MailConnect_Screen_Loop
-
-Label_27_4341:: ; 27:4341
+.l4341 ; 27:4341
 	ld a, b
 	cp a, $01
-	jp z, Label_27_44E1
+	jp z, .l44E1
 	push bc
 	di
 	farcall Function_00_0956
@@ -489,28 +474,27 @@ Label_27_4341:: ; 27:4341
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_27_4374
+	jr z, .l4374
 	ld b, $01
-
-Label_27_4374:: ; 27:4374
+.l4374 ; 27:4374
 	call MailConnect_PollAdapterError
 	jp z, MailConnect_ShowError
 	push bc
 	farcall Mobile_ConnectPoll
 	pop bc
 	cp a, $01
-	jr z, Label_27_4341
+	jr z, .l4341
 	cp a, $FF
-	jr nz, Label_27_4393
+	jr nz, .l4393
 
-; ---- code $438A-$4393 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:4388 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:4388 (executed)
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
-; ---- code $4393-$43E4 (81 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 2/18 scenarios)
-
-Label_27_4393:: ; 27:4393
+.l4393 ; 27:4393
+	; [CONFIRMED] 34 insn(s); 34 executed (in up to 2/18 scenarios)
 	push bc
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -522,11 +506,10 @@ Label_27_4393:: ; 27:4393
 	ld hl, $C0A0
 	farcall Mobile_BeginConnect
 	pop bc
-
-Label_27_43B3:: ; 27:43B3
+.l43B3 ; 27:43B3
 	ld a, b
 	cp a, $01
-	jp z, Label_27_44E1
+	jp z, .l44E1
 	push bc
 	di
 	farcall Function_00_0956
@@ -546,30 +529,30 @@ Label_27_43B3:: ; 27:43B3
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_27_43E6
+	jr z, .l43E6
 
-; ---- code $43E4-$43E6 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 27:43E2 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 27:43E2 (executed)
 	ld b, $01
 
-; ---- code $43E6-$43F6 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-
-Label_27_43E6:: ; 27:43E6
+.l43E6 ; 27:43E6
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	push bc
 	farcall Mobile_ConnectPoll
 	pop bc
 	cp a, $01
-	jr z, Label_27_43B3
+	jr z, .l43B3
 	cp a, $FF
-	jr nz, Label_27_43FF
+	jr nz, .l43FF
 
-; ---- code $43F6-$43FF (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:43F4 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:43F4 (executed)
 	farcall MailSession_ShowCommError
 	ld a, $80
 	ret
 
-; ---- code $43FF-$4589 (394 bytes) [CONFIRMED] 164 insn(s); 164 executed (in up to 2/18 scenarios)
-
-Label_27_43FF:: ; 27:43FF
+.l43FF ; 27:43FF
+	; [CONFIRMED] 164 insn(s); 164 executed (in up to 2/18 scenarios)
 	ld a, $01
 	ld [wCommSessionActive], a
 	push bc
@@ -600,8 +583,7 @@ Label_27_43FF:: ; 27:43FF
 	ld hl, $DA50
 	call Function_00_0A65
 	ld c, $1E
-
-Label_27_444C:: ; 27:444C
+.l444C ; 27:444C
 	push bc
 	di
 	farcall Function_00_0956
@@ -619,7 +601,7 @@ Label_27_444C:: ; 27:444C
 	ldh [rSVBK], a
 	pop bc
 	dec c
-	jr nz, Label_27_444C
+	jr nz, .l444C
 	ld de, $2FD0
 	ld hl, $DA50
 	call Function_00_0A65
@@ -635,8 +617,7 @@ Label_27_444C:: ; 27:444C
 	ldh [rSVBK], a
 	pop de
 	pop bc
-
-Label_27_448B:: ; 27:448B
+.l448B ; 27:448B
 	call MailConnect_PollAdapterError
 	jp z, MailConnect_ShowError
 	ld a, $07
@@ -669,15 +650,14 @@ Label_27_448B:: ; 27:448B
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $A7
-	jr c, Label_27_448B
+	jr c, .l448B
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
 	xor a, a
 	ret
-
-Label_27_44E1:: ; 27:44E1
+.l44E1 ; 27:44E1
 	call Function_00_0464
 	ld bc, $0514
 	ld de, $D000
@@ -707,8 +687,7 @@ Label_27_44E1:: ; 27:44E1
 	ld hl, $DA50
 	call Function_00_0A65
 	ld b, $3C
-
-Label_27_452C:: ; 27:452C
+.l452C ; 27:452C
 	push bc
 	di
 	farcall Function_00_0956
@@ -716,7 +695,7 @@ Label_27_452C:: ; 27:452C
 	call Function_00_044B
 	pop bc
 	dec b
-	jr nz, Label_27_452C
+	jr nz, .l452C
 	farcall Timer_ResetClockB
 	farcall Mobile_BeginCancel
 	ld de, $2FE0
@@ -732,41 +711,42 @@ Label_27_452C:: ; 27:452C
 	call Function_00_0A65
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_27_45A4
+	jr nz, .l45A4
 	call Mail_OutboxIsEmpty
 	inc a
-	jr nz, Label_27_4589
+	jr nz, .l4589
 	ld hl, $DA40
 	ld de, $7020
 	ld a, $28
 	ld b, $81
 	farcall Function_00_0A82
-	jr Label_27_4599
+	jr .l4599
 
-; ---- code $4589-$4599 (16 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 27:4575 (executed) [executed in 4 scenarios]
-
-Label_27_4589:: ; 27:4589
+.l4589 ; 27:4589
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1;
+	; entered by jrcc from 27:4575 (executed) [executed in 4 scenarios]
 	ld hl, $DA40
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
 
-; ---- code $4599-$45A4 (11 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
-
-Label_27_4599:: ; 27:4599
+.l4599 ; 27:4599
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $2F57
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_45DC
+	jr .l45DC
 
-; ---- code $45A4-$45A8 (4 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 27:456F (executed) | 2 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
-
-Label_27_45A4:: ; 27:45A4
+.l45A4 ; 27:45A4
+	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1;
+	; entered by jrcc from 27:456F (executed) | 2 insn(s) executed; cut out of the PROBABLE region
+	; 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
 	cp a, $01
-	jr nz, Label_27_45C3
+	jr nz, .l45C3
 
-; ---- code $45A8-$45C3 (27 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 45A4-45DC by apply_coverage --split
 	ld hl, $DA40
 	ld de, $7AB0
 	ld a, $27
@@ -775,11 +755,11 @@ Label_27_45A4:: ; 27:45A4
 	ld de, $2F57
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_45DC
+	jr .l45DC
 
-; ---- code $45C3-$45DC (25 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
-
-Label_27_45C3:: ; 27:45C3
+.l45C3 ; 27:45C3
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage
+	; --split [executed in 8 scenarios]
 	ld hl, $DA30
 	ld de, $7AD0
 	ld a, $27
@@ -789,9 +769,8 @@ Label_27_45C3:: ; 27:45C3
 	ld hl, $DA30
 	call Function_00_0A65
 
-; ---- code $45DC-$46A0 (196 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 2/18 scenarios)
-
-Label_27_45DC:: ; 27:45DC
+.l45DC ; 27:45DC
+	; [CONFIRMED] 86 insn(s); 86 executed (in up to 2/18 scenarios)
 	push bc
 	di
 	farcall Function_00_0956
@@ -811,7 +790,7 @@ Label_27_45DC:: ; 27:45DC
 	pop bc
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, Label_27_45DC
+	jr z, .l45DC
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -834,8 +813,7 @@ Label_27_45DC:: ; 27:45DC
 	farcall Function_00_08EA
 	ld a, $40
 	farcall Function_00_0887
-
-Label_27_4641:: ; 27:4641
+.l4641 ; 27:4641
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -864,7 +842,7 @@ Label_27_4641:: ; 27:4641
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $C0
-	jr nz, Label_27_4641
+	jr nz, .l4641
 	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
@@ -872,13 +850,12 @@ Label_27_4641:: ; 27:4641
 	and a, $FB
 	ldh [rLCDC], a
 	ld b, $78
-
-Label_27_4693:: ; 27:4693
+.l4693 ; 27:4693
 	push bc
 	call Function_00_044B
 	pop bc
 	dec b
-	jr nz, Label_27_4693
+	jr nz, .l4693
 	ld a, $FF
 	ld a, $20
 	ret
@@ -888,9 +865,9 @@ Label_27_4693:: ; 27:4693
 Data_27_46A0:: ; 27:46A0
 	db $C9
 
-; ---- code $46A1-$46DF (62 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 0; entered by jr from 27:46DD (PROBABLE code)
-
-Label_27_46A1:: ; 27:46A1
+.loop ; 27:46A1
+	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 0;
+	; entered by jr from 27:46DD (PROBABLE code)
 	push bc
 	di
 	farcall Function_00_0956
@@ -900,36 +877,34 @@ Label_27_46A1:: ; 27:46A1
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_27_46C8
+	jr z, .l46C8
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
 	xor a, a
 	ret
-
-Label_27_46C8:: ; 27:46C8
+.l46C8 ; 27:46C8
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_27_46DD
+	jr z, .l46DD
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
 	ld a, $FF
 	ret
-
-Label_27_46DD:: ; 27:46DD
-	jr Label_27_46A1
+.l46DD ; 27:46DD
+	jr .loop
 
 ; ---- data $46DF-$46E5 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_27_46DF:: ; 27:46DF
 	db $CD, $47, $47, $CA, $E5, $46
 
-; ---- code $46E5-$4747 (98 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 27:4337 (executed) [executed in 4 scenarios]
-
 MailConnect_ShowError:: ; 27:46E5
+	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
+	; entered by jpcc from 27:4337 (executed) [executed in 4 scenarios]
 	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
 	ld a, [wMobileResultDetail + 1]
@@ -947,21 +922,18 @@ MailConnect_ShowError:: ; 27:46E5
 	farcall Timer_ResetClockB
 	ld de, $C0A9
 	farcall Mobile_BeginDisconnect
-
-Label_27_471A:: ; 27:471A
+.l471A ; 27:471A
 	farcall Mobile_DisconnectPoll
 	cp a, $01
-	jr z, Label_27_471A
+	jr z, .l471A
 	farcall Mobile_BeginCancel
-
-Label_27_472A:: ; 27:472A
+.l472A ; 27:472A
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, Label_27_472A
+	jr z, .l472A
 	cp a, $FF
-	jr z, Label_27_4738
-
-Label_27_4738:: ; 27:4738
+	jr z, .l4738
+.l4738 ; 27:4738
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
@@ -969,20 +941,20 @@ Label_27_4738:: ; 27:4738
 	ld a, $80
 	ret
 
-; ---- code $4747-$4751 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 MailConnect_PollAdapterError:: ; 27:4747
 Function_27_4747::
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_27_4751
+	jr nz, .l4751
 	xor a, a
 	inc a
 	ret
 
-; ---- code $4751-$4768 (23 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 27:474C (executed) [executed in 4 scenarios]
-
-Label_27_4751:: ; 27:4751
+.l4751 ; 27:4751
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
+	; entered by jrcc from 27:474C (executed) [executed in 4 scenarios]
 	push bc
 	push de
 	push hl
@@ -997,35 +969,33 @@ Label_27_4751:: ; 27:4751
 	inc a
 	ret
 
-; ---- code $4768-$477A (18 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 MailDisconnect_Screen:: ; 27:4768
 Function_27_4768::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $01
 	push af
 	ld a, b
 	cp a, $00
-	jr nz, Label_27_4776
+	jr nz, .l4776
 	xor a, a
 	ld [wMailScreenMode], a
-	jr Label_27_4786
-
-Label_27_4776:: ; 27:4776
+	jr .l4786
+.l4776 ; 27:4776
 	cp a, $01
-	jr nz, Label_27_4781
+	jr nz, .l4781
 
-; ---- code $477A-$4781 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:4778 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 27:4778 (executed)
 	ld a, $01
 	ld [wMailScreenMode], a
-	jr Label_27_4786
+	jr .l4786
 
-; ---- code $4781-$4812 (145 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 2/18 scenarios)
-
-Label_27_4781:: ; 27:4781
+.l4781 ; 27:4781
+	; [CONFIRMED] 55 insn(s); 55 executed (in up to 2/18 scenarios)
 	ld a, $02
 	ld [wMailScreenMode], a
-
-Label_27_4786:: ; 27:4786
+.l4786 ; 27:4786
 	pop af
 	call MailConnect_InitScreen
 	push bc
@@ -1063,10 +1033,10 @@ Label_27_4786:: ; 27:4786
 	call Function_00_0A65
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_27_4831
+	jr nz, .l4831
 	call Mail_OutboxIsEmpty
 	inc a
-	jr nz, Label_27_4816
+	jr nz, .l4816
 	ld hl, $DA40
 	ld de, $7020
 	ld a, $28
@@ -1078,32 +1048,32 @@ Label_27_4786:: ; 27:4786
 	ld hl, $D625
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_27_4826
+	jr z, .l4826
 
-; ---- code $4812-$4826 (20 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 27:4810 (executed) | upgraded by classifier 6: all 7 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
+	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
+	; fall-through of the jrcc at 27:4810 (executed) | upgraded by classifier 6: all 7 instruction
+	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 	cp a, $FF
-	jr z, Label_27_4826
-
-Label_27_4816:: ; 27:4816
+	jr z, .l4826
+.l4816 ; 27:4816
 	ld hl, $DA40
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
 
-; ---- code $4826-$4835 (15 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
-Label_27_4826:: ; 27:4826
+.l4826 ; 27:4826
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld de, $2F58
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_4869
-
-Label_27_4831:: ; 27:4831
+	jr .l4869
+.l4831 ; 27:4831
 	cp a, $01
-	jr nz, Label_27_4850
+	jr nz, .l4850
 
-; ---- code $4835-$4850 (27 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 27:4833 (executed)
+	; [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
+	; fall-through of the jrcc at 27:4833 (executed)
 	ld hl, $DA40
 	ld de, $7AB0
 	ld a, $27
@@ -1112,11 +1082,10 @@ Label_27_4831:: ; 27:4831
 	ld de, $2F58
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_4869
+	jr .l4869
 
-; ---- code $4850-$48E6 (150 bytes) [CONFIRMED] 63 insn(s); 63 executed (in up to 2/18 scenarios)
-
-Label_27_4850:: ; 27:4850
+.l4850 ; 27:4850
+	; [CONFIRMED] 63 insn(s); 63 executed (in up to 2/18 scenarios)
 	ld hl, $DA30
 	ld de, $7AD0
 	ld a, $27
@@ -1125,14 +1094,12 @@ Label_27_4850:: ; 27:4850
 	ld de, $2F48
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_27_4869:: ; 27:4869
+.l4869 ; 27:4869
 	farcall Timer_ResetClockB
 	ld de, $C0A9
 	farcall Mobile_BeginDisconnect
 	ld b, $00
-
-Label_27_487A:: ; 27:487A
+.l487A ; 27:487A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1150,10 +1117,9 @@ Label_27_487A:: ; 27:487A
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
-	jr nz, Label_27_487A
+	jr nz, .l487A
 	ld de, $012C
-
-Label_27_48A5:: ; 27:48A5
+.l48A5 ; 27:48A5
 	push de
 	push bc
 	di
@@ -1180,24 +1146,23 @@ Label_27_48A5:: ; 27:48A5
 	farcall Mobile_DisconnectPoll
 	pop de
 	cp a, $01
-	jr z, Label_27_48A5
+	jr z, .l48A5
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_27_48EA
+	jr nz, .l48EA
 	bit 0, a
-	jr z, Label_27_48EA
+	jr z, .l48EA
 
-; ---- code $48E6-$48EA (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 27:48E4 (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 27:48E4 (executed) [executed in 2 scenarios]
 	ld a, $01
-	jr z, Label_27_48A5
+	jr z, .l48A5
 
-; ---- code $48EA-$49B0 (198 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios)
-
-Label_27_48EA:: ; 27:48EA
+.l48EA ; 27:48EA
+	; [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios)
 	farcall Timer_ResetClockB
 	farcall Mobile_BeginCancel
-
-Label_27_48F6:: ; 27:48F6
+.l48F6 ; 27:48F6
 	push de
 	push bc
 	di
@@ -1219,7 +1184,7 @@ Label_27_48F6:: ; 27:48F6
 	pop bc
 	pop de
 	cp a, $01
-	jp z, Label_27_48F6
+	jp z, .l48F6
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1242,8 +1207,7 @@ Label_27_48F6:: ; 27:48F6
 	farcall Function_00_08EA
 	ld a, $40
 	farcall Function_00_0887
-
-Label_27_495E:: ; 27:495E
+.l495E ; 27:495E
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1272,7 +1236,7 @@ Label_27_495E:: ; 27:495E
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $D0
-	jr nz, Label_27_495E
+	jr nz, .l495E
 	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
@@ -1282,9 +1246,10 @@ Label_27_495E:: ; 27:495E
 	xor a, a
 	ret
 
-; ---- code $49B0-$49C0 (16 bytes) [CONFIRMED] 199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
-
 MailDisconnect_ScreenNoTimer:: ; 27:49B0
+	; [CONFIRMED] 199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7;
+	; entered by far from 22:4BCB (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE
+	; region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
 	jp nz, MailDisconnect_Screen
@@ -1292,31 +1257,32 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	push af
 	ld a, b
 	cp a, $00
-	jr nz, Label_27_49C6
+	jr nz, .l49C6
 
-; ---- code $49C0-$49C6 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 49B0-4B95 by apply_coverage --split
 	xor a, a
 	ld [wMailScreenMode], a
-	jr Label_27_49D6
+	jr .l49D6
 
-; ---- code $49C6-$49CA (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
-
-Label_27_49C6:: ; 27:49C6
+.l49C6 ; 27:49C6
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $01
-	jr nz, Label_27_49D1
+	jr nz, .l49D1
 
-; ---- code $49CA-$49D1 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 49B0-4B95 by apply_coverage --split
 	ld a, $01
 	ld [wMailScreenMode], a
-	jr Label_27_49D6
+	jr .l49D6
 
-; ---- code $49D1-$4A3E (109 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
-
-Label_27_49D1:: ; 27:49D1
+.l49D1 ; 27:49D1
+	; [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $02
 	ld [wMailScreenMode], a
-
-Label_27_49D6:: ; 27:49D6
+.l49D6 ; 27:49D6
 	pop af
 	call MailConnect_InitScreen
 	push bc
@@ -1354,12 +1320,13 @@ Label_27_49D6:: ; 27:49D6
 	call Function_00_0A65
 	ld a, [wMailScreenMode]
 	cp a, $00
-	jr nz, Label_27_4A81
+	jr nz, .l4A81
 
-; ---- code $4A3E-$4A81 (67 bytes) [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+	; [PROBABLE] 26 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 49B0-4B95 by apply_coverage --split
 	call Mail_OutboxIsEmpty
 	inc a
-	jr nz, Label_27_4A66
+	jr nz, .l4A66
 	ld hl, $DA40
 	ld de, $7020
 	ld a, $28
@@ -1371,30 +1338,29 @@ Label_27_49D6:: ; 27:49D6
 	ld hl, $D625
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_27_4A76
+	jr z, .l4A76
 	cp a, $FF
-	jr z, Label_27_4A76
-
-Label_27_4A66:: ; 27:4A66
+	jr z, .l4A76
+.l4A66 ; 27:4A66
 	ld hl, $DA40
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
 	farcall Function_00_0A82
-
-Label_27_4A76:: ; 27:4A76
+.l4A76 ; 27:4A76
 	ld de, $2F58
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_4AB9
+	jr .l4AB9
 
-; ---- code $4A81-$4A85 (4 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
-
-Label_27_4A81:: ; 27:4A81
+.l4A81 ; 27:4A81
+	; [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $01
-	jr nz, Label_27_4AA0
+	jr nz, .l4AA0
 
-; ---- code $4A85-$4AA0 (27 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 49B0-4B95 by apply_coverage --split
 	ld hl, $DA40
 	ld de, $7AB0
 	ld a, $27
@@ -1403,11 +1369,11 @@ Label_27_4A81:: ; 27:4A81
 	ld de, $2F58
 	ld hl, $DA40
 	call Function_00_0A65
-	jr Label_27_4AB9
+	jr .l4AB9
 
-; ---- code $4AA0-$4B95 (245 bytes) [CONFIRMED] 106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
-
-Label_27_4AA0:: ; 27:4AA0
+.l4AA0 ; 27:4AA0
+	; [CONFIRMED] 106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $DA30
 	ld de, $7AD0
 	ld a, $27
@@ -1416,11 +1382,9 @@ Label_27_4AA0:: ; 27:4AA0
 	ld de, $2F48
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_27_4AB9:: ; 27:4AB9
+.l4AB9 ; 27:4AB9
 	ld b, $00
-
-Label_27_4ABB:: ; 27:4ABB
+.l4ABB ; 27:4ABB
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1438,10 +1402,9 @@ Label_27_4ABB:: ; 27:4ABB
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
-	jr nz, Label_27_4ABB
+	jr nz, .l4ABB
 	ld b, $3C
-
-Label_27_4AE5:: ; 27:4AE5
+.l4AE5 ; 27:4AE5
 	push bc
 	di
 	farcall Function_00_0956
@@ -1460,7 +1423,7 @@ Label_27_4AE5:: ; 27:4AE5
 	farcall Joypad_Update
 	pop bc
 	dec b
-	jr nz, Label_27_4AE5
+	jr nz, .l4AE5
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1483,8 +1446,7 @@ Label_27_4AE5:: ; 27:4AE5
 	farcall Function_00_08EA
 	ld a, $40
 	farcall Function_00_0887
-
-Label_27_4B43:: ; 27:4B43
+.l4B43 ; 27:4B43
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1513,7 +1475,7 @@ Label_27_4B43:: ; 27:4B43
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $D0
-	jr nz, Label_27_4B43
+	jr nz, .l4B43
 	farcall Palette_FadeOutToWhite
 	ld a, $D0
 	ldh [rWY], a
@@ -1523,10 +1485,10 @@ Label_27_4B43:: ; 27:4B43
 	xor a, a
 	ret
 
-; ---- code $4B95-$4D06 (369 bytes) [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 MailConnect_InitScreen:: ; 27:4B95
 Function_27_4B95::
+	; [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push af
 	farcall Function_00_09B6
@@ -1614,22 +1576,20 @@ Function_27_4B95::
 	call Function_00_082C
 	pop af
 	dec a
-	jr z, Label_27_4CAF
+	jr z, .l4CAF
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailConnect_WinMsg_Connecting
 	ld a, $27
 	farcall Function_00_08EA
-	jr Label_27_4CC0
-
-Label_27_4CAF:: ; 27:4CAF
+	jr .l4CC0
+.l4CAF ; 27:4CAF
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
 	farcall Function_00_08EA
-
-Label_27_4CC0:: ; 27:4CC0
+.l4CC0 ; 27:4CC0
 	ld a, $40
 	farcall Function_00_0887
 	ld hl, $DA10
@@ -1652,9 +1612,12 @@ Label_27_4CC0:: ; 27:4CC0
 	farcall Function_00_0956
 	ei
 	pop bc
-	jp Label_27_4D31
+	jp .l4D31
 
-; ---- code $4D06-$4D19 (19 bytes) [PROBABLE] 9 insn(s): function prologue (ldh [$FFF2],a ; ldh a,[$FF8D] ; push af ; ... ld a,7 ; ldh [$FF8D],a ; ldh [$FF70],a ; call $047A ; ld hl,$D800) falling into the code at 4D19; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	; [PROBABLE] 9 insn(s): function prologue (ldh [$FFF2],a ; ldh a,[$FF8D] ; push af ; ... ld a,7
+	; ; ldh [$FF8D],a ; ldh [$FF70],a ; call $047A ; ld hl,$D800) falling into the code at 4D19;
+	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
+	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1665,7 +1628,8 @@ Label_27_4CC0:: ; 27:4CC0
 	call Function_00_047A
 	ld hl, $D800
 
-; ---- code $4D19-$4D31 (24 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
@@ -1677,9 +1641,8 @@ Label_27_4CC0:: ; 27:4CC0
 	ldh a, [rLCDC]
 	call Function_00_082C
 
-; ---- code $4D31-$4D4E (29 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
-
-Label_27_4D31:: ; 27:4D31
+.l4D31 ; 27:4D31
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
 	ld a, $70
 	ldh [rWY], a
 	farcall LCDOn
@@ -1691,12 +1654,14 @@ Label_27_4D31:: ; 27:4D31
 	ld bc, $0000
 	ret
 
-; ---- code $4D4E-$4D51 (3 bytes) [PROBABLE] 1 insn (call $4D81) falling into the code at 4D51; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	; [PROBABLE] 1 insn (call $4D81) falling into the code at 4D51; well-formed instruction chain
+	; (clean decode, all direct targets land on instruction starts, lands exactly on the next code
+	; region); no direct caller/table entry found: entry HYPOTHESIS
 	call CommTime_DrawHMSScreen
 
-; ---- code $4D51-$4D81 (48 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0; entered by jr from 27:4D7F (PROBABLE code)
-
-Label_27_4D51:: ; 27:4D51
+.loop ; 27:4D51
+	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0;
+	; entered by jr from 27:4D7F (PROBABLE code)
 	push bc
 	farcall Function_00_0956
 	call Function_00_044B
@@ -1704,32 +1669,31 @@ Label_27_4D51:: ; 27:4D51
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_27_4D70
+	jr z, .l4D70
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-
-Label_27_4D70:: ; 27:4D70
+.l4D70 ; 27:4D70
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_27_4D7F
+	jr z, .l4D7F
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-
-Label_27_4D7F:: ; 27:4D7F
-	jr Label_27_4D51
-
-; ---- code $4D81-$4D87 (6 bytes) [PROBABLE] 5 insn(s) (xor a ; ldh [$FF43],a ; push de ; push bc ; push af) falling into the code at 4D87; entered by call $4D81 from 27:4D4E (this classification)
+.l4D7F ; 27:4D7F
+	jr .loop
 
 CommTime_DrawHMSScreen:: ; 27:4D81
+	; [PROBABLE] 5 insn(s) (xor a ; ldh [$FF43],a ; push de ; push bc ; push af) falling into the
+	; code at 4D87; entered by call $4D81 from 27:4D4E (this classification)
 	xor a, a
 	ldh [rSCX], a
 	push de
 	push bc
 	push af
 
-; ---- code $4D87-$4EC0 (313 bytes) [PROBABLE] 128 insn(s) reached by static flow only; seeds: site x128; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 128 insn(s) reached by static flow only; seeds: site x128; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall LCDOff
@@ -1859,9 +1823,11 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$992C], a
 	jp Label_27_4EEB
 
-; ---- code $4EC0-$4ED3 (19 bytes) [PROBABLE] 9 insn(s): same prologue as 27:4D06 (WRAM7 switch, call $047A, ld hl,$D800) falling into the code at 4ED3; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
-
 Function_27_4EC0:: ; 27:4EC0
+	; [PROBABLE] 9 insn(s): same prologue as 27:4D06 (WRAM7 switch, call $047A, ld hl,$D800) falling
+	; into the code at 4ED3; well-formed instruction chain (clean decode, all direct targets land on
+	; instruction starts, lands exactly on the next code region); no direct caller/table entry
+	; found: entry HYPOTHESIS
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1872,7 +1838,8 @@ Function_27_4EC0:: ; 27:4EC0
 	call Function_00_047A
 	ld hl, $D800
 
-; ---- code $4ED3-$4EF5 (34 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
 	call Function_00_0392
@@ -1889,7 +1856,11 @@ Label_27_4EEB:: ; 27:4EEB
 	ld bc, $0000
 	ret
 
-; ---- code $4EF5-$4F0B (22 bytes) [PROBABLE] 11 insn(s) (call $05BD ; ldh a,[rLCDC] ; and $9F ; ldh [rLCDC],a ; xor a ; ldh [rSCX],a ; ldh [rSCY],a ; ld a,7 ; ldh [rOBP...],a ; ld a,$90 ; ldh [rWY],a) falling into the code at 4F0B; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
+	; [PROBABLE] 11 insn(s) (call $05BD ; ldh a,[rLCDC] ; and $9F ; ldh [rLCDC],a ; xor a ; ldh
+	; [rSCX],a ; ldh [rSCY],a ; ld a,7 ; ldh [rOBP...],a ; ld a,$90 ; ldh [rWY],a) falling into the
+	; code at 4F0B; well-formed instruction chain (clean decode, all direct targets land on
+	; instruction starts, lands exactly on the next code region); no direct caller/table entry
+	; found: entry HYPOTHESIS
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -1902,7 +1873,8 @@ Label_27_4EEB:: ; 27:4EEB
 	ld a, $90
 	ldh [rWY], a
 
-; ---- code $4F0B-$4FD8 (205 bytes) [PROBABLE] 72 insn(s) reached by static flow only; seeds: site x72; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 72 insn(s) reached by static flow only; seeds: site x72; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_09B6
 	ld de, $9001
 	ld hl, Data_51_4DB0
@@ -1942,12 +1914,11 @@ Label_27_4EEB:: ; 27:4EEB
 	ld l, a
 	ld h, $00
 	sub a, $3C
-	jr c, Label_27_4F84
+	jr c, .skip
 	ld hl, $003B
 	ld a, $3B
 	ldh [hRam_FFB1], a
-
-Label_27_4F84:: ; 27:4F84
+.skip ; 27:4F84
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FF9C
@@ -1989,9 +1960,9 @@ Table_27_4FD8:: ; 27:4FD8
 	dw Label_27_4FEB
 	dw Label_27_4FC0
 
-; ---- code $4FE2-$5048 (102 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0; entered by table from 27:4FD5 (PROBABLE code)
-
 Label_27_4FE2:: ; 27:4FE2
+	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0;
+	; entered by table from 27:4FD5 (PROBABLE code)
 	jp Label_27_4FEE
 
 Label_27_4FE5:: ; 27:4FE5
@@ -2014,13 +1985,12 @@ Function_27_4FFB:: ; 27:4FFB
 	bit 7, h
 	jr z, Function_27_4FFB
 	dec a
-	jr nz, Label_27_500B
+	jr nz, .l500B
 	ldh a, [hRam_FFB4]
 	or a, a
-	jr z, Label_27_5016
+	jr z, .l5016
 	ld a, $00
-
-Label_27_500B:: ; 27:500B
+.l500B ; 27:500B
 	push bc
 	push hl
 	call Function_27_5021
@@ -2028,8 +1998,7 @@ Label_27_500B:: ; 27:500B
 	pop bc
 	ld a, $FF
 	ldh [hRam_FFB4], a
-
-Label_27_5016:: ; 27:5016
+.l5016 ; 27:5016
 	inc de
 	dec bc
 	ld a, c

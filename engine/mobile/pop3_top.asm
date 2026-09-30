@@ -4,10 +4,10 @@
 
 SECTION "engine/mobile/pop3_top", ROMX
 
-; ---- code $485C-$4895 (57 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Pop3_StartLogin:: ; 54:485C
 Function_54_485C::
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wMobileRetriesLeft], a
@@ -22,61 +22,60 @@ Function_54_485C::
 	farcall CopyString
 	ld a, [wMobileFlags]
 	bit 0, a
-	jr nz, Label_54_4895
+	jr nz, .l4895
 	ld hl, $C480
 	ld a, $1E
 	farcall MobileAPI
 	ret
 
-; ---- code $4895-$489B (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4887 (executed)
-
-Label_54_4895:: ; 54:4895
+.l4895 ; 54:4895
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jrcc from 54:4887 (executed)
 	ld a, $02
 	ld [wMobileTaskStep], a
 	ret
 
-; ---- code $489B-$48B2 (23 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Pop3_LoginStatPoll:: ; 54:489B
 Function_54_489B::
+	; [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Mobile_CheckTimeout
 	farcall MailSession_UpdateTimerDisplay
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_54_48B2
+	jr nz, .l48B2
 	bit 0, a
-	jr z, Label_54_48B8
+	jr z, .l48B8
 	ld a, $01
 	ret
 
-; ---- code $48B2-$48B8 (6 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
-
-Label_54_48B2:: ; 54:48B2
+.l48B2 ; 54:48B2
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jrcc from 54:48A9 (executed) [executed in 2 scenarios]
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
-; ---- code $48B8-$48C3 (11 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-
-Label_54_48B8:: ; 54:48B8
+.l48B8 ; 54:48B8
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	ld hl, $C1D9
 	inc [hl]
 	ld a, [hl]
 	dec a
-	jr z, Label_54_48F9
+	jr z, .l48F9
 	dec a
-	jr z, Label_54_4907
+	jr z, .l4907
 
-; ---- code $48C3-$48F9 (54 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 54:48C1 (executed)
+	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0;
+	; fall-through of the jrcc at 54:48C1 (executed)
 	dec a
-	jr z, Label_54_48C9
+	jr z, .l48C9
 	ld a, $FF
 	ret
-
-Label_54_48C9:: ; 54:48C9
+.l48C9 ; 54:48C9
 	ld a, [wMobileFlags]
 	bit 0, a
-	jr nz, Label_54_48F5
+	jr nz, .l48F5
 	xor a, a
 	ld [hl], a
 	ld hl, $C201
@@ -89,22 +88,19 @@ Label_54_48C9:: ; 54:48C9
 	farcall MobileAPI
 	ld a, $01
 	ret
-
-Label_54_48F5:: ; 54:48F5
+.l48F5 ; 54:48F5
 	dec [hl]
 	ld a, $01
 	ret
 
-; ---- code $48F9-$4914 (27 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
-
-Label_54_48F9:: ; 54:48F9
+.l48F9 ; 54:48F9
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld a, $20
 	ld de, $C240
 	farcall MobileAPI
 	ld a, $01
 	ret
-
-Label_54_4907:: ; 54:4907
+.l4907 ; 54:4907
 	ld hl, $C1D8
 	xor a, a
 	ld [hl], a
@@ -115,9 +111,10 @@ Label_54_4907:: ; 54:4907
 	xor a, a
 	ret
 
-; ---- code $4914-$4984 (112 bytes) [CONFIRMED] 87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code) | 54 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 2 scenarios]
-
 Pop3_StartTop:: ; 54:4914
+	; [CONFIRMED] 87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9;
+	; entered by far from 23:4D97 (PROBABLE code) | 54 insn(s) executed; cut out of the PROBABLE
+	; region 4914-49E0 by apply_coverage --split [executed in 2 scenarios]
 	push hl
 	push bc
 	call Mobile_ResetCommandTimer
@@ -134,14 +131,13 @@ Pop3_StartTop:: ; 54:4914
 	push hl
 	ld hl, $C480
 	ld bc, $0200
-
-Label_54_4933:: ; 54:4933
+.loop ; 54:4933
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_54_4933
+	jr nz, .loop
 	pop hl
 	ld a, $01
 	ld [wMobileTaskKind], a
@@ -166,22 +162,21 @@ Pop3_TopPoll:: ; 54:4969
 	call Mobile_CheckTimeout
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr nz, Label_54_497E
+	jr nz, .l497E
 	bit 2, a
-	jr nz, Label_54_4984
+	jr nz, .l4984
 	bit 0, a
-	jr z, Label_54_4995
+	jr z, .l4995
 	ld a, $01
 	ret
-
-Label_54_497E:: ; 54:497E
+.l497E ; 54:497E
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
 
-; ---- code $4984-$4995 (17 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
-
-Label_54_4984:: ; 54:4984
+.l4984 ; 54:4984
+	; [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4914-49E0 by apply_coverage --split
 	ld de, $C480
 	ld bc, $0000
 	ld a, $28
@@ -189,9 +184,9 @@ Label_54_4984:: ; 54:4984
 	ld a, $01
 	ret
 
-; ---- code $4995-$49B0 (27 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 1 scenarios]
-
-Label_54_4995:: ; 54:4995
+.l4995 ; 54:4995
+	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -206,7 +201,8 @@ Label_54_4995:: ; 54:4995
 	cp a, $01
 	jp nz, Label_54_4BE8
 
-; ---- code $49B0-$49E0 (48 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
+	; [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4914-49E0 by apply_coverage --split
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -231,29 +227,28 @@ String_54_49E0::
 String_Mail_PleaseDelete:: ; 54:4A01
 	db $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00 ; "けしてください。"
 
-; ---- code $4A12-$4AC2 (176 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
-
 Label_54_4A12:: ; 54:4A12
+	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12;
+	; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE
+	; region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
 	ld a, [wMobileTaskArgs]
 	cp a, $01
-	jp z, Label_54_4A24
+	jp z, .l4A24
 	ld a, b
 	or a, a
 	jp z, Label_54_4BEC
 	ld b, $00
 	jp Label_54_4BC6
-
-Label_54_4A24:: ; 54:4A24
+.l4A24 ; 54:4A24
 	ld a, b
 	ld [sSram_B4FF], a
 	ld hl, $B400
 	ld b, $FA
 	xor a, a
-
-Label_54_4A2E:: ; 54:4A2E
+.l4A2E ; 54:4A2E
 	ld [hli], a
 	dec b
-	jr nz, Label_54_4A2E
+	jr nz, .l4A2E
 	ld de, $C240
 	ld hl, Data_54_4C35
 	ld bc, $0008
@@ -269,7 +264,7 @@ Label_54_4A2E:: ; 54:4A2E
 	ld de, $C240
 	farcall Function_00_0247
 	or a, a
-	jr nz, Label_54_4A8A
+	jr nz, .l4A8A
 	ld de, $C480
 	add hl, de
 	xor a, a
@@ -284,8 +279,7 @@ Label_54_4A2E:: ; 54:4A2E
 	ld b, $13
 	ld hl, $B470
 	call Text_TruncateSjis
-
-Label_54_4A8A:: ; 54:4A8A
+.l4A8A ; 54:4A8A
 	ld a, $0A
 	ld [wRam_C240], a
 	ld a, $05
@@ -307,17 +301,17 @@ Label_54_4A8A:: ; 54:4A8A
 	call Text_TruncateSjis
 	ld hl, $C480
 	ld de, String_Mail_GameTitle
-
-Label_54_4AB9:: ; 54:4AB9
+.l4AB9 ; 54:4AB9
 	ld a, [de]
 	inc de
 	or a, a
 	jr z, Label_54_4AE6
 	cp a, [hl]
 	inc hl
-	jr z, Label_54_4AB9
+	jr z, .l4AB9
 
-; ---- code $4AC2-$4AD0 (14 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4A12-4AD0 by apply_coverage --split
 	ld de, $B430
 	ld hl, $C480
 	farcall CopyString
@@ -335,9 +329,10 @@ String_Mail_GameTitle:: ; 54:4AD7
 String_54_4AD7::
 	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "MOBILE TRAINER"
 
-; ---- code $4AE6-$4BAC (198 bytes) [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
-
 Label_54_4AE6:: ; 54:4AE6
+	; [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12;
+	; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE
+	; region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
 	ld de, $B430
 	ld hl, String_Mail_DefaultSource
 	farcall CopyString
@@ -352,14 +347,13 @@ Label_54_4AF2:: ; 54:4AF2
 	ld de, $C240
 	farcall Function_00_0247
 	or a, a
-	jr nz, Label_54_4B1D
+	jr nz, .l4B1D
 	call Mail_ParseDate
 	ld de, $B400
 	ld hl, $C580
 	ld bc, $0006
 	farcall CopyBytes
-
-Label_54_4B1D:: ; 54:4B1D
+.l4B1D ; 54:4B1D
 	ld a, $05
 	ld [wRam_C240], a
 	ld a, $05
@@ -369,7 +363,7 @@ Label_54_4B1D:: ; 54:4B1D
 	ld de, $C240
 	farcall Function_00_0247
 	or a, a
-	jr nz, Label_54_4B6F
+	jr nz, .l4B6F
 	ld de, $C480
 	add hl, de
 	xor a, a
@@ -377,11 +371,10 @@ Label_54_4B1D:: ; 54:4B1D
 	ld hl, $B410
 	ld b, $1A
 	xor a, a
-
-Label_54_4B42:: ; 54:4B42
+.l4B42 ; 54:4B42
 	ld [hli], a
 	dec b
-	jr nz, Label_54_4B42
+	jr nz, .l4B42
 	ld de, $B410
 	ld hl, $C480
 	ld bc, $0018
@@ -389,20 +382,18 @@ Label_54_4B42:: ; 54:4B42
 	ld hl, $B410
 	ld hl, $B410
 	ld b, $FF
-
-Label_54_4B5D:: ; 54:4B5D
+.l4B5D ; 54:4B5D
 	inc b
 	ld a, [hli]
 	or a, a
-	jr nz, Label_54_4B5D
+	jr nz, .l4B5D
 	ld a, b
 	cp a, $15
-	jr c, Label_54_4B6F
+	jr c, .l4B6F
 	ld b, $12
 	ld hl, $B410
 	call Text_TruncateSjis
-
-Label_54_4B6F:: ; 54:4B6F
+.l4B6F ; 54:4B6F
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -423,26 +414,28 @@ Label_54_4B6F:: ; 54:4B6F
 	ld hl, $B450
 	ld a, [hl]
 	or a, a
-	jr nz, Label_54_4BAF
+	jr nz, .l4BAF
 
-; ---- code $4BAC-$4BAF (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4AE6-4C2A by apply_coverage --split
 	ld hl, $B470
 
-; ---- code $4BAF-$4BBD (14 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
-
-Label_54_4BAF:: ; 54:4BAF
+.l4BAF ; 54:4BAF
+	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage
+	; --split [executed in 7 scenarios]
 	farcall CopyString
 	ld c, $00
 	ld a, [sSram_B450]
 	or a, a
-	jr nz, Label_54_4BBE
+	jr nz, .l4BBE
 
-; ---- code $4BBD-$4BBE (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4AE6-4C2A by apply_coverage --split
 	inc c
 
-; ---- code $4BBE-$4C26 (104 bytes) [CONFIRMED] 48 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
-
-Label_54_4BBE:: ; 54:4BBE
+.l4BBE ; 54:4BBE
+	; [CONFIRMED] 48 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage
+	; --split [executed in 7 scenarios]
 	ld a, [sSram_B4FF]
 	or a, a
 	jr z, Label_54_4BEC
@@ -490,17 +483,17 @@ Label_54_4BEC:: ; 54:4BEC
 	ld b, $0B
 	ld hl, $C480
 	ld de, String_Mail_GameCodeCrystal
-
-Label_54_4C1D:: ; 54:4C1D
+.loop ; 54:4C1D
 	ld a, [de]
 	cp a, [hl]
 	jr nz, Label_54_4BE8
 	inc hl
 	inc de
 	dec b
-	jr nz, Label_54_4C1D
+	jr nz, .loop
 
-; ---- code $4C26-$4C2A (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4AE6-4C2A by apply_coverage --split
 	ld b, $02
 	jr Label_54_4BC6
 

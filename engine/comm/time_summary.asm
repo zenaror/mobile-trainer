@@ -4,9 +4,9 @@
 
 SECTION "engine/comm/time_summary", ROMX
 
-; ---- code $4000-$404A (74 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by far from 24:4168 (PROBABLE code) [executed in 4 scenarios]
-
 CommTime_ShowSummary:: ; 51:4000
+	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
+	; entered by far from 24:4168 (PROBABLE code) [executed in 4 scenarios]
 	call CommTime_DrawSummaryScreen
 	call CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
@@ -40,10 +40,10 @@ CommTime_ShowSummary:: ; 51:4000
 	ld [rRAMG], a
 	ret
 
-; ---- code $404A-$40BF (117 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 CommTime_DrawSummaryScreen:: ; 51:404A
 Function_51_404A::
+	; [CONFIRMED] 42 insn(s); 42 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -62,7 +62,7 @@ Function_51_404A::
 	jp z, Label_51_41D3
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_51_40BF
+	jr z, .l40BF
 	ld de, $9001
 	ld hl, Data_51_4DB0
 	ld a, $51
@@ -85,11 +85,11 @@ Function_51_404A::
 	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
 	farcall Function_00_08EA
-	jr Label_51_4105
+	jr .l4105
 
-; ---- code $40BF-$4105 (70 bytes) [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 51:4075 (executed) [executed in 1 scenarios]
-
-Label_51_40BF:: ; 51:40BF
+.l40BF ; 51:40BF
+	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
+	; entered by jrcc from 51:4075 (executed) [executed in 1 scenarios]
 	ld de, $9001
 	ld hl, Data_51_42A0
 	ld a, $51
@@ -113,38 +113,36 @@ Label_51_40BF:: ; 51:40BF
 	ld a, $51
 	farcall Function_00_08EA
 
-; ---- code $4105-$4112 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-
-Label_51_4105:: ; 51:4105
+.l4105 ; 51:4105
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
 	cp a, $3C
 	ld a, [wTimerASeconds]
-	jr c, Label_51_4117
+	jr c, .skip
 
-; ---- code $4112-$4117 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 51:4110 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 51:4110 (executed)
 	ld hl, $003B
 	ld a, $3B
 
-; ---- code $4117-$4125 (14 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-
-Label_51_4117:: ; 51:4117
+.skip ; 51:4117
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	ldh [hRam_FFB1], a
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_51_4125
+	jr z, .l4125
 	ld de, $D162
-	jr Label_51_4128
+	jr .l4128
 
-; ---- code $4125-$4128 (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:411E (executed) [executed in 1 scenarios]
-
-Label_51_4125:: ; 51:4125
+.l4125 ; 51:4125
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 51:411E (executed) [executed in 1 scenarios]
 	ld de, $D162
 
-; ---- code $4128-$4147 (31 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
-
-Label_51_4128:: ; 51:4128
+.l4128 ; 51:4128
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FF9C
@@ -155,18 +153,17 @@ Label_51_4128:: ; 51:4128
 	call CommTime_PutDigit
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_51_4147
+	jr z, .l4147
 	ld de, $D167
-	jr Label_51_414A
+	jr .l414A
 
-; ---- code $4147-$414A (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 51:4140 (executed) [executed in 1 scenarios]
-
-Label_51_4147:: ; 51:4147
+.l4147 ; 51:4147
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 51:4140 (executed) [executed in 1 scenarios]
 	ld de, $D167
 
-; ---- code $414A-$4186 (60 bytes) [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
-
-Label_51_414A:: ; 51:414A
+.l414A ; 51:414A
+	; [CONFIRMED] 25 insn(s); 25 executed (in up to 2/18 scenarios)
 	ldh a, [hRam_FFB1]
 	ld l, a
 	ld h, $00
@@ -182,7 +179,7 @@ Label_51_414A:: ; 51:414A
 	farcall Palette_FadeInFromWhite
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_51_4186
+	jr z, .l4186
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -191,11 +188,11 @@ Label_51_414A:: ; 51:414A
 	call Function_00_20E8
 	pop af
 	ldh [rSVBK], a
-	jr Label_51_4196
+	jr .l4196
 
-; ---- code $4186-$4196 (16 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 51:4172 (executed) [executed in 1 scenarios]
-
-Label_51_4186:: ; 51:4186
+.l4186 ; 51:4186
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
+	; entered by jrcc from 51:4172 (executed) [executed in 1 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -205,9 +202,8 @@ Label_51_4186:: ; 51:4186
 	pop af
 	ldh [rSVBK], a
 
-; ---- code $4196-$41B1 (27 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
-
-Label_51_4196:: ; 51:4196
+.l4196 ; 51:4196
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 2/18 scenarios)
 	xor a, a
 	ldh [hDialogResult], a
 
@@ -227,14 +223,13 @@ Table_51_41B1:: ; 51:41B1
 	dw Label_51_41C4
 	dw Label_51_4199
 
-; ---- code $41BB-$41BE (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 2/18 scenarios)
-
 Label_51_41BB:: ; 51:41BB
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 2/18 scenarios)
 	jp Label_51_41C7
 
-; ---- code $41BE-$41C7 (9 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by table from 51:41AE (executed) [executed in 2 scenarios]
-
 Label_51_41BE:: ; 51:41BE
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by table from 51:41AE (executed) [executed in 2 scenarios]
 	jp Label_51_4199
 
 Label_51_41C1:: ; 51:41C1
@@ -243,9 +238,8 @@ Label_51_41C1:: ; 51:41C1
 Label_51_41C4:: ; 51:41C4
 	jp Label_51_4199
 
-; ---- code $41C7-$41E6 (31 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
-
 Label_51_41C7:: ; 51:41C7
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 
@@ -260,17 +254,19 @@ CommTime_DrawNumber:: ; 51:41D8
 	bit 7, h
 	jr z, CommTime_DrawNumber
 	dec a
-	jr nz, Label_51_41E8
+	jr nz, .l41E8
 	ldh a, [hRam_FFB4]
 	or a, a
-	jr z, Label_51_41F3
+	jr z, .l41F3
 
-; ---- code $41E6-$41E8 (2 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 51:41E4 (executed) | 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 41E6-41F3 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
+	; fall-through of the jrcc at 51:41E4 (executed) | 1 insn(s) never executed in the traced runs;
+	; cut out of the PROBABLE region 41E6-41F3 by apply_coverage --split
 	ld a, $00
 
-; ---- code $41E8-$41F3 (11 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 41E6-41F3 by apply_coverage --split [executed in 20 scenarios]
-
-Label_51_41E8:: ; 51:41E8
+.l41E8 ; 51:41E8
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 41E6-41F3 by apply_coverage
+	; --split [executed in 20 scenarios]
 	push bc
 	push hl
 	call CommTime_PutDigit
@@ -279,9 +275,8 @@ Label_51_41E8:: ; 51:41E8
 	ld a, $FF
 	ldh [hRam_FFB4], a
 
-; ---- code $41F3-$4225 (50 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
-
-Label_51_41F3:: ; 51:41F3
+.l41F3 ; 51:41F3
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
 	inc de
 	dec bc
 	ld a, c
@@ -331,10 +326,10 @@ Data_51_4225::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 
-; ---- code $4239-$426C (51 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-
 CommTime_TimerAIsNonZero:: ; 51:4239
 Function_51_4239::
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 7/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push hl
 	ld hl, $C2D4
 	ld a, [hli]
@@ -364,49 +359,48 @@ CommTime_AddTimerA:: ; 51:425F
 	add a, [hl]
 	ldh [hRam_FFB0], a
 	sub a, $3C
-	jr c, Label_51_426F
+	jr c, .l426F
 
-; ---- code $426C-$426F (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 51:426A (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 51:426A (executed)
 	ldh [hRam_FFB0], a
 	xor a, a
 
-; ---- code $426F-$427B (12 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 5/18 scenarios)
-
-Label_51_426F:: ; 51:426F
+.l426F ; 51:426F
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 5/18 scenarios)
 	ccf
 	inc hl
 	ld a, [wTimerASeconds]
 	adc a, [hl]
 	ldh [hRam_FFB1], a
 	sub a, $3C
-	jr c, Label_51_427E
+	jr c, .l427E
 
-; ---- code $427B-$427E (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 51:4279 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 51:4279 (executed)
 	ldh [hRam_FFB1], a
 	xor a, a
 
-; ---- code $427E-$428C (14 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 5/18 scenarios)
-
-Label_51_427E:: ; 51:427E
+.l427E ; 51:427E
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 5/18 scenarios)
 	ccf
 	inc hl
 	ld a, [wTimerAMinutes]
 	adc a, [hl]
 	ldh [hRam_FFB2], a
-	jr c, Label_51_428C
+	jr c, .l428C
 	cp a, $3C
-	jr c, Label_51_4292
+	jr c, .l4292
 
-; ---- code $428C-$4292 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; entered by jrcc from 51:4286 (executed)
-
-Label_51_428C:: ; 51:428C
+.l428C ; 51:428C
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; entered by jrcc from 51:4286 (executed)
 	ld a, $3B
 	ldh [hRam_FFB2], a
 	ldh [hRam_FFB1], a
 
-; ---- code $4292-$429A (8 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
-
-Label_51_4292:: ; 51:4292
+.l4292 ; 51:4292
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 5/18 scenarios)
 	ldh a, [hRam_FFB2]
 	ld l, a
 	ld h, $00

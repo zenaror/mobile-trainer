@@ -4,9 +4,9 @@
 
 SECTION "engine/settings/choice_menu", ROMX
 
-; ---- code $4631-$486D (572 bytes) [CONFIRMED] 275 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage --split [executed in 1 scenarios] (part of region $45AB-$486D)
-
 SettingsPhone_ChoiceMenu:: ; 67:4631
+	; [CONFIRMED] 275 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage
+	; --split [executed in 1 scenarios] (part of region $45AB-$486D)
 	ld [wRam_C27E], a
 	call SettingsPhone_ChoiceMenu_Setup
 	farcall Palette_FadeInFromWhite
@@ -29,16 +29,14 @@ SettingsPhone_ChoiceMenu:: ; 67:4631
 	ld [rRAMG], a
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_4678
+	jr nz, .l4678
 	ld a, [wRam_C27D]
 	ld [sPhoneTopMenuCursor], a
-	jr Label_67_467E
-
-Label_67_4678:: ; 67:4678
+	jr .l467E
+.l4678 ; 67:4678
 	ld a, [wRam_C27D]
 	ld [sPhoneMethodMenuCursor], a
-
-Label_67_467E:: ; 67:467E
+.l467E ; 67:467E
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -60,14 +58,12 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld [rRAMG], a
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_46B5
+	jr nz, .l46B5
 	ld a, [sPhoneTopMenuCursor]
-	jr Label_67_46B8
-
-Label_67_46B5:: ; 67:46B5
+	jr .l46B8
+.l46B5 ; 67:46B5
 	ld a, [sPhoneMethodMenuCursor]
-
-Label_67_46B8:: ; 67:46B8
+.l46B8 ; 67:46B8
 	ld b, a
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -76,7 +72,7 @@ Label_67_46B8:: ; 67:46B8
 	ld [wRam_C27D], a
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_4724
+	jr nz, .l4724
 	ld de, $8801
 	ld hl, $4110
 	ld a, $4D
@@ -106,9 +102,8 @@ Label_67_46B8:: ; 67:46B8
 	ld hl, $5540
 	ld a, $4D
 	farcall Function_00_08EA
-	jr Label_67_477D
-
-Label_67_4724:: ; 67:4724
+	jr .l477D
+.l4724 ; 67:4724
 	ld de, $8801
 	ld hl, $4C10
 	ld a, $4D
@@ -138,8 +133,7 @@ Label_67_4724:: ; 67:4724
 	ld hl, Data_4D_5810
 	ld a, $4D
 	farcall Function_00_08EA
-
-Label_67_477D:: ; 67:477D
+.l477D ; 67:477D
 	ld de, $8001
 	ld hl, Data_4D_4000
 	ld a, $4D
@@ -177,16 +171,15 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_67_47FF
+	jr nz, .l47FF
 	bit 1, a
-	jr nz, Label_67_4817
+	jr nz, .l4817
 	bit 6, a
-	jr nz, Label_67_482C
+	jr nz, .l482C
 	bit 7, a
-	jr nz, Label_67_482C
+	jr nz, .l482C
 	jr SettingsPhone_ChoiceMenu_Loop
-
-Label_67_47FF:: ; 67:47FF
+.l47FF ; 67:47FF
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -199,8 +192,7 @@ Label_67_47FF:: ; 67:47FF
 	inc a
 	ld [wRam_C27C], a
 	ret
-
-Label_67_4817:: ; 67:4817
+.l4817 ; 67:4817
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -212,8 +204,7 @@ Label_67_4817:: ; 67:4817
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_67_482C:: ; 67:482C
+.l482C ; 67:482C
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -230,9 +221,8 @@ Label_67_482C:: ; 67:482C
 	call SettingsPhone_ChoiceMenu_LoadTilemap
 	ldh a, [rLCDC]
 	call Function_00_082C
-	jr Label_67_4852
-
-Label_67_4852:: ; 67:4852
+	jr .l4852
+.l4852 ; 67:4852
 	jp SettingsPhone_ChoiceMenu_Loop
 
 SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
@@ -258,9 +248,9 @@ SettingsPhone_ChoiceMenu_CursorPos:: ; 67:486D
 Data_67_486D::
 	db $10, $17, $10, $2F
 
-; ---- code $4871-$491C (171 bytes) [CONFIRMED] 74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 6; entered by call from 67:47BA (PROBABLE code) [executed in 2 scenarios]
-
 SettingsPhone_ChoiceMenu_BuildTextMap:: ; 67:4871
+	; [CONFIRMED] 74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 6;
+	; entered by call from 67:47BA (PROBABLE code) [executed in 2 scenarios]
 	ld hl, $D121
 	ld de, $0000
 	ld bc, $0612
@@ -300,16 +290,14 @@ SettingsPhone_ChoiceMenu_PrintPrompt:: ; 67:4881
 	ldh [hRam_FFC7], a
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_48D4
+	jr nz, .l48D4
 	ld a, $08
 	farcall Function_00_153D
-	jr Label_67_48DC
-
-Label_67_48D4:: ; 67:48D4
+	jr .l48DC
+.l48D4 ; 67:48D4
 	ld a, $09
 	farcall Function_00_153D
-
-Label_67_48DC:: ; 67:48DC
+.l48DC ; 67:48DC
 	call Function_00_0ED3
 	ret
 
@@ -325,14 +313,12 @@ SettingsPhone_ChoiceMenu_LoadTilemap:: ; 67:48F0
 	ld c, a
 	ld a, [wRam_C27E]
 	or a, a
-	jr nz, Label_67_48FD
+	jr nz, .l48FD
 	xor a, a
-	jr Label_67_48FF
-
-Label_67_48FD:: ; 67:48FD
+	jr .l48FF
+.l48FD ; 67:48FD
 	ld a, $02
-
-Label_67_48FF:: ; 67:48FF
+.l48FF ; 67:48FF
 	add a, c
 	ld de, $D063
 	ld bc, $050E

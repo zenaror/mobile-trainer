@@ -4,23 +4,21 @@
 
 SECTION "engine/browser/scrollbar", ROMX
 
-; ---- code $5B69-$5CB6 (333 bytes) [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage --split [executed in 1 scenarios] (part of region $5B59-$5CB6)
-
 Browser_ShiftCanvasUp:: ; 4E:5B69
+	; [CONFIRMED] 272 insn(s) executed; cut out of the PROBABLE region 5A6D-5CB6 by apply_coverage
+	; --split [executed in 1 scenarios] (part of region $5B59-$5CB6)
 	ld de, $D000
 	ld hl, $D148
 	ld b, $13
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_4E_5B77:: ; 4E:5B77
+.l5B77 ; 4E:5B77
 	push bc
 	push de
 	push hl
 	ld b, $0A
-
-Label_4E_5B7C:: ; 4E:5B7C
+.l5B7C ; 4E:5B7C
 	call Function_00_0392
 	ld a, [hli]
 	ld [de], a
@@ -83,7 +81,7 @@ Label_4E_5B7C:: ; 4E:5B7C
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, Label_4E_5B7C
+	jr nz, .l5B7C
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -124,14 +122,13 @@ Label_4E_5B7C:: ; 4E:5B7C
 	adc a, d
 	ld d, a
 	dec b
-	jp nz, Label_4E_5B77
+	jp nz, .l5B77
 	call Function_00_0392
 	ld hl, $DC88
 	ld de, $0008
 	ld b, $14
 	xor a, a
-
-Label_4E_5BFD:: ; 4E:5BFD
+.l5BFD ; 4E:5BFD
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -142,7 +139,7 @@ Label_4E_5BFD:: ; 4E:5BFD
 	ld [hli], a
 	add hl, de
 	dec b
-	jr nz, Label_4E_5BFD
+	jr nz, .l5BFD
 	ld bc, $0140
 	call FillBytes
 	ret
@@ -154,14 +151,12 @@ Browser_ShiftCanvasDown:: ; 4E:5C10
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_4E_5C1E:: ; 4E:5C1E
+.l5C1E ; 4E:5C1E
 	push bc
 	push de
 	push hl
 	ld b, $0A
-
-Label_4E_5C23:: ; 4E:5C23
+.l5C23 ; 4E:5C23
 	call Function_00_0392
 	ld a, [hld]
 	ld [de], a
@@ -224,7 +219,7 @@ Label_4E_5C23:: ; 4E:5C23
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, Label_4E_5C23
+	jr nz, .l5C23
 	ld a, [hld]
 	ld [de], a
 	dec de
@@ -264,7 +259,7 @@ Label_4E_5C23:: ; 4E:5C23
 	adc a, d
 	ld d, a
 	dec b
-	jp nz, Label_4E_5C1E
+	jp nz, .l5C1E
 	call Function_00_0392
 	ld hl, $D000
 	ld bc, $0140
@@ -272,8 +267,7 @@ Label_4E_5C23:: ; 4E:5C23
 	call FillBytes
 	ld b, $14
 	ld de, $0008
-
-Label_4E_5CA9:: ; 4E:5CA9
+.l5CA9 ; 4E:5CA9
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -284,19 +278,19 @@ Label_4E_5CA9:: ; 4E:5CA9
 	ld [hli], a
 	add hl, de
 	dec b
-	jr nz, Label_4E_5CA9
+	jr nz, .l5CA9
 	ret
-
-; ---- code $5CB6-$5D32 (124 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 Browser_LoadScrollbarGfx:: ; 4E:5CB6
 Function_4E_5CB6::
+	; [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_4E_5D32
+	jr z, .l5D32
 	ld a, [wBrowserFrameStyle]
 	cp a, $02
-	jr z, Label_4E_5CFB
+	jr z, .l5CFB
 	ld de, $8FF0
 	ld hl, Data_47_4080
 	ld a, $47
@@ -314,9 +308,8 @@ Function_4E_5CB6::
 	ld a, $72
 	ld b, $83
 	farcall Function_00_0A82
-	jp Label_4E_5D66
-
-Label_4E_5CFB:: ; 4E:5CFB
+	jp .l5D66
+.l5CFB ; 4E:5CFB
 	ld de, $8FF0
 	ld hl, Data_47_40C0
 	ld a, $47
@@ -334,11 +327,11 @@ Label_4E_5CFB:: ; 4E:5CFB
 	ld a, $72
 	ld b, $84
 	farcall Function_00_0A82
-	jp Label_4E_5D66
+	jp .l5D66
 
-; ---- code $5D32-$5D66 (52 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jrcc from 4E:5CBB (executed) [executed in 2 scenarios]
-
-Label_4E_5D32:: ; 4E:5D32
+.l5D32 ; 4E:5D32
+	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
+	; entered by jrcc from 4E:5CBB (executed) [executed in 2 scenarios]
 	ld de, $8FF0
 	ld hl, Data_47_4000
 	ld a, $47
@@ -357,17 +350,18 @@ Label_4E_5D32:: ; 4E:5D32
 	ld b, $81
 	farcall Function_00_0A82
 
-; ---- code $5D66-$5D70 (10 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
-
-Label_4E_5D66:: ; 4E:5D66
+.l5D66 ; 4E:5D66
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
 	ret
 
-; ---- code $5D70-$5D93 (35 bytes) [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000 right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair, b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the executed code 4E:5D93; contiguous with the code region at 5D93; no external caller found
-
 Function_4E_5D70:: ; 4E:5D70
+	; [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000
+	; right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair,
+	; b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the
+	; executed code 4E:5D93; contiguous with the code region at 5D93; no external caller found
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -392,7 +386,8 @@ Function_4E_5D70:: ; 4E:5D70
 	ld bc, $1214
 	ld de, $D000
 
-; ---- code $5D93-$5E11 (126 bytes) [PROBABLE] 59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_08EA
 	ld a, [wBrowserFrameStyle]
 	push bc
@@ -453,10 +448,10 @@ Function_4E_5D70:: ; 4E:5D70
 	call Function_00_0A65
 	ret
 
-; ---- code $5E11-$5F34 (291 bytes) [CONFIRMED] 175 insn(s); 175 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_DrawScrollbarTrack:: ; 4E:5E11
 Function_4E_5E11::
+	; [CONFIRMED] 175 insn(s); 175 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wBrowserScrollbarEnable]
 	or a, a
 	ret z
@@ -490,12 +485,11 @@ Function_4E_5E11::
 	ld [hl], a
 	add hl, de
 	inc a
-
-Label_4E_5E43:: ; 4E:5E43
+.l5E43 ; 4E:5E43
 	ld [hl], a
 	add hl, de
 	dec c
-	jr nz, Label_4E_5E43
+	jr nz, .l5E43
 	inc a
 	ld [hl], a
 	pop hl
@@ -504,12 +498,11 @@ Label_4E_5E43:: ; 4E:5E43
 	ld c, $0C
 	ld a, $05
 	ld de, $0020
-
-Label_4E_5E56:: ; 4E:5E56
+.l5E56 ; 4E:5E56
 	ld [hl], a
 	add hl, de
 	dec c
-	jr nz, Label_4E_5E56
+	jr nz, .l5E56
 
 Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ld a, [wBrowserScrollbarEnable]
@@ -544,7 +537,7 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ldh a, [hViewScrollMax + 1]
 	ld b, a
 	or a, c
-	jr z, Label_4E_5EB9
+	jr z, .l5EB9
 	ldh a, [hViewY]
 	ld l, a
 	ldh a, [hViewY + 1]
@@ -567,19 +560,17 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ld a, $00
 	adc a, d
 	ld d, a
-	jr nz, Label_4E_5EBB
-	jr c, Label_4E_5EBB
+	jr nz, .l5EBB
+	jr c, .l5EBB
 	ld a, e
 	ld [hli], a
 	ld a, c
 	ld [hli], a
 	ret
-
-Label_4E_5EB9:: ; 4E:5EB9
+.l5EB9 ; 4E:5EB9
 	pop bc
 	pop hl
-
-Label_4E_5EBB:: ; 4E:5EBB
+.l5EBB ; 4E:5EBB
 	ld a, $C0
 	ld [hli], a
 	ld [hli], a
@@ -616,17 +607,16 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ret c
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_4E_5F34
+	jr z, .l5F34
 	ld a, [wBrowserFrameStyle]
 	cp a, $02
-	jr z, Label_4E_5F46
+	jr z, .l5F46
 	ld hl, $DAB0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $86
 	farcall Function_00_0A82
-
-Label_4E_5F15:: ; 4E:5F15
+.loop ; 4E:5F15
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -647,42 +637,40 @@ Label_4E_5F15:: ; 4E:5F15
 	ld hl, $DAB0
 	jp Function_00_0A65
 
-; ---- code $5F34-$5F46 (18 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jrcc from 4E:5EFC (executed) [executed in 1 scenarios]
-
-Label_4E_5F34:: ; 4E:5F34
+.l5F34 ; 4E:5F34
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
+	; entered by jrcc from 4E:5EFC (executed) [executed in 1 scenarios]
 	ld hl, $DAB0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $89
 	farcall Function_00_0A82
-	jr Label_4E_5F15
+	jr .loop
 
-; ---- code $5F46-$5F58 (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
-Label_4E_5F46:: ; 4E:5F46
+.l5F46 ; 4E:5F46
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld hl, $DAB0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8B
 	farcall Function_00_0A82
-	jr Label_4E_5F15
-
-; ---- code $5F58-$5FB9 (97 bytes) [CONFIRMED] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by callcc from 4E:5EEA (executed) [executed in 1 scenarios]
+	jr .loop
 
 Browser_ShowUpArrow:: ; 4E:5F58
+	; [CONFIRMED] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1;
+	; entered by callcc from 4E:5EEA (executed) [executed in 1 scenarios]
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jr z, Label_4E_5F95
+	jr z, .l5F95
 	ld a, [wBrowserFrameStyle]
 	cp a, $02
-	jr z, Label_4E_5FA7
+	jr z, .l5FA7
 	ld hl, $DAA0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $85
 	farcall Function_00_0A82
-
-Label_4E_5F76:: ; 4E:5F76
+.loop ; 4E:5F76
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -702,19 +690,17 @@ Label_4E_5F76:: ; 4E:5F76
 	ld d, [hl]
 	ld hl, $DAA0
 	jp Function_00_0A65
-
-Label_4E_5F95:: ; 4E:5F95
+.l5F95 ; 4E:5F95
 	ld hl, $DAA0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $88
 	farcall Function_00_0A82
-	jr Label_4E_5F76
-
-Label_4E_5FA7:: ; 4E:5FA7
+	jr .loop
+.l5FA7 ; 4E:5FA7
 	ld hl, $DAA0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8A
 	farcall Function_00_0A82
-	jr Label_4E_5F76
+	jr .loop

@@ -4,9 +4,8 @@
 
 SECTION "home/multiply", ROM0
 
-; ---- code $0BD4-$0BDE (10 bytes) [PROBABLE] HL = A*E (calls 0BFC with D=0), preserves AF and DE [candidate; no static referrer]
-
 Function_00_0BD4:: ; 00:0BD4
+	; [PROBABLE] HL = A*E (calls 0BFC with D=0), preserves AF and DE [candidate; no static referrer]
 	push af
 	push de
 	ld d, $00
@@ -15,9 +14,8 @@ Function_00_0BD4:: ; 00:0BD4
 	pop af
 	ret
 
-; ---- code $0BDE-$0BE8 (10 bytes) [PROBABLE] HL = BC*DE (calls 0BE8), preserves AF, BC, DE [candidate; raw refs 3]
-
 Function_00_0BDE:: ; 00:0BDE
+	; [PROBABLE] HL = BC*DE (calls 0BE8), preserves AF, BC, DE [candidate; raw refs 3]
 	push af
 	push bc
 	push de
@@ -27,40 +25,36 @@ Function_00_0BDE:: ; 00:0BDE
 	pop af
 	ret
 
-; ---- code $0BE8-$0BFC (20 bytes) [CONFIRMED] HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 5] [executed in 21 scenarios]
-
 Multiply16:: ; 00:0BE8
+	; [CONFIRMED] HL = BC * DE (low 16 bits); verified on interpreter [reached via inferred links;
+	; raw refs 5] [executed in 21 scenarios]
 	ld hl, $0000
 	ld a, $10
-
-Label_00_0BED:: ; 00:0BED
+.loop ; 00:0BED
 	srl b
 	rr c
-	jr nc, Label_00_0BF4
+	jr nc, .skip
 	add hl, de
-
-Label_00_0BF4:: ; 00:0BF4
+.skip ; 00:0BF4
 	sla e
 	rl d
 	dec a
-	jr nz, Label_00_0BED
+	jr nz, .loop
 	ret
 
-; ---- code $0BFC-$0C0E (18 bytes) [CONFIRMED] HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links; raw refs 12] [executed in 37 scenarios]
-
 Multiply8x16:: ; 00:0BFC
+	; [CONFIRMED] HL = A * DE (low 16 bits); verified on interpreter [reached via inferred links;
+	; raw refs 12] [executed in 37 scenarios]
 	ld hl, $0000
 	ld b, $08
 	or a, a
-
-Label_00_0C02:: ; 00:0C02
+.loop ; 00:0C02
 	rrca
-	jr nc, Label_00_0C06
+	jr nc, .skip
 	add hl, de
-
-Label_00_0C06:: ; 00:0C06
+.skip ; 00:0C06
 	sla e
 	rl d
 	dec b
-	jr nz, Label_00_0C02
+	jr nz, .loop
 	ret

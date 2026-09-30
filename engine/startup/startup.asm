@@ -4,10 +4,10 @@
 
 SECTION "engine/startup/startup", ROMX
 
-; ---- code $4000-$403C (60 bytes) [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Startup_Run:: ; 65:4000
 Function_65_4000::
+	; [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_1711
 	farcall Function_4E_4658
 	farcall Sram_ClearMenuCursorMemory
@@ -42,9 +42,8 @@ Startup_StatusJumpTable:: ; 65:403C
 Data_65_403C::
 	db $42, $40, $78, $40, $CF, $40
 
-; ---- code $4042-$4055 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios)
-
 Startup_NoAdapter:: ; 65:4042
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios)
 	farcall Settings_GetRegistrationProgress
 	add a, a
 	add a, $6E
@@ -57,21 +56,22 @@ Startup_NoAdapter:: ; 65:4042
 	ld l, a
 	jp hl
 
-; ---- code $4055-$405D (8 bytes) [PROBABLE] code entries 4055 (jp $416C) and 4058 (ld a,$F0 ; ld hl,$0110, falls into the far-call site 405D): both are words of Table_65_406E (word 4055 at 65:4076, 4058 at 65:4070); clean decode
-
 Label_65_4055:: ; 65:4055
+	; [PROBABLE] code entries 4055 (jp $416C) and 4058 (ld a,$F0 ; ld hl,$0110, falls into the
+	; far-call site 405D): both are words of Table_65_406E (word 4055 at 65:4076, 4058 at 65:4070);
+	; clean decode
 	jp Startup_VerifySaveData
 
 Label_65_4058:: ; 65:4058
 	ld a, $F0
 	ld hl, $0110
 
-; ---- code $405D-$4063 (6 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: site x1; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: site x1; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall CommErr_ShowScreen
 
-; ---- code $4063-$406E (11 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-
 Startup_NoAdapterScreen:: ; 65:4063
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	farcall NoAdapter_ShowScreen
 	ld a, $11
 	jp Entry
@@ -86,9 +86,8 @@ Table_65_406E::
 	dw Startup_NoAdapterScreen
 	dw Label_65_4055
 
-; ---- code $4078-$408E (22 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 12/18 scenarios)
-
 Startup_ConfigValid:: ; 65:4078
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 12/18 scenarios)
 	farcall Settings_GetRegistrationProgress
 	add a, a
 	add a, $C5
@@ -104,13 +103,14 @@ Startup_ConfigValid:: ; 65:4078
 Startup_ConfigValid_Continue:: ; 65:408B
 	jp Startup_VerifySaveData
 
-; ---- code $408E-$4093 (5 bytes) [PROBABLE] code entry 408E = word of Table_65_40C5 (dispatcher 4078-408B, jp hl); ld a,$F0 ; ld hl,$0110 falls into the far-call site 4093
-
 Startup_ConfigValid_ShowInfoError:: ; 65:408E
+	; [PROBABLE] code entry 408E = word of Table_65_40C5 (dispatcher 4078-408B, jp hl); ld a,$F0 ;
+	; ld hl,$0110 falls into the far-call site 4093
 	ld a, $F0
 	ld hl, $0110
 
-; ---- code $4093-$40A6 (19 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall CommErr_ShowScreen
 	xor a, a
 	ld [wRam_C277], a
@@ -118,25 +118,24 @@ Startup_ConfigValid_ShowInfoError:: ; 65:408E
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $40A6-$40B3 (13 bytes) [PROBABLE] entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9 | forced execution: 4/5 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Startup_ConfigValid_Fresh:: ; 65:40A6
+	; [PROBABLE] entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ;
+	; ld [$C278],a ; call $41DA ; jp $41A9 | forced execution: 4/5 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	xor a, a
 	ld [wRam_C277], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $40B3-$40BC (9 bytes) [PROBABLE] entry 40B3 = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
-
 Startup_ConfigValid_Resume:: ; 65:40B3
+	; [PROBABLE] entry 40B3 = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
 	call Registration_ReadStage
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $40BC-$40C5 (9 bytes) [PROBABLE] entry 40BC = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
-
 Startup_ConfigValid_ResumeCopy:: ; 65:40BC
+	; [PROBABLE] entry 40BC = word of Table_65_40C5; call $4123 ; call $41DA ; jp $41A9
 	call Registration_ReadStage
 	call Registration_Run
 	jp Startup_Return
@@ -151,9 +150,8 @@ Table_65_40C5::
 	dw Startup_ConfigValid_ResumeCopy
 	dw Startup_ConfigValid_Continue
 
-; ---- code $40CF-$40E2 (19 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
-
 Startup_ConfigBlank:: ; 65:40CF
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 5/18 scenarios)
 	farcall Settings_GetRegistrationProgress
 	add a, a
 	add a, $19
@@ -166,43 +164,47 @@ Startup_ConfigBlank:: ; 65:40CF
 	ld l, a
 	jp hl
 
-; ---- code $40E2-$40E7 (5 bytes) [CONFIRMED] code entry 40E2 = word of Table_65_4119 (dispatcher 40CF-40E2, jp hl); ld a,$F0 ; ld hl,$0100 falls into the far-call site 40E7 [executed in 1 scenarios]
-
 Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
+	; [CONFIRMED] code entry 40E2 = word of Table_65_4119 (dispatcher 40CF-40E2, jp hl); ld a,$F0 ;
+	; ld hl,$0100 falls into the far-call site 40E7 [executed in 1 scenarios]
 	ld a, $F0
 	ld hl, $0100
 
-; ---- code $40E7-$40F7 (16 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 5 insn(s) executed; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split [executed in 1 scenarios]
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 5
+	; insn(s) executed; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split [executed
+	; in 1 scenarios]
 	farcall CommErr_ShowScreen
 	xor a, a
 	ld [wRam_C277], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 
-; ---- code $40F7-$40FA (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 40E7-40FA by apply_coverage --split
 	jp Startup_Return
 
-; ---- code $40FA-$4107 (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
-
 Startup_ConfigBlank_Fresh:: ; 65:40FA
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
 	xor a, a
 	ld [wRam_C277], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $4107-$410D (6 bytes) [CONFIRMED] code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9 | 2 insn(s) executed; cut out of the PROBABLE region 4107-4110 by apply_coverage --split [executed in 3 scenarios]
-
 Startup_ConfigBlank_Resume:: ; 65:4107
+	; [CONFIRMED] code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9 | 2
+	; insn(s) executed; cut out of the PROBABLE region 4107-4110 by apply_coverage --split [executed
+	; in 3 scenarios]
 	call Registration_ReadStage
 	call Registration_Run
 
-; ---- code $410D-$4110 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4107-4110 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4107-4110 by apply_coverage --split
 	jp Startup_Return
 
-; ---- code $4110-$4119 (9 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
 Startup_ConfigBlank_ResumeCopy:: ; 65:4110
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	call Registration_ReadStage
 	call Registration_Run
 	jp Startup_Return

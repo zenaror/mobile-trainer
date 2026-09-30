@@ -4,15 +4,20 @@
 
 SECTION "engine/debug/debug_flags", ROMX
 
-; ---- code $4000-$400A (10 bytes) [PROBABLE] start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at 400A; entry unproven (no caller found) | forced execution: 4/4 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 DebugFlags_Run:: ; 19:4000
+	; [PROBABLE] start of bank: xor a / ld bc,$00FC / ld hl,$C0D4 / call $04D8 (same prologue as
+	; 19:4980), decode chain ends exactly at the site-validated inline far call `call $06D1` at
+	; 400A; entry unproven (no caller found) | forced execution: 4/4 instruction starts ran in
+	; forced_debug (traces/forced/, not natural evidence; status unchanged)
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
 
-; ---- code $400A-$41B1 (423 bytes) [PROBABLE] 142 insn(s) reached by static flow only; seeds: site x142; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 142/142 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 142 insn(s) reached by static flow only; seeds: site x142; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 142/142 instruction starts ran in forced_debug (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall Function_48_48BB
 	ld a, $02
 	ld [wRam_C0D8], a
@@ -168,9 +173,10 @@ Table_19_41B1::
 	dw DebugFlags_OnStart
 	dw DebugFlags_Idle
 
-; ---- code $41BB-$447C (705 bytes) [PROBABLE] 330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0; entered by table from 19:41AE (PROBABLE code) | forced execution: 235/330 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 DebugFlags_Idle:: ; 19:41BB
+	; [PROBABLE] 330 insn(s) reached by static flow only; seeds: site x330; min discovery hops 0;
+	; entered by table from 19:41AE (PROBABLE code) | forced execution: 235/330 instruction starts
+	; ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	call DebugFlags_PlaceCursor
 	call DebugFlags_UpdateHoldTimer
 	ldh a, [hJoyPressedRepeat]
@@ -181,23 +187,20 @@ DebugFlags_Idle:: ; 19:41BB
 DebugFlags_OnA:: ; 19:41CB
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jp z, Label_19_41D8
+	jp z, .l41D8
 	cp a, $02
-	jp z, Label_19_4234
-
-Label_19_41D8:: ; 19:41D8
+	jp z, .l4234
+.l41D8 ; 19:41D8
 	ld a, [wRam_C0D4]
 	ld bc, $8000
 	or a, a
-	jr z, Label_19_41E8
-
-Label_19_41E1:: ; 19:41E1
+	jr z, .l41E8
+.l41E1 ; 19:41E1
 	srl b
 	rr c
 	dec a
-	jr nz, Label_19_41E1
-
-Label_19_41E8:: ; 19:41E8
+	jr nz, .l41E1
+.l41E8 ; 19:41E8
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
@@ -212,7 +215,7 @@ Label_19_41E8:: ; 19:41E8
 	ld h, [hl]
 	ld l, a
 	or a, h
-	jr z, Label_19_420D
+	jr z, .l420D
 	ld a, $01
 	call ReadByteFar
 	dec hl
@@ -220,8 +223,7 @@ Label_19_41E8:: ; 19:41E8
 	ld b, a
 	ld a, $01
 	farcall WriteByteFar
-
-Label_19_420D:: ; 19:420D
+.l420D ; 19:420D
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
@@ -243,22 +245,19 @@ Label_19_420D:: ; 19:420D
 	farcall WriteByteFar
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
-
-Label_19_4234:: ; 19:4234
+.l4234 ; 19:4234
 	ld a, [wRam_C0D4]
 	ld hl, $2710
 	or a, a
-	jr z, Label_19_4248
-
-Label_19_423D:: ; 19:423D
+	jr z, .l4248
+.l423D ; 19:423D
 	push af
 	ld de, $000A
 	call Divide16
 	pop af
 	dec a
-	jr nz, Label_19_423D
-
-Label_19_4248:: ; 19:4248
+	jr nz, .l423D
+.l4248 ; 19:4248
 	push hl
 	ld d, h
 	ld e, l
@@ -270,12 +269,11 @@ Label_19_4248:: ; 19:4248
 	call Divide16
 	ld a, e
 	cp a, $0A
-	jr c, Label_19_4260
+	jr c, .skip
 	sub a, $0A
-
-Label_19_4260:: ; 19:4260
+.skip ; 19:4260
 	cp a, $09
-	jr nz, Label_19_4281
+	jr nz, .l4281
 	call DebugFlags_ReadValue
 	ld d, b
 	ld e, c
@@ -297,8 +295,7 @@ Label_19_4260:: ; 19:4260
 	call DebugFlags_WriteValue
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
-
-Label_19_4281:: ; 19:4281
+.l4281 ; 19:4281
 	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
@@ -306,17 +303,15 @@ Label_19_4281:: ; 19:4281
 	add hl, de
 	ld d, h
 	ld e, l
-	jr c, Label_19_4295
+	jr c, .l4295
 	call DebugFlags_EntryHasHighByte
-	jr nz, Label_19_4298
+	jr nz, .l4298
 	ld a, d
 	or a, a
-	jr z, Label_19_4298
-
-Label_19_4295:: ; 19:4295
+	jr z, .l4298
+.l4295 ; 19:4295
 	ld de, $0000
-
-Label_19_4298:: ; 19:4298
+.l4298 ; 19:4298
 	call DebugFlags_WriteValue
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
@@ -333,17 +328,16 @@ DebugFlags_OnStart:: ; 19:42B7
 	inc a
 	ld [wRam_C0D8], a
 	cp a, $03
-	jr nz, Label_19_42C7
+	jr nz, .skip
 	ld a, $01
 	ld [wRam_C0D8], a
-
-Label_19_42C7:: ; 19:42C7
+.skip ; 19:42C7
 	cp a, $00
-	jp z, Label_19_42FE
+	jp z, .l42FE
 	cp a, $02
-	jp z, Label_19_430D
+	jp z, .l430D
 	call DebugFlags_EntryHasHighByte
-	jr z, Label_19_42EA
+	jr z, .l42EA
 	ld de, $8010
 	ld hl, $DA10
 	call Function_00_0A65
@@ -351,8 +345,7 @@ Label_19_42C7:: ; 19:42C7
 	ld [wRam_C0D4], a
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
-
-Label_19_42EA:: ; 19:42EA
+.l42EA ; 19:42EA
 	ld de, $8050
 	ld hl, $DA10
 	call Function_00_0A65
@@ -360,15 +353,13 @@ Label_19_42EA:: ; 19:42EA
 	ld [wRam_C0D4], a
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
-
-Label_19_42FE:: ; 19:42FE
+.l42FE ; 19:42FE
 	ld de, $80A0
 	ld hl, $DA10
 	call Function_00_0A65
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
-
-Label_19_430D:: ; 19:430D
+.l430D ; 19:430D
 	ld de, $80A0
 	ld hl, $DA10
 	call Function_00_0A65
@@ -396,39 +387,35 @@ DebugFlags_HandleDpad:: ; 19:4333
 	ld b, a
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jp z, Label_19_43A0
+	jp z, .l43A0
 	cp a, $02
-	jp z, Label_19_4341
-
-Label_19_4341:: ; 19:4341
+	jp z, .l4341
+.l4341 ; 19:4341
 	bit 6, b
-	jr nz, Label_19_4354
+	jr nz, .l4354
 	bit 7, b
-	jr nz, Label_19_4363
+	jr nz, .l4363
 	bit 4, b
-	jp nz, Label_19_4392
+	jp nz, .l4392
 	bit 5, b
-	jp nz, Label_19_4385
+	jp nz, .l4385
 	ret
-
-Label_19_4354:: ; 19:4354
+.l4354 ; 19:4354
 	ld a, [wRam_C0E5]
 	inc a
 	cp a, $01
 	ret z
 	ld [wRam_C0E5], a
 	call DebugFlags_DrawEntryName
-	jr Label_19_436F
-
-Label_19_4363:: ; 19:4363
+	jr .l436F
+.l4363 ; 19:4363
 	ld a, [wRam_C0E5]
 	or a, a
 	ret z
 	dec a
 	ld [wRam_C0E5], a
 	call DebugFlags_DrawEntryName
-
-Label_19_436F:: ; 19:436F
+.l436F ; 19:436F
 	call DebugFlags_EntryHasHighByte2
 	ret nz
 	ld a, [wRam_C0D8]
@@ -440,8 +427,7 @@ Label_19_436F:: ; 19:436F
 	ld a, $08
 	ld [wRam_C0D4], a
 	ret
-
-Label_19_4385:: ; 19:4385
+.l4385 ; 19:4385
 	ld a, [wRam_C0D4]
 	or a, a
 	ret z
@@ -449,8 +435,7 @@ Label_19_4385:: ; 19:4385
 	ld [wRam_C0D4], a
 	call DebugFlags_PlaceCursor
 	ret
-
-Label_19_4392:: ; 19:4392
+.l4392 ; 19:4392
 	ld a, [wRam_C0D4]
 	inc a
 	cp a, $05
@@ -458,25 +443,22 @@ Label_19_4392:: ; 19:4392
 	ld [wRam_C0D4], a
 	call DebugFlags_PlaceCursor
 	ret
-
-Label_19_43A0:: ; 19:43A0
+.l43A0 ; 19:43A0
 	bit 6, b
-	jp nz, Label_19_4354
+	jp nz, .l4354
 	bit 7, b
-	jp nz, Label_19_4363
+	jp nz, .l4363
 	bit 4, b
-	jr nz, Label_19_43C9
+	jr nz, .l43C9
 	bit 5, b
-	jr nz, Label_19_43B3
+	jr nz, .l43B3
 	ret
-
-Label_19_43B3:: ; 19:43B3
+.l43B3 ; 19:43B3
 	call DebugFlags_EntryHasHighByte2
 	ld b, $00
-	jr nz, Label_19_43BC
+	jr nz, .skip
 	ld b, $08
-
-Label_19_43BC:: ; 19:43BC
+.skip ; 19:43BC
 	ld a, [wRam_C0D4]
 	cp a, b
 	ret z
@@ -484,8 +466,7 @@ Label_19_43BC:: ; 19:43BC
 	ld [wRam_C0D4], a
 	call DebugFlags_PlaceCursor
 	ret
-
-Label_19_43C9:: ; 19:43C9
+.l43C9 ; 19:43C9
 	ld a, [wRam_C0D4]
 	inc a
 	cp a, $10
@@ -582,9 +563,10 @@ String_19_447C::
 String_19_452F:: ; 19:452F
 	db $81, $A3, $00 ; "▲"
 
-; ---- code $4532-$47AE (636 bytes) [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4; entered by call from 19:417F (PROBABLE code) | forced execution: 202/365 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 DebugFlags_DrawEntryName:: ; 19:4532
+	; [PROBABLE] 365 insn(s) reached by static flow only; seeds: site x365; min discovery hops 4;
+	; entered by call from 19:417F (PROBABLE code) | forced execution: 202/365 instruction starts
+	; ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -644,9 +626,9 @@ DebugFlags_DrawValue:: ; 19:458A
 	ldh [rSVBK], a
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jp z, Label_19_468F
+	jp z, .l468F
 	cp a, $02
-	jp z, Label_19_473E
+	jp z, .l473E
 	ld de, $D000
 	ld a, $81
 	ld [de], a
@@ -675,11 +657,10 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld l, a
 	or a, h
 	ld a, $00
-	jr z, Label_19_45E3
+	jr z, .l45E3
 	ld a, $01
 	call ReadByteFar
-
-Label_19_45E3:: ; 19:45E3
+.l45E3 ; 19:45E3
 	ld b, a
 	swap a
 	and a, $0F
@@ -725,11 +706,10 @@ Label_19_45E3:: ; 19:45E3
 	ld l, a
 	or a, h
 	ld a, $00
-	jr z, Label_19_4626
+	jr z, .l4626
 	ld a, $01
 	call ReadByteFar
-
-Label_19_4626:: ; 19:4626
+.l4626 ; 19:4626
 	ld b, a
 	swap a
 	and a, $0F
@@ -791,8 +771,7 @@ Label_19_4626:: ; 19:4626
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ret
-
-Label_19_468F:: ; 19:468F
+.l468F ; 19:468F
 	ld de, $D000
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
@@ -808,13 +787,12 @@ Label_19_468F:: ; 19:468F
 	ld h, [hl]
 	ld l, a
 	or a, h
-	jr z, Label_19_46C9
+	jr z, .l46C9
 	ld a, $01
 	call ReadByteFar
 	ld b, a
 	ld c, $08
-
-Label_19_46AF:: ; 19:46AF
+.l46AF ; 19:46AF
 	rlc b
 	ld a, b
 	and a, $01
@@ -832,21 +810,18 @@ Label_19_46AF:: ; 19:46AF
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_19_46AF
-	jr Label_19_46D4
-
-Label_19_46C9:: ; 19:46C9
+	jr nz, .l46AF
+	jr .l46D4
+.l46C9 ; 19:46C9
 	ld hl, $47CE
 	ld c, $10
-
-Label_19_46CE:: ; 19:46CE
+.l46CE ; 19:46CE
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_19_46CE
-
-Label_19_46D4:: ; 19:46D4
+	jr nz, .l46CE
+.l46D4 ; 19:46D4
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
@@ -863,8 +838,7 @@ Label_19_46D4:: ; 19:46D4
 	call ReadByteFar
 	ld b, a
 	ld c, $08
-
-Label_19_46ED:: ; 19:46ED
+.l46ED ; 19:46ED
 	rlc b
 	ld a, b
 	and a, $01
@@ -882,7 +856,7 @@ Label_19_46ED:: ; 19:46ED
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_19_46ED
+	jr nz, .l46ED
 	xor a, a
 	ld [de], a
 	ld hl, $D000
@@ -907,26 +881,23 @@ Label_19_46ED:: ; 19:46ED
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ret
-
-Label_19_473E:: ; 19:473E
+.l473E ; 19:473E
 	ld de, $D000
 	ld hl, $47DE
 	ld c, $0F
-
-Label_19_4746:: ; 19:4746
+.l4746 ; 19:4746
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_19_4746
+	jr nz, .l4746
 	ld de, $D00A
 	call DebugFlags_ReadValue
 	ld h, b
 	ld l, c
 	ld b, d
 	ld c, e
-
-Label_19_4756:: ; 19:4756
+.l4756 ; 19:4756
 	push bc
 	ld de, $000A
 	call Divide16
@@ -951,7 +922,7 @@ Label_19_4756:: ; 19:4756
 	pop hl
 	ld a, h
 	or a, l
-	jr nz, Label_19_4756
+	jr nz, .l4756
 	ld hl, $D000
 	ld de, $D000
 	ld bc, $0610
@@ -982,17 +953,17 @@ String_19_47AE::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65, $81, $7C ; "０１２３４５６７８９ＡＢＣＤＥＦ－"
 	db $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $7C, $81, $79, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $81, $7A, $00 ; "－－－－－－－【０００００】"
 
-; ---- code $47ED-$481D (48 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2; entered by call from 19:41BB (PROBABLE code) | forced execution: 25/26 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 DebugFlags_PlaceCursor:: ; 19:47ED
+	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 2;
+	; entered by call from 19:41BB (PROBABLE code) | forced execution: 25/26 instruction starts ran
+	; in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ld a, [wRam_C0D8]
 	cp a, $01
-	jr z, Label_19_47F9
+	jr z, .l47F9
 	cp a, $02
-	jr z, Label_19_480B
+	jr z, .l480B
 	ret
-
-Label_19_47F9:: ; 19:47F9
+.l47F9 ; 19:47F9
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1003,8 +974,7 @@ Label_19_47F9:: ; 19:47F9
 	add a, $10
 	ld [wSpriteSlots + 17], a
 	ret
-
-Label_19_480B:: ; 19:480B
+.l480B ; 19:480B
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1027,31 +997,30 @@ Table_19_481D::
 Data_19_4821:: ; 19:4821
 	db $23, $48, $01, $00, $00, $00, $01, $01, $00, $04
 
-; ---- code $482B-$490E (227 bytes) [PROBABLE] 121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0; entered by call from 19:4196 (PROBABLE code) | forced execution: 115/121 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 DebugFlags_SlideIn:: ; 19:482B
+	; [PROBABLE] 121 insn(s) reached by static flow only; seeds: site x121; min discovery hops 0;
+	; entered by call from 19:4196 (PROBABLE code) | forced execution: 115/121 instruction starts
+	; ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ld a, $99
 	ld [wRam_C0E5], a
 	ld a, $11
 	ld [wRam_C0DF], a
-
-Label_19_4835:: ; 19:4835
+.loop ; 19:4835
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C0DF]
 	dec a
 	ld b, $01
-	jr z, Label_19_484A
+	jr z, .skip
 	ld [wRam_C0DF], a
 	ld b, a
-
-Label_19_484A:: ; 19:484A
+.skip ; 19:484A
 	ld a, [wRam_C0E5]
 	sub a, b
 	ld [wRam_C0E5], a
 	ldh [rWY], a
 	cp a, $00
-	jr nz, Label_19_4835
+	jr nz, .loop
 	ret
 
 DebugFlags_SlideOut:: ; 19:4858
@@ -1059,24 +1028,22 @@ DebugFlags_SlideOut:: ; 19:4858
 	ld [wRam_C0E5], a
 	ld a, $11
 	ld [wRam_C0DF], a
-
-Label_19_4862:: ; 19:4862
+.loop ; 19:4862
 	farcall Function_00_0956
 	call Function_00_044B
 	ld a, [wRam_C0DF]
 	dec a
 	ld b, $01
-	jr z, Label_19_4877
+	jr z, .skip
 	ld [wRam_C0DF], a
 	ld b, a
-
-Label_19_4877:: ; 19:4877
+.skip ; 19:4877
 	ld a, [wRam_C0E5]
 	add a, b
 	ld [wRam_C0E5], a
 	ldh [rWY], a
 	cp a, $99
-	jr nz, Label_19_4862
+	jr nz, .loop
 	ret
 
 DebugFlags_UpdateHoldTimer:: ; 19:4885
@@ -1084,13 +1051,12 @@ DebugFlags_UpdateHoldTimer:: ; 19:4885
 	ld b, a
 	ldh a, [hJoyHeld]
 	cp a, b
-	jr z, Label_19_4896
+	jr z, .l4896
 	ld [wRam_C0E8], a
 	xor a, a
 	ld [wRam_C0E7], a
 	ret
-
-Label_19_4896:: ; 19:4896
+.l4896 ; 19:4896
 	ld a, [wRam_C0E7]
 	add a, $01
 	ret c
@@ -1113,12 +1079,11 @@ DebugFlags_ReadValue:: ; 19:48A0
 	ld l, a
 	or a, h
 	ld b, $00
-	jr z, Label_19_48BD
+	jr z, .l48BD
 	ld a, $01
 	call ReadByteFar
 	ld b, a
-
-Label_19_48BD:: ; 19:48BD
+.l48BD ; 19:48BD
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
 	add a, a
@@ -1151,12 +1116,11 @@ DebugFlags_WriteValue:: ; 19:48D5
 	ld h, [hl]
 	ld l, a
 	or a, h
-	jr z, Label_19_48F3
+	jr z, .l48F3
 	ld a, $01
 	ld b, d
 	farcall WriteByteFar
-
-Label_19_48F3:: ; 19:48F3
+.l48F3 ; 19:48F3
 	ld a, [wRam_C0E5]
 	ld hl, Table_DebugFlags_Entries
 	add a, a

@@ -4,10 +4,10 @@
 
 SECTION "engine/account/action_confirm", ROMX
 
-; ---- code $6E1A-$6F97 (381 bytes) [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ActionConfirmPage:: ; 68:6E1A
 Function_68_6E1A::
+	; [CONFIRMED] 147 insn(s); 147 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C27E], a
 	call Account_ActionConfirmPage_Setup
 	farcall Palette_FadeInFromWhite
@@ -56,22 +56,20 @@ Account_ActionConfirmPage_Setup:: ; 68:6E39
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C27E]
 	or a, a
-	jr z, Label_68_6EC3
+	jr z, .l6EC3
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_5E_75D0
 	ld a, $5E
 	farcall Function_00_08EA
-	jr Label_68_6ED4
-
-Label_68_6EC3:: ; 68:6EC3
+	jr .l6ED4
+.l6EC3 ; 68:6EC3
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $7300
 	ld a, $5E
 	farcall Function_00_08EA
-
-Label_68_6ED4:: ; 68:6ED4
+.l6ED4 ; 68:6ED4
 	call Account_ActionConfirmPage_PrintMessage
 	call Account_ActionConfirmPage_UploadTextTiles
 	call Account_ActionConfirmPage_BuildTextMap
@@ -91,16 +89,15 @@ Account_ActionConfirmPage_InputLoop:: ; 68:6EF6
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_6F19
+	jr nz, .l6F19
 	bit 1, a
-	jr nz, Label_68_6F40
+	jr nz, .l6F40
 	bit 5, a
-	jr nz, Label_68_6F5E
+	jr nz, .l6F5E
 	bit 4, a
-	jr nz, Label_68_6F5E
+	jr nz, .l6F5E
 	jr Account_ActionConfirmPage_InputLoop
-
-Label_68_6F19:: ; 68:6F19
+.l6F19 ; 68:6F19
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -111,19 +108,17 @@ Label_68_6F19:: ; 68:6F19
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_6F35
+	jr nz, .l6F35
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
-
-Label_68_6F35:: ; 68:6F35
+.l6F35 ; 68:6F35
 	ld a, $02
 	ld [wRam_C27C], a
 	ld a, $01
 	ld [wRam_C28E], a
 	ret
-
-Label_68_6F40:: ; 68:6F40
+.l6F40 ; 68:6F40
 	ld a, [wRam_C27E]
 	or a, a
 	jr z, Account_ActionConfirmPage_InputLoop
@@ -139,8 +134,7 @@ Label_68_6F40:: ; 68:6F40
 	ld [wRam_C27C], a
 	ld [wRam_C28E], a
 	ret
-
-Label_68_6F5E:: ; 68:6F5E
+.l6F5E ; 68:6F5E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -154,9 +148,8 @@ Label_68_6F5E:: ; 68:6F5E
 	xor a, b
 	ld [wRam_C27D], a
 	call Account_ActionConfirmPage_UpdateCursor
-	jr Label_68_6F7C
-
-Label_68_6F7C:: ; 68:6F7C
+	jr .l6F7C
+.l6F7C ; 68:6F7C
 	jp Account_ActionConfirmPage_InputLoop
 
 Account_ActionConfirmPage_UpdateCursor:: ; 68:6F7F
@@ -182,10 +175,10 @@ Account_ActionConfirmCursorPositions:: ; 68:6F97
 Data_68_6F97::
 	db $28, $30, $58, $30
 
-; ---- code $6F9B-$7005 (106 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ActionConfirmPage_BuildTextMap:: ; 68:6F9B
 Function_68_6F9B::
+	; [CONFIRMED] 46 insn(s); 46 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $D121
 	ld de, $0000
 	ld bc, $0612
@@ -241,10 +234,10 @@ Account_ActionMessageIds:: ; 68:7005
 Data_68_7005::
 	db $04, $0B, $0C, $0D
 
-; ---- code $7009-$7019 (16 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call (part of region $7009-$7079)
-
 Account_ActionConfirmPage_UploadTextTiles:: ; 68:7009
 Function_68_7009::
+	; [CONFIRMED] 47 insn(s); 47 executed (in up to 6/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $7009-$7079)
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612

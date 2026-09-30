@@ -4,9 +4,9 @@
 
 SECTION "engine/address_book/save_sender_address", ROMX
 
-; ---- code $4000-$4214 (532 bytes) [CONFIRMED] 231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code) [executed in 1 scenarios]
-
 SaveSenderAddr_Menu:: ; 2A:4000
+	; [CONFIRMED] 231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10;
+	; entered by far from 2B:659F (PROBABLE code) [executed in 1 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -36,7 +36,7 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_2A_4079
+	jr z, .l4079
 	call SaveSenderAddr_SaveToSlot
 	cp a, $FF
 	jr z, SaveSenderAddr_Menu_Loop
@@ -47,14 +47,13 @@ SaveSenderAddr_Menu_Loop:: ; 2A:4027
 	call SaveSenderAddr_MoveNameHighlight
 	farcall AddrBook_UploadTextTiles
 	ld b, $3C
-
-Label_2A_4058:: ; 2A:4058
+.loop ; 2A:4058
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
 	pop bc
 	dec b
-	jr nz, Label_2A_4058
+	jr nz, .loop
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
@@ -62,8 +61,7 @@ Label_2A_4058:: ; 2A:4058
 	ld c, b
 	xor a, a
 	ret
-
-Label_2A_4079:: ; 2A:4079
+.l4079 ; 2A:4079
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2A_40A8
@@ -117,10 +115,9 @@ SaveSenderAddr_CursorDown:: ; 2A:40BB
 	inc c
 	ld a, c
 	cp a, $06
-	jr nz, Label_2A_40D8
+	jr nz, .skip
 	ld c, $00
-
-Label_2A_40D8:: ; 2A:40D8
+.skip ; 2A:40D8
 	ld a, d
 	call SaveSenderAddr_MoveNameHighlight
 	call SaveSenderAddr_RefreshSlotIcons
@@ -143,10 +140,9 @@ SaveSenderAddr_CursorUp:: ; 2A:40E0
 	dec c
 	ld a, c
 	cp a, $FF
-	jr nz, Label_2A_40FD
+	jr nz, .skip
 	ld c, $05
-
-Label_2A_40FD:: ; 2A:40FD
+.skip ; 2A:40FD
 	ld a, d
 	call SaveSenderAddr_MoveNameHighlight
 	call SaveSenderAddr_RefreshSlotIcons
@@ -266,9 +262,9 @@ Table_2A_4214::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $422C-$4274 (72 bytes) [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 11; entered by call from 2A:4046 (PROBABLE code) [executed in 1 scenarios]
-
 SaveSenderAddr_DrawSlotNames:: ; 2A:422C
+	; [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 11;
+	; entered by call from 2A:4046 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -278,8 +274,7 @@ SaveSenderAddr_DrawSlotNames:: ; 2A:422C
 	ld [rRAMG], a
 	xor a, a
 	ld d, $06
-
-Label_2A_423E:: ; 2A:423E
+.l423E ; 2A:423E
 	push af
 	push de
 	push bc
@@ -299,14 +294,12 @@ Label_2A_423E:: ; 2A:423E
 	ld b, a
 	xor a, a
 	inc b
-
-Label_2A_4257:: ; 2A:4257
+.l4257 ; 2A:4257
 	dec b
-	jr z, Label_2A_425E
+	jr z, .l425E
 	add a, $0C
-	jr Label_2A_4257
-
-Label_2A_425E:: ; 2A:425E
+	jr .l4257
+.l425E ; 2A:425E
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -317,7 +310,7 @@ Label_2A_425E:: ; 2A:425E
 	pop af
 	inc a
 	dec d
-	jr nz, Label_2A_423E
+	jr nz, .l423E
 	pop bc
 	ret
 
@@ -327,9 +320,9 @@ Table_SaveSenderAddr_SlotAddrs_DrawNames:: ; 2A:4274
 Table_2A_4274::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4280-$4306 (134 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code) [executed in 4 scenarios]
-
 SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
+	; [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11;
+	; entered by call from 2A:404D (PROBABLE code) [executed in 4 scenarios]
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -340,7 +333,7 @@ SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
 	pop af
 	push bc
 	cp a, $FF
-	jr z, Label_2A_42C3
+	jr z, .l42C3
 	push bc
 	push af
 	ld e, a
@@ -358,26 +351,23 @@ SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
 	ld b, a
 	xor a, a
 	inc b
-
-Label_2A_42AC:: ; 2A:42AC
+.l42AC ; 2A:42AC
 	dec b
-	jr z, Label_2A_42B3
+	jr z, .l42B3
 	add a, $0C
-	jr Label_2A_42AC
-
-Label_2A_42B3:: ; 2A:42B3
+	jr .l42AC
+.l42B3 ; 2A:42B3
 	add a, $10
 	ld d, a
 	ld b, $03
 	ld c, $00
 	farcall AddrBook_DrawSlotName
 	pop bc
-	jr Label_2A_42C3
-
-Label_2A_42C3:: ; 2A:42C3
+	jr .l42C3
+.l42C3 ; 2A:42C3
 	ld a, c
 	cp a, $FF
-	jr z, Label_2A_42F6
+	jr z, .l42F6
 	push bc
 	ld e, c
 	sla e
@@ -395,23 +385,20 @@ Label_2A_42C3:: ; 2A:42C3
 	ld b, c
 	xor a, a
 	inc b
-
-Label_2A_42DF:: ; 2A:42DF
+.l42DF ; 2A:42DF
 	dec b
-	jr z, Label_2A_42E6
+	jr z, .l42E6
 	add a, $0C
-	jr Label_2A_42DF
-
-Label_2A_42E6:: ; 2A:42E6
+	jr .l42DF
+.l42E6 ; 2A:42E6
 	add a, $10
 	ld d, a
 	ld b, $00
 	ld c, $01
 	farcall AddrBook_DrawSlotName
 	pop hl
-	jr Label_2A_42F6
-
-Label_2A_42F6:: ; 2A:42F6
+	jr .l42F6
+.l42F6 ; 2A:42F6
 	farcall AddrBook_UploadTextTiles
 	pop bc
 	push af
@@ -427,9 +414,9 @@ Table_SaveSenderAddr_SlotAddrs_Highlight:: ; 2A:4306
 Table_2A_4306::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4312-$445F (333 bytes) [CONFIRMED] 189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code) [executed in 4 scenarios]
-
 SaveSenderAddr_SaveToSlot:: ; 2A:4312
+	; [CONFIRMED] 189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11;
+	; entered by call from 2A:403E (PROBABLE code) [executed in 4 scenarios]
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -452,7 +439,7 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	pop bc
 	ld a, [de]
 	cp a, $00
-	jr z, Label_2A_43A5
+	jr z, .l43A5
 	push bc
 	farcall Sprites_SaveSlotsToBank3
 	ld a, $07
@@ -501,11 +488,10 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	pop af
 	pop bc
 	dec a
-	jr z, Label_2A_43A5
+	jr z, .l43A5
 	ld a, $FF
 	ret
-
-Label_2A_43A5:: ; 2A:43A5
+.l43A5 ; 2A:43A5
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -549,8 +535,7 @@ Label_2A_43A5:: ; 2A:43A5
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-
-Label_2A_43E7:: ; 2A:43E7
+.l43E7 ; 2A:43E7
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -563,7 +548,7 @@ Label_2A_43E7:: ; 2A:43E7
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_43E7
+	jr nz, .l43E7
 	pop bc
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -606,8 +591,7 @@ Label_2A_43E7:: ; 2A:43E7
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-
-Label_2A_4440:: ; 2A:4440
+.l4440 ; 2A:4440
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -620,7 +604,7 @@ Label_2A_4440:: ; 2A:4440
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_4440
+	jr nz, .l4440
 	pop bc
 	farcall SramCheck_Bank1Commit
 	xor a, a
@@ -639,36 +623,37 @@ Table_2A_446B::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4483-$44A9 (38 bytes) [CONFIRMED] 432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
-
 SaveSenderAddr_DrawSenderName:: ; 2A:4483
+	; [CONFIRMED] 432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11;
+	; entered by call from 2A:41C4 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE
+	; region 4483-483B by apply_coverage --split [executed in 5 scenarios]
 	ld a, $10
 	ld [wTextCellsLeft], a
-
-Label_2A_4488:: ; 2A:4488
+.l4488 ; 2A:4488
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_4527
+	jp z, .l4527
 	cp a, $0D
-	jr z, Label_2A_450C
+	jr z, .l450C
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_44EA
+	jr nz, .l44EA
 	ld a, [wTextCellsLeft]
 	cp a, $01
-	jr nz, Label_2A_44AD
+	jr nz, .l44AD
 
-; ---- code $44A9-$44AD (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4483-483B by apply_coverage --split
 	pop af
-	jp Label_2A_4527
+	jp .l4527
 
-; ---- code $44AD-$44EA (61 bytes) [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
-
-Label_2A_44AD:: ; 2A:44AD
+.l44AD ; 2A:44AD
+	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage
+	; --split [executed in 5 scenarios]
 	pop af
 	push bc
 	push de
@@ -702,12 +687,12 @@ Label_2A_44AD:: ; 2A:44AD
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_4527
-	jr Label_2A_4488
+	jr z, .l4527
+	jr .l4488
 
-; ---- code $44EA-$4527 (61 bytes) [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
-
-Label_2A_44EA:: ; 2A:44EA
+.l44EA ; 2A:44EA
+	; [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4483-483B by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -723,10 +708,9 @@ Label_2A_44EA:: ; 2A:44EA
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_4527
-	jp Label_2A_4488
-
-Label_2A_450C:: ; 2A:450C
+	jr z, .l4527
+	jp .l4488
+.l450C ; 2A:450C
 	push bc
 	push de
 	push hl
@@ -741,9 +725,9 @@ Label_2A_450C:: ; 2A:450C
 	ld [wTextCellsLeft], a
 	call SaveSenderAddr_DrawSenderName_BlitBlankAdvance
 
-; ---- code $4527-$483B (788 bytes) [CONFIRMED] 348 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 1 scenarios]
-
-Label_2A_4527:: ; 2A:4527
+.l4527 ; 2A:4527
+	; [CONFIRMED] 348 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	push de
 	push hl
@@ -753,15 +737,14 @@ Label_2A_4527:: ; 2A:4527
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_4538:: ; 2A:4538
+.l4538 ; 2A:4538
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call SaveSenderAddr_DrawSenderName_BlitBlankAdvance
-	jr Label_2A_4538
+	jr .l4538
 
 SaveSenderAddr_DrawSenderName_BlitGlyphAdvance:: ; 2A:4547
 	push bc
@@ -811,14 +794,13 @@ SaveSenderAddr_RefreshSlotIcons:: ; 2A:4573
 	ld a, $00
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_45A7
+	jr z, .l45A7
 	ld hl, $DA70
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_45A7:: ; 2A:45A7
+.l45A7 ; 2A:45A7
 	pop bc
 	push bc
 	ld hl, $DA60
@@ -831,14 +813,13 @@ Label_2A_45A7:: ; 2A:45A7
 	ld a, $01
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_45D3
+	jr z, .l45D3
 	ld hl, $DA60
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_45D3:: ; 2A:45D3
+.l45D3 ; 2A:45D3
 	pop bc
 	push bc
 	ld hl, $DA50
@@ -851,14 +832,13 @@ Label_2A_45D3:: ; 2A:45D3
 	ld a, $02
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_45FF
+	jr z, .l45FF
 	ld hl, $DA50
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_45FF:: ; 2A:45FF
+.l45FF ; 2A:45FF
 	pop bc
 	push bc
 	ld hl, $DA40
@@ -871,14 +851,13 @@ Label_2A_45FF:: ; 2A:45FF
 	ld a, $03
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_462B
+	jr z, .l462B
 	ld hl, $DA40
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_462B:: ; 2A:462B
+.l462B ; 2A:462B
 	pop bc
 	push bc
 	ld hl, $DA30
@@ -891,14 +870,13 @@ Label_2A_462B:: ; 2A:462B
 	ld a, $04
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_4657
+	jr z, .l4657
 	ld hl, $DA30
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_4657:: ; 2A:4657
+.l4657 ; 2A:4657
 	pop bc
 	push bc
 	ld hl, $DA20
@@ -911,33 +889,31 @@ Label_2A_4657:: ; 2A:4657
 	ld a, $05
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_4683
+	jr z, .l4683
 	ld hl, $DA20
 	ld de, $5230
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_4683:: ; 2A:4683
+.l4683 ; 2A:4683
 	pop bc
 	pop bc
 	ld a, c
 	cp a, $00
-	jp z, Label_2A_47BD
+	jp z, .l47BD
 	dec a
-	jp z, Label_2A_46A3
+	jp z, .l46A3
 	dec a
-	jp z, Label_2A_46D2
+	jp z, .l46D2
 	dec a
-	jp z, Label_2A_4701
+	jp z, .l4701
 	dec a
-	jp z, Label_2A_4730
+	jp z, .l4730
 	dec a
-	jp z, Label_2A_475F
+	jp z, .l475F
 	dec a
-	jp z, Label_2A_478E
-
-Label_2A_46A3:: ; 2A:46A3
+	jp z, .l478E
+.l46A3 ; 2A:46A3
 	push bc
 	ld hl, $DA70
 	ld de, $7240
@@ -949,18 +925,16 @@ Label_2A_46A3:: ; 2A:46A3
 	ld a, $00
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_46CE
+	jr z, .l46CE
 	ld hl, $DA70
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_46CE:: ; 2A:46CE
+.l46CE ; 2A:46CE
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_46D2:: ; 2A:46D2
+	jp .l47BD
+.l46D2 ; 2A:46D2
 	push bc
 	ld hl, $DA60
 	ld de, $7240
@@ -972,18 +946,16 @@ Label_2A_46D2:: ; 2A:46D2
 	ld a, $01
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_46FD
+	jr z, .l46FD
 	ld hl, $DA60
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_46FD:: ; 2A:46FD
+.l46FD ; 2A:46FD
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_4701:: ; 2A:4701
+	jp .l47BD
+.l4701 ; 2A:4701
 	push bc
 	ld hl, $DA50
 	ld de, $7240
@@ -995,18 +967,16 @@ Label_2A_4701:: ; 2A:4701
 	ld a, $02
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_472C
+	jr z, .l472C
 	ld hl, $DA50
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_472C:: ; 2A:472C
+.l472C ; 2A:472C
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_4730:: ; 2A:4730
+	jp .l47BD
+.l4730 ; 2A:4730
 	push bc
 	ld hl, $DA40
 	ld de, $7240
@@ -1018,18 +988,16 @@ Label_2A_4730:: ; 2A:4730
 	ld a, $03
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_475B
+	jr z, .l475B
 	ld hl, $DA40
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_475B:: ; 2A:475B
+.l475B ; 2A:475B
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_475F:: ; 2A:475F
+	jp .l47BD
+.l475F ; 2A:475F
 	push bc
 	ld hl, $DA30
 	ld de, $7240
@@ -1041,18 +1009,16 @@ Label_2A_475F:: ; 2A:475F
 	ld a, $04
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_478A
+	jr z, .l478A
 	ld hl, $DA30
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_478A:: ; 2A:478A
+.l478A ; 2A:478A
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_478E:: ; 2A:478E
+	jp .l47BD
+.l478E ; 2A:478E
 	push bc
 	ld hl, $DA20
 	ld de, $7240
@@ -1064,18 +1030,16 @@ Label_2A_478E:: ; 2A:478E
 	ld a, $05
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_47B9
+	jr z, .l47B9
 	ld hl, $DA20
 	ld de, $7250
 	ld a, $2C
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_47B9:: ; 2A:47B9
+.l47B9 ; 2A:47B9
 	pop bc
-	jp Label_2A_47BD
-
-Label_2A_47BD:: ; 2A:47BD
+	jp .l47BD
+.l47BD ; 2A:47BD
 	ld a, $18
 	ld [wSpriteSlots + 16], a
 	ld a, $10
@@ -1133,12 +1097,11 @@ SaveSenderAddr_IsSlotUsed:: ; 2A:480C
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2A_4837
+	jr z, .l4837
 	ld a, $00
 	pop bc
 	ret
-
-Label_2A_4837:: ; 2A:4837
+.l4837 ; 2A:4837
 	ld a, $FF
 	pop bc
 	ret
@@ -1149,25 +1112,25 @@ Table_SaveSenderAddr_SlotAddrs_IsUsed:: ; 2A:483B
 Table_2A_483B::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4847-$4988 (321 bytes) [CONFIRMED] 187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code) | 118 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 1 scenarios]
-
 SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
+	; [CONFIRMED] 187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12;
+	; entered by callcc from 2A:4808 (PROBABLE code) | 118 insn(s) executed; cut out of the PROBABLE
+	; region 4847-4A3D by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	ld a, c
 	cp a, $00
-	jp z, Label_2A_4867
+	jp z, .l4867
 	cp a, $01
-	jp z, Label_2A_489C
+	jp z, .l489C
 	cp a, $02
-	jp z, Label_2A_48D1
+	jp z, .l48D1
 	cp a, $03
-	jp z, Label_2A_4906
+	jp z, .l4906
 	cp a, $04
-	jp z, Label_2A_493B
+	jp z, .l493B
 	cp a, $05
-	jp z, Label_2A_4970
-
-Label_2A_4867:: ; 2A:4867
+	jp z, .l4970
+.l4867 ; 2A:4867
 	ld hl, $DA70
 	ld de, $5240
 	ld a, $28
@@ -1176,21 +1139,19 @@ Label_2A_4867:: ; 2A:4867
 	ld a, $00
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_488F
+	jr z, .l488F
 	ld hl, $DA70
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_488F:: ; 2A:488F
+.l488F ; 2A:488F
 	ld a, $28
 	ld [wSpriteSlots + 112], a
 	ld a, $10
 	ld [wSpriteSlots + 113], a
-	jp Label_2A_49A5
-
-Label_2A_489C:: ; 2A:489C
+	jp .l49A5
+.l489C ; 2A:489C
 	ld hl, $DA60
 	ld de, $5240
 	ld a, $28
@@ -1199,21 +1160,19 @@ Label_2A_489C:: ; 2A:489C
 	ld a, $01
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_48C4
+	jr z, .l48C4
 	ld hl, $DA60
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_48C4:: ; 2A:48C4
+.l48C4 ; 2A:48C4
 	ld a, $34
 	ld [wSpriteSlots + 96], a
 	ld a, $10
 	ld [wSpriteSlots + 97], a
-	jp Label_2A_49A5
-
-Label_2A_48D1:: ; 2A:48D1
+	jp .l49A5
+.l48D1 ; 2A:48D1
 	ld hl, $DA50
 	ld de, $5240
 	ld a, $28
@@ -1222,21 +1181,19 @@ Label_2A_48D1:: ; 2A:48D1
 	ld a, $02
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_48F9
+	jr z, .l48F9
 	ld hl, $DA50
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_48F9:: ; 2A:48F9
+.l48F9 ; 2A:48F9
 	ld a, $40
 	ld [wSpriteSlots + 80], a
 	ld a, $10
 	ld [wSpriteSlots + 81], a
-	jp Label_2A_49A5
-
-Label_2A_4906:: ; 2A:4906
+	jp .l49A5
+.l4906 ; 2A:4906
 	ld hl, $DA40
 	ld de, $5240
 	ld a, $28
@@ -1245,21 +1202,19 @@ Label_2A_4906:: ; 2A:4906
 	ld a, $03
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_492E
+	jr z, .l492E
 	ld hl, $DA40
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_492E:: ; 2A:492E
+.l492E ; 2A:492E
 	ld a, $4C
 	ld [wSpriteSlots + 64], a
 	ld a, $10
 	ld [wSpriteSlots + 65], a
-	jp Label_2A_49A5
-
-Label_2A_493B:: ; 2A:493B
+	jp .l49A5
+.l493B ; 2A:493B
 	ld hl, $DA30
 	ld de, $5240
 	ld a, $28
@@ -1268,21 +1223,19 @@ Label_2A_493B:: ; 2A:493B
 	ld a, $04
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_4963
+	jr z, .l4963
 	ld hl, $DA30
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_2A_4963:: ; 2A:4963
+.l4963 ; 2A:4963
 	ld a, $58
 	ld [wSpriteSlots + 48], a
 	ld a, $10
 	ld [wSpriteSlots + 49], a
-	jp Label_2A_49A5
-
-Label_2A_4970:: ; 2A:4970
+	jp .l49A5
+.l4970 ; 2A:4970
 	ld hl, $DA20
 	ld de, $5240
 	ld a, $28
@@ -1291,29 +1244,28 @@ Label_2A_4970:: ; 2A:4970
 	ld a, $05
 	call SaveSenderAddr_IsSlotUsed
 	inc a
-	jr z, Label_2A_4998
+	jr z, .l4998
 
-; ---- code $4988-$4998 (16 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4847-4A3D by apply_coverage --split
 	ld hl, $DA20
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4998-$4A3D (165 bytes) [CONFIRMED] 64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 4 scenarios]
-
-Label_2A_4998:: ; 2A:4998
+.l4998 ; 2A:4998
+	; [CONFIRMED] 64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld a, $64
 	ld [wSpriteSlots + 32], a
 	ld a, $10
 	ld [wSpriteSlots + 33], a
-	jp Label_2A_49A5
-
-Label_2A_49A5:: ; 2A:49A5
+	jp .l49A5
+.l49A5 ; 2A:49A5
 	ld b, $1E
 	ld b, $01
-
-Label_2A_49A9:: ; 2A:49A9
+.loop ; 2A:49A9
 	push bc
 	farcall Function_00_0956
 	farcall Joypad_Update
@@ -1321,11 +1273,10 @@ Label_2A_49A9:: ; 2A:49A9
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, $C0
-	jr nz, Label_2A_49C3
+	jr nz, .l49C3
 	dec b
-	jr nz, Label_2A_49A9
-
-Label_2A_49C3:: ; 2A:49C3
+	jr nz, .loop
+.l49C3 ; 2A:49C3
 	pop bc
 	ret
 

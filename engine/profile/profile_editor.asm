@@ -4,10 +4,10 @@
 
 SECTION "engine/profile/profile_editor", ROMX
 
-; ---- code $5495-$5502 (109 bytes) [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Profile_Edit:: ; 2A:5495
 Function_2A_5495::
+	; [CONFIRMED] 44 insn(s); 44 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wMailScreenMode], a
 	call Function_00_044B
 	push af
@@ -53,14 +53,14 @@ Function_2A_5495::
 Profile_Edit_Loop:: ; 2A:54FD
 	ld a, c
 	cp a, $09
-	jr nz, Label_2A_5504
+	jr nz, .skip
 
-; ---- code $5502-$5504 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5500 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5500 (executed)
 	ld c, $08
 
-; ---- code $5504-$554B (71 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
-
-Label_2A_5504:: ; 2A:5504
+.skip ; 2A:5504
+	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -93,16 +93,17 @@ Label_2A_552A:: ; 2A:552A
 	pop bc
 	pop af
 	cp a, $09
-	jr nz, Label_2A_55AD
+	jr nz, .l55AD
 
-; ---- code $554B-$55AD (98 bytes) [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 0; fall-through of the jrcc at 2A:5549 (executed)
+	; [PROBABLE] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5549 (executed)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D514
 	ld a, [de]
 	cp a, $00
-	jp nz, Label_2A_5617
+	jp nz, .l5617
 	push af
 	push bc
 	ld de, $40D0
@@ -149,24 +150,23 @@ Label_2A_552A:: ; 2A:552A
 	pop af
 	jp Label_2A_552A
 
-; ---- code $55AD-$55B6 (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
-
-Label_2A_55AD:: ; 2A:55AD
+.l55AD ; 2A:55AD
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	cp a, $08
-	jr z, Label_2A_55B6
+	jr z, .l55B6
 	cp a, $07
-	jp z, Label_2A_563D
+	jp z, .l563D
 
-; ---- code $55B6-$563D (135 bytes) [CONFIRMED] 72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0; entered by jrcc from 2A:55AF (executed) [executed in 1 scenarios]
-
-Label_2A_55B6:: ; 2A:55B6
+.l55B6 ; 2A:55B6
+	; [CONFIRMED] 72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0;
+	; entered by jrcc from 2A:55AF (executed) [executed in 1 scenarios]
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D514
 	ld a, [de]
 	cp a, $00
-	jr nz, Label_2A_5617
+	jr nz, .l5617
 	push af
 	push bc
 	ld de, $40D0
@@ -212,8 +212,7 @@ Label_2A_55B6:: ; 2A:55B6
 	pop bc
 	pop af
 	jp Label_2A_552A
-
-Label_2A_5617:: ; 2A:5617
+.l5617 ; 2A:5617
 	push af
 	push bc
 	ld de, $40D0
@@ -235,18 +234,18 @@ Label_2A_5617:: ; 2A:5617
 	call Profile_SaveToSram
 	jp Profile_Edit_Loop
 
-; ---- code $563D-$564B (14 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
-
-Label_2A_563D:: ; 2A:563D
+.l563D ; 2A:563D
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 1/18 scenarios)
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, $D514
 	ld a, [de]
 	cp a, $00
-	jr nz, Label_2A_569E
+	jr nz, .l569E
 
-; ---- code $564B-$569E (83 bytes) [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5649 (executed) [executed in 1 scenarios]
 	push af
 	push bc
 	ld de, $40D0
@@ -293,9 +292,8 @@ Label_2A_563D:: ; 2A:563D
 	pop af
 	jp Label_2A_552A
 
-; ---- code $569E-$56C8 (42 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
-
-Label_2A_569E:: ; 2A:569E
+.l569E ; 2A:569E
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	push af
 	push bc
 	ld de, $40D0
@@ -319,10 +317,15 @@ Label_2A_569E:: ; 2A:569E
 	dec a
 	jp z, Label_2A_5706
 
-; ---- code $56C8-$56CB (3 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 2A:56C5 (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jpcc at 2A:56C5 (executed) [executed in 5 scenarios]
 	jp Profile_Edit_Loop
 
-; ---- code $56CB-$56EC (33 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: call chain (call $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after the unconditional 'jp $54FD' at 2A:56C8
+	; [HYPOTHESIS] no branch/call/pointer to any address in $56CB-$56EC was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: call chain (call
+	; $6257, 9 x call $577F, jp $54FD, call $62C5): all call targets are known code; directly after
+	; the unconditional 'jp $54FD' at 2A:56C8
 	call Profile_LoadAndDraw
 	call Profile_MoveCursorRight
 	call Profile_MoveCursorRight
@@ -336,14 +339,14 @@ Label_2A_569E:: ; 2A:569E
 
 	call Profile_SaveToSram
 
-; ---- code $56EC-$56F2 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
 Label_2A_56EC:: ; 2A:56EC
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_2A_5731
 
-; ---- code $56F2-$5706 (20 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0;
+	; fall-through of the jrcc at 2A:56F0 (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -357,9 +360,8 @@ Label_2A_56EC:: ; 2A:56EC
 	pop de
 	pop bc
 
-; ---- code $5706-$5744 (62 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
-
 Label_2A_5706:: ; 2A:5706
+	; [CONFIRMED] 21 insn(s); 21 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
@@ -384,9 +386,10 @@ Label_2A_5731:: ; 2A:5731
 	ld d, $10
 	jp Profile_Edit_Loop
 
-; ---- code $5744-$575F (27 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed) | 18 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 1 scenarios]
-
 Profile_CursorLeft:: ; 2A:5744
+	; [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
+	; entered by callcc from 2A:5735 (executed) | 18 insn(s) executed; cut out of the PROBABLE
+	; region 5744-577F by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -401,20 +404,21 @@ Profile_CursorLeft:: ; 2A:5744
 	pop bc
 	inc c
 	dec c
-	jr nz, Label_2A_5765
+	jr nz, .l5765
 	inc b
 	dec b
 	ret z
 
-; ---- code $575F-$5765 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5744-577F by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5744-577F by apply_coverage --split
 	dec b
 	call $4441
 	ld c, e
 	ret
 
-; ---- code $5765-$577F (26 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 2 scenarios]
-
-Label_2A_5765:: ; 2A:5765
+.l5765 ; 2A:5765
+	; [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage
+	; --split [executed in 2 scenarios]
 	dec c
 	ld a, c
 	ld [wTextEditGoalColumn], a
@@ -434,26 +438,28 @@ Profile_CursorRight:: ; 2A:576B
 	pop de
 	pop bc
 
-; ---- code $577F-$5781 (2 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Profile_MoveCursorRight:: ; 2A:577F
 Function_2A_577F::
-	jr Label_2A_578A
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
+	jr .l578A
 
-; ---- code $5781-$578A (9 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5781-$578A was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,b; cp 7; jr nz; ld a,c; cp 9; ret z - skipped by the unconditional 'jr $578A' at 2A:577F, falls into 578A
+	; [HYPOTHESIS] no branch/call/pointer to any address in $5781-$578A was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: ld a,b; cp 7; jr nz;
+	; ld a,c; cp 9; ret z - skipped by the unconditional 'jr $578A' at 2A:577F, falls into 578A
 	ld a, b
 	cp a, $07
-	jr nz, Label_2A_578A
+	jr nz, .l578A
 	ld a, c
 	cp a, $09
 	ret z
 
-; ---- code $578A-$57A5 (27 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
-
-Label_2A_578A:: ; 2A:578A
+.l578A ; 2A:578A
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	inc c
 	dec c
-	jr nz, Label_2A_579B
+	jr nz, .l579B
 	call Profile_CharPtr
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -461,24 +467,23 @@ Label_2A_578A:: ; 2A:578A
 	ld a, [hl]
 	cp a, $00
 	ret z
-
-Label_2A_579B:: ; 2A:579B
+.l579B ; 2A:579B
 	call Profile_CharPtr
 	cp a, $FF
 	ret z
 	cp a, $0D
-	jr nz, Label_2A_57AD
+	jr nz, .l57AD
 
-; ---- code $57A5-$57AD (8 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:57A3 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2A:57A3 (executed)
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	ret
 
-; ---- code $57AD-$57B6 (9 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
-
-Label_2A_57AD:: ; 2A:57AD
+.l57AD ; 2A:57AD
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	inc c
 	ld a, c
 	ld [wTextEditGoalColumn], a
@@ -486,16 +491,17 @@ Label_2A_57AD:: ; 2A:57AD
 	cp a, c
 	ret nz
 
-; ---- code $57B6-$57BD (7 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the retcc at 2A:57B5 (executed)
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the retcc at 2A:57B5 (executed)
 	ld c, $08
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	ret
 
-; ---- code $57BD-$591B (350 bytes) [CONFIRMED] 123 insn(s); 123 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Profile_InitScreen:: ; 2A:57BD
 Function_2A_57BD::
+	; [CONFIRMED] 123 insn(s); 123 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
@@ -619,18 +625,17 @@ Profile_PlaceTextCursor:: ; 2A:590B
 	inc b
 	inc c
 	ld a, $2C
-
-Label_2A_5918:: ; 2A:5918
+.l5918 ; 2A:5918
 	dec b
-	jr z, Label_2A_591F
+	jr z, .l591F
 
-; ---- code $591B-$591F (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2A:5919 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5919 (executed)
 	add a, $0C
-	jr Label_2A_5918
+	jr .l5918
 
-; ---- code $591F-$59B3 (148 bytes) [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios)
-
-Label_2A_591F:: ; 2A:591F
+.l591F ; 2A:591F
+	; [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios)
 	ld d, a
 	ld a, [wSplitScrollY]
 	ld e, a
@@ -639,24 +644,21 @@ Label_2A_591F:: ; 2A:591F
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 	ld a, $38
-
-Label_2A_592E:: ; 2A:592E
+.l592E ; 2A:592E
 	dec c
-	jr z, Label_2A_5935
+	jr z, .l5935
 	add a, $0C
-	jr Label_2A_592E
-
-Label_2A_5935:: ; 2A:5935
+	jr .l592E
+.l5935 ; 2A:5935
 	ld [wSpriteSlots + 17], a
 	ld [wSpriteSlots + 33], a
 	push af
 	ld a, [wSplitScrollY]
 	cp a, $00
-	jr z, Label_2A_5948
+	jr z, .skip
 	ld a, $D0
 	ld [wSpriteSlots + 33], a
-
-Label_2A_5948:: ; 2A:5948
+.skip ; 2A:5948
 	pop af
 	pop bc
 	ret
@@ -670,20 +672,19 @@ Profile_RedrawNickname:: ; 2A:594B
 Profile_DrawNickname:: ; 2A:5952
 	ld a, $10
 	ld [wTextCellsLeft], a
-
-Label_2A_5957:: ; 2A:5957
+.l5957 ; 2A:5957
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2A_59F4
+	jp z, .l59F4
 	cp a, $0D
-	jr z, Label_2A_59D9
+	jr z, .l59D9
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2A_59B3
+	jr nz, .l59B3
 	pop af
 	push bc
 	push de
@@ -717,14 +718,14 @@ Label_2A_5957:: ; 2A:5957
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_59F4
+	jr z, .l59F4
 	cp a, $01
-	jr z, Label_2A_59F4
-	jp Label_2A_5957
+	jr z, .l59F4
+	jp .l5957
 
-; ---- code $59B3-$59F4 (65 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 2A:596F (executed)
-
-Label_2A_59B3:: ; 2A:59B3
+.l59B3 ; 2A:59B3
+	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
+	; entered by jrcc from 2A:596F (executed)
 	pop af
 	push bc
 	push de
@@ -740,12 +741,11 @@ Label_2A_59B3:: ; 2A:59B3
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2A_59F4
+	jr z, .l59F4
 	cp a, $01
-	jr z, Label_2A_59F4
-	jp Label_2A_5957
-
-Label_2A_59D9:: ; 2A:59D9
+	jr z, .l59F4
+	jp .l5957
+.l59D9 ; 2A:59D9
 	push bc
 	push de
 	push hl
@@ -760,9 +760,8 @@ Label_2A_59D9:: ; 2A:59D9
 	ld [wTextCellsLeft], a
 	call Profile_DrawNickname_BlitBlankAdvance
 
-; ---- code $59F4-$5A5A (102 bytes) [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
-
-Label_2A_59F4:: ; 2A:59F4
+.l59F4 ; 2A:59F4
+	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
 	push bc
 	push de
 	push hl
@@ -770,15 +769,14 @@ Label_2A_59F4:: ; 2A:59F4
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_5A00:: ; 2A:5A00
+.l5A00 ; 2A:5A00
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawNickname_BlitBlankAdvance
-	jr Label_2A_5A00
+	jr .l5A00
 
 Profile_DrawNickname_BlitGlyphAdvance:: ; 2A:5A0F
 	push bc
@@ -828,7 +826,8 @@ Label_2A_5A40:: ; 2A:5A40
 	dec a
 	jr nz, Label_2A_5A9B
 
-; ---- code $5A5A-$5A9B (65 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 2A:5A58 (executed)
+	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5A58 (executed)
 	pop af
 	push bc
 	push de
@@ -869,9 +868,8 @@ Label_2A_5A83:: ; 2A:5A83
 	jr z, Label_2A_5ADB
 	jr Label_2A_5A40
 
-; ---- code $5A9B-$5AC0 (37 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
-
 Label_2A_5A9B:: ; 2A:5A9B
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
 	push bc
 	push de
@@ -892,9 +890,9 @@ Label_2A_5A9B:: ; 2A:5A9B
 	jr z, Label_2A_5ADB
 	jr Label_2A_5A40
 
-; ---- code $5AC0-$5ADB (27 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 2A:5A4E (executed)
-
 Label_2A_5AC0:: ; 2A:5AC0
+	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
+	; entered by jrcc from 2A:5A4E (executed)
 	push bc
 	push de
 	push hl
@@ -909,9 +907,8 @@ Label_2A_5AC0:: ; 2A:5AC0
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine1_BlitBlankAdvance
 
-; ---- code $5ADB-$5B46 (107 bytes) [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
-
 Label_2A_5ADB:: ; 2A:5ADB
+	; [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
 	push bc
 	push de
 	push hl
@@ -921,15 +918,14 @@ Label_2A_5ADB:: ; 2A:5ADB
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_5AEC:: ; 2A:5AEC
+.loop ; 2A:5AEC
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine1_BlitBlankAdvance
-	jr Label_2A_5AEC
+	jr .loop
 
 Profile_DrawAddressLine1_BlitGlyphAdvance:: ; 2A:5AFB
 	push bc
@@ -979,7 +975,8 @@ Label_2A_5B2C:: ; 2A:5B2C
 	dec a
 	jr nz, Label_2A_5B87
 
-; ---- code $5B46-$5B87 (65 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 2A:5B44 (executed)
+	; [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5B44 (executed)
 	pop af
 	push bc
 	push de
@@ -1020,9 +1017,8 @@ Label_2A_5B81:: ; 2A:5B81
 	jr z, Label_2A_5BC7
 	jr Label_2A_5B2C
 
-; ---- code $5B87-$5BAC (37 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
-
 Label_2A_5B87:: ; 2A:5B87
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 2/18 scenarios)
 	pop af
 	push bc
 	push de
@@ -1043,9 +1039,9 @@ Label_2A_5B87:: ; 2A:5B87
 	jr z, Label_2A_5BC7
 	jr Label_2A_5B2C
 
-; ---- code $5BAC-$5BC7 (27 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 2A:5B3A (executed)
-
 Label_2A_5BAC:: ; 2A:5BAC
+	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
+	; entered by jrcc from 2A:5B3A (executed)
 	push bc
 	push de
 	push hl
@@ -1060,9 +1056,8 @@ Label_2A_5BAC:: ; 2A:5BAC
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine2_BlitBlankAdvance
 
-; ---- code $5BC7-$5C7D (182 bytes) [CONFIRMED] 102 insn(s); 102 executed (in up to 2/18 scenarios)
-
 Label_2A_5BC7:: ; 2A:5BC7
+	; [CONFIRMED] 102 insn(s); 102 executed (in up to 2/18 scenarios)
 	push bc
 	push de
 	push hl
@@ -1072,15 +1067,14 @@ Label_2A_5BC7:: ; 2A:5BC7
 	pop hl
 	pop de
 	pop bc
-
-Label_2A_5BD8:: ; 2A:5BD8
+.loop ; 2A:5BD8
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Profile_DrawAddressLine2_BlitBlankAdvance
-	jr Label_2A_5BD8
+	jr .loop
 
 Profile_DrawAddressLine2_BlitGlyphAdvance:: ; 2A:5BE7
 	push bc
@@ -1143,17 +1137,15 @@ Gfx_StartHDMAAtVBlank_2A_5C3B:: ; 2A:5C3B
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2A_5C4A:: ; 2A:5C4A
+.l5C4A ; 2A:5C4A
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2A_5C4A
+	jr nz, .l5C4A
 	ld b, $91
-
-Label_2A_5C51:: ; 2A:5C51
+.l5C51 ; 2A:5C51
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2A_5C51
+	jr nz, .l5C51
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1167,105 +1159,100 @@ Profile_CharPtr:: ; 2A:5C5B
 	ldh [rSVBK], a
 	ld a, $FF
 	cp a, d
-	jr z, Label_2A_5C83
+	jr z, .l5C83
 	inc c
 	ld a, [hl]
-
-Label_2A_5C6C:: ; 2A:5C6C
+.loop ; 2A:5C6C
 	dec c
-	jr z, Label_2A_5C81
+	jr z, .l5C81
 	inc hl
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2A_5C83
+	jr z, .l5C83
 	ld a, [hl]
 	cp a, $0D
-	jr z, Label_2A_5C89
-	jr Label_2A_5C6C
+	jr z, .l5C89
+	jr .loop
 
-; ---- code $5C7D-$5C81 (4 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5C7D-$5C81 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: inc c; dec c; jr nz,$5C83 - skipped by the unconditional 'jr $5C6C' at 2A:5C7B... falls into 5C81 (pop bc; ret)
+	; [HYPOTHESIS] no branch/call/pointer to any address in $5C7D-$5C81 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: inc c; dec c; jr
+	; nz,$5C83 - skipped by the unconditional 'jr $5C6C' at 2A:5C7B... falls into 5C81 (pop bc; ret)
 	inc c
 	dec c
-	jr nz, Label_2A_5C83
+	jr nz, .l5C83
 
-; ---- code $5C81-$5C89 (8 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-
-Label_2A_5C81:: ; 2A:5C81
+.l5C81 ; 2A:5C81
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	pop bc
 	ret
-
-Label_2A_5C83:: ; 2A:5C83
+.l5C83 ; 2A:5C83
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
 
-; ---- code $5C89-$5C8F (6 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 2A:5C79 (executed)
-
-Label_2A_5C89:: ; 2A:5C89
+.l5C89 ; 2A:5C89
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1;
+	; entered by jrcc from 2A:5C79 (executed)
 	ld a, $0D
 	ld d, $FF
 	pop bc
 	ret
 
-; ---- code $5C8F-$5CB1 (34 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Profile_FindLine:: ; 2A:5C8F
 Function_2A_5C8F::
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D514
 	inc b
-
-Label_2A_5C9A:: ; 2A:5C9A
+.l5C9A ; 2A:5C9A
 	ld d, $00
 	ld e, $0C
 	dec b
-	jr z, Label_2A_5CB3
-
-Label_2A_5CA1:: ; 2A:5CA1
+	jr z, .l5CB3
+.l5CA1 ; 2A:5CA1
 	ld d, $FF
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2A_5CB3
+	jr z, .l5CB3
 	inc hl
 	inc hl
 	cp a, $0D
-	jr z, Label_2A_5C9A
+	jr z, .l5C9A
 	dec e
-	jr nz, Label_2A_5CA1
+	jr nz, .l5CA1
 
-; ---- code $5CB1-$5CB3 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5CAF (executed)
-	jr Label_2A_5C9A
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5CAF (executed)
+	jr .l5C9A
 
-; ---- code $5CB3-$5CE0 (45 bytes) [CONFIRMED] 27 insn(s); 27 executed (in up to 2/18 scenarios)
-
-Label_2A_5CB3:: ; 2A:5CB3
+.l5CB3 ; 2A:5CB3
+	; [CONFIRMED] 27 insn(s); 27 executed (in up to 2/18 scenarios)
 	ld a, $FF
 	cp a, d
-	jr z, Label_2A_5CCC
+	jr z, .l5CCC
 	ld e, $00
 	push hl
-
-Label_2A_5CBB:: ; 2A:5CBB
+.l5CBB ; 2A:5CBB
 	ld a, [hli]
 	inc hl
 	cp a, $00
-	jr z, Label_2A_5CCB
+	jr z, .l5CCB
 	cp a, $0D
-	jr z, Label_2A_5CCB
+	jr z, .l5CCB
 	inc e
 	ld a, $0B
 	cp a, e
-	jr nz, Label_2A_5CBB
-
-Label_2A_5CCB:: ; 2A:5CCB
+	jr nz, .l5CBB
+.l5CCB ; 2A:5CCB
 	pop hl
-
-Label_2A_5CCC:: ; 2A:5CCC
+.l5CCC ; 2A:5CCC
 	xor a, a
 	ld [rRAMG], a
 	pop bc
@@ -1278,9 +1265,10 @@ Profile_InsertChar:: ; 2A:5CD2
 	ld hl, $D522
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2A_5CF5
+	jr z, .l5CF5
 
-; ---- code $5CE0-$5CF5 (21 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2A:5CDE (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5CDE (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1295,9 +1283,8 @@ Profile_InsertChar:: ; 2A:5CD2
 	pop bc
 	ret
 
-; ---- code $5CF5-$5D6D (120 bytes) [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
-
-Label_2A_5CF5:: ; 2A:5CF5
+.l5CF5 ; 2A:5CF5
+	; [CONFIRMED] 54 insn(s); 54 executed (in up to 2/18 scenarios)
 	push de
 	push bc
 	push bc
@@ -1321,8 +1308,7 @@ Label_2A_5CF5:: ; 2A:5CF5
 	pop bc
 	call Profile_PlaceTextCursor
 	ld d, $14
-
-Label_2A_5D22:: ; 2A:5D22
+.l5D22 ; 2A:5D22
 	push bc
 	push de
 	farcall Function_00_0956
@@ -1332,11 +1318,10 @@ Label_2A_5D22:: ; 2A:5D22
 	pop bc
 	ldh a, [hJoyPressedRepeat]
 	and a, $01
-	jr nz, Label_2A_5D3E
+	jr nz, .l5D3E
 	dec d
-	jr nz, Label_2A_5D22
-
-Label_2A_5D3E:: ; 2A:5D3E
+	jr nz, .l5D22
+.l5D3E ; 2A:5D3E
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, $DA10
 	ld de, $7B60
@@ -1355,43 +1340,46 @@ Label_2A_5D3E:: ; 2A:5D3E
 	ld c, $00
 	call Profile_FindLine
 	inc d
-	jr z, Label_2A_5DAD
+	jr z, .l5DAD
 
-; ---- code $5D6D-$5D7E (17 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 2A:5D6B (executed)
+	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5D6B (executed)
 	pop bc
 	push bc
 	ld c, $0B
-
-Label_2A_5D71:: ; 2A:5D71
+.l5D71 ; 2A:5D71
 	call Profile_CharPtr
 	inc d
-	jr nz, Label_2A_5D8B
+	jr nz, .l5D8B
 	ld a, e
 	cp a, $0B
-	jr z, Label_2A_5D96
-	jr Label_2A_5DAD
+	jr z, .l5D96
+	jr .l5DAD
 
-; ---- code $5D7E-$5D8B (13 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5D7E-$5D8B was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: ld a,1; ldh [$8D],a; ldh [$70],a; ld a,[hl]; cp $0D; cp 0; jr z,$5DAD - skipped by the unconditional 'jr $5DAD' at 2A:5D7C, falls into 5D8B
+	; [HYPOTHESIS] no branch/call/pointer to any address in $5D7E-$5D8B was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: ld a,1; ldh [$8D],a;
+	; ldh [$70],a; ld a,[hl]; cp $0D; cp 0; jr z,$5DAD - skipped by the unconditional 'jr $5DAD' at
+	; 2A:5D7C, falls into 5D8B
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hl]
 	cp a, $0D
 	cp a, $00
-	jr z, Label_2A_5DAD
+	jr z, .l5DAD
 
-; ---- code $5D8B-$5DAD (34 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1; entered by jrcc from 2A:5D75 (PROBABLE code)
-
-Label_2A_5D8B:: ; 2A:5D8B
+.l5D8B ; 2A:5D8B
+	; [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
+	; entered by jrcc from 2A:5D75 (PROBABLE code)
 	ld a, $08
 	cp a, b
-	jr z, Label_2A_5D96
+	jr z, .l5D96
 	inc b
 	ld a, $08
 	cp a, b
-	jr nz, Label_2A_5D71
-
-Label_2A_5D96:: ; 2A:5D96
+	jr nz, .l5D71
+.l5D96 ; 2A:5D96
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1408,9 +1396,8 @@ Label_2A_5D96:: ; 2A:5D96
 	pop de
 	ret
 
-; ---- code $5DAD-$5DF8 (75 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
-
-Label_2A_5DAD:: ; 2A:5DAD
+.l5DAD ; 2A:5DAD
+	; [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
 	pop bc
 	pop de
 	push de
@@ -1424,16 +1411,14 @@ Label_2A_5DAD:: ; 2A:5DAD
 	push hl
 	ld de, $D522
 	ld bc, $D520
-
-Label_2A_5DC3:: ; 2A:5DC3
+.l5DC3 ; 2A:5DC3
 	ld a, d
 	cp a, h
-	jr nz, Label_2A_5DCB
+	jr nz, .l5DCB
 	ld a, e
 	cp a, l
-	jr z, Label_2A_5DD7
-
-Label_2A_5DCB:: ; 2A:5DCB
+	jr z, .l5DD7
+.l5DCB ; 2A:5DCB
 	ld a, [bc]
 	ld [de], a
 	inc bc
@@ -1444,9 +1429,8 @@ Label_2A_5DCB:: ; 2A:5DCB
 	dec bc
 	dec de
 	dec de
-	jr Label_2A_5DC3
-
-Label_2A_5DD7:: ; 2A:5DD7
+	jr .l5DC3
+.l5DD7 ; 2A:5DD7
 	pop hl
 	pop de
 	pop bc
@@ -1465,48 +1449,48 @@ Label_2A_5DD7:: ; 2A:5DD7
 	pop bc
 	ld a, b
 	cp a, $07
-	jr nz, Label_2A_5DFD
+	jr nz, .l5DFD
 
-; ---- code $5DF8-$5DFD (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2A:5DF6 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5DF6 (executed)
 	ld a, c
 	cp a, $0B
-	jr z, Label_2A_5E22
+	jr z, .done
 
-; ---- code $5DFD-$5E08 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
-
-Label_2A_5DFD:: ; 2A:5DFD
+.l5DFD ; 2A:5DFD
+	; [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
 	call Profile_CharPtr
 	cp a, $FF
-	jr z, Label_2A_5E22
+	jr z, .done
 	cp a, $0D
-	jr nz, Label_2A_5E11
+	jr nz, .l5E11
 
-; ---- code $5E08-$5E11 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:5E06 (executed)
+	; [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5E06 (executed)
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
-	jr Label_2A_5E22
+	jr .done
 
-; ---- code $5E11-$5E1B (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-
-Label_2A_5E11:: ; 2A:5E11
+.l5E11 ; 2A:5E11
+	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 	inc c
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
-	jr nz, Label_2A_5E22
+	jr nz, .done
 
-; ---- code $5E1B-$5E22 (7 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2A:5E19 (executed)
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5E19 (executed)
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
 
-; ---- code $5E22-$5E58 (54 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
-
-Label_2A_5E22:: ; 2A:5E22
+.done ; 2A:5E22
+	; [CONFIRMED] 31 insn(s); 31 executed (in up to 2/18 scenarios)
 	ret
 
 Profile_DeleteChar:: ; 2A:5E23
@@ -1539,29 +1523,29 @@ Profile_DeleteChar:: ; 2A:5E23
 	push bc
 	inc c
 	dec c
-	jr nz, Label_2A_5E60
+	jr nz, .l5E60
 
-; ---- code $5E58-$5E5D (5 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2A:5E56 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split [executed in 4 scenarios]
+	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5E56 (executed) | 3 insn(s) executed; cut out of the PROBABLE
+	; region 5E58-5E60 by apply_coverage --split [executed in 4 scenarios]
 	ld a, b
 	cp a, $00
-	jr z, Label_2A_5E61
+	jr z, .l5E61
 
-; ---- code $5E5D-$5E60 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5E58-5E60 by apply_coverage --split
 	dec b
 	ld c, e
 	inc c
 
-; ---- code $5E60-$5E9E (62 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
-
-Label_2A_5E60:: ; 2A:5E60
+.l5E60 ; 2A:5E60
+	; [CONFIRMED] 26 insn(s); 26 executed (in up to 1/18 scenarios)
 	dec c
-
-Label_2A_5E61:: ; 2A:5E61
+.l5E61 ; 2A:5E61
 	call Profile_PlaceTextCursor
 	pop bc
 	ld d, $14
-
-Label_2A_5E67:: ; 2A:5E67
+.loop ; 2A:5E67
 	push bc
 	push de
 	farcall Function_00_0956
@@ -1571,11 +1555,10 @@ Label_2A_5E67:: ; 2A:5E67
 	pop bc
 	ldh a, [hJoyPressedRepeat]
 	and a, $02
-	jr nz, Label_2A_5E83
+	jr nz, .l5E83
 	dec d
-	jr nz, Label_2A_5E67
-
-Label_2A_5E83:: ; 2A:5E83
+	jr nz, .loop
+.l5E83 ; 2A:5E83
 	farcall Joypad_ClearAndResetRepeat
 	ld hl, $DA10
 	ld de, $7B60
@@ -1585,27 +1568,28 @@ Label_2A_5E83:: ; 2A:5E83
 	pop bc
 	inc c
 	dec c
-	jr nz, Label_2A_5EA9
+	jr nz, .l5EA9
 
-; ---- code $5E9E-$5EA2 (4 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2A:5E9C (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split [executed in 4 scenarios]
+	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5E9C (executed) | 3 insn(s) executed; cut out of the PROBABLE
+	; region 5E9E-5EA9 by apply_coverage --split [executed in 4 scenarios]
 	inc b
 	dec b
-	jr z, Label_2A_5EAE
+	jr z, .l5EAE
 
-; ---- code $5EA2-$5EA9 (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5E9E-5EA9 by apply_coverage --split
 	dec b
 	call Profile_CharPtr
 	ld c, e
-	jr Label_2A_5EAE
+	jr .l5EAE
 
-; ---- code $5EA9-$5EC6 (29 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios)
-
-Label_2A_5EA9:: ; 2A:5EA9
+.l5EA9 ; 2A:5EA9
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios)
 	dec c
 	ld a, c
 	ld [wTextEditGoalColumn], a
-
-Label_2A_5EAE:: ; 2A:5EAE
+.l5EAE ; 2A:5EAE
 	call Profile_CharPtr
 	pop de
 	ld a, $01
@@ -1621,31 +1605,29 @@ Label_2A_5EAE:: ; 2A:5EAE
 	ld e, $00
 	ld a, [hl]
 	cp a, $0D
-	jr nz, Label_2A_5EC8
+	jr nz, .l5EC8
 
-; ---- code $5EC6-$5EC8 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2A:5EC4 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 2A:5EC4 (executed)
 	ld e, $01
 
-; ---- code $5EC8-$5EF4 (44 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
-
-Label_2A_5EC8:: ; 2A:5EC8
+.l5EC8 ; 2A:5EC8
+	; [CONFIRMED] 29 insn(s); 29 executed (in up to 1/18 scenarios)
 	ld a, $22
 	cp a, l
-	jr nz, Label_2A_5ED2
+	jr nz, .l5ED2
 	ld a, $D5
 	cp a, h
-	jr z, Label_2A_5EDA
-
-Label_2A_5ED2:: ; 2A:5ED2
+	jr z, .l5EDA
+.l5ED2 ; 2A:5ED2
 	ld a, [bc]
 	ld [hli], a
 	inc bc
 	ld a, [bc]
 	ld [hli], a
 	inc bc
-	jr Label_2A_5EC8
-
-Label_2A_5EDA:: ; 2A:5EDA
+	jr .l5EC8
+.l5EDA ; 2A:5EDA
 	xor a, a
 	ld [hli], a
 	ld [hli], a
@@ -1663,18 +1645,18 @@ Label_2A_5EDA:: ; 2A:5EDA
 	pop bc
 	ret
 
-; ---- code $5EF4-$5F42 (78 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
-
 Profile_ApplyDakuten:: ; 2A:5EF4
+	; [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1;
+	; entered by call from 2A:61EA (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE
+	; region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
 	call Profile_CharPtr
 	ld a, $14
 	cp a, l
-	jr nz, Label_2A_5F02
+	jr nz, .l5F02
 	ld a, $D5
 	cp a, h
-	jp z, Label_2A_5F7D
-
-Label_2A_5F02:: ; 2A:5F02
+	jp z, .l5F7D
+.l5F02 ; 2A:5F02
 	push bc
 	dec hl
 	dec hl
@@ -1682,12 +1664,11 @@ Label_2A_5F02:: ; 2A:5F02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Profile_DakutenKana
-
-Label_2A_5F0E:: ; 2A:5F0E
+.loop ; 2A:5F0E
 	ld a, [de]
 	inc de
 	cp a, $00
-	jr z, Label_2A_5F71
+	jr z, .l5F71
 	ld b, a
 	ld a, [de]
 	inc de
@@ -1695,10 +1676,10 @@ Label_2A_5F0E:: ; 2A:5F0E
 	push hl
 	ld a, [hli]
 	cp a, b
-	jr nz, Label_2A_5F66
+	jr nz, .l5F66
 	ld a, [hl]
 	cp a, c
-	jr nz, Label_2A_5F66
+	jr nz, .l5F66
 	inc a
 	ld [hl], a
 	push bc
@@ -1719,9 +1700,10 @@ Label_2A_5F0E:: ; 2A:5F0E
 	pop bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_2A_5F54
+	jr nz, .l5F54
 
-; ---- code $5F42-$5F54 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5EF4-5F69 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1731,9 +1713,9 @@ Label_2A_5F0E:: ; 2A:5F0E
 	pop bc
 	ret
 
-; ---- code $5F54-$5F69 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
-
-Label_2A_5F54:: ; 2A:5F54
+.l5F54 ; 2A:5F54
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1742,21 +1724,24 @@ Label_2A_5F54:: ; 2A:5F54
 	call Profile_UploadTextTiles
 	pop bc
 	ret
-
-Label_2A_5F66:: ; 2A:5F66
+.l5F66 ; 2A:5F66
 	pop hl
-	jr Label_2A_5F0E
+	jr .loop
 
-; ---- code $5F69-$5F71 (8 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5F69-$5F71 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5F0E' at 2A:5F67
+	; [HYPOTHESIS] no branch/call/pointer to any address in $5F69-$5F71 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a;
+	; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5F0E' at
+	; 2A:5F67
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop bc
 	ret
 
-; ---- code $5F71-$5F82 (17 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code) [executed in 1 scenarios]
-
-Label_2A_5F71:: ; 2A:5F71
+.l5F71 ; 2A:5F71
+	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2;
+	; entered by jrcc from 2A:5F12 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	push de
 	pop de
@@ -1766,8 +1751,7 @@ Label_2A_5F71:: ; 2A:5F71
 	ld [rRAMG], a
 	pop bc
 	ret
-
-Label_2A_5F7D:: ; 2A:5F7D
+.l5F7D ; 2A:5F7D
 	push bc
 	push de
 	pop de
@@ -1782,21 +1766,24 @@ String_2A_5F82::
 	db $82, $D3, $82, $D6, $82, $D9, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $83, $5E, $83, $60, $83, $63, $83, $65 ; "ふへほカキクケコサシスセソタチツテ"
 	db $83, $67, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "トハヒフヘホ"
 
-; ---- code $5FD3-$5FD4 (1 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string that follows the function ending before it
+	; [HYPOTHESIS] no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9)
+	; directly after a NUL-terminated string that follows the function ending before it
 	ret
 
-; ---- code $5FD4-$6021 (77 bytes) [CONFIRMED] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code) | 48 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
-
 Profile_ApplyVu:: ; 2A:5FD4
+	; [CONFIRMED] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1;
+	; entered by call from 2A:61F4 (PROBABLE code) | 48 insn(s) executed; cut out of the PROBABLE
+	; region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
 	call Profile_CharPtr
 	ld a, $14
 	cp a, l
-	jr nz, Label_2A_5FE2
+	jr nz, .l5FE2
 	ld a, $D5
 	cp a, h
-	jp z, Label_2A_606C
-
-Label_2A_5FE2:: ; 2A:5FE2
+	jp z, .l606C
+.l5FE2 ; 2A:5FE2
 	push bc
 	dec hl
 	dec hl
@@ -1804,12 +1791,11 @@ Label_2A_5FE2:: ; 2A:5FE2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_2A_6081
-
-Label_2A_5FEE:: ; 2A:5FEE
+.loop ; 2A:5FEE
 	ld a, [de]
 	inc de
 	cp a, $00
-	jr z, Label_2A_6050
+	jr z, .l6050
 	ld b, a
 	ld a, [de]
 	inc de
@@ -1817,10 +1803,10 @@ Label_2A_5FEE:: ; 2A:5FEE
 	push hl
 	ld a, [hli]
 	cp a, $83
-	jr nz, Label_2A_6045
+	jr nz, .l6045
 	ld a, [hl]
 	cp a, $45
-	jr nz, Label_2A_6045
+	jr nz, .l6045
 	ld a, $94
 	ld [hl], a
 	push bc
@@ -1839,9 +1825,10 @@ Label_2A_5FEE:: ; 2A:5FEE
 	pop bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_2A_6033
+	jr nz, .l6033
 
-; ---- code $6021-$6033 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5FD4-6048 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1851,9 +1838,9 @@ Label_2A_5FEE:: ; 2A:5FEE
 	pop bc
 	ret
 
-; ---- code $6033-$6048 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
-
-Label_2A_6033:: ; 2A:6033
+.l6033 ; 2A:6033
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1862,21 +1849,23 @@ Label_2A_6033:: ; 2A:6033
 	call Profile_UploadTextTiles
 	pop bc
 	ret
-
-Label_2A_6045:: ; 2A:6045
+.l6045 ; 2A:6045
 	pop hl
-	jr Label_2A_5FEE
+	jr .loop
 
-; ---- code $6048-$6050 (8 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $6048-$6050 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5FEE'
+	; [HYPOTHESIS] no branch/call/pointer to any address in $6048-$6050 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a;
+	; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $5FEE'
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop bc
 	ret
 
-; ---- code $6050-$6081 (49 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code) [executed in 1 scenarios]
-
-Label_2A_6050:: ; 2A:6050
+.l6050 ; 2A:6050
+	; [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2;
+	; entered by jrcc from 2A:5FF2 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1894,8 +1883,7 @@ Label_2A_6050:: ; 2A:6050
 	ld [rRAMG], a
 	pop bc
 	ret
-
-Label_2A_606C:: ; 2A:606C
+.l606C ; 2A:606C
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1915,21 +1903,22 @@ Label_2A_606C:: ; 2A:606C
 String_2A_6081:: ; 2A:6081
 	db $82, $A4, $82, $A4, $00 ; "うう"
 
-; ---- code $6086-$6087 (1 bytes) [HYPOTHESIS] lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087; nothing branches to it
+	; [HYPOTHESIS] lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087;
+	; nothing branches to it
 	ret
 
-; ---- code $6087-$60D2 (75 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code) | 49 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
-
 Profile_ApplyHandakuten:: ; 2A:6087
+	; [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1;
+	; entered by call from 2A:6208 (PROBABLE code) | 49 insn(s) executed; cut out of the PROBABLE
+	; region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
 	call Profile_CharPtr
 	ld a, $14
 	cp a, l
-	jr nz, Label_2A_6095
+	jr nz, .l6095
 	ld a, $D5
 	cp a, h
-	jp z, Label_2A_611D
-
-Label_2A_6095:: ; 2A:6095
+	jp z, .l611D
+.l6095 ; 2A:6095
 	push bc
 	dec hl
 	dec hl
@@ -1937,12 +1926,11 @@ Label_2A_6095:: ; 2A:6095
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld de, String_Profile_HandakutenKana
-
-Label_2A_60A1:: ; 2A:60A1
+.loop ; 2A:60A1
 	ld a, [de]
 	inc de
 	cp a, $00
-	jr z, Label_2A_6101
+	jr z, .l6101
 	ld b, a
 	ld a, [de]
 	inc de
@@ -1950,10 +1938,10 @@ Label_2A_60A1:: ; 2A:60A1
 	push hl
 	ld a, [hli]
 	cp a, b
-	jr nz, Label_2A_60F6
+	jr nz, .l60F6
 	ld a, [hl]
 	cp a, c
-	jr nz, Label_2A_60F6
+	jr nz, .l60F6
 	inc a
 	inc a
 	ld [hl], a
@@ -1973,9 +1961,10 @@ Label_2A_60A1:: ; 2A:60A1
 	pop bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_2A_60E4
+	jr nz, .l60E4
 
-; ---- code $60D2-$60E4 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split
+	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 6087-60F9 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1985,9 +1974,9 @@ Label_2A_60A1:: ; 2A:60A1
 	pop bc
 	ret
 
-; ---- code $60E4-$60F9 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
-
-Label_2A_60E4:: ; 2A:60E4
+.l60E4 ; 2A:60E4
+	; [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -1996,21 +1985,23 @@ Label_2A_60E4:: ; 2A:60E4
 	call Profile_UploadTextTiles
 	pop bc
 	ret
-
-Label_2A_60F6:: ; 2A:60F6
+.l60F6 ; 2A:60F6
 	pop hl
-	jr Label_2A_60A1
+	jr .loop
 
-; ---- code $60F9-$6101 (8 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $60F9-$6101 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $60A1'
+	; [HYPOTHESIS] no branch/call/pointer to any address in $60F9-$6101 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: xor a; ldh [$F5],a;
+	; ld [$0000],a; pop bc; ret (SRAM-disable epilogue) - after the unconditional 'jr $60A1'
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	pop bc
 	ret
 
-; ---- code $6101-$6132 (49 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code) [executed in 1 scenarios]
-
-Label_2A_6101:: ; 2A:6101
+.l6101 ; 2A:6101
+	; [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2;
+	; entered by jrcc from 2A:60A5 (PROBABLE code) [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -2028,8 +2019,7 @@ Label_2A_6101:: ; 2A:6101
 	ld [rRAMG], a
 	pop bc
 	ret
-
-Label_2A_611D:: ; 2A:611D
+.l611D ; 2A:611D
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -2050,13 +2040,16 @@ String_Profile_HandakutenKana:: ; 2A:6132
 String_2A_6132::
 	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "はひふへほハヒフヘホ"
 
-; ---- code $6147-$6148 (1 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $6147-$6148 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string
+	; [HYPOTHESIS] no branch/call/pointer to any address in $6147-$6148 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9)
+	; directly after a NUL-terminated string
 	ret
-
-; ---- code $6148-$61E3 (155 bytes) [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 Profile_KeyboardLoop:: ; 2A:6148
 Function_2A_6148::
+	; [CONFIRMED] 78 insn(s); 78 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -2097,11 +2090,10 @@ Profile_KeyboardLoop_Poll:: ; 2A:617B
 	farcall Kbd_Run
 	pop bc
 	cp a, $08
-	jr z, Label_2A_619C
+	jr z, .l619C
 	cp a, $07
-	jr nz, Label_2A_61CA
-
-Label_2A_619C:: ; 2A:619C
+	jr nz, .l61CA
+.l619C ; 2A:619C
 	push af
 	push bc
 	push de
@@ -2111,7 +2103,7 @@ Label_2A_619C:: ; 2A:619C
 	ld de, $D514
 	ld a, [de]
 	cp a, $00
-	jr z, Label_2A_61C0
+	jr z, .l61C0
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -2121,33 +2113,32 @@ Label_2A_619C:: ; 2A:619C
 	pop af
 	ldh [rSVBK], a
 	call Profile_SaveToSram
-
-Label_2A_61C0:: ; 2A:61C0
+.l61C0 ; 2A:61C0
 	farcall Kbd_Hide
 	pop de
 	pop bc
 	pop af
 	ret
-
-Label_2A_61CA:: ; 2A:61CA
+.l61CA ; 2A:61CA
 	cp a, $00
 	jr z, Profile_KeyboardLoop_Poll
 	cp a, $09
 	ret z
 	cp a, $02
-	jr z, Label_2A_621C
+	jr z, .l621C
 	cp a, $07
 	ret z
 	cp a, $08
-	jr z, Label_2A_6223
+	jr z, .l6223
 	ld a, [wKeyboardCharLo]
 	cp a, $4A
-	jr nz, Label_2A_61FA
+	jr nz, .l61FA
 
-; ---- code $61E3-$61FA (23 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2A:61E1 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
+	; fall-through of the jrcc at 2A:61E1 (executed) [executed in 1 scenarios]
 	ld a, [wKeyboardCharHi]
 	cp a, $81
-	jr nz, Label_2A_61FA
+	jr nz, .l61FA
 	call Profile_ApplyDakuten
 	ld a, [wKeyboardCharLo]
 	cp a, $4A
@@ -2155,40 +2146,41 @@ Label_2A_61CA:: ; 2A:61CA
 	call Profile_ApplyVu
 	jp Profile_KeyboardLoop_Poll
 
-; ---- code $61FA-$6201 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
-
-Label_2A_61FA:: ; 2A:61FA
+.l61FA ; 2A:61FA
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	cp a, $4B
-	jr nz, Label_2A_620E
+	jr nz, .l620E
 
-; ---- code $6201-$620E (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 2A:61FF (executed) [executed in 2 scenarios]
 	ld a, [wKeyboardCharHi]
 	cp a, $81
-	jr nz, Label_2A_620E
+	jr nz, .l620E
 	call Profile_ApplyHandakuten
 	jp Profile_KeyboardLoop_Poll
 
-; ---- code $620E-$6222 (20 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
-
-Label_2A_620E:: ; 2A:620E
+.l620E ; 2A:620E
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	ld e, a
 	ld a, [wKeyboardCharHi]
 	ld d, a
 	call Profile_InsertChar
 	jp Profile_KeyboardLoop_Poll
-
-Label_2A_621C:: ; 2A:621C
+.l621C ; 2A:621C
 	call Profile_DeleteChar
 	jp Profile_KeyboardLoop_Poll
 
-; ---- code $6222-$6223 (1 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $6222-$6223 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) after the unconditional 'jp $617B' at 2A:621F
+	; [HYPOTHESIS] no branch/call/pointer to any address in $6222-$6223 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) after
+	; the unconditional 'jp $617B' at 2A:621F
 	ret
 
-; ---- code $6223-$6253 (48 bytes) [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 2A:61DA (executed)
-
-Label_2A_6223:: ; 2A:6223
+.l6223 ; 2A:6223
+	; [PROBABLE] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1;
+	; entered by jrcc from 2A:61DA (executed)
 	push af
 	push bc
 	farcall Kbd_HideInstant
@@ -2209,15 +2201,18 @@ Label_2A_6223:: ; 2A:6223
 	pop af
 	ret
 
-; ---- code $6253-$6257 (4 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $6253-$6257 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: jp $617B ; ret - after the ret at 2A:6252
+	; [HYPOTHESIS] no branch/call/pointer to any address in $6253-$6257 was found (tgt scan of all
+	; code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen
+	; code; linear decode is legal and continues exactly into the next region: jp $617B ; ret -
+	; after the ret at 2A:6252
 	jp Profile_KeyboardLoop_Poll
 
 	ret
 
-; ---- code $6257-$62FE (167 bytes) [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Profile_LoadAndDraw:: ; 2A:6257
 Function_2A_6257::
+	; [CONFIRMED] 81 insn(s); 81 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2231,23 +2226,21 @@ Function_2A_6257::
 	ld b, $10
 	ld hl, $AF40
 	ld de, $D514
-
-Label_2A_6274:: ; 2A:6274
+.l6274 ; 2A:6274
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_6274
+	jr nz, .l6274
 	ld b, $40
 	ld hl, $AF50
 	ld de, $D4C0
-
-Label_2A_6282:: ; 2A:6282
+.l6282 ; 2A:6282
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_6282
+	jr nz, .l6282
 	pop bc
 	push bc
 	ld a, $14
@@ -2289,23 +2282,21 @@ Profile_SaveToSram:: ; 2A:62C5
 	ld b, $10
 	ld de, $AF40
 	ld hl, $D514
-
-Label_2A_62E2:: ; 2A:62E2
+.l62E2 ; 2A:62E2
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_62E2
+	jr nz, .l62E2
 	ld b, $40
 	ld de, $AF50
 	ld hl, $D4C0
-
-Label_2A_62F0:: ; 2A:62F0
+.l62F0 ; 2A:62F0
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2A_62F0
+	jr nz, .l62F0
 	pop bc
 	farcall SramCheck_Bank0Commit
 	ret

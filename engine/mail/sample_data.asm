@@ -4,9 +4,14 @@
 
 SECTION "engine/mail/sample_data", ROMX
 
-; ---- code $4195-$42A3 (270 bytes) [PROBABLE] profile-defaults initialiser: SRAM bank 0 select (ld [$4000]), enable ($0A -> [$0000]), then strcpy-style copies of 9-byte records and NUL strings into SRAM ($A124...) via the helper at 42AA (20 calls); every `ld hl,imm` source lands exactly on a record/string start (42B2 42BB 42D0 42D7 42E6 42F8 4301 ... 44F1) of the data below, which independently mapped as text; ends by falling into the far-call site 42A3; entry not located (no caller/table found) | forced execution: 109/109 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 MailRecord_InstallSampleMails:: ; 2D:4195
+	; [PROBABLE] profile-defaults initialiser: SRAM bank 0 select (ld [$4000]), enable ($0A ->
+	; [$0000]), then strcpy-style copies of 9-byte records and NUL strings into SRAM ($A124...) via
+	; the helper at 42AA (20 calls); every `ld hl,imm` source lands exactly on a record/string start
+	; (42B2 42BB 42D0 42D7 42E6 42F8 4301 ... 44F1) of the data below, which independently mapped as
+	; text; ends by falling into the far-call site 42A3; entry not located (no caller/table found) |
+	; forced execution: 109/109 instruction starts ran in forced_screens (traces/forced/, not
+	; natural evidence; status unchanged)
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -16,13 +21,12 @@ MailRecord_InstallSampleMails:: ; 2D:4195
 	ld hl, MailSample0_Header
 	ld de, $A124
 	ld b, $09
-
-Label_2D_41AB:: ; 2D:41AB
+.l41AB ; 2D:41AB
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2D_41AB
+	jr nz, .l41AB
 	ld hl, MailSample0_Body
 	ld de, $A12D
 	call SampleData_CopyString
@@ -38,13 +42,12 @@ Label_2D_41AB:: ; 2D:41AB
 	ld hl, MailSample1_Header
 	ld de, $A251
 	ld b, $09
-
-Label_2D_41DD:: ; 2D:41DD
+.l41DD ; 2D:41DD
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2D_41DD
+	jr nz, .l41DD
 	ld hl, MailSample1_Body
 	ld de, $A25A
 	call SampleData_CopyString
@@ -60,13 +63,12 @@ Label_2D_41DD:: ; 2D:41DD
 	ld hl, MailSample2_Header
 	ld de, $A37E
 	ld b, $09
-
-Label_2D_420F:: ; 2D:420F
+.l420F ; 2D:420F
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2D_420F
+	jr nz, .l420F
 	ld hl, MailSample2_Body
 	ld de, $A387
 	call SampleData_CopyString
@@ -82,13 +84,12 @@ Label_2D_420F:: ; 2D:420F
 	ld hl, MailSample3_Header
 	ld de, $A4AB
 	ld b, $09
-
-Label_2D_4241:: ; 2D:4241
+.l4241 ; 2D:4241
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2D_4241
+	jr nz, .l4241
 	ld hl, MailSample3_Body
 	ld de, $A4B4
 	call SampleData_CopyString
@@ -104,13 +105,12 @@ Label_2D_4241:: ; 2D:4241
 	ld hl, MailSample4_Header
 	ld de, $A5D8
 	ld b, $09
-
-Label_2D_4273:: ; 2D:4273
+.l4273 ; 2D:4273
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2D_4273
+	jr nz, .l4273
 	ld hl, MailSample4_Body
 	ld de, $A5E1
 	call SampleData_CopyString
@@ -127,13 +127,17 @@ Label_2D_4273:: ; 2D:4273
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 
-; ---- code $42A3-$42AA (7 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 2/2 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: site x2; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 2/2 instruction starts ran in forced_screens (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall SramCheck_Bank0Commit
 	ret
 
-; ---- code $42AA-$42B2 (8 bytes) [PROBABLE] strcpy helper: ld a,[hli] ; ld [de],a ; inc de ; cp a,$00 ; jr nz ; ret - 20 callers inside 4195-42A3 (call $42AA) | forced execution: 6/6 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 SampleData_CopyString:: ; 2D:42AA
+	; [PROBABLE] strcpy helper: ld a,[hli] ; ld [de],a ; inc de ; cp a,$00 ; jr nz ; ret - 20
+	; callers inside 4195-42A3 (call $42AA) | forced execution: 6/6 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -259,9 +263,12 @@ MailSample4_Subject:: ; 2D:44EA
 MailSample4_Address:: ; 2D:44F1
 	db $70, $40, $70, $2E, $6E, $65, $2E, $6A, $70, $00 ; "p@p.ne.jp"
 
-; ---- code $44FB-$45A6 (171 bytes) [PROBABLE] second profile-defaults routine: SRAM bank 1 select/enable, 12 strcpy calls (`ld hl,imm ; ld de,imm ; ld a,[hli] ; ld [de],a ; inc de ; cp 0 ; jr nz`) whose sources (45A6 45DA 45B7 45F6 45B8 45F7 45C7 4611 45D8 462A 45D9 462B) are the strings of the text runs below; ends with ret at 45A5; entry not located | forced execution: 91/91 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Abook_InstallSampleEntries:: ; 2D:44FB
+	; [PROBABLE] second profile-defaults routine: SRAM bank 1 select/enable, 12 strcpy calls (`ld
+	; hl,imm ; ld de,imm ; ld a,[hli] ; ld [de],a ; inc de ; cp 0 ; jr nz`) whose sources (45A6 45DA
+	; 45B7 45F6 45B8 45F7 45C7 4611 45D8 462A 45D9 462B) are the strings of the text runs below;
+	; ends with ret at 45A5; entry not located | forced execution: 91/91 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -270,112 +277,100 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	ld [rRAMG], a
 	ld hl, AbookSample0_Name
 	ld de, $A69D
-
-Label_2D_450F:: ; 2D:450F
+.l450F ; 2D:450F
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_450F
+	jr nz, .l450F
 	ld hl, $45DA
 	ld de, $A6AD
-
-Label_2D_451C:: ; 2D:451C
+.l451C ; 2D:451C
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_451C
+	jr nz, .l451C
 	ld hl, AbookSample1_Name
 	ld de, $A6ED
-
-Label_2D_4529:: ; 2D:4529
+.l4529 ; 2D:4529
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4529
+	jr nz, .l4529
 	ld hl, $45F6
 	ld de, $A6FD
-
-Label_2D_4536:: ; 2D:4536
+.l4536 ; 2D:4536
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4536
+	jr nz, .l4536
 	ld hl, $45B8
 	ld de, $A73D
-
-Label_2D_4543:: ; 2D:4543
+.l4543 ; 2D:4543
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4543
+	jr nz, .l4543
 	ld hl, $45F7
 	ld de, $A74D
-
-Label_2D_4550:: ; 2D:4550
+.l4550 ; 2D:4550
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4550
+	jr nz, .l4550
 	ld hl, $45C7
 	ld de, $A78D
-
-Label_2D_455D:: ; 2D:455D
+.l455D ; 2D:455D
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_455D
+	jr nz, .l455D
 	ld hl, $4611
 	ld de, $A79D
-
-Label_2D_456A:: ; 2D:456A
+.l456A ; 2D:456A
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_456A
+	jr nz, .l456A
 	ld hl, $45D8
 	ld de, $A7DD
-
-Label_2D_4577:: ; 2D:4577
+.l4577 ; 2D:4577
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4577
+	jr nz, .l4577
 	ld hl, AbookSample4_Address
 	ld de, $A7ED
-
-Label_2D_4584:: ; 2D:4584
+.l4584 ; 2D:4584
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4584
+	jr nz, .l4584
 	ld hl, $45D9
 	ld de, $A82D
-
-Label_2D_4591:: ; 2D:4591
+.l4591 ; 2D:4591
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4591
+	jr nz, .l4591
 	ld hl, $462B
 	ld de, $A83D
-
-Label_2D_459E:: ; 2D:459E
+.l459E ; 2D:459E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_459E
+	jr nz, .l459E
 	ret
 
 ; ---- text $45A6-$45B7 (17 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -423,9 +418,10 @@ String_2D_462A::
 AbookSample5_Address:: ; 2D:462B
 	db $61, $62, $63, $40, $61, $2E, $62, $2E, $63, $00 ; "abc@a.b.c"
 
-; ---- code $4635-$465E (41 bytes) [PROBABLE] third profile-defaults routine: SRAM bank select/enable + 2 strcpy calls (ld hl,$465E ; de $AF40 / ld hl,$466D ; de $AF50) whose sources are the strings at 465E/466D; ends with ret; entry not located
-
 SampleData_InstallNameAddressPair:: ; 2D:4635
+	; [PROBABLE] third profile-defaults routine: SRAM bank select/enable + 2 strcpy calls (ld
+	; hl,$465E ; de $AF40 / ld hl,$466D ; de $AF50) whose sources are the strings at 465E/466D; ends
+	; with ret; entry not located
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -434,22 +430,20 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 	ld [rRAMG], a
 	ld hl, SampleData_Name
 	ld de, $AF40
-
-Label_2D_4649:: ; 2D:4649
+.l4649 ; 2D:4649
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4649
+	jr nz, .l4649
 	ld hl, $466D
 	ld de, $AF50
-
-Label_2D_4656:: ; 2D:4656
+.l4656 ; 2D:4656
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_2D_4656
+	jr nz, .l4656
 	ret
 
 ; ---- text $465E-$4686 (40 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)

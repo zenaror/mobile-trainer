@@ -4,9 +4,8 @@
 
 SECTION "engine/gfx/palette_fade_masked", ROMX
 
-; ---- code $44E0-$4615 (309 bytes) [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
-
 Palette_FadeInMasked:: ; 48:44E0
+	; [CONFIRMED] 481 insn(s); 481 executed (in up to 12/18 scenarios) (part of region $4222-$4615)
 	ldh [hRam_FFB0], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -30,8 +29,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	call Palette_SetFadeTargetMasked
 	farcall PalFade_Step
 	call LCDOn
-
-Label_48_451D:: ; 48:451D
+.loop ; 48:451D
 	call Function_00_047A
 	ld hl, $D800
 	farcall Palette_UploadBuffer
@@ -39,7 +37,7 @@ Label_48_451D:: ; 48:451D
 	call Function_00_0392
 	farcall PalFade_Step
 	or a, a
-	jr nz, Label_48_451D
+	jr nz, .loop
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -70,8 +68,7 @@ Palette_FadeOutMasked:: ; 48:4540
 	ld a, $20
 	call Palette_SetFadeTargetMasked
 	farcall PalFade_Step
-
-Label_48_457A:: ; 48:457A
+.loop ; 48:457A
 	call Function_00_047A
 	ld hl, $D800
 	farcall Palette_UploadBuffer
@@ -79,7 +76,7 @@ Label_48_457A:: ; 48:457A
 	call Function_00_0392
 	farcall PalFade_Step
 	or a, a
-	jr nz, Label_48_457A
+	jr nz, .loop
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -90,7 +87,7 @@ Label_48_457A:: ; 48:457A
 Palette_SetFadeTargetMasked:: ; 48:459D
 	ld [wPalFadeStep], a
 	bit 7, a
-	jr nz, Label_48_45B5
+	jr nz, .l45B5
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
@@ -98,9 +95,8 @@ Palette_SetFadeTargetMasked:: ; 48:459D
 	xor a, a
 	ld [wPalFadeProgress], a
 	ld [wPalFadeProgress + 1], a
-	jr Label_48_45C5
-
-Label_48_45B5:: ; 48:45B5
+	jr .l45C5
+.l45B5 ; 48:45B5
 	ld a, c
 	ld [wTextCellsLeft], a
 	ld a, b
@@ -109,22 +105,20 @@ Label_48_45B5:: ; 48:45B5
 	ld [wPalFadeProgress], a
 	inc a
 	ld [wPalFadeProgress + 1], a
-
-Label_48_45C5:: ; 48:45C5
+.l45C5 ; 48:45C5
 	ld de, $D980
 	ld hl, $D900
 	ld b, $40
 	ld c, $04
 	ld a, $01
 	ldh [hRam_FFB1], a
-
-Label_48_45D3:: ; 48:45D3
+.loop ; 48:45D3
 	push hl
 	ldh a, [hRam_FFB0]
 	ld hl, $FFB1
 	and a, [hl]
 	pop hl
-	jr nz, Label_48_45F4
+	jr nz, .l45F4
 	inc hl
 	inc hl
 	xor a, a
@@ -133,19 +127,17 @@ Label_48_45D3:: ; 48:45D3
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_48_45F0
+	jr nz, .l45F0
 	push hl
 	ld c, $04
 	ld hl, $FFB1
 	sla [hl]
 	pop hl
-
-Label_48_45F0:: ; 48:45F0
+.l45F0 ; 48:45F0
 	dec b
-	jr nz, Label_48_45D3
+	jr nz, .loop
 	ret
-
-Label_48_45F4:: ; 48:45F4
+.l45F4 ; 48:45F4
 	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wRam_C2EF]
@@ -157,16 +149,16 @@ Label_48_45F4:: ; 48:45F4
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_48_4612
+	jr nz, .l4612
 	push hl
 	ld c, $04
 	ld hl, $FFB1
 	sla [hl]
 	pop hl
-
-Label_48_4612:: ; 48:4612
+.l4612 ; 48:4612
 	dec b
-	jr nz, Label_48_45D3
+	jr nz, .loop
 
-; ---- code $4615-$4616 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 48:4613 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 48:4613 (executed)
 	ret

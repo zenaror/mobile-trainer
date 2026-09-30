@@ -4,10 +4,10 @@
 
 SECTION "engine/error/comm_error_screen", ROMX
 
-; ---- code $5150-$5231 (225 bytes) [CONFIRMED] 78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 CommErr_ShowScreen:: ; 5C:5150
 Function_5C_5150::
+	; [CONFIRMED] 78 insn(s); 78 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push af
 	push hl
 	xor a, a
@@ -99,9 +99,8 @@ Table_5C_5231::
 	dw Label_5C_5264
 	dw CommErr_ShowScreen_Idle
 
-; ---- code $523B-$53A1 (358 bytes) [CONFIRMED] 155 insn(s); 155 executed (in up to 3/18 scenarios)
-
 CommErr_ShowScreen_Idle:: ; 5C:523B
+	; [CONFIRMED] 155 insn(s); 155 executed (in up to 3/18 scenarios)
 	ld a, [wRam_C0D8]
 	or a, a
 	call nz, CommErr_UpdateCommFooter
@@ -143,13 +142,12 @@ CommErr_FindRecord:: ; 5C:527D
 	cp a, $FF
 	jp z, Label_5C_53A1
 	cp a, b
-	jr z, Label_5C_528B
+	jr z, .l528B
 	inc hl
 	inc hl
 	inc hl
 	jr CommErr_FindRecord
-
-Label_5C_528B:: ; 5C:528B
+.l528B ; 5C:528B
 	ld a, [hli]
 	dec a
 	jr nz, CommErr_DrawMessage_PlainVariant
@@ -207,21 +205,19 @@ CommErr_LookupTriple:: ; 5C:5302
 	ld d, a
 	ld a, [wCommErrCodeLo]
 	ld e, a
-
-Label_5C_530D:: ; 5C:530D
+.loop ; 5C:530D
 	ld a, [hli]
 	cp a, $FF
 	jp z, CommErr_PrintMessage
 	cp a, d
-	jr nz, Label_5C_531A
+	jr nz, .l531A
 	ld a, [hl]
 	cp a, e
 	jr z, CommErr_PrintMessage
-
-Label_5C_531A:: ; 5C:531A
+.l531A ; 5C:531A
 	inc hl
 	inc hl
-	jr Label_5C_530D
+	jr .loop
 
 CommErr_PrintMessage:: ; 5C:531E
 	inc hl
@@ -282,9 +278,10 @@ CommErr_PrintMessage:: ; 5C:531E
 	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-; ---- code $53A1-$53B3 (18 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
-
 Label_5C_53A1:: ; 5C:53A1
+	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
+	; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in
+	; forced_debug (traces/forced/, not natural evidence; status unchanged)
 	ld bc, $1214
 	ld de, $D000
 	ld hl, CommErr_Tilemap_Plain
@@ -292,10 +289,10 @@ Label_5C_53A1:: ; 5C:53A1
 	farcall Function_00_08EA
 	ret
 
-; ---- code $53B3-$5403 (80 bytes) [CONFIRMED] 43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 CommErr_DrawErrorNumber:: ; 5C:53B3
 Function_5C_53B3::
+	; [CONFIRMED] 43 insn(s); 43 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -315,12 +312,11 @@ Function_5C_53B3::
 	call CommErr_DrawDigit
 	ld a, [wCommErrCategory]
 	cp a, $F0
-	jr nz, Label_5C_53E1
+	jr nz, .l53E1
 	push hl
 	call CommErr_DrawFCategoryGlyph
 	pop hl
-
-Label_5C_53E1:: ; 5C:53E1
+.l53E1 ; 5C:53E1
 	inc hl
 	ld a, $1A
 	ld [hl], a
@@ -340,15 +336,15 @@ Label_5C_53E1:: ; 5C:53E1
 	ld b, a
 	ld a, [wCommErrCategory]
 	cp a, $40
-	jr nz, Label_5C_5407
+	jr nz, .l5407
 
-; ---- code $5403-$5407 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 5C:5401 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 5C:5401 (executed) [executed in 1 scenarios]
 	ld a, b
 	call CommErr_DrawDigit
 
-; ---- code $5407-$545B (84 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios)
-
-Label_5C_5407:: ; 5C:5407
+.l5407 ; 5C:5407
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 3/18 scenarios)
 	inc hl
 	ld a, d
 	and a, $0F
@@ -407,15 +403,16 @@ Table_5C_545B::
 	db $27, $37, $28, $38, $29, $39, $2A, $3A, $2B, $3B, $2C, $3C, $2D, $3D, $2E, $3E
 	db $2F, $3F, $40, $50
 
-; ---- code $546F-$5476 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommErr_UpdateCommFooter:: ; 5C:546F
 Function_5C_546F::
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_5C_54A5
+	jr nz, .l54A5
 
-; ---- code $5476-$54A5 (47 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 5C:5474 (executed)
+	; [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0;
+	; fall-through of the jrcc at 5C:5474 (executed)
 	ld a, $BE
 	ld [wRam_C10E], a
 	ld a, $57
@@ -434,60 +431,57 @@ Function_5C_546F::
 	ld [wRam_C0D8], a
 	ret
 
-; ---- code $54A5-$54BE (25 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
-
-Label_5C_54A5:: ; 5C:54A5
+.l54A5 ; 5C:54A5
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_5C_54EB
+	jr z, .l54EB
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_5C_54EC
+	jr nz, .l54EC
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_5C_54EB
+	jr c, .l54EB
 
-; ---- code $54BE-$54EB (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 5C:54BC (executed)
-	jr nz, Label_5C_54C7
+	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0;
+	; fall-through of the jrcc at 5C:54BC (executed)
+	jr nz, .l54C7
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_5C_54EB
-
-Label_5C_54C7:: ; 5C:54C7
+	jr c, .l54EB
+.l54C7 ; 5C:54C7
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_5C_54D7
+	jr nz, .l54D7
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_5C_54EB
+	jr nz, .l54EB
 	set 1, [hl]
-
-Label_5C_54D7:: ; 5C:54D7
+.l54D7 ; 5C:54D7
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_5C_54EC
+	jr z, .l54EC
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_5C_54EC
+	jr .l54EC
 
-; ---- code $54EB-$54EF (4 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
-
-Label_5C_54EB:: ; 5C:54EB
+.l54EB ; 5C:54EB
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 1/18 scenarios)
 	xor a, a
-
-Label_5C_54EC:: ; 5C:54EC
+.l54EC ; 5C:54EC
 	pop hl
 	or a, a
 	ret z
 
-; ---- code $54EF-$5504 (21 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the retcc at 5C:54EE (executed)
+	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
+	; fall-through of the retcc at 5C:54EE (executed)
 	ld hl, $C26F
 	res 0, [hl]
 	farcall CommNotice_ShowDialog
@@ -497,10 +491,10 @@ Label_5C_54EC:: ; 5C:54EC
 	pop af
 	ret
 
-; ---- code $5504-$5516 (18 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommErr_DrawFCategoryGlyph:: ; 5C:5504
 Function_5C_5504::
+	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $40
 	ld hl, $D00C
 	ld [hli], a

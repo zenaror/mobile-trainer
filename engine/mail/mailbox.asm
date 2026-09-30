@@ -4,10 +4,10 @@
 
 SECTION "engine/mail/mailbox", ROMX
 
-; ---- code $4000-$402E (46 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Mailbox_Main:: ; 25:4000
 Function_25_4000::
+	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	push hl
 	push de
@@ -31,9 +31,10 @@ Function_25_4000::
 	pop hl
 	ld a, [wMailScreenMode]
 	inc a
-	jr nz, Label_25_403F
+	jr nz, .l403F
 
-; ---- code $402E-$403F (17 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed) [executed in 3 scenarios]
+	; [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
+	; fall-through of the jrcc at 25:402C (executed) [executed in 3 scenarios]
 	push bc
 	dec h
 	call z, Mailbox_LoadScreen
@@ -41,14 +42,12 @@ Function_25_4000::
 	call Mailbox_ShowRowStatusIcons
 	pop bc
 	call Mailbox_UpdateScrollArrows
-	jr Label_25_4042
+	jr .l4042
 
-; ---- code $403F-$408A (75 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
-
-Label_25_403F:: ; 25:403F
+.l403F ; 25:403F
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
 	call Mailbox_LoadScreen
-
-Label_25_4042:: ; 25:4042
+.l4042 ; 25:4042
 	pop bc
 
 Mailbox_Main_Loop:: ; 25:4043
@@ -60,7 +59,7 @@ Mailbox_Main_Loop:: ; 25:4043
 	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
-	jr nz, Label_25_408A
+	jr nz, .l408A
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Mailbox_Main_Loop
@@ -84,12 +83,13 @@ Mailbox_Main_Loop:: ; 25:4043
 	ld a, $FF
 	ret
 
-; ---- code $408A-$4310 (646 bytes) [CONFIRMED] 466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1; entered by jrcc from 25:405A (executed) | 307 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 3 scenarios]
-
-Label_25_408A:: ; 25:408A
+.l408A ; 25:408A
+	; [CONFIRMED] 466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1;
+	; entered by jrcc from 25:405A (executed) | 307 insn(s) executed; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_25_40DF
+	jr z, .l40DF
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -102,7 +102,7 @@ Label_25_408A:: ; 25:408A
 	ldh [rSVBK], a
 	ld a, [wMailScreenMode]
 	inc a
-	jp z, Label_25_40C3
+	jp z, .l40C3
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -112,14 +112,12 @@ Label_25_408A:: ; 25:408A
 	ld hl, $A000
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_25_40C3
+	jr nz, .l40C3
 	ld a, $01
-	jr Label_25_40C5
-
-Label_25_40C3:: ; 25:40C3
+	jr .l40C5
+.l40C3 ; 25:40C3
 	ld a, $02
-
-Label_25_40C5:: ; 25:40C5
+.l40C5 ; 25:40C5
 	call Mailbox_SetIconBarAttrs
 	ld de, $68D0
 	ld hl, $DA40
@@ -130,11 +128,10 @@ Label_25_40C5:: ; 25:40C5
 	pop de
 	pop bc
 	jp Label_25_411E
-
-Label_25_40DF:: ; 25:40DF
+.l40DF ; 25:40DF
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_25_410D
+	jr z, .l410D
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -154,8 +151,7 @@ Label_25_40DF:: ; 25:40DF
 	pop bc
 	ld a, $FF
 	ret
-
-Label_25_410D:: ; 25:410D
+.l410D ; 25:410D
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
 	call nz, Mailbox_CursorUp
@@ -198,7 +194,7 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_25_41C0
+	jr z, .l41C0
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -233,11 +229,10 @@ Mailbox_IconMenu_Loop:: ; 25:415C
 	pop de
 	pop bc
 	jp Mailbox_Main_Loop
-
-Label_25_41C0:: ; 25:41C0
+.l41C0 ; 25:41C0
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jr z, Label_25_41E5
+	jr z, .l41E5
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -253,13 +248,11 @@ Label_25_41C0:: ; 25:41C0
 	dec d
 	ld a, $FF
 	cp a, d
-	jr nz, Label_25_41E2
+	jr nz, .l41E2
 	ld d, $02
-
-Label_25_41E2:: ; 25:41E2
+.l41E2 ; 25:41E2
 	call Mailbox_SetActionCursor
-
-Label_25_41E5:: ; 25:41E5
+.l41E5 ; 25:41E5
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
 	jr z, Mailbox_IconMenu_PressA
@@ -278,10 +271,9 @@ Label_25_41E5:: ; 25:41E5
 	inc d
 	ld a, $03
 	cp a, d
-	jr nz, Label_25_4207
+	jr nz, .l4207
 	ld d, $00
-
-Label_25_4207:: ; 25:4207
+.l4207 ; 25:4207
 	call Mailbox_SetActionCursor
 
 Mailbox_IconMenu_PressA:: ; 25:420A
@@ -406,7 +398,7 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	ld a, d
 	pop de
 	cp a, $00
-	jr z, Label_25_4341
+	jr z, .l4341
 	call Mailbox_RedrawAfterDelete
 	push bc
 	push de
@@ -415,25 +407,25 @@ Mailbox_IconMenu_PressA:: ; 25:420A
 	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
-	jr nz, Label_25_4315
+	jr nz, .l4315
 
-; ---- code $4310-$4315 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
 
-; ---- code $4315-$4341 (44 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
-
-Label_25_4315:: ; 25:4315
+.l4315 ; 25:4315
+	; [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage
+	; --split [executed in 1 scenarios]
 	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
 	push bc
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_4322
-	jr Label_25_433B
-
-Label_25_4322:: ; 25:4322
+	jr nz, .l4322
+	jr .l433B
+.l4322 ; 25:4322
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
@@ -442,20 +434,19 @@ Label_25_4322:: ; 25:4322
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_25_433B:: ; 25:433B
+.l433B ; 25:433B
 	pop bc
 	call Mailbox_UpdateScrollArrows
-	jr Label_25_4344
+	jr .l4344
 
-; ---- code $4341-$4344 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
-
-Label_25_4341:: ; 25:4341
+.l4341 ; 25:4341
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split
 	call Mailbox_ShowEmptyList
 
-; ---- code $4344-$4365 (33 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 4 scenarios]
-
-Label_25_4344:: ; 25:4344
+.l4344 ; 25:4344
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage
+	; --split [executed in 4 scenarios]
 	push bc
 	ld de, $70D0
 	ld hl, $DA10
@@ -470,16 +461,17 @@ Label_25_4344:: ; 25:4344
 	ld a, d
 	pop de
 	cp a, $00
-	jr nz, Label_25_436D
+	jr nz, .l436D
 
-; ---- code $4365-$436D (8 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
 	call Mailbox_UploadTextTiles
 
-; ---- code $436D-$437E (17 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 2 scenarios]
-
-Label_25_436D:: ; 25:436D
+.l436D ; 25:436D
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld a, [wMailScreenMode]
 	inc a
 	jp nz, Mailbox_Main_Loop
@@ -488,16 +480,17 @@ Label_25_436D:: ; 25:436D
 	ld a, d
 	pop de
 	cp a, $00
-	jr nz, Label_25_4386
+	jr nz, .l4386
 
-; ---- code $437E-$4386 (8 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
-	jp Label_25_4454
+	jp .l4454
 
-; ---- code $4386-$4447 (193 bytes) [CONFIRMED] 93 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
-
-Label_25_4386:: ; 25:4386
+.l4386 ; 25:4386
+	; [CONFIRMED] 93 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage
+	; --split [executed in 1 scenarios]
 	push bc
 	push de
 	ld de, $70D0
@@ -576,7 +569,7 @@ Label_25_4386:: ; 25:4386
 	pop bc
 	pop af
 	dec a
-	jp nz, Label_25_4454
+	jp nz, .l4454
 	ld de, $D020
 	ld hl, $DA10
 	call Function_00_0A65
@@ -590,21 +583,21 @@ Label_25_4386:: ; 25:4386
 	call Mailbox_CountRecords
 	xor a, a
 	cp a, d
-	jr nz, Label_25_444C
+	jr nz, .l444C
 
-; ---- code $4447-$444C (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 408A-446B by apply_coverage --split
 	ld d, $03
 	call Mailbox_ShowHint
 
-; ---- code $444C-$446B (31 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
-
-Label_25_444C:: ; 25:444C
+.l444C ; 25:444C
+	; [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage
+	; --split [executed in 1 scenarios]
 	call Mailbox_UploadTextTiles
 	pop de
 	pop bc
 	jp Mailbox_Main_Loop
-
-Label_25_4454:: ; 25:4454
+.l4454 ; 25:4454
 	push bc
 	call Mailbox_UploadTextTiles
 	farcall Stat_DisableScrollSplit
@@ -619,14 +612,15 @@ Label_25_4454:: ; 25:4454
 Data_25_446B:: ; 25:446B
 	db $C3, $43, $40
 
-; ---- code $446E-$4594 (294 bytes) [CONFIRMED] 223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code) | 139 insn(s) executed; cut out of the PROBABLE region 446E-4659 by apply_coverage --split [executed in 1 scenarios]
-
 Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
+	; [CONFIRMED] 223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5;
+	; entered by jpcc from 25:4214 (PROBABLE code) | 139 insn(s) executed; cut out of the PROBABLE
+	; region 446E-4659 by apply_coverage --split [executed in 1 scenarios]
 	cp a, $01
 	jp nz, Mailbox_ReadMail
 	ld a, [wMailScreenMode]
 	inc a
-	jr nz, Label_25_4490
+	jr nz, .l4490
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -640,8 +634,7 @@ Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	pop de
 	pop bc
 	jp Mailbox_IconMenu_Loop
-
-Label_25_4490:: ; 25:4490
+.l4490 ; 25:4490
 	farcall Sprites_SaveSlotsToBank3
 	ld a, $00
 	ldh [hSRAMBank], a
@@ -766,7 +759,8 @@ Mailbox_ReplyStart:: ; 25:4564
 	farcall Sprites_SaveSlotsToBank3
 	call Mailbox_ReplyToRecord
 
-; ---- code $4594-$4659 (197 bytes) [PROBABLE] 84 insn(s) never executed in the traced runs; cut out of the PROBABLE region 446E-4659 by apply_coverage --split
+	; [PROBABLE] 84 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 446E-4659 by apply_coverage --split
 	push af
 	push af
 	ldh a, [rSVBK]
@@ -796,11 +790,10 @@ Mailbox_ReplyStart:: ; 25:4564
 	pop de
 	ld h, $01
 	cp a, $00
-	jr nz, Label_25_45D3
+	jr nz, .l45D3
 	ld d, $FF
 	jp Mailbox_Main
-
-Label_25_45D3:: ; 25:45D3
+.l45D3 ; 25:45D3
 	push de
 	push bc
 	ld d, $01
@@ -811,10 +804,9 @@ Label_25_45D3:: ; 25:45D3
 	push bc
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_45E8
-	jr Label_25_4601
-
-Label_25_45E8:: ; 25:45E8
+	jr nz, .l45E8
+	jr .l4601
+.l45E8 ; 25:45E8
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
@@ -823,8 +815,7 @@ Label_25_45E8:: ; 25:45E8
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_25_4601:: ; 25:4601
+.l4601 ; 25:4601
 	ld hl, $DA10
 	ld de, Mailbox_ObjTable
 	ld a, $26
@@ -863,9 +854,10 @@ Label_25_4601:: ; 25:4601
 Data_25_4659:: ; 25:4659
 	db $C3, $1E, $41
 
-; ---- code $465C-$46D8 (124 bytes) [CONFIRMED] 202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code) | 62 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
-
 Mailbox_ReadMail:: ; 25:465C
+	; [CONFIRMED] 202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6;
+	; entered by jpcc from 25:4470 (PROBABLE code) | 62 insn(s) executed; cut out of the PROBABLE
+	; region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -899,7 +891,7 @@ Mailbox_ReadMail:: ; 25:465C
 	inc hl
 	ld a, [hl]
 	cp a, $00
-	jp z, Label_25_473D
+	jp z, .l473D
 	push af
 	xor a, a
 	ld [hl], a
@@ -927,14 +919,15 @@ Mailbox_ReadMail:: ; 25:465C
 	pop af
 	ld de, $021E
 	cp a, $01
-	jr z, Label_25_46DB
+	jr z, .skip
 
-; ---- code $46D8-$46DB (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 465C-47F8 by apply_coverage --split
 	ld de, $022B
 
-; ---- code $46DB-$47F8 (285 bytes) [CONFIRMED] 139 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
-
-Label_25_46DB:: ; 25:46DB
+.skip ; 25:46DB
+	; [CONFIRMED] 139 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage
+	; --split [executed in 1 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -983,8 +976,7 @@ Label_25_46DB:: ; 25:46DB
 	ld [wSpriteSlots + 32], a
 	farcall Function_00_0956
 	pop af
-
-Label_25_473D:: ; 25:473D
+.l473D ; 25:473D
 	pop de
 	pop bc
 	push bc
@@ -1042,7 +1034,7 @@ Label_25_473D:: ; 25:473D
 	pop bc
 	ld a, [wMailScreenMode]
 	inc a
-	jp z, Label_25_47CA
+	jp z, .l47CA
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1052,14 +1044,12 @@ Label_25_473D:: ; 25:473D
 	ld hl, $A000
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_25_47CA
+	jr nz, .l47CA
 	ld a, $01
-	jr Label_25_47CC
-
-Label_25_47CA:: ; 25:47CA
+	jr .l47CC
+.l47CA ; 25:47CA
 	ld a, $02
-
-Label_25_47CC:: ; 25:47CC
+.l47CC ; 25:47CC
 	call Mailbox_SetIconBarAttrs
 	pop bc
 	pop de
@@ -1067,10 +1057,9 @@ Label_25_47CC:: ; 25:47CC
 	push bc
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_47DA
-	jr Label_25_47F3
-
-Label_25_47DA:: ; 25:47DA
+	jr nz, .l47DA
+	jr .l47F3
+.l47DA ; 25:47DA
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
@@ -1079,8 +1068,7 @@ Label_25_47DA:: ; 25:47DA
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_25_47F3:: ; 25:47F3
+.l47F3 ; 25:47F3
 	pop bc
 	pop de
 	jp Label_25_411E
@@ -1090,9 +1078,10 @@ Label_25_47F3:: ; 25:47F3
 Data_25_47F8:: ; 25:47F8
 	db $26, $01, $C3, $00, $40
 
-; ---- code $47FD-$491B (286 bytes) [CONFIRMED] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]
-
 Label_25_47FD:: ; 25:47FD
+	; [CONFIRMED] 262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1;
+	; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE
+	; region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]
 	ld h, $01
 	ld d, $FF
 	jp Mailbox_Main
@@ -1104,20 +1093,18 @@ Mailbox_SetActionCursor:: ; 25:4804
 	ld l, d
 	ld a, $20
 	inc l
-
-Label_25_480E:: ; 25:480E
+.loop ; 25:480E
 	dec l
-	jr z, Label_25_4815
+	jr z, .l4815
 	add a, $28
-	jr Label_25_480E
-
-Label_25_4815:: ; 25:4815
+	jr .loop
+.l4815 ; 25:4815
 	ld [wSpriteSlots + 17], a
 	push bc
 	push de
 	ld a, d
 	cp a, $00
-	jr nz, Label_25_483A
+	jr nz, .l483A
 	ld hl, $DA20
 	ld de, $7B10
 	ld a, $26
@@ -1126,11 +1113,10 @@ Label_25_4815:: ; 25:4815
 	ld de, $7020
 	ld hl, $DA20
 	call Function_00_0A65
-	jr Label_25_4878
-
-Label_25_483A:: ; 25:483A
+	jr .l4878
+.l483A ; 25:483A
 	cp a, $01
-	jr nz, Label_25_4859
+	jr nz, .l4859
 	ld hl, $DA20
 	ld de, $7B20
 	ld a, $26
@@ -1139,11 +1125,10 @@ Label_25_483A:: ; 25:483A
 	ld de, $7048
 	ld hl, $DA20
 	call Function_00_0A65
-	jr Label_25_4878
-
-Label_25_4859:: ; 25:4859
+	jr .l4878
+.l4859 ; 25:4859
 	cp a, $02
-	jr nz, Label_25_4878
+	jr nz, .l4878
 	ld hl, $DA20
 	ld de, $7B30
 	ld a, $26
@@ -1152,9 +1137,8 @@ Label_25_4859:: ; 25:4859
 	ld de, $7070
 	ld hl, $DA20
 	call Function_00_0A65
-	jr Label_25_4878
-
-Label_25_4878:: ; 25:4878
+	jr .l4878
+.l4878 ; 25:4878
 	pop de
 	pop bc
 	push bc
@@ -1168,39 +1152,36 @@ Label_25_4878:: ; 25:4878
 Mailbox_CursorUp:: ; 25:4885
 	ld a, c
 	cp a, $00
-	jr nz, Label_25_48B6
+	jr nz, .l48B6
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_48B4
+	jr nz, .l48B4
 	call Mailbox_CountRecords
 	ld a, d
 	cp a, $01
-	jr z, Label_25_48A5
+	jr z, .l48A5
 	cp a, $02
-	jr z, Label_25_48A5
+	jr z, .l48A5
 	cp a, $03
-	jr z, Label_25_48A5
+	jr z, .l48A5
 	cp a, $04
-	jr z, Label_25_48A5
-	jr Label_25_48A5
-
-Label_25_48A5:: ; 25:48A5
+	jr z, .l48A5
+	jr .l48A5
+.l48A5 ; 25:48A5
 	dec d
 	ld c, d
 	ld b, $01
 	ld a, d
 	cp a, $04
-	jr c, Label_25_48B4
+	jr c, .l48B4
 	sub a, $03
 	ld b, a
 	inc b
 	ld c, $03
-
-Label_25_48B4:: ; 25:48B4
+.l48B4 ; 25:48B4
 	dec b
 	inc c
-
-Label_25_48B6:: ; 25:48B6
+.l48B6 ; 25:48B6
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1227,10 +1208,9 @@ Label_25_48B6:: ; 25:48B6
 	push bc
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_48E9
-	jr Label_25_4902
-
-Label_25_48E9:: ; 25:48E9
+	jr nz, .l48E9
+	jr .l4902
+.l48E9 ; 25:48E9
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
@@ -1239,8 +1219,7 @@ Label_25_48E9:: ; 25:48E9
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_25_4902:: ; 25:4902
+.l4902 ; 25:4902
 	pop bc
 	call Mailbox_UpdateScrollArrows
 	ret
@@ -1249,39 +1228,38 @@ Mailbox_CursorDown:: ; 25:4907
 	call Mailbox_NextRecordUsed
 	inc a
 	dec a
-	jr nz, Label_25_492F
+	jr nz, .l492F
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_4929
+	jr nz, .l4929
 	call Mailbox_CountRecords
 	ld a, d
 	cp a, $01
-	jr z, Label_25_4929
+	jr z, .l4929
 
-; ---- code $491B-$4929 (14 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 47FD-4A15 by apply_coverage --split
 	cp a, $02
-	jr z, Label_25_4929
+	jr z, .l4929
 	cp a, $03
-	jr z, Label_25_4929
+	jr z, .l4929
 	cp a, $04
-	jr z, Label_25_4929
-	jr Label_25_4929
+	jr z, .l4929
+	jr .l4929
 
-; ---- code $4929-$4A15 (236 bytes) [CONFIRMED] 117 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 2 scenarios]
-
-Label_25_4929:: ; 25:4929
+.l4929 ; 25:4929
+	; [CONFIRMED] 117 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld b, $00
 	ld c, $FF
-	jr Label_25_4936
-
-Label_25_492F:: ; 25:492F
+	jr .l4936
+.l492F ; 25:492F
 	ld a, c
 	cp a, $03
-	jr nz, Label_25_4936
+	jr nz, .l4936
 	inc b
 	dec c
-
-Label_25_4936:: ; 25:4936
+.l4936 ; 25:4936
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1308,10 +1286,9 @@ Label_25_4936:: ; 25:4936
 	push bc
 	ld a, b
 	cp a, $00
-	jr nz, Label_25_4969
-	jr Label_25_4982
-
-Label_25_4969:: ; 25:4969
+	jr nz, .l4969
+	jr .l4982
+.l4969 ; 25:4969
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
@@ -1320,8 +1297,7 @@ Label_25_4969:: ; 25:4969
 	ld de, $3048
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_25_4982:: ; 25:4982
+.l4982 ; 25:4982
 	pop bc
 	call Mailbox_UpdateScrollArrows
 	ret
@@ -1332,15 +1308,15 @@ Mailbox_UpdateScrollArrows:: ; 25:4987
 	call Mailbox_CountRecords
 	ld a, d
 	cp a, $00
-	jr z, Label_25_49D6
+	jr z, .l49D6
 	cp a, $01
-	jr z, Label_25_49D6
+	jr z, .l49D6
 	cp a, $02
-	jr z, Label_25_49D6
+	jr z, .l49D6
 	cp a, $03
-	jr z, Label_25_49D6
+	jr z, .l49D6
 	cp a, $04
-	jr z, Label_25_49D6
+	jr z, .l49D6
 	ld hl, $DA40
 	ld de, $7B50
 	ld a, $26
@@ -1360,8 +1336,7 @@ Mailbox_UpdateScrollArrows:: ; 25:4987
 	pop de
 	pop bc
 	ret
-
-Label_25_49D6:: ; 25:49D6
+.l49D6 ; 25:49D6
 	ld de, $68D0
 	ld hl, $DA40
 	call Function_00_0A65
@@ -1378,12 +1353,11 @@ Mailbox_NextRecordUsed:: ; 25:49EB
 	ld a, c
 	add a, b
 	cp a, $0C
-	jr nz, Label_25_49F6
+	jr nz, .l49F6
 	xor a, a
 	pop bc
 	ret
-
-Label_25_49F6:: ; 25:49F6
+.l49F6 ; 25:49F6
 	ld a, b
 	add a, c
 	sla a
@@ -1411,23 +1385,22 @@ Table_25_4A15::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4A2D-$4A68 (59 bytes) [CONFIRMED] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split [executed in 1 scenarios]
-
 Mailbox_RedrawAfterDelete:: ; 25:4A2D
+	; [CONFIRMED] 52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5;
+	; entered by call from 25:42FF (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE
+	; region 4A2D-4A90 by apply_coverage --split [executed in 1 scenarios]
 	ld a, b
 	cp a, $00
-	jr z, Label_25_4A36
+	jr z, .l4A36
 	dec b
 	inc c
-	jr Label_25_4A3C
-
-Label_25_4A36:: ; 25:4A36
+	jr .l4A3C
+.l4A36 ; 25:4A36
 	ld a, c
 	cp a, $00
-	jr nz, Label_25_4A3C
+	jr nz, .l4A3C
 	inc c
-
-Label_25_4A3C:: ; 25:4A3C
+.l4A3C ; 25:4A3C
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1453,23 +1426,22 @@ Label_25_4A3C:: ; 25:4A3C
 	pop bc
 	ret
 
-; ---- code $4A68-$4A90 (40 bytes) [PROBABLE] 18 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split
-
 Mailbox_ShowEmptyList:: ; 25:4A68
+	; [PROBABLE] 18 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4A2D-4A90 by apply_coverage --split
 	push bc
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0D00
-
-Label_25_4A75:: ; 25:4A75
+.loop ; 25:4A75
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_25_4A75
+	jr nz, .loop
 	call Mailbox_DrawTimestamp
 	call Mailbox_UploadTextTiles
 	farcall Function_00_09B6
@@ -1477,10 +1449,10 @@ Label_25_4A75:: ; 25:4A75
 	pop bc
 	ret
 
-; ---- code $4A90-$4AA6 (22 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-
 Mailbox_CountRecords:: ; 25:4A90
 Function_25_4A90::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -1492,7 +1464,8 @@ Function_25_4A90::
 	cp a, $00
 	ret z
 
-; ---- code $4AA6-$4AF5 (79 bytes) [CONFIRMED] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0;
+	; fall-through of the retcc at 25:4AA5 (executed) [executed in 5 scenarios]
 	inc d
 	ld a, [sSram_MailRecords + 301]
 	cp a, $00

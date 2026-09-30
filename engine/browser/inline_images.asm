@@ -4,9 +4,8 @@
 
 SECTION "engine/browser/inline_images", ROMX
 
-; ---- code $4840-$48B6 (118 bytes) [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios) (part of region $482A-$48B6)
-
 Browser_FetchInlineImages:: ; 4C:4840
+	; [CONFIRMED] 67 insn(s); 67 executed (in up to 1/18 scenarios) (part of region $482A-$48B6)
 	ld a, $00
 	ldh [hRam_FFD2], a
 	ld a, $DE
@@ -30,8 +29,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	call CopyBytes
 	ld a, $00
 	ld [wBrowserFetchResult], a
-
-Label_4C_4878:: ; 4C:4878
+.l4878 ; 4C:4878
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -68,7 +66,9 @@ Label_4C_4878:: ; 4C:4878
 	or a, e
 	ret z
 
-; ---- code $48B6-$497A (196 bytes) [CONFIRMED] 314 insn(s) reached by static flow only; seeds: exec x314; min discovery hops 0; fall-through of the retcc at 4C:48B5 (executed) | 90 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
+	; [CONFIRMED] 314 insn(s) reached by static flow only; seeds: exec x314; min discovery hops 0;
+	; fall-through of the retcc at 4C:48B5 (executed) | 90 insn(s) executed; cut out of the PROBABLE
+	; region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
 	ld a, l
 	ldh [hRam_FFD2], a
 	ld a, h
@@ -83,21 +83,20 @@ Label_4C_4878:: ; 4C:4878
 	sub a, l
 	ld a, $BF
 	sbc a, h
-	jp z, Label_4C_4AD5
+	jp z, .l4AD5
 	bit 7, a
-	jp nz, Label_4C_4AD5
+	jp nz, .l4AD5
 	ld a, [wBrowserRxBank]
 	call BankSwitch_H
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-
-Label_4C_48DF:: ; 4C:48DF
+.l48DF ; 4C:48DF
 	ld a, [de]
 	ld [hli], a
 	inc de
 	or a, a
-	jr nz, Label_4C_48DF
+	jr nz, .l48DF
 	ld a, l
 	ld [wBrowserRxPtr], a
 	ld a, h
@@ -134,9 +133,9 @@ Label_4C_48DF:: ; 4C:48DF
 	ld c, a
 	ld a, $BF
 	sbc a, d
-	jp z, Label_4C_4AD6
+	jp z, .l4AD6
 	bit 7, a
-	jp nz, Label_4C_4AD6
+	jp nz, .l4AD6
 	ld b, a
 	ld a, [wBrowserRxBank]
 	ldh [hSRAMBank], a
@@ -145,171 +144,162 @@ Label_4C_48DF:: ; 4C:48DF
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-
-Label_4C_4952:: ; 4C:4952
+.l4952 ; 4C:4952
 	farcall Http_Poll
 	or a, a
-	jr z, Label_4C_49CF
+	jr z, .l49CF
 	cp a, $FF
-	jp z, Label_4C_4A58
+	jp z, .l4A58
 	ld a, $00
 	farcall CommProgress_Step
 	cp a, $02
-	jp z, Label_4C_4AE2
+	jp z, .l4AE2
 	ld a, [wCommTimeoutMinutes]
 	ld b, a
 	ld a, [wTimerBMinutes]
 	cp a, b
-	jr z, Label_4C_497A
+	jr z, .l497A
 	xor a, a
-	jr Label_4C_497C
+	jr .l497C
 
-; ---- code $497A-$497C (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-
-Label_4C_497A:: ; 4C:497A
+.l497A ; 4C:497A
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
 	ld a, $FF
 
-; ---- code $497C-$4999 (29 bytes) [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 3 scenarios]
-
-Label_4C_497C:: ; 4C:497C
+.l497C ; 4C:497C
+	; [CONFIRMED] 14 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 3 scenarios]
 	or a, a
-	jp nz, Label_4C_4A25
-
-Label_4C_4980:: ; 4C:4980
+	jp nz, .l4A25
+.l4980 ; 4C:4980
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_4C_49C6
+	jr z, .l49C6
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_4C_49C7
+	jr nz, .l49C7
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_4C_49C6
+	jr c, .l49C6
 
-; ---- code $4999-$49C6 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-	jr nz, Label_4C_49A2
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
+	jr nz, .l49A2
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_4C_49C6
-
-Label_4C_49A2:: ; 4C:49A2
+	jr c, .l49C6
+.l49A2 ; 4C:49A2
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_4C_49B2
+	jr nz, .l49B2
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_4C_49C6
+	jr nz, .l49C6
 	set 1, [hl]
-
-Label_4C_49B2:: ; 4C:49B2
+.l49B2 ; 4C:49B2
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_4C_49C7
+	jr z, .l49C7
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_4C_49C7
+	jr .l49C7
 
-; ---- code $49C6-$49E8 (34 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 2 scenarios]
-
-Label_4C_49C6:: ; 4C:49C6
+.l49C6 ; 4C:49C6
+	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 2 scenarios]
 	xor a, a
-
-Label_4C_49C7:: ; 4C:49C7
+.l49C7 ; 4C:49C7
 	pop hl
 	or a, a
-	jp nz, Label_4C_4AE2
-	jp Label_4C_4952
-
-Label_4C_49CF:: ; 4C:49CF
+	jp nz, .l4AE2
+	jp .l4952
+.l49CF ; 4C:49CF
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_4C_4A15
+	jr z, .l4A15
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_4C_4A16
+	jr nz, .l4A16
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_4C_4A15
+	jr c, .l4A15
 
-; ---- code $49E8-$4A15 (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-	jr nz, Label_4C_49F1
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
+	jr nz, .l49F1
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_4C_4A15
-
-Label_4C_49F1:: ; 4C:49F1
+	jr c, .l4A15
+.l49F1 ; 4C:49F1
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_4C_4A01
+	jr nz, .l4A01
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_4C_4A15
+	jr nz, .l4A15
 	set 1, [hl]
-
-Label_4C_4A01:: ; 4C:4A01
+.l4A01 ; 4C:4A01
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_4C_4A16
+	jr z, .l4A16
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_4C_4A16
+	jr .l4A16
 
-; ---- code $4A15-$4A25 (16 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 2 scenarios]
-
-Label_4C_4A15:: ; 4C:4A15
+.l4A15 ; 4C:4A15
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 2 scenarios]
 	xor a, a
-
-Label_4C_4A16:: ; 4C:4A16
+.l4A16 ; 4C:4A16
 	pop hl
 	or a, a
-	jp nz, Label_4C_4B4E
+	jp nz, .l4B4E
 	ld a, [wRam_C1DC]
 	or a, a
-	jp nz, Label_4C_4AD6
-	jp Label_4C_4878
+	jp nz, .l4AD6
+	jp .l4878
 
-; ---- code $4A25-$4A58 (51 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-
-Label_4C_4A25:: ; 4C:4A25
+.l4A25 ; 4C:4A25
+	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
 	ld a, [wTimerEnable]
 	bit 0, a
-	jp z, Label_4C_4980
+	jp z, .l4980
 	farcall Mobile_BeginStop
-
-Label_4C_4A33:: ; 4C:4A33
+.l4A33 ; 4C:4A33
 	farcall Mobile_StopPoll
 	or a, a
-	jr z, Label_4C_4A4C
+	jr z, .l4A4C
 	cp a, $FF
-	jp z, Label_4C_4A58
+	jp z, .l4A58
 	ld a, $00
 	farcall CommProgress_Step
-	jp Label_4C_4A33
-
-Label_4C_4A4C:: ; 4C:4A4C
+	jp .l4A33
+.l4A4C ; 4C:4A4C
 	ld a, $26
 	ld [wMobileResultCode], a
 	xor a, a
 	ld [wMobileResultDetail], a
 	ld [wMobileResultDetail + 1], a
 
-; ---- code $4A58-$4A8E (54 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4A58:: ; 4C:4A58
+.l4A58 ; 4C:4A58
+	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh a, [hRam_FFD0]
 	ld e, a
 	ldh a, [hRam_FFD1]
@@ -329,80 +319,76 @@ Label_4C_4A58:: ; 4C:4A58
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_4C_4ABB
+	jr z, .l4ABB
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_4C_4ABC
+	jr nz, .l4ABC
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_4C_4ABB
+	jr c, .l4ABB
 
-; ---- code $4A8E-$4ABB (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-	jr nz, Label_4C_4A97
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
+	jr nz, .l4A97
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_4C_4ABB
-
-Label_4C_4A97:: ; 4C:4A97
+	jr c, .l4ABB
+.l4A97 ; 4C:4A97
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_4C_4AA7
+	jr nz, .l4AA7
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_4C_4ABB
+	jr nz, .l4ABB
 	set 1, [hl]
-
-Label_4C_4AA7:: ; 4C:4AA7
+.l4AA7 ; 4C:4AA7
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_4C_4ABC
+	jr z, .l4ABC
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_4C_4ABC
+	jr .l4ABC
 
-; ---- code $4ABB-$4ACE (19 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4ABB:: ; 4C:4ABB
+.l4ABB ; 4C:4ABB
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 1 scenarios]
 	xor a, a
-
-Label_4C_4ABC:: ; 4C:4ABC
+.l4ABC ; 4C:4ABC
 	pop hl
 	or a, a
-	jp nz, Label_4C_4B4E
+	jp nz, .l4B4E
 	ld a, [wMobileResultCode]
 	cp a, $24
-	jp z, Label_4C_4878
+	jp z, .l4878
 	cp a, $32
-	jp z, Label_4C_4878
+	jp z, .l4878
 
-; ---- code $4ACE-$4AE2 (20 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
+	; [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
 	ld a, $03
 	ld [wBrowserFetchResult], a
-	jr Label_4C_4AE7
-
-Label_4C_4AD5:: ; 4C:4AD5
+	jr .l4AE7
+.l4AD5 ; 4C:4AD5
 	pop de
-
-Label_4C_4AD6:: ; 4C:4AD6
+.l4AD6 ; 4C:4AD6
 	ld a, $00
 	ld [wBrowserFetchResult], a
 	ld a, $01
 	ld [wRam_C1DC], a
-	jr Label_4C_4AE7
+	jr .l4AE7
 
-; ---- code $4AE2-$4B1D (59 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4AE2:: ; 4C:4AE2
+.l4AE2 ; 4C:4AE2
+	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $02
 	ld [wBrowserFetchResult], a
-
-Label_4C_4AE7:: ; 4C:4AE7
+.l4AE7 ; 4C:4AE7
 	ldh a, [hRam_FFD0]
 	ld e, a
 	ldh a, [hRam_FFD1]
@@ -422,56 +408,54 @@ Label_4C_4AE7:: ; 4C:4AE7
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_4C_4B4A
+	jr z, .l4B4A
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_4C_4B4B
+	jr nz, .l4B4B
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_4C_4B4A
+	jr c, .l4B4A
 
-; ---- code $4B1D-$4B4A (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-	jr nz, Label_4C_4B26
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
+	jr nz, .l4B26
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_4C_4B4A
-
-Label_4C_4B26:: ; 4C:4B26
+	jr c, .l4B4A
+.l4B26 ; 4C:4B26
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_4C_4B36
+	jr nz, .l4B36
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_4C_4B4A
+	jr nz, .l4B4A
 	set 1, [hl]
-
-Label_4C_4B36:: ; 4C:4B36
+.l4B36 ; 4C:4B36
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_4C_4B4B
+	jr z, .l4B4B
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_4C_4B4B
+	jr .l4B4B
 
-; ---- code $4B4A-$4B4E (4 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split [executed in 1 scenarios]
-
-Label_4C_4B4A:: ; 4C:4B4A
+.l4B4A ; 4C:4B4A
+	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 48B6-4B54 by apply_coverage
+	; --split [executed in 1 scenarios]
 	xor a, a
-
-Label_4C_4B4B:: ; 4C:4B4B
+.l4B4B ; 4C:4B4B
 	pop hl
 	or a, a
 	ret z
 
-; ---- code $4B4E-$4B54 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48B6-4B54 by apply_coverage --split
-
-Label_4C_4B4E:: ; 4C:4B4E
+.l4B4E ; 4C:4B4E
+	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48B6-4B54 by apply_coverage --split
 	ld a, $06
 	ld [wRam_C1DC], a
 	ret

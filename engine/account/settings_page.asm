@@ -4,9 +4,9 @@
 
 SECTION "engine/account/settings_page", ROMX
 
-; ---- code $4785-$4842 (189 bytes) [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call (part of region $4735-$4842)
-
 Settings_InitPage:: ; 68:4785
+	; [CONFIRMED] 132 insn(s); 132 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $4735-$4842)
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -98,18 +98,18 @@ Settings_ClearFieldsKeepProgress:: ; 68:480A
 	ld a, b
 	xor a, $A5
 	cp a, $01
-	jr z, Label_68_4847
+	jr z, .l4847
 	cp a, $02
-	jr z, Label_68_4847
+	jr z, .l4847
 
-; ---- code $4842-$4847 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 68:4840 (executed)
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 68:4840 (executed)
 	cp a, $03
-	jr z, Label_68_4847
+	jr z, .l4847
 	xor a, a
 
-; ---- code $4847-$48C4 (125 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 18/18 scenarios)
-
-Label_68_4847:: ; 68:4847
+.l4847 ; 68:4847
+	; [CONFIRMED] 64 insn(s); 64 executed (in up to 18/18 scenarios)
 	xor a, $A5
 	ld [sSram_B010], a
 	ld hl, Settings_MagicString
@@ -172,41 +172,43 @@ Settings_GetRegistrationProgress:: ; 68:4870
 	ld a, b
 	xor a, $A5
 	cp a, $01
-	jr z, Label_68_48C8
+	jr z, .l48C8
 	cp a, $02
-	jr z, Label_68_48CB
+	jr z, .l48CB
 	cp a, $03
-	jr z, Label_68_48CE
+	jr z, .l48CE
 
-; ---- code $48C4-$48C6 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:48C2 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 68:48C2 (executed)
 	xor a, a
 	ret
 
-; ---- code $48C6-$48C8 (2 bytes) [HYPOTHESIS] xor a ; ret stub between the arms of the switch at 48B8-48D0 (returns 0); nothing branches to it
+	; [HYPOTHESIS] xor a ; ret stub between the arms of the switch at 48B8-48D0 (returns 0); nothing
+	; branches to it
 	xor a, a
 	ret
 
-; ---- code $48C8-$48CB (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 68:48BA (executed) [executed in 2 scenarios]
-
-Label_68_48C8:: ; 68:48C8
+.l48C8 ; 68:48C8
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by jrcc from 68:48BA (executed) [executed in 2 scenarios]
 	ld a, $02
 	ret
 
-; ---- code $48CB-$48D1 (6 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 12/18 scenarios)
-
-Label_68_48CB:: ; 68:48CB
+.l48CB ; 68:48CB
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 12/18 scenarios)
 	ld a, $03
 	ret
-
-Label_68_48CE:: ; 68:48CE
+.l48CE ; 68:48CE
 	ld a, $04
 	ret
 
-; ---- code $48D1-$48D4 (3 bytes) [PROBABLE] ld a,1 ; ret: entry proven by a table word - the 4-word code-pointer table at 68:48D6 ($4880,$4880,$48D1,$48D4) holds $48D1; sits after the last arm of the switch at 48B8-48D0
+	; [PROBABLE] ld a,1 ; ret: entry proven by a table word - the 4-word code-pointer table at
+	; 68:48D6 ($4880,$4880,$48D1,$48D4) holds $48D1; sits after the last arm of the switch at
+	; 48B8-48D0
 	ld a, $01
 	ret
 
-; ---- code $48D4-$48D6 (2 bytes) [CONFIRMED] 2 insn(s); 2 executed (in up to 5/18 scenarios)
+	; [CONFIRMED] 2 insn(s); 2 executed (in up to 5/18 scenarios)
 	xor a, a
 	ret
 
@@ -216,37 +218,38 @@ Settings_ProgressJumpTable:: ; 68:48D6
 Table_68_48D6::
 	dw $4880, $4880, $48D1, $48D4
 
-; ---- code $48DE-$48F3 (21 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-
 Settings_VerifyAndRepair:: ; 68:48DE
 Function_68_48DE::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $B000
 	call Settings_CheckPageMagicAndSum
 	or a, a
-	jr z, Label_68_48ED
+	jr z, .l48ED
 	cp a, $01
-	jr z, Label_68_48F3
-	jr Label_68_4940
-
-Label_68_48ED:: ; 68:48ED
+	jr z, .l48F3
+	jr .l4940
+.l48ED ; 68:48ED
 	call Settings_UpdateChecksumAndBackup
 	ld a, $00
 	ret
 
-; ---- code $48F3-$48FC (9 bytes) [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
-
-Label_68_48F3:: ; 68:48F3
+.l48F3 ; 68:48F3
+	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1;
+	; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region
+	; 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
 	ld hl, $B100
 	call Settings_CheckPageMagicAndSum
 	or a, a
-	jr z, Label_68_48FE
+	jr z, .l48FE
 
-; ---- code $48FC-$48FE (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
-	jr Label_68_493D
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48F3-4940 by apply_coverage --split
+	jr .l493D
 
-; ---- code $48FE-$493D (63 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
-
-Label_68_48FE:: ; 68:48FE
+.l48FE ; 68:48FE
+	; [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ldh [hScratchA], a
 	ldh a, [hSRAMBank]
 	push af
@@ -278,21 +281,20 @@ Label_68_48FE:: ; 68:48FE
 	ld a, $01
 	ret
 
-; ---- code $493D-$4940 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
-
-Label_68_493D:: ; 68:493D
+.l493D ; 68:493D
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 48F3-4940 by apply_coverage --split
 	ld a, $02
 	ret
 
-; ---- code $4940-$499A (90 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
-
-Label_68_4940:: ; 68:4940
+.l4940 ; 68:4940
+	; [CONFIRMED] 48 insn(s); 48 executed (in up to 18/18 scenarios)
 	ld hl, $B100
 	call Settings_CheckPageMagicAndSum
 	or a, a
-	jr z, Label_68_48FE
+	jr z, .l48FE
 	cp a, $01
-	jr z, Label_68_493D
+	jr z, .l493D
 	ld a, $03
 	ret
 
@@ -319,37 +321,35 @@ Settings_CheckPageMagicAndSum:: ; 68:4950
 	ld b, [hl]
 	ld a, b
 	cp a, d
-	jr nz, Label_68_498E
+	jr nz, .l498E
 	ld a, c
 	cp a, e
-	jr nz, Label_68_498E
+	jr nz, .l498E
 	pop hl
 	ld de, Settings_MagicString
 	ld b, $10
 	call CompareStringN
 	or a, a
-	jr nz, Label_68_499E
+	jr nz, .l499E
 	ld b, $00
-	jr Label_68_49A0
-
-Label_68_498E:: ; 68:498E
+	jr .l49A0
+.l498E ; 68:498E
 	pop hl
 	ld de, Settings_MagicString
 	ld b, $10
 	call CompareStringN
 	or a, a
-	jr nz, Label_68_499E
+	jr nz, .l499E
 
-; ---- code $499A-$499E (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:4998 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 68:4998 (executed) [executed in 1 scenarios]
 	ld b, $01
-	jr Label_68_49A0
+	jr .l49A0
 
-; ---- code $499E-$4DB4 (1046 bytes) [CONFIRMED] 528 insn(s); 528 executed (in up to 18/18 scenarios)
-
-Label_68_499E:: ; 68:499E
+.l499E ; 68:499E
+	; [CONFIRMED] 528 insn(s); 528 executed (in up to 18/18 scenarios)
 	ld b, $02
-
-Label_68_49A0:: ; 68:49A0
+.l49A0 ; 68:49A0
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -402,8 +402,7 @@ Settings_UpdateChecksumAndBackup:: ; 68:49B6
 
 Checksum16_Sum:: ; 68:49FF
 	ld de, $0000
-
-Label_68_4A02:: ; 68:4A02
+.loop ; 68:4A02
 	ld a, [hli]
 	add a, e
 	ld e, a
@@ -413,7 +412,7 @@ Label_68_4A02:: ; 68:4A02
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, Label_68_4A02
+	jr nz, .loop
 	ret
 
 Settings_ClearVariableBlock:: ; 68:4A0F

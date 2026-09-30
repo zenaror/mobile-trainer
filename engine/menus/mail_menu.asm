@@ -4,10 +4,10 @@
 
 SECTION "engine/menus/mail_menu", ROMX
 
-; ---- code $4000-$41A0 (416 bytes) [CONFIRMED] 145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 MailMenu_Run:: ; 1D:4000
 Function_1D_4000::
+	; [CONFIRMED] 145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_044B
 	xor a, a
 	ld bc, $00FC
@@ -19,10 +19,9 @@ Function_1D_4000::
 	ld hl, $A8B8
 	call ReadByteFar
 	or a, a
-	jr nz, Label_1D_4023
+	jr nz, .skip
 	ld a, $01
-
-Label_1D_4023:: ; 1D:4023
+.skip ; 1D:4023
 	ld [wRam_C0E5], a
 	ld a, $01
 	ld [wRam_C0E7], a
@@ -168,9 +167,8 @@ Table_1D_41A0::
 	dw MailMenu_Ignore
 	dw MailMenu_Idle
 
-; ---- code $41AA-$423B (145 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios)
-
 MailMenu_Idle:: ; 1D:41AA
+	; [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios)
 	farcall Ticker_Update
 	ldh a, [hJoyPressedRepeat]
 	and a, $F0
@@ -230,23 +228,22 @@ MailMenu_GetLabelIndexA:: ; 1D:421A
 
 MailMenu_HandleDpad:: ; 1D:4229
 	bit 6, a
-	jr nz, Label_1D_4232
+	jr nz, .l4232
 	bit 7, a
-	jr nz, Label_1D_4256
+	jr nz, .l4256
 	ret
-
-Label_1D_4232:: ; 1D:4232
+.l4232 ; 1D:4232
 	ld a, [wRam_C0E5]
 	ld [wRam_C0E6], a
 	dec a
-	jr nz, Label_1D_423D
+	jr nz, .l423D
 
-; ---- code $423B-$423D (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:4239 (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 1D:4239 (executed) [executed in 5 scenarios]
 	ld a, $06
 
-; ---- code $423D-$4261 (36 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 7/18 scenarios)
-
-Label_1D_423D:: ; 1D:423D
+.l423D ; 1D:423D
+	; [CONFIRMED] 13 insn(s); 13 executed (in up to 7/18 scenarios)
 	ld [wRam_C0E5], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
@@ -255,20 +252,19 @@ Label_1D_423D:: ; 1D:423D
 	call Function_00_082C
 	call MailMenu_AnimateIcon
 	jr MailMenu_AfterMove
-
-Label_1D_4256:: ; 1D:4256
+.l4256 ; 1D:4256
 	ld a, [wRam_C0E5]
 	ld [wRam_C0E6], a
 	inc a
 	cp a, $07
-	jr nz, Label_1D_4263
+	jr nz, .l4263
 
-; ---- code $4261-$4263 (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 1D:425F (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 1D:425F (executed) [executed in 5 scenarios]
 	ld a, $01
 
-; ---- code $4263-$430D (170 bytes) [CONFIRMED] 89 insn(s); 89 executed (in up to 9/18 scenarios)
-
-Label_1D_4263:: ; 1D:4263
+.l4263 ; 1D:4263
+	; [CONFIRMED] 89 insn(s); 89 executed (in up to 9/18 scenarios)
 	ld [wRam_C0E5], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
@@ -379,10 +375,10 @@ Data_MailMenu_PlateOffsets:: ; 1D:431D
 Data_1D_431D::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
-; ---- code $4325-$4383 (94 bytes) [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 MailMenu_DrawItemSelected:: ; 1D:4325
 Function_1D_4325::
+	; [CONFIRMED] 57 insn(s); 57 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C0E5]
 	dec a
 	cp a, $01
@@ -455,10 +451,10 @@ Data_MailMenu_SelectedPlateOffsets:: ; 1D:4393
 Data_1D_4393::
 	db $00, $28, $46, $6E, $8C, $B4, $00, $D2
 
-; ---- code $439B-$43FA (95 bytes) [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an executed call/far call
-
 MailMenu_AnimateIcon:: ; 1D:439B
 Function_1D_439B::
+	; [CONFIRMED] 34 insn(s); 34 executed (in up to 9/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $C0E7
 	dec [hl]
 	ret nz
@@ -466,7 +462,7 @@ Function_1D_439B::
 	ld a, [wRam_C0E8]
 	xor a, $01
 	ld [wRam_C0E8], a
-	jr nz, Label_1D_43D3
+	jr nz, .l43D3
 	ld a, $B1
 	ld [wRam_C10E], a
 	ld a, $4C
@@ -480,8 +476,7 @@ Function_1D_439B::
 	ldh a, [rLCDC]
 	call Function_00_082C
 	ret
-
-Label_1D_43D3:: ; 1D:43D3
+.l43D3 ; 1D:43D3
 	ld a, $E1
 	ld [wRam_C10E], a
 	ld a, $4C

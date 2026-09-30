@@ -4,10 +4,10 @@
 
 SECTION "engine/account/register_config", ROMX
 
-; ---- code $6AE0-$6BF4 (276 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Registration_WriteConfigToAdapter:: ; 68:6AE0
 Function_68_6AE0::
+	; [CONFIRMED] 106 insn(s); 106 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Registration_WriteConfig_Setup
 	farcall Palette_FadeInFromWhite
 	call Registration_WriteConfig_RunState
@@ -88,12 +88,12 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ldh a, [hScratchA]
 	ld a, b
 	or a, a
-	jr z, Label_68_6BE0
+	jr z, .l6BE0
 	cp a, $02
-	jr nz, Label_68_6BE4
+	jr nz, .l6BE4
 	ld a, [wRam_C286]
 	or a, a
-	jr nz, Label_68_6BE4
+	jr nz, .l6BE4
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -104,13 +104,11 @@ Registration_WriteConfig_RunState:: ; 68:6B98
 	ldh [rSVBK], a
 	ld a, $01
 	ld [wRam_C286], a
-	jr Label_68_6BE4
-
-Label_68_6BE0:: ; 68:6BE0
+	jr .l6BE4
+.l6BE0 ; 68:6BE0
 	xor a, a
 	ld [wRam_C286], a
-
-Label_68_6BE4:: ; 68:6BE4
+.l6BE4 ; 68:6BE4
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $F4
@@ -129,9 +127,8 @@ Registration_WriteConfig_StateTable:: ; 68:6BF4
 Table_68_6BF4::
 	dw Registration_WriteConfig_StateInit, Registration_WriteConfig_StateWrite, Registration_WriteConfig_StateFinish
 
-; ---- code $6BFA-$6C5D (99 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 3/18 scenarios)
-
 Registration_WriteConfig_StateInit:: ; 68:6BFA
+	; [CONFIRMED] 40 insn(s); 40 executed (in up to 3/18 scenarios)
 	ld de, $C271
 	ld hl, $0068
 	ld a, $02
@@ -177,9 +174,9 @@ Registration_WriteConfig_StateFinish:: ; 68:6C3F
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $6C5D-$6C7F (34 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jpcc from 68:6C11 (executed)
-
 Label_68_6C5D:: ; 68:6C5D
+	; [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
+	; entered by jpcc from 68:6C11 (executed)
 	farcall Mobile_SaveLastResult
 	farcall Palette_FadeOutToWhite
 	farcall Mobile_ShowLastError
@@ -192,10 +189,10 @@ Label_68_6C5D:: ; 68:6C5D
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $6C7F-$6DBD (318 bytes) [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-
 Registration_DoNotUnplugMessage:: ; 68:6C7F
 Function_68_6C7F::
+	; [CONFIRMED] 135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $03
 	farcall Function_00_153D
 	push hl
@@ -332,9 +329,10 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ldh a, [hScratchA]
 	ld a, [wManualNumbersFlag]
 	or a, a
-	jr z, Label_68_6DF3
+	jr z, .l6DF3
 
-; ---- code $6DBD-$6DF3 (54 bytes) [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
+	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0;
+	; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
 	ld hl, $DEDD
 	ld de, $A076
 	call PhoneNumber_PackBcd
@@ -358,9 +356,8 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld [rRAMB], a
 	ldh a, [hScratchA]
 
-; ---- code $6DF3-$6E03 (16 bytes) [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios)
-
-Label_68_6DF3:: ; 68:6DF3
+.l6DF3 ; 68:6DF3
+	; [CONFIRMED] 7 insn(s); 7 executed (in up to 3/18 scenarios)
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

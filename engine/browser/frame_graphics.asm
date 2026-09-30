@@ -4,10 +4,10 @@
 
 SECTION "engine/browser/frame_graphics", ROMX
 
-; ---- code $6196-$6291 (251 bytes) [CONFIRMED] 118 insn(s); 118 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_LoadFrameGraphics:: ; 4E:6196
 Function_4E_6196::
+	; [CONFIRMED] 118 insn(s); 118 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -127,9 +127,10 @@ Function_4E_6196::
 	ld [wBrowserTimerLastSec], a
 	ret
 
-; ---- code $6291-$6543 (690 bytes) [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0; entered by far from 4E:4002 (PROBABLE code) | forced execution: 346/346 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_4E_6291:: ; 4E:6291
+	; [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0;
+	; entered by far from 4E:4002 (PROBABLE code) | forced execution: 346/346 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	call LCDOff
 	ldh a, [rLCDC]
 	and a, $9F
@@ -379,19 +380,17 @@ Function_4E_6291:: ; 4E:6291
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0400
-
-Label_4E_6477:: ; 4E:6477
+.l6477 ; 4E:6477
 	ld a, [hl]
 	or a, $80
 	ld [hli], a
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, Label_4E_6477
+	jr nz, .l6477
 	ld hl, $D400
 	ld bc, $0400
-
-Label_4E_6486:: ; 4E:6486
+.l6486 ; 4E:6486
 	ld a, [hl]
 	and a, $07
 	add a, $43
@@ -408,7 +407,7 @@ Label_4E_6486:: ; 4E:6486
 	dec bc
 	ld a, c
 	or a, b
-	jr nz, Label_4E_6486
+	jr nz, .l6486
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F

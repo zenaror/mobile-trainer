@@ -4,10 +4,10 @@
 
 SECTION "engine/mail/body_view", ROMX
 
-; ---- code $4000-$4020 (32 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailBody_ViewScreen:: ; 28:4000
 Function_28_4000::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Stat_EnableScrollSplit
 	call MailBody_InitScreen
 
@@ -19,9 +19,10 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_28_404C
+	jr z, .l404C
 
-; ---- code $4020-$404C (44 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 28:401E (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
+	; fall-through of the jrcc at 28:401E (executed) [executed in 5 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -30,22 +31,20 @@ MailBody_ViewScreen_Loop:: ; 28:4009
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-
-Label_28_4030:: ; 28:4030
+.loop ; 28:4030
 	ldh a, [rLY]
 	cp a, $50
-	jr c, Label_28_4030
+	jr c, .loop
 	cp a, $5A
-	jr nc, Label_28_4030
+	jr nc, .loop
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
-; ---- code $404C-$422B (479 bytes) [CONFIRMED] 179 insn(s); 179 executed (in up to 1/18 scenarios)
-
-Label_28_404C:: ; 28:404C
+.l404C ; 28:404C
+	; [CONFIRMED] 179 insn(s); 179 executed (in up to 1/18 scenarios)
 	jr MailBody_ViewScreen_Loop
 
 MailBody_InitScreen:: ; 28:404E
@@ -180,20 +179,19 @@ MailBody_InitScreen:: ; 28:404E
 MailBody_DrawTextLine:: ; 28:41CB
 	ld a, $18
 	ld [wTextCellsLeft], a
-
-Label_28_41D0:: ; 28:41D0
+.l41D0 ; 28:41D0
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_28_426B
+	jp z, .l426B
 	cp a, $0D
-	jr z, Label_28_4250
+	jr z, .l4250
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_28_422B
+	jr nz, .l422B
 	pop af
 	push bc
 	push de
@@ -227,14 +225,15 @@ Label_28_41D0:: ; 28:41D0
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_28_426B
+	jr z, .l426B
 	cp a, $01
-	jr z, Label_28_426B
-	jr Label_28_41D0
+	jr z, .l426B
+	jr .l41D0
 
-; ---- code $422B-$4250 (37 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 422B-426B by apply_coverage --split
-
-Label_28_422B:: ; 28:422B
+.l422B ; 28:422B
+	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
+	; entered by jrcc from 28:41E8 (executed) | 19 insn(s) never executed in the traced runs; cut
+	; out of the PROBABLE region 422B-426B by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -250,14 +249,14 @@ Label_28_422B:: ; 28:422B
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_28_426B
+	jr z, .l426B
 	cp a, $01
-	jr z, Label_28_426B
-	jr Label_28_41D0
+	jr z, .l426B
+	jr .l41D0
 
-; ---- code $4250-$426B (27 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 422B-426B by apply_coverage --split [executed in 2 scenarios]
-
-Label_28_4250:: ; 28:4250
+.l4250 ; 28:4250
+	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 422B-426B by apply_coverage
+	; --split [executed in 2 scenarios]
 	push bc
 	push de
 	push hl
@@ -272,9 +271,8 @@ Label_28_4250:: ; 28:4250
 	ld [wTextCellsLeft], a
 	call Function_28_429F
 
-; ---- code $426B-$42B7 (76 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios)
-
-Label_28_426B:: ; 28:426B
+.l426B ; 28:426B
+	; [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios)
 	push bc
 	push de
 	push hl
@@ -284,15 +282,14 @@ Label_28_426B:: ; 28:426B
 	pop hl
 	pop de
 	pop bc
-
-Label_28_427C:: ; 28:427C
+.l427C ; 28:427C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call Function_28_429F
-	jr Label_28_427C
+	jr .l427C
 
 MailBody_BlitGlyphAdvance:: ; 28:428B
 	push bc

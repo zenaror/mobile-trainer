@@ -4,9 +4,9 @@
 
 SECTION "home/tilemap_copy", ROM0
 
-; ---- code $16A2-$16C4 (34 bytes) [CONFIRMED] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred links; raw refs 3] [executed in 27 scenarios]
-
 Function_00_16A2:: ; 00:16A2
+	; [CONFIRMED] like 08CA but the second source pointer comes from C10E/C10F [reached via inferred
+	; links; raw refs 3] [executed in 27 scenarios]
 	call BankSwitch_H
 	ld a, $07
 	call BankSwitch_D

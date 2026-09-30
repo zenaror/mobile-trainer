@@ -4,10 +4,10 @@
 
 SECTION "engine/error/no_adapter", ROMX
 
-; ---- code $732F-$742F (256 bytes) [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 NoAdapter_ShowScreen:: ; 63:732F
 Function_63_732F::
+	; [CONFIRMED] 83 insn(s); 83 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call NoAdapter_DrawScreen
 	farcall Palette_FadeInFromWhite
 	call NoAdapter_WaitButton
@@ -90,10 +90,9 @@ NoAdapter_WaitButton:: ; 63:7413
 	call Function_00_044B
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_63_742E
+	jr nz, .done
 	bit 3, a
-	jr nz, Label_63_742E
+	jr nz, .done
 	jr NoAdapter_WaitButton
-
-Label_63_742E:: ; 63:742E
+.done ; 63:742E
 	ret

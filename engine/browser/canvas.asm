@@ -4,10 +4,10 @@
 
 SECTION "engine/browser/canvas", ROMX
 
-; ---- code $60A6-$6172 (204 bytes) [CONFIRMED] 82 insn(s); 82 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_UploadTitleCanvas:: ; 4E:60A6
 Function_4E_60A6::
+	; [CONFIRMED] 82 insn(s); 82 executed (in up to 2/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld de, $9000
 	ld hl, $1002
 	ld bc, $010F
@@ -97,9 +97,10 @@ Browser_ClearBodyArea:: ; 4E:612B
 	farcall TileCanvas_FillRect
 	ret
 
-; ---- code $6172-$6196 (36 bytes) [HYPOTHESIS] function: cp a,1 ; ret nz ; SRAM enable, reads [A9ED] bit 7, returns b=$19/$1A in a, SRAM disable, ret; 18 insn, ends exactly where the executed function 4E:6196 starts; no caller/pointer found, entry unproven
-
 Function_4E_6172:: ; 4E:6172
+	; [HYPOTHESIS] function: cp a,1 ; ret nz ; SRAM enable, reads [A9ED] bit 7, returns b=$19/$1A in
+	; a, SRAM disable, ret; 18 insn, ends exactly where the executed function 4E:6196 starts; no
+	; caller/pointer found, entry unproven
 	cp a, $01
 	ret nz
 	ld a, $0A
@@ -111,10 +112,9 @@ Function_4E_6172:: ; 4E:6172
 	ld b, $1A
 	ld a, [sSram_A9ED]
 	bit 7, a
-	jr z, Label_4E_618E
+	jr z, .skip
 	ld b, $19
-
-Label_4E_618E:: ; 4E:618E
+.skip ; 4E:618E
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

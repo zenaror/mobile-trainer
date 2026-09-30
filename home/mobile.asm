@@ -4,16 +4,20 @@
 
 SECTION "home/mobile", ROM0
 
-; ---- code $0150-$018D (61 bytes) [CONFIRMED] API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75 and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI, which pushes $018D as its return address) [reached via inferred links; raw refs 54] [executed in 41 scenarios]
-
 MobileAPI:: ; 00:0150
+	; [CONFIRMED] API entry with index in A (cp 2; args in HL/BC): stores A->C825, HL->C823/C824; if
+	; A==2 also FF8A/FF8B<-HL (the bank pushed below, i.e. restored on return) and C820/21<-BC; sets
+	; bit6 of C6C1; saves the current 16-bit ROM bank (FF8A/FF8B) on the stack, switches to bank 75
+	; and jp 75:4030. Structurally identical to pokecrystal home MobileAPI (75:4030 = _MobileAPI,
+	; which pushes $018D as its return address) [reached via inferred links; raw refs 54] [executed
+	; in 41 scenarios]
 	cp a, $02
 	ld [wMobileAPIIndex], a
 	ld a, l
 	ld [wRam_C823], a
 	ld a, h
 	ld [wRam_C824], a
-	jr nz, Label_00_016B
+	jr nz, .l016B
 	ldh [hROMBankHi], a
 	ld a, l
 	ldh [hROMBankLo], a
@@ -22,8 +26,7 @@ MobileAPI:: ; 00:0150
 	ld [hli], a
 	ld a, b
 	ld [hl], a
-
-Label_00_016B:: ; 00:016B
+.l016B ; 00:016B
 	ld hl, $C6C1
 	set 6, [hl]
 	ld hl, $FF8A
@@ -42,9 +45,10 @@ Label_00_016B:: ; 00:016B
 	ld [rROMB1], a
 	jp MobileSDK_ApiDispatch
 
-; ---- code $018D-$01B7 (42 bytes) [CONFIRMED] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret [candidate; no static referrer] [executed in 41 scenarios]
-
 ReturnMobileAPI:: ; 00:018D
+	; [CONFIRMED] return path of MobileAPI: 75:4054-4057 pushes $018D before dispatching; saves A/HL
+	; to C823-C825, pops saved ROM bank -> FF8A/FF8B + MBC, res 6,[C6C1], reloads HL/A, ret
+	; [candidate; no static referrer] [executed in 41 scenarios]
 	ld [wRam_C823], a
 	ld a, l
 	ld [wRam_C824], a
@@ -69,9 +73,10 @@ ReturnMobileAPI:: ; 00:018D
 	ld a, [wRam_C823]
 	ret
 
-; ---- code $01B7-$01ED (54 bytes) [CONFIRMED] serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as pokecrystal MobileReceive
-
 Int_Serial:: ; 00:01B7
+	; [CONFIRMED] serial interrupt handler (RAM vector CBFA -> jp $01B7): push af/bc/de/hl; save
+	; 16-bit ROM bank; switch to bank 75; call 75:56D2; restore bank; reti. Same shape as
+	; pokecrystal MobileReceive
 	push af
 	push bc
 	push de
@@ -107,9 +112,13 @@ Int_Serial:: ; 00:01B7
 	pop af
 	reti
 
-; ---- code $01ED-$0247 (90 bytes) [CONFIRMED] timer interrupt handler (RAM vector CBF7 -> jp $01ED): TAC=0; IF&=$1B; if [C709]==0 return at once (01FE jr z,$0242: TIMA/TAC are NOT restarted, the timer stays stopped); else, unless C6C1.bit1 or rSC.bit7 is set (then the bank-75 call is skipped, 0205/020B jr nz,$023A), save ROM bank, call 75:58EA, restore; finally TIMA=TMA and TAC=6 (enable, clock select 10 = 65536 Hz, doubled to 131072 Hz in the CGB double-speed mode that Boot selects). Same shape as pokecrystal MobileTimer
-
 Int_Timer:: ; 00:01ED
+	; [CONFIRMED] timer interrupt handler (RAM vector CBF7 -> jp $01ED): TAC=0; IF&=$1B; if
+	; [C709]==0 return at once (01FE jr z,$0242: TIMA/TAC are NOT restarted, the timer stays
+	; stopped); else, unless C6C1.bit1 or rSC.bit7 is set (then the bank-75 call is skipped,
+	; 0205/020B jr nz,$023A), save ROM bank, call 75:58EA, restore; finally TIMA=TMA and TAC=6
+	; (enable, clock select 10 = 65536 Hz, doubled to 131072 Hz in the CGB double-speed mode that
+	; Boot selects). Same shape as pokecrystal MobileTimer
 	push af
 	push bc
 	push de
@@ -121,13 +130,13 @@ Int_Timer:: ; 00:01ED
 	ldh [rIF], a
 	ld a, [wMobileSDK_State]
 	or a, a
-	jr z, Label_00_0242
+	jr z, .l0242
 	ld a, [wMobileFlags]
 	bit 1, a
-	jr nz, Label_00_023A
+	jr nz, .l023A
 	ldh a, [rSC]
 	and a, $80
-	jr nz, Label_00_023A
+	jr nz, .l023A
 	ld hl, $FF8A
 	ld a, [hli]
 	ld h, [hl]
@@ -153,23 +162,22 @@ Int_Timer:: ; 00:01ED
 	ld [rROMB0], a
 	ld a, d
 	ld [rROMB1], a
-
-Label_00_023A:: ; 00:023A
+.l023A ; 00:023A
 	ldh a, [rTMA]
 	ldh [rTIMA], a
 	ld a, $06
 	ldh [rTAC], a
-
-Label_00_0242:: ; 00:0242
+.l0242 ; 00:0242
 	pop hl
 	pop de
 	pop bc
 	pop af
 	reti
 
-; ---- code $0247-$0278 (49 bytes) [CONFIRMED] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F, calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw refs 6] [executed in 9 scenarios]
-
 Function_00_0247:: ; 00:0247
+	; [CONFIRMED] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F,
+	; calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw
+	; refs 6] [executed in 9 scenarios]
 	ld [wMail_Selector], a
 	ldh a, [hROMBankLo]
 	ld l, a

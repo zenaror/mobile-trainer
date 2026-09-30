@@ -4,12 +4,18 @@
 
 SECTION "engine/browser/frame_style_chooser", ROMX
 
-; ---- code $4000-$4002 (2 bytes) [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_4E_4000:: ; 4E:4000
+	; [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site
+	; at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no
+	; caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced
+	; execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence;
+	; status unchanged)
 	ldh [hRam_FFD2], a
 
-; ---- code $4002-$4172 (368 bytes) [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 160/160 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 160/160 instruction starts ran in forced_screens (traces/forced/, not
+	; natural evidence; status unchanged)
 	farcall Function_4E_6291
 	ld de, $18A0
 	ld hl, $DA90
@@ -77,14 +83,13 @@ Function_4E_4000:: ; 4E:4000
 	ldh [hRam_FFD0], a
 	ld a, $41
 	ldh [hRam_FFD1], a
-
-Label_4E_409C:: ; 4E:409C
+.loop ; 4E:409C
 	ldh a, [hRam_FFD0]
 	ld l, a
 	ldh a, [hRam_FFD1]
 	ld h, a
 	or a, a
-	jr z, Label_4E_40C8
+	jr z, .l40C8
 	farcall Function_4E_45FE
 	ld a, l
 	ldh [hRam_FFD0], a
@@ -95,9 +100,8 @@ Label_4E_409C:: ; 4E:409C
 	farcall Function_00_0956
 	farcall ConnIcon_LoadGraphicsIfRequested
 	call Function_00_044B
-	jp Label_4E_409C
-
-Label_4E_40C8:: ; 4E:40C8
+	jp .loop
+.l40C8 ; 4E:40C8
 	ldh a, [hRam_FFD2]
 	push bc
 	and a, $7F
@@ -186,9 +190,10 @@ Table_4E_4172:: ; 4E:4172
 	dw Label_4E_41C5
 	dw Label_4E_4154
 
-; ---- code $417C-$41E0 (100 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0; entered by table from 4E:416F (PROBABLE code) | forced execution: 23/39 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Label_4E_417C:: ; 4E:417C
+	; [PROBABLE] 39 insn(s) reached by static flow only; seeds: site x39; min discovery hops 0;
+	; entered by table from 4E:416F (PROBABLE code) | forced execution: 23/39 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -307,9 +312,10 @@ Data_4E_41E0:: ; 4E:41E0
 	dw $0273, $0292, $FFFF, $0001, $0274, $0293, $FFFF, $0001
 	dw $0294, $FFFF, $0001, $FFFF, $0000, $FFFF, $FFFF
 
-; ---- code $45FE-$4658 (90 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2; entered by far from 4E:40A5 (PROBABLE code) | forced execution: 54/54 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-
 Function_4E_45FE:: ; 4E:45FE
+	; [PROBABLE] 54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2;
+	; entered by far from 4E:40A5 (PROBABLE code) | forced execution: 54/54 instruction starts ran
+	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -319,15 +325,14 @@ Function_4E_45FE:: ; 4E:45FE
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-
-Label_4E_4612:: ; 4E:4612
+.loop ; 4E:4612
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
 	and a, c
 	cp a, $FF
-	jr z, Label_4E_4637
+	jr z, .l4637
 	push hl
 	ld hl, $D000
 	add hl, bc
@@ -346,9 +351,8 @@ Label_4E_4612:: ; 4E:4612
 	ld a, [hl]
 	ld [de], a
 	pop hl
-	jr Label_4E_4612
-
-Label_4E_4637:: ; 4E:4637
+	jr .loop
+.l4637 ; 4E:4637
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -360,11 +364,10 @@ Label_4E_4637:: ; 4E:4637
 	ld a, [hli]
 	and a, [hl]
 	cp a, $FF
-	jr nz, Label_4E_4650
+	jr nz, .l4650
 	ld hl, $0000
 	ret
-
-Label_4E_4650:: ; 4E:4650
+.l4650 ; 4E:4650
 	dec hl
 	xor a, a
 	ldh [hSRAMEnable], a

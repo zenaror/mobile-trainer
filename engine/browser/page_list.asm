@@ -13,9 +13,10 @@ Table_24_4000::
 PageList_TitleSlotTable:: ; 24:400C
 	dw $A000, $A016, $A02C, $A042, $A058, $A06E
 
-; ---- code $4018-$4099 (129 bytes) [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code) | 59 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
-
 PageList_Main:: ; 24:4018
+	; [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2;
+	; entered by far from 4E:4DB1 (PROBABLE code) | 59 insn(s) executed; cut out of the PROBABLE
+	; region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -39,11 +40,10 @@ PageList_Main:: ; 24:4018
 	ldh [rSVBK], a
 	ld a, [wRam_D500]
 	cp a, $00
-	jr nz, Label_24_4053
+	jr nz, .skip
 	xor a, a
 	ld [wDialogOnlineSnapshot], a
-
-Label_24_4053:: ; 24:4053
+.skip ; 24:4053
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -75,12 +75,13 @@ PageList_Main_Loop:: ; 24:4083
 	farcall Function_00_0956
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, Label_24_41D7
+	jp z, .l41D7
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, Label_24_40AC
+	jr z, .l40AC
 
-; ---- code $4099-$40AC (19 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4018-42AF by apply_coverage --split
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -89,66 +90,64 @@ PageList_Main_Loop:: ; 24:4083
 	ld hl, $0000
 	ret
 
-; ---- code $40AC-$40CD (33 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
-
-Label_24_40AC:: ; 24:40AC
+.l40AC ; 24:40AC
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
+	; --split [executed in 3 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_24_4103
+	jp z, .l4103
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_24_40FA
+	jr z, .l40FA
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_24_40FB
+	jr nz, .l40FB
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_24_40FA
+	jr c, .l40FA
 
-; ---- code $40CD-$40FA (45 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
-	jr nz, Label_24_40D6
+	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4018-42AF by apply_coverage --split
+	jr nz, .l40D6
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_24_40FA
-
-Label_24_40D6:: ; 24:40D6
+	jr c, .l40FA
+.l40D6 ; 24:40D6
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_24_40E6
+	jr nz, .l40E6
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_24_40FA
+	jr nz, .l40FA
 	set 1, [hl]
-
-Label_24_40E6:: ; 24:40E6
+.l40E6 ; 24:40E6
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_24_40FB
+	jr z, .l40FB
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_24_40FB
+	jr .l40FB
 
-; ---- code $40FA-$4103 (9 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
-
-Label_24_40FA:: ; 24:40FA
+.l40FA ; 24:40FA
+	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
+	; --split [executed in 3 scenarios]
 	xor a, a
-
-Label_24_40FB:: ; 24:40FB
+.l40FB ; 24:40FB
 	pop hl
 	or a, a
-	jp nz, Label_24_41C4
-	jp Label_24_41D7
+	jp nz, .l41C4
+	jp .l41D7
 
-; ---- code $4103-$41D7 (212 bytes) [PROBABLE] 86 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
-
-Label_24_4103:: ; 24:4103
+.l4103 ; 24:4103
+	; [PROBABLE] 86 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4018-42AF by apply_coverage --split
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
@@ -228,8 +227,7 @@ Label_24_4103:: ; 24:4103
 	call Function_00_0464
 	pop bc
 	jp PageList_Main_Loop
-
-Label_24_41C4:: ; 24:41C4
+.l41C4 ; 24:41C4
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -238,15 +236,15 @@ Label_24_41C4:: ; 24:41C4
 	ld hl, $0000
 	ret
 
-; ---- code $41D7-$42AF (216 bytes) [CONFIRMED] 113 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 2 scenarios]
-
-Label_24_41D7:: ; 24:41D7
+.l41D7 ; 24:41D7
+	; [CONFIRMED] 113 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
+	; --split [executed in 2 scenarios]
 	call Function_00_0464
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_24_422A
+	jr z, .l422A
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -265,7 +263,7 @@ Label_24_41D7:: ; 24:41D7
 	pop bc
 	call PageList_ActionMenu
 	inc a
-	jr nz, Label_24_4219
+	jr nz, .l4219
 	push bc
 	push de
 	push hl
@@ -275,8 +273,7 @@ Label_24_41D7:: ; 24:41D7
 	pop de
 	pop bc
 	ret
-
-Label_24_4219:: ; 24:4219
+.l4219 ; 24:4219
 	push bc
 	xor a, a
 	ld d, $00
@@ -286,11 +283,10 @@ Label_24_4219:: ; 24:4219
 	ld b, $00
 	call PageList_ShowMessage
 	pop bc
-
-Label_24_422A:: ; 24:422A
+.l422A ; 24:422A
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_24_4256
+	jr z, .l4256
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -309,11 +305,10 @@ Label_24_422A:: ; 24:422A
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_24_4256:: ; 24:4256
+.l4256 ; 24:4256
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
-	jp z, Label_24_4281
+	jp z, .l4281
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -330,18 +325,16 @@ Label_24_4256:: ; 24:4256
 	dec c
 	ld a, $FF
 	cp a, c
-	jr nz, Label_24_427A
+	jr nz, .l427A
 	ld c, $05
-
-Label_24_427A:: ; 24:427A
+.l427A ; 24:427A
 	ld a, d
 	call PageList_RedrawSelection
 	call PageList_UpdateRowSprites
-
-Label_24_4281:: ; 24:4281
+.l4281 ; 24:4281
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
-	jp z, Label_24_42AC
+	jp z, .l42AC
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -358,18 +351,20 @@ Label_24_4281:: ; 24:4281
 	inc c
 	ld a, $06
 	cp a, c
-	jr nz, Label_24_42A5
+	jr nz, .l42A5
 	ld c, $00
-
-Label_24_42A5:: ; 24:42A5
+.l42A5 ; 24:42A5
 	ld a, d
 	call PageList_RedrawSelection
 	call PageList_UpdateRowSprites
-
-Label_24_42AC:: ; 24:42AC
+.l42AC ; 24:42AC
 	jp PageList_Main_Loop
 
-; ---- code $42AF-$42D1 (34 bytes) [HYPOTHESIS] ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the one at $42E7 to $D3C0 (WRAM bank 6); the two ld hl immediates point exactly at the strings below, which is why code and text are classified together; entry not proven (no caller found) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
+	; [HYPOTHESIS] ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the
+	; one at $42E7 to $D3C0 (WRAM bank 6); the two ld hl immediates point exactly at the strings
+	; below, which is why code and text are classified together; entry not proven (no caller found)
+	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
+	; alone is not proof -> HYPOTHESIS]
 	ret
 
 Function_24_42B0:: ; 24:42B0
@@ -378,22 +373,20 @@ Function_24_42B0:: ; 24:42B0
 	ldh [rSVBK], a
 	ld de, $D500
 	ld hl, Url_GooNeJp
-
-Label_24_42BC:: ; 24:42BC
+.l42BC ; 24:42BC
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_24_42BC
+	jr nz, .l42BC
 	ld de, $D3C0
 	ld hl, String_24_42E7
-
-Label_24_42C9:: ; 24:42C9
+.l42C9 ; 24:42C9
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_24_42C9
+	jr nz, .l42C9
 	ret
 
 ; ---- text $42D1-$42E7 (22 bytes) [PROBABLE] ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
@@ -407,36 +400,35 @@ String_24_42D1::
 String_24_42E7:: ; 24:42E7
 	db $82, $AD, $81, $5B, $82, $AD, $81, $5B, $00 ; "くーくー"
 
-; ---- code $42F0-$4517 (551 bytes) [CONFIRMED] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code) | 219 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
-
 PageList_InitScreen:: ; 24:42F0
+	; [CONFIRMED] 989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3;
+	; entered by call from 24:406A (PROBABLE code) | 219 insn(s) executed; cut out of the PROBABLE
+	; region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
 	push bc
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $1000
-
-Label_24_42FD:: ; 24:42FD
+.l42FD ; 24:42FD
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_24_42FD
+	jr nz, .l42FD
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0780
-
-Label_24_4310:: ; 24:4310
+.l4310 ; 24:4310
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_24_4310
+	jr nz, .l4310
 	farcall Function_00_09B6
 	call Function_00_0464
 	ld de, $9301
@@ -491,15 +483,14 @@ Label_24_4310:: ; 24:4310
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_24_43D2
+	jr z, .l43D2
 	ld bc, $1214
 	ld de, $D000
 	ld hl, PageList_Tilemap_5BD0
 	ld a, $24
 	farcall Function_00_08EA
 	call Function_00_0464
-
-Label_24_43D2:: ; 24:43D2
+.l43D2 ; 24:43D2
 	ldh a, [rLCDC]
 	call Function_00_082C
 	call Function_00_0464
@@ -612,14 +603,13 @@ PageList_InitRowSprites:: ; 24:445C
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_44EF
+	jr z, .l44EF
 	ld hl, $DA60
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_24_44EF:: ; 24:44EF
+.l44EF ; 24:44EF
 	ld hl, $4002
 	ld a, [hli]
 	ld e, a
@@ -627,14 +617,13 @@ Label_24_44EF:: ; 24:44EF
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_450B
+	jr z, .l450B
 	ld hl, $DA50
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_24_450B:: ; 24:450B
+.l450B ; 24:450B
 	ld hl, $4004
 	ld a, [hli]
 	ld e, a
@@ -642,18 +631,19 @@ Label_24_450B:: ; 24:450B
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_4527
+	jr z, .l4527
 
-; ---- code $4517-$4527 (16 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA40
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $4527-$454F (40 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_4527:: ; 24:4527
+.l4527 ; 24:4527
+	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $4006
 	ld a, [hli]
 	ld e, a
@@ -661,14 +651,13 @@ Label_24_4527:: ; 24:4527
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_4543
+	jr z, .l4543
 	ld hl, $DA30
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
-
-Label_24_4543:: ; 24:4543
+.l4543 ; 24:4543
 	ld hl, $4008
 	ld a, [hli]
 	ld e, a
@@ -676,18 +665,19 @@ Label_24_4543:: ; 24:4543
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_455F
+	jr z, .l455F
 
-; ---- code $454F-$455F (16 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA20
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $455F-$456B (12 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 9 scenarios]
-
-Label_24_455F:: ; 24:455F
+.l455F ; 24:455F
+	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 9 scenarios]
 	ld hl, $400A
 	ld a, [hli]
 	ld e, a
@@ -695,18 +685,19 @@ Label_24_455F:: ; 24:455F
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_457B
+	jr z, .l457B
 
-; ---- code $456B-$457B (16 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA10
 	ld de, $6550
 	ld a, $24
 	ld b, $01
 	farcall Function_00_0A82
 
-; ---- code $457B-$4672 (247 bytes) [CONFIRMED] 111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_457B:: ; 24:457B
+.l457B ; 24:457B
+	; [CONFIRMED] 111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $23
 	ld [wSpriteSlots + 96], a
 	ld a, $2F
@@ -749,7 +740,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	pop af
 	xor a, a
 	cp a, c
-	jr nz, Label_24_4618
+	jr nz, .l4618
 	ld hl, PageList_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -757,7 +748,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_45FB
+	jr z, .l45FB
 	ld hl, $DA60
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -767,9 +758,8 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld [wSpriteSlots + 96], a
 	ld a, $06
 	ld [wSpriteSlots + 97], a
-	jp Label_24_478A
-
-Label_24_45FB:: ; 24:45FB
+	jp .l478A
+.l45FB ; 24:45FB
 	ld hl, $DA60
 	ld de, $6540
 	ld a, $24
@@ -779,12 +769,11 @@ Label_24_45FB:: ; 24:45FB
 	ld [wSpriteSlots + 96], a
 	ld a, $06
 	ld [wSpriteSlots + 97], a
-	jp Label_24_478A
-
-Label_24_4618:: ; 24:4618
+	jp .l478A
+.l4618 ; 24:4618
 	inc a
 	cp a, c
-	jr nz, Label_24_4662
+	jr nz, .l4662
 	ld hl, $4002
 	ld a, [hli]
 	ld e, a
@@ -792,7 +781,7 @@ Label_24_4618:: ; 24:4618
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_4645
+	jr z, .l4645
 	ld hl, $DA50
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -802,9 +791,8 @@ Label_24_4618:: ; 24:4618
 	ld [wSpriteSlots + 80], a
 	ld a, $06
 	ld [wSpriteSlots + 81], a
-	jp Label_24_478A
-
-Label_24_4645:: ; 24:4645
+	jp .l478A
+.l4645 ; 24:4645
 	ld hl, $DA50
 	ld de, $6540
 	ld a, $24
@@ -814,12 +802,11 @@ Label_24_4645:: ; 24:4645
 	ld [wSpriteSlots + 80], a
 	ld a, $06
 	ld [wSpriteSlots + 81], a
-	jp Label_24_478A
-
-Label_24_4662:: ; 24:4662
+	jp .l478A
+.l4662 ; 24:4662
 	inc a
 	cp a, c
-	jr nz, Label_24_46AC
+	jr nz, .l46AC
 	ld hl, $4004
 	ld a, [hli]
 	ld e, a
@@ -827,9 +814,10 @@ Label_24_4662:: ; 24:4662
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_468F
+	jr z, .l468F
 
-; ---- code $4672-$468F (29 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA40
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -839,11 +827,11 @@ Label_24_4662:: ; 24:4662
 	ld [wSpriteSlots + 64], a
 	ld a, $06
 	ld [wSpriteSlots + 65], a
-	jp Label_24_478A
+	jp .l478A
 
-; ---- code $468F-$46BC (45 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
-
-Label_24_468F:: ; 24:468F
+.l468F ; 24:468F
+	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld hl, $DA40
 	ld de, $6540
 	ld a, $24
@@ -853,12 +841,11 @@ Label_24_468F:: ; 24:468F
 	ld [wSpriteSlots + 64], a
 	ld a, $06
 	ld [wSpriteSlots + 65], a
-	jp Label_24_478A
-
-Label_24_46AC:: ; 24:46AC
+	jp .l478A
+.l46AC ; 24:46AC
 	inc a
 	cp a, c
-	jr nz, Label_24_46F6
+	jr nz, .l46F6
 	ld hl, $4006
 	ld a, [hli]
 	ld e, a
@@ -866,9 +853,10 @@ Label_24_46AC:: ; 24:46AC
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_46D9
+	jr z, .l46D9
 
-; ---- code $46BC-$46D9 (29 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA30
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -878,11 +866,11 @@ Label_24_46AC:: ; 24:46AC
 	ld [wSpriteSlots + 48], a
 	ld a, $06
 	ld [wSpriteSlots + 49], a
-	jp Label_24_478A
+	jp .l478A
 
-; ---- code $46D9-$4706 (45 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
-
-Label_24_46D9:: ; 24:46D9
+.l46D9 ; 24:46D9
+	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld hl, $DA30
 	ld de, $6540
 	ld a, $24
@@ -892,12 +880,11 @@ Label_24_46D9:: ; 24:46D9
 	ld [wSpriteSlots + 48], a
 	ld a, $06
 	ld [wSpriteSlots + 49], a
-	jp Label_24_478A
-
-Label_24_46F6:: ; 24:46F6
+	jp .l478A
+.l46F6 ; 24:46F6
 	inc a
 	cp a, c
-	jr nz, Label_24_4740
+	jr nz, .l4740
 	ld hl, $4008
 	ld a, [hli]
 	ld e, a
@@ -905,9 +892,10 @@ Label_24_46F6:: ; 24:46F6
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_4723
+	jr z, .l4723
 
-; ---- code $4706-$4723 (29 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA20
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -917,11 +905,11 @@ Label_24_46F6:: ; 24:46F6
 	ld [wSpriteSlots + 32], a
 	ld a, $06
 	ld [wSpriteSlots + 33], a
-	jp Label_24_478A
+	jp .l478A
 
-; ---- code $4723-$4750 (45 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 4 scenarios]
-
-Label_24_4723:: ; 24:4723
+.l4723 ; 24:4723
+	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ld hl, $DA20
 	ld de, $6540
 	ld a, $24
@@ -931,12 +919,11 @@ Label_24_4723:: ; 24:4723
 	ld [wSpriteSlots + 32], a
 	ld a, $06
 	ld [wSpriteSlots + 33], a
-	jp Label_24_478A
-
-Label_24_4740:: ; 24:4740
+	jp .l478A
+.l4740 ; 24:4740
 	inc a
 	cp a, c
-	jr nz, Label_24_478A
+	jr nz, .l478A
 	ld hl, $400A
 	ld a, [hli]
 	ld e, a
@@ -944,9 +931,10 @@ Label_24_4740:: ; 24:4740
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr z, Label_24_476D
+	jr z, .l476D
 
-; ---- code $4750-$476D (29 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+	; [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	ld hl, $DA10
 	ld de, PageList_ObjTable
 	ld a, $24
@@ -956,11 +944,11 @@ Label_24_4740:: ; 24:4740
 	ld [wSpriteSlots + 16], a
 	ld a, $06
 	ld [wSpriteSlots + 17], a
-	jp Label_24_478A
+	jp .l478A
 
-; ---- code $476D-$49A7 (570 bytes) [CONFIRMED] 334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
-
-Label_24_476D:: ; 24:476D
+.l476D ; 24:476D
+	; [CONFIRMED] 334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld hl, $DA10
 	ld de, $6540
 	ld a, $24
@@ -970,9 +958,8 @@ Label_24_476D:: ; 24:476D
 	ld [wSpriteSlots + 16], a
 	ld a, $06
 	ld [wSpriteSlots + 17], a
-	jp Label_24_478A
-
-Label_24_478A:: ; 24:478A
+	jp .l478A
+.l478A ; 24:478A
 	push af
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -1002,7 +989,7 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld d, a
 	ld a, [de]
 	cp a, $00
-	jr nz, Label_24_47D8
+	jr nz, .l47D8
 	ld d, $00
 	ld e, $00
 	push af
@@ -1016,17 +1003,15 @@ PageList_GetActionAvailability:: ; 24:4794
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_24_47D3
+	jr z, .l47D3
 	ld a, $01
-
-Label_24_47D3:: ; 24:47D3
+.l47D3 ; 24:47D3
 	ld c, a
 	ld a, d
 	ld d, c
 	pop bc
 	ret
-
-Label_24_47D8:: ; 24:47D8
+.l47D8 ; 24:47D8
 	ld d, $01
 	ld e, $01
 	push af
@@ -1040,11 +1025,10 @@ Label_24_47D8:: ; 24:47D8
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_24_47F6
+	jr z, .l47F6
 	ld a, $01
 	ld d, $01
-
-Label_24_47F6:: ; 24:47F6
+.l47F6 ; 24:47F6
 	ld c, a
 	ld a, d
 	ld d, c
@@ -1057,17 +1041,15 @@ PageList_SetActionIcons:: ; 24:47FB
 	ld b, a
 	ld a, $01
 	ldh [rVBK], a
-
-Label_24_4802:: ; 24:4802
+.loop ; 24:4802
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_24_4802
+	jr nz, .loop
 	ld a, $0C
 	dec b
-	jr z, Label_24_480F
+	jr z, .l480F
 	ld a, $0B
-
-Label_24_480F:: ; 24:480F
+.l480F ; 24:480F
 	ld hl, $99C3
 	ld [hli], a
 	ld [hl], a
@@ -1076,10 +1058,9 @@ Label_24_480F:: ; 24:480F
 	ld [hl], a
 	ld a, $0C
 	dec d
-	jr z, Label_24_4820
+	jr z, .l4820
 	ld a, $0B
-
-Label_24_4820:: ; 24:4820
+.l4820 ; 24:4820
 	ld hl, $99C9
 	ld [hli], a
 	ld [hl], a
@@ -1088,10 +1069,9 @@ Label_24_4820:: ; 24:4820
 	ld [hl], a
 	ld a, $0C
 	dec e
-	jr z, Label_24_4831
+	jr z, .l4831
 	ld a, $0B
-
-Label_24_4831:: ; 24:4831
+.l4831 ; 24:4831
 	ld hl, $99CF
 	ld [hli], a
 	ld [hl], a
@@ -1129,14 +1109,12 @@ PageList_RedrawSelection:: ; 24:483E
 	ld b, a
 	xor a, a
 	inc b
-
-Label_24_4866:: ; 24:4866
+.l4866 ; 24:4866
 	dec b
-	jr z, Label_24_486D
+	jr z, .l486D
 	add a, $0C
-	jr Label_24_4866
-
-Label_24_486D:: ; 24:486D
+	jr .l4866
+.l486D ; 24:486D
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1160,14 +1138,12 @@ Label_24_486D:: ; 24:486D
 	ld b, c
 	xor a, a
 	inc b
-
-Label_24_488F:: ; 24:488F
+.l488F ; 24:488F
 	dec b
-	jr z, Label_24_4896
+	jr z, .l4896
 	add a, $0C
-	jr Label_24_488F
-
-Label_24_4896:: ; 24:4896
+	jr .l488F
+.l4896 ; 24:4896
 	add a, $10
 	ld d, a
 	ld b, $00
@@ -1208,8 +1184,7 @@ PageList_DrawAllTitles:: ; 24:48C7
 	pop af
 	xor a, a
 	ld d, $06
-
-Label_24_48DB:: ; 24:48DB
+.l48DB ; 24:48DB
 	push af
 	push de
 	push bc
@@ -1229,14 +1204,12 @@ Label_24_48DB:: ; 24:48DB
 	ld b, a
 	xor a, a
 	inc b
-
-Label_24_48F4:: ; 24:48F4
+.l48F4 ; 24:48F4
 	dec b
-	jr z, Label_24_48FB
+	jr z, .l48FB
 	add a, $0C
-	jr Label_24_48F4
-
-Label_24_48FB:: ; 24:48FB
+	jr .l48F4
+.l48FB ; 24:48FB
 	add a, $10
 	ld d, a
 	ld b, $03
@@ -1247,7 +1220,7 @@ Label_24_48FB:: ; 24:48FB
 	pop af
 	inc a
 	dec d
-	jr nz, Label_24_48DB
+	jr nz, .l48DB
 	ld hl, $400C
 	ld a, [hli]
 	ld e, a
@@ -1288,18 +1261,17 @@ Label_24_48FB:: ; 24:48FB
 PageList_DrawTextLine:: ; 24:494C
 	ld a, $14
 	ld [wTextCellsLeft], a
-
-Label_24_4951:: ; 24:4951
+.l4951 ; 24:4951
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_24_49CC
+	jr z, .l49CC
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_24_49A7
+	jr nz, .l49A7
 	pop af
 	push bc
 	push de
@@ -1333,14 +1305,14 @@ Label_24_4951:: ; 24:4951
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_24_49CC
+	jr z, .l49CC
 	cp a, $01
-	jr z, Label_24_49CC
-	jr Label_24_4951
+	jr z, .l49CC
+	jr .l4951
 
-; ---- code $49A7-$49CC (37 bytes) [PROBABLE] 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
-
-Label_24_49A7:: ; 24:49A7
+.l49A7 ; 24:49A7
+	; [PROBABLE] 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 42F0-4B10 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -1356,14 +1328,14 @@ Label_24_49A7:: ; 24:49A7
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_24_49CC
+	jr z, .l49CC
 	cp a, $01
-	jr z, Label_24_49CC
-	jr Label_24_4951
+	jr z, .l49CC
+	jr .l4951
 
-; ---- code $49CC-$4B10 (324 bytes) [CONFIRMED] 159 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 9 scenarios]
-
-Label_24_49CC:: ; 24:49CC
+.l49CC ; 24:49CC
+	; [CONFIRMED] 159 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
+	; --split [executed in 9 scenarios]
 	push bc
 	push de
 	push hl
@@ -1373,15 +1345,14 @@ Label_24_49CC:: ; 24:49CC
 	pop hl
 	pop de
 	pop bc
-
-Label_24_49DD:: ; 24:49DD
+.l49DD ; 24:49DD
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call PageList_BlitGlyphAdvance
-	jr Label_24_49DD
+	jr .l49DD
 
 PageList_BlitGlyphAdvance:: ; 24:49EC
 	push bc
@@ -1444,18 +1415,16 @@ PageList_StartHDMAAtVBlank:: ; 24:4A54
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_24_4A63:: ; 24:4A63
+.l4A63 ; 24:4A63
 	ld a, [de]
 	cp a, $5D
-	jr nz, Label_24_4A63
+	jr nz, .l4A63
 	di
 	ld b, $91
-
-Label_24_4A6B:: ; 24:4A6B
+.l4A6B ; 24:4A6B
 	ld a, [de]
 	cp a, b
-	jr nz, Label_24_4A6B
+	jr nz, .l4A6B
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -1615,9 +1584,10 @@ String_24_4BC3:: ; 24:4BC3
 Data_24_4BCC:: ; 24:4BCC
 	db $C9
 
-; ---- code $4BCD-$4BEB (30 bytes) [CONFIRMED] 1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
-
 PageList_ActionMenu:: ; 24:4BCD
+	; [CONFIRMED] 1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4;
+	; entered by call from 24:4203 (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE
+	; region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
 	call PageList_ActionMenuInit
 	call Function_24_53FD
 	ld b, $00
@@ -1627,12 +1597,13 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	farcall Function_00_0956
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
-	jp z, Label_24_4D39
+	jp z, .l4D39
 	ld a, [wTimerEnable]
 	bit 1, a
-	jr z, Label_24_4BFE
+	jr z, .l4BFE
 
-; ---- code $4BEB-$4BFE (19 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -1641,66 +1612,64 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld hl, $0000
 	ret
 
-; ---- code $4BFE-$4C2F (49 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_4BFE:: ; 24:4BFE
+.l4BFE ; 24:4BFE
+	; [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jp z, Label_24_4C55
+	jp z, .l4C55
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_24_4C4C
+	jr z, .l4C4C
 	ld hl, $C26F
 	bit 0, [hl]
-	jr nz, Label_24_4C4D
+	jr nz, .l4C4D
 	ld a, [wRam_C26E]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
-	jr c, Label_24_4C4C
-	jr nz, Label_24_4C28
+	jr c, .l4C4C
+	jr nz, .l4C28
 	ld a, [wTimerASeconds]
 	cp a, $1E
-	jr c, Label_24_4C4C
-
-Label_24_4C28:: ; 24:4C28
+	jr c, .l4C4C
+.l4C28 ; 24:4C28
 	ld a, [wRam_C26E]
 	cp a, $45
-	jr nz, Label_24_4C38
+	jr nz, .l4C38
 
-; ---- code $4C2F-$4C38 (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	ld hl, $C26F
 	bit 1, [hl]
-	jr nz, Label_24_4C4C
+	jr nz, .l4C4C
 	set 1, [hl]
 
-; ---- code $4C38-$4C55 (29 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_4C38:: ; 24:4C38
+.l4C38 ; 24:4C38
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld hl, $C26F
 	set 0, [hl]
 	ld hl, $C26E
 	ld a, [hl]
 	cp a, $45
-	jr z, Label_24_4C4D
+	jr z, .l4C4D
 	add a, $0A
 	ld [hl], a
 	ld a, $FF
-	jr Label_24_4C4D
-
-Label_24_4C4C:: ; 24:4C4C
+	jr .l4C4D
+.l4C4C ; 24:4C4C
 	xor a, a
-
-Label_24_4C4D:: ; 24:4C4D
+.l4C4D ; 24:4C4D
 	pop hl
 	or a, a
-	jp nz, Label_24_4D25
-	jp Label_24_4D39
+	jp nz, .l4D25
+	jp .l4D39
 
-; ---- code $4C55-$4D25 (208 bytes) [PROBABLE] 85 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
-Label_24_4C55:: ; 24:4C55
+.l4C55 ; 24:4C55
+	; [PROBABLE] 85 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
@@ -1787,9 +1756,9 @@ Label_24_4C55:: ; 24:4C55
 	pop bc
 	jp PageList_ActionMenu_Loop
 
-; ---- code $4D25-$4EEF (458 bytes) [CONFIRMED] 225 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_4D25:: ; 24:4D25
+.l4D25 ; 24:4D25
+	; [CONFIRMED] 225 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	pop bc
 	pop af
 	farcall Stat_DisableScrollSplit
@@ -1798,8 +1767,7 @@ Label_24_4D25:: ; 24:4D25
 	ld de, $0000
 	ld hl, $0000
 	ret
-
-Label_24_4D39:: ; 24:4D39
+.l4D39 ; 24:4D39
 	call Function_00_0464
 	farcall Joypad_Update
 	pop bc
@@ -1807,23 +1775,21 @@ Label_24_4D39:: ; 24:4D39
 	call nz, Function_24_53FC
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_24_4DBA
+	jr z, .l4DBA
 	ld a, b
 	cp a, $01
-	jr nz, Label_24_4D5E
+	jr nz, .l4D5E
 	call PageList_SaveCurrentPage
 	farcall SramCheck_Bank1Commit
-	jr Label_24_4D6B
-
-Label_24_4D5E:: ; 24:4D5E
+	jr .l4D6B
+.l4D5E ; 24:4D5E
 	cp a, $02
-	jr nz, Label_24_4D97
+	jr nz, .l4D97
 	call PageList_DeleteSlot
 	farcall SramCheck_Bank1Commit
-
-Label_24_4D6B:: ; 24:4D6B
+.l4D6B ; 24:4D6B
 	inc a
-	jp z, Label_24_4D8A
+	jp z, .l4D8A
 	inc a
 	jp z, PageList_ActionMenu_Loop
 	push bc
@@ -1839,19 +1805,17 @@ Label_24_4D6B:: ; 24:4D6B
 	pop de
 	pop bc
 	jp PageList_ActionMenu_Loop
-
-Label_24_4D8A:: ; 24:4D8A
+.l4D8A ; 24:4D8A
 	call PageList_HideActionCursor
 	push bc
 	farcall Joypad_Update
 	pop bc
 	xor a, a
 	ret
-
-Label_24_4D97:: ; 24:4D97
+.l4D97 ; 24:4D97
 	call PageList_GoToSlot
 	inc a
-	jp z, Label_24_4DB7
+	jp z, .l4DB7
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1866,15 +1830,13 @@ Label_24_4D97:: ; 24:4D97
 	pop bc
 	ld a, $FF
 	jp PageList_ActionMenu_Loop
-
-Label_24_4DB7:: ; 24:4DB7
+.l4DB7 ; 24:4DB7
 	ld a, $FF
 	ret
-
-Label_24_4DBA:: ; 24:4DBA
+.l4DBA ; 24:4DBA
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_24_4DE1
+	jr z, .l4DE1
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -1893,11 +1855,10 @@ Label_24_4DBA:: ; 24:4DBA
 	pop bc
 	xor a, a
 	ret
-
-Label_24_4DE1:: ; 24:4DE1
+.l4DE1 ; 24:4DE1
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jr z, Label_24_4E12
+	jr z, .l4E12
 	push bc
 	push de
 	di
@@ -1916,10 +1877,9 @@ Label_24_4DE1:: ; 24:4DE1
 	dec b
 	ld a, $FF
 	cp a, b
-	jr nz, Label_24_4E06
+	jr nz, .l4E06
 	ld b, $02
-
-Label_24_4E06:: ; 24:4E06
+.l4E06 ; 24:4E06
 	ld a, d
 	call PageList_MoveActionCursor
 	ld a, b
@@ -1927,11 +1887,10 @@ Label_24_4E06:: ; 24:4E06
 	ld b, $00
 	call PageList_ShowMessage
 	ld b, d
-
-Label_24_4E12:: ; 24:4E12
+.l4E12 ; 24:4E12
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jr z, Label_24_4E43
+	jr z, .l4E43
 	push bc
 	push de
 	di
@@ -1950,10 +1909,9 @@ Label_24_4E12:: ; 24:4E12
 	inc b
 	ld a, $03
 	cp a, b
-	jr nz, Label_24_4E37
+	jr nz, .l4E37
 	ld b, $00
-
-Label_24_4E37:: ; 24:4E37
+.l4E37 ; 24:4E37
 	ld a, d
 	call PageList_MoveActionCursor
 	ld a, b
@@ -1961,8 +1919,7 @@ Label_24_4E37:: ; 24:4E37
 	ld b, $00
 	call PageList_ShowMessage
 	ld b, d
-
-Label_24_4E43:: ; 24:4E43
+.l4E43 ; 24:4E43
 	jp PageList_ActionMenu_Loop
 
 PageList_ActionMenuInit:: ; 24:4E46
@@ -2005,7 +1962,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	ldh [rSVBK], a
 	ld a, $00
 	cp a, b
-	jr nz, Label_24_4EAD
+	jr nz, .l4EAD
 	ld hl, $DA00
 	ld de, $6570
 	ld a, $24
@@ -2017,11 +1974,10 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld [wSpriteSlots + 1], a
 	pop bc
 	ret
-
-Label_24_4EAD:: ; 24:4EAD
+.l4EAD ; 24:4EAD
 	ld a, $01
 	cp a, b
-	jr nz, Label_24_4ECE
+	jr nz, .l4ECE
 	ld hl, $DA00
 	ld de, $6580
 	ld a, $24
@@ -2033,11 +1989,10 @@ Label_24_4EAD:: ; 24:4EAD
 	ld [wSpriteSlots + 1], a
 	pop bc
 	ret
-
-Label_24_4ECE:: ; 24:4ECE
+.l4ECE ; 24:4ECE
 	ld a, $02
 	cp a, b
-	jr nz, Label_24_4EEF
+	jr nz, .l4EEF
 	ld hl, $DA00
 	ld de, $6590
 	ld a, $24
@@ -2050,17 +2005,17 @@ Label_24_4ECE:: ; 24:4ECE
 	pop bc
 	ret
 
-; ---- code $4EEF-$4EF1 (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
-Label_24_4EEF:: ; 24:4EEF
+.l4EEF ; 24:4EEF
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	pop bc
 	ret
-
-; ---- code $4EF1-$4F04 (19 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 8 scenarios]
 
 PageList_MoveActionCursor:: ; 24:4EF1
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 8 scenarios]
 	push bc
-	jr c, Label_24_4F04
+	jr c, .l4F04
 	pop bc
 	call PageList_SetActionCursor
 	push bc
@@ -2069,9 +2024,9 @@ PageList_MoveActionCursor:: ; 24:4EF1
 	pop bc
 	ret
 
-; ---- code $4F04-$4F14 (16 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
-Label_24_4F04:: ; 24:4F04
+.l4F04 ; 24:4F04
+	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	pop bc
 	call PageList_SetActionCursor
 	push bc
@@ -2079,10 +2034,10 @@ Label_24_4F04:: ; 24:4F04
 	call Function_00_0464
 	pop bc
 	ret
-
-; ---- code $4F14-$5064 (336 bytes) [CONFIRMED] 171 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
 
 PageList_SaveCurrentPage:: ; 24:4F14
+	; [CONFIRMED] 171 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2116,7 +2071,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	push de
 	ld a, [de]
 	cp a, $00
-	jp z, Label_24_4FF6
+	jp z, .l4FF6
 	push bc
 	push de
 	ld a, $07
@@ -2177,7 +2132,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	call PageList_SetActionIcons
 	pop af
 	dec a
-	jr z, Label_24_4FF6
+	jr z, .l4FF6
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2204,8 +2159,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ldh [hJoyPressed], a
 	ld a, $FE
 	ret
-
-Label_24_4FF6:: ; 24:4FF6
+.l4FF6 ; 24:4FF6
 	push bc
 	push de
 	call PageList_UpdateRowSprites
@@ -2225,7 +2179,7 @@ Label_24_4FF6:: ; 24:4FF6
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_24_5039
+	jr nz, .l5039
 	ld hl, $DA60
 	ld de, $65A0
 	ld a, $24
@@ -2238,11 +2192,10 @@ Label_24_4FF6:: ; 24:4FF6
 	ld [wSpriteSlots + 96], a
 	ld a, $06
 	ld [wSpriteSlots + 97], a
-	jp Label_24_50FC
-
-Label_24_5039:: ; 24:5039
+	jp .l50FC
+.l5039 ; 24:5039
 	cp a, $01
-	jr nz, Label_24_5060
+	jr nz, .l5060
 	ld hl, $DA50
 	ld de, $65A0
 	ld a, $24
@@ -2255,13 +2208,13 @@ Label_24_5039:: ; 24:5039
 	ld [wSpriteSlots + 80], a
 	ld a, $06
 	ld [wSpriteSlots + 81], a
-	jp Label_24_50FC
-
-Label_24_5060:: ; 24:5060
+	jp .l50FC
+.l5060 ; 24:5060
 	cp a, $02
-	jr nz, Label_24_5087
+	jr nz, .l5087
 
-; ---- code $5064-$5087 (35 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	ld hl, $DA40
 	ld de, $65A0
 	ld a, $24
@@ -2274,13 +2227,13 @@ Label_24_5060:: ; 24:5060
 	ld [wSpriteSlots + 64], a
 	ld a, $06
 	ld [wSpriteSlots + 65], a
-	jp Label_24_50FC
+	jp .l50FC
 
-; ---- code $5087-$50AE (39 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_5087:: ; 24:5087
+.l5087 ; 24:5087
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	cp a, $03
-	jr nz, Label_24_50AE
+	jr nz, .l50AE
 	ld hl, $DA30
 	ld de, $65A0
 	ld a, $24
@@ -2293,13 +2246,13 @@ Label_24_5087:: ; 24:5087
 	ld [wSpriteSlots + 48], a
 	ld a, $06
 	ld [wSpriteSlots + 49], a
-	jp Label_24_50FC
+	jp .l50FC
 
-; ---- code $50AE-$50FC (78 bytes) [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
-Label_24_50AE:: ; 24:50AE
+.l50AE ; 24:50AE
+	; [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	cp a, $04
-	jr nz, Label_24_50D5
+	jr nz, .l50D5
 	ld hl, $DA20
 	ld de, $65A0
 	ld a, $24
@@ -2312,11 +2265,10 @@ Label_24_50AE:: ; 24:50AE
 	ld [wSpriteSlots + 32], a
 	ld a, $06
 	ld [wSpriteSlots + 33], a
-	jp Label_24_50FC
-
-Label_24_50D5:: ; 24:50D5
+	jp .l50FC
+.l50D5 ; 24:50D5
 	cp a, $05
-	jr nz, Label_24_50FC
+	jr nz, .l50FC
 	ld hl, $DA10
 	ld de, $65A0
 	ld a, $24
@@ -2329,15 +2281,14 @@ Label_24_50D5:: ; 24:50D5
 	ld [wSpriteSlots + 16], a
 	ld a, $06
 	ld [wSpriteSlots + 17], a
-	jp Label_24_50FC
+	jp .l50FC
 
-; ---- code $50FC-$5149 (77 bytes) [CONFIRMED] 45 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 2 scenarios]
-
-Label_24_50FC:: ; 24:50FC
+.l50FC ; 24:50FC
+	; [CONFIRMED] 45 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 2 scenarios]
 	pop bc
 	ld e, $32
-
-Label_24_50FF:: ; 24:50FF
+.l50FF ; 24:50FF
 	push bc
 	push de
 	farcall Function_00_0956
@@ -2345,7 +2296,7 @@ Label_24_50FF:: ; 24:50FF
 	pop de
 	pop bc
 	dec e
-	jr nz, Label_24_50FF
+	jr nz, .l50FF
 	pop de
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2361,13 +2312,12 @@ Label_24_50FF:: ; 24:50FF
 	push bc
 	ld hl, $D500
 	ld c, $00
-
-Label_24_512C:: ; 24:512C
+.l512C ; 24:512C
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_24_512C
+	jr nz, .l512C
 	pop bc
 	ld e, c
 	ld d, $00
@@ -2382,22 +2332,22 @@ Label_24_512C:: ; 24:512C
 	ld hl, $D3C0
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_24_514C
+	jr nz, .skip
 
-; ---- code $5149-$514C (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	ld hl, $D500
 
-; ---- code $514C-$530A (446 bytes) [CONFIRMED] 242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
-
-Label_24_514C:: ; 24:514C
+.skip ; 24:514C
+	; [CONFIRMED] 242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld c, $16
-
-Label_24_514E:: ; 24:514E
+.l514E ; 24:514E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Label_24_514E
+	jr nz, .l514E
 	pop bc
 	push af
 	xor a, a
@@ -2417,9 +2367,8 @@ PageList_GoToSlot:: ; 24:5164
 	ld hl, $D500
 	ld a, [hl]
 	cp a, $00
-	jr nz, Label_24_5173
-
-Label_24_5173:: ; 24:5173
+	jr nz, .l5173
+.l5173 ; 24:5173
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2570,7 +2519,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	call PageList_SetActionIcons
 	pop af
 	dec a
-	jr z, Label_24_52A3
+	jr z, .l52A3
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2595,8 +2544,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ldh [hJoyPressed], a
 	ld a, $FE
 	ret
-
-Label_24_52A3:: ; 24:52A3
+.l52A3 ; 24:52A3
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -2613,7 +2561,7 @@ Label_24_52A3:: ; 24:52A3
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_24_52E3
+	jr nz, .l52E3
 	ld hl, $DA60
 	ld de, $65B0
 	ld a, $24
@@ -2626,11 +2574,10 @@ Label_24_52A3:: ; 24:52A3
 	ld [wSpriteSlots + 96], a
 	ld a, $06
 	ld [wSpriteSlots + 97], a
-	jp Label_24_53A6
-
-Label_24_52E3:: ; 24:52E3
+	jp .l53A6
+.l52E3 ; 24:52E3
 	cp a, $01
-	jr nz, Label_24_530A
+	jr nz, .l530A
 	ld hl, $DA50
 	ld de, $65B0
 	ld a, $24
@@ -2643,13 +2590,13 @@ Label_24_52E3:: ; 24:52E3
 	ld [wSpriteSlots + 80], a
 	ld a, $06
 	ld [wSpriteSlots + 81], a
-	jp Label_24_53A6
+	jp .l53A6
 
-; ---- code $530A-$53A6 (156 bytes) [PROBABLE] 60 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
-Label_24_530A:: ; 24:530A
+.l530A ; 24:530A
+	; [PROBABLE] 60 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	cp a, $02
-	jr nz, Label_24_5331
+	jr nz, .l5331
 	ld hl, $DA40
 	ld de, $65B0
 	ld a, $24
@@ -2662,11 +2609,10 @@ Label_24_530A:: ; 24:530A
 	ld [wSpriteSlots + 64], a
 	ld a, $06
 	ld [wSpriteSlots + 65], a
-	jp Label_24_53A6
-
-Label_24_5331:: ; 24:5331
+	jp .l53A6
+.l5331 ; 24:5331
 	cp a, $03
-	jr nz, Label_24_5358
+	jr nz, .l5358
 	ld hl, $DA30
 	ld de, $65B0
 	ld a, $24
@@ -2679,11 +2625,10 @@ Label_24_5331:: ; 24:5331
 	ld [wSpriteSlots + 48], a
 	ld a, $06
 	ld [wSpriteSlots + 49], a
-	jp Label_24_53A6
-
-Label_24_5358:: ; 24:5358
+	jp .l53A6
+.l5358 ; 24:5358
 	cp a, $04
-	jr nz, Label_24_537F
+	jr nz, .l537F
 	ld hl, $DA20
 	ld de, $65B0
 	ld a, $24
@@ -2696,11 +2641,10 @@ Label_24_5358:: ; 24:5358
 	ld [wSpriteSlots + 32], a
 	ld a, $06
 	ld [wSpriteSlots + 33], a
-	jp Label_24_53A6
-
-Label_24_537F:: ; 24:537F
+	jp .l53A6
+.l537F ; 24:537F
 	cp a, $05
-	jr nz, Label_24_53A6
+	jr nz, .l53A6
 	ld hl, $DA10
 	ld de, $65B0
 	ld a, $24
@@ -2713,15 +2657,14 @@ Label_24_537F:: ; 24:537F
 	ld [wSpriteSlots + 16], a
 	ld a, $06
 	ld [wSpriteSlots + 17], a
-	jp Label_24_53A6
+	jp .l53A6
 
-; ---- code $53A6-$53FC (86 bytes) [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
-
-Label_24_53A6:: ; 24:53A6
+.l53A6 ; 24:53A6
+	; [CONFIRMED] 55 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 3 scenarios]
 	pop bc
 	ld e, $32
-
-Label_24_53A9:: ; 24:53A9
+.loop ; 24:53A9
 	push bc
 	push de
 	farcall Function_00_0956
@@ -2729,7 +2672,7 @@ Label_24_53A9:: ; 24:53A9
 	pop de
 	pop bc
 	dec e
-	jr nz, Label_24_53A9
+	jr nz, .loop
 	push af
 	ld a, $01
 	ldh [hSRAMBank], a
@@ -2776,14 +2719,14 @@ Label_24_53A9:: ; 24:53A9
 	ld a, $FF
 	ret
 
-; ---- code $53FC-$53FD (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
-
 Function_24_53FC:: ; 24:53FC
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4BCD-53FE by apply_coverage --split
 	ret
 
-; ---- code $53FD-$53FE (1 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 8 scenarios]
-
 Function_24_53FD:: ; 24:53FD
+	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
+	; --split [executed in 8 scenarios]
 	ret
 
 ; ---- zero $53FE-$5400 (2 bytes) [PROBABLE] 0x00 padding between code and the tile block at $5400

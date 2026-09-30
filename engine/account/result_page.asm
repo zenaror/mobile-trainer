@@ -4,10 +4,10 @@
 
 SECTION "engine/account/result_page", ROMX
 
-; ---- code $766E-$771A (172 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ResultPage:: ; 68:766E
 Function_68_766E::
+	; [CONFIRMED] 59 insn(s); 59 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C27C], a
 	ld a, b
 	ld [wRam_C27D], a
@@ -79,9 +79,8 @@ Table_68_771A:: ; 68:771A
 	dw Label_68_7743
 	dw Label_68_7724
 
-; ---- code $7724-$773E (26 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios)
-
 Label_68_7724:: ; 68:7724
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 4/18 scenarios)
 	jp Label_68_7708
 
 Label_68_7727:: ; 68:7727
@@ -96,26 +95,27 @@ Label_68_7727:: ; 68:7727
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- code $773E-$7740 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by table from 68:7717 (executed)
-
 Label_68_773E:: ; 68:773E
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by table from 68:7717 (executed)
 	jr Label_68_7708
 
-; ---- code $7740-$7741 (1 bytes) [HYPOTHESIS] single ret between the jr thunks 773E, 7741 and 7743 (all jr $7708); nothing branches to it
+	; [HYPOTHESIS] single ret between the jr thunks 773E, 7741 and 7743 (all jr $7708); nothing
+	; branches to it
 	ret
 
-; ---- code $7741-$7745 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by table from 68:7717 (executed)
-
 Label_68_7741:: ; 68:7741
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1;
+	; entered by table from 68:7717 (executed)
 	jr Label_68_7708
 
 Label_68_7743:: ; 68:7743
 	jr Label_68_7708
 
-; ---- code $7745-$779C (87 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ResultPage_PrintMessage:: ; 68:7745
 Function_68_7745::
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld de, $FFFF
 	ld hl, $0901
 	ld bc, $0612
@@ -148,24 +148,22 @@ Function_68_7745::
 	ldh [hRam_FFC7], a
 	ld a, [wRam_C27D]
 	cp a, $01
-	jr z, Label_68_7798
+	jr z, .l7798
 	cp a, $02
-	jr z, Label_68_779C
+	jr z, .l779C
 	ld a, [wRam_C27C]
-	jr Label_68_779E
-
-Label_68_7798:: ; 68:7798
+	jr .l779E
+.l7798 ; 68:7798
 	ld a, $04
-	jr Label_68_779E
+	jr .l779E
 
-; ---- code $779C-$779E (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 68:7791 (executed)
-
-Label_68_779C:: ; 68:779C
+.l779C ; 68:779C
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
+	; entered by jrcc from 68:7791 (executed)
 	ld a, $05
 
-; ---- code $779E-$77D0 (50 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
-
-Label_68_779E:: ; 68:779E
+.l779E ; 68:779E
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 4/18 scenarios)
 	ld hl, Account_ResultMessageIds
 	add a, l
 	ld l, a
@@ -191,10 +189,10 @@ Account_ResultMessageIds:: ; 68:77D0
 Data_68_77D0::
 	db $05, $0E, $0F, $10, $11, $12
 
-; ---- code $77D6-$7831 (91 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ResultPage_LoadBanner:: ; 68:77D6
 Function_68_77D6::
+	; [CONFIRMED] 55 insn(s); 55 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C27C]
 	ld hl, $7831
 	ld b, a
@@ -218,7 +216,7 @@ Function_68_77D6::
 	farcall Function_00_0787
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_780E
+	jr nz, .l780E
 	ld a, [wRam_C27C]
 	ld hl, $7849
 	add a, l
@@ -227,12 +225,10 @@ Function_68_77D6::
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	jr Label_68_7810
-
-Label_68_780E:: ; 68:780E
+	jr .l7810
+.l780E ; 68:780E
 	ld a, $01
-
-Label_68_7810:: ; 68:7810
+.l7810 ; 68:7810
 	ld hl, $7840
 	ld b, a
 	add a, a
@@ -261,10 +257,10 @@ Data_68_7831:: ; 68:7831
 	db $F0, $46, $4B, $70, $49, $4B, $70, $4E, $4B, $F0, $4B, $4B, $F0, $46, $4B, $F0
 	db $50, $4B, $70, $53, $4B, $F0, $55, $4B, $02, $01, $00, $00, $01
 
-; ---- code $784E-$793D (239 bytes) [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Account_ResultPage_DrawTimeDigits:: ; 68:784E
 Function_68_784E::
+	; [CONFIRMED] 130 insn(s); 130 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
 	ld [wCommTimeTotal], a
@@ -274,15 +270,13 @@ Function_68_784E::
 	ld [wCommTimeTotal + 2], a
 	ld a, [wRam_C27C]
 	cp a, $02
-	jr z, Label_68_7873
+	jr z, .l7873
 	cp a, $03
-	jr z, Label_68_7873
-
-Label_68_786E:: ; 68:786E
+	jr z, .l7873
+.l786E ; 68:786E
 	ld a, [wTimerAMinutes]
-	jr Label_68_7884
-
-Label_68_7873:: ; 68:7873
+	jr .l7884
+.l7873 ; 68:7873
 	xor a, a
 	ld hl, $C2D8
 	ld b, [hl]
@@ -293,10 +287,9 @@ Label_68_7873:: ; 68:7873
 	or a, b
 	ld b, [hl]
 	or a, b
-	jr z, Label_68_786E
+	jr z, .l786E
 	ld a, [wCommTimeTotal + 2]
-
-Label_68_7884:: ; 68:7884
+.l7884 ; 68:7884
 	ld d, a
 	call Byte_ToPackedBcd
 	push af
@@ -334,15 +327,13 @@ Label_68_7884:: ; 68:7884
 	farcall Function_00_08EA
 	ld a, [wRam_C27C]
 	cp a, $02
-	jr z, Label_68_78D6
+	jr z, .l78D6
 	cp a, $03
-	jr z, Label_68_78D6
-
-Label_68_78D1:: ; 68:78D1
+	jr z, .l78D6
+.l78D1 ; 68:78D1
 	ld a, [wTimerASeconds]
-	jr Label_68_78E7
-
-Label_68_78D6:: ; 68:78D6
+	jr .l78E7
+.l78D6 ; 68:78D6
 	xor a, a
 	ld hl, $C2D8
 	ld b, [hl]
@@ -353,10 +344,9 @@ Label_68_78D6:: ; 68:78D6
 	or a, b
 	ld b, [hl]
 	or a, b
-	jr z, Label_68_78D1
+	jr z, .l78D1
 	ld a, [wCommTimeTotal + 1]
-
-Label_68_78E7:: ; 68:78E7
+.l78E7 ; 68:78E7
 	ld d, a
 	call Byte_ToPackedBcd
 	push af
@@ -397,13 +387,12 @@ Label_68_78E7:: ; 68:78E7
 Byte_ToPackedBcd:: ; 68:792A
 	xor a, a
 	ld b, $FF
-
-Label_68_792D:: ; 68:792D
+.loop ; 68:792D
 	ld a, d
 	sub a, $0A
 	ld d, a
 	inc b
-	jr nc, Label_68_792D
+	jr nc, .loop
 	ld a, d
 	add a, $0A
 	ld d, a

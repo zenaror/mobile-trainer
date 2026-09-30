@@ -4,10 +4,10 @@
 
 SECTION "engine/comm/comm_scene", ROMX
 
-; ---- code $4000-$401A (26 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_Init:: ; 70:4000
 Function_70_4000::
+	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C27D], a
 	xor a, a
 	ld [wRam_C27C], a
@@ -15,21 +15,20 @@ Function_70_4000::
 	ld [wRam_C27F], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr z, Label_70_401F
+	jr z, .l401F
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_70_401D
+	jr nz, .l401D
 
-; ---- code $401A-$401D (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 70:4018 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 70:4018 (executed)
 	xor a, a
-	jr Label_70_401F
+	jr .l401F
 
-; ---- code $401D-$4043 (38 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
-
-Label_70_401D:: ; 70:401D
+.l401D ; 70:401D
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld a, $01
-
-Label_70_401F:: ; 70:401F
+.l401F ; 70:401F
 	ld [wRam_C283], a
 	ret
 
@@ -42,17 +41,20 @@ CommScene_Step:: ; 70:4023
 	call CommScene_ApplyScrollFrame
 	ld a, [wRam_C27D]
 	or a, a
-	jr z, Label_70_407B
+	jr z, .l407B
 	ld a, [wRam_C283]
 	or a, a
-	jr nz, Label_70_406A
+	jr nz, .l406A
 
-; ---- code $4043-$404A (7 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 70:4041 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4043-406A by apply_coverage --split [executed in 5 scenarios]
+	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
+	; fall-through of the jrcc at 70:4041 (executed) | 3 insn(s) executed; cut out of the PROBABLE
+	; region 4043-406A by apply_coverage --split [executed in 5 scenarios]
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr z, Label_70_407B
+	jr z, .l407B
 
-; ---- code $404A-$406A (32 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4043-406A by apply_coverage --split
+	; [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4043-406A by apply_coverage --split
 	ld hl, $DA30
 	ld de, CommScene_ObjTable
 	ld a, $70
@@ -63,24 +65,23 @@ CommScene_Step:: ; 70:4023
 	call Function_00_0A65
 	ld a, $01
 	ld [wRam_C283], a
-	jr Label_70_407B
+	jr .l407B
 
-; ---- code $406A-$4071 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
-Label_70_406A:: ; 70:406A
+.l406A ; 70:406A
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, [wTimerEnable]
 	bit 4, a
-	jr nz, Label_70_407B
+	jr nz, .l407B
 
-; ---- code $4071-$407B (10 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
+	; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
 	ld hl, $DA30
 	call Function_00_09E6
 	xor a, a
 	ld [wRam_C283], a
 
-; ---- code $407B-$40AD (50 bytes) [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
-
-Label_70_407B:: ; 70:407B
+.l407B ; 70:407B
+	; [CONFIRMED] 31 insn(s); 31 executed (in up to 1/18 scenarios)
 	ld a, [wRam_C27F]
 	ret
 
@@ -165,9 +166,8 @@ Table_70_40D3:: ; 70:40D3
 	dw Label_70_4484
 	dw Label_70_449D
 
-; ---- code $40E3-$417E (155 bytes) [CONFIRMED] 64 insn(s); 64 executed (in up to 1/18 scenarios)
-
 Label_70_40E3:: ; 70:40E3
+	; [CONFIRMED] 64 insn(s); 64 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	xor a, a
 	call CommScene_ShowTextBox
@@ -201,24 +201,22 @@ Label_70_4121:: ; 70:4121
 	inc a
 	ld [wRam_C280], a
 	cp a, $48
-	jr nz, Label_70_4131
+	jr nz, .skip
 	ld a, $03
 	ld [wRam_C27C], a
-
-Label_70_4131:: ; 70:4131
+.skip ; 70:4131
 	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4135:: ; 70:4135
 	ld a, [wRam_C27E]
 	cp a, $01
-	jr z, Label_70_4144
+	jr z, .l4144
 	ldh a, [hJoyPressed]
 	bit 1, a
-	jr nz, Label_70_417E
-	jr Label_70_41BB
-
-Label_70_4144:: ; 70:4144
+	jr nz, .l417E
+	jr .l41BB
+.l4144 ; 70:4144
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -241,11 +239,11 @@ Label_70_4144:: ; 70:4144
 	call CommScene_ShowTextBox
 	ld a, $04
 	ld [wRam_C27C], a
-	jr Label_70_41BB
+	jr .l41BB
 
-; ---- code $417E-$41BB (61 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
-
-Label_70_417E:: ; 70:417E
+.l417E ; 70:417E
+	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
+	; entered by jrcc from 70:4140 (executed) [executed in 2 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -271,9 +269,8 @@ Label_70_417E:: ; 70:417E
 	ld a, $07
 	ld [wRam_C27C], a
 
-; ---- code $41BB-$4215 (90 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
-
-Label_70_41BB:: ; 70:41BB
+.l41BB ; 70:41BB
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 	call CommScene_ScrollIncrement
 	ret
 
@@ -282,7 +279,7 @@ Label_70_41BF:: ; 70:41BF
 	dec a
 	ld [wRam_C282], a
 	or a, a
-	jr nz, Label_70_41E4
+	jr nz, .l41E4
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -295,8 +292,7 @@ Label_70_41BF:: ; 70:41BF
 	call Function_00_09E6
 	ld a, $05
 	ld [wRam_C27C], a
-
-Label_70_41E4:: ; 70:41E4
+.l41E4 ; 70:41E4
 	call CommScene_ScrollIncrement
 	ret
 
@@ -305,12 +301,11 @@ Label_70_41E8:: ; 70:41E8
 	add a, $02
 	ld [wRam_C280], a
 	cp a, $A0
-	jr nz, Label_70_41FB
+	jr nz, .l41FB
 	ld a, $06
 	ld [wRam_C27C], a
-	jr Label_70_41FB
-
-Label_70_41FB:: ; 70:41FB
+	jr .l41FB
+.l41FB ; 70:41FB
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollIncrement
 	ret
@@ -324,39 +319,40 @@ Label_70_4202:: ; 70:4202
 	ld [wRam_C27F], a
 	ret
 
-; ---- code $4215-$423F (42 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
-
 Label_70_4215:: ; 70:4215
+	; [CONFIRMED] 44 insn(s) reached by static flow only; seeds: table x44; min discovery hops 0;
+	; run starts at an entry of the code-pointer table at 70:40B3 | 19 insn(s) executed; cut out of
+	; the PROBABLE region 4215-4275 by apply_coverage --split [executed in 5 scenarios]
 	ld a, [wRam_C282]
 	dec a
 	ld [wRam_C282], a
 	or a, a
-	jr nz, Label_70_4231
+	jr nz, .l4231
 	ld hl, $DA60
 	call Function_00_09E6
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $08
 	ld [wRam_C27C], a
-	jr Label_70_4231
-
-Label_70_4231:: ; 70:4231
+	jr .l4231
+.l4231 ; 70:4231
 	call CommScene_PlaceTextSprites
 	ret
 
 Label_70_4235:: ; 70:4235
 	ld a, [wRam_C27E]
 	or a, a
-	jr z, Label_70_4258
+	jr z, .l4258
 	cp a, $01
-	jr z, Label_70_4241
+	jr z, .l4241
 
-; ---- code $423F-$4241 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4215-4275 by apply_coverage --split
-	jr Label_70_4258
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 4215-4275 by apply_coverage --split
+	jr .l4258
 
-; ---- code $4241-$4275 (52 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage --split [executed in 4 scenarios]
-
-Label_70_4241:: ; 70:4241
+.l4241 ; 70:4241
+	; [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 4215-4275 by apply_coverage
+	; --split [executed in 4 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -367,9 +363,8 @@ Label_70_4241:: ; 70:4241
 	ldh [rSVBK], a
 	ld a, $09
 	ld [wRam_C27C], a
-	jr Label_70_4258
-
-Label_70_4258:: ; 70:4258
+	jr .l4258
+.l4258 ; 70:4258
 	call CommScene_ScrollDecrement
 	ret
 
@@ -378,20 +373,19 @@ Label_70_425C:: ; 70:425C
 	dec a
 	ld [wRam_C280], a
 	cp a, $E0
-	jr nz, Label_70_426E
+	jr nz, .l426E
 	ld a, $06
 	ld [wRam_C27C], a
-	jr Label_70_426E
-
-Label_70_426E:: ; 70:426E
+	jr .l426E
+.l426E ; 70:426E
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollDecrement
 	ret
 
-; ---- code $4275-$4285 (16 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_ResetScroll:: ; 70:4275
 Function_70_4275::
+	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	xor a, a
 	ld [wRam_C2A8], a
 	ld [wRam_C2A9], a
@@ -403,17 +397,16 @@ CommScene_ScrollIncrement:: ; 70:427D
 	ld [wRam_C2A8], a
 	ret
 
-; ---- code $4285-$428D (8 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
-
 CommScene_ScrollDecrement:: ; 70:4285
+	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2;
+	; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
 	ld a, [wRam_C2A8]
 	dec a
 	ld [wRam_C2A8], a
 	ret
 
-; ---- code $428D-$4316 (137 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
-
 Label_70_428D:: ; 70:428D
+	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 	call CommScene_LoadGraphics
 	ld a, $02
 	call CommScene_ShowTextBox
@@ -445,13 +438,12 @@ Label_70_42C7:: ; 70:42C7
 Label_70_42CD:: ; 70:42CD
 	ld a, [wRam_C27E]
 	cp a, $01
-	jr z, Label_70_42DC
+	jr z, .l42DC
 	ldh a, [hJoyPressed]
 	bit 1, a
-	jr nz, Label_70_4316
-	jr Label_70_4353
-
-Label_70_42DC:: ; 70:42DC
+	jr nz, .l4316
+	jr .l4353
+.l42DC ; 70:42DC
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -474,11 +466,11 @@ Label_70_42DC:: ; 70:42DC
 	call CommScene_ShowTextBox
 	ld a, $03
 	ld [wRam_C27C], a
-	jr Label_70_4353
+	jr .l4353
 
-; ---- code $4316-$4353 (61 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
-
-Label_70_4316:: ; 70:4316
+.l4316 ; 70:4316
+	; [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1;
+	; entered by jrcc from 70:42D8 (executed) [executed in 2 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -504,9 +496,8 @@ Label_70_4316:: ; 70:4316
 	ld a, $06
 	ld [wRam_C27C], a
 
-; ---- code $4353-$43AD (90 bytes) [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
-
-Label_70_4353:: ; 70:4353
+.l4353 ; 70:4353
+	; [CONFIRMED] 39 insn(s); 39 executed (in up to 1/18 scenarios)
 	call CommScene_ScrollIncrement
 	ret
 
@@ -515,7 +506,7 @@ Label_70_4357:: ; 70:4357
 	dec a
 	ld [wRam_C282], a
 	or a, a
-	jr nz, Label_70_437C
+	jr nz, .l437C
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -528,8 +519,7 @@ Label_70_4357:: ; 70:4357
 	call Function_00_09E6
 	ld a, $04
 	ld [wRam_C27C], a
-
-Label_70_437C:: ; 70:437C
+.l437C ; 70:437C
 	call CommScene_ScrollIncrement
 	ret
 
@@ -538,12 +528,11 @@ Label_70_4380:: ; 70:4380
 	add a, $02
 	ld [wRam_C280], a
 	cp a, $A0
-	jr nz, Label_70_4393
+	jr nz, .l4393
 	ld a, $05
 	ld [wRam_C27C], a
-	jr Label_70_4393
-
-Label_70_4393:: ; 70:4393
+	jr .l4393
+.l4393 ; 70:4393
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollIncrement
 	ret
@@ -557,23 +546,23 @@ Label_70_439A:: ; 70:439A
 	ld [wRam_C27F], a
 	ret
 
-; ---- code $43AD-$43DA (45 bytes) [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
-
 Label_70_43AD:: ; 70:43AD
+	; [CONFIRMED] 112 insn(s) reached by static flow only; seeds: site x18, table x94; min discovery
+	; hops 0; run starts at an entry of the code-pointer table at 70:40B3 | 20 insn(s) executed; cut
+	; out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
 	ld a, [wRam_C282]
 	dec a
 	ld [wRam_C282], a
 	or a, a
-	jr nz, Label_70_43C9
+	jr nz, .l43C9
 	ld hl, $DA60
 	call Function_00_09E6
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $07
 	ld [wRam_C27C], a
-	jr Label_70_43C9
-
-Label_70_43C9:: ; 70:43C9
+	jr .l43C9
+.l43C9 ; 70:43C9
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollIncrement
 	ret
@@ -581,16 +570,17 @@ Label_70_43C9:: ; 70:43C9
 Label_70_43D0:: ; 70:43D0
 	ld a, [wRam_C27E]
 	or a, a
-	jr z, Label_70_43F8
+	jr z, .l43F8
 	cp a, $01
-	jr z, Label_70_43DC
+	jr z, .l43DC
 
-; ---- code $43DA-$43DC (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
-	jr Label_70_43F8
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 43AD-44B0 by apply_coverage --split
+	jr .l43F8
 
-; ---- code $43DC-$4462 (134 bytes) [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 2 scenarios]
-
-Label_70_43DC:: ; 70:43DC
+.l43DC ; 70:43DC
+	; [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage
+	; --split [executed in 2 scenarios]
 	ld a, $01
 	call CommScene_SetTextSprites
 	ldh a, [hWRAMBank]
@@ -603,9 +593,8 @@ Label_70_43DC:: ; 70:43DC
 	ldh [rSVBK], a
 	ld a, $08
 	ld [wRam_C27C], a
-	jr Label_70_43F8
-
-Label_70_43F8:: ; 70:43F8
+	jr .l43F8
+.l43F8 ; 70:43F8
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollDecrement
 	ret
@@ -615,12 +604,11 @@ Label_70_43FF:: ; 70:43FF
 	dec a
 	ld [wRam_C280], a
 	cp a, $E0
-	jr nz, Label_70_4411
+	jr nz, .l4411
 	ld a, $05
 	ld [wRam_C27C], a
-	jr Label_70_4411
-
-Label_70_4411:: ; 70:4411
+	jr .l4411
+.l4411 ; 70:4411
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollDecrement
 	ret
@@ -657,16 +645,17 @@ Label_70_4452:: ; 70:4452
 Label_70_4458:: ; 70:4458
 	ld a, [wRam_C27E]
 	or a, a
-	jr z, Label_70_4480
+	jr z, .l4480
 	cp a, $01
-	jr z, Label_70_4464
+	jr z, .l4464
 
-; ---- code $4462-$4464 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split
-	jr Label_70_4480
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 43AD-44B0 by apply_coverage --split
+	jr .l4480
 
-; ---- code $4464-$44B0 (76 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage --split [executed in 5 scenarios]
-
-Label_70_4464:: ; 70:4464
+.l4464 ; 70:4464
+	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 43AD-44B0 by apply_coverage
+	; --split [executed in 5 scenarios]
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -679,9 +668,8 @@ Label_70_4464:: ; 70:4464
 	ld [wRam_C27C], a
 	ld a, $05
 	call CommScene_ShowTextBox
-	jr Label_70_4480
-
-Label_70_4480:: ; 70:4480
+	jr .l4480
+.l4480 ; 70:4480
 	call CommScene_ScrollDecrement
 	ret
 
@@ -690,12 +678,11 @@ Label_70_4484:: ; 70:4484
 	dec a
 	ld [wRam_C280], a
 	cp a, $E0
-	jr nz, Label_70_4496
+	jr nz, .l4496
 	ld a, $04
 	ld [wRam_C27C], a
-	jr Label_70_4496
-
-Label_70_4496:: ; 70:4496
+	jr .l4496
+.l4496 ; 70:4496
 	call CommScene_PlaceTextSprites
 	call CommScene_ScrollDecrement
 	ret
@@ -709,10 +696,10 @@ Label_70_449D:: ; 70:449D
 	ld [wRam_C27F], a
 	ret
 
-; ---- code $44B0-$46A6 (502 bytes) [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_LoadGraphics:: ; 70:44B0
 Function_70_44B0::
+	; [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall Function_00_09B6
 	ld hl, $C2A8
 	xor a, a
@@ -822,12 +809,11 @@ Function_70_44B0::
 	call Function_00_0A65
 	ld a, [wRam_C27D]
 	or a, a
-	jr z, Label_70_45EC
+	jr z, .l45EC
 	ld a, [wRam_C283]
 	or a, a
-	jr z, Label_70_4605
-
-Label_70_45EC:: ; 70:45EC
+	jr z, .l4605
+.l45EC ; 70:45EC
 	ld hl, $DA30
 	ld de, CommScene_ObjTable
 	ld a, $70
@@ -836,8 +822,7 @@ Label_70_45EC:: ; 70:45EC
 	ld de, $7000
 	ld hl, $DA30
 	call Function_00_0A65
-
-Label_70_4605:: ; 70:4605
+.l4605 ; 70:4605
 	call Function_00_047A
 	ldh a, [rLCDC]
 	or a, $20
@@ -927,9 +912,12 @@ CommScene_UploadTextBox:: ; 70:466B
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $46A6-$4704 (94 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
-
 Function_70_46A6:: ; 70:46A6
+	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
+	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
+	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
+	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
+	; anywhere in the ROM (raw scan), so entry unproven
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -946,16 +934,16 @@ Function_70_46A6:: ; 70:46A6
 	ld [rRAMG], a
 	ld a, [sSram_A9ED]
 	bit 6, a
-	jr z, Label_70_472A
+	jr z, .l472A
 	and a, $30
 	or a, a
-	jr z, Label_70_472A
+	jr z, .l472A
 	ld a, [sSram_A9EE]
 	or a, a
-	jr nz, Label_70_472A
+	jr nz, .l472A
 	ld a, [sSram_A9ED]
 	bit 7, a
-	jr nz, Label_70_4704
+	jr nz, .l4704
 	call Random16
 	call Random16
 	ld de, $0003
@@ -976,9 +964,12 @@ Function_70_46A6:: ; 70:46A6
 	ld a, $02
 	ret
 
-; ---- code $4704-$472A (38 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
-
-Label_70_4704:: ; 70:4704
+.l4704 ; 70:4704
+	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
+	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
+	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
+	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
+	; anywhere in the ROM (raw scan), so entry unproven
 	call Random16
 	ld de, $0006
 	call Divide16
@@ -998,9 +989,12 @@ Label_70_4704:: ; 70:4704
 	ld a, $01
 	ret
 
-; ---- code $472A-$4740 (22 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
-
-Label_70_472A:: ; 70:472A
+.l472A ; 70:472A
+	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
+	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
+	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
+	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
+	; anywhere in the ROM (raw scan), so entry unproven
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -1014,7 +1008,11 @@ Label_70_472A:: ; 70:472A
 	xor a, a
 	ret
 
-; ---- code $4740-$4767 (39 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
+	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
+	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
+	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
+	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
+	; anywhere in the ROM (raw scan), so entry unproven
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af
@@ -1031,16 +1029,18 @@ Label_70_472A:: ; 70:472A
 	ld [rRAMG], a
 	ld a, [sSram_A9ED]
 	bit 7, a
-	jr nz, Label_70_4767
+	jr nz, .l4767
 	ld b, $00
-	jr Label_70_4769
+	jr .l4769
 
-; ---- code $4767-$477F (24 bytes) [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D, select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends exactly at the executed Function_70_477F; no caller, table word or far-call site references it anywhere in the ROM (raw scan), so entry unproven
-
-Label_70_4767:: ; 70:4767
+.l4767 ; 70:4767
+	; [HYPOTHESIS] SRAM-access helper of the shape shared by many executed routines (save FFF2/FF8D,
+	; select SRAM bank via [$4000], enable via $0A -> [$0000], the first 20 bytes also occur at
+	; 00:15BE, 0E:4028, 55:7011, 65:4126, 67:4051, 68:43C1 ...); clean linear decode to ret, ends
+	; exactly at the executed Function_70_477F; no caller, table word or far-call site references it
+	; anywhere in the ROM (raw scan), so entry unproven
 	ld b, $01
-
-Label_70_4769:: ; 70:4769
+.l4769 ; 70:4769
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -1054,13 +1054,13 @@ Label_70_4769:: ; 70:4769
 	ld a, b
 	ret
 
-; ---- code $477F-$47A0 (33 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_PlaceTextSprites:: ; 70:477F
 Function_70_477F::
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C281]
 	or a, a
-	jr nz, Label_70_47A0
+	jr nz, .l47A0
 	ld d, $30
 	ld a, [wRam_C280]
 	ld e, a
@@ -1074,9 +1074,9 @@ Function_70_477F::
 	call Function_00_0A65
 	ret
 
-; ---- code $47A0-$47BB (27 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 70:4783 (executed) [executed in 3 scenarios]
-
-Label_70_47A0:: ; 70:47A0
+.l47A0 ; 70:47A0
+	; [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1;
+	; entered by jrcc from 70:4783 (executed) [executed in 3 scenarios]
 	ld d, $30
 	ld a, [wRam_C280]
 	ld e, a
@@ -1090,13 +1090,13 @@ Label_70_47A0:: ; 70:47A0
 	call Function_00_0A65
 	ret
 
-; ---- code $47BB-$47E2 (39 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_SetTextSprites:: ; 70:47BB
 Function_70_47BB::
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C281], a
 	or a, a
-	jr nz, Label_70_47E2
+	jr nz, .l47E2
 	ld hl, $DA40
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -1109,9 +1109,9 @@ Function_70_47BB::
 	farcall Function_00_0A82
 	ret
 
-; ---- code $47E2-$4803 (33 bytes) [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
-
-Label_70_47E2:: ; 70:47E2
+.l47E2 ; 70:47E2
+	; [CONFIRMED] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1;
+	; entered by jrcc from 70:47BF (executed) [executed in 3 scenarios]
 	ld hl, $DA40
 	ld de, CommScene_TextObjTable
 	ld a, $70
@@ -1124,10 +1124,10 @@ Label_70_47E2:: ; 70:47E2
 	farcall Function_00_0A82
 	ret
 
-; ---- code $4803-$4822 (31 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 CommScene_ShowTextBox:: ; 70:4803
 Function_70_4803::
+	; [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, CommScene_TextBoxMaps
 	add a, a
 	add a, l

@@ -4,10 +4,10 @@
 
 SECTION "engine/mail_server/delete_menu", ROMX
 
-; ---- code $4000-$4064 (100 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSrvDel_MenuRun:: ; 23:4000
 Function_23_4000::
+	; [CONFIRMED] 50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_044B
 	push af
 	ldh a, [rSVBK]
@@ -59,16 +59,16 @@ Function_23_4000::
 	dec a
 	jr z, MailSrvDel_MenuLoop
 
-; ---- code $4064-$4076 (18 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jrcc at 23:4062 (executed) [executed in 4 scenarios]
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
 
-; ---- code $4076-$40A4 (46 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
-
 MailSrvDel_MenuLoop:: ; 23:4076
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -76,7 +76,7 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_23_40EA
+	jr z, .l40EA
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -90,22 +90,22 @@ MailSrvDel_MenuLoop:: ; 23:4076
 	pop de
 	pop bc
 	dec c
-	jr z, Label_23_40AB
+	jr z, .l40AB
 
-; ---- code $40A4-$40AB (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
+	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
+	; fall-through of the jrcc at 23:40A2 (executed) [executed in 6 scenarios]
 	call MailSrvDel_DeleteAll
 	ld c, $00
-	jr Label_23_40B0
+	jr .l40B0
 
-; ---- code $40AB-$40AE (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
-
-Label_23_40AB:: ; 23:40AB
+.l40AB ; 23:40AB
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	call MailSrvDel_CheckAndDelete
 
-; ---- code $40AE-$40EA (60 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0; fall-through of the call at 23:40AB (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 0;
+	; fall-through of the call at 23:40AB (executed) [executed in 5 scenarios]
 	ld c, $01
-
-Label_23_40B0:: ; 23:40B0
+.l40B0 ; 23:40B0
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -136,14 +136,14 @@ Label_23_40B0:: ; 23:40B0
 	pop bc
 	jp MailSrvDel_MenuLoop
 
-; ---- code $40EA-$40F0 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
-Label_23_40EA:: ; 23:40EA
+.l40EA ; 23:40EA
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_23_4116
+	jr z, .l4116
 
-; ---- code $40F0-$4116 (38 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 0;
+	; fall-through of the jrcc at 23:40EE (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -162,14 +162,14 @@ Label_23_40EA:: ; 23:40EA
 	ld a, $FF
 	ret
 
-; ---- code $4116-$411C (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
-Label_23_4116:: ; 23:4116
+.l4116 ; 23:4116
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
-	jr z, Label_23_413A
+	jr z, .l413A
 
-; ---- code $411C-$413A (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:411A (executed) [executed in 5 scenarios]
+	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0;
+	; fall-through of the jrcc at 23:411A (executed) [executed in 5 scenarios]
 	push bc
 	push de
 	di
@@ -190,14 +190,14 @@ Label_23_4116:: ; 23:4116
 	ld c, a
 	call MailSrvDel_MenuSelect
 
-; ---- code $413A-$4140 (6 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-
-Label_23_413A:: ; 23:413A
+.l413A ; 23:413A
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ldh a, [hJoyPressedRepeat]
 	and a, $80
-	jr z, Label_23_415E
+	jr z, .l415E
 
-; ---- code $4140-$415E (30 bytes) [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
+	; [CONFIRMED] 19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 0;
+	; fall-through of the jrcc at 23:413E (executed) [executed in 6 scenarios]
 	push bc
 	push de
 	di
@@ -218,17 +218,16 @@ Label_23_413A:: ; 23:413A
 	ld c, a
 	call MailSrvDel_MenuSelect
 
-; ---- code $415E-$4161 (3 bytes) [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
-
-Label_23_415E:: ; 23:415E
+.l415E ; 23:415E
+	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	jp MailSrvDel_MenuLoop
 
-; ---- code $4161-$41DC (123 bytes) [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1; entered by call from 23:4137 (PROBABLE code) [executed in 5 scenarios]
-
 MailSrvDel_MenuSelect:: ; 23:4161
+	; [CONFIRMED] 43 insn(s) reached by static flow only; seeds: exec x43; min discovery hops 1;
+	; entered by call from 23:4137 (PROBABLE code) [executed in 5 scenarios]
 	ld a, c
 	cp a, $01
-	jr nz, Label_23_41A1
+	jr nz, .l41A1
 	push bc
 	ld bc, $1214
 	ld de, $D000
@@ -249,8 +248,7 @@ MailSrvDel_MenuSelect:: ; 23:4161
 	call MailSrvDel_ShowDescCheck
 	pop bc
 	ret
-
-Label_23_41A1:: ; 23:41A1
+.l41A1 ; 23:41A1
 	push bc
 	ld bc, $1214
 	ld de, $D000
@@ -272,10 +270,10 @@ Label_23_41A1:: ; 23:41A1
 	pop bc
 	ret
 
-; ---- code $41DC-$42C2 (230 bytes) [CONFIRMED] 80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSrvDel_MenuInit:: ; 23:41DC
 Function_23_41DC::
+	; [CONFIRMED] 80 insn(s); 80 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	push bc
 	farcall Function_00_09B6
 	farcall Function_00_0956
@@ -335,19 +333,18 @@ Function_23_41DC::
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0F00
-
-Label_23_4296:: ; 23:4296
+.loop ; 23:4296
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_23_4296
+	jr nz, .loop
 	pop bc
 	push bc
 	ld a, c
 	cp a, $00
-	jr z, Label_23_42C2
+	jr z, .l42C2
 	call MailSrvDel_ShowDescCheck
 	ld hl, $DA10
 	ld de, $6E90
@@ -359,9 +356,9 @@ Label_23_4296:: ; 23:4296
 	call Function_00_0A65
 	jr MailSrvDel_MenuStart
 
-; ---- code $42C2-$42F4 (50 bytes) [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
-
-Label_23_42C2:: ; 23:42C2
+.l42C2 ; 23:42C2
+	; [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1;
+	; entered by jrcc from 23:42A2 (executed) [executed in 6 scenarios]
 	call MailSrvDel_ShowDescDeleteAll
 	ld bc, $1214
 	ld de, $D000
@@ -379,9 +376,8 @@ Label_23_42C2:: ; 23:42C2
 	ld hl, $DA10
 	call Function_00_0A65
 
-; ---- code $42F4-$433C (72 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
-
 MailSrvDel_MenuStart:: ; 23:42F4
+	; [CONFIRMED] 33 insn(s); 33 executed (in up to 1/18 scenarios)
 	call Function_00_0464
 	farcall Stat_DisableScrollSplit
 	call Function_00_044B
@@ -416,9 +412,9 @@ MailSrvDel_MenuStart:: ; 23:42F4
 	pop bc
 	ret
 
-; ---- code $433C-$4357 (27 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2; entered by call from 23:41D7 (PROBABLE code) [executed in 6 scenarios]
-
 MailSrvDel_ShowDescDeleteAll:: ; 23:433C
+	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 2;
+	; entered by call from 23:41D7 (PROBABLE code) [executed in 6 scenarios]
 	ld hl, String_MailSrvDel_DescDeleteAll
 	ld a, $02
 	ldh [rVBK], a
@@ -439,10 +435,10 @@ String_23_4357::
 	db $81, $40, $81, $40, $82, $B6, $82, $E5, $82, $A4, $82, $D9, $82, $A4, $82, $CD, $82, $BD, $82, $B5, $82, $A9, $82, $DF, $82, $E7, $82, $EA, $82, $DC, $82, $B9, $82, $F1 ; "　　じょうほうはたしかめられません"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $43C4-$43DF (27 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSrvDel_ShowDescCheck:: ; 23:43C4
 Function_23_43C4::
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, String_MailSrvDel_DescCheck
 	ld a, $02
 	ldh [rVBK], a
@@ -469,9 +465,9 @@ String_23_4404::
 	db $82, $C2, $81, $40, $82, $B6, $82, $D4, $82, $F1, $82, $C5, $82, $AF, $82, $B7, $82, $B1, $82, $C6, $82, $AA, $82, $C5, $82, $AB, $82, $DC, $82, $B7, $81, $40, $81, $40 ; "つ　じぶんでけすことができます　　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $4471-$46CC (603 bytes) [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2; entered by call from 23:4A1E (PROBABLE code) [executed in 3 scenarios]
-
 MailSrvDel_Confirm:: ; 23:4471
+	; [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 2;
+	; entered by call from 23:4A1E (PROBABLE code) [executed in 3 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -538,14 +534,13 @@ MailSrvDel_Confirm:: ; 23:4471
 	ldh [rSVBK], a
 	ld hl, $D000
 	ld bc, $0F00
-
-Label_23_4535:: ; 23:4535
+.l4535 ; 23:4535
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, Label_23_4535
+	jr nz, .l4535
 	ld hl, $DA10
 	ld de, Table_28_6E80
 	ld a, $28
@@ -623,8 +618,7 @@ Label_23_4535:: ; 23:4535
 	pop af
 	farcall Stat_EnableScrollSplit
 	ld c, $01
-
-Label_23_4608:: ; 23:4608
+.l4608 ; 23:4608
 	push bc
 	farcall Function_00_0956
 	call Function_00_0464
@@ -632,7 +626,7 @@ Label_23_4608:: ; 23:4608
 	pop bc
 	ldh a, [hJoyPressed]
 	and a, $01
-	jr z, Label_23_4659
+	jr z, .l4659
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -646,24 +640,22 @@ Label_23_4608:: ; 23:4608
 	pop de
 	pop bc
 	dec c
-	jr z, Label_23_4647
+	jr z, .l4647
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
-
-Label_23_4647:: ; 23:4647
+.l4647 ; 23:4647
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-
-Label_23_4659:: ; 23:4659
+.l4659 ; 23:4659
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_23_4685
+	jr z, .l4685
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -681,11 +673,10 @@ Label_23_4659:: ; 23:4659
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-
-Label_23_4685:: ; 23:4685
+.l4685 ; 23:4685
 	ldh a, [hJoyPressedRepeat]
 	and a, $20
-	jr z, Label_23_46A7
+	jr z, .l46A7
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -703,11 +694,10 @@ Label_23_4685:: ; 23:4685
 	and a, $01
 	ld c, a
 	call MailSrvDel_ConfirmSelect
-
-Label_23_46A7:: ; 23:46A7
+.l46A7 ; 23:46A7
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
-	jr z, Label_23_46C9
+	jr z, .l46C9
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -725,21 +715,20 @@ Label_23_46A7:: ; 23:46A7
 	and a, $01
 	ld c, a
 	call MailSrvDel_ConfirmSelect
-
-Label_23_46C9:: ; 23:46C9
-	jp Label_23_4608
+.l46C9 ; 23:46C9
+	jp .l4608
 
 ; ---- data $46CC-$46CD (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_23_46CC:: ; 23:46CC
 	db $C9
 
-; ---- code $46CD-$470A (61 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5; entered by call from 23:46A4 (PROBABLE code) [executed in 2 scenarios]
-
 MailSrvDel_ConfirmSelect:: ; 23:46CD
+	; [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 5;
+	; entered by call from 23:46A4 (PROBABLE code) [executed in 2 scenarios]
 	ld a, c
 	cp a, $00
-	jr nz, Label_23_46EE
+	jr nz, .l46EE
 	push bc
 	ld hl, $DA10
 	ld de, Table_28_6E80
@@ -751,8 +740,7 @@ MailSrvDel_ConfirmSelect:: ; 23:46CD
 	call Function_00_0A65
 	pop bc
 	ret
-
-Label_23_46EE:: ; 23:46EE
+.l46EE ; 23:46EE
 	push bc
 	ld hl, $DA10
 	ld de, Table_28_6E80
@@ -774,10 +762,10 @@ String_23_470A::
 	db $82, $AB, $82, $A6, $82, $C4, $82, $B5, $82, $DC, $82, $A2, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "きえてしまいます　　　　　　　　"
 	db $81, $40, $81, $40, $81, $40, $81, $40, $82, $E6, $82, $EB, $82, $B5, $82, $A2, $82, $C5, $82, $B7, $82, $A9, $81, $48, $81, $40, $81, $40, $81, $40, $81, $40, $00 ; "　　　　よろしいですか？　　　　"
 
-; ---- code $478E-$47BC (46 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 MailSrvDel_UploadTextTiles:: ; 23:478E
 Function_23_478E::
+	; [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -798,9 +786,13 @@ Function_23_478E::
 	ldh [rSVBK], a
 	ret
 
-; ---- code $47BC-$47ED (49 bytes) [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS] | forced execution: 31/31 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_23_47BC:: ; 23:47BC
+	; [HYPOTHESIS] function body (push af/bc/de/hl prologue) that starts right after the ret at 47BB
+	; and falls through into the CONFIRMED far call at 47ED; 31 insn decode chain lands exactly on
+	; the next region start; no caller found (entry unproven) [verifier: no entry proven (no caller,
+	; no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS] | forced
+	; execution: 31/31 instruction starts ran in forced_dead (traces/forced/, not natural evidence;
+	; status unchanged)
 	push af
 	push bc
 	push de
@@ -833,7 +825,10 @@ Function_23_47BC:: ; 23:47BC
 	ld e, l
 	ld hl, $D524
 
-; ---- code $47ED-$497B (398 bytes) [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 125/243 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+	; [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0;
+	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
+	; forced execution: 125/243 instruction starts ran in forced_dead (traces/forced/, not natural
+	; evidence; status unchanged)
 	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $07
@@ -909,13 +904,12 @@ Function_23_4864:: ; 23:4864
 	ldh [rSVBK], a
 	ld hl, String_23_497B
 	ld de, $D524
-
-Label_23_4872:: ; 23:4872
+.loop ; 23:4872
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, Label_23_4872
+	jr nz, .loop
 	pop bc
 	pop hl
 	push bc
@@ -926,7 +920,7 @@ Label_23_4872:: ; 23:4872
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_48D5
+	jr z, .l48D5
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -972,9 +966,8 @@ Label_23_4872:: ; 23:4872
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp Label_23_4979
-
-Label_23_48D5:: ; 23:48D5
+	jp .l4979
+.l48D5 ; 23:48D5
 	ld h, d
 	ld l, e
 	ld de, $03E8
@@ -983,7 +976,7 @@ Label_23_48D5:: ; 23:48D5
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_491B
+	jr z, .l491B
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1018,9 +1011,8 @@ Label_23_48D5:: ; 23:48D5
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp Label_23_4979
-
-Label_23_491B:: ; 23:491B
+	jp .l4979
+.l491B ; 23:491B
 	ld h, d
 	ld l, e
 	ld de, $0064
@@ -1029,7 +1021,7 @@ Label_23_491B:: ; 23:491B
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_494F
+	jr z, .l494F
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1053,9 +1045,8 @@ Label_23_491B:: ; 23:491B
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp Label_23_4979
-
-Label_23_494F:: ; 23:494F
+	jp .l4979
+.l494F ; 23:494F
 	ld h, d
 	ld l, e
 	ld de, $000A
@@ -1064,7 +1055,7 @@ Label_23_494F:: ; 23:494F
 	pop bc
 	ld a, l
 	cp a, $00
-	jr z, Label_23_4971
+	jr z, .l4971
 	ld a, [bc]
 	add a, l
 	ld [bc], a
@@ -1077,9 +1068,8 @@ Label_23_494F:: ; 23:494F
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp Label_23_4979
-
-Label_23_4971:: ; 23:4971
+	jp .l4979
+.l4971 ; 23:4971
 	ld a, [bc]
 	add a, e
 	ld [bc], a
@@ -1087,8 +1077,7 @@ Label_23_4971:: ; 23:4971
 	xor a, a
 	ld [bc], a
 	ld a, $01
-
-Label_23_4979:: ; 23:4979
+.l4979 ; 23:4979
 	pop bc
 	ret
 
@@ -1097,57 +1086,55 @@ Label_23_4979:: ; 23:4979
 String_23_497B:: ; 23:497B
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $4986-$4A06 (128 bytes) [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4986-4AA4 by apply_coverage --split | forced execution: 48/56 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_23_4986:: ; 23:4986
+	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
+	; hops 0; entered by call from 23:4809 (PROBABLE code) | 56 insn(s) never executed in the traced
+	; runs; cut out of the PROBABLE region 4986-4AA4 by apply_coverage --split | forced execution:
+	; 48/56 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status
+	; unchanged)
 	push de
 	push hl
 	ld de, $2710
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_499C
+	jr z, .l499C
 	ld bc, $0000
-	jp Label_23_49E3
-
-Label_23_499C:: ; 23:499C
+	jp .l49E3
+.l499C ; 23:499C
 	ld h, d
 	ld l, e
 	ld de, $03E8
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_49B2
+	jr z, .l49B2
 	ld bc, $0000
-	jp Label_23_49E3
-
-Label_23_49B2:: ; 23:49B2
+	jp .l49E3
+.l49B2 ; 23:49B2
 	ld h, d
 	ld l, e
 	ld de, $0064
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_49C8
+	jr z, .l49C8
 	ld bc, $0000
-	jp Label_23_49E3
-
-Label_23_49C8:: ; 23:49C8
+	jp .l49E3
+.l49C8 ; 23:49C8
 	ld h, d
 	ld l, e
 	ld de, $000A
 	farcall Divide16
 	ld a, l
 	cp a, $00
-	jr z, Label_23_49DE
+	jr z, .l49DE
 	ld bc, $0000
-	jp Label_23_49E3
-
-Label_23_49DE:: ; 23:49DE
+	jp .l49E3
+.l49DE ; 23:49DE
 	ld bc, $0010
 	ld a, $01
-
-Label_23_49E3:: ; 23:49E3
+.l49E3 ; 23:49E3
 	pop hl
 	pop de
 	ret

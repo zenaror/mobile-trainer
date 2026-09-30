@@ -4,24 +4,24 @@
 
 SECTION "engine/comm/connection_icon", ROMX
 
-; ---- code $4000-$4008 (8 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 ConnIcon_Init:: ; 69:4000
 Function_69_4000::
+	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wCommSessionKind]
 	cp a, $01
-	jp nz, Label_69_4013
+	jp nz, .l4013
 
-; ---- code $4008-$4013 (11 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 69:4005 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0;
+	; fall-through of the jpcc at 69:4005 (executed) [executed in 1 scenarios]
 	ld a, $03
 	ld [wConnIconState], a
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	jr ConnIcon_Refresh
 
-; ---- code $4013-$4045 (50 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
-
-Label_69_4013:: ; 69:4013
+.l4013 ; 69:4013
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	xor a, a
 	ld [wConnIconState], a
 	ld [wConnIconGfxRequest], a
@@ -43,11 +43,10 @@ ConnIcon_UpdateState:: ; 69:4034
 	add hl, bc
 	ld a, [hl]
 	cp a, $FF
-	jr z, Label_69_403F
+	jr z, .l403F
 	or a, a
 	ret nz
-
-Label_69_403F:: ; 69:403F
+.l403F ; 69:403F
 	ld a, [wConnIconState]
 	call JumpTableInline
 
@@ -62,9 +61,8 @@ Table_69_4045::
 	dw Label_69_40AD
 	dw Label_69_40BF
 
-; ---- code $4051-$4074 (35 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
-
 Label_69_4051:: ; 69:4051
+	; [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 	ld a, [wConnIconGfxRequest]
 	inc a
 	ret z
@@ -85,7 +83,8 @@ Label_69_406D:: ; 69:406D
 	bit 4, a
 	jr nz, Label_69_4062
 
-; ---- code $4074-$40D1 (93 bytes) [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed) [executed in 1 scenarios]
+	; [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0;
+	; fall-through of the jrcc at 69:4072 (executed) [executed in 1 scenarios]
 	ld a, $02
 	ld b, $02
 	farcall ConnIcon_StartSprite
@@ -138,10 +137,10 @@ Label_69_40C6:: ; 69:40C6
 	farcall ConnIcon_StartSprite
 	ret
 
-; ---- code $40D1-$40DA (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
 Function_69_40D1::
+	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wConnIconGfxRequest]
 	cp a, $FF
 	ret z
@@ -155,9 +154,9 @@ Table_69_40DA::
 	dw Label_69_4118
 	dw Label_69_40E0
 
-; ---- code $40E0-$4118 (56 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
-
 Label_69_40E0:: ; 69:40E0
+	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
+	; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 	ld de, $8200
 	ld hl, Data_51_58C0
 	ld a, $51
@@ -177,9 +176,8 @@ Label_69_40E0:: ; 69:40E0
 	farcall Palette_LoadToBuffer
 	jp Label_69_414D
 
-; ---- code $4118-$4152 (58 bytes) [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
-
 Label_69_4118:: ; 69:4118
+	; [CONFIRMED] 20 insn(s); 20 executed (in up to 4/18 scenarios)
 	ld de, $8200
 	ld hl, ConnIcon_Tiles0
 	ld a, $69

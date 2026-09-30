@@ -4,73 +4,64 @@
 
 SECTION "home/header", ROM0
 
-; ---- code $0000-$0001 (1 bytes) [CONFIRMED] rst $00 slot: ret (never used as a call target in reached code)
-
 Rst_00:: ; 00:0000
+	; [CONFIRMED] rst $00 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0001-$0008 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0008-$0009 (1 bytes) [CONFIRMED] rst $08 slot: ret (never used as a call target in reached code)
-
 Rst_08:: ; 00:0008
+	; [CONFIRMED] rst $08 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0009-$0010 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0010-$0011 (1 bytes) [CONFIRMED] rst $10 slot: ret (never used as a call target in reached code)
-
 Rst_10:: ; 00:0010
+	; [CONFIRMED] rst $10 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0011-$0018 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0018-$0019 (1 bytes) [CONFIRMED] rst $18 slot: ret (never used as a call target in reached code)
-
 Rst_18:: ; 00:0018
+	; [CONFIRMED] rst $18 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0019-$0020 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0020-$0021 (1 bytes) [CONFIRMED] rst $20 slot: ret (never used as a call target in reached code)
-
 Rst_20:: ; 00:0020
+	; [CONFIRMED] rst $20 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0021-$0028 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0028-$0029 (1 bytes) [CONFIRMED] rst $28 slot: ret (never used as a call target in reached code)
-
 Rst_28:: ; 00:0028
+	; [CONFIRMED] rst $28 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0029-$0030 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0030-$0031 (1 bytes) [CONFIRMED] rst $30 slot: ret (never used as a call target in reached code)
-
 Rst_30:: ; 00:0030
+	; [CONFIRMED] rst $30 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0031-$0038 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0038-$0039 (1 bytes) [CONFIRMED] rst $38 slot: ret (never used as a call target in reached code)
-
 Rst_38:: ; 00:0038
+	; [CONFIRMED] rst $38 slot: ret (never used as a call target in reached code)
 	ret
 
 ; ---- zero $0039-$0040 (7 bytes) [CONFIRMED] padding
 	ds $7, $00
 
-; ---- code $0040-$0044 (4 bytes) [CONFIRMED] hardware vector: jp $CBF1 (RAM stub, see 00:04A0); reti
-
 Vector_VBlank:: ; 00:0040
+	; [CONFIRMED] hardware vector: jp $CBF1 (RAM stub, see 00:04A0); reti
 	jp $CBF1
 
 	reti
@@ -78,9 +69,8 @@ Vector_VBlank:: ; 00:0040
 ; ---- zero $0044-$0048 (4 bytes) [CONFIRMED] padding
 	ds $4, $00
 
-; ---- code $0048-$004C (4 bytes) [CONFIRMED] hardware vector: jp $CBF4 (RAM stub, see 00:04A0); reti
-
 Vector_STAT:: ; 00:0048
+	; [CONFIRMED] hardware vector: jp $CBF4 (RAM stub, see 00:04A0); reti
 	jp $CBF4
 
 	reti
@@ -88,9 +78,8 @@ Vector_STAT:: ; 00:0048
 ; ---- zero $004C-$0050 (4 bytes) [CONFIRMED] padding
 	ds $4, $00
 
-; ---- code $0050-$0054 (4 bytes) [CONFIRMED] hardware vector: jp $CBF7 (RAM stub, see 00:04A0); reti
-
 Vector_Timer:: ; 00:0050
+	; [CONFIRMED] hardware vector: jp $CBF7 (RAM stub, see 00:04A0); reti
 	jp $CBF7
 
 	reti
@@ -98,9 +87,8 @@ Vector_Timer:: ; 00:0050
 ; ---- zero $0054-$0058 (4 bytes) [CONFIRMED] padding
 	ds $4, $00
 
-; ---- code $0058-$005C (4 bytes) [CONFIRMED] hardware vector: jp $CBFA (RAM stub, see 00:04A0); reti
-
 Vector_Serial:: ; 00:0058
+	; [CONFIRMED] hardware vector: jp $CBFA (RAM stub, see 00:04A0); reti
 	jp $CBFA
 
 	reti
@@ -108,9 +96,8 @@ Vector_Serial:: ; 00:0058
 ; ---- zero $005C-$0060 (4 bytes) [CONFIRMED] padding
 	ds $4, $00
 
-; ---- code $0060-$0064 (4 bytes) [CONFIRMED] hardware vector: jp $CBFD (RAM stub, see 00:04A0); reti
-
 Vector_Joypad:: ; 00:0060
+	; [CONFIRMED] hardware vector: jp $CBFD (RAM stub, see 00:04A0); reti
 	jp $CBFD
 
 	reti
@@ -118,9 +105,8 @@ Vector_Joypad:: ; 00:0060
 ; ---- zero $0064-$0100 (156 bytes) [CONFIRMED] padding
 	ds $9C, $00
 
-; ---- code $0100-$0104 (4 bytes) [CONFIRMED] reset entry: nop ; jp $0278
-
 Entry:: ; 00:0100
+	; [CONFIRMED] reset entry: nop ; jp $0278
 	nop
 	jp Boot
 

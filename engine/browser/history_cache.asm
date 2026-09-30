@@ -4,10 +4,10 @@
 
 SECTION "engine/browser/history_cache", ROMX
 
-; ---- code $4B54-$4BA8 (84 bytes) [CONFIRMED] 36 insn(s); 36 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_HistoryReset:: ; 4C:4B54
 Function_4C_4B54::
+	; [CONFIRMED] 36 insn(s); 36 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -47,22 +47,21 @@ Function_4C_4B81:: ; 4C:4B81
 	ld a, [sSram_A9FE]
 	inc a
 	cp a, $06
-	jr c, Label_4C_4BA9
+	jr c, .l4BA9
 
-; ---- code $4BA8-$4BA9 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:4BA6 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4BA6 (executed)
 	xor a, a
 
-; ---- code $4BA9-$4BE7 (62 bytes) [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
-
-Label_4C_4BA9:: ; 4C:4BA9
+.l4BA9 ; 4C:4BA9
+	; [CONFIRMED] 30 insn(s); 30 executed (in up to 1/18 scenarios)
 	ld [sSram_A9FE], a
 	ld a, [sSram_A9FF]
 	cp a, $06
-	jr nc, Label_4C_4BB7
+	jr nc, .l4BB7
 	inc a
 	ld [sSram_A9FF], a
-
-Label_4C_4BB7:: ; 4C:4BB7
+.l4BB7 ; 4C:4BB7
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -82,28 +81,27 @@ Browser_HistoryPop:: ; 4C:4BC1
 	ld [rRAMB], a
 	ld a, [sSram_A9FF]
 	or a, a
-	jr z, Label_4C_4BF7
+	jr z, .l4BF7
 	dec a
 	ld [sSram_A9FF], a
 	ld a, [sSram_A9FE]
 	dec a
 	cp a, $06
-	jr c, Label_4C_4BE9
+	jr c, .skip
 
-; ---- code $4BE7-$4BE9 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:4BE5 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4BE5 (executed)
 	ld a, $05
 
-; ---- code $4BE9-$4C4D (100 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
-
-Label_4C_4BE9:: ; 4C:4BE9
+.skip ; 4C:4BE9
+	; [CONFIRMED] 55 insn(s); 55 executed (in up to 1/18 scenarios)
 	ld [sSram_A9FE], a
 	add a, $AA
 	ld h, a
 	ld l, $00
 	ld bc, $0100
 	call CopyBytes
-
-Label_4C_4BF7:: ; 4C:4BF7
+.l4BF7 ; 4C:4BF7
 	pop de
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -117,10 +115,9 @@ Sram_CopyLongBlock:: ; 4C:4C03
 	push bc
 	ld a, b
 	cp a, $02
-	jr c, Label_4C_4C0F
+	jr c, .skip
 	ld bc, $0200
-
-Label_4C_4C0F:: ; 4C:4C0F
+.skip ; 4C:4C0F
 	ldh a, [hRam_FFB0]
 	call BankSwitch_H
 	push bc
@@ -137,24 +134,22 @@ Label_4C_4C0F:: ; 4C:4C0F
 	pop hl
 	ld a, h
 	sub a, $C0
-	jr c, Label_4C_4C38
+	jr c, .l4C38
 	add a, $A0
 	ld h, a
 	ldh a, [hRam_FFB0]
 	inc a
 	ldh [hRam_FFB0], a
-
-Label_4C_4C38:: ; 4C:4C38
+.l4C38 ; 4C:4C38
 	ld a, d
 	sub a, $C0
-	jr c, Label_4C_4C45
+	jr c, .l4C45
 	add a, $A0
 	ld d, a
 	ldh a, [hRam_FFB1]
 	inc a
 	ldh [hRam_FFB1], a
-
-Label_4C_4C45:: ; 4C:4C45
+.l4C45 ; 4C:4C45
 	pop bc
 	ld a, b
 	sub a, $02
@@ -162,13 +157,14 @@ Label_4C_4C45:: ; 4C:4C45
 	ret z
 	jr nc, Sram_CopyLongBlock
 
-; ---- code $4C4D-$4C4E (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:4C4B (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4C4B (executed)
 	ret
-
-; ---- code $4C4E-$4CD4 (134 bytes) [CONFIRMED] 63 insn(s); 63 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 
 Browser_ClearCaches:: ; 4C:4C4E
 Function_4C_4C4E::
+	; [CONFIRMED] 63 insn(s); 63 executed (in up to 4/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_0392
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -233,22 +229,21 @@ PageCache_Push:: ; 4C:4C95
 	ld a, [sSram_A9FC]
 	inc a
 	cp a, $03
-	jr c, Label_4C_4CD5
+	jr c, .l4CD5
 
-; ---- code $4CD4-$4CD5 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:4CD2 (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4CD2 (executed)
 	xor a, a
 
-; ---- code $4CD5-$4CEA (21 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
-
-Label_4C_4CD5:: ; 4C:4CD5
+.l4CD5 ; 4C:4CD5
+	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	ld [sSram_A9FC], a
 	ld a, [sSram_A9FD]
 	cp a, $03
-	jr nc, Label_4C_4CE3
+	jr nc, .l4CE3
 	inc a
 	ld [sSram_A9FD], a
-
-Label_4C_4CE3:: ; 4C:4CE3
+.l4CE3 ; 4C:4CE3
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -260,10 +255,10 @@ Table_PageCache_Slots:: ; 4C:4CEA
 Table_4C_4CEA::
 	db $00, $A0, $02, $00, $B0, $02, $00, $A0, $03, $00, $B0, $03
 
-; ---- code $4CF6-$4D1C (38 bytes) [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 PageCache_Pop:: ; 4C:4CF6
 Function_4C_4CF6::
+	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ldh [hRam_FFB1], a
 	call Function_00_0392
 	ld a, $0A
@@ -275,20 +270,20 @@ Function_4C_4CF6::
 	ld [rRAMB], a
 	ld a, [sSram_A9FD]
 	or a, a
-	jr z, Label_4C_4D66
+	jr z, .l4D66
 	dec a
 	ld [sSram_A9FD], a
 	ld a, [sSram_A9FC]
 	dec a
 	cp a, $03
-	jr c, Label_4C_4D1E
+	jr c, .skip
 
-; ---- code $4D1C-$4D1E (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 4C:4D1A (executed)
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 4C:4D1A (executed)
 	ld a, $02
 
-; ---- code $4D1E-$4D66 (72 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
-
-Label_4C_4D1E:: ; 4C:4D1E
+.skip ; 4C:4D1E
+	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios)
 	ld [sSram_A9FC], a
 	ldh [hRam_FFB0], a
 	ldh a, [hRam_FFB1]
@@ -330,9 +325,9 @@ Label_4C_4D1E:: ; 4C:4D1E
 	ld a, $FF
 	ret
 
-; ---- code $4D66-$4DB2 (76 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by jrcc from 4C:4D0E (executed)
-
-Label_4C_4D66:: ; 4C:4D66
+.l4D66 ; 4C:4D66
+	; [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1;
+	; entered by jrcc from 4C:4D0E (executed)
 	pop bc
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -349,34 +344,30 @@ Function_4C_4D6F:: ; 4C:4D6F
 	ld [rRAMB], a
 	ld a, [sSram_A9FD]
 	or a, a
-	jr z, Label_4C_4D94
+	jr z, .l4D94
 	dec a
 	ld [sSram_A9FD], a
 	ld a, [sSram_A9FC]
 	dec a
 	cp a, $03
-	jr c, Label_4C_4D91
+	jr c, .l4D91
 	ld a, $02
-
-Label_4C_4D91:: ; 4C:4D91
+.l4D91 ; 4C:4D91
 	ld [sSram_A9FC], a
-
-Label_4C_4D94:: ; 4C:4D94
+.l4D94 ; 4C:4D94
 	ld a, [sSram_A9FF]
 	or a, a
-	jr z, Label_4C_4DAB
+	jr z, .l4DAB
 	dec a
 	ld [sSram_A9FF], a
 	ld a, [sSram_A9FE]
 	dec a
 	cp a, $06
-	jr c, Label_4C_4DA8
+	jr c, .l4DA8
 	ld a, $05
-
-Label_4C_4DA8:: ; 4C:4DA8
+.l4DA8 ; 4C:4DA8
 	ld [sSram_A9FE], a
-
-Label_4C_4DAB:: ; 4C:4DAB
+.l4DAB ; 4C:4DAB
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

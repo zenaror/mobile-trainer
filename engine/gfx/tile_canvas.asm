@@ -4,25 +4,23 @@
 
 SECTION "engine/gfx/tile_canvas", ROMX
 
-; ---- code $4572-$4668 (246 bytes) [CONFIRMED] 184 insn(s); 184 executed (in up to 12/18 scenarios); entry proven: target of an executed call/far call (part of region $4572-$4671)
-
 TileCanvas_UploadRect:: ; 4F:4572
 Function_4F_4572::
+	; [CONFIRMED] 184 insn(s); 184 executed (in up to 12/18 scenarios); entry proven: target of an
+	; executed call/far call (part of region $4572-$4671)
 	push bc
 	ld b, $FF
 	ld a, c
 	add a, $09
-
-Label_4F_4578:: ; 4F:4578
+.l4578 ; 4F:4578
 	inc b
 	sub a, $0A
-	jr nc, Label_4F_4578
+	jr nc, .l4578
 	ld a, $99
 	sub a, b
 	ldh [hRam_FFB1], a
 	pop bc
-
-Label_4F_4583:: ; 4F:4583
+.l4583 ; 4F:4583
 	call Function_00_0392
 	push hl
 	push de
@@ -30,12 +28,11 @@ Label_4F_4583:: ; 4F:4583
 	ld a, h
 	cp a, $0C
 	ld b, $02
-	jr c, Label_4F_4595
+	jr c, .skip
 	ld b, $03
 	sub a, $0C
 	ld h, a
-
-Label_4F_4595:: ; 4F:4595
+.skip ; 4F:4595
 	add a, a
 	add a, a
 	add a, h
@@ -73,7 +70,7 @@ Label_4F_4595:: ; 4F:4595
 	pop hl
 	inc h
 	dec b
-	jr nz, Label_4F_4583
+	jr nz, .l4583
 	ret
 
 Tilemap_FillAscendingWithAttr:: ; 4F:45C6
@@ -84,12 +81,10 @@ Tilemap_FillAscendingWithAttr:: ; 4F:45C6
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-
-Label_4F_45D3:: ; 4F:45D3
+.l45D3 ; 4F:45D3
 	call Function_00_0392
 	push bc
-
-Label_4F_45D7:: ; 4F:45D7
+.l45D7 ; 4F:45D7
 	ld a, h
 	add a, $04
 	ld h, a
@@ -99,13 +94,12 @@ Label_4F_45D7:: ; 4F:45D7
 	ld a, e
 	ld [hli], a
 	inc a
-	jr nz, Label_4F_45E6
+	jr nz, .skip
 	set 3, d
-
-Label_4F_45E6:: ; 4F:45E6
+.skip ; 4F:45E6
 	ld e, a
 	dec c
-	jr nz, Label_4F_45D7
+	jr nz, .l45D7
 	pop bc
 	ld a, c
 	xor a, $1F
@@ -117,7 +111,7 @@ Label_4F_45E6:: ; 4F:45E6
 	adc a, h
 	ld h, a
 	dec b
-	jr nz, Label_4F_45D3
+	jr nz, .l45D3
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -130,19 +124,17 @@ TileCanvas_FillRect:: ; 4F:4604
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-
-Label_4F_460B:: ; 4F:460B
+.l460B ; 4F:460B
 	push hl
 	push bc
 	ld a, h
 	cp a, $0C
 	ld b, $02
-	jr c, Label_4F_4619
+	jr c, .skip
 	ld b, $03
 	sub a, $0C
 	ld h, a
-
-Label_4F_4619:: ; 4F:4619
+.skip ; 4F:4619
 	add a, a
 	add a, a
 	add a, h
@@ -164,8 +156,7 @@ Label_4F_4619:: ; 4F:4619
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call Function_00_0392
-
-Label_4F_4635:: ; 4F:4635
+.l4635 ; 4F:4635
 	ld a, e
 	ld [hli], a
 	ld a, d
@@ -199,12 +190,12 @@ Label_4F_4635:: ; 4F:4635
 	ld a, d
 	ld [hli], a
 	dec c
-	jr nz, Label_4F_4635
+	jr nz, .l4635
 	pop bc
 	pop hl
 	inc h
 	dec b
-	jr nz, Label_4F_460B
+	jr nz, .l460B
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

@@ -4,26 +4,24 @@
 
 SECTION "engine/title/title_screen", ROMX
 
-; ---- code $4000-$4094 (148 bytes) [CONFIRMED] 70 insn(s); 70 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 Title_Run:: ; 0E:4000
 Function_0E_4000::
+	; [CONFIRMED] 70 insn(s); 70 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld [wRam_C280], a
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
 	ld a, [wRam_C280]
 	or a, a
-	jr nz, Label_0E_4019
+	jr nz, .l4019
 	xor a, a
 	ld [wRam_C27C], a
-	jr Label_0E_401E
-
-Label_0E_4019:: ; 0E:4019
+	jr .l401E
+.l4019 ; 0E:4019
 	ld a, $03
 	ld [wRam_C27C], a
-
-Label_0E_401E:: ; 0E:401E
+.l401E ; 0E:401E
 	call Title_StateLoop
 	ld a, [wRam_C27D]
 	ld hl, $BF00
@@ -99,9 +97,8 @@ Table_0E_4094::
 	dw Title_StateExit
 	dw Title_StateTimeoutRestart
 
-; ---- code $40A2-$4192 (240 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 14/18 scenarios)
-
 Title_StateLoadLogo:: ; 0E:40A2
+	; [CONFIRMED] 114 insn(s); 114 executed (in up to 14/18 scenarios)
 	call Title_LoadLogoScreen
 	farcall Palette_FadeInFromWhiteSlow
 	ldh a, [hWRAMBank]
@@ -130,12 +127,11 @@ Title_StateLogoWait:: ; 0E:40CA
 	ld de, $00B4
 	ld a, d
 	cp a, b
-	jr nz, Label_0E_40DD
+	jr nz, .skip
 	ld a, e
 	cp a, c
-
-Label_0E_40DD:: ; 0E:40DD
-	jr z, Label_0E_4104
+.skip ; 0E:40DD
+	jr z, .l4104
 	inc hl
 	ld a, h
 	ld [wRam_C27E], a
@@ -143,24 +139,21 @@ Label_0E_40DD:: ; 0E:40DD
 	ld [wRam_C27F], a
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_0E_40F4
+	jr nz, .l40F4
 	bit 3, a
-	jr nz, Label_0E_40F4
-	jr Label_0E_410B
-
-Label_0E_40F4:: ; 0E:40F4
+	jr nz, .l40F4
+	jr .done
+.l40F4 ; 0E:40F4
 	farcall Palette_FadeOutToWhite
 	ld a, [wRam_C27C]
 	add a, $02
 	ld [wRam_C27C], a
-	jr Label_0E_410B
-
-Label_0E_4104:: ; 0E:4104
+	jr .done
+.l4104 ; 0E:4104
 	ld a, [wRam_C27C]
 	inc a
 	ld [wRam_C27C], a
-
-Label_0E_410B:: ; 0E:410B
+.done ; 0E:410B
 	ret
 
 Title_StateLogoFadeOut:: ; 0E:410C
@@ -231,15 +224,15 @@ Title_StateMenu:: ; 0E:417B
 	ld de, $2A30
 	ld a, d
 	cp a, b
-	jr nz, Label_0E_4194
+	jr nz, .skip
 
-; ---- code $4192-$4194 (2 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 0E:4190 (executed)
+	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
+	; fall-through of the jrcc at 0E:4190 (executed)
 	ld a, e
 	cp a, c
 
-; ---- code $4194-$41B3 (31 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 14/18 scenarios)
-
-Label_0E_4194:: ; 0E:4194
+.skip ; 0E:4194
+	; [CONFIRMED] 16 insn(s); 16 executed (in up to 14/18 scenarios)
 	jr z, Title_MenuTimeout
 	inc hl
 	ld a, h
@@ -259,16 +252,15 @@ Title_MenuHandleButtons:: ; 0E:419F
 	jr nz, Title_MenuToggleSelection
 	jr Label_0E_41FD
 
-; ---- code $41B3-$41BA (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 0E:4194 (executed)
-
 Title_MenuTimeout:: ; 0E:41B3
+	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
+	; entered by jrcc from 0E:4194 (executed)
 	ld a, $06
 	ld [wRam_C27C], a
 	jr Label_0E_41FD
 
-; ---- code $41BA-$420A (80 bytes) [CONFIRMED] 35 insn(s); 35 executed (in up to 14/18 scenarios)
-
 Title_MenuToggleSelection:: ; 0E:41BA
+	; [CONFIRMED] 35 insn(s); 35 executed (in up to 14/18 scenarios)
 	xor a, a
 	ld [wRam_C27E], a
 	ld [wRam_C27F], a
@@ -311,18 +303,18 @@ Title_StateExit:: ; 0E:41FE
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $420A-$4215 (11 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-
 Title_StateTimeoutRestart:: ; 0E:420A
+	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: site x4; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $4215-$4330 (283 bytes) [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 Title_LoadTitleScreen:: ; 0E:4215
 Function_0E_4215::
+	; [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_044B
 	ld hl, $FF40
 	ld a, [hl]
@@ -430,10 +422,10 @@ Table_Title_HighlightTilemaps:: ; 0E:4330
 Data_0E_4330::
 	db $90, $5E, $E0, $5E
 
-; ---- code $4334-$434B (23 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 Title_PlaceCursor:: ; 0E:4334
 Function_0E_4334::
+	; [CONFIRMED] 14 insn(s); 14 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld a, [wRam_C27D]
 	ld hl, Table_Title_CursorPositions
 	add a, a
@@ -455,10 +447,10 @@ Table_Title_CursorPositions:: ; 0E:434B
 Data_0E_434B::
 	db $18, $60, $18, $70
 
-; ---- code $434F-$43B1 (98 bytes) [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an executed call/far call
-
 Title_LoadLogoScreen:: ; 0E:434F
 Function_0E_434F::
+	; [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an
+	; executed call/far call
 	call Function_00_044B
 	ld hl, $FF40
 	ld a, [hl]

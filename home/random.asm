@@ -4,9 +4,8 @@
 
 SECTION "home/random", ROM0
 
-; ---- code $0C0E-$0C18 (10 bytes) [PROBABLE] HL = (Random, Random) : H=first byte, L=second byte [candidate; raw refs 4]
-
 Random16:: ; 00:0C0E
+	; [PROBABLE] HL = (Random, Random) : H=first byte, L=second byte [candidate; raw refs 4]
 	call Random
 	ld d, a
 	call Random
@@ -14,9 +13,9 @@ Random16:: ; 00:0C0E
 	ld h, d
 	ret
 
-; ---- code $0C18-$0C34 (28 bytes) [PROBABLE] A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
-
 Random:: ; 00:0C18
+	; [PROBABLE] A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD
+	; wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
 	push bc
 	ldh a, [hRandomIndex]
 	inc a

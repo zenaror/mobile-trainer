@@ -4,9 +4,9 @@
 
 SECTION "engine/mail/mail_viewer_sender", ROMX
 
-; ---- code $6482-$64F1 (111 bytes) [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code) [executed in 2 scenarios]
-
 MailView_SenderPage:: ; 2B:6482
+	; [CONFIRMED] 48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7;
+	; entered by far from 25:475C (PROBABLE code) [executed in 2 scenarios]
 	push bc
 	push af
 	ldh a, [rSVBK]
@@ -58,9 +58,10 @@ MailView_SenderPage_Loop:: ; 2B:64A7
 	xor a, a
 	ret
 
-; ---- code $64F1-$6500 (15 bytes) [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after the ret at 64F0; no caller/pointer to 64F1 found
-
 Function_2B_64F1:: ; 2B:64F1
+	; [HYPOTHESIS] function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld
+	; [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after
+	; the ret at 64F0; no caller/pointer to 64F1 found
 	push bc
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -69,7 +70,10 @@ Function_2B_64F1:: ; 2B:64F1
 	ld [wSpriteSlots + 16], a
 	ld [wSpriteSlots + 32], a
 
-; ---- code $6500-$6548 (72 bytes) [PROBABLE] 397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6500-6863 by apply_coverage --split
+	; [PROBABLE] 397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery
+	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
+	; decoded code | 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 6500-6863 by apply_coverage --split
 	farcall Function_00_0956
 	ld de, $0206
 	push de
@@ -94,12 +98,12 @@ Function_2B_64F1:: ; 2B:64F1
 	farcall Palette_FadeOutToWhite
 	ret
 
-; ---- code $6548-$67D6 (654 bytes) [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage --split [executed in 3 scenarios]
-
 Label_2B_6548:: ; 2B:6548
+	; [CONFIRMED] 298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
+	; --split [executed in 3 scenarios]
 	ldh a, [hJoyPressed]
 	and a, $02
-	jr z, Label_2B_6574
+	jr z, .l6574
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -117,11 +121,10 @@ Label_2B_6548:: ; 2B:6548
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
-
-Label_2B_6574:: ; 2B:6574
+.l6574 ; 2B:6574
 	ldh a, [hJoyPressed]
 	and a, $04
-	jr z, Label_2B_65A8
+	jr z, .l65A8
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -141,8 +144,7 @@ Label_2B_6574:: ; 2B:6574
 	pop bc
 	farcall SaveSenderAddr_Menu
 	jp MailView_SenderPage
-
-Label_2B_65A8:: ; 2B:65A8
+.l65A8 ; 2B:65A8
 	jp MailView_SenderPage_Loop
 
 MailView_SenderPage_InitScreen:: ; 2B:65AB
@@ -157,12 +159,11 @@ MailView_SenderPage_InitScreen:: ; 2B:65AB
 	ldh [rSVBK], a
 	ld b, $40
 	ld hl, $D4C0
-
-Label_2B_65D2:: ; 2B:65D2
+.l65D2 ; 2B:65D2
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2B_65D2
+	jr nz, .l65D2
 	call Function_00_0464
 	farcall MailDraft_LoadFromSram
 	call Function_00_0464
@@ -259,7 +260,7 @@ Label_2B_65D2:: ; 2B:65D2
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, Label_2B_66F9
+	jr z, .l66F9
 	ld hl, $DA60
 	ld de, $7900
 	ld a, $2B
@@ -268,8 +269,7 @@ Label_2B_65D2:: ; 2B:65D2
 	ld de, $0868
 	ld hl, $DA60
 	call Function_00_0A65
-
-Label_2B_66F9:: ; 2B:66F9
+.l66F9 ; 2B:66F9
 	pop bc
 	push bc
 	push bc
@@ -386,7 +386,7 @@ Label_2B_66F9:: ; 2B:66F9
 	add hl, de
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_2B_67E0
+	jr z, .l67E0
 	ld bc, $0300
 	ld d, $30
 	ld e, $08
@@ -404,17 +404,18 @@ Label_2B_66F9:: ; 2B:66F9
 	add hl, de
 	ld a, [hli]
 	cp a, $00
-	jr z, Label_2B_67E0
+	jr z, .l67E0
 
-; ---- code $67D6-$67E0 (10 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6500-6863 by apply_coverage --split
+	; [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 6500-6863 by apply_coverage --split
 	ld bc, $0300
 	ld d, $3C
 	ld e, $08
 	call MailView_DrawTextLine20
 
-; ---- code $67E0-$6863 (131 bytes) [CONFIRMED] 72 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage --split [executed in 9 scenarios]
-
-Label_2B_67E0:: ; 2B:67E0
+.l67E0 ; 2B:67E0
+	; [CONFIRMED] 72 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage
+	; --split [executed in 9 scenarios]
 	pop bc
 	push bc
 	push bc
@@ -440,18 +441,16 @@ Label_2B_67E0:: ; 2B:67E0
 	ld hl, $9800
 	ld b, $14
 	ld de, $D000
-
-Label_2B_6808:: ; 2B:6808
+.l6808 ; 2B:6808
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2B_6808
-
-Label_2B_680E:: ; 2B:680E
+	jr nz, .l6808
+.l680E ; 2B:680E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_680E
+	jr nz, .l680E
 	push bc
 	push de
 	push hl
@@ -499,16 +498,19 @@ Table_2B_6863::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $687B-$687C (1 bytes) [HYPOTHESIS] lone 'ret' (c9) between the table and the next function; nothing branches to it
+	; [HYPOTHESIS] lone 'ret' (c9) between the table and the next function; nothing branches to it
 	ret
 
-; ---- code $687C-$6895 (25 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
-
 Function_2B_687C:: ; 2B:687C
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
+	; ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span
+	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
+	; has no caller/pointer in the ROM
 	push bc
 	ld a, c
 	cp a, $00
-	jr nz, Label_2B_68A6
+	jr nz, .l68A6
 	ld de, $6810
 	ld hl, $DA10
 	call Function_00_0A65
@@ -517,7 +519,8 @@ Function_2B_687C:: ; 2B:687C
 	ld a, $2B
 	ld b, $81
 
-; ---- code $6895-$68A6 (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0A82
 	ld de, $6810
 	ld hl, $DA20
@@ -525,11 +528,14 @@ Function_2B_687C:: ; 2B:687C
 	pop bc
 	ret
 
-; ---- code $68A6-$68BD (23 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68A6 is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
-
-Label_2B_68A6:: ; 2B:68A6
+.l68A6 ; 2B:68A6
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
+	; ; far call 00:0A82). Block 68A6 is entered by the 'jr nz' of the previous block (in-span
+	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
+	; has no caller/pointer in the ROM
 	cp a, $01
-	jr nz, Label_2B_68CE
+	jr nz, .l68CE
 	ld de, $6830
 	ld hl, $DA10
 	call Function_00_0A65
@@ -538,7 +544,8 @@ Label_2B_68A6:: ; 2B:68A6
 	ld a, $2B
 	ld b, $81
 
-; ---- code $68BD-$68CE (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0A82
 	ld de, $6830
 	ld hl, $DA20
@@ -546,11 +553,14 @@ Label_2B_68A6:: ; 2B:68A6
 	pop bc
 	ret
 
-; ---- code $68CE-$68E5 (23 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68CE is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
-
-Label_2B_68CE:: ; 2B:68CE
+.l68CE ; 2B:68CE
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
+	; ; far call 00:0A82). Block 68CE is entered by the 'jr nz' of the previous block (in-span
+	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
+	; has no caller/pointer in the ROM
 	cp a, $02
-	jr nz, Label_2B_68F6
+	jr nz, .l68F6
 	ld de, $6850
 	ld hl, $DA10
 	call Function_00_0A65
@@ -559,7 +569,8 @@ Label_2B_68CE:: ; 2B:68CE
 	ld a, $2B
 	ld b, $81
 
-; ---- code $68E5-$68F6 (17 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+	; [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run
+	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_0A82
 	ld de, $6850
 	ld hl, $DA20
@@ -567,9 +578,12 @@ Label_2B_68CE:: ; 2B:68CE
 	pop bc
 	ret
 
-; ---- code $68F6-$6909 (19 bytes) [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68F6 is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
-
-Label_2B_68F6:: ; 2B:68F6
+.l68F6 ; 2B:68F6
+	; [HYPOTHESIS] part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz
+	; next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81
+	; ; far call 00:0A82). Block 68F6 is entered by the 'jr nz' of the previous block (in-span
+	; targets) and continues into the PROBABLE far-call site that follows; the function entry 687C
+	; has no caller/pointer in the ROM
 	ld de, $6870
 	ld hl, $DA10
 	call Function_00_0A65
@@ -578,7 +592,10 @@ Label_2B_68F6:: ; 2B:68F6
 	ld a, $2B
 	ld b, $81
 
-; ---- code $6909-$691A (17 bytes) [PROBABLE] 111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6909-69AD by apply_coverage --split
+	; [PROBABLE] 111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery
+	; hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with
+	; decoded code | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 6909-69AD by apply_coverage --split
 	farcall Function_00_0A82
 	ld de, $6870
 	ld hl, $DA20
@@ -586,9 +603,9 @@ Label_2B_68F6:: ; 2B:68F6
 	pop bc
 	ret
 
-; ---- code $691A-$693F (37 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage --split [executed in 7 scenarios]
-
 MailView_DrawDateTime:: ; 2B:691A
+	; [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage
+	; --split [executed in 7 scenarios]
 	push bc
 	ld a, $00
 	ldh [hSRAMBank], a
@@ -609,16 +626,18 @@ MailView_DrawDateTime:: ; 2B:691A
 	ld l, e
 	ld a, [hl]
 	dec a
-	jr z, Label_2B_6942
+	jr z, .l6942
 	dec a
-	jr z, Label_2B_6942
+	jr z, .l6942
 
-; ---- code $693F-$6942 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6909-69AD by apply_coverage --split | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
-	jp Label_2B_69AB
+	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 6909-69AD by apply_coverage --split | forced execution: 1/1 instruction starts ran in
+	; forced_screens (traces/forced/, not natural evidence; status unchanged)
+	jp .l69AB
 
-; ---- code $6942-$69AD (107 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage --split [executed in 9 scenarios]
-
-Label_2B_6942:: ; 2B:6942
+.l6942 ; 2B:6942
+	; [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage
+	; --split [executed in 9 scenarios]
 	push bc
 	ld b, $00
 	sla c
@@ -639,8 +658,7 @@ Label_2B_6942:: ; 2B:6942
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld b, $06
-
-Label_2B_6963:: ; 2B:6963
+.l6963 ; 2B:6963
 	ld a, [hl]
 	swap a
 	and a, $0F
@@ -653,15 +671,14 @@ Label_2B_6963:: ; 2B:6963
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_6963
+	jr nz, .l6963
 	ld de, $9801
 	ld hl, $D524
 	di
-
-Label_2B_697D:: ; 2B:697D
+.l697D ; 2B:697D
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Label_2B_697D
+	jr nz, .l697D
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -702,8 +719,7 @@ Label_2B_697D:: ; 2B:697D
 	ld a, [hli]
 	ld [de], a
 	ei
-
-Label_2B_69AB:: ; 2B:69AB
+.l69AB ; 2B:69AB
 	pop bc
 	ret
 
@@ -714,36 +730,37 @@ Table_2B_69AD::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $69C5-$69EB (38 bytes) [CONFIRMED] 425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
-
 MailView_DrawTextLine20:: ; 2B:69C5
+	; [CONFIRMED] 425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9;
+	; entered by call from 2B:6735 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE
+	; region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
 	ld a, $14
 	ld [wTextCellsLeft], a
-
-Label_2B_69CA:: ; 2B:69CA
+.l69CA ; 2B:69CA
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2B_6A69
+	jp z, .l6A69
 	cp a, $0D
-	jr z, Label_2B_6A4E
+	jr z, .l6A4E
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_6A2C
+	jr nz, .l6A2C
 	ld a, [wTextCellsLeft]
 	cp a, $01
-	jr nz, Label_2B_69EF
+	jr nz, .l69EF
 
-; ---- code $69EB-$69EF (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	pop af
-	jp Label_2B_6A69
+	jp .l6A69
 
-; ---- code $69EF-$6A4E (95 bytes) [CONFIRMED] 52 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
-
-Label_2B_69EF:: ; 2B:69EF
+.l69EF ; 2B:69EF
+	; [CONFIRMED] 52 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 8 scenarios]
 	pop af
 	push bc
 	push de
@@ -777,10 +794,9 @@ Label_2B_69EF:: ; 2B:69EF
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6A69
-	jr Label_2B_69CA
-
-Label_2B_6A2C:: ; 2B:6A2C
+	jr z, .l6A69
+	jr .l69CA
+.l6A2C ; 2B:6A2C
 	pop af
 	push bc
 	push de
@@ -796,12 +812,12 @@ Label_2B_6A2C:: ; 2B:6A2C
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6A69
-	jp Label_2B_69CA
+	jr z, .l6A69
+	jp .l69CA
 
-; ---- code $6A4E-$6A69 (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
-
-Label_2B_6A4E:: ; 2B:6A4E
+.l6A4E ; 2B:6A4E
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	push bc
 	push de
 	push hl
@@ -816,9 +832,9 @@ Label_2B_6A4E:: ; 2B:6A4E
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
 
-; ---- code $6A69-$6AD4 (107 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
-
-Label_2B_6A69:: ; 2B:6A69
+.l6A69 ; 2B:6A69
+	; [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 5 scenarios]
 	push bc
 	push de
 	push hl
@@ -828,15 +844,14 @@ Label_2B_6A69:: ; 2B:6A69
 	pop hl
 	pop de
 	pop bc
-
-Label_2B_6A7A:: ; 2B:6A7A
+.l6A7A ; 2B:6A7A
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
-	jr Label_2B_6A7A
+	jr .l6A7A
 
 MailView_DrawTextLine20_BlitGlyphAdvance:: ; 2B:6A89
 	push bc
@@ -871,29 +886,28 @@ MailView_DrawTextLine20_BlitBlankAdvance:: ; 2B:6A9D
 MailView_DrawTextLine24:: ; 2B:6AB5
 	ld a, $18
 	ld [wTextCellsLeft], a
-
-Label_2B_6ABA:: ; 2B:6ABA
+.l6ABA ; 2B:6ABA
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2B_6B5A
+	jp z, .l6B5A
 	cp a, $0D
-	jr z, Label_2B_6B3F
+	jr z, .l6B3F
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_6B1D
+	jr nz, .l6B1D
 
-; ---- code $6AD4-$6B1D (73 bytes) [PROBABLE] 40 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+	; [PROBABLE] 40 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	ld a, [wTextCellsLeft]
 	cp a, $01
-	jr nz, Label_2B_6ADF
+	jr nz, .l6ADF
 	pop af
-	jp Label_2B_6B5A
-
-Label_2B_6ADF:: ; 2B:6ADF
+	jp .l6B5A
+.l6ADF ; 2B:6ADF
 	pop af
 	push bc
 	push de
@@ -927,12 +941,12 @@ Label_2B_6ADF:: ; 2B:6ADF
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6B5A
-	jp Label_2B_6ABA
+	jr z, .l6B5A
+	jp .l6ABA
 
-; ---- code $6B1D-$6B3F (34 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
-
-Label_2B_6B1D:: ; 2B:6B1D
+.l6B1D ; 2B:6B1D
+	; [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 5 scenarios]
 	pop af
 	push bc
 	push de
@@ -948,12 +962,12 @@ Label_2B_6B1D:: ; 2B:6B1D
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6B5A
-	jp Label_2B_6ABA
+	jr z, .l6B5A
+	jp .l6ABA
 
-; ---- code $6B3F-$6B5A (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
-
-Label_2B_6B3F:: ; 2B:6B3F
+.l6B3F ; 2B:6B3F
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	push bc
 	push de
 	push hl
@@ -968,9 +982,9 @@ Label_2B_6B3F:: ; 2B:6B3F
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
 
-; ---- code $6B5A-$6BCC (114 bytes) [CONFIRMED] 59 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
-
-Label_2B_6B5A:: ; 2B:6B5A
+.l6B5A ; 2B:6B5A
+	; [CONFIRMED] 59 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 5 scenarios]
 	push bc
 	push de
 	push hl
@@ -980,15 +994,14 @@ Label_2B_6B5A:: ; 2B:6B5A
 	pop hl
 	pop de
 	pop bc
-
-Label_2B_6B6B:: ; 2B:6B6B
+.l6B6B ; 2B:6B6B
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
-	jr Label_2B_6B6B
+	jr .l6B6B
 
 MailView_DrawTextLine24_BlitGlyphAdvance:: ; 2B:6B7A
 	push bc
@@ -1023,31 +1036,31 @@ MailView_DrawTextLine24_BlitBlankAdvance:: ; 2B:6B8E
 MailView_DrawTextLine16:: ; 2B:6BA6
 	ld a, $10
 	ld [wTextCellsLeft], a
-
-Label_2B_6BAB:: ; 2B:6BAB
+.l6BAB ; 2B:6BAB
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	cp a, $00
-	jp z, Label_2B_6C4B
+	jp z, .l6C4B
 	cp a, $0D
-	jr z, Label_2B_6C30
+	jr z, .l6C30
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, Label_2B_6C0E
+	jr nz, .l6C0E
 	ld a, [wTextCellsLeft]
 	cp a, $01
-	jr nz, Label_2B_6BD0
+	jr nz, .l6BD0
 
-; ---- code $6BCC-$6BD0 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	pop af
-	jp Label_2B_6C4B
+	jp .l6C4B
 
-; ---- code $6BD0-$6C0E (62 bytes) [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
-
-Label_2B_6BD0:: ; 2B:6BD0
+.l6BD0 ; 2B:6BD0
+	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 8 scenarios]
 	pop af
 	push bc
 	push de
@@ -1081,12 +1094,12 @@ Label_2B_6BD0:: ; 2B:6BD0
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6C4B
-	jp Label_2B_6BAB
+	jr z, .l6C4B
+	jp .l6BAB
 
-; ---- code $6C0E-$6C4B (61 bytes) [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
-
-Label_2B_6C0E:: ; 2B:6C0E
+.l6C0E ; 2B:6C0E
+	; [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 69C5-6CF5 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -1102,10 +1115,9 @@ Label_2B_6C0E:: ; 2B:6C0E
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, Label_2B_6C4B
-	jp Label_2B_6BAB
-
-Label_2B_6C30:: ; 2B:6C30
+	jr z, .l6C4B
+	jp .l6BAB
+.l6C30 ; 2B:6C30
 	push bc
 	push de
 	push hl
@@ -1120,9 +1132,9 @@ Label_2B_6C30:: ; 2B:6C30
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
 
-; ---- code $6C4B-$6CF5 (170 bytes) [CONFIRMED] 89 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
-
-Label_2B_6C4B:: ; 2B:6C4B
+.l6C4B ; 2B:6C4B
+	; [CONFIRMED] 89 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage
+	; --split [executed in 8 scenarios]
 	push bc
 	push de
 	push hl
@@ -1132,15 +1144,14 @@ Label_2B_6C4B:: ; 2B:6C4B
 	pop hl
 	pop de
 	pop bc
-
-Label_2B_6C5C:: ; 2B:6C5C
+.l6C5C ; 2B:6C5C
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
-	jr Label_2B_6C5C
+	jr .l6C5C
 
 MailView_DrawTextLine16_BlitGlyphAdvance:: ; 2B:6C6B
 	push bc
@@ -1211,25 +1222,26 @@ Gfx_StartHDMAAtVBlank_2B_6CD5:: ; 2B:6CD5
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, $FF44
-
-Label_2B_6CE4:: ; 2B:6CE4
+.l6CE4 ; 2B:6CE4
 	ld a, [de]
 	cp a, $8F
-	jr nz, Label_2B_6CE4
+	jr nz, .l6CE4
 	ld b, $91
-
-Label_2B_6CEB:: ; 2B:6CEB
+.l6CEB ; 2B:6CEB
 	ld a, [de]
 	cp a, b
-	jr nz, Label_2B_6CEB
+	jr nz, .l6CEB
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
 	ret
 
-; ---- code $6CF5-$6D6B (118 bytes) [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets valid | forced execution: 68/68 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
 Function_2B_6CF5:: ; 2B:6CF5
+	; [HYPOTHESIS] function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable;
+	; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at
+	; 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets
+	; valid | forced execution: 68/68 instruction starts ran in forced_dead (traces/forced/, not
+	; natural evidence; status unchanged)
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1242,12 +1254,11 @@ Function_2B_6CF5:: ; 2B:6CF5
 	ld [rRAMG], a
 	ld hl, $D400
 	ld b, $24
-
-Label_2B_6D0F:: ; 2B:6D0F
+.l6D0F ; 2B:6D0F
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, Label_2B_6D0F
+	jr nz, .l6D0F
 	pop bc
 	push bc
 	ld a, $00
@@ -1273,25 +1284,23 @@ Label_2B_6D0F:: ; 2B:6D0F
 	add hl, de
 	ld de, $D4C0
 	ld b, $40
-
-Label_2B_6D3E:: ; 2B:6D3E
+.l6D3E ; 2B:6D3E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_6D3E
+	jr nz, .l6D3E
 	pop hl
 	ld de, $00C9
 	add hl, de
 	ld de, $D514
 	ld b, $10
-
-Label_2B_6D4E:: ; 2B:6D4E
+.l6D4E ; 2B:6D4E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, Label_2B_6D4E
+	jr nz, .l6D4E
 	pop bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1303,32 +1312,30 @@ Label_2B_6D4E:: ; 2B:6D4E
 	ld a, b
 	ld [wRam_D526], a
 	xor a, a
-	jr Label_2B_6D6D
+	jr .l6D6D
 
-; ---- code $6D6B-$6DB0 (69 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0; entered by jrcc from 2B:6D84 (PROBABLE code) | forced execution: 1/32 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
-
-Label_2B_6D6B:: ; 2B:6D6B
+.l6D6B ; 2B:6D6B
+	; [PROBABLE] 32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0;
+	; entered by jrcc from 2B:6D84 (PROBABLE code) | forced execution: 1/32 instruction starts ran
+	; in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	ld a, $01
-
-Label_2B_6D6D:: ; 2B:6D6D
+.l6D6D ; 2B:6D6D
 	farcall MailAddr_Edit
 	cp a, $FF
-	jr z, Label_2B_6DA3
+	jr z, .l6DA3
 	xor a, a
-	jr Label_2B_6D7C
-
-Label_2B_6D7A:: ; 2B:6D7A
+	jr .l6D7C
+.l6D7A ; 2B:6D7A
 	ld a, $01
-
-Label_2B_6D7C:: ; 2B:6D7C
+.l6D7C ; 2B:6D7C
 	farcall MailTitle_Entry
 	cp a, $FF
-	jr z, Label_2B_6D6B
+	jr z, .l6D6B
 	farcall MailBody_Edit
 	cp a, $FF
-	jr z, Label_2B_6D7A
+	jr z, .l6D7A
 	cp a, $00
-	jr z, Label_2B_6DA3
+	jr z, .l6DA3
 	pop af
 	pop af
 	pop af
@@ -1339,8 +1346,7 @@ Label_2B_6D7C:: ; 2B:6D7C
 	ld a, [wRam_D526]
 	ld c, a
 	ret
-
-Label_2B_6DA3:: ; 2B:6DA3
+.l6DA3 ; 2B:6DA3
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

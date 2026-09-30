@@ -4,23 +4,22 @@
 
 SECTION "engine/browser/status_sprites", ROMX
 
-; ---- code $5FB9-$6087 (206 bytes) [CONFIRMED] 111 insn(s); 111 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-
 Browser_DrawCommTimer:: ; 4E:5FB9
 Function_4E_5FB9::
+	; [CONFIRMED] 111 insn(s); 111 executed (in up to 1/18 scenarios); entry proven: target of an
+	; executed call/far call
 	farcall CommTime_AddTimerA
 	ld a, [wBrowserTimerLastSec]
 	ld c, a
 	ldh a, [hRam_FFB1]
 	cp a, c
-	jr z, Label_4E_5FD5
+	jr z, .l5FD5
 	ld a, [wBrowserTimerSecToggle]
 	xor a, $FF
 	ld [wBrowserTimerSecToggle], a
 	ldh a, [hRam_FFB1]
 	ld [wBrowserTimerLastSec], a
-
-Label_4E_5FD5:: ; 4E:5FD5
+.l5FD5 ; 4E:5FD5
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -47,7 +46,7 @@ Label_4E_5FD5:: ; 4E:5FD5
 	ld l, a
 	ld a, [wBrowserTimerSecToggle]
 	or a, a
-	jr nz, Label_4E_6014
+	jr nz, .l6014
 	ldh a, [hRam_FFB2]
 	ld c, $00
 	call Browser_OamPutNumber
@@ -56,8 +55,7 @@ Label_4E_5FD5:: ; 4E:5FD5
 	ldh a, [hRam_FFB1]
 	ld c, $00
 	jp Browser_OamPutNumber
-
-Label_4E_6014:: ; 4E:6014
+.l6014 ; 4E:6014
 	ldh a, [hRam_FFB2]
 	ld c, $00
 	call Browser_OamPutNumber
@@ -130,9 +128,11 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld hl, $DA80
 	jp Function_00_0A65
 
-; ---- code $6087-$60A6 (31 bytes) [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer found, entry unproven
-
 Function_4E_6087:: ; 4E:6087
+	; [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the
+	; screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed
+	; 4E:5E11 area and the getter before it (4E:6060-6087 ends with jp $0A65); no caller/pointer
+	; found, entry unproven
 	push bc
 	push hl
 	ld a, [wBrowserFrameStyle]

@@ -4,9 +4,10 @@
 
 SECTION "engine/settings/confirm_screen", ROMX
 
-; ---- code $510A-$5221 (279 bytes) [CONFIRMED] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5; entered by far from 67:40B9 (PROBABLE code) | 95 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
-
 SettingsPhone_ConfirmScreen:: ; 67:510A
+	; [CONFIRMED] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5;
+	; entered by far from 67:40B9 (PROBABLE code) | 95 insn(s) executed; cut out of the PROBABLE
+	; region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 	ld [wRam_C27E], a
 	call SettingsPhone_ConfirmScreen_Setup
 	farcall Palette_FadeInFromWhite
@@ -84,16 +85,15 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_67_5205
+	jr nz, .l5205
 	bit 1, a
-	jr nz, Label_67_5227
+	jr nz, .l5227
 	bit 5, a
-	jr nz, Label_67_523C
+	jr nz, .l523C
 	bit 4, a
-	jr nz, Label_67_523C
+	jr nz, .l523C
 	jr SettingsPhone_ConfirmScreen_Loop
-
-Label_67_5205:: ; 67:5205
+.l5205 ; 67:5205
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -104,19 +104,18 @@ Label_67_5205:: ; 67:5205
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_67_5221
+	jr nz, .l5221
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5221-$525D (60 bytes) [CONFIRMED] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
-
-Label_67_5221:: ; 67:5221
+.l5221 ; 67:5221
+	; [CONFIRMED] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $02
 	ld [wRam_C27C], a
 	ret
-
-Label_67_5227:: ; 67:5227
+.l5227 ; 67:5227
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -128,8 +127,7 @@ Label_67_5227:: ; 67:5227
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_67_523C:: ; 67:523C
+.l523C ; 67:523C
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -143,14 +141,13 @@ Label_67_523C:: ; 67:523C
 	xor a, b
 	ld [wRam_C27D], a
 	call SettingsPhone_ConfirmScreen_PlaceCursor
-	jr Label_67_525A
-
-Label_67_525A:: ; 67:525A
+	jr .l525A
+.l525A ; 67:525A
 	jp SettingsPhone_ConfirmScreen_Loop
 
-; ---- code $525D-$5275 (24 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
-
 SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
+	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage
+	; --split [executed in 1 scenarios]
 	ld a, [wRam_C27D]
 	add a, a
 	ld hl, SettingsPhone_ConfirmScreen_CursorPos
@@ -173,9 +170,9 @@ SettingsPhone_ConfirmScreen_CursorPos:: ; 67:5275
 Data_67_5275::
 	db $28, $68, $58, $68
 
-; ---- code $5279-$53D6 (349 bytes) [CONFIRMED] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 7; entered by call from 67:51C6 (PROBABLE code) [executed in 1 scenarios]
-
 SettingsPhone_ConfirmScreen_BuildTextMap:: ; 67:5279
+	; [CONFIRMED] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 7;
+	; entered by call from 67:51C6 (PROBABLE code) [executed in 1 scenarios]
 	ld hl, $D0A7
 	ld de, $0000
 	ld bc, $020C

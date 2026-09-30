@@ -4,9 +4,8 @@
 
 SECTION "engine/account/password_entry", ROMX
 
-; ---- code $5D00-$5D2F (47 bytes) [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios) (part of region $5A36-$5D2F)
-
 Account_PasswordEntryScreen:: ; 68:5D00
+	; [CONFIRMED] 297 insn(s); 297 executed (in up to 7/18 scenarios) (part of region $5A36-$5D2F)
 	ld [wRam_C27D], a
 	call Account_PasswordEntry_Setup
 	farcall Palette_FadeInFromWhite
@@ -24,9 +23,10 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	ld a, [wRam_C27C]
 	ret
 
-; ---- code $5D2F-$5D9C (109 bytes) [HYPOTHESIS] complete ret-terminated function (54 insn) between proven code; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
-
 Function_68_5D2F:: ; 68:5D2F
+	; [HYPOTHESIS] complete ret-terminated function (54 insn) between proven code; entry not proven
+	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain
+	; alone is not proof -> HYPOTHESIS]
 	ret
 
 	ldh [hScratchA], a
@@ -57,7 +57,7 @@ Function_68_5D2F:: ; 68:5D2F
 	ld de, $DED4
 	call CompareString
 	or a, a
-	jr z, Label_68_5D7E
+	jr z, .l5D7E
 	xor a, a
 	ld [wRam_C279], a
 	ld a, [wSettingsFieldMask]
@@ -66,8 +66,7 @@ Function_68_5D2F:: ; 68:5D2F
 	xor a, $FF
 	and a, b
 	ld [wSettingsFieldMask], a
-
-Label_68_5D7E:: ; 68:5D7E
+.l5D7E ; 68:5D7E
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -85,10 +84,10 @@ Label_68_5D7E:: ; 68:5D7E
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $5D9C-$5E92 (246 bytes) [CONFIRMED] 86 insn(s); 86 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-
 Account_PasswordEntry_Setup:: ; 68:5D9C
 Function_68_5D9C::
+	; [CONFIRMED] 86 insn(s); 86 executed (in up to 7/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
@@ -104,9 +103,8 @@ Function_68_5D9C::
 	call Account_PasswordEntry_UpdateOkState
 	ld a, [wRam_C27D]
 	or a, a
-	jr nz, Label_68_5DCD
-
-Label_68_5DCD:: ; 68:5DCD
+	jr nz, .l5DCD
+.l5DCD ; 68:5DCD
 	ld de, $8801
 	ld hl, Data_5D_4000
 	ld a, $5D
@@ -172,10 +170,9 @@ Label_68_5DCD:: ; 68:5DCD
 	farcall TextEntry_UpdateCursorSprite
 	call Account_PasswordIsValid
 	or a, a
-	jr z, Label_68_5E85
+	jr z, .l5E85
 	ret
-
-Label_68_5E85:: ; 68:5E85
+.l5E85 ; 68:5E85
 	farcall Kbd_ShowMarkerSprite
 	farcall Function_00_0956
 	ret
@@ -186,34 +183,34 @@ Account_PasswordEntryMaps:: ; 68:5E92
 Table_68_5E92::
 	dw $5000, $50C8, $5190, $5258
 
-; ---- code $5E9A-$5EAE (20 bytes) [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA) was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no caller/table word -> HYPOTHESIS]
-
 Function_68_5E9A:: ; 68:5E9A
+	; [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld
+	; [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA)
+	; was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no
+	; caller/table word -> HYPOTHESIS]
 	ld a, [wSettingsFieldMask]
 	and a, $04
-	jr nz, Label_68_5EA7
+	jr nz, .l5EA7
 	ld a, $00
 	ld [wRam_C27E], a
 	ret
-
-Label_68_5EA7:: ; 68:5EA7
+.l5EA7 ; 68:5EA7
 	call Account_PasswordIsValid
 	ld [wRam_C27E], a
 	ret
 
-; ---- code $5EAE-$5EE9 (59 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
-
 Account_PasswordEntry_UpdateOkState:: ; 68:5EAE
 Function_68_5EAE::
+	; [CONFIRMED] 22 insn(s); 22 executed (in up to 7/18 scenarios); entry proven: target of an
+	; executed call/far call
 	ld hl, $DE80
 	farcall TextBuf_GetFree
 	or a, a
-	jr z, Label_68_5EC0
+	jr z, .l5EC0
 	ld a, $00
 	ld [wRam_C27E], a
 	ret
-
-Label_68_5EC0:: ; 68:5EC0
+.l5EC0 ; 68:5EC0
 	call Account_PasswordIsValid
 	ld [wRam_C27E], a
 	ret
@@ -224,26 +221,26 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld c, a
 	farcall Kbd_Run
 	cp a, $01
-	jr z, Label_68_5EEC
+	jr z, .l5EEC
 	cp a, $02
-	jr z, Label_68_5F36
+	jr z, .l5F36
 	cp a, $07
-	jp z, Label_68_5F68
+	jp z, .l5F68
 	cp a, $08
-	jp z, Label_68_5FA2
+	jp z, .l5FA2
 
-; ---- code $5EE9-$5EEC (3 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jpcc at 68:5EE6 (executed)
-	jp Label_68_5FDE
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jpcc at 68:5EE6 (executed)
+	jp .l5FDE
 
-; ---- code $5EEC-$6020 (308 bytes) [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
-
-Label_68_5EEC:: ; 68:5EEC
+.l5EEC ; 68:5EEC
+	; [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
 	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
 	or a, a
-	jr nz, Label_68_5F0E
+	jr nz, .l5F0E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -252,9 +249,8 @@ Label_68_5EEC:: ; 68:5EEC
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jr Label_68_5F1E
-
-Label_68_5F0E:: ; 68:5F0E
+	jr .l5F1E
+.l5F0E ; 68:5F0E
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -263,23 +259,20 @@ Label_68_5F0E:: ; 68:5F0E
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-
-Label_68_5F1E:: ; 68:5F1E
+.l5F1E ; 68:5F1E
 	call Account_PasswordIsValid
 	or a, a
-	jr z, Label_68_5F2D
+	jr z, .l5F2D
 	farcall Kbd_HideMarkerSprite
-	jp Label_68_5FC3
-
-Label_68_5F2D:: ; 68:5F2D
+	jp .l5FC3
+.l5F2D ; 68:5F2D
 	farcall Kbd_ShowMarkerSprite
-	jp Label_68_5FC3
-
-Label_68_5F36:: ; 68:5F36
+	jp .l5FC3
+.l5F36 ; 68:5F36
 	ld hl, $DE80
 	farcall TextBuf_DeleteLast
 	or a, a
-	jr nz, Label_68_5FA2
+	jr nz, .l5FA2
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -290,18 +283,16 @@ Label_68_5F36:: ; 68:5F36
 	ldh [rSVBK], a
 	call Account_PasswordIsValid
 	or a, a
-	jr z, Label_68_5F60
+	jr z, .l5F60
 	farcall Kbd_HideMarkerSprite
-	jr Label_68_5FC3
-
-Label_68_5F60:: ; 68:5F60
+	jr .l5FC3
+.l5F60 ; 68:5F60
 	farcall Kbd_ShowMarkerSprite
-	jr Label_68_5FC3
-
-Label_68_5F68:: ; 68:5F68
+	jr .l5FC3
+.l5F68 ; 68:5F68
 	call Account_PasswordIsValid
 	or a, a
-	jr nz, Label_68_5F80
+	jr nz, .l5F80
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -310,9 +301,8 @@ Label_68_5F68:: ; 68:5F68
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	jr Label_68_5FDE
-
-Label_68_5F80:: ; 68:5F80
+	jr .l5FDE
+.l5F80 ; 68:5F80
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -327,8 +317,7 @@ Label_68_5F80:: ; 68:5F80
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
-
-Label_68_5FA2:: ; 68:5FA2
+.l5FA2 ; 68:5FA2
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -343,8 +332,7 @@ Label_68_5FA2:: ; 68:5FA2
 	xor a, a
 	ld [wRam_C27C], a
 	ret
-
-Label_68_5FC3:: ; 68:5FC3
+.l5FC3 ; 68:5FC3
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
@@ -354,15 +342,14 @@ Label_68_5FC3:: ; 68:5FC3
 	call Account_Password_PrintField
 	call Account_Password_UploadTextTiles
 	call Account_PasswordEntry_UpdateOkState
-
-Label_68_5FDE:: ; 68:5FDE
+.l5FDE ; 68:5FDE
 	jp Account_PasswordEntry_InputLoop
 
 Account_PasswordIsValid:: ; 68:5FE1
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $04
-	jp c, Label_68_604E
+	jp c, .l604E
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -374,47 +361,44 @@ Account_PasswordIsValid:: ; 68:5FE1
 	ldh [hRam_FFB0], a
 	ldh [hRam_FFB1], a
 	ld hl, $DE83
-
-Label_68_6004:: ; 68:6004
+.loop ; 68:6004
 	ld a, [hli]
 	or a, a
-	jr z, Label_68_602E
+	jr z, .l602E
 	cp a, $30
-	jr c, Label_68_6004
+	jr c, .loop
 	cp a, $3A
-	jr c, Label_68_6022
+	jr c, .l6022
 	cp a, $41
-	jr c, Label_68_6004
+	jr c, .loop
 	cp a, $5B
-	jr c, Label_68_6028
+	jr c, .l6028
 	cp a, $61
-	jr c, Label_68_6004
+	jr c, .loop
 	cp a, $7B
-	jr c, Label_68_6028
+	jr c, .l6028
 
-; ---- code $6020-$6022 (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 68:601E (executed)
-	jr Label_68_6004
+	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0;
+	; fall-through of the jrcc at 68:601E (executed)
+	jr .loop
 
-; ---- code $6022-$61F7 (469 bytes) [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
-
-Label_68_6022:: ; 68:6022
+.l6022 ; 68:6022
+	; [CONFIRMED] 284 insn(s); 284 executed (in up to 7/18 scenarios) (part of region $6022-$6308)
 	ld a, $01
 	ldh [hRam_FFB0], a
-	jr Label_68_6004
-
-Label_68_6028:: ; 68:6028
+	jr .loop
+.l6028 ; 68:6028
 	ld a, $01
 	ldh [hRam_FFB1], a
-	jr Label_68_6004
-
-Label_68_602E:: ; 68:602E
+	jr .loop
+.l602E ; 68:602E
 	ld hl, $FFB0
 	ld a, [hli]
 	or a, a
-	jr z, Label_68_6045
+	jr z, .l6045
 	ld a, [hl]
 	or a, a
-	jr z, Label_68_6045
+	jr z, .l6045
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -422,15 +406,13 @@ Label_68_602E:: ; 68:602E
 	ldh a, [hScratchA]
 	ld a, $01
 	ret
-
-Label_68_6045:: ; 68:6045
+.l6045 ; 68:6045
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-
-Label_68_604E:: ; 68:604E
+.l604E ; 68:604E
 	xor a, a
 	ret
 
@@ -489,18 +471,16 @@ Account_Password_UploadTextTiles:: ; 68:60AB
 Account_PasswordIntroPage:: ; 68:60BB
 	call Account_PasswordIntro_Draw
 	farcall Palette_FadeInFromWhite
-
-Label_68_60C4:: ; 68:60C4
+.loop ; 68:60C4
 	call Function_00_044B
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
-	jr nz, Label_68_60D9
+	jr nz, .l60D9
 	bit 1, a
-	jr nz, Label_68_60ED
-	jr Label_68_60C4
-
-Label_68_60D9:: ; 68:60D9
+	jr nz, .l60ED
+	jr .loop
+.l60D9 ; 68:60D9
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -510,9 +490,8 @@ Label_68_60D9:: ; 68:60D9
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	jr Label_68_6100
-
-Label_68_60ED:: ; 68:60ED
+	jr .l6100
+.l60ED ; 68:60ED
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -522,9 +501,8 @@ Label_68_60ED:: ; 68:60ED
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	jr Label_68_6100
-
-Label_68_6100:: ; 68:6100
+	jr .l6100
+.l6100 ; 68:6100
 	push af
 	farcall Palette_FadeOutToWhite
 	pop af
