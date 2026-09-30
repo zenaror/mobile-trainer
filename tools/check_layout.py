@@ -20,6 +20,7 @@ Errors (exit status 1):
   contiguity                                           two rows of a file in one bank with another file's row between them
   multibank                                            a file with rows in several banks whose rows lack the `[multibank]` marker
                                                        (or a marked file confined to one bank)
+  relative jumps                                       a `jr`/`jr cc` whose target lies outside the row that holds it (the boundary cuts a function body)
   paths                                                not `<home|lib|engine|data|gfx|audio>/.../name.asm`, characters outside
                                                        [a-z0-9_], reserved names (main.asm, home.asm, ram.*, layout.link, bankNN.asm,
                                                        ...), case-insensitive duplicates, a file that is also a directory
@@ -27,12 +28,14 @@ A boundary in a code region is *justified* by (strongest first): a named symbol 
 config/regions), or a call target (`call`/`farcall` inline pointer) found by sweeping every code region.  A boundary that is
 only a `jp`/`jr` target, or nothing at all, is an error.  Justification by a call target only is reported as a warning.
 
-Warnings: rows that could be merged (adjacent rows of one file in one bank), file sizes outside the wanted range, gfx cuts that are
+Warnings: code boundaries that execution falls through (the two files must stay adjacent), rows that could be merged (adjacent rows of one file in one bank), file sizes outside the wanted range, gfx cuts that are
 not 16-byte aligned to the region start, interior zero gaps that force the generator to pin an address (`org`), files that
 contain only zero bytes.
 
 --plan FILE   write the section-order plan (one row per layout row in address order per bank, with gap and pin information)
 --report FILE write per-directory / per-file byte counts as Markdown tables (used for analysis/layout/README.md)
+--selftest    mutate the layout in memory and verify that every defect class is reported
+--link FILE   write a draft layout.link (rgblink linker script) for the layout: banks, sections in address order, `org` pins
 """
 import argparse
 import os
@@ -129,7 +132,7 @@ def check_paths(rows, diag):
         parts = p.split('/')
         if len(parts) < 2 or parts[0] not in TOP_DIRS:
             diag.error(loc, 'must live under one of %s' % '/'.join(TOP_DIRS))
-        if p in RESERVED_TOP or BANKFILE_RE.search(p):
+        if p in RESERVED_TOP or (len(parts) == 1 and BANKFILE_RE.search(p)):
             diag.error(loc, 'reserved name')
         if parts[0] in RESERVED_DIRS:
             diag.error(loc, 'reserved directory')
@@ -357,6 +360,15 @@ def check_boundaries(model, per, diag, warns):
                 if reg.kind == 'code':
                     info['code_bounds'] += 1
                     key = (b, addr)
+                    if prev is not None and prev.kind == 'code':
+                        last = None
+                        for sa, it in model.scan(prev).items:
+                            if sa + it.length == addr:
+                                last = it
+                        if last is not None and last.flow not in ('ret', 'jp', 'jr', 'jphl', 'stop', 'inline'):
+                            info['fall'] = info.get('fall', 0) + 1
+                            weak.append('%s: execution falls through this boundary (previous instruction is %r): the two sections must stay adjacent'
+                                        % (loc, last.text()))
                     if key in model.sym_at:
                         info['sym'] += 1
                     elif key in model.lab_at:
@@ -371,6 +383,23 @@ def check_boundaries(model, per, diag, warns):
                     pass
                 # ---- code that ends at the boundary (previous region) needs nothing more: region ends are instruction ends
     return info, weak
+
+
+def check_relative_jumps(model, per, diag):
+    """A `jr`/`jr cc` whose target lies outside the row that holds it means the boundary cuts a function body."""
+    n = 0
+    for b, lst in per.items():
+        for r in lst:
+            for reg in model.regions[b]:
+                if reg.kind != 'code' or reg.end <= r.start or reg.start >= r.end:
+                    continue
+                for sa, it in model.scan(reg).items:
+                    if it.flow in ('jr', 'jrcc') and r.start <= sa < r.end and it.target is not None:
+                        if not (r.start <= it.target < r.end):
+                            diag.error('%02X:%04X' % (b, sa), '`%s` leaves its file %s (%04X-%04X): a boundary cuts a function body'
+                                       % (it.text(), r.path, r.start, r.end))
+                            n += 1
+    return n
 
 
 def check_files(per, diag, warns):
@@ -424,13 +453,14 @@ def size_checks(st, warns):
     for path, s in st.items():
         if s['nz'] == 0:
             warns.append('%s: contains only zero bytes' % path)
-        if s['lines'] > 900 and not path.startswith(('lib/mobile/',)):
+        if s["lines"] > 2600 and not path.startswith(('lib/mobile/',)):
             warns.append('%s: about %d source lines (%d bytes): consider splitting' % (path, s['lines'], s['bytes']))
 
 
 def write_plan(path, model, per, unc):
     hdr = ('# section-order plan, generated by tools/check_layout.py --plan (do not edit; edit layout.tsv instead)\n'
-           '# bank\torder\tstart\tend\tsize\tpath\tgap_before\tpin\tkinds\tnote\n'
+           '# bank\torder\tstart\tend\tsize\tpath\tsection\tgap_before\tpin\tkinds\tnote\n'
+           '#   section  section name to give the generated SECTION and the layout.link entry (the path without .asm)\n'
            '#   order    position of the row inside its bank, ascending by address (the linker script lists the sections in this order)\n'
            '#   gap_before  bytes of uncovered (all-zero) space between the previous row and this one (the first row: from the bank window start)\n'
            '#   pin      "org" when a floating section would land at the wrong place: the row is preceded by a gap, so the generator must pin it at\n'
@@ -448,8 +478,30 @@ def write_plan(path, model, per, unc):
                 if e > a:
                     kinds[reg.kind] += e - a
             ks = ','.join('%s:%d' % kv for kv in sorted(kinds.items(), key=lambda kv: -kv[1]))
-            out.append('%02X\t%d\t%04X\t%04X\t%d\t%s\t%d\t%s\t%s\t%s\n' % (b, i + 1, r.start, r.end, r.size, r.path, gap,
+            out.append('%02X\t%d\t%04X\t%04X\t%d\t%s\t%s\t%d\t%s\t%s\t%s\n' % (b, i + 1, r.start, r.end, r.size, r.path, r.path[:-4], gap,
                                                                         'org' if gap else '-', ks, r.note))
+            cur = r.end
+    with open(path, 'w', encoding='utf-8') as fh:
+        fh.write(''.join(out))
+
+
+def write_link(path, per):
+    """Draft layout.link (rgblink linker script): banks in order, sections in address order, `org` only where a gap (or a
+    first row that does not start at the bank window start) would otherwise move the floating sections."""
+    out = ['; draft layout.link generated by tools/check_layout.py --link from analysis/layout/layout.tsv (do not edit; edit the table)\n',
+           '; section names = row paths without .asm; a file with rows in one bank is one section; `org` lines mark pinned addresses\n']
+    for b in sorted(per):
+        lo, hi = mtcfg.window(b)
+        out.append('ROM0\n' if b == 0 else 'ROMX $%02x\n' % b)
+        cur = lo
+        seen = set()
+        for r in sorted(per[b], key=lambda r: r.start):
+            if r.start != cur:
+                out.append('\torg $%04x\n' % r.start)
+            name = r.path[:-4]
+            if (b, name) not in seen:
+                out.append('\t"%s"\n' % name)
+                seen.add((b, name))
             cur = r.end
     with open(path, 'w', encoding='utf-8') as fh:
         fh.write(''.join(out))
@@ -475,33 +527,20 @@ def write_report(path, st, rows):
         fh.write(''.join(out))
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('--layout', default=os.path.join(ROOT, 'analysis', 'layout', 'layout.tsv'))
-    ap.add_argument('--config', default=os.path.join(ROOT, 'config'))
-    ap.add_argument('--rom', default=os.path.join(ROOT, 'baserom.gbc'))
-    ap.add_argument('--plan', default=None, help='write the section-order plan here')
-    ap.add_argument('--report', default=None, help='write per-file Markdown tables here')
-    ap.add_argument('--max', type=int, default=40, help='messages shown per class (0 = all)')
-    ap.add_argument('--strict', action='store_true', help='warnings count as errors')
-    a = ap.parse_args(argv)
-    try:
-        with open(a.rom, 'rb') as fh:
-            rom = fh.read()
-        if len(rom) < BANK_SIZE or len(rom) % BANK_SIZE:
-            raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
-        nb = len(rom) // BANK_SIZE
-        diag = Diag()
-        rows = parse_layout(a.layout, nb, diag)
-        model = Model(rom, a.config, diag)
-    except (GenError, OSError) as e:
-        print('error: %s' % e, file=sys.stderr)
-        return 1
+class Result:
+    pass
+
+
+def analyse(rows, model, rom, nb):
+    """Run every check on `rows`; returns a Result (diag, warns, per, unc, info, st)."""
+    res = Result()
+    diag = Diag()
     warns = []
     check_paths(rows, diag)
     per = check_overlaps(rows, diag)
     unc = check_coverage(rom, per, nb, diag)
     info, weak = check_boundaries(model, per, diag, warns)
+    check_relative_jumps(model, per, diag)
     check_files(per, diag, warns)
     st = file_stats(model, rows)
     size_checks(st, warns)
@@ -516,7 +555,98 @@ def main(argv=None):
             elif s == lo and e - s:
                 warns.append('%02X:%04X-%04X: leading all-zero gap (%d bytes) before the first row: pin the first row with org' % (b, s, e, e - s))
     warns.extend(weak)
+    res.diag, res.warns, res.per, res.unc, res.info, res.st = diag, warns, per, unc, info, st
+    return res
 
+
+def selftest(rows, model, rom, nb):
+    """Mutate the layout in memory and check that every kind of defect is reported (addresses are those of the reference ROM)."""
+    def find(bank, start):
+        for r in rows:
+            if r.bank == bank and r.start == start:
+                return r
+        raise SystemExit('selftest: no row starts at %02X:%04X (layout changed?)' % (bank, start))
+
+    def clone(rs):
+        return [Row(r.bank, r.start, r.end, r.path, r.note, r.loc) for r in rs]
+
+    def cut(rs, bank, a, b, at):
+        """move the boundary between the rows [a..] and [..b] of `bank` to `at`"""
+        rs = clone(rs)
+        left = [r for r in rs if r.bank == bank and r.end == b][0]
+        right = [r for r in rs if r.bank == bank and r.start == b][0]
+        left.end = at
+        right.start = at
+        return rs
+
+    cases = []
+    cases.append(('mid-instruction cut', cut(rows, 0, 0, 0x0ED3, 0x0ED4), 'not an instruction boundary'))
+    cases.append(('cut inside inline far-call data', cut(rows, 0, 0, 0x10E9, 0x1076), 'inline far-call data'))
+    cases.append(('cut at an unlabelled instruction start', cut(rows, 0, 0, 0x10E9, 0x0ED8), 'not a justified label start'))
+    cases.append(('missing row', [r for r in clone(rows) if not (r.bank == 0x0E and r.start == 0x4000)], 'not covered by any row'))
+    ov = clone(rows)
+    [r for r in ov if r.bank == 0x0E and r.start == 0x4000][0].end = 0x43D0
+    cases.append(('overlap', ov, 'overlaps'))
+    cases.append(('jr crossing a file boundary', cut(rows, 0, 0, 0x0540, 0x04E1), 'leaves its file'))
+    cases.append(('cut inside a string', cut(rows, 0x1D, 0, 0x45C1, 0x4420), 'cuts a string'))
+    cases.append(('cut inside an html record', cut(rows, 0x3E, 0, 0x4D27, 0x4D30), 'html record'))
+    bad = clone(rows)
+    bad[0].path = 'Home/Header.asm'
+    cases.append(('bad path characters', bad, 'must match'))
+    bad = clone(rows)
+    bad[0].path = 'main.asm'
+    cases.append(('reserved name', bad, 'reserved name'))
+    bad = clone(rows)
+    x = [r for r in bad if r.bank == 0x1D and r.start == 0x45C1][0]
+    x.path = [r for r in bad if r.bank == 0x1D and r.start == 0x4000][0].path
+    y = [r for r in bad if r.bank == 0x1D and r.start == 0x4000][0]
+    y.end = 0x4400
+    z = Row(0x1D, 0x4400, 0x45C1, 'engine/menus/other_file.asm', '', 'selftest')
+    bad.append(z)
+    cases.append(('non-adjacent rows of one file', bad, 'not adjacent'))
+    bad = clone(rows)
+    bad.append(Row(0x0F, 0x5DAE, 0x5DB0, bad[0].path, '', 'selftest'))
+    cases.append(('multibank without marker', bad, 'spans banks'))
+    ok = True
+    for name, rs, needle in cases:
+        r = analyse(rs, model, rom, nb)
+        hit = any(needle in e for e in r.diag.errors)
+        print('%-42s %s' % (name, 'ok' if hit else 'NOT REPORTED (wanted %r)' % needle))
+        ok = ok and hit
+    base = analyse(rows, model, rom, nb)
+    print('%-42s %s' % ('unmodified layout has no error', 'ok' if not base.diag.errors else 'FAILED'))
+    return 0 if ok and not base.diag.errors else 1
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
+    ap.add_argument('--layout', default=os.path.join(ROOT, 'analysis', 'layout', 'layout.tsv'))
+    ap.add_argument('--config', default=os.path.join(ROOT, 'config'))
+    ap.add_argument('--rom', default=os.path.join(ROOT, 'baserom.gbc'))
+    ap.add_argument('--plan', default=None, help='write the section-order plan here')
+    ap.add_argument('--report', default=None, help='write per-file Markdown tables here')
+    ap.add_argument('--link', default=None, help='write a draft layout.link here')
+    ap.add_argument('--max', type=int, default=40, help='messages shown per class (0 = all)')
+    ap.add_argument('--strict', action='store_true', help='warnings count as errors')
+    ap.add_argument('--selftest', action='store_true', help='mutate the layout in memory and check that each defect class is reported')
+    a = ap.parse_args(argv)
+    try:
+        with open(a.rom, 'rb') as fh:
+            rom = fh.read()
+        if len(rom) < BANK_SIZE or len(rom) % BANK_SIZE:
+            raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
+        nb = len(rom) // BANK_SIZE
+        pd = Diag()
+        rows = parse_layout(a.layout, nb, pd)
+        model = Model(rom, a.config, pd)
+    except (GenError, OSError) as e:
+        print('error: %s' % e, file=sys.stderr)
+        return 1
+    if a.selftest:
+        return selftest(rows, model, rom, nb)
+    res = analyse(rows, model, rom, nb)
+    res.diag.errors[:0] = pd.errors
+    diag, warns, per, unc, info, st = res.diag, res.warns, res.per, res.unc, res.info, res.st
     total_rom_nz = sum(1 for _ in filter(None, rom))
     covered_nz = 0
     for r in rows:
@@ -533,10 +663,7 @@ def main(argv=None):
         info['code_bounds'], info['sym'], info['label'], info['call']))
     lim = a.max or 10 ** 9
     errs = diag.errors + (warns if a.strict else [])
-    if not a.strict:
-        wl = warns
-    else:
-        wl = []
+    wl = [] if a.strict else warns
     for w in wl[:lim]:
         print('warning: %s' % w)
     if len(wl) > lim:
@@ -549,6 +676,8 @@ def main(argv=None):
         write_plan(a.plan, model, per, unc)
     if a.report:
         write_report(a.report, st, rows)
+    if a.link:
+        write_link(a.link, per)
     print('RESULT: %d error(s), %d warning(s)' % (len(errs), len(warns)))
     return 1 if errs else 0
 

@@ -1,0 +1,337 @@
+# analysis/layout/layout.tsv -- source-tree layout for the tree-mode generator (see analysis/layout/README.md)
+# TAB separated: bank	start	end	path	note
+#   bank: 2 hex digits; start/end: hex CPU addresses, end exclusive; path: relative to src/ (lowercase, .asm)
+#   Every non-zero ROM byte is covered by exactly one row; all-zero ranges may stay uncovered (checked by tools/check_layout.py).
+#   Rows of one file inside one bank are adjacent; rows are listed in address order per bank = section order in that bank.
+00	0000	0150	home/header.asm	rst slots, interrupt vectors (jp to RAM stubs), entry jump, cartridge header; pinned at org $0000
+00	0150	0278	home/mobile.asm	MobileAPI/ReturnMobileAPI shims, Int_Serial, Int_Timer (jump into bank 75), 0247 wrapper into bank 0F
+00	0278	0392	home/init.asm	Boot, white boot palette upload and its data
+00	0392	04D8	home/vblank.asm	frame service, Int_VBlank, VBlank waits, RAM interrupt stub installer
+00	04D8	0540	home/copy.asm	FillBytes/FillWords/CopyBytes/CopyBytesBackward
+00	0540	059F	home/jump_table.asm	JumpTableBank/JumpTableInline/FarJumpTable, JoypadDispatch
+00	059F	0602	home/lcd.asm	OAM DMA routine copy + image, LCDOn, LCDOff
+00	0602	0622	home/double_speed.asm	SwitchCPUSpeed
+00	0622	06B7	home/bank_switch.asm	BankSwitch_H/D/B, GetBank_H, HRAM bank state and far-call trampoline init
+00	06B7	0749	home/farcall.asm	FarCall family (06BC/06D1/06E5), FarJump family
+00	0749	0956	home/gfx_upload.asm	HDMA start, screen-buffer upload to VRAM, tilemap rectangle copies, buffer clear
+00	0956	0BD4	home/sprites.asm	14-slot sprite-object engine, shadow OAM helpers, 0BBD map-offset to pixel helper
+00	0BD4	0C0E	home/multiply.asm	Multiply8x16 and helpers
+00	0C0E	0D34	home/random.asm	Random16, Random, xor table
+00	0D34	0DB9	home/multiply_divide.asm	32-bit multiply/divide (and the odd 0D34 routine)
+00	0DB9	0E93	home/glyph_data.asm	glyph-data copy/unpack helpers used by the bank 7F glyph pipeline
+00	0E93	0ED3	home/stat_handler.asm	alternative STAT interrupt handler (scroll split)
+00	0ED3	10E9	home/text.asm	text byte-stream interpreter, control-code handlers, character output, glyph drawing
+00	10E9	131A	home/keyword_scan.asm	keyword lookup and token/attribute scanner
+00	131A	1408	home/html_store.asm	lookups in the bank 3F index of the built-in HTML store
+00	1408	14BF	home/text_measure.asm	text width/fit measurement
+00	14BF	153D	home/string.asm	CopyString, CompareString, StringLength, XOR-$A5 coders
+00	153D	1620	home/far_string.asm	far string getters (bank 65 prompt table, bank 68 default strings, SRAM strings)
+00	1620	16A2	home/far_read.asm	ReadByteFar and far copy
+00	16A2	16C4	home/tilemap_copy.asm	tilemap rectangle pair copy variant (second source from C10E)
+00	16C4	1711	home/interrupt_handlers.asm	alternative STAT/VBlank handlers installed into the RAM stubs by other banks
+00	1711	1770	home/far_helpers.asm	bank-4F wrapper and far-to-far copy
+00	20A0	2183	home/audio.asm	bank 04 gateway: 13 stubs, re-entrancy guard, bank save/restore, far byte readers; pinned at org $20A0
+04	4000	5044	audio/engine.asm	sound driver code and its command/parameter jump tables
+04	5044	51DD	audio/notes.asm	Table_SoundDrv_Durations and Table_SoundDrv_NoteFreq
+04	51DD	547D	audio/instruments.asm	Table_SoundDrv_Instruments
+04	547D	551D	audio/wave_samples.asm	Table_SoundDrv_WavePatterns
+04	551D	574D	audio/music_pointers.asm	Table_SoundDrv_Songs (70 headers: stream word, bank word, priority, flags, track count)
+04	574D	58C6	audio/music/music_01.asm	song id 01 (ids 1E-28 reuse its header)
+04	58C6	5CD9	audio/music/music_02.asm	song id 02
+04	5CD9	5F0E	audio/music/music_03.asm	song id 03
+04	5F0E	6102	audio/music/music_04.asm	song id 04
+04	6102	683C	audio/music/music_05.asm	song id 05
+04	683C	6B54	audio/music/music_06.asm	song id 06
+04	6B54	7093	audio/music/music_07.asm	song id 07
+04	7093	745F	audio/music/music_08.asm	song id 08
+04	745F	77E9	audio/music/music_09.asm	song id 09
+04	77E9	79A4	audio/music/music_0a.asm	song id 0A
+04	79A4	7BF3	audio/music/music_0b.asm	song id 0B
+04	7BF3	7DBC	audio/music/music_0c.asm	song id 0C
+04	7DBC	7E8C	audio/music/music_0d.asm	song id 0D
+05	4000	4232	audio/music/music_0e.asm	song id 0E
+05	4232	455A	audio/music/music_0f.asm	song id 0F
+05	455A	4700	audio/music/music_10.asm	song id 10
+05	4700	4A2F	audio/music/music_11.asm	song id 11
+05	4A2F	4CA1	audio/music/music_12.asm	song id 12
+05	4CA1	4D80	audio/music/music_13.asm	song id 13
+05	4D80	50BC	audio/music/music_14.asm	song id 14
+05	50BC	5174	audio/music/music_15.asm	song id 15
+05	5174	54E3	audio/music/music_16.asm	song id 16
+05	54E3	5AF6	audio/music/music_17.asm	song id 17
+05	5AF6	5B06	audio/music/music_18.asm	song id 18 (one track)
+05	5B06	5DCF	audio/music/music_19.asm	song id 19
+05	5DCF	60E9	audio/music/music_1a.asm	song id 1A
+05	60E9	60F9	audio/music/music_1b.asm	song id 1B (one track)
+05	60F9	62D0	audio/music/music_1c.asm	song id 1C
+05	62D0	631A	audio/music/music_1d.asm	song id 1D
+05	631A	68C3	audio/sfx.asm	sound effects, ids 29-46 (30 headers end-to-end)
+0E	4000	43C0	engine/title/title_screen.asm	Title_Run state machine, title menu, logo loader
+0E	43C0	60A0	gfx/title/title_screen.asm	title tiles, tilemap, highlight maps, palettes, objects
+0E	60A0	6BB0	gfx/title/logo.asm	'Mobile System GB' logo tiles, tilemap, palette
+0F	4000	5DAE	lib/mobile/mail.asm	SDK mail library (= Crystal bank 45 lib/mobile/mail.asm) with its header strings and selector tables
+19	4000	4980	engine/debug/debug_flags.asm	DEBUG MODE flag editor (unreferenced screen) and the palette shared with the other debug screens
+19	4980	4D99	engine/debug/error_screen_test.asm	error-screen tester (unreferenced screen)
+1A	4000	47B5	engine/help/mobile_dictionary.asm	mobile dictionary index screen with category string tables
+1A	47B5	55DA	gfx/help/mobile_dictionary.asm	dictionary screen tilemap, tiles, palettes, objects
+1B	4000	446B	engine/debug/sound_test.asm	sound test screen (unreferenced) with its own palette
+1C	4000	4033	engine/main/main_program.asm	Main_Run and the title-choice jump table
+1D	4000	45C1	engine/menus/mail_menu.asm	mail menu (6 plates) code, ticker table, item strings
+1D	45C1	63BA	gfx/mail_menu/mail_menu.asm	mail menu tilemaps, attribute maps, tiles, palettes, object records
+1E	4000	40D7	data/text/top_menu_ticker.asm	ticker table and strings of the top menu (read through the bank 48 ticker)
+1E	40D7	658B	gfx/top_menu/top_menu.asm	top menu tilemaps, tiles, palettes, object tables (loaded by bank 1F)
+1F	4000	4667	engine/menus/top_menu.asm	top menu (3 icons), cursor fly animation
+22	4000	4EF0	engine/mail_server/delete_hidden.asm	hidden variant of the mail-server delete menu (3 buttons) with its description strings and delete flows
+22	4EF0	5110	engine/sram/integrity_check.asm	SramCheck_*: SRAM bank 0 mirrored-page checksum and bank 1 block checksum library
+22	5110	5980	gfx/mail_server/delete_menu_hidden.asm	tilemaps of the three delete buttons (hidden variant)
+22	5980	5CD0	gfx/mail/comm_progress_scene.asm	tilemap and two palettes of the communication-progress scene (loaded by bank 26)
+22	5CD0	66D0	gfx/address_book/list_tiles_bank22.asm	address-book tiles loaded by bank 2F (AbookList/AbookAddr setup)
+23	4000	4A06	engine/mail_server/delete_menu.asm	mail-server delete menu (2 buttons): run/select/init, descriptions, confirm dialog, text tiles
+23	4A06	55C3	engine/mail_server/delete_flows.asm	delete-all / check-and-delete transactions (login, TOP/DELE loops), cancel path
+23	55C3	58C4	engine/mail_server/delete_progress.asm	transaction progress screen: init, progress text, number formatting
+23	58C4	6D61	engine/mail_server/delete_sprite_counters.asm	dead 5-digit sprite counter routines (entries replaced by ret; stubs still called)
+23	6D61	6FD7	engine/mail_server/delete_messages.asm	result messages, message tile upload, elapsed-time drawing
+23	6FD7	7F30	gfx/mail_server/delete_progress.asm	progress screen tiles, tilemap, palettes, sprite counter digit and object tables
+24	4000	5400	engine/browser/page_list.asm	page list (6 saved pages): main loop, draw, action menu, save/go/delete
+24	5400	6BF0	gfx/browser/page_list.asm	page list tiles, tilemaps, palettes, object tables
+24	6BF0	7D48	gfx/mail/comm_result.asm	tiles/tilemap/palettes/objects of the communication result and server status screens (loaded by bank 29)
+25	4000	4B0D	engine/mail/mailbox.asm	mailbox list (12 records): main loop, icon menu, cursor movement, record scanning
+25	4B0D	5A10	engine/mail/mailbox_screen.asm	mailbox screen load, row/timestamp/text drawing, hints, reply, icon bar attributes
+25	5A10	6F30	gfx/mailbox/mailbox.asm	mailbox tiles, tilemaps, palettes
+25	6F30	7FA0	gfx/mail/server_status.asm	mail-server status screen tiles and tilemaps (loaded by bank 29)
+26	4000	5067	engine/mail/mail_session.asm	mail transfer session runner and time-warning checks
+26	5067	59D8	engine/mail/mail_session_screen.asm	transfer screen: comm error display, screen init, mail counters, messages, timer display
+26	59D8	7420	gfx/mail/session_scenery.asm	transfer screen tiles and palette
+26	7420	7AB0	gfx/mail/server_status_bank26.asm	server status screen tiles stored in bank 26 (loaded by bank 29)
+26	7AB0	7D41	gfx/mailbox/objects.asm	palettes and object tables (cursor, arrows, digits, envelopes) of the mailbox
+27	4000	5060	engine/mail/send_receive.asm	mail send/receive orchestration, connect and disconnect screens, comm-time screen
+27	5060	7CE4	gfx/mail/connect_screen.asm	connect/disconnect screen tiles, panorama tilemap, palettes, window message strips, object table
+28	4000	42C0	engine/mail/body_view.asm	mail text view screen (letter paper, 8 lines)
+28	42C0	4BD0	gfx/mail/body_view.asm	body view tiles, tilemap, palettes, object table
+28	4BD0	54B0	gfx/address_book/shared_tiles_bank28.asm	address-book tiles/palette/tables stored in bank 28 (loaded by banks 2A, 2C, 2F)
+28	54B0	5F20	gfx/mail_server/delete_all_screen.asm	delete-all screen tiles, tilemap, palettes (loaded by banks 22/23)
+28	5F20	6F20	gfx/mail_server/delete_method_screen.asm	delete-method screen tiles, two tilemaps, palettes, object tables (loaded by banks 22/23)
+28	6F20	7A5D	gfx/mail/session_objects.asm	object tables/records for the transfer and connect screens (banks 26/27)
+29	4000	5090	engine/mail/result_screens.asm	communication result and server status screens: strings, number formatters, 3 status tiles (5060, loaded by 29:4686)
+29	5090	5376	engine/gfx/unreferenced_palette_library.asm	self-contained routine library with no caller (palette/OAM/PRNG idioms)
+29	5376	5B10	gfx/mail/connect_screen_bank29.asm	palettes, tiles, tilemap loaded by bank 27 (5400/5800/5AD0)
+29	5B10	6290	gfx/address_book/entry_screen_bank29.asm	tiles and palette loaded by bank 2F (5B10/5E10/5E50/6250)
+29	6290	64F4	gfx/mail/compose_objects.asm	animation entry tables, OAM frames and scripts (bank 2D reads 6350)
+2A	4000	4AA0	engine/address_book/save_sender_address.asm	save-the-sender-address screen (pick a slot for a received mail's sender)
+2A	4AA0	5495	gfx/address_book/save_sender_address.asm	tiles, tilemap, palette, animation blocks of that screen
+2A	5495	6300	engine/profile/profile_editor.asm	profile (nickname) editor with the kana keyboard
+2A	6300	6F95	gfx/profile/profile_editor.asm	profile editor tiles, tilemap, palette, animation table
+2A	6F95	75A0	engine/address_book/save_confirm.asm	address-book 'save entry?' confirmation screen
+2A	75A0	7CF0	gfx/address_book/save_confirm.asm	confirmation screen palette, tiles, tilemap
+2A	7CF0	7E80	gfx/address_book/entry_screen_bank2a.asm	address-book entry screen tiles stored in bank 2A
+2B	4000	4880	engine/mail/draft_menu.asm	menu of the saved draft (view/edit/delete) with caption strings
+2B	4880	53C3	gfx/mail/draft_menu.asm	draft menu tiles, tilemap, palettes, animation tables
+2B	53C3	59C0	engine/mail/received_mail_grid.asm	12-cell received-mail grid screen (unused)
+2B	59C0	6482	gfx/mail/received_mail_grid.asm	grid screen tiles, tilemap, palettes, animation tables
+2B	6482	6DD0	engine/mail/mail_viewer_sender.asm	received mail viewer, page 1 (sender/title/address/date)
+2B	6DD0	7B02	gfx/mail/mail_viewer.asm	viewer tiles, tilemap, palettes, animation tables
+2B	7B02	7F44	engine/mail/mail_viewer_body.asm	received mail viewer, page 2 (body text)
+2C	4000	4A30	engine/mail/mail_title_entry.asm	mail title (subject) entry with the kana keyboard
+2C	4A30	56F2	gfx/mail/mail_title_entry.asm	title entry tiles, tilemap, palettes
+2C	56F2	6730	engine/address_book/address_picker.asm	address picker (choose one of six slots while writing a mail), shared slot-name helpers
+2C	6730	741C	gfx/address_book/address_picker.asm	picker tiles, tilemap, palettes, slot icon animation tables
+2C	741C	7740	engine/address_book/unreferenced_confirm_screen.asm	address confirmation screen with no caller (hypothesis)
+2C	7740	7FD0	gfx/address_book/unreferenced_confirm_screen.asm	tiles, tilemap, palettes of that screen and the entry screen art stored in 2C
+2D	4000	4195	engine/mail/compose.asm	MailCompose_Run, draft save/load/clear, mail record delete, record address table
+2D	4195	4686	engine/mail/sample_data.asm	sample mail / address-book installers with the sample strings
+2D	4686	4722	engine/mail/staging.asm	SRAM page clear, mail staging clear, free record slot lookup
+2D	4722	5AC0	engine/mail/body_editor.asm	mail body editor with kana keyboard, text-tile buffer helpers
+2D	5AC0	65B0	gfx/mail/body_editor.asm	body editor tiles, tilemap, palettes
+2D	65B0	7120	engine/mail/address_editor.asm	mail address editor, joypad repeat reset
+2D	7120	7E60	gfx/mail/address_editor.asm	address editor tiles, tilemap, palette
+2D	7E60	7ECD	engine/sram/clear_all_banks.asm	Sram_ClearAllBanks
+2E	4000	4B2E	engine/mail_server/tidy.asm	mail-server tidy-up: run loop (fetch each mail, delete/next/stop)
+2E	4B2E	56E0	engine/mail_server/tidy_screen.asm	tidy-up screen: setup, mail info/field/date/number drawing, messages, timer
+2E	56E0	7961	gfx/mail_server/tidy_screen.asm	tidy-up screen tiles, tilemaps, palettes, object tables
+2F	4000	4D40	engine/address_book/list.asm	address book list screen, slot helpers, help strings
+2F	4D40	5098	gfx/address_book/list.asm	list tilemap and cursor animation table
+2F	5098	57F2	engine/address_book/view.asm	address book entry view screen, store entry to SRAM
+2F	57F2	61F0	engine/address_book/name_editor.asm	address book name editor with kana keyboard
+2F	61F0	6D00	gfx/address_book/name_editor.asm	name editor tiles and tilemap
+2F	6D00	77D0	engine/address_book/address_editor.asm	address book address editor
+2F	77D0	7EBF	gfx/address_book/address_editor.asm	address editor tilemap, palette, tables
+2F	7EBF	7FAC	engine/address_book/address_book.asm	Abook_Run entry and slot loader, slot address table
+3D	4000	48D1	data/html/pages_saport_to_tu_error.asm	HTML store records saport.htm .. tu_error.htm
+3D	48D1	518D	data/html/pages_cdmaone_to_www.asm	HTML store records cdmaone.htm .. www.htm (contains website.htm and www.htm twice)
+3E	4000	4D27	data/html/pages_a_mark_to_download.asm	HTML store records a_mark.htm .. download.htm
+3E	4D27	5B9F	data/html/pages_email_to_m_home.asm	HTML store records email.htm .. m_home.htm
+3E	5B9F	6C4F	data/html/pages_m_sys_to_offline.asm	HTML store records m_sys.htm .. offline.htm
+3E	6C4F	75D0	data/html/pages_online_to_receive.asm	HTML store records online.htm .. receive.htm
+3F	4000	410C	data/html/index.asm	far-pointer index of the 55 records, 'file://di/' prefix, topic lists (read by home/html_store.asm)
+41	4000	7540	gfx/bank41.asm	four screen packages (160 tiles + 20x18 tilemap/attr map + palettes); no loader found
+42	4000	7540	gfx/bank42.asm	four screen packages; no loader found
+43	4000	7540	gfx/bank43.asm	four screen packages; no loader found
+44	4000	7540	gfx/bank44.asm	four screen packages; no loader found
+45	4000	7540	gfx/bank45.asm	four screen packages; no loader found
+46	4000	7540	gfx/bank46.asm	four screen packages; no loader found
+47	4000	5BA0	gfx/browser/frames_0_1.asm	browser frame packages 0 and 1 (+ scroll bar tiles at 4000-40FF), referenced by the frame descriptors of bank 4E
+47	5BA0	7640	gfx/browser/frames_2_3.asm	browser frame packages 2 and 3 (package 3 is not referenced by any descriptor)
+48	4000	4223	engine/text/text_tiles.asm	Divide8, TextTiles_RenderLine/RenderGrid (8x16 text to tile buffers)
+48	4223	44E0	engine/menus/ticker.asm	scrolling description ticker (Ticker_*)
+48	44E0	4616	engine/gfx/palette_fade_masked.asm	masked palette fades (only used by bank 6C)
+48	4616	4679	engine/sram/write_byte_far.asm	WriteByteFar (SRAM write that refreshes checksum 3)
+48	4679	46C6	engine/gfx/tilemap_fill.asm	Tilemap_FillRectSequential
+48	46C6	4728	engine/gfx/palette_fade_ticker.asm	Palette_FadeOutWithTicker
+48	4728	4899	engine/text/font_8x16.asm	Bcd_FromBinary8, Font_BlitGlyph8x16, Font_GlyphRunTable
+48	4899	498C	engine/sram/checksum3.asm	SRAM checksum 3 (verify/compute/reset/update) and the patched-out 48BB hook
+48	498C	4AAB	engine/tutorial/gates.asm	first-use tutorial gates (top menu, mail menu, homepage) and a copy of 00:091C
+48	4AAB	4ADB	engine/sram/menu_cursor_memory.asm	Sram_ClearMenuCursorMemory
+48	4ADB	5DCB	data/fonts/font_8x16.asm	303 glyphs of the 8x16 1bpp font (27 runs)
+4A	4000	5F80	gfx/account/screens_bank4a.asm	account/registration screen art (loaded by bank 68)
+4A	5F80	7378	gfx/settings/screens_bank4a.asm	settings screen art (loaded by bank 67)
+4B	4000	42D0	gfx/registration/screen_bank4b.asm	tilemap loaded by bank 65
+4B	42D0	5B90	gfx/account/screens_bank4b.asm	tiles/tilemap loaded by bank 68
+4B	5B90	7FE0	gfx/settings/screens_bank4b.asm	tiles/tilemaps loaded by bank 67 (5B90-6A90 assigned by adjacency)
+4C	4000	46B8	engine/browser/page_loader.asm	Browser_LoadPage: URL -> connect -> HTTP GET -> scan/layout
+4C	46B8	4840	engine/browser/comm_disconnect.asm	comm progress scene init/step and the disconnect sequences
+4C	4840	4B54	engine/browser/inline_images.asm	Browser_FetchInlineImages
+4C	4B54	4DB2	engine/browser/history_cache.asm	back-stack, page cache, long SRAM block copy
+4C	4DB2	4F56	engine/browser/page_results.asm	error-to-result mapping and the image-in-HTML wrapper with its template strings
+4C	4F56	52DF	engine/help/mobile_dictionary_view.asm	mobile dictionary page viewer (MobileDictView_*)
+4D	4000	7983	gfx/settings/screens_bank4d.asm	tiles, tilemaps, object tables loaded by bank 67
+4E	4000	4658	engine/browser/frame_style_chooser.asm	frame-style chooser with no caller, wipe list, cursor copier
+4E	4658	488D	engine/sram/save_block_check.asm	boot counters, Browser_BeginSession, SaveCheck_* (SRAM bank 1 block checksum), error counter
+4E	488D	49A1	engine/browser/session_start.asm	home page / staged URL / SRAM URL session starters
+4E	49A1	5204	engine/browser/page_view.asm	page view: enter, input loop, follow link, back, menu
+4E	5204	5B69	engine/browser/page_render.asm	title bar, page rendering, link selection, element drawing
+4E	5B69	5FB9	engine/browser/scrollbar.asm	canvas shifting, scroll bar, scroll indicators, arrows
+4E	5FB9	60A6	engine/browser/status_sprites.asm	communication timer, OAM numbers, connection icon sprite
+4E	60A6	6196	engine/browser/canvas.asm	title/body canvas upload and clear
+4E	6196	661C	engine/browser/frame_graphics.asm	frame graphics loader and the 27 frame descriptors
+4F	4000	4572	engine/gfx/palette.asm	palette staging buffer, hardware upload/dump, timed fades to/from white
+4F	4572	4668	engine/gfx/tile_canvas.asm	tile canvas upload/fill, tilemap ascending fill
+4F	4668	4717	engine/browser/entry.asm	Browser_Entry (home page / page list start)
+4F	4717	47FD	engine/startup/boot_stage2.asm	Boot_ClearAndInit, Boot_ReinitRuntime
+50	4000	439A	engine/comm/notice_dialog.asm	connection-time notice dialog (continue? yes/no or alert)
+50	439A	6D1E	gfx/comm/notice_dialog.asm	eight notice screen tilemaps, tiles, palettes, cursor animations
+51	4000	42A0	engine/comm/time_summary.asm	connection-time summary screen and comm timer helpers
+51	42A0	70E0	gfx/comm/time_summary.asm	summary screen tilemaps, tiles, palettes
+51	70E0	7900	engine/browser/inline_image_blit.asm	1-bit BMP validator/converter and tile-canvas blitters for inline images
+52	4000	4C00	gfx/bank52.asm	184 text-image tiles (only reference: bank 7F unreferenced prototype)
+53	4000	4171	data/text/pokemon_names_bank53.asm	25 katakana names (pointer table + strings); no reader found
+54	4000	4288	engine/mobile/connection.asm	Mobile session start/poll pairs: connect, disconnect, cancel, result fetch, guest login string
+54	4288	44FE	engine/mobile/http.asm	HTTP GET/POST start and poll, URL path/location helpers, stop and command-timeout checks
+54	44FE	485C	engine/mobile/smtp.asm	SMTP HELO/QUIT/MAIL FROM/DATA start and poll, mail header builder
+54	485C	4C47	engine/mobile/pop3_top.asm	POP3 login/STAT/TOP start and poll with the mail status strings
+54	4C47	4CB0	engine/mobile/text_truncate.asm	Text_TruncateSjis
+54	4CB0	5168	engine/mobile/pop3_retr.asm	POP3 RETR start and poll
+54	5168	5386	engine/mobile/mail_date.asm	mail date parsing with month/day tables
+54	5386	53E9	engine/mobile/pop3_dele.asm	POP3 DELE start and poll
+55	4000	5BA2	data/keyboard/pages.asm	keyboard start/ok cells, page pointers, page layouts, neighbour records
+55	5BA2	6CC6	engine/keyboard/keyboard.asm	on-screen keyboard: open, run, cursor, slide in/out, type picker, page graphics, glyph preview
+55	6CC6	6E94	engine/text/half_to_full_width.asm	Text_HalfToFullWidth and its 224-entry table
+55	6E94	7082	engine/keyboard/type_helpers.asm	keyboard type predicates, marker sprite, input mode load/save
+56	4000	418A	data/text/connect_dialog.asm	six strings of the connect dialog
+56	418A	79D0	gfx/comm/connect_dialog_bank56.asm	connect dialog tilemaps, tiles, palettes, object table (loaded by bank 57)
+57	4000	47A6	engine/comm/connect_dialog.asm	modal connect dialog: run, per-frame handler, mode enter/leave
+57	47A6	5641	engine/comm/connect_dialog_screen.asm	connect dialog screen drawing, password field, caret sprites, saved password store
+58	4000	7EA0	gfx/registration/screens_bank58.asm	registration screens art (loaded by bank 65)
+5B	4000	56E0	gfx/bank5b.asm	360 tiles of art and 12 palettes; no loader found
+5C	4000	5150	data/text/comm_error_messages.asm	error message strings, boot error strings, record table, triple lists, pointer tables
+5C	5150	5516	engine/error/comm_error_screen.asm	communication error screen
+5C	5516	642F	gfx/error/comm_error_screen.asm	error screen tilemaps, tiles, palettes, object tables
+5D	4000	4800	gfx/keyboard/panels_bank5d.asm	keyboard panel tiles loaded by bank 55
+5D	4800	7360	gfx/account/screens_bank5d.asm	account screens art loaded by bank 68
+5D	7360	7E70	gfx/settings/screens_bank5d.asm	settings screens art loaded by bank 67
+5E	4000	4800	gfx/settings/screens_bank5e.asm	settings screens art loaded by bank 67
+5E	4800	78A0	gfx/account/screens_bank5e.asm	account screens art loaded by bank 68 (includes 32 bytes read by bank 55)
+5F	4000	6BD0	gfx/keyboard/panels_bank5f.asm	keyboard panels, tilemaps, object tables loaded by bank 55
+60	4000	7AE8	gfx/bank60.asm	UI frames, glyph and sprite tiles; no loader found
+61	4000	7AE8	gfx/bank61.asm	tilemap/tile data; no loader found
+62	4000	6C00	gfx/keyboard/tiles_bank62.asm	keyboard tiles loaded by bank 55
+63	4000	407A	engine/text/sjis_validity.asm	Font_ValidateSjisCode and its bit jump table
+63	407A	6080	data/fonts/sjis_valid_bitmap.asm	Shift-JIS code validity bitmap (8 KiB)
+63	6080	732F	gfx/error/no_adapter.asm	no-adapter screen tiles, tilemap, palettes, object table and animation
+63	732F	742F	engine/error/no_adapter.asm	no-adapter screen
+65	4000	4123	engine/startup/startup.asm	Startup_Run and its status jump tables
+65	4123	487C	engine/startup/registration.asm	registration wizard and password comparison/save
+65	487C	4C6E	engine/startup/notice_pages.asm	full-screen notice pages
+65	4C6E	567F	data/text/registration_notices.asm	notice page texts and page table
+65	567F	5A8D	data/text/registration_prompts.asm	prompt texts and their pointer table
+66	4000	74B8	gfx/keyboard/tiles_bank66.asm	keyboard tiles and tilemaps loaded by bank 55
+67	4000	4631	engine/settings/phone_number_entry.asm	settings dispatcher entry and the phone keypad entry screen
+67	4631	4924	engine/settings/choice_menu.asm	phone-settings choice menu
+67	4924	4C73	engine/settings/phone_comment_entry.asm	phone comment keyboard entry
+67	4C73	510A	engine/settings/slot_menu.asm	phone slot menu
+67	510A	53DC	engine/settings/confirm_screen.asm	phone settings confirm screen
+67	53DC	570C	engine/settings/adapter_config.asm	adapter config read/write state machines, config image patching, address tables
+67	570C	58CD	engine/settings/continue_prompt.asm	continue prompt
+67	58CD	5F66	engine/settings/password_change.asm	password change flow, its CGI request body, network strings
+67	5F66	60BA	engine/settings/http_redirect.asm	HTTP redirect URL resolving/joining/normalising
+67	60BA	626F	engine/settings/usage_time.asm	usage time view (CGI request, login body)
+67	626F	6369	engine/settings/usage_fee.asm	usage fee view (CGI request)
+67	6369	6536	engine/settings/adapter_check.asm	Mobile Adapter check screen at boot
+67	6536	6731	engine/settings/password_save_confirm.asm	password save confirm screen
+67	6731	685F	engine/settings/text_buffer.asm	TextBuf text entry buffer library
+68	4000	4785	engine/account/helpers.asm	session counters, phone number BCD, text entry helpers, mail address building, config mirror and dial entry helpers
+68	4785	4DB4	engine/account/settings_page.asm	settings page in SRAM bank 1 (init, verify/repair, checksum, field stores, account load)
+68	4DB4	4F9E	engine/account/dev_test_config.asm	development test configuration installer and adapter init helpers
+68	4F9E	5296	engine/account/settings_menu.asm	settings menu (Mobile Settings) run loop, cursor, item drawing
+68	5296	571D	engine/account/login_id_entry.asm	login ID entry screen and intro page
+68	571D	5D00	engine/account/mail_address_entry.asm	mail address entry screen and intro page
+68	5D00	61F7	engine/account/password_entry.asm	password entry screen, validity check and intro page
+68	61F7	67E0	engine/account/confirm_screens.asm	account confirm screens (automatic and manual) with default dial number strings
+68	67E0	6AE0	data/account/default_config_images.asm	four default adapter configuration images
+68	6AE0	6E1A	engine/account/register_config.asm	registration: write config to adapter, build config image from account
+68	6E1A	7019	engine/account/action_confirm.asm	action confirm page
+68	7019	733C	engine/account/registration_verify.asm	registration verify and finalize online
+68	733C	766E	engine/account/comm_panel.asm	'connecting' communication panel
+68	766E	7951	engine/account/result_page.asm	account result page, banner, time digits
+68	7951	7D8D	engine/account/delete_registration.asm	delete-registration flow
+69	4000	4152	engine/comm/connection_icon.asm	connection icon sprite animation and tile set choice
+69	4152	4C46	gfx/comm/connection_icon.asm	connection icon tiles, palettes, object tables
+6A	4000	64B1	gfx/help/help_screens_a.asm	help screen tilemaps, tiles, palettes, object tables loaded by bank 6C
+6A	64B1	6716	data/text/help_menu_ticker.asm	ticker tables and strings of the help menu (read through the bank 48 ticker)
+6A	6716	72BF	gfx/help/help_screens_b.asm	help screen tilemap, tiles, palettes, object tables loaded by bank 6C
+6B	4000	4C80	gfx/error/non_cgb_screen.asm	non-CGB screen tilemap and tiles
+6B	4C80	4D20	engine/error/non_cgb_screen.asm	non-CGB error screen and BGP fade
+6C	4000	4809	engine/help/help_menu.asm	help menu pages, cursor, item drawing
+6C	4809	5987	data/text/help_script.asm	help/tutorial script bytecode and single-byte kana text
+6C	5987	61CB	engine/help/help_script.asm	HelpMenu_Run and the help script player
+70	4000	4822	engine/comm/comm_scene.asm	scrolling panorama scene shown during homepage communication
+70	4822	7590	gfx/comm/comm_scene.asm	comm scene text-box maps, object tables, tiles, panorama map
+71	4000	6F44	gfx/account/screens_bank71.asm	account screens art loaded by bank 68
+71	6F44	7740	gfx/settings/screens_bank71.asm	settings screen art loaded by bank 67
+72	4000	48C0	engine/dialog/dialog.asm	message dialog service (open, wait input, close, slide, save/restore background)
+72	48C0	502B	gfx/dialog/dialog_window.asm	dialog window tiles, maps, palettes, cursor object table
+72	502B	63D8	data/text/dialog_messages.asm	dialog list table and the 69 message records
+72	63D8	6C10	engine/browser/menus.asm	browser menus (two-item and three-item) with their records and texts
+72	6C10	7A1F	gfx/browser/menus.asm	browser menu tiles, maps, palette, cursor object table
+73	4000	4097	data/text/browser_start_ticker.asm	ticker table and strings of the browser start menu
+73	4097	5F17	gfx/browser/start_choice.asm	browser start choice screen maps, tiles, palettes, object table
+73	5F17	62EF	engine/browser/start_choice.asm	browser start choice screen (home page / page list)
+74	4000	4165	data/html/keywords.asm	tag, attribute, entity and value keyword tables of the HTML parser
+74	4165	44A0	engine/html/parser.asm	Html_ParsePage/ScanPage/ParseSource
+74	44A0	4F4F	engine/html/tags.asm	tag handler table and Html_Tag_* handlers
+74	4F4F	5252	engine/html/count_pass.asm	parser init and the list item counting pass
+74	5252	5905	engine/html/layout.asm	page line layout, floats, image placement
+74	5905	5A96	engine/html/url.asm	URL scheme table, scheme id, URL resolving
+74	5A96	5C61	engine/html/link_tables.asm	link/string tables, resource records, decimal parse, path normalising
+75	4000	7F46	lib/mobile/main.asm	Mobile Adapter GB SDK (= Crystal bank 44 lib/mobile/main.asm): API dispatch, serial/timer pump, state machine, protocols, MD5, Base64
+76	4000	67A8	data/fonts/jis12x12_rows_79_84.asm	JIS X 0208 12x12 font rows 79-84
+76	67A8	6C28	data/fonts/ascii_6x12.asm	6x12 ASCII font, 96 glyphs
+77	4000	7B7C	data/fonts/jis12x12_rows_70_78.asm	JIS X 0208 12x12 font rows 70-78
+78	4000	7B7C	data/fonts/jis12x12_rows_61_69.asm	JIS X 0208 12x12 font rows 61-69
+79	4000	7B7C	data/fonts/jis12x12_rows_52_60.asm	JIS X 0208 12x12 font rows 52-60
+7A	4000	7B7C	data/fonts/jis12x12_rows_43_51.asm	JIS X 0208 12x12 font rows 43-51
+7B	4000	7B7C	data/fonts/jis12x12_rows_34_42.asm	JIS X 0208 12x12 font rows 34-42
+7C	4000	7B7C	data/fonts/jis12x12_rows_25_33.asm	JIS X 0208 12x12 font rows 25-33 (includes the 10-byte region typed code at 57C3)
+7C	7B7C	7E11	engine/main/navigation.asm	Nav_* main loop state handlers
+7D	4000	7B7C	data/fonts/jis12x12_rows_16_24.asm	JIS X 0208 12x12 font rows 16-24
+7D	7B7C	7C12	engine/input/joypad.asm	joypad poll and repeat timing
+7E	4000	7B7C	data/fonts/jis12x12_rows_01_08_13.asm	JIS X 0208 12x12 font rows 1-8 and 13
+7E	7B7C	7EB3	engine/text/charset_convert.asm	Shift-JIS / ISO-2022-JP / EUC-JP conversion
+7F	4000	41EA	engine/text/glyph.asm	glyph fetch (ASCII/wide), Shift-JIS to JIS to ku/ten, font row tables
+7F	41EA	4C78	engine/text/canvas.asm	glyph colour remap, blit into the tile canvas, VRAM upload, GDMA helper, dotted line glyph
+7F	4C78	61FC	engine/unreferenced/page_list_prototype.asm	text-canvas demo and page-list prototype with no caller (about 6 KB, hypothesis)
+7F	61FC	624F	engine/comm/time_hooks.asm	Stub_Nop, Timer_ResetClockB, time-warning dialog wrappers
+7F	624F	62B0	engine/sprites/slot_backup.asm	sprite slot save/restore to WRAM bank 3
+7F	62B0	70FD	gfx/unreferenced/page_list_prototype.asm	tiles, tilemap, palettes, object tables of the prototype
+7F	70FD	7271	engine/keyboard/slide_helpers.asm	KbdSlide_* prepare/step hooks for the keyboard slide
+7F	7271	7830	engine/gfx/scroll_split.asm	STAT scroll split enable/disable, GDMA at VBlank, scroll step routines and tables
+7F	7830	7CC5	gfx/unreferenced/page_list_prototype_objects.asm	prototype tiles and object animation data
