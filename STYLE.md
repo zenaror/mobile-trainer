@@ -343,6 +343,9 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
   `gfx/mail/result_screens/`).
 * `.gitattributes` in `gfx/` and `data/fonts/` mark the binaries as binary (an attribute map without a NUL byte would otherwise be text to git and be changed by line-ending conversion).
 
+**PNG is the source.** The graphics binaries (`.2bpp`, `.1bpp`, font `.bin`) are built from their PNG (`gfx/png_rules.tsv`, generated `gfx/png.mk`): edit the PNG, not the binary. `.tilemap`, `.attrmap` and `.pal`
+are edited directly or through `tools/screen_png.py import`. After adding or removing assets run `python3 tools/png_rules.py rules` on an unedited tree, then `make png-check`.
+
 ## 9. Words, tables and pointers
 
 * `words` = 16-bit values (`dw $B014, $B025, $B036` with the meaning in the header), `ptrtable` = address tables (`dw String_6A_64D3`: targets that have a label are written as labels; numeric ones

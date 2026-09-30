@@ -1,0 +1,923 @@
+# gfx/png_rules.tsv -- written by tools/png_rules.py (do not edit by hand); read by gfx/png.mk, tools/png_check.py, `make png-export`
+# out = binary the .asm INCBINs, png = its editable source ("-" = no PNG rule: tilemap / attrmap / palette rows only make an edit an explained ROM difference), kind = tiles (rgbgfx, `pad` = -x) | font12 | font8x16 | font6x12 (tools/font_png.py;
+# cells = glyph slots of the sheet, start = bank address of the first byte of out).  size = bytes of out (must not change),
+# sha256 = hash of out in the original, byte-identical ROM state (edited = differs).  See docs/EDITING_IMAGES.md.
+out	png	kind	cells	start	pad	size	sha256
+data/fonts/ascii_6x12.bin	data/fonts/ascii_6x12.png	font6x12	96	67a8		1152	44ff3289fa27d36e02b767a9f987853e513e98d3fc0bd5f2f3ab95579d2f74ed
+data/fonts/font_8x16_4adb.1bpp	data/fonts/font_8x16_4adb.png	font8x16	10	4adb		160	d5d168c65a48436c2a886760c486dbab5f358302d3b1638ee0bc7b54773e8bfa
+data/fonts/font_8x16_4b7b.1bpp	data/fonts/font_8x16_4b7b.png	font8x16	26	4b7b		416	2fef6e78cd3f5155a3bf9b42f6cd5df5d662943a29196ea39ae59acbfcc207e6
+data/fonts/font_8x16_4d1b.1bpp	data/fonts/font_8x16_4d1b.png	font8x16	26	4d1b		416	e195b1c45609fcb7ae67304d673dc60f60bd80af9563944e2935b80e247e6ed6
+data/fonts/font_8x16_4ebb.1bpp	data/fonts/font_8x16_4ebb.png	font8x16	83	4ebb		1328	a592d1115006b94ee7d4ad42e4317e2254d2fafda9501be2a87eaa658d541aff
+data/fonts/font_8x16_53eb.1bpp	data/fonts/font_8x16_53eb.png	font8x16	85	53eb		1360	9985e90e7f652d7683dc09a3b7bd52f10451e3a9291b19718c9595ceaf58be3b
+data/fonts/font_8x16_593b.1bpp	data/fonts/font_8x16_593b.png	font8x16	12	593b		192	e8eaa593d300a1779ef70c461599e3a4eadb187ea94931495bd6c11d94271b57
+data/fonts/font_8x16_59fb.1bpp	data/fonts/font_8x16_59fb.png	font8x16	3	59fb		48	4f5cf374426086454970332f08774da8521c8ff1851a5de6a9883ffc931e13c2
+data/fonts/font_8x16_5a2b.1bpp	data/fonts/font_8x16_5a2b.png	font8x16	1	5a2b		16	f9fb1b0fb1476898a7c6463b0fa717368764d4488303ce8f9bbdbc59165756e1
+data/fonts/font_8x16_5a3b.1bpp	data/fonts/font_8x16_5a3b.png	font8x16	1	5a3b		16	64b0479db00a65caf2560f8fffb25671b9e8dc084306db6d18137dde069d1578
+data/fonts/font_8x16_5a4b.1bpp	data/fonts/font_8x16_5a4b.png	font8x16	2	5a4b		32	856ea7be2fc16504ff0a0f47eb3722d76f985618790a854e79a9393653a6b993
+data/fonts/font_8x16_5a6b.1bpp	data/fonts/font_8x16_5a6b.png	font8x16	2	5a6b		32	d1c0a8b97d92d3de4376da682497a6bf23d9cf17c237c79459ea596cef15d526
+data/fonts/font_8x16_5a8b.1bpp	data/fonts/font_8x16_5a8b.png	font8x16	1	5a8b		16	2a2f92972742e843a7129bd274fae1ba71d0ef53e33e76697770393779d0e280
+data/fonts/font_8x16_5a9b.1bpp	data/fonts/font_8x16_5a9b.png	font8x16	2	5a9b		32	6d2f6c9a6a8f86e3222d8163216fc8f75134e783b05468ecbb74ec9ad3bd80ef
+data/fonts/font_8x16_5abb.1bpp	data/fonts/font_8x16_5abb.png	font8x16	4	5abb		64	6a8a6173189ab8da016e1d6b250ea8df848ba8eb115d7166bce33319f9dc7250
+data/fonts/font_8x16_5afb.1bpp	data/fonts/font_8x16_5afb.png	font8x16	8	5afb		128	ca8a998a732e38e768ae483b476863d32d2acb576e36c121251f5717a60eca51
+data/fonts/font_8x16_5b7b.1bpp	data/fonts/font_8x16_5b7b.png	font8x16	1	5b7b		16	a02967e13e6cc58d34fb299c213bd10cb78448adfed8fb37fd466ff1660a5c9f
+data/fonts/font_8x16_5b8b.1bpp	data/fonts/font_8x16_5b8b.png	font8x16	2	5b8b		32	90ad7d74bca458dec2a04d12477600b1452d0c26e73a586675e245ac60d3aef4
+data/fonts/font_8x16_5bab.1bpp	data/fonts/font_8x16_5bab.png	font8x16	2	5bab		32	b5efd7459965d1eb9715327d466075b30ae335de156e98f652788345c8e61e67
+data/fonts/font_8x16_5bcb.1bpp	data/fonts/font_8x16_5bcb.png	font8x16	2	5bcb		32	e9f50fe6c3d50e27daa6ec009520177401ce83e7a0b5968a34c8e73a4a0ee5eb
+data/fonts/font_8x16_5beb.1bpp	data/fonts/font_8x16_5beb.png	font8x16	2	5beb		32	dca5e9b0a2bd30eff88dac3929d42b3d424639813655230410e6e9d17c7da0dd
+data/fonts/font_8x16_5c0b.1bpp	data/fonts/font_8x16_5c0b.png	font8x16	5	5c0b		80	d9e406d138c1952142a38138eb0d997f40404bc032ca2bb30f3a4939b036d9d6
+data/fonts/font_8x16_5c5b.1bpp	data/fonts/font_8x16_5c5b.png	font8x16	4	5c5b		64	067c4c619aba0cbf4f857ec3d6eb1fce63f6dbe857d703c6805ba7d6e3f05468
+data/fonts/font_8x16_5c9b.1bpp	data/fonts/font_8x16_5c9b.png	font8x16	6	5c9b		96	2eb52c44256ba0e2c679c487d1826f22ed19e2387ca7bd7c8d352bd8b0e99a9f
+data/fonts/font_8x16_5cfb.1bpp	data/fonts/font_8x16_5cfb.png	font8x16	6	5cfb		96	95d5e7050a61777b0b0c95c34c1739d1f19753317b973df7dbc32fb0f411e548
+data/fonts/font_8x16_5d5b.1bpp	data/fonts/font_8x16_5d5b.png	font8x16	1	5d5b		16	031295747a5a0d467391be181d4dd467a40076197c7edeb304c6abc219ed7096
+data/fonts/font_8x16_5d6b.1bpp	data/fonts/font_8x16_5d6b.png	font8x16	1	5d6b		16	1ab3f9aecea56bc42cd918975461bcccea8a41f79fad58bd9f2d98d05f92dafe
+data/fonts/font_8x16_5d7b.1bpp	data/fonts/font_8x16_5d7b.png	font8x16	5	5d7b		80	767e6f23f3b1424d926734b00dc79464cb450adbbf5ede0c5fbde8185290048a
+data/fonts/jis12x12_rows_01_08_13.bin	data/fonts/jis12x12_rows_01_08_13.png	font12	846	4000		15228	b209794245668009a61f7d113552e23a2532710508ec8a5ea4fd6948968a8e9c
+data/fonts/jis12x12_rows_16_24.bin	data/fonts/jis12x12_rows_16_24.png	font12	846	4000		15228	f5b1d08ada4aa426d1f5f0b65f4bdbed33d2062a89f113814a130f600d3fd0f8
+data/fonts/jis12x12_rows_25_33_4000.bin	data/fonts/jis12x12_rows_25_33.png	font12	846	4000		6083	0df05d5daa8ddba8a305769725e4fa4ffdf0f457dc1fdf1957c0fad8ef36b34b
+data/fonts/jis12x12_rows_25_33_57cd.bin	data/fonts/jis12x12_rows_25_33.png	font12	846	57cd		9135	e484eab9218e988639700747ad64f8c71a27032d7707c8fc3edb38300928ff47
+data/fonts/jis12x12_rows_34_42.bin	data/fonts/jis12x12_rows_34_42.png	font12	846	4000		15228	c4f781749dd6d8786035ad2e27edcd7d02207bcf06cb6301732b2ec4efb4999a
+data/fonts/jis12x12_rows_43_51.bin	data/fonts/jis12x12_rows_43_51.png	font12	846	4000		15228	f5f79cce7a92b9a83a47f90b55d171705e065abe676403d3ea9d80df8b6bcdb1
+data/fonts/jis12x12_rows_52_60.bin	data/fonts/jis12x12_rows_52_60.png	font12	846	4000		15228	8390ff4ab75c8765f5309b6819810504a377e08ddfd8c3623008e1c762bf18fa
+data/fonts/jis12x12_rows_61_69.bin	data/fonts/jis12x12_rows_61_69.png	font12	846	4000		15228	abf459f36c7ddf4efc369e27e24e134d810b01e86fd780464b7dc8e0a7879b89
+data/fonts/jis12x12_rows_70_78.bin	data/fonts/jis12x12_rows_70_78.png	font12	846	4000		15228	b5ce47501c260b19478e8d1a7a2624ff72e1f3cc700069cdfbb145f4b09fc7d3
+data/fonts/jis12x12_rows_79_84.bin	data/fonts/jis12x12_rows_79_84.png	font12	564	4000		10152	3b859e1b381af06cc64a2b0468ece3958e874befb510fa39c6629e30794dd7d4
+gfx/account/screens_bank4a/tilemap_54a0.attrmap	-	attrmap				360	c72bcdfa27f344e75699affd45c5407b917d7161c4d6905decb8074560a62b97
+gfx/account/screens_bank4a/tilemap_54a0.tilemap	-	tilemap				360	cfa744483e04bd4307fb11dd0e35130a406f15ec0bcb4ae5b0d9eed626b5dd28
+gfx/account/screens_bank4a/tilemap_5cb0.attrmap	-	attrmap				360	17e1ef030a655b31a8aad194bd03b43cc8e9b34c55b232395e7692cfcec4f5e9
+gfx/account/screens_bank4a/tilemap_5cb0.tilemap	-	tilemap				360	4f4ab5c7289604080dba8278d60c735533c69eabefd0ea9a76945ae248049043
+gfx/account/screens_bank4a/tiles_4040.2bpp	gfx/account/screens_bank4a/tiles_4040.png	tiles			0	512	41ffef3e996e1fdbc383827f158d5fd6836144dd4d23ac013a9cbb5bbf86df03
+gfx/account/screens_bank4a/tiles_4240.2bpp	gfx/account/screens_bank4a/tiles_4240.png	tiles			0	1024	7e58cba89427be91bb59806f347c4e984a57ef24fcc770f45bc1793f27cfbbfc
+gfx/account/screens_bank4a/tiles_4640.2bpp	gfx/account/screens_bank4a/tiles_4640.png	tiles			0	1024	0dc97554f3254561ad6b68782c1a9016f600bfd22b3b425829efa89665409366
+gfx/account/screens_bank4a/tiles_4a40.2bpp	gfx/account/screens_bank4a/tiles_4a40.png	tiles			0	1024	e4a92d057305d415ca8c63cb5766f5b46b3297bca74ef0863de53d3582ee7d79
+gfx/account/screens_bank4a/tiles_4e40.2bpp	gfx/account/screens_bank4a/tiles_4e40.png	tiles			0	1024	15b09fab6435ada9097b3b5e4a5c7c4b5d840f1eb789cf304dd1f5e3c3c0f76b
+gfx/account/screens_bank4a/tiles_5860.2bpp	gfx/account/screens_bank4a/tiles_5860.png	tiles			0	16	68801625e95363bd79c1370472e8ccad7f9b93e2e929930f78610232787fbd91
+gfx/account/screens_bank4a/tiles_5870.2bpp	gfx/account/screens_bank4a/tiles_5870.png	tiles			0	1024	ddeccdbd1608dac884780e503d5e829c4386e21341d68910d6f30e3cc3fad786
+gfx/account/screens_bank4a/tiles_5c70.2bpp	gfx/account/screens_bank4a/tiles_5c70.png	tiles			0	64	53cdaeda2835504d09ca6394ce019364d05434e2452f1f9a8757f85b4fc645a5
+gfx/account/screens_bank4b/tilemap_5898.attrmap	-	attrmap				360	4b88137430cd9c2b830dba1864aecac30f18565daae342fb3310691380272d35
+gfx/account/screens_bank4b/tilemap_5898.tilemap	-	tilemap				360	342bcf1bd7f569c9e526cbf6c8c3e30cfe63f6f766989e5f70ca95dba1c5cc64
+gfx/account/screens_bank4b/tiles_42d0.2bpp	gfx/account/screens_bank4b/tiles_42d0.png	tiles			0	1024	17d0d46101375bf7f232e82427ff76a5152fc2f836b79cb37aaae95a079d4853
+gfx/account/screens_bank4b/tiles_46d0.2bpp	gfx/account/screens_bank4b/tiles_46d0.png	tiles			0	1024	477a6af8d99aeffbccc9bc26afc4a36d9829871f852c32c5d8017be0ed0c2e38
+gfx/account/screens_bank4b/tiles_5080.2bpp	gfx/account/screens_bank4b/tiles_5080.png	tiles			0	896	83726564f2d523cec5e78fecbdcd8ccd43a636668b52361635a1737aebdf3c49
+gfx/account/screens_bank4b/tiles_5420.2bpp	gfx/account/screens_bank4b/tiles_5420.png	tiles			11	1104	71bcd200f4ba2ec31a37886ed61c78f6d4fa68897eb75579df388b10c98e9c5b
+gfx/account/screens_bank4b/tiles_5878.2bpp	gfx/account/screens_bank4b/tiles_5878.png	tiles			0	32	35e98c00d3394216b732a622d32ef3fe91a9fcbc7bac52e8503e7ad0f6872387
+gfx/account/screens_bank5d/tilemap_5b20.attrmap	-	attrmap				360	8abfabeebabeab5d74f6cda249529907b9a6ffebcd3c8c70df73a5c236aca785
+gfx/account/screens_bank5d/tilemap_5b20.tilemap	-	tilemap				360	f717b376b347708c7968124e2a7fc68b1c6c4cfa4d714a3c6ea8f807b3e60564
+gfx/account/screens_bank5d/tilemap_6630.attrmap	-	attrmap				360	19d36c06ea212b8f018e0728d60e0c3120e48f81bf584b68f03df0e7c0aa69a0
+gfx/account/screens_bank5d/tilemap_6630.tilemap	-	tilemap				360	6f6e2cf0098b892cdb6ee02bfac106090ff7273f149f4fc384c3943b86d53e86
+gfx/account/screens_bank5d/tiles_4800.2bpp	gfx/account/screens_bank5d/tiles_4800.png	tiles			0	1024	0e0929642c2b3ef21e85e3f3e52d6a5da52c8da67ebb24296f7f3a72029a36b0
+gfx/account/screens_bank5d/tiles_4c00.2bpp	gfx/account/screens_bank5d/tiles_4c00.png	tiles			0	1024	3275343a1776111ee8cfddfd9a763abaf40cbc0f082e1aa2c35477b96e7c084d
+gfx/account/screens_bank5d/tiles_5320.2bpp	gfx/account/screens_bank5d/tiles_5320.png	tiles			0	1024	fb88a4d254a81312fc6a27c32eae0ce2ff654674f5c4f4681c57b52e62b5b3b1
+gfx/account/screens_bank5d/tiles_5720.2bpp	gfx/account/screens_bank5d/tiles_5720.png	tiles			0	1024	c138b80b9eb8471634e7065764cbf95598dbe2bde284072357f054ae322f3c96
+gfx/account/screens_bank5d/tiles_5df0.2bpp	gfx/account/screens_bank5d/tiles_5df0.png	tiles			0	1024	e57d50efce8fb08a285817fe447c1bb142978b85da6bfc1c1979b8b7b29a6959
+gfx/account/screens_bank5d/tiles_61f0.2bpp	gfx/account/screens_bank5d/tiles_61f0.png	tiles			0	512	b532668d04e340eacb807edbfdaacbc9a1c784f4c1f752cf9a8852f667501b0c
+gfx/account/screens_bank5d/tiles_63f0.2bpp	gfx/account/screens_bank5d/tiles_63f0.png	tiles			0	512	0c54a0cd995ecacd545866ee11255b4366f40368b0e03a9f19e3e5091dbba17a
+gfx/account/screens_bank5d/tiles_65f0.2bpp	gfx/account/screens_bank5d/tiles_65f0.png	tiles			0	64	53cdaeda2835504d09ca6394ce019364d05434e2452f1f9a8757f85b4fc645a5
+gfx/account/screens_bank5d/tiles_6900.2bpp	gfx/account/screens_bank5d/tiles_6900.png	tiles			0	768	ebb0819096c6006c6d424f879ee97a4448ce4bdcfa0925fd5b8723ee8a1d2608
+gfx/account/screens_bank5d/tiles_6c00.2bpp	gfx/account/screens_bank5d/tiles_6c00.png	tiles			0	512	8edb1141ae232813e72813be377a3343929a533e6317a4166317403f9316ac35
+gfx/account/screens_bank5d/tiles_6e00.2bpp	gfx/account/screens_bank5d/tiles_6e00.png	tiles			0	1024	9d42c1b41ecadf5991815b30589967cef2ea614106222368141a6ef62c9a8ad7
+gfx/account/screens_bank5e/tilemap_4d40.attrmap	-	attrmap				100	edc71c530d14dff5a81ef7c8835b69d0e4766242355ab093c4516710d80e1ad8
+gfx/account/screens_bank5e/tilemap_4d40.tilemap	-	tilemap				100	3edb1023b1e6cc2fb6f5fc0c4a1345e46ad4495401eb52e291d6bffc42b3859a
+gfx/account/screens_bank5e/tilemap_6000.attrmap	-	attrmap				100	522a2963b4b95a1da6ee96082a9e1ed7112d7b1aa2d96264d4fcc765b1aeb2a4
+gfx/account/screens_bank5e/tilemap_6000.tilemap	-	tilemap				100	f73aefbff80725d4de085b9cde1997cc6f99ead2ef21a5a5c17b191a0aab67f4
+gfx/account/screens_bank5e/tilemap_68d0.attrmap	-	attrmap				360	e035c063364f8bd146d7adef33e1c192d1770a0b0cceadd13f8046a841d3a6e4
+gfx/account/screens_bank5e/tilemap_68d0.tilemap	-	tilemap				360	e0e968e081da6d900aa696d312f4fe178e71a7b5e79309b4bb7c271ae22e650b
+gfx/account/screens_bank5e/tilemap_75d0.attrmap	-	attrmap				360	db7da9f5d836b8aacdbda7bd9be8d71d942befd444f4521fbc2abfd8b78b3b78
+gfx/account/screens_bank5e/tilemap_75d0.tilemap	-	tilemap				360	bf1dfc9d344e29646818b06431215d61c92b64d53a8421f1ed5095c27efd688c
+gfx/account/screens_bank5e/tiles_4800.2bpp	gfx/account/screens_bank5e/tiles_4800.png	tiles			0	1024	b0816d1a03f78561291ce3b2b6b64fc820526a06bad93635dbaf8f5b95ab2826
+gfx/account/screens_bank5e/tiles_4c00.2bpp	gfx/account/screens_bank5e/tiles_4c00.png	tiles			0	256	3db303d6487365ca9446cade44ee693d86f713f6de0b42e2f0a3627793cde0db
+gfx/account/screens_bank5e/tiles_4e10.2bpp	gfx/account/screens_bank5e/tiles_4e10.png	tiles			0	1024	b756777ca487c0e743be719e1d21b9f45c4c851423a66aec5593472f2d136db7
+gfx/account/screens_bank5e/tiles_5210.2bpp	gfx/account/screens_bank5e/tiles_5210.png	tiles			0	1024	788a3ddde9771c1d9c1173ecc1e761af62748d9fafc920dc17479a9411171db5
+gfx/account/screens_bank5e/tiles_57e0.2bpp	gfx/account/screens_bank5e/tiles_57e0.png	tiles			0	32	0783f698bdc01e6e859462a4840843958c09570ea6d69b8cd0c653e61581e41d
+gfx/account/screens_bank5e/tiles_5800.2bpp	gfx/account/screens_bank5e/tiles_5800.png	tiles			0	1024	8d58a58965dceae9f3cdeae4512d63e9215f3fc12a7f79e38b7dc43c3e36cee5
+gfx/account/screens_bank5e/tiles_5c00.2bpp	gfx/account/screens_bank5e/tiles_5c00.png	tiles			0	1024	97332b4b2f426412ec5d603e3ed7e4f140de2c5e46102ad7c70dd0bdd8268f09
+gfx/account/screens_bank5e/tiles_60d0.2bpp	gfx/account/screens_bank5e/tiles_60d0.png	tiles			0	1024	b9ba5f34ecc0695549a69b0b21f0d6ecd0d093c9769eaffa75a1febaeb0484f2
+gfx/account/screens_bank5e/tiles_64d0.2bpp	gfx/account/screens_bank5e/tiles_64d0.png	tiles			0	1024	10f9a990353aae73d2defde3dea0d69867534e12ee9e5b88eb839f013306fa17
+gfx/account/screens_bank5e/tiles_6ba0.2bpp	gfx/account/screens_bank5e/tiles_6ba0.png	tiles			0	1024	76b8e5ed4cea725cc6b0525c5e5727982669a590935275c2b16cd39e49bb4975
+gfx/account/screens_bank5e/tiles_6fa0.2bpp	gfx/account/screens_bank5e/tiles_6fa0.png	tiles			0	1024	ec35b9f5b367c551e8850f5c415116759bfbac766307901efde61e84877269c8
+gfx/account/screens_bank71/palette_6688.pal	-	palette				194	99d20f6ce9e879e12b600c1ecd338f7cb027226939999d669dd79679ee7ebbdf
+gfx/account/screens_bank71/tilemap_4c98.attrmap	-	attrmap				360	ce271171b8ff1745527b168e1bf3f13e0e8b808c88fe3ec759e3845a41673447
+gfx/account/screens_bank71/tilemap_4c98.tilemap	-	tilemap				360	f613d72875e63253803c182ede45d31fbad6bcee0dc3dca846894e0ffc047ce4
+gfx/account/screens_bank71/tilemap_4f68.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
+gfx/account/screens_bank71/tilemap_4f68.tilemap	-	tilemap				40	f3029852d18345c578f84cf8bb1c938cdc3bdf3a3ca63f100029438689a31e8b
+gfx/account/screens_bank71/tilemap_66c8.attrmap	-	attrmap				360	db7da9f5d836b8aacdbda7bd9be8d71d942befd444f4521fbc2abfd8b78b3b78
+gfx/account/screens_bank71/tilemap_66c8.tilemap	-	tilemap				360	8a02535cb98f32a2283014271e886830e159b82c72606be487ab99c131d11878
+gfx/account/screens_bank71/tilemap_6998.attrmap	-	attrmap				360	041e8f30f8c5402e5927f9aca3bb3106c235894e12cfb2abbee3dae6d8450fa2
+gfx/account/screens_bank71/tilemap_6998.tilemap	-	tilemap				360	2102180018c765bc0a45b96b105488feca0c5d88f867a753f1403d08f1773bd0
+gfx/account/screens_bank71/tilemap_6c68.attrmap	-	attrmap				360	4a825cafef40b8e7013628ae3817ca784f28853c254f52838b61d03284717e53
+gfx/account/screens_bank71/tilemap_6c68.tilemap	-	tilemap				360	e1b04e931ee948f289e6dd773de2efac4fcf3439d64f47fcfc01e966907ff429
+gfx/account/screens_bank71/tiles_4000.2bpp	gfx/account/screens_bank71/tiles_4000.png	tiles			0	768	f2b08eb1c3b7e30412b850851cca69d0a04cd6aa9ca6a6e820ea2beb8ae77ace
+gfx/account/screens_bank71/tiles_4300.2bpp	gfx/account/screens_bank71/tiles_4300.png	tiles			0	512	02cc27f7f9e69274846de842dc401ebbd020ae15115e324f18eb88102e2bc11a
+gfx/account/screens_bank71/tiles_4500.2bpp	gfx/account/screens_bank71/tiles_4500.png	tiles			7	912	169194e94e20089d395710a30001d8a3175d1d49b2b8c65fbd11df26b8b87723
+gfx/account/screens_bank71/tiles_4890.2bpp	gfx/account/screens_bank71/tiles_4890.png	tiles			0	1024	37ef71928f0a3d13aa3b9df1a9aac6166b2648ccc5eb4a6bb36856bd582ab2b3
+gfx/account/screens_bank71/tiles_5340.2bpp	gfx/account/screens_bank71/tiles_5340.png	tiles			0	1024	65221e67ba07dd1423b43e0e401c284c40ce2f2138618fa9ab6f44dcb9f9e52c
+gfx/account/screens_bank71/tiles_5740.2bpp	gfx/account/screens_bank71/tiles_5740.png	tiles			0	1024	35ce20c8a351d3b13bd99b6d74db18ce615496cd1285353645edeab05d7aa6d2
+gfx/account/screens_bank71/tiles_5b40.2bpp	gfx/account/screens_bank71/tiles_5b40.png	tiles			0	640	0731691622910789cb01a74c9c1ea41a0cb9ade4561281acf7a2d5277dc00a82
+gfx/account/screens_bank71/tiles_5dc0.2bpp	gfx/account/screens_bank71/tiles_5dc0.png	tiles			0	1024	ade4d3d3a748c5c3cd1494f36eed2e43254459c01a62dadb9201f08a49ede4bd
+gfx/account/screens_bank71/tiles_61c0.2bpp	gfx/account/screens_bank71/tiles_61c0.png	tiles			0	640	5a06507540d30fe43b4538a2dc2b6e5eb92e56f82ca22d498745efade251f7e9
+gfx/account/screens_bank71/tiles_6440.2bpp	gfx/account/screens_bank71/tiles_6440.png	tiles			0	320	134e6b9cd63a81d8b54e850e67223fb22829e3007dd87d4d9ed65237f3fd2b2d
+gfx/account/screens_bank71/tiles_6580.2bpp	gfx/account/screens_bank71/tiles_6580.png	tiles			0	256	a8d1b7ac7cdc91c5495e159234cf254732cf131e0161240a97d30671f94082af
+gfx/address_book/address_editor/abook_addr.attrmap	-	attrmap				360	9971c56f24b691975fa4f52b4336e86607333717d6ab5a92d4cedc9931683ada
+gfx/address_book/address_editor/abook_addr.tilemap	-	tilemap				360	1d4e539d45eb082ca31bc5abf7acccc440eb3d556e9b2d9fa0f26a86b96cdacc
+gfx/address_book/address_editor/abook_addr_bg.pal	-	palette				113	b234edc81bbd39df9dc3b67e99e9b21128774e227e0196fbe2fbfce50f536451
+gfx/address_book/address_editor/palette_7d9e.pal	-	palette				259	e020d2a110f16a595f6a8640f25210de2dfe607974da14514697cde6b058ce7b
+gfx/address_book/address_picker/addr_book_obj.pal	-	palette				519	6a82ddd197735225587a2c19fc32ff571dc243dcee006a1d5649d07bc04b5438
+gfx/address_book/address_picker/addr_book_tiles8f00.2bpp	gfx/address_book/address_picker/addr_book_tiles8f00.png	tiles			0	144	81c611f35bff79491538b2f7cf201c7597a661a5c549633541c62bdc8af1613f
+gfx/address_book/address_picker/addr_pick_bg.pal	-	palette				113	c66e5a58acc065370779e58977a71e7aa3bbd75574f5cbacf5de543ce5cf5114
+gfx/address_book/address_picker/addr_pick_tiles9300.2bpp	gfx/address_book/address_picker/addr_pick_tiles9300.png	tiles			0	1024	d900270698199e6b5825d0d59aeaca48b6a4f46683cf69869e2f0a3c2ff73c9e
+gfx/address_book/address_picker/addr_pick_tiles9700.2bpp	gfx/address_book/address_picker/addr_pick_tiles9700.png	tiles			0	256	5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1
+gfx/address_book/address_picker/data_addr_pick_tilemap_attr.attrmap	-	attrmap				360	4a2fc0402bff3cd10b187bd1dd8ddc7d6477a28c29dc6cf39349f28fa57ed2bf
+gfx/address_book/address_picker/data_addr_pick_tilemap_attr.tilemap	-	tilemap				360	b5b0f165b60cf8875233fc7cfe842fd2d070f790c2cc85c425e0e5a5d254b067
+gfx/address_book/address_picker/palette_6f9e.pal	-	palette				389	35ffb3305476457b8cede993a3280cb70a6eda84442b827d6a461f8fdd6da216
+gfx/address_book/address_picker/tiles_6fd0.2bpp	gfx/address_book/address_picker/tiles_6fd0.png	tiles			0	512	cd1a80c6678ddaec5e1a4f548a6bc24e23c93ffde784ad3982d8c5b4800a48e0
+gfx/address_book/entry_screen_bank29/palette_5e10.pal	-	palette				519	6d71702bb84bea0e1c093cce5ad797662efc16f0664be45f9ae499fb85908324
+gfx/address_book/entry_screen_bank29/tiles_5b10.2bpp	gfx/address_book/entry_screen_bank29/tiles_5b10.png	tiles			0	768	b4f8418bfa86cb01817ffbb5e28768eb46f1811247433e3e83e557493358bdfc
+gfx/address_book/entry_screen_bank29/tiles_5e50.2bpp	gfx/address_book/entry_screen_bank29/tiles_5e50.png	tiles			0	1024	70293284a21a3c86a1ce1c991790b3f2e0c911b79d7251947b9a93508dc4144d
+gfx/address_book/entry_screen_bank29/tiles_6250.2bpp	gfx/address_book/entry_screen_bank29/tiles_6250.png	tiles			0	64	3d847cdad1fadaa7f2adfbf4cfb3dbdc06c049b64bf530b79e5915c850d7afa6
+gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.png	tiles			0	176	e6c164b15672a11cd03f84ab95b9c0d6bc81af27645f75afa1fb02feef981e73
+gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.png	tiles			0	224	b09971a9e07ecc47968026c778f0e70fe477371c8c9655883f8969308fc9e8c2
+gfx/address_book/list/abook_list.attrmap	-	attrmap				360	0fc395cbd36032e1e1f6af282336a5841dae10f6b00811f575f080750dc88b5d
+gfx/address_book/list/abook_list.tilemap	-	tilemap				360	5303ce6255811b02dc10e1ccd9b4d0e75c897ff2c7daadc5667f056da1f808d3
+gfx/address_book/name_editor/abook_name.attrmap	-	attrmap				360	19f90b0bc6326f858cbd5550ba89d48fb553730a6a784ac9c96df31a0f11628b
+gfx/address_book/name_editor/abook_name.tilemap	-	tilemap				360	7d30a4c1d62ba2adf9ff37d80980d6bc5f58c60d1b505cbf8791418863bfed7f
+gfx/address_book/name_editor/palette_6cc0.pal	-	palette				519	3886e508040e0cf0916b9d61ef65b5ffddda84e38eb78cf62fd33c00dc1f1839
+gfx/address_book/name_editor/tiles_61f0.2bpp	gfx/address_book/name_editor/tiles_61f0.png	tiles			0	1024	17a4e01d43aa55e9a8dc9163a1b72e41b4b4465991c881367d87d28c42293c13
+gfx/address_book/name_editor/tiles_65f0.2bpp	gfx/address_book/name_editor/tiles_65f0.png	tiles			0	256	2149be5a4455a1d3f6e261b323b6a34b9a499400b38b50d425a06af5f188eb27
+gfx/address_book/name_editor/tiles_66f0.2bpp	gfx/address_book/name_editor/tiles_66f0.png	tiles			0	768	4b0d81787a7b9d346550f7af8f2d4460fe5a89656608e4a53ade4efee4c1949b
+gfx/address_book/save_confirm/addr_save_confirm_bg.pal	-	palette				519	1915d532722a87f70f674bb14328594846baa53fff8c84906287baf5d1dac5b1
+gfx/address_book/save_confirm/addr_save_confirm_tiles9300.2bpp	gfx/address_book/save_confirm/addr_save_confirm_tiles9300.png	tiles			0	1024	6e87d9f5a74cd99a515f4fdf8737061592eb5d9ee6c934295ec0769617e100a2
+gfx/address_book/save_confirm/addr_save_confirm_tiles9700.2bpp	gfx/address_book/save_confirm/addr_save_confirm_tiles9700.png	tiles			0	64	5da386a2138aa92096b8d6991abeb1f8b35ce1a5ac6193797cdd5193ba7e4393
+gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.attrmap	-	attrmap				360	dd86fcd5f2f5b13eefca0c7da426c634bc73d4b0ac26e075b1a9158f77364f0a
+gfx/address_book/save_confirm/data_addr_save_confirm_tilemap_attr.tilemap	-	tilemap				360	69baa1b3d9a6cd7047e912311b8c14a6eb749e531654de7a2cb793b927c52af1
+gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.attrmap	-	attrmap				360	02f737705c7a79c72a2974811edf7e3990270ced19131812a1d1f599366f088d
+gfx/address_book/save_sender_address/data_save_sender_addr_tilemap_attr.tilemap	-	tilemap				360	77496669a0f5decfe1429567579dee6c831b9bac32f0ecbea7a2fb1d480fe440
+gfx/address_book/save_sender_address/palette_51e0.pal	-	palette				519	5e1c517fb1200ce7baece19c31cb3ad9cbb689124ac8d1ae7f9254a3cfb05646
+gfx/address_book/save_sender_address/save_sender_addr_bg.pal	-	palette				519	96769e6ce0eb237657eb02535bc04345e77a97b147d7c63a74abf0bbd0daa62b
+gfx/address_book/save_sender_address/save_sender_addr_tiles9300.2bpp	gfx/address_book/save_sender_address/save_sender_addr_tiles9300.png	tiles			13	560	b7d2074f66cecb57c8d386ca2a3fff679fe6957114015439624e0bfd0ec9f41a
+gfx/address_book/save_sender_address/tiles_4fe0.2bpp	gfx/address_book/save_sender_address/tiles_4fe0.png	tiles			0	512	cd1a80c6678ddaec5e1a4f548a6bc24e23c93ffde784ad3982d8c5b4800a48e0
+gfx/address_book/shared_tiles_bank28/palette_51d0.pal	-	palette				519	0ecb08bfe065eb0b92cf78a22ebfeb8b2d06b7caadfd6eb0671b840f51c0118b
+gfx/address_book/shared_tiles_bank28/tiles_4bd0.2bpp	gfx/address_book/shared_tiles_bank28/tiles_4bd0.png	tiles			0	1024	3f737a16c62bf8a0030c29e7bc719536e6e83257edd77443b8d95c7763b81227
+gfx/address_book/shared_tiles_bank28/tiles_4fd0.2bpp	gfx/address_book/shared_tiles_bank28/tiles_4fd0.png	tiles			0	512	04f1c44d3ec0c3ae25096a1a8d1d167eb5ca7138c6ca5b7e5cc9506f6a794f97
+gfx/address_book/unreferenced_confirm_screen/addr_book_entry_bg.pal	-	palette				519	704e67d94e317cd12943af4b0fb35f46e66344699a3671a5bbea9829a702e318
+gfx/address_book/unreferenced_confirm_screen/addr_book_entry_obj.pal	-	palette				519	6b1efaab2dc9062811b331df201aa04fb5bec5e901ad1f65537a1c25ff7a35a2
+gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.attrmap	-	attrmap				360	fca92dd253be4d2881b9597466d2db7a3e35226698dd3cc48534e82874c0598f
+gfx/address_book/unreferenced_confirm_screen/data_addr_book_entry_tilemap_attr.tilemap	-	tilemap				360	59d6a433856cfce96be64531afeaefd3486f718e45b7c554cbdef96319a3d13a
+gfx/address_book/unreferenced_confirm_screen/palette_7b30.pal	-	palette				519	cf1ff4b939c3f20b64ad1cfaeea1f23a0c531807373497bd8e6511d12f776be4
+gfx/address_book/unreferenced_confirm_screen/palette_7c00.pal	-	palette				519	acad93e6449777b5da65b68eeea5bdabbcd145dfae43b197b5bb14cee17ae9a3
+gfx/address_book/unreferenced_confirm_screen/tilemap_7860.attrmap	-	attrmap				360	7c6e9bbdcb128990c76435a590141062d39c8319e59f1e22fd0a055ecccf802e
+gfx/address_book/unreferenced_confirm_screen/tilemap_7860.tilemap	-	tilemap				360	c606f36c2ebd28bb1e507dcb2a1e0bc1dc9b03cc1a7801f005b759dbeb769d2a
+gfx/address_book/unreferenced_confirm_screen/tiles_7740.2bpp	gfx/address_book/unreferenced_confirm_screen/tiles_7740.png	tiles			0	288	03db79fba17e3a153e884e7b9115669f386a9a42813332dcc56aee9687b0463a
+gfx/address_book/unreferenced_confirm_screen/tiles_7b70.2bpp	gfx/address_book/unreferenced_confirm_screen/tiles_7b70.png	tiles			0	144	19bd457cdade0c9979c6feb919dc55a63c6b711bb1a17f846d6b89c0e1abb399
+gfx/bank41/palette_4cd0.pal	-	palette				1039	fa40bc8092fbb982164a9cbeea6eb08103235e17eb4da82d75a75fd9c1ccfbea
+gfx/bank41/palette_5a20.pal	-	palette				1039	39b9bbf4c9443b97ef6097f8b597a5436033b82622bbc2f81a3e4d662230f19f
+gfx/bank41/palette_6770.pal	-	palette				1039	d12869379866a8bdd0f9d1f0e66d5456fdf78240471ed72a78c1235d7558b19e
+gfx/bank41/palette_74c0.pal	-	palette				1039	3dd57077c8bf0d32c3ddf95efa9493618779277fa0a00db44dfb57d753a80591
+gfx/bank41/tilemap_4a00.attrmap	-	attrmap				360	3edd69047a68a3274d6ae233fcf34d24672a6095456e78cd00c912eca9211c17
+gfx/bank41/tilemap_4a00.tilemap	-	tilemap				360	9a20d3a556ec9b63eca04bf58be76fba31793411cba96b7b069b62f39af1493b
+gfx/bank41/tilemap_5750.attrmap	-	attrmap				360	7062da7c3ac065bca3723c13cb4d17c7372d0da1aaef5a402ff3a45127d5a529
+gfx/bank41/tilemap_5750.tilemap	-	tilemap				360	76389a2c333fa7f1f129dc49e27757b1c1871f655f9507afbaa2ce455dfa4533
+gfx/bank41/tilemap_64a0.attrmap	-	attrmap				360	e55d820001778d3ed61755370cdc46a2ea7a97c36dd30a7a63667e448575b8e8
+gfx/bank41/tilemap_64a0.tilemap	-	tilemap				360	b79c8e1005e3afcade68d373f9c099c22a57a49a536e99b72865c31cdd869cc7
+gfx/bank41/tilemap_71f0.attrmap	-	attrmap				360	2974b6196c9da920e749e0ead9e090222e66a98c0c02d482052c346ec73024cb
+gfx/bank41/tilemap_71f0.tilemap	-	tilemap				360	452f891fe39dca6bb28c464c3c9bf1bfec7ce6e0baef862a6716955dc5b7c9b4
+gfx/bank41/tiles_4000.2bpp	gfx/bank41/tiles_4000.png	tiles			0	2560	045d1064bac65836baa83b1d8c7308505262d334ce78f0bbbbcf68e8b1be048d
+gfx/bank41/tiles_4d50.2bpp	gfx/bank41/tiles_4d50.png	tiles			0	2560	3020f164a483e77052f3c10067d04096c5f96c8f8875ce8a9cf2e486189a044b
+gfx/bank41/tiles_5aa0.2bpp	gfx/bank41/tiles_5aa0.png	tiles			0	2560	3b4df4bc5ae701482f05e76d6549e21bdba64e8d29f29d86436dac338f93ee65
+gfx/bank41/tiles_67f0.2bpp	gfx/bank41/tiles_67f0.png	tiles			0	2560	6441085a819f3a4447c54fd9be5def01c535c3662e4994f4b6d9569ca3237f95
+gfx/bank42/palette_4cd0.pal	-	palette				1039	714bd59e40bdc1a793ed4ea28d82c5f9a5dc98fc0496adc9d233cb2b4b0ca78d
+gfx/bank42/palette_5a20.pal	-	palette				1039	9411b59674f8b358e3302672d22ca947827ed4ad8ad08be5a151c44a072c9e0e
+gfx/bank42/palette_6770.pal	-	palette				1039	379385be3d4bb47047ece0029105cf2263dd53c317c22317ec351b2037d35ac4
+gfx/bank42/palette_74c0.pal	-	palette				1039	47d01808a0dc8c35042aee8af939cd99df2a90ec1a689c45b0c3af78845cc9a6
+gfx/bank42/tilemap_4a00.attrmap	-	attrmap				360	ae0ec72eb6a00284c2fb65718bd9295aab798c4776ad90eb50e9196628468c36
+gfx/bank42/tilemap_4a00.tilemap	-	tilemap				360	6c4dca9d71310f32fc997b5632490e5e60a72ab2276a99ae7a0e0a8c7f14d6c9
+gfx/bank42/tilemap_5750.attrmap	-	attrmap				360	31bdba391378725be68094e8c04f0336a2ae29b070761636be076d2879a50643
+gfx/bank42/tilemap_5750.tilemap	-	tilemap				360	e4be5edbdf54b2d10abf55fa6c43410e6164ba1bb37de458923c4f866c0e3bf0
+gfx/bank42/tilemap_64a0.attrmap	-	attrmap				360	1819350a671dfb532664f8a8a7a7c703d5ac632c85220f38151eecaae7f6312b
+gfx/bank42/tilemap_64a0.tilemap	-	tilemap				360	cfe7e525c7d33feb0497965d46f8d06a483a479dc0b52c83e83bb4eebeb20394
+gfx/bank42/tilemap_71f0.attrmap	-	attrmap				360	978dfe308dbe657a06866f41eac768e6ebabf59c7696d39ecfb984310cc8212f
+gfx/bank42/tilemap_71f0.tilemap	-	tilemap				360	8311206b6dd6edff9e25fcf5f97a9a36d08acbab1037f1870154693c376add1f
+gfx/bank42/tiles_4000.2bpp	gfx/bank42/tiles_4000.png	tiles			0	1344	d821cefd0eb5b8562b5d1c990288bda1be5e037744573ab6a32cec83f5519912
+gfx/bank42/tiles_4802.2bpp	gfx/bank42/tiles_4802.png	tiles			0	160	1a411e455a6d2ce89d84a0338d69dbbd12a95fba88110e916643ad081cb697fb
+gfx/bank42/tiles_4900.2bpp	gfx/bank42/tiles_4900.png	tiles			0	176	cf97ac758fe7bfb3183e4d4b605722377a4535ecc41b7a2a272dbb0e2aac08a0
+gfx/bank42/tiles_4d50.2bpp	gfx/bank42/tiles_4d50.png	tiles			0	432	c57322a72a9b8e5d814658bca1579802776b310e05279147375254abab6a5753
+gfx/bank42/tiles_4f00.2bpp	gfx/bank42/tiles_4f00.png	tiles			0	960	accf89b1df454c095539cc8d5926dbcafcd79540f5b15a3b065184099393a079
+gfx/bank42/tiles_52c0.2bpp	gfx/bank42/tiles_52c0.png	tiles			0	32	b827dd125b68ee4c1f0db6088234006b0dd2ffbf96d0e83d499d15f588f7a724
+gfx/bank42/tiles_52e0.2bpp	gfx/bank42/tiles_52e0.png	tiles			9	1136	1a671d16bace5737b1b47dc1728e797036224145de8e28feaef70b26b57a94cc
+gfx/bank42/tiles_5aa0.2bpp	gfx/bank42/tiles_5aa0.png	tiles			5	944	11010462f2c1428bc07a798d06f4d9d858f2ce2c1f112c5fede0f8812b376bd6
+gfx/bank42/tiles_5e90.2bpp	gfx/bank42/tiles_5e90.png	tiles			0	208	249178fbbeac030f180e63c82baed6fc084ae8309b40fe0fd892eb3ff5d3fa53
+gfx/bank42/tiles_5f92.2bpp	gfx/bank42/tiles_5f92.png	tiles			0	416	ff6a4a7a274b75a767f1212d997260f7073398491c3a75137bae05bf3acae372
+gfx/bank42/tiles_62a0.2bpp	gfx/bank42/tiles_62a0.png	tiles			0	160	6467fe7cc09520336369fd173b2bf5c3686ca8d5a2095ebf219b6257ee4eccec
+gfx/bank42/tiles_63a0.2bpp	gfx/bank42/tiles_63a0.png	tiles			0	16	cf5745ff3347da9b0216aa57d23d569092f2fd5be17e383b05387433522529ef
+gfx/bank42/tiles_63b0.2bpp	gfx/bank42/tiles_63b0.png	tiles			0	240	ef5a16234c6f4bf74e03d666305cf0d81280fe4344f51cb1d06be5ba66d56170
+gfx/bank42/tiles_67f0.2bpp	gfx/bank42/tiles_67f0.png	tiles			0	16	0b0261922360928edbfbba07c1c5548aa2e71214f193d5c88bd8c840f4ddad3e
+gfx/bank42/tiles_6810.2bpp	gfx/bank42/tiles_6810.png	tiles			7	400	7040063564c4ec200b87556294bc1dc9a5bcf8434b47897ca3bf6698c7014fc9
+gfx/bank42/tiles_69b0.2bpp	gfx/bank42/tiles_69b0.png	tiles			15	784	4635311d61ea3ad6c6c4161bfbaf8a56d76a02f525307fa4b29e15b7c7f13bb9
+gfx/bank42/tiles_6ff2.2bpp	gfx/bank42/tiles_6ff2.png	tiles			0	160	e977789e1f9c48789af337b70f6734427d6c54bcfa31cd55452b9a3ee5326877
+gfx/bank42/tiles_70f0.2bpp	gfx/bank42/tiles_70f0.png	tiles			0	160	5ca868ce9824cd3c9248cedadfc36327ee6024345ed2b1229ffbf185cc7e40d4
+gfx/bank43/attrmap_4b68.attrmap	-	attrmap				360	a3821dee05556b1025ef8f742fe5176ce8db99fb2f96f01036f93533e4d11834
+gfx/bank43/attrmap_58b8.attrmap	-	attrmap				360	e7ba70e014a836adeaa67fc8b4b93ccf9e27d6c41c6e2e07caee6c99ee2ae14b
+gfx/bank43/attrmap_6608.attrmap	-	attrmap				360	ea59ba58d4715971ae2b99c8a75ebc78ee615f133c6e837871680175c4051ec6
+gfx/bank43/attrmap_7358.attrmap	-	attrmap				360	1fde979eaf7fe75ed62518dc4d651fdc4fe896f4f344dc5c8ff02b2e065a7fb0
+gfx/bank43/palette_4cd0.pal	-	palette				1039	1ac14a385937ee2cd163da76dbd3ead8c219aefb21a170dc84e244d611918c93
+gfx/bank43/palette_5a20.pal	-	palette				1039	efd8630d457540b98f795de63d1b1c0adf12ab97f92862d5abbd09059be851a5
+gfx/bank43/palette_6770.pal	-	palette				1039	326b6ce4392c341ceb42611b27f8c4796413c01e6a2d472328221c5b32450a88
+gfx/bank43/palette_74c0.pal	-	palette				1039	d8b995f0bca31ae9248d4802822cec717c224f7ede6d8b96a98be3b75b218880
+gfx/bank43/tilemap_4a00.tilemap	-	tilemap				360	757a06841ca11d14b3908341fc4914c80015dacdb9b24648081e51ccaa091bf4
+gfx/bank43/tilemap_5750.tilemap	-	tilemap				360	f4f53115f9906a9fa6e3c3e6acf139b60d44a7dea7cec55f4f46c17fa5e8e596
+gfx/bank43/tilemap_64a0.tilemap	-	tilemap				360	b985b859d4ce464664197b7c533d848698c5d5494017fef8d6c84156d8509a45
+gfx/bank43/tilemap_71f0.tilemap	-	tilemap				360	157da48e899b544ceb7c6c350e8fbed478be3f0b47f877bc6692a0921d22954a
+gfx/bank43/tiles_4000.2bpp	gfx/bank43/tiles_4000.png	tiles			0	2560	50bc7020374b800c82acefab1417f340880f5dbcd1328ca984be14ef3816dc7e
+gfx/bank43/tiles_4d50.2bpp	gfx/bank43/tiles_4d50.png	tiles			0	2560	0e8fc7c1c75e31e434f561e91162b89c916ae2bac7a23b305d63752dfa46e357
+gfx/bank43/tiles_5aa0.2bpp	gfx/bank43/tiles_5aa0.png	tiles			0	2560	01f7a503e86169b4ce4320c8f54b65f50fdad19cf13ce999015890939aec873e
+gfx/bank43/tiles_67f0.2bpp	gfx/bank43/tiles_67f0.png	tiles			0	2560	f94cf265ca4d55bcae6517b68168912a7a097a00bf337ea9d62c6718e0318df2
+gfx/bank44/attrmap_4b68.attrmap	-	attrmap				360	505025d093e49075633a1a7b065978bb8d081ea95d5a1742cf258be3cd57bd70
+gfx/bank44/attrmap_58b8.attrmap	-	attrmap				360	dd20ad6c97c6c7a91f77109b3e2ba826acf044a01ce9dbdd4ac52b88d2852b6b
+gfx/bank44/attrmap_6608.attrmap	-	attrmap				360	f8d89520be706fdb235b29eb04c14ab0eafbec2379588235a76a7fcd4dc61feb
+gfx/bank44/attrmap_7358.attrmap	-	attrmap				360	cde5102699acc409ef4881062b933cc132f1e4504f33d8e8b0ae9c1fb1ca4cb4
+gfx/bank44/palette_4cd0.pal	-	palette				1039	fa5347e46e919341c1d23549a6065adaf1487dc92c432b9701fd2ab9e6b601cc
+gfx/bank44/palette_5a20.pal	-	palette				1039	d09cc7461b025992048ca76d07b75786e5b3d9f7dae28c500ba8af19221af67b
+gfx/bank44/palette_6770.pal	-	palette				1039	eae67eae8c698fde2c9df2973af934b3371941064c31cdf53df9a3434d4ec9eb
+gfx/bank44/palette_74c0.pal	-	palette				1039	9219378640fe19ba0c8a6c4d22c9a4ab65d955f3d7c5c39aba4c05d22e6236af
+gfx/bank44/tilemap_4a00.tilemap	-	tilemap				360	f15c8b8ef580c517244ff652a05ca6fde0ebee6f50d9ec28804bcd847fff548b
+gfx/bank44/tilemap_5750.tilemap	-	tilemap				360	90001ae6923fb1e940cfcb3e6fc39c84b9851c6a37383a6c6bd7629e681a1da1
+gfx/bank44/tilemap_64a0.tilemap	-	tilemap				360	219d5af36c998bd9aa1ce7a454c7238fdf09ec29ae0f778a713cefa872fb8c47
+gfx/bank44/tilemap_71f0.tilemap	-	tilemap				360	eb9f0d8565f7475e666d9512a58e147d1288dcd5040a738058e7ae5918b44c6b
+gfx/bank44/tiles_4000.2bpp	gfx/bank44/tiles_4000.png	tiles			0	2560	a281c78ce05c2339ff5e091ecabcd4d82146b5ae6d38eed4e1b894e5007a28f8
+gfx/bank44/tiles_4d50.2bpp	gfx/bank44/tiles_4d50.png	tiles			0	2560	547a338b0a373d4f698ee009557d86cc0cfb3e170dd09c4ea7061e267c6000a0
+gfx/bank44/tiles_5aa0.2bpp	gfx/bank44/tiles_5aa0.png	tiles			0	2560	74f3f9201c7dc6282ace045cb076a9e2f6504bf9ad18856b0e327959afc1c1e9
+gfx/bank44/tiles_67f0.2bpp	gfx/bank44/tiles_67f0.png	tiles			0	2560	b1e78de54b251eb088eace33787d3699c4f56c06375e73164a6e922b070e196e
+gfx/bank45/palette_4cd0.pal	-	palette				1039	b39f783ebb2e564763089d24c73203d54da77841357d7e27f5cd3299950cecc3
+gfx/bank45/palette_5a20.pal	-	palette				1039	cf5b23e42e117ae5acb7d07a87ebf349b454e643f2ee1cebbb620cc355d279f4
+gfx/bank45/palette_6770.pal	-	palette				1039	752deca138ff0f1a743f8ffe696d1ac213e9148405f3efb9bd06c109e40e271b
+gfx/bank45/palette_74c0.pal	-	palette				1039	0fc6377a312e400c79b1c89b69eb8f617df4e64c29412e76989c477261734887
+gfx/bank45/tilemap_4a00.attrmap	-	attrmap				360	a33795fd311472b43e530667e946d2ca6e7008e1b9c55cbad4b25053054a303e
+gfx/bank45/tilemap_4a00.tilemap	-	tilemap				360	f4b3dbf1ad04abb1e6adfca07e1fb22155931fad1bbfd5f0f845ff3b788bb02e
+gfx/bank45/tilemap_5750.attrmap	-	attrmap				360	ee3f21d37ab454213603373366308a89f9872f1b2e39c3c83301faf120e8e3f7
+gfx/bank45/tilemap_5750.tilemap	-	tilemap				360	54ddac46491fd3ea9688df0a7f3cdd6b8ea4cd3e1fccc31352c4d391cd6c6760
+gfx/bank45/tilemap_64a0.attrmap	-	attrmap				360	7eef94f740d65b9f713d196bd4986b9329f7ac61c05551bcd4897346d41eec34
+gfx/bank45/tilemap_64a0.tilemap	-	tilemap				360	bc5d004e6e61bb869881a651b01cd2a964e75359923bbac882fd32e805266ee5
+gfx/bank45/tilemap_71f0.attrmap	-	attrmap				360	d43038493dcb8a465ed2aab20fd1126e99a3c54466378b476eb2b4dd12930c28
+gfx/bank45/tilemap_71f0.tilemap	-	tilemap				360	fa7e5f2cf72caaee2eea07e5421c51834402acb0948752b71c0f3e9e0467e844
+gfx/bank45/tiles_4000.2bpp	gfx/bank45/tiles_4000.png	tiles			0	2560	d1841944388b7f089efc47cc8c9a585b6a57460ac28e1e1f8193fca190b9fefd
+gfx/bank45/tiles_4d50.2bpp	gfx/bank45/tiles_4d50.png	tiles			0	2560	1caa32e0c897c65e4ebee603d61a481dcac8496dba3e499b58b63bb1406de2da
+gfx/bank45/tiles_5aa0.2bpp	gfx/bank45/tiles_5aa0.png	tiles			0	2560	cd4755f55c4f4cf7f4a8783d0132443c48ca2f5a2b7bb5fd2aebe41f10ad6ab6
+gfx/bank45/tiles_67f0.2bpp	gfx/bank45/tiles_67f0.png	tiles			0	2560	392f74b6b12410ca867a5b6d9d0d6824a642534cce00ff6089c17b75176339a5
+gfx/bank46/palette_4cd0.pal	-	palette				1039	4531bac7b55b36f480d6c5e06a2ae4ca9f81cd1cfd853a7fee31008aff7a89f7
+gfx/bank46/palette_5a20.pal	-	palette				1039	0ede9b220afc4007232fbe4d3df2453a32b9fd5a13d20351339013346c9fe329
+gfx/bank46/palette_6770.pal	-	palette				1039	bab478305be52260b518902205a50c5b5cab56699e481f244121002c18d770d9
+gfx/bank46/palette_74c0.pal	-	palette				1039	62e0744efbe2d75ca7283991ac10dce6fe4686a4fcc1c3380c7c6826957710b1
+gfx/bank46/tilemap_4a00.attrmap	-	attrmap				360	6aa2d9b1f40c368ec0678c4e4d4d4288fe239858f9635ca31abafd9baccb4b17
+gfx/bank46/tilemap_4a00.tilemap	-	tilemap				360	ee59c9e2173576afc15b7ce223dd6db70ff3fe6ef58ffd6fd633ac38dcc421ac
+gfx/bank46/tilemap_5750.attrmap	-	attrmap				360	8b7c65d9e67c5db02707f00a5d059f244cc12eeb6f51c205e8a5e73ddf119d73
+gfx/bank46/tilemap_5750.tilemap	-	tilemap				360	30a5596a73770609d1b4dff4385e7a8d3ebef6816340db229a2a4b02a24ee994
+gfx/bank46/tilemap_64a0.attrmap	-	attrmap				360	8d40979b3ee636d5dcfbd8b57b746b6b94a3ebf77826c54f5a43e4d2736380d4
+gfx/bank46/tilemap_64a0.tilemap	-	tilemap				360	fac7992d68955adeed25497ac9892d6964bb3f23d79223363a2857073f761448
+gfx/bank46/tilemap_71f0.attrmap	-	attrmap				360	67edeb67b533301a9bbf44b02eea0a246a4d04a39fe0d6e7f330e931900398a5
+gfx/bank46/tilemap_71f0.tilemap	-	tilemap				360	c67e8166cccdc8f2b084b268a55ea366dc581384b8cbe4125325659d23935dac
+gfx/bank46/tiles_4000.2bpp	gfx/bank46/tiles_4000.png	tiles			0	2560	061cdfe17276f6171b6eac07df7703132138b480c07705c4e3c1bbd887873735
+gfx/bank46/tiles_4d50.2bpp	gfx/bank46/tiles_4d50.png	tiles			0	2560	111883ab507555fa718b36e4881167ad33679659e047e17df232ec6eb82f63d2
+gfx/bank46/tiles_5aa0.2bpp	gfx/bank46/tiles_5aa0.png	tiles			0	2560	2a0f7237f338a09f9f84f812ed17dac38593d46650d02beeab71dd948ce1ca12
+gfx/bank46/tiles_67f0.2bpp	gfx/bank46/tiles_67f0.png	tiles			0	2560	7e2cf4f2820a4fd5f5236c2be54a9b1e1354d26917c8c86194d2379325228d3c
+gfx/bank52/tiles_4080.2bpp	gfx/bank52/tiles_4080.png	tiles			0	2944	9c4580b7ec3957fbded052b9b48d4f5999389844ca1ab4819e450e27acd98b81
+gfx/bank5b/palette_5680.pal	-	palette				779	d835d959fc9e7722974f3c63d28dcc7c437fbc1d360a914a4e85138519a8d550
+gfx/bank5b/tiles_4000.2bpp	gfx/bank5b/tiles_4000.png	tiles			0	4608	3f3a3a44a5b87aca751360d559be3a16915ac9cd001bb4ae0fef33e51c8aa1da
+gfx/bank5b/tiles_5200.2bpp	gfx/bank5b/tiles_5200.png	tiles			0	1152	884fbf738d2313e7abcd6a30ed85dc5c49ee680827666ce347449796f9454d08
+gfx/bank60/palette_7a80.pal	-	palette				844	25f3dd7b51e34f49de963abfafac472f14eeaa67539243a36a8b4ec0f806a42a
+gfx/bank60/tiles_4360.2bpp	gfx/bank60/tiles_4360.png	tiles			0	240	4caebcb548cbaa818bb1b41220fb8ae8ef52b372d48ce6274946ca5e86896611
+gfx/bank60/tiles_4455.2bpp	gfx/bank60/tiles_4455.png	tiles			9	1136	6ea11f96391f59f2059f2352e0dd7140b3da7cfdfdbc4e6b656977a832b56f15
+gfx/bank60/tiles_4b50.2bpp	gfx/bank60/tiles_4b50.png	tiles			13	560	45d61ec09ee795e470f19e0f09f53eefa1d8eae2f6f17e88e36f11c4df05d562
+gfx/bank60/tiles_4dd0.2bpp	gfx/bank60/tiles_4dd0.png	tiles			6	1184	18b922fcdf590c8bc3ea08dd0787db8fb12d07d8463ff4ec352ff22938395cd5
+gfx/bank60/tiles_52c0.2bpp	gfx/bank60/tiles_52c0.png	tiles			0	16	d12f1727aa4355a125605e12ae8a9e496b4b0e5653410ed163d2a3491e7e3a12
+gfx/bank60/tiles_52d0.2bpp	gfx/bank60/tiles_52d0.png	tiles			0	880	0b9ace5b6b50e07afe619532b3f897930e540042dbb20decf00971ddb1277d7f
+gfx/bank60/tiles_5640.2bpp	gfx/bank60/tiles_5640.png	tiles			0	176	cab406c04fa7897808dae64b197f5bafdd6ed90fa40a0684a7dec0d843c45c6c
+gfx/bank60/tiles_5740.2bpp	gfx/bank60/tiles_5740.png	tiles			0	112	c15648069723ecd5ad424c982aac432fd9406912ae72e2aabf6b85b1bda47cdb
+gfx/bank60/tiles_5800.2bpp	gfx/bank60/tiles_5800.png	tiles			0	768	4d19cc2034ed2086bb6e188b8881ddb09a9996489a91c801a678752f07ecbbef
+gfx/bank60/tiles_5d50.2bpp	gfx/bank60/tiles_5d50.png	tiles			0	704	118f2d7cc10666af4cb65d464040df4fb707530c693e1c3554deebff8894c242
+gfx/bank60/tiles_6010.2bpp	gfx/bank60/tiles_6010.png	tiles			0	80	df705e25174431a1757c9a94d4a81aa0213f8e516cdb81ff11572eb20e8eddcf
+gfx/bank60/tiles_6060.2bpp	gfx/bank60/tiles_6060.png	tiles			11	592	05f8d2474d887a947b07dae0b5dba2483567dd8a4be652110cb6d51940ecb75a
+gfx/bank60/tiles_62b0.2bpp	gfx/bank60/tiles_62b0.png	tiles			0	448	0225a2096cc4f5e52406faaa0e216b13ef1d3f3bd923e45e1a8516a79121cc00
+gfx/bank60/tiles_64c0.2bpp	gfx/bank60/tiles_64c0.png	tiles			0	112	7d058aa8bc794179cfbe46d9ca89bdfc23cc6b3141655db642b9c3eeb0f412b6
+gfx/bank60/tiles_6580.2bpp	gfx/bank60/tiles_6580.png	tiles			0	128	79c0aa56d69418fafbe2709679fefec86dcf2fbedf684e8739d3efc304ed537b
+gfx/bank60/tiles_6640.2bpp	gfx/bank60/tiles_6640.png	tiles			10	2656	f87408457f85211591fb1d64035dd3e0acd1e3aa43630dc799597af72e343f6e
+gfx/bank60/tiles_70a0.2bpp	gfx/bank60/tiles_70a0.png	tiles			11	1616	0bb2ebff2317898043fd8b24e49788e1c3a2f15dd86beb9c453363d265df56ba
+gfx/bank60/tiles_76f0.2bpp	gfx/bank60/tiles_76f0.png	tiles			7	912	2437d4ffaf6a0eb51440112c5904c15bcf748fa90c1e9e26d536f31b11892175
+gfx/bank61/palette_7a80.pal	-	palette				844	613cfe2f3b608fa1cb41a2e5fb3d9aab48ca1e3fc59c7c4a916bd37de2196d08
+gfx/bank61/tiles_4cc0.2bpp	gfx/bank61/tiles_4cc0.png	tiles			0	672	36ef0482e120993d3eb27d83d0654689a0b6419c2db6e442373789fb140a4843
+gfx/bank61/tiles_4f63.2bpp	gfx/bank61/tiles_4f63.png	tiles			7	656	9f08855de0d94f60dd7441d8914918d517bf55bf76ba289620feebb21793adb3
+gfx/bank61/tiles_58b0.2bpp	gfx/bank61/tiles_58b0.png	tiles			7	656	958275e40afc987a8bed2eec5cc2062e2041f62b4a70e814036a84f5b1b6c62c
+gfx/bank61/tiles_65c0.2bpp	gfx/bank61/tiles_65c0.png	tiles			0	800	defc62ec00126567d852c51b55d1029f0adda621c728a854f8bf074e3e188577
+gfx/browser/frames_0_1/palette_4dd0.pal	-	palette				1039	f3f88d3a62a7abee5b960f285a858b330b388429e9ed7e836ffbe557d0ec94b9
+gfx/browser/frames_0_1/palette_5b20.pal	-	palette				1039	e8752fd68471117a7681662d7a5e971c040a1d86b2a0d79a25e0789b199ea372
+gfx/browser/frames_0_1/tilemap_4b00.attrmap	-	attrmap				360	0d38646fb1160dcbe612146ef95115da15f6bae0b0f5a1d61301bddae81956eb
+gfx/browser/frames_0_1/tilemap_4b00.tilemap	-	tilemap				360	a5c13da8bdd8f239874b6f15e9727fdeaf9f6671b7675118de1f7d1a1b006df4
+gfx/browser/frames_0_1/tilemap_5850.attrmap	-	attrmap				360	5b787afd90bf0c6ec577d16fb9ff14b8d3835522a50c49a9d167e163ba861361
+gfx/browser/frames_0_1/tilemap_5850.tilemap	-	tilemap				360	ab51264f404c2c3574cce52afb8de3f297054c090c889360853c65d57c780dfa
+gfx/browser/frames_0_1/tiles_4000.2bpp	gfx/browser/frames_0_1/tiles_4000.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
+gfx/browser/frames_0_1/tiles_4010.2bpp	gfx/browser/frames_0_1/tiles_4010.png	tiles			0	48	b3b47396eabacb1a3664fb460829369eaa23a855fb87eb63c7d87232723372d4
+gfx/browser/frames_0_1/tiles_4040.2bpp	gfx/browser/frames_0_1/tiles_4040.png	tiles			0	64	0ac1ad1c3f83acf7439d2c6e5fa962bce6243f11081ce38df5d8421907b69df7
+gfx/browser/frames_0_1/tiles_4080.2bpp	gfx/browser/frames_0_1/tiles_4080.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
+gfx/browser/frames_0_1/tiles_4090.2bpp	gfx/browser/frames_0_1/tiles_4090.png	tiles			0	48	86a3639b4e8d4e9c2d3eb79fd1e0fd2a44b6e4e4a8d0f21a998b75ef9c7334c8
+gfx/browser/frames_0_1/tiles_40c0.2bpp	gfx/browser/frames_0_1/tiles_40c0.png	tiles			0	16	b578f6c2be9f09fb2db3dc43665682d9970f33b20fa8f4f50e74fbc63d7eac73
+gfx/browser/frames_0_1/tiles_40d0.2bpp	gfx/browser/frames_0_1/tiles_40d0.png	tiles			0	48	43938729e7f12d62a03a582cbe0bb6c5f9265b34e34f7efe5bd5b1788d6c3322
+gfx/browser/frames_0_1/tiles_4100.2bpp	gfx/browser/frames_0_1/tiles_4100.png	tiles			0	2560	1a10b04c251f71d02556cc7511e34103d20924c2f77b194614c7c813360ae4c0
+gfx/browser/frames_0_1/tiles_4e50.2bpp	gfx/browser/frames_0_1/tiles_4e50.png	tiles			0	2560	602a294b5f765a16436d2c44be42f3ff4e7374f7a453202ea3ee0abb21ff622e
+gfx/browser/frames_2_3/palette_6870.pal	-	palette				1039	092596041714d7d5a6e0809916dfbb4e153895358c75d7d1dc555e37b0728c3c
+gfx/browser/frames_2_3/palette_75c0.pal	-	palette				1039	814447bea32052be5d86936c7f04e86d8c622a3ac93e2807edfa7a98eed313c2
+gfx/browser/frames_2_3/tilemap_65a0.attrmap	-	attrmap				360	a5276791071844ec0724cea2c1f407d6f02b571e6a0d73e1459510a1a6acf9ab
+gfx/browser/frames_2_3/tilemap_65a0.tilemap	-	tilemap				360	5a978e54f75fc0a14fa66c607a391477d3861a35ad8803937dc5ffe4febdd7b4
+gfx/browser/frames_2_3/tilemap_72f0.attrmap	-	attrmap				360	3f82ae31767dfac291aca48a84f70ea5f1c7e5046ed174a61ac6118b38c6829f
+gfx/browser/frames_2_3/tilemap_72f0.tilemap	-	tilemap				360	7098e3059350deae6fbd1903406e36d7d9b066d2e357fbbac20b5bbcec1a6e47
+gfx/browser/frames_2_3/tiles_5ba0.2bpp	gfx/browser/frames_2_3/tiles_5ba0.png	tiles			0	2560	05538409a322698823a60157110997e2c62ae4b69c131fe8a1638a6cab26b4f2
+gfx/browser/frames_2_3/tiles_68f0.2bpp	gfx/browser/frames_2_3/tiles_68f0.png	tiles			0	2560	8d856c1aa9bb607143dbb33ed59a1f6b420cf20fff79875284ee247d3ae89059
+gfx/browser/menus/browser_menu2_map.attrmap	-	attrmap				120	95ddeadaede2685e40b41c84268aa78cecfb1260535e82b99da16cb44c91017a
+gfx/browser/menus/browser_menu2_map.tilemap	-	tilemap				120	32ff0e87c677194e7097ee6dea4fc594fe17cc44463bad869dadf9b079b5ebc8
+gfx/browser/menus/browser_menu2_palette.pal	-	palette				194	510aca1939b6df58e3720a9f141c6a4e026e5b0d1fd0eab71a01f329252771ab
+gfx/browser/menus/browser_menu2_tiles0.2bpp	gfx/browser/menus/browser_menu2_tiles0.png	tiles			0	1024	97dfee06c4bf35495a4c7dbb0f95def25307d24280b4124cc44319b89e839067
+gfx/browser/menus/browser_menu2_tiles1.2bpp	gfx/browser/menus/browser_menu2_tiles1.png	tiles			0	256	a41b1531124681a871f2d71eb3b52c4c04fc0b3ea9fe4703e8a581cbea468608
+gfx/browser/menus/browser_menu3_map.attrmap	-	attrmap				120	cd91389d41dd33e22d89493d98865f325a126ccb3ff36b72660c93a09527657a
+gfx/browser/menus/browser_menu3_map.tilemap	-	tilemap				120	77cf5a78ed54a58acc5de131949532ba7e29febc5b2b9e23743d7bf1559b5fcc
+gfx/browser/menus/browser_menu3_tiles0.2bpp	gfx/browser/menus/browser_menu3_tiles0.png	tiles			0	1024	6fa85f4872cf165c44f8f70be79ca2245d091d19b61c188bc1f629b53b4f625a
+gfx/browser/menus/browser_menu3_tiles1.2bpp	gfx/browser/menus/browser_menu3_tiles1.png	tiles			0	256	4dd8a27256b8b553a9c68448e741167d2a8b8ff2c92f345aaf3bf0d63a8e0fa9
+gfx/browser/menus/palette_7206.pal	-	palette				129	8e06fa3b97597bd7f3961b726e7985f3083abd20f55f80a59971e56aea630a20
+gfx/browser/page_list/page_list_bg_palette.pal	-	palette				519	2147db3106d5e325a5eca25a53f362e0a4f7590b45cd365b0383867bc9d2859e
+gfx/browser/page_list/page_list_obj_palette.pal	-	palette				519	ba5baae484bcf101f7c508f9f5abfcf91802552ca95d8ef5ae8af1889e5287cc
+gfx/browser/page_list/page_list_tilemap_5900.attrmap	-	attrmap				360	000c8b9fcedfff08ccf12e04d905574fe592cefa09f35121e61581bcd5b464ed
+gfx/browser/page_list/page_list_tilemap_5900.tilemap	-	tilemap				360	f9d8c83582f149d37525f610e6e617aee32655397421fe18149347e17e694f22
+gfx/browser/page_list/page_list_tilemap_5bd0.attrmap	-	attrmap				360	c5d452eb10594539af03515b99599da2ab8da84b662cf660811c6ccd93345b96
+gfx/browser/page_list/page_list_tilemap_5bd0.tilemap	-	tilemap				360	50818bb7e9da59254b13300db86739ebab2827e2f2db4098be66bcf007b20c2a
+gfx/browser/page_list/page_list_tiles_5400.2bpp	gfx/browser/page_list/page_list_tiles_5400.png	tiles			3	464	4393617ed5bff19050630d8f8becd3b9d81467c91476f3ca86e9f3e93da0a75a
+gfx/browser/page_list/page_list_tiles_5800.2bpp	gfx/browser/page_list/page_list_tiles_5800.png	tiles			0	16	6478303eac279d05ce6dbe21c10d903b4b0eb97224d34773f9256a87cb41d0a0
+gfx/browser/page_list/tiles_55d0.2bpp	gfx/browser/page_list/tiles_55d0.png	tiles			13	560	6613ed2cf7a040b9686bd2a56b9ad7853f3abd41aa25d49e3f2527d266f6e8a3
+gfx/browser/page_list/tiles_5810.2bpp	gfx/browser/page_list/tiles_5810.png	tiles			0	160	fb17d379db097f1b9c0ad78931a29458b52ccc8dbb4ca41660937aea76ce68af
+gfx/browser/page_list/tiles_5ef1.2bpp	gfx/browser/page_list/tiles_5ef1.png	tiles			2	992	621e6999c63d181b654e2e623b7fac68c3b6c83974da49d892eaa92701751a68
+gfx/browser/page_list/tiles_6301.2bpp	gfx/browser/page_list/tiles_6301.png	tiles			0	192	b6cda9a140467275dff1c865f280449926643131e009234dd94982ae6542a532
+gfx/browser/page_list/tiles_63e0.2bpp	gfx/browser/page_list/tiles_63e0.png	tiles			0	256	b484b3f123492910c6ac5d730a0761ecbb5d2e0e75b7522dbd8e9b11930f8e2f
+gfx/browser/start_choice/browser_start_bottom_attr_selected.attrmap	-	attrmap				30	24d504dc3274894394d3a7f80b1b9659e077dff77096334e8c57db04ff8f9157
+gfx/browser/start_choice/browser_start_bottom_map_selected.tilemap	-	tilemap				30	878af730611edb1259e1153be488cb4b12be9f03bf5b4da2c08c9642bc31196d
+gfx/browser/start_choice/browser_start_map.attrmap	-	attrmap				360	96921817d90eff97e6e344d0776744aafbb3dcf5f3ab81d61902d31b03588cd0
+gfx/browser/start_choice/browser_start_map.tilemap	-	tilemap				360	0e27a3e06a1773622644d63e524c23b4791f950a730cedf95485407c623f0008
+gfx/browser/start_choice/browser_start_obj_palettes.pal	-	palette				129	58e0230562743566c8d6ca41b1aa2830c877d28648218ad50f5787c194842172
+gfx/browser/start_choice/browser_start_palettes.pal	-	palette				64	cd2f06bafbded73def40557f51543653b007f87d4d76f2fcebda80e5d80fd58e
+gfx/browser/start_choice/browser_start_tiles0.2bpp	gfx/browser/start_choice/browser_start_tiles0.png	tiles			0	1024	83dd849a052f29ab032f366e76843eebc610ff569a0ca2f38a96bc762381077e
+gfx/browser/start_choice/browser_start_tiles1.2bpp	gfx/browser/start_choice/browser_start_tiles1.png	tiles			0	1024	51e5fda6e838968b53c56bef58359d3c069af8e6900555ce5a169830c96f36e6
+gfx/browser/start_choice/browser_start_tiles2.2bpp	gfx/browser/start_choice/browser_start_tiles2.png	tiles			0	1024	ea4c33690f56177fab9c9100ad015079b33b199241b6ef099167959b72fef32b
+gfx/browser/start_choice/browser_start_tiles3.2bpp	gfx/browser/start_choice/browser_start_tiles3.png	tiles			0	1024	2a23474d9b6f56795eaa1c15a55e4bfaf46c0bb22025aacf6c3ee84dd3944b45
+gfx/browser/start_choice/browser_start_tiles4.2bpp	gfx/browser/start_choice/browser_start_tiles4.png	tiles			0	1024	4e2edf28f409148d783fec38876bd08324ca653b441fbe0eca6160e69d316de6
+gfx/browser/start_choice/browser_start_top_attr_normal.attrmap	-	attrmap				40	098e6841b64c6dd50bb6e2b5f25139b6ed9b443982ef1304254970a9e59a1f13
+gfx/browser/start_choice/browser_start_top_map_normal.tilemap	-	tilemap				40	44253f4e2bf055fc23fc592590918706c42be32fe35ed79054fc95b9260e931b
+gfx/browser/start_choice/palette_5de8.pal	-	palette				194	9b0eb2eaa50d773d0ea766e002304b8063eaf96085e9b1d4123339f732e6e1e5
+gfx/browser/start_choice/palette_5e08.pal	-	palette				194	7f3c7e77876629bf1ba2fbb91ad2ef027fcbdb74a1ddd618d7b76ebfed50bcd4
+gfx/browser/start_choice/palette_5e38.pal	-	palette				1104	c8c035b814575202893b38b80ffa79278240d1f11c41e0f87ba913c4a768204b
+gfx/browser/start_choice/tiles_4530.2bpp	gfx/browser/start_choice/tiles_4530.png	tiles			0	176	251a29bfb7d2e5de3af5d95df00b5510789b4b15063e5e3e66b241a6e6d847c1
+gfx/browser/start_choice/tiles_49e0.2bpp	gfx/browser/start_choice/tiles_49e0.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+gfx/comm/comm_scene/palette_6c90.pal	-	palette				519	5db0ace1c5619034ecb29bac28abb219a9d1fd1d1ef246bc2e92ecf554ed755c
+gfx/comm/comm_scene/palette_6cd0.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
+gfx/comm/comm_scene/tilemap_6d10.attrmap	-	attrmap				448	a6e83e1db4c2399832b5c408917d1934044acc55e6ac53afe3734750a59c3afe
+gfx/comm/comm_scene/tilemap_6d10.tilemap	-	tilemap				448	1d2e7d97bbd08057c34c9563baef9ff1c2acba49be5b8b464ef23f50d407f953
+gfx/comm/comm_scene/tilemap_7090.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_7090.tilemap	-	tilemap				80	fcf8a44d84c34a37c61aaf59563552dd28ff75802e5d256dc7ce547a797c94dc
+gfx/comm/comm_scene/tilemap_7130.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_7130.tilemap	-	tilemap				80	ff5ce69f8b57fe2d89dab3613ddf8f12722ec4ed12e1f5874269e89d64271010
+gfx/comm/comm_scene/tilemap_71d0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_71d0.tilemap	-	tilemap				80	e9646196419471eefd6fc1c6dc343997bcc10dde97e079cf3e382ece801312d0
+gfx/comm/comm_scene/tilemap_7270.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_7270.tilemap	-	tilemap				80	42c669023b1bd836c0bb167cffeaafdf8d68088ec492e48fcfb067ecb331c453
+gfx/comm/comm_scene/tilemap_7310.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_7310.tilemap	-	tilemap				80	4e90c7e41a4976d466aa9e074d5f0401e0223bc6a52d13a1f35eb55d35d97b33
+gfx/comm/comm_scene/tilemap_73b0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_73b0.tilemap	-	tilemap				80	d7a1d8a67578c3ce277270235916731b8dc89a244013db90fe74f11c498c9ffb
+gfx/comm/comm_scene/tilemap_7450.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_7450.tilemap	-	tilemap				80	1c9e01bff11c86f68559d82a3c80c71327eb7a506fcae2991d04ebf82ab76ec4
+gfx/comm/comm_scene/tilemap_74f0.attrmap	-	attrmap				80	c0532654c2b6c5caa434dce2023fc6dda7f091f8e45d5b8c0ab5cd656b6e93f7
+gfx/comm/comm_scene/tilemap_74f0.tilemap	-	tilemap				80	f6aa36f427fd6532784f862c4762e5a51b323a618343b1b6ba9e3af7a5a49336
+gfx/comm/comm_scene/tiles_5490.2bpp	gfx/comm/comm_scene/tiles_5490.png	tiles			0	1024	72012310c8bae955127dd61e0c6d71f3589eea2b109f616277d54fd3006b8a40
+gfx/comm/comm_scene/tiles_5890.2bpp	gfx/comm/comm_scene/tiles_5890.png	tiles			0	1024	8d5e0696e35f6dd592fce18c6e6b49085108c3e875ea833c763e37432919fb1c
+gfx/comm/comm_scene/tiles_5c90.2bpp	gfx/comm/comm_scene/tiles_5c90.png	tiles			0	1024	ac46e1d400665e5e13c46b0c04cf93478a55edd0203eed94f4efa22797a74b7b
+gfx/comm/comm_scene/tiles_6090.2bpp	gfx/comm/comm_scene/tiles_6090.png	tiles			0	1024	433ccdb7134e43960b1200df49eaa3716fb3a519c8952cf9a2a87be5d379050a
+gfx/comm/comm_scene/tiles_6490.2bpp	gfx/comm/comm_scene/tiles_6490.png	tiles			0	512	ad0a3e0ddb9d96967934304a9c427081eee49a002ca5637b898cdc993834c8f0
+gfx/comm/comm_scene/tiles_6690.2bpp	gfx/comm/comm_scene/tiles_6690.png	tiles			0	512	1a0aacce0f42ce4405680824b142a29060a8eb19fef83e0e2881f87c4f746c1c
+gfx/comm/comm_scene/tiles_6890.2bpp	gfx/comm/comm_scene/tiles_6890.png	tiles			0	512	e4516001ad837a65e35be9de3a2d0a28f141b59b438e3e5778d92aaa61ccc886
+gfx/comm/comm_scene/tiles_6a90.2bpp	gfx/comm/comm_scene/tiles_6a90.png	tiles			0	512	ef0342853cd0237061ea59649bb494510b12409ed7a189a51f9f0cab3c4400cf
+gfx/comm/connect_dialog_bank56/palette_77c0.pal	-	palette				1559	24f3b519836f75dfcda2c72855cf7e0ce332398733c6da1e2f74e21631542c1f
+gfx/comm/connect_dialog_bank56/tilemap_418a.attrmap	-	attrmap				360	c75fbdfeadf8c098d00f5f669347edc14efad3b914fa9f2d4feaa2ce9972f6ba
+gfx/comm/connect_dialog_bank56/tilemap_418a.tilemap	-	tilemap				360	d1c50e7cccb153362f1b16b8b9d806f0ff10bfb489b2c3fb7252cfaf10bf800a
+gfx/comm/connect_dialog_bank56/tilemap_445a.attrmap	-	attrmap				360	3afa5272c2523978391d2866f6d1d5a07c7b29244297daed2bd8aec6dab92c16
+gfx/comm/connect_dialog_bank56/tilemap_445a.tilemap	-	tilemap				360	905a7ad285a8de4925853c30b7b63b35d70560979ee00cab5982e1dca475bcf7
+gfx/comm/connect_dialog_bank56/tilemap_472a.attrmap	-	attrmap				360	3e752c9937f2da33eb77b264f5860c049481f175d986fa729147c123473f2553
+gfx/comm/connect_dialog_bank56/tilemap_472a.tilemap	-	tilemap				360	b57b4f9fa501090b006db13614798ccd0f4f96a36ab7f167eaaf167f2dfd707f
+gfx/comm/connect_dialog_bank56/tilemap_49fa.attrmap	-	attrmap				360	0235cb124be846d3db462312dac8e4a42fb5086ff1850a8b402fc1c0f0f13dcc
+gfx/comm/connect_dialog_bank56/tilemap_49fa.tilemap	-	tilemap				360	d9000f467f66bf5b27478d2ed45739156b2124e69561e1772189fcf4fd1d3679
+gfx/comm/connect_dialog_bank56/tilemap_4cca.attrmap	-	attrmap				360	665040292ccf8ead251a8e5276476104b8aa57e50903288d425a3ed50450263e
+gfx/comm/connect_dialog_bank56/tilemap_4cca.tilemap	-	tilemap				360	ad3024a2e0ee1908782336cb96940f302a70106a659fbf1173ac5e1e8fbf4e64
+gfx/comm/connect_dialog_bank56/tilemap_4f9a.attrmap	-	attrmap				360	7faee5f54ad6a300f8011edd1758af1a970c39fb26de09724343a00639582f5d
+gfx/comm/connect_dialog_bank56/tilemap_4f9a.tilemap	-	tilemap				360	d897807f13ae6c14d9b6b32937b017c5fe5dd1497faa8366b4f2e6524cb346aa
+gfx/comm/connect_dialog_bank56/tiles_526a.2bpp	gfx/comm/connect_dialog_bank56/tiles_526a.png	tiles			0	80	be59f7a6437475cdeff2b050e2232bafb1bb0cd9b51d3c92beb430715836ccab
+gfx/comm/connect_dialog_bank56/tiles_52c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_52c0.png	tiles			0	1024	550444891cd6080fda4e4a35dc560114a9c45ab216ea12eeaebabe1a767e3ad0
+gfx/comm/connect_dialog_bank56/tiles_56c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_56c0.png	tiles			0	1024	617ad23c782e98a493d9010033f152d5122068080e542701f8a3e1a1e3076787
+gfx/comm/connect_dialog_bank56/tiles_5ac0.2bpp	gfx/comm/connect_dialog_bank56/tiles_5ac0.png	tiles			0	768	6de5fe637c4fef271d736e107b016143766f7fc89ec1a83831f30ccf7bd54344
+gfx/comm/connect_dialog_bank56/tiles_5dc0.2bpp	gfx/comm/connect_dialog_bank56/tiles_5dc0.png	tiles			0	768	c31523ccf042ceb4c2032a62aeb5c76441f99fa17587f02c1c9d898855c34d44
+gfx/comm/connect_dialog_bank56/tiles_60c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_60c0.png	tiles			0	1024	60d3a136c81e804e64d94fd7acb83912ac069ea0dee00d8d2a2302dcff3c4050
+gfx/comm/connect_dialog_bank56/tiles_64c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_64c0.png	tiles			0	1024	1bcbbd07cc6d7ec053c583579daf06da1c8dc10e92397251e862b233c23fc206
+gfx/comm/connect_dialog_bank56/tiles_68c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_68c0.png	tiles			0	512	ee9967c1d4805c4674707bf4d7bf4f923a4337acc39994c836dd219ea2a34d18
+gfx/comm/connect_dialog_bank56/tiles_6ac0.2bpp	gfx/comm/connect_dialog_bank56/tiles_6ac0.png	tiles			0	1024	2d61ac94779237d75aad8f0e42ac89c171213060eb0f33c50f4601ef1af47867
+gfx/comm/connect_dialog_bank56/tiles_6ec0.2bpp	gfx/comm/connect_dialog_bank56/tiles_6ec0.png	tiles			0	768	b548f104bc1d2ecbb1275f23ac78f2911534048b70e657dc70dc499d844d3def
+gfx/comm/connect_dialog_bank56/tiles_71c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_71c0.png	tiles			0	1024	91b24702d87086c2f227cf084e9ab3fe83e0f458a2b656e5300a139c16e1930a
+gfx/comm/connect_dialog_bank56/tiles_75c0.2bpp	gfx/comm/connect_dialog_bank56/tiles_75c0.png	tiles			0	512	f371b5335e18e6d69d5acabeee4b17db90751da4f42b554514d0a93e78e8ae93
+gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.2bpp	gfx/comm/connect_dialog_screen/connect_dialog_blank_tile.png	tiles			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+gfx/comm/connection_icon/conn_icon_palettes.pal	-	palette				194	43604d12d1a6b117711645029188f455b81552d4506859fb44fcd26a036a4a69
+gfx/comm/connection_icon/conn_icon_tiles0.2bpp	gfx/comm/connection_icon/conn_icon_tiles0.png	tiles			0	1024	f4b11faee19bd0a3e46b11c5592a588b8494f8fa6be907657d123b666c1b0d6d
+gfx/comm/connection_icon/conn_icon_tiles1.2bpp	gfx/comm/connection_icon/conn_icon_tiles1.png	tiles			0	512	076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560
+gfx/comm/notice_dialog/attrmap_4502.attrmap	-	attrmap				360	2496c1e1e2f1a44c871ab3af5199a80a94c66e00a75ec7f56a6ee73cc9e06e58
+gfx/comm/notice_dialog/attrmap_47d2.attrmap	-	attrmap				360	beec17e7099fd0f144b9f664f09fa315aec2236b5e04b0d467f711d3c478119b
+gfx/comm/notice_dialog/attrmap_4aa2.attrmap	-	attrmap				360	8ff36d9395e8a00ccfde7cea8a9c90c5d4da2f5c7561ff507587208c728b3085
+gfx/comm/notice_dialog/attrmap_4d72.attrmap	-	attrmap				360	2b0b63c5cbd52162a71573fab7e7efeac2bb6601eef64052c8c2fccff5e582fa
+gfx/comm/notice_dialog/attrmap_5042.attrmap	-	attrmap				360	45c1a50b39102e5aeeb7717ec640ef3073ed0d318e8aaf7b191b1f248b5f7d0f
+gfx/comm/notice_dialog/attrmap_5312.attrmap	-	attrmap				360	c535e327c506f1bc51d75f006f406ec931159e0a32a329b1612ea1f37f1d072e
+gfx/comm/notice_dialog/attrmap_55e2.attrmap	-	attrmap				360	2f785b251430ad6d5c8d37d68451c5111e37aa0009ac82d4cffdeca76222eb4f
+gfx/comm/notice_dialog/attrmap_58b2.attrmap	-	attrmap				360	73ffaa3d11f85897e19e0e608e4867221f9a0d5bfd6a865f3e7c6e97ba30770c
+gfx/comm/notice_dialog/comm_notice_a_ask_over60.tilemap	-	tilemap				360	464a81a0acabc6163ad050acce2811e619e5c6727bfc046dcfa4a2da88874e91
+gfx/comm/notice_dialog/comm_notice_a_ask_soon.tilemap	-	tilemap				360	38f63c72bf06e2e6fde1d61443821bcaec1d0f4eeed6adae5c4f580f56b5b899
+gfx/comm/notice_dialog/comm_notice_a_cut_over60.tilemap	-	tilemap				360	11fe3876a4b826db2d93a689c48eb0dd502303b483582d8486e90d98a5da621e
+gfx/comm/notice_dialog/comm_notice_a_cut_soon.tilemap	-	tilemap				360	4cbab277a77480802040d4801878e7060f121a9b1601d6aad8847523b96a3a44
+gfx/comm/notice_dialog/comm_notice_b_ask_over60.tilemap	-	tilemap				360	140a66d53f4b9f8d038e4a9dea4a4795e048355c7c545c623e3161ff4be22a57
+gfx/comm/notice_dialog/comm_notice_b_ask_soon.tilemap	-	tilemap				360	d455751b14da42efc5f18f7f3449cb9dd95c27bdcc669d2c5ae81dcb51792066
+gfx/comm/notice_dialog/comm_notice_b_cut_over60.tilemap	-	tilemap				360	c625531eed10204cf253f9b676f094050bf59b613b63ac675b84033b55539a63
+gfx/comm/notice_dialog/comm_notice_b_cut_soon.tilemap	-	tilemap				360	aa6ef5f574dfc67b3493753902b48b58355f7ddbd925832518880d7cd51fdda9
+gfx/comm/notice_dialog/palette_6bc0.pal	-	palette				2079	70cb4102971f5bf3349137c20007f741af5d78146febfc18ced1fbcddd7c53fb
+gfx/comm/notice_dialog/tiles_5a20.2bpp	gfx/comm/notice_dialog/tiles_5a20.png	tiles			0	1024	10a5fbe85c3974719289336006d932a7283451d3f7a8ec56bc0b0c9b99302f14
+gfx/comm/notice_dialog/tiles_5e20.2bpp	gfx/comm/notice_dialog/tiles_5e20.png	tiles			0	416	9ec59e1705c4aac0b80bff5c047fc5922e2dba030c4c192320c30e4ae5f2c19a
+gfx/comm/notice_dialog/tiles_5fc0.2bpp	gfx/comm/notice_dialog/tiles_5fc0.png	tiles			0	16	598afa6a7a37d6a2c515d842f0b4a05dbfa09f8f176396ca1061b022cf0ae1db
+gfx/comm/notice_dialog/tiles_5fd0.2bpp	gfx/comm/notice_dialog/tiles_5fd0.png	tiles			0	800	7e3fa30716ebde901ddba36fc4fe6ced8e32dc4009d020e57be6fff0e3ba6fb0
+gfx/comm/notice_dialog/tiles_62f0.2bpp	gfx/comm/notice_dialog/tiles_62f0.png	tiles			0	1024	10a5fbe85c3974719289336006d932a7283451d3f7a8ec56bc0b0c9b99302f14
+gfx/comm/notice_dialog/tiles_66f0.2bpp	gfx/comm/notice_dialog/tiles_66f0.png	tiles			0	416	9ec59e1705c4aac0b80bff5c047fc5922e2dba030c4c192320c30e4ae5f2c19a
+gfx/comm/notice_dialog/tiles_6890.2bpp	gfx/comm/notice_dialog/tiles_6890.png	tiles			0	16	598afa6a7a37d6a2c515d842f0b4a05dbfa09f8f176396ca1061b022cf0ae1db
+gfx/comm/notice_dialog/tiles_68a0.2bpp	gfx/comm/notice_dialog/tiles_68a0.png	tiles			0	800	610344a4aea91859f81819240d5c1ad0f2da70b6d9617f88fa5b9a89acb38a9e
+gfx/comm/time_summary/comm_time_summary_a.attrmap	-	attrmap				360	4c35bbde3dc9089ebb2932007c2d63016ec083c2a27a81cc64fcd98efb83846c
+gfx/comm/time_summary/comm_time_summary_a.tilemap	-	tilemap				360	4198fd12912755dc2bf5aee717b1444b99ac0d8c6a2bf5638b9c9245fa364d00
+gfx/comm/time_summary/comm_time_summary_b.attrmap	-	attrmap				360	4c35bbde3dc9089ebb2932007c2d63016ec083c2a27a81cc64fcd98efb83846c
+gfx/comm/time_summary/comm_time_summary_b.tilemap	-	tilemap				360	a156636dc861d8a1360cd8c49ffb2f7a8dc807fd6dda9478308729aba1a0dac1
+gfx/comm/time_summary/palette_4d70.pal	-	palette				519	323de5277dbe65dbab8e4f498d347eaef9baa12908376dda8baee61c0c1f183b
+gfx/comm/time_summary/palette_5ec0.pal	-	palette				259	8b748566bc3c34c89a9a08faeb22466a4108744305dec0ec4a8f3e0a700d0168
+gfx/comm/time_summary/tiles_42a0.2bpp	gfx/comm/time_summary/tiles_42a0.png	tiles			0	1024	7652888185b0c67bec013ba79ee7dd06ec165865aebe7bdea50461efc7716a47
+gfx/comm/time_summary/tiles_46a0.2bpp	gfx/comm/time_summary/tiles_46a0.png	tiles			0	1024	5ab2071df8459e391bbe077c7c4238b5dc975e861ae36b2bc4bd8d0192016e2e
+gfx/comm/time_summary/tiles_4db0.2bpp	gfx/comm/time_summary/tiles_4db0.png	tiles			0	1024	fc5b4bf0765a0cb930cb20deddd2ffde89835d6bc4d5be55937a5856b920e195
+gfx/comm/time_summary/tiles_51b0.2bpp	gfx/comm/time_summary/tiles_51b0.png	tiles			0	1024	5ab2071df8459e391bbe077c7c4238b5dc975e861ae36b2bc4bd8d0192016e2e
+gfx/comm/time_summary/tiles_58c0.2bpp	gfx/comm/time_summary/tiles_58c0.png	tiles			0	1024	862026803df7d99ce5b657b22ca495dc726d88016c0a3652cecb3822a7b0276b
+gfx/comm/time_summary/tiles_5cc0.2bpp	gfx/comm/time_summary/tiles_5cc0.png	tiles			0	512	076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560
+gfx/comm/time_summary/tiles_5ee1.2bpp	gfx/comm/time_summary/tiles_5ee1.png	tiles			1	4592	1cfbd808774a62c716ecd4fd48afcf94d1b7ef2b1ab762704a25eaae2f029a8b
+gfx/dialog/dialog_window/dialog_obj_palette.pal	-	palette				64	a3ae5cb8ef613f16aa956fc00e33c27c70cc760911aca62d810d901dcdab51ba
+gfx/dialog/dialog_window/dialog_palette.pal	-	palette				129	144bf70ca6204850d3e2c8224cb49126e612187cb6f2b55ca78c2e298d81bba5
+gfx/dialog/dialog_window/dialog_window_map.attrmap	-	attrmap				180	c6c722c8e887ad2480e3c979055c85b25cc079445453c6903a153de8bac37594
+gfx/dialog/dialog_window/dialog_window_map.tilemap	-	tilemap				180	c2241a289235a3fdf8bf2e8b2cafd5736642a0086bf874fd2672cd35c0733e8b
+gfx/dialog/dialog_window/dialog_window_map_tall.attrmap	-	attrmap				220	dce4208986a5e61b77e4e35624d55d4105d7433cab948df0e0e29a8244e9df84
+gfx/dialog/dialog_window/dialog_window_map_tall.tilemap	-	tilemap				220	522737b01a8af17d19e44bb86ada57065ca03509511c718bf362b960bccffe18
+gfx/dialog/dialog_window/dialog_window_tiles.2bpp	gfx/dialog/dialog_window/dialog_window_tiles.png	tiles			0	1024	553cc04420884081be20719901911bb70f37cb62c6bf2bf8aa5af78f1a2e9f0b
+gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp	gfx/error/comm_error_screen/comm_err_gfx_bg9000.png	tiles			0	1024	873ff9a95830e3eb2b533ebc5318073506c7cae56716640b2cab8913d8d1dd9b
+gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp	gfx/error/comm_error_screen/comm_err_gfx_bg9400.png	tiles			0	384	d8ffb4df5e3272470a040240974d5beb1bbe5e4173e500205d99d40f4f20e4c3
+gfx/error/comm_error_screen/comm_err_gfx_obj8000.2bpp	gfx/error/comm_error_screen/comm_err_gfx_obj8000.png	tiles			0	32	012536f4753a3feb413b8abd3d5a65f704be37a8d52e68ed17518f2fd5916c06
+gfx/error/comm_error_screen/comm_err_gfx_obj8100.2bpp	gfx/error/comm_error_screen/comm_err_gfx_obj8100.png	tiles			0	32	9f431c9a8977cbc312fe194fb903f33784e525c5f1cfef72e0cb5566be070737
+gfx/error/comm_error_screen/comm_err_palette_bg.pal	-	palette				519	8723e2096678dbb308e6a8fa85af2f314b0a8baacdb0ed9c5d20436df4815d23
+gfx/error/comm_error_screen/comm_err_palette_bg_timer.pal	-	palette				519	6a428303cbb535bcd9408f21e2d802692ae000d1787d12dd1d6cad1d47a7f998
+gfx/error/comm_error_screen/comm_err_palette_obj.pal	-	palette				519	b213e1a2c3be47bbc082b98849f1ad9ad01befdd80a8119fe16c3653b4954ad5
+gfx/error/comm_error_screen/comm_err_tilemap_comm.attrmap	-	attrmap				360	395ae8b658c9a7bca16035a2523e25713486703803d1dd38c8f8cbd10efad9d8
+gfx/error/comm_error_screen/comm_err_tilemap_comm.tilemap	-	tilemap				360	b572b1fe51599587ce37432b021d191e7c29bd6cd5fb50eb92b03db4ac040ae5
+gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.attrmap	-	attrmap				360	395ae8b658c9a7bca16035a2523e25713486703803d1dd38c8f8cbd10efad9d8
+gfx/error/comm_error_screen/comm_err_tilemap_comm_timer.tilemap	-	tilemap				360	b620eef7c6fd3e3b88fc323fca17e09a74b8ac9a6bbbfe7d9e34f202df3a055f
+gfx/error/comm_error_screen/comm_err_tilemap_plain.attrmap	-	attrmap				360	4726e81384d5fc02699da8f9bc6449c36fb6d9973697ec36c47db48b369459df
+gfx/error/comm_error_screen/comm_err_tilemap_plain.tilemap	-	tilemap				360	df0cb03b252667a1d1a15644d30a8b139643c3d0265ab5ea6f5521a9b9823b9b
+gfx/error/no_adapter/no_adapter_gfx_8000.2bpp	gfx/error/no_adapter/no_adapter_gfx_8000.png	tiles			0	64	c337d22afd3e0e750283fc3f89a0c8044b9fcf68344376aef745433d7de6d4a2
+gfx/error/no_adapter/no_adapter_gfx_8800.2bpp	gfx/error/no_adapter/no_adapter_gfx_8800.png	tiles			0	960	8abc5e45068e0344f158134405c82e8189028f565f147acb77fd0d59d0bb838e
+gfx/error/no_adapter/no_adapter_gfx_8c00.2bpp	gfx/error/no_adapter/no_adapter_gfx_8c00.png	tiles			0	1024	8c1b1f886302327cc0b7305db8993b92a3af7f0874199ef94934c1e6cb48de19
+gfx/error/no_adapter/no_adapter_gfx_9000.2bpp	gfx/error/no_adapter/no_adapter_gfx_9000.png	tiles			0	1024	109ef98000685c17c6252c864d228b15a6d1c4947dfa109dfb2eb5d702ee34dd
+gfx/error/no_adapter/no_adapter_gfx_9400.2bpp	gfx/error/no_adapter/no_adapter_gfx_9400.png	tiles			0	768	131afaa3619d7bbcfbd78b41befa346a9436425de7536b9d465e899249870bef
+gfx/error/no_adapter/no_adapter_palette_bg.pal	-	palette				324	e4a46105486103d394826c9ebae4a90784aa321a4eb13321d4250ac7496d2241
+gfx/error/no_adapter/no_adapter_palette_obj.pal	-	palette				519	a62d9a9883ebebf57b5d5a4c8ec227d7b7cca12385a79ea5c3da776495c9383d
+gfx/error/no_adapter/tiles_6480.2bpp	gfx/error/no_adapter/tiles_6480.png	tiles			0	64	170b49765f56175f230d3b08e8724b56fde9ae308cb4743d2defde733591d2dd
+gfx/error/non_cgb_screen/non_cgb_tiles.2bpp	gfx/error/non_cgb_screen/non_cgb_tiles.png	tiles			5	1968	f3bb8d0c98bb2ed761d888d040c43763a53d52364e659d2171c9dc656ebc76cd
+gfx/error/non_cgb_screen/tiles_4060.2bpp	gfx/error/non_cgb_screen/tiles_4060.png	tiles			0	1056	e24baf4afe7dbe3d84d63270da22745e465fed89791c881b7034334c7dd21306
+gfx/help/help_screens_a/palette_62b8.pal	-	palette				194	03d1ab6a159ed4b3c9105e97f027a7c634ef2231a95e1f386a5820c0c2ad4f63
+gfx/help/help_screens_a/palette_62d8.pal	-	palette				259	ce420460dda381a099f35930c70e8edef9d2d7f73cfc42dc121154e0ecb71af8
+gfx/help/help_screens_a/palette_6300.pal	-	palette				2664	a7659a923d4e63b206cf4429eeafac25cd3cb924d0ab2c523dd76daa3979269e
+gfx/help/help_screens_a/tilemap_4000.attrmap	-	attrmap				360	5ab3fece715ef329f4beb405877be7bb729388eb494869e001a709021ddff931
+gfx/help/help_screens_a/tilemap_4000.tilemap	-	tilemap				360	592759d0da5755fff1a2212d49cf644f44933572de09b9eb453a7cb197430192
+gfx/help/help_screens_a/tilemap_42d0.attrmap	-	attrmap				360	569ce60a89b018dcce6716bff955712836b97a11a37af6184ae5fa2a4c427cdd
+gfx/help/help_screens_a/tilemap_42d0.tilemap	-	tilemap				360	cdbc1ecae6b5616f41b1d6da5e624ce67e7cb7af4f80ac2a0db8df952175a000
+gfx/help/help_screens_a/tilemap_45a0.attrmap	-	attrmap				360	569ce60a89b018dcce6716bff955712836b97a11a37af6184ae5fa2a4c427cdd
+gfx/help/help_screens_a/tilemap_45a0.tilemap	-	tilemap				360	df4c4a8850943cdd5453721912129d0c194db7a883eea8670885e8c5ef7d9217
+gfx/help/help_screens_a/tilemap_4870.attrmap	-	attrmap				210	008a47cd6998e2bb3f73ed6e1f7d520694161db9206fbe4fcdd48f0d4e03d87f
+gfx/help/help_screens_a/tilemap_4870.tilemap	-	tilemap				210	3b6df49ca63ffd07a8686923f00db653e9e41792ae6393b573d053f5138f0c56
+gfx/help/help_screens_a/tilemap_4a14.attrmap	-	attrmap				90	f353859f860dc3949938b98f9cf39e64212b885c68ea9c3bb54e4cde88949faf
+gfx/help/help_screens_a/tilemap_4a14.tilemap	-	tilemap				90	a4b58a5ec73555eb5a535c56a52a3943761c1203140ec453a4c825841bb5a2f5
+gfx/help/help_screens_a/tilemap_4ac8.attrmap	-	attrmap				90	f353859f860dc3949938b98f9cf39e64212b885c68ea9c3bb54e4cde88949faf
+gfx/help/help_screens_a/tilemap_4ac8.tilemap	-	tilemap				90	c0f6a18b1c0bf489ce0afdd33d881f58710595a3ab59a3e729d8593d707ecfad
+gfx/help/help_screens_a/tilemap_4b7c.attrmap	-	attrmap				210	786cc091ef499c8b99eb8d1e9b8039ccaf1d7516fec9288adbf9c1dc11e336d7
+gfx/help/help_screens_a/tilemap_4b7c.tilemap	-	tilemap				210	9611805ca93860b748a7e834c987fccdb6560fde190ccb35cb2a56024319a3f8
+gfx/help/help_screens_a/tilemap_4d20.attrmap	-	attrmap				90	da7ed60e06bdbf560b9d02fab9b44eb975e9c8c0bb09e45531da9c286fbaf29f
+gfx/help/help_screens_a/tilemap_4d20.tilemap	-	tilemap				90	f3742647051f0a73f609636f203536e7f780c62e353b8421881aa547c3b772d3
+gfx/help/help_screens_a/tilemap_4dd4.attrmap	-	attrmap				90	da7ed60e06bdbf560b9d02fab9b44eb975e9c8c0bb09e45531da9c286fbaf29f
+gfx/help/help_screens_a/tilemap_4dd4.tilemap	-	tilemap				90	c61fd515851c4e027c3eacc48c6553fd2f4f5a89a8d0d09f8a7035cf9401a039
+gfx/help/help_screens_a/tiles_4e90.2bpp	gfx/help/help_screens_a/tiles_4e90.png	tiles			0	1024	af8a945906834a9953338ad4677836879cedba92b1204bcf70c44eb82122d806
+gfx/help/help_screens_a/tiles_5290.2bpp	gfx/help/help_screens_a/tiles_5290.png	tiles			0	1024	00d966308784f372854452129e8ca3eddef5b006e96a50f9b1c413468a175158
+gfx/help/help_screens_a/tiles_5690.2bpp	gfx/help/help_screens_a/tiles_5690.png	tiles			0	1024	86f1b1847281db531b0b520d3646e926ba8262167348d1c4a74de2bed2791481
+gfx/help/help_screens_a/tiles_5a90.2bpp	gfx/help/help_screens_a/tiles_5a90.png	tiles			0	32	14431d7ec11eac20ea874a4eda508f044fdd46a765a2ed5749bcb3f734783e94
+gfx/help/help_screens_a/tiles_5ab0.2bpp	gfx/help/help_screens_a/tiles_5ab0.png	tiles			0	1024	d432b1e4b8c30b14f5172e1a658d66d6f7ae2baaf5b20f616657001eaf9c0797
+gfx/help/help_screens_a/tiles_5eb0.2bpp	gfx/help/help_screens_a/tiles_5eb0.png	tiles			0	1024	da50de459ea47c2b53dcc27adaccd0be080d729056a3d6e1af3f5ab91650c359
+gfx/help/help_screens_b/palette_7220.pal	-	palette				1039	c1719c335f5a5800ab3f4f2dde349be68bf481f14852175fb6569d495b0668a8
+gfx/help/help_screens_b/tilemap_6716.attrmap	-	attrmap				360	76627a7015fa26b134d4afa107ec4efe183e9a5abf55797ce5904e35a4418aae
+gfx/help/help_screens_b/tilemap_6716.tilemap	-	tilemap				360	eca5c90ca735f458446b9de076c255808e39f53a5ef949dd14f1763e05335720
+gfx/help/help_screens_b/tiles_69f0.2bpp	gfx/help/help_screens_b/tiles_69f0.png	tiles			0	32	379bf33986f4c1ba38cccb76e91d44401f475f16e2dd823f719298883bf9b313
+gfx/help/help_screens_b/tiles_6a10.2bpp	gfx/help/help_screens_b/tiles_6a10.png	tiles			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+gfx/help/help_screens_b/tiles_6a20.2bpp	gfx/help/help_screens_b/tiles_6a20.png	tiles			0	1024	54654d5708916f9c98226fbca4a36be6ce9aa1e2e80aafc986f1577fc9bbf988
+gfx/help/help_screens_b/tiles_6e20.2bpp	gfx/help/help_screens_b/tiles_6e20.png	tiles			0	1024	6b2df9d6937f5af57aab0d7d6a28be1aa5c9bfe06fc3fd55d42b881fecad372c
+gfx/help/mobile_dictionary/mobile_dict_bg.pal	-	palette				81	9d074bef988e22de84fced675bd973c1e8478842bacf8c9d1c5382b8aa6749a9
+gfx/help/mobile_dictionary/mobile_dict_obj.pal	-	palette				3769	694036c466ac3ed37414b9fc5b3e3555fc90b408ee9cfb57a5bfbed07d0e5089
+gfx/help/mobile_dictionary/mobile_dict_screen.attrmap	-	attrmap				360	367341eb09b5c121e8bc3f9d7d8ef973515f951d9d2f844788bd45b0547d4b6e
+gfx/help/mobile_dictionary/mobile_dict_screen.tilemap	-	tilemap				360	2caa52cdef2473ea934418e4ce6ec15f1941273b7b639530146c5d0c7689e58d
+gfx/help/mobile_dictionary/mobile_dict_tiles0.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles0.png	tiles			0	512	42e6e432419d1628820ebaaff73c4293aa42ff574255931126d321dd97fdce89
+gfx/help/mobile_dictionary/mobile_dict_tiles1.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles1.png	tiles			0	1024	0b8aa9c72089b2190f0e77b6602de41c9674e3bf4fbae967da6aa76aaa0c28a2
+gfx/help/mobile_dictionary/mobile_dict_tiles2.2bpp	gfx/help/mobile_dictionary/mobile_dict_tiles2.png	tiles			0	768	568f127cae6eef85bb769138d81fae8fd6a98647982c8f203c149f147a3c2121
+gfx/help/mobile_dictionary/palette_539a.pal	-	palette				438	4b563f5144e26817e8f1a77e2171c1bf9ef55315a91404bdf4c420e1d6105501
+gfx/keyboard/panels_bank5d/tiles_4000.2bpp	gfx/keyboard/panels_bank5d/tiles_4000.png	tiles			0	1024	fa8884382b45e62187c8e44b3bffe147f97af642bcc634b1e91c0fe5872ef39d
+gfx/keyboard/panels_bank5d/tiles_4400.2bpp	gfx/keyboard/panels_bank5d/tiles_4400.png	tiles			0	1024	c5b66e9ba130c2db261c1ea69d5659be0c41983a672ca8365145cef9fa17eb97
+gfx/keyboard/panels_bank5f/palette_4cd0.pal	-	palette				324	5e23581e60f6beb0f85f8491046946fd0308e338d94a024bd5f0657a516418e7
+gfx/keyboard/panels_bank5f/palette_6bb8.pal	-	palette				194	c6de2b9937ceab777f7ef5bb1333c3bab4a4d7f3dedef62d0c9c8d0e48dd2989
+gfx/keyboard/panels_bank5f/tilemap_4810.attrmap	-	attrmap				220	e8763f859bf32ac2008520c736b879304265410811a39930a4b6848081a82a0e
+gfx/keyboard/panels_bank5f/tilemap_4810.tilemap	-	tilemap				220	b0f7184c9b6325a4269c84ee77101a8f9e9f1649cc9af218049bcb5615989c11
+gfx/keyboard/panels_bank5f/tilemap_4ecb.attrmap	-	attrmap				260	acdd8c2c11c8c577fb7bb86e67a45106539927c5ad45a7446c808c1f95fccbed
+gfx/keyboard/panels_bank5f/tilemap_4ecb.tilemap	-	tilemap				260	b0dd290fbf4d864eb99d8ae3881376fa3e713fe49f3d8c0dc81414c2fe79f7d4
+gfx/keyboard/panels_bank5f/tilemap_50d3.attrmap	-	attrmap				260	701ac485342b3e9e42669ff9b9c07424f861f9356c55fcab3cc6163f5cb3b514
+gfx/keyboard/panels_bank5f/tilemap_50d3.tilemap	-	tilemap				260	afd9a79d472aa61ff9b54a95bb8b05484d897b1baac7253291669bd134325925
+gfx/keyboard/panels_bank5f/tilemap_52db.attrmap	-	attrmap				260	9b6a6a3654b08db6de232555a92206b42539e92e857601f6a8350126e85ab454
+gfx/keyboard/panels_bank5f/tilemap_52db.tilemap	-	tilemap				260	31ee1e0b386c69f7131cfe630acbfe562ccefb403c14936c1c4c1a913937bddd
+gfx/keyboard/panels_bank5f/tilemap_54e3.attrmap	-	attrmap				260	e820173ef21338a5ec228dfe782f76899563f13a3650c72e38359da324e27165
+gfx/keyboard/panels_bank5f/tilemap_54e3.tilemap	-	tilemap				260	a238639d0bdb74809d37a0e7ddcdcce842a6ce31f1b07ef5973d0ef12641519a
+gfx/keyboard/panels_bank5f/tilemap_56eb.attrmap	-	attrmap				260	9b6a6a3654b08db6de232555a92206b42539e92e857601f6a8350126e85ab454
+gfx/keyboard/panels_bank5f/tilemap_56eb.tilemap	-	tilemap				260	7e297b073798a71387433ab8aebd46ee1b32ec9a1d8b6be87ec1e6d0ef2adb9c
+gfx/keyboard/panels_bank5f/tilemap_69b0.attrmap	-	attrmap				260	f120b5f072b87c1dad1dfe2880363a3dcc174116bfb5a898f597c475fbeac226
+gfx/keyboard/panels_bank5f/tilemap_69b0.tilemap	-	tilemap				260	b476397f5d367f3489055bfb3a86b41e0d7292ea276b7a44bcf04d11deb6f818
+gfx/keyboard/panels_bank5f/tiles_4000.2bpp	gfx/keyboard/panels_bank5f/tiles_4000.png	tiles			0	1024	2b4aba9e1314b30854fa33e4ef90f1e23e12c4ea36760272e5dddb6dd01b3251
+gfx/keyboard/panels_bank5f/tiles_4400.2bpp	gfx/keyboard/panels_bank5f/tiles_4400.png	tiles			0	1024	021d973612c33da70873d810ed956573378273d6e6b7291d43b0c792eda38a22
+gfx/keyboard/panels_bank5f/tiles_4800.2bpp	gfx/keyboard/panels_bank5f/tiles_4800.png	tiles			0	16	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+gfx/keyboard/panels_bank5f/tiles_49d0.2bpp	gfx/keyboard/panels_bank5f/tiles_49d0.png	tiles			0	768	e7e21e11ba1f1f8b85661ff75928382c0ac8856eb79be66a00a8d2e8c831b84f
+gfx/keyboard/panels_bank5f/tiles_5900.2bpp	gfx/keyboard/panels_bank5f/tiles_5900.png	tiles			0	1024	6e31016f013d736f39b3df70d2b24a2d16965efd0ad6d79011b22abff7eaa1e9
+gfx/keyboard/panels_bank5f/tiles_5d00.2bpp	gfx/keyboard/panels_bank5f/tiles_5d00.png	tiles			0	1024	1ac50c094601dfa86933e8eb052ff0af42f60f9979d9a5a6950d144b345c181a
+gfx/keyboard/panels_bank5f/tiles_6100.2bpp	gfx/keyboard/panels_bank5f/tiles_6100.png	tiles			0	256	0ffe75442dbb13c85250f52f9051952b7a0ea68675558e9091f007f1850d85fc
+gfx/keyboard/tiles_bank62/tiles_4000.2bpp	gfx/keyboard/tiles_bank62/tiles_4000.png	tiles			0	1024	4f813d3e58ae15fd01a3be1915ba8dab0fd42105dfd21bc3d6f19373d9d7f5ed
+gfx/keyboard/tiles_bank62/tiles_4400.2bpp	gfx/keyboard/tiles_bank62/tiles_4400.png	tiles			0	1024	d6f1c9ceb468b6c3733b2c389baf4c834f4169d286387135d6dbb5ffde61c01e
+gfx/keyboard/tiles_bank62/tiles_4800.2bpp	gfx/keyboard/tiles_bank62/tiles_4800.png	tiles			0	576	81db7cb1c1cc01717e942c94a364bf70a596f28225c0fe1fe09695320c6a5c62
+gfx/keyboard/tiles_bank62/tiles_4a40.2bpp	gfx/keyboard/tiles_bank62/tiles_4a40.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/tiles_4b00.2bpp	gfx/keyboard/tiles_bank62/tiles_4b00.png	tiles			0	1024	962c1e0c6f6f3b13ca95c2d7f038ec0ad9568caea856bdca2457815d1ffbd9ce
+gfx/keyboard/tiles_bank62/tiles_4f00.2bpp	gfx/keyboard/tiles_bank62/tiles_4f00.png	tiles			0	1024	f511d39e75316482ae7b6c98daa8460debb1cee3ad19bb9dc8f9c72cf9cc469d
+gfx/keyboard/tiles_bank62/tiles_5300.2bpp	gfx/keyboard/tiles_bank62/tiles_5300.png	tiles			0	576	81db7cb1c1cc01717e942c94a364bf70a596f28225c0fe1fe09695320c6a5c62
+gfx/keyboard/tiles_bank62/tiles_5540.2bpp	gfx/keyboard/tiles_bank62/tiles_5540.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/tiles_5600.2bpp	gfx/keyboard/tiles_bank62/tiles_5600.png	tiles			0	1024	6d8f1cd88eacd48e5a3060d2abd6a79d81763f9001d3c0ebc526106adb351239
+gfx/keyboard/tiles_bank62/tiles_5a00.2bpp	gfx/keyboard/tiles_bank62/tiles_5a00.png	tiles			0	1024	a235cbfec408af628b860831b9c8166d643e4610f1f41642689a7f8cdb0954ee
+gfx/keyboard/tiles_bank62/tiles_5e00.2bpp	gfx/keyboard/tiles_bank62/tiles_5e00.png	tiles			0	576	4aed4cd7a5e2cdd8246270eaf962acb2816ce1e741976ddd9d158899078c915f
+gfx/keyboard/tiles_bank62/tiles_6040.2bpp	gfx/keyboard/tiles_bank62/tiles_6040.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank62/tiles_6100.2bpp	gfx/keyboard/tiles_bank62/tiles_6100.png	tiles			0	1024	29db228f49b3a5a2cba16eb792daed56da13abc011bc3898bdeb9f0d7ed8eeb4
+gfx/keyboard/tiles_bank62/tiles_6500.2bpp	gfx/keyboard/tiles_bank62/tiles_6500.png	tiles			0	1024	b48b9df508c2ce8f9cdfdd9d4ec5111943b0ac24b7daca303a8ab9d779daf361
+gfx/keyboard/tiles_bank62/tiles_6900.2bpp	gfx/keyboard/tiles_bank62/tiles_6900.png	tiles			0	576	f1a7396f28473f7da46e60c2131c4a3b74a1f09761fafabe982e43051bc72800
+gfx/keyboard/tiles_bank62/tiles_6b40.2bpp	gfx/keyboard/tiles_bank62/tiles_6b40.png	tiles			0	192	7a2ab1f13e5b8deb57f2abc336fd99039d4d87d32fbe41939ec2ae320309458a
+gfx/keyboard/tiles_bank66/tilemap_7210.attrmap	-	attrmap				220	fc10cb2d4e860dbdd81abd2ecbff29176570334aeda2aefc68481431f5431d71
+gfx/keyboard/tiles_bank66/tilemap_7210.tilemap	-	tilemap				220	6bcc241ef5d4cfcaaea34a8133a9f5a4e8158f43a4efc0c4a7b8a1ec6012a6ae
+gfx/keyboard/tiles_bank66/tilemap_73c8.attrmap	-	attrmap				120	086a2a21da36d9f92cc18fd55c1bc7d5bb59fdf02cb6af4653530b40c891c84c
+gfx/keyboard/tiles_bank66/tilemap_73c8.tilemap	-	tilemap				120	808925197a7e651371930b5ceb2d223a39dee0d14ef64e074fd4dbb10dd5c943
+gfx/keyboard/tiles_bank66/tiles_4000.2bpp	gfx/keyboard/tiles_bank66/tiles_4000.png	tiles			0	1024	4f813d3e58ae15fd01a3be1915ba8dab0fd42105dfd21bc3d6f19373d9d7f5ed
+gfx/keyboard/tiles_bank66/tiles_4400.2bpp	gfx/keyboard/tiles_bank66/tiles_4400.png	tiles			0	1024	d6f1c9ceb468b6c3733b2c389baf4c834f4169d286387135d6dbb5ffde61c01e
+gfx/keyboard/tiles_bank66/tiles_4800.2bpp	gfx/keyboard/tiles_bank66/tiles_4800.png	tiles			0	576	c150938148c231bbb2f73aa42517f654416cae315fff14c8508a22c2df397f55
+gfx/keyboard/tiles_bank66/tiles_4a40.2bpp	gfx/keyboard/tiles_bank66/tiles_4a40.png	tiles			0	1024	962c1e0c6f6f3b13ca95c2d7f038ec0ad9568caea856bdca2457815d1ffbd9ce
+gfx/keyboard/tiles_bank66/tiles_4e40.2bpp	gfx/keyboard/tiles_bank66/tiles_4e40.png	tiles			0	1024	f511d39e75316482ae7b6c98daa8460debb1cee3ad19bb9dc8f9c72cf9cc469d
+gfx/keyboard/tiles_bank66/tiles_5240.2bpp	gfx/keyboard/tiles_bank66/tiles_5240.png	tiles			0	576	c150938148c231bbb2f73aa42517f654416cae315fff14c8508a22c2df397f55
+gfx/keyboard/tiles_bank66/tiles_5480.2bpp	gfx/keyboard/tiles_bank66/tiles_5480.png	tiles			0	1024	6d8f1cd88eacd48e5a3060d2abd6a79d81763f9001d3c0ebc526106adb351239
+gfx/keyboard/tiles_bank66/tiles_5880.2bpp	gfx/keyboard/tiles_bank66/tiles_5880.png	tiles			0	1024	a235cbfec408af628b860831b9c8166d643e4610f1f41642689a7f8cdb0954ee
+gfx/keyboard/tiles_bank66/tiles_5c80.2bpp	gfx/keyboard/tiles_bank66/tiles_5c80.png	tiles			0	576	f69a8a8504c118cce6f8577b694194002dbdeb10e422175af16afc717fd00cbd
+gfx/keyboard/tiles_bank66/tiles_5ec0.2bpp	gfx/keyboard/tiles_bank66/tiles_5ec0.png	tiles			0	1024	29db228f49b3a5a2cba16eb792daed56da13abc011bc3898bdeb9f0d7ed8eeb4
+gfx/keyboard/tiles_bank66/tiles_62c0.2bpp	gfx/keyboard/tiles_bank66/tiles_62c0.png	tiles			0	1024	b48b9df508c2ce8f9cdfdd9d4ec5111943b0ac24b7daca303a8ab9d779daf361
+gfx/keyboard/tiles_bank66/tiles_66c0.2bpp	gfx/keyboard/tiles_bank66/tiles_66c0.png	tiles			0	576	ad506a9f436569fc50841ef34d54e19d3b9970481d99c6345e40326e4c7db7dc
+gfx/keyboard/tiles_bank66/tiles_6900.2bpp	gfx/keyboard/tiles_bank66/tiles_6900.png	tiles			7	400	05e612a9841ad77fc008a1e1e5b5d474f4ca3188462476c2f9fc7827736151ba
+gfx/keyboard/tiles_bank66/tiles_6a90.2bpp	gfx/keyboard/tiles_bank66/tiles_6a90.png	tiles			0	1792	e2a905551150f720a9f9cedd497837c1fe9d2a73dd2c460514b18e7f94ddc5bb
+gfx/mail/address_editor/mail_addr.attrmap	-	attrmap				360	8882668ca672a374809d78c9db02ffd8863731a672f0a4ab2773dc0cddc2cbea
+gfx/mail/address_editor/mail_addr.tilemap	-	tilemap				360	cb5c625548e7efd725c72693e998b5596cbd73791b5d751d569fdd90e5d0a805
+gfx/mail/address_editor/mail_addr_bg.pal	-	palette				519	d8796040316b08825c8adaa7f5b9fe4feafe7179b0b64af9cb72506b207abcf0
+gfx/mail/address_editor/mail_addr_obj_tiles.2bpp	gfx/mail/address_editor/mail_addr_obj_tiles.png	tiles			0	192	ad8ce16bd36df3841f6f9e7a3d184d3ca0dc0e9740e80d91204609a3fed3b700
+gfx/mail/address_editor/mail_addr_tiles.2bpp	gfx/mail/address_editor/mail_addr_tiles.png	tiles			0	1024	cf649ee8d02373fc521778cad1618dea9e9c2b11c179009bc28a66a87b9ea9fb
+gfx/mail/address_editor/mail_addr_tiles2.2bpp	gfx/mail/address_editor/mail_addr_tiles2.png	tiles			0	176	d6758e2c2625995b79e6756616e96e5afadc97f778baeadcef593b92bf05e369
+gfx/mail/address_editor/mail_addr_tiles3.2bpp	gfx/mail/address_editor/mail_addr_tiles3.png	tiles			5	688	d7fb026b92b3ae755362a2d2020500525514fad7589739dd5d65d329dd645673
+gfx/mail/address_editor/tiles_7940.2bpp	gfx/mail/address_editor/tiles_7940.png	tiles			0	528	c938b9927040205d4877aace6460753083534d28b0394e85a4a85d37c1f92744
+gfx/mail/body_editor/mail_body.attrmap	-	attrmap				360	2546b93401ae2aa14b03cb07d2cfb69023366ba81ad35b0b39761e4f7585d74e
+gfx/mail/body_editor/mail_body.tilemap	-	tilemap				360	ff53fbe99b96f921e2b2e5e1925ee11e2fc8e3797a19b34e049fcf323b46f708
+gfx/mail/body_editor/mail_body_bg.pal	-	palette				519	ca67e64c2113608eea22dad91a7aef9556487a2183fda1d20241ba28fc78ff49
+gfx/mail/body_editor/mail_body_obj.pal	-	palette				519	8d01b96799ee16bc5c1e0beab8b25231c1791a8e670afda026af5229b9f15f86
+gfx/mail/body_editor/mail_body_obj_tiles.2bpp	gfx/mail/body_editor/mail_body_obj_tiles.png	tiles			0	672	0bf48a50e90580d377f4ec5a6f03c314d67dc5ae1e412853513cffb28cd07e90
+gfx/mail/body_editor/mail_body_tiles.2bpp	gfx/mail/body_editor/mail_body_tiles.png	tiles			0	960	6bf997a720c8518ccb4b759154763a644592311e978c42f56c0fa517fbdab32d
+gfx/mail/body_editor/mail_body_tiles2.2bpp	gfx/mail/body_editor/mail_body_tiles2.png	tiles			0	256	5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1
+gfx/mail/body_view/mail_body_bg_palette.pal	-	palette				519	3f2510913bac29009692d6091e58eabe24dc4988c17d5a65b634135acfb3fa4e
+gfx/mail/body_view/mail_body_obj_palette.pal	-	palette				519	141810289effd2c44348c699eb5bc1183864dbada7c77e419d3e74c074ff174f
+gfx/mail/body_view/mail_body_tilemap.attrmap	-	attrmap				360	f136b74f18f9962655f6392290c6940963b3a7930ad22de1c54ef0f46fd8cfbc
+gfx/mail/body_view/mail_body_tilemap.tilemap	-	tilemap				360	c890622980138378d0f3bfaa0bb4795d653ca8fe1e93656b3793fa6c754c4a2e
+gfx/mail/body_view/mail_body_tiles_42c0.2bpp	gfx/mail/body_view/mail_body_tiles_42c0.png	tiles			0	528	e8ac3f529fd69eb72e6d487e7345cb19389cf18cbb0fa38b4fa86260cb81810b
+gfx/mail/body_view/mail_body_tiles_44d0.2bpp	gfx/mail/body_view/mail_body_tiles_44d0.png	tiles			0	128	98a4db3d30c74398922273afd59c4bdbe8e4ea2525d1fb9e36e3f0fd5dffed49
+gfx/mail/body_view/tilemap_4550.attrmap	-	attrmap				360	f136b74f18f9962655f6392290c6940963b3a7930ad22de1c54ef0f46fd8cfbc
+gfx/mail/body_view/tilemap_4550.tilemap	-	tilemap				360	cc50cbc4ca66a351e603d8544662d54fb9ecd970dc3513f39eeed923fb860277
+gfx/mail/comm_progress_scene/comm_progress_bg.pal	-	palette				16	764a19099e2eda74a26ece036f57f4182d6976705d30798fcd24155521747d8b
+gfx/mail/comm_progress_scene/comm_progress_obj.pal	-	palette				519	1f828d9e63bfe22c2bcbb5bf60709a602120b9b7a86ae38c00dfeae73349daa7
+gfx/mail/comm_progress_scene/comm_progress_screen.attrmap	-	attrmap				360	1d276332a67d68b6aef1b18760498d3c1f5359387f8109ca00204419aca28a36
+gfx/mail/comm_progress_scene/comm_progress_screen.tilemap	-	tilemap				360	13b9a79f77fb8570ad0a249ee250cdf7803627051f6a30ce4e01e7ba7cbc9590
+gfx/mail/comm_progress_scene/palette_5c52.pal	-	palette				503	f18728b5e5052f99a26cff315aa44b39cf9e1e8821989fed19462f4ad36441fe
+gfx/mail/comm_result/mail_result_bg_palette.pal	-	palette				519	15c59c6644149cf2edef36ca3b019ce1a502fcf82a5f54e4bda94a0b72ed1f7d
+gfx/mail/comm_result/mail_result_obj_palette.pal	-	palette				519	f87393c1f88ee503aa65802640308bcd22a912c0a1e8973df881bba8311e4d8e
+gfx/mail/comm_result/mail_result_tilemap.attrmap	-	attrmap				360	805ecfbae4d7986a2fa2d61d516b24c1aa33da421b66717b1a5083da9f70e125
+gfx/mail/comm_result/mail_result_tilemap.tilemap	-	tilemap				360	f55bfceb19cedac52761b3d5c47b7ad8f8f5eca487fab1196e9b6eac47ba6b5f
+gfx/mail/comm_result/mail_result_tiles_6bf0.2bpp	gfx/mail/comm_result/mail_result_tiles_6bf0.png	tiles			0	1024	cee732a24c7f43464a1ee80964607d1a3be57329cf41436609a7b6d4efc126b0
+gfx/mail/comm_result/mail_result_tiles_6ff0.2bpp	gfx/mail/comm_result/mail_result_tiles_6ff0.png	tiles			0	1024	01f9cc4d5f54586b88057a40dfc3ea5309996ec60f82cef3fe84df4448d1ae69
+gfx/mail/comm_result/mail_result_tiles_73f0.2bpp	gfx/mail/comm_result/mail_result_tiles_73f0.png	tiles			0	160	05567c57394915738c857dd2a2045bf6bd39ddbee45396c026ad97d3b61b8125
+gfx/mail/comm_result/mail_result_tiles_7490.2bpp	gfx/mail/comm_result/mail_result_tiles_7490.png	tiles			0	768	61032c9742e94ace126e9a45f8dfa86e63434a726d17ec443c7fa364f9b80180
+gfx/mail/comm_result/mail_server_status_bg_palette.pal	-	palette				519	0f4bf061d4709bdfa501b54024e73e526c903417f91345c77aee7bf0f957f7c0
+gfx/mail/connect_screen/mail_connect_bg_palette.pal	-	palette				454	15b6a09b182625511a314960dd995fec98ef4274e4a3989768cf873e2e5e406f
+gfx/mail/connect_screen/mail_connect_tilemap.attrmap	-	attrmap				576	d7949bf70e260dc5b189361b5c0c8eaa9024434113268f4ddc199ee8115fd716
+gfx/mail/connect_screen/mail_connect_tilemap.tilemap	-	tilemap				576	6489b35b7436c4bfd285e801a80a182ff0f562b1c537a721d5782cce6c464524
+gfx/mail/connect_screen/mail_connect_tiles_5060.2bpp	gfx/mail/connect_screen/mail_connect_tiles_5060.png	tiles			0	1024	74e50af7bda324347dd0b0b58c28be0d6a8f933173b9db894208519d227f6f6f
+gfx/mail/connect_screen/mail_connect_tiles_5460.2bpp	gfx/mail/connect_screen/mail_connect_tiles_5460.png	tiles			0	1024	3579469c200c15410f6ec360fd41fedc6233fc409d52f0014d78ef38a0baca1e
+gfx/mail/connect_screen/mail_connect_tiles_5860.2bpp	gfx/mail/connect_screen/mail_connect_tiles_5860.png	tiles			0	1024	a8f0fed7b8b4f0643a1ea42e65aeb94d0847e4ae152b0bf9bd2f1c2b566d1c78
+gfx/mail/connect_screen/mail_connect_tiles_5c60.2bpp	gfx/mail/connect_screen/mail_connect_tiles_5c60.png	tiles			0	512	ef0342853cd0237061ea59649bb494510b12409ed7a189a51f9f0cab3c4400cf
+gfx/mail/connect_screen/mail_connect_tiles_5e60.2bpp	gfx/mail/connect_screen/mail_connect_tiles_5e60.png	tiles			0	1024	ac46e1d400665e5e13c46b0c04cf93478a55edd0203eed94f4efa22797a74b7b
+gfx/mail/connect_screen/mail_connect_tiles_6260.2bpp	gfx/mail/connect_screen/mail_connect_tiles_6260.png	tiles			0	1024	433ccdb7134e43960b1200df49eaa3716fb3a519c8952cf9a2a87be5d379050a
+gfx/mail/connect_screen/mail_connect_tiles_6660.2bpp	gfx/mail/connect_screen/mail_connect_tiles_6660.png	tiles			0	512	076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560
+gfx/mail/connect_screen/mail_connect_tiles_6860.2bpp	gfx/mail/connect_screen/mail_connect_tiles_6860.png	tiles			0	1024	72012310c8bae955127dd61e0c6d71f3589eea2b109f616277d54fd3006b8a40
+gfx/mail/connect_screen/mail_connect_tiles_6c60.2bpp	gfx/mail/connect_screen/mail_connect_tiles_6c60.png	tiles			0	1024	8d5e0696e35f6dd592fce18c6e6b49085108c3e875ea833c763e37432919fb1c
+gfx/mail/connect_screen/mail_connect_win_msg_cancelled.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_connect_win_msg_cancelled.tilemap	-	tilemap				100	5a3cd9da3ea62f689e8d79a71869ccb6bff7679a086111ade60c545598eb99fe
+gfx/mail/connect_screen/mail_connect_win_msg_cancelling.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_connect_win_msg_cancelling.tilemap	-	tilemap				100	0d1c200fdd6fcc0c2019b7f0efbf096f2486e2ab73010e09bc593b2f1fcaef21
+gfx/mail/connect_screen/mail_connect_win_msg_connected.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_connect_win_msg_connected.tilemap	-	tilemap				100	656e6918b88f957d7c42621262ac9803e8fd914adf37b71000193c7e1e9ab502
+gfx/mail/connect_screen/mail_connect_win_msg_connecting.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_connect_win_msg_connecting.tilemap	-	tilemap				100	1b6310b179eb1d9a6ac283d38ae22e0a90722d78f6d3d67a50f35a568be34a29
+gfx/mail/connect_screen/mail_disconnect_win_msg_ended.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_disconnect_win_msg_ended.tilemap	-	tilemap				100	e9e5a5dc5ad6b67a57a6b5fe9cfaa199b487ec3bc62ceb41bccd5e8533f93e93
+gfx/mail/connect_screen/mail_disconnect_win_msg_ending.attrmap	-	attrmap				100	c36b5f266997b61c9dd6a93537d2fef42a9476542450dd54955b4222ef06d65a
+gfx/mail/connect_screen/mail_disconnect_win_msg_ending.tilemap	-	tilemap				100	3f86a94ae386642db35a911105fbc1dbf0bdb197af058b7b6439841980edda49
+gfx/mail/connect_screen/mail_screens_obj_palette_7520.pal	-	palette				519	b488c8d03ed09b14b745774412e7cb11ebde39ca6f18bfa98227b03c7c87cb79
+gfx/mail/connect_screen_bank29/palette_5376.pal	-	palette				1039	165fc4ec81338a9b23da228384ef5c40e650dbc78b92a9017a715b64ad4bad2c
+gfx/mail/connect_screen_bank29/palette_5ad0.pal	-	palette				519	b213e1a2c3be47bbc082b98849f1ad9ad01befdd80a8119fe16c3653b4954ad5
+gfx/mail/connect_screen_bank29/tilemap_5800.attrmap	-	attrmap				360	1a952317bf6d67102dcd07a98d5e2984487259b88e3ac6b38c917742e13e1be3
+gfx/mail/connect_screen_bank29/tilemap_5800.tilemap	-	tilemap				360	79b2f46b7f33dda57f3c8e662eabe1f499986f9e183f43ab8d28f4f178149fcf
+gfx/mail/connect_screen_bank29/tiles_5400.2bpp	gfx/mail/connect_screen_bank29/tiles_5400.png	tiles			0	1024	53818b45cde1050264ba1d4df01f3dea249660acd2114babe3ed97037b83a76d
+gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.attrmap	-	attrmap				360	3f522d694f817e2c5b57ac58f1848643f3374fd5e6721f2475592144e378d756
+gfx/mail/draft_menu/data_mail_draft_menu_tilemap_attr.tilemap	-	tilemap				360	d9f39640e13cc6093e2986d3f4b204d5e93478bbf68c479f9afc72de3b5a07c2
+gfx/mail/draft_menu/mail_draft_menu_bg.pal	-	palette				519	636ea0f31dda0c8977ca12cc5dd61bd91610eac129487edba9f2b7aecae9cb51
+gfx/mail/draft_menu/mail_draft_menu_obj.pal	-	palette				519	f481ee96f435590e6d20e9125b826652daecd6661439b56b459d8f18f3abb39e
+gfx/mail/draft_menu/mail_draft_menu_tiles8000.2bpp	gfx/mail/draft_menu/mail_draft_menu_tiles8000.png	tiles			13	816	42053df72a769233783f5cf8c87d9245adc8b83d7ee36358ebf5b85f7511ac28
+gfx/mail/draft_menu/mail_draft_menu_tiles9300.2bpp	gfx/mail/draft_menu/mail_draft_menu_tiles9300.png	tiles			0	720	e875b50d96c1c32878d16bee2c0f5b7e1a99cec081aac9468263e048f86c3492
+gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.attrmap	-	attrmap				360	83f9ee13d81b4b22120946a51e02c066893db6120980bf355054ab364b2c0b94
+gfx/mail/mail_title_entry/data_mail_title_tilemap_attr.tilemap	-	tilemap				360	429bd10fae12665a08b23ba2399db07dc3e431f6f8753ddd913a0c1f3e02fd1f
+gfx/mail/mail_title_entry/mail_title_bg.pal	-	palette				519	d8796040316b08825c8adaa7f5b9fe4feafe7179b0b64af9cb72506b207abcf0
+gfx/mail/mail_title_entry/mail_title_obj.pal	-	palette				519	12110eaa147e6b250b98f79f38ef981286935084115a7437d511c08a41d86cb2
+gfx/mail/mail_title_entry/mail_title_tiles8000.2bpp	gfx/mail/mail_title_entry/mail_title_tiles8000.png	tiles			0	16	3a7a58a0c039ab60e11b4a0f8e44c790aada4ac1b7a5f2f8adbfecfd060843b2
+gfx/mail/mail_title_entry/mail_title_tiles8800.2bpp	gfx/mail/mail_title_entry/mail_title_tiles8800.png	tiles			11	592	7ebfb4e1a0b398fa95bcbbce5a83e9b8a349f34f0142e0197dc07cdd87fcb24c
+gfx/mail/mail_title_entry/mail_title_tiles9300.2bpp	gfx/mail/mail_title_entry/mail_title_tiles9300.png	tiles			0	1024	4b3cd5b9efcf43891f6426637a020f17b2b2d996889d68efd79fc59edac482bd
+gfx/mail/mail_viewer/data_mail_view_tilemap_attr.attrmap	-	attrmap				360	01f3bcda4619712063b5b6481be3225f5aa645a9a89354100f53662293cdfa40
+gfx/mail/mail_viewer/data_mail_view_tilemap_attr.tilemap	-	tilemap				360	bd6a51aec3ce333c7750174240a01ec1b030d0e9c1f01552648235a11be368f9
+gfx/mail/mail_viewer/mail_view_bg.pal	-	palette				519	d2f9fc8cf416fd27cfeb4180d314e64a8af87d6fbe1987769cb23ffec4bc799a
+gfx/mail/mail_viewer/mail_view_obj.pal	-	palette				519	1a655200171803fd2374fdcd83a3337a094b09c7ef2b7b670d7c1086b514cdd8
+gfx/mail/mail_viewer/mail_view_tiles8000.2bpp	gfx/mail/mail_viewer/mail_view_tiles8000.png	tiles			0	384	c8f603dac20f393cd08b26d342e808efa9431d8b2b0f63e9f1febc35a6c91d8c
+gfx/mail/mail_viewer/mail_view_tiles9000.2bpp	gfx/mail/mail_viewer/mail_view_tiles9000.png	tiles			0	1024	b10019766c528d7ad0d2376ad4dec1d5fe83edba414e2a2b8f023c37bac3e3dc
+gfx/mail/mail_viewer/mail_view_tiles9400.2bpp	gfx/mail/mail_viewer/mail_view_tiles9400.png	tiles			0	512	4ad2fa189bec6b4001922ca1418af788d4dca20a8e8fb431768b54d9b66a627c
+gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.attrmap	-	attrmap				360	a7058851a0a650583323779ae5bac275b1c11e9937063202f8d5bf0f1e7494ed
+gfx/mail/received_mail_grid/data_mail_grid_tilemap_attr.tilemap	-	tilemap				360	ae3be6ef43c3cdcce5e64ae4376f2a1a224971bc574ea9b9906569dabf2f75f2
+gfx/mail/received_mail_grid/mail_grid_bg.pal	-	palette				519	3c340cf43f17a17a355f3b966c1033fc808cf5e74f5fb86de3a525b157f301d1
+gfx/mail/received_mail_grid/mail_grid_obj.pal	-	palette				519	3c340cf43f17a17a355f3b966c1033fc808cf5e74f5fb86de3a525b157f301d1
+gfx/mail/received_mail_grid/mail_grid_tiles8000.2bpp	gfx/mail/received_mail_grid/mail_grid_tiles8000.png	tiles			0	240	c43abe9b7cd9602791276a7e99def95c2b54ee7314b675e343dc027c5f9b852f
+gfx/mail/received_mail_grid/mail_grid_tiles9000.2bpp	gfx/mail/received_mail_grid/mail_grid_tiles9000.png	tiles			0	1024	6265ec2253bdc563389600ca0cfcee6ab116b254624f5c6d7ec6dc746594a532
+gfx/mail/received_mail_grid/mail_grid_tiles9400.2bpp	gfx/mail/received_mail_grid/mail_grid_tiles9400.png	tiles			13	560	ba05984a5b5d24823df3f5b6092896d2896421b90a17af3f9d7752d23425ce37
+gfx/mail/result_screens/mail_server_status_tiles_5060.2bpp	gfx/mail/result_screens/mail_server_status_tiles_5060.png	tiles			0	48	b5c4f389cccae56d83ee65d048ea4f05c79efadb0e8e7f5a3dcad8e354102af9
+gfx/mail/server_status/mail_server_status_tilemap_none_received.attrmap	-	attrmap				360	90ac5f562197029fe270cde2852494e382b749788b429ca1f868e6319c1de9e6
+gfx/mail/server_status/mail_server_status_tilemap_none_received.tilemap	-	tilemap				360	3035234ddc1e8ceb51993b0820132737396ccaaf3161ee3645711ef5add551bc
+gfx/mail/server_status/mail_server_status_tilemap_received.attrmap	-	attrmap				360	aea877c1ac2325d9a53296a309b3624f3c7f4e25b68065f3c166c66294b2cff1
+gfx/mail/server_status/mail_server_status_tilemap_received.tilemap	-	tilemap				360	f59262f319245a336e3def0631082a750d07a30745189aa0f7f205a92730f28e
+gfx/mail/server_status/mail_server_status_tilemap_server_mgmt.attrmap	-	attrmap				360	90ac5f562197029fe270cde2852494e382b749788b429ca1f868e6319c1de9e6
+gfx/mail/server_status/mail_server_status_tilemap_server_mgmt.tilemap	-	tilemap				360	56675ac65109fe5c2e15d5c03b471837b16cd63169aa796710b7e3a72523a40b
+gfx/mail/server_status/mail_server_status_tiles_6f30.2bpp	gfx/mail/server_status/mail_server_status_tiles_6f30.png	tiles			0	1024	062dbf5c3537edcb33ea8d14ff4813d4b69836c6be8a596f198128d942120a27
+gfx/mail/server_status/mail_server_status_tiles_7330.2bpp	gfx/mail/server_status/mail_server_status_tiles_7330.png	tiles			0	1024	68a6c0e8c9ad76bfde43a99e07b4e3506f4fb7e9c629f7a94a4aec34ff447765
+gfx/mail/server_status_bank26/mail_server_status_tiles_7420.2bpp	gfx/mail/server_status_bank26/mail_server_status_tiles_7420.png	tiles			0	1024	3601bdb3c6f6d89423aef0c3752d72adc6711b9cb8d6babf12ea76c25908caa6
+gfx/mail/server_status_bank26/tiles_7840.2bpp	gfx/mail/server_status_bank26/tiles_7840.png	tiles			0	624	bf73dd413d32616eb147b17ee05aa80cfebadd2e8f74a2a3b0c9e05accbbed07
+gfx/mail/session_scenery/mail_session_tiles_59e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_59e0.png	tiles			0	1024	72eb686ce451bcc3b09d610d0be99ffca847349743ccf6211e9479b06f4d6a51
+gfx/mail/session_scenery/mail_session_tiles_5de0.2bpp	gfx/mail/session_scenery/mail_session_tiles_5de0.png	tiles			0	1024	e81c8d4f30aa4472aeabc080121f252627d46db28c88e8f43c6a77f2eaa6a5b7
+gfx/mail/session_scenery/mail_session_tiles_61e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_61e0.png	tiles			0	256	da6ae64a21205da4f9c38190a5d00ad9702d10bb9337a402d766330c1bd844a0
+gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_62e0.png	tiles			0	1024	77213c37fdf454b80e11e55d9131882e81acf71db28fadeaf747ab0680d26053
+gfx/mail/session_scenery/mail_session_tiles_66e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_66e0.png	tiles			0	16	8526100452ca18375311946fb8bd8b62c36302887c1693f2f7ef2f1099bd0080
+gfx/mail/session_scenery/mail_session_tiles_67e0.2bpp	gfx/mail/session_scenery/mail_session_tiles_67e0.png	tiles			0	1024	83077b29d6e423ce2c05fd06bc3af2b520ae97fbbd01b31a60e67787d9258b81
+gfx/mail/session_scenery/mail_session_tiles_6be0.2bpp	gfx/mail/session_scenery/mail_session_tiles_6be0.png	tiles			0	1024	0bc16e6e219723c8b8cf59430fe738ab272d6610bb5c4d0a9c794bbabe559617
+gfx/mail/session_scenery/mail_session_tiles_6fe0.2bpp	gfx/mail/session_scenery/mail_session_tiles_6fe0.png	tiles			0	1024	8f2da193e760ee70ceeda72b5389ecb3eed611bcc528e7cc7285de0d634db920
+gfx/mail/session_scenery/palette_73e0.pal	-	palette				519	0f4bf061d4709bdfa501b54024e73e526c903417f91345c77aee7bf0f957f7c0
+gfx/mail/session_scenery/tiles_66f0.2bpp	gfx/mail/session_scenery/tiles_66f0.png	tiles			0	240	744792a48a41f4ab22988a3948f1afb34c14a006c444b124a0a44dd70c9c94d1
+gfx/mail_menu/mail_menu/mail_menu_bg.pal	-	palette				64	2a8d88802202a7cb8a7e814830b11e5d99a72ec91b7af6344455d3aea1d18064
+gfx/mail_menu/mail_menu/mail_menu_icon_frames.attrmap	-	attrmap				96	bf61eadcc7d470d213d528a390beab89290a58e895e088f3ae898b8f3c4bac8b
+gfx/mail_menu/mail_menu/mail_menu_icon_frames.tilemap	-	tilemap				96	f619fade3c421733d51242f67e63f9d8b144712f1ba9a589a9d584be9e565479
+gfx/mail_menu/mail_menu/mail_menu_obj.pal	-	palette				64	6aa55b083663be9e4a5d4bcde9e3ac0f8267259a49c0b98d33e0f0a0892dac52
+gfx/mail_menu/mail_menu/mail_menu_plates_normal.attrmap	-	attrmap				240	831d0701c3537891407cd1c88b6d16163c2aabcca7ef6b3cc975d4108ecdf9b9
+gfx/mail_menu/mail_menu/mail_menu_plates_normal.tilemap	-	tilemap				240	1207bc1d40ffca2e9f243d18b446d84459dc15bc9cae94b98a956a33dd514423
+gfx/mail_menu/mail_menu/mail_menu_plates_selected.attrmap	-	attrmap				240	6e0004d1ce1ff3d7882f8966b369b80969da0e9333e6254530cf2934d69e224c
+gfx/mail_menu/mail_menu/mail_menu_plates_selected.tilemap	-	tilemap				240	02b49ff6b25bace355b580f3a421cac0771faaab42abd12828802121ee493457
+gfx/mail_menu/mail_menu/mail_menu_screen.attrmap	-	attrmap				360	cb4eeb5d8183dc534629ff512cd42c6f3995551a2730f9a9c04ead710930bdcc
+gfx/mail_menu/mail_menu/mail_menu_screen.tilemap	-	tilemap				360	12079c23393349d9e174ecfb1d132f447ab5b3f7c46b582687ca66a28ae5dcea
+gfx/mail_menu/mail_menu/mail_menu_tiles0.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles0.png	tiles			7	400	e7c7498fd70f70b24c8ee8a4fcb04d4d0c359efe92a1cd35463f44bccb6017d2
+gfx/mail_menu/mail_menu/mail_menu_tiles1.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles1.png	tiles			0	1024	79ebe550be4343c07ca99f181a46d54902a6706b45d9be4c4de471d7952ac763
+gfx/mail_menu/mail_menu/mail_menu_tiles2.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles2.png	tiles			0	1024	1e714d29850f549cce6ed6f12908ff780e066ee451159802afe0e49a4012d368
+gfx/mail_menu/mail_menu/mail_menu_tiles3.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles3.png	tiles			0	1024	422e136d5ba8eadc7ec5500ab3e037234302c25a8f1d7e6c32c2bb141a686d8b
+gfx/mail_menu/mail_menu/mail_menu_tiles4.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles4.png	tiles			0	896	7f802cb240287e4b85816db76cd257f947929f55b851af6c3e262821b5ae6103
+gfx/mail_menu/mail_menu/mail_menu_tiles5.2bpp	gfx/mail_menu/mail_menu/mail_menu_tiles5.png	tiles			0	1024	2becfb92fd7ce075902234c93c1790b989e4749fac746e42b8e90fba88f8eaa7
+gfx/mail_menu/mail_menu/palette_6238.pal	-	palette				194	12530e4c5515e73eba4a73ec5f1dee22048fafc757ee0183ace5bf2ac2bf0246
+gfx/mail_menu/mail_menu/palette_6258.pal	-	palette				194	7f3c7e77876629bf1ba2fbb91ad2ef027fcbdb74a1ddd618d7b76ebfed50bcd4
+gfx/mail_menu/mail_menu/palette_6280.pal	-	palette				357	1094305931477c73eb72ac5f04ee179e719937b32c5ec8ce10beb542ec455523
+gfx/mail_menu/mail_menu/palette_62ac.pal	-	palette				942	cef37100c2335e7cd0038231d8e80cf698faea74fe640a37c9288fa2cba673b3
+gfx/mail_server/delete_all_screen/mail_server_delete_all_bg_palette.pal	-	palette				519	e067bbe5777891b959341875a9495cf3c11bfe70dc447a480c77f3eb2a26b3e3
+gfx/mail_server/delete_all_screen/mail_server_delete_all_obj_palette.pal	-	palette				519	46a1148c35adc35c49955710b32cb29d5195c1216763ab7e9a8c8b06e23781a6
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.attrmap	-	attrmap				360	812bfeccf10bc6a0e15d6ad41684ea3b7c535112d2add7a4712b6f9d6013350d
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tilemap.tilemap	-	tilemap				360	d5d002f3bb4bf06df9c30e4f9820c14ac0505b6e2315098213c584a119347c2b
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_54b0.2bpp	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_54b0.png	tiles			0	1024	13ee899db647470e0d5f1e4b4a60005b9e594e996a1923c10d6e64ede636504b
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_58b0.2bpp	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_58b0.png	tiles			0	672	77f1e80a320d8aa2fab41bbbd3be2ede9847a00331ab10d465e4c20cf6cf57fb
+gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_5b50.2bpp	gfx/mail_server/delete_all_screen/mail_server_delete_all_tiles_5b50.png	tiles			0	128	9aaed3c95c1155e85f1b2b5551f21b7d0f353f8028a7a09afd20ef0d9fae6c02
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button0.attrmap	-	attrmap				360	6cb1061c6390d7664641b0c5439d92a81d315ad0a07aeafb6aa1c07b262237ed
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button0.tilemap	-	tilemap				360	be42567618c44bee6e21521b8e2012a5a97c211a2a2c4d754b8f2d1a467f22fe
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button1.attrmap	-	attrmap				360	469d7dea5d24847ed677b013b2f3cfa66c949143dfb55d67d258f5364f6bd4fa
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button1.tilemap	-	tilemap				360	be42567618c44bee6e21521b8e2012a5a97c211a2a2c4d754b8f2d1a467f22fe
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button2.attrmap	-	attrmap				360	a38113c3b4cd5371d57313053af3fd20e912b79502db2dd36b28d65c58ac84de
+gfx/mail_server/delete_menu_hidden/mail_srv_del_hidden_button2.tilemap	-	tilemap				360	be42567618c44bee6e21521b8e2012a5a97c211a2a2c4d754b8f2d1a467f22fe
+gfx/mail_server/delete_method_screen/mail_server_delete_method_bg_palette.pal	-	palette				519	ab39c9cb357f47188c173122df1f2e9a1eca91c3f40119348b89e931f9716098
+gfx/mail_server/delete_method_screen/mail_server_delete_method_obj_palette.pal	-	palette				519	6a9da0378f202bf8602203170392a348d07c1070cdbf99f10bb95aff0d6f6598
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.attrmap	-	attrmap				360	13fe20d2d0afb4259ca08894aeae129478234fc0406a8c7d89be2eb0a21f5d8b
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_first.tilemap	-	tilemap				360	8a66074252af05eb1275508c8b8faf547c2c897e0c95e426a995f48c05eea091
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.attrmap	-	attrmap				360	3ba5b1d20a8ddf431d0a67b7132aee4e8c24a678a800712d7087e999d942e34d
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tilemap_second.tilemap	-	tilemap				360	8a66074252af05eb1275508c8b8faf547c2c897e0c95e426a995f48c05eea091
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_5f20.2bpp	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_5f20.png	tiles			13	560	2542007a74ddad8a1f83e15ef220e34f3349e19c70fbd15db0a3ade0f67453c2
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.2bpp	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6150.png	tiles			0	1024	5868aec94d35e49e704625d1f45f944b3a33855c42d3de99119b8a3a76bac381
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.2bpp	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_6550.png	tiles			7	656	1640a89f9391437d03919399dcc32f919a56e1550945c003c98ef879ac6d9057
+gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.2bpp	gfx/mail_server/delete_method_screen/mail_server_delete_method_tiles_67e0.png	tiles			0	128	e5d33daff1d6c12a67f779501dc17cac34ca695029ab438ad570b820b1fc29f6
+gfx/mail_server/delete_progress/mail_srv_del_progress_bg.pal	-	palette				519	984d0effdcb661d7c63bde255a71207cfcee9e4b0b8edb3c23d4b96f88142be8
+gfx/mail_server/delete_progress/mail_srv_del_progress_obj.pal	-	palette				519	8294a3313096a885445beb0907b0791ba8442093ce1a49ccb91dad770a41164c
+gfx/mail_server/delete_progress/mail_srv_del_progress_screen.attrmap	-	attrmap				360	47830c2b55e9c0474f55f5401b0d47306587dc5c2207054a76553d74bd7e4e4d
+gfx/mail_server/delete_progress/mail_srv_del_progress_screen.tilemap	-	tilemap				360	9bf7f805ea575c3f369fb7bdfa603a634c083419e4eda6fc077cfd99fd5ad9e0
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles0.png	tiles			0	1024	9eaa3d20c49db4d41a39ead5bb58e593c91e401ef9b5ea2c68b47912659281e8
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles1.png	tiles			0	256	968957c09e0c9f2e2869ce64fc3c17853524079d695159577faf86b2a0a1bd74
+gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.2bpp	gfx/mail_server/delete_progress/mail_srv_del_progress_tiles2.png	tiles			0	352	293eff227ae2a46db7a02b514ccdc867a7997a66a009d50d01f26489daeb4619
+gfx/mail_server/tidy_screen/mail_server_mgr_bg.pal	-	palette				389	ae48635255b024f03f675cca70e097820ff2808dc938fe6959ee160e71bda1de
+gfx/mail_server/tidy_screen/mail_server_mgr_footer.attrmap	-	attrmap				120	179366e7482141ea5d3ee4dbd417f4ba17560092e075ffd5a109b24479f8868e
+gfx/mail_server/tidy_screen/mail_server_mgr_footer.tilemap	-	tilemap				120	81d9745a68f806bde06ff77d3465f386fc4c2c226fb51be06c57aaaf27c29d37
+gfx/mail_server/tidy_screen/mail_server_mgr_info_b.attrmap	-	attrmap				360	b30f6d34b8c1f0915e817d2c12b9b4ae48d59362435a7c6f1b58b0c6af2b6e7e
+gfx/mail_server/tidy_screen/mail_server_mgr_info_b.tilemap	-	tilemap				360	dee3d3161c18fece1e68225e6d371eef5d45c7eb6a0b1d5ac1850e9e32edd2e6
+gfx/mail_server/tidy_screen/mail_server_mgr_info_c.attrmap	-	attrmap				360	7d033858136f19883ac8922289ee809f73091307f973a07cd1dfb305a38179e7
+gfx/mail_server/tidy_screen/mail_server_mgr_info_c.tilemap	-	tilemap				360	4a7435ec675de8ccc1e3661f49a53c89c2696234f0216f1c2ff8b0f0b9e5a366
+gfx/mail_server/tidy_screen/mail_server_mgr_info_d.attrmap	-	attrmap				360	008e112b7ccf76eb37c686ed6afe3122f1e0f47fa8ea24968b7bbd1765873b5a
+gfx/mail_server/tidy_screen/mail_server_mgr_info_d.tilemap	-	tilemap				360	87a000821f436ee0944575dcdba771961139bc53a598adc2db69a8f22fe7643b
+gfx/mail_server/tidy_screen/mail_server_mgr_main.attrmap	-	attrmap				360	7e9a22e48064cfe02625067f4fd17a879744a2c2d5955a4cb5fa87a0b92a1aec
+gfx/mail_server/tidy_screen/mail_server_mgr_main.tilemap	-	tilemap				360	f19508806fdb64ca6eabb6a126352b1e478a45890e556fb1d416fa125d7d848c
+gfx/mail_server/tidy_screen/mail_server_mgr_obj.pal	-	palette				1949	3a958855bfee5b814fca7beb56db471adf69f88060588c79f8eae2f46216ebf3
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles0.png	tiles			0	1024	68e4288824a417fc6e7d3d9ffa21902bae3b6cd4c7fa116375cac906d8f08786
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles1.png	tiles			0	16	5c2b4b38142f0e90d81f24a72e61fe2988c2f88d2cd7b712ac22873342ed6774
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles2.png	tiles			0	288	2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles3.png	tiles			0	1024	2f58052706827e2f5237047ad83585875bf833fd301b5aaff16db1629c142e80
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles4.png	tiles			0	352	3c5de4597a9ef29ecf5cae3184485c2acefc4d7ef9859ab1d2f5d410c6f0edf7
+gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.2bpp	gfx/mail_server/tidy_screen/mail_server_mgr_tiles5.png	tiles			0	1024	2e5cfcea333bb8bac554ce195d65ee4401e63498947a2f8393f5760c43378efa
+gfx/mail_server/tidy_screen/palette_75c0.pal	-	palette				129	de1a37c0d95a047613b764cfac21f20e05627500c4736dfc8240ef14c0c1e476
+gfx/mail_server/tidy_screen/tiles_5af0.2bpp	gfx/mail_server/tidy_screen/tiles_5af0.png	tiles			0	1008	6355bd3e46889c5854b8afc3dd6e269b0c5ae705b990f900dce283b1c0236f7a
+gfx/mailbox/mailbox/mailbox_bg_palette.pal	-	palette				389	8e5e1f87a20589514120176b4662eb5a6aef5710dcff0a1f1674e720a2c9fa4c
+gfx/mailbox/mailbox/mailbox_obj_palette.pal	-	palette				48	e38955e168376840bdb8ff8a3db3265371b7565bfa568cf66d6c830efc59042b
+gfx/mailbox/mailbox/mailbox_tilemap_delete_select.attrmap	-	attrmap				360	ec66667e1c12e680cc672ccc9def34bf196bc942932ace49995202f13c07730f
+gfx/mailbox/mailbox/mailbox_tilemap_delete_select.tilemap	-	tilemap				360	1bea8f62c4714bcb7cb663bd2e7358382e11e4ae64e4bfa952db02ef8579a6ab
+gfx/mailbox/mailbox/mailbox_tilemap_normal.attrmap	-	attrmap				360	d1c2dbbdd995b6691d6b28fdd26c8c9e9a4fe95a6d78135fd640b5f0da6fea3c
+gfx/mailbox/mailbox/mailbox_tilemap_normal.tilemap	-	tilemap				360	bc42fcfc776cfb504d0fb36e34fb1803f330f6fcde015e970f133641543c8e99
+gfx/mailbox/mailbox/mailbox_tiles_5a10.2bpp	gfx/mailbox/mailbox/mailbox_tiles_5a10.png	tiles			0	1024	9ab08446e57e31ad001e4dff7d4800fff6ff5e27856185c8798c5f32225b39a1
+gfx/mailbox/mailbox/mailbox_tiles_5e10.2bpp	gfx/mailbox/mailbox/mailbox_tiles_5e10.png	tiles			0	256	017ae37971c79e76d8553d8074de453222562cf74b89b5b3968b0a853849d919
+gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp	gfx/mailbox/mailbox/mailbox_tiles_5f10.png	tiles			0	1024	41080290801490e24ceae1125616e609cb166d1876f1060f677468d5e8b877a4
+gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	gfx/mailbox/mailbox/mailbox_tiles_6310.png	tiles			0	256	7da99f01b1e4440bb66382915e90885264d653d31ac01fee369ecfb0313f8df9
+gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_69f0.png	tiles			0	208	74d1a1a42bcda654dcfb6002857c942a52b0c114dbe5f79c722f645d21df1bcf
+gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_6cf0.png	tiles			0	384	b1b64a028622ada36edc66532207a1480efaf3706328e4437efd516142d42baa
+gfx/mailbox/mailbox/palette_69e0.pal	-	palette				129	de1a37c0d95a047613b764cfac21f20e05627500c4736dfc8240ef14c0c1e476
+gfx/mailbox/mailbox/palette_6ef6.pal	-	palette				454	04a3b86d86abaa0b12917ee834d4333b3413f7f3f622e0f67437ebd97ad1d443
+gfx/mailbox/mailbox/tiles_6bd1.2bpp	gfx/mailbox/mailbox/tiles_6bd1.png	tiles			15	272	06af3de5c4c71eab09259427498b8bab32fc21735cfd061f2d892845f87810d6
+gfx/mailbox/objects/palette_7ac0.pal	-	palette				519	c655a4a875002d62ebf9a542a8744a75e2b8780b614a6c88d7eb943d3b35fd8a
+gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	-	attrmap				360	62ad9215881e77183acd2924dceb2b5dfa5590821190268e2c8e90274281b7c3
+gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	-	tilemap				360	929ee498de5cee43242f43a63e2aa3cf106a60cabbed38921524e9a708310944
+gfx/profile/profile_editor/profile_bg.pal	-	palette				519	7fe7341b1970faaa02533fe282d7d85f4e92b6b5dde133c342deb81b1878cc24
+gfx/profile/profile_editor/profile_tiles8800.2bpp	gfx/profile/profile_editor/profile_tiles8800.png	tiles			0	832	bf323aa407b91337074491bd351929da189602f069104b86b6f46020e13f3096
+gfx/profile/profile_editor/profile_tiles9300.2bpp	gfx/profile/profile_editor/profile_tiles9300.png	tiles			0	1024	13d1259b3f2b67518869bac194e15a2fb4102e9d29d029da96d4d2e2676cd0f5
+gfx/profile/profile_editor/profile_tiles9700.2bpp	gfx/profile/profile_editor/profile_tiles9700.png	tiles			0	256	ff81bed7a3e95886f545eb73c78defcb9235e639f133c474bb1744c641f0112e
+gfx/registration/screen_bank4b/tilemap_4000.attrmap	-	attrmap				360	ecf081fe55681c5682ac0c1628d58ef6ef3d3d0dd0de8b308e5ce24aa9a1023e
+gfx/registration/screen_bank4b/tilemap_4000.tilemap	-	tilemap				360	38f0ee4f3f823ba767b3d0f64e00e1f353f39fed3b24ae6200fc63d3fb141f1b
+gfx/registration/screens_bank58/palette_7b50.pal	-	palette				324	63a7f65c2dff5c55c0feccb64579f223d9ab963e287b8e789fe75c2e3797c6d7
+gfx/registration/screens_bank58/tilemap_7b78.attrmap	-	attrmap				360	f1bae3f093125bb665e4cbdf80aa2043599b2054ac3a5e367007ea2075c4cea5
+gfx/registration/screens_bank58/tilemap_7b78.tilemap	-	tilemap				360	caf0f87edb0ac733acdd9847bb2dc21de1111e24f1906e30479d6c1e9b0a5363
+gfx/registration/screens_bank58/tiles_4000.2bpp	gfx/registration/screens_bank58/tiles_4000.png	tiles			3	464	28720d3f5476d92f81ce9b36a4efbdfb6227dd3dadcece09d6ab82328381f7ed
+gfx/registration/screens_bank58/tiles_41d0.2bpp	gfx/registration/screens_bank58/tiles_41d0.png	tiles			0	640	7f00a8ce6208c3b4d9ee1b942169e8a1223d8fb7b1846579d1a767a4f764538a
+gfx/registration/screens_bank58/tiles_4450.2bpp	gfx/registration/screens_bank58/tiles_4450.png	tiles			0	640	02c22654b7a81ef293307c05727c86d5d45363ad4b2532dfe51ea1155714e0fd
+gfx/registration/screens_bank58/tiles_46d0.2bpp	gfx/registration/screens_bank58/tiles_46d0.png	tiles			0	1920	2c3648f5ce2eaa59dae7d638a5441f99efb56594add4d462a0f210ecdb47e4b0
+gfx/registration/screens_bank58/tiles_4e50.2bpp	gfx/registration/screens_bank58/tiles_4e50.png	tiles			0	1280	48a762e835bd2e44036a6956b7078788f07d1bca932b5181ea1e6def730eac6d
+gfx/registration/screens_bank58/tiles_5350.2bpp	gfx/registration/screens_bank58/tiles_5350.png	tiles			0	1280	c18d76d91c50856847fb7398c6e32d0eb8de13fa66627a8189aff5957300dbf1
+gfx/registration/screens_bank58/tiles_5850.2bpp	gfx/registration/screens_bank58/tiles_5850.png	tiles			0	640	d59d9e95abb694f538d34c7c6a82b683b19832744ae3182e8020cc8d0fa33301
+gfx/registration/screens_bank58/tiles_5ad0.2bpp	gfx/registration/screens_bank58/tiles_5ad0.png	tiles			9	4720	697df7ac3c327b4d106378278c3b0e12502b13363000c8cda5a67acb85d6e708
+gfx/registration/screens_bank58/tiles_6d40.2bpp	gfx/registration/screens_bank58/tiles_6d40.png	tiles			14	1824	ff4f45faf463251c33a6740f744cec90e067a291df43c4f71b5f89cd3cd38b28
+gfx/registration/screens_bank58/tiles_7460.2bpp	gfx/registration/screens_bank58/tiles_7460.png	tiles			1	496	3709d49a7d7453fb9227392ce1e3f05c2d23ce1c75c2ed36d404ab87621212ed
+gfx/registration/screens_bank58/tiles_7650.2bpp	gfx/registration/screens_bank58/tiles_7650.png	tiles			0	320	2db2c48803a46765801b951d390abd83faab5fa4a6317e388ad30776be6582ce
+gfx/registration/screens_bank58/tiles_7790.2bpp	gfx/registration/screens_bank58/tiles_7790.png	tiles			0	960	117380a37303baf2ba1d79fa5de3349a294885072907303f47d6cafe7f277d35
+gfx/settings/screens_bank4a/tilemap_7120.attrmap	-	attrmap				100	1e495240f1c7d603aa984d066ef38f5015e6f4a35c666cf043a1ef17f9fee1d9
+gfx/settings/screens_bank4a/tilemap_7120.tilemap	-	tilemap				100	53e46aa8e5a0bcc4786ccce5d6a266bf5e674e82ca7a7db49915df40240b7bf0
+gfx/settings/screens_bank4a/tilemap_71e8.attrmap	-	attrmap				100	1e495240f1c7d603aa984d066ef38f5015e6f4a35c666cf043a1ef17f9fee1d9
+gfx/settings/screens_bank4a/tilemap_71e8.tilemap	-	tilemap				100	f711061947e628f21526df6ff304254bcb93531b1c9fccb7f6f1fd4cb7396980
+gfx/settings/screens_bank4a/tilemap_72b0.attrmap	-	attrmap				100	3af07fc8dc5e0f4921341a9b7839810670d191476299b53f3197a5d697b104b1
+gfx/settings/screens_bank4a/tilemap_72b0.tilemap	-	tilemap				100	36f58798ff962ab757260cc1fff6169c6b376beab1ba50bb225f70776863b8a6
+gfx/settings/screens_bank4a/tiles_5f80.2bpp	gfx/settings/screens_bank4a/tiles_5f80.png	tiles			0	256	3392fd28a6d5bc1c2b79b5b1d8e26cae06b06e5d46a9f0d7b1ea409867f2fdea
+gfx/settings/screens_bank4a/tiles_6080.2bpp	gfx/settings/screens_bank4a/tiles_6080.png	tiles			0	1024	69de21039d65ba045ab2f4168a31d14be89f43a36abf747396f4c0a7d06fe56e
+gfx/settings/screens_bank4a/tiles_6480.2bpp	gfx/settings/screens_bank4a/tiles_6480.png	tiles			0	1024	75405d366ce406a61958b83fed04aba455b5f1cf13ec0876c22220561cb7bc38
+gfx/settings/screens_bank4a/tiles_68d0.2bpp	gfx/settings/screens_bank4a/tiles_68d0.png	tiles			0	80	fd7e2e1950b98b4f5ac150a61f9c6db23cd927af6d184796aca47bc550ace9e3
+gfx/settings/screens_bank4a/tiles_6920.2bpp	gfx/settings/screens_bank4a/tiles_6920.png	tiles			0	1024	7a5964027f57988deb384d1268f405de7a092d4379be5a5fa5f3298fff68706e
+gfx/settings/screens_bank4a/tiles_6d20.2bpp	gfx/settings/screens_bank4a/tiles_6d20.png	tiles			0	1024	98c31d2876dfe2bf0ebdc8844a1b7452d0831911a0c1d56d8f67dff4170824d8
+gfx/settings/screens_bank4b/tiles_5b90.2bpp	gfx/settings/screens_bank4b/tiles_5b90.png	tiles			0	2560	f5facf12342bc8c94affb740a23ab2e610953c966b1358ee8481c47f5b43a2c9
+gfx/settings/screens_bank4b/tiles_6a90.2bpp	gfx/settings/screens_bank4b/tiles_6a90.png	tiles			0	1024	c3d768b86978fb4e89df4577f9cba4478e9722c4dec3daadadbd31dce8d4a6d9
+gfx/settings/screens_bank4b/tiles_6e90.2bpp	gfx/settings/screens_bank4b/tiles_6e90.png	tiles			14	544	ecb2cc8fe6074eb594bf14ed494ed1a37174777d815d95fb99c30fb0b1e15c40
+gfx/settings/screens_bank4b/tiles_70b0.2bpp	gfx/settings/screens_bank4b/tiles_70b0.png	tiles			2	992	f60b854e1fef0e9da1faf03b6587546ba444b3d9be7b75318e0f1a1a287d6bc3
+gfx/settings/screens_bank4b/tiles_76d0.2bpp	gfx/settings/screens_bank4b/tiles_76d0.png	tiles			0	1024	d9b68e57cbccfa047d7c777bf3b7cea73bba93efc6893f92cf115f1c18a00586
+gfx/settings/screens_bank4b/tiles_7ad0.2bpp	gfx/settings/screens_bank4b/tiles_7ad0.png	tiles			0	768	9ca33bc5a07b7572441b0b5c58f979d9480efda230920fde52854eb16a488b2d
+gfx/settings/screens_bank4d/tilemap_5810.attrmap	-	attrmap				360	83e4aa9ecc54b5f54327c9fa4a73ae6b947f540b308d5eee12a81a08600c7a35
+gfx/settings/screens_bank4d/tilemap_5810.tilemap	-	tilemap				360	110a53d0c75ef52f9c5891752e0fc866b0c78d6e80ac8e67f0fc6f6a6a487519
+gfx/settings/screens_bank4d/tilemap_5ae0.attrmap	-	attrmap				70	f3145d75f71c11afce0d5e592b3b7e9f90f3c7e667ae529bcae962fe39956aa5
+gfx/settings/screens_bank4d/tilemap_5ae0.tilemap	-	tilemap				70	21a3cba405441a093804cc17012f1cbf64b29f3e86cc8499b68f682b445d9bf5
+gfx/settings/screens_bank4d/tilemap_5b6c.attrmap	-	attrmap				70	f3145d75f71c11afce0d5e592b3b7e9f90f3c7e667ae529bcae962fe39956aa5
+gfx/settings/screens_bank4d/tilemap_5b6c.tilemap	-	tilemap				70	a42bc32da0401ffcbcbbdae0f5bb7dac51e594ddec5f1f8994ae0c229907bf88
+gfx/settings/screens_bank4d/tilemap_5bf8.attrmap	-	attrmap				70	c5a435ade03d3281d383990a0c660390979b0dcc51f1b42f337c147dd37386d7
+gfx/settings/screens_bank4d/tilemap_5bf8.tilemap	-	tilemap				70	e5a4eb0bb2666fa0b266cde3b48bc1630bd7c39fd87db4e15725d996c95a240f
+gfx/settings/screens_bank4d/tilemap_5c84.attrmap	-	attrmap				70	65634cb4c27da656dc340b9ceffb3856681328ff68ecea743fbd48229c9219bb
+gfx/settings/screens_bank4d/tilemap_5c84.tilemap	-	tilemap				70	7f288872ad7504c7806e2f2b4053f433ea1d21f7e360e2ecfb9ad08338a26fcd
+gfx/settings/screens_bank4d/tilemap_7870.attrmap	-	attrmap				40	230e71cf46470f5324e1fa293c66192e1f53171058af80ab97a3426be76e8a44
+gfx/settings/screens_bank4d/tilemap_7870.tilemap	-	tilemap				40	eb7369ec4998f52f89a678a3d783fdc7e87528135519335c442ca3e400a42f10
+gfx/settings/screens_bank4d/tilemap_78c0.attrmap	-	attrmap				40	97738de5a7c744f3f57156c4a443de2d03a091d307bb746b1441230a4344620e
+gfx/settings/screens_bank4d/tilemap_78c0.tilemap	-	tilemap				40	af083da526508ffde670f31d64a7c64aecb5354f867ce85c545b7e4b6464a28f
+gfx/settings/screens_bank4d/tilemap_7910.attrmap	-	attrmap				40	24e9821e2e18ebc6b5258e2e366937c4a19b13b63e4f7b09d7aa7cdec53f58b8
+gfx/settings/screens_bank4d/tilemap_7910.tilemap	-	tilemap				40	76f7c5e75e0d2e58d748a5be8ce13b6521a5bf51fd3dd15c7ae66c9435a1d6dc
+gfx/settings/screens_bank4d/tiles_4000.2bpp	gfx/settings/screens_bank4d/tiles_4000.png	tiles			0	512	5d469c77c2bb32acf15734a7c1c28948a48e7c15e9a9675e5a96623e2e10f70e
+gfx/settings/screens_bank4d/tiles_4200.2bpp	gfx/settings/screens_bank4d/tiles_4200.png	tiles			15	784	512098479409ba7967cd3d878bac8d69b8de2b7da8e6a75a04358acef1dfaa72
+gfx/settings/screens_bank4d/tiles_4510.2bpp	gfx/settings/screens_bank4d/tiles_4510.png	tiles			0	256	86aaef0dbe5c6f973cdc085c1af9ac92607d189af740a4d52cc87c9d103a40d3
+gfx/settings/screens_bank4d/tiles_4610.2bpp	gfx/settings/screens_bank4d/tiles_4610.png	tiles			0	1024	de11528bbaee5adf676783466197fca64ba3f31857b0b922bd46a23af0b9f269
+gfx/settings/screens_bank4d/tiles_4a10.2bpp	gfx/settings/screens_bank4d/tiles_4a10.png	tiles			0	768	5b7756df8a78530d4e8f80b1203a2480cc622f43c7b4b214f4edb7817be5ac01
+gfx/settings/screens_bank4d/tiles_4d10.2bpp	gfx/settings/screens_bank4d/tiles_4d10.png	tiles			0	768	7c94cbc754336802ca667f599807f1f35f265d4332c6c265058e82498759d61b
+gfx/settings/screens_bank4d/tiles_5010.2bpp	gfx/settings/screens_bank4d/tiles_5010.png	tiles			0	256	86aaef0dbe5c6f973cdc085c1af9ac92607d189af740a4d52cc87c9d103a40d3
+gfx/settings/screens_bank4d/tiles_5110.2bpp	gfx/settings/screens_bank4d/tiles_5110.png	tiles			0	1024	d240398c78688e6703312888c8d81080583d346955638d6fd8ff8b50356021eb
+gfx/settings/screens_bank4d/tiles_5510.2bpp	gfx/settings/screens_bank4d/tiles_5510.png	tiles			0	768	619d587bd1a4adb3bb86269a5fed307aa97d4c500204dbe2b556b4ab386b0cf0
+gfx/settings/screens_bank4d/tiles_5d50.2bpp	gfx/settings/screens_bank4d/tiles_5d50.png	tiles			0	32	07b8b643d1995e95129c08a4e3d77576e097483e25d6024281809772da123eea
+gfx/settings/screens_bank4d/tiles_5d70.2bpp	gfx/settings/screens_bank4d/tiles_5d70.png	tiles			0	1024	6af49c6e7555241b6ea1b3bb292d300cc5408cc72de1c88dd1ce6cace8342f97
+gfx/settings/screens_bank4d/tiles_6170.2bpp	gfx/settings/screens_bank4d/tiles_6170.png	tiles			0	1024	73b08d8b4c4571d4971211b8d6bf92c946cf9f22d506b7874cd7ae557aa5d472
+gfx/settings/screens_bank4d/tiles_6570.2bpp	gfx/settings/screens_bank4d/tiles_6570.png	tiles			0	768	14ab69cf07f205d9f516b049fca5b3decb265ffcb341860961f4fe2190c75b12
+gfx/settings/screens_bank4d/tiles_6870.2bpp	gfx/settings/screens_bank4d/tiles_6870.png	tiles			0	1024	901a7d29cdc160a29a077f1554b10f30670454fcf8cb39137fd618aaf5d20469
+gfx/settings/screens_bank4d/tiles_6c70.2bpp	gfx/settings/screens_bank4d/tiles_6c70.png	tiles			0	256	2c0e24b32a9d7cb6c59eb10faa28cd36dc63f532babbca7c20b58bdebd3df452
+gfx/settings/screens_bank4d/tiles_6d70.2bpp	gfx/settings/screens_bank4d/tiles_6d70.png	tiles			0	1024	fa8598bcf25bc37299046a3d30bc4c24deb6490c9276e8c562b3df0f30712382
+gfx/settings/screens_bank4d/tiles_7170.2bpp	gfx/settings/screens_bank4d/tiles_7170.png	tiles			0	768	0e355d2fd84d71bef9cfd68c5c8adf20d79065bd9e12b448a602f1637d00cdd0
+gfx/settings/screens_bank4d/tiles_7470.2bpp	gfx/settings/screens_bank4d/tiles_7470.png	tiles			0	1024	faa8c41e6ad4727b212585db0ef1553939a24388498aa5969de0ac0d943a4d68
+gfx/settings/screens_bank5d/tilemap_7ba0.attrmap	-	attrmap				360	196e16e94bbaf8fede395dde413976e3e1c4d74edb5421ee4be28e97ddb540cd
+gfx/settings/screens_bank5d/tilemap_7ba0.tilemap	-	tilemap				360	f958ffa9dc2c7a9347b3114207ca835a3db22c1e06c62f8f4723c92714534a2a
+gfx/settings/screens_bank5d/tiles_7360.2bpp	gfx/settings/screens_bank5d/tiles_7360.png	tiles			0	1024	ae318621c3b6bdbbe24cbe0af15afce1e20052e5ca0b1f9b19c2bc5735cce93d
+gfx/settings/screens_bank5d/tiles_7760.2bpp	gfx/settings/screens_bank5d/tiles_7760.png	tiles			0	1024	532578b71b853377515bac3073861a9f052fff677a319e3033ca8704038f4a16
+gfx/settings/screens_bank5e/tiles_4000.2bpp	gfx/settings/screens_bank5e/tiles_4000.png	tiles			0	1024	fa8884382b45e62187c8e44b3bffe147f97af642bcc634b1e91c0fe5872ef39d
+gfx/settings/screens_bank5e/tiles_4400.2bpp	gfx/settings/screens_bank5e/tiles_4400.png	tiles			0	1024	ed15e9d48a5471ed7bc593796c6ce61d7fafb09e7a05a43cea738c04d5071b7e
+gfx/settings/screens_bank71/tilemap_6f6f.attrmap	-	attrmap				360	196e16e94bbaf8fede395dde413976e3e1c4d74edb5421ee4be28e97ddb540cd
+gfx/settings/screens_bank71/tilemap_6f6f.tilemap	-	tilemap				360	bf23499cdedcce56ed0236ff1a23fe4c7de1eeadef9abd18a14e619d248ccfcf
+gfx/title/logo/title_logo.pal	-	palette				519	2b9fdc4e24b258b87d07baccfb27a2d0fcb5072241c39fde3877ee21d6635632
+gfx/title/logo/title_logo_screen.attrmap	-	attrmap				360	a7755f27e47e04a291e9588959a6b2aa31fd4ebd59cdd96c3bfa0a3ce0b65d32
+gfx/title/logo/title_logo_screen.tilemap	-	tilemap				360	4b30079db4e899cd28236535dec23f23c201928e77f65febeeeadad2ff16e313
+gfx/title/logo/title_logo_tiles0.2bpp	gfx/title/logo/title_logo_tiles0.png	tiles			0	1024	1167fa88415b4d7ad59666cbf81093a99ed50b96c027b68439d7eb6ed221b017
+gfx/title/logo/title_logo_tiles1.2bpp	gfx/title/logo/title_logo_tiles1.png	tiles			0	1024	5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+gfx/title/title_screen/title_bg.pal	-	palette				519	ffb3967e6550656d20255a6d2f4d355f43af187d99fc2c62970d7a8f73ea24a4
+gfx/title/title_screen/title_highlight_settings.attrmap	-	attrmap				40	74fa1b75528eee34cf8eb7b7464031cba1eb3c518ac60f73a1a87766aa5e50f7
+gfx/title/title_screen/title_highlight_settings.tilemap	-	tilemap				40	85c76e332598a571339c1bb98fd56249131169a457de87ef5462024e8c674e4b
+gfx/title/title_screen/title_highlight_start.attrmap	-	attrmap				40	f30cdf2f7a347268c3c0eac8bb0e9f816f1c774233331a11c7d4f3549f1d9921
+gfx/title/title_screen/title_highlight_start.tilemap	-	tilemap				40	d493bbdd16a863bd8d7a0ff3f38fe8f4b249bcd37ca47dde8d25ee76fcca6115
+gfx/title/title_screen/title_obj.pal	-	palette				519	6969734ed8bb238eb70a1942231a38c95f7fcfd89e196a9de76fed999a94feb9
+gfx/title/title_screen/title_screen.attrmap	-	attrmap				360	c698bfcb72d7dfc1175e2a7c959a3b9a5c8ea89449442074109348e71f61e598
+gfx/title/title_screen/title_screen.tilemap	-	tilemap				360	913cf502c516c28c21c25c2d41af1e4d600badb9b8136d67826207e7a37aeb91
+gfx/title/title_screen/title_tiles0.2bpp	gfx/title/title_screen/title_tiles0.png	tiles			0	1024	f0f5d072fea61455e519a83bd3a6546c0515e04fdd077ecd9fa7a6eef815361e
+gfx/title/title_screen/title_tiles1.2bpp	gfx/title/title_screen/title_tiles1.png	tiles			0	1024	3189ed36ae653355b3c3e0c84991e9da4195c08a53ef29567f93aa65b09f61c5
+gfx/title/title_screen/title_tiles2.2bpp	gfx/title/title_screen/title_tiles2.png	tiles			0	512	2b0359945e97b459a8192bca83058dfb2895d763986b2327db95e9771b722d81
+gfx/title/title_screen/title_tiles3.2bpp	gfx/title/title_screen/title_tiles3.png	tiles			0	512	a11ba6bbff6693c086521c5972da5dcf6473f7f6aa6d3b6f820e19b6e9e48b22
+gfx/title/title_screen/title_tiles4.2bpp	gfx/title/title_screen/title_tiles4.png	tiles			0	1024	cf5e0d2268a9436dc00aed42e0a0a757bd5755e0678fe33b24b3b526a7828f5c
+gfx/title/title_screen/title_tiles5.2bpp	gfx/title/title_screen/title_tiles5.png	tiles			0	1024	be1a63229ab65965aaa2f84a5f8a8ba78f55c42df8545731cd8733a0a03edf9d
+gfx/title/title_screen/title_tiles6.2bpp	gfx/title/title_screen/title_tiles6.png	tiles			0	1024	8151eb8139ba8f1c1d73a063d4ef0743016128a1279f408c6f0f81e723395ad3
+gfx/top_menu/top_menu/palette_62a0.pal	-	palette				519	2138362f9d013cd63074e278e5e62fb17b7a232bf5f4cf60e893c2a703f34786
+gfx/top_menu/top_menu/palette_62e0.pal	-	palette				519	4b2fb583d21ea1a10a806263047e43634916e1622723400c591be88b9f5b89ac
+gfx/top_menu/top_menu/tilemap_40d7.attrmap	-	attrmap				320	0e8f7c044aa364d24f478042c68d53354d36ad0dbe576d43e051e2e8da744ea8
+gfx/top_menu/top_menu/tilemap_40d7.tilemap	-	tilemap				320	b2e2da2bd8b690ae1b6f2b376ba371a558320d81f1cb2411e9b5c530e70706a2
+gfx/top_menu/top_menu/tilemap_48c1.attrmap	-	attrmap				108	2d731e1c66ba9757aedc7e9fa51435394ec0b13deb5488ce75c712453409c923
+gfx/top_menu/top_menu/tilemap_48c1.tilemap	-	tilemap				108	6a116f677a1ce8cb08ee13f028ed17ee8aab1b5b54cf96a870b5c8db598cd45d
+gfx/top_menu/top_menu/tiles_49a0.2bpp	gfx/top_menu/top_menu/tiles_49a0.png	tiles			0	1024	843cf8a839067265422289ba385b3c0042c50d4463857b3c78b8cd9b0fd8f40d
+gfx/top_menu/top_menu/tiles_4da0.2bpp	gfx/top_menu/top_menu/tiles_4da0.png	tiles			0	1024	428fc90c0a55f3ba0f087cf2acf3cb2ac3d107846d9a0cceb10236f5ec76125c
+gfx/top_menu/top_menu/tiles_51a0.2bpp	gfx/top_menu/top_menu/tiles_51a0.png	tiles			0	1024	d9c8405db9ed1e02609bcaaa08c2743c350c6af9ed47800d6d5a85365a0f717c
+gfx/top_menu/top_menu/tiles_55a0.2bpp	gfx/top_menu/top_menu/tiles_55a0.png	tiles			0	1024	464e9fcfbc1b736cb0899a20c1e53c134768b13024eecd1e94e3b691fe090b32
+gfx/top_menu/top_menu/tiles_59a0.2bpp	gfx/top_menu/top_menu/tiles_59a0.png	tiles			0	512	5f46f852151e4e6e6fce95c30d3526cfe624041b95b3fe489f733e76b14b01f9
+gfx/top_menu/top_menu/tiles_5ba0.2bpp	gfx/top_menu/top_menu/tiles_5ba0.png	tiles			0	1024	0a1eb272c41bdd9b3bd27da58b963aaab5deba7c1e2a52ef8f1dc2e60cb49f58
+gfx/top_menu/top_menu/tiles_5fa0.2bpp	gfx/top_menu/top_menu/tiles_5fa0.png	tiles			0	768	7ab7854b3b10863bcd40d91fd9a789584688d98a5f33590f6145513624331ee8
+gfx/unreferenced/page_list_prototype/palette_6aa0.pal	-	palette				519	fe9ba21a43ba0e6466c8b8b38e4bc0bf4b71d662f31f37b249925389a7a55c2a
+gfx/unreferenced/page_list_prototype/palette_6d70.pal	-	palette				519	7e61effad0f600e9b4215e25deec96c4d004c42eee039494d93b7b4324847236
+gfx/unreferenced/page_list_prototype/tilemap_67d0.attrmap	-	attrmap				360	da79fcb073581b78dd0ddf236c14f23a970ac4a3cce99f8ace5848b7ea2045a8
+gfx/unreferenced/page_list_prototype/tilemap_67d0.tilemap	-	tilemap				360	5dcae8f42478a63c8dcabc9f200ae649e6e05bff8b53095372960518f8842c0b
+gfx/unreferenced/page_list_prototype/tiles_62b0.2bpp	gfx/unreferenced/page_list_prototype/tiles_62b0.png	tiles			0	1024	684c6a662b8ea3c89f30bb96ea103a58049d7a0e135b9e89c13848b15e28ba39
+gfx/unreferenced/page_list_prototype/tiles_66b0.2bpp	gfx/unreferenced/page_list_prototype/tiles_66b0.png	tiles			0	288	9ef1d13cc7bc2ce189ecabb68049390a7121c2be289a886db5d39300f5247cd1
+gfx/unreferenced/page_list_prototype/tiles_6ae0.2bpp	gfx/unreferenced/page_list_prototype/tiles_6ae0.png	tiles			7	656	0e339a3fc59e7a2cdaf95d5f505ef7a5f82a683f980973d71e88282387bb654b
+gfx/unreferenced/page_list_prototype_objects/palette_7b00.pal	-	palette				519	e35ab763e9484b6b615c3d4b8ff74ac3ad6fedc3557cef9f7f6048e4d07d96fd
+gfx/unreferenced/page_list_prototype_objects/tiles_7830.2bpp	gfx/unreferenced/page_list_prototype_objects/tiles_7830.png	tiles			0	720	3c54d00cdd422fa54238b4a50bbb7020b0c88efe39e92fdd111b75d6db336758

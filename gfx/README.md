@@ -1413,3 +1413,84 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `tiles_7830.2bpp` | 2bpp tiles | 720 | 7F:7830 | PROBABLE | exact | - | `gfx/unreferenced/page_list_prototype_objects.asm` |
 | `palette_7b00.pal` | RGB palette | 64 | 7F:7B00 | PROBABLE | - | - | `gfx/unreferenced/page_list_prototype_objects.asm` |
+
+## Editing images
+
+PNG is the editable source of the graphics: `make` rebuilds the binary that the `.asm` INCBINs from its PNG (short form: `docs/EDITING_IMAGES.md`).
+(Font sheets and screen PNGs, described here, supersede the "view-only PNG" wording above: the font rows marked `view` in the tables are now editable
+`name.png` sheets; only `sjis_valid_bitmap_view.png` is still a picture.)
+
+### Workflow
+
+```
+edit the PNG (indexed mode, same size, same palette)   ->   make   ->   mobile_trainer.gbc has the new image
+make png-check        every editable PNG checked, errors explained in plain words
+make png-bins         rebuild only the graphics binaries (no ROM)
+make png-export       (maintainers) PNGs regenerated from the binaries; never over a PNG with edits not built yet (FORCE=1 overrides)
+```
+
+* `make` runs `rgbgfx` (tile sheets) and `tools/font_png.py` (font sheets) for every PNG newer than its binary, checks that the result has exactly
+  the size of the binary (the ROM layout is pinned by `layout.link`), then assembles and links.  The rules are generated from `gfx/png_rules.tsv`
+  into `gfx/png.mk` (one line per binary: PNG, kind, rgbgfx padding, glyph counts, size, hash in the original state; `python3 tools/png_rules.py rules`).
+  A fresh git checkout has arbitrary file times, so the rules may rebuild every binary; they are deterministic and reproduce the committed bytes
+  (an unedited checkout still prints `SHA-256 OK`).  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.
+* With edited graphics the ROM is meant to differ from the original: `make` then prints `EDITED GRAPHICS` and the list of changed files instead of
+  `SHA-256 MISMATCH` (a difference that no edited graphics file explains is still a mismatch).  `python3 tools/compare_rom.py "Mobile Trainer (Japan).gbc" mobile_trainer.gbc`
+  shows the changed bytes (an edit to one tile changes only that tile's 16 bytes, at that tile's offset in its `.2bpp`).
+* **Constraints**: do not resize or crop an image; do not add or remove tiles or glyphs (every binary keeps its size); save as indexed PNG and keep the
+  palette / its order (the tile sheets use the palette position as the colour number); draw with hard pixels (no anti-aliasing).
+
+### Which assets are editable PNGs
+
+| kind | PNG source | files | notes |
+|---|---|---:|---|
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 409 | 100% of the `.2bpp` files; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| JIS 12x12 glyphs (10 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's two binaries share one sheet |
+| 8x16 font runs | `data/fonts/font_8x16_*.png`, 16 glyphs per row | 27 sheets | |
+| 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |
+| whole screens | `name.screen.png` next to `name.tilemap` (`gfx/screens.tsv`) | 83 | edit view: tilemap + attribute map + tiles + palettes composed in real colours; import writes the edit into the tile sheets, see below |
+| palettes | `name.pal` (text, `RGB r, g, b`) | 133 | already an editable text form; a screen PNG can write colours back (`screen_png.py import --palette`). No separate swatch PNG |
+
+Not PNG-editable (binary only): the 169 `.tilemap` and 169 `.attrmap` files (the layout of a screen: which tile in which cell, flips, palette
+numbers), the Shift-JIS validity bitmap (data, not an image; `sjis_valid_bitmap_view.png` is a picture of it), and the graphics blocks that are still `db`
+in the `.asm` (see "Still `db`" above).  The 86 tilemaps without a screen PNG are unlisted because their screen cannot be composed from the code: 38 are
+loaded through a pointer / table or as sub-rectangles (no immediate address at the call), 37 have a loader call whose routine loads too few of their tiles
+(tiles arrive by another routine), 11 belong to the bank 41-46 scene records whose layout assumption resolves less than half of the cells.  Their tiles are
+still editable through the tile sheets.
+
+### Font sheets (`tools/font_png.py`)
+
+Indexed PNG, 4 colours: white = paper, black = ink (draw only pure black / white inside glyph cells), light grey = the 1 px grid between cells, pink = a pixel
+whose byte is not stored in this file (only around the two glyphs cut by the gap of bank 7C; ignored).  Sheet cell = glyph + 1 px grid line; sheet row r of a
+JIS sheet is glyph-slot row r of the bank (JIS rows: 7E 1-8 and 13, 7D 16-24, 7C 25-33, 7B 34-42, 7A 43-51, 79 52-60, 78 61-69, 77 70-78, 76 79-84), column c is
+JIS column c+1.  The packing (12x12: two 12-bit rows in 3 bytes; 8x16 / 6x12: one byte per row, MSB left) is in the docstring of `tools/font_png.py` and in
+`docs/research/text_encoding.md`; `check` proves for every sheet that the pixels decode to exactly the binary bytes.
+
+### Screen PNGs (`tools/screen_png.py`, `gfx/screens.tsv`)
+
+A screen = a tilemap + attribute map and the tile blocks and palettes that the *same loader routine* puts into VRAM (found statically from the far calls
+to the HDMA, tilemap-copy and palette-buffer routines; `evidence` column).  The tile-number addressing mode (LCDC bit 4) is chosen by which mode resolves
+more cells.  Status: PROBABLE = every cell resolves and the mode does not matter or is decided by coverage (18 screens); HYPOTHESIS = part of the cells
+resolve (the rest are drawn pink) or the mode is a tie or the screen is one of the bank 41-46 scene records (layout-only assumption: tile k = record tile k,
+VRAM bank 1) (65 screens).  Visual check (2 x zoom contact sheet, title, mail menu, top menu, logo, keyboard, scenery screens): the composed images read as the
+real screens.  `export` writes the PNGs, `import` reads them back:
+
+```
+python3 tools/screen_png.py export [NAME]                       # from the current tile sheets and palettes (only needed when stale)
+python3 tools/screen_png.py import [--dry-run] [--palette] [NAME]   # screen PNG -> edits of the TILE SHEET PNGs (+ .pal files with --palette)
+python3 tools/screen_png.py check                                # render -> import must be the identity (make png-check runs it)
+```
+
+Pixel value = `4 * palette + shade` (palette = the cell's attribute bits 0-2, shade 0-3), PLTE = the eight palettes of the screen in their real colours (greys
+tinted per palette where the palette load is not known: 25 screens), entry 32 (pink) = a cell whose tile the routine does not load.  Import **keeps the
+tilemap and attribute map**: each cell is written back into the tile it shows (flips undone), and the result lands in the tile sheet PNG (the source), then
+`make`.  Errors in plain words: a cell may use only the colours of its own palette; a tile shown by several cells must look the same in all of them (editing
+one of them alone is refused, because the tilemap cannot give it another tile); other screens showing an edited tile change too (import lists them).  Re-laying out
+a screen needs the tilemap / attribute bytes, which stay binary.  The unedited screen PNG imports to "no change" for every screen, and the tile bytes
+reached through every cell are exactly the `.2bpp` bytes (proved by `make png-check`).
+
+### Tools
+
+`tools/png_rules.py` (rules manifest / png.mk / export / edited-asset detection), `tools/png_check.py` (guard rails), `tools/font_png.py`, `tools/screen_png.py`,
+`tools/pnglib.py` (PNG reader for 1-16 bit indexed / gray / RGB files, writer), `tools/gfx_export.py` (asset extraction and manifest, unchanged role),
+`tools/test_png.py` (tests, run by `make test`).
