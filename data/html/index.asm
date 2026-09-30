@@ -4,6 +4,8 @@
 
 SECTION "data/html/index", ROMX
 
+PUSHC sjis
+
 ; ---- data $4000-$4006 (6 bytes) [PROBABLE] html_index_hdr: dw $4006,$4006,$0000 before the URL prefix string (purpose unverified) (verified structure, layout from engine code)
 
 Data_3F_4000:: ; 3F:4000
@@ -12,7 +14,7 @@ Data_3F_4000:: ; 3F:4000
 ; ---- text $4006-$4011 (11 bytes) [PROBABLE] html_url_prefix: "file://di/",0 (ASCII) (verified structure, layout from engine code)
 
 String_3F_4006:: ; 3F:4006
-	db $66, $69, $6C, $65, $3A, $2F, $2F, $64, $69, $2F, $00 ; "file://di/"
+	db "file://di/", 0
 
 ; ---- data $4011-$4012 (1 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 4006-403F by higher-priority evidence]
 
@@ -50,3 +52,5 @@ Data_3F_40CF:: ; 3F:40CF
 	db $2A, $0A, $30, $2F, $0C, $2C, $22, $23, $20, $21, $26, $0F, $08, $28, $07, $10
 	db $12, $1C, $1B, $0D, $02, $19, $1C, $1A, $1E, $16, $2D, $14, $04, $15, $13, $32
 	db $18, $11, $36, $31, $09, $0B, $28, $1F, $27, $36, $36, $06, $1D
+
+POPC

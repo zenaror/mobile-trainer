@@ -4,6 +4,8 @@
 
 SECTION "data/keyboard/pages", ROMX
 
+PUSHC sjis
+
 ; ---- data $4000-$4014 (20 bytes) [PROBABLE] 20-byte header ($0014, $0003, zeros, $4634?, $58 run) of the on-screen keyboard tables; bytes 4000-4001, 4004, 4006-400B, 400E, 4010-4013 were read by executed code (traces); fields not decoded [verifier: restored from HYPOTHESIS; the traces prove the read ranges as data (they were CONFIRMED before the merge) and the block is one 20-byte header]
 
 Table_Kbd_StartCell:: ; 55:4000
@@ -138,53 +140,53 @@ Data_55_433A::
 
 Data_Kbd_Page_T6_Hiragana:: ; 55:43EE
 String_55_43EE::
-	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00 ; "あいうえお"
+	db "あいうえお", 0
 
 ; ---- text $43F9-$4406 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_43F9:: ; 55:43F9
-	db $00 ; ""
-	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00 ; "はひふへほ"
-	db $00 ; ""
+	db 0
+	db "はひふへほ", 0
+	db 0
 
 ; ---- text $4406-$441D (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_4406:: ; 55:4406
-	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $00 ; "っゃゅょ、。かきくけこ"
+	db "っゃゅょ、。かきくけこ", 0
 
 ; ---- text $441D-$442A (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_441D:: ; 55:441D
-	db $00 ; ""
-	db $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00 ; "まみむめも"
-	db $00 ; ""
+	db 0
+	db "まみむめも", 0
+	db 0
 
 ; ---- text $442A-$4441 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_442A:: ; 55:442A
-	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $00 ; "ーぁぃぅぇぉさしすせそ"
+	db "ーぁぃぅぇぉさしすせそ", 0
 
 ; ---- text $4441-$444E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_4441:: ; 55:4441
-	db $00 ; ""
-	db $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00 ; "や　ゆ　よ"
-	db $00 ; ""
+	db 0
+	db "や　ゆ　よ", 0
+	db 0
 
 ; ---- text $444E-$4465 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_444E:: ; 55:444E
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $00 ; "・…！？～♪たちつてと"
+	db "・…！？～♪たちつてと", 0
 
 ; ---- text $4465-$4495 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 43EE-4495 by higher-priority evidence]
 
 String_55_4465:: ; 55:4465
-	db $00 ; ""
-	db $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00 ; "らりるれろ"
-	db $00 ; ""
-	db $81, $75, $81, $76, $81, $69, $81, $6A, $01, $20, $01, $0D, $82, $C8, $82, $C9, $82, $CA, $82, $CB, $82, $CC, $00 ; "「」（）<$01> <$01><$0D>なにぬねの"
-	db $00 ; ""
-	db $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00 ; "わをん゜゛"
+	db 0
+	db "らりるれろ", 0
+	db 0
+	db "「」（）", $01, $20, $01, $0D, "なにぬねの", 0
+	db 0
+	db "わをん゜゛", 0
 
 ; ---- data $4495-$44A4 (15 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4495-44A4 that executed code reads piecewise [split by classify_g2]
 
@@ -197,55 +199,55 @@ Data_Kbd_Page_T6_Katakana:: ; 55:44A2
 ; ---- text $44A4-$44BA (22 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: イウエオ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44A4:: ; 55:44A4
-	db $83, $43, $83, $45, $83, $47, $83, $49, $00 ; "イウエオ"
-	db $00 ; ""
-	db $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "ハヒフヘホ"
-	db $00 ; ""
+	db "イウエオ", 0
+	db 0
+	db "ハヒフヘホ", 0
+	db 0
 
 ; ---- text $44BA-$44D1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_44BA:: ; 55:44BA
-	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $00 ; "ッャュョ、。カキクケコ"
+	db "ッャュョ、。カキクケコ", 0
 
 ; ---- text $44D1-$44DE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44D1:: ; 55:44D1
-	db $00 ; ""
-	db $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00 ; "マミムメモ"
-	db $00 ; ""
+	db 0
+	db "マミムメモ", 0
+	db 0
 
 ; ---- text $44DE-$44F5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_44DE:: ; 55:44DE
-	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $00 ; "ーァィゥェォサシスセソ"
+	db "ーァィゥェォサシスセソ", 0
 
 ; ---- text $44F5-$4502 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_44F5:: ; 55:44F5
-	db $00 ; ""
-	db $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00 ; "ヤ　ユ　ヨ"
-	db $00 ; ""
+	db 0
+	db "ヤ　ユ　ヨ", 0
+	db 0
 
 ; ---- text $4502-$4519 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_4502:: ; 55:4502
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $00 ; "・…！？～♪タチツテト"
+	db "・…！？～♪タチツテト", 0
 
 ; ---- text $4519-$4532 (25 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (9 double-byte chars, decodes cleanly with cp932: |ラリルレロ||「」（） ), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_4519:: ; 55:4519
-	db $00 ; ""
-	db $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00 ; "ラリルレロ"
-	db $00 ; ""
-	db $81, $75, $81, $76, $81, $69, $81, $6A, $01, $20, $01, $0D ; "「」（）<$01> <$01><$0D>"
+	db 0
+	db "ラリルレロ", 0
+	db 0
+	db "「」（）", $01, $20, $01, $0D
 
 ; ---- text $4532-$454A (24 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4532-4554: clean cp932 pairs with NUL row terminators (ナニヌネノ||ワヲン゜゛||); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4532:: ; 55:4532
-	db $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $00 ; "ナニヌネノ"
-	db $00 ; ""
-	db $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00 ; "ワヲン゜゛"
-	db $00 ; ""
+	db "ナニヌネノ", 0
+	db 0
+	db "ワヲン゜゛", 0
+	db 0
 
 ; ---- data $454A-$4554 (10 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4532-4554 that executed code reads piecewise [split by classify_g2]
 
@@ -255,37 +257,37 @@ Data_55_454A:: ; 55:454A
 ; ---- text $4554-$456E (26 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (10 double-byte chars, decodes cleanly with cp932: ||ＡＢＣＤＥ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_4554:: ; 55:4554
-	db $00 ; ""
-	db $00 ; ""
+	db 0
+	db 0
 
 Data_Kbd_Page_T6_FullWidthAlnum:: ; 55:4556
-	db $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $00 ; "ＡＢＣＤＥ"
-	db $00 ; ""
-	db $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00 ; "ａｂｃｄｅ"
-	db $00 ; ""
+	db "ＡＢＣＤＥ", 0
+	db 0
+	db "ａｂｃｄｅ", 0
+	db 0
 
 ; ---- text $456E-$4585 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_456E:: ; 55:456E
-	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66, $82, $67, $82, $68, $82, $69, $00 ; "Ｚ０１２３４ＦＧＨＩＪ"
+	db "Ｚ０１２３４ＦＧＨＩＪ", 0
 
 ; ---- text $4585-$45FD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 456E-45FD by higher-priority evidence]
 
 String_55_4585:: ; 55:4585
-	db $00 ; ""
-	db $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00 ; "ｆｇｈｉｊ"
-	db $00 ; ""
-	db $82, $9A, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $00 ; "ｚ５６７８９ＫＬＭＮＯ"
-	db $00 ; ""
-	db $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00 ; "ｋｌｍｎｏ"
-	db $00 ; ""
-	db $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82, $70, $82, $71, $82, $72, $82, $73, $00 ; "．，！？：／ＰＱＲＳＴ"
-	db $00 ; ""
-	db $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $00 ; "ｐｑｒｓｔ"
-	db $00 ; ""
-	db $81, $97, $81, $7C, $81, $51, $81, $7B, $01, $20, $01, $0D, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00 ; "＠－＿＋<$01> <$01><$0D>ＵＶＷＸＹ"
-	db $00 ; ""
-	db $82, $95, $82, $96, $82, $97, $82, $98, $82, $99, $00 ; "ｕｖｗｘｙ"
+	db 0
+	db "ｆｇｈｉｊ", 0
+	db 0
+	db "ｚ５６７８９ＫＬＭＮＯ", 0
+	db 0
+	db "ｋｌｍｎｏ", 0
+	db 0
+	db "．，！？：／ＰＱＲＳＴ", 0
+	db 0
+	db "ｐｑｒｓｔ", 0
+	db 0
+	db "＠－＿＋", $01, $20, $01, $0D, "ＵＶＷＸＹ", 0
+	db 0
+	db "ｕｖｗｘｙ", 0
 
 ; ---- data $45FD-$460A (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 45FD-460A that executed code reads piecewise [split by classify_g2]
 
@@ -296,27 +298,27 @@ Data_55_45FD:: ; 55:45FD
 
 Data_Kbd_Page_T6_Symbols:: ; 55:460A
 String_55_460A::
-	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00 ; "＋－＝＃＄"
-	db $00 ; ""
-	db $81, $93, $81, $95, $81, $8F, $81, $49, $81, $48, $00 ; "％＆￥！？"
-	db $00 ; ""
-	db $81, $97, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00 ; "＠０１２３４＊‘’”："
-	db $00 ; ""
-	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00 ; "；．，（）"
-	db $00 ; ""
-	db $81, $5E, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E, $81, $83, $00 ; "／５６７８９｛｝［］＜"
-	db $00 ; ""
-	db $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00 ; "＞～＿＾｜"
-	db $00 ; ""
-	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76, $81, $77, $81, $78, $81, $79, $00 ; "・…、。ー♪「」『』【"
-	db $00 ; ""
-	db $81, $7A, $81, $7E, $81, $80, $81, $A7, $81, $A6, $00 ; "】×÷〒※"
+	db "＋－＝＃＄", 0
+	db 0
+	db "％＆￥！？", 0
+	db 0
+	db "＠０１２３４＊‘’”：", 0
+	db 0
+	db "；．，（）", 0
+	db 0
+	db "／５６７８９｛｝［］＜", 0
+	db 0
+	db "＞～＿＾｜", 0
+	db 0
+	db "・…、。ー♪「」『』【", 0
+	db 0
+	db "】×÷〒※", 0
 
 ; ---- text $468D-$46B0 (35 bytes) [PROBABLE] Shift-JIS keyboard rows (symbols: arrows, stars, squares; codes 01 20 / 01 0D are inline controls) NUL separated; decodes cleanly with cp932; between the text rows 460A-468D and 46BE of the same page
 
 String_55_468D:: ; 55:468D
-	db $00 ; ""
-	db $81, $A8, $81, $A9, $81, $AA, $81, $AB, $01, $20, $01, $0D, $81, $9A, $81, $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81, $A2, $81, $9B ; "→←↑↓<$01> <$01><$0D>★◆■▲●　☆◇□△○"
+	db 0
+	db "→←↑↓", $01, $20, $01, $0D, "★◆■▲●　☆◇□△○"
 
 ; ---- data $46B0-$46BE (14 bytes) [PROBABLE] 14-byte page trailer 00 00 00 00 ff 83 00 00 00 00 ff 82 00 00, byte-identical to the trailers at 43E0/45FD/4765 (the ff 83 / ff 82 words are read by executed code at 4498/449E/4552/4606/476E)
 
@@ -327,53 +329,53 @@ Data_55_46B0:: ; 55:46B0
 
 Data_Kbd_Page_T78_Hiragana:: ; 55:46BE
 String_55_46BE::
-	db $82, $A0, $82, $A2, $82, $A4, $82, $A6, $82, $A8, $00 ; "あいうえお"
+	db "あいうえお", 0
 
 ; ---- text $46C9-$46D6 (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_46C9:: ; 55:46C9
-	db $00 ; ""
-	db $82, $CD, $82, $D0, $82, $D3, $82, $D6, $82, $D9, $00 ; "はひふへほ"
-	db $00 ; ""
+	db 0
+	db "はひふへほ", 0
+	db 0
 
 ; ---- text $46D6-$46ED (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_46D6:: ; 55:46D6
-	db $82, $C1, $82, $E1, $82, $E3, $82, $E5, $81, $41, $81, $42, $82, $A9, $82, $AB, $82, $AD, $82, $AF, $82, $B1, $00 ; "っゃゅょ、。かきくけこ"
+	db "っゃゅょ、。かきくけこ", 0
 
 ; ---- text $46ED-$46FA (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_46ED:: ; 55:46ED
-	db $00 ; ""
-	db $82, $DC, $82, $DD, $82, $DE, $82, $DF, $82, $E0, $00 ; "まみむめも"
-	db $00 ; ""
+	db 0
+	db "まみむめも", 0
+	db 0
 
 ; ---- text $46FA-$4711 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_46FA:: ; 55:46FA
-	db $81, $5B, $82, $9F, $82, $A1, $82, $A3, $82, $A5, $82, $A7, $82, $B3, $82, $B5, $82, $B7, $82, $B9, $82, $BB, $00 ; "ーぁぃぅぇぉさしすせそ"
+	db "ーぁぃぅぇぉさしすせそ", 0
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_4711:: ; 55:4711
-	db $00 ; ""
-	db $82, $E2, $81, $40, $82, $E4, $81, $40, $82, $E6, $00 ; "や　ゆ　よ"
-	db $00 ; ""
+	db 0
+	db "や　ゆ　よ", 0
+	db 0
 
 ; ---- text $471E-$4735 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_471E:: ; 55:471E
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $82, $BD, $82, $BF, $82, $C2, $82, $C4, $82, $C6, $00 ; "・…！？～♪たちつてと"
+	db "・…！？～♪たちつてと", 0
 
 ; ---- text $4735-$4765 (48 bytes) [PROBABLE] text block: 11 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 46BE-4765 by higher-priority evidence]
 
 String_55_4735:: ; 55:4735
-	db $00 ; ""
-	db $82, $E7, $82, $E8, $82, $E9, $82, $EA, $82, $EB, $00 ; "らりるれろ"
-	db $00 ; ""
-	db $81, $75, $81, $76, $81, $69, $81, $6A, $81, $40, $01, $20, $82, $C8, $82, $C9, $82, $CA, $82, $CB, $82, $CC, $00 ; "「」（）　<$01> なにぬねの"
-	db $00 ; ""
-	db $82, $ED, $82, $F0, $82, $F1, $81, $4B, $81, $4A, $00 ; "わをん゜゛"
+	db 0
+	db "らりるれろ", 0
+	db 0
+	db "「」（）　", $01, $20, "なにぬねの", 0
+	db 0
+	db "わをん゜゛", 0
 
 ; ---- data $4765-$4771 (12 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 4765-477A that executed code reads piecewise [split by classify_g2]
 
@@ -383,58 +385,58 @@ Data_55_4765:: ; 55:4765
 ; ---- text $4771-$477A (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 4765-477A: clean cp932 pairs with NUL row terminators (|アイウエ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4771:: ; 55:4771
-	db $00 ; ""
+	db 0
 
 Data_Kbd_Page_T78_Katakana:: ; 55:4772
-	db $83, $41, $83, $43, $83, $45, $83, $47 ; "アイウエ"
+	db "アイウエ"
 
 ; ---- text $477A-$478A (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: オ||ハヒフヘホ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_477A:: ; 55:477A
-	db $83, $49, $00 ; "オ"
-	db $00 ; ""
-	db $83, $6E, $83, $71, $83, $74, $83, $77, $83, $7A, $00 ; "ハヒフヘホ"
-	db $00 ; ""
+	db "オ", 0
+	db 0
+	db "ハヒフヘホ", 0
+	db 0
 
 ; ---- text $478A-$47A1 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_478A:: ; 55:478A
-	db $83, $62, $83, $83, $83, $85, $83, $87, $81, $41, $81, $42, $83, $4A, $83, $4C, $83, $4E, $83, $50, $83, $52, $00 ; "ッャュョ、。カキクケコ"
+	db "ッャュョ、。カキクケコ", 0
 
 ; ---- text $47A1-$47AE (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |マミムメモ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_47A1:: ; 55:47A1
-	db $00 ; ""
-	db $83, $7D, $83, $7E, $83, $80, $83, $81, $83, $82, $00 ; "マミムメモ"
-	db $00 ; ""
+	db 0
+	db "マミムメモ", 0
+	db 0
 
 ; ---- text $47AE-$47C5 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_47AE:: ; 55:47AE
-	db $81, $5B, $83, $40, $83, $42, $83, $44, $83, $46, $83, $48, $83, $54, $83, $56, $83, $58, $83, $5A, $83, $5C, $00 ; "ーァィゥェォサシスセソ"
+	db "ーァィゥェォサシスセソ", 0
 
 ; ---- text $47C5-$47D2 (13 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (5 double-byte chars, decodes cleanly with cp932: |ヤ ユ ヨ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_47C5:: ; 55:47C5
-	db $00 ; ""
-	db $83, $84, $81, $40, $83, $86, $81, $40, $83, $88, $00 ; "ヤ　ユ　ヨ"
-	db $00 ; ""
+	db 0
+	db "ヤ　ユ　ヨ", 0
+	db 0
 
 ; ---- text $47D2-$47E9 (23 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_47D2:: ; 55:47D2
-	db $81, $45, $81, $63, $81, $49, $81, $48, $81, $60, $81, $F4, $83, $5E, $83, $60, $83, $63, $83, $65, $83, $67, $00 ; "・…！？～♪タチツテト"
+	db "・…！？～♪タチツテト", 0
 
 ; ---- text $47E9-$481A (49 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ラリルレロ||「」（） ^ ナニヌネノ); 0 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_47E9:: ; 55:47E9
-	db $00 ; ""
-	db $83, $89, $83, $8A, $83, $8B, $83, $8C, $83, $8D, $00 ; "ラリルレロ"
-	db $00 ; ""
-	db $81, $75, $81, $76, $81, $69, $81, $6A, $81, $40, $01, $20, $83, $69, $83, $6A, $83, $6B, $83, $6C, $83, $6D, $00 ; "「」（）　<$01> ナニヌネノ"
-	db $00 ; ""
-	db $83, $8F, $83, $92, $83, $93, $81, $4B, $81, $4A, $00 ; "ワヲン゜゛"
-	db $00 ; ""
+	db 0
+	db "ラリルレロ", 0
+	db 0
+	db "「」（）　", $01, $20, "ナニヌネノ", 0
+	db 0
+	db "ワヲン゜゛", 0
+	db 0
 
 ; ---- data $481A-$4825 (11 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 47E9-482E that executed code reads piecewise [split by classify_g2]
 
@@ -444,41 +446,41 @@ Data_55_481A:: ; 55:481A
 ; ---- text $4825-$482E (9 bytes) [PROBABLE] Shift-JIS keyboard row(s) inside the run 47E9-482E: clean cp932 pairs with NUL row terminators (|ＡＢＣＤ); 1 executed-read range(s) of the run touch it; sits between the CONFIRMED/PROBABLE text rows of the same on-screen keyboard page [split from a merged data run by classify_g2]
 
 String_55_4825:: ; 55:4825
-	db $00 ; ""
+	db 0
 
 Data_Kbd_Page_T78_FullWidthAlnum:: ; 55:4826
-	db $82, $60, $82, $61, $82, $62, $82, $63 ; "ＡＢＣＤ"
+	db "ＡＢＣＤ"
 
 ; ---- text $482E-$483E (16 bytes) [PROBABLE] Shift-JIS keyboard row(s) NUL separated (6 double-byte chars, decodes cleanly with cp932: Ｅ||ａｂｃｄｅ||), between confirmed/probable text rows of the same on-screen keyboard character pages
 
 String_55_482E:: ; 55:482E
-	db $82, $64, $00 ; "Ｅ"
-	db $00 ; ""
-	db $82, $81, $82, $82, $82, $83, $82, $84, $82, $85, $00 ; "ａｂｃｄｅ"
-	db $00 ; ""
+	db "Ｅ", 0
+	db 0
+	db "ａｂｃｄｅ", 0
+	db 0
 
 ; ---- text $483E-$4855 (23 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 String_55_483E:: ; 55:483E
-	db $82, $79, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $65, $82, $66, $82, $67, $82, $68, $82, $69, $00 ; "Ｚ０１２３４ＦＧＨＩＪ"
+	db "Ｚ０１２３４ＦＧＨＩＪ", 0
 
 ; ---- text $4855-$48CD (120 bytes) [PROBABLE] text block: 9 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 483E-48CD by higher-priority evidence]
 
 String_55_4855:: ; 55:4855
-	db $00 ; ""
-	db $82, $86, $82, $87, $82, $88, $82, $89, $82, $8A, $00 ; "ｆｇｈｉｊ"
-	db $00 ; ""
-	db $82, $9A, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $6A, $82, $6B, $82, $6C, $82, $6D, $82, $6E, $00 ; "ｚ５６７８９ＫＬＭＮＯ"
-	db $00 ; ""
-	db $82, $8B, $82, $8C, $82, $8D, $82, $8E, $82, $8F, $00 ; "ｋｌｍｎｏ"
-	db $00 ; ""
-	db $81, $44, $81, $43, $81, $49, $81, $48, $81, $46, $81, $5E, $82, $6F, $82, $70, $82, $71, $82, $72, $82, $73, $00 ; "．，！？：／ＰＱＲＳＴ"
-	db $00 ; ""
-	db $82, $90, $82, $91, $82, $92, $82, $93, $82, $94, $00 ; "ｐｑｒｓｔ"
-	db $00 ; ""
-	db $81, $97, $81, $7C, $81, $51, $81, $7B, $81, $40, $01, $20, $82, $74, $82, $75, $82, $76, $82, $77, $82, $78, $00 ; "＠－＿＋　<$01> ＵＶＷＸＹ"
-	db $00 ; ""
-	db $82, $95, $82, $96, $82, $97, $82, $98, $82, $99, $00 ; "ｕｖｗｘｙ"
+	db 0
+	db "ｆｇｈｉｊ", 0
+	db 0
+	db "ｚ５６７８９ＫＬＭＮＯ", 0
+	db 0
+	db "ｋｌｍｎｏ", 0
+	db 0
+	db "．，！？：／ＰＱＲＳＴ", 0
+	db 0
+	db "ｐｑｒｓｔ", 0
+	db 0
+	db "＠－＿＋　", $01, $20, "ＵＶＷＸＹ", 0
+	db 0
+	db "ｕｖｗｘｙ", 0
 
 ; ---- data $48CD-$48DA (13 bytes) [PROBABLE] keyboard page trailer/separator bytes (00 00 ff 83 00 00 00 00 ff 82 00 00 pattern, identical to the trailers at 43E0/45FD; the ff 83 / ff 82 words are read by executed code); part of the run 48CD-48DA that executed code reads piecewise [split by classify_g2]
 
@@ -489,29 +491,28 @@ Data_55_48CD:: ; 55:48CD
 
 Data_Kbd_Page_T78_Symbols:: ; 55:48DA
 String_55_48DA::
-	db $81, $7B, $81, $7C, $81, $81, $81, $94, $81, $90, $00 ; "＋－＝＃＄"
-	db $00 ; ""
-	db $81, $93, $81, $95, $81, $8F, $81, $49, $81, $48, $00 ; "％＆￥！？"
-	db $00 ; ""
-	db $81, $97, $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $81, $96, $81, $65, $81, $66, $81, $68, $81, $46, $00 ; "＠０１２３４＊‘’”："
-	db $00 ; ""
-	db $81, $47, $81, $44, $81, $43, $81, $69, $81, $6A, $00 ; "；．，（）"
-	db $00 ; ""
-	db $81, $5E, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $81, $6F, $81, $70, $81, $6D, $81, $6E, $81, $83, $00 ; "／５６７８９｛｝［］＜"
-	db $00 ; ""
-	db $81, $84, $81, $60, $81, $51, $81, $4F, $81, $62, $00 ; "＞～＿＾｜"
-	db $00 ; ""
-	db $81, $45, $81, $63, $81, $41, $81, $42, $81, $5B, $81, $F4, $81, $75, $81, $76, $81, $77, $81, $78, $81, $79, $00 ; "・…、。ー♪「」『』【"
-	db $00 ; ""
-	db $81, $7A, $81, $7E, $81, $80, $81, $A7, $81, $A6, $00 ; "】×÷〒※"
+	db "＋－＝＃＄", 0
+	db 0
+	db "％＆￥！？", 0
+	db 0
+	db "＠０１２３４＊‘’”：", 0
+	db 0
+	db "；．，（）", 0
+	db 0
+	db "／５６７８９｛｝［］＜", 0
+	db 0
+	db "＞～＿＾｜", 0
+	db 0
+	db "・…、。ー♪「」『』【", 0
+	db 0
+	db "】×÷〒※", 0
 
 ; ---- text $495D-$4982 (37 bytes) [PROBABLE] Shift-JIS keyboard row(s) (arrows, spaces; 01 20 inline control) NUL separated, clean cp932; between the text rows 48DA-495D and the page trailer at 4982
 
 String_55_495D:: ; 55:495D
-	db $00 ; ""
-	db $81, $A8, $81, $A9, $81, $AA, $81, $AB, $81, $40, $01, $20, $81, $9A, $81, $9F, $81, $A1, $81, $A3, $81, $9C, $81, $40, $81, $99, $81, $9E, $81, $A0, $81, $A2, $81, $9B ; "→←↑↓　<$01> ★◆■▲●　☆◇□△○"
-	db $00 ; ""
-	db $00 ; ""
+	db 0
+	db "→←↑↓　", $01, $20, "★◆■▲●　☆◇□△○", 0
+	db 0
 
 ; ---- data $4982-$498E (12 bytes) [PROBABLE] 12-byte page trailer 00 00 ff 83 00 00 00 00 ff 82 00 00 (same marker pattern as 43E0/45FD; the ff 83 / ff 82 words are read by executed code)
 
@@ -856,3 +857,5 @@ Data_55_5986:: ; 55:5986
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $52, $58
 	db $31, $0D, $B0, $3C, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $55, $48, $34, $10, $70, $3C, $00, $00, $00, $00, $00, $00
+
+POPC

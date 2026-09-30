@@ -1,0 +1,4 @@
+# assets are INCBINed: never let git touch line endings
+*.1bpp binary
+*.bin binary
+*.png binary
