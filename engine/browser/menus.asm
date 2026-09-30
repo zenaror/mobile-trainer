@@ -104,7 +104,7 @@ BrowserMenu_OpenTwoItem:: ; 72:63D8
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
 	ld hl, $DAC0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -402,7 +402,7 @@ BrowserMenu_DrawItemTwo:: ; 72:669F
 	ld b, a
 	push hl
 	ld hl, $DAD0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	farcall Sprite_InitSlot
 	pop hl
@@ -544,7 +544,7 @@ Function_72_6712::
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
 	ld hl, $DAC0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -857,7 +857,7 @@ Function_72_69F3::
 	ld b, a
 	push hl
 	ld hl, $DAD0
-	ld de, BrowserMenu_CursorObjTable
+	ld de, BrowserShared_ObjTable
 	ld a, $72
 	farcall Sprite_InitSlot
 	pop hl

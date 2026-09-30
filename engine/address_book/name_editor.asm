@@ -1224,7 +1224,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, Table_AbookName_ApplyDakutenU_CharPairs
+	ld de, Table_AbookName_ApplyDakutenU_LoopPairs
 .loop ; 2F:5FAD
 	ld a, [de]
 	inc de
@@ -1345,7 +1345,7 @@ AbookName_ApplyDakutenU:: ; 2F:5F93
 ; ---- text $6040-$6045 (5 bytes) [PROBABLE] NUL-terminated Shift-JIS string (82 A4 82 A4 00); read byte by byte by 2F:5FAA (ld de,$6040; ld a,[de]; inc de; cp $00); identical bytes at 2C:4878. The following $C9 (ret) stays unresolved in the next region
 
 PUSHC sjis
-Table_AbookName_ApplyDakutenU_CharPairs:: ; 2F:6040
+Table_AbookName_ApplyDakutenU_LoopPairs:: ; 2F:6040
 String_2F_6040::
 	db "うう", 0
 POPC

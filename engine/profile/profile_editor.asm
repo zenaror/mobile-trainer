@@ -1790,7 +1790,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, Table_Profile_ApplyVu_CharPairs
+	ld de, Table_Profile_ApplyVu_LoopPairs
 .loop ; 2A:5FEE
 	ld a, [de]
 	inc de
@@ -1901,7 +1901,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 ; ---- text $6081-$6086 (5 bytes) [PROBABLE] Shift-JIS NUL-terminated string (2 x 82 A4 = full-width 'う' x2); address loaded by 'ld de,$6081' at 2A:5FEA
 
 PUSHC sjis
-Table_Profile_ApplyVu_CharPairs:: ; 2A:6081
+Table_Profile_ApplyVu_LoopPairs:: ; 2A:6081
 String_2A_6081::
 	db "うう", 0
 POPC
