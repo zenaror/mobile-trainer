@@ -7,24 +7,133 @@ SECTION "audio/music/music_15", ROMX
 ; ---- data $50BC-$516A (174 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
 Data_05_50BC:: ; 05:50BC
-	db $BF, $7F, $BD, $00, $BC, $46, $BE, $00, $D5, $44, $16, $86, $D3, $50, $8C, $D5
-	db $42, $86, $D3, $4E, $8C, $D2, $40, $83, $D2, $4C, $11, $83, $40, $83, $D2, $4C
-	db $0F, $83, $40, $83, $4C, $83, $D2, $40, $0D, $83, $4C, $83, $40, $83, $D2, $4C
-	db $0B, $83, $40, $83, $4C, $83, $B1, $BF, $7F, $BD, $00, $BE, $05, $D5, $4A, $12
-	db $86, $D3, $56, $8C, $D5, $48, $86, $D3, $54, $8C, $D2, $46, $83, $D2, $52, $0E
-	db $83, $46, $83, $D2, $52, $0C, $83, $46, $83, $52, $83, $D2, $46, $0A, $83, $52
-	db $83, $46, $83, $D2, $52, $08, $83, $46, $83, $52, $83, $B1, $BF, $7F, $BD, $00
-	db $BE, $08, $D5, $34, $1F, $86, $D3, $28, $8C, $D5, $32, $86, $D3, $26, $8C, $D5
-	db $30, $86, $E9, $24, $9A, $B1, $BF, $7F, $BD, $00, $BE, $64, $D3, $2C, $0F, $86
-	db $2D, $86, $D3, $24, $09, $86, $2C, $0F, $86, $2D, $86, $D3, $24, $09, $86, $2C
-	db $0F, $86, $D3, $86, $D3, $0D, $86, $0B, $86, $09, $86, $07, $84, $B1
+	sound_volume $7F
+	sound_pitch_add $00
+	sound_tempo $46
+	sound_instrument $00
+	sound_note 6, $44, $16
+	sound_wait 6
+	sound_note 4, $50
+	sound_wait 12
+	sound_note 6, $42
+	sound_wait 6
+	sound_note 4, $4E
+	sound_wait 12
+	sound_note 3, $40
+	sound_wait 3
+	sound_note 3, $4C, $11
+	sound_wait 3
+	sound_rs sound_note 3, $40
+	sound_wait 3
+	sound_note 3, $4C, $0F
+	sound_wait 3
+	sound_rs sound_note 3, $40
+	sound_wait 3
+	sound_rs sound_note 3, $4C
+	sound_wait 3
+	sound_note 3, $40, $0D
+	sound_wait 3
+	sound_rs sound_note 3, $4C
+	sound_wait 3
+	sound_rs sound_note 3, $40
+	sound_wait 3
+	sound_note 3, $4C, $0B
+	sound_wait 3
+	sound_rs sound_note 3, $40
+	sound_wait 3
+	sound_rs sound_note 3, $4C
+	sound_wait 3
+	sound_end
+Data_05_50F3:: ; 05:50F3
+	sound_volume $7F
+	sound_pitch_add $00
+	sound_instrument $05
+	sound_note 6, $4A, $12
+	sound_wait 6
+	sound_note 4, $56
+	sound_wait 12
+	sound_note 6, $48
+	sound_wait 6
+	sound_note 4, $54
+	sound_wait 12
+	sound_note 3, $46
+	sound_wait 3
+	sound_note 3, $52, $0E
+	sound_wait 3
+	sound_rs sound_note 3, $46
+	sound_wait 3
+	sound_note 3, $52, $0C
+	sound_wait 3
+	sound_rs sound_note 3, $46
+	sound_wait 3
+	sound_rs sound_note 3, $52
+	sound_wait 3
+	sound_note 3, $46, $0A
+	sound_wait 3
+	sound_rs sound_note 3, $52
+	sound_wait 3
+	sound_rs sound_note 3, $46
+	sound_wait 3
+	sound_note 3, $52, $08
+	sound_wait 3
+	sound_rs sound_note 3, $46
+	sound_wait 3
+	sound_rs sound_note 3, $52
+	sound_wait 3
+	sound_end
+Data_05_5128:: ; 05:5128
+	sound_volume $7F
+	sound_pitch_add $00
+	sound_instrument $08
+	sound_note 6, $34, $1F
+	sound_wait 6
+	sound_note 4, $28
+	sound_wait 12
+	sound_note 6, $32
+	sound_wait 6
+	sound_note 4, $26
+	sound_wait 12
+	sound_note 6, $30
+	sound_wait 6
+	sound_note 30, $24
+	sound_wait 30
+	sound_end
+Data_05_5142:: ; 05:5142
+	sound_volume $7F
+	sound_pitch_add $00
+	sound_instrument SOUND_INSTRUMENT_PER_NOTE
+	sound_note 4, $2C, $0F
+	sound_wait 6
+	sound_rs sound_note 4, $2D
+	sound_wait 6
+	sound_note 4, $24, $09
+	sound_wait 6
+	sound_rs sound_note 4, $2C, $0F
+	sound_wait 6
+	sound_rs sound_note 4, $2D
+	sound_wait 6
+	sound_note 4, $24, $09
+	sound_wait 6
+	sound_rs sound_note 4, $2C, $0F
+	sound_wait 6
+	sound_note 4
+	sound_wait 6
+	sound_note_mod 4, $0D
+	sound_wait 6
+	sound_rs sound_note_mod 4, $0B
+	sound_wait 6
+	sound_rs sound_note_mod 4, $09
+	sound_wait 6
+	sound_rs sound_note_mod 4, $07
+	sound_wait 4
+	sound_end
 
 ; ---- data $516A-$516C (2 bytes) [PROBABLE] header NN=04 KK=00 of the channel-pointer table at 516C (4 words = NN*(KK+1)); the byte before (5169) is $B1 [v4: bytes 516A-516B were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Data_05_516A:: ; 05:516A
-	db $04, $00
+	sound_stream_header 4, 0
 
 ; ---- words $516C-$5174 (8 bytes) [PROBABLE] 4 in-bank pointers (all inside 05:4000-68C3); the block after the table starts with bf 7f bd; header at 516A [v4: bytes 516C-5174 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
 Table_05_516C:: ; 05:516C
-	dw Data_05_50BC, $50F3, $5128, $5142
+	dw Data_05_50BC, Data_05_50F3, Data_05_5128, Data_05_5142 ; track stream pointers (read by the driver)

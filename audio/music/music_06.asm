@@ -5,53 +5,463 @@
 SECTION "audio/music/music_06", ROMX
 
 ; ---- data $683C-$6B54 (792 bytes) [PROBABLE] sound bytecode streams of the bank-04 songs (addresses from the song table at 551D land in this range; commands like BF 7F BD 00 BC 3D, B3/B2/B1 + 16-bit stream pointer, DB xx, note bytes 83-8C..); merged from many mapper pieces incl. the false code-pointer tables at 78C8 and 797C (words inside the bytecode, e.g. B3 59 78 B2 59 78) and the 1-6 byte holes that were bytes never read in the traces; command semantics not decoded (part of region $574D-$7E8C)
-	db $BF, $7F, $BD, $00, $BC, $24, $BE, $53, $D7, $4A, $1C, $8C, $D2, $8C, $D1, $1A
-	db $86, $D2, $1C, $8C, $DD, $92, $D2, $8C, $D1, $1A, $86, $D2, $1C, $8C, $DD, $86
-	db $8C, $D2, $8C, $D1, $1A, $86, $D2, $1C, $8C, $D2, $4C, $8C, $4A, $8C, $48, $8C
-	db $DB, $47, $92, $D7, $48, $8C, $D2, $8C, $D1, $1A, $86, $D2, $1C, $8C, $D1, $8C
-	db $D2, $8C, $DB, $47, $8C, $D5, $48, $86, $DB, $4A, $8C, $D2, $48, $8C, $D2, $8C
-	db $D2, $45, $8C, $48, $9A, $E7, $4A, $9A, $B2, $40, $68, $B1, $BF, $7F, $BD, $00
-	db $BE, $05, $D5, $53, $0B, $8C, $BE, $06, $D3, $47, $11, $92, $D3, $8C, $BE, $05
-	db $D5, $52, $0B, $86, $BE, $06, $D3, $46, $11, $92, $D3, $92, $D3, $86, $BE, $05
-	db $D5, $51, $0B, $86, $8C, $BE, $06, $D3, $45, $11, $92, $D3, $8C, $BE, $05, $D3
-	db $53, $0B, $86, $BE, $06, $D3, $44, $11, $86, $BE, $05, $D3, $50, $0B, $8C, $BE
-	db $06, $D3, $45, $11, $8C, $BE, $05, $D5, $4A, $0B, $86, $BE, $06, $DB, $47, $11
-	db $8C, $BE, $05, $D5, $51, $0B, $8C, $BE, $06, $D3, $45, $11, $8C, $BE, $05, $D3
-	db $50, $0B, $86, $BE, $06, $D3, $44, $11, $8C, $BE, $05, $D3, $4F, $0B, $86, $BE
-	db $06, $D3, $43, $11, $92, $BE, $06, $DB, $3E, $0B, $8C, $D5, $40, $86, $DB, $41
-	db $8C, $D3, $40, $8C, $BE, $06, $D4, $43, $11, $8C, $3F, $8C, $D3, $43, $9A, $DB
-	db $45, $9A, $B2, $9C, $68, $B1, $BF, $7F, $BD, $00, $BE, $20, $DB, $2B, $1D, $8C
-	db $BE, $02, $D3, $4F, $11, $86, $BE, $20, $D3, $32, $1D, $86, $D5, $86, $BE, $02
-	db $D3, $4F, $11, $8C, $BE, $20, $E1, $2A, $1D, $86, $BE, $02, $D3, $4E, $11, $92
-	db $D3, $92, $D3, $86, $BE, $20, $D5, $2A, $1D, $86, $DB, $29, $8C, $BE, $02, $D3
-	db $4D, $11, $86, $BE, $20, $D3, $32, $1D, $86, $D5, $86, $BE, $02, $D3, $4D, $11
-	db $8C, $BE, $20, $D5, $28, $1D, $86, $BE, $02, $D3, $4C, $11, $8C, $BE, $20, $D5
-	db $2A, $1D, $86, $BE, $02, $D3, $4E, $11, $8C, $BE, $20, $D5, $2C, $1D, $86, $BE
-	db $02, $DB, $50, $11, $8C, $BE, $20, $DB, $2D, $1D, $8C, $BE, $02, $D3, $4C, $11
-	db $86, $BE, $20, $D3, $2D, $1D, $86, $D5, $2C, $86, $BE, $02, $D3, $4B, $11, $8C
-	db $BE, $20, $D5, $2B, $1D, $86, $BE, $02, $D3, $4A, $11, $92, $BE, $20, $D5, $26
-	db $1D, $86, $2B, $86, $2D, $86, $DB, $2F, $8C, $D3, $30, $8C, $BE, $02, $D4, $4C
-	db $11, $8C, $4D, $8C, $D3, $4C, $9A, $DB, $4E, $8C, $BE, $20, $D5, $26, $1D, $86
-	db $28, $86, $2A, $86, $B2, $36, $69, $B1, $BF, $7F, $BD, $00, $BE, $64, $D2, $27
-	db $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D2
-	db $27, $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85
-	db $D1, $24, $0B, $86, $D1, $86, $D2, $27, $11, $86, $D1, $24, $0B, $86, $C1, $28
-	db $D2, $2F, $0F, $81, $C1, $40, $85, $D2, $27, $11, $86, $D2, $86, $D1, $24, $0B
-	db $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D1, $24, $0B, $86, $D2, $27
-	db $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D2
-	db $27, $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85
-	db $D1, $24, $0B, $86, $D1, $86, $D2, $27, $11, $86, $D1, $24, $0B, $86, $C1, $28
-	db $D2, $2F, $0F, $81, $C1, $40, $85, $D2, $27, $11, $86, $D2, $86, $D1, $24, $0B
-	db $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D5, $24, $0D, $86, $D2, $27
-	db $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D2
-	db $27, $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85
-	db $D1, $24, $0B, $86, $D1, $86, $D2, $27, $11, $86, $D1, $24, $0B, $86, $C1, $28
-	db $D2, $2F, $0F, $81, $C1, $40, $85, $D2, $27, $11, $86, $D2, $86, $D1, $24, $0B
-	db $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D1, $24, $0B, $86, $D2, $27
-	db $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85, $D2
-	db $27, $11, $86, $D1, $24, $0B, $86, $C1, $28, $D2, $2F, $0F, $81, $C1, $40, $85
-	db $D1, $24, $0B, $86, $D1, $86, $D1, $86, $D1, $86, $C1, $28, $D2, $2F, $0F, $81
-	db $C1, $40, $85, $D1, $24, $0B, $86, $D1, $86, $C1, $28, $D2, $2F, $0F, $81, $C1
-	db $40, $85, $D2, $27, $11, $86, $D5, $24, $0D, $86, $B2, $F8, $69, $B1, $04, $02
-	db $3C, $68, $98, $68, $32, $69, $F4, $69, $40, $68, $9C, $68, $36, $69, $F8, $69
-	db $97, $68, $31, $69, $F3, $69, $39, $6B
+
+Data_04_683C:: ; 04:683C
+	sound_volume $7F
+	sound_pitch_add $00
+Data_04_6840:: ; 04:6840
+	sound_tempo $24
+	sound_instrument $53
+	sound_note 8, $4A, $1C
+	sound_wait 12
+	sound_note 3
+	sound_wait 12
+	sound_note_mod 2, $1A
+	sound_wait 6
+	sound_note_mod 3, $1C
+	sound_wait 12
+	sound_note 14
+	sound_wait 18
+	sound_note 3
+	sound_wait 12
+	sound_note_mod 2, $1A
+	sound_wait 6
+	sound_note_mod 3, $1C
+	sound_wait 12
+	sound_note 14
+	sound_wait 6
+	sound_wait 12
+	sound_note 3
+	sound_wait 12
+	sound_note_mod 2, $1A
+	sound_wait 6
+	sound_note_mod 3, $1C
+	sound_wait 12
+	sound_note 3, $4C
+	sound_wait 12
+	sound_rs sound_note 3, $4A
+	sound_wait 12
+	sound_rs sound_note 3, $48
+	sound_wait 12
+	sound_note 12, $47
+	sound_wait 18
+	sound_note 8, $48
+	sound_wait 12
+	sound_note 3
+	sound_wait 12
+	sound_note_mod 2, $1A
+	sound_wait 6
+	sound_note_mod 3, $1C
+	sound_wait 12
+	sound_note 2
+	sound_wait 12
+	sound_note 3
+	sound_wait 12
+	sound_note 12, $47
+	sound_wait 12
+	sound_note 6, $48
+	sound_wait 6
+	sound_note 12, $4A
+	sound_wait 12
+	sound_note 3, $48
+	sound_wait 12
+	sound_note 3
+	sound_wait 12
+	sound_note 3, $45
+	sound_wait 12
+	sound_rs sound_note 3, $48
+	sound_wait 30
+	sound_note 24, $4A
+	sound_wait 30
+	sound_jump Data_04_6840
+Data_04_6897:: ; 04:6897
+	sound_end
+Data_04_6898:: ; 04:6898
+	sound_volume $7F
+	sound_pitch_add $00
+Data_04_689C:: ; 04:689C
+	sound_instrument $05
+	sound_note 6, $53, $0B
+	sound_wait 12
+	sound_instrument $06
+	sound_note 4, $47, $11
+	sound_wait 18
+	sound_note 4
+	sound_wait 12
+	sound_instrument $05
+	sound_note 6, $52, $0B
+	sound_wait 6
+	sound_instrument $06
+	sound_note 4, $46, $11
+	sound_wait 18
+	sound_note 4
+	sound_wait 18
+	sound_note 4
+	sound_wait 6
+	sound_instrument $05
+	sound_note 6, $51, $0B
+	sound_wait 6
+	sound_wait 12
+	sound_instrument $06
+	sound_note 4, $45, $11
+	sound_wait 18
+	sound_note 4
+	sound_wait 12
+	sound_instrument $05
+	sound_note 4, $53, $0B
+	sound_wait 6
+	sound_instrument $06
+	sound_note 4, $44, $11
+	sound_wait 6
+	sound_instrument $05
+	sound_note 4, $50, $0B
+	sound_wait 12
+	sound_instrument $06
+	sound_note 4, $45, $11
+	sound_wait 12
+	sound_instrument $05
+	sound_note 6, $4A, $0B
+	sound_wait 6
+	sound_instrument $06
+	sound_note 12, $47, $11
+	sound_wait 12
+	sound_instrument $05
+	sound_note 6, $51, $0B
+	sound_wait 12
+	sound_instrument $06
+	sound_note 4, $45, $11
+	sound_wait 12
+	sound_instrument $05
+	sound_note 4, $50, $0B
+	sound_wait 6
+	sound_instrument $06
+	sound_note 4, $44, $11
+	sound_wait 12
+	sound_instrument $05
+	sound_note 4, $4F, $0B
+	sound_wait 6
+	sound_instrument $06
+	sound_note 4, $43, $11
+	sound_wait 18
+	sound_instrument $06
+	sound_note 12, $3E, $0B
+	sound_wait 12
+	sound_note 6, $40
+	sound_wait 6
+	sound_note 12, $41
+	sound_wait 12
+	sound_note 4, $40
+	sound_wait 12
+	sound_instrument $06
+	sound_note 5, $43, $11
+	sound_wait 12
+	sound_rs sound_note 5, $3F
+	sound_wait 12
+	sound_note 4, $43
+	sound_wait 30
+	sound_note 12, $45
+	sound_wait 30
+	sound_jump Data_04_689C
+Data_04_6931:: ; 04:6931
+	sound_end
+Data_04_6932:: ; 04:6932
+	sound_volume $7F
+	sound_pitch_add $00
+Data_04_6936:: ; 04:6936
+	sound_instrument $20
+	sound_note 12, $2B, $1D
+	sound_wait 12
+	sound_instrument $02
+	sound_note 4, $4F, $11
+	sound_wait 6
+	sound_instrument $20
+	sound_note 4, $32, $1D
+	sound_wait 6
+	sound_note 6
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4F, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 18, $2A, $1D
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4E, $11
+	sound_wait 18
+	sound_note 4
+	sound_wait 18
+	sound_note 4
+	sound_wait 6
+	sound_instrument $20
+	sound_note 6, $2A, $1D
+	sound_wait 6
+	sound_note 12, $29
+	sound_wait 12
+	sound_instrument $02
+	sound_note 4, $4D, $11
+	sound_wait 6
+	sound_instrument $20
+	sound_note 4, $32, $1D
+	sound_wait 6
+	sound_note 6
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4D, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 6, $28, $1D
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4C, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 6, $2A, $1D
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4E, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 6, $2C, $1D
+	sound_wait 6
+	sound_instrument $02
+	sound_note 12, $50, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 12, $2D, $1D
+	sound_wait 12
+	sound_instrument $02
+	sound_note 4, $4C, $11
+	sound_wait 6
+	sound_instrument $20
+	sound_note 4, $2D, $1D
+	sound_wait 6
+	sound_note 6, $2C
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4B, $11
+	sound_wait 12
+	sound_instrument $20
+	sound_note 6, $2B, $1D
+	sound_wait 6
+	sound_instrument $02
+	sound_note 4, $4A, $11
+	sound_wait 18
+	sound_instrument $20
+	sound_note 6, $26, $1D
+	sound_wait 6
+	sound_rs sound_note 6, $2B
+	sound_wait 6
+	sound_rs sound_note 6, $2D
+	sound_wait 6
+	sound_note 12, $2F
+	sound_wait 12
+	sound_note 4, $30
+	sound_wait 12
+	sound_instrument $02
+	sound_note 5, $4C, $11
+	sound_wait 12
+	sound_rs sound_note 5, $4D
+	sound_wait 12
+	sound_note 4, $4C
+	sound_wait 30
+	sound_note 12, $4E
+	sound_wait 12
+	sound_instrument $20
+	sound_note 6, $26, $1D
+	sound_wait 6
+	sound_rs sound_note 6, $28
+	sound_wait 6
+	sound_rs sound_note 6, $2A
+	sound_wait 6
+	sound_jump Data_04_6936
+Data_04_69F3:: ; 04:69F3
+	sound_end
+Data_04_69F4:: ; 04:69F4
+	sound_volume $7F
+	sound_pitch_add $00
+Data_04_69F8:: ; 04:69F8
+	sound_instrument SOUND_INSTRUMENT_PER_NOTE
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 3
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 3
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 6, $24, $0D
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 3
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 2, $24, $0B
+	sound_wait 6
+	sound_note 2
+	sound_wait 6
+	sound_cmd_C1 $28
+	sound_note 3, $2F, $0F
+	sound_wait 1
+	sound_cmd_C1 $40
+	sound_wait 5
+	sound_note 3, $27, $11
+	sound_wait 6
+	sound_note 6, $24, $0D
+	sound_wait 6
+	sound_jump Data_04_69F8
+Data_04_6B39:: ; 04:6B39
+	sound_end
+Data_04_6B3A:: ; 04:6B3A
+	sound_stream_header 4, 2
+	dw Data_04_683C, Data_04_6898, Data_04_6932, Data_04_69F4 ; track stream pointers (read by the driver)
+	dw Data_04_6840, Data_04_689C, Data_04_6936, Data_04_69F8 ; not read by the driver: target of each track's final sound_jump
+	dw Data_04_6897, Data_04_6931, Data_04_69F3, Data_04_6B39 ; not read by the driver: address after each track's final sound_jump
