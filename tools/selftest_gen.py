@@ -24,6 +24,16 @@ Tests
   conv_config     conventions.tsv parse errors and warnings, conventions_check.py on a proposal directory
   sweep_conv      whole real ROM, every non-zero range as code, with the real seeded config/conventions.tsv
   sweep_conv_cuts real inline sites with a region edge cut through / right after the inline bytes
+  tree_kinds      tree mode (--tree, docs/FORMATS.md): multi-file layout over the synthetic ROM: cuts in code/data/words/text, files
+                  spanning banks, ROM0 files, ramcode + overlays in different files, uncovered zero ranges, unique floating section names,
+                  linker script, per-file and one-object builds identical, same labels as the per-bank build, deterministic
+  tree_errors     39 rejected layouts (cut mid-instruction / inside ramcode / words, uncovered non-zero bytes, labels in uncovered ranges,
+                  overlaps, bad paths, reserved paths, ...)
+  tree_conv       cuts around inline far-call data, adopted data regions, padding.asm for an uncovered last bank
+  tree_cli        gen_asm.py --tree regen/verify/check, stale file removal, atomic failure, tools/tree_check.py
+  tree_header     --header rgbfix: header written by rgbfix (options decoded from the bytes, proven), refusals
+  tree_real       real config: per-bank + two random fine layouts rebuild the ROM
+  tree_sweep      real ROM swept as code with random legal cuts
 """
 import contextlib
 import io
@@ -44,6 +54,7 @@ from lib import textfmt             # noqa: E402
 import compare_rom                  # noqa: E402
 import sm83                         # noqa: E402
 from lib import mtcfg               # noqa: E402
+from lib import layout as layoutlib  # noqa: E402
 from lib.mtcfg import GenError      # noqa: E402
 
 ROOT = mtcfg.ROOT
@@ -159,10 +170,11 @@ def sweep_regions(chunk, base):
 
 # ------------------------------------------------------------------ tests
 
-def test_sweep_code(tmp):
+def sweep_code_env(tmp, name):
+    """Real ROM, every non-zero range as `code` + sampled symbols, RAM names and xrefs (shared by sweep_code and tree_sweep)."""
     check(os.path.exists(BASEROM), 'baserom.gbc missing')
     rom = open(BASEROM, 'rb').read()
-    env = Env(tmp, 'sweep', rom)
+    env = Env(tmp, name, rom)
     rng = random.Random(12345)
     addr_count = {}
     nreg = 0
@@ -214,6 +226,11 @@ def test_sweep_code(tmp):
             rows.append(('%02X' % b, '%04X' % a, 'imm', '%02X' % b, '%04X' % v, 'HYPOTHESIS', 'selftest'))
     rows = rng.sample(rows, min(300, len(rows)))
     env.xrefs(rows)
+    return env, rom, nreg
+
+
+def test_sweep_code(tmp):
+    env, rom, nreg = sweep_code_env(tmp, 'sweep')
     t0 = time.time()
     model = env.model()
     files, built, sym = env.build_all(model)
@@ -292,9 +309,10 @@ def synthetic_rom():
     return rom_of(4, {0: b0, 1: b1, 2: b2, 3: b3})
 
 
-def test_kinds(tmp):
+def kinds_env(tmp, name):
+    """The synthetic ROM + config of test_kinds (every kind, ramcode/LOAD + overlays, labels, RAM names, xrefs)."""
     rom = synthetic_rom()
-    env = Env(tmp, 'kinds', rom)
+    env = Env(tmp, name, rom)
     env.regions(0, [
         ('0000', '0040', 'code', 'Entry_Test', 'CONFIRMED', 'synthetic code'),
         ('0040', '0060', 'data', '', 'PROBABLE', 'bytes'),
@@ -332,6 +350,11 @@ def test_kinds(tmp):
         ('00', '0062', 'word', '01', '4000', 'HYPOTHESIS', 'dw $4000 means bank 01'),
         ('00', '0064', 'word', '00', '0024', 'HYPOTHESIS', 'dw $0024 forced'),
     ])
+    return env, rom
+
+
+def test_kinds(tmp):
+    env, rom = kinds_env(tmp, 'kinds')
     model = env.model()
     files, built, sym = env.build_all(model)
     check(built == rom, 'synthetic rebuild differs from ROM')
@@ -1905,6 +1928,523 @@ def test_ctx_real(tmp):
 
 
 
+# ------------------------------------------------------------------ tree mode
+
+def LR(bank, start, end, path, note=''):
+    return ('%02X' % bank, '%04X' % start, '%04X' % end, path, note)
+
+
+def tree_layout_file(env, rows, name='layout.tsv'):
+    p = os.path.join(env.dir, name)
+    with open(p, 'w') as f:
+        f.write(''.join('\t'.join(r) + '\n' for r in rows))
+    return p
+
+
+def tree_gen(env, rows, model=None, addr_comments=True):
+    model = model or env.model()
+    lay = layoutlib.load_layout(tree_layout_file(env, rows), model.nbanks, mtcfg.Diag())
+    return model.generate_tree(lay, addr_comments), lay
+
+
+def tree_build(env, rows, onefile=False, model=None, addr_comments=True, tag=''):
+    """generate the tree for `rows`, assemble (one object per file, or main.asm as one object) and link with layout.link"""
+    files, lay = tree_gen(env, rows, model, addr_comments)
+    work = os.path.join(env.dir, 'tb%s%d' % (tag, onefile))
+    shutil.rmtree(work, ignore_errors=True)
+    os.makedirs(work)
+    path, log = gen_asm.assemble_tree(files, work, os.path.dirname(env.rom_path), onefile=onefile)
+    with open(path, 'rb') as f:
+        built = f.read()
+    with open(os.path.join(work, 'out.sym')) as f:
+        sym = f.read()
+    return files, lay, built, sym
+
+
+def sym_set(text):
+    return {l for l in text.splitlines() if l and not l.startswith(';')}
+
+
+def expect_tree_error(env, rows, needle, what, model=None):
+    try:
+        tree_gen(env, rows, model)
+    except GenError as e:
+        check(needle in str(e), '%s: error did not mention %r:\n%s' % (what, needle, e))
+        return
+    raise Fail('%s: expected a GenError mentioning %r, got success' % (what, needle))
+
+
+def kinds_rows():
+    """Layout of the test_kinds synthetic ROM: every cut kind, files spanning banks, non-contiguous rows of one file, uncovered zeros."""
+    return [
+        LR(0, 0x0000, 0x0013, 'home/a.asm', 'entry code, cut between two instructions'),
+        LR(0, 0x0013, 0x0040, 'home/b.asm'),
+        LR(0, 0x0040, 0x0062, 'data/mixed.asm', 'data, then the first words of the words region'),
+        LR(0, 0x0062, 0x0078, 'data/tables.asm', 'words cut at a word boundary'),
+        # 0078-0080 uncovered zeros
+        LR(0, 0x0080, 0x0088, 'text/strings.asm', 'text cut inside a string'),
+        LR(0, 0x0088, 0x00C0, 'text/more.asm', 'rest of the string + gfx'),
+        LR(0, 0x00C0, 0x0100, 'home/pad.asm', 'zero region with a label inside'),
+        LR(0, 0x0100, 0x0108, 'home/ramstub.asm', 'ramcode'),
+        LR(0, 0x0108, 0x0120, 'home/misc.asm', 'raw gap with a label'),
+        LR(0, 0x0120, 0x0125, 'home/ramstub.asm', 'second ramcode of the same file, not contiguous'),
+        # 0125-0130 uncovered zeros
+        LR(0, 0x0130, 0x0134, 'shared/span.asm', 'ROM0 part of a file that spans banks'),
+        LR(0, 0x0200, 0x0300, 'data/blob.asm', 'raw bytes'),
+        # 0134-0200 and 0300-4000 uncovered zeros
+        LR(1, 0x4000, 0x4017, 'shared/span.asm', 'ROMX part'),
+        LR(1, 0x4020, 0x4026, 'home/overlay_a.asm', 'ramcode overlay A'),
+        LR(1, 0x4030, 0x4038, 'data/small.asm'),
+        LR(2, 0x4020, 0x4024, 'home/overlay_b.asm', 'ramcode overlay B'),
+        LR(3, 0x4040, 0x4046, 'home/hram_stub.asm', 'HRAM ramcode'),
+    ]
+
+
+def test_tree_kinds(tmp):
+    """Multi-file layout over the synthetic ROM of `kinds`: cuts inside code/data/words/text, files spanning banks, ROM0 files, ramcode
+    (LOAD blocks and overlays in different files), uncovered zero ranges; per-file and one-object builds are byte-identical to the ROM and
+    define exactly the labels of the per-bank build."""
+    env, rom = kinds_env(tmp, 'tkinds')
+    model = env.model()
+    files0, built0, sym0 = env.build_all(model)
+    rows = kinds_rows()
+    files, lay, built, sym = tree_build(env, rows, model=model)
+    check(built == rom, 'tree rebuild differs from the ROM (%d bytes differ)' % sum(1 for x, y in zip(built, rom) if x != y))
+    check(sym_set(sym) == sym_set(sym0), 'tree labels differ from the per-bank build: %r' % sorted(sym_set(sym) ^ sym_set(sym0))[:6])
+    _f, _l, built1, sym1 = tree_build(env, rows, onefile=True, model=model)
+    check(built1 == rom and sym_set(sym1) == sym_set(sym0), 'one-object (main.asm) build differs')
+
+    def has(text, needle, what):
+        check(needle in text, 'missing %r (%s)' % (needle, what))
+
+    # section names: file path, numbered/banked when a file has several sections; floating (no address in the source)
+    has(files['home/a.asm'], 'SECTION "home/a", ROM0\n', 'ROM0 section named after the file path')
+    has(files['home/ramstub.asm'], 'SECTION "home/ramstub (bank00 #1)", ROM0\n', 'numbered section')
+    has(files['home/ramstub.asm'], 'SECTION "home/ramstub (bank00 #2)", ROM0\n', 'numbered section')
+    has(files['shared/span.asm'], 'SECTION "shared/span (bank00)", ROM0\n', 'file spanning banks: ROM0 part')
+    has(files['shared/span.asm'], 'SECTION "shared/span (bank01)", ROMX\n', 'file spanning banks: ROMX part')
+    has(files['data/small.asm'], 'SECTION "data/small", ROMX\n', 'ROMX section')
+    for path, text in files.items():
+        for l in text.splitlines():
+            if l.startswith('SECTION '):
+                check('[' not in l, 'section with a fixed address/bank in the source: %r' % l)
+    names = re.findall(r'^SECTION "([^"]+)"', ''.join(t for t in files.values()), re.M)
+    check(len(names) == len(set(names)) == len(lay.sections) + 0, 'section names must be unique (%d names, %d sections)' % (len(names), len(lay.sections)))
+    # ramcode stays a LOAD block inside its file
+    has(files['home/ramstub.asm'], 'LOAD "RAM_00_0100", WRAM0[$CBF1]', 'LOAD block')
+    has(files['home/overlay_a.asm'], 'LOAD UNION "RAMOVL_CC00", WRAM0[$CC00]', 'overlay A')
+    has(files['home/overlay_b.asm'], 'LOAD UNION "RAMOVL_CC00", WRAM0[$CC00]', 'overlay B')
+    has(files['home/hram_stub.asm'], 'LOAD "RAM_03_4040", HRAM[$FF90]', 'HRAM LOAD')
+    # cuts: pieces say they are parts; labels stay with the first byte they name
+    has(files['home/b.asm'], '(part of region $0000-$0040)', 'cut code region')
+    has(files['text/strings.asm'], 'Text_Mid::', 'label inside a string of the first piece')
+    has(files['text/more.asm'], 'Gfx_Mid::', 'label inside the gfx of the second piece')
+    has(files['home/pad.asm'], 'Zero_Mid::', 'label in a zero region that the layout covers')
+    has(files['home/misc.asm'], 'Raw_Marker::', 'label in a raw gap')
+    # infrastructure files
+    has(files['layout.link'], 'ROM0\n\torg $0000\n\t"home/a"\n\torg $0013\n\t"home/b"\n', 'linker script: org + section name')
+    has(files['layout.link'], '\nROMX $01\n\torg $4000\n\t"shared/span (bank01)"\n', 'linker script: ROMX bank')
+    check(files['layout.link'].count('\torg $') == len(lay.sections), 'every section is pinned with org')
+    has(files['includes.asm'], 'INCLUDE "ram.asm"', 'includes.asm')
+    has(files['ram.asm'], 'INCLUDE "ram/wram.asm"', 'ram.asm')
+    has(files['ram/wram.asm'], 'DEF wFoo EQU $C0A4 ;', 'RAM equate')
+    has(files['ram/hram.asm'], 'DEF hBar EQU $FF80 ;', 'HRAM equate')
+    has(files['consts.asm'], 'DEF CONST_Answer EQU $1234', 'const symbol')
+    has(files['consts.asm'], 'EXPORT CONST_Answer', 'const exported')
+    check('padding.asm' not in files, 'the last bank has a section: no padding file')
+    has(files['tree.mk'], 'TREE_SRCS := home/a.asm ', 'tree.mk object list')
+    check('home/a.asm' in files['main.asm'] and files['main.asm'].index('INCLUDE "includes.asm"') < files['main.asm'].index('INCLUDE "home/a.asm"'), 'main.asm')
+    check(files['.tree_manifest'].split() == sorted(f for f in files if f != '.tree_manifest'), 'manifest lists every generated file')
+    # uncovered zero ranges are simply absent
+    check(sum(len(re.findall(r'^\t(?:db|ds|INCBIN)', t, re.M)) for t in files.values()) > 0, 'sanity')
+    # deterministic, and the same output for a second model
+    again, _ = tree_gen(env, rows)
+    check(again == files, 'two generations differ')
+    # ram.asm + ram/*.asm define exactly the names of ram.inc (same DEF lines, grouped by memory area)
+    defs0 = sorted(l for l in files0['ram.inc'].splitlines() if l.startswith('DEF ') and 'EQUS' not in l)
+    defs1 = sorted(l for p, t in files.items() if p.startswith('ram/') for l in t.splitlines() if l.startswith('DEF '))
+    check(defs0 == defs1 and len(defs0) >= 2, 'ram/*.asm differ from ram.inc: %r' % (sorted(set(defs0) ^ set(defs1))[:3],))
+    check('DEF FARCALL_FN' not in files['ram.asm'] and 'DEF FARCALL_FN' not in files0['ram.inc'], 'two farptr conventions: no macros')
+    # per-bank output is untouched by tree mode
+    check(model.generate() == files0, 'tree generation changed the per-bank output')
+    # labels inside uncovered all-zero ranges (Zero_Mid in a zero region, Raw_Marker in a raw gap) get tiny sections of their own
+    zrows = [r for r in rows if r[1] not in ('00C0', '0108')]
+    zf, zl, zb, zs = tree_build(env, zrows, model=model, tag='z')
+    check(zb == rom and sym_set(zs) == sym_set(sym0), 'zero_labels rebuild differs from the ROM / labels differ')
+    z = zf['zero_labels.asm']
+    has(z, 'SECTION "zero_labels (bank00 #1)", ROM0\n', 'zero_labels section (numbered)')
+    has(z, 'Zero_Mid::', 'label in an uncovered zero region')
+    has(z, 'Raw_Marker::', 'label in an uncovered raw gap')
+    check(z.count('SECTION ') == 2 and 'ds $20, $00' in z, 'span = label .. region end: %s' % z)
+    has(zf['layout.link'], '\torg $00E0\n\t"zero_labels (bank00 #1)"\n', 'zero_labels pinned')
+    check('zero_labels.asm' in zf['tree.mk'] and 'zero_labels.asm' not in files['tree.mk'], 'tree.mk lists zero_labels.asm only when it exists')
+    # without ROM-address comments
+    nf, _l, nb, _s = tree_build(env, rows, model=model, addr_comments=False, tag='n')
+    check(nb == rom, 'tree without address comments differs from the ROM')
+    check(not any(re.search(r'\$[0-9A-F]{4}-\$[0-9A-F]{4}', l) for t in nf.values() for l in t.splitlines() if l.startswith('; ----') or l.startswith('; ROM')),
+          'address comments survive --tree-no-addr-comments')
+    check(not re.search(r'^\S+:: ; \d\d:', ''.join(nf.values()), re.M), 'label cites survive without address comments')
+    return '%d files, %d sections, ROM0/ROMX/ramcode/overlays/spanning file, rebuilt identically (files + one object)' % (
+        len([p for p in files if p.endswith('.asm')]), len(lay.sections))
+
+
+def test_tree_errors(tmp):
+    env, rom = kinds_env(tmp, 'terr')
+    model = env.model()
+    good = kinds_rows()
+    tree_gen(env, good, model)                       # the base layout is fine
+
+    def mutate(edit):
+        rows = [list(r) for r in good]
+        edit(rows)
+        return [tuple(r) for r in rows]
+
+    def set_end(i, end):
+        def f(rows):
+            rows[i][2] = '%04X' % end
+            rows[i + 1][1] = '%04X' % end
+        return f
+
+    n = 0
+
+    def bad(rows, needle, what):
+        nonlocal n
+        expect_tree_error(env, rows, needle, what, model)
+        n += 1
+
+    # cuts
+    bad(mutate(set_end(0, 0x0001)), 'not an instruction boundary: it is inside call', 'cut inside a call')
+    bad(mutate(set_end(0, 0x0014)), 'not an instruction boundary', 'cut inside ld hl')
+    bad(mutate(set_end(7, 0x0104)), 'inside the ramcode region', 'cut inside ramcode')
+    bad(mutate(set_end(2, 0x0061)), 'not word-aligned', 'odd cut in a words region')
+    bad(mutate(set_end(2, 0x0065)), 'not word-aligned', 'odd cut in a words region (2)')
+    # coverage
+    bad([r for r in good if r[1] != '0040'], 'uncovered non-zero byte at 00:0040', 'data range not covered')
+    bad([r for r in good if r[1] != '0200'], 'uncovered non-zero byte at 00:0201', 'raw blob not covered')
+    bad([r for r in good if r[1] != '4030'], 'uncovered non-zero byte at 01:4030', 'bank 1 data not covered')
+    bad([r for r in good if r[0] != '03'], 'uncovered non-zero byte at 03:4040', 'bank 3 not covered')
+    ez = Env(tmp, 'terr_ramz', rom_of(2, {}))                # an all-zero ramcode region left uncovered would lose its LOAD block
+    ez.regions(0, [('0100', '0104', 'ramcode', '', 'CONFIRMED', 'runaddr=$CC00 zero bytes')])
+    expect_tree_error(ez, [LR(0, 0, 0x10, 'home/a.asm')], 'ramcode region 00:0100-0104 overlaps the uncovered range', 'ramcode range uncovered')
+    n += 1
+    # a partly covered non-zero range names the first bad byte
+    rows = mutate(lambda rows: rows[11].__setitem__(2, '0250'))
+    bad(rows, 'uncovered non-zero byte at 00:0250', 'partial coverage')
+    # layout syntax
+    bad(good + [LR(0, 0x0130, 0x0134, 'x/y.asm')], 'overlaps row', 'overlapping rows')
+    bad(good + [LR(0, 0x0000, 0x0013, 'other.asm')], 'overlaps row', 'duplicate range, another file')
+    bad(good + [LR(9, 0x4000, 0x4001, 'z.asm')], 'bank 09 does not exist', 'unknown bank')
+    bad(good + [LR(1, 0x3F00, 0x4001, 'z.asm')], 'not inside the bank 01 window', 'row outside the window')
+    bad(good + [LR(1, 0x4100, 0x4100, 'z.asm')], 'not inside the bank 01 window', 'empty row')
+    bad(good + [('00', 'zz', '0001', 'z.asm', '')], 'must be hex', 'bad hex')
+    bad(good + [('00', '0000')], 'need at least: bank start end path', 'too few fields')
+    for path, what in (('/abs/z.asm', 'absolute'), ('../z.asm', 'parent'), ('a b.asm', 'space'), ('z.txt', 'extension'), ('a//b.asm', 'empty component'),
+                       ('.hidden.asm', 'leading dot'), ('a\\b.asm', 'backslash'), ('a"b.asm', 'quote')):
+        bad(good + [LR(1, 0x4100, 0x4101, path)], 'must be a relative path', 'path ' + what)
+    for path in ('main.asm', 'includes.asm', 'ram.asm', 'ram/wram.asm', 'consts.asm', 'padding.asm', 'zero_labels.asm', 'layout.link', 'tree.mk'):
+        bad(good + [LR(1, 0x4100, 0x4101, path)], 'reserved' if path.endswith('.asm') else 'must be a relative path', 'reserved path ' + path)
+    bad(good + [LR(1, 0x4100, 0x4101, 'Home/A.asm')], 'differ only in letter case', 'case clash')
+    # empty / missing layout
+    open(os.path.join(env.dir, 'empty.tsv'), 'w').write('# nothing\n')
+    try:
+        layoutlib.load_layout(os.path.join(env.dir, 'empty.tsv'), 4, mtcfg.Diag())
+        raise Fail('empty layout accepted')
+    except GenError as e:
+        check('no rows' in str(e), 'empty layout message: %s' % e)
+    try:
+        layoutlib.load_layout(os.path.join(env.dir, 'nope.tsv'), 4, mtcfg.Diag())
+        raise Fail('missing layout accepted')
+    except GenError as e:
+        check('missing layout file' in str(e), 'missing layout message: %s' % e)
+    # every problem is reported together
+    rows = [r for r in good if r[1] not in ('0040', '0200')]
+    try:
+        tree_gen(env, rows, model)
+        raise Fail('no error')
+    except GenError as e:
+        check('00:0040' in str(e) and '00:0201' in str(e), 'errors are reported together: %s' % e)
+    # header line, `$`/`0x` prefixes, comments and blank lines are accepted; a note may contain TABs
+    txt = '# comment\n\nbank\tstart\tend\tpath\tnote\n' + ''.join('\t'.join(r) + '\n' for r in good[:1])
+    txt = txt.replace('00\t0000\t0013', '0x00\t$0000\t0x0013')
+    lp = os.path.join(env.dir, 'l2.tsv')
+    open(lp, 'w').write(txt + '00\t0013\t0040\thome/b.asm\tnote\twith\ttabs\n')
+    rows2 = layoutlib.parse_layout(lp, 4, mtcfg.Diag())
+    check([(r.bank, r.start, r.end, r.path) for r in rows2] == [(0, 0, 0x13, 'home/a.asm'), (0, 0x13, 0x40, 'home/b.asm')] and rows2[1].note == 'note with tabs',
+          'layout syntax: %r' % rows2)
+    return '%d rejected layouts, all reported with the reason' % (n + 3)
+
+
+def test_tree_conv(tmp):
+    """Inline far-call data: a cut before the call or after the inline bytes is fine (the farcall stays one macro line), a cut between the
+    call and its bytes, inside them, or between a call and an adopted data region is an error; uncovered last bank -> padding.asm."""
+    far = 'cd0002 010203 c9'          # 4000: call FarEntry ; dw $0201 ; db $03 ; ret
+    R = lambda a, b, k, note='': ('%04X' % a, '%04X' % b, k, '', 'CONFIRMED', note)
+    env = conv_mini(tmp, 'tconv', far, [R(0x4000, 0x4007, 'code')])
+    model = env.model()
+    base = [LR(0, 0, 0x4000, 'home/entries.asm')]
+    files, lay, built, sym = tree_build(env, base + [LR(1, 0x4000, 0x4006, 'engine/far.asm'), LR(1, 0x4006, 0x4007, 'engine/ret.asm')], model=model)
+    check(built == env.rom, 'cut between the farcall and the ret: rebuild differs')
+    check('call FarEntry\n\tdw $0201\n\tdb $03\n' in files['engine/far.asm'] and files['engine/ret.asm'].count('\tret') == 1, 'far call and its bytes stay in one file')
+    # padding: banks 2 and 3 are zero, the last bank has no section
+    check('padding.asm' in files and 'SECTION "padding", ROMX\n\tds 1, $00\n' in files['padding.asm'], 'padding.asm for an uncovered last bank')
+    check(files['layout.link'].rstrip().endswith('ROMX $03\n\torg $7FFF\n\t"padding"'), 'padding pinned at $7FFF of the last bank: %r' % files['layout.link'][-60:])
+    check(len(built) == len(env.rom) == 4 * 0x4000, 'ROM size')
+    # ... and without it rgblink would shrink the ROM (why the file exists)
+    f2 = dict(files)
+    f2['tree.mk'] = f2['tree.mk'].replace(' padding.asm', '')
+    f2['layout.link'] = f2['layout.link'].replace('\nROMX $03\n\torg $7FFF\n\t"padding"\n', '\n')
+    w2 = os.path.join(env.dir, 'nopad')
+    os.makedirs(w2)
+    p2, _ = gen_asm.assemble_tree(f2, w2, os.path.dirname(env.rom_path))
+    check(os.path.getsize(p2) < len(env.rom), 'without padding.asm the ROM keeps its size: the file would be unnecessary')
+    for cut, ok in ((0x4000, True), (0x4003, False), (0x4004, False), (0x4005, False), (0x4006, True)):
+        rows = base + [LR(1, 0x4000, cut, 'a.asm'), LR(1, cut, 0x4007, 'b.asm')] if cut != 0x4000 else base + [LR(1, 0x4000, 0x4007, 'b.asm')]
+        if ok:
+            tree_gen(env, rows, model)
+        else:
+            expect_tree_error(env, rows, 'inside the inline data of the convention call at 01:4000', 'cut at %04X' % cut, model)
+    # rows around a jp convention and inline_db / inline_dw sites
+    code2 = 'c32002 7f cd1002 2301 cd2002 5a c9'
+    R2 = [R(0x4000, 0x400E, 'code')]
+    env2 = conv_mini(tmp, 'tconv2', code2, R2)
+    m2 = env2.model()
+    for cut, ok in ((0x4004, True), (0x4009, True), (0x400D, True), (0x4003, False), (0x4007, False), (0x4008, False), (0x400C, False)):
+        rows = base + [LR(1, 0x4000, cut, 'a.asm'), LR(1, cut, 0x400E, 'b.asm')]
+        if ok:
+            tree_gen(env2, rows, m2)
+        else:
+            expect_tree_error(env2, rows, 'inline data of the convention call', 'cut at %04X' % cut, m2)
+    expect_tree_error(env2, base + [LR(1, 0x4000, 0x4005, 'a.asm'), LR(1, 0x4005, 0x400E, 'b.asm')], 'not an instruction boundary', 'cut inside the call', m2)
+    f2b, _l, b2b, _s = tree_build(env2, base + [LR(1, 0x4000, 0x4004, 'a.asm'), LR(1, 0x4004, 0x4009, 'b.asm'), LR(1, 0x4009, 0x400E, 'c.asm')], model=m2, tag='2')
+    check(b2b == env2.rom, 'cuts between the convention sites: rebuild differs')
+    # a `data` region adopted after the call: cutting between them is an error
+    env3 = conv_mini(tmp, 'tconv3', far, [R(0x4000, 0x4003, 'code'), R(0x4003, 0x4006, 'data'), R(0x4006, 0x4007, 'code')])
+    m3 = env3.model()
+    expect_tree_error(env3, base + [LR(1, 0x4000, 0x4003, 'a.asm'), LR(1, 0x4003, 0x4007, 'b.asm')], 'inline data of the convention call', 'cut before an adopted region', m3)
+    fl, _l, b3, _s = tree_build(env3, base + [LR(1, 0x4000, 0x4006, 'a.asm'), LR(1, 0x4006, 0x4007, 'b.asm')], model=m3, tag='3')
+    check(b3 == env3.rom, 'adopted region + cut after it: rebuild differs')
+    return 'cuts around farptr/jp/inline_dw/inline_db/adopted data checked, padding.asm needed and sufficient'
+
+
+def random_tree_layout(model, rng, extra_cuts=0.3, uncovered=0.7, pool=None):
+    """A synthetic layout for any model: cuts at every region start plus random legal cut points, random file assignment,
+    zero ranges without labels / ramcode left uncovered."""
+    pool = pool or (['home/%s.asm' % n for n in 'abcdef'] + ['engine/e%d.asm' % i for i in range(12)] + ['data/d%d.asm' % i for i in range(8)]
+                    + ['gfx/g%d/tiles%d.asm' % (i % 3, i) for i in range(6)])
+    rows = []
+    for b in range(model.nbanks):
+        lo, hi = mtcfg.window(b)
+        cuts = {lo, hi}
+        for r in model.regions[b]:
+            cuts.add(r.start)
+            if r.size > 8 and rng.random() < extra_cuts:
+                for _ in range(rng.randint(1, 3)):
+                    cuts.add(rng.randint(r.start + 1, r.end - 1))
+        legal = [c for c in sorted(cuts) if c in (lo, hi) or model._cut_error(None, b, c) is None]
+        keep = [c for c in legal if c in (lo, hi) or rng.random() < 0.5]
+        for x, y in zip(keep, keep[1:]):
+            blob = model.rom[b * 0x4000 + x - lo:b * 0x4000 + y - lo]
+            hasram = any(r.kind == 'ramcode' and r.start < y and x < r.end for r in model.regions[b])
+            if not any(blob) and not hasram and rng.random() < uncovered:      # labels in an uncovered zero range are allowed (zero_labels.asm)
+                continue
+            rows.append(LR(b, x, y, rng.choice(pool) if (rng.random() < 0.4 or not rows) else layoutfile_of(rows[-1]), 'synthetic'))
+    return rows
+
+
+def layoutfile_of(row):
+    return row[3]
+
+
+def test_tree_real(tmp):
+    """The real config: a per-bank layout and two synthetic fine layouts (random legal cuts, files spanning banks, uncovered zero ranges)
+    rebuild the reference ROM byte for byte, per file and as one object, with the same labels as the per-bank build."""
+    check(os.path.exists(BASEROM), 'baserom.gbc missing')
+    rom = open(BASEROM, 'rb').read()
+    env = Env(tmp, 'treal', rom)
+    env.cfg = os.path.join(ROOT, 'config')
+    model = env.model()
+    files0, built0, sym0 = env.build_all(model)
+    check(built0 == rom, 'per-bank build differs')
+    info = []
+    per_bank = [LR(b, *mtcfg.window(b), 'banks/bank%02X.asm' % b) for b in range(model.nbanks)]
+    layouts = [('per-bank', per_bank, False)] + [('fine%d' % s, random_tree_layout(model, random.Random(s)), s == 1) for s in (1, 2)]
+    for name, rows, onefile in layouts:
+        files, lay, built, sym = tree_build(env, rows, model=model, tag=name)
+        check(built == rom, '%s: tree rebuild differs from the ROM (%d bytes)' % (name, sum(1 for x, y in zip(built, rom) if x != y)))
+        check(sym_set(sym) == sym_set(sym0), '%s: labels differ from the per-bank build' % name)
+        if onefile:
+            _f, _l, b1, _s = tree_build(env, rows, onefile=True, model=model, tag=name)
+            check(b1 == rom, '%s: one-object build differs' % name)
+        info.append('%s %d files/%d sections' % (name, len([p for p in files if p.endswith('.asm')]), len(lay.sections)))
+    return '; '.join(info)
+
+
+def test_tree_sweep(tmp):
+    """Whole real ROM as `code` (sweep config) with random legal cuts: cuts fall on instruction boundaries outside inline data."""
+    env, rom, nreg = sweep_code_env(tmp, 'tsweep')
+    model = env.model()
+    rows = random_tree_layout(model, random.Random(4242), extra_cuts=0.6)
+    files, lay, built, sym = tree_build(env, rows, model=model)
+    check(built == rom, 'tree sweep rebuild differs (%d bytes)' % sum(1 for x, y in zip(built, rom) if x != y))
+    _f0, built0, sym0 = env.build_all(model)
+    check(sym_set(sym) == sym_set(sym0), 'sweep labels differ from the per-bank build')
+    return '%d rows, %d sections in %d files, rebuilt identically' % (len(rows), len(lay.sections), len(lay.files))
+
+
+def test_tree_cli(tmp):
+    """gen_asm.py --tree: regen writes only on success, is idempotent, removes stale generated files (and only those), verify/check work,
+    tools/tree_check.py passes on the tree and reports a stale one."""
+    env, rom = kinds_env(tmp, 'tcli')
+    rows = kinds_rows()
+    lp = tree_layout_file(env, rows)
+    out = os.path.join(env.dir, 'tree_out')
+    args = ['--config', env.cfg, '--rom', env.rom_path, '--tree', out, '--layout', lp]
+
+    def run(mode, extra=()):
+        buf, err = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(err):
+            rc = gen_asm.main([mode] + args + list(extra))
+        return rc, buf.getvalue(), err.getvalue()
+
+    rc, o, e = run('check')
+    check(rc == 0 and 'tree:' in o and not os.path.exists(out), 'check: %r %r' % (o, e))
+    rc, o, e = run('verify')
+    check(rc == 0 and 'IDENTICAL' in o and not os.path.exists(out), 'verify --tree must not write: %r %r' % (o, e))
+    rc, o, e = run('regen')
+    check(rc == 0 and os.path.exists(os.path.join(out, 'layout.link')), 'regen: %r %r' % (o, e))
+    st0 = {p: os.path.getmtime(os.path.join(out, p)) for p in ('layout.link', 'home/a.asm')}
+    time.sleep(0.05)
+    rc, o, e = run('regen', ['--fast'])
+    check(rc == 0 and '0 rewritten' in o and st0 == {p: os.path.getmtime(os.path.join(out, p)) for p in st0}, 'idempotent regen: %r' % o)
+    # a hand-made file next to the generated ones survives; a file that leaves the layout disappears (with its empty directory)
+    open(os.path.join(out, 'mine.txt'), 'w').write('keep me')
+    rows2 = [LR(int(r[0], 16), int(r[1], 16), int(r[2], 16), 'text/all.asm' if r[3].startswith('text/') else r[3], r[4]) for r in rows]
+    tree_layout_file(env, rows2)
+    rc, o, e = run('regen')
+    check(rc == 0 and ' stale removed' in o and ' 0 stale removed' not in o, 'stale removal: %r' % o)
+    check(not os.path.exists(os.path.join(out, 'text', 'strings.asm')) and os.path.exists(os.path.join(out, 'text', 'all.asm'))
+          and os.path.exists(os.path.join(out, 'mine.txt')), 'stale generated files removed, foreign files kept')
+    # an invalid layout writes nothing and exits 1
+    stamp = os.path.getmtime(os.path.join(out, 'layout.link'))
+    tree_layout_file(env, [r for r in rows2 if r[1] != '0040'])
+    rc, o, e = run('regen')
+    check(rc == 1 and 'uncovered non-zero byte at 00:0040' in e and os.path.getmtime(os.path.join(out, 'layout.link')) == stamp, 'invalid layout: %r %r' % (o, e))
+    rc, o, e = run('regen', ['--onefile'])
+    check(rc == 1, 'still invalid')
+    tree_layout_file(env, rows2)
+    rc, o, e = run('regen', ['--onefile'])
+    check(rc == 0, 'onefile regen: %r %r' % (o, e))
+    # tree_check.py
+    tc = [sys.executable, os.path.join(HERE, 'tree_check.py'), '--config', env.cfg, '--rom', env.rom_path, '--layout', lp]
+    r = subprocess.run(tc + ['--tree', out], capture_output=True, text=True)
+    check(r.returncode == 0 and 'tree_check: OK' in r.stdout, 'tree_check on a fresh tree: %s%s' % (r.stdout, r.stderr))
+    with open(os.path.join(out, 'home', 'a.asm'), 'a') as f:
+        f.write('; stale\n')
+    r = subprocess.run(tc + ['--tree', out], capture_output=True, text=True)
+    check(r.returncode == 1 and 'differs from the generator output' in r.stdout, 'tree_check must report a stale tree: %s' % r.stdout)
+    r = subprocess.run(tc, capture_output=True, text=True)
+    check(r.returncode == 0 and 'one object (main.asm)' in r.stdout, 'tree_check without --tree: %s%s' % (r.stdout, r.stderr))
+    return 'check/verify/regen, stale removal, atomic failure, tree_check.py'
+
+
+def header_rom(tmp, **kw):
+    """4-bank ROM with a valid header made by rgbfix itself (options in kw override the defaults)."""
+    b0 = bytearray(0x4000)
+    b0[0x100:0x104] = bytes.fromhex('00c35001')          # nop ; jp $0150
+    b0[0x150:0x153] = bytes.fromhex('3e01c9')            # ld a, 1 ; ret
+    b1 = bytearray(0x4000)
+    b1[0:4] = bytes.fromhex('01020304')
+    rom = rom_of(4, {0: b0, 1: b1})
+    p = os.path.join(tmp, 'hdr_%d.gbc' % len(os.listdir(tmp)))
+    with open(p, 'wb') as f:
+        f.write(rom)
+    args = kw.get('args', ['-v', '-C', '-t', 'TESTROM', '-i', 'ABCD', '-k', '01', '-m', '0x1B', '-r', '3', '-n', '2', '-l', '0x33', '-p', '0'])
+    r = subprocess.run(['rgbfix'] + args + [p], capture_output=True, text=True)
+    check(r.returncode == 0, 'rgbfix: %s' % r.stderr)
+    with open(p, 'rb') as f:
+        return f.read()
+
+
+def header_env(tmp, name, rom, kind='data'):
+    env = Env(tmp, name, rom)
+    env.regions(0, [('0100', '0104', 'code', 'Entry', 'CONFIRMED', 'nop ; jp'), ('0104', '0150', kind, 'Header', 'CONFIRMED', 'cartridge header'),
+                    ('0150', '0153', 'code', 'Main', 'CONFIRMED', '')])
+    env.regions(1, [('4000', '4004', 'data', '', 'CONFIRMED', '')])
+    return env
+
+
+HEADER_ROWS = [LR(0, 0x0100, 0x0150, 'home/header.asm', 'cartridge header'), LR(0, 0x0150, 0x0153, 'home/main.asm'), LR(1, 0x4000, 0x4004, 'data/x.asm')]
+
+
+def test_tree_header(tmp):
+    """--header rgbfix: the header range is `ds` in the source and rgbfix (options decoded from the header bytes, proven to reproduce them)
+    writes it after linking; refused when rgbfix cannot reproduce the header or code covers it."""
+    rom = header_rom(tmp)
+    env = header_env(tmp, 'thdr', rom)
+    # default: the bytes are in the source
+    files, lay, built, _s = tree_build(env, HEADER_ROWS)
+    check(built == rom and '\tdb $CE' in files['home/header.asm'] and 'TREE_RGBFIX' not in files['tree.mk'], 'data mode keeps the header bytes in the source')
+    # rgbfix mode
+    model, _ = gen_asm.load_model(env.rom_path, env.cfg, None, False, header='rgbfix')
+    check(model.rgbfix_args and model.rgbfix_args[0] == '-v', 'rgbfix args %r' % model.rgbfix_args)
+    lay = layoutlib.load_layout(tree_layout_file(env, HEADER_ROWS), model.nbanks, mtcfg.Diag())
+    files = model.generate_tree(lay)
+    h = files['home/header.asm']
+    check('\tds $4C, $00\n' in h and '\tdb $CE' not in h and 'Header::' in h and 'TESTROM' in h, 'header emitted as ds + description: %s' % h)
+    check('TREE_RGBFIX := -v -C -t TESTROM -i ABCD -k 01 -m 0x1B -r 3 -l 0x33 -n 2 -p 0' in files['tree.mk'], 'tree.mk: %s' % files['tree.mk'])
+    for onefile in (False, True):
+        work = os.path.join(env.dir, 'th%d' % onefile)
+        os.makedirs(work)
+        path, _log = gen_asm.assemble_tree(files, work, os.path.dirname(env.rom_path), onefile=onefile)
+        check(open(path, 'rb').read() == rom, 'rgbfix-mode rebuild differs from the ROM (onefile=%s)' % onefile)
+    # without the rgbfix step the ROM would differ in the header only
+    f2 = dict(files)
+    f2['tree.mk'] = re.sub(r'TREE_RGBFIX := .*\n', '', f2['tree.mk'])
+    w2 = os.path.join(env.dir, 'th_nofix')
+    os.makedirs(w2)
+    p2, _ = gen_asm.assemble_tree(f2, w2, os.path.dirname(env.rom_path))
+    diff = [i for i, (x, y) in enumerate(zip(open(p2, 'rb').read(), rom)) if x != y]
+    check(diff and 0x104 <= min(diff) and max(diff) < 0x150, 'without rgbfix the differences must be inside the header only: %r' % diff[:5])
+    # other header shapes: non-CGB, SGB flag, non-Japan, no game id
+    for args in (['-v', '-t', 'PLAIN', '-m', '0x01', '-r', '0', '-p', '0'], ['-v', '-c', '-s', '-t', 'COMPAT', '-j', '-m', '0x1B', '-r', '2', '-p', '0'],
+                 ['-v', '-C', '-t', 'LONGTITLE12345', '-m', '0x19', '-p', '0']):
+        r2 = header_rom(tmp, args=args)
+        e2 = header_env(tmp, 'thdr_x', r2) if not os.path.exists(os.path.join(tmp, 'thdr_x')) else header_env(tmp, 'thdr_y%d' % len(os.listdir(tmp)), r2)
+        m2, _ = gen_asm.load_model(e2.rom_path, e2.cfg, None, False, header='rgbfix')
+        f3 = m2.generate_tree(layoutlib.load_layout(tree_layout_file(e2, HEADER_ROWS), m2.nbanks, mtcfg.Diag()))
+        w3 = os.path.join(e2.dir, 'w')
+        os.makedirs(w3)
+        p3, _ = gen_asm.assemble_tree(f3, w3, os.path.dirname(e2.rom_path))
+        check(open(p3, 'rb').read() == r2, 'rgbfix mode differs for %r' % args)
+    # a region that is bigger than the header is cut at its edges (raw)
+    e4 = Env(tmp, 'thdr_raw', rom)
+    e4.regions(0, [('0100', '0104', 'code', '', 'CONFIRMED', ''), ('0104', '0200', 'raw', '', 'CONFIRMED', 'header + more')])
+    m4, _ = gen_asm.load_model(e4.rom_path, e4.cfg, None, False, header='rgbfix')
+    f4 = m4.generate_tree(layoutlib.load_layout(tree_layout_file(e4, [LR(0, 0x0100, 0x0200, 'home/h.asm'), LR(1, 0x4000, 0x4004, 'data/x.asm')]), 4, mtcfg.Diag()))
+    check('\tds $4C, $00\n' in f4['home/h.asm'] and 'INCBIN "baserom.gbc", $150, $B0' in f4['home/h.asm'], 'raw region cut at the header edges')
+    # refusals
+    bad = bytearray(rom)
+    bad[0x110] ^= 0xFF                                    # logo differs from what rgbfix writes
+    e5 = header_env(tmp, 'thdr_bad', bytes(bad))
+    try:
+        gen_asm.load_model(e5.rom_path, e5.cfg, None, False, header='rgbfix')
+        raise Fail('a header rgbfix cannot reproduce was accepted')
+    except GenError as e:
+        check('does not reproduce the ROM header' in str(e), str(e))
+    e6 = header_env(tmp, 'thdr_code', rom, kind='code')
+    try:
+        gen_asm.load_model(e6.rom_path, e6.cfg, None, False, header='rgbfix')
+        raise Fail('a code region over the header was accepted')
+    except GenError as e:
+        check('overlaps the header' in str(e), str(e))
+    try:
+        gen_asm.load_model(env.rom_path, env.cfg, None, False, header='bogus')
+        raise Fail('bogus header mode accepted')
+    except GenError as e:
+        check('unknown --header mode' in str(e), str(e))
+    return 'data and rgbfix modes identical, 3 other header shapes, cut raw region, 3 refusals'
+
+
 def unicodedata_cat(ch):
     import unicodedata
     return unicodedata.category(ch)
@@ -1913,7 +2453,9 @@ def unicodedata_cat(ch):
 TESTS = [('text', test_text), ('kinds', test_kinds), ('conv_kinds', test_conv_kinds), ('conv_macros', test_conv_macros), ('conv_boundaries', test_conv_boundaries), ('conv_config', test_conv_config), ('extra_xrefs', test_extra_xrefs), ('ramareas', test_ramareas), ('ramctx', test_ramctx), ('banked_names', test_banked_names), ('rambank_infer', test_rambank_infer), ('ctx_real', test_ctx_real), ('hw_names', test_hw_names), ('failures', test_failures), ('safety', test_safety),
          ('determinism', test_determinism), ('compare_rom', test_compare_rom), ('progress', test_progress),
          ('sweep_kinds', test_sweep_kinds), ('sweep_code', test_sweep_code), ('sweep_ctx', test_sweep_ctx), ('sweep_conv', test_sweep_conv),
-         ('sweep_conv_cuts', test_sweep_conv_cuts)]
+         ('sweep_conv_cuts', test_sweep_conv_cuts),
+         ('tree_kinds', test_tree_kinds), ('tree_errors', test_tree_errors), ('tree_conv', test_tree_conv), ('tree_cli', test_tree_cli),
+         ('tree_header', test_tree_header), ('tree_real', test_tree_real), ('tree_sweep', test_tree_sweep)]
 
 
 def main(argv):
