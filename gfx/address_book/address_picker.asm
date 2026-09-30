@@ -60,13 +60,13 @@ Palette_2C_71D0::
 
 Table_AddrSlotIcon_Anims:: ; 2C:7210
 Table_2C_7210::
-	dw Data_2C_7260
+	dw AddrSlotIcon_ObjAnimData_2C_7260
 	dw $728E
-	dw Data_2C_7260
+	dw AddrSlotIcon_ObjAnimData_2C_7260
 	dw $728E
-	dw Data_2C_7260
+	dw AddrSlotIcon_ObjAnimData_2C_7260
 	dw $728E
-	dw Data_2C_7260
+	dw AddrSlotIcon_ObjAnimData_2C_7260
 	dw $728E
 	dw $7291
 	dw $72A4
@@ -103,7 +103,8 @@ Table_2C_7210::
 
 ; ---- data $7260-$7355 (245 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_2C_7210 (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
 
-Data_2C_7260:: ; 2C:7260
+AddrSlotIcon_ObjAnimData_2C_7260:: ; 2C:7260
+Data_2C_7260::
 	db $64, $72, $79, $72, $05, $FE, $01, $00, $00, $FE, $09, $01, $00, $FE, $11, $02
 	db $00, $06, $06, $03, $00, $06, $0E, $04, $00, $05, $FE, $01, $00, $00, $FE, $09
 	db $01, $00, $FE, $11, $02, $00, $06, $06, $03, $00, $06, $0E, $04, $00, $01, $00
@@ -128,7 +129,8 @@ Data_2C_7355:: ; 2C:7355
 
 ; ---- data $7357-$741C (197 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C
 
-Data_2C_7357:: ; 2C:7357
+AddrSlotIcon_ObjAnimData_2C_7357:: ; 2C:7357
+Data_2C_7357::
 	db $01, $05, $02, $05, $03, $03, $04, $12, $69, $73, $7A, $73, $9B, $73, $BC, $73
 	db $E9, $73, $04, $00, $08, $01, $00, $00, $10, $02, $00, $08, $08, $03, $00, $08
 	db $10, $04, $00, $08, $01, $08, $05, $00, $01, $10, $06, $00, $09, $08, $07, $00

@@ -805,10 +805,10 @@ Function_74_5663::
 
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0;
 	; fall-through of the jrcc at 74:5684 (executed) [executed in 1 scenarios]
-	ldh a, [hRam_FFDA]
+	ldh a, [hHtmlAlignAdjust]
 	add a, c
 	ld c, a
-	ldh a, [hRam_FFDB]
+	ldh a, [hHtmlAlignAdjustHi]
 	adc a, b
 	ld b, a
 	ldh a, [hRam_FFC4]
@@ -821,10 +821,10 @@ Function_74_5663::
 
 .l569A ; 74:569A
 	; [CONFIRMED] 56 insn(s); 56 executed (in up to 2/18 scenarios)
-	ldh a, [hRam_FFDA]
+	ldh a, [hHtmlAlignAdjust]
 	add a, c
 	ld c, a
-	ldh a, [hRam_FFDB]
+	ldh a, [hHtmlAlignAdjustHi]
 	adc a, b
 	ld b, a
 	srl b
@@ -1018,8 +1018,8 @@ Function_74_5663::
 	ld a, $00
 	adc a, d
 	ldh [hRam_FFC9], a
-	ldh a, [hRam_FFD9]
-	ldh [hRam_FFD8], a
+	ldh a, [hHtmlListIndent]
+	ldh [hHtmlLineIndent], a
 	xor a, a
 	ldh [hRam_FFC6], a
 	ldh [hRam_FFC7], a
@@ -1177,7 +1177,7 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	ldh [hRam_FFC4], a
 	ldh a, [hViewX + 1]
 	ldh [hRam_FFC5], a
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	ld c, a
 	ldh a, [hRam_FFC4]
 	add a, c
@@ -1252,7 +1252,7 @@ Html_Layout_GetLimitsAtY:: ; 74:586E
 	ldh a, [hRam_FFC5]
 	sbc a, b
 	jr nc, .l58F4
-	ldh a, [hRam_FFD8]
+	ldh a, [hHtmlLineIndent]
 	add a, c
 	ldh [hRam_FFC4], a
 	ld a, $00

@@ -102,7 +102,7 @@ Table_2E_76C0::
 	dw $783D, $787B, $783D, $787B, $783D, $787B, $783D, $787B
 	dw $7880, $78BE, $7880, $78BE, $7880, $78BE, $7880, $78BE
 	dw $78C3, $7919, $78C3, $7919, $78C3, $7919, $78C3, $7919
-	dw Data_2E_7921, $7957, Data_2E_7921, $7957, Data_2E_7921, $7957, Data_2E_7921, $7957
+	dw MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957, MailServerMgr_ObjAnimData_2E_7921, $7957
 
 ; ---- data $7710-$7720 (16 bytes) [PROBABLE] animation descriptors / sprite lists (same format as bank 72:786C-7A1F: count + count*(y,x,tile,attr) and descriptors 01 00 04 dw / 02 .. dw dw) reached from the object tables 2E:76C0
 
@@ -111,7 +111,8 @@ Data_2E_7710:: ; 2E:7710
 
 ; ---- data $7720-$7921 (513 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
 
-Data_2E_7720:: ; 2E:7720
+MailServerMgr_ObjAnimData_2E_7720:: ; 2E:7720
+Data_2E_7720::
 	db $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00, $00, $0B, $00, $08, $00, $1B
 	db $00, $01, $00, $04, $36, $77, $04, $E0, $D0, $0A, $00, $E8, $D0, $1A, $00, $00
 	db $00, $0C, $00, $08, $00, $1C, $00, $01, $00, $04, $4C, $77, $04, $E0, $D0, $0A
@@ -148,7 +149,8 @@ Data_2E_7720:: ; 2E:7720
 
 ; ---- data $7921-$7923 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_2E_7921:: ; 2E:7921
+MailServerMgr_ObjAnimData_2E_7921:: ; 2E:7921
+Data_2E_7921::
 	db $25, $79
 
 ; ---- data $7923-$7925 (2 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
@@ -164,7 +166,8 @@ Data_2E_7925:: ; 2E:7925
 
 ; ---- data $793E-$7958 (26 bytes) [PROBABLE] animation descriptors / sprite lists reached from the object tables 2E:76C0-7710 (same format as bank 72:786C-7A1F); the table words (77FA..7957) point into this block
 
-Data_2E_793E:: ; 2E:793E
+MailServerMgr_ObjAnimData_2E_793E:: ; 2E:793E
+Data_2E_793E::
 	db $06, $36, $14, $26, $01, $36, $1C, $27, $01, $3E, $14, $28, $01, $3E, $1C, $29
 	db $01, $46, $14, $2A, $01, $46, $1C, $2B, $01, $02
 

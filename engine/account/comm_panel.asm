@@ -20,9 +20,9 @@ Registration_Verify_OnTimeLimit:: ; 68:734D
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, $01
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	jr Registration_Verify_Abort
 
@@ -30,8 +30,8 @@ Registration_Verify_OnTimeout:: ; 68:7364
 	ld a, $26
 	ld [wMobileErrorCode], a
 	xor a, a
-	ld [wRam_C273], a
-	ld [wRam_C274], a
+	ld [wMobileErrorDetail], a
+	ld [wMobileErrorDetailHi], a
 	jr Registration_Verify_Abort
 
 Registration_Verify_OnAdapterError:: ; 68:7372
@@ -173,13 +173,13 @@ CommPanel_StateDraw:: ; 68:744C
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_71_4890
+	ld hl, Gfx_CommPanel_Tiles9400Vb1
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Data_71_4000
+	ld hl, Gfx_CommPanel_Tiles8000
 	ld a, $71
 	ld b, $94
 	ld c, $30
@@ -191,12 +191,12 @@ CommPanel_StateDraw:: ; 68:744C
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
 	ld de, $D840
-	ld hl, Data_71_4C90
+	ld hl, Palette_CommPanel_Obj
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_71_4C98
+	ld hl, Tilemap_CommPanel_71_4C98
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 	ld a, [wCommPanelPhase]
@@ -210,7 +210,7 @@ CommPanel_StateDraw:: ; 68:744C
 .l74EA ; 68:74EA
 	ld bc, $0214
 	ld de, $D200
-	ld hl, Data_71_4F68
+	ld hl, Tilemap_CommPanel_71_4F68
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 .l74FB ; 68:74FB
@@ -218,7 +218,7 @@ CommPanel_StateDraw:: ; 68:744C
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_71_4FB8
+	ld de, CommPanel_ObjTable
 	ld a, $71
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -393,11 +393,12 @@ CommPanel_DrawCaption:: ; 68:7611
 
 CommPanel_CaptionSets:: ; 68:764C
 Table_68_764C::
-	dw Data_68_7652, $7656, $765A
+	dw Data_CommPanel_CaptionSetRecords, $7656, $765A
 
 ; ---- data $7652-$765E (12 bytes) [PROBABLE] three 4-byte records (00 00 00 00 / 02 05 06 07 / 04 04 04 04) addressed by the word table at 764C; use not decoded
 
-Data_68_7652:: ; 68:7652
+Data_CommPanel_CaptionSetRecords:: ; 68:7652
+Data_68_7652::
 	db $00, $00, $00, $00, $02, $05, $06, $07, $04, $04, $04, $04
 
 ; ---- words $765E-$766E (16 bytes) [PROBABLE] 8 words $5038,$5098,$50F8,$5158,$51B8,$5218,$5278,$52D8 (constant stride $60), directly after the 4-byte records; targets are not in this bank; use not decoded

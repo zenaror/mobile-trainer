@@ -30,13 +30,13 @@ Registration_WriteConfig_Setup:: ; 68:6AF6
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5D_6E00
+	ld hl, Gfx_Registration_WriteConfig_Tiles9000Vb1
 	ld a, $5D
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8000
-	ld hl, Data_5D_6900
+	ld hl, Gfx_Registration_WriteConfig_Tiles8000
 	ld a, $5D
 	ld b, $94
 	ld c, $30

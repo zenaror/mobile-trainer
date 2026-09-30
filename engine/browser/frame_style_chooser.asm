@@ -76,7 +76,7 @@ Function_4E_4000::
 	farcall ConnIcon_Refresh
 	call Sprite_ClearShadowOAM
 	ld a, $04
-	ld [wRam_C2F3], a
+	ld [wShadowOAMNextOffset], a
 	farcall Browser_DrawCommTimer
 	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite

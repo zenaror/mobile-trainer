@@ -40,9 +40,9 @@ Function_7F_6218::
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	cp a, $00
 	jr z, .l6233
@@ -60,9 +60,9 @@ Function_7F_6235::
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	ld a, $FF
 	call Stub_Nop_7F_61FC

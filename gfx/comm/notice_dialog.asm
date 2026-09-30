@@ -4,7 +4,7 @@
 
 SECTION "gfx/comm/notice_dialog", ROMX
 
-; ---- data $439A-$4502 (360 bytes) [PROBABLE] screen 1 of 8: 20x18 tile-id map (360 bytes); block address is entry 0 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $439A-$4502 (360 bytes) [PROBABLE] screen 1 of 8: 20x18 tile-id map (360 bytes); block address is entry 0 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_A_CutOver60:: ; 50:439A
 Tilemap_50_439A::
@@ -16,7 +16,7 @@ Attrmap_CommNotice_A_CutOver60:: ; 50:4502
 Attrmap_50_4502::
 	INCBIN "gfx/comm/notice_dialog/attrmap_4502.attrmap"
 
-; ---- data $466A-$47D2 (360 bytes) [PROBABLE] screen 2 of 8: 20x18 tile-id map (360 bytes); block address is entry 1 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $466A-$47D2 (360 bytes) [PROBABLE] screen 2 of 8: 20x18 tile-id map (360 bytes); block address is entry 1 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_A_AskOver60:: ; 50:466A
 Tilemap_50_466A::
@@ -28,7 +28,7 @@ Attrmap_CommNotice_A_AskOver60:: ; 50:47D2
 Attrmap_50_47D2::
 	INCBIN "gfx/comm/notice_dialog/attrmap_47d2.attrmap"
 
-; ---- data $493A-$4AA2 (360 bytes) [PROBABLE] screen 3 of 8: 20x18 tile-id map (360 bytes); block address is entry 2 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $493A-$4AA2 (360 bytes) [PROBABLE] screen 3 of 8: 20x18 tile-id map (360 bytes); block address is entry 2 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_A_CutSoon:: ; 50:493A
 Tilemap_50_493A::
@@ -40,7 +40,7 @@ Attrmap_CommNotice_A_CutSoon:: ; 50:4AA2
 Attrmap_50_4AA2::
 	INCBIN "gfx/comm/notice_dialog/attrmap_4aa2.attrmap"
 
-; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_50_438A, i.e. screen 4 was selected through Table_50_4244 entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
+; ---- data $4C0A-$4D72 (360 bytes) [CONFIRMED] screen 4 of 8: 20x18 tile-id map (360 bytes); block address is entry 3 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7) [verifier: CONFIRMED - executed data read: traces/detail/browser_pages/dataaccess.tsv 'rom_read 50 4C0A 4EDA' = exactly this tilemap + attrmap pair, and 'rom_read 50 4390 4392' = entry 3 of Table_50_438A, i.e. screen 4 was selected through Table_50_4244 entry 3 ($424A-424C read); the 360+360 split follows 00:08EA (b=$12 rows x c=$14, second copy at dest+$400)]
 
 Tilemap_CommNotice_A_AskSoon:: ; 50:4C0A
 Tilemap_50_4C0A::
@@ -52,7 +52,7 @@ Attrmap_CommNotice_A_AskSoon:: ; 50:4D72
 Attrmap_50_4D72::
 	INCBIN "gfx/comm/notice_dialog/attrmap_4d72.attrmap"
 
-; ---- data $4EDA-$5042 (360 bytes) [PROBABLE] screen 5 of 8: 20x18 tile-id map (360 bytes); block address is entry 4 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $4EDA-$5042 (360 bytes) [PROBABLE] screen 5 of 8: 20x18 tile-id map (360 bytes); block address is entry 4 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_B_CutOver60:: ; 50:4EDA
 Tilemap_50_4EDA::
@@ -64,7 +64,7 @@ Attrmap_CommNotice_B_CutOver60:: ; 50:5042
 Attrmap_50_5042::
 	INCBIN "gfx/comm/notice_dialog/attrmap_5042.attrmap"
 
-; ---- data $51AA-$5312 (360 bytes) [PROBABLE] screen 6 of 8: 20x18 tile-id map (360 bytes); block address is entry 5 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $51AA-$5312 (360 bytes) [PROBABLE] screen 6 of 8: 20x18 tile-id map (360 bytes); block address is entry 5 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_B_AskOver60:: ; 50:51AA
 Tilemap_50_51AA::
@@ -76,7 +76,7 @@ Attrmap_CommNotice_B_AskOver60:: ; 50:5312
 Attrmap_50_5312::
 	INCBIN "gfx/comm/notice_dialog/attrmap_5312.attrmap"
 
-; ---- data $547A-$55E2 (360 bytes) [PROBABLE] screen 7 of 8: 20x18 tile-id map (360 bytes); block address is entry 6 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $547A-$55E2 (360 bytes) [PROBABLE] screen 7 of 8: 20x18 tile-id map (360 bytes); block address is entry 6 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_B_CutSoon:: ; 50:547A
 Tilemap_50_547A::
@@ -88,7 +88,7 @@ Attrmap_CommNotice_B_CutSoon:: ; 50:55E2
 Attrmap_50_55E2::
 	INCBIN "gfx/comm/notice_dialog/attrmap_55e2.attrmap"
 
-; ---- data $574A-$58B2 (360 bytes) [PROBABLE] screen 8 of 8: 20x18 tile-id map (360 bytes); block address is entry 7 of Table_50_4244 (50:4254 indexes it by wRam_C1CD-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
+; ---- data $574A-$58B2 (360 bytes) [PROBABLE] screen 8 of 8: 20x18 tile-id map (360 bytes); block address is entry 7 of Table_50_4244 (50:4254 indexes it by wCommNoticeScreen-1) and is copied by Function_00_08EA (bc=$1214: 18 rows x 20 bytes, dest stride 32) to $D000 (WRAM bank 7)
 
 Tilemap_CommNotice_B_AskSoon:: ; 50:574A
 Tilemap_50_574A::
@@ -161,40 +161,44 @@ Palette_50_6BC0::
 
 CommNotice_Anim0Frames:: ; 50:6CC0
 Table_50_6CC0::
-	dw Data_50_6CC4, $6CD5
+	dw CommNotice_Anim0Frame0To1, $6CD5
 
 ; ---- data $6CC4-$6CE6 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each): count=4 then 4x(y,x,tile,attr), e.g. ff ff 00 08 / 0b ff 00 48 / 0b 1b 00 68 / ff 1b 00 28 (attr bit6/5 = flips); matches the (Y,X,tile,attr) tuples the engine at 00:0AE8 emits
 
-Data_50_6CC4:: ; 50:6CC4
+CommNotice_Anim0Frame0To1:: ; 50:6CC4
+Data_50_6CC4::
 	db $04, $FF, $FF, $00, $08, $0B, $FF, $00, $48, $0B, $1B, $00, $68, $FF, $1B, $00
 	db $28, $04, $FE, $FE, $00, $08, $0C, $FE, $00, $48, $0C, $1C, $00, $68, $FE, $1C
 	db $00, $28
 
 ; ---- data $6CE6-$6CEB (5 bytes) [HYPOTHESIS] 5-byte record referenced as 2nd word of animation entry 0 (Table_50_6D16); read through slot[6..7] by 00:0AB8 (bytes 1,2 copied to slot[9..A]); assumed animation script (02 00 2e 01 08)
 
-Data_50_6CE6:: ; 50:6CE6
+CommNotice_Anim0Script:: ; 50:6CE6
+Data_50_6CE6::
 	db $02, $00, $2E, $01, $08
 
 ; ---- words $6CEB-$6CEF (4 bytes) [PROBABLE] animation entry B frame-table: pointers $6CEF/$6D00
 
 CommNotice_Anim1Frames:: ; 50:6CEB
 Table_50_6CEB::
-	dw Data_50_6CEF, $6D00
+	dw CommNotice_Anim1Frame0To1, $6D00
 
 ; ---- data $6CEF-$6D11 (34 bytes) [PROBABLE] 2 sprite frames (17 bytes each), same format as 6CC4 (count + 4x y,x,tile,attr)
 
-Data_50_6CEF:: ; 50:6CEF
+CommNotice_Anim1Frame0To1:: ; 50:6CEF
+Data_50_6CEF::
 	db $04, $FF, $FF, $00, $08, $0B, $FF, $00, $48, $0B, $1B, $00, $68, $FF, $1B, $00
 	db $28, $04, $FE, $FE, $00, $08, $0C, $FE, $00, $48, $0C, $1C, $00, $68, $FE, $1C
 	db $00, $28
 
 ; ---- data $6D11-$6D16 (5 bytes) [HYPOTHESIS] 5-byte record, 2nd word of animation entry 1 (Table_50_6D16): 02 00 2e 01 08 identical to 6CE6
 
-Data_50_6D11:: ; 50:6D11
+CommNotice_Anim1Script:: ; 50:6D11
+Data_50_6D11::
 	db $02, $00, $2E, $01, $08
 
 ; ---- words $6D16-$6D1E (8 bytes) [PROBABLE] animation table of 2 four-byte entries (frame-table ptr, script ptr): $6CC0,$6CE6 / $6CEB,$6D11; used as DE of 00:0A82 (sprite slot init: 4*(A&7F) indexed) at 50:4150 (ld de,$6D16 with b=$80) [00:0AB8 layout verified from ROM0 disassembly]
 
 CommNotice_ObjTable:: ; 50:6D16
 Table_50_6D16::
-	dw CommNotice_Anim0Frames, Data_50_6CE6, CommNotice_Anim1Frames, Data_50_6D11
+	dw CommNotice_Anim0Frames, CommNotice_Anim0Script, CommNotice_Anim1Frames, CommNotice_Anim1Script

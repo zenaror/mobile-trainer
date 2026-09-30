@@ -19,7 +19,7 @@ CommTime_ShowSummary:: ; 51:4000
 	ld [wTimerAFrames], a
 	ld [wTimerASeconds], a
 	ld [wTimerAMinutes], a
-	ld [wRam_C2D7], a
+	ld [wTimerAExtra], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -351,7 +351,7 @@ CommTime_Reset:: ; 51:4245
 	ld [wTimerAFrames], a
 	ld [wTimerASeconds], a
 	ld [wTimerAMinutes], a
-	ld [wRam_C2D7], a
+	ld [wTimerAExtra], a
 	ret
 
 CommTime_AddTimerA:: ; 51:425F

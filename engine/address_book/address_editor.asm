@@ -442,7 +442,7 @@ Function_2F_6F8C::
 	ld c, $10
 	farcall Gfx_StartHDMA
 	ld de, $8800
-	ld hl, Data_2F_77D0
+	ld hl, Gfx_AbookAddr_Tiles8800
 	ld a, $2F
 	ld b, $94
 	ld c, $32

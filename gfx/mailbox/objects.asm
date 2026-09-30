@@ -14,14 +14,15 @@ Data_26_7AB0:: ; 26:7AB0
 
 ; ---- data $7AC0-$7B00 (64 bytes) [PROBABLE] 8 palettes x 4 RGB555 words (all 32 words have bit15 clear; contains 7FFF); the mapper heuristic that extended this palette to 7BE4 swallowed pointer words (0x7Cxx have bit15 clear too)
 
-Palette_26_7AC0:: ; 26:7AC0
+Palette_Profile_Obj:: ; 26:7AC0
+Palette_26_7AC0::
 	INCLUDE "gfx/mailbox/objects/palette_7ac0.pal"
 
 ; ---- words $7B00-$7BE0 (224 bytes) [PROBABLE] 14 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 7B00-7D41 (26:7B00-7D41 (ends at the zero padding)); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
 Mailbox_ObjTable:: ; 26:7B00
 Table_26_7B00::
-	dw Data_26_7BE0, $7C06, Data_26_7BE0, $7C06, Data_26_7BE0, $7C06, Data_26_7BE0, $7C06
+	dw Mailbox_ObjAnimData, $7C06, Mailbox_ObjAnimData, $7C06, Mailbox_ObjAnimData, $7C06, Mailbox_ObjAnimData, $7C06
 	dw $7C0B, $7C1A, $7C0B, $7C1A, $7C0B, $7C1A, $7C0B, $7C1A
 	dw $7C1D, $7C2C, $7C1D, $7C2C, $7C1D, $7C2C, $7C1D, $7C2C
 	dw $7C2F, $7C3E, $7C2F, $7C3E, $7C2F, $7C3E, $7C2F, $7C3E
@@ -38,7 +39,8 @@ Table_26_7B00::
 
 ; ---- data $7BE0-$7D41 (353 bytes) [PROBABLE] 14 object record(s): 14 frame tables, 19 frames, 14 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 26:7B00-7D41 (ends at the zero padding)
 
-Data_26_7BE0:: ; 26:7BE0
+Mailbox_ObjAnimData:: ; 26:7BE0
+Data_26_7BE0::
 	db $E4, $7B, $F5, $7B, $04, $FE, $FE, $00, $00, $FE, $0A, $00, $20, $0A, $FE, $00
 	db $40, $0A, $0A, $00, $60, $04, $FD, $FD, $00, $00, $FD, $0B, $00, $20, $0B, $FD
 	db $00, $40, $0B, $0B, $00, $60, $02, $00, $2E, $01, $08, $0D, $7C, $03, $F5, $FC

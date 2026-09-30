@@ -992,11 +992,12 @@ DebugFlags_PlaceCursor:: ; 19:47ED
 
 Table_DebugFlags_Objects:: ; 19:481D
 Table_19_481D::
-	dw Data_19_4821, $4828
+	dw DebugFlags_ObjAnimData, $4828
 
 ; ---- data $4821-$482B (10 bytes) [PROBABLE] 1 object record: frame table 4821 (word 4823), frame 4823 = 01 [00 00 00 01] (count 1, one OAM entry), script 4828 = 01 [00 04] (one pair); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
-Data_19_4821:: ; 19:4821
+DebugFlags_ObjAnimData:: ; 19:4821
+Data_19_4821::
 	db $23, $48, $01, $00, $00, $00, $01, $01, $00, $04
 
 DebugFlags_SlideIn:: ; 19:482B

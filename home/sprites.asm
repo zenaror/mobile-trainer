@@ -52,10 +52,10 @@ Function_00_0956::
 	dec b
 	jr nz, .loop
 	ld a, e
-	ld [wRam_C2F3], a
+	ld [wShadowOAMNextOffset], a
 	xor a, a
-	ldh [hRam_FFF0], a
-	ldh [hRam_FFF1], a
+	ldh [hSpriteSlideOffsetX], a
+	ldh [hSpriteSlideOffsetY], a
 	xor a, a
 	ld [wOAMDMASuppress], a
 	ldh [hScratchA], a
@@ -85,8 +85,8 @@ Function_00_09B6::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ldh [hRam_FFF0], a
-	ldh [hRam_FFF1], a
+	ldh [hSpriteSlideOffsetX], a
+	ldh [hSpriteSlideOffsetY], a
 	ld hl, $DA00
 	ld bc, $00E0
 	ld a, $FF
@@ -149,13 +149,13 @@ Function_00_0A1A::
 	; [CONFIRMED] adds FFF1 (lo) / FFF0 (hi) to the 16-bit word at [HL] [candidate; raw refs 28]
 	; [executed in 18 scenarios]
 	push bc
-	ldh a, [hRam_FFF1]
+	ldh a, [hSpriteSlideOffsetY]
 	ld c, a
 	ld a, [hl]
 	add a, c
 	ld [hli], a
 	ld c, a
-	ldh a, [hRam_FFF0]
+	ldh a, [hSpriteSlideOffsetX]
 	ld b, a
 	ld a, [hl]
 	add a, b

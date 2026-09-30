@@ -15,13 +15,13 @@ Data_2F_4D40::
 
 Table_Abook_ButtonCursorAnims:: ; 2F:5010
 Table_2F_5010::
-	dw Data_2F_5050
+	dw Abook_ButtonCursor_ObjAnimData
 	dw $505F
-	dw Data_2F_5050
+	dw Abook_ButtonCursor_ObjAnimData
 	dw $505F
-	dw Data_2F_5050
+	dw Abook_ButtonCursor_ObjAnimData
 	dw $505F
-	dw Data_2F_5050
+	dw Abook_ButtonCursor_ObjAnimData
 	dw $505F
 	dw $5062
 	dw $5071
@@ -50,7 +50,8 @@ Table_2F_5010::
 
 ; ---- data $5050-$5098 (72 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; frames of the 5010 tables (records at 5050/5062/5074/5086: dw list, count 3 x (y,x,tile,attr), 01 00 40)
 
-Data_2F_5050:: ; 2F:5050
+Abook_ButtonCursor_ObjAnimData:: ; 2F:5050
+Data_2F_5050::
 	db $52, $50, $03, $F5, $FC, $44, $03, $F5, $04, $45, $03, $F5, $0C, $46, $03, $01
 	db $00, $40, $64, $50, $03, $F5, $FC, $47, $03, $F5, $04, $48, $03, $F5, $0C, $49
 	db $03, $01, $00, $40, $76, $50, $03, $F5, $FC, $4A, $03, $F5, $04, $4B, $03, $F5

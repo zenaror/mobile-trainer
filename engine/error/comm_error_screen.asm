@@ -440,7 +440,7 @@ Function_5C_546F::
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l54EC
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -453,7 +453,7 @@ Function_5C_546F::
 	cp a, $1E
 	jr c, .l54EB
 .l54C7 ; 5C:54C7
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l54D7
 	ld hl, $C26F

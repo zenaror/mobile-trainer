@@ -102,9 +102,9 @@ Comm_Disconnect:: ; 4C:46F4
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 46F4-47C4 by apply_coverage
 	; --split [executed in 4 scenarios]
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	ld [wCommSessionActive], a
@@ -136,9 +136,9 @@ Comm_EndOffline:: ; 4C:477E
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	xor a, a
 	ld [wCommSessionActive], a
 	ret
@@ -195,9 +195,9 @@ Function_4C_47C4::
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	xor a, a
 	ld [wCommSessionActive], a
 	ret

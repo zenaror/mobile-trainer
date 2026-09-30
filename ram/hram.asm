@@ -55,12 +55,12 @@ DEF hRam_FFD4 EQU $FFD4 ; size 1 byte HYPOTHESIS usage r=8 w=6 l=0 ptr-uses=0 ba
 DEF hRam_FFD5 EQU $FFD5 ; size 1 byte HYPOTHESIS usage r=2 w=3 l=0 ptr-uses=0 banks=1 (t1: r=0 w=1 l=0); const stores 00 x2
 DEF hRam_FFD6 EQU $FFD6 ; size 1 byte HYPOTHESIS usage r=10 w=8 l=0 ptr-uses=0 banks=2 (t1: r=4 w=4 l=0); const stores 00 x4
 DEF hRam_FFD7 EQU $FFD7 ; size 1 byte HYPOTHESIS usage r=10 w=11 l=0 ptr-uses=0 banks=2 (t1: r=3 w=4 l=0); const stores 00 x4
-DEF hRam_FFD8 EQU $FFD8 ; size 1 byte HYPOTHESIS usage r=6 w=15 l=0 ptr-uses=0 banks=1 (t1: r=2 w=2 l=0); const stores 00 x9,0C x1
-DEF hRam_FFD9 EQU $FFD9 ; size 1 byte HYPOTHESIS usage r=8 w=9 l=0 ptr-uses=0 banks=1 (t1: r=1 w=1 l=0); const stores 00 x5,0C x1
-DEF hRam_FFDA EQU $FFDA ; size 1 byte HYPOTHESIS usage r=2 w=3 l=0 ptr-uses=0 banks=1 (t1: r=2 w=1 l=0); const stores 00 x2
-DEF hRam_FFDB EQU $FFDB ; size 1 byte HYPOTHESIS usage r=2 w=3 l=0 ptr-uses=0 banks=1 (t1: r=2 w=1 l=0); const stores 00 x2
-DEF hRam_FFDC EQU $FFDC ; size 1 byte HYPOTHESIS usage r=1 w=4 l=0 ptr-uses=0 banks=1 (t1: r=0 w=1 l=0); const stores 00 x3
-DEF hRam_FFDD EQU $FFDD ; size 1 byte HYPOTHESIS usage r=1 w=4 l=0 ptr-uses=0 banks=1 (t1: r=0 w=1 l=0); const stores 00 x3
+DEF hHtmlLineIndent EQU $FFD8 ; size 1 byte HYPOTHESIS usage r=6 w=15 l=0 ptr-uses=0 banks=1 (t1: r=2 w=2 l=0); const stores 00 x9,0C x1
+DEF hHtmlListIndent EQU $FFD9 ; size 1 byte HYPOTHESIS usage r=8 w=9 l=0 ptr-uses=0 banks=1 (t1: r=1 w=1 l=0); const stores 00 x5,0C x1
+DEF hHtmlAlignAdjust EQU $FFDA ; size 1 byte HYPOTHESIS usage r=2 w=3 l=0 ptr-uses=0 banks=1 (t1: r=2 w=1 l=0); const stores 00 x2
+DEF hHtmlAlignAdjustHi EQU $FFDB ; size 1 byte HYPOTHESIS usage r=2 w=3 l=0 ptr-uses=0 banks=1 (t1: r=2 w=1 l=0); const stores 00 x2
+DEF hHtmlLinkTextStart EQU $FFDC ; size 1 byte HYPOTHESIS usage r=1 w=4 l=0 ptr-uses=0 banks=1 (t1: r=0 w=1 l=0); const stores 00 x3
+DEF hHtmlLinkTextStartHi EQU $FFDD ; size 1 byte HYPOTHESIS usage r=1 w=4 l=0 ptr-uses=0 banks=1 (t1: r=0 w=1 l=0); const stores 00 x3
 DEF hBrowserSelectedLink EQU $FFDE ; size 1 byte PROBABLE [g5] replaces hRam_FFDE: id of the highlighted link element (0 none, $FF invalid); used by 4E:4B0E (follow), 4C:501E, 4E:56DB/5716 (select), 4E:58DB (highlight style); FFDF holds the previous value (also 74) | census (replaced): usage r=7 w=4 l=0 ptr-uses=0 banks=2 (t1: r=6 w=4 l=0); const stores 00 x2
 DEF hRam_FFDF EQU $FFDF ; size 1 byte HYPOTHESIS usage r=6 w=6 l=0 ptr-uses=0 banks=2 (t1: r=3 w=3 l=0); const stores 00 x1
 DEF hRam_FFE0 EQU $FFE0 ; size 1 byte HYPOTHESIS usage r=1 w=3 l=0 ptr-uses=0 banks=1 (t1: r=1 w=1 l=0); const stores 00 x2
@@ -71,8 +71,8 @@ DEF hViewBottom EQU $FFE7 ; size 2 word PROBABLE [g8] replaces hRam_FFE7 (+FFE8)
 DEF hBrowserDrawYOffset EQU $FFE9 ; size 2 word PROBABLE [g5] replaces hRam_FFE9/FFEA: extra Y offset added to element coordinates while a strip is redrawn ($54 during 4E:53D1, else 0; cleared by Browser_SetScroll) | census (replaced): usage r=1 w=4 l=0 ptr-uses=0 banks=1 (t1: r=0 w=4 l=0); const stores 00 x3,54 x1
 DEF hViewScrollMax EQU $FFEB ; size 2 word PROBABLE [g8] replaces hRam_FFEB (+FFEC): maximum vertical scroll = max(0, page height FFC8/FFC9 - 96), computed at 74:43F4-4403 and read by the viewer (6 reads in bank 4E) | census (replaced): usage r=6 w=1 l=0 ptr-uses=0 banks=2 (t1: r=6 w=1 l=0); const stores 00 x1
 DEF hPageHeaderPtr EQU $FFED ; size 3 array PROBABLE [g8] replaces hRam_FFED/FFEE/FFEF: address (lo,hi) and WRAM bank of the page header/line table ($D000 bank 4): stored by 74:4207/4254 (and copied to FFB8-FFBA), read by 4E:544A (header+$15 record count, records at +$20) | census (replaced): usage r=5 w=2 l=0 ptr-uses=0 banks=2 (t1: r=5 w=2 l=0); const stores 00 x2
-DEF hRam_FFF0 EQU $FFF0 ; size 1 byte HYPOTHESIS usage r=1 w=2 l=3 ptr-uses=0 banks=2 (t1: r=0 w=2 l=3); loaded before call 4E04 x1; const stores 00 x2
-DEF hRam_FFF1 EQU $FFF1 ; size 1 byte HYPOTHESIS usage r=3 w=4 l=0 ptr-uses=0 banks=2 (t1: r=2 w=4 l=0); const stores 00 x2
+DEF hSpriteSlideOffsetX EQU $FFF0 ; size 1 byte HYPOTHESIS usage r=1 w=2 l=3 ptr-uses=0 banks=2 (t1: r=0 w=2 l=3); loaded before call 4E04 x1; const stores 00 x2
+DEF hSpriteSlideOffsetY EQU $FFF1 ; size 1 byte HYPOTHESIS usage r=3 w=4 l=0 ptr-uses=0 banks=2 (t1: r=2 w=4 l=0); const stores 00 x2
 DEF hScratchA EQU $FFF2 ; size 1 byte CONFIRMED holds A across `ldh a,[hROMBankLo]`-style reads (pattern ldh [FFF2],a / ldh a,[FFF2]) and carries the bank byte of far calls
 DEF hFarBank EQU $FFF3 ; size 1 byte PROBABLE bank byte used by the inline-16 far call/jump variants (00:06BC/0716) and stored by the HDMA routine 00:0749
 DEF hVRAMBank EQU $FFF4 ; size 1 byte CONFIRMED mirror of rVBK: 00:0761 (and $01 ; ldh [FFF4],a ; ldh [rVBK],a), 00:06B2

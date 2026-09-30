@@ -125,13 +125,13 @@ Data_27_7948::
 
 MailConnect_ObjTable:: ; 27:7A10
 Table_27_7A10::
-	dw Data_27_7AF0
+	dw MailConnect_ObjAnimData_27_7AF0
 	dw $7B2B
-	dw Data_27_7AF0
+	dw MailConnect_ObjAnimData_27_7AF0
 	dw $7B2B
-	dw Data_27_7AF0
+	dw MailConnect_ObjAnimData_27_7AF0
 	dw $7B2B
-	dw Data_27_7AF0
+	dw MailConnect_ObjAnimData_27_7AF0
 	dw $7B2B
 	dw $7B2E
 	dw $7B69
@@ -157,13 +157,13 @@ Table_27_7A10::
 	dw $7BA2
 	dw $7B97
 	dw $7BA2
-	dw Data_27_7BA5
+	dw MailConnect_ObjAnimData_27_7BA5
 	dw $7BB0
-	dw Data_27_7BA5
+	dw MailConnect_ObjAnimData_27_7BA5
 	dw $7BB0
-	dw Data_27_7BA5
+	dw MailConnect_ObjAnimData_27_7BA5
 	dw $7BB0
-	dw Data_27_7BA5
+	dw MailConnect_ObjAnimData_27_7BA5
 	dw $7BB0
 	dw $7BB3
 	dw $7BBE
@@ -173,21 +173,21 @@ Table_27_7A10::
 	dw $7BBE
 	dw $7BB3
 	dw $7BBE
-	dw Data_27_7BC1
+	dw MailConnect_ObjAnimData_27_7BC1
 	dw $7BCC
-	dw Data_27_7BC1
+	dw MailConnect_ObjAnimData_27_7BC1
 	dw $7BCC
-	dw Data_27_7BC1
+	dw MailConnect_ObjAnimData_27_7BC1
 	dw $7BCC
-	dw Data_27_7BC1
+	dw MailConnect_ObjAnimData_27_7BC1
 	dw $7BCC
-	dw Data_27_7BCF
+	dw MailConnect_ObjAnimData_27_7BCF
 	dw $7BDA
-	dw Data_27_7BCF
+	dw MailConnect_ObjAnimData_27_7BCF
 	dw $7BDA
-	dw Data_27_7BCF
+	dw MailConnect_ObjAnimData_27_7BCF
 	dw $7BDA
-	dw Data_27_7BCF
+	dw MailConnect_ObjAnimData_27_7BCF
 	dw $7BDA
 	dw $7BDD
 	dw $7BF0
@@ -213,13 +213,13 @@ Table_27_7A10::
 	dw $7C0C
 	dw $7C01
 	dw $7C0C
-	dw Data_27_7C0F
+	dw MailConnect_ObjAnimData_27_7C0F
 	dw $7C5B
-	dw Data_27_7C0F
+	dw MailConnect_ObjAnimData_27_7C0F
 	dw $7C5B
-	dw Data_27_7C0F
+	dw MailConnect_ObjAnimData_27_7C0F
 	dw $7C5B
-	dw Data_27_7C0F
+	dw MailConnect_ObjAnimData_27_7C0F
 	dw $7C5B
 	dw $7C64
 	dw $7CB0
@@ -229,18 +229,19 @@ Table_27_7A10::
 	dw $7CB0
 	dw $7C64
 	dw $7CB0
-	dw Data_27_7CB9
+	dw MailConnect_ObjAnimData_27_7CB9
 	dw $7CDF
-	dw Data_27_7CB9
+	dw MailConnect_ObjAnimData_27_7CB9
 	dw $7CDF
-	dw Data_27_7CB9
+	dw MailConnect_ObjAnimData_27_7CB9
 	dw $7CDF
-	dw Data_27_7CB9
+	dw MailConnect_ObjAnimData_27_7CB9
 	dw $7CDF
 
 ; ---- data $7AF0-$7BA5 (181 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_27_7AF0:: ; 27:7AF0
+MailConnect_ObjAnimData_27_7AF0:: ; 27:7AF0
+Data_27_7AF0::
 	db $F2, $7A, $0E, $00, $00, $00, $0B, $F0, $00, $00, $0B, $10, $00, $00, $0B, $20
 	db $00, $00, $0B, $40, $00, $00, $0B, $30, $00, $00, $0B, $F0, $10, $02, $2B, $F0
 	db $08, $04, $2B, $40, $10, $02, $6B, $40, $08, $04, $6B, $00, $08, $06, $2B, $30
@@ -256,18 +257,21 @@ Data_27_7AF0:: ; 27:7AF0
 
 ; ---- data $7BA5-$7BC1 (28 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BA5) and lies between CONFIRMED-read frame data
 
-Data_27_7BA5:: ; 27:7BA5
+MailConnect_ObjAnimData_27_7BA5:: ; 27:7BA5
+Data_27_7BA5::
 	db $A7, $7B, $02, $0B, $00, $78, $02, $0B, $08, $7A, $02, $01, $00, $08, $B5, $7B
 	db $02, $0B, $08, $78, $22, $0B, $00, $7A, $22, $01, $00, $08
 
 ; ---- data $7BC1-$7BCF (14 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
-Data_27_7BC1:: ; 27:7BC1
+MailConnect_ObjAnimData_27_7BC1:: ; 27:7BC1
+Data_27_7BC1::
 	db $C3, $7B, $02, $F8, $00, $3C, $01, $F8, $08, $3E, $01, $01, $00, $04
 
 ; ---- data $7BCF-$7C0F (64 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7BCF)
 
-Data_27_7BCF:: ; 27:7BCF
+MailConnect_ObjAnimData_27_7BCF:: ; 27:7BCF
+Data_27_7BCF::
 	db $D1, $7B, $02, $00, $00, $70, $06, $00, $08, $72, $06, $01, $00, $04, $DF, $7B
 	db $04, $00, $00, $50, $06, $00, $08, $52, $06, $00, $10, $54, $06, $00, $18, $56
 	db $06, $01, $00, $04, $F5, $7B, $02, $0B, $00, $5C, $03, $0B, $08, $5E, $03, $01
@@ -275,7 +279,8 @@ Data_27_7BCF:: ; 27:7BCF
 
 ; ---- data $7C0F-$7CB9 (170 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 
-Data_27_7C0F:: ; 27:7C0F
+MailConnect_ObjAnimData_27_7C0F:: ; 27:7C0F
+Data_27_7C0F::
 	db $17, $7C, $28, $7C, $39, $7C, $4A, $7C, $04, $03, $00, $10, $00, $03, $08, $12
 	db $00, $13, $00, $30, $00, $13, $08, $22, $00, $04, $03, $00, $60, $08, $03, $08
 	db $62, $08, $13, $00, $68, $08, $13, $08, $6A, $08, $04, $03, $00, $10, $00, $03
@@ -290,7 +295,8 @@ Data_27_7C0F:: ; 27:7C0F
 
 ; ---- data $7CB9-$7CE4 (43 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; span starts at a table target (7CB9); ends at the zero padding of the bank
 
-Data_27_7CB9:: ; 27:7CB9
+MailConnect_ObjAnimData_27_7CB9:: ; 27:7CB9
+Data_27_7CB9::
 	db $BD, $7C, $CE, $7C, $04, $03, $08, $08, $29, $03, $00, $0A, $29, $13, $08, $22
 	db $01, $13, $00, $30, $01, $04, $03, $08, $0C, $29, $03, $00, $0E, $29, $13, $08
 	db $2C, $29, $13, $00, $2E, $29, $02, $00, $08, $01, $08

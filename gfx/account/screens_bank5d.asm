@@ -6,12 +6,14 @@ SECTION "gfx/account/screens_bank5d", ROMX
 
 ; ---- gfx $4800-$4C00 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5DFD: hl=$4800 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_5D_4800:: ; 5D:4800
+Gfx_Account_PasswordEntry_Tiles9000Vb1:: ; 5D:4800
+Data_5D_4800::
 	INCBIN "gfx/account/screens_bank5d/tiles_4800.2bpp"
 
 ; ---- gfx $4C00-$5000 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:5E0F: hl=$4C00 a=$5D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_5D_4C00:: ; 5D:4C00
+Gfx_Account_PasswordEntry_Tiles9400Vb1:: ; 5D:4C00
+Data_5D_4C00::
 	INCBIN "gfx/account/screens_bank5d/tiles_4c00.2bpp"
 
 ; ---- data $5000-$5320 (800 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [clipped from 4000-7318 by higher-priority evidence]
@@ -70,49 +72,58 @@ Data_5D_5000:: ; 5D:5000
 
 ; ---- gfx $5320-$5720 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6125: hl=$5320 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_5D_5320:: ; 5D:5320
+Gfx_Account_PasswordIntro_Tiles9000Vb1:: ; 5D:5320
+Data_5D_5320::
 	INCBIN "gfx/account/screens_bank5d/tiles_5320.2bpp"
 
 ; ---- gfx $5720-$5B20 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6137: hl=$5720 a=$5D c=$40 de=$9401 (dest VRAM $9400, vbank=1)
 
-Data_5D_5720:: ; 5D:5720
+Gfx_Account_PasswordIntro_Tiles9400Vb1:: ; 5D:5720
+Data_5D_5720::
 	INCBIN "gfx/account/screens_bank5d/tiles_5720.2bpp"
 
 ; ---- data $5B20-$5DF0 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6159: hl=$5B20 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_5D_5B20:: ; 5D:5B20
+Tilemap_Account_PasswordIntro:: ; 5D:5B20
+Data_5D_5B20::
 	INCBIN "gfx/account/screens_bank5d/tilemap_5b20.tilemap"
 	INCBIN "gfx/account/screens_bank5d/tilemap_5b20.attrmap"
 
 ; ---- gfx $5DF0-$61F0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (68:6238 68:6476); first: hdma_rom_to_vram at 68:6238: hl=$5DF0 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1)
 
-Data_5D_5DF0:: ; 5D:5DF0
+Gfx_Account_ConfirmScreens_Tiles8800Vb1:: ; 5D:5DF0
+Data_5D_5DF0::
 	INCBIN "gfx/account/screens_bank5d/tiles_5df0.2bpp"
 
 ; ---- gfx $61F0-$63F0 (512 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (68:624A 68:6488); first: hdma_rom_to_vram at 68:624A: hl=$61F0 a=$5D c=$20 de=$8C01 (dest VRAM $8C00, vbank=1)
 
-Data_5D_61F0:: ; 5D:61F0
+Gfx_Account_ConfirmScreens_Tiles8C00Vb1:: ; 5D:61F0
+Data_5D_61F0::
 	INCBIN "gfx/account/screens_bank5d/tiles_61f0.2bpp"
 
 ; ---- gfx $63F0-$65F0 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:625C: hl=$63F0 a=$5D c=$20 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_5D_63F0:: ; 5D:63F0
+Gfx_Account_ConfirmScreen_Tiles9000Vb1:: ; 5D:63F0
+Data_5D_63F0::
 	INCBIN "gfx/account/screens_bank5d/tiles_63f0.2bpp"
 
 ; ---- gfx $65F0-$6630 (64 bytes) [PROBABLE] tiles-2bpp: heuristic: 38 coherent tiles (hsim2=0.711 vsim2=0.719, 5 blank) parity 0; 656/720 bytes also covered by call-site blocks [clipped from 6360-6630 by higher-priority evidence]
 
-Data_5D_65F0:: ; 5D:65F0
+Palette_Account_ConfirmScreen_Bg:: ; 5D:65F0
+Data_5D_65F0::
 	INCBIN "gfx/account/screens_bank5d/tiles_65f0.2bpp"
 
 ; ---- data $6630-$6900 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:62A1: hl=$6630 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_5D_6630:: ; 5D:6630
+Tilemap_Account_ConfirmScreen:: ; 5D:6630
+Data_5D_6630::
 	INCBIN "gfx/account/screens_bank5d/tilemap_6630.tilemap"
 	INCBIN "gfx/account/screens_bank5d/tilemap_6630.attrmap"
 
 ; ---- gfx $6900-$6C00 (768 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B3D: hl=$6900 a=$5D c=$30 de=$8000 (dest VRAM $8000, vbank=0)
 
-Data_5D_6900:: ; 5D:6900
+Gfx_Registration_WriteConfig_Tiles8000:: ; 5D:6900
+Data_5D_6900::
 	INCBIN "gfx/account/screens_bank5d/tiles_6900.2bpp"
 
 ; ---- gfx $6C00-$6E00 (512 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B19: hl=$6A00 a=$5D c=$40 de=$8801 (dest VRAM $8800, vbank=1) [clipped from 6A00-6E00 by higher-priority evidence]
@@ -122,7 +133,8 @@ Data_5D_6C00:: ; 5D:6C00
 
 ; ---- gfx $6E00-$7200 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 68:6B2B: hl=$6E00 a=$5D c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
-Data_5D_6E00:: ; 5D:6E00
+Gfx_Registration_WriteConfig_Tiles9000Vb1:: ; 5D:6E00
+Data_5D_6E00::
 	INCBIN "gfx/account/screens_bank5d/tiles_6e00.2bpp"
 
 ; ---- data $7200-$7318 (280 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 68:6B70: hl=$7048 a=$5D b=18 rows c=20 cols (tiles then attrs) de=$D000 [clipped from 7048-7318 by higher-priority evidence]

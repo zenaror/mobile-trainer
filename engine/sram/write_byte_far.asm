@@ -8,7 +8,7 @@ WriteByteFar:: ; 48:4616
 Function_48_4616::
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld [wRam_C12E], a
+	ld [wFarAccessTemp], a
 	ld a, h
 	cp a, $A0
 	ret c
@@ -29,7 +29,7 @@ Function_48_4616::
 	ldh a, [hSRAMBank]
 	push af
 	ldh a, [hScratchA]
-	ld a, [wRam_C12E]
+	ld a, [wFarAccessTemp]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, $0A
@@ -62,7 +62,7 @@ Function_48_4616::
 	ldh a, [hWRAMBank]
 	push af
 	ldh a, [hScratchA]
-	ld a, [wRam_C12E]
+	ld a, [wFarAccessTemp]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld [hl], b

@@ -9,9 +9,9 @@ Function_27_4000::
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	xor a, a
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -417,9 +417,9 @@ Function_27_41E3::
 	ld [hli], a
 	ld [hl], a
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	ld de, $C0A9
 	farcall Mobile_SessionInit
 	ld b, $00
@@ -906,9 +906,9 @@ MailConnect_ShowError:: ; 27:46E5
 	; [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1;
 	; entered by jpcc from 27:4337 (executed) [executed in 4 scenarios]
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	ld a, $01
@@ -1904,7 +1904,7 @@ Label_27_4EEB:: ; 27:4EEB
 	ldh [hRam_FFB1], a
 	ld a, [wTimerAMinutes]
 	ldh [hRam_FFB2], a
-	ld a, [wRam_C2D7]
+	ld a, [wTimerAExtra]
 	ldh [hRam_FFB3], a
 	ld a, $07
 	ldh [hWRAMBank], a

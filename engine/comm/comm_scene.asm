@@ -387,22 +387,22 @@ Function_70_4275::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	xor a, a
-	ld [wRam_C2A8], a
+	ld [wCommSceneScrollX], a
 	ld [wRam_C2A9], a
 	ret
 
 CommScene_ScrollIncrement:: ; 70:427D
-	ld a, [wRam_C2A8]
+	ld a, [wCommSceneScrollX]
 	inc a
-	ld [wRam_C2A8], a
+	ld [wCommSceneScrollX], a
 	ret
 
 CommScene_ScrollDecrement:: ; 70:4285
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: table x4; min discovery hops 2;
 	; entered by call from 70:4258 (PROBABLE code) [executed in 3 scenarios]
-	ld a, [wRam_C2A8]
+	ld a, [wCommSceneScrollX]
 	dec a
-	ld [wRam_C2A8], a
+	ld [wCommSceneScrollX], a
 	ret
 
 Label_70_428D:: ; 70:428D
@@ -722,25 +722,25 @@ Function_70_44B0::
 	ld a, $70
 	ldh [rWY], a
 	ld de, $8000
-	ld hl, Data_70_5490
+	ld hl, Gfx_CommScene_Tiles8000
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
-	ld hl, Data_70_5890
+	ld hl, Gfx_CommScene_Tiles8400
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, Data_70_5C90
+	ld hl, Gfx_CommScene_Tiles8800
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, Data_70_6090
+	ld hl, Gfx_CommScene_Tiles8C00
 	ld a, $70
 	ld b, $92
 	ld c, $40
@@ -770,24 +770,24 @@ Function_70_44B0::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Tiles_70_6A90
+	ld hl, Gfx_CommScene_Tiles9400Vb1
 	ld a, $70
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_70_6C90
+	ld hl, Palette_CommScene_Bg
 	ld a, $70
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_70_6CD0
+	ld hl, Palette_CommScene_Obj
 	ld a, $70
 	farcall Palette_LoadToBuffer
 	ld bc, $0E20
 	ld de, $D000
-	ld hl, Tilemap_70_6D10
+	ld hl, Tilemap_CommScene
 	ld a, $70
 	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadBackgroundMap
@@ -845,7 +845,7 @@ CommScene_Teardown:: ; 70:4613
 	ei
 	call Sound_FrameService
 	xor a, a
-	ld [wRam_C2A8], a
+	ld [wCommSceneScrollX], a
 	ld [wRam_C2A9], a
 	ret
 

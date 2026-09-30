@@ -113,7 +113,7 @@ Startup_ConfigValid_ShowInfoError:: ; 65:408E
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall CommErr_ShowScreen
 	xor a, a
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
@@ -123,7 +123,7 @@ Startup_ConfigValid_Fresh:: ; 65:40A6
 	; ld [$C278],a ; call $41DA ; jp $41A9 | forced execution: 4/5 instruction starts ran in
 	; forced_screens (traces/forced/, not natural evidence; status unchanged)
 	xor a, a
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
@@ -176,7 +176,7 @@ Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
 	; in 1 scenarios]
 	farcall CommErr_ShowScreen
 	xor a, a
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 
@@ -187,7 +187,7 @@ Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
 Startup_ConfigBlank_Fresh:: ; 65:40FA
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
 	xor a, a
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return

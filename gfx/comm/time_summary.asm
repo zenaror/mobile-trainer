@@ -59,17 +59,20 @@ Data_51_5880::
 
 ; ---- gfx $58C0-$5CC0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40EC: hl=$58C0 a=$51 c=$40 de=$8200 (dest VRAM $8200, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_58C0:: ; 51:58C0
+Gfx_ConnIcon_Request2_Tiles8200:: ; 51:58C0
+Data_51_58C0::
 	INCBIN "gfx/comm/time_summary/tiles_58c0.2bpp"
 
 ; ---- gfx $5CC0-$5EC0 (512 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 69:40FE: hl=$5CC0 a=$51 c=$20 de=$8600 (dest VRAM $8600, vbank=0) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_5CC0:: ; 51:5CC0
+Gfx_ConnIcon_Request2_Tiles8600:: ; 51:5CC0
+Data_51_5CC0::
 	INCBIN "gfx/comm/time_summary/tiles_5cc0.2bpp"
 
 ; ---- data $5EC0-$5EE0 (32 bytes) [PROBABLE] palette-rgb555: heuristic: 16 RGB555 words as 4 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_51_5EC0:: ; 51:5EC0
+Palette_ConnIcon_Request2_Obj4:: ; 51:5EC0
+Data_51_5EC0::
 	INCLUDE "gfx/comm/time_summary/palette_5ec0.pal"
 
 ; ---- zero $5EE0-$5EE1 (1 bytes) [HYPOTHESIS] single $00 byte right after the palette-like block ending at 5EE0 and before the tile data (5EE1); purpose unknown (padding?)

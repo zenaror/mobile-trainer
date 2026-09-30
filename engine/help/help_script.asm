@@ -54,31 +54,31 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Data_6A_69F0
+	ld hl, Gfx_HelpScript_Tiles8000
 	ld a, $6A
 	ld b, $98
 	ld c, $02
 	farcall Gfx_StartHDMAWithService
 	ld de, $8AF1
-	ld hl, Data_6A_6A10
+	ld hl, Gfx_HelpScript_Tiles8AF0Vb1
 	ld a, $6A
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
-	ld hl, Data_6A_6A20
+	ld hl, Gfx_HelpScript_Tiles8B00Vb1
 	ld a, $6A
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_6A_7220
+	ld hl, Palette_HelpScript_Bg
 	ld a, $6A
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_6A_6716
+	ld hl, Tilemap_HelpScript
 	ld a, $6A
 	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
@@ -232,7 +232,7 @@ Label_6C_5B47:: ; 6C:5B47
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr nz, .loop
 	add hl, bc
@@ -245,9 +245,9 @@ Label_6C_5B47:: ; 6C:5B47
 	push hl
 	add hl, bc
 	ld a, l
-	ld [wRam_C1B0], a
+	ld [wHelpScriptAltPtr], a
 	ld a, h
-	ld [wRam_C1B1], a
+	ld [wHelpScriptAltPtrHi], a
 	pop hl
 	jp .loop
 .l5BAF ; 6C:5BAF
@@ -313,7 +313,7 @@ Label_6C_5B47:: ; 6C:5B47
 	inc hl
 	jp .loop
 .l5C0B ; 6C:5C0B
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5C1B
 	farcall Palette_FadeOutToWhite
@@ -342,13 +342,13 @@ Label_6C_5B47:: ; 6C:5B47
 .l5C36 ; 6C:5C36
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 12/18 scenarios)
 	ld a, $01
-	ld [wRam_C179], a
+	ld [wHelpScriptDelayCounter], a
 	ld [wRam_C0E2], a
 	ld a, $06
-	ld [wRam_C178], a
+	ld [wHelpScriptGlyphDelay], a
 	xor a, a
-	ld [wRam_C1A8], a
-	ld [wRam_C1AB], a
+	ld [wHelpScriptColumn], a
+	ld [wHelpScriptAdvanceMode], a
 	ld a, [wRam_C0D9]
 	or a, a
 	jr z, .l5C66
@@ -373,7 +373,7 @@ Label_6C_5B47:: ; 6C:5B47
 	ld a, $00
 	ld [wRam_C1AA], a
 	ld a, $00
-	ld [wRam_C1A9], a
+	ld [wHelpScriptLineTile], a
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -418,14 +418,14 @@ Label_6C_5CC5:: ; 6C:5CC5
 	call HelpScript_StepText
 	or a, a
 	jp nz, Label_6C_5D9F
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $01
 	jr nz, .l5CEE
 	ldh a, [hJoyHeld]
 	bit 0, a
 	jr nz, .l5CEE
 	xor a, a
-	ld [wRam_C1AB], a
+	ld [wHelpScriptAdvanceMode], a
 	jr .l5CEE
 .l5CEE ; 6C:5CEE
 	farcall Joypad_UpdateIdleFrames
@@ -448,7 +448,7 @@ Label_6C_5D07:: ; 6C:5D07
 
 Label_6C_5D09:: ; 6C:5D09
 	ld a, $01
-	ld [wRam_C1AB], a
+	ld [wHelpScriptAdvanceMode], a
 	ld a, [wRam_C0E2]
 	or a, a
 	jr nz, Label_6C_5CC5
@@ -464,7 +464,7 @@ Label_6C_5D09:: ; 6C:5D09
 
 Label_6C_5D30:: ; 6C:5D30
 	ld a, $02
-	ld [wRam_C1AB], a
+	ld [wHelpScriptAdvanceMode], a
 	ld a, [wRam_C0E2]
 	or a, a
 	jr nz, .l5D57
@@ -504,9 +504,9 @@ Label_6C_5D5A:: ; 6C:5D5A
 	ld b, $00
 	ret
 .l5D8D ; 6C:5D8D
-	ld a, [wRam_C1B0]
+	ld a, [wHelpScriptAltPtr]
 	ld [wHelpScriptPtr], a
-	ld a, [wRam_C1B1]
+	ld a, [wHelpScriptAltPtrHi]
 	ld [wHelpScriptPtr + 1], a
 	jp Label_6C_5B47
 
@@ -516,7 +516,7 @@ Label_6C_5D9C:: ; 6C:5D9C
 Label_6C_5D9F:: ; 6C:5D9F
 	xor a, a
 	ld [wRam_C0E2], a
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5DC6
 	ld hl, $DA20
@@ -556,7 +556,7 @@ Label_6C_5D9F:: ; 6C:5D9F
 	jp Label_6C_5D30
 
 Label_6C_5E03:: ; 6C:5E03
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l5E1D
 	ldh a, [hWRAMBank]
@@ -610,7 +610,7 @@ HelpScript_RenderCaption:: ; 6C:5E25
 
 HelpScript_ShowPicture:: ; 6C:5E6E
 	ld b, a
-	ld a, [wRam_C177]
+	ld a, [wHelpScriptPictureId]
 	cp a, b
 	ret z
 	ld c, a
@@ -627,7 +627,7 @@ HelpScript_ShowPicture:: ; 6C:5E6E
 	pop bc
 .l5E8B ; 6C:5E8B
 	ld a, b
-	ld [wRam_C177], a
+	ld [wHelpScriptPictureId], a
 	dec a
 	ld b, a
 	sla a
@@ -751,9 +751,9 @@ HelpScript_StepText:: ; 6C:6009
 Function_6C_6009::
 	; [CONFIRMED] 23 insn(s); 23 executed (in up to 12/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C179]
+	ld a, [wHelpScriptDelayCounter]
 	dec a
-	ld [wRam_C179], a
+	ld [wHelpScriptDelayCounter], a
 	ld a, $00
 	ret nz
 	ld a, [wHelpScriptPtr]
@@ -792,10 +792,10 @@ Function_6C_6009::
 	ret
 .l6045 ; 6C:6045
 	xor a, a
-	ld [wRam_C1A8], a
-	ld a, [wRam_C1A9]
+	ld [wHelpScriptColumn], a
+	ld a, [wHelpScriptLineTile]
 	add a, $20
-	ld [wRam_C1A9], a
+	ld [wHelpScriptLineTile], a
 	ld a, [wRam_C1AA]
 	inc a
 	inc a
@@ -810,7 +810,7 @@ Function_6C_6009::
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 6C:6060 (executed)
 	ld a, [hli]
-	ld [wRam_C178], a
+	ld [wHelpScriptGlyphDelay], a
 	jr .l601B
 
 .l6068 ; 6C:6068
@@ -826,14 +826,14 @@ Function_6C_6009::
 	call HelpScript_RenderCaption
 	jr .l601B
 .l607A ; 6C:607A
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	or a, a
 	jr nz, .l608C
-	ld a, [wRam_C179]
+	ld a, [wHelpScriptDelayCounter]
 	ld b, a
 	ld a, [hli]
 	add a, b
-	ld [wRam_C179], a
+	ld [wHelpScriptDelayCounter], a
 	jp .l618E
 .l608C ; 6C:608C
 	inc hl
@@ -842,7 +842,7 @@ Function_6C_6009::
 .l6090 ; 6C:6090
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1;
 	; entered by jrcc from 6C:6036 (PROBABLE code)
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l608C
 	ld a, [hli]
@@ -882,27 +882,27 @@ Function_6C_6009::
 .l60C9 ; 6C:60C9
 	ld a, [wRam_C17A]
 	push af
-	ld a, [wRam_C1A8]
+	ld a, [wHelpScriptColumn]
 	cp a, $10
 	jr nz, .l60EB
 
 	; [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0;
 	; fall-through of the jrcc at 6C:60D2 (executed) [executed in 2 scenarios]
 	xor a, a
-	ld [wRam_C1A8], a
-	ld a, [wRam_C1A9]
+	ld [wHelpScriptColumn], a
+	ld a, [wHelpScriptLineTile]
 	add a, $20
-	ld [wRam_C1A9], a
+	ld [wHelpScriptLineTile], a
 	ld a, [wRam_C1AA]
 	inc a
 	inc a
 	ld [wRam_C1AA], a
-	ld a, [wRam_C1A8]
+	ld a, [wHelpScriptColumn]
 
 .l60EB ; 6C:60EB
 	; [CONFIRMED] 107 insn(s); 107 executed (in up to 12/18 scenarios)
 	ld e, a
-	ld a, [wRam_C1A9]
+	ld a, [wHelpScriptLineTile]
 	add a, e
 	swap a
 	ld d, a
@@ -970,7 +970,7 @@ Function_6C_6009::
 	ld bc, $FEF0
 	add hl, bc
 .l6158 ; 6C:6158
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $02
 	jr z, .l6198
 	ld a, $90
@@ -985,16 +985,16 @@ Function_6C_6009::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C1AB]
+	ld a, [wHelpScriptAdvanceMode]
 	cp a, $01
-	ld a, [wRam_C178]
+	ld a, [wHelpScriptGlyphDelay]
 	jr nz, .skip
 	ld a, $01
 .skip ; 6C:6183
-	ld [wRam_C179], a
-	ld a, [wRam_C1A8]
+	ld [wHelpScriptDelayCounter], a
+	ld a, [wHelpScriptColumn]
 	inc a
-	ld [wRam_C1A8], a
+	ld [wHelpScriptColumn], a
 	pop hl
 .l618E ; 6C:618E
 	ld a, l
@@ -1009,9 +1009,9 @@ Function_6C_6009::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C1A8]
+	ld a, [wHelpScriptColumn]
 	inc a
-	ld [wRam_C1A8], a
+	ld [wHelpScriptColumn], a
 	pop hl
 	jp .l601B
 

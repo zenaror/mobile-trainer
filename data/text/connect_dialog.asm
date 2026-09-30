@@ -8,7 +8,8 @@ PUSHC sjis
 
 ; ---- text $4000-$418A (394 bytes) [CONFIRMED] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-String_56_4000:: ; 56:4000
+String_ConnectDialog_Messages:: ; 56:4000
+String_56_4000::
 	db "つうわりょうと　せつぞくりょうがかかります。", $0D, $0A
 	db "　　　　よろしいですか？", 0
 	db "●でパスワードを", $0D, $0A

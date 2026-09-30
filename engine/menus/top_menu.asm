@@ -26,9 +26,9 @@ Function_1F_4000::
 	ld [wRam_C0E6], a
 	ld [wRam_C0E7], a
 	ld a, $28
-	ld [wRam_C0DC], a
+	ld [wTopMenuCursorTargetY], a
 	ld a, $0B
-	ld [wRam_C0DB], a
+	ld [wTopMenuCursorTargetX], a
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -41,69 +41,69 @@ Function_1F_4000::
 	ldh [rWY], a
 	farcall Sprite_ResetAll
 	ld de, $8000
-	ld hl, Data_1E_49A0
+	ld hl, Gfx_TopMenu_Tiles8000
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8400
-	ld hl, Data_1E_4DA0
+	ld hl, Gfx_TopMenu_Tiles8400
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8800
-	ld hl, Data_1E_51A0
+	ld hl, Gfx_TopMenu_Tiles8800
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
-	ld hl, Data_1E_55A0
+	ld hl, Gfx_TopMenu_Tiles8C00
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9000
-	ld hl, Data_1E_59A0
+	ld hl, Gfx_TopMenu_Tiles9000
 	ld a, $1E
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_1E_5BA0
+	ld hl, Gfx_TopMenu_Tiles9000Vb1
 	ld a, $1E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_1E_5FA0
+	ld hl, Gfx_TopMenu_Tiles9400Vb1
 	ld a, $1E
 	ld b, $94
 	ld c, $30
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_1E_62A0
+	ld hl, Palette_TopMenu_Bg
 	ld a, $1E
 	farcall Palette_LoadToBuffer
 	ld bc, $1014
 	ld de, $D000
-	ld hl, Data_1E_40D7
+	ld hl, Tilemap_TopMenu_1E_40D7
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA50
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $85
 	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_1E_62E0
+	ld hl, Palette_TopMenu_Obj
 	ld a, $1E
 	farcall Palette_LoadToBuffer
 	ld hl, $DA10
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $01
 	farcall Sprite_InitSlot
@@ -111,7 +111,7 @@ Function_1F_4000::
 	ld hl, $DA10
 	call Sprite_SetPosition
 	ld hl, $DA20
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $02
 	farcall Sprite_InitSlot
@@ -358,9 +358,9 @@ TopMenu_SelectItem:: ; 1F:4325
 	adc a, $00
 	ld h, a
 	ld a, [hli]
-	ld [wRam_C0DC], a
+	ld [wTopMenuCursorTargetY], a
 	ld a, [hl]
-	ld [wRam_C0DB], a
+	ld [wTopMenuCursorTargetX], a
 	call TopMenu_StartCursorMove
 	ld a, $01
 	ld [wRam_C0E2], a
@@ -379,13 +379,13 @@ Function_1F_4351::
 	; executed call/far call
 	ld bc, $1014
 	ld de, $D000
-	ld hl, Data_1E_40D7
+	ld hl, Tilemap_TopMenu_1E_40D7
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA40
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $04
 	farcall Sprite_InitSlot
@@ -404,7 +404,7 @@ Function_1F_4351::
 	ret
 .l4396 ; 1F:4396
 	ld hl, $DA10
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $01
 	farcall Sprite_InitSlot
@@ -418,7 +418,7 @@ Function_1F_4351::
 	ret
 .l43BA ; 1F:43BA
 	ld hl, $DA20
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $02
 	farcall Sprite_InitSlot
@@ -426,7 +426,7 @@ Function_1F_4351::
 	ld hl, $DA20
 	call Sprite_SetPosition
 	ld hl, $DA30
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $03
 	farcall Sprite_InitSlot
@@ -444,7 +444,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	cp a, $03
 	jr z, .l4417
 	ld hl, $DA40
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $06
 	farcall Sprite_InitSlot
@@ -458,7 +458,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	jr c, .l444F
 	jp z, .l447C
 	ld hl, $DA40
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $84
 	farcall Sprite_InitSlot
@@ -476,7 +476,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	jr .l44C0
 .l444F ; 1F:444F
 	ld hl, $DA10
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -494,7 +494,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	jr .l44C0
 .l447C ; 1F:447C
 	ld hl, $DA20
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $82
 	farcall Sprite_InitSlot
@@ -502,7 +502,7 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld hl, $DA20
 	call Sprite_SetPosition
 	ld hl, $DA30
-	ld de, Table_1E_656F
+	ld de, TopMenu_ObjTable
 	ld a, $1E
 	ld b, $83
 	farcall Sprite_InitSlot
@@ -542,7 +542,7 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	jp z, .l4532
 	ld bc, $090C
 	ld de, $D0E4
-	ld hl, Data_1E_48C1
+	ld hl, Tilemap_TopMenu_1E_48C1
 	ld a, $1E
 	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
@@ -596,11 +596,11 @@ TopMenu_UpdateCursorMove:: ; 1F:4561
 Function_1F_4561::
 	; [CONFIRMED] 82 insn(s); 82 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	ld a, [wRam_C0E1]
+	ld a, [wTopMenuCursorStepsLeft]
 	or a, a
 	ret z
 	dec a
-	ld [wRam_C0E1], a
+	ld [wTopMenuCursorStepsLeft], a
 	jr nz, .l458F
 	call TopMenu_InitItemSprites
 	ld a, [wRam_C0E5]
@@ -609,41 +609,41 @@ Function_1F_4561::
 	ld hl, Data_TopMenu_StringIndexBank
 	ld a, $1E
 	farcall Ticker_Start
-	ld a, [wRam_C0DB]
+	ld a, [wTopMenuCursorTargetX]
 	ld [wRam_C0D4], a
 	ld e, a
-	ld a, [wRam_C0DC]
+	ld a, [wTopMenuCursorTargetY]
 	ld [wRam_C0D6], a
 	ld d, a
 	jr .l45C3
 .l458F ; 1F:458F
-	ld a, [wRam_C0DD]
+	ld a, [wTopMenuCursorStepXHi]
 	ld b, a
-	ld a, [wRam_C0DE]
+	ld a, [wTopMenuCursorStepXLo]
 	ld c, a
 	ld a, [wRam_C0D4]
 	ld h, a
-	ld a, [wRam_C0D5]
+	ld a, [wTopMenuCursorXFrac]
 	ld l, a
 	add hl, bc
 	ld a, h
 	ld [wRam_C0D4], a
 	ld a, l
-	ld [wRam_C0D5], a
+	ld [wTopMenuCursorXFrac], a
 	ld e, h
 	ld a, [wRam_C0DF]
 	ld b, a
-	ld a, [wRam_C0E0]
+	ld a, [wTopMenuCursorStepYLo]
 	ld c, a
 	ld a, [wRam_C0D6]
 	ld h, a
-	ld a, [wRam_C0D7]
+	ld a, [wTopMenuCursorYFrac]
 	ld l, a
 	add hl, bc
 	ld a, h
 	ld [wRam_C0D6], a
 	ld a, l
-	ld [wRam_C0D7], a
+	ld [wTopMenuCursorYFrac], a
 	ld d, h
 .l45C3 ; 1F:45C3
 	ld hl, $DA50
@@ -655,7 +655,7 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	ld [wRam_C10E], a
 	ld a, [wRam_C0D4]
 	ld b, a
-	ld a, [wRam_C0DB]
+	ld a, [wTopMenuCursorTargetX]
 	sub a, b
 	ld b, a
 	jr nc, .l45E2
@@ -667,7 +667,7 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 .l45E2 ; 1F:45E2
 	ld a, [wRam_C0D6]
 	ld h, a
-	ld a, [wRam_C0DC]
+	ld a, [wTopMenuCursorTargetY]
 	sub a, h
 	ld h, a
 	jr nc, .l45F9
@@ -692,11 +692,11 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 .skip ; 1F:4605
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 5/18 scenarios)
 	ld l, a
-	ld [wRam_C0E1], a
+	ld [wTopMenuCursorStepsLeft], a
 	ld c, l
 	farcall Divide8
 	ld a, b
-	ld [wRam_C0DD], a
+	ld [wTopMenuCursorStepXHi], a
 	push hl
 	ld e, l
 	ld d, $00
@@ -706,14 +706,14 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	ld a, [wRam_C10E]
 	bit 0, a
 	ld a, l
-	ld [wRam_C0DE], a
+	ld [wTopMenuCursorStepXLo], a
 	jr z, .l4637
 	xor a, $FF
 	inc a
-	ld [wRam_C0DE], a
-	ld a, [wRam_C0DD]
+	ld [wTopMenuCursorStepXLo], a
+	ld a, [wTopMenuCursorStepXHi]
 	xor a, $FF
-	ld [wRam_C0DD], a
+	ld [wTopMenuCursorStepXHi], a
 .l4637 ; 1F:4637
 	pop hl
 	ld b, h
@@ -729,11 +729,11 @@ TopMenu_StartCursorMove:: ; 1F:45CA
 	ld a, [wRam_C10E]
 	bit 1, a
 	ld a, l
-	ld [wRam_C0E0], a
+	ld [wTopMenuCursorStepYLo], a
 	jr z, .done
 	xor a, $FF
 	inc a
-	ld [wRam_C0E0], a
+	ld [wTopMenuCursorStepYLo], a
 	ld a, [wRam_C0DF]
 	xor a, $FF
 	ld [wRam_C0DF], a

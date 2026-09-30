@@ -811,7 +811,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ldh a, [hScratchA]
 	ld a, b
 	xor a, $A5
-	ld [wRam_C27A], a
+	ld [wSavePasswordFlag], a
 	ld hl, $B08A
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]

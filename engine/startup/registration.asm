@@ -37,7 +37,7 @@ Function_65_4123::
 	ldh a, [hScratchA]
 	ld a, b
 	xor a, $A5
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	cp a, $01
 	ret z
 	cp a, $02
@@ -48,7 +48,7 @@ Function_65_4123::
 	cp a, $03
 	ret z
 	xor a, a
-	ld [wRam_C277], a
+	ld [wRegistrationStage], a
 	ret
 
 Startup_VerifySaveData:: ; 65:416C
@@ -113,11 +113,11 @@ Function_65_41DA::
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
 	ld a, $01
-	ld [wRam_C27A], a
+	ld [wSavePasswordFlag], a
 	farcall SettingsPhone_ResetTopCursor
 	farcall SettingsPhone_ResetSlotCursor
 	farcall SettingsPhone_ResetMethodCursor
-	ld a, [wRam_C277]
+	ld a, [wRegistrationStage]
 	cp a, $01
 	jr z, .l421A
 	cp a, $02
@@ -162,10 +162,10 @@ Function_65_41DA::
 	farcall Sram_ResetChecksum3Areas
 	farcall SaveCheck_ResetBlock
 	ld a, $00
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, $01
-	ld [wRam_C1D1], a
-	ld a, [wRam_C277]
+	ld [wCommNoticeGfxSet], a
+	ld a, [wRegistrationStage]
 	cp a, $02
 	jr nz, Registration_IntroPage
 	ld a, $17
@@ -364,9 +364,9 @@ Label_65_4410:: ; 65:4410
 
 .l4424 ; 65:4424
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 3/18 scenarios)
-	ld [wRam_C27A], a
+	ld [wSavePasswordFlag], a
 	ld hl, $B088
-	ld a, [wRam_C27A]
+	ld a, [wSavePasswordFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
 
@@ -580,9 +580,9 @@ Label_65_4607:: ; 65:4607
 .l461B ; 65:461B
 	; [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage
 	; --split [executed in 2 scenarios]
-	ld [wRam_C27A], a
+	ld [wSavePasswordFlag], a
 	ld hl, $B088
-	ld a, [wRam_C27A]
+	ld a, [wSavePasswordFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
 
@@ -603,7 +603,7 @@ Registration_Communicate:: ; 65:4642
 	ld a, $01
 	ld hl, $A880
 	farcall WriteByteFar
-	ld a, [wRam_C27A]
+	ld a, [wSavePasswordFlag]
 	or a, a
 	jr z, .l4661
 	farcall Registration_SavePassword

@@ -39,9 +39,9 @@ Registration_Verify_RunState:: ; 68:7050
 	ld [hli], a
 	ld [hl], a
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 
 Label_68_7069:: ; 68:7069
 	ld a, [wRam_C27D]
@@ -214,7 +214,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l7211
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -227,7 +227,7 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	cp a, $1E
 	jr c, .l7210
 .l71EC ; 68:71EC
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l71FC
 	ld hl, $C26F
@@ -298,7 +298,7 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l729D
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -311,7 +311,7 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	cp a, $1E
 	jr c, .l729C
 .l7278 ; 68:7278
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l7288
 	ld hl, $C26F

@@ -105,13 +105,13 @@ Function_68_531A::
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_5E_4800
+	ld hl, Gfx_Account_LoginIdEntry_Tiles9000Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5E_4C00
+	ld hl, Gfx_Account_LoginIdEntry_Tiles9400Vb1
 	ld a, $5E
 	ld b, $97
 	ld c, $10
@@ -123,7 +123,7 @@ Function_68_531A::
 	farcall Palette_LoadToBuffer
 	ld bc, $0514
 	ld de, $D000
-	ld hl, Data_5E_4D40
+	ld hl, Tilemap_Account_LoginIdEntry
 	ld a, $5E
 	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
@@ -440,13 +440,13 @@ Account_LoginIdIntro_Draw:: ; 68:562F
 	farcall Joypad_SetRepeatTiming
 	farcall Sprite_ResetAll
 	ld de, $9001
-	ld hl, Data_5E_4E10
+	ld hl, Gfx_Account_LoginIdIntro_Tiles9000Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_5E_5210
+	ld hl, Gfx_Account_LoginIdIntro_Tiles9400Vb1
 	ld a, $5E
 	ld b, $92
 	ld c, $40

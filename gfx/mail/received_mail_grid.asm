@@ -45,16 +45,18 @@ Palette_2B_63F0::
 
 Table_MailGrid_Anims:: ; 2B:6430
 Table_2B_6430::
-	dw Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F, Table_2B_6440, Data_2B_647F
+	dw MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script, MailGrid_Anim0Frames, MailGrid_Anim0Script
 
 ; ---- words $6440-$6442 (2 bytes) [PROBABLE] frame table: 1 pointer(s) $6442 to OAM frames (extent = lowest target); referenced by an animation entry
 
-Table_2B_6440:: ; 2B:6440
-	dw Data_2B_6442
+MailGrid_Anim0Frames:: ; 2B:6440
+Table_2B_6440::
+	dw MailGrid_Anim0Frame0
 
 ; ---- data $6442-$647F (61 bytes) [PROBABLE] OAM frame: count=15 then 15 x (y,x,tile,attr) = 61 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 
-Data_2B_6442:: ; 2B:6442
+MailGrid_Anim0Frame0:: ; 2B:6442
+Data_2B_6442::
 	db $0F, $02, $04, $00, $00, $02, $0C, $01, $00, $02, $14, $02, $00, $0A, $04, $03
 	db $00, $0A, $0C, $04, $00, $0A, $14, $05, $00, $0A, $1C, $06, $00, $12, $04, $07
 	db $00, $12, $0C, $08, $00, $12, $14, $09, $00, $12, $1C, $0A, $00, $1A, $04, $0B
@@ -62,5 +64,6 @@ Data_2B_6442:: ; 2B:6442
 
 ; ---- data $647F-$6482 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 
-Data_2B_647F:: ; 2B:647F
+MailGrid_Anim0Script:: ; 2B:647F
+Data_2B_647F::
 	db $01, $00, $04

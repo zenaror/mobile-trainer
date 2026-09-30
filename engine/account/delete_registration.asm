@@ -76,20 +76,20 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	or a, a
 	jr nz, .l7A0A
 	ld de, $9001
-	ld hl, Data_71_5340
+	ld hl, Gfx_Registration_DeleteConfirm_Tiles9000Vb1
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_71_5740
+	ld hl, Gfx_Registration_DeleteConfirm_Tiles9400Vb1
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_71_66C8
+	ld hl, Tilemap_Registration_DeleteConfirm_71_66C8
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 	jr .l7A3F
@@ -101,14 +101,14 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_71_5DC0
+	ld hl, Gfx_Registration_Delete_Tiles9400Vb1
 	ld a, $71
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_71_6998
+	ld hl, Tilemap_Registration_DeleteConfirm_71_6998
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 .l7A3F ; 68:7A3F
@@ -120,7 +120,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_71_6680
+	ld hl, Palette_Registration_Delete_Bg
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $0018
@@ -132,7 +132,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot
@@ -305,7 +305,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_71_6580
+	ld hl, Gfx_Registration_DeleteExecute_Tiles9000Vb1
 	ld a, $71
 	ld b, $97
 	ld c, $10
@@ -318,7 +318,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_71_6680
+	ld hl, Palette_Registration_Delete_Bg
 	ld a, $71
 	farcall Palette_LoadToBuffer
 	ld bc, $0008
@@ -328,14 +328,14 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_71_6C68
+	ld hl, Tilemap_Registration_DeleteExecute
 	ld a, $71
 	farcall Tilemap_CopyRectAndAttr
 	call Registration_DeleteExecute_PrintMessage
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_71_6F38
+	ld de, Registration_DeleteExecute_ObjTable
 	ld a, $71
 	ld b, $81
 	farcall Sprite_InitSlot

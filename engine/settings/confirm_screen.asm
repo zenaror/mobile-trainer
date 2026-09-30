@@ -27,13 +27,13 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $8801
-	ld hl, Data_4B_6A90
+	ld hl, Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1
 	ld a, $4B
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
-	ld hl, Data_4B_6E90
+	ld hl, Gfx_SettingsPhone_ConfirmScreen_Tiles8C00Vb1
 	ld a, $4B
 	ld b, $95
 	ld c, $22
@@ -72,7 +72,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot

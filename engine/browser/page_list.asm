@@ -103,7 +103,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l40FB
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -116,7 +116,7 @@ PageList_Main_Loop:: ; 24:4083
 	cp a, $1E
 	jr c, .l40FA
 .l40D6 ; 24:40D6
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l40E6
 	ld hl, $C26F
@@ -189,7 +189,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	pop bc
@@ -1647,7 +1647,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4C4D
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -1657,7 +1657,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	cp a, $1E
 	jr c, .l4C4C
 .l4C28 ; 24:4C28
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4C38
 
@@ -1734,7 +1734,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	pop bc

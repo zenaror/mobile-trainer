@@ -199,9 +199,9 @@ PasswordChange_Communicate_Poll:: ; 67:5A75
 	ld [hli], a
 	ld [hl], a
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 
 PasswordChange_Communicate_Dispatch:: ; 67:5A8E
 Label_67_5A8E::
@@ -373,7 +373,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l5C2B
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -386,7 +386,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	cp a, $1E
 	jr c, .l5C2A
 .l5C06 ; 67:5C06
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l5C16
 	ld hl, $C26F
@@ -477,7 +477,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, [hli]
 	sub a, $30
 	or a, b
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [hli]
 	sub a, $30
 	swap a
@@ -485,7 +485,7 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	ld a, [hl]
 	sub a, $30
 	or a, b
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	jp PasswordChange_Cleanup
 
 .l5CAD ; 67:5CAD
@@ -539,9 +539,9 @@ Label_67_5D00::
 	ld hl, $C26F
 	res 0, [hl]
 	ld a, $00
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, $01
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall CommNotice_ShowDialog
 	jp PasswordChange_Cleanup
 
@@ -550,8 +550,8 @@ Label_67_5D18::
 	ld a, $26
 	ld [wMobileErrorCode], a
 	xor a, a
-	ld [wRam_C273], a
-	ld [wRam_C274], a
+	ld [wMobileErrorDetail], a
+	ld [wMobileErrorDetailHi], a
 	jr PasswordChange_Cleanup
 
 PasswordChange_HandleHttpStatus:: ; 67:5D26
@@ -560,14 +560,14 @@ PasswordChange_HandleHttpStatus:: ; 67:5D26
 	ld a, [wMobileErrorCode]
 	cp a, $32
 	jr nz, PasswordChange_Cleanup
-	ld a, [wRam_C274]
+	ld a, [wMobileErrorDetailHi]
 	cp a, $03
 	jr nz, PasswordChange_Cleanup
 
 	; [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0;
 	; fall-through of the jrcc at 67:5D38 (executed) | 43 insn(s) executed; cut out of the PROBABLE
 	; region 5D3A-5D99 by apply_coverage --split [executed in 1 scenarios]
-	ld a, [wRam_C273]
+	ld a, [wMobileErrorDetail]
 	dec a
 	jr z, PasswordChange_FollowRedirect
 	dec a

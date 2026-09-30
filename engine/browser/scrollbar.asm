@@ -292,13 +292,13 @@ Function_4E_5CB6::
 	cp a, $02
 	jr z, .l5CFB
 	ld de, $8FF0
-	ld hl, Data_47_4080
+	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_4080
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
-	ld hl, Data_47_4090
+	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_4090
 	ld a, $47
 	ld b, $98
 	ld c, $03
@@ -311,13 +311,13 @@ Function_4E_5CB6::
 	jp .l5D66
 .l5CFB ; 4E:5CFB
 	ld de, $8FF0
-	ld hl, Data_47_40C0
+	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_40C0
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
-	ld hl, Data_47_40D0
+	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_40D0
 	ld a, $47
 	ld b, $98
 	ld c, $03
@@ -333,13 +333,13 @@ Function_4E_5CB6::
 	; [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1;
 	; entered by jrcc from 4E:5CBB (executed) [executed in 2 scenarios]
 	ld de, $8FF0
-	ld hl, Data_47_4000
+	ld hl, Gfx_BrowserScrollbar_Tiles8FF0_47_4000
 	ld a, $47
 	ld b, $98
 	ld c, $01
 	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
-	ld hl, Data_47_4010
+	ld hl, Gfx_BrowserScrollbar_Tiles97D0_47_4010
 	ld a, $47
 	ld b, $98
 	ld c, $03

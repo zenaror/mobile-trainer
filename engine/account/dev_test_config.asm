@@ -188,9 +188,9 @@ Function_68_4F71::
 	call MobileAPI
 	ld [wMobileErrorCode], a
 	ld a, l
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, h
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, c
 	ld [wMobileErrorExtra], a
 	ld a, b
@@ -199,9 +199,9 @@ Function_68_4F71::
 	ret
 
 Mobile_ShowLastError:: ; 68:4F8C
-	ld a, [wRam_C273]
+	ld a, [wMobileErrorDetail]
 	ld l, a
-	ld a, [wRam_C274]
+	ld a, [wMobileErrorDetailHi]
 	ld h, a
 	ld a, [wMobileErrorCode]
 	farcall CommErr_ShowScreen

@@ -39,18 +39,19 @@ Palette_2C_7C00::
 
 Table_AddrScreenUnused_Objects:: ; 2C:7C40
 Table_2C_7C40::
-	dw Data_2C_7C50
+	dw AddrScreenUnused_ObjAnimData
 	dw $7C77
-	dw Data_2C_7C50
+	dw AddrScreenUnused_ObjAnimData
 	dw $7C77
-	dw Data_2C_7C50
+	dw AddrScreenUnused_ObjAnimData
 	dw $7C77
-	dw Data_2C_7C50
+	dw AddrScreenUnused_ObjAnimData
 	dw $7C77
 
 ; ---- data $7C50-$7C80 (48 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 7C40 table (7C50, 7C77)
 
-Data_2C_7C50:: ; 2C:7C50
+AddrScreenUnused_ObjAnimData:: ; 2C:7C50
+Data_2C_7C50::
 	db $52, $7C, $09, $00, $00, $00, $0A, $00, $08, $01, $0A, $00, $10, $02, $0A, $08
 	db $00, $03, $0A, $08, $08, $04, $0A, $08, $10, $05, $0A, $10, $00, $06, $0A, $10
 	db $08, $07, $0A, $10, $10, $08, $0A, $01, $00, $04, $00, $00, $00, $00, $00, $00

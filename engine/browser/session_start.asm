@@ -11,7 +11,7 @@ Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	ld a, b
 	ld [wRam_C2C6], a
 	ld a, d
-	ld [wRam_C2C4], a
+	ld [wBrowserDialSlotPlus1], a
 	ld a, $01
 	ld [wCommSessionKind], a
 	ld a, $00
@@ -39,7 +39,7 @@ Browser_LoadHomePage:: ; 4E:48CB
 	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
-	ld [wRam_C2C4], a
+	ld [wBrowserDialSlotPlus1], a
 	xor a, a
 	ld [wRam_C2C5], a
 	ld [wRam_C2C6], a
@@ -71,7 +71,7 @@ Browser_LoadStagedUrl:: ; 4E:493B
 	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
-	ld [wRam_C2C4], a
+	ld [wBrowserDialSlotPlus1], a
 	xor a, a
 	ld [wRam_C2C5], a
 	ld [wRam_C2C6], a
@@ -88,7 +88,7 @@ Browser_LoadAndDispatch:: ; 4E:4962
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld [wBrowserNavigating], a
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ld a, $01
 	ld [wBrowserFetchActive], a
 	ld a, [wTimerEnable]

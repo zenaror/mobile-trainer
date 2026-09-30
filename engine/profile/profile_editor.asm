@@ -527,7 +527,7 @@ Function_2A_57BD::
 	farcall Gfx_StartHDMA
 	call VBlank_Wait
 	ld de, $8000
-	ld hl, Data_26_7820
+	ld hl, Gfx_Profile_Tiles8000
 	ld a, $26
 	ld b, $94
 	ld c, $2A
@@ -535,7 +535,7 @@ Function_2A_57BD::
 	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
-	ld hl, Palette_26_7AC0
+	ld hl, Palette_Profile_Obj
 	ld a, $26
 	farcall Palette_LoadToBuffer
 	call VBlank_Wait
@@ -1790,7 +1790,7 @@ Profile_ApplyVu:: ; 2A:5FD4
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld de, String_2A_6081
+	ld de, Table_Profile_ApplyVu_CharPairs
 .loop ; 2A:5FEE
 	ld a, [de]
 	inc de
@@ -1901,7 +1901,8 @@ Profile_ApplyVu:: ; 2A:5FD4
 ; ---- text $6081-$6086 (5 bytes) [PROBABLE] Shift-JIS NUL-terminated string (2 x 82 A4 = full-width 'う' x2); address loaded by 'ld de,$6081' at 2A:5FEA
 
 PUSHC sjis
-String_2A_6081:: ; 2A:6081
+Table_Profile_ApplyVu_CharPairs:: ; 2A:6081
+String_2A_6081::
 	db "うう", 0
 POPC
 

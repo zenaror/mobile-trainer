@@ -8,9 +8,9 @@ MailSession_ShowCommError:: ; 26:5067
 	; [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 7;
 	; entered by jpcc from 26:46B7 (executed) [executed in 4 scenarios]
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	ld b, a
@@ -66,9 +66,9 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	; [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 50B6-5168 by apply_coverage
 	; --split [executed in 2 scenarios]
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	ld a, $01

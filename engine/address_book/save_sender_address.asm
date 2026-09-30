@@ -170,13 +170,13 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ld c, $23
 	farcall Gfx_StartHDMA
 	ld de, $8000
-	ld hl, Data_28_4BD0
+	ld hl, Gfx_AddrBookShared_Tiles8000
 	ld a, $28
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMA
 	ld de, $8400
-	ld hl, Data_28_4FD0
+	ld hl, Gfx_AddrBookShared_Tiles8400
 	ld a, $28
 	ld b, $95
 	ld c, $20

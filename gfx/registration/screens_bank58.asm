@@ -6,7 +6,8 @@ SECTION "gfx/registration/screens_bank58", ROMX
 
 ; ---- gfx $4000-$41D0 (464 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 65:48D1: hl=$4000 a=$58 c=$1D de=$9001 (dest VRAM $9000, vbank=1)
 
-Tiles_58_4000:: ; 58:4000
+Gfx_Notice_Tiles9000Vb1:: ; 58:4000
+Tiles_58_4000::
 	INCBIN "gfx/registration/screens_bank58/tiles_4000.2bpp"
 
 ; ---- gfx $41D0-$4450 (640 bytes) [PROBABLE] 2bpp tile data of the bank-58 tile area 4000-7B50 (rendered 2bpp sheet shows Japanese title/registration text banners, digits and frame tiles); byte range 41D0-4450 = 40 tiles; boundaries of executed HDMA source reads (traces/detail/*/dataaccess.tsv, e.g. 4000-4450, 46D0-4BD0, 5AD0-69D0, 69D0-7150) are 16-byte aligned to the 4000 grid; no direct loader call resolved for this range
@@ -66,12 +67,14 @@ Tiles_58_7790:: ; 58:7790
 
 ; ---- data $7B50-$7B78 (40 bytes) [PROBABLE] 5 CGB palettes (40 bytes) of 4 RGB555 words: 0000 0000 0000 7FFF / 0000 414A 4273 7FFF / 0000 28D3 01FF 7FFF / 2 x 0000; executed reads cover 7B50-7E48 contiguously = these palettes followed by the 18x20 tilemap+attr at 7B78 (loaded together)
 
-Palette_58_7B50:: ; 58:7B50
+Palette_Notice_Bg:: ; 58:7B50
+Palette_58_7B50::
 	INCLUDE "gfx/registration/screens_bank58/palette_7b50.pal"
 
 ; ---- data $7B78-$7E48 (720 bytes) [CONFIRMED] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 65:4900: hl=$7B78 a=$58 b=18 rows c=20 cols (tiles then attrs) de=$D000
 
-Data_58_7B78:: ; 58:7B78
+Tilemap_Notice_58_7B78:: ; 58:7B78
+Data_58_7B78::
 	INCBIN "gfx/registration/screens_bank58/tilemap_7b78.tilemap"
 	INCBIN "gfx/registration/screens_bank58/tilemap_7b78.attrmap"
 

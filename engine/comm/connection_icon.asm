@@ -158,20 +158,20 @@ Label_69_40E0:: ; 69:40E0
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1;
 	; entered by table from 69:40D7 (executed) [executed in 1 scenarios]
 	ld de, $8200
-	ld hl, Data_51_58C0
+	ld hl, Gfx_ConnIcon_Request2_Tiles8200
 	ld a, $51
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $8600
-	ld hl, Data_51_5CC0
+	ld hl, Gfx_ConnIcon_Request2_Tiles8600
 	ld a, $51
 	ld b, $95
 	ld c, $20
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0020
 	ld de, $D860
-	ld hl, Data_51_5EC0
+	ld hl, Palette_ConnIcon_Request2_Obj4
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	jp Label_69_414D

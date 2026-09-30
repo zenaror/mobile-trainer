@@ -332,14 +332,14 @@ Function_2C_58AC::
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8000
-	ld hl, Data_28_4BD0
+	ld hl, Gfx_AddrBookShared_Tiles8000
 	ld a, $28
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	call VBlank_Wait
 	ld de, $8400
-	ld hl, Data_28_4FD0
+	ld hl, Gfx_AddrBookShared_Tiles8400
 	ld a, $28
 	ld b, $95
 	ld c, $20

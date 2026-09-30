@@ -12,7 +12,8 @@ Data_26_7420::
 
 ; ---- data $7820-$7840 (32 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 7420-7B00 by higher-priority evidence]
 
-Data_26_7820:: ; 26:7820
+Gfx_Profile_Tiles8000:: ; 26:7820
+Data_26_7820::
 	db $00, $00, $00, $00, $7F, $07, $67, $38, $40, $3F, $E0, $1F, $83, $7C, $80, $7F
 	db $3F, $20, $F1, $1E, $81, $7E, $9F, $70, $F8, $0F, $C0, $3F, $CF, $38, $7C, $87
 

@@ -37,7 +37,7 @@ ReadByteFar:: ; 00:1620
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, [hli]
-	ld [wRam_C12E], a
+	ld [wFarAccessTemp], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -46,7 +46,7 @@ ReadByteFar:: ; 00:1620
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C12E]
+	ld a, [wFarAccessTemp]
 	ret
 .l1669 ; 00:1669
 	or a, a

@@ -23,7 +23,7 @@ Pop3_StartRetr:: ; 54:4CB0
 	ld [wMobileTaskStep], a
 	ld [wRam_C240], a
 	ldh a, [hSRAMBank]
-	ld [wRam_C25E], a
+	ld [wPop3SavedSramBank], a
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -326,7 +326,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	ld [hl], a
 	xor a, a
 	farcall SramCheck_Bank0Commit
-	ld a, [wRam_C25E]
+	ld a, [wPop3SavedSramBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh [hScratchA], a
@@ -448,7 +448,7 @@ Pop3_RetrPoll:: ; 54:4CF4
 	; 4CB0-4FC3 by apply_coverage --split
 	ld a, $01
 	ld [wMailFetchStatus], a
-	ld a, [wRam_C25E]
+	ld a, [wPop3SavedSramBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh [hScratchA], a

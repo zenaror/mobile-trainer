@@ -40,14 +40,14 @@ Function_65_487C::
 	ld a, [hl]
 	ld [wRam_C280], a
 	ld de, $9001
-	ld hl, Tiles_58_4000
+	ld hl, Gfx_Notice_Tiles9000Vb1
 	ld a, $58
 	ld b, $96
 	ld c, $1D
 	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
 	ld de, $D800
-	ld hl, Palette_58_7B50
+	ld hl, Palette_Notice_Bg
 	ld a, $58
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C27E]
@@ -59,14 +59,14 @@ Function_65_487C::
 	jr z, .l4908
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_58_7B78
+	ld hl, Tilemap_Notice_58_7B78
 	ld a, $58
 	farcall Tilemap_CopyRectAndAttr
 	jr .l4919
 .l4908 ; 65:4908
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_4B_4000
+	ld hl, Tilemap_Notice_4B_4000
 	ld a, $4B
 	farcall Tilemap_CopyRectAndAttr
 .l4919 ; 65:4919

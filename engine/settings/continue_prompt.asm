@@ -26,13 +26,13 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld a, $00
 	ld [wRam_C27D], a
 	ld de, $9001
-	ld hl, Data_4B_76D0
+	ld hl, Gfx_SettingsPhone_ContinuePrompt_Tiles9000Vb1
 	ld a, $4B
 	ld b, $92
 	ld c, $40
 	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_4B_7AD0
+	ld hl, Gfx_SettingsPhone_ContinuePrompt_Tiles9400Vb1
 	ld a, $4B
 	ld b, $94
 	ld c, $30
@@ -64,7 +64,7 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
-	ld de, Table_4A_4000
+	ld de, ConfirmPages_ObjTable
 	ld a, $4A
 	ld b, $81
 	farcall Sprite_InitSlot

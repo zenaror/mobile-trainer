@@ -57,7 +57,8 @@ String_6A_65A8:: ; 6A:65A8
 
 ; ---- data $6651-$6652 (1 bytes) [CONFIRMED] read as data by executed code (in up to 3/18 scenarios); content class unknown
 
-Data_6A_6651:: ; 6A:6651
+Data_HelpMenu_ItemStringBank:: ; 6A:6651
+Data_6A_6651::
 	db $6A
 
 ; ---- words $6652-$665E (12 bytes) [PROBABLE] 3 x 4-byte entries: [0000 0000] [6672 667B] [6696 669F]; entry = pair of pointers to two NUL-terminated Shift-JIS strings (title/label) in 6A:6672-66F5; 6651 byte 6A read separately

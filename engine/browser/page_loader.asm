@@ -35,15 +35,15 @@ Label_4C_401D:: ; 4C:401D
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	jp Label_4C_40E4
@@ -54,9 +54,9 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, [wMobileResultDetail]
-	ld [wRam_C273], a
+	ld [wMobileErrorDetail], a
 	ld a, [wMobileResultDetail + 1]
-	ld [wRam_C274], a
+	ld [wMobileErrorDetailHi], a
 	ld a, [wMobileResultCode]
 	ld [wMobileErrorCode], a
 	farcall Browser_MapErrorToResult
@@ -111,9 +111,9 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	ld a, $36
 	farcall MobileAPI
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 
 .l40D3 ; 4C:40D3
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -124,18 +124,18 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jpcc at 4C:40D8 (executed) [executed in 1 scenarios]
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 
 Label_4C_40E4:: ; 4C:40E4
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 1/18 scenarios)
 	farcall Screen_FadeOutAndResetObjWindow
 	ld a, [wCommSessionKind]
 	xor a, $01
-	ld [wRam_C1D0], a
+	ld [wCommNoticeMode], a
 	ld a, [wCommSessionKind]
-	ld [wRam_C1D1], a
+	ld [wCommNoticeGfxSet], a
 	farcall Mobile_ShowLastError
 	farcall Sram_CountMobileError12Or26
 	farcall Sprite_ResetAll
@@ -145,10 +145,10 @@ Label_4C_40E4:: ; 4C:40E4
 
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0;
 	; fall-through of the jrcc at 4C:410F (executed)
-	ld a, [wRam_C274]
+	ld a, [wMobileErrorDetailHi]
 	cp a, $01
 	jr nz, .l4123
-	ld a, [wRam_C273]
+	ld a, [wMobileErrorDetail]
 	cp a, $01
 	jr z, .l4132
 	cp a, $02
@@ -189,9 +189,9 @@ Label_4C_4138:: ; 4C:4138
 	or a, a
 	jr nz, .l4157
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -267,7 +267,7 @@ Label_4C_417D:: ; 4C:417D
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l424D
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -280,7 +280,7 @@ Label_4C_417D:: ; 4C:417D
 	cp a, $1E
 	jr c, .l424C
 .l4228 ; 4C:4228
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4238
 	ld hl, $C26F
@@ -314,9 +314,9 @@ Label_4C_4251:: ; 4C:4251
 	bit 4, a
 	jp nz, .l4262
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 .l4262 ; 4C:4262
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -429,9 +429,9 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld [hli], a
 	ld [hl], a
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 	farcall Mobile_SessionInit
 .l435F ; 4C:435F
 	farcall Mobile_ConnectPoll
@@ -451,7 +451,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [wRam_C2C4]
+	ld a, [wBrowserDialSlotPlus1]
 	ld c, a
 	or a, a
 	jr nz, .l439B
@@ -612,7 +612,7 @@ Label_4C_44E8:: ; 4C:44E8
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l452F
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -629,7 +629,7 @@ Label_4C_44E8:: ; 4C:44E8
 .l450A ; 4C:450A
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4501-452E by apply_coverage --split
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l451A
 	ld hl, $C26F
@@ -719,7 +719,7 @@ Label_4C_458B:: ; 4C:458B
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l45F9
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -729,7 +729,7 @@ Label_4C_458B:: ; 4C:458B
 	cp a, $1E
 	jr c, .l45F8
 .l45D4 ; 4C:45D4
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l45E4
 	ld hl, $C26F
@@ -793,7 +793,7 @@ Label_4C_460D:: ; 4C:460D
 	ld hl, $C26F
 	bit 0, [hl]
 	jr nz, .l4685
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	ld b, a
 	ld a, [wTimerAMinutes]
 	cp a, b
@@ -810,7 +810,7 @@ Label_4C_460D:: ; 4C:460D
 .l4660 ; 4C:4660
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4657-4684 by apply_coverage --split
-	ld a, [wRam_C26E]
+	ld a, [wTimerAWarnMinute]
 	cp a, $45
 	jr nz, .l4670
 	ld hl, $C26F
@@ -843,20 +843,20 @@ Label_4C_460D:: ; 4C:460D
 	; [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jpcc at 4C:468F (executed)
 	ld a, $09
-	ld [wRam_C26E], a
+	ld [wTimerAWarnMinute], a
 	xor a, a
-	ld [wRam_C26F], a
+	ld [wTimerAWarnFlags], a
 
 .l469B ; 4C:469B
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
-	ld a, [wRam_C1DC]
+	ld a, [wBrowserPendingMessage]
 	or a, a
 	ret z
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the retcc at 4C:469F (executed) [executed in 1 scenarios]
 	ld a, $0C
-	ld [wRam_C1DC], a
+	ld [wBrowserPendingMessage], a
 	ret
 
 Url_StripFragment:: ; 4C:46A6

@@ -53,13 +53,15 @@ MailServerDeleteMethod_ObjPalette:: ; 28:6E40
 
 ; ---- words $6E80-$6EA0 (32 bytes) [PROBABLE] 2 rows of 16 bytes = 4 identical 4-byte object-table entries (ptr to frame table, ptr to script); every pointer lands on a frame-table/script start found by the sequential sweep of 6E80-7A5D (28:6E80-7A5D); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs
 
-Table_28_6E80:: ; 28:6E80
-	dw Data_28_6EA0, $6EC6, Data_28_6EA0, $6EC6, Data_28_6EA0, $6EC6, Data_28_6EA0, $6EC6
+MailServerDeleteMethod_ObjTable:: ; 28:6E80
+Table_28_6E80::
+	dw MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6, MailServerDeleteMethod_ObjAnimData, $6EC6
 	dw $6ECB, $6F09, $6ECB, $6F09, $6ECB, $6F09, $6ECB, $6F09
 
 ; ---- data $6EA0-$6F20 (128 bytes) [PROBABLE] 2 object record(s): 2 frame tables, 4 frames, 3 scripts, tiled exactly (each frame-table word = start of a frame; frames and scripts follow in order); object animation database as consumed by 00:0A82/0AB8 (init_object_from_table): table rows of 4-byte entries (frame-table ptr, script ptr); frame table = words to frames; frame = count then count x (dy,dx,tile,attr) OAM entries; script = count then count x 2-byte pairs; 28:6E80-7A5D [v4: bytes 6ECB-6F12 were CONFIRMED read as data by executed code (pre-classifier mapper class, traces/detail dataaccess); the content class stated here is only PROBABLE]
 
-Data_28_6EA0:: ; 28:6EA0
+MailServerDeleteMethod_ObjAnimData:: ; 28:6EA0
+Data_28_6EA0::
 	db $A4, $6E, $B5, $6E, $04, $FE, $FE, $00, $00, $FE, $1A, $00, $20, $0A, $FE, $00
 	db $40, $0A, $1A, $00, $60, $04, $FD, $FD, $00, $00, $FD, $1B, $00, $20, $0B, $FD
 	db $00, $40, $0B, $1B, $00, $60, $02, $00, $2E, $01, $08, $CF, $6E, $EC, $6E, $07

@@ -1013,18 +1013,19 @@ AbookView_DrawAddrLine3_Pad:: ; 2F:578D
 
 Table_Abook_ViewCursorAnims:: ; 2F:57B0
 Table_2F_57B0::
-	dw Data_2F_57C0
+	dw Abook_ViewCursor_ObjAnimData
 	dw $57EF
-	dw Data_2F_57C0
+	dw Abook_ViewCursor_ObjAnimData
 	dw $57EF
-	dw Data_2F_57C0
+	dw Abook_ViewCursor_ObjAnimData
 	dw $57EF
-	dw Data_2F_57C0
+	dw Abook_ViewCursor_ObjAnimData
 	dw $57EF
 
 ; ---- data $57C0-$57F2 (50 bytes) [PROBABLE] object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; target of the 57B0 table (57C0, 57EF)
 
-Data_2F_57C0:: ; 2F:57C0
+Abook_ViewCursor_ObjAnimData:: ; 2F:57C0
+Data_2F_57C0::
 	db $C2, $57, $0B, $01, $05, $06, $02, $09, $FD, $07, $02, $09, $05, $08, $02, $11
 	db $FD, $09, $02, $11, $05, $0A, $02, $1E, $00, $00, $01, $1E, $08, $01, $01, $26
 	db $00, $02, $01, $26, $08, $03, $01, $2E, $00, $04, $01, $2E, $08, $05, $01, $01
