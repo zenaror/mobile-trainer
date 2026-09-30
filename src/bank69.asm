@@ -11,23 +11,23 @@ SECTION "Bank69", ROMX[$4000], BANK[$69]
 
 ConnIcon_Init:: ; 69:4000
 Function_69_4000::
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jp nz, Label_69_4013
 
 ; ---- code $4008-$4013 (11 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 69:4005 (executed) [executed in 1 scenarios]
 	ld a, $03
-	ld [wRam_C2CE], a
+	ld [wConnIconState], a
 	xor a, a
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	jr ConnIcon_Refresh
 
 ; ---- code $4013-$4045 (50 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 
 Label_69_4013:: ; 69:4013
 	xor a, a
-	ld [wRam_C2CE], a
-	ld [wRam_C2CF], a
+	ld [wConnIconState], a
+	ld [wConnIconGfxRequest], a
 
 ConnIcon_Refresh:: ; 69:401A
 	xor a, a
@@ -51,7 +51,7 @@ ConnIcon_UpdateState:: ; 69:4034
 	ret nz
 
 Label_69_403F:: ; 69:403F
-	ld a, [wRam_C2CE]
+	ld a, [wConnIconState]
 	call JumpTableInline
 
 ; ---- ptrtable $4045-$4051 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 69:4042: 6 entries; end pinned by the executed instruction at 4051
@@ -68,11 +68,11 @@ Table_69_4045::
 ; ---- code $4051-$4074 (35 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 
 Label_69_4051:: ; 69:4051
-	ld a, [wRam_C2CF]
+	ld a, [wConnIconGfxRequest]
 	inc a
 	ret z
 	ld a, $01
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_69_4086
@@ -106,11 +106,11 @@ Label_69_4086:: ; 69:4086
 	ret
 
 Label_69_4091:: ; 69:4091
-	ld a, [wRam_C2CF]
+	ld a, [wConnIconGfxRequest]
 	inc a
 	ret z
 	ld a, $02
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_69_40C6
@@ -145,7 +145,7 @@ Label_69_40C6:: ; 69:40C6
 
 ConnIcon_LoadGraphicsIfRequested:: ; 69:40D1
 Function_69_40D1::
-	ld a, [wRam_C2CF]
+	ld a, [wConnIconGfxRequest]
 	cp a, $FF
 	ret z
 	call JumpTableInline
@@ -203,7 +203,7 @@ Label_69_4118:: ; 69:4118
 
 Label_69_414D:: ; 69:414D
 	xor a, a
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ret
 
 ; ---- gfx $4152-$4160 (14 bytes) [PROBABLE] tiles-2bpp: heuristic: 49 coherent tiles (hsim2=0.735 vsim2=0.659, 3 blank) parity 1; 993/1008 bytes also covered by call-site blocks [clipped from 4151-4541 by higher-priority evidence]

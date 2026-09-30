@@ -14,14 +14,14 @@ Function_72_4000::
 	farcall Dialog_Open
 	farcall Dialog_WaitInputMonitored
 	farcall Dialog_Close
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 Dialog_Show:: ; 72:4015
 	farcall Dialog_Open
 	farcall Dialog_WaitInput
 	farcall Dialog_Close
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 Dialog_Open:: ; 72:402A
@@ -106,11 +106,11 @@ Dialog_Open:: ; 72:402A
 	pop hl
 	ld a, [hli]
 	ld a, [hli]
-	ld [wRam_C2CD], a
+	ld [wDialogType], a
 	ld a, [hli]
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	push hl
-	ld a, [wRam_C2CD]
+	ld a, [wDialogType]
 	call Dialog_SetupCursorByType
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -186,9 +186,9 @@ Label_72_4196:: ; 72:4196
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C2E2]
+	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
-	ld a, [wRam_C2E1]
+	ld a, [wJoyRepeatDelay]
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
@@ -256,11 +256,11 @@ Dialog_OpenTall:: ; 72:41D8
 	pop hl
 	ld a, [hli]
 	ld a, [hli]
-	ld [wRam_C2CD], a
+	ld [wDialogType], a
 	ld a, [hli]
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	push hl
-	ld a, [wRam_C2CD]
+	ld a, [wDialogType]
 	call Dialog_SetupCursorByType
 	ld hl, $DC00
 	ld bc, $0400
@@ -359,9 +359,9 @@ Label_72_435F:: ; 72:435F
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C2E2]
+	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
-	ld a, [wRam_C2E1]
+	ld a, [wJoyRepeatDelay]
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
@@ -400,13 +400,13 @@ Label_72_43B6:: ; 72:43B6
 	ld hl, $DAC0
 	call Function_00_09E6
 	ld a, $00
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $43C1-$43DC (27 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by table from 72:43A7 (executed)
 
 Label_72_43C1:: ; 72:43C1
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	or a, a
 	jr z, Label_72_43D1
 	ld de, $D058
@@ -423,7 +423,7 @@ Label_72_43D1:: ; 72:43D1
 ; ---- code $43DC-$4572 (406 bytes) [CONFIRMED] 177 insn(s); 177 executed (in up to 4/18 scenarios)
 
 Label_72_43DC:: ; 72:43DC
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	or a, a
 	jr z, Label_72_43EC
 	ld de, $C058
@@ -458,7 +458,7 @@ Label_72_4412:: ; 72:4412
 
 Label_72_441B:: ; 72:441B
 	ld a, $00
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ld hl, $D248
 	ld a, $A0
 
@@ -501,7 +501,7 @@ Dialog_DrawButtonTiles:: ; 72:4424
 
 Dialog_Close:: ; 72:444F
 	call Function_00_0392
-	ld a, [wRam_C2CD]
+	ld a, [wDialogType]
 	cp a, $03
 	jp nc, Dialog_CloseTall
 	ldh [hScratchA], a
@@ -650,7 +650,7 @@ Table_72_4596::
 ; ---- code $45A0-$4603 (99 bytes) [CONFIRMED] 45 insn(s); 45 executed (in up to 3/18 scenarios)
 
 Label_72_45A0:: ; 72:45A0
-	ld a, [wRam_C2CD]
+	ld a, [wDialogType]
 	cp a, $05
 	jr z, Label_72_45AC
 	cp a, $02
@@ -673,9 +673,9 @@ Label_72_45B9:: ; 72:45B9
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	xor a, $01
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	or a, a
 	jr nz, Label_72_45DE
 	ld de, $7828
@@ -698,9 +698,9 @@ Label_72_45EA:: ; 72:45EA
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	inc a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_4600:: ; 72:4600
@@ -723,11 +723,11 @@ Label_72_4606:: ; 72:4606
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Dialog_WaitInputMonitored:: ; 72:461A
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_72_467A
 	ld a, [wTimerEnable]
@@ -744,13 +744,13 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	jr nz, Label_72_4675
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_72_4674
 
 ; ---- code $4647-$4674 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 72:4645 (executed)
 	jr nz, Label_72_4650
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_72_4674
 
@@ -806,7 +806,7 @@ Table_72_4698::
 ; ---- code $46A2-$46AE (12 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 
 Label_72_46A2:: ; 72:46A2
-	ld a, [wRam_C2CD]
+	ld a, [wDialogType]
 	cp a, $05
 	jr z, Label_72_46AE
 	cp a, $02
@@ -831,9 +831,9 @@ Label_72_46BB:: ; 72:46BB
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	xor a, $01
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	or a, a
 	jr nz, Label_72_46E0
 	ld de, $7828
@@ -856,9 +856,9 @@ Label_72_46EC:: ; 72:46EC
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	inc a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_4702:: ; 72:4702
@@ -879,24 +879,24 @@ Label_72_4708:: ; 72:4708
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $471C-$472B (15 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jpcc from 72:462B (executed)
 
 Label_72_471C:: ; 72:471C
 	ld a, $03
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_4721:: ; 72:4721
 	ld a, $04
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_4726:: ; 72:4726
 	ld a, $05
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $472B-$4836 (267 bytes) [CONFIRMED] 123 insn(s); 123 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
@@ -1032,7 +1032,7 @@ Dialog_InitWindowRegs:: ; 72:4805
 
 Dialog_SlideIn:: ; 72:4824
 	ld a, $FF
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 
 Label_72_4829:: ; 72:4829
 	ld a, [hli]
@@ -1098,12 +1098,12 @@ Label_72_4848:: ; 72:4848
 
 Label_72_486D:: ; 72:486D
 	xor a, a
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ret
 
 Dialog_SlideOut:: ; 72:4872
 	ld a, $FF
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 
 Label_72_4877:: ; 72:4877
 	ld a, [hli]
@@ -1169,7 +1169,7 @@ Label_72_4896:: ; 72:4896
 
 Label_72_48BB:: ; 72:48BB
 	xor a, a
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ret
 
 ; ---- gfx $48C0-$4CC0 (1024 bytes) [CONFIRMED] tiles-vram: 2 call site(s) (72:4069 72:41F0); first: hdma_rom_to_vram at 72:4069: hl=$48C0 a=$72 c=$40 de=$8801 (dest VRAM $8800, vbank=1)
@@ -1907,7 +1907,7 @@ Data_72_63D7:: ; 72:63D7
 ; ---- code $63D8-$6556 (382 bytes) [PROBABLE] 142 insn(s) reached by static flow only; seeds: exec x142; min discovery hops 1; entered by far from 4E:4D16 (PROBABLE code)
 
 BrowserMenu_OpenTwoItem:: ; 72:63D8
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2007,7 +2007,7 @@ Label_72_6495:: ; 72:6495
 	ld de, $0A1A
 	ld a, $00
 	call Function_00_0A45
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	farcall BrowserMenu_DrawItemTwo
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2042,9 +2042,9 @@ Label_72_6515:: ; 72:6515
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	ld a, [wRam_C2E2]
+	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
-	ld a, [wRam_C2E1]
+	ld a, [wJoyRepeatDelay]
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
@@ -2064,14 +2064,14 @@ Data_72_6556:: ; 72:6556
 ; ---- code $6563-$65EB (136 bytes) [PROBABLE] 54 insn(s) reached by static flow only; seeds: exec x54; min discovery hops 1; entered by far from 4E:4D1C (PROBABLE code)
 
 BrowserMenu_RunTwoItem:: ; 72:6563
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 
 Label_72_6565:: ; 72:6565
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	farcall BrowserMenu_DrawItemTwo
 
 Label_72_656D:: ; 72:656D
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_72_65CD
 	ld a, [wTimerEnable]
@@ -2088,11 +2088,11 @@ Label_72_656D:: ; 72:656D
 	jr nz, Label_72_65C8
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_72_65C7
 	jr nz, Label_72_65A3
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_72_65C7
 
@@ -2161,7 +2161,7 @@ Label_72_6602:: ; 72:6602
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	inc a
 	cp a, $02
 	jp nz, Label_72_6565
@@ -2177,7 +2177,7 @@ Label_72_661E:: ; 72:661E
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
 	jp z, Label_72_6565
@@ -2188,7 +2188,7 @@ Label_72_663B:: ; 72:663B
 	jp Label_72_656D
 
 Label_72_663E:: ; 72:663E
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $6643-$6647 (4 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:6640: 2 entries; end is a heuristic guess (words stay plausible code pointers)
@@ -2223,12 +2223,12 @@ Label_72_665A:: ; 72:665A
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_6677:: ; 72:6677
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_667B:: ; 72:667B
@@ -2241,22 +2241,22 @@ Label_72_667B:: ; 72:667B
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_6690:: ; 72:6690
 	ld a, $04
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_6695:: ; 72:6695
 	ld a, $05
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_669A:: ; 72:669A
 	ld a, $06
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 BrowserMenu_DrawItemTwo:: ; 72:669F
@@ -2328,7 +2328,7 @@ Data_72_6711:: ; 72:6711
 
 BrowserMenu_OpenThreeItem:: ; 72:6712
 Function_72_6712::
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2433,7 +2433,7 @@ Label_72_67D1:: ; 72:67D1
 	ld de, $0A1A
 	ld a, $00
 	call Function_00_0A45
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	farcall BrowserMenu_DrawItemThree
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -2468,9 +2468,9 @@ Label_72_6851:: ; 72:6851
 	ldh [rLCDC], a
 	ei
 	call Function_00_0392
-	ld a, [wRam_C2E2]
+	ld a, [wJoyRepeatInterval]
 	ld [wRam_C2E4], a
-	ld a, [wRam_C2E1]
+	ld a, [wJoyRepeatDelay]
 	ld [wRam_C2E3], a
 	ld b, $14
 	ld c, $04
@@ -2491,14 +2491,14 @@ Data_72_6892:: ; 72:6892
 
 BrowserMenu_RunThreeItem:: ; 72:689F
 Function_72_689F::
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 
 Label_72_68A1:: ; 72:68A1
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	farcall BrowserMenu_DrawItemThree
 
 Label_72_68A9:: ; 72:68A9
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_72_6909
 	ld a, [wTimerEnable]
@@ -2515,13 +2515,13 @@ Label_72_68A9:: ; 72:68A9
 	jr nz, Label_72_6904
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_72_6903
 
 ; ---- code $68D6-$6903 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 72:68D4 (executed)
 	jr nz, Label_72_68DF
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_72_6903
 
@@ -2594,7 +2594,7 @@ Label_72_693E:: ; 72:693E
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	inc a
 	cp a, $03
 	jp nz, Label_72_68A1
@@ -2610,7 +2610,7 @@ Label_72_695A:: ; 72:695A
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	dec a
 	bit 7, a
 	jp z, Label_72_68A1
@@ -2621,7 +2621,7 @@ Label_72_6977:: ; 72:6977
 	jp Label_72_68A9
 
 Label_72_697A:: ; 72:697A
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $697F-$6985 (6 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:697C: 3 entries; end is a heuristic guess (words stay plausible code pointers)
@@ -2654,7 +2654,7 @@ Label_72_6998:: ; 72:6998
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_69AD:: ; 72:69AD
@@ -2670,14 +2670,14 @@ Label_72_69AD:: ; 72:69AD
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $69CA-$69CE (4 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
 Label_72_69CA:: ; 72:69CA
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $69CE-$69F3 (37 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 1; entered by table from 72:697C (PROBABLE code)
@@ -2691,24 +2691,24 @@ Label_72_69CE:: ; 72:69CE
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	inc a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_69E4:: ; 72:69E4
 	ld a, $04
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_69E9:: ; 72:69E9
 	ld a, $05
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 Label_72_69EE:: ; 72:69EE
 	ld a, $06
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ret
 
 ; ---- code $69F3-$6ADF (236 bytes) [CONFIRMED] 106 insn(s); 106 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call

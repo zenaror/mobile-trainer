@@ -182,7 +182,7 @@ MailBody_InitScreen:: ; 28:404E
 
 MailBody_DrawTextLine:: ; 28:41CB
 	ld a, $18
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_28_41D0:: ; 28:41D0
 	ld a, $01
@@ -225,10 +225,10 @@ Label_28_41D0:: ; 28:41D0
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_28_426B
 	cp a, $01
@@ -249,9 +249,9 @@ Label_28_422B:: ; 28:422B
 	pop de
 	pop bc
 	call MailBody_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_28_426B
 	cp a, $01
@@ -268,9 +268,9 @@ Label_28_4250:: ; 28:4250
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call Function_28_429F
 
 ; ---- code $426B-$42B7 (76 bytes) [CONFIRMED] 42 insn(s); 42 executed (in up to 1/18 scenarios)
@@ -287,11 +287,11 @@ Label_28_426B:: ; 28:426B
 	pop bc
 
 Label_28_427C:: ; 28:427C
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call Function_28_429F
 	jr Label_28_427C
 

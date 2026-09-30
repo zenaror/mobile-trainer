@@ -21,11 +21,11 @@ Function_57_4000::
 	pop de
 	pop bc
 	ld a, d
-	ld [wRam_C18A], a
+	ld [wConnectDialogArgBank], a
 	ld a, c
-	ld [wRam_C18B], a
+	ld [wConnectDialogArgPtr], a
 	ld a, b
-	ld [wRam_C18C], a
+	ld [wConnectDialogArgPtr + 1], a
 	ld h, b
 	ld l, c
 	ld a, d
@@ -91,11 +91,11 @@ ConnectDialog_Run_Cancel:: ; 57:408D
 
 ConnectDialog_Run_Accept:: ; 57:4096
 	farcall Palette_FadeOutToWhite
-	ld a, [wRam_C18B]
+	ld a, [wConnectDialogArgPtr]
 	ld l, a
-	ld a, [wRam_C18C]
+	ld a, [wConnectDialogArgPtr + 1]
 	ld h, a
-	ld a, [wRam_C18A]
+	ld a, [wConnectDialogArgBank]
 	ld d, a
 	inc hl
 	inc hl
@@ -110,7 +110,7 @@ ConnectDialog_Run_Accept:: ; 57:4096
 	ld h, a
 	ld l, e
 	ld de, $C1B2
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	ld c, a
 
 Label_57_40C3:: ; 57:40C3
@@ -340,11 +340,11 @@ Label_57_4243:: ; 57:4243
 Label_57_424E:: ; 57:424E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C18B]
+	ld a, [wConnectDialogArgPtr]
 	ld l, a
-	ld a, [wRam_C18C]
+	ld a, [wConnectDialogArgPtr + 1]
 	ld h, a
-	ld a, [wRam_C18A]
+	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
 	jr nc, Label_57_4267
@@ -374,7 +374,7 @@ ConnectDialog_Input_Keyboard:: ; 57:426B
 	ret
 
 ConnectDialog_Keyboard_AppendChar:: ; 57:4299
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	cp a, $08
 	jr z, Label_57_430D
 	ldh a, [hWRAMBank]
@@ -401,7 +401,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	call ReadByteFar
 	ld b, a
 	ld hl, $C1B2
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	add a, l
 	ld l, a
 	ld a, h
@@ -411,7 +411,7 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, b
 	farcall Text_HalfToFullWidth
 	ld hl, $C1BA
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, l
 	ld l, a
@@ -423,9 +423,9 @@ ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld [hl], c
 	inc hl
 	ld [hl], $00
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	inc a
-	ld [wRam_C1CB], a
+	ld [wConnectDialogTextLen], a
 	call ConnectDialog_RenderTypedChars
 	xor a, a
 	ret
@@ -468,7 +468,7 @@ Label_57_4339:: ; 57:4339
 	ret
 
 ConnectDialog_Keyboard_EraseChar:: ; 57:433F
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	or a, a
 	jr z, Label_57_438E
 	ldh a, [hWRAMBank]
@@ -480,9 +480,9 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	pop af
 	ldh [rSVBK], a
 	call ConnectDialog_DrawPasswordField
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	dec a
-	ld [wRam_C1CB], a
+	ld [wConnectDialogTextLen], a
 	ld hl, $DA20
 	ld de, Table_56_79B8
 	ld a, $56
@@ -494,7 +494,7 @@ ConnectDialog_Keyboard_EraseChar:: ; 57:433F
 	call Function_00_0A45
 	call ConnectDialog_PlaceCaretSprites
 	ld hl, $C1BA
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, l
 	ld l, a
@@ -624,11 +624,11 @@ Label_57_4453:: ; 57:4453
 Label_57_445E:: ; 57:445E
 	ld a, $01
 	call ConnectDialog_PlayButtonSfx
-	ld a, [wRam_C18B]
+	ld a, [wConnectDialogArgPtr]
 	ld l, a
-	ld a, [wRam_C18C]
+	ld a, [wConnectDialogArgPtr + 1]
 	ld h, a
-	ld a, [wRam_C18A]
+	ld a, [wConnectDialogArgBank]
 	call ReadByteFar
 	cp a, $03
 	jr nc, Label_57_4477
@@ -757,11 +757,11 @@ ConnectDialog_Enter_Keyboard:: ; 57:4517
 	ld a, $1A
 	ldh [rLYC], a
 	ld a, [wLcdStatVector]
-	ld [wRam_C130], a
+	ld [wSavedLcdStatVector], a
 	ld a, [wLcdStatVector + 1]
-	ld [wRam_C131], a
+	ld [wSavedLcdStatVector + 1], a
 	ld a, [wLcdStatVector + 2]
-	ld [wRam_C132], a
+	ld [wSavedLcdStatVector + 2], a
 	ld a, $C3
 	ld [wLcdStatVector], a
 	ld a, $DC
@@ -804,7 +804,7 @@ Label_57_4566:: ; 57:4566
 
 ConnectDialog_Enter_PasswordSaved:: ; 57:4590
 	ld de, $C1B2
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	call SavedPassword_Store
 	ret
 
@@ -814,7 +814,7 @@ ConnectDialog_Enter_StoredPassword:: ; 57:459A
 	ld a, $01
 	ld hl, $A880
 	call ReadByteFar
-	ld [wRam_C1CB], a
+	ld [wConnectDialogTextLen], a
 	ld c, a
 	ld hl, $A88D
 	ld de, $C1B2
@@ -983,11 +983,11 @@ ConnectDialog_Leave_Keyboard:: ; 57:46E0
 	and a, $87
 	ldh [rSTAT], a
 	ld hl, $CBF4
-	ld a, [wRam_C130]
+	ld a, [wSavedLcdStatVector]
 	ld [hli], a
-	ld a, [wRam_C131]
+	ld a, [wSavedLcdStatVector + 1]
 	ld [hli], a
-	ld a, [wRam_C132]
+	ld a, [wSavedLcdStatVector + 2]
 	ld [hl], a
 	ldh a, [rIE]
 	and a, $FD
@@ -1062,7 +1062,7 @@ ConnectDialog_Leave_ForgetConfirm:: ; 57:477E
 	cp a, $09
 	jr z, Label_57_47A5
 	xor a, a
-	ld [wRam_C1CB], a
+	ld [wConnectDialogTextLen], a
 	ld b, a
 	ld a, $01
 	ld hl, $A880
@@ -1221,11 +1221,11 @@ Label_57_4914:: ; 57:4914
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C18B]
+	ld a, [wConnectDialogArgPtr]
 	ld l, a
-	ld a, [wRam_C18C]
+	ld a, [wConnectDialogArgPtr + 1]
 	ld h, a
-	ld a, [wRam_C18A]
+	ld a, [wConnectDialogArgBank]
 	ld de, $0006
 	add hl, de
 	call ReadByteFar
@@ -1976,7 +1976,7 @@ Label_57_50B3:: ; 57:50B3
 	jr c, Label_57_50A6
 
 ; ---- code $50BA-$510F (85 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 0; fall-through of the jrcc at 57:50B8 (executed) [executed in 1 scenarios]
-	ld a, [wRam_C0F7]
+	ld a, [wConnectDialogLowerWindowShown]
 	or a, a
 	jr z, Label_57_50CA
 	call ConnectDialog_HideLowerWindow
@@ -2098,7 +2098,7 @@ Label_57_51AB:: ; 57:51AB
 ; ---- code $51BC-$520D (81 bytes) [CONFIRMED] 40 insn(s); 40 executed (in up to 5/18 scenarios)
 
 Label_57_51BC:: ; 57:51BC
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	or a, a
 	jr z, Label_57_51E8
 	ld c, a
@@ -2152,7 +2152,7 @@ Label_57_51E8:: ; 57:51E8
 ; ---- code $520D-$52D8 (203 bytes) [CONFIRMED] 114 insn(s) reached by static flow only; seeds: exec x114; min discovery hops 2; entered by jp from 57:515D (PROBABLE code) [executed in 4 scenarios]
 
 Label_57_520D:: ; 57:520D
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	cp a, $08
 	jr z, Label_57_5258
 	ld c, a
@@ -2250,7 +2250,7 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	ld d, a
 
 Label_57_529D:: ; 57:529D
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, a
 	add a, a
@@ -2269,7 +2269,7 @@ Label_57_529D:: ; 57:529D
 	ld d, a
 
 Label_57_52BF:: ; 57:52BF
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	add a, a
 	add a, a
 	add a, a
@@ -2349,7 +2349,7 @@ ConnectDialog_ObjHook_FollowRaster:: ; 57:531E
 ; ---- code $5340-$541C (220 bytes) [PROBABLE] 122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code)
 
 ConnectDialog_ShowLowerWindow:: ; 57:5340
-	ld a, [wRam_C0F7]
+	ld a, [wConnectDialogLowerWindowShown]
 	or a, a
 	ret nz
 	ldh a, [rLCDC]
@@ -2358,11 +2358,11 @@ ConnectDialog_ShowLowerWindow:: ; 57:5340
 	ld a, $38
 	ldh [rWY], a
 	ld a, $01
-	ld [wRam_C0F7], a
+	ld [wConnectDialogLowerWindowShown], a
 	ret
 
 ConnectDialog_HideLowerWindow:: ; 57:5355
-	ld a, [wRam_C0F7]
+	ld a, [wConnectDialogLowerWindowShown]
 	or a, a
 	ret z
 	ldh a, [rLCDC]
@@ -2371,13 +2371,13 @@ ConnectDialog_HideLowerWindow:: ; 57:5355
 	ld a, $90
 	ldh [rWY], a
 	xor a, a
-	ld [wRam_C0F7], a
+	ld [wConnectDialogLowerWindowShown], a
 	ret
 
 ConnectDialog_ValidatePassword:: ; 57:5369
 	ld b, $00
 	ld c, $00
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	cp a, $04
 	ret c
 	ld e, a
@@ -2397,7 +2397,7 @@ Label_57_5380:: ; 57:5380
 
 Label_57_5384:: ; 57:5384
 	ld hl, $C1B2
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	ld e, a
 
 Label_57_538B:: ; 57:538B
@@ -2411,7 +2411,7 @@ Label_57_5394:: ; 57:5394
 	dec e
 	jr nz, Label_57_538B
 	ld hl, $C1B2
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	ld e, a
 
 Label_57_539E:: ; 57:539E
@@ -2428,7 +2428,7 @@ Label_57_53A7:: ; 57:53A7
 	ret
 
 Label_57_53AD:: ; 57:53AD
-	ld a, [wRam_C1CB]
+	ld a, [wConnectDialogTextLen]
 	cp a, $08
 	jr nz, Label_57_53B6
 	ld c, $01

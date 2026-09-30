@@ -1241,7 +1241,7 @@ Label_23_4A34:: ; 23:4A34
 	jr nz, Label_23_4ADC
 
 Label_23_4A80:: ; 23:4A80
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_23_4AA6
 	cp a, $20
@@ -1283,8 +1283,8 @@ Label_23_4AC0:: ; 23:4AC0
 
 Label_23_4ACD:: ; 23:4ACD
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_23_4ADB:: ; 23:4ADB
@@ -1331,13 +1331,13 @@ Label_23_4B1A:: ; 23:4B1A
 
 Label_23_4B28:: ; 23:4B28
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_23_4B36:: ; 23:4B36
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 	xor a, a
 	pop af
@@ -1414,7 +1414,7 @@ Label_23_4B76:: ; 23:4B76
 ; ---- code $4BC1-$4BE5 (36 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 23:4BB7 (executed) [executed in 2 scenarios]
 
 Label_23_4BC1:: ; 23:4BC1
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_23_4BE7
 	cp a, $20
@@ -1456,8 +1456,8 @@ Label_23_4C01:: ; 23:4C01
 
 Label_23_4C0E:: ; 23:4C0E
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_23_4C1C:: ; 23:4C1C
@@ -1515,13 +1515,13 @@ Label_23_4C5D:: ; 23:4C5D
 
 Label_23_4C6B:: ; 23:4C6B
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_23_4C79:: ; 23:4C79
 	ld a, $02
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 	xor a, a
 	pop af
@@ -1625,11 +1625,11 @@ MailSrvDel_DeleteAllRun_CheckLoop:: ; 23:4D39
 	jr nz, Label_23_4D82
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_23_4D81
 	jr nz, Label_23_4D5D
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_23_4D81
 
@@ -1857,11 +1857,11 @@ MailSrvDel_DeleteAllRun_DeleteLoop:: ; 23:4EB7
 	jr nz, Label_23_4F0B
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_23_4F0A
 	jr nz, Label_23_4EE6
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_23_4F0A
 
@@ -2472,11 +2472,11 @@ MailSrvDel_DeleteCompletelyRun_DeleteLoop:: ; 23:5324
 	jr nz, Label_23_5378
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_23_5377
 	jr nz, Label_23_5353
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_23_5377
 
@@ -5771,7 +5771,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5795,7 +5795,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -5807,7 +5807,7 @@ MailSrvDel_DrawElapsedTime:: ; 23:6F00
 Label_23_6F3C:: ; 23:6F3C
 	ld a, b
 	ld [wRam_D624], a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, $3C
 	jr c, Label_23_6F89
 
@@ -5828,7 +5828,7 @@ Label_23_6F47:: ; 23:6F47
 	jp Label_23_6FCB
 
 ; ---- code $6F60-$6F6F (15 bytes) [HYPOTHESIS] ld a,[$C2D6] ; add a,$3C ; cp $64 ; jr nc ; ld l,a ; ld h,0 ; ld de,$000A then the far call at 6F6F: decodes exactly to the next region start (7 insn)
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
 	jr nc, Label_23_6F47
@@ -5850,7 +5850,7 @@ Label_23_6F47:: ; 23:6F47
 	jr Label_23_6FAA
 
 Label_23_6F89:: ; 23:6F89
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
 	ld de, $000A
@@ -5866,7 +5866,7 @@ Label_23_6F89:: ; 23:6F89
 	ld [wRam_D222], a
 
 Label_23_6FAA:: ; 23:6FAA
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld l, a
 	ld h, $00
 	ld de, $000A

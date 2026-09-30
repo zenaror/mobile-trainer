@@ -12,14 +12,14 @@ SECTION "Bank54", ROMX[$4000], BANK[$54]
 Mobile_ResetCommandTimer:: ; 54:4000
 Function_54_4000::
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	ld [wRam_C1DA], a
+	ld [wMobileTimeoutIssued], a
 	ret
 
 ; ---- code $4011-$403D (44 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 1; entered by far from 26:50B9 (PROBABLE code) [executed in 4 scenarios]
@@ -28,11 +28,11 @@ Mobile_FetchResult:: ; 54:4011
 	ld a, $00
 	farcall MobileAPI
 	ld b, a
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	ld a, l
-	ld [wRam_C1DE], a
+	ld [wMobileResultDetail], a
 	ld a, h
-	ld [wRam_C1DF], a
+	ld [wMobileResultDetail + 1], a
 	ld a, b
 	and a, $F0
 	cp a, $30
@@ -47,7 +47,7 @@ Mobile_FetchResult:: ; 54:4011
 	cp a, $26
 	ret z
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ret
 
 ; ---- code $403D-$406B (46 bytes) [CONFIRMED] 21 insn(s); 21 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
@@ -55,11 +55,11 @@ Mobile_FetchResult:: ; 54:4011
 Mobile_SessionInit:: ; 54:403D
 Function_54_403D::
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld hl, $FF8A
 	ld a, [hli]
 	ld h, [hl]
@@ -133,7 +133,7 @@ Label_54_4094:: ; 54:4094
 ; ---- code $40B7-$413B (132 bytes) [CONFIRMED] 53 insn(s); 53 executed (in up to 4/18 scenarios)
 
 Label_54_40B7:: ; 54:40B7
-	ld a, [wRam_C1D2]
+	ld a, [wMobileTaskArgs]
 	or a, a
 	jr nz, Label_54_4102
 	ld hl, $C240
@@ -206,20 +206,20 @@ Data_54_413B::
 Mobile_BeginConnect:: ; 54:4141
 Function_54_4141::
 	ld a, c
-	ld [wRam_C1D2], a
+	ld [wMobileTaskArgs], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld de, $C220
 	farcall CopyString
-	ld a, [wRam_C709]
+	ld a, [wMobileSDK_State]
 	cp a, $01
 	jr z, Label_54_4176
 
 ; ---- code $415A-$4176 (28 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 0; fall-through of the jrcc at 54:4158 (executed)
 	ld a, $03
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	ld a, $00
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld hl, $FF8A
 	ld a, [hli]
 	ld h, [hl]
@@ -233,9 +233,9 @@ Function_54_4141::
 
 Label_54_4176:: ; 54:4176
 	ld a, $03
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	ld a, $02
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld de, $C480
 	ld a, $0C
 	farcall MobileAPI
@@ -243,11 +243,11 @@ Label_54_4176:: ; 54:4176
 
 Mobile_BeginDisconnect:: ; 54:418C
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld a, $0A
 	farcall MobileAPI
 	ret
@@ -282,11 +282,11 @@ Label_54_41B7:: ; 54:41B7
 
 Function_54_41C5:: ; 54:41C5
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ret
 
 	ld a, [wTimerEnable]
@@ -305,7 +305,7 @@ Label_54_41E6:: ; 54:41E6
 	ret
 
 Label_54_41EC:: ; 54:41EC
-	ld a, [wRam_C709]
+	ld a, [wMobileSDK_State]
 	cp a, $1A
 	jr z, Label_54_4204
 	ld de, $C480
@@ -367,11 +367,11 @@ Label_54_422E:: ; 54:422E
 Mobile_BeginCancel:: ; 54:423C
 Function_54_423C::
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld a, [wTimerEnable]
 	bit 0, a
 	jr z, Label_54_425A
@@ -382,7 +382,7 @@ Label_54_4251:: ; 54:4251
 	ret
 
 Label_54_425A:: ; 54:425A
-	ld a, [wRam_C709]
+	ld a, [wMobileSDK_State]
 	cp a, $02
 	jr nc, Label_54_4251
 	xor a, a
@@ -417,23 +417,23 @@ Label_54_427A:: ; 54:427A
 
 Http_StartGet:: ; 54:4288
 	ld a, l
-	ld [wRam_C1D6], a
+	ld [wMobileTaskArgs + 4], a
 	ld a, h
-	ld [wRam_C1D7], a
+	ld [wMobileTaskArgs + 5], a
 	ld a, e
-	ld [wRam_C1D4], a
+	ld [wMobileTaskArgs + 2], a
 	ld a, d
-	ld [wRam_C1D5], a
+	ld [wMobileTaskArgs + 3], a
 	ld a, c
-	ld [wRam_C1D2], a
+	ld [wMobileTaskArgs], a
 	ld a, b
-	ld [wRam_C1D3], a
+	ld [wMobileTaskArgs + 1], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld [wRam_C1DC], a
 	push de
 	push hl
@@ -490,23 +490,23 @@ Label_54_42F1:: ; 54:42F1
 Http_StartPost:: ; 54:42FB
 Function_54_42FB::
 	ld a, l
-	ld [wRam_C1D6], a
+	ld [wMobileTaskArgs + 4], a
 	ld a, h
-	ld [wRam_C1D7], a
+	ld [wMobileTaskArgs + 5], a
 	ld a, e
-	ld [wRam_C1D4], a
+	ld [wMobileTaskArgs + 2], a
 	ld a, d
-	ld [wRam_C1D5], a
+	ld [wMobileTaskArgs + 3], a
 	ld a, c
-	ld [wRam_C1D2], a
+	ld [wMobileTaskArgs], a
 	ld a, b
-	ld [wRam_C1D3], a
+	ld [wMobileTaskArgs + 1], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $03
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld [wRam_C1DC], a
 	push de
 	push hl
@@ -567,27 +567,27 @@ Label_54_4383:: ; 54:4383
 	ld a, $32
 
 Label_54_4385:: ; 54:4385
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	ld a, l
-	ld [wRam_C1DE], a
+	ld [wMobileResultDetail], a
 	ld a, h
-	ld [wRam_C1DF], a
+	ld [wMobileResultDetail + 1], a
 	ld a, $FF
 	ret
 
 ; ---- code $4393-$43EE (91 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code)
 
 Label_54_4393:: ; 54:4393
-	ld a, [wRam_C1DB]
+	ld a, [wMobileRetriesLeft]
 	or a, a
 	jr z, Label_54_4383
 	ld hl, $C1DB
 	dec [hl]
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	or a, a
 	jr z, Label_54_43A8
 	ld a, $07
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 
 Label_54_43A8:: ; 54:43A8
 	call Url_ResolveLocation
@@ -601,7 +601,7 @@ Label_54_43A8:: ; 54:43A8
 	ld a, [hli]
 	ld d, a
 	ld hl, $C240
-	ld a, [wRam_C1D8]
+	ld a, [wMobileTaskKind]
 	cp a, $03
 	jr z, Label_54_43CF
 	cp a, $07
@@ -619,7 +619,7 @@ Label_54_43CF:: ; 54:43CF
 
 Label_54_43DA:: ; 54:43DA
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	inc hl
 	inc hl
 	inc hl
@@ -639,7 +639,7 @@ Label_54_43EE:: ; 54:43EE
 
 Label_54_43F1:: ; 54:43F1
 	ld bc, $0000
-	ld a, [wRam_C1D8]
+	ld a, [wMobileTaskKind]
 	cp a, $03
 	jr z, Label_54_4409
 	ld a, $2A
@@ -738,7 +738,7 @@ Label_54_4479:: ; 54:4479
 	jr Label_54_4466
 
 Mobile_BeginStop:: ; 54:4483
-	ld a, [wRam_C709]
+	ld a, [wMobileSDK_State]
 	cp a, $02
 	ret z
 	ld a, $3C
@@ -769,12 +769,12 @@ Label_54_44A6:: ; 54:44A6
 
 Mobile_CheckTimeout:: ; 54:44AC
 Function_54_44AC::
-	ld a, [wRam_C1DA]
+	ld a, [wMobileTimeoutIssued]
 	or a, a
 	jr nz, Label_54_44D7
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_54_44BF
 	xor a, a
@@ -794,9 +794,9 @@ Label_54_44C1:: ; 54:44C1
 ; ---- code $44C3-$475A (663 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed)
 	pop hl
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	inc a
-	ld [wRam_C1DA], a
+	ld [wMobileTimeoutIssued], a
 	ld a, $3C
 	farcall MobileAPI
 	ld a, $01
@@ -814,13 +814,13 @@ Label_54_44D7:: ; 54:44D7
 
 Label_54_44E6:: ; 54:44E6
 	ld a, $26
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	xor a, a
 	ld hl, $C1DE
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	ld a, $FF
 	ret
 
@@ -832,11 +832,11 @@ Label_54_44F8:: ; 54:44F8
 Smtp_StartHelo:: ; 54:44FE
 	call Mobile_ResetCommandTimer
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld hl, $C201
 	ld a, $14
 	farcall MobileAPI
@@ -866,11 +866,11 @@ Label_54_4532:: ; 54:4532
 Smtp_StartQuit:: ; 54:4538
 	call Mobile_ResetCommandTimer
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld a, $1A
 	farcall MobileAPI
 	ret
@@ -900,11 +900,11 @@ Label_54_456F:: ; 54:456F
 Smtp_StartMailFrom:: ; 54:4575
 	call Mobile_ResetCommandTimer
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1313,11 +1313,11 @@ Pop3_StartLogin:: ; 54:485C
 Function_54_485C::
 	call Mobile_ResetCommandTimer
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld hl, $C201
 	ld de, $C480
 	farcall CopyString
@@ -1335,7 +1335,7 @@ Function_54_485C::
 
 Label_54_4895:: ; 54:4895
 	ld a, $02
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ret
 
 ; ---- code $489B-$48B2 (23 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -1427,13 +1427,13 @@ Pop3_StartTop:: ; 54:4914
 	pop bc
 	pop hl
 	ld a, l
-	ld [wRam_C1D6], a
+	ld [wMobileTaskArgs + 4], a
 	ld a, h
-	ld [wRam_C1D7], a
+	ld [wMobileTaskArgs + 5], a
 	ld a, c
-	ld [wRam_C1D2], a
+	ld [wMobileTaskArgs], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	push hl
 	ld hl, $C480
 	ld bc, $0200
@@ -1447,9 +1447,9 @@ Label_54_4933:: ; 54:4933
 	jr nz, Label_54_4933
 	pop hl
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld [wRam_C240], a
 	ldh a, [hSRAMBank]
 	ld [wRam_C25E], a
@@ -1501,7 +1501,7 @@ Label_54_4995:: ; 54:4995
 	call Function_54_511D
 	or a, a
 	jr z, Label_54_4A12
-	ld a, [wRam_C1D2]
+	ld a, [wMobileTaskArgs]
 	cp a, $01
 	jp nz, Label_54_4BE8
 	ld a, $01
@@ -1531,7 +1531,7 @@ String_Mail_PleaseDelete:: ; 54:4A01
 ; ---- code $4A12-$4AD0 (190 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code)
 
 Label_54_4A12:: ; 54:4A12
-	ld a, [wRam_C1D2]
+	ld a, [wMobileTaskArgs]
 	cp a, $01
 	jp z, Label_54_4A24
 	ld a, b
@@ -1900,15 +1900,15 @@ Pop3_StartRetr:: ; 54:4CB0
 	call Mobile_ResetCommandTimer
 	pop hl
 	ld a, l
-	ld [wRam_C1D6], a
+	ld [wMobileTaskArgs + 4], a
 	ld a, h
-	ld [wRam_C1D7], a
+	ld [wMobileTaskArgs + 5], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld [wRam_C240], a
 	ldh a, [hSRAMBank]
 	ld [wRam_C25E], a
@@ -1919,7 +1919,7 @@ Pop3_StartRetr:: ; 54:4CB0
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	ld de, $A000
 	ld bc, $0FFF
 	ld a, $24
@@ -1963,7 +1963,7 @@ Label_54_4D20:: ; 54:4D20
 	ret
 
 Label_54_4D2E:: ; 54:4D2E
-	ld a, [wRam_C25D]
+	ld a, [wMailFetchStatus]
 	ld b, a
 	ld hl, $C1D8
 	xor a, a
@@ -2006,7 +2006,7 @@ Label_54_4D38:: ; 54:4D38
 	or a, a
 	jr z, Label_54_4D9A
 	ld a, $02
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	jr Label_54_4DD5
 
 Label_54_4D9A:: ; 54:4D9A
@@ -2055,7 +2055,7 @@ Label_54_4DD5:: ; 54:4DD5
 	or a, a
 	jr z, Label_54_4DF5
 	ld a, $02
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	jr Label_54_4E47
 
 Label_54_4DF5:: ; 54:4DF5
@@ -2097,7 +2097,7 @@ Label_54_4E32:: ; 54:4E32
 	cp a, $15
 	jr c, Label_54_4E47
 	ld a, $02
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	ld b, $12
 	call Text_TruncateSjis
 
@@ -2113,7 +2113,7 @@ Label_54_4E47:: ; 54:4E47
 	or a, a
 	jr z, Label_54_4E67
 	ld a, $02
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	jr Label_54_4DF5
 
 Label_54_4E67:: ; 54:4E67
@@ -2305,7 +2305,7 @@ Label_54_4F8B:: ; 54:4F8B
 
 Label_54_4FA4:: ; 54:4FA4
 	ld a, $01
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	ld a, [wRam_C25E]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -2360,7 +2360,7 @@ Label_54_4FE8:: ; 54:4FE8
 	ld b, $40
 	call Function_54_50FC
 	ld hl, $C250
-	ld a, [wRam_C1D9]
+	ld a, [wMobileTaskStep]
 	or a, a
 	jr nz, Label_54_5081
 	ld a, [hli]
@@ -2563,7 +2563,7 @@ Function_54_50FC:: ; 54:50FC
 	ld bc, $0002
 	farcall CopyBytes
 	ld a, $02
-	ld [wRam_C25D], a
+	ld [wMailFetchStatus], a
 	ret
 
 ; ---- data $511B-$511D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
@@ -2972,15 +2972,15 @@ Label_54_5397:: ; 54:5397
 	call Mobile_ResetCommandTimer
 	pop hl
 	ld a, l
-	ld [wRam_C1D6], a
+	ld [wMobileTaskArgs + 4], a
 	ld a, h
-	ld [wRam_C1D7], a
+	ld [wMobileTaskArgs + 5], a
 	ld a, $03
-	ld [wRam_C1DB], a
+	ld [wMobileRetriesLeft], a
 	ld a, $01
-	ld [wRam_C1D8], a
+	ld [wMobileTaskKind], a
 	xor a, a
-	ld [wRam_C1D9], a
+	ld [wMobileTaskStep], a
 	ld a, $26
 	farcall MobileAPI
 	ret

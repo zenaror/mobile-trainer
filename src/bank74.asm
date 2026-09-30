@@ -301,13 +301,13 @@ Label_74_41EF:: ; 74:41EF
 
 Label_74_41F2:: ; 74:41F2
 	ld a, $04
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld a, $40
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	ldh a, [hRam_FFB0]
-	ld [wRam_C1DE], a
+	ld [wMobileResultDetail], a
 	ldh a, [hRam_FFB1]
-	ld [wRam_C1DF], a
+	ld [wMobileResultDetail + 1], a
 	ret
 
 ; ---- code $4207-$4326 (287 bytes) [CONFIRMED] 114 insn(s); 114 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -321,15 +321,15 @@ Function_74_4207::
 	ld de, $0060
 	farcall Browser_SetViewport
 	xor a, a
-	ld [wRam_C335], a
+	ld [wHtmlScanOnly], a
 	ld a, $00
-	ldh [hRam_FFED], a
+	ldh [hPageHeaderPtr], a
 	ldh [hRam_FFB8], a
 	ld a, $D0
-	ldh [hRam_FFEE], a
+	ldh [hPageHeaderPtr + 1], a
 	ldh [hRam_FFB9], a
 	ld a, $04
-	ldh [hRam_FFEF], a
+	ldh [hPageHeaderPtr + 2], a
 	ldh [hRam_FFBA], a
 	ld de, $D000
 	ld a, $05
@@ -349,15 +349,15 @@ Html_ScanPage:: ; 74:4254
 	ld de, $0060
 	farcall Browser_SetViewport
 	ld a, $FF
-	ld [wRam_C335], a
+	ld [wHtmlScanOnly], a
 	ld a, $00
-	ldh [hRam_FFED], a
+	ldh [hPageHeaderPtr], a
 	ldh [hRam_FFB8], a
 	ld a, $D0
-	ldh [hRam_FFEE], a
+	ldh [hPageHeaderPtr + 1], a
 	ldh [hRam_FFB9], a
 	ld a, $04
-	ldh [hRam_FFEF], a
+	ldh [hPageHeaderPtr + 2], a
 	ldh [hRam_FFBA], a
 	ld de, $D000
 	ld a, $05
@@ -484,7 +484,7 @@ Label_74_434C:: ; 74:434C
 
 Label_74_4359:: ; 74:4359
 	ld c, a
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $08
 	jr z, Label_74_4374
 
@@ -595,9 +595,9 @@ Html_ParseSource_End:: ; 74:43C4
 
 Label_74_43FF:: ; 74:43FF
 	ld a, l
-	ldh [hRam_FFEB], a
+	ldh [hViewScrollMax], a
 	ld a, h
-	ldh [hRam_FFEC], a
+	ldh [hViewScrollMax + 1], a
 	ret
 
 Html_ParseSource_Tag:: ; 74:4406
@@ -1019,24 +1019,24 @@ Label_74_461C:: ; 74:461C
 ; ---- code $4623-$464A (39 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios)
 
 Html_Tag_Html:: ; 74:4623
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	or a, $01
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_4439
 
 Html_Tag_Head:: ; 74:462E
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_463F
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	or a, $02
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_4439
 
 Label_74_463F:: ; 74:463F
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $FD
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_4439
 
 ; ---- code $464A-$4718 (206 bytes) [PROBABLE] 83 insn(s) reached by static flow only; seeds: site x72, table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
@@ -1045,15 +1045,15 @@ Html_Tag_Body:: ; 74:464A
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_465B
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	or a, $04
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_4439
 
 Label_74_465B:: ; 74:465B
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $FB
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_4439
 
 Html_Tag_Pre:: ; 74:4666
@@ -1062,24 +1062,24 @@ Html_Tag_Pre:: ; 74:4666
 	cp a, $2F
 	jr z, Label_74_4683
 	farcall Html_Layout_EndLine
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	or a, $08
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_443F
 
 Label_74_4683:: ; 74:4683
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	farcall Html_Layout_EndLine
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $F7
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_443F
 
 Html_Tag_Meta:: ; 74:4698
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $02
 	jp z, Label_74_443F
 	ld bc, $4033
@@ -1163,8 +1163,8 @@ Html_Tag_Div:: ; 74:472E
 ; ---- code $4740-$4761 (33 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 
 Label_74_4740:: ; 74:4740
-	ld a, [wRam_C33D]
-	ld [wRam_C33C], a
+	ld a, [wHtmlAlignSp]
+	ld [wHtmlAlign], a
 	or a, a
 	jp z, Label_74_443F
 	push hl
@@ -1175,9 +1175,9 @@ Label_74_4740:: ; 74:4740
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hl]
-	ld [wRam_C33C], a
+	ld [wHtmlAlign], a
 	ld a, l
-	ld [wRam_C33D], a
+	ld [wHtmlAlignSp], a
 	pop hl
 	jp Label_74_443F
 
@@ -1208,7 +1208,7 @@ Label_74_4761:: ; 74:4761
 ; ---- code $4788-$481A (146 bytes) [CONFIRMED] 71 insn(s); 71 executed (in up to 1/18 scenarios)
 
 Label_74_4788:: ; 74:4788
-	ld a, [wRam_C33D]
+	ld a, [wHtmlAlignSp]
 	cp a, $FF
 	jp z, Label_74_443F
 	push hl
@@ -1217,12 +1217,12 @@ Label_74_4788:: ; 74:4788
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	ld [hli], a
 	ld a, l
-	ld [wRam_C33D], a
+	ld [wHtmlAlignSp], a
 	ld a, b
-	ld [wRam_C33C], a
+	ld [wHtmlAlign], a
 	pop hl
 	jp Label_74_443F
 
@@ -1236,28 +1236,28 @@ Html_Tag_Ul:: ; 74:47AA
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	cp a, $FF
 	jr z, Label_74_47E0
 	ld c, a
 	ld b, $00
 	inc a
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld hl, $D100
 	add hl, bc
 	add hl, bc
-	ld a, [wRam_C33A]
+	ld a, [wHtmlListCounter]
 	ld [hli], a
-	ld a, [wRam_C33B]
+	ld a, [wHtmlListCounter + 1]
 	or a, $80
 	ld [hli], a
 
 Label_74_47E0:: ; 74:47E0
 	pop hl
 	ld a, $00
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	ld a, $3F
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 	ldh a, [hRam_FFD9]
 	add a, $0C
 	jp c, Label_74_443F
@@ -1270,13 +1270,13 @@ Label_74_47F9:: ; 74:47F9
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
 	jr z, Label_74_4853
 
 Label_74_4808:: ; 74:4808
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
 	ld hl, $D100
@@ -1303,12 +1303,12 @@ Label_74_4822:: ; 74:4822
 Label_74_4828:: ; 74:4828
 	ldh [hRam_FFD9], a
 	ldh [hRam_FFD8], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
 	jr nz, Label_74_4808
 	ld a, $01
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld a, c
 	ldh [hRam_FFD9], a
 	ldh [hRam_FFD8], a
@@ -1318,9 +1318,9 @@ Label_74_4828:: ; 74:4828
 
 Label_74_4840:: ; 74:4840
 	ld a, c
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	ld a, b
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 	ldh a, [hRam_FFD9]
 	sub a, $0C
 	jr nc, Label_74_484F
@@ -1335,7 +1335,7 @@ Label_74_484F:: ; 74:484F
 	ldh [hRam_FFD8], a
 
 Label_74_4853:: ; 74:4853
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	or a, a
 	jr nz, Label_74_4863
 	ld a, $0C
@@ -1359,13 +1359,13 @@ Html_Tag_Ol:: ; 74:4867
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	cp a, $FF
 	jr z, Label_74_48AE
 	ld c, a
 	ld b, $00
 	inc a
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld hl, $D100
 	add hl, bc
 	add hl, bc
@@ -1376,9 +1376,9 @@ Html_Tag_Ol:: ; 74:4867
 	ld c, $40
 
 Label_74_48A3:: ; 74:48A3
-	ld a, [wRam_C33A]
+	ld a, [wHtmlListCounter]
 	ld [hli], a
-	ld a, [wRam_C33B]
+	ld a, [wHtmlListCounter + 1]
 	and a, $7F
 	or a, c
 	ld [hli], a
@@ -1393,9 +1393,9 @@ Label_74_48AE:: ; 74:48AE
 
 Label_74_48B9:: ; 74:48B9
 	ld a, $01
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	ld a, $00
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 	ldh a, [hRam_FFD9]
 	add a, c
 	jp c, Label_74_443F
@@ -1408,13 +1408,13 @@ Label_74_48D0:: ; 74:48D0
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
 	jr z, Label_74_492B
 
 Label_74_48DF:: ; 74:48DF
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld c, a
 	ld b, $00
 	ld hl, $D100
@@ -1433,12 +1433,12 @@ Label_74_48DF:: ; 74:48DF
 Label_74_48F8:: ; 74:48F8
 	ldh [hRam_FFD9], a
 	ldh [hRam_FFD8], a
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	dec a
 	cp a, $FF
 	jr nz, Label_74_48DF
 	ld a, $01
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ld a, $0C
 	ldh [hRam_FFD9], a
 	ldh [hRam_FFD8], a
@@ -1446,9 +1446,9 @@ Label_74_48F8:: ; 74:48F8
 
 Label_74_4911:: ; 74:4911
 	ld a, c
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	ld a, b
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 	ld c, $0C
 	bit 6, b
 	jr z, Label_74_4921
@@ -1465,7 +1465,7 @@ Label_74_4927:: ; 74:4927
 	ldh [hRam_FFD8], a
 
 Label_74_492B:: ; 74:492B
-	ld a, [wRam_C33E]
+	ld a, [wHtmlListDepth]
 	or a, a
 	jr nz, Label_74_493B
 	ld a, $0C
@@ -1483,9 +1483,9 @@ Html_Tag_Li:: ; 74:493F
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4987
-	ld a, [wRam_C33A]
+	ld a, [wHtmlListCounter]
 	ld c, a
-	ld a, [wRam_C33B]
+	ld a, [wHtmlListCounter + 1]
 	and a, $3F
 	ld b, a
 	cp a, $3F
@@ -1650,11 +1650,11 @@ Label_74_4A0C:: ; 74:4A0C
 Label_74_4A19:: ; 74:4A19
 	inc bc
 	ld a, c
-	ld [wRam_C33A], a
-	ld a, [wRam_C33B]
+	ld [wHtmlListCounter], a
+	ld a, [wHtmlListCounter + 1]
 	and a, $C0
 	or a, b
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 
 Label_74_4A27:: ; 74:4A27
 	ld a, e
@@ -1670,17 +1670,17 @@ Html_Tag_B:: ; 74:4A32
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr nz, Label_74_4A6D
-	ld a, [wRam_C338]
+	ld a, [wHtmlBoldCount]
 	ld c, a
-	ld a, [wRam_C339]
+	ld a, [wHtmlBoldCount + 1]
 	or a, c
 	jp z, Label_74_443F
-	ld a, [wRam_C338]
+	ld a, [wHtmlBoldCount]
 	sub a, $01
-	ld [wRam_C338], a
-	ld a, [wRam_C339]
+	ld [wHtmlBoldCount], a
+	ld a, [wHtmlBoldCount + 1]
 	sbc a, $00
-	ld [wRam_C339], a
+	ld [wHtmlBoldCount + 1], a
 	ldh a, [hRam_FFB2]
 	and a, $03
 	cp a, $02
@@ -1692,12 +1692,12 @@ Html_Tag_B:: ; 74:4A32
 	jp Label_74_443F
 
 Label_74_4A6D:: ; 74:4A6D
-	ld a, [wRam_C338]
+	ld a, [wHtmlBoldCount]
 	add a, $01
-	ld [wRam_C338], a
-	ld a, [wRam_C339]
+	ld [wHtmlBoldCount], a
+	ld a, [wHtmlBoldCount + 1]
 	adc a, $00
-	ld [wRam_C339], a
+	ld [wHtmlBoldCount + 1], a
 	ldh a, [hRam_FFB2]
 	and a, $03
 	cp a, $01
@@ -1765,9 +1765,9 @@ Label_74_4AD5:: ; 74:4AD5
 	jp nz, Label_74_443F
 	push de
 	push hl
-	ld a, [wRam_C336]
+	ld a, [wHtmlLinkHeapPtr]
 	ld e, a
-	ld a, [wRam_C337]
+	ld a, [wHtmlLinkHeapPtr + 1]
 	ld d, a
 	cp a, $E0
 	jp z, Label_74_4B81
@@ -1786,9 +1786,9 @@ Label_74_4AD5:: ; 74:4AD5
 	ldh a, [hRam_FFC9]
 	ld [hli], a
 	ld a, l
-	ld [wRam_C336], a
+	ld [wHtmlLinkHeapPtr], a
 	ld a, h
-	ld [wRam_C337], a
+	ld [wHtmlLinkHeapPtr + 1], a
 	jr Label_74_4B6D
 
 ; ---- code $4B21-$4B81 (96 bytes) [CONFIRMED] 49 insn(s); 49 executed (in up to 2/18 scenarios)
@@ -1803,9 +1803,9 @@ Label_74_4B21:: ; 74:4B21
 	ldh [hRam_FFDF], a
 	push de
 	push hl
-	ld a, [wRam_C336]
+	ld a, [wHtmlLinkHeapPtr]
 	ld e, a
-	ld a, [wRam_C337]
+	ld a, [wHtmlLinkHeapPtr + 1]
 	ld d, a
 	cp a, $E0
 	jr z, Label_74_4B81
@@ -1828,9 +1828,9 @@ Label_74_4B21:: ; 74:4B21
 	or a, a
 	jr nz, Label_74_4B6D
 	ld a, l
-	ld [wRam_C336], a
+	ld [wHtmlLinkHeapPtr], a
 	ld a, h
-	ld [wRam_C337], a
+	ld [wHtmlLinkHeapPtr + 1], a
 
 Label_74_4B6D:: ; 74:4B6D
 	ld a, d
@@ -1890,7 +1890,7 @@ Html_Tag_Br:: ; 74:4B98
 ; ---- code $4BB9-$4BD2 (25 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
 
 Label_74_4BB9:: ; 74:4BB9
-	ld [wRam_C330], a
+	ld [wHtmlBrClear], a
 	ldh a, [hRam_FFBB]
 	ld c, a
 	ldh a, [hTextY]
@@ -1921,7 +1921,7 @@ Label_74_4BDE:: ; 74:4BDE
 	farcall Html_Layout_EndLine
 	push de
 	push hl
-	ld a, [wRam_C330]
+	ld a, [wHtmlBrClear]
 	call JumpTableInline
 
 ; ---- ptrtable $4BEC-$4BF4 (8 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 74:4BE9: 4 entries; end = first entry target
@@ -1941,9 +1941,9 @@ Label_74_4BF4:: ; 74:4BF4
 	ldh a, [hRam_FFC9]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld e, a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld d, a
 	ldh a, [hRam_FFC4]
 	cp a, e
@@ -1959,9 +1959,9 @@ Label_74_4C12:: ; 74:4C12
 	ldh a, [hRam_FFC9]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ld e, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ld d, a
 	ldh a, [hRam_FFC2]
 	cp a, e
@@ -1985,9 +1985,9 @@ Label_74_4C33:: ; 74:4C33
 	ldh a, [hRam_FFC9]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld e, a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld d, a
 	ldh a, [hRam_FFC4]
 	cp a, e
@@ -1995,9 +1995,9 @@ Label_74_4C33:: ; 74:4C33
 	ldh a, [hRam_FFC5]
 	cp a, d
 	jr nz, Label_74_4C5F
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ld e, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ld d, a
 	ldh a, [hRam_FFC2]
 	cp a, e
@@ -2059,16 +2059,16 @@ Label_74_4C99:: ; 74:4C99
 Html_Tag_Hr:: ; 74:4CA6
 	farcall Html_Layout_WrapRun
 	farcall Html_Layout_EndLine
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	push af
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld c, a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld b, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	ld b, a
 	push bc
@@ -2148,13 +2148,13 @@ Label_74_4D24:: ; 74:4D24
 
 Label_74_4D2C:: ; 74:4D2C
 	push hl
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	and a, $0C
 	jr nz, Label_74_4D40
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	and a, $F3
 	or a, $08
-	ld [wRam_C33C], a
+	ld [wHtmlAlign], a
 	jr Label_74_4D44
 
 ; ---- code $4D40-$4D44 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 74:4D32 (executed)
@@ -2243,7 +2243,7 @@ Label_74_4D8E:: ; 74:4D8E
 	pop af
 	ldh [hRam_FFB2], a
 	pop af
-	ld [wRam_C33C], a
+	ld [wHtmlAlign], a
 	ld a, $20
 	ldh [hRam_FFB3], a
 
@@ -2300,7 +2300,7 @@ Label_74_4DF0:: ; 74:4DF0
 ; ---- code $4DF9-$4F4F (342 bytes) [PROBABLE] 180 insn(s) reached by static flow only; seeds: site x164, table x16; min discovery hops 0; run starts at an entry of the code-pointer table at 74:44A0
 
 Html_Tag_Img:: ; 74:4DF9
-	ld a, [wRam_C335]
+	ld a, [wHtmlScanOnly]
 	or a, a
 	jp nz, Label_74_4F09
 	ldh a, [hRam_FFB4]
@@ -2524,22 +2524,22 @@ Function_74_4F4F::
 	ldh [hRam_FFBF], a
 	ldh [hRam_FFDF], a
 	ldh [hRam_FFE0], a
-	ld [wRam_C33C], a
-	ld [wRam_C33D], a
+	ld [wHtmlAlign], a
+	ld [wHtmlAlignSp], a
 	ldh [hRam_FFDA], a
 	ldh [hRam_FFDB], a
-	ld [wRam_C33E], a
+	ld [wHtmlListDepth], a
 	ldh [hRam_FFD8], a
 	ldh [hRam_FFD9], a
-	ld [wRam_C33A], a
-	ld [wRam_C33B], a
-	ld [wRam_C338], a
-	ld [wRam_C339], a
+	ld [wHtmlListCounter], a
+	ld [wHtmlListCounter + 1], a
+	ld [wHtmlBoldCount], a
+	ld [wHtmlBoldCount + 1], a
 	ldh [hRam_FFDC], a
 	ldh [hRam_FFDD], a
 	ld [wRam_C331], a
 	ld [wRam_C332], a
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	ldh [hRam_FFD0], a
 	ldh [hRam_FFD1], a
 	ldh [hRam_FFD6], a
@@ -2650,7 +2650,7 @@ Label_74_502A:: ; 74:502A
 
 Label_74_502F:: ; 74:502F
 	ld c, a
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $08
 	jr z, Label_74_504A
 	ld a, c
@@ -2961,15 +2961,15 @@ Label_74_51DD:: ; 74:51DD
 Label_74_51E4:: ; 74:51E4
 	cp a, $2F
 	jr z, Label_74_51F3
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	or a, $08
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_50B9
 
 Label_74_51F3:: ; 74:51F3
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $F7
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 	jp Label_74_50B9
 
 ; ---- code $51FE-$5252 (84 bytes) [PROBABLE] 40 insn(s) reached by static flow only; seeds: table x40; min discovery hops 0; run starts at an entry of the code-pointer table at 74:511A
@@ -3036,9 +3036,9 @@ Function_74_5252::
 	ldh a, [hRam_FFC9]
 	ld d, a
 	farcall Html_Layout_GetLimitsAtY
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld e, a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld d, a
 	ldh a, [hRam_FFC4]
 	cp a, e
@@ -3046,9 +3046,9 @@ Function_74_5252::
 	ldh a, [hRam_FFC5]
 	cp a, d
 	jr nz, Label_74_5293
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ld e, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ld d, a
 	ldh a, [hRam_FFC2]
 	cp a, e
@@ -3076,7 +3076,7 @@ Label_74_5293:: ; 74:5293
 	jp Html_Layout_ClearAllFloats
 
 Html_Layout_PlaceImage:: ; 74:529F
-	ld a, [wRam_C335]
+	ld a, [wHtmlScanOnly]
 	or a, a
 	ret nz
 	ldh a, [hRam_FFD6]
@@ -3200,9 +3200,9 @@ Function_74_532A:: ; 74:532A
 	ret
 
 Function_74_5348:: ; 74:5348
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld e, a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld d, a
 	ldh a, [hRam_FFC4]
 	cp a, e
@@ -3210,9 +3210,9 @@ Function_74_5348:: ; 74:5348
 	ldh a, [hRam_FFC5]
 	cp a, d
 	jr nz, Label_74_5369
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ld e, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ld d, a
 	ldh a, [hRam_FFC2]
 	cp a, e
@@ -3327,18 +3327,18 @@ Html_Layout_Init:: ; 74:53E3
 	ldh [hRam_FFCE], a
 	ldh a, [hRam_FFBF]
 	ldh [hRam_FFCF], a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ldh [hRam_FFC2], a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ldh [hRam_FFC3], a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ldh [hRam_FFC4], a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ldh [hRam_FFC5], a
 	ret
 
 Html_Layout_EndLine:: ; 74:5417
-	ld a, [wRam_C335]
+	ld a, [wHtmlScanOnly]
 	or a, a
 	ret nz
 	push de
@@ -3364,7 +3364,7 @@ Html_Layout_EndLine:: ; 74:5417
 	jp BankSwitch_D
 
 Html_Layout_WrapRun:: ; 74:5440
-	ld a, [wRam_C335]
+	ld a, [wHtmlScanOnly]
 	or a, a
 	ret nz
 	push hl
@@ -3808,7 +3808,7 @@ Function_74_5663::
 	ld a, c
 	or a, b
 	jr z, Label_74_56B0
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	and a, $0C
 	cp a, $08
 	jr z, Label_74_569A
@@ -4192,13 +4192,13 @@ Label_74_5861:: ; 74:5861
 	ret
 
 Html_Layout_GetLimitsAtY:: ; 74:586E
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ldh [hRam_FFC2], a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ldh [hRam_FFC3], a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ldh [hRam_FFC4], a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ldh [hRam_FFC5], a
 	ldh a, [hRam_FFD8]
 	ld c, a
@@ -4613,9 +4613,9 @@ Function_74_5A96::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $00
-	ld [wRam_C336], a
+	ld [wHtmlLinkHeapPtr], a
 	ld a, $D8
-	ld [wRam_C337], a
+	ld [wHtmlLinkHeapPtr + 1], a
 	xor a, a
 	ld [wRam_D600], a
 	ld [wRam_D601], a

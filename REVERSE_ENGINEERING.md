@@ -6,9 +6,10 @@ Detailed, per-topic notes live in `docs/research/`; machine-generated progress m
 
 ## Build / comparison state
 
-* `make` reproduces the reference ROM **byte-identically** (SHA-256 `6d802e66…6570`). CONFIRMED (`make verify`, `tools/selftest_gen.py`)
-* Bank 00 (ROM0) is fully classified and emitted as real RGBDS code/data (`config/regions/bank00.tsv`); 43 all-zero banks are `zero`; every other bank is still `raw` INCBIN. See `docs/PROGRESS.md` for the current numbers.
-* Region/symbol/RAM/xref config drives `tools/gen_asm.py` (`docs/FORMATS.md`); the header (logo, checksums) is part of the reproduced bytes, `rgbfix` is not used.
+* `make` assembles the committed `src/` (no INCBIN, no reference ROM needed) and the result has SHA-256 `6d802e66…6570`, identical to the reference; with the reference ROM present it also compares byte-for-byte: **IDENTICAL**. CONFIRMED (`make`, `make verify`, `make test`, `tools/selftest_gen.py`; a clean clone rebuilds the hash)
+* 100% of the ROM is classified into regions: code 221,783 B (105,600 CONFIRMED = executed in 41 mGBA scenarios; 112,738 PROBABLE = statically reached; 3,445 HYPOTHESIS), gfx 491 KB, data 196 KB, text 45 KB (Shift-JIS, one string per line with decoded comments), words/ptrtable 9 KB, zero 1.13 MB. Only ~1.8 KB remain UNCLASSIFIED (HYPOTHESIS data).
+* ~3,000 symbol rows (1,405 CONFIRMED, 1,395 PROBABLE, 220 generic-name HYPOTHESIS notes), ~1,150 xrefs, ~1,080 RAM names (44 CONFIRMED, 213 PROBABLE, 827 neutral/HYPOTHESIS; banked WRAM/SRAM addresses stay neutral because the generator cannot see the bank).
+* Far calls are `farcall <Label>` macros (5,274 sites), config drives `tools/gen_asm.py` (`docs/FORMATS.md`); the header (logo, checksums) is part of the reproduced bytes, `rgbfix` is not used. Current numbers: `docs/PROGRESS.md`.
 
 ## Reference ROM (CONFIRMED, `docs/ROM_INFO.md`)
 
@@ -34,10 +35,11 @@ Detailed, per-topic notes live in `docs/research/`; machine-generated progress m
 * Text reader of bank 6C (second text convention), record reader of bank 72.
 * 06D1-family variants (`06BC`, `06E5`, `0716`, `072E`) barely used; inline bytes of unrecognised conventions may be mis-decoded by the analysis tools.
 
-## Workflow of the project
+## What remains
 
-1. `tools/mapper.py` (stage 2) maps code/data per bank from executed coverage, far-call seeds, tables and survey data; proposals are merged into `config/regions` only after a byte-identical rebuild check.
-2. Per-bank refinement of UNCLASSIFIED spans, then naming with evidence (Crystal SDK names as PROBABLE, application code by call-graph/strings/traces).
-3. Freeze generated sources as the maintained source; drop remaining INCBIN; final structure refinement (macros, constants, local labels).
+1. Promote PROBABLE code to CONFIRMED with more traces (`tools/apply_coverage.py` after new scenarios); ~1 KB of PROBABLE/HYPOTHESIS code has no proven entry (reached only through RAM pointers / unresolved `jp hl`).
+2. More semantic names (`docs/research/naming_g*.md`, `naming_sdk.md` list HYPOTHESES and open questions); bank-aware WRAM/SRAM names need generator support for banked names.
+3. Replace `db` graphics/text blocks by extracted assets + INCBIN only if byte-identity is preserved (not started; current form is exact and self-contained).
+4. Optional presentation refinement: more macros, constants for magic numbers, local labels.
 
 Every claim above has an evidence trail in the linked documents; anything not listed there is not established.

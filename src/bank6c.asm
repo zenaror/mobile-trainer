@@ -1498,11 +1498,11 @@ HelpScript_Run:: ; 6C:59B2
 	ld hl, $A684
 	farcall WriteByteFar
 	ld a, $09
-	ld [wRam_C173], a
-	ld [wRam_C1AD], a
+	ld [wHelpScriptPtr], a
+	ld [wHelpScriptRestartPtr], a
 	ld a, $48
-	ld [wRam_C174], a
-	ld [wRam_C1AE], a
+	ld [wHelpScriptPtr + 1], a
+	ld [wHelpScriptRestartPtr + 1], a
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -1634,9 +1634,9 @@ HelpScript_Run:: ; 6C:59B2
 	ldh [rSVBK], a
 
 Label_6C_5B47:: ; 6C:5B47
-	ld a, [wRam_C173]
+	ld a, [wHelpScriptPtr]
 	ld l, a
-	ld a, [wRam_C174]
+	ld a, [wHelpScriptPtr + 1]
 	ld h, a
 
 Label_6C_5B4F:: ; 6C:5B4F
@@ -1875,9 +1875,9 @@ Label_6C_5C66:: ; 6C:5C66
 	or a, a
 	call nz, HelpScript_ShowPicture
 	ld a, l
-	ld [wRam_C173], a
+	ld [wHelpScriptPtr], a
 	ld a, h
-	ld [wRam_C174], a
+	ld [wHelpScriptPtr + 1], a
 
 Label_6C_5CC5:: ; 6C:5CC5
 	farcall Function_00_0956
@@ -1968,19 +1968,19 @@ Label_6C_5D5A:: ; 6C:5D5A
 	pop hl
 	bit 7, a
 	jr nz, Label_6C_5D8D
-	ld a, [wRam_C1AD]
-	ld [wRam_C173], a
-	ld a, [wRam_C1AE]
-	ld [wRam_C174], a
+	ld a, [wHelpScriptRestartPtr]
+	ld [wHelpScriptPtr], a
+	ld a, [wHelpScriptRestartPtr + 1]
+	ld [wHelpScriptPtr + 1], a
 	farcall Palette_FadeOutToWhite
 	ld b, $00
 	ret
 
 Label_6C_5D8D:: ; 6C:5D8D
 	ld a, [wRam_C1B0]
-	ld [wRam_C173], a
+	ld [wHelpScriptPtr], a
 	ld a, [wRam_C1B1]
-	ld [wRam_C174], a
+	ld [wHelpScriptPtr + 1], a
 	jp Label_6C_5B47
 
 Label_6C_5D9C:: ; 6C:5D9C
@@ -2234,9 +2234,9 @@ Function_6C_6009::
 	ld [wRam_C179], a
 	ld a, $00
 	ret nz
-	ld a, [wRam_C173]
+	ld a, [wHelpScriptPtr]
 	ld l, a
-	ld a, [wRam_C174]
+	ld a, [wHelpScriptPtr + 1]
 	ld h, a
 
 Label_6C_601B:: ; 6C:601B
@@ -2264,9 +2264,9 @@ Label_6C_601B:: ; 6C:601B
 
 Label_6C_603A:: ; 6C:603A
 	ld a, l
-	ld [wRam_C173], a
+	ld [wHelpScriptPtr], a
 	ld a, h
-	ld [wRam_C174], a
+	ld [wHelpScriptPtr + 1], a
 	ld a, $FF
 	ret
 
@@ -2492,9 +2492,9 @@ Label_6C_6183:: ; 6C:6183
 
 Label_6C_618E:: ; 6C:618E
 	ld a, l
-	ld [wRam_C173], a
+	ld [wHelpScriptPtr], a
 	ld a, h
-	ld [wRam_C174], a
+	ld [wHelpScriptPtr + 1], a
 	xor a, a
 	ret
 

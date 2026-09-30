@@ -120,11 +120,11 @@ Label_2E_40BF:: ; 2E:40BF
 	jr nz, Label_2E_4108
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_2E_4107
 	jr nz, Label_2E_40E3
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_2E_4107
 
@@ -679,11 +679,11 @@ Label_2E_447A:: ; 2E:447A
 	jr nz, Label_2E_44C4
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_2E_44C3
 	jr nz, Label_2E_449F
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_2E_44C3
 
@@ -1965,7 +1965,7 @@ MailServerMgr_DrawMailFields:: ; 2E:4EBD
 	ret
 
 MailServerMgr_DrawFieldText:: ; 2E:4F06
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2E_4F09:: ; 2E:4F09
 	ld a, $01
@@ -1978,7 +1978,7 @@ Label_2E_4F09:: ; 2E:4F09
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2E_4F66
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2E_4F29
 	pop af
@@ -2013,10 +2013,10 @@ Label_2E_4F29:: ; 2E:4F29
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2E_4F88
 	jr Label_2E_4F09
@@ -2033,9 +2033,9 @@ Label_2E_4F66:: ; 2E:4F66
 	pop de
 	pop bc
 	call MailServerMgr_DrawFieldText_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2E_4F88
 	jp Label_2E_4F09
@@ -2057,11 +2057,11 @@ Label_2E_4F99:: ; 2E:4F99
 ; ---- code $4F9A-$4FA9 (15 bytes) [HYPOTHESIS] complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9 ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
 
 Function_2E_4F9A:: ; 2E:4F9A
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailServerMgr_DrawFieldText_Glyph
 	jr Label_2E_4F99
 
@@ -2897,7 +2897,7 @@ Function_2E_55FA::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2923,7 +2923,7 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -2935,7 +2935,7 @@ MailServerMgr_DrawTimer:: ; 2E:561C
 Label_2E_5636:: ; 2E:5636
 	ld a, b
 	ld [wRam_D624], a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, $3C
 	jr c, Label_2E_5683
 
@@ -2958,7 +2958,7 @@ Label_2E_5641:: ; 2E:5641
 	jp Label_2E_56C5
 
 ; ---- code $565A-$5669 (15 bytes) [PROBABLE] first block of a twin of the executed block at 2E:5683: a=[C2D6]+$3C ; cp $64 ; jr nc,$5641 ; l=a ; h=0 ; de=$000A leading into the far-call site 5669 (00:0D67 with hl,de as in 5683); the jr target 5641 is a valid code start; reached only by a branch not found in the decoded code (follows the unconditional jp $56C5 at 5657)
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
 	jr nc, Label_2E_5641
@@ -2982,7 +2982,7 @@ Label_2E_5641:: ; 2E:5641
 ; ---- code $5683-$56D1 (78 bytes) [CONFIRMED] 37 insn(s); 37 executed (in up to 1/18 scenarios)
 
 Label_2E_5683:: ; 2E:5683
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
 	ld de, $000A
@@ -2998,7 +2998,7 @@ Label_2E_5683:: ; 2E:5683
 	ld [wRam_D1EF], a
 
 Label_2E_56A4:: ; 2E:56A4
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld l, a
 	ld h, $00
 	ld de, $000A

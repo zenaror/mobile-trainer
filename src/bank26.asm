@@ -18,7 +18,7 @@ Function_26_4000::
 	xor a, a
 	ld [de], a
 	xor a, a
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -118,7 +118,7 @@ Label_26_40B0:: ; 26:40B0
 
 ; ---- code $40E0-$40E8 (8 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 26:40DE (executed) [executed in 2 scenarios]
 	ld b, $01
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	jp MailSession_Cancel
 
 ; ---- code $40E8-$412C (68 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
@@ -339,7 +339,7 @@ Label_26_42D6:: ; 26:42D6
 	farcall Timer_ResetClockB
 	farcall Smtp_StartQuit
 	call MailSession_ShowCommErrorNoWindow
-	ld a, [wRam_C1DD]
+	ld a, [wMobileResultCode]
 	cp a, $26
 	jr z, Label_26_42FC
 	cp a, $30
@@ -1168,11 +1168,11 @@ Label_26_493D:: ; 26:493D
 	jr nz, Label_26_4988
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_26_4987
 	jr nz, Label_26_4963
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_26_4987
 
@@ -1860,13 +1860,13 @@ Function_26_4EC3::
 	jr nz, Label_26_4F0E
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_26_4F0D
 
 ; ---- code $4EE0-$4F0D (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 26:4EDE (executed)
 	jr nz, Label_26_4EE9
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_26_4F0D
 
@@ -1967,11 +1967,11 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	jr nz, Label_26_4FC6
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_26_4FC5
 	jr nz, Label_26_4FA1
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_26_4FC5
 
@@ -2079,12 +2079,12 @@ Data_26_5062:: ; 26:5062
 ; ---- code $5067-$50AC (69 bytes) [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 7; entered by jpcc from 26:46B7 (executed) [executed in 4 scenarios]
 
 MailSession_ShowCommError:: ; 26:5067
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	ld b, a
 	push bc
 	ld a, $01
@@ -2134,12 +2134,12 @@ Label_26_50B6:: ; 26:50B6
 	ret
 
 MailSession_ShowCommErrorNoWindow:: ; 26:50C6
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3166,7 +3166,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld b, a
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -3192,7 +3192,7 @@ Label_26_5909:: ; 26:5909
 	ld b, $98
 	ld c, $01
 	farcall Function_00_0787
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, $3C
 	jr c, Label_26_5968
 
@@ -3215,7 +3215,7 @@ Label_26_5926:: ; 26:5926
 	jp Label_26_59AA
 
 ; ---- code $593F-$594E (15 bytes) [PROBABLE] ld a,[$C2D6] / add a,$3C / cp a,$64 / jr nc,$5926 / ld l,a / ld h,$00 / ld de,$000A: chain falls into the site-validated far call at 594E and jr nc targets the accepted code at 5926; previous instruction is jp $59AA; entry unproven
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
 	jr nc, Label_26_5926
@@ -3239,7 +3239,7 @@ Label_26_5926:: ; 26:5926
 ; ---- code $5968-$59D8 (112 bytes) [CONFIRMED] 59 insn(s); 59 executed (in up to 2/18 scenarios)
 
 Label_26_5968:: ; 26:5968
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
 	ld de, $000A
@@ -3255,7 +3255,7 @@ Label_26_5968:: ; 26:5968
 	ld [wRam_D222], a
 
 Label_26_5989:: ; 26:5989
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ld l, a
 	ld h, $00
 	ld de, $000A

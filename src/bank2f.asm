@@ -2379,7 +2379,7 @@ Table_2F_53E9::
 
 AbookView_DrawName:: ; 2F:53F5
 	ld a, $10
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_53FA:: ; 2F:53FA
 	ld a, $01
@@ -2422,10 +2422,10 @@ Label_2F_53FA:: ; 2F:53FA
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5495
 	cp a, $01
@@ -2444,9 +2444,9 @@ Label_2F_5455:: ; 2F:5455
 	pop de
 	pop bc
 	call AbookView_DrawName_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5495
 	cp a, $01
@@ -2463,9 +2463,9 @@ Label_2F_547A:: ; 2F:547A
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawName_Pad
 
 Label_2F_5495:: ; 2F:5495
@@ -2480,11 +2480,11 @@ Label_2F_5495:: ; 2F:5495
 	pop bc
 
 Label_2F_54A6:: ; 2F:54A6
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawName_Pad
 	jr Label_2F_54A6
 
@@ -2520,7 +2520,7 @@ AbookView_DrawName_Pad:: ; 2F:54C9
 
 AbookView_DrawAddrLine1:: ; 2F:54E1
 	ld a, $11
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_54E6:: ; 2F:54E6
 	ld a, $01
@@ -2563,10 +2563,10 @@ Label_2F_54E6:: ; 2F:54E6
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5581
 	cp a, $01
@@ -2585,9 +2585,9 @@ Label_2F_5541:: ; 2F:5541
 	pop de
 	pop bc
 	call AbookView_DrawAddrLine1_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5581
 	cp a, $01
@@ -2604,9 +2604,9 @@ Label_2F_5566:: ; 2F:5566
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine1_Pad
 
 Label_2F_5581:: ; 2F:5581
@@ -2621,11 +2621,11 @@ Label_2F_5581:: ; 2F:5581
 	pop bc
 
 Label_2F_5592:: ; 2F:5592
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine1_Pad
 	jr Label_2F_5592
 
@@ -2661,7 +2661,7 @@ AbookView_DrawAddrLine1_Pad:: ; 2F:55B5
 
 AbookView_DrawAddrLine2:: ; 2F:55CD
 	ld a, $19
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_55D2:: ; 2F:55D2
 	ld a, $01
@@ -2704,10 +2704,10 @@ Label_2F_55D2:: ; 2F:55D2
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_566D
 	cp a, $01
@@ -2726,9 +2726,9 @@ Label_2F_562D:: ; 2F:562D
 	pop de
 	pop bc
 	call AbookView_DrawAddrLine2_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_566D
 	cp a, $01
@@ -2745,9 +2745,9 @@ Label_2F_5652:: ; 2F:5652
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine2_Pad
 
 Label_2F_566D:: ; 2F:566D
@@ -2762,11 +2762,11 @@ Label_2F_566D:: ; 2F:566D
 	pop bc
 
 Label_2F_567E:: ; 2F:567E
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine2_Pad
 	jr Label_2F_567E
 
@@ -2802,7 +2802,7 @@ AbookView_DrawAddrLine2_Pad:: ; 2F:56A1
 
 AbookView_DrawAddrLine3:: ; 2F:56B9
 	ld a, $19
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_56BE:: ; 2F:56BE
 	ld a, $01
@@ -2845,10 +2845,10 @@ Label_2F_56BE:: ; 2F:56BE
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5759
 	cp a, $01
@@ -2867,9 +2867,9 @@ Label_2F_5719:: ; 2F:5719
 	pop de
 	pop bc
 	call AbookView_DrawAddrLine3_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5759
 	cp a, $01
@@ -2886,9 +2886,9 @@ Label_2F_573E:: ; 2F:573E
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine3_Pad
 
 Label_2F_5759:: ; 2F:5759
@@ -2903,11 +2903,11 @@ Label_2F_5759:: ; 2F:5759
 	pop bc
 
 Label_2F_576A:: ; 2F:576A
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine3_Pad
 	jr Label_2F_576A
 
@@ -3062,7 +3062,7 @@ Label_2F_5876:: ; 2F:5876
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
 	farcall Function_00_09B6
@@ -3108,7 +3108,7 @@ AbookName_CursorLeft:: ; 2F:58CE
 Label_2F_58EF:: ; 2F:58EF
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookName_CursorRight:: ; 2F:58F5
@@ -3156,13 +3156,13 @@ Label_2F_5925:: ; 2F:5925
 	ret z
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $09
 	cp a, c
 	ret nz
 	ld c, $08
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookName_SetupScreen:: ; 2F:593B
@@ -3255,7 +3255,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ldh [rSVBK], a
 	pop af
 	ld a, $42
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 
 Label_2F_5A37:: ; 2F:5A37
 	ld bc, $0000
@@ -3312,7 +3312,7 @@ Label_2F_5A81:: ; 2F:5A81
 Label_2F_5AB0:: ; 2F:5AB0
 	ld bc, $0000
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookName_PlaceCursorSprites:: ; 2F:5AB8
@@ -3333,7 +3333,7 @@ Label_2F_5AC5:: ; 2F:5AC5
 
 Label_2F_5ACC:: ; 2F:5ACC
 	ld d, a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, d
 	sub a, e
@@ -3355,7 +3355,7 @@ Label_2F_5AE2:: ; 2F:5AE2
 
 AbookName_DrawName:: ; 2F:5AEA
 	ld a, $10
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_5AEF:: ; 2F:5AEF
 	ld a, $01
@@ -3398,10 +3398,10 @@ Label_2F_5AEF:: ; 2F:5AEF
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5B8A
 	cp a, $01
@@ -3420,9 +3420,9 @@ Label_2F_5B4A:: ; 2F:5B4A
 	pop de
 	pop bc
 	call AbookName_DrawName_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_5B8A
 	cp a, $01
@@ -3439,9 +3439,9 @@ Label_2F_5B6F:: ; 2F:5B6F
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookName_DrawName_Pad
 
 Label_2F_5B8A:: ; 2F:5B8A
@@ -3454,11 +3454,11 @@ Label_2F_5B8A:: ; 2F:5B8A
 	pop bc
 
 Label_2F_5B96:: ; 2F:5B96
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookName_DrawName_Pad
 	jr Label_2F_5B96
 
@@ -3837,20 +3837,20 @@ Label_2F_5DB6:: ; 2F:5DB6
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	jr Label_2F_5DDB
 
 Label_2F_5DCA:: ; 2F:5DCA
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
 	jr nz, Label_2F_5DDB
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2F_5DDB:: ; 2F:5DDB
 	ret
@@ -3940,7 +3940,7 @@ Label_2F_5E42:: ; 2F:5E42
 Label_2F_5E68:: ; 2F:5E68
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2F_5E6D:: ; 2F:5E6D
 	call AbookName_GetCharPtr
@@ -4043,7 +4043,7 @@ Label_2F_5ECD:: ; 2F:5ECD
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C2AD], a
+	ld [wKeyboardCharLo], a
 	pop de
 	pop bc
 	pop hl
@@ -4429,33 +4429,33 @@ AbookName_KeyboardLoop:: ; 2F:613A
 	ret z
 	cp a, $08
 	jr z, Label_2F_61AB
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2F_6180
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_6180
 	call AbookName_ApplyDakuten
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, AbookName_KeyboardLoop
 	call AbookName_ApplyDakutenU
 	jr AbookName_KeyboardLoop
 
 Label_2F_6180:: ; 2F:6180
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4B
 	jr nz, Label_2F_6193
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_6193
 	call AbookName_ApplyHandakuten
 	jr AbookName_KeyboardLoop
 
 Label_2F_6193:: ; 2F:6193
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld e, a
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	ld d, a
 	call AbookName_InsertChar
 	jr AbookName_KeyboardLoop
@@ -4472,9 +4472,9 @@ Label_2F_61AB:: ; 2F:61AB
 	push bc
 	farcall Kbd_Hide
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	farcall Joypad_Update
 	pop bc
 	ret
@@ -4838,7 +4838,7 @@ Label_2F_6DC9:: ; 2F:6DC9
 	pop bc
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
 	farcall Function_00_09B6
@@ -5029,7 +5029,7 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 Label_2F_6F28:: ; 2F:6F28
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookAddr_CursorRight:: ; 2F:6F2E
@@ -5082,12 +5082,12 @@ Label_2F_6F5E:: ; 2F:6F5E
 	ret z
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $41
 	cp a, c
 	ret nz
 	ld c, $40
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookAddr_BuffersEmpty:: ; 2F:6F73
@@ -5202,7 +5202,7 @@ Function_2F_6F8C::
 	ldh [rSVBK], a
 	pop af
 	ld a, $39
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 
 ; ---- code $7088-$70C2 (58 bytes) [CONFIRMED] 19 insn(s); 19 executed (in up to 1/18 scenarios)
 
@@ -5272,7 +5272,7 @@ Label_2F_70EA:: ; 2F:70EA
 Label_2F_7119:: ; 2F:7119
 	ld bc, $0000
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 AbookAddr_PlaceCursorSprites:: ; 2F:7121
@@ -5328,7 +5328,7 @@ Label_2F_7148:: ; 2F:7148
 Label_2F_714F:: ; 2F:714F
 	add a, $10
 	ld d, a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, d
 	sub a, e
@@ -5350,7 +5350,7 @@ Label_2F_7167:: ; 2F:7167
 
 AbookAddr_DrawLine1:: ; 2F:716F
 	ld a, $11
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_7174:: ; 2F:7174
 	ld a, $01
@@ -5395,10 +5395,10 @@ Label_2F_7174:: ; 2F:7174
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_720F
 	cp a, $01
@@ -5417,9 +5417,9 @@ Label_2F_71CF:: ; 2F:71CF
 	pop de
 	pop bc
 	call AbookAddr_DrawLine1_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_720F
 	cp a, $01
@@ -5436,9 +5436,9 @@ Label_2F_71F4:: ; 2F:71F4
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine1_Pad
 
 ; ---- code $720F-$722A (27 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios)
@@ -5453,11 +5453,11 @@ Label_2F_720F:: ; 2F:720F
 	pop bc
 
 Label_2F_721B:: ; 2F:721B
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine1_Pad
 	jr Label_2F_721B
 
@@ -5498,7 +5498,7 @@ Function_2F_723E::
 
 AbookAddr_DrawLine:: ; 2F:7256
 	ld a, $19
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2F_725B:: ; 2F:725B
 	ld a, $01
@@ -5543,10 +5543,10 @@ Label_2F_725B:: ; 2F:725B
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_72F6
 	cp a, $01
@@ -5565,9 +5565,9 @@ Label_2F_72B6:: ; 2F:72B6
 	pop de
 	pop bc
 	call AbookAddr_DrawLine_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2F_72F6
 	cp a, $01
@@ -5584,9 +5584,9 @@ Label_2F_72DB:: ; 2F:72DB
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine_Pad
 
 ; ---- code $72F6-$7311 (27 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 1/18 scenarios)
@@ -5601,11 +5601,11 @@ Label_2F_72F6:: ; 2F:72F6
 	pop bc
 
 Label_2F_7302:: ; 2F:7302
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call AbookAddr_DrawLine_Pad
 	jr Label_2F_7302
 
@@ -5936,12 +5936,12 @@ Label_2F_74B1:: ; 2F:74B1
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	jr Label_2F_74D6
 
 Label_2F_74D2:: ; 2F:74D2
 	inc c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2F_74D6:: ; 2F:74D6
 	ret
@@ -6032,7 +6032,7 @@ Label_2F_753D:: ; 2F:753D
 Label_2F_7566:: ; 2F:7566
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2F_756B:: ; 2F:756B
 	call AbookAddr_GetCharPtr
@@ -6133,27 +6133,27 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 	ret z
 	cp a, $08
 	jr z, Label_2F_7634
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2F_760C
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_760C
 	jr AbookAddr_KeyboardLoop
 
 Label_2F_760C:: ; 2F:760C
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4B
 	jr nz, Label_2F_761C
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_761C
 	jr AbookAddr_KeyboardLoop
 
 Label_2F_761C:: ; 2F:761C
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld e, a
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	ld d, a
 	call AbookAddr_InsertChar
 	jr AbookAddr_KeyboardLoop
@@ -6172,9 +6172,9 @@ Label_2F_7634:: ; 2F:7634
 	push bc
 	farcall Kbd_Hide
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	pop bc
 	ret
 

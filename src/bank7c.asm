@@ -1089,7 +1089,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	ldh [rSVBK], a
 	ei
 	ld a, $FF
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	ld d, $FF
 	ld bc, $0000
 	farcall Mailbox_LoadScreen
@@ -1102,7 +1102,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	dec a
 	jp nz, Label_7C_7C73
 	ld a, $FF
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	ld bc, $0000
 	ld h, $00
 	farcall Mailbox_Main
@@ -1151,7 +1151,7 @@ Nav_MailMenu_Mailbox:: ; 7C:7CB0
 	ld d, $FF
 	ld bc, $0000
 	ld a, $00
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall Mailbox_Main
 	jp Nav_MailMenuLoop
 
@@ -1229,7 +1229,7 @@ Nav_TitleMobileSettings:: ; 7C:7D1F
 	ld [rRAMG], a
 	ldh a, [hScratchA]
 	xor a, a
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 
 Nav_MobileSettingsLoop:: ; 7C:7D57
 	farcall SettingsMenu_Run

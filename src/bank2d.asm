@@ -1114,7 +1114,7 @@ MailBody_CursorLeft:: ; 2D:48B3
 Label_2D_48D4:: ; 2D:48D4
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $48DA-$48F3 (25 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -1154,7 +1154,7 @@ MailBody_CursorRightStep:: ; 2D:48EE
 	ret z
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $490E-$491F (17 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios)
@@ -1182,20 +1182,20 @@ Label_2D_491F:: ; 2D:491F
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 Label_2D_4931:: ; 2D:4931
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
 	ret nz
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $4942-$495B (25 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
@@ -1224,7 +1224,7 @@ Function_2D_4942::
 Label_2D_495B:: ; 2D:495B
 	dec b
 	call MailBody_GetCharPtr
-	ld a, [wRam_C0D2]
+	ld a, [wTextEditGoalColumn]
 	ld c, a
 	cp a, e
 	jr c, Label_2D_4967
@@ -1263,7 +1263,7 @@ MailBody_CursorDownStep:: ; 2D:497C
 
 ; ---- code $4989-$499E (21 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the retcc at 2D:4988 (executed)
 	inc b
-	ld a, [wRam_C0D2]
+	ld a, [wTextEditGoalColumn]
 	ld c, a
 	cp a, e
 	jr c, Label_2D_499D
@@ -1271,7 +1271,7 @@ MailBody_CursorDownStep:: ; 2D:497C
 	ld a, $07
 	cp a, b
 	ret nz
-	ld a, [wRam_C0D2]
+	ld a, [wTextEditGoalColumn]
 	cp a, $0C
 	ret nz
 	ld c, a
@@ -1340,7 +1340,7 @@ Function_2D_499E::
 	call Function_00_082C
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	farcall LCDOn
 	call TextTiles_UploadBuffers
 	ld b, $00
@@ -1429,7 +1429,7 @@ Function_2D_499E::
 	farcall Stat_EnableScrollSplit
 	ld bc, $0000
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $4B2D-$4B2E (1 bytes) [HYPOTHESIS] push bc before the raw far-call site 4B2E; the previous region ends with ret so 4B2D would be a function entry; no caller found
@@ -1506,7 +1506,7 @@ Function_2D_499E::
 	call Function_00_082C
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ld a, $06
 	ld b, $02
 	ld a, $0A
@@ -1573,7 +1573,7 @@ Function_2D_499E::
 	call TextTiles_UploadBuffers
 	ld bc, $0000
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	pop bc
 	ret
 
@@ -1601,7 +1601,7 @@ Label_2D_4CB0:: ; 2D:4CB0
 
 Label_2D_4CB7:: ; 2D:4CB7
 	ld d, a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, d
 	sub a, e
@@ -1654,7 +1654,7 @@ Label_2D_4D04:: ; 2D:4D04
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $13
 	sub a, e
@@ -1674,7 +1674,7 @@ Label_2D_4D24:: ; 2D:4D24
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $1F
 	sub a, e
@@ -1694,7 +1694,7 @@ Label_2D_4D44:: ; 2D:4D44
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $2B
 	sub a, e
@@ -1714,7 +1714,7 @@ Label_2D_4D64:: ; 2D:4D64
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $37
 	sub a, e
@@ -1734,7 +1734,7 @@ Label_2D_4D84:: ; 2D:4D84
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $43
 	sub a, e
@@ -1754,7 +1754,7 @@ Label_2D_4DA4:: ; 2D:4DA4
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $4F
 	sub a, e
@@ -1774,7 +1774,7 @@ Label_2D_4DC4:: ; 2D:4DC4
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $5B
 	sub a, e
@@ -1794,7 +1794,7 @@ Label_2D_4DE4:: ; 2D:4DE4
 	farcall Function_00_0A82
 	xor a, a
 	ld [wSpriteSlots + 65], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, $67
 	sub a, e
@@ -2077,7 +2077,7 @@ Label_2D_4F2C:: ; 2D:4F2C
 MailBody_DrawRow:: ; 2D:4F2F
 Function_2D_4F2F::
 	ld a, $18
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2D_4F34:: ; 2D:4F34
 	ld a, $01
@@ -2120,10 +2120,10 @@ Label_2D_4F34:: ; 2D:4F34
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_4FCF
 	cp a, $01
@@ -2144,9 +2144,9 @@ Label_2D_4F8F:: ; 2D:4F8F
 	pop de
 	pop bc
 	call MailBody_DrawRow_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_4FCF
 	cp a, $01
@@ -2163,9 +2163,9 @@ Label_2D_4FB4:: ; 2D:4FB4
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailBody_DrawRow_Pad
 
 ; ---- code $4FCF-$50AC (221 bytes) [CONFIRMED] 119 insn(s); 119 executed (in up to 5/18 scenarios)
@@ -2180,11 +2180,11 @@ Label_2D_4FCF:: ; 2D:4FCF
 	pop bc
 
 Label_2D_4FDB:: ; 2D:4FDB
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailBody_DrawRow_Pad
 	jr Label_2D_4FDB
 
@@ -2510,7 +2510,7 @@ Label_2D_5195:: ; 2D:5195
 	ret z
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $51C5-$51D0 (11 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 2/18 scenarios)
@@ -2526,7 +2526,7 @@ Label_2D_51C5:: ; 2D:51C5
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	jr Label_2D_51EA
 
 ; ---- code $51D9-$51E3 (10 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
@@ -2534,7 +2534,7 @@ Label_2D_51C5:: ; 2D:51C5
 Label_2D_51D9:: ; 2D:51D9
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
 	jr nz, Label_2D_51EA
@@ -2543,7 +2543,7 @@ Label_2D_51D9:: ; 2D:51D9
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 ; ---- code $51EA-$51F9 (15 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 
@@ -2778,20 +2778,20 @@ Label_2D_5335:: ; 2D:5335
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	jr Label_2D_535A
 
 Label_2D_5349:: ; 2D:5349
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $0C
 	cp a, c
 	jr nz, Label_2D_535A
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2D_535A:: ; 2D:535A
 	xor a, a
@@ -2894,7 +2894,7 @@ Label_2D_53C4:: ; 2D:53C4
 Label_2D_53EA:: ; 2D:53EA
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2D_53EF:: ; 2D:53EF
 	call MailBody_GetCharPtr
@@ -3055,7 +3055,7 @@ Label_2D_5487:: ; 2D:5487
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C2AD], a
+	ld [wKeyboardCharLo], a
 	pop de
 	pop bc
 	pop hl
@@ -3426,16 +3426,16 @@ Label_2D_56C6:: ; 2D:56C6
 	jp z, Label_2D_579A
 	cp a, $08
 	jp z, Label_2D_5A6F
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2D_5711
 
 ; ---- code $56FB-$5711 (22 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2D:56F9 (executed) [executed in 1 scenarios]
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2D_5711
 	call MailBody_ApplyDakuten
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2D_56C6
 	call MailBody_ApplyDakutenU
@@ -3444,12 +3444,12 @@ Label_2D_56C6:: ; 2D:56C6
 ; ---- code $5711-$5718 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 
 Label_2D_5711:: ; 2D:5711
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4B
 	jr nz, Label_2D_5724
 
 ; ---- code $5718-$5724 (12 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2D:5716 (executed)
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2D_5724
 	call MailBody_ApplyHandakuten
@@ -3458,9 +3458,9 @@ Label_2D_5711:: ; 2D:5711
 ; ---- code $5724-$573E (26 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 
 Label_2D_5724:: ; 2D:5724
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld e, a
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	ld d, a
 	ld a, b
 	push af
@@ -3500,9 +3500,9 @@ Label_2D_574F:: ; 2D:574F
 	push bc
 	farcall Kbd_Hide
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	pop bc
 	ret
 
@@ -3519,9 +3519,9 @@ Label_2D_5768:: ; 2D:5768
 	jp z, Label_2D_56C6
 	cp a, $08
 	jp z, Label_2D_56C6
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	add a, $0C
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	jp Label_2D_56C6
 
 Label_2D_5783:: ; 2D:5783
@@ -3530,9 +3530,9 @@ Label_2D_5783:: ; 2D:5783
 	jp z, Label_2D_56C6
 	cp a, $06
 	jp z, Label_2D_56C6
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	sub a, $0C
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	jp Label_2D_56C6
 
 ; ---- code $5799-$579A (1 bytes) [HYPOTHESIS] single ret after a jp; no reference found
@@ -3543,7 +3543,7 @@ Label_2D_5783:: ; 2D:5783
 Label_2D_579A:: ; 2D:579A
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	push bc
 	call MailBody_PlaceCursorSprites
 	pop bc
@@ -3751,7 +3751,7 @@ Label_2D_58D9:: ; 2D:58D9
 	pop af
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	push bc
 	call MailBody_PlaceCursorSprites
 	pop bc
@@ -3781,7 +3781,7 @@ Label_2D_590B:: ; 2D:590B
 Label_2D_591B:: ; 2D:591B
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	push bc
 	call MailBody_PlaceCursorSprites
 	pop bc
@@ -3984,7 +3984,7 @@ Label_2D_5A4E:: ; 2D:5A4E
 	farcall Kbd_Hide
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	pop bc
 	ret
 
@@ -3992,7 +3992,7 @@ Label_2D_5A6F:: ; 2D:5A6F
 	push bc
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	pop bc
 	ret
 
@@ -4378,7 +4378,7 @@ Label_2D_666B:: ; 2D:666B
 	pop bc
 	xor a, a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
 	farcall Function_00_09B6
@@ -4594,7 +4594,7 @@ MailAddr_CursorLeft:: ; 2D:67E1
 Label_2D_6802:: ; 2D:6802
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 ; ---- code $6808-$681E (22 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -4647,13 +4647,13 @@ Label_2D_6838:: ; 2D:6838
 	ret z
 	inc c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ld a, $41
 	cp a, c
 	ret nz
 	ld c, $40
 	ld a, $40
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ret
 
 MailCompose_ConfirmDiscard:: ; 2D:684F
@@ -4717,7 +4717,7 @@ MailAddr_SetupScreen:: ; 2D:68A9
 Function_2D_68A9::
 	push af
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
@@ -4813,7 +4813,7 @@ Function_2D_68A9::
 	ldh [rSVBK], a
 	pop af
 	ld a, $28
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	jr Label_2D_69B3
 
 ; ---- code $69B3-$69DF (44 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
@@ -4941,7 +4941,7 @@ Label_2D_6A71:: ; 2D:6A71
 
 Label_2D_6A78:: ; 2D:6A78
 	ld d, a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld e, a
 	ld a, d
 	sub a, e
@@ -4963,7 +4963,7 @@ Label_2D_6A8E:: ; 2D:6A8E
 
 MailAddr_DrawLine20:: ; 2D:6A96
 	ld a, $15
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2D_6A9B:: ; 2D:6A9B
 	ld a, $01
@@ -5008,10 +5008,10 @@ Label_2D_6A9B:: ; 2D:6A9B
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_6B36
 	cp a, $01
@@ -5032,9 +5032,9 @@ Label_2D_6AF6:: ; 2D:6AF6
 	pop de
 	pop bc
 	call MailAddr_DrawLine20_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_6B36
 	cp a, $01
@@ -5053,9 +5053,9 @@ Label_2D_6B1B:: ; 2D:6B1B
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailAddr_DrawLine20_Pad
 
 ; ---- code $6B36-$6B8E (88 bytes) [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
@@ -5070,11 +5070,11 @@ Label_2D_6B36:: ; 2D:6B36
 	pop bc
 
 Label_2D_6B42:: ; 2D:6B42
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailAddr_DrawLine20_Pad
 	jr Label_2D_6B42
 
@@ -5110,7 +5110,7 @@ MailAddr_DrawLine20_Pad:: ; 2D:6B65
 
 MailAddr_DrawLine24:: ; 2D:6B7D
 	ld a, $19
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2D_6B82:: ; 2D:6B82
 	ld a, $01
@@ -5155,10 +5155,10 @@ Label_2D_6B82:: ; 2D:6B82
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_6C1D
 	cp a, $01
@@ -5177,9 +5177,9 @@ Label_2D_6BDD:: ; 2D:6BDD
 	pop de
 	pop bc
 	call MailAddr_DrawLine24_Glyph
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2D_6C1D
 	cp a, $01
@@ -5196,9 +5196,9 @@ Label_2D_6C02:: ; 2D:6C02
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailAddr_DrawLine24_Pad
 
 ; ---- code $6C1D-$6C38 (27 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
@@ -5213,11 +5213,11 @@ Label_2D_6C1D:: ; 2D:6C1D
 	pop bc
 
 Label_2D_6C29:: ; 2D:6C29
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailAddr_DrawLine24_Pad
 	jr Label_2D_6C29
 
@@ -5544,14 +5544,14 @@ Label_2D_6DDD:: ; 2D:6DDD
 	ld c, $00
 	inc b
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	jr Label_2D_6E02
 
 ; ---- code $6DFE-$6E38 (58 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
 
 Label_2D_6DFE:: ; 2D:6DFE
 	inc c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2D_6E02:: ; 2D:6E02
 	ret
@@ -5651,7 +5651,7 @@ Label_2D_6E6B:: ; 2D:6E6B
 Label_2D_6E94:: ; 2D:6E94
 	dec c
 	ld a, c
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 
 Label_2D_6E99:: ; 2D:6E99
 	call MailAddr_GetCharPtr
@@ -5751,12 +5751,12 @@ MailAddr_KeyboardLoop:: ; 2D:6F01
 	ret z
 	cp a, $08
 	jr z, Label_2D_6F62
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2D_6F3A
 
 ; ---- code $6F31-$6F3A (9 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2D:6F2F (executed)
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2D_6F3A
 	jr MailAddr_KeyboardLoop
@@ -5764,12 +5764,12 @@ MailAddr_KeyboardLoop:: ; 2D:6F01
 ; ---- code $6F3A-$6F41 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 
 Label_2D_6F3A:: ; 2D:6F3A
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $4B
 	jr nz, Label_2D_6F4A
 
 ; ---- code $6F41-$6F4A (9 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2D:6F3F (executed)
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2D_6F4A
 	jr MailAddr_KeyboardLoop
@@ -5777,9 +5777,9 @@ Label_2D_6F3A:: ; 2D:6F3A
 ; ---- code $6F4A-$6F5B (17 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 2/18 scenarios)
 
 Label_2D_6F4A:: ; 2D:6F4A
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld e, a
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	ld d, a
 	call MailAddr_InsertChar
 	jr MailAddr_KeyboardLoop
@@ -5798,9 +5798,9 @@ Label_2D_6F62:: ; 2D:6F62
 	push bc
 	farcall Kbd_Hide
 	xor a, a
-	ld [wRam_C0D2], a
+	ld [wTextEditGoalColumn], a
 	ldh [rSCY], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	pop bc
 	ret
 
@@ -6025,9 +6025,9 @@ Joypad_ClearAndResetRepeat:: ; 2D:70F4
 	ld b, $14
 	ld c, $02
 	ld a, c
-	ld [wRam_C2E2], a
+	ld [wJoyRepeatInterval], a
 	ld a, b
-	ld [wRam_C2E1], a
+	ld [wJoyRepeatDelay], a
 	ld hl, $C2E5
 	ld b, $04
 

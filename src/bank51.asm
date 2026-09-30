@@ -13,15 +13,15 @@ CommTime_ShowSummary:: ; 51:4000
 	call CommTime_DrawSummaryScreen
 	call CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
-	ld [wRam_C2D8], a
+	ld [wCommTimeTotal], a
 	ldh a, [hRam_FFB1]
-	ld [wRam_C2D9], a
+	ld [wCommTimeTotal + 1], a
 	ldh a, [hRam_FFB2]
-	ld [wRam_C2DA], a
+	ld [wCommTimeTotal + 2], a
 	xor a, a
 	ld [wTimerAFrames], a
-	ld [wRam_C2D5], a
-	ld [wRam_C2D6], a
+	ld [wTimerASeconds], a
+	ld [wTimerAMinutes], a
 	ld [wRam_C2D7], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -30,13 +30,13 @@ CommTime_ShowSummary:: ; 51:4000
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld hl, $A9F8
-	ld a, [wRam_C2D8]
+	ld a, [wCommTimeTotal]
 	ld [hli], a
-	ld a, [wRam_C2D9]
+	ld a, [wCommTimeTotal + 1]
 	ld [hli], a
-	ld a, [wRam_C2DA]
+	ld a, [wCommTimeTotal + 2]
 	ld [hli], a
-	ld a, [wRam_C2DB]
+	ld a, [wCommTimeTotal + 3]
 	ld [hli], a
 	xor a, a
 	ldh [hSRAMEnable], a
@@ -63,7 +63,7 @@ Function_51_404A::
 	call CommTime_TimerAIsNonZero
 	or a, a
 	jp z, Label_51_41D3
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_51_40BF
 	ld de, $9001
@@ -119,11 +119,11 @@ Label_51_40BF:: ; 51:40BF
 ; ---- code $4105-$4112 (13 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
 
 Label_51_4105:: ; 51:4105
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	ld l, a
 	ld h, $00
 	cp a, $3C
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	jr c, Label_51_4117
 
 ; ---- code $4112-$4117 (5 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 51:4110 (executed)
@@ -134,7 +134,7 @@ Label_51_4105:: ; 51:4105
 
 Label_51_4117:: ; 51:4117
 	ldh [hRam_FFB1], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_51_4125
 	ld de, $D162
@@ -156,7 +156,7 @@ Label_51_4128:: ; 51:4128
 	call CommTime_DrawNumber
 	ld a, l
 	call CommTime_PutDigit
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_51_4147
 	ld de, $D167
@@ -183,7 +183,7 @@ Label_51_414A:: ; 51:414A
 	call Function_00_07CB
 	farcall Function_00_0956
 	farcall Palette_FadeInFromWhite
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_51_4186
 	ldh a, [hWRAMBank]
@@ -212,7 +212,7 @@ Label_51_4186:: ; 51:4186
 
 Label_51_4196:: ; 51:4196
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 
 Label_51_4199:: ; 51:4199
 	farcall Function_00_0956
@@ -254,7 +254,7 @@ Label_51_41C7:: ; 51:41C7
 
 Label_51_41D3:: ; 51:41D3
 	ldh [hRam_FFA7], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 CommTime_DrawNumber:: ; 51:41D8
@@ -349,13 +349,13 @@ Function_51_4239::
 
 CommTime_Reset:: ; 51:4245
 	xor a, a
-	ld [wRam_C2D8], a
-	ld [wRam_C2D9], a
-	ld [wRam_C2DA], a
-	ld [wRam_C2DB], a
+	ld [wCommTimeTotal], a
+	ld [wCommTimeTotal + 1], a
+	ld [wCommTimeTotal + 2], a
+	ld [wCommTimeTotal + 3], a
 	ld [wTimerAFrames], a
-	ld [wRam_C2D5], a
-	ld [wRam_C2D6], a
+	ld [wTimerASeconds], a
+	ld [wTimerAMinutes], a
 	ld [wRam_C2D7], a
 	ret
 
@@ -376,7 +376,7 @@ CommTime_AddTimerA:: ; 51:425F
 Label_51_426F:: ; 51:426F
 	ccf
 	inc hl
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	adc a, [hl]
 	ldh [hRam_FFB1], a
 	sub a, $3C
@@ -391,7 +391,7 @@ Label_51_426F:: ; 51:426F
 Label_51_427E:: ; 51:427E
 	ccf
 	inc hl
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	adc a, [hl]
 	ldh [hRam_FFB2], a
 	jr c, Label_51_428C
@@ -1331,9 +1331,9 @@ Label_51_7175:: ; 51:7175
 
 Bmp_ConvertToTiles:: ; 51:7177
 	ld a, l
-	ld [wRam_C337], a
+	ld [wHtmlLinkHeapPtr + 1], a
 	ld a, h
-	ld [wRam_C338], a
+	ld [wHtmlBoldCount], a
 	push hl
 	call Bmp_Validate
 	pop de
@@ -1369,7 +1369,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	add hl, de
 	pop de
 	ld a, l
-	ld [wRam_C330], a
+	ld [wHtmlBrClear], a
 	ld a, h
 	ld [wRam_C331], a
 	ld hl, $0017
@@ -1388,11 +1388,11 @@ Bmp_ConvertToTiles:: ; 51:7177
 	rrca
 	rrca
 	rrca
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	add a, $03
 	jp c, Label_51_73CE
 	and a, $FC
-	ld [wRam_C335], a
+	ld [wHtmlScanOnly], a
 	ldh a, [hRam_FFD7]
 	call Bmp_RoundUpToTextRow
 	ld [wRam_C333], a
@@ -1425,7 +1425,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 	rlca
 	rlca
 	rlca
-	ld [wRam_C336], a
+	ld [wHtmlLinkHeapPtr], a
 	ld [hli], a
 	ld a, [wRam_C333]
 	ld [hli], a
@@ -1438,9 +1438,9 @@ Bmp_ConvertToTiles:: ; 51:7177
 	inc hl
 	inc hl
 	ld a, l
-	ld [wRam_C33B], a
+	ld [wHtmlListCounter + 1], a
 	ld a, h
-	ld [wRam_C33C], a
+	ld [wHtmlAlign], a
 	call Function_00_0392
 	ld a, $03
 	ldh [hWRAMBank], a
@@ -1462,7 +1462,7 @@ Bmp_ConvertToTiles:: ; 51:7177
 
 Label_51_7251:: ; 51:7251
 	call Function_00_0392
-	ld a, [wRam_C334]
+	ld a, [wBrowserNavigating]
 	ld c, a
 	ld b, $00
 	push hl
@@ -1473,7 +1473,7 @@ Label_51_7251:: ; 51:7251
 	ld a, [wRam_C331]
 	bit 7, a
 	jr z, Label_51_7276
-	ld a, [wRam_C334]
+	ld a, [wBrowserNavigating]
 	or a, a
 	jr z, Label_51_7276
 	ld c, a
@@ -1501,7 +1501,7 @@ Label_51_7276:: ; 51:7276
 Label_51_7287:: ; 51:7287
 	pop de
 	pop hl
-	ld a, [wRam_C335]
+	ld a, [wHtmlScanOnly]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -1522,14 +1522,14 @@ Label_51_7287:: ; 51:7287
 	inc hl
 	push de
 	push hl
-	ld a, [wRam_C337]
+	ld a, [wHtmlLinkHeapPtr + 1]
 	ld l, a
-	ld a, [wRam_C338]
+	ld a, [wHtmlBoldCount]
 	ld h, a
 	ld de, $000A
 	add hl, de
 	ld d, a
-	ld a, [wRam_C337]
+	ld a, [wHtmlLinkHeapPtr + 1]
 	ld e, a
 	ld a, [hli]
 	ld h, [hl]
@@ -1580,9 +1580,9 @@ Label_51_72D4:: ; 51:72D4
 	inc bc
 	add hl, bc
 	ld a, l
-	ld [wRam_C339], a
+	ld [wHtmlBoldCount + 1], a
 	ld a, h
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	pop bc
 	pop hl
 	push hl
@@ -1591,9 +1591,9 @@ Label_51_72D4:: ; 51:72D4
 	ld d, b
 
 Label_51_72F8:: ; 51:72F8
-	ld a, [wRam_C33B]
+	ld a, [wHtmlListCounter + 1]
 	add a, c
-	ld a, [wRam_C33C]
+	ld a, [wHtmlAlign]
 	adc a, b
 	cp a, $C0
 	jr nc, Label_51_7383
@@ -1652,10 +1652,10 @@ Label_51_7334:: ; 51:7334
 	ld a, [hld]
 	cp a, d
 	jr nz, Label_51_735A
-	ld a, [wRam_C339]
+	ld a, [wHtmlBoldCount + 1]
 	add a, e
 	ld [hli], a
-	ld a, [wRam_C33A]
+	ld a, [wHtmlListCounter]
 	adc a, d
 	ld [hli], a
 
@@ -1703,10 +1703,10 @@ Label_51_7383:: ; 51:7383
 	dec de
 	ld a, e
 	cpl
-	ld [wRam_C339], a
+	ld [wHtmlBoldCount + 1], a
 	ld a, d
 	cpl
-	ld [wRam_C33A], a
+	ld [wHtmlListCounter], a
 	ld hl, $D001
 	add hl, de
 	ld e, l
@@ -1715,10 +1715,10 @@ Label_51_7383:: ; 51:7383
 	dec hl
 	dec hl
 	push bc
-	ld a, [wRam_C339]
+	ld a, [wHtmlBoldCount + 1]
 	add a, c
 	ld c, a
-	ld a, [wRam_C33A]
+	ld a, [wHtmlListCounter]
 	adc a, b
 	ld b, a
 	or a, c
@@ -1743,7 +1743,7 @@ Label_51_73AB:: ; 51:73AB
 	ld [de], a
 	ld a, [wRam_C333]
 	ldh [hRam_FFD7], a
-	ld a, [wRam_C336]
+	ld a, [wHtmlLinkHeapPtr]
 	ldh [hRam_FFD6], a
 	pop hl
 

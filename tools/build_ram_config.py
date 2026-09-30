@@ -8,14 +8,25 @@ Inputs (all committed):
   analysis/mobile_candidates.json               wram_sdk_layout (SDK block C69F.., roles, buffers)
   analysis/struct_candidates.json               stride/array candidates (already folded into the census rows)
   docs/research/sram_layout.md                  SRAM facts (curated below as SRAM_FACTS, each with its citation)
+  analysis/naming/ram_*.tsv                     RAM-name proposals of the naming stage (layer 'naming', see below)
 
 Outputs:
+  config/ram/named.tsv    semantic names adopted from the naming proposals (PROBABLE/CONFIRMED, cited evidence)
   config/ram/sdk.tsv      SDK WRAM block (bank 75 Mobile Adapter SDK)
   config/ram/sram.tsv     SRAM entry points (neutral sSram_<ADDR>) + proven SRAM facts
   config/ram/census.tsv   everything else touched by the ROM (neutral wRam_/hRam_ names or census names)
   docs/research/ram_names_reconciliation.md   every resolution
 
 Policy
+  * Precedence (with the naming layer): rom0_ram.tsv > named.tsv > sdk.tsv > sram.tsv > census.tsv.  The older
+    three-layer rules below are still what the "baseline" pass (no naming layer) does; it regenerates the first
+    sections of docs/research/ram_names_reconciliation.md unchanged and the naming layer is appended as a new section.
+  * Naming layer rules (see naming_* functions): banked addresses (WRAM D000-DFFF, SRAM A000-BFFF) are never named
+    (the generator cannot see the bank and the ROM reuses the addresses with unrelated meanings; the per-bank ideas are
+    recorded in the evidence of the neutral row, HYPOTHESIS); HYPOTHESIS proposals and proposals without a code
+    citation are not adopted; namers disagreeing at one address are resolved by (best status, number of independent
+    namer groups), a tie keeps the neutral name; overlapping proposals of different namers are neutralised;
+    a proposal overlapping a rom0_ram.tsv symbol loses to it.
   * Precedence: rom0_ram.tsv > sdk.tsv > census.tsv.  Same address with another name: the higher one wins, the
     loser is logged (its usage statistics are merged into the winner's evidence when it is a census row).
   * A census row whose address lies strictly inside a sized higher-precedence symbol is dropped
@@ -28,11 +39,12 @@ Policy
     the evidence text.
 Run:  python3 tools/build_ram_config.py [--check]
 """
+import glob
 import json
 import os
 import re
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = lambda *a: os.path.join(ROOT, *a)
@@ -105,11 +117,9 @@ SRAM_FACTS = [
 ]
 
 
-def main():
-    check_only = '--check' in sys.argv
-    log = []                                  # markdown lines of the reconciliation document
-    stats = Counter()
+# ----------------------------------------------------------------------------- inputs
 
+def load_inputs():
     rom0 = read_rows(P('config', 'ram', 'rom0_ram.tsv'))
     census = read_rows(P('analysis', 'proposals', 'ram_symbols_census.tsv'))
     strong = {}
@@ -130,11 +140,21 @@ def main():
     layout = mc['wram_sdk_layout']
     struct = json.load(open(P('analysis', 'struct_candidates.json'), encoding='utf-8'))
     assert rom0 and census and layout and struct['candidates'] is not None
+    return dict(rom0=rom0, census=census, strong=strong, weak=weak, layout=layout)
+
+
+# ----------------------------------------------------------------------------- build (one pass)
+
+def build(inp, named):
+    """One reconciliation pass.  named = [] gives the baseline (rom0 > sdk > census) of the earlier stages."""
+    log_sdk = []
+    stats = Counter()
+    rom0, census, strong, weak, layout = inp['rom0'], inp['census'], inp['strong'], inp['weak'], inp['layout']
 
     taken = {}                                # addr -> row (all emitted rows)
     ranges = []                               # (addr, end, row)
     used_names = {}
-    emitted = {'sdk': [], 'sram': [], 'census': []}
+    emitted = {'named': [], 'sdk': [], 'sram': [], 'census': []}
 
     def name_ok(r):
         if r['name'] in used_names:
@@ -142,11 +162,23 @@ def main():
         used_names[r['name']] = r['addr']
 
     for r in rom0:
+        r = dict(r)
         r['file'] = 'rom0'
         taken[r['addr']] = r
         ranges.append((r['addr'], r['addr'] + r['size'], r))
         name_ok(r)
     stats['rom0 (kept untouched)'] = len(rom0)
+
+    for r in named:
+        r = dict(r)
+        r['file'] = 'named'
+        if r['addr'] in taken or any(s < r['addr'] + r['size'] and r['addr'] < e for s, e, _ in ranges):
+            raise SystemExit('named row %s collides with a kept row' % r['name'])
+        taken[r['addr']] = r
+        ranges.append((r['addr'], r['addr'] + r['size'], r))
+        name_ok(r)
+        emitted['named'].append(r)
+        stats['named rows'] += 1
 
     def inside(a):
         """Row of an emitted sized symbol strictly containing address a (start != a), else None."""
@@ -163,7 +195,6 @@ def main():
         census_by_addr.setdefault(r['addr'], r)
 
     # ------------------------------------------------------------------ SDK block
-    log_sdk = []
     for L in sorted(layout, key=lambda x: int(x['trainer'], 16)):
         a = int(L['trainer'], 16)
         role, cstat, cname = L['role'], L['status'], L['crystal_name']
@@ -174,9 +205,22 @@ def main():
             continue
         if a in taken:
             r0 = taken[a]
-            log_sdk.append('| %04X | SDK role/Crystal lead %s | `%s` (rom0_ram.tsv) | rom0_ram.tsv wins; SDK role text kept out of the name: %s |'
-                           % (a, cname or '-', r0['name'], (role or 'no role')[:110]))
-            stats['conflict: SDK vs rom0 (rom0 wins)'] += 1
+            if r0['file'] == 'rom0':
+                log_sdk.append('| %04X | SDK role/Crystal lead %s | `%s` (rom0_ram.tsv) | rom0_ram.tsv wins; SDK role text kept out of the name: %s |'
+                               % (a, cname or '-', r0['name'], (role or 'no role')[:110]))
+                stats['conflict: SDK vs rom0 (rom0 wins)'] += 1
+            else:
+                lo = []
+                if role:
+                    lo.append('role: %s (analysis/mobile_candidates.json wram_sdk_layout, bank 75 SDK)' % role)
+                if sm:
+                    lo.append('Crystal %s, %d corroborating matches (analysis/crystal_ram_map.tsv)' % (sm['sym'], sm['n']))
+                elif wk:
+                    lo.append('weak Crystal lead %s, %d matches, HYPOTHESIS (analysis/crystal_ram_map.tsv weak)' % (wk['sym'], wk['n']))
+                if lo:
+                    r0['ev'] += ' | SDK layer (replaced): ' + '; '.join(lo)
+                log_sdk.append('| %04X | SDK role/Crystal lead %s | `%s` (named.tsv) | named layer wins |' % (a, cname or '-', r0['name']))
+                stats['conflict: SDK vs named (named wins)'] += 1
             continue
         outer = inside(a)
         if outer is not None:
@@ -256,6 +300,8 @@ def main():
                     a, r['name'], r['size'], r['status'], w['name'], w['size'], w['file'],
                     w['file'], 'name differs' if w['name'] != r['name'] else 'size differs'))
                 stats['conflict: same address, different name/size'] += 1
+                if w['file'] == 'named':
+                    w['ev'] += ' | census (replaced): ' + r['ev']
             else:
                 stats['census row identical to a kept row'] += 1
             continue
@@ -315,35 +361,362 @@ def main():
         emitted['sram'].append(r)
         stats['sram rows (facts only)'] += 1
 
-    # ------------------------------------------------------------------ write
-    hdr = {
-        'sdk': '# SDK WRAM block (bank 75 Mobile Adapter SDK).  Generated by tools/build_ram_config.py - do not edit.\n'
-               '# Names: wMobileSDK_* only when imported from Crystal (PROBABLE at most); otherwise neutral wRam_<ADDR>.\n',
-        'sram': '# SRAM entry points.  Generated by tools/build_ram_config.py - do not edit.  Size is always 1 (banks overlap);\n'
-                '# extents/layout facts are in the evidence (docs/research/sram_layout.md).\n',
-        'census': '# Neutral/proven RAM names for everything else touched by the ROM.  Generated by tools/build_ram_config.py.\n'
-                  '# rom0_ram.tsv (hand reviewed) and sdk.tsv take precedence; see docs/research/ram_names_reconciliation.md.\n',
-    }
-    outs = {}
-    for k in ('sdk', 'sram', 'census'):
-        rows = sorted(emitted[k], key=lambda r: r['addr'])
-        outs[k] = hdr[k] + '# addr\tname\tsize\ttype\tstatus\tevidence\n' + ''.join(sym_line(r) + '\n' for r in rows)
-    changed = False
-    for k, txt in outs.items():
-        path = P('config', 'ram', k + '.tsv')
-        old = open(path, encoding='utf-8').read() if os.path.exists(path) else None
-        if old != txt:
-            changed = True
-            if not check_only:
-                open(path, 'w', encoding='utf-8').write(txt)
+    return dict(taken=taken, ranges=ranges, emitted=emitted, log_sdk=log_sdk, dropped=dropped, stats=stats,
+                rom0=[dict(r, file='rom0') for r in rom0], names=dict(used_names))
 
-    # counts by status over all files
+
+# ----------------------------------------------------------------------------- naming layer
+
+CITE = re.compile(r'\b[0-9A-F]{2}:[0-9A-F]{4}\b|sram_layout\.md|boot_and_home\.md|mobile_trainer_serial\.md|docs/research/[a-z_0-9]+\.md')
+BANK_HINT = re.compile(r'(WRAM ?BANK ?\d(?:-\d)?|WRAM ?\d\b|SRAM bank \d|bank \d only|WRAM bank \d)', re.I)
+
+
+_SYMS = None
+
+
+def symbol_names():
+    """Names defined in config/symbols/*.tsv (routine/table labels a proposal may cite instead of bank:addr)."""
+    global _SYMS
+    if _SYMS is None:
+        _SYMS = set()
+        for path in sorted(glob.glob(P('config', 'symbols', '*.tsv'))):
+            with open(path, encoding='utf-8-sig') as f:
+                for ln in f:
+                    c = ln.rstrip('\n').split('\t')
+                    if ln.startswith('#') or len(c) < 3 or not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', c[1]):
+                        continue
+                    _SYMS.add(c[1])
+    return _SYMS
+
+
+def cited(ev):
+    """Evidence cites code/bytes: a bank:addr, a docs/research file or a routine/table label of config/symbols."""
+    if CITE.search(ev):
+        return True
+    syms = symbol_names()
+    return any(t in syms for t in re.findall(r'[A-Za-z_][A-Za-z0-9_]*', ev))
+
+
+def read_naming():
+    """analysis/naming/ram_*.tsv -> proposals (deterministic order: group, file order)."""
+    props = []
+    for path in sorted(glob.glob(P('analysis', 'naming', 'ram_*.tsv'))):
+        grp = os.path.basename(path)[len('ram_'):-len('.tsv')]
+        with open(path, encoding='utf-8-sig') as f:
+            for n, ln in enumerate(f, 1):
+                ln = ln.rstrip('\n')
+                if not ln.strip() or ln.lstrip().startswith('#'):
+                    continue
+                c = ln.split('\t')
+                if c[0].strip().lower() == 'addr':
+                    continue
+                if len(c) < 6:
+                    raise SystemExit('%s:%d: need 6 columns' % (path, n))
+                props.append(dict(grp=grp, line=n, addr=int(c[0], 16), name=c[1].strip(), size=int(c[2]), type=c[3].strip(),
+                                  status=c[4].strip().upper(), ev=' '.join('\t'.join(c[5:]).split())))
+    return props
+
+
+def clean_ev(ev):
+    return re.sub(r'^replaces [^:]*:\s*', '', ev)
+
+
+def bank_hint(p):
+    m = BANK_HINT.search(p['ev'])
+    return re.sub(r'\s+', ' ', m.group(1)) if m else 'bank not stated'
+
+
+def note_text(kind, p, extra=''):
+    tag = {'bank': 'naming proposal NOT applied (banked address, the meaning depends on the WRAM/SRAM bank; HYPOTHESIS)',
+           'weak': 'naming idea NOT adopted (proposal is HYPOTHESIS or lacks a code citation)',
+           'conflict': 'naming ideas in conflict, none adopted (HYPOTHESIS)',
+           'rom0': 'naming idea rejected (rom0_ram.tsv symbol wins)',
+           'shadow': 'naming idea NOT adopted'}[kind]
+    return '%s: %s size %d %s [%s%s]%s: %s' % (tag, p['name'], p['size'], p['status'], p['grp'], '; ' + bank_hint(p) if kind == 'bank' else '',
+                                               extra, clean_ev(p['ev'])[:110].rstrip())
+
+
+def resolve_named(props, inp, base):
+    """Apply the naming-layer policy.  Returns (named rows, notes {addr: [text]}, log dict)."""
+    rom0 = inp['rom0']
+    lg = defaultdict(list)
+    notes = defaultdict(list)
+    cands = []
+    for p in props:
+        a, e = p['addr'], p['addr'] + p['size']
+        if NEUTRAL.match(p['name']):
+            lg['neutral'].append(p)                    # neutral name = no change
+            continue
+        if not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', p['name']) or p['size'] < 1 or e > 0x10000:
+            lg['invalid'].append(p)
+            continue
+        if (a < 0xC000 and e > 0xA000) or (a < 0xE000 and e > 0xD000):     # touches SRAM banks or WRAM banks 1-7
+            notes[a].append(note_text('bank', p))
+            lg['bank'].append(p)
+            continue
+        b0 = base['taken'].get(a)
+        if b0 is not None and b0['name'] == p['name'] and b0['size'] == p['size']:
+            lg['same'].append(p)                       # identical to an existing row: corroboration only
+            continue
+        if p['status'] not in ('CONFIRMED', 'PROBABLE') or not cited(p['ev']):
+            notes[a].append(note_text('weak', p))
+            lg['weak'].append(p)
+            continue
+        if 0xC000 <= a < 0xD000 and e > 0xD000 or 0xFF80 <= a and e > 0xFFFF:
+            lg['invalid'].append(p)
+            continue
+        cands.append(p)
+
+    # clusters of overlapping candidate extents
+    parent = list(range(len(cands)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    for i, p in enumerate(cands):
+        for j in range(i + 1, len(cands)):
+            q = cands[j]
+            if p['addr'] < q['addr'] + q['size'] and q['addr'] < p['addr'] + p['size']:
+                parent[find(i)] = find(j)
+    clusters = defaultdict(list)
+    for i, p in enumerate(cands):
+        clusters[find(i)].append(p)
+
+    winners = []
+    for _, cl in sorted(clusters.items(), key=lambda kv: min(p['addr'] for p in kv[1])):
+        starts = sorted({p['addr'] for p in cl})
+        cross = any(p['grp'] != q['grp'] and p['addr'] < q['addr'] + q['size'] and q['addr'] < p['addr'] + p['size']
+                    and (p['addr'], p['name'], p['size']) != (q['addr'], q['name'], q['size'])
+                    for p in cl for q in cl)
+        if len(starts) > 1 and cross:
+            for p in cl:
+                notes[p['addr']].append(note_text('conflict', p, ' (overlapping extents of different namers)'))
+            lg['conflict'].append(('overlapping extents of different namers', cl))
+            continue
+        for a in starts:
+            at = [p for p in cl if p['addr'] == a]
+            by = defaultdict(list)
+            for p in at:
+                by[p['name']].append(p)
+            score = {n: (max(STAT_RANK[p['status']] for p in v), len({p['grp'] for p in v})) for n, v in by.items()}
+            best = max(score.values())
+            top = [n for n, s in score.items() if s == best]
+            if len(by) > 1:
+                if len(top) != 1:
+                    for p in at:
+                        notes[a].append(note_text('conflict', p, ' (no clear winner, tie on status and number of namers)'))
+                    lg['conflict'].append(('same address, different names, no clear winner', at))
+                    continue
+                lg['resolved'].append((top[0], at))
+            win = by[top[0]]
+            sizes = sorted({p['size'] for p in win})
+            size = sizes[0]
+            if len(sizes) > 1:
+                lg['sizecut'].append((win, sizes))
+            grps = sorted({p['grp'] for p in win})
+            ev = ' || '.join('[%s] %s' % (g, next(p['ev'] for p in win if p['grp'] == g)) for g in grps)
+            types = [p['type'] for p in win if p['size'] == size]
+            if len(sizes) > 1:
+                ev += ' || sizes proposed %s, smallest kept' % '/'.join(map(str, sizes))
+            for p in at:
+                if p['name'] != top[0]:
+                    notes[a].append(note_text('shadow', p, ' (outvoted by %s)' % top[0]))
+            winners.append(dict(addr=a, name=top[0], size=size, type=types[0], groups=grps,
+                                status=max((p['status'] for p in win), key=lambda s: STAT_RANK[s]), ev=ev))
+
+    # truncate self-overlaps (same namer group placed a union/dual use start inside an earlier extent)
+    winners.sort(key=lambda w: w['addr'])
+    for i in range(len(winners) - 1):
+        w, nx = winners[i], winners[i + 1]
+        if w['addr'] + w['size'] > nx['addr']:
+            keep = nx['addr'] - w['addr']
+            lg['truncate'].append((w, w['size'], keep, nx['name']))
+            w['ev'] += (' || extent %d truncated to %d bytes: the proposed extent overlaps %s at %04X (dual use/union in the same '
+                        'namer\'s proposal), only the non-overlapping bytes are asserted' % (w['size'], keep, nx['name'], nx['addr']))
+            w['size'] = keep
+            if keep == 1 and w['type'] in ('array', 'string', 'struct'):
+                w['type'] = 'byte'
+
+    # against rom0_ram.tsv
+    keep = []
+    for w in winners:
+        a, e = w['addr'], w['addr'] + w['size']
+        r0 = [r for r in rom0 if r['addr'] < e and a < r['addr'] + r['size']]
+        if any(r['addr'] <= a for r in r0):
+            lg['rom0'].append((w, r0[0]))
+            continue
+        if r0:
+            cut = min(r['addr'] for r in r0) - a
+            lg['truncate_rom0'].append((w, w['size'], cut, r0[0]['name']))
+            w['ev'] += ' || extent %d truncated to %d bytes: rom0_ram.tsv symbol %s starts at %04X' % (w['size'], cut, r0[0]['name'], r0[0]['addr'])
+            w['size'] = cut
+        keep.append(w)
+    winners = keep
+
+    # unchanged (already exactly this name/size in the baseline) and name collisions
+    final = []
+    used = {}
+    for w in winners:
+        b = base['taken'].get(w['addr'])
+        if b is not None and b['name'] == w['name'] and b['size'] == w['size']:
+            lg['unchanged'].append((w, b))
+            continue
+        other = base['names'].get(w['name'])
+        if (other is not None and other != w['addr']) or w['name'] in used:
+            lg['collision'].append((w, other if other is not None else used.get(w['name'])))
+            continue
+        used[w['name']] = w['addr']
+        final.append(w)
+    return final, notes, lg
+
+
+def apply_notes(res, notes, rom0_addrs):
+    """Append the per-bank / conflict notes to the row that starts at the address; returns unattached [(addr, why)]."""
+    rows = {}
+    for k in ('named', 'sdk', 'sram', 'census'):
+        for r in res['emitted'][k]:
+            rows[r['addr']] = r
+    lost = []
+    for a in sorted(notes):
+        r = rows.get(a)
+        if r is None:
+            if a in rom0_addrs:
+                lost.append((a, 'rom0_ram.tsv row (not modified)'))
+            else:
+                o = None
+                for s, e, rr in res['ranges']:
+                    if s < a < e:
+                        o = rr
+                lost.append((a, 'inside `%s`' % o['name'] if o else 'no row (address not referenced by name-able code)'))
+            continue
+        r['ev'] += ' | ' + ' | '.join(notes[a])
+    return lost
+
+
+def fmt_grp(gs):
+    return ','.join(gs)
+
+
+def naming_section(res, base, named, props, notes, lost, lg):
+    """Markdown of the naming-layer reconciliation."""
+    B = base['taken']
+    md = ['## Naming-layer reconciliation (analysis/naming/ram_*.tsv -> config/ram/named.tsv)', '',
+          'Source: `analysis/naming/ram_g1..g8.tsv` and `ram_sdk.tsv` (%d proposal rows, %d distinct addresses).  '
+          'Precedence is now `rom0_ram.tsv` > `named.tsv` > `sdk.tsv` (Crystal derived) > `sram.tsv` > `census.tsv` (neutral).  '
+          'The tables above describe the earlier three-layer pass and are unchanged.' % (len(props), len({p['addr'] for p in props})), '',
+          '### Policy of this layer', '',
+          '* A proposal is adopted only when its status is PROBABLE or CONFIRMED, its evidence cites code/bytes (`bank:addr` or a docs/research file) and it is a semantic name (proposals that keep a neutral `wRam_/sSram_` name are no-ops).',
+          '* **Banked addresses** (WRAM `D000-DFFF` = banks 1-7 via SVBK, SRAM `A000-BFFF` = banks 0-3 via RAMB) are never named: `gen_asm.py` cannot see the bank and every namer states that its meaning is bank specific (sound engine `D005-D21F` in WRAM bank 1 vs the bank-5 mail library `D000-D625`, mail editing buffers `D400-D63x` in bank 1 vs bank 5 text buffer `D024-D623` and bank 6 HTML buffers `D300-D7FF`/`D800-DFFD`, bank 3 account fields `DE80-DFC2` vs bank 6 link heap, SRAM banks 0-3 reusing `A000-BFFF` for mail records, settings, browser cache ...).  The neutral row stays (size 1) and the per-bank idea is appended to its evidence column as HYPOTHESIS; the ideas are also listed below.',
+          '* C000-CFFF (WRAM bank 0), FF80-FFFE (HRAM): resolved by evidence strength = (highest status, number of independent namer groups).  A strict winner is adopted; a tie keeps the neutral name and records both ideas as HYPOTHESIS.  Proposals of different namers whose extents overlap without an identical (addr, name, size) are all neutralised.',
+          '* A proposal at an address of `rom0_ram.tsv` loses to it; one overlapping it is truncated to the non-overlapping bytes.  Two overlapping rows of the *same* namer (dual use) keep the later start and truncate the earlier extent.',
+          '* `rom0_ram.tsv` rows in banked space (`D000-D004`, `D026` = `wBank4*`, `DA00` = `wSpriteSlots`) are bank specific by their own evidence (WRAM bank 1 / bank 7) and are not modified; the bank-5 mail-library ideas of `ram_sdk.tsv` for `D000-D002` (`wMail_InputBank`, `wMail_OutputBank`, `wMail_Selector` CONFIRMED) therefore only appear in the banked table below.',
+          '* When a named row replaces a neutral census/SDK row its usage statistics / SDK role are folded into the named row\'s evidence; census/SDK rows strictly inside the named extent are dropped (`gen_asm.py` prints `name + k`).', '']
+
+    # counts
+    allrows = res['rom0'] + res['emitted']['named'] + res['emitted']['sdk'] + res['emitted']['sram'] + res['emitted']['census']
+    bs = Counter(r['status'] for r in allrows)
+    baserows = base['rom0'] + base['emitted']['sdk'] + base['emitted']['sram'] + base['emitted']['census']
+    bb = Counter(r['status'] for r in baserows)
+    md += ['### Counts by status after the naming layer (rows emitted, all files)', '',
+           '| file | CONFIRMED | PROBABLE | HYPOTHESIS | total |', '|---|---|---|---|---|']
+    fl = [('rom0_ram.tsv', res['rom0']), ('named.tsv', res['emitted']['named']), ('sdk.tsv', res['emitted']['sdk']),
+          ('sram.tsv', res['emitted']['sram']), ('census.tsv', res['emitted']['census'])]
+    for fn, rows in fl:
+        c = Counter(r['status'] for r in rows)
+        md.append('| %s | %d | %d | %d | %d |' % (fn, c['CONFIRMED'], c['PROBABLE'], c['HYPOTHESIS'], len(rows)))
+    md.append('| **all** | %d | %d | %d | %d |' % (bs['CONFIRMED'], bs['PROBABLE'], bs['HYPOTHESIS'], len(allrows)))
+    md.append('| before (three-layer pass) | %d | %d | %d | %d |' % (bb['CONFIRMED'], bb['PROBABLE'], bb['HYPOTHESIS'], len(baserows)))
+    repl_neutral = [w for w in named if w['addr'] in B and NEUTRAL.match(B[w['addr']]['name'])]
+    repl_other = [w for w in named if w['addr'] in B and not NEUTRAL.match(B[w['addr']]['name'])]
+    interior = 0
+    for w in named:
+        interior += sum(1 for a in B if w['addr'] < a < w['addr'] + w['size'])
+    md += ['', '### Statistics', '',
+           '* proposal rows read: %d (neutral-name no-ops: %d)' % (len(props), len(lg['neutral'])),
+           '* semantic names adopted (named.tsv rows): %d' % len(named),
+           '* of which replaced a neutral `wRam_/hRam_` row at the same address: %d' % len(repl_neutral),
+           '* of which replaced a non-neutral lower-layer name (Crystal import / census pattern): %d' % len(repl_other),
+           '* of which sit at an address without any previous row: %d' % (len(named) - len(repl_neutral) - len(repl_other)),
+           '* rows of the three-layer pass dropped because they lie inside a named array/word: %d' % interior,
+           '* proposals not applied because the address is banked (WRAM D000-DFFF / SRAM A000-BFFF): %d' % len(lg['bank']),
+           '* proposals not adopted because HYPOTHESIS or no code citation: %d' % len(lg['weak']),
+           '* address clusters neutralised because the namers conflict: %d' % len(lg['conflict']),
+           '* conflicts resolved by strictly stronger evidence: %d' % len(lg['resolved']),
+           '* proposals that lost to rom0_ram.tsv: %d' % len(lg['rom0']),
+           '* proposals identical to an existing row (no change): %d' % len(lg['same']),
+           '* extents truncated: %d' % (len(lg['truncate']) + len(lg['truncate_rom0'])),
+           '* names rejected because already used elsewhere: %d' % len(lg['collision']), '']
+
+    md += ['### Adopted names (named.tsv)', '',
+           '| addr | name | size | status | namers | replaced row (three-layer pass) | interior rows dropped |', '|---|---|---|---|---|---|---|']
+    for w in sorted(named, key=lambda w: w['addr']):
+        b = B.get(w['addr'])
+        inn = sum(1 for a in B if w['addr'] < a < w['addr'] + w['size'])
+        md.append('| %04X | `%s` | %d | %s | %s | %s | %d |' % (w['addr'], w['name'], w['size'], w['status'], fmt_grp(w['groups']),
+                                                           ('`%s` size %d (%s)' % (b['name'], b['size'], b['file'])) if b else '-', inn))
+    md.append('')
+
+    md += ['### Conflicts between namers', '', '| addr | proposals | outcome |', '|---|---|---|']
+    for name, at in lg['resolved']:
+        a = at[0]['addr']
+        md.append('| %04X | %s | `%s` adopted: strictly stronger evidence (status, number of independent namers) |' % (
+            a, '; '.join('%s `%s` %s' % (p['grp'], p['name'], p['status']) for p in at), name))
+    for why, cl in lg['conflict']:
+        md.append('| %s | %s | neutral kept (%s); ideas recorded as HYPOTHESIS in the evidence column |' % (
+            '/'.join('%04X' % a for a in sorted({p['addr'] for p in cl})),
+            '; '.join('%s `%s` size %d %s' % (p['grp'], p['name'], p['size'], p['status']) for p in cl), why))
+    for win, sizes in lg['sizecut']:
+        md.append('| %04X | %s | sizes %s disagree, smallest kept |' % (win[0]['addr'], win[0]['name'], sizes))
+    md.append('')
+
+    md += ['### Proposals rejected because of rom0_ram.tsv, truncation, collisions', '', '| addr | proposal | outcome |', '|---|---|---|']
+    for w, r0 in lg['rom0']:
+        md.append('| %04X | `%s` size %d %s [%s] | rom0_ram.tsv `%s` (%04X+%d) wins; neutral/ROM0 name kept, the idea stays in analysis/naming |' % (
+            w['addr'], w['name'], w['size'], w['status'], fmt_grp(w['groups']), r0['name'], r0['addr'], r0['size']))
+    for w, old, cut, other in lg['truncate'] + lg['truncate_rom0']:
+        md.append('| %04X | `%s` size %d | extent truncated to %d bytes (overlaps `%s`) |' % (w['addr'], w['name'], old, cut, other))
+    for w, other in lg['collision']:
+        md.append('| %04X | `%s` | name already used at %s: not adopted |' % (w['addr'], w['name'], '%04X' % other if other is not None else '?'))
+    for p in lg['same']:
+        b = B[p['addr']]
+        md.append('| %04X | `%s` size %d %s [%s] | identical to the existing `%s` row (%s): unchanged, corroborated by the naming pass |' % (
+            p['addr'], p['name'], p['size'], p['status'], p['grp'], b['name'], b['file']))
+    md.append('')
+
+    md += ['### Banked proposals (not applied; per-bank meanings)', '',
+           '| addr | proposal | namer | bank stated | status | ROM row keeping the idea |', '|---|---|---|---|---|---|']
+    for p in sorted(lg['bank'], key=lambda p: (p['addr'], p['grp'])):
+        why = [w for a, w in lost if a == p['addr']]
+        md.append('| %04X | `%s` size %d | %s | %s | %s | %s |' % (p['addr'], p['name'], p['size'], p['grp'], bank_hint(p), p['status'],
+                                                                 why[0] if why else 'evidence of the neutral row'))
+    md.append('')
+
+    md += ['### Ideas not adopted (HYPOTHESIS or no citation)', '', '| addr | proposal | namer | status |', '|---|---|---|---|']
+    for p in sorted(lg['weak'], key=lambda p: (p['addr'], p['grp'])):
+        md.append('| %04X | `%s` size %d | %s | %s |' % (p['addr'], p['name'], p['size'], p['grp'], p['status']))
+    md.append('')
+
+    md += ['### Notes that could not be attached to a row', '', '| addr | reason |', '|---|---|']
+    for a, why in lost:
+        md.append('| %04X | %s |' % (a, why))
+    md.append('')
+    return md
+
+
+# ----------------------------------------------------------------------------- main
+
+def old_sections(base):
+    """The three-layer sections of the document (unchanged text of the earlier stages)."""
+    stats, log_sdk, dropped = base['stats'], base['log_sdk'], base['dropped']
+    rom0, emitted = base['rom0'], base['emitted']
     allrows = rom0 + emitted['sdk'] + emitted['sram'] + emitted['census']
     by_status = Counter(r['status'] for r in allrows)
     by_file = {'rom0_ram.tsv': Counter(r['status'] for r in rom0)}
     for k in ('sdk', 'sram', 'census'):
         by_file[k + '.tsv'] = Counter(r['status'] for r in emitted[k])
-
     md = ['# RAM name reconciliation', '',
           'Generated by `tools/build_ram_config.py` (deterministic).  Merges the RAM-name proposals into `config/ram/*.tsv`.',
           '', '## Policy', '',
@@ -365,13 +738,67 @@ def main():
     md += ['', '## Crystal names not imported', '',
            'Strong map rows (`analysis/crystal_ram_map.tsv`) whose Crystal symbol is not a `wMobileSDK_*` name keep a neutral name; the Crystal symbol is only cited in evidence.  '
            'Weak-map rows (`_weak`, HYPOTHESIS) are leads; `wMobileSDK_PacketChecksum` (C6B2, 2 votes) and `wMobileSDK_ReceivedBytes` (C8D7) carry an SDK-looking name but stay neutral (wRam_<ADDR>): names are imported only from the strong map with >=3 corroborating matches. Retracted by the adversarial verifier: the earlier import of C6B2.', '']
-    mdtxt = '\n'.join(md) + '\n'
+    return md
+
+
+def main():
+    check_only = '--check' in sys.argv
+    inp = load_inputs()
+    base = build(inp, [])                      # earlier stages: rom0 > sdk > census
+    props = read_naming()
+    named, notes, lg = resolve_named(props, inp, base)
+    res = build(inp, named)                    # + naming layer
+    lost = apply_notes(res, notes, {r['addr'] for r in inp['rom0']})
+    emitted, stats = res['emitted'], res['stats']
+
+    # global invariants: unique addresses / names, no overlapping ranges
+    allrows = res['rom0'] + emitted['named'] + emitted['sdk'] + emitted['sram'] + emitted['census']
+    assert len({r['addr'] for r in allrows}) == len(allrows), 'duplicate address'
+    assert len({r['name'] for r in allrows}) == len(allrows), 'duplicate name'
+    srt = sorted(allrows, key=lambda r: r['addr'])
+    for x, y in zip(srt, srt[1:]):
+        assert x['addr'] + x['size'] <= y['addr'], 'overlap %s %s' % (x['name'], y['name'])
+
+    # ------------------------------------------------------------------ write
+    hdr = {
+        'named': '# Semantic RAM names adopted from the naming stage (analysis/naming/ram_*.tsv).  Generated by tools/build_ram_config.py - do not edit.\n'
+                 '# Only PROBABLE/CONFIRMED proposals with cited evidence, WRAM0 C000-CFFF and HRAM only (banked D000-DFFF / A000-BFFF stay neutral).\n'
+                 '# Precedence: rom0_ram.tsv > named.tsv > sdk.tsv > sram.tsv > census.tsv; see docs/research/ram_names_reconciliation.md.\n',
+        'sdk': '# SDK WRAM block (bank 75 Mobile Adapter SDK).  Generated by tools/build_ram_config.py - do not edit.\n'
+               '# Names: wMobileSDK_* only when imported from Crystal (PROBABLE at most); otherwise neutral wRam_<ADDR>.\n',
+        'sram': '# SRAM entry points.  Generated by tools/build_ram_config.py - do not edit.  Size is always 1 (banks overlap);\n'
+                '# extents/layout facts are in the evidence (docs/research/sram_layout.md).\n',
+        'census': '# Neutral/proven RAM names for everything else touched by the ROM.  Generated by tools/build_ram_config.py.\n'
+                  '# rom0_ram.tsv (hand reviewed), named.tsv and sdk.tsv take precedence; see docs/research/ram_names_reconciliation.md.\n',
+    }
+    outs = {}
+    for k in ('named', 'sdk', 'sram', 'census'):
+        rows = sorted(emitted[k], key=lambda r: r['addr'])
+        outs[k] = hdr[k] + '# addr\tname\tsize\ttype\tstatus\tevidence\n' + ''.join(sym_line(r) + '\n' for r in rows)
+    mdtxt = '\n'.join(old_sections(base) + naming_section(res, base, named, props, notes, lost, lg)) + '\n'
+    changed = False
+    for k, txt in outs.items():
+        path = P('config', 'ram', k + '.tsv')
+        old = open(path, encoding='utf-8').read() if os.path.exists(path) else None
+        if old != txt:
+            changed = True
+            if not check_only:
+                open(path, 'w', encoding='utf-8').write(txt)
     mdpath = P('docs', 'research', 'ram_names_reconciliation.md')
-    if not check_only:
-        open(mdpath, 'w', encoding='utf-8').write(mdtxt)
+    old = open(mdpath, encoding='utf-8').read() if os.path.exists(mdpath) else None
+    if old != mdtxt:
+        changed = True
+        if not check_only:
+            open(mdpath, 'w', encoding='utf-8').write(mdtxt)
+
+    by_status = Counter(r['status'] for r in allrows)
     print('rows: %d  by status: %s' % (len(allrows), dict(by_status)))
     for k, v in sorted(stats.items()):
         print('  %s: %d' % (k, v))
+    B = base['taken']
+    print('  named rows replacing a neutral row: %d' % sum(1 for w in named if w['addr'] in B and NEUTRAL.match(B[w['addr']]['name'])))
+    print('  proposals: banked %d, hypothesis/uncited %d, conflict clusters %d, resolved %d, rom0 %d, unchanged %d' % (
+        len(lg['bank']), len(lg['weak']), len(lg['conflict']), len(lg['resolved']), len(lg['rom0']), len(lg['same'])))
     if check_only and changed:
         print('config/ram is out of date')
         return 1
