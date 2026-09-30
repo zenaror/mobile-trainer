@@ -1,0 +1,129 @@
+# addr	name	type	status	evidence
+# Mobile Adapter SDK mail library (bank 0F): SDK naming (agent naming_sdk). Crystal names are imported from the pokecrystal community disassembly (code identity from analysis/crystal_symbol_map.tsv); semantic names are from the Trainer code, wire traces (traces/detail/*/adapter.log) and call sites. exec N/41 = scenarios executing the entry.
+4000	MailStr_Boundary	string	PROBABLE	"---" + NUL: the MIME boundary text emitted by MailComposer (EmitStringAndSuffix at 0F:5000/5019 adds the quote or "--")
+4004	MailStr_GameCodeAllowList	string	PROBABLE	"CGB-AAAA-00" + NUL + extra NUL (list end): compared with the X-Game-code value by Mail_CheckGameMail (0F:4398 loop); byte-identical to Crystal | Crystal String_114004 medium
+4011	Mail_HeaderStringTable	table	CONFIRMED	17 word pointers to header-name strings ("From: ".."Subject: ", MIME-Version, X-Game-*, Content-*, "--", "."), indexed by [D003]*2 in Mail_EmitHeaderField (0F:4F6A)
+4033	MailStr_HdrFrom	string	CONFIRMED	"From: " + NUL, entry 0 of Mail_HeaderStringTable | Crystal String_114033 medium
+403A	MailStr_HdrSender	string	CONFIRMED	"Sender: " + NUL, entry 1 | Crystal String_11403a medium
+4043	MailStr_HdrReplyTo	string	CONFIRMED	"Reply-To: " + NUL, entry 2 | Crystal String_114043 medium
+404E	MailStr_HdrTo	string	CONFIRMED	"To: " + NUL, entry 3
+4053	MailStr_HdrCc	string	CONFIRMED	"Cc: " + NUL, entry 4
+4058	MailStr_HdrSubject	string	CONFIRMED	"Subject: " + NUL, entry 5 | Crystal String_114058 medium
+4062	MailStr_HdrMimeVersion	string	CONFIRMED	"MIME-Version: 1.0" + NUL, entry 6 | Crystal String_114062 medium
+4074	MailStr_HdrXGameTitle	string	CONFIRMED	"X-Game-title: MOBILE TRAINER" + NUL, entry 7; Trainer-specific (Crystal has the placeholder XXXXXXXXXX, 4 bytes shorter)
+4091	MailStr_HdrXGameCode	string	CONFIRMED	"X-Game-code: CGB-" + NUL, entry 8; Mail_EmitGameCodeValue appends B9AJ-00 from the ROM header | Crystal String_11408d medium
+40A3	MailStr_HdrXGBmailType	string	CONFIRMED	"X-GBmail-type: exclusive" + NUL, entry 9 | Crystal String_11409f medium
+40BC	MailStr_HdrContentTypeText	string	CONFIRMED	"Content-Type: text/plain; charset=iso-2022-jp" + NUL, entry 10 | Crystal String_1140b8 high
+40EA	MailStr_HdrContentTypeMultipart	string	CONFIRMED	"Content-Type: multipart/mixed; boundary=\"" + NUL, entry 11 | Crystal String_1140e6 high
+4114	MailStr_HdrContentTypeOctet	string	CONFIRMED	"Content-Type: Application/Octet-Stream; name=\"" + NUL, entry 12 | Crystal String_114110 high
+4143	MailStr_HdrTransferEncodingBase64	string	CONFIRMED	"Content-Transfer-Encoding:Base64" + NUL, entry 13 | Crystal String_11413f high
+4164	MailStr_DashDash	string	CONFIRMED	"--" + NUL, entries 14/15 (boundary delimiter prefix)
+4167	MailStr_Dot	string	CONFIRMED	"." + NUL, entry 16 (message terminator line)
+4169	Mail_SelectorTable	table	CONFIRMED	13 word pointers, index = selector [D002] (0..12); read by Mail_Dispatch 0F:4250-425F; selectors used by bank 54: 1,2,4,6,8 | Crystal Jumptable_114165 medium
+4183	Mail_HeaderKeywordTable	table	CONFIRMED	13 word pointers to the upper-case parse keywords (FROM:, SENDER:, REPLY-TO:, TO:, CC:, SUBJECT:, DATE:, CONTENT-TYPE:, MIME-VERSION:, X-MAILER:, X-GAME-TITLE:, X-GAME-CODE:, X-GBMAIL-TYPE:); used by Mail_FindHeader
+419D	MailStr_KwFrom	string	CONFIRMED	"FROM:" + NUL, keyword 0 of Mail_HeaderKeywordTable | Crystal Unknown_11417f.From medium
+41A3	MailStr_KwSender	string	CONFIRMED	"SENDER:" + NUL, keyword 1 | Crystal Unknown_11417f.Sender medium
+41AB	MailStr_KwReplyTo	string	CONFIRMED	"REPLY-TO:" + NUL, keyword 2 | Crystal Unknown_11417f.ReplyTo medium
+41B5	MailStr_KwTo	string	CONFIRMED	"TO:" + NUL, keyword 3
+41B9	MailStr_KwCc	string	CONFIRMED	"CC:" + NUL, keyword 4
+41BD	MailStr_KwSubject	string	CONFIRMED	"SUBJECT:" + NUL, keyword 5 | Crystal Unknown_11417f.Subject medium
+41C6	MailStr_KwDate	string	CONFIRMED	"DATE:" + NUL, keyword 6 | Crystal Unknown_11417f.Date medium
+41CC	MailStr_KwContentType	string	CONFIRMED	"CONTENT-TYPE:" + NUL, keyword 7 (searched by Mail_ParseContentType) | Crystal Unknown_11417f.ContentType medium
+41DA	MailStr_KwMimeVersion	string	CONFIRMED	"MIME-VERSION:" + NUL, keyword 8 | Crystal Unknown_11417f.MimeVersion medium
+41E8	MailStr_KwXMailer	string	CONFIRMED	"X-MAILER:" + NUL, keyword 9 | Crystal Unknown_11417f.XMailer medium
+41F2	MailStr_KwXGameTitle	string	CONFIRMED	"X-GAME-TITLE:" + NUL, keyword 10 | Crystal Unknown_11417f.XGameTitle medium
+4200	MailStr_KwXGameCode	string	CONFIRMED	"X-GAME-CODE:" + NUL, keyword 11 (checked by Mail_CheckGameMail) | Crystal Unknown_11417f.XGameCode medium
+420D	MailStr_KwXGBmailType	string	CONFIRMED	"X-GBMAIL-TYPE:" + NUL, keyword 12 | Crystal Unknown_11417f.XGBMailType medium
+421C	MailStr_KwName	string	CONFIRMED	"NAME=" + NUL; parameter searched in the Content-Type value by Mail_FindKeywordValue | Crystal String_114218 medium
+4222	MailStr_KwMultipart	string	CONFIRMED	"MULTIPART" + NUL; matched by Mail_ParseMultipartBoundary | Crystal String_11421e medium
+422C	MailStr_KwBoundary	string	CONFIRMED	"BOUNDARY=" + NUL; matched by Mail_ParseMultipartBoundary | Crystal String_114228 medium
+4236	MailStr_EncodedWordPrefix	string	CONFIRMED	"=?ISO-2022-JP?B?" + NUL: RFC 2047 encoded-word start written by Mail_EncodeHeaderWords (0F:5107) and recognised by Mail_DecodeEncodedWords | Crystal String_114232 medium
+4247	Mail_Dispatch	function	CONFIRMED	library entry (00:0247 farcalls it with A in [D002]): SRAM enable, save hSRAMBank, pop DE argument, jp through Mail_SelectorTable[[D002]]; executed in 9 mail scenarios | Crystal Function114243 (45:4243) identical; exec 9/41
+4260	Mail_Return	function	CONFIRMED	common exit of every selector: [D002]=A (result), restore SRAM bank (hSRAMBank + MBC write), ret to 00:0274 which returns A | Crystal Function11425c (45:425C) by position; exec 9/41
+426C	Mail_SelectorNop	function	PROBABLE	selector 0: bare ret (stubbed in Crystal too) | Crystal Stubbed_Function114268 via table
+426D	Mail_ScanHeaders	function	PROBABLE	selector 1: scan SRAM text (bank,ptr,len via DE block): 7-bit ASCII headers, CRLF/folding, blank line; A=0 ok / A=1 error B=$80 (no end) or $81 (non-ASCII), HL=position; 54:5146 | Crystal Function114269 (45:4269) identical; exec 7/41
+4337	Mail_ScanHeaders_NextPage	function	PROBABLE	BC=D000 (input SRAM bank variable) then call Mail_NextSramPage; used when DE wraps a 256-byte page | Crystal Function114333 (45:4333) by position; exec 7/41
+4340	Mail_CheckGameMail	function	PROBABLE	selector 2: FindHeader(X-GBmail-type idx 12 / X-Game-code idx 11), compare the game-code value with MailStr_GameCodeAllowList; result A/B, B=$82 on bad input; bank 54 site 54:515F | Crystal Function11433c (45:433C) identical; exec 7/41
+43BB	Mail_LocateHeader	function	PROBABLE	selector 3: FindHeader(B=header index, C=bank, DE=ptr) and store the result bank/pointer/length into the caller block; never called by Trainer | Crystal Function1143b7 (45:43B7) identical
+43F7	Mail_FindHeader	function	CONFIRMED	find header keyword B (Mail_HeaderKeywordTable) case-insensitively, line by line (folding aware); A=0 found (H=bank,DE=value,BC=len), 1 not found/end; 7 scenarios | Crystal Function1143f3 (45:43F3) identical; exec 7/41
+44CC	Mail_FindHeader_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage (page wrap wrapper of Mail_FindHeader) | Crystal Function1144c8 (45:44C8) by position; exec 7/41
+44D5	Mail_ParseBody	function	PROBABLE	selector 4: LoadArgs, ParseContentType, then single-part or multipart parse; result type (1 multipart/2 single) returned in the caller block; bank 54 site 54:4D66 | Crystal Function1144d1 (45:44D1) identical; exec 3/41
+4565	Mail_LoadArgs	function	PROBABLE	copy the 6-byte argument block at [DE] (bank, ptr, len...) to D003-D008; used by selectors 4 and 5 | Crystal Function114561 (45:4561) identical; exec 3/41
+457A	Mail_ParseContentType	function	PROBABLE	FindHeader(idx 7 Content-Type), copy the value to D024, test it with ParseMultipartBoundary; A=0/1/2 result, keyword NAME= via FindKeywordValue for single parts | Crystal Function114576 (45:4576) identical; exec 3/41
+45C9	Mail_ParseMultipartBoundary	function	PROBABLE	scan the Content-Type value at D024 for MULTIPART then BOUNDARY=, copy the boundary text (max $40, stops at quote/CR) to D625 and its length to D624; A=1 when not multipart | Crystal Function1145c5 (45:45C5) identical; exec 3/41
+4640	Mail_MatchBoundary	function	PROBABLE	compare the text at DE with the stored boundary (D624 length, D625 text) followed by CR LF or "--" (closing flag); restores the SRAM bank on mismatch | Crystal Function11463c (45:463C) identical; exec 2/41
+469F	Mail_MatchBoundary_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function11469b (45:469B) by position; exec 2/41
+46A8	Mail_ParseSinglePart	function	PROBABLE	non-multipart message: record part header, skip header block (SkipHeaderBlock), find the final ".\r\n" (FindMessageEnd) and emit the length record | Crystal Function1146a4 (45:46A4) identical; exec 3/41
+46FE	Mail_ParseMultipart	function	PROBABLE	multipart message: loop over boundary-delimited parts (FindBoundary), skip each part's headers, record its offset/length; A=1 with B=$81/$83 on structure errors | Crystal Function1146fa (45:46FA) identical; exec 2/41
+47D1	Mail_FindBoundary	function	PROBABLE	scan lines of the message body for "--"+boundary (uses MatchBoundary), BC = bytes consumed; A=1 when the text ends first | Crystal Function1147cd (45:47CD) identical; exec 2/41
+483E	Mail_FindBoundary_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function11483a (45:483A) by position; exec 2/41
+4847	Mail_FindPartName	function	PROBABLE	SkipHeaderBlock then FindKeywordValue("NAME=") to locate an attachment file name in the part headers | Crystal Function114843 (45:4843) identical; exec 2/41
+486B	Function_0F_486B	function	HYPOTHESIS	idea: append a 5-byte part record (type 2, 1, ptr) to the output area at [D006..] and check the remaining capacity | Crystal Function114867 (45:4867) identical; exec 3/41
+48BD	Function_0F_48BD	function	HYPOTHESIS	idea: wrapper for Mail_NextSramPage with BC=D001 (output SRAM bank variable) | Crystal Function1148b9 (45:48B9) by position
+48C6	Function_0F_48C6	function	HYPOTHESIS	idea: append a longer part record (length BC, type D00E, optional name triple, ptr) to the output area | Crystal Function1148c2 (45:48C2) identical; exec 3/41
+4948	Function_0F_4948	function	HYPOTHESIS	idea: wrapper for Mail_NextSramPage with BC=D001 | Crystal Function114944 (45:4944) by position
+4951	Function_0F_4951	function	HYPOTHESIS	idea: append a compact part record (type + optional name + ptr) to the output area | Crystal Function11494d (45:494D) identical; exec 2/41
+49C7	Function_0F_49C7	function	HYPOTHESIS	idea: wrapper for Mail_NextSramPage with BC=D001 | Crystal Function1149c3 (45:49C3) by position
+49D0	Function_0F_49D0	function	HYPOTHESIS	idea: append the 2-byte part length BC to the output area and shrink the free-space counter D009/A | Crystal Function1149cc (45:49CC) identical; exec 3/41
+4A13	Function_0F_4A13	function	HYPOTHESIS	idea: wrapper for Mail_NextSramPage with BC=D001 | Crystal Function114a0f (45:4A0F) by position
+4A1C	Mail_SkipHeaderBlock	function	PROBABLE	advance DE over header lines (folded lines continue) until the blank line, BC = bytes skipped, store the end position at D003-5; sets D017 on error | Crystal Function114a18 (45:4A18) identical; exec 3/41
+4A75	Mail_SkipHeaderBlock_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function114a71 (45:4A71) by position; exec 3/41
+4A7E	Mail_FindMessageEnd	function	PROBABLE	advance DE to the POP3 terminator line CR LF . CR LF, BC = bytes scanned, store the position at D003-5 | Crystal Function114a7a (45:4A7A) identical; exec 3/41
+4ACA	Mail_FindMessageEnd_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function114ac6 (45:4AC6) by position; exec 2/41
+4AD3	Mail_FindKeywordValue	function	PROBABLE	case-insensitive search of keyword HL (e.g. "NAME=") in the text at DE (BC bytes), then locate the (quoted) value: bank/ptr saved at D011-D013, its length at D014 | Crystal Function114acf (45:4ACF) identical; exec 3/41
+4B50	Mail_FindKeywordValue_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function114b4c (45:4B4C) by position
+4B59	Mail_IndexHeaders	function	PROBABLE	selector 5: for header index 0..12 run FindHeader and store a 6-byte (found,bank,ptr,len) entry, then copy the $4E-byte table to the caller; not used by Trainer | Crystal Function114b55 (45:4B55) identical
+4BC0	Mail_GetDecodedHeader	function	PROBABLE	selector 6: FindHeader(B), unfold it, decode RFC 2047 encoded words into the caller buffer, return length in HL/BC; 10 sites in bank 54, executed in 7 scenarios | Crystal Function114bbc (45:4BBC) identical; exec 7/41
+4C0F	Mail_UnfoldHeader	function	PROBABLE	copy BC header bytes from SRAM to D024, cut at CR and remove CR LF + space/tab folding; returns BC = resulting length | Crystal Function114c0b (45:4C0B) identical; exec 7/41
+4C62	Mail_DecodeEncodedWords	function	PROBABLE	copy text to D624 and replace each "=?ISO-2022-JP?B?...?=" word by its Base64-decoded bytes (Mail_Base64Decode); BC = result length | Crystal Function114c5e (45:4C5E) identical; exec 7/41
+4CDD	Mail_GetAddressList	function	PROBABLE	selector 7: FindHeader(B), strip comments/quotes (StripCommentsAndSpaces), extract the addresses (ExtractAddresses), check length against the caller limit B/C; not used by Trainer | Crystal Function114cd9 (45:4CD9) identical
+4D3D	Mail_StripCommentsAndSpaces	function	PROBABLE	copy [DE] to [HL] for BC bytes dropping spaces, (comments) and "quoted text" (state in D003/D004) | Crystal Function114d39 (45:4D39) identical
+4D9D	Mail_ExtractAddresses	function	PROBABLE	walk the stripped header text: around each '@' expand over address characters (ClassifyAddressChar), collect addresses separated by ',' at D625 (count D624); BC = total length | Crystal Function114d99 (45:4D99) identical+imm8
+4DF5	Mail_SkipJisEscape	function	CONFIRMED	if A = ESC ($1B): skip an ISO-2022-JP shift sequence (ESC $ B/@ ... ESC ( B/J) and return the next char; else return A unchanged | Crystal Function114df1 (45:4DF1) identical
+4E31	Mail_ClassifyAddressChar	function	PROBABLE	A=0 for characters allowed in an address token (alnum, ':'..'?', ' ', '-', '.', '_' except '<' '>'), A=1 otherwise | Crystal Function114e2d (45:4E2D) identical
+4E66	Mail_ComposeNext	function	PROBABLE	selector 8: C=1 starts a new message (ComposeInit) else continues: emit next header field/body chunk (EmitHeaderField, EmitCrLf...); executed in mail_send; bank 54 site 54:46F0 | Crystal Function114e62 (45:4E62) identical; exec 4/41
+4EA4	Mail_EmitCrLf	function	CONFIRMED	write CR LF to the output stream (bank D006, ptr D007/8, free bytes D009/A) with capacity check; A=1 B=$83 when full; also crosses SRAM pages | Crystal Function114ea0 (45:4EA0) identical; exec 4/41
+4EE4	Mail_EmitCrLf_NextPage	function	PROBABLE	BC=D001 (output SRAM bank variable) then call Mail_NextSramPage | Crystal Function114ee0 (45:4EE0) by position; exec 1/41
+4EED	Mail_ComposeInit	function	PROBABLE	copy the caller's item-list header (bank/ptr/len fields) into D003-D00E to start composing | Crystal Function114ee9 (45:4EE9) identical; exec 4/41
+4F0E	Mail_ComposeStep	function	PROBABLE	fetch the next item of the caller's item list (FetchComposeItem) and emit it via EmitHeaderField; A=$FF if more items follow, 0 when done, 1 on error | Crystal Function114f0a (45:4F0A) identical; exec 4/41
+4F3D	Mail_FetchComposeItem	function	PROBABLE	read the next 4-byte item record from the list at [D00D/E] into D00F-D012 and advance; A=1 if one was read, 0 at the terminator | Crystal Function114f39 (45:4F39) identical; exec 4/41
+4F5D	Mail_EmitHeaderField	function	PROBABLE	emit header line index [D003]: name from Mail_HeaderStringTable, then the field value (address list, subject encoded words, X-Game-code value, boundary...) per index | Crystal Function114f59 (45:4F59) identical; exec 4/41
+5024	Mail_EmitString	function	PROBABLE	copy NUL-terminated string HL to the output stream (D006 bank, D007/8 ptr, D009/A free) with page crossing; A=1 when it does not fit | Crystal Function115020 (45:5020) identical; exec 4/41
+505D	Mail_EmitString_NextPage	function	PROBABLE	BC=D001 then call Mail_NextSramPage | Crystal Function115059 (45:5059) by position; exec 2/41
+5066	Mail_EmitAddressListItem	function	PROBABLE	emit one item of a To/Cc/Reply-To list with the separator chosen by phase [D023] (none, ",", ",CR LF TAB"), value encoded by EncodeHeaderWords | Crystal Function115062 (45:5062) identical; exec 4/41
+50B7	Mail_EncodeHeaderWords	function	PROBABLE	copy D024 text to D624; each ISO-2022-JP run (ESC $ B ... ESC ( B) becomes "=?ISO-2022-JP?B?" + Base64 + "?=" via Mail_Base64Encode | Crystal Function1150b3 (45:50B3) identical; exec 4/41
+513A	Mail_EmitBufferToOutput	function	PROBABLE	append the NUL-terminated text at D624 to the output stream (bank D006, ptr D007/8, free bytes D009/A); A=1 if full | Crystal Function115136 (45:5136) identical; exec 4/41
+5174	Mail_EmitBufferToOutput_NextPage	function	PROBABLE	BC=D001 then call Mail_NextSramPage | Crystal Function115170 (45:5170) by position
+517D	Mail_EmitGameCodeValue	function	CONFIRMED	write the game code from the ROM header to the output: bytes $013F-$0142 ("B9AJ"), '-', hex digits of $014C (version) = CGB-B9AJ-00 after X-Game-code: CGB- | Crystal Function115179 (45:5179) identical; exec 4/41
+5212	Mail_EmitGameCodeValue_NextPage	function	PROBABLE	BC=D001 then call Mail_NextSramPage | Crystal Function11520e (45:520E) by position
+521B	Mail_EmitStringAndSuffix	function	PROBABLE	copy string HL to the output stream, then by header index [D003] add closing quote (idx 11/12), "--" (idx 15) or nothing (idx 14); boundary lines | Crystal Function115217 (45:5217) identical
+528A	Mail_EmitStringAndSuffix_NextPage	function	PROBABLE	BC=D001 then call Mail_NextSramPage | Crystal Function115286 (45:5286) by position
+5293	Mail_CopyItemToBuffer	function	PROBABLE	copy C bytes of the current item value from SRAM to D024 and NUL-terminate | Crystal Function11528f (45:528F) identical
+52B3	Mail_CopyItemToBuffer_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function1152af (45:52AF) by position
+52BC	Function_0F_52BC	function	HYPOTHESIS	idea: selector 9: compose a whole message header block from an item table (loops header groups 0-5 and 6-8 with EmitHeaderField); not executed, no Trainer caller | Crystal Function1152b8 (45:52B8) identical
+5381	Function_0F_5381	function	HYPOTHESIS	idea: selector 9 context loader: copy 15 argument bytes into D006-D00E, D010.. and init D003/state | Crystal Function11537d (45:537D) identical
+53B9	Function_0F_53B9	function	HYPOTHESIS	idea: selector 9 helper: read the next 4-byte record of the item table | Crystal Function1153b5 (45:53B5) identical
+53D6	Function_0F_53D6	function	HYPOTHESIS	idea: selector 9 helper: build a comma-separated address list at D024 from address records via ExtractAddresses | Crystal Function1153d2 (45:53D2) identical+imm8
+54D8	Function_0F_54D8	function	HYPOTHESIS	idea: selector 10: compose a mail with optional attachment parts (headers idx $A-$10, boundary lines); Crystal analysis also HYPOTHESIS; not executed | Crystal Function1154d4 (45:54D4) via table
+55C4	Function_0F_55C4	function	HYPOTHESIS	idea: selector 10 context loader (copies args to D006-D00E, D017..) | Crystal Function1155af (45:55AF) identical
+55E6	Function_0F_55E6	function	HYPOTHESIS	idea: selector 10 helper: read the next part descriptor (type, optional 3-4 name bytes, 5 fields) into D017 and following | Crystal Function1155d1 (45:55D1) identical
+561F	Function_0F_561F	function	HYPOTHESIS	idea: selector 10 helper: copy part data from SRAM in chunks of $3DB (985) bytes to the output area | Crystal Function11560a (45:560A) identical+imm8
+56E1	Function_0F_56E1	function	HYPOTHESIS	idea: selector 11: incremental Base64 encoder of an attachment (state in D0xx, uses Mail_CalcBase64Size + Mail_Base64Encode); not executed | Crystal Function1156cc (45:56CC) identical
+5747	Function_0F_5747	function	HYPOTHESIS	idea: selectors 11/12 context loader: copy 14 argument bytes to D002-D00F | Crystal Function115732 (45:5732) identical
+5771	Function_0F_5771	function	HYPOTHESIS	idea: compute encoded size for selector 11: len/3 groups x4 plus CR LF per 64 columns (division by 3 and 64 loops) | Crystal Function11575c (45:575C) identical
+57E5	Function_0F_57E5	function	HYPOTHESIS	idea: selector 11 step: clamp chunk to the output space and update remaining counters D005/6 | Crystal Function1157d0 (45:57D0) identical
+5833	Function_0F_5833	function	HYPOTHESIS	idea: selector 11 step: copy input chunk to D024, Base64-encode it into the output stream | Crystal Function11581e (45:581E) identical
+58D7	Mail_Base64Encode	function	CONFIRMED	Base64-encode BC bytes from [HL] into [DE]: 3->4 chars via Mail_Base64EncodeChar, '=' padding, CR LF after 16 groups (64 columns) unless at the end; executed via EncodeHeaderWords | Crystal Function1158c2 (45:58C2) identical; exec 4/41
+59F1	Mail_Base64EncodeChar	function	CONFIRMED	6-bit value A -> Base64 char: <26 +'A', <52 +'a'-26, <62 -4, 62 '+', else '/'; identical to MobileSDK_Base64EncodeChar | Crystal Function1159dc (45:59DC) identical; exec 4/41
+5A10	Function_0F_5A10	function	HYPOTHESIS	idea: selector 12: incremental Base64 decoder of an attachment (mirror of selector 11 using Mail_Base64Decode); not executed | Crystal Function1159fb (45:59FB) identical
+5A74	Function_0F_5A74	function	HYPOTHESIS	idea: selector 12 size calculation (decoded length from encoded length and 64-column lines) | Crystal Function115a5f (45:5A5F) identical
+5AC5	Function_0F_5AC5	function	HYPOTHESIS	idea: selector 12 step: clamp chunk to output space and update counters | Crystal Function115ab0 (45:5AB0) identical
+5B15	Function_0F_5B15	function	HYPOTHESIS	idea: selector 12 step: read an input chunk (via the CRLF-dropping copy at 0F:5BDD), Base64-decode it (Mail_Base64Decode) into the output stream | Crystal Function115b00 (45:5B00) identical
+5BDD	Function_0F_5BDD	function	HYPOTHESIS	idea: copy encoded text from [DE] to [HL] dropping CR LF after each 4th character group (line breaks of Base64 bodies); B/C count, D019-ish counters | Crystal Function115bc8 (45:5BC8) identical
+5C5E	Mail_Base64Decode	function	CONFIRMED	decode BC Base64 chars into bytes (4->3, skips CR/LF, '=' handling, error state $FF); executed 6 scenarios (received-mail header decode, mail_receive family) | Crystal Function115c49 (45:5C49) identical; exec 6/41
+5D12	Mail_Base64DecodeChar	function	CONFIRMED	Base64 char A -> 6-bit value: '+' 62, '/' 63, digits 52-61, letters, '=' shortens the output count; invalid char sets error $FF and unwinds two frames | exec 6/41
+5D68	Mail_CopyFromSram	function	PROBABLE	copy BC bytes from SRAM [DE] (page crossing) to [HL] and NUL-terminate; used by header/keyword code | Crystal Function115d53 (45:5D53) identical; exec 9/41
+5D76	Mail_CopyFromSram_NextPage	function	PROBABLE	BC=D000 then call Mail_NextSramPage | Crystal Function115d61 (45:5D61) by position; exec 5/41
+5D7F	Mail_CopyToSram	function	PROBABLE	copy BC bytes from [HL] to SRAM [DE] (page crossing through the D001 output bank variable) | Crystal Function115d6a (45:5D6A) identical; exec 7/41
+5D8C	Mail_CopyToSram_NextPage	function	PROBABLE	BC=D001 then call Mail_NextSramPage | Crystal Function115d77 (45:5D77) by position
+5D95	Mail_NextSramPage	function	CONFIRMED	DE wrapped past a 256-byte page: D++ (page $BF -> D=$A0 and next SRAM bank [BC]+1 written to hSRAMBank and the MBC RAM bank register); A preserved | Crystal Function115d80 (45:5D80) identical; exec 8/41

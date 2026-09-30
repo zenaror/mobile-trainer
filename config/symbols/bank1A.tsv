@@ -1,0 +1,49 @@
+# addr	name	type	status	evidence
+4000	MobileDict_Run	function	CONFIRMED	Mobile dictionary (モバイルじてん) index: 11 kana-row tabs, 5 entries per page (Table_MobileDict_Categories); B returns 0, A opens the entry page (id from the bank 3F list at $40B9, 4C:4F56 a=2); entered from 6C:59A8 = help menu entry 4
+4018	MobileDict_Redraw	label	CONFIRMED	Re-entry point after an entry page was viewed (jp from MobileDict_OnA): re-initialises LCD/window and reloads tiles, palettes, tilemap and tab sprites, then redraws the page
+414B	MobileDict_Loop	label	CONFIRMED	Per-frame loop: 00:0956, 00:044B, Joypad_UpdateIdleFrames (7D:7BA4)/7BC1, call JoypadDispatch with Table_MobileDict_Buttons; plays sound id $1A via stub 00:20E8 when the screen opens
+4163	Table_MobileDict_Buttons	table	CONFIRMED	JoypadDispatch inline table (5 words): A -> MobileDict_OnA, B -> MobileDict_OnB, Select/Start ignored (Label_1A_41E2), none -> MobileDict_Idle
+416D	MobileDict_Idle	label	CONFIRMED	No A/B/Select/Start: D-pad with repeat (hJoyPressedRepeat & $F0) handled by MobileDict_HandleDpad, then loop
+4177	MobileDict_OnA	label	CONFIRMED	A pressed: sound id $2C, fade out (4F:4370), reads the page id byte from the bank-3F list of category wRam_C0D4 at row wRam_C0D6 + scroll wRam_C0E5 and opens that dictionary page with 4C:4F56 (a=2, bc=id); then redraws
+41CA	MobileDict_OnB	label	CONFIRMED	B pressed: sound id $2E via stub 00:20AC, fade out, return A=0 (cancel)
+41E5	MobileDict_HandleDpad	function	CONFIRMED	Up/Down move the row cursor wRam_C0D6 (1-5) and scroll offset wRam_C0E5; Right/Left change category wRam_C0D4 (1-11, wraps); each move plays sound id $29 and redraws
+41F8	MobileDict_CursorUp	label	CONFIRMED	Up: row cursor wRam_C0D6-1 with sound id $29 and MobileDict_DrawRowHighlight; at the top row falls to MobileDict_ScrollUp
+4215	MobileDict_ScrollUp	label	PROBABLE	Cursor at row 1: scroll offset wRam_C0E5-1 (if > 0), sound $29, MobileDict_LoadPage + DrawRowHighlight + UpdateTabSprites; only the offset==0 early return ran in traces, the scrolling itself never executed
+4238	MobileDict_CursorDown	label	CONFIRMED	Down: row cursor +1 up to 5 and up to the entry count wRam_C0D8, sound $29; at row 5 falls to MobileDict_ScrollDown; returns at the last entry
+4263	MobileDict_ScrollDown	label	PROBABLE	Cursor at row 5: scroll offset wRam_C0E5+1, sound $29, reload page, highlight and tab sprites
+4281	MobileDict_NextCategory	label	CONFIRMED	Right: category wRam_C0D4+1 (11 wraps to 1), row 1, scroll 0, reload page, sound $29
+42B0	MobileDict_PrevCategory	label	CONFIRMED	Left: category wRam_C0D4-1 (1 wraps to 11), row 1, scroll 0, reload page, sound $29
+42DE	MobileDict_DrawRowHighlight	function	CONFIRMED	Copies the 5-row entry text buffer ($D4A1) to VRAM tiles and highlights the row wRam_C0D6 (00:091C, bc=$0A10 / $0210)
+4317	MobileDict_UpdateTabSprites	function	CONFIRMED	Places the category tab marker (slot $DA40, x from Table_MobileDict_TabPositions[wRam_C0D4]) and the up/down scroll arrows (slots $DA20/$DA30) depending on scroll position and count wRam_C0D8
+437B	Table_MobileDict_TabPositions	table	PROBABLE	11 (index, x) byte pairs: x = 8 + 12*index; tab marker sprite x position for category 1-11 (read)
+4391	MobileDict_LoadPage	function	CONFIRMED	Clears the text tile buffer (WRAM bank 2) and renders up to 5 entry names of category wRam_C0D4 from offset wRam_C0E5 with TextTiles_RenderGridRows (48:415A) (text to tiles), then uploads them to VRAM $9000/$9400/$8800
+4439	Table_MobileDict_Categories	table	PROBABLE	11 word pointers to the category headers (count byte + count string pointers): kana rows a, ka, sa, ta, na, ha, ma, ya, ra, wa and 'other' (cdmaOne, DION, ...); every header validated (classify_g3)
+444F	Data_MobileDict_Cat01Count	data	PROBABLE	Count byte (9) of category 1 (a-row: アカウント, あてさき, アドレス, アドレスちょう, インターネット, ウェブ, ウェブサイト, オフライン, オンライン)
+4450	Table_MobileDict_Cat01Strings	table	PROBABLE	9 string pointers of category 1 (a-row)
+44C7	Data_MobileDict_Cat02Count	data	CONFIRMED	Count byte of category 2 (ka-row: かおもじ, コンテンツ)
+44C8	Table_MobileDict_Cat02Strings	table	PROBABLE	2 string pointers of category 2 (ka-row)
+44E0	Data_MobileDict_Cat03Count	data	PROBABLE	Count byte (8) of category 3 (sa-row: サーバ, サイト, ジャンプ, じゅしん, しょきとうろく, セキュリティ, せつぞく, そうしん)
+44E1	Table_MobileDict_Cat03Strings	table	PROBABLE	8 string pointers of category 3 (sa-row)
+453F	Data_MobileDict_Cat04Count	data	PROBABLE	Count byte (3) of category 4 (ta-row: タイトル, ダウンロード, つうしんエラー)
+4540	Table_MobileDict_Cat04Strings	table	PROBABLE	3 string pointers of category 4 (ta-row)
+456B	Data_MobileDict_Cat05Count	data	PROBABLE	Count byte (4) of category 5 (na-row: ニックネーム, にんしょう, ネチケット, ネットサーフィン)
+456C	Table_MobileDict_Cat05Strings	table	PROBABLE	4 string pointers of category 5 (na-row)
+45A8	Data_MobileDict_Cat06Count	data	PROBABLE	Count byte (7) of category 6 (ha-row: パスワード, フェイスマーク, ブラウザ, プロバイダ, ページリスト, へんしん, ホームページ)
+45A9	Table_MobileDict_Cat06Strings	table	PROBABLE	7 string pointers of category 6 (ha-row)
+4608	Data_MobileDict_Cat07Count	data	PROBABLE	Count byte (14) of category 7 (ma-row: メーラー ... モバイルホームページ)
+4609	Table_MobileDict_Cat07Strings	table	PROBABLE	14 string pointers of category 7 (ma-row)
+46F9	Data_MobileDict_Cat08Count	data	PROBABLE	Count byte (1) of category 8 (ya-row: ユーザー)
+46FA	Table_MobileDict_Cat08Strings	table	PROBABLE	1 string pointer of category 8 (ya-row)
+4705	Data_MobileDict_Cat09Count	data	PROBABLE	Count byte (2) of category 9 (ra-row: リンク, ログインID)
+4706	Table_MobileDict_Cat09Strings	table	PROBABLE	2 string pointers of category 9 (ra-row)
+471E	Data_MobileDict_Cat10Count	data	PROBABLE	Count byte (1) of category 10 (wa-row: ワールドワイドウェブ)
+471F	Table_MobileDict_Cat10Strings	table	PROBABLE	1 string pointer of category 10 (wa-row)
+4736	Data_MobileDict_Cat11Count	data	PROBABLE	Count byte (10) of category 11 (other: cdmaOne, DION, DIONモバイルGBコース, きごうのよみかた ...)
+4737	Table_MobileDict_Cat11Strings	table	PROBABLE	10 string pointers of category 11 (other)
+47B5	Tilemap_MobileDict_Screen	data	CONFIRMED	Dictionary index screen 20x18 tile+attr map (720 bytes) copied to $D000 by 00:08EA in MobileDict_Run
+4A90	Gfx_MobileDict_Tiles0	data	CONFIRMED	32 tiles HDMA'd to VRAM $8000 bank 0
+4C90	Gfx_MobileDict_Tiles1	data	CONFIRMED	64 tiles to VRAM $8B01 (bank 1)
+5090	Gfx_MobileDict_Tiles2	data	CONFIRMED	48 tiles to VRAM $8F01 (bank 1)
+5390	Palette_MobileDict_Bg	data	CONFIRMED	64-byte BG palette block copied to $D800 (4F:4000) by MobileDict_Run
+53D0	Palette_MobileDict_Obj	data	PROBABLE	64-byte OBJ palette block copied to $D840 (starts in the region Data_1A_539A)
+55A0	Objects_MobileDict	data	PROBABLE	Sprite objects of the dictionary index (00:0A82: entries $80/$81 -> slots $DA20/$DA30, tab marker via $55A8 -> slot $DA40)

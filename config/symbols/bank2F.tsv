@@ -1,0 +1,102 @@
+# addr	name	type	status	evidence  (namer 4/8: bank 2F)
+4000	AbookList_Run	function	CONFIRMED	List screen: D-pad up/down = slot C (0-5), left/right = button B (0-3: new/view/edit/delete, help texts 4C03/4C2C/4C55/4C7E), A acts (empty slot: new only; used slot: view/edit; delete asks dialog $020D), B returns FF; first run frame 2525
+40E1	AbookList_CursorDown	function	CONFIRMED	Down (repeat bit7): plays BC=$29, C++ wrapping 5->0, clears the old row highlight (AbookList_UpdateRowHighlight) and refreshes the markers (AbookList_UpdateRowMarkers)
+4109	AbookList_CursorUp	function	CONFIRMED	Up (repeat bit6): plays BC=$29, C-- wrapping 0->5, updates row highlight and markers
+4455	Abook_ClearSlot	function	CONFIRMED	C=slot: zeroes the 16-byte name and 64-byte address of the slot in SRAM bank1 (Abook_SlotAddrTable0 entry C); run once in addressbook_full frame 31649 after the delete confirmation
+4496	Function_2F_4496	function	HYPOTHESIS	Called for a new entry: zeroes D4C0 ($40) and $10 bytes at the HL left by Abook_ProbeSlot (slot address field, not D514 - the D514/DE setup is unused); idea: clear the edit buffers
+44B5	Abook_ProbeSlot	function	CONFIRMED	C=slot: enables SRAM bank1, HL=slot address field (record+$10) via Abook_SlotAddrTable0, A=first byte of the address (0 = empty slot); tested by AbookList_Run before new/view/edit/delete
+44E6	Abook_SlotAddrTable0	table	PROBABLE	6 words A69D,A6ED,A73D,A78D,A7DD,A82D = address-book slot addresses in SRAM bank1 (stride $50: name +0 ($10), address +$10 ($40)); read by Abook_ClearSlot (2F:445B) and Abook_ProbeSlot (2F:44BA)
+44F2	AbookList_PlaceButtonCursor	function	CONFIRMED	B=button 0-3: initialises the cursor object DA00 with anim table 5010/5020/5030/5040 (bank 2F) and places it at Y=$70 X=$18/$38/$58/$78 (the four bottom icons)
+4572	AbookList_SetupScreen	function	CONFIRMED	Loads the list screen: HDMA tiles from 2C:6C30, 22:5CD0/60D0, 28:4BD0/4FD0, tilemap 4D40, palettes 2C:71D0/28:51D0; draws names, help text, markers; fade-in and bank-04 service BC=6; frame 2527
+4678	AbookList_UpdateRowMarkers	function	CONFIRMED	C=slot or FF: (re)initialises the six row-marker objects DA70..DA20 (28:5220 empty / 28:5230 used via Abook_TestSlotEmpty), the selected one with bank-2C tables 7240/7250, positions them (Y=$20+12*i, X=$10)
+4907	Abook_TestSlotEmpty	function	CONFIRMED	A=slot: enables SRAM bank1, A=$FF if the first byte of the slot address (record+$10) is 0 (empty), else 0; 352 runs; used for the marker/highlight choices
+4936	Abook_SlotAddrTable1	table	CONFIRMED	Same 6 slot addresses; read by Abook_TestSlotEmpty (2F:491D)
+4942	AbookList_FlashSelectedMarker	function	PROBABLE	C=slot: re-inits its marker object with bank-28 tables 5240/5250 and sets its Y/X, then waits one frame (sprite update, joypad, vblank); called when up/down was pressed (hJoyPressed&$C0)
+4AC0	AbookList_UpdateRowHighlight	function	PROBABLE	A=old row (FF none), C=new row (FF none): un-highlights row A and highlights row C by redrawing the slot name with 2C:614D (B=3,C=0 normal / B=0,C=1 highlighted, Y=12*row), then 2C:665F
+4B42	Abook_SlotAddrTable2	table	PROBABLE	Same 6 slot addresses; read by AbookList_UpdateRowHighlight (2F:4ADC, 4B0C)
+4B4E	AbookList_DrawNames	function	CONFIRMED	Draws the six slot names (SRAM bank1 records via Abook_SlotAddrTable3) with 2C:614D (B=3,C=0, Y=12*i) then 2C:665F; run at every list set-up
+4B9E	Abook_SlotAddrTable3	table	CONFIRMED	Same 6 slot addresses; read by AbookList_DrawNames (2F:4B6B)
+4BAA	AbookList_DrawHelpText	function	CONFIRMED	D=button 0-3 or FF: renders help string D+1 of Table_Abook_HelpStrings with TextTiles_RenderLine into WRAM bank 2 DB40/DC80 (20 tiles per half)
+4BD0	Table_Abook_HelpStrings	table	CONFIRMED	5 word pointers: 4BDA ("select an address"), 4C03 (write a new address), 4C2C (view this address), 4C55 (fix this address), 4C7E (delete this address)
+4BDA	String_Abook_HelpSelect	string	PROBABLE	"アドレスを　せんたくしてください" (please select an address): help line when no button is active
+4C03	String_Abook_HelpNew	string	CONFIRMED	"あたらしく　アドレスをかきこみます" (write a new address): help for button 0
+4C2C	String_Abook_HelpView	string	CONFIRMED	"このアドレスを　みることができます" (you can view this address): help for button 1
+4C55	String_Abook_HelpEdit	string	CONFIRMED	"このアドレスを　なおします" (fix this address): help for button 2
+4C7E	String_Abook_HelpDelete	string	CONFIRMED	"このアドレスを　けします" (delete this address): help for button 3
+4CA7	AbookList_SetHelpBoxAttr	function	PROBABLE	A=0-2: copies 20 BG attribute bytes (Table_Abook_HelpBoxAttrs[A]) to VRAM bank1 $99C0/$99E0 (waits LY $90) and to D5C0/D5E0 (bank 7): recolours the help text box (A=1 empty slot, 2 used slot)
+4CFD	Table_Abook_HelpBoxAttrs	table	PROBABLE	3 pointers to the 20-byte attribute rows 4D03/4D17/4D2B used by AbookList_SetHelpBoxAttr
+4D40	Tilemap_Abook_List	data	CONFIRMED	18x20 tile+attribute map copied to D000 by AbookList_SetupScreen (2F:45EA)
+5010	Table_Abook_ButtonCursorAnims	table	PROBABLE	4 object animation tables (5010,5020,5030,5040; 4 entries x 2 words) selected by button B in AbookList_PlaceButtonCursor; frame data at 5050-5098
+5098	AbookView_Run	function	CONFIRMED	View-entry screen (button 1): AbookView_SetupScreen, then waits until B is pressed and returns FF (counter D is never tested); the code after the loop (dialog $020B + Abook_StoreEntryToSram) is unreachable; addressbook_full frame 2832
+5167	Abook_StoreEntryToSram	function	PROBABLE	Never executed: copies WRAM D514 ($10 name) and D4C0 ($40 address) into the slot [D726] of SRAM bank1 (table 51B5, name +0, address +$10)
+51B5	Abook_SlotAddrTable4	table	PROBABLE	Same 6 slot addresses; read by Abook_StoreEntryToSram (2F:5178)
+51C1	AbookView_SetupScreen	function	CONFIRMED	Loads the view screen: palettes 2C:7F50/7F90, HDMA tiles from bank 29/2A, tilemap 2C:7C80, cursor object DA10 (57B0); B=$FF -> AbookView_LoadAndDraw (slot C) else AbookView_DrawFromBuffers; fade-in
+52E9	AbookView_LoadAndDraw	function	CONFIRMED	C=slot: copies the slot name/address (SRAM bank1) to D514/D4C0 and draws them with the AbookView_Draw* routines (name y4 x$38; address lines y$14 x$38, y$20 x8, y$2C x8) into the WRAM bank ($14&7=4) tile buffers, then 2A:7293
+5383	Abook_SlotAddrTable5	table	PROBABLE	Same 6 slot addresses; read by AbookView_LoadAndDraw (2F:52EE)
+538F	AbookView_DrawFromBuffers	function	PROBABLE	Same four Draw calls as AbookView_LoadAndDraw for the data already in D514/D4C0; never executed
+53E9	Abook_SlotAddrTable6	table	PROBABLE	Same 6 slot addresses (no direct reader found)
+53F5	AbookView_DrawName	function	CONFIRMED	Draws the name at HL (D514) with a 16-cell budget (C2EE=$10) at DE=(y,x); same routine family as MailBody_DrawRow
+54B5	AbookView_DrawName_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookView_DrawName
+54C9	AbookView_DrawName_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42C3) and advances E by 6 pixels; pads/ends a line of AbookView_DrawName
+54E1	AbookView_DrawAddrLine1	function	CONFIRMED	Draws address line 1 (D4C0, 16 chars) with a 17-cell budget (C2EE=$11); far-called by AbookView_LoadAndDraw
+55A1	AbookView_DrawAddrLine1_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookView_DrawAddrLine1
+55B5	AbookView_DrawAddrLine1_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42C3) and advances E by 6 pixels; pads/ends a line of AbookView_DrawAddrLine1
+55CD	AbookView_DrawAddrLine2	function	CONFIRMED	Draws address line 2 (D4D0, 24 chars) with a 25-cell budget (C2EE=$19)
+568D	AbookView_DrawAddrLine2_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookView_DrawAddrLine2
+56A1	AbookView_DrawAddrLine2_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42C3) and advances E by 6 pixels; pads/ends a line of AbookView_DrawAddrLine2
+56B9	AbookView_DrawAddrLine3	function	CONFIRMED	Draws address line 3 (D4E8, 24 chars) with a 25-cell budget (C2EE=$19)
+5779	AbookView_DrawAddrLine3_Glyph	function	PROBABLE	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookView_DrawAddrLine3 [never executed twin of the executed glyph helpers; status by static reading only]
+578D	AbookView_DrawAddrLine3_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42C3) and advances E by 6 pixels; pads/ends a line of AbookView_DrawAddrLine3
+57B0	Table_Abook_ViewCursorAnims	table	PROBABLE	8 words (two object tables of 4 entries) passed as DE to 00:0A82 for the view-screen cursor object DA10 (ld de,$57B0 at 2F:5263); frame data 57C0-57F2
+57F2	AbookName_Edit	function	CONFIRMED	Nickname entry: 8 double-byte chars in D514, D-pad/A keyboard (widget 55:5BA2 A=8), OK (result 7) returns A=0, B returns FF; far-called by Abook_Run (2F:7F1C); 6 runs in addressbook_full frame 4009
+58CE	AbookName_CursorLeft	function	PROBABLE	Left in the name field: plays BC=$36, C-- or to the previous row end via AbookName_GetCharPtr; stores C0D2 [never executed; twin of MailBody_CursorLeft; status by static reading only]
+58F5	AbookName_CursorRight	function	PROBABLE	Right in the name field: plays BC=$36 then falls into AbookName_CursorRightStep [never executed; twin of MailBody_CursorRight; status by static reading only]
+5909	AbookName_CursorRightStep	function	CONFIRMED	Moves the cursor one char right (max column 8); 10 steps run at screen start
+593B	AbookName_SetupScreen	function	CONFIRMED	Loads the name-entry screen: tiles 2F:61F0/65F0/66F0 and 29:5B10, palettes 29:5E10/2F:6CC0, tilemap 2F:69F0, cursor objects DA10/DA20, draws the name; frame 4009
+5AB8	AbookName_PlaceCursorSprites	function	CONFIRMED	C=column: sets the cursor objects wSpriteSlots+16/32 Y=$54-C0D3 and +17/33 X=$38+12*col
+5AEA	AbookName_DrawName	function	CONFIRMED	Draws D514 (name) with a 16-cell budget (C2EE=$10) at DE=(y,x), glyph/pad helpers AbookName_DrawName_Glyph/_Pad; the editor uploads the result with AbookName_UploadTextTiles
+5BA5	AbookName_DrawName_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookName_DrawName
+5BB9	AbookName_DrawName_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42CA) and advances E by 6 pixels; pads/ends a line of AbookName_DrawName
+5BD1	AbookName_UploadTextTiles	function	CONFIRMED	HDMA of WRAM bank 2 D000 to VRAM $9000 ($27 blocks) through AbookName_HdmaBlock
+5BEE	AbookName_HdmaBlock	function	CONFIRMED	HL=src DE=dst C=blocks-1: writes rHDMA1-4, waits LY $8F then $91, starts rHDMA5
+5C0E	AbookName_GetCharPtr	function	CONFIRMED	B=row C=col: HL=pointer to the 2-byte cell in D514, A=first byte ($0D/FF), D=FF if absent (uses AbookName_GetRowPtr)
+5C42	AbookName_GetRowPtr	function	CONFIRMED	B=row: HL=row start in D514, D=0/FF, E=chars in row capped at 11
+5C85	AbookName_InsertChar	function	CONFIRMED	DE=key code: beeps BC=$31 if the last cell D522 is used, else BC=$38, shifts the name buffer right, stores DE, redraws with AbookName_DrawName, uploads
+5DDC	AbookName_Backspace	function	PROBABLE	Beeps BC=$39, cursor anim 7F:7B80, moves left and deletes the previous cell by shifting D514.. left, redraws [never executed; twin of MailBody_Backspace; status by static reading only]
+5EB3	AbookName_ApplyDakuten	function	PROBABLE	Key $814A: if the char before the cursor is in the kana list String_Abook_DakutenKanaList its trail byte +1; beep BC=$38, redraw
+5F41	String_Abook_DakutenKanaList	string	PROBABLE	40 kana that take dakuten (かきくけこ..ハヒフヘホ), scanned by AbookName_ApplyDakuten
+5F93	AbookName_ApplyDakutenU	function	PROBABLE	Key $814A on ウ ($8345): replaced by ヴ ($8394), beep BC=$38, else BC=$31
+6046	AbookName_ApplyHandakuten	function	PROBABLE	Key $814B: char before the cursor in String_Abook_HandakutenKanaList gets trail byte +2; beep BC=$38, redraw
+60F1	String_Abook_HandakutenKanaList	string	PROBABLE	"はひふへほハヒフヘホ": kana that take handakuten, scanned by AbookName_ApplyHandakuten
+6107	AbookName_OpenKeyboard	function	CONFIRMED	Opens keyboard widget 55:5BA2 with A=8 then falls into AbookName_KeyboardLoop
+613A	AbookName_KeyboardLoop	function	CONFIRMED	Loops 55:5C8F: 2=backspace (closes keyboard when the name is empty), 7/9 return, 8 exit; $814A/$814B dakuten keys; other codes -> AbookName_InsertChar; 18 runs
+61CE	AbookName_GetLength	function	PROBABLE	Counts non-zero bytes of D514 up to $10 -> A [never executed; twin of MailBody_GetLength; status by static reading only]
+69F0	Tilemap_AbookName	data	CONFIRMED	18x20 tile+attribute map copied to D000 by AbookName_SetupScreen (ld hl,$69F0 at 2F:59CA, 00:08EA)
+6D00	AbookAddr_Edit	function	CONFIRMED	Address entry of the address book: 64 ASCII bytes in D4C0 (3 lines 16/24/24), A keyboard (55:5BA2 A=9), OK (7) needs D4C0 non-empty else dialog $0205, B asks $0217 (new) / $0218 (edit, D624=1); returns 0 or FF; A=1 reopens the keyboard
+6F07	AbookAddr_CursorLeft	function	CONFIRMED	Left in the address field: plays BC=$36, C-- or to the previous row end via AbookAddr_GetCharPtr
+6F2E	AbookAddr_CursorRight	function	CONFIRMED	Right in the address field: plays BC=$36 then AbookAddr_CursorRightStep
+6F42	AbookAddr_CursorRightStep	function	CONFIRMED	Cursor one char right within D4C0 (max index $40); 64 steps run at screen start
+6F73	AbookAddr_BuffersEmpty	function	CONFIRMED	A=$FF if D4C0 and D514 are both empty, else 0: skips the leave-confirmation dialog when nothing was typed
+6F8C	AbookAddr_SetupScreen	function	CONFIRMED	Loads the address screen: tiles 22:61D0/65D0, 2F:77D0, 29:5B10, palettes 29:5E10/2F:7D90, tilemap 2F:7AC0, cursors DA10/DA20, draws the address lines; frame 3219
+7121	AbookAddr_PlaceCursorSprites	function	CONFIRMED	C=char index in D4C0: row/col from +8 offset (16/24/24 per line), sets cursor objects Y=$48+12*row-C0D3 and X=8+6*col
+716F	AbookAddr_DrawLine1	function	CONFIRMED	Draws D4C0.. line 1 with a 17-cell budget (C2EE=$11) at DE=(y,x)
+722A	AbookAddr_DrawLine1_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookAddr_DrawLine1
+723E	AbookAddr_DrawLine1_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42CA) and advances E by 6 pixels; pads/ends a line of AbookAddr_DrawLine1
+7256	AbookAddr_DrawLine	function	CONFIRMED	Draws lines 2 and 3 (D4D0, D4E8) with a 25-cell budget (C2EE=$19) at DE=(y,x)
+7311	AbookAddr_DrawLine_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of AbookAddr_DrawLine
+7325	AbookAddr_DrawLine_Pad	function	CONFIRMED	Blits a blank cell (B=2 C=0, HL=C0A0 via 7F:42CA) and advances E by 6 pixels; pads/ends a line of AbookAddr_DrawLine
+733D	AbookAddr_UploadTextTiles	function	CONFIRMED	HDMA of WRAM bank 2 D000/D400 ($400 bytes each) to VRAM $9000/$9400 (copy of TextTiles_UploadBuffersShort)
+7385	AbookAddr_GetCharPtr	function	CONFIRMED	B=0 C=index: HL=D4C0+C (1 byte per char), A=byte ($0D/FF), D=FF if past the NUL; 754 runs
+73B8	AbookAddr_GetRowPtr	function	CONFIRMED	B=row: HL=row start in D4C0 (24 per row), D=0/FF, E=chars capped at $17
+73FA	AbookAddr_InsertChar	function	CONFIRMED	DE=key code: beeps BC=$31 if the last byte D4FF is used, else BC=$38, shifts D4C0.. right, stores E, AbookAddr_RedrawAfterInsert
+74D7	AbookAddr_Backspace	function	PROBABLE	Beeps BC=$39, cursor anim 7F:7B80, moves left and deletes the previous byte by shifting D4C0.. left, AbookAddr_RedrawAfterBackspace [never executed; twin of MailBody_Backspace/MailAddr_Backspace; status by static reading only]
+75A0	AbookAddr_OpenKeyboard	function	CONFIRMED	Opens keyboard widget 55:5BA2 with A=9 then falls into AbookAddr_KeyboardLoop
+75D3	AbookAddr_KeyboardLoop	function	CONFIRMED	Loops 55:5C8F: 2=backspace (closes keyboard when the address is empty), 7/9 return, 8 exit, $814A/$814B ignored, other codes -> AbookAddr_InsertChar
+764D	AbookAddr_GetLength	function	CONFIRMED	Counts non-zero bytes of D4C0 up to $40 -> A
+7669	AbookAddr_RedrawAfterInsert	function	CONFIRMED	Redraws the address lines affected by the insert (thresholds 16/41 chars via AbookAddr_GetLength) and uploads AbookAddr_UploadTextTiles data
+7718	AbookAddr_RedrawAfterBackspace	function	PROBABLE	Same redraw as AbookAddr_RedrawAfterInsert after a deletion [never executed; twin of the executed insert-redraw; status by static reading only]
+7AC0	Tilemap_AbookAddr	data	CONFIRMED	18x20 tile+attribute map copied to D000 by AbookAddr_SetupScreen (ld hl,$7AC0 at 2F:701B, 00:08EA)
+7D90	Palette_AbookAddr_Bg	data	CONFIRMED	64-byte BG palette copied to D800 by AbookAddr_SetupScreen (ld hl,$7D90 at 2F:700A, 4F:4000)
+7EBF	Abook_Run	function	CONFIRMED	Address-book (アドレスちょう) entry, far-called by 7C:7CD9: loop AbookList_Run -> new/edit = AbookAddr_Edit then AbookName_Edit then 2A:6F95 (save confirm), view = AbookView_Run, delete handled in the list; state in D726-D728; ran in 5 scenarios
+7F5D	Abook_LoadSlotToBuffers	function	CONFIRMED	C=slot: copies the slot name ($10) and address ($40) from SRAM bank1 (Abook_SlotAddrTable7) to D514/D4C0; run after AbookList_Run returns and before view/edit
+7FA0	Abook_SlotAddrTable7	table	PROBABLE	Same 6 slot addresses; read by Abook_LoadSlotToBuffers (2F:7F63)

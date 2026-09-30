@@ -1,0 +1,57 @@
+# addr	name	type	status	evidence
+4000	MailSession_Run	function	CONFIRMED	Mail send/receive transfer screen once connected: 'sending'/'receiving' banner, MM:SS timer, B=cancel, drives the bank-54 SMTP/POP3 steps, results in WRAM1 D624-D637; far-called by 27:40D7; executed in mail_send/mail_receive
+412C	MailSession_SendPhase	label	PROBABLE	send phase, skipped (jp z,$44F5 at 26:4129) when Mail_OutboxIsEmpty; runs bank-54 wrappers 54:44FE/451B, 54:4575/4772, 54:4538/4552 (SMTP-range API $14-$1A), sets D624; executed in mail_send/mail_errors, not in mail_receive
+44F5	MailSession_ReceivePhase	label	PROBABLE	receive phase: clears the message (5873), banner 'receiving' (56DB), bank-54 steps 54:485C/489B (API $1E), then the per-mail loops from 26:45BC; executed in mail_receive, mail_send (empty mailbox) and mail_errors
+45BC	MailSession_ScanMailsLoop	label	PROBABLE	first per-mail loop of the receive phase: for each of the N mails (HL counter) 26:4F7B, 54:4914/4969 (a=$FF), counts the ones answering 2 in BC, stores counts at D625/D62F; executed only in mail_receive-type runs
+471B	MailSession_ReceiveMailsLoop	label	PROBABLE	second per-mail loop: draws 'ぜんぶで N つう / N つうめ' (26:537C), bank-54 steps 54:4914/4969 and 54:4CB0/4CF4, updates the received count D625 and stops when D62E + count == 12; executed in mail_receive
+4A8A	MailSession_NoMailOrFull	label	PROBABLE	nothing to store: if Mailbox_CountRecords == 12 shows 'メールは うけとれませんでした' (57EB) else 'メールは ありませんでした' (57A7), then the closing animation; executed in mail_send/tutorial_profile (empty POP3 box)
+4B54	MailSession_Finish	label	PROBABLE	normal end: bank-04 request 00:20AC id $3D, final sprite animation, 7F:72B0 / 4F:4370 cleanup, returns A=0; reached from the message paths 26:4A61/4B02; executed in mail_send/mail_receive
+4C94	Function_26_4C94	function	HYPOTHESIS	idea: sets sprite slot DA40 to one of 12 object rows 28:74CB.. chosen by the received-mail count [D625] (0-11, else 28:757B); called after each received mail; executed in mail_receive
+4DAB	Function_26_4DAB	function	HYPOTHESIS	idea: like 26:4C94 but for slot DA60 with objects 28:73FB.. chosen by [D625]+1 ($FF -> first row); executed in mail_receive
+4EC3	MailSession_CheckTimeWarning	function	PROBABLE	Connection-time check: if timer A (C2D6 min, C2D5 s) reaches the next warning point [C26E] min + 30 s (9,19,..,69) shows the warning dialog via 7F:624F/6218; A=$FF if the user ends the session else 0; executed in 7 scenarios
+4F7B	MailSession_CheckTimeWarningRecv	function	PROBABLE	Same time-warning test as MailSession_CheckTimeWarning used in the receive loop: after the dialog it redraws the 'receiving' banner (26:56DB); A=$FF ends the session, else 0; executed in 6 scenarios
+503C	MailSession_Cancel	label	CONFIRMED	B pressed (hJoyPressed/held bit1) during the transfer: 7F:72B0, 4F:4370, LCDC bit2 off, sets D637=1 (aborted) and returns A=$7F; executed in monkey_camp_reg/reg2/rich
+5067	MailSession_ShowCommError	function	CONFIRMED	Copies the adapter result C1DD/C1DE/C1DF to C272/C273/C274, sets D629=$FFFF, WX=7, LCD window off, farcalls 68:4F8C (error number screen), returns A=$80; executed in mail_errors/mail_timeout
+50AC	MailSession_PollAdapterError	function	PROBABLE	Returns NZ (A=1) unless bit1 of wTimerEnable is set; if set: 54:4011 (MobileAPI 0 = get last result into C1DD-C1DF) and returns Z so callers jump to MailSession_ShowCommError; executed in 6 scenarios
+50C6	MailSession_ShowCommErrorNoWindow	function	PROBABLE	Variant of MailSession_ShowCommError (26:5067) that sets WX=0 instead of 7; called at 26:42EE after a failed bank-54 receive step, then C1DD ($26 timeout / $30) decides whether to continue; executed in mail_errors
+5106	Function_26_5106	function	HYPOTHESIS	idea: compares (D629-D627) with (D62F-D631) (16-bit counters kept as one's complement) and returns A=1 with D631=D62F when equal, else 0; progress test of the receive loop; executed in mail_receive
+5168	MailSession_InitScreen	function	CONFIRMED	Builds the transfer screen: sprite reset, 2D:4E06, LCD off, clears VRAM/WRAM2, palettes 22:5C50/5C90/27:7520, HDMA tiles 26:59E0-6FE0, tilemap 22:5980, window/LCD setup; executed in 9 scenarios
+5343	Function_26_5343	function	HYPOTHESIS	single ret (empty stub) called at the start of MailSession_UpdateTimerDisplay (26:58DE)
+537C	MailSession_DrawMailCounts	function	CONFIRMED	Renders 'ぜんぶで NNN つう' and 'NN つうめを チェックしています' (total mails / current mail) into WRAM2 tile buffers from the 16-bit counters at D631/D62F (one's complement); executed in mail_receive
+5447	MailSession_DrawNumber	function	PROBABLE	HL=value (<=99999), BC=tile buffer offset: builds a full-width decimal string in WRAM1 $D524 from the '０００００' template 26:5575 using Divide16, renders it with 48:403E; A=digit count; executed in mail_receive
+5575	MailSession_NumberTemplate	string	PROBABLE	Shift-JIS full-width '０００００' + NUL, copied to $D524 by MailSession_DrawNumber and patched digit by digit
+5580	MailSession_TotalNumberBuffer	function	PROBABLE	HL=value: BC = right-aligned tile buffer for the 'total' number by digit count (5 digits $D070, 4 $D080, 3 $D090, 2 $D0A0, 1 $D0B0 with A=1); executed in mail_receive
+55E0	MailSession_CurrentNumberBuffer	function	PROBABLE	HL=value: BC = tile buffer for the 'current mail' number by digit count ($D420 for >=2 digits, $D430 for 1 digit with A=1); executed in mail_receive
+5640	MailSession_UploadNumberTiles	function	PROBABLE	Copies WRAM2 $D000 and $D400 (63 blocks each) to VRAM $9000/$9400 through 7F:72C2; executed in mail_receive
+566E	MailSession_Txt_Total	string	PROBABLE	'ぜんぶで' = in total (label before the total-mail number); the following '00:00'-style strings 26:5677 'つう' (counter for mails) and 26:567C 'つうめをチェックしています' share the block
+5677	MailSession_Txt_Counter	string	PROBABLE	'つう' = counter suffix for letters/mails, rendered after each number by MailSession_DrawMailCounts
+567C	MailSession_Txt_Checking	string	CONFIRMED	'つうめをチェックしています' = '(the N-th) mail is being checked' shown while the POP3 headers are fetched; read as data by executed code
+5697	MailSession_ShowMsgSending	function	CONFIRMED	Renders 'メールを そうしんしています' (String 26:56B2, sending mail) into the WRAM2 tile buffers and uploads them (26:58B7); used when Mail_OutboxIsEmpty is false; executed in mail_send
+56B2	MailSession_Msg_Sending	string	PROBABLE	'　　　　メールを　そうしんしています　　　' = sending mail
+56DB	MailSession_ShowMsgReceiving	function	CONFIRMED	Renders 'メールを じゅしんしています' (26:56F6, receiving mail) and uploads it; used when the outbox is empty and after time-warning redraws; executed in 8 scenarios
+56F6	MailSession_Msg_Receiving	string	PROBABLE	'　　　　メールを　じゅしんしています　　　' = receiving mail
+571F	Function_26_571F	function	HYPOTHESIS	idea: renders the string 26:573A 'メールを そうしんしました' (mail sent) like 26:5697; no caller found
+573A	MailSession_Msg_Sent	string	PROBABLE	'　　　　メールを　そうしんしました　　　　' = mail was sent (referenced only by the uncalled 26:571F)
+5763	Function_26_5763	function	HYPOTHESIS	idea: renders 26:577E 'メール じゅしんかんりょう' (mail reception complete) like 26:5697; no caller found
+577E	MailSession_Msg_ReceiveDone	string	PROBABLE	'　　　　メールじゅしんかんりょう　　　　' = mail reception complete (referenced only by the uncalled 26:5763)
+57A7	MailSession_ShowMsgNoMail	function	CONFIRMED	Renders 'メールは ありませんでした' (26:57C2, there was no mail) and uploads it; executed in mail_send/tutorial_profile (empty POP3 mailbox)
+57C2	MailSession_Msg_NoMail	string	PROBABLE	'　　　　メールはありませんでした　　　　' = there was no mail
+57EB	MailSession_ShowMsgCannotReceive	function	PROBABLE	Renders 'メールは うけとれませんでした' (26:5806, could not receive the mail) shown when the mailbox is full (25:4A90 == 12, 26:4A8A path); not executed in traces
+5806	MailSession_Msg_CannotReceive	string	PROBABLE	'　　　メールはうけとれませんでした　　　' = the mail could not be received
+582F	MailSession_ShowMsgReceived	function	CONFIRMED	Renders 'メールを うけとりました' (26:584A, received mail) and uploads it after mails were stored (26:4A1E path); executed in mail_receive
+584A	MailSession_Msg_Received	string	PROBABLE	'　　　　メールをうけとりました　　　　　' = mail was received
+5873	MailSession_ClearMsg	function	CONFIRMED	Renders the blank line 26:588E (20 full-width spaces) over the message area and uploads it; executed in 8 scenarios
+588E	MailSession_Msg_Blank	data	CONFIRMED	20 full-width spaces (81 40) + NUL, read as data by executed code (MailSession_ClearMsg)
+58B7	MailSession_UploadMsgTiles	function	CONFIRMED	Copies the message tile buffer WRAM2 $D400 to VRAM $9400 with MailSession_StartHDMAAtVBlank (63 blocks); tail of every MailSession_ShowMsg*; executed in 9 scenarios
+58DC	MailSession_UpdateTimerDisplay	function	CONFIRMED	Per-frame: when seconds C2D5 changed, re-HDMAs the tile 26:66E0 and rewrites the MM:SS digit tiles ($40+digit) in WRAM7 D221/D222 (minutes, clamped to 99) and D224/D225 (seconds) (the '12:34' clock of the screen); executed in 13 scenarios
+59B6	MailSession_StartHDMAAtVBlank	function	CONFIRMED	HL=source, DE=VRAM dest, C=blocks-1: di, rHDMA1-4, wait LY=$8F then $91, rHDMA5, ei; same as Gfx_StartHDMAAtVBlank (25:538A) plus di/ei; executed in mail_send/mail_receive
+59E0	MailSession_Tiles_59E0	data	CONFIRMED	1024 B tiles: HDMA at 26:51FA to VRAM bank1 $8000 (transfer screen scenery); executed
+5DE0	MailSession_Tiles_5DE0	data	CONFIRMED	1024 B tiles: HDMA at 26:520C to VRAM bank1 $8400; executed
+61E0	MailSession_Tiles_61E0	data	CONFIRMED	256 B tiles: HDMA at 26:521E to VRAM bank1 $8800; executed
+62E0	MailSession_Tiles_62E0	data	CONFIRMED	1024 B tiles: HDMA at 26:5230 to VRAM bank1 $9000; executed
+66E0	MailSession_Tiles_66E0	data	CONFIRMED	first tile (16 B) re-HDMAed to VRAM bank1 $9401 every second by 26:5919; whole 256 B block loaded at 26:5242 to $9400
+67E0	MailSession_Tiles_67E0	data	CONFIRMED	1024 B tiles: HDMA at 26:5254 to VRAM bank0 $8000; executed
+6BE0	MailSession_Tiles_6BE0	data	CONFIRMED	1024 B tiles: HDMA at 26:5266 to VRAM bank0 $8400; executed
+6FE0	MailSession_Tiles_6FE0	data	CONFIRMED	1024 B tiles: HDMA at 26:5278 to VRAM bank0 $8800; executed
+7420	MailServerStatus_Tiles_7420	data	CONFIRMED	1024 B tiles: HDMA at 29:464B (29:4608) to VRAM bank0 $9400 (mail server status screen)
+7B00	Mailbox_ObjTable	table	PROBABLE	sprite object rows read by 00:0A82 with a=$26 from bank 25: 7B00 list cursor brackets, 7B10-7B30 icon cursors, 7B40/7B50 scroll arrows, 7B60-7B90 row numbers 1-4, 7BA0-7BD0 closed/open envelopes (rendered)

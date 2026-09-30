@@ -1,0 +1,80 @@
+# addr	name	type	status	evidence
+4000	MailSrvDel_MenuRun	function	CONFIRMED	Mail-server delete menu (title 'メールのけしかたをえらんでね', 2 buttons: check then delete / delete all); sets split line D724=$0B, Stat_EnableScrollSplit; from 7C:7D15 (mail menu item 6); returns $FF on B; screenshot mail_server_full f3290
+4076	MailSrvDel_MenuLoop	label	CONFIRMED	Menu loop: 00:0956, Joypad_Update (7D:7BB7), A (sound id $2C) -> button C=1: MailSrvDel_CheckAndDelete, C=0: MailSrvDel_DeleteAll; B (sound $2E) -> return $FF; Up/Down toggle C (0/1) with sound $29
+4161	MailSrvDel_MenuSelect	function	CONFIRMED	Redraws the menu for button C (1: check then delete = tilemap bank 28 $6860, 0: delete all = $6B30), cursor sprite (bank 28 $6E90) and the button description text
+41DC	MailSrvDel_MenuInit	function	CONFIRMED	Loads the menu screen (bank 28 gfx/palettes $6E00/$6E40, tile blocks $5F20/$6150/$6550/$67E0, objects $6E90), the tilemap and description text for button C, then falls into MailSrvDel_MenuStart
+42F4	MailSrvDel_MenuStart	label	CONFIRMED	Second half of MailSrvDel_MenuInit: Stat_DisableScrollSplit (7F:72B0), palette fade 4F:42B4, split line D724=$15 + Stat_EnableScrollSplit (7F:7271), music id $10 via stub 00:20E8
+433C	MailSrvDel_ShowDescDeleteAll	function	CONFIRMED	Renders String_MailSrvDel_DescDeleteAll with TextTiles_RenderLine (48:403E) and uploads text tiles (MailSrvDel_UploadTextTiles); description of the 'delete all' button
+4357	String_MailSrvDel_DescDeleteAll	string	PROBABLE	'メールサーバにのこっているすべての メールを、じどうでぜんぶけします じょうほうはたしかめられません' = deletes all mail on the server automatically, information cannot be checked
+43C4	MailSrvDel_ShowDescCheck	function	CONFIRMED	Renders String_MailSrvDel_DescCheck with TextTiles_RenderLine (48:403E) and uploads text tiles; description of the 'check then delete' button
+4404	String_MailSrvDel_DescCheck	string	CONFIRMED	'メールサーバにのこっているメールの じょうほうをたしかめて、１つうずつ じぶんでけすことができます' = check the mail information and delete one by one yourself
+4471	MailSrvDel_Confirm	function	CONFIRMED	Confirmation dialog (yes/no; default no) 'このしょりをおこなうと サーバにある すべてのメールが きえてしまいます よろしいですか？'; returns A=0 for yes, $FF for no/B; same routine as 22:4582
+46CD	MailSrvDel_ConfirmSelect	function	CONFIRMED	Moves the yes/no cursor sprite (objects $6E80 of bank 28) to the yes ($6828, C=0) or no ($6858, C=1) position
+470A	String_MailSrvDel_Confirm	string	PROBABLE	Four NUL-terminated lines of the confirmation dialog (このしょりをおこなうと / サーバにある すべてのメールが / きえてしまいます / よろしいですか？)
+478E	MailSrvDel_UploadTextTiles	function	CONFIRMED	Copies the two text tile buffers of WRAM bank 2 ($D000, $D400; 63 tiles each) to VRAM $9000/$9400 through 25:538A (Gfx_StartHDMAAtVBlank)
+47BC	Function_23_47BC	function	HYPOTHESIS	Dead routine after the ret at 23:47BB (entry unproven): prints wRam_C2D7/C2D6/C2D5 as decimal numbers via TextTiles_RenderLine (48:403E) and 23:49E6; possibly a communication-time read-out (h/m/s); twin of 22:48CD
+4864	Function_23_4864	function	HYPOTHESIS	Helper of Function_23_47BC: right-aligned decimal string of HL into $D524 (template '０００００' at 23:497B, Divide16 by 10000/1000/100/10), digit count in A; twin of 22:4975
+4986	Function_23_4986	function	HYPOTHESIS	Helper of Function_23_47BC: tests HL against 10000/1000/100/10; BC=0 when HL >= 10, BC=$10 and A=1 otherwise; twin of 22:4A97
+49E6	Function_23_49E6	function	HYPOTHESIS	Uploads the decimal text tiles $D800.. of WRAM bank 2 to VRAM $8800 through Gfx_GdmaAtVBlankNoDi (7F:72C2) (c=$27); tail of Function_23_47BC
+4A06	MailSrvDel_DeleteAll	function	CONFIRMED	Button 0 action: MailSrvDel_Confirm, cost dialog ConnectDialog_Run (57:4000), timer reset 51:4245, MailConnect_Screen 27:41E3 ($FF/$80 error path, $20 cancelled, else go on), MailSrvDel_DeleteAllRun, MailServerStatus_Screen C264=1
+4A1E	MailSrvDel_DeleteAll_Confirm	label	CONFIRMED	Loop head: MailSrvDel_Confirm; A=$FF (no/B) returns $FF to the menu, A=0 (yes) continues with the connection sequence ConnectDialog_Run (57:4000) ...
+4B51	MailSrvDel_CheckAndDelete	function	CONFIRMED	Button 1 action (no delete confirmation): cost dialog 57:4000, timer reset 51:4245, MailConnect_Screen 27:41E3, then 2E:4000 (per-mail check and delete UI), MailServerStatus_Screen 29:44F6 with C264=2; screenshots check_mail1-5
+4C94	MailSrvDel_DeleteAllRun	function	CONFIRMED	Delete-all transaction: progress 55C3, login 54:485C, pass 1 TOP per mail (54:4914/4969; B==2 counted as problem mail, meaning inferred), pass 2 TOP again then DELE 54:5386/53BB (TOP/DELE seen in adapter.log); B cancels (553D)
+4CF9	MailSrvDel_DeleteAllRun_WaitLogin	label	CONFIRMED	Per-frame loop while the login request (54:485C) runs: sprites, Joypad_Update (7D:7BB7), MailSrvDel_DrawElapsedTime, B held -> MailSrvDel_Cancelled, poll 54:489B (1 = busy, $FF = error -> return $80)
+4D2B	MailSrvDel_DeleteAllRun_GotMailCount	label	CONFIRMED	Login finished: HL = number of mails on the server saved in DE; zero mails -> MailSrvDel_DeleteAllRun_CheckDone
+4D39	MailSrvDel_DeleteAllRun_CheckLoop	label	CONFIRMED	Pass 1 loop head (bc = problem mails counted, hl = current mail number): connection-time check (wRam_C26E/C26F, dialog 23:50CC), progress display, TOP request 54:4914 for mail HL
+4DA0	MailSrvDel_DeleteAllRun_CheckPoll	label	CONFIRMED	Pass 1 poll loop of the request result (54:4969 until it is not 1); B held -> MailSrvDel_Cancelled; result B==2 increments the problem-mail count BC
+4DFB	MailSrvDel_DeleteAllRun_CheckDone	label	CONFIRMED	Pass 1 finished: D62F = problem mails, D629 = mails left to delete (total - problems); nothing left -> message 6D8C ('no mail') shown for $78 frames (A skips), returns 0
+4EB7	MailSrvDel_DeleteAllRun_DeleteLoop	label	CONFIRMED	Pass 2 loop head (hl = mail number): connection-time check, progress text MailSrvDel_DrawProgressText (56A1), TOP request 54:4914 again for the mail
+4F4B	MailSrvDel_DeleteAllRun_TopPoll	label	CONFIRMED	Pass 2 poll of the TOP result: result B==2 (problem mail) counts it in D631 and skips to the loop tail, otherwise falls to MailSrvDel_DeleteAllRun_SendDele
+4F9C	MailSrvDel_DeleteAllRun_SendDele	label	CONFIRMED	Waits $3C frames, then requests DELE of the mail with 54:5386 (API $26)
+4FBC	MailSrvDel_DeleteAllRun_DelePoll	label	CONFIRMED	Polls the DELE result with 54:53BB; B held -> decrement D629 and MailSrvDel_Cancelled; 1 = busy; $FF = error (stores state, returns $80); done -> counters D627/D629 updated
+5002	MailSrvDel_DeleteAllRun_Error	label	PROBABLE	API error path: saves the current mail number into D627 and adjusts D629, calls MailSession_ShowCommError (26:5067) (error handling) and returns A=$80
+5063	MailSrvDel_DeleteAllRun_NextMail	label	CONFIRMED	Loop tail: DE (mails left) != 0 -> MailSrvDel_DeleteAllRun_DeleteLoop; else clears the counters, shows MailSrvDel_MsgAllDeleted, waits $78 frames (A skips) and returns 0
+50CC	Function_23_50CC	function	HYPOTHESIS	Unexecuted: called when the connection-time check (wRam_C26E/C26F) fires: saves sprites (7F:624F), fade, dialog 50:4000 via 7F:6218 ($FF = stop -> returns A=$80), else redraws the progress screen; probable online-time warning dialog
+5137	Function_23_5137	function	HYPOTHESIS	Unexecuted twin of Function_23_50CC in the second pass of MailSrvDel_DeleteAllRun (also redraws MailSrvDel_MsgReading); probable online-time warning dialog
+51C7	MailSrvDel_DeleteCompletelyRun	function	CONFIRMED	Hidden 'delete completely' transaction: login, then DELE (54:5386/53BB) for every mail with no TOP pass (adapter.log of mail_server_hidden: only DELE n); called from 22:4D38; executed in mail_server_hidden
+522C	MailSrvDel_DeleteCompletelyRun_WaitLogin	label	CONFIRMED	Same as MailSrvDel_DeleteAllRun_WaitLogin for the hidden transaction (polls the login result 54:489B)
+525E	MailSrvDel_DeleteCompletelyRun_GotMailCount	label	CONFIRMED	Login finished: DE = mail count; sets the 'problem mails' count DE:=0 at 23:5261 (no check pass) and jumps into the shared counter setup
+5324	MailSrvDel_DeleteCompletelyRun_DeleteLoop	label	CONFIRMED	Loop head of the hidden transaction: time-limit check, progress text (56A1), then DELE request 54:5386 directly (no TOP request)
+53A1	MailSrvDel_DeleteCompletelyRun_DelePoll	label	CONFIRMED	Polls the DELE result (54:53BB); B held cancels (MailSrvDel_Cancelled), $FF = error, otherwise counters updated
+5424	MailSrvDel_DeleteCompletelyRun_NextMail	label	CONFIRMED	Loop tail of the hidden transaction (twin of MailSrvDel_DeleteAllRun_NextMail)
+54B1	Function_23_54B1	function	HYPOTHESIS	Unexecuted twin of Function_23_50CC used by MailSrvDel_DeleteCompletelyRun; probable online-time warning dialog
+553D	MailSrvDel_Cancelled	label	PROBABLE	B pressed during the delete transaction: restores screen state, shows the blank message (6E14), animates $B4 frames and returns A=$80; jumped to from the polling loops; not executed
+55C3	MailSrvDel_ProgressInit	function	CONFIRMED	Loads the progress screen of the delete transactions (bank 23 gfx $6FE0/$73E0/$74E0, palettes $7910/$7950, tilemap $7640), clears counters, fade in and starts music id $0C via stub 00:20E8
+56A1	MailSrvDel_DrawProgressText	function	CONFIRMED	Draws the current-mail counter (HL minus wRam D631) as decimal number plus String_MailSrvDel_ProgressText ('N通目をチェックしています' = checking mail number N) into the text tiles and uploads them (5889)
+56F0	MailSrvDel_FormatNumber	function	CONFIRMED	Builds the right-aligned full-width decimal string of HL in $D524 (template '００００００' at 23:581E) with successive Divide16 by 10000/1000/100/10; returns digit count in A
+581E	String_MailSrvDel_NumberTemplate	string	PROBABLE	Full-width zeros '０００００' + NUL (11 bytes) copied to $D524 as number template by MailSrvDel_FormatNumber
+5829	MailSrvDel_NumberTileOffset	function	CONFIRMED	Tests HL against 10000/1000/100/10 and returns BC = tile buffer offset ($D010/$D020/$D030) for the number's first digit; used by MailSrvDel_DrawProgressText
+5889	MailSrvDel_UploadNumberTiles	function	CONFIRMED	Copies the text tile buffer $D000.. of WRAM bank 2 to VRAM $9000 (Gfx_GdmaAtVBlankNoDi (7F:72C2), c=$27)
+58A9	String_MailSrvDel_ProgressText	string	PROBABLE	'つうめをチェックしています' = '通目' (n-th mail) + 'をチェックしています' (is being checked); the number is drawn in front of it
+58C4	SpriteCounter_StubA	function	PROBABLE	First byte is $C9 (ret): disabled by patching; callers here and in bank 2E pass A=0, HL=counter; the dead body 58C5 draws a 5-digit sprite counter (Table_SpriteCounter_Digits); role inferred from that dead code
+58C5	Function_23_58C5	function	HYPOTHESIS	Dead body of SpriteCounter_StubA: HL := HL - word at $D631, Divide16 by 10000/1000/100/10 and one digit sprite per place (59DA/5B02/5C2A/5D52/5E7A); never reached because 58C4 is a ret
+59DA	Function_23_59DA	function	HYPOTHESIS	Dead: draws digit A (0-9) as sprite object (00:0A82, table $7990+16*A, slot $DA10) at position $5A2F; first of five digit-place routines of the sprite counter A
+5FA2	SpriteCounter_StubB	function	PROBABLE	First byte is $C9 (ret): disabled twin of SpriteCounter_StubA called with A=$FF and HL=total; the dead body 5FA3 places 5 digit sprites (role inferred from it); also called from bank 2E
+5FA3	Function_23_5FA3	function	HYPOTHESIS	Dead body of SpriteCounter_StubB (5 x ld de,$D048 ; ld hl,$DAxx ; call 00:0A65 sprite slot writes, then Divide16 digit split); never reached
+60D1	Function_23_60D1	function	HYPOTHESIS	Dead: digit-A sprite routine of the sprite counter B (object table $7990.., slot $DA20..)
+6699	SpriteCounter_StubC	function	PROBABLE	First byte is $C9 (ret): disabled third counter routine, called only from bank 2E (2E:4298/43AF/4611/477E); dead body 669A (push hl, push af, ld de,$2710) looks like a digit-sprite counter; role inferred
+669A	Function_23_669A	function	HYPOTHESIS	Dead body of SpriteCounter_StubC (twin of the longer 5FA3 body)
+6799	Function_23_6799	function	HYPOTHESIS	Dead: digit-A sprite routine of the sprite counter C
+6D61	Function_23_6D61	function	HYPOTHESIS	Dead routine (entry unproven): fills WRAM bank 7 $D1E0.. with ascending tile ids $14..$27 (20 bytes)
+6D8C	MailSrvDel_MsgNoMail	function	PROBABLE	Shows the message String_MailSrvDel_MsgNoMail ('メールはありませんでした' = there was no mail) via TextTiles_RenderLine (48:403E) and MailSrvDel_UploadMessageTiles; called when nothing is left to delete
+6DA7	String_MailSrvDel_MsgNoMail	string	PROBABLE	'　　　　メールはありませんでした　　　　' = 'There was no mail'
+6DD0	MailSrvDel_MsgAllDeleted	function	CONFIRMED	Shows String_MailSrvDel_MsgAllDeleted ('すべてのメールをけしました' = all mail was deleted) after the delete loop finished
+6DEB	String_MailSrvDel_MsgAllDeleted	string	PROBABLE	'　　　すべてのメールをけしました　　　　' = 'All mail was deleted'
+6E14	MailSrvDel_MsgBlank	function	PROBABLE	Shows a blank message line (20 ideographic spaces) to clear the message area; used by MailSrvDel_Cancelled
+6E2F	String_MailSrvDel_MsgBlank	string	PROBABLE	20 ideographic spaces + NUL
+6E58	Function_23_6E58	function	HYPOTHESIS	Head of the twin of MailSrvDel_MsgBlank showing String_23_6E73 ('キャンセルしました' = cancelled); falls into 6E68; no caller
+6E73	String_MailSrvDel_MsgCancelled	string	PROBABLE	'　　　　　キャンセルしました　　　　　　' = 'Cancelled' (referenced only by the unreferenced 6E58 head)
+6E9C	MailSrvDel_MsgReading	function	CONFIRMED	Shows String_MailSrvDel_MsgReading ('メールをよみこんでいます' = reading mail) at the start of a transaction
+6EB7	String_MailSrvDel_MsgReading	string	PROBABLE	'　　　　メールをよみこんでいます　　　　' = 'Reading mail'
+6EE0	MailSrvDel_UploadMessageTiles	function	CONFIRMED	Copies the message text tiles $D000.. of WRAM bank 2 to VRAM $9000 (Gfx_GdmaAtVBlankNoDi (7F:72C2), c=$27); tail of the message routines
+6F00	MailSrvDel_DrawElapsedTime	function	CONFIRMED	Per-frame 'MM:SS' communication timer display: if wRam_C2D5 (seconds) changed since the cached wRam D624, writes 4 digit tile ids ($40+digit) for minutes wRam_C2D6 and seconds at $D221-$D225 (WRAM 7) and uploads; also called from 54:5391
+6FE0	Gfx_MailSrvDelProgress_Tiles0	data	PROBABLE	64 tiles HDMA'd to VRAM $9001 bank 1 by MailSrvDel_ProgressInit
+73E0	Gfx_MailSrvDelProgress_Tiles1	data	PROBABLE	16 tiles to VRAM $9401 bank 1 by MailSrvDel_ProgressInit
+74E0	Gfx_MailSrvDelProgress_Tiles2	data	PROBABLE	22 tiles to VRAM $8000 bank 0 by MailSrvDel_ProgressInit
+7640	Tilemap_MailSrvDelProgress_Screen	data	PROBABLE	Progress screen 20x18 tile+attr map (720 bytes) copied to $D000 by MailSrvDel_ProgressInit
+7910	Palette_MailSrvDelProgress_Bg	data	PROBABLE	64-byte BG palette copied to $D800 by MailSrvDel_ProgressInit
+7950	Palette_MailSrvDelProgress_Obj	data	PROBABLE	64-byte OBJ palette copied to $D840 by MailSrvDel_ProgressInit
+7990	Table_SpriteCounter_Digits	table	PROBABLE	Object database entries (frame/script pointers, 16 bytes apart) of the digit sprites 0-9 used by the dead SpriteCounter digit routines (00:0A82 with de=$7990+16*digit, b=$81); the entry at $7AD0 is used live by the transactions
+7AD0	Table_MailSrvDel_ProgressObject	table	PROBABLE	Object entry passed to 00:0A82 (b=$81 or $01, slot $DAB0) by the delete transactions and positioned at (0,0) with 00:0A65

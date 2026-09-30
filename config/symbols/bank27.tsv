@@ -1,0 +1,35 @@
+# addr	name	type	status	evidence
+4000	MailSendRecv_Main	function	CONFIRMED	Mail send/receive flow (mail menu entry 1): request block -> 57:4000, connect 27:41E3, session 26:4000, hang-up 27:4768/49B0, result screens 29:4000 + 29:44F6, mailbox 25:4000; from 7C:7C6A; executed in mail_send/mail_receive
+417A	MailSendRecv_RequestTemplate	data	PROBABLE	7 bytes 04 00 00 01 24 D5 04 copied to WRAM1 $D624-$D62A by MailSendRecv_Main (27:400C..) before farcall 57:4000 with BC=$D624 (the bytes hold the pointer $D524); read as data by executed code
+41BC	Mail_OutboxIsEmpty	function	CONFIRMED	SRAM bank0: returns A=$FF when [$A000]==0 (no mail waiting in the outbox/compose area) else A=0; picks 'receiving' vs 'sending' banners in 26:4000 and the messages of 27:41E3/4768; executed in 13 scenarios
+41E3	MailConnect_Screen	function	CONFIRMED	Connect screen (world panorama scrolls, window 'せつぞくしています' -> 'せつぞくしました', B cancels): A=0 connected, $20 cancelled, $80 failed; bank-54 dial steps 54:403D/405D/4141; also called by 22:4B7F, 23:4A6E; executed in 15 scenarios
+4305	MailConnect_Screen_Loop	label	PROBABLE	per-frame loop head while dialing: sprite/scroll animation, joypad B check (hJoyPressed&2 -> cancel), MailConnect_PollAdapterError, then 54:405D
+46E5	MailConnect_ShowError	label	PROBABLE	error path of MailConnect_Screen: copies C1DD/C1DE/C1DF to C272-C274, WX=7, bank-54 steps 54:418C/41A3/423C/4266, then 68:4F8C error screen, returns A=$80; executed in monkey_camp_reg/tut/hid
+4747	MailConnect_PollAdapterError	function	PROBABLE	NZ (A=1) unless bit1 of wTimerEnable set; when set: WX=7, frame wait, 54:4011 (MobileAPI 0 result -> C1DD-C1DF), returns Z (twin of MailSession_PollAdapterError); executed in 15 scenarios
+4768	MailDisconnect_Screen	function	CONFIRMED	Hang-up screen (bit4 of wTimerEnable set, else 27:49B0): init 27:4B95(A=1), window 'しゅうりょうしています' -> 'しゅうりょうしました', bank-54 steps 54:418C/41A3/423C/4266; B=mode (C264 0/1/2); also called by 22:4BC1, 23:4AB0; executed in 13 scenarios
+49B0	MailDisconnect_ScreenNoTimer	function	PROBABLE	Same hang-up screen for the case bit4 of wTimerEnable (timer A, C2D4-C2D6) is clear; jumps to MailDisconnect_Screen when it is set (27:49B5); called from 27:40B3/40F5 (and 22/23); never executed in traces
+4B95	MailConnect_InitScreen	function	CONFIRMED	Common init of the connect/hang-up screens: LCD off, palettes 27:74E0/7520, HDMA tiles 27:5060-6C60, 32x18 panorama tilemap 27:7060, window strip 7880 (A!=1) or 76F0 (A=1), sprites 27:7A10/7A20, WY=$70; executed
+4D81	CommTime_DrawHMSScreen	function	PROBABLE	Loads 29:5AD0/27:7520 palettes, tiles 29:5400, tilemap 29:5800 ('こんかいのつうしんじかんは ＿じかん ＿ふん ＿びょうでした') and writes B, C, D as two 2-digit tile pairs at $9902/$9907/$990B; only reached from unexecuted code 27:4D4E
+4EC0	Function_27_4EC0	function	HYPOTHESIS	idea: unreferenced variant of the communication-time report ('つうしんがしゅうりょうしました。 こんかいのつうしんじかんは ふん びょうでした' with tiles/tilemap of bank 51) built from timer C2D5/C2D6 with big digits (27:5021); waits for A
+4FFB	Function_27_4FFB	function	HYPOTHESIS	idea: decimal digit extraction by repeated addition of BC (-100/-10) used by Function_27_4EC0; never executed
+5021	Function_27_5021	function	HYPOTHESIS	idea: draws one 2-tile-high big digit (A=digit, DE=map position) from the pair table 27:5048; used by Function_27_4EC0; never executed
+5048	Data_27_5048	data	HYPOTHESIS	idea: 10 pairs of tile numbers (upper, lower half) of the digits 0-9 indexed 2*digit by Function_27_5021; never read in traces
+5060	MailConnect_Tiles_5060	data	CONFIRMED	1024 B tiles: HDMA at 27:4BDB to VRAM bank1 $8000 (connect/hang-up screen)
+5460	MailConnect_Tiles_5460	data	CONFIRMED	1024 B tiles: HDMA at 27:4BED to VRAM bank1 $8400
+5860	MailConnect_Tiles_5860	data	CONFIRMED	1024 B tiles: HDMA at 27:4C35 to VRAM bank1 $9000
+5C60	MailConnect_Tiles_5C60	data	CONFIRMED	512 B tiles: HDMA at 27:4C47 to VRAM bank1 $9400
+5E60	MailConnect_Tiles_5E60	data	CONFIRMED	1024 B tiles: HDMA at 27:4BFF to VRAM bank0 $8800
+6260	MailConnect_Tiles_6260	data	CONFIRMED	1024 B tiles: HDMA at 27:4C11 to VRAM bank0 $8C00
+6660	MailConnect_Tiles_6660	data	CONFIRMED	512 B tiles: HDMA at 27:4C23 to VRAM bank0 $9000
+6860	MailConnect_Tiles_6860	data	CONFIRMED	1024 B tiles: HDMA at 27:4C59 to VRAM bank0 $8000
+6C60	MailConnect_Tiles_6C60	data	CONFIRMED	1024 B tiles: HDMA at 27:4C6B to VRAM bank0 $8400
+7060	MailConnect_Tilemap	data	CONFIRMED	32x18 map + attributes (1152 B) of the scrolling world panorama (rendered), copied by 00:08EA at 27:4C7C
+74E0	MailConnect_BgPalette	data	PROBABLE	64 B BG palettes copied to $D800 by 4F:4000 at 27:4BC9 (connect/hang-up screens)
+7520	MailScreens_ObjPalette_7520	data	CONFIRMED	64 B OBJ palettes used by 27:4B95 (4BB8, 4C8D), 26:5168 and 29:4D81 (copied to $D840 by 4F:4000); read as data by executed code
+7560	MailConnect_WinMsg_Cancelling	data	CONFIRMED	20x5 window tile map + attributes (200 B): rendered 'キャンセルしています' + 'B キャンセル'; copied by 00:08EA at 27:44EF
+7628	MailConnect_WinMsg_Cancelled	data	CONFIRMED	20x5 window map: rendered 'キャンセルしました'; copied at 27:4633
+76F0	MailDisconnect_WinMsg_Ending	data	CONFIRMED	20x5 window map: rendered 'しゅうりょうしています'; copied at 27:47A7/49F7/4CBA (hang-up screens)
+77B8	MailDisconnect_WinMsg_Ended	data	CONFIRMED	20x5 window map: rendered 'しゅうりょうしました'; copied at 27:4950/4B35
+7880	MailConnect_WinMsg_Connecting	data	CONFIRMED	20x5 window map: rendered 'せつぞくしています'; copied at 27:4CA7 (27:4B95 with A != 1)
+7948	MailConnect_WinMsg_Connected	data	CONFIRMED	20x5 window map: rendered 'せつぞくしました'; copied at 27:4423 after the connection succeeded
+7A10	MailConnect_ObjTable	table	PROBABLE	sprite object rows (4-byte entries) read by 00:0A82 with a=$27 from 27:41E3/4768/4B95 and 26:4000 (7A10/7A20 status sprites, 7A30-7AE0 progress sprites)

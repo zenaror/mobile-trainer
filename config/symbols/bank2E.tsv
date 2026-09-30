@@ -1,0 +1,46 @@
+# addr	name	type	status	evidence  (namer 4/8: bank 2E)
+4000	MailServerMgr_Run	function	CONFIRMED	Per-mail check-and-delete UI of the mail server (メールサーバ; far-called by 23:4C1D = MailSrvDel_CheckAndDelete and hidden variant 22:4E79): date+fields, 3 choices delete/next/stop; dialogs $0228/$0229/$022A; run in mail_server*
+48F8	Function_2E_48F8	function	HYPOTHESIS	Never executed: popup path entered when the comm-time threshold logic (C26E/C26F, wTimerEnable bit4) fires in the fetch loop: 7F:624F/6218/627C popup calls, then screen rebuild via 4B2E; idea: connection-time notice
+4A7D	Function_2E_4A7D	function	HYPOTHESIS	Never executed twin of 2E:48F8 used in the choice loop; rebuilds the screen with MailServerMgr_RedrawScreen (4C58) after the popup; idea: connection-time notice
+4B2E	MailServerMgr_SetupScreen	function	CONFIRMED	Loads the mail-server screen: palettes 7590/75D0 (D800/D840), tile blocks 56E0/5AE0/5EE0/6560/6000/6400 by HDMA, tilemaps 6960 and footer 6C30, LCDOn, timer display, bank-04 service BC=$0C, fade-in 4F:42B4
+4C58	MailServerMgr_RedrawScreen	function	PROBABLE	Never executed twin of SetupScreen (same loads) that then redraws the saved mail via 4DBF/5005/4EBD/5184/5498 from D635-D638; reached only from the unexecuted time-notice code 2E:4A7D
+4DBF	MailServerMgr_DrawMailInfo	function	PROBABLE	D,E = layout flags: clears the text tile buffers, picks one of four 18x20 tilemaps (6960/6D20/6FF0/72C0) by D==1 / E==1, uploads text tiles and the tilemap, timer, then the caller draws fields (4EBD)
+4EB1	Function_2E_4EB1	function	HYPOTHESIS	One-instruction function (ret) called at the end of each screen redraw in MailServerMgr_DrawMailInfo (2E:4E02/4E39/4E74/4EAB); idea: disabled per-screen hook
+4EB2	Function_2E_4EB2	function	HYPOTHESIS	Never referenced complete 11-byte function: B=$3C, loop call 00:0464 (wait one frame) until 0 = wait 60 frames
+4EBD	MailServerMgr_DrawMailFields	function	PROBABLE	Draws three text fields of the fetched mail header with MailServerMgr_DrawFieldText: D406 (16 cells at y2,x$20), D4C0 (20 cells at y$12) and D41B (20 cells at y$22); then uploads the text tiles
+4F06	MailServerMgr_DrawFieldText	function	CONFIRMED	A=cell budget (C2EE) BC=$0300 DE=(y,x) HL=SJIS/ASCII string in WRAM bank1: blits glyphs (7F:41A7/405F/4007/42C3), 6 px per cell, pads with blanks; same routine family as MailBody_DrawRow
+4F9A	Function_2E_4F9A	function	HYPOTHESIS	Never referenced complete function: if C2EE<>0 then C2EE-- and call 2E:4FA9 (draws one blank cell) - remainder pad of MailServerMgr_DrawFieldText
+4FA9	MailServerMgr_DrawFieldText_Glyph	function	CONFIRMED	Blits the glyph buffer C0A0 through 7F:42C3 at BC,DE and advances E by 6 pixels; per-glyph helper of MailServerMgr_DrawFieldText
+4FBD	MailServerMgr_UploadTextTiles	function	CONFIRMED	HDMA of WRAM bank 2 D000/D400 ($400 bytes each) to VRAM $9000/$9400 through MailServerMgr_HdmaBlock; copy of TextTiles_UploadBuffersShort
+4FE5	MailServerMgr_HdmaBlock	function	CONFIRMED	HL=src DE=dst C=blocks-1: writes rHDMA1-4, waits LY $8F then $91, starts rHDMA5; same helper as TextTiles_HdmaBlock without the LYC/SCY update
+5005	MailServerMgr_DrawMailDate	function	CONFIRMED	Turns the 6 BCD bytes at D400 (YYYYMMDDhhmm, e.g. 20 01 01 27 10 00) into nibble tiles $20+n (D524 buffer) written to $9881.. during VBlank and D081..: date line seen as 2001年01月27日10時00分 in the mail_server_full screenshots
+5184	MailServerMgr_DrawMailNumber	function	PROBABLE	HL=number (max 5 digits, Divide16 by 10000/1000/100/10): writes big digit tiles $D0+d (top, D041..) and $E0+d (bottom, D061..) into the WRAM bank7 map buffer, then a 4-tile suffix ($DA/$DC/$DE/$EA over $DB/$DD/$DF/$EB)
+533C	MailServerMgr_ClearTextTiles	function	CONFIRMED	Zeroes WRAM bank 2 D000-DFFF and uploads D000/D400/D800 to VRAM $9000/$9400/$8800 through 7F:72C2 (blank text tiles); used before every message/mail redraw
+538B	MailServerMgr_ShowLoadingMsg	function	CONFIRMED	Renders String_MailServerMgr_LoadingMail (メールをよみこんでいます) with TextTiles_RenderLine into D000/D0C0 (bank 2) and uploads via MailServerMgr_UploadMessageTiles; first message after SetupScreen
+53A8	String_MailServerMgr_LoadingMail	string	PROBABLE	"メールをよみこんでいます" (loading the mail), line 1 of a message record; rendered by MailServerMgr_ShowLoadingMsg
+53DA	MailServerMgr_ShowNoMailMsg	function	PROBABLE	Never executed head of a message routine: renders String_MailServerMgr_NoMail (メールはありませんでした) like 538B/5429 then MailServerMgr_UploadMessageTiles
+53F7	String_MailServerMgr_NoMail	string	PROBABLE	"メールはありませんでした" (there was no mail), rendered by MailServerMgr_ShowNoMailMsg
+5429	MailServerMgr_ShowDeletingMsg	function	CONFIRMED	Renders String_MailServerMgr_DeletingMail (メールをけしています) via TextTiles_RenderLine then MailServerMgr_UploadMessageTiles; run in mail_server_full frame 6470 (delete confirmed)
+5446	String_MailServerMgr_DeletingMail	string	PROBABLE	"　メールをけしています　" (deleting the mail), rendered by MailServerMgr_ShowDeletingMsg
+5478	MailServerMgr_UploadMessageTiles	function	CONFIRMED	HDMA of D000 ($18 blocks) to VRAM $9000 via 7F:72C2 (the rendered one-line message tiles); called by the three ShowXxxMsg routines
+5498	MailServerMgr_ShowChoiceHelp	function	CONFIRMED	A=choice (0 delete, 1 load next, 2 stop, 4/FF blank): renders string A+1 of Table_MailServerMgr_HelpStrings with TextTiles_RenderLine (bank 2 D800/D940) and HDMAs $27 blocks to VRAM $8800
+54F8	Table_MailServerMgr_HelpStrings	table	CONFIRMED	6 word pointers to 41-byte help lines (blank 5504, 552D, 5556, 557F, blank 55A8, blank 55D1) indexed 2*(A+1) by MailServerMgr_ShowChoiceHelp (2E:549A)
+552D	String_MailServerMgr_HelpDeleteThis	string	CONFIRMED	"このメールを　けします" (delete this mail): help line for choice 0
+5556	String_MailServerMgr_HelpLoadNext	string	CONFIRMED	"つぎのメールを　よみこみます" (load the next mail): help line for choice 1
+557F	String_MailServerMgr_HelpStopTidy	string	CONFIRMED	"サーバのせいりを　やめます" (stop tidying the server): help line for choice 2
+55FA	MailServerMgr_UpdateTimerDisplay	function	CONFIRMED	Returns if wTimerASeconds (C2D5) equals the last drawn value D624, else falls into MailServerMgr_DrawTimer; called every frame of the session (5763 runs in mail_server_full)
+561C	MailServerMgr_DrawTimer	function	CONFIRMED	Draws the elapsed communication time MM:SS (screenshot 00:08): C2D6 (minutes) and C2D5 (seconds) split by Divide16/10 into tiles $F0+digit at D1EE/D1EF/D1F1/D1F2 (WRAM bank 7 map buffer); >=60 min uses filler tiles $F5/$F9
+56E0	Gfx_MailServerMgr_Tiles0	data	CONFIRMED	Tile block HDMA-loaded by MailServerMgr_SetupScreen to VRAM bank1 $9000 ($40 blocks)
+5AE0	Gfx_MailServerMgr_Tiles1	data	CONFIRMED	Tile block HDMA-loaded to VRAM bank1 $9400 ($40 blocks, 5AE0-5EE0); its first tile alone is reloaded at 2E:40A8
+5EE0	Gfx_MailServerMgr_Tiles2	data	CONFIRMED	Tile block HDMA-loaded to VRAM bank1 $8800 ($12 blocks) by SetupScreen
+6000	Gfx_MailServerMgr_Tiles3	data	CONFIRMED	Tile block HDMA-loaded to VRAM bank0 $8A80 ($40 blocks) by SetupScreen
+6400	Gfx_MailServerMgr_Tiles4	data	CONFIRMED	Tile block HDMA-loaded to VRAM bank0 $8E80 ($16 blocks) by SetupScreen
+6560	Gfx_MailServerMgr_Tiles5	data	CONFIRMED	Tile block HDMA-loaded to VRAM bank0 $8000 ($40 blocks) by SetupScreen (sprite tiles)
+6960	Tilemap_MailServerMgr_Main	data	CONFIRMED	18x20 tile+attribute map copied to D000 by 00:08EA in SetupScreen/DrawMailInfo (5 call sites)
+6C30	Tilemap_MailServerMgr_Footer	data	PROBABLE	6x20 tile+attribute map copied to D0A0 (bottom 6 rows) by SetupScreen and the choice screens
+6D20	Tilemap_MailServerMgr_InfoB	data	PROBABLE	18x20 layout variant chosen by MailServerMgr_DrawMailInfo when D<>1 and E==1
+6FF0	Tilemap_MailServerMgr_InfoC	data	PROBABLE	18x20 layout variant chosen by MailServerMgr_DrawMailInfo when D==1 and E<>1
+72C0	Tilemap_MailServerMgr_InfoD	data	PROBABLE	18x20 layout variant chosen by MailServerMgr_DrawMailInfo when D==1 and E==1
+7590	Palette_MailServerMgr_Bg	data	CONFIRMED	64-byte BG palette block copied to D800 by SetupScreen (4F:4000)
+75D0	Palette_MailServerMgr_Obj	data	CONFIRMED	64-byte OBJ palette block copied to D840 by SetupScreen (4F:4000)
+76C0	Table_MailServerMgr_ObjAnims	table	PROBABLE	5 object animation tables of 4 entries x 2 words (76C0,76D0,76E0,76F0,7700) for 00:0A82: 76C0/76D0/76E0 = choice icons (2E:443B/454D/4572), 76F0 in the delete flow (2E:46A7), 7700 at start (2E:4045) and after load-next (2E:4763)

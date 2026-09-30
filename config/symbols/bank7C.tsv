@@ -1,0 +1,29 @@
+# addr	name	type	status	evidence  (bank 7C, namer 8/8; see docs/research/naming_g8.md)
+4000	GlyphFont_Jis12x12_7C	data	CONFIRMED	12x12 kanji font, JIS rows 25-33 (9 x 94 glyphs x 18 bytes = $3B7C bytes, whole 4000-7B7B); row->bank via GlyphFont_RowBankTable (rows 25-33 -> 7C, first ku 25); glyph layout checked by rendering bank 7E ku4/ten2 = hiragana A
+7B7C	Nav_TitleStart	function	CONFIRMED	main-loop state 1 (1C:401D far-calls it when the title screen 0E:4000 returns 1 = スタート): far call 48:4A4E (B!=0 aborts), then the top-menu loop; executed after the title's first entry in the mail/browser/help scenarios
+7B85	Nav_TopMenuLoop	label	CONFIRMED	loop head: far call 1F:4000 (top menu screen) then call $0545 dispatch on its result through Nav_TopMenuJumpTable
+7B8E	Nav_TopMenuJumpTable	table	CONFIRMED	inline table of the call $0545 at 7C:7B8B: 0 back (ret), 1 mail, 2 homepage, 3 help; every entry tail jumps back to Nav_TopMenuLoop
+7B99	Nav_TopMenu_Back	label	CONFIRMED	entry 0: ret (returns to the 1C:4000 main loop = title screen)
+7B9A	Nav_TopMenu_Mail	label	CONFIRMED	entry 1: far call Nav_MailMenu (7C:7BB7); executed in every mail_* scenario
+7BA3	Nav_TopMenu_Homepage	label	CONFIRMED	entry 2: far call 4F:4668 (browser); executed in homepage and browser_* scenarios only (plus monkeys)
+7BAC	Nav_TopMenu_Help	label	CONFIRMED	entry 3: B=0 ; far call 6C:5987 (help); executed in the help scenario
+7BB7	Nav_MailMenu	function	CONFIRMED	far call 48:49DB (B!=0 aborts) then the mail-menu loop: 1D:4000 (menu screen) + dispatch through Nav_MailMenuJumpTable; called from Nav_TopMenu_Mail, executed in 23 scenarios
+7BC0	Nav_MailMenuLoop	label	CONFIRMED	loop head: far call 1D:4000 then call $0545; all handlers end with jp here
+7BC9	Nav_MailMenuJumpTable	table	CONFIRMED	inline table of the call $0545 at 7C:7BC6: 0 back, 1 send/receive, 2 write mail, 3 mailbox, 4 address book, 5 profile, 6 mail server
+7BDA	Nav_MailMenu_SendReceive	label	CONFIRMED	entry 1 (おくる/うけとる): B=$15 C=$03 repeat timing; 27:41BC (outbox-empty test) != $FF, or 25:4A90 D != $0C -> far call 27:4000 (send/receive flow); mailbox-full dialog path (7C:7BFA) never run; run in mail_send/receive/timeout
+7C7C	Nav_MailMenu_WriteMail	label	CONFIRMED	entry 2 (メールをかく): reads [$A000] in SRAM bank 0: 0 -> far call 2D:4000 (write-mail flow), else 2B:4000 with C=0 (saved-draft menu); executed in mail_compose
+7CB0	Nav_MailMenu_Mailbox	label	CONFIRMED	entry 3 (メールボックス): far call 25:4000 with [C264]=0; executed in mail_mailbox and mail_inbox
+7CCD	Nav_MailMenu_AddressBook	label	CONFIRMED	entry 4 (アドレスちょう): far call 2F:7EBF; executed in mail_addressbook/addressbook_full
+7CE2	Nav_MailMenu_Profile	label	CONFIRMED	entry 5 (プロフィール): far call 2A:5495; executed in mail_profile
+7CF6	Nav_MailMenu_MailServer	label	CONFIRMED	entry 6 (メールサーバ): far call 23:4000, or 22:4000 when exactly SELECT+LEFT is held (xor $24 at 7C:7D06: hidden third button, scenarios mail_server_hidden / mail_server*)
+7D1E	Nav_MailMenu_Back	label	CONFIRMED	entry 0 of Nav_MailMenuJumpTable: ret
+7D1F	Nav_TitleMobileSettings	function	CONFIRMED	main-loop state 2 (1C:4028 far-calls it when the title screen returns 2 = モバイルせってい): clears [BF01] in SRAM bank 1 and [C28C], then the settings loop; executed in title_settings and settings_*
+7D57	Nav_MobileSettingsLoop	label	CONFIRMED	loop head: far call 68:4F9E (settings menu, 4 or 5 entries) then call $0545 through Nav_MobileSettingsJumpTable
+7D60	Nav_MobileSettingsJumpTable	table	CONFIRMED	inline table of the call $0545 at 7C:7D5D: 0 back, 1 password change, 2 usage time, 3 usage fee, 4 delete registration, 5 phone number (hidden entry)
+7D6F	Nav_MobileSettings_Back	label	CONFIRMED	entry 0: ret (back to the title screen)
+7D70	Nav_MobileSettings_ChangePassword	label	CONFIRMED	entry 1: far call 67:58CD; first executed at frame 1809 of title_settings = macro step 1 パスワードのへんこう (change password, POST daa_gb_pwdchg.cgi)
+7D79	Nav_MobileSettings_UsageTime	label	CONFIRMED	entry 2: far call 67:60BA; first executed at frame 8507 of title_settings = step 2 ごりようじかんのかくにん (usage time, daa_gb_jikan.cgi)
+7D82	Nav_MobileSettings_UsageFee	label	CONFIRMED	entry 3: far call 67:626F; frame 14403 of title_settings = step 3 ごりようがくのかくにん (usage fee, /cgb/utility?request=summary)
+7D8D	Function_7C_7D8D	function	HYPOTHESIS	unreferenced chain: far call 70:4000 then loops on 70:4023 with A pressed (three times, args 0/1/2) and jr Nav_MobileSettings_UsageFee; no caller, never executed
+7DFF	Nav_MobileSettings_DeleteRegistration	label	CONFIRMED	entry 4: far call 68:7951; frame 20305 of title_settings = step 4 とうろくじょうほうのさくじょ (delete registration)
+7E08	Nav_MobileSettings_PhoneNumber	label	CONFIRMED	entry 5: far call 67:4000; reached only with B+SELECT+RIGHT held (hidden fifth menu entry), executed in settings_phone and monkey_camp_reg2

@@ -1,0 +1,89 @@
+# addr	name	type	status	evidence  (bank 74, namer 8/8; see docs/research/naming_g8.md)
+4000	Html_ResultCodePtrs	table	PROBABLE	ptr list {4006,400A}: meta r_code values; used by 74:4165 (ld bc,$4000; 00:10E9 keyword lookup on the text copied to $D340 by the meta handler 74:46DE)
+4006	Html_ResultCodeNames	data	PROBABLE	items 'ng'->1, 'ok'->2 (value byte follows the NUL; 00:10E9 returns it in A); 74:4165 acts only on 'ng'
+400E	Html_EntityPtrs	table	PROBABLE	ptr list of the 5 character entities; walked by 00:10E9 after '&' at 74:4392 and 74:5067 (ld bc,$400E)
+401A	Html_EntityNames	data	PROBABLE	items lt->$3C '<', gt->$3E '>', amp->$26 '&', quot->$22 '"', nbsp->$20; the value byte is stored to the output at 74:43AC-43AE (ldh a,[hRam_FFB3] ; ld [de],a)
+4033	Html_MetaAttrPtrs	table	PROBABLE	ptr list of the <meta> attribute names; used by Html_Tag_Meta (ld bc,$4033; call 00:1119 attribute scanner at 74:46AC)
+403B	Html_MetaAttrNames	data	PROBABLE	items ppp_id->1, r_code->2, d_code->3; the value selects the 64-byte WRAM bank-6 copy target $D300/$D340/$D380 (74:46C1/46DE/46FB)
+4053	Html_TitleTagPtrs	table	PROBABLE	1-entry list {$4118} = the 'title' item of Html_TagNames; 74:44D4 (ld bc,$4053; 00:10E9) recognises </title> while the title text is being collected
+4057	Html_BrAttrPtrs	table	PROBABLE	1-entry list {405B}; Html_Tag_Br attribute lookup (ld bc,$4057; call 00:1119 at 74:4B98)
+405B	Html_BrAttrNames	data	PROBABLE	item 'clear'->1 (<br clear=...>); values of the attribute come from Html_ClearValueNames
+4062	Html_HrAttrPtrs	table	PROBABLE	1-entry list {4066}; Html_Tag_Hr attribute lookup (ld bc,$4062 at 74:4CC5)
+4066	Html_HrAttrNames	data	PROBABLE	item 'width'->1 (<hr width=..>); value parsed by Html_ParseDecimal, '%' ($25) scales it with Multiply16 (74:4CE2-4CEE)
+406D	Html_AlignAttrPtrs	table	PROBABLE	1-entry list {4071}; Html_Tag_Div attribute lookup (ld bc,$406D at 74:4761)
+4071	Html_AlignAttrNames	data	PROBABLE	item 'align'->1; its value is looked up in Html_AlignValueNames (74:4778-4783)
+4078	Html_AnchorAttrPtrs	table	PROBABLE	2-entry list {407E,4084}; Html_Tag_A attribute lookup (ld bc,$4078 at 74:4ADB)
+407E	Html_AnchorAttrNames	data	PROBABLE	items href->1, name->2 (<a href=..> / <a name=..>); Html_Tag_A stores a '/' or '#' tagged string in the link table for 1 / 2 (74:4B21 / 4AE0)
+408A	Html_ImgAttrPtrs	table	PROBABLE	2-entry list {4090,4095}; Html_Tag_Img attribute lookups (ld bc,$408A at 74:4E14 and 74:4F10)
+4090	Html_ImgAttrNames	data	PROBABLE	items src->1, align->2 (<img src=.. align=..>); src is matched against the resource records in SRAM bank 3 (74:4E6B), align via Html_AlignValueNames
+409C	Html_ClearValuePtrs	table	PROBABLE	3-entry list; value table of <br clear=..>: ld bc,$409C at 74:4BA6 (00:10E9)
+40A4	Html_ClearValueNames	data	PROBABLE	items left->1, right->2, all->3; result stored in [C330] and used as index of Html_BrClearJumpTable (74:4BB9, 4BE9)
+40B6	Html_AlignValuePtrs	table	PROBABLE	6-entry list (not sorted); alignment keyword table (ld bc,$40B6 at 74:4770 and 74:4EB6)
+40C4	Html_AlignValueNames	data	PROBABLE	items right->$04, top->$10, center->$08, middle->$20, left->$0C, bottom->$30; horizontal part is bits 2-3 ($0C), vertical part bits 4-5 ($30); div masks with $0C (74:4780)
+40EE	Html_TagPtrs	table	PROBABLE	17-entry tag-name list (unsorted) walked by 00:10E9 at 74:442E (ld bc,$40EE) to turn the text after '<' into a tag id
+4110	Html_NoKeywords	table	PROBABLE	the $0000 terminator word of Html_TagPtrs used as an empty keyword list: ld bc,$4110 ; call 00:1119 at 74:4478, 74:4DDF, 74:50F2 skips the attributes of a tag up to '>' without matching any
+4112	Html_TagNames	data	PROBABLE	items html=1 title=2 head=3 body=4 center=5 div=6 br=7 hr=8 img=9 a=$0A b=$0B ul=$0C ol=$0D li=$0E '!'=$0F meta=$10 pre=$11; the value is the index into Html_TagHandlerTable
+4165	Html_MetaResultToError	function	PROBABLE	after a parse: if meta r_code (text at $D340) == 'ng' converts meta d_code (hex text at $D380) to a 32-bit number and sets C2CA=4, C1DD=$40, C1DE/DF=low 16 bits (error-screen inputs read by 4C:404D); 'ok' or none -> A=0
+4190	Html_MetaResultToError_HexLoop	label	PROBABLE	loop turning ASCII hex digits of the d_code text ($D380) into hRam_FFB0-FFB3 (4 bits shifted through 4 bytes per digit)
+4207	Html_ParsePage	function	CONFIRMED	full page pass (callers in 4C, 4E and 67 (CGI answers), 10 scenarios): C335=0, header+line table in WRAM bank 4 $D000, text WRAM bank 5 $D000, source SRAM bank 3 $B000 -> Html_ParseSource, Html_LoadPageImages, Html_MetaResultToError
+4254	Html_ScanPage	function	PROBABLE	quick first pass: C335=$FF (no layout), same buffers, only Html_ParseSource; <img src> URLs go to a list in WRAM bank 4 ($DE00) that 4C:4840 fetches; C2C1 bit0 (<html> seen) is tested by 4C:456A and 4C:5187
+4296	Html_ParseSource	function	CONFIRMED	HTML-subset parser: A=source bank, HL=source, DE=output text buffer (WRAM bank in FFBD); handles text, '&' entities (Html_EntityNames) and '<' tags dispatched by tag id through Html_TagHandlerTable; also runs on CGI answers
+4307	Html_ParseSource_Loop	label	PROBABLE	main character loop: NUL ends, '<' ($3C at 74:4313) -> tag, '&' -> entity, whitespace runs collapsed to one space unless <pre> (C2C1 bit3), SJIS lead bytes copied as pairs, output stops at page $E0
+4392	Html_ParseSource_Entity	label	PROBABLE	'&' branch: 00:10E9 over Html_EntityPtrs, stores the replacement char, swallows an optional ';' ($3B); not exercised in the 41 traces
+43C4	Html_ParseSource_End	label	PROBABLE	end of input: Html_Layout_WrapRun then Html_Layout_ClearAllFloats, stores the record count at header+$15/16 and max scroll = max(0, page height - 96) in hRam_FFEB/FFEC (74:43C7-4403)
+4406	Html_ParseSource_Tag	label	PROBABLE	'<' branch: writes a NUL at DE to end the pending text run, keeps the char after '<' in hRam_FFB4 ('/' = closing tag), then looks the name up in Html_TagPtrs (74:442E-4437)
+4481	Html_DispatchTag	label	CONFIRMED	tag id -> handler: add a,a; add a,$A0; ... push bc; ret through Html_TagHandlerTable; id $0F ('!') dispatches at once, other tags need '>' or whitespace after the name (74:448F)
+44A0	Html_TagHandlerTable	table	CONFIRMED	18-word jump table indexed by the tag id of Html_TagNames (0 = unknown tag, 1 html ... $11 pre); dispatcher 74:4490-449F executed in homepage/browser scenarios
+44C4	Html_Tag_Title	function	CONFIRMED	handler of tag id 2 'title': on open records the output pointer DE in hRam_FFB6/FFB7 (start of the title text); on '</' does nothing (Html_StoreTitle is called from 74:44E5)
+44D4	Html_ParseSource_TitleTag	label	PROBABLE	tag seen while a title is open: a '</title>' (Html_TitleTagPtrs, hRam_FFB4=$2F) calls Html_StoreTitle, any other tag is copied verbatim including '<' (74:44EB-4527)
+4530	Html_StoreTitle	function	PROBABLE	finishes <title>: copies the collected title (<=19 bytes; longer ones cut and ended with SJIS '...' $8163) via $C340 into the page header at [FFB8/FFB9] (bank FFBA) unless the header title is already set
+45D9	Html_Tag_Comment	function	CONFIRMED	handler of tag id $0F '!': skips '<!-- ... -->' (looks for '--' then '>' with the frame service called in the loop 74:4609); other '!' tags end at '>'
+4623	Html_Tag_Html	function	CONFIRMED	handler of tag id 1 'html': sets bit0 of [C2C1] (tested by 4C:456A/5187 to accept the page)
+462E	Html_Tag_Head	function	CONFIRMED	handler of tag id 3 'head': open sets bit1 of [C2C1], '</head>' clears it (Html_Tag_Meta only acts while bit1 is set)
+464A	Html_Tag_Body	function	PROBABLE	handler of tag id 4 'body' (open sets bit2 of [C2C1]) but unreachable: Html_TagPtrs lists 'b' before 'body', 00:10E9 returns the first prefix match and 74:448B rejects it; never executed although all 7 served pages contain <body>
+4666	Html_Tag_Pre	function	CONFIRMED	handler of tag id $11 'pre': after Html_Layout_WrapRun/Html_Layout_EndLine sets or clears bit3 of [C2C1] (bit3 keeps CR/LF/TAB in the text loop, 74:4359-4372)
+4698	Html_Tag_Meta	function	CONFIRMED	handler of tag id $10 'meta': only inside <head> (C2C1 bit1); entered in 3 scenarios (a.html <meta name= content=>) but the ppp_id/r_code/d_code copies to $D300/$D340/$D380 (WRAM bank 6) never ran
+4718	Html_Tag_Center	function	CONFIRMED	handler of tag id 5 'center': open pushes alignment $08 on the align stack (WRAM bank 6 $D000+[C33D], current value [C33C]); close pops it
+472E	Html_Tag_Div	function	CONFIRMED	handler of tag id 6 'div': open with an align= attribute (Html_AlignValueNames) pushes that alignment like Html_Tag_Center; close pops
+47AA	Html_Tag_Ul	function	CONFIRMED	handler of tag id $0C 'ul': open pushes the item counter ([C33A]/[C33B], stack at WRAM6 $D100 indexed by [C33E]) and sets bullet mode ($3F00); indent +12 px (hRam_FFD8/FFD9); close pops
+4867	Html_Tag_Ol	function	CONFIRMED	handler of tag id $0D 'ol': like ul but counter=1 and indent 12 or 18 px depending on Html_CountListItems (>=10 items -> two digits, 74:48A3-48BC)
+493F	Html_Tag_Li	function	CONFIRMED	handler of tag id $0E 'li': writes the bullet (Html_ListBullet) when the counter is 0 or $3Fxx (ul), else the counter (<=99) as decimal digits + '.' ($2E), then increments it (74:4959-4A27)
+4995	Html_ListBullet	data	PROBABLE	2 bytes $81 $45 = SJIS bullet '.' copied for unordered list items (read via ld a,$95 ; add a,c at 74:4961; executed)
+4A32	Html_Tag_B	function	CONFIRMED	handler of tag id $0B 'b': [C338/C339] counts open tags (+1 / -1 on '/'); style bits hRam_FFB2&3 become 2 (bold style; 1 = link style has priority)
+4A91	Html_Tag_A	function	CONFIRMED	handler of tag id $0A 'a': href -> HtmlUrl_GetSchemeId + Html_StringTable_Add ('/'-tagged link string), name -> '#'-tagged anchor; style bit0 in hRam_FFB2 while the link is open; links with scheme value $FF are dropped (74:4B49-4B4B)
+4B98	Html_Tag_Br	function	CONFIRMED	handler of tag id 7 'br': optional clear=left|right|all -> [C330]; ends the line (Html_Layout_WrapRun + Html_Layout_EndLine); for clear repeats until the margins are free (Html_BrClearJumpTable)
+4BEC	Html_BrClearJumpTable	table	PROBABLE	inline table of the call $0545 at 74:4BE9, index [C330]: 0 plain <br>, 1 clear left (4BF4), 2 clear right (4C12), 3 clear both (4C33); each loops with hRam_FFC7=$0C until Html_Layout_GetLimitsAtY reports free margins
+4C6B	Html_ParseSource_PreCR	label	PROBABLE	CR/LF inside <pre> (C2C1 bit3): ends the line (0D 0A pair swallowed) then continues the text loop; only the LF path was executed
+4CA6	Html_Tag_Hr	function	CONFIRMED	handler of tag id 8 'hr': optional width= (Html_ParseDecimal, '%' -> Multiply16), emits repeated SJIS $83E6 + remainder code $83DB-$83E6 (74:4D5C-4D8C); font glyph ku6/ten72 = 12-px horizontal line, ten61-71 shorter
+4DF9	Html_Tag_Img	function	CONFIRMED	handler of tag id 9 'img': with C335=0 finds src in the SRAM-bank-3 resource list (74:4E6B), checks it with 51:70E0 and places it (Html_Layout_PlaceImage); with C335!=0 only queues the URL (74:4F09)
+4F4F	Html_InitParser	function	CONFIRMED	clears the parser state before a pass: [C2C1], C331/C332, C338-C33E, hRam_FFB6/B7, FFBE/BF and FFD0-FFE0 (not FFDE, not C330/C335/C336); executed at every Html_ParseSource call
+4F97	Function_74_4F97	function	HYPOTHESIS	called first by the ul/ol/li handlers: if DE differs from the pointer kept in C331 (list marker end; Html_Tag_Li writes C331 twice, C332 never set) runs Html_Layout_WrapRun + Html_Layout_EndLine; then clears C331/C332
+4FBE	Function_74_4FBE	function	HYPOTHESIS	called by ul/ol before pushing a list: Html_Layout_WrapRun, and unless still at a line start with nothing pending (hRam_FFC6/FFC7 zero) Html_Layout_EndLine with hRam_FFC7=$0C (one blank text line)
+4FF2	Html_CountListItems	function	PROBABLE	silent look-ahead over the source (dispatch Html_CountPassTagTable): counts <li> at nesting depth 0 into hRam_FFD6 up to 10, ul/ol tracked in FFD7; called by Html_Tag_Ol (74:4879) to pick the number width
+511A	Html_CountPassTagTable	table	PROBABLE	18-word tag table of Html_CountListItems (same idiom as Html_TagHandlerTable; only title/ul/ol/li/comment/pre entries differ, the rest = 50B3 pass-through); dispatcher 74:510A-5119
+5252	Html_Layout_ClearAllFloats	function	PROBABLE	end-of-page helper: repeats Html_Layout_GetLimitsAtY with hRam_FFC7=$0C until the line limits equal the viewport edges (FFE1/FFE5), same test as <br clear=all> (74:4C33)
+529F	Html_Layout_PlaceImage	function	PROBABLE	after Html_Tag_Img accepted an image: rounds the BMP width/height in hRam_FFD6/FFD7 (stored by 51:70F4) up to multiples of 12 px (Divide32by15, x12 at 74:52B5-52D5) and reserves the space; skipped when C335!=0
+532A	Function_74_532A	function	HYPOTHESIS	places the image record of Html_Layout_PlaceImage into the line list (loads FFCA/FFCB list pointer, size FFD6/FFD7, source FFD2-FFD4 and calls 5548); entry only from 74:5320/5326
+5348	Function_74_5348	function	HYPOTHESIS	loop that advances hRam_FFC8/FFC9 by 12 px and calls Html_Layout_GetLimitsAtY until both line limits are back at the viewport edges (same test as Html_Layout_ClearAllFloats); never executed
+537D	Html_LoadPageImages	function	PROBABLE	walks the line records (count hRam_FFCE/FFCF, 16 bytes each): type 4 -> 5, follows the resource pointer (SRAM bank 3) and calls the BMP loader 51:7177, storing the decoded image pointer back (74:53A0-53CD)
+53E3	Html_Layout_Init	function	PROBABLE	resets the layout registers: FFC6-FFC9=0, FFB2=0, record list pointer FFCA/FFCC = header+$20, record count FFCE/FFCF=0, limits FFC2-FFC5 copied from the viewport FFE5/FFE1
+5417	Html_Layout_EndLine	function	PROBABLE	if C335==0: BC = free width (hRam_FFC2:C3 - FFC4:C5) is passed as slack to Html_Layout_PlaceLine with the text bank mapped; called around almost every block tag (br, hr, ul, ol, div, center, pre)
+5440	Html_Layout_WrapRun	function	PROBABLE	word-wrap of the pending text run (from [FFBB/FFBC] to NUL): sums glyph widths (6 px ASCII, 12 px SJIS, TAB $30) against the free width, cuts the line and emits records via 5528/5548 (74:5486-5525)
+5528	Function_74_5528	function	HYPOTHESIS	stores the run start into hRam_FFBB/FFBC and writes the finished width (FFC0/C1 minus BC) into the record at [FFB0/FFB1]+4
+5548	Html_Layout_AppendRecord	function	PROBABLE	appends a 16-byte record at hRam_FFCA/FFCB (record: 4 zero bytes, width=C, height=B, type=FFB0, flags=FFB2|$80, link ids, text ptr DE, bank=FFB1); stops at page $E0; count in FFCE/FFCF
+55BE	Function_74_55BE	function	HYPOTHESIS	after a record is appended: moves pending margins (FFC4) and alignment offsets of the flagged records ($09 bit7) - part of Html_Layout_WrapRun/AppendRecord; details unknown
+5663	Html_Layout_PlaceLine	function	PROBABLE	BC = unused width of the finished line: shifts hRam_FFC4 by the slack for centre/right ([C33C] bits 2-3 = 08/04), then walks all records ([FFCC], count FFCE) and places those with flag bit7 set, clearing it (74:5755-5786)
+57AD	Function_74_57AD	function	HYPOTHESIS	re-flows the records that overlap the current y after a margin change (compares record extents with FFC2-FFC5, rewrites x/width fields); details unknown
+586E	Html_Layout_GetLimitsAtY	function	PROBABLE	DE=y: sets FFC2:C3 (right limit) from FFE5:E6 and FFC4:C5 (left limit) from FFE1:E2 + indent FFD8, then narrows them by the left/right aligned records overlapping y (flag bits $0C/$04)
+5905	HtmlUrl_SchemeTable	table	PROBABLE	11 pointers + 0000: URL scheme names http https file mailto ftp gopher news nntp telnet wais prospero; walked by 00:10E9 in HtmlUrl_GetSchemeId and HtmlUrl_Resolve
+591D	HtmlUrl_SchemeNames	data	PROBABLE	items [name][NUL][value]: 'http'->1, all others $FF (recognised but unsupported); Html_Tag_A drops links whose value is $FF (74:4B49-4B4B)
+5969	HtmlUrl_GetSchemeId	function	CONFIRMED	HL=URL/href text: if it contains ':' looks the scheme up in HtmlUrl_SchemeTable and returns the value in A (1 http, $FF other); no ':' -> A=0; callers Html_Tag_A and 4C:4000 (14 scenarios)
+5981	HtmlUrl_Resolve	function	CONFIRMED	HL=link text, DE=base URL (bank 4 $DD00): builds the absolute URL in $C380 (scheme from base or 'http://', host-relative '/', ';' '?' '#' suffixes, or base path + link); callers 4C:48FD/5055/523F, 4E:4B48
+59D8	HtmlUrl_HttpPrefix	string	PROBABLE	'http://' + NUL, copied by HtmlUrl_Resolve (ld hl,$59D8 at 74:59E7) when the base URL has no scheme
+5A76	HtmlUrl_FindLastSegmentDelimiter	function	PROBABLE	HL=string, B=delimiter: HL = just after the last '/' (end of string if none); unless B=='/' then scans that last segment for B; HtmlUrl_Resolve uses it to cut the base at ';' '?' '#' (74:5A15)
+5A96	Html_LinkTable_Init	function	PROBABLE	WRAM bank 6: link string heap pointer [C336/C337]=$D800, link pointer list $D600 emptied; called once per parse by Html_ParseSource
+5AAE	Html_StringTable_Add	function	PROBABLE	HL=heap end, BC=pointer list, string at $C380: if Html_StringTable_Find misses, appends the pointer and copies the string (limit BC); A=0 ok, $FF/DE=$FFFF when full
+5AF8	Html_StringTable_Find	function	CONFIRMED	case-insensitive search of the string at HL in the zero-terminated pointer list BC (first byte of each entry skipped): A=1 found with DE=index, A=0 with DE=count; max 256 entries
+5B4F	Html_NextResourceRecord	function	PROBABLE	A=bank, HL=address of a 16-bit size: switches bank, returns DE=HL+2+size (next record), HL past the size; walks the [size][name NUL][data] list at SRAM bank 3 $B000 (74:4E72, 53B3, 4C:488A)
+5B5C	Html_ParseDecimal	function	PROBABLE	HL=digits: 24-bit result in C:DE (x10 as x8+x2), stops at the first non-digit, A=that character; used for hr width= and its '%' test (74:4CD5-4CE2)
+5BA0	HtmlUrl_NormalizePath	function	CONFIRMED	HL=URL text edited in place: '\' -> '/', removes '/./' and '/x/../' segments, stops at '?' or '#'; called after HtmlUrl_Resolve (4C:4901)

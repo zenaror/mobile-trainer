@@ -1,0 +1,12 @@
+# Names for bank 69 (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4000	ConnIcon_Init	function	PROBABLE	C2CE=3 if wRam_C2C3==1 else 0, C2CF=0, then ConnIcon_Refresh; callers 4E:49CA/4E:4EA1 (browser page screen start); executed in browser_* and settings_cgi
+401A	ConnIcon_Refresh	function	PROBABLE	clears C2D0, zeroes the active flag of sprite slot DA80 (wSpriteSlots+143), ConnIcon_UpdateState (hl=$DA80) then jp ConnIcon_LoadGraphicsIfRequested
+4034	ConnIcon_UpdateState	function	PROBABLE	if the slot flag ([DA8F]) is 0/$FF: jump on C2CE via ConnIcon_StateTable; each state calls Function_4E_604C(anim) by wTimerEnable bit4 (online): anims 1/4 online, 2/5/6 offline; rendered frames: small figure on a mound
+4045	ConnIcon_StateTable	table	PROBABLE	6 states (C2CE 0..5): 0-2 default, 3-5 = the same states started with C2CE=3 when wRam_C2C3==1 (settings CGI session, not the page list); inline table of call JumpTableInline at 69:4042
+40D1	ConnIcon_LoadGraphicsIfRequested	function	PROBABLE	jump on C2CF (ConnIcon_GfxTable): 0 nothing, 1 loads tile set from bank 69 (Data_69_4160/4560, palette 4760), 2 from bank 51 (58C0/5CC0/5EC0); called every frame by dialog/browser wait loops (72:4578, 4C:4706...)
+40DA	ConnIcon_GfxTable	table	PROBABLE	3 states of C2CF: 0 = done (C2CF=0), 1 = tile set of bank 69, 2 = tile set of bank 51; inline table at 69:40D7
+4160	ConnIcon_Tiles0	data	CONFIRMED	$400 bytes of tiles loaded by HDMA to VRAM $8200 (69:4124, hl=$4160 c=$40)
+4560	ConnIcon_Tiles1	data	CONFIRMED	$200 bytes loaded by HDMA to VRAM $8600 (69:4136, hl=$4560 c=$20); all bytes are $00 (blank tiles)
+4760	ConnIcon_Palettes	data	PROBABLE	3 RGB555 palettes (24 bytes) copied to WRAM $D860 by Function_4F_4000 (69:4142, bc=$18)
+4778	ConnIcon_ObjTable	table	PROBABLE	7 four-byte entries (frame-list ptr, delay-list ptr) for init_object_from_table (00:0A82) called with de=$4778 a=$69 at 4E:604C (sprite slot DA80)

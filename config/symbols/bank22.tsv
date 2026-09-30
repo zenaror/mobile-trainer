@@ -1,0 +1,47 @@
+# addr	name	type	status	evidence
+4000	MailSrvDelHidden_MenuRun	function	CONFIRMED	Hidden variant of the mail-server delete menu (3 buttons: check then delete, delete all, delete completely); from 7C:7D0C when SELECT+LEFT is held in the mail menu (scenario mail_server_hidden); returns $FF on B/cancel
+4076	MailSrvDelHidden_MenuLoop	label	CONFIRMED	Menu loop: 00:0956, Joypad_Update (7D:7BB7); A (sound $2C) dispatches on button index C: 1 -> CheckAndDelete, 2 -> DeleteCompletely, 0 -> DeleteAll; B (sound $2E) returns $FF; Up/Down cycle C through 0-2
+4173	MailSrvDelHidden_MenuSelect	function	CONFIRMED	Redraws the menu for selected button C (0/1/2): tilemap 5110 / 53E0 / 56B0 to $D000, cursor sprite from bank 28 objects ($6E90), then its description text (444D / 43C5 / 44FA)
+422D	MailSrvDelHidden_MenuInit	function	CONFIRMED	Loads the menu screen (bank 28 gfx, palettes $6E00/$6E40, tile blocks, objects $6E90), the tilemap and description text for button C, then falls into MailSrvDelHidden_MenuStart
+437D	MailSrvDelHidden_MenuStart	label	CONFIRMED	Second half of MailSrvDelHidden_MenuInit: Stat_DisableScrollSplit (7F:72B0), palette fade 4F:42B4, split line D724=$15 + Stat_EnableScrollSplit (7F:7271), music id $10 via stub 00:20E8
+43C5	MailSrvDelHidden_ShowDescDeleteAll	function	PROBABLE	Renders String_22_43E0 ('メールサーバにのこっているすべてのメールを、じどうでぜんぶけします じょうほうはたしかめられません') with TextTiles_RenderLine (48:403E) and uploads text tiles (489F); description of button 0
+43E0	String_MailSrvDelHidden_DescDeleteAll	string	PROBABLE	'メールサーバにのこっているすべての メールを、じどうでぜんぶけします じょうほうはたしかめられません' = deletes all mail on the server automatically, information cannot be checked (button 0)
+444D	MailSrvDelHidden_ShowDescCheck	function	CONFIRMED	Renders String_22_448D (description of button 1, check then delete) with TextTiles_RenderLine (48:403E) and uploads the text tiles (489F)
+448D	String_MailSrvDelHidden_DescCheck	string	CONFIRMED	'メールサーバにのこっているメールの じょうほうをたしかめて、１つうずつ じぶんでけすことができます' = check the mail information and delete one by one yourself (button 1)
+44FA	MailSrvDelHidden_ShowDescDeleteCompletely	function	CONFIRMED	Renders String_22_4515 (description of the hidden button 2) with TextTiles_RenderLine (48:403E) and uploads the text tiles (489F); executed in mail_server_hidden
+4515	String_MailSrvDelHidden_DescDeleteCompletely	string	PROBABLE	'もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします' = automatically deletes the problem mail and all mail remaining on the server (hidden button 2)
+4582	MailSrvDelHidden_Confirm	function	CONFIRMED	Confirmation dialog 'このしょりをおこなうと サーバにある すべてのメールが きえてしまいます よろしいですか？' with yes/no buttons; returns A=0 (yes, A pressed on yes) or $FF (no / B); executed in mail_server_hidden
+47DE	MailSrvDelHidden_ConfirmSelect	function	PROBABLE	Moves the yes/no cursor sprite (slot $DA10, objects $6E80) to the yes position ($6828, C=0) or the no position ($6858, C=1; default selection)
+481B	String_MailSrvDelHidden_Confirm	string	CONFIRMED	Four NUL-terminated lines of the confirmation dialog (このしょりをおこなうと / サーバにある すべてのメールが / きえてしまいます / よろしいですか？), rendered at $D100/$D300/$D500/$D700
+489F	MailSrvDelHidden_UploadTextTiles	function	CONFIRMED	Copies the two text tile buffers of WRAM bank 2 ($D000, $D400; 63 tiles each) to VRAM $9000/$9400 through 25:538A (Gfx_StartHDMAAtVBlank)
+48CD	Function_22_48CD	function	HYPOTHESIS	Unreferenced (entry unproven) routine that prints three numbers read from wRam_C2D7/C2D6/C2D5 as decimal text with 48:403E (hours/minutes/seconds of the connection time?) followed by 22:4AF7; twin of the ret-patched 23:47BC
+4975	Function_22_4975	function	HYPOTHESIS	Helper of Function_22_48CD: builds a right-aligned decimal string of HL into $D524 (starting from '０００００' template 22:4A8C) with successive Divide16 by 10000/1000/100/10; returns the digit count in A (5..1)
+4A97	Function_22_4A97	function	HYPOTHESIS	Helper of Function_22_48CD: tests HL against 10000/1000/100/10 (repeated Divide16): BC=0 when HL >= 10, BC=$10 and A=1 otherwise; twin of 23:4986
+4AF7	Function_22_4AF7	function	HYPOTHESIS	Uploads the decimal text tiles D800.. of WRAM bank 2 to VRAM $8800 through Gfx_GdmaAtVBlankNoDi (7F:72C2) (c=$27); tail of Function_22_48CD
+4B17	MailSrvDelHidden_DeleteAll	function	PROBABLE	Button 0 action (delete all mail automatically): MailSrvDelHidden_Confirm, cost dialog ConnectDialog_Run (57:4000), MailConnect_Screen 27:41E3, then the delete transaction 23:4C94; same structure as 23:4A06; not executed in the traces
+4B2F	MailSrvDelHidden_DeleteAll_Confirm	label	PROBABLE	Loop head of button 0: MailSrvDelHidden_Confirm, $FF (no/B) returns to the menu, otherwise cost dialog ConnectDialog_Run (57:4000) and the connection sequence; twin of 23:4A1E; not executed
+4C62	MailSrvDelHidden_DeleteCompletely	function	CONFIRMED	Hidden button 2 action ('かんぜんにけす'): MailSrvDelHidden_Confirm, cost dialog ConnectDialog_Run (57:4000), MailConnect_Screen 27:41E3, then the unchecked delete transaction 23:51C7; executed in mail_server_hidden
+4C7A	MailSrvDelHidden_DeleteCompletely_Confirm	label	CONFIRMED	Loop head of hidden button 2: MailSrvDelHidden_Confirm, $FF returns to the menu, otherwise cost dialog ConnectDialog_Run (57:4000) (b=$FF cancel returns here) and the connection sequence
+4DAD	MailSrvDelHidden_CheckAndDelete	function	PROBABLE	Button 1 action (check then delete): cost dialog ConnectDialog_Run (57:4000), MailConnect_Screen 27:41E3, then MailServerMgr_Run (2E:4000) (per-mail check and delete UI); same structure as 23:4B51; not executed in the traces
+4EF0	SramCheck_Bank0PageSum	function	CONFIRMED	A bit0 = page: sums the first $FFE bytes of SRAM bank 0 page $A000 or $B000 into DE (16-bit additive) and returns HL = stored checksum word at page+$FFE; runs at boot (frame ~324) in 40 of 41 scenarios
+4F24	SramCheck_Bank0StorePageSum	function	CONFIRMED	Stores DE at page+$FFE/$FFF (low byte first) of SRAM bank 0 page A bit0 ($AFFE/$BFFE)
+4F46	SramCheck_CompareDEHL	function	CONFIRMED	Compares HL with DE: A=0 if equal, A=$FF if different (duplicate at 22:5093)
+4F53	SramCheck_Bank0ClearPage	function	CONFIRMED	Zero-fills the $1000 bytes of SRAM bank 0 page A bit0 ($A000 or $B000)
+4F7B	SramCheck_Bank0CopyPage	function	CONFIRMED	Copies the $1000-byte SRAM bank 0 page A bit0 to the other page (destination high byte = source xor $10): page 0 -> mirror page 1 or back
+4FA9	SramCheck_VerifyAndRepairAll	function	CONFIRMED	Save check: page 0 ok -> mirror to page 1; else page 1 ok -> restore page 0; else clear both; then bank 1 block check (5035/5093, 50A0 clears if bad); callers Startup_SaveDataError (65:418A)/41A9/4226, 48:49F8, 68:4DB4; boot_states
+4FCF	SramCheck_RestorePage0	label	PROBABLE	Page 0 bad but page 1 good: copy page 1 over page 0 (22:4F7B with A=1); not executed
+4FD6	SramCheck_MirrorPage0	label	CONFIRMED	Page 0 good: copy page 0 over page 1 (22:4F7B with A=0)
+4FF6	SramCheck_Bank0Status	function	CONFIRMED	Returns A=1 if SRAM bank 0 page 0 checksum is good, 0 if only page 1 is good, $FF if both are bad (no repair); called by Startup_VerifySaveData (65:416C)/41A9
+501D	SramCheck_Bank0Commit	function	CONFIRMED	After bank 0 data was modified: sums page 0, stores the checksum at $AFFE and copies page 0 to the mirror page 1; called from banks 25/2A/2B/2D/54 after saving mail or profile data (10 call sites)
+5035	SramCheck_Bank1BlockSum	function	CONFIRMED	Sums SRAM bank 1 $A000-$A683 and $A69D-$A87C into DE and returns HL = stored checksum word at $A8D7 (docs/research/sram_layout.md scheme 1)
+5077	SramCheck_Bank1StoreSum	function	CONFIRMED	Stores DE as the SRAM bank 1 block checksum at $A8D7/$A8D8
+5093	SramCheck_CompareDEHL2	function	CONFIRMED	Duplicate of SramCheck_CompareDEHL (A=0 equal, $FF different) used for the bank 1 checksum
+50A0	SramCheck_Bank1ClearBlock	function	CONFIRMED	Zero-fills SRAM bank 1 $A000-$A683 and $A69D-$A87C (invalid checksum reset)
+50FC	SramCheck_Bank1Commit	function	CONFIRMED	SramCheck_Bank1BlockSum then SramCheck_Bank1StoreSum: refresh the bank 1 block checksum after edits; called from banks 24 and 2A
+5110	Tilemap_MailSrvDelHidden_Button1	data	CONFIRMED	Menu screen 20x18 tile+attr map (720 bytes) with button 1 (check then delete) highlighted; copied to $D000 by 00:08EA
+53E0	Tilemap_MailSrvDelHidden_Button0	data	CONFIRMED	Menu screen tile+attr map with button 0 (delete all) highlighted
+56B0	Tilemap_MailSrvDelHidden_Button2	data	CONFIRMED	Menu screen tile+attr map with hidden button 2 (delete completely) highlighted
+5980	Tilemap_CommProgress_Screen	data	CONFIRMED	20x18 tile+attr map (720 bytes) of a communication-progress scene, loaded with a=$22 hl=$5980 to $D000 by MailSession_InitScreen (26:5295; mail_send/mail_receive; 'せつぞくしています' scene at frame 16997 of tutorial_profile)
+5C50	Palette_CommProgress_Bg	data	CONFIRMED	64-byte BG palette loaded to $D800 (4F:4000, a=$22) by MailSession_InitScreen (26:5168, load at 26:51D2)
+5C90	Palette_CommProgress_Obj	data	CONFIRMED	64-byte OBJ palette loaded to $D840 (4F:4000, a=$22) by MailSession_InitScreen (26:5168, load at 26:51E3)
+5CD0	Gfx_AddrBook_TilesBank22	data	PROBABLE	Bytes $5CD0-$66D0 (160 tiles) HDMA'd from bank 22 by address book code: AbookList_SetupScreen (2F:459A/45AC: 5CD0, 60D0) and 2F:6FAE/6FC0 (61D0, 65D0); read as data only in the address book scenarios

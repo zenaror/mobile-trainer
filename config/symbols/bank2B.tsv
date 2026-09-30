@@ -1,0 +1,95 @@
+# addr	name	type	status	evidence
+4000	MailDraft_Menu	function	CONFIRMED	Menu of the saved draft ('written mail'): 3 icons, caption via 478B. A: c=0 farcall 28:4000 (view), c=1 MailDraft_Edit, c=2 yes/no (72:4015 DE=$0209) then 2D:40DC clears it; B ret $FF. Far-called by 7C:7CA7; exec mail_compose
+402B	MailDraft_Menu_Loop	label	CONFIRMED	per-frame loop of MailDraft_Menu: sprite tick, VBlank wait, 7D:7BB7, MailDraft_Menu_MoveCursorSprites, then A/B/Left/Right dispatch; executed in mail_compose
+420C	MailDraft_Menu_InitScreen	function	CONFIRMED	Screen setup: palettes 4E20->D800, 5190->D840, tiles 4E60->$8000 (0x33) and 4880->$9300 (0x2D), tilemap 4B50, icon sprites DA10-DA40 (anims 51D0..), 2D:408F loads draft SRAM->D400.., draws title/name/address, upload, fade-in
+43A5	MailDraft_Menu_MoveCursorSprites	function	CONFIRMED	c=0..2: sprite DA10/DA20 positioned at y=$68, x=$10/$40/$70 with anim 2B:5200/5210/5220: the selection frame follows the chosen icon; called every frame from the menu loop
+4421	MailDraft_DrawTextLine21	function	CONFIRMED	Draw NUL-terminated Shift-JIS at HL in <=21 six-pixel cells at pixel (D=y,E=x) into the WRAM-bank2 tile buffer; 420C uses it for title D500 (DE=$1420), address line1 D4C0 ($2420) and line3 D4EC ($3C08)
+44E1	MailDraft_DrawTextLine21_BlitGlyphAdvance	function	CONFIRMED	Helper of MailDraft_DrawTextLine21: blit glyph C0A0 via 7F:42C3, E+=6
+44F5	MailDraft_DrawTextLine21_BlitBlankAdvance	function	CONFIRMED	Helper of MailDraft_DrawTextLine21: blank pad cell (B=2,C=0) via 7F:42C3, E+=6
+450D	MailDraft_DrawTextLine25	function	CONFIRMED	Same routine with 25 cells; 420C draws the middle address line D4D4 (=D4C0+$14, 24 bytes) at DE=$3008; the 64-byte address is shown as 20/24/20 chars
+45CD	MailDraft_DrawTextLine25_BlitGlyphAdvance	function	PROBABLE	Helper of MailDraft_DrawTextLine25: blit glyph via 7F:42C3, E+=6 (never executed: the ASCII glyph path calls it too, but the test addresses have <=20 chars so the D4D4 line is empty)
+45E1	MailDraft_DrawTextLine25_BlitBlankAdvance	function	CONFIRMED	Helper of MailDraft_DrawTextLine25: blank pad cell via 7F:42C3, E+=6
+45F9	MailDraft_DrawTextLine17	function	CONFIRMED	Same routine with 17 cells; 420C draws the name D514 (16 bytes) at DE=$0208, the banner at the top of the screen
+46B9	MailDraft_DrawTextLine17_BlitGlyphAdvance	function	CONFIRMED	Helper of MailDraft_DrawTextLine17: blit glyph via 7F:42C3, E+=6
+46CD	MailDraft_DrawTextLine17_BlitBlankAdvance	function	CONFIRMED	Helper of MailDraft_DrawTextLine17: blank pad cell via 7F:42C3, E+=6
+46E5	MailDraft_UploadTextTiles	function	CONFIRMED	Copies the WRAM bank2 tile buffer to VRAM with 4 general DMAs: D000->$9000, D400->$9400, D800->$8800, DC00->$8C00 (0x40 tiles each) via Gfx_StartHDMAAtVBlank_2B_4723
+4723	Gfx_StartHDMAAtVBlank_2B_4723	function	CONFIRMED	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F then $91, rHDMA5=C&$7F (general DMA); same body as 2A:5C3B
+4743	MailDraft_Edit	function	PROBABLE	Edit flow of the draft: wRam_D524=2, then 2D:65B0 (address entry) -> 2C:4000 (title) -> 2D:4722 (body); $FF from a step returns to the previous step; A=0 done else $FF; called by MailDraft_Menu c=1; exec monkey_camp_rich/tut
+478B	MailDraft_Menu_SetCaption	function	CONFIRMED	A=icon 0..2: caption string Table_MailDraftMenu_Captions[A+1] rendered with 48:403E into DB40/DC80 and 0x27 tiles copied to VRAM $8B40 (25:538A): bottom bar text
+47D0	Table_MailDraftMenu_Captions	table	CONFIRMED	4 pointers to the caption strings of the draft menu (index A+1 read by MailDraft_Menu_SetCaption; each string 41 bytes, spacing $29)
+47D8	String_MailDraftMenu_CaptionConfirm	string	PROBABLE	'かいたメールを かくにんします' = 'Confirm the written mail'; table index 0 (used only for A=$FF; no caller passes $FF)
+4801	String_MailDraftMenu_CaptionView	string	CONFIRMED	'かいたメールを みることができます' = 'You can view the written mail'; shown for the first icon (screenshot mail_compose s3)
+482A	String_MailDraftMenu_CaptionEdit	string	CONFIRMED	'かいたメールを なおします' = 'Edit the written mail'; second icon
+4853	String_MailDraftMenu_CaptionDelete	string	CONFIRMED	'かいたメールを けします' = 'Delete the written mail'; third icon
+4880	Gfx_MailDraftMenu_Tiles9300	data	CONFIRMED	0x2D tiles: MailDraft_Menu_InitScreen HDMA (00:0787) hl=$4880 -> VRAM bank1 $9300 (c=$2D)
+4B50	Data_MailDraftMenu_TilemapAttr	data	CONFIRMED	20x18 tilemap + attribute map: 00:08EA hl=$4B50 in MailDraft_Menu_InitScreen
+4E20	Palette_MailDraftMenu_Bg	data	PROBABLE	64 bytes = 8 BG palettes: 4F:4000 copies to WRAM D800 (bc=$40) in MailDraft_Menu_InitScreen
+4E60	Gfx_MailDraftMenu_Tiles8000	data	CONFIRMED	0x33 tiles: HDMA hl=$4E60 -> VRAM $8000 (c=$33) in MailDraft_Menu_InitScreen
+5190	Palette_MailDraftMenu_Obj	data	CONFIRMED	64 bytes: 4F:4000 copies to WRAM D840 (OBJ palettes) in MailDraft_Menu_InitScreen (hl=$5190)
+51D0	Table_MailDraftMenu_Anims	table	PROBABLE	Animation entry table (28 entries = 7 anims x4) used with 00:0A82 by MailDraft_Menu_InitScreen (de=$51D0/$51E0/$51F0/$5200/$5230) and MoveCursorSprites ($5200/$5210/$5220)
+53C3	MailGrid_Screen	function	PROBABLE	Entry of an unused 'もらったメール' (received mail) 12-cell grid screen: 5448 setup, loop 53C6: A -> far-call MailView_SenderPage then jp MailDraft_Menu, B ret $FF, d-pad 5420-543D; screen rendered from 5FF0; no caller, no trace hit
+5420	MailGrid_CursorLeft	function	PROBABLE	Grid cursor Left: c-1 stopped at 0, then MailGrid_ShowCellDetails; d-pad handler of the unused grid screen (hJoyPressedRepeat&$20 at 5402)
+5429	MailGrid_CursorRight	function	PROBABLE	Grid cursor Right: c+1 stopped at 11, then MailGrid_ShowCellDetails (hJoyPressedRepeat&$10)
+5432	MailGrid_CursorUp	function	PROBABLE	Grid cursor Up: c-4 when c>=4 (4 columns x 3 rows), then MailGrid_ShowCellDetails (hJoyPressedRepeat&$40)
+543D	MailGrid_CursorDown	function	PROBABLE	Grid cursor Down: c+4 when c<8, then MailGrid_ShowCellDetails (hJoyPressedRepeat&$80)
+5448	MailGrid_InitScreen	function	PROBABLE	Setup of the unused grid screen: tiles 59C0/5DC0/6300, palettes 62C0/63F0, tilemap 5FF0, cursor anim 6430 at (y=$14,x=$04), MailGrid_DrawCellIcons, then MailGrid_ShowCellDetails for cell 0; never executed
+5523	MailGrid_PlaceCursorSprite	function	PROBABLE	Places cursor sprite DA10 for cell c=0..11 at y=$14/$34/$54, x=$04/$2C/$54/$7C (3 rows x 4 columns); part of the unused grid screen
+55E1	MailGrid_DrawCellIcons	function	PROBABLE	For the 12 cells: record flag (SRAM bank0 $A124+i*$12D, +0) 1 -> icon tiles $47.. (MailGrid_DrawCellIcon_Flag1), 2 -> $50.. (Flag2) at the VRAM tilemap address of Table_MailGrid_CellTilemapAddrs; never executed
+562B	Table_MailGrid_CellTilemapAddrs	table	PROBABLE	12 words $9861,$9866,$986B,$9870,$98E1,..,$9970 = BG tilemap address of the top-left tile of each grid cell (3x3 icon); indexed by 2*c in MailGrid_DrawCellIcons
+5643	Table_MailGrid_RecAddrs_Cells	table	PROBABLE	12 words $A124+i*$12D = mail record bases; MailGrid_DrawCellIcons reads the flag byte (ld hl,$5643 at 5600)
+565B	MailGrid_DrawCellIcon_Flag1	function	PROBABLE	Writes tiles $47..$4F as a 3x3 block at HL (VRAM bank0) with attribute $0B in bank1: icon of a cell whose record flag is 1; called by MailGrid_DrawCellIcons
+5693	MailGrid_DrawCellIcon_Flag2	function	PROBABLE	Writes tiles $50..$58 as a 3x3 block at HL with attribute $0B: icon of a cell whose record flag is 2; called by MailGrid_DrawCellIcons
+56CB	MailGrid_ShowCellDetails	function	PROBABLE	For cell c with record flag 1 or 2: date (record+3, 6 BCD bytes -> digit tiles $59+nibble at $99E1..) and name/title (+$C9/+$D9, 12 cells at DE=$0408/$0458); else blanks; uploads tiles; never executed
+57B5	String_2B_57B5	string	HYPOTHESIS	idea: 'そうしんしゃ' (sender) then 'あそぼう' (Let's play): no reference found; text of the unexecuted grid screen?
+5814	Table_MailGrid_RecAddrs_Details	table	PROBABLE	12 words $A124+i*$12D = mail record bases; MailGrid_ShowCellDetails reads flag, date (+3), name (+$C9), title (+$D9) (ld hl,$5814 at 56DE/56F7/5766/5791)
+582C	MailGrid_CopyTextEllipsis	function	PROBABLE	Copies a string of <=13 bytes from HL to DE; a longer text is cut (2-byte aware) at 8/9/10 chars and ends with SJIS 8163 (ellipsis) + NUL; used by MailGrid_ShowCellDetails before drawing
+588B	MailGrid_DrawTextLine12	function	PROBABLE	Draw-string routine with 12 cells (name/title of the selected cell) at DE=$0408/$0458 from MailGrid_ShowCellDetails; same body as the other draw-string routines; never executed
+594B	MailGrid_DrawTextLine12_BlitGlyphAdvance	function	PROBABLE	Helper of MailGrid_DrawTextLine12: blit glyph C0A0 via 7F:42C3, E+=6
+595F	MailGrid_DrawTextLine12_BlitBlankAdvance	function	PROBABLE	Helper of MailGrid_DrawTextLine12: blank pad cell (B=2,C=0) via 7F:42C3, E+=6
+5977	MailGrid_UploadTextTiles	function	PROBABLE	Uploads the tile buffer D000 -> VRAM $9000 (0x28 tiles) via Gfx_StartHDMAAtVBlank_2B_5994; called at the end of MailGrid_ShowCellDetails; never executed
+5994	Gfx_StartHDMAAtVBlank_2B_5994	function	PROBABLE	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F then $91, rHDMA5=C&$7F; same body as 2A:5C3B; only caller is the unused grid screen
+59C0	Gfx_MailGrid_Tiles9000	data	PROBABLE	0x40 tiles: MailGrid_InitScreen HDMA hl=$59C0 -> VRAM bank1 $9000; renders with 5DC0/6300/5FF0 as the 'もらったメール' 4x3 grid
+5DC0	Gfx_MailGrid_Tiles9400	data	PROBABLE	0x23 tiles: MailGrid_InitScreen HDMA hl=$5DC0 -> VRAM bank1 $9400
+5FF0	Data_MailGrid_TilemapAttr	data	PROBABLE	20x18 tilemap + attribute map of the unused grid screen (00:08EA hl=$5FF0 in MailGrid_InitScreen); rendered: title 'もらったメール', 4x3 cell grid, date labels 年 月 日 時 分 in the bottom bar
+62C0	Palette_MailGrid_Bg	data	PROBABLE	64 bytes: 4F:4000 -> WRAM D800 in MailGrid_InitScreen (hl=$62C0)
+6300	Gfx_MailGrid_Tiles8000	data	PROBABLE	0x0F tiles: MailGrid_InitScreen HDMA hl=$6300 -> VRAM $8000 (c=$0F)
+63F0	Palette_MailGrid_Obj	data	PROBABLE	64 bytes: 4F:4000 -> WRAM D840 (OBJ) in MailGrid_InitScreen (hl=$63F0)
+6430	Table_MailGrid_Anims	table	PROBABLE	Animation entry table (4 entries) for the grid cursor sprite: MailGrid_InitScreen 00:0A82 de=$6430 -> slot DA10
+6482	MailView_SenderPage	function	CONFIRMED	Mail viewer page 1 (sender name, title, address, date), C=mail idx: far-called by 25:475C (mailbox list). A: far-calls page 2 (2B:7B02; $FF back = redisplay page 1, else ret 0); B ret $FF; SELECT far-calls 2A:4000. Exec mail_inbox; screenshot m1_sender
+64A7	MailView_SenderPage_Loop	label	CONFIRMED	per-frame loop of the sender page: sprite tick, VBlank, 7D:7BB7, A (body page), B (ret $FF), SELECT (save sender address) dispatch; executed in mail_inbox
+64F1	Function_2B_64F1	function	HYPOTHESIS	idea: 'delete this mail?' prologue+flow: yes/no 72:4015 DE=$0206 then 2D:4133 (record delete/shift); falls into the far-call site at 6500; no caller found (unreachable)
+65AB	MailView_SenderPage_InitScreen	function	CONFIRMED	Loads tiles 6DD0->$9000, 71D0->$9400, 76E0->$8000, palettes 76A0/7860, tilemap 73D0, anims 78A0; draws date (691A), title (record+$D9), name (+$C9), address (+$ED, 3 lines) and uploads the tiles; returns B=mail idx
+6863	Table_MailView_RecAddrs	table	CONFIRMED	12 words $A124+i*$12D = SRAM bank0 mail record bases; 65AB indexes by mail idx and adds $C9 (name), $D9 (title), $ED (address) at 66CD/6717/6756/678C
+687C	Function_2B_687C	function	HYPOTHESIS	idea: cursor-sprite switch for c=0..3: DA10/DA20 at y=$68, x=$10/$30/$50/$70 with anims $78D0/$7910/$78E0/$78F0 of Table_MailView_Anims; twin of MailDraft_Menu_MoveCursorSprites; no caller found
+691A	MailView_DrawDateTime	function	CONFIRMED	If record flag (+0) is 1 or 2: 6 BCD bytes at record+3 -> 12 digit tiles ($30+nibble) written to $9801 in VBlank as 4+1+2+1+2+1+2+1+2 cells (YYYY年MM月DD日hh時mm分); screenshot m1_sender '2001年01月27日10時00分'
+69AD	Table_MailView_RecAddrs_DateTime	table	CONFIRMED	12 mail record bases read by MailView_DrawDateTime (flag at +0, BCD date at +3; ld hl,$69AD at 692E/6947)
+69C5	MailView_DrawTextLine20	function	CONFIRMED	Draw NUL-terminated Shift-JIS at HL in <=20 cells (a 2-byte glyph is not started on the last cell); used for the title (DE=$1420) and address line1 (DE=$2420) and line3 (DE=$3C08)
+6A89	MailView_DrawTextLine20_BlitGlyphAdvance	function	CONFIRMED	Helper of MailView_DrawTextLine20: blit glyph via 7F:42C3, E+=6
+6A9D	MailView_DrawTextLine20_BlitBlankAdvance	function	CONFIRMED	Helper of MailView_DrawTextLine20: blank pad cell via 7F:42C3, E+=6
+6AB5	MailView_DrawTextLine24	function	CONFIRMED	Same routine with 24 cells: address line 2 (record+$ED+$14.., DE=$3008), drawn only if byte 19 of the address (last cell of line 1) is non-zero
+6B7A	MailView_DrawTextLine24_BlitGlyphAdvance	function	PROBABLE	Helper of MailView_DrawTextLine24: blit glyph via 7F:42C3, E+=6 (never executed)
+6B8E	MailView_DrawTextLine24_BlitBlankAdvance	function	CONFIRMED	Helper of MailView_DrawTextLine24: blank pad cell via 7F:42C3, E+=6
+6BA6	MailView_DrawTextLine16	function	CONFIRMED	Same routine with 16 cells: sender name (record+$C9) at DE=$0220 (red banner 'ともだち より' in screenshot m1_sender)
+6C6B	MailView_DrawTextLine16_BlitGlyphAdvance	function	CONFIRMED	Helper of MailView_DrawTextLine16: blit glyph via 7F:42C3, E+=6
+6C7F	MailView_DrawTextLine16_BlitBlankAdvance	function	CONFIRMED	Helper of MailView_DrawTextLine16: blank pad cell via 7F:42C3, E+=6
+6C97	MailView_UploadTextTiles	function	CONFIRMED	4 general DMAs D000->$9000, D400->$9400, D800->$8800, DC00->$8C00 (0x40 tiles each) via Gfx_StartHDMAAtVBlank_2B_6CD5
+6CD5	Gfx_StartHDMAAtVBlank_2B_6CD5	function	CONFIRMED	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F then $91, rHDMA5=C&$7F; same body as 2A:5C3B
+6CF5	Function_2B_6CF5	function	HYPOTHESIS	idea: unreachable twin of Mailbox_ReplyToRecord (25:54A7): D400 cleared ($24 B here, $124 B there), record+$ED[64]->D4C0, +$C9[16]->D514, wRam_D524=3 (2B:6D5D), then 2D:65B0/2C:4000/2D:4722; no caller found
+6DB0	Table_2B_6DB0	table	HYPOTHESIS	idea: 12 mail record bases read by Function_2B_6CF5 (record+$ED address, +$C9 name copied to D4C0/D514); unexecuted
+6DD0	Gfx_MailView_Tiles9000	data	PROBABLE	0x40 tiles: MailView_SenderPage_InitScreen HDMA (00:0749) hl=$6DD0 -> VRAM bank1 $9000
+71D0	Gfx_MailView_Tiles9400	data	PROBABLE	0x20 tiles: HDMA hl=$71D0 -> VRAM bank1 $9400 in MailView_SenderPage_InitScreen
+73D0	Data_MailView_TilemapAttr	data	PROBABLE	20x18 tilemap + attribute map: 00:08EA hl=$73D0 in MailView_SenderPage_InitScreen; screenshot m1_sender
+76A0	Palette_MailView_Bg	data	PROBABLE	64 bytes: 4F:4000 -> WRAM D800 in MailView_SenderPage_InitScreen
+76E0	Gfx_MailView_Tiles8000	data	PROBABLE	0x18 tiles: HDMA hl=$76E0 -> VRAM $8000 in MailView_SenderPage_InitScreen
+7860	Palette_MailView_Obj	data	PROBABLE	64 bytes: 4F:4000 -> WRAM D840 in MailView_SenderPage_InitScreen
+78A0	Table_MailView_Anims	table	PROBABLE	Animation entry table (32 entries) used with 00:0A82 by MailView_SenderPage_InitScreen (de=$78A0 -> slot DA30, $78C0 -> DA10)
+7B02	MailView_BodyPage	function	CONFIRMED	Mail viewer page 2 (body text, 8 lines x 24 cells), B=mail idx: called from MailView_SenderPage (far call 2B:64E4); A -> ret 0, B -> ret $FF (both end up back at the mailbox list in the caller 25:475C); exec mail_inbox; screenshot m1_body
+7B2A	MailView_BodyPage_Loop	label	CONFIRMED	per-frame loop of the body page: sprite tick, VBlank, 7D:7BB7, A (ret 0) / B (ret $FF); executed in mail_inbox
+7B9B	MailView_BodyPage_InitScreen	function	CONFIRMED	Uses bank-28 art (tiles 28:42C0/44D0, tilemap 28:4550, palettes 28:4AF0/4B30); sets record flag +0 := 2 (SRAM bank0, then 22:501D checksum), copies record+9 ($C0 B body) to D400, draws 8 lines (7EE0 + 7DF2), upload
+7D7A	Table_MailView_BodyPage_RecAddrs	table	CONFIRMED	12 words $A124+i*$12D = mail record bases read by MailView_BodyPage_InitScreen (ld hl,$7D7A at 7C45/7C76): flag at +0, body at +9
+7D92	MailView_BodyPage_UploadTextTiles	function	CONFIRMED	4 general DMAs D000->$9000, D400->$9400, D800->$8800, DC00->$8C00 (0x40 tiles each) via Gfx_StartHDMAAtVBlank_2B_7DD0
+7DD0	Gfx_StartHDMAAtVBlank_2B_7DD0	function	CONFIRMED	HL=src DE=dest C=blocks-1: rHDMA1-4, wait LY==$8F, di, wait LY==$91, rHDMA5=C&$7F, ei; variant of 2A:5C3B
+7DF2	MailView_BodyPage_DrawTextLine24	function	CONFIRMED	Draw NUL/$0D-terminated Shift-JIS at HL in <=24 cells (one line of the body; stops before a 2-byte glyph on the last cell); called per line at y=0,12,..,84 x=8
+7EB4	MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance	function	CONFIRMED	Helper of MailView_BodyPage_DrawTextLine24: blit glyph via 7F:42C3, E+=6
+7EC8	MailView_BodyPage_DrawTextLine24_BlitBlankAdvance	function	CONFIRMED	Helper of MailView_BodyPage_DrawTextLine24: blank pad cell via 7F:42C3, E+=6
+7EE0	MailView_BodyPage_FindLine	function	CONFIRMED	B=line index: HL=start of line B in the D400 body buffer (a line ends at $0D or after 24 cells; 7F:41A7 tells 2-byte chars), D=$FF if the text ends earlier; 7B9B calls it for lines 0..7

@@ -1,0 +1,43 @@
+# addr	name	type	status	evidence
+4000	MailResult_Screen	function	CONFIRMED	Communication result screen ('つうしんけっかはっぴょう': boxes 'おくったメール' / 'とどいたメール' with typed messages), waits for A (00:20AC id $2C) and returns A=0; far-called by 27:4156; executed in mail_send/mail_receive/tutorial_profile
+407A	MailResult_InitScreen	function	CONFIRMED	Builds the result screen (LCD off, palettes 24:7A60/7AA0, HDMA tiles 24:6BF0/6FF0/73F0/7490, tilemap 24:7790, sprites 24:7B30) and prints the sent (D624) and received (D625/D626) messages; executed
+41AD	MailResult_ShowSentMessage	function	CONFIRMED	DE=send result [D624]: 0 -> 'メールはおくっていません', $FFFF -> 'おくるのにしっぱいしました！', 2 -> 'おくれているかわかりません', 1 -> 'ちゃんとおくれました！'; typewriter-prints it into the upper box; executed
+421E	MailResult_Txt_SendFailed	string	PROBABLE	'おくるのにしっぱいしました！' = failed to send (D624=$FF); the block 29:421E-4286 holds 4 NUL-terminated messages (also 'メールはおくっていません', 'ちゃんとおくれました！', 'おくれているかわかりません')
+423B	MailResult_Txt_NothingSent	string	CONFIRMED	'メールはおくっていません' = no mail was sent (D624=0); read as data by executed code
+4254	MailResult_Txt_SentOk	string	CONFIRMED	'ちゃんとおくれました！' = sent properly (D624=1); read as data by executed code
+426B	MailResult_Txt_SentUnsure	string	CONFIRMED	'おくれているかわかりません' = cannot tell whether it was sent (D624=2); read as data by executed code
+4286	MailResult_ShowReceivedMessage	function	CONFIRMED	DE=received count [D625/D626]: 0 -> 'メールはとどいていません' (or 'メールはうけとれませんでした' if the mailbox is full, 25:4A90==12), $FFFF -> 'うけとりにしっぱいしました！', N -> 'N つうとどいています！！' + count sprite; executed
+4306	MailResult_Txt_ReceiveFailed	string	PROBABLE	'うけとりにしっぱいしました！' = failed to receive ([D625]=$FFFF); block 29:4306-4374 holds the 4 receive messages
+4323	MailResult_Txt_NothingArrived	string	CONFIRMED	'メールはとどいていません' = no mail has arrived ([D625]=0); read as data by executed code
+433C	MailResult_Txt_ArrivedCount	string	CONFIRMED	'　　つうとどいています！！' = '(N) mails have arrived!!' (N is the sprite chosen by MailResult_SetReceivedSprite); read as data by executed code
+4357	MailResult_Txt_CannotReceive	string	CONFIRMED	'メールはうけとれませんでした' = the mail could not be received (mailbox already holds 12); read as data by executed code
+4374	MailResult_SetReceivedSprite	function	PROBABLE	E-1 = received count 1..11 (else 12+): puts sprite slot DA30 on one of the 12 object rows 24:7B40..7BF0 at the number position; called by 29:42A9 for the count message; executed in mail_receive
+44F6	MailServerStatus_Screen	function	CONFIRMED	Mail server status screen ('メールサーバじょうきょう': checked / other-software / on-server counts), C264=0 after send/receive, 1/2 in mail-server management; A returns; count dialogs 72:4015 $0224-$0226; from 27:4160, 22:4C4C, 23:4B3B; 11 scenarios
+4608	MailServerStatus_InitScreen	function	CONFIRMED	Builds the status screen: palettes 24:7AE0, tiles 26:7420/25:6F30/25:7330/29:5060, tilemap 25:7730/7A00 (C264=0) or 25:7CD0 (C264!=0), then the counters via 4745 (mode 0), 4A65 (1) or 4D21 (2); executed
+4745	MailServerStatus_DrawCounts_Mode0	function	CONFIRMED	C264=0: writes the three counters (WRAM1 D625/D627/D62F/D631, one's-complement 16-bit) into the number boxes, or '－－－－－' (29:47B2) when [D637]!=0 or [D627/8]==$FFFF, and uploads the tiles; executed in mail_send/mail_receive
+47B2	MailServerStatus_Txt_Unknown	string	PROBABLE	'－－－－－' (5 full-width dashes 81 48) + NUL: placeholder printed instead of a number when no counter is available (also 29:4AC4)
+48C3	MailServerStatus_FormatNumber_M0	function	PROBABLE	HL=value: fills WRAM1 $D524 with the full-width decimal string ('０００００' template 29:49DA plus digits by Divide16) and returns A=digit count; twin of 26:5447 (also 4B7F, 4E55)
+49E5	MailServerStatus_NumberOffset_M0	function	PROBABLE	HL=value: BC = tile buffer offset ($00,$10,$20,$30,$40 for 5..1 digits) that right-aligns the number; twin of 26:5580 (also 4CA1, 4F77)
+4A45	MailServerStatus_UploadNumberTiles_M0	function	PROBABLE	Copies WRAM2 $D000 (32 blocks) to VRAM $9000 through 7F:72C2; identical copies at 29:4D01 and 29:4FD7; executed
+4A65	MailServerStatus_DrawCounts_Mode1	function	CONFIRMED	C264=1: same layout as mode 0 from the counters D625/D627/D629 (mail server delete flow); placeholders when [D627/8]==$FFFF; executed in mail_server_full/mail_server_hidden
+4B7F	MailServerStatus_FormatNumber_M1	function	PROBABLE	identical copy of MailServerStatus_FormatNumber_M0 used by mode 1
+4CA1	MailServerStatus_NumberOffset_M1	function	PROBABLE	identical copy of MailServerStatus_NumberOffset_M0 used by mode 1
+4D01	MailServerStatus_UploadNumberTiles_M1	function	PROBABLE	identical copy of MailServerStatus_UploadNumberTiles_M0 used by mode 1
+4D21	MailServerStatus_DrawCounts_Mode2	function	CONFIRMED	C264>=2: same layout from the counters D625/D627/D629/D631 (mail server management); executed in mail_server, mail_server_full, mail_server_hidden
+4E55	MailServerStatus_FormatNumber_M2	function	PROBABLE	identical copy of MailServerStatus_FormatNumber_M0 used by mode 2
+4F77	MailServerStatus_NumberOffset_M2	function	PROBABLE	identical copy of MailServerStatus_NumberOffset_M0 used by mode 2
+4FD7	MailServerStatus_UploadNumberTiles_M2	function	PROBABLE	identical copy of MailServerStatus_UploadNumberTiles_M0 used by mode 2
+4FF7	MailServerStatus_UploadNumberTiles_Blank	function	PROBABLE	Same upload (WRAM2 $D000, 32 blocks -> $9000 via 7F:72C2) used after the '－－－－－' placeholders were rendered; executed
+5017	MailResult_UploadTextTiles	function	CONFIRMED	Copies WRAM2 $D000 and $D400 (63 blocks each) to VRAM $9000/$9400 with MailResult_StartHDMAAtVBlank after each typewriter step; executed in 8 scenarios
+503F	MailResult_StartHDMAAtVBlank	function	CONFIRMED	HL=source, DE=VRAM dest, C=blocks-1: rHDMA1-4, wait LY=$8F then $91, rHDMA5; twin of Gfx_StartHDMAAtVBlank (25:538A); executed
+5060	MailServerStatus_Tiles_5060	data	CONFIRMED	48 B (3 tiles): HDMA at 29:4686 to VRAM bank1 $9300 (status screen)
+5090	Function_29_5090	function	HYPOTHESIS	idea: start of a 742-byte unreferenced routine library (LCDC bit2 toggles, OAM copy/clear, PRNG hl=hl*5+$3711, wait LY=$90, ROM bank write, CGB palette fade via rBCPS with buffer $DBD0); no caller/pointer found, never executed
+5117	Function_29_5117	function	HYPOTHESIS	idea: busy-wait until rLY == $90 (start of VBlank); helper of the unreferenced palette-fade library 29:5090-5376
+511E	Function_29_511E	function	HYPOTHESIS	idea: frame-pacing wait of the library: call $7BB7 (joypad read), then wait for LY $24/$48/$6C/$90 when A is held, else $48/$90
+5145	Function_29_5145	function	HYPOTHESIS	idea: rIF=0 and clears IE bit0 (VBlank interrupt off) around palette transfers
+514F	Function_29_514F	function	HYPOTHESIS	idea: rIF=0 and sets IE bit0 (VBlank interrupt on again)
+520D	Function_29_520D	function	HYPOTHESIS	idea: reads all 64 BG palette bytes (rBCPS/rBCPD) and 64 OBJ bytes (rOCPS/rOCPD) into the WRAM1 buffer $DBD0 (saves the current CGB palettes for a fade)
+523F	Function_29_523F	function	HYPOTHESIS	idea: writes the 128 bytes at $DBD0 back to BG/OBJ palette RAM (rBCPD/rOCPD): restores/updates palettes after a fade step
+529F	Function_29_529F	function	HYPOTHESIS	idea: fade step toward white: adds 1 to each 5-bit R/G/B channel of the 64 RGB555 colours at $DBD0 (clamped at $1F)
+52ED	Function_29_52ED	function	HYPOTHESIS	idea: fade step toward black: subtracts 1 from each 5-bit R/G/B channel of the 64 RGB555 colours at $DBD0 (floor 0)
+5335	Function_29_5335	function	HYPOTHESIS	idea: copies 64 bytes from HL twice into $DBD0 (fills the fade buffer with one palette block for BG and OBJ)

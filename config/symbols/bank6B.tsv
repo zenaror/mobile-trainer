@@ -1,0 +1,7 @@
+# Names for bank 6B (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4000	NonCgb_Tilemap	data	CONFIRMED	$240 bytes = 32x18 BG map (rows of 32) copied by NonCgb_ErrorScreen (6B:4CBF, hl=$4000 bc=$0240 -> $9800); rendered with NonCgb_Tiles it reads 【モバイルトレーナー】 / このカートリッジは ゲームボーイカラー せんようです。 ...
+4480	NonCgb_Tiles	data	CONFIRMED	$800 bytes (128 tiles, ids $80-$DE) copied to VRAM $8800 by NonCgb_ErrorScreen (6B:4CB3, bc=$0800); baked kana/kanji glyphs of the non-CGB message
+4C80	NonCgb_ErrorScreen	function	CONFIRMED	entered from Boot when hBootA != $11 (00:02A6, verified in mGBA); shows 'このカートリッジは ゲームボーイカラー せんようです' (rendered from NonCgb_Tiles/Tilemap), VBlank stub jp $4D1F (= the reti at 4D1F), BGP fade, halts forever
+4CF6	NonCgb_FadeStep	function	PROBABLE	every $14 calls: BGP = NonCgb_BgpFadeTable[C0E8++]; returns A=0 after entry 3 (fade finished) else $FF; called after each VBlank by 6B:4CED
+4D1B	NonCgb_BgpFadeTable	data	PROBABLE	00 40 90 E4 = BGP fade-in values (index C0E8 < 4); the 5th byte $D9 (reti at 6B:4D1F) is not a table entry but the target of the VBlank stub jp $4D1F set by NonCgb_ErrorScreen

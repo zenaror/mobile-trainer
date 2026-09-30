@@ -1,0 +1,29 @@
+# addr	name	type	status	evidence
+4000	MailBody_ViewScreen	function	CONFIRMED	Mail text view screen (letter paper, airmail border, 'B もどる'): 8 lines of 12 chars from the WRAM1 $D400 text buffer (2 bytes/char, $0D newline) via 2D:4EC0; B returns A=$FF; from 2B:4075, 2D:4856, 2D:5981; executed in mail_compose
+4009	MailBody_ViewScreen_Loop	label	CONFIRMED	per-frame loop head of MailBody_ViewScreen: sprites 00:0956, wait, 7D:7BB7 joypad, B press -> 00:20AC id $2E, wait LY $50-$59, leave
+404E	MailBody_InitScreen	function	CONFIRMED	Builds the view screen: palettes 28:4AF0/4B30, HDMA tiles 28:42C0 (VRAM bank1 $9300) and 28:44D0 ($8000), tilemap 28:4820, object 28:4B70, then draws the 8 text lines with MailBody_DrawTextLine; executed in mail_compose
+41CB	MailBody_DrawTextLine	function	CONFIRMED	HL=text line (2D:4EC0 output), DE=y,x, up to 12 chars: per char 7F:41A7/405F/4007/42C3 glyph blit, stops at NUL/$0D and pads blanks; sibling of 24:494C and 25:5240 (same loop, not byte-identical); executed in mail_compose
+428B	MailBody_BlitGlyphAdvance	function	CONFIRMED	Blits the glyph buffer $C0A0 via 7F:42C3 and advances E (x) by 6; helper of MailBody_DrawTextLine (same as 24:49EC/25:52EA); executed
+429F	Function_28_429F	function	HYPOTHESIS	idea: blits a blank cell with B=2,C=0 attributes and advances x by 6; used for the padding after a newline ($0D) in MailBody_DrawTextLine
+42C0	MailBody_Tiles_42C0	data	CONFIRMED	528 B tiles: HDMA at 28:4088 (33 blocks) to VRAM bank1 $9300 (letter border/label art); also loaded by 2B (ld hl,$42C0 with a=$28)
+44D0	MailBody_Tiles_44D0	data	CONFIRMED	128 B tiles: HDMA at 28:409A to VRAM bank0 $8000
+4820	MailBody_Tilemap	data	CONFIRMED	20x18 map + attributes of the mail text view screen (rendered: letter paper, airmail border, 'B もどる'); copied by 00:08EA at 28:40AB
+4AF0	MailBody_BgPalette	data	PROBABLE	64 B BG palettes (first half of the 16-palette block) copied to $D800 by 4F:4000 at 28:4065
+4B30	MailBody_ObjPalette	data	PROBABLE	64 B OBJ palettes copied to $D840 by 4F:4000 at 28:4076
+4B70	MailBody_ObjTable	table	PROBABLE	one sprite object row (4 identical entries) read by 00:0A82 (a=$28) at 28:40C0: the B-button prompt sprite
+54B0	MailServerDeleteAll_Tiles_54B0	data	PROBABLE	1024 B tiles: HDMA loads at 22:45EB and 23:44DA to VRAM bank1 $9300 (call sites never executed); goes with tilemap 28:5BD0
+58B0	MailServerDeleteAll_Tiles_58B0	data	PROBABLE	672 B tiles: HDMA at 22:4600/23:44EF to VRAM bank1 $9700 (unexecuted call sites)
+5B50	MailServerDeleteAll_Tiles_5B50	data	PROBABLE	128 B tiles: HDMA at 22:4615/23:4504 to VRAM bank0 $8000 (unexecuted call sites)
+5BD0	MailServerDeleteAll_Tilemap	data	PROBABLE	20x18 map+attr copied at 22:4629/23:4518; rendered: header 'サーバのメールをすべてけします' (delete all mails on the server) with buttons 'はい' / 'いいえ'; call sites never executed
+5EA0	MailServerDeleteAll_BgPalette	data	PROBABLE	64 B BG palettes copied to $D800 by 4F:4000 at 22:45BD/23:44AC (delete-all confirmation screen)
+5EE0	MailServerDeleteAll_ObjPalette	data	PROBABLE	64 B OBJ palettes copied to $D840 by 4F:4000 at 22:45D1 (delete-all confirmation screen)
+5F20	MailServerDeleteMethod_Tiles_5F20	data	PROBABLE	560 B tiles: HDMA at 22:4277/23:4226 to VRAM bank1 $9300 (delete-method choice screen)
+6150	MailServerDeleteMethod_Tiles_6150	data	PROBABLE	1024 B tiles: HDMA at 22:428C/23:423B to VRAM bank0 $8800
+6550	MailServerDeleteMethod_Tiles_6550	data	PROBABLE	656 B tiles: HDMA at 22:42A1/23:4250 to VRAM bank0 $8C00
+67E0	MailServerDeleteMethod_Tiles_67E0	data	PROBABLE	128 B tiles: HDMA at 22:42B6/23:4265 to VRAM bank0 $8000
+6860	MailServerDeleteMethod_Tilemap_First	data	PROBABLE	20x18 map+attr copied at 23:4172/4279; rendered: header 'メールのけしかたをえらんでね' (choose how to delete mail), first button 'かくにんしてからけす' highlighted, second 'じどうでぜんぶけす'
+6B30	MailServerDeleteMethod_Tilemap_Second	data	PROBABLE	20x18 map+attr copied at 23:41AD/42D0: same screen with the second button 'じどうでぜんぶけす' highlighted
+6E00	MailServerDeleteMethod_BgPalette	data	PROBABLE	64 B BG palettes copied to $D800 by 4F:4000 at 22:4249/23:41F8 (delete-method screen)
+6E40	MailServerDeleteMethod_ObjPalette	data	PROBABLE	64 B OBJ palettes copied to $D840 by 4F:4000 at 22:425D/23:420C (delete-method screen)
+6F20	MailSession_ObjTable_6F20	table	PROBABLE	18 sprite object rows read by 00:0A82 with a=$28 from 26:4000/27:41E3/4768 (transfer-screen phone/mail/progress sprites: 6F20..7030); 28:7040-72FB holds their frames/scripts
+72FB	MailSession_ObjTable_72FB	table	PROBABLE	41 sprite object rows read by 00:0A82 with a=$28: 26:4C94/4DAB pick rows 74CB../73FB.. by the received count, 26:4000 uses 72FB-739B; 28:758B-7A5D holds their frames/scripts

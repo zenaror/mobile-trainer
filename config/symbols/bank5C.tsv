@@ -1,0 +1,90 @@
+# addr	name	type	status	evidence
+4000	CommErr_Msg_AdapterNotPlugged	string	CONFIRMED	message 1 of the error table (Shift-JIS, NUL-terminated): Mobile Adapter is not plugged in correctly; read the manual and plug it in firmly
+4069	CommErr_Msg_DialFailedOrBusy	string	CONFIRMED	message 2 of the error table (Shift-JIS, NUL-terminated): phone could not dial or the line is busy, cannot communicate; wait and retry
+40FD	CommErr_Msg_LineBusy	string	CONFIRMED	message 3 of the error table (Shift-JIS, NUL-terminated): line is busy, cannot communicate; wait and retry
+4146	CommErr_Msg_AdapterError	string	CONFIRMED	message 4 of the error table (Shift-JIS, NUL-terminated): Mobile Adapter error; wait and retry, otherwise consult the manual / Mobile Support Center
+41E3	CommErr_Msg_GenericCommError	string	CONFIRMED	message 5 of the error table (Shift-JIS, NUL-terminated): generic communication error; wait and retry, otherwise Mobile Support Center
+427A	CommErr_Msg_BadPasswordOrLoginId	string	CONFIRMED	message 6 of the error table (Shift-JIS, NUL-terminated): password or login ID is wrong; check the password and retry later
+4315	CommErr_Msg_Disconnected	string	CONFIRMED	message 7 of the error table (Shift-JIS, NUL-terminated): the connection was cut; see the manual and retry later
+436B	CommErr_Msg_ServerCommError	string	CONFIRMED	message 8 of the error table (Shift-JIS, NUL-terminated): server-side communication error; wait and reconnect
+43CD	CommErr_Msg_AdapterRegistrationInvalid	string	CONFIRMED	message 9 of the error table (Shift-JIS, NUL-terminated): info registered in the Mobile Adapter is wrong; do the initial registration with the Mobile Trainer
+442F	CommErr_Msg_ServerBusy	string	CONFIRMED	message 10 of the error table (Shift-JIS, NUL-terminated): server is busy, cannot connect; wait and reconnect
+44AA	CommErr_Msg_BadDestinationAddress	string	CONFIRMED	message 11 of the error table (Shift-JIS, NUL-terminated): destination mail address is wrong; enter a correct mail address
+44FE	CommErr_Msg_BadOwnMailAddress	string	CONFIRMED	message 12 of the error table (Shift-JIS, NUL-terminated): own mail address is wrong; register again with the Mobile Trainer
+4575	CommErr_Msg_BadPasswordOrServerError	string	CONFIRMED	message 13 of the error table (Shift-JIS, NUL-terminated): entered password is wrong or server error; check the password, retry later
+45F7	CommErr_Msg_ContentDownloadRetry	string	CONFIRMED	message 14 of the error table (Shift-JIS, NUL-terminated): content download not possible; wait and retry, otherwise Support Center
+469A	CommErr_Msg_Timeout	string	CONFIRMED	message 15 of the error table (Shift-JIS, NUL-terminated): connection cut by timeout; communicate again
+46FE	CommErr_Msg_FeePaymentOverdue	string	CONFIRMED	message 16 of the error table (Shift-JIS, NUL-terminated): if payment of the usage fee is late the service becomes unusable
+4767	CommErr_Msg_UnavailableCustomerReason	string	CONFIRMED	message 17 of the error table (Shift-JIS, NUL-terminated): cannot be used because of the customer's circumstances
+47B2	CommErr_Msg_LineBusyOrServerError	string	CONFIRMED	message 18 of the error table (Shift-JIS, NUL-terminated): line busy or server error, cannot communicate; wait and retry
+4838	CommErr_Msg_FeeLimitExceeded	string	CONFIRMED	message 19 of the error table (Shift-JIS, NUL-terminated): usage fee exceeds the upper limit, unusable this month
+489A	CommErr_Msg_Maintenance	string	CONFIRMED	message 20 of the error table (Shift-JIS, NUL-terminated): service under maintenance; call again later
+490B	CommErr_Msg_ContentDownloadFailed	string	CONFIRMED	message 21 of the error table (Shift-JIS, NUL-terminated): content download not possible; see the manual
+4956	CommErr_Msg_BadLoginId	string	CONFIRMED	message 22 of the error table (Shift-JIS, NUL-terminated): login ID is wrong; register the login ID again
+49B6	CommErr_Msg_LoginIdSuspended	string	CONFIRMED	message 23 of the error table (Shift-JIS, NUL-terminated): this login ID has a suspension procedure on file, unusable; contact the DDI customer service center
+4A51	CommErr_Msg_LoginIdCancelled	string	CONFIRMED	message 24 of the error table (Shift-JIS, NUL-terminated): this login ID was cancelled, unusable; contact the DDI customer service center
+4AD9	CommErr_Msg_LoginIdUnavailable	string	CONFIRMED	message 25 of the error table (Shift-JIS, NUL-terminated): this login ID is currently unusable; contact the DDI customer service center
+4B52	CommErr_Msg_NewPasswordEmpty	string	CONFIRMED	message 26 of the error table (Shift-JIS, NUL-terminated): no new password entered; enter 4-8 characters mixing letters and digits
+4BC5	CommErr_Msg_NewPasswordLength	string	CONFIRMED	message 27 of the error table (Shift-JIS, NUL-terminated): new password is too long or too short (4-8 characters)
+4C38	CommErr_Msg_NewPasswordBadChars	string	CONFIRMED	message 28 of the error table (Shift-JIS, NUL-terminated): new password contains unusable characters
+4CB3	CommErr_Msg_NewPasswordNeedsMix	string	CONFIRMED	message 29 of the error table (Shift-JIS, NUL-terminated): new password is letters only or digits only
+4D3F	CommErr_Msg_NewPasswordSameAsOld	string	CONFIRMED	message 30 of the error table (Shift-JIS, NUL-terminated): new password is the same as the old one; choose another
+4DCF	CommErr_Msg_RegistrationPending	string	CONFIRMED	message 31 of the error table (Shift-JIS, NUL-terminated): registration form processing seems unfinished; wait until it completes
+4E21	CommErr_Boot_AdapterNotPlugged	string	CONFIRMED	message 33 of the error table (Shift-JIS, NUL-terminated): boot check: Mobile Adapter is not plugged in correctly
+4E51	CommErr_Boot_WrongPassword	string	CONFIRMED	message 34 of the error table (Shift-JIS, NUL-terminated): boot check: password is wrong; enter the correct password
+4E96	CommErr_Boot_AdapterConfigError	string	CONFIRMED	message 35 of the error table (Shift-JIS, NUL-terminated): boot check: adapter registration info error, data will be initialized
+4ED5	CommErr_Boot_SaveDataErrorA	string	CONFIRMED	message 36 of the error table (Shift-JIS, NUL-terminated): boot check: cartridge save data error, data will be initialized (record F0/01/10)
+4F14	CommErr_Boot_SaveDataErrorB	string	CONFIRMED	message 37 of the error table (Shift-JIS, NUL-terminated): boot check: cartridge save data error, data will be initialized (record F0/01/11; same text as ErrorA)
+4F53	CommErr_RecordTable	table	CONFIRMED	21 records [id, mode, dw triple list] ended by $FF, searched at 5C:527D against C196 (id = error category); mode 1 = normal 'comm error' screen, mode 2 = boot-check record $F0
+4FA8	CommErr_Triples_10	data	PROBABLE	triples [C197,C198,message index] of record $10 (adapter not plugged (10)), searched at 5C:530D, last triple $FF,$FF is the default
+4FAE	CommErr_Triples_11	data	PROBABLE	triples [C197,C198,message index] of record $11 (dial failed/busy (11)), searched at 5C:530D, last triple $FF,$FF is the default
+4FB4	CommErr_Triples_12	data	PROBABLE	triples [C197,C198,message index] of record $12 (line busy (12)), searched at 5C:530D, last triple $FF,$FF is the default
+4FBA	CommErr_Triples_13	data	PROBABLE	triples [C197,C198,message index] of record $13 (dial failed/busy (13)), searched at 5C:530D, last triple $FF,$FF is the default
+4FC0	CommErr_Triples_14	data	PROBABLE	triples [C197,C198,message index] of record $14 (adapter registration invalid (14)), searched at 5C:530D, last triple $FF,$FF is the default
+4FC6	CommErr_Triples_15	data	PROBABLE	triples [C197,C198,message index] of record $15 (adapter errors 15-00..03), searched at 5C:530D, last triple $FF,$FF is the default
+4FD5	CommErr_Triples_16	data	PROBABLE	triples [C197,C198,message index] of record $16 (comm error (16)), searched at 5C:530D, last triple $FF,$FF is the default
+4FDB	CommErr_Triples_17	data	PROBABLE	triples [C197,C198,message index] of record $17 (comm error (17)), searched at 5C:530D, last triple $FF,$FF is the default
+4FE1	CommErr_Triples_20	data	PROBABLE	triples [C197,C198,message index] of record $20 (comm error (20)), searched at 5C:530D, last triple $FF,$FF is the default
+4FE7	CommErr_Triples_21	data	PROBABLE	triples [C197,C198,message index] of record $21 (comm error (21)), searched at 5C:530D, last triple $FF,$FF is the default
+4FED	CommErr_Triples_22	data	PROBABLE	triples [C197,C198,message index] of record $22 (bad password/login id (22)), searched at 5C:530D, last triple $FF,$FF is the default
+4FF3	CommErr_Triples_23	data	PROBABLE	triples [C197,C198,message index] of record $23 (disconnected (23)), searched at 5C:530D, last triple $FF,$FF is the default
+4FF9	CommErr_Triples_24	data	PROBABLE	triples [C197,C198,message index] of record $24 (line busy or server error (24; screenshot 24-000)), searched at 5C:530D, last triple $FF,$FF is the default
+4FFF	CommErr_Triples_25	data	PROBABLE	triples [C197,C198,message index] of record $25 (adapter registration invalid (25)), searched at 5C:530D, last triple $FF,$FF is the default
+5005	CommErr_Triples_26	data	PROBABLE	triples [C197,C198,message index] of record $26 (timeout (26; screenshot 26-000)), searched at 5C:530D, last triple $FF,$FF is the default
+500B	CommErr_Triples_30	data	PROBABLE	triples [C197,C198,message index] of record $30 (SMTP reply-code shaped: 221, 421, 450-452, 500-504, 550-554 as d=hundreds, e=BCD; 550-553 -> destination address message), searched at 5C:530D; last triple $FF,$FF default
+503E	CommErr_Triples_31	data	PROBABLE	triples [C197,C198,message index] of record $31 (codes 00 02..04 -> messages 12 'mail address wrong', 13 'password wrong or server error', 5 generic), searched at 5C:530D, last triple $FF,$FF is the default
+504D	CommErr_Triples_32	data	PROBABLE	triples [C197,C198,message index] of record $32 (HTTP status errors 32-3xx/4xx/5xx (screenshot 32-404)), searched at 5C:530D, last triple $FF,$FF is the default
+5080	CommErr_Triples_33	data	PROBABLE	triples [C197,C198,message index] of record $33 (codes 01 01-06, 02 01-06/99, 03 01, 04 01-04 -> fee/customer/maintenance/registration messages), searched at 5C:530D, last triple $FF,$FF is the default
+50B9	CommErr_Triples_40	data	PROBABLE	triples [C197,C198,message index] of record $40 (server CGI error codes (login id, password, new-password rules, maintenance)), searched at 5C:530D, last triple $FF,$FF is the default
+50F5	CommErr_Triples_F0	data	PROBABLE	triples [C197,C198,message index] of record $F0 (boot-time checks (mode 2 record, 5 triples, no $FF terminator)), searched at 5C:530D, last triple $FF,$FF is the default
+5104	CommErr_MessagePointers	table	PROBABLE	32 word pointers (index 0 null) to the message strings 4000-4DCF, indexed by the triple's message index at 5C:5320; indices 32-37 continue in 5144/5146
+5146	CommErr_MessagePointers_Boot	table	PROBABLE	5 word pointers = message indices 33-37 (4E21,4E51,4E96,4ED5,4F14) used by the boot-check record $F0 (list 50F5 selects indices $21-$25)
+5150	CommErr_ShowScreen	function	CONFIRMED	Error screen: A=category (C196), H:L=code (C197:C198); wipes C0D4.., loads gfx/palettes, draws 'No.CC-DDD' and the message found by the tables, waits for A (sfx $2C) then fades out. Callers 19,65,67,68; shots 24-000, 26-000, 32-404
+5219	CommErr_ShowScreen_FrameLoop	label	CONFIRMED	per-frame loop: sprites, VBlank wait, pad read (7D:7BA4/7BC1) and JoypadDispatch (A -> 524C, idle -> 523B)
+5231	CommErr_JoypadTable	table	CONFIRMED	inline table of the call to JoypadDispatch at 5C:522E: A -> 524C, B/Select/Start -> 5264 (ignored), none -> 523B
+523B	CommErr_ShowScreen_Idle	label	CONFIRMED	no new button: if C0D8!=0 run UpdateCommFooter (546F), then jp FrameLoop
+524C	CommErr_ShowScreen_ButtonA	label	CONFIRMED	A pressed: sound effect $2C, fade out (4F:4370), return A=0 to the caller
+5267	CommErr_DrawMessage	function	CONFIRMED	clears the text box, finds the record of C196 in CommErr_RecordTable, picks the tilemap (mode 1: plain or timer variant, else boot variant), finds the message by (C197,C198) and prints it
+527D	CommErr_FindRecord	label	CONFIRMED	loop over the 4-byte records of 4F53 comparing the id with C196; $FF terminator -> 53A1 (plain tilemap only)
+52AB	CommErr_DrawMessage_TimerVariant	label	CONFIRMED	wTimerEnable bit4 set (communication timer running): tilemap 57E6 with the 'communicating' footer, animated icon object DA10 (table 642B), palette 6350, C0D8:=1
+52EF	CommErr_DrawMessage_PlainVariant	label	CONFIRMED	records with mode !=1 (boot checks): tilemap 5AB6 (plain 'error No.' header)
+5302	CommErr_LookupTriple	label	CONFIRMED	HL=triple list of the record; scans [d,e,msg] for d=C197,e=C198 (or the $FF,$FF default) and returns the message index at 531E
+531E	CommErr_PrintMessage	label	CONFIRMED	message index -> pointer via CommErr_MessagePointers, sets the text engine box (x=8,y=$18, width $98) and prints with 00:0ED3, then uploads the text tiles/map (4F:4572, 4F:45C6)
+53A1	Label_5C_53A1	label	HYPOTHESIS	record id not found in the table: only the plain tilemap 5AB6 is loaded; not executed
+53B3	CommErr_DrawErrorNumber	function	CONFIRMED	draws the digits of 'No.CC-DDD' from C196/C197/C198 into the tile map at D00C.. (2 tiles per digit) and uploads the row; C197's high nibble is drawn only for category $40
+5441	CommErr_DrawDigit	function	CONFIRMED	A=digit 0-9, HL=map position: writes the two tiles of the digit (CommErr_DigitTilePairs) to HL and HL+$20
+545B	CommErr_DigitTilePairs	table	PROBABLE	10 pairs (top,bottom) of tile numbers for the digits 0-9: $27/$37 .. $2F/$3F, $40/$50; read by 5C:5441
+546F	CommErr_UpdateCommFooter	function	PROBABLE	per frame while C0D8!=0: comm timer stopped (wTimerEnable bit4 clear) -> swaps the 'communicating' footer for the plain rows (5656/57BE), hides object DA10, C0D8:=0; running -> checks C2D6 vs limit C26E, may call 50:4000
+5504	CommErr_DrawFCategoryGlyph	function	PROBABLE	for category $F0 overwrites the first digit cells (D00C/D00D, D02C/D02D) with tiles $40,$41/$50,$51 (a 2x2 glyph instead of digits)
+5516	CommErr_Tilemap_Comm	data	CONFIRMED	18x20 tilemap+attr (720 bytes) of the 'comm error' screen with the plain footer (header 通信エラー No.); loaded at 5C:52A2 with 00:08EA
+57E6	CommErr_Tilemap_CommTimer	data	CONFIRMED	18x20 tilemap+attr of the 'comm error' screen with the 'つうしんちゅう' (communicating) footer, used when the comm timer runs (5C:52B7)
+5AB6	CommErr_Tilemap_Plain	data	CONFIRMED	18x20 tilemap+attr of the plain 'エラー No.' screen used by boot-check records and as default (5C:52FB, 53AC)
+5D90	CommErr_Gfx_Obj8000	data	CONFIRMED	2 tiles HDMA'd to VRAM bank 1 $8000 by 5C:5194 (object tiles)
+5DB0	CommErr_Gfx_Obj8100	data	CONFIRMED	2 tiles HDMA'd to VRAM bank 1 $8100 by 5C:51A6
+5DD0	CommErr_Gfx_Bg9000	data	CONFIRMED	64 tiles (header, frame, digits) HDMA'd to VRAM bank 1 $9000 by 5C:51B8
+61D0	CommErr_Gfx_Bg9400	data	CONFIRMED	24 tiles HDMA'd to VRAM bank 1 $9400 by 5C:51CA
+6350	CommErr_Palette_BgTimer	data	PROBABLE	64 bytes copied to the BG palette staging buffer D800 (4F:4000, bc=$40) when the comm timer is running (5C:52E1); mapper class 'tiles-2bpp' is wrong, this is RGB555 palette data
+6390	CommErr_Palette_Bg	data	PROBABLE	64 bytes copied to D800 (BG palette staging) by 5C:5150 (bc=$40 at 5C:51DB)
+63D0	CommErr_Palette_Obj	data	PROBABLE	64 bytes copied to D840 (OBJ palette staging) by 5C:5150 (bc=$40 at 5C:51EC)
+6410	CommErr_ObjAnim	data	PROBABLE	object animation data (frame table words 6414/6425, frames and script) for the footer icon; the entry point 642B = {frame table 6410?, script 6426} is passed to 00:0A82
+642B	CommErr_ObjTable	table	PROBABLE	one 4-byte object-table entry (ptr $6410, ptr $6426) loaded with DE=$642B, A=$5C, B=$80 into sprite slot DA10 (5C:52C7)

@@ -1,0 +1,9 @@
+# addr	name	type	status	evidence
+4000	Main_Run	function	CONFIRMED	Endless main program: farcall Startup_Run (65:4000) once, then loops the title screen 0E:4000 and dispatches its result; entered by Boot at 00:0328 (farcall 1C:4000 ; jp $0328), executed in every scenario
+4007	Main_TitleLoop	label	CONFIRMED	Loop head after Startup_Run (65:4000): farcall 0E:4000 (title screen, returns A = 1 + chosen item) then call JumpTableInline with Table_Main_TitleChoices; every menu flow ends by jumping back here
+4010	Table_Main_TitleChoices	table	PROBABLE	Inline JumpTableInline table (3 words) indexed by the title screen result: 0 -> loop, 1 -> Main_TitleChoiceStart, 2 -> Main_TitleChoiceSettings; table end is a heuristic guess (mapper)
+4016	Data_1C_4016	data	HYPOTHESIS	Unreferenced bytes C3 07 40 (= jp $4007) between the inline table and Main_TitleChoiceNone; probably the table's default jump, never executed
+4019	Main_TitleChoiceNone	label	PROBABLE	Result 0 of the title dispatch: jp Main_TitleLoop; 0E:4000 returns C27D+1 >= 1 so this entry looks unused (table word only, not executed)
+401C	Data_1C_401C	data	HYPOTHESIS	Unreferenced single $C9 (ret) byte between Main_TitleChoiceNone and Main_TitleChoiceStart; no caller
+401D	Main_TitleChoiceStart	label	CONFIRMED	Title item 1 (Start): farcall Nav_TitleStart (7C:7B7C) (top menu flow: 1F:4000 top menu, mail menu 1D..., browser, help), then A=1 and back to Main_TitleLoop; executed after every A press on 'Start' (screens seen in traces)
+4028	Main_TitleChoiceSettings	label	CONFIRMED	Title item 2 (mobile settings screen): farcall Nav_TitleMobileSettings (7C:7D1F) then A=1 and back to Main_TitleLoop; executed in title_settings, settings_cgi and settings_phone scenarios (password/usage/fee/registration menu)

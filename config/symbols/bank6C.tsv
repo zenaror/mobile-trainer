@@ -1,0 +1,20 @@
+# Names for bank 6C (namer 7/8). Evidence-graded; generic names with HYPOTHESIS keep ideas without asserting them.
+# addr	name	type	status	evidence
+4000	HelpMenu_ShowPage	function	PROBABLE	B=selection|page<<3: clears C0D4-C0FF, loads bank-6A gfx/tilemaps (menu boxes), page C0D8 (1 top / 2 / 3 sub-menus), cursor C0E5, then input loop (JoypadDispatch table 41CB); returns 0 back or code 1,4,9,10,17-19
+41CB	HelpMenu_InputTable	table	CONFIRMED	5 words of the JoypadDispatch table: A confirm, B back, two no-ops, default loop (6C:41C8)
+429F	HelpMenu_HandleDpad	function	PROBABLE	Up/Down (bit6/7 of A): moves cursor C0E5 within the page (4 items page 1, 2 items pages 2-3), plays 20AC(bc=$29), redraws via HelpMenu_DrawItemNormal/Selected and HelpMenu_ShowItemText
+431B	HelpMenu_DrawItemNormal	function	PROBABLE	draws the un-highlighted tilemap box of item C0E6 (or the locked variant when A686-A689 flags are 0) via rect copy 00:16A2 from bank 6A
+4525	HelpMenu_ItemDestOffsets	data	PROBABLE	8 words: tilemap-buffer offsets ($D000+) of the item boxes; followed at 4535 by 8 source offset bytes (base $4870 bank 6A); read at 6C:43BC (words) and 6C:43D1 (bytes)
+453D	HelpMenu_DrawItemSelected	function	PROBABLE	draws the highlighted box of item C0E5 (locked variant if A686-A689 flags are 0), same rect copy scheme as HelpMenu_DrawItemNormal with the selected tables at 4747
+4747	HelpMenu_ItemDestOffsets2	data	PROBABLE	second copy of the 8-word offset table (highlighted boxes) + 8 bytes; read at 6C:45DE (words) and 6C:45F3 (bytes)
+4763	HelpMenu_ShowItemText	function	PROBABLE	Function_48_42D4(hl=bank-6A string table $64B2, or $6651 when the item is locked; b=item+page offset): shows the description of the current item
+4798	HelpMenu_ItemIsLocked	function	PROBABLE	A=item: returns $FF (locked) while help-progress flags in SRAM bank1 are zero: page 1 item 2 (A686|A687), page 1 item 3 (A688|A689), page 2 item 2 (A687), page 3 item 2 (A689); else 0
+4809	HelpScript_EntryBlock	data	PROBABLE	script start (wRam_C173/C174 = $4809 set by HelpScript_Run): records 18 00 tt off16 dispatch on SRAM A684 (topic) values 1,9,10,17,18,$81,$89,$8A,$91,$92 to their script
+58C7	HelpScript_SingleByteToSjis	data	PROBABLE	table of 2-byte codes for text bytes $A0-$FF (bank-6C 'second convention'): 6C:60AF reads [58C7+2*(b-$A0)] into BC and draws it via Function_48_4748
+5987	HelpMenu_Run	function	PROBABLE	top help menu loop: HelpMenu_ShowPage(B=1); 0 = exit, 4 = MobileDict_Run (1A:4000), else saves the topic in SRAM A684 and runs HelpScript_Run; Nav_TopMenu_Help 7C:7BAC (help scenario); menu picture = books (rendered 6A:4000)
+59B2	HelpScript_Run	function	PROBABLE	B=topic: plays help/tutorial pages from C173/C174=$4809: page ops 0 end, 3 text page (HelpScript_StepText), 4 jump, $10 set flag A684+n, $18/$19 branch on flags; first-run pages via 48:49A9-4A67 (b=$81/$89/$8A/$91/$92)
+5E25	HelpScript_RenderCaption	function	PROBABLE	HL=inline string: clears $D000 ($180), renders it with Function_48_403E (12-px glyph engine) and uploads 24 tiles to VRAM $9600; op 3 of HelpScript_StepText (6C:6075)
+5E6E	HelpScript_ShowPicture	function	PROBABLE	A=picture id (1..31): looks up HelpScript_PictureTable (bank, tile ptr, palette ptr), loads palette (4F:4000) and two $400-byte tile blocks to $8800/$8C00, updates C177
+5F6E	HelpScript_PictureTable	data	PROBABLE	31 records x 5 bytes (bank, tile ptr, palette ptr): illustrations of the help pages; read by HelpScript_ShowPicture (6C:5E96)
+6009	HelpScript_StepText	function	PROBABLE	per-frame text player: script byte via C173/C174; bit7 = glyph byte (6C:60AF draws), ops 0 page end ($FF returned), 1 newline, 2 style/speed, 3 inline caption string (HelpScript_RenderCaption), 4 wait
+61AC	Function_6C_61AC	function	HYPOTHESIS	idea: blinking prompt sprite (C0DA countdown $23, toggles C0D9, sprite slot DA20 at Y=$78/$79 X=$80); falls into the farcall 0A65 at 61C4; no caller or table word found
