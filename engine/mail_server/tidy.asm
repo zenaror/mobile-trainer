@@ -735,7 +735,7 @@ Label_2E_4298:: ; 2E:4298
 .l44C4 ; 2E:44C4
 	pop hl
 	cp a, $00
-	call nz, MailServerMgr_TimeWarningPopupChoice
+	call nz, MailServerMgr_TimeWarningPopupRedraw
 	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
@@ -1479,7 +1479,7 @@ Label_2E_4A47:: ; 2E:4A47
 	ld a, $FF
 	ret
 
-MailServerMgr_TimeWarningPopupChoice:: ; 2E:4A7D
+MailServerMgr_TimeWarningPopupRedraw:: ; 2E:4A7D
 Function_2E_4A7D::
 	push af
 	push bc

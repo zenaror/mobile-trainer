@@ -607,7 +607,7 @@ SoundDrv_InitTrackRuntime:: ; 04:4386
 	ld a, [hld]
 	ld [wBank4ReadBank + 1], a
 	dec hl
-	call SoundDrv_ReadStreamWord
+	call Bank4_ReadStreamWord
 	ld a, b
 	ld [hld], a
 	ld [hl], c
@@ -1001,7 +1001,7 @@ SoundDrv_ReadNextCommand:: ; 04:459B
 	ld h, a
 	ld bc, $0011
 	add hl, bc
-	call SoundDrv_ReadStreamWord
+	call Bank4_ReadStreamWord
 	bit 7, c
 	jr nz, .l45B6
 	ld a, c
@@ -1299,7 +1299,7 @@ SoundDrv_CmdExtended:: ; 04:473E
 	cp a, $0C
 	jp nc, SoundDrv_CmdEnd
 	ld b, a
-	call SoundDrv_ReadStreamByte
+	call Bank4_ReadStreamByte
 	ld a, c
 	ld [wSoundDrv_StreamByte], a
 	ld a, b
@@ -1357,7 +1357,7 @@ SoundDrv_CmdCall:: ; 04:4777
 	dec de
 
 SoundDrv_CmdJump:: ; 04:479B
-	call SoundDrv_ReadStreamWord
+	call Bank4_ReadStreamWord
 	ld e, c
 	ld d, b
 	jp SoundDrv_ReadNextCommand
@@ -1851,7 +1851,7 @@ Label_04_4A36:: ; 04:4A36
 	jr .l4A50
 .loop ; 04:4A4B
 	inc de
-	call SoundDrv_ReadStreamByte
+	call Bank4_ReadStreamByte
 	ld a, c
 .l4A50 ; 04:4A50
 	bit 7, a

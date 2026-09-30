@@ -128,7 +128,7 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld hl, $DA80
 	jp Sprite_SetPosition
 
-ConnIcon_GetFramePos:: ; 4E:6087
+ConnIcon_GetBrowserFramePos:: ; 4E:6087
 Function_4E_6087::
 	; [HYPOTHESIS] complete small function (push bc/hl ... ret): a = [C2C2] & $7F -> word of the
 	; screen-descriptor table 4E:654B -> hl+$19 -> de = word there; ret; same idiom as the executed

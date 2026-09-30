@@ -46,7 +46,7 @@ Dialog_List1_Browser:: ; 72:5035
 Dialog_List2_Mail:: ; 72:5063
 	dw String_Dialog_Msg0200
 	dw String_Dialog_Msg0201
-	dw Data_Dialog_Msg0202
+	dw String_Dialog_Msg0202
 	dw String_Dialog_Msg0203
 	dw $5849
 	dw $588E
@@ -330,7 +330,7 @@ String_72_577A::
 
 ; ---- data $57BF-$57C2 (3 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 57BF-5804 by higher-priority evidence]
 
-Data_Dialog_Msg0202:: ; 72:57BF
+String_Dialog_Msg0202:: ; 72:57BF
 Data_72_57BF::
 	db $86, $02, $00
 

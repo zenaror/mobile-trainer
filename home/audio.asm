@@ -197,7 +197,7 @@ Function_00_2141::
 	res 6, [hl]
 	ret
 
-SoundDrv_ReadStreamByte:: ; 00:215E
+Bank4_ReadStreamByte:: ; 00:215E
 Function_00_215E::
 	; [CONFIRMED] reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit
 	; bank number [reached via inferred links; raw refs 7] [executed in 41 scenarios]
@@ -209,7 +209,7 @@ Function_00_215E::
 	ld c, a
 	jp Bank4_Restore
 
-SoundDrv_ReadStreamWord:: ; 00:216F
+Bank4_ReadStreamWord:: ; 00:216F
 Function_00_216F::
 	; [CONFIRMED] like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9]
 	; [executed in 41 scenarios]

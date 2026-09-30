@@ -86,7 +86,7 @@ Label_7F_422B::
 	pop hl
 	ret
 
-Canvas_Remap_B2C1:: ; 7F:422D
+Canvas_Remap_B2C1_Set2Unset3:: ; 7F:422D
 Label_7F_422D::
 	ld b, $0C
 	pop hl
@@ -134,7 +134,7 @@ Label_7F_424A::
 	jr nz, .loop
 	ret
 
-Canvas_Remap_B1C2:: ; 7F:425A
+Canvas_Remap_B1C2_Set1Unset0:: ; 7F:425A
 Label_7F_425A::
 	; [PROBABLE] 21 insn(s) reached by static flow only; seeds: table x21; min discovery hops 0; run
 	; starts at an entry of the code-pointer table at 7F:42A5
@@ -233,10 +233,10 @@ Table_7F_42A3::
 	dw Canvas_Remap_B3C0
 	dw Canvas_Remap_B0C1
 	dw Canvas_Remap_B1C1
-	dw Canvas_Remap_B2C1
+	dw Canvas_Remap_B2C1_Set2Unset3
 	dw Canvas_Remap_B3C1
 	dw Canvas_Remap_B0C2
-	dw Canvas_Remap_B1C2
+	dw Canvas_Remap_B1C2_Set1Unset0
 	dw Canvas_Remap_B2C2
 	dw Canvas_Remap_B3C2
 	dw Canvas_Remap_B0C3

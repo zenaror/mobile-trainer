@@ -892,7 +892,7 @@ Function_22_48CD::
 	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDelHidden_NumberTileOffset
+	call MailSrvDelHidden_NumberOffset
 	ld hl, $D800
 	add hl, bc
 	ld b, h
@@ -926,7 +926,7 @@ Function_22_48CD::
 	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDelHidden_NumberTileOffset
+	call MailSrvDelHidden_NumberOffset
 	ld hl, $D830
 	add hl, bc
 	ld b, h
@@ -955,7 +955,7 @@ Function_22_48CD::
 	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call MailSrvDelHidden_NumberTileOffset
+	call MailSrvDelHidden_NumberOffset
 	ld hl, $D860
 	add hl, bc
 	ld b, h
@@ -1171,7 +1171,7 @@ String_22_4A8C::
 	db "０００００", 0
 POPC
 
-MailSrvDelHidden_NumberTileOffset:: ; 22:4A97
+MailSrvDelHidden_NumberOffset:: ; 22:4A97
 Function_22_4A97::
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced
