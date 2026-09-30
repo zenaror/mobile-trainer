@@ -88,7 +88,7 @@ Label_69_406D:: ; 69:406D
 	bit 4, a
 	jr nz, Label_69_4062
 
-; ---- code $4074-$40D1 (93 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed)
+; ---- code $4074-$40D1 (93 bytes) [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 0; fall-through of the jrcc at 69:4072 (executed) [executed in 1 scenarios]
 	ld a, $02
 	ld b, $02
 	farcall ConnIcon_StartSprite

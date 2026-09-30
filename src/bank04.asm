@@ -29,15 +29,15 @@ Label_04_4013:: ; 04:4013
 	pop af
 	ld [wBank4SavedBankLo], a
 	ld a, $4A
-	ld [wRam_D005], a
-	ld [wRam_D007], a
-	ld [wRam_D00A], a
-	ld [wRam_D00C], a
+	ld [wSoundDrv_SfxTempo], a
+	ld [wSoundDrv_SfxTempoStep], a
+	ld [wSoundDrv_MusicTempo], a
+	ld [wSoundDrv_MusicTempoStep], a
 	ld a, $40
-	ld [wRam_D006], a
-	ld [wRam_D00B], a
+	ld [wSoundDrv_SfxTempoScale], a
+	ld [wSoundDrv_MusicTempoScale], a
 	ld a, $FF
-	ld [wRam_D01D], a
+	ld [wSoundDrv_WaveCache], a
 	xor a, a
 	ld b, $08
 	ld de, $003C
@@ -100,7 +100,7 @@ SoundDrv_FrameTick:: ; 04:4082
 	sbc a, $00
 	jr nc, SoundDrv_SfxTickLoop
 
-; ---- code $409F-$40AC (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 04:409D (executed)
+; ---- code $409F-$40AC (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 04:409D (executed) | forced execution: 5/5 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	call SoundDrv_SelectSfxTracks
 
 Label_04_40A2:: ; 04:40A2
@@ -188,14 +188,14 @@ Label_04_411C:: ; 04:411C
 	call SoundDrv_UpdateChannel
 	call SoundDrv_NextChannel
 	jr nz, Label_04_411C
-	ld a, [wRam_D01A]
+	ld a, [wSoundDrv_TickDivider]
 	and a, a
 	jr nz, Label_04_412C
 	ld a, $0F
 
 Label_04_412C:: ; 04:412C
 	dec a
-	ld [wRam_D01A], a
+	ld [wSoundDrv_TickDivider], a
 	ld c, $08
 	ld de, $003C
 	ld hl, $D040
@@ -210,7 +210,7 @@ Label_04_4138:: ; 04:4138
 	dec c
 	jr nz, Label_04_4138
 	ld a, b
-	ld [wRam_D024], a
+	ld [wSoundDrv_ActiveMask], a
 	pop de
 	pop bc
 	jp Function_00_2141
@@ -316,7 +316,7 @@ SoundDrv_PlaySfx:: ; 04:41C0
 	or a, c
 	jp z, SoundDrv_StopAllSfx
 	call SoundDrv_LoadSongHeader
-	ld a, [wRam_D03F]
+	ld a, [wSoundDrv_HeaderFlags]
 	bit 7, a
 	jr nz, SoundDrv_PlaySfxAllTracks
 
@@ -378,59 +378,59 @@ Label_04_4216:: ; 04:4216
 SoundDrv_PlaySfxAllTracks:: ; 04:4219
 	call SoundDrv_SelectSfxTracks
 	ld a, $01
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE + 1], a
 	xor a, a
-	ld [wRam_D03A], a
+	ld [wSoundDrv_ReqDE], a
 
 Label_04_4225:: ; 04:4225
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	bit 7, [hl]
 	jr nz, Label_04_4241
 	call SoundDrv_StartTrack
 	jr z, Label_04_4284
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + 1]
 	ld b, a
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	or a, b
-	ld [wRam_D03A], a
+	ld [wSoundDrv_ReqDE], a
 
 Label_04_4241:: ; 04:4241
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + 1]
 	sla a
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE + 1], a
 	call SoundDrv_NextTrack
 	jr nz, Label_04_4225
 
 ; ---- code $424E-$4284 (54 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 04:424C (executed) [executed in 6 scenarios]
 	call SoundDrv_SelectSfxTracks
 	ld a, $01
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE + 1], a
 
 Label_04_4256:: ; 04:4256
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + 1]
 	ld b, a
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	and a, b
 	jr nz, Label_04_4277
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0008
 	add hl, bc
-	ld a, [wRam_D03E]
+	ld a, [wSoundDrv_HeaderPriority]
 	cp a, [hl]
 	jr c, Label_04_4277
 	call SoundDrv_StartTrack
 	jr z, Label_04_4284
 
 Label_04_4277:: ; 04:4277
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + 1]
 	sla a
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE + 1], a
 	call SoundDrv_NextTrack
 	jr nz, Label_04_4256
 
@@ -444,13 +444,13 @@ SoundDrv_PlayMusic:: ; 04:4287
 	or a, c
 	jp z, SoundDrv_PauseMusic
 	ld a, c
-	ld [wRam_D01B], a
+	ld [wSoundDrv_MusicId], a
 	ld a, b
-	ld [wRam_D01C], a
+	ld [wSoundDrv_MusicId + 1], a
 	xor a, a
-	ld [wRam_D020], a
+	ld [wSoundDrv_FadeSpeed], a
 	xor a, a
-	ld [wRam_D025], a
+	ld [wSoundDrv_MusicPaused], a
 	call SoundDrv_LoadSongHeader
 	call SoundDrv_SelectMusicTracks
 
@@ -466,9 +466,9 @@ Label_04_42A2:: ; 04:42A2
 ; ---- code $42AE-$42C0 (18 bytes) [CONFIRMED] 9 insn(s); 9 executed (in up to 18/18 scenarios)
 
 Label_04_42AE:: ; 04:42AE
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	xor a, a
 	ld [hl], a
@@ -497,13 +497,13 @@ SoundDrv_PlayMusicIfNotPlaying:: ; 04:42C0
 ; ---- code $42D6-$42EC (22 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 18/18 scenarios)
 
 SoundDrv_PlayMusicOrResume:: ; 04:42D6
-	ld a, [wRam_D01B]
+	ld a, [wSoundDrv_MusicId]
 	cp a, c
 	jr nz, SoundDrv_PlayMusic
-	ld a, [wRam_D01C]
+	ld a, [wSoundDrv_MusicId + 1]
 	cp a, b
 	jr nz, SoundDrv_PlayMusic
-	ld a, [wRam_D024]
+	ld a, [wSoundDrv_ActiveMask]
 	and a, $F0
 	jr z, SoundDrv_ResumeMusic
 	jp Function_00_2141
@@ -535,12 +535,12 @@ Label_04_4302:: ; 04:4302
 SoundDrv_LoadSongHeader:: ; 04:430A
 Function_04_430A::
 	ld a, b
-	ld [wRam_D039], a
+	ld [wSoundDrv_ReqBC + 1], a
 	cp a, $00
 	ld a, c
 	jr z, Label_04_4319
 
-; ---- code $4313-$4319 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 04:4311 (executed)
+; ---- code $4313-$4319 (6 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 04:4311 (executed) | forced execution: 3/3 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	jr c, Label_04_431D
 
 Label_04_4315:: ; 04:4315
@@ -554,7 +554,7 @@ Label_04_4319:: ; 04:4319
 	jr nc, Label_04_4315
 
 Label_04_431D:: ; 04:431D
-	ld [wRam_D038], a
+	ld [wSoundDrv_ReqBC], a
 	ld l, c
 	ld h, b
 	add hl, hl
@@ -571,40 +571,40 @@ Label_04_431D:: ; 04:431D
 	ld a, [hli]
 	ld [wBank4ReadBank + 1], a
 	ld a, [hli]
-	ld [wRam_D03E], a
+	ld [wSoundDrv_HeaderPriority], a
 	ld a, [hli]
-	ld [wRam_D03F], a
+	ld [wSoundDrv_HeaderFlags], a
 	ld a, [hl]
-	ld [wRam_D03C], a
+	ld [wSoundDrv_HeaderTrackCount], a
 	inc de
 	inc de
 	ld a, e
-	ld [wRam_D017], a
+	ld [wSoundDrv_HeaderPtr], a
 	ld a, d
-	ld [wRam_D018], a
+	ld [wSoundDrv_HeaderPtr + 1], a
 	ret
 
 SoundDrv_StartTrack:: ; 04:434C
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld a, $A0
 	ld [hli], a
 	inc hl
-	ld a, [wRam_D017]
+	ld a, [wSoundDrv_HeaderPtr]
 	ld [hli], a
-	ld a, [wRam_D018]
+	ld a, [wSoundDrv_HeaderPtr + 1]
 	ld [hli], a
 	ld a, [wBank4ReadBank]
 	ld [hli], a
 	ld a, [wBank4ReadBank + 1]
 	ld [hli], a
-	ld a, [wRam_D038]
+	ld a, [wSoundDrv_ReqBC]
 	ld [hli], a
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + 1]
 	ld [hli], a
-	ld a, [wRam_D03E]
+	ld a, [wSoundDrv_HeaderPriority]
 	ld [hli], a
 
 SoundDrv_NextHeaderTrack:: ; 04:4374
@@ -694,7 +694,7 @@ SoundDrv_InitTrackRuntime:: ; 04:4386
 	ld [hli], a
 	ret
 
-; ---- code $43DC-$4429 (77 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: exec x10, site x29; min discovery hops 1; entered by jp from 00:20C1 (PROBABLE code)
+; ---- code $43DC-$4429 (77 bytes) [PROBABLE] 39 insn(s) reached by static flow only; seeds: exec x10, site x29; min discovery hops 1; entered by jp from 00:20C1 (PROBABLE code) | forced execution: 13/39 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 SoundDrv_StopSfxById:: ; 04:43DC
 	ld a, b
@@ -755,20 +755,20 @@ SoundDrv_PauseMusic:: ; 04:4429
 
 SoundDrv_FadeFinished:: ; 04:442F
 	xor a, a
-	ld [wRam_D020], a
+	ld [wSoundDrv_FadeSpeed], a
 
 ; ---- code $4433-$444B (24 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
 
 SoundDrv_PauseMusicCore:: ; 04:4433
 Function_04_4433::
 	ld a, $FF
-	ld [wRam_D025], a
+	ld [wSoundDrv_MusicPaused], a
 	call SoundDrv_SelectMusicTracks
 
 Label_04_443B:: ; 04:443B
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	res 7, [hl]
 	call SoundDrv_NextTrack
@@ -962,10 +962,10 @@ SoundDrv_StartFadeOut:: ; 04:452C
 
 SoundDrv_UpdateFade:: ; 04:453A
 Function_04_453A::
-	ld a, [wRam_D025]
+	ld a, [wSoundDrv_MusicPaused]
 	and a, a
 	ret nz
-	ld a, [wRam_D020]
+	ld a, [wSoundDrv_FadeSpeed]
 	and a, a
 	ret z
 
@@ -987,20 +987,20 @@ Function_04_453A::
 
 SoundDrv_ApplyTrackUpdates:: ; 04:455A
 Function_04_455A::
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld a, [hl]
 	cp a, $C0
 	ret c
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	jp SoundDrv_ComputeTrackOutput
 
 SoundDrv_StepTrack:: ; 04:456C
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld a, [hl]
 	bit 7, a
@@ -1013,7 +1013,7 @@ SoundDrv_StepTrack:: ; 04:456C
 	ld a, [hl]
 
 Label_04_4582:: ; 04:4582
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	inc hl
 	ld a, [hl]
 	and a, a
@@ -1034,9 +1034,9 @@ Label_04_458E:: ; 04:458E
 	ld [wBank4ReadBank + 1], a
 
 SoundDrv_ReadNextCommand:: ; 04:459B
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0011
 	add hl, bc
@@ -1044,14 +1044,14 @@ SoundDrv_ReadNextCommand:: ; 04:459B
 	bit 7, c
 	jr nz, Label_04_45B6
 	ld a, c
-	ld [wRam_D01F], a
+	ld [wSoundDrv_StreamByte], a
 	dec de
 	ld a, [hl]
 	jr Label_04_45C0
 
 Label_04_45B6:: ; 04:45B6
 	ld a, b
-	ld [wRam_D01F], a
+	ld [wSoundDrv_StreamByte], a
 	ld a, c
 	cp a, $BE
 	jr c, Label_04_45C0
@@ -1079,9 +1079,9 @@ SoundDrv_JumpTable:: ; 04:45CD
 	jp hl
 
 SoundDrv_CmdEnd:: ; 04:45DB
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	xor a, a
 	ld [hli], a
@@ -1168,9 +1168,9 @@ Label_04_4640:: ; 04:4640
 	ld a, c
 	cp a, [hl]
 	jr z, Label_04_464D
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld [hl], c
 
 Label_04_464D:: ; 04:464D
@@ -1178,20 +1178,20 @@ Label_04_464D:: ; 04:464D
 	ld a, b
 	cp a, [hl]
 	jr z, Label_04_465B
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld [hl], b
 
 Label_04_465B:: ; 04:465B
 	jr Label_04_465D
 
 Label_04_465D:: ; 04:465D
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 SoundDrv_ComputeTrackOutput:: ; 04:4668
 	bit 2, a
@@ -1239,7 +1239,7 @@ Label_04_469A:: ; 04:469A
 	ld [hl], d
 	ld bc, $FFD3
 	add hl, bc
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 Label_04_46A8:: ; 04:46A8
 	bit 0, a
@@ -1256,7 +1256,7 @@ Label_04_46A8:: ; 04:46A8
 	ld [hl], e
 	ld bc, $FFD2
 	add hl, bc
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 ; ---- code $46BF-$46E8 (41 bytes) [CONFIRMED] 24 insn(s); 24 executed (in up to 17/18 scenarios)
 
@@ -1284,7 +1284,7 @@ Label_04_46D7:: ; 04:46D7
 	ld [hl], e
 	ld bc, $FFD1
 	add hl, bc
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 Label_04_46E6:: ; 04:46E6
 	ld [hl], a
@@ -1346,14 +1346,14 @@ Table_04_4726::
 ; ---- code $473E-$4756 (24 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: table x11; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
 SoundDrv_CmdExtended:: ; 04:473E
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	cp a, $0C
 	jp nc, SoundDrv_CmdEnd
 	ld b, a
 	call Function_00_215E
 	ld a, c
-	ld [wRam_D01F], a
+	ld [wSoundDrv_StreamByte], a
 	ld a, b
 	ld bc, Table_SoundDrv_ExtCommands
 	jp SoundDrv_JumpTable
@@ -1370,9 +1370,9 @@ SoundDrv_CmdRest:: ; 04:4756
 	ld h, a
 	ld b, [hl]
 	dec b
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	inc hl
 	ld a, b
@@ -1384,9 +1384,9 @@ SoundDrv_CmdRest:: ; 04:4756
 	jp Label_04_45E6
 
 SoundDrv_CmdCall:: ; 04:4777
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0026
 	add hl, bc
@@ -1416,9 +1416,9 @@ SoundDrv_CmdJump:: ; 04:479B
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_CmdReturn:: ; 04:47A3
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0026
 	add hl, bc
@@ -1441,13 +1441,13 @@ SoundDrv_CmdReturn:: ; 04:47A3
 ; ---- code $47C5-$47E3 (30 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: table x18; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
 SoundDrv_CmdRepeat:: ; 04:47C5
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0029
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	and a, a
 	jr z, SoundDrv_CmdJump
@@ -1470,7 +1470,7 @@ SoundDrv_CmdSetTempo:: ; 04:47E3
 	ld hl, $D005
 
 Label_04_47F0:: ; 04:47F0
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	ld [hl], a
 	call SoundDrv_UpdateTempoStep
@@ -1552,15 +1552,15 @@ Label_04_4840:: ; 04:4840
 ; ---- code $484E-$4901 (179 bytes) [CONFIRMED] 108 insn(s); 108 executed (in up to 18/18 scenarios)
 
 SoundDrv_CmdSetInstrument:: ; 04:484E
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	cp a, $64
 	jr z, Label_04_487E
 	call SoundDrv_GetInstrumentPtr
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	add a, $0C
 	ld c, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	adc a, $00
 	ld b, a
 	ld a, [hli]
@@ -1577,15 +1577,15 @@ SoundDrv_CmdSetInstrument:: ; 04:484E
 	inc bc
 	ld a, [hli]
 	ld [bc], a
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	res 4, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	jp SoundDrv_ReadNextCommand
 
 Label_04_487E:: ; 04:487E
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 4, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	jp SoundDrv_ReadNextCommand
 
 SoundDrv_GetInstrumentPtr:: ; 04:4889
@@ -1601,13 +1601,13 @@ SoundDrv_GetInstrumentPtr:: ; 04:4889
 	ret
 
 Label_04_4896:: ; 04:4896
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0019
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	rlca
 	sub a, $80
@@ -1643,19 +1643,19 @@ Label_04_48C6:: ; 04:48C6
 	ld a, c
 	ld [hli], a
 	ld [hl], b
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	jp SoundDrv_ReadNextCommand
 
 Label_04_48D5:: ; 04:48D5
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $001A
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	ld [hld], a
 	ld c, a
@@ -1665,13 +1665,13 @@ Label_04_48D5:: ; 04:48D5
 	jr Label_04_48AD
 
 Label_04_48EC:: ; 04:48EC
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $001F
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	ld [hli], a
 	sla a
@@ -1713,16 +1713,16 @@ Label_04_4925:: ; 04:4925
 	jr Label_04_4973
 
 SoundDrv_CmdSetVolume:: ; 04:492A
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 1, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $0015
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	rlca
 	ld [hl], a
@@ -1761,12 +1761,12 @@ Label_04_4970:: ; 04:4970
 	ld bc, $0021
 
 Label_04_4973:: ; 04:4973
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	inc de
 	ld [hl], a
 	jp SoundDrv_ReadNextCommand
@@ -1774,9 +1774,9 @@ Label_04_4973:: ; 04:4973
 ; ---- code $4984-$4991 (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: table x5; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
 
 Label_04_4984:: ; 04:4984
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	or a, $07
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $0023
 	jr Label_04_4973
 
@@ -1808,9 +1808,9 @@ Label_04_49A2:: ; 04:49A2
 	jp SoundDrv_ReadNextCommand
 
 Label_04_49B6:: ; 04:49B6
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 2, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	ld bc, $001E
 	jr Label_04_4973
 
@@ -1908,16 +1908,16 @@ SoundDrv_CmdNote:: ; 04:4A2B
 	ld b, [hl]
 
 Label_04_4A36:: ; 04:4A36
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld a, b
 	ld bc, $000B
 	add hl, bc
 	ld [hld], a
 	ld b, $00
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	jr Label_04_4A50
 
 Label_04_4A4B:: ; 04:4A4B
@@ -1971,21 +1971,21 @@ SoundDrv_StartNote:: ; 04:4A81
 	ld bc, $0009
 	add hl, bc
 	add a, [hl]
-	ld [wRam_D03A], a
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE], a
+	ld [wSoundDrv_ReqDE + 1], a
 	ld bc, $0018
 	add hl, bc
 	ld a, [hli]
 	ld [hld], a
 	ld bc, $FFE2
 	add hl, bc
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	bit 4, a
 	jr z, Label_04_4ABE
 	push hl
 	ld e, l
 	ld d, h
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	add a, $40
 	call SoundDrv_GetInstrumentPtr
 	ld a, [hli]
@@ -2003,7 +2003,7 @@ SoundDrv_StartNote:: ; 04:4A81
 	ld a, [hli]
 	ld [de], a
 	ld a, [hl]
-	ld [wRam_D03B], a
+	ld [wSoundDrv_ReqDE + 1], a
 	pop hl
 
 Label_04_4ABE:: ; 04:4ABE
@@ -2029,27 +2029,27 @@ Label_04_4ADA:: ; 04:4ADA
 	call SoundDrv_SelectChannel4
 
 Label_04_4ADD:: ; 04:4ADD
-	ld a, [wRam_D00F]
+	ld a, [wSoundDrv_TrackCount]
 	ld hl, $D000
 	bit 5, [hl]
 	jr z, Label_04_4AE9
 	set 7, a
 
 Label_04_4AE9:: ; 04:4AE9
-	ld [wRam_D039], a
+	ld [wSoundDrv_ReqBC + 1], a
 	ld e, a
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0008
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_D038], a
+	ld [wSoundDrv_ReqBC], a
 	ld d, a
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld a, [hli]
 	and a, a
@@ -2069,21 +2069,21 @@ Label_04_4B10:: ; 04:4B10
 
 Label_04_4B1A:: ; 04:4B1A
 	call SoundDrv_SilenceChannel
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld e, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld d, a
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld a, $F0
 	ld [hli], a
-	ld a, [wRam_D038]
+	ld a, [wSoundDrv_ReqBC]
 	ld [hli], a
-	ld a, [wRam_D039]
+	ld a, [wSoundDrv_ReqBC + 1]
 	ld [hli], a
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	ld [hli], a
 	ld a, e
 	ld [hli], a
@@ -2117,53 +2117,61 @@ Label_04_4B1A:: ; 04:4B1A
 	ld [hli], a
 	xor a, a
 	ld [hli], a
-	ld a, [wRam_D03B]
+	ld a, [wSoundDrv_ReqDE + 1]
 	ld [hl], a
 
 Label_04_4B62:: ; 04:4B62
 	pop de
 	jp SoundDrv_ReadNextCommand
 
-; ---- code $4B66-$4BC9 (99 bytes) [PROBABLE] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8
+; ---- code $4B66-$4B79 (19 bytes) [CONFIRMED] 53 insn(s) reached by static flow only; seeds: table x53; min discovery hops 0; run starts at an entry of the code-pointer table at 04:46E8 | 9 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
 
 Label_04_4B66:: ; 04:4B66
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $0009
 	add hl, bc
-	ld a, [wRam_D01F]
+	ld a, [wSoundDrv_StreamByte]
 	bit 7, a
 	jr nz, Label_04_4B7F
+
+; ---- code $4B79-$4B7F (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split
 	cp a, $24
 	jr c, Label_04_4B7F
 	inc de
 	ld [hl], a
+
+; ---- code $4B7F-$4B96 (23 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
 
 Label_04_4B7F:: ; 04:4B7F
 	ld a, [hl]
 	ld bc, $0009
 	add hl, bc
 	add a, [hl]
-	ld [wRam_D03A], a
+	ld [wSoundDrv_ReqDE], a
 	push de
 	call SoundDrv_SelectAllChannels
-	ld a, [wRam_D00F]
+	ld a, [wSoundDrv_TrackCount]
 	ld hl, $D000
 	bit 5, [hl]
 	jr z, Label_04_4B98
+
+; ---- code $4B96-$4B98 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split
 	set 7, a
+
+; ---- code $4B98-$4BC9 (49 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4B66-4BC9 by apply_coverage --split [executed in 7 scenarios]
 
 Label_04_4B98:: ; 04:4B98
 	ld e, a
-	ld a, [wRam_D03A]
+	ld a, [wSoundDrv_ReqDE]
 	ld d, a
 
 Label_04_4B9D:: ; 04:4B9D
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld a, [hli]
 	bit 5, a
@@ -2195,9 +2203,9 @@ Label_04_4BC5:: ; 04:4BC5
 
 SoundDrv_ServiceChannelSfx:: ; 04:4BC9
 Function_04_4BC9::
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	bit 7, [hl]
 	ret z
@@ -2208,9 +2216,9 @@ Function_04_4BC9::
 	jr Label_04_4BEB
 
 SoundDrv_ServiceChannelMusic:: ; 04:4BDB
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	bit 7, [hl]
 	ret z
@@ -2257,9 +2265,9 @@ Label_04_4C0F:: ; 04:4C0F
 	jp SoundDrv_SilenceChannel
 
 SoundDrv_UpdateChannel:: ; 04:4C14
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld a, [hl]
 	bit 7, a
@@ -2269,10 +2277,10 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	ld de, $0004
 	add hl, de
 	ld a, [hli]
-	ld [wRam_D010], a
+	ld [wSoundDrv_TrackPtr], a
 	ld e, a
 	ld a, [hli]
-	ld [wRam_D011], a
+	ld [wSoundDrv_TrackPtr + 1], a
 	ld d, a
 	ld a, [de]
 	cp a, $C0
@@ -2281,12 +2289,12 @@ SoundDrv_UpdateChannel:: ; 04:4C14
 	jr Label_04_4C0F
 
 Label_04_4C38:: ; 04:4C38
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	bit 6, b
 	jr nz, Label_04_4C5F
 	ld de, $000C
 	add hl, de
-	ld a, [wRam_D01A]
+	ld a, [wSoundDrv_TickDivider]
 	and a, a
 	jr nz, Label_04_4C4A
 	inc [hl]
@@ -2317,9 +2325,9 @@ Label_04_4C5F:: ; 04:4C5F
 	push hl
 	call SoundDrv_WriteChannelParams
 	pop hl
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	or a, $07
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	call Function_04_4DDF
 	ld bc, $000B
 	add hl, bc
@@ -2359,7 +2367,7 @@ Label_04_4C8F:: ; 04:4C8F
 	jp Label_04_4DAE
 
 Label_04_4CAE:: ; 04:4CAE
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
 	call nz, Function_04_4DDF
 	ld bc, $0011
@@ -2422,7 +2430,7 @@ Label_04_4CFB:: ; 04:4CFB
 	jp Label_04_4DAE
 
 Label_04_4D02:: ; 04:4D02
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	bit 1, a
 	call nz, Function_04_4E04
 	ld bc, $0011
@@ -2490,9 +2498,9 @@ Label_04_4D3B:: ; 04:4D3B
 
 Label_04_4D54:: ; 04:4D54
 	push hl
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $002F
 	add hl, bc
@@ -2535,40 +2543,40 @@ Label_04_4D89:: ; 04:4D89
 ; ---- code $4D90-$4E72 (226 bytes) [CONFIRMED] 122 insn(s); 122 executed (in up to 17/18 scenarios)
 
 Label_04_4D90:: ; 04:4D90
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	xor a, a
 	ld [hl], a
 	jp SoundDrv_SilenceChannel
 
 Label_04_4D9D:: ; 04:4D9D
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C
 	jr z, Label_04_4DB6
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	res 1, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 	jr Label_04_4DB6
 
 Label_04_4DAE:: ; 04:4DAE
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 1, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 
 Label_04_4DB6:: ; 04:4DB6
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	bit 2, a
 	jr z, Label_04_4DC3
 	call SoundDrv_WriteChannelPitch
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 Label_04_4DC3:: ; 04:4DC3
 	bit 0, a
 	jr z, Label_04_4DCD
 	call SoundDrv_WriteChannelPan
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 
 Label_04_4DCD:: ; 04:4DCD
 	bit 1, a
@@ -2589,9 +2597,9 @@ Function_04_4DDF:: ; 04:4DDF
 	ld bc, $0006
 	add hl, bc
 	ld c, [hl]
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld de, $002F
 	add hl, de
@@ -2618,9 +2626,9 @@ Function_04_4E04:: ; 04:4E04
 	call SoundDrv_MulNibbles
 	add a, $0F
 	ld c, a
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld de, $002F
 	add hl, de
@@ -2638,29 +2646,29 @@ Function_04_4E04:: ; 04:4E04
 
 Function_04_4E34:: ; 04:4E34
 	ld b, a
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C
 	ld a, b
 	ret nz
 	xor a, [hl]
 	and a, $C0
 	jr z, Label_04_4E49
-	ld a, [wRam_D019]
+	ld a, [wSoundDrv_UpdateFlags]
 	set 1, a
-	ld [wRam_D019], a
+	ld [wSoundDrv_UpdateFlags], a
 
 Label_04_4E49:: ; 04:4E49
 	ld a, b
 	ret
 
 SoundDrv_WriteChannelParams:: ; 04:4E4B
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld bc, $0008
 	add hl, bc
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	cp a, $1C
 	jr c, Label_04_4E7D
@@ -2745,11 +2753,11 @@ Label_04_4E9B:: ; 04:4E9B
 
 Label_04_4EA9:: ; 04:4EA9
 	ldh [rNR34], a
-	ld a, [wRam_D01D]
+	ld a, [wSoundDrv_WaveCache]
 	cp a, b
 	ret z
 	ld a, b
-	ld [wRam_D01D], a
+	ld [wSoundDrv_WaveCache], a
 	ld l, b
 	ld h, $00
 	add hl, hl
@@ -2770,25 +2778,25 @@ Label_04_4EC3:: ; 04:4EC3
 	ret
 
 SoundDrv_WriteChannelPitch:: ; 04:4ECA
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $002C
 	add hl, bc
 	ld a, [hli]
 	ld c, a
 	ld b, [hl]
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld de, $000E
 	add hl, de
 	ld a, [hl]
 	add a, b
 	ld b, a
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	cp a, $1C
 	jr c, Label_04_4EF5
 	jr nz, Label_04_4F2D
@@ -2807,7 +2815,7 @@ Label_04_4EF5:: ; 04:4EF5
 	ld l, h
 	ld h, $00
 	add hl, de
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	inc c
 	ld a, l
@@ -2828,7 +2836,7 @@ Label_04_4F17:: ; 04:4F17
 	or a, h
 	ldh [c], a
 	ld b, a
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	dec c
 	ldh a, [c]
@@ -2875,13 +2883,13 @@ Label_04_4F44:: ; 04:4F44
 	ret
 
 SoundDrv_WriteChannelPan:: ; 04:4F4F
-	ld a, [wRam_D010]
+	ld a, [wSoundDrv_TrackPtr]
 	ld l, a
-	ld a, [wRam_D011]
+	ld a, [wSoundDrv_TrackPtr + 1]
 	ld h, a
 	ld bc, $002E
 	add hl, bc
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	cp a, $17
 	jr c, Label_04_4F6D
 	jr z, Label_04_4F72
@@ -2932,15 +2940,15 @@ Label_04_4F90:: ; 04:4F90
 	ret
 
 SoundDrv_WriteChannelVolume:: ; 04:4F97
-	ld a, [wRam_D013]
+	ld a, [wSoundDrv_ChannelPtr]
 	ld l, a
-	ld a, [wRam_D014]
+	ld a, [wSoundDrv_ChannelPtr + 1]
 	ld h, a
 	ld bc, $0011
 	add hl, bc
 	ld a, [hli]
 	ld b, a
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	cp a, $1C
 	jr c, Label_04_4FB8
@@ -2979,7 +2987,7 @@ Label_04_4FC0:: ; 04:4FC0
 	ret
 
 SoundDrv_SilenceChannel:: ; 04:4FD4
-	ld a, [wRam_D015]
+	ld a, [wSoundDrv_ChannelReg]
 	ld c, a
 	cp a, $1C
 	jr z, Label_04_4FE5

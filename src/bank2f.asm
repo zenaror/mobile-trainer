@@ -21,7 +21,7 @@ Function_2F_4000::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0A
 	ld [wRam_D725], a
 	pop af
@@ -222,11 +222,13 @@ Label_2F_4131:: ; 2F:4131
 	cp a, $00
 	jr z, Label_2F_4158
 
-; ---- code $414C-$4158 (12 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:414A (executed)
+; ---- code $414C-$4154 (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:414A (executed) | 4 insn(s) executed; cut out of the PROBABLE region 414C-4158 by apply_coverage --split [executed in 1 scenarios]
 	cp a, $01
 	jr z, Label_2F_4163
 	cp a, $02
 	jr z, Label_2F_416E
+
+; ---- code $4154-$4158 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 414C-4158 by apply_coverage --split
 	cp a, $03
 	jr z, Label_2F_4179
 
@@ -238,7 +240,7 @@ Label_2F_4158:: ; 2F:4158
 	call Function_00_0A65
 	jr Label_2F_4184
 
-; ---- code $4163-$4184 (33 bytes) [PROBABLE] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 2F:414E (PROBABLE code)
+; ---- code $4163-$4179 (22 bytes) [CONFIRMED] 12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 2F:414E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 4163-4184 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_4163:: ; 2F:4163
 	ld de, $7038
@@ -251,6 +253,8 @@ Label_2F_416E:: ; 2F:416E
 	ld hl, $DA80
 	call Function_00_0A65
 	jr Label_2F_4184
+
+; ---- code $4179-$4184 (11 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4163-4184 by apply_coverage --split
 
 Label_2F_4179:: ; 2F:4179
 	ld de, $7078
@@ -370,7 +374,7 @@ Label_2F_420E:: ; 2F:420E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -385,7 +389,7 @@ Label_2F_420E:: ; 2F:420E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -487,7 +491,7 @@ Label_2F_42FC:: ; 2F:42FC
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D624], a
+	ld [wMailSessionBlock], a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -509,7 +513,7 @@ Label_2F_432E:: ; 2F:432E
 	cp a, $00
 	jr z, Label_2F_4350
 
-; ---- code $4339-$4350 (23 bytes) [PROBABLE] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2F:4337 (executed)
+; ---- code $4339-$4350 (23 bytes) [CONFIRMED] 13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 0; fall-through of the jrcc at 2F:4337 (executed) [executed in 2 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -532,7 +536,7 @@ Label_2F_4350:: ; 2F:4350
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D624], a
+	ld [wMailSessionBlock], a
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -954,7 +958,7 @@ AbookList_SetupScreen:: ; 2F:4572
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1981,7 +1985,7 @@ AbookView_Run:: ; 2F:5098
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -2013,7 +2017,7 @@ Label_2F_50BD:: ; 2F:50BD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2021,7 +2025,7 @@ Label_2F_50BD:: ; 2F:50BD
 	push de
 	pop de
 
-; ---- code $50ED-$51B5 (200 bytes) [PROBABLE] 102 insn(s) reached by static flow only; seeds: exec x23, site x79; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $50ED-$5136 (73 bytes) [PROBABLE] 102 insn(s) reached by static flow only; seeds: exec x23, site x79; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region 50ED-51B5 by apply_coverage --split
 	farcall Dialog_Show
 	push af
 	ldh a, [rSVBK]
@@ -2030,7 +2034,7 @@ Label_2F_50BD:: ; 2F:50BD
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2055,6 +2059,8 @@ Label_2F_5122:: ; 2F:5122
 	pop bc
 	ld a, $FF
 	ret
+
+; ---- code $5136-$5167 (49 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 50ED-51B5 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5136:: ; 2F:5136
 	ldh a, [hJoyPressed]
@@ -2082,6 +2088,8 @@ Label_2F_5136:: ; 2F:5136
 
 Label_2F_5164:: ; 2F:5164
 	jp Label_2F_50BD
+
+; ---- code $5167-$51B5 (78 bytes) [PROBABLE] 48 insn(s) never executed in the traced runs; cut out of the PROBABLE region 50ED-51B5 by apply_coverage --split
 
 Abook_StoreEntryToSram:: ; 2F:5167
 	push af
@@ -2143,7 +2151,7 @@ Abook_SlotAddrTable4:: ; 2F:51B5
 Table_2F_51B5::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $51C1-$5383 (450 bytes) [PROBABLE] 172 insn(s) reached by static flow only; seeds: exec x172; min discovery hops 3; entered by call from 2F:50B8 (PROBABLE code)
+; ---- code $51C1-$52B6 (245 bytes) [CONFIRMED] 172 insn(s) reached by static flow only; seeds: exec x172; min discovery hops 3; entered by call from 2F:50B8 (PROBABLE code) | 81 insn(s) executed; cut out of the PROBABLE region 51C1-5383 by apply_coverage --split [executed in 3 scenarios]
 
 AbookView_SetupScreen:: ; 2F:51C1
 	push bc
@@ -2218,7 +2226,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -2227,6 +2235,8 @@ AbookView_SetupScreen:: ; 2F:51C1
 	pop af
 	farcall Stat_EnableScrollSplit
 	ret
+
+; ---- code $52B6-$52E9 (51 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 51C1-5383 by apply_coverage --split
 
 Label_2F_52B6:: ; 2F:52B6
 	call AbookView_DrawFromBuffers
@@ -2240,7 +2250,7 @@ Label_2F_52B6:: ; 2F:52B6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -2249,6 +2259,8 @@ Label_2F_52B6:: ; 2F:52B6
 	pop af
 	farcall Stat_EnableScrollSplit
 	ret
+
+; ---- code $52E9-$5383 (154 bytes) [CONFIRMED] 71 insn(s) executed; cut out of the PROBABLE region 51C1-5383 by apply_coverage --split [executed in 3 scenarios]
 
 AbookView_LoadAndDraw:: ; 2F:52E9
 	push bc
@@ -2375,7 +2387,7 @@ Abook_SlotAddrTable6:: ; 2F:53E9
 Table_2F_53E9::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $53F5-$57A5 (944 bytes) [PROBABLE] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 5; entered by call from 2F:5339 (PROBABLE code)
+; ---- code $53F5-$5455 (96 bytes) [CONFIRMED] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 5; entered by call from 2F:5339 (PROBABLE code) | 51 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 2 scenarios]
 
 AbookView_DrawName:: ; 2F:53F5
 	ld a, $10
@@ -2432,6 +2444,8 @@ Label_2F_53FA:: ; 2F:53FA
 	jr z, Label_2F_5495
 	jr Label_2F_53FA
 
+; ---- code $5455-$5495 (64 bytes) [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
+
 Label_2F_5455:: ; 2F:5455
 	pop af
 	push bc
@@ -2467,6 +2481,8 @@ Label_2F_547A:: ; 2F:547A
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawName_Pad
+
+; ---- code $5495-$5500 (107 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 2 scenarios]
 
 Label_2F_5495:: ; 2F:5495
 	push bc
@@ -2535,6 +2551,8 @@ Label_2F_54E6:: ; 2F:54E6
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2F_5541
+
+; ---- code $5500-$5541 (65 bytes) [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -2573,6 +2591,8 @@ Label_2F_54E6:: ; 2F:54E6
 	jr z, Label_2F_5581
 	jr Label_2F_54E6
 
+; ---- code $5541-$5566 (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 4 scenarios]
+
 Label_2F_5541:: ; 2F:5541
 	pop af
 	push bc
@@ -2594,6 +2614,8 @@ Label_2F_5541:: ; 2F:5541
 	jr z, Label_2F_5581
 	jr Label_2F_54E6
 
+; ---- code $5566-$5581 (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
+
 Label_2F_5566:: ; 2F:5566
 	push bc
 	push de
@@ -2608,6 +2630,8 @@ Label_2F_5566:: ; 2F:5566
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine1_Pad
+
+; ---- code $5581-$55EC (107 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5581:: ; 2F:5581
 	push bc
@@ -2676,6 +2700,8 @@ Label_2F_55D2:: ; 2F:55D2
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2F_562D
+
+; ---- code $55EC-$562D (65 bytes) [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -2714,6 +2740,8 @@ Label_2F_55D2:: ; 2F:55D2
 	jr z, Label_2F_566D
 	jr Label_2F_55D2
 
+; ---- code $562D-$5652 (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 3 scenarios]
+
 Label_2F_562D:: ; 2F:562D
 	pop af
 	push bc
@@ -2735,6 +2763,8 @@ Label_2F_562D:: ; 2F:562D
 	jr z, Label_2F_566D
 	jr Label_2F_55D2
 
+; ---- code $5652-$566D (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
+
 Label_2F_5652:: ; 2F:5652
 	push bc
 	push de
@@ -2749,6 +2779,8 @@ Label_2F_5652:: ; 2F:5652
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine2_Pad
+
+; ---- code $566D-$56D8 (107 bytes) [CONFIRMED] 56 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_566D:: ; 2F:566D
 	push bc
@@ -2817,6 +2849,8 @@ Label_2F_56BE:: ; 2F:56BE
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2F_5719
+
+; ---- code $56D8-$5719 (65 bytes) [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -2855,6 +2889,8 @@ Label_2F_56BE:: ; 2F:56BE
 	jr z, Label_2F_5759
 	jr Label_2F_56BE
 
+; ---- code $5719-$573E (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 1 scenarios]
+
 Label_2F_5719:: ; 2F:5719
 	pop af
 	push bc
@@ -2876,6 +2912,8 @@ Label_2F_5719:: ; 2F:5719
 	jr z, Label_2F_5759
 	jr Label_2F_56BE
 
+; ---- code $573E-$5759 (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split
+
 Label_2F_573E:: ; 2F:573E
 	push bc
 	push de
@@ -2890,6 +2928,8 @@ Label_2F_573E:: ; 2F:573E
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookView_DrawAddrLine3_Pad
+
+; ---- code $5759-$57A5 (76 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 53F5-57A5 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5759:: ; 2F:5759
 	push bc
@@ -2965,7 +3005,7 @@ Data_2F_57C0:: ; 2F:57C0
 	db $00, $02, $01, $26, $08, $03, $01, $2E, $00, $04, $01, $2E, $08, $05, $01, $01
 	db $00, $04
 
-; ---- code $57F2-$582D (59 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by far from 2F:7F1C (PROBABLE code)
+; ---- code $57F2-$582D (59 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by far from 2F:7F1C (PROBABLE code) [executed in 1 scenarios]
 
 AbookName_Edit:: ; 2F:57F2
 	push af
@@ -2976,7 +3016,7 @@ AbookName_Edit:: ; 2F:57F2
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -3006,13 +3046,17 @@ Label_2F_581A:: ; 2F:581A
 Data_2F_582D:: ; 2F:582D
 	db $F1, $FE, $01, $28, $22
 
-; ---- code $5832-$590B (217 bytes) [PROBABLE] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 3; entered by jrcc from 2F:5825 (PROBABLE code)
+; ---- code $5832-$5837 (5 bytes) [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 3; entered by jrcc from 2F:5825 (PROBABLE code) | 3 insn(s) executed; cut out of the PROBABLE region 5832-590B by apply_coverage --split [executed in 6 scenarios]
 
 Label_2F_5832:: ; 2F:5832
 	ld a, c
 	cp a, $09
 	jr c, Label_2F_5839
+
+; ---- code $5837-$5839 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5832-590B by apply_coverage --split
 	ld c, $08
+
+; ---- code $5839-$58E9 (176 bytes) [CONFIRMED] 77 insn(s) executed; cut out of the PROBABLE region 5832-590B by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5839:: ; 2F:5839
 	push bc
@@ -3100,10 +3144,14 @@ AbookName_CursorLeft:: ; 2F:58CE
 	inc b
 	dec b
 	ret z
+
+; ---- code $58E9-$58EF (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5832-590B by apply_coverage --split
 	dec b
 	call AbookName_GetCharPtr
 	ld c, e
 	ret
+
+; ---- code $58EF-$590B (28 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 5832-590B by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_58EF:: ; 2F:58EF
 	dec c
@@ -3136,7 +3184,7 @@ AbookName_CursorRightStep:: ; 2F:5909
 	cp a, $0B
 	ret z
 
-; ---- code $5914-$5C30 (796 bytes) [PROBABLE] 372 insn(s) reached by static flow only; seeds: exec x372; min discovery hops 3; entered by jr from 2F:5909 (PROBABLE code)
+; ---- code $5914-$5934 (32 bytes) [CONFIRMED] 372 insn(s) reached by static flow only; seeds: exec x372; min discovery hops 3; entered by jr from 2F:5909 (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5914:: ; 2F:5914
 	inc c
@@ -3160,10 +3208,14 @@ Label_2F_5925:: ; 2F:5925
 	ld a, $09
 	cp a, c
 	ret nz
+
+; ---- code $5934-$593B (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split
 	ld c, $08
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	ret
+
+; ---- code $593B-$5AC8 (397 bytes) [CONFIRMED] 152 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split [executed in 1 scenarios]
 
 AbookName_SetupScreen:: ; 2F:593B
 	push af
@@ -3234,7 +3286,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3249,7 +3301,7 @@ AbookName_SetupScreen:: ; 2F:593B
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3300,7 +3352,7 @@ Label_2F_5A81:: ; 2F:5A81
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -3328,8 +3380,12 @@ AbookName_PlaceCursorSprites:: ; 2F:5AB8
 Label_2F_5AC5:: ; 2F:5AC5
 	dec b
 	jr z, Label_2F_5ACC
+
+; ---- code $5AC8-$5ACC (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split
 	add a, $0C
 	jr Label_2F_5AC5
+
+; ---- code $5ACC-$5B4A (126 bytes) [CONFIRMED] 67 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split [executed in 4 scenarios]
 
 Label_2F_5ACC:: ; 2F:5ACC
 	ld d, a
@@ -3408,6 +3464,8 @@ Label_2F_5AEF:: ; 2F:5AEF
 	jr z, Label_2F_5B8A
 	jr Label_2F_5AEF
 
+; ---- code $5B4A-$5B8A (64 bytes) [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split
+
 Label_2F_5B4A:: ; 2F:5B4A
 	pop af
 	push bc
@@ -3443,6 +3501,8 @@ Label_2F_5B6F:: ; 2F:5B6F
 	dec a
 	ld [wTextCellsLeft], a
 	call AbookName_DrawName_Pad
+
+; ---- code $5B8A-$5C30 (166 bytes) [CONFIRMED] 96 insn(s) executed; cut out of the PROBABLE region 5914-5C30 by apply_coverage --split [executed in 4 scenarios]
 
 Label_2F_5B8A:: ; 2F:5B8A
 	push bc
@@ -3565,7 +3625,7 @@ Label_2F_5C1F:: ; 2F:5C1F
 Data_2F_5C30:: ; 2F:5C30
 	db $0C, $0D, $20, $02
 
-; ---- code $5C34-$5CC5 (145 bytes) [PROBABLE] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 7; entered by jrcc from 2F:5C20 (PROBABLE code)
+; ---- code $5C34-$5C3C (8 bytes) [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 7; entered by jrcc from 2F:5C20 (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split [executed in 4 scenarios]
 
 Label_2F_5C34:: ; 2F:5C34
 	pop bc
@@ -3577,11 +3637,15 @@ Label_2F_5C36:: ; 2F:5C36
 	pop bc
 	ret
 
+; ---- code $5C3C-$5C42 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split
+
 Label_2F_5C3C:: ; 2F:5C3C
 	ld a, $0D
 	ld d, $FF
 	pop bc
 	ret
+
+; ---- code $5C42-$5C64 (34 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split [executed in 3 scenarios]
 
 AbookName_GetRowPtr:: ; 2F:5C42
 	push bc
@@ -3608,7 +3672,11 @@ Label_2F_5C54:: ; 2F:5C54
 	jr z, Label_2F_5C4D
 	dec e
 	jr nz, Label_2F_5C54
+
+; ---- code $5C64-$5C66 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split
 	jr Label_2F_5C4D
+
+; ---- code $5C66-$5CB4 (78 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5C66:: ; 2F:5C66
 	ld a, $FF
@@ -3668,6 +3736,8 @@ Label_2F_5CA8:: ; 2F:5CA8
 	call AbookName_GetRowPtr
 	inc d
 	jr z, Label_2F_5CF4
+
+; ---- code $5CB4-$5CC5 (17 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C34-5CC5 by apply_coverage --split
 	pop bc
 	push bc
 	ld c, $0B
@@ -3686,7 +3756,7 @@ Label_2F_5CB8:: ; 2F:5CB8
 Data_2F_5CC5:: ; 2F:5CC5
 	db $3E, $01, $E0, $8D, $E0, $70, $7E, $FE, $0D, $FE, $00, $28, $22
 
-; ---- code $5CD2-$5F28 (598 bytes) [PROBABLE] 334 insn(s) reached by static flow only; seeds: exec x334; min discovery hops 5; entered by jrcc from 2F:5CBC (PROBABLE code)
+; ---- code $5CD2-$5CF4 (34 bytes) [PROBABLE] 334 insn(s) reached by static flow only; seeds: exec x334; min discovery hops 5; entered by jrcc from 2F:5CBC (PROBABLE code) | 22 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 
 Label_2F_5CD2:: ; 2F:5CD2
 	ld a, $08
@@ -3713,6 +3783,8 @@ Label_2F_5CDD:: ; 2F:5CDD
 	pop bc
 	pop de
 	ret
+
+; ---- code $5CF4-$5DB1 (189 bytes) [CONFIRMED] 99 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5CF4:: ; 2F:5CF4
 	push bc
@@ -3824,9 +3896,13 @@ Label_2F_5D90:: ; 2F:5D90
 	ld a, b
 	cp a, $07
 	jr nz, Label_2F_5DB6
+
+; ---- code $5DB1-$5DB6 (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld a, c
 	cp a, $0B
 	jr z, Label_2F_5DDB
+
+; ---- code $5DB6-$5DC1 (11 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5DB6:: ; 2F:5DB6
 	call AbookName_GetCharPtr
@@ -3834,11 +3910,15 @@ Label_2F_5DB6:: ; 2F:5DB6
 	jr z, Label_2F_5DDB
 	cp a, $0D
 	jr nz, Label_2F_5DCA
+
+; ---- code $5DC1-$5DCA (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	jr Label_2F_5DDB
+
+; ---- code $5DCA-$5DD4 (10 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_5DCA:: ; 2F:5DCA
 	inc c
@@ -3847,10 +3927,14 @@ Label_2F_5DCA:: ; 2F:5DCA
 	ld a, $0C
 	cp a, c
 	jr nz, Label_2F_5DDB
+
+; ---- code $5DD4-$5DDB (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
+
+; ---- code $5DDB-$5E11 (54 bytes) [CONFIRMED] 31 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 2 scenarios]
 
 Label_2F_5DDB:: ; 2F:5DDB
 	ret
@@ -3886,12 +3970,16 @@ AbookName_Backspace:: ; 2F:5DDC
 	inc c
 	dec c
 	jr nz, Label_2F_5E19
+
+; ---- code $5E11-$5E19 (8 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld a, b
 	cp a, $00
 	jr z, Label_2F_5E1A
 	dec b
 	ld c, e
 	inc c
+
+; ---- code $5E19-$5E5D (68 bytes) [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 2 scenarios]
 
 Label_2F_5E19:: ; 2F:5E19
 	dec c
@@ -3929,6 +4017,8 @@ Label_2F_5E42:: ; 2F:5E42
 	inc c
 	dec c
 	jr nz, Label_2F_5E68
+
+; ---- code $5E5D-$5E68 (11 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	inc b
 	dec b
 	jr z, Label_2F_5E6D
@@ -3936,6 +4026,8 @@ Label_2F_5E42:: ; 2F:5E42
 	call AbookName_GetCharPtr
 	ld c, e
 	jr Label_2F_5E6D
+
+; ---- code $5E68-$5E85 (29 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 2 scenarios]
 
 Label_2F_5E68:: ; 2F:5E68
 	dec c
@@ -3959,7 +4051,11 @@ Label_2F_5E6D:: ; 2F:5E6D
 	ld a, [hl]
 	cp a, $0D
 	jr nz, Label_2F_5E87
+
+; ---- code $5E85-$5E87 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	ld e, $01
+
+; ---- code $5E87-$5F01 (122 bytes) [CONFIRMED] 79 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5E87:: ; 2F:5E87
 	ld a, $22
@@ -4051,6 +4147,8 @@ Label_2F_5ECD:: ; 2F:5ECD
 	ld a, c
 	cp a, $00
 	jr nz, Label_2F_5F13
+
+; ---- code $5F01-$5F13 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0038
@@ -4059,6 +4157,8 @@ Label_2F_5ECD:: ; 2F:5ECD
 	call AbookName_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $5F13-$5F28 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5CD2-5F28 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5F13:: ; 2F:5F13
 	push bc
@@ -4081,7 +4181,7 @@ Label_2F_5F25:: ; 2F:5F25
 	pop bc
 	ret
 
-; ---- code $5F30-$5F41 (17 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 6; entered by jrcc from 2F:5ED1 (PROBABLE code)
+; ---- code $5F30-$5F41 (17 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 6; entered by jrcc from 2F:5ED1 (PROBABLE code) [executed in 1 scenarios]
 
 Label_2F_5F30:: ; 2F:5F30
 	push bc
@@ -4114,7 +4214,7 @@ String_2F_5F41::
 Data_2F_5F92:: ; 2F:5F92
 	db $C9
 
-; ---- code $5F93-$6007 (116 bytes) [PROBABLE] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 5; entered by call from 2F:617B (PROBABLE code)
+; ---- code $5F93-$5FE0 (77 bytes) [CONFIRMED] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 5; entered by call from 2F:617B (PROBABLE code) | 48 insn(s) executed; cut out of the PROBABLE region 5F93-6007 by apply_coverage --split [executed in 1 scenarios]
 
 AbookName_ApplyDakutenU:: ; 2F:5F93
 	call AbookName_GetCharPtr
@@ -4169,6 +4269,8 @@ Label_2F_5FAD:: ; 2F:5FAD
 	ld a, c
 	cp a, $00
 	jr nz, Label_2F_5FF2
+
+; ---- code $5FE0-$5FF2 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F93-6007 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0038
@@ -4177,6 +4279,8 @@ Label_2F_5FAD:: ; 2F:5FAD
 	call AbookName_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $5FF2-$6004 (18 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 5F93-6007 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_5FF2:: ; 2F:5FF2
 	push bc
@@ -4187,6 +4291,8 @@ Label_2F_5FF2:: ; 2F:5FF2
 	call AbookName_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $6004-$6007 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F93-6007 by apply_coverage --split
 
 Label_2F_6004:: ; 2F:6004
 	pop hl
@@ -4199,7 +4305,7 @@ Label_2F_6004:: ; 2F:6004
 	pop bc
 	ret
 
-; ---- code $600F-$6040 (49 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 6; entered by jrcc from 2F:5FB1 (PROBABLE code)
+; ---- code $600F-$602B (28 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 6; entered by jrcc from 2F:5FB1 (PROBABLE code) | 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 600F-6040 by apply_coverage --split
 
 Label_2F_600F:: ; 2F:600F
 	push bc
@@ -4219,6 +4325,8 @@ Label_2F_600F:: ; 2F:600F
 	ld [rRAMG], a
 	pop bc
 	ret
+
+; ---- code $602B-$6040 (21 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 600F-6040 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_602B:: ; 2F:602B
 	push bc
@@ -4245,7 +4353,7 @@ String_2F_6040:: ; 2F:6040
 Data_2F_6045:: ; 2F:6045
 	db $C9
 
-; ---- code $6046-$60B8 (114 bytes) [PROBABLE] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 6; entered by call from 2F:618E (PROBABLE code)
+; ---- code $6046-$6091 (75 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 6; entered by call from 2F:618E (PROBABLE code) | 49 insn(s) executed; cut out of the PROBABLE region 6046-60B8 by apply_coverage --split [executed in 1 scenarios]
 
 AbookName_ApplyHandakuten:: ; 2F:6046
 	call AbookName_GetCharPtr
@@ -4301,6 +4409,8 @@ Label_2F_6060:: ; 2F:6060
 	ld a, c
 	cp a, $00
 	jr nz, Label_2F_60A3
+
+; ---- code $6091-$60A3 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6046-60B8 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0038
@@ -4309,6 +4419,8 @@ Label_2F_6060:: ; 2F:6060
 	call AbookName_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $60A3-$60B8 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 6046-60B8 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_60A3:: ; 2F:60A3
 	push bc
@@ -4331,7 +4443,7 @@ Label_2F_60B5:: ; 2F:60B5
 	pop bc
 	ret
 
-; ---- code $60C0-$60F1 (49 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 2F:6064 (PROBABLE code)
+; ---- code $60C0-$60DC (28 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 2F:6064 (PROBABLE code) | 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 60C0-60F1 by apply_coverage --split
 
 Label_2F_60C0:: ; 2F:60C0
 	push bc
@@ -4351,6 +4463,8 @@ Label_2F_60C0:: ; 2F:60C0
 	ld [rRAMG], a
 	pop bc
 	ret
+
+; ---- code $60DC-$60F1 (21 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 60C0-60F1 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_60DC:: ; 2F:60DC
 	push bc
@@ -4378,7 +4492,7 @@ String_2F_60F1::
 Data_2F_6106:: ; 2F:6106
 	db $C9
 
-; ---- code $6107-$61C9 (194 bytes) [PROBABLE] 89 insn(s) reached by static flow only; seeds: exec x89; min discovery hops 4; entered by call from 2F:5854 (PROBABLE code)
+; ---- code $6107-$61C9 (194 bytes) [CONFIRMED] 89 insn(s) reached by static flow only; seeds: exec x89; min discovery hops 4; entered by call from 2F:5854 (PROBABLE code) [executed in 1 scenarios]
 
 AbookName_OpenKeyboard:: ; 2F:6107
 	push bc
@@ -4389,7 +4503,7 @@ AbookName_OpenKeyboard:: ; 2F:6107
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4403,7 +4517,7 @@ AbookName_OpenKeyboard:: ; 2F:6107
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4488,7 +4602,7 @@ Label_2F_61C3:: ; 2F:61C3
 Data_2F_61C9:: ; 2F:61C9
 	db $C9, $C3, $3A, $61, $C9
 
-; ---- code $61CE-$61EA (28 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 6; entered by call from 2F:61A4 (PROBABLE code)
+; ---- code $61CE-$61E0 (18 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 6; entered by call from 2F:61A4 (PROBABLE code) | 10 insn(s) executed; cut out of the PROBABLE region 61CE-61EA by apply_coverage --split [executed in 1 scenarios]
 
 AbookName_GetLength:: ; 2F:61CE
 	push hl
@@ -4503,10 +4617,14 @@ Label_2F_61DB:: ; 2F:61DB
 	ld a, [hli]
 	cp a, $00
 	jr z, Label_2F_61E6
+
+; ---- code $61E0-$61E6 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 61CE-61EA by apply_coverage --split
 	inc d
 	ld a, $10
 	cp a, d
 	jr nz, Label_2F_61DB
+
+; ---- code $61E6-$61EA (4 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 61CE-61EA by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_61E6:: ; 2F:61E6
 	ld a, d
@@ -4727,7 +4845,7 @@ Function_2F_6D00::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0A
 	ld [wRam_D725], a
 	pop af
@@ -4750,7 +4868,7 @@ Label_2F_6D28:: ; 2F:6D28
 	cp a, $01
 	jr nz, Label_2F_6D40
 
-; ---- code $6D35-$6D3B (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2F:6D33 (executed)
+; ---- code $6D35-$6D3B (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 2F:6D33 (executed) [executed in 2 scenarios]
 	call AbookAddr_KeyboardLoop
 	jp Label_2F_6D5E
 
@@ -4777,7 +4895,7 @@ Label_2F_6D5E:: ; 2F:6D5E
 	cp a, $07
 	jp nz, Label_2F_6DF1
 
-; ---- code $6D63-$6DF1 (142 bytes) [PROBABLE] 65 insn(s) reached by static flow only; seeds: exec x65; min discovery hops 0; fall-through of the jpcc at 2F:6D60 (executed)
+; ---- code $6D63-$6DF1 (142 bytes) [CONFIRMED] 65 insn(s) reached by static flow only; seeds: exec x65; min discovery hops 0; fall-through of the jpcc at 2F:6D60 (executed) [executed in 1 scenarios]
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -4802,7 +4920,7 @@ Label_2F_6D5E:: ; 2F:6D5E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4817,7 +4935,7 @@ Label_2F_6D5E:: ; 2F:6D5E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4858,7 +4976,7 @@ Label_2F_6DF9:: ; 2F:6DF9
 	and a, $02
 	jp z, Label_2F_6EF4
 
-; ---- code $6E00-$6EF4 (244 bytes) [PROBABLE] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0; fall-through of the jpcc at 2F:6DFD (executed)
+; ---- code $6E00-$6E29 (41 bytes) [CONFIRMED] 124 insn(s) reached by static flow only; seeds: exec x124; min discovery hops 0; fall-through of the jpcc at 2F:6DFD (executed) | 22 insn(s) executed; cut out of the PROBABLE region 6E00-6EF4 by apply_coverage --split [executed in 3 scenarios]
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -4875,12 +4993,14 @@ Label_2F_6DF9:: ; 2F:6DF9
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D624]
+	ld a, [wMailSessionBlock]
 	cp a, $01
 	jr z, Label_2F_6E85
 	call AbookAddr_BuffersEmpty
 	inc a
 	jp z, Label_2F_6EE1
+
+; ---- code $6E29-$6E85 (92 bytes) [PROBABLE] 48 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6E00-6EF4 by apply_coverage --split
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4897,7 +5017,7 @@ Label_2F_6DF9:: ; 2F:6DF9
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4912,7 +5032,7 @@ Label_2F_6DF9:: ; 2F:6DF9
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4929,6 +5049,8 @@ Label_2F_6DF9:: ; 2F:6DF9
 	jr z, Label_2F_6EE1
 	pop bc
 	jp Label_2F_6D40
+
+; ---- code $6E85-$6EF4 (111 bytes) [CONFIRMED] 54 insn(s) executed; cut out of the PROBABLE region 6E00-6EF4 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_6E85:: ; 2F:6E85
 	ld a, $07
@@ -4947,7 +5069,7 @@ Label_2F_6E85:: ; 2F:6E85
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4962,7 +5084,7 @@ Label_2F_6E85:: ; 2F:6E85
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5000,7 +5122,7 @@ Label_2F_6EF4:: ; 2F:6EF4
 	ld d, $10
 	jp Label_2F_6D40
 
-; ---- code $6F07-$6F42 (59 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2F:6EF8 (executed)
+; ---- code $6F07-$6F22 (27 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2F:6EF8 (executed) | 18 insn(s) executed; cut out of the PROBABLE region 6F07-6F42 by apply_coverage --split [executed in 1 scenarios]
 
 AbookAddr_CursorLeft:: ; 2F:6F07
 	push bc
@@ -5021,10 +5143,14 @@ AbookAddr_CursorLeft:: ; 2F:6F07
 	inc b
 	dec b
 	ret z
+
+; ---- code $6F22-$6F28 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6F07-6F42 by apply_coverage --split
 	dec b
 	call AbookAddr_GetCharPtr
 	ld c, e
 	ret
+
+; ---- code $6F28-$6F42 (26 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 6F07-6F42 by apply_coverage --split [executed in 2 scenarios]
 
 Label_2F_6F28:: ; 2F:6F28
 	dec c
@@ -5074,7 +5200,7 @@ Label_2F_6F4D:: ; 2F:6F4D
 	cp a, $00
 	ret z
 
-; ---- code $6F5E-$6F8C (46 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; entered by jrcc from 2F:6F4F (executed)
+; ---- code $6F5E-$6F6D (15 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; entered by jrcc from 2F:6F4F (executed) | 9 insn(s) executed; cut out of the PROBABLE region 6F5E-6F8C by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_6F5E:: ; 2F:6F5E
 	call AbookAddr_GetCharPtr
@@ -5086,22 +5212,28 @@ Label_2F_6F5E:: ; 2F:6F5E
 	ld a, $41
 	cp a, c
 	ret nz
+
+; ---- code $6F6D-$6F73 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6F5E-6F8C by apply_coverage --split
 	ld c, $40
 	ld [wTextEditGoalColumn], a
 	ret
+
+; ---- code $6F73-$6F8A (23 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 6F5E-6F8C by apply_coverage --split [executed in 3 scenarios]
 
 AbookAddr_BuffersEmpty:: ; 2F:6F73
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D4C0]
+	ld a, [wEditAddressBuf]
 	cp a, $00
 	jr nz, Label_2F_6F8A
-	ld a, [wRam_D514]
+	ld a, [wEditNameBuf]
 	cp a, $00
 	jr nz, Label_2F_6F8A
 	ld a, $FF
 	ret
+
+; ---- code $6F8A-$6F8C (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6F5E-6F8C by apply_coverage --split
 
 Label_2F_6F8A:: ; 2F:6F8A
 	xor a, a
@@ -5173,7 +5305,7 @@ Function_2F_6F8C::
 	dec a
 	jr nz, Label_2F_7088
 
-; ---- code $7050-$7088 (56 bytes) [PROBABLE] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 2F:704E (executed)
+; ---- code $7050-$7088 (56 bytes) [CONFIRMED] 29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 2F:704E (executed) [executed in 2 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -5181,7 +5313,7 @@ Function_2F_6F8C::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5196,7 +5328,7 @@ Function_2F_6F8C::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -5227,7 +5359,7 @@ Label_2F_7088:: ; 2F:7088
 	dec a
 	jr nz, Label_2F_70EA
 
-; ---- code $70C2-$70EA (40 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 2F:70C0 (executed)
+; ---- code $70C2-$70EA (40 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 2F:70C0 (executed) [executed in 2 scenarios]
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -5260,7 +5392,7 @@ Label_2F_70EA:: ; 2F:70EA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0A
 	ld [wRam_D725], a
 	pop af
@@ -5289,7 +5421,7 @@ AbookAddr_PlaceCursorSprites:: ; 2F:7121
 	cp a, $30
 	jr c, Label_2F_713A
 
-; ---- code $7135-$713A (5 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2F:7133 (executed)
+; ---- code $7135-$713A (5 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2F:7133 (executed) [executed in 2 scenarios]
 	inc b
 	ld a, c
 	sub a, $18
@@ -5360,13 +5492,15 @@ Label_2F_7174:: ; 2F:7174
 	cp a, $00
 	jp z, Label_2F_720F
 
-; ---- code $7180-$720F (143 bytes) [PROBABLE] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2F:717D (executed)
+; ---- code $7180-$718E (14 bytes) [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2F:717D (executed) | 6 insn(s) executed; cut out of the PROBABLE region 7180-720F by apply_coverage --split [executed in 6 scenarios]
 	cp a, $0D
 	jr z, Label_2F_71F4
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2F_71CF
+
+; ---- code $718E-$71CF (65 bytes) [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7180-720F by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -5405,6 +5539,8 @@ Label_2F_7174:: ; 2F:7174
 	jr z, Label_2F_720F
 	jr Label_2F_7174
 
+; ---- code $71CF-$71F4 (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 7180-720F by apply_coverage --split [executed in 6 scenarios]
+
 Label_2F_71CF:: ; 2F:71CF
 	pop af
 	push bc
@@ -5425,6 +5561,8 @@ Label_2F_71CF:: ; 2F:71CF
 	cp a, $01
 	jr z, Label_2F_720F
 	jr Label_2F_7174
+
+; ---- code $71F4-$720F (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7180-720F by apply_coverage --split
 
 Label_2F_71F4:: ; 2F:71F4
 	push bc
@@ -5508,13 +5646,15 @@ Label_2F_725B:: ; 2F:725B
 	cp a, $00
 	jp z, Label_2F_72F6
 
-; ---- code $7267-$72F6 (143 bytes) [PROBABLE] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2F:7264 (executed)
+; ---- code $7267-$7275 (14 bytes) [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2F:7264 (executed) | 6 insn(s) executed; cut out of the PROBABLE region 7267-72F6 by apply_coverage --split [executed in 5 scenarios]
 	cp a, $0D
 	jr z, Label_2F_72DB
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2F_72B6
+
+; ---- code $7275-$72B6 (65 bytes) [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7267-72F6 by apply_coverage --split
 	pop af
 	push bc
 	push de
@@ -5553,6 +5693,8 @@ Label_2F_725B:: ; 2F:725B
 	jr z, Label_2F_72F6
 	jr Label_2F_725B
 
+; ---- code $72B6-$72DB (37 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 7267-72F6 by apply_coverage --split [executed in 5 scenarios]
+
 Label_2F_72B6:: ; 2F:72B6
 	pop af
 	push bc
@@ -5573,6 +5715,8 @@ Label_2F_72B6:: ; 2F:72B6
 	cp a, $01
 	jr z, Label_2F_72F6
 	jr Label_2F_725B
+
+; ---- code $72DB-$72F6 (27 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7267-72F6 by apply_coverage --split
 
 Label_2F_72DB:: ; 2F:72DB
 	push bc
@@ -5733,13 +5877,15 @@ Label_2F_73AA:: ; 2F:73AA
 	pop bc
 	ret
 
-; ---- code $73AC-$73B8 (12 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 2F:7392 (executed)
+; ---- code $73AC-$73B2 (6 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1; entered by jrcc from 2F:7392 (executed) | 4 insn(s) executed; cut out of the PROBABLE region 73AC-73B8 by apply_coverage --split [executed in 6 scenarios]
 
 Label_2F_73AC:: ; 2F:73AC
 	ld a, $FF
 	ld d, $FF
 	pop bc
 	ret
+
+; ---- code $73B2-$73B8 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73AC-73B8 by apply_coverage --split
 
 Label_2F_73B2:: ; 2F:73B2
 	ld a, $0D
@@ -5764,7 +5910,7 @@ Label_2F_73C3:: ; 2F:73C3
 	dec b
 	jr z, Label_2F_73DB
 
-; ---- code $73CA-$73DB (17 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 2F:73C8 (executed)
+; ---- code $73CA-$73DB (17 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jrcc at 2F:73C8 (executed) [executed in 1 scenarios]
 
 Label_2F_73CA:: ; 2F:73CA
 	ld d, $FF
@@ -5812,7 +5958,7 @@ Label_2F_73F4:: ; 2F:73F4
 	pop bc
 	ret
 
-; ---- code $73FA-$75A0 (422 bytes) [PROBABLE] 227 insn(s) reached by static flow only; seeds: exec x227; min discovery hops 2; entered by call from 2F:7624 (PROBABLE code)
+; ---- code $73FA-$7408 (14 bytes) [CONFIRMED] 227 insn(s) reached by static flow only; seeds: exec x227; min discovery hops 2; entered by call from 2F:7624 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 6 scenarios]
 
 AbookAddr_InsertChar:: ; 2F:73FA
 	ld a, $01
@@ -5822,6 +5968,8 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	ld a, [hl]
 	cp a, $00
 	jr z, Label_2F_741D
+
+; ---- code $7408-$741D (21 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -5835,6 +5983,8 @@ AbookAddr_InsertChar:: ; 2F:73FA
 	pop de
 	pop bc
 	ret
+
+; ---- code $741D-$74C9 (172 bytes) [CONFIRMED] 86 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 6 scenarios]
 
 Label_2F_741D:: ; 2F:741D
 	push de
@@ -5933,11 +6083,15 @@ Label_2F_74B1:: ; 2F:74B1
 	jr z, Label_2F_74D6
 	cp a, $0D
 	jr nz, Label_2F_74D2
+
+; ---- code $74C9-$74D2 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split
 	ld c, $00
 	inc b
 	ld a, c
 	ld [wTextEditGoalColumn], a
 	jr Label_2F_74D6
+
+; ---- code $74D2-$750C (58 bytes) [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_74D2:: ; 2F:74D2
 	inc c
@@ -5977,12 +6131,16 @@ AbookAddr_Backspace:: ; 2F:74D7
 	inc c
 	dec c
 	jr nz, Label_2F_7514
+
+; ---- code $750C-$7514 (8 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split
 	ld a, b
 	cp a, $00
 	jr z, Label_2F_7515
 	dec b
 	ld c, e
 	inc c
+
+; ---- code $7514-$755B (71 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_7514:: ; 2F:7514
 	dec c
@@ -6021,6 +6179,8 @@ Label_2F_753D:: ; 2F:753D
 	inc c
 	dec c
 	jr nz, Label_2F_7566
+
+; ---- code $755B-$7566 (11 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split
 	inc b
 	dec b
 	jr z, Label_2F_756B
@@ -6028,6 +6188,8 @@ Label_2F_753D:: ; 2F:753D
 	call AbookAddr_GetCharPtr
 	ld c, e
 	jr Label_2F_756B
+
+; ---- code $7566-$7582 (28 bytes) [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_7566:: ; 2F:7566
 	dec c
@@ -6050,7 +6212,11 @@ Label_2F_756B:: ; 2F:756B
 	ld a, [hl]
 	cp a, $0D
 	jr nz, Label_2F_7584
+
+; ---- code $7582-$7584 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split
 	ld e, $01
+
+; ---- code $7584-$75A0 (28 bytes) [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 73FA-75A0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_7584:: ; 2F:7584
 	ld a, $FF
@@ -6091,7 +6257,7 @@ Function_2F_75A0::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6105,7 +6271,7 @@ Function_2F_75A0::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -6128,7 +6294,7 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 	cp a, $02
 	jr z, Label_2F_7629
 
-; ---- code $75F5-$7629 (52 bytes) [PROBABLE] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 2F:75F3 (executed)
+; ---- code $75F5-$7603 (14 bytes) [CONFIRMED] 24 insn(s) reached by static flow only; seeds: exec x24; min discovery hops 0; fall-through of the jrcc at 2F:75F3 (executed) | 7 insn(s) executed; cut out of the PROBABLE region 75F5-7629 by apply_coverage --split [executed in 6 scenarios]
 	cp a, $07
 	ret z
 	cp a, $08
@@ -6136,19 +6302,27 @@ AbookAddr_KeyboardLoop:: ; 2F:75D3
 	ld a, [wKeyboardCharLo]
 	cp a, $4A
 	jr nz, Label_2F_760C
+
+; ---- code $7603-$760C (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 75F5-7629 by apply_coverage --split
 	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_760C
 	jr AbookAddr_KeyboardLoop
 
+; ---- code $760C-$7613 (7 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 75F5-7629 by apply_coverage --split [executed in 6 scenarios]
+
 Label_2F_760C:: ; 2F:760C
 	ld a, [wKeyboardCharLo]
 	cp a, $4B
 	jr nz, Label_2F_761C
+
+; ---- code $7613-$761C (9 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 75F5-7629 by apply_coverage --split
 	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2F_761C
 	jr AbookAddr_KeyboardLoop
+
+; ---- code $761C-$7629 (13 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 75F5-7629 by apply_coverage --split [executed in 6 scenarios]
 
 Label_2F_761C:: ; 2F:761C
 	ld a, [wKeyboardCharLo]
@@ -6178,7 +6352,7 @@ Label_2F_7634:: ; 2F:7634
 	pop bc
 	ret
 
-; ---- code $7646-$764C (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 2F:762B (executed)
+; ---- code $7646-$764C (6 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 2F:762B (executed) [executed in 5 scenarios]
 
 Label_2F_7646:: ; 2F:7646
 	call AbookAddr_Backspace
@@ -6220,7 +6394,7 @@ Label_2F_7665:: ; 2F:7665
 	pop hl
 	ret
 
-; ---- code $7669-$77C6 (349 bytes) [PROBABLE] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 5; entered by call from 2F:74B6 (PROBABLE code)
+; ---- code $7669-$76EF (134 bytes) [CONFIRMED] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 5; entered by call from 2F:74B6 (PROBABLE code) | 53 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split [executed in 2 scenarios]
 
 AbookAddr_RedrawAfterInsert:: ; 2F:7669
 	push bc
@@ -6285,6 +6459,8 @@ Label_2F_76CE:: ; 2F:76CE
 	call AbookAddr_DrawLine
 	jr Label_2F_7713
 
+; ---- code $76EF-$7713 (36 bytes) [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split
+
 Label_2F_76EF:: ; 2F:76EF
 	ld bc, $0300
 	ld de, $0438
@@ -6298,6 +6474,8 @@ Label_2F_76EF:: ; 2F:76EF
 	ld de, $1C08
 	ld hl, $D4E8
 	call AbookAddr_DrawLine
+
+; ---- code $7713-$7762 (79 bytes) [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_7713:: ; 2F:7713
 	call AbookAddr_UploadTextTiles
@@ -6342,6 +6520,8 @@ Label_2F_775D:: ; 2F:775D
 	ld a, c
 	cp a, $11
 	jr c, Label_2F_777C
+
+; ---- code $7762-$777C (26 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split
 	ld bc, $0300
 	ld de, $1008
 	ld hl, $D4D0
@@ -6351,6 +6531,8 @@ Label_2F_775D:: ; 2F:775D
 	ld hl, $D4E8
 	call AbookAddr_DrawLine
 	jr Label_2F_77C1
+
+; ---- code $777C-$779D (33 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2F_777C:: ; 2F:777C
 	call AbookAddr_GetLength
@@ -6366,6 +6548,8 @@ Label_2F_777C:: ; 2F:777C
 	call AbookAddr_DrawLine
 	jr Label_2F_77C1
 
+; ---- code $779D-$77C1 (36 bytes) [PROBABLE] 12 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split
+
 Label_2F_779D:: ; 2F:779D
 	ld bc, $0300
 	ld de, $0438
@@ -6379,6 +6563,8 @@ Label_2F_779D:: ; 2F:779D
 	ld de, $1C08
 	ld hl, $D4E8
 	call AbookAddr_DrawLine
+
+; ---- code $77C1-$77C6 (5 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 7669-77C6 by apply_coverage --split [executed in 5 scenarios]
 
 Label_2F_77C1:: ; 2F:77C1
 	call AbookAddr_UploadTextTiles
@@ -6607,11 +6793,13 @@ Label_2F_7ECC:: ; 2F:7ECC
 	cp a, $00
 	jr z, Label_2F_7F08
 
-; ---- code $7EFC-$7F08 (12 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:7EFA (executed)
+; ---- code $7EFC-$7F04 (8 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2F:7EFA (executed) | 4 insn(s) executed; cut out of the PROBABLE region 7EFC-7F08 by apply_coverage --split [executed in 4 scenarios]
 	cp a, $01
 	jr z, Label_2F_7F3B
 	cp a, $02
 	jr z, Label_2F_7F08
+
+; ---- code $7F04-$7F08 (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7EFC-7F08 by apply_coverage --split
 	cp a, $03
 	jr z, Label_2F_7ECC
 
@@ -6621,7 +6809,7 @@ Label_2F_7F08:: ; 2F:7F08
 	xor a, a
 	jr Label_2F_7F0D
 
-; ---- code $7F0B-$7F0D (2 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 2F:7F24 (PROBABLE code)
+; ---- code $7F0B-$7F0D (2 bytes) [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2; entered by jrcc from 2F:7F24 (PROBABLE code) [executed in 2 scenarios]
 
 Label_2F_7F0B:: ; 2F:7F0B
 	ld a, $01
@@ -6631,7 +6819,7 @@ Label_2F_7F0B:: ; 2F:7F0B
 Label_2F_7F0D:: ; 2F:7F0D
 	farcall AbookAddr_Edit
 
-; ---- code $7F13-$7F3A (39 bytes) [PROBABLE] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; entry not recorded
+; ---- code $7F13-$7F3A (39 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; entry not recorded [executed in 1 scenarios]
 	cp a, $FF
 	jr z, Label_2F_7F4E
 	xor a, a
@@ -6660,7 +6848,7 @@ Label_2F_7F1C:: ; 2F:7F1C
 Data_2F_7F3A:: ; 2F:7F3A
 	db $C9
 
-; ---- code $7F3B-$7F4D (18 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 2F:7EFE (PROBABLE code)
+; ---- code $7F3B-$7F47 (12 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 2F:7EFE (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE region 7F3B-7F4D by apply_coverage --split [executed in 3 scenarios]
 
 Label_2F_7F3B:: ; 2F:7F3B
 	ld b, d
@@ -6669,6 +6857,8 @@ Label_2F_7F3B:: ; 2F:7F3B
 	pop bc
 	inc b
 	jr z, Label_2F_7F4E
+
+; ---- code $7F47-$7F4D (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7F3B-7F4D by apply_coverage --split
 	cp a, $00
 	jr z, Label_2F_7ECC
 	jr Label_2F_7F1A

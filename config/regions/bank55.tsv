@@ -82,7 +82,8 @@
 5E31	5E42	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
 5E42	5E57	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 55:5E07 (executed) [executed in 4 scenarios]
 5E57	5E75	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 10/18 scenarios)
-5E75	5E7B	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed)
+5E75	5E78	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed) | 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E75-5E7B by apply_coverage --split
+5E78	5E7B	code	-	CONFIRMED	1 insn(s) executed; cut out of the PROBABLE region 5E75-5E7B by apply_coverage --split [executed in 5 scenarios]
 5E7B	5E82	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 5E82	5E8E	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 55:5E80 (executed)
 5E8E	5EAA	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 9/18 scenarios)
@@ -100,7 +101,8 @@
 5F35	5FC8	code	Function_55_5F35	CONFIRMED	98 insn(s); 98 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
 5FC8	5FD0	words	Table_55_5FC8	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 5FD0	604D	code	-	CONFIRMED	51 insn(s); 51 executed (in up to 8/18 scenarios)
-604D	6068	code	-	PROBABLE	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed)
+604D	605A	code	-	CONFIRMED	16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed) | 8 insn(s) executed; cut out of the PROBABLE region 604D-6068 by apply_coverage --split [executed in 1 scenarios]
+605A	6068	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 604D-6068 by apply_coverage --split
 6068	6087	code	Function_55_6068	CONFIRMED	17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
 6087	608F	words	Table_55_6087	CONFIRMED	read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 608F	60F1	code	-	CONFIRMED	45 insn(s); 45 executed (in up to 7/18 scenarios)
@@ -114,7 +116,9 @@
 62B4	62C8	ptrtable	Table_55_62B4	PROBABLE	little-endian word table, 10 entries, monotone=1.00, 0% of targets on string start/after NUL, targets $62C8..$6310; referenced by ld r16,$62B4 at 55:61D4
 62C8	6318	data	Data_55_62C8	PROBABLE	zero/short bytes of the keyboard page tables between text rows; part of the run 62C8-6318 that executed code reads piecewise [split by classify_g2]
 6318	636D	code	Function_55_6318	CONFIRMED	32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-636D	6386	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
+636D	6381	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed) | 7 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage --split [executed in 4 scenarios]
+6381	6384	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 636D-6386 by apply_coverage --split
+6384	6386	code	-	CONFIRMED	1 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage --split [executed in 4 scenarios]
 6386	63CD	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 5/18 scenarios)
 63CD	63D2	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 55:63BE (executed)
 63D2	641C	code	-	CONFIRMED	38 insn(s); 38 executed (in up to 11/18 scenarios)
@@ -122,7 +126,9 @@
 6427	644E	code	Function_55_6427	CONFIRMED	13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 644E	6453	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:644C (executed) [executed in 4 scenarios]
 6453	649D	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 4/18 scenarios)
-649D	64B6	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
+649D	64B1	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed) | 7 insn(s) executed; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split [executed in 4 scenarios]
+64B1	64B4	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split
+64B4	64B6	code	-	CONFIRMED	1 insn(s) executed; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split [executed in 4 scenarios]
 64B6	6548	code	-	CONFIRMED	60 insn(s); 60 executed (in up to 8/18 scenarios)
 6548	654B	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 55:6541 (executed) [executed in 1 scenarios]
 654B	658F	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 8/18 scenarios)

@@ -4,7 +4,9 @@
 4042	4082	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 2/18 scenarios)
 4082	40C1	code	-	CONFIRMED	25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 0; fall-through of the jrcc at 2C:4080 (executed) [executed in 1 scenarios]
 40C1	40D4	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
-40D4	410F	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2C:40C5 (executed)
+40D4	40EF	code	-	CONFIRMED	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2C:40C5 (executed) | 18 insn(s) executed; cut out of the PROBABLE region 40D4-410F by apply_coverage --split [executed in 3 scenarios]
+40EF	40F5	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40D4-410F by apply_coverage --split
+40F5	410F	code	-	CONFIRMED	16 insn(s) executed; cut out of the PROBABLE region 40D4-410F by apply_coverage --split [executed in 3 scenarios]
 410F	4114	code	Function_2C_410F	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 4114	4118	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; fall-through of the jrcc at 2C:4112 (executed)
 4118	4133	code	-	CONFIRMED	15 insn(s); 15 executed (in up to 2/18 scenarios)
@@ -35,31 +37,47 @@
 4600	460A	code	-	CONFIRMED	6 insn(s); 6 executed (in up to 2/18 scenarios)
 460A	4611	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 2C:4608 (executed)
 4611	4647	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 2/18 scenarios)
-4647	464F	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2C:4645 (executed)
+4647	464C	code	-	CONFIRMED	6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2C:4645 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4647-464F by apply_coverage --split [executed in 1 scenarios]
+464C	464F	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4647-464F by apply_coverage --split
 464F	4695	code	-	CONFIRMED	30 insn(s); 30 executed (in up to 1/18 scenarios)
-4695	46A0	code	-	PROBABLE	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2C:4693 (executed)
+4695	4699	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2C:4693 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4695-46A0 by apply_coverage --split [executed in 1 scenarios]
+4699	46A0	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4695-46A0 by apply_coverage --split
 46A0	46BD	code	-	CONFIRMED	19 insn(s); 19 executed (in up to 1/18 scenarios)
 46BD	46BF	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 2C:46BB (executed)
 46BF	46EB	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
-46EB	4760	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2C:49A9 (PROBABLE code)
+46EB	46F3	code	-	CONFIRMED	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2C:49A9 (PROBABLE code) | 4 insn(s) executed; cut out of the PROBABLE region 46EB-4760 by apply_coverage --split [executed in 1 scenarios]
+46F3	46F9	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46EB-4760 by apply_coverage --split
+46F9	4739	code	-	CONFIRMED	43 insn(s) executed; cut out of the PROBABLE region 46EB-4760 by apply_coverage --split [executed in 1 scenarios]
+4739	474B	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 46EB-4760 by apply_coverage --split
+474B	4760	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 46EB-4760 by apply_coverage --split [executed in 1 scenarios]
 4760	4768	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
-4768	4779	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2C:4709 (PROBABLE code)
+4768	4774	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2C:4709 (PROBABLE code) | 9 insn(s) executed; cut out of the PROBABLE region 4768-4779 by apply_coverage --split [executed in 1 scenarios]
+4774	4779	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4768-4779 by apply_coverage --split
 4779	47CA	text	String_2C_4779	PROBABLE	NUL-terminated Shift-JIS string of 40 kana (rows that can take dakuten: かきくけこ さしすせそ たちつてと はひふへほ, then the katakana カ..ホ; 81 bytes + NUL at 47C9); ld de,$4779 at 2C:4702; identical bytes at 2F:5F41. Verified by decoding all 40 double-byte characters with cp932. Verifier fix: the former ptrtable Table_2C_47AF (47AF-47BD, "7/7 words hit code starts") was the katakana スセソタチツテト bytes 83 58 83 5A ... read as little-endian words, not pointers
 47CA	47CB	data	Data_2C_47CA	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-47CB	483F	code	-	PROBABLE	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2C:49B3 (PROBABLE code)
+47CB	47D3	code	-	CONFIRMED	66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2C:49B3 (PROBABLE code) | 4 insn(s) executed; cut out of the PROBABLE region 47CB-483F by apply_coverage --split [executed in 1 scenarios]
+47D3	47D9	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47CB-483F by apply_coverage --split
+47D9	4818	code	-	CONFIRMED	41 insn(s) executed; cut out of the PROBABLE region 47CB-483F by apply_coverage --split [executed in 1 scenarios]
+4818	482A	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47CB-483F by apply_coverage --split
+482A	483C	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 47CB-483F by apply_coverage --split [executed in 1 scenarios]
+483C	483F	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47CB-483F by apply_coverage --split
 483F	4847	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
 4847	4878	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2C:47E9 (PROBABLE code)
 4878	487D	text	String_2C_4878	PROBABLE	NUL-terminated Shift-JIS string (82 A4 82 A4 00); read byte by byte by 2C:47E2 (ld de,$4878; ld a,[de]; inc de; cp $00; jr z); identical bytes at 2F:6040. The following $C9 (ret) stays unresolved in the next region
 487D	487E	data	Data_2C_487D	HYPOTHESIS	UNCLASSIFIED 1 byte $C9 (ret) between a string and code; no entry found
-487E	48F0	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2C:49C6 (PROBABLE code)
+487E	4886	code	-	CONFIRMED	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2C:49C6 (PROBABLE code) | 4 insn(s) executed; cut out of the PROBABLE region 487E-48F0 by apply_coverage --split [executed in 1 scenarios]
+4886	488C	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 487E-48F0 by apply_coverage --split
+488C	48C9	code	-	CONFIRMED	42 insn(s) executed; cut out of the PROBABLE region 487E-48F0 by apply_coverage --split [executed in 1 scenarios]
+48C9	48DB	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 487E-48F0 by apply_coverage --split
+48DB	48F0	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 487E-48F0 by apply_coverage --split [executed in 1 scenarios]
 48F0	48F8	code	-	HYPOTHESIS	5 insn(s) SRAM-disable epilogue (xor a ; ldh [$FFF5],a ; ld [$0000],a ; pop bc ; ret), identical bytes to 2F:5F28/6007/60B8; follows an unconditional jr; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS | verifier: downgraded to HYPOTHESIS, no direct/far/table reference to this address exists anywhere in the ROM (all-bank search for the address word) and it is not a fall-through of proven code, so it is only bytes that decode cleanly
 48F8	4929	code	-	PROBABLE	30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2C:489C (PROBABLE code)
 4929	493E	text	String_2C_4929	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 493E	493F	data	Data_2C_493E	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 493F	49A2	code	Function_2C_493F	CONFIRMED	49 insn(s); 49 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-49A2	49B8	code	-	PROBABLE	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2C:49A0 (executed)
+49A2	49B8	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 2C:49A0 (executed) [executed in 1 scenarios]
 49B8	49BF	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 2/18 scenarios)
-49BF	49CB	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:49BD (executed)
+49BF	49CB	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:49BD (executed) [executed in 1 scenarios]
 49CB	49DF	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 2/18 scenarios)
 49DF	49E3	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:49DD (executed) [executed in 2 scenarios]
 49E3	49E8	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
@@ -78,9 +96,14 @@
 56C0	56F2	data	Data_2C_56C0	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; 56C2 = count $0B + 11 entries, 56EF = 01 00 04 terminator group; targets of the 56B0 table (56C0, 56EF)
 56F2	56FE	words	Table_2C_56F2	CONFIRMED	6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 56FE	5738	code	Function_2C_56FE	CONFIRMED	24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-5738	5768	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 2C:5736 (executed)
+5738	5757	code	-	CONFIRMED	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 2C:5736 (executed) | 13 insn(s) executed; cut out of the PROBABLE region 5738-5768 by apply_coverage --split [executed in 3 scenarios]
+5757	5768	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5738-5768 by apply_coverage --split
 5768	57A7	code	-	CONFIRMED	28 insn(s); 28 executed (in up to 1/18 scenarios)
-57A7	58AC	code	-	PROBABLE	160 insn(s) reached by static flow only; seeds: exec x160; min discovery hops 1; entered by callcc from 2C:579F (executed)
+57A7	580A	code	-	CONFIRMED	160 insn(s) reached by static flow only; seeds: exec x160; min discovery hops 1; entered by callcc from 2C:579F (executed) | 56 insn(s) executed; cut out of the PROBABLE region 57A7-58AC by apply_coverage --split [executed in 1 scenarios]
+580A	5821	code	-	PROBABLE	14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 57A7-58AC by apply_coverage --split
+5821	585E	code	-	CONFIRMED	39 insn(s) executed; cut out of the PROBABLE region 57A7-58AC by apply_coverage --split [executed in 3 scenarios]
+585E	5860	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 57A7-58AC by apply_coverage --split
+5860	58AC	code	-	CONFIRMED	50 insn(s) executed; cut out of the PROBABLE region 57A7-58AC by apply_coverage --split [executed in 1 scenarios]
 58AC	5A12	code	Function_2C_58AC	CONFIRMED	129 insn(s); 129 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 5A12	5A25	code	-	PROBABLE	10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 5A25	5E51	code	-	PROBABLE	619 insn(s) reached by static flow only; seeds: exec x327, site x292; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
@@ -95,35 +118,38 @@
 60A6	60B3	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
 60B3	614D	code	-	PROBABLE	102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 614D	6165	code	Function_2C_614D	CONFIRMED	11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-6165	61D9	code	-	PROBABLE	61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 0; fall-through of the jrcc at 2C:6163 (executed)
+6165	6176	code	-	CONFIRMED	61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 0; fall-through of the jrcc at 2C:6163 (executed) | 7 insn(s) executed; cut out of the PROBABLE region 6165-61D9 by apply_coverage --split [executed in 8 scenarios]
+6176	617A	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6165-61D9 by apply_coverage --split
+617A	61B7	code	-	CONFIRMED	35 insn(s) executed; cut out of the PROBABLE region 6165-61D9 by apply_coverage --split [executed in 8 scenarios]
+61B7	61D9	code	-	PROBABLE	17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6165-61D9 by apply_coverage --split
 61D9	6230	code	-	CONFIRMED	45 insn(s); 45 executed (in up to 2/18 scenarios)
-6230	6240	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:622E (executed)
+6230	6240	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:622E (executed) [executed in 3 scenarios]
 6240	625C	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
-625C	626C	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:625A (executed)
+625C	626C	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:625A (executed) [executed in 2 scenarios]
 626C	6288	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
-6288	6298	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6286 (executed)
+6288	6298	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6286 (executed) [executed in 2 scenarios]
 6298	62B4	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
-62B4	62C4	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:62B2 (executed)
+62B4	62C4	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:62B2 (executed) [executed in 1 scenarios]
 62C4	62E0	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
-62E0	62F0	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:62DE (executed)
+62E0	62F0	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:62DE (executed) [executed in 2 scenarios]
 62F0	630C	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 1/18 scenarios)
-630C	631C	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:630A (executed)
+630C	631C	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:630A (executed) [executed in 2 scenarios]
 631C	6328	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 1/18 scenarios)
-6328	633C	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jpcc at 2C:6325 (executed)
+6328	633C	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jpcc at 2C:6325 (executed) [executed in 3 scenarios]
 633C	6357	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 1/18 scenarios)
-6357	6367	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6355 (executed)
+6357	6367	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6355 (executed) [executed in 3 scenarios]
 6367	636B	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
-636B	6456	code	-	PROBABLE	95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1; entered by jpcc from 2C:6329 (PROBABLE code)
+636B	6456	code	-	CONFIRMED	95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1; entered by jpcc from 2C:6329 (PROBABLE code) [executed in 1 scenarios]
 6456	64CC	code	-	CONFIRMED	56 insn(s); 56 executed (in up to 1/18 scenarios)
-64CC	64D0	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:64CA (executed)
+64CC	64D0	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2C:64CA (executed) [executed in 3 scenarios]
 64D0	64D4	code	-	CONFIRMED	3 insn(s); 3 executed (in up to 1/18 scenarios)
 64D4	64E0	words	Table_2C_64D4	CONFIRMED	6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 64E0	64E8	code	Function_2C_64E0	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-64E8	6501	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jpcc at 2C:64E5 (executed)
+64E8	6501	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 0; fall-through of the jpcc at 2C:64E5 (executed) [executed in 3 scenarios]
 6501	6519	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
-6519	6529	code	-	PROBABLE	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6517 (executed)
+6519	6529	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2C:6517 (executed) [executed in 3 scenarios]
 6529	6536	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 1/18 scenarios)
-6536	663F	code	-	PROBABLE	95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1; entered by jpcc from 2C:64EA (PROBABLE code)
+6536	663F	code	-	CONFIRMED	95 insn(s) reached by static flow only; seeds: exec x95; min discovery hops 1; entered by jpcc from 2C:64EA (PROBABLE code) [executed in 1 scenarios]
 663F	6702	code	-	CONFIRMED	95 insn(s); 95 executed (in up to 2/18 scenarios)
 6702	6704	data	Data_2C_6702	CONFIRMED	read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6702-672D by higher-priority evidence]
 6704	672D	text	String_2C_6704	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -141,14 +167,14 @@
 7260	7355	data	Data_2C_7260	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; first target of Table_2C_7210 (7260: dw 7264, dw 7279, then the frames) up to the CONFIRMED-read data at 7355
 7355	7357	data	Data_2C_7355	CONFIRMED	read as data by executed code (in up to 2/18 scenarios); content class unknown
 7357	741C	data	Data_2C_7357	PROBABLE	object animation frame records: [count][count x 4 bytes (y,x,tile,attr)] ... chained by pointer lists and terminated by 01 00 04/08 groups; format not fully decoded; reached through the pointer tables; ends with the group 01 00 04 right before the code at 741C
-741C	7421	code	-	PROBABLE	2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421; follows the frame data terminator 01 00 04; no direct entry found
-7421	7450	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; entered by jrcc from 2C:7433 (PROBABLE code)
+741C	7421	code	-	PROBABLE	2 insn(s) (call $746F ; ld b,$3C) falling into the validated code region 7421; follows the frame data terminator 01 00 04; no direct entry found | forced execution: 2/2 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+7421	7450	code	-	PROBABLE	20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; entered by jrcc from 2C:7433 (PROBABLE code) | forced execution: 18/20 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 7450	7456	code	-	PROBABLE	3 insn(s) (ldh a,[$FFA5] ; and $01 ; jr z,$745E): button test whose sibling tests 745E/746D are its jr z targets; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 7456	745E	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 745E	7464	code	-	PROBABLE	3 insn(s) (ldh a,[$FFA5] ; and $02 ; jr z,$746D); entered by jr z from 2C:7454 (this classification)
 7464	746D	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 746D	746F	code	-	PROBABLE	1 insn (jr $7421); entered by jr z from 2C:7462 (this classification)
-746F	7734	code	-	PROBABLE	325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+746F	7734	code	-	PROBABLE	325 insn(s) reached by static flow only; seeds: site x325; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 151/325 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 7734	7740	zero	-	PROBABLE	all-zero padding before an aligned tile/data block (mapper hint: padding-like)
 7740	7860	gfx	Data_2C_7740	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2C:7499: hl=$7740 a=$2C c=$12 de=$9301 (dest VRAM $9300, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 7860	7B30	data	Data_2C_7860	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2C:74CD: hl=$7860 a=$2C b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]

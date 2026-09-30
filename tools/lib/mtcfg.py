@@ -6,6 +6,8 @@ tools/selftest_gen.py.  The file formats are documented in docs/FORMATS.md:
     config/regions/bankNN.tsv   start end kind label status note
     config/symbols/bankNN.tsv   addr name type status evidence
     config/ram/*.tsv            addr name size type status evidence
+    config/ram_banked/*.tsv     bank addr name size type status evidence     (optional: bank-qualified names, bank = W1-W7 | S0-S3)
+    config/ram_context.tsv      bank start end wram_bank sram_bank status evidence   (optional: code ranges run under a WRAM/SRAM bank)
     config/xrefs.tsv            bank addr operand_kind target_bank target_addr [status evidence]
     config/conventions.tsv      bank addr layout status note     (inline-data call conventions)
     config/text_charsets.tsv    bank start end charset [layout [note]]   (optional: how `text` regions are decoded/split)
@@ -135,6 +137,31 @@ class RamVar:
 
 
 @dataclass
+class BankedRam:
+    space: str              # 'w' = WRAM bank 1-7 ($D000-$DFFF, rSVBK) | 's' = SRAM bank 0-3 ($A000-$BFFF, RAMB)
+    bank: int
+    addr: int
+    name: str
+    size: int
+    type: str
+    status: str
+    evidence: str
+    loc: str
+
+
+@dataclass
+class RamContext:
+    bank: int               # ROM bank holding the code range
+    start: int              # CPU (storage) address, inclusive
+    end: int                # exclusive
+    wram: Optional[int]     # effective WRAM bank (rSVBK, 1-7) in force at every instruction of the range, None = no claim
+    sram: Optional[int]     # SRAM bank (RAMB, 0-3) in force at every instruction of the range, None = no claim
+    status: str
+    evidence: str
+    loc: str
+
+
+@dataclass
 class Xref:
     bank: int
     addr: int
@@ -182,6 +209,8 @@ class Config:
     regions: Dict[int, List[Region]] = field(default_factory=dict)   # gap-filled, sorted
     symbols: Dict[int, List[Symbol]] = field(default_factory=dict)
     ram: List[RamVar] = field(default_factory=list)
+    ram_banked: List[BankedRam] = field(default_factory=list)
+    ram_context: List[RamContext] = field(default_factory=list)
     xrefs: List[Xref] = field(default_factory=list)
     conventions: List[Convention] = field(default_factory=list)
     textspecs: List['TextSpec'] = field(default_factory=list)
@@ -474,6 +503,155 @@ def load_ram(cfgdir: str, diag: Diag, hw_names=()) -> List[RamVar]:
     return out
 
 
+# ------------------------------------------------------------- banked ram + contexts
+
+WRAM_BANKED = (0xD000, 0xE000)
+SRAM_WINDOW = (0xA000, 0xC000)
+_BANKTOK = re.compile(r'^([WwSs])([0-9])$')
+
+
+def parse_bank_token(tok: str):
+    """`W5` -> ('w', 5), `S1` -> ('s', 1); None if malformed or out of range (WRAM 1-7, SRAM 0-3)."""
+    m = _BANKTOK.match(tok.strip())
+    if not m:
+        return None
+    sp, n = m.group(1).lower(), int(m.group(2))
+    if (sp == 'w' and 1 <= n <= 7) or (sp == 's' and 0 <= n <= 3):
+        return sp, n
+    return None
+
+
+def load_ram_banked(cfgdir: str, diag: Diag, hw_names=()) -> List[BankedRam]:
+    """config/ram_banked/*.tsv: bank addr name size type status evidence.  `bank` = W1..W7 (WRAM bank, addresses $D000-$DFFF) or
+    S0..S3 (SRAM bank, $A000-$BFFF).  A banked name is used only where a config/ram_context.tsv range declares that bank."""
+    out: List[BankedRam] = []
+    for path in sorted(glob.glob(os.path.join(cfgdir, 'ram_banked', '*.tsv'))):
+        for n, f in _rows(path):
+            loc = '%s:%d' % (_rel(path), n)
+            if f[0].strip().lower() == 'bank':
+                continue
+            if len(f) < 4:
+                diag.error(loc, 'need at least: bank addr name size')
+                continue
+            f = f + [''] * (7 - len(f)) if len(f) < 7 else f[:6] + ['\t'.join(f[6:])]
+            bt = parse_bank_token(f[0])
+            if bt is None:
+                diag.error(loc, 'bank must be W1-W7 (WRAM) or S0-S3 (SRAM), got %r' % f[0])
+                continue
+            try:
+                addr, size = parse_hex(f[1]), parse_size(f[3])
+            except ValueError:
+                diag.error(loc, 'addr must be hex and size an integer, got %r %r' % (f[1], f[3]))
+                continue
+            name, typ, status, ev = f[2].strip(), f[4].strip(), f[5].strip().upper(), ' '.join(f[6].split())
+            ok = check_name(name, loc, diag, hw_names)
+            lo, hi = WRAM_BANKED if bt[0] == 'w' else SRAM_WINDOW
+            if not (lo <= addr and size >= 1 and addr + size <= hi):
+                diag.error(loc, 'banked variable %s $%04X (+%d) must lie inside $%04X-$%04X for bank %s'
+                           % (name, addr, size, lo, hi - 1, f[0].strip().upper()))
+                ok = False
+            if status and status not in STATUSES:
+                diag.error(loc, 'status %r must be one of %s' % (f[5], '|'.join(STATUSES)))
+                ok = False
+            elif not status:
+                diag.warn(loc, 'missing status')
+            if ok:
+                out.append(BankedRam(bt[0], bt[1], addr, name, size, typ, status, ev, loc))
+    # extents inside one (space, bank) must not overlap: the same CPU address in ANOTHER bank is a different object
+    per: Dict[Tuple[str, int], List[BankedRam]] = {}
+    for v in out:
+        per.setdefault((v.space, v.bank), []).append(v)
+    bad = set()
+    for lst in per.values():
+        lst.sort(key=lambda v: (v.addr, v.name))
+        for a, b in zip(lst, lst[1:]):
+            if b.addr < a.addr + a.size:
+                diag.error(b.loc, 'banked variable %s $%04X overlaps %s $%04X (+%d) of the same bank (%s)' % (b.name, b.addr, a.name, a.addr, a.size, a.loc))
+                bad.add(id(b))
+    return [v for v in out if id(v) not in bad]
+
+
+def load_ram_context(cfgdir: str, nbanks: int, diag: Diag) -> List[RamContext]:
+    """config/ram_context.tsv: bank start end wram_bank sram_bank status evidence (optional file).  Each row declares that EVERY
+    instruction of ROM bank `bank`, storage addresses [start, end), executes with the given WRAM bank (rSVBK, effective value 1-7,
+    `-` = no claim) and/or SRAM bank (RAMB 0-3, `-` = no claim).  Evidence is mandatory.  Two rows that overlap and claim different
+    banks for the same dimension are an error (equal claims: warning)."""
+    path = os.path.join(cfgdir, 'ram_context.tsv')
+    out: List[RamContext] = []
+    if not os.path.exists(path):
+        return out
+    for n, f in _rows(path):
+        loc = '%s:%d' % (_rel(path), n)
+        if f[0].strip().lower() == 'bank':
+            continue
+        if len(f) < 7:
+            diag.error(loc, 'need: bank start end wram_bank sram_bank status evidence')
+            continue
+        f = f[:6] + ['\t'.join(f[6:])]
+        try:
+            bank, start, end = parse_hex(f[0]), parse_hex(f[1]), parse_hex(f[2])
+        except ValueError:
+            diag.error(loc, 'bank/start/end must be hex, got %r %r %r' % (f[0], f[1], f[2]))
+            continue
+        ok = True
+
+        def dim(tok, lo, hi, what):
+            nonlocal ok
+            tok = tok.strip()
+            if tok in ('-', ''):
+                return None
+            try:
+                v = int(tok, 10)
+            except ValueError:
+                v = -1
+            if not lo <= v <= hi:
+                diag.error(loc, '%s must be %d-%d or -, got %r' % (what, lo, hi, tok))
+                ok = False
+                return None
+            return v
+        w = dim(f[3], 1, 7, 'wram_bank')
+        sr = dim(f[4], 0, 3, 'sram_bank')
+        if ok and w is None and sr is None:
+            diag.error(loc, 'row claims neither a wram_bank nor a sram_bank')
+            ok = False
+        status, ev = f[5].strip().upper(), ' '.join(f[6].split())
+        if status not in STATUSES:
+            diag.error(loc, 'status %r must be one of %s' % (f[5], '|'.join(STATUSES)))
+            ok = False
+        if not ev:
+            diag.error(loc, 'a context row needs evidence (why does this code run under that bank?)')
+            ok = False
+        if bank >= nbanks:
+            diag.error(loc, 'bank %02X does not exist (ROM has %d banks)' % (bank, nbanks))
+            ok = False
+        elif not (window(bank)[0] <= start < end <= window(bank)[1]):
+            diag.error(loc, 'range %04X-%04X is not inside the bank %02X window %04X-%04X' % ((start, end, bank) + window(bank)))
+            ok = False
+        if ok:
+            out.append(RamContext(bank, start, end, w, sr, status, ev, loc))
+    # conflicts: same bank, overlapping ranges, both claim the same dimension with different values
+    by_bank: Dict[int, List[RamContext]] = {}
+    for c in out:
+        by_bank.setdefault(c.bank, []).append(c)
+    dropped = set()
+    for lst in by_bank.values():
+        lst.sort(key=lambda c: (c.start, c.end))
+        for i, a in enumerate(lst):
+            for b in lst[i + 1:]:
+                if b.start >= a.end:
+                    break
+                for nm, va, vb in (('wram_bank', a.wram, b.wram), ('sram_bank', a.sram, b.sram)):
+                    if va is None or vb is None:
+                        continue
+                    if va != vb:
+                        diag.error(b.loc, 'conflicting contexts: %02X:%04X-%04X (%s) claims %s=%d, overlapping %02X:%04X-%04X claims %d (%s)'
+                                   % (b.bank, b.start, b.end, b.loc, nm, vb, a.bank, a.start, a.end, va, a.loc))
+                        dropped.add(id(b))
+                    else:
+                        diag.warn(b.loc, 'context overlaps %s and repeats its %s=%d claim' % (a.loc, nm, va))
+    return [c for c in out if id(c) not in dropped]
+
+
 # ------------------------------------------------------------------------ xrefs
 
 def load_xrefs(paths, nbanks: int, diag: Diag) -> List[Xref]:
@@ -613,11 +791,17 @@ def load_textspecs(cfgdir: str, nbanks: int, diag: Diag) -> List[TextSpec]:
     return out
 
 
-def load_config(cfgdir: str, nbanks: int, hw: Hardware, diag: Diag, extra_xrefs=()) -> Config:
+def load_config(cfgdir: str, nbanks: int, hw: Hardware, diag: Diag, extra_xrefs=(), contexts: bool = True, banked: bool = True) -> Config:
+    """`contexts=False` skips config/ram_context.tsv, `banked=False` skips config/ram_banked/*.tsv (tools/rambank_infer.py and
+    tools/build_ram_config.py, which produce them, must not depend on the files they are about to rewrite)."""
     cfg = Config()
     cfg.regions = load_regions(cfgdir, nbanks, diag, hw.names)
     cfg.symbols = load_symbols(cfgdir, nbanks, diag, hw.names)
     cfg.ram = load_ram(cfgdir, diag, hw.names)
+    if banked:
+        cfg.ram_banked = load_ram_banked(cfgdir, diag, hw.names)
+    if contexts:
+        cfg.ram_context = load_ram_context(cfgdir, nbanks, diag)
     cfg.xrefs = load_xrefs(xref_files(cfgdir, extra_xrefs), nbanks, diag)
     cfg.conventions = load_conventions(cfgdir, nbanks, diag)
     cfg.textspecs = load_textspecs(cfgdir, nbanks, diag)

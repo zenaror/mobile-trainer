@@ -1,20 +1,27 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4126	code	Function_57_4000	CONFIRMED	124 insn(s); 124 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-4126	41CA	code	-	PROBABLE	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed)
+4126	4129	code	-	CONFIRMED	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4126-41CA by apply_coverage --split [executed in 6 scenarios]
+4129	41CA	code	-	PROBABLE	77 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4126-41CA by apply_coverage --split
 41CA	4237	code	-	CONFIRMED	51 insn(s); 51 executed (in up to 6/18 scenarios)
-4237	4443	code	-	PROBABLE	238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed)
+4237	4265	code	-	CONFIRMED	238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed) | 22 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
+4265	4267	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
+4267	4297	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
+4297	4299	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
+4299	4443	code	-	CONFIRMED	196 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 1 scenarios]
 4443	4475	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 5/18 scenarios)
 4475	4477	code	-	PROBABLE	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 0; fall-through of the jrcc at 57:4473 (executed)
 4477	447B	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
 447B	44E4	code	-	CONFIRMED	48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 1; entered by jrcc from 57:444F (executed) [executed in 1 scenarios]
 44E4	450B	code	Function_57_44E4	CONFIRMED	15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-450B	4511	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed)
+450B	450E	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 450B-4511 by apply_coverage --split [executed in 6 scenarios]
+450E	4511	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 450B-4511 by apply_coverage --split
 4511	4513	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 4/18 scenarios)
 4513	459A	code	-	CONFIRMED	56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 1; entered by jpcc from 57:44F8 (executed) [executed in 3 scenarios]
 459A	45BC	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 5/18 scenarios)
 45BC	45E6	code	-	CONFIRMED	17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by jpcc from 57:450B (PROBABLE code) [executed in 4 scenarios]
 45E6	4618	code	Function_57_45E6	CONFIRMED	20 insn(s); 20 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-4618	4668	code	-	PROBABLE	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed)
+4618	461B	code	-	CONFIRMED	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4618-4668 by apply_coverage --split [executed in 6 scenarios]
+461B	4668	code	-	PROBABLE	27 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4618-4668 by apply_coverage --split
 4668	467E	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 2/18 scenarios)
 467E	468E	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 57:466C (executed) [executed in 5 scenarios]
 468E	46B4	code	-	CONFIRMED	13 insn(s); 13 executed (in up to 4/18 scenarios)
@@ -22,7 +29,8 @@
 4771	477E	code	-	CONFIRMED	5 insn(s); 5 executed (in up to 5/18 scenarios)
 477E	47A6	code	-	CONFIRMED	15 insn(s) reached by static flow only; seeds: exec x15; min discovery hops 1; entered by jpcc from 57:4618 (PROBABLE code) [executed in 2 scenarios]
 47A6	47CD	code	Function_57_47A6	CONFIRMED	15 insn(s); 15 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-47CD	47D1	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 57:47CA (executed)
+47CD	47D0	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 57:47CA (executed) | 1 insn(s) executed; cut out of the PROBABLE region 47CD-47D1 by apply_coverage --split [executed in 6 scenarios]
+47D0	47D1	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47CD-47D1 by apply_coverage --split
 47D1	4951	code	-	CONFIRMED	144 insn(s); 144 executed (in up to 6/18 scenarios)
 4951	4D28	code	-	CONFIRMED	360 insn(s) reached by static flow only; seeds: exec x360; min discovery hops 1; entered by jpcc from 57:47BA (executed) [executed in 1 scenarios]
 4D28	4D30	zero	-	PROBABLE	8 zero bytes of padding before the tile block 4D30
@@ -33,7 +41,9 @@
 5077	50BA	code	-	CONFIRMED	22 insn(s); 22 executed (in up to 6/18 scenarios)
 50BA	510F	code	-	CONFIRMED	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 0; fall-through of the jrcc at 57:50B8 (executed) [executed in 1 scenarios]
 510F	5136	code	Function_57_510F	CONFIRMED	15 insn(s); 15 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-5136	5187	code	-	PROBABLE	26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0; fall-through of the jpcc at 57:5133 (executed)
+5136	5139	code	-	CONFIRMED	26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0; fall-through of the jpcc at 57:5133 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage --split [executed in 6 scenarios]
+5139	513B	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5136-5187 by apply_coverage --split
+513B	5187	code	-	CONFIRMED	23 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage --split [executed in 3 scenarios]
 5187	51AB	code	-	CONFIRMED	11 insn(s); 11 executed (in up to 5/18 scenarios)
 51AB	51BC	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jpcc from 57:5136 (PROBABLE code) [executed in 4 scenarios]
 51BC	520D	code	-	CONFIRMED	40 insn(s); 40 executed (in up to 5/18 scenarios)
@@ -41,15 +51,23 @@
 52D8	52FB	code	-	CONFIRMED	18 insn(s): function (ldh [$FFF2],a ; ldh a,[$FF8D] ; push af ; ... ld hl,$DA20 ; ld de,$79B8 ; ld a,$56 ; ld b,$81) falling into the FarCall site at 57:52FB (00:0A82 init_object_from_table); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); entry evidence (verifier): a far pointer to this address is registered with `ld de,$52D8 ; ld a,$57 ; call $0A45` (00:0A45 stores de/a as a 3-byte far pointer at [hl]) at 57:42C3 and 57:4372, all static-reached (not executed); PROBABLE [executed in 4 scenarios]
 52FB	531E	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code [executed in 4 scenarios]
 531E	5340	code	-	CONFIRMED	17 insn(s): complete function ending in ret (same WRAM7 bank save/restore prologue/epilogue as 57:52D8); well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); entry evidence (verifier): a far pointer to this address is registered with `ld de,$531E ; ld a,$57 ; call $0A45` (00:0A45 stores de/a as a 3-byte far pointer at [hl]) at 57:5304, 57:43A8 and 57:4553, all static-reached (not executed); PROBABLE [executed in 4 scenarios]
-5340	541C	code	-	PROBABLE	122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code)
+5340	5411	code	-	CONFIRMED	122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code) | 117 insn(s) executed; cut out of the PROBABLE region 5340-541C by apply_coverage --split [executed in 2 scenarios]
+5411	541C	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5340-541C by apply_coverage --split
 541C	5444	code	Function_57_541C	CONFIRMED	20 insn(s); 20 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 5444	546C	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 3; entered by call from 57:4308 (PROBABLE code) [executed in 4 scenarios]
 546C	5494	code	Function_57_546C	CONFIRMED	16 insn(s); 16 executed (in up to 6/18 scenarios); entry proven: target of an executed call/far call
-5494	54E4	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 57:5491 (executed)
+5494	5497	code	-	CONFIRMED	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 57:5491 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 5494-54E4 by apply_coverage --split [executed in 6 scenarios]
+5497	54E4	code	-	PROBABLE	43 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5494-54E4 by apply_coverage --split
 54E4	54F9	code	-	CONFIRMED	12 insn(s); 12 executed (in up to 2/18 scenarios)
 54F9	550A	code	-	CONFIRMED	9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1; entered by jrcc from 57:54E6 (executed) [executed in 5 scenarios]
 550A	5530	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 4/18 scenarios)
-5530	55E0	code	-	PROBABLE	96 insn(s) reached by static flow only; seeds: exec x96; min discovery hops 1; entered by jpcc from 57:5481 (executed)
+5530	5556	code	-	CONFIRMED	96 insn(s) reached by static flow only; seeds: exec x96; min discovery hops 1; entered by jpcc from 57:5481 (executed) | 21 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 4 scenarios]
+5556	557C	code	-	PROBABLE	21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split
+557C	5598	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 3 scenarios]
+5598	55A9	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split
+55A9	55E0	code	-	CONFIRMED	30 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 1 scenarios]
 55E0	5606	code	-	CONFIRMED	21 insn(s); 21 executed (in up to 5/18 scenarios)
-5606	5641	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 57:5494 (PROBABLE code)
+5606	560E	code	-	CONFIRMED	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 57:5494 (PROBABLE code) | 5 insn(s) executed; cut out of the PROBABLE region 5606-5641 by apply_coverage --split [executed in 5 scenarios]
+560E	561F	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5606-5641 by apply_coverage --split
+561F	5641	code	-	CONFIRMED	18 insn(s) executed; cut out of the PROBABLE region 5606-5641 by apply_coverage --split [executed in 4 scenarios]
 5641	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

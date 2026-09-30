@@ -1116,7 +1116,7 @@ Bcd_FromBinary8:: ; 48:4728
 	or a, e
 	ret
 
-; ---- code $4744-$4748 (4 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 48:4729 (executed)
+; ---- code $4744-$4748 (4 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 48:4729 (executed) [executed in 1 scenarios]
 
 Label_48_4744:: ; 48:4744
 	ld a, $00
@@ -1256,7 +1256,7 @@ Label_48_47EE:: ; 48:47EE
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $480F-$4810 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jpcc from 48:477C (executed)
+; ---- code $480F-$4810 (1 bytes) [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jpcc from 48:477C (executed) | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Label_48_480F:: ; 48:480F
 	ret

@@ -1,18 +1,57 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4090	code	Function_2E_4000	CONFIRMED	63 insn(s); 63 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4090	4099	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed)
+4090	4099	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 2E:408E (executed) [executed in 1 scenarios]
 4099	40B9	code	-	CONFIRMED	18 insn(s); 18 executed (in up to 1/18 scenarios)
-40B9	417F	code	-	PROBABLE	104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0; fall-through of the jpcc at 2E:40B6 (executed)
+40B9	40DA	code	-	CONFIRMED	104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 0; fall-through of the jpcc at 2E:40B6 (executed) | 16 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
+40DA	4107	code	-	PROBABLE	21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+4107	4145	code	-	CONFIRMED	31 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
+4145	4149	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+4149	4169	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 1 scenarios]
+4169	416D	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+416D	4175	code	-	CONFIRMED	6 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 8 scenarios]
+4175	4176	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40B9-417F by apply_coverage --split
+4176	417F	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 40B9-417F by apply_coverage --split [executed in 7 scenarios]
 417F	4292	code	-	CONFIRMED	139 insn(s); 139 executed (in up to 1/18 scenarios)
-4292	488A	code	-	PROBABLE	762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5; entered by jpcc from 2E:41E2 (executed)
+4292	4341	code	-	CONFIRMED	762 insn(s) reached by static flow only; seeds: exec x762; min discovery hops 5; entered by jpcc from 2E:41E2 (executed) | 89 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
+4341	434C	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+434C	438E	code	-	CONFIRMED	44 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 5 scenarios]
+438E	43AF	code	-	PROBABLE	23 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+43AF	4468	code	-	CONFIRMED	101 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 7 scenarios]
+4468	447A	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+447A	44A6	code	-	CONFIRMED	20 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
+44A6	44AF	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+44AF	4516	code	-	CONFIRMED	56 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
+4516	4518	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+4518	4726	code	-	CONFIRMED	244 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
+4726	4731	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+4731	4853	code	-	CONFIRMED	138 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
+4853	4857	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4292-488A by apply_coverage --split
+4857	488A	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 4292-488A by apply_coverage --split [executed in 1 scenarios]
 488A	488E	code	-	HYPOTHESIS	function prologue push af/bc/de/hl right after the unconditional jp $4298 at 4887 and directly before the far-call site region at 488E; the matching pop sequence was not proven, no caller/pointer found, entry unproven
-488E	4B2E	code	-	PROBABLE	298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+488E	4A47	code	-	PROBABLE	298 insn(s) reached by static flow only; seeds: exec x130, site x168; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 195 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
+4A47	4AB2	code	-	CONFIRMED	47 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
+4AB2	4AE2	code	-	PROBABLE	24 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
+4AE2	4AED	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split [executed in 1 scenarios]
+4AED	4B2E	code	-	PROBABLE	22 insn(s) never executed in the traced runs; cut out of the PROBABLE region 488E-4B2E by apply_coverage --split
 4B2E	4C58	code	Function_2E_4B2E	CONFIRMED	100 insn(s); 100 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4C58	4EB2	code	-	PROBABLE	260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code)
+4C58	4DBF	code	-	PROBABLE	260 insn(s) reached by static flow only; seeds: exec x260; min discovery hops 9; entered by call from 2E:4AD4 (PROBABLE code) | 138 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
+4DBF	4E3F	code	-	CONFIRMED	66 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 5 scenarios]
+4E3F	4EB1	code	-	PROBABLE	55 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split
+4EB1	4EB2	code	-	CONFIRMED	1 insn(s) executed; cut out of the PROBABLE region 4C58-4EB2 by apply_coverage --split [executed in 7 scenarios]
 4EB2	4EBD	code	-	HYPOTHESIS	complete 11-byte function (ld b,$3C ; loop: push bc ; call $0464 ; pop bc ; dec b ; jr nz ; ret): waits 60 x the 00:0464 routine (executed 21685 times, 13 scenarios); jr lands on its own instruction start; no caller found (entry unproven) [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
-4EBD	4F9A	code	-	PROBABLE	104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code)
+4EBD	4F25	code	-	CONFIRMED	104 insn(s) reached by static flow only; seeds: exec x104; min discovery hops 9; entered by call from 2E:43D3 (PROBABLE code) | 40 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
+4F25	4F29	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split
+4F29	4F9A	code	-	CONFIRMED	62 insn(s) executed; cut out of the PROBABLE region 4EBD-4F9A by apply_coverage --split [executed in 7 scenarios]
 4F9A	4FA9	code	-	HYPOTHESIS	complete function (ld a,[C2EE] ; cp 0 ; ret z ; dec a ; ld [C2EE],a ; call $4FA9 ; jr -> ret at 4F99): counted loop around the function 2E:4FA9, which is a PROBABLE entry (called from 2E:4F42); the jr target 4F99 is a ret inside the previous code region; no caller of 4F9A found [verifier: downgraded PROBABLE->HYPOTHESIS: complete-looking function with no caller, no table entry and no flow from/into proven code; "decodes cleanly" is not an entry]
-4FA9	533C	code	-	PROBABLE	528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code)
+4FA9	519A	code	-	CONFIRMED	528 insn(s) reached by static flow only; seeds: exec x528; min discovery hops 6; entered by call from 2E:4F42 (PROBABLE code) | 325 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
+519A	51FD	code	-	PROBABLE	45 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+51FD	520D	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
+520D	525A	code	-	PROBABLE	36 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+525A	526A	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
+526A	52A0	code	-	PROBABLE	26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+52A0	5300	code	-	CONFIRMED	47 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 1 scenarios]
+5300	5315	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split
+5315	533C	code	-	CONFIRMED	26 insn(s) executed; cut out of the PROBABLE region 4FA9-533C by apply_coverage --split [executed in 7 scenarios]
 533C	53A8	code	Function_2E_533C	CONFIRMED	50 insn(s); 50 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 53A8	53C1	text	String_2E_53A8	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 53C1	53DA	text	String_2E_53C1	PROBABLE	second line of the message record (12 full-width spaces $8140 + NUL), same layout as 2E:5410/545F/55A8: line 1 string, blank line, then the function that far-calls the text drawer

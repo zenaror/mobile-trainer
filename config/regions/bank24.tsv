@@ -1,10 +1,32 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	4018	words	Table_24_4000	PROBABLE	12 words = SRAM addresses: $A084,$A184..$A584 (stride $100) and $A000,$A016,$A02C,$A042,$A058,$A06E (stride $16); entries 4000/4002/4004/4006/4008/400A are loaded by ld hl,$400x at 24:44C9,44E5,4501,451D,4539,4555 (analysis of ld imm16 operands); meaning of the slots not decoded
-4018	42AF	code	-	PROBABLE	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code)
+4018	4099	code	-	CONFIRMED	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 2; entered by far from 4E:4DB1 (PROBABLE code) | 59 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
+4099	40AC	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
+40AC	40CD	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
+40CD	40FA	code	-	PROBABLE	21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
+40FA	4103	code	-	CONFIRMED	5 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 3 scenarios]
+4103	41D7	code	-	PROBABLE	86 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4018-42AF by apply_coverage --split
+41D7	42AF	code	-	CONFIRMED	113 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage --split [executed in 2 scenarios]
 42AF	42D1	code	-	HYPOTHESIS	ret + routine 42B0: copies the NUL-terminated string at $42D1 to $D500 and the one at $42E7 to $D3C0 (WRAM bank 6); the two ld hl immediates point exactly at the strings below, which is why code and text are classified together; entry not proven (no caller found) [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 42D1	42E7	text	String_24_42D1	PROBABLE	ASCII "http://www.goo.ne.jp/" NUL-terminated, addressed by ld hl,$42D1 at 24:42B9
 42E7	42F0	text	String_24_42E7	PROBABLE	Shift-JIS NUL-terminated string (ぐーぐー), addressed by ld hl,$42E7 at 24:42C6
-42F0	4B10	code	-	PROBABLE	989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code)
+42F0	4517	code	-	CONFIRMED	989 insn(s) reached by static flow only; seeds: exec x989; min discovery hops 3; entered by call from 24:406A (PROBABLE code) | 219 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
+4517	4527	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+4527	454F	code	-	CONFIRMED	21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
+454F	455F	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+455F	456B	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 9 scenarios]
+456B	457B	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+457B	4672	code	-	CONFIRMED	111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 1 scenarios]
+4672	468F	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+468F	46BC	code	-	CONFIRMED	21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
+46BC	46D9	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+46D9	4706	code	-	CONFIRMED	21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
+4706	4723	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+4723	4750	code	-	CONFIRMED	21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 4 scenarios]
+4750	476D	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+476D	49A7	code	-	CONFIRMED	334 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 2 scenarios]
+49A7	49CC	code	-	PROBABLE	19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split
+49CC	4B10	code	-	CONFIRMED	159 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage --split [executed in 9 scenarios]
 4B10	4B18	ptrtable	Table_24_4B10	PROBABLE	4 words $4B18,$4B45,$4B72,$4B9F = starts of four 45-byte (multi-line, NUL separated) Shift-JIS messages at 4B18-4BCC; the table is loaded by ld hl,$4B10 at 24:4A83 (a=$24 nearby)
 4B18	4B21	text	String_24_4B18	PROBABLE	Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 4B21	4B3C	text	String_24_4B21	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -16,7 +38,27 @@
 4BA8	4BC3	text	String_24_4BA8	PROBABLE	text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 4BC3	4BCC	text	String_24_4BC3	PROBABLE	Shift-JIS NUL-terminated line(s) of the message table at 24:4B10 (decodes cleanly with cp932; continues the neighbouring text regions of the same 45-byte messages)
 4BCC	4BCD	data	Data_24_4BCC	HYPOTHESIS	UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [range trimmed from 4BC3-4BCD by classify_g2]
-4BCD	53FE	code	-	PROBABLE	1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code)
+4BCD	4BEB	code	-	CONFIRMED	1021 insn(s) reached by static flow only; seeds: exec x1021; min discovery hops 4; entered by call from 24:4203 (PROBABLE code) | 11 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
+4BEB	4BFE	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+4BFE	4C2F	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+4C2F	4C38	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+4C38	4C55	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+4C55	4D25	code	-	PROBABLE	85 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+4D25	4EEF	code	-	CONFIRMED	225 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+4EEF	4EF1	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+4EF1	4F04	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 8 scenarios]
+4F04	4F14	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+4F14	5064	code	-	CONFIRMED	171 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+5064	5087	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+5087	50AE	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+50AE	50FC	code	-	PROBABLE	30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+50FC	5149	code	-	CONFIRMED	45 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 2 scenarios]
+5149	514C	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+514C	530A	code	-	CONFIRMED	242 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 1 scenarios]
+530A	53A6	code	-	PROBABLE	60 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+53A6	53FC	code	-	CONFIRMED	55 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 3 scenarios]
+53FC	53FD	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split
+53FD	53FE	code	-	CONFIRMED	1 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage --split [executed in 8 scenarios]
 53FE	5400	zero	-	PROBABLE	0x00 padding between code and the tile block at $5400
 5400	55D0	gfx	Tiles_24_5400	PROBABLE	2bpp tiles by coherence: 29 non-blank tiles, mean adjacent-pixel similarity h=0.67 v=0.50 (random data ~0.25-0.35); part of the 1024-byte block 5400-5800 uploaded by Function_00_0749 (general HDMA start: hl=$5400 a=$24 c=$40 de=$9301) at 24:432C; call site never executed in a trace
 55D0	5810	gfx	Data_24_55D0	PROBABLE	tiles-2bpp: heuristic: 33 coherent tiles (hsim2=0.738 vsim2=0.702, 1 blank) parity 0

@@ -694,7 +694,7 @@ CommErr_PrintMessage:: ; 5C:531E
 	farcall Tilemap_FillAscendingWithAttr
 	ret
 
-; ---- code $53A1-$53B3 (18 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jpcc from 5C:5280 (executed)
+; ---- code $53A1-$53B3 (18 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1; entered by jpcc from 5C:5280 (executed) | forced execution: 6/6 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 Label_5C_53A1:: ; 5C:53A1
 	ld bc, $1214

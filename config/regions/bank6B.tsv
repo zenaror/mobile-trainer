@@ -2,6 +2,7 @@
 4000	4060	zero	-	HYPOTHESIS	0x00 run of 100 bytes [clipped from 4000-4064 by higher-priority proposals]
 4060	4C30	gfx	Data_6B_4060	PROBABLE	tiles-2bpp: heuristic: 154 coherent tiles (hsim2=0.792 vsim2=0.865, 33 blank) parity 0
 4C30	4C80	zero	-	HYPOTHESIS	0x00 run of 82 bytes [clipped from 4C2E-4C80 by higher-priority proposals]
-4C80	4D1B	code	-	PROBABLE	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 1; entered by call from 00:02A9 (PROBABLE code)
-4D1B	4D20	data	Data_6B_4D1B	PROBABLE	5-byte BGP fade table 00 40 90 E4 D9 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); previous code ends with ret, zero padding follows
+4C80	4D1B	code	-	CONFIRMED	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 1; entered by call from 00:02A9 (PROBABLE code) [executed in 1 scenarios]
+4D1B	4D1F	data	Data_6B_4D1B	PROBABLE	4-byte BGP fade table 00 40 90 E4 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); the byte after it ($D9 at 4D1F) is executed as `reti`, see the next region [round 3: split from the former 5-byte data region 4D1B-4D20 read as `00 40 90 E4 D9`]
+4D1F	4D20	code	-	CONFIRMED	1 insn (`reti`, $D9) executed by scenario noncgb_boot (register A = $01 at start): the target of the VBlank stub `jp $4D1F` that NonCgb_ErrorScreen installs (the byte also follows the 4-entry BGP fade table); found by apply_coverage as an executed start outside every code region [executed in 1 scenarios]
 4D20	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

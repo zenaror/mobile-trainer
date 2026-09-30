@@ -10,7 +10,7 @@
 4110	414F	code	-	CONFIRMED	29 insn(s); 29 executed (in up to 1/18 scenarios)
 414F	4156	code	-	CONFIRMED	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:414D (executed) [executed in 1 scenarios]
 4156	4166	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 1/18 scenarios)
-4166	417A	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
+4166	417A	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded [executed in 2 scenarios]
 417A	4181	data	Data_27_417A	CONFIRMED	read as data by executed code (in up to 4/18 scenarios); content class unknown
 4181	41BC	code	-	PROBABLE	24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 41BC	41DB	code	Function_27_41BC	CONFIRMED	15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
@@ -30,7 +30,9 @@
 43FF	4589	code	-	CONFIRMED	164 insn(s); 164 executed (in up to 2/18 scenarios)
 4589	4599	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 27:4575 (executed) [executed in 4 scenarios]
 4599	45A4	code	-	CONFIRMED	4 insn(s); 4 executed (in up to 2/18 scenarios)
-45A4	45DC	code	-	PROBABLE	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 27:456F (executed)
+45A4	45A8	code	-	CONFIRMED	19 insn(s) reached by static flow only; seeds: exec x19; min discovery hops 1; entered by jrcc from 27:456F (executed) | 2 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
+45A8	45C3	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split
+45C3	45DC	code	-	CONFIRMED	8 insn(s) executed; cut out of the PROBABLE region 45A4-45DC by apply_coverage --split [executed in 8 scenarios]
 45DC	46A0	code	-	CONFIRMED	86 insn(s); 86 executed (in up to 2/18 scenarios)
 46A0	46A1	data	Data_27_46A0	HYPOTHESIS	UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 46A1	46DF	code	-	PROBABLE	26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 0; entered by jr from 27:46DD (PROBABLE code)
@@ -47,7 +49,15 @@
 4850	48E6	code	-	CONFIRMED	63 insn(s); 63 executed (in up to 2/18 scenarios)
 48E6	48EA	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 27:48E4 (executed) [executed in 2 scenarios]
 48EA	49B0	code	-	CONFIRMED	83 insn(s); 83 executed (in up to 2/18 scenarios)
-49B0	4B95	code	-	PROBABLE	199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code)
+49B0	49C0	code	-	CONFIRMED	199 insn(s) reached by static flow only; seeds: exec x199; min discovery hops 7; entered by far from 22:4BCB (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+49C0	49C6	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+49C6	49CA	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+49CA	49D1	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+49D1	4A3E	code	-	CONFIRMED	40 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+4A3E	4A81	code	-	PROBABLE	26 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+4A81	4A85	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
+4A85	4AA0	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split
+4AA0	4B95	code	-	CONFIRMED	106 insn(s) executed; cut out of the PROBABLE region 49B0-4B95 by apply_coverage --split [executed in 1 scenarios]
 4B95	4D06	code	Function_27_4B95	CONFIRMED	122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 4D06	4D19	code	-	PROBABLE	9 insn(s): function prologue (ldh [$FFF2],a ; ldh a,[$FF8D] ; push af ; ... ld a,7 ; ldh [$FF8D],a ; ldh [$FF70],a ; call $047A ; ld hl,$D800) falling into the code at 4D19; well-formed instruction chain (clean decode, all direct targets land on instruction starts, lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 4D19	4D31	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code

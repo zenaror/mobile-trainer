@@ -3,7 +3,9 @@
 4010	4054	code	Function_68_4010	CONFIRMED	40 insn(s); 40 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 4054	408E	code	-	CONFIRMED	41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 6; entered by call from 68:4666 (PROBABLE code) [executed in 2 scenarios]
 408E	409A	text	String_68_408E	PROBABLE	12 ASCII bytes "0123456789#*" (not NUL-terminated: telephone dial keys), addressed by ld hl,$408E at 68:4066 and 68:407B
-409A	40D8	code	-	PROBABLE	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code)
+409A	40B5	code	-	CONFIRMED	38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code) | 15 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 1 scenarios]
+40B5	40B7	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split
+40B7	40D8	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 3 scenarios]
 40D8	4152	code	Function_68_40D8	CONFIRMED	72 insn(s); 72 executed (in up to 7/18 scenarios); entry proven: target of an executed call/far call
 4152	4161	code	-	HYPOTHESIS	function body after the ret at 4151 (ldh [$F2],a ; ldh a,[$8D] ; push af ; ... ld a,3 ; ldh [$8D],a ; ldh [$70],a ; ld b,d ; ld c,e) that falls into the code at 4161 [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 4161	417F	code	-	PROBABLE	18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0; entered by jr from 68:4173 (PROBABLE code)
@@ -44,7 +46,10 @@
 48D4	48D6	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 5/18 scenarios)
 48D6	48DE	words	Table_68_48D6	PROBABLE	contiguous data block 48D6-48DE: 4 bytes were read as data by executed code in mGBA traces (2 separate read ranges, e.g. 48D6-48D8,48DC-48DE) and 4 bytes between/around those reads were never read; the whole run is one table/buffer read by index (gaps unread in the traces); content class not decoded [merged from 3 regions by classify_g2] [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 48DE	48F3	code	Function_68_48DE	CONFIRMED	10 insn(s); 10 executed (in up to 18/18 scenarios); entry proven: target of an executed call/far call
-48F3	4940	code	-	PROBABLE	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed)
+48F3	48FC	code	-	CONFIRMED	37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
+48FC	48FE	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
+48FE	493D	code	-	CONFIRMED	30 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
+493D	4940	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
 4940	499A	code	-	CONFIRMED	48 insn(s); 48 executed (in up to 18/18 scenarios)
 499A	499E	code	-	CONFIRMED	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 68:4998 (executed) [executed in 1 scenarios]
 499E	4DB4	code	-	CONFIRMED	528 insn(s); 528 executed (in up to 18/18 scenarios)
@@ -105,9 +110,9 @@
 6344	635C	code	Function_68_6344	CONFIRMED	15 insn(s); 15 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 635C	6360	words	Table_68_635C	PROBABLE	2 words $6828,$6858 (configuration record addresses) read as ld a,[hli]/ld e,a/ld d,[hl] with base $635C by the code at 6344-635C (index [$C27D]*2); extent bounded by the code at 6360
 6360	6435	code	Function_68_6360	CONFIRMED	85 insn(s); 85 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-6435	659A	code	-	PROBABLE	137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code)
+6435	659A	code	-	CONFIRMED	137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code) [executed in 1 scenarios]
 659A	659E	words	Table_68_659A	PROBABLE	2 words $7058,$7080 addressed by ld hl,$659A at 68:6586 (word read + call $0A65); extent bounded by the code at 659E
-659E	67AE	code	-	PROBABLE	208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code)
+659E	67AE	code	-	CONFIRMED	208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
 67AE	67B6	words	Table_68_67AE	PROBABLE	4 words $67B6,$67BC,$67C2,$67CD = the four dial-string addresses below (each word points exactly at a NUL-terminated ASCII string)
 67B6	67BC	text	String_68_67B6	PROBABLE	ASCII "#9477" NUL (dial string pointed to by the word at 67AE)
 67BC	67C2	text	String_68_67BC	PROBABLE	ASCII "#9477" NUL (dial string pointed to by the word at 67B0)
@@ -123,7 +128,7 @@
 6BFA	6C5D	code	-	CONFIRMED	40 insn(s); 40 executed (in up to 3/18 scenarios)
 6C5D	6C7F	code	-	PROBABLE	11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 1; entered by jpcc from 68:6C11 (executed)
 6C7F	6DBD	code	Function_68_6C7F	CONFIRMED	135 insn(s); 135 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
-6DBD	6DF3	code	-	PROBABLE	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed)
+6DBD	6DF3	code	-	CONFIRMED	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
 6DF3	6E03	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 3/18 scenarios)
 6E03	6E0E	data	Data_68_6E03	CONFIRMED	read as data by executed code (in up to 3/18 scenarios); content class unknown [clipped from 6E03-6E1A by higher-priority evidence]
 6E0E	6E1A	text	String_68_6E0E	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -174,7 +179,8 @@
 793D	793F	ptrtable	Table_68_793D	PROBABLE	little-endian word table, 10 entries, monotone=1.00, 30% of targets on string start/after NUL, targets $5B68..$5B8C; referenced by ld r16,$793D at 68:788D [clipped from 793D-7951 by higher-priority evidence]
 793F	7951	ptrtable	Table_68_793F	PROBABLE	code-pointer table, 9 entries: 9/9 words hit own-bank code starts (survey pointer-table extent); 9/9 targets executed
 7951	7990	code	Function_68_7951	CONFIRMED	26 insn(s); 26 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-7990	799A	code	-	PROBABLE	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed)
+7990	7999	code	-	CONFIRMED	4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 7990-799A by apply_coverage --split [executed in 7 scenarios]
+7999	799A	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7990-799A by apply_coverage --split
 799A	7ACB	code	Function_68_799A	CONFIRMED	105 insn(s); 105 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 7ACB	7AE0	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by jrcc from 68:7AC6 (executed) [executed in 3 scenarios]
 7AE0	7B19	code	-	CONFIRMED	30 insn(s); 30 executed (in up to 1/18 scenarios)

@@ -7,7 +7,7 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank22", ROMX[$4000], BANK[$22]
 
-; ---- code $4000-$43E0 (992 bytes) [PROBABLE] 408 insn(s) reached by static flow only; seeds: exec x408; min discovery hops 1; entered by far from 7C:7D0C (PROBABLE code)
+; ---- code $4000-$4064 (100 bytes) [CONFIRMED] 408 insn(s) reached by static flow only; seeds: exec x408; min discovery hops 1; entered by far from 7C:7D0C (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 3 scenarios]
 
 MailSrvDelHidden_MenuRun:: ; 22:4000
 	call Function_00_044B
@@ -18,7 +18,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -37,7 +37,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -52,7 +52,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -60,11 +60,15 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	ld c, $01
 	dec a
 	jr z, MailSrvDelHidden_MenuLoop
+
+; ---- code $4064-$4076 (18 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
+
+; ---- code $4076-$40B1 (59 bytes) [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 1 scenarios]
 
 MailSrvDelHidden_MenuLoop:: ; 22:4076
 	push bc
@@ -97,7 +101,11 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 
 Label_22_40AE:: ; 22:40AE
 	call MailSrvDelHidden_CheckAndDelete
+
+; ---- code $40B1-$40B3 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split
 	ld c, $01
+
+; ---- code $40B3-$40FA (71 bytes) [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_40B3:: ; 22:40B3
 	push bc
@@ -108,7 +116,7 @@ Label_22_40B3:: ; 22:40B3
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -139,6 +147,8 @@ Label_22_40F4:: ; 22:40F4
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_22_4120
+
+; ---- code $40FA-$4120 (38 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -156,6 +166,8 @@ Label_22_40F4:: ; 22:40F4
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
+
+; ---- code $4120-$414E (46 bytes) [CONFIRMED] 27 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_4120:: ; 22:4120
 	ldh a, [hJoyPressedRepeat]
@@ -189,6 +201,8 @@ Label_22_4148:: ; 22:4148
 	ldh a, [hJoyPressedRepeat]
 	and a, $40
 	jr z, Label_22_4170
+
+; ---- code $414E-$4170 (34 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split
 	push bc
 	push de
 	di
@@ -213,6 +227,8 @@ Label_22_4148:: ; 22:4148
 Label_22_416D:: ; 22:416D
 	call MailSrvDelHidden_MenuSelect
 
+; ---- code $4170-$4178 (8 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 3 scenarios]
+
 Label_22_4170:: ; 22:4170
 	jp MailSrvDelHidden_MenuLoop
 
@@ -220,6 +236,8 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	ld a, c
 	cp a, $01
 	jr nz, Label_22_41B3
+
+; ---- code $4178-$41B3 (59 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split
 	push bc
 	ld bc, $1214
 	ld de, $D000
@@ -240,6 +258,8 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	call MailSrvDelHidden_ShowDescCheck
 	pop bc
 	ret
+
+; ---- code $41B3-$43E0 (557 bytes) [CONFIRMED] 200 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_41B3:: ; 22:41B3
 	cp a, $00
@@ -422,7 +442,7 @@ MailSrvDelHidden_MenuStart:: ; 22:437D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -518,7 +538,7 @@ String_22_4515::
 	db $82, $A4, $82, $C5, $82, $BA, $82, $F1, $82, $D4, $82, $AF, $82, $B5, $82, $DC, $82, $B7, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40 ; "うでぜんぶけします　　　　　　　　"
 	db $81, $40, $81, $40, $81, $40, $00 ; "　　　"
 
-; ---- code $4582-$47DD (603 bytes) [PROBABLE] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 4; entered by call from 22:4B2F (PROBABLE code)
+; ---- code $4582-$4770 (494 bytes) [CONFIRMED] 242 insn(s) reached by static flow only; seeds: exec x242; min discovery hops 4; entered by call from 22:4B2F (PROBABLE code) | 184 insn(s) executed; cut out of the PROBABLE region 4582-47DD by apply_coverage --split [executed in 3 scenarios]
 
 MailSrvDelHidden_Confirm:: ; 22:4582
 	push af
@@ -528,7 +548,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -663,7 +683,7 @@ Label_22_4646:: ; 22:4646
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -713,6 +733,8 @@ Label_22_476A:: ; 22:476A
 	ldh a, [hJoyPressed]
 	and a, $02
 	jr z, Label_22_4796
+
+; ---- code $4770-$4796 (38 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4582-47DD by apply_coverage --split
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -730,6 +752,8 @@ Label_22_476A:: ; 22:476A
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
+
+; ---- code $4796-$47BE (40 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4582-47DD by apply_coverage --split [executed in 3 scenarios]
 
 Label_22_4796:: ; 22:4796
 	ldh a, [hJoyPressedRepeat]
@@ -757,6 +781,8 @@ Label_22_47B8:: ; 22:47B8
 	ldh a, [hJoyPressedRepeat]
 	and a, $10
 	jr z, Label_22_47DA
+
+; ---- code $47BE-$47DA (28 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4582-47DD by apply_coverage --split
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -775,13 +801,15 @@ Label_22_47B8:: ; 22:47B8
 	ld c, a
 	call MailSrvDelHidden_ConfirmSelect
 
+; ---- code $47DA-$47DD (3 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 4582-47DD by apply_coverage --split [executed in 3 scenarios]
+
 Label_22_47DA:: ; 22:47DA
 	jp Label_22_4719
 
 ; ---- code $47DD-$47DE (1 bytes) [HYPOTHESIS] c9 ret directly after the unconditional 'jp $4719' at 22:47DA: unreachable by flow, no reference; kept as code because it is a whole instruction at a function boundary
 	ret
 
-; ---- code $47DE-$481B (61 bytes) [PROBABLE] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 7; entered by call from 22:47B5 (PROBABLE code)
+; ---- code $47DE-$47FF (33 bytes) [CONFIRMED] 25 insn(s) reached by static flow only; seeds: exec x25; min discovery hops 7; entered by call from 22:47B5 (PROBABLE code) | 14 insn(s) executed; cut out of the PROBABLE region 47DE-481B by apply_coverage --split [executed in 3 scenarios]
 
 MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	ld a, c
@@ -798,6 +826,8 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	call Function_00_0A65
 	pop bc
 	ret
+
+; ---- code $47FF-$481B (28 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47DE-481B by apply_coverage --split
 
 Label_22_47FF:: ; 22:47FF
 	push bc
@@ -844,7 +874,7 @@ MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	ldh [rSVBK], a
 	ret
 
-; ---- code $48CD-$48FE (49 bytes) [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...) that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven; both direct call targets (4975, 4A97) are known code starts
+; ---- code $48CD-$48FE (49 bytes) [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...) that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven; both direct call targets (4975, 4A97) are known code starts | forced execution: 31/31 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 
 Function_22_48CD:: ; 22:48CD
 	push af
@@ -879,7 +909,7 @@ Function_22_48CD:: ; 22:48CD
 	ld e, l
 	ld hl, $D524
 
-; ---- code $48FE-$4A8C (398 bytes) [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $48FE-$4A8C (398 bytes) [PROBABLE] 243 insn(s) reached by static flow only; seeds: site x243; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 125/243 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 	farcall TextTiles_RenderLine
 	pop hl
 	ld a, $07
@@ -1143,7 +1173,7 @@ Label_22_4A8A:: ; 22:4A8A
 String_22_4A8C:: ; 22:4A8C
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00 ; "０００００"
 
-; ---- code $4A97-$4BB5 (286 bytes) [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 22:491A (PROBABLE code)
+; ---- code $4A97-$4B17 (128 bytes) [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split | forced execution: 48/56 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 
 Function_22_4A97:: ; 22:4A97
 	push de
@@ -1215,6 +1245,8 @@ Function_22_4AF7:: ; 22:4AF7
 	ldh [rSVBK], a
 	ret
 
+; ---- code $4B17-$4B91 (122 bytes) [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split [executed in 2 scenarios]
+
 MailSrvDelHidden_DeleteAll:: ; 22:4B17
 	ld a, $01
 	ld [wRam_C1D0], a
@@ -1283,6 +1315,8 @@ Label_22_4B45:: ; 22:4B45
 	cp a, $80
 	jr nz, Label_22_4BED
 
+; ---- code $4B91-$4BB5 (36 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split
+
 Label_22_4B91:: ; 22:4B91
 	ld a, [wMobileErrorCode]
 	cp a, $17
@@ -1302,7 +1336,7 @@ Label_22_4B91:: ; 22:4B91
 ; ---- code $4BB5-$4BB7 (2 bytes) [HYPOTHESIS] jr $4C2B (18 74) after the unconditional 'jp $4BD1' at 22:4BB2: unreachable by flow and never referenced; target 4C2B is a code instruction start
 	jr Label_22_4C2B
 
-; ---- code $4BB7-$4C5B (164 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 5; entered by jpcc from 22:4B96 (PROBABLE code)
+; ---- code $4BB7-$4BED (54 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 5; entered by jpcc from 22:4B96 (PROBABLE code) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split
 
 Label_22_4BB7:: ; 22:4BB7
 	ld a, [wTimerEnable]
@@ -1333,6 +1367,8 @@ Label_22_4BDE:: ; 22:4BDE
 Label_22_4BEC:: ; 22:4BEC
 	ret
 
+; ---- code $4BED-$4C14 (39 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split [executed in 2 scenarios]
+
 Label_22_4BED:: ; 22:4BED
 	farcall MailSrvDel_DeleteAllRun
 	ld a, [wTimerEnable]
@@ -1351,6 +1387,8 @@ Label_22_4BED:: ; 22:4BED
 	ei
 	jr Label_22_4C2B
 
+; ---- code $4C14-$4C2B (23 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split
+
 Label_22_4C14:: ; 22:4C14
 	ld a, $00
 	ld a, $01
@@ -1364,13 +1402,19 @@ Label_22_4C14:: ; 22:4C14
 	ldh [rIE], a
 	ei
 
+; ---- code $4C2B-$4C35 (10 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split [executed in 2 scenarios]
+
 Label_22_4C2B:: ; 22:4C2B
 	farcall CommTime_TimerAIsNonZero
 	cp a, $00
 	jr nz, Label_22_4C39
+
+; ---- code $4C35-$4C39 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split
 	ld a, h
 	or a, l
 	jr z, Label_22_4C47
+
+; ---- code $4C39-$4C5B (34 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4BB7-4C5B by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_4C39:: ; 22:4C39
 	ld a, $00
@@ -1392,7 +1436,7 @@ Label_22_4C47:: ; 22:4C47
 Data_22_4C5B:: ; 22:4C5B
 	db $03, $00, $00, $01, $24, $D5, $00
 
-; ---- code $4C62-$4D00 (158 bytes) [PROBABLE] 74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 4; entered by call from 22:40ED (PROBABLE code)
+; ---- code $4C62-$4CDC (122 bytes) [CONFIRMED] 74 insn(s) reached by static flow only; seeds: exec x74; min discovery hops 4; entered by call from 22:40ED (PROBABLE code) | 60 insn(s) executed; cut out of the PROBABLE region 4C62-4D00 by apply_coverage --split [executed in 1 scenarios]
 
 MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
 	ld a, $01
@@ -1462,6 +1506,8 @@ Label_22_4C90:: ; 22:4C90
 	cp a, $80
 	jr nz, Label_22_4D38
 
+; ---- code $4CDC-$4D00 (36 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C62-4D00 by apply_coverage --split
+
 Label_22_4CDC:: ; 22:4CDC
 	ld a, [wMobileErrorCode]
 	cp a, $17
@@ -1481,7 +1527,7 @@ Label_22_4CDC:: ; 22:4CDC
 ; ---- code $4D00-$4D02 (2 bytes) [HYPOTHESIS] jr $4D76 (18 74) after the unconditional 'jp $4D1C' at 22:4CFD: unreachable, same pattern as 4BB5; target is a code instruction start
 	jr Label_22_4D76
 
-; ---- code $4D02-$4DA6 (164 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 6; entered by jpcc from 22:4CE1 (PROBABLE code)
+; ---- code $4D02-$4D38 (54 bytes) [PROBABLE] 63 insn(s) reached by static flow only; seeds: exec x63; min discovery hops 6; entered by jpcc from 22:4CE1 (PROBABLE code) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split
 
 Label_22_4D02:: ; 22:4D02
 	ld a, [wTimerEnable]
@@ -1512,6 +1558,8 @@ Label_22_4D29:: ; 22:4D29
 Label_22_4D37:: ; 22:4D37
 	ret
 
+; ---- code $4D38-$4D5F (39 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split [executed in 1 scenarios]
+
 Label_22_4D38:: ; 22:4D38
 	farcall MailSrvDel_DeleteCompletelyRun
 	ld a, [wTimerEnable]
@@ -1530,6 +1578,8 @@ Label_22_4D38:: ; 22:4D38
 	ei
 	jr Label_22_4D76
 
+; ---- code $4D5F-$4D76 (23 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split
+
 Label_22_4D5F:: ; 22:4D5F
 	ld a, $00
 	ld a, $01
@@ -1543,13 +1593,19 @@ Label_22_4D5F:: ; 22:4D5F
 	ldh [rIE], a
 	ei
 
+; ---- code $4D76-$4D80 (10 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split [executed in 1 scenarios]
+
 Label_22_4D76:: ; 22:4D76
 	farcall CommTime_TimerAIsNonZero
 	cp a, $00
 	jr nz, Label_22_4D84
+
+; ---- code $4D80-$4D84 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split
 	ld a, h
 	or a, l
 	jr z, Label_22_4D92
+
+; ---- code $4D84-$4DA6 (34 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4D02-4DA6 by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_4D84:: ; 22:4D84
 	ld a, $00
@@ -1571,7 +1627,7 @@ Label_22_4D92:: ; 22:4D92
 Data_22_4DA6:: ; 22:4DA6
 	db $03, $00, $00, $01, $24, $D5, $00
 
-; ---- code $4DAD-$4E41 (148 bytes) [PROBABLE] 69 insn(s) reached by static flow only; seeds: exec x69; min discovery hops 4; entered by call from 22:40AE (PROBABLE code)
+; ---- code $4DAD-$4E1D (112 bytes) [CONFIRMED] 69 insn(s) reached by static flow only; seeds: exec x69; min discovery hops 4; entered by call from 22:40AE (PROBABLE code) | 55 insn(s) executed; cut out of the PROBABLE region 4DAD-4E41 by apply_coverage --split [executed in 1 scenarios]
 
 MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	xor a, a
@@ -1632,6 +1688,8 @@ Label_22_4DD2:: ; 22:4DD2
 	cp a, $80
 	jr nz, Label_22_4E79
 
+; ---- code $4E1D-$4E41 (36 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4DAD-4E41 by apply_coverage --split
+
 Label_22_4E1D:: ; 22:4E1D
 	ld a, [wMobileErrorCode]
 	cp a, $17
@@ -1651,7 +1709,7 @@ Label_22_4E1D:: ; 22:4E1D
 ; ---- code $4E41-$4E43 (2 bytes) [HYPOTHESIS] jr $4EB9 (18 76) after the unconditional 'jp $4E5D': unreachable, same pattern as 4BB5; target is a code instruction start
 	jr Label_22_4EB9
 
-; ---- code $4E43-$4EE9 (166 bytes) [PROBABLE] 64 insn(s) reached by static flow only; seeds: exec x64; min discovery hops 5; entered by jpcc from 22:4E22 (PROBABLE code)
+; ---- code $4E43-$4E79 (54 bytes) [PROBABLE] 64 insn(s) reached by static flow only; seeds: exec x64; min discovery hops 5; entered by jpcc from 22:4E22 (PROBABLE code) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split
 
 Label_22_4E43:: ; 22:4E43
 	ld a, [wTimerEnable]
@@ -1682,6 +1740,8 @@ Label_22_4E6A:: ; 22:4E6A
 Label_22_4E78:: ; 22:4E78
 	ret
 
+; ---- code $4E79-$4EA2 (41 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split [executed in 1 scenarios]
+
 Label_22_4E79:: ; 22:4E79
 	farcall MailServerMgr_Run
 	cp a, $80
@@ -1701,6 +1761,8 @@ Label_22_4E79:: ; 22:4E79
 	ei
 	jr Label_22_4EB9
 
+; ---- code $4EA2-$4EB9 (23 bytes) [PROBABLE] 11 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split
+
 Label_22_4EA2:: ; 22:4EA2
 	ld a, $00
 	ld b, $02
@@ -1714,13 +1776,19 @@ Label_22_4EA2:: ; 22:4EA2
 	ldh [rIE], a
 	ei
 
+; ---- code $4EB9-$4EC3 (10 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split [executed in 1 scenarios]
+
 Label_22_4EB9:: ; 22:4EB9
 	farcall CommTime_TimerAIsNonZero
 	cp a, $00
 	jr nz, Label_22_4EC7
+
+; ---- code $4EC3-$4EC7 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split
 	ld a, h
 	or a, l
 	jr z, Label_22_4ED5
+
+; ---- code $4EC7-$4EE9 (34 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4E43-4EE9 by apply_coverage --split [executed in 1 scenarios]
 
 Label_22_4EC7:: ; 22:4EC7
 	ld a, $00

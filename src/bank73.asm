@@ -1085,12 +1085,14 @@ Label_73_62AF:: ; 73:62AF
 	farcall Ticker_Start
 	ret
 
-; ---- code $62D2-$62EF (29 bytes) [PROBABLE] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by callcc from 73:62B7 (executed)
+; ---- code $62D2-$62D7 (5 bytes) [CONFIRMED] 17 insn(s) reached by static flow only; seeds: exec x17; min discovery hops 1; entered by callcc from 73:62B7 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 62D2-62EF by apply_coverage --split [executed in 8 scenarios]
 
 Function_73_62D2:: ; 73:62D2
 	ld a, [wRam_C0F8]
 	or a, a
 	ret z
+
+; ---- code $62D7-$62EF (24 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 62D2-62EF by apply_coverage --split
 	ld b, $05
 	ret
 

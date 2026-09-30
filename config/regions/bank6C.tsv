@@ -10,21 +10,21 @@
 4247	428F	code	-	CONFIRMED	31 insn(s); 31 executed (in up to 3/18 scenarios)
 428F	429C	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 1; entered by jrcc from 6C:427F (executed) [executed in 2 scenarios]
 429C	4344	code	-	CONFIRMED	75 insn(s); 75 executed (in up to 3/18 scenarios)
-4344	436C	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed)
+4344	436C	code	-	CONFIRMED	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4342 (executed) [executed in 1 scenarios]
 436C	4498	code	-	CONFIRMED	148 insn(s); 148 executed (in up to 3/18 scenarios)
-4498	4525	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed)
+4498	4525	code	-	CONFIRMED	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4325 (executed) [executed in 2 scenarios]
 4525	453D	data	Data_6C_4525	PROBABLE	24-byte table 49 00 A9 00 E9 00 49 01 89 00 09 01 89 00 09 01 00 28 46 6E 00 1E 00 1E (12 words), read by executed code in up to 3 scenarios, directly after a ret and before Function_6C_453D; second identical copy at 4747; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 453D	4566	code	Function_6C_453D	CONFIRMED	17 insn(s); 17 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 4566	458E	code	-	PROBABLE	14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 6C:4564 (executed)
 458E	46BA	code	-	CONFIRMED	148 insn(s); 148 executed (in up to 3/18 scenarios)
-46BA	4747	code	-	PROBABLE	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed)
+46BA	4747	code	-	CONFIRMED	68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by jpcc from 6C:4547 (executed) [executed in 2 scenarios]
 4747	4763	data	Data_6C_4747	PROBABLE	same 24-byte table as 4525 (49 00 A9 00 E9 00 49 01 ...) followed by 4 bytes 8C AA 3C 3C before Function_6C_4763; read in up to 3 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 4763	4776	code	Function_6C_4763	CONFIRMED	9 insn(s); 9 executed (in up to 3/18 scenarios); entry proven: target of an executed call/far call
 4776	4778	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 6C:476E (executed) [executed in 2 scenarios]
 4778	47C0	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 3/18 scenarios)
 47C0	47C3	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 6C:47BE (executed)
 47C3	47F3	code	-	CONFIRMED	24 insn(s); 24 executed (in up to 3/18 scenarios)
-47F3	4807	code	-	PROBABLE	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed)
+47F3	4807	code	-	CONFIRMED	10 insn(s) reached by static flow only; seeds: exec x10; min discovery hops 1; entered by jpcc from 6C:47A3 (executed) [executed in 2 scenarios]
 4807	4809	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 3/18 scenarios)
 4809	4845	data	Data_6C_4809	PROBABLE	table of 5-byte-like records (18 00 01 30 00 / 18 00 09 AF 03 / 18 00 0A 92 09 ...) ending 03 03 01 01 30 right before the text at 4845; read in up to 12 scenarios; the 1-8 byte mapper holes inside this run are bytes not read in the traces; they sit between executed-read pieces of the same block and are not code (no branch enters them, bytes do not decode as a coherent routine)
 4845	485A	text	String_6C_4845	PROBABLE	text: 1 string(s) of analysis/strings.tsv (bank 6C uses the second, only PROBABLE text convention of docs/research/text_encoding.md, NUL terminated)

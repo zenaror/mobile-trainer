@@ -235,7 +235,7 @@ Table_51_41B1:: ; 51:41B1
 Label_51_41BB:: ; 51:41BB
 	jp Label_51_41C7
 
-; ---- code $41BE-$41C7 (9 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by table from 51:41AE (executed)
+; ---- code $41BE-$41C7 (9 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by table from 51:41AE (executed) [executed in 2 scenarios]
 
 Label_51_41BE:: ; 51:41BE
 	jp Label_51_4199
@@ -268,8 +268,10 @@ CommTime_DrawNumber:: ; 51:41D8
 	or a, a
 	jr z, Label_51_41F3
 
-; ---- code $41E6-$41F3 (13 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 51:41E4 (executed)
+; ---- code $41E6-$41E8 (2 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 51:41E4 (executed) | 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 41E6-41F3 by apply_coverage --split
 	ld a, $00
+
+; ---- code $41E8-$41F3 (11 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 41E6-41F3 by apply_coverage --split [executed in 20 scenarios]
 
 Label_51_41E8:: ; 51:41E8
 	push bc
@@ -1210,7 +1212,7 @@ Data_51_5EE1:: ; 51:5EE1
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-; ---- code $70E0-$73D1 (753 bytes) [PROBABLE] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 1; entered by far from 4C:4E56 (PROBABLE code)
+; ---- code $70E0-$7157 (119 bytes) [CONFIRMED] 500 insn(s) reached by static flow only; seeds: exec x500; min discovery hops 1; entered by far from 4C:4E56 (PROBABLE code) | 83 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
 
 Bmp_Validate:: ; 51:70E0
 	ld a, $03
@@ -1303,6 +1305,8 @@ Label_51_7132:: ; 51:7132
 	ld a, $01
 	ret
 
+; ---- code $7157-$7161 (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+
 Label_51_7157:: ; 51:7157
 	xor a, a
 	ldh [hRam_FFD6], a
@@ -1310,6 +1314,8 @@ Label_51_7157:: ; 51:7157
 	ld [wRam_C33F], a
 	pop hl
 	ret
+
+; ---- code $7161-$7268 (263 bytes) [CONFIRMED] 155 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
 
 Bmp_CheckSize:: ; 51:7161
 	ldh a, [hRam_FFD6]
@@ -1473,6 +1479,8 @@ Label_51_7251:: ; 51:7251
 	ld a, [wRam_C331]
 	bit 7, a
 	jr z, Label_51_7276
+
+; ---- code $7268-$7276 (14 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
 	ld a, [wBrowserNavigating]
 	or a, a
 	jr z, Label_51_7276
@@ -1485,10 +1493,14 @@ Label_51_726F:: ; 51:726F
 	dec c
 	jr nz, Label_51_726F
 
+; ---- code $7276-$727C (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 2 scenarios]
+
 Label_51_7276:: ; 51:7276
 	ldh a, [hRam_FFD6]
 	and a, $07
 	jr z, Label_51_7287
+
+; ---- code $727C-$7287 (11 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
 	dec de
 	ld c, a
 	ld b, $00
@@ -1497,6 +1509,8 @@ Label_51_7276:: ; 51:7276
 	ld a, [de]
 	or a, [hl]
 	ld [de], a
+
+; ---- code $7287-$72C4 (61 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 2 scenarios]
 
 Label_51_7287:: ; 51:7287
 	pop de
@@ -1541,6 +1555,8 @@ Label_51_7287:: ; 51:7287
 	pop hl
 	cp a, $C0
 	jr c, Label_51_72D4
+
+; ---- code $72C4-$72D4 (16 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
 	dec de
 	dec de
 	xor a, a
@@ -1555,6 +1571,8 @@ Label_51_7287:: ; 51:7287
 	pop hl
 	pop de
 	jp Label_51_73CE
+
+; ---- code $72D4-$7344 (112 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_72D4:: ; 51:72D4
 	dec de
@@ -1644,6 +1662,8 @@ Label_51_7334:: ; 51:7334
 	ld a, [hl]
 	cp a, $04
 	jr nz, Label_51_735A
+
+; ---- code $7344-$735A (22 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
 	ld bc, $0003
 	add hl, bc
 	ld a, [hli]
@@ -1658,6 +1678,8 @@ Label_51_7334:: ; 51:7334
 	ld a, [wHtmlListCounter]
 	adc a, d
 	ld [hli], a
+
+; ---- code $735A-$73CE (116 bytes) [CONFIRMED] 82 insn(s) executed; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_735A:: ; 51:735A
 	pop hl
@@ -1751,6 +1773,8 @@ Label_51_73CB:: ; 51:73CB
 	ld a, $01
 	ret
 
+; ---- code $73CE-$73D1 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70E0-73D1 by apply_coverage --split
+
 Label_51_73CE:: ; 51:73CE
 	pop hl
 	xor a, a
@@ -1818,7 +1842,7 @@ Label_51_7402:: ; 51:7402
 Data_51_740C:: ; 51:740C
 	db $FF
 
-; ---- code $740D-$7900 (1267 bytes) [PROBABLE] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1; entered by far from 4E:5B5C (PROBABLE code)
+; ---- code $740D-$7430 (35 bytes) [CONFIRMED] 822 insn(s) reached by static flow only; seeds: site x822; min discovery hops 1; entered by far from 4E:5B5C (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Image_BlitToTileCanvas:: ; 51:740D
 	ldh [hRam_FFD0], a
@@ -1840,7 +1864,11 @@ Image_BlitToTileCanvas:: ; 51:740D
 	ld a, c
 	and a, $07
 	jr z, Label_51_7431
+
+; ---- code $7430-$7431 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	inc b
+
+; ---- code $7431-$7451 (32 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_7431:: ; 51:7431
 	ld c, a
@@ -1867,6 +1895,8 @@ Label_51_7431:: ; 51:7431
 	ld a, c
 	or a, a
 	jr z, Label_51_745D
+
+; ---- code $7451-$745D (12 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	push de
 	ldh a, [hRam_FFD3]
 	ld e, a
@@ -1878,6 +1908,8 @@ Label_51_7458:: ; 51:7458
 	dec a
 	jr nz, Label_51_7458
 	pop de
+
+; ---- code $745D-$7473 (22 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_745D:: ; 51:745D
 	push de
@@ -1897,8 +1929,12 @@ Label_51_745D:: ; 51:745D
 	add hl, de
 	jr Label_51_7474
 
+; ---- code $7473-$7474 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+
 Label_51_7473:: ; 51:7473
 	dec hl
+
+; ---- code $7474-$7481 (13 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_7474:: ; 51:7474
 	pop de
@@ -1911,9 +1947,13 @@ Label_51_7474:: ; 51:7474
 	ld a, e
 	cp a, $60
 	jr c, Label_51_7487
+
+; ---- code $7481-$7487 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	ld a, $03
 	ld h, $C1
 	jr Label_51_748B
+
+; ---- code $7487-$74EC (101 bytes) [CONFIRMED] 68 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_7487:: ; 51:7487
 	ld a, $02
@@ -2000,6 +2040,8 @@ Image_MakeEdgeMasks:: ; 51:74E6
 	ld a, d
 	and a, $07
 	jr z, Label_51_74F9
+
+; ---- code $74EC-$74F9 (13 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	xor a, $07
 	inc a
 	ld b, a
@@ -2012,6 +2054,8 @@ Label_51_74F2:: ; 51:74F2
 	dec a
 	jr Label_51_74FB
 
+; ---- code $74F9-$7506 (13 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_74F9:: ; 51:74F9
 	ld a, $FF
 
@@ -2023,6 +2067,8 @@ Label_51_74FB:: ; 51:74FB
 	add a, b
 	and a, $07
 	jr z, Label_51_7511
+
+; ---- code $7506-$7511 (11 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	ld b, a
 	ld a, $01
 
@@ -2033,6 +2079,8 @@ Label_51_7509:: ; 51:7509
 	dec a
 	cpl
 	jr Label_51_7513
+
+; ---- code $7511-$751E (13 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_7511:: ; 51:7511
 	ld a, $FF
@@ -2047,6 +2095,8 @@ Image_BlitEdgeStrip:: ; 51:7517
 	ld c, a
 	cp a, $02
 	jr nc, Label_51_7584
+
+; ---- code $751E-$7584 (102 bytes) [PROBABLE] 70 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	ldh a, [hRam_FFD5]
 	ld c, a
 	ld a, [de]
@@ -2140,10 +2190,14 @@ Label_51_7573:: ; 51:7573
 Label_51_7581:: ; 51:7581
 	jp Label_51_76AA
 
+; ---- code $7584-$758A (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_7584:: ; 51:7584
 	ldh a, [hRam_FFD1]
 	cp a, $FF
 	jr z, Label_51_75F1
+
+; ---- code $758A-$75F1 (103 bytes) [PROBABLE] 72 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	push bc
 	ldh a, [hRam_FFD5]
 	ld c, a
@@ -2239,11 +2293,17 @@ Label_51_75EF:: ; 51:75EF
 	pop bc
 	dec c
 
+; ---- code $75F1-$75F7 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_75F1:: ; 51:75F1
 	ldh a, [hRam_FFD2]
 	cp a, $FF
 	jr z, Label_51_75F8
+
+; ---- code $75F7-$75F8 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	dec c
+
+; ---- code $75F8-$760F (23 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_75F8:: ; 51:75F8
 	ld a, c
@@ -2258,6 +2318,8 @@ Label_51_75F8:: ; 51:75F8
 	jr nz, Label_51_760F
 	call Image_BlitStripShift0
 	jr Label_51_7640
+
+; ---- code $760F-$7640 (49 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 
 Label_51_760F:: ; 51:760F
 	call Image_BlitStripShift1
@@ -2294,10 +2356,14 @@ Label_51_7634:: ; 51:7634
 Label_51_763D:: ; 51:763D
 	call Image_BlitStripShift7
 
+; ---- code $7640-$7646 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_7640:: ; 51:7640
 	ldh a, [hRam_FFD2]
 	cp a, $FF
 	jr z, Label_51_76AA
+
+; ---- code $7646-$76AA (100 bytes) [PROBABLE] 69 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	ldh a, [hRam_FFD5]
 	ld c, a
 	ld a, [de]
@@ -2388,6 +2454,8 @@ Label_51_769C:: ; 51:769C
 	jr nc, Label_51_76AA
 	inc h
 
+; ---- code $76AA-$76B4 (10 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_76AA:: ; 51:76AA
 	ret
 
@@ -2398,6 +2466,8 @@ Image_BlitStripShift0:: ; 51:76AB
 	ldh a, [hRam_FFD0]
 	bit 0, a
 	jr nz, Label_51_76BE
+
+; ---- code $76B4-$76BE (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	bit 4, a
 	jr nz, Label_51_76BB
 	xor a, a
@@ -2407,6 +2477,8 @@ Label_51_76BB:: ; 51:76BB
 	ld a, b
 	jr Label_51_76C8
 
+; ---- code $76BE-$76C6 (8 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_76BE:: ; 51:76BE
 	bit 4, a
 	jr nz, Label_51_76C6
@@ -2414,14 +2486,20 @@ Label_51_76BE:: ; 51:76BE
 	cpl
 	jr Label_51_76C8
 
+; ---- code $76C6-$76C8 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+
 Label_51_76C6:: ; 51:76C6
 	ld a, $01
+
+; ---- code $76C8-$76CF (7 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_76C8:: ; 51:76C8
 	ld [hli], a
 	ldh a, [hRam_FFD0]
 	bit 1, a
 	jr nz, Label_51_76D9
+
+; ---- code $76CF-$76D9 (10 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 	bit 5, a
 	jr nz, Label_51_76D6
 	xor a, a
@@ -2431,6 +2509,8 @@ Label_51_76D6:: ; 51:76D6
 	ld a, b
 	jr Label_51_76E3
 
+; ---- code $76D9-$76E1 (8 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
+
 Label_51_76D9:: ; 51:76D9
 	bit 5, a
 	jr nz, Label_51_76E1
@@ -2438,8 +2518,12 @@ Label_51_76D9:: ; 51:76D9
 	cpl
 	jr Label_51_76E3
 
+; ---- code $76E1-$76E3 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
+
 Label_51_76E1:: ; 51:76E1
 	ld a, $01
+
+; ---- code $76E3-$76EF (12 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 740D-7900 by apply_coverage --split [executed in 1 scenarios]
 
 Label_51_76E3:: ; 51:76E3
 	ld [hli], a
@@ -2453,6 +2537,8 @@ Label_51_76EB:: ; 51:76EB
 	dec c
 	jr nz, Image_BlitStripShift0
 	ret
+
+; ---- code $76EF-$7900 (529 bytes) [PROBABLE] 340 insn(s) never executed in the traced runs; cut out of the PROBABLE region 740D-7900 by apply_coverage --split
 
 Image_BlitStripShift1:: ; 51:76EF
 	ld a, [de]

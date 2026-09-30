@@ -16,7 +16,7 @@ Data_1B_4000::
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 
-; ---- code $4040-$404A (10 bytes) [HYPOTHESIS] function head xor a ; ld bc,$00FC ; ld hl,$C0D4 ; call $04D8 (fill) that falls exactly into the raw far-call site at 404A (PROBABLE code); right after the data block 4000-4040; entry not located, no caller/table word anywhere (downgraded PROBABLE -> HYPOTHESIS by the adversarial verifier, same class as 04:415A and 7C:7D8B: bytes that merely lead into code are not proven code)
+; ---- code $4040-$404A (10 bytes) [HYPOTHESIS] function head xor a ; ld bc,$00FC ; ld hl,$C0D4 ; call $04D8 (fill) that falls exactly into the raw far-call site at 404A (PROBABLE code); right after the data block 4000-4040; entry not located, no caller/table word anywhere (downgraded PROBABLE -> HYPOTHESIS by the adversarial verifier, same class as 04:415A and 7C:7D8B: bytes that merely lead into code are not proven code) | forced execution: 4/4 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 SoundTest_Run:: ; 1B:4040
 	xor a, a
@@ -24,7 +24,7 @@ SoundTest_Run:: ; 1B:4040
 	ld hl, $C0D4
 	call FillBytes
 
-; ---- code $404A-$41C3 (377 bytes) [PROBABLE] 125 insn(s) reached by static flow only; seeds: site x125; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $404A-$41C3 (377 bytes) [PROBABLE] 125 insn(s) reached by static flow only; seeds: site x125; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | forced execution: 125/125 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 	farcall Function_48_48BB
 	call LCDOff
 	ldh a, [rLCDC]
@@ -163,7 +163,7 @@ Table_1B_41C3::
 	dw SoundTest_OnStart
 	dw SoundTest_Idle
 
-; ---- code $41CD-$4314 (327 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: site x148; min discovery hops 0; entered by table from 1B:41C0 (PROBABLE code)
+; ---- code $41CD-$4314 (327 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: site x148; min discovery hops 0; entered by table from 1B:41C0 (PROBABLE code) | forced execution: 130/148 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 SoundTest_Idle:: ; 1B:41CD
 	call SoundTest_UpdateHoldTimer
@@ -347,7 +347,7 @@ String_1B_4314::
 	db $82, $94, $82, $81, $81, $46, $82, $72, $82, $73, $82, $6E, $82, $6F, $81, $40, $82, $72, $82, $85, $82, $8C, $81, $46, $82, $64, $82, $6D, $82, $63, $81, $40, $81, $AA ; "ｔａ：ＳＴＯＰ　Ｓｅｌ：ＥＮＤ　↑"
 	db $81, $AB, $81, $69, $81, $A9, $81, $A8, $81, $6A, $81, $46, $82, $6D, $82, $95, $82, $8D, $82, $82, $82, $85, $82, $92, $00 ; "↓（←→）：Ｎｕｍｂｅｒ"
 
-; ---- code $4371-$4430 (191 bytes) [PROBABLE] 115 insn(s) reached by static flow only; seeds: site x115; min discovery hops 4; entered by call from 1B:419A (PROBABLE code)
+; ---- code $4371-$4430 (191 bytes) [PROBABLE] 115 insn(s) reached by static flow only; seeds: site x115; min discovery hops 4; entered by call from 1B:419A (PROBABLE code) | forced execution: 115/115 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 SoundTest_DrawNumber:: ; 1B:4371
 	ldh [hScratchA], a
@@ -472,7 +472,7 @@ String_SoundTest_HexChars:: ; 1B:4430
 String_1B_4430::
 	db $82, $4F, $82, $50, $82, $51, $82, $52, $82, $53, $82, $54, $82, $55, $82, $56, $82, $57, $82, $58, $82, $60, $82, $61, $82, $62, $82, $63, $82, $64, $82, $65 ; "０１２３４５６７８９ＡＢＣＤＥＦ"
 
-; ---- code $4450-$446B (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 1B:41CD (PROBABLE code)
+; ---- code $4450-$446B (27 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 2; entered by call from 1B:41CD (PROBABLE code) | forced execution: 14/14 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 SoundTest_UpdateHoldTimer:: ; 1B:4450
 	ld a, [wRam_C0E8]

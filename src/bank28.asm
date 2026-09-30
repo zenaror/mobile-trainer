@@ -157,7 +157,7 @@ MailBody_InitScreen:: ; 28:404E
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -235,7 +235,7 @@ Label_28_41D0:: ; 28:41D0
 	jr z, Label_28_426B
 	jr Label_28_41D0
 
-; ---- code $422B-$426B (64 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed)
+; ---- code $422B-$4250 (37 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 422B-426B by apply_coverage --split
 
 Label_28_422B:: ; 28:422B
 	pop af
@@ -257,6 +257,8 @@ Label_28_422B:: ; 28:422B
 	cp a, $01
 	jr z, Label_28_426B
 	jr Label_28_41D0
+
+; ---- code $4250-$426B (27 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 422B-426B by apply_coverage --split [executed in 2 scenarios]
 
 Label_28_4250:: ; 28:4250
 	push bc

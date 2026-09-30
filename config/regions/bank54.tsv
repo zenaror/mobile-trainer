@@ -29,17 +29,34 @@
 42FB	437C	code	Function_54_42FB	CONFIRMED	60 insn(s); 60 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 437C	4383	code	-	CONFIRMED	5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 54:437A (executed) [executed in 1 scenarios]
 4383	4393	code	-	CONFIRMED	8 insn(s); 8 executed (in up to 1/18 scenarios)
-4393	43EE	code	-	PROBABLE	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code)
+4393	43A3	code	-	CONFIRMED	44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
+43A3	43A8	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
+43A8	43CF	code	-	CONFIRMED	20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
+43CF	43EE	code	-	PROBABLE	14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
 43EE	43F1	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 1/18 scenarios)
-43F1	44AC	code	-	PROBABLE	102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed)
+43F1	4409	code	-	CONFIRMED	102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed) | 9 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 2 scenarios]
+4409	4417	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
+4417	44A0	code	-	CONFIRMED	81 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 1 scenarios]
+44A0	44A6	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
+44A6	44AC	code	-	CONFIRMED	4 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 4 scenarios]
 44AC	44BF	code	Function_54_44AC	CONFIRMED	10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 44BF	44C1	code	-	CONFIRMED	1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1; entered by jrcc from 54:44BA (executed) [executed in 1 scenarios]
 44C1	44C3	code	-	CONFIRMED	2 insn(s); 2 executed (in up to 2/18 scenarios)
-44C3	475A	code	-	PROBABLE	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed)
+44C3	44F8	code	-	CONFIRMED	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed) | 27 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
+44F8	44FE	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
+44FE	4569	code	-	CONFIRMED	45 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 2 scenarios]
+4569	456F	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
+456F	4745	code	-	CONFIRMED	210 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 4 scenarios]
+4745	4748	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
+4748	475A	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
 475A	4764	data	Data_54_475A	PROBABLE	10-byte blob copied to WRAM $C240 by CopyBytes 00:050C (FarCall 0C 05 00, bc=$000A) at 54:4593 (ld hl,$475A ; ld de,$C240)
 4764	4770	data	Data_54_4764	HYPOTHESIS	12 bytes between the $C240 blob and the string at 4770; use not found (content unresolved)
 4770	4772	text	String_54_4770	PROBABLE	NUL-terminated string ")" ($29 $00); passed in HL to CopyString 00:14BF at 54:45D2 and 54:4644
-4772	4856	code	-	PROBABLE	112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code)
+4772	479D	code	-	CONFIRMED	112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code) | 22 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 2 scenarios]
+479D	47A6	code	-	PROBABLE	5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4772-4856 by apply_coverage --split
+47A6	4834	code	-	CONFIRMED	66 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 5 scenarios]
+4834	484A	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4772-4856 by apply_coverage --split
+484A	4856	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 5 scenarios]
 4856	485C	text	String_54_4856	PROBABLE	NUL-terminated ASCII string CR LF "." CR LF (SMTP end-of-data marker); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4809 and 54:483F
 485C	4895	code	Function_54_485C	CONFIRMED	19 insn(s); 19 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 4895	489B	code	-	PROBABLE	3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1; entered by jrcc from 54:4887 (executed)
@@ -48,26 +65,77 @@
 48B8	48C3	code	-	CONFIRMED	7 insn(s); 7 executed (in up to 2/18 scenarios)
 48C3	48F9	code	-	PROBABLE	22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 54:48C1 (executed)
 48F9	4914	code	-	CONFIRMED	14 insn(s); 14 executed (in up to 2/18 scenarios)
-4914	49E0	code	-	PROBABLE	87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code)
+4914	4984	code	-	CONFIRMED	87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code) | 54 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 2 scenarios]
+4984	4995	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
+4995	49B0	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 1 scenarios]
+49B0	49E0	code	-	PROBABLE	14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
 49E0	4A12	text	String_54_49E0	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4A12	4AD0	code	-	PROBABLE	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code)
+4A12	4AC2	code	-	CONFIRMED	78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
+4AC2	4AD0	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split
 4AD0	4AD7	text	String_54_4AD0	PROBABLE	NUL-terminated Shift-JIS string "メール" (mail); passed in HL to CopyString 00:14BF (FarCall bf 14 00) at 54:4AE9
 4AD7	4AE6	text	String_54_4AD7	PROBABLE	text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-4AE6	4C2A	code	-	PROBABLE	133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code)
+4AE6	4BAC	code	-	CONFIRMED	133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
+4BAC	4BAF	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
+4BAF	4BBD	code	-	CONFIRMED	5 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
+4BBD	4BBE	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
+4BBE	4C26	code	-	CONFIRMED	48 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
+4C26	4C2A	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
 4C2A	4C35	text	String_54_4C2A	PROBABLE	11 ASCII bytes "CGB-BXTJ-00" (no terminator; the game ID string): compared byte by byte with [$C480..] for b=$0B by 54:4C1A (ld de,$4C2A)
 4C35	4C3D	data	Data_54_4C35	PROBABLE	8-byte blob (03 02 a0 03 00 b0 00 08, same bytes as 54:4FC3) read via ld hl,$4C35 at 54:4A35
 4C3D	4C44	data	Data_54_4C3D	PROBABLE	7-byte blob (same bytes as 54:4FCB) read via ld hl,$4C3D at 54:4A44 and 54:4BEF
 4C44	4C47	data	Data_54_4C44	PROBABLE	3-byte blob (03 02 a0) read via ld hl,$4C44 at 54:5124
-4C47	4CAD	code	-	PROBABLE	55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code)
+4C47	4C55	code	-	CONFIRMED	55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code) | 9 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 6 scenarios]
+4C55	4C65	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
+4C65	4C74	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 6 scenarios]
+4C74	4C88	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
+4C88	4C8B	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 8 scenarios]
+4C8B	4C8D	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
+4C8D	4C9C	code	-	CONFIRMED	10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 10 scenarios]
+4C9C	4CA3	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
+4CA3	4CAD	code	-	CONFIRMED	3 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 10 scenarios]
 4CAD	4CB0	data	Data_54_4CAD	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-4CB0	4FC3	code	-	PROBABLE	366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code)
+4CB0	4D0F	code	-	CONFIRMED	366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code) | 42 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
+4D0F	4D20	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4D20	4D2B	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 5 scenarios]
+4D2B	4D2E	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4D2E	4D93	code	-	CONFIRMED	40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 5 scenarios]
+4D93	4D9A	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4D9A	4DEE	code	-	CONFIRMED	40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 6 scenarios]
+4DEE	4DF5	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4DF5	4E60	code	-	CONFIRMED	47 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
+4E60	4E67	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4E67	4EBD	code	-	CONFIRMED	42 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 6 scenarios]
+4EBD	4EC3	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4EC3	4F35	code	-	CONFIRMED	53 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
+4F35	4F45	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4F45	4F58	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
+4F58	4F6C	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4F6C	4F6F	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
+4F6F	4F70	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+4F70	4FA4	code	-	CONFIRMED	26 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
+4FA4	4FC3	code	-	PROBABLE	14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 4FC3	4FCB	data	Data_54_4FC3	PROBABLE	8-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0008) at 54:4D4F (ld hl,$4FC3 ; ld de,$C240)
 4FCB	4FD2	data	Data_54_4FCB	PROBABLE	7-byte blob copied to WRAM $C240 by CopyBytes 00:050C (bc=$0007) at 54:4D73 (ld hl,$4FCB)
-4FD2	511B	code	-	PROBABLE	203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code)
-511B	511D	data	Data_54_511B	HYPOTHESIS	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-511D	5343	code	-	PROBABLE	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code)
+4FD2	501B	code	-	CONFIRMED	203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code) | 36 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
+501B	504F	code	-	PROBABLE	31 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
+504F	50A0	code	-	CONFIRMED	52 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 12 scenarios]
+50A0	50A2	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
+50A2	50B0	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 12 scenarios]
+50B0	50C0	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
+50C0	511B	code	-	CONFIRMED	65 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
+511B	511D	data	Data_54_511B	CONFIRMED	UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [every byte read as data in 6 scenario(s)]
+511D	51B9	code	-	CONFIRMED	306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 3 scenarios]
+51B9	51BC	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
+51BC	51DB	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
+51DB	51E1	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
+51E1	524B	code	-	CONFIRMED	65 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
+524B	524E	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
+524E	5294	code	-	CONFIRMED	39 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
+5294	5343	code	-	PROBABLE	98 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
 5343	5368	text	String_54_5343	PROBABLE	ASCII month abbreviations "jan" "feb" ... "dec" (12 x 3) + NUL; walked by 54:51A6 (ld hl,$5343 ; inc e ; ld a,[hli] ; or a ; jr z ...) to turn a 3-letter month into an index
 5368	5374	data	Table_54_5368	PROBABLE	12 BCD month numbers 01..09,10,11,12 (byte-exact); indexed by the month index at 54:51C2 (ld hl,$5368 ; add hl,de ; ld a,[hl] ; ld [$C582],a)
 5374	5386	data	Table_54_5374	PROBABLE	days per month in BCD: 31 28 31 30 31 30 31 31 30, 6 zero bytes, 31 30 31 - indexed by the BCD month number from base $5373 (54:52B1 and 54:5319: ld hl,$5373 ; add hl,de) so BCD 10/11/12 land on the last three entries
-5386	53E9	code	-	PROBABLE	41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code)
+5386	53DD	code	-	CONFIRMED	41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split [executed in 5 scenarios]
+53DD	53E3	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split
+53E3	53E9	code	-	CONFIRMED	4 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split [executed in 8 scenarios]
 53E9	8000	zero	-	PROBABLE	trailing 0x00 padding to end of bank

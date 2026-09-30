@@ -603,7 +603,7 @@ Label_1F_4532:: ; 1F:4532
 	cp a, $05
 	ret nz
 
-; ---- code $455C-$4561 (5 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the retcc at 1F:455B (executed)
+; ---- code $455C-$4561 (5 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the retcc at 1F:455B (executed) [executed in 2 scenarios]
 	xor a, a
 	ld [wRam_C0E8], a
 	ret

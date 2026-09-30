@@ -1062,7 +1062,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	cp a, $0C
 	jp nz, Label_7C_7C6A
 
-; ---- code $7BFA-$7C6A (112 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed)
+; ---- code $7BFA-$7C6A (112 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 7C:7BF7 (executed) [executed in 2 scenarios]
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -1070,7 +1070,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1114,7 +1114,7 @@ Label_7C_7C6A:: ; 7C:7C6A
 	farcall MailSendRecv_Main
 	jp Nav_MailMenuLoop
 
-; ---- code $7C73-$7C7C (9 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code)
+; ---- code $7C73-$7C7C (9 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jpcc from 7C:7C54 (PROBABLE code) [executed in 2 scenarios]
 
 Label_7C_7C73:: ; 7C:7C73
 	farcall Palette_FadeOutToWhite
@@ -1217,7 +1217,7 @@ Nav_TitleMobileSettings:: ; 7C:7D1F
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	xor a, a
-	ld [sSram_BF01], a
+	ld [sVarSettingsMenuCursor], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a

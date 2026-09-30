@@ -1,27 +1,43 @@
 # merged by tools/merge_proposals.py from analysis/mapper/bank%02X.tsv (tools/mapper.py); statuses are the mapper's evidence classes
 4000	402E	code	Function_25_4000	CONFIRMED	24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-402E	403F	code	-	PROBABLE	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed)
+402E	403F	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 25:402C (executed) [executed in 3 scenarios]
 403F	408A	code	-	CONFIRMED	33 insn(s); 33 executed (in up to 1/18 scenarios)
-408A	446B	code	-	PROBABLE	466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1; entered by jrcc from 25:405A (executed)
+408A	4310	code	-	CONFIRMED	466 insn(s) reached by static flow only; seeds: exec x466; min discovery hops 1; entered by jrcc from 25:405A (executed) | 307 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 3 scenarios]
+4310	4315	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+4315	4341	code	-	CONFIRMED	19 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
+4341	4344	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+4344	4365	code	-	CONFIRMED	15 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 4 scenarios]
+4365	436D	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+436D	437E	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 2 scenarios]
+437E	4386	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+4386	4447	code	-	CONFIRMED	93 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
+4447	444C	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 408A-446B by apply_coverage --split
+444C	446B	code	-	CONFIRMED	12 insn(s) executed; cut out of the PROBABLE region 408A-446B by apply_coverage --split [executed in 1 scenarios]
 446B	446E	data	Data_25_446B	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-446E	4659	code	-	PROBABLE	223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code)
+446E	4594	code	-	CONFIRMED	223 insn(s) reached by static flow only; seeds: exec x223; min discovery hops 5; entered by jpcc from 25:4214 (PROBABLE code) | 139 insn(s) executed; cut out of the PROBABLE region 446E-4659 by apply_coverage --split [executed in 1 scenarios]
+4594	4659	code	-	PROBABLE	84 insn(s) never executed in the traced runs; cut out of the PROBABLE region 446E-4659 by apply_coverage --split
 4659	465C	data	Data_25_4659	HYPOTHESIS	UNCLASSIFIED 3 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-465C	47F8	code	-	PROBABLE	202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code)
+465C	46D8	code	-	CONFIRMED	202 insn(s) reached by static flow only; seeds: exec x202; min discovery hops 6; entered by jpcc from 25:4470 (PROBABLE code) | 62 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
+46D8	46DB	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split
+46DB	47F8	code	-	CONFIRMED	139 insn(s) executed; cut out of the PROBABLE region 465C-47F8 by apply_coverage --split [executed in 1 scenarios]
 47F8	47FD	data	Data_25_47F8	HYPOTHESIS	UNCLASSIFIED 5 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
-47FD	4A15	code	-	PROBABLE	262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code)
+47FD	491B	code	-	CONFIRMED	262 insn(s) reached by static flow only; seeds: exec x262; min discovery hops 1; entered by jrcc from 25:4788 (PROBABLE code) | 138 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 1 scenarios]
+491B	4929	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split
+4929	4A15	code	-	CONFIRMED	117 insn(s) executed; cut out of the PROBABLE region 47FD-4A15 by apply_coverage --split [executed in 2 scenarios]
 4A15	4A2D	words	Table_25_4A15	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4687 and 25:4A0B (ld hl,$4A15; add hl,bc; ld a,[hli]; ld h,[hl]; ld l,a)
-4A2D	4A90	code	-	PROBABLE	52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code)
+4A2D	4A68	code	-	CONFIRMED	52 insn(s) reached by static flow only; seeds: exec x52; min discovery hops 5; entered by call from 25:42FF (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split [executed in 1 scenarios]
+4A68	4A90	code	-	PROBABLE	18 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A2D-4A90 by apply_coverage --split
 4A90	4AA6	code	Function_25_4A90	CONFIRMED	10 insn(s); 10 executed (in up to 5/18 scenarios); entry proven: target of an executed call/far call
-4AA6	4AF5	code	-	PROBABLE	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed)
+4AA6	4AF5	code	-	CONFIRMED	46 insn(s) reached by static flow only; seeds: exec x46; min discovery hops 0; fall-through of the retcc at 25:4AA5 (executed) [executed in 5 scenarios]
 4AF5	4B0D	words	Table_25_4AF5	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with no direct ld hl,imm found (identical 12 words to the tables at 25:4A15/4E2B)
 4B0D	4BD0	code	Function_25_4B0D	CONFIRMED	62 insn(s); 62 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
-4BD0	4C75	code	-	PROBABLE	53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1; entered by jpcc from 25:4B25 (executed)
+4BD0	4C75	code	-	CONFIRMED	53 insn(s) reached by static flow only; seeds: exec x53; min discovery hops 1; entered by jpcc from 25:4B25 (executed) [executed in 3 scenarios]
 4C75	4CED	code	-	CONFIRMED	68 insn(s); 68 executed (in up to 1/18 scenarios)
 4CED	4CFB	code	-	CONFIRMED	7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 25:4CEB (executed) | upgraded by classifier 6: all 7 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 4CFB	4D0E	code	-	CONFIRMED	9 insn(s); 9 executed (in up to 1/18 scenarios)
-4D0E	4D4D	code	-	PROBABLE	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed)
+4D0E	4D4D	code	-	CONFIRMED	29 insn(s) reached by static flow only; seeds: exec x29; min discovery hops 0; fall-through of the jrcc at 25:4D0C (executed) [executed in 4 scenarios]
 4D4D	4D99	code	-	CONFIRMED	34 insn(s); 34 executed (in up to 1/18 scenarios)
-4D99	4E2B	code	-	PROBABLE	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code)
+4D99	4E2B	code	-	CONFIRMED	67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 25:4D27 (PROBABLE code) [executed in 4 scenarios]
 4E2B	4E43	words	Table_25_4E2B	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E13
 4E43	4F28	code	-	CONFIRMED	125 insn(s) reached by static flow only; seeds: exec x125; min discovery hops 7; entered by call from 25:48CF (PROBABLE code) | upgraded by classifier 6: all 125 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 4F28	4F40	words	Table_25_4F28	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4E67/4EA0/4ED9/4F12
@@ -29,11 +45,18 @@
 50AA	50C2	words	Table_25_50AA	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:4F48
 50C2	5228	code	Function_25_50C2	CONFIRMED	251 insn(s); 251 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 5228	5240	words	Table_25_5228	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:5228 first entry read by executed code (region Data_25_5228 CONFIRMED); no direct ld hl,imm found
-5240	534C	code	-	PROBABLE	145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
+5240	5267	code	-	CONFIRMED	145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 9 scenarios]
+5267	526B	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5240-534C by apply_coverage --split
+526B	531C	code	-	CONFIRMED	96 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 3 scenarios]
+531C	5322	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5240-534C by apply_coverage --split
+5322	534C	code	-	CONFIRMED	27 insn(s) executed; cut out of the PROBABLE region 5240-534C by apply_coverage --split [executed in 4 scenarios]
 534C	53D0	code	Function_25_534C	CONFIRMED	68 insn(s); 68 executed (in up to 4/18 scenarios); entry proven: target of an executed call/far call
 53D0	53DA	ptrtable	Table_25_53D0	PROBABLE	5 pointers, every target is the first byte of one of the 5 NUL-terminated strings of String_25_53DA; read by 25:53B2 (ld e,d; sla e; ld hl,$53D0; add hl,de)
 53DA	54A7	text	String_25_53DA	PROBABLE	text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-54A7	5569	code	-	PROBABLE	105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code)
+54A7	5534	code	-	CONFIRMED	105 insn(s) reached by static flow only; seeds: exec x105; min discovery hops 8; entered by call from 25:4591 (PROBABLE code) | 80 insn(s) executed; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split [executed in 1 scenarios]
+5534	5536	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split
+5536	555C	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split [executed in 1 scenarios]
+555C	5569	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54A7-5569 by apply_coverage --split
 5569	5581	words	Table_25_5569	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:54E2
 5581	5871	code	-	CONFIRMED	310 insn(s) reached by static flow only; seeds: exec x310; min discovery hops 1; entered by call from 25:4033 (PROBABLE code) | upgraded by classifier 6: all 310 instruction starts of the region are in analysis/coverage_union.tsv (executed in a trace)
 5871	5889	words	Table_25_5871	PROBABLE	12 SRAM record addresses $A124..$AE13, constant stride $12D (301), verified arithmetic progression; indexed table read with 25:585C

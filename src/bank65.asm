@@ -121,7 +121,7 @@ Startup_ConfigValid_ShowInfoError:: ; 65:408E
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $40A6-$40B3 (13 bytes) [PROBABLE] entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9
+; ---- code $40A6-$40B3 (13 bytes) [PROBABLE] entry 40A6 = word of Table_65_40C5 (dispatcher 4078-408B); xor a ; ld [$C277],a ; ld [$C278],a ; call $41DA ; jp $41A9 | forced execution: 4/5 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 
 Startup_ConfigValid_Fresh:: ; 65:40A6
 	xor a, a
@@ -175,12 +175,14 @@ Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
 	ld a, $F0
 	ld hl, $0100
 
-; ---- code $40E7-$40FA (19 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $40E7-$40F7 (16 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 5 insn(s) executed; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split [executed in 1 scenarios]
 	farcall CommErr_ShowScreen
 	xor a, a
 	ld [wRam_C277], a
 	ld [wSettingsFieldMask], a
 	call Registration_Run
+
+; ---- code $40F7-$40FA (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 40E7-40FA by apply_coverage --split
 	jp Startup_Return
 
 ; ---- code $40FA-$4107 (13 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 4/18 scenarios)
@@ -192,11 +194,13 @@ Startup_ConfigBlank_Fresh:: ; 65:40FA
 	call Registration_Run
 	jp Startup_Return
 
-; ---- code $4107-$4110 (9 bytes) [PROBABLE] code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9
+; ---- code $4107-$410D (6 bytes) [CONFIRMED] code entry 4107 = word of Table_65_4119; call $4123 ; call $41DA ; jp $41A9 | 2 insn(s) executed; cut out of the PROBABLE region 4107-4110 by apply_coverage --split [executed in 3 scenarios]
 
 Startup_ConfigBlank_Resume:: ; 65:4107
 	call Registration_ReadStage
 	call Registration_Run
+
+; ---- code $410D-$4110 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4107-4110 by apply_coverage --split
 	jp Startup_Return
 
 ; ---- code $4110-$4119 (9 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
@@ -391,10 +395,12 @@ Label_65_4226:: ; 65:4226
 	or a, a
 	jp z, Registration_SummaryStep
 
-; ---- code $4293-$42A3 (16 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 65:4290 (executed)
+; ---- code $4293-$429A (7 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 65:4290 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 4293-42A3 by apply_coverage --split [executed in 1 scenarios]
 	ld a, [wManualNumbersFlag]
 	or a, a
 	jp nz, Label_65_462C
+
+; ---- code $429A-$42A3 (9 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4293-42A3 by apply_coverage --split
 	farcall SettingsPhone_ClearEntryBuffers
 	jp Registration_SummaryStep
 
@@ -410,7 +416,7 @@ Registration_IntroPage:: ; 65:42A3
 	cp a, $16
 	jr nz, Registration_NoticePages
 
-; ---- code $42BB-$42E3 (40 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 65:42B9 (executed)
+; ---- code $42BB-$42DB (32 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 65:42B9 (executed) | 11 insn(s) executed; cut out of the PROBABLE region 42BB-42E3 by apply_coverage --split [executed in 2 scenarios]
 	ld a, $01
 	ld [wHiddenModeFlag], a
 	jp Registration_NoticePages_Hidden
@@ -424,6 +430,8 @@ Label_65_42C3:: ; 65:42C3
 	and a, $16
 	cp a, $16
 	jr nz, Registration_NoticePages
+
+; ---- code $42DB-$42E3 (8 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 42BB-42E3 by apply_coverage --split
 	ld a, $01
 	ld [wHiddenModeFlag], a
 	jp Registration_NoticePages_Hidden
@@ -590,12 +598,14 @@ Registration_SummaryStep:: ; 65:4435
 	ld [wManualNumbersFlag], a
 	jp Registration_Communicate
 
-; ---- code $444B-$4642 (503 bytes) [PROBABLE] 164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1; entered by jrcc from 65:446C (PROBABLE code)
+; ---- code $444B-$4455 (10 bytes) [PROBABLE] 164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1; entered by jrcc from 65:446C (PROBABLE code) | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 444B-4642 by apply_coverage --split
 
 Label_65_444B:: ; 65:444B
 	ld a, $00
 	ld b, $01
 	farcall Notice_ShowPage
+
+; ---- code $4455-$461A (453 bytes) [CONFIRMED] 147 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage --split [executed in 1 scenarios]
 
 Registration_NoticePages_Hidden:: ; 65:4455
 	ld hl, $B089
@@ -782,8 +792,12 @@ Label_65_4607:: ; 65:4607
 	ld a, $01
 	jr Label_65_461B
 
+; ---- code $461A-$461B (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 444B-4642 by apply_coverage --split
+
 Label_65_461A:: ; 65:461A
 	xor a, a
+
+; ---- code $461B-$4642 (39 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 444B-4642 by apply_coverage --split [executed in 2 scenarios]
 
 Label_65_461B:: ; 65:461B
 	ld [wRam_C27A], a

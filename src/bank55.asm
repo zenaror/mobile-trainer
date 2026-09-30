@@ -1255,8 +1255,10 @@ Label_55_5E6C:: ; 55:5E6C
 	cp a, $20
 	jr z, Label_55_5E7B
 
-; ---- code $5E75-$5E7B (6 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed)
+; ---- code $5E75-$5E78 (3 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 55:5E73 (executed) | 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E75-5E7B by apply_coverage --split
 	jp Label_55_5F09
+
+; ---- code $5E78-$5E7B (3 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5E75-5E7B by apply_coverage --split [executed in 5 scenarios]
 
 Label_55_5E78:: ; 55:5E78
 	jp Label_55_5F1D
@@ -1593,7 +1595,7 @@ Function_55_6041:: ; 55:6041
 	jr z, Label_55_605A
 	ret
 
-; ---- code $604D-$6068 (27 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed)
+; ---- code $604D-$605A (13 bytes) [CONFIRMED] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed) | 8 insn(s) executed; cut out of the PROBABLE region 604D-6068 by apply_coverage --split [executed in 1 scenarios]
 
 Label_55_604D:: ; 55:604D
 	ld a, [wKbdMoveDirection]
@@ -1604,6 +1606,8 @@ Label_55_604D:: ; 55:604D
 	ret nz
 	inc b
 	ret
+
+; ---- code $605A-$6068 (14 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 604D-6068 by apply_coverage --split
 
 Label_55_605A:: ; 55:605A
 	ld a, [wKbdMoveDirection]
@@ -2039,7 +2043,7 @@ Label_55_6366:: ; 55:6366
 	cp a, $05
 	jr nz, Label_55_6386
 
-; ---- code $636D-$6386 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
+; ---- code $636D-$6381 (20 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed) | 7 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage --split [executed in 4 scenarios]
 	farcall Function_00_0956
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
@@ -2048,8 +2052,12 @@ Label_55_6366:: ; 55:6366
 	call Function_00_044B
 	jr Label_55_6384
 
+; ---- code $6381-$6384 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 636D-6386 by apply_coverage --split
+
 Label_55_6381:: ; 55:6381
 	call Function_00_0464
+
+; ---- code $6384-$6386 (2 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage --split [executed in 4 scenarios]
 
 Label_55_6384:: ; 55:6384
 	jr Label_55_63D2
@@ -2219,7 +2227,7 @@ Label_55_6496:: ; 55:6496
 	cp a, $05
 	jr nz, Label_55_64B6
 
-; ---- code $649D-$64B6 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
+; ---- code $649D-$64B1 (20 bytes) [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed) | 7 insn(s) executed; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split [executed in 4 scenarios]
 	farcall Function_00_0956
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
@@ -2228,8 +2236,12 @@ Label_55_6496:: ; 55:6496
 	call Function_00_044B
 	jr Label_55_64B4
 
+; ---- code $64B1-$64B4 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split
+
 Label_55_64B1:: ; 55:64B1
 	call Function_00_0464
+
+; ---- code $64B4-$64B6 (2 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 649D-64B6 by apply_coverage --split [executed in 4 scenarios]
 
 Label_55_64B4:: ; 55:64B4
 	jr Label_55_6502

@@ -117,7 +117,7 @@ Dial_KeyCharTable:: ; 68:408E
 String_68_408E::
 	db $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $23, $2A ; "0123456789#*"
 
-; ---- code $409A-$40D8 (62 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code)
+; ---- code $409A-$40B5 (27 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by far from 67:568C (PROBABLE code) | 15 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 1 scenarios]
 
 PhoneNumber_PackBcd:: ; 68:409A
 	ld b, $00
@@ -142,8 +142,12 @@ Label_68_40B1:: ; 68:40B1
 	ld c, $0A
 	jr Label_68_40B7
 
+; ---- code $40B5-$40B7 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split
+
 Label_68_40B5:: ; 68:40B5
 	ld c, $0B
+
+; ---- code $40B7-$40D8 (33 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 409A-40D8 by apply_coverage --split [executed in 3 scenarios]
 
 Label_68_40B7:: ; 68:40B7
 	ld a, b
@@ -330,7 +334,7 @@ Account_BuildMailAddress:: ; 68:419C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_DFAA], a
+	ld [wAcctMailAddress], a
 	ld hl, $DEAB
 	ld de, $DFAA
 	call CopyString
@@ -796,7 +800,7 @@ Function_68_4499::
 	ld [rRAMB], a
 	ld a, b
 	xor a, $A5
-	ld [sSram_B013], a
+	ld [sSettingsSelectedDialEntry], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -820,7 +824,7 @@ Settings_GetSelectedDialEntry:: ; 68:44D0
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [sSram_B013]
+	ld a, [sSettingsSelectedDialEntry]
 	xor a, $A5
 	ld b, a
 	ldh [hScratchA], a
@@ -855,7 +859,7 @@ Function_68_44FC::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [sSram_B012]
+	ld a, [sSettingsHiddenMode]
 	xor a, $A5
 	ld b, a
 	ldh [hScratchA], a
@@ -896,7 +900,7 @@ Settings_SetHiddenModeFlag:: ; 68:453B
 	ld [rRAMB], a
 	ld a, b
 	xor a, $A5
-	ld [sSram_B012], a
+	ld [sSettingsHiddenMode], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -1444,14 +1448,18 @@ Label_68_48ED:: ; 68:48ED
 	ld a, $00
 	ret
 
-; ---- code $48F3-$4940 (77 bytes) [PROBABLE] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed)
+; ---- code $48F3-$48FC (9 bytes) [CONFIRMED] 37 insn(s) reached by static flow only; seeds: exec x37; min discovery hops 1; entered by jrcc from 68:48E9 (executed) | 4 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
 
 Label_68_48F3:: ; 68:48F3
 	ld hl, $B100
 	call Settings_CheckPageMagicAndSum
 	or a, a
 	jr z, Label_68_48FE
+
+; ---- code $48FC-$48FE (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
 	jr Label_68_493D
+
+; ---- code $48FE-$493D (63 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split [executed in 1 scenarios]
 
 Label_68_48FE:: ; 68:48FE
 	ldh [hScratchA], a
@@ -1484,6 +1492,8 @@ Label_68_48FE:: ; 68:48FE
 	ldh a, [hScratchA]
 	ld a, $01
 	ret
+
+; ---- code $493D-$4940 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 48F3-4940 by apply_coverage --split
 
 Label_68_493D:: ; 68:493D
 	ld a, $02
@@ -1676,9 +1686,9 @@ Settings_StoreStringField:: ; 68:4A4A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	call EncodeXorA5
-	ld a, [sSram_B0BE]
+	ld a, [sSettingsFieldMask]
 	or a, b
-	ld [sSram_B0BE], a
+	ld [sSettingsFieldMask], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -2047,7 +2057,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ldh a, [hScratchA]
 	ld a, b
 	xor a, $A5
-	ld [sSram_BF04], a
+	ld [sPhoneMethodMenuCursor], a
 	ld [wManualNumbersFlag], a
 	ld hl, $B089
 	ldh [hScratchA], a
@@ -3028,7 +3038,7 @@ Account_CommitLoginId:: ; 68:554C
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $67
-	ld [wRam_DEA0], a
+	ld [wAcctLoginId], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -4795,7 +4805,7 @@ Account_ConfirmScreen_UploadTextTiles:: ; 68:6416
 	farcall TileCanvas_UploadRect
 	ret
 
-; ---- code $6435-$659A (357 bytes) [PROBABLE] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code)
+; ---- code $6435-$659A (357 bytes) [CONFIRMED] 137 insn(s) reached by static flow only; seeds: exec x137; min discovery hops 5; entered by far from 65:462C (PROBABLE code) [executed in 1 scenarios]
 
 Account_ConfirmManualScreen:: ; 68:6435
 	call Account_ConfirmManualScreen_Setup
@@ -4958,7 +4968,7 @@ Account_ConfirmManualCursorPositions:: ; 68:659A
 Table_68_659A::
 	dw $7058, $7080
 
-; ---- code $659E-$67AE (528 bytes) [PROBABLE] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code)
+; ---- code $659E-$67AE (528 bytes) [CONFIRMED] 208 insn(s) reached by static flow only; seeds: exec x208; min discovery hops 7; entered by call from 68:64EB (PROBABLE code) [executed in 2 scenarios]
 
 Function_68_659E:: ; 68:659E
 	ld hl, $D048
@@ -5608,7 +5618,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	or a, a
 	jr z, Label_68_6DF3
 
-; ---- code $6DBD-$6DF3 (54 bytes) [PROBABLE] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed)
+; ---- code $6DBD-$6DF3 (54 bytes) [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 0; fall-through of the jrcc at 68:6DBB (executed) [executed in 2 scenarios]
 	ld hl, $DEDD
 	ld de, $A076
 	call PhoneNumber_PackBcd
@@ -7195,12 +7205,14 @@ Label_68_7967:: ; 68:7967
 Label_68_798F:: ; 68:798F
 	ret
 
-; ---- code $7990-$799A (10 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed)
+; ---- code $7990-$7999 (9 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 68:7970 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 7990-799A by apply_coverage --split [executed in 7 scenarios]
 
 Label_68_7990:: ; 68:7990
 	ld a, $0A
 	farcall Notice_ShowPage
 	ret
+
+; ---- code $7999-$799A (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7990-799A by apply_coverage --split
 
 Label_68_7999:: ; 68:7999
 	ret

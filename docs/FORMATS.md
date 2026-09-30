@@ -9,6 +9,8 @@ baserom.gbc ──┐
 config/regions/bankNN.tsv ──┤
 config/symbols/bankNN.tsv ──┼─► tools/gen_asm.py ─► src/bankNN.asm, src/ram.inc ─► rgbasm/rgblink ─► ROM == baserom.gbc
 config/ram/*.tsv ───────────┤
+config/ram_banked/*.tsv ────┤ (optional) bank-qualified names, used only where ...
+config/ram_context.tsv ─────┤ (optional) ... this table declares the WRAM/SRAM bank of a code range
 config/conventions.tsv ─────┤
 config/text_charsets.tsv ───┤ (optional)
 config/xrefs.tsv ───────────┘        constants/hardware.inc (hardware register names)
@@ -138,6 +140,63 @@ WRAM/SRAM/HRAM/IO variables (`$8000-$FFFF`); `size` in bytes (decimal, or `$`/`0
 (`byte`, `word`, `array`, ...).  Emitted as `DEF name EQU $addr` in `src/ram.inc`, which every bank includes.
 Used for `ldh` operands and `ld [a16]` operands only: an address inside a variable prints as `name` or
 `name + k`.  Never for `ld hl, $xxxx`-style immediates (see xrefs).  A hardware register name always wins.
+
+## config/ram_banked/*.tsv and config/ram_context.tsv (bank-aware RAM names, both optional)
+
+`$D000-$DFFF` is WRAM bank 1-7 (selected through rSVBK, mirror `hWRAMBank` at $FF8D) and `$A000-$BFFF` is SRAM bank 0-3 (RAMB, mirror
+`hSRAMBank` at $FF8C): the same CPU address is a different object in every bank, and an instruction operand carries only the CPU address.
+`config/ram/*.tsv` therefore keeps such addresses **neutral** (`wRam_D040`, `sSram_A124`).  The bank-aware layer adds names that are valid
+in one bank only, and substitutes them at an instruction **only when the instruction is inside a code range that is declared to run under
+exactly that bank**.  Names never change bytes (the substituted expression is re-evaluated against the row table and rgbasm must still rebuild the ROM).
+
+### config/ram_banked/*.tsv
+
+```
+bank	addr	name	size	type	status	evidence
+```
+
+`bank` = `W1`..`W7` (WRAM bank, `addr` must lie in `$D000-$DFFF`) or `S0`..`S3` (SRAM bank, `$A000-$BFFF`); `size` in bytes (an access inside a
+row prints `name + k`; sizes may exceed 1 because the extent belongs to one bank).  Rows of one (space, bank) must not overlap; different banks
+may reuse addresses freely.  Names share the single global namespace (labels, consts, `config/ram` names): a duplicate is an error.  Every name
+is emitted in `src/ram.inc` as `DEF name EQU $addr ; bank W5 size ...`.  `tools/build_ram_config.py` writes `named.tsv` (from the naming
+proposals, see `docs/research/ram_names_reconciliation.md`); further files in the directory are read too.
+
+### config/ram_context.tsv
+
+```
+bank	start	end	wram_bank	sram_bank	status	evidence
+```
+
+One row = a range of ROM bank `bank` (storage CPU addresses, `end` exclusive) all of whose instructions execute with the given WRAM bank
+(`wram_bank`, effective rSVBK value 1-7; `-` = no claim) and/or SRAM bank (`sram_bank` 0-3; `-` = no claim).  `evidence` is mandatory and `status`
+is CONFIRMED/PROBABLE/HYPOTHESIS as everywhere.  Rules (hard errors unless noted):
+
+* the range lies inside the bank window and covers only `code` regions (not `ramcode`, not data), starts on an instruction boundary and ends on one
+  (or at the inline bytes of a convention call, or at the end of its region) -- a stale row after a region edit is refused, re-run `tools/rambank_infer.py`;
+* a row claims at least one dimension; `wram_bank` outside 1-7, `sram_bank` outside 0-3, unknown bank, missing evidence: errors;
+* two overlapping rows of one bank that claim **different** banks for the same dimension are an error (`conflicting contexts`); an overlapping row that
+  repeats the same claim is a warning (error under `--strict`).
+
+Substitution: for `ld a,[a16]`, `ld [a16],a`, `ld [a16],sp` on an address in `$D000-$DFFF` the generator looks up the instruction's `wram_bank`; if a
+row of `config/ram_banked` for that (`W`, bank) covers the address the banked name is used, otherwise the neutral `config/ram` name (or the number) stays.
+Likewise `$A000-$BFFF` with `sram_bank`.  No context, or a context claiming only the other dimension, means neutral.  `ld r16,imm16` immediates are still
+never substituted (see xrefs).  The generator counts the substitutions in its statistics (`banked_names`, split by the status of the context).
+
+### How the contexts are derived (nothing is guessed)
+
+`tools/rambank_observe.py` replays every scenario of `traces/scenarios.tsv` with the tracer option `--bank-obs` (`tools/trace/mgba_trace.c`) and writes
+`analysis/rambank/observed_banks.tsv`: for every executed instruction start the set of effective WRAM banks and of RAMB values that were in force when it
+started (bitmasks, ORed over the scenarios).  Its coverage output equals `traces/coverage_*.tsv` exactly (it is the same deterministic replay; the run uses a
+private chain-state directory and never writes `traces/` or `.cache/trace/state`).  `tools/rambank_infer.py` then writes `config/ram_context.tsv`:
+
+* **static proof**: dataflow over the decoded code (constants stored by `ld a,imm ; ldh [rSVBK],a` / `ld [$4000-$5FFF],a`, call summaries computed per
+  routine, entry state = meet over all callers, unknown for routines whose callers are not all known), see the header of the tool for the exact model;
+  CONFIRMED when the instruction also executed in the traces under exactly that bank, PROBABLE when it never executed;
+* **routine-level observation** (PROBABLE): the routine never changes the bank after entry (static) and every executed instruction of it ran under one bank (dynamic);
+* **instruction-level observation** (PROBABLE, only for banked `ld [a16]` accesses): the access executed only under one bank in every scenario;
+* a static claim contradicted by an observation is dropped together with its routine and listed in `analysis/rambank/conflicts.tsv` (the tool exits 2);
+* only ranges containing a banked-address `ld [a16]` are written.  `analysis/rambank/inference_report.md` has the counts and the limits (interrupt handlers are assumed to
+  restore the banks, pointer stores to $FF70/$4000 are not modelled, callers hidden in data are invisible).
 
 ## config/xrefs.tsv
 
@@ -297,7 +356,8 @@ respect).  Exit status 1 with `--strict` only when section 1 has an ERROR.
 * `ld [$0000|$2000|$3000|$4000], a` (writes only, exact address): `rRAMG rROMB0 rROMB1 rRAMB`
   (MBC5 as declared by header type $1B; the name asserts the register, not that the cartridge really is MBC5).
   Reads (`ld a, [$2000]`), `ld [$xxxx], sp` and other addresses in the ranges stay numeric.
-* `ldh`/`ld [a16]` RAM addresses: names from `config/ram` (see above).
+* `ldh`/`ld [a16]` RAM addresses: names from `config/ram` (see above); on `$D000-$DFFF` / `$A000-$BFFF` first the bank-qualified names of `config/ram_banked`
+  when `config/ram_context.tsv` declares the bank of the instruction (see above), otherwise the neutral name.
 * `ld r16, imm16`: **never** substituted, except by an xref.
 * Every substitution is asserted to have exactly the numeric value of the operand while generating.
 
@@ -315,7 +375,9 @@ respect).  Exit status 1 with `--strict` only when section 1 has an ERROR.
   window or overlapping, odd `words`/`ptrtable` size, `zero` with non-zero bytes, `code` instruction crossing the
   region end, `ramcode` without `runaddr`/outside RAM/partial overlay overlap, label not on an instruction/word
   boundary, inline data of a convention call that crosses/leaves its code region or holds a label, duplicate or colliding names (also with hardware/RAM/const names), generic-looking name at the wrong
-  address, xref stale/mismatching/unlabelable, ROM size not a multiple of 16 KiB.  `--strict` also turns
+  address, xref stale/mismatching/unlabelable, ROM size not a multiple of 16 KiB, `config/ram_context.tsv` errors (conflicting contexts, a range
+  that is not aligned to instructions or covers non-code, bad bank number, no evidence), `config/ram_banked` errors (bad bank token, address outside the
+  bank's window, overlap inside one bank, duplicate or colliding name).  `--strict` also turns
   warnings (missing status, config files not named bankNN.tsv, hardware-name shadowing, a convention entry inside an instruction) into errors.
 * Output is deterministic (no dates, sorted, files whose content is unchanged are not rewritten).
 
@@ -328,6 +390,9 @@ make verify          python3 tools/gen_asm.py verify       (temp build + compare
 make test            tools/selftest_gen.py + tools/test_sm83.py + tools/test_cfg.py
 make conventions-check   python3 tools/conventions_check.py   (far pointers / inline sites vs config/regions)
 make progress        python3 tools/progress.py             (writes docs/PROGRESS.md)
+python3 tools/rambank_observe.py       replay the scenarios with `--bank-obs` -> analysis/rambank/observed_banks.tsv (minutes, needs the built tracer)
+python3 tools/rambank_infer.py         derive config/ram_context.tsv from the code + the observations (seconds)
+python3 tools/build_ram_config.py      merge the naming proposals into config/ram/*.tsv and config/ram_banked/named.tsv (needs config/ram_context.tsv)
 
 tools/gen_asm.py [regen|verify|check] [--config DIR] [--out DIR] [--rom FILE] [--fast] [--strict] [--no-macros]
                  [--xrefs FILE ...] [--keep DIR] [-q]
@@ -362,7 +427,14 @@ Bank 00 uses `ROM0[$0000]`.  Sections are fixed-address, one per bank, so offset
 xrefs) and proves the rebuild is byte-identical; `sweep_kinds` does the same with every non-code kind and random cuts;
 `kinds`, `ramareas`, `hw_names`, `extra_xrefs` cover each kind, ramcode/LOAD (labels at runtime addresses), labels,
 name substitution and MBC/hardware names; `failures` (49 cases) checks every hard error; `safety` proves nothing is
-written when the structural or assembler check fails; plus `determinism`, `compare_rom`, `progress`.  `text` (unit tests of
+written when the structural or assembler check fails; plus `determinism`, `compare_rom`, `progress`.  Bank-aware names: `ramctx` (synthetic ROM: a banked name is used
+exactly inside a context range declaring that bank -- range ends are exclusive --, `name + k` in a banked row, both dimensions, no context / banked file only /
+context file only stay neutral, 26 rejected inputs incl. conflicting contexts and misaligned or non-code ranges, repeated claims are refused by `--strict`),
+`banked_names` (`build_ram_config.resolve_banked`: stated bank vs context bank, merged namers, derived bank, held proposals, status capped by the context),
+`rambank_infer` (synthetic ROM: static W/S constants through neutral, setting and unknown callees, routine- and instruction-level observation classes, a
+contradicting observation is dropped and reported, `--check`), `sweep_ctx` (the real ROM as code with random banked names and random/accessor-aligned
+context ranges: rebuild identical, substitutions happen, `--strict` clean) and `ctx_real` (the real config: strict load, no traced instruction contradicts
+its context claim).  `text` (unit tests of
 `lib/textfmt.py` on random and crafted input incl. malformed strings, a region not ending at NUL, a lone lead byte at the end;
 every comment is parsed back to the bytes; the generator on a synthetic ROM with all charsets/layouts and labels inside strings
 and html bodies, `--no-text-comments`, the 8 `text_charsets.tsv` errors, every real text region tiles).
@@ -405,6 +477,10 @@ adopted `data` region rebuilds identically).
 * `analysis/farcall_targets.tsv` (`caller_bank caller_addr routine target_bank target_addr confidence`) is not loaded
   automatically; its rows map to xrefs as `caller_bank caller_addr branch target_bank target_addr` only after
   checking that `caller_addr` is the first byte of a decoded instruction (stale rows are hard errors).
+* Bank-aware names are used only for direct `ld [a16]` operands: the more common `ld hl,$D400` pointer loads stay numeric (no per-instruction xref for banked
+  names yet).  A context row is a claim about *every* instruction in its range; an instruction reachable under another bank by a path the analysis cannot see
+  (interrupts that fail to restore the bank, indirect jumps into the middle of a range, code the region table calls data) would get a wrong banked name --
+  the names are still byte-exact, but the semantic claim is only as good as the context evidence (CONFIRMED/PROBABLE in the row).
 * Deleting a config file changes the result; `make` notices (file list), an edited-in-place file via timestamps.
 
 ## Verification notes (adversarial review of this generator)

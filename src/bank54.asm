@@ -575,7 +575,7 @@ Label_54_4385:: ; 54:4385
 	ld a, $FF
 	ret
 
-; ---- code $4393-$43EE (91 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code)
+; ---- code $4393-$43A3 (16 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 1; entered by jrcc from 54:437E (PROBABLE code) | 8 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
 
 Label_54_4393:: ; 54:4393
 	ld a, [wMobileRetriesLeft]
@@ -586,8 +586,12 @@ Label_54_4393:: ; 54:4393
 	ld a, [wCommSessionKind]
 	or a, a
 	jr z, Label_54_43A8
+
+; ---- code $43A3-$43A8 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
 	ld a, $07
 	ld [wMobileTaskKind], a
+
+; ---- code $43A8-$43CF (39 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 4393-43EE by apply_coverage --split [executed in 2 scenarios]
 
 Label_54_43A8:: ; 54:43A8
 	call Url_ResolveLocation
@@ -610,6 +614,8 @@ Label_54_43A8:: ; 54:43A8
 	farcall MobileAPI
 	ld a, $01
 	ret
+
+; ---- code $43CF-$43EE (31 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4393-43EE by apply_coverage --split
 
 Label_54_43CF:: ; 54:43CF
 	ld a, $2C
@@ -635,7 +641,7 @@ Label_54_43EE:: ; 54:43EE
 	ld a, $00
 	ret
 
-; ---- code $43F1-$44AC (187 bytes) [PROBABLE] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed)
+; ---- code $43F1-$4409 (24 bytes) [CONFIRMED] 102 insn(s) reached by static flow only; seeds: exec x102; min discovery hops 1; entered by jpcc from 54:4360 (executed) | 9 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 2 scenarios]
 
 Label_54_43F1:: ; 54:43F1
 	ld bc, $0000
@@ -648,12 +654,16 @@ Label_54_43F1:: ; 54:43F1
 	ld [wRam_C1DC], a
 	ret
 
+; ---- code $4409-$4417 (14 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
+
 Label_54_4409:: ; 54:4409
 	ld a, $2C
 	farcall MobileAPI
 	ld a, $01
 	ld [wRam_C1DC], a
 	ret
+
+; ---- code $4417-$44A0 (137 bytes) [CONFIRMED] 81 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 1 scenarios]
 
 Url_ResolveLocation:: ; 54:4417
 	ld l, c
@@ -754,10 +764,14 @@ Mobile_StopPoll:: ; 54:4492
 	ld a, $01
 	ret
 
+; ---- code $44A0-$44A6 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split
+
 Label_54_44A0:: ; 54:44A0
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
+
+; ---- code $44A6-$44AC (6 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 43F1-44AC by apply_coverage --split [executed in 4 scenarios]
 
 Label_54_44A6:: ; 54:44A6
 	ld hl, $C1D8
@@ -791,7 +805,7 @@ Label_54_44C1:: ; 54:44C1
 	or a, a
 	ret z
 
-; ---- code $44C3-$475A (663 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed)
+; ---- code $44C3-$44F8 (53 bytes) [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 0; fall-through of the retcc at 54:44C2 (executed) | 27 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
 	pop hl
 	xor a, a
 	ld [wMobileTaskStep], a
@@ -824,10 +838,14 @@ Label_54_44E6:: ; 54:44E6
 	ld a, $FF
 	ret
 
+; ---- code $44F8-$44FE (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
+
 Label_54_44F8:: ; 54:44F8
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
+
+; ---- code $44FE-$4569 (107 bytes) [CONFIRMED] 45 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 2 scenarios]
 
 Smtp_StartHelo:: ; 54:44FE
 	call Mobile_ResetCommandTimer
@@ -886,10 +904,14 @@ Smtp_QuitPoll:: ; 54:4552
 	ld a, $01
 	ret
 
+; ---- code $4569-$456F (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
+
 Label_54_4569:: ; 54:4569
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
+
+; ---- code $456F-$4745 (470 bytes) [CONFIRMED] 210 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 4 scenarios]
 
 Label_54_456F:: ; 54:456F
 	ld hl, $C1D8
@@ -1122,9 +1144,13 @@ Label_54_473B:: ; 54:473B
 	ld a, b
 	cp a, c
 	jr nz, Label_54_473B
+
+; ---- code $4745-$4748 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 44C3-475A by apply_coverage --split
 	xor a, a
 	ld [de], a
 	ret
+
+; ---- code $4748-$475A (18 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage --split [executed in 1 scenarios]
 
 Function_54_4748:: ; 54:4748
 	ld b, $00
@@ -1161,7 +1187,7 @@ String_Mail_CloseParen:: ; 54:4770
 String_54_4770::
 	db $29, $00 ; ")"
 
-; ---- code $4772-$4856 (228 bytes) [PROBABLE] 112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code)
+; ---- code $4772-$479D (43 bytes) [CONFIRMED] 112 insn(s) reached by static flow only; seeds: exec x112; min discovery hops 1; entered by far from 26:42BA (PROBABLE code) | 22 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 2 scenarios]
 
 Smtp_DataPoll:: ; 54:4772
 	call Mobile_CheckTimeout
@@ -1190,11 +1216,15 @@ Label_54_478E:: ; 54:478E
 	jr z, Label_54_47C2
 	dec a
 	jp z, Label_54_482C
+
+; ---- code $479D-$47A6 (9 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4772-4856 by apply_coverage --split
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $FF
 	ret
+
+; ---- code $47A6-$4834 (142 bytes) [CONFIRMED] 66 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 5 scenarios]
 
 Label_54_47A6:: ; 54:47A6
 	ld hl, $C241
@@ -1274,6 +1304,8 @@ Label_54_482C:: ; 54:482C
 	xor a, a
 	ret
 
+; ---- code $4834-$484A (22 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4772-4856 by apply_coverage --split
+
 Label_54_4834:: ; 54:4834
 	ld de, $C480
 	ld a, $0D
@@ -1285,6 +1317,8 @@ Label_54_4834:: ; 54:4834
 	ld hl, String_Smtp_EndOfData
 	farcall CopyString
 	jr Label_54_4812
+
+; ---- code $484A-$4856 (12 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage --split [executed in 5 scenarios]
 
 Function_54_484A:: ; 54:484A
 	ld b, $00
@@ -1418,7 +1452,7 @@ Label_54_4907:: ; 54:4907
 	xor a, a
 	ret
 
-; ---- code $4914-$49E0 (204 bytes) [PROBABLE] 87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code)
+; ---- code $4914-$4984 (112 bytes) [CONFIRMED] 87 insn(s) reached by static flow only; seeds: exec x87; min discovery hops 9; entered by far from 23:4D97 (PROBABLE code) | 54 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 2 scenarios]
 
 Pop3_StartTop:: ; 54:4914
 	push hl
@@ -1482,6 +1516,8 @@ Label_54_497E:: ; 54:497E
 	ld a, $FF
 	ret
 
+; ---- code $4984-$4995 (17 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
+
 Label_54_4984:: ; 54:4984
 	ld de, $C480
 	ld bc, $0000
@@ -1489,6 +1525,8 @@ Label_54_4984:: ; 54:4984
 	farcall MobileAPI
 	ld a, $01
 	ret
+
+; ---- code $4995-$49B0 (27 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split [executed in 1 scenarios]
 
 Label_54_4995:: ; 54:4995
 	ldh [hScratchA], a
@@ -1504,6 +1542,8 @@ Label_54_4995:: ; 54:4995
 	ld a, [wMobileTaskArgs]
 	cp a, $01
 	jp nz, Label_54_4BE8
+
+; ---- code $49B0-$49E0 (48 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4914-49E0 by apply_coverage --split
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1528,7 +1568,7 @@ String_54_49E0::
 String_Mail_PleaseDelete:: ; 54:4A01
 	db $82, $AF, $82, $B5, $82, $C4, $82, $AD, $82, $BE, $82, $B3, $82, $A2, $81, $42, $00 ; "けしてください。"
 
-; ---- code $4A12-$4AD0 (190 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code)
+; ---- code $4A12-$4AC2 (176 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 12; entered by jrcc from 54:49A6 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split [executed in 5 scenarios]
 
 Label_54_4A12:: ; 54:4A12
 	ld a, [wMobileTaskArgs]
@@ -1613,6 +1653,8 @@ Label_54_4AB9:: ; 54:4AB9
 	cp a, [hl]
 	inc hl
 	jr z, Label_54_4AB9
+
+; ---- code $4AC2-$4AD0 (14 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4A12-4AD0 by apply_coverage --split
 	ld de, $B430
 	ld hl, $C480
 	farcall CopyString
@@ -1630,7 +1672,7 @@ String_Mail_GameTitle:: ; 54:4AD7
 String_54_4AD7::
 	db $4D, $4F, $42, $49, $4C, $45, $20, $54, $52, $41, $49, $4E, $45, $52, $00 ; "MOBILE TRAINER"
 
-; ---- code $4AE6-$4C2A (324 bytes) [PROBABLE] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code)
+; ---- code $4AE6-$4BAC (198 bytes) [CONFIRMED] 133 insn(s) reached by static flow only; seeds: exec x133; min discovery hops 12; entered by jrcc from 54:4AA1 (PROBABLE code) | 76 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 2 scenarios]
 
 Label_54_4AE6:: ; 54:4AE6
 	ld de, $B430
@@ -1719,7 +1761,11 @@ Label_54_4B6F:: ; 54:4B6F
 	ld a, [hl]
 	or a, a
 	jr nz, Label_54_4BAF
+
+; ---- code $4BAC-$4BAF (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
 	ld hl, $B470
+
+; ---- code $4BAF-$4BBD (14 bytes) [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
 
 Label_54_4BAF:: ; 54:4BAF
 	farcall CopyString
@@ -1727,7 +1773,11 @@ Label_54_4BAF:: ; 54:4BAF
 	ld a, [sSram_B450]
 	or a, a
 	jr nz, Label_54_4BBE
+
+; ---- code $4BBD-$4BBE (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
 	inc c
+
+; ---- code $4BBE-$4C26 (104 bytes) [CONFIRMED] 48 insn(s) executed; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split [executed in 7 scenarios]
 
 Label_54_4BBE:: ; 54:4BBE
 	ld a, [sSram_B4FF]
@@ -1786,6 +1836,8 @@ Label_54_4C1D:: ; 54:4C1D
 	inc de
 	dec b
 	jr nz, Label_54_4C1D
+
+; ---- code $4C26-$4C2A (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4AE6-4C2A by apply_coverage --split
 	ld b, $02
 	jr Label_54_4BC6
 
@@ -1810,7 +1862,7 @@ Data_54_4C3D:: ; 54:4C3D
 Data_54_4C44:: ; 54:4C44
 	db $03, $02, $A0
 
-; ---- code $4C47-$4CAD (102 bytes) [PROBABLE] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code)
+; ---- code $4C47-$4C55 (14 bytes) [CONFIRMED] 55 insn(s) reached by static flow only; seeds: exec x55; min discovery hops 14; entered by call from 54:4A87 (PROBABLE code) | 9 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 6 scenarios]
 
 Text_TruncateSjis:: ; 54:4C47
 	ld c, $01
@@ -1824,6 +1876,8 @@ Label_54_4C49:: ; 54:4C49
 	jr c, Label_54_4C65
 	cp a, $A0
 	jr c, Label_54_4C66
+
+; ---- code $4C55-$4C65 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
 	cp a, $E0
 	jr c, Label_54_4C65
 	cp a, $F0
@@ -1832,6 +1886,8 @@ Label_54_4C49:: ; 54:4C49
 	jr c, Label_54_4C65
 	cp a, $FA
 	jr c, Label_54_4C66
+
+; ---- code $4C65-$4C74 (15 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 6 scenarios]
 
 Label_54_4C65:: ; 54:4C65
 	or a, a
@@ -1848,6 +1904,8 @@ Label_54_4C6A:: ; 54:4C6A
 	ld a, [hl]
 	cp a, $81
 	jr c, Label_54_4C88
+
+; ---- code $4C74-$4C88 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
 	cp a, $A0
 	jr c, Label_54_4C89
 	cp a, $E0
@@ -1859,12 +1917,18 @@ Label_54_4C6A:: ; 54:4C6A
 	cp a, $FA
 	jr c, Label_54_4C89
 
+; ---- code $4C88-$4C8B (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 8 scenarios]
+
 Label_54_4C88:: ; 54:4C88
 	or a, a
 
 Label_54_4C89:: ; 54:4C89
 	jr nc, Label_54_4C49
+
+; ---- code $4C8B-$4C8D (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
 	jr Label_54_4C91
+
+; ---- code $4C8D-$4C9C (15 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 10 scenarios]
 
 Label_54_4C8D:: ; 54:4C8D
 	cp a, $FE
@@ -1879,8 +1943,12 @@ Label_54_4C91:: ; 54:4C91
 	xor a, a
 	or a, c
 	jr nz, Label_54_4CA3
+
+; ---- code $4C9C-$4CA3 (7 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split
 	farcall CopyString
 	ret
+
+; ---- code $4CA3-$4CAD (10 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 4C47-4CAD by apply_coverage --split [executed in 10 scenarios]
 
 Label_54_4CA3:: ; 54:4CA3
 	ld bc, $0002
@@ -1893,7 +1961,7 @@ String_Text_Ellipsis:: ; 54:4CAD
 Data_54_4CAD::
 	db $81, $63, $00
 
-; ---- code $4CB0-$4FC3 (787 bytes) [PROBABLE] 366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code)
+; ---- code $4CB0-$4D0F (95 bytes) [CONFIRMED] 366 insn(s) reached by static flow only; seeds: exec x366; min discovery hops 9; entered by far from 26:48CC (PROBABLE code) | 42 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
 
 Pop3_StartRetr:: ; 54:4CB0
 	push hl
@@ -1943,6 +2011,8 @@ Label_54_4D09:: ; 54:4D09
 	ld a, $FF
 	ret
 
+; ---- code $4D0F-$4D20 (17 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+
 Label_54_4D0F:: ; 54:4D0F
 	ld de, $C480
 	ld bc, $0000
@@ -1950,6 +2020,8 @@ Label_54_4D0F:: ; 54:4D0F
 	farcall MobileAPI
 	ld a, $01
 	ret
+
+; ---- code $4D20-$4D2B (11 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 5 scenarios]
 
 Label_54_4D20:: ; 54:4D20
 	ld hl, $C1D9
@@ -1959,8 +2031,12 @@ Label_54_4D20:: ; 54:4D20
 	jr z, Label_54_4D38
 	dec a
 	jr z, Label_54_4D2E
+
+; ---- code $4D2B-$4D2E (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	ld a, $FF
 	ret
+
+; ---- code $4D2E-$4D93 (101 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 5 scenarios]
 
 Label_54_4D2E:: ; 54:4D2E
 	ld a, [wMailFetchStatus]
@@ -2005,9 +2081,13 @@ Label_54_4D38:: ; 54:4D38
 	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4D9A
+
+; ---- code $4D93-$4D9A (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	ld a, $02
 	ld [wMailFetchStatus], a
 	jr Label_54_4DD5
+
+; ---- code $4D9A-$4DEE (84 bytes) [CONFIRMED] 40 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 6 scenarios]
 
 Label_54_4D9A:: ; 54:4D9A
 	ld de, $C480
@@ -2054,9 +2134,13 @@ Label_54_4DD5:: ; 54:4DD5
 	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4DF5
+
+; ---- code $4DEE-$4DF5 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	ld a, $02
 	ld [wMailFetchStatus], a
 	jr Label_54_4E47
+
+; ---- code $4DF5-$4E60 (107 bytes) [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
 
 Label_54_4DF5:: ; 54:4DF5
 	ld de, $C480
@@ -2112,9 +2196,13 @@ Label_54_4E47:: ; 54:4E47
 	farcall Function_00_0247
 	or a, a
 	jr z, Label_54_4E67
+
+; ---- code $4E60-$4E67 (7 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	ld a, $02
 	ld [wMailFetchStatus], a
 	jr Label_54_4DF5
+
+; ---- code $4E67-$4EBD (86 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 6 scenarios]
 
 Label_54_4E67:: ; 54:4E67
 	call Mail_ParseDate
@@ -2163,10 +2251,14 @@ Label_54_4EB2:: ; 54:4EB2
 	jr z, Label_54_4EC3
 	cp a, $09
 	jr nz, Label_54_4EB2
+
+; ---- code $4EBD-$4EC3 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	dec hl
 	ld a, $20
 	ld [hli], a
 	jr Label_54_4EB2
+
+; ---- code $4EC3-$4F35 (114 bytes) [CONFIRMED] 53 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
 
 Label_54_4EC3:: ; 54:4EC3
 	ld b, $00
@@ -2228,6 +2320,8 @@ Label_54_4F29:: ; 54:4F29
 	jr c, Label_54_4F45
 	cp a, $A0
 	jr c, Label_54_4F46
+
+; ---- code $4F35-$4F45 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	cp a, $E0
 	jr c, Label_54_4F45
 	cp a, $F0
@@ -2236,6 +2330,8 @@ Label_54_4F29:: ; 54:4F29
 	jr c, Label_54_4F45
 	cp a, $FA
 	jr c, Label_54_4F46
+
+; ---- code $4F45-$4F58 (19 bytes) [CONFIRMED] 13 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
 
 Label_54_4F45:: ; 54:4F45
 	or a, a
@@ -2255,6 +2351,8 @@ Label_54_4F4A:: ; 54:4F4A
 	ld a, [hl]
 	cp a, $81
 	jr c, Label_54_4F6C
+
+; ---- code $4F58-$4F6C (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	cp a, $A0
 	jr c, Label_54_4F6D
 	cp a, $E0
@@ -2266,12 +2364,18 @@ Label_54_4F4A:: ; 54:4F4A
 	cp a, $FA
 	jr c, Label_54_4F6D
 
+; ---- code $4F6C-$4F6F (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 1 scenarios]
+
 Label_54_4F6C:: ; 54:4F6C
 	or a, a
 
 Label_54_4F6D:: ; 54:4F6D
 	jr nc, Label_54_4F70
+
+; ---- code $4F6F-$4F70 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
 	inc b
+
+; ---- code $4F70-$4FA4 (52 bytes) [CONFIRMED] 26 insn(s) executed; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split [executed in 4 scenarios]
 
 Label_54_4F70:: ; 54:4F70
 	ld a, c
@@ -2303,6 +2407,8 @@ Label_54_4F8B:: ; 54:4F8B
 	farcall CopyBytes
 	jp Label_54_4EE7
 
+; ---- code $4FA4-$4FC3 (31 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4CB0-4FC3 by apply_coverage --split
+
 Label_54_4FA4:: ; 54:4FA4
 	ld a, $01
 	ld [wMailFetchStatus], a
@@ -2329,7 +2435,7 @@ Data_54_4FC3:: ; 54:4FC3
 Data_54_4FCB:: ; 54:4FCB
 	db $00, $03, $02, $A0, $03, $80, $C4
 
-; ---- code $4FD2-$511B (329 bytes) [PROBABLE] 203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code)
+; ---- code $4FD2-$501B (73 bytes) [CONFIRMED] 203 insn(s) reached by static flow only; seeds: exec x203; min discovery hops 14; entered by call from 54:4A7F (PROBABLE code) | 36 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
 
 Function_54_4FD2:: ; 54:4FD2
 	ld a, e
@@ -2371,6 +2477,8 @@ Label_54_4FE8:: ; 54:4FE8
 	call Function_54_50FC
 	jr Label_54_5081
 
+; ---- code $501B-$504F (52 bytes) [PROBABLE] 31 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
+
 Label_54_501B:: ; 54:501B
 	push hl
 	dec hl
@@ -2405,6 +2513,8 @@ Label_54_5035:: ; 54:5035
 	ld b, $40
 	call Function_54_50FC
 	jr Label_54_5081
+
+; ---- code $504F-$50A0 (81 bytes) [CONFIRMED] 52 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 12 scenarios]
 
 Label_54_504F:: ; 54:504F
 	push hl
@@ -2465,8 +2575,12 @@ Label_54_5092:: ; 54:5092
 	ld a, [hl]
 	cp a, $20
 	jr nz, Label_54_50A2
+
+; ---- code $50A0-$50A2 (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
 	xor a, a
 	ld [hl], a
+
+; ---- code $50A2-$50B0 (14 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 12 scenarios]
 
 Label_54_50A2:: ; 54:50A2
 	pop hl
@@ -2480,6 +2594,8 @@ Label_54_50A5:: ; 54:50A5
 	jr c, Label_54_50C0
 	cp a, $A0
 	jr c, Label_54_50C1
+
+; ---- code $50B0-$50C0 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split
 	cp a, $E0
 	jr c, Label_54_50C0
 	cp a, $F0
@@ -2488,6 +2604,8 @@ Label_54_50A5:: ; 54:50A5
 	jr c, Label_54_50C0
 	cp a, $FA
 	jr c, Label_54_50C1
+
+; ---- code $50C0-$511B (91 bytes) [CONFIRMED] 65 insn(s) executed; cut out of the PROBABLE region 4FD2-511B by apply_coverage --split [executed in 6 scenarios]
 
 Label_54_50C0:: ; 54:50C0
 	or a, a
@@ -2566,13 +2684,13 @@ Function_54_50FC:: ; 54:50FC
 	ld [wMailFetchStatus], a
 	ret
 
-; ---- data $511B-$511D (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
+; ---- data $511B-$511D (2 bytes) [CONFIRMED] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [every byte read as data in 6 scenario(s)]
 
 Data_Text_Ellipsis2:: ; 54:511B
 Data_54_511B::
 	db $81, $63
 
-; ---- code $511D-$5343 (550 bytes) [PROBABLE] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code)
+; ---- code $511D-$51B9 (156 bytes) [CONFIRMED] 306 insn(s) reached by static flow only; seeds: exec x306; min discovery hops 12; entered by call from 54:49A2 (PROBABLE code) | 79 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 3 scenarios]
 
 Function_54_511D:: ; 54:511D
 	xor a, a
@@ -2664,8 +2782,12 @@ Label_54_51B5:: ; 54:51B5
 	ld a, [hli]
 	cp a, c
 	jr z, Label_54_51BC
+
+; ---- code $51B9-$51BC (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
 	inc hl
 	jr Label_54_51A9
+
+; ---- code $51BC-$51DB (31 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
 
 Label_54_51BC:: ; 54:51BC
 	ld a, [hli]
@@ -2688,11 +2810,15 @@ Label_54_51CA:: ; 54:51CA
 	cp a, b
 	jr z, Label_54_51E1
 
+; ---- code $51DB-$51E1 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
+
 Label_54_51DB:: ; 54:51DB
 	inc hl
 	dec b
 	jr z, Label_54_51DB
 	jr Label_54_51FB
+
+; ---- code $51E1-$524B (106 bytes) [CONFIRMED] 65 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
 
 Label_54_51E1:: ; 54:51E1
 	ld a, [hli]
@@ -2776,8 +2902,12 @@ Function_54_5240:: ; 54:5240
 	ld a, [hli]
 	cp a, $2B
 	jr z, Label_54_524E
+
+; ---- code $524B-$524E (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
 	cp a, $2D
 	ret nz
+
+; ---- code $524E-$5294 (70 bytes) [CONFIRMED] 39 insn(s) executed; cut out of the PROBABLE region 511D-5343 by apply_coverage --split [executed in 12 scenarios]
 
 Label_54_524E:: ; 54:524E
 	ld [wRam_C590], a
@@ -2821,6 +2951,8 @@ Label_54_5287:: ; 54:5287
 	ld [wRam_C584], a
 	cp a, $24
 	ret c
+
+; ---- code $5294-$5343 (175 bytes) [PROBABLE] 98 insn(s) never executed in the traced runs; cut out of the PROBABLE region 511D-5343 by apply_coverage --split
 	cp a, $48
 	jr nc, Label_54_52E6
 	sub a, $24
@@ -2956,7 +3088,7 @@ Table_54_5374::
 	db $31, $28, $31, $30, $31, $30, $31, $31, $30, $00, $00, $00, $00, $00, $00, $31
 	db $30, $31
 
-; ---- code $5386-$53E9 (99 bytes) [PROBABLE] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code)
+; ---- code $5386-$53DD (87 bytes) [CONFIRMED] 41 insn(s) reached by static flow only; seeds: exec x41; min discovery hops 17; entered by far from 23:4FB5 (PROBABLE code) | 34 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split [executed in 5 scenarios]
 
 Pop3_StartDele:: ; 54:5386
 	or a, a
@@ -3004,10 +3136,14 @@ Label_54_53CC:: ; 54:53CC
 	ld a, $01
 	ret
 
+; ---- code $53DD-$53E3 (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split
+
 Label_54_53DD:: ; 54:53DD
 	call Mobile_FetchResult
 	ld a, $FF
 	ret
+
+; ---- code $53E3-$53E9 (6 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 5386-53E9 by apply_coverage --split [executed in 8 scenarios]
 
 Label_54_53E3:: ; 54:53E3
 	ld hl, $C1D8

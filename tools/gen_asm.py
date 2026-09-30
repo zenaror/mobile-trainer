@@ -115,6 +115,13 @@ class Model:
         self.label_addrs: Dict[int, List[int]] = {}
         self.ram_sorted: List[mtcfg.RamVar] = []
         self.ram_exact: Dict[int, mtcfg.RamVar] = {}
+        # bank-aware RAM names (config/ram_banked + config/ram_context.tsv): a banked name is used only at an instruction whose
+        # containing context range declares a matching WRAM/SRAM bank
+        self.banked: Dict[Tuple[str, int], List[mtcfg.BankedRam]] = {}                 # (space, bank) -> rows sorted by address
+        self.banked_by_name: Dict[str, mtcfg.BankedRam] = {}
+        self._banked_starts: Dict[Tuple[str, int], List[int]] = {}
+        self._banked_maxsize: Dict[Tuple[str, int], int] = {}
+        self.ctx_at: Dict[Tuple[int, int], Tuple[Optional[int], Optional[int], str, str]] = {}   # (bank, storage addr) -> (wram, sram, wram status, sram status)
         self.stats: Dict[str, int] = defaultdict(int)
         # inline-data conventions (config/conventions.tsv)
         self.conv_table = conv.ConvTable(cfg.conventions, {(x.bank, x.addr): (x.tbank, x.taddr) for x in cfg.xrefs
@@ -136,6 +143,8 @@ class Model:
         self._check_conventions()
         self._index_ramcode()
         self._index_ram()
+        self._index_banked()
+        self._index_context()
         self._collect_labels()
         self._check_macro_names()
         self.diag.raise_if_errors()
@@ -281,6 +290,66 @@ class Model:
         self.ram_sorted = sorted(self.cfg.ram, key=lambda v: (v.addr, v.name))
         self._ram_starts = [v.addr for v in self.ram_sorted]
         self._ram_maxsize = max([v.size for v in self.ram_sorted] or [1])
+
+    def _index_banked(self):
+        for v in self.cfg.ram_banked:
+            prev = self.name_loc.get(v.name)
+            if prev is not None:
+                self.diag.error(v.loc, 'banked RAM name %s already defined (%s)' % (v.name, {'ram': 'RAM variable', 'const': 'const symbol'}.get(prev[0], 'label')))
+                continue
+            self.name_loc[v.name] = ('ram', v.addr)
+            self.banked.setdefault((v.space, v.bank), []).append(v)
+            self.banked_by_name[v.name] = v
+        for k, lst in self.banked.items():
+            lst.sort(key=lambda v: (v.addr, v.name))
+            self._banked_starts[k] = [v.addr for v in lst]
+            self._banked_maxsize[k] = max(v.size for v in lst)
+
+    def banked_expr(self, space: str, bank: int, addr: int) -> Optional[Tuple[str, int]]:
+        """Name expression for `addr` from the bank-qualified names of (space, bank): (text, value) or None."""
+        lst = self.banked.get((space, bank))
+        if not lst:
+            return None
+        starts = self._banked_starts[(space, bank)]
+        i = bisect.bisect_right(starts, addr) - 1
+        while i >= 0:
+            v = lst[i]
+            if v.addr <= addr < v.addr + v.size:
+                return (v.name if v.addr == addr else '%s + %d' % (v.name, addr - v.addr)), addr
+            if v.addr + self._banked_maxsize[(space, bank)] <= addr:
+                break
+            i -= 1
+        return None
+
+    def _index_context(self):
+        """config/ram_context.tsv: a row is applied only if it covers `code` bytes exclusively, starts on an instruction boundary and ends on
+        one (or at the inline bytes of a convention call, or at the end of its region); the claim is then attached to each instruction start
+        inside it.  A row that violates this is *stale* (the region table changed after tools/rambank_infer.py ran): it is ignored with a
+        warning (an error under --strict) so that a region edit can never break generation, and it never produces a name."""
+        for c in self.cfg.ram_context:
+            regs = [r for r in self.regions[c.bank] if r.start < c.end and c.start < r.end]
+            bad = next((r for r in regs if r.kind != 'code'), None)
+            if bad is not None:
+                self.diag.warn(c.loc, 'stale context ignored: range %02X:%04X-%04X covers the %s region %04X-%04X (contexts apply to `code` regions only; re-run tools/rambank_infer.py)'
+                               % (c.bank, c.start, c.end, bad.kind, bad.start, bad.end))
+                continue
+            bound = self.bound[c.bank]
+            last = self.region_at(c.bank, c.end - 1)
+            if c.start not in bound:
+                self.diag.warn(c.loc, 'stale context ignored: range %02X:%04X-%04X does not start on an instruction boundary (re-run tools/rambank_infer.py)'
+                               % (c.bank, c.start, c.end))
+                continue
+            if c.end not in bound and c.end not in self.inline_cover[c.bank] and not (last is not None and c.end == last.end):
+                self.diag.warn(c.loc, 'stale context ignored: range %02X:%04X-%04X does not end on an instruction boundary (re-run tools/rambank_infer.py)'
+                               % (c.bank, c.start, c.end))
+                continue
+            for r in regs:
+                for sa, it in self.insns[(c.bank, r.idx)]:
+                    if it.flow == 'inline' or not (c.start <= sa < c.end):
+                        continue
+                    w0, s0, ws0, ss0 = self.ctx_at.get((c.bank, sa), (None, None, '', ''))
+                    self.ctx_at[(c.bank, sa)] = (c.wram if c.wram is not None else w0, c.sram if c.sram is not None else s0,
+                                                 c.status if c.wram is not None else ws0, c.status if c.sram is not None else ss0)
 
     def ram_expr(self, addr: int) -> Optional[Tuple[str, int]]:
         """Name expression for a RAM address from config/ram: (text, value) or None."""
@@ -540,7 +609,7 @@ class Model:
             for s in self.cfg.symbols.get(b, ()):
                 if s.name in self.MACRO_NAMES:
                     self.diag.error(s.loc, 'name %r collides with a farcall macro of constants/macros.inc (rename it or use --no-macros)' % s.name)
-        for v in self.cfg.ram:
+        for v in list(self.cfg.ram) + list(self.cfg.ram_banked):
             if v.name in self.MACRO_NAMES:
                 self.diag.error(v.loc, 'name %r collides with a farcall macro of constants/macros.inc (rename it or use --no-macros)' % v.name)
 
@@ -645,7 +714,7 @@ class Model:
                 return self._substitute(nm, self.name_val[nm], v, 'label')
             if kind != 'mem':
                 return None
-            return self._mem_name(v, ins.fmt == 'ld [{i}], a')      # MBC names only for `ld [a16], a` (never `ld [a16], sp`)
+            return self._mem_name(v, ins.fmt == 'ld [{i}], a', ctx=(b, sa))      # MBC names only for `ld [a16], a` (never `ld [a16], sp`)
 
         def hram(v):
             return self._mem_name(v, False, ldh=True)
@@ -655,7 +724,33 @@ class Model:
             return 'rst ' + nm if nm else ins.text()
         return ins.text(branch, imm16, hram)
 
-    def _mem_name(self, addr: int, write: bool, ldh: bool = False) -> Optional[str]:
+    def _banked_name(self, addr: int, ctx) -> Optional[Tuple[str, int]]:
+        """Bank-qualified name for an access at instruction `ctx` = (rom bank, storage addr), only when a context range declares
+        the WRAM bank (addr in $D000-$DFFF) or the SRAM bank (addr in $A000-$BFFF) and a banked name of that bank covers addr."""
+        if ctx is None or not self.banked:
+            return None
+        cx = self.ctx_at.get(ctx)
+        if cx is None:
+            return None
+        if 0xD000 <= addr < 0xE000 and cx[0] is not None:
+            e = self.banked_expr('w', cx[0], addr)
+            st = cx[2]
+        elif 0xA000 <= addr < 0xC000 and cx[1] is not None:
+            e = self.banked_expr('s', cx[1], addr)
+            st = cx[3]
+        else:
+            return None
+        if e is not None:
+            # independent re-evaluation of the expression from the row table (a name never changes the operand's value)
+            m = re.fullmatch(r'([A-Za-z_][A-Za-z0-9_]*)(?: \+ (\d+))?', e[0])
+            row = self.banked_by_name.get(m.group(1)) if m else None
+            if row is None or row.addr + int(m.group(2) or 0) != addr:
+                raise GenError('internal: banked name %s does not evaluate to $%04X' % (e[0], addr))
+            self.stats['banked_names'] += 1
+            self.stats['banked_names_' + st.lower()] += 1
+        return e
+
+    def _mem_name(self, addr: int, write: bool, ldh: bool = False, ctx=None) -> Optional[str]:
         st = self.stats
         if 0xFF00 <= addr <= 0xFF7F or addr == 0xFFFF:
             h = self._hw_name(addr)
@@ -666,6 +761,9 @@ class Model:
             st['mbc_names'] += 1
             return self._substitute(self.hw.mbc[addr], addr, addr, 'MBC name')
         if addr >= 0x8000:
+            e = self._banked_name(addr, ctx)
+            if e is not None:
+                return self._substitute(e[0], e[1], addr, 'banked ram name')
             e = self.ram_expr(addr)
             if e is not None:
                 st['ram_names'] += 1
@@ -952,6 +1050,11 @@ class Model:
                  '; RAM / SRAM / HRAM variable names from config/ram/*.tsv (addresses only, no bytes).', '']
         for v in sorted(self.cfg.ram, key=lambda v: (v.addr, v.name)):
             lines.append('DEF %s EQU $%04X ; size %d %s %s %s' % (v.name, v.addr, v.size, v.type, v.status, v.evidence))
+        if self.cfg.ram_banked:
+            lines += ['', '; bank-qualified names from config/ram_banked/*.tsv: the same CPU address is a different object in every WRAM/SRAM bank;',
+                      '; the names below are substituted only where config/ram_context.tsv declares the bank (addresses only, no bytes).']
+            for v in sorted(self.cfg.ram_banked, key=lambda v: (v.space, v.bank, v.addr, v.name)):
+                lines.append('DEF %s EQU $%04X ; bank %s%d size %d %s %s %s' % (v.name, v.addr, v.space.upper(), v.bank, v.size, v.type, v.status, v.evidence))
         fc = self.farcall_conv()
         if fc is not None:
             lines += ['', '; label of the far-call convention entry %02X:%04X (config/conventions.tsv); the farcall macros of' % (fc[0].bank, fc[0].addr),
@@ -969,7 +1072,7 @@ class Model:
 
 def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_path: Optional[str] = None,
                strict: bool = False, extra_xrefs=(), rom: Optional[bytes] = None, macros: bool = True,
-               text_comments: bool = True):
+               text_comments: bool = True, contexts: bool = True, banked: bool = True):
     """Load ROM + config and build the Model.  Returns (model, diag)."""
     rom_path = rom_path or os.path.join(ROOT, 'baserom.gbc')
     cfgdir = cfgdir or os.path.join(ROOT, 'config')
@@ -982,7 +1085,7 @@ def load_model(rom_path: Optional[str] = None, cfgdir: Optional[str] = None, hw_
         raise GenError('ROM size %d is not a positive multiple of 16 KiB' % len(rom))
     hw = mtcfg.load_hardware(hw_path)
     diag = Diag(strict)
-    cfg = mtcfg.load_config(cfgdir, len(rom) // BANK_SIZE, hw, diag, extra_xrefs)
+    cfg = mtcfg.load_config(cfgdir, len(rom) // BANK_SIZE, hw, diag, extra_xrefs, contexts, banked)
     diag.raise_if_errors()
     model = Model(rom, cfg, hw, os.path.basename(rom_path), strict, macros, text_comments)
     return model, diag

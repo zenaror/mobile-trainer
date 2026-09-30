@@ -7,7 +7,7 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank2A", ROMX[$4000], BANK[$2A]
 
-; ---- code $4000-$4214 (532 bytes) [PROBABLE] 231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code)
+; ---- code $4000-$4214 (532 bytes) [CONFIRMED] 231 insn(s) reached by static flow only; seeds: exec x231; min discovery hops 10; entered by far from 2B:659F (PROBABLE code) [executed in 1 scenarios]
 
 SaveSenderAddr_Menu:: ; 2A:4000
 	push af
@@ -17,7 +17,7 @@ SaveSenderAddr_Menu:: ; 2A:4000
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $0B
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -240,7 +240,7 @@ SaveSenderAddr_InitScreen:: ; 2A:4105
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -330,7 +330,7 @@ Table_SaveSenderAddr_SlotAddrs_DrawNames:: ; 2A:4274
 Table_2A_4274::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4280-$4306 (134 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code)
+; ---- code $4280-$4306 (134 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 11; entered by call from 2A:404D (PROBABLE code) [executed in 4 scenarios]
 
 SaveSenderAddr_MoveNameHighlight:: ; 2A:4280
 	push af
@@ -430,7 +430,7 @@ Table_SaveSenderAddr_SlotAddrs_Highlight:: ; 2A:4306
 Table_2A_4306::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4312-$445F (333 bytes) [PROBABLE] 189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code)
+; ---- code $4312-$445F (333 bytes) [CONFIRMED] 189 insn(s) reached by static flow only; seeds: exec x189; min discovery hops 11; entered by call from 2A:403E (PROBABLE code) [executed in 4 scenarios]
 
 SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	ld a, $01
@@ -474,7 +474,7 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -489,7 +489,7 @@ SaveSenderAddr_SaveToSlot:: ; 2A:4312
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -642,7 +642,7 @@ Table_2A_446B::
 	dw $A124, $A251, $A37E, $A4AB, $A5D8, $A705, $A832, $A95F
 	dw $AA8C, $ABB9, $ACE6, $AE13
 
-; ---- code $4483-$483B (952 bytes) [PROBABLE] 432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code)
+; ---- code $4483-$44A9 (38 bytes) [CONFIRMED] 432 insn(s) reached by static flow only; seeds: exec x432; min discovery hops 11; entered by call from 2A:41C4 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
 
 SaveSenderAddr_DrawSenderName:: ; 2A:4483
 	ld a, $10
@@ -664,8 +664,12 @@ Label_2A_4488:: ; 2A:4488
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2A_44AD
+
+; ---- code $44A9-$44AD (4 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
 	pop af
 	jp Label_2A_4527
+
+; ---- code $44AD-$44EA (61 bytes) [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 5 scenarios]
 
 Label_2A_44AD:: ; 2A:44AD
 	pop af
@@ -704,6 +708,8 @@ Label_2A_44AD:: ; 2A:44AD
 	jr z, Label_2A_4527
 	jr Label_2A_4488
 
+; ---- code $44EA-$4527 (61 bytes) [PROBABLE] 30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4483-483B by apply_coverage --split
+
 Label_2A_44EA:: ; 2A:44EA
 	pop af
 	push bc
@@ -737,6 +743,8 @@ Label_2A_450C:: ; 2A:450C
 	dec a
 	ld [wTextCellsLeft], a
 	call SaveSenderAddr_DrawSenderName_BlitBlankAdvance
+
+; ---- code $4527-$483B (788 bytes) [CONFIRMED] 348 insn(s) executed; cut out of the PROBABLE region 4483-483B by apply_coverage --split [executed in 1 scenarios]
 
 Label_2A_4527:: ; 2A:4527
 	push bc
@@ -1144,7 +1152,7 @@ Table_SaveSenderAddr_SlotAddrs_IsUsed:: ; 2A:483B
 Table_2A_483B::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $4847-$4A3D (502 bytes) [PROBABLE] 187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code)
+; ---- code $4847-$4988 (321 bytes) [CONFIRMED] 187 insn(s) reached by static flow only; seeds: exec x187; min discovery hops 12; entered by callcc from 2A:4808 (PROBABLE code) | 118 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 1 scenarios]
 
 SaveSenderAddr_CursorMoveEffect:: ; 2A:4847
 	push bc
@@ -1287,11 +1295,15 @@ Label_2A_4970:: ; 2A:4970
 	call SaveSenderAddr_IsSlotUsed
 	inc a
 	jr z, Label_2A_4998
+
+; ---- code $4988-$4998 (16 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split
 	ld hl, $DA20
 	ld de, $5250
 	ld a, $28
 	ld b, $01
 	farcall Function_00_0A82
+
+; ---- code $4998-$4A3D (165 bytes) [CONFIRMED] 64 insn(s) executed; cut out of the PROBABLE region 4847-4A3D by apply_coverage --split [executed in 4 scenarios]
 
 Label_2A_4998:: ; 2A:4998
 	ld a, $64
@@ -1393,7 +1405,7 @@ String_2A_4A6C:: ; 2A:4A6C
 ; ---- zero $4A93-$4AA0 (13 bytes) [PROBABLE] 13 bytes of $00 between the last string and the tiles at 4AA0 (padding)
 	ds $D, $00
 
-; ---- gfx $4AA0-$4CD0 (560 bytes) [PROBABLE] 35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments
+; ---- gfx $4AA0-$4CD0 (560 bytes) [CONFIRMED] 35 tiles (560 bytes) 2bpp: 'ld de,$9301 ; ld hl,$4AA0 ; ld a,$2A ; ld c,$23 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2A:413A-4149 (c = tile count $23 = 35; ends exactly where the tilemap+attr at 4CD0 begins; blank/$FF stretches inside are tile content). Merges the former zero/$FF/UNCLASSIFIED fragments [every byte read as data in 6 scenario(s)]
 
 Gfx_SaveSenderAddr_Tiles9300:: ; 2A:4AA0
 Tiles_2A_4AA0::
@@ -1752,7 +1764,7 @@ Function_2A_5495::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -1854,7 +1866,7 @@ Label_2A_552A:: ; 2A:552A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1869,7 +1881,7 @@ Label_2A_552A:: ; 2A:552A
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1892,7 +1904,7 @@ Label_2A_55AD:: ; 2A:55AD
 	cp a, $07
 	jp z, Label_2A_563D
 
-; ---- code $55B6-$563D (135 bytes) [PROBABLE] 72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0; entered by jrcc from 2A:55AF (executed)
+; ---- code $55B6-$563D (135 bytes) [CONFIRMED] 72 insn(s) reached by static flow only; seeds: exec x72; min discovery hops 0; entered by jrcc from 2A:55AF (executed) [executed in 1 scenarios]
 
 Label_2A_55B6:: ; 2A:55B6
 	ld a, $01
@@ -1918,7 +1930,7 @@ Label_2A_55B6:: ; 2A:55B6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1933,7 +1945,7 @@ Label_2A_55B6:: ; 2A:55B6
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1981,7 +1993,7 @@ Label_2A_563D:: ; 2A:563D
 	cp a, $00
 	jr nz, Label_2A_569E
 
-; ---- code $564B-$569E (83 bytes) [PROBABLE] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed)
+; ---- code $564B-$569E (83 bytes) [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 2A:5649 (executed) [executed in 1 scenarios]
 	push af
 	push bc
 	ld de, $40D0
@@ -1998,7 +2010,7 @@ Label_2A_563D:: ; 2A:563D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2013,7 +2025,7 @@ Label_2A_563D:: ; 2A:563D
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2119,7 +2131,7 @@ Label_2A_5731:: ; 2A:5731
 	ld d, $10
 	jp Profile_Edit_Loop
 
-; ---- code $5744-$577F (59 bytes) [PROBABLE] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed)
+; ---- code $5744-$575F (27 bytes) [CONFIRMED] 38 insn(s) reached by static flow only; seeds: exec x38; min discovery hops 1; entered by callcc from 2A:5735 (executed) | 18 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 1 scenarios]
 
 Profile_CursorLeft:: ; 2A:5744
 	push bc
@@ -2140,10 +2152,14 @@ Profile_CursorLeft:: ; 2A:5744
 	inc b
 	dec b
 	ret z
+
+; ---- code $575F-$5765 (6 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5744-577F by apply_coverage --split
 	dec b
 	call $4441
 	ld c, e
 	ret
+
+; ---- code $5765-$577F (26 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5744-577F by apply_coverage --split [executed in 2 scenarios]
 
 Label_2A_5765:: ; 2A:5765
 	dec c
@@ -2318,7 +2334,7 @@ Function_2A_57BD::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $15
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $00
 	ld [wRam_D725], a
 	pop af
@@ -3272,10 +3288,12 @@ Profile_DeleteChar:: ; 2A:5E23
 	dec c
 	jr nz, Label_2A_5E60
 
-; ---- code $5E58-$5E60 (8 bytes) [PROBABLE] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2A:5E56 (executed)
+; ---- code $5E58-$5E5D (5 bytes) [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 0; fall-through of the jrcc at 2A:5E56 (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split [executed in 4 scenarios]
 	ld a, b
 	cp a, $00
 	jr z, Label_2A_5E61
+
+; ---- code $5E5D-$5E60 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E58-5E60 by apply_coverage --split
 	dec b
 	ld c, e
 	inc c
@@ -3316,10 +3334,12 @@ Label_2A_5E83:: ; 2A:5E83
 	dec c
 	jr nz, Label_2A_5EA9
 
-; ---- code $5E9E-$5EA9 (11 bytes) [PROBABLE] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2A:5E9C (executed)
+; ---- code $5E9E-$5EA2 (4 bytes) [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 0; fall-through of the jrcc at 2A:5E9C (executed) | 3 insn(s) executed; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split [executed in 4 scenarios]
 	inc b
 	dec b
 	jr z, Label_2A_5EAE
+
+; ---- code $5EA2-$5EA9 (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5E9E-5EA9 by apply_coverage --split
 	dec b
 	call Profile_CharPtr
 	ld c, e
@@ -3390,7 +3410,7 @@ Label_2A_5EDA:: ; 2A:5EDA
 	pop bc
 	ret
 
-; ---- code $5EF4-$5F69 (117 bytes) [PROBABLE] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code)
+; ---- code $5EF4-$5F42 (78 bytes) [CONFIRMED] 68 insn(s) reached by static flow only; seeds: exec x68; min discovery hops 1; entered by call from 2A:61EA (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
 
 Profile_ApplyDakuten:: ; 2A:5EF4
 	call Profile_CharPtr
@@ -3447,6 +3467,8 @@ Label_2A_5F0E:: ; 2A:5F0E
 	ld a, c
 	cp a, $00
 	jr nz, Label_2A_5F54
+
+; ---- code $5F42-$5F54 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -3455,6 +3477,8 @@ Label_2A_5F0E:: ; 2A:5F0E
 	call Profile_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $5F54-$5F69 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5EF4-5F69 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2A_5F54:: ; 2A:5F54
 	push bc
@@ -3477,7 +3501,7 @@ Label_2A_5F66:: ; 2A:5F66
 	pop bc
 	ret
 
-; ---- code $5F71-$5F82 (17 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code)
+; ---- code $5F71-$5F82 (17 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 2; entered by jrcc from 2A:5F12 (PROBABLE code) [executed in 1 scenarios]
 
 Label_2A_5F71:: ; 2A:5F71
 	push bc
@@ -3508,7 +3532,7 @@ String_2A_5F82::
 ; ---- code $5FD3-$5FD4 (1 bytes) [HYPOTHESIS] no branch/call/pointer to any address in $5FD3-$5FD4 was found (tgt scan of all code regions of bank 2A + ROM word scan), so it is unreachable or entered only from unseen code; linear decode is legal and continues exactly into the next region: lone 'ret' (c9) directly after a NUL-terminated string that follows the function ending before it
 	ret
 
-; ---- code $5FD4-$6048 (116 bytes) [PROBABLE] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code)
+; ---- code $5FD4-$6021 (77 bytes) [CONFIRMED] 66 insn(s) reached by static flow only; seeds: exec x66; min discovery hops 1; entered by call from 2A:61F4 (PROBABLE code) | 48 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
 
 Profile_ApplyVu:: ; 2A:5FD4
 	call Profile_CharPtr
@@ -3563,6 +3587,8 @@ Label_2A_5FEE:: ; 2A:5FEE
 	ld a, c
 	cp a, $00
 	jr nz, Label_2A_6033
+
+; ---- code $6021-$6033 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -3571,6 +3597,8 @@ Label_2A_5FEE:: ; 2A:5FEE
 	call Profile_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $6033-$6048 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 5FD4-6048 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2A_6033:: ; 2A:6033
 	push bc
@@ -3593,7 +3621,7 @@ Label_2A_6045:: ; 2A:6045
 	pop bc
 	ret
 
-; ---- code $6050-$6081 (49 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code)
+; ---- code $6050-$6081 (49 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:5FF2 (PROBABLE code) [executed in 1 scenarios]
 
 Label_2A_6050:: ; 2A:6050
 	push bc
@@ -3637,7 +3665,7 @@ String_2A_6081:: ; 2A:6081
 ; ---- code $6086-$6087 (1 bytes) [HYPOTHESIS] lone 'ret' (c9) after the string at 6081, before the PROBABLE code at 6087; nothing branches to it
 	ret
 
-; ---- code $6087-$60F9 (114 bytes) [PROBABLE] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code)
+; ---- code $6087-$60D2 (75 bytes) [CONFIRMED] 67 insn(s) reached by static flow only; seeds: exec x67; min discovery hops 1; entered by call from 2A:6208 (PROBABLE code) | 49 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
 
 Profile_ApplyHandakuten:: ; 2A:6087
 	call Profile_CharPtr
@@ -3693,6 +3721,8 @@ Label_2A_60A1:: ; 2A:60A1
 	ld a, c
 	cp a, $00
 	jr nz, Label_2A_60E4
+
+; ---- code $60D2-$60E4 (18 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split
 	push bc
 	ld bc, $0300
 	ld de, $0000
@@ -3701,6 +3731,8 @@ Label_2A_60A1:: ; 2A:60A1
 	call Profile_UploadTextTiles
 	pop bc
 	ret
+
+; ---- code $60E4-$60F9 (21 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 6087-60F9 by apply_coverage --split [executed in 1 scenarios]
 
 Label_2A_60E4:: ; 2A:60E4
 	push bc
@@ -3723,7 +3755,7 @@ Label_2A_60F6:: ; 2A:60F6
 	pop bc
 	ret
 
-; ---- code $6101-$6132 (49 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code)
+; ---- code $6101-$6132 (49 bytes) [CONFIRMED] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 2; entered by jrcc from 2A:60A5 (PROBABLE code) [executed in 1 scenarios]
 
 Label_2A_6101:: ; 2A:6101
 	push bc
@@ -3780,7 +3812,7 @@ Function_2A_6148::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3794,7 +3826,7 @@ Function_2A_6148::
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -3877,7 +3909,7 @@ Label_2A_61FA:: ; 2A:61FA
 	cp a, $4B
 	jr nz, Label_2A_620E
 
-; ---- code $6201-$620E (13 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed)
+; ---- code $6201-$620E (13 bytes) [CONFIRMED] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 2A:61FF (executed) [executed in 2 scenarios]
 	ld a, [wKeyboardCharHi]
 	cp a, $81
 	jr nz, Label_2A_620E
@@ -4347,7 +4379,7 @@ Data_2A_6F91:: ; 2A:6F91
 Data_2A_6F92:: ; 2A:6F92
 	db $01, $00, $04
 
-; ---- code $6F95-$709F (266 bytes) [PROBABLE] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code)
+; ---- code $6F95-$709F (266 bytes) [CONFIRMED] 135 insn(s) reached by static flow only; seeds: exec x135; min discovery hops 2; entered by far from 2F:7F2A (PROBABLE code) [executed in 1 scenarios]
 
 AddrBook_SaveConfirm:: ; 2A:6F95
 	push af
@@ -4357,7 +4389,7 @@ AddrBook_SaveConfirm:: ; 2A:6F95
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -4387,7 +4419,7 @@ Label_2A_6FBA:: ; 2A:6FBA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4402,7 +4434,7 @@ Label_2A_6FBA:: ; 2A:6FBA
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_D824], a
+	ld [wStatIrqServiceFlag], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -4504,7 +4536,7 @@ Table_AddrBook_SlotAddrs_Store:: ; 2A:709F
 Table_2A_709F::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $70AB-$7221 (374 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code)
+; ---- code $70AB-$7121 (118 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 3; entered by call from 2A:6FB5 (PROBABLE code) | 37 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
 
 AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	push bc
@@ -4544,6 +4576,8 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ld a, b
 	cp a, $FF
 	jr nz, Label_2A_7154
+
+; ---- code $7121-$7154 (51 bytes) [PROBABLE] 20 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
 	call AddrBook_SaveConfirm_DrawSlot
 	farcall Stat_DisableScrollSplit
 	call Function_00_0464
@@ -4555,7 +4589,7 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -4564,6 +4598,8 @@ AddrBook_SaveConfirm_InitScreen:: ; 2A:70AB
 	pop af
 	farcall Stat_EnableScrollSplit
 	ret
+
+; ---- code $7154-$7187 (51 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split [executed in 4 scenarios]
 
 Label_2A_7154:: ; 2A:7154
 	call AddrBook_SaveConfirm_DrawEditBuffer
@@ -4577,7 +4613,7 @@ Label_2A_7154:: ; 2A:7154
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $10
-	ld [wRam_D724], a
+	ld [wStatSplitLine], a
 	ld a, $0B
 	ld [wRam_D725], a
 	pop af
@@ -4586,6 +4622,8 @@ Label_2A_7154:: ; 2A:7154
 	pop af
 	farcall Stat_EnableScrollSplit
 	ret
+
+; ---- code $7187-$7221 (154 bytes) [PROBABLE] 71 insn(s) never executed in the traced runs; cut out of the PROBABLE region 70AB-7221 by apply_coverage --split
 
 AddrBook_SaveConfirm_DrawSlot:: ; 2A:7187
 	push bc
@@ -4711,7 +4749,7 @@ AddrBook_SaveConfirm_DrawEditBuffer:: ; 2A:722D
 Table_2A_7287:: ; 2A:7287
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
-; ---- code $7293-$73BB (296 bytes) [PROBABLE] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code)
+; ---- code $7293-$732F (156 bytes) [CONFIRMED] 148 insn(s) reached by static flow only; seeds: exec x148; min discovery hops 5; entered by far from 2A:7219 (PROBABLE code) | 74 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
 
 AddrBook_UploadEntryTextTiles:: ; 2A:7293
 	ldh a, [rSVBK]
@@ -4793,6 +4831,8 @@ Label_2A_72D4:: ; 2A:72D4
 	jr z, Label_2A_736F
 	jr Label_2A_72D4
 
+; ---- code $732F-$736F (64 bytes) [PROBABLE] 32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 7293-73BB by apply_coverage --split
+
 Label_2A_732F:: ; 2A:732F
 	pop af
 	push bc
@@ -4828,6 +4868,8 @@ Label_2A_7354:: ; 2A:7354
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_SaveConfirm_DrawTextLine16_BlitBlankAdvance
+
+; ---- code $736F-$73BB (76 bytes) [CONFIRMED] 42 insn(s) executed; cut out of the PROBABLE region 7293-73BB by apply_coverage --split [executed in 2 scenarios]
 
 Label_2A_736F:: ; 2A:736F
 	push bc

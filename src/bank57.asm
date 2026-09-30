@@ -154,8 +154,10 @@ ConnectDialog_HandleFrame:: ; 57:40E0
 	cp a, $0A
 	jp c, ConnectDialog_Input_StoredPassword
 
-; ---- code $4126-$41CA (164 bytes) [PROBABLE] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed)
+; ---- code $4126-$4129 (3 bytes) [CONFIRMED] 78 insn(s) reached by static flow only; seeds: exec x78; min discovery hops 0; fall-through of the jpcc at 57:4123 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4126-41CA by apply_coverage --split [executed in 6 scenarios]
 	jp z, ConnectDialog_Input_ForgetConfirm
+
+; ---- code $4129-$41CA (161 bytes) [PROBABLE] 77 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4126-41CA by apply_coverage --split
 	ret
 
 Label_57_412A:: ; 57:412A
@@ -319,7 +321,7 @@ Label_57_421C:: ; 57:421C
 	xor a, a
 	ret
 
-; ---- code $4237-$4443 (524 bytes) [PROBABLE] 238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed)
+; ---- code $4237-$4265 (46 bytes) [CONFIRMED] 238 insn(s) reached by static flow only; seeds: exec x238; min discovery hops 1; entered by jpcc from 57:4116 (executed) | 22 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
 
 ConnectDialog_Input_PasswordPrompt:: ; 57:4237
 	ldh a, [hJoyPressed]
@@ -348,7 +350,11 @@ Label_57_424E:: ; 57:424E
 	call ReadByteFar
 	cp a, $03
 	jr nc, Label_57_4267
+
+; ---- code $4265-$4267 (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
 	ld a, $02
+
+; ---- code $4267-$4297 (48 bytes) [CONFIRMED] 17 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 4 scenarios]
 
 Label_57_4267:: ; 57:4267
 	ld [wRam_C0D6], a
@@ -370,8 +376,12 @@ ConnectDialog_Input_Keyboard:: ; 57:426B
 	jp z, ConnectDialog_Keyboard_EraseChar
 	cp a, $08
 	jp z, Label_57_4339
+
+; ---- code $4297-$4299 (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4237-4443 by apply_coverage --split
 	xor a, a
 	ret
+
+; ---- code $4299-$4443 (426 bytes) [CONFIRMED] 196 insn(s) executed; cut out of the PROBABLE region 4237-4443 by apply_coverage --split [executed in 1 scenarios]
 
 ConnectDialog_Keyboard_AppendChar:: ; 57:4299
 	ld a, [wConnectDialogTextLen]
@@ -724,8 +734,10 @@ Function_57_44E4::
 	cp a, $0A
 	jp c, ConnectDialog_Enter_StoredPassword
 
-; ---- code $450B-$4511 (6 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed)
+; ---- code $450B-$450E (3 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jpcc at 57:4508 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 450B-4511 by apply_coverage --split [executed in 6 scenarios]
 	jp z, Label_57_45BC
+
+; ---- code $450E-$4511 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 450B-4511 by apply_coverage --split
 	ret
 
 Label_57_450F:: ; 57:450F
@@ -876,8 +888,10 @@ Function_57_45E6::
 	cp a, $0A
 	jp c, Label_57_4771
 
-; ---- code $4618-$4668 (80 bytes) [PROBABLE] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed)
+; ---- code $4618-$461B (3 bytes) [CONFIRMED] 28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 0; fall-through of the jpcc at 57:4615 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 4618-4668 by apply_coverage --split [executed in 6 scenarios]
 	jp z, ConnectDialog_Leave_ForgetConfirm
+
+; ---- code $461B-$4668 (77 bytes) [PROBABLE] 27 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4618-4668 by apply_coverage --split
 	ret
 
 Label_57_461C:: ; 57:461C
@@ -1093,8 +1107,10 @@ Function_57_47A6::
 	cp a, $0A
 	jp c, ConnectDialog_Draw_StoredPassword
 
-; ---- code $47CD-$47D1 (4 bytes) [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 57:47CA (executed)
+; ---- code $47CD-$47D0 (3 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jpcc at 57:47CA (executed) | 1 insn(s) executed; cut out of the PROBABLE region 47CD-47D1 by apply_coverage --split [executed in 6 scenarios]
 	jp z, ConnectDialog_Draw_ForgetConfirm
+
+; ---- code $47D0-$47D1 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 47CD-47D1 by apply_coverage --split
 	ret
 
 ; ---- code $47D1-$4951 (384 bytes) [CONFIRMED] 144 insn(s); 144 executed (in up to 6/18 scenarios)
@@ -2035,12 +2051,16 @@ Function_57_510F::
 	cp a, $0A
 	jp c, Label_57_5187
 
-; ---- code $5136-$5187 (81 bytes) [PROBABLE] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0; fall-through of the jpcc at 57:5133 (executed)
+; ---- code $5136-$5139 (3 bytes) [CONFIRMED] 26 insn(s) reached by static flow only; seeds: exec x26; min discovery hops 0; fall-through of the jpcc at 57:5133 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage --split [executed in 6 scenarios]
 	jp z, Label_57_51AB
+
+; ---- code $5139-$513B (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5136-5187 by apply_coverage --split
 	ret
 
 Label_57_513A:: ; 57:513A
 	ret
+
+; ---- code $513B-$5187 (76 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 5136-5187 by apply_coverage --split [executed in 3 scenarios]
 
 Label_57_513B:: ; 57:513B
 	ld bc, $1214
@@ -2346,7 +2366,7 @@ ConnectDialog_ObjHook_FollowRaster:: ; 57:531E
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $5340-$541C (220 bytes) [PROBABLE] 122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code)
+; ---- code $5340-$5411 (209 bytes) [CONFIRMED] 122 insn(s) reached by static flow only; seeds: exec x122; min discovery hops 1; entered by call from 57:510B (PROBABLE code) | 117 insn(s) executed; cut out of the PROBABLE region 5340-541C by apply_coverage --split [executed in 2 scenarios]
 
 ConnectDialog_ShowLowerWindow:: ; 57:5340
 	ld a, [wConnectDialogLowerWindowShown]
@@ -2497,6 +2517,8 @@ Label_57_53EC:: ; 57:53EC
 	call Function_00_0392
 	ret
 
+; ---- code $5411-$541C (11 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5340-541C by apply_coverage --split
+
 Label_57_5411:: ; 57:5411
 	ldh a, [rLY]
 	cp a, $91
@@ -2572,8 +2594,10 @@ Function_57_546C::
 	cp a, $0A
 	jp c, Label_57_55E0
 
-; ---- code $5494-$54E4 (80 bytes) [PROBABLE] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 57:5491 (executed)
+; ---- code $5494-$5497 (3 bytes) [CONFIRMED] 44 insn(s) reached by static flow only; seeds: exec x44; min discovery hops 0; fall-through of the jpcc at 57:5491 (executed) | 1 insn(s) executed; cut out of the PROBABLE region 5494-54E4 by apply_coverage --split [executed in 6 scenarios]
 	jp z, Label_57_5606
+
+; ---- code $5497-$54E4 (77 bytes) [PROBABLE] 43 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5494-54E4 by apply_coverage --split
 	ret
 
 Label_57_5498:: ; 57:5498
@@ -2682,7 +2706,7 @@ Label_57_551F:: ; 57:551F
 	ldh [rSVBK], a
 	ret
 
-; ---- code $5530-$55E0 (176 bytes) [PROBABLE] 96 insn(s) reached by static flow only; seeds: exec x96; min discovery hops 1; entered by jpcc from 57:5481 (executed)
+; ---- code $5530-$5556 (38 bytes) [CONFIRMED] 96 insn(s) reached by static flow only; seeds: exec x96; min discovery hops 1; entered by jpcc from 57:5481 (executed) | 21 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 4 scenarios]
 
 Label_57_5530:: ; 57:5530
 	xor a, a
@@ -2709,6 +2733,8 @@ Label_57_5545:: ; 57:5545
 	ldh [rSVBK], a
 	ret
 
+; ---- code $5556-$557C (38 bytes) [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split
+
 Label_57_5556:: ; 57:5556
 	xor a, a
 	or a, b
@@ -2734,6 +2760,8 @@ Label_57_556B:: ; 57:556B
 	ldh [rSVBK], a
 	ret
 
+; ---- code $557C-$5598 (28 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 3 scenarios]
+
 Label_57_557C:: ; 57:557C
 	xor a, a
 	or a, b
@@ -2751,6 +2779,8 @@ Label_57_557C:: ; 57:557C
 	ldh [rSVBK], a
 	ret
 
+; ---- code $5598-$55A9 (17 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split
+
 Label_57_5598:: ; 57:5598
 	ldh a, [hWRAMBank]
 	push af
@@ -2761,6 +2791,8 @@ Label_57_5598:: ; 57:5598
 	pop af
 	ldh [rSVBK], a
 	ret
+
+; ---- code $55A9-$55E0 (55 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 5530-55E0 by apply_coverage --split [executed in 1 scenarios]
 
 Label_57_55A9:: ; 57:55A9
 	ldh a, [hWRAMBank]
@@ -2825,7 +2857,7 @@ Label_57_55F5:: ; 57:55F5
 	ldh [rSVBK], a
 	ret
 
-; ---- code $5606-$5641 (59 bytes) [PROBABLE] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 57:5494 (PROBABLE code)
+; ---- code $5606-$560E (8 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 57:5494 (PROBABLE code) | 5 insn(s) executed; cut out of the PROBABLE region 5606-5641 by apply_coverage --split [executed in 5 scenarios]
 
 Label_57_5606:: ; 57:5606
 	xor a, a
@@ -2833,6 +2865,8 @@ Label_57_5606:: ; 57:5606
 	jr nz, Label_57_5630
 	cp a, $01
 	jr nz, Label_57_561F
+
+; ---- code $560E-$561F (17 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5606-5641 by apply_coverage --split
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -2842,6 +2876,8 @@ Label_57_5606:: ; 57:5606
 	pop af
 	ldh [rSVBK], a
 	ret
+
+; ---- code $561F-$5641 (34 bytes) [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 5606-5641 by apply_coverage --split [executed in 4 scenarios]
 
 Label_57_561F:: ; 57:561F
 	ldh a, [hWRAMBank]

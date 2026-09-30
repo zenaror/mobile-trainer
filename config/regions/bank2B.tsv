@@ -10,19 +10,23 @@
 4205	42F3	code	-	CONFIRMED	76 insn(s); 76 executed (in up to 2/18 scenarios)
 42F3	430C	code	-	CONFIRMED	8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; fall-through of the jrcc at 2B:42F1 (executed) [executed in 2 scenarios]
 430C	441F	code	-	CONFIRMED	110 insn(s); 110 executed (in up to 2/18 scenarios)
-441F	4421	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 2B:43F9 (executed)
+441F	4421	code	-	PROBABLE	2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 1; entered by jrcc from 2B:43F9 (executed) | forced execution: 2/2 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 4421	44A6	code	Function_2B_4421	CONFIRMED	70 insn(s); 70 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 44A6	44C1	code	-	PROBABLE	13 insn(s) reached by static flow only; seeds: exec x13; min discovery hops 1; entered by jrcc from 2B:4434 (executed)
 44C1	451E	code	-	CONFIRMED	50 insn(s); 50 executed (in up to 2/18 scenarios)
-451E	45AD	code	-	PROBABLE	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:451B (executed)
+451E	452C	code	-	CONFIRMED	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:451B (executed) | 6 insn(s) executed; cut out of the PROBABLE region 451E-45AD by apply_coverage --split [executed in 1 scenarios]
+452C	456D	code	-	PROBABLE	37 insn(s) never executed in the traced runs; cut out of the PROBABLE region 451E-45AD by apply_coverage --split
+456D	4592	code	-	CONFIRMED	19 insn(s) executed; cut out of the PROBABLE region 451E-45AD by apply_coverage --split [executed in 1 scenarios]
+4592	45AD	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 451E-45AD by apply_coverage --split
 45AD	45CD	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
-45CD	45E1	code	-	PROBABLE	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4545 (PROBABLE code)
+45CD	45E1	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4545 (PROBABLE code) [executed in 1 scenarios]
 45E1	460A	code	Function_2B_45E1	CONFIRMED	22 insn(s); 22 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-460A	4699	code	-	PROBABLE	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:4607 (executed)
+460A	4659	code	-	CONFIRMED	75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 0; fall-through of the jpcc at 2B:4607 (executed) | 43 insn(s) executed; cut out of the PROBABLE region 460A-4699 by apply_coverage --split [executed in 4 scenarios]
+4659	4699	code	-	PROBABLE	32 insn(s) never executed in the traced runs; cut out of the PROBABLE region 460A-4699 by apply_coverage --split
 4699	46B9	code	-	CONFIRMED	16 insn(s); 16 executed (in up to 2/18 scenarios)
 46B9	46CD	code	-	CONFIRMED	12 insn(s) reached by static flow only; seeds: exec x12; min discovery hops 1; entered by call from 2B:4631 (PROBABLE code) [executed in 2 scenarios]
 46CD	4743	code	Function_2B_46CD	CONFIRMED	61 insn(s); 61 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
-4743	478B	code	-	PROBABLE	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 1; entered by call from 2B:4098 (PROBABLE code)
+4743	478B	code	-	CONFIRMED	28 insn(s) reached by static flow only; seeds: exec x28; min discovery hops 1; entered by call from 2B:4098 (PROBABLE code) [executed in 1 scenarios]
 478B	47D0	code	Function_2B_478B	CONFIRMED	35 insn(s); 35 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 47D0	47D8	ptrtable	Table_2B_47D0	PROBABLE	4 pointers $47D8, $4801, $482A, $4853 to the 4 NUL-terminated strings of String_2B_47D8 (each string starts right after a NUL, spacing $29); bytes 47D2-47D8 are read as data by executed code (2/18 scenarios)
 47D8	487C	text	String_2B_47D8	PROBABLE	text: 4 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
@@ -61,17 +65,17 @@
 536E	5397	data	Data_2B_536E	PROBABLE	OAM frame: count=10 then 10 x (y,x,tile,attr) = 41 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 5397	53C0	data	Data_2B_5397	PROBABLE	OAM frame: count=10 then 10 x (y,x,tile,attr) = 41 bytes (tuples emitted by the 00:0AE8 sprite engine; layout as bank 50:6CC4); referenced by a frame table
 53C0	53C3	data	Data_2B_53C0	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
-53C3	53C6	code	-	HYPOTHESIS	'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start
-53C6	562B	code	-	PROBABLE	268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code)
+53C3	53C6	code	-	HYPOTHESIS	'call $5448' (cd 48 54) directly after the animation block, falling into the PROBABLE code at 53C6; no branch/pointer to 53C3 found; target 5448 is a code instruction start | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+53C6	562B	code	-	PROBABLE	268 insn(s) reached by static flow only; seeds: site x268; min discovery hops 0; entered by jr from 2B:541E (PROBABLE code) | forced execution: 236/268 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 562B	5643	words	Table_2B_562B	PROBABLE	12 words $9861,$9866,$986B,$9870,$98E1,...,$9970 = VRAM tilemap ($9800-$9BFF) addresses of 12 cells; indexed by c*2 (ld hl,$562B at 2B:55E8 with sla c; add hl,bc) and loaded into hl
 5643	565B	words	Table_2B_5643	PROBABLE	12 words $A124..$AE13 (step $12D) = SRAM record base addresses; ld hl,$5643 at 2B:5600 (index by 2*c)
-565B	57B5	code	-	PROBABLE	246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code)
+565B	57B5	code	-	PROBABLE	246 insn(s) reached by static flow only; seeds: site x246; min discovery hops 1; entered by call from 2B:5617 (PROBABLE code) | forced execution: 197/246 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 57B5	57CB	text	String_2B_57B5	PROBABLE	text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
-57CB	5806	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code)
+57CB	5806	code	-	PROBABLE	35 insn(s) reached by static flow only; seeds: site x35; min discovery hops 2; entered by jp from 2B:56EF (PROBABLE code) | forced execution: 35/35 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 5806	5807	code	-	HYPOTHESIS	lone 'ret' (c9) after the ret at 2B:5805; nothing branches to 5806
 5807	5814	text	String_2B_5807	PROBABLE	Shift-JIS NUL-terminated string: 6 x 81 40 (full-width space) + NUL; sits between a ret and the SRAM table at 5814; no direct reference found (probably a blank-line string)
 5814	582C	words	Table_2B_5814	PROBABLE	12 words $A124..$AE13 (SRAM record bases, step $12D); ld hl,$5814 at 2B:56DE, 56F7, 5766, 5791
-582C	59B4	code	-	PROBABLE	225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code)
+582C	59B4	code	-	PROBABLE	225 insn(s) reached by static flow only; seeds: site x225; min discovery hops 0; entered by call from 2B:5776 (PROBABLE code) | forced execution: 204/225 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
 59B4	59C0	zero	-	PROBABLE	12 bytes of $00 padding before the tiles at 59C0
 59C0	5DC0	gfx	Data_2B_59C0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:547D: hl=$59C0 a=$2B c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 5DC0	5FF0	gfx	Data_2B_5DC0	PROBABLE	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 2B:548F: hl=$5DC0 a=$2B c=$23 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
@@ -85,7 +89,10 @@
 647F	6482	data	Data_2B_647F	HYPOTHESIS	animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
 6482	64F1	code	-	CONFIRMED	48 insn(s) reached by static flow only; seeds: exec x48; min discovery hops 7; entered by far from 25:475C (PROBABLE code) [executed in 2 scenarios]
 64F1	6500	code	-	HYPOTHESIS	function prologue (push bc; ld a,7; ldh [$8D],a; ldh [$70],a; ld a,$E0; ld [$DA10],a; ld [$DA20],a) that falls into the far-call site at 2B:6500 (PROBABLE code), after the ret at 64F0; no caller/pointer to 64F1 found
-6500	6863	code	-	PROBABLE	397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+6500	6548	code	-	PROBABLE	397 insn(s) reached by static flow only; seeds: exec x374, site x23; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 23 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6500-6863 by apply_coverage --split
+6548	67D6	code	-	CONFIRMED	298 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage --split [executed in 3 scenarios]
+67D6	67E0	code	-	PROBABLE	4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6500-6863 by apply_coverage --split
+67E0	6863	code	-	CONFIRMED	72 insn(s) executed; cut out of the PROBABLE region 6500-6863 by apply_coverage --split [executed in 9 scenarios]
 6863	687B	words	Table_2B_6863	PROBABLE	12 words $A124..$AE13 (SRAM record bases); ld hl,$6863 at 2B:66CD, 6717, 6756, 678C
 687B	687C	code	-	HYPOTHESIS	lone 'ret' (c9) between the table and the next function; nothing branches to it
 687C	6895	code	-	HYPOTHESIS	part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 687C is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
@@ -95,14 +102,29 @@
 68CE	68E5	code	-	HYPOTHESIS	part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68CE is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
 68E5	68F6	code	-	PROBABLE	6 insn(s) reached by static flow only; seeds: site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 68F6	6909	code	-	HYPOTHESIS	part of a switch-like function at 2B:687C-6909 (push bc; ld a,c; cp n; jr nz next; ld de,$68xx ; ld hl,$DA10 ; call $0A65 ; ld hl,$DA20 ; ld de,$78xx ; ld a,$2B ; ld b,$81 ; far call 00:0A82). Block 68F6 is entered by the 'jr nz' of the previous block (in-span targets) and continues into the PROBABLE far-call site that follows; the function entry 687C has no caller/pointer in the ROM
-6909	69AD	code	-	PROBABLE	111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+6909	691A	code	-	PROBABLE	111 insn(s) reached by static flow only; seeds: exec x105, site x6; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6909-69AD by apply_coverage --split
+691A	693F	code	-	CONFIRMED	23 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage --split [executed in 7 scenarios]
+693F	6942	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 6909-69AD by apply_coverage --split | forced execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence; status unchanged)
+6942	69AD	code	-	CONFIRMED	81 insn(s) executed; cut out of the PROBABLE region 6909-69AD by apply_coverage --split [executed in 9 scenarios]
 69AD	69C5	words	Table_2B_69AD	PROBABLE	12 words $A124..$AE13 (SRAM record bases); ld hl,$69AD at 2B:692E and 6947
-69C5	6CF5	code	-	PROBABLE	425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code)
-6CF5	6D6B	code	-	HYPOTHESIS	function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets valid
-6D6B	6DB0	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0; entered by jrcc from 2B:6D84 (PROBABLE code)
+69C5	69EB	code	-	CONFIRMED	425 insn(s) reached by static flow only; seeds: exec x425; min discovery hops 9; entered by call from 2B:6735 (PROBABLE code) | 17 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
+69EB	69EF	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+69EF	6A4E	code	-	CONFIRMED	52 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
+6A4E	6A69	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+6A69	6AD4	code	-	CONFIRMED	56 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
+6AD4	6B1D	code	-	PROBABLE	40 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+6B1D	6B3F	code	-	CONFIRMED	17 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
+6B3F	6B5A	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+6B5A	6BCC	code	-	CONFIRMED	59 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 5 scenarios]
+6BCC	6BD0	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+6BD0	6C0E	code	-	CONFIRMED	35 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
+6C0E	6C4B	code	-	PROBABLE	30 insn(s) never executed in the traced runs; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split
+6C4B	6CF5	code	-	CONFIRMED	89 insn(s) executed; cut out of the PROBABLE region 69C5-6CF5 by apply_coverage --split [executed in 8 scenarios]
+6CF5	6D6B	code	-	HYPOTHESIS	function at 2B:6CF5 (push bc; ld a,1; ldh [$8D],a; ldh [$70],a; SRAM enable; clears $24 bytes at $D400; ld hl,$6DB0 table index; ...) that flows into the PROBABLE code at 6D6B; after the ret at 6CF4; no caller/pointer to 6CF5 found. Decode legal, all branch targets valid | forced execution: 68/68 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
+6D6B	6DB0	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: site x32; min discovery hops 0; entered by jrcc from 2B:6D84 (PROBABLE code) | forced execution: 1/32 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 6DB0	6DC8	words	Table_2B_6DB0	PROBABLE	12 words $A124..$AE13 (SRAM record bases); ld hl,$6DB0 at 2B:6D2A (hl=[table+2c], then + $00ED)
 6DC8	6DD0	zero	-	PROBABLE	8 bytes of $00 between the table and the tile block at 6DD0
-6DD0	71D0	gfx	Tiles_2B_6DD0	PROBABLE	64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content)
+6DD0	71D0	gfx	Tiles_2B_6DD0	CONFIRMED	64 tiles: 'ld de,$9001 ; ld hl,$6DD0 ; ld a,$2B ; ld c,$40 ; call FarCall -> 00:0749 (HDMA rom->vram)' at 2B:6620-6631; merges the former zero-run / UNCLASSIFIED fragments (blank rows are tile content) [every byte read as data in 9 scenario(s)]
 71D0	73D0	gfx	Tiles_2B_71D0	PROBABLE	32 tiles: 'ld de,$9401 ; ld hl,$71D0 ; ld a,$2B ; ld c,$20 ; HDMA' at 2B:6635-6646; ends where the tilemap+attr block at 73D0 begins
 73D0	76A0	data	Data_2B_73D0	PROBABLE	tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 2B:6655: hl=$73D0 a=$2B b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
 76A0	76E0	data	Palette_2B_76A0	PROBABLE	64 bytes = 32 RGB555 words (bit15 clear): 'ld bc,$0040 ; ld de,$D800 ; ld hl,$76A0 ; ld a,$2B ; far call 4F:4000' at 2B:65E3-65F3; the old heuristic region ran into tile data

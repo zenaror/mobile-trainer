@@ -302,7 +302,7 @@ Label_00_0242:: ; 00:0242
 ; ---- code $0247-$0278 (49 bytes) [CONFIRMED] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F, calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw refs 6] [executed in 9 scenarios]
 
 Function_00_0247:: ; 00:0247
-	ld [wBank4SavedBankHi], a
+	ld [wMail_Selector], a
 	ldh a, [hROMBankLo]
 	ld l, a
 	ldh a, [hROMBankHi]
@@ -327,7 +327,7 @@ Function_00_0247:: ; 00:0247
 	ld [$2100], a
 	ld a, d
 	ld [rROMB1], a
-	ld a, [wBank4SavedBankHi]
+	ld a, [wMail_Selector]
 	ret
 
 ; ---- code $0278-$032E (182 bytes) [CONFIRMED] boot: see docs/research/boot_and_home.md. A(boot)->FFA3; LCD off (05BD); di; clear TAC/IF/IE; sp=$FFFE; CGB: request double speed (0602); SRAM off+bank0; non-CGB: forever show bank 6B:4C80; clear VRAM1, WRAM banks 2-7, WRAM0/1, VRAM0, HRAM FF80-FFFD; copy OAM DMA routine (059F); call 04:4000 (via 20A0); call 4F:4717; ROM bank <- 1; main loop far-calls 1C:4000 forever | inline far pointer: FarCall at 0328: dw $4000 ; db $1C -> 1C:4000
@@ -802,12 +802,14 @@ Label_00_051C:: ; 00:051C
 	jr nz, Label_00_051C
 	ret
 
-; ---- code $0526-$0540 (26 bytes) [PROBABLE] copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43]
+; ---- code $0526-$052A (4 bytes) [CONFIRMED] copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43] | 3 insn(s) executed; cut out of the PROBABLE region 0526-0540 by apply_coverage --split [executed in 32 scenarios]
 
 CopyBytesBackward:: ; 00:0526
 	inc b
 	dec b
 	jr nz, Label_00_0531
+
+; ---- code $052A-$0531 (7 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0526-0540 by apply_coverage --split
 
 Label_00_052A:: ; 00:052A
 	ld a, [hld]
@@ -816,6 +818,8 @@ Label_00_052A:: ; 00:052A
 	dec c
 	jr nz, Label_00_052A
 	ret
+
+; ---- code $0531-$0540 (15 bytes) [CONFIRMED] 12 insn(s) executed; cut out of the PROBABLE region 0526-0540 by apply_coverage --split [executed in 32 scenarios]
 
 Label_00_0531:: ; 00:0531
 	inc c
@@ -833,12 +837,14 @@ Label_00_0536:: ; 00:0536
 	jr nz, Label_00_0536
 	ret
 
-; ---- code $0540-$0551 (17 bytes) [PROBABLE] A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33]
+; ---- code $0540-$0545 (5 bytes) [PROBABLE] A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33] | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0540-0551 by apply_coverage --split
 
 JumpTableBank:: ; 00:0540
 	call BankSwitch_H
 	push hl
 	ld a, c
+
+; ---- code $0545-$0551 (12 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 0540-0551 by apply_coverage --split [executed in 62 scenarios]
 
 JumpTableInline:: ; 00:0545
 	pop hl
@@ -1179,7 +1185,7 @@ FarCall:: ; 00:06D1
 	ldh [hScratchA], a
 	jr FarCall_Common
 
-; ---- code $06E5-$0716 (49 bytes) [PROBABLE] like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18]
+; ---- code $06E5-$06EE (9 bytes) [PROBABLE] like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18] | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 06E5-0716 by apply_coverage --split
 
 FarCall_Reg:: ; 00:06E5
 	ldh [hScratchA], a
@@ -1188,6 +1194,8 @@ FarCall_Reg:: ; 00:06E5
 	ld a, h
 	ldh [hFarCallTarget + 1], a
 	pop hl
+
+; ---- code $06EE-$0716 (40 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 06E5-0716 by apply_coverage --split [executed in 62 scenarios]
 
 FarCall_Common:: ; 00:06EE
 	push hl
@@ -2264,7 +2272,7 @@ Label_00_0D46:: ; 00:0D46
 	ld [$2100], a
 	ret
 
-; ---- code $0D4D-$0D67 (26 bytes) [PROBABLE] BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4]
+; ---- code $0D4D-$0D61 (20 bytes) [CONFIRMED] BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4] | 13 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
 
 Multiply16x16to32:: ; 00:0D4D
 	push af
@@ -2282,7 +2290,11 @@ Label_00_0D57:: ; 00:0D57
 	jr nc, Label_00_0D62
 	add hl, de
 	jr nc, Label_00_0D62
+
+; ---- code $0D61-$0D62 (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split
 	inc bc
+
+; ---- code $0D62-$0D67 (5 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
 
 Label_00_0D62:: ; 00:0D62
 	dec a
@@ -2558,7 +2570,7 @@ Function_00_0E93:: ; 00:0E93
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D724]
+	ld a, [wStatSplitLine]
 	ldh [rLYC], a
 	pop af
 	ldh [hWRAMBank], a
@@ -2578,7 +2590,7 @@ Label_00_0EB2:: ; 00:0EB2
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_D824]
+	ld a, [wStatIrqServiceFlag]
 	or a, a
 	jr z, Label_00_0ECC
 	call Function_00_0392
@@ -2840,7 +2852,7 @@ Function_00_1018:: ; 00:1018
 	ldh [hTextX + 1], a
 	jp Label_00_0F5A
 
-; ---- code $1028-$1059 (49 bytes) [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] | inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F
+; ---- code $1028-$1044 (28 bytes) [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] | inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F | 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1028-1059 by apply_coverage --split
 
 Function_00_1028:: ; 00:1028
 	ld a, c
@@ -2862,6 +2874,8 @@ Label_00_1041:: ; 00:1041
 
 Label_00_1042:: ; 00:1042
 	jr nc, Function_00_10B1
+
+; ---- code $1044-$1059 (21 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 1028-1059 by apply_coverage --split [executed in 37 scenarios]
 
 Function_00_1044:: ; 00:1044
 	ld h, c
@@ -3019,7 +3033,7 @@ Label_00_1117:: ; 00:1117
 	ld a, [de]
 	ret
 
-; ---- code $1119-$131A (513 bytes) [PROBABLE] token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>), handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output. HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236]
+; ---- code $1119-$1131 (24 bytes) [CONFIRMED] token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>), handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output. HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236] | 12 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
 
 Function_00_1119:: ; 00:1119
 	call Function_00_0392
@@ -3036,6 +3050,8 @@ Label_00_111C:: ; 00:111C
 	jr c, Label_00_1155
 	cp a, $81
 	jr c, Label_00_1145
+
+; ---- code $1131-$1145 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	cp a, $A0
 	jr c, Label_00_1146
 	cp a, $E0
@@ -3047,11 +3063,15 @@ Label_00_111C:: ; 00:111C
 	cp a, $FA
 	jr c, Label_00_1146
 
+; ---- code $1145-$1148 (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+
 Label_00_1145:: ; 00:1145
 	or a, a
 
 Label_00_1146:: ; 00:1146
 	jr nc, Label_00_1165
+
+; ---- code $1148-$1152 (10 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	ld a, [hli]
 	jr Label_00_111C
 
@@ -3061,6 +3081,8 @@ Label_00_114B:: ; 00:114B
 	ldh a, [hRam_FFB1]
 	ld d, a
 	pop bc
+
+; ---- code $1152-$119B (73 bytes) [CONFIRMED] 46 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
 
 Label_00_1152:: ; 00:1152
 	dec hl
@@ -3117,6 +3139,8 @@ Label_00_118B:: ; 00:118B
 	jr c, Label_00_11A5
 	cp a, $3D
 	jr z, Label_00_11B0
+
+; ---- code $119B-$11B0 (21 bytes) [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	ldh a, [hRam_FFB0]
 	ld e, a
 	ldh a, [hRam_FFB1]
@@ -3132,6 +3156,8 @@ Label_00_11A5:: ; 00:11A5
 	jr c, Label_00_11A5
 	dec hl
 	jr Label_00_118B
+
+; ---- code $11B0-$11DC (44 bytes) [CONFIRMED] 25 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 3 scenarios]
 
 Label_00_11B0:: ; 00:11B0
 	ld a, [hli]
@@ -3161,6 +3187,8 @@ Label_00_11C7:: ; 00:11C7
 	inc de
 	cp a, $81
 	jr c, Label_00_11F0
+
+; ---- code $11DC-$11F0 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	cp a, $A0
 	jr c, Label_00_11F1
 	cp a, $E0
@@ -3172,11 +3200,15 @@ Label_00_11C7:: ; 00:11C7
 	cp a, $FA
 	jr c, Label_00_11F1
 
+; ---- code $11F0-$11F3 (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 3 scenarios]
+
 Label_00_11F0:: ; 00:11F0
 	or a, a
 
 Label_00_11F1:: ; 00:11F1
 	jr nc, Label_00_11C7
+
+; ---- code $11F3-$11FB (8 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	inc b
 	jr z, Label_00_11FE
 	ld a, [hli]
@@ -3184,12 +3216,18 @@ Label_00_11F1:: ; 00:11F1
 	inc de
 	jr Label_00_11C7
 
+; ---- code $11FB-$11FE (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 4 scenarios]
+
 Label_00_11FB:: ; 00:11FB
 	dec hl
 	jr Label_00_11FF
 
+; ---- code $11FE-$11FF (1 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+
 Label_00_11FE:: ; 00:11FE
 	dec de
+
+; ---- code $11FF-$1223 (36 bytes) [CONFIRMED] 24 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
 
 Label_00_11FF:: ; 00:11FF
 	xor a, a
@@ -3218,6 +3256,8 @@ Label_00_120A:: ; 00:120A
 	inc de
 	cp a, $81
 	jr c, Label_00_1237
+
+; ---- code $1223-$1237 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	cp a, $A0
 	jr c, Label_00_1238
 	cp a, $E0
@@ -3229,11 +3269,15 @@ Label_00_120A:: ; 00:120A
 	cp a, $FA
 	jr c, Label_00_1238
 
+; ---- code $1237-$123A (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+
 Label_00_1237:: ; 00:1237
 	or a, a
 
 Label_00_1238:: ; 00:1238
 	jr nc, Label_00_120A
+
+; ---- code $123A-$127A (64 bytes) [PROBABLE] 39 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	inc b
 	jr z, Label_00_11FE
 	ld a, [hli]
@@ -3280,6 +3324,8 @@ Label_00_1270:: ; 00:1270
 	inc de
 	jr Label_00_1242
 
+; ---- code $127A-$1289 (15 bytes) [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+
 Label_00_127A:: ; 00:127A
 	ld a, [hli]
 	or a, a
@@ -3288,6 +3334,8 @@ Label_00_127A:: ; 00:127A
 	jp z, Label_00_1152
 	cp a, $22
 	jp z, Label_00_12C0
+
+; ---- code $1289-$12C0 (55 bytes) [PROBABLE] 28 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	cp a, $27
 	jp z, Label_00_12ED
 	cp a, $21
@@ -3323,6 +3371,8 @@ Label_00_12BB:: ; 00:12BB
 	ld a, [hli]
 	jr Label_00_1293
 
+; ---- code $12C0-$12D3 (19 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+
 Label_00_12C0:: ; 00:12C0
 	ld a, [hli]
 	or a, a
@@ -3333,6 +3383,8 @@ Label_00_12C0:: ; 00:12C0
 	jp z, Label_00_111C
 	cp a, $81
 	jr c, Label_00_12E7
+
+; ---- code $12D3-$12E7 (20 bytes) [PROBABLE] 10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	cp a, $A0
 	jr c, Label_00_12E8
 	cp a, $E0
@@ -3344,11 +3396,15 @@ Label_00_12C0:: ; 00:12C0
 	cp a, $FA
 	jr c, Label_00_12E8
 
+; ---- code $12E7-$12EA (3 bytes) [CONFIRMED] 2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+
 Label_00_12E7:: ; 00:12E7
 	or a, a
 
 Label_00_12E8:: ; 00:12E8
 	jr nc, Label_00_12C0
+
+; ---- code $12EA-$131A (48 bytes) [PROBABLE] 25 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 	ld a, [hli]
 	jr Label_00_12C0
 
@@ -3432,7 +3488,7 @@ Label_00_134D:: ; 00:134D
 	jr nz, Label_00_134D
 	ret
 
-; ---- code $1354-$1408 (180 bytes) [PROBABLE] keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw refs 23]
+; ---- code $1354-$138C (56 bytes) [CONFIRMED] keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw refs 23] | 40 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
 
 Function_00_1354:: ; 00:1354
 	dec bc
@@ -3481,9 +3537,13 @@ Label_00_1388:: ; 00:1388
 	ld a, c
 	or a, a
 	jr z, Label_00_1390
+
+; ---- code $138C-$1390 (4 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
 	pop hl
 	pop bc
 	jr Label_00_1372
+
+; ---- code $1390-$13DD (77 bytes) [CONFIRMED] 57 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
 
 Label_00_1390:: ; 00:1390
 	ld a, [de]
@@ -3551,8 +3611,12 @@ Label_00_13C6:: ; 00:13C6
 	ldh a, [hRam_FFB1]
 	sbc a, b
 	jr c, Label_00_13E0
+
+; ---- code $13DD-$13E0 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
 	or a, e
 	jr nz, Label_00_13E6
+
+; ---- code $13E0-$13FD (29 bytes) [CONFIRMED] 22 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
 
 Label_00_13E0:: ; 00:13E0
 	ldh a, [hRam_FFB0]
@@ -3582,6 +3646,8 @@ Label_00_13F0:: ; 00:13F0
 	ldh [hRam_FFB0], a
 	ret
 
+; ---- code $13FD-$1408 (11 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
+
 Label_00_13FD:: ; 00:13FD
 	pop de
 	pop bc
@@ -3593,7 +3659,7 @@ Label_00_13FD:: ; 00:13FD
 	ldh [hRam_FFB1], a
 	ret
 
-; ---- code $1408-$14BF (183 bytes) [PROBABLE] text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13]
+; ---- code $1408-$142C (36 bytes) [CONFIRMED] text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13] | 17 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 1 scenarios]
 
 Function_00_1408:: ; 00:1408
 	call BankSwitch_H
@@ -3615,8 +3681,12 @@ Label_00_1414:: ; 00:1414
 	jp z, Label_00_14B2
 	cp a, $09
 	jr z, Label_00_142F
+
+; ---- code $142C-$142F (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
 	inc bc
 	jr Label_00_1414
+
+; ---- code $142F-$1455 (38 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 1 scenarios]
 
 Label_00_142F:: ; 00:142F
 	ld a, e
@@ -3646,6 +3716,8 @@ Label_00_144D:: ; 00:144D
 	jr c, Label_00_1465
 	cp a, $A0
 	jr c, Label_00_1466
+
+; ---- code $1455-$1465 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
 	cp a, $E0
 	jr c, Label_00_1465
 	cp a, $F0
@@ -3654,6 +3726,8 @@ Label_00_144D:: ; 00:144D
 	jr c, Label_00_1465
 	cp a, $FA
 	jr c, Label_00_1466
+
+; ---- code $1465-$14AA (69 bytes) [CONFIRMED] 45 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 6 scenarios]
 
 Label_00_1465:: ; 00:1465
 	or a, a
@@ -3714,6 +3788,8 @@ Label_00_14A8:: ; 00:14A8
 	inc bc
 	ret
 
+; ---- code $14AA-$14BF (21 bytes) [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
+
 Label_00_14AA:: ; 00:14AA
 	ld a, e
 	sub a, $06
@@ -3761,7 +3837,7 @@ CopyStringMax:: ; 00:14C6
 	jr nz, CopyStringMax
 	ret
 
-; ---- code $14D1-$14E0 (15 bytes) [PROBABLE] like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred links; raw refs 4]
+; ---- code $14D1-$14DD (12 bytes) [CONFIRMED] like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred links; raw refs 4] | 10 insn(s) executed; cut out of the PROBABLE region 14D1-14E0 by apply_coverage --split [executed in 2 scenarios]
 
 Function_00_14D1:: ; 00:14D1
 	ld a, c
@@ -3774,6 +3850,8 @@ Function_00_14D1:: ; 00:14D1
 	or a, a
 	jr nz, CopyStringMax
 	ret
+
+; ---- code $14DD-$14E0 (3 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 14D1-14E0 by apply_coverage --split
 
 Label_00_14DD:: ; 00:14DD
 	xor a, a
@@ -4002,7 +4080,7 @@ Label_00_15BD:: ; 00:15BD
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [sSram_B013]
+	ld a, [sSettingsSelectedDialEntry]
 	xor a, $A5
 	ld hl, Table_00_161A
 	add a, a
@@ -4037,7 +4115,7 @@ Label_00_15BD:: ; 00:15BD
 Table_00_161A:: ; 00:161A
 	dw $B014, $B025, $B036
 
-; ---- code $1620-$1686 (102 bytes) [PROBABLE] A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92]
+; ---- code $1620-$1684 (100 bytes) [CONFIRMED] A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92] | 53 insn(s) executed; cut out of the PROBABLE region 1620-1686 by apply_coverage --split [executed in 29 scenarios]
 
 ReadByteFar:: ; 00:1620
 	bit 7, h
@@ -4097,6 +4175,8 @@ Label_00_1669:: ; 00:1669
 	ld [$2100], a
 	ldh a, [hScratchA]
 	ret
+
+; ---- code $1684-$1686 (2 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1620-1686 by apply_coverage --split
 
 Label_00_1684:: ; 00:1684
 	ld a, [hli]
@@ -4318,7 +4398,7 @@ Function_00_20B8:: ; 00:20B8
 	call Function_00_2116
 	jp SoundDrv_PlayMusicIfNotPlaying
 
-; ---- code $20BE-$20C4 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
+; ---- code $20BE-$20C4 (6 bytes) [PROBABLE] stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3] | forced execution: 2/2 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 
 Function_00_20BE:: ; 00:20BE
 	call Function_00_2116
@@ -4435,7 +4515,7 @@ Function_00_2129:: ; 00:2129
 	xor a, a
 	ret
 
-; ---- code $2141-$215E (29 bytes) [PROBABLE] return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29]
+; ---- code $2141-$215E (29 bytes) [CONFIRMED] return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29] [executed in 1 scenarios]
 
 Function_00_2141:: ; 00:2141
 	ld hl, $D000

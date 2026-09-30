@@ -210,7 +210,7 @@ NonCgb_Tiles:: ; 6B:4480
 ; ---- zero $4C30-$4C80 (80 bytes) [HYPOTHESIS] 0x00 run of 82 bytes [clipped from 4C2E-4C80 by higher-priority proposals]
 	ds $50, $00
 
-; ---- code $4C80-$4D1B (155 bytes) [PROBABLE] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 1; entered by call from 00:02A9 (PROBABLE code)
+; ---- code $4C80-$4D1B (155 bytes) [CONFIRMED] 75 insn(s) reached by static flow only; seeds: exec x75; min discovery hops 1; entered by call from 00:02A9 (PROBABLE code) [executed in 1 scenarios]
 
 NonCgb_ErrorScreen:: ; 6B:4C80
 	xor a, a
@@ -297,11 +297,14 @@ NonCgb_FadeStep:: ; 6B:4CF6
 	ld a, $FF
 	ret
 
-; ---- data $4D1B-$4D20 (5 bytes) [PROBABLE] 5-byte BGP fade table 00 40 90 E4 D9 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); previous code ends with ret, zero padding follows
+; ---- data $4D1B-$4D1F (4 bytes) [PROBABLE] 4-byte BGP fade table 00 40 90 E4 read by the non-CGB screen routine 4CF6 (ld hl,$4D1B at 6B:4D00 ; add a,l ; ld a,[hl] ; ldh [rBGP],a ; index [C0E8] incremented and compared with 4, so entries 0-3 are used); the byte after it ($D9 at 4D1F) is executed as `reti`, see the next region [round 3: split from the former 5-byte data region 4D1B-4D20 read as `00 40 90 E4 D9`]
 
 NonCgb_BgpFadeTable:: ; 6B:4D1B
 Data_6B_4D1B::
-	db $00, $40, $90, $E4, $D9
+	db $00, $40, $90, $E4
+
+; ---- code $4D1F-$4D20 (1 bytes) [CONFIRMED] 1 insn (`reti`, $D9) executed by scenario noncgb_boot (register A = $01 at start): the target of the VBlank stub `jp $4D1F` that NonCgb_ErrorScreen installs (the byte also follows the 4-entry BGP fade table); found by apply_coverage as an executed start outside every code region [executed in 1 scenarios]
+	reti
 
 ; ---- zero $4D20-$8000 (13024 bytes) [PROBABLE] trailing 0x00 padding to end of bank
 	ds $32E0, $00

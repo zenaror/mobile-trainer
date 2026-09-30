@@ -2,7 +2,8 @@
 4000	4020	code	Function_28_4000	CONFIRMED	10 insn(s); 10 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
 4020	404C	code	-	CONFIRMED	18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0; fall-through of the jrcc at 28:401E (executed) [executed in 5 scenarios]
 404C	422B	code	-	CONFIRMED	179 insn(s); 179 executed (in up to 1/18 scenarios)
-422B	426B	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed)
+422B	4250	code	-	PROBABLE	32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jrcc from 28:41E8 (executed) | 19 insn(s) never executed in the traced runs; cut out of the PROBABLE region 422B-426B by apply_coverage --split
+4250	426B	code	-	CONFIRMED	13 insn(s) executed; cut out of the PROBABLE region 422B-426B by apply_coverage --split [executed in 2 scenarios]
 426B	42B7	code	-	CONFIRMED	42 insn(s); 42 executed (in up to 1/18 scenarios)
 42B7	42C0	zero	-	PROBABLE	9 zero bytes (padding after the ret at 42B6, before the tiles at 42C0)
 42C0	44D0	gfx	Data_28_42C0	CONFIRMED	tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 28:4088: hl=$42C0 a=$28 c=$21 de=$9301 (dest VRAM $9300, vbank=1)

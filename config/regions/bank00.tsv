@@ -47,8 +47,11 @@
 04D8	04EE	code	FillBytes	CONFIRMED	fill BC bytes at HL with A (BC=0 fills 256 bytes when B=0); used to clear VRAM/WRAM/HRAM in Boot
 04EE	050C	code	FillWords	PROBABLE	fill BC bytes at HL with the repeating 16-bit pattern E,D (2 bytes per step, BC counts bytes) [candidate; raw refs 16]
 050C	0526	code	CopyBytes	CONFIRMED	copy BC bytes from [HL++] to [DE++] (BC=0 with B=0 copies 256)
-0526	0540	code	CopyBytesBackward	PROBABLE	copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43]
-0540	0551	code	JumpTableBank	PROBABLE	A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33]
+0526	052A	code	CopyBytesBackward	CONFIRMED	copy BC bytes from [HL--] to [DE--] [reached via inferred links; raw refs 43] | 3 insn(s) executed; cut out of the PROBABLE region 0526-0540 by apply_coverage --split [executed in 32 scenarios]
+052A	0531	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0526-0540 by apply_coverage --split
+0531	0540	code	-	CONFIRMED	12 insn(s) executed; cut out of the PROBABLE region 0526-0540 by apply_coverage --split [executed in 32 scenarios]
+0540	0545	code	JumpTableBank	PROBABLE	A=bank, HL=table of 16-bit pointers, C=index: bank switch via 0622, then jp [HL+2*C] (0545 is the entry that takes A=index and the table inline) [candidate; raw refs 33] | 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0540-0551 by apply_coverage --split
+0545	0551	code	-	CONFIRMED	11 insn(s) executed; cut out of the PROBABLE region 0540-0551 by apply_coverage --split [executed in 62 scenarios]
 0551	056A	code	FarJumpTable	PROBABLE	A=bank, HL=table of 3-byte entries (addr16, bank), C=index: switch to the table bank, read entry, switch to the entry bank, jp to it [candidate; raw refs 4]
 056A	059F	code	JoypadDispatch	CONFIRMED	inline table (5 words) follows the call: index = lowest set bit among bits0-3 of (FFA5|FFA7) (FFA7 is cleared), 4 if none; jumps through 0545 (call sites in other banks). FFA5 = newly pressed buttons computed by 7D:7BC1 ((old xor new) and new, new = rP1 read by 7D:7B7C: high nibble D-pad, low nibble A,B,Select,Start, active high), so by the rP1 layout index 0=A 1=B 2=Select 3=Start 4=none (PROBABLE); FFA7 has raw `ldh [$FFA7],a` byte patterns in other banks (1D:5F3F, 2D:70FD, 4A:62DF ...; not checked whether they are code), meaning unknown [reached via inferred links; raw refs 26] [executed in 14 scenarios]
 059F	05AC	code	Function_00_059F	CONFIRMED	copies the 10-byte OAM DMA routine from 05AC to HRAM $FF80 (ld bc,$0A80: B=count, C=dest)
@@ -64,7 +67,8 @@
 06B7	06BC	code	Function_00_06B7	PROBABLE	default target of the trampoline (jp $06B7 written by 0684 to FFAD-FFAF): forever call 044B (wait for VBlank + frame service). Reached only if the trampoline is entered without a patched target; never executed in mGBA (20 M instructions)
 06BC	06D1	code	Function_00_06BC	CONFIRMED	far call with inline 16-bit address (2 bytes after the call); bank comes from hFFF3. Entry to the common far-call path (06EE). One caller: `call $06BC` at 4F:4008 (inline word at 4F:400B = 00:050C CopyBytes, with hFFF3=A and WRAM bank 7 selected)
 06D1	06E5	code	FarCall	CONFIRMED	THE far call: call $06D1 ; dw addr ; db bank. Saves A/HL (FFA9/FFAB), pops the return address to read the 3 inline bytes, remembers the caller bank, switches to `bank` (region by target address), runs the target through the HRAM trampoline (A/HL preserved), switches back and returns to the byte after the inline data with the callee A/HL
-06E5	0716	code	FarCall_Reg	PROBABLE	like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18]
+06E5	06EE	code	FarCall_Reg	PROBABLE	like FarCall but bank in A and target address in HL (no inline data); shares the common path at 06EE. No static caller found [candidate; raw refs 18] | 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 06E5-0716 by apply_coverage --split
+06EE	0716	code	-	CONFIRMED	23 insn(s) executed; cut out of the PROBABLE region 06E5-0716 by apply_coverage --split [executed in 62 scenarios]
 0716	072E	code	Function_00_0716	PROBABLE	far JUMP (tail call, no return) with inline 16-bit address and bank from hFFF3; no static caller found [candidate; raw refs 6]
 072E	0749	code	FarJump	PROBABLE	far JUMP (tail call, no return): call $072E ; dw addr ; db bank; A/HL passed through. No static caller found [candidate; raw refs 3]
 0749	0787	code	Function_00_0749	CONFIRMED	general-purpose HDMA start (rHDMA5=C-1, bit7=0): A=source bank (region by H), HL=source, DE=dest (E bit0 = VRAM bank via rVBK/FFF4, E&$F0 = low dest byte), C=number of 16-byte blocks, B=LY limit: waits until LY>=$91 and LY<B, else waits for the next VBlank; returns A=bank
@@ -100,7 +104,9 @@
 0C18	0C34	code	Random	PROBABLE	A(hFFFE) = (5*hFFFE + 2) xor Table_00_0C34[++hFFFD] ; returns in hFFFE (index hFFFD wraps at 256). No seeding code in ROM0 [candidate; raw refs 26]
 0C34	0D34	data	Table_00_0C34	CONFIRMED	256 bytes indexed by hFFFD, xor operand of Random (0C2F)
 0D34	0D4D	code	Function_00_0D34	PROBABLE	push af; ld d,$C2; writes ROM bank $F0 (FF8A/[2100]); ld a,[de] = the WRAM byte at $C200+E (NOT a ROM read: $C2xx is WRAM, so the ROM bank write has no effect on the load; $F0 would wrap to bank $70 on a 128-bank cart); DE = sign-extended byte; restores the ROM bank from the A given at entry. No static caller found
-0D4D	0D67	code	Multiply16x16to32	PROBABLE	BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4]
+0D4D	0D61	code	Multiply16x16to32	CONFIRMED	BC:HL = DE * HL (32-bit product); verified on interpreter [reached via inferred links; raw refs 4] | 13 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
+0D61	0D62	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split
+0D62	0D67	code	-	CONFIRMED	4 insn(s) executed; cut out of the PROBABLE region 0D4D-0D67 by apply_coverage --split [executed in 15 scenarios]
 0D67	0D92	code	Divide16	CONFIRMED	HL = HL / DE, DE = HL % DE (unsigned 16/16); verified on interpreter [reached via inferred links; raw refs 12] [executed in 18 scenarios]
 0D92	0DB9	code	Divide32by15	CONFIRMED	BC:DE / HL -> DE = quotient, BC = remainder (unsigned; exact for HL<$8000 and BC<HL); verified on 200 random cases on interpreter [reached via inferred links; raw refs 6] [executed in 9 scenarios]
 0DB9	0DCE	code	Function_00_0DB9	CONFIRMED	A=bank, DE=src, HL=dst, C=restore bank: switch ROM bank via FF8A/[2100], copy 12 bytes each written twice, restore bank C
@@ -126,7 +132,8 @@
 0FFB	100D	code	Function_00_0FFB	CONFIRMED	control byte $1E: FFBD/FFBE += next word
 100D	1018	code	Function_00_100D	CONFIRMED	control byte $1F: FFBC += next byte
 1018	1028	code	Function_00_1018	CONFIRMED	control byte $09: FFBD/FFBE += $30
-1028	1059	code	Function_00_1028	PROBABLE	draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] | inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F
+1028	1044	code	Function_00_1028	PROBABLE	draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double: far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] | inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F | 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1028-1059 by apply_coverage --split
+1044	1059	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 1028-1059 by apply_coverage --split [executed in 37 scenarios]
 1059	1079	code	Function_00_1059	CONFIRMED	continuation of Function_00_1028 | inline far pointer: FarCall at 1073: dw $42C3 ; db $7F -> 7F:42C3
 1079	10A3	code	Function_00_1079	CONFIRMED	continuation of Function_00_1028 | inline far pointer: FarCall at 109D: dw $42C3 ; db $7F -> 7F:42C3
 10A3	10B1	code	Function_00_10A3	CONFIRMED	continuation
@@ -134,13 +141,45 @@
 10C6	10DB	code	Function_00_10C6	CONFIRMED	continuation of Function_00_10B1 | inline far pointer: FarCall at 10D5: dw $42C3 ; db $7F -> 7F:42C3
 10DB	10E9	code	Function_00_10DB	CONFIRMED	continuation
 10E9	1119	code	Function_00_10E9	CONFIRMED	keyword lookup: BC = table of word pointers to strings (0 terminates); compares [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via inferred links; raw refs 30] [executed in 5 scenarios]
-1119	131A	code	Function_00_1119	PROBABLE	token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>), handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output. HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236]
+1119	1131	code	Function_00_1119	CONFIRMED	token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>), handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output. HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236] | 12 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+1131	1145	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+1145	1148	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+1148	1152	code	-	PROBABLE	7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+1152	119B	code	-	CONFIRMED	46 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+119B	11B0	code	-	PROBABLE	13 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+11B0	11DC	code	-	CONFIRMED	25 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 3 scenarios]
+11DC	11F0	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+11F0	11F3	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 3 scenarios]
+11F3	11FB	code	-	PROBABLE	6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+11FB	11FE	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 4 scenarios]
+11FE	11FF	code	-	PROBABLE	1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+11FF	1223	code	-	CONFIRMED	24 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+1223	1237	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+1237	123A	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15 scenarios]
+123A	127A	code	-	PROBABLE	39 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+127A	1289	code	-	CONFIRMED	7 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+1289	12C0	code	-	PROBABLE	28 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+12C0	12D3	code	-	CONFIRMED	9 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+12D3	12E7	code	-	PROBABLE	10 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
+12E7	12EA	code	-	CONFIRMED	2 insn(s) executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 6 scenarios]
+12EA	131A	code	-	PROBABLE	25 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1119-131A by apply_coverage --split
 131A	1354	code	Function_00_131A	CONFIRMED	two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via inferred links; raw refs 43] [executed in 5 scenarios]
-1354	1408	code	Function_00_1354	PROBABLE	keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw refs 23]
-1408	14BF	code	Function_00_1408	PROBABLE	text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13]
+1354	138C	code	Function_00_1354	CONFIRMED	keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes the length words at [HL]; writes zeros when nothing matches [reached via inferred links; raw refs 23] | 40 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
+138C	1390	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
+1390	13DD	code	-	CONFIRMED	57 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
+13DD	13E0	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
+13E0	13FD	code	-	CONFIRMED	22 insn(s) executed; cut out of the PROBABLE region 1354-1408 by apply_coverage --split [executed in 8 scenarios]
+13FD	1408	code	-	PROBABLE	9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1354-1408 by apply_coverage --split
+1408	142C	code	Function_00_1408	CONFIRMED	text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12 per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw refs 13] | 17 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 1 scenarios]
+142C	142F	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
+142F	1455	code	-	CONFIRMED	23 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 1 scenarios]
+1455	1465	code	-	PROBABLE	8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
+1465	14AA	code	-	CONFIRMED	45 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage --split [executed in 6 scenarios]
+14AA	14BF	code	-	PROBABLE	17 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1408-14BF by apply_coverage --split
 14BF	14C6	code	CopyString	CONFIRMED	copy [HL++] to [DE++] up to and including the $00 terminator [reached via inferred links; raw refs 33] [executed in 32 scenarios]
 14C6	14D1	code	CopyStringMax	CONFIRMED	copy at most BC bytes, stop after the terminator [reached via inferred links; raw refs 6] [executed in 6 scenarios]
-14D1	14E0	code	Function_00_14D1	PROBABLE	like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred links; raw refs 4]
+14D1	14DD	code	Function_00_14D1	CONFIRMED	like 14C6; when BC==0 writes a $00 at [HL] (source pointer) [reached via inferred links; raw refs 4] | 10 insn(s) executed; cut out of the PROBABLE region 14D1-14E0 by apply_coverage --split [executed in 2 scenarios]
+14DD	14E0	code	-	PROBABLE	3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 14D1-14E0 by apply_coverage --split
 14E0	14EA	code	EncodeXorA5	CONFIRMED	copy [HL++] to [DE++] XOR $A5 until the source byte is $00 (terminator is stored as $A5) [candidate; raw refs 6] [executed in 8 scenarios]
 14EA	14F3	code	DecodeXorA5	CONFIRMED	copy [HL++] XOR $A5 to [DE++] until the decoded byte is $00 (inverse of EncodeXorA5) [reached via inferred links; raw refs 23] [executed in 11 scenarios]
 14F3	1509	code	Function_00_14F3	CONFIRMED	string append: finds the first byte equal to A in the string at DE and copies the string at HL there (A=0: strcat) [reached via inferred links; raw refs 19] [executed in 10 scenarios]
@@ -151,7 +190,8 @@
 1586	158D	code	Function_00_1586	CONFIRMED	far-calls 68:44FC; if it returns 0 copies string 68:67AE[C271] to DE, else decodes the SRAM string (bank 1, XOR $A5) selected by [B013] via Table_00_161A [reached via inferred links; raw refs 0] [executed in 8 scenarios] | inline far pointer: FarCall at 1587: dw $44FC ; db $68 -> 68:44FC
 158D	161A	code	Function_00_158D	CONFIRMED	continuation [reached via inferred links; raw refs 11] [executed in 1 scenarios]
 161A	1620	words	Table_00_161A	CONFIRMED	3 pointers into SRAM bank 1 (B014, B025, B036) indexed by ([B013] xor $A5)
-1620	1686	code	ReadByteFar	PROBABLE	A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92]
+1620	1684	code	ReadByteFar	CONFIRMED	A=bank, HL=address: returns [HL++] read from the right bank/region (ROM: FF8A; SRAM: enables SRAM around the read; WRAM: FF8D); restores the previous bank [reached via inferred links; raw refs 92] | 53 insn(s) executed; cut out of the PROBABLE region 1620-1686 by apply_coverage --split [executed in 29 scenarios]
+1684	1686	code	-	PROBABLE	2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 1620-1686 by apply_coverage --split
 1686	16A2	code	Function_00_1686	PROBABLE	copy E bytes from far HL (bank D, region by H) to [BC++]; restores only the ROM bank [candidate; raw refs 1]
 16A2	16C4	code	Function_00_16A2	CONFIRMED	like 08CA but the second source pointer comes from C10E/C10F [reached via inferred links; raw refs 3] [executed in 27 scenarios]
 16C4	16D4	code	Function_00_16C4	CONFIRMED	alternative STAT handler (installed by 48:4437 into CBF4): if LY==$80 then SCX=[C0EF] [candidate; raw refs 4] [executed in 28 scenarios]
@@ -165,7 +205,7 @@
 20AC	20B2	code	Function_00_20AC	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 20B2	20B8	code	Function_00_20B2	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [reached via inferred links; raw refs 65] [executed in 34 scenarios]
 20B8	20BE	code	Function_00_20B8	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 14]
-20BE	20C4	code	Function_00_20BE	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3]
+20BE	20C4	code	Function_00_20BE	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 3] | forced execution: 2/2 instruction starts ran in forced_debug (traces/forced/, not natural evidence; status unchanged)
 20C4	20CA	code	Function_00_20C4	CONFIRMED	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx
 20CA	20D0	code	Function_00_20CA	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; raw refs 10]
 20D0	20D6	code	Function_00_20D0	PROBABLE	stub: call 2116 (guard: if D000.bit7 clear, set it and select ROM bank 4 via 20EE; if already set returns A=$FF to the caller of the stub) ; jp 04:xxxx [candidate; no static referrer]
@@ -178,7 +218,7 @@
 210B	2116	code	Function_00_210B	CONFIRMED	restores the ROM bank saved at D001/D002 [reached via inferred links; raw refs 10] [executed in 41 scenarios]
 2116	2129	code	Function_00_2116	CONFIRMED	stub guard used by 20AC..20EB: see stubs. D000 is banked WRAM: the guard state lives in whichever WRAM bank is selected at the call (Boot and 0392 select bank 1 first)
 2129	2141	code	Function_00_2129	CONFIRMED	stub guard used by 20A6: if bank-4 already active (D000.bit7) and not pending, sets D000.bit6 and saves the return address at D003/D004 (deferred call); else returns A=$FF
-2141	215E	code	Function_00_2141	PROBABLE	return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29]
+2141	215E	code	Function_00_2141	CONFIRMED	return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29] [executed in 1 scenarios]
 215E	216F	code	Function_00_215E	CONFIRMED	reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit bank number [reached via inferred links; raw refs 7] [executed in 41 scenarios]
 216F	2183	code	Function_00_216F	CONFIRMED	like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9] [executed in 41 scenarios]
 2183	4000	zero	-	CONFIRMED	padding up to the end of the bank

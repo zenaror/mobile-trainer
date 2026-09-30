@@ -7,7 +7,7 @@ INCLUDE "constants/macros.inc"
 
 SECTION "Bank67", ROMX[$4000], BANK[$67]
 
-; ---- code $4000-$4156 (342 bytes) [PROBABLE] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 2; entered by jpcc from 67:4125 (PROBABLE code)
+; ---- code $4000-$403E (62 bytes) [CONFIRMED] 127 insn(s) reached by static flow only; seeds: exec x127; min discovery hops 2; entered by jpcc from 67:4125 (PROBABLE code) | 19 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 2 scenarios]
 
 SettingsPhone_Run:: ; 67:4000
 	call SettingsPhone_ResetTopCursor
@@ -31,7 +31,11 @@ Label_67_4029:: ; 67:4029
 	jr z, Label_67_4041
 	cp a, $02
 	jp z, Label_67_4046
+
+; ---- code $403E-$4041 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4156 by apply_coverage --split
 	jp Label_67_414C
+
+; ---- code $4041-$40AD (108 bytes) [CONFIRMED] 49 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4041:: ; 67:4041
 	call SettingsPhone_ResetSlotCursor
@@ -89,7 +93,11 @@ Label_67_409A:: ; 67:409A
 	jr z, Label_67_40B0
 	cp a, $02
 	jr z, Label_67_40D3
+
+; ---- code $40AD-$40B0 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4156 by apply_coverage --split
 	jp Label_67_414C
+
+; ---- code $40B0-$40CE (30 bytes) [CONFIRMED] 10 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_40B0:: ; 67:40B0
 	farcall Dial_LoadDefaultsForAdapterType
@@ -103,9 +111,13 @@ Label_67_40B0:: ; 67:40B0
 	ld [wManualNumbersFlag], a
 	jr Label_67_4112
 
+; ---- code $40CE-$40D3 (5 bytes) [CONFIRMED] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_40CE:: ; 67:40CE
 	call SettingsPhone_ClearEntryBuffers
 	jr Label_67_409A
+
+; ---- code $40D3-$4128 (85 bytes) [CONFIRMED] 30 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_40D3:: ; 67:40D3
 	ld a, $0C
@@ -146,7 +158,11 @@ Label_67_4112:: ; 67:4112
 	farcall SettingsPhone_ContinuePrompt
 	or a, a
 	jp nz, SettingsPhone_Run
+
+; ---- code $4128-$412A (2 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4156 by apply_coverage --split
 	jr Label_67_414C
+
+; ---- code $412A-$414D (35 bytes) [CONFIRMED] 11 insn(s) executed; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 2 scenarios]
 
 Label_67_412A:: ; 67:412A
 	ld a, $01
@@ -162,6 +178,8 @@ Label_67_412A:: ; 67:412A
 
 Label_67_414C:: ; 67:414C
 	ret
+
+; ---- code $414D-$4156 (9 bytes) [CONFIRMED] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4000-4156 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_414D:: ; 67:414D
 	ld a, $0E
@@ -304,7 +322,7 @@ PhoneKeypad_Run:: ; 67:422B
 	ld a, [wRam_C27C]
 	ret
 
-; ---- code $424A-$431F (213 bytes) [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $424A anywhere in the ROM); linear decode is legal ($424A-$431F), all direct targets are known code starts, reads SRAM $B08B/$B09C via ROM0 helpers 14EA/1509 (bank/SRAM enable idiom ldh [$FFF5]/[$FF8C]/[$FF8D] shared with the CONFIRMED code around it), clears bits $08/$10 of $C278; ends with ret. Sits after a ret between PROBABLE/CONFIRMED functions of the same style [verifier: the only ROM hits for its instruction starts are the ROM0 trampolines 00:20BB (jp $42C0) and 00:20CD (jp $42EC) which jump into whatever bank is mapped; nothing calls those trampolines (checked) and nothing shows bank 67, so it stays HYPOTHESIS]
+; ---- code $424A-$431F (213 bytes) [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $424A anywhere in the ROM); linear decode is legal ($424A-$431F), all direct targets are known code starts, reads SRAM $B08B/$B09C via ROM0 helpers 14EA/1509 (bank/SRAM enable idiom ldh [$FFF5]/[$FF8C]/[$FF8D] shared with the CONFIRMED code around it), clears bits $08/$10 of $C278; ends with ret. Sits after a ret between PROBABLE/CONFIRMED functions of the same style [verifier: the only ROM hits for its instruction starts are the ROM0 trampolines 00:20BB (jp $42C0) and 00:20CD (jp $42EC) which jump into whatever bank is mapped; nothing calls those trampolines (checked) and nothing shows bank 67, so it stays HYPOTHESIS] | forced execution: 48/104 instruction starts ran in forced_dead (traces/forced/, not natural evidence; status unchanged)
 
 Function_67_424A:: ; 67:424A
 	ld a, [wRam_C27D]
@@ -418,7 +436,7 @@ Label_67_4301:: ; 67:4301
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $431F-$4571 (594 bytes) [PROBABLE] 211 insn(s) reached by static flow only; seeds: exec x211; min discovery hops 6; entered by call from 67:422E (PROBABLE code)
+; ---- code $431F-$445E (319 bytes) [CONFIRMED] 211 insn(s) reached by static flow only; seeds: exec x211; min discovery hops 6; entered by call from 67:422E (PROBABLE code) | 103 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage --split [executed in 1 scenarios]
 
 PhoneKeypad_Setup:: ; 67:431F
 	ld b, $15
@@ -536,7 +554,11 @@ PhoneKeypad_Loop:: ; 67:443C
 	jp z, Label_67_44EB
 	cp a, $08
 	jp z, Label_67_4523
+
+; ---- code $445E-$4461 (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 431F-4571 by apply_coverage --split
 	jp Label_67_4556
+
+; ---- code $4461-$4483 (34 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage --split [executed in 3 scenarios]
 
 Label_67_4461:: ; 67:4461
 	ld a, [wKeyboardCharLo]
@@ -555,6 +577,8 @@ Label_67_4461:: ; 67:4461
 	ldh [rSVBK], a
 	jr Label_67_4493
 
+; ---- code $4483-$4493 (16 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 431F-4571 by apply_coverage --split
+
 Label_67_4483:: ; 67:4483
 	ldh a, [hWRAMBank]
 	push af
@@ -565,6 +589,8 @@ Label_67_4483:: ; 67:4483
 	pop af
 	ldh [rSVBK], a
 
+; ---- code $4493-$44A9 (22 bytes) [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage --split [executed in 3 scenarios]
+
 Label_67_4493:: ; 67:4493
 	ld hl, $DE80
 	farcall TextBuf_GetLength
@@ -573,9 +599,13 @@ Label_67_4493:: ; 67:4493
 	farcall Kbd_HideMarkerSprite
 	jp Label_67_453B
 
+; ---- code $44A9-$44B2 (9 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 431F-4571 by apply_coverage --split
+
 Label_67_44A9:: ; 67:44A9
 	farcall Kbd_ShowMarkerSprite
 	jp Label_67_453B
+
+; ---- code $44B2-$4571 (191 bytes) [CONFIRMED] 76 insn(s) executed; cut out of the PROBABLE region 431F-4571 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_44B2:: ; 67:44B2
 	ld hl, $DE80
@@ -699,7 +729,7 @@ Label_67_458D:: ; 67:458D
 	ld [wRam_C27E], a
 	ret
 
-; ---- code $4593-$486D (730 bytes) [PROBABLE] 285 insn(s) reached by static flow only; seeds: exec x285; min discovery hops 3; entered by call from 67:4553 (PROBABLE code)
+; ---- code $4593-$45A5 (18 bytes) [CONFIRMED] 285 insn(s) reached by static flow only; seeds: exec x285; min discovery hops 3; entered by call from 67:4553 (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage --split [executed in 3 scenarios]
 
 PhoneKeypad_UpdateFullFlag:: ; 67:4593
 	ld hl, $DE80
@@ -710,10 +740,14 @@ PhoneKeypad_UpdateFullFlag:: ; 67:4593
 	ld [wRam_C27E], a
 	ret
 
+; ---- code $45A5-$45AB (6 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4593-486D by apply_coverage --split
+
 Label_67_45A5:: ; 67:45A5
 	ld a, $01
 	ld [wRam_C27E], a
 	ret
+
+; ---- code $45AB-$486D (706 bytes) [CONFIRMED] 275 insn(s) executed; cut out of the PROBABLE region 4593-486D by apply_coverage --split [executed in 1 scenarios]
 
 PhoneKeypad_UpdateNonEmptyFlag:: ; 67:45AB
 	ld hl, $DE80
@@ -807,12 +841,12 @@ SettingsPhone_ChoiceMenu:: ; 67:4631
 	or a, a
 	jr nz, Label_67_4678
 	ld a, [wRam_C27D]
-	ld [sSram_BF02], a
+	ld [sPhoneTopMenuCursor], a
 	jr Label_67_467E
 
 Label_67_4678:: ; 67:4678
 	ld a, [wRam_C27D]
-	ld [sSram_BF04], a
+	ld [sPhoneMethodMenuCursor], a
 
 Label_67_467E:: ; 67:467E
 	xor a, a
@@ -837,11 +871,11 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld a, [wRam_C27E]
 	or a, a
 	jr nz, Label_67_46B5
-	ld a, [sSram_BF02]
+	ld a, [sPhoneTopMenuCursor]
 	jr Label_67_46B8
 
 Label_67_46B5:: ; 67:46B5
-	ld a, [sSram_BF04]
+	ld a, [sPhoneMethodMenuCursor]
 
 Label_67_46B8:: ; 67:46B8
 	ld b, a
@@ -1200,7 +1234,7 @@ Label_67_498A:: ; 67:498A
 	ldh a, [hScratchA]
 	ret
 
-; ---- code $49A8-$4BC2 (538 bytes) [PROBABLE] 190 insn(s) reached by static flow only; seeds: exec x190; min discovery hops 6; entered by call from 67:4924 (PROBABLE code)
+; ---- code $49A8-$4ABA (274 bytes) [CONFIRMED] 190 insn(s) reached by static flow only; seeds: exec x190; min discovery hops 6; entered by call from 67:4924 (PROBABLE code) | 87 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split [executed in 1 scenarios]
 
 PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld b, $15
@@ -1294,7 +1328,11 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	jp z, Label_67_4B47
 	cp a, $08
 	jp z, Label_67_4B7F
+
+; ---- code $4ABA-$4ABD (3 bytes) [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split
 	jp Label_67_4BB2
+
+; ---- code $4ABD-$4B05 (72 bytes) [CONFIRMED] 29 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4ABD:: ; 67:4ABD
 	ld a, [wKeyboardCharLo]
@@ -1331,9 +1369,13 @@ Label_67_4AEF:: ; 67:4AEF
 	farcall Kbd_HideMarkerSprite
 	jp Label_67_4B97
 
+; ---- code $4B05-$4B0E (9 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split
+
 Label_67_4B05:: ; 67:4B05
 	farcall Kbd_ShowMarkerSprite
 	jp Label_67_4B97
+
+; ---- code $4B0E-$4B3F (49 bytes) [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split [executed in 2 scenarios]
 
 Label_67_4B0E:: ; 67:4B0E
 	ld hl, $DE80
@@ -1355,15 +1397,21 @@ Label_67_4B0E:: ; 67:4B0E
 	farcall Kbd_HideMarkerSprite
 	jr Label_67_4B97
 
+; ---- code $4B3F-$4B47 (8 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split
+
 Label_67_4B3F:: ; 67:4B3F
 	farcall Kbd_ShowMarkerSprite
 	jr Label_67_4B97
+
+; ---- code $4B47-$4B54 (13 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split [executed in 3 scenarios]
 
 Label_67_4B47:: ; 67:4B47
 	ld hl, $DE80
 	farcall TextBuf_GetLength
 	cp a, $01
 	jr nc, Label_67_4B66
+
+; ---- code $4B54-$4B66 (18 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -1373,6 +1421,8 @@ Label_67_4B47:: ; 67:4B47
 	pop af
 	ldh [rSVBK], a
 	jr Label_67_4BB2
+
+; ---- code $4B66-$4BC2 (92 bytes) [CONFIRMED] 38 insn(s) executed; cut out of the PROBABLE region 49A8-4BC2 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4B66:: ; 67:4B66
 	ldh a, [hWRAMBank]
@@ -1437,7 +1487,7 @@ Label_67_4BCF:: ; 67:4BCF
 	ld [wRam_C27D], a
 	ret
 
-; ---- code $4BD5-$4F68 (915 bytes) [PROBABLE] 370 insn(s) reached by static flow only; seeds: exec x370; min discovery hops 4; entered by call from 67:4BAF (PROBABLE code)
+; ---- code $4BD5-$4E56 (641 bytes) [CONFIRMED] 370 insn(s) reached by static flow only; seeds: exec x370; min discovery hops 4; entered by call from 67:4BAF (PROBABLE code) | 246 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
 
 PhoneComment_UpdateFullFlag:: ; 67:4BD5
 	ld hl, $DE80
@@ -1710,6 +1760,8 @@ Label_67_4E44:: ; 67:4E44
 	farcall Dial_EntryHasNumber
 	or a, a
 	jr nz, Label_67_4E69
+
+; ---- code $4E56-$4E69 (19 bytes) [PROBABLE] 9 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
@@ -1719,6 +1771,8 @@ Label_67_4E44:: ; 67:4E44
 	pop af
 	ldh [rSVBK], a
 	jp Label_67_4F4D
+
+; ---- code $4E69-$4EAC (67 bytes) [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4E69:: ; 67:4E69
 	ldh a, [hWRAMBank]
@@ -1759,6 +1813,8 @@ Label_67_4E96:: ; 67:4E96
 	ld a, [wRam_C27E]
 	or a, a
 	jr nz, Label_67_4ECC
+
+; ---- code $4EAC-$4ECC (32 bytes) [PROBABLE] 14 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
 	ld a, $01
 	farcall Dial_EntryHasNumber
 	or a, a
@@ -1780,16 +1836,22 @@ Label_67_4EC9:: ; 67:4EC9
 	dec a
 	jr Label_67_4F33
 
+; ---- code $4ECC-$4ED7 (11 bytes) [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_4ECC:: ; 67:4ECC
 	ld a, $01
 	farcall Dial_EntryHasNumber
 	or a, a
 	jr z, Label_67_4F4D
+
+; ---- code $4ED7-$4EE4 (13 bytes) [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
 	ld a, $02
 	farcall Dial_EntryHasNumber
 	or a, a
 	jr z, Label_67_4EB7
 	jr Label_67_4EC1
+
+; ---- code $4EE4-$4F0F (43 bytes) [CONFIRMED] 19 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4EE4:: ; 67:4EE4
 	ldh a, [hWRAMBank]
@@ -1814,6 +1876,8 @@ Label_67_4F05:: ; 67:4F05
 	ld [wRam_C27D], a
 	jr Label_67_4F36
 
+; ---- code $4F0F-$4F1B (12 bytes) [PROBABLE] 6 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
+
 Label_67_4F0F:: ; 67:4F0F
 	ld a, [wRam_C27D]
 	cp a, $02
@@ -1824,6 +1888,8 @@ Label_67_4F18:: ; 67:4F18
 	inc a
 	jr Label_67_4F33
 
+; ---- code $4F1B-$4F31 (22 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_4F1B:: ; 67:4F1B
 	ld a, $01
 	farcall Dial_EntryHasNumber
@@ -1833,10 +1899,14 @@ Label_67_4F1B:: ; 67:4F1B
 	farcall Dial_EntryHasNumber
 	or a, a
 	jr z, Label_67_4F05
+
+; ---- code $4F31-$4F36 (5 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split
 	jr Label_67_4F0F
 
 Label_67_4F33:: ; 67:4F33
 	ld [wRam_C27D], a
+
+; ---- code $4F36-$4F68 (50 bytes) [CONFIRMED] 23 insn(s) executed; cut out of the PROBABLE region 4BD5-4F68 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_4F36:: ; 67:4F36
 	call SettingsPhone_SlotMenu_PlaceCursor
@@ -2070,7 +2140,7 @@ SettingsPhone_SlotMenu_TabTilemapTable:: ; 67:5104
 Table_67_5104::
 	dw $7870, $78C0, $7910
 
-; ---- code $510A-$5275 (363 bytes) [PROBABLE] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5; entered by far from 67:40B9 (PROBABLE code)
+; ---- code $510A-$5221 (279 bytes) [CONFIRMED] 139 insn(s) reached by static flow only; seeds: exec x139; min discovery hops 5; entered by far from 67:40B9 (PROBABLE code) | 95 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 
 SettingsPhone_ConfirmScreen:: ; 67:510A
 	ld [wRam_C27E], a
@@ -2175,6 +2245,8 @@ Label_67_5205:: ; 67:5205
 	ld [wRam_C27C], a
 	ret
 
+; ---- code $5221-$525D (60 bytes) [CONFIRMED] 29 insn(s) never executed in the traced runs; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_5221:: ; 67:5221
 	ld a, $02
 	ld [wRam_C27C], a
@@ -2211,6 +2283,8 @@ Label_67_523C:: ; 67:523C
 
 Label_67_525A:: ; 67:525A
 	jp SettingsPhone_ConfirmScreen_Loop
+
+; ---- code $525D-$5275 (24 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 510A-5275 by apply_coverage --split [executed in 1 scenarios]
 
 SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
 	ld a, [wRam_C27D]
@@ -2532,13 +2606,15 @@ Label_67_54B9:: ; 67:54B9
 	ld a, $36
 	call MobileAPI
 
-; ---- code $54DB-$55B8 (221 bytes) [PROBABLE] 92 insn(s) reached by static flow only; seeds: exec x60, site x32; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $54DB-$54ED (18 bytes) [CONFIRMED] 92 insn(s) reached by static flow only; seeds: exec x60, site x32; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 6 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 2 scenarios]
 	farcall Config_MirrorChecksumOk
 	or a, a
 	jr z, Label_67_54ED
 	farcall Config_MirrorIsRegistered
 	or a, a
 	jr nz, Label_67_5503
+
+; ---- code $54ED-$5503 (22 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split
 
 Label_67_54ED:: ; 67:54ED
 	farcall Palette_FadeOutToWhite
@@ -2549,10 +2625,14 @@ Label_67_54ED:: ; 67:54ED
 	ld [wRam_C27C], a
 	ret
 
+; ---- code $5503-$5509 (6 bytes) [CONFIRMED] 3 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 2 scenarios]
+
 Label_67_5503:: ; 67:5503
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
+
+; ---- code $5509-$5535 (44 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split
 
 Label_67_5509:: ; 67:5509
 	farcall Mobile_SaveLastResult
@@ -2571,6 +2651,8 @@ Label_67_5509:: ; 67:5509
 	xor a, a
 	ld [wRam_C27C], a
 	ret
+
+; ---- code $5535-$55B8 (131 bytes) [CONFIRMED] 60 insn(s) executed; cut out of the PROBABLE region 54DB-55B8 by apply_coverage --split [executed in 1 scenarios]
 
 SettingsPhone_WriteAdapterConfig:: ; 67:5535
 	ld [wRam_C27E], a
@@ -2704,11 +2786,13 @@ Label_67_560A:: ; 67:560A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 
-; ---- code $562C-$5664 (56 bytes) [PROBABLE] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
+; ---- code $562C-$5638 (12 bytes) [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code | 4 insn(s) executed; cut out of the PROBABLE region 562C-5664 by apply_coverage --split [executed in 1 scenarios]
 	farcall Settings_UpdateChecksumAndBackup
 	ld a, $01
 	ld [wRam_C27C], a
 	ret
+
+; ---- code $5638-$5664 (44 bytes) [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region 562C-5664 by apply_coverage --split
 
 Label_67_5638:: ; 67:5638
 	farcall Mobile_SaveLastResult
@@ -2836,7 +2920,7 @@ SettingsPhone_SramSelfPageAddrs:: ; 67:5700
 SettingsPhone_ConfigCommentAddrs:: ; 67:5706
 	dw $A07E, $A096, $A0AE
 
-; ---- code $570C-$580C (256 bytes) [PROBABLE] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 5; entered by far from 67:411E (PROBABLE code)
+; ---- code $570C-$5807 (251 bytes) [CONFIRMED] 88 insn(s) reached by static flow only; seeds: exec x88; min discovery hops 5; entered by far from 67:411E (PROBABLE code) | 85 insn(s) executed; cut out of the PROBABLE region 570C-580C by apply_coverage --split [executed in 1 scenarios]
 
 SettingsPhone_ContinuePrompt:: ; 67:570C
 	call SettingsPhone_ContinuePrompt_Setup
@@ -2931,6 +3015,8 @@ Label_67_57EB:: ; 67:57EB
 	ld [wRam_C27C], a
 	ret
 
+; ---- code $5807-$580C (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 570C-580C by apply_coverage --split
+
 Label_67_5807:: ; 67:5807
 	xor a, a
 	ld [wRam_C27C], a
@@ -2949,7 +3035,7 @@ Label_67_5807:: ; 67:5807
 	ld [wRam_C27C], a
 	ret
 
-; ---- code $5821-$585A (57 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 67:57E3 (PROBABLE code)
+; ---- code $5821-$5842 (33 bytes) [PROBABLE] 30 insn(s) reached by static flow only; seeds: exec x30; min discovery hops 7; entered by jrcc from 67:57E3 (PROBABLE code) | 15 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5821-585A by apply_coverage --split
 
 Label_67_5821:: ; 67:5821
 	ldh a, [hWRAMBank]
@@ -2969,6 +3055,8 @@ Label_67_5821:: ; 67:5821
 
 Label_67_583F:: ; 67:583F
 	jp SettingsPhone_ContinuePrompt_Loop
+
+; ---- code $5842-$585A (24 bytes) [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 5821-585A by apply_coverage --split [executed in 1 scenarios]
 
 SettingsPhone_ContinuePrompt_PlaceCursor:: ; 67:5842
 	ld a, [wRam_C27D]
@@ -3487,7 +3575,7 @@ Label_67_5C3F:: ; 67:5C3F
 	bit 0, a
 	jp nz, Label_67_5A8E
 
-; ---- code $5C50-$5CF4 (164 bytes) [PROBABLE] 70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min discovery hops 0; fall-through of the jpcc at 67:5C4D (executed)
+; ---- code $5C50-$5C81 (49 bytes) [CONFIRMED] 70 insn(s) reached by static flow only; seeds: exec x49, site x20, table x1; min discovery hops 0; fall-through of the jpcc at 67:5C4D (executed) | 18 insn(s) executed; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split [executed in 1 scenarios]
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -3506,10 +3594,14 @@ Label_67_5C3F:: ; 67:5C3F
 	ld a, [hli]
 	cp a, $4F
 	jr nz, Label_67_5C88
+
+; ---- code $5C81-$5C88 (7 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split
 	ld a, [hl]
 	cp a, $4B
 	jr nz, Label_67_5C88
 	jr Label_67_5CAD
+
+; ---- code $5C88-$5CAD (37 bytes) [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_5C88:: ; 67:5C88
 	ld a, $40
@@ -3532,6 +3624,8 @@ Label_67_5C88:: ; 67:5C88
 	or a, b
 	ld [wRam_C273], a
 	jp PasswordChange_Cleanup
+
+; ---- code $5CAD-$5CF4 (71 bytes) [PROBABLE] 28 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5C50-5CF4 by apply_coverage --split
 
 Label_67_5CAD:: ; 67:5CAD
 	ld a, $0A
@@ -3605,7 +3699,7 @@ PasswordChange_HandleHttpStatus:: ; 67:5D26
 	cp a, $03
 	jr nz, PasswordChange_Cleanup
 
-; ---- code $5D3A-$5D99 (95 bytes) [PROBABLE] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 67:5D38 (executed)
+; ---- code $5D3A-$5D8D (83 bytes) [CONFIRMED] 45 insn(s) reached by static flow only; seeds: exec x45; min discovery hops 0; fall-through of the jrcc at 67:5D38 (executed) | 43 insn(s) executed; cut out of the PROBABLE region 5D3A-5D99 by apply_coverage --split [executed in 1 scenarios]
 	ld a, [wRam_C273]
 	dec a
 	jr z, PasswordChange_FollowRedirect
@@ -3651,6 +3745,8 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld a, $2A
 	call MobileAPI
 	jp Label_67_5A8E
+
+; ---- code $5D8D-$5D99 (12 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5D3A-5D99 by apply_coverage --split
 
 Label_67_5D8D:: ; 67:5D8D
 	farcall Function_68_4101
@@ -3875,7 +3971,7 @@ Net_DefaultDnsPair:: ; 67:5F5E
 Data_67_5F5E::
 	db $C0, $A8, $28, $02, $C0, $A8, $28, $02
 
-; ---- code $5F66-$60BA (340 bytes) [PROBABLE] 220 insn(s) reached by static flow only; seeds: exec x220; min discovery hops 2; entered by call from 67:5D5B (PROBABLE code)
+; ---- code $5F66-$5FDB (117 bytes) [CONFIRMED] 220 insn(s) reached by static flow only; seeds: exec x220; min discovery hops 2; entered by call from 67:5D5B (PROBABLE code) | 66 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
 
 HttpRedirect_ResolveUrl:: ; 67:5F66
 	ld a, [wMobileErrorExtra]
@@ -3956,9 +4052,13 @@ Label_67_5FD7:: ; 67:5FD7
 	ld a, [hl]
 	or a, a
 	jr nz, Label_67_5FF2
+
+; ---- code $5FDB-$5FE0 (5 bytes) [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	ld a, $2F
 	ld [hl], a
 	jr Label_67_5FF2
+
+; ---- code $5FE0-$6014 (52 bytes) [CONFIRMED] 34 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_5FE0:: ; 67:5FE0
 	ld a, [hl]
@@ -4005,8 +4105,12 @@ Label_67_6001:: ; 67:6001
 	jp z, Label_67_6092
 	cp a, $5C
 	jr nz, Label_67_6017
+
+; ---- code $6014-$6017 (3 bytes) [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	ld a, $2F
 	ld [hl], a
+
+; ---- code $6017-$6024 (13 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_6017:: ; 67:6017
 	ld b, h
@@ -4018,6 +4122,8 @@ Label_67_6017:: ; 67:6017
 	ld a, [bc]
 	cp a, $2E
 	jr nz, Label_67_6031
+
+; ---- code $6024-$6031 (13 bytes) [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	inc bc
 	ld a, [bc]
 	cp a, $2F
@@ -4029,6 +4135,8 @@ Label_67_602E:: ; 67:602E
 	inc hl
 	jr Label_67_608E
 
+; ---- code $6031-$603E (13 bytes) [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_6031:: ; 67:6031
 	ld b, h
 	ld c, l
@@ -4039,6 +4147,8 @@ Label_67_6031:: ; 67:6031
 	ld a, [bc]
 	cp a, $2E
 	jr nz, Label_67_608B
+
+; ---- code $603E-$608B (77 bytes) [PROBABLE] 53 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	inc bc
 	ld a, [bc]
 	cp a, $2E
@@ -4101,6 +4211,8 @@ Label_67_607A:: ; 67:607A
 	inc de
 	jr Label_67_608E
 
+; ---- code $608B-$6096 (11 bytes) [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
+
 Label_67_608B:: ; 67:608B
 	ld a, [hl]
 	ld [de], a
@@ -4114,10 +4226,14 @@ Label_67_6092:: ; 67:6092
 	ld a, [hl]
 	or a, a
 	jr z, Label_67_609B
+
+; ---- code $6096-$609B (5 bytes) [PROBABLE] 4 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	ld [de], a
 	inc de
 	inc hl
 	jr Label_67_6092
+
+; ---- code $609B-$60B0 (21 bytes) [CONFIRMED] 16 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_609B:: ; 67:609B
 	xor a, a
@@ -4136,6 +4252,8 @@ Label_67_609B:: ; 67:609B
 	ld a, [de]
 	cp a, $2E
 	jr nz, Label_67_60B9
+
+; ---- code $60B0-$60B9 (9 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split
 	dec de
 	ld a, [de]
 	cp a, $2F
@@ -4143,6 +4261,8 @@ Label_67_609B:: ; 67:609B
 	inc de
 	xor a, a
 	ld [de], a
+
+; ---- code $60B9-$60BA (1 bytes) [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 5F66-60BA by apply_coverage --split [executed in 1 scenarios]
 
 Label_67_60B9:: ; 67:60B9
 	ret
@@ -4389,13 +4509,14 @@ Label_67_62B2:: ; 67:62B2
 	or a, a
 	jr z, Label_67_6274
 
-; ---- code $62B8-$62D5 (29 bytes) [PROBABLE] 10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery hops 0; entered by jrcc from 67:629D (executed)
+; ---- code $62B8-$62C1 (9 bytes) [CONFIRMED] 10 insn(s) reached by static flow only; seeds: exec x3, site x7; min discovery hops 0; entered by jrcc from 67:629D (executed) | 3 insn(s) executed; cut out of the PROBABLE region 62B8-62D5 by apply_coverage --split [executed in 5 scenarios]
 
 Label_67_62B8:: ; 67:62B8
 	ld a, $16
 	farcall Notice_ShowPage
 	ret
 
+; ---- code $62C1-$62D5 (20 bytes) [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region 62B8-62D5 by apply_coverage --split
 	farcall OnlineTimer_HasElapsed
 	or a, a
 	jr z, Label_67_62B8
