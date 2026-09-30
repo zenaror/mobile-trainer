@@ -16,7 +16,7 @@ Function_65_4000::
 	farcall Sram_ClearMenuCursorMemory
 	farcall Settings_ClearVariableBlock
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -26,7 +26,7 @@ Function_65_4000::
 	ld [hli], a
 	ld [hl], a
 	xor a, a
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	farcall AdapterCheck_Run
 	add a, a
 	add a, $3C
@@ -117,7 +117,7 @@ Startup_ConfigValid_ShowInfoError:: ; 65:408E
 	farcall CommErr_ShowScreen
 	xor a, a
 	ld [wRam_C277], a
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
@@ -126,7 +126,7 @@ Startup_ConfigValid_ShowInfoError:: ; 65:408E
 Startup_ConfigValid_Fresh:: ; 65:40A6
 	xor a, a
 	ld [wRam_C277], a
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
@@ -179,7 +179,7 @@ Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
 	farcall CommErr_ShowScreen
 	xor a, a
 	ld [wRam_C277], a
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
@@ -188,7 +188,7 @@ Startup_ConfigBlank_ShowInfoError:: ; 65:40E2
 Startup_ConfigBlank_Fresh:: ; 65:40FA
 	xor a, a
 	ld [wRam_C277], a
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	call Registration_Run
 	jp Startup_Return
 
@@ -324,7 +324,7 @@ Function_65_41DA::
 	farcall Account_ClearWorkBuffers
 	farcall Config_ClearSramMirror
 	xor a, a
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 	ld [wRam_C279], a
 	ld [wRam_C27B], a
 	ld a, $01
@@ -374,7 +374,7 @@ Label_65_4226:: ; 65:4226
 	ldh a, [hScratchA]
 	ld a, b
 	xor a, $A5
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	farcall SramCheck_VerifyAndRepairAll
 	farcall Sram_ResetChecksum3Areas
 	farcall SaveCheck_ResetBlock
@@ -387,12 +387,12 @@ Label_65_4226:: ; 65:4226
 	jr nz, Registration_IntroPage
 	ld a, $17
 	farcall Notice_ShowPage
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jp z, Registration_SummaryStep
 
 ; ---- code $4293-$42A3 (16 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jpcc at 65:4290 (executed)
-	ld a, [wRam_C28D]
+	ld a, [wManualNumbersFlag]
 	or a, a
 	jp nz, Label_65_462C
 	farcall SettingsPhone_ClearEntryBuffers
@@ -412,7 +412,7 @@ Registration_IntroPage:: ; 65:42A3
 
 ; ---- code $42BB-$42E3 (40 bytes) [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 65:42B9 (executed)
 	ld a, $01
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 	jp Registration_NoticePages_Hidden
 
 Label_65_42C3:: ; 65:42C3
@@ -425,14 +425,14 @@ Label_65_42C3:: ; 65:42C3
 	cp a, $16
 	jr nz, Registration_NoticePages
 	ld a, $01
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 	jp Registration_NoticePages_Hidden
 
 ; ---- code $42E3-$4378 (149 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 4/18 scenarios)
 
 Registration_NoticePages:: ; 65:42E3
 	ld hl, $B089
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
 	ld a, $01
@@ -459,7 +459,7 @@ Label_65_4312:: ; 65:4312
 	jr z, Label_65_4307
 
 Label_65_431D:: ; 65:431D
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jp nz, Label_65_448F
 	farcall Account_LoginIdIntroPage
@@ -494,7 +494,7 @@ Registration_MailAddressEntry:: ; 65:434D
 	farcall Settings_StoreStringField
 
 Label_65_4372:: ; 65:4372
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jr z, Registration_PasswordIntro
 
@@ -587,7 +587,7 @@ Registration_SummaryStep:: ; 65:4435
 	cp a, $02
 	jp z, Label_65_431D
 	xor a, a
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	jp Registration_Communicate
 
 ; ---- code $444B-$4642 (503 bytes) [PROBABLE] 164 insn(s) reached by static flow only; seeds: exec x164; min discovery hops 1; entered by jrcc from 65:446C (PROBABLE code)
@@ -599,7 +599,7 @@ Label_65_444B:: ; 65:444B
 
 Registration_NoticePages_Hidden:: ; 65:4455
 	ld hl, $B089
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	ld b, $00
 	farcall Settings_StoreByteField
 	ld a, $01
@@ -799,7 +799,7 @@ Label_65_462C:: ; 65:462C
 	cp a, $02
 	jp z, Label_65_448F
 	ld a, $01
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	jr Registration_Communicate
 
 ; ---- code $4642-$46E5 (163 bytes) [CONFIRMED] 46 insn(s); 46 executed (in up to 3/18 scenarios)
@@ -832,7 +832,7 @@ Label_65_4661:: ; 65:4661
 	farcall Settings_StoreAdapterType
 	farcall Settings_StoreMailAddress
 	farcall Settings_SetProgressState3
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	farcall Settings_SetHiddenModeFlag
 	farcall Settings_UpdateChecksumAndBackup
 	xor a, a
@@ -970,12 +970,12 @@ Function_65_4761:: ; 65:4761
 	ldh a, [hScratchA]
 	xor a, a
 	ld [wRam_C279], a
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $04
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a

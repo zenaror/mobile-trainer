@@ -14,7 +14,7 @@ SettingsPhone_Run:: ; 67:4000
 	call SettingsPhone_ResetSlotCursor
 	call SettingsPhone_ResetMethodCursor
 	xor a, a
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	farcall Account_ClearWorkBuffers
 	farcall Config_ClearSramMirror
 	farcall SettingsPhone_ReadAdapterConfig
@@ -100,7 +100,7 @@ Label_67_40B0:: ; 67:40B0
 	cp a, $02
 	jp z, Label_67_414D
 	ld a, $01
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	jr Label_67_4112
 
 Label_67_40CE:: ; 67:40CE
@@ -136,7 +136,7 @@ Label_67_40F4:: ; 67:40F4
 	cp a, $02
 	jr z, Label_67_414D
 	ld a, $01
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 
 Label_67_4112:: ; 67:4112
 	ld a, [wRam_C283]
@@ -281,12 +281,12 @@ SettingsPhone_ClearEntryBuffers:: ; 67:41FE
 	ld bc, $0033
 	ld hl, $DEDD
 	call FillBytes
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $28
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -339,12 +339,12 @@ Function_67_424A:: ; 67:424A
 	call CompareString
 	or a, a
 	jr z, Label_67_429A
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $08
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_67_429A:: ; 67:429A
 	ldh [hScratchA], a
@@ -393,12 +393,12 @@ Label_67_42B7:: ; 67:42B7
 	call CompareString
 	or a, a
 	jr z, Label_67_4301
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $10
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_67_4301:: ; 67:4301
 	ldh [hScratchA], a
@@ -539,7 +539,7 @@ PhoneKeypad_Loop:: ; 67:443C
 	jp Label_67_4556
 
 Label_67_4461:: ; 67:4461
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
@@ -679,13 +679,13 @@ Function_67_4571:: ; 67:4571
 	ld a, [wRam_C27D]
 	or a, a
 	jr nz, Label_67_4580
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $08
 	jr nz, Label_67_458D
 	jr Label_67_4587
 
 Label_67_4580:: ; 67:4580
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $10
 	jr nz, Label_67_458D
 
@@ -1175,12 +1175,12 @@ Function_67_4940:: ; 67:4940
 	call CompareString
 	or a, a
 	jr z, Label_67_498A
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $20
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_67_498A:: ; 67:498A
 	ldh [hScratchA], a
@@ -1297,7 +1297,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	jp Label_67_4BB2
 
 Label_67_4ABD:: ; 67:4ABD
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
@@ -1425,7 +1425,7 @@ PhoneComment_StoreResult:: ; 67:4BB5
 ; ---- code $4BC2-$4BD5 (19 bytes) [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4BC2 anywhere in the ROM); linear decode is legal ($4BC2-$4BD5), all direct targets are known code starts, tests bit $20 of [$C278] and sets [$C27D]=0/1; ends with ret. Sits after a ret between PROBABLE/CONFIRMED functions of the same style
 
 Function_67_4BC2:: ; 67:4BC2
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $20
 	jr nz, Label_67_4BCF
 	ld a, $00
@@ -2738,7 +2738,7 @@ SettingsPhone_PatchConfigImage:: ; 67:5664
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C28D]
+	ld a, [wManualNumbersFlag]
 	or a, a
 	jr nz, Label_67_5677
 
@@ -3237,7 +3237,7 @@ PasswordChange_Communicate_Setup:: ; 67:5A4E
 
 PasswordChange_Communicate_Poll:: ; 67:5A75
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -3392,7 +3392,7 @@ PasswordChange_State_SendRequest:: ; 67:5B5B
 	ld [hli], a
 	ld [hl], a
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -3423,13 +3423,13 @@ PasswordChange_State_WaitResponse:: ; 67:5BD8
 	jr nz, Label_67_5C2B
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_67_5C2A
 
 ; ---- code $5BFD-$5C2A (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 67:5BFB (executed)
 	jr nz, Label_67_5C06
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_67_5C2A
 
@@ -3463,9 +3463,9 @@ Label_67_5C2B:: ; 67:5C2B
 	pop hl
 	or a, a
 	jp nz, Label_67_5D00
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_67_5C3D
 	xor a, a
@@ -3513,7 +3513,7 @@ Label_67_5C3F:: ; 67:5C3F
 
 Label_67_5C88:: ; 67:5C88
 	ld a, $40
-	ld [wRam_C272], a
+	ld [wMobileErrorCode], a
 	ld hl, $D380
 	ld a, [hli]
 	sub a, $30
@@ -3588,7 +3588,7 @@ Label_67_5D00:: ; 67:5D00
 
 Label_67_5D18:: ; 67:5D18
 	ld a, $26
-	ld [wRam_C272], a
+	ld [wMobileErrorCode], a
 	xor a, a
 	ld [wRam_C273], a
 	ld [wRam_C274], a
@@ -3598,7 +3598,7 @@ Label_67_5D18:: ; 67:5D18
 
 PasswordChange_HandleHttpStatus:: ; 67:5D26
 	farcall Mobile_SaveLastResult
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $32
 	jr nz, PasswordChange_Cleanup
 	ld a, [wRam_C274]
@@ -3615,7 +3615,7 @@ PasswordChange_HandleHttpStatus:: ; 67:5D26
 
 PasswordChange_FollowRedirect:: ; 67:5D45
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -3639,7 +3639,7 @@ PasswordChange_FollowRedirect:: ; 67:5D45
 	ld [hli], a
 	ld [hl], a
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -3878,9 +3878,9 @@ Data_67_5F5E::
 ; ---- code $5F66-$60BA (340 bytes) [PROBABLE] 220 insn(s) reached by static flow only; seeds: exec x220; min discovery hops 2; entered by call from 67:5D5B (PROBABLE code)
 
 HttpRedirect_ResolveUrl:: ; 67:5F66
-	ld a, [wRam_C275]
+	ld a, [wMobileErrorExtra]
 	ld l, a
-	ld a, [wRam_C276]
+	ld a, [wMobileErrorExtra + 1]
 	ld h, a
 	ld a, [hli]
 	cp a, $68
@@ -3903,9 +3903,9 @@ HttpRedirect_ResolveUrl:: ; 67:5F66
 	ld a, [hli]
 	cp a, $2F
 	jr nz, Label_67_5FA0
-	ld a, [wRam_C275]
+	ld a, [wMobileErrorExtra]
 	ld l, a
-	ld a, [wRam_C276]
+	ld a, [wMobileErrorExtra + 1]
 	ld h, a
 	ld de, $A463
 	call CopyString
@@ -3913,9 +3913,9 @@ HttpRedirect_ResolveUrl:: ; 67:5F66
 
 Label_67_5FA0:: ; 67:5FA0
 	ld hl, $A463
-	ld a, [wRam_C275]
+	ld a, [wMobileErrorExtra]
 	ld e, a
-	ld a, [wRam_C276]
+	ld a, [wMobileErrorExtra + 1]
 	ld d, a
 	call HttpRedirect_JoinRelative
 	ld hl, $A463
@@ -4152,7 +4152,7 @@ Label_67_60B9:: ; 67:60B9
 UsageTime_Run:: ; 67:60BA
 Function_67_60BA::
 	xor a, a
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	ld a, $13
 	farcall Notice_ShowPage
 	or a, a
@@ -4205,7 +4205,7 @@ Label_67_60FF:: ; 67:60FF
 
 PasswordPrompt_Ask:: ; 67:611C
 Function_67_611C::
-	ld a, [wRam_C28D]
+	ld a, [wManualNumbersFlag]
 	add a, $02
 	farcall Account_ActionConfirmPage
 	or a, a
@@ -4271,7 +4271,7 @@ UsageTime_Request:: ; 67:6171
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	farcall Browser_LoadUrlFromSramBank3
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	cp a, $02
 	jr z, Label_67_61CF
 	or a, a
@@ -4352,7 +4352,7 @@ Net_DebugLoginBody:: ; 67:6257
 UsageFee_Run:: ; 67:626F
 Function_67_626F::
 	ld a, $01
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 
 Label_67_6274:: ; 67:6274
 	ld a, $15
@@ -4433,7 +4433,7 @@ Function_67_62D5::
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	farcall Browser_LoadUrlFromSramBank3
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	cp a, $02
 	jr z, Label_67_632A
 	or a, a

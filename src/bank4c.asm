@@ -36,12 +36,12 @@ Label_4C_401D:: ; 4C:401D
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	ld a, $09
 	ld [wRam_C26E], a
 	xor a, a
@@ -56,12 +56,12 @@ Browser_LoadPage_Fail:: ; 4C:404D
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	farcall Browser_MapErrorToResult
 	and a, $80
 	jr z, Label_4C_40D3
@@ -126,15 +126,15 @@ Label_4C_40D3:: ; 4C:40D3
 
 Label_4C_40E4:: ; 4C:40E4
 	farcall Function_68_73DD
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	farcall Mobile_ShowLastError
 	farcall Function_4E_4866
 	farcall Function_00_09B6
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $33
 	jr nz, Label_4C_4123
 
@@ -151,17 +151,17 @@ Label_4C_40E4:: ; 4C:40E4
 ; ---- code $4123-$4132 (15 bytes) [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 
 Label_4C_4123:: ; 4C:4123
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	farcall Browser_MapErrorToResult
 	and a, $7F
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ret
 
 ; ---- code $4132-$4251 (287 bytes) [PROBABLE] 110 insn(s) reached by static flow only; seeds: exec x110; min discovery hops 1; entered by jrcc from 4C:411D (PROBABLE code)
 
 Label_4C_4132:: ; 4C:4132
 	ld a, $00
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ret
 
 Label_4C_4138:: ; 4C:4138
@@ -191,12 +191,12 @@ Label_4C_4157:: ; 4C:4157
 	ld [rRAMG], a
 	farcall Function_00_09B6
 	ld a, $02
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ret
 
 Label_4C_417D:: ; 4C:417D
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -215,7 +215,7 @@ Label_4C_418F:: ; 4C:418F
 	jp Label_4C_418F
 
 Label_4C_41A8:: ; 4C:41A8
-	ld a, [wRam_C2CB]
+	ld a, [wBrowserFetchActive]
 	or a, a
 	jr z, Label_4C_41FB
 	ld a, [wTimerEnable]
@@ -264,11 +264,11 @@ Label_4C_41FB:: ; 4C:41FB
 	jr nz, Label_4C_424D
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_424C
 	jr nz, Label_4C_4228
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_424C
 
@@ -318,7 +318,7 @@ Label_4C_4262:: ; 4C:4262
 	ld [rRAMG], a
 	farcall Function_00_09B6
 	ld a, $02
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ret
 
 ; ---- code $4274-$4291 (29 bytes) [PROBABLE] 11 insn(s) reached by static flow only; seeds: exec x11; min discovery hops 4; entered by jrcc from 4C:427D (PROBABLE code)
@@ -335,7 +335,7 @@ Label_4C_427F:: ; 4C:427F
 	ld [rRAMG], a
 	farcall Function_00_09B6
 	ld a, $06
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ret
 
 ; ---- code $4291-$42F3 (98 bytes) [CONFIRMED] 28 insn(s); 28 executed (in up to 4/18 scenarios)
@@ -348,7 +348,7 @@ Browser_LoadPage_Http:: ; 4C:4291
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
-	ld a, [wRam_C334]
+	ld a, [wBrowserNavigating]
 	or a, a
 	jr z, Label_4C_42B5
 	farcall Browser_HistoryPush
@@ -371,7 +371,7 @@ Label_4C_42B5:: ; 4C:42B5
 Label_4C_42E1:: ; 4C:42E1
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	call JumpTableInline
 
 ; ---- ptrtable $42F3-$42F7 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:42F0: 2 entries; end pinned by the executed instruction at 42F7; every byte read as data in a trace
@@ -418,7 +418,7 @@ Browser_LoadPage_Connect:: ; 4C:4330
 	ld a, $00
 	farcall CommProgress_Step
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -477,9 +477,9 @@ Label_4C_43A4:: ; 4C:43A4
 
 Label_4C_43C2:: ; 4C:43C2
 	ld a, $01
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 
 Browser_LoadPage_Request:: ; 4C:43CD
 	call Function_00_0392
@@ -522,7 +522,7 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld a, b
 	ld [wRam_C243], a
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -531,12 +531,12 @@ Browser_LoadPage_Request:: ; 4C:43CD
 	ld hl, $C380
 	ld de, $B000
 	ld a, e
-	ld [wRam_C2C7], a
+	ld [wBrowserRxPtr], a
 	ld a, d
-	ld [wRam_C2C8], a
+	ld [wBrowserRxPtr + 1], a
 	ld bc, $0FFC
 	ld a, $03
-	ld [wRam_C2C9], a
+	ld [wBrowserRxBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	farcall Http_StartPost
@@ -559,7 +559,7 @@ Label_4C_4467:: ; 4C:4467
 	call Function_00_0392
 	call Url_StripFragment
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -568,12 +568,12 @@ Label_4C_4467:: ; 4C:4467
 	ld hl, $C380
 	ld de, $B000
 	ld a, e
-	ld [wRam_C2C7], a
+	ld [wBrowserRxPtr], a
 	ld a, d
-	ld [wRam_C2C8], a
+	ld [wBrowserRxPtr + 1], a
 	ld bc, $0FFC
 	ld a, $03
-	ld [wRam_C2C9], a
+	ld [wBrowserRxBank], a
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	farcall Http_StartGet
@@ -591,9 +591,9 @@ Browser_LoadPage_WaitReply:: ; 4C:44BA
 	farcall CommProgress_Step
 	cp a, $02
 	jp z, Label_4C_417D
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_4C_44E2
 	xor a, a
@@ -620,13 +620,13 @@ Label_4C_44E8:: ; 4C:44E8
 	jr nz, Label_4C_452F
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_452E
 
 ; ---- code $4501-$452E (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:44FF (executed)
 	jr nz, Label_4C_450A
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_452E
 
@@ -680,13 +680,13 @@ Label_4C_4537:: ; 4C:4537
 	ld [rRAMB], a
 	farcall Charset_ConvertPage
 	farcall Html_ScanPage
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $01
 	jr z, Label_4C_4577
 	farcall Browser_FetchInlineImages
 
 Label_4C_4577:: ; 4C:4577
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
 ; ---- ptrtable $457D-$458B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4C:457A: 7 entries; end is a heuristic guess (words stay plausible code pointers)
@@ -728,11 +728,11 @@ Label_4C_45B2:: ; 4C:45B2
 	jr nz, Label_4C_45F9
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_45F8
 	jr nz, Label_4C_45D4
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_45F8
 
@@ -765,22 +765,22 @@ Label_4C_45F9:: ; 4C:45F9
 	or a, a
 	jp nz, Label_4C_4274
 	ld a, $26
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	xor a, a
-	ld [wRam_C1DE], a
-	ld [wRam_C1DF], a
+	ld [wMobileResultDetail], a
+	ld [wMobileResultDetail + 1], a
 	jp Browser_LoadPage_Fail
 
 ; ---- code $460D-$4614 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
 Label_4C_460D:: ; 4C:460D
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr nz, Label_4C_4622
 
 ; ---- code $4614-$4622 (14 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4C:4612 (executed) [executed in 1 scenarios]
 	farcall Html_ParsePage
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	cp a, $04
 	jp z, Browser_LoadPage_Fail
 
@@ -791,14 +791,14 @@ Label_4C_4622:: ; 4C:4622
 	farcall CommProgress_Step
 	or a, a
 	jr nz, Label_4C_4622
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_4C_463A
 	farcall Html_ParsePage
 
 Label_4C_463A:: ; 4C:463A
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	push hl
 	ld a, [wTimerEnable]
 	bit 4, a
@@ -808,13 +808,13 @@ Label_4C_463A:: ; 4C:463A
 	jr nz, Label_4C_4685
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4684
 
 ; ---- code $4657-$4684 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4C:4655 (executed)
 	jr nz, Label_4C_4660
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_4684
 
@@ -892,7 +892,7 @@ Label_4C_46B4:: ; 4C:46B4
 
 CommProgress_Init:: ; 4C:46B8
 	ldh [hRam_FFB0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	call JumpTableInline
 
 ; ---- ptrtable $46C0-$46C4 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46BD: 2 entries; end pinned by the executed instruction at 46C4; every byte read as data in a trace
@@ -915,7 +915,7 @@ Label_4C_46CD:: ; 4C:46CD
 
 CommProgress_Step:: ; 4C:46D6
 	ldh [hRam_FFB0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	call JumpTableInline
 
 ; ---- ptrtable $46DE-$46E2 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46DB: 2 entries; end pinned by the executed instruction at 46E2; every byte read as data in a trace
@@ -940,7 +940,7 @@ Label_4C_46EB:: ; 4C:46EB
 
 Comm_Disconnect:: ; 4C:46F4
 	ld a, $FF
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	ld a, [wTimerEnable]
 	bit 4, a
 	jr z, Label_4C_4757
@@ -989,8 +989,8 @@ Label_4C_476D:: ; 4C:476D
 	xor a, a
 	ld [wRam_C26F], a
 	xor a, a
-	ld [wRam_C2CF], a
-	ld [wRam_C2D1], a
+	ld [wConnIconGfxRequest], a
+	ld [wCommSessionActive], a
 	ret
 
 Comm_EndOffline:: ; 4C:477E
@@ -1024,7 +1024,7 @@ Label_4C_47AE:: ; 4C:47AE
 	xor a, a
 	ld [wRam_C26F], a
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ret
 
 ; ---- code $47C4-$47F2 (46 bytes) [CONFIRMED] 13 insn(s); 13 executed (in up to 1/18 scenarios); entry proven: target of an executed call/far call
@@ -1086,7 +1086,7 @@ Label_4C_482A:: ; 4C:482A
 	xor a, a
 	ld [wRam_C26F], a
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ret
 
 Browser_FetchInlineImages:: ; 4C:4840
@@ -1112,17 +1112,17 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [rSVBK], a
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 
 Label_4C_4878:: ; 4C:4878
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C2C7]
+	ld a, [wBrowserRxPtr]
 	ld l, a
-	ld a, [wRam_C2C8]
+	ld a, [wBrowserRxPtr + 1]
 	ld h, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	farcall Html_NextResourceRecord
 	inc de
 	inc de
@@ -1169,7 +1169,7 @@ Label_4C_4878:: ; 4C:4878
 	jp z, Label_4C_4AD5
 	bit 7, a
 	jp nz, Label_4C_4AD5
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	call BankSwitch_H
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -1182,9 +1182,9 @@ Label_4C_48DF:: ; 4C:48DF
 	or a, a
 	jr nz, Label_4C_48DF
 	ld a, l
-	ld [wRam_C2C7], a
+	ld [wBrowserRxPtr], a
 	ld a, h
-	ld [wRam_C2C8], a
+	ld [wBrowserRxPtr + 1], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -1198,7 +1198,7 @@ Label_4C_48DF:: ; 4C:48DF
 	farcall HtmlUrl_NormalizePath
 	call Url_StripFragment
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -1208,9 +1208,9 @@ Label_4C_48DF:: ; 4C:48DF
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, $C380
-	ld a, [wRam_C2C7]
+	ld a, [wBrowserRxPtr]
 	ld e, a
-	ld a, [wRam_C2C8]
+	ld a, [wBrowserRxPtr + 1]
 	ld d, a
 	ld a, $FC
 	sub a, e
@@ -1221,7 +1221,7 @@ Label_4C_48DF:: ; 4C:48DF
 	bit 7, a
 	jp nz, Label_4C_4AD6
 	ld b, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	farcall Http_StartGet
@@ -1239,9 +1239,9 @@ Label_4C_4952:: ; 4C:4952
 	farcall CommProgress_Step
 	cp a, $02
 	jp z, Label_4C_4AE2
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_4C_497A
 	xor a, a
@@ -1264,11 +1264,11 @@ Label_4C_4980:: ; 4C:4980
 	jr nz, Label_4C_49C7
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_49C6
 	jr nz, Label_4C_49A2
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_49C6
 
@@ -1312,11 +1312,11 @@ Label_4C_49CF:: ; 4C:49CF
 	jr nz, Label_4C_4A16
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4A15
 	jr nz, Label_4C_49F1
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_4A15
 
@@ -1371,17 +1371,17 @@ Label_4C_4A33:: ; 4C:4A33
 
 Label_4C_4A4C:: ; 4C:4A4C
 	ld a, $26
-	ld [wRam_C1DD], a
+	ld [wMobileResultCode], a
 	xor a, a
-	ld [wRam_C1DE], a
-	ld [wRam_C1DF], a
+	ld [wMobileResultDetail], a
+	ld [wMobileResultDetail + 1], a
 
 Label_4C_4A58:: ; 4C:4A58
 	ldh a, [hRam_FFD0]
 	ld e, a
 	ldh a, [hRam_FFD1]
 	ld d, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	call BankSwitch_D
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -1402,11 +1402,11 @@ Label_4C_4A58:: ; 4C:4A58
 	jr nz, Label_4C_4ABC
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4ABB
 	jr nz, Label_4C_4A97
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_4ABB
 
@@ -1438,13 +1438,13 @@ Label_4C_4ABC:: ; 4C:4ABC
 	pop hl
 	or a, a
 	jp nz, Label_4C_4B4E
-	ld a, [wRam_C1DD]
+	ld a, [wMobileResultCode]
 	cp a, $24
 	jp z, Label_4C_4878
 	cp a, $32
 	jp z, Label_4C_4878
 	ld a, $03
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	jr Label_4C_4AE7
 
 Label_4C_4AD5:: ; 4C:4AD5
@@ -1452,21 +1452,21 @@ Label_4C_4AD5:: ; 4C:4AD5
 
 Label_4C_4AD6:: ; 4C:4AD6
 	ld a, $00
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld a, $01
 	ld [wRam_C1DC], a
 	jr Label_4C_4AE7
 
 Label_4C_4AE2:: ; 4C:4AE2
 	ld a, $02
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 
 Label_4C_4AE7:: ; 4C:4AE7
 	ldh a, [hRam_FFD0]
 	ld e, a
 	ldh a, [hRam_FFD1]
 	ld d, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	call BankSwitch_D
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -1487,11 +1487,11 @@ Label_4C_4AE7:: ; 4C:4AE7
 	jr nz, Label_4C_4B4B
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4C_4B4A
 	jr nz, Label_4C_4B26
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4C_4B4A
 
@@ -1920,7 +1920,7 @@ Function_4C_4DB2::
 
 ; ---- code $4DBE-$4DC7 (9 bytes) [PROBABLE] 5 insn(s) reached by static flow only; seeds: exec x5; min discovery hops 0; fall-through of the jrcc at 4C:4DBC (executed)
 	ld l, a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_4C_4DD3
 	ld a, l
@@ -2062,9 +2062,9 @@ Label_4C_4EAC:: ; 4C:4EAC
 	or a, a
 	jr nz, Label_4C_4EAC
 	ld a, c
-	ld [wRam_C380], a
+	ld [wAttrUrlBuf], a
 	ld a, b
-	ld [wRam_C381], a
+	ld [wAttrUrlBuf + 1], a
 	inc bc
 	inc bc
 	inc bc
@@ -2157,7 +2157,7 @@ Function_4C_4F56::
 	ld hl, $C380
 	farcall Function_00_131A
 	xor a, a
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -2165,13 +2165,13 @@ Function_4C_4F56::
 	ld hl, $DA00
 	ld bc, $0600
 	xor a, a
-	ld [wRam_C2DD], a
-	ld [wRam_C2DE], a
+	ld [wDictHistoryCount], a
+	ld [wDictHistoryHead], a
 	call FillBytes
 	ld a, $FF
-	ld [wRam_C2C0], a
+	ld [wBrowserScrollbarEnable], a
 	ld a, $02
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	farcall Browser_LoadFrameGraphics
 
 Label_4C_4F95:: ; 4C:4F95
@@ -2179,14 +2179,14 @@ Label_4C_4F95:: ; 4C:4F95
 	ld de, $0000
 	farcall Browser_SetScroll
 	ld a, $00
-	ldh [hRam_FFDE], a
+	ldh [hBrowserSelectedLink], a
 	ld hl, $DAA0
 	call Function_00_09E6
 	ld hl, $DAB0
 	call Function_00_09E6
 	xor a, a
-	ld [wRam_C2CE], a
-	ld [wRam_C2CF], a
+	ld [wConnIconState], a
+	ld [wConnIconGfxRequest], a
 	ld hl, $DA80
 	call Function_00_09E6
 	farcall Browser_RenderPage
@@ -2196,7 +2196,7 @@ Label_4C_4F95:: ; 4C:4F95
 	farcall Function_00_0956
 	farcall Palette_FadeInFromWhite
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 
 Label_4C_4FDD:: ; 4C:4FDD
 	farcall Function_00_0956
@@ -2233,7 +2233,7 @@ Label_4C_5015:: ; 4C:5015
 	jp Label_4C_4FDD
 
 Label_4C_501E:: ; 4C:501E
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	or a, a
 	jp z, Label_4C_4FDD
 	cp a, $FF
@@ -2243,7 +2243,7 @@ Label_4C_501E:: ; 4C:501E
 	jp z, Label_4C_4FDD
 	ld bc, $000E
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2274,7 +2274,7 @@ Label_4C_501E:: ; 4C:501E
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
 	farcall Palette_FadeOutToWhite
 	ld a, $07
@@ -2301,7 +2301,7 @@ Label_4C_509A:: ; 4C:509A
 	pop af
 	ldh [rSVBK], a
 	xor a, a
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
 	farcall Palette_FadeOutToWhite
 	ld a, $07
@@ -2318,7 +2318,7 @@ Label_4C_50DD:: ; 4C:50DD
 
 Label_4C_50E0:: ; 4C:50E0
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 
 Label_4C_50E3:: ; 4C:50E3
 	ldh a, [hWRAMBank]
@@ -2334,9 +2334,9 @@ Label_4C_50E3:: ; 4C:50E3
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	xor a, a
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	ldh [hRam_FFA7], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 Sprite_WaitFrames:: ; 4C:5111
@@ -2361,7 +2361,7 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	xor a, a
 	call FillBytes
 	call Function_00_0392
-	ld a, [wRam_C334]
+	ld a, [wBrowserNavigating]
 	or a, a
 	jr z, Label_4C_5147
 	farcall MobileDictView_HistoryPush
@@ -2378,18 +2378,18 @@ Label_4C_5147:: ; 4C:5147
 	ld de, $B000
 	ld bc, $0FFC
 	ld a, e
-	ld [wRam_C2C7], a
+	ld [wBrowserRxPtr], a
 	ld a, d
-	ld [wRam_C2C8], a
+	ld [wBrowserRxPtr + 1], a
 	ld a, $03
-	ld [wRam_C2C9], a
+	ld [wBrowserRxBank], a
 	farcall Function_00_1354
 	call Function_00_0392
 	farcall Browser_WrapImageInHtml
 	or a, a
 	jr nz, Label_4C_5194
 	farcall Html_ScanPage
-	ld a, [wRam_C2C1]
+	ld a, [wHtmlFlags]
 	and a, $01
 	jr z, Label_4C_5194
 	farcall MobileDictView_LoadImages
@@ -2427,11 +2427,11 @@ Label_4C_51D1:: ; 4C:51D1
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C2C7]
+	ld a, [wBrowserRxPtr]
 	ld l, a
-	ld a, [wRam_C2C8]
+	ld a, [wBrowserRxPtr + 1]
 	ld h, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	farcall Html_NextResourceRecord
 	inc de
 	inc de
@@ -2470,7 +2470,7 @@ Label_4C_51D1:: ; 4C:51D1
 	ld l, a
 	ldh a, [hRam_FFD1]
 	ld h, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	call BankSwitch_H
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -2483,9 +2483,9 @@ Label_4C_5227:: ; 4C:5227
 	or a, a
 	jr nz, Label_4C_5227
 	ld a, l
-	ld [wRam_C2C7], a
+	ld [wBrowserRxPtr], a
 	ld a, h
-	ld [wRam_C2C8], a
+	ld [wBrowserRxPtr + 1], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -2498,9 +2498,9 @@ Label_4C_5227:: ; 4C:5227
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld hl, $C380
-	ld a, [wRam_C2C7]
+	ld a, [wBrowserRxPtr]
 	ld e, a
-	ld a, [wRam_C2C8]
+	ld a, [wBrowserRxPtr + 1]
 	ld d, a
 	ld a, $FC
 	sub a, e
@@ -2508,7 +2508,7 @@ Label_4C_5227:: ; 4C:5227
 	ld a, $BF
 	sbc a, d
 	ld b, a
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	farcall Function_00_1354
 	jp Label_4C_51D1
 
@@ -2519,7 +2519,7 @@ Function_4C_5274::
 	ld hl, $D500
 	ld a, $06
 	call BankSwitch_H
-	ld a, [wRam_C2DE]
+	ld a, [wDictHistoryHead]
 	ld d, a
 	ld e, $00
 	srl d
@@ -2529,14 +2529,14 @@ Function_4C_5274::
 	ld d, a
 	ld bc, $0080
 	call CopyBytes
-	ld a, [wRam_C2DD]
+	ld a, [wDictHistoryCount]
 	cp a, $06
 	jr nc, Label_4C_5298
 	inc a
 
 Label_4C_5298:: ; 4C:5298
-	ld [wRam_C2DD], a
-	ld a, [wRam_C2DE]
+	ld [wDictHistoryCount], a
+	ld a, [wDictHistoryHead]
 	inc a
 	cp a, $06
 	jr c, Label_4C_52A4
@@ -2547,7 +2547,7 @@ Label_4C_5298:: ; 4C:5298
 ; ---- code $52A4-$52C0 (28 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 1/18 scenarios)
 
 Label_4C_52A4:: ; 4C:52A4
-	ld [wRam_C2DE], a
+	ld [wDictHistoryHead], a
 	ret
 
 MobileDictView_HistoryPop:: ; 4C:52A8
@@ -2555,12 +2555,12 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 	call BankSwitch_D
 	xor a, a
 	ld [de], a
-	ld a, [wRam_C2DD]
+	ld a, [wDictHistoryCount]
 	or a, a
 	jr z, Label_4C_52DC
 	dec a
-	ld [wRam_C2DD], a
-	ld a, [wRam_C2DE]
+	ld [wDictHistoryCount], a
+	ld a, [wDictHistoryHead]
 	dec a
 	cp a, $06
 	jr c, Label_4C_52C2
@@ -2571,7 +2571,7 @@ MobileDictView_HistoryPop:: ; 4C:52A8
 ; ---- code $52C2-$52DF (29 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 1/18 scenarios)
 
 Label_4C_52C2:: ; 4C:52C2
-	ld [wRam_C2DE], a
+	ld [wDictHistoryHead], a
 	ld h, a
 	ld l, $00
 	srl h

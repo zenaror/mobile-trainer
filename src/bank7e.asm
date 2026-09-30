@@ -1322,7 +1322,7 @@ Label_7E_7D26:: ; 7E:7D26
 	dec bc
 	dec bc
 	dec bc
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr nz, Label_7E_7D5A
 

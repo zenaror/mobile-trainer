@@ -429,11 +429,11 @@ Function_5C_5150::
 	farcall Function_48_48BB
 	pop hl
 	ld a, h
-	ld [wRam_C197], a
+	ld [wCommErrCodeHi], a
 	ld a, l
-	ld [wRam_C198], a
+	ld [wCommErrCodeLo], a
 	pop af
-	ld [wRam_C196], a
+	ld [wCommErrCategory], a
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -546,7 +546,7 @@ CommErr_DrawMessage:: ; 5C:5267
 	ld hl, $0301
 	ld bc, $0C12
 	farcall TileCanvas_FillRect
-	ld a, [wRam_C196]
+	ld a, [wCommErrCategory]
 	ld b, a
 	ld hl, CommErr_RecordTable
 
@@ -615,9 +615,9 @@ CommErr_LookupTriple:: ; 5C:5302
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C197]
+	ld a, [wCommErrCodeHi]
 	ld d, a
-	ld a, [wRam_C198]
+	ld a, [wCommErrCodeLo]
 	ld e, a
 
 Label_5C_530D:: ; 5C:530D
@@ -715,7 +715,7 @@ Function_5C_53B3::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C196]
+	ld a, [wCommErrCategory]
 	ld d, a
 	swap a
 	and a, $0F
@@ -725,7 +725,7 @@ Function_5C_53B3::
 	ld a, d
 	and a, $0F
 	call CommErr_DrawDigit
-	ld a, [wRam_C196]
+	ld a, [wCommErrCategory]
 	cp a, $F0
 	jr nz, Label_5C_53E1
 	push hl
@@ -744,13 +744,13 @@ Label_5C_53E1:: ; 5C:53E1
 	ld h, a
 	ld a, $44
 	ld [hl], a
-	ld a, [wRam_C197]
+	ld a, [wCommErrCodeHi]
 	ld d, a
 	swap a
 	and a, $0F
 	ld hl, $D00F
 	ld b, a
-	ld a, [wRam_C196]
+	ld a, [wCommErrCategory]
 	cp a, $40
 	jr nz, Label_5C_5407
 
@@ -766,7 +766,7 @@ Label_5C_5407:: ; 5C:5407
 	and a, $0F
 	call CommErr_DrawDigit
 	inc hl
-	ld a, [wRam_C198]
+	ld a, [wCommErrCodeLo]
 	ld d, a
 	swap a
 	and a, $0F
@@ -858,13 +858,13 @@ Label_5C_54A5:: ; 5C:54A5
 	jr nz, Label_5C_54EC
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_5C_54EB
 
 ; ---- code $54BE-$54EB (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 5C:54BC (executed)
 	jr nz, Label_5C_54C7
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_5C_54EB
 

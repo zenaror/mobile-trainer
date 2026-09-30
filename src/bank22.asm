@@ -1284,7 +1284,7 @@ Label_22_4B45:: ; 22:4B45
 	jr nz, Label_22_4BED
 
 Label_22_4B91:: ; 22:4B91
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_22_4BB7
 	cp a, $20
@@ -1326,8 +1326,8 @@ Label_22_4BD1:: ; 22:4BD1
 
 Label_22_4BDE:: ; 22:4BDE
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4BEC:: ; 22:4BEC
@@ -1374,13 +1374,13 @@ Label_22_4C2B:: ; 22:4C2B
 
 Label_22_4C39:: ; 22:4C39
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4C47:: ; 22:4C47
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 	xor a, a
 	pop af
@@ -1463,7 +1463,7 @@ Label_22_4C90:: ; 22:4C90
 	jr nz, Label_22_4D38
 
 Label_22_4CDC:: ; 22:4CDC
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_22_4D02
 	cp a, $20
@@ -1505,8 +1505,8 @@ Label_22_4D1C:: ; 22:4D1C
 
 Label_22_4D29:: ; 22:4D29
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4D37:: ; 22:4D37
@@ -1553,13 +1553,13 @@ Label_22_4D76:: ; 22:4D76
 
 Label_22_4D84:: ; 22:4D84
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4D92:: ; 22:4D92
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 	xor a, a
 	pop af
@@ -1633,7 +1633,7 @@ Label_22_4DD2:: ; 22:4DD2
 	jr nz, Label_22_4E79
 
 Label_22_4E1D:: ; 22:4E1D
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_22_4E43
 	cp a, $20
@@ -1675,8 +1675,8 @@ Label_22_4E5D:: ; 22:4E5D
 
 Label_22_4E6A:: ; 22:4E6A
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4E78:: ; 22:4E78
@@ -1724,13 +1724,13 @@ Label_22_4EB9:: ; 22:4EB9
 
 Label_22_4EC7:: ; 22:4EC7
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_22_4ED5:: ; 22:4ED5
 	ld a, $02
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 	xor a, a
 	pop af

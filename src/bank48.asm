@@ -151,18 +151,18 @@ Label_48_409C:: ; 48:409C
 	ret
 
 TextTiles_RenderGrid:: ; 48:40A9
-	ld [wRam_C172], a
+	ld [wTextGridStrBank], a
 	ldh a, [hRam_FFB0]
-	ld [wRam_C167], a
+	ld [wTextGridWramBank], a
 	ld a, c
-	ld [wRam_C16B], a
+	ld [wTextGridWidth], a
 	ld a, e
 	ld [wRam_C16D], a
 	ld a, d
 	ld [wRam_C16E], a
 	ld a, b
-	ld [wRam_C16C], a
-	ld [wRam_C16F], a
+	ld [wTextGridStartCol], a
+	ld [wTextGridColumn], a
 
 Label_48_40C4:: ; 48:40C4
 	push hl
@@ -179,25 +179,25 @@ Label_48_40C4:: ; 48:40C4
 	pop hl
 
 Label_48_40D3:: ; 48:40D3
-	ld a, [wRam_C172]
+	ld a, [wTextGridStrBank]
 	call ReadByteFar
 	or a, a
 	jr z, Label_48_4159
 	cp a, $0D
 	jr z, Label_48_4141
 	ld b, a
-	ld a, [wRam_C172]
+	ld a, [wTextGridStrBank]
 	call ReadByteFar
 	or a, a
 	jr z, Label_48_4159
 	push de
 	push hl
 	ld c, a
-	ld a, [wRam_C167]
+	ld a, [wTextGridWramBank]
 	ld l, a
 	ld h, $00
 	push hl
-	ld a, [wRam_C16B]
+	ld a, [wTextGridWidth]
 	swap a
 	ld h, d
 	ld l, e
@@ -215,7 +215,7 @@ Label_48_40D3:: ; 48:40D3
 	ld a, h
 	sbc a, d
 	ld d, a
-	ld a, [wRam_C167]
+	ld a, [wTextGridWramBank]
 	ld l, a
 	ld h, $00
 	push hl
@@ -231,30 +231,30 @@ Label_48_40D3:: ; 48:40D3
 	ld a, d
 	adc a, $00
 	ld d, a
-	ld a, [wRam_C16B]
+	ld a, [wTextGridWidth]
 	ld b, a
-	ld a, [wRam_C16F]
+	ld a, [wTextGridColumn]
 	inc a
 	cp a, b
-	ld [wRam_C16F], a
+	ld [wTextGridColumn], a
 	jr nz, Label_48_40D3
-	ld a, [wRam_C16C]
-	ld [wRam_C16F], a
+	ld a, [wTextGridStartCol]
+	ld [wTextGridColumn], a
 	ld b, a
-	ld a, [wRam_C16B]
+	ld a, [wTextGridWidth]
 	add a, b
 	jr Label_48_40C4
 
 Label_48_4141:: ; 48:4141
 	inc hl
-	ld a, [wRam_C16F]
+	ld a, [wTextGridColumn]
 	ld b, a
-	ld a, [wRam_C16B]
+	ld a, [wTextGridWidth]
 	ld c, a
 	sub a, b
 	ld b, a
-	ld a, [wRam_C16C]
-	ld [wRam_C16F], a
+	ld a, [wTextGridStartCol]
+	ld [wTextGridColumn], a
 	add a, b
 	ld b, a
 	ld a, c
@@ -411,11 +411,11 @@ Label_48_4222:: ; 48:4222
 	ret
 
 Ticker_Update:: ; 48:4223
-	ld a, [wRam_C0F3]
+	ld a, [wTickerPauseFrames]
 	or a, a
 	jr z, Label_48_422E
 	dec a
-	ld [wRam_C0F3], a
+	ld [wTickerPauseFrames], a
 	ret
 
 Label_48_422E:: ; 48:422E
@@ -423,23 +423,23 @@ Label_48_422E:: ; 48:422E
 	dec [hl]
 	ret nz
 	ld [hl], $02
-	ld a, [wRam_C0EF]
+	ld a, [wTickerScrollX]
 	and a, $01
 	jr z, Label_48_424F
 	ld hl, $C0F4
 	dec [hl]
 	jr nz, Label_48_424F
-	ld a, [wRam_C0EC]
+	ld a, [wTickerColumnCount]
 	sla a
 	sla a
 	ld [hl], a
 	ld a, $B4
-	ld [wRam_C0F3], a
+	ld [wTickerPauseFrames], a
 
 Label_48_424F:: ; 48:424F
-	ld a, [wRam_C0EF]
+	ld a, [wTickerScrollX]
 	inc a
-	ld [wRam_C0EF], a
+	ld [wTickerScrollX], a
 	dec a
 	and a, $07
 	ret nz
@@ -454,7 +454,7 @@ Label_48_424F:: ; 48:424F
 	ld a, e
 	and a, $F0
 	ld e, a
-	ld a, [wRam_C0EE]
+	ld a, [wTickerSrcColumn]
 	inc a
 	swap a
 	ld l, a
@@ -499,20 +499,20 @@ Label_48_424F:: ; 48:424F
 	inc a
 	and a, $1F
 	ld [wRam_C0F6], a
-	ld a, [wRam_C0EE]
+	ld a, [wTickerSrcColumn]
 	inc a
-	ld [wRam_C0EE], a
+	ld [wTickerSrcColumn], a
 	ld hl, $C0EC
 	cp a, [hl]
 	ret nz
 	xor a, a
-	ld [wRam_C0EE], a
+	ld [wTickerSrcColumn], a
 	ret
 
 Ticker_Start:: ; 48:42D4
 	ld d, a
 	call ReadByteFar
-	ld [wRam_C0EB], a
+	ld [wTickerTextBank], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -530,16 +530,16 @@ Ticker_Start:: ; 48:42D4
 	ld h, a
 	ld a, d
 	call ReadByteFar
-	ld [wRam_C0E9], a
+	ld [wTickerTitlePtr], a
 	ld b, a
 	ld a, d
 	call ReadByteFar
-	ld [wRam_C0EA], a
+	ld [wTickerTitlePtr + 1], a
 	push hl
 	ld h, a
 	ld l, b
 	ld c, $00
-	ld a, [wRam_C0EB]
+	ld a, [wTickerTextBank]
 	ld e, a
 
 Label_48_4309:: ; 48:4309
@@ -561,21 +561,21 @@ Label_48_431A:: ; 48:431A
 	ld b, a
 	ld a, $50
 	sub a, b
-	ld [wRam_C0ED], a
+	ld [wTickerTitleX], a
 	ld a, $14
-	ld [wRam_C0EE], a
+	ld [wTickerSrcColumn], a
 	ld a, d
 	pop hl
 	call ReadByteFar
-	ld [wRam_C0F0], a
+	ld [wTickerTextPtr], a
 	ld b, a
 	ld a, d
 	call ReadByteFar
-	ld [wRam_C0F1], a
+	ld [wTickerTextPtr + 1], a
 	ld h, a
 	ld l, b
 	ld c, $00
-	ld a, [wRam_C0EB]
+	ld a, [wTickerTextBank]
 	ld e, a
 
 Label_48_4343:: ; 48:4343
@@ -593,16 +593,16 @@ Label_48_4343:: ; 48:4343
 Label_48_4354:: ; 48:4354
 	ld a, c
 	add a, $15
-	ld [wRam_C0EC], a
+	ld [wTickerColumnCount], a
 	sla a
 	sla a
 	add a, $04
-	ld [wRam_C0F4], a
+	ld [wTickerStepCounter], a
 	ld a, $B4
-	ld [wRam_C0F3], a
+	ld [wTickerPauseFrames], a
 	ld a, $02
-	ld [wRam_C0F5], a
-	ld a, [wRam_C0ED]
+	ld [wTickerFrameDivider], a
+	ld a, [wTickerTitleX]
 	and a, $07
 	ld b, a
 	ld a, $08
@@ -610,16 +610,16 @@ Label_48_4354:: ; 48:4354
 	push af
 	call Ticker_Stop
 	pop af
-	ld [wRam_C0EF], a
-	ld a, [wRam_C0ED]
+	ld [wTickerScrollX], a
+	ld a, [wTickerTitleX]
 	srl a
 	srl a
 	srl a
 	inc a
 	ld b, a
-	ld a, [wRam_C0E9]
+	ld a, [wTickerTitlePtr]
 	ld l, a
-	ld a, [wRam_C0EA]
+	ld a, [wTickerTitlePtr + 1]
 	ld h, a
 	ld c, $40
 	ld de, $D000
@@ -629,12 +629,12 @@ Label_48_4354:: ; 48:4354
 	ldh [hRam_FFB2], a
 	dec a
 	ldh [hRam_FFB1], a
-	ld a, [wRam_C0EB]
+	ld a, [wTickerTextBank]
 	farcall TextTiles_RenderGridRows
 	ld b, $15
-	ld a, [wRam_C0F0]
+	ld a, [wTickerTextPtr]
 	ld l, a
-	ld a, [wRam_C0F1]
+	ld a, [wTickerTextPtr + 1]
 	ld h, a
 	ld c, $40
 	ld de, $D000
@@ -644,7 +644,7 @@ Label_48_4354:: ; 48:4354
 	ldh [hRam_FFB2], a
 	dec a
 	ldh [hRam_FFB1], a
-	ld a, [wRam_C0EB]
+	ld a, [wTickerTextBank]
 	farcall TextTiles_RenderGridRows
 	ldh a, [rIE]
 	and a, $02
@@ -679,17 +679,17 @@ Ticker_InstallRasterIrq:: ; 48:440A
 	ld a, $80
 	ldh [rLYC], a
 	ld a, [wLcdStatVector]
-	ld [wRam_C130], a
+	ld [wSavedLcdStatVector], a
 	ld a, [wLcdStatVector + 1]
-	ld [wRam_C131], a
+	ld [wSavedLcdStatVector + 1], a
 	ld a, [wLcdStatVector + 2]
-	ld [wRam_C132], a
+	ld [wSavedLcdStatVector + 2], a
 	ld a, [wVBlankVector]
-	ld [wRam_C133], a
+	ld [wSavedVBlankVector], a
 	ld a, [wVBlankVector + 1]
-	ld [wRam_C134], a
+	ld [wSavedVBlankVector + 1], a
 	ld a, [wVBlankVector + 2]
-	ld [wRam_C135], a
+	ld [wSavedVBlankVector + 2], a
 	ld a, $C3
 	ld [wLcdStatVector], a
 	ld a, $C4
@@ -744,18 +744,18 @@ Ticker_Stop:: ; 48:4460
 	and a, $87
 	ldh [rSTAT], a
 	ld hl, $CBF4
-	ld a, [wRam_C130]
+	ld a, [wSavedLcdStatVector]
 	ld [hli], a
-	ld a, [wRam_C131]
+	ld a, [wSavedLcdStatVector + 1]
 	ld [hli], a
-	ld a, [wRam_C132]
+	ld a, [wSavedLcdStatVector + 2]
 	ld [hl], a
 	ld hl, $CBF1
-	ld a, [wRam_C133]
+	ld a, [wSavedVBlankVector]
 	ld [hli], a
-	ld a, [wRam_C134]
+	ld a, [wSavedVBlankVector + 1]
 	ld [hli], a
-	ld a, [wRam_C135]
+	ld a, [wSavedVBlankVector + 2]
 	ld [hl], a
 	ldh a, [rIE]
 	and a, $FD
@@ -790,7 +790,7 @@ Palette_FadeInMasked:: ; 48:44E0
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $E0
 	call Palette_SetFadeTargetMasked
@@ -831,7 +831,7 @@ Palette_FadeOutMasked:: ; 48:4540
 	ld hl, $D800
 	call CopyBytes
 	ld a, $01
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $20
 	call Palette_SetFadeTargetMasked
@@ -854,27 +854,27 @@ Label_48_457A:: ; 48:457A
 	ret
 
 Palette_SetFadeTargetMasked:: ; 48:459D
-	ld [wRam_C2F2], a
+	ld [wPalFadeStep], a
 	bit 7, a
 	jr nz, Label_48_45B5
 	ld a, c
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	ld a, b
 	ld [wRam_C2EF], a
 	xor a, a
-	ld [wRam_C2F0], a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress], a
+	ld [wPalFadeProgress + 1], a
 	jr Label_48_45C5
 
 Label_48_45B5:: ; 48:45B5
 	ld a, c
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	ld a, b
 	ld [wRam_C2EF], a
 	xor a, a
-	ld [wRam_C2F0], a
+	ld [wPalFadeProgress], a
 	inc a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress + 1], a
 
 Label_48_45C5:: ; 48:45C5
 	ld de, $D980
@@ -912,14 +912,14 @@ Label_48_45F0:: ; 48:45F0
 	ret
 
 Label_48_45F4:: ; 48:45F4
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wRam_C2EF]
 	ld [hli], a
-	ld a, [wRam_C2F0]
+	ld a, [wPalFadeProgress]
 	ld [de], a
 	inc de
-	ld a, [wRam_C2F1]
+	ld a, [wPalFadeProgress + 1]
 	ld [de], a
 	inc de
 	dec c
@@ -1074,7 +1074,7 @@ Palette_FadeOutWithTicker:: ; 48:46C6
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $30
 	farcall PalFade_Start
@@ -1129,26 +1129,26 @@ Font_BlitGlyph8x16:: ; 48:4748
 Function_48_4748::
 	ld hl, sp+6
 	ld a, [hli]
-	ld [wRam_C136], a
+	ld [wFontArgCodeLo], a
 	ld a, [hli]
-	ld [wRam_C137], a
+	ld [wFontArgCodeHi], a
 	ld a, [hli]
-	ld [wRam_C13C], a
+	ld [wFontArgDest1Ptr], a
 	ld a, [hli]
-	ld [wRam_C13D], a
+	ld [wFontArgDest1Ptr + 1], a
 	ld a, [hli]
-	ld [wRam_C13B], a
+	ld [wFontArgDest1Bank], a
 	inc hl
 	ld a, [hli]
-	ld [wRam_C139], a
+	ld [wFontArgDest2Ptr], a
 	ld a, [hli]
-	ld [wRam_C13A], a
+	ld [wFontArgDest2Ptr + 1], a
 	ld a, [hli]
-	ld [wRam_C138], a
+	ld [wFontArgDest2Bank], a
 	inc hl
-	ld a, [wRam_C136]
+	ld a, [wFontArgCodeLo]
 	ld e, a
-	ld a, [wRam_C137]
+	ld a, [wFontArgCodeHi]
 	ld d, a
 	ld hl, Font_GlyphRunTable
 
@@ -1209,11 +1209,11 @@ Label_48_4793:: ; 48:4793
 	ld [rRAMG], a
 	ld b, h
 	ld c, l
-	ld a, [wRam_C13C]
+	ld a, [wFontArgDest1Ptr]
 	ld l, a
-	ld a, [wRam_C13D]
+	ld a, [wFontArgDest1Ptr + 1]
 	ld h, a
-	ld a, [wRam_C13B]
+	ld a, [wFontArgDest1Bank]
 	ld d, a
 	call BankSwitch_H
 	ld e, $08
@@ -1225,11 +1225,11 @@ Label_48_47D6:: ; 48:47D6
 	ld [hli], a
 	dec e
 	jr nz, Label_48_47D6
-	ld a, [wRam_C139]
+	ld a, [wFontArgDest2Ptr]
 	ld l, a
-	ld a, [wRam_C13A]
+	ld a, [wFontArgDest2Ptr + 1]
 	ld h, a
-	ld a, [wRam_C138]
+	ld a, [wFontArgDest2Bank]
 	ld d, a
 	call BankSwitch_H
 	ld e, $08
@@ -1339,7 +1339,7 @@ Function_48_48BC:: ; 48:48BC
 Sram_ComputeChecksum3:: ; 48:48E1
 Function_48_48E1::
 	xor a, a
-	ld [wRam_C12F], a
+	ld [wSramChecksum3Carries], a
 	ld hl, $A684
 	ld d, $01
 	ld c, $10
@@ -1354,9 +1354,9 @@ Label_48_48EE:: ; 48:48EE
 	jr nc, Label_48_48FE
 
 ; ---- code $48F7-$48FE (7 bytes) [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 48:48F5 (executed) [executed in 1 scenarios]
-	ld a, [wRam_C12F]
+	ld a, [wSramChecksum3Carries]
 	inc a
-	ld [wRam_C12F], a
+	ld [wSramChecksum3Carries], a
 
 ; ---- code $48FE-$49A3 (165 bytes) [CONFIRMED] 84 insn(s); 84 executed (in up to 17/18 scenarios)
 
@@ -1374,14 +1374,14 @@ Label_48_4908:: ; 48:4908
 	add a, e
 	ld e, a
 	jr nc, Label_48_4918
-	ld a, [wRam_C12F]
+	ld a, [wSramChecksum3Carries]
 	inc a
-	ld [wRam_C12F], a
+	ld [wSramChecksum3Carries], a
 
 Label_48_4918:: ; 48:4918
 	dec c
 	jr nz, Label_48_4908
-	ld a, [wRam_C12F]
+	ld a, [wSramChecksum3Carries]
 	ld d, a
 	ret
 

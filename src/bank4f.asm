@@ -274,30 +274,30 @@ Label_4F_415E:: ; 4F:415E
 	ret
 
 PalFade_Start:: ; 4F:4166
-	ld [wRam_C2F2], a
+	ld [wPalFadeStep], a
 	bit 7, a
 	jr nz, Label_4F_417E
 	ld a, c
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	ld a, b
 	ld [wRam_C2EF], a
 	xor a, a
-	ld [wRam_C2F0], a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress], a
+	ld [wPalFadeProgress + 1], a
 	jr Label_4F_418E
 
 Label_4F_417E:: ; 4F:417E
 	ld a, c
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	ld a, b
 	ld [wRam_C2EF], a
 	xor a, a
-	ld [wRam_C2F0], a
+	ld [wPalFadeProgress], a
 	inc a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress + 1], a
 
 Label_4F_418E:: ; 4F:418E
-	ld a, [wRam_C2ED]
+	ld a, [wPalFadeMode]
 	call JumpTableInline
 
 ; ---- ptrtable $4194-$41A4 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4191: 8 entries; end = first entry target
@@ -340,14 +340,14 @@ Label_4F_41C2:: ; 4F:41C2
 	ld b, $40
 
 Label_4F_41CA:: ; 4F:41CA
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	ld [hli], a
 	ld a, [wRam_C2EF]
 	ld [hli], a
-	ld a, [wRam_C2F0]
+	ld a, [wPalFadeProgress]
 	ld [de], a
 	inc de
-	ld a, [wRam_C2F1]
+	ld a, [wPalFadeProgress + 1]
 	ld [de], a
 	inc de
 	dec b
@@ -355,53 +355,53 @@ Label_4F_41CA:: ; 4F:41CA
 	ret
 
 PalFade_Step:: ; 4F:41E0
-	ld a, [wRam_C2F2]
+	ld a, [wPalFadeStep]
 	or a, a
 	ret z
 	ld c, a
 	bit 7, a
 	jr z, Label_4F_4213
-	ld a, [wRam_C2F0]
+	ld a, [wPalFadeProgress]
 	add a, c
 	jr c, Label_4F_420A
-	ld a, [wRam_C2F1]
+	ld a, [wPalFadeProgress + 1]
 	add a, $FF
 	jr z, Label_4F_4203
 	xor a, a
-	ld [wRam_C2F0], a
-	ld [wRam_C2F1], a
-	ld [wRam_C2F2], a
+	ld [wPalFadeProgress], a
+	ld [wPalFadeProgress + 1], a
+	ld [wPalFadeStep], a
 	jr Label_4F_422D
 
 Label_4F_4203:: ; 4F:4203
-	ld [wRam_C2F1], a
-	ld a, [wRam_C2F0]
+	ld [wPalFadeProgress + 1], a
+	ld a, [wPalFadeProgress]
 	add a, c
 
 Label_4F_420A:: ; 4F:420A
-	ld [wRam_C2F0], a
+	ld [wPalFadeProgress], a
 	xor a, a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress + 1], a
 	jr Label_4F_422D
 
 Label_4F_4213:: ; 4F:4213
-	ld a, [wRam_C2F0]
+	ld a, [wPalFadeProgress]
 	add a, c
 	jr nc, Label_4F_4226
 	xor a, a
-	ld [wRam_C2F0], a
-	ld [wRam_C2F2], a
+	ld [wPalFadeProgress], a
+	ld [wPalFadeStep], a
 	inc a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress + 1], a
 	jr Label_4F_422D
 
 Label_4F_4226:: ; 4F:4226
-	ld [wRam_C2F0], a
+	ld [wPalFadeProgress], a
 	xor a, a
-	ld [wRam_C2F1], a
+	ld [wPalFadeProgress + 1], a
 
 Label_4F_422D:: ; 4F:422D
-	ld a, [wRam_C2ED]
+	ld a, [wPalFadeMode]
 	call JumpTableInline
 
 ; ---- ptrtable $4233-$4243 (16 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4230: 8 entries; end = first entry target
@@ -446,9 +446,9 @@ Label_4F_4261:: ; 4F:4261
 Label_4F_4269:: ; 4F:4269
 	push bc
 	push de
-	ld a, [wRam_C2F0]
+	ld a, [wPalFadeProgress]
 	ld e, a
-	ld a, [wRam_C2F1]
+	ld a, [wPalFadeProgress + 1]
 	ld d, a
 
 Label_4F_4273:: ; 4F:4273
@@ -512,7 +512,7 @@ Function_4F_42B4::
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $E0
 	call PalFade_Start
@@ -547,7 +547,7 @@ Palette_FadeInFromWhiteSlow:: ; 4F:42FF
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $F0
 	call PalFade_Start
@@ -608,7 +608,7 @@ Function_4F_4370::
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $20
 	call PalFade_Start
@@ -642,7 +642,7 @@ Palette_FadeOutToWhiteSlow:: ; 4F:43B8
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $10
 	call PalFade_Start
@@ -699,7 +699,7 @@ Function_4F_4426:: ; 4F:4426
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $0000
 	ld a, $F0
 	call PalFade_Start
@@ -757,7 +757,7 @@ Function_4F_4497:: ; 4F:4497
 	ld hl, $D800
 	call CopyBytes
 	ld a, $00
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $0000
 	ld a, $10
 	call PalFade_Start
@@ -793,7 +793,7 @@ Function_4F_44DF:: ; 4F:44DF
 	ld hl, $D800
 	call CopyBytes
 	ld a, $03
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $F0
 	call PalFade_Start
@@ -832,7 +832,7 @@ Function_4F_452A:: ; 4F:452A
 	ld hl, $D800
 	call CopyBytes
 	ld a, $03
-	ld [wRam_C2ED], a
+	ld [wPalFadeMode], a
 	ld bc, $7FFF
 	ld a, $10
 	call PalFade_Start
@@ -1113,7 +1113,7 @@ Label_4F_46A4:: ; 4F:46A4
 Browser_StartHomePage:: ; 4F:46A5
 	farcall Browser_BeginSession
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	farcall Browser_LoadHomePage
 
 ; ---- code $46B7-$4717 (96 bytes) [CONFIRMED] 36 insn(s) reached by static flow only; seeds: exec x36; min discovery hops 0; entry not recorded [executed in 1 scenarios]
@@ -1122,7 +1122,7 @@ Browser_StartHomePage:: ; 4F:46A5
 Browser_StartPageListEntry:: ; 4F:46BA
 	farcall Browser_BeginSession
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a

@@ -78,7 +78,7 @@ Label_27_4017:: ; 27:4017
 ; ---- code $407B-$409F (36 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; entered by jrcc from 27:4071 (executed) [executed in 2 scenarios]
 
 Label_27_407B:: ; 27:407B
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $17
 	jp z, Label_27_40A1
 	cp a, $20
@@ -124,8 +124,8 @@ Label_27_40BB:: ; 27:40BB
 
 Label_27_40C8:: ; 27:40C8
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_27_40D6:: ; 27:40D6
@@ -154,7 +154,7 @@ Label_27_40F5:: ; 27:40F5
 
 Label_27_40FF:: ; 27:40FF
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	farcall CommTime_TimerAIsNonZero
 	or a, a
 	jr nz, Label_27_4110
@@ -168,8 +168,8 @@ Label_27_40FF:: ; 27:40FF
 
 Label_27_4110:: ; 27:4110
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_27_411E:: ; 27:411E
@@ -209,7 +209,7 @@ Label_27_411E:: ; 27:411E
 Label_27_4156:: ; 27:4156
 	farcall MailResult_Screen
 	xor a, a
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	farcall MailServerStatus_Screen
 
 ; ---- code $4166-$417A (20 bytes) [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 0; entry not recorded
@@ -217,7 +217,7 @@ Label_27_4156:: ; 27:4156
 	ret z
 	ld bc, $0000
 	ld a, $00
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	ld d, $FF
 	farcall Mailbox_Main
 	ret
@@ -248,8 +248,8 @@ Label_27_4195:: ; 27:4195
 
 Label_27_41A2:: ; 27:41A2
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
 
 Label_27_41B0:: ; 27:41B0
@@ -301,7 +301,7 @@ Function_27_41E3::
 	cp a, $00
 	jr nz, Label_27_41F1
 	xor a, a
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_4201
 
 Label_27_41F1:: ; 27:41F1
@@ -310,14 +310,14 @@ Label_27_41F1:: ; 27:41F1
 
 ; ---- code $41F5-$41FC (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:41F3 (executed)
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_4201
 
 ; ---- code $41FC-$427C (128 bytes) [CONFIRMED] 53 insn(s); 53 executed (in up to 4/18 scenarios)
 
 Label_27_41FC:: ; 27:41FC
 	ld a, $02
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 
 Label_27_4201:: ; 27:4201
 	pop af
@@ -361,7 +361,7 @@ Label_27_4225:: ; 27:4225
 	ld de, $2FE0
 	ld hl, $DA30
 	call Function_00_0A65
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_27_4297
 	call Mail_OutboxIsEmpty
@@ -423,7 +423,7 @@ Label_27_42CF:: ; 27:42CF
 	farcall Timer_ResetClockB
 	farcall Stub_Nop_7F_61FC
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -574,7 +574,7 @@ Label_27_43E6:: ; 27:43E6
 
 Label_27_43FF:: ; 27:43FF
 	ld a, $01
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -733,7 +733,7 @@ Label_27_452C:: ; 27:452C
 	ld de, $2F47
 	ld hl, $DA30
 	call Function_00_0A65
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_27_45A4
 	call Mail_OutboxIsEmpty
@@ -929,12 +929,12 @@ Data_27_46DF:: ; 27:46DF
 ; ---- code $46E5-$4747 (98 bytes) [CONFIRMED] 32 insn(s) reached by static flow only; seeds: exec x32; min discovery hops 1; entered by jpcc from 27:4337 (executed) [executed in 4 scenarios]
 
 MailConnect_ShowError:: ; 27:46E5
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1006,7 +1006,7 @@ Function_27_4768::
 	cp a, $00
 	jr nz, Label_27_4776
 	xor a, a
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_4786
 
 Label_27_4776:: ; 27:4776
@@ -1015,14 +1015,14 @@ Label_27_4776:: ; 27:4776
 
 ; ---- code $477A-$4781 (7 bytes) [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0; fall-through of the jrcc at 27:4778 (executed)
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_4786
 
 ; ---- code $4781-$4812 (145 bytes) [CONFIRMED] 55 insn(s); 55 executed (in up to 2/18 scenarios)
 
 Label_27_4781:: ; 27:4781
 	ld a, $02
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 
 Label_27_4786:: ; 27:4786
 	pop af
@@ -1060,7 +1060,7 @@ Label_27_4786:: ; 27:4786
 	ld de, $2F48
 	ld hl, $DA30
 	call Function_00_0A65
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_27_4831
 	call Mail_OutboxIsEmpty
@@ -1293,19 +1293,19 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	cp a, $00
 	jr nz, Label_27_49C6
 	xor a, a
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_49D6
 
 Label_27_49C6:: ; 27:49C6
 	cp a, $01
 	jr nz, Label_27_49D1
 	ld a, $01
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 	jr Label_27_49D6
 
 Label_27_49D1:: ; 27:49D1
 	ld a, $02
-	ld [wRam_C264], a
+	ld [wMailScreenMode], a
 
 Label_27_49D6:: ; 27:49D6
 	pop af
@@ -1343,7 +1343,7 @@ Label_27_49D6:: ; 27:49D6
 	ld de, $2F48
 	ld hl, $DA30
 	call Function_00_0A65
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_27_4A81
 	call Mail_OutboxIsEmpty
@@ -1911,9 +1911,9 @@ Label_27_4EEB:: ; 27:4EEB
 	farcall Function_00_08EA
 	ld a, [wTimerAFrames]
 	ldh [hRam_FFB0], a
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	ldh [hRam_FFB1], a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	ldh [hRam_FFB2], a
 	ld a, [wRam_C2D7]
 	ldh [hRam_FFB3], a
@@ -1954,7 +1954,7 @@ Label_27_4F84:: ; 27:4F84
 	farcall Function_00_0956
 	farcall Palette_FadeInFromWhite
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 
 Label_27_4FC0:: ; 27:4FC0
 	farcall Function_00_0956

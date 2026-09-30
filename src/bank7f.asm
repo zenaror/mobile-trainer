@@ -602,11 +602,11 @@ Label_7F_42F9:: ; 7F:42F9
 	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D0], a
+	ld [wGlyphMaskCur], a
 	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D1], a
+	ld [wGlyphMaskNext], a
 	pop hl
 	pop de
 	ld a, [de]
@@ -629,7 +629,7 @@ Label_7F_4330:: ; 7F:4330
 
 Label_7F_4339:: ; 7F:4339
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -638,7 +638,7 @@ Label_7F_4339:: ; 7F:4339
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -687,7 +687,7 @@ Label_7F_4375:: ; 7F:4375
 
 Label_7F_437E:: ; 7F:437E
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -696,7 +696,7 @@ Label_7F_437E:: ; 7F:437E
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -745,7 +745,7 @@ Label_7F_43BA:: ; 7F:43BA
 
 Label_7F_43C3:: ; 7F:43C3
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -754,7 +754,7 @@ Label_7F_43C3:: ; 7F:43C3
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -803,7 +803,7 @@ Label_7F_43FF:: ; 7F:43FF
 
 Label_7F_4408:: ; 7F:4408
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -812,7 +812,7 @@ Label_7F_4408:: ; 7F:4408
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -861,7 +861,7 @@ Label_7F_4444:: ; 7F:4444
 
 Label_7F_444D:: ; 7F:444D
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -870,7 +870,7 @@ Label_7F_444D:: ; 7F:444D
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -919,7 +919,7 @@ Label_7F_4489:: ; 7F:4489
 
 Label_7F_4492:: ; 7F:4492
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -928,7 +928,7 @@ Label_7F_4492:: ; 7F:4492
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -977,7 +977,7 @@ Label_7F_44CE:: ; 7F:44CE
 
 Label_7F_44D7:: ; 7F:44D7
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -986,7 +986,7 @@ Label_7F_44D7:: ; 7F:44D7
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1035,7 +1035,7 @@ Label_7F_4513:: ; 7F:4513
 
 Label_7F_451C:: ; 7F:451C
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1044,7 +1044,7 @@ Label_7F_451C:: ; 7F:451C
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1089,7 +1089,7 @@ Label_7F_4558:: ; 7F:4558
 
 Label_7F_4561:: ; 7F:4561
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1098,7 +1098,7 @@ Label_7F_4561:: ; 7F:4561
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1147,7 +1147,7 @@ Label_7F_459D:: ; 7F:459D
 
 Label_7F_45A6:: ; 7F:45A6
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1156,7 +1156,7 @@ Label_7F_45A6:: ; 7F:45A6
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1205,7 +1205,7 @@ Label_7F_45E2:: ; 7F:45E2
 
 Label_7F_45EB:: ; 7F:45EB
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1214,7 +1214,7 @@ Label_7F_45EB:: ; 7F:45EB
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1263,7 +1263,7 @@ Label_7F_4627:: ; 7F:4627
 
 Label_7F_4630:: ; 7F:4630
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1272,7 +1272,7 @@ Label_7F_4630:: ; 7F:4630
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1321,7 +1321,7 @@ Label_7F_466C:: ; 7F:466C
 
 Label_7F_4675:: ; 7F:4675
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1330,7 +1330,7 @@ Label_7F_4675:: ; 7F:4675
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1379,7 +1379,7 @@ Label_7F_46B1:: ; 7F:46B1
 
 Label_7F_46BA:: ; 7F:46BA
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1388,7 +1388,7 @@ Label_7F_46BA:: ; 7F:46BA
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1437,7 +1437,7 @@ Label_7F_46F6:: ; 7F:46F6
 
 Label_7F_46FF:: ; 7F:46FF
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1446,7 +1446,7 @@ Label_7F_46FF:: ; 7F:46FF
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1495,7 +1495,7 @@ Label_7F_473B:: ; 7F:473B
 
 Label_7F_4744:: ; 7F:4744
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1504,7 +1504,7 @@ Label_7F_4744:: ; 7F:4744
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1549,7 +1549,7 @@ Label_7F_4780:: ; 7F:4780
 
 Label_7F_4789:: ; 7F:4789
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1558,7 +1558,7 @@ Label_7F_4789:: ; 7F:4789
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1607,7 +1607,7 @@ Label_7F_47C5:: ; 7F:47C5
 
 Label_7F_47CE:: ; 7F:47CE
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1616,7 +1616,7 @@ Label_7F_47CE:: ; 7F:47CE
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1665,7 +1665,7 @@ Label_7F_480A:: ; 7F:480A
 
 Label_7F_4813:: ; 7F:4813
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1674,7 +1674,7 @@ Label_7F_4813:: ; 7F:4813
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1723,7 +1723,7 @@ Label_7F_484F:: ; 7F:484F
 
 Label_7F_4858:: ; 7F:4858
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1732,7 +1732,7 @@ Label_7F_4858:: ; 7F:4858
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1781,7 +1781,7 @@ Label_7F_4894:: ; 7F:4894
 
 Label_7F_489D:: ; 7F:489D
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1790,7 +1790,7 @@ Label_7F_489D:: ; 7F:489D
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1839,7 +1839,7 @@ Label_7F_48D9:: ; 7F:48D9
 
 Label_7F_48E2:: ; 7F:48E2
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1848,7 +1848,7 @@ Label_7F_48E2:: ; 7F:48E2
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1897,7 +1897,7 @@ Label_7F_491E:: ; 7F:491E
 
 Label_7F_4927:: ; 7F:4927
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1906,7 +1906,7 @@ Label_7F_4927:: ; 7F:4927
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1955,7 +1955,7 @@ Label_7F_4963:: ; 7F:4963
 
 Label_7F_496C:: ; 7F:496C
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -1964,7 +1964,7 @@ Label_7F_496C:: ; 7F:496C
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2059,11 +2059,11 @@ Label_7F_49E2:: ; 7F:49E2
 	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D0], a
+	ld [wGlyphMaskCur], a
 	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D1], a
+	ld [wGlyphMaskNext], a
 	pop hl
 	pop de
 	ld b, $0C
@@ -2090,7 +2090,7 @@ Label_7F_4A1C:: ; 7F:4A1C
 
 Label_7F_4A25:: ; 7F:4A25
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2099,7 +2099,7 @@ Label_7F_4A25:: ; 7F:4A25
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2144,7 +2144,7 @@ Label_7F_4A61:: ; 7F:4A61
 
 Label_7F_4A6A:: ; 7F:4A6A
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2153,7 +2153,7 @@ Label_7F_4A6A:: ; 7F:4A6A
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2256,11 +2256,11 @@ Label_7F_4AEB:: ; 7F:4AEB
 	ld hl, Canvas_BlitMaskCur
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D0], a
+	ld [wGlyphMaskCur], a
 	ld hl, Canvas_BlitMaskNext
 	add hl, bc
 	ld a, [hl]
-	ld [wRam_C0D1], a
+	ld [wGlyphMaskNext], a
 	pop hl
 	pop de
 	ld b, $0C
@@ -2305,7 +2305,7 @@ Label_7F_4B39:: ; 7F:4B39
 
 Label_7F_4B42:: ; 7F:4B42
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2314,7 +2314,7 @@ Label_7F_4B42:: ; 7F:4B42
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2359,7 +2359,7 @@ Label_7F_4B7E:: ; 7F:4B7E
 
 Label_7F_4B87:: ; 7F:4B87
 	ld c, a
-	ld a, [wRam_C0D1]
+	ld a, [wGlyphMaskNext]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2368,7 +2368,7 @@ Label_7F_4B87:: ; 7F:4B87
 	ld a, c
 	pop hl
 	ld b, a
-	ld a, [wRam_C0D0]
+	ld a, [wGlyphMaskCur]
 	ld d, a
 	ld a, [hl]
 	and a, d
@@ -2937,7 +2937,7 @@ Function_7F_4FDB:: ; 7F:4FDB
 	cp a, $00
 	jr nz, Label_7F_500C
 	xor a, a
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 
 Label_7F_500C:: ; 7F:500C
 	call Function_7F_51EE
@@ -2946,7 +2946,7 @@ Label_7F_500C:: ; 7F:500C
 Function_7F_5011:: ; 7F:5011
 	push bc
 	farcall Function_00_0956
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, Label_7F_5128
 	ld a, [wTimerEnable]
@@ -2973,11 +2973,11 @@ Label_7F_503A:: ; 7F:503A
 	jr nz, Label_7F_5089
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_7F_5088
 	jr nz, Label_7F_5064
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_7F_5088
 
@@ -3013,7 +3013,7 @@ Label_7F_5089:: ; 7F:5089
 
 Label_7F_5091:: ; 7F:5091
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
@@ -3025,13 +3025,13 @@ Label_7F_5091:: ; 7F:5091
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	pop bc
 	push bc
 	push af
@@ -4006,7 +4006,7 @@ Label_7F_57B1:: ; 7F:57B1
 
 Function_7F_5805:: ; 7F:5805
 	ld a, $14
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_7F_580A:: ; 7F:580A
 	ld a, $06
@@ -4047,10 +4047,10 @@ Label_7F_580A:: ; 7F:580A
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_7F_5885
 	cp a, $01
@@ -4069,9 +4069,9 @@ Label_7F_5860:: ; 7F:5860
 	pop de
 	pop bc
 	call Function_7F_58A5
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_7F_5885
 	cp a, $01
@@ -4090,11 +4090,11 @@ Label_7F_5885:: ; 7F:5885
 	pop bc
 
 Label_7F_5896:: ; 7F:5896
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call Function_7F_58A5
 	jr Label_7F_5896
 
@@ -4234,7 +4234,7 @@ Function_7F_5989:: ; 7F:5989
 Label_7F_5991:: ; 7F:5991
 	push bc
 	farcall Function_00_0956
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, Label_7F_5ACF
 	ld a, [wTimerEnable]
@@ -4261,11 +4261,11 @@ Label_7F_59BA:: ; 7F:59BA
 	jr nz, Label_7F_5A09
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_7F_5A08
 	jr nz, Label_7F_59E4
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_7F_5A08
 
@@ -4301,7 +4301,7 @@ Label_7F_5A09:: ; 7F:5A09
 
 Label_7F_5A11:: ; 7F:5A11
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
 	call Function_00_09E6
@@ -4338,13 +4338,13 @@ Label_7F_5A11:: ; 7F:5A11
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	pop bc
 	push bc
 	push af
@@ -5390,8 +5390,8 @@ Function_7F_61E7:: ; 7F:61E7
 	ldh [rSVBK], a
 	xor a, a
 	ld [wTimerAFrames], a
-	ld [wRam_C2D5], a
-	ld [wRam_C2D6], a
+	ld [wTimerASeconds], a
+	ld [wTimerAMinutes], a
 	ld [wRam_C2D7], a
 	ret
 
@@ -5407,8 +5407,8 @@ Timer_ResetClockB:: ; 7F:61FF
 	push af
 	xor a, a
 	ld [wTimerBFrames], a
-	ld [wRam_C267], a
-	ld [wRam_C268], a
+	ld [wTimerBSeconds], a
+	ld [wTimerBMinutes], a
 	pop af
 	ret
 
@@ -5826,7 +5826,7 @@ KbdSlide_InStepMode6:: ; 7F:7116
 KbdSlide_OutPrepMode6:: ; 7F:7125
 	push af
 	ld d, $00
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	cp a, $00
 	jr z, Label_7F_7136
 
@@ -6091,7 +6091,7 @@ Label_7F_7297:: ; 7F:7297
 	ldh [rSTAT], a
 	xor a, a
 	ldh [rLYC], a
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	xor a, a
 	ldh [rIF], a
 	pop af
@@ -6221,9 +6221,9 @@ Function_7F_733A::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	add a, b
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ei
 	ld a, [wSpriteSlots + 64]
 	sub a, b
@@ -6282,9 +6282,9 @@ Function_7F_7425::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	add a, b
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ei
 	ld a, [wSpriteSlots + 64]
 	sub a, b
@@ -6363,9 +6363,9 @@ Function_7F_7578::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	sub a, b
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ei
 	ld a, [wSpriteSlots + 64]
 	add a, b
@@ -6441,9 +6441,9 @@ Function_7F_76C4::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	sub a, b
-	ld [wRam_C0D3], a
+	ld [wSplitScrollY], a
 	ei
 	ld a, [wSpriteSlots + 64]
 	add a, b
@@ -6508,7 +6508,7 @@ Function_7F_7817:: ; 7F:7817
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	inc c
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ld b, a
 	ld a, $20
 	sub a, b

@@ -864,17 +864,17 @@ Data_55_5986:: ; 55:5986
 
 Kbd_Open:: ; 55:5BA2
 Function_55_5BA2::
-	ld [wRam_C2AB], a
+	ld [wKbdType], a
 	ld a, b
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	ld a, c
 	call Kbd_LoadInputMode
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
 	xor a, a
-	ld [wRam_C2AC], a
-	ld a, [wRam_C2AB]
+	ld [wKbdPage], a
+	ld a, [wKbdType]
 	ld hl, Table_Kbd_StartCell
 	add a, l
 	ld l, a
@@ -882,10 +882,10 @@ Function_55_5BA2::
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	ld a, $FF
-	ld [wRam_C2BD], a
-	ld [wRam_C2BE], a
+	ld [wKbdStickyCol], a
+	ld [wKbdStickyRow], a
 	ld [wRam_C2B0], a
 	ld a, $01
 	ld [wRam_C2B1], a
@@ -917,7 +917,7 @@ Label_55_5BDD:: ; 55:5BDD
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6ED6
 	or a, a
 	jp z, Label_55_5C5A
@@ -946,7 +946,7 @@ Label_55_5BDD:: ; 55:5BDD
 	jr Label_55_5C5A
 
 Label_55_5C5A:: ; 55:5C5A
-	ld a, [wRam_C2AF]
+	ld a, [wKbdMode]
 	cp a, $02
 	jr nz, Label_55_5C71
 	call Kbd_ShowInstant
@@ -975,7 +975,7 @@ Kbd_Run:: ; 55:5C8F
 	ld [wRam_C2B4], a
 	ld a, $01
 	ld [wRam_C2B3], a
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Label_55_5CA3
 
@@ -987,11 +987,11 @@ Kbd_Run:: ; 55:5C8F
 
 Label_55_5CA3:: ; 55:5CA3
 	xor a, a
-	ld [wRam_C2B2], a
-	ld a, [wRam_C2AB]
+	ld [wKbdGlyphDirty], a
+	ld a, [wKbdType]
 	cp a, $0A
 	jp z, Label_55_6563
-	ld a, [wRam_C2AF]
+	ld a, [wKbdMode]
 	cp a, $02
 	jr z, Label_55_5CBC
 	cp a, $00
@@ -999,11 +999,11 @@ Label_55_5CA3:: ; 55:5CA3
 	jr Label_55_5CE0
 
 Label_55_5CBC:: ; 55:5CBC
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6EAA
 	or a, a
 	jr z, Label_55_5CE0
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
 	ld l, a
@@ -1011,7 +1011,7 @@ Label_55_5CBC:: ; 55:5CBC
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
 	jr Label_55_5CE0
@@ -1020,14 +1020,14 @@ Label_55_5CDD:: ; 55:5CDD
 	call Kbd_SlideIn
 
 Label_55_5CE0:: ; 55:5CE0
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6EC0
 	or a, a
 	jr z, Label_55_5D05
 	ld a, [wRam_C2B4]
 	or a, a
 	jr z, Label_55_5D05
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
 	ld l, a
@@ -1035,16 +1035,16 @@ Label_55_5CE0:: ; 55:5CE0
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
 
 Label_55_5D05:: ; 55:5D05
 	ld a, $01
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $07
 	jr nz, Label_55_5D36
 	ld a, [wRam_C2B4]
@@ -1060,7 +1060,7 @@ Label_55_5D05:: ; 55:5D05
 	call Function_00_0A65
 
 Label_55_5D36:: ; 55:5D36
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Kbd_Run_Loop
 
@@ -1077,7 +1077,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	call Kbd_DrawGlyphPreview
 	farcall Joypad_Update
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_5D66
@@ -1088,7 +1088,7 @@ Label_55_5D66:: ; 55:5D66
 	call Function_00_0464
 
 Label_55_5D69:: ; 55:5D69
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Label_55_5D76
 
@@ -1148,7 +1148,7 @@ Label_55_5DC1:: ; 55:5DC1
 	jp Label_55_5E5A
 
 Label_55_5DCC:: ; 55:5DCC
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, $400A
 	add a, l
 	ld l, a
@@ -1156,7 +1156,7 @@ Label_55_5DCC:: ; 55:5DCC
 	adc a, h
 	ld h, a
 	ld a, [hl]
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	call Kbd_FetchCell
 	call Kbd_UpdateCursorSprite
 	ldh a, [hWRAMBank]
@@ -1170,7 +1170,7 @@ Label_55_5DCC:: ; 55:5DCC
 	jp Label_55_5E5A
 
 ; ---- code $5DF5-$5E02 (13 bytes) [HYPOTHESIS] 13-byte routine ld a,[$C2AB] ; call $6EEC ; or a ; jp z,$5E5A ; jp $5F29 - the state variable and the jp targets match the neighbouring CONFIRMED handlers, and it calls the (now classified) lookup routine 6EEC; no branch into it found [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6EEC
 	or a, a
 	jp z, Label_55_5E5A
@@ -1179,12 +1179,12 @@ Label_55_5DCC:: ; 55:5DCC
 ; ---- code $5E02-$5E30 (46 bytes) [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
 
 Label_55_5E02:: ; 55:5E02
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr z, Label_55_5E42
 	cp a, $01
 	jr z, Label_55_5E57
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeHasPages
 	or a, a
 	jp z, Kbd_Run_Loop
@@ -1228,7 +1228,7 @@ Label_55_5E4B:: ; 55:5E4B
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	jp Label_55_5F26
 
 ; ---- code $5E57-$5E75 (30 bytes) [CONFIRMED] 14 insn(s); 14 executed (in up to 10/18 scenarios)
@@ -1264,7 +1264,7 @@ Label_55_5E78:: ; 55:5E78
 ; ---- code $5E7B-$5E82 (7 bytes) [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 
 Label_55_5E7B:: ; 55:5E7B
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $03
 	jr nz, Label_55_5E8E
 
@@ -1332,18 +1332,18 @@ Label_55_5EB9:: ; 55:5EB9
 ; ---- code $5ED3-$5EEE (27 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 
 Label_55_5ED3:: ; 55:5ED3
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6F02
 	or a, a
 	jr z, Label_55_5F23
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	jr Label_55_5F23
 
 Label_55_5EE7:: ; 55:5EE7
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $07
 	jr nz, Label_55_5EF5
 
@@ -1355,7 +1355,7 @@ Label_55_5EE7:: ; 55:5EE7
 ; ---- code $5EF5-$5EFE (9 bytes) [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios)
 
 Label_55_5EF5:: ; 55:5EF5
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Function_55_6F18
 	or a, a
 	jr z, Label_55_5F20
@@ -1364,13 +1364,13 @@ Label_55_5EF5:: ; 55:5EF5
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	jr Label_55_5F20
 
 ; ---- code $5F09-$5F1D (20 bytes) [CONFIRMED] 10 insn(s); 10 executed (in up to 10/18 scenarios)
 
 Label_55_5F09:: ; 55:5F09
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $01
 	jr nz, Label_55_5F17
 	call Kbd_RejectSymbol
@@ -1411,7 +1411,7 @@ Label_55_5F29:: ; 55:5F29
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	ld a, $09
 	ret
 
@@ -1419,7 +1419,7 @@ Label_55_5F29:: ; 55:5F29
 
 Kbd_FetchCell:: ; 55:5F35
 Function_55_5F35::
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Table_Kbd_PagePointers
 	add a, a
 	add a, l
@@ -1430,7 +1430,7 @@ Function_55_5F35::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C2AC]
+	ld a, [wKbdPage]
 	add a, a
 	add a, l
 	ld l, a
@@ -1440,7 +1440,7 @@ Function_55_5F35::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C2B5]
+	ld a, [wKbdCursorCell]
 	ld d, $00
 	ld e, a
 	add hl, de
@@ -1465,9 +1465,9 @@ Kbd_MoveCursor:: ; 55:5F66
 	pop af
 	ldh [rSVBK], a
 	pop af
-	ld [wRam_C2B9], a
+	ld [wKbdMoveDirection], a
 	push af
-	ld a, [wRam_C2B5]
+	ld a, [wKbdCursorCell]
 	ld b, $00
 	ld c, a
 	ld d, $00
@@ -1475,7 +1475,7 @@ Kbd_MoveCursor:: ; 55:5F66
 	call Multiply16
 	ld d, h
 	ld e, l
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Table_Kbd_NeighbourRecords
 	add a, a
 	add a, l
@@ -1531,16 +1531,16 @@ Table_55_5FC8:: ; 55:5FC8
 	jp z, Label_55_602E
 
 Label_55_5FD8:: ; 55:5FD8
-	ld a, [wRam_C2BE]
+	ld a, [wKbdStickyRow]
 	cp a, $FF
 	jr z, Label_55_602E
 	ld a, [wRam_C2B6]
 	call Kbd_IndexToColRow
 	call Function_55_6041
-	ld a, [wRam_C2BE]
+	ld a, [wKbdStickyRow]
 	ld c, a
 	call Kbd_ColRowToIndex
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	jr Label_55_6029
 
 	ld a, [wRam_C2B7]
@@ -1553,16 +1553,16 @@ Label_55_5FD8:: ; 55:5FD8
 	jr z, Label_55_602E
 
 Label_55_6004:: ; 55:6004
-	ld a, [wRam_C2BD]
+	ld a, [wKbdStickyCol]
 	cp a, $FF
 	jr z, Label_55_602E
 	ld a, [wRam_C2B6]
 	call Kbd_IndexToColRow
 	call Function_55_6041
-	ld a, [wRam_C2BD]
+	ld a, [wKbdStickyCol]
 	ld b, a
 	call Kbd_ColRowToIndex
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 	jr Label_55_6029
 
 	ld a, [wRam_C2B7]
@@ -1575,18 +1575,18 @@ Label_55_6029:: ; 55:6029
 	jr Label_55_603D
 
 Label_55_602E:: ; 55:602E
-	ld a, [wRam_C2B5]
+	ld a, [wKbdCursorCell]
 	call Kbd_SplitCursorIndex
 	call Function_55_6068
 	ld a, [wRam_C2B6]
-	ld [wRam_C2B5], a
+	ld [wKbdCursorCell], a
 
 Label_55_603D:: ; 55:603D
 	call Kbd_FetchCell
 	ret
 
 Function_55_6041:: ; 55:6041
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $01
 	jr z, Label_55_604D
 	cp a, $03
@@ -1596,20 +1596,20 @@ Function_55_6041:: ; 55:6041
 ; ---- code $604D-$6068 (27 bytes) [PROBABLE] 16 insn(s) reached by static flow only; seeds: exec x16; min discovery hops 1; entered by jrcc from 55:6046 (executed)
 
 Label_55_604D:: ; 55:604D
-	ld a, [wRam_C2B9]
+	ld a, [wKbdMoveDirection]
 	or a, a
 	ret nz
-	ld a, [wRam_C2BE]
+	ld a, [wKbdStickyRow]
 	cp a, $03
 	ret nz
 	inc b
 	ret
 
 Label_55_605A:: ; 55:605A
-	ld a, [wRam_C2B9]
+	ld a, [wKbdMoveDirection]
 	cp a, $02
 	ret nz
-	ld a, [wRam_C2BD]
+	ld a, [wKbdStickyCol]
 	cp a, $11
 	ret nz
 	inc c
@@ -1618,13 +1618,13 @@ Label_55_605A:: ; 55:605A
 ; ---- code $6068-$6087 (31 bytes) [CONFIRMED] 17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an executed call/far call
 
 Function_55_6068:: ; 55:6068
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $FF
 	jr z, Label_55_60E1
 	ld a, $FF
-	ld [wRam_C2BD], a
-	ld [wRam_C2BE], a
-	ld a, [wRam_C2B9]
+	ld [wKbdStickyCol], a
+	ld [wKbdStickyRow], a
+	ld a, [wKbdMoveDirection]
 	add a, a
 	add a, $87
 	ld l, a
@@ -1675,17 +1675,17 @@ Table_55_6087:: ; 55:6087
 	ret
 
 Function_55_60D3:: ; 55:60D3
-	ld a, [wRam_C2BA]
-	ld [wRam_C2BD], a
+	ld a, [wKbdCursorCol]
+	ld [wKbdStickyCol], a
 	ret
 
 Function_55_60DA:: ; 55:60DA
-	ld a, [wRam_C2BB]
-	ld [wRam_C2BE], a
+	ld a, [wKbdCursorRow]
+	ld [wKbdStickyRow], a
 	ret
 
 Label_55_60E1:: ; 55:60E1
-	ld a, [wRam_C2B9]
+	ld a, [wKbdMoveDirection]
 	add a, a
 	add a, $F1
 	ld l, a
@@ -1737,16 +1737,16 @@ Table_55_60F1:: ; 55:60F1
 
 Function_55_613D:: ; 55:613D
 	ld a, $FF
-	ld [wRam_C2BD], a
+	ld [wKbdStickyCol], a
 	ret
 
 Function_55_6143:: ; 55:6143
 	ld a, $FF
-	ld [wRam_C2BE], a
+	ld [wKbdStickyRow], a
 	ret
 
 Kbd_SplitCursorIndex:: ; 55:6149
-	ld a, [wRam_C2B5]
+	ld a, [wKbdCursorCell]
 	ld b, $00
 
 Label_55_614E:: ; 55:614E
@@ -1757,9 +1757,9 @@ Label_55_614E:: ; 55:614E
 
 Label_55_6155:: ; 55:6155
 	add a, $12
-	ld [wRam_C2BA], a
+	ld [wKbdCursorCol], a
 	ld a, b
-	ld [wRam_C2BB], a
+	ld [wKbdCursorRow], a
 	ret
 
 Kbd_IndexToColRow:: ; 55:615F
@@ -1790,17 +1790,17 @@ Kbd_ColRowToIndex:: ; 55:616D
 
 Function_55_617B:: ; 55:617B
 	ld a, $FF
-	ld [wRam_C2BD], a
-	ld [wRam_C2BE], a
+	ld [wKbdStickyCol], a
+	ld [wKbdStickyRow], a
 	ret
 
 ; ---- code $6184-$6190 (12 bytes) [HYPOTHESIS] two 6-byte routines (ld a,$FF ; ld [$C2BD],a ; ret) and (ld a,$FF ; ld [$C2BE],a ; ret): siblings of the called routines 613D/6143 and of 617B (which writes both); nothing calls them
 	ld a, $FF
-	ld [wRam_C2BD], a
+	ld [wKbdStickyCol], a
 	ret
 
 	ld a, $FF
-	ld [wRam_C2BE], a
+	ld [wKbdStickyRow], a
 	ret
 
 ; ---- code $6190-$624D (189 bytes) [CONFIRMED] 103 insn(s); 103 executed (in up to 11/18 scenarios); entry proven: target of an executed call/far call
@@ -1808,7 +1808,7 @@ Function_55_617B:: ; 55:617B
 Kbd_UpdateCursorSprite:: ; 55:6190
 Function_55_6190::
 	call Kbd_SplitCursorIndex
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Data_55_62A0
 	add a, a
 	add a, l
@@ -1840,7 +1840,7 @@ Label_55_61BF:: ; 55:61BF
 	ld b, $82
 	farcall Function_00_0A82
 	pop bc
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Table_55_62B4
 	add a, a
 	add a, l
@@ -1851,7 +1851,7 @@ Label_55_61BF:: ; 55:61BF
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	sub a, $80
 	add a, a
 	add a, l
@@ -1870,24 +1870,24 @@ Label_55_61BF:: ; 55:61BF
 	ld c, a
 
 Label_55_61F6:: ; 55:61F6
-	ld a, [wRam_C2BB]
+	ld a, [wKbdCursorRow]
 	sla a
 	sla a
 	sla a
 	sla a
 	add a, c
 	ld e, a
-	ld a, [wRam_C2BA]
+	ld a, [wKbdCursorCol]
 	sla a
 	sla a
 	sla a
 	add a, b
 	ld d, a
 	ld a, e
-	ld [wRam_C284], a
+	ld [wKbdCursorSpriteY], a
 	ld a, d
-	ld [wRam_C285], a
-	ld a, [wRam_C2AE]
+	ld [wKbdCursorSpriteX], a
+	ld a, [wKeyboardCharHi]
 	cp a, $FF
 	jr nz, Label_55_623B
 	ldh [hScratchA], a
@@ -1908,10 +1908,10 @@ Label_55_61F6:: ; 55:61F6
 	ldh a, [hScratchA]
 
 Label_55_623B:: ; 55:623B
-	ld a, [wRam_C2AE]
+	ld a, [wKeyboardCharHi]
 	cp a, $FF
 	jr nz, Label_55_6299
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	cp a, $82
 	jr z, Label_55_624F
 	cp a, $83
@@ -2014,7 +2014,7 @@ Function_55_6318::
 	ldh [rSVBK], a
 	call Kbd_GetSlideTargetY
 	ld [wRam_C2A2], a
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $06
 	jr nz, Label_55_6348
 	farcall KbdSlide_InPrepMode6
@@ -2035,13 +2035,13 @@ Label_55_635C:: ; 55:635C
 	farcall KbdSlide_InPrepMode7
 
 Label_55_6366:: ; 55:6366
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Label_55_6386
 
 ; ---- code $636D-$6386 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:636B (executed)
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6381
@@ -2057,7 +2057,7 @@ Label_55_6384:: ; 55:6384
 ; ---- code $6386-$63CD (71 bytes) [CONFIRMED] 29 insn(s); 29 executed (in up to 5/18 scenarios)
 
 Label_55_6386:: ; 55:6386
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $06
 	jr nz, Label_55_639A
 	push de
@@ -2117,7 +2117,7 @@ Label_55_63D2:: ; 55:63D2
 	ret
 
 Kbd_ShowInstant:: ; 55:63E7
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_63F5
@@ -2140,7 +2140,7 @@ Label_55_63F8:: ; 55:63F8
 	ret
 
 Kbd_GetSlideTargetY:: ; 55:640E
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Data_55_641C
 	add a, l
 	ld l, a
@@ -2168,7 +2168,7 @@ Function_55_6427::
 	ld hl, $DAD0
 	call Function_00_09E6
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6453
@@ -2194,7 +2194,7 @@ Label_55_6456:: ; 55:6456
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $06
 	jr nz, Label_55_6478
 	farcall KbdSlide_OutPrepMode6
@@ -2215,13 +2215,13 @@ Label_55_648C:: ; 55:648C
 	farcall KbdSlide_OutPrepMode7
 
 Label_55_6496:: ; 55:6496
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $05
 	jr nz, Label_55_64B6
 
 ; ---- code $649D-$64B6 (25 bytes) [PROBABLE] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0; fall-through of the jrcc at 55:649B (executed)
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_64B1
@@ -2237,7 +2237,7 @@ Label_55_64B4:: ; 55:64B4
 ; ---- code $64B6-$6548 (146 bytes) [CONFIRMED] 60 insn(s); 60 executed (in up to 8/18 scenarios)
 
 Label_55_64B6:: ; 55:64B6
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	cp a, $06
 	jr nz, Label_55_64CA
 	push de
@@ -2303,7 +2303,7 @@ Kbd_HideInstant:: ; 55:651C
 	ld hl, $DAD0
 	call Function_00_09E6
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6548
@@ -2330,7 +2330,7 @@ Kbd_Hide:: ; 55:6559
 	xor a, a
 	call Kbd_SlideOut
 	ld a, $00
-	ld [wRam_C2AF], a
+	ld [wKbdMode], a
 	ret
 
 Label_55_6563:: ; 55:6563
@@ -2351,7 +2351,7 @@ Label_55_6563:: ; 55:6563
 
 Label_55_6580:: ; 55:6580
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6594
@@ -2395,7 +2395,7 @@ Label_55_65A4:: ; 55:65A4
 	ret
 
 Label_55_65C9:: ; 55:65C9
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	ld hl, Data_55_65D7
 	add a, l
 	ld l, a
@@ -2426,7 +2426,7 @@ Label_55_65EA:: ; 55:65EA
 Label_55_65ED:: ; 55:65ED
 	farcall Joypad_Update
 	farcall Function_00_0956
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6607
@@ -2520,7 +2520,7 @@ Label_55_6666:: ; 55:6666
 
 Kbd_UpdatePickerSprites:: ; 55:667B
 	ld hl, Data_55_66C0
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	add a, l
 	ld l, a
 	ld a, $00
@@ -2531,7 +2531,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld e, a
 	ld hl, $DAB0
 	call Function_00_0A65
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	inc a
 	set 7, a
 	ld b, a
@@ -2540,7 +2540,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld a, $5F
 	farcall Function_00_0A82
 	ld hl, $66C3
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	add a, l
 	ld l, a
 	ld a, $00
@@ -2564,7 +2564,7 @@ Data_55_66C0:: ; 55:66C0
 Kbd_LoadPageGraphics:: ; 55:66C6
 Function_55_66C6::
 	ldh [hRam_FFB0], a
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Table_55_66D9
 	add a, a
 	add a, l
@@ -2742,7 +2742,7 @@ Label_55_679F:: ; 55:679F
 ; ---- code $6858-$6869 (17 bytes) [CONFIRMED] 12 insn(s); 12 executed (in up to 2/18 scenarios)
 
 Label_55_6858:: ; 55:6858
-	ld a, [wRam_C2AC]
+	ld a, [wKbdPage]
 	ld hl, Table_55_6869
 	add a, a
 	add a, l
@@ -2871,7 +2871,7 @@ Label_55_6952:: ; 55:6952
 	ret
 
 Label_55_696B:: ; 55:696B
-	ld a, [wRam_C2AC]
+	ld a, [wKbdPage]
 	ld hl, Table_55_697C
 	add a, a
 	add a, l
@@ -3058,7 +3058,7 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	ld b, $96
 	ld c, $16
 	ld hl, $D240
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B21
@@ -3078,7 +3078,7 @@ Label_55_6B27:: ; 55:6B27
 	ld b, $96
 	ld c, $16
 	ld hl, $D640
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B41
@@ -3118,7 +3118,7 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	ld b, $96
 	ld c, $1A
 	ld hl, $D240
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6B82
@@ -3138,7 +3138,7 @@ Label_55_6B88:: ; 55:6B88
 	ld b, $96
 	ld c, $1A
 	ld hl, $D640
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6BA2
@@ -3162,11 +3162,11 @@ Label_55_6BA8:: ; 55:6BA8
 	ret
 
 Kbd_ShowPageIndicator:: ; 55:6BB2
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeHasPages
 	or a, a
 	ret z
-	ld a, [wRam_C2AC]
+	ld a, [wKbdPage]
 	inc a
 	ld b, a
 	ld hl, $DAC0
@@ -3179,7 +3179,7 @@ Kbd_ShowPageIndicator:: ; 55:6BB2
 	ret
 
 Kbd_LoadPickerTabTiles:: ; 55:6BD7
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	ld hl, Data_55_6C0A
 	add a, a
 	add a, l
@@ -3193,7 +3193,7 @@ Kbd_LoadPickerTabTiles:: ; 55:6BD7
 	ld de, $8801
 	ld b, $95
 	ld c, $28
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6C01
@@ -3222,11 +3222,11 @@ Data_55_6C0A:: ; 55:6C0A
 Kbd_RequestGlyphRedraw:: ; 55:6C10
 Function_55_6C10::
 	ld a, $01
-	ld [wRam_C2B2], a
+	ld [wKbdGlyphDirty], a
 	ret
 
 Kbd_DrawGlyphPreview:: ; 55:6C16
-	ld a, [wRam_C2B2]
+	ld a, [wKbdGlyphDirty]
 	or a, a
 	ret z
 	ld hl, $C2AE
@@ -3288,9 +3288,9 @@ Label_55_6C48:: ; 55:6C48
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C284]
+	ld a, [wKbdCursorSpriteY]
 	ld [wSpriteSlots + 176], a
-	ld a, [wRam_C285]
+	ld a, [wKbdCursorSpriteX]
 	ld [wSpriteSlots + 177], a
 	ldh [hScratchA], a
 	pop af
@@ -3309,7 +3309,7 @@ Label_55_6C48:: ; 55:6C48
 	ld hl, $DE00
 	ld b, $98
 	ld c, $02
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, Label_55_6CB2
@@ -3327,7 +3327,7 @@ Label_55_6CB8:: ; 55:6CB8
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	xor a, a
-	ld [wRam_C2B2], a
+	ld [wKbdGlyphDirty], a
 	ret
 
 Text_HalfToFullWidth:: ; 55:6CC6
@@ -3561,7 +3561,7 @@ Data_55_6F95:: ; 55:6F95
 
 Kbd_RejectSymbol:: ; 55:6FA1
 Function_55_6FA1::
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld b, a
 	ld c, $00
 	ld hl, Data_55_6FC7
@@ -3603,7 +3603,7 @@ Function_55_6FCD::
 	ld a, $5F
 	ld b, $81
 	farcall Function_00_0A82
-	ld a, [wRam_C2AB]
+	ld a, [wKbdType]
 	ld hl, Data_55_6FF4
 	add a, a
 	add a, l
@@ -3634,7 +3634,7 @@ Function_55_7000::
 Kbd_LoadInputMode:: ; 55:7007
 	or a, a
 	jr nz, Label_55_700E
-	ld [wRam_C2BC], a
+	ld [wKbdInputMode], a
 	ret
 
 Label_55_700E:: ; 55:700E
@@ -3666,11 +3666,11 @@ Label_55_700E:: ; 55:700E
 	ld [rRAMG], a
 	ldh a, [hScratchA]
 	ld a, b
-	ld [wRam_C2BC], a
+	ld [wKbdInputMode], a
 	ret
 
 Kbd_SaveInputMode:: ; 55:7048
-	ld a, [wRam_C2BC]
+	ld a, [wKbdInputMode]
 	ld hl, $BF05
 	ld b, a
 	ldh [hScratchA], a

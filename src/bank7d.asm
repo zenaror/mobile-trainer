@@ -1030,7 +1030,7 @@ Joypad_UpdateUnsaved:: ; 7D:7BC1
 	ld e, $00
 
 Label_7D_7BD4:: ; 7D:7BD4
-	ld a, [wRam_C2E1]
+	ld a, [wJoyRepeatDelay]
 	rl b
 	jr nc, Label_7D_7BE4
 	ccf
@@ -1040,7 +1040,7 @@ Label_7D_7BD4:: ; 7D:7BD4
 
 ; ---- code $7BE0-$7BE4 (4 bytes) [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0; fall-through of the jrcc at 7D:7BDE (executed) [executed in 1 scenarios]
 	scf
-	ld a, [wRam_C2E2]
+	ld a, [wJoyRepeatInterval]
 
 ; ---- code $7BE4-$7C12 (46 bytes) [CONFIRMED] 26 insn(s); 26 executed (in up to 18/18 scenarios)
 
@@ -1066,9 +1066,9 @@ Joypad_Init:: ; 7D:7BF0
 
 Joypad_SetRepeatTiming:: ; 7D:7C00
 	ld a, c
-	ld [wRam_C2E2], a
+	ld [wJoyRepeatInterval], a
 	ld a, b
-	ld [wRam_C2E1], a
+	ld [wJoyRepeatDelay], a
 	ld hl, $C2E5
 	ld b, $08
 

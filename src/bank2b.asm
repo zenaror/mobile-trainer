@@ -495,7 +495,7 @@ Label_2B_441F:: ; 2B:441F
 MailDraft_DrawTextLine21:: ; 2B:4421
 Function_2B_4421::
 	ld a, $15
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_4426:: ; 2B:4426
 	ld a, $01
@@ -538,10 +538,10 @@ Label_2B_4426:: ; 2B:4426
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_44C1
 	cp a, $01
@@ -560,9 +560,9 @@ Label_2B_4481:: ; 2B:4481
 	pop de
 	pop bc
 	call MailDraft_DrawTextLine21_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_44C1
 	cp a, $01
@@ -581,9 +581,9 @@ Label_2B_44A6:: ; 2B:44A6
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine21_BlitBlankAdvance
 
 ; ---- code $44C1-$451E (93 bytes) [CONFIRMED] 50 insn(s); 50 executed (in up to 2/18 scenarios)
@@ -600,11 +600,11 @@ Label_2B_44C1:: ; 2B:44C1
 	pop bc
 
 Label_2B_44D2:: ; 2B:44D2
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine21_BlitBlankAdvance
 	jr Label_2B_44D2
 
@@ -640,7 +640,7 @@ MailDraft_DrawTextLine21_BlitBlankAdvance:: ; 2B:44F5
 
 MailDraft_DrawTextLine25:: ; 2B:450D
 	ld a, $19
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_4512:: ; 2B:4512
 	ld a, $01
@@ -685,10 +685,10 @@ Label_2B_4512:: ; 2B:4512
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_45AD
 	cp a, $01
@@ -707,9 +707,9 @@ Label_2B_456D:: ; 2B:456D
 	pop de
 	pop bc
 	call MailDraft_DrawTextLine25_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_45AD
 	cp a, $01
@@ -726,9 +726,9 @@ Label_2B_4592:: ; 2B:4592
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine25_BlitBlankAdvance
 
 ; ---- code $45AD-$45CD (32 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
@@ -745,11 +745,11 @@ Label_2B_45AD:: ; 2B:45AD
 	pop bc
 
 Label_2B_45BE:: ; 2B:45BE
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine25_BlitBlankAdvance
 	jr Label_2B_45BE
 
@@ -790,7 +790,7 @@ Function_2B_45E1::
 
 MailDraft_DrawTextLine17:: ; 2B:45F9
 	ld a, $11
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_45FE:: ; 2B:45FE
 	ld a, $01
@@ -835,10 +835,10 @@ Label_2B_45FE:: ; 2B:45FE
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_4699
 	cp a, $01
@@ -857,9 +857,9 @@ Label_2B_4659:: ; 2B:4659
 	pop de
 	pop bc
 	call MailDraft_DrawTextLine17_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_4699
 	cp a, $01
@@ -876,9 +876,9 @@ Label_2B_467E:: ; 2B:467E
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine17_BlitBlankAdvance
 
 ; ---- code $4699-$46B9 (32 bytes) [CONFIRMED] 16 insn(s); 16 executed (in up to 2/18 scenarios)
@@ -895,11 +895,11 @@ Label_2B_4699:: ; 2B:4699
 	pop bc
 
 Label_2B_46AA:: ; 2B:46AA
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailDraft_DrawTextLine17_BlitBlankAdvance
 	jr Label_2B_46AA
 
@@ -2194,7 +2194,7 @@ Label_2B_588A:: ; 2B:588A
 
 MailGrid_DrawTextLine12:: ; 2B:588B
 	ld a, $0C
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_5890:: ; 2B:5890
 	ld a, $01
@@ -2237,10 +2237,10 @@ Label_2B_5890:: ; 2B:5890
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_592B
 	cp a, $01
@@ -2259,9 +2259,9 @@ Label_2B_58EB:: ; 2B:58EB
 	pop de
 	pop bc
 	call MailGrid_DrawTextLine12_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_592B
 	cp a, $01
@@ -2278,9 +2278,9 @@ Label_2B_5910:: ; 2B:5910
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
 
 Label_2B_592B:: ; 2B:592B
@@ -2295,11 +2295,11 @@ Label_2B_592B:: ; 2B:592B
 	pop bc
 
 Label_2B_593C:: ; 2B:593C
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailGrid_DrawTextLine12_BlitBlankAdvance
 	jr Label_2B_593C
 
@@ -3302,7 +3302,7 @@ Table_2B_69AD::
 
 MailView_DrawTextLine20:: ; 2B:69C5
 	ld a, $14
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_69CA:: ; 2B:69CA
 	ld a, $01
@@ -3317,7 +3317,7 @@ Label_2B_69CA:: ; 2B:69CA
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6A2C
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2B_69EF
 	pop af
@@ -3352,10 +3352,10 @@ Label_2B_69EF:: ; 2B:69EF
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6A69
 	jr Label_2B_69CA
@@ -3372,9 +3372,9 @@ Label_2B_6A2C:: ; 2B:6A2C
 	pop de
 	pop bc
 	call MailView_DrawTextLine20_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6A69
 	jp Label_2B_69CA
@@ -3389,9 +3389,9 @@ Label_2B_6A4E:: ; 2B:6A4E
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
 
 Label_2B_6A69:: ; 2B:6A69
@@ -3406,11 +3406,11 @@ Label_2B_6A69:: ; 2B:6A69
 	pop bc
 
 Label_2B_6A7A:: ; 2B:6A7A
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine20_BlitBlankAdvance
 	jr Label_2B_6A7A
 
@@ -3446,7 +3446,7 @@ MailView_DrawTextLine20_BlitBlankAdvance:: ; 2B:6A9D
 
 MailView_DrawTextLine24:: ; 2B:6AB5
 	ld a, $18
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_6ABA:: ; 2B:6ABA
 	ld a, $01
@@ -3461,7 +3461,7 @@ Label_2B_6ABA:: ; 2B:6ABA
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6B1D
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2B_6ADF
 	pop af
@@ -3496,10 +3496,10 @@ Label_2B_6ADF:: ; 2B:6ADF
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6B5A
 	jp Label_2B_6ABA
@@ -3516,9 +3516,9 @@ Label_2B_6B1D:: ; 2B:6B1D
 	pop de
 	pop bc
 	call MailView_DrawTextLine24_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6B5A
 	jp Label_2B_6ABA
@@ -3533,9 +3533,9 @@ Label_2B_6B3F:: ; 2B:6B3F
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
 
 Label_2B_6B5A:: ; 2B:6B5A
@@ -3550,11 +3550,11 @@ Label_2B_6B5A:: ; 2B:6B5A
 	pop bc
 
 Label_2B_6B6B:: ; 2B:6B6B
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine24_BlitBlankAdvance
 	jr Label_2B_6B6B
 
@@ -3590,7 +3590,7 @@ MailView_DrawTextLine24_BlitBlankAdvance:: ; 2B:6B8E
 
 MailView_DrawTextLine16:: ; 2B:6BA6
 	ld a, $10
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_6BAB:: ; 2B:6BAB
 	ld a, $01
@@ -3605,7 +3605,7 @@ Label_2B_6BAB:: ; 2B:6BAB
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_6C0E
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_2B_6BD0
 	pop af
@@ -3640,10 +3640,10 @@ Label_2B_6BD0:: ; 2B:6BD0
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6C4B
 	jp Label_2B_6BAB
@@ -3660,9 +3660,9 @@ Label_2B_6C0E:: ; 2B:6C0E
 	pop de
 	pop bc
 	call MailView_DrawTextLine16_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_6C4B
 	jp Label_2B_6BAB
@@ -3677,9 +3677,9 @@ Label_2B_6C30:: ; 2B:6C30
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
 
 Label_2B_6C4B:: ; 2B:6C4B
@@ -3694,11 +3694,11 @@ Label_2B_6C4B:: ; 2B:6C4B
 	pop bc
 
 Label_2B_6C5C:: ; 2B:6C5C
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_DrawTextLine16_BlitBlankAdvance
 	jr Label_2B_6C5C
 
@@ -4665,7 +4665,7 @@ Label_2B_7DE7:: ; 2B:7DE7
 
 MailView_BodyPage_DrawTextLine24:: ; 2B:7DF2
 	ld a, $18
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_2B_7DF7:: ; 2B:7DF7
 	ld a, $01
@@ -4680,7 +4680,7 @@ Label_2B_7DF7:: ; 2B:7DF7
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_2B_7E57
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	jr z, Label_2B_7E54
 	pop af
@@ -4711,10 +4711,10 @@ Label_2B_7DF7:: ; 2B:7DF7
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_7E94
 	jr Label_2B_7DF7
@@ -4735,9 +4735,9 @@ Label_2B_7E57:: ; 2B:7E57
 	pop de
 	pop bc
 	call MailView_BodyPage_DrawTextLine24_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_2B_7E94
 	jp Label_2B_7DF7
@@ -4752,9 +4752,9 @@ Label_2B_7E79:: ; 2B:7E79
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
 
 Label_2B_7E94:: ; 2B:7E94
@@ -4769,11 +4769,11 @@ Label_2B_7E94:: ; 2B:7E94
 	pop bc
 
 Label_2B_7EA5:: ; 2B:7EA5
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call MailView_BodyPage_DrawTextLine24_BlitBlankAdvance
 	jr Label_2B_7EA5
 

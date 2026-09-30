@@ -44,7 +44,7 @@ PageList_Main:: ; 24:4018
 	cp a, $00
 	jr nz, Label_24_4053
 	xor a, a
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 
 Label_24_4053:: ; 24:4053
 	ld a, $06
@@ -76,7 +76,7 @@ Label_24_4053:: ; 24:4053
 PageList_Main_Loop:: ; 24:4083
 	push bc
 	farcall Function_00_0956
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, Label_24_41D7
 	ld a, [wTimerEnable]
@@ -103,11 +103,11 @@ Label_24_40AC:: ; 24:40AC
 	jr nz, Label_24_40FB
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_24_40FA
 	jr nz, Label_24_40D6
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_24_40FA
 
@@ -143,7 +143,7 @@ Label_24_40FB:: ; 24:40FB
 
 Label_24_4103:: ; 24:4103
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
 	call Function_00_09E6
 	ld de, $0110
@@ -179,13 +179,13 @@ Label_24_4103:: ; 24:4103
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	pop bc
 	push bc
 	push af
@@ -1250,7 +1250,7 @@ Label_24_48FB:: ; 24:48FB
 
 PageList_DrawTextLine:: ; 24:494C
 	ld a, $14
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_24_4951:: ; 24:4951
 	ld a, $06
@@ -1291,10 +1291,10 @@ Label_24_4951:: ; 24:4951
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_24_49CC
 	cp a, $01
@@ -1313,9 +1313,9 @@ Label_24_49A7:: ; 24:49A7
 	pop de
 	pop bc
 	call PageList_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_24_49CC
 	cp a, $01
@@ -1334,11 +1334,11 @@ Label_24_49CC:: ; 24:49CC
 	pop bc
 
 Label_24_49DD:: ; 24:49DD
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call PageList_BlitGlyphAdvance
 	jr Label_24_49DD
 
@@ -1584,7 +1584,7 @@ PageList_ActionMenu:: ; 24:4BCD
 PageList_ActionMenu_Loop:: ; 24:4BD5
 	push bc
 	farcall Function_00_0956
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, Label_24_4D39
 	ld a, [wTimerEnable]
@@ -1611,11 +1611,11 @@ Label_24_4BFE:: ; 24:4BFE
 	jr nz, Label_24_4C4D
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_24_4C4C
 	jr nz, Label_24_4C28
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_24_4C4C
 
@@ -1651,7 +1651,7 @@ Label_24_4C4D:: ; 24:4C4D
 
 Label_24_4C55:: ; 24:4C55
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
 	call Function_00_09E6
@@ -1688,13 +1688,13 @@ Label_24_4C55:: ; 24:4C55
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall CommTime_ShowSummary
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	pop bc
 	push bc
 	push bc

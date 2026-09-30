@@ -251,7 +251,7 @@ Int_Timer:: ; 00:01ED
 	ldh a, [rIF]
 	and a, $1B
 	ldh [rIF], a
-	ld a, [wRam_C709]
+	ld a, [wMobileSDK_State]
 	or a, a
 	jr z, Label_00_0242
 	ld a, [wMobileFlags]
@@ -570,13 +570,13 @@ Label_00_040B:: ; 00:040B
 	jr c, Label_00_042E
 	xor a, a
 	ld [hli], a
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld c, a
 	ld a, $01
 	add a, [hl]
 	cp a, c
 	jr c, Label_00_042E
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld [hld], a
 	xor a, a
 	ld [hld], a
@@ -2571,7 +2571,7 @@ Function_00_0E93:: ; 00:0E93
 Label_00_0EB2:: ; 00:0EB2
 	ldh a, [rSVBK]
 	push af
-	ld a, [wRam_C0D3]
+	ld a, [wSplitScrollY]
 	ldh [rSCY], a
 	xor a, a
 	ldh [rLYC], a
@@ -3441,7 +3441,7 @@ Function_00_1354:: ; 00:1354
 	cp a, $FF
 	ret z
 	push de
-	ld a, [wRam_C2C9]
+	ld a, [wBrowserRxBank]
 	call BankSwitch_D
 	xor a, a
 	ld [de], a
@@ -3960,7 +3960,7 @@ Function_00_158D:: ; 00:158D
 	ld a, $68
 	ldh [hROMBankLo], a
 	ld [$2100], a
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
@@ -4159,7 +4159,7 @@ Function_00_16C4:: ; 00:16C4
 	reti
 
 Label_00_16CD:: ; 00:16CD
-	ld a, [wRam_C0EF]
+	ld a, [wTickerScrollX]
 	ldh [rSCX], a
 	pop af
 	reti

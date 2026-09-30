@@ -18,7 +18,7 @@ Data_68_4000::
 Session_ResetCounters:: ; 68:4010
 Function_68_4010::
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -208,7 +208,7 @@ OnlineTimer_HasElapsed:: ; 68:40F1
 
 Function_68_4101:: ; 68:4101
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ret
 
 Account_ClearWorkBuffers:: ; 68:4106
@@ -664,7 +664,7 @@ Function_68_43B9::
 
 Settings_StoreAdapterType:: ; 68:43F4
 	ld hl, $B011
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	xor a, $A5
 	ld b, a
 	ldh [hScratchA], a
@@ -1121,7 +1121,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
@@ -1136,7 +1136,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	add hl, de
 	ld de, $DEDD
 	farcall PhoneNumber_UnpackBcd
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
@@ -1149,7 +1149,7 @@ Dial_LoadDefaultsForAdapterType:: ; 68:46C8
 	ld l, a
 	ld de, $DEEE
 	farcall CopyString
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
@@ -2048,7 +2048,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ld a, b
 	xor a, $A5
 	ld [sSram_BF04], a
-	ld [wRam_C28D], a
+	ld [wManualNumbersFlag], a
 	ld hl, $B089
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
@@ -2078,7 +2078,7 @@ Settings_LoadAccountToWram:: ; 68:4C69
 	ldh a, [hScratchA]
 	ld a, b
 	xor a, $A5
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 	call Account_BuildMailAddress
 	ld a, $01
 	ld [wRam_C279], a
@@ -2275,15 +2275,15 @@ Mobile_SaveLastResult:: ; 68:4F71
 Function_68_4F71::
 	ld a, $00
 	call MobileAPI
-	ld [wRam_C272], a
+	ld [wMobileErrorCode], a
 	ld a, l
 	ld [wRam_C273], a
 	ld a, h
 	ld [wRam_C274], a
 	ld a, c
-	ld [wRam_C275], a
+	ld [wMobileErrorExtra], a
 	ld a, b
-	ld [wRam_C276], a
+	ld [wMobileErrorExtra + 1], a
 	ld a, $01
 	ret
 
@@ -2292,7 +2292,7 @@ Mobile_ShowLastError:: ; 68:4F8C
 	ld l, a
 	ld a, [wRam_C274]
 	ld h, a
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	farcall CommErr_ShowScreen
 	ret
 
@@ -2303,7 +2303,7 @@ SettingsMenu_Run:: ; 68:4F9E
 	ld a, $01
 	ld [wRam_C27A], a
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -2327,7 +2327,7 @@ SettingsMenu_Run:: ; 68:4F9E
 
 Label_68_4FD6:: ; 68:4FD6
 	farcall Settings_GetHiddenModeFlag
-	ld [wRam_C28C], a
+	ld [wHiddenModeFlag], a
 	xor a, a
 	ld [wRam_C28E], a
 	ld a, $00
@@ -2554,7 +2554,7 @@ Label_68_51BA:: ; 68:51BA
 	ld a, [wRam_C27C]
 	or a, a
 	jr nz, Label_68_51C9
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	xor a, $01
 	ld b, a
 	ld a, $05
@@ -2566,7 +2566,7 @@ Label_68_51C9:: ; 68:51C9
 	jr Label_68_51E1
 
 Label_68_51CF:: ; 68:51CF
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	add a, $03
 	ld b, a
 	ld a, [wRam_C27C]
@@ -2608,7 +2608,7 @@ SettingsMenu_UpdateCursorSprite:: ; 68:5209
 	sla a
 	sla a
 	ld b, a
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jr nz, Label_68_5220
 	ld a, b
@@ -2630,7 +2630,7 @@ Label_68_5223:: ; 68:5223
 	ret
 
 SettingsMenu_DrawItems:: ; 68:522C
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jr nz, Label_68_5245
 	ld bc, $1214
@@ -2655,7 +2655,7 @@ Label_68_5256:: ; 68:5256
 	ld a, [wRam_C27C]
 	ld de, $0040
 	call Multiply8x16
-	ld a, [wRam_C28C]
+	ld a, [wHiddenModeFlag]
 	or a, a
 	jr nz, Label_68_526A
 	ld de, $D0C5
@@ -2738,12 +2738,12 @@ Function_68_52B2:: ; 68:52B2
 	call CompareString
 	or a, a
 	jr z, Label_68_52FC
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $01
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_68_52FC:: ; 68:52FC
 	ldh [hScratchA], a
@@ -2847,7 +2847,7 @@ Label_68_53F7:: ; 68:53F7
 ; ---- code $5404-$5417 (19 bytes) [HYPOTHESIS] complete function: [$C278] bit0 -> [$C27D] = 0/1, ret; twin of 58E8-58FB (bit1 -> [$C27E]); entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 
 Function_68_5404:: ; 68:5404
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $01
 	jr nz, Label_68_5411
 	ld a, $00
@@ -2896,7 +2896,7 @@ Account_LoginIdEntry_InputLoop:: ; 68:542F
 ; ---- code $5454-$54CE (122 bytes) [CONFIRMED] 47 insn(s); 47 executed (in up to 3/18 scenarios)
 
 Label_68_5454:: ; 68:5454
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
@@ -3275,12 +3275,12 @@ Function_68_5739:: ; 68:5739
 	jr z, Label_68_5798
 
 Label_68_578C:: ; 68:578C
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $02
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_68_5798:: ; 68:5798
 	ldh [hScratchA], a
@@ -3413,7 +3413,7 @@ Label_68_58DB:: ; 68:58DB
 ; ---- code $58E8-$58FB (19 bytes) [HYPOTHESIS] complete function: [$C278] bit1 -> [$C27E] = 0/1, ret; twin of 5404-5417; entry not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode chain alone is not proof -> HYPOTHESIS]
 
 Function_68_58E8:: ; 68:58E8
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $02
 	jr nz, Label_68_58F5
 	ld a, $00
@@ -3472,7 +3472,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	jp Label_68_5AB0
 
 Label_68_5952:: ; 68:5952
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld d, a
 	ld a, [wRam_C27D]
 	or a, a
@@ -3977,12 +3977,12 @@ Function_68_5D2F:: ; 68:5D2F
 	jr z, Label_68_5D7E
 	xor a, a
 	ld [wRam_C279], a
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	ld b, a
 	ld a, $04
 	xor a, $FF
 	and a, b
-	ld [wRam_C278], a
+	ld [wSettingsFieldMask], a
 
 Label_68_5D7E:: ; 68:5D7E
 	ldh [hScratchA], a
@@ -4106,7 +4106,7 @@ Table_68_5E92::
 ; ---- code $5E9A-$5EAE (20 bytes) [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA) was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no caller/table word -> HYPOTHESIS]
 
 Function_68_5E9A:: ; 68:5E9A
-	ld a, [wRam_C278]
+	ld a, [wSettingsFieldMask]
 	and a, $04
 	jr nz, Label_68_5EA7
 	ld a, $00
@@ -4155,7 +4155,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 ; ---- code $5EEC-$6020 (308 bytes) [CONFIRMED] 129 insn(s); 129 executed (in up to 7/18 scenarios)
 
 Label_68_5EEC:: ; 68:5EEC
-	ld a, [wRam_C2AD]
+	ld a, [wKeyboardCharLo]
 	ld hl, $DE80
 	ld d, a
 	farcall TextBuf_AppendChar
@@ -5520,7 +5520,7 @@ Function_68_6C7F::
 Config_BuildImageFromAccount:: ; 68:6CF0
 	ld a, [sSram_A003]
 	push af
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Config_DefaultImageTable
 	add a, a
 	add a, l
@@ -5586,7 +5586,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [wRam_C271]
+	ld a, [wMobileAdapterType]
 	ld hl, Dial_DefaultNumberTable
 	add a, a
 	add a, l
@@ -5604,7 +5604,7 @@ Config_BuildImageFromAccount:: ; 68:6CF0
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ldh a, [hScratchA]
-	ld a, [wRam_C28D]
+	ld a, [wManualNumbersFlag]
 	or a, a
 	jr z, Label_68_6DF3
 
@@ -5925,7 +5925,7 @@ Registration_Verify_Setup:: ; 68:7029
 
 Registration_Verify_RunState:: ; 68:7050
 	xor a, a
-	ld [wRam_C2D1], a
+	ld [wCommSessionActive], a
 	ld hl, $C2D2
 	ld [hli], a
 	ld [hl], a
@@ -6086,7 +6086,7 @@ Registration_Verify_StatePopLogin:: ; 68:7166
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -6113,13 +6113,13 @@ Registration_Verify_StateAfterPopLogin:: ; 68:71C3
 	jr nz, Label_68_7211
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_68_7210
 
 ; ---- code $71E3-$7210 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 68:71E1 (executed)
 	jr nz, Label_68_71EC
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_68_7210
 
@@ -6153,9 +6153,9 @@ Label_68_7211:: ; 68:7211
 	pop hl
 	or a, a
 	jp nz, Registration_Verify_OnTimeLimit
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_68_7223
 	xor a, a
@@ -6177,7 +6177,7 @@ Label_68_7225:: ; 68:7225
 	bit 0, a
 	jp nz, Label_68_7069
 	ld a, $05
-	ld [wRam_C26D], a
+	ld [wCommTimeoutMinutes], a
 	ld hl, $C266
 	xor a, a
 	ld [hli], a
@@ -6201,13 +6201,13 @@ Registration_Verify_StateHangUp:: ; 68:724F
 	jr nz, Label_68_729D
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_68_729C
 
 ; ---- code $726F-$729C (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 68:726D (executed)
 	jr nz, Label_68_7278
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_68_729C
 
@@ -6241,9 +6241,9 @@ Label_68_729D:: ; 68:729D
 	pop hl
 	or a, a
 	jp nz, Registration_Verify_OnTimeLimit
-	ld a, [wRam_C26D]
+	ld a, [wCommTimeoutMinutes]
 	ld b, a
-	ld a, [wRam_C268]
+	ld a, [wTimerBMinutes]
 	cp a, b
 	jr z, Label_68_72AF
 	xor a, a
@@ -6344,7 +6344,7 @@ Registration_Verify_OnTimeLimit:: ; 68:734D
 
 Registration_Verify_OnTimeout:: ; 68:7364
 	ld a, $26
-	ld [wRam_C272], a
+	ld [wMobileErrorCode], a
 	xor a, a
 	ld [wRam_C273], a
 	ld [wRam_C274], a
@@ -6422,30 +6422,30 @@ Function_68_73DD:: ; 68:73DD
 	ret
 
 CommPanel_SetVariant:: ; 68:7401
-	ld [wRam_C28B], a
+	ld [wCommPanelVariant], a
 	ret
 
 CommPanel_Init:: ; 68:7405
-	ld [wRam_C287], a
+	ld [wCommPanelPhase], a
 	xor a, a
-	ld [wRam_C288], a
-	ld [wRam_C289], a
-	ld [wRam_C28A], a
+	ld [wCommPanelState], a
+	ld [wCommPanelArg], a
+	ld [wCommPanelBusy], a
 	ret
 
 CommPanel_Step:: ; 68:7413
-	ld [wRam_C289], a
+	ld [wCommPanelArg], a
 	ld a, $01
-	ld [wRam_C28A], a
+	ld [wCommPanelBusy], a
 	farcall Joypad_Update
 	call CommPanel_RunState
 	farcall Function_00_0956
 	call Function_00_044B
-	ld a, [wRam_C28A]
+	ld a, [wCommPanelBusy]
 	ret
 
 CommPanel_RunState:: ; 68:7431
-	ld a, [wRam_C288]
+	ld a, [wCommPanelState]
 	ld hl, CommPanel_StateTable
 	add a, a
 	add a, l
@@ -6518,12 +6518,12 @@ CommPanel_StateDraw:: ; 68:744C
 	ld hl, Data_71_4C98
 	ld a, $71
 	farcall Function_00_08EA
-	ld a, [wRam_C287]
+	ld a, [wCommPanelPhase]
 	call CommPanel_DrawCaption
-	ld a, [wRam_C287]
+	ld a, [wCommPanelPhase]
 	cp a, $02
 	jr z, Label_68_74EA
-	ld a, [wRam_C28B]
+	ld a, [wCommPanelVariant]
 	or a, a
 	jr nz, Label_68_74FB
 
@@ -6547,7 +6547,7 @@ Label_68_74FB:: ; 68:74FB
 	ld hl, $DA00
 	call Function_00_0A65
 	ld a, $01
-	ld [wRam_C288], a
+	ld [wCommPanelState], a
 	ret
 
 CommPanel_StateScreenOn:: ; 68:7522
@@ -6562,14 +6562,14 @@ CommPanel_StateScreenOn:: ; 68:7522
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ld [wRam_C288], a
+	ld [wCommPanelState], a
 	ret
 
 CommPanel_StateWait:: ; 68:7544
 	ldh a, [hJoyHeld]
 	bit 1, a
 	jr nz, Label_68_755B
-	ld a, [wRam_C289]
+	ld a, [wCommPanelArg]
 	or a, a
 	jr z, Label_68_7582
 	cp a, $01
@@ -6577,16 +6577,16 @@ CommPanel_StateWait:: ; 68:7544
 
 Label_68_7554:: ; 68:7554
 	ld a, $03
-	ld [wRam_C288], a
+	ld [wCommPanelState], a
 	jr Label_68_7582
 
 ; ---- code $755B-$7582 (39 bytes) [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 1; entered by jrcc from 68:7548 (executed) [executed in 4 scenarios]
 
 Label_68_755B:: ; 68:755B
-	ld a, [wRam_C28B]
+	ld a, [wCommPanelVariant]
 	or a, a
 	jr z, Label_68_7582
-	ld a, [wRam_C287]
+	ld a, [wCommPanelPhase]
 	cp a, $02
 	jr z, Label_68_7582
 	ldh a, [hWRAMBank]
@@ -6598,9 +6598,9 @@ Label_68_755B:: ; 68:755B
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
-	ld [wRam_C28A], a
+	ld [wCommPanelBusy], a
 	ld a, $04
-	ld [wRam_C288], a
+	ld [wCommPanelState], a
 
 ; ---- code $7582-$7594 (18 bytes) [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios)
 
@@ -6611,13 +6611,13 @@ CommPanel_StateHide:: ; 68:7583
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	xor a, a
-	ld [wRam_C28A], a
+	ld [wCommPanelBusy], a
 	ret
 
 ; ---- code $7594-$75A4 (16 bytes) [CONFIRMED] 8 insn(s) reached by static flow only; seeds: table x8; min discovery hops 0; run starts at an entry of the code-pointer table at 68:7442 [executed in 4 scenarios]
 
 Label_68_7594:: ; 68:7594
-	ld a, [wRam_C289]
+	ld a, [wCommPanelArg]
 	or a, a
 	jr z, Label_68_75A3
 	cp a, $01
@@ -6625,7 +6625,7 @@ Label_68_7594:: ; 68:7594
 
 Label_68_759E:: ; 68:759E
 	ld a, $03
-	ld [wRam_C288], a
+	ld [wCommPanelState], a
 
 Label_68_75A3:: ; 68:75A3
 	ret
@@ -6688,7 +6688,7 @@ CommPanel_DrawCaption:: ; 68:7611
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wRam_C28B]
+	ld a, [wCommPanelVariant]
 	add a, l
 	ld l, a
 	ld a, $00
@@ -6994,11 +6994,11 @@ Account_ResultPage_DrawTimeDigits:: ; 68:784E
 Function_68_784E::
 	farcall CommTime_AddTimerA
 	ldh a, [hRam_FFB0]
-	ld [wRam_C2D8], a
+	ld [wCommTimeTotal], a
 	ldh a, [hRam_FFB1]
-	ld [wRam_C2D9], a
+	ld [wCommTimeTotal + 1], a
 	ldh a, [hRam_FFB2]
-	ld [wRam_C2DA], a
+	ld [wCommTimeTotal + 2], a
 	ld a, [wRam_C27C]
 	cp a, $02
 	jr z, Label_68_7873
@@ -7006,7 +7006,7 @@ Function_68_784E::
 	jr z, Label_68_7873
 
 Label_68_786E:: ; 68:786E
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	jr Label_68_7884
 
 Label_68_7873:: ; 68:7873
@@ -7021,7 +7021,7 @@ Label_68_7873:: ; 68:7873
 	ld b, [hl]
 	or a, b
 	jr z, Label_68_786E
-	ld a, [wRam_C2DA]
+	ld a, [wCommTimeTotal + 2]
 
 Label_68_7884:: ; 68:7884
 	ld d, a
@@ -7066,7 +7066,7 @@ Label_68_7884:: ; 68:7884
 	jr z, Label_68_78D6
 
 Label_68_78D1:: ; 68:78D1
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	jr Label_68_78E7
 
 Label_68_78D6:: ; 68:78D6
@@ -7081,7 +7081,7 @@ Label_68_78D6:: ; 68:78D6
 	ld b, [hl]
 	or a, b
 	jr z, Label_68_78D1
-	ld a, [wRam_C2D9]
+	ld a, [wCommTimeTotal + 1]
 
 Label_68_78E7:: ; 68:78E7
 	ld d, a

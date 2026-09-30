@@ -573,7 +573,7 @@ Label_29_4519:: ; 29:4519
 	ldh [rSVBK], a
 	pop de
 	pop bc
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jp nz, Label_29_45E2
 
@@ -741,7 +741,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld b, $98
 	ld c, $03
 	farcall Function_00_0787
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_29_46CD
 	ld a, $01
@@ -783,7 +783,7 @@ Label_29_46DE:: ; 29:46DE
 	ldh a, [rLCDC]
 	call Function_00_082C
 	farcall LCDOn
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, Label_29_46F5
 	call MailServerStatus_DrawCounts_Mode0

@@ -32,7 +32,7 @@ Function_25_4000::
 	farcall Stat_EnableScrollSplit
 	pop de
 	pop hl
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jr nz, Label_25_403F
 
@@ -103,7 +103,7 @@ Label_25_408A:: ; 25:408A
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jp z, Label_25_40C3
 	ld a, $00
@@ -471,7 +471,7 @@ Label_25_4344:: ; 25:4344
 	call Mailbox_UploadTextTiles
 
 Label_25_436D:: ; 25:436D
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jp nz, Mailbox_Main_Loop
 	push de
@@ -607,7 +607,7 @@ Data_25_446B:: ; 25:446B
 Mailbox_IconMenu_ReplyOrRead:: ; 25:446E
 	cp a, $01
 	jp nz, Mailbox_ReadMail
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jr nz, Label_25_4490
 	push bc
@@ -1017,7 +1017,7 @@ Label_25_473D:: ; 25:473D
 	pop hl
 	pop de
 	pop bc
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jp z, Label_25_47CA
 	ld a, $00
@@ -1527,7 +1527,7 @@ Function_25_4B0D::
 	farcall Function_00_09B6
 	farcall Function_00_0956
 	farcall TextTiles_ClearBuffers
-	ld a, [wRam_C264]
+	ld a, [wMailScreenMode]
 	inc a
 	jp z, Label_25_4BD0
 	ld bc, $0040
@@ -2576,7 +2576,7 @@ Table_25_5228::
 ; ---- code $5240-$534C (268 bytes) [PROBABLE] 145 insn(s) reached by static flow only; seeds: exec x145; min discovery hops 7; entered by call from 25:4E26 (PROBABLE code)
 
 Mailbox_DrawTextLine:: ; 25:5240
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 
 Label_25_5243:: ; 25:5243
 	ld a, $00
@@ -2592,7 +2592,7 @@ Label_25_5243:: ; 25:5243
 	farcall Glyph_IsSjisLeadByte
 	dec a
 	jr nz, Label_25_52A8
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, Label_25_526B
 	pop af
@@ -2627,10 +2627,10 @@ Label_25_526B:: ; 25:526B
 	ld a, $06
 	add a, e
 	ld e, a
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_25_52CA
 	jr Label_25_5243
@@ -2647,9 +2647,9 @@ Label_25_52A8:: ; 25:52A8
 	pop de
 	pop bc
 	call Mailbox_BlitGlyphAdvance
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	cp a, $00
 	jr z, Label_25_52CA
 	jp Label_25_5243
@@ -2666,11 +2666,11 @@ Label_25_52CA:: ; 25:52CA
 	pop bc
 
 Label_25_52DB:: ; 25:52DB
-	ld a, [wRam_C2EE]
+	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
-	ld [wRam_C2EE], a
+	ld [wTextCellsLeft], a
 	call Mailbox_BlitGlyphAdvance
 	jr Label_25_52DB
 

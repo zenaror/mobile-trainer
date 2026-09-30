@@ -21,7 +21,7 @@ Function_4E_4000:: ; 4E:4000
 	call Function_00_09E6
 	ld hl, $DAB0
 	call Function_00_09E6
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -66,9 +66,9 @@ Function_4E_4000:: ; 4E:4000
 	ld de, $D878
 	farcall Palette_LoadToBuffer
 	ld a, $0C
-	ld [wRam_C2CE], a
+	ld [wConnIconState], a
 	xor a, a
-	ld [wRam_C2CF], a
+	ld [wConnIconGfxRequest], a
 	farcall ConnIcon_Refresh
 	call Function_00_0A09
 	ld a, $04
@@ -146,11 +146,11 @@ Label_4E_40C8:: ; 4E:40C8
 	ld de, $D878
 	farcall Palette_LoadToBuffer
 	xor a, a
-	ld [wRam_C2D3], a
+	ld [wBrowserTimerSecToggle], a
 	dec a
-	ld [wRam_C2D2], a
+	ld [wBrowserTimerLastSec], a
 	ldh a, [hRam_FFD2]
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -200,13 +200,13 @@ Label_4E_417C:: ; 4E:417C
 	ld [rRAMB], a
 	ldh a, [hRam_FFD2]
 	or a, $80
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	ld [sSram_A9EF], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $01
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	jp Label_4E_41C8
 
 Label_4E_41A1:: ; 4E:41A1
@@ -217,12 +217,12 @@ Label_4E_41A1:: ; 4E:41A1
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
 	ld a, [sSram_A9EF]
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $00
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	jp Label_4E_41C8
 
 Label_4E_41C2:: ; 4E:41C2
@@ -237,7 +237,7 @@ Label_4E_41C8:: ; 4E:41C8
 	farcall Function_00_09B6
 	xor a, a
 	ldh [hRam_FFA7], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 ; ---- words $41E0-$45FE (1054 bytes) [PROBABLE] list of little-endian words grouped into 43 groups separated by $FFFF: each group = one delay-like word ($0004/$0008/$000C/$0010/$0002/$0001) followed by tilemap offsets row*32+col that walk the 32-wide BG map along anti-diagonals ($0000,$0001,$0020,$0002,$0021,$0040,...,$0294; verified by listing every group, offsets grow by $20-1 per step); consumer not located (no code word/immediate pointing into the table), so the use is inferred from the values only
@@ -431,7 +431,7 @@ Browser_BeginSession:: ; 4E:46A3
 
 Label_4E_46BA:: ; 4E:46BA
 	ld [sSram_A9EF], a
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -626,7 +626,7 @@ Function_4E_47EB:: ; 4E:47EB
 	ld a, [sSram_A9F1]
 	sbc a, b
 	ld [hli], a
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	and a, $80
 	ld [hli], a
 	ld a, [sSram_A9E3]
@@ -665,7 +665,7 @@ Function_4E_4866:: ; 4E:4866
 	ld a, $01
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
-	ld a, [wRam_C272]
+	ld a, [wMobileErrorCode]
 	cp a, $12
 	jr z, Label_4E_487F
 	cp a, $26
@@ -694,11 +694,11 @@ Browser_LoadUrlFromSramBank3:: ; 4E:488D
 	ld a, d
 	ld [wRam_C2C4], a
 	ld a, $01
-	ld [wRam_C2C3], a
+	ld [wCommSessionKind], a
 	ld a, $00
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	ld a, $FF
-	ld [wRam_C2C0], a
+	ld [wBrowserScrollbarEnable], a
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -715,8 +715,8 @@ Browser_LoadUrlFromSramBank3:: ; 4E:488D
 
 Browser_LoadHomePage:: ; 4E:48CB
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
@@ -725,9 +725,9 @@ Browser_LoadHomePage:: ; 4E:48CB
 	ld [wRam_C2C5], a
 	ld [wRam_C2C6], a
 	ld a, $01
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	ld a, $FF
-	ld [wRam_C2C0], a
+	ld [wBrowserScrollbarEnable], a
 	farcall Joypad_UpdateUnsaved
 	ld hl, String_Browser_HomeUrl
 	ld de, $C380
@@ -747,8 +747,8 @@ Data_4E_4904::
 
 Browser_LoadStagedUrl:: ; 4E:493B
 	ld a, $00
-	ld [wRam_C2C0], a
-	ld [wRam_C2C3], a
+	ld [wBrowserScrollbarEnable], a
+	ld [wCommSessionKind], a
 	farcall Settings_GetSelectedDialEntry
 	ld a, b
 	inc a
@@ -757,9 +757,9 @@ Browser_LoadStagedUrl:: ; 4E:493B
 	ld [wRam_C2C5], a
 	ld [wRam_C2C6], a
 	ld a, $01
-	ld [wRam_C2C2], a
+	ld [wBrowserFrameStyle], a
 	ld a, $FF
-	ld [wRam_C2C0], a
+	ld [wBrowserScrollbarEnable], a
 	jp Browser_LoadAndDispatch
 
 ; ---- code $4962-$4993 (49 bytes) [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios)
@@ -768,17 +768,17 @@ Browser_LoadAndDispatch:: ; 4E:4962
 	farcall Browser_ClearCaches
 	farcall Browser_HistoryReset
 	xor a, a
-	ld [wRam_C2CA], a
-	ld [wRam_C334], a
+	ld [wBrowserFetchResult], a
+	ld [wBrowserNavigating], a
 	ld [wRam_C1DC], a
 	ld a, $01
-	ld [wRam_C2CB], a
+	ld [wBrowserFetchActive], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	farcall Browser_LoadPage
 	xor a, a
-	ld [wRam_C2CB], a
-	ld a, [wRam_C2CA]
+	ld [wBrowserFetchActive], a
+	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4993-$49A1 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4990: 7 entries; end pinned by the executed instruction at 49A1
@@ -798,7 +798,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	farcall Function_00_09B6
 	farcall Browser_LoadFrameGraphics
 	ld a, $00
-	ldh [hRam_FFDE], a
+	ldh [hBrowserSelectedLink], a
 	ld bc, $0000
 	ld de, $0000
 	call Browser_SetScroll
@@ -809,7 +809,7 @@ Browser_PageView_Enter:: ; 4E:49A1
 	farcall ConnIcon_Init
 	farcall Function_00_0956
 	farcall Palette_FadeInFromWhite
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_4E_49F5
 	ldh a, [hWRAMBank]
@@ -843,7 +843,7 @@ Label_4E_4A05:: ; 4E:4A05
 
 ; ---- code $4A0B-$4A37 (44 bytes) [CONFIRMED] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0; fall-through of the jrcc at 4E:4A09 (executed) [executed in 3 scenarios]
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -854,7 +854,7 @@ Label_4E_4A05:: ; 4E:4A05
 	ld e, a
 	farcall Dialog_ShowMonitored
 	farcall Browser_DrawScrollIndicators
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4A37-$4A43 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4A34: 6 entries; end pinned by the executed instruction at 4A43
@@ -875,12 +875,12 @@ Label_4E_4A43:: ; 4E:4A43
 	farcall Joypad_SetRepeatTiming
 	xor a, a
 	ld [wRam_C1DC], a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	ld a, $01
-	ld [wRam_C2C1], a
+	ld [wHtmlFlags], a
 
 Browser_PageView_Loop:: ; 4E:4A58
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_4E_4AB8
 	ld a, [wTimerEnable]
@@ -897,13 +897,13 @@ Browser_PageView_Loop:: ; 4E:4A58
 	jr nz, Label_4E_4AB3
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4E_4AB2
 
 ; ---- code $4A85-$4AB2 (45 bytes) [PROBABLE] 21 insn(s) reached by static flow only; seeds: exec x21; min discovery hops 0; fall-through of the jrcc at 4E:4A83 (executed)
 	jr nz, Label_4E_4A8E
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4E_4AB2
 
@@ -940,7 +940,7 @@ Label_4E_4AB3:: ; 4E:4AB3
 
 Label_4E_4AB8:: ; 4E:4AB8
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	farcall Function_00_0956
 	farcall Browser_DrawCommTimer
 	farcall ConnIcon_LoadGraphicsIfRequested
@@ -984,7 +984,7 @@ Label_4E_4B0B:: ; 4E:4B0B
 	jp Browser_PageView_Loop
 
 Browser_PageView_FollowLink:: ; 4E:4B0E
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	or a, a
 	jp z, Browser_PageView_Loop
 	cp a, $FF
@@ -995,7 +995,7 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	call Function_00_0392
 	ld bc, $000E
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -1026,11 +1026,11 @@ Browser_PageView_FollowLink:: ; 4E:4B0E
 	pop af
 	ldh [rSVBK], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	ld a, $01
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall Browser_LoadPage
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4B7E-$4B8C (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4B7B: 7 entries; end = first entry target
@@ -1113,11 +1113,11 @@ Browser_PageView_GoBack:: ; 4E:4BAD
 	ld bc, $0100
 	call CopyBytes
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	ld a, $00
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall Browser_LoadPage
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4C49-$4C57 (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4C46: 7 entries; end = first entry target
@@ -1178,7 +1178,7 @@ Label_4E_4CB2:: ; 4E:4CB2
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	farcall Browser_DrawScrollIndicators
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4CDF-$4CEB (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4CDC: 6 entries; end pinned by the executed instruction at 4CEB
@@ -1195,7 +1195,7 @@ Table_4E_4CDF:: ; 4E:4CDF
 
 Browser_PageView_OpenMenu:: ; 4E:4CEB
 	xor a, a
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 
 Label_4E_4CEE:: ; 4E:4CEE
 	ld de, $18A0
@@ -1203,7 +1203,7 @@ Label_4E_4CEE:: ; 4E:4CEE
 	call Function_00_0A65
 	ld hl, $DAB0
 	call Function_00_09E6
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr nz, Label_4E_4D24
 
@@ -1216,7 +1216,7 @@ Label_4E_4CEE:: ; 4E:4CEE
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	farcall BrowserMenu_OpenTwoItem
 	farcall BrowserMenu_RunTwoItem
 	jr Label_4E_4D42
@@ -1232,7 +1232,7 @@ Label_4E_4D24:: ; 4E:4D24
 	call Function_00_20AC
 	pop af
 	ldh [rSVBK], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	farcall BrowserMenu_OpenThreeItem
 	farcall BrowserMenu_RunThreeItem
 
@@ -1250,7 +1250,7 @@ Label_4E_4D42:: ; 4E:4D42
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	farcall Browser_DrawScrollIndicators
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4D6D-$4D7B (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4D6A: 7 entries; end = first entry target
@@ -1284,9 +1284,9 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	ld bc, $0014
 	call CopyBytes
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	farcall PageList_Main
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_4E_4E17
 	ld a, [wTimerEnable]
@@ -1303,11 +1303,11 @@ Browser_Menu_PageList:: ; 4E:4D7B
 	jr nz, Label_4E_4E12
 	ld a, [wRam_C26E]
 	ld b, a
-	ld a, [wRam_C2D6]
+	ld a, [wTimerAMinutes]
 	cp a, b
 	jr c, Label_4E_4E11
 	jr nz, Label_4E_4DED
-	ld a, [wRam_C2D5]
+	ld a, [wTimerASeconds]
 	cp a, $1E
 	jr c, Label_4E_4E11
 
@@ -1342,7 +1342,7 @@ Label_4E_4E12:: ; 4E:4E12
 
 Label_4E_4E17:: ; 4E:4E17
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	push de
 	push hl
 	farcall Palette_FadeOutToWhite
@@ -1365,9 +1365,9 @@ Label_4E_4E17:: ; 4E:4E17
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
 	ld a, $01
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	farcall Browser_LoadPage
-	ld a, [wRam_C2CA]
+	ld a, [wBrowserFetchResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4E60-$4E6E (14 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4E5D: 7 entries; end = first entry target
@@ -1406,7 +1406,7 @@ Label_4E_4E8F:: ; 4E:4E8F
 	ld b, $14
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_4E_4ED6
 	ldh a, [hWRAMBank]
@@ -1431,7 +1431,7 @@ Label_4E_4ED6:: ; 4E:4ED6
 
 Label_4E_4EE6:: ; 4E:4EE6
 	ld a, $00
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	jp Label_4E_4CEE
 
 Browser_Menu_DisconnectPrompt:: ; 4E:4EED
@@ -1446,7 +1446,7 @@ Browser_Menu_DisconnectPrompt:: ; 4E:4EED
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	farcall Browser_DrawScrollIndicators
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4F1A-$4F26 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4F17: 6 entries; end = first entry target
@@ -1463,17 +1463,17 @@ Table_4E_4F1A:: ; 4E:4F1A
 
 Label_4E_4F26:: ; 4E:4F26
 	ld a, $01
-	ldh [hRam_FFF6], a
-	ld a, [wRam_C2C3]
+	ldh [hDialogResult], a
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jp nz, Label_4E_4CEE
 	ld a, $00
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	jp Label_4E_4CEE
 
 Browser_Menu_DisconnectDo:: ; 4E:4F39
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -1489,7 +1489,7 @@ Browser_Menu_DisconnectDo:: ; 4E:4F39
 	ld a, $0B
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter
 
 Browser_Menu_EndPrompt:: ; 4E:4F81
@@ -1510,7 +1510,7 @@ Label_4E_4F9C:: ; 4E:4F9C
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
 	farcall Browser_DrawScrollIndicators
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	call JumpTableInline
 
 ; ---- ptrtable $4FB7-$4FC3 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4E:4FB4: 6 entries; end = first entry target
@@ -1527,17 +1527,17 @@ Table_4E_4FB7:: ; 4E:4FB7
 
 Label_4E_4FC3:: ; 4E:4FC3
 	ld a, $02
-	ldh [hRam_FFF6], a
-	ld a, [wRam_C2C3]
+	ldh [hDialogResult], a
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jp nz, Label_4E_4CEE
 	ld a, $01
-	ldh [hRam_FFF6], a
+	ldh [hDialogResult], a
 	jp Label_4E_4CEE
 
 Browser_Menu_EndDo:: ; 4E:4FD6
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
 	ld a, [wTimerEnable]
@@ -1552,7 +1552,7 @@ Label_4E_4FF6:: ; 4E:4FF6
 	farcall Comm_DisconnectWithProgress
 
 Browser_Leave_Summary:: ; 4E:4FFC
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Browser_Leave_Return
 
@@ -1564,9 +1564,9 @@ Browser_Leave_Summary:: ; 4E:4FFC
 Browser_Leave_Return:: ; 4E:5009
 	farcall Function_00_09B6
 	xor a, a
-	ld [wRam_C334], a
+	ld [wBrowserNavigating], a
 	ldh [hRam_FFA7], a
-	ldh a, [hRam_FFF6]
+	ldh a, [hDialogResult]
 	ret
 
 Browser_Leave_OnError:: ; 4E:5018
@@ -1612,7 +1612,7 @@ Label_4E_5068:: ; 4E:5068
 
 Label_4E_506E:: ; 4E:506E
 	farcall CommTime_ShowSummary
-	ld a, [wRam_C2CC]
+	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jr z, Label_4E_5082
 	ld a, $10
@@ -1651,10 +1651,10 @@ Label_4E_509D:: ; 4E:509D
 Browser_ConnectionNotice:: ; 4E:50BE
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	ld hl, $C26F
 	res 0, [hl]
@@ -1667,7 +1667,7 @@ Label_4E_50EC:: ; 4E:50EC
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	bit 4, a
 	jp nz, Label_4E_5104
 	ld a, $09
@@ -1681,10 +1681,10 @@ Label_4E_5104:: ; 4E:5104
 Label_4E_5107:: ; 4E:5107
 	xor a, a
 	ld [wRam_C1DC], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	ld hl, $C26F
 	res 0, [hl]
@@ -1703,7 +1703,7 @@ Label_4E_512D:: ; 4E:512D
 	farcall PageCache_Pop
 	farcall Html_ParsePage
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	bit 4, a
 	jp nz, Label_4E_515F
 	ld a, $09
@@ -1720,7 +1720,7 @@ Browser_Menu_LinkLost:: ; 4E:5162
 	xor a, a
 	ld [wRam_C26F], a
 	xor a, a
-	ld [wRam_C2CA], a
+	ld [wBrowserFetchResult], a
 	ld de, $18A0
 	ld hl, $DA90
 	call Function_00_0A65
@@ -1734,23 +1734,23 @@ Browser_Menu_LinkLost:: ; 4E:5162
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter
 
 Browser_Menu_AdapterError:: ; 4E:51A6
 	farcall Mobile_FetchResult
-	ld a, [wRam_C1DE]
+	ld a, [wMobileResultDetail]
 	ld [wRam_C273], a
-	ld a, [wRam_C1DF]
+	ld a, [wMobileResultDetail + 1]
 	ld [wRam_C274], a
-	ld a, [wRam_C1DD]
-	ld [wRam_C272], a
+	ld a, [wMobileResultCode]
+	ld [wMobileErrorCode], a
 	xor a, a
-	ld [wRam_C2CA], a
-	ld a, [wRam_C2C3]
+	ld [wBrowserFetchResult], a
+	ld a, [wCommSessionKind]
 	xor a, $01
 	ld [wRam_C1D0], a
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	ld [wRam_C1D1], a
 	farcall Palette_FadeOutToWhite
 	farcall Function_00_09B6
@@ -1764,20 +1764,20 @@ Browser_Menu_AdapterError:: ; 4E:51A6
 	xor a, a
 	ld [wRam_C1DC], a
 	ld a, [wTimerEnable]
-	ld [wRam_C2CC], a
+	ld [wDialogOnlineSnapshot], a
 	jp Browser_PageView_Enter
 
 ; ---- code $5204-$5215 (17 bytes) [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
 
 Browser_DrawTitleBar:: ; 4E:5204
 Function_4E_5204::
-	ldh a, [hRam_FFED]
+	ldh a, [hPageHeaderPtr]
 	ld l, a
-	ldh a, [hRam_FFEE]
+	ldh a, [hPageHeaderPtr + 1]
 	ld h, a
 	or a, l
 	ret z
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	call BankSwitch_H
 	ld a, [hl]
 	or a, a
@@ -1968,9 +1968,9 @@ Label_4E_530A:: ; 4E:530A
 	ld l, a
 	dec hl
 	ld a, [hld]
-	ldh [hRam_FFE4], a
+	ldh [hViewY + 1], a
 	ld a, [hld]
-	ldh [hRam_FFE3], a
+	ldh [hViewY], a
 
 ; ---- code $532B-$534B (32 bytes) [CONFIRMED] 8 insn(s); 8 executed (in up to 2/18 scenarios)
 
@@ -2074,9 +2074,9 @@ Label_4E_539D:: ; 4E:539D
 
 Browser_ScrollUpLine:: ; 4E:53A1
 Function_4E_53A1::
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld c, a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld b, a
 	or a, c
 	ret z
@@ -2084,61 +2084,61 @@ Function_4E_53A1::
 ; ---- code $53A9-$5423 (122 bytes) [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 0; fall-through of the retcc at 4E:53A8 (executed) [executed in 2 scenarios]
 	ld a, c
 	sub a, $0C
-	ldh [hRam_FFE3], a
+	ldh [hViewY], a
 	ld a, b
 	sbc a, $00
-	ldh [hRam_FFE4], a
+	ldh [hViewY + 1], a
 	ld bc, $0090
 	ld de, $000C
 	farcall Browser_SetViewport
 	xor a, a
-	ldh [hRam_FFE9], a
-	ldh [hRam_FFEA], a
+	ldh [hBrowserDrawYOffset], a
+	ldh [hBrowserDrawYOffset + 1], a
 	farcall Browser_ShiftCanvasDown
 	farcall Browser_DrawVisibleElements
 	ret
 
 Browser_ScrollDownLine:: ; 4E:53D1
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	ld c, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	or a, c
 	ret z
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld c, a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld b, a
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	sub a, c
 	ld e, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	sbc a, b
 	ld d, a
 	ret c
 	ld a, c
 	add a, $60
-	ldh [hRam_FFE3], a
+	ldh [hViewY], a
 	ld a, b
 	adc a, $00
-	ldh [hRam_FFE4], a
+	ldh [hViewY + 1], a
 	ld bc, $0090
 	ld de, $000C
 	farcall Browser_SetViewport
 	ld a, $54
-	ldh [hRam_FFE9], a
+	ldh [hBrowserDrawYOffset], a
 	ld a, $00
-	ldh [hRam_FFEA], a
+	ldh [hBrowserDrawYOffset + 1], a
 	farcall Browser_ShiftCanvasUp
 	farcall Browser_DrawVisibleElements
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	sub a, $54
-	ldh [hRam_FFE3], a
-	ldh a, [hRam_FFE4]
+	ldh [hViewY], a
+	ldh a, [hViewY + 1]
 	sbc a, $00
-	ldh [hRam_FFE4], a
+	ldh [hViewY + 1], a
 	xor a, a
-	ldh [hRam_FFE9], a
-	ldh [hRam_FFEA], a
+	ldh [hBrowserDrawYOffset], a
+	ldh [hBrowserDrawYOffset + 1], a
 	ret
 
 ; ---- code $5423-$55CC (425 bytes) [CONFIRMED] 266 insn(s); 266 executed (in up to 2/18 scenarios); entry proven: target of an executed call/far call
@@ -2146,31 +2146,31 @@ Browser_ScrollDownLine:: ; 4E:53D1
 Browser_SetScroll:: ; 4E:5423
 Function_4E_5423::
 	ld a, c
-	ldh [hRam_FFE1], a
+	ldh [hViewX], a
 	ld a, b
-	ldh [hRam_FFE2], a
+	ldh [hViewX + 1], a
 	ld a, e
-	ldh [hRam_FFE3], a
+	ldh [hViewY], a
 	ld a, d
-	ldh [hRam_FFE4], a
+	ldh [hViewY + 1], a
 	xor a, a
-	ldh [hRam_FFE9], a
-	ldh [hRam_FFEA], a
+	ldh [hBrowserDrawYOffset], a
+	ldh [hBrowserDrawYOffset + 1], a
 	ret
 
 Browser_SetViewport:: ; 4E:5435
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	add a, c
-	ldh [hRam_FFE5], a
-	ldh a, [hRam_FFE2]
+	ldh [hViewRight], a
+	ldh a, [hViewX + 1]
 	adc a, b
-	ldh [hRam_FFE6], a
-	ldh a, [hRam_FFE3]
+	ldh [hViewRight + 1], a
+	ldh a, [hViewY]
 	add a, e
-	ldh [hRam_FFE7], a
-	ldh a, [hRam_FFE4]
+	ldh [hViewBottom], a
+	ldh a, [hViewY + 1]
 	adc a, d
-	ldh [hRam_FFE8], a
+	ldh [hViewBottom + 1], a
 	ret
 
 Browser_RedrawLinkById:: ; 4E:544A
@@ -2178,9 +2178,9 @@ Browser_RedrawLinkById:: ; 4E:544A
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
-	ldh a, [hRam_FFED]
+	ldh a, [hPageHeaderPtr]
 	ld l, a
-	ldh a, [hRam_FFEE]
+	ldh a, [hPageHeaderPtr + 1]
 	ld h, a
 	or a, l
 	ret z
@@ -2188,7 +2188,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	ld e, l
 	ld bc, $0015
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2211,7 +2211,7 @@ Label_4E_547D:: ; 4E:547D
 	push hl
 	ld bc, $0009
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2226,58 +2226,58 @@ Label_4E_547D:: ; 4E:547D
 	ldh [hRam_FFB2], a
 	pop hl
 	push hl
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	jp c, Label_4E_5505
 	or a, c
 	jp z, Label_4E_5505
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	sbc a, b
 	jp c, Label_4E_5505
 	or a, c
 	jp z, Label_4E_5505
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	sub a, c
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	sbc a, b
 	jp nc, Label_4E_5505
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	sub a, c
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, Label_4E_5505
 	ldh a, [hRam_FFB1]
@@ -2309,9 +2309,9 @@ Browser_FindLinkElement:: ; 4E:5512
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
-	ldh a, [hRam_FFED]
+	ldh a, [hPageHeaderPtr]
 	ld l, a
-	ldh a, [hRam_FFEE]
+	ldh a, [hPageHeaderPtr + 1]
 	ld h, a
 	or a, l
 	ret z
@@ -2319,7 +2319,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	ld e, l
 	ld bc, $0015
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2342,7 +2342,7 @@ Label_4E_5545:: ; 4E:5545
 	push hl
 	ld bc, $0009
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2357,58 +2357,58 @@ Label_4E_5545:: ; 4E:5545
 	ldh [hRam_FFB2], a
 	pop hl
 	push hl
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	jp c, Label_4E_55D5
 	or a, c
 	jp z, Label_4E_55D5
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	sbc a, b
 	jp c, Label_4E_55D5
 	or a, c
 	jp z, Label_4E_55D5
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	sub a, c
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	sbc a, b
 	jp nc, Label_4E_55D5
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	sub a, c
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, Label_4E_55D5
 	ldh a, [hRam_FFB1]
@@ -2463,9 +2463,9 @@ Function_4E_55E8::
 	ld bc, $0090
 	ld de, $0060
 	farcall Browser_SetViewport
-	ldh a, [hRam_FFED]
+	ldh a, [hPageHeaderPtr]
 	ld l, a
-	ldh a, [hRam_FFEE]
+	ldh a, [hPageHeaderPtr + 1]
 	ld h, a
 	or a, l
 	ret z
@@ -2473,7 +2473,7 @@ Function_4E_55E8::
 	ld e, l
 	ld bc, $0015
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2497,7 +2497,7 @@ Label_4E_561D:: ; 4E:561D
 	push hl
 	ld bc, $0009
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2512,58 +2512,58 @@ Label_4E_561D:: ; 4E:561D
 	ldh [hRam_FFB2], a
 	pop hl
 	push hl
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	jp c, Label_4E_56BC
 	or a, c
 	jp z, Label_4E_56BC
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	sbc a, b
 	jp c, Label_4E_56BC
 	or a, c
 	jp z, Label_4E_56BC
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	sub a, c
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	sbc a, b
 	jp nc, Label_4E_56BC
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	sub a, c
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, Label_4E_56BC
 	ldh a, [hRam_FFB3]
@@ -2629,7 +2629,7 @@ Label_4E_56CC:: ; 4E:56CC
 	ret
 
 Browser_SelectPrevLink:: ; 4E:56DB
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	ldh [hRam_FFDF], a
 	dec a
 	jr z, Label_4E_56E8
@@ -2639,7 +2639,7 @@ Browser_SelectPrevLink:: ; 4E:56DB
 
 Label_4E_56E8:: ; 4E:56E8
 	farcall Browser_ScrollUpLine
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	dec a
 	jr z, Label_4E_570D
 
@@ -2651,7 +2651,7 @@ Label_4E_56E8:: ; 4E:56E8
 Label_4E_56F6:: ; 4E:56F6
 	or a, a
 	jp z, Label_4E_56FF
-	ldh [hRam_FFDE], a
+	ldh [hBrowserSelectedLink], a
 	call Browser_RedrawLinkById
 
 Label_4E_56FF:: ; 4E:56FF
@@ -2672,7 +2672,7 @@ Label_4E_570D:: ; 4E:570D
 	jp Browser_DrawScrollIndicators
 
 Browser_SelectNextLink:: ; 4E:5716
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	ldh [hRam_FFDF], a
 	inc a
 	call Browser_FindVisibleLink
@@ -2681,7 +2681,7 @@ Browser_SelectNextLink:: ; 4E:5716
 
 ; ---- code $5721-$572D (12 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:571F (executed) [executed in 6 scenarios]
 	farcall Browser_ScrollDownLine
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	inc a
 	call Browser_FindVisibleLink
 
@@ -2690,7 +2690,7 @@ Browser_SelectNextLink:: ; 4E:5716
 Label_4E_572D:: ; 4E:572D
 	or a, a
 	jp z, Label_4E_5736
-	ldh [hRam_FFDE], a
+	ldh [hBrowserSelectedLink], a
 	call Browser_RedrawLinkById
 
 Label_4E_5736:: ; 4E:5736
@@ -2707,9 +2707,9 @@ Label_4E_5744:: ; 4E:5744
 	jp Browser_DrawScrollIndicators
 
 Browser_DrawVisibleElements:: ; 4E:574D
-	ldh a, [hRam_FFED]
+	ldh a, [hPageHeaderPtr]
 	ld l, a
-	ldh a, [hRam_FFEE]
+	ldh a, [hPageHeaderPtr + 1]
 	ld h, a
 	or a, l
 	ret z
@@ -2717,7 +2717,7 @@ Browser_DrawVisibleElements:: ; 4E:574D
 	ld e, l
 	ld bc, $0015
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2736,58 +2736,58 @@ Label_4E_576F:: ; 4E:576F
 	call Function_00_0392
 	push bc
 	push hl
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	jp c, Label_4E_57CF
 	or a, c
 	jp z, Label_4E_57CF
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	sub a, c
 	ld c, a
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	sbc a, b
 	jp c, Label_4E_57CF
 	or a, c
 	jp z, Label_4E_57CF
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	sub a, c
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	sbc a, b
 	jp nc, Label_4E_57CF
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
 	ld b, a
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	sub a, c
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	sbc a, b
 	jp nc, Label_4E_57CF
 	pop hl
@@ -2810,7 +2810,7 @@ Browser_DrawElement:: ; 4E:57DC
 	ld bc, $0006
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2820,27 +2820,27 @@ Browser_DrawElement:: ; 4E:57DC
 	ld a, [hli]
 	ldh [hRam_FFB0], a
 	pop hl
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	sub a, c
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	sbc a, b
 	jr nc, Label_4E_5800
 
 ; ---- code $57FA-$5800 (6 bytes) [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0; fall-through of the jrcc at 4E:57F8 (executed) [executed in 1 scenarios]
-	ldh a, [hRam_FFE7]
+	ldh a, [hViewBottom]
 	ld c, a
-	ldh a, [hRam_FFE8]
+	ldh a, [hViewBottom + 1]
 	ld b, a
 
 ; ---- code $5800-$5831 (49 bytes) [CONFIRMED] 33 insn(s); 33 executed (in up to 2/18 scenarios)
 
 Label_4E_5800:: ; 4E:5800
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld e, a
 	ld a, c
 	sub a, e
 	ldh [hRam_FFCE], a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
@@ -2848,7 +2848,7 @@ Label_4E_5800:: ; 4E:5800
 	ld bc, $0004
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2858,9 +2858,9 @@ Label_4E_5800:: ; 4E:5800
 	ld a, [hli]
 	ldh [hRam_FFB0], a
 	pop hl
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	sub a, c
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	sbc a, b
 	jr c, Label_4E_5831
 	ld a, c
@@ -2872,9 +2872,9 @@ Label_4E_5800:: ; 4E:5800
 ; ---- code $5831-$5839 (8 bytes) [PROBABLE] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 1; entered by jrcc from 4E:5827 (executed)
 
 Label_4E_5831:: ; 4E:5831
-	ldh a, [hRam_FFE5]
+	ldh a, [hViewRight]
 	ldh [hRam_FFCC], a
-	ldh a, [hRam_FFE6]
+	ldh a, [hViewRight + 1]
 	ldh [hRam_FFCD], a
 
 ; ---- code $5839-$589B (98 bytes) [CONFIRMED] 69 insn(s); 69 executed (in up to 2/18 scenarios)
@@ -2883,7 +2883,7 @@ Label_4E_5839:: ; 4E:5839
 	ld bc, $0000
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2893,12 +2893,12 @@ Label_4E_5839:: ; 4E:5839
 	ld a, [hli]
 	ldh [hRam_FFB0], a
 	pop hl
-	ldh a, [hRam_FFE1]
+	ldh a, [hViewX]
 	ld e, a
 	ld a, c
 	sub a, e
 	ldh [hRam_FFC8], a
-	ldh a, [hRam_FFE2]
+	ldh a, [hViewX + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
@@ -2906,7 +2906,7 @@ Label_4E_5839:: ; 4E:5839
 	ld bc, $0002
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2916,12 +2916,12 @@ Label_4E_5839:: ; 4E:5839
 	ld a, [hli]
 	ldh [hRam_FFB0], a
 	pop hl
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld e, a
 	ld a, c
 	sub a, e
 	ldh [hRam_FFCA], a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld e, a
 	ld a, b
 	sbc a, e
@@ -2929,7 +2929,7 @@ Label_4E_5839:: ; 4E:5839
 	ld bc, $0008
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -2976,7 +2976,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ld bc, $0009
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -3002,7 +3002,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	jr Label_4E_58FF
 
 Label_4E_58DB:: ; 4E:58DB
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	ld b, a
 	ldh a, [hRam_FFB6]
 	cp a, b
@@ -3089,7 +3089,7 @@ Label_4E_594A:: ; 4E:594A
 	ld bc, $000B
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -3239,7 +3239,7 @@ Label_4E_59F9:: ; 4E:59F9
 	adc a, $00
 	ldh [hTextX + 1], a
 	ldh [hRam_FFC2], a
-	ldh a, [hRam_FFE9]
+	ldh a, [hBrowserDrawYOffset]
 	ld c, a
 	ldh a, [hRam_FFCA]
 	add a, c
@@ -3284,7 +3284,7 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	ld bc, $0009
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -3309,7 +3309,7 @@ Browser_DrawElement_Bitmap:: ; 4E:5A6D
 	jr Label_4E_5AB8
 
 Label_4E_5A9A:: ; 4E:5A9A
-	ldh a, [hRam_FFDE]
+	ldh a, [hBrowserSelectedLink]
 	ld b, a
 	ldh a, [hRam_FFB6]
 	cp a, b
@@ -3331,9 +3331,9 @@ Label_4E_5AB2:: ; 4E:5AB2
 	ldh [hRam_FFC3], a
 
 Label_4E_5AB8:: ; 4E:5AB8
-	ldh a, [hRam_FFE9]
+	ldh a, [hBrowserDrawYOffset]
 	ld c, a
-	ldh a, [hRam_FFEA]
+	ldh a, [hBrowserDrawYOffset + 1]
 	ld b, a
 	ldh a, [hRam_FFCA]
 	add a, c
@@ -3365,7 +3365,7 @@ Label_4E_5AB8:: ; 4E:5AB8
 	ld bc, $000B
 	push hl
 	add hl, bc
-	ldh a, [hRam_FFEF]
+	ldh a, [hPageHeaderPtr + 2]
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, [hli]
@@ -3740,10 +3740,10 @@ Label_4E_5CA9:: ; 4E:5CA9
 
 Browser_LoadScrollbarGfx:: ; 4E:5CB6
 Function_4E_5CB6::
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_4E_5D32
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	cp a, $02
 	jr z, Label_4E_5CFB
 	ld de, $8FF0
@@ -3817,7 +3817,7 @@ Label_4E_5D66:: ; 4E:5D66
 ; ---- code $5D70-$5D93 (35 bytes) [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000 right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair, b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the executed code 4E:5D93; contiguous with the code region at 5D93; no external caller found
 
 Function_4E_5D70:: ; 4E:5D70
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -3843,7 +3843,7 @@ Function_4E_5D70:: ; 4E:5D70
 
 ; ---- code $5D93-$5E11 (126 bytes) [PROBABLE] 59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Function_00_08EA
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -3870,7 +3870,7 @@ Function_4E_5D70:: ; 4E:5D70
 	ld bc, $0712
 	ld de, $0080
 	farcall Tilemap_FillAscendingWithAttr
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -3906,13 +3906,13 @@ Function_4E_5D70:: ; 4E:5D70
 
 Browser_DrawScrollbarTrack:: ; 4E:5E11
 Function_4E_5E11::
-	ld a, [wRam_C2C0]
+	ld a, [wBrowserScrollbarEnable]
 	or a, a
 	ret z
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -3961,10 +3961,10 @@ Label_4E_5E56:: ; 4E:5E56
 	jr nz, Label_4E_5E56
 
 Browser_UpdateScrollThumb:: ; 4E:5E5B
-	ld a, [wRam_C2C0]
+	ld a, [wBrowserScrollbarEnable]
 	or a, a
 	ret z
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -3988,23 +3988,23 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 	ldh [rSVBK], a
 	push hl
 	push bc
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	ld c, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	ld b, a
 	or a, c
 	jr z, Label_4E_5EB9
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld l, a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld h, a
 	call Multiply16x16to32
 	ld d, h
 	ld e, l
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	add a, $0C
 	ld l, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	adc a, $00
 	ld h, a
 	call Divide32by15
@@ -4043,30 +4043,30 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld hl, $DAB0
 	call Function_00_09E6
 	farcall Browser_UpdateScrollThumb
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	ld c, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	or a, c
 	ret z
-	ldh a, [hRam_FFE3]
+	ldh a, [hViewY]
 	ld c, a
-	ldh a, [hRam_FFE4]
+	ldh a, [hViewY + 1]
 	ld b, a
 	or a, c
 	push bc
 	call nz, Browser_ShowUpArrow
 	pop bc
-	ldh a, [hRam_FFEB]
+	ldh a, [hViewScrollMax]
 	sub a, c
 	ld e, a
-	ldh a, [hRam_FFEC]
+	ldh a, [hViewScrollMax + 1]
 	sbc a, b
 	ld d, a
 	ret c
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_4E_5F34
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	cp a, $02
 	jr z, Label_4E_5F46
 	ld hl, $DAB0
@@ -4076,7 +4076,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	farcall Function_00_0A82
 
 Label_4E_5F15:: ; 4E:5F15
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4119,10 +4119,10 @@ Label_4E_5F46:: ; 4E:5F46
 ; ---- code $5F58-$5FB9 (97 bytes) [CONFIRMED] 42 insn(s) reached by static flow only; seeds: exec x42; min discovery hops 1; entered by callcc from 4E:5EEA (executed) [executed in 1 scenarios]
 
 Browser_ShowUpArrow:: ; 4E:5F58
-	ld a, [wRam_C2C3]
+	ld a, [wCommSessionKind]
 	cp a, $01
 	jr z, Label_4E_5F95
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	cp a, $02
 	jr z, Label_4E_5FA7
 	ld hl, $DAA0
@@ -4132,7 +4132,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	farcall Function_00_0A82
 
 Label_4E_5F76:: ; 4E:5F76
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4173,19 +4173,19 @@ Label_4E_5FA7:: ; 4E:5FA7
 Browser_DrawCommTimer:: ; 4E:5FB9
 Function_4E_5FB9::
 	farcall CommTime_AddTimerA
-	ld a, [wRam_C2D2]
+	ld a, [wBrowserTimerLastSec]
 	ld c, a
 	ldh a, [hRam_FFB1]
 	cp a, c
 	jr z, Label_4E_5FD5
-	ld a, [wRam_C2D3]
+	ld a, [wBrowserTimerSecToggle]
 	xor a, $FF
-	ld [wRam_C2D3], a
+	ld [wBrowserTimerSecToggle], a
 	ldh a, [hRam_FFB1]
-	ld [wRam_C2D2], a
+	ld [wBrowserTimerLastSec], a
 
 Label_4E_5FD5:: ; 4E:5FD5
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4209,7 +4209,7 @@ Label_4E_5FD5:: ; 4E:5FD5
 	ld a, [wRam_C2F3]
 	ld h, $C0
 	ld l, a
-	ld a, [wRam_C2D3]
+	ld a, [wBrowserTimerSecToggle]
 	or a, a
 	jr nz, Label_4E_6014
 	ldh a, [hRam_FFB2]
@@ -4265,7 +4265,7 @@ Browser_OamPutDigit:: ; 4E:6034
 	ret
 
 ConnIcon_StartSprite:: ; 4E:604C
-	ld [wRam_C2CE], a
+	ld [wConnIconState], a
 	ld hl, $DA80
 	ld de, ConnIcon_ObjTable
 	ld a, $69
@@ -4274,7 +4274,7 @@ ConnIcon_StartSprite:: ; 4E:604C
 	ld de, $4034
 	ld a, $69
 	call Function_00_0A45
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4299,7 +4299,7 @@ ConnIcon_StartSprite:: ; 4E:604C
 Function_4E_6087:: ; 4E:6087
 	push bc
 	push hl
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4347,7 +4347,7 @@ Browser_UploadBodyCanvas:: ; 4E:60C5
 	ret
 
 Browser_ClearTitleArea:: ; 4E:60E4
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4381,7 +4381,7 @@ Browser_ClearTitleArea:: ; 4E:60E4
 	ret
 
 Browser_ClearBodyArea:: ; 4E:612B
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4461,7 +4461,7 @@ Function_4E_6196::
 	ld b, $92
 	ld c, $40
 	farcall Function_00_0787
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4556,9 +4556,9 @@ Function_4E_6196::
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	xor a, a
-	ld [wRam_C2D3], a
+	ld [wBrowserTimerSecToggle], a
 	dec a
-	ld [wRam_C2D2], a
+	ld [wBrowserTimerLastSec], a
 	ret
 
 ; ---- code $6291-$6543 (690 bytes) [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0; entered by far from 4E:4002 (PROBABLE code)
@@ -4716,7 +4716,7 @@ Function_4E_6291:: ; 4E:6291
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4843,7 +4843,7 @@ Label_4E_6486:: ; 4E:6486
 	ld a, c
 	or a, b
 	jr nz, Label_4E_6486
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4874,7 +4874,7 @@ Label_4E_6486:: ; 4E:6486
 	ld hl, $0000
 	ld bc, $0C14
 	farcall TileCanvas_FillRect
-	ld a, [wRam_C2C2]
+	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
 	ld c, a
@@ -4910,9 +4910,9 @@ Label_4E_6486:: ; 4E:6486
 	ldh a, [rLCDC]
 	call Function_00_07CB
 	xor a, a
-	ld [wRam_C2D3], a
+	ld [wBrowserTimerSecToggle], a
 	dec a
-	ld [wRam_C2D2], a
+	ld [wBrowserTimerLastSec], a
 	ret
 
 ; ---- data $6543-$654B (8 bytes) [HYPOTHESIS] UNCLASSIFIED 10 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) | observed: 8 bytes 08 08 0D 0E 0F 08 08 08 right before the descriptor pointer table 4E:654B and after the ret at 6542; no code word/immediate references them; left unclassified
