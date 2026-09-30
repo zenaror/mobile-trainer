@@ -3,3 +3,5 @@
 INCLUDE "constants/hardware.inc"
 INCLUDE "ram.asm"
 INCLUDE "constants/macros.inc"
+INCLUDE "constants/sjis_charmap.asm"
+INCLUDE "constants/gfx_macros.inc"
