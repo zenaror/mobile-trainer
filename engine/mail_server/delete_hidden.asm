@@ -8,7 +8,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	; [CONFIRMED] 408 insn(s) reached by static flow only; seeds: exec x408; min discovery hops 1;
 	; entered by far from 7C:7D0C (PROBABLE code) | 50 insn(s) executed; cut out of the PROBABLE
 	; region 4000-43E0 by apply_coverage --split [executed in 3 scenarios]
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,7 +24,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld c, $01
 	call MailSrvDelHidden_MenuInit
 	ld de, $0227
@@ -62,7 +62,7 @@ MailSrvDelHidden_MenuRun:: ; 22:4000
 	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-43E0 by apply_coverage --split
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -71,8 +71,8 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	; [CONFIRMED] 28 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage
 	; --split [executed in 1 scenarios]
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -85,7 +85,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -129,7 +129,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -154,13 +154,13 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -179,7 +179,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -208,7 +208,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -240,18 +240,18 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button1
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $F400
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescCheck
 	pop bc
 	ret
@@ -266,18 +266,18 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button0
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0800
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescDeleteAll
 	pop bc
 	ret
@@ -287,77 +287,77 @@ MailSrvDelHidden_MenuSelect:: ; 22:4173
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button2
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_085B
+	call Gfx_UploadBgMapBuffersNoService
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1C00
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	call MailSrvDelHidden_ShowDescDeleteCompletely
 	pop bc
 	ret
 
 MailSrvDelHidden_MenuInit:: ; 22:422D
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailServerDeleteMethod_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6E40
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteMethod_Tiles_5F20
 	ld a, $28
 	ld b, $95
 	ld c, $23
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8800
 	ld hl, MailServerDeleteMethod_Tiles_6150
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8C00
 	ld hl, MailServerDeleteMethod_Tiles_6550
 	ld a, $28
 	ld b, $94
 	ld c, $29
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteMethod_Tiles_67E0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button1
 	ld a, $22
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -382,10 +382,10 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $F400
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr MailSrvDelHidden_MenuStart
 .l4317 ; 22:4317
 	call MailSrvDelHidden_ShowDescDeleteAll
@@ -393,17 +393,17 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button0
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0800
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr MailSrvDelHidden_MenuStart
 .l434B ; 22:434B
 	call MailSrvDelHidden_ShowDescDeleteCompletely
@@ -411,22 +411,22 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelHidden_Button2
 	ld a, $22
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, $6E90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1C00
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 MailSrvDelHidden_MenuStart:: ; 22:437D
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -450,7 +450,7 @@ MailSrvDelHidden_MenuStart:: ; 22:437D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -548,52 +548,52 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailServerDeleteAll_BgPalette
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $5EE0
 	ld a, $28
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, MailServerDeleteAll_Tiles_54B0
 	ld a, $28
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, MailServerDeleteAll_Tiles_58B0
 	ld a, $28
 	ld b, $94
 	ld c, $2A
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailServerDeleteAll_Tiles_5B50
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0787
-	call Function_00_0464
+	farcall Gfx_StartHDMAWithService
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerDeleteAll_Tilemap
 	ld a, $28
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -610,10 +610,10 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6858
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, String_MailSrvDelHidden_Confirm
 	ld a, $02
 	ldh [rVBK], a
@@ -622,7 +622,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld bc, $D000
 	ld de, $D100
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $483C
 	ld a, $02
 	ldh [rVBK], a
@@ -631,7 +631,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld bc, $D200
 	ld de, $D300
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $485D
 	ld a, $02
 	ldh [rVBK], a
@@ -640,7 +640,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld bc, $D400
 	ld de, $D500
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	ld hl, $487E
 	ld a, $02
 	ldh [rVBK], a
@@ -649,9 +649,9 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld bc, $D600
 	ld de, $D700
 	farcall TextTiles_RenderLine
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSrvDelHidden_UploadTextTiles
-	call Function_00_0464
+	call VBlank_Wait
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -659,13 +659,13 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0010
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -685,8 +685,8 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld c, $01
 .l4719 ; 22:4719
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -699,7 +699,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -707,13 +707,13 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	dec c
 	jr z, .l4758
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 .l4758 ; 22:4758
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -731,13 +731,13 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -755,7 +755,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -779,7 +779,7 @@ MailSrvDelHidden_Confirm:: ; 22:4582
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -811,10 +811,10 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6828
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -826,10 +826,10 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 	ld de, Table_28_6E80
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6858
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 
@@ -867,7 +867,8 @@ MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	ldh [rSVBK], a
 	ret
 
-Function_22_48CD:: ; 22:48CD
+MailSrvDelHidden_DrawTimerNumbers:: ; 22:48CD
+Function_22_48CD::
 	; [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...)
 	; that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at
 	; 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven;
@@ -888,10 +889,10 @@ Function_22_48CD:: ; 22:48CD
 	xor a, a
 	ld h, a
 	push hl
-	call Function_22_4975
+	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_22_4A97
+	call MailSrvDelHidden_NumberTileOffset
 	ld hl, $D800
 	add hl, bc
 	ld b, h
@@ -922,10 +923,10 @@ Function_22_48CD:: ; 22:48CD
 	xor a, a
 	ld h, a
 	push hl
-	call Function_22_4975
+	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_22_4A97
+	call MailSrvDelHidden_NumberTileOffset
 	ld hl, $D830
 	add hl, bc
 	ld b, h
@@ -951,10 +952,10 @@ Function_22_48CD:: ; 22:48CD
 	xor a, a
 	ld h, a
 	push hl
-	call Function_22_4975
+	call MailSrvDelHidden_FormatDecimalStr
 	pop hl
 	push hl
-	call Function_22_4A97
+	call MailSrvDelHidden_NumberTileOffset
 	ld hl, $D860
 	add hl, bc
 	ld b, h
@@ -969,20 +970,21 @@ Function_22_48CD:: ; 22:48CD
 	ld hl, $D524
 	farcall TextTiles_RenderLine
 	pop hl
-	call Function_22_4AF7
+	call MailSrvDelHidden_UploadDecimalTiles
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-Function_22_4975:: ; 22:4975
+MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
+Function_22_4975::
 	push hl
 	push bc
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, String_22_4A8C
+	ld hl, String_MailSrvDelHidden_NumberTemplate
 	ld de, $D524
 .loop ; 22:4983
 	ld a, [hli]
@@ -1164,11 +1166,13 @@ Function_22_4975:: ; 22:4975
 ; ---- text $4A8C-$4A97 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string 5 x 82 4F (full-width digit zero); copied byte-by-byte to $D524 until NUL by the loop at 22:4983 (ld hl,$4A8C at 22:497D)
 
 PUSHC sjis
-String_22_4A8C:: ; 22:4A8C
+String_MailSrvDelHidden_NumberTemplate:: ; 22:4A8C
+String_22_4A8C::
 	db "０００００", 0
 POPC
 
-Function_22_4A97:: ; 22:4A97
+MailSrvDelHidden_NumberTileOffset:: ; 22:4A97
+Function_22_4A97::
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split | forced execution:
@@ -1221,7 +1225,8 @@ Function_22_4A97:: ; 22:4A97
 	pop de
 	ret
 
-Function_22_4AF7:: ; 22:4AF7
+MailSrvDelHidden_UploadDecimalTiles:: ; 22:4AF7
+Function_22_4AF7::
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1246,7 +1251,7 @@ MailSrvDelHidden_DeleteAll:: ; 22:4B17
 	xor a, a
 	ld [wRam_C1D1], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 
 MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
@@ -1434,7 +1439,7 @@ MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
 	xor a, a
 	ld [wRam_C1D1], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 
 MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
@@ -1622,7 +1627,7 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	xor a, a
 	ld [wRam_C1D1], a
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ldh [hWRAMBank], a

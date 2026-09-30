@@ -7,8 +7,8 @@ SECTION "engine/mail_server/delete_progress", ROMX
 MailSrvDel_ProgressInit:: ; 23:55C3
 	; [CONFIRMED] 150 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
 	; --split [executed in 5 scenarios]
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -31,30 +31,30 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld a, $23
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailSrvDelProgress_Tiles1
 	ld a, $23
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailSrvDelProgress_Tiles2
 	ld a, $23
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailSrvDelProgress_Screen
 	ld a, $23
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	call MailSrvDel_DrawElapsedTime
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -77,7 +77,7 @@ MailSrvDel_ProgressInit:: ; 23:55C3
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000C
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei

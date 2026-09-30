@@ -65,7 +65,7 @@ Function_29_5090:: ; 29:5090
 	pop af
 	ret
 .l50C7 ; 29:50C7
-	call Function_00_044B
+	call VBlank_WaitAndService
 	dec b
 	jr nz, .l50C7
 	ret
@@ -123,10 +123,11 @@ Function_29_5090:: ; 29:5090
 	ld [rROMB1], a
 	ret
 
-Function_29_5117:: ; 29:5117
+PalLibUnused_WaitLY90:: ; 29:5117
+Function_29_5117::
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, Function_29_5117
+	jr nz, PalLibUnused_WaitLY90
 	ret
 
 Function_29_511E:: ; 29:511E
@@ -157,7 +158,8 @@ Function_29_511E:: ; 29:511E
 	jr nz, .l513B
 	ret
 
-Function_29_5145:: ; 29:5145
+PalLibUnused_DisableVBlankIrq:: ; 29:5145
+Function_29_5145::
 	xor a, a
 	ldh [rIF], a
 	ldh a, [rIE]
@@ -165,7 +167,8 @@ Function_29_5145:: ; 29:5145
 	ldh [rIE], a
 	ret
 
-Function_29_514F:: ; 29:514F
+PalLibUnused_EnableVBlankIrq:: ; 29:514F
+Function_29_514F::
 	xor a, a
 	ldh [rIF], a
 	ldh a, [rIE]
@@ -178,17 +181,17 @@ Function_29_514F:: ; 29:514F
 	ld b, $04
 .l515E ; 29:515E
 	push bc
-	call Function_29_5145
-	call Function_29_520D
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_ReadPalettesToBuffer
 	ld b, $08
 .l5167 ; 29:5167
 	push bc
-	call Function_29_52ED
+	call PalLibUnused_FadeStepTowardBlack
 	pop bc
 	dec b
 	jr nz, .l5167
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop bc
 	dec b
 	jr nz, .l515E
@@ -202,29 +205,29 @@ Function_29_514F:: ; 29:514F
 .l5182 ; 29:5182
 	push bc
 	push hl
-	call Function_29_5145
-	call Function_29_5335
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_FillBufferFromBlock
 	ld c, b
 .l518B ; 29:518B
 	ld b, $08
 .l518D ; 29:518D
 	push bc
-	call Function_29_52ED
+	call PalLibUnused_FadeStepTowardBlack
 	pop bc
 	dec b
 	jr nz, .l518D
 	dec c
 	jr nz, .l518B
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
 	jr nz, .l5182
-	call Function_29_5145
-	call Function_29_5335
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_FillBufferFromBlock
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -234,17 +237,17 @@ Function_29_514F:: ; 29:514F
 	ld b, $04
 .l51B8 ; 29:51B8
 	push bc
-	call Function_29_5145
-	call Function_29_520D
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_ReadPalettesToBuffer
 	ld b, $08
 .l51C1 ; 29:51C1
 	push bc
-	call Function_29_529F
+	call PalLibUnused_FadeStepTowardWhite
 	pop bc
 	dec b
 	jr nz, .l51C1
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop bc
 	dec b
 	jr nz, .l51B8
@@ -258,40 +261,41 @@ Function_29_514F:: ; 29:514F
 .l51DC ; 29:51DC
 	push bc
 	push hl
-	call Function_29_5145
-	call Function_29_5335
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_FillBufferFromBlock
 	ld c, b
 .l51E5 ; 29:51E5
 	ld b, $08
 .l51E7 ; 29:51E7
 	push bc
-	call Function_29_529F
+	call PalLibUnused_FadeStepTowardWhite
 	pop bc
 	dec b
 	jr nz, .l51E7
 	dec c
 	jr nz, .l51E5
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop hl
 	pop bc
 	dec b
 	jr nz, .l51DC
-	call Function_29_5145
-	call Function_29_5335
-	call Function_29_523F
-	call Function_29_514F
+	call PalLibUnused_DisableVBlankIrq
+	call PalLibUnused_FillBufferFromBlock
+	call PalLibUnused_WriteBufferToPalettes
+	call PalLibUnused_EnableVBlankIrq
 	pop af
 	ldh [rSVBK], a
 	ret
 
-Function_29_520D:: ; 29:520D
+PalLibUnused_ReadPalettesToBuffer:: ; 29:520D
+Function_29_520D::
 	ld a, $01
 	ldh [rSVBK], a
 	ld de, $DBD0
 	xor a, a
 	ldh [rBCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $40
 	ld c, $00
 .l521E ; 29:521E
@@ -305,7 +309,7 @@ Function_29_520D:: ; 29:520D
 	jr nz, .l521E
 	xor a, a
 	ldh [rOCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $40
 	ld c, $00
 .l5233 ; 29:5233
@@ -319,11 +323,12 @@ Function_29_520D:: ; 29:520D
 	jr nz, .l5233
 	ret
 
-Function_29_523F:: ; 29:523F
+PalLibUnused_WriteBufferToPalettes:: ; 29:523F
+Function_29_523F::
 	ld de, $DBD0
 	xor a, a
 	ldh [rBCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $40
 	ld c, $00
 .l524C ; 29:524C
@@ -337,7 +342,7 @@ Function_29_523F:: ; 29:523F
 	jr nz, .l524C
 	xor a, a
 	ldh [rOCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $40
 	ld c, $00
 .l5261 ; 29:5261
@@ -351,10 +356,10 @@ Function_29_523F:: ; 29:523F
 	jr nz, .l5261
 	ret
 
-	call Function_29_5145
+	call PalLibUnused_DisableVBlankIrq
 	xor a, a
 	ldh [rBCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $40
 	ld c, $00
 .l527A ; 29:527A
@@ -368,7 +373,7 @@ Function_29_523F:: ; 29:523F
 	jr nz, .l527A
 	xor a, a
 	ldh [rOCPS], a
-	call Function_29_5117
+	call PalLibUnused_WaitLY90
 	ld b, $00
 	ld c, $00
 .l5290 ; 29:5290
@@ -380,10 +385,11 @@ Function_29_523F:: ; 29:523F
 	inc de
 	dec b
 	jr nz, .l5290
-	call Function_29_514F
+	call PalLibUnused_EnableVBlankIrq
 	ret
 
-Function_29_529F:: ; 29:529F
+PalLibUnused_FadeStepTowardWhite:: ; 29:529F
+Function_29_529F::
 	ld hl, $DBD0
 	ld b, $40
 .loop ; 29:52A4
@@ -443,7 +449,8 @@ Function_29_529F:: ; 29:529F
 	jr nz, .loop
 	ret
 
-Function_29_52ED:: ; 29:52ED
+PalLibUnused_FadeStepTowardBlack:: ; 29:52ED
+Function_29_52ED::
 	ld hl, $DBD0
 	ld b, $40
 .loop ; 29:52F2
@@ -500,7 +507,8 @@ Function_29_52ED:: ; 29:52ED
 	jr nz, .loop
 	ret
 
-Function_29_5335:: ; 29:5335
+PalLibUnused_FillBufferFromBlock:: ; 29:5335
+Function_29_5335::
 	push bc
 	ld c, $02
 	ld de, $DBD0

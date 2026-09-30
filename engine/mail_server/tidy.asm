@@ -51,17 +51,17 @@ Function_2E_4000::
 	ld de, $7700
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
 .l4067 ; 2E:4067
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	ldh a, [hJoyHeld]
@@ -89,7 +89,7 @@ Function_2E_4000::
 	ld a, $2E
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	pop de
 	pop bc
@@ -154,7 +154,7 @@ Function_2E_4000::
 .l4108 ; 2E:4108
 	pop hl
 	cp a, $00
-	call nz, Function_2E_48F8
+	call nz, MailServerMgr_TimeWarningPopup
 	pop hl
 	pop bc
 	push bc
@@ -172,9 +172,9 @@ Function_2E_4000::
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailServerMgr_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop hl
@@ -320,14 +320,14 @@ Function_2E_4000::
 	farcall SpriteCounter_StubB
 	call MailServerMgr_ClearTextTiles
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_UpdateTimerDisplay
 	ld de, $0228
 	push af
@@ -348,7 +348,7 @@ Function_2E_4000::
 	ld a, $78
 .l4241 ; 2E:4241
 	push af
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -377,7 +377,7 @@ Function_2E_4000::
 	ld a, $01
 .l4279 ; 2E:4279
 	push af
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	dec a
 	jr nz, .l4279
@@ -424,9 +424,9 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $04
 	farcall SpriteCounter_StubB
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	pop hl
@@ -463,9 +463,9 @@ Label_2E_4298:: ; 2E:4298
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	pop hl
@@ -510,11 +510,11 @@ Label_2E_4298:: ; 2E:4298
 	push af
 	ld de, $B000
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	pop hl
 	pop bc
@@ -646,9 +646,9 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $04
 	farcall SpriteCounter_StubB
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	pop hl
@@ -659,17 +659,17 @@ Label_2E_4298:: ; 2E:4298
 	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7010
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $00
 .l4458 ; 2E:4458
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
 	ld a, [wTimerEnable]
 	bit 1, a
@@ -735,8 +735,8 @@ Label_2E_4298:: ; 2E:4298
 .l44C4 ; 2E:44C4
 	pop hl
 	cp a, $00
-	call nz, Function_2E_4A7D
-	call Function_00_0464
+	call nz, MailServerMgr_TimeWarningPopupChoice
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressedRepeat]
@@ -749,7 +749,7 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -770,7 +770,7 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -798,10 +798,10 @@ Label_2E_4298:: ; 2E:4298
 	ld de, Table_MailServerMgr_ObjAnims
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7010
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $00
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
@@ -814,10 +814,10 @@ Label_2E_4298:: ; 2E:4298
 	ld de, $76D0
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7030
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $01
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
@@ -830,10 +830,10 @@ Label_2E_4298:: ; 2E:4298
 	ld de, $76E0
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7050
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	pop bc
@@ -848,7 +848,7 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -863,10 +863,10 @@ Label_2E_4298:: ; 2E:4298
 	push bc
 	push hl
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $022A
 	push af
 	ldh a, [rSVBK]
@@ -932,9 +932,9 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $04
 	farcall SpriteCounter_StubB
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	pop hl
@@ -945,10 +945,10 @@ Label_2E_4298:: ; 2E:4298
 	ld de, $76E0
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7050
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $02
 	call MailServerMgr_ShowChoiceHelp
 	ld c, $02
@@ -958,7 +958,7 @@ Label_2E_4298:: ; 2E:4298
 	push hl
 	ld de, $D010
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	pop bc
 	push bc
@@ -968,19 +968,19 @@ Label_2E_4298:: ; 2E:4298
 	ld de, $D0A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	ld hl, $DAD0
 	ld de, $76F0
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailServerMgr_ShowDeletingMsg
 	pop hl
 	pop bc
@@ -1019,9 +1019,9 @@ Label_2E_4298:: ; 2E:4298
 	xor a, a
 	farcall Pop3_StartDele
 .l46F8 ; 2E:46F8
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
@@ -1058,7 +1058,7 @@ Label_2E_4298:: ; 2E:4298
 	push hl
 	ld de, $D010
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	pop bc
 	push bc
@@ -1068,19 +1068,19 @@ Label_2E_4298:: ; 2E:4298
 	ld de, $D0A0
 	ld hl, Tilemap_MailServerMgr_Footer
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	di
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ei
 	ld hl, $DAD0
 	ld de, $7700
 	ld a, $2E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailServerMgr_ShowLoadingMsg
 	pop hl
 	pop bc
@@ -1121,8 +1121,8 @@ Label_2E_4298:: ; 2E:4298
 	push de
 	push hl
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
 	call MailServerMgr_UpdateTimerDisplay
 	pop hl
@@ -1155,17 +1155,17 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $04
 	farcall SpriteCounter_StubB
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailServerMgr_UpdateTimerDisplay
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailServerMgr_Main
 	ld a, $2E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call MailServerMgr_DrawTimer
 	ld de, $0229
 	push af
@@ -1186,7 +1186,7 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $78
 .l4843 ; 2E:4843
 	push af
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $01
@@ -1239,12 +1239,12 @@ Label_2E_4298:: ; 2E:4298
 	; 488E-4B2E by apply_coverage --split
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
@@ -1283,19 +1283,20 @@ Label_2E_4298:: ; 2E:4298
 	ld a, $80
 	ret
 
-Function_2E_48F8:: ; 2E:48F8
+MailServerMgr_TimeWarningPopup:: ; 2E:48F8
+Function_2E_48F8::
 	push af
 	push bc
 	push de
 	push hl
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	inc a
@@ -1337,18 +1338,18 @@ Function_2E_48F8:: ; 2E:48F8
 
 	farcall Timer_ResetClockB
 	ld de, $C0A9
-	farcall Function_7F_6235
+	farcall CommNotice_ShowDialogMode0
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	ld a, $80
 	ret
 .l4988 ; 2E:4988
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	inc hl
 	ld a, $B8
@@ -1360,9 +1361,9 @@ Function_2E_48F8:: ; 2E:48F8
 	farcall Pop3_StartDele
 .l49AA ; 2E:49AA
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	ldh a, [hJoyPressed]
 	and a, $02
@@ -1428,14 +1429,14 @@ Function_2E_48F8:: ; 2E:48F8
 	ld hl, $0000
 	call $5FA2
 	di
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	ei
 	call $6DD0
 	ld a, $78
 .l4A31 ; 2E:4A31
 	push af
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	dec a
 	jr nz, .l4A31
@@ -1453,7 +1454,7 @@ Label_2E_4A47:: ; 2E:4A47
 	ld a, $01
 .loop ; 2E:4A50
 	push af
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	dec a
 	jr nz, .loop
@@ -1478,7 +1479,8 @@ Label_2E_4A47:: ; 2E:4A47
 	ld a, $FF
 	ret
 
-Function_2E_4A7D:: ; 2E:4A7D
+MailServerMgr_TimeWarningPopupChoice:: ; 2E:4A7D
+Function_2E_4A7D::
 	push af
 	push bc
 	push de
@@ -1486,12 +1488,12 @@ Function_2E_4A7D:: ; 2E:4A7D
 	push bc
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	pop af
 	pop bc
@@ -1543,7 +1545,7 @@ Function_2E_4A7D:: ; 2E:4A7D
 	; 488E-4B2E by apply_coverage --split
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	push af
 	ldh a, [rSVBK]
 	push af

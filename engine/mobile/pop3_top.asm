@@ -194,7 +194,7 @@ Pop3_TopPoll:: ; 54:4969
 	ld a, $05
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_54_511D
+	call Mail_ScanAndCheckGameMail
 	or a, a
 	jr z, Label_54_4A12
 	ld a, [wMobileTaskArgs]
@@ -264,7 +264,7 @@ Label_54_4A12:: ; 54:4A12
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4A8A
 	ld de, $C480
@@ -277,7 +277,7 @@ Label_54_4A12:: ; 54:4A12
 	farcall Charset_Iso2022JpToSjis
 	ld de, $B450
 	ld hl, $B470
-	call Function_54_4FD2
+	call Mail_SplitFromHeader
 	ld b, $13
 	ld hl, $B470
 	call Text_TruncateSjis
@@ -289,7 +289,7 @@ Label_54_4A12:: ; 54:4A12
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr nz, Label_54_4AE6
 	ld c, l
@@ -351,7 +351,7 @@ Label_54_4AF2:: ; 54:4AF2
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4B1D
 	call Mail_ParseDate
@@ -367,7 +367,7 @@ Label_54_4AF2:: ; 54:4AF2
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jr nz, .l4B6F
 	ld de, $C480
@@ -483,7 +483,7 @@ Label_54_4BEC:: ; 54:4BEC
 	ldh [rSVBK], a
 	ld a, $06
 	ld de, $C240
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	or a, a
 	jp nz, Label_54_4BE8
 	ld b, $0B

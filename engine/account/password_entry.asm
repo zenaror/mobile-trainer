@@ -14,7 +14,7 @@ Account_PasswordEntryScreen:: ; 68:5D00
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0009
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	call Account_PasswordEntry_InputLoop
@@ -91,7 +91,7 @@ Function_68_5D9C::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld hl, $DE80
@@ -110,25 +110,25 @@ Function_68_5D9C::
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5D_4400
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5D_4800
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5D_4C00
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -148,14 +148,14 @@ Function_68_5D9C::
 	ld bc, $0514
 	ld de, $D000
 	ld a, $5D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, $DE83
 	call Account_Password_PrintField
 	call Account_Password_UploadTextTiles
 	call Account_Password_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $04
 	ld b, $02
 	farcall Kbd_Open
@@ -163,7 +163,7 @@ Function_68_5D9C::
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld d, $38
 	ld e, $10
 	ld hl, $DE80
@@ -174,7 +174,7 @@ Function_68_5D9C::
 	ret
 .l5E85 ; 68:5E85
 	farcall Kbd_ShowMarkerSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
 ; ---- words $5E92-$5E9A (8 bytes) [PROBABLE] 4 words $5000,$50C8,$5190,$5258 (stride $C8) read with `ld hl,$5E92 ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5E29 and used as HL of the far call with a=$5D (68:5E3C, bc=$0514, de=$D000): pointers into BANK 5D data, NOT into bank 68 code [verifier: retyped ptrtable->words (the generator emitted `dw Label_68_5000`/`Label_68_50C8`, false references to bank-68 code); range trimmed from 5E92-5E9C by classify_g2, the 5th word $78FA was the operand of `ld a,[$C278]` at 5E9A]
@@ -183,7 +183,8 @@ Account_PasswordEntryMaps:: ; 68:5E92
 Table_68_5E92::
 	dw $5000, $50C8, $5190, $5258
 
-Function_68_5E9A:: ; 68:5E9A
+Account_PasswordEntry_OkStateFromMask:: ; 68:5E9A
+Function_68_5E9A::
 	; [HYPOTHESIS] 8-insn routine ld a,[$C278] ; and 4 ; ... ld [$C27E],a ; ret ; call $5FE1 ; ld
 	; [$C27E],a ; ret; the operand bytes `fa 78 c2` at 5E9A show the mapper's 5th table word ($78FA)
 	; was never a word (the 4 real words 5E92-5E9A have stride $C8); entry not proven [verifier: no
@@ -216,7 +217,7 @@ Function_68_5EAE::
 	ret
 
 Account_PasswordEntry_InputLoop:: ; 68:5EC7
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C27E]
 	ld c, a
 	farcall Kbd_Run
@@ -246,7 +247,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l5F1E
@@ -256,7 +257,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 .l5F1E ; 68:5F1E
@@ -278,7 +279,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Account_PasswordIsValid
@@ -298,7 +299,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l5FDE
@@ -308,7 +309,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -323,7 +324,7 @@ Account_PasswordEntry_InputLoop:: ; 68:5EC7
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -458,7 +459,7 @@ Account_Password_PrintField:: ; 68:6060
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 Account_Password_UploadTextTiles:: ; 68:60AB
@@ -472,7 +473,7 @@ Account_PasswordIntroPage:: ; 68:60BB
 	call Account_PasswordIntro_Draw
 	farcall Palette_FadeInFromWhite
 .loop ; 68:60C4
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -486,7 +487,7 @@ Account_PasswordIntroPage:: ; 68:60BB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -497,7 +498,7 @@ Account_PasswordIntroPage:: ; 68:60BB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -512,19 +513,19 @@ Account_PasswordIntro_Draw:: ; 68:6109
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Data_5D_5320
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5D_5720
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -534,15 +535,15 @@ Account_PasswordIntro_Draw:: ; 68:6109
 	ld de, $D000
 	ld hl, Data_5D_5B20
 	ld a, $5D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_PasswordIntro_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 Account_PasswordIntro_PrintMessage:: ; 68:6168
 	ld a, $02
-	farcall Function_00_153D
+	farcall PromptText_Load
 	push hl
 	push af
 	ld de, $FFFF
@@ -577,7 +578,7 @@ Account_PasswordIntro_PrintMessage:: ; 68:6168
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712

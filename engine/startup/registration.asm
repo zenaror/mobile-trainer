@@ -81,7 +81,8 @@ Label_65_41A7:: ; 65:41A7
 Startup_Return:: ; 65:41A9
 	ret
 
-Function_65_41AA:: ; 65:41AA
+Startup_VerifySaveDataSilent:: ; 65:41AA
+Function_65_41AA::
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall SramCheck_Bank0Status
@@ -308,7 +309,7 @@ Registration_PasswordEntry:: ; 65:438D
 	xor a, a
 	farcall Account_PasswordEntryScreen
 	push af
-	call Function_65_4761
+	call Password_ClearConfirmIfEdited
 	ld hl, $DED4
 	ld de, $DEB9
 	farcall Wram3_CopyString
@@ -524,7 +525,7 @@ Label_65_4584:: ; 65:4584
 	xor a, a
 	farcall Account_PasswordEntryScreen
 	push af
-	call Function_65_4761
+	call Password_ClearConfirmIfEdited
 	ld hl, $DED4
 	ld de, $DEB9
 	farcall Wram3_CopyString
@@ -662,7 +663,8 @@ Registration_Aborted:: ; 65:46CA
 	jr z, .loop
 	ret
 
-Function_65_46FF:: ; 65:46FF
+Password_CopyConfirmToPassword:: ; 65:46FF
+Function_65_46FF::
 	; [HYPOTHESIS] sibling of the executed Function_65_473F (same 32-byte shape: save FFF2/FF8D,
 	; switch WRAM bank 3, call $14BF with hl=$DECB de=$DEB9, restore); clean decode to ret; no
 	; caller or table entry found in the ROM (raw far-call/call/word scan), so entry unproven
@@ -683,7 +685,8 @@ Function_65_46FF:: ; 65:46FF
 	ldh a, [hScratchA]
 	ret
 
-Function_65_471F:: ; 65:471F
+Password_CopyConfirmToNew:: ; 65:471F
+Function_65_471F::
 	; [HYPOTHESIS] sibling of the executed Function_65_473F (same shape, de=$DEC2); clean decode to
 	; ret; no caller or table entry found, entry unproven
 	ldh [hScratchA], a
@@ -726,7 +729,8 @@ Function_65_473F::
 	ld a, b
 	ret
 
-Function_65_4761:: ; 65:4761
+Password_ClearConfirmIfEdited:: ; 65:4761
+Function_65_4761::
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af

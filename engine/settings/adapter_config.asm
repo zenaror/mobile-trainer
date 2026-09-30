@@ -14,7 +14,7 @@ SettingsPhone_ReadAdapterConfig:: ; 67:53DC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0018
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	call SettingsPhone_ReadAdapterConfig_Poll
@@ -30,8 +30,8 @@ SettingsPhone_ReadAdapterConfig_Setup:: ; 67:5402
 	ret
 
 SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -59,7 +59,7 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -85,11 +85,12 @@ SettingsPhone_ReadAdapterConfig_Poll:: ; 67:5410
 
 SettingsPhone_ReadAdapterConfig_StateTable:: ; 67:546C
 Table_67_546C::
-	dw Label_67_5472
-	dw Label_67_5484
-	dw Label_67_54B9
+	dw SettingsPhone_ReadAdapterConfig_State_Init
+	dw SettingsPhone_ReadAdapterConfig_State_ReadConfig
+	dw SettingsPhone_ReadAdapterConfig_State_Finish
 
-Label_67_5472:: ; 67:5472
+SettingsPhone_ReadAdapterConfig_State_Init:: ; 67:5472
+Label_67_5472::
 	; [CONFIRMED] entered through Table_67_546C (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 54DB; not
 	; executed in traces [executed in 2 scenarios]
@@ -101,10 +102,11 @@ Label_67_5472:: ; 67:5472
 	ld [wRam_C27D], a
 	jr SettingsPhone_ReadAdapterConfig_Poll
 
-Label_67_5484:: ; 67:5484
+SettingsPhone_ReadAdapterConfig_State_ReadConfig:: ; 67:5484
+Label_67_5484::
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5509
+	jp nz, SettingsPhone_ReadAdapterConfig_Abort
 	bit 0, a
 	jp nz, SettingsPhone_ReadAdapterConfig_Poll
 	ld a, $0A
@@ -125,10 +127,11 @@ Label_67_5484:: ; 67:5484
 	ld [wRam_C27D], a
 	jp SettingsPhone_ReadAdapterConfig_Poll
 
-Label_67_54B9:: ; 67:54B9
+SettingsPhone_ReadAdapterConfig_State_Finish:: ; 67:54B9
+Label_67_54B9::
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5509
+	jp nz, SettingsPhone_ReadAdapterConfig_Abort
 	bit 0, a
 	jp nz, SettingsPhone_ReadAdapterConfig_Poll
 	ldh [hScratchA], a
@@ -171,7 +174,8 @@ Label_67_54B9:: ; 67:54B9
 	ld [wRam_C27C], a
 	ret
 
-Label_67_5509:: ; 67:5509
+SettingsPhone_ReadAdapterConfig_Abort:: ; 67:5509
+Label_67_5509::
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 54DB-55B8 by apply_coverage --split
 	farcall Mobile_SaveLastResult
@@ -210,8 +214,8 @@ SettingsPhone_WriteAdapterConfig_Setup:: ; 67:5554
 	ret
 
 SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -239,7 +243,7 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -265,11 +269,12 @@ SettingsPhone_WriteAdapterConfig_Poll:: ; 67:555C
 
 SettingsPhone_WriteAdapterConfig_StateTable:: ; 67:55B8
 Table_67_55B8::
-	dw Label_67_55BE
-	dw Label_67_55D0
-	dw Label_67_560A
+	dw SettingsPhone_WriteAdapterConfig_State_Init
+	dw SettingsPhone_WriteAdapterConfig_State_PatchAndWrite
+	dw SettingsPhone_WriteAdapterConfig_State_Finish
 
-Label_67_55BE:: ; 67:55BE
+SettingsPhone_WriteAdapterConfig_State_Init:: ; 67:55BE
+Label_67_55BE::
 	; [CONFIRMED] entered through Table_67_55B8 (state handlers indexed by [$C27D]); decode chain
 	; legal, all 3 table targets are instruction starts, ends in known code region at 562C; not
 	; executed in traces [executed in 1 scenarios]
@@ -281,10 +286,11 @@ Label_67_55BE:: ; 67:55BE
 	ld [wRam_C27D], a
 	jr SettingsPhone_WriteAdapterConfig_Poll
 
-Label_67_55D0:: ; 67:55D0
+SettingsPhone_WriteAdapterConfig_State_PatchAndWrite:: ; 67:55D0
+Label_67_55D0::
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5638
+	jp nz, SettingsPhone_WriteAdapterConfig_Abort
 	bit 0, a
 	jp nz, SettingsPhone_WriteAdapterConfig_Poll
 	ld a, $0A
@@ -307,10 +313,11 @@ Label_67_55D0:: ; 67:55D0
 	ld [wRam_C27D], a
 	jp SettingsPhone_WriteAdapterConfig_Poll
 
-Label_67_560A:: ; 67:560A
+SettingsPhone_WriteAdapterConfig_State_Finish:: ; 67:560A
+Label_67_560A::
 	ld a, [wTimerEnable]
 	bit 1, a
-	jp nz, Label_67_5638
+	jp nz, SettingsPhone_WriteAdapterConfig_Abort
 	bit 0, a
 	jp nz, SettingsPhone_WriteAdapterConfig_Poll
 	ld a, $36
@@ -333,7 +340,8 @@ Label_67_560A:: ; 67:560A
 	ld [wRam_C27C], a
 	ret
 
-Label_67_5638:: ; 67:5638
+SettingsPhone_WriteAdapterConfig_Abort:: ; 67:5638
+Label_67_5638::
 	; [PROBABLE] 16 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 562C-5664 by apply_coverage --split
 	farcall Mobile_SaveLastResult

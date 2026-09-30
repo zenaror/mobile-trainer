@@ -20,7 +20,7 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
@@ -30,19 +30,19 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld a, $4B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4B_7AD0
 	ld a, $4B
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7CD0
@@ -57,23 +57,23 @@ SettingsPhone_ContinuePrompt_Setup:: ; 67:5728
 	ld de, $D000
 	ld hl, $7D10
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_ContinuePrompt_PrintPrompt
 	call SettingsPhone_ContinuePrompt_UploadTextTiles
 	call SettingsPhone_ContinuePrompt_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call SettingsPhone_ContinuePrompt_PlaceCursor
 	ret
 
 SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -89,7 +89,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -115,7 +115,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -131,7 +131,7 @@ SettingsPhone_ContinuePrompt_Loop:: ; 67:57CC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -159,7 +159,7 @@ SettingsPhone_ContinuePrompt_PlaceCursor:: ; 67:5842
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $585A-$585E (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 30 / 58 30), indexed by [$C27D]*2 (ld hl,$585A at 67:5846), stored into sprite slot $DA00 by call $0A65 (coordinates)
@@ -209,8 +209,8 @@ SettingsPhone_ContinuePrompt_PrintPrompt:: ; 67:586E
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $0A
-	farcall Function_00_153D
-	call Function_00_0ED3
+	farcall PromptText_Load
+	call TextEngine_Run
 	ret
 
 SettingsPhone_ContinuePrompt_UploadTextTiles:: ; 67:58BD

@@ -38,7 +38,8 @@ Browser_StartMenuLoop:: ; 4F:4680
 
 ; ---- ptrtable $4698-$46A4 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 4F:4695: 6 entries; end = first entry target
 
-Table_4F_4698:: ; 4F:4698
+Browser_StartMenuLoop_ResultTable:: ; 4F:4698
+Table_4F_4698::
 	dw Label_4F_46A4
 	dw Browser_StartHomePage
 	dw Browser_StartPageListEntry
@@ -77,7 +78,7 @@ Browser_StartPageListEntry:: ; 4F:46BA
 	push de
 	push hl
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall SaveCheck_Update
 	pop hl
 	pop de

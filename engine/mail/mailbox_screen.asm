@@ -10,8 +10,8 @@ Function_25_4B0D::
 	; executed call/far call
 	push de
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	ld a, [wMailScreenMode]
 	inc a
@@ -21,54 +21,54 @@ Function_25_4B0D::
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, Mailbox_Tiles_5A10
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, Mailbox_Tiles_5E10
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, $69F0
 	ld a, $25
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8700
 	ld hl, $6A00
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8D00
 	ld hl, $6CF0
 	ld a, $25
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Mailbox_Tilemap_Normal
 	ld a, $25
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	jp .l4C75
 
 .l4BD0 ; 25:4BD0
@@ -79,54 +79,54 @@ Function_25_4B0D::
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, Mailbox_Tiles_5F10
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, Mailbox_Tiles_6310
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, $69F0
 	ld a, $25
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8700
 	ld hl, $6A00
 	ld a, $25
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8D00
 	ld hl, $6CF0
 	ld a, $25
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Mailbox_Tilemap_DeleteSelect
 	ld a, $25
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 
 .l4C75 ; 25:4C75
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 1/18 scenarios)
@@ -135,20 +135,20 @@ Function_25_4B0D::
 	ld hl, Mailbox_BgPalette
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6EF0
 	ld a, $25
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 .loop ; 25:4CA2
 	ldh a, [rLY]
 	cp a, $90
 	jr nz, .loop
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $98A1
@@ -169,7 +169,7 @@ Function_25_4B0D::
 	inc hl
 	ld [hli], a
 	ld [hli], a
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -251,10 +251,10 @@ Function_25_4B0D::
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4D4C ; 25:4D4C
 	pop bc
 
@@ -262,10 +262,10 @@ Function_25_4B0D::
 	; [CONFIRMED] 34 insn(s); 34 executed (in up to 1/18 scenarios)
 	push bc
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -288,7 +288,7 @@ Function_25_4B0D::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -316,28 +316,28 @@ Mailbox_UpdateScrollArrows_B:: ; 25:4D99
 	ld de, $7B50
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6848
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $7B40
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
 .l4DE8 ; 25:4DE8
 	ld de, $68D0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $30D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop de
 	pop bc
 	ret
@@ -1495,16 +1495,16 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	jr nz, .l559A
 	ld de, $38D0
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DA70
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	push bc
 	call Mailbox_CountRecords
@@ -1521,37 +1521,37 @@ Mailbox_ShowRowNumbers:: ; 25:5581
 	ld de, $7B90
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $5C08
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l55F3 ; 25:55F3
 	ld hl, $DA70
 	ld de, $7B80
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $5008
 	ld hl, $DA70
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l560C ; 25:560C
 	ld hl, $DA60
 	ld de, $7B70
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4408
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l5625 ; 25:5625
 	ld hl, $DA50
 	ld de, $7B60
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3808
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l563E ; 25:563E
 	pop bc
 	pop de
@@ -1562,16 +1562,16 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	push bc
 	ld de, $38D0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DAA0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $38D0
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	push bc
 	call Mailbox_CountRecords
@@ -1589,22 +1589,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l56AC
 	ld hl, $DAC0
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l56AC ; 25:56AC
 	ld de, $5C08
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 .l56B6 ; 25:56B6
 	push bc
@@ -1612,22 +1612,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l56E1
 	ld hl, $DAA0
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l56E1 ; 25:56E1
 	ld de, $5008
 	ld hl, $DAA0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 .l56EB ; 25:56EB
 	push bc
@@ -1635,22 +1635,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5716
 	ld hl, $DAB0
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5716 ; 25:5716
 	ld de, $4408
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 .l5720 ; 25:5720
 	push bc
@@ -1658,22 +1658,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BB0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l574B
 	ld hl, $DA90
 	ld de, $7BA0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l574B ; 25:574B
 	ld de, $3808
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 .l5755 ; 25:5755
 	ld a, c
@@ -1688,22 +1688,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $03
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5790
 	ld hl, $DAC0
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5790 ; 25:5790
 	ld de, $5C08
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l579D ; 25:579D
@@ -1712,22 +1712,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $02
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l57C8
 	ld hl, $DAA0
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l57C8 ; 25:57C8
 	ld de, $5008
 	ld hl, $DAA0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l57D5 ; 25:57D5
@@ -1736,22 +1736,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $01
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5800
 	ld hl, $DAB0
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5800 ; 25:5800
 	ld de, $4408
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l580D ; 25:580D
@@ -1760,22 +1760,22 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	ld de, $7BD0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	ld a, $00
-	call Function_25_5848
+	call Mailbox_IsRecordClosedEnvelope
 	inc a
 	jr nz, .l5838
 	ld hl, $DA90
 	ld de, $7BC0
 	ld a, $26
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l5838 ; 25:5838
 	ld de, $3808
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	jp .l5845
 .l5845 ; 25:5845
@@ -1783,7 +1783,8 @@ Mailbox_ShowRowStatusIcons:: ; 25:5641
 	pop de
 	ret
 
-Function_25_5848:: ; 25:5848
+Mailbox_IsRecordClosedEnvelope:: ; 25:5848
+Function_25_5848::
 	add a, b
 	ld c, a
 	sla c

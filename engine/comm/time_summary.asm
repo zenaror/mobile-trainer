@@ -55,7 +55,7 @@ Function_51_404A::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	call LCDOn
 	call CommTime_TimerAIsNonZero
 	or a, a
@@ -64,54 +64,54 @@ Function_51_404A::
 	cp a, $01
 	jr z, .l40BF
 	ld de, $9001
-	ld hl, Data_51_4DB0
+	ld hl, Gfx_CommTime_SummaryB_Tiles9000Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_51_51B0
+	ld hl, Gfx_CommTime_SummaryB_Tiles9400Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_51_5880
+	ld hl, Palette_CommTime_SummaryB
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l4105
 
 .l40BF ; 51:40BF
 	; [CONFIRMED] 22 insn(s) reached by static flow only; seeds: exec x22; min discovery hops 1;
 	; entered by jrcc from 51:4075 (executed) [executed in 1 scenarios]
 	ld de, $9001
-	ld hl, Data_51_42A0
+	ld hl, Gfx_CommTime_SummaryA_Tiles9000Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_51_46A0
+	ld hl, Gfx_CommTime_SummaryA_Tiles9400Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_51_4D70
+	ld hl, Palette_CommTime_SummaryA
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_CommTime_SummaryA
 	ld a, $51
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 
 .l4105 ; 51:4105
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
@@ -174,8 +174,8 @@ Function_51_404A::
 	ld a, l
 	call CommTime_PutDigit
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffersDi
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ld a, [wCommSessionKind]
 	cp a, $01
@@ -185,7 +185,7 @@ Function_51_404A::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000D
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	jr .l4196
@@ -198,7 +198,7 @@ Function_51_404A::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000D
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
@@ -208,15 +208,16 @@ Function_51_404A::
 	ldh [hDialogResult], a
 
 Label_51_4199:: ; 51:4199
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $41B1-$41BB (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 51:41AE: 5 entries; fixed length (5 words) by the routine
 
-Table_51_41B1:: ; 51:41B1
+CommTime_SummaryInputTable:: ; 51:41B1
+Table_51_41B1::
 	dw Label_51_41BB
 	dw Label_51_41BE
 	dw Label_51_41C1
@@ -241,7 +242,7 @@ Label_51_41C4:: ; 51:41C4
 Label_51_41C7:: ; 51:41C7
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 4/18 scenarios)
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 
 Label_51_41D3:: ; 51:41D3
 	ldh [hRam_FFA7], a

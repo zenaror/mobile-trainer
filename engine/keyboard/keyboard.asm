@@ -54,14 +54,14 @@ Function_55_5BA2::
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, $D868
 	ld hl, $4CE0
 	ld a, $5F
 	farcall Palette_LoadToBuffer
 	ld a, [wKbdType]
-	call Function_55_6ED6
+	call Kbd_TypeNeedsExtraPalette
 	or a, a
 	jp z, .l5C5A
 	ld bc, $0010
@@ -76,11 +76,11 @@ Function_55_5BA2::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -92,12 +92,12 @@ Function_55_5BA2::
 	cp a, $02
 	jr nz, .l5C71
 	call Kbd_ShowInstant
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 .l5C71 ; 55:5C71
 	ld a, $01
 	call Kbd_LoadPageGraphics
@@ -105,10 +105,10 @@ Function_55_5BA2::
 	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $FF
 	ld [wSpriteSlots + 180], a
-	call Function_55_617B
+	call Kbd_ClearSticky
 	ret
 
 Kbd_Run:: ; 55:5C8F
@@ -191,10 +191,10 @@ Kbd_Run:: ; 55:5C8F
 	ld de, $4D40
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7870
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l5D36 ; 55:5D36
 	ld a, [wKbdType]
 	cp a, $05
@@ -212,15 +212,15 @@ Kbd_Run_Loop:: ; 55:5D49
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 11/18 scenarios)
 	call Kbd_DrawGlyphPreview
 	farcall Joypad_Update
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, .l5D66
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l5D69
 .l5D66 ; 55:5D66
-	call Function_00_0464
+	call VBlank_Wait
 .l5D69 ; 55:5D69
 	ld a, [wKbdType]
 	cp a, $05
@@ -291,7 +291,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Label_55_5E5A
@@ -322,7 +322,7 @@ Kbd_Run_Loop:: ; 55:5D49
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003A
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $C2AC
@@ -451,7 +451,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp Kbd_Run_Loop
@@ -459,7 +459,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 .l5ED3 ; 55:5ED3
 	; [CONFIRMED] 12 insn(s); 12 executed (in up to 9/18 scenarios)
 	ld a, [wKbdType]
-	call Function_55_6F02
+	call Kbd_TypeHidesOnKey82
 	or a, a
 	jr z, Label_55_5F23
 	xor a, a
@@ -481,7 +481,7 @@ Kbd_Run_ButtonA:: ; 55:5E5D
 .l5EF5 ; 55:5EF5
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 4/18 scenarios)
 	ld a, [wKbdType]
-	call Function_55_6F18
+	call Kbd_TypeHidesOnKey83
 	or a, a
 	jr z, Label_55_5F20
 
@@ -586,7 +586,7 @@ Kbd_MoveCursor:: ; 55:5F66
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop af
@@ -647,7 +647,8 @@ Kbd_MoveCursor:: ; 55:5F66
 
 ; ---- words $5FC8-$5FD0 (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_55_5FC8:: ; 55:5FC8
+Kbd_MoveCursor_DirTable:: ; 55:5FC8
+Table_55_5FC8::
 	dw $5FD0, $5FF4, $5FFD, $6020
 
 	; [CONFIRMED] 51 insn(s); 51 executed (in up to 8/18 scenarios)
@@ -693,12 +694,12 @@ Table_55_5FC8:: ; 55:5FC8
 	jr z, .l602E
 	jr .l6004
 .l6029 ; 55:6029
-	call Function_55_6068
+	call Kbd_UpdateSticky
 	jr .l603D
 .l602E ; 55:602E
 	ld a, [wKbdCursorCell]
 	call Kbd_SplitCursorIndex
-	call Function_55_6068
+	call Kbd_UpdateSticky
 	ld a, [wRam_C2B6]
 	ld [wKbdCursorCell], a
 .l603D ; 55:603D
@@ -738,7 +739,8 @@ Function_55_6041:: ; 55:6041
 	inc c
 	ret
 
-Function_55_6068:: ; 55:6068
+Kbd_UpdateSticky:: ; 55:6068
+Function_55_6068::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 8/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wKeyboardCharHi]
@@ -761,48 +763,51 @@ Function_55_6068:: ; 55:6068
 
 ; ---- words $6087-$608F (8 bytes) [CONFIRMED] read as data by executed code (in up to 7/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_55_6087:: ; 55:6087
+Kbd_UpdateSticky_StoreDirTable:: ; 55:6087
+Table_55_6087::
 	dw $608F, $60A0, $60B1, $60C2
 
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 7/18 scenarios)
 	ld a, [wRam_C2B8]
 	bit 7, a
-	call nz, Function_55_60D3
+	call nz, Kbd_StoreStickyCol
 	ld a, [wRam_C2B8]
 	bit 3, a
-	call nz, Function_55_60DA
+	call nz, Kbd_StoreStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 6, a
-	call nz, Function_55_60D3
+	call nz, Kbd_StoreStickyCol
 	ld a, [wRam_C2B8]
 	bit 2, a
-	call nz, Function_55_60DA
+	call nz, Kbd_StoreStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 5, a
-	call nz, Function_55_60D3
+	call nz, Kbd_StoreStickyCol
 	ld a, [wRam_C2B8]
 	bit 1, a
-	call nz, Function_55_60DA
+	call nz, Kbd_StoreStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 4, a
-	call nz, Function_55_60D3
+	call nz, Kbd_StoreStickyCol
 	ld a, [wRam_C2B8]
 	bit 0, a
-	call nz, Function_55_60DA
+	call nz, Kbd_StoreStickyRow
 	ret
 
-Function_55_60D3:: ; 55:60D3
+Kbd_StoreStickyCol:: ; 55:60D3
+Function_55_60D3::
 	ld a, [wKbdCursorCol]
 	ld [wKbdStickyCol], a
 	ret
 
-Function_55_60DA:: ; 55:60DA
+Kbd_StoreStickyRow:: ; 55:60DA
+Function_55_60DA::
 	ld a, [wKbdCursorRow]
 	ld [wKbdStickyRow], a
 	ret
@@ -822,48 +827,51 @@ Label_55_60E1:: ; 55:60E1
 
 ; ---- words $60F1-$60F9 (8 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown [retyped data->words by classify_g2: every word is an instruction start of a code region of this bank (jump/dispatch table)]
 
-Table_55_60F1:: ; 55:60F1
+Kbd_UpdateSticky_ClearDirTable:: ; 55:60F1
+Table_55_60F1::
 	dw $60F9, $610A, $611B, $612C
 
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios)
 	ld a, [wRam_C2B8]
 	bit 7, a
-	call z, Function_55_613D
+	call z, Kbd_ClearStickyCol
 	ld a, [wRam_C2B8]
 	bit 3, a
-	call z, Function_55_6143
+	call z, Kbd_ClearStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 6, a
-	call z, Function_55_613D
+	call z, Kbd_ClearStickyCol
 	ld a, [wRam_C2B8]
 	bit 2, a
-	call z, Function_55_6143
+	call z, Kbd_ClearStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 5, a
-	call z, Function_55_613D
+	call z, Kbd_ClearStickyCol
 	ld a, [wRam_C2B8]
 	bit 1, a
-	call z, Function_55_6143
+	call z, Kbd_ClearStickyRow
 	ret
 
 	ld a, [wRam_C2B8]
 	bit 4, a
-	call z, Function_55_613D
+	call z, Kbd_ClearStickyCol
 	ld a, [wRam_C2B8]
 	bit 0, a
-	call z, Function_55_6143
+	call z, Kbd_ClearStickyRow
 	ret
 
-Function_55_613D:: ; 55:613D
+Kbd_ClearStickyCol:: ; 55:613D
+Function_55_613D::
 	ld a, $FF
 	ld [wKbdStickyCol], a
 	ret
 
-Function_55_6143:: ; 55:6143
+Kbd_ClearStickyRow:: ; 55:6143
+Function_55_6143::
 	ld a, $FF
 	ld [wKbdStickyRow], a
 	ret
@@ -907,7 +915,8 @@ Kbd_ColRowToIndex:: ; 55:616D
 	add a, l
 	ret
 
-Function_55_617B:: ; 55:617B
+Kbd_ClearSticky:: ; 55:617B
+Function_55_617B::
 	ld a, $FF
 	ld [wKbdStickyCol], a
 	ld [wKbdStickyRow], a
@@ -949,7 +958,7 @@ Function_55_6190::
 	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	jr .l61F6
 .l61BF ; 55:61BF
@@ -958,7 +967,7 @@ Function_55_6190::
 	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $82
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	ld a, [wKbdType]
 	ld hl, Table_55_62B4
@@ -1045,14 +1054,14 @@ Function_55_6190::
 	ld de, $4D18
 	ld a, $5F
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .l6271
 .l6261 ; 55:6261
 	ld hl, $DAA0
 	ld de, $4D18
 	ld a, $5F
 	ld b, $84
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l6271 ; 55:6271
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
@@ -1075,7 +1084,7 @@ Function_55_6190::
 	jr .done
 .l6299 ; 55:6299
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 .done ; 55:629F
 	ret
 
@@ -1112,18 +1121,18 @@ Kbd_SlideIn:: ; 55:6318
 Function_55_6318::
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 5/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0034
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Kbd_GetSlideTargetY
@@ -1152,18 +1161,18 @@ Function_55_6318::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 55:636B (executed) | 7 insn(s) executed; cut out of the PROBABLE
 	; region 636D-6386 by apply_coverage --split [executed in 4 scenarios]
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, .l6381
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l6384
 
 .l6381 ; 55:6381
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 636D-6386 by apply_coverage --split
-	call Function_00_0464
+	call VBlank_Wait
 
 .l6384 ; 55:6384
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 636D-6386 by apply_coverage
@@ -1176,7 +1185,7 @@ Function_55_6318::
 	cp a, $06
 	jr nz, .l639A
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode6
 	jr .l63D2
@@ -1184,7 +1193,7 @@ Function_55_6318::
 	cp a, $08
 	jr nz, .l63AB
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode8
 	jr .l63D2
@@ -1192,7 +1201,7 @@ Function_55_6318::
 	cp a, $09
 	jr nz, .l63BC
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode9
 	jr .l63D2
@@ -1200,7 +1209,7 @@ Function_55_6318::
 	cp a, $07
 	jr nz, .l63CD
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_InStepMode7
 	jr .l63D2
@@ -1209,7 +1218,7 @@ Function_55_6318::
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 55:63BE (executed)
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 
 .l63D2 ; 55:63D2
@@ -1232,19 +1241,19 @@ Kbd_ShowInstant:: ; 55:63E7
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, .l63F5
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l63F8
 .l63F5 ; 55:63F5
-	call Function_00_0464
+	call VBlank_Wait
 .l63F8 ; 55:63F8
 	call Kbd_GetSlideTargetY
 	ldh [rWY], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call Kbd_ShowPageIndicator
 	ret
 
@@ -1269,14 +1278,14 @@ Function_55_6427::
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAD0
-	call Function_00_09E6
-	farcall Function_00_0956
+	call Sprite_ClearSlot
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -1284,12 +1293,12 @@ Function_55_6427::
 
 	; [CONFIRMED] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:644C (executed) [executed in 4 scenarios]
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l6456
 
 .l6453 ; 55:6453
 	; [CONFIRMED] 28 insn(s); 28 executed (in up to 4/18 scenarios)
-	call Function_00_0464
+	call VBlank_Wait
 .l6456 ; 55:6456
 	ldh a, [rWY]
 	cp a, $90
@@ -1299,7 +1308,7 @@ Function_55_6427::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0035
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wKbdType]
@@ -1326,18 +1335,18 @@ Function_55_6427::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 0;
 	; fall-through of the jrcc at 55:649B (executed) | 7 insn(s) executed; cut out of the PROBABLE
 	; region 649D-64B6 by apply_coverage --split [executed in 4 scenarios]
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, .l64B1
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l64B4
 
 .l64B1 ; 55:64B1
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 649D-64B6 by apply_coverage --split
-	call Function_00_0464
+	call VBlank_Wait
 
 .l64B4 ; 55:64B4
 	; [CONFIRMED] 1 insn(s) executed; cut out of the PROBABLE region 649D-64B6 by apply_coverage
@@ -1350,7 +1359,7 @@ Function_55_6427::
 	cp a, $06
 	jr nz, .l64CA
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_OutStepMode6
 	jr .l6502
@@ -1358,7 +1367,7 @@ Function_55_6427::
 	cp a, $08
 	jr nz, .l64DB
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_OutStepMode8
 	jr .l6502
@@ -1366,7 +1375,7 @@ Function_55_6427::
 	cp a, $09
 	jr nz, .l64EC
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_OutStepMode9
 	jr .l6502
@@ -1374,13 +1383,13 @@ Function_55_6427::
 	cp a, $07
 	jr nz, .l64FD
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 	farcall KbdSlide_OutStepMode7
 	jr .l6502
 .l64FD ; 55:64FD
 	push de
-	call Function_00_0464
+	call VBlank_Wait
 	pop de
 .l6502 ; 55:6502
 	ld hl, $FF4A
@@ -1389,44 +1398,44 @@ Function_55_6427::
 	ld [hl], a
 	cp a, $90
 	jp c, .l6496
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Kbd_HideInstant:: ; 55:651C
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAD0
-	call Function_00_09E6
-	farcall Function_00_0956
+	call Sprite_ClearSlot
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
 	jr z, .l6548
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l654B
 
 .l6548 ; 55:6548
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 55:6541 (executed) [executed in 1 scenarios]
-	call Function_00_0464
+	call VBlank_Wait
 
 .l654B ; 55:654B
 	; [CONFIRMED] 31 insn(s); 31 executed (in up to 8/18 scenarios)
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Kbd_Hide:: ; 55:6559
@@ -1437,22 +1446,22 @@ Kbd_Hide:: ; 55:6559
 	ret
 
 Label_55_6563:: ; 55:6563
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0034
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 .loop ; 55:6580
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -1460,12 +1469,12 @@ Label_55_6563:: ; 55:6563
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:658D (executed)
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l6597
 
 .l6594 ; 55:6594
 	; [CONFIRMED] 35 insn(s); 35 executed (in up to 2/18 scenarios)
-	call Function_00_0464
+	call VBlank_Wait
 .l6597 ; 55:6597
 	ldh a, [rWY]
 	sub a, $08
@@ -1481,12 +1490,12 @@ Label_55_6563:: ; 55:6563
 	call Kbd_TypePickerLoop
 	push af
 	call Kbd_SlideOut
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	call Kbd_SaveInputMode
 	pop af
 	or a, a
@@ -1517,12 +1526,12 @@ Function_55_65DA::
 	ld de, Table_5F_4CF8
 	ld a, $5F
 	ld b, $82
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l65EA ; 55:65EA
 	call Kbd_UpdatePickerSprites
 .l65ED ; 55:65ED
 	farcall Joypad_Update
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wKbdType]
 	call Kbd_TypeWaitsWithService
 	or a, a
@@ -1530,12 +1539,12 @@ Function_55_65DA::
 
 	; [PROBABLE] 2 insn(s) reached by static flow only; seeds: exec x2; min discovery hops 0;
 	; fall-through of the jrcc at 55:6600 (executed)
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr .l660A
 
 .l6607 ; 55:6607
 	; [CONFIRMED] 48 insn(s); 48 executed (in up to 2/18 scenarios)
-	call Function_00_0464
+	call VBlank_Wait
 .l660A ; 55:660A
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -1559,7 +1568,7 @@ Function_55_65DA::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $C2BC
@@ -1579,7 +1588,7 @@ Function_55_65DA::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $C2BC
@@ -1601,10 +1610,10 @@ Function_55_65DA::
 	; [CONFIRMED] 42 insn(s); 42 executed (in up to 2/18 scenarios)
 	push af
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
-	farcall Function_00_0956
+	call Sprite_ClearSlot
+	farcall Sprite_UpdateAll
 	pop af
 	ret
 
@@ -1620,7 +1629,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld d, $66
 	ld e, a
 	ld hl, $DAB0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wKbdInputMode]
 	inc a
 	set 7, a
@@ -1628,7 +1637,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld hl, $DAA0
 	ld de, $4D18
 	ld a, $5F
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $66C3
 	ld a, [wKbdInputMode]
 	add a, l
@@ -1640,7 +1649,7 @@ Kbd_UpdatePickerSprites:: ; 55:667B
 	ld d, $5D
 	ld e, a
 	ld hl, $DAA0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call Kbd_LoadPickerTabTiles
 	ret
 
@@ -1655,7 +1664,7 @@ Function_55_66C6::
 	; executed call/far call
 	ldh [hRam_FFB0], a
 	ld a, [wKbdType]
-	ld hl, Table_55_66D9
+	ld hl, Kbd_LoadPageGraphics_TypeTable
 	add a, a
 	add a, l
 	ld l, a
@@ -1669,7 +1678,8 @@ Function_55_66C6::
 
 ; ---- ptrtable $66D9-$66EF (22 bytes) [PROBABLE] code-pointer table, 11 entries: 8/11 words hit known code starts (dispatch idiom `ld a,[hli] ; ld h,[hl] ; ld l,a ; jp hl` at 55:66D8, base from `ld hl,$66D9`; end = cfg inline-table rule, HYPOTHESIS for the exact length); 8/11 targets executed
 
-Table_55_66D9:: ; 55:66D9
+Kbd_LoadPageGraphics_TypeTable:: ; 55:66D9
+Table_55_66D9::
 	dw Label_55_66EF
 	dw Label_55_6704
 	dw Label_55_672B
@@ -1688,7 +1698,7 @@ Label_55_66EF:: ; 55:66EF
 	ld de, $D240
 	ld hl, Data_5F_4ECB
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1698,12 +1708,12 @@ Label_55_6704:: ; 55:6704
 	ld a, $5E
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0D14
 	ld de, $D240
 	ld hl, Data_5F_50D3
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1714,7 +1724,7 @@ Label_55_672B:: ; 55:672B
 	ld de, $D240
 	ld hl, Data_5F_54E3
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1723,7 +1733,7 @@ Label_55_6740:: ; 55:6740
 	ld de, $D240
 	ld hl, Data_5F_56EB
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1734,13 +1744,13 @@ Label_55_6755:: ; 55:6755
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5D_4400
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0018
 	ld de, $D828
 	ld hl, $4D28
@@ -1750,7 +1760,7 @@ Label_55_6755:: ; 55:6755
 	ld de, $D240
 	ld hl, Data_5F_52DB
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1762,19 +1772,19 @@ Label_55_679F:: ; 55:679F
 	ld a, $5F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5F_5D00
 	ld a, $5F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5F_6100
 	ld a, $5F
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0008
 	ld de, $D808
 	ld hl, Data_5F_6BB8
@@ -1792,11 +1802,11 @@ Label_55_679F:: ; 55:679F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1809,11 +1819,11 @@ Label_55_679F:: ; 55:679F
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1823,7 +1833,7 @@ Label_55_679F:: ; 55:679F
 	ld de, $D240
 	ld hl, Data_5F_69B0
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap13Rows
 	ret
 
@@ -1861,19 +1871,19 @@ Label_55_6871:: ; 55:6871
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_66_4400
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_66_4800
 	ld a, $66
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6952
 
 Label_55_68AA:: ; 55:68AA
@@ -1882,19 +1892,19 @@ Label_55_68AA:: ; 55:68AA
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_66_4E40
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_66_5240
 	ld a, $66
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6952
 
 Label_55_68E3:: ; 55:68E3
@@ -1903,19 +1913,19 @@ Label_55_68E3:: ; 55:68E3
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_66_5880
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_66_5C80
 	ld a, $66
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6952
 
 Label_55_691C:: ; 55:691C
@@ -1931,19 +1941,19 @@ Label_55_691C:: ; 55:691C
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	; [executed in 2 scenarios]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_66_62C0
 	ld a, $66
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_66_66C0
 	ld a, $66
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 
 Label_55_6952:: ; 55:6952
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 4/18 scenarios)
@@ -1954,7 +1964,7 @@ Label_55_6952:: ; 55:6952
 	ld de, $D240
 	ld hl, Data_66_7210
 	ld a, $66
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
 
@@ -1991,19 +2001,19 @@ Label_55_6984:: ; 55:6984
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_62_4400
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_62_4800
 	ld a, $62
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6A65
 
 Label_55_69BD:: ; 55:69BD
@@ -2012,19 +2022,19 @@ Label_55_69BD:: ; 55:69BD
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_62_4F00
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_62_5300
 	ld a, $62
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6A65
 
 Label_55_69F6:: ; 55:69F6
@@ -2033,19 +2043,19 @@ Label_55_69F6:: ; 55:69F6
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_62_5A00
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_62_5E00
 	ld a, $62
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_55_6A65
 
 Label_55_6A2F:: ; 55:6A2F
@@ -2061,19 +2071,19 @@ Label_55_6A2F:: ; 55:6A2F
 	; [CONFIRMED] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	; [executed in 4 scenarios]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_62_6500
 	ld a, $62
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_62_6900
 	ld a, $62
 	ld b, $95
 	ld c, $24
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 
 Label_55_6A65:: ; 55:6A65
 	; [CONFIRMED] 68 insn(s); 68 executed (in up to 5/18 scenarios)
@@ -2084,7 +2094,7 @@ Label_55_6A65:: ; 55:6A65
 	ld de, $D240
 	ld hl, Data_66_7210
 	ld a, $66
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
 
@@ -2094,24 +2104,24 @@ Label_55_6A7E:: ; 55:6A7E
 	ld a, $5F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5F_4400
 	ld a, $5F
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5F_4800
 	ld a, $5F
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0B14
 	ld de, $D240
 	ld hl, Data_5F_4810
 	ld a, $5F
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
 
@@ -2121,12 +2131,12 @@ Label_55_6AC9:: ; 55:6AC9
 	ld a, $66
 	ld b, $96
 	ld c, $19
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0614
 	ld de, $D240
 	ld hl, Data_66_73C8
 	ld a, $66
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Kbd_UploadPanelMap11Rows
 	ret
 
@@ -2155,12 +2165,12 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 55:6B16 (executed)
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l6B27
 
 .l6B21 ; 55:6B21
 	; [CONFIRMED] 9 insn(s); 9 executed (in up to 5/18 scenarios)
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 .l6B27 ; 55:6B27
 	inc e
 	ld b, $96
@@ -2174,12 +2184,12 @@ Kbd_UploadPanelMap11Rows:: ; 55:6AF0
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 55:6B36 (executed)
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l6B47
 
 .l6B41 ; 55:6B41
 	; [CONFIRMED] 30 insn(s); 30 executed (in up to 7/18 scenarios)
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 .l6B47 ; 55:6B47
 	ldh [hScratchA], a
 	pop af
@@ -2210,13 +2220,13 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	or a, a
 	jr z, .l6B82
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l6B88
 
 .l6B82 ; 55:6B82
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 55:6B77 (executed)
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 
 .l6B88 ; 55:6B88
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 7/18 scenarios)
@@ -2229,13 +2239,13 @@ Kbd_UploadPanelMap13Rows:: ; 55:6B51
 	or a, a
 	jr z, .l6BA2
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l6BA8
 
 .l6BA2 ; 55:6BA2
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 55:6B97 (executed)
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 
 .l6BA8 ; 55:6BA8
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 11/18 scenarios)
@@ -2257,10 +2267,10 @@ Kbd_ShowPageIndicator:: ; 55:6BB2
 	ld hl, $DAC0
 	ld de, $4D04
 	ld a, $5F
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $8808
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 Kbd_LoadPickerTabTiles:: ; 55:6BD7
@@ -2286,13 +2296,13 @@ Kbd_LoadPickerTabTiles:: ; 55:6BD7
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 55:6BF5 (executed)
 	ld a, $66
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .done
 
 .l6C01 ; 55:6C01
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 2/18 scenarios)
 	ld a, $66
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 .done ; 55:6C09
 	ret
 
@@ -2376,7 +2386,7 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -2393,10 +2403,10 @@ Kbd_DrawGlyphPreview:: ; 55:6C16
 	or a, a
 	jr z, .l6CB2
 	xor a, a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jr .l6CB8
 .l6CB2 ; 55:6CB2
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 .l6CB8 ; 55:6CB8
 	ldh [hScratchA], a
 	pop af

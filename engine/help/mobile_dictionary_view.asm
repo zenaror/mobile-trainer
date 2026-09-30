@@ -11,7 +11,7 @@ Function_4C_4F56::
 	ld [wRam_C2DC], a
 	call Url_StripFragment
 	ld hl, $C380
-	farcall Function_00_131A
+	farcall HtmlStore_BuildPageUrl
 	xor a, a
 	ld [wBrowserNavigating], a
 	farcall MobileDictView_LoadEntry
@@ -37,33 +37,34 @@ Label_4C_4F95:: ; 4C:4F95
 	ld a, $00
 	ldh [hBrowserSelectedLink], a
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	xor a, a
 	ld [wConnIconState], a
 	ld [wConnIconGfxRequest], a
 	ld hl, $DA80
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	farcall Browser_RenderPage
 	ld b, $14
 	ld c, $01
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	xor a, a
 	ldh [hDialogResult], a
 
 Label_4C_4FDD:: ; 4C:4FDD
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $4FF5-$4FFF (10 bytes) [CONFIRMED] inline table of `call $056A` (JoypadDispatch) at 4C:4FF2: 5 entries; fixed length (5 words) by the routine; every byte read as data in a trace
 
-Table_4C_4FF5:: ; 4C:4FF5
+MobileDictView_InputTable:: ; 4C:4FF5
+Table_4C_4FF5::
 	dw Label_4C_501E
 	dw Label_4C_509A
 	dw Label_4C_50E0
@@ -123,7 +124,7 @@ Label_4C_501E:: ; 4C:501E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -150,7 +151,7 @@ Label_4C_509A:: ; 4C:509A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -179,13 +180,13 @@ Label_4C_50E3:: ; 4C:50E3
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld bc, $000F
 	farcall Sprite_WaitFrames
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wBrowserNavigating], a
 	ldh [hRam_FFA7], a
@@ -194,8 +195,8 @@ Label_4C_50E3:: ; 4C:50E3
 
 Sprite_WaitFrames:: ; 4C:5111
 	push bc
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	pop bc
 	dec bc
 	ld a, c
@@ -213,7 +214,7 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	call BankSwitch_H
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wBrowserNavigating]
 	or a, a
 	jr z, .l5147
@@ -235,8 +236,8 @@ MobileDictView_LoadEntry:: ; 4C:5122
 	ld [wBrowserRxPtr + 1], a
 	ld a, $03
 	ld [wBrowserRxBank], a
-	farcall Function_00_1354
-	call Function_00_0392
+	farcall HtmlStore_LoadPage
+	call Sound_FrameService
 	farcall Browser_WrapImageInHtml
 	or a, a
 	jr nz, .l5194
@@ -359,7 +360,7 @@ MobileDictView_LoadImages:: ; 4C:51A1
 	sbc a, d
 	ld b, a
 	ld a, [wBrowserRxBank]
-	farcall Function_00_1354
+	farcall HtmlStore_LoadPage
 	jp .l51D1
 
 MobileDictView_HistoryPush:: ; 4C:5274

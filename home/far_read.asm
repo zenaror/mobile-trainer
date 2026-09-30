@@ -71,7 +71,8 @@ ReadByteFar:: ; 00:1620
 	ld a, [hli]
 	ret
 
-Function_00_1686:: ; 00:1686
+ReadBytesFar:: ; 00:1686
+Function_00_1686::
 	; [PROBABLE] copy E bytes from far HL (bank D, region by H) to [BC++]; restores only the ROM
 	; bank [candidate; raw refs 1]
 	ldh [hScratchA], a

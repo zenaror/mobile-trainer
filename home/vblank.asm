@@ -4,7 +4,8 @@
 
 SECTION "home/vblank", ROM0
 
-Function_00_0392:: ; 00:0392
+Sound_FrameService:: ; 00:0392
+Function_00_0392::
 	; [CONFIRMED] frame service, at most once per frame: skips if C2BF!=0, sets C2BF=1 (Int_VBlank
 	; clears it), saves BC/DE/HL and the WRAM bank, rSVBK=1 (FF8D is not updated), call 04:4082
 	; through stub 20A6 (the stub returns A=$FF without entering bank 04 when D000 bit7 is already
@@ -30,7 +31,7 @@ Function_00_0392:: ; 00:0392
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	pop hl
@@ -142,7 +143,8 @@ Int_VBlank:: ; 00:03BA
 	pop af
 	reti
 
-Function_00_044B:: ; 00:044B
+VBlank_WaitAndService:: ; 00:044B
+Function_00_044B::
 	; [CONFIRMED] wait for VBlank then run the frame service: if LCD on {ei; halt} until C2DF!=0;
 	; clear C2DF; call 0392
 	push af
@@ -159,11 +161,12 @@ Function_00_044B:: ; 00:044B
 .l045B ; 00:045B
 	xor a, a
 	ld [wVBlankFlag], a
-	call Function_00_0392
+	call Sound_FrameService
 	pop af
 	ret
 
-Function_00_0464:: ; 00:0464
+VBlank_Wait:: ; 00:0464
+Function_00_0464::
 	; [CONFIRMED] wait for VBlank flag only (ei; halt until C2DF!=0; clear C2DF); no frame service.
 	; Most referenced helper of the ROM (401 raw call sites) [reached via inferred links; raw refs
 	; 404] [executed in 32 scenarios]
@@ -184,7 +187,8 @@ Function_00_0464:: ; 00:0464
 	pop af
 	ret
 
-Function_00_047A:: ; 00:047A
+VBlank_WaitStartDI:: ; 00:047A
+Function_00_047A::
 	; [CONFIRMED] wait for VBlank; returns with IME=0 right after the VBlank interrupt (LY>=$90); if
 	; woken late (LY<$90) clears the flag, calls 0392 and waits again
 	push af
@@ -210,10 +214,11 @@ Function_00_047A:: ; 00:047A
 .l0497 ; 00:0497
 	xor a, a
 	ld [wVBlankFlag], a
-	call Function_00_0392
+	call Sound_FrameService
 	jr .loop
 
-Function_00_04A0:: ; 00:04A0
+Int_InstallRamVectors:: ; 00:04A0
+Function_00_04A0::
 	; [CONFIRMED] installs the RAM interrupt stubs: CBF1=jp $03BA, CBF4=reti, CBF7=jp $01ED, CBFA=jp
 	; $01B7, CBFD=reti (bytes written one by one; verified on interpreter) [reached via inferred
 	; links; raw refs 12] [executed in 41 scenarios]

@@ -113,7 +113,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -123,7 +123,7 @@ Nav_MailMenu_SendReceive:: ; 7C:7BDA
 	ld bc, $0000
 	farcall Mailbox_LoadScreen
 	farcall Stat_DisableScrollSplit
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $021F
 	push de
 	pop de

@@ -31,8 +31,8 @@ MailView_BodyPage:: ; 2B:7B02
 
 MailView_BodyPage_Loop:: ; 2B:7B2A
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -46,13 +46,13 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	xor a, a
@@ -69,14 +69,14 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
-	call Function_00_0464
+	call VBlank_Wait
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -86,10 +86,10 @@ MailView_BodyPage_Loop:: ; 2B:7B2A
 
 MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, MailBody_BgPalette
@@ -105,31 +105,31 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld a, $28
 	ld b, $95
 	ld c, $21
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, MailBody_Tiles_44D0
 	ld a, $28
 	ld b, $98
 	ld c, $08
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_28_4550
 	ld a, $28
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	ld hl, $DA10
 	ld de, MailBody_ObjTable
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0808
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	push bc
 	ld a, $00
@@ -153,7 +153,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld a, $02
 	ld [hl], a
 	farcall SramCheck_Bank0Commit
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -186,14 +186,14 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	inc de
 	dec b
 	jr nz, .loop
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $00
 	call MailView_BodyPage_FindLine
 	ld b, $03
 	ld c, $00
 	ld de, $0008
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $01
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -201,7 +201,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $0C
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $02
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -209,7 +209,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $18
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $03
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -217,7 +217,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $24
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $04
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -225,7 +225,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $30
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $05
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -233,7 +233,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $3C
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $06
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -241,7 +241,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $48
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	ld b, $07
 	call MailView_BodyPage_FindLine
 	ld b, $03
@@ -249,11 +249,11 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld d, $54
 	ld e, $08
 	call MailView_BodyPage_DrawTextLine24
-	call Function_00_0464
+	call VBlank_Wait
 	farcall MailView_BodyPage_UploadTextTiles
 	farcall Stat_DisableScrollSplit
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -276,7 +276,7 @@ MailView_BodyPage_InitScreen:: ; 2B:7B9B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei

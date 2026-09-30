@@ -4,7 +4,8 @@
 
 SECTION "home/text_measure", ROM0
 
-Function_00_1408:: ; 00:1408
+Text_MeasureFit:: ; 00:1408
+Function_00_1408::
 	; [CONFIRMED] text measure: A=bank, HL=string, BC=limit, DE=x: adds 6 per single-byte char, 12
 	; per double-byte, $30 per tab; stops at 00/0A/0D; returns BC = bytes that fit [candidate; raw
 	; refs 13] | 17 insn(s) executed; cut out of the PROBABLE region 1408-14BF by apply_coverage

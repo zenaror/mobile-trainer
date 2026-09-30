@@ -52,8 +52,8 @@ Label_2C_403B:: ; 2C:403B
 MailTitle_Entry_Loop:: ; 2C:4042
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 2/18 scenarios)
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call MailTitle_PlaceTextCursor
@@ -66,7 +66,7 @@ Label_2C_405F:: ; 2C:405F
 	cp a, $07
 	jr nz, Label_2C_407C
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $07
 	ldh [rWX], a
@@ -89,22 +89,22 @@ Label_2C_407C:: ; 2C:407C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, $FF
 	ret
 
@@ -130,7 +130,7 @@ MailTitle_CursorLeft:: ; 2C:40D4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -165,7 +165,7 @@ MailTitle_CursorRight:: ; 2C:40FB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -234,8 +234,8 @@ Function_2C_414C::
 	; [CONFIRMED] 171 insn(s); 171 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -244,19 +244,19 @@ Function_2C_414C::
 	ld a, $2C
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8800
 	ld hl, $5410
 	ld a, $2C
 	ld b, $95
 	ld c, $26
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, $5140
 	ld a, $2C
 	ld b, $94
 	ld c, $2D
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailTitle_Obj
@@ -271,26 +271,26 @@ Function_2C_414C::
 	ld de, $D000
 	ld hl, Data_MailTitle_TilemapAttr
 	ld a, $2C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $14D0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $D0
 	ld [wSpriteSlots + 48], a
 	xor a, a
 	ld [wSpriteSlots + 49], a
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	pop af
 	push af
 	dec a
@@ -329,7 +329,7 @@ Function_2C_414C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0004
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 .l4258 ; 2C:4258
@@ -348,7 +348,7 @@ Function_2C_414C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0004
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -362,11 +362,11 @@ Function_2C_414C::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -375,7 +375,7 @@ Function_2C_414C::
 	jr .l42E3
 .l42B4 ; 2C:42B4
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -740,7 +740,7 @@ MailTitle_InsertChar:: ; 2C:44B8
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -763,7 +763,7 @@ Label_2C_44DC:: ; 2C:44DC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -773,15 +773,15 @@ Label_2C_44DC:: ; 2C:44DC
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call MailTitle_PlaceTextCursor
 	ld d, $14
 .loop ; 2C:4509
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -800,11 +800,11 @@ Label_2C_44DC:: ; 2C:44DC
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	call MailTitle_PlaceTextCursor
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	pop de
 	push de
@@ -854,7 +854,7 @@ Label_2C_4585:: ; 2C:4585
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -970,7 +970,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -980,7 +980,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	dec b
@@ -1015,8 +1015,8 @@ MailTitle_DeleteChar:: ; 2C:4612
 .loop ; 2C:4656
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1035,7 +1035,7 @@ MailTitle_DeleteChar:: ; 2C:4612
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	inc c
 	dec c
@@ -1166,7 +1166,7 @@ MailTitle_ApplyDakuten:: ; 2C:46EB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -1304,7 +1304,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1367,7 +1367,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1385,7 +1385,7 @@ MailTitle_ApplyVu:: ; 2C:47CB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1455,7 +1455,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1515,7 +1515,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1533,7 +1533,7 @@ MailTitle_ApplyHandakuten:: ; 2C:487E
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1590,7 +1590,7 @@ MailTitle_KeyboardLoop:: ; 2C:4972
 	push bc
 	call MailTitle_PlaceTextCursor
 	ld d, $70
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld b, $01
 	ld c, $00
 	farcall Kbd_Run

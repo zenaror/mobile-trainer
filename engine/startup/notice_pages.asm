@@ -12,7 +12,7 @@ Function_65_487C::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ldh a, [rLCDC]
 	and a, $9F
 	ldh [rLCDC], a
@@ -23,8 +23,8 @@ Function_65_487C::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	call Function_00_0392
+	farcall Sprite_ResetAll
+	call Sound_FrameService
 	ld a, [wRam_C27C]
 	ld b, $00
 	ld c, a
@@ -44,7 +44,7 @@ Function_65_487C::
 	ld a, $58
 	ld b, $96
 	ld c, $1D
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
 	ld de, $D800
 	ld hl, Palette_58_7B50
@@ -61,22 +61,22 @@ Function_65_487C::
 	ld de, $D000
 	ld hl, Data_58_7B78
 	ld a, $58
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l4919
 .l4908 ; 65:4908
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_4B_4000
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l4919 ; 65:4919
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call Notice_LoadHeaderGfx
 	call Notice_DrawPageCounter
 	call Notice_DrawBodyText
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall Palette_FadeInFromWhite
 	call Notice_RequestPageSound
 	ld a, [wRam_C280]
@@ -84,7 +84,7 @@ Function_65_487C::
 	jr z, Notice_ShowPage_Locked
 
 Notice_ShowPage_InputLoop:: ; 65:493C
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -109,7 +109,7 @@ Notice_ShowPage_ButtonA:: ; 65:495B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -129,7 +129,7 @@ Notice_ShowPage_ButtonB:: ; 65:4974
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -143,7 +143,7 @@ Label_65_499B:: ; 65:499B
 	jr Notice_ShowPage_InputLoop
 
 Notice_ShowPage_Locked:: ; 65:499D
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jr Notice_ShowPage_Locked
 
 Notice_DrawBodyText:: ; 65:49A2
@@ -189,7 +189,7 @@ Notice_DrawBodyText:: ; 65:49A2
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	xor a, a
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0301
 	ld bc, $0712
@@ -234,7 +234,7 @@ Notice_LoadHeaderGfx:: ; 65:4A37
 	ld de, $9301
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	inc hl
 	ld a, [hl]
@@ -252,7 +252,7 @@ Notice_LoadHeaderGfx:: ; 65:4A37
 	ld a, $58
 	ld b, $95
 	ld c, $28
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 ; ---- data $4A81-$4AD7 (86 bytes) [PROBABLE] descriptor table read by the executed code (up to 9 scenarios), 86 bytes: repeating groups of a flag byte (D0/50/90/10/40/C0) + 16-bit address (5841 5844 5846 ... = bank-58 tile sources; 4B5B 4B5E 4B60 ... and 7172 7174 = bank-65 / other addresses); exact record layout not decoded; the mapper 1-6 byte holes (4A84 4A90 4A9C 4AB1 4ACF) were unread bytes of this same table
@@ -317,7 +317,7 @@ Function_65_4AD7::
 	ld bc, $0201
 	ld de, $D210
 	ld a, $58
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ld a, [hl]
 	push af
@@ -345,7 +345,7 @@ Function_65_4AD7::
 	ld bc, $0201
 	ld de, $D212
 	ld a, $58
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $0A
 	push af
 	ld a, [wRam_C281]
@@ -372,7 +372,7 @@ Function_65_4AD7::
 	ld bc, $0201
 	ld de, $D211
 	ld a, $58
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- words $4B78-$4B7C (4 bytes) [PROBABLE] 2 pointers to the two lists below (4B7C, 4B92), read by the executed function 4AD7
@@ -413,7 +413,7 @@ Function_65_4BA8::
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ret

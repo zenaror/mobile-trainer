@@ -15,7 +15,7 @@ SettingsPhone_ChoiceMenu:: ; 67:4631
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0009
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	call SettingsPhone_ChoiceMenu_Loop
@@ -47,7 +47,7 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $01
@@ -78,30 +78,30 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4D_4510
 	ld a, $4D
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4D_4610
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4D_4A10
 	ld a, $4D
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, $5540
 	ld a, $4D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l477D
 .l4724 ; 67:4724
 	ld de, $8801
@@ -109,37 +109,37 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4D_5010
 	ld a, $4D
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4D_5110
 	ld a, $4D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4D_5510
 	ld a, $4D
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_4D_5810
 	ld a, $4D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l477D ; 67:477D
 	ld de, $8001
 	ld hl, Data_4D_4000
 	ld a, $4D
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_4D_5510
@@ -155,19 +155,19 @@ SettingsPhone_ChoiceMenu_Setup:: ; 67:4688
 	call SettingsPhone_ChoiceMenu_UploadTextTiles
 	call SettingsPhone_ChoiceMenu_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4D_5D10
 	ld a, $4D
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call SettingsPhone_ChoiceMenu_PlaceCursor
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
 SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -185,7 +185,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -198,7 +198,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -210,7 +210,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -220,7 +220,7 @@ SettingsPhone_ChoiceMenu_Loop:: ; 67:47DC
 	call SettingsPhone_ChoiceMenu_PlaceCursor
 	call SettingsPhone_ChoiceMenu_LoadTilemap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	jr .l4852
 .l4852 ; 67:4852
 	jp SettingsPhone_ChoiceMenu_Loop
@@ -239,7 +239,7 @@ SettingsPhone_ChoiceMenu_PlaceCursor:: ; 67:4855
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $486D-$4871 (4 bytes) [PROBABLE] 2 entries x 2 bytes (10 17 / 10 2F) indexed by [$C27D]*2 (ld hl,$486D at 67:4859): e=[hl], d=[hl+1] then ld hl,$DA00 ; call $0A65 which stores D,E into the sprite slot (positions); values are coordinates
@@ -292,13 +292,13 @@ SettingsPhone_ChoiceMenu_PrintPrompt:: ; 67:4881
 	or a, a
 	jr nz, .l48D4
 	ld a, $08
-	farcall Function_00_153D
+	farcall PromptText_Load
 	jr .l48DC
 .l48D4 ; 67:48D4
 	ld a, $09
-	farcall Function_00_153D
+	farcall PromptText_Load
 .l48DC ; 67:48DC
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 SettingsPhone_ChoiceMenu_UploadTextTiles:: ; 67:48E0
@@ -333,7 +333,7 @@ SettingsPhone_ChoiceMenu_LoadTilemap:: ; 67:48F0
 	ld h, [hl]
 	ld l, a
 	ld a, $4D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- words $491C-$4924 (8 bytes) [PROBABLE] 4 words $5AE0,$5B6C,$5BF8,$5C84 indexed by [$C27D]*2 (ld hl,$491C at 67:4906): hl=[table] then ld a,$4D ; far call to 00:08EA (tilemap loader) at 67:4913-4917, i.e. source addresses in bank 4D (not this bank; dw kept numeric)

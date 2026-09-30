@@ -40,18 +40,18 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_56_56C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_4F9A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_56_77C0
@@ -61,10 +61,10 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6828
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $00
 	ld bc, $0410
 	ld de, $0000
@@ -91,13 +91,13 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -126,13 +126,13 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -149,7 +149,7 @@ ConnectDialog_Draw_ConnectConfirm:: ; 57:47D1
 	ld de, $D200
 	ld hl, Data_56_526A
 	ld a, $56
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	jp ConnectDialog_Draw_Finish
 .l4914 ; 57:4914
 	ld a, $07
@@ -194,31 +194,31 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C10
 	ld hl, ConnectDialog_BlankTile
 	ld a, $57
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9101
 	ld hl, Data_56_5DC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_56_60C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_418A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
@@ -241,13 +241,13 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -276,13 +276,13 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -299,12 +299,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call ConnectDialog_PlaceCaretSprites
 	jp ConnectDialog_Draw_Finish
 .l4AA3 ; 57:4AA3
@@ -312,12 +312,12 @@ ConnectDialog_Draw_PasswordEntry:: ; 57:4951
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, Table_56_79B8
 	ld a, $56
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call ConnectDialog_PlaceCaretSprites
 	ret
 
@@ -330,31 +330,31 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C10
 	ld hl, ConnectDialog_BlankTile
 	ld a, $57
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9101
 	ld hl, Data_56_5DC0
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_56_60C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	call ConnectDialog_RenderTypedChars
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_418A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
@@ -376,13 +376,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -411,13 +411,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -431,14 +431,14 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld [wRam_D522], a
 	ld [wRam_D542], a
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call ConnectDialog_DrawPasswordField
 .l4BF3 ; 57:4BF3
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_49FA
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
@@ -447,11 +447,11 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, [wRam_C0E6]
 	cp a, $06
 	jr nz, .l4C2C
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 .l4C2C ; 57:4C2C
 	ld a, $80
 	ld bc, $0610
@@ -474,13 +474,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -509,13 +509,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -541,13 +541,13 @@ ConnectDialog_Draw_SavePasswordConfirm:: ; 57:4AC7
 	ld a, $00
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9C01
 	ld hl, $D4E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_57_50D8
 
 ; ---- zero $4D28-$4D30 (8 bytes) [PROBABLE] 8 zero bytes of padding before the tile block 4D30
@@ -567,18 +567,18 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_56_71C0
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_4CCA
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
@@ -606,13 +606,13 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -641,13 +641,13 @@ ConnectDialog_Draw_PasswordSaved:: ; 57:4D40
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -669,24 +669,24 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9101
 	ld hl, $67C0
 	ld a, $56
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_56_6AC0
 	ld a, $56
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_445A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call ConnectDialog_DrawPasswordField
 	ld bc, $0040
 	ld de, $D800
@@ -709,13 +709,13 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -744,13 +744,13 @@ ConnectDialog_Draw_StoredPassword:: ; 57:4E4C
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -772,7 +772,7 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld de, $D000
 	ld hl, Data_56_472A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $7800
@@ -799,13 +799,13 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -834,13 +834,13 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D400
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -866,13 +866,13 @@ ConnectDialog_Draw_ForgetConfirm:: ; 57:4F59
 	ld a, $00
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9C01
 	ld hl, $D4E0
 	ld a, $00
 	ld b, $96
 	ld c, $16
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	jp Label_57_50D8
 
 ConnectDialog_Draw_Finish:: ; 57:5077
@@ -882,19 +882,19 @@ ConnectDialog_Draw_Finish:: ; 57:5077
 	ld a, $56
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7840
 	ld a, $56
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, [wRam_C0E6]
 	cp a, $05
 	jr nc, .l50B3
 .loop ; 57:50A6
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ret
 .l50B3 ; 57:50B3
@@ -926,7 +926,7 @@ Label_57_50D8:: ; 57:50D8
 	ld a, $56
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7840
@@ -979,7 +979,7 @@ Function_57_510F::
 	ld de, $D000
 	ld hl, Data_56_418A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
@@ -991,14 +991,14 @@ Function_57_510F::
 	ld de, $D000
 	ld hl, Data_56_49FA
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jp .l520D
 .l5174 ; 57:5174
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_56_4CCA
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l51BC
 
 .l5187 ; 57:5187
@@ -1007,7 +1007,7 @@ Function_57_510F::
 	ld de, $D000
 	ld hl, Data_56_445A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $00
 	ld bc, $0610
 	ld de, $0000
@@ -1022,7 +1022,7 @@ Function_57_510F::
 	ld de, $D000
 	ld hl, Data_56_472A
 	ld a, $56
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 
 .l51BC ; 57:51BC
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 5/18 scenarios)
@@ -1063,13 +1063,13 @@ Function_57_510F::
 	ld a, $00
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9881
 	ld hl, $D480
 	ld a, $00
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 .l520D ; 57:520D
@@ -1139,13 +1139,13 @@ Function_57_510F::
 	ld a, $00
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9881
 	ld hl, $D480
 	ld a, $00
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 ConnectDialog_PlaceCaretSprites:: ; 57:527D
@@ -1173,7 +1173,7 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	add a, a
 	add a, $32
 	ld e, a
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ld hl, $DA30
 	ld a, [wRam_C1CC]
 	add a, $1E
@@ -1191,7 +1191,7 @@ ConnectDialog_PlaceCaretSprites:: ; 57:527D
 	add a, a
 	add a, $30
 	ld e, a
-	farcall Function_00_0A65
+	farcall Sprite_SetPosition
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1230,11 +1230,11 @@ ConnectDialog_ObjHook_Caret:: ; 57:52D8
 	; [CONFIRMED] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	; [executed in 4 scenarios]
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA2B
 	ld de, $531E
 	ld a, $57
-	call Function_00_0A45
+	call Sprite_SetHook
 	call ConnectDialog_PlaceCaretSprites
 	ld a, $01
 	ld [wRam_C0E8], a
@@ -1409,7 +1409,7 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	ld a, c
 	ldh [rHDMA5], a
 	inc c
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 .l5411 ; 57:5411
@@ -1418,7 +1418,7 @@ ConnectDialog_UploadMapRow:: ; 57:53C6
 	ldh a, [rLY]
 	cp a, $91
 	jr nc, .l5411
-	call Function_00_0392
+	call Sound_FrameService
 	jr .loop
 
 SavedPassword_Store:: ; 57:541C
@@ -1463,7 +1463,7 @@ ConnectDialog_RenderTypedChars:: ; 57:5444
 	ld a, $02
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ret
 
 ConnectDialog_PlayButtonSfx:: ; 57:546C
@@ -1504,7 +1504,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1514,7 +1514,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1527,7 +1527,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1537,7 +1537,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1552,7 +1552,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1565,7 +1565,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1580,7 +1580,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1590,7 +1590,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1607,7 +1607,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1617,7 +1617,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1633,7 +1633,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1643,7 +1643,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1662,7 +1662,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0032
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1675,7 +1675,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1688,7 +1688,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1701,7 +1701,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1711,7 +1711,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1726,7 +1726,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1736,7 +1736,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1758,7 +1758,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0033
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1771,7 +1771,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -1781,7 +1781,7 @@ Function_57_546C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret

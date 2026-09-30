@@ -23,7 +23,7 @@ CommNotice_ShowDialog:: ; 50:4000
 	call CommNotice_RunDialog
 	or a, a
 	jr nz, .l4050
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $010F
 	farcall Dialog_Open
 	farcall Comm_Disconnect
@@ -74,37 +74,37 @@ CommNotice_RunDialog:: ; 50:4061
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, [wRam_C0D6]
 	or a, a
 	jp nz, .l4173
 	ld de, $9000
-	ld hl, Data_50_5A20
+	ld hl, Gfx_CommNotice_A_Tiles9000
 	ld a, $50
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, Data_50_5E20
+	ld hl, Gfx_CommNotice_A_Tiles9400
 	ld a, $50
 	ld b, $96
 	ld c, $1A
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_50_5FC0
+	ld hl, Gfx_CommNotice_A_Tiles8000Vb1
 	ld a, $50
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_50_5FD0
+	ld hl, Gfx_CommNotice_A_Tiles9000Vb1
 	ld a, $50
 	ld b, $94
 	ld c, $32
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_50_6BC0
+	ld hl, Palette_CommNotice
 	ld a, $50
 	farcall Palette_LoadToBuffer
 	ld a, [wRam_C0D8]
@@ -159,10 +159,10 @@ CommNotice_RunDialog:: ; 50:4061
 	jr .l414F
 .l414F ; 50:414F
 	ld hl, $DA10
-	ld de, Table_50_6D16
+	ld de, CommNotice_ObjTable
 	ld a, $50
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6C40
@@ -174,29 +174,29 @@ CommNotice_RunDialog:: ; 50:4061
 	; [PROBABLE] 75 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-4244 by apply_coverage --split
 	ld de, $9000
-	ld hl, Data_50_62F0
+	ld hl, Gfx_CommNotice_B_Tiles9000
 	ld a, $50
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
-	ld hl, Data_50_66F0
+	ld hl, Gfx_CommNotice_B_Tiles9400
 	ld a, $50
 	ld b, $96
 	ld c, $1A
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
-	ld hl, Data_50_6890
+	ld hl, Gfx_CommNotice_B_Tiles8000Vb1
 	ld a, $50
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
-	ld hl, Data_50_68A0
+	ld hl, Gfx_CommNotice_B_Tiles9000Vb1
 	ld a, $50
 	ld b, $94
 	ld c, $32
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6C00
@@ -245,7 +245,7 @@ CommNotice_RunDialog:: ; 50:4061
 	ld de, $6D1A
 	ld a, $50
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6C80
@@ -284,31 +284,32 @@ CommNotice_DrawScreenAndLoop:: ; 50:4254
 	ld de, $D000
 	ld bc, $1214
 	ld a, $50
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call CommNotice_DrawChoiceCursor
 	call CommNotice_DrawMinuteDigit
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001D
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
 Label_50_429A:: ; 50:429A
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
 
 ; ---- ptrtable $42AC-$42B6 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 50:42A9: 5 entries; fixed length (5 words) by the routine
 
-Table_50_42AC:: ; 50:42AC
+CommNotice_InputTable:: ; 50:42AC
+Table_50_42AC::
 	dw Label_50_42EB
 	dw Label_50_430A
 	dw Label_50_430A
@@ -357,7 +358,7 @@ Label_50_42EB:: ; 50:42EB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C0D8]
@@ -403,7 +404,7 @@ CommNotice_HandleLeftRight:: ; 50:430C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -416,7 +417,7 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 	jr nz, .l4348
 	ld de, $6727
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l4348 ; 50:4348
@@ -424,7 +425,7 @@ CommNotice_DrawChoiceCursor:: ; 50:4338
 	; 42B6-438A by apply_coverage --split
 	ld de, $6757
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 CommNotice_DrawMinuteDigit:: ; 50:4352

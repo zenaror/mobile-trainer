@@ -41,8 +41,8 @@ Function_2D_4722::
 	jr nz, .l4754
 .l475C ; 2D:475C
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call MailBody_PlaceCursorSprites
@@ -207,13 +207,13 @@ Function_2D_4722::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $FF
 	ret
@@ -240,7 +240,7 @@ MailBody_CursorLeft:: ; 2D:48B3
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -279,7 +279,7 @@ Function_2D_48DA::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -369,7 +369,7 @@ Function_2D_4942::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -410,7 +410,7 @@ Function_2D_4968::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -456,8 +456,8 @@ MailBody_SetupScreen:: ; 2D:499E
 Function_2D_499E::
 	; [CONFIRMED] 148 insn(s); 148 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	call TextTiles_ClearBuffers
 	farcall LCDOff
 	ld de, $9301
@@ -465,19 +465,19 @@ Function_2D_499E::
 	ld a, $2D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9701
 	ld hl, $5EC0
 	ld a, $2D
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, Gfx_MailBody_ObjTiles
 	ld a, $2D
 	ld b, $94
 	ld c, $2A
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailBody_Obj
@@ -492,25 +492,25 @@ Function_2D_499E::
 	ld de, $D000
 	ld hl, Tilemap_MailBody
 	ld a, $2D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	xor a, a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
@@ -578,12 +578,12 @@ Function_2D_499E::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0005
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -612,8 +612,8 @@ Function_2D_499E::
 	; [PROBABLE] 140 insn(s) reached by static flow only; seeds: site x140; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Stat_EnableScrollSplit
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	call TextTiles_ClearBuffers
 	call TextTiles_UploadBuffers
 	farcall LCDOff
@@ -622,13 +622,13 @@ Function_2D_499E::
 	ld a, $2D
 	ld b, $93
 	ld c, $3C
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_MailBody_ObjTiles
 	ld a, $2D
 	ld b, $94
 	ld c, $2A
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailBody_Obj
@@ -643,23 +643,23 @@ Function_2D_499E::
 	ld de, $D000
 	ld hl, Tilemap_MailBody
 	ld a, $2D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1414
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -667,18 +667,18 @@ Function_2D_499E::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	xor a, a
 	ldh [rSCY], a
 	ld [wSplitScrollY], a
@@ -827,7 +827,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -848,7 +848,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -869,7 +869,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -890,7 +890,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -911,7 +911,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -932,7 +932,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -953,7 +953,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -974,7 +974,7 @@ Function_2D_4CA5::
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	xor a, a
 	ld [wSpriteSlots + 65], a
 	ld a, [wSplitScrollY]
@@ -1552,7 +1552,7 @@ Function_2D_50B8::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1570,7 +1570,7 @@ Function_2D_50B8::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1584,15 +1584,15 @@ Function_2D_50B8::
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call MailBody_PlaceCursorSprites
 	ld d, $14
 .l5131 ; 2D:5131
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1611,7 +1611,7 @@ Function_2D_50B8::
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	pop de
 	push de
@@ -1803,7 +1803,7 @@ MailBody_InsertNewline:: ; 2D:522B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1820,7 +1820,7 @@ MailBody_InsertNewline:: ; 2D:522B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003B
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1982,7 +1982,7 @@ Function_2D_535C::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1992,7 +1992,7 @@ Function_2D_535C::
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	dec b
@@ -2023,8 +2023,8 @@ Function_2D_535C::
 .loop ; 2D:53A0
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -2043,7 +2043,7 @@ Function_2D_535C::
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	inc c
 	dec c
@@ -2213,7 +2213,7 @@ MailBody_ApplyDakuten:: ; 2D:546D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -2331,7 +2331,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2387,7 +2387,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2408,7 +2408,7 @@ MailBody_ApplyDakutenU:: ; 2D:553D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2475,7 +2475,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2528,7 +2528,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2549,7 +2549,7 @@ MailBody_ApplyHandakuten:: ; 2D:55E0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2603,7 +2603,7 @@ Function_2D_5691::
 .l56C6 ; 2D:56C6
 	push bc
 	call MailBody_PlaceCursorSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld b, $01
 	ld c, $00
 	farcall Kbd_Run
@@ -2748,10 +2748,10 @@ Function_2D_5691::
 	; entered by jrcc from 2D:57A9 (executed) [executed in 1 scenarios]
 	ld de, $14D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $14D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 .l57C1 ; 2D:57C1
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 2/18 scenarios)
@@ -2786,7 +2786,7 @@ Function_2D_5691::
 	pop bc
 .l57F7 ; 2D:57F7
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld b, $01
 	ld c, $00
 	farcall Kbd_Run
@@ -2894,7 +2894,7 @@ Function_2D_5691::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0032
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2954,10 +2954,10 @@ Function_2D_5691::
 	; 58D9-59AD by apply_coverage --split
 	ld de, $14D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $14D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 .l590B ; 2D:590B
 	; [CONFIRMED] 18 insn(s) executed; cut out of the PROBABLE region 58D9-59AD by apply_coverage
@@ -2987,10 +2987,10 @@ Function_2D_5691::
 	; 58D9-59AD by apply_coverage --split
 	ld de, $14D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $14D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 .l5942 ; 2D:5942
 	; [CONFIRMED] 47 insn(s) executed; cut out of the PROBABLE region 58D9-59AD by apply_coverage
@@ -3020,7 +3020,7 @@ Function_2D_5691::
 	cp a, $5A
 	jr nc, .l5964
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $B0
 	ldh [rWX], a
@@ -3036,7 +3036,7 @@ Function_2D_5691::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0005
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -3159,7 +3159,7 @@ Function_2D_5691::
 .l5A4E ; 2D:5A4E
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop af
 	xor a, a
@@ -3228,13 +3228,13 @@ Function_2D_5A98::
 	ld a, $2D
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9501
 	ld hl, $5CC0
 	ld a, $2D
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ret
 
 ; ---- zero $5ABD-$5AC0 (3 bytes) [PROBABLE] 3 bytes $00 padding to the 16-byte tile alignment before the tile block at 5AC0

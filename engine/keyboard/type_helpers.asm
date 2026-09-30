@@ -56,7 +56,8 @@ Function_55_6EC0:: ; 55:6EC0
 Data_55_6ECB:: ; 55:6ECB
 	db $01, $01, $01, $01, $01, $01, $00, $00, $00, $00, $00
 
-Function_55_6ED6:: ; 55:6ED6
+Kbd_TypeNeedsExtraPalette:: ; 55:6ED6
+Function_55_6ED6::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Data_55_6EE1
@@ -94,7 +95,8 @@ Function_55_6EEC:: ; 55:6EEC
 Data_55_6EF7:: ; 55:6EF7
 	db $00, $00, $00, $00, $00, $00, $01, $01, $01, $01, $01
 
-Function_55_6F02:: ; 55:6F02
+Kbd_TypeHidesOnKey82:: ; 55:6F02
+Function_55_6F02::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Data_55_6F0D
@@ -111,7 +113,8 @@ Function_55_6F02:: ; 55:6F02
 Data_55_6F0D:: ; 55:6F0D
 	db $00, $00, $00, $00, $00, $01, $01, $00, $01, $01, $00
 
-Function_55_6F18:: ; 55:6F18
+Kbd_TypeHidesOnKey83:: ; 55:6F18
+Function_55_6F18::
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, Data_55_6F23
@@ -160,7 +163,7 @@ Data_55_6F3B:: ; 55:6F3B
 	ld [wRam_C2B1], a
 	ret
 .l6F51 ; 55:6F51
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld a, [wRam_C2B0]
 	inc a
 	and a, $03
@@ -189,7 +192,7 @@ Data_55_6F3B:: ; 55:6F3B
 	ld a, [hl]
 	ldh [c], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	dec hl
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -228,7 +231,7 @@ Function_55_6FA1::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld c, $01
@@ -249,7 +252,7 @@ Function_55_6FCD::
 	ld de, $4D38
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, [wKbdType]
 	ld hl, Data_55_6FF4
 	add a, a
@@ -262,7 +265,7 @@ Function_55_6FCD::
 	ld d, [hl]
 	ld e, a
 	ld hl, $DAD0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $6FF4-$7000 (12 bytes) [PROBABLE] zero/short bytes of the keyboard page tables between text rows; part of the run 6FF4-7000 that executed code reads piecewise [split by classify_g2]
@@ -275,7 +278,7 @@ Function_55_7000::
 	; [CONFIRMED] 67 insn(s); 67 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld hl, $DAD0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ret
 
 Kbd_LoadInputMode:: ; 55:7007

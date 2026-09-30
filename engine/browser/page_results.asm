@@ -52,7 +52,7 @@ Browser_WrapImageInHtml:: ; 4C:4DFB
 Function_4C_4DFB::
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -176,7 +176,7 @@ Function_4C_4DFB::
 	or a, a
 	jr nz, .l4EC1
 	inc bc
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [sSram_B000]
 	ld l, a
 	ld a, [sSram_B001]
@@ -209,7 +209,7 @@ Function_4C_4DFB::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $01
 	ret
 .l4F05 ; 4C:4F05
@@ -217,7 +217,7 @@ Function_4C_4DFB::
 
 .l4F06 ; 4C:4F06
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 2/18 scenarios)
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

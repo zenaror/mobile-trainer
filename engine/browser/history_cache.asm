@@ -23,14 +23,15 @@ Function_4C_4B54::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Browser_HistoryPush:: ; 4C:4B7C
 	ld hl, $D500
 	ld a, $06
 
-Function_4C_4B81:: ; 4C:4B81
+Browser_HistoryPushFrom:: ; 4C:4B81
+Function_4C_4B81::
 	call BankSwitch_H
 	ld a, $0A
 	ldh [hSRAMEnable], a
@@ -65,7 +66,7 @@ Function_4C_4B81:: ; 4C:4B81
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Browser_HistoryPop:: ; 4C:4BC1
@@ -106,12 +107,12 @@ Browser_HistoryPop:: ; 4C:4BC1
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [de]
 	ret
 
 Sram_CopyLongBlock:: ; 4C:4C03
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	ld a, b
 	cp a, $02
@@ -165,7 +166,7 @@ Browser_ClearCaches:: ; 4C:4C4E
 Function_4C_4C4E::
 	; [CONFIRMED] 63 insn(s); 63 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -182,7 +183,7 @@ Function_4C_4C4E::
 	ld bc, $2000
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -193,7 +194,7 @@ Function_4C_4C4E::
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 PageCache_Push:: ; 4C:4C95
@@ -260,7 +261,7 @@ Function_4C_4CF6::
 	; [CONFIRMED] 18 insn(s); 18 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh [hRam_FFB1], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -292,7 +293,7 @@ Function_4C_4CF6::
 	call BankSwitch_H
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	push de
 	ld a, $06
 	ldh [hWRAMBank], a
@@ -335,7 +336,8 @@ Function_4C_4CF6::
 	xor a, a
 	ret
 
-Function_4C_4D6F:: ; 4C:4D6F
+Browser_HistoryUndoPush:: ; 4C:4D6F
+Function_4C_4D6F::
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

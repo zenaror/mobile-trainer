@@ -184,7 +184,7 @@ Function_68_40D8::
 	ld d, e
 	ld e, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 OnlineTimer_HasElapsed:: ; 68:40F1
@@ -203,7 +203,8 @@ OnlineTimer_HasElapsed:: ; 68:40F1
 	or a, b
 	ret
 
-Function_68_4101:: ; 68:4101
+Comm_ClearSessionActive:: ; 68:4101
+Function_68_4101::
 	xor a, a
 	ld [wCommSessionActive], a
 	ret
@@ -257,7 +258,8 @@ TextEntry_InsertString:: ; 68:4127
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4152:: ; 68:4152
+TextEntry_InsertMaskedString:: ; 68:4152
+Function_68_4152::
 	; [HYPOTHESIS] function body after the ret at 4151 (ldh [$F2],a ; ldh a,[$8D] ; push af ; ... ld
 	; a,3 ; ldh [$8D],a ; ldh [$70],a ; ld b,d ; ld c,e) that falls into the code at 4161 [verifier:
 	; no entry proven (no caller, no valid table word, never executed): decode chain alone is not
@@ -332,13 +334,13 @@ Account_BuildMailAddress:: ; 68:419C
 	call CopyString
 	ld hl, $41DB
 	ld de, $DFAA
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $DEB4
 	ld de, $DFAA
-	call Function_00_14F3
+	call StringAppend
 	ld hl, $41DD
 	ld de, $DFAA
-	call Function_00_14F3
+	call StringAppend
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -457,7 +459,8 @@ Function_68_4252::
 Function_68_4282:: ; 68:4282
 	ret
 
-Function_68_4283:: ; 68:4283
+Sram_WipeBanks2And3:: ; 68:4283
+Function_68_4283::
 	; [HYPOTHESIS] complete ret-terminated function (42 insn): enables SRAM ($0A to $0000 / hFFF5),
 	; selects SRAM bank 2 then 3 ($4000 register) and clears $A000-$AFFF and $B000-$BFFF with call
 	; $04D8 / $0392, then restores the banks; entry not proven [verifier: no entry proven (no
@@ -476,12 +479,12 @@ Function_68_4283:: ; 68:4283
 	ld hl, $A000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ld hl, $B000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $03
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -489,12 +492,12 @@ Function_68_4283:: ; 68:4283
 	ld hl, $A000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ld hl, $B000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -521,12 +524,12 @@ Function_68_42E4::
 	ld hl, $A000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ld hl, $B000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	inc d
 	ld a, d
 	cp a, $04
@@ -584,7 +587,8 @@ Config_MirrorIsRegistered:: ; 68:431A
 	xor a, a
 	ret
 
-Function_68_4377:: ; 68:4377
+Settings_IsRegistrationStarted:: ; 68:4377
+Function_68_4377::
 	; [HYPOTHESIS] complete ret-terminated function (34 insn): enables SRAM, selects bank 1, reads
 	; [$B010] xor $A5 and returns 1 or 0 (SRAM validity check); entry not proven [verifier: no entry
 	; proven (no caller, no valid table word, never executed): decode chain alone is not proof ->
@@ -694,7 +698,8 @@ Settings_StoreAdapterType:: ; 68:43F4
 	ldh a, [hScratchA]
 	ret
 
-Function_68_4430:: ; 68:4430
+Settings_GetAdapterType:: ; 68:4430
+Function_68_4430::
 	; [HYPOTHESIS] complete ret-terminated function (30 insn): ld hl,$B011 ... reads one SRAM byte
 	; from bank 1 with the enable/bank save-restore sequence, returns b xor $A5; entry not proven
 	; [verifier: no entry proven (no caller, no valid table word, never executed): decode chain

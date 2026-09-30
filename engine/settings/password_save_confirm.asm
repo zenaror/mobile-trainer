@@ -14,7 +14,7 @@ PwSaveConfirm_Run:: ; 67:6536
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0009
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	call PwSaveConfirm_Loop
@@ -27,7 +27,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, [wRam_C27A]
@@ -38,19 +38,19 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5D_7760
 	ld a, $5D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5D_7B60
@@ -68,7 +68,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld de, $D000
 	ld hl, Data_5D_7BA0
 	ld a, $5D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l6603
 
 .l65F2 ; 67:65F2
@@ -78,7 +78,7 @@ PwSaveConfirm_Setup:: ; 67:6565
 	ld de, $D000
 	ld hl, Data_71_6F6F
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 
 .l6603 ; 67:6603
 	; [CONFIRMED] 39 insn(s); 39 executed (in up to 2/18 scenarios)
@@ -86,18 +86,18 @@ PwSaveConfirm_Setup:: ; 67:6565
 	call PwSaveConfirm_UploadTextTiles
 	call PwSaveConfirm_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call PwSaveConfirm_PlaceCursor
 	ret
 
 PwSaveConfirm_Loop:: ; 67:6625
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -115,7 +115,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -140,7 +140,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -152,7 +152,7 @@ PwSaveConfirm_Loop:: ; 67:6625
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -181,7 +181,7 @@ Function_67_66A6::
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $66BE-$66C2 (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 30 / 58 30), coordinate pairs read by the executed code before it (e=[hl], d=[hl+1] ; call $0A65 sprite-slot init at 67:66A6...); replaces a CONFIRMED read fragment + 2 unread bytes
@@ -232,8 +232,8 @@ PwSaveConfirm_PrintPrompt:: ; 67:66D2
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $13
-	farcall Function_00_153D
-	call Function_00_0ED3
+	farcall PromptText_Load
+	call TextEngine_Run
 	ret
 
 PwSaveConfirm_UploadTextTiles:: ; 67:6721

@@ -4,13 +4,14 @@
 
 SECTION "home/sprites", ROM0
 
-Function_00_0956:: ; 00:0956
+Sprite_UpdateAll:: ; 00:0956
+Function_00_0956::
 	; [CONFIRMED] sprite-object engine pass: sets C2F5=1 (no OAM DMA), clears shadow OAM C000-C09F
 	; (0A09), walks the 14 slots at D:DA00 (16 bytes each, WRAM bank 7) writing OAM entries from
 	; C004, C2F3=next OAM ptr, C2F5=0
 	ld a, $01
 	ld [wOAMDMASuppress], a
-	call Function_00_0A09
+	call Sprite_ClearShadowOAM
 	push af
 	push bc
 	push de
@@ -43,7 +44,7 @@ Function_00_0956:: ; 00:0956
 .l098D ; 00:098D
 	pop hl
 	push hl
-	call Function_00_0AE8
+	call Sprite_StepAndDrawSlot
 	pop hl
 	ld bc, $0010
 	add hl, bc
@@ -68,10 +69,11 @@ Function_00_0956:: ; 00:0956
 	pop af
 	ret
 
-Function_00_09B6:: ; 00:09B6
+Sprite_ResetAll:: ; 00:09B6
+Function_00_09B6::
 	; [CONFIRMED] sprite engine reset: clears C000-C09F, FFF0=FFF1=0 and fills the 14 slots
 	; DA00-DADF with $FF
-	call Function_00_0A09
+	call Sprite_ClearShadowOAM
 	push af
 	push bc
 	push hl
@@ -99,7 +101,8 @@ Function_00_09B6:: ; 00:09B6
 	pop af
 	ret
 
-Function_00_09E6:: ; 00:09E6
+Sprite_ClearSlot:: ; 00:09E6
+Function_00_09E6::
 	; [CONFIRMED] fill 16 bytes at HL (one sprite slot) with $FF in WRAM bank 7 [reached via
 	; inferred links; raw refs 50] [executed in 31 scenarios]
 	push af
@@ -123,7 +126,8 @@ Function_00_09E6:: ; 00:09E6
 	pop af
 	ret
 
-Function_00_0A09:: ; 00:0A09
+Sprite_ClearShadowOAM:: ; 00:0A09
+Function_00_0A09::
 	; [CONFIRMED] clears the shadow OAM buffer C000-C09F (160 bytes)
 	push af
 	push bc
@@ -140,7 +144,8 @@ Function_00_0A09:: ; 00:0A09
 	pop af
 	ret
 
-Function_00_0A1A:: ; 00:0A1A
+Sprite_HookAddSlideOffset:: ; 00:0A1A
+Function_00_0A1A::
 	; [CONFIRMED] adds FFF1 (lo) / FFF0 (hi) to the 16-bit word at [HL] [candidate; raw refs 28]
 	; [executed in 18 scenarios]
 	push bc
@@ -178,7 +183,8 @@ Function_00_0A2A:: ; 00:0A2A
 	ldh a, [hScratchA]
 	ret
 
-Function_00_0A45:: ; 00:0A45
+Sprite_SetHook:: ; 00:0A45
+Function_00_0A45::
 	; [CONFIRMED] stores E,D,A at [HL..HL+2] in WRAM bank 7 [reached via inferred links; raw refs
 	; 28] [executed in 18 scenarios]
 	ldh [hRam_FFB0], a
@@ -202,7 +208,8 @@ Function_00_0A45:: ; 00:0A45
 	ldh a, [hScratchA]
 	ret
 
-Function_00_0A65:: ; 00:0A65
+Sprite_SetPosition:: ; 00:0A65
+Function_00_0A65::
 	; [CONFIRMED] stores D,E (big-endian) at [HL],[HL+1] in WRAM bank 7; most referenced helper of
 	; the sprite code (520 raw call sites)
 	push af
@@ -225,7 +232,8 @@ Function_00_0A65:: ; 00:0A65
 	pop af
 	ret
 
-Function_00_0A82:: ; 00:0A82
+Sprite_InitSlot:: ; 00:0A82
+Function_00_0A82::
 	; [CONFIRMED] initialise sprite slot HL: zero 16 bytes, slot+0E=A(bank), then fill the fields
 	; from the animation table at DE via 0AB8
 	ldh [hScratchA], a
@@ -252,7 +260,7 @@ Function_00_0A82:: ; 00:0A82
 	pop hl
 	pop bc
 	ld a, b
-	call Function_00_0AB8
+	call Sprite_LoadObjectEntry
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -260,7 +268,8 @@ Function_00_0A82:: ; 00:0A82
 	ldh a, [hScratchA]
 	ret
 
-Function_00_0AB8:: ; 00:0AB8
+Sprite_LoadObjectEntry:: ; 00:0AB8
+Function_00_0AB8::
 	; [CONFIRMED] fills slot fields from the 4-byte table entry at DE+4*(A&$7F) (used by 0A82)
 	inc hl
 	inc hl
@@ -307,7 +316,8 @@ Function_00_0AB8:: ; 00:0AB8
 	ld [hli], a
 	ret
 
-Function_00_0AE8:: ; 00:0AE8
+Sprite_StepAndDrawSlot:: ; 00:0AE8
+Function_00_0AE8::
 	; [CONFIRMED] per-slot animation step + OAM writer (layout inferred, HYPOTHESIS): slot [0]=Y
 	; [1]=X [2..3]=frame table ptr [4]=frame index ($FF none) [5]=delay [6..7]=script ptr [8]=script
 	; index [9..A]=OR/AND attr masks [B..D]=hook (addr16, bank; called via push-return trick to
@@ -481,7 +491,8 @@ Function_00_0AE8:: ; 00:0AE8
 	pop de
 	ret
 
-Function_00_0BBD:: ; 00:0BBD
+Tilemap_OffsetToPixelXY:: ; 00:0BBD
+Function_00_0BBD::
 	; [PROBABLE] HL = BG map offset -> C = (L&31)*8 (x pixel), B = ((HL>>5)&31)*8 (y pixel);
 	; verified on interpreter [candidate; raw refs 5]
 	ld a, l

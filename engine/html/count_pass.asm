@@ -41,7 +41,8 @@ Function_74_4F4F::
 	ldh [hRam_FFD5], a
 	ret
 
-Function_74_4F97:: ; 74:4F97
+Html_Layout_FlushListItem:: ; 74:4F97
+Function_74_4F97::
 	ld a, [wRam_C331]
 	ld c, a
 	ld a, [wRam_C332]
@@ -68,7 +69,8 @@ Function_74_4F97:: ; 74:4F97
 	ld [wRam_C332], a
 	ret
 
-Function_74_4FBE:: ; 74:4FBE
+Html_Layout_ListBlockBreak:: ; 74:4FBE
+Function_74_4FBE::
 	ldh a, [hRam_FFBB]
 	ld c, a
 	ldh a, [hTextY]
@@ -106,7 +108,7 @@ Html_CountListItems:: ; 74:4FF2
 	ldh [hRam_FFD7], a
 
 Label_74_4FFA:: ; 74:4FFA
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_508D
@@ -191,7 +193,7 @@ Label_74_4FFA:: ; 74:4FFA
 	ldh [hRam_FFB1], a
 	ld bc, Html_EntityPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr z, .l5084
@@ -234,7 +236,7 @@ Label_74_5091:: ; 74:5091
 	jp nz, Label_74_514E
 	ld bc, Html_TagPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr nz, Label_74_50FB
@@ -293,7 +295,7 @@ Label_74_50C3:: ; 74:50C3
 	; --split [executed in 4 scenarios]
 	dec hl
 	ld bc, $4110
-	call Function_00_1119
+	call Html_ScanAttributes
 	jp .loop
 
 Label_74_50FB:: ; 74:50FB
@@ -360,7 +362,7 @@ Label_74_513E:: ; 74:513E
 Label_74_514E:: ; 74:514E
 	ld bc, Html_TitleTagPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr z, .l5167
@@ -377,7 +379,7 @@ Label_74_514E:: ; 74:514E
 	ldh a, [hRam_FFB1]
 	ld h, a
 .loop ; 74:516D
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_508D
@@ -434,7 +436,7 @@ Label_74_519A:: ; 74:519A
 	cp a, $2D
 	jr nz, .l519B
 .l51CA ; 74:51CA
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Label_74_508D

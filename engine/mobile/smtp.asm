@@ -101,7 +101,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	call Mail_BuildHeaderField
 	ld hl, $C201
 	ld c, $40
-	call Function_54_4736
+	call Smtp_CopyFieldToWork
 	ld a, $00
 	ldh [hSRAMBank], a
 	ld [rRAMB], a
@@ -116,7 +116,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $28
 	ld [de], a
 	inc de
-	farcall Function_54_4748
+	farcall Smtp_CopyDisplayName
 	dec de
 	ld hl, String_Mail_CloseParen
 	farcall CopyString
@@ -126,7 +126,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
-	call Function_54_4726
+	call Smtp_MeasureField
 	ld c, $01
 	ld de, $C240
 	ld b, $00
@@ -136,7 +136,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld [rRAMB], a
 	ld hl, $A000
 	ld c, $40
-	call Function_54_4736
+	call Smtp_CopyFieldToWork
 	push de
 	ld a, $03
 	ldh [hSRAMBank], a
@@ -163,7 +163,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld a, $28
 	ld [de], a
 	inc de
-	call Function_54_4748
+	call Smtp_CopyDisplayName
 	dec de
 	ld hl, String_Mail_CloseParen
 	farcall CopyString
@@ -173,7 +173,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld bc, $0100
 	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
-	call Function_54_4726
+	call Smtp_MeasureField
 	ld c, $01
 	ld de, $C240
 	ld b, $03
@@ -195,7 +195,7 @@ Smtp_StartMailFrom:: ; 54:4575
 	ld bc, $0080
 	farcall Charset_SjisToIso2022Jp
 	ld hl, $C480
-	call Function_54_4726
+	call Smtp_MeasureField
 	ld c, $01
 	ld de, $C240
 	ld b, $05
@@ -234,7 +234,7 @@ Mail_BuildHeaderField:: ; 54:46E8
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ld a, $08
-	farcall Function_00_0247
+	farcall Mail_DispatchFar
 	ld c, $00
 	cp a, $FF
 	jr z, Mail_BuildHeaderField
@@ -267,7 +267,8 @@ Mail_BuildHeaderField:: ; 54:46E8
 	ld [wRam_C244], a
 	ret
 
-Function_54_4726:: ; 54:4726
+Smtp_MeasureField:: ; 54:4726
+Function_54_4726::
 	ld b, $00
 .loop ; 54:4728
 	ld a, [hli]
@@ -282,7 +283,8 @@ Function_54_4726:: ; 54:4726
 	ld [wRam_C245], a
 	ret
 
-Function_54_4736:: ; 54:4736
+Smtp_CopyFieldToWork:: ; 54:4736
+Function_54_4736::
 	ld b, $00
 	ld de, $C580
 .loop ; 54:473B
@@ -302,7 +304,8 @@ Function_54_4736:: ; 54:4736
 	ld [de], a
 	ret
 
-Function_54_4748:: ; 54:4748
+Smtp_CopyDisplayName:: ; 54:4748
+Function_54_4748::
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 44C3-475A by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld b, $00
@@ -401,7 +404,7 @@ Smtp_DataPoll:: ; 54:4772
 	ld [rRAMB], a
 	ld hl, $A040
 	ld c, $C0
-	call Function_54_484A
+	call Smtp_MeasureBody
 	ld hl, $A040
 	ld a, [hl]
 	or a, a
@@ -466,7 +469,8 @@ Smtp_DataPoll:: ; 54:4772
 	farcall CopyString
 	jr .l4812
 
-Function_54_484A:: ; 54:484A
+Smtp_MeasureBody:: ; 54:484A
+Function_54_484A::
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 4772-4856 by apply_coverage
 	; --split [executed in 5 scenarios]
 	ld b, $00

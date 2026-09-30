@@ -38,7 +38,8 @@ Function_48_48BB:: ; 48:48BB
 	; executed call/far call
 	ret
 
-Function_48_48BC:: ; 48:48BC
+Sram_VerifyChecksum3ResetOnMismatch:: ; 48:48BC
+Function_48_48BC::
 	; [HYPOTHESIS] unreferenced function (no call/ptr to 48BC in the ROM) right after the executed
 	; one-instruction Function_48_48BB (ret); sibling of Function_48_4899: call $48E1; compare
 	; 16-bit value at $A8B5/$A8B6 via call $1620; extra call $4920; ld a,$FF; ret. All call targets

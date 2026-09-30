@@ -19,7 +19,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	call CopyBytes
-	call Function_00_0392
+	call Sound_FrameService
 	ld de, $DD00
 	ld hl, $C380
 	ld bc, $0100
@@ -52,7 +52,7 @@ Browser_FetchInlineImages:: ; 4C:4840
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hRam_FFD2]
 	ld l, a
 	ldh a, [hRam_FFD3]

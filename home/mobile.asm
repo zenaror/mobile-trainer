@@ -174,7 +174,8 @@ Int_Timer:: ; 00:01ED
 	pop af
 	reti
 
-Function_00_0247:: ; 00:0247
+Mail_DispatchFar:: ; 00:0247
+Function_00_0247::
 	; [CONFIRMED] wrapper: saves A to D002, pushes 16-bit ROM bank (FF8A/8B), selects bank 000F,
 	; calls 0F:4247, restores bank and A. No static caller found [reached via inferred links; raw
 	; refs 6] [executed in 9 scenarios]

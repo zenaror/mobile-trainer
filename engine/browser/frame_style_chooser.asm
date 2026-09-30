@@ -4,7 +4,8 @@
 
 SECTION "engine/browser/frame_style_chooser", ROMX
 
-Function_4E_4000:: ; 4E:4000
+Browser_FrameStylePreview_Run:: ; 4E:4000
+Function_4E_4000::
 	; [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site
 	; at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no
 	; caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced
@@ -16,14 +17,14 @@ Function_4E_4000:: ; 4E:4000
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; forced execution: 160/160 instruction starts ran in forced_screens (traces/forced/, not
 	; natural evidence; status unchanged)
-	farcall Function_4E_6291
+	farcall Browser_FrameStylePreview_LoadGraphics
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -49,7 +50,7 @@ Function_4E_4000:: ; 4E:4000
 	ld de, $8000
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -73,11 +74,11 @@ Function_4E_4000:: ; 4E:4000
 	xor a, a
 	ld [wConnIconGfxRequest], a
 	farcall ConnIcon_Refresh
-	call Function_00_0A09
+	call Sprite_ClearShadowOAM
 	ld a, $04
 	ld [wRam_C2F3], a
 	farcall Browser_DrawCommTimer
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	ld a, $E0
 	ldh [hRam_FFD0], a
@@ -90,16 +91,16 @@ Function_4E_4000:: ; 4E:4000
 	ld h, a
 	or a, a
 	jr z, .l40C8
-	farcall Function_4E_45FE
+	farcall Browser_FrameStylePreview_RevealStep
 	ld a, l
 	ldh [hRam_FFD0], a
 	ld a, h
 	ldh [hRam_FFD1], a
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffersDi
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	jp .loop
 .l40C8 ; 4E:40C8
 	ldh a, [hRam_FFD2]
@@ -127,7 +128,7 @@ Function_4E_4000:: ; 4E:4000
 	ld de, $8000
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -159,24 +160,24 @@ Function_4E_4000:: ; 4E:4000
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ld hl, $DA80
-	call Function_00_09E6
-	call Function_00_044B
+	call Sprite_ClearSlot
+	call VBlank_WaitAndService
 
 Label_4E_4154:: ; 4E:4154
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Browser_DrawCommTimer
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -236,7 +237,7 @@ Label_4E_41C5:: ; 4E:41C5
 Label_4E_41C8:: ; 4E:41C8
 	farcall SaveCheck_Update
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ldh [hRam_FFA7], a
 	ldh a, [hDialogResult]
@@ -244,7 +245,8 @@ Label_4E_41C8:: ; 4E:41C8
 
 ; ---- words $41E0-$45FE (1054 bytes) [PROBABLE] list of little-endian words grouped into 43 groups separated by $FFFF: each group = one delay-like word ($0004/$0008/$000C/$0010/$0002/$0001) followed by tilemap offsets row*32+col that walk the 32-wide BG map along anti-diagonals ($0000,$0001,$0020,$0002,$0021,$0040,...,$0294; verified by listing every group, offsets grow by $20-1 per step); consumer not located (no code word/immediate pointing into the table), so the use is inferred from the values only
 
-Data_4E_41E0:: ; 4E:41E0
+Data_Browser_FrameWipeGroups:: ; 4E:41E0
+Data_4E_41E0::
 	dw $0000, $FFFF, $0004, $0001, Rst_20, $FFFF, $0004, $0002
 	dw $0021, Vector_VBlank, $FFFF, Rst_08, $0003, $0022, $0041, Vector_Joypad
 	dw $FFFF, Rst_08, $0004, $0023, $0042, $0061, $0080, $FFFF
@@ -291,7 +293,7 @@ Data_4E_41E0:: ; 4E:41E0
 	dw $018C, $01AB, $01CA, $01E9, $0208, $0227, $0246, $0265
 	dw $0284, $FFFF, $0004, $00B4, $00D3, $00F2, $0111, $0130
 	dw $014F, $016E, ReturnMobileAPI, $01AC, $01CB, $01EA, $0209, $0228
-	dw Function_00_0247, $0266, $0285, $FFFF, $0004, $00D4, $00F3, $0112
+	dw Mail_DispatchFar, $0266, $0285, $FFFF, $0004, $00D4, $00F3, $0112
 	dw $0131, MobileAPI, $016F, $018E, $01AD, $01CC, $01EB, $020A
 	dw $0229, $0248, $0267, $0286, $FFFF, $0004, $00F4, $0113
 	dw $0132, $0151, $0170, $018F, $01AE, $01CD, $01EC, $020B
@@ -312,7 +314,8 @@ Data_4E_41E0:: ; 4E:41E0
 	dw $0273, $0292, $FFFF, $0001, $0274, $0293, $FFFF, $0001
 	dw $0294, $FFFF, $0001, $FFFF, $0000, $FFFF, $FFFF
 
-Function_4E_45FE:: ; 4E:45FE
+Browser_FrameStylePreview_RevealStep:: ; 4E:45FE
+Function_4E_45FE::
 	; [PROBABLE] 54 insn(s) reached by static flow only; seeds: site x54; min discovery hops 2;
 	; entered by far from 4E:40A5 (PROBABLE code) | forced execution: 54/54 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)

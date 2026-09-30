@@ -4,11 +4,12 @@
 
 SECTION "home/keyword_scan", ROM0
 
-Function_00_10E9:: ; 00:10E9
+Html_MatchKeyword:: ; 00:10E9
+Function_00_10E9::
 	; [CONFIRMED] keyword lookup: BC = table of word pointers to strings (0 terminates); compares
 	; [HL] with each ignoring ASCII case; returns A = byte after the matched keyword [reached via
 	; inferred links; raw refs 30] [executed in 5 scenarios]
-	call Function_00_0392
+	call Sound_FrameService
 .l10EC ; 00:10EC
 	ld a, [bc]
 	inc bc
@@ -49,13 +50,14 @@ Function_00_10E9:: ; 00:10E9
 	ld a, [de]
 	ret
 
-Function_00_1119:: ; 00:1119
+Html_ScanAttributes:: ; 00:1119
+Function_00_1119::
 	; [CONFIRMED] token/attribute scanner over an ASCII-like stream: stops at $00 or $3E (>),
 	; handles $3D (=), quotes $22/$27, skips bytes <$21; uses 10E9 for keywords, DE=$C380 output.
 	; HYPOTHESIS: HTML-like tag parser [reached via inferred links; raw refs 236] | 12 insn(s)
 	; executed; cut out of the PROBABLE region 1119-131A by apply_coverage --split [executed in 15
 	; scenarios]
-	call Function_00_0392
+	call Sound_FrameService
 .l111C ; 00:111C
 	ld a, [hli]
 	or a, a
@@ -124,7 +126,7 @@ Function_00_1119:: ; 00:1119
 	ldh [hRam_FFB1], a
 	push bc
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr nz, .l117F

@@ -84,8 +84,8 @@ SettingsMenu_Run:: ; 68:4F9E
 SettingsMenu_RunLoop:: ; 68:5033
 	farcall Joypad_Update
 	call SettingsMenu_Dispatch
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C28E]
 	cp a, $FF
 	jr nz, SettingsMenu_RunLoop
@@ -119,7 +119,7 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27D], a
 	ld hl, $BF01
@@ -156,31 +156,31 @@ SettingsMenu_StateInit:: ; 68:5066
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4A_4640
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4A_4A40
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4A_4E40
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_4A_4040
 	ld a, $4A
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0028
 	ld de, $D800
 	ld hl, $5180
@@ -193,14 +193,14 @@ SettingsMenu_StateInit:: ; 68:5066
 	farcall Palette_LoadToBuffer
 	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA10
 	ld de, Table_4A_5838
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call SettingsMenu_UpdateCursorSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, $01
 	ld [wRam_C28E], a
 	ret
@@ -212,7 +212,7 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0008
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -236,7 +236,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
@@ -248,7 +248,7 @@ SettingsMenu_StateInput:: ; 68:5172
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
@@ -286,12 +286,12 @@ SettingsMenu_StateInput:: ; 68:5172
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call SettingsMenu_DrawItems
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call SettingsMenu_UpdateCursorSprite
 .done ; 68:51FC
 	ret
@@ -337,7 +337,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld de, $D000
 	ld hl, $51D0
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l5256
 
 .l5245 ; 68:5245
@@ -347,7 +347,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld de, $D000
 	ld hl, Data_4A_54A0
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 
 .l5256 ; 68:5256
 	; [CONFIRMED] 8 insn(s); 8 executed (in up to 4/18 scenarios)
@@ -383,7 +383,7 @@ SettingsMenu_DrawItems:: ; 68:522C
 	ld h, [hl]
 	ld l, a
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- words $528C-$5296 (10 bytes) [PROBABLE] 5 words $5770,$5798,$57C0,$57E8,$5810 (stride $28) read with `ld hl,$528C ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5276 and passed as HL to the far call `ld a,$4A ; farcall 00:08EA` (68:5283, copy_tilemap_rect_pair, bc=$050A): the words are therefore pointers into BANK 4A data, NOT into bank 68 code [verifier: retyped ptrtable->words; as a ptrtable the generator emitted `dw Label_68_5798`, a false symbolic reference to code of this bank]

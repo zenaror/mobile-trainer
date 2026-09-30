@@ -33,7 +33,7 @@ DebugFlags_Run:: ; 19:4000
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -46,73 +46,73 @@ DebugFlags_Run:: ; 19:4000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -127,10 +127,10 @@ DebugFlags_Run:: ; 19:4000
 	ld de, Table_DebugFlags_Objects
 	ld a, $19
 	ld b, $00
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $80A0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $80
 	ld bc, $0400
 	ld hl, $D000
@@ -139,9 +139,9 @@ DebugFlags_Run:: ; 19:4000
 	ld bc, $1214
 	ld de, $0008
 	xor a, a
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $80
 	ld bc, $1010
 	ld de, $1000
@@ -150,15 +150,15 @@ DebugFlags_Run:: ; 19:4000
 	call DebugFlags_LoadHelpText
 	call DebugFlags_DrawEntryName
 	ldh a, [rLCDC]
-	call Function_00_0887
-	farcall Function_00_0956
+	call Gfx_UploadWinMapBuffers
+	farcall Sprite_UpdateAll
 	call LCDOn
 	farcall Palette_FadeInFromWhite
 	call DebugFlags_SlideIn
 
 DebugFlags_Loop:: ; 19:4199
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -340,7 +340,7 @@ DebugFlags_OnStart:: ; 19:42B7
 	jr z, .l42EA
 	ld de, $8010
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $00
 	ld [wRam_C0D4], a
 	call DebugFlags_DrawEntryName
@@ -348,7 +348,7 @@ DebugFlags_OnStart:: ; 19:42B7
 .l42EA ; 19:42EA
 	ld de, $8050
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $08
 	ld [wRam_C0D4], a
 	call DebugFlags_DrawEntryName
@@ -356,13 +356,13 @@ DebugFlags_OnStart:: ; 19:42B7
 .l42FE ; 19:42FE
 	ld de, $80A0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call DebugFlags_DrawEntryName
 	jp DebugFlags_Loop
 .l430D ; 19:430D
 	ld de, $80A0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $00
 	ld [wRam_C0D4], a
 	call DebugFlags_DrawEntryName
@@ -514,19 +514,19 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, $D800
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld hl, $452F
 	ld de, $D000
 	ld bc, $0010
@@ -539,7 +539,7 @@ DebugFlags_LoadHelpText:: ; 19:43E9
 	ld a, $00
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -601,7 +601,7 @@ DebugFlags_DrawEntryName:: ; 19:4532
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -765,7 +765,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -875,7 +875,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -939,7 +939,7 @@ DebugFlags_DrawValue:: ; 19:458A
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -1008,8 +1008,8 @@ DebugFlags_SlideIn:: ; 19:482B
 	ld a, $11
 	ld [wRam_C0DF], a
 .loop ; 19:4835
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C0DF]
 	dec a
 	ld b, $01
@@ -1031,8 +1031,8 @@ DebugFlags_SlideOut:: ; 19:4858
 	ld a, $11
 	ld [wRam_C0DF], a
 .loop ; 19:4862
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C0DF]
 	dec a
 	ld b, $01

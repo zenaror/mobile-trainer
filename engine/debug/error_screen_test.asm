@@ -31,7 +31,7 @@ Label_19_4990:: ; 19:4990
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $03
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -44,73 +44,73 @@ Label_19_4990:: ; 19:4990
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -127,7 +127,7 @@ Label_19_4990:: ; 19:4990
 	ld bc, $1214
 	ld de, $0009
 	xor a, a
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ld a, $80
 	ld bc, $0810
 	ld de, $F001
@@ -136,12 +136,12 @@ Label_19_4990:: ; 19:4990
 	call DebugErrorTest_LoadHelpText
 	call DebugErrorTest_DrawValues
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 
 DebugErrorTest_Loop:: ; 19:4AEB
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -286,13 +286,13 @@ DebugErrorTest_LoadHelpText:: ; 19:4BCF
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -453,7 +453,7 @@ DebugErrorTest_DrawValues:: ; 19:4C74
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

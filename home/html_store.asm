@@ -4,7 +4,8 @@
 
 SECTION "home/html_store", ROM0
 
-Function_00_131A:: ; 00:131A
+HtmlStore_BuildPageUrl:: ; 00:131A
+Function_00_131A::
 	; [CONFIRMED] two-level string lookup in bank 3F: pointer table at 3F:4000 indexed by B -> copy
 	; string to HL; then 3-byte entries (addr,bank) indexed by BC -> copy second string [reached via
 	; inferred links; raw refs 43] [executed in 5 scenarios]
@@ -54,7 +55,8 @@ Function_00_131A:: ; 00:131A
 	jr nz, .l134D
 	ret
 
-Function_00_1354:: ; 00:1354
+HtmlStore_LoadPage:: ; 00:1354
+Function_00_1354::
 	; [CONFIRMED] keyword search in bank 3F: walks the word-pointer list at 3F:4000 comparing each
 	; string with the text at HL; on a match stores the byte after it in C2DC, walks the entry list
 	; (addr16 + bank byte) and copies the matching payload with CopyBytes (limited by BC); writes

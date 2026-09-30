@@ -28,15 +28,15 @@ Function_29_4000::
 	ld de, MailResult_ObjTable
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3038
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 .loop ; 29:403C
 	push bc
 	push hl
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop hl
 	pop bc
@@ -50,20 +50,20 @@ Function_29_4000::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
 MailResult_InitScreen:: ; 29:407A
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -89,42 +89,42 @@ MailResult_InitScreen:: ; 29:407A
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, MailResult_Tiles_6FF0
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailResult_Tiles_73F0
 	ld a, $24
 	ld b, $98
 	ld c, $0A
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailResult_Tiles_7490
 	ld a, $24
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailResult_Tilemap
 	ld a, $24
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld hl, $DA10
 	ld de, $7B30
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3038
 	ld hl, $DA10
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	push bc
 	di
 	ldh a, [hWRAMBank]
@@ -132,13 +132,13 @@ MailResult_InitScreen:: ; 29:407A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000E
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -232,7 +232,7 @@ MailResult_ShowSentMessage:: ; 29:41AD
 	ld de, $D100
 	farcall TextTiles_RenderLine
 	farcall MailResult_UploadTextTiles
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -328,8 +328,8 @@ Function_29_4286::
 	ld de, $D300
 	farcall TextTiles_RenderLine
 	farcall MailResult_UploadTextTiles
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -373,10 +373,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B40
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 .l4399 ; 29:4399
 	cp a, $02
@@ -388,10 +388,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B50
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l43B9 ; 29:43B9
@@ -403,10 +403,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B60
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 .l43D9 ; 29:43D9
 	cp a, $04
@@ -415,10 +415,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B70
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 .l43F9 ; 29:43F9
 	cp a, $05
@@ -430,10 +430,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B80
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l4419 ; 29:4419
@@ -448,10 +448,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7B90
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l4439 ; 29:4439
@@ -466,10 +466,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BA0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l4459 ; 29:4459
@@ -481,10 +481,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BB0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 .l4479 ; 29:4479
 	cp a, $09
@@ -496,10 +496,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BC0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3035
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l4499 ; 29:4499
@@ -514,10 +514,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BD0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3037
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l44B9 ; 29:44B9
@@ -532,10 +532,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BE0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3037
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp .l44F2
 
 .l44D9 ; 29:44D9
@@ -545,10 +545,10 @@ MailResult_SetReceivedSprite:: ; 29:4374
 	ld de, $7BF0
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3037
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l44F2 ; 29:44F2
 	pop hl
 	pop de
@@ -578,8 +578,8 @@ Function_29_44F6::
 .loop ; 29:4519
 	push bc
 	push hl
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop hl
 	pop bc
@@ -593,7 +593,7 @@ Function_29_44F6::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -712,7 +712,7 @@ Function_29_44F6::
 .l45E2 ; 29:45E2
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 1/18 scenarios)
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -735,8 +735,8 @@ Function_29_44F6::
 	ret
 
 MailServerStatus_InitScreen:: ; 29:4608
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall TextTiles_UploadBuffers
 	farcall LCDOff
@@ -757,25 +757,25 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld a, $26
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailServerStatus_Tiles_6F30
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, MailServerStatus_Tiles_7330
 	ld a, $25
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9301
 	ld hl, MailServerStatus_Tiles_5060
 	ld a, $29
 	ld b, $98
 	ld c, $03
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, .l46CD
@@ -795,7 +795,7 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_Received
 	ld a, $25
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jp .l46DE
 
 .l46B9 ; 29:46B9
@@ -804,17 +804,17 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_NoneReceived
 	ld a, $25
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jp .l46DE
 .l46CD ; 29:46CD
 	ld bc, $1214
 	ld de, $D000
 	ld hl, MailServerStatus_Tilemap_ServerMgmt
 	ld a, $25
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l46DE ; 29:46DE
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld a, [wMailScreenMode]
 	cp a, $00
@@ -841,13 +841,13 @@ MailServerStatus_InitScreen:: ; 29:4608
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000E
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -1111,7 +1111,7 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, Data_29_49DA
+	ld hl, Data_MailServerStatus_NumberTemplate_M0
 	ld de, $D524
 .loop ; 29:48D1
 	ld a, [hli]
@@ -1313,7 +1313,8 @@ MailServerStatus_FormatNumber_M0:: ; 29:48C3
 ; ---- data $49DA-$49E5 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 ; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
-Data_29_49DA:: ; 29:49DA
+Data_MailServerStatus_NumberTemplate_M0:: ; 29:49DA
+Data_29_49DA::
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
 MailServerStatus_NumberOffset_M0:: ; 29:49E5
@@ -1434,21 +1435,21 @@ Label_29_4A7D:: ; 29:4A7D
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
-	ld hl, String_29_4AC4
+	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
-	ld hl, String_29_4AC4
+	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
-	ld hl, String_29_4AC4
+	ld hl, MailServerStatus_Txt_Unknown_M1
 	farcall TextTiles_RenderLine
 	call MailServerStatus_UploadNumberTiles_Blank
 	pop hl
@@ -1460,7 +1461,8 @@ Label_29_4A7D:: ; 29:4A7D
 ; ---- text $4AC4-$4ACF (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4AC4' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-String_29_4AC4:: ; 29:4AC4
+MailServerStatus_Txt_Unknown_M1:: ; 29:4AC4
+String_29_4AC4::
 	db "？？？？？", 0
 POPC
 
@@ -1584,7 +1586,7 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, String_29_4C96
+	ld hl, String_MailServerStatus_NumberTemplate_M1
 	ld de, $D524
 .loop ; 29:4B8D
 	ld a, [hli]
@@ -1790,7 +1792,8 @@ MailServerStatus_FormatNumber_M1:: ; 29:4B7F
 ; ---- text $4C96-$4CA1 (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '０' (82 4f) + NUL; address loaded by 'ld hl,$4C96' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-String_29_4C96:: ; 29:4C96
+String_MailServerStatus_NumberTemplate_M1:: ; 29:4C96
+String_29_4C96::
 	db "０００００", 0
 POPC
 
@@ -1916,21 +1919,21 @@ Label_29_4D39:: ; 29:4D39
 	ld a, $29
 	ld bc, $D000
 	ld de, $D050
-	ld hl, String_29_4D80
+	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D0A0
 	ld de, $D0F0
-	ld hl, String_29_4D80
+	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	ld a, $02
 	ldh [hRam_FFB0], a
 	ld a, $29
 	ld bc, $D140
 	ld de, $D190
-	ld hl, String_29_4D80
+	ld hl, MailServerStatus_Txt_Unknown_M2
 	farcall TextTiles_RenderLine
 	call MailServerStatus_UploadNumberTiles_Blank
 	pop hl
@@ -1942,7 +1945,8 @@ Label_29_4D39:: ; 29:4D39
 ; ---- text $4D80-$4D8B (11 bytes) [PROBABLE] Shift-JIS NUL-terminated string: 5 x full-width '？' (81 48) + NUL; address loaded by 'ld hl,$4D80' as a text argument (hl=string, ld a,$29, then a far call to 48:403E follows) - placeholder/mask string
 
 PUSHC sjis
-String_29_4D80:: ; 29:4D80
+MailServerStatus_Txt_Unknown_M2:: ; 29:4D80
+String_29_4D80::
 	db "？？？？？", 0
 POPC
 
@@ -2080,7 +2084,7 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	ld hl, Data_29_4F6C
+	ld hl, Data_MailServerStatus_NumberTemplate_M2
 	ld de, $D524
 .loop ; 29:4E63
 	ld a, [hli]
@@ -2282,7 +2286,8 @@ MailServerStatus_FormatNumber_M2:: ; 29:4E55
 ; ---- data $4F6C-$4F77 (11 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
 ; kept as raw bytes: the bytes read as Shift-JIS/ASCII text, but the header does not say `text` (executed-read data of unknown content class, or unclassified), so not provably a string
 
-Data_29_4F6C:: ; 29:4F6C
+Data_MailServerStatus_NumberTemplate_M2:: ; 29:4F6C
+Data_29_4F6C::
 	db $82, $4F, $82, $4F, $82, $4F, $82, $4F, $82, $4F, $00
 
 MailServerStatus_NumberOffset_M2:: ; 29:4F77

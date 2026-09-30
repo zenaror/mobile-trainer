@@ -4,7 +4,8 @@
 
 SECTION "home/interrupt_handlers", ROM0
 
-Function_00_16C4:: ; 00:16C4
+Ticker_StatHandler:: ; 00:16C4
+Function_00_16C4::
 	; [CONFIRMED] alternative STAT handler (installed by 48:4437 into CBF4): if LY==$80 then
 	; SCX=[C0EF] [candidate; raw refs 4] [executed in 28 scenarios]
 	push af
@@ -19,7 +20,8 @@ Function_00_16C4:: ; 00:16C4
 	pop af
 	reti
 
-Function_00_16D4:: ; 00:16D4
+Ticker_VBlankHandler:: ; 00:16D4
+Function_00_16D4::
 	; [CONFIRMED] alternative VBlank handler prologue (installed by 48:4446 into CBF1): SCX=0 then
 	; jp $C133 (copy of the original VBlank stub saved by 48:4425) [candidate; no static referrer]
 	; [executed in 28 scenarios]
@@ -29,7 +31,8 @@ Function_00_16D4:: ; 00:16D4
 	pop af
 	jp $C133
 
-Function_00_16DC:: ; 00:16DC
+ConnectDialog_StatHandler:: ; 00:16DC
+Function_00_16DC::
 	; [CONFIRMED] alternative STAT handler (installed by 57:4537 into CBF4): raster effect using WY,
 	; C0F6, LYC [candidate; raw refs 1] [executed in 4 scenarios]
 	push af

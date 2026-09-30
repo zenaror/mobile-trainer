@@ -17,7 +17,7 @@ Registration_Verify_Setup:: ; 68:7029
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a

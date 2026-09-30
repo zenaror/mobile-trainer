@@ -69,7 +69,7 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $01
 	ld [wRam_C27D], a
 	ld a, [wRam_C27C]
@@ -80,18 +80,18 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_71_5740
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_71_66C8
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l7A3F
 .l7A0A ; 68:7A0A
 	ld de, $9001
@@ -99,25 +99,25 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_71_5DC0
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_71_6998
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l7A3F ; 68:7A3F
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_71_6680
@@ -130,19 +130,19 @@ Registration_DeleteConfirm_Setup:: ; 68:79B8
 	farcall Palette_LoadToBuffer
 	call Registration_DeleteConfirm_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call Registration_DeleteConfirm_UpdateCursor
 	ret
 
 Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Joypad_Update
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
 	jr nz, .l7AB2
@@ -159,7 +159,7 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -179,7 +179,7 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -192,7 +192,7 @@ Registration_DeleteConfirm_InputLoop:: ; 68:7A8F
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -218,7 +218,7 @@ Registration_DeleteConfirm_UpdateCursor:: ; 68:7B01
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $7B19-$7B1D (4 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown
@@ -265,13 +265,13 @@ Function_68_7B1D::
 	or a, a
 	jr nz, .l7B70
 	ld a, $06
-	farcall Function_00_153D
+	farcall PromptText_Load
 	jr .l7B78
 .l7B70 ; 68:7B70
 	ld a, $07
-	farcall Function_00_153D
+	farcall PromptText_Load
 .l7B78 ; 68:7B78
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0901
 	ld bc, $0612
@@ -294,7 +294,7 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -303,19 +303,19 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld a, $71
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_71_6580
 	ld a, $71
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, $6140
 	ld a, $71
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_71_6680
@@ -330,23 +330,23 @@ Registration_DeleteExecute_Setup:: ; 68:7BB0
 	ld de, $D000
 	ld hl, Data_71_6C68
 	ld a, $71
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Registration_DeleteExecute_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_71_6F38
 	ld a, $71
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1C44
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 Registration_DeleteExecute_RunState:: ; 68:7C52
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C27D]
 	add a, a
 	add a, $6B
@@ -446,7 +446,7 @@ Function_68_7D1C::
 	; [CONFIRMED] 46 insn(s); 46 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $03
-	farcall Function_00_153D
+	farcall PromptText_Load
 	push hl
 	push af
 	ld de, $FFFF
@@ -481,7 +481,7 @@ Function_68_7D1C::
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0B01
 	ld bc, $0612

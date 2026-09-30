@@ -6,12 +6,14 @@ SECTION "gfx/comm/time_summary", ROMX
 
 ; ---- gfx $42A0-$46A0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40CB: hl=$42A0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_42A0:: ; 51:42A0
+Gfx_CommTime_SummaryA_Tiles9000Vb1:: ; 51:42A0
+Data_51_42A0::
 	INCBIN "gfx/comm/time_summary/tiles_42a0.2bpp"
 
 ; ---- gfx $46A0-$4AA0 (1024 bytes) [PROBABLE] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 51:40DD: hl=$46A0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_46A0:: ; 51:46A0
+Gfx_CommTime_SummaryA_Tiles9400Vb1:: ; 51:46A0
+Data_51_46A0::
 	INCBIN "gfx/comm/time_summary/tiles_46a0.2bpp"
 
 ; ---- data $4AA0-$4D70 (720 bytes) [PROBABLE] tilemap+attr: 1 call site(s); first: copy_tilemap_rect_pair at 51:40FF: hl=$4AA0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
@@ -23,17 +25,20 @@ Data_51_4AA0::
 
 ; ---- data $4D70-$4DB0 (64 bytes) [PROBABLE] palette-rgb555: heuristic: 32 RGB555 words as 8 palette group(s) of 4 (bit15 clear, contains $7FFF, monotone luminance)
 
-Data_51_4D70:: ; 51:4D70
+Palette_CommTime_SummaryA:: ; 51:4D70
+Data_51_4D70::
 	INCLUDE "gfx/comm/time_summary/palette_4d70.pal"
 
 ; ---- gfx $4DB0-$51B0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (27:4F1D 51:4083); first: hdma_rom_to_vram at 27:4F1D: hl=$4DB0 a=$51 c=$40 de=$9001 (dest VRAM $9000, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_4DB0:: ; 51:4DB0
+Gfx_CommTime_SummaryB_Tiles9000Vb1:: ; 51:4DB0
+Data_51_4DB0::
 	INCBIN "gfx/comm/time_summary/tiles_4db0.2bpp"
 
 ; ---- gfx $51B0-$55B0 (1024 bytes) [PROBABLE] tiles-vram: 2 call site(s) (27:4F2F 51:4095); first: hdma_rom_to_vram at 27:4F2F: hl=$51B0 a=$51 c=$40 de=$9401 (dest VRAM $9400, vbank=1) [verifier: call site never executed in a trace -> PROBABLE]
 
-Data_51_51B0:: ; 51:51B0
+Gfx_CommTime_SummaryB_Tiles9400Vb1:: ; 51:51B0
+Data_51_51B0::
 	INCBIN "gfx/comm/time_summary/tiles_51b0.2bpp"
 
 ; ---- data $55B0-$5880 (720 bytes) [PROBABLE] tilemap+attr: 2 call site(s) (27:4F51 51:40B7); first: copy_tilemap_rect_pair at 27:4F51: hl=$55B0 a=$51 b=18 rows c=20 cols (tiles then attrs) de=$D000 [verifier: call site never executed in a trace -> PROBABLE]
@@ -45,7 +50,8 @@ Data_51_55B0::
 
 ; ---- data $5880-$58C0 (64 bytes) [CONFIRMED] read as data by executed code (in up to 2/18 scenarios); content class unknown [clipped from 4DB0-58C0 by higher-priority evidence]
 
-Data_51_5880:: ; 51:5880
+Palette_CommTime_SummaryB:: ; 51:5880
+Data_51_5880::
 	db $00, $00, $1F, $01, $FF, $02, $FF, $7F, $00, $00, $32, $00, $9F, $01, $FF, $7F
 	db $00, $00, $1F, $00, $5F, $02, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F
 	db $00, $00, $4A, $29, $B5, $56, $FF, $7F, $00, $00, $4A, $29, $B5, $56, $FF, $7F

@@ -4,7 +4,8 @@
 
 SECTION "home/text", ROM0
 
-Function_00_0ED3:: ; 00:0ED3
+TextEngine_Run:: ; 00:0ED3
+Function_00_0ED3::
 	; [CONFIRMED] byte-stream (text) interpreter: A=bank of string, HL=pointer. Bytes <$20 dispatch
 	; through Table_00_0EF0 (handler entered with the string pointer on the stack), bytes >=$20 are
 	; characters (see 0F30). FFB9=current bank, FFBF=call depth [reached via inferred links; raw
@@ -13,14 +14,16 @@ Function_00_0ED3:: ; 00:0ED3
 	xor a, a
 	ldh [hRam_FFBF], a
 
-Label_00_0ED8:: ; 00:0ED8
+TextEngine_ReloadBank:: ; 00:0ED8
+Label_00_0ED8::
 	ldh a, [hRam_FFB9]
 	call BankSwitch_H
 
-Label_00_0EDD:: ; 00:0EDD
+TextEngine_NextByte:: ; 00:0EDD
+Label_00_0EDD::
 	ld a, [hli]
 	cp a, $20
-	jr nc, Function_00_0F30
+	jr nc, TextEngine_PutChar
 	push hl
 	add a, a
 	add a, $F0
@@ -35,13 +38,15 @@ Label_00_0EDD:: ; 00:0EDD
 
 ; ---- words $0EF0-$0F30 (64 bytes) [CONFIRMED] 32 handler pointers for control bytes $00-$1F (indexed at 0EE3-0EEF)
 
-Table_00_0EF0:: ; 00:0EF0
-	dw Function_00_0F9D, Function_00_0F83, Function_00_0FAC, Function_00_0FB3, Function_00_0FBA, Function_00_0FC6, Function_00_0FD2, Function_00_0FDE
-	dw Function_00_0F9D, Function_00_1018, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F68, Function_00_0F9D, Function_00_0F9D
-	dw Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D
-	dw Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0F9D, Function_00_0FEA, Function_00_0FF4, Function_00_0FFB, Function_00_100D
+Table_TextEngine_CmdHandlers:: ; 00:0EF0
+Table_00_0EF0::
+	dw TextEngine_Cmd00_End, TextEngine_Cmd01_CallString, TextEngine_Cmd02_SetY, TextEngine_Cmd03_SetX, TextEngine_Cmd04_SetPos, TextEngine_Cmd05_SetPos, TextEngine_Cmd06_SetPos, TextEngine_Cmd07_SetPos
+	dw TextEngine_Cmd00_End, TextEngine_Cmd09_Tab, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd0D_NewLine, TextEngine_Cmd00_End, TextEngine_Cmd00_End
+	dw TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End
+	dw TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd00_End, TextEngine_Cmd1C_SetX16, TextEngine_Cmd1D_SetY, TextEngine_Cmd1E_AddX16, TextEngine_Cmd1F_AddY
 
-Function_00_0F30:: ; 00:0F30
+TextEngine_PutChar:: ; 00:0F30
+Function_00_0F30::
 	; [CONFIRMED] character output: C=byte; lead bytes $81-$9F,$E0-$EF,$F8-$F9 take a second byte
 	; and draw a double-byte glyph (1044), others a single glyph (10B1); then call 0392, wrap when
 	; x(FFBD) exceeds limit FFC4 (newline at 0F69)
@@ -63,32 +68,35 @@ Function_00_0F30:: ; 00:0F30
 .l0F4A ; 00:0F4A
 	jr c, .l0F53
 	push hl
-	call Function_00_10B1
+	call TextEngine_DrawNarrowGlyph
 	pop hl
-	jr Label_00_0F5A
+	jr TextEngine_AfterChar
 .l0F53 ; 00:0F53
 	ld a, [hli]
 	ld b, a
 	push hl
-	call Function_00_1044
+	call TextEngine_DrawWideGlyph
 	pop hl
 
-Label_00_0F5A:: ; 00:0F5A
-	call Function_00_0392
+TextEngine_AfterChar:: ; 00:0F5A
+Label_00_0F5A::
+	call Sound_FrameService
 	ldh a, [hTextX]
 	ld c, a
 	ldh a, [hRam_FFC4]
 	cp a, c
-	jr c, Label_00_0F69
-	jp Label_00_0ED8
+	jr c, TextEngine_LineWrap
+	jp TextEngine_ReloadBank
 
-Function_00_0F68:: ; 00:0F68
+TextEngine_Cmd0D_NewLine:: ; 00:0F68
+Function_00_0F68::
 	; [CONFIRMED] control byte $0D (newline): X(FFBD/E)=FFC1/FFC2; if FFC6==$FF return (end of text,
 	; 0F73-0F75); else Y(FFBC)+=FFC6 and continue only while Y<=FFC3 (0F7E cp, jp nc,$0ED8),
 	; otherwise return
 	pop hl
 
-Label_00_0F69:: ; 00:0F69
+TextEngine_LineWrap:: ; 00:0F69
+Label_00_0F69::
 	ldh a, [hRam_FFC1]
 	ldh [hTextX], a
 	ldh a, [hRam_FFC2]
@@ -103,10 +111,11 @@ Label_00_0F69:: ; 00:0F69
 	ld c, a
 	ldh a, [hRam_FFC3]
 	cp a, c
-	jp nc, Label_00_0ED8
+	jp nc, TextEngine_ReloadBank
 	ret
 
-Function_00_0F83:: ; 00:0F83
+TextEngine_Cmd01_CallString:: ; 00:0F83
+Function_00_0F83::
 	; [CONFIRMED] control byte $01: call sub-string: reads addr16 + bank, pushes return pointer and
 	; bank, depth++ (FFBF), continues in the new string
 	pop hl
@@ -126,9 +135,10 @@ Function_00_0F83:: ; 00:0F83
 	ldh a, [hRam_FFBF]
 	inc a
 	ldh [hRam_FFBF], a
-	jp Label_00_0ED8
+	jp TextEngine_ReloadBank
 
-Function_00_0F9D:: ; 00:0F9D
+TextEngine_Cmd00_End:: ; 00:0F9D
+Function_00_0F9D::
 	; [CONFIRMED] control byte $00/$08/$0A-$0C/$0E-$1B: end of string: at depth 0 return to caller,
 	; else pop the saved pointer/bank and continue
 	pop hl
@@ -140,75 +150,84 @@ Function_00_0F9D:: ; 00:0F9D
 	pop hl
 	pop af
 	ldh [hRam_FFB9], a
-	jp Label_00_0ED8
+	jp TextEngine_ReloadBank
 
-Function_00_0FAC:: ; 00:0FAC
+TextEngine_Cmd02_SetY:: ; 00:0FAC
+Function_00_0FAC::
 	; [CONFIRMED] control byte $02: FFBC = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextY], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FB3:: ; 00:0FB3
+TextEngine_Cmd03_SetX:: ; 00:0FB3
+Function_00_0FB3::
 	; [CONFIRMED] control byte $03: FFBD = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextX], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FBA:: ; 00:0FBA
+TextEngine_Cmd04_SetPos:: ; 00:0FBA
+Function_00_0FBA::
 	; [CONFIRMED] control byte $04: FFBC=3, FFBD=0
 	pop hl
 	ld a, $03
 	ldh [hTextY], a
 	ld a, $00
 	ldh [hTextX], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FC6:: ; 00:0FC6
+TextEngine_Cmd05_SetPos:: ; 00:0FC6
+Function_00_0FC6::
 	; [CONFIRMED] control byte $05: FFBC=1, FFBD=0
 	pop hl
 	ld a, $01
 	ldh [hTextY], a
 	ld a, $00
 	ldh [hTextX], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FD2:: ; 00:0FD2
+TextEngine_Cmd06_SetPos:: ; 00:0FD2
+Function_00_0FD2::
 	; [CONFIRMED] control byte $06: FFBC=2, FFBD=0
 	pop hl
 	ld a, $02
 	ldh [hTextY], a
 	ld a, $00
 	ldh [hTextX], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FDE:: ; 00:0FDE
+TextEngine_Cmd07_SetPos:: ; 00:0FDE
+Function_00_0FDE::
 	; [CONFIRMED] control byte $07: FFBC=0, FFBD=2
 	pop hl
 	ld a, $00
 	ldh [hTextY], a
 	ld a, $02
 	ldh [hTextX], a
-	jp Label_00_0EDD
+	jp TextEngine_NextByte
 
-Function_00_0FEA:: ; 00:0FEA
+TextEngine_Cmd1C_SetX16:: ; 00:0FEA
+Function_00_0FEA::
 	; [CONFIRMED] control byte $1C: FFBD/FFBE = next word
 	pop hl
 	ld a, [hli]
 	ldh [hTextX], a
 	ld a, [hli]
 	ldh [hTextX + 1], a
-	jp Label_00_0F5A
+	jp TextEngine_AfterChar
 
-Function_00_0FF4:: ; 00:0FF4
+TextEngine_Cmd1D_SetY:: ; 00:0FF4
+Function_00_0FF4::
 	; [CONFIRMED] control byte $1D: FFBC = next byte
 	pop hl
 	ld a, [hli]
 	ldh [hTextY], a
-	jp Label_00_0F5A
+	jp TextEngine_AfterChar
 
-Function_00_0FFB:: ; 00:0FFB
+TextEngine_Cmd1E_AddX16:: ; 00:0FFB
+Function_00_0FFB::
 	; [CONFIRMED] control byte $1E: FFBD/FFBE += next word
 	pop hl
 	ld a, [hli]
@@ -221,9 +240,10 @@ Function_00_0FFB:: ; 00:0FFB
 	ldh a, [hTextX + 1]
 	adc a, b
 	ldh [hTextX + 1], a
-	jp Label_00_0F5A
+	jp TextEngine_AfterChar
 
-Function_00_100D:: ; 00:100D
+TextEngine_Cmd1F_AddY:: ; 00:100D
+Function_00_100D::
 	; [CONFIRMED] control byte $1F: FFBC += next byte
 	pop hl
 	ld a, [hli]
@@ -231,9 +251,10 @@ Function_00_100D:: ; 00:100D
 	ldh a, [hTextY]
 	add a, c
 	ldh [hTextY], a
-	jp Label_00_0F5A
+	jp TextEngine_AfterChar
 
-Function_00_1018:: ; 00:1018
+TextEngine_Cmd09_Tab:: ; 00:1018
+Function_00_1018::
 	; [CONFIRMED] control byte $09: FFBD/FFBE += $30
 	pop hl
 	ldh a, [hTextX]
@@ -242,9 +263,10 @@ Function_00_1018:: ; 00:1018
 	ldh a, [hTextX + 1]
 	adc a, $00
 	ldh [hTextX + 1], a
-	jp Label_00_0F5A
+	jp TextEngine_AfterChar
 
-Function_00_1028:: ; 00:1028
+TextEngine_DrawChar:: ; 00:1028
+Function_00_1028::
 	; [PROBABLE] draw character C: same lead-byte test as 0F30, then 10B1 (single) or 1044 (double:
 	; far calls into bank 7F glyph routines; y limit $90, x limit $A0) [candidate; raw refs 50] |
 	; inline far pointer: FarCall at 1053: dw $405F ; db $7F -> 7F:405F | 15 insn(s) never executed
@@ -265,9 +287,10 @@ Function_00_1028:: ; 00:1028
 .l1041 ; 00:1041
 	or a, a
 .l1042 ; 00:1042
-	jr nc, Function_00_10B1
+	jr nc, TextEngine_DrawNarrowGlyph
 
-Function_00_1044:: ; 00:1044
+TextEngine_DrawWideGlyph:: ; 00:1044
+Function_00_1044::
 	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 1028-1059 by apply_coverage
 	; --split [executed in 37 scenarios]
 	ld h, c
@@ -336,7 +359,8 @@ Function_00_10A3:: ; 00:10A3
 	ldh [hTextX + 1], a
 	ret
 
-Function_00_10B1:: ; 00:10B1
+TextEngine_DrawNarrowGlyph:: ; 00:10B1
+Function_00_10B1::
 	; [CONFIRMED] draw single-byte glyph (far calls into bank 7F: 7F:4007, 7F:42C3) | inline far
 	; pointer: FarCall at 10C0: dw $4007 ; db $7F -> 7F:4007
 	ld b, c

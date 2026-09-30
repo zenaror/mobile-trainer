@@ -60,13 +60,13 @@ Function_4F_4717::
 	ldh [rNR51], a
 	ld a, $80
 	ldh [rNR52], a
-	call Function_00_0684
-	call Function_00_04A0
-	call Function_00_059F
+	call Bank_InitState
+	call Int_InstallRamVectors
+	call OAMDMA_CopyToHram
 	xor a, a
 	ld [wOAMDMASuppress], a
 	farcall Joypad_Init
-	call Function_00_0331
+	call Palette_SetAllWhite
 	ld a, $83
 	ldh [rLCDC], a
 	xor a, a
@@ -81,8 +81,8 @@ Function_4F_4717::
 Boot_ReinitRuntime:: ; 4F:47A5
 	ld a, $83
 	ldh [rLCDC], a
-	call Function_00_0331
-	call Function_00_0392
+	call Palette_SetAllWhite
+	call Sound_FrameService
 	ld hl, $FFA4
 	ld bc, $005A
 	xor a, a
@@ -91,12 +91,12 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	ld bc, $0AF0
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	di
 	nop
-	call Function_00_0684
-	call Function_00_04A0
-	call Function_00_059F
+	call Bank_InitState
+	call Int_InstallRamVectors
+	call OAMDMA_CopyToHram
 	xor a, a
 	ldh [rIF], a
 	ld a, $01
@@ -112,7 +112,7 @@ Boot_ReinitRuntime:: ; 4F:47A5
 	ld hl, $D000
 	ld bc, $1000
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	inc e
 	dec d
 	jr nz, .loop

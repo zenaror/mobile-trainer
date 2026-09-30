@@ -59,12 +59,12 @@ Function_0E_4000::
 Title_StateLoop:: ; 0E:405F
 	farcall Joypad_Update
 	call Title_DispatchState
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ld a, [wRam_C27C]
 	cp a, $FF
 	jr nz, Title_StateLoop
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ld hl, $FF40
 	ld a, [hl]
 	and a, $FB
@@ -106,7 +106,7 @@ Title_StateLoadLogo:: ; 0E:40A2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -200,7 +200,7 @@ Title_StateLoadTitle:: ; 0E:411A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0001
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -269,7 +269,7 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -278,7 +278,7 @@ Title_MenuToggleSelection:: ; 0E:41BA
 	call Title_PlaceCursor
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	jr Label_0E_41FD
 
 Title_MenuConfirm:: ; 0E:41E6
@@ -287,7 +287,7 @@ Title_MenuConfirm:: ; 0E:41E6
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27C]
@@ -315,54 +315,54 @@ Title_LoadTitleScreen:: ; 0E:4215
 Function_0E_4215::
 	; [CONFIRMED] 98 insn(s); 98 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ld hl, $FF40
 	ld a, [hl]
 	or a, $04
 	ld [hl], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_Title_Tiles0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_Title_Tiles1
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, $49C0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8801
 	ld hl, Gfx_Title_Tiles2
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Gfx_Title_Tiles4
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Gfx_Title_Tiles5
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_Title_Tiles6
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_Title_Bg
@@ -377,25 +377,25 @@ Function_0E_4215::
 	ld de, $D000
 	ld hl, Tilemap_Title_Screen
 	ld a, $0E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Title_DrawMenuHighlight
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	ld hl, $DA10
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call Title_PlaceCursor
 	ld hl, $DA20
 	ld de, $5FB0
 	ld a, $0E
 	ld b, $82
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA20
-	call Function_00_0A65
-	farcall Function_00_0956
+	call Sprite_SetPosition
+	farcall Sprite_UpdateAll
 	ret
 
 Title_DrawMenuHighlight:: ; 0E:4311
@@ -413,7 +413,7 @@ Title_DrawMenuHighlight:: ; 0E:4311
 	ld h, [hl]
 	ld l, a
 	ld a, $0E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- data $4330-$4334 (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
@@ -438,7 +438,7 @@ Function_0E_4334::
 	ld d, [hl]
 	ld e, a
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $434B-$434F (4 bytes) [CONFIRMED] read as data by executed code (in up to 14/18 scenarios); content class unknown
@@ -451,24 +451,24 @@ Title_LoadLogoScreen:: ; 0E:434F
 Function_0E_434F::
 	; [CONFIRMED] 32 insn(s); 32 executed (in up to 14/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ld hl, $FF40
 	ld a, [hl]
 	or a, $04
 	ld [hl], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Gfx_TitleLogo_Tiles0
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_TitleLogo_Tiles1
 	ld a, $0E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_TitleLogo
@@ -478,10 +478,10 @@ Function_0E_434F::
 	ld de, $D000
 	ld hl, Tilemap_TitleLogo_Screen
 	ld a, $0E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffersDi
+	farcall Sprite_UpdateAll
 	ret
 
 ; ---- zero $43B1-$43C0 (15 bytes) [PROBABLE] 15 zero bytes: padding between the ret at 43B0 and the tile block at 43C0 (all bytes are $00)

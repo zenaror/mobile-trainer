@@ -32,31 +32,31 @@ Function_5C_5150::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8001
 	ld hl, CommErr_Gfx_Obj8000
 	ld a, $5C
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8101
 	ld hl, CommErr_Gfx_Obj8100
 	ld a, $5C
 	ld b, $98
 	ld c, $02
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, CommErr_Gfx_Bg9000
 	ld a, $5C
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, CommErr_Gfx_Bg9400
 	ld a, $5C
 	ld b, $96
 	ld c, $18
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6390
@@ -70,21 +70,21 @@ Function_5C_5150::
 	call CommErr_DrawMessage
 	call CommErr_DrawErrorNumber
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0015
-	call Function_00_20B2
+	call Sound_PlayMusic
 	pop af
 	ldh [rSVBK], a
 
 CommErr_ShowScreen_FrameLoop:: ; 5C:5219
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -115,7 +115,7 @@ CommErr_ShowScreen_ButtonA:: ; 5C:524C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -159,7 +159,7 @@ CommErr_FindRecord:: ; 5C:527D
 	ld de, $D000
 	ld hl, CommErr_Tilemap_Comm
 	ld a, $5C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	jr CommErr_LookupTriple
 
@@ -169,15 +169,15 @@ CommErr_DrawMessage_TimerVariant:: ; 5C:52AB
 	ld de, $D000
 	ld hl, CommErr_Tilemap_CommTimer
 	ld a, $5C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $642B
 	ld a, $5C
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $8010
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, $D800
 	ld hl, CommErr_Palette_BgTimer
@@ -194,7 +194,7 @@ CommErr_DrawMessage_PlainVariant:: ; 5C:52EF
 	ld de, $D000
 	ld hl, CommErr_Tilemap_Plain
 	ld a, $5C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 
 CommErr_LookupTriple:: ; 5C:5302
@@ -259,7 +259,7 @@ CommErr_PrintMessage:: ; 5C:531E
 	ld a, $0C
 	ldh [hRam_FFC7], a
 	ld a, $5C
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0301
 	ld bc, $0712
@@ -286,7 +286,7 @@ Label_5C_53A1:: ; 5C:53A1
 	ld de, $D000
 	ld hl, CommErr_Tilemap_Plain
 	ld a, $5C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 CommErr_DrawErrorNumber:: ; 5C:53B3
@@ -368,9 +368,9 @@ Function_5C_53B3::
 	ld bc, $0208
 	ld de, $F008
 	ld a, $07
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 CommErr_DrawDigit:: ; 5C:5441
@@ -421,12 +421,12 @@ Function_5C_546F::
 	ld de, $D200
 	ld hl, $5656
 	ld a, $5C
-	farcall Function_00_16A2
+	farcall Tilemap_CopyRectAndAttrPtr
 	ld de, $80A0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $00
 	ld [wRam_C0D8], a
 	ret

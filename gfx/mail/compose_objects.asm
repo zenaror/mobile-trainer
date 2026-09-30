@@ -77,7 +77,8 @@ Data_29_6343:: ; 29:6343
 
 ; ---- words $6350-$63F0 (160 bytes) [PROBABLE] animation entry table: 40 entries of 4 bytes (frame-table pointer, script pointer) in the format of the sprite-slot initialiser 00:0A82/0AB8 (4-byte entry at DE+4*(A&$7F): word -> slot[2..3] frame table, word -> slot[6..7] script); each animation appears 4 times in a row (4 identical entries)
 
-Table_29_6350:: ; 29:6350
+Table_MailBody_CursorObjects:: ; 29:6350
+Table_29_6350::
 	dw Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414, Table_29_6406, Data_29_6414
 	dw Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427, Table_29_6419, Data_29_6427
 	dw Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A, Table_29_642C, Data_29_643A

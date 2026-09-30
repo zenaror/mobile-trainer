@@ -45,7 +45,7 @@ Tilemap_FillRectSequential:: ; 48:4679
 	add hl, de
 	pop de
 	xor a, a
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a

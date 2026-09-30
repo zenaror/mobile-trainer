@@ -17,7 +17,8 @@ Function_2F_7EBF::
 	ld [hli], a
 	ld [hl], a
 
-Label_2F_7ECC:: ; 2F:7ECC
+Abook_Run_List:: ; 2F:7ECC
+Label_2F_7ECC::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -50,60 +51,65 @@ Label_2F_7ECC:: ; 2F:7ECC
 	; fall-through of the jrcc at 2F:7EFA (executed) | 4 insn(s) executed; cut out of the PROBABLE
 	; region 7EFC-7F08 by apply_coverage --split [executed in 4 scenarios]
 	cp a, $01
-	jr z, Label_2F_7F3B
+	jr z, Abook_Run_View
 	cp a, $02
 	jr z, .l7F08
 
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7EFC-7F08 by apply_coverage --split
 	cp a, $03
-	jr z, Label_2F_7ECC
+	jr z, Abook_Run_List
 
 .l7F08 ; 2F:7F08
 	; [CONFIRMED] 2 insn(s); 2 executed (in up to 1/18 scenarios)
 	xor a, a
-	jr Label_2F_7F0D
+	jr Abook_Run_EditAddress
 
-Label_2F_7F0B:: ; 2F:7F0B
+Abook_Run_EditAddressA1:: ; 2F:7F0B
+Label_2F_7F0B::
 	; [CONFIRMED] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 2;
 	; entered by jrcc from 2F:7F24 (PROBABLE code) [executed in 2 scenarios]
 	ld a, $01
 
-Label_2F_7F0D:: ; 2F:7F0D
+Abook_Run_EditAddress:: ; 2F:7F0D
+Label_2F_7F0D::
 	; [CONFIRMED] 1 insn(s); 1 executed (in up to 1/18 scenarios)
 	farcall AbookAddr_Edit
 
 	; [CONFIRMED] 18 insn(s) reached by static flow only; seeds: exec x18; min discovery hops 0;
 	; entry not recorded [executed in 1 scenarios]
 	cp a, $FF
-	jr z, Label_2F_7F4E
+	jr z, Abook_Run_BackToList
 	xor a, a
-	jr Label_2F_7F1C
+	jr Abook_Run_EditName
 
-Label_2F_7F1A:: ; 2F:7F1A
+Abook_Run_EditNameA1:: ; 2F:7F1A
+Label_2F_7F1A::
 	ld a, $01
 
-Label_2F_7F1C:: ; 2F:7F1C
+Abook_Run_EditName:: ; 2F:7F1C
+Label_2F_7F1C::
 	farcall AbookName_Edit
 	cp a, $FF
-	jr z, Label_2F_7F0B
+	jr z, Abook_Run_EditAddressA1
 	ld d, $00
 	ld b, d
 	push bc
 	farcall AddrBook_SaveConfirm
 	pop bc
 	inc b
-	jr z, Label_2F_7F4E
+	jr z, Abook_Run_BackToList
 	cp a, $00
-	jr z, Label_2F_7ECC
-	jr Label_2F_7F1A
+	jr z, Abook_Run_List
+	jr Abook_Run_EditNameA1
 
 ; ---- data $7F3A-$7F3B (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2F_7F3A:: ; 2F:7F3A
 	db $C9
 
-Label_2F_7F3B:: ; 2F:7F3B
+Abook_Run_View:: ; 2F:7F3B
+Label_2F_7F3B::
 	; [CONFIRMED] 9 insn(s) reached by static flow only; seeds: exec x9; min discovery hops 1;
 	; entered by jrcc from 2F:7EFE (PROBABLE code) | 6 insn(s) executed; cut out of the PROBABLE
 	; region 7F3B-7F4D by apply_coverage --split [executed in 3 scenarios]
@@ -112,20 +118,21 @@ Label_2F_7F3B:: ; 2F:7F3B
 	farcall AbookView_Run
 	pop bc
 	inc b
-	jr z, Label_2F_7F4E
+	jr z, Abook_Run_BackToList
 
 	; [PROBABLE] 3 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 7F3B-7F4D by apply_coverage --split
 	cp a, $00
-	jr z, Label_2F_7ECC
-	jr Label_2F_7F1A
+	jr z, Abook_Run_List
+	jr Abook_Run_EditNameA1
 
 ; ---- data $7F4D-$7F4E (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
 Data_2F_7F4D:: ; 2F:7F4D
 	db $C9
 
-Label_2F_7F4E:: ; 2F:7F4E
+Abook_Run_BackToList:: ; 2F:7F4E
+Label_2F_7F4E::
 	; [CONFIRMED] 7 insn(s) reached by static flow only; seeds: exec x7; min discovery hops 1;
 	; entered by jrcc from 2F:7F15 (PROBABLE code) | upgraded by classifier 6: all 7 instruction
 	; starts of the region are in analysis/coverage_union.tsv (executed in a trace)
@@ -135,7 +142,7 @@ Label_2F_7F4E:: ; 2F:7F4E
 	ld hl, $D727
 	ld a, $01
 	ld [hl], a
-	jp Label_2F_7ECC
+	jp Abook_Run_List
 
 Abook_LoadSlotToBuffers:: ; 2F:7F5D
 Function_2F_7F5D::

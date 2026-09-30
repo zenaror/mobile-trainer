@@ -55,7 +55,7 @@ Dialog_Open:: ; 72:402A
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, $D830
 	ld hl, Dialog_Palette
@@ -65,7 +65,7 @@ Dialog_Open:: ; 72:402A
 	ld de, $D180
 	ld hl, Dialog_WindowMap
 	ld a, $72
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
@@ -78,11 +78,11 @@ Dialog_Open:: ; 72:402A
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -92,11 +92,11 @@ Dialog_Open:: ; 72:402A
 	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -121,7 +121,7 @@ Dialog_Open:: ; 72:402A
 	ld de, $0EC0
 	farcall Tilemap_FillAscendingWithAttr
 	pop hl
-	call Function_00_0392
+	call Sound_FrameService
 	ld bc, $DC00
 	ld de, $DD00
 	ld a, $07
@@ -139,7 +139,7 @@ Dialog_Open:: ; 72:402A
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMap
 	ld a, $07
@@ -153,12 +153,12 @@ Dialog_Open:: ; 72:402A
 	ld de, $D520
 	ld bc, $0120
 	call CopyBytes
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $48
@@ -167,19 +167,19 @@ Dialog_Open:: ; 72:402A
 	farcall Dialog_SlideIn
 .l4196 ; 72:4196
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	call Function_00_047A
+	call Gfx_UploadBgMapBuffersDi
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0030
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wJoyRepeatInterval]
@@ -204,7 +204,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0010
 	ld de, $D830
 	ld hl, Dialog_Palette
@@ -214,7 +214,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld de, $D140
 	ld hl, Dialog_WindowMapTall
 	ld a, $72
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0008
 	ld de, $D860
 	ld hl, $4E38
@@ -227,11 +227,11 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -241,11 +241,11 @@ Dialog_OpenTall:: ; 72:41D8
 	ld de, Dialog_CursorObjTable
 	ld a, $72
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
+	call Sprite_SetHook
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -271,7 +271,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld de, $0E00
 	farcall Tilemap_FillAscendingWithAttr
 	pop hl
-	call Function_00_0392
+	call Sound_FrameService
 	ld bc, $DC00
 	ld de, $DD00
 	ld a, $07
@@ -290,7 +290,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -298,7 +298,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld bc, $0400
 	xor a, a
 	call FillBytes
-	call Function_00_0392
+	call Sound_FrameService
 	pop hl
 	ld bc, $DC00
 	ld de, $DD00
@@ -311,7 +311,7 @@ Dialog_OpenTall:: ; 72:41D8
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh a, [rLCDC]
 	farcall Dialog_UploadWindowMapTall
 	ld a, $07
@@ -325,12 +325,12 @@ Dialog_OpenTall:: ; 72:41D8
 	ld de, $D4E0
 	ld bc, $0160
 	call CopyBytes
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $38
@@ -339,19 +339,19 @@ Dialog_OpenTall:: ; 72:41D8
 	farcall Dialog_SlideIn
 .l435F ; 72:435F
 	ldh a, [rLCDC]
-	call Function_00_07CB
-	call Function_00_047A
+	call Gfx_UploadBgMapBuffersDi
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0030
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wJoyRepeatInterval]
@@ -381,7 +381,8 @@ Function_72_43A7::
 
 ; ---- ptrtable $43AA-$43B6 (12 bytes) [PROBABLE] inline table of `call $0545` (JumpTableInline) at 72:43A7: 6 entries; end pinned by the executed instruction at 43B6
 
-Table_72_43AA:: ; 72:43AA
+Dialog_SetupCursorByType_TypeTable:: ; 72:43AA
+Table_72_43AA::
 	dw Label_72_43B6
 	dw Label_72_4412
 	dw Label_72_43DC
@@ -392,7 +393,7 @@ Table_72_43AA:: ; 72:43AA
 Label_72_43B6:: ; 72:43B6
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios)
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, $00
 	ldh [hDialogResult], a
 	ret
@@ -409,7 +410,7 @@ Label_72_43C1:: ; 72:43C1
 	; 43C1-43DC by apply_coverage --split
 	ld de, $D058
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr Label_72_43F7
 
 .l43D1 ; 72:43D1
@@ -417,7 +418,7 @@ Label_72_43C1:: ; 72:43C1
 	; --split [executed in 3 scenarios]
 	ld de, $D028
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr Label_72_43F7
 
 Label_72_43DC:: ; 72:43DC
@@ -427,12 +428,12 @@ Label_72_43DC:: ; 72:43DC
 	jr z, .l43EC
 	ld de, $C058
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr Label_72_43F7
 .l43EC ; 72:43EC
 	ld de, $C028
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr Label_72_43F7
 
 Label_72_43F7:: ; 72:43F7
@@ -446,13 +447,13 @@ Label_72_43F7:: ; 72:43F7
 Label_72_4407:: ; 72:4407
 	ld de, $D040
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr Label_72_441B
 
 Label_72_4412:: ; 72:4412
 	ld de, $C040
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 Label_72_441B:: ; 72:441B
 	ld a, $00
@@ -498,7 +499,7 @@ Dialog_DrawButtonTiles:: ; 72:4424
 	ret
 
 Dialog_Close:: ; 72:444F
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [wDialogType]
 	cp a, $03
 	jp nc, Dialog_CloseTall
@@ -522,16 +523,16 @@ Dialog_Close:: ; 72:444F
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
-	call Function_00_047A
+	call Sprite_SetHook
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Dialog_RestoreBackground
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
@@ -539,14 +540,14 @@ Dialog_Close:: ; 72:444F
 	ld hl, Data_72_4572
 	farcall Dialog_SlideOut
 .l44BB ; 72:44BB
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wRam_C2E4]
 	ld c, a
 	ld a, [wRam_C2E3]
@@ -580,16 +581,16 @@ Dialog_CloseTall:: ; 72:44E6
 	ld hl, $DACB
 	ld de, $0A1A
 	ld a, $00
-	call Function_00_0A45
-	call Function_00_047A
+	call Sprite_SetHook
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	farcall Dialog_RestoreBackgroundTall
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	ld c, $02
 	ldh a, [rWY]
 	cp a, $90
@@ -597,14 +598,14 @@ Dialog_CloseTall:: ; 72:44E6
 	ld hl, $4575
 	farcall Dialog_SlideOut
 .l4547 ; 72:4547
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $DAC0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, [wRam_C2E4]
 	ld c, a
 	ld a, [wRam_C2E3]
@@ -626,9 +627,9 @@ Dialog_WaitInput:: ; 72:4578
 Function_72_4578::
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -663,7 +664,7 @@ Label_72_45A0:: ; 72:45A0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -673,12 +674,12 @@ Label_72_45A0:: ; 72:45A0
 	jr nz, .l45DE
 	ld de, $7828
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Dialog_WaitInput
 .l45DE ; 72:45DE
 	ld de, $7858
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Dialog_WaitInput
 
 Label_72_45EA:: ; 72:45EA
@@ -687,7 +688,7 @@ Label_72_45EA:: ; 72:45EA
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002D
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -710,7 +711,7 @@ Label_72_4606:: ; 72:4606
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -780,9 +781,9 @@ Dialog_WaitInputMonitored:: ; 72:461A
 	or a, a
 	jp nz, Label_72_4721
 .l467A ; 72:467A
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -820,7 +821,7 @@ Label_72_46A2:: ; 72:46A2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -830,12 +831,12 @@ Label_72_46A2:: ; 72:46A2
 	jr nz, .l46E0
 	ld de, $7828
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Dialog_WaitInputMonitored
 .l46E0 ; 72:46E0
 	ld de, $7858
 	ld hl, $DAC0
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jp Dialog_WaitInputMonitored
 
 Label_72_46EC:: ; 72:46EC
@@ -844,7 +845,7 @@ Label_72_46EC:: ; 72:46EC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002D
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ldh a, [hDialogResult]
@@ -865,7 +866,7 @@ Label_72_4708:: ; 72:4708
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -961,20 +962,20 @@ Dialog_UploadWindowMap:: ; 72:47A3
 	ld d, a
 	ld e, $00
 	di
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $97
 	ld c, $12
 	ld hl, $D180
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $97
 	ld c, $12
 	ld hl, $D580
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Dialog_UploadWindowMapTall:: ; 72:47D4
@@ -989,24 +990,24 @@ Dialog_UploadWindowMapTall:: ; 72:47D4
 	ld d, a
 	ld e, $00
 	di
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $96
 	ld c, $16
 	ld hl, $D140
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $96
 	ld c, $16
 	ld hl, $D540
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Dialog_InitWindowRegs:: ; 72:4805
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $9F
 	ld b, a
@@ -1022,7 +1023,7 @@ Dialog_InitWindowRegs:: ; 72:4805
 	ld a, $90
 	ldh [rWY], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 Dialog_SlideIn:: ; 72:4824
@@ -1074,8 +1075,8 @@ Dialog_SlideIn:: ; 72:4824
 	push hl
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_047A
+	farcall Sprite_UpdateAll
+	call VBlank_WaitStartDI
 	pop de
 	ldh a, [rWY]
 	sub a, d
@@ -1086,7 +1087,7 @@ Dialog_SlideIn:: ; 72:4824
 	pop bc
 	pop hl
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	jr .loop
 .l486D ; 72:486D
 	xor a, a
@@ -1142,8 +1143,8 @@ Dialog_SlideOut:: ; 72:4872
 	push hl
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_047A
+	farcall Sprite_UpdateAll
+	call VBlank_WaitStartDI
 	pop de
 	ldh a, [rWY]
 	add a, d
@@ -1154,7 +1155,7 @@ Dialog_SlideOut:: ; 72:4872
 	pop bc
 	pop hl
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	jr .loop
 .l48BB ; 72:48BB
 	xor a, a

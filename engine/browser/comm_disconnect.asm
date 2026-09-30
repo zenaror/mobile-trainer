@@ -13,7 +13,8 @@ CommProgress_Init:: ; 4C:46B8
 
 ; ---- ptrtable $46C0-$46C4 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46BD: 2 entries; end pinned by the executed instruction at 46C4; every byte read as data in a trace
 
-Table_4C_46C0:: ; 4C:46C0
+CommProgress_Init_KindTable:: ; 4C:46C0
+Table_4C_46C0::
 	dw Label_4C_46C4
 	dw Label_4C_46CD
 
@@ -35,7 +36,8 @@ CommProgress_Step:: ; 4C:46D6
 
 ; ---- ptrtable $46DE-$46E2 (4 bytes) [CONFIRMED] inline table of `call $0545` (JumpTableInline) at 4C:46DB: 2 entries; end pinned by the executed instruction at 46E2; every byte read as data in a trace
 
-Table_4C_46DE:: ; 4C:46DE
+CommProgress_Step_KindTable:: ; 4C:46DE
+Table_4C_46DE::
 	dw Label_4C_46E2
 	dw Label_4C_46EB
 
@@ -66,9 +68,9 @@ Comm_Disconnect:: ; 4C:46F4
 	jr z, .l476D
 	cp a, $FF
 	jr z, .l472B
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	jp .l4706
 
@@ -82,9 +84,9 @@ Comm_Disconnect:: ; 4C:46F4
 	jr z, .l476D
 	cp a, $FF
 	jp z, .l476D
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall ConnIcon_LoadGraphicsIfRequested
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	jp .l4731
 .l4757 ; 4C:4757

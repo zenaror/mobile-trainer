@@ -19,14 +19,14 @@ Function_4E_6196::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	call LCDOn
 	ld de, $8801
 	ld hl, BrowserMenu3_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -54,7 +54,7 @@ Function_4E_6196::
 	ld b, $92
 	ld c, $40
 	ldh [hRam_FFB0], a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
 	add hl, bc
@@ -62,7 +62,7 @@ Function_4E_6196::
 	ld b, $92
 	ld c, $40
 	ldh a, [hRam_FFB0]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -86,7 +86,7 @@ Function_4E_6196::
 	ld l, c
 	ld bc, $1214
 	ld de, $D000
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -99,7 +99,7 @@ Function_4E_6196::
 	ld de, $8000
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -120,14 +120,15 @@ Function_4E_6196::
 	farcall Browser_UploadTitleCanvas
 	farcall Browser_LoadScrollbarGfx
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	xor a, a
 	ld [wBrowserTimerSecToggle], a
 	dec a
 	ld [wBrowserTimerLastSec], a
 	ret
 
-Function_4E_6291:: ; 4E:6291
+Browser_FrameStylePreview_LoadGraphics:: ; 4E:6291
+Function_4E_6291::
 	; [PROBABLE] 346 insn(s) reached by static flow only; seeds: site x346; min discovery hops 0;
 	; entered by far from 4E:4002 (PROBABLE code) | forced execution: 346/346 instruction starts ran
 	; in forced_screens (traces/forced/, not natural evidence; status unchanged)
@@ -142,14 +143,14 @@ Function_4E_6291:: ; 4E:6291
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	call LCDOn
 	ld de, $8801
 	ld hl, BrowserMenu3_Tiles0
 	ld a, $72
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh a, [hRam_FFD2]
 	push bc
 	and a, $7F
@@ -177,7 +178,7 @@ Function_4E_6291:: ; 4E:6291
 	ld b, $92
 	ld c, $40
 	ldh [hRam_FFB0], a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
 	add hl, bc
@@ -185,7 +186,7 @@ Function_4E_6291:: ; 4E:6291
 	ld b, $92
 	ld c, $40
 	ldh a, [hRam_FFB0]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -211,7 +212,7 @@ Function_4E_6291:: ; 4E:6291
 	ld l, c
 	ld bc, $1214
 	ld de, $D000
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ldh a, [hRam_FFD2]
 	push bc
@@ -310,7 +311,7 @@ Function_4E_6291:: ; 4E:6291
 	ld b, $92
 	ld c, $40
 	ldh [hRam_FFB0], a
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld bc, $0400
 	add hl, bc
@@ -318,7 +319,7 @@ Function_4E_6291:: ; 4E:6291
 	ld b, $92
 	ld c, $40
 	ldh a, [hRam_FFB0]
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -348,7 +349,7 @@ Function_4E_6291:: ; 4E:6291
 	ld l, c
 	ld bc, $1214
 	ld de, $D000
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -361,7 +362,7 @@ Function_4E_6291:: ; 4E:6291
 	ld de, $8000
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	pop hl
 	ld a, [hli]
 	ld c, a
@@ -473,7 +474,7 @@ Function_4E_6291:: ; 4E:6291
 	farcall Browser_UploadBodyCanvas
 	farcall Browser_UploadTitleCanvas
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	xor a, a
 	ld [wBrowserTimerSecToggle], a
 	dec a

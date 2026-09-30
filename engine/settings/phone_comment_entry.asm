@@ -15,7 +15,8 @@ PhoneComment_KeyboardRun:: ; 67:4924
 	ld a, [wRam_C27C]
 	ret
 
-Function_67_4940:: ; 67:4940
+PhoneComment_ClearStoredBitIfEdited:: ; 67:4940
+Function_67_4940::
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4940
 	; anywhere in the ROM); linear decode is legal ($4940-$49A8), all direct targets are known code
 	; starts, sibling of the function at 424A: reads SRAM $B0AD via 14EA/1509, clears bit $20 of
@@ -80,7 +81,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -96,25 +97,25 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4A_6920
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4A_6D20
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -124,14 +125,14 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld de, $D000
 	ld hl, Data_4A_72B0
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, $DE83
 	call PhoneComment_PrintText
 	call PhoneComment_UploadTextTiles
 	call PhoneComment_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $03
 	ld b, $02
 	farcall Kbd_Open
@@ -139,7 +140,7 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld d, $20
 	ld e, $10
 	ld hl, $DE80
@@ -151,11 +152,11 @@ PhoneComment_KeyboardSetup:: ; 67:49A8
 	ret
 .l4A8B ; 67:4A8B
 	farcall Kbd_ShowMarkerSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
 PhoneComment_KeyboardLoop:: ; 67:4A98
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C27D]
 	ld c, a
 	farcall Kbd_Run
@@ -186,7 +187,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l4AEF
@@ -196,7 +197,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 .l4AEF ; 67:4AEF
@@ -225,7 +226,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -256,7 +257,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l4BB2
@@ -269,7 +270,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call PhoneComment_StoreResult
@@ -282,7 +283,7 @@ PhoneComment_KeyboardLoop:: ; 67:4A98
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call PhoneComment_StoreResult
@@ -308,7 +309,8 @@ PhoneComment_StoreResult:: ; 67:4BB5
 	farcall TextEntry_CopyText
 	ret
 
-Function_67_4BC2:: ; 67:4BC2
+PhoneComment_UpdateStoredFlag:: ; 67:4BC2
+Function_67_4BC2::
 	; [HYPOTHESIS] function with no found entry (no call/jp/table word/far pointer/ld r16 to $4BC2
 	; anywhere in the ROM); linear decode is legal ($4BC2-$4BD5), all direct targets are known code
 	; starts, tests bit $20 of [$C278] and sets [$C27D]=0/1; ends with ret. Sits after a ret between
@@ -397,7 +399,7 @@ PhoneComment_PrintText:: ; 67:4C16
 	pop af
 	pop hl
 	ld a, $03
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 PhoneComment_UploadTextTiles:: ; 67:4C63

@@ -59,10 +59,10 @@ CommScene_Step:: ; 70:4023
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $01
 	ld [wRam_C283], a
 	jr .l407B
@@ -76,7 +76,7 @@ CommScene_Step:: ; 70:4023
 	; [CONFIRMED] 4 insn(s) reached by static flow only; seeds: exec x4; min discovery hops 0;
 	; fall-through of the jrcc at 70:406F (executed) [executed in 4 scenarios]
 	ld hl, $DA30
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	xor a, a
 	ld [wRam_C283], a
 
@@ -86,12 +86,12 @@ CommScene_Step:: ; 70:4023
 	ret
 
 CommScene_ApplyScrollFrame:: ; 70:407F
-	call Function_00_0956
-	call Function_00_0464
+	call Sprite_UpdateAll
+	call VBlank_Wait
 	ld hl, $C2A8
 	ld a, [hli]
 	ldh [rSCX], a
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 CommScene_RunState:: ; 70:408F
@@ -179,14 +179,14 @@ Label_70_40E3:: ; 70:40E3
 	ld a, $00
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -222,7 +222,7 @@ Label_70_4135:: ; 70:4135
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $14
@@ -231,10 +231,10 @@ Label_70_4135:: ; 70:4135
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $01
 	call CommScene_ShowTextBox
 	ld a, $04
@@ -249,7 +249,7 @@ Label_70_4135:: ; 70:4135
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -258,10 +258,10 @@ Label_70_4135:: ; 70:4135
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $06
 	call CommScene_ShowTextBox
 	ld a, $14
@@ -285,11 +285,11 @@ Label_70_41BF:: ; 70:41BF
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0044
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA60
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, $05
 	ld [wRam_C27C], a
 .l41E4 ; 70:41E4
@@ -329,7 +329,7 @@ Label_70_4215:: ; 70:4215
 	or a, a
 	jr nz, .l4231
 	ld hl, $DA60
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $08
@@ -358,7 +358,7 @@ Label_70_4235:: ; 70:4235
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $09
@@ -418,14 +418,14 @@ Label_70_428D:: ; 70:428D
 	ld a, $00
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -449,7 +449,7 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $14
@@ -458,10 +458,10 @@ Label_70_42CD:: ; 70:42CD
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $03
 	call CommScene_ShowTextBox
 	ld a, $03
@@ -476,7 +476,7 @@ Label_70_42CD:: ; 70:42CD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $02
@@ -485,10 +485,10 @@ Label_70_42CD:: ; 70:42CD
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3048
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $06
 	call CommScene_ShowTextBox
 	ld a, $14
@@ -512,11 +512,11 @@ Label_70_4357:: ; 70:4357
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0044
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA60
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, $04
 	ld [wRam_C27C], a
 .l437C ; 70:437C
@@ -556,7 +556,7 @@ Label_70_43AD:: ; 70:43AD
 	or a, a
 	jr nz, .l43C9
 	ld hl, $DA60
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld a, $01
 	call CommScene_SetTextSprites
 	ld a, $07
@@ -588,7 +588,7 @@ Label_70_43D0:: ; 70:43D0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $08
@@ -625,14 +625,14 @@ Label_70_4418:: ; 70:4418
 	ld a, $01
 	call CommScene_SetTextSprites
 	call CommScene_PlaceTextSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -661,7 +661,7 @@ Label_70_4458:: ; 70:4458
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $03
@@ -700,7 +700,7 @@ CommScene_LoadGraphics:: ; 70:44B0
 Function_70_44B0::
 	; [CONFIRMED] 203 insn(s); 203 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld hl, $C2A8
 	xor a, a
 	ld [hli], a
@@ -726,55 +726,55 @@ Function_70_44B0::
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, Data_70_5890
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Data_70_5C90
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Data_70_6090
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Data_70_6490
 	ld a, $70
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_70_6490
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, Data_70_6890
 	ld a, $70
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_70_6690
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Tiles_70_6A90
 	ld a, $70
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_70_6C90
@@ -789,24 +789,24 @@ Function_70_44B0::
 	ld de, $D000
 	ld hl, Tilemap_70_6D10
 	ld a, $70
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadBackgroundMap
 	ld hl, $DA10
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1800
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $02
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1888
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wRam_C27D]
 	or a, a
 	jr z, .l45EC
@@ -818,32 +818,32 @@ Function_70_44B0::
 	ld de, CommScene_ObjTable
 	ld a, $70
 	ld b, $83
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4605 ; 70:4605
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	or a, $20
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 CommScene_Teardown:: ; 70:4613
-	farcall Function_00_09B6
-	call Function_00_044B
+	farcall Sprite_ResetAll
+	call VBlank_WaitAndService
 	ld hl, $FF40
 	ld a, [hl]
 	and a, $FB
 	ld [hl], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ldh a, [rLCDC]
 	and a, $DF
 	ldh [rLCDC], a
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ld [wRam_C2A8], a
 	ld [wRam_C2A9], a
@@ -863,13 +863,13 @@ CommScene_UploadBackgroundMap:: ; 70:4638
 	ld c, $40
 	ld hl, $D000
 	xor a, a
-	call Function_00_0787
+	call Gfx_StartHDMAWithService
 	inc e
 	ld b, $92
 	ld c, $40
 	ld hl, $D400
 	xor a, a
-	call Function_00_0787
+	call Gfx_StartHDMAWithService
 	ei
 	ldh [hScratchA], a
 	pop af
@@ -897,13 +897,13 @@ CommScene_UploadTextBox:: ; 70:466B
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0787
+	call Gfx_StartHDMAWithService
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0787
+	call Gfx_StartHDMAWithService
 	ei
 	ldh [hScratchA], a
 	pop af
@@ -1065,13 +1065,13 @@ Function_70_477F::
 	ld a, [wRam_C280]
 	ld e, a
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld d, $30
 	ld a, [wRam_C280]
 	sub a, $10
 	ld e, a
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 .l47A0 ; 70:47A0
@@ -1081,13 +1081,13 @@ Function_70_477F::
 	ld a, [wRam_C280]
 	ld e, a
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld d, $30
 	ld a, [wRam_C280]
 	add a, $10
 	ld e, a
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 CommScene_SetTextSprites:: ; 70:47BB
@@ -1101,12 +1101,12 @@ Function_70_47BB::
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA50
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $83
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 
 .l47E2 ; 70:47E2
@@ -1116,12 +1116,12 @@ Function_70_47BB::
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $82
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA50
 	ld de, CommScene_TextObjTable
 	ld a, $70
 	ld b, $84
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 
 CommScene_ShowTextBox:: ; 70:4803
@@ -1141,6 +1141,6 @@ Function_70_4803::
 	ld bc, $0414
 	ld de, $D000
 	ld a, $70
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call CommScene_UploadTextBox
 	ret

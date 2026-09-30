@@ -19,7 +19,7 @@ Browser_ShiftCanvasUp:: ; 4E:5B69
 	push hl
 	ld b, $0A
 .l5B7C ; 4E:5B7C
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -123,7 +123,7 @@ Browser_ShiftCanvasUp:: ; 4E:5B69
 	ld d, a
 	dec b
 	jp nz, .l5B77
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $DC88
 	ld de, $0008
 	ld b, $14
@@ -157,7 +157,7 @@ Browser_ShiftCanvasDown:: ; 4E:5C10
 	push hl
 	ld b, $0A
 .l5C23 ; 4E:5C23
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hld]
 	ld [de], a
 	dec de
@@ -260,7 +260,7 @@ Browser_ShiftCanvasDown:: ; 4E:5C10
 	ld d, a
 	dec b
 	jp nz, .l5C1E
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $D000
 	ld bc, $0140
 	xor a, a
@@ -296,18 +296,18 @@ Function_4E_5CB6::
 	ld a, $47
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Data_47_4090
 	ld a, $47
 	ld b, $98
 	ld c, $03
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld hl, $DA90
 	ld de, $7858
 	ld a, $72
 	ld b, $83
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jp .l5D66
 .l5CFB ; 4E:5CFB
 	ld de, $8FF0
@@ -315,18 +315,18 @@ Function_4E_5CB6::
 	ld a, $47
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Data_47_40D0
 	ld a, $47
 	ld b, $98
 	ld c, $03
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld hl, $DA90
 	ld de, $7858
 	ld a, $72
 	ld b, $84
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jp .l5D66
 
 .l5D32 ; 4E:5D32
@@ -337,27 +337,28 @@ Function_4E_5CB6::
 	ld a, $47
 	ld b, $98
 	ld c, $01
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $97D0
 	ld hl, Data_47_4010
 	ld a, $47
 	ld b, $98
 	ld c, $03
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld hl, $DA90
 	ld de, $7858
 	ld a, $72
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l5D66 ; 4E:5D66
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
-Function_4E_5D70:: ; 4E:5D70
+Browser_ReloadFrameTilemap:: ; 4E:5D70
+Function_4E_5D70::
 	; [PROBABLE] function head whose 23 insn decode cleanly and end with ld bc,$1214 ; ld de,$D000
 	; right before the PROBABLE far-call site at 5D93 (call $06D1 -> 00:08EA copy_tilemap_rect_pair,
 	; b=18 rows c=20 cols); hl comes from the screen-descriptor table 4E:654B (+6), like the
@@ -388,7 +389,7 @@ Function_4E_5D70:: ; 4E:5D70
 
 	; [PROBABLE] 59 insn(s) reached by static flow only; seeds: site x59; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, [wBrowserFrameStyle]
 	push bc
 	and a, $7F
@@ -445,7 +446,7 @@ Function_4E_5D70:: ; 4E:5D70
 	farcall Tilemap_FillAscendingWithAttr
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 Browser_DrawScrollbarTrack:: ; 4E:5E11
@@ -579,11 +580,11 @@ Browser_UpdateScrollThumb:: ; 4E:5E5B
 Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, $18A0
 	ld hl, $DA90
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DAA0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	farcall Browser_UpdateScrollThumb
 	ldh a, [hViewScrollMax]
 	ld c, a
@@ -615,7 +616,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $86
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .loop ; 4E:5F15
 	ld a, [wBrowserFrameStyle]
 	push bc
@@ -635,7 +636,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld e, a
 	ld d, [hl]
 	ld hl, $DAB0
-	jp Function_00_0A65
+	jp Sprite_SetPosition
 
 .l5F34 ; 4E:5F34
 	; [CONFIRMED] 6 insn(s) reached by static flow only; seeds: exec x6; min discovery hops 1;
@@ -644,7 +645,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $89
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .loop
 
 .l5F46 ; 4E:5F46
@@ -653,7 +654,7 @@ Browser_DrawScrollIndicators:: ; 4E:5EC0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8B
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .loop
 
 Browser_ShowUpArrow:: ; 4E:5F58
@@ -669,7 +670,7 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .loop ; 4E:5F76
 	ld a, [wBrowserFrameStyle]
 	push bc
@@ -689,18 +690,18 @@ Browser_ShowUpArrow:: ; 4E:5F58
 	ld e, a
 	ld d, [hl]
 	ld hl, $DAA0
-	jp Function_00_0A65
+	jp Sprite_SetPosition
 .l5F95 ; 4E:5F95
 	ld hl, $DAA0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $88
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .loop
 .l5FA7 ; 4E:5FA7
 	ld hl, $DAA0
 	ld de, BrowserMenu_CursorObjTable
 	ld a, $72
 	ld b, $8A
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .loop

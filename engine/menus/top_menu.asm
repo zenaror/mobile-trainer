@@ -8,7 +8,7 @@ TopMenu_Run:: ; 1F:4000
 Function_1F_4000::
 	; [CONFIRMED] 170 insn(s); 170 executed (in up to 11/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_0392
+	call Sound_FrameService
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
@@ -39,49 +39,49 @@ Function_1F_4000::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Data_1E_49A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, Data_1E_4DA0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Data_1E_51A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Data_1E_55A0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Data_1E_59A0
 	ld a, $1E
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_1E_5BA0
 	ld a, $1E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_1E_5FA0
 	ld a, $1E
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_1E_62A0
@@ -91,12 +91,12 @@ Function_1F_4000::
 	ld de, $D000
 	ld hl, Data_1E_40D7
 	ld a, $1E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA50
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $85
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_1E_62E0
@@ -106,18 +106,18 @@ Function_1F_4000::
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $191D
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $02
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1676
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	ld [wSpriteSlots + 22], a
 	ld [wSpriteSlots + 23], a
@@ -147,15 +147,15 @@ Function_1F_4000::
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]
 	or a, $04
 	ldh [rLCDC], a
@@ -163,7 +163,7 @@ Function_1F_4000::
 	ld a, [wRam_C0E5]
 	dec a
 	ld b, a
-	ld hl, Data_1E_4000
+	ld hl, Data_TopMenu_StringIndexBank
 	ld a, $1E
 	farcall Ticker_Start
 	ldh a, [hWRAMBank]
@@ -171,13 +171,13 @@ Function_1F_4000::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0002
-	call Function_00_20B2
+	call Sound_PlayMusic
 	pop af
 	ldh [rSVBK], a
 
 TopMenu_Loop:: ; 1F:41D1
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -219,7 +219,7 @@ Label_1F_421D:: ; 1F:421D
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -249,7 +249,7 @@ TopMenu_OnB:: ; 1F:425A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -290,7 +290,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002A
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call TopMenu_LoadPanel
@@ -306,7 +306,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002A
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call TopMenu_LoadPanel
@@ -321,7 +321,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002B
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $C0E6
@@ -341,7 +341,7 @@ TopMenu_HandleDpad:: ; 1F:4291
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002B
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call TopMenu_LoadPanel
@@ -381,17 +381,17 @@ Function_1F_4351::
 	ld de, $D000
 	ld hl, Data_1E_40D7
 	ld a, $1E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA40
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $04
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4048
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	ld [wSpriteSlots + 70], a
 	ld [wSpriteSlots + 71], a
@@ -407,10 +407,10 @@ Function_1F_4351::
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $191D
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	ld [wSpriteSlots + 22], a
 	ld [wSpriteSlots + 23], a
@@ -421,18 +421,18 @@ Function_1F_4351::
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $02
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1676
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $03
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $AAAA
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	xor a, a
 	ld [wSpriteSlots + 38], a
 	ld [wSpriteSlots + 39], a
@@ -447,10 +447,10 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $06
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4848
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4417 ; 1F:4417
 	ld a, [wRam_C0E5]
 	dec a
@@ -461,10 +461,10 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $84
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $4048
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $2E
 	ld e, a
 	ld [wRam_C0D4], a
@@ -472,17 +472,17 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld d, a
 	ld [wRam_C0D6], a
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l44C0
 .l444F ; 1F:444F
 	ld hl, $DA10
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $191D
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $0B
 	ld e, a
 	ld [wRam_C0D4], a
@@ -490,25 +490,25 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld d, a
 	ld [wRam_C0D6], a
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l44C0
 .l447C ; 1F:447C
 	ld hl, $DA20
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $82
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1676
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, Table_1E_656F
 	ld a, $1E
 	ld b, $83
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1A6B
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $51
 	ld e, a
 	ld [wRam_C0D4], a
@@ -516,14 +516,14 @@ TopMenu_InitItemSprites:: ; 1F:43F7
 	ld d, a
 	ld [wRam_C0D6], a
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l44C0 ; 1F:44C0
 	xor a, a
 	ld [wRam_C0E8], a
 	ld [wRam_C0E2], a
 	inc a
 	ld [wRam_C0E7], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	call TopMenu_AnimatePanel
 	ret
 
@@ -544,9 +544,9 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld de, $D0E4
 	ld hl, Data_1E_48C1
 	ld a, $1E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 .l4503 ; 1F:4503
 	ld a, [wRam_C0E8]
@@ -557,9 +557,9 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld de, $D000
 	ld a, $1E
 	ld bc, $090B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, [wRam_C0E8]
 	inc a
 	ld [wRam_C0E8], a
@@ -577,9 +577,9 @@ TopMenu_AnimatePanel:: ; 1F:44D5
 	ld de, $D009
 	ld a, $1E
 	ld bc, $090B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, [wRam_C0E8]
 	inc a
 	ld [wRam_C0E8], a
@@ -606,7 +606,7 @@ Function_1F_4561::
 	ld a, [wRam_C0E5]
 	dec a
 	ld b, a
-	ld hl, Data_1E_4000
+	ld hl, Data_TopMenu_StringIndexBank
 	ld a, $1E
 	farcall Ticker_Start
 	ld a, [wRam_C0DB]
@@ -647,7 +647,7 @@ Function_1F_4561::
 	ld d, h
 .l45C3 ; 1F:45C3
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 TopMenu_StartCursorMove:: ; 1F:45CA

@@ -21,8 +21,8 @@ Mail_ParseDate:: ; 54:5168
 	dec b
 	jr nz, .l5175
 	ld hl, $C480
-	call Function_54_521F
-	call Function_54_5231
+	call Mail_SkipToDigit
+	call Mail_CountDigits
 	ld a, $01
 	cp a, b
 	jr z, .l518D
@@ -35,7 +35,7 @@ Mail_ParseDate:: ; 54:5168
 	and a, $0F
 	or a, c
 	ld [wRam_C583], a
-	call Function_54_522A
+	call Mail_SkipSpaces
 	ld a, [hli]
 	or a, $20
 	ld b, a
@@ -81,8 +81,8 @@ Mail_ParseDate:: ; 54:5168
 	ld [wRam_C582], a
 .l51CA ; 54:51CA
 	pop hl
-	call Function_54_521F
-	call Function_54_5231
+	call Mail_SkipToDigit
+	call Mail_CountDigits
 	ld a, $02
 	cp a, b
 	jr z, .l51EE
@@ -119,7 +119,7 @@ Mail_ParseDate:: ; 54:5168
 	or a, c
 	ld [wRam_C581], a
 .l51FB ; 54:51FB
-	call Function_54_521F
+	call Mail_SkipToDigit
 	ld a, [hli]
 	and a, $0F
 	swap a
@@ -128,7 +128,7 @@ Mail_ParseDate:: ; 54:5168
 	and a, $0F
 	or a, c
 	ld [wRam_C584], a
-	call Function_54_521F
+	call Mail_SkipToDigit
 	ld a, [hli]
 	and a, $0F
 	swap a
@@ -137,26 +137,29 @@ Mail_ParseDate:: ; 54:5168
 	and a, $0F
 	or a, c
 	ld [wRam_C585], a
-	call Function_54_5240
+	call Mail_ApplyTimezoneOffset
 	ret
 
-Function_54_521F:: ; 54:521F
+Mail_SkipToDigit:: ; 54:521F
+Function_54_521F::
 	ld a, [hli]
 	cp a, $30
-	jr c, Function_54_521F
+	jr c, Mail_SkipToDigit
 	cp a, $3A
-	jr nc, Function_54_521F
+	jr nc, Mail_SkipToDigit
 	dec hl
 	ret
 
-Function_54_522A:: ; 54:522A
+Mail_SkipSpaces:: ; 54:522A
+Function_54_522A::
 	ld a, [hli]
 	cp a, $20
-	jr z, Function_54_522A
+	jr z, Mail_SkipSpaces
 	dec hl
 	ret
 
-Function_54_5231:: ; 54:5231
+Mail_CountDigits:: ; 54:5231
+Function_54_5231::
 	push hl
 	ld b, $FF
 .loop ; 54:5234
@@ -170,11 +173,12 @@ Function_54_5231:: ; 54:5231
 	pop hl
 	ret
 
-Function_54_5240:: ; 54:5240
+Mail_ApplyTimezoneOffset:: ; 54:5240
+Function_54_5240::
 	inc hl
 	inc hl
 	inc hl
-	call Function_54_522A
+	call Mail_SkipSpaces
 	ld a, [hli]
 	cp a, $2B
 	jr z, .l524E

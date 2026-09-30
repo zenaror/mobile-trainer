@@ -21,7 +21,7 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld a, $00
@@ -31,25 +31,25 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld a, $4B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_4B_6E90
 	ld a, $4B
 	ld b, $95
 	ld c, $22
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $7090
 	ld a, $4B
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8001
 	ld hl, Data_5F_49D0
 	ld a, $5F
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $73B0
@@ -64,24 +64,24 @@ SettingsPhone_ConfirmScreen_Setup:: ; 67:5129
 	ld de, $D000
 	ld hl, $73F0
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call SettingsPhone_ConfirmScreen_LoadSlotTilemap
 	call SettingsPhone_ConfirmScreen_PrintFields
 	call SettingsPhone_ConfirmScreen_UploadTextTiles
 	call SettingsPhone_ConfirmScreen_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA00
 	ld de, Table_4A_4000
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	call SettingsPhone_ConfirmScreen_PlaceCursor
 	ret
 
 SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -99,7 +99,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -121,7 +121,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -133,7 +133,7 @@ SettingsPhone_ConfirmScreen_Loop:: ; 67:51E2
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C27D]
@@ -161,7 +161,7 @@ SettingsPhone_ConfirmScreen_PlaceCursor:: ; 67:525D
 	ld a, [hl]
 	ld d, a
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ret
 
 ; ---- data $5275-$5279 (4 bytes) [PROBABLE] 2 entries x 2 bytes (28 68 / 58 68), indexed by [$C27D]*2 (ld hl,$5275 at 67:5261), stored into sprite slot $DA00 by call $0A65 (coordinates)
@@ -220,7 +220,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEDD
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0707
 	ld bc, $020C
@@ -253,7 +253,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEEE
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $FFFF
 	ld hl, $0906
 	ld bc, $020D
@@ -286,7 +286,7 @@ SettingsPhone_ConfirmScreen_PrintFields:: ; 67:52A7
 	ldh [hRam_FFC7], a
 	ld a, $03
 	ld hl, $DEFF
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 SettingsPhone_ConfirmScreen_UploadTextTiles:: ; 67:5389
@@ -319,7 +319,7 @@ SettingsPhone_ConfirmScreen_LoadSlotTilemap:: ; 67:53B7
 	ld bc, $0201
 	ld de, $D066
 	ld a, $4B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ret
 
 ; ---- words $53D6-$53DC (6 bytes) [PROBABLE] 3 words $76C0,$76C4,$76C8 indexed by (ld hl,$53D6 at 67:53BA); hl=[table], ld a,$4B, far call 00:08EA (tilemap loader) at 67:53CD-53D1: source addresses in bank 4B (dw kept numeric)

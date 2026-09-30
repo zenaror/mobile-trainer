@@ -315,7 +315,7 @@ Function_27_41E3::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -335,18 +335,18 @@ Function_27_41E3::
 	ld de, $7030
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $7A30
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2FE0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, .l4297
@@ -357,7 +357,7 @@ Function_27_41E3::
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .l428C
 
 .l427C ; 27:427C
@@ -368,13 +368,13 @@ Function_27_41E3::
 	ld de, $7A50
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l428C ; 27:428C
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 3/18 scenarios)
 	ld de, $2FD0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l42CF
 .l4297 ; 27:4297
 	cp a, $01
@@ -386,10 +386,10 @@ Function_27_41E3::
 	ld de, $7AA0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2FD0
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l42CF
 
 .l42B6 ; 27:42B6
@@ -398,10 +398,10 @@ Function_27_41E3::
 	ld de, $7AC0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2FE0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l42CF ; 27:42CF
 	farcall Session_ResetCounters
 	farcall Timer_ResetClockB
@@ -436,9 +436,9 @@ MailConnect_Screen_Loop:: ; 27:4305
 	inc a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -457,9 +457,9 @@ MailConnect_Screen_Loop:: ; 27:4305
 	jp z, .l44E1
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	inc a
 	ldh [rSCX], a
@@ -467,7 +467,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -512,9 +512,9 @@ MailConnect_Screen_Loop:: ; 27:4305
 	jp z, .l44E1
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	inc a
 	ldh [rSCX], a
@@ -522,7 +522,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -562,7 +562,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -571,24 +571,24 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $D000
 	ld hl, MailConnect_WinMsg_Connected
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 	ld hl, $DA50
 	ld de, $7A70
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F47
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $1E
 .l444C ; 27:444C
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	inc a
 	ldh [rSCX], a
@@ -596,7 +596,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -604,7 +604,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	jr nz, .l444C
 	ld de, $2FD0
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -612,7 +612,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0044
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -633,9 +633,9 @@ MailConnect_Screen_Loop:: ; 27:4305
 	inc a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	inc a
 	ldh [rSCX], a
@@ -643,7 +643,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -658,14 +658,14 @@ MailConnect_Screen_Loop:: ; 27:4305
 	xor a, a
 	ret
 .l44E1 ; 27:44E1
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailConnect_WinMsg_Cancelling
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 	push bc
 	push de
 	ldh a, [hWRAMBank]
@@ -673,7 +673,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002F
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -682,17 +682,17 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $7A70
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F47
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld b, $3C
 .l452C ; 27:452C
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_044B
+	call VBlank_WaitAndService
 	pop bc
 	dec b
 	jr nz, .l452C
@@ -700,15 +700,15 @@ MailConnect_Screen_Loop:: ; 27:4305
 	farcall Mobile_BeginCancel
 	ld de, $2FE0
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F47
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, .l45A4
@@ -719,7 +719,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $7020
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .l4599
 
 .l4589 ; 27:4589
@@ -729,13 +729,13 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4599 ; 27:4599
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld de, $2F57
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l45DC
 
 .l45A4 ; 27:45A4
@@ -751,10 +751,10 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F57
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l45DC
 
 .l45C3 ; 27:45C3
@@ -764,18 +764,18 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F47
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 .l45DC ; 27:45DC
 	; [CONFIRMED] 86 insn(s); 86 executed (in up to 2/18 scenarios)
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -783,7 +783,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -798,21 +798,21 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	ld de, $71D0
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailConnect_WinMsg_Cancelled
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 .l4641 ; 27:4641
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -825,9 +825,9 @@ MailConnect_Screen_Loop:: ; 27:4305
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -835,7 +835,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -852,7 +852,7 @@ MailConnect_Screen_Loop:: ; 27:4305
 	ld b, $78
 .l4693 ; 27:4693
 	push bc
-	call Function_00_044B
+	call VBlank_WaitAndService
 	pop bc
 	dec b
 	jr nz, .l4693
@@ -870,9 +870,9 @@ Data_27_46A0:: ; 27:46A0
 	; entered by jr from 27:46DD (PROBABLE code)
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -917,7 +917,7 @@ MailConnect_ShowError:: ; 27:46E5
 	xor a, a
 	ld a, $07
 	ldh [rWX], a
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	farcall Timer_ResetClockB
 	ld de, $C0A9
@@ -960,7 +960,7 @@ Function_27_4747::
 	push hl
 	ld a, $07
 	ldh [rWX], a
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Mobile_FetchResult
 	pop hl
 	pop de
@@ -1004,7 +1004,7 @@ Function_27_4768::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -1012,25 +1012,25 @@ Function_27_4768::
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 	ld hl, $DA80
 	ld de, $7030
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F48
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, .l4831
@@ -1041,7 +1041,7 @@ Function_27_4768::
 	ld de, $7020
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1060,13 +1060,13 @@ Function_27_4768::
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4826 ; 27:4826
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
 	ld de, $2F58
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4869
 .l4831 ; 27:4831
 	cp a, $01
@@ -1078,10 +1078,10 @@ Function_27_4768::
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F58
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4869
 
 .l4850 ; 27:4850
@@ -1090,10 +1090,10 @@ Function_27_4768::
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F48
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4869 ; 27:4869
 	farcall Timer_ResetClockB
 	ld de, $C0A9
@@ -1111,9 +1111,9 @@ Function_27_4768::
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_044B
+	call VBlank_WaitAndService
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
@@ -1123,9 +1123,9 @@ Function_27_4768::
 	push de
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -1133,7 +1133,7 @@ Function_27_4768::
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -1166,9 +1166,9 @@ Function_27_4768::
 	push de
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -1176,7 +1176,7 @@ Function_27_4768::
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -1192,21 +1192,21 @@ Function_27_4768::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	ld de, $71D0
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 .l495E ; 27:495E
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1219,9 +1219,9 @@ Function_27_4768::
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -1229,7 +1229,7 @@ Function_27_4768::
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -1291,7 +1291,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $000B
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	pop bc
@@ -1299,25 +1299,25 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 	ld hl, $DA80
 	ld de, $7030
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $6F30
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F48
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, [wMailScreenMode]
 	cp a, $00
 	jr nz, .l4A81
@@ -1331,7 +1331,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld de, $7020
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1346,11 +1346,11 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld de, $7A60
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4A76 ; 27:4A76
 	ld de, $2F58
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4AB9
 
 .l4A81 ; 27:4A81
@@ -1365,10 +1365,10 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld de, $7AB0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F58
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l4AB9
 
 .l4AA0 ; 27:4AA0
@@ -1378,10 +1378,10 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld de, $7AD0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2F48
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4AB9 ; 27:4AB9
 	ld b, $00
 .l4ABB ; 27:4ABB
@@ -1396,9 +1396,9 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_044B
+	call VBlank_WaitAndService
 	pop bc
 	ld a, [wSpriteSlots + 49]
 	cp a, $47
@@ -1407,9 +1407,9 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 .l4AE5 ; 27:4AE5
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -1417,7 +1417,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -1431,21 +1431,21 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0045
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	ld de, $71D0
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ended
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 .l4B43 ; 27:4B43
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -1458,9 +1458,9 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
@@ -1468,7 +1468,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20A6
+	call Sound_FrameTick
 	pop af
 	ldh [rSVBK], a
 	farcall Joypad_Update
@@ -1491,8 +1491,8 @@ Function_27_4B95::
 	; executed call/far call
 	push bc
 	push af
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall LCDOff
 	pop af
 	pop bc
@@ -1513,67 +1513,67 @@ Function_27_4B95::
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8401
 	ld hl, MailConnect_Tiles_5460
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, MailConnect_Tiles_5E60
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, MailConnect_Tiles_6260
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, MailConnect_Tiles_6660
 	ld a, $27
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, MailConnect_Tiles_5860
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, MailConnect_Tiles_5C60
 	ld a, $27
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, MailConnect_Tiles_6860
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8400
 	ld hl, MailConnect_Tiles_6C60
 	ld a, $27
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1220
 	ld de, $D000
 	ld hl, MailConnect_Tilemap
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $7520
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	pop af
 	dec a
 	jr z, .l4CAF
@@ -1581,35 +1581,35 @@ Function_27_4B95::
 	ld de, $D000
 	ld hl, MailConnect_WinMsg_Connecting
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	jr .l4CC0
 .l4CAF ; 27:4CAF
 	ld bc, $0514
 	ld de, $D000
 	ld hl, MailDisconnect_WinMsg_Ending
 	ld a, $27
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 .l4CC0 ; 27:4CC0
 	ld a, $40
-	farcall Function_00_0887
+	farcall Gfx_UploadWinMapBuffers
 	ld hl, $DA10
 	ld de, MailConnect_ObjTable
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1800
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $7A20
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1888
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
 	pop bc
 	jp .l4D31
@@ -1625,21 +1625,21 @@ Function_27_4B95::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 10 insn(s) reached by static flow only; seeds: site x10; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 
 .l4D31 ; 27:4D31
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios)
@@ -1649,7 +1649,7 @@ Function_27_4B95::
 	ldh a, [rLCDC]
 	or a, $64
 	ldh [rLCDC], a
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	ld bc, $0000
 	ret
@@ -1663,8 +1663,8 @@ Function_27_4B95::
 	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0;
 	; entered by jr from 27:4D7F (PROBABLE code)
 	push bc
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -1694,8 +1694,8 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 
 	; [PROBABLE] 128 insn(s) reached by static flow only; seeds: site x128; min discovery hops 0;
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall LCDOff
 	pop af
 	pop bc
@@ -1704,7 +1704,7 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	push bc
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Palette_29_5AD0
+	ld hl, Palette_CommTimeHMS_Bg
 	ld a, $29
 	farcall Palette_LoadToBuffer
 	ld bc, $0040
@@ -1713,16 +1713,16 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld a, $27
 	farcall Palette_LoadToBuffer
 	ld de, $9001
-	ld hl, Data_29_5400
+	ld hl, Gfx_CommTimeHMS_Tiles9000
 	ld a, $29
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
-	ld hl, Data_29_5800
+	ld hl, Tilemap_CommTimeHMS_Screen
 	ld a, $29
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -1730,18 +1730,18 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	pop bc
 	pop de
 	push bc
@@ -1835,21 +1835,21 @@ Function_27_4EC0:: ; 27:4EC0
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 
 	; [PROBABLE] 13 insn(s) reached by static flow only; seeds: site x13; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 
 Label_27_4EEB:: ; 27:4EEB
 	farcall LCDOn
@@ -1875,29 +1875,29 @@ Label_27_4EEB:: ; 27:4EEB
 
 	; [PROBABLE] 72 insn(s) reached by static flow only; seeds: site x72; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
-	ld hl, Data_51_4DB0
+	ld hl, Gfx_CommTime_SummaryB_Tiles9000Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
-	ld hl, Data_51_51B0
+	ld hl, Gfx_CommTime_SummaryB_Tiles9400Vb1
 	ld a, $51
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
-	ld hl, Data_51_5880
+	ld hl, Palette_CommTime_SummaryB
 	ld a, $51
 	farcall Palette_LoadToBuffer
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_CommTime_SummaryB
 	ld a, $51
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, [wTimerAFrames]
 	ldh [hRam_FFB0], a
 	ld a, [wTimerASeconds]
@@ -1922,11 +1922,11 @@ Label_27_4EEB:: ; 27:4EEB
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FF9C
-	call Function_27_4FFB
+	call CommTime_DrawNumber_27_4FFB
 	ld bc, $FFF6
-	call Function_27_4FFB
+	call CommTime_DrawNumber_27_4FFB
 	ld a, l
-	call Function_27_5021
+	call CommTime_PutDigit_27_5021
 	ld de, $D169
 	ldh a, [hRam_FFB1]
 	ld l, a
@@ -1934,19 +1934,19 @@ Label_27_4EEB:: ; 27:4EEB
 	xor a, a
 	ldh [hRam_FFB4], a
 	ld bc, $FFF6
-	call Function_27_4FFB
+	call CommTime_DrawNumber_27_4FFB
 	ld a, l
-	call Function_27_5021
+	call CommTime_PutDigit_27_5021
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	xor a, a
 	ldh [hDialogResult], a
 
 Label_27_4FC0:: ; 27:4FC0
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -1976,14 +1976,15 @@ Label_27_4FEB:: ; 27:4FEB
 
 Label_27_4FEE:: ; 27:4FEE
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ret
 
-Function_27_4FFB:: ; 27:4FFB
+CommTime_DrawNumber_27_4FFB:: ; 27:4FFB
+Function_27_4FFB::
 	inc a
 	add hl, bc
 	bit 7, h
-	jr z, Function_27_4FFB
+	jr z, CommTime_DrawNumber_27_4FFB
 	dec a
 	jr nz, .l500B
 	ldh a, [hRam_FFB4]
@@ -1993,7 +1994,7 @@ Function_27_4FFB:: ; 27:4FFB
 .l500B ; 27:500B
 	push bc
 	push hl
-	call Function_27_5021
+	call CommTime_PutDigit_27_5021
 	pop hl
 	pop bc
 	ld a, $FF
@@ -2011,7 +2012,8 @@ Function_27_4FFB:: ; 27:4FFB
 	xor a, a
 	ret
 
-Function_27_5021:: ; 27:5021
+CommTime_PutDigit_27_5021:: ; 27:5021
+Function_27_5021::
 	push bc
 	push de
 	ld h, d
@@ -2043,7 +2045,8 @@ Function_27_5021:: ; 27:5021
 
 ; ---- data $5048-$505C (20 bytes) [HYPOTHESIS] 20 bytes = 10 pairs of tile indices (67 77 68 78 69 79 69 6F 6A 7A 6B 7B 6C 7C 6D 7D 6E 7E 6E 7F; second byte = first + $10 in 9 of 10 pairs) following the ret at 27:5047: probably one 20-column tilemap row (rows elsewhere are padded to 24 bytes with 4 zero bytes, as here); no reference found. Splits the mapper heuristic gfx region 5051-5060
 
-Data_27_5048:: ; 27:5048
+Table_CommTime_DigitTiles_27_5048:: ; 27:5048
+Data_27_5048::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 

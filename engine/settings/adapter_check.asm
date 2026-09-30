@@ -11,25 +11,25 @@ Function_67_6369::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Data_4A_5F80
 	ld a, $4A
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_4A_6080
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_4A_6480
 	ld a, $4A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, $6580
@@ -44,17 +44,17 @@ Function_67_6369::
 	ld de, $D000
 	ld hl, $6600
 	ld a, $4A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA00
 	ld de, Data_4A_68D0
 	ld a, $4A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2838
 	ld hl, $DA00
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 AdapterCheck_Run:: ; 67:6401
@@ -65,7 +65,7 @@ AdapterCheck_Run:: ; 67:6401
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0018
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	call AdapterCheck_Poll
@@ -74,10 +74,10 @@ AdapterCheck_Run:: ; 67:6401
 	push af
 	ld a, $01
 	ldh [rSVBK], a
-	call Function_00_20C4
+	call Sound_PauseMusic
 	pop af
 	ldh [rSVBK], a
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ld a, [wRam_C27C]
 	ret
 
@@ -85,7 +85,7 @@ AdapterCheck_Setup:: ; 67:6437
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	farcall AdapterCheck_DrawScreen
 	ret
 
@@ -93,9 +93,10 @@ AdapterCheck_Poll:: ; 67:644E
 	xor a, a
 	ld [wRam_C286], a
 
-Label_67_6452:: ; 67:6452
-	farcall Function_00_0956
-	call Function_00_044B
+AdapterCheck_Poll_Loop:: ; 67:6452
+Label_67_6452::
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -123,7 +124,7 @@ Label_67_6452:: ; 67:6452
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0046
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -159,14 +160,14 @@ AdapterCheck_State_Init:: ; 67:64B4
 	call MobileAPI
 	ld a, $01
 	ld [wRam_C27D], a
-	jp Label_67_6452
+	jp AdapterCheck_Poll_Loop
 
 AdapterCheck_State_ReadConfig:: ; 67:64C7
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, AdapterCheck_Abort
 	bit 0, a
-	jp nz, Label_67_6452
+	jp nz, AdapterCheck_Poll_Loop
 	ld a, $0A
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a
@@ -179,14 +180,14 @@ AdapterCheck_State_ReadConfig:: ; 67:64C7
 	call MobileAPI
 	ld a, $02
 	ld [wRam_C27D], a
-	jp Label_67_6452
+	jp AdapterCheck_Poll_Loop
 
 AdapterCheck_State_Finish:: ; 67:64F5
 	ld a, [wTimerEnable]
 	bit 1, a
 	jp nz, AdapterCheck_Abort
 	bit 0, a
-	jp nz, Label_67_6452
+	jp nz, AdapterCheck_Poll_Loop
 	xor a, a
 	ldh [hSRAMEnable], a
 	ld [rRAMG], a

@@ -36,7 +36,7 @@ Function_2D_65B0::
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	pop af
 	push af
 	call MailAddr_SetupScreen
@@ -61,8 +61,8 @@ Function_2D_65B0::
 .l6603 ; 2D:6603
 	; [CONFIRMED] 20 insn(s); 20 executed (in up to 2/18 scenarios)
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call MailAddr_PlaceCursorSprites
@@ -118,7 +118,7 @@ Function_2D_65B0::
 .l666B ; 2D:666B
 	; [CONFIRMED] 13 insn(s); 13 executed (in up to 2/18 scenarios)
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	xor a, a
@@ -126,8 +126,8 @@ Function_2D_65B0::
 	ld [wSplitScrollY], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	xor a, a
 	ret
 
@@ -154,7 +154,7 @@ Function_2D_65B0::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -164,10 +164,10 @@ Function_2D_65B0::
 	jr c, .l66CD
 	ld de, $D000
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $D000
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l66CD ; 2D:66CD
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -275,8 +275,8 @@ Function_2D_65B0::
 	ldh [rSVBK], a
 	ld a, [wMailComposeMode]
 	push af
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	call MailAddr_OpenAddressBook
 	inc a
 	jr nz, .l67AB
@@ -307,7 +307,7 @@ Function_2D_65B0::
 
 MailAddr_OpenAddressBook:: ; 2D:67CB
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	farcall AddrPick_Menu
 	ret
@@ -323,7 +323,7 @@ MailAddr_CursorLeft:: ; 2D:67E1
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -361,7 +361,7 @@ Function_2D_6808::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0036
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -478,8 +478,8 @@ Function_2D_68A9::
 	push af
 	xor a, a
 	ld [wTextEditGoalColumn], a
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	call TextTiles_UploadBuffersShort
 	ld de, $9301
@@ -487,42 +487,42 @@ Function_2D_68A9::
 	ld a, $2D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $9701
 	ld hl, $7520
 	ld a, $2D
 	ld b, $97
 	ld c, $0B
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8800
 	ld hl, $75D0
 	ld a, $2D
 	ld b, $94
 	ld c, $2B
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld de, $8000
 	ld hl, $7880
 	ld a, $2D
 	ld b, $94
 	ld c, $2D
-	farcall Function_00_0749
+	farcall Gfx_StartHDMA
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Tilemap_MailAddr
 	ld a, $2D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $7B50
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld bc, $0000
 	call MailAddr_PlaceCursorSprites
 	ld bc, $0300
@@ -583,7 +583,7 @@ Function_2D_68A9::
 	; [CONFIRMED] 14 insn(s); 14 executed (in up to 2/18 scenarios)
 	ld bc, $0028
 	ld de, $D840
-	ld hl, Palette_7F_7B00
+	ld hl, Palette_TextCursor_Obj
 	ld a, $7F
 	farcall Palette_LoadToBuffer
 	ld bc, $0030
@@ -607,11 +607,11 @@ Function_2D_68A9::
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -622,7 +622,7 @@ Function_2D_68A9::
 .l6A07 ; 2D:6A07
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 2/18 scenarios)
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -646,7 +646,7 @@ Function_2D_68A9::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0004
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -1030,17 +1030,18 @@ TextTiles_UploadBuffersShort:: ; 2D:6C64
 	ld hl, $D000
 	ld de, $9000
 	ld c, $3F
-	call Function_2D_6C8C
+	call Gfx_StartHDMAAtVBlank_2D_6C8C
 	ld hl, $D400
 	ld de, $9400
 	ld c, $3F
-	call Function_2D_6C8C
+	call Gfx_StartHDMAAtVBlank_2D_6C8C
 	pop af
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
 	ret
 
-Function_2D_6C8C:: ; 2D:6C8C
+Gfx_StartHDMAAtVBlank_2D_6C8C:: ; 2D:6C8C
+Function_2D_6C8C::
 	ld a, h
 	ldh [rHDMA1], a
 	ld a, l
@@ -1185,7 +1186,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1203,7 +1204,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1213,7 +1214,7 @@ MailAddr_InsertChar:: ; 2D:6D21
 	ld de, $7B70
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call MailAddr_PlaceCursorSprites
 	ld d, $14
@@ -1222,8 +1223,8 @@ MailAddr_InsertChar:: ; 2D:6D21
 .l6D74 ; 2D:6D74
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1242,11 +1243,11 @@ MailAddr_InsertChar:: ; 2D:6D21
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	call MailAddr_PlaceCursorSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	pop de
 	push de
@@ -1314,7 +1315,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1324,7 +1325,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	ld de, $7B80
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	push bc
 	dec b
@@ -1355,8 +1356,8 @@ MailAddr_Backspace:: ; 2D:6E03
 .loop ; 2D:6E47
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -1375,7 +1376,7 @@ MailAddr_Backspace:: ; 2D:6E03
 	ld de, $7B60
 	ld a, $7F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop bc
 	call MailAddr_PlaceCursorSprites
 	inc c
@@ -1478,7 +1479,7 @@ MailAddr_KeyboardLoop:: ; 2D:6F01
 	push bc
 	call MailAddr_PlaceCursorSprites
 	ld d, $70
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld b, $01
 	ld c, $00
 	farcall Kbd_Run

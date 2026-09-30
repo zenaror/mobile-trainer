@@ -4,7 +4,8 @@
 
 SECTION "home/gfx_upload", ROM0
 
-Function_00_0749:: ; 00:0749
+Gfx_StartHDMA:: ; 00:0749
+Function_00_0749::
 	; [CONFIRMED] general-purpose HDMA start (rHDMA5=C-1, bit7=0): A=source bank (region by H),
 	; HL=source, DE=dest (E bit0 = VRAM bank via rVBK/FFF4, E&$F0 = low dest byte), C=number of
 	; 16-byte blocks, B=LY limit: waits until LY>=$91 and LY<B, else waits for the next VBlank;
@@ -48,7 +49,8 @@ Function_00_0749:: ; 00:0749
 	call BankSwitch_H
 	jr .loop
 
-Function_00_0787:: ; 00:0787
+Gfx_StartHDMAWithService:: ; 00:0787
+Function_00_0787::
 	; [CONFIRMED] variant of 0749 that calls the frame service (0392) while waiting
 	ldh [hFarBank], a
 	call BankSwitch_H
@@ -79,19 +81,20 @@ Function_00_0787:: ; 00:0787
 	ld a, c
 	ldh [rHDMA5], a
 	inc c
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hFarBank]
 	ret
 .l07BB ; 00:07BB
 	ldh a, [rLY]
 	cp a, $91
 	jr nc, .l07BB
-	call Function_00_0392
+	call Sound_FrameService
 	ldh a, [hFarBank]
 	call BankSwitch_H
 	jr .loop
 
-Function_00_07CB:: ; 00:07CB
+Gfx_UploadBgMapBuffersDi:: ; 00:07CB
+Function_00_07CB::
 	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
 	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
 	; $9C00 selected by A bit3; di before the wait, ei + frame service after [reached via inferred
@@ -107,23 +110,24 @@ Function_00_07CB:: ; 00:07CB
 	ld d, a
 	ld e, $00
 	di
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
-Function_00_07FB:: ; 00:07FB
+Gfx_UploadWinMapBuffersDi:: ; 00:07FB
+Function_00_07FB::
 	; [PROBABLE] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA transfers
 	; (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or $9C00
 	; selected by A bit6; di before the wait, ei + frame service after [candidate; raw refs 17]
@@ -138,23 +142,24 @@ Function_00_07FB:: ; 00:07FB
 	ld d, a
 	ld e, $00
 	di
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
-Function_00_082C:: ; 00:082C
+Gfx_UploadBgMapBuffers:: ; 00:082C
+Function_00_082C::
 	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
 	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
 	; $9C00 selected by A bit3; no di, ei + frame service after
@@ -168,23 +173,24 @@ Function_00_082C:: ; 00:082C
 	add a, $98
 	ld d, a
 	ld e, $00
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
-Function_00_085B:: ; 00:085B
+Gfx_UploadBgMapBuffersNoService:: ; 00:085B
+Function_00_085B::
 	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
 	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
 	; $9C00 selected by A bit3; no di, ei + ret (no frame service) [reached via inferred links; raw
@@ -199,22 +205,23 @@ Function_00_085B:: ; 00:085B
 	add a, $98
 	ld d, a
 	ld e, $00
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
 	ret
 
-Function_00_0887:: ; 00:0887
+Gfx_UploadWinMapBuffers:: ; 00:0887
+Function_00_0887::
 	; [CONFIRMED] uploads the two 1 KiB screen buffers of WRAM bank 7 to VRAM with two HDMA
 	; transfers (0749, B=$95, C=$24 blocks): D000 -> VRAM bank 0, D400 -> VRAM bank 1, map $9800 or
 	; $9C00 selected by A bit6; no di, ei + frame service after [reached via inferred links; raw
@@ -229,23 +236,24 @@ Function_00_0887:: ; 00:0887
 	add a, $98
 	ld d, a
 	ld e, $00
-	call Function_00_08B7
+	call Gfx_WaitForFrameTop
 	ld b, $95
 	ld c, $24
 	ld hl, $D000
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	inc e
 	ld b, $95
 	ld c, $24
 	ld hl, $D400
 	xor a, a
-	call Function_00_0749
+	call Gfx_StartHDMA
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
-Function_00_08B7:: ; 00:08B7
+Gfx_WaitForFrameTop:: ; 00:08B7
+Function_00_08B7::
 	; [CONFIRMED] if LCD on: waits until LY < $87 (i.e. rides out VBlank/late lines, ei while
 	; waiting) so an HDMA transfer started afterwards fits in VBlank
 	ldh a, [rLCDC]
@@ -262,7 +270,8 @@ Function_00_08B7:: ; 00:08B7
 	ei
 	jr .l08BC
 
-Function_00_08CA:: ; 00:08CA
+Tilemap_CopyRectAndAttrSplitSrc:: ; 00:08CA
+Function_00_08CA::
 	; [PROBABLE] copy B rows of C bytes from [HL] (bank A) into the WRAM bank 7 buffer at DE (row
 	; stride 32), twice: second pass HL+=$400, DE+=$400 [candidate; raw refs 7]
 	call BankSwitch_H
@@ -273,7 +282,7 @@ Function_00_08CA:: ; 00:08CA
 	push bc
 	push de
 	push hl
-	call Function_00_0904
+	call Tilemap_CopyRect
 	pop hl
 	pop de
 	pop bc
@@ -283,10 +292,11 @@ Function_00_08CA:: ; 00:08CA
 	ld a, d
 	add a, $04
 	ld d, a
-	call Function_00_0904
+	call Tilemap_CopyRect
 	ret
 
-Function_00_08EA:: ; 00:08EA
+Tilemap_CopyRectAndAttr:: ; 00:08EA
+Function_00_08EA::
 	; [CONFIRMED] like 08CA but the second pass continues with the same source pointer
 	call BankSwitch_H
 	ld a, $07
@@ -295,23 +305,24 @@ Function_00_08EA:: ; 00:08EA
 	ldh [hRam_FFB0], a
 	push bc
 	push de
-	call Function_00_0904
+	call Tilemap_CopyRect
 	pop de
 	pop bc
 	ld a, d
 	add a, $04
 	ld d, a
-	call Function_00_0904
+	call Tilemap_CopyRect
 	ret
 
-Function_00_0904:: ; 00:0904
+Tilemap_CopyRect:: ; 00:0904
+Function_00_0904::
 	; [CONFIRMED] rectangle copy: B rows x C bytes from [HL] to [DE], DE row stride 32 (uses FFB0 as
 	; row length)
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec c
-	jr nz, Function_00_0904
+	jr nz, Tilemap_CopyRect
 	ldh a, [hRam_FFB0]
 	ld c, a
 	xor a, $1F
@@ -323,10 +334,11 @@ Function_00_0904:: ; 00:0904
 	adc a, d
 	ld d, a
 	dec b
-	jr nz, Function_00_0904
+	jr nz, Tilemap_CopyRect
 	ret
 
-Function_00_091C:: ; 00:091C
+Tilemap_ApplyMaskRect:: ; 00:091C
+Function_00_091C::
 	; [CONFIRMED] rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32
 	; (bank A) [reached via inferred links; raw refs 1] [executed in 36 scenarios]
 	call BankSwitch_H
@@ -353,7 +365,8 @@ Function_00_091C:: ; 00:091C
 	jr nz, .loop
 	ret
 
-Function_00_093B:: ; 00:093B
+Tilemap_ClearBuffers:: ; 00:093B
+Function_00_093B::
 	; [PROBABLE] clears the two 1 KiB screen buffers D000-D3FF and D400-D7FF of WRAM bank 7
 	; [candidate; raw refs 6]
 	ld a, $07

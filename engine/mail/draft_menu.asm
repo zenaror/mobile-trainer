@@ -8,7 +8,7 @@ MailDraft_Menu:: ; 2B:4000
 Function_2B_4000::
 	; [CONFIRMED] 52 insn(s); 52 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_044B
+	call VBlank_WaitAndService
 	push af
 	ldh a, [rSVBK]
 	push af
@@ -24,15 +24,15 @@ Function_2B_4000::
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_EnableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	push bc
 	call MailDraft_Menu_InitScreen
 	pop bc
 
 MailDraft_Menu_Loop:: ; 2B:402B
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	call MailDraft_Menu_MoveCursorSprites
@@ -49,7 +49,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -83,7 +83,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -134,7 +134,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld [wSpriteSlots + 45], a
 	ld [wSpriteSlots + 46], a
 	ld [wSpriteSlots + 47], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld de, $0209
 	push af
 	ldh a, [rSVBK]
@@ -165,7 +165,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	pop af
 	push af
 	farcall Sprites_RestoreSlotsFromBank3
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop af
 	pop bc
 	dec a
@@ -181,7 +181,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0033
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -189,7 +189,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Stat_DisableScrollSplit
 	farcall Palette_FadeOutToWhite
 	ret
@@ -206,7 +206,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -226,7 +226,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -250,7 +250,7 @@ MailDraft_Menu_Loop:: ; 2B:402B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -273,8 +273,8 @@ MailDraft_Menu_Loop:: ; 2B:402B
 
 MailDraft_Menu_InitScreen:: ; 2B:420C
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall MailDraft_LoadFromSram
 	ld bc, $0040
@@ -287,7 +287,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld a, $2B
 	ld b, $93
 	ld c, $33
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D840
 	ld hl, Palette_MailDraftMenu_Obj
@@ -298,46 +298,46 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld a, $2B
 	ld b, $94
 	ld c, $2D
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_MailDraftMenu_TilemapAttr
 	ld a, $2B
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld hl, $DA30
 	ld de, Table_MailDraftMenu_Anims
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1008
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA40
 	ld de, $51E0
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $3008
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA10
 	ld de, $51F0
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $68D0
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $68D0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -352,10 +352,10 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld de, $5230
 	ld a, $2B
 	ld b, $00
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0068
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 .l430C ; 2B:430C
 	; [CONFIRMED] 110 insn(s); 110 executed (in up to 2/18 scenarios)
@@ -388,10 +388,10 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld hl, $D4EC
 	call MailDraft_DrawTextLine21
 	call MailDraft_UploadTextTiles
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -415,7 +415,7 @@ MailDraft_Menu_InitScreen:: ; 2B:420C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0007
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -430,15 +430,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	jr nz, .l43CF
 	ld de, $6810
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $5200
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6810
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l43CF ; 2B:43CF
@@ -446,15 +446,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	jr nz, .l43F7
 	ld de, $6840
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $5210
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6840
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 .l43F7 ; 2B:43F7
@@ -462,15 +462,15 @@ MailDraft_Menu_MoveCursorSprites:: ; 2B:43A5
 	jr nz, .l441F
 	ld de, $6870
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA20
 	ld de, $5220
 	ld a, $2B
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $6870
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop bc
 	ret
 

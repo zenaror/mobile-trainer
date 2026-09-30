@@ -28,25 +28,25 @@ MobileDict_Redraw:: ; 1A:4018
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_MobileDict_Tiles0
 	ld a, $1A
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8B01
 	ld hl, Gfx_MobileDict_Tiles1
 	ld a, $1A
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8F01
 	ld hl, Gfx_MobileDict_Tiles2
 	ld a, $1A
 	ld b, $94
 	ld c, $30
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_MobileDict_Bg
@@ -56,17 +56,17 @@ MobileDict_Redraw:: ; 1A:4018
 	ld de, $D000
 	ld hl, Tilemap_MobileDict_Screen
 	ld a, $1A
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA20
 	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA30
 	ld de, Objects_MobileDict
 	ld a, $1A
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $53D0
@@ -78,7 +78,7 @@ MobileDict_Redraw:: ; 1A:4018
 	ld hl, $D0A1
 	farcall Tilemap_FillRectSequential
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -95,19 +95,19 @@ MobileDict_Redraw:: ; 1A:4018
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D000
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, $D000
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -116,20 +116,20 @@ MobileDict_Redraw:: ; 1A:4018
 	call MobileDict_LoadPage
 	call MobileDict_DrawRowHighlight
 	call MobileDict_UpdateTabSprites
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ldh a, [hWRAMBank]
 	push af
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $001A
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 
 MobileDict_Loop:: ; 1A:414B
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -157,7 +157,7 @@ MobileDict_OnA:: ; 1A:4177
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -202,7 +202,7 @@ MobileDict_OnB:: ; 1A:41CA
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutToWhite
@@ -242,7 +242,7 @@ MobileDict_CursorUp:: ; 1A:41F8
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call MobileDict_DrawRowHighlight
@@ -259,7 +259,7 @@ MobileDict_ScrollUp:: ; 1A:4215
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call MobileDict_LoadPage
@@ -287,7 +287,7 @@ MobileDict_CursorDown:: ; 1A:4238
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call MobileDict_DrawRowHighlight
@@ -303,7 +303,7 @@ MobileDict_ScrollDown:: ; 1A:4263
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call MobileDict_LoadPage
@@ -337,7 +337,7 @@ MobileDict_NextCategory:: ; 1A:4281
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -363,7 +363,7 @@ MobileDict_PrevCategory:: ; 1A:42B0
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -376,7 +376,7 @@ Function_1A_42DE::
 	ld bc, $0A10
 	ld de, $F800
 	ld a, $07
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ld a, [wRam_C0D6]
 	dec a
 	swap a
@@ -393,9 +393,9 @@ Function_1A_42DE::
 	ld bc, $0210
 	ld de, $F801
 	ld a, $07
-	farcall Function_00_091C
+	farcall Tilemap_ApplyMaskRect
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 MobileDict_UpdateTabSprites:: ; 1A:4317
@@ -414,7 +414,7 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	ld de, $55A8
 	ld hl, $DA40
 	ld a, $1A
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	pop hl
 	ld a, [hl]
 	ld [wSpriteSlots + 65], a
@@ -428,14 +428,14 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	; fall-through of the jrcc at 1A:4344 (executed) [executed in 1 scenarios]
 	ld de, $2048
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l435A
 
 .l4351 ; 1A:4351
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 1/18 scenarios)
 	ld de, $00A0
 	ld hl, $DA20
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l435A ; 1A:435A
 	ld a, [wRam_C0D8]
 	ld b, a
@@ -445,12 +445,12 @@ MobileDict_UpdateTabSprites:: ; 1A:4317
 	jr nc, .l4371
 	ld de, $7848
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .done
 .l4371 ; 1A:4371
 	ld de, $00A0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 .done ; 1A:437A
 	ret
 
@@ -515,7 +515,7 @@ Function_1A_4391::
 	ld bc, $0010
 	ld a, $1A
 	farcall TextTiles_RenderGridRows
-	call Function_00_0392
+	call Sound_FrameService
 	pop de
 	inc d
 	ld a, d
@@ -531,19 +531,19 @@ Function_1A_4391::
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9400
 	ld hl, $D400
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, $D800
 	ld a, $00
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -577,46 +577,55 @@ Data_1A_444F::
 
 Table_MobileDict_Cat01Strings:: ; 1A:4450
 Table_1A_4450::
-	dw String_1A_4462
-	dw String_1A_446D
-	dw String_1A_4476
-	dw String_1A_447F
-	dw String_1A_448E
-	dw String_1A_449D
-	dw String_1A_44A4
-	dw String_1A_44B1
-	dw String_1A_44BC
+	dw String_MobileDict_Cat01Entry00
+	dw String_MobileDict_Cat01Entry01
+	dw String_MobileDict_Cat01Entry02
+	dw String_MobileDict_Cat01Entry03
+	dw String_MobileDict_Cat01Entry04
+	dw String_MobileDict_Cat01Entry05
+	dw String_MobileDict_Cat01Entry06
+	dw String_MobileDict_Cat01Entry07
+	dw String_MobileDict_Cat01Entry08
 
 ; ---- text $4462-$449D (59 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_4462:: ; 1A:4462
+String_MobileDict_Cat01Entry00:: ; 1A:4462
+String_1A_4462::
 	db "アカウント", 0
-String_1A_446D:: ; 1A:446D
+String_MobileDict_Cat01Entry01:: ; 1A:446D
+String_1A_446D::
 	db "あてさき", 0
-String_1A_4476:: ; 1A:4476
+String_MobileDict_Cat01Entry02:: ; 1A:4476
+String_1A_4476::
 	db "アドレス", 0
-String_1A_447F:: ; 1A:447F
+String_MobileDict_Cat01Entry03:: ; 1A:447F
+String_1A_447F::
 	db "アドレスちょう", 0
-String_1A_448E:: ; 1A:448E
+String_MobileDict_Cat01Entry04:: ; 1A:448E
+String_1A_448E::
 	db "インターネット", 0
 POPC
 
 ; ---- text $449D-$44A4 (7 bytes) [PROBABLE] Shift-JIS "ウェブ" NUL-terminated; target of the pointer at 445A (group 444F entry 5)
 
 PUSHC sjis
-String_1A_449D:: ; 1A:449D
+String_MobileDict_Cat01Entry05:: ; 1A:449D
+String_1A_449D::
 	db "ウェブ", 0
 POPC
 
 ; ---- text $44A4-$44C7 (35 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_44A4:: ; 1A:44A4
+String_MobileDict_Cat01Entry06:: ; 1A:44A4
+String_1A_44A4::
 	db "ウェブサイト", 0
-String_1A_44B1:: ; 1A:44B1
+String_MobileDict_Cat01Entry07:: ; 1A:44B1
+String_1A_44B1::
 	db "オフライン", 0
-String_1A_44BC:: ; 1A:44BC
+String_MobileDict_Cat01Entry08:: ; 1A:44BC
+String_1A_44BC::
 	db "オンライン", 0
 POPC
 
@@ -632,7 +641,8 @@ Table_MobileDict_Cat02Strings:: ; 1A:44C8
 ; ---- text $44CC-$44E0 (20 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_44CC:: ; 1A:44CC
+String_MobileDict_Cat02Entry00:: ; 1A:44CC
+String_1A_44CC::
 	db "かおもじ", 0
 	db "コンテンツ", 0
 POPC
@@ -647,38 +657,46 @@ Data_1A_44E0::
 
 Table_MobileDict_Cat03Strings:: ; 1A:44E1
 Table_1A_44E1::
-	dw String_1A_44F1
-	dw String_1A_44F8
-	dw String_1A_44FF
-	dw String_1A_4508
-	dw String_1A_4511
-	dw String_1A_4520
-	dw String_1A_452D
-	dw String_1A_4536
+	dw String_MobileDict_Cat03Entry00
+	dw String_MobileDict_Cat03Entry01
+	dw String_MobileDict_Cat03Entry02
+	dw String_MobileDict_Cat03Entry03
+	dw String_MobileDict_Cat03Entry04
+	dw String_MobileDict_Cat03Entry05
+	dw String_MobileDict_Cat03Entry06
+	dw String_MobileDict_Cat03Entry07
 
 ; ---- text $44F1-$44FF (14 bytes) [PROBABLE] 2 strings: "サーバ" (83 54 81 5B 83 6F 00) and "サイト" (83 54 83 43 83 67 00) - targets of the pointers 44F1/44F8
 
 PUSHC sjis
-String_1A_44F1:: ; 1A:44F1
+String_MobileDict_Cat03Entry00:: ; 1A:44F1
+String_1A_44F1::
 	db "サーバ", 0
-String_1A_44F8:: ; 1A:44F8
+String_MobileDict_Cat03Entry01:: ; 1A:44F8
+String_1A_44F8::
 	db "サイト", 0
 POPC
 
 ; ---- text $44FF-$453F (64 bytes) [PROBABLE] text: 6 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_44FF:: ; 1A:44FF
+String_MobileDict_Cat03Entry02:: ; 1A:44FF
+String_1A_44FF::
 	db "ジャンプ", 0
-String_1A_4508:: ; 1A:4508
+String_MobileDict_Cat03Entry03:: ; 1A:4508
+String_1A_4508::
 	db "じゅしん", 0
-String_1A_4511:: ; 1A:4511
+String_MobileDict_Cat03Entry04:: ; 1A:4511
+String_1A_4511::
 	db "しょきとうろく", 0
-String_1A_4520:: ; 1A:4520
+String_MobileDict_Cat03Entry05:: ; 1A:4520
+String_1A_4520::
 	db "セキュリティ", 0
-String_1A_452D:: ; 1A:452D
+String_MobileDict_Cat03Entry06:: ; 1A:452D
+String_1A_452D::
 	db "せつぞく", 0
-String_1A_4536:: ; 1A:4536
+String_MobileDict_Cat03Entry07:: ; 1A:4536
+String_1A_4536::
 	db "そうしん", 0
 POPC
 
@@ -692,18 +710,21 @@ Data_1A_453F::
 
 Table_MobileDict_Cat04Strings:: ; 1A:4540
 Table_1A_4540::
-	dw String_1A_4546
-	dw String_1A_454F
-	dw String_1A_455C
+	dw String_MobileDict_Cat04Entry00
+	dw String_MobileDict_Cat04Entry01
+	dw String_MobileDict_Cat04Entry02
 
 ; ---- text $4546-$456B (37 bytes) [PROBABLE] text: 3 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_4546:: ; 1A:4546
+String_MobileDict_Cat04Entry00:: ; 1A:4546
+String_1A_4546::
 	db "タイトル", 0
-String_1A_454F:: ; 1A:454F
+String_MobileDict_Cat04Entry01:: ; 1A:454F
+String_1A_454F::
 	db "ダウンロード", 0
-String_1A_455C:: ; 1A:455C
+String_MobileDict_Cat04Entry02:: ; 1A:455C
+String_1A_455C::
 	db "つうしんエラー", 0
 POPC
 
@@ -717,21 +738,25 @@ Data_1A_456B::
 
 Table_MobileDict_Cat05Strings:: ; 1A:456C
 Table_1A_456C::
-	dw String_1A_4574
-	dw String_1A_4581
-	dw String_1A_458C
-	dw String_1A_4597
+	dw String_MobileDict_Cat05Entry00
+	dw String_MobileDict_Cat05Entry01
+	dw String_MobileDict_Cat05Entry02
+	dw String_MobileDict_Cat05Entry03
 
 ; ---- text $4574-$45A8 (52 bytes) [PROBABLE] text block: 7 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4546-45A8 by higher-priority evidence]
 
 PUSHC sjis
-String_1A_4574:: ; 1A:4574
+String_MobileDict_Cat05Entry00:: ; 1A:4574
+String_1A_4574::
 	db "ニックネーム", 0
-String_1A_4581:: ; 1A:4581
+String_MobileDict_Cat05Entry01:: ; 1A:4581
+String_1A_4581::
 	db "にんしょう", 0
-String_1A_458C:: ; 1A:458C
+String_MobileDict_Cat05Entry02:: ; 1A:458C
+String_1A_458C::
 	db "ネチケット", 0
-String_1A_4597:: ; 1A:4597
+String_MobileDict_Cat05Entry03:: ; 1A:4597
+String_1A_4597::
 	db "ネットサーフィン", 0
 POPC
 
@@ -745,30 +770,37 @@ Data_1A_45A8::
 
 Table_MobileDict_Cat06Strings:: ; 1A:45A9
 Table_1A_45A9::
-	dw String_1A_45B7
-	dw String_1A_45C2
-	dw String_1A_45D1
-	dw String_1A_45DA
-	dw String_1A_45E5
-	dw String_1A_45F2
-	dw String_1A_45FB
+	dw String_MobileDict_Cat06Entry00
+	dw String_MobileDict_Cat06Entry01
+	dw String_MobileDict_Cat06Entry02
+	dw String_MobileDict_Cat06Entry03
+	dw String_MobileDict_Cat06Entry04
+	dw String_MobileDict_Cat06Entry05
+	dw String_MobileDict_Cat06Entry06
 
 ; ---- text $45B7-$4608 (81 bytes) [PROBABLE] text: 7 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_45B7:: ; 1A:45B7
+String_MobileDict_Cat06Entry00:: ; 1A:45B7
+String_1A_45B7::
 	db "パスワード", 0
-String_1A_45C2:: ; 1A:45C2
+String_MobileDict_Cat06Entry01:: ; 1A:45C2
+String_1A_45C2::
 	db "フェイスマーク", 0
-String_1A_45D1:: ; 1A:45D1
+String_MobileDict_Cat06Entry02:: ; 1A:45D1
+String_1A_45D1::
 	db "ブラウザ", 0
-String_1A_45DA:: ; 1A:45DA
+String_MobileDict_Cat06Entry03:: ; 1A:45DA
+String_1A_45DA::
 	db "プロバイダ", 0
-String_1A_45E5:: ; 1A:45E5
+String_MobileDict_Cat06Entry04:: ; 1A:45E5
+String_1A_45E5::
 	db "ページリスト", 0
-String_1A_45F2:: ; 1A:45F2
+String_MobileDict_Cat06Entry05:: ; 1A:45F2
+String_1A_45F2::
 	db "へんしん", 0
-String_1A_45FB:: ; 1A:45FB
+String_MobileDict_Cat06Entry06:: ; 1A:45FB
+String_1A_45FB::
 	db "ホームページ", 0
 POPC
 
@@ -782,61 +814,75 @@ Data_1A_4608::
 
 Table_MobileDict_Cat07Strings:: ; 1A:4609
 Table_1A_4609::
-	dw String_1A_4625
-	dw String_1A_462E
-	dw String_1A_4637
-	dw String_1A_463E
-	dw String_1A_464D
-	dw String_1A_465A
-	dw String_1A_4667
-	dw String_1A_4674
-	dw String_1A_467D
-	dw String_1A_4692
-	dw String_1A_46AB
-	dw String_1A_46C0
-	dw String_1A_46D1
-	dw String_1A_46E4
+	dw String_MobileDict_Cat07Entry00
+	dw String_MobileDict_Cat07Entry01
+	dw String_MobileDict_Cat07Entry02
+	dw String_MobileDict_Cat07Entry03
+	dw String_MobileDict_Cat07Entry04
+	dw String_MobileDict_Cat07Entry05
+	dw String_MobileDict_Cat07Entry06
+	dw String_MobileDict_Cat07Entry07
+	dw String_MobileDict_Cat07Entry08
+	dw String_MobileDict_Cat07Entry09
+	dw String_MobileDict_Cat07Entry10
+	dw String_MobileDict_Cat07Entry11
+	dw String_MobileDict_Cat07Entry12
+	dw String_MobileDict_Cat07Entry13
 
 ; ---- text $4625-$4637 (18 bytes) [PROBABLE] text: 2 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_4625:: ; 1A:4625
+String_MobileDict_Cat07Entry00:: ; 1A:4625
+String_1A_4625::
 	db "メーラー", 0
-String_1A_462E:: ; 1A:462E
+String_MobileDict_Cat07Entry01:: ; 1A:462E
+String_1A_462E::
 	db "メルとも", 0
 POPC
 
 ; ---- text $4637-$463E (7 bytes) [PROBABLE] Shift-JIS "メール" NUL-terminated; target of a pointer of Table_1A_4609 (463E-.. list, 4637)
 
 PUSHC sjis
-String_1A_4637:: ; 1A:4637
+String_MobileDict_Cat07Entry02:: ; 1A:4637
+String_1A_4637::
 	db "メール", 0
 POPC
 
 ; ---- text $463E-$46F9 (187 bytes) [PROBABLE] text: 11 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_463E:: ; 1A:463E
+String_MobileDict_Cat07Entry03:: ; 1A:463E
+String_1A_463E::
 	db "メールアドレス", 0
-String_1A_464D:: ; 1A:464D
+String_MobileDict_Cat07Entry04:: ; 1A:464D
+String_1A_464D::
 	db "メールサーバ", 0
-String_1A_465A:: ; 1A:465A
+String_MobileDict_Cat07Entry05:: ; 1A:465A
+String_1A_465A::
 	db "メールソフト", 0
-String_1A_4667:: ; 1A:4667
+String_MobileDict_Cat07Entry06:: ; 1A:4667
+String_1A_4667::
 	db "メンテナンス", 0
-String_1A_4674:: ; 1A:4674
+String_MobileDict_Cat07Entry07:: ; 1A:4674
+String_1A_4674::
 	db "モバイル", 0
-String_1A_467D:: ; 1A:467D
+String_MobileDict_Cat07Entry08:: ; 1A:467D
+String_1A_467D::
 	db "モバイルアダプタＧＢ", 0
-String_1A_4692:: ; 1A:4692
+String_MobileDict_Cat07Entry09:: ; 1A:4692
+String_1A_4692::
 	db "モバイルサポートセンター", 0
-String_1A_46AB:: ; 1A:46AB
+String_MobileDict_Cat07Entry10:: ; 1A:46AB
+String_1A_46AB::
 	db "モバイルシステムＧＢ", 0
-String_1A_46C0:: ; 1A:46C0
+String_MobileDict_Cat07Entry11:: ; 1A:46C0
+String_1A_46C0::
 	db "モバイルセンター", 0
-String_1A_46D1:: ; 1A:46D1
+String_MobileDict_Cat07Entry12:: ; 1A:46D1
+String_1A_46D1::
 	db "モバイルトレーナー", 0
-String_1A_46E4:: ; 1A:46E4
+String_MobileDict_Cat07Entry13:: ; 1A:46E4
+String_1A_46E4::
 	db "モバイルホームページ", 0
 POPC
 
@@ -850,12 +896,13 @@ Data_1A_46F9::
 
 Table_MobileDict_Cat08Strings:: ; 1A:46FA
 Table_1A_46FA::
-	dw String_1A_46FC
+	dw String_MobileDict_Cat08Entry00
 
 ; ---- text $46FC-$4705 (9 bytes) [PROBABLE] text block: 12 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 463E-4705 by higher-priority evidence]
 
 PUSHC sjis
-String_1A_46FC:: ; 1A:46FC
+String_MobileDict_Cat08Entry00:: ; 1A:46FC
+String_1A_46FC::
 	db "ユーザー", 0
 POPC
 
@@ -869,20 +916,22 @@ Data_1A_4705::
 
 Table_MobileDict_Cat09Strings:: ; 1A:4706
 Table_1A_4706::
-	dw String_1A_470A
-	dw String_1A_4711
+	dw String_MobileDict_Cat09Entry00
+	dw String_MobileDict_Cat09Entry01
 
 ; ---- text $470A-$4711 (7 bytes) [PROBABLE] Shift-JIS "リンク" NUL-terminated (target of the pointer 470A)
 
 PUSHC sjis
-String_1A_470A:: ; 1A:470A
+String_MobileDict_Cat09Entry00:: ; 1A:470A
+String_1A_470A::
 	db "リンク", 0
 POPC
 
 ; ---- text $4711-$471E (13 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_4711:: ; 1A:4711
+String_MobileDict_Cat09Entry01:: ; 1A:4711
+String_1A_4711::
 	db "ログインＩＤ", 0
 POPC
 
@@ -896,12 +945,13 @@ Data_1A_471E::
 
 Table_MobileDict_Cat10Strings:: ; 1A:471F
 Table_1A_471F::
-	dw String_1A_4721
+	dw String_MobileDict_Cat10Entry00
 
 ; ---- text $4721-$4736 (21 bytes) [PROBABLE] text block: 2 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 4711-4736 by higher-priority evidence]
 
 PUSHC sjis
-String_1A_4721:: ; 1A:4721
+String_MobileDict_Cat10Entry00:: ; 1A:4721
+String_1A_4721::
 	db "ワールドワイドウェブ", 0
 POPC
 
@@ -915,58 +965,68 @@ Data_1A_4736::
 
 Table_MobileDict_Cat11Strings:: ; 1A:4737
 Table_1A_4737::
-	dw String_1A_474B
-	dw String_1A_475A
-	dw String_1A_4763
-	dw String_1A_477E
-	dw String_1A_4785
-	dw String_1A_478C
-	dw String_1A_4793
-	dw String_1A_479A
-	dw String_1A_47A1
-	dw String_1A_47A4
+	dw String_MobileDict_Cat11Entry00
+	dw String_MobileDict_Cat11Entry01
+	dw String_MobileDict_Cat11Entry02
+	dw String_MobileDict_Cat11Entry03
+	dw String_MobileDict_Cat11Entry04
+	dw String_MobileDict_Cat11Entry05
+	dw String_MobileDict_Cat11Entry06
+	dw String_MobileDict_Cat11Entry07
+	dw String_MobileDict_Cat11Entry08
+	dw String_MobileDict_Cat11Entry09
 
 ; ---- text $474B-$475A (15 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_474B:: ; 1A:474B
+String_MobileDict_Cat11Entry00:: ; 1A:474B
+String_1A_474B::
 	db "ｃｄｍａＯｎｅ", 0
 POPC
 
 ; ---- text $475A-$4763 (9 bytes) [PROBABLE] text block: 3 string(s) (analysis/strings.tsv, per-string NUL termination noted there); Shift-JIS/ASCII [clipped from 474B-477E by higher-priority evidence]
 
 PUSHC sjis
-String_1A_475A:: ; 1A:475A
+String_MobileDict_Cat11Entry01:: ; 1A:475A
+String_1A_475A::
 	db "ＤＩＯＮ", 0
 POPC
 
 ; ---- text $4763-$477E (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_4763:: ; 1A:4763
+String_MobileDict_Cat11Entry02:: ; 1A:4763
+String_1A_4763::
 	db "ＤＩＯＮモバイルＧＢコース", 0
 POPC
 
 ; ---- text $477E-$47A4 (38 bytes) [PROBABLE] 7 NUL-terminated strings "ＩＤＳＰ" "ＰＤＣ" "ＰＨＳ" "Ｗｅｂ" "ＷＷＷ" "※" (targets of the pointers 477E 4785 478C 4793 479A .. of Table_1A_4737)
 
 PUSHC sjis
-String_1A_477E:: ; 1A:477E
+String_MobileDict_Cat11Entry03:: ; 1A:477E
+String_1A_477E::
 	db "ＩＳＰ", 0
-String_1A_4785:: ; 1A:4785
+String_MobileDict_Cat11Entry04:: ; 1A:4785
+String_1A_4785::
 	db "ＰＤＣ", 0
-String_1A_478C:: ; 1A:478C
+String_MobileDict_Cat11Entry05:: ; 1A:478C
+String_1A_478C::
 	db "ＰＨＳ", 0
-String_1A_4793:: ; 1A:4793
+String_MobileDict_Cat11Entry06:: ; 1A:4793
+String_1A_4793::
 	db "Ｗｅｂ", 0
-String_1A_479A:: ; 1A:479A
+String_MobileDict_Cat11Entry07:: ; 1A:479A
+String_1A_479A::
 	db "ＷＷＷ", 0
-String_1A_47A1:: ; 1A:47A1
+String_MobileDict_Cat11Entry08:: ; 1A:47A1
+String_1A_47A1::
 	db "＠", 0
 POPC
 
 ; ---- text $47A4-$47B5 (17 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
-String_1A_47A4:: ; 1A:47A4
+String_MobileDict_Cat11Entry09:: ; 1A:47A4
+String_1A_47A4::
 	db "きごうのよみかた", 0
 POPC

@@ -8,8 +8,8 @@ Startup_Run:: ; 65:4000
 Function_65_4000::
 	; [CONFIRMED] 27 insn(s); 27 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_1711
-	farcall Function_4E_4658
+	call Boot_ReinitRuntimeFar
+	farcall Sram_SnapshotBootCounters
 	farcall Sram_ClearMenuCursorMemory
 	farcall Settings_ClearVariableBlock
 	xor a, a

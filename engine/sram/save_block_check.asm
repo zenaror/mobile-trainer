@@ -4,7 +4,8 @@
 
 SECTION "engine/sram/save_block_check", ROMX
 
-Function_4E_4658:: ; 4E:4658
+Sram_SnapshotBootCounters:: ; 4E:4658
+Function_4E_4658::
 	; [CONFIRMED] 17 insn(s); 17 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A
@@ -126,7 +127,7 @@ SaveCheck_Sum16:: ; 4E:4739
 Function_4E_4739::
 	; [CONFIRMED] 81 insn(s); 81 executed (in up to 18/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_0392
+	call Sound_FrameService
 .loop ; 4E:473C
 	ld a, [hli]
 	add a, e
@@ -213,7 +214,8 @@ SaveCheck_Update:: ; 4E:4795
 	ld [rRAMG], a
 	ret
 
-Function_4E_47EB:: ; 4E:47EB
+Sram_BuildCounterBlock:: ; 4E:47EB
+Function_4E_47EB::
 	; [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from
 	; SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct
 	; target (jr) lands on an instruction start, ends exactly at the executed function 4E:4866 right
@@ -288,7 +290,8 @@ Function_4E_47EB:: ; 4E:47EB
 	ld [rRAMG], a
 	ret
 
-Function_4E_4866:: ; 4E:4866
+Sram_CountMobileError12Or26:: ; 4E:4866
+Function_4E_4866::
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $0A

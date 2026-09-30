@@ -33,7 +33,7 @@ Function_7F_70FD::
 KbdSlide_InStepMode6:: ; 7F:7116
 	farcall ScrollSplit_StepUp3
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	ret
 
@@ -61,7 +61,7 @@ KbdSlide_OutPrepMode6:: ; 7F:7125
 KbdSlide_OutStepMode6:: ; 7F:713A
 	farcall ScrollSplit_StepDown3
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	ret
 
@@ -97,7 +97,7 @@ KbdSlide_InStepMode8:: ; 7F:7165
 	pop de
 	farcall ScrollSplit_StepUp4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -134,7 +134,7 @@ KbdSlide_OutStepMode8:: ; 7F:7194
 	pop de
 	farcall ScrollSplit_StepDown4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -164,7 +164,7 @@ KbdSlide_InStepMode9:: ; 7F:71C3
 	pop de
 	farcall ScrollSplit_StepUp4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -194,7 +194,7 @@ KbdSlide_OutStepMode9:: ; 7F:71F2
 	pop de
 	farcall ScrollSplit_StepDown4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -210,7 +210,7 @@ KbdSlide_InStepMode7:: ; 7F:720C
 	push af
 	farcall ScrollSplit_StepUp4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -226,7 +226,7 @@ KbdSlide_OutStepMode7:: ; 7F:7224
 	push af
 	farcall ScrollSplit_StepDown4
 	push de
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -247,8 +247,8 @@ KbdSlide_OutStepMode7:: ; 7F:7224
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall ScrollSplit_StepUp4
 	push de
-	farcall Function_7F_7817
-	farcall Function_00_0956
+	farcall ScrollSplit_SetCursorSpritesY
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret
@@ -267,8 +267,8 @@ KbdSlide_OutStepMode7:: ; 7F:7224
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall ScrollSplit_StepDown4
 	push de
-	farcall Function_7F_7817
-	farcall Function_00_0956
+	farcall ScrollSplit_SetCursorSpritesY
+	farcall Sprite_UpdateAll
 	pop de
 	pop af
 	ret

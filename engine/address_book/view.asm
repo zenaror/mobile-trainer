@@ -28,8 +28,8 @@ AbookView_Run:: ; 2F:5098
 .loop ; 2F:50BD
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop de
 	pop bc
@@ -79,7 +79,7 @@ AbookView_Run:: ; 2F:5098
 	jr nz, .l5122
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	call Abook_StoreEntryToSram
@@ -88,7 +88,7 @@ AbookView_Run:: ; 2F:5098
 .l5122 ; 2F:5122
 	push bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -108,13 +108,13 @@ AbookView_Run:: ; 2F:5098
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	pop bc
 	ld a, $FF
@@ -187,8 +187,8 @@ AbookView_SetupScreen:: ; 2F:51C1
 	; entered by call from 2F:50B8 (PROBABLE code) | 81 insn(s) executed; cut out of the PROBABLE
 	; region 51C1-5383 by apply_coverage --split [executed in 3 scenarios]
 	push bc
-	farcall Function_00_09B6
-	farcall Function_00_0956
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
 	farcall TextTiles_ClearBuffers
 	farcall LCDOff
 	ld bc, $0040
@@ -202,42 +202,42 @@ AbookView_SetupScreen:: ; 2F:51C1
 	ld a, $2C
 	farcall Palette_LoadToBuffer
 	ld de, $9301
-	ld hl, Data_29_5E50
+	ld hl, Gfx_AbookView_Tiles9300
 	ld a, $29
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9701
-	ld hl, Data_29_6250
+	ld hl, Gfx_AbookView_Tiles9700
 	ld a, $29
 	ld b, $98
 	ld c, $04
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8F00
 	ld hl, Gfx_AddrBookEntry_Tiles8F00
 	ld a, $2A
 	ld b, $97
 	ld c, $0E
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8000
 	ld hl, Gfx_AddrBookEntry_Tiles8000
 	ld a, $2A
 	ld b, $97
 	ld c, $0B
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $1214
 	ld de, $D000
 	ld hl, Data_AddrBookEntry_TilemapAttr
 	ld a, $2C
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	farcall LCDOn
 	ld hl, $DA10
 	ld de, Table_Abook_ViewCursorAnims
 	ld a, $2F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $20
 	ld [wSpriteSlots + 16], a
 	ld a, $08
@@ -249,7 +249,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	jr nz, .l52B6
 	call AbookView_LoadAndDraw
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -273,7 +273,7 @@ AbookView_SetupScreen:: ; 2F:51C1
 	; 51C1-5383 by apply_coverage --split
 	call AbookView_DrawFromBuffers
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]

@@ -63,7 +63,7 @@ PageList_Main:: ; 24:4018
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -72,7 +72,7 @@ PageList_Main:: ; 24:4018
 
 PageList_Main_Loop:: ; 24:4083
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, .l41D7
@@ -84,7 +84,7 @@ PageList_Main_Loop:: ; 24:4083
 	; 4018-42AF by apply_coverage --split
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -151,7 +151,7 @@ PageList_Main_Loop:: ; 24:4083
 	xor a, a
 	ld [wBrowserFetchResult], a
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0110
 	push af
 	ldh a, [rSVBK]
@@ -181,9 +181,9 @@ PageList_Main_Loop:: ; 24:4083
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
@@ -216,21 +216,21 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	call PageList_InitScreen
 	farcall Sprites_RestoreSlotsFromBank3
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	jp PageList_Main_Loop
 .l41C4 ; 24:41C4
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -239,7 +239,7 @@ PageList_Main_Loop:: ; 24:4083
 .l41D7 ; 24:41D7
 	; [CONFIRMED] 113 insn(s) executed; cut out of the PROBABLE region 4018-42AF by apply_coverage
 	; --split [executed in 2 scenarios]
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyPressed]
@@ -252,7 +252,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -268,7 +268,7 @@ PageList_Main_Loop:: ; 24:4083
 	push de
 	push hl
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -294,13 +294,13 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -316,7 +316,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -342,7 +342,7 @@ PageList_Main_Loop:: ; 24:4083
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -433,54 +433,54 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, b
 	or a, c
 	jr nz, .l4310
-	farcall Function_00_09B6
-	call Function_00_0464
+	farcall Sprite_ResetAll
+	call VBlank_Wait
 	ld de, $9301
 	ld hl, PageList_Tiles_5400
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $9701
 	ld hl, $5800
 	ld a, $24
 	ld b, $97
 	ld c, $10
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8000
 	ld hl, PageList_Tiles_5EE0
 	ld a, $24
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld de, $8400
 	ld hl, $62E0
 	ld a, $24
 	ld b, $95
 	ld c, $20
-	farcall Function_00_0749
-	call Function_00_0464
+	farcall Gfx_StartHDMA
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D840
 	ld hl, PageList_ObjPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $0040
 	ld de, $D800
 	ld hl, PageList_BgPalette
 	ld a, $24
 	farcall Palette_LoadToBuffer
-	call Function_00_0464
+	call VBlank_Wait
 	ld bc, $1214
 	ld de, $D000
 	ld hl, PageList_Tilemap_5900
 	ld a, $24
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 	ld a, $06
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -492,28 +492,28 @@ PageList_InitScreen:: ; 24:42F0
 	ld de, $D000
 	ld hl, PageList_Tilemap_5BD0
 	ld a, $24
-	farcall Function_00_08EA
-	call Function_00_0464
+	farcall Tilemap_CopyRectAndAttr
+	call VBlank_Wait
 .l43D2 ; 24:43D2
 	ldh a, [rLCDC]
-	call Function_00_082C
-	call Function_00_0464
+	call Gfx_UploadBgMapBuffers
+	call VBlank_Wait
 	call PageList_DrawAllTitles
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	push bc
 	ld a, $00
 	call PageList_RedrawSelection
-	call Function_00_0464
+	call VBlank_Wait
 	ld c, $00
 	call PageList_UpdateRowSprites
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $03
 	ld b, $00
 	call PageList_ShowMessage
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeInFromWhite
 	push af
 	ldh a, [rSVBK]
@@ -537,11 +537,11 @@ PageList_InitScreen:: ; 24:42F0
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
-	call Function_00_047A
+	call VBlank_WaitStartDI
 	ld hl, $D800
 	farcall Palette_UploadBuffer
 	ei
-	call Function_00_0392
+	call Sound_FrameService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -574,32 +574,32 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA50
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA40
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA30
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA20
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DA10
 	ld de, $6560
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, PageList_UrlSlotTable
 	ld a, [hli]
 	ld e, a
@@ -612,7 +612,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l44EF ; 24:44EF
 	ld hl, $4002
 	ld a, [hli]
@@ -626,7 +626,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l450B ; 24:450B
 	ld hl, $4004
 	ld a, [hli]
@@ -643,7 +643,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4527 ; 24:4527
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
@@ -660,7 +660,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4543 ; 24:4543
 	ld hl, $4008
 	ld a, [hli]
@@ -677,7 +677,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l455F ; 24:455F
 	; [CONFIRMED] 8 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
@@ -697,7 +697,7 @@ PageList_InitRowSprites:: ; 24:445C
 	ld de, $6550
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l457B ; 24:457B
 	; [CONFIRMED] 111 insn(s) executed; cut out of the PROBABLE region 42F0-4B10 by apply_coverage
@@ -757,7 +757,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $23
 	ld [wSpriteSlots + 96], a
 	ld a, $06
@@ -768,7 +768,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $23
 	ld [wSpriteSlots + 96], a
 	ld a, $06
@@ -790,7 +790,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $2F
 	ld [wSpriteSlots + 80], a
 	ld a, $06
@@ -801,7 +801,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $2F
 	ld [wSpriteSlots + 80], a
 	ld a, $06
@@ -826,7 +826,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $3B
 	ld [wSpriteSlots + 64], a
 	ld a, $06
@@ -840,7 +840,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $3B
 	ld [wSpriteSlots + 64], a
 	ld a, $06
@@ -865,7 +865,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $47
 	ld [wSpriteSlots + 48], a
 	ld a, $06
@@ -879,7 +879,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $47
 	ld [wSpriteSlots + 48], a
 	ld a, $06
@@ -904,7 +904,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $53
 	ld [wSpriteSlots + 32], a
 	ld a, $06
@@ -918,7 +918,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $53
 	ld [wSpriteSlots + 32], a
 	ld a, $06
@@ -943,7 +943,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, PageList_ObjTable
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $5F
 	ld [wSpriteSlots + 16], a
 	ld a, $06
@@ -957,7 +957,7 @@ PageList_HighlightRowSprite:: ; 24:45B7
 	ld de, $6540
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $5F
 	ld [wSpriteSlots + 16], a
 	ld a, $06
@@ -1382,7 +1382,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld de, $9000
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1390,7 +1390,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld de, $9400
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1398,7 +1398,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld de, $8800
 	ld c, $3F
 	call PageList_StartHDMAAtVBlank
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, $02
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1406,7 +1406,7 @@ PageList_UploadTextTiles:: ; 24:4A00
 	ld de, $8C00
 	ld c, $2F
 	call PageList_StartHDMAAtVBlank
-	call Function_00_0392
+	call Sound_FrameService
 	ret
 
 PageList_StartHDMAAtVBlank:: ; 24:4A54
@@ -1616,7 +1616,7 @@ PageList_ActionMenu:: ; 24:4BCD
 
 PageList_ActionMenu_Loop:: ; 24:4BD5
 	push bc
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wDialogOnlineSnapshot]
 	bit 4, a
 	jp z, .l4D39
@@ -1628,7 +1628,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	; 4BCD-53FE by apply_coverage --split
 	pop bc
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
@@ -1696,7 +1696,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
 	ld hl, $DAB0
-	call Function_00_09E6
+	call Sprite_ClearSlot
 	ld de, $0110
 	push af
 	ldh a, [rSVBK]
@@ -1726,9 +1726,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ldh [rSVBK], a
 	pop af
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
@@ -1762,19 +1762,19 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0006
-	call Function_00_20E8
+	call Sound_PlayMusicOrResume
 	pop af
 	ldh [rSVBK], a
 	ei
 	pop bc
 	call PageList_InitScreen
-	call Function_00_0464
+	call VBlank_Wait
 	pop bc
 	push bc
 	call PageList_GetActionAvailability
 	call PageList_SetActionIcons
 	farcall Sprites_RestoreSlotsFromBank3
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	jp PageList_ActionMenu_Loop
 
@@ -1784,13 +1784,13 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	pop bc
 	pop af
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	ld a, $FF
 	ld de, $0000
 	ld hl, $0000
 	ret
 .l4D39 ; 24:4D39
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	pop bc
 	ldh a, [hJoyHeld]
@@ -1821,7 +1821,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1845,7 +1845,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1866,7 +1866,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1889,7 +1889,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -1921,7 +1921,7 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ei
@@ -1953,7 +1953,7 @@ PageList_ActionMenuInit:: ; 24:4E46
 	ld de, $6570
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $16
@@ -1973,7 +1973,7 @@ PageList_HideActionCursor:: ; 24:4E71
 	push bc
 	ld a, $E8
 	ld [wSpriteSlots + 1], a
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	ret
 
@@ -1989,7 +1989,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld de, $6570
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $16
@@ -2004,7 +2004,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld de, $6580
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $46
@@ -2019,7 +2019,7 @@ PageList_SetActionCursor:: ; 24:4E85
 	ld de, $6590
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $6F
 	ld [wSpriteSlots], a
 	ld a, $76
@@ -2041,8 +2041,8 @@ PageList_MoveActionCursor:: ; 24:4EF1
 	pop bc
 	call PageList_SetActionCursor
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	ret
 
@@ -2052,8 +2052,8 @@ PageList_MoveActionCursor:: ; 24:4EF1
 	pop bc
 	call PageList_SetActionCursor
 	push bc
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop bc
 	ret
 
@@ -2163,7 +2163,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $6580
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2190,7 +2190,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0032
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -2206,7 +2206,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2222,7 +2222,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2241,7 +2241,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2260,7 +2260,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2279,7 +2279,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2295,7 +2295,7 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	ld de, $65A0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2313,8 +2313,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 .l50FF ; 24:50FF
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop de
 	pop bc
 	dec e
@@ -2440,7 +2440,7 @@ PageList_GoToSlot:: ; 24:5164
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop hl
@@ -2550,7 +2550,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $6590
 	ld a, $24
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2574,7 +2574,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0033
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call PageList_UpdateRowSprites
@@ -2588,7 +2588,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2604,7 +2604,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2623,7 +2623,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2639,7 +2639,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2655,7 +2655,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2671,7 +2671,7 @@ PageList_DeleteSlot:: ; 24:51CB
 	ld de, $65B0
 	ld a, $24
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld a, $07
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -2689,8 +2689,8 @@ PageList_DeleteSlot:: ; 24:51CB
 .loop ; 24:53A9
 	push bc
 	push de
-	farcall Function_00_0956
-	call Function_00_0464
+	farcall Sprite_UpdateAll
+	call VBlank_Wait
 	pop de
 	pop bc
 	dec e

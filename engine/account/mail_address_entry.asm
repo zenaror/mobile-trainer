@@ -14,7 +14,8 @@ Account_MailAddressEntryScreen:: ; 68:571D
 	ld a, [wRam_C27C]
 	ret
 
-Function_68_5739:: ; 68:5739
+Account_MailAddress_ClearFlagIfChanged:: ; 68:5739
+Function_68_5739::
 	; [HYPOTHESIS] complete ret-terminated function (59 insn), twin of 52B2-531A (same SRAM/[$C278]
 	; logic with $B071/$B07A); entry not proven. [verifier: retracted the earlier claim that the
 	; words $5770/$5798 of the table at 528C enter this range: that table is indexed and passed to a
@@ -89,7 +90,7 @@ Function_68_57B6::
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	xor a, a
 	ld [wRam_C27C], a
 	ld [wRam_C27D], a
@@ -111,25 +112,25 @@ Function_68_57B6::
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C01
 	ld hl, Data_5E_4400
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, Data_5E_5800
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5E_5C00
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -139,7 +140,7 @@ Function_68_57B6::
 	ld de, $D000
 	ld hl, Data_5E_6000
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld a, $03
 	ld hl, $DE83
 	call Account_MailLocal_PrintField
@@ -150,7 +151,7 @@ Function_68_57B6::
 	call Account_MailDomain_UploadTextTiles
 	call Account_MailAddress_BuildTextMap
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ld a, $01
 	ld b, $02
 	farcall Kbd_Open
@@ -158,7 +159,7 @@ Function_68_57B6::
 	ld de, $4D30
 	ld a, $5F
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld hl, $DE94
 	farcall TextBuf_GetLength
 	or a, a
@@ -186,10 +187,11 @@ Function_68_57B6::
 	ret
 .l58DB ; 68:58DB
 	farcall Kbd_ShowMarkerSprite
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ret
 
-Function_68_58E8:: ; 68:58E8
+Account_MailAddressEntry_OkStateFromMask:: ; 68:58E8
+Function_68_58E8::
 	; [HYPOTHESIS] complete function: [$C278] bit1 -> [$C27E] = 0/1, ret; twin of 5404-5417; entry
 	; not proven [verifier: no entry proven (no caller, no valid table word, never executed): decode
 	; chain alone is not proof -> HYPOTHESIS]
@@ -234,7 +236,7 @@ Account_MailAddressEntry_CheckDomainLen:: ; 68:5913
 	ret
 
 Account_MailAddressEntry_InputLoop:: ; 68:592C
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ld a, [wRam_C27E]
 	ld c, a
 	farcall Kbd_Run
@@ -260,7 +262,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE80
@@ -280,7 +282,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0038
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l59B8
@@ -293,7 +295,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 
@@ -321,7 +323,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jp .l5A95
@@ -331,7 +333,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0039
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DE94
@@ -367,7 +369,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0031
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	jr .l5AB0
@@ -377,7 +379,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Account_CommitMailFields
@@ -391,7 +393,7 @@ Account_MailAddressEntry_InputLoop:: ; 68:592C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	call Account_CommitMailFields
@@ -481,7 +483,7 @@ Account_MailLocal_PrintField:: ; 68:5B0E
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 Account_MailDomain_PrintField:: ; 68:5B59
@@ -537,7 +539,7 @@ Label_68_5B8C:: ; 68:5B8C
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ret
 
 Account_MailLocal_UploadTextTiles:: ; 68:5BA4
@@ -558,7 +560,7 @@ Account_MailIntroPage:: ; 68:5BC4
 	call Account_MailIntro_Draw
 	farcall Palette_FadeInFromWhite
 .loop ; 68:5BCD
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Joypad_Update
 	ldh a, [hJoyPressedRepeat]
 	bit 0, a
@@ -572,7 +574,7 @@ Account_MailIntroPage:: ; 68:5BC4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, $01
@@ -583,7 +585,7 @@ Account_MailIntroPage:: ; 68:5BC4
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	xor a, a
@@ -598,19 +600,19 @@ Account_MailIntro_Draw:: ; 68:5C12
 	ld b, $15
 	ld c, $03
 	farcall Joypad_SetRepeatTiming
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $9001
 	ld hl, Data_5E_60D0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Data_5E_64D0
 	ld a, $5E
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Data_5E_4D00
@@ -620,15 +622,15 @@ Account_MailIntro_Draw:: ; 68:5C12
 	ld de, $D000
 	ld hl, Data_5E_68D0
 	ld a, $5E
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	call Account_MailIntro_PrintMessage
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 Account_MailIntro_PrintMessage:: ; 68:5C71
 	ld a, $01
-	farcall Function_00_153D
+	farcall PromptText_Load
 	push hl
 	push af
 	ld de, $FFFF
@@ -663,7 +665,7 @@ Account_MailIntro_PrintMessage:: ; 68:5C71
 	ldh [hRam_FFC7], a
 	pop af
 	pop hl
-	call Function_00_0ED3
+	call TextEngine_Run
 	ld de, $9000
 	ld hl, $0701
 	ld bc, $0712

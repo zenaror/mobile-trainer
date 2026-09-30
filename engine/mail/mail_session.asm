@@ -51,18 +51,18 @@ Function_26_4000::
 	ld de, $7030
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $7100
 	ld hl, $DA80
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA30
 	ld de, $7A30
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $28E0
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	farcall Mail_OutboxIsEmpty
 	inc a
 	jr nz, .l4095
@@ -70,7 +70,7 @@ Function_26_4000::
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .l40A5
 
 .l4095 ; 26:4095
@@ -80,13 +80,13 @@ Function_26_4000::
 	ld de, $7A50
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l40A5 ; 26:40A5
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios)
 	ld de, $28D1
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld b, $00
 .loop ; 26:40B0
 	ld a, $07
@@ -100,9 +100,9 @@ Function_26_4000::
 	inc a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -129,14 +129,14 @@ Function_26_4000::
 	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2840
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -153,9 +153,9 @@ MailSession_SendPhase:: ; 26:412C
 .l4138 ; 26:4138
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -172,10 +172,10 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, $6F70
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $28D0
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l417C ; 26:417C
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -185,9 +185,9 @@ MailSession_SendPhase:: ; 26:412C
 	dec a
 	ld [wSpriteSlots + 81], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -204,17 +204,17 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, $6F90
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $0F
 .l41CC ; 26:41CC
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -227,33 +227,33 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, $6F40
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2840
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $6F80
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA40
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2830
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $14
 .l4239 ; 26:4239
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -266,12 +266,12 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, $6FD0
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $234B
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -288,16 +288,16 @@ MailSession_SendPhase:: ; 26:412C
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0043
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
 	pop bc
 .l42A6 ; 26:42A6
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Joypad_Update
 	call MailSession_UpdateTimerDisplay
 	farcall Smtp_DataPoll
@@ -342,9 +342,9 @@ MailSession_SendPhase:: ; 26:412C
 .l4314 ; 26:4314
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -365,9 +365,9 @@ MailSession_SendPhase:: ; 26:412C
 .l434F ; 26:434F
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -380,33 +380,33 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, MailSession_ObjTable_6F20
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2840
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $6FA0
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA60
 	ld de, $6FD0
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2257
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $3C
 .l43BC ; 26:43BC
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -419,13 +419,13 @@ MailSession_SendPhase:: ; 26:412C
 	ld de, $7AE0
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld de, $1FE0
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l43FE ; 26:43FE
 	ld a, $07
 	ldh [hWRAMBank], a
@@ -435,9 +435,9 @@ MailSession_SendPhase:: ; 26:412C
 	inc a
 	ld [wSpriteSlots + 81], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -469,41 +469,41 @@ MailSession_SendPhase:: ; 26:412C
 
 	; [PROBABLE] 67 insn(s) reached by static flow only; seeds: site x67; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2847
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld b, $3C
 .l4456 ; 26:4456
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	pop bc
 	dec b
 	jr nz, .l4456
 	ld de, $28E0
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA40
 	ld de, $7A40
 	ld a, $27
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2857
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l448B ; 26:448B
 	ldh a, [rSCX]
 	dec a
 	ldh [rSCX], a
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -522,9 +522,9 @@ MailSession_SendPhase:: ; 26:412C
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -532,7 +532,7 @@ MailSession_SendPhase:: ; 26:412C
 	cp a, $C0
 	jr nz, .l44AC
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
@@ -547,10 +547,10 @@ MailSession_ReceivePhase:: ; 26:44F5
 	ld de, $733B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	farcall Mail_OutboxIsEmpty
 	inc a
 	jp z, .l4536
@@ -561,10 +561,10 @@ MailSession_ReceivePhase:: ; 26:44F5
 	ld de, $73DB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $2700
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	jr .l454F
 
 .l4536 ; 26:4536
@@ -573,27 +573,27 @@ MailSession_ReceivePhase:: ; 26:44F5
 	ld de, $73BB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l454F ; 26:454F
 	ld hl, $DA50
 	ld de, $73AB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0050
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	call MailSession_ShowMsgReceiving
 	farcall Timer_ResetClockB
 	farcall Pop3_StartLogin
 .loop ; 26:4577
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	ldh a, [hJoyHeld]
@@ -664,9 +664,9 @@ MailSession_ScanMailsLoop:: ; 26:45BC
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop hl
@@ -760,9 +760,9 @@ Label_26_4636:: ; 26:4636
 	ld a, [wSpriteSlots + 81]
 	dec a
 	ld [wSpriteSlots + 81], a
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
@@ -783,19 +783,19 @@ Label_26_4636:: ; 26:4636
 	ld de, $739B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0100
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $1E
 .l46B4 ; 26:46B4
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -883,22 +883,22 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld de, MailSession_ObjTable_72FB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0100
 	ld hl, $DA30
-	call Function_00_0A65
-	call Function_26_4C94
+	call Sprite_SetPosition
+	call MailSession_SetReceivedCountSprite
 	ld de, $0000
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $739B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0100
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	pop de
 	pop bc
@@ -935,9 +935,9 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop hl
@@ -1011,29 +1011,29 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld hl, $DA30
 	ld de, $734B
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $737B
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA50
-	call Function_00_0A65
-	call Function_26_4DAB
+	call Sprite_SetPosition
+	call MailSession_SetNextReceivedCountSprite
 	ld de, $0700
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $3C
 	ld c, $04
 .l486F ; 26:486F
@@ -1041,17 +1041,17 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	jp z, MailSession_ShowCommError
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	ld a, $07
@@ -1091,9 +1091,9 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	push de
 	push hl
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop hl
@@ -1122,7 +1122,7 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 .l4911 ; 26:4911
 	ld de, $0080
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	pop hl
 	pop bc
 	ld a, $01
@@ -1202,17 +1202,17 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	; 4705-4A8A by apply_coverage --split
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	inc a
 	jr z, .l49C2
 	call MailSession_InitScreen
 	farcall Sprites_RestoreSlotsFromBank3
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	jp .l49F2
 .l49C2 ; 26:49C2
 	ld a, [wTimerEnable]
@@ -1292,31 +1292,31 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	ld de, $735B
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA30
-	call Function_00_0A65
-	call Function_26_4C94
+	call Sprite_SetPosition
+	call MailSession_SetReceivedCountSprite
 	ld de, $0000
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $736B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $3C
 .l4A61 ; 26:4A61
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -1354,7 +1354,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0042
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1363,43 +1363,43 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	ld de, $734B
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $737B
 	ld a, $28
 	ld b, $01
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA60
 	ld de, $73FB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $1000
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld c, $09
 .loop ; 26:4B02
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
 	push bc
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	ld a, $07
@@ -1416,7 +1416,7 @@ MailSession_NoMailOrFull:: ; 26:4A8A
 	jr nz, .loop
 	ld de, $0080
 	ld hl, $DA60
-	call Function_00_0A65
+	call Sprite_SetPosition
 
 MailSession_Finish:: ; 26:4B54
 	push bc
@@ -1426,7 +1426,7 @@ MailSession_Finish:: ; 26:4B54
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $003D
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	pop de
@@ -1435,18 +1435,18 @@ MailSession_Finish:: ; 26:4B54
 	ld de, $732B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA30
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $738B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4B9A ; 26:4B9A
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
@@ -1458,9 +1458,9 @@ MailSession_Finish:: ; 26:4B54
 	dec a
 	ld [wSpriteSlots + 49], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -1483,7 +1483,7 @@ MailSession_Finish:: ; 26:4B54
 	ld de, $73EB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	jr .l4C01
 
 .l4BF1 ; 26:4BF1
@@ -1492,7 +1492,7 @@ MailSession_Finish:: ; 26:4B54
 	ld de, $73CB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 .l4C01 ; 26:4C01
 	ld a, $01
 	ldh [hWRAMBank], a
@@ -1508,21 +1508,21 @@ MailSession_Finish:: ; 26:4B54
 	ld de, $73EB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 
 .l4C1F ; 26:4C1F
 	; [CONFIRMED] 43 insn(s); 43 executed (in up to 1/18 scenarios)
 	ld de, $0000
 	ld hl, $DA40
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld hl, $DA50
 	ld de, $738B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $0000
 	ld hl, $DA50
-	call Function_00_0A65
+	call Sprite_SetPosition
 .l4C41 ; 26:4C41
 	call MailSession_PollAdapterError
 	jp z, MailSession_ShowCommError
@@ -1537,9 +1537,9 @@ MailSession_Finish:: ; 26:4B54
 	dec a
 	ld [wSpriteSlots + 65], a
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 	call MailSession_UpdateTimerDisplay
 	farcall Joypad_Update
 	pop bc
@@ -1553,12 +1553,13 @@ MailSession_Finish:: ; 26:4B54
 	jr nz, .l4C41
 .l4C83 ; 26:4C83
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	xor a, a
 	ret
 
-Function_26_4C94:: ; 26:4C94
+MailSession_SetReceivedCountSprite:: ; 26:4C94
+Function_26_4C94::
 	; [CONFIRMED] 215 insn(s) reached by static flow only; seeds: exec x215; min discovery hops 5;
 	; entered by call from 26:475F (PROBABLE code) | 115 insn(s) executed; cut out of the PROBABLE
 	; region 4C94-4EC3 by apply_coverage --split [executed in 1 scenarios]
@@ -1573,7 +1574,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $73BB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4CB3 ; 26:4CB3
 	cp a, $01
@@ -1582,7 +1583,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $74CB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4CC8 ; 26:4CC8
 	cp a, $02
@@ -1591,7 +1592,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $74DB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4CDD ; 26:4CDD
 	cp a, $03
@@ -1600,7 +1601,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $74EB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4CF2 ; 26:4CF2
 	cp a, $04
@@ -1609,7 +1610,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $74FB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D07 ; 26:4D07
 	cp a, $05
@@ -1618,7 +1619,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $750B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D1C ; 26:4D1C
 	cp a, $06
@@ -1627,7 +1628,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $751B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D31 ; 26:4D31
 	cp a, $07
@@ -1636,7 +1637,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $752B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D46 ; 26:4D46
 	cp a, $08
@@ -1645,7 +1646,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $753B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D5B ; 26:4D5B
 	cp a, $09
@@ -1654,7 +1655,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $754B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D70 ; 26:4D70
 	cp a, $0A
@@ -1663,7 +1664,7 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $755B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D85 ; 26:4D85
 	cp a, $0B
@@ -1672,17 +1673,18 @@ Function_26_4C94:: ; 26:4C94
 	ld de, $756B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4D9A ; 26:4D9A
 	ld hl, $DA40
 	ld de, $757B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 
-Function_26_4DAB:: ; 26:4DAB
+MailSession_SetNextReceivedCountSprite:: ; 26:4DAB
+Function_26_4DAB::
 	ld a, $01
 	ldh [hWRAMBank], a
 	ldh [rSVBK], a
@@ -1698,7 +1700,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $73FB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 
 .l4DCB ; 26:4DCB
@@ -1710,7 +1712,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $740B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4DE0 ; 26:4DE0
 	cp a, $02
@@ -1719,7 +1721,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $741B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4DF5 ; 26:4DF5
 	cp a, $03
@@ -1728,7 +1730,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $742B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E0A ; 26:4E0A
 	cp a, $04
@@ -1737,7 +1739,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $743B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E1F ; 26:4E1F
 	cp a, $05
@@ -1746,7 +1748,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $744B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E34 ; 26:4E34
 	cp a, $06
@@ -1755,7 +1757,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $745B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E49 ; 26:4E49
 	cp a, $07
@@ -1764,7 +1766,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $746B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E5E ; 26:4E5E
 	cp a, $08
@@ -1773,7 +1775,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $747B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E73 ; 26:4E73
 	cp a, $09
@@ -1782,7 +1784,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $748B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E88 ; 26:4E88
 	cp a, $0A
@@ -1791,7 +1793,7 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $749B
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4E9D ; 26:4E9D
 	cp a, $0B
@@ -1800,14 +1802,14 @@ Function_26_4DAB:: ; 26:4DAB
 	ld de, $74AB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 .l4EB2 ; 26:4EB2
 	ld hl, $DA60
 	ld de, $74BB
 	ld a, $28
 	ld b, $81
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ret
 
 MailSession_CheckTimeWarning:: ; 26:4EC3
@@ -1869,9 +1871,9 @@ Function_26_4EC3::
 	; fall-through of the jrcc at 26:4F11 (executed)
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	inc a
 	jr z, .l4F6B
 	push af
@@ -1892,9 +1894,9 @@ Function_26_4EC3::
 	call MailSession_InitScreen
 	farcall Sprites_RestoreSlotsFromBank3
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 
 .l4F65 ; 26:4F65
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios)
@@ -1910,7 +1912,7 @@ Function_26_4EC3::
 	; entered by jrcc from 26:4F2F (PROBABLE code) | 8 insn(s) never executed in the traced runs;
 	; cut out of the PROBABLE region 4F6B-5062 by apply_coverage --split
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -1977,12 +1979,12 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	; 4F6B-5062 by apply_coverage --split
 	farcall Sprites_SaveSlotsToBank3
 	farcall Stat_DisableScrollSplit
-	call Function_00_044B
+	call VBlank_WaitAndService
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB
 	ldh [rLCDC], a
-	farcall Function_7F_6218
+	farcall CommNotice_ShowDialogMode1
 	inc a
 	jr z, .l502C
 	push af
@@ -2004,9 +2006,9 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	call MailSession_ShowMsgReceiving
 	farcall Sprites_RestoreSlotsFromBank3
 	di
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ei
-	call Function_00_0464
+	call VBlank_Wait
 
 .l5026 ; 26:5026
 	; [CONFIRMED] 6 insn(s) executed; cut out of the PROBABLE region 4F6B-5062 by apply_coverage
@@ -2022,7 +2024,7 @@ MailSession_CheckTimeWarningRecv:: ; 26:4F7B
 	; [PROBABLE] 8 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4F6B-5062 by apply_coverage --split
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	pop hl
 	pop de
 	pop bc
@@ -2034,7 +2036,7 @@ MailSession_Cancel:: ; 26:503C
 	; [CONFIRMED] 15 insn(s) executed; cut out of the PROBABLE region 4F6B-5062 by apply_coverage
 	; --split [executed in 6 scenarios]
 	farcall Stat_DisableScrollSplit
-	call Function_00_0464
+	call VBlank_Wait
 	farcall Palette_FadeOutToWhite
 	ldh a, [rLCDC]
 	and a, $FB

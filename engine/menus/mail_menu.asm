@@ -8,13 +8,13 @@ MailMenu_Run:: ; 1D:4000
 Function_1D_4000::
 	; [CONFIRMED] 145 insn(s); 145 executed (in up to 9/18 scenarios); entry proven: target of an
 	; executed call/far call
-	call Function_00_044B
+	call VBlank_WaitAndService
 	xor a, a
 	ld bc, $00FC
 	ld hl, $C0D4
 	call FillBytes
 	farcall Function_48_48BB
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ld a, $01
 	ld hl, $A8B8
 	call ReadByteFar
@@ -35,43 +35,43 @@ Function_1D_4000::
 	ldh [rWX], a
 	ld a, $90
 	ldh [rWY], a
-	farcall Function_00_09B6
+	farcall Sprite_ResetAll
 	ld de, $8000
 	ld hl, Gfx_MailMenu_Tiles0
 	ld a, $1D
 	ld b, $96
 	ld c, $19
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8800
 	ld hl, Gfx_MailMenu_Tiles1
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $8C00
 	ld hl, Gfx_MailMenu_Tiles2
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9000
 	ld hl, Gfx_MailMenu_Tiles3
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9001
 	ld hl, $5A30
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld de, $9401
 	ld hl, Gfx_MailMenu_Tiles5
 	ld a, $1D
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ld bc, $0040
 	ld de, $D800
 	ld hl, Palette_MailMenu_Bg
@@ -81,15 +81,15 @@ Function_1D_4000::
 	ld de, $D000
 	ld hl, Tilemap_MailMenu_Screen
 	ld a, $1D
-	farcall Function_00_08EA
+	farcall Tilemap_CopyRectAndAttr
 	ld hl, $DA10
 	ld de, $63B6
 	ld a, $1D
 	ld b, $80
-	farcall Function_00_0A82
+	farcall Sprite_InitSlot
 	ld de, $431A
 	ld hl, $DA10
-	call Function_00_0A65
+	call Sprite_SetPosition
 	ld bc, $0040
 	ld de, $D840
 	ld hl, $6270
@@ -100,7 +100,7 @@ Function_1D_4000::
 	ld de, $8000
 	ld hl, $D200
 	farcall Tilemap_FillRectSequential
-	call Function_00_044B
+	call VBlank_WaitAndService
 	ldh [hScratchA], a
 	ldh a, [hWRAMBank]
 	push af
@@ -117,7 +117,7 @@ Function_1D_4000::
 	ld a, $00
 	ld b, $92
 	ld c, $40
-	farcall Function_00_0787
+	farcall Gfx_StartHDMAWithService
 	ldh [hScratchA], a
 	pop af
 	ldh [hWRAMBank], a
@@ -130,8 +130,8 @@ Function_1D_4000::
 	ld [wRam_C0E6], a
 	call MailMenu_DrawItemSelected
 	ldh a, [rLCDC]
-	call Function_00_082C
-	farcall Function_00_0956
+	call Gfx_UploadBgMapBuffers
+	farcall Sprite_UpdateAll
 	farcall Palette_FadeInFromWhite
 	ld a, [wRam_C0E5]
 	dec a
@@ -146,13 +146,13 @@ Function_1D_4000::
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0003
-	call Function_00_20B2
+	call Sound_PlayMusic
 	pop af
 	ldh [rSVBK], a
 
 MailMenu_Loop:: ; 1D:4188
-	farcall Function_00_0956
-	call Function_00_044B
+	farcall Sprite_UpdateAll
+	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
 	farcall Joypad_UpdateUnsaved
 	call JoypadDispatch
@@ -182,7 +182,7 @@ MailMenu_OnA:: ; 1D:41BD
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002C
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -201,7 +201,7 @@ MailMenu_OnB:: ; 1D:41EC
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $002E
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	farcall Palette_FadeOutWithTicker
@@ -247,9 +247,9 @@ MailMenu_HandleDpad:: ; 1D:4229
 	ld [wRam_C0E5], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call MailMenu_AnimateIcon
 	jr MailMenu_AfterMove
 .l4256 ; 1D:4256
@@ -268,9 +268,9 @@ MailMenu_HandleDpad:: ; 1D:4229
 	ld [wRam_C0E5], a
 	call MailMenu_DrawItemNormal
 	call MailMenu_DrawItemSelected
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	call MailMenu_AnimateIcon
 
 MailMenu_AfterMove:: ; 1D:427A
@@ -279,7 +279,7 @@ MailMenu_AfterMove:: ; 1D:427A
 	ld a, $01
 	ldh [rSVBK], a
 	ld bc, $0029
-	call Function_00_20AC
+	call Sound_PlaySfx
 	pop af
 	ldh [rSVBK], a
 	ld a, [wRam_C0E5]
@@ -350,7 +350,7 @@ MailMenu_DrawItemNormal:: ; 1D:42AF
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $1D
-	call Function_00_16A2
+	call Tilemap_CopyRectAndAttrPtr
 	ret
 
 MailMenu_GetPlateIndexA:: ; 1D:42FE
@@ -426,7 +426,7 @@ Function_1D_4325::
 	ld [wRam_C10F], a
 	ld c, $0A
 	ld a, $1D
-	call Function_00_16A2
+	call Tilemap_CopyRectAndAttrPtr
 	ret
 
 MailMenu_GetPlateIndexB:: ; 1D:4374
@@ -471,10 +471,10 @@ Function_1D_439B::
 	ld de, $D0C1
 	ld hl, Tilemap_MailMenu_IconFrames
 	ld a, $1D
-	farcall Function_00_16A2
-	farcall Function_00_0956
+	farcall Tilemap_CopyRectAndAttrPtr
+	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 .l43D3 ; 1D:43D3
 	ld a, $E1
@@ -485,10 +485,10 @@ Function_1D_439B::
 	ld de, $D0C1
 	ld hl, $4C81
 	ld a, $1D
-	farcall Function_00_16A2
-	farcall Function_00_0956
+	farcall Tilemap_CopyRectAndAttrPtr
+	farcall Sprite_UpdateAll
 	ldh a, [rLCDC]
-	call Function_00_082C
+	call Gfx_UploadBgMapBuffers
 	ret
 
 ; ---- data $43FA-$43FB (1 bytes) [CONFIRMED] read as data by executed code (in up to 9/18 scenarios); content class unknown [clipped from 43FA-4945 by higher-priority evidence]
@@ -502,17 +502,17 @@ Data_1D_43FA::
 Table_MailMenu_Strings:: ; 1D:43FB
 Table_1D_43FB::
 	dw String_MailMenu_Items
-	dw String_1D_4428
-	dw String_1D_4467
-	dw String_1D_4474
-	dw String_1D_4491
-	dw String_1D_44A0
-	dw String_1D_44C5
-	dw String_1D_44D4
-	dw String_1D_44FF
-	dw String_1D_450C
-	dw String_1D_4549
-	dw String_1D_4556
+	dw String_MailMenu_Text0
+	dw String_MailMenu_Title1
+	dw String_MailMenu_Text1
+	dw String_MailMenu_Title2
+	dw String_MailMenu_Text2
+	dw String_MailMenu_Title3
+	dw String_MailMenu_Text3
+	dw String_MailMenu_Title4
+	dw String_MailMenu_Text4
+	dw String_MailMenu_Title5
+	dw String_MailMenu_Text5
 
 ; ---- text $4413-$45C1 (430 bytes) [PROBABLE] text: 14 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
@@ -523,27 +523,38 @@ String_1D_4413::
 
 String_MailMenu_Items:: ; 1D:4417
 	db "おくる／うけとる", 0
-String_1D_4428:: ; 1D:4428
+String_MailMenu_Text0:: ; 1D:4428
+String_1D_4428::
 	db "インターネットをつかって　メールのそうしんとじゅしんができます", 0
-String_1D_4467:: ; 1D:4467
+String_MailMenu_Title1:: ; 1D:4467
+String_1D_4467::
 	db "メールをかく", 0
-String_1D_4474:: ; 1D:4474
+String_MailMenu_Text1:: ; 1D:4474
+String_1D_4474::
 	db "あたらしく　メールをかきます", 0
-String_1D_4491:: ; 1D:4491
+String_MailMenu_Title2:: ; 1D:4491
+String_1D_4491::
 	db "メールボックス", 0
-String_1D_44A0:: ; 1D:44A0
+String_MailMenu_Text2:: ; 1D:44A0
+String_1D_44A0::
 	db "もらったメールを　みることができます", 0
-String_1D_44C5:: ; 1D:44C5
+String_MailMenu_Title3:: ; 1D:44C5
+String_1D_44C5::
 	db "アドレスちょう", 0
-String_1D_44D4:: ; 1D:44D4
+String_MailMenu_Text3:: ; 1D:44D4
+String_1D_44D4::
 	db "アドレスちょうに　アドレスを　かきこみます", 0
-String_1D_44FF:: ; 1D:44FF
+String_MailMenu_Title4:: ; 1D:44FF
+String_1D_44FF::
 	db "プロフィール", 0
-String_1D_450C:: ; 1D:450C
+String_MailMenu_Text4:: ; 1D:450C
+String_1D_450C::
 	db "じぶんのアドレスをみたり　ニックネームをかえることができます", 0
-String_1D_4549:: ; 1D:4549
+String_MailMenu_Title5:: ; 1D:4549
+String_1D_4549::
 	db "メールサーバ", 0
-String_1D_4556:: ; 1D:4556
+String_MailMenu_Text5:: ; 1D:4556
+String_1D_4556::
 	db "メールサーバにあるメールを　せいりできます", 0
 	db "メールをかくにん", 0
 	db "かいたメールの　かくにんとしゅうせいができます", 0

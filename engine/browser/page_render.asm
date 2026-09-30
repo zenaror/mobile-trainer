@@ -57,10 +57,10 @@ Function_4E_5204::
 	ldh [hRam_FFC6], a
 	ld a, $06
 	ldh [hRam_FFC7], a
-	call Function_00_0392
+	call Sound_FrameService
 	ld hl, $C340
 	xor a, a
-	farcall Function_00_0ED3
+	farcall TextEngine_Run
 	farcall Browser_UploadTitleCanvas
 	ret
 
@@ -235,7 +235,7 @@ Function_4E_52E7::
 	farcall Browser_DrawVisibleElements
 	farcall Browser_UploadBodyCanvas
 	ldh a, [rLCDC]
-	call Function_00_07CB
+	call Gfx_UploadBgMapBuffersDi
 	jp Browser_DrawScrollIndicators
 
 Browser_FindAnchor:: ; 4E:534B
@@ -479,7 +479,7 @@ Browser_RedrawLinkById:: ; 4E:544A
 	xor a, a
 	ldh [hRam_FFB0], a
 .loop ; 4E:547D
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld bc, $0009
@@ -608,7 +608,7 @@ Browser_FindLinkElement:: ; 4E:5512
 	xor a, a
 	ldh [hRam_FFB0], a
 .loop ; 4E:5545
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld bc, $0009
@@ -761,7 +761,7 @@ Function_4E_55E8::
 	ldh [hRam_FFB0], a
 	ldh [hRam_FFB3], a
 .loop ; 4E:561D
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ld bc, $0009
@@ -994,7 +994,7 @@ Browser_DrawVisibleElements:: ; 4E:574D
 	ld hl, $0020
 	add hl, de
 .loop ; 4E:576F
-	call Function_00_0392
+	call Sound_FrameService
 	push bc
 	push hl
 	ldh a, [hPageHeaderPtr + 2]
@@ -1066,7 +1066,7 @@ Browser_DrawVisibleElements:: ; 4E:574D
 	ret
 
 Browser_DrawElement:: ; 4E:57DC
-	call Function_00_0392
+	call Sound_FrameService
 	ld bc, $0006
 	push hl
 	add hl, bc
@@ -1370,7 +1370,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh a, [hRam_FFCD]
 	ld b, a
 	ldh a, [hRam_FFB7]
-	call Function_00_1408
+	call Text_MeasureFit
 	ld a, b
 	or a, c
 	jp z, .done
@@ -1418,7 +1418,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	; fall-through of the jrcc at 4E:59BC (executed)
 	push hl
 	ldh a, [hRam_FFB7]
-	call Function_00_1408
+	call Text_MeasureFit
 	ldh a, [hRam_FFCC]
 	sub a, e
 	ldh [hRam_FFB4], a
@@ -1455,7 +1455,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 .l59F4 ; 4E:59F4
 	; [CONFIRMED] 66 insn(s); 66 executed (in up to 2/18 scenarios)
 	ldh a, [hRam_FFB7]
-	call Function_00_1408
+	call Text_MeasureFit
 .l59F9 ; 4E:59F9
 	ld a, b
 	or a, c
@@ -1505,7 +1505,7 @@ Browser_DrawElement_Text:: ; 4E:58AC
 	ldh [hRam_FFC6], a
 	ld hl, $C340
 	xor a, a
-	farcall Function_00_0ED3
+	farcall TextEngine_Run
 	pop hl
 	ldh a, [hRam_FFCA]
 	add a, $0C

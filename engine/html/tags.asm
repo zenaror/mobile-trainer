@@ -41,7 +41,7 @@ Html_Tag_Title:: ; 74:44C4
 Html_ParseSource_TitleTag:: ; 74:44D4
 	ld bc, Html_TitleTagPtrs
 	push de
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop de
 	or a, a
 	jr z, .l44EB
@@ -62,7 +62,7 @@ Html_ParseSource_TitleTag:: ; 74:44D4
 	ldh a, [hRam_FFB1]
 	ld h, a
 .loop ; 74:44F5
-	call Function_00_0392
+	call Sound_FrameService
 	inc de
 	inc de
 	ld a, $E0
@@ -285,7 +285,7 @@ Html_Tag_Comment:: ; 74:45D9
 	cp a, $2D
 	jr nz, .l45DA
 .l4609 ; 74:4609
-	call Function_00_0392
+	call Sound_FrameService
 	ld a, [hli]
 	or a, a
 	jp z, Html_ParseSource_End
@@ -367,7 +367,7 @@ Html_Tag_Meta:: ; 74:4698
 	and a, $02
 	jp z, Label_74_443F
 	ld bc, $4033
-	call Function_00_1119
+	call Html_ScanAttributes
 	cp a, $01
 	jr z, .l46C1
 	cp a, $02
@@ -468,7 +468,7 @@ Label_74_4761:: ; 74:4761
 	; [CONFIRMED] 20 insn(s) reached by static flow only; seeds: site x20; min discovery hops 1;
 	; entered by jrcc from 74:473E (PROBABLE code) [executed in 1 scenarios]
 	ld bc, $406D
-	call Function_00_1119
+	call Html_ScanAttributes
 	or a, a
 	jp z, Label_74_443F
 	push de
@@ -479,7 +479,7 @@ Label_74_4761:: ; 74:4761
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop hl
 	pop de
 	or a, a
@@ -509,8 +509,8 @@ Label_74_4788:: ; 74:4788
 	jp Label_74_443F
 
 Html_Tag_Ul:: ; 74:47AA
-	farcall Function_74_4F97
-	farcall Function_74_4FBE
+	farcall Html_Layout_FlushListItem
+	farcall Html_Layout_ListBlockBreak
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, .l47F9
@@ -626,8 +626,8 @@ Html_Tag_Ol:: ; 74:4867
 	; run starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code |
 	; 66 insn(s) executed; cut out of the PROBABLE region 4867-493F by apply_coverage --split
 	; [executed in 1 scenarios]
-	farcall Function_74_4F97
-	farcall Function_74_4FBE
+	farcall Html_Layout_FlushListItem
+	farcall Html_Layout_ListBlockBreak
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, .l48D0
@@ -750,7 +750,7 @@ Html_Tag_Ol:: ; 74:4867
 
 Html_Tag_Li:: ; 74:493F
 	; [CONFIRMED] 41 insn(s); 41 executed (in up to 1/18 scenarios)
-	farcall Function_74_4F97
+	farcall Html_Layout_FlushListItem
 	ldh a, [hRam_FFB4]
 	cp a, $2F
 	jr z, Label_74_4987
@@ -1023,7 +1023,7 @@ Html_Tag_A:: ; 74:4A91
 .l4AD5 ; 74:4AD5
 	farcall Html_Layout_WrapRun
 	ld bc, $4078
-	call Function_00_1119
+	call Html_ScanAttributes
 	cp a, $01
 	jr z, .l4B21
 
@@ -1132,7 +1132,7 @@ Html_Tag_A:: ; 74:4A91
 Html_Tag_Br:: ; 74:4B98
 	; [CONFIRMED] 4 insn(s); 4 executed (in up to 2/18 scenarios)
 	ld bc, $4057
-	call Function_00_1119
+	call Html_ScanAttributes
 	or a, a
 	jr z, .l4BB9
 
@@ -1147,7 +1147,7 @@ Html_Tag_Br:: ; 74:4B98
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	call Function_00_10E9
+	call Html_MatchKeyword
 	pop hl
 	pop de
 	cp a, $04
@@ -1343,7 +1343,7 @@ Html_Tag_Hr:: ; 74:4CA6
 	ld b, a
 	push bc
 	ld bc, $4062
-	call Function_00_1119
+	call Html_ScanAttributes
 	pop bc
 	push hl
 	push de
@@ -1545,7 +1545,7 @@ Html_Tag_Hr:: ; 74:4CA6
 .l4DDE ; 74:4DDE
 	dec hl
 	ld bc, $4110
-	call Function_00_1119
+	call Html_ScanAttributes
 	jp .l4DB5
 
 .l4DE8 ; 74:4DE8
@@ -1581,7 +1581,7 @@ Html_Tag_Img:: ; 74:4DF9
 	ldh [hRam_FFD7], a
 .l4E14 ; 74:4E14
 	ld bc, $408A
-	call Function_00_1119
+	call Html_ScanAttributes
 	cp a, $01
 	jp z, .l4E6B
 	cp a, $02
@@ -1687,7 +1687,7 @@ Html_Tag_Img:: ; 74:4DF9
 	ldh [hRam_FFB0], a
 	ld a, h
 	ldh [hRam_FFB1], a
-	call Function_00_10E9
+	call Html_MatchKeyword
 	or a, a
 	jr z, .l4E9E
 	cp a, $08
@@ -1746,7 +1746,7 @@ Html_Tag_Img:: ; 74:4DF9
 	jp z, Label_74_443F
 .l4F10 ; 74:4F10
 	ld bc, $408A
-	call Function_00_1119
+	call Html_ScanAttributes
 	or a, a
 	jp z, Label_74_443F
 	cp a, $01

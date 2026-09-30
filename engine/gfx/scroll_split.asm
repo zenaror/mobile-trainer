@@ -110,7 +110,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	ret
 
@@ -140,7 +140,7 @@ Gfx_GdmaAtVBlankNoDi:: ; 7F:72C2
 
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: site x3; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
-	farcall Function_00_0956
+	farcall Sprite_UpdateAll
 	pop bc
 	ret
 
@@ -445,7 +445,8 @@ Data_7F_771E::
 	db $00, $00, $00, $00, $00, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 
-Function_7F_7817:: ; 7F:7817
+ScrollSplit_SetCursorSpritesY:: ; 7F:7817
+Function_7F_7817::
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: site x14; min discovery hops 1;
 	; entered by far from 7F:7244 (PROBABLE code)
 	push bc
